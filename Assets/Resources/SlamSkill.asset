@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0fcd70423954d6fa22aefabf13beef, type: 3}
+  m_Name: SlamSkill
+  m_EditorClassIdentifier: Assembly-CSharp::SlamSkill
+  skillId: slam
+  displayName: Slam
+  category: 1
+  targetType: 1
+  tacticalNeed: 3
+  basePriority: 6
+  brainRange: 0
+  brainRadius: 3
+  brainCooldown: 5
+  manaCost: 0
+  radius: 3
+  knockbackForce: 100
+  upwardBias: 0.15
+  damage: 0
+  stunSeconds: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  debugLog: 1
+  castVfx: {fileID: 11400000, guid: cc56bed9c7953404786db1417e84adbc, type: 2}
+  impactVfx: {fileID: 11400000, guid: 286d79f1dc80a4ed895a4b2322bb4e51, type: 2}
+  enemyDensityWeight: 16
+  lowSelfHpWeight: 22
+  aggressionWeight: 8

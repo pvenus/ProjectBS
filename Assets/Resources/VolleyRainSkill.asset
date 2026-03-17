@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f0d9e807f224749af0f149ab34eff8, type: 3}
+  m_Name: VolleyRainSkill
+  m_EditorClassIdentifier: Assembly-CSharp::VolleyRainSkill
+  skillId: VolleyRain
+  displayName: VolleyRain
+  category: 1
+  targetType: 3
+  tacticalNeed: 3
+  basePriority: 7
+  brainRange: 3
+  brainRadius: 2.8
+  brainCooldown: 5.5
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  duration: 3
+  tickInterval: 0.35
+  damagePerTick: 2
+  castVfx: {fileID: 11400000, guid: ba4618eb817434663bc9bb1294ead708, type: 2}
+  impactVfx: {fileID: 11400000, guid: afca4939d797b475c8ba16658e881ef9, type: 2}
+  ringColor: {r: 1, g: 0.75, b: 0.25, a: 0.7}
+  sortingOrder: 35
+  debugLog: 1

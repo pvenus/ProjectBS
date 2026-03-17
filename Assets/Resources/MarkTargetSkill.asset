@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1060eb5bc4b8a4a0cbf44eb02c728d55, type: 3}
+  m_Name: MarkTargetSkill
+  m_EditorClassIdentifier: Assembly-CSharp::MarkTargetSkill
+  skillId: MarkTarget
+  displayName: MarkTarget
+  category: 1
+  targetType: 3
+  tacticalNeed: 4
+  basePriority: 7
+  brainRange: 3
+  brainRadius: 0
+  brainCooldown: 4.5
+  duration: 5
+  bonusDamageMultiplier: 1.35
+  castVfx: {fileID: 11400000, guid: 6ef93631a1bb2496887d7bdf3e25bd5a, type: 2}
+  impactVfx: {fileID: 11400000, guid: aa03c48ffa3334841b910b0f3026b11b, type: 2}
+  debugLog: 0

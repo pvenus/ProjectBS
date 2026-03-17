@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6ec1c52464f49c5a7f5b81be6b828e, type: 3}
+  m_Name: PiercingShotSkill
+  m_EditorClassIdentifier: Assembly-CSharp::PiercingShotSkill
+  skillId: PiercingShot
+  displayName: PiercingShot
+  category: 1
+  targetType: 3
+  tacticalNeed: 4
+  basePriority: 6
+  brainRange: 3
+  brainRadius: 0
+  brainCooldown: 3.5
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  ignoreSameRoot: 1
+  speed: 16
+  maxDistance: 14
+  lifeTime: 2
+  spawnOffset: 0.65
+  hitRadius: 0.18
+  damage: 4
+  maxHits: 99
+  sortingOrder: 24
+  projectileColor: {r: 1, g: 0.9, b: 0.25, a: 1}
+  castVfx: {fileID: 11400000, guid: 9534b5bad967a46e7b1f14e07be1548f, type: 2}
+  projectileVfx: {fileID: 11400000, guid: 2a2a7cc9d9b2a44d7bb3c201f19c2015, type: 2}
+  hitVfx: {fileID: 11400000, guid: e536d70427c19414e906556ccef36317, type: 2}
+  debugLog: 0

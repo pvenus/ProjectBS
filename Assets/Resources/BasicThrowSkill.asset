@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48b4f7ab038140e2a132e36efe97ad2, type: 3}
+  m_Name: BasicThrowSkill
+  m_EditorClassIdentifier: Assembly-CSharp::BasicThrowSkill
+  skillId: BasicThrowSkill
+  displayName: BasicThrowSkill
+  category: 1
+  targetType: 3
+  tacticalNeed: 4
+  basePriority: 0
+  brainRange: 2
+  brainRadius: 0
+  brainCooldown: 1
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  ignoreSameRoot: 1
+  projectileSpeed: 12
+  projectileDistance: 10
+  projectileLifetime: 2.5
+  damagePerHit: 1
+  projectileSpawnOffset: 0.6
+  projectileSpriteSize: 16
+  sortingOrder: 6
+  castVfx: {fileID: 11400000, guid: bbeab1d637f5946018d015f7b219446f, type: 2}
+  projectileVfx: {fileID: 11400000, guid: 4c518235422e644ab8268dc42f4ad65e, type: 2}
+  hitVfx: {fileID: 11400000, guid: bb754f173e5874efbbe1c1b28b2aecc3, type: 2}

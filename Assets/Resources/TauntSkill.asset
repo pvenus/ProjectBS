@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcdaed574c8404759a57e75865d27797, type: 3}
+  m_Name: TauntSkill
+  m_EditorClassIdentifier: Assembly-CSharp::TauntSkill
+  skillId: taunt
+  displayName: Taunt
+  category: 4
+  targetType: 1
+  tacticalNeed: 3
+  basePriority: 9
+  brainRange: 0
+  brainRadius: 4
+  brainCooldown: 4
+  manaCost: 0
+  radius: 4
+  duration: 2
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  castVfx: {fileID: 11400000, guid: 66413ab242f604a3d906b42f146b213f, type: 2}
+  impactVfx: {fileID: 11400000, guid: 8b6818ba0243347dba282697ed4d345b, type: 2}
+  allyLowHpWeight: 40
+  enemyDensityWeight: 6
+  selfHpWeight: 15
+  aggressionWeight: 10
