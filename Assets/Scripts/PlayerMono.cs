@@ -1,19 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
-/// Top-down 2D player controller with collision.
-/// - Reads WASD / Arrow keys (old Input Manager axes)
-/// - Moves using Rigidbody2D.MovePosition so BoxCollider2D walls/obstacles block the player
-/// - Generates a simple sprite at runtime so something is visible
+/// Party bootstrapper.
+/// - Spawns party members
+/// - Registers them into PartyControlManager
+/// - No longer acts as a directly playable character
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CircleCollider2D))]
 public class PlayerMono : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
-
     [Header("Progression")]
     [SerializeField] private int level = 1;
     [SerializeField] private int exp = 0;
@@ -26,16 +24,29 @@ public class PlayerMono : MonoBehaviour
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
-    private Vector2 _moveInput;
 
     [Header("Party")]
     [SerializeField] private int partyMemberTankCount = 1;
     [SerializeField] private int partyMemberHealCount = 1;
     [SerializeField] private int partyMemberDPSCount = 1;
-    [SerializeField] private Vector3 partySpawnOffset = new Vector3(1.5f, 0f, 0f);
+    [SerializeField] private TowerPropMono partySpawnTower;
+    [SerializeField] private Vector3 partySpawnOffset = Vector3.zero;
+    [SerializeField] private float partySpawnSpacing = 1.5f;
+    [SerializeField] private bool hideBootstrapVisual = true;
+    [SerializeField] private bool disableBootstrapCollision = true;
+    [SerializeField] private PartyControlManager partyControlManager;
+
+    [Header("Camera")]
+    [SerializeField] private bool followCurrentPartyMember = true;
+    [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
+    [SerializeField] private bool snapCameraOnStart = true;
+    [SerializeField] private bool debugCameraFollow = false;
+    [SerializeField] private float debugCameraLogInterval = 0.5f;
     private GameObject _partyMemberTankPrefab;
     private GameObject _partyMemberHealPrefab;
     private GameObject _partyMemberDPSPrefab;
+    private float _debugCameraLogTimer = 0f;
+    private Vector3 _lastLoggedCameraTarget = Vector3.zero;
 
     private void Start()
     {
@@ -66,57 +77,54 @@ public class PlayerMono : MonoBehaviour
             cc.radius = 0.45f;
         }
 
-        // Load party member prefab from Resources and spawn it
+        if (hideBootstrapVisual && _sr != null)
+            _sr.enabled = false;
+
+        if (disableBootstrapCollision)
+        {
+            if (cc != null)
+                cc.enabled = false;
+
+            if (_rb != null)
+                _rb.simulated = false;
+        }
+
+        if (partyControlManager == null)
+            partyControlManager = GetComponent<PartyControlManager>();
+
+        // Load party member prefab from Resources and spawn them
         _partyMemberTankPrefab = Resources.Load<GameObject>("PartyMemberTank");
         _partyMemberHealPrefab = Resources.Load<GameObject>("PartyMemberHeal");
         _partyMemberDPSPrefab = Resources.Load<GameObject>("PartyMemberDPS");
 
         if (_partyMemberTankPrefab == null && _partyMemberHealPrefab == null && _partyMemberDPSPrefab == null)
-        {
-            Debug.LogWarning("PartyMemberTnak prefab not found in Resources folder.");
-        }
+            Debug.LogWarning("Party member prefabs were not found in the Resources folder.");
 
-        if (_partyMemberTankPrefab != null)
-            {
-                for (int i = 0; i < partyMemberTankCount; i++)
-                {
-                    Vector3 spawnPos = transform.position + partySpawnOffset + new Vector3(i * 0.8f, 0f, 0f);
-                    var obj = Instantiate(_partyMemberTankPrefab, spawnPos, Quaternion.identity);
-                    var move = obj.GetComponent<PartyMovementMono>();
-                    if (move != null)
-                    {
-                        move.SetLeader(transform);
-                    }
-                }
-            }
+        List<PartyMovementMono> spawnedMembers = new List<PartyMovementMono>();
+        int spawnIndex = 0;
 
-            if (_partyMemberHealPrefab != null)
-            {
-                for (int i = 0; i < partyMemberHealCount; i++)
-                {
-                    Vector3 spawnPos = transform.position + partySpawnOffset + new Vector3(i * 0.8f, 0f, 0f);
-                    var obj = Instantiate(_partyMemberHealPrefab, spawnPos, Quaternion.identity);
-                    var move = obj.GetComponent<PartyMovementMono>();
-                    if (move != null)
-                    {
-                        move.SetLeader(transform);
-                    }
-                }
-            }
+        SpawnPartyMembers(_partyMemberTankPrefab, partyMemberTankCount, spawnedMembers, ref spawnIndex);
+        SpawnPartyMembers(_partyMemberHealPrefab, partyMemberHealCount, spawnedMembers, ref spawnIndex);
+        SpawnPartyMembers(_partyMemberDPSPrefab, partyMemberDPSCount, spawnedMembers, ref spawnIndex);
 
-            if (_partyMemberDPSPrefab != null)
-            {
-                for (int i = 0; i < partyMemberDPSCount; i++)
-                {
-                    Vector3 spawnPos = transform.position + partySpawnOffset + new Vector3(i * 0.8f, 0f, 0f);
-                    var obj = Instantiate(_partyMemberDPSPrefab, spawnPos, Quaternion.identity);
-                    var move = obj.GetComponent<PartyMovementMono>();
-                    if (move != null)
-                    {
-                        move.SetLeader(transform);
-                    }
-                }
-            }
+        if (partyControlManager != null)
+            partyControlManager.SetMembers(spawnedMembers);
+        else if (spawnedMembers.Count > 0)
+            Debug.LogWarning("PartyControlManager was not assigned, so spawned members were not registered for player control.");
+
+        if (snapCameraOnStart)
+            SnapCameraToCurrentMember();
+    }
+
+    private void LateUpdate()
+    {
+        if (!followCurrentPartyMember)
+            return;
+
+        FollowCurrentPartyMemberCamera();
+
+        if (debugCameraFollow)
+            DebugCurrentPartyMemberCamera();
     }
 
     private void OnValidate()
@@ -136,6 +144,9 @@ public class PlayerMono : MonoBehaviour
         {
             _sr.sprite = CreateSprite(spriteSize, spriteSize);
         }
+
+        if (partyControlManager == null)
+            partyControlManager = GetComponent<PartyControlManager>();
     }
 
     private void Awake()
@@ -167,26 +178,141 @@ public class PlayerMono : MonoBehaviour
         // Optional: prevent the rigidbody from being pushed by other dynamics (for now)
         // You can remove this if you later add knockback/physics.
         _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        transform.position = Vector3.zero;
     }
 
-    private void Update()
+    private void SpawnPartyMembers(GameObject prefab, int count, List<PartyMovementMono> spawnedMembers, ref int spawnIndex)
     {
-        // Read input in Update.
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        if (prefab == null || count <= 0)
+            return;
 
-        Vector2 dir = new Vector2(x, y);
-        if (dir.sqrMagnitude > 1f) dir.Normalize();
-        _moveInput = dir;
+        Vector3 baseCenter = partySpawnTower != null ? partySpawnTower.transform.position : transform.position;
+        baseCenter += partySpawnOffset;
+
+        Vector3[] cardinalOffsets = new Vector3[]
+        {
+            new Vector3(0f, partySpawnSpacing, 0f),
+            new Vector3(partySpawnSpacing, 0f, 0f),
+            new Vector3(0f, -partySpawnSpacing, 0f),
+            new Vector3(-partySpawnSpacing, 0f, 0f)
+        };
+
+        for (int i = 0; i < count; i++)
+        {
+            int ring = spawnIndex / 4;
+            int slot = spawnIndex % 4;
+            float ringMultiplier = ring + 1;
+            Vector3 spawnPos = baseCenter + cardinalOffsets[slot] * ringMultiplier;
+
+            GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
+            PartyMovementMono move = obj.GetComponent<PartyMovementMono>();
+            if (move != null)
+                spawnedMembers.Add(move);
+
+            spawnIndex++;
+        }
     }
 
-    private void FixedUpdate()
+    private void FollowCurrentPartyMemberCamera()
     {
-        // Apply movement in physics step.
-        Vector2 delta = _moveInput * (moveSpeed * Time.fixedDeltaTime);
-        _rb.MovePosition(_rb.position + delta);
+        Camera cam = Camera.main;
+        if (cam == null || partyControlManager == null)
+            return;
+
+        PartyMovementMono currentMember = partyControlManager.GetCurrentMember();
+        if (currentMember == null)
+            return;
+
+        Vector3 targetPos = currentMember.transform.position + cameraOffset;
+        cam.transform.position = targetPos;
+    }
+
+    private void DebugCurrentPartyMemberCamera()
+    {
+        _debugCameraLogTimer -= Time.deltaTime;
+        if (_debugCameraLogTimer > 0f)
+            return;
+
+        _debugCameraLogTimer = Mathf.Max(0.05f, debugCameraLogInterval);
+
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.Log("[CameraDebug] MainCamera not found.");
+            return;
+        }
+
+        if (partyControlManager == null)
+        {
+            Debug.Log("[CameraDebug] PartyControlManager is null.");
+            return;
+        }
+
+        PartyMovementMono currentMember = partyControlManager.GetCurrentMember();
+        if (currentMember == null)
+        {
+            Debug.Log("[CameraDebug] Current member is null.");
+            return;
+        }
+
+        Rigidbody2D memberRb = currentMember.GetComponent<Rigidbody2D>();
+        Vector3 memberTransformPos = currentMember.transform.position;
+        Vector2 memberRbPos = memberRb != null ? memberRb.position : Vector2.zero;
+        Vector3 cameraTargetPos = memberTransformPos + cameraOffset;
+        Vector3 cameraPos = cam.transform.position;
+        float cameraDistance = Vector3.Distance(cameraPos, cameraTargetPos);
+        float targetDelta = Vector3.Distance(_lastLoggedCameraTarget, cameraTargetPos);
+
+        Debug.Log(
+            $"[CameraDebug] member={currentMember.name}, " +
+            $"memberTransform={memberTransformPos}, " +
+            $"memberRb={(memberRb != null ? memberRbPos.ToString() : "null")}, " +
+            $"camera={cameraPos}, " +
+            $"target={cameraTargetPos}, " +
+            $"camToTarget={cameraDistance:F3}, " +
+            $"targetDeltaSinceLastLog={targetDelta:F3}, " +
+            $"followMode=snap"
+        );
+
+        _lastLoggedCameraTarget = cameraTargetPos;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!debugCameraFollow)
+            return;
+
+        if (partyControlManager == null)
+            return;
+
+        PartyMovementMono currentMember = partyControlManager.GetCurrentMember();
+        if (currentMember == null)
+            return;
+
+        Gizmos.color = Color.magenta;
+        Vector3 targetPos = currentMember.transform.position + cameraOffset;
+        Gizmos.DrawWireSphere(targetPos, 0.2f);
+        Gizmos.DrawLine(currentMember.transform.position, targetPos);
+
+        Camera cam = Camera.main;
+        if (cam != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(cam.transform.position, 0.2f);
+            Gizmos.DrawLine(cam.transform.position, targetPos);
+        }
+    }
+
+    private void SnapCameraToCurrentMember()
+    {
+        Camera cam = Camera.main;
+        if (cam == null || partyControlManager == null)
+            return;
+
+        PartyMovementMono currentMember = partyControlManager.GetCurrentMember();
+        if (currentMember == null)
+            return;
+
+        cam.transform.position = currentMember.transform.position + cameraOffset;
     }
 
     private static Sprite CreateSprite(int w, int h)

@@ -13,15 +13,13 @@ GameObject:
   - component: {fileID: 6332101413371762216}
   - component: {fileID: 8497747438287307506}
   - component: {fileID: 8974071253183869805}
-  - component: {fileID: 7178309304525120348}
   - component: {fileID: 7021143568330146581}
-  - component: {fileID: -5172097171322564267}
   - component: {fileID: -7264982013660053161}
   - component: {fileID: 7721478771642578854}
-  - component: {fileID: -4227912228699007723}
-  - component: {fileID: -2327618759380024342}
+  - component: {fileID: 3978440672586092253}
+  - component: {fileID: 8619171120343976739}
   m_Layer: 6
-  m_Name: Npc
+  m_Name: NpcNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,17 +174,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4aa51536f7645ab8d0cd2e90922e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMono
-  targeting: {fileID: 7178309304525120348}
+  targeting: {fileID: -7264982013660053161}
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
-  skillExecutor: {fileID: -4227912228699007723}
+  skillExecutor: {fileID: 3978440672586092253}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
   repathOnCollisionCooldown: 0.15
-  useBasicAttackOnly: 0
+  useBasicAttackOnly: 1
   basicAttackRequestInterval: 0.15
-  basicAttackRange: 2.5
+  basicAttackRange: 10
   maxHp: 20
   coinPrefab: {fileID: 0}
   coinDropMin: 1
@@ -194,23 +192,6 @@ MonoBehaviour:
   coinDropChance: 0.85
   coinScatterRadius: 0.6
   spriteSize: 48
---- !u!114 &7178309304525120348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824118302539419720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 489c2acfddbdc4837b001466e04681db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcTargeting
-  archetype: 0
-  includePartyMembersAsTargets: 1
-  includeTowersAsTargets: 1
-  targetRefreshInterval: 0.25
-  siegePrioritizeTowers: 1
 --- !u!114 &7021143568330146581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,40 +211,7 @@ MonoBehaviour:
   waypointTolerance: 0.12
   turnResponsiveness: 14
   chaseRange: 1000
-  holdExitDistanceBuffer: 0.4
-  rangeControlEnterBuffer: 1.5
-  flyingDespawnBacktrackDistance: 3
-  flyingForwardLifetimeDistance: 40
-  enableWanderWhenNoTarget: 1
-  wanderRadius: 2.5
-  wanderInterval: 2
-  pauseBetweenWanders: 0.35
-  gridCenter: {x: 0, y: 0}
-  gridWorldSize: {x: 40, y: 40}
-  cellSize: 0.5
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &-5172097171322564267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824118302539419720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e8cbb3ce161a4567bbe68ce9cd8d41b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcPathing
-  targeting: {fileID: 0}
-  movementProfile: {fileID: 0}
-  archetype: 0
-  repathInterval: 0.35
-  waypointTolerance: 0.12
-  turnResponsiveness: 14
-  chaseRange: 1000
-  holdExitDistanceBuffer: 0.4
+  holdExitDistanceBuffer: 5
   rangeControlEnterBuffer: 1.5
   flyingDespawnBacktrackDistance: 3
   flyingForwardLifetimeDistance: 40
@@ -306,18 +254,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc0a3019e9d04bbfaa3468ba6769aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMovementProfile
-  targeting: {fileID: 7178309304525120348}
+  targeting: {fileID: -7264982013660053161}
   pathing: {fileID: 7021143568330146581}
   archetype: 0
   applyProfileOnAwake: 1
   autoSyncTargetingArchetype: 1
   autoSyncPathingArchetype: 1
-  normalMoveSpeed: 2.2
+  normalMoveSpeed: 5
   meleeMoveSpeed: 2.7
   rangedMoveSpeed: 2.1
   siegeMoveSpeed: 1.55
   flyingMoveSpeed: 3.1
-  normalStopDistance: 0.75
+  normalStopDistance: 8
   meleeStopDistance: 0.6
   rangedPreferredDistance: 3.5
   siegePreferredDistance: 4.5
@@ -327,7 +275,7 @@ MonoBehaviour:
   meleeCommitToNearestTarget: 1
   flyingIgnoreGroundPathing: 1
   debugProfileLog: 0
---- !u!114 &-4227912228699007723
+--- !u!114 &3978440672586092253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,7 +290,7 @@ MonoBehaviour:
   debugLog: 0
   enableBasicAttackFallback: 1
   skillLoadout: {fileID: 0}
---- !u!114 &-2327618759380024342
+--- !u!114 &8619171120343976739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttackSkill: {fileID: 11400000, guid: 8063ebbc35de54d2ea84713f7ac4a58f, type: 2}
+  basicAttackSkill: {fileID: 11400000, guid: a3534133285df482fb72d1ab66e60265, type: 2}
   skill1: {fileID: 0}
   skill2: {fileID: 0}
   skill3: {fileID: 0}

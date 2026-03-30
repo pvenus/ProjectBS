@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 2091736749384900693}
   - component: {fileID: 4084657015755137387}
   - component: {fileID: 6762882329295860784}
+  - component: {fileID: 6870264038349709383}
+  - component: {fileID: -8034235135852762144}
   m_Layer: 7
   m_Name: PartyMemberHeal
   m_TagString: Untagged
@@ -271,18 +273,9 @@ MonoBehaviour:
   allyMask:
     serializedVersion: 2
     m_Bits: 384
-  aggression: 0.55
   skillLoadout: {fileID: 0}
-  tauntMinScore: 0
-  guardMinScore: 0
-  slamMinScore: 0
-  healNeedHpThreshold: 0.85
-  judgementMinEnemyCount: 2
-  piercingMinEnemyCount: 3
-  volleyMinEnemyCount: 4
-  markMinEnemyCount: 1
-  basicTargetRadiusFallback: 8
   debugBrain: 1
+  perceptionProfile: {fileID: 11400000, guid: 1fbe41d423b05438db7fa87b41db66f2, type: 2}
 --- !u!114 &3573169892355242804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillExecutorMono
   debugLog: 0
+  enableBasicAttackFallback: 1
+  skillLoadout: {fileID: 0}
 --- !u!114 &6762882329295860784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,3 +362,70 @@ MonoBehaviour:
   skill1: {fileID: 11400000, guid: 3a846f00edcce45eb9865aaa882b842f, type: 2}
   skill2: {fileID: 11400000, guid: 148761b97a8534102a9bda202c63952f, type: 2}
   skill3: {fileID: 11400000, guid: 80c42fe1cbe5443caaac76d24ddf5a73, type: 2}
+--- !u!114 &6870264038349709383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378610511697526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ce93c14e11f408eaacde08432941f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIVectorMono
+  currentDanger:
+    immediate: 0
+    linked: 0
+    ambient: 0
+  maxDangerPerAxis: 100
+--- !u!114 &-8034235135852762144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378610511697526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c7bde340ffa4e25b9b909d82bb9932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleSensorMono
+  aiVector: {fileID: 6870264038349709383}
+  perceptionProfile: {fileID: 11400000, guid: 1fbe41d423b05438db7fa87b41db66f2, type: 2}
+  sensorCenter: {fileID: 4067234384640296582}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  enemyScanRadius: 4
+  allyScanRadius: 5
+  clusteredEnemyCount: 3
+  isolatedEnemyCount: 2
+  regroupedAllyCount: 1
+  enemyApproachDelta:
+    immediate: 6
+    linked: 0
+    ambient: 2
+  enemyClusterDelta:
+    immediate: 12
+    linked: 2
+    ambient: 6
+  isolatedDelta:
+    immediate: 4
+    linked: 4
+    ambient: 8
+  regroupedRecoveryDelta:
+    immediate: 2
+    linked: 3
+    ambient: 5
+  stabilizedRecoveryDelta:
+    immediate: 3
+    linked: 1
+    ambient: 4
+  scanInterval: 0.25
+  stabilizeInterval: 1.25
+  debugLog: 0
+  drawGizmos: 1
