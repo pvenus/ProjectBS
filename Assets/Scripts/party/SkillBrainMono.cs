@@ -29,10 +29,16 @@ public class SkillBrainMono : MonoBehaviour
     [SerializeField] private SkillLoadoutMono skillLoadout;
     [Header("Debug")]
     [SerializeField] private bool debugBrain = false;
+    [Header("AI")]
+    [SerializeField] private DangerPerceptionProfile perceptionProfile;
+    
+    
 
     // Cached modules
     private StateMono _state;
     private SkillExecutorMono _executor;
+    private AIVectorMono _aiVector;
+    private RoleVector _roleVector = new RoleVector();
     private SkillBrainOutput _lastOutput;
     private BrainContext _lastContext;
     private BrainDecisionState _lastDecisionState;
@@ -46,6 +52,7 @@ public class SkillBrainMono : MonoBehaviour
     {
         _state = GetComponent<StateMono>();
         _executor = GetComponent<SkillExecutorMono>();
+        _aiVector = GetComponent<AIVectorMono>();
 
         if (skillLoadout == null)
             skillLoadout = GetComponent<SkillLoadoutMono>();

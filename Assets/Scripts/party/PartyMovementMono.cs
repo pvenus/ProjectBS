@@ -3,15 +3,15 @@ using UnityEngine;
 /// <summary>
 /// PartyMovementMono
 ///
-/// New movement concept: "take a position" around the player.
+/// New movement concept: independent party member movement.
 ///
 /// Modes:
-/// - SafePosition      : move to a safer spot near the player (typically behind / away from threat)
-/// - ProtectPosition   : move to a protective spot near the player (between player and threat)
-/// - AggressivePosition: move to an offensive spot near the player (toward threat but leashed)
+/// - SafePosition      : reposition away from the threat
+/// - ProtectPosition   : hold a closer tactical position against the threat
+/// - AggressivePosition: push toward the threat
 ///
-/// All three modes always choose a target position within a radius around the player,
-/// so "follow" is implicitly included.
+/// Each party member moves independently.
+/// There is no leader-follow behavior; the player can switch control between members.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PartyMovementMono : MonoBehaviour
@@ -30,9 +30,6 @@ public class PartyMovementMono : MonoBehaviour
         Stay
     }
 
-    [Header("Leader")]
-    [SerializeField] private Transform leader;
-
     [Header("Mode")]
     [SerializeField] private PositionMode mode = PositionMode.ProtectPosition;
 
@@ -45,31 +42,27 @@ public class PartyMovementMono : MonoBehaviour
     [Tooltip("How close is considered 'arrived' to the target position.")]
     [SerializeField] private float arriveDistance = 0.08f;
 
-    [Header("Position Radius (around player)")]
-    [Tooltip("All target positions are clamped within this radius around the player.")]
+    [Header("Tactical Radius")]
+    [Tooltip("How far this member is allowed to reposition from its current location in one decision.")]
     [SerializeField] private float positionRadius = 3.0f;
 
     [Header("Safe Position")]
-    [Tooltip("Preferred distance from player when seeking safe position.")]
+    [Tooltip("Preferred retreat distance when seeking a safe position.")]
     [SerializeField] private float safeDistance = 2.2f;
     [Tooltip("Random radius around the safe anchor point.")]
     [SerializeField] private float safeAreaRadius = 0.9f;
 
     [Header("Protect Position")]
-    [Tooltip("How far from player to stand when protecting (between player and threat).")]
+    [Tooltip("Preferred combat distance when holding a protective position.")]
     [SerializeField] private float protectDistance = 1.8f;
     [Tooltip("Random radius around the protect anchor point.")]
     [SerializeField] private float protectAreaRadius = 0.8f;
 
     [Header("Aggressive Position")]
-    [Tooltip("How far from player to stand when being aggressive (toward threat).")]
+    [Tooltip("Preferred forward distance when taking an aggressive position.")]
     [SerializeField] private float aggressiveDistance = 2.6f;
     [Tooltip("Random radius around the aggressive anchor point.")]
     [SerializeField] private float aggressiveAreaRadius = 1.0f;
-
-    [Header("Leash")]
-    [Tooltip("Hard limit: if we exceed this distance from the player, force a return to a safe spot.")]
-    [SerializeField] private float maxLeashDistance = 7f;
 
     [Header("Debug")]
     [SerializeField] private bool debugDraw = false;
@@ -99,6 +92,9 @@ public class PartyMovementMono : MonoBehaviour
     private Vector2 _jitterDir;
     private float _jitter01;
 
+    private bool _isMovementControlledByPlayer = false;
+    private Vector2 _manualMoveInput = Vector2.zero;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -110,11 +106,6 @@ public class PartyMovementMono : MonoBehaviour
         _jitter01 = Random.Range(0.35f, 1f);
     }
 
-    public void SetLeader(Transform t)
-    {
-        leader = t;
-    }
-
     public void SetMode(PositionMode newMode)
     {
         mode = newMode;
@@ -122,9 +113,32 @@ public class PartyMovementMono : MonoBehaviour
 
     public PositionMode GetMode() => mode;
 
+    public void SetMovementControlByPlayer(bool enabled)
+    {
+        _isMovementControlledByPlayer = enabled;
+
+        if (!enabled)
+        {
+            _manualMoveInput = Vector2.zero;
+            _phase = MovePhase.ComputePosition;
+            _phaseTimer = 0f;
+        }
+        else
+        {
+            _rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    public bool IsMovementControlledByPlayer() => _isMovementControlledByPlayer;
+
+    public void SetManualMoveInput(Vector2 input)
+    {
+        _manualMoveInput = Vector2.ClampMagnitude(input, 1f);
+    }
+
     private void Update()
     {
-        if (leader == null)
+        if (_isMovementControlledByPlayer)
             return;
 
         _phaseTimer += Time.deltaTime;
@@ -136,7 +150,7 @@ public class PartyMovementMono : MonoBehaviour
                 if (autoMode)
                     AutoSelectMode();
 
-                // Decide target position relative to player
+                // Decide target position from this member's current tactical context
                 _targetPos = ComputeTargetPosition(mode);
 
                 _phase = MovePhase.Move;
@@ -158,12 +172,6 @@ public class PartyMovementMono : MonoBehaviour
                 // After interval re-evaluate position
                 if (_phaseTimer >= decisionInterval)
                 {
-                    float playerDist = Vector2.Distance(transform.position, leader.position);
-
-                    // If we drift too far from player force safe position next
-                    if (playerDist > maxLeashDistance)
-                        mode = PositionMode.SafePosition;
-
                     _phase = MovePhase.ComputePosition;
                     _phaseTimer = 0f;
                 }
@@ -173,8 +181,11 @@ public class PartyMovementMono : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (leader == null)
+        if (_isMovementControlledByPlayer)
+        {
+            HandleManualMovement();
             return;
+        }
 
         if (_phase == MovePhase.Move)
             MoveTo(_targetPos);
@@ -188,6 +199,7 @@ public class PartyMovementMono : MonoBehaviour
         // - If no enemy perceived => Safe
         // - If many enemies => Protect
         // - Otherwise => Aggressive
+        // This is independent per member and can later be replaced by your AI engine.
         if (_perception == null || _perception.ClosestEnemy == null)
         {
             mode = PositionMode.SafePosition;
@@ -203,20 +215,21 @@ public class PartyMovementMono : MonoBehaviour
 
     private Vector2 ComputeTargetPosition(PositionMode m)
     {
-        Vector2 playerPos = leader.position;
+        Vector2 selfPos = _rb != null ? _rb.position : (Vector2)transform.position;
 
         // Determine a threat direction based on closest enemy.
-        // If no enemy, we use a stable fallback direction.
-        Vector2 threatDir = Vector2.right;
+        // If no enemy exists, keep a stable fallback direction.
+        Vector2 threatDir = _jitterDir.sqrMagnitude > 0.001f ? _jitterDir.normalized : Vector2.right;
+        Vector2 enemyPos = selfPos + threatDir;
+
         if (_perception != null && _perception.ClosestEnemy != null)
         {
-            Vector2 enemyPos = _perception.ClosestEnemy.position;
-            Vector2 toEnemy = (enemyPos - playerPos);
+            enemyPos = _perception.ClosestEnemy.position;
+            Vector2 toEnemy = enemyPos - selfPos;
             if (toEnemy.sqrMagnitude > 0.0001f)
                 threatDir = toEnemy.normalized;
         }
 
-        // Perpendicular direction around the player/enemy line.
         Vector2 sideDir = new Vector2(-threatDir.y, threatDir.x);
 
         Vector2 anchor;
@@ -225,48 +238,40 @@ public class PartyMovementMono : MonoBehaviour
         switch (m)
         {
             case PositionMode.SafePosition:
-                // Safe = behind player relative to threat.
-                anchor = playerPos - threatDir * safeDistance;
+                anchor = selfPos - threatDir * safeDistance;
                 areaRadius = safeAreaRadius;
                 break;
 
             case PositionMode.ProtectPosition:
-                // Protect = between player and threat.
-                anchor = playerPos + threatDir * protectDistance;
+                anchor = selfPos + threatDir * protectDistance;
                 areaRadius = protectAreaRadius;
                 break;
 
             case PositionMode.AggressivePosition:
-                // Aggressive = further toward threat.
-                anchor = playerPos + threatDir * aggressiveDistance;
+                anchor = selfPos + threatDir * aggressiveDistance;
                 areaRadius = aggressiveAreaRadius;
                 break;
 
             default:
-                anchor = playerPos;
+                anchor = selfPos;
                 areaRadius = 0f;
                 break;
         }
 
-        // Stable random offset so members spread inside the area instead of stacking on one point.
         float jitterScale = Mathf.Max(0f, positionJitterStrength) * Mathf.Max(0f, areaRadius) * _jitter01;
-
-        // Mix side spread + slight forward/back offset so positions feel less grid-like.
         float sideSign = (_jitterDir.x >= 0f) ? 1f : -1f;
         float forwardBias = _jitterDir.y * 0.35f;
 
         Vector2 jitterOffset = (sideDir * sideSign + threatDir * forwardBias).normalized * jitterScale;
         Vector2 target = anchor + jitterOffset;
 
-        // Separation: push the chosen target away from nearby party members
         Vector2 sep = ComputeSeparationOffset(target);
         target += sep;
 
-        // Clamp within player's positionRadius so follow is implicit.
-        Vector2 offset = target - playerPos;
+        Vector2 offset = target - selfPos;
         float mag = offset.magnitude;
         if (mag > positionRadius)
-            target = playerPos + offset.normalized * positionRadius;
+            target = selfPos + offset.normalized * positionRadius;
 
         return target;
     }
@@ -325,6 +330,17 @@ public class PartyMovementMono : MonoBehaviour
         return push;
     }
 
+    private void HandleManualMovement()
+    {
+        if (_manualMoveInput.sqrMagnitude <= 0.0001f)
+        {
+            _rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        _rb.linearVelocity = _manualMoveInput * moveSpeed;
+    }
+
     private void MoveTo(Vector2 target)
     {
         Vector2 pos = _rb.position;
@@ -343,44 +359,41 @@ public class PartyMovementMono : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (!debugDraw) return;
-        if (leader == null) return;
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(leader.position, positionRadius);
+        Gizmos.DrawWireSphere(transform.position, positionRadius);
 
-        // Show target point
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(_targetPos, 0.08f);
         Gizmos.DrawLine(transform.position, _targetPos);
 
-        // Show current mode area around anchor
-        Vector2 playerPos = leader.position;
-        Vector2 threatDir = Vector2.right;
+        Vector2 selfPos = transform.position;
+        Vector2 threatDir = _jitterDir.sqrMagnitude > 0.001f ? _jitterDir.normalized : Vector2.right;
         if (_perception != null && _perception.ClosestEnemy != null)
         {
             Vector2 enemyPos = _perception.ClosestEnemy.position;
-            Vector2 toEnemy = enemyPos - playerPos;
+            Vector2 toEnemy = enemyPos - selfPos;
             if (toEnemy.sqrMagnitude > 0.0001f)
                 threatDir = toEnemy.normalized;
         }
 
-        Vector2 anchor = playerPos;
+        Vector2 anchor = selfPos;
         float areaRadius = 0f;
 
         switch (mode)
         {
             case PositionMode.SafePosition:
-                anchor = playerPos - threatDir * safeDistance;
+                anchor = selfPos - threatDir * safeDistance;
                 areaRadius = safeAreaRadius;
                 Gizmos.color = new Color(0.3f, 0.9f, 1f, 1f);
                 break;
             case PositionMode.ProtectPosition:
-                anchor = playerPos + threatDir * protectDistance;
+                anchor = selfPos + threatDir * protectDistance;
                 areaRadius = protectAreaRadius;
                 Gizmos.color = new Color(1f, 0.85f, 0.2f, 1f);
                 break;
             case PositionMode.AggressivePosition:
-                anchor = playerPos + threatDir * aggressiveDistance;
+                anchor = selfPos + threatDir * aggressiveDistance;
                 areaRadius = aggressiveAreaRadius;
                 Gizmos.color = new Color(1f, 0.35f, 0.35f, 1f);
                 break;

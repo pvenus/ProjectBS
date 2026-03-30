@@ -89,6 +89,18 @@ public class SanctuarySkill : BattleSkillBase
         );
     }
 
+/*
+
+    타겟 / 효과 분리
+    # 셀프 / 아군 / 적군 / 전체
+    # 공격 / 회복 / 방어 / 제어
+    # 다중 / 단일
+    # 버프 / 디버프
+    # 타겟팅 / 논타겟팅
+    # 인스턴트 / 컨티뉴스 / 도트
+    # 관통 / 지역 / 
+    (# 캐스팅 / 비캐스팅)
+*/
     private class SanctuaryZoneMono : MonoBehaviour
     {
         private LayerMask _allyMask;

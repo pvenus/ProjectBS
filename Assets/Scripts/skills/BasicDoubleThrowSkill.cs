@@ -75,6 +75,26 @@ public class BasicDoubleThrowSkill : BattleSkillBase
 
         return Execute(caster, target);
     }
+    /*
+    도발 : 적대감, 유인, 진형 유지
+    적대감 -> 의미? 작은 개념?
+    타겟 전환, 어그로, 
+    강제, 진입 유도, 
+    # 도발
+    적군 / 방어 / 단일 / 타겟팅 / 컨티뉴스
+    # 관통샷
+    적군 / 공격 / 다중 / 타겟팅 / 인스턴트 / 관통
+    # 범위 도트 데미지
+    적군 / 공격 / 다중 / 논타겟팅 / 도트 / 지역
+    # 단일 힐
+    아군 / 회복 / 단일 / 타겟팅 / 인스턴트
+    # 범위 힐
+    아군 / 회복 / 다중 / 논타겟팅 / 도트 / 지역
+    # 가드
+    셀프 / 방어 / 버프 / 타겟팅 / 컨티뉴스 
+    # 넉백
+    적군 / 제어 / 다중 / 논타겟팅 / 인스턴트 / 지역
+    */
 
     public bool Execute(Transform caster, Transform target)
     {
