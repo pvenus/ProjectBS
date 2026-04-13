@@ -12,26 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48b4f7ab038140e2a132e36efe97ad2, type: 3}
   m_Name: BasicThrowSkill 1
   m_EditorClassIdentifier: Assembly-CSharp::BasicThrowSkill
-  skillId: BasicThrowSkill
-  displayName: BasicThrowSkill
+  skillId: 
+  displayName: 
   category: 1
   targetType: 3
   tacticalNeed: 4
   basePriority: 0
-  brainRange: 1000
+  brainRange: 10
   brainRadius: 0
-  brainCooldown: 1
+  brainCooldown: 3
+  targetingMode: 0
   enemyMask:
     serializedVersion: 2
-    m_Bits: 128
-  ignoreSameRoot: 0
-  projectileSpeed: 12
+    m_Bits: 640
+  ignoreSameRoot: 1
+  projectileSpeed: 1
   projectileDistance: 10
-  projectileLifetime: 2.5
+  projectileLifetime: 1
   damagePerHit: 1
-  projectileSpawnOffset: 0.6
-  projectileSpriteSize: 16
-  sortingOrder: 6
+  maxHitCount: 2
+  useRepeatInterval: 0
+  repeatInterval: 0
+  projectileSpawnOffset: 0.3
+  hitShapeType: 0
+  hitRadius: 0.5
+  coneAngle: 60
+  hitByOverlapScan: 1
   castVfx: {fileID: 11400000, guid: 8995fcda1aa8b48ccafb1b99446a0149, type: 2}
   projectileVfx: {fileID: 11400000, guid: 4c518235422e644ab8268dc42f4ad65e, type: 2}
   hitVfx: {fileID: 11400000, guid: bb754f173e5874efbbe1c1b28b2aecc3, type: 2}

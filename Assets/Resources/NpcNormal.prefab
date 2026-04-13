@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 7721478771642578854}
   - component: {fileID: 3978440672586092253}
   - component: {fileID: 8619171120343976739}
+  - component: {fileID: 7335336865651831873}
+  - component: {fileID: -7770207776363605684}
   m_Layer: 6
   m_Name: NpcNormal
   m_TagString: Untagged
@@ -34,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 5824118302539419720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33599, y: -2.33442, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89,12 +91,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 192eccda280e2ec4c99be851889e09ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 5.12, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -160,8 +162,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.003961444, y: 0}
-  m_Radius: 1.50145
+  m_Offset: {x: 0.043548584, y: 0}
+  m_Radius: 0.57691574
 --- !u!114 &8974071253183869805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,14 +180,14 @@ MonoBehaviour:
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
   skillExecutor: {fileID: 3978440672586092253}
+  statMono: {fileID: 7335336865651831873}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
   repathOnCollisionCooldown: 0.15
   useBasicAttackOnly: 1
   basicAttackRequestInterval: 0.15
-  basicAttackRange: 10
-  maxHp: 20
+  basicAttackRange: 5
   coinPrefab: {fileID: 0}
   coinDropMin: 1
   coinDropMax: 3
@@ -206,25 +208,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcPathing
   targeting: {fileID: 0}
   movementProfile: {fileID: 0}
+  skillExecutor: {fileID: 0}
   archetype: 0
-  repathInterval: 0.35
-  waypointTolerance: 0.12
-  turnResponsiveness: 14
-  chaseRange: 1000
-  holdExitDistanceBuffer: 5
+  chaseRange: 300
+  holdExitDistanceBuffer: 0.1
   rangeControlEnterBuffer: 1.5
   flyingDespawnBacktrackDistance: 3
   flyingForwardLifetimeDistance: 40
   enableWanderWhenNoTarget: 1
-  wanderRadius: 2.5
   wanderInterval: 2
   pauseBetweenWanders: 0.35
   gridCenter: {x: 0, y: 0}
   gridWorldSize: {x: 40, y: 40}
   cellSize: 0.5
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &-7264982013660053161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +261,7 @@ MonoBehaviour:
   rangedMoveSpeed: 2.1
   siegeMoveSpeed: 1.55
   flyingMoveSpeed: 3.1
-  normalStopDistance: 8
+  normalStopDistance: 1.5
   meleeStopDistance: 0.6
   rangedPreferredDistance: 3.5
   siegePreferredDistance: 4.5
@@ -287,7 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947472e0b703146a281a79af8cadc355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillExecutorMono
-  debugLog: 0
+  debugLog: 1
+  useClosestPointForRangeCheck: 1
+  skillRangeCheckInset: 0.5
   enableBasicAttackFallback: 1
   skillLoadout: {fileID: 0}
 --- !u!114 &8619171120343976739
@@ -302,7 +300,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttackSkill: {fileID: 11400000, guid: a3534133285df482fb72d1ab66e60265, type: 2}
+  basicAttackSkill: {fileID: 11400000, guid: 155a249e15b3645589a8dc59dcf292bb, type: 2}
   skill1: {fileID: 0}
   skill2: {fileID: 0}
   skill3: {fileID: 0}
+--- !u!114 &7335336865651831873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatMono
+  maxHp: 100
+  currentHp: 100
+  maxMana: 50
+  currentMana: 50
+  damage: 10
+  enableContactDamage: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  contactRadius: 0.55
+  damagePerEnemyPerTick: 1
+  contactTickInterval: 0.35
+  showHpHud: 1
+  showDamagePopups: 1
+  hudOffset: {x: 0, y: 0.9, z: 0}
+  hudFontSize: 48
+  hudCharacterSize: 0.05
+  damagePopupLife: 0.6
+  damagePopupRiseSpeed: 1.2
+  debugLog: 0
+--- !u!114 &-7770207776363605684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8473d95ac804c4cd6bb9f3c65f680bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::venus.eldawn.party.AnimationMono
+  spriteRenderer: {fileID: 0}
+  idleFrames:
+  - {fileID: 21300000, guid: 84ce2f114ad12bd4ebafc77060220324, type: 3}
+  - {fileID: 21300000, guid: e70ab950968e2ef439f986ec395141c6, type: 3}
+  - {fileID: 21300000, guid: 754f43f8fc4997f42b16428846136321, type: 3}
+  - {fileID: 21300000, guid: 7425003c38c00d144af86a40ba87c12d, type: 3}
+  - {fileID: 21300000, guid: 4a643494bdea168479e8de8698775b85, type: 3}
+  - {fileID: 21300000, guid: d0fc8c27bd2d9d44e88e8a240ad8f68f, type: 3}
+  idleFrameRate: 8
+  attackFrames:
+  - {fileID: 21300000, guid: 192eccda280e2ec4c99be851889e09ed, type: 3}
+  - {fileID: 21300000, guid: 97c6ebd3ca4f107448b3b2d9b16e5d6d, type: 3}
+  - {fileID: 21300000, guid: 0ffdf19da652afe48a12609e61ed7b94, type: 3}
+  - {fileID: 21300000, guid: a1b4b1f3ee0e4664aada556dbd4c246d, type: 3}
+  - {fileID: 21300000, guid: 2d634060b61eb214a949fcd4b88122d9, type: 3}
+  - {fileID: 21300000, guid: 0c673844191288945b65f8f4ea934f2f, type: 3}
+  attackFrameRate: 12
+  playIdleOnAwake: 1
+  resetToIdleAfterAttack: 1

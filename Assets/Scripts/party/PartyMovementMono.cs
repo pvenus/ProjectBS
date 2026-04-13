@@ -1,4 +1,5 @@
 using UnityEngine;
+using venus.eldawn.party;
 
 /// <summary>
 /// PartyMovementMono
@@ -6,6 +7,7 @@ using UnityEngine;
 /// New movement concept: independent party member movement.
 ///
 /// Modes:
+/// - PatrolAroundTower : patrol around the nearest tower
 /// - SafePosition      : reposition away from the threat
 /// - ProtectPosition   : hold a closer tactical position against the threat
 /// - AggressivePosition: push toward the threat
@@ -14,10 +16,12 @@ using UnityEngine;
 /// There is no leader-follow behavior; the player can switch control between members.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(MovementController))]
 public class PartyMovementMono : MonoBehaviour
 {
     public enum PositionMode
     {
+        PatrolAroundTower,
         SafePosition,
         ProtectPosition,
         AggressivePosition
@@ -35,6 +39,12 @@ public class PartyMovementMono : MonoBehaviour
 
     [Tooltip("If true, chooses mode automatically from simple heuristics (can be replaced by your AI engine later).")]
     [SerializeField] private bool autoMode = false;
+
+    [Header("Tower Patrol")]
+    [SerializeField] private LayerMask towerMask;
+    [SerializeField] private float engageDistance = 5f;
+    [SerializeField] private float patrolDistance = 2.4f;
+    [SerializeField] private float patrolAreaRadius = 1.0f;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 4f;
@@ -86,7 +96,11 @@ public class PartyMovementMono : MonoBehaviour
     private float _phaseTimer = 0f;
 
     private Rigidbody2D _rb;
+    private MovementController _movementController;
     private PerceptionMono _perception;
+    private AnimationMono _animationMono;
+
+    private Transform _cachedTower;
 
     private Vector2 _targetPos;
     private Vector2 _jitterDir;
@@ -98,12 +112,18 @@ public class PartyMovementMono : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _movementController = GetComponent<MovementController>();
+        if (_movementController == null)
+            _movementController = gameObject.AddComponent<MovementController>();
         _perception = GetComponent<PerceptionMono>();
+        _animationMono = GetComponentInChildren<AnimationMono>();
 
         // Stable per-agent randomization so party members don't collapse to one point.
         float ang = Random.Range(0f, Mathf.PI * 2f);
         _jitterDir = new Vector2(Mathf.Cos(ang), Mathf.Sin(ang));
         _jitter01 = Random.Range(0.35f, 1f);
+        _cachedTower = FindInitialTower();
+        SyncMovementControllerConfig();
     }
 
     public void SetMode(PositionMode newMode)
@@ -122,10 +142,13 @@ public class PartyMovementMono : MonoBehaviour
             _manualMoveInput = Vector2.zero;
             _phase = MovePhase.ComputePosition;
             _phaseTimer = 0f;
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
         }
         else
         {
-            _rb.linearVelocity = Vector2.zero;
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
         }
     }
 
@@ -181,6 +204,13 @@ public class PartyMovementMono : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_animationMono != null && _animationMono.IsPlayingAttack())
+        {
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
+            return;
+        }
+
         if (_isMovementControlledByPlayer)
         {
             HandleManualMovement();
@@ -190,23 +220,29 @@ public class PartyMovementMono : MonoBehaviour
         if (_phase == MovePhase.Move)
             MoveTo(_targetPos);
         else
-            _rb.linearVelocity = Vector2.zero;
+        {
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
+        }
     }
 
     private void AutoSelectMode()
     {
-        // VERY simple heuristic placeholder:
-        // - If no enemy perceived => Safe
-        // - If many enemies => Protect
-        // - Otherwise => Aggressive
-        // This is independent per member and can later be replaced by your AI engine.
-        if (_perception == null || _perception.ClosestEnemy == null)
+        Transform closestEnemy = _perception != null ? _perception.ClosestEnemy : null;
+        if (closestEnemy == null)
         {
-            mode = PositionMode.SafePosition;
+            mode = PositionMode.PatrolAroundTower;
             return;
         }
 
-        int n = _perception.EnemyCount;
+        float enemyDistance = Vector2.Distance(transform.position, closestEnemy.position);
+        if (enemyDistance > engageDistance)
+        {
+            mode = PositionMode.PatrolAroundTower;
+            return;
+        }
+
+        int n = _perception != null ? _perception.EnemyCount : 0;
         if (n >= 4)
             mode = PositionMode.ProtectPosition;
         else
@@ -217,17 +253,24 @@ public class PartyMovementMono : MonoBehaviour
     {
         Vector2 selfPos = _rb != null ? _rb.position : (Vector2)transform.position;
 
-        // Determine a threat direction based on closest enemy.
-        // If no enemy exists, keep a stable fallback direction.
+        Transform closestEnemy = _perception != null ? _perception.ClosestEnemy : null;
+        bool hasEnemyInRange = false;
         Vector2 threatDir = _jitterDir.sqrMagnitude > 0.001f ? _jitterDir.normalized : Vector2.right;
-        Vector2 enemyPos = selfPos + threatDir;
 
-        if (_perception != null && _perception.ClosestEnemy != null)
+        if (closestEnemy != null)
         {
-            enemyPos = _perception.ClosestEnemy.position;
-            Vector2 toEnemy = enemyPos - selfPos;
+            Vector2 toEnemy = (Vector2)closestEnemy.position - selfPos;
             if (toEnemy.sqrMagnitude > 0.0001f)
+            {
+                float enemyDistance = toEnemy.magnitude;
+                hasEnemyInRange = enemyDistance <= engageDistance;
                 threatDir = toEnemy.normalized;
+            }
+        }
+
+        if (m == PositionMode.PatrolAroundTower || !hasEnemyInRange)
+        {
+            return ComputeTowerPatrolPosition(selfPos);
         }
 
         Vector2 sideDir = new Vector2(-threatDir.y, threatDir.x);
@@ -253,9 +296,7 @@ public class PartyMovementMono : MonoBehaviour
                 break;
 
             default:
-                anchor = selfPos;
-                areaRadius = 0f;
-                break;
+                return ComputeTowerPatrolPosition(selfPos);
         }
 
         float jitterScale = Mathf.Max(0f, positionJitterStrength) * Mathf.Max(0f, areaRadius) * _jitter01;
@@ -274,6 +315,103 @@ public class PartyMovementMono : MonoBehaviour
             target = selfPos + offset.normalized * positionRadius;
 
         return target;
+    }
+
+    private Vector2 ComputeTowerPatrolPosition(Vector2 selfPos)
+    {
+        Transform tower = FindNearestTower();
+        if (tower == null)
+            return selfPos;
+
+        Vector2 towerPos = tower.position;
+        Vector2 baseDir = (selfPos - towerPos);
+        if (baseDir.sqrMagnitude <= 0.0001f)
+            baseDir = _jitterDir.sqrMagnitude > 0.001f ? _jitterDir : Vector2.right;
+
+        baseDir.Normalize();
+        Vector2 sideDir = new Vector2(-baseDir.y, baseDir.x);
+
+        Vector2 anchor = towerPos + baseDir * patrolDistance;
+
+        float jitterScale = Mathf.Max(0f, positionJitterStrength) * Mathf.Max(0f, patrolAreaRadius) * _jitter01;
+        float sideSign = (_jitterDir.x >= 0f) ? 1f : -1f;
+        float forwardBias = _jitterDir.y * 0.35f;
+
+        Vector2 jitterOffset = (sideDir * sideSign + baseDir * forwardBias).normalized * jitterScale;
+        Vector2 target = anchor + jitterOffset;
+
+        Vector2 sep = ComputeSeparationOffset(target);
+        target += sep;
+
+        Vector2 offset = target - selfPos;
+        float mag = offset.magnitude;
+        if (mag > positionRadius)
+            target = selfPos + offset.normalized * positionRadius;
+
+        return target;
+    }
+
+    private Transform FindNearestTower()
+    {
+        if (_cachedTower != null)
+            return _cachedTower;
+
+        _cachedTower = FindInitialTower();
+        return _cachedTower;
+    }
+
+    private Transform FindInitialTower()
+    {
+        Transform best = null;
+        float bestDistance = float.MaxValue;
+        Vector2 selfPos = _rb != null ? _rb.position : (Vector2)transform.position;
+
+        TowerPropMono[] towers = FindObjectsByType<TowerPropMono>(FindObjectsSortMode.None);
+        for (int i = 0; i < towers.Length; i++)
+        {
+            TowerPropMono tower = towers[i];
+            if (tower == null)
+                continue;
+
+            float d = Vector2.Distance(selfPos, tower.transform.position);
+            if (d < bestDistance)
+            {
+                bestDistance = d;
+                best = tower.transform;
+            }
+        }
+
+        if (best != null)
+            return best;
+
+        int towerLayer = LayerMask.NameToLayer("Tower");
+        if (towerLayer >= 0)
+        {
+            Transform[] allTransforms = FindObjectsByType<Transform>(FindObjectsSortMode.None);
+            for (int i = 0; i < allTransforms.Length; i++)
+            {
+                Transform t = allTransforms[i];
+                if (t == null)
+                    continue;
+
+                if (t.gameObject.layer != towerLayer)
+                    continue;
+
+                float d = Vector2.Distance(selfPos, t.position);
+                if (d < bestDistance)
+                {
+                    bestDistance = d;
+                    best = t;
+                }
+            }
+        }
+
+        if (best == null && debugDraw)
+        {
+            Debug.LogWarning($"[PartyMovementMono] Could not find tower for {name}. Check TowerPropMono or layer named 'Tower'.", this);
+        }
+
+        return best;
     }
 
     private Vector2 ComputeSeparationOffset(Vector2 desiredTarget)
@@ -334,26 +472,84 @@ public class PartyMovementMono : MonoBehaviour
     {
         if (_manualMoveInput.sqrMagnitude <= 0.0001f)
         {
-            _rb.linearVelocity = Vector2.zero;
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
             return;
         }
 
-        _rb.linearVelocity = _manualMoveInput * moveSpeed;
+        MoveInDirection(_manualMoveInput);
+        UpdateMovementAnimation(_manualMoveInput.normalized);
     }
 
     private void MoveTo(Vector2 target)
     {
+        if (_movementController == null)
+            return;
+
         Vector2 pos = _rb.position;
         Vector2 delta = target - pos;
 
         if (delta.magnitude <= arriveDistance)
         {
-            _rb.linearVelocity = Vector2.zero;
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
             return;
         }
 
-        Vector2 dir = delta.normalized;
-        _rb.linearVelocity = dir * moveSpeed;
+        Vector2 direction = delta.normalized;
+        MoveTowardPoint(target);
+        UpdateMovementAnimation(direction);
+    }
+
+    private void UpdateMovementAnimation(Vector2 moveDirection)
+    {
+        if (_animationMono == null)
+            return;
+
+        if (_animationMono.IsPlayingAttack())
+            return;
+
+        if (moveDirection.sqrMagnitude <= 0.0001f)
+        {
+            _animationMono.PlayIdle();
+            return;
+        }
+
+        _animationMono.SetDirectionFromVector(moveDirection.normalized);
+        _animationMono.PlayMove();
+    }
+
+    private void MoveTowardPoint(Vector2 targetPoint)
+    {
+        if (_movementController == null)
+            return;
+
+        SyncMovementControllerConfig();
+        _movementController.MoveTo(targetPoint);
+    }
+
+    private void MoveInDirection(Vector2 direction, float speedMultiplier = 1f)
+    {
+        if (_movementController == null)
+            return;
+
+        SyncMovementControllerConfig(speedMultiplier);
+        _movementController.MoveByDirection(direction);
+    }
+
+    private void StopMovement()
+    {
+        if (_movementController != null)
+            _movementController.Stop();
+    }
+
+    private void SyncMovementControllerConfig(float speedMultiplier = 1f)
+    {
+        if (_movementController == null)
+            return;
+
+        _movementController.SetMoveSpeed(moveSpeed * Mathf.Max(0f, speedMultiplier));
+        _movementController.SetArriveDistance(arriveDistance);
     }
 
     private void OnDrawGizmosSelected()
@@ -382,6 +578,24 @@ public class PartyMovementMono : MonoBehaviour
 
         switch (mode)
         {
+            case PositionMode.PatrolAroundTower:
+                Transform tower = FindNearestTower();
+                if (tower != null)
+                {
+                    Vector2 towerPos = tower.position;
+                    Vector2 baseDir = (selfPos - towerPos);
+                    if (baseDir.sqrMagnitude <= 0.0001f)
+                        baseDir = _jitterDir.sqrMagnitude > 0.001f ? _jitterDir : Vector2.right;
+                    baseDir.Normalize();
+                    anchor = towerPos + baseDir * patrolDistance;
+                }
+                else
+                {
+                    anchor = selfPos;
+                }
+                areaRadius = patrolAreaRadius;
+                Gizmos.color = new Color(0.5f, 0.8f, 1f, 1f);
+                break;
             case PositionMode.SafePosition:
                 anchor = selfPos - threatDir * safeDistance;
                 areaRadius = safeAreaRadius;

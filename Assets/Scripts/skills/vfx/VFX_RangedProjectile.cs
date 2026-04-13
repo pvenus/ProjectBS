@@ -20,10 +20,10 @@ public class VFX_RangedProjectile : ScriptableObject
     /// <summary>
     /// Spawn projectile VFX moving from caster toward target.
     /// </summary>
-    public void Play(Transform caster, Transform target)
+    public GameObject Play(Transform caster, Transform target)
     {
         if (prefab == null || caster == null || target == null)
-            return;
+            return null;
 
         Vector3 start = caster.position + localOffset;
         Vector3 dir = (target.position - start).normalized;
@@ -39,6 +39,7 @@ public class VFX_RangedProjectile : ScriptableObject
 
         var runner = go.AddComponent<RangedProjectileVfxRunner>();
         runner.Init(dir, speed, maxLifetime);
+        return go;
     }
 
     private class RangedProjectileVfxRunner : MonoBehaviour
@@ -52,17 +53,6 @@ public class VFX_RangedProjectile : ScriptableObject
             _dir = dir;
             _speed = speed;
             _life = lifetime;
-        }
-
-        private void Update()
-        {
-            transform.position += _dir * _speed * Time.deltaTime;
-
-            _life -= Time.deltaTime;
-            if (_life <= 0f)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 }

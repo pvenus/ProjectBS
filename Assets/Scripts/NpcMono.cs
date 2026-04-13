@@ -7,7 +7,6 @@ using UnityEngine;
 /// - Delegates movement/pathing to NpcPathing
 /// - Delegates archetype sync to NpcMovementProfile
 /// </summary>
-[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(NpcTargeting))]
@@ -19,6 +18,7 @@ public class NpcMono : MonoBehaviour
     [SerializeField] private NpcPathing pathing;
     [SerializeField] private NpcMovementProfile movementProfile;
     [SerializeField] private SkillExecutorMono skillExecutor;
+    [SerializeField] private StatMono statMono;
 
     [Header("Knockback")]
     [Tooltip("If > 0, knockback overrides pathing briefly.")]
@@ -39,9 +39,6 @@ public class NpcMono : MonoBehaviour
     [SerializeField] private float basicAttackRequestInterval = 0.15f;
     [SerializeField] private float basicAttackRange = 2.5f;
 
-    [Header("HP")]
-    [SerializeField] private int maxHp = 30;
-
     [Header("Drop")]
     [Tooltip("Optional coin prefab. If null, a simple coin GameObject will be created.")]
     [SerializeField] private GameObject coinPrefab;
@@ -52,14 +49,13 @@ public class NpcMono : MonoBehaviour
     [SerializeField] private float coinScatterRadius = 0.6f;
 
     [Header("Visual")]
-    [SerializeField] private int spriteSize = 48;
+    [SerializeField] private bool useSortByY = true;
+    [SerializeField] private int sortingOrderOffset = 0;
+    [SerializeField] private float sortingPrecision = 100f;
 
-    private SpriteRenderer _sr;
     private Rigidbody2D _rb;
     private CircleCollider2D _cc;
-
-    private int _hp;
-    private TextMesh _hpText;
+    private SpriteRenderer _bodyRenderer;
 
     private float _repathCollisionTimer;
     private float _knockTimer;
@@ -77,9 +73,7 @@ public class NpcMono : MonoBehaviour
     {
         CacheComponents();
 
-        if (_sr != null && _sr.sprite == null)
-            _sr.sprite = CreateNpcSprite(spriteSize, spriteSize);
-
+        
         knockbackDuration = Mathf.Max(0.01f, knockbackDuration);
         knockbackMaxSpeed = Mathf.Max(0.1f, knockbackMaxSpeed);
         repathOnCollisionCooldown = Mathf.Max(0.01f, repathOnCollisionCooldown);
@@ -91,14 +85,9 @@ public class NpcMono : MonoBehaviour
     {
         CacheComponents();
 
-        if (_sr != null && _sr.sprite == null)
-            _sr.sprite = CreateNpcSprite(spriteSize, spriteSize);
+        UpdateSortingOrder();
 
         ConfigurePhysics();
-
-        _hp = Mathf.Max(1, maxHp);
-        CreateHpText();
-        UpdateHpText();
 
         if (movementProfile != null)
             movementProfile.ApplyProfile();
@@ -111,6 +100,11 @@ public class NpcMono : MonoBehaviour
 
         if (useBasicAttackOnly)
             TryRequestBasicAttack();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateSortingOrder();
     }
 
     private void FixedUpdate()
@@ -144,14 +138,16 @@ public class NpcMono : MonoBehaviour
 
     private void CacheComponents()
     {
-        _sr = GetComponent<SpriteRenderer>();
-        if (_sr == null) _sr = gameObject.AddComponent<SpriteRenderer>();
+        
 
         _rb = GetComponent<Rigidbody2D>();
         if (_rb == null) _rb = gameObject.AddComponent<Rigidbody2D>();
 
         _cc = GetComponent<CircleCollider2D>();
         if (_cc == null) _cc = gameObject.AddComponent<CircleCollider2D>();
+
+        if (_bodyRenderer == null)
+            _bodyRenderer = GetComponentInChildren<SpriteRenderer>();
 
         if (targeting == null)
             targeting = GetComponent<NpcTargeting>();
@@ -161,6 +157,8 @@ public class NpcMono : MonoBehaviour
             movementProfile = GetComponent<NpcMovementProfile>();
         if (skillExecutor == null)
             skillExecutor = GetComponent<SkillExecutorMono>();
+        if (statMono == null)
+            statMono = GetComponent<StatMono>();
     }
 
     private void ConfigurePhysics()
@@ -178,7 +176,7 @@ public class NpcMono : MonoBehaviour
         if (_cc != null)
         {
             _cc.isTrigger = false;
-            _cc.radius = 0.42f;
+            //_cc.radius = 0.42f;
         }
     }
 
@@ -236,9 +234,15 @@ public class NpcMono : MonoBehaviour
         if (currentTarget == null)
             return;
 
-        float distance = Vector2.Distance(transform.position, currentTarget.position);
-        if (distance > basicAttackRange)
+        bool inRange = skillExecutor.IsInSkillRange(basicSkill, transform, currentTarget);
+        if (!inRange)
             return;
+
+        float requestRange = basicAttackRange;
+        if (basicSkill is BattleSkillBase battleSkill)
+            requestRange = Mathf.Max(0.01f, battleSkill.Range);
+
+        Debug.Log($"[NpcMono] basic attack request pass skill={basicSkill.name} requestRange={requestRange:0.00} target={currentTarget.name}");
 
         SkillExecutionRequest req = new SkillExecutionRequest
         {
@@ -274,68 +278,87 @@ public class NpcMono : MonoBehaviour
         if (mark != null && mark.IsMarked)
             finalAmount = Mathf.Max(1, Mathf.RoundToInt(finalAmount * mark.GetDamageMultiplier()));
 
-        _hp -= finalAmount;
-        UpdateHpText();
-
-        if (_hp <= 0)
+        if (statMono != null)
         {
-            DropCoins();
-            Destroy(gameObject);
+            statMono.TakeDamage(finalAmount);
+
+            if (IsStatDead())
+            {
+                DropCoins();
+                Destroy(gameObject);
+            }
         }
     }
 
     public int GetHp()
     {
-        return _hp;
+        return ReadStatIntValue("GetHp", "hp", "currentHp", "currentHP");
     }
 
     public int GetMaxHp()
     {
-        return Mathf.Max(1, maxHp);
+        return Mathf.Max(1, ReadStatIntValue("GetMaxHp", "maxHp", "maxHP"));
     }
 
-    private void CreateHpText()
+    private bool IsStatDead()
     {
-        GameObject textObj = new GameObject("HP_Text");
-        textObj.transform.SetParent(transform);
-        textObj.transform.localPosition = new Vector3(0f, 0.8f, 0f);
+        if (statMono == null)
+            return true;
 
-        _hpText = textObj.AddComponent<TextMesh>();
-        _hpText.anchor = TextAnchor.MiddleCenter;
-        _hpText.alignment = TextAlignment.Center;
-        _hpText.characterSize = 0.2f;
-        _hpText.fontSize = 32;
-        _hpText.color = Color.red;
+        var type = statMono.GetType();
+
+        var isDeadProp = type.GetProperty("IsDead");
+        if (isDeadProp != null && isDeadProp.PropertyType == typeof(bool))
+            return (bool)isDeadProp.GetValue(statMono);
+
+        return GetHp() <= 0;
     }
 
-    private void UpdateHpText()
+    private int ReadStatIntValue(string methodName, params string[] fieldNames)
     {
-        if (_hpText != null)
-            _hpText.text = _hp.ToString();
-    }
+        if (statMono == null)
+            return 0;
 
-    private static Sprite CreateNpcSprite(int w, int h)
-    {
-        var tex = new Texture2D(w, h, TextureFormat.RGBA32, false)
+        var type = statMono.GetType();
+
+        var method = type.GetMethod(methodName, System.Type.EmptyTypes);
+        if (method != null)
         {
-            filterMode = FilterMode.Point,
-            wrapMode = TextureWrapMode.Clamp
-        };
-
-        Color fill = new Color(0.35f, 0.65f, 1f, 1f);
-        Color border = new Color(0.10f, 0.18f, 0.30f, 1f);
-
-        for (int y = 0; y < h; y++)
-        {
-            for (int x = 0; x < w; x++)
-            {
-                bool isBorder = (x == 0 || y == 0 || x == w - 1 || y == h - 1 || x == 1 || y == 1 || x == w - 2 || y == h - 2);
-                tex.SetPixel(x, y, isBorder ? border : fill);
-            }
+            object methodValue = method.Invoke(statMono, null);
+            if (methodValue is int intValue)
+                return intValue;
+            if (methodValue is float floatValue)
+                return Mathf.RoundToInt(floatValue);
         }
 
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 0.5f), 16f);
+        for (int i = 0; i < fieldNames.Length; i++)
+        {
+            var field = type.GetField(fieldNames[i], System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+            if (field == null)
+                continue;
+
+            object fieldValue = field.GetValue(statMono);
+            if (fieldValue is int intField)
+                return intField;
+            if (fieldValue is float floatField)
+                return Mathf.RoundToInt(floatField);
+        }
+
+        return 0;
+    }
+
+    private void UpdateSortingOrder()
+    {
+        if (!useSortByY)
+            return;
+
+        if (_bodyRenderer == null)
+            _bodyRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        if (_bodyRenderer == null)
+            return;
+
+        _bodyRenderer.sortingOrder = sortingOrderOffset + Mathf.RoundToInt(-transform.position.y * sortingPrecision);
     }
 
     private void DropCoins()

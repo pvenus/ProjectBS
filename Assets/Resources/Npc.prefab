@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7721478771642578854}
   - component: {fileID: -4227912228699007723}
   - component: {fileID: -2327618759380024342}
+  - component: {fileID: -8174304027909116349}
   m_Layer: 6
   m_Name: Npc
   m_TagString: Untagged
@@ -180,6 +181,7 @@ MonoBehaviour:
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
   skillExecutor: {fileID: -4227912228699007723}
+  statMono: {fileID: -8174304027909116349}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
@@ -187,7 +189,6 @@ MonoBehaviour:
   useBasicAttackOnly: 0
   basicAttackRequestInterval: 0.15
   basicAttackRange: 2.5
-  maxHp: 20
   coinPrefab: {fileID: 0}
   coinDropMin: 1
   coinDropMax: 3
@@ -358,3 +359,35 @@ MonoBehaviour:
   skill1: {fileID: 0}
   skill2: {fileID: 0}
   skill3: {fileID: 0}
+--- !u!114 &-8174304027909116349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatMono
+  maxHp: 100
+  currentHp: 100
+  maxMana: 50
+  currentMana: 50
+  damage: 10
+  enableContactDamage: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  contactRadius: 0.55
+  damagePerEnemyPerTick: 1
+  contactTickInterval: 0.35
+  showHpHud: 1
+  showDamagePopups: 1
+  hudOffset: {x: 0, y: 0.9, z: 0}
+  hudFontSize: 48
+  hudCharacterSize: 0.05
+  damagePopupLife: 0.6
+  damagePopupRiseSpeed: 1.2
+  debugLog: 0

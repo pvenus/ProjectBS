@@ -95,7 +95,7 @@ public class PlayerMono : MonoBehaviour
         // Load party member prefab from Resources and spawn them
         _partyMemberTankPrefab = Resources.Load<GameObject>("PartyMemberTank");
         _partyMemberHealPrefab = Resources.Load<GameObject>("PartyMemberHeal");
-        _partyMemberDPSPrefab = Resources.Load<GameObject>("PartyMemberDPS");
+        _partyMemberDPSPrefab = Resources.Load<GameObject>("pc/PartyMemberDPS");
 
         if (_partyMemberTankPrefab == null && _partyMemberHealPrefab == null && _partyMemberDPSPrefab == null)
             Debug.LogWarning("Party member prefabs were not found in the Resources folder.");

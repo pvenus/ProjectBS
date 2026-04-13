@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -5172097171322564267}
   - component: {fileID: -7264982013660053161}
   - component: {fileID: 7721478771642578854}
+  - component: {fileID: -6820504545202327170}
   m_Layer: 6
   m_Name: NpcFlying
   m_TagString: Untagged
@@ -121,7 +122,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 704
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -177,11 +178,15 @@ MonoBehaviour:
   targeting: {fileID: 7178309304525120348}
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
+  skillExecutor: {fileID: 0}
+  statMono: {fileID: -6820504545202327170}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
   repathOnCollisionCooldown: 0.15
-  maxHp: 20
+  useBasicAttackOnly: 0
+  basicAttackRequestInterval: 0.15
+  basicAttackRange: 2.5
   coinPrefab: {fileID: 0}
   coinDropMin: 1
   coinDropMax: 3
@@ -218,16 +223,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcPathing
   targeting: {fileID: 0}
+  movementProfile: {fileID: 0}
   archetype: 4
-  moveSpeed: 2.5
   repathInterval: 0.35
   waypointTolerance: 0.12
   turnResponsiveness: 14
   chaseRange: 1000
-  meleeStopDistance: 0.6
-  rangedPreferredDistance: 3.5
-  siegePreferredDistance: 4.5
-  flyingStopDistance: 0.4
+  holdExitDistanceBuffer: 0.4
+  rangeControlEnterBuffer: 1.5
   flyingDespawnBacktrackDistance: 3
   flyingForwardLifetimeDistance: 40
   enableWanderWhenNoTarget: 1
@@ -253,16 +256,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcPathing
   targeting: {fileID: 0}
+  movementProfile: {fileID: 0}
   archetype: 4
-  moveSpeed: 10
   repathInterval: 0.35
   waypointTolerance: 0.12
   turnResponsiveness: 14
   chaseRange: 1000
-  meleeStopDistance: 0.6
-  rangedPreferredDistance: 3.5
-  siegePreferredDistance: 4.5
-  flyingStopDistance: 0.4
+  holdExitDistanceBuffer: 0.4
+  rangeControlEnterBuffer: 1.5
   flyingDespawnBacktrackDistance: 3
   flyingForwardLifetimeDistance: 40
   enableWanderWhenNoTarget: 1
@@ -325,3 +326,35 @@ MonoBehaviour:
   meleeCommitToNearestTarget: 1
   flyingIgnoreGroundPathing: 1
   debugProfileLog: 0
+--- !u!114 &-6820504545202327170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatMono
+  maxHp: 100
+  currentHp: 100
+  maxMana: 50
+  currentMana: 50
+  damage: 10
+  enableContactDamage: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  contactRadius: 0.55
+  damagePerEnemyPerTick: 1
+  contactTickInterval: 0.35
+  showHpHud: 1
+  showDamagePopups: 1
+  hudOffset: {x: 0, y: 0.9, z: 0}
+  hudFontSize: 48
+  hudCharacterSize: 0.05
+  damagePopupLife: 0.6
+  damagePopupRiseSpeed: 1.2
+  debugLog: 0

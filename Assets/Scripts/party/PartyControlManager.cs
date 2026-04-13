@@ -55,7 +55,7 @@ public class PartyControlManager : MonoBehaviour
         for (int i = 0; i < members.Count; i++)
             members[i].SetMovementControlByPlayer(false);
 
-        SetCurrentMember(0, "initialize");
+        //SetCurrentMember(0, "initialize");
     }
 
     private void HandleSwitchInput()

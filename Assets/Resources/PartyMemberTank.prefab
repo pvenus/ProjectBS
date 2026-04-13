@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 4575842459583717847}
   - component: {fileID: 2658242532758412897}
   - component: {fileID: -3465831662091658876}
+  - component: {fileID: 8884106089127072383}
   m_Layer: 7
   m_Name: PartyMemberTank
   m_TagString: Untagged
@@ -40,7 +41,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,8 +95,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 192eccda280e2ec4c99be851889e09ed, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -166,7 +167,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.07553746
+  m_Radius: 1
 --- !u!114 &4926456913500930225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +205,7 @@ MonoBehaviour:
   maxMana: 50
   currentMana: 50
   damage: 10
+  enableContactDamage: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
@@ -310,7 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfa6949319a44f4caea8bb366778fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PartyMovementMono
-  leader: {fileID: 0}
   mode: 1
   autoMode: 0
   moveSpeed: 5
@@ -322,7 +323,6 @@ MonoBehaviour:
   protectAreaRadius: 0.8
   aggressiveDistance: 2.6
   aggressiveAreaRadius: 1
-  maxLeashDistance: 10
   debugDraw: 0
   decisionInterval: 3
   positionJitterStrength: 1
@@ -429,3 +429,34 @@ MonoBehaviour:
   stabilizeInterval: 1.25
   debugLog: 0
   drawGizmos: 1
+--- !u!114 &8884106089127072383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378610511697526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8473d95ac804c4cd6bb9f3c65f680bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::venus.eldawn.party.AnimationMono
+  spriteRenderer: {fileID: 0}
+  idleFrames:
+  - {fileID: 21300000, guid: 84ce2f114ad12bd4ebafc77060220324, type: 3}
+  - {fileID: 21300000, guid: e70ab950968e2ef439f986ec395141c6, type: 3}
+  - {fileID: 21300000, guid: 754f43f8fc4997f42b16428846136321, type: 3}
+  - {fileID: 21300000, guid: 7425003c38c00d144af86a40ba87c12d, type: 3}
+  - {fileID: 21300000, guid: 4a643494bdea168479e8de8698775b85, type: 3}
+  - {fileID: 21300000, guid: d0fc8c27bd2d9d44e88e8a240ad8f68f, type: 3}
+  idleFrameRate: 8
+  attackFrames:
+  - {fileID: 21300000, guid: 192eccda280e2ec4c99be851889e09ed, type: 3}
+  - {fileID: 21300000, guid: 97c6ebd3ca4f107448b3b2d9b16e5d6d, type: 3}
+  - {fileID: 21300000, guid: 0ffdf19da652afe48a12609e61ed7b94, type: 3}
+  - {fileID: 21300000, guid: a1b4b1f3ee0e4664aada556dbd4c246d, type: 3}
+  - {fileID: 21300000, guid: 2d634060b61eb214a949fcd4b88122d9, type: 3}
+  - {fileID: 21300000, guid: 0c673844191288945b65f8f4ea934f2f, type: 3}
+  attackFrameRate: 12
+  playIdleOnAwake: 1
+  resetToIdleAfterAttack: 1

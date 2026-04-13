@@ -50,10 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/party/EvolutionMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/hit/ISkillHitRepeatPolicy.cs" />
     <Compile Include="Assets/Scripts/wave/SpawnLinePattern.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedProjectile.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMoveMono.cs" />
     <Compile Include="Assets/Scripts/CameraFollowMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitTracker.cs" />
+    <Compile Include="Assets/Scripts/party/AnimationMono.cs" />
     <Compile Include="Assets/Scripts/party/TowerPropMono.cs" />
+    <Compile Include="Assets/Scripts/MovementController.cs" />
     <Compile Include="Assets/Scripts/skills/SanctuarySkill.cs" />
     <Compile Include="Assets/Scripts/npc/NpcTargeting.cs" />
     <Compile Include="Assets/Scripts/skills/SingleHealSkill.cs" />
@@ -61,26 +66,38 @@
     <Compile Include="Assets/Scripts/UILevelUpMono.cs" />
     <Compile Include="Assets/Scripts/venus/DangerPerceptionProfile.cs" />
     <Compile Include="Assets/Scripts/ProjectileMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/move/ISkillProjectileMovement.cs" />
     <Compile Include="Assets/Scripts/wave/SpawnCirclePattern.cs" />
     <Compile Include="Assets/Scripts/skills/SlamSkill.cs" />
     <Compile Include="Assets/Scripts/npc/NpcMovementProfile.cs" />
+    <Compile Include="Assets/Scripts/stage/StageRuntimeMono.cs" />
     <Compile Include="Assets/Scripts/party/SkillExecutorMono.cs" />
     <Compile Include="Assets/Scripts/skills/PiercingShotSkill.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedHit.cs" />
-    <Compile Include="Assets/Scripts/skills/BasicThrowSkill.cs" />
     <Compile Include="Assets/Scripts/party/EmotionMono.cs" />
     <Compile Include="Assets/Scripts/party/StateMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMoveController.cs" />
     <Compile Include="Assets/Scripts/npc/NpcPathing.cs" />
+    <Compile Include="Assets/Scripts/party/StatHudMono.cs" />
     <Compile Include="Assets/Scripts/skills/VolleyRainSkill.cs" />
     <Compile Include="Assets/Scripts/party/PartyAgentMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileLifeTimeMono.cs" />
     <Compile Include="Assets/Scripts/PlayerAttackMono.cs" />
     <Compile Include="Assets/Scripts/skills/BattleSkillBase.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileLinearMovement.cs" />
     <Compile Include="Assets/Scripts/venus/AIVectorMono.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillProjectileDto.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitController.cs" />
     <Compile Include="Assets/Scripts/venus/DangerPerceptionResolver.cs" />
     <Compile Include="Assets/Scripts/venus/DangerEvent.cs" />
     <Compile Include="Assets/Scripts/NpcMono.cs" />
     <Compile Include="Assets/Scripts/PlayerMono.cs" />
     <Compile Include="Assets/Scripts/party/PerceptionMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/hit/SkillHitOncePolicy.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillProjectileWarpMovementDto.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/hit/SKillHitIntervalPolicy.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMono.cs" />
     <Compile Include="Assets/Scripts/skills/BasicPushSkill.cs" />
     <Compile Include="Assets/Scripts/party/BattleSensorMono.cs" />
     <Compile Include="Assets/Scripts/party/dto/BrainDecisionState.cs" />
@@ -92,23 +109,38 @@
     <Compile Include="Assets/Scripts/venus/SolutionStyleResolver.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyle.cs" />
     <Compile Include="Assets/Scripts/party/StatMono.cs" />
+    <Compile Include="Assets/Scripts/skills/so/move/SkillMoveSO.cs" />
     <Compile Include="Assets/Scripts/party/SkillLoadoutMono.cs" />
     <Compile Include="Assets/Scripts/MapMono.cs" />
     <Compile Include="Assets/Scripts/skills/TauntSkill.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillProjectileVisualDto.cs" />
     <Compile Include="Assets/Scripts/skills/BasicDoubleThrowSkill.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileWarpMovement.cs" />
     <Compile Include="Assets/Scripts/party/SkillBrainMono.cs" />
     <Compile Include="Assets/Scripts/party/PartyMovementMono.cs" />
     <Compile Include="Assets/Scripts/skills/JudgementMarkSkill.cs" />
+    <Compile Include="Assets/Scripts/stage/StageState.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainEnum.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainOutput.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/animation/SkillProjectileVisualMono.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedCast.cs" />
     <Compile Include="Assets/Scripts/skills/MarkTargetSkill.cs" />
     <Compile Include="Assets/Scripts/NpcPartyStateMono.cs" />
+    <Compile Include="Assets/Scripts/skills/so/hit/SkillHitSO.cs" />
     <Compile Include="Assets/Scripts/venus/ProblemFocus.cs" />
     <Compile Include="Assets/Scripts/skills/GuardSkill.cs" />
+    <Compile Include="Assets/Scripts/skills/ProjectileSkill.cs" />
     <Compile Include="Assets/Scripts/party/SkillBrainInputBuilder.cs" />
+    <Compile Include="Assets/Scripts/skills/so/animation/SkillAnimationSO.cs" />
     <Compile Include="Assets/Scripts/NpcBossMono.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillProjectileMoveDto.cs" />
+    <Compile Include="Assets/Scripts/wave/NpcSpawnerMono.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillProjectileHitDto.cs" />
     <Compile Include="Assets/Scripts/party/dto/BrainContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets/Knight Files/Read Me.txt" />
+    <None Include="Assets/Shaders/SpriteRimLight.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
