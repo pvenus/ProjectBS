@@ -738,9 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdad59ecf2424efca92c810913adb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerPropMono
-  maxHp: 100
-  currentHp: 100
-  destroyOnDeath: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 64
@@ -748,12 +745,6 @@ MonoBehaviour:
   contactTickInterval: 0.35
   damagePerEnemyPerTick: 1
   debugContactDamage: 0
-  showHealthBar: 1
-  healthBarOffset: {x: 0, y: 1.25, z: 0}
-  healthBarSize: {x: 1.8, y: 0.22}
-  healthBarBackgroundSize: {x: 1.95, y: 0.3}
-  healthBarSortingOrder: 50
-  hideHealthBarWhenFull: 0
   onDead:
     m_PersistentCalls:
       m_Calls: []
@@ -844,13 +835,27 @@ MonoBehaviour:
   damagePerEnemyPerTick: 1
   contactTickInterval: 0.35
   showHpHud: 1
-  showDamagePopups: 1
+  hideHudWhenFullHp: 0
   hudOffset: {x: 0, y: 0.9, z: 0}
-  hudFontSize: 48
-  hudCharacterSize: 0.05
+  hudBarSize: {x: 1.8, y: 0.22}
+  hudBarBackgroundSize: {x: 1.95, y: 0.3}
+  hudHighColor: {r: 0, g: 1, b: 0, a: 1}
+  hudMidColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hudLowColor: {r: 1, g: 0, b: 0, a: 1}
+  hudBackgroundColor: {r: 0, g: 0, b: 0, a: 0.75}
+  hudSortingLayerName: UI
+  hudSortingOrder: 200
+  showDamagePopups: 1
   damagePopupLife: 0.6
   damagePopupRiseSpeed: 1.2
+  damagePopupFontSize: 58
+  damagePopupCharacterSize: 0.075
+  damagePopupSortingLayerName: UI
+  damagePopupSortingOrder: 210
   debugLog: 0
+  shaderController: {fileID: 0}
+  playDeathDissolveOnDeath: 1
+  deathDestroyDelay: 0.6
 --- !u!213 &670918282
 Sprite:
   m_ObjectHideFlags: 0
@@ -1614,7 +1619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1014333536
 Transform:
   m_ObjectHideFlags: 0
@@ -1624,7 +1629,7 @@ Transform:
   m_GameObject: {fileID: 1014333535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 2.25, z: 0}
+  m_LocalPosition: {x: 6.8199997, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1919,7 +1924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1246728227
 Transform:
   m_ObjectHideFlags: 0
@@ -1929,7 +1934,7 @@ Transform:
   m_GameObject: {fileID: 1246728226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: -2, z: 0}
+  m_LocalPosition: {x: 6.8199997, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2487,6 +2492,8 @@ MonoBehaviour:
   targeting: {fileID: 0}
   movementProfile: {fileID: 0}
   skillExecutor: {fileID: 0}
+  movementController: {fileID: 0}
+  animationMono: {fileID: 0}
   archetype: 0
   chaseRange: 1000
   holdExitDistanceBuffer: 0.4
@@ -3017,7 +3024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1780454740
 Transform:
   m_ObjectHideFlags: 0
@@ -3027,7 +3034,7 @@ Transform:
   m_GameObject: {fileID: 1780454739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 3.7, z: 0}
+  m_LocalPosition: {x: 6.8199997, y: 3.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3281,7 +3288,7 @@ Transform:
   m_GameObject: {fileID: 2025270345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalPosition: {x: 6.82, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3308,7 +3315,7 @@ MonoBehaviour:
   spawnInterval: 1.5
   spawnBurst: 1
   respectAliveLimit: 1
-  maxAliveCount: 30
+  maxAliveCount: 1
   validateByOverlap: 0
   spawnCheckRadius: 0.4
   blockedMask:
@@ -3333,7 +3340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2029573038
 Transform:
   m_ObjectHideFlags: 0
@@ -3343,7 +3350,7 @@ Transform:
   m_GameObject: {fileID: 2029573037}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: -3.85, z: 0}
+  m_LocalPosition: {x: 6.8199997, y: -3.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

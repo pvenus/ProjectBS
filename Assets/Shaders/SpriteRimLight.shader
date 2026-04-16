@@ -27,6 +27,21 @@ Shader "Custom/SpriteRimLight"
 
         _LightDir ("Fake Light Direction", Vector) = (1, 1, 0, 0)
 
+        _RevealProgress ("Reveal Progress", Range(0, 1)) = 1.0
+        _RevealSoftness ("Reveal Softness", Range(0.001, 0.5)) = 0.05
+        _RevealEdgeWidth ("Reveal Edge Width", Range(0.001, 0.5)) = 0.08
+        _RevealEdgeColor ("Reveal Edge Color", Color) = (0.6, 0.9, 1.0, 1.0)
+        _RevealEdgeIntensity ("Reveal Edge Intensity", Range(0, 5)) = 1.5
+        _RevealNoiseStrength ("Reveal Noise Strength", Range(0, 1)) = 0.15
+
+        _DeathProgress ("Death Progress", Range(0, 1)) = 0.0
+        _DeathSoftness ("Death Softness", Range(0.001, 0.5)) = 0.06
+        _DeathEdgeWidth ("Death Edge Width", Range(0.001, 0.5)) = 0.1
+        _DeathEdgeColor ("Death Edge Color", Color) = (0.75, 0.75, 0.75, 1.0)
+        _DeathEdgeIntensity ("Death Edge Intensity", Range(0, 5)) = 1.4
+        _DeathNoiseStrength ("Death Noise Strength", Range(0, 1)) = 0.25
+        _DeathDriftY ("Death Drift Y", Range(0, 2)) = 0.35
+
         _AlphaClip ("Alpha Clip", Range(0,1)) = 0.01
         [MaterialToggle] _UsePixelSnap ("Use Pixel Snap", Float) = 0
     }
@@ -95,6 +110,21 @@ Shader "Custom/SpriteRimLight"
             float _FlowSpeedY;
 
             float4 _LightDir;
+            float _RevealProgress;
+            float _RevealSoftness;
+            float _RevealEdgeWidth;
+            fixed4 _RevealEdgeColor;
+            float _RevealEdgeIntensity;
+            float _RevealNoiseStrength;
+
+            float _DeathProgress;
+            float _DeathSoftness;
+            float _DeathEdgeWidth;
+            fixed4 _DeathEdgeColor;
+            float _DeathEdgeIntensity;
+            float _DeathNoiseStrength;
+            float _DeathDriftY;
+
             float _AlphaClip;
 
             v2f vert(appdata_t IN)
@@ -135,6 +165,23 @@ Shader "Custom/SpriteRimLight"
                     return fixed4(_OutlineColor.rgb, _OutlineColor.a * neighborAlpha);
                 }
 
+                float timeY = _Time.y;
+
+                float revealNoise = frac(sin(dot((IN.uv + timeY * 0.15) * 53.0, float2(18.371, 42.117))) * 14375.8543);
+                float revealThreshold = saturate(IN.uv.y + (revealNoise - 0.5) * _RevealNoiseStrength);
+                float revealBody = 1.0 - smoothstep(_RevealProgress - _RevealSoftness, _RevealProgress + _RevealSoftness, revealThreshold);
+                float revealEdgeMask = smoothstep(_RevealProgress - _RevealEdgeWidth, _RevealProgress, revealThreshold)
+                                     * (1.0 - smoothstep(_RevealProgress, _RevealProgress + _RevealEdgeWidth, revealThreshold));
+
+                float2 deathNoiseUV = IN.uv + float2(0.0, timeY * _DeathDriftY);
+                float deathNoise = frac(sin(dot(deathNoiseUV * 61.0, float2(23.417, 51.913))) * 19642.3491);
+                float deathThreshold = saturate(deathNoise + IN.uv.y * 0.35 + (deathNoise - 0.5) * _DeathNoiseStrength);
+                float deathBody = 1.0 - smoothstep(_DeathProgress - _DeathSoftness, _DeathProgress + _DeathSoftness, deathThreshold);
+                float deathEdgeMask = smoothstep(_DeathProgress - _DeathEdgeWidth, _DeathProgress, deathThreshold)
+                                    * (1.0 - smoothstep(_DeathProgress, _DeathProgress + _DeathEdgeWidth, deathThreshold));
+
+                baseCol.a *= revealBody;
+                baseCol.a *= deathBody;
                 clip(baseCol.a - _AlphaClip);
 
                 float3 sampledNormal = UnpackNormal(tex2D(_NormalMap, IN.uv));
@@ -145,7 +192,6 @@ Shader "Custom/SpriteRimLight"
                 float ndl = saturate(dot(sampledNormal, lightDir3));
                 float rim = pow(1.0 - ndl, _RimPower) * _RimIntensity;
 
-                float timeY = _Time.y;
                 float pulse = (sin(timeY * _PulseSpeed) * 0.5 + 0.5) * _PulseIntensity;
 
                 float2 flowUV = IN.uv + float2(_FlowSpeedX, _FlowSpeedY) * timeY;
@@ -160,6 +206,8 @@ Shader "Custom/SpriteRimLight"
                 finalRgb += _RimColor.rgb * pulse * baseCol.a;
                 finalRgb += _RimColor.rgb * flow * baseCol.a;
                 finalRgb += sparkle;
+                finalRgb += _RevealEdgeColor.rgb * revealEdgeMask * _RevealEdgeIntensity;
+                finalRgb += _DeathEdgeColor.rgb * deathEdgeMask * _DeathEdgeIntensity;
 
                 return fixed4(finalRgb, baseCol.a);
             }
@@ -175,4 +223,17 @@ Shader "Custom/SpriteRimLight"
     //    _FlowIntensity = 0.25, _FlowSpeedX = 0.8, _FlowSpeedY = 0.0
     // 4) Strong modern magic look:
     //    _RimIntensity = 1.2, _PulseIntensity = 0.4, _SparkleIntensity = 0.35, _FlowIntensity = 0.2
+    // 5) Death dissolve smoky fade:
+    //    _DeathProgress = 0 -> 1 over time
+    //    _DeathSoftness = 0.06
+    //    _DeathEdgeWidth = 0.1
+    //    _DeathEdgeIntensity = 1.4
+    //    _DeathNoiseStrength = 0.25
+    //    _DeathDriftY = 0.35
+    // 6) Reveal + Edge Glow spawn look:
+    //    _RevealProgress = 0 -> 1 over time
+    //    _RevealSoftness = 0.04
+    //    _RevealEdgeWidth = 0.06
+    //    _RevealEdgeIntensity = 1.8
+    //    _RevealNoiseStrength = 0.12
 }

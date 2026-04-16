@@ -1,4 +1,3 @@
-
 [System.Serializable]
 public class SkillProjectileHitDto
 {
@@ -18,4 +17,7 @@ public class SkillProjectileHitDto
     public bool useSplitMultiHitDamage;
     public int splitHitCount = 1;
     public float splitHitInterval;
+
+    public bool useKnockback;
+    public float knockbackForce;
 }

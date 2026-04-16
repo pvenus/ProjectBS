@@ -18,6 +18,11 @@ public class SkillProjectileHitMono : MonoBehaviour
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private Transform owner;
 
+    public void SetOwner(Transform newOwner)
+    {
+        owner = newOwner;
+    }
+
     private CircleCollider2D _circleCollider;
     private int _damage;
     private bool _applyDamage = true;
@@ -31,6 +36,9 @@ public class SkillProjectileHitMono : MonoBehaviour
     private int _splitHitCount = 1;
     private float _splitHitInterval = 0f;
     private readonly Dictionary<Collider2D, Coroutine> _activeSplitDamageRoutines = new Dictionary<Collider2D, Coroutine>();
+
+    private bool _useKnockback;
+    private float _knockbackForce;
 
     private void Update()
     {
@@ -139,6 +147,9 @@ public class SkillProjectileHitMono : MonoBehaviour
         _splitHitCount = Mathf.Max(1, dto.splitHitCount);
         _splitHitInterval = Mathf.Max(0f, dto.splitHitInterval);
 
+        _useKnockback = dto.useKnockback;
+        _knockbackForce = Mathf.Max(0f, dto.knockbackForce);
+
         _hitController = new SkillProjectileHitController();
         _hitController.Configure(Mathf.Max(1, dto.maxHitCount), dto.ignoreSameRoot);
 
@@ -160,23 +171,62 @@ public class SkillProjectileHitMono : MonoBehaviour
     /// </summary>
     private void ApplyDamage(Collider2D other)
     {
-        if (!_applyDamage)
+        if (other == null)
+            return;
+
+        var stat = other.GetComponentInParent<StatMono>();
+
+        if (_applyDamage)
+        {
+            if (stat == null)
+                return;
+
+            if (_useSplitMultiHitDamage)
+            {
+                StartSplitDamageRoutine(other, stat);
+            }
+            else
+            {
+                stat.TakeDamage(_damage);
+            }
+        }
+
+        ApplyKnockback(other);
+    }
+
+    private void ApplyKnockback(Collider2D other)
+    {
+        if (!_useKnockback)
             return;
 
         if (other == null)
             return;
 
-        var stat = other.GetComponentInParent<StatMono>();
-        if (stat == null)
+        Transform source = owner != null ? owner : transform;
+        Vector2 sourcePosition = source != null ? (Vector2)source.position : (Vector2)transform.position;
+        Vector2 targetPosition = other.bounds.center;
+        Vector2 direction = Vector2.zero;
+
+        direction = targetPosition - sourcePosition;
+
+        if (direction.sqrMagnitude <= 0.0001f)
+            direction = (Vector2)transform.position - (Vector2)other.transform.position;
+
+        if (direction.sqrMagnitude <= 0.0001f)
             return;
 
-        if (_useSplitMultiHitDamage)
+        MovementMono movementMono = other.GetComponentInParent<MovementMono>();
+        if (movementMono != null)
         {
-            StartSplitDamageRoutine(other, stat);
+            movementMono.ApplyKnockback(direction.normalized, _knockbackForce);
             return;
         }
 
-        stat.TakeDamage(_damage);
+        KnockbackController knockbackController = other.GetComponentInParent<KnockbackController>();
+        if (knockbackController != null)
+        {
+            knockbackController.ApplyKnockback(direction.normalized * _knockbackForce);
+        }
     }
 
     /// <summary>
@@ -350,6 +400,8 @@ public class SkillProjectileHitMono : MonoBehaviour
         _useSplitMultiHitDamage = false;
         _splitHitCount = 1;
         _splitHitInterval = 0f;
+        _useKnockback = false;
+        _knockbackForce = 0f;
 
         _elapsedTime = 0f;
         _hitWindowClosed = false;

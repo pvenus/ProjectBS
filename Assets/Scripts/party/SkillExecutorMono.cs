@@ -121,39 +121,8 @@ public class SkillExecutorMono : MonoBehaviour
             return TryExecuteBasicFallback(req, "cooldown");
         }
 
-        bool used = false;
-
-        if (req.UseTarget && req.Target != null)
-        {
-            used = InvokeExecute(req.Skill, req.Caster, req.Target);
-            if (debugLog)
-                Debug.Log($"[SkillExecutor] target execute skill={req.Skill.name} used={used} caster={req.Caster.name} target={req.Target.name}");
-        }
-        else if (req.UsePoint)
-        {
-            Transform temp = CreateTempTarget(req.TargetPoint);
-            used = InvokeExecute(req.Skill, req.Caster, temp);
-
-            if (debugLog)
-                Debug.Log($"[SkillExecutor] point execute skill={req.Skill.name} used={used} caster={req.Caster.name} point={req.TargetPoint}");
-        }
-        else
-        {
-            used = InvokeExecute(req.Skill, req.Caster, null);
-            if (debugLog)
-                Debug.Log($"[SkillExecutor] self execute skill={req.Skill.name} used={used} caster={req.Caster.name}");
-        }
-
-        if (used)
-        {
-            TryPlayBasicAttackAnimation(req.Skill);
-
-            float cooldown = GetCooldownFromSkill(req.Skill);
-            if (cooldown > 0f)
-                _cooldowns[req.Skill] = cooldown;
-
+        if (TryExecuteSkillRequest(req, req.Skill, failedReason: null))
             return true;
-        }
 
         return TryExecuteBasicFallback(req, "execute-fail");
     }
@@ -177,31 +146,69 @@ public class SkillExecutorMono : MonoBehaviour
             return false;
         }
 
-        bool used;
-        if (failedRequest.UseTarget && failedRequest.Target != null)
+        return TryExecuteSkillRequest(failedRequest, basicAttackSkill, reason);
+    }
+    private bool TryExecuteSkillRequest(SkillExecutionRequest request, ScriptableObject skill, string failedReason)
+    {
+        if (request.Caster == null || skill == null)
+            return false;
+
+        bool used = false;
+
+        if (request.UseTarget && request.Target != null)
         {
-            used = InvokeExecute(basicAttackSkill, failedRequest.Caster, failedRequest.Target);
+            if (!IsInSkillRange(skill, request.Caster, request.Target))
+            {
+                if (debugLog)
+                {
+                    string prefix = string.IsNullOrEmpty(failedReason) ? string.Empty : $" fallback reason={failedReason}";
+                    Debug.Log($"[SkillExecutor] range block{prefix} skill={skill.name} caster={request.Caster.name} target={request.Target.name}");
+                }
+                return false;
+            }
+
+            used = InvokeExecute(skill, request.Caster, request.Target);
+
             if (debugLog)
-                Debug.Log($"[SkillExecutor] basic fallback target reason={reason} skill={basicAttackSkill.name} used={used} caster={failedRequest.Caster.name} target={failedRequest.Target.name}");
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "target execute" : $"basic fallback target reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name} target={request.Target.name}");
+            }
+        }
+        else if (request.UsePoint)
+        {
+            Transform temp = CreateTempTarget(request.TargetPoint);
+            used = InvokeExecute(skill, request.Caster, temp);
+
+            if (debugLog)
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "point execute" : $"basic fallback point reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name} point={request.TargetPoint}");
+            }
         }
         else
         {
-            used = InvokeExecute(basicAttackSkill, failedRequest.Caster, null);
+            used = InvokeExecute(skill, request.Caster, null);
+
             if (debugLog)
-                Debug.Log($"[SkillExecutor] basic fallback self reason={reason} skill={basicAttackSkill.name} used={used} caster={failedRequest.Caster.name}");
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "self execute" : $"basic fallback self reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name}");
+            }
         }
 
         if (!used)
             return false;
 
-        TryPlayBasicAttackAnimation(basicAttackSkill);
+        TryPlayBasicAttackAnimation(skill);
 
-        float cooldown = GetCooldownFromSkill(basicAttackSkill);
+        float cooldown = GetCooldownFromSkill(skill);
         if (cooldown > 0f)
-            _cooldowns[basicAttackSkill] = cooldown;
+            _cooldowns[skill] = cooldown;
 
         return true;
     }
+
     public ScriptableObject GetBasicAttackSkill()
     {
         return skillLoadout != null ? skillLoadout.GetBasicAttack() : null;

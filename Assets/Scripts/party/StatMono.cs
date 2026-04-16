@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,7 +71,15 @@ public class StatMono : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debugLog = false;
 
+    [Header("Effect")]
+    [SerializeField] private ShaderControllerMono shaderController;
+
+    [Header("Death")]
+    [SerializeField] private bool playDeathDissolveOnDeath = true;
+    [SerializeField] private float deathDestroyDelay = 0.6f;
+
     private float _contactTickTimer;
+    private bool _isDying;
 
     // HUD
     private GameObject _hudRoot;
@@ -93,7 +102,7 @@ public class StatMono : MonoBehaviour
 
     public float Hp01 => maxHp > 0f ? currentHp / maxHp : 0f;
     public float Damage => damage;
-    public bool IsDead => currentHp <= 0f;
+    public bool IsDead => _isDying || currentHp <= 0f;
 
     private void Reset()
     {
@@ -101,6 +110,8 @@ public class StatMono : MonoBehaviour
         currentHp = Mathf.Clamp(currentHp, 0f, maxHp);
         maxMana = Mathf.Max(0f, maxMana);
         currentMana = Mathf.Clamp(currentMana, 0f, maxMana);
+        if (shaderController == null)
+            shaderController = GetComponent<ShaderControllerMono>();
     }
 
     private void OnValidate()
@@ -112,6 +123,7 @@ public class StatMono : MonoBehaviour
         contactRadius = Mathf.Max(0f, contactRadius);
         damagePerEnemyPerTick = Mathf.Max(0f, damagePerEnemyPerTick);
         contactTickInterval = Mathf.Max(0.01f, contactTickInterval);
+        deathDestroyDelay = Mathf.Max(0f, deathDestroyDelay);
     }
 
     private void Awake()
@@ -122,8 +134,16 @@ public class StatMono : MonoBehaviour
         currentMana = Mathf.Clamp(currentMana, 0f, maxMana);
         _contactTickTimer = Random.Range(0f, Mathf.Max(0.01f, contactTickInterval));
 
+        if (shaderController == null)
+            shaderController = GetComponent<ShaderControllerMono>();
+
         EnsureHud();
         RefreshHud(force: true);
+    }
+
+    private void Start()
+    {
+        shaderController?.PlaySpawnReveal();
     }
 
     private void Update()
@@ -150,6 +170,8 @@ public class StatMono : MonoBehaviour
 
         if (showDamagePopups)
             SpawnDamagePopup(amount);
+
+        shaderController?.PlayHitFlash();
 
         currentHp -= amount;
         currentHp = Mathf.Max(0f, currentHp);
@@ -476,6 +498,19 @@ public class StatMono : MonoBehaviour
         }
     }
 
+    private IEnumerator DestroyAfterDeathRoutine()
+    {
+        float delay = deathDestroyDelay;
+
+        if (playDeathDissolveOnDeath && shaderController != null)
+            delay = Mathf.Max(delay, 0.01f);
+
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
+        Destroy(gameObject);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
@@ -489,15 +524,39 @@ public class StatMono : MonoBehaviour
 
     private void OnDeath()
     {
+        if (_isDying)
+            return;
+
+        _isDying = true;
+        currentHp = 0f;
+        enableContactDamage = false;
         RefreshHud(force: true);
 
         if (debugLog)
             Debug.Log($"[StatMono] {name} died");
 
-        // Future hooks:
-        // - Drop items
-        // - Notify AI systems
-        // - Play animation
-        Destroy(gameObject);
+        venus.eldawn.party.AnimationMono animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+        if (animationMono != null)
+            animationMono.PlayDeath();
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i] != null)
+                colliders[i].enabled = false;
+        }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.simulated = false;
+        }
+
+        if (playDeathDissolveOnDeath && shaderController != null)
+            shaderController.PlayDeathDissolve();
+
+        StartCoroutine(DestroyAfterDeathRoutine());
     }
 }

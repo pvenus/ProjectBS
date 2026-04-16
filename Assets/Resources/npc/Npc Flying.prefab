@@ -20,6 +20,11 @@ GameObject:
   - component: {fileID: 7335336865651831873}
   - component: {fileID: -7770207776363605684}
   - component: {fileID: 7905154603142126192}
+  - component: {fileID: 8030981976654789198}
+  - component: {fileID: 1683726385903614280}
+  - component: {fileID: 2933218610535503633}
+  - component: {fileID: 4300590428955095974}
+  - component: {fileID: 2701366545087989038}
   m_Layer: 6
   m_Name: Npc Flying
   m_TagString: Untagged
@@ -293,6 +298,9 @@ MonoBehaviour:
   damagePopupSortingLayerName: UI
   damagePopupSortingOrder: 210
   debugLog: 0
+  shaderController: {fileID: 0}
+  playDeathDissolveOnDeath: 1
+  deathDestroyDelay: 0.6
 --- !u!114 &-7770207776363605684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::venus.eldawn.party.AnimationMono
   animator: {fileID: 0}
   targetSpriteRenderer: {fileID: 0}
+  movementController: {fileID: 0}
   playIdleOnStart: 1
   defaultDirection: 2
   resetToPreviousLocomotionAfterAttack: 1
@@ -325,6 +334,11 @@ MonoBehaviour:
     upLeft: {fileID: 7400000, guid: 6311658841c04410fb3386ec789381ad, type: 2}
     downRight: {fileID: 7400000, guid: 0b1335ce42f014d468d1323abf0b6505, type: 2}
     downLeft: {fileID: 7400000, guid: 1393723be1d0a4a5b9e25a6c35295147, type: 2}
+  deathClips:
+    upRight: {fileID: 0}
+    upLeft: {fileID: 0}
+    downRight: {fileID: 0}
+    downLeft: {fileID: 0}
 --- !u!212 &7905154603142126192
 SpriteRenderer:
   serializedVersion: 2
@@ -382,5 +396,185 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8030981976654789198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4ed25a726c04508bcfe0748cdcd9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShaderControllerMono
+  shaderMono: {fileID: 1683726385903614280}
+  hitFlash:
+    enabled: 1
+    baseRimColor: {r: 1, g: 1, b: 1, a: 1}
+    baseRimIntensity: 0
+    baseRimPower: 3
+    hitRimColor: {r: 1, g: 0.95, b: 0.95, a: 1}
+    hitRimIntensity: 2.5
+    hitRimPower: 2
+    basePulseIntensity: 0
+    basePulseSpeed: 2
+    hitPulseIntensity: 0.35
+    hitPulseSpeed: 8
+    attackDuration: 0.03
+    releaseDuration: 0.12
+    blendCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    allowRefreshWhilePlaying: 1
+    isPlaying: 0
+    timer: 0
+    duration: 0
+    phase: 0
+  spawnReveal:
+    enabled: 1
+    startProgress: 0
+    endProgress: 1
+    softness: 0.02
+    edgeWidth: 0.1
+    edgeColor: {r: 0.6, g: 0.9, b: 1, a: 1}
+    edgeIntensity: 2.8
+    noiseStrength: 0.2
+    boostRimAndPulse: 1
+    baseRimColor: {r: 1, g: 1, b: 1, a: 1}
+    baseRimIntensity: 0
+    baseRimPower: 3
+    basePulseIntensity: 0
+    basePulseSpeed: 2
+    revealRimColor: {r: 0.8, g: 0.95, b: 1, a: 1}
+    revealRimIntensity: 2.2
+    revealRimPower: 2.5
+    revealPulseIntensity: 0.42
+    revealPulseSpeed: 6
+    duration: 1
+    progressCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    boostCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    resetToBaseWhenFinished: 1
+    allowRefreshWhilePlaying: 1
+    isPlaying: 0
+    timer: 0
+  deathDissolve:
+    enabled: 1
+    startProgress: 1
+    endProgress: 0
+    softness: 0.06
+    edgeWidth: 0.1
+    edgeColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
+    edgeIntensity: 1.4
+    noiseStrength: 0.25
+    driftY: 0.35
+    fadeRimAndPulse: 1
+    baseRimColor: {r: 1, g: 1, b: 1, a: 1}
+    baseRimIntensity: 0
+    baseRimPower: 3
+    basePulseIntensity: 0
+    basePulseSpeed: 2
+    deathRimColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
+    deathRimIntensity: 0.6
+    deathRimPower: 2.2
+    deathPulseIntensity: 0.08
+    deathPulseSpeed: 3
+    duration: 0.55
+    progressCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    fadeCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    allowRefreshWhilePlaying: 1
+    isPlaying: 0
+    timer: 0
+  debugSpawnReveal: 1
+  debugDeathDissolve: 1
+--- !u!114 &1683726385903614280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c0d78bb01b6412dadfb29a1331d5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShaderMono
+  targetRenderer: {fileID: 7905154603142126192}
+--- !u!114 &2933218610535503633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1765ad00a6874eed87156b09f2971b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementMono
+  ensureMovementController: 1
+  ensureKnockbackController: 1
+  movementController: {fileID: 4300590428955095974}
+  knockbackController: {fileID: 2701366545087989038}
+  targetRigidbody: {fileID: 6332101413371762216}
+  debugLog: 0
+--- !u!114 &4300590428955095974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443a53b8e43ef4bebb4d6bf41406d5a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementController
+  moveSpeed: 4
+  arriveDistance: 0.08
+  stopOnDisable: 1
+--- !u!114 &2701366545087989038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a8edcc18f244a6fbe2212882d1a1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackController
+  targetRigidbody: {fileID: 6332101413371762216}
+  movementController: {fileID: 4300590428955095974}
+  defaultDuration: 0.18
+  dampingPerStep: 0.85
+  maxSpeed: 18
+  restoreMovementAfterKnockback: 1
+  stopMovementOnKnockbackStart: 1
+  debugLog: 0

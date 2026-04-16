@@ -22,7 +22,8 @@ namespace venus.eldawn.party
             None,
             Idle,
             Move,
-            Attack
+            Attack,
+            Death
         }
 
         public enum DiagonalDirection
@@ -73,6 +74,9 @@ namespace venus.eldawn.party
         [Header("Clips - Attack")]
         [SerializeField] private DirectionalClipSet attackClips;
 
+        [Header("Clips - Death")]
+        [SerializeField] private DirectionalClipSet deathClips;
+
         private Coroutine _playRoutine;
         private Coroutine _oneShotRoutine;
 
@@ -81,10 +85,12 @@ namespace venus.eldawn.party
         private DiagonalDirection _currentDirection;
         private AnimationClip _currentClip;
         private bool _isPlayingOneShot;
+        private bool _isDead;
 
         public AnimationState CurrentState => _currentState;
         public DiagonalDirection CurrentDirection => _currentDirection;
         public bool IsPlayingOneShot => _isPlayingOneShot;
+        public bool IsDead => _isDead;
 
         public bool IsPlayingAttack()
         {
@@ -144,6 +150,9 @@ namespace venus.eldawn.party
         /// </summary>
         public void SetDirection(DiagonalDirection direction)
         {
+            if (_isDead)
+                return;
+
             if (_currentDirection == direction)
                 return;
 
@@ -163,6 +172,9 @@ namespace venus.eldawn.party
         /// </summary>
         public void SetDirectionFromVector(Vector2 direction)
         {
+            if (_isDead)
+                return;
+
             if (direction.sqrMagnitude <= 0.0001f)
                 return;
 
@@ -201,6 +213,9 @@ namespace venus.eldawn.party
 
         public void UpdateDirectionFromMovementController()
         {
+            if (_isDead)
+                return;
+
             if (movementController == null)
                 return;
 
@@ -229,6 +244,9 @@ namespace venus.eldawn.party
 
         public void PlayIdle()
         {
+            if (_isDead)
+                return;
+
             if (_isPlayingOneShot)
                 return;
 
@@ -237,6 +255,9 @@ namespace venus.eldawn.party
 
         public void PlayMove()
         {
+            if (_isDead)
+                return;
+
             if (_isPlayingOneShot)
                 return;
 
@@ -246,6 +267,9 @@ namespace venus.eldawn.party
 
         public void PlayAttack()
         {
+            if (_isDead)
+                return;
+
             AnimationClip clip = GetClip(AnimationState.Attack, _currentDirection);
             if (!CanPlayClip(clip, AnimationState.Attack, _currentDirection))
                 return;
@@ -271,8 +295,48 @@ namespace venus.eldawn.party
             _currentClip = null;
         }
 
+        public void PlayDeath()
+        {
+            if (_isDead && _currentState == AnimationState.Death)
+                return;
+
+            _isDead = true;
+            StopOneShotRoutine();
+            StopPlayRoutine();
+            _isPlayingOneShot = false;
+
+            AnimationClip clip = GetClip(AnimationState.Death, _currentDirection);
+            if (clip == null)
+            {
+                _currentState = AnimationState.None;
+                _currentClip = null;
+                return;
+            }
+
+            if (!CanPlayClip(clip, AnimationState.Death, _currentDirection))
+                return;
+
+            _currentState = AnimationState.Death;
+            _currentClip = clip;
+            _playRoutine = StartCoroutine(PlayHoldLastFrameClipRoutine(clip));
+        }
+
+        public void SetDead(bool dead)
+        {
+            if (!dead)
+            {
+                _isDead = false;
+                return;
+            }
+
+            PlayDeath();
+        }
+
         private void PlayState(AnimationState state, bool restartIfSameState = false)
         {
+            if (_isDead && state != AnimationState.Death)
+                return;
+
             if (_isPlayingOneShot && state != AnimationState.Attack)
                 return;
 
@@ -326,6 +390,7 @@ namespace venus.eldawn.party
                 AnimationState.Idle => idleClips != null ? idleClips.Get(direction) : null,
                 AnimationState.Move => moveClips != null ? moveClips.Get(direction) : null,
                 AnimationState.Attack => attackClips != null ? attackClips.Get(direction) : null,
+                AnimationState.Death => deathClips != null ? deathClips.Get(direction) : null,
                 _ => null
             };
         }
@@ -377,6 +442,25 @@ namespace venus.eldawn.party
                 yield break;
 
             Debug.Log($"[{nameof(AnimationMono)}] PlayOneShotClip -> {clip.name} on {name}", this);
+
+            float length = Mathf.Max(0.01f, clip.length);
+            float time = 0f;
+
+            while (time < length)
+            {
+                clip.SampleAnimation(gameObject, time);
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            clip.SampleAnimation(gameObject, length);
+            _playRoutine = null;
+        }
+
+        private IEnumerator PlayHoldLastFrameClipRoutine(AnimationClip clip)
+        {
+            if (clip == null)
+                yield break;
 
             float length = Mathf.Max(0.01f, clip.length);
             float time = 0f;

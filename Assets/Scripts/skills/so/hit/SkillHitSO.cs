@@ -38,11 +38,17 @@ public class SkillHitSO : ScriptableObject
     [SerializeField, Min(1)] private int splitHitCount = 4;
     [SerializeField, Min(0f)] private float splitHitInterval = 0.1f;
 
+    [Header("Knockback")]
+    [SerializeField] private bool useKnockback;
+    [SerializeField, Min(0f)] private float knockbackForce;
+
     public int Damage => damage;
     public bool ApplyDamage => applyDamage;
     public bool UseSplitMultiHitDamage => useSplitMultiHitDamage;
     public int SplitHitCount => splitHitCount;
     public float SplitHitInterval => splitHitInterval;
+    public bool UseKnockback => useKnockback;
+    public float KnockbackForce => knockbackForce;
 
     public SkillProjectileHitDto CreateDto()
     {
@@ -60,7 +66,9 @@ public class SkillHitSO : ScriptableObject
             applyDamage = applyDamage,
             useSplitMultiHitDamage = useSplitMultiHitDamage,
             splitHitCount = Mathf.Max(1, splitHitCount),
-            splitHitInterval = Mathf.Max(0f, splitHitInterval)
+            splitHitInterval = Mathf.Max(0f, splitHitInterval),
+            useKnockback = useKnockback,
+            knockbackForce = Mathf.Max(0f, knockbackForce)
         };
     }
 

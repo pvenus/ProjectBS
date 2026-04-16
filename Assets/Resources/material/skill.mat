@@ -34,23 +34,36 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0.01
-    - _FlowIntensity: 0.91
+    - _DeathDriftY: 0.35
+    - _DeathEdgeIntensity: 0
+    - _DeathEdgeWidth: 0.001
+    - _DeathNoiseStrength: 0.25
+    - _DeathProgress: 1
+    - _DeathSoftness: 0.001
+    - _FlowIntensity: 0
     - _FlowSpeedX: 0.5
     - _FlowSpeedY: 0
-    - _NormalStrength: 0
-    - _OutlineWidth: 1.61
+    - _NormalStrength: 1
+    - _OutlineWidth: 1
     - _PulseIntensity: 0
-    - _PulseSpeed: 10
-    - _RimIntensity: 0.6
-    - _RimPower: 4.34
+    - _PulseSpeed: 2
+    - _RevealEdgeIntensity: 1.5
+    - _RevealEdgeWidth: 0.08
+    - _RevealNoiseStrength: 0.15
+    - _RevealProgress: 1
+    - _RevealSoftness: 0.05
+    - _RimIntensity: 1
+    - _RimPower: 2.5
     - _SparkleIntensity: 0
     - _SparkleSpeed: 2
     - _SparkleThreshold: 0.95
     - _UsePixelSnap: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DeathEdgeColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
     - _LightDir: {r: 1, g: 1, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.24390352, g: 0.281728, b: 0.8207547, a: 1}
+    - _RevealEdgeColor: {r: 0.6, g: 0.9, b: 1, a: 1}
+    - _RimColor: {r: 0.6, g: 0.9, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

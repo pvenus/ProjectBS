@@ -58,7 +58,6 @@
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitTracker.cs" />
     <Compile Include="Assets/Scripts/party/AnimationMono.cs" />
     <Compile Include="Assets/Scripts/party/TowerPropMono.cs" />
-    <Compile Include="Assets/Scripts/MovementController.cs" />
     <Compile Include="Assets/Scripts/skills/SanctuarySkill.cs" />
     <Compile Include="Assets/Scripts/npc/NpcTargeting.cs" />
     <Compile Include="Assets/Scripts/skills/SingleHealSkill.cs" />
@@ -85,7 +84,9 @@
     <Compile Include="Assets/Scripts/PlayerAttackMono.cs" />
     <Compile Include="Assets/Scripts/skills/BattleSkillBase.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileLinearMovement.cs" />
+    <Compile Include="Assets/Scripts/shader/detail/SpawnRevealFeature.cs" />
     <Compile Include="Assets/Scripts/venus/AIVectorMono.cs" />
+    <Compile Include="Assets/Scripts/movement/MovementMono.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileDto.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitController.cs" />
     <Compile Include="Assets/Scripts/venus/DangerPerceptionResolver.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets/Scripts/PlayerMono.cs" />
     <Compile Include="Assets/Scripts/party/PerceptionMono.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/hit/SkillHitOncePolicy.cs" />
+    <Compile Include="Assets/Scripts/shader/detail/DeathDissolveFeature.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileWarpMovementDto.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/hit/SKillHitIntervalPolicy.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitMono.cs" />
@@ -106,13 +108,16 @@
     <Compile Include="Assets/Scripts/party/dto/SkillExecutionRequest.cs" />
     <Compile Include="Assets/Scripts/party/PartyControlManager.cs" />
     <Compile Include="Assets/Scripts/venus/AIEngineMono.cs" />
+    <Compile Include="Assets/Scripts/movement/KnockbackController.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyleResolver.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyle.cs" />
     <Compile Include="Assets/Scripts/party/StatMono.cs" />
     <Compile Include="Assets/Scripts/skills/so/move/SkillMoveSO.cs" />
     <Compile Include="Assets/Scripts/party/SkillLoadoutMono.cs" />
     <Compile Include="Assets/Scripts/MapMono.cs" />
+    <Compile Include="Assets/Scripts/shader/ShaderControllerMono.cs" />
     <Compile Include="Assets/Scripts/skills/TauntSkill.cs" />
+    <Compile Include="Assets/Scripts/skills/so/skill/ProjectileSkillSO.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileVisualDto.cs" />
     <Compile Include="Assets/Scripts/skills/BasicDoubleThrowSkill.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileWarpMovement.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="Assets/Scripts/stage/StageState.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainEnum.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainOutput.cs" />
+    <Compile Include="Assets/Scripts/movement/MovementController.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/animation/SkillProjectileVisualMono.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedCast.cs" />
     <Compile Include="Assets/Scripts/skills/MarkTargetSkill.cs" />
@@ -129,17 +135,17 @@
     <Compile Include="Assets/Scripts/skills/so/hit/SkillHitSO.cs" />
     <Compile Include="Assets/Scripts/venus/ProblemFocus.cs" />
     <Compile Include="Assets/Scripts/skills/GuardSkill.cs" />
-    <Compile Include="Assets/Scripts/skills/ProjectileSkill.cs" />
     <Compile Include="Assets/Scripts/party/SkillBrainInputBuilder.cs" />
     <Compile Include="Assets/Scripts/skills/so/animation/SkillAnimationSO.cs" />
     <Compile Include="Assets/Scripts/NpcBossMono.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/wave/NpcSpawnerMono.cs" />
+    <Compile Include="Assets/Scripts/shader/detail/HitFlashFeature.cs" />
+    <Compile Include="Assets/Scripts/shader/ShaderMono.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileHitDto.cs" />
     <Compile Include="Assets/Scripts/party/dto/BrainContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets/Knight Files/Read Me.txt" />
     <None Include="Assets/Shaders/SpriteRimLight.shader" />
   </ItemGroup>
   <ItemGroup>
