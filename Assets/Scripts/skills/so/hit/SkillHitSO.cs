@@ -1,4 +1,5 @@
 using UnityEngine;
+using Skills.Dto;
 
 [CreateAssetMenu(
     fileName = "SkillHit",
@@ -30,8 +31,10 @@ public class SkillHitSO : ScriptableObject
     public bool DeactivateAfterFirstHit => deactivateAfterFirstHit;
 
     [Header("Damage")]
-    [SerializeField] private int damage;
-    [SerializeField] private bool applyDamage = true;
+    [SerializeField] private SkillDamageSO damageSo;
+
+    public SkillDamageSO DamageSo => damageSo;
+    public bool ApplyDamage => damageSo != null;
 
     [Header("Split Multi-Hit Damage")]
     [SerializeField] private bool useSplitMultiHitDamage;
@@ -42,15 +45,31 @@ public class SkillHitSO : ScriptableObject
     [SerializeField] private bool useKnockback;
     [SerializeField, Min(0f)] private float knockbackForce;
 
-    public int Damage => damage;
-    public bool ApplyDamage => applyDamage;
     public bool UseSplitMultiHitDamage => useSplitMultiHitDamage;
     public int SplitHitCount => splitHitCount;
     public float SplitHitInterval => splitHitInterval;
     public bool UseKnockback => useKnockback;
     public float KnockbackForce => knockbackForce;
 
-    public SkillProjectileHitDto CreateDto()
+    private void ResolveValues(SkillUpgradeMono.SkillUpgradeData upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce)
+    {
+        resolvedDamageProfile = damageSo != null ? damageSo.CreateDto() : null;
+        resolvedKnockbackForce = Mathf.Max(0f, knockbackForce);
+
+        if (resolvedDamageProfile != null)
+        {
+            resolvedDamageProfile.baseDamage = Mathf.Max(0f, resolvedDamageProfile.baseDamage + upgradeData.damageAdd);
+        }
+
+        resolvedKnockbackForce = Mathf.Max(0f, resolvedKnockbackForce + upgradeData.knockbackForceAdd);
+    }
+    public SkillProjectileHitDto CreateDto(SkillUpgradeMono.SkillUpgradeData upgradeData)
+    {
+        ResolveValues(upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce);
+        return CreateDto(resolvedDamageProfile, resolvedKnockbackForce);
+    }
+
+    public SkillProjectileHitDto CreateDto(SkillDamageProfileDto resolvedDamageProfile, float resolvedKnockbackForce)
     {
         return new SkillProjectileHitDto
         {
@@ -62,24 +81,13 @@ public class SkillHitSO : ScriptableObject
             hitStartTime = Mathf.Max(0f, hitStartTime),
             hitDuration = Mathf.Max(0f, hitDuration),
             deactivateAfterFirstHit = deactivateAfterFirstHit,
-            damage = damage,
-            applyDamage = applyDamage,
+            damageProfile = resolvedDamageProfile,
+            applyDamage = resolvedDamageProfile != null,
             useSplitMultiHitDamage = useSplitMultiHitDamage,
             splitHitCount = Mathf.Max(1, splitHitCount),
             splitHitInterval = Mathf.Max(0f, splitHitInterval),
             useKnockback = useKnockback,
-            knockbackForce = Mathf.Max(0f, knockbackForce)
+            knockbackForce = Mathf.Max(0f, resolvedKnockbackForce)
         };
-    }
-
-    public void ApplyTo(SkillProjectileHitMono hitMono)
-    {
-        if (hitMono == null)
-        {
-            Debug.LogError("SkillProjectileHitMono is null");
-            return;
-        }
-
-        hitMono.Initialize(CreateDto());
     }
 }

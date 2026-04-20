@@ -1,11 +1,23 @@
 using UnityEngine;
 
+public struct SkillProjectileMovementContext
+{
+    public Transform owner;
+    public Transform targetTransform;
+    public Vector2 spawnPosition;
+}
+
 public interface ISkillProjectileMovement
 {
     /// <summary>
     /// 공통 초기화 (각 구현체에서 내부적으로 DTO 캐스팅)
     /// </summary>
     void Initialize(object dto);
+
+    /// <summary>
+    /// 이동 기준이 되는 런타임 컨텍스트 설정 (owner, spawnPosition 등)
+    /// </summary>
+    void SetContext(SkillProjectileMovementContext context);
 
     /// <summary>
     /// 매 프레임 이동 처리

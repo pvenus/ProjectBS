@@ -16,7 +16,8 @@ public class ProjectileSkill : BattleSkillBase
     {
         NearestNpc,
         ExplicitTargetOnly,
-        RandomPointInRadius
+        RandomPointInRadius,
+        SpawnAtCasterOnly
     }
 
     [Header("Projectile (Targeting)")]
@@ -39,11 +40,25 @@ public class ProjectileSkill : BattleSkillBase
     [SerializeField, Min(1)] private int projectileCount = 1;
     [SerializeField] private SkillProjectileFireType fireType = SkillProjectileFireType.Targeting;
 
+    public int ProjectileCount => Mathf.Max(1, projectileCount);
+    public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
+
     [Header("Projectile (Spawn Timing)")]
     [SerializeField, Min(0f)] private float spawnInterval = 0f;
 
+    [Header("Projectile (Runtime Upgrade Refresh)")]
+    [SerializeField] private bool useRuntimeUpgradeRefresh = false;
+
     [Header("Projectile (Random Radius Pattern)")]
     [SerializeField, Range(0f, 180f)] private float randomAngleJitter = 18f;
+
+    private struct ResolvedProjectileValues
+    {
+        public float range;
+        public float projectileScale;
+        public float projectileLifetime;
+        public int maxProjectileCount;
+    }
 
     public override float EvaluateBrainScore(object context, int roleBias = 0)
     {
@@ -58,16 +73,24 @@ public class ProjectileSkill : BattleSkillBase
     {
         if (caster == null) return false;
 
-        Transform target = ResolveAutoTarget(caster);
-        if (target == null) return false;
+        ResolvedProjectileValues resolved = ResolveRuntimeValues(caster);
 
         if (targetingMode == ProjectileTargetingMode.RandomPointInRadius)
         {
-            FireRandomInRadius(caster);
+            FireRandomInRadius(caster, resolved);
             return true;
         }
 
-        FireAt(caster, target);
+        if (targetingMode == ProjectileTargetingMode.SpawnAtCasterOnly)
+        {
+            FireAtPosition(caster, caster.position, true, resolved);
+            return true;
+        }
+
+        Transform target = ResolveAutoTarget(caster, resolved.range);
+        if (target == null) return false;
+
+        FireAt(caster, target, resolved);
         return true;
     }
 
@@ -75,27 +98,35 @@ public class ProjectileSkill : BattleSkillBase
     {
         if (caster == null) return false;
 
+        ResolvedProjectileValues resolved = ResolveRuntimeValues(caster);
+
+        if (targetingMode == ProjectileTargetingMode.SpawnAtCasterOnly)
+        {
+            FireAtPosition(caster, caster.position, true, resolved);
+            return true;
+        }
+
         if (target == null)
         {
             if (targetingMode == ProjectileTargetingMode.ExplicitTargetOnly)
                 return false;
 
-            target = ResolveAutoTarget(caster);
+            target = ResolveAutoTarget(caster, resolved.range);
         }
 
         if (target == null) return false;
 
         if (targetingMode == ProjectileTargetingMode.RandomPointInRadius)
         {
-            FireRandomInRadius(caster);
+            FireRandomInRadius(caster, resolved);
             return true;
         }
 
-        FireAt(caster, target);
+        FireAt(caster, target, resolved);
         return true;
     }
 
-    private Transform ResolveAutoTarget(Transform caster)
+    private Transform ResolveAutoTarget(Transform caster, float resolvedRange)
     {
         if (caster == null)
             return null;
@@ -104,17 +135,18 @@ public class ProjectileSkill : BattleSkillBase
         {
             case ProjectileTargetingMode.ExplicitTargetOnly:
             case ProjectileTargetingMode.RandomPointInRadius:
+            case ProjectileTargetingMode.SpawnAtCasterOnly:
                 return null;
             case ProjectileTargetingMode.NearestNpc:
             default:
-                var npc = FindNearestNpc(caster.position);
+                var npc = FindNearestNpc(caster.position, resolvedRange);
                 return npc != null ? npc.transform : null;
         }
     }
 
-    private NpcMono FindNearestNpc(Vector2 origin)
+    private NpcMono FindNearestNpc(Vector2 origin, float resolvedRange)
     {
-        float searchRange = Mathf.Max(0.1f, Range);
+        float searchRange = Mathf.Max(0.1f, resolvedRange);
         Collider2D[] hits = Physics2D.OverlapCircleAll(origin, searchRange, enemyMask);
         float best = float.PositiveInfinity;
         NpcMono bestNpc = null;
@@ -150,72 +182,76 @@ public class ProjectileSkill : BattleSkillBase
         return _runner;
     }
 
-    private void FireRandomInRadius(Transform caster)
+    private void FireRandomInRadius(Transform caster, ResolvedProjectileValues resolved)
     {
         int count = Mathf.Max(1, projectileCount);
-        float radius = Mathf.Max(0.1f, Range);
+        float radius = Mathf.Max(0.1f, resolved.range);
         List<Vector2> targetPositions = BuildRandomRadiusPatternPositions((Vector2)caster.position, radius, count);
 
         if (spawnInterval > 0f)
         {
-            GetRunner().StartCoroutine(FireRandomInRadiusCoroutine(caster, targetPositions));
+            GetRunner().StartCoroutine(FireRandomInRadiusCoroutine(caster, targetPositions, resolved));
             return;
         }
 
         for (int i = 0; i < targetPositions.Count; i++)
         {
-            FireAtPosition(caster, targetPositions[i], false);
+            FireAtPosition(caster, targetPositions[i], false, resolved);
         }
     }
 
-    private System.Collections.IEnumerator FireRandomInRadiusCoroutine(Transform caster, List<Vector2> targetPositions)
+    private System.Collections.IEnumerator FireRandomInRadiusCoroutine(Transform caster, List<Vector2> targetPositions, ResolvedProjectileValues resolved)
     {
         for (int i = 0; i < targetPositions.Count; i++)
         {
-            FireAtPosition(caster, targetPositions[i], false);
+            FireAtPosition(caster, targetPositions[i], false, resolved);
 
             if (spawnInterval > 0f && i < targetPositions.Count - 1)
                 yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void FireAtPosition(Transform caster, Vector2 targetPosition, bool useProjectileCount)
+    private void FireAtPosition(Transform caster, Vector2 targetPosition, bool useProjectileCount, ResolvedProjectileValues resolved)
     {
         Vector2 from = caster.position;
         Vector2 to = targetPosition;
 
         Vector2 dir = (to - from);
-        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.up;
+        bool hasDirection = dir.sqrMagnitude >= 0.0001f;
+        if (!hasDirection)
+            dir = Vector2.up;
         dir.Normalize();
 
-        Vector2 spawnPos = from + dir * projectileSpawnOffset * projectileScale;
+        Vector2 spawnPos = hasDirection
+            ? from + dir * projectileSpawnOffset * resolved.projectileScale
+            : from;
 
-        int spawnCount = useProjectileCount ? Mathf.Max(1, projectileCount) : 1;
+        int spawnCount = useProjectileCount ? Mathf.Max(1, resolved.maxProjectileCount) : 1;
 
         if (spawnInterval > 0f && spawnCount > 1)
         {
-            GetRunner().StartCoroutine(FireAtPositionCoroutine(caster, to, spawnPos, spawnCount));
+            GetRunner().StartCoroutine(FireAtPositionCoroutine(caster, to, spawnPos, spawnCount, resolved));
             return;
         }
 
         for (int i = 0; i < spawnCount; i++)
         {
-            SpawnSingleProjectile(caster, spawnPos, to);
+            SpawnSingleProjectile(caster, spawnPos, to, resolved, i, spawnCount);
         }
     }
 
-    private System.Collections.IEnumerator FireAtPositionCoroutine(Transform caster, Vector2 targetPosition, Vector2 spawnPos, int spawnCount)
+    private System.Collections.IEnumerator FireAtPositionCoroutine(Transform caster, Vector2 targetPosition, Vector2 spawnPos, int spawnCount, ResolvedProjectileValues resolved)
     {
         for (int i = 0; i < spawnCount; i++)
         {
-            SpawnSingleProjectile(caster, spawnPos, targetPosition);
+            SpawnSingleProjectile(caster, spawnPos, targetPosition, resolved, i, spawnCount);
 
             if (spawnInterval > 0f)
                 yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void SpawnSingleProjectile(Transform caster, Vector2 spawnPos, Vector2 targetPosition)
+    private void SpawnSingleProjectile(Transform caster, Vector2 spawnPos, Vector2 targetPosition, ResolvedProjectileValues resolved, int spawnOrder, int maxProjectileCount)
     {
         if (projectilePrefab == null)
         {
@@ -224,45 +260,96 @@ public class ProjectileSkill : BattleSkillBase
         }
 
         GameObject proj = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
-        proj.transform.localScale = Vector3.one * projectileScale;
+        proj.transform.localScale = Vector3.one * resolved.projectileScale;
         proj.name = projectilePrefab.name;
 
         var projectile = proj.GetComponent<SkillProjectileMono>() ?? proj.AddComponent<SkillProjectileMono>();
-        var hitMono = proj.GetComponentInChildren<SkillProjectileHitMono>(true);
-        var moveMono = proj.GetComponent<SkillProjectileMoveMono>() ?? proj.AddComponent<SkillProjectileMoveMono>();
-        var lifeMono = proj.GetComponent<SkillProjectileLifeTimeMono>() ?? proj.AddComponent<SkillProjectileLifeTimeMono>();
+
+        SkillUpgradeMono upgradeMono = caster != null ? caster.GetComponentInParent<SkillUpgradeMono>() : null;
+        SkillUpgradeMono.SkillUpgradeData upgradeData = upgradeMono != null ? upgradeMono.GetUpgradeData(this) : SkillUpgradeMono.SkillUpgradeData.Default;
 
         SkillProjectileDto dto = new SkillProjectileDto
         {
             moveConfig = moveConfig,
-            lifetime = projectileLifetime,
+            lifetime = resolved.projectileLifetime,
             projectileCount = Mathf.Max(1, projectileCount),
-            fireType = fireType
+            fireType = fireType,
+            sourceSkill = this,
+            useRuntimeUpgradeRefresh = useRuntimeUpgradeRefresh,
+            runtimeUpgradeRefreshInterval = 0.2f
         };
 
-        projectile.Initialize(dto);
-
-        if (hitMono != null)
-            hitMono.SetOwner(caster);
-
-        if (moveConfig != null)
-        {
-            moveMono.Initialize(moveConfig, proj.transform, spawnPos, targetPosition);
-        }
-        else
-        {
-            Debug.LogWarning("Projectile move config is not assigned.", this);
-        }
-
-        lifeMono.StartLife(projectileLifetime);
+        projectile.Initialize(
+            dto,
+            caster,
+            upgradeData,
+            spawnPos,
+            targetPosition,
+            resolved.projectileScale,
+            resolved.projectileLifetime,
+            spawnOrder,
+            maxProjectileCount);
     }
 
-    private void FireAt(Transform caster, Transform target)
+    public void SpawnAdditionalOrbitProjectiles(Transform caster, int currentMaxProjectileCount, int desiredMaxProjectileCount)
+    {
+        if (caster == null)
+            return;
+
+        if (moveConfig == null)
+            return;
+
+        if (moveConfig.MoveType != SkillProjectileMoveDto.MoveType.Orbit)
+            return;
+
+        int safeCurrent = Mathf.Max(0, currentMaxProjectileCount);
+        int safeDesired = Mathf.Max(1, desiredMaxProjectileCount);
+        if (safeDesired <= safeCurrent)
+            return;
+
+        ResolvedProjectileValues resolved = ResolveRuntimeValues(caster);
+        resolved.maxProjectileCount = safeDesired;
+
+        Vector2 spawnPos = caster.position;
+        Vector2 targetPos = caster.position;
+
+        for (int spawnOrder = safeCurrent; spawnOrder < safeDesired; spawnOrder++)
+        {
+            SpawnSingleProjectile(caster, spawnPos, targetPos, resolved, spawnOrder, safeDesired);
+        }
+    }
+
+    private void FireAt(Transform caster, Transform target, ResolvedProjectileValues resolved)
     {
         if (target == null)
             return;
 
-        FireAtPosition(caster, target.position, true);
+        FireAtPosition(caster, target.position, true, resolved);
+    }
+    private ResolvedProjectileValues ResolveRuntimeValues(Transform caster)
+    {
+        ResolvedProjectileValues resolved = new ResolvedProjectileValues
+        {
+            range = Mathf.Max(0.1f, Range),
+            projectileScale = Mathf.Max(0.01f, projectileScale),
+            projectileLifetime = Mathf.Max(0.01f, projectileLifetime),
+            maxProjectileCount = Mathf.Max(1, projectileCount)
+        };
+
+        if (caster == null)
+            return resolved;
+
+        SkillUpgradeMono upgradeMono = caster.GetComponentInParent<SkillUpgradeMono>();
+        if (upgradeMono == null)
+            return resolved;
+
+        SkillUpgradeMono.SkillUpgradeData upgrade = upgradeMono.GetUpgradeData(this);
+
+        resolved.range = Mathf.Max(0.1f, resolved.range + upgrade.rangeAdd);
+        resolved.projectileScale = Mathf.Max(0.01f, resolved.projectileScale + upgrade.projectileScaleAdd);
+        resolved.projectileLifetime = Mathf.Max(0.01f, resolved.projectileLifetime + upgrade.projectileLifetimeAdd);
+        resolved.maxProjectileCount = Mathf.Max(1, resolved.maxProjectileCount + Mathf.RoundToInt(upgrade.projectileCountAdd));
+        return resolved;
     }
     private class CoroutineRunner : MonoBehaviour { }
     private List<Vector2> BuildRandomRadiusPatternPositions(Vector2 center, float radius, int count)

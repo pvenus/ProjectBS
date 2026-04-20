@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: -971621509823145148}
   - component: {fileID: 7104248785386914847}
   - component: {fileID: 4519757924942294139}
+  - component: {fileID: -2441933339808948738}
   m_Layer: 6
   m_Name: Npc Melee
   m_TagString: Untagged
@@ -267,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatMono
-  maxHp: 30
-  currentHp: 30
+  maxHp: 500
+  currentHp: 500
   maxMana: 50
   currentMana: 50
   damage: 10
@@ -578,3 +579,19 @@ MonoBehaviour:
   restoreMovementAfterKnockback: 1
   stopMovementOnKnockbackStart: 1
   debugLog: 0
+--- !u!114 &-2441933339808948738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b7abd9106c04a1c9ac2e0c32cd4c31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatStatusMono
+  maxHeat: 100
+  heatDecayPerSecond: 0
+  decayOnlyWhenNotOverheated: 1
+  enableDebugLog: 0

@@ -57,6 +57,7 @@
     <Compile Include="Assets/Scripts/CameraFollowMono.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitTracker.cs" />
     <Compile Include="Assets/Scripts/party/AnimationMono.cs" />
+    <Compile Include="Assets/Scripts/ui/UIUpgradeBottomMono.cs" />
     <Compile Include="Assets/Scripts/party/TowerPropMono.cs" />
     <Compile Include="Assets/Scripts/skills/SanctuarySkill.cs" />
     <Compile Include="Assets/Scripts/npc/NpcTargeting.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets/Scripts/skills/SlamSkill.cs" />
     <Compile Include="Assets/Scripts/npc/NpcMovementProfile.cs" />
     <Compile Include="Assets/Scripts/stage/StageRuntimeMono.cs" />
+    <Compile Include="Assets/Scripts/status/service/CombatDamageService.cs" />
     <Compile Include="Assets/Scripts/party/SkillExecutorMono.cs" />
     <Compile Include="Assets/Scripts/skills/PiercingShotSkill.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedHit.cs" />
@@ -78,7 +80,10 @@
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMoveController.cs" />
     <Compile Include="Assets/Scripts/npc/NpcPathing.cs" />
     <Compile Include="Assets/Scripts/party/StatHudMono.cs" />
+    <Compile Include="Assets/Scripts/status/CombatStatusMono.cs" />
     <Compile Include="Assets/Scripts/skills/VolleyRainSkill.cs" />
+    <Compile Include="Assets/Scripts/skills/so/damage/SkillDamageSO.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileOrbitMovement.cs" />
     <Compile Include="Assets/Scripts/party/PartyAgentMono.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileLifeTimeMono.cs" />
     <Compile Include="Assets/Scripts/PlayerAttackMono.cs" />
@@ -99,6 +104,7 @@
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileWarpMovementDto.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/hit/SKillHitIntervalPolicy.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitMono.cs" />
+    <Compile Include="Assets/Scripts/status/resolver/HeatResolver.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMono.cs" />
     <Compile Include="Assets/Scripts/skills/BasicPushSkill.cs" />
     <Compile Include="Assets/Scripts/party/BattleSensorMono.cs" />
@@ -108,6 +114,7 @@
     <Compile Include="Assets/Scripts/party/dto/SkillExecutionRequest.cs" />
     <Compile Include="Assets/Scripts/party/PartyControlManager.cs" />
     <Compile Include="Assets/Scripts/venus/AIEngineMono.cs" />
+    <Compile Include="Assets/Scripts/party/SkillUpgradeMono.cs" />
     <Compile Include="Assets/Scripts/movement/KnockbackController.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyleResolver.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyle.cs" />
@@ -121,10 +128,12 @@
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileVisualDto.cs" />
     <Compile Include="Assets/Scripts/skills/BasicDoubleThrowSkill.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileWarpMovement.cs" />
+    <Compile Include="Assets/Scripts/status/dto/HeatStateDto.cs" />
     <Compile Include="Assets/Scripts/party/SkillBrainMono.cs" />
     <Compile Include="Assets/Scripts/party/PartyMovementMono.cs" />
     <Compile Include="Assets/Scripts/skills/JudgementMarkSkill.cs" />
     <Compile Include="Assets/Scripts/stage/StageState.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/SkillDamageProfileDto.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainEnum.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainOutput.cs" />
     <Compile Include="Assets/Scripts/movement/MovementController.cs" />
@@ -132,6 +141,7 @@
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedCast.cs" />
     <Compile Include="Assets/Scripts/skills/MarkTargetSkill.cs" />
     <Compile Include="Assets/Scripts/NpcPartyStateMono.cs" />
+    <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileHoverMovement.cs" />
     <Compile Include="Assets/Scripts/skills/so/hit/SkillHitSO.cs" />
     <Compile Include="Assets/Scripts/venus/ProblemFocus.cs" />
     <Compile Include="Assets/Scripts/skills/GuardSkill.cs" />

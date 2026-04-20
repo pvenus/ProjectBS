@@ -130,6 +130,14 @@ public class SkillProjectileVisualMono : MonoBehaviour
         }
     }
 
+    public void RestartCurrentClip()
+    {
+        if (_currentClip == null)
+            return;
+
+        Play(_currentClip);
+    }
+
     public void UpdateDirection(Vector2 direction)
     {
         if (direction.sqrMagnitude <= 0.0001f)

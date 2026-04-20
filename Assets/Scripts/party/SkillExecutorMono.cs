@@ -202,7 +202,7 @@ public class SkillExecutorMono : MonoBehaviour
 
         TryPlayBasicAttackAnimation(skill);
 
-        float cooldown = GetCooldownFromSkill(skill);
+        float cooldown = GetResolvedCooldown(skill, request.Caster);
         if (cooldown > 0f)
             _cooldowns[skill] = cooldown;
 
@@ -435,5 +435,22 @@ public class SkillExecutorMono : MonoBehaviour
         go.transform.position = worldPos;
         Destroy(go, 0.05f);
         return go.transform;
+    }
+    private float GetResolvedCooldown(ScriptableObject skill, Transform caster)
+    {
+        float baseCooldown = GetCooldownFromSkill(skill);
+        if (skill == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        if (caster == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        SkillUpgradeMono upgradeMono = caster.GetComponentInParent<SkillUpgradeMono>();
+        if (upgradeMono == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        SkillUpgradeMono.SkillUpgradeData upgrade = upgradeMono.GetUpgradeData(skill);
+        float resolvedCooldown = baseCooldown + upgrade.cooldownAdd;
+        return Mathf.Max(0f, resolvedCooldown);
     }
 }

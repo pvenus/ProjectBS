@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48b4f7ab038140e2a132e36efe97ad2, type: 3}
+  m_Name: DPS Dot Orbit
+  m_EditorClassIdentifier: Assembly-CSharp::BasicThrowSkill
+  skillId: 
+  displayName: 
+  category: 1
+  targetType: 3
+  tacticalNeed: 4
+  basePriority: 0
+  brainRange: 10
+  brainRadius: 0
+  brainCooldown: 9999
+  targetingMode: 3
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  ignoreSameRoot: 1
+  projectilePrefab: {fileID: 6616324262697269245, guid: e5df917d9e8fe43e999fde0f8d077ed7, type: 3}
+  projectileSpawnOffset: 0
+  projectileScale: 1
+  moveConfig: {fileID: 11400000, guid: fc6026bc470904235a1aefe8e3b16a63, type: 2}
+  projectileLifetime: 9999
+  projectileCount: 2
+  fireType: 1
+  spawnInterval: 0
+  useRuntimeUpgradeRefresh: 1
+  randomAngleJitter: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class SkillProjectileLinearMovement : ISkillProjectileMovement
 {
     private Transform _targetTransform;
+    private SkillProjectileMovementContext _context;
     private Vector2 _start;
     private Vector2 _targetPosition;
     private Vector2 _direction = Vector2.right;
@@ -30,6 +31,11 @@ public class SkillProjectileLinearMovement : ISkillProjectileMovement
         {
             Debug.LogError("Invalid DTO type for SkillProjectileLinearMovement");
         }
+    }
+
+    public void SetContext(SkillProjectileMovementContext context)
+    {
+        _context = context;
     }
 
     public void Initialize(SkillProjectileLinearMovementDto dto)
@@ -110,6 +116,7 @@ public class SkillProjectileLinearMovement : ISkillProjectileMovement
     public void ResetMovement()
     {
         _targetTransform = null;
+        _context = default;
         _start = Vector2.zero;
         _targetPosition = Vector2.zero;
         _direction = Vector2.right;

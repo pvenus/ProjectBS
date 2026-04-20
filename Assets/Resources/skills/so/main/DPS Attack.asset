@@ -18,9 +18,9 @@ MonoBehaviour:
   targetType: 3
   tacticalNeed: 4
   basePriority: 0
-  brainRange: 1
+  brainRange: 1.5
   brainRadius: 0
-  brainCooldown: 3
+  brainCooldown: 2
   targetingMode: 0
   enemyMask:
     serializedVersion: 2
@@ -28,6 +28,7 @@ MonoBehaviour:
   ignoreSameRoot: 1
   projectilePrefab: {fileID: 6616324262697269245, guid: b7e1543d5f8b64d01b341162f79e8774, type: 3}
   projectileSpawnOffset: 0.3
+  projectileScale: 1
   moveConfig: {fileID: 11400000, guid: f750c8a63cbc64456bbe6e005412e21d, type: 2}
   projectileLifetime: 1
   projectileCount: 1

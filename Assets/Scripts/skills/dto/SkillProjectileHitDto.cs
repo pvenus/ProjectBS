@@ -1,3 +1,4 @@
+using Skills.Dto;
 [System.Serializable]
 public class SkillProjectileHitDto
 {
@@ -11,7 +12,7 @@ public class SkillProjectileHitDto
     public float hitDuration = 0.1f;
     public bool deactivateAfterFirstHit;
 
-    public int damage;
+    public SkillDamageProfileDto damageProfile;
     public bool applyDamage = true;
 
     public bool useSplitMultiHitDamage;

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 7439083713756236450}
   - component: {fileID: 2665897924292389591}
   - component: {fileID: 7137317844394987334}
+  - component: {fileID: 6604132500263419459}
   m_Layer: 7
   m_Name: main
   m_TagString: Untagged
@@ -97,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
   basicAttackSkill: {fileID: 11400000, guid: 991972ba4008b4174ad9e70e5ef23188, type: 2}
-  skill1: {fileID: 11400000, guid: 9d78694e255564d088e5c7b81f7d8e57, type: 2}
-  skill2: {fileID: 11400000, guid: 9d78694e255564d088e5c7b81f7d8e57, type: 2}
-  skill3: {fileID: 11400000, guid: 9d78694e255564d088e5c7b81f7d8e57, type: 2}
+  skill1: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
+  skill2: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
+  skill3: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
 --- !u!114 &8087681909227235347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +555,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShaderMono
   targetRenderer: {fileID: 7439083713756236450}
+--- !u!114 &6604132500263419459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852732401579861008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c396df08db29749609788e6b47a22d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillUpgradeMono
+  skillLoadout: {fileID: 3273765135786117438}
+  skillStates: []
+  debugLog: 0
 --- !u!1 &6378610511697526054
 GameObject:
   m_ObjectHideFlags: 0

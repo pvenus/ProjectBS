@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Skills.Dto;
+using Status.Service;
 
 /// <summary>
 /// Projectile hit 전용 게이트웨이 Mono.
@@ -16,15 +18,23 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     [Header("Hit Detection")]
     [SerializeField] private LayerMask targetLayerMask;
-    [SerializeField] private Transform owner;
 
-    public void SetOwner(Transform newOwner)
+    public struct HitRuntimeContext
     {
-        owner = newOwner;
+        public Transform owner;
+        public SkillUpgradeMono.SkillUpgradeData upgradeData;
+    }
+
+    private HitRuntimeContext _context;
+
+    public void SetContext(HitRuntimeContext context)
+    {
+        _context = context;
+        ApplyContext();
     }
 
     private CircleCollider2D _circleCollider;
-    private int _damage;
+    private SkillDamageProfileDto _damageProfile;
     private bool _applyDamage = true;
     private bool _useHitWindow;
     private float _hitStartTime;
@@ -36,6 +46,8 @@ public class SkillProjectileHitMono : MonoBehaviour
     private int _splitHitCount = 1;
     private float _splitHitInterval = 0f;
     private readonly Dictionary<Collider2D, Coroutine> _activeSplitDamageRoutines = new Dictionary<Collider2D, Coroutine>();
+
+    private readonly CombatDamageService _damageService = new CombatDamageService();
 
     private bool _useKnockback;
     private float _knockbackForce;
@@ -72,7 +84,7 @@ public class SkillProjectileHitMono : MonoBehaviour
             if (hit == null)
                 continue;
 
-            if (TryProcessHit(owner != null ? owner : transform, hit))
+            if (TryProcessHit(_context.owner != null ? _context.owner : transform, hit))
             {
                 hasProcessedAnyHitThisFrame = true;
 
@@ -107,8 +119,6 @@ public class SkillProjectileHitMono : MonoBehaviour
             enabled = false;
             return;
         }
-
-        Initialize(hitConfig);
     }
 
     public void Initialize(SkillHitSO config)
@@ -120,7 +130,21 @@ public class SkillProjectileHitMono : MonoBehaviour
         }
 
         hitConfig = config;
-        Initialize(config.CreateDto());
+        ApplyContext();
+    }
+
+    public void ApplyUpgradeData(SkillUpgradeMono.SkillUpgradeData upgradeData)
+    {
+        _context.upgradeData = upgradeData;
+        ApplyContext();
+    }
+
+    private void ApplyContext()
+    {
+        if (hitConfig == null)
+            return;
+
+        Initialize(hitConfig.CreateDto(_context.upgradeData));
     }
 
     /// <summary>
@@ -141,7 +165,7 @@ public class SkillProjectileHitMono : MonoBehaviour
         _elapsedTime = 0f;
         _hitWindowClosed = false;
 
-        _damage = dto.damage;
+        _damageProfile = dto.damageProfile;
         _applyDamage = dto.applyDamage;
         _useSplitMultiHitDamage = dto.useSplitMultiHitDamage;
         _splitHitCount = Mathf.Max(1, dto.splitHitCount);
@@ -178,7 +202,7 @@ public class SkillProjectileHitMono : MonoBehaviour
 
         if (_applyDamage)
         {
-            if (stat == null)
+            if (stat == null || _damageProfile == null)
                 return;
 
             if (_useSplitMultiHitDamage)
@@ -187,11 +211,28 @@ public class SkillProjectileHitMono : MonoBehaviour
             }
             else
             {
-                stat.TakeDamage(_damage);
+                ApplySingleDamage(other, stat, _damageProfile);
             }
         }
 
         ApplyKnockback(other);
+    }
+
+    private void ApplySingleDamage(Collider2D other, StatMono stat, SkillDamageProfileDto damageProfile)
+    {
+        if (other == null || stat == null || damageProfile == null)
+            return;
+
+        Transform source = _context.owner != null ? _context.owner : transform;
+        Vector2 hitPoint = other.bounds.center;
+
+        DamageRequest request = damageProfile.CreateRequest(
+            source != null ? source.gameObject : gameObject,
+            stat.gameObject,
+            hitPoint
+        );
+
+        _damageService.Apply(request);
     }
 
     private void ApplyKnockback(Collider2D other)
@@ -202,7 +243,7 @@ public class SkillProjectileHitMono : MonoBehaviour
         if (other == null)
             return;
 
-        Transform source = owner != null ? owner : transform;
+        Transform source = _context.owner != null ? _context.owner : transform;
         Vector2 sourcePosition = source != null ? (Vector2)source.position : (Vector2)transform.position;
         Vector2 targetPosition = other.bounds.center;
         Vector2 direction = Vector2.zero;
@@ -296,7 +337,8 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     private IEnumerator ApplySplitDamageRoutine(Collider2D targetCollider, StatMono stat)
     {
-        int[] splitDamages = BuildLogSplitDamageSequence(_damage, _splitHitCount);
+        int totalBaseDamage = _damageProfile != null ? Mathf.RoundToInt(_damageProfile.baseDamage) : 0;
+        int[] splitDamages = BuildLogSplitDamageSequence(totalBaseDamage, _splitHitCount);
 
         for (int i = 0; i < splitDamages.Length; i++)
         {
@@ -307,9 +349,24 @@ public class SkillProjectileHitMono : MonoBehaviour
                 break;
 
             int damage = Mathf.Max(0, splitDamages[i]);
-            if (damage > 0)
+            if (damage > 0 && _damageProfile != null)
             {
-                stat.TakeDamage(damage);
+                SkillDamageProfileDto splitProfile = new SkillDamageProfileDto
+                {
+                    skillId = _damageProfile.skillId,
+                    damageType = _damageProfile.damageType,
+                    elementType = _damageProfile.elementType,
+                    baseDamage = damage,
+                    flatBonusDamage = _damageProfile.flatBonusDamage,
+                    heatCoefficient = _damageProfile.heatCoefficient,
+                    heatGain = _damageProfile.heatGain,
+                    canTriggerOverheat = _damageProfile.canTriggerOverheat,
+                    canCritical = _damageProfile.canCritical,
+                    criticalMultiplier = _damageProfile.criticalMultiplier,
+                    ignoreDefense = _damageProfile.ignoreDefense
+                };
+
+                ApplySingleDamage(targetCollider, stat, splitProfile);
             }
 
             if (i < splitDamages.Length - 1 && _splitHitInterval > 0f)
@@ -397,15 +454,16 @@ public class SkillProjectileHitMono : MonoBehaviour
         }
         _activeSplitDamageRoutines.Clear();
 
-        _useSplitMultiHitDamage = false;
         _splitHitCount = 1;
         _splitHitInterval = 0f;
         _useKnockback = false;
         _knockbackForce = 0f;
+        _context = default;
 
         _elapsedTime = 0f;
         _hitWindowClosed = false;
         _hitController.ResetState();
+        _damageProfile = null;
     }
 
     private void OnDisable()

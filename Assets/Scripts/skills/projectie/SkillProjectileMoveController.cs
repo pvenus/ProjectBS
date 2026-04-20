@@ -6,11 +6,15 @@ public class SkillProjectileMoveController
     {
         None = 0,
         Linear = 1,
-        Warp = 2
+        Warp = 2,
+        Hover = 3,
+        Orbit = 4
     }
 
     private ISkillProjectileMovement _linearMovement;
     private ISkillProjectileMovement _warpMovement;
+    private ISkillProjectileMovement _hoverMovement;
+    private ISkillProjectileMovement _orbitMovement;
 
     private ProjectileMoveType _moveType = ProjectileMoveType.None;
     private bool _initialized;
@@ -21,10 +25,16 @@ public class SkillProjectileMoveController
     public ProjectileMoveType MoveType => _moveType;
     public bool IsInitialized => _initialized;
 
-    public SkillProjectileMoveController(ISkillProjectileMovement linearMovement, ISkillProjectileMovement warpMovement = null)
+    public SkillProjectileMoveController(
+        ISkillProjectileMovement linearMovement,
+        ISkillProjectileMovement warpMovement = null,
+        ISkillProjectileMovement hoverMovement = null,
+        ISkillProjectileMovement orbitMovement = null)
     {
         _linearMovement = linearMovement;
         _warpMovement = warpMovement;
+        _hoverMovement = hoverMovement;
+        _orbitMovement = orbitMovement;
 
         if (_linearMovement == null)
         {
@@ -33,6 +43,11 @@ public class SkillProjectileMoveController
     }
 
     public void Initialize(SkillProjectileMoveControllerDto dto)
+    {
+        Initialize(dto, default);
+    }
+
+    public void Initialize(SkillProjectileMoveControllerDto dto, SkillProjectileMovementContext movementContext)
     {
         if (dto == null)
         {
@@ -49,11 +64,19 @@ public class SkillProjectileMoveController
         switch (_moveType)
         {
             case ProjectileMoveType.Linear:
-                InitializeLinear(dto.linearMovement);
+                InitializeLinear(dto.linearMovement, movementContext);
                 break;
 
             case ProjectileMoveType.Warp:
-                InitializeWarp(dto.warpMovement);
+                InitializeWarp(dto.warpMovement, movementContext);
+                break;
+
+            case ProjectileMoveType.Hover:
+                InitializeHover(dto.hoverMovement, movementContext);
+                break;
+
+            case ProjectileMoveType.Orbit:
+                InitializeOrbit(dto.orbitMovement, movementContext);
                 break;
 
             case ProjectileMoveType.None:
@@ -77,6 +100,14 @@ public class SkillProjectileMoveController
             case ProjectileMoveType.Warp:
                 _warpMovement?.TickMovement(deltaTime);
                 break;
+
+            case ProjectileMoveType.Hover:
+                _hoverMovement?.TickMovement(deltaTime);
+                break;
+
+            case ProjectileMoveType.Orbit:
+                _orbitMovement?.TickMovement(deltaTime);
+                break;
         }
         ApplyRotation();
     }
@@ -90,6 +121,8 @@ public class SkillProjectileMoveController
         {
             ProjectileMoveType.Linear => _linearMovement != null && _linearMovement.HasReachedEnd(),
             ProjectileMoveType.Warp => _warpMovement != null && _warpMovement.HasReachedEnd(),
+            ProjectileMoveType.Hover => _hoverMovement != null && _hoverMovement.HasReachedEnd(),
+            ProjectileMoveType.Orbit => _orbitMovement != null && _orbitMovement.HasReachedEnd(),
             _ => false
         };
     }
@@ -109,6 +142,19 @@ public class SkillProjectileMoveController
     public Transform GetRotationTarget()
     {
         return _rotationTarget;
+    }
+
+    public void ApplyRuntimeUpgrade(SkillUpgradeMono.SkillUpgradeData upgradeData)
+    {
+        switch (_moveType)
+        {
+            case ProjectileMoveType.Orbit:
+                if (_orbitMovement is SkillProjectileOrbitMovement orbit)
+                {
+                    orbit.SetRuntimeMaxProjectileCount(Mathf.Max(1, Mathf.RoundToInt(upgradeData.projectileCountAdd)));
+                }
+                break;
+        }
     }
 
     private void ApplyRotation()
@@ -137,12 +183,14 @@ public class SkillProjectileMoveController
         target.rotation = Quaternion.AngleAxis(angle + _rotationOffset, Vector3.forward);
     }
 
-    private ISkillProjectileMovement GetCurrentMovement()
+    public ISkillProjectileMovement GetCurrentMovement()
     {
         return _moveType switch
         {
             ProjectileMoveType.Linear => _linearMovement,
             ProjectileMoveType.Warp => _warpMovement,
+            ProjectileMoveType.Hover => _hoverMovement,
+            ProjectileMoveType.Orbit => _orbitMovement,
             _ => null
         };
     }
@@ -168,6 +216,14 @@ public class SkillProjectileMoveController
             case ProjectileMoveType.Warp:
                 _warpMovement?.ResetMovement();
                 break;
+
+            case ProjectileMoveType.Hover:
+                _hoverMovement?.ResetMovement();
+                break;
+
+            case ProjectileMoveType.Orbit:
+                _orbitMovement?.ResetMovement();
+                break;
         }
 
         _applyDirectionRotation = false;
@@ -177,7 +233,7 @@ public class SkillProjectileMoveController
         _initialized = false;
     }
 
-    private void InitializeLinear(SkillProjectileLinearMovementDto dto)
+    private void InitializeLinear(SkillProjectileLinearMovementDto dto, SkillProjectileMovementContext movementContext)
     {
         if (_linearMovement == null)
         {
@@ -185,6 +241,7 @@ public class SkillProjectileMoveController
             return;
         }
 
+        _linearMovement.SetContext(movementContext);
         _linearMovement.Initialize(dto);
 
         if (_linearMovement is SkillProjectileLinearMovement linear)
@@ -197,7 +254,7 @@ public class SkillProjectileMoveController
         }
     }
 
-    private void InitializeWarp(SkillProjectileWarpMovementDto dto)
+    private void InitializeWarp(SkillProjectileWarpMovementDto dto, SkillProjectileMovementContext movementContext)
     {
         if (_warpMovement == null)
         {
@@ -205,11 +262,54 @@ public class SkillProjectileMoveController
             return;
         }
 
+        _warpMovement.SetContext(movementContext);
         _warpMovement.Initialize(dto);
 
         if (_warpMovement is SkillProjectileWarpMovement warp)
         {
             _initialized = warp.IsInitialized;
+        }
+        else
+        {
+            _initialized = true;
+        }
+    }
+
+    private void InitializeHover(SkillProjectileHoverMovement.HoverMovementDto dto, SkillProjectileMovementContext movementContext)
+    {
+        if (_hoverMovement == null)
+        {
+            Debug.LogError("Hover movement component is missing or does not implement ISkillProjectileMovement");
+            return;
+        }
+
+        _hoverMovement.SetContext(movementContext);
+        _hoverMovement.Initialize(dto);
+
+        if (_hoverMovement is SkillProjectileHoverMovement hover)
+        {
+            _initialized = true;
+        }
+        else
+        {
+            _initialized = true;
+        }
+    }
+
+    private void InitializeOrbit(SkillProjectileOrbitMovement.OrbitMovementDto dto, SkillProjectileMovementContext movementContext)
+    {
+        if (_orbitMovement == null)
+        {
+            Debug.LogError("Orbit movement component is missing or does not implement ISkillProjectileMovement");
+            return;
+        }
+
+        _orbitMovement.SetContext(movementContext);
+        _orbitMovement.Initialize(dto);
+
+        if (_orbitMovement is SkillProjectileOrbitMovement orbit)
+        {
+            _initialized = orbit.IsInitialized;
         }
         else
         {
@@ -223,6 +323,8 @@ public class SkillProjectileMoveControllerDto
     public SkillProjectileMoveController.ProjectileMoveType moveType;
     public SkillProjectileLinearMovementDto linearMovement;
     public SkillProjectileWarpMovementDto warpMovement;
+    public SkillProjectileHoverMovement.HoverMovementDto hoverMovement;
+    public SkillProjectileOrbitMovement.OrbitMovementDto orbitMovement;
 
     public bool applyDirectionRotation;
     public Transform rotationTarget;
