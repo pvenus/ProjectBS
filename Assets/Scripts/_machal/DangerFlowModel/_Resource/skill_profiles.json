@@ -1,0 +1,52 @@
+{
+  "skills": [
+    {
+      "skillId": "lightning_field",
+      "displayName": "낙뢰",
+      "skillAssetPath": "Assets/GameData/SkillProfiles/LightningField.asset",
+      "outputTargetMode": "Target",
+      "note": "타겟 중심 범위 데미지 + 다단 히트 + 광역 낙뢰 형성",
+      "protect": 0.00,
+      "recover": 0.00,
+      "control": 0.30,
+      "eliminate": 0.95,
+      "retreat": 0.00
+    },
+    {
+      "skillId": "power_swing",
+      "displayName": "휘두르기",
+      "skillAssetPath": "Assets/GameData/SkillProfiles/PowerSwing.asset",
+      "outputTargetMode": "Point",
+      "note": "넉백 + 범위 데미지",
+      "protect": 0.25,
+      "recover": 0.00,
+      "control": 0.90,
+      "eliminate": 0.30,
+      "retreat": 0.10
+    },
+    {
+      "skillId": "damage_orb",
+      "displayName": "회전구체",
+      "skillAssetPath": "Assets/GameData/SkillProfiles/DamageOrb.asset",
+      "outputTargetMode": "Self",
+      "note": "주위를 회전하며 히트 시 데미지 + 플레이어 주위를 회전 + 지속 유지",
+      "protect": 0.30,
+      "recover": 0.00,
+      "control": 0.60,
+      "eliminate": 0.45,
+      "retreat": 0.05
+    },
+    {
+      "skillId": "poison_aura",
+      "displayName": "도트 데미지 오라",
+      "skillAssetPath": "Assets/GameData/SkillProfiles/PoisonAura.asset",
+      "outputTargetMode": "Self",
+      "note": "플레이어 중심 범위 + 지속 유지 + 도트 데미지",
+      "protect": 0.35,
+      "recover": 0.00,
+      "control": 0.70,
+      "eliminate": 0.50,
+      "retreat": 0.00
+    }
+  ]
+}
