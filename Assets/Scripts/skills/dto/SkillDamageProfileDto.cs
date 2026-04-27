@@ -15,7 +15,7 @@ namespace Skills.Dto
     {
         [Header("Skill")]
         public string skillId;
-        public DamageType damageType = DamageType.Skill;
+        public DamageType damageType = DamageType.Normal;
         public ElementType elementType = ElementType.None;
 
         [Header("Damage")]
@@ -95,7 +95,7 @@ namespace Skills.Dto
             return new SkillDamageProfileDto
             {
                 skillId = skillId,
-                damageType = DamageType.Basic,
+                damageType = DamageType.Normal,
                 elementType = elementType,
                 baseDamage = baseDamage,
                 flatBonusDamage = flatBonusDamage

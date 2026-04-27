@@ -98,7 +98,7 @@ public class NpcMono : MonoBehaviour
         _repathCollisionTimer -= Time.deltaTime;
         _basicAttackRequestTimer -= Time.deltaTime;
 
-        if (useBasicAttackOnly)
+        if (useBasicAttackOnly && !statMono.IsDead)
             TryRequestBasicAttack();
     }
 

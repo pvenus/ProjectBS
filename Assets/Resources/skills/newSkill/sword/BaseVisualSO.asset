@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a0b0313df6b442e8860a7b2f20711c, type: 3}
+  m_Name: BaseVisualSO
+  m_EditorClassIdentifier: Assembly-CSharp::BaseVisualSO
+  visualId: sword base
+  archetype: 0
+  baseSprite: {fileID: 7353621977714259684, guid: 6f300da0ef3f04492b1de5a99d366a71, type: 3}
+  animatorController: {fileID: 0}
+  idleClip: {fileID: 0}
+  castClip: {fileID: 0}
+  attackClip: {fileID: 7400000, guid: 7d6aa9493ea994128a5c63b166848d26, type: 2}
+  projectileLoopClip: {fileID: 7400000, guid: 32601da25a20b4d7b9999c80d1ead3de, type: 2}
+  hitClip: {fileID: 0}

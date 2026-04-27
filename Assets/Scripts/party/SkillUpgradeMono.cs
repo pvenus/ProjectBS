@@ -215,7 +215,12 @@ public class SkillUpgradeMono : MonoBehaviour
     public ScriptableObject GetSkillBySlot(int slotIndex)
     {
         EnsureInitialized();
-        return skillLoadout != null ? skillLoadout.GetSkillBySlot(slotIndex) : null;
+
+        if (skillLoadout == null)
+            return null;
+
+        EquipmentSkillLoadoutEntry entry = skillLoadout.GetEntryBySlot(slotIndex);
+        return entry != null ? entry.SkillSo : null;
     }
 
     public SkillUpgradeData GetUpgradeDataBySlot(int slotIndex)
@@ -529,7 +534,8 @@ public class SkillUpgradeMono : MonoBehaviour
 
         for (int slotIndex = 0; slotIndex <= 3; slotIndex++)
         {
-            if (skillLoadout.GetSkillBySlot(slotIndex) == skill)
+            EquipmentSkillLoadoutEntry entry = skillLoadout.GetEntryBySlot(slotIndex);
+            if (entry != null && entry.SkillSo == skill)
                 return slotIndex;
         }
 

@@ -4,22 +4,6 @@ using Status.Resolver;
 
 namespace Status.Service
 {
-    public enum DamageType
-    {
-        Basic,
-        Skill,
-        Explosion
-    }
-
-    public enum ElementType
-    {
-        None,
-        Fire,
-        Ice,
-        Wind,
-        Lightning
-    }
-
     [System.Serializable]
     public class DamageAmountDto
     {
@@ -31,7 +15,7 @@ namespace Status.Service
     public class SkillContextDto
     {
         public string skillId;
-        public DamageType damageType = DamageType.Basic;
+        public DamageType damageType = DamageType.Normal;
     }
 
     [System.Serializable]

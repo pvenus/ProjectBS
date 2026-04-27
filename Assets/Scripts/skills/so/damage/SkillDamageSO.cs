@@ -9,7 +9,7 @@ public class SkillDamageSO : ScriptableObject
 {
     [Header("Skill")]
     [SerializeField] private string skillId = "skill_damage";
-    [SerializeField] private DamageType damageType = DamageType.Basic;
+    [SerializeField] private DamageType damageType = DamageType.Normal;
     [SerializeField] private ElementType elementType = ElementType.None;
 
     [Header("Damage")]

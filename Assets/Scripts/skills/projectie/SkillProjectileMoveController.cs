@@ -2,27 +2,19 @@ using UnityEngine;
 
 public class SkillProjectileMoveController
 {
-    public enum ProjectileMoveType
-    {
-        None = 0,
-        Linear = 1,
-        Warp = 2,
-        Hover = 3,
-        Orbit = 4
-    }
 
     private ISkillProjectileMovement _linearMovement;
     private ISkillProjectileMovement _warpMovement;
     private ISkillProjectileMovement _hoverMovement;
     private ISkillProjectileMovement _orbitMovement;
 
-    private ProjectileMoveType _moveType = ProjectileMoveType.None;
+    private SkillProjectileMoveDto.MoveType _moveType = SkillProjectileMoveDto.MoveType.Linear;
     private bool _initialized;
     private bool _applyDirectionRotation;
     private Transform _rotationTarget;
     private float _rotationOffset;
 
-    public ProjectileMoveType MoveType => _moveType;
+    public SkillProjectileMoveDto.MoveType MoveType => _moveType;
     public bool IsInitialized => _initialized;
 
     public SkillProjectileMoveController(
@@ -63,23 +55,22 @@ public class SkillProjectileMoveController
 
         switch (_moveType)
         {
-            case ProjectileMoveType.Linear:
+            case SkillProjectileMoveDto.MoveType.Linear:
                 InitializeLinear(dto.linearMovement, movementContext);
                 break;
 
-            case ProjectileMoveType.Warp:
+            case SkillProjectileMoveDto.MoveType.Warp:
                 InitializeWarp(dto.warpMovement, movementContext);
                 break;
 
-            case ProjectileMoveType.Hover:
+            case SkillProjectileMoveDto.MoveType.Hover:
                 InitializeHover(dto.hoverMovement, movementContext);
                 break;
 
-            case ProjectileMoveType.Orbit:
+            case SkillProjectileMoveDto.MoveType.Orbit:
                 InitializeOrbit(dto.orbitMovement, movementContext);
                 break;
 
-            case ProjectileMoveType.None:
             default:
                 Debug.LogWarning($"Unsupported move type: {_moveType}");
                 break;
@@ -93,19 +84,19 @@ public class SkillProjectileMoveController
 
         switch (_moveType)
         {
-            case ProjectileMoveType.Linear:
+            case SkillProjectileMoveDto.MoveType.Linear:
                 _linearMovement?.TickMovement(deltaTime);
                 break;
 
-            case ProjectileMoveType.Warp:
+            case SkillProjectileMoveDto.MoveType.Warp:
                 _warpMovement?.TickMovement(deltaTime);
                 break;
 
-            case ProjectileMoveType.Hover:
+            case SkillProjectileMoveDto.MoveType.Hover:
                 _hoverMovement?.TickMovement(deltaTime);
                 break;
 
-            case ProjectileMoveType.Orbit:
+            case SkillProjectileMoveDto.MoveType.Orbit:
                 _orbitMovement?.TickMovement(deltaTime);
                 break;
         }
@@ -119,10 +110,10 @@ public class SkillProjectileMoveController
 
         return _moveType switch
         {
-            ProjectileMoveType.Linear => _linearMovement != null && _linearMovement.HasReachedEnd(),
-            ProjectileMoveType.Warp => _warpMovement != null && _warpMovement.HasReachedEnd(),
-            ProjectileMoveType.Hover => _hoverMovement != null && _hoverMovement.HasReachedEnd(),
-            ProjectileMoveType.Orbit => _orbitMovement != null && _orbitMovement.HasReachedEnd(),
+            SkillProjectileMoveDto.MoveType.Linear => _linearMovement != null && _linearMovement.HasReachedEnd(),
+            SkillProjectileMoveDto.MoveType.Warp => _warpMovement != null && _warpMovement.HasReachedEnd(),
+            SkillProjectileMoveDto.MoveType.Hover => _hoverMovement != null && _hoverMovement.HasReachedEnd(),
+            SkillProjectileMoveDto.MoveType.Orbit => _orbitMovement != null && _orbitMovement.HasReachedEnd(),
             _ => false
         };
     }
@@ -148,7 +139,7 @@ public class SkillProjectileMoveController
     {
         switch (_moveType)
         {
-            case ProjectileMoveType.Orbit:
+            case SkillProjectileMoveDto.MoveType.Orbit:
                 if (_orbitMovement is SkillProjectileOrbitMovement orbit)
                 {
                     orbit.SetRuntimeMaxProjectileCount(Mathf.Max(1, Mathf.RoundToInt(upgradeData.projectileCountAdd)));
@@ -187,10 +178,10 @@ public class SkillProjectileMoveController
     {
         return _moveType switch
         {
-            ProjectileMoveType.Linear => _linearMovement,
-            ProjectileMoveType.Warp => _warpMovement,
-            ProjectileMoveType.Hover => _hoverMovement,
-            ProjectileMoveType.Orbit => _orbitMovement,
+            SkillProjectileMoveDto.MoveType.Linear => _linearMovement,
+            SkillProjectileMoveDto.MoveType.Warp => _warpMovement,
+            SkillProjectileMoveDto.MoveType.Hover => _hoverMovement,
+            SkillProjectileMoveDto.MoveType.Orbit => _orbitMovement,
             _ => null
         };
     }
@@ -199,8 +190,8 @@ public class SkillProjectileMoveController
     {
         return _moveType switch
         {
-            ProjectileMoveType.Linear when _linearMovement is SkillProjectileLinearMovement linear => linear.TargetTransform,
-            ProjectileMoveType.Warp when _warpMovement is SkillProjectileWarpMovement warp => warp.TargetTransform,
+            SkillProjectileMoveDto.MoveType.Linear when _linearMovement is SkillProjectileLinearMovement linear => linear.TargetTransform,
+            SkillProjectileMoveDto.MoveType.Warp when _warpMovement is SkillProjectileWarpMovement warp => warp.TargetTransform,
             _ => null
         };
     }
@@ -209,19 +200,19 @@ public class SkillProjectileMoveController
     {
         switch (_moveType)
         {
-            case ProjectileMoveType.Linear:
+            case SkillProjectileMoveDto.MoveType.Linear:
                 _linearMovement?.ResetMovement();
                 break;
 
-            case ProjectileMoveType.Warp:
+            case SkillProjectileMoveDto.MoveType.Warp:
                 _warpMovement?.ResetMovement();
                 break;
 
-            case ProjectileMoveType.Hover:
+            case SkillProjectileMoveDto.MoveType.Hover:
                 _hoverMovement?.ResetMovement();
                 break;
 
-            case ProjectileMoveType.Orbit:
+            case SkillProjectileMoveDto.MoveType.Orbit:
                 _orbitMovement?.ResetMovement();
                 break;
         }
@@ -229,7 +220,7 @@ public class SkillProjectileMoveController
         _applyDirectionRotation = false;
         _rotationTarget = null;
         _rotationOffset = 0f;
-        _moveType = ProjectileMoveType.None;
+        _moveType = SkillProjectileMoveDto.MoveType.Linear;
         _initialized = false;
     }
 
@@ -320,7 +311,7 @@ public class SkillProjectileMoveController
 
 public class SkillProjectileMoveControllerDto
 {
-    public SkillProjectileMoveController.ProjectileMoveType moveType;
+    public SkillProjectileMoveDto.MoveType moveType;
     public SkillProjectileLinearMovementDto linearMovement;
     public SkillProjectileWarpMovementDto warpMovement;
     public SkillProjectileHoverMovement.HoverMovementDto hoverMovement;

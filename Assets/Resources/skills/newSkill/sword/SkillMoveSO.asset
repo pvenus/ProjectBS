@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41a661d9c6f94f19b59d9c40ba4e30b, type: 3}
+  m_Name: SkillMoveSO
+  m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
+  moveType: 1
+  speed: 10
+  arrivalThreshold: 0.01
+  applyDirectionRotation: 1
+  rotationOffset: -90
+  followOffset: {x: 0, y: 0}
+  followLerpSpeed: 12
+  snapOnInitialize: 1
+  useHoverMotion: 1
+  hoverAmplitude: 0.15
+  hoverFrequency: 2.5
+  hoverAxis: {x: 0, y: 1}
+  endWhenOwnerMissing: 1
+  orbitRadius: 1.5
+  orbitAngularSpeed: 180
+  clockwise: 0
+  spawnOrder: 0
+  maxProjectileCount: 1
+  resetPhaseWhenLayoutChanges: 1
+  useRadialPulse: 0
+  radialPulseAmplitude: 0
+  radialPulseFrequency: 0

@@ -20,8 +20,8 @@ public class SkillProjectileMoveMono : MonoBehaviour
 
     public bool IsReady => _moveController != null;
     public bool IsInitialized => _moveController != null && _moveController.IsInitialized;
-    public SkillProjectileMoveController.ProjectileMoveType MoveType =>
-        _moveController != null ? _moveController.MoveType : SkillProjectileMoveController.ProjectileMoveType.None;
+    public SkillProjectileMoveDto.MoveType MoveType =>
+        _moveController != null ? _moveController.MoveType : SkillProjectileMoveDto.MoveType.Linear;
 
     public SkillMoveSO CurrentMoveConfig => moveConfig;
 
@@ -78,7 +78,7 @@ public class SkillProjectileMoveMono : MonoBehaviour
 
         var controllerDto = new SkillProjectileMoveControllerDto
         {
-            moveType = ConvertMoveType(moveDto.moveType),
+            moveType = moveDto.moveType,
             linearMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Linear
                 ? new SkillProjectileLinearMovementDto
                 {
@@ -155,7 +155,7 @@ public class SkillProjectileMoveMono : MonoBehaviour
 
         var controllerDto = new SkillProjectileMoveControllerDto
         {
-            moveType = ConvertMoveType(moveDto.moveType),
+            moveType = moveDto.moveType,
             linearMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Linear
                 ? new SkillProjectileLinearMovementDto
                 {
@@ -257,11 +257,11 @@ public class SkillProjectileMoveMono : MonoBehaviour
             BuildController();
         }
 
-        if (dto.moveType == SkillProjectileMoveController.ProjectileMoveType.Linear && dto.linearMovement != null)
+        if (dto.moveType == SkillProjectileMoveDto.MoveType.Linear && dto.linearMovement != null)
         {
             dto.linearMovement.targetTransform = transform;
         }
-        else if (dto.moveType == SkillProjectileMoveController.ProjectileMoveType.Warp && dto.warpMovement != null)
+        else if (dto.moveType == SkillProjectileMoveDto.MoveType.Warp && dto.warpMovement != null)
         {
             dto.warpMovement.targetTransform = transform;
         }
@@ -313,15 +313,4 @@ public class SkillProjectileMoveMono : MonoBehaviour
         _moveController.ResetController();
     }
 
-    private SkillProjectileMoveController.ProjectileMoveType ConvertMoveType(SkillProjectileMoveDto.MoveType moveType)
-    {
-        return moveType switch
-        {
-            SkillProjectileMoveDto.MoveType.Linear => SkillProjectileMoveController.ProjectileMoveType.Linear,
-            SkillProjectileMoveDto.MoveType.Warp => SkillProjectileMoveController.ProjectileMoveType.Warp,
-            SkillProjectileMoveDto.MoveType.Hover => SkillProjectileMoveController.ProjectileMoveType.Hover,
-            SkillProjectileMoveDto.MoveType.Orbit => SkillProjectileMoveController.ProjectileMoveType.Orbit,
-            _ => SkillProjectileMoveController.ProjectileMoveType.None
-        };
-    }
 }

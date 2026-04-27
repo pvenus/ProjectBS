@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// SkillBrainMono
 /// - Reads StateMono and nearby combat context.
-/// - Evaluates BattleSkillBase skills from SkillLoadoutMono.
+/// - Evaluates loadout skills from SkillLoadoutMono.
 /// - Sends the chosen execution request to SkillExecutorMono.
 ///
 /// Notes:
@@ -438,14 +438,19 @@ public class SkillBrainMono : MonoBehaviour
         if (skillLoadout == null)
             return System.Array.Empty<BattleSkillBase>();
 
-        ScriptableObject[] active = skillLoadout.GetActiveSkills();
-        if (active == null || active.Length == 0)
+        EquipmentSkillLoadoutEntry[] activeEntries = skillLoadout.GetActiveEntries();
+        if (activeEntries == null || activeEntries.Length == 0)
             return System.Array.Empty<BattleSkillBase>();
 
-        List<BattleSkillBase> result = new List<BattleSkillBase>(active.Length);
-        for (int i = 0; i < active.Length; i++)
+        List<BattleSkillBase> result = new List<BattleSkillBase>(activeEntries.Length);
+        for (int i = 0; i < activeEntries.Length; i++)
         {
-            if (active[i] is BattleSkillBase battleSkill)
+            EquipmentSkillLoadoutEntry entry = activeEntries[i];
+            if (entry == null)
+                continue;
+
+            ScriptableObject skill = entry.SkillSo;
+            if (skill is BattleSkillBase battleSkill)
                 result.Add(battleSkill);
         }
 
