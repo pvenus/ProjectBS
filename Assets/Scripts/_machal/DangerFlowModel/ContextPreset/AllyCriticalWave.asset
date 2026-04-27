@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385fe781a096e4c4b871812fefee0891, type: 3}
+  m_Name: AllyCriticalWave
+  m_EditorClassIdentifier: Assembly-CSharp::DangerContextPreset
+  presetId: AllyCriticalWave
+  description: "\uC544\uAD70\uC774 \uB9E4\uC6B0 \uC704\uD5D8\uD558\uACE0 \uC801\uB3C4
+    \uBAB0\uB824\uC624\uB294 \uC0C1\uD669"
+  context:
+    selfHp01: 0.66
+    lowestAllyHp01: 0.12
+    hasHealTarget: 1
+    nearbyEnemyCount: 10
+    enemyCluster01: 0.72
+    isEncircled: 0
+    hasBossNearby: 0
+    averageEnemyHp01: 0.48

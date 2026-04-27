@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
 
-public class SkillExecutorMono : MonoBehaviour
+public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
 
 
@@ -33,7 +33,19 @@ public class SkillExecutorMono : MonoBehaviour
         _projectileFactory = new ProjectileFactory();
     }
 
-    public bool ExecuteBrainOutput(SkillBrainOutput output, Transform caster)
+	public bool Execute(SkillBrainOutput output, Transform caster)
+	{
+		if (output.skill == null)
+		{
+			Debug.LogWarning("[SkillExecutorMonoExecutor] Output skill is null.");
+			return false;
+		}
+
+		ExecuteBrainOutput(output, caster);
+		return true;
+	}
+
+	public bool ExecuteBrainOutput(SkillBrainOutput output, Transform caster)
     {
         if (!output.HasSkill || caster == null)
             return false;

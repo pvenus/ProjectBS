@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f314b856565ec9d4aa34459ff11882cf, type: 3}
+  m_Name: power_swing
+  m_EditorClassIdentifier: Assembly-CSharp::SkillProfileAsset
+  skill: {fileID: 11400000, guid: a89397b4d36394bf5ae87ea93c37b9c0, type: 2}
+  skillId: power_swing
+  displayName: "\uD718\uB450\uB974\uAE30"
+  tacticWeights:
+    protect: 0.25
+    recover: 0
+    control: 0.9
+    eliminate: 0.3
+    retreat: 0.1
+  outputTargetMode: 3
+  note: "\uB109\uBC31 + \uBC94\uC704 \uB370\uBBF8\uC9C0"

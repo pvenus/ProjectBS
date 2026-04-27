@@ -119,6 +119,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31544429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31544431}
+  - component: {fileID: 31544430}
+  m_Layer: 0
+  m_Name: DangerFlowRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &31544430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31544429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f950485ca6b5f4ebd4b97759f60079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DangerFlowRunner
+  useSituationOption: 1
+  availableProfiles:
+  - {fileID: 11400000, guid: c8f3de48a7dd6054fa924c5f6561a6cd, type: 2}
+  - {fileID: 11400000, guid: 237873d3cb66313449a6785f6bbb8ce3, type: 2}
+  - {fileID: 11400000, guid: ab3ddeab21d88df4ca71505cd35af6ce, type: 2}
+  - {fileID: 11400000, guid: 9c1bb999cdfe58f42b0e0ff448b68538, type: 2}
+--- !u!4 &31544431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31544429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.85119, y: 2.19208, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!28 &118884192
 Texture2D:
   m_ObjectHideFlags: 0
@@ -3558,11 +3608,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6973749843366616741, guid: b15f712719cc14c6c8d1a9c95091108a, type: 3}
+      propertyPath: skillLoadout
+      value: 
+      objectReference: {fileID: 6484619408234194737}
+    - target: {fileID: 6973749843366616741, guid: b15f712719cc14c6c8d1a9c95091108a, type: 3}
+      propertyPath: dangerFlowRunner
+      value: 
+      objectReference: {fileID: 31544430}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b15f712719cc14c6c8d1a9c95091108a, type: 3}
+--- !u!114 &6484619408234194737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4575842459583717847, guid: b15f712719cc14c6c8d1a9c95091108a, type: 3}
+  m_PrefabInstance: {fileID: 6484619408234194736}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
 --- !u!1001 &8868038911971009336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3650,3 +3719,4 @@ SceneRoots:
   - {fileID: 1882378520}
   - {fileID: 1202360146}
   - {fileID: 906558205}
+  - {fileID: 31544431}
