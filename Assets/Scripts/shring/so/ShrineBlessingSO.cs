@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,24 +35,15 @@ namespace Shrine
         public ShrineGodType godType = ShrineGodType.None;
 
         [Header("Faith")]
-        [Tooltip("등장 최소 신앙 단계")]
+        [Tooltip("신앙 단계 및 축복 성장 단계")]
         [Range(0, 10)]
-        public int requiredFaithLevel = 0;
+        public int progressionStep = 0;
 
-        [Tooltip("혼합 신앙 상태에서 등장 가능 여부")]
-        public bool allowMixedFaith = true;
 
         [Header("Generation")]
         [Tooltip("랜덤 생성 가중치")]
         [Min(0)]
         public int weight = 100;
-
-        [Tooltip("중복 선택 허용 여부")]
-        public bool allowDuplicate = false;
-
-        [Tooltip("특수 이벤트 전용 여부")]
-        public bool eventOnly = false;
-
         [Header("Tags")]
         [Tooltip("생성 필터링용 태그")]
         public List<string> tags = new();
@@ -73,14 +62,9 @@ namespace Shrine
             return tags != null && tags.Contains(tag);
         }
 
-        public bool CanAppear(int faithLevel, bool mixedFaith)
+        public bool CanAppear(int faithLevel)
         {
-            if (faithLevel < requiredFaithLevel)
-            {
-                return false;
-            }
-
-            if (!allowMixedFaith && mixedFaith)
+            if (faithLevel != progressionStep)
             {
                 return false;
             }

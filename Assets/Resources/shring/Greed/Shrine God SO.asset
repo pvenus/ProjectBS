@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdbcffbce870461288d0e38ded6d885, type: 3}
+  m_Name: Shrine God SO
+  m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineGodSO
+  godId: greed god id
+  godName: greed god name
+  godType: 3
+  description: greed god desc
+  icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  themeColor: {r: 1, g: 1, b: 1, a: 1}
+  lockFaithLevel: 5
+  successorFaithLevel: 10
+  exclusiveBlessings:
+  - {fileID: 11400000, guid: 25a10184c2d3f41108c2456b1a9c4a50, type: 2}
+  - {fileID: 11400000, guid: 613869d2eddfa44e9a5f267fa6d1717d, type: 2}
+  - {fileID: 11400000, guid: 6fe7c0451a0124333ad3dc1839a796db, type: 2}
+  - {fileID: 11400000, guid: 96cad6c94b86b433c95f5beccc6c5766, type: 2}
+  - {fileID: 11400000, guid: 3a5817fb5a13d468997d0744c6aa0b81, type: 2}
+  - {fileID: 11400000, guid: 982f94a6f4252439190665f02c31953d, type: 2}
+  - {fileID: 11400000, guid: 43b7c28ca2db74328b4351d846d836b9, type: 2}
+  - {fileID: 11400000, guid: 44eeaf3dca1fd411c94df26b7eb8aa53, type: 2}
+  - {fileID: 11400000, guid: 9606d81ed15c040a886f844a0d0a194f, type: 2}
+  - {fileID: 11400000, guid: e29b194b1fcad4f9c9ec40ff1a3dca9e, type: 2}
+  stageRewards: []
+  missionType: 0
+  missionDescription: 
+  introductionText: 
+  devotionText: 
+  successorText: 

@@ -21,12 +21,11 @@ namespace Shrine
         [Header("Config")]
         [SerializeField] private ShrineConfigSO config;
 
-        [Header("Gods")]
-        [SerializeField] private List<ShrineGodSO> gods = new();
 
         [Header("Runtime")]
         [SerializeField] private ShrineRuntimeData currentShrine;
         [SerializeField] private FaithRuntimeData faithData = new();
+        [SerializeField] private ShrinePlayerRuntimeData playerRuntimeData = new();
 
         [Header("Player Debug")]
         [SerializeField] private int currentGold = 500;
@@ -41,6 +40,7 @@ namespace Shrine
         public ShrineConfigSO Config => config;
         public ShrineRuntimeData CurrentShrine => currentShrine;
         public FaithRuntimeData FaithData => faithData;
+        public ShrinePlayerRuntimeData PlayerRuntimeData => playerRuntimeData;
         public int CurrentGold => currentGold;
         public int PartyCurrentHp => partyCurrentHp;
         public int PartyMaxHp => partyMaxHp;
@@ -75,6 +75,11 @@ namespace Shrine
             }
 
             faithData.InitializeDefaults();
+
+            if (playerRuntimeData == null)
+            {
+                playerRuntimeData = new ShrinePlayerRuntimeData();
+            }
         }
 
         public void OpenShrine()
@@ -196,6 +201,17 @@ namespace Shrine
                 return false;
             }
 
+            int currentFaithLevel =
+                faithData.GetFaithLevel(currentShrine.selectedGod);
+
+            if (currentFaithLevel >= 10)
+            {
+                Debug.LogWarning(
+                    $"[ShrineManager] Faith already max level. god={currentShrine.selectedGod}");
+
+                return false;
+            }
+
             int gain = config != null ? config.prayFaithGain : 1;
             bool success = faithData.TryIncreaseFaith(currentShrine.selectedGod, gain);
             if (!success)
@@ -205,6 +221,8 @@ namespace Shrine
 
             currentShrine.MarkFaithActionApplied();
             int level = faithData.GetFaithLevel(currentShrine.selectedGod);
+
+            playerRuntimeData.AddFaith(currentShrine.selectedGod, gain);
 
             if (logDebug)
             {
@@ -227,6 +245,17 @@ namespace Shrine
             if (!currentShrine.HasSelectedGod)
             {
                 Debug.LogWarning("[ShrineManager] ConfirmDonate failed. God is not selected.");
+                return false;
+            }
+
+            int currentFaithLevelCheck =
+                faithData.GetFaithLevel(currentShrine.selectedGod);
+
+            if (currentFaithLevelCheck >= 10)
+            {
+                Debug.LogWarning(
+                    $"[ShrineManager] Faith already max level. god={currentShrine.selectedGod}");
+
                 return false;
             }
 
@@ -253,6 +282,8 @@ namespace Shrine
 
             currentShrine.MarkFaithActionApplied();
             int level = faithData.GetFaithLevel(currentShrine.selectedGod);
+
+            playerRuntimeData.AddFaith(currentShrine.selectedGod, gain);
 
             if (logDebug)
             {
@@ -281,6 +312,13 @@ namespace Shrine
             ShrineBlessingRuntime selected = currentShrine.selectedBlessing;
             selected?.Select();
 
+            if (selected != null
+                && selected.blessing != null
+                && selected.blessing.godType == ShrineGodType.None)
+            {
+                playerRuntimeData.AddBlessing(selected.blessing);
+            }
+
             if (logDebug && selected != null)
             {
                 Debug.Log($"[ShrineManager] Blessing selected. blessing={selected.DisplayName}, effect={selected.GetEffectDescription()}");
@@ -308,6 +346,13 @@ namespace Shrine
             ShrineBlessingRuntime selected = currentShrine.selectedBlessing;
             selected?.Select();
 
+            if (selected != null
+                && selected.blessing != null
+                && selected.blessing.godType == ShrineGodType.None)
+            {
+                playerRuntimeData.AddBlessing(selected.blessing);
+            }
+
             OnBlessingSelected?.Invoke(selected);
             Refresh();
             CompleteShrine();
@@ -327,7 +372,12 @@ namespace Shrine
 
         public ShrineGodSO GetGodSO(ShrineGodType godType)
         {
-            return gods.FirstOrDefault(x => x != null && x.godType == godType);
+            if (config == null)
+            {
+                return null;
+            }
+
+            return config.GetGod(godType);
         }
 
         public void SetGold(int gold)
@@ -405,7 +455,7 @@ namespace Shrine
 
                 runtimeCandidates.Add(new ShrineBlessingRuntime(selected, i, config.configId));
 
-                if (!config.allowDuplicateBlessingCandidates && !selected.allowDuplicate)
+                if (!config.allowDuplicateBlessingCandidates)
                 {
                     workingCandidates.Remove(selected);
                 }
@@ -426,10 +476,6 @@ namespace Shrine
                 return new List<ShrineBlessingSO>();
             }
 
-            bool isMixedFaith = faithData.IsMixedFaith();
-            ShrineGodType highestGod = faithData.GetHighestFaithGod();
-            int highestFaithLevel = faithData.GetFaithLevel(highestGod);
-
             List<ShrineBlessingSO> result = new();
 
             foreach (ShrineBlessingSO blessing in config.blessingPool)
@@ -439,26 +485,12 @@ namespace Shrine
                     continue;
                 }
 
-                if (blessing.eventOnly)
-                {
-                    continue;
-                }
-
                 if (blessing.weight <= 0)
                 {
                     continue;
                 }
 
-                int faithLevel = blessing.godType == ShrineGodType.None
-                    ? highestFaithLevel
-                    : faithData.GetFaithLevel(blessing.godType);
-
-                if (!blessing.CanAppear(faithLevel, isMixedFaith))
-                {
-                    continue;
-                }
-
-                if (blessing.godType != ShrineGodType.None && faithData.HasLockedFaith && faithData.lockedGod != blessing.godType)
+                if (blessing.godType != ShrineGodType.None)
                 {
                     continue;
                 }
@@ -506,13 +538,13 @@ namespace Shrine
 
             List<ShrineGodType> defaults = config.GetDefaultAvailableGods();
 
-            if (!faithData.HasLockedFaith)
+            if (!playerRuntimeData.HasLockedFaith)
             {
                 return defaults;
             }
 
             return defaults
-                .Where(x => x == faithData.lockedGod)
+                .Where(x => x == playerRuntimeData.LockedGod)
                 .ToList();
         }
 

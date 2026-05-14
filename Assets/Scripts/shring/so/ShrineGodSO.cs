@@ -103,7 +103,7 @@ namespace Shrine
                     continue;
                 }
 
-                if (blessing.requiredFaithLevel > faithLevel)
+                if (blessing.progressionStep != faithLevel)
                 {
                     continue;
                 }

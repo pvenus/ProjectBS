@@ -1,6 +1,3 @@
-
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,6 +44,9 @@ namespace Shrine
             ShrineGodType.Life,
             ShrineGodType.War
         };
+
+        [Tooltip("신 데이터 목록")]
+        public List<ShrineGodSO> gods = new();
 
         [Header("Donation Cost")]
         public List<ShrineDonationCostRule> donationCostRules = new()
@@ -120,6 +120,16 @@ namespace Shrine
             }
 
             return result;
+        }
+
+        public ShrineGodSO GetGod(ShrineGodType godType)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return null;
+            }
+
+            return gods.Find(x => x != null && x.godType == godType);
         }
     }
 
