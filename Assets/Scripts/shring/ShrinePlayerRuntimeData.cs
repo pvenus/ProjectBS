@@ -7,8 +7,10 @@ namespace Shrine
     [Serializable]
     public class ShrinePlayerRuntimeData
     {
-        [Header("Common Blessing")]
-        [SerializeField] private ShrineBlessingSO commonBlessing;
+        [Header("Blessings")]
+        [SerializeField] private ShrineBlessingSO baseBlessing;
+
+        [SerializeField] private ShrineBlessingSO enhancedBlessing;
 
         [Header("Faith Levels")]
         [SerializeField] private List<ShrineFaithEntry> faithEntries = new();
@@ -16,22 +18,30 @@ namespace Shrine
         [Header("Visited Gods")]
         [SerializeField] private List<ShrineGodType> visitedGods = new();
 
+        [Header("Unlocked Gods")]
+        [SerializeField] private List<ShrineGodType> unlockedGods = new();
+
         [Header("Locked Faith")]
         [SerializeField] private bool hasLockedFaith;
         [SerializeField] private ShrineGodType lockedGod = ShrineGodType.None;
 
-        public ShrineBlessingSO CommonBlessing => commonBlessing;
+        public ShrineBlessingSO BaseBlessing => baseBlessing;
+
+        public ShrineBlessingSO EnhancedBlessing => enhancedBlessing;
         public IReadOnlyList<ShrineFaithEntry> FaithEntries => faithEntries;
         public IReadOnlyList<ShrineGodType> VisitedGods => visitedGods;
+        public IReadOnlyList<ShrineGodType> UnlockedGods => unlockedGods;
 
         public bool HasLockedFaith => hasLockedFaith;
         public ShrineGodType LockedGod => lockedGod;
 
         public void Reset()
         {
-            commonBlessing = null;
+            baseBlessing = null;
+            enhancedBlessing = null;
             faithEntries.Clear();
             visitedGods.Clear();
+            unlockedGods.Clear();
             hasLockedFaith = false;
             lockedGod = ShrineGodType.None;
         }
@@ -43,7 +53,8 @@ namespace Shrine
                 return false;
             }
 
-            return commonBlessing == blessing;
+            return baseBlessing == blessing
+                || enhancedBlessing == blessing;
         }
 
         public bool AddBlessing(ShrineBlessingSO blessing)
@@ -53,12 +64,29 @@ namespace Shrine
                 return false;
             }
 
-            if (blessing.godType != ShrineGodType.None)
+            baseBlessing = blessing;
+            return true;
+        }
+
+        public bool AddEnhancedBlessing(
+            ShrineBlessingSO blessing)
+        {
+            if (blessing == null)
             {
-                return true;
+                return false;
             }
 
-            commonBlessing = blessing;
+            enhancedBlessing = blessing;
+            return true;
+        }
+
+        public bool AddBlessing(string runtimeId)
+        {
+            if (string.IsNullOrWhiteSpace(runtimeId))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -69,13 +97,21 @@ namespace Shrine
                 return false;
             }
 
-            if (commonBlessing != blessing)
+            bool removed = false;
+
+            if (baseBlessing == blessing)
             {
-                return false;
+                baseBlessing = null;
+                removed = true;
             }
 
-            commonBlessing = null;
-            return true;
+            if (enhancedBlessing == blessing)
+            {
+                enhancedBlessing = null;
+                removed = true;
+            }
+
+            return removed;
         }
 
         public int GetFaithLevel(ShrineGodType godType)
@@ -84,26 +120,59 @@ namespace Shrine
             return entry?.faithLevel ?? 0;
         }
 
-        public void AddFaith(ShrineGodType godType, int amount)
+        public void SetFaithLevel(
+            ShrineGodType godType,
+            int level)
         {
             if (godType == ShrineGodType.None)
             {
                 return;
             }
 
+            if (level < 0)
+            {
+                level = 0;
+            }
+
+            ShrineFaithEntry entry =
+                GetOrCreateFaithEntry(godType);
+
+            entry.faithLevel = level;
+
+            RegisterVisitedGod(godType);
+
+            if (!hasLockedFaith
+                && entry.faithLevel >= 5)
+            {
+                LockFaith(godType);
+            }
+        }
+
+        public bool AddFaith(ShrineGodType godType, int amount)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return false;
+            }
+
             if (amount <= 0)
             {
-                return;
+                return false;
             }
 
             ShrineFaithEntry entry = GetOrCreateFaithEntry(godType);
             entry.faithLevel += amount;
-            if (entry.faithLevel >= 5)
+            bool becameLocked = false;
+
+            if (!hasLockedFaith && entry.faithLevel >= 5)
             {
                 LockFaith(godType);
+                becameLocked = true;
             }
 
             RegisterVisitedGod(godType);
+
+            return becameLocked;
         }
 
         public bool HasVisitedGod(ShrineGodType godType)
@@ -126,8 +195,45 @@ namespace Shrine
             visitedGods.Add(godType);
         }
 
+        public bool IsGodUnlocked(ShrineGodType godType)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return false;
+            }
+
+            return unlockedGods.Contains(godType);
+        }
+
+        public bool UnlockGod(ShrineGodType godType)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return false;
+            }
+
+            if (unlockedGods.Contains(godType))
+            {
+                return false;
+            }
+
+            unlockedGods.Add(godType);
+            return true;
+        }
+
         public bool CanSelectGod(ShrineGodType godType)
         {
+            if (godType == ShrineGodType.None)
+            {
+                return false;
+            }
+
+            if (unlockedGods.Count > 0
+                && !unlockedGods.Contains(godType))
+            {
+                return false;
+            }
+
             if (!hasLockedFaith)
             {
                 return true;

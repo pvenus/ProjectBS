@@ -186,10 +186,10 @@ namespace Shrine
 
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("Common Blessing");
+            sb.AppendLine("Base Blessing");
 
             ShrineBlessingSO commonBlessing =
-                shrineManager.PlayerRuntimeData.CommonBlessing;
+                shrineManager.PlayerRuntimeData.BaseBlessing;
 
             if (commonBlessing == null)
             {
@@ -198,6 +198,21 @@ namespace Shrine
             else
             {
                 sb.AppendLine($"- {commonBlessing.name}");
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Enhanced Blessing");
+
+            ShrineBlessingSO enhancedBlessing =
+                shrineManager.PlayerRuntimeData.EnhancedBlessing;
+
+            if (enhancedBlessing == null)
+            {
+                sb.AppendLine("- None");
+            }
+            else
+            {
+                sb.AppendLine($"- {enhancedBlessing.name}");
             }
 
             sb.AppendLine();

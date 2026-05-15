@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b365d1281f64fa58e888474abec7b5, type: 3}
+  m_Name: '[Unlock][1] MissionSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Mission.MissionSO
+  missionId: 
+  displayName: 
+  description: 
+  icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  themeColor: {r: 1, g: 1, b: 1, a: 1}
+  conditions:
+  - progressType: 0
+    progressKey: 100
+    contentTags: []
+    compareType: 0
+    targetValue: 0
+    targetCount: 5
+  rewardType: 1000
+  rewardGold: 0
+  rewardFaith: 0
+  rewardRelic: {fileID: 0}
+  unlockGodType: 3
+  unlockContentId: 
+  hidden: 0
+  repeatable: 0

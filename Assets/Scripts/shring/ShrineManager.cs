@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Item;
+using Mission;
 
 namespace Shrine
 {
@@ -26,11 +27,8 @@ namespace Shrine
         [SerializeField] private ShrineRuntimeData currentShrine;
         [SerializeField] private FaithRuntimeData faithData = new();
         [SerializeField] private ShrinePlayerRuntimeData playerRuntimeData = new();
-
-        [Header("Player Debug")]
-        [SerializeField] private int currentGold = 500;
-        [SerializeField] private int partyCurrentHp = 60;
-        [SerializeField] private int partyMaxHp = 100;
+        [SerializeField] private MissionManager missionManager;
+        [SerializeField] private ShrinePlayerContext playerContext = new();
 
         [Header("Debug")]
         [SerializeField] private string shrineId = "test_shrine";
@@ -41,9 +39,9 @@ namespace Shrine
         public ShrineRuntimeData CurrentShrine => currentShrine;
         public FaithRuntimeData FaithData => faithData;
         public ShrinePlayerRuntimeData PlayerRuntimeData => playerRuntimeData;
-        public int CurrentGold => currentGold;
-        public int PartyCurrentHp => partyCurrentHp;
-        public int PartyMaxHp => partyMaxHp;
+        public int CurrentGold => playerContext.CurrentGold;
+        public int PartyCurrentHp => playerContext.CurrentHp;
+        public int PartyMaxHp => playerContext.MaxHp;
         public bool HasShrine => currentShrine != null;
         public bool IsOpened => currentShrine != null && currentShrine.isOpened;
 
@@ -57,7 +55,11 @@ namespace Shrine
         public event Action<int, int> OnPartyHpChanged;
         public event Action<int> OnGoldChanged;
 
-        private System.Random fixedRandom;
+        private ShrineBlessingService blessingService;
+        private ShrineMissionService missionService;
+        private ShrineRewardService rewardService;
+        private ShrineFaithService faithService;
+        private ShrineActionService actionService;
 
         private void Awake()
         {
@@ -80,6 +82,44 @@ namespace Shrine
             {
                 playerRuntimeData = new ShrinePlayerRuntimeData();
             }
+            if (playerContext == null)
+            {
+                playerContext = new ShrinePlayerContext();
+            }
+
+            playerContext.OnGoldChanged += HandleGoldChanged;
+            playerContext.OnHpChanged += HandleHpChanged;
+
+            blessingService = new ShrineBlessingService(
+                this,
+                config,
+                playerRuntimeData,
+                logDebug);
+
+            missionService = new ShrineMissionService(
+                config,
+                missionManager,
+                logDebug);
+
+            rewardService = new ShrineRewardService(
+                logDebug);
+
+            faithService = new ShrineFaithService(
+                this,
+                playerRuntimeData,
+                config,
+                rewardService,
+                missionService,
+                logDebug);
+
+            actionService = new ShrineActionService(
+                this,
+                config,
+                faithService,
+                playerContext,
+                logDebug);
+
+            missionService?.RegisterUnlockMissions();
         }
 
         public void OpenShrine()
@@ -90,7 +130,6 @@ namespace Shrine
                 return;
             }
 
-            fixedRandom = config.useFixedSeed ? new System.Random(config.seed) : null;
 
             currentShrine = new ShrineRuntimeData(shrineId, shrineName)
             {
@@ -190,110 +229,14 @@ namespace Shrine
 
         public bool ConfirmPray()
         {
-            if (!EnsureShrineOpened())
-            {
-                return false;
-            }
-
-            if (!currentShrine.HasSelectedGod)
-            {
-                Debug.LogWarning("[ShrineManager] ConfirmPray failed. God is not selected.");
-                return false;
-            }
-
-            int currentFaithLevel =
-                faithData.GetFaithLevel(currentShrine.selectedGod);
-
-            if (currentFaithLevel >= 10)
-            {
-                Debug.LogWarning(
-                    $"[ShrineManager] Faith already max level. god={currentShrine.selectedGod}");
-
-                return false;
-            }
-
-            int gain = config != null ? config.prayFaithGain : 1;
-            bool success = faithData.TryIncreaseFaith(currentShrine.selectedGod, gain);
-            if (!success)
-            {
-                return false;
-            }
-
-            currentShrine.MarkFaithActionApplied();
-            int level = faithData.GetFaithLevel(currentShrine.selectedGod);
-
-            playerRuntimeData.AddFaith(currentShrine.selectedGod, gain);
-
-            if (logDebug)
-            {
-                Debug.Log($"[ShrineManager] Pray completed. god={currentShrine.selectedGod}, level={level}");
-            }
-
-            OnFaithChanged?.Invoke(currentShrine.selectedGod, level);
-            Refresh();
-            CompleteShrine();
-            return true;
+            return actionService != null
+                && actionService.ConfirmPray();
         }
 
         public bool ConfirmDonate()
         {
-            if (!EnsureShrineOpened())
-            {
-                return false;
-            }
-
-            if (!currentShrine.HasSelectedGod)
-            {
-                Debug.LogWarning("[ShrineManager] ConfirmDonate failed. God is not selected.");
-                return false;
-            }
-
-            int currentFaithLevelCheck =
-                faithData.GetFaithLevel(currentShrine.selectedGod);
-
-            if (currentFaithLevelCheck >= 10)
-            {
-                Debug.LogWarning(
-                    $"[ShrineManager] Faith already max level. god={currentShrine.selectedGod}");
-
-                return false;
-            }
-
-            int currentFaithLevel = faithData.GetFaithLevel(currentShrine.selectedGod);
-            int cost = config != null ? config.GetDonationCost(currentFaithLevel) : 0;
-
-            if (currentGold < cost)
-            {
-                Debug.LogWarning($"[ShrineManager] Not enough gold. cost={cost}, currentGold={currentGold}");
-                return false;
-            }
-
-            currentGold -= cost;
-            OnGoldChanged?.Invoke(currentGold);
-
-            int gain = config != null ? config.donateFaithGain : 2;
-            bool success = faithData.TryIncreaseFaith(currentShrine.selectedGod, gain);
-            if (!success)
-            {
-                currentGold += cost;
-                OnGoldChanged?.Invoke(currentGold);
-                return false;
-            }
-
-            currentShrine.MarkFaithActionApplied();
-            int level = faithData.GetFaithLevel(currentShrine.selectedGod);
-
-            playerRuntimeData.AddFaith(currentShrine.selectedGod, gain);
-
-            if (logDebug)
-            {
-                Debug.Log($"[ShrineManager] Donate completed. god={currentShrine.selectedGod}, cost={cost}, level={level}");
-            }
-
-            OnFaithChanged?.Invoke(currentShrine.selectedGod, level);
-            Refresh();
-            CompleteShrine();
-            return true;
+            return actionService != null
+                && actionService.ConfirmDonate();
         }
 
         public bool SelectBlessingBySlot(int slotIndex)
@@ -303,31 +246,17 @@ namespace Shrine
                 return false;
             }
 
-            bool success = currentShrine.SelectBlessingBySlot(slotIndex);
+            bool success =
+                currentShrine.SelectBlessingBySlot(slotIndex);
+
             if (!success)
             {
                 return false;
             }
 
-            ShrineBlessingRuntime selected = currentShrine.selectedBlessing;
-            selected?.Select();
-
-            if (selected != null
-                && selected.blessing != null
-                && selected.blessing.godType == ShrineGodType.None)
-            {
-                playerRuntimeData.AddBlessing(selected.blessing);
-            }
-
-            if (logDebug && selected != null)
-            {
-                Debug.Log($"[ShrineManager] Blessing selected. blessing={selected.DisplayName}, effect={selected.GetEffectDescription()}");
-            }
-
-            OnBlessingSelected?.Invoke(selected);
-            Refresh();
-            CompleteShrine();
-            return true;
+            return actionService != null
+                && actionService.SelectBlessing(
+                    currentShrine.selectedBlessing);
         }
 
         public bool SelectBlessing(string runtimeId)
@@ -337,26 +266,17 @@ namespace Shrine
                 return false;
             }
 
-            bool success = currentShrine.SelectBlessing(runtimeId);
+            bool success =
+                currentShrine.SelectBlessing(runtimeId);
+
             if (!success)
             {
                 return false;
             }
 
-            ShrineBlessingRuntime selected = currentShrine.selectedBlessing;
-            selected?.Select();
-
-            if (selected != null
-                && selected.blessing != null
-                && selected.blessing.godType == ShrineGodType.None)
-            {
-                playerRuntimeData.AddBlessing(selected.blessing);
-            }
-
-            OnBlessingSelected?.Invoke(selected);
-            Refresh();
-            CompleteShrine();
-            return true;
+            return actionService != null
+                && actionService.SelectBlessing(
+                    currentShrine.selectedBlessing);
         }
 
         public int GetDonationCost(ShrineGodType godType)
@@ -382,43 +302,52 @@ namespace Shrine
 
         public void SetGold(int gold)
         {
-            currentGold = Mathf.Max(0, gold);
-            OnGoldChanged?.Invoke(currentGold);
+            playerContext.SetGold(gold);
             Refresh();
         }
 
         public void AddGold(int amount)
         {
-            currentGold = Mathf.Max(0, currentGold + amount);
-            OnGoldChanged?.Invoke(currentGold);
+            playerContext.AddGold(amount);
             Refresh();
         }
 
         public void SetPartyHp(int currentHp, int maxHp)
         {
-            partyMaxHp = Mathf.Max(1, maxHp);
-            partyCurrentHp = Mathf.Clamp(currentHp, 0, partyMaxHp);
-            OnPartyHpChanged?.Invoke(partyCurrentHp, partyMaxHp);
+            playerContext.SetHp(currentHp, maxHp);
             Refresh();
         }
 
         private void ApplyHeal()
         {
-            if (config == null)
-            {
-                return;
-            }
+            actionService?.ApplyHeal();
+        }
 
-            int healAmount = Mathf.RoundToInt(partyMaxHp * config.partyHealRatio);
-            partyCurrentHp = Mathf.Clamp(partyCurrentHp + healAmount, 0, partyMaxHp);
-            currentShrine.MarkHealApplied();
+        public void NotifyFaithChanged(
+            ShrineGodType godType,
+            int level)
+        {
+            OnFaithChanged?.Invoke(godType, level);
+        }
 
-            if (logDebug)
-            {
-                Debug.Log($"[ShrineManager] Heal applied. amount={healAmount}, hp={partyCurrentHp}/{partyMaxHp}");
-            }
+        public void NotifyBlessingSelected(
+            ShrineBlessingRuntime blessing)
+        {
+            OnBlessingSelected?.Invoke(blessing);
+        }
 
-            OnPartyHpChanged?.Invoke(partyCurrentHp, partyMaxHp);
+        private void HandleGoldChanged(int currentGold)
+        {
+            OnGoldChanged?.Invoke(currentGold);
+        }
+
+        private void HandleHpChanged(
+            int currentHp,
+            int maxHp)
+        {
+            OnPartyHpChanged?.Invoke(
+                currentHp,
+                maxHp);
         }
 
         private void GenerateBlessingCandidates()
@@ -428,105 +357,52 @@ namespace Shrine
                 return;
             }
 
-            List<ShrineBlessingSO> candidates = GetAvailableBlessingPool();
-            if (candidates.Count == 0)
+            if (blessingService == null)
             {
-                Debug.LogWarning("[ShrineManager] No available blessings in pool.");
-                currentShrine.SetBlessingCandidates(new List<ShrineBlessingRuntime>());
+                Debug.LogWarning(
+                    "[ShrineManager] BlessingService is null.");
+
                 return;
             }
 
-            List<ShrineBlessingSO> workingCandidates = new List<ShrineBlessingSO>(candidates);
+            ShrineGodType godType =
+                currentShrine != null
+                    ? currentShrine.selectedGod
+                    : ShrineGodType.None;
+
+            List<ShrineBlessingSO> selectedBlessings =
+                blessingService.GenerateBlessingCandidates(
+                    godType,
+                    Mathf.Max(1, config.blessingCandidateCount));
+
             List<ShrineBlessingRuntime> runtimeCandidates = new();
-            int count = Mathf.Max(1, config.blessingCandidateCount);
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < selectedBlessings.Count; i++)
             {
-                if (workingCandidates.Count == 0)
-                {
-                    break;
-                }
+                ShrineBlessingSO blessing =
+                    selectedBlessings[i];
 
-                ShrineBlessingSO selected = PickWeightedBlessing(workingCandidates);
-                if (selected == null)
+                if (blessing == null)
                 {
                     continue;
                 }
 
-                runtimeCandidates.Add(new ShrineBlessingRuntime(selected, i, config.configId));
-
-                if (!config.allowDuplicateBlessingCandidates)
-                {
-                    workingCandidates.Remove(selected);
-                }
+                runtimeCandidates.Add(
+                    new ShrineBlessingRuntime(
+                        blessing,
+                        i,
+                        config.configId));
             }
-
+            if (currentShrine == null)
+            {
+                return;
+            }
             currentShrine.SetBlessingCandidates(runtimeCandidates);
 
             foreach (ShrineBlessingRuntime blessing in runtimeCandidates)
             {
                 OnBlessingCandidatesGenerated?.Invoke(blessing);
             }
-        }
-
-        private List<ShrineBlessingSO> GetAvailableBlessingPool()
-        {
-            if (config == null || config.blessingPool == null)
-            {
-                return new List<ShrineBlessingSO>();
-            }
-
-            List<ShrineBlessingSO> result = new();
-
-            foreach (ShrineBlessingSO blessing in config.blessingPool)
-            {
-                if (blessing == null)
-                {
-                    continue;
-                }
-
-                if (blessing.weight <= 0)
-                {
-                    continue;
-                }
-
-                if (blessing.godType != ShrineGodType.None)
-                {
-                    continue;
-                }
-
-                result.Add(blessing);
-            }
-
-            return result;
-        }
-
-        private ShrineBlessingSO PickWeightedBlessing(List<ShrineBlessingSO> candidates)
-        {
-            if (candidates == null || candidates.Count == 0)
-            {
-                return null;
-            }
-
-            int totalWeight = candidates.Sum(x => Mathf.Max(0, x.weight));
-            if (totalWeight <= 0)
-            {
-                return candidates[GetRandomRange(0, candidates.Count)];
-            }
-
-            int roll = GetRandomRange(1, totalWeight + 1);
-            int accumulated = 0;
-
-            foreach (ShrineBlessingSO candidate in candidates)
-            {
-                accumulated += Mathf.Max(0, candidate.weight);
-                if (roll <= accumulated)
-                {
-                    return candidate;
-                }
-            }
-
-            return candidates[^1];
         }
 
         private List<ShrineGodType> GetAvailableGodTypes()
@@ -536,17 +412,50 @@ namespace Shrine
                 return new List<ShrineGodType>();
             }
 
-            List<ShrineGodType> defaults = config.GetDefaultAvailableGods();
+            List<ShrineGodType> result = new();
+
+            List<ShrineGodType> defaults =
+                config.GetDefaultAvailableGods();
+
+            if (defaults != null)
+            {
+                result.AddRange(defaults);
+            }
+
+            if (playerRuntimeData != null)
+            {
+                IReadOnlyList<ShrineGodType> unlockedGods =
+                    playerRuntimeData.UnlockedGods;
+
+                for (int i = 0; i < unlockedGods.Count; i++)
+                {
+                    ShrineGodType unlockedGod =
+                        unlockedGods[i];
+
+                    if (unlockedGod == ShrineGodType.None)
+                    {
+                        continue;
+                    }
+
+                    if (result.Contains(unlockedGod))
+                    {
+                        continue;
+                    }
+
+                    result.Add(unlockedGod);
+                }
+            }
 
             if (!playerRuntimeData.HasLockedFaith)
             {
-                return defaults;
+                return result;
             }
 
-            return defaults
+            return result
                 .Where(x => x == playerRuntimeData.LockedGod)
                 .ToList();
         }
+
 
         private bool EnsureShrineOpened()
         {
@@ -559,19 +468,10 @@ namespace Shrine
             return true;
         }
 
-        private void Refresh()
+        public void Refresh()
         {
             OnShrineRefreshed?.Invoke(currentShrine);
         }
 
-        private int GetRandomRange(int minInclusive, int maxExclusive)
-        {
-            if (fixedRandom != null)
-            {
-                return fixedRandom.Next(minInclusive, maxExclusive);
-            }
-
-            return Random.Range(minInclusive, maxExclusive);
-        }
     }
 }

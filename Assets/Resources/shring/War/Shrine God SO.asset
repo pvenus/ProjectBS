@@ -18,22 +18,28 @@ MonoBehaviour:
   description: war god desc
   icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
+  initialFaithLevel: 0
   lockFaithLevel: 5
   successorFaithLevel: 10
   exclusiveBlessings:
-  - {fileID: 11400000, guid: 25a10184c2d3f41108c2456b1a9c4a50, type: 2}
-  - {fileID: 11400000, guid: 613869d2eddfa44e9a5f267fa6d1717d, type: 2}
-  - {fileID: 11400000, guid: 6fe7c0451a0124333ad3dc1839a796db, type: 2}
-  - {fileID: 11400000, guid: 96cad6c94b86b433c95f5beccc6c5766, type: 2}
-  - {fileID: 11400000, guid: 3a5817fb5a13d468997d0744c6aa0b81, type: 2}
-  - {fileID: 11400000, guid: 982f94a6f4252439190665f02c31953d, type: 2}
-  - {fileID: 11400000, guid: 43b7c28ca2db74328b4351d846d836b9, type: 2}
-  - {fileID: 11400000, guid: 44eeaf3dca1fd411c94df26b7eb8aa53, type: 2}
-  - {fileID: 11400000, guid: 9606d81ed15c040a886f844a0d0a194f, type: 2}
-  - {fileID: 11400000, guid: e29b194b1fcad4f9c9ec40ff1a3dca9e, type: 2}
-  stageRewards: []
-  missionType: 0
-  missionDescription: 
-  introductionText: 
-  devotionText: 
-  successorText: 
+  - {fileID: 11400000, guid: 3f8aa6d582e694db6b34df7495033a80, type: 2}
+  - {fileID: 11400000, guid: 4934502f9ae884c17a55f823ccb65611, type: 2}
+  - {fileID: 11400000, guid: 70579e638add04542856435aadbe8996, type: 2}
+  - {fileID: 11400000, guid: a67efbe2b50004395b0b614552369632, type: 2}
+  - {fileID: 11400000, guid: 8d2a5282d4b4d4d089618eff6097a0b8, type: 2}
+  - {fileID: 11400000, guid: 334a070a44cee42f19c4b6962a80367e, type: 2}
+  - {fileID: 11400000, guid: 26474e0c6c98c407481b96e5dc2d1b42, type: 2}
+  - {fileID: 11400000, guid: fc9ea7620addd48adaa446634484f2ee, type: 2}
+  - {fileID: 11400000, guid: ec648720197794f6ab3894fed0772882, type: 2}
+  - {fileID: 11400000, guid: 43384c59d7f7f4eae8c8249ef9de9569, type: 2}
+  enhancedBlessings:
+  - {fileID: 11400000, guid: 4f2293fbe7fb54b2e9a30f637d689f56, type: 2}
+  - {fileID: 11400000, guid: dd50d325f861245ff88caffa119d3465, type: 2}
+  faithRelicRewards:
+  - faithLevel: 3
+    relicReward: {fileID: 11400000, guid: f211d4bf9d8b648708a4f7ab47546ab5, type: 2}
+  unlockMissions: []
+  faithMissions:
+  - {fileID: 11400000, guid: e20acbebceeb144988cf814c5a5f31ea, type: 2}
+  - {fileID: 11400000, guid: 1948981d6535e452f911fbc3f5296c45, type: 2}
+  - {fileID: 11400000, guid: dca82200185d94d50a9e9b146506c8e9, type: 2}

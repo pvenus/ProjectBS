@@ -110,6 +110,18 @@ namespace Shrine
     }
 
     /// <summary>
+    /// 신전 메타 진행 키.
+    /// </summary>
+    public enum ShrineProgressKey
+    {
+        None = 0,
+
+        ShopVisitCount = 100,
+        BattleWinWithDeadMember = 200,
+        ChaosEventClear = 300,
+    }
+
+    /// <summary>
     /// 신전 내부 진행 상태.
     /// </summary>
     public enum ShrineFlowState

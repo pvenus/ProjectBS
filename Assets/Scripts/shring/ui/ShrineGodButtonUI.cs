@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Mission;
 
 namespace Shrine.UI
 {
@@ -110,9 +111,12 @@ namespace Shrine.UI
                          && shrineManager.CurrentShrine != null
                          && shrineManager.CurrentShrine.selectedGod == god.godType;
 
-            isLocked = faithData != null
-                       && faithData.HasLockedFaith
-                       && faithData.lockedGod != god.godType;
+            bool isUnlocked =
+                shrineManager != null
+                && shrineManager.PlayerRuntimeData != null
+                && shrineManager.PlayerRuntimeData.CanSelectGod(god.godType);
+
+            isLocked = !isUnlocked;
 
             if (iconImage != null)
             {
@@ -142,7 +146,47 @@ namespace Shrine.UI
 
             if (missionText != null)
             {
-                missionText.text = god.missionDescription;
+                string missionLabel = string.Empty;
+
+                if (god.unlockMissions != null)
+                {
+                    foreach (Mission.MissionSO mission in god.unlockMissions)
+                    {
+                        if (mission == null)
+                        {
+                            continue;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(missionLabel))
+                        {
+                            missionLabel += "\n";
+                        }
+
+                        missionLabel +=
+                            $"Unlock : {mission.displayName}";
+                    }
+                }
+
+                if (god.faithMissions != null)
+                {
+                    foreach (Mission.MissionSO mission in god.faithMissions)
+                    {
+                        if (mission == null)
+                        {
+                            continue;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(missionLabel))
+                        {
+                            missionLabel += "\n";
+                        }
+
+                        missionLabel +=
+                            $"Faith : {mission.displayName}";
+                    }
+                }
+
+                missionText.text = missionLabel;
             }
 
             RefreshState();

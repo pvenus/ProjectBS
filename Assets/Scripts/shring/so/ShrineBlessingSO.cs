@@ -62,14 +62,24 @@ namespace Shrine
             return tags != null && tags.Contains(tag);
         }
 
-        public bool CanAppear(int faithLevel)
+        public bool CanAppear(
+            ShrineGodType currentGodType,
+            int faithLevel)
         {
-            if (faithLevel != progressionStep)
+            // Common Bless
+            if (godType == ShrineGodType.None)
+            {
+                return progressionStep <= 0;
+            }
+
+            // 다른 신 전용 Bless 제외
+            if (godType != currentGodType)
             {
                 return false;
             }
 
-            return true;
+            // God Bless는 현재 Faith 단계와 동일 단계만 등장
+            return faithLevel == progressionStep;
         }
 
         public string GetEffectDescription()

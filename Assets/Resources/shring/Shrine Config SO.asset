@@ -24,6 +24,11 @@ MonoBehaviour:
   prayFaithGain: 1
   donateFaithGain: 2
   defaultAvailableGods: 0100000002000000
+  gods:
+  - {fileID: 11400000, guid: f1d1ba8d928194f6b96c7c456fcd6529, type: 2}
+  - {fileID: 11400000, guid: 4b0794d1618fc4968a0174d2ee292977, type: 2}
+  - {fileID: 11400000, guid: 43d8d861abe6a4817bc83a2fac6ffa54, type: 2}
+  - {fileID: 11400000, guid: 9a990099dc0df4ce192c00fea08a11de, type: 2}
   donationCostRules:
   - minFaithLevel: 1
     maxFaithLevel: 4
