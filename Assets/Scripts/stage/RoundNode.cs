@@ -29,7 +29,7 @@ namespace Stage
 
         [Header("Resolve")]
         public bool useRandomEventPool;
-        public string randomPoolId;
+        public EventPoolSO randomPool;
         public bool resolved;
 
         public string sceneName;

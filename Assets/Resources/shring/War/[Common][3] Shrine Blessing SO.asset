@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: '[Common][3] Shrine Blessing SO'
   m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
   blessingId: war bless
+  groupId: god_war_common
   blessingName: war bless
   description: war bless
   icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
@@ -21,6 +22,6 @@ MonoBehaviour:
   effectValue: 3
   secondaryValue: 0
   godType: 2
-  progressionStep: 3
-  weight: 100
+  durationType: 0
+  durationBattleCount: -1
   tags: []

@@ -18,6 +18,7 @@ namespace Stage
 
         [Header("Runtime")]
         private EventRewardExecutor rewardExecutor;
+        private StageEventResolver eventResolver;
         private PopupEventSO currentEvent;
         private RoundNode currentNode;
         private PopupEventChoice pendingChoice;
@@ -47,6 +48,8 @@ namespace Stage
             rewardExecutor = new EventRewardExecutor(
                 ItemManager.Instance,
                 StatManager.Instance);
+
+            eventResolver = new StageEventResolver();
         }
 
         private void OnEnable()
@@ -78,7 +81,7 @@ namespace Stage
             pendingChoice = null;
         }
 
-        private void HandleNodeSelected(RoundNode node)
+        private void  HandleNodeSelected(RoundNode node)
         {
             TryOpen(node);
         }
@@ -93,6 +96,11 @@ namespace Stage
             if (node.executeMode != RoundExecuteMode.Popup)
             {
                 return false;
+            }
+
+            if (eventResolver != null)
+            {
+                eventResolver.Resolve(node);
             }
 
             PopupEventSO popupEvent = node.popupEvent;

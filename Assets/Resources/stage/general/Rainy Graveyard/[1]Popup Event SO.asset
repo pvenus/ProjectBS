@@ -18,8 +18,8 @@ MonoBehaviour:
     \uC783\uC740 \uB2F9\uC2E0\uB4E4\uC740 \uC624\uB798\uB41C \uBB18\uC9C0\uC5D0 \uB3C4\uCC29\uD588\uB2E4.\n\uBB34\uB108\uC9C4
     \uBE44\uC11D\uB4E4 \uC0AC\uC774\uB85C \uD76C\uBBF8\uD55C \uBD88\uBE5B \uD558\uB098\uAC00
     \uD754\uB4E4\uB9AC\uACE0 \uC788\uC5C8\uB2E4."
-  mainImage: {fileID: 21300000, guid: 48edaf62a916c4ac4a294f15fa93ee92, type: 3}
-  icon: {fileID: -1645959757625943944, guid: 5a14db405471a43b3a0a9fd794e3e506, type: 3}
+  mainImage: {fileID: -4501457855696675630, guid: 30c7261cd17a9459795f113aa8becce9, type: 3}
+  icon: {fileID: -4501457855696675630, guid: 30c7261cd17a9459795f113aa8becce9, type: 3}
   choices:
   - choiceId: event:rainy_graveyard:popup:choice:1
     label: "\uBD88\uBE5B\uC744 \uB530\uB77C\uAC04\uB2E4"
@@ -30,10 +30,12 @@ MonoBehaviour:
     rewards:
     - rewardType: 300
       value: 25
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     - rewardType: 1000
       value: 1
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     completesEvent: 1
@@ -47,6 +49,7 @@ MonoBehaviour:
     rewards:
     - rewardType: 300
       value: 15
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     completesEvent: 1
@@ -60,10 +63,12 @@ MonoBehaviour:
     rewards:
     - rewardType: 100
       value: 200
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     - rewardType: 1000
       value: -1
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     completesEvent: 1

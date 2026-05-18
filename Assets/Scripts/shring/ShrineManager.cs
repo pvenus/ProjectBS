@@ -26,6 +26,7 @@ namespace Shrine
         [SerializeField] private ShrineRuntimeData currentShrine;
         [SerializeField] private MissionManager missionManager;
         [SerializeField] private ShrinePlayerContext playerContext = new();
+        [SerializeField] private ShrinePlayerRuntimeData playerRuntimeData = new();
 
         [Header("Debug")]
         [SerializeField] private string shrineId = "test_shrine";
@@ -34,6 +35,7 @@ namespace Shrine
 
         public ShrineConfigSO Config => config;
         public ShrineRuntimeData CurrentShrine => currentShrine;
+        public ShrinePlayerRuntimeData PlayerRuntimeData => playerRuntimeData;
         public int CurrentGold => playerContext.CurrentGold;
         public int PartyCurrentHp => playerContext.CurrentHp;
         public int PartyMaxHp => playerContext.MaxHp;
@@ -90,7 +92,7 @@ namespace Shrine
 
             faithService = new ShrineFaithService(
                 this,
-                currentShrine,
+                playerRuntimeData,
                 config,
                 rewardService,
                 missionService,
@@ -271,8 +273,8 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                currentShrine != null
-                    ? currentShrine.GetFaithLevel(godType)
+                playerRuntimeData != null
+                    ? playerRuntimeData.GetFaithLevel(godType)
                     : 0;
             return config.GetDonationCost(currentFaithLevel);
         }
@@ -410,14 +412,14 @@ namespace Shrine
             }
 
 
-            if (currentShrine == null
-                || !currentShrine.HasLockedFaith)
+            if (playerRuntimeData == null
+                || !playerRuntimeData.HasLockedFaith)
             {
                 return result;
             }
 
             return result
-                .Where(x => x == currentShrine.LockedGod)
+                .Where(x => x == playerRuntimeData.LockedGod)
                 .ToList();
         }
 

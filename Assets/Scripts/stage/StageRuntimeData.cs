@@ -27,6 +27,7 @@ namespace Stage
         [Header("Event Runtime")]
         public Dictionary<string, float> eventWeightModifiers = new();
         public Dictionary<string, float> tagWeightModifiers = new();
+        public Dictionary<string, float> poolWeightModifiers = new();
         public Dictionary<string, int> eventAppearCounts = new();
 
         [Header("State")]
@@ -95,6 +96,37 @@ namespace Stage
             }
 
             return tagWeightModifiers.TryGetValue(tag, out float value)
+                ? value
+                : 1f;
+        }
+
+        public void AddPoolModifier(
+            string poolId,
+            float delta)
+        {
+            if (string.IsNullOrWhiteSpace(poolId))
+            {
+                return;
+            }
+
+            if (!poolWeightModifiers.ContainsKey(poolId))
+            {
+                poolWeightModifiers[poolId] = 1f;
+            }
+
+            poolWeightModifiers[poolId] *= delta;
+        }
+
+        public float GetPoolModifier(string poolId)
+        {
+            if (string.IsNullOrWhiteSpace(poolId))
+            {
+                return 1f;
+            }
+
+            return poolWeightModifiers.TryGetValue(
+                poolId,
+                out float value)
                 ? value
                 : 1f;
         }

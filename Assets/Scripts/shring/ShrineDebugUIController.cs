@@ -180,8 +180,7 @@ namespace Shrine
             }
 
             if (shrineManager == null
-                || BlessManager.Instance == null
-                || BlessManager.Instance.RuntimeData == null)
+                || BlessManager.Instance == null)
             {
                 blessingListText.text = "Blessings : None";
                 return;
@@ -191,17 +190,17 @@ namespace Shrine
 
             sb.AppendLine("Bless Inventory");
 
-            var blessRuntime =
-                BlessManager.Instance.RuntimeData;
+            var blessings =
+                BlessManager.Instance.Blessings;
 
-            if (blessRuntime == null
-                || blessRuntime.Blessings.Count == 0)
+            if (blessings == null
+                || blessings.Count == 0)
             {
                 sb.AppendLine("- None");
             }
             else
             {
-                foreach (BlessRuntimeData.BlessEntry entry in blessRuntime.Blessings)
+                foreach (BlessRuntimeData.BlessEntry entry in blessings)
                 {
                     if (entry == null
                         || entry.source == null)
@@ -210,7 +209,7 @@ namespace Shrine
                     }
 
                     sb.AppendLine(
-                        $"- {entry.DisplayName} Lv.{entry.level} x{entry.stackCount}");
+                        $"- {entry.DisplayName} Lv.{entry.level}");
                 }
             }
 
@@ -225,7 +224,7 @@ namespace Shrine
             }
 
             if (shrineManager == null
-                || shrineManager.CurrentShrine == null)
+                || shrineManager.PlayerRuntimeData == null)
             {
                 faithListText.text = "Faith : None";
                 return;
@@ -235,8 +234,8 @@ namespace Shrine
             sb.AppendLine("Faith Levels");
 
             var faithEntries =
-                shrineManager.CurrentShrine
-                    .faithEntries;
+                shrineManager.PlayerRuntimeData
+                    .FaithEntries;
 
             if (faithEntries.Count == 0)
             {
@@ -255,12 +254,12 @@ namespace Shrine
                 }
             }
 
-            if (shrineManager.CurrentShrine
+            if (shrineManager.PlayerRuntimeData
                 .HasLockedFaith)
             {
                 sb.AppendLine();
                 sb.AppendLine(
-                    $"Locked God : {shrineManager.CurrentShrine.LockedGod}");
+                    $"Locked God : {shrineManager.PlayerRuntimeData.LockedGod}");
             }
 
             faithListText.text = sb.ToString();

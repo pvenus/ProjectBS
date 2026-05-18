@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
+using Stage;
 
 namespace Stage
 {
@@ -60,8 +61,8 @@ namespace Stage
         [Header("Info")]
         public string entryId;
 
-        [Range(0.01f, 100f)]
-        public float weight = 1f;
+        [Range(1, 100)]
+        public int weight = 1;
 
         [Header("Runtime")]
         public bool oneShot;

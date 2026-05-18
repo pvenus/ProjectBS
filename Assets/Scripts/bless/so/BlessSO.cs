@@ -15,6 +15,7 @@ namespace Bless
     {
         [Header("Identity")]
         public string blessingId;
+        public string groupId;
         public string blessingName;
 
         [TextArea]
@@ -33,8 +34,17 @@ namespace Bless
         [Tooltip("추가 수치가 필요한 경우 사용")]
         public float secondaryValue = 0f;
 
+
         [Tooltip("특정 신 전용 축복 여부")]
         public ShrineGodType godType = ShrineGodType.None;
+
+
+        [Header("Duration")]
+        public BlessDurationType durationType = BlessDurationType.Permanent;
+
+        [Tooltip("전투 기준 지속 횟수")]
+        public int durationBattleCount = -1;
+
 
 
         [Header("Tags")]

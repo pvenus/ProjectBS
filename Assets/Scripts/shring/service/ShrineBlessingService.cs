@@ -133,20 +133,28 @@ namespace Shrine
             List<BlessSO> result = new();
 
             if (config == null
-                || config.blessingPool == null)
+                || BlessManager.Instance == null)
+            {
+                return result;
+            }
+
+            BlessPoolSO commonPool =
+                BlessManager.Instance.CommonPool;
+
+            if (commonPool == null)
             {
                 return result;
             }
 
             int faithLevel =
-                shrineManager.CurrentShrine != null
-                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
+                shrineManager.PlayerRuntimeData != null
+                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
                     : 0;
 
-            for (int i = 0; i < config.blessingPool.blessings.Count; i++)
+            for (int i = 0; i < commonPool.blessings.Count; i++)
             {
                 BlessPoolSO.BlessPoolEntry entry =
-                    config.blessingPool.blessings[i];
+                    commonPool.blessings[i];
 
                 if (entry == null
                     || entry.blessing == null)
@@ -194,8 +202,8 @@ namespace Shrine
             }
 
             int faithLevel =
-                shrineManager.CurrentShrine != null
-                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
+                shrineManager.PlayerRuntimeData != null
+                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
                     : 0;
 
             List<BlessSO> blessings =
@@ -240,8 +248,8 @@ namespace Shrine
             }
 
             int faithLevel =
-                shrineManager.CurrentShrine != null
-                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
+                shrineManager.PlayerRuntimeData != null
+                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
                     : 0;
 
             List<BlessPoolSO.BlessPoolEntry> candidates = new();
@@ -255,8 +263,18 @@ namespace Shrine
                     continue;
                 }
 
+                BlessPoolSO commonPool =
+                    BlessManager.Instance != null
+                        ? BlessManager.Instance.CommonPool
+                        : null;
+
+                if (commonPool == null)
+                {
+                    continue;
+                }
+
                 BlessPoolSO.BlessPoolEntry entry =
-                    config.blessingPool.blessings
+                    commonPool.blessings
                         .Find(x => x != null
                                    && x.blessing == blessing
                                    && x.progressionStep == faithLevel);

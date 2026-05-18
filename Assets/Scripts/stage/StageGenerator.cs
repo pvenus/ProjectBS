@@ -158,7 +158,7 @@ namespace Stage
             {
                 description = "Unknown Event",
                 useRandomEventPool = true,
-                randomPoolId = selectedPool.poolId,
+                randomPool = selectedPool,
                 resolved = false
             };
         }

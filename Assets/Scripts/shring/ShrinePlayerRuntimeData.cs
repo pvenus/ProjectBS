@@ -27,6 +27,12 @@ namespace Shrine
         public bool HasLockedFaith => hasLockedFaith;
         public ShrineGodType LockedGod => lockedGod;
 
+        public void RemoveFaiths(
+            Predicate<ShrineFaithEntry> match)
+        {
+            faithEntries.RemoveAll(match);
+        }
+
         public void Reset()
         {
             faithEntries.Clear();
@@ -168,35 +174,15 @@ namespace Shrine
         {
             hasLockedFaith = true;
             lockedGod = godType;
-
-            RemoveOtherFaiths(godType);
         }
 
-        private void RemoveOtherFaiths(ShrineGodType targetGod)
-        {
-            for (int i = faithEntries.Count - 1; i >= 0; i--)
-            {
-                ShrineFaithEntry entry = faithEntries[i];
-                if (entry == null)
-                {
-                    continue;
-                }
-
-                if (entry.godType == targetGod)
-                {
-                    continue;
-                }
-
-                faithEntries.RemoveAt(i);
-            }
-        }
 
         private ShrineFaithEntry GetFaithEntry(ShrineGodType godType)
         {
             return faithEntries.Find(x => x.godType == godType);
         }
 
-        private ShrineFaithEntry GetOrCreateFaithEntry(ShrineGodType godType)
+        public ShrineFaithEntry GetOrCreateFaithEntry(ShrineGodType godType)
         {
             ShrineFaithEntry entry = GetFaithEntry(godType);
             if (entry != null)

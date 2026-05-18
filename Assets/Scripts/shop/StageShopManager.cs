@@ -16,13 +16,14 @@ namespace Shop
         public static StageShopManager Instance { get; private set; }
 
         [Header("Shop Source")]
-        [SerializeField] private ShopItemPoolSO defaultPool;
+        [SerializeField] private List<ShopItemPoolSO> defaultPools = new();
         [SerializeField] private ShopType shopType = ShopType.Normal;
 
         [Header("Generation")]
         [SerializeField] private string shopId = "test_shop";
         [SerializeField] private string shopName = "Shop";
         [SerializeField] private int itemCount = 6;
+        [SerializeField] private int maxPoolCount = 3;
         [SerializeField] private bool useFixedSeed = false;
         [SerializeField] private int seed = 0;
 
@@ -76,20 +77,21 @@ namespace Shop
 
         public void OpenDefaultShop()
         {
-            OpenShop(defaultPool, itemCount, shopType);
+            OpenShop(defaultPools, itemCount, shopType);
         }
 
-        public void OpenShop(ShopItemPoolSO pool, int generateCount, ShopType targetShopType = ShopType.Normal)
+        public void OpenShop(List<ShopItemPoolSO> pools, int generateCount, ShopType targetShopType = ShopType.Normal)
         {
-            if (pool == null)
+            if (pools == null
+                || pools.Count == 0)
             {
-                Debug.LogWarning("[StageShopManager] OpenShop failed. Pool is null.");
+                Debug.LogWarning("[StageShopManager] OpenShop failed. Pools are empty.");
                 return;
             }
 
             fixedRandom = useFixedSeed ? new System.Random(seed) : null;
 
-            currentShop = GenerateShop(pool, generateCount, targetShopType);
+            currentShop = GenerateShop(pools, generateCount, targetShopType);
             if (currentShop == null)
             {
                 Debug.LogWarning("[StageShopManager] OpenShop failed. Generated shop is null.");
@@ -200,17 +202,20 @@ namespace Shop
         }
 
         private ShopRuntimeData GenerateShop(
-            ShopItemPoolSO pool,
+            List<ShopItemPoolSO> pools,
             int generateCount,
             ShopType targetShopType)
         {
-            List<ShopProductSO> candidates =
-                GetCandidates(pool);
+            List<ShopItemPoolSO> selectedPools =
+                pools
+                    .Where(x => x != null)
+                    .Take(Mathf.Clamp(maxPoolCount, 1, 3))
+                    .ToList();
 
-            if (candidates.Count == 0)
+            if (selectedPools.Count <= 0)
             {
                 Debug.LogWarning(
-                    $"[StageShopManager] No candidates in pool. pool={pool.poolId}");
+                    "[StageShopManager] No selected pools.");
 
                 return null;
             }
@@ -221,42 +226,70 @@ namespace Shop
                     shopName,
                     targetShopType)
                 {
-                    generatedFromPoolId = pool.poolId,
+                    generatedFromPoolId = string.Join(",",
+                        selectedPools.Select(x => x.poolId)),
                     seed = seed
                 };
 
-            List<ShopProductSO> workingCandidates =
-                new List<ShopProductSO>(candidates);
+            int runtimeIndex = 0;
 
-            int count = Mathf.Max(0, generateCount);
+            int countPerPool =
+                Mathf.Max(1,
+                    generateCount / selectedPools.Count);
 
-            for (int i = 0; i < count; i++)
+            for (int poolIndex = 0;
+                 poolIndex < selectedPools.Count;
+                 poolIndex++)
             {
-                if (workingCandidates.Count == 0)
-                {
-                    break;
-                }
+                ShopItemPoolSO pool =
+                    selectedPools[poolIndex];
 
-                ShopProductSO selectedProduct =
-                    PickWeighted(workingCandidates);
-
-                if (selectedProduct == null)
+                if (pool == null)
                 {
                     continue;
                 }
 
-                ShopRuntimeItem runtimeItem =
-                    new ShopRuntimeItem(
-                        selectedProduct,
-                        selectedProduct.price,
-                        i,
-                        pool.poolId);
+                List<ShopProductSO> candidates =
+                    GetCandidates(pool);
 
-                shop.AddItem(runtimeItem);
-
-                if (!pool.allowDuplicate)
+                if (candidates.Count <= 0)
                 {
-                    workingCandidates.Remove(selectedProduct);
+                    continue;
+                }
+
+                List<ShopProductSO> workingCandidates =
+                    new List<ShopProductSO>(candidates);
+
+                for (int i = 0; i < countPerPool; i++)
+                {
+                    if (workingCandidates.Count <= 0)
+                    {
+                        break;
+                    }
+
+                    ShopProductSO selectedProduct =
+                        PickWeighted(workingCandidates);
+
+                    if (selectedProduct == null)
+                    {
+                        continue;
+                    }
+
+                    ShopRuntimeItem runtimeItem =
+                        new ShopRuntimeItem(
+                            selectedProduct,
+                            selectedProduct.price,
+                            runtimeIndex,
+                            pool.poolId);
+
+                    runtimeIndex++;
+
+                    shop.AddItem(runtimeItem);
+
+                    if (!pool.allowDuplicate)
+                    {
+                        workingCandidates.Remove(selectedProduct);
+                    }
                 }
             }
 
@@ -266,12 +299,39 @@ namespace Shop
         private List<ShopProductSO> GetCandidates(
             ShopItemPoolSO pool)
         {
+            List<ShopProductSO> result = new();
+
+            if (pool == null)
+            {
+                return result;
+            }
+
             List<ShopProductSO> products =
                 pool.GetAvailableProducts();
 
-            return products
-                .Where(x => x != null)
-                .ToList();
+            if (products == null)
+            {
+                return result;
+            }
+
+            for (int i = 0; i < products.Count; i++)
+            {
+                ShopProductSO product = products[i];
+
+                if (product == null)
+                {
+                    continue;
+                }
+
+                if (result.Contains(product))
+                {
+                    continue;
+                }
+
+                result.Add(product);
+            }
+
+            return result;
         }
 
         private ShopProductSO PickWeighted(

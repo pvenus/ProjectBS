@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: '[1]Popup Event SO'
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: event:broken_automaton:popup
-  title: "\uBE44 \uC624\uB294 \uBB18\uC9C0"
+  title: "\uACE0\uC7A5 \uB09C \uC790\uB3D9\uC778\uD615"
   body: "\uC548\uAC1C \uB080 \uD3D0\uD5C8 \uD55C\uAC00\uC6B4\uB370,\n\uB0A1\uC740
     \uC790\uB3D9\uC778\uD615 \uD558\uB098\uAC00 \uBA48\uCDB0 \uC120 \uCC44 \uC090\uAC71\uAC70\uB9AC\uACE0
     \uC788\uC5C8\uB2E4.\n\n\uAC00\uC2B4 \uBD80\uBD84\uC5D0\uC11C\uB294 \uD76C\uBBF8\uD55C
@@ -30,10 +30,12 @@ MonoBehaviour:
     rewards:
     - rewardType: 2150
       value: 1
+      godType: 0
       targetData: {fileID: 11400000, guid: 64fce85afd5f846c59b1ac071ca65f99, type: 2}
       tag: 
     - rewardType: 1000
       value: 1
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     completesEvent: 1
@@ -47,10 +49,12 @@ MonoBehaviour:
     rewards:
     - rewardType: 100
       value: 150
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     - rewardType: 1000
       value: -1
+      godType: 0
       targetData: {fileID: 0}
       tag: 
     completesEvent: 1
@@ -65,6 +69,7 @@ MonoBehaviour:
     rewards:
     - rewardType: 2200
       value: 1
+      godType: 0
       targetData: {fileID: 11400000, guid: 871141c5a78b9473ea870cf954d60972, type: 2}
       tag: 
     completesEvent: 1

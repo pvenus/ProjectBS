@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bless;
 using UnityEngine;
 
 namespace Shrine
@@ -24,8 +23,6 @@ namespace Shrine
         [Min(1)]
         public int blessingCandidateCount = 3;
 
-        [Tooltip("축복 후보 풀")]
-        public BlessPoolSO blessingPool;
 
         [Tooltip("동일 축복 후보 중복 허용 여부")]
         public bool allowDuplicateBlessingCandidates = false;

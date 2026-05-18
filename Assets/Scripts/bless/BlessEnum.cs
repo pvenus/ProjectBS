@@ -1,5 +1,3 @@
-
-
 namespace Bless
 {
     public enum BlessCategory
@@ -17,6 +15,21 @@ namespace Bless
         Survival = 2100,
 
         Special = 9000,
+    }
+
+    public enum BlessDurationType
+    {
+        Permanent = 0,
+
+        NextBattle = 100,
+        BattleCount = 200,
+    }
+
+    public enum BlessAcquirePolicy
+    {
+        Stack = 0,
+        Upgrade = 100,
+        Replace = 200,
     }
 
     public enum BlessEffectType

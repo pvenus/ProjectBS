@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Stage
 {
@@ -37,6 +38,9 @@ namespace Stage
 
         [Tooltip("기본적으로 숨겨진 노드 여부")]
         public bool hiddenByDefault;
+
+        [Header("Tags")]
+        public List<string> tags = new();
 
         [Header("Visual")]
         public Sprite icon;

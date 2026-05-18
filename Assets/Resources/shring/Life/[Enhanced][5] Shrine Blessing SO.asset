@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d04932d5ec544649485d99ea6ef2f9, type: 3}
   m_Name: '[Enhanced][5] Shrine Blessing SO'
   m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
-  blessingId: dark bless
-  blessingName: dark bless
-  description: dark bless
+  blessingId: life enchanced bless
+  groupId: god_life_enhanced
+  blessingName: life enchanced bless
+  description: life enchanced bless
   icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
   category: 1
   effectType: 1
   effectValue: 5
   secondaryValue: 0
   godType: 4
-  progressionStep: 5
-  weight: 100
+  durationType: 0
+  durationBattleCount: -1
   tags: []

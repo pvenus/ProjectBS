@@ -95,9 +95,9 @@ namespace Shrine.UI
                 gameObject.SetActive(true);
             }
 
-            ShrineRuntimeData faithData =
+            ShrinePlayerRuntimeData faithData =
                 shrineManager != null
-                    ? shrineManager.CurrentShrine
+                    ? shrineManager.PlayerRuntimeData
                     : null;
 
             int faithLevel = faithData != null

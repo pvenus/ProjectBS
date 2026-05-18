@@ -87,6 +87,10 @@ namespace Stage
                     RevealHiddenNode(reward.targetData);
                     break;
 
+                case PopupEventRewardType.UnlockRoute:
+                    UnlockRoute(reward.tag, reward.value);
+                    break;
+
                 default:
                     Debug.LogWarning(
                         $"[EventRewardExecutor] Unsupported reward type. type={reward.rewardType}");
@@ -278,6 +282,53 @@ namespace Stage
                 $"[EventRewardExecutor] Blessing granted from pool. pool={pool.name} blessing={blessing.name}");
         }
 
+        private void UnlockRoute(
+            string tag,
+            int value)
+        {
+            if (string.IsNullOrWhiteSpace(tag))
+            {
+                Debug.LogWarning(
+                    "[EventRewardExecutor] Route tag is empty.");
+
+                return;
+            }
+
+            StageManager stageManager =
+                StageManager.Instance;
+
+            if (stageManager == null)
+            {
+                Debug.LogWarning(
+                    "[EventRewardExecutor] StageManager is null.");
+
+                return;
+            }
+
+            StageRuntimeData runtimeData =
+                stageManager.RuntimeData;
+
+            if (runtimeData == null)
+            {
+                Debug.LogWarning(
+                    "[EventRewardExecutor] RuntimeData is null.");
+
+                return;
+            }
+
+            float multiplier =
+                value <= 0
+                    ? 1.5f
+                    : value;
+
+            runtimeData.AddTagModifier(
+                tag,
+                multiplier);
+
+            Debug.Log(
+                $"[EventRewardExecutor] Route unlocked. tag={tag} multiplier={multiplier}");
+        }
+
         private void RevealHiddenNode(
             ScriptableObject targetData)
         {
@@ -378,7 +429,7 @@ namespace Stage
                 return;
             }
 
-            BlessManager.Instance.RuntimeData.AddBless(blessing);
+            BlessManager.Instance.AddBless(blessing);
 
             Debug.Log(
                 $"[EventRewardExecutor] Blessing granted. blessing={blessing.name}");

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: '[Common][10] Shrine Blessing SO'
   m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
   blessingId: life bless
+  groupId: god_life_common
   blessingName: life bless
   description: life bless
   icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
@@ -21,6 +22,6 @@ MonoBehaviour:
   effectValue: 10
   secondaryValue: 0
   godType: 1
-  progressionStep: 10
-  weight: 100
+  durationType: 0
+  durationBattleCount: -1
   tags: []

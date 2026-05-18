@@ -40,6 +40,11 @@ namespace Shop
         [SerializeField] private bool hideOnAwake = true;
         [SerializeField] private bool rebuildOnRefresh = true;
 
+        [Header("Pool Roots")]
+        [SerializeField] private RectTransform firstPoolRoot;
+        [SerializeField] private RectTransform secondPoolRoot;
+        [SerializeField] private RectTransform thirdPoolRoot;
+
         private readonly List<ShopItemEntryUI> spawnedEntries = new();
 
         private void Awake()
@@ -199,6 +204,7 @@ namespace Shop
                 return;
             }
 
+            Dictionary<string, int> poolIndices = new();
             int i = 0;
             foreach (ShopRuntimeItem item in shop.items)
             {
@@ -207,7 +213,15 @@ namespace Shop
                     continue;
                 }
 
-                ShopItemEntryUI entry = Instantiate(itemEntryPrefab, contentRoot);
+                RectTransform targetRoot =
+                    GetPoolRoot(item.generatedFromPoolId);
+
+                if (targetRoot == null)
+                {
+                    targetRoot = contentRoot;
+                }
+
+                ShopItemEntryUI entry = Instantiate(itemEntryPrefab, targetRoot);
 
                 if (forcePositionOffset)
                 {
@@ -216,17 +230,66 @@ namespace Shop
 
                     if (rectTransform != null)
                     {
+                        if (!poolIndices.ContainsKey(item.generatedFromPoolId))
+                        {
+                            poolIndices[item.generatedFromPoolId] = 0;
+                        }
+
+                        int localIndex =
+                            poolIndices[item.generatedFromPoolId];
+
                         rectTransform.anchoredPosition =
                             new Vector2(
-                                itemOffset.x * i,
-                                itemOffset.y * i);
+                                itemOffset.x * localIndex,
+                                itemOffset.y * localIndex);
+
+                        poolIndices[item.generatedFromPoolId] =
+                            localIndex + 1;
                     }
                 }
 
                 entry.Bind(item, shopManager);
                 spawnedEntries.Add(entry);
-                i++;
             }
+        }
+
+        private RectTransform GetPoolRoot(string poolId)
+        {
+            if (string.IsNullOrWhiteSpace(poolId))
+            {
+                return firstPoolRoot;
+            }
+
+            ShopRuntimeData currentShop =
+                shopManager != null
+                    ? shopManager.CurrentShop
+                    : null;
+
+            if (currentShop == null
+                || string.IsNullOrWhiteSpace(currentShop.generatedFromPoolId))
+            {
+                return firstPoolRoot;
+            }
+
+            string[] poolIds =
+                currentShop.generatedFromPoolId.Split(',');
+
+            for (int i = 0; i < poolIds.Length; i++)
+            {
+                if (poolIds[i] != poolId)
+                {
+                    continue;
+                }
+
+                return i switch
+                {
+                    2 => thirdPoolRoot,
+                    1 => secondPoolRoot,
+                    _ => firstPoolRoot
+                };
+            }
+
+            return firstPoolRoot;
         }
 
         private void RefreshEntries()

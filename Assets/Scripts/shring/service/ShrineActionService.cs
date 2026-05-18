@@ -45,8 +45,8 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrine != null
-                    ? shrine.GetFaithLevel(shrine.selectedGod)
+                shrineManager.PlayerRuntimeData != null
+                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(shrine.selectedGod)
                     : 0;
 
             if (currentFaithLevel >= 10)
@@ -96,8 +96,8 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrine != null
-                    ? shrine.GetFaithLevel(shrine.selectedGod)
+                shrineManager.PlayerRuntimeData != null
+                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(shrine.selectedGod)
                     : 0;
 
             if (currentFaithLevel >= 10)
@@ -178,7 +178,7 @@ namespace Shrine
 
             if (BlessManager.Instance != null)
             {
-                BlessManager.Instance.RuntimeData.AddBless(
+                BlessManager.Instance.AddBless(
                     blessing.source,
                     blessing.generatedFromPoolId,
                     blessing.slotIndex);

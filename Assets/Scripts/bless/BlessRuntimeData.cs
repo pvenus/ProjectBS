@@ -32,9 +32,12 @@ namespace Bless
 
             public bool isSelected;
 
-            public int stackCount = 1;
+
+            public int remainingBattleCount = -1;
 
             public float runtimeValue;
+
+            public bool isTemporary;
 
             public int slotIndex = -1;
 
@@ -55,6 +58,13 @@ namespace Bless
                 if (source != null)
                 {
                     runtimeValue = source.effectValue;
+
+                    isTemporary =
+                        source.durationType
+                        != BlessDurationType.Permanent;
+
+                    remainingBattleCount =
+                        source.durationBattleCount;
                 }
             }
 
@@ -102,11 +112,6 @@ namespace Bless
                 isSelected = false;
             }
 
-            public void AddStack(
-                int amount = 1)
-            {
-                stackCount += Mathf.Max(1, amount);
-            }
 
             public void SetLevel(
                 int newLevel)
@@ -120,10 +125,33 @@ namespace Bless
                 runtimeValue = value;
             }
 
+            public bool ConsumeBattle()
+            {
+                if (!isTemporary)
+                {
+                    return false;
+                }
+
+                if (remainingBattleCount < 0)
+                {
+                    return false;
+                }
+
+                remainingBattleCount--;
+
+                return remainingBattleCount <= 0;
+            }
+
+            public bool IsExpired()
+            {
+                return isTemporary
+                    && remainingBattleCount <= 0;
+            }
+
             public override string ToString()
             {
                 return source != null
-                    ? $"{source.name} Lv.{level} x{stackCount}"
+                    ? $"{source.name} Lv.{level}"
                     : "Null Bless";
             }
 
@@ -140,6 +168,17 @@ namespace Bless
             }
         }
 
+        public IReadOnlyList<BlessEntry> GetBlessings()
+        {
+            return blessings;
+        }
+
+        public void RemoveBlesses(
+            Predicate<BlessEntry> match)
+        {
+            blessings.RemoveAll(match);
+        }
+
         public BlessEntry AddBless(
             BlessSO source,
             string generatedFromPoolId = null,
@@ -153,12 +192,13 @@ namespace Bless
             BlessEntry existing =
                 blessings.FirstOrDefault(
                     x => x != null
-                         && x.source == source);
+                         && x.source != null
+                         && x.source.groupId == source.groupId
+                         && !string.IsNullOrWhiteSpace(source.groupId));
 
             if (existing != null)
             {
-                existing.AddStack();
-                return existing;
+                blessings.Remove(existing);
             }
 
             BlessEntry entry =
@@ -200,6 +240,31 @@ namespace Bless
             return blessings.Any(
                 x => x != null
                      && x.source == source);
+        }
+
+        public void ConsumeBattleBlessings()
+        {
+            List<BlessEntry> expired = new();
+
+            foreach (BlessEntry entry in blessings)
+            {
+                if (entry == null)
+                {
+                    continue;
+                }
+
+                entry.ConsumeBattle();
+
+                if (entry.IsExpired())
+                {
+                    expired.Add(entry);
+                }
+            }
+
+            foreach (BlessEntry entry in expired)
+            {
+                blessings.Remove(entry);
+            }
         }
 
         public void ClearSelection()

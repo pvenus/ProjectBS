@@ -36,11 +36,6 @@ namespace Shrine
         [Header("Available Gods")]
         public List<ShrineGodType> availableGods = new();
 
-        [Header("Faith")]
-        public List<ShrineFaithEntry> faithEntries = new();
-        public bool hasLockedFaith;
-        public ShrineGodType lockedGod = ShrineGodType.None;
-
         [Header("Debug")]
         public int seed;
         public string generatedFromConfigId;
@@ -48,9 +43,6 @@ namespace Shrine
         public bool HasBlessingCandidates => blessingCandidates != null && blessingCandidates.Count > 0;
         public bool HasSelectedBlessing => selectedBlessing != null;
         public bool HasSelectedGod => selectedGod != ShrineGodType.None;
-
-        public bool HasLockedFaith => hasLockedFaith;
-        public ShrineGodType LockedGod => lockedGod;
 
         public ShrineRuntimeData()
         {
@@ -89,9 +81,6 @@ namespace Shrine
             selectedBlessing = null;
             blessingCandidates.Clear();
             availableGods.Clear();
-            hasLockedFaith = false;
-            lockedGod = ShrineGodType.None;
-            faithEntries.Clear();
         }
 
         public void SetAction(ShrineActionType actionType)
@@ -235,85 +224,6 @@ namespace Shrine
         {
             faithActionApplied = true;
             flowState = ShrineFlowState.Reward;
-        }
-
-        public int GetFaithLevel(ShrineGodType godType)
-        {
-            if (godType == ShrineGodType.None)
-            {
-                return 0;
-            }
-
-            for (int i = 0; i < faithEntries.Count; i++)
-            {
-                ShrineFaithEntry entry = faithEntries[i];
-
-                if (entry == null)
-                {
-                    continue;
-                }
-
-                if (entry.godType != godType)
-                {
-                    continue;
-                }
-
-                return entry.faithLevel;
-            }
-
-            return 0;
-        }
-
-        public ShrineFaithEntry GetOrCreateFaithEntry(
-            ShrineGodType godType)
-        {
-            for (int i = 0; i < faithEntries.Count; i++)
-            {
-                ShrineFaithEntry entry = faithEntries[i];
-
-                if (entry == null)
-                {
-                    continue;
-                }
-
-                if (entry.godType == godType)
-                {
-                    return entry;
-                }
-            }
-
-            ShrineFaithEntry created = new ShrineFaithEntry(godType)
-            {
-                faithLevel = 0
-            };
-
-            faithEntries.Add(created);
-            return created;
-        }
-
-        public bool AddFaith(
-            ShrineGodType godType,
-            int amount)
-        {
-            if (godType == ShrineGodType.None)
-            {
-                return false;
-            }
-
-            ShrineFaithEntry entry =
-                GetOrCreateFaithEntry(godType);
-
-            entry.faithLevel += amount;
-
-            if (!hasLockedFaith
-                && entry.faithLevel >= 5)
-            {
-                hasLockedFaith = true;
-                lockedGod = godType;
-                return true;
-            }
-
-            return false;
         }
     }
 }

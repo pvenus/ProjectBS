@@ -17,10 +17,8 @@ MonoBehaviour:
   totalDepth: 5
   minNodesPerDepth: 2
   maxNodesPerDepth: 3
-  battlePool:
-  - {fileID: 11400000, guid: 6228f5351885a43028b050db512c6e44, type: 2}
-  eventPool:
-  - {fileID: 11400000, guid: e6bd9dd8af6184933a5fb89a26e44948, type: 2}
+  pools:
+  - {fileID: 11400000, guid: 384ecc1efb6d94d6b92595e1a80f04e6, type: 2}
   requiredSubEvents: []
   bossNode: {fileID: 11400000, guid: dd4533f59b0fd4ec7acb0f063f9e6731, type: 2}
   startNode: {fileID: 11400000, guid: 70ed91e39241f427cbf9fa86750129c5, type: 2}

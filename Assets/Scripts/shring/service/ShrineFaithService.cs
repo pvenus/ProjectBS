@@ -12,7 +12,7 @@ namespace Shrine
     {
         private readonly ShrineManager shrineManager;
 
-        private readonly ShrineRuntimeData shrineRuntimeData;
+        private readonly ShrinePlayerRuntimeData playerRuntimeData;
 
         private readonly ShrineConfigSO config;
 
@@ -24,14 +24,14 @@ namespace Shrine
 
         public ShrineFaithService(
             ShrineManager shrineManager,
-            ShrineRuntimeData shrineRuntimeData,
+            ShrinePlayerRuntimeData playerRuntimeData,
             ShrineConfigSO config,
             ShrineRewardService rewardService,
             ShrineMissionService missionService,
             bool logDebug)
         {
             this.shrineManager = shrineManager;
-            this.shrineRuntimeData = shrineRuntimeData;
+            this.playerRuntimeData = playerRuntimeData;
             this.config = config;
             this.rewardService = rewardService;
             this.missionService = missionService;
@@ -62,7 +62,7 @@ namespace Shrine
             ShrineGodType godType,
             int amount)
         {
-            if (shrineRuntimeData == null)
+            if (playerRuntimeData == null)
             {
                 return 0;
             }
@@ -90,15 +90,15 @@ namespace Shrine
             }
 
             int previousLevel =
-                shrineRuntimeData.GetFaithLevel(godType);
+                playerRuntimeData.GetFaithLevel(godType);
 
             bool becameLocked =
-                shrineRuntimeData.AddFaith(
+                playerRuntimeData.AddFaith(
                     godType,
                     amount);
 
             int level =
-                shrineRuntimeData.GetFaithLevel(godType);
+                playerRuntimeData.GetFaithLevel(godType);
 
             GiveFaithLevelRewards(
                 god,
@@ -128,7 +128,7 @@ namespace Shrine
             }
 
             int currentLevel =
-                shrineRuntimeData.GetFaithLevel(
+                playerRuntimeData.GetFaithLevel(
                     god.godType);
 
             if (currentLevel > 0)
@@ -142,7 +142,7 @@ namespace Shrine
             }
 
             ShrineFaithEntry entry =
-                shrineRuntimeData.GetOrCreateFaithEntry(
+                playerRuntimeData.GetOrCreateFaithEntry(
                     god.godType);
 
             entry.faithLevel = god.initialFaithLevel;
@@ -165,15 +165,132 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrineRuntimeData.GetFaithLevel(
+                playerRuntimeData.GetFaithLevel(
                     lockedGod.godType);
 
             missionService?.ActivateFaithMission(
                 lockedGod,
                 currentFaithLevel);
 
+            RemoveOtherGodBlessings(
+                lockedGod.godType);
+
             RemoveOtherFaithRelics(
                 lockedGod.godType);
+
+            playerRuntimeData.RemoveFaiths(
+                x => x != null
+                     && x.godType != lockedGod.godType);
+        }
+
+        private void RemoveOtherGodBlessings(
+            ShrineGodType lockedGodType)
+        {
+            if (BlessManager.Instance == null)
+            {
+                return;
+            }
+
+            if (config == null
+                || config.gods == null)
+            {
+                return;
+            }
+
+            List<ShrineGodSO> targetGods = new();
+
+            for (int i = 0; i < config.gods.Count; i++)
+            {
+                ShrineGodSO god =
+                    config.gods[i];
+
+                if (god == null)
+                {
+                    continue;
+                }
+
+                if (god.godType == lockedGodType)
+                {
+                    continue;
+                }
+
+                targetGods.Add(god);
+            }
+
+            for (int i = 0; i < targetGods.Count; i++)
+            {
+                ShrineGodSO targetGod =
+                    targetGods[i];
+
+                RemoveBlessingGroups(
+                    targetGod,
+                    ShrineBlessingGroup.Base);
+
+                RemoveBlessingGroups(
+                    targetGod,
+                    ShrineBlessingGroup.Enhanced);
+            }
+        }
+
+        private void RemoveBlessingGroups(
+            ShrineGodSO god,
+            ShrineBlessingGroup group)
+        {
+            if (god == null
+                || BlessManager.Instance == null)
+            {
+                return;
+            }
+
+            List<BlessSO> blessings =
+                new();
+
+            if (god.blessingPools != null)
+            {
+                for (int i = 0; i < god.blessingPools.Count; i++)
+                {
+                    BlessPoolSO pool =
+                        god.blessingPools[i];
+
+                    if (pool == null
+                        || pool.blessings == null)
+                    {
+                        continue;
+                    }
+
+                    for (int j = 0; j < pool.blessings.Count; j++)
+                    {
+                        BlessPoolSO.BlessPoolEntry entry =
+                            pool.blessings[j];
+
+                        if (entry == null
+                            || entry.blessing == null)
+                        {
+                            continue;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(entry.blessing.groupId))
+                        {
+                            continue;
+                        }
+
+                        if (blessings.Contains(entry.blessing))
+                        {
+                            continue;
+                        }
+
+                        blessings.Add(entry.blessing);
+
+                        string targetGroupId =
+                            entry.blessing.groupId;
+
+                        BlessManager.Instance.RemoveBlesses(
+                            x => x != null
+                                 && x.source != null
+                                 && x.source.groupId == targetGroupId);
+                    }
+                }
+            }
         }
 
         private void RemoveOtherFaithRelics(
@@ -304,7 +421,7 @@ namespace Shrine
                     continue;
                 }
 
-                BlessManager.Instance.RuntimeData.AddBless(
+                BlessManager.Instance.AddBless(
                     blessing,
                     $"faith_{god.godType}_{faithLevel}");
 

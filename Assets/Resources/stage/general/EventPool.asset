@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c260ff891d0d542c4ae0a2816afcfef9, type: 3}
+  m_Name: EventPool
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.EventPoolSO
+  poolId: 
+  displayName: 
+  entries:
+  - node: {fileID: 11400000, guid: cfdfb0c12efd94eac9afc72ee621bab6, type: 2}
+    entryId: Broken Automaton
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - round:pool:broken_automaton
+  - node: {fileID: 11400000, guid: e6bd9dd8af6184933a5fb89a26e44948, type: 2}
+    entryId: Rainy Graveyard
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - round:pool:rainy_graveyard

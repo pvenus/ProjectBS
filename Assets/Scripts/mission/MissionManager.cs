@@ -232,7 +232,7 @@ namespace Mission
                     }
 
                     ShrineGodType lockedGod =
-                        shrineManager.CurrentShrine
+                        shrineManager.PlayerRuntimeData
                             .LockedGod;
 
                     if (lockedGod == ShrineGodType.None)
@@ -241,7 +241,7 @@ namespace Mission
                     }
 
                     bool becameLocked =
-                        shrineManager.CurrentShrine
+                        shrineManager.PlayerRuntimeData
                             .AddFaith(
                                 lockedGod,
                                 mission.rewardFaith);
