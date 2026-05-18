@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: '[1]Popup Event SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: event:rainy_graveyard:popup
+  title: "\uBE44 \uC624\uB294 \uBB18\uC9C0"
+  body: "\uBE44\uAC00 \uC5B5\uC218\uAC19\uC774 \uC3DF\uC544\uC9C0\uB294 \uBC24.\n\uAE38\uC744
+    \uC783\uC740 \uB2F9\uC2E0\uB4E4\uC740 \uC624\uB798\uB41C \uBB18\uC9C0\uC5D0 \uB3C4\uCC29\uD588\uB2E4.\n\uBB34\uB108\uC9C4
+    \uBE44\uC11D\uB4E4 \uC0AC\uC774\uB85C \uD76C\uBBF8\uD55C \uBD88\uBE5B \uD558\uB098\uAC00
+    \uD754\uB4E4\uB9AC\uACE0 \uC788\uC5C8\uB2E4."
+  mainImage: {fileID: 21300000, guid: 48edaf62a916c4ac4a294f15fa93ee92, type: 3}
+  icon: {fileID: -1645959757625943944, guid: 5a14db405471a43b3a0a9fd794e3e506, type: 3}
+  choices:
+  - choiceId: event:rainy_graveyard:popup:choice:1
+    label: "\uBD88\uBE5B\uC744 \uB530\uB77C\uAC04\uB2E4"
+    description: 
+    resultText: "\uBD88\uBE5B\uC758 \uC815\uCCB4\uB294 \uBB34\uB364\uC744 \uB3CC\uBCF4\uB294
+      \uB178\uC778\uC774\uC5C8\uB2E4.\n\uB178\uC778\uC740 \uB9D0\uC5C6\uC774 \uB530\uB73B\uD55C
+      \uC218\uD504\uB97C \uB0B4\uC5B4\uC8FC\uC5C8\uB2E4."
+    rewards:
+    - rewardType: 300
+      value: 25
+      targetData: {fileID: 0}
+      tag: 
+    - rewardType: 1000
+      value: 1
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:rainy_graveyard:popup:choice:2
+    label: "\uBE44\uB97C \uD53C\uD558\uBA70 \uD734\uC2DD\uD55C\uB2E4"
+    description: 
+    resultText: "\uC816\uC740 \uBAB8\uC744 \uB179\uC774\uBA70 \uC7A0\uC2DC \uC228\uC744
+      \uB3CC\uB838\uB2E4.\n\uC9E7\uC740 \uD734\uC2DD\uC774\uC5C8\uC9C0\uB9CC \uD53C\uB85C\uAC00
+      \uC870\uAE08 \uAC00\uC168\uB2E4."
+    rewards:
+    - rewardType: 300
+      value: 15
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:rainy_graveyard:popup:choice:3
+    label: "\uBB18\uC9C0\uB97C \uB4A4\uC838\uBCF8\uB2E4"
+    description: 
+    resultText: "\uB0A1\uC740 \uAD00 \uD558\uB098\uC5D0\uC11C \uAE08\uD654 \uC8FC\uBA38\uB2C8\uB97C
+      \uBC1C\uACAC\uD588\uB2E4.\n\uD558\uC9C0\uB9CC \uB4A4\uC5D0\uC11C \uB204\uAD70\uAC00\uC758
+      \uC2DC\uC120\uC774 \uB290\uAEF4\uC84C\uB2E4.\n"
+    rewards:
+    - rewardType: 100
+      value: 200
+      targetData: {fileID: 0}
+      tag: 
+    - rewardType: 1000
+      value: -1
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}

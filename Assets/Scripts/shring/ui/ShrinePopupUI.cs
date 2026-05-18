@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Bless;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -303,7 +304,7 @@ namespace Shrine.UI
 
             for (int i = 0; i < shrine.blessingCandidates.Count; i++)
             {
-                ShrineBlessingRuntime blessing = shrine.blessingCandidates[i];
+                BlessRuntimeData.BlessEntry blessing = shrine.blessingCandidates[i];
                 if (blessing == null)
                 {
                     continue;

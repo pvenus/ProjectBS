@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Bless;
 using Item;
 using Mission;
 
@@ -36,12 +37,9 @@ namespace Shrine
         [Range(1, 10)]
         public int successorFaithLevel = 10;
 
-        [Tooltip("이 신의 전용 축복 풀")]
-        public List<ShrineBlessingSO> exclusiveBlessings = new();
-
-        [Header("Enhanced Blessings")]
-        [Tooltip("강화 블레스 전용 풀 (5 / 7 단계 전용)")]
-        public List<ShrineBlessingSO> enhancedBlessings = new();
+        [Header("Blessing Pools")]
+        [Tooltip("신 전용 축복 풀")]
+        public List<BlessPoolSO> blessingPools = new();
 
         [Header("Faith Rewards")]
         [Tooltip("특정 신앙 레벨 도달 시 지급되는 유물")]
@@ -58,39 +56,51 @@ namespace Shrine
             ? name
             : godName;
 
-        public bool HasExclusiveBlessings => exclusiveBlessings != null && exclusiveBlessings.Count > 0;
+        public bool HasBlessingPools => blessingPools != null && blessingPools.Count > 0;
 
-        public bool HasEnhancedBlessings => enhancedBlessings != null && enhancedBlessings.Count > 0;
+        public bool HasEnhancedBlessings =>
+            blessingPools != null
+            && blessingPools.Count > 0;
 
-        public List<ShrineBlessingSO> GetAvailableBlessings(
+        public List<BlessSO> GetAvailableBlessings(
             int faithLevel,
             ShrineBlessingGroup blessingGroup = ShrineBlessingGroup.Base)
         {
-            List<ShrineBlessingSO> result = new();
+            List<BlessSO> result = new();
 
-            List<ShrineBlessingSO> source =
-                blessingGroup == ShrineBlessingGroup.Enhanced
-                    ? enhancedBlessings
-                    : exclusiveBlessings;
-
-            if (source == null)
+            if (blessingPools == null)
             {
                 return result;
             }
 
-            foreach (ShrineBlessingSO blessing in source)
+            foreach (BlessPoolSO pool in blessingPools)
             {
-                if (blessing == null)
+                if (pool == null
+                    || pool.blessings == null)
                 {
                     continue;
                 }
 
-                if (blessing.progressionStep != faithLevel)
+                foreach (BlessPoolSO.BlessPoolEntry entry in pool.blessings)
                 {
-                    continue;
-                }
+                    if (entry == null
+                        || entry.blessing == null)
+                    {
+                        continue;
+                    }
 
-                result.Add(blessing);
+                    if (entry.progressionStep != faithLevel)
+                    {
+                        continue;
+                    }
+
+                    if (result.Contains(entry.blessing))
+                    {
+                        continue;
+                    }
+
+                    result.Add(entry.blessing);
+                }
             }
 
             return result;

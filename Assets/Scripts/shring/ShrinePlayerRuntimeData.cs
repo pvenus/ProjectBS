@@ -7,11 +7,6 @@ namespace Shrine
     [Serializable]
     public class ShrinePlayerRuntimeData
     {
-        [Header("Blessings")]
-        [SerializeField] private ShrineBlessingSO baseBlessing;
-
-        [SerializeField] private ShrineBlessingSO enhancedBlessing;
-
         [Header("Faith Levels")]
         [SerializeField] private List<ShrineFaithEntry> faithEntries = new();
 
@@ -25,9 +20,6 @@ namespace Shrine
         [SerializeField] private bool hasLockedFaith;
         [SerializeField] private ShrineGodType lockedGod = ShrineGodType.None;
 
-        public ShrineBlessingSO BaseBlessing => baseBlessing;
-
-        public ShrineBlessingSO EnhancedBlessing => enhancedBlessing;
         public IReadOnlyList<ShrineFaithEntry> FaithEntries => faithEntries;
         public IReadOnlyList<ShrineGodType> VisitedGods => visitedGods;
         public IReadOnlyList<ShrineGodType> UnlockedGods => unlockedGods;
@@ -37,81 +29,11 @@ namespace Shrine
 
         public void Reset()
         {
-            baseBlessing = null;
-            enhancedBlessing = null;
             faithEntries.Clear();
             visitedGods.Clear();
             unlockedGods.Clear();
             hasLockedFaith = false;
             lockedGod = ShrineGodType.None;
-        }
-
-        public bool HasBlessing(ShrineBlessingSO blessing)
-        {
-            if (blessing == null)
-            {
-                return false;
-            }
-
-            return baseBlessing == blessing
-                || enhancedBlessing == blessing;
-        }
-
-        public bool AddBlessing(ShrineBlessingSO blessing)
-        {
-            if (blessing == null)
-            {
-                return false;
-            }
-
-            baseBlessing = blessing;
-            return true;
-        }
-
-        public bool AddEnhancedBlessing(
-            ShrineBlessingSO blessing)
-        {
-            if (blessing == null)
-            {
-                return false;
-            }
-
-            enhancedBlessing = blessing;
-            return true;
-        }
-
-        public bool AddBlessing(string runtimeId)
-        {
-            if (string.IsNullOrWhiteSpace(runtimeId))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool RemoveBlessing(ShrineBlessingSO blessing)
-        {
-            if (blessing == null)
-            {
-                return false;
-            }
-
-            bool removed = false;
-
-            if (baseBlessing == blessing)
-            {
-                baseBlessing = null;
-                removed = true;
-            }
-
-            if (enhancedBlessing == blessing)
-            {
-                enhancedBlessing = null;
-                removed = true;
-            }
-
-            return removed;
         }
 
         public int GetFaithLevel(ShrineGodType godType)
@@ -267,55 +189,6 @@ namespace Shrine
 
                 faithEntries.RemoveAt(i);
             }
-        }
-
-        public ShrineBlessingSO GetActiveGodBlessing(
-            ShrineGodType godType,
-            List<ShrineBlessingSO> blessingPool)
-        {
-            if (godType == ShrineGodType.None)
-            {
-                return null;
-            }
-
-            if (blessingPool == null || blessingPool.Count == 0)
-            {
-                return null;
-            }
-
-            int faithLevel = GetFaithLevel(godType);
-            ShrineBlessingSO result = null;
-
-            foreach (ShrineBlessingSO blessing in blessingPool)
-            {
-                if (blessing == null)
-                {
-                    continue;
-                }
-
-                if (blessing.godType != godType)
-                {
-                    continue;
-                }
-
-                if (blessing.progressionStep != faithLevel)
-                {
-                    continue;
-                }
-
-                if (result == null)
-                {
-                    result = blessing;
-                    continue;
-                }
-
-                if (blessing.progressionStep > result.progressionStep)
-                {
-                    result = blessing;
-                }
-            }
-
-            return result;
         }
 
         private ShrineFaithEntry GetFaithEntry(ShrineGodType godType)

@@ -1,10 +1,9 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Item;
 
 namespace Shop
 {
@@ -45,6 +44,7 @@ namespace Shop
         public event Action<int> OnGoldChanged;
 
         private System.Random fixedRandom;
+        private ShopPurchaseService purchaseService;
 
         private void Awake()
         {
@@ -55,6 +55,23 @@ namespace Shop
             }
 
             Instance = this;
+
+            ItemManager itemManager = ItemManager.Instance;
+
+            if (itemManager == null)
+            {
+                itemManager = FindFirstObjectByType<ItemManager>();
+
+                if (itemManager == null)
+                {
+                    Debug.LogWarning(
+                        "[StageShopManager] ItemManager not found in scene.");
+                }
+            }
+
+            purchaseService = new ShopPurchaseService(
+                itemManager,
+                currentGold);
         }
 
         public void OpenDefaultShop()
@@ -117,16 +134,43 @@ namespace Shop
                 return false;
             }
 
+            if (purchaseService == null)
+            {
+                Debug.LogWarning(
+                    "[StageShopManager] Purchase failed. PurchaseService is null.");
+
+                return false;
+            }
+
             if (!item.CanPurchase(currentGold))
             {
                 Debug.Log($"[StageShopManager] Cannot purchase item. item={item.DisplayName}, price={item.price}, gold={currentGold}, state={item.state}");
                 return false;
             }
 
-            currentGold -= item.price;
+            ShopProductSO product = item.product;
+
+            if (product == null)
+            {
+                Debug.LogWarning(
+                    $"[StageShopManager] Purchase failed. Product is null. item={item.DisplayName}");
+
+                return false;
+            }
+
+            if (!purchaseService.TryPurchase(product))
+            {
+                Debug.LogWarning(
+                    $"[StageShopManager] Purchase service failed. product={product.displayName}");
+
+                return false;
+            }
+
+            currentGold = purchaseService.CurrentGold;
+
             item.MarkPurchased();
 
-            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={item.price}, remainingGold={currentGold}");
+            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={product.price}, remainingGold={currentGold}");
 
             OnGoldChanged?.Invoke(currentGold);
             OnItemPurchased?.Invoke(item);
@@ -137,6 +181,7 @@ namespace Shop
         public void SetGold(int gold)
         {
             currentGold = Mathf.Max(0, gold);
+            purchaseService?.SetGold(currentGold);
             OnGoldChanged?.Invoke(currentGold);
             OnShopRefreshed?.Invoke(currentShop);
         }
@@ -144,6 +189,7 @@ namespace Shop
         public void AddGold(int amount)
         {
             currentGold = Mathf.Max(0, currentGold + amount);
+            purchaseService?.SetGold(currentGold);
             OnGoldChanged?.Invoke(currentGold);
             OnShopRefreshed?.Invoke(currentShop);
         }
@@ -153,22 +199,35 @@ namespace Shop
             OpenDefaultShop();
         }
 
-        private ShopRuntimeData GenerateShop(ShopItemPoolSO pool, int generateCount, ShopType targetShopType)
+        private ShopRuntimeData GenerateShop(
+            ShopItemPoolSO pool,
+            int generateCount,
+            ShopType targetShopType)
         {
-            List<ShopItemEntry> candidates = GetCandidates(pool, targetShopType);
+            List<ShopProductSO> candidates =
+                GetCandidates(pool);
+
             if (candidates.Count == 0)
             {
-                Debug.LogWarning($"[StageShopManager] No candidates in pool. pool={pool.poolId}");
+                Debug.LogWarning(
+                    $"[StageShopManager] No candidates in pool. pool={pool.poolId}");
+
                 return null;
             }
 
-            ShopRuntimeData shop = new ShopRuntimeData(shopId, shopName, targetShopType)
-            {
-                generatedFromPoolId = pool.poolId,
-                seed = seed
-            };
+            ShopRuntimeData shop =
+                new ShopRuntimeData(
+                    shopId,
+                    shopName,
+                    targetShopType)
+                {
+                    generatedFromPoolId = pool.poolId,
+                    seed = seed
+                };
 
-            List<ShopItemEntry> workingCandidates = new List<ShopItemEntry>(candidates);
+            List<ShopProductSO> workingCandidates =
+                new List<ShopProductSO>(candidates);
+
             int count = Mathf.Max(0, generateCount);
 
             for (int i = 0; i < count; i++)
@@ -178,60 +237,70 @@ namespace Shop
                     break;
                 }
 
-                ShopItemEntry selectedEntry = PickWeighted(workingCandidates);
-                if (selectedEntry == null || selectedEntry.item == null)
+                ShopProductSO selectedProduct =
+                    PickWeighted(workingCandidates);
+
+                if (selectedProduct == null)
                 {
                     continue;
                 }
 
-                ShopRuntimeItem runtimeItem = new ShopRuntimeItem(
-                    selectedEntry.item,
-                    selectedEntry.GetPrice(),
-                    i,
-                    pool.poolId);
+                ShopRuntimeItem runtimeItem =
+                    new ShopRuntimeItem(
+                        selectedProduct,
+                        selectedProduct.price,
+                        i,
+                        pool.poolId);
 
                 shop.AddItem(runtimeItem);
 
                 if (!pool.allowDuplicate)
                 {
-                    workingCandidates.Remove(selectedEntry);
+                    workingCandidates.Remove(selectedProduct);
                 }
             }
 
             return shop;
         }
 
-        private List<ShopItemEntry> GetCandidates(ShopItemPoolSO pool, ShopType targetShopType)
+        private List<ShopProductSO> GetCandidates(
+            ShopItemPoolSO pool)
         {
-            List<ShopItemEntry> entries = pool.GetAvailableEntries();
+            List<ShopProductSO> products =
+                pool.GetAvailableProducts();
 
-            return entries
+            return products
                 .Where(x => x != null)
-                .Where(x => x.item != null)
-                .Where(x => x.shopType == ShopType.Normal || x.shopType == targetShopType)
-                .Where(x => x.weight > 0)
                 .ToList();
         }
 
-        private ShopItemEntry PickWeighted(List<ShopItemEntry> candidates)
+        private ShopProductSO PickWeighted(
+            List<ShopProductSO> candidates)
         {
-            if (candidates == null || candidates.Count == 0)
+            if (candidates == null
+                || candidates.Count == 0)
             {
                 return null;
             }
 
-            int totalWeight = candidates.Sum(x => Mathf.Max(0, x.weight));
+            int totalWeight =
+                candidates.Sum(x => Mathf.Max(0, x.weight));
+
             if (totalWeight <= 0)
             {
-                return candidates[GetRandomRange(0, candidates.Count)];
+                return candidates[
+                    GetRandomRange(0, candidates.Count)];
             }
 
-            int roll = GetRandomRange(1, totalWeight + 1);
+            int roll =
+                GetRandomRange(1, totalWeight + 1);
+
             int accumulated = 0;
 
-            foreach (ShopItemEntry candidate in candidates)
+            foreach (ShopProductSO candidate in candidates)
             {
                 accumulated += Mathf.Max(0, candidate.weight);
+
                 if (roll <= accumulated)
                 {
                     return candidate;

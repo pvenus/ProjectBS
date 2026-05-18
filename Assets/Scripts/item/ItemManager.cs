@@ -1,5 +1,3 @@
-
-
 using System;
 using UnityEngine;
 
@@ -19,15 +17,35 @@ namespace Item
         [SerializeField]
         private RelicRuntimeData relicRuntimeData = new();
 
+        [SerializeField]
+        private ConsumeRuntimeData consumeRuntimeData = new();
+
+        [SerializeField]
+        private AIFunctionRuntimeData aiFunctionRuntimeData = new();
+
         [Header("Debug")]
         [SerializeField]
         private bool logDebug;
 
         public RelicRuntimeData RelicRuntimeData => relicRuntimeData;
 
+        public ConsumeRuntimeData ConsumeRuntimeData
+            => consumeRuntimeData;
+
+        public AIFunctionRuntimeData AIFunctionRuntimeData
+            => aiFunctionRuntimeData;
+
         public event Action<RelicSO> OnRelicAdded;
 
         public event Action<RelicSO> OnRelicRemoved;
+
+        public event Action<ConsumeSO> OnConsumeAdded;
+
+        public event Action<ConsumeSO> OnConsumeRemoved;
+
+        public event Action<AIFunctionSO> OnAIFunctionAdded;
+
+        public event Action<AIFunctionSO> OnAIFunctionRemoved;
 
         private void Awake()
         {
@@ -43,6 +61,18 @@ namespace Item
             if (relicRuntimeData == null)
             {
                 relicRuntimeData = new RelicRuntimeData();
+            }
+
+            if (consumeRuntimeData == null)
+            {
+                consumeRuntimeData =
+                    new ConsumeRuntimeData();
+            }
+
+            if (aiFunctionRuntimeData == null)
+            {
+                aiFunctionRuntimeData =
+                    new AIFunctionRuntimeData();
             }
         }
 
@@ -106,9 +136,131 @@ namespace Item
             return relicRuntimeData.HasRelic(relic);
         }
 
+        public bool AddConsume(ConsumeSO consume)
+        {
+            if (consume == null)
+            {
+                return false;
+            }
+
+            bool added =
+                consumeRuntimeData.AddConsume(consume);
+
+            if (!added)
+            {
+                return false;
+            }
+
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] Consume added. consume={consume.displayName}");
+            }
+
+            OnConsumeAdded?.Invoke(consume);
+            return true;
+        }
+
+        public bool RemoveConsume(ConsumeSO consume)
+        {
+            if (consume == null)
+            {
+                return false;
+            }
+
+            bool removed =
+                consumeRuntimeData.RemoveConsume(consume);
+
+            if (!removed)
+            {
+                return false;
+            }
+
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] Consume removed. consume={consume.displayName}");
+            }
+
+            OnConsumeRemoved?.Invoke(consume);
+            return true;
+        }
+
+        public bool HasConsume(ConsumeSO consume)
+        {
+            if (consume == null)
+            {
+                return false;
+            }
+
+            return consumeRuntimeData.HasConsume(consume);
+        }
+
+        public bool AddAIFunction(AIFunctionSO function)
+        {
+            if (function == null)
+            {
+                return false;
+            }
+
+            bool added =
+                aiFunctionRuntimeData.AddFunction(function);
+
+            if (!added)
+            {
+                return false;
+            }
+
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] AI Function added. function={function.displayName}");
+            }
+
+            OnAIFunctionAdded?.Invoke(function);
+            return true;
+        }
+
+        public bool RemoveAIFunction(AIFunctionSO function)
+        {
+            if (function == null)
+            {
+                return false;
+            }
+
+            bool removed =
+                aiFunctionRuntimeData.RemoveFunction(function);
+
+            if (!removed)
+            {
+                return false;
+            }
+
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] AI Function removed. function={function.displayName}");
+            }
+
+            OnAIFunctionRemoved?.Invoke(function);
+            return true;
+        }
+
+        public bool HasAIFunction(AIFunctionSO function)
+        {
+            if (function == null)
+            {
+                return false;
+            }
+
+            return aiFunctionRuntimeData.HasFunction(function);
+        }
+
         public void ClearRelics()
         {
             relicRuntimeData.Clear();
+            consumeRuntimeData.Clear();
+            aiFunctionRuntimeData.Clear();
 
             if (logDebug)
             {

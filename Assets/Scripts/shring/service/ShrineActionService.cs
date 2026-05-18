@@ -1,4 +1,5 @@
 using UnityEngine;
+using Bless;
 
 namespace Shrine
 {
@@ -44,8 +45,9 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrineManager.FaithData.GetFaithLevel(
-                    shrine.selectedGod);
+                shrine != null
+                    ? shrine.GetFaithLevel(shrine.selectedGod)
+                    : 0;
 
             if (currentFaithLevel >= 10)
             {
@@ -94,8 +96,9 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrineManager.FaithData.GetFaithLevel(
-                    shrine.selectedGod);
+                shrine != null
+                    ? shrine.GetFaithLevel(shrine.selectedGod)
+                    : 0;
 
             if (currentFaithLevel >= 10)
             {
@@ -156,7 +159,7 @@ namespace Shrine
         }
 
         public bool SelectBlessing(
-            ShrineBlessingRuntime blessing)
+            BlessRuntimeData.BlessEntry blessing)
         {
             ShrineRuntimeData shrine =
                 shrineManager.CurrentShrine;
@@ -171,10 +174,15 @@ namespace Shrine
                 return false;
             }
 
-            blessing.Select();
+            blessing.TrySelect();
 
-            shrineManager.PlayerRuntimeData.AddBlessing(
-                blessing.blessing);
+            if (BlessManager.Instance != null)
+            {
+                BlessManager.Instance.RuntimeData.AddBless(
+                    blessing.source,
+                    blessing.generatedFromPoolId,
+                    blessing.slotIndex);
+            }
 
             shrineManager.NotifyBlessingSelected(blessing);
 

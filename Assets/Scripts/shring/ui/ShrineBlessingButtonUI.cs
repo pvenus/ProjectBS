@@ -1,6 +1,7 @@
 
 
 using TMPro;
+using Bless;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,9 +28,9 @@ namespace Shrine.UI
         [Header("Options")]
         [SerializeField] private bool hideWhenEmpty = true;
 
-        private ShrineBlessingRuntime blessingRuntime;
+        private BlessRuntimeData.BlessEntry blessingRuntime;
 
-        public ShrineBlessingRuntime BlessingRuntime => blessingRuntime;
+        public BlessRuntimeData.BlessEntry BlessingRuntime => blessingRuntime;
 
         private void Awake()
         {
@@ -55,7 +56,7 @@ namespace Shrine.UI
             }
         }
 
-        public void Bind(ShrineBlessingRuntime runtime, ShrineManager manager = null)
+        public void Bind(BlessRuntimeData.BlessEntry runtime, ShrineManager manager = null)
         {
             blessingRuntime = runtime;
 
@@ -79,7 +80,8 @@ namespace Shrine.UI
 
         public void Refresh()
         {
-            if (blessingRuntime == null || !blessingRuntime.IsValid)
+            if (blessingRuntime == null
+                || blessingRuntime.source == null)
             {
                 SetEmpty();
                 return;
@@ -113,7 +115,9 @@ namespace Shrine.UI
 
             if (effectText != null)
             {
-                effectText.text = blessingRuntime.GetEffectDescription();
+                effectText.text = blessingRuntime.source != null
+                    ? blessingRuntime.source.description
+                    : string.Empty;
             }
 
             RefreshState();

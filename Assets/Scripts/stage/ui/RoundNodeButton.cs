@@ -69,6 +69,17 @@ namespace Stage.UI
                 clearedMark.SetActive(node.IsCompleted);
             }
 
+            if (titleText != null)
+            {
+                titleText.text = node.title;
+            }
+
+            if (iconImage != null)
+            {
+                iconImage.sprite = node.icon;
+                iconImage.enabled = node.icon != null;
+            }
+
             UpdateBackgroundColor();
         }
 
@@ -114,9 +125,9 @@ namespace Stage.UI
                 return;
             }
 
-            if (StageRuntime.Instance != null)
+            if (StageManager.Instance != null)
             {
-                StageRuntime.Instance.SelectNode(node.nodeId);
+                StageManager.Instance.SelectNode(node.nodeId);
             }
         }
     }

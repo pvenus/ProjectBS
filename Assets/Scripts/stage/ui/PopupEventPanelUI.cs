@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Item;
+using Common;
+using Common.SO;
 
 namespace Stage.UI
 {
@@ -29,6 +32,12 @@ namespace Stage.UI
 
         [Header("Result")]
         [SerializeField] private TMP_Text resultText;
+        [SerializeField] private Button confirmButton;
+        [SerializeField] private TMP_Text confirmButtonText;
+
+        [Header("Rewards")]
+        [SerializeField] private List<Image> rewardIcons = new();
+        [SerializeField] private List<TMP_Text> rewardTexts = new();
 
         [Header("Options")]
         [SerializeField] private bool hideOnAwake = true;
@@ -100,6 +109,20 @@ namespace Stage.UI
                 resultText.text = string.Empty;
             }
 
+            ClearRewardViews();
+
+            if (confirmButton != null)
+            {
+                confirmButton.gameObject.SetActive(false);
+                confirmButton.onClick.RemoveAllListeners();
+                confirmButton.onClick.AddListener(HandleConfirmButtonClicked);
+            }
+
+            if (confirmButtonText != null)
+            {
+                confirmButtonText.text = "확인";
+            }
+
             if (mainImage != null)
             {
                 mainImage.sprite = popupEvent.mainImage;
@@ -121,6 +144,19 @@ namespace Stage.UI
             currentNode = null;
 
             ClearChoiceButtons();
+
+            ClearRewardViews();
+
+            if (resultText != null)
+            {
+                resultText.text = string.Empty;
+            }
+
+            if (confirmButton != null)
+            {
+                confirmButton.onClick.RemoveAllListeners();
+                confirmButton.gameObject.SetActive(false);
+            }
 
             if (panelRoot != null)
             {
@@ -255,15 +291,178 @@ namespace Stage.UI
                 resultText.text = choice.resultText;
             }
 
+            RefreshRewardViews(choice);
+
+            ClearChoiceButtons();
+
+            if (confirmButton != null)
+            {
+                confirmButton.gameObject.SetActive(true);
+                confirmButton.interactable = true;
+            }
+
             if (closeOnChoiceSelected)
             {
-                Hide();
+                HandleConfirmButtonClicked();
             }
         }
 
         private void HandlePopupEventClosed(PopupEventSO popupEvent, RoundNode node)
         {
             Hide();
+        }
+
+        private void RefreshRewardViews(PopupEventChoice choice)
+        {
+            ClearRewardViews();
+
+            if (choice == null
+                || choice.rewards == null
+                || choice.rewards.Count == 0)
+            {
+                return;
+            }
+
+            int count = Mathf.Min(
+                rewardIcons.Count,
+                choice.rewards.Count);
+
+            for (int i = 0; i < count; i++)
+            {
+                PopupEventRewardData reward =
+                    choice.rewards[i];
+
+                Image icon = rewardIcons[i];
+                TMP_Text text =
+                    i < rewardTexts.Count
+                    ? rewardTexts[i]
+                    : null;
+
+                if (icon != null)
+                {
+                    icon.gameObject.SetActive(true);
+                    icon.sprite = GetRewardIcon(reward);
+                    icon.enabled = icon.sprite != null;
+                }
+
+                if (text != null)
+                {
+                    text.gameObject.SetActive(true);
+                    text.text = GetRewardText(reward);
+                }
+            }
+        }
+
+        private void ClearRewardViews()
+        {
+            foreach (Image icon in rewardIcons)
+            {
+                if (icon == null)
+                {
+                    continue;
+                }
+
+                icon.sprite = null;
+                icon.enabled = false;
+                icon.gameObject.SetActive(false);
+            }
+
+            foreach (TMP_Text text in rewardTexts)
+            {
+                if (text == null)
+                {
+                    continue;
+                }
+
+                text.text = string.Empty;
+                text.gameObject.SetActive(false);
+            }
+        }
+
+        private Sprite GetRewardIcon(PopupEventRewardData reward)
+        {
+            if (reward == null)
+            {
+                return null;
+            }
+
+            Sprite runtimeIcon = GetRuntimeRewardIcon(reward);
+
+            if (runtimeIcon != null)
+            {
+                return runtimeIcon;
+            }
+
+            if (LibraryManager.Instance == null)
+            {
+                return null;
+            }
+
+            RewardVisualSO visual =
+                LibraryManager.Instance.GetRewardVisual(
+                    reward.rewardType);
+
+            return visual != null
+                ? visual.icon
+                : null;
+        }
+
+        private Sprite GetRuntimeRewardIcon(
+            PopupEventRewardData reward)
+        {
+            switch (reward.targetData)
+            {
+                case RelicSO relic:
+                    return relic.icon;
+
+                case ConsumeSO consume:
+                    return consume.icon;
+
+                case AIFunctionSO function:
+                    return function.icon;
+            }
+
+            return null;
+        }
+
+        private string GetRewardText(PopupEventRewardData reward)
+        {
+            if (reward == null)
+            {
+                return string.Empty;
+            }
+
+            switch (reward.rewardType)
+            {
+                case PopupEventRewardType.Gold:
+                    return $"+{reward.value}";
+
+                case PopupEventRewardType.Hp:
+                    return $"+{reward.value}";
+
+                case PopupEventRewardType.HpPercent:
+                    return $"+{reward.value}%";
+
+                case PopupEventRewardType.Reputation:
+                case PopupEventRewardType.Faith:
+                    return reward.value >= 0
+                        ? $"+{reward.value}"
+                        : reward.value.ToString();
+            }
+
+            return string.Empty;
+        }
+
+        private void HandleConfirmButtonClicked()
+        {
+            if (popupEventManager != null)
+            {
+                popupEventManager.ConfirmChoiceResult();
+            }
+            else
+            {
+                Hide();
+            }
         }
     }
 }

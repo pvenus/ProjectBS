@@ -22,11 +22,31 @@ namespace Stage
         public int maxNodesPerDepth = 3;
 
         [Header("Pools")]
-        [Tooltip("일반 전투 풀")]
-        public List<RoundNodeSO> battlePool = new();
+        [Tooltip("스테이지 랜덤 풀")]
+        public List<EventPoolSO> pools = new();
 
-        [Tooltip("이벤트 풀")]
-        public List<RoundNodeSO> eventPool = new();
+        public EventPoolSO GetPool(string poolId)
+        {
+            if (string.IsNullOrWhiteSpace(poolId))
+            {
+                return null;
+            }
+
+            foreach (EventPoolSO pool in pools)
+            {
+                if (pool == null)
+                {
+                    continue;
+                }
+
+                if (pool.poolId == poolId)
+                {
+                    return pool;
+                }
+            }
+
+            return null;
+        }
 
         [Header("Required")]
         [Tooltip("필수 서브 이벤트 (조건 없이 삽입되는 노드)")]

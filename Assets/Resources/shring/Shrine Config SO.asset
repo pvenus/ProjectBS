@@ -16,10 +16,7 @@ MonoBehaviour:
   configName: Default Shrine Config
   partyHealRatio: 0.4
   blessingCandidateCount: 3
-  blessingPool:
-  - {fileID: 11400000, guid: 5a8186fa4c71e41a2943543d6a65dd50, type: 2}
-  - {fileID: 11400000, guid: 5b8aaa6c1f05749e48ec962e0e710373, type: 2}
-  - {fileID: 11400000, guid: 082bdf9d0398f43be863fc8a3728e5f4, type: 2}
+  blessingPool: {fileID: 11400000, guid: db62633c0223a4f20a8a47bde27d3ca0, type: 2}
   allowDuplicateBlessingCandidates: 0
   prayFaithGain: 1
   donateFaithGain: 2

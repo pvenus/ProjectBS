@@ -95,17 +95,47 @@ namespace Shrine.UI
                 gameObject.SetActive(true);
             }
 
-            FaithRuntimeData faithData = shrineManager != null
-                ? shrineManager.FaithData
-                : null;
+            ShrineRuntimeData faithData =
+                shrineManager != null
+                    ? shrineManager.CurrentShrine
+                    : null;
 
             int faithLevel = faithData != null
                 ? faithData.GetFaithLevel(god.godType)
                 : 0;
 
-            FaithStageState state = faithData != null
-                ? faithData.GetFaithState(god.godType)
-                : FaithStageState.None;
+            FaithStageState state = FaithStageState.None;
+
+            if (faithData != null)
+            {
+                int currentFaith =
+                    faithData.GetFaithLevel(god.godType);
+
+                bool hasLockedFaith =
+                    faithData.HasLockedFaith
+                    && faithData.LockedGod == god.godType;
+
+                if (hasLockedFaith)
+                {
+                    state = FaithStageState.Locked;
+                }
+                else if (currentFaith >= 7)
+                {
+                    state = FaithStageState.Successor;
+                }
+                else if (currentFaith >= 5)
+                {
+                    state = FaithStageState.Devoted;
+                }
+                else if (currentFaith >= 1)
+                {
+                    state = FaithStageState.Influenced;
+                }
+                else
+                {
+                    state = FaithStageState.Normal;
+                }
+            }
 
             isSelected = shrineManager != null
                          && shrineManager.CurrentShrine != null
@@ -113,8 +143,10 @@ namespace Shrine.UI
 
             bool isUnlocked =
                 shrineManager != null
-                && shrineManager.PlayerRuntimeData != null
-                && shrineManager.PlayerRuntimeData.CanSelectGod(god.godType);
+                && shrineManager.CurrentShrine != null
+                && shrineManager.CurrentShrine
+                    .availableGods
+                    .Contains(god.godType);
 
             isLocked = !isUnlocked;
 

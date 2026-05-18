@@ -1,4 +1,7 @@
 using UnityEngine;
+using Item;
+using Stat;
+using Shrine;
 
 namespace Stage
 {
@@ -11,11 +14,13 @@ namespace Stage
         public static StagePopupEventManager Instance { get; private set; }
 
         [Header("References")]
-        [SerializeField] private StageRuntime stageRuntime;
+        [SerializeField] private StageManager stageManager;
 
         [Header("Runtime")]
+        private EventRewardExecutor rewardExecutor;
         private PopupEventSO currentEvent;
         private RoundNode currentNode;
+        private PopupEventChoice pendingChoice;
 
         public PopupEventSO CurrentEvent => currentEvent;
         public bool IsOpened => currentEvent != null;
@@ -34,38 +39,43 @@ namespace Stage
 
             Instance = this;
 
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
+
+            rewardExecutor = new EventRewardExecutor(
+                ItemManager.Instance,
+                StatManager.Instance);
         }
 
         private void OnEnable()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
 
-            stageRuntime.OnNodeSelected += HandleNodeSelected;
-            stageRuntime.OnStageGenerated += HandleStageGenerated;
+            stageManager.OnNodeSelected += HandleNodeSelected;
+            stageManager.OnStageGenerated += HandleStageGenerated;
         }
 
         private void OnDisable()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnStageGenerated -= HandleStageGenerated;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnStageGenerated -= HandleStageGenerated;
         }
 
         private void HandleStageGenerated(StageGraph graph)
         {
             currentEvent = null;
             currentNode = null;
+            pendingChoice = null;
         }
 
         private void HandleNodeSelected(RoundNode node)
@@ -127,15 +137,37 @@ namespace Stage
                 return;
             }
 
-            OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
+            pendingChoice = choice;
 
-            if (choice.nextEvent != null)
+            if (rewardExecutor != null)
             {
-                Open(choice.nextEvent, currentNode);
+                rewardExecutor.Execute(choice.rewards);
+            }
+
+            OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
+        }
+
+        public void ConfirmChoiceResult()
+        {
+            if (pendingChoice == null)
+            {
                 return;
             }
 
-            if (choice.completesEvent)
+            PopupEventChoice confirmedChoice = pendingChoice;
+            pendingChoice = null;
+
+            if (confirmedChoice.nextEvent != null)
+            {
+                Open(confirmedChoice.nextEvent, currentNode);
+                return;
+            }
+
+            bool shouldCompleteEvent =
+                confirmedChoice.completesEvent
+                || confirmedChoice.nextEvent == null;
+
+            if (shouldCompleteEvent)
             {
                 Complete();
             }
@@ -148,12 +180,13 @@ namespace Stage
 
             currentEvent = null;
             currentNode = null;
+            pendingChoice = null;
 
             OnPopupEventClosed?.Invoke(closedEvent, node);
 
-            if (stageRuntime != null && stageRuntime.CurrentNode == node)
+            if (stageManager != null && stageManager.CurrentNode == node)
             {
-                stageRuntime.CompleteCurrentNode();
+                stageManager.CompleteCurrentNode();
             }
         }
 
@@ -164,6 +197,7 @@ namespace Stage
 
             currentEvent = null;
             currentNode = null;
+            pendingChoice = null;
 
             OnPopupEventClosed?.Invoke(closedEvent, node);
         }

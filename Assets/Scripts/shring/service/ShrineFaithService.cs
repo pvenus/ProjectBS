@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Bless;
 
 namespace Shrine
 {
@@ -11,7 +12,7 @@ namespace Shrine
     {
         private readonly ShrineManager shrineManager;
 
-        private readonly ShrinePlayerRuntimeData playerRuntimeData;
+        private readonly ShrineRuntimeData shrineRuntimeData;
 
         private readonly ShrineConfigSO config;
 
@@ -23,14 +24,14 @@ namespace Shrine
 
         public ShrineFaithService(
             ShrineManager shrineManager,
-            ShrinePlayerRuntimeData playerRuntimeData,
+            ShrineRuntimeData shrineRuntimeData,
             ShrineConfigSO config,
             ShrineRewardService rewardService,
             ShrineMissionService missionService,
             bool logDebug)
         {
             this.shrineManager = shrineManager;
-            this.playerRuntimeData = playerRuntimeData;
+            this.shrineRuntimeData = shrineRuntimeData;
             this.config = config;
             this.rewardService = rewardService;
             this.missionService = missionService;
@@ -61,7 +62,7 @@ namespace Shrine
             ShrineGodType godType,
             int amount)
         {
-            if (playerRuntimeData == null)
+            if (shrineRuntimeData == null)
             {
                 return 0;
             }
@@ -89,15 +90,15 @@ namespace Shrine
             }
 
             int previousLevel =
-                playerRuntimeData.GetFaithLevel(godType);
+                shrineRuntimeData.GetFaithLevel(godType);
 
             bool becameLocked =
-                playerRuntimeData.AddFaith(
+                shrineRuntimeData.AddFaith(
                     godType,
                     amount);
 
             int level =
-                playerRuntimeData.GetFaithLevel(godType);
+                shrineRuntimeData.GetFaithLevel(godType);
 
             GiveFaithLevelRewards(
                 god,
@@ -127,7 +128,7 @@ namespace Shrine
             }
 
             int currentLevel =
-                playerRuntimeData.GetFaithLevel(
+                shrineRuntimeData.GetFaithLevel(
                     god.godType);
 
             if (currentLevel > 0)
@@ -140,9 +141,11 @@ namespace Shrine
                 return false;
             }
 
-            playerRuntimeData.SetFaithLevel(
-                god.godType,
-                god.initialFaithLevel);
+            ShrineFaithEntry entry =
+                shrineRuntimeData.GetOrCreateFaithEntry(
+                    god.godType);
+
+            entry.faithLevel = god.initialFaithLevel;
 
             return true;
         }
@@ -162,7 +165,7 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                playerRuntimeData.GetFaithLevel(
+                shrineRuntimeData.GetFaithLevel(
                     lockedGod.godType);
 
             missionService?.ActivateFaithMission(
@@ -275,12 +278,12 @@ namespace Shrine
                 return;
             }
 
-            if (playerRuntimeData == null)
+            if (BlessManager.Instance == null)
             {
                 return;
             }
 
-            List<ShrineBlessingSO> blessings =
+            List<BlessSO> blessings =
                 god.GetAvailableBlessings(
                     faithLevel,
                     ShrineBlessingGroup.Enhanced);
@@ -293,7 +296,7 @@ namespace Shrine
 
             for (int i = 0; i < blessings.Count; i++)
             {
-                ShrineBlessingSO blessing =
+                BlessSO blessing =
                     blessings[i];
 
                 if (blessing == null)
@@ -301,8 +304,9 @@ namespace Shrine
                     continue;
                 }
 
-                playerRuntimeData.AddEnhancedBlessing(
-                    blessing);
+                BlessManager.Instance.RuntimeData.AddBless(
+                    blessing,
+                    $"faith_{god.godType}_{faithLevel}");
 
                 if (logDebug)
                 {

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Bless;
 using UnityEngine;
 
 namespace Shrine
@@ -13,34 +15,30 @@ namespace Shrine
 
         private readonly ShrineConfigSO config;
 
-        private readonly ShrinePlayerRuntimeData playerRuntimeData;
-
         private readonly bool logDebug;
 
         public ShrineBlessingService(
             ShrineManager shrineManager,
             ShrineConfigSO config,
-            ShrinePlayerRuntimeData playerRuntimeData,
             bool logDebug)
         {
             this.shrineManager = shrineManager;
             this.config = config;
-            this.playerRuntimeData = playerRuntimeData;
             this.logDebug = logDebug;
         }
 
-        public List<ShrineBlessingSO> GenerateBlessingCandidates(
+        public List<BlessSO> GenerateBlessingCandidates(
             ShrineGodType godType,
             int count)
         {
-            List<ShrineBlessingSO> result = new();
+            List<BlessSO> result = new();
 
             if (count <= 0)
             {
                 return result;
             }
 
-            List<ShrineBlessingSO> pool =
+            List<BlessSO> pool =
                 GetAvailableBlessingPool(godType);
 
             if (pool.Count <= 0)
@@ -51,17 +49,19 @@ namespace Shrine
             int safeCount =
                 Mathf.Min(count, pool.Count);
 
-            List<ShrineBlessingSO> workingPool =
+            List<BlessSO> workingPool =
                 new(pool);
 
             for (int i = 0; i < safeCount; i++)
             {
-                ShrineBlessingSO picked =
-                    PickWeightedBlessing(workingPool);
+                BlessSO picked =
+                    PickWeightedBlessing(
+                        workingPool,
+                        godType);
 
                 if (picked == null)
                 {
-                    continue;
+                    break;
                 }
 
                 result.Add(picked);
@@ -77,18 +77,18 @@ namespace Shrine
             return result;
         }
 
-        public List<ShrineBlessingSO> GenerateEnhancedBlessingCandidates(
+        public List<BlessSO> GenerateEnhancedBlessingCandidates(
             ShrineGodType godType,
             int count)
         {
-            List<ShrineBlessingSO> result = new();
+            List<BlessSO> result = new();
 
             if (count <= 0)
             {
                 return result;
             }
 
-            List<ShrineBlessingSO> pool =
+            List<BlessSO> pool =
                 GetEnhancedBlessingPool(godType);
 
             if (pool.Count <= 0)
@@ -99,17 +99,19 @@ namespace Shrine
             int safeCount =
                 Mathf.Min(count, pool.Count);
 
-            List<ShrineBlessingSO> workingPool =
+            List<BlessSO> workingPool =
                 new(pool);
 
             for (int i = 0; i < safeCount; i++)
             {
-                ShrineBlessingSO picked =
-                    PickWeightedBlessing(workingPool);
+                BlessSO picked =
+                    PickWeightedBlessing(
+                        workingPool,
+                        godType);
 
                 if (picked == null)
                 {
-                    continue;
+                    break;
                 }
 
                 result.Add(picked);
@@ -125,51 +127,53 @@ namespace Shrine
             return result;
         }
 
-        private List<ShrineBlessingSO> GetAvailableBlessingPool(
+        private List<BlessSO> GetAvailableBlessingPool(
             ShrineGodType godType)
         {
-            List<ShrineBlessingSO> result = new();
+            List<BlessSO> result = new();
 
-            if (config == null)
-            {
-                return result;
-            }
-
-            if (config.blessingPool == null)
+            if (config == null
+                || config.blessingPool == null)
             {
                 return result;
             }
 
             int faithLevel =
-                playerRuntimeData != null
-                    ? playerRuntimeData.GetFaithLevel(godType)
+                shrineManager.CurrentShrine != null
+                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
                     : 0;
 
-            for (int i = 0; i < config.blessingPool.Count; i++)
+            for (int i = 0; i < config.blessingPool.blessings.Count; i++)
             {
-                ShrineBlessingSO blessing =
-                    config.blessingPool[i];
+                BlessPoolSO.BlessPoolEntry entry =
+                    config.blessingPool.blessings[i];
 
-                if (blessing == null)
+                if (entry == null
+                    || entry.blessing == null)
                 {
                     continue;
                 }
 
-                if (!blessing.CanAppear(godType, faithLevel))
+                if (entry.progressionStep != faithLevel)
                 {
                     continue;
                 }
 
-                result.Add(blessing);
+                if (!entry.blessing.CanAppear(godType, faithLevel))
+                {
+                    continue;
+                }
+
+                result.Add(entry.blessing);
             }
 
             return result;
         }
 
-        private List<ShrineBlessingSO> GetEnhancedBlessingPool(
+        private List<BlessSO> GetEnhancedBlessingPool(
             ShrineGodType godType)
         {
-            List<ShrineBlessingSO> result = new();
+            List<BlessSO> result = new();
 
             if (config == null)
             {
@@ -190,11 +194,11 @@ namespace Shrine
             }
 
             int faithLevel =
-                playerRuntimeData != null
-                    ? playerRuntimeData.GetFaithLevel(godType)
+                shrineManager.CurrentShrine != null
+                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
                     : 0;
 
-            List<ShrineBlessingSO> blessings =
+            List<BlessSO> blessings =
                 god.GetAvailableBlessings(
                     faithLevel,
                     ShrineBlessingGroup.Enhanced);
@@ -206,7 +210,7 @@ namespace Shrine
 
             for (int i = 0; i < blessings.Count; i++)
             {
-                ShrineBlessingSO blessing =
+                BlessSO blessing =
                     blessings[i];
 
                 if (blessing == null)
@@ -225,8 +229,9 @@ namespace Shrine
             return result;
         }
 
-        private ShrineBlessingSO PickWeightedBlessing(
-            List<ShrineBlessingSO> pool)
+        private BlessSO PickWeightedBlessing(
+            List<BlessSO> pool,
+            ShrineGodType godType)
         {
             if (pool == null
                 || pool.Count <= 0)
@@ -234,50 +239,62 @@ namespace Shrine
                 return null;
             }
 
-            float totalWeight = 0f;
+            int faithLevel =
+                shrineManager.CurrentShrine != null
+                    ? shrineManager.CurrentShrine.GetFaithLevel(godType)
+                    : 0;
+
+            List<BlessPoolSO.BlessPoolEntry> candidates = new();
 
             for (int i = 0; i < pool.Count; i++)
             {
-                ShrineBlessingSO blessing =
-                    pool[i];
+                BlessSO blessing = pool[i];
 
                 if (blessing == null)
                 {
                     continue;
                 }
 
-                totalWeight += Mathf.Max(0f, blessing.weight);
-            }
+                BlessPoolSO.BlessPoolEntry entry =
+                    config.blessingPool.blessings
+                        .Find(x => x != null
+                                   && x.blessing == blessing
+                                   && x.progressionStep == faithLevel);
 
-            if (totalWeight <= 0f)
-            {
-                return pool[Random.Range(0, pool.Count)];
-            }
-
-            float randomValue =
-                Random.Range(0f, totalWeight);
-
-            float current = 0f;
-
-            for (int i = 0; i < pool.Count; i++)
-            {
-                ShrineBlessingSO blessing =
-                    pool[i];
-
-                if (blessing == null)
+                if (entry == null)
                 {
                     continue;
                 }
 
-                current += Mathf.Max(0f, blessing.weight);
+                candidates.Add(entry);
+            }
 
-                if (randomValue <= current)
+            if (candidates.Count <= 0)
+            {
+                return null;
+            }
+
+            int totalWeight = 0;
+
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                totalWeight += Mathf.Max(1, candidates[i].weight);
+            }
+
+            int randomValue = Random.Range(0, totalWeight);
+            int currentWeight = 0;
+
+            for (int i = 0; i < candidates.Count; i++)
+            {
+                currentWeight += Mathf.Max(1, candidates[i].weight);
+
+                if (randomValue < currentWeight)
                 {
-                    return blessing;
+                    return candidates[i].blessing;
                 }
             }
 
-            return pool[pool.Count - 1];
+            return candidates[0].blessing;
         }
     }
 }

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e430f713bdf4567856958058cef160, type: 3}
+  m_Name: BlessPool
+  m_EditorClassIdentifier: Assembly-CSharp::Bless.BlessPoolSO
+  poolId: 
+  displayName: 
+  description: 
+  icon: {fileID: 0}
+  blessings:
+  - blessing: {fileID: 11400000, guid: 5a8186fa4c71e41a2943543d6a65dd50, type: 2}
+    weight: 100
+    progressionStep: 0
+  - blessing: {fileID: 11400000, guid: 5b8aaa6c1f05749e48ec962e0e710373, type: 2}
+    weight: 100
+    progressionStep: 0
+  - blessing: {fileID: 11400000, guid: 082bdf9d0398f43be863fc8a3728e5f4, type: 2}
+    weight: 100
+    progressionStep: 0

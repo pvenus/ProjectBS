@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e56ef299f9604daa8111867659587a8, type: 3}
+  m_Name: '[Battle][1] BattleDefinition'
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.BattleDefinitionSO
+  battleId: battle:sealed_arena
+  displayName: "\uBD09\uC778\uB41C \uD22C\uAE30\uC7A5"
+  description: 
+  previewIcon: {fileID: -4850635147175972786, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  themeColor: {r: 1, g: 1, b: 1, a: 1}
+  isBossBattle: 0
+  lockRetreat: 0
+  autoStartBattle: 1
+  enemyGroup: {fileID: 0}
+  clearRewards:
+  - rewardType: 100
+    value: 500
+    godType: 0
+    targetData: {fileID: 0}

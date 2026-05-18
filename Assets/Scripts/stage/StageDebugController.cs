@@ -1,4 +1,3 @@
-
 using System.Text;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace Stage
     public class StageDebugController : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private StageRuntime stageRuntime;
+        [SerializeField] private StageManager stageManager;
         [SerializeField] private StageDefinitionSO stageDefinition;
 
         [Header("Options")]
@@ -22,17 +21,17 @@ namespace Stage
 
         private void Awake()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
         }
 
         private void OnEnable()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
 
             Subscribe();
@@ -53,15 +52,15 @@ namespace Stage
 
         public void GenerateStage()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                Debug.LogWarning("[StageDebugController] GenerateStage failed. StageRuntime is null.");
+                Debug.LogWarning("[StageDebugController] GenerateStage failed. StageManager is null.");
                 return;
             }
 
             StageDefinitionSO targetDefinition = stageDefinition != null
                 ? stageDefinition
-                : stageRuntime.StageDefinition;
+                : stageManager.StageDefinition;
 
             if (targetDefinition == null)
             {
@@ -69,7 +68,7 @@ namespace Stage
                 return;
             }
 
-            StageGraph graph = stageRuntime.GenerateStage(targetDefinition);
+            StageGraph graph = stageManager.GenerateStage(targetDefinition);
             if (graph == null)
             {
                 return;
@@ -83,25 +82,25 @@ namespace Stage
 
         public void RegenerateStage()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                Debug.LogWarning("[StageDebugController] RegenerateStage failed. StageRuntime is null.");
+                Debug.LogWarning("[StageDebugController] RegenerateStage failed. StageManager is null.");
                 return;
             }
 
-            stageRuntime.ClearRuntime();
+            stageManager.ClearRuntime();
             GenerateStage();
         }
 
         public void CompleteCurrentNode()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                Debug.LogWarning("[StageDebugController] CompleteCurrentNode failed. StageRuntime is null.");
+                Debug.LogWarning("[StageDebugController] CompleteCurrentNode failed. StageManager is null.");
                 return;
             }
 
-            RoundNode currentNode = stageRuntime.CurrentNode;
+            RoundNode currentNode = stageManager.CurrentNode;
             if (currentNode == null)
             {
                 Debug.LogWarning("[StageDebugController] CompleteCurrentNode failed. Current node is null.");
@@ -113,18 +112,18 @@ namespace Stage
                 Debug.LogWarning($"[StageDebugController] Current node is not selected. nodeId={currentNode.nodeId}");
             }
 
-            stageRuntime.CompleteCurrentNode();
+            stageManager.CompleteCurrentNode();
         }
 
         public void LogGraph()
         {
-            if (stageRuntime == null || stageRuntime.CurrentGraph == null)
+            if (stageManager == null || stageManager.CurrentGraph == null)
             {
                 Debug.LogWarning("[StageDebugController] LogGraph failed. Current graph is null.");
                 return;
             }
 
-            StageGraph graph = stageRuntime.CurrentGraph;
+            StageGraph graph = stageManager.CurrentGraph;
             StringBuilder builder = new StringBuilder();
 
             builder.AppendLine($"[StageDebugController] Stage Graph: {graph.stageId} / {graph.stageName}");
@@ -150,19 +149,19 @@ namespace Stage
 
         public void LogCurrentNode()
         {
-            if (stageRuntime == null || stageRuntime.CurrentNode == null)
+            if (stageManager == null || stageManager.CurrentNode == null)
             {
                 Debug.Log("[StageDebugController] Current node is null.");
                 return;
             }
 
-            RoundNode node = stageRuntime.CurrentNode;
+            RoundNode node = stageManager.CurrentNode;
             Debug.Log($"[StageDebugController] Current Node: {node.nodeId} / {node.title} / {node.nodeType} / {node.state}");
         }
 
         public void LogAvailableNodes()
         {
-            if (stageRuntime == null || stageRuntime.CurrentGraph == null)
+            if (stageManager == null || stageManager.CurrentGraph == null)
             {
                 Debug.LogWarning("[StageDebugController] LogAvailableNodes failed. Current graph is null.");
                 return;
@@ -171,7 +170,7 @@ namespace Stage
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("[StageDebugController] Available Nodes");
 
-            foreach (RoundNode node in stageRuntime.GetAvailableNodes())
+            foreach (RoundNode node in stageManager.GetAvailableNodes())
             {
                 builder.AppendLine($"  - {node.nodeId} | {node.title} | {node.nodeType}");
             }
@@ -181,30 +180,30 @@ namespace Stage
 
         private void Subscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
 
-            stageRuntime.OnNodeSelected += HandleNodeSelected;
-            stageRuntime.OnNodeCompleted += HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged += HandleStageProgressChanged;
+            stageManager.OnNodeSelected += HandleNodeSelected;
+            stageManager.OnNodeCompleted += HandleNodeCompleted;
+            stageManager.OnStageProgressChanged += HandleStageProgressChanged;
         }
 
         private void Unsubscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
         }
 
         private void HandleNodeSelected(RoundNode node)

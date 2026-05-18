@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using Shrine;
 
 namespace Stage
 {
@@ -20,9 +22,9 @@ namespace Stage
         [TextArea]
         public string resultText;
 
-        [Header("Debug Reward / Penalty")]
-        public int goldDelta;
-        public int hpDelta;
+
+        [Header("Rewards")]
+        public List<PopupEventRewardData> rewards = new();
 
         [Header("Flow")]
         public bool completesEvent = true;
@@ -32,4 +34,51 @@ namespace Stage
 
         public bool HasNextEvent => nextEvent != null;
     }
+
+    [Serializable]
+    public class PopupEventRewardData
+    {
+        public PopupEventRewardType rewardType;
+
+        public int value;
+
+        public ShrineGodType godType;
+
+        public ScriptableObject targetData;
+
+
+        public string tag;
+    }
+
+    public enum PopupEventRewardType
+    {
+        None = 0,
+
+        Gold = 100,
+        Hp = 200,
+        HpPercent = 300,
+
+        Reputation = 1000,
+        Faith = 1100,
+
+        Relic = 2000,
+        RelicPool = 2050,
+        Consume = 2100,
+        ConsumePool = 2150,
+        Blessing = 2200,
+        BlessingPool = 2250,
+        AIFunction = 2300,
+
+        SpecialBattle = 3000,
+        BossBattle = 3100,
+
+        UnlockRoute = 4000,
+        RevealHiddenNode = 4050,
+        NextEvent = 4100,
+
+        NextBattleAttackSpeed = 5000,
+        NextBattleMoveSpeed = 5100,
+        NextBattleDefense = 5200,
+    }
+
 }

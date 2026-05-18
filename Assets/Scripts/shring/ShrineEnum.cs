@@ -27,51 +27,6 @@ namespace Shrine
     }
 
     /// <summary>
-    /// 축복 카테고리.
-    /// </summary>
-    public enum ShrineBlessingCategory
-    {
-        None = 0,
-
-        Attack,
-        Defense,
-        Growth,
-        Strategy,
-        Utility,
-        Special
-    }
-
-    /// <summary>
-    /// 축복 효과 타입.
-    /// 실제 스탯 시스템 연결 전까지 공용 처리용.
-    /// </summary>
-    public enum ShrineBlessingEffectType
-    {
-        None = 0,
-
-        AttackPowerPercent,
-        AttackSpeedPercent,
-        CriticalChancePercent,
-        BossDamagePercent,
-
-        DamageReductionPercent,
-        MaxHpPercent,
-        StatusResistancePercent,
-        LowHpDefensePercent,
-
-        ExpGainPercent,
-        GoldGainPercent,
-        RelicDropPercent,
-
-        AiReactionSpeedPercent,
-        CooldownReductionPercent,
-        ConsumableEffectPercent,
-        StartBattleShield,
-
-        Special
-    }
-
-    /// <summary>
     /// 신앙 단계 상태.
     /// </summary>
     public enum FaithStageState

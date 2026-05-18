@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +26,12 @@ namespace Stage
         public RoundNodeState state = RoundNodeState.Locked;
 
         [Header("Execute Payload")]
+
+        [Header("Resolve")]
+        public bool useRandomEventPool;
+        public string randomPoolId;
+        public bool resolved;
+
         public string sceneName;
         public string eventId;
         public PopupEventSO popupEvent;
@@ -44,6 +48,12 @@ namespace Stage
         public bool isRequired;
         public bool isCleared;
         public bool isSelected;
+
+        [Header("Hidden")]
+        public bool isHidden;
+
+        [Tooltip("RoundNodeSO의 기본 숨김 상태")]
+        public bool hiddenByDefault;
 
         public RoundNode()
         {
@@ -81,6 +91,11 @@ namespace Stage
                 return;
             }
 
+            if (isHidden)
+            {
+                return;
+            }
+
             state = RoundNodeState.Available;
         }
 
@@ -98,6 +113,7 @@ namespace Stage
         {
             isCleared = true;
             isSelected = false;
+            resolved = true;
             state = RoundNodeState.Cleared;
         }
 
@@ -136,9 +152,54 @@ namespace Stage
             prevNodeIds.Add(prevNodeId);
         }
 
+        public void Reveal()
+        {
+            isHidden = false;
+
+            if (!IsCompleted)
+            {
+                state = RoundNodeState.Available;
+            }
+
+            if (useRandomEventPool
+                && !resolved)
+            {
+                title = "?";
+                description = "Unknown Event";
+            }
+        }
+
+        public void Hide()
+        {
+            isHidden = true;
+        }
+
+
+        public void ResolveEvent(
+            PopupEventSO popupEvent,
+            string eventId)
+        {
+            this.popupEvent = popupEvent;
+            this.eventId = eventId;
+            resolved = true;
+
+            if (popupEvent != null)
+            {
+                title = popupEvent.name;
+            }
+        }
+
+        public bool NeedsResolve()
+        {
+            return useRandomEventPool
+                && !resolved;
+        }
+
         public bool CanExecute()
         {
-            return IsAvailable && !IsCompleted;
+            return IsAvailable
+                && !IsCompleted
+                && !isHidden;
         }
     }
 }

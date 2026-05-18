@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,17 +118,8 @@ namespace Stage
 
             while (result.Count < nodeCount)
             {
-                RoundNodeSO selected = PickRandomNodeForDepth(depth);
-
-                if (selected == null)
-                {
-                    result.Add(CreateFallbackBattleNode(depth, index));
-                }
-                else
-                {
-                    result.Add(CreateNodeFromSO(selected, depth, index, $"node_{depth}_{index}"));
-                }
-
+                RoundNode randomNode = CreateRandomPoolNode(depth, index);
+                result.Add(randomNode);
                 index++;
             }
 
@@ -143,61 +132,59 @@ namespace Stage
             {
                 return new List<RoundNodeSO>();
             }
-
             return definition.requiredSubEvents
-                .Where(x => x != null && IsNodeAvailableAtDepth(x, depth))
+                .Where(x => x != null)
                 .ToList();
         }
 
-        private RoundNodeSO PickRandomNodeForDepth(int depth)
+        private RoundNode CreateRandomPoolNode(
+            int depth,
+            int indexInDepth)
         {
-            List<RoundNodeSO> candidates = new();
+            EventPoolSO selectedPool = PickRandomPool();
 
-            if (definition.battlePool != null)
+            if (selectedPool == null)
             {
-                candidates.AddRange(definition.battlePool.Where(x => x != null && IsNodeAvailableAtDepth(x, depth)));
+                return CreateFallbackBattleNode(depth, indexInDepth);
             }
 
-            if (definition.eventPool != null)
+            return new RoundNode(
+                $"pool_{depth}_{indexInDepth}",
+                "?",
+                RoundNodeType.Event,
+                RoundExecuteMode.Popup,
+                depth,
+                indexInDepth)
             {
-                candidates.AddRange(definition.eventPool.Where(x => x != null && IsNodeAvailableAtDepth(x, depth)));
+                description = "Unknown Event",
+                useRandomEventPool = true,
+                randomPoolId = selectedPool.poolId,
+                resolved = false
+            };
+        }
+
+        private EventPoolSO PickRandomPool()
+        {
+            if (definition.pools == null
+                || definition.pools.Count == 0)
+            {
+                return null;
             }
+
+            List<EventPoolSO> candidates =
+                definition.pools
+                    .Where(x => x != null)
+                    .ToList();
 
             if (candidates.Count == 0)
             {
                 return null;
             }
 
-            return PickWeighted(candidates);
-        }
+            int index =
+                GetRandomRangeInclusive(0, candidates.Count - 1);
 
-        private RoundNodeSO PickWeighted(List<RoundNodeSO> candidates)
-        {
-            int totalWeight = candidates.Sum(x => Mathf.Max(0, x.weight));
-
-            if (totalWeight <= 0)
-            {
-                return candidates[GetRandomRangeInclusive(0, candidates.Count - 1)];
-            }
-
-            int roll = GetRandomRangeInclusive(1, totalWeight);
-            int accumulated = 0;
-
-            foreach (RoundNodeSO candidate in candidates)
-            {
-                accumulated += Mathf.Max(0, candidate.weight);
-                if (roll <= accumulated)
-                {
-                    return candidate;
-                }
-            }
-
-            return candidates[^1];
-        }
-
-        private bool IsNodeAvailableAtDepth(RoundNodeSO node, int depth)
-        {
-            return depth >= node.minDepth && depth <= node.maxDepth;
+            return candidates[index];
         }
 
         private RoundNode CreateNodeFromSO(RoundNodeSO source, int depth, int indexInDepth, string fallbackId)

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Stage
 {
     /// <summary>
-    /// StageRuntime 이벤트를 구독하여 플레이어가 선택/완료한 스테이지 진행 경로를 기록한다.
+    /// StageManager 이벤트를 구독하여 플레이어가 선택/완료한 스테이지 진행 경로를 기록한다.
     /// 이후 경로 UI, 저장/복구, 디버그 분석에 사용할 수 있다.
     /// </summary>
     public class StageRouteManager : MonoBehaviour
@@ -14,7 +14,7 @@ namespace Stage
         public static StageRouteManager Instance { get; private set; }
 
         [Header("References")]
-        [SerializeField] private StageRuntime stageRuntime;
+        [SerializeField] private StageManager stageManager;
 
         [Header("Runtime")]
         [SerializeField] private StageRouteRecord currentRouteRecord;
@@ -35,17 +35,17 @@ namespace Stage
 
             Instance = this;
 
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
         }
 
         private void OnEnable()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
 
             Subscribe();
@@ -170,7 +170,7 @@ namespace Stage
                 return;
             }
 
-            StageGraph graph = stageRuntime != null ? stageRuntime.CurrentGraph : null;
+            StageGraph graph = stageManager != null ? stageManager.CurrentGraph : null;
             if (graph == null)
             {
                 currentRouteRecord = new StageRouteRecord();
@@ -182,33 +182,33 @@ namespace Stage
 
         private void Subscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnStageGenerated -= HandleStageGenerated;
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnStageGenerated -= HandleStageGenerated;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
 
-            stageRuntime.OnStageGenerated += HandleStageGenerated;
-            stageRuntime.OnNodeSelected += HandleNodeSelected;
-            stageRuntime.OnNodeCompleted += HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged += HandleStageProgressChanged;
+            stageManager.OnStageGenerated += HandleStageGenerated;
+            stageManager.OnNodeSelected += HandleNodeSelected;
+            stageManager.OnNodeCompleted += HandleNodeCompleted;
+            stageManager.OnStageProgressChanged += HandleStageProgressChanged;
         }
 
         private void Unsubscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnStageGenerated -= HandleStageGenerated;
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnStageGenerated -= HandleStageGenerated;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
         }
 
         private void HandleStageGenerated(StageGraph graph)
@@ -228,9 +228,9 @@ namespace Stage
 
         private void HandleStageProgressChanged(StageProgressState state)
         {
-            if (state == StageProgressState.Failed && stageRuntime != null)
+            if (state == StageProgressState.Failed && stageManager != null)
             {
-                AddFailedNode(stageRuntime.CurrentNode);
+                AddFailedNode(stageManager.CurrentNode);
             }
         }
     }

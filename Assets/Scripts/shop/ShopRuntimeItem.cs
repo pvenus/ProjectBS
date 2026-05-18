@@ -1,5 +1,3 @@
-
-
 using System;
 using UnityEngine;
 
@@ -17,7 +15,7 @@ namespace Shop
         public int slotIndex;
 
         [Header("Source")]
-        public ShopItemSO item;
+        public ShopProductSO product;
 
         [Header("Runtime Shop Data")]
         [Min(0)]
@@ -28,17 +26,13 @@ namespace Shop
         [Header("Debug")]
         public string generatedFromPoolId;
 
-        public string ItemId => item != null ? item.itemId : string.Empty;
-        public string DisplayName => item != null ? item.DisplayName : "Empty";
-        public string Description => item != null ? item.description : string.Empty;
-        public Sprite Icon => item != null ? item.icon : null;
-        public ShopItemRarity Rarity => item != null ? item.rarity : ShopItemRarity.Common;
-        public ShopItemCategory Category => item != null ? item.category : ShopItemCategory.Generic;
-        public ShopItemUseMode UseMode => item != null ? item.useMode : ShopItemUseMode.None;
-        public string EffectLabel => item != null ? item.effectLabel : string.Empty;
-        public int EffectValue => item != null ? item.effectValue : 0;
+        public string ProductId => product != null ? product.productId : string.Empty;
+        public string DisplayName => product != null ? product.displayName : "Empty";
+        public string Description => product != null ? product.description : string.Empty;
+        public Sprite Icon => product != null ? product.icon : null;
+        public ShopProductType ProductType => product != null ? product.productType : ShopProductType.None;
 
-        public bool IsAvailable => state == ShopItemState.Available && !isPurchased && item != null;
+        public bool IsAvailable => state == ShopItemState.Available && !isPurchased && product != null;
         public bool IsSoldOut => state == ShopItemState.SoldOut || isPurchased;
         public bool IsLocked => state == ShopItemState.Locked;
 
@@ -46,14 +40,14 @@ namespace Shop
         {
         }
 
-        public ShopRuntimeItem(ShopItemSO item, int price, int slotIndex, string generatedFromPoolId = null)
+        public ShopRuntimeItem(ShopProductSO product, int price, int slotIndex, string generatedFromPoolId = null)
         {
-            this.item = item;
+            this.product = product;
             this.price = Mathf.Max(0, price);
             this.slotIndex = slotIndex;
             this.generatedFromPoolId = generatedFromPoolId;
-            runtimeId = CreateRuntimeId(item, slotIndex);
-            state = item == null ? ShopItemState.None : ShopItemState.Available;
+            runtimeId = CreateRuntimeId(product, slotIndex);
+            state = product == null ? ShopItemState.None : ShopItemState.Available;
             isPurchased = false;
         }
 
@@ -91,7 +85,7 @@ namespace Shop
 
         public void SetAvailable()
         {
-            if (IsSoldOut || item == null)
+            if (IsSoldOut || product == null)
             {
                 return;
             }
@@ -104,10 +98,10 @@ namespace Shop
             price = Mathf.Max(0, newPrice);
         }
 
-        private static string CreateRuntimeId(ShopItemSO item, int slotIndex)
+        private static string CreateRuntimeId(ShopProductSO product, int slotIndex)
         {
-            string itemId = item != null && !string.IsNullOrWhiteSpace(item.itemId)
-                ? item.itemId
+            string itemId = product != null && !string.IsNullOrWhiteSpace(product.productId)
+                ? product.productId
                 : "empty";
 
             return $"shop_item_{slotIndex}_{itemId}_{Guid.NewGuid().ToString("N")[..8]}";

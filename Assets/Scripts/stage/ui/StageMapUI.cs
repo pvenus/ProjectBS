@@ -12,7 +12,7 @@ namespace Stage.UI
     public class StageMapUI : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private StageRuntime stageRuntime;
+        [SerializeField] private StageManager stageManager;
         [SerializeField] private RectTransform nodeRoot;
         [SerializeField] private RoundNodeButton nodeButtonPrefab;
 
@@ -29,24 +29,24 @@ namespace Stage.UI
 
         private void Awake()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
         }
 
         private void OnEnable()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
-                stageRuntime = StageRuntime.Instance;
+                stageManager = StageManager.Instance;
             }
 
             Subscribe();
 
-            if (rebuildOnEnable && stageRuntime != null && stageRuntime.HasGraph())
+            if (rebuildOnEnable && stageManager != null && stageManager.HasGraph())
             {
-                Build(stageRuntime.CurrentGraph);
+                Build(stageManager.CurrentGraph);
             }
         }
 
@@ -142,33 +142,33 @@ namespace Stage.UI
 
         private void Subscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnStageGenerated -= HandleStageGenerated;
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnStageGenerated -= HandleStageGenerated;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
 
-            stageRuntime.OnStageGenerated += HandleStageGenerated;
-            stageRuntime.OnNodeSelected += HandleNodeSelected;
-            stageRuntime.OnNodeCompleted += HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged += HandleStageProgressChanged;
+            stageManager.OnStageGenerated += HandleStageGenerated;
+            stageManager.OnNodeSelected += HandleNodeSelected;
+            stageManager.OnNodeCompleted += HandleNodeCompleted;
+            stageManager.OnStageProgressChanged += HandleStageProgressChanged;
         }
 
         private void Unsubscribe()
         {
-            if (stageRuntime == null)
+            if (stageManager == null)
             {
                 return;
             }
 
-            stageRuntime.OnStageGenerated -= HandleStageGenerated;
-            stageRuntime.OnNodeSelected -= HandleNodeSelected;
-            stageRuntime.OnNodeCompleted -= HandleNodeCompleted;
-            stageRuntime.OnStageProgressChanged -= HandleStageProgressChanged;
+            stageManager.OnStageGenerated -= HandleStageGenerated;
+            stageManager.OnNodeSelected -= HandleNodeSelected;
+            stageManager.OnNodeCompleted -= HandleNodeCompleted;
+            stageManager.OnStageProgressChanged -= HandleStageProgressChanged;
         }
 
         private void HandleStageGenerated(StageGraph graph)

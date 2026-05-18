@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: '[1]Popup Event SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: event:broken_automaton:popup
+  title: "\uBE44 \uC624\uB294 \uBB18\uC9C0"
+  body: "\uC548\uAC1C \uB080 \uD3D0\uD5C8 \uD55C\uAC00\uC6B4\uB370,\n\uB0A1\uC740
+    \uC790\uB3D9\uC778\uD615 \uD558\uB098\uAC00 \uBA48\uCDB0 \uC120 \uCC44 \uC090\uAC71\uAC70\uB9AC\uACE0
+    \uC788\uC5C8\uB2E4.\n\n\uAC00\uC2B4 \uBD80\uBD84\uC5D0\uC11C\uB294 \uD76C\uBBF8\uD55C
+    \uD478\uB978 \uBD88\uBE5B\uC774 \uAE5C\uBE61\uC774\uACE0 \uC788\uC5C8\uB2E4."
+  mainImage: {fileID: 21300000, guid: 48edaf62a916c4ac4a294f15fa93ee92, type: 3}
+  icon: {fileID: -1645959757625943944, guid: 5a14db405471a43b3a0a9fd794e3e506, type: 3}
+  choices:
+  - choiceId: event:broken_automaton:popup:choice:1
+    label: "\uB3D9\uB825\uC744 \uBCF5\uAD6C\uD574\uBCF8\uB2E4"
+    description: 
+    resultText: "\uC790\uB3D9\uC778\uD615\uC740 \uCC9C\uCC9C\uD788 \uBAB8\uC744 \uC77C\uC73C\uCF30\uB2E4.\n\n\uC7A0\uC2DC
+      \uB2F9\uC2E0\uC744 \uBC14\uB77C\uBCF4\uB358 \uC778\uD615\uC740 \uC791\uC740
+      \uBCF4\uAD00\uD568 \uD558\uB098\uB97C \uAC74\uB124\uACE0 \uC0AC\uB77C\uC84C\uB2E4."
+    rewards:
+    - rewardType: 2150
+      value: 1
+      targetData: {fileID: 11400000, guid: 64fce85afd5f846c59b1ac071ca65f99, type: 2}
+      tag: 
+    - rewardType: 1000
+      value: 1
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:broken_automaton:popup:choice:2
+    label: "\uBD80\uD488\uC744 \uB72F\uC5B4\uAC04\uB2E4"
+    description: 
+    resultText: "\uC778\uD615\uC758 \uBAB8\uCCB4\uB97C \uBD84\uD574\uD558\uC790 \uAC12\uBE44\uC2FC
+      \uBD80\uD488\uB4E4\uC774 \uC3DF\uC544\uC838 \uB098\uC654\uB2E4.\n\n\uD558\uC9C0\uB9CC
+      \uC5B4\uB518\uAC00 \uBD88\uAE38\uD55C \uC2DC\uC120\uC774 \uB290\uAEF4\uC84C\uB2E4."
+    rewards:
+    - rewardType: 100
+      value: 150
+      targetData: {fileID: 0}
+      tag: 
+    - rewardType: 1000
+      value: -1
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:broken_automaton:popup:choice:3
+    label: "\uADF8\uB300\uB85C \uC9C0\uB098\uCE5C\uB2E4"
+    description: 
+    resultText: "\uB2F9\uC2E0\uC740 \uAD1C\uD55C \uC77C\uC5D0 \uD718\uB9D0\uB9AC\uC9C0
+      \uC54A\uAE30\uB85C \uD588\uB2E4.\n\n\uBA40\uC5B4\uC9C0\uB294 \uC21C\uAC04\uC5D0\uB3C4
+      \uD478\uB978 \uBD88\uBE5B\uC740 \uD76C\uBBF8\uD558\uAC8C \uAE5C\uBE61\uC774\uACE0
+      \uC788\uC5C8\uB2E4."
+    rewards:
+    - rewardType: 2200
+      value: 1
+      targetData: {fileID: 11400000, guid: 871141c5a78b9473ea870cf954d60972, type: 2}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}

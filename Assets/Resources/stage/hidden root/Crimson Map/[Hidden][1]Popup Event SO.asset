@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: '[Hidden][1]Popup Event SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: event:underground_gate:popup
+  title: "\uD53C\uC758 \uD22C\uAE30\uC7A5"
+  body: "\uBB34\uB108\uC9C4 \uBCBD \uB4A4\uC5D0\uC11C \uC624\uB798\uB41C \uC720\uC801
+    \uC785\uAD6C\uB97C \uBC1C\uACAC\uD55C\uB2E4."
+  mainImage: {fileID: 21300000, guid: 48edaf62a916c4ac4a294f15fa93ee92, type: 3}
+  icon: {fileID: -1645959757625943944, guid: 5a14db405471a43b3a0a9fd794e3e506, type: 3}
+  choices:
+  - choiceId: event:underground_gate:popup:choice:1
+    label: "\uC720\uC801 \uB0B4\uBD80\uB97C \uC870\uC0AC\uD55C\uB2E4"
+    description: 
+    resultText: "\uD76C\uBBF8\uD55C \uBE5B\uC774 \uC0C8\uC5B4\uB098\uC624\uB294 \uBC29\uC5D0\uC11C
+      \uC624\uB798\uB41C \uC720\uBB3C\uC744 \uBC1C\uACAC\uD588\uB2E4."
+    rewards:
+    - rewardType: 2050
+      value: 1
+      godType: 0
+      targetData: {fileID: 11400000, guid: b334ac636f9fc49bfa8b7a8ab23e5dbd, type: 2}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}

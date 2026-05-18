@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: '[1]Popup Event SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: event:elixir_of_life:popup
+  title: "\uD53C\uC758 \uD22C\uAE30\uC7A5"
+  body: "\uAC70\uB300\uD55C \uD22C\uAE30\uC7A5 \uC548\uC5D0\uC11C \uD568\uC131\uC774
+    \uC6B8\uB824 \uD37C\uC9C0\uACE0 \uC788\uC5C8\uB2E4.\n\uC911\uC559\uC758 \uC804\uC0AC\uAC00
+    \uB2F9\uC2E0\uC744 \uD5A5\uD574 \uAC80\uC744 \uACA8\uB234\uB2E4.\n\u201C\uAC15\uD55C
+    \uC790\uB9CC\uC774 \uC0B4\uC544\uB0A8\uB294\uB2E4.\u201D"
+  mainImage: {fileID: 21300000, guid: 48edaf62a916c4ac4a294f15fa93ee92, type: 3}
+  icon: {fileID: -1645959757625943944, guid: 5a14db405471a43b3a0a9fd794e3e506, type: 3}
+  choices:
+  - choiceId: event:elixir_of_life:popup:choice:1
+    label: "\uACB0\uD22C\uB97C \uBC1B\uC544\uB4E4\uC778\uB2E4"
+    description: 
+    resultText: "\uAC80\uACFC \uAC80\uC774 \uCDA9\uB3CC\uD558\uBA70 \uAC70\uCE5C
+      \uBD88\uAF43\uC774 \uD280\uC5C8\uB2E4."
+    rewards:
+    - rewardType: 3000
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: 0f19323dbe9834f8994c8117dac86dbc, type: 2}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:elixir_of_life:popup:choice:2
+    label: "\uAD00\uC911\uC11D\uC5D0 \uB3C8\uC744 \uAC74\uB2E4"
+    description: 
+    resultText: "\uACBD\uAE30 \uACB0\uACFC\uB97C \uB05D\uAE4C\uC9C0 \uC9C0\uCF1C\uBCF8
+      \uB05D\uC5D0,\n\uB2F9\uC2E0\uC758 \uC608\uC0C1\uC740 \uC815\uD655\uD588\uB2E4."
+    rewards:
+    - rewardType: 100
+      value: 250
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}
+  - choiceId: event:elixir_of_life:popup:choice:3
+    label: "\uD22C\uAE30\uC7A5\uC744 \uB5A0\uB09C\uB2E4"
+    description: 
+    resultText: "\uD568\uC131\uC744 \uB4A4\uB85C\uD55C \uCC44 \uC870\uC6A9\uD788
+      \uD22C\uAE30\uC7A5\uC744 \uBE60\uC838\uB098\uC654\uB2E4."
+    rewards:
+    - rewardType: 2200
+      value: 1
+      godType: 0
+      targetData: {fileID: 11400000, guid: 39a2a666c8e9346269cb2daa4388f1b9, type: 2}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}

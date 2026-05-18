@@ -1,11 +1,10 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Item;
 using Mission;
+using Bless;
 
 namespace Shrine
 {
@@ -25,8 +24,6 @@ namespace Shrine
 
         [Header("Runtime")]
         [SerializeField] private ShrineRuntimeData currentShrine;
-        [SerializeField] private FaithRuntimeData faithData = new();
-        [SerializeField] private ShrinePlayerRuntimeData playerRuntimeData = new();
         [SerializeField] private MissionManager missionManager;
         [SerializeField] private ShrinePlayerContext playerContext = new();
 
@@ -37,8 +34,6 @@ namespace Shrine
 
         public ShrineConfigSO Config => config;
         public ShrineRuntimeData CurrentShrine => currentShrine;
-        public FaithRuntimeData FaithData => faithData;
-        public ShrinePlayerRuntimeData PlayerRuntimeData => playerRuntimeData;
         public int CurrentGold => playerContext.CurrentGold;
         public int PartyCurrentHp => playerContext.CurrentHp;
         public int PartyMaxHp => playerContext.MaxHp;
@@ -49,8 +44,8 @@ namespace Shrine
         public event Action<ShrineRuntimeData> OnShrineRefreshed;
         public event Action<ShrineRuntimeData> OnShrineCompleted;
         public event Action<ShrineActionType> OnShrineActionSelected;
-        public event Action<ShrineBlessingRuntime> OnBlessingCandidatesGenerated;
-        public event Action<ShrineBlessingRuntime> OnBlessingSelected;
+        public event Action<BlessRuntimeData.BlessEntry> OnBlessingCandidatesGenerated;
+        public event Action<BlessRuntimeData.BlessEntry> OnBlessingSelected;
         public event Action<ShrineGodType, int> OnFaithChanged;
         public event Action<int, int> OnPartyHpChanged;
         public event Action<int> OnGoldChanged;
@@ -71,17 +66,7 @@ namespace Shrine
 
             Instance = this;
 
-            if (faithData == null)
-            {
-                faithData = new FaithRuntimeData();
-            }
 
-            faithData.InitializeDefaults();
-
-            if (playerRuntimeData == null)
-            {
-                playerRuntimeData = new ShrinePlayerRuntimeData();
-            }
             if (playerContext == null)
             {
                 playerContext = new ShrinePlayerContext();
@@ -93,7 +78,6 @@ namespace Shrine
             blessingService = new ShrineBlessingService(
                 this,
                 config,
-                playerRuntimeData,
                 logDebug);
 
             missionService = new ShrineMissionService(
@@ -106,7 +90,7 @@ namespace Shrine
 
             faithService = new ShrineFaithService(
                 this,
-                playerRuntimeData,
+                currentShrine,
                 config,
                 rewardService,
                 missionService,
@@ -286,7 +270,10 @@ namespace Shrine
                 return 0;
             }
 
-            int currentFaithLevel = faithData.GetFaithLevel(godType);
+            int currentFaithLevel =
+                currentShrine != null
+                    ? currentShrine.GetFaithLevel(godType)
+                    : 0;
             return config.GetDonationCost(currentFaithLevel);
         }
 
@@ -331,7 +318,7 @@ namespace Shrine
         }
 
         public void NotifyBlessingSelected(
-            ShrineBlessingRuntime blessing)
+            BlessRuntimeData.BlessEntry blessing)
         {
             OnBlessingSelected?.Invoke(blessing);
         }
@@ -370,16 +357,16 @@ namespace Shrine
                     ? currentShrine.selectedGod
                     : ShrineGodType.None;
 
-            List<ShrineBlessingSO> selectedBlessings =
+            List<BlessSO> selectedBlessings =
                 blessingService.GenerateBlessingCandidates(
                     godType,
                     Mathf.Max(1, config.blessingCandidateCount));
 
-            List<ShrineBlessingRuntime> runtimeCandidates = new();
+            List<BlessRuntimeData.BlessEntry> runtimeCandidates = new();
 
             for (int i = 0; i < selectedBlessings.Count; i++)
             {
-                ShrineBlessingSO blessing =
+                BlessSO blessing =
                     selectedBlessings[i];
 
                 if (blessing == null)
@@ -388,10 +375,10 @@ namespace Shrine
                 }
 
                 runtimeCandidates.Add(
-                    new ShrineBlessingRuntime(
+                    new BlessRuntimeData.BlessEntry(
                         blessing,
-                        i,
-                        config.configId));
+                        config.configId,
+                        i));
             }
             if (currentShrine == null)
             {
@@ -399,7 +386,7 @@ namespace Shrine
             }
             currentShrine.SetBlessingCandidates(runtimeCandidates);
 
-            foreach (ShrineBlessingRuntime blessing in runtimeCandidates)
+            foreach (BlessRuntimeData.BlessEntry blessing in runtimeCandidates)
             {
                 OnBlessingCandidatesGenerated?.Invoke(blessing);
             }
@@ -422,37 +409,15 @@ namespace Shrine
                 result.AddRange(defaults);
             }
 
-            if (playerRuntimeData != null)
-            {
-                IReadOnlyList<ShrineGodType> unlockedGods =
-                    playerRuntimeData.UnlockedGods;
 
-                for (int i = 0; i < unlockedGods.Count; i++)
-                {
-                    ShrineGodType unlockedGod =
-                        unlockedGods[i];
-
-                    if (unlockedGod == ShrineGodType.None)
-                    {
-                        continue;
-                    }
-
-                    if (result.Contains(unlockedGod))
-                    {
-                        continue;
-                    }
-
-                    result.Add(unlockedGod);
-                }
-            }
-
-            if (!playerRuntimeData.HasLockedFaith)
+            if (currentShrine == null
+                || !currentShrine.HasLockedFaith)
             {
                 return result;
             }
 
             return result
-                .Where(x => x == playerRuntimeData.LockedGod)
+                .Where(x => x == currentShrine.LockedGod)
                 .ToList();
         }
 

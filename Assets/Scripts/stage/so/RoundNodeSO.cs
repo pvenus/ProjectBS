@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 
 namespace Stage
@@ -34,19 +32,11 @@ namespace Stage
         [Tooltip("전투 그룹 ID")]
         public string battleGroupId;
 
-        [Header("Spawn Condition")]
-        [Tooltip("이 노드가 등장 가능한 최소 depth")]
-        public int minDepth = 0;
-
-        [Tooltip("이 노드가 등장 가능한 최대 depth")]
-        public int maxDepth = 999;
-
-        [Header("Weight")]
-        [Tooltip("랜덤 선택 가중치")]
-        public int weight = 100;
-
         [Header("Flags")]
         public bool isRequired;
+
+        [Tooltip("기본적으로 숨겨진 노드 여부")]
+        public bool hiddenByDefault;
 
         [Header("Visual")]
         public Sprite icon;

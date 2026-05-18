@@ -1,5 +1,6 @@
 using System.Text;
 using TMPro;
+using Bless;
 using UnityEngine;
 
 namespace Shrine
@@ -100,7 +101,7 @@ namespace Shrine
             RefreshFaithList();
         }
 
-        private void HandleBlessingSelected(ShrineBlessingRuntime runtime)
+        private void HandleBlessingSelected(BlessRuntimeData.BlessEntry runtime)
         {
             RefreshBlessingList();
         }
@@ -178,7 +179,9 @@ namespace Shrine
                 return;
             }
 
-            if (shrineManager == null || shrineManager.PlayerRuntimeData == null)
+            if (shrineManager == null
+                || BlessManager.Instance == null
+                || BlessManager.Instance.RuntimeData == null)
             {
                 blessingListText.text = "Blessings : None";
                 return;
@@ -186,74 +189,29 @@ namespace Shrine
 
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("Base Blessing");
+            sb.AppendLine("Bless Inventory");
 
-            ShrineBlessingSO commonBlessing =
-                shrineManager.PlayerRuntimeData.BaseBlessing;
+            var blessRuntime =
+                BlessManager.Instance.RuntimeData;
 
-            if (commonBlessing == null)
+            if (blessRuntime == null
+                || blessRuntime.Blessings.Count == 0)
             {
                 sb.AppendLine("- None");
             }
             else
             {
-                sb.AppendLine($"- {commonBlessing.name}");
-            }
-
-            sb.AppendLine();
-            sb.AppendLine("Enhanced Blessing");
-
-            ShrineBlessingSO enhancedBlessing =
-                shrineManager.PlayerRuntimeData.EnhancedBlessing;
-
-            if (enhancedBlessing == null)
-            {
-                sb.AppendLine("- None");
-            }
-            else
-            {
-                sb.AppendLine($"- {enhancedBlessing.name}");
-            }
-
-            sb.AppendLine();
-            sb.AppendLine("Active God Blessings");
-
-            bool hasActiveBlessing = false;
-
-            foreach (ShrineFaithEntry entry in shrineManager.PlayerRuntimeData.FaithEntries)
-            {
-                if (entry == null)
+                foreach (BlessRuntimeData.BlessEntry entry in blessRuntime.Blessings)
                 {
-                    continue;
+                    if (entry == null
+                        || entry.source == null)
+                    {
+                        continue;
+                    }
+
+                    sb.AppendLine(
+                        $"- {entry.DisplayName} Lv.{entry.level} x{entry.stackCount}");
                 }
-
-                ShrineGodSO god =
-                    shrineManager.GetGodSO(entry.godType);
-
-                if (god == null)
-                {
-                    continue;
-                }
-
-                ShrineBlessingSO activeBlessing =
-                    shrineManager.PlayerRuntimeData.GetActiveGodBlessing(
-                        entry.godType,
-                        god.exclusiveBlessings);
-
-                if (activeBlessing == null)
-                {
-                    continue;
-                }
-
-                hasActiveBlessing = true;
-
-                sb.AppendLine(
-                    $"- {entry.godType} : {activeBlessing.name}");
-            }
-
-            if (!hasActiveBlessing)
-            {
-                sb.AppendLine("- None");
             }
 
             blessingListText.text = sb.ToString();
@@ -266,7 +224,8 @@ namespace Shrine
                 return;
             }
 
-            if (shrineManager == null || shrineManager.PlayerRuntimeData == null)
+            if (shrineManager == null
+                || shrineManager.CurrentShrine == null)
             {
                 faithListText.text = "Faith : None";
                 return;
@@ -275,7 +234,9 @@ namespace Shrine
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Faith Levels");
 
-            var faithEntries = shrineManager.PlayerRuntimeData.FaithEntries;
+            var faithEntries =
+                shrineManager.CurrentShrine
+                    .faithEntries;
 
             if (faithEntries.Count == 0)
             {
@@ -294,11 +255,12 @@ namespace Shrine
                 }
             }
 
-            if (shrineManager.PlayerRuntimeData.HasLockedFaith)
+            if (shrineManager.CurrentShrine
+                .HasLockedFaith)
             {
                 sb.AppendLine();
                 sb.AppendLine(
-                    $"Locked God : {shrineManager.PlayerRuntimeData.LockedGod}");
+                    $"Locked God : {shrineManager.CurrentShrine.LockedGod}");
             }
 
             faithListText.text = sb.ToString();

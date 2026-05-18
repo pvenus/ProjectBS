@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Bless;
 
 namespace Shrine
 {
@@ -29,11 +30,16 @@ namespace Shrine
         public bool faithActionApplied;
 
         [Header("Blessing Candidates")]
-        public List<ShrineBlessingRuntime> blessingCandidates = new();
-        public ShrineBlessingRuntime selectedBlessing;
+        public List<BlessRuntimeData.BlessEntry> blessingCandidates = new();
+        public BlessRuntimeData.BlessEntry selectedBlessing;
 
         [Header("Available Gods")]
         public List<ShrineGodType> availableGods = new();
+
+        [Header("Faith")]
+        public List<ShrineFaithEntry> faithEntries = new();
+        public bool hasLockedFaith;
+        public ShrineGodType lockedGod = ShrineGodType.None;
 
         [Header("Debug")]
         public int seed;
@@ -42,6 +48,9 @@ namespace Shrine
         public bool HasBlessingCandidates => blessingCandidates != null && blessingCandidates.Count > 0;
         public bool HasSelectedBlessing => selectedBlessing != null;
         public bool HasSelectedGod => selectedGod != ShrineGodType.None;
+
+        public bool HasLockedFaith => hasLockedFaith;
+        public ShrineGodType LockedGod => lockedGod;
 
         public ShrineRuntimeData()
         {
@@ -80,6 +89,9 @@ namespace Shrine
             selectedBlessing = null;
             blessingCandidates.Clear();
             availableGods.Clear();
+            hasLockedFaith = false;
+            lockedGod = ShrineGodType.None;
+            faithEntries.Clear();
         }
 
         public void SetAction(ShrineActionType actionType)
@@ -144,7 +156,7 @@ namespace Shrine
             flowState = ShrineFlowState.FaithActionSelection;
         }
 
-        public void SetBlessingCandidates(IEnumerable<ShrineBlessingRuntime> candidates)
+        public void SetBlessingCandidates(IEnumerable<BlessRuntimeData.BlessEntry> candidates)
         {
             blessingCandidates.Clear();
             selectedBlessing = null;
@@ -156,7 +168,7 @@ namespace Shrine
             }
 
             int index = 0;
-            foreach (ShrineBlessingRuntime candidate in candidates)
+            foreach (BlessRuntimeData.BlessEntry candidate in candidates)
             {
                 if (candidate == null)
                 {
@@ -169,7 +181,7 @@ namespace Shrine
             }
         }
 
-        public ShrineBlessingRuntime GetBlessingCandidate(string runtimeId)
+        public BlessRuntimeData.BlessEntry GetBlessingCandidate(string runtimeId)
         {
             if (string.IsNullOrWhiteSpace(runtimeId))
             {
@@ -179,14 +191,14 @@ namespace Shrine
             return blessingCandidates.FirstOrDefault(x => x != null && x.runtimeId == runtimeId);
         }
 
-        public ShrineBlessingRuntime GetBlessingCandidateBySlot(int slotIndex)
+        public BlessRuntimeData.BlessEntry GetBlessingCandidateBySlot(int slotIndex)
         {
             return blessingCandidates.FirstOrDefault(x => x != null && x.slotIndex == slotIndex);
         }
 
         public bool SelectBlessing(string runtimeId)
         {
-            ShrineBlessingRuntime blessing = GetBlessingCandidate(runtimeId);
+            BlessRuntimeData.BlessEntry blessing = GetBlessingCandidate(runtimeId);
             if (blessing == null)
             {
                 Debug.LogWarning($"[ShrineRuntimeData] Blessing candidate not found. runtimeId={runtimeId}");
@@ -201,7 +213,7 @@ namespace Shrine
 
         public bool SelectBlessingBySlot(int slotIndex)
         {
-            ShrineBlessingRuntime blessing = GetBlessingCandidateBySlot(slotIndex);
+            BlessRuntimeData.BlessEntry blessing = GetBlessingCandidateBySlot(slotIndex);
             if (blessing == null)
             {
                 Debug.LogWarning($"[ShrineRuntimeData] Blessing candidate not found. slotIndex={slotIndex}");
@@ -223,6 +235,85 @@ namespace Shrine
         {
             faithActionApplied = true;
             flowState = ShrineFlowState.Reward;
+        }
+
+        public int GetFaithLevel(ShrineGodType godType)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return 0;
+            }
+
+            for (int i = 0; i < faithEntries.Count; i++)
+            {
+                ShrineFaithEntry entry = faithEntries[i];
+
+                if (entry == null)
+                {
+                    continue;
+                }
+
+                if (entry.godType != godType)
+                {
+                    continue;
+                }
+
+                return entry.faithLevel;
+            }
+
+            return 0;
+        }
+
+        public ShrineFaithEntry GetOrCreateFaithEntry(
+            ShrineGodType godType)
+        {
+            for (int i = 0; i < faithEntries.Count; i++)
+            {
+                ShrineFaithEntry entry = faithEntries[i];
+
+                if (entry == null)
+                {
+                    continue;
+                }
+
+                if (entry.godType == godType)
+                {
+                    return entry;
+                }
+            }
+
+            ShrineFaithEntry created = new ShrineFaithEntry(godType)
+            {
+                faithLevel = 0
+            };
+
+            faithEntries.Add(created);
+            return created;
+        }
+
+        public bool AddFaith(
+            ShrineGodType godType,
+            int amount)
+        {
+            if (godType == ShrineGodType.None)
+            {
+                return false;
+            }
+
+            ShrineFaithEntry entry =
+                GetOrCreateFaithEntry(godType);
+
+            entry.faithLevel += amount;
+
+            if (!hasLockedFaith
+                && entry.faithLevel >= 5)
+            {
+                hasLockedFaith = true;
+                lockedGod = godType;
+                return true;
+            }
+
+            return false;
         }
     }
 }

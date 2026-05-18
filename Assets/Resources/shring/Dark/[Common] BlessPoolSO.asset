@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e430f713bdf4567856958058cef160, type: 3}
+  m_Name: '[Common] BlessPoolSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Bless.BlessPoolSO
+  poolId: 
+  displayName: 
+  description: 
+  icon: {fileID: 0}
+  blessings:
+  - blessing: {fileID: 11400000, guid: a440e6d608cbb483596863c13a54f52d, type: 2}
+    weight: 100
+    progressionStep: 1
+  - blessing: {fileID: 11400000, guid: a2eacb07d3dd046dbb9e9ab2ef40c0de, type: 2}
+    weight: 100
+    progressionStep: 2
+  - blessing: {fileID: 11400000, guid: 7366be087cf80482eaead9c8ef0ddee9, type: 2}
+    weight: 100
+    progressionStep: 3
+  - blessing: {fileID: 11400000, guid: 796cb3eb5b023434c8441fa7e236f1d6, type: 2}
+    weight: 100
+    progressionStep: 4
+  - blessing: {fileID: 11400000, guid: 8bc4e11732b7f427e90978c7dd202b88, type: 2}
+    weight: 100
+    progressionStep: 5
+  - blessing: {fileID: 11400000, guid: 0270cb4d6853048608441e2ef8e6fb22, type: 2}
+    weight: 100
+    progressionStep: 6
+  - blessing: {fileID: 11400000, guid: 47e3308d865b545f0856324eeceae8d8, type: 2}
+    weight: 100
+    progressionStep: 7
+  - blessing: {fileID: 11400000, guid: 4fabe65fd059747288007b76706a5b1c, type: 2}
+    weight: 100
+    progressionStep: 8
+  - blessing: {fileID: 11400000, guid: 782b262373f0848859839e46b122a4df, type: 2}
+    weight: 100
+    progressionStep: 9
+  - blessing: {fileID: 11400000, guid: 5241ba9762eac4d3cbd6275c64b0efa4, type: 2}
+    weight: 100
+    progressionStep: 10

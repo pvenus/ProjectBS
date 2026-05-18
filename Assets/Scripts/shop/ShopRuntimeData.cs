@@ -176,11 +176,12 @@ namespace Shop
 
         private string CreateFallbackRuntimeId(ShopRuntimeItem item)
         {
-            string itemId = item.item != null && !string.IsNullOrWhiteSpace(item.item.itemId)
-                ? item.item.itemId
+            string productId = item.product != null
+                && !string.IsNullOrWhiteSpace(item.product.productId)
+                ? item.product.productId
                 : "empty";
 
-            return $"shop_runtime_{item.slotIndex}_{itemId}_{Guid.NewGuid().ToString("N")[..8]}";
+            return $"shop_runtime_{item.slotIndex}_{productId}_{Guid.NewGuid().ToString("N")[..8]}";
         }
     }
 }

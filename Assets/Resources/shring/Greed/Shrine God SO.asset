@@ -21,20 +21,9 @@ MonoBehaviour:
   initialFaithLevel: 2
   lockFaithLevel: 5
   successorFaithLevel: 10
-  exclusiveBlessings:
-  - {fileID: 11400000, guid: 25a10184c2d3f41108c2456b1a9c4a50, type: 2}
-  - {fileID: 11400000, guid: 613869d2eddfa44e9a5f267fa6d1717d, type: 2}
-  - {fileID: 11400000, guid: 6fe7c0451a0124333ad3dc1839a796db, type: 2}
-  - {fileID: 11400000, guid: 96cad6c94b86b433c95f5beccc6c5766, type: 2}
-  - {fileID: 11400000, guid: 3a5817fb5a13d468997d0744c6aa0b81, type: 2}
-  - {fileID: 11400000, guid: 982f94a6f4252439190665f02c31953d, type: 2}
-  - {fileID: 11400000, guid: 43b7c28ca2db74328b4351d846d836b9, type: 2}
-  - {fileID: 11400000, guid: 44eeaf3dca1fd411c94df26b7eb8aa53, type: 2}
-  - {fileID: 11400000, guid: 9606d81ed15c040a886f844a0d0a194f, type: 2}
-  - {fileID: 11400000, guid: e29b194b1fcad4f9c9ec40ff1a3dca9e, type: 2}
-  enhancedBlessings:
-  - {fileID: 11400000, guid: d7cd5907eb0ef4e85b654366992295d7, type: 2}
-  - {fileID: 11400000, guid: 5f9e96e019cca417c8f8d2beedc3ae1b, type: 2}
+  blessingPools:
+  - {fileID: 11400000, guid: a2f8d45ba25184fe79804273506e38cb, type: 2}
+  - {fileID: 11400000, guid: 93f423bbff1264e57bdd6a13bf525ba5, type: 2}
   faithRelicRewards:
   - faithLevel: 3
     relicReward: {fileID: 11400000, guid: b1f1972ed45724e759829c94bbcdffba, type: 2}
