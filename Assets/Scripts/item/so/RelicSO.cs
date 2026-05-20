@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using Effect;
 
 namespace Item
 {
@@ -20,6 +22,11 @@ namespace Item
 
         public Color themeColor = Color.white;
 
+        [Header("Gameplay")]
+        public RelicRarity rarity = RelicRarity.Common;
+
+        public List<EffectSO> effects = new();
+
         [Header("Tags")]
         public string category;
 
@@ -29,5 +36,13 @@ namespace Item
         public bool hidden;
 
         public bool developerOnly;
+    }
+
+    public enum RelicRarity
+    {
+        Common = 0,
+        Rare = 100,
+        Epic = 200,
+        Legendary = 300,
     }
 }

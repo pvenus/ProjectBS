@@ -45,8 +45,8 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrineManager.PlayerRuntimeData != null
-                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(shrine.selectedGod)
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(shrine.selectedGod)
                     : 0;
 
             if (currentFaithLevel >= 10)
@@ -68,10 +68,6 @@ namespace Shrine
             }
 
             shrine.MarkFaithActionApplied();
-
-            shrineManager.NotifyFaithChanged(
-                shrine.selectedGod,
-                level);
 
             shrineManager.Refresh();
             shrineManager.CompleteShrine();
@@ -96,8 +92,8 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                shrineManager.PlayerRuntimeData != null
-                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(shrine.selectedGod)
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(shrine.selectedGod)
                     : 0;
 
             if (currentFaithLevel >= 10)
@@ -141,10 +137,6 @@ namespace Shrine
             }
 
             shrine.MarkFaithActionApplied();
-
-            shrineManager.NotifyFaithChanged(
-                shrine.selectedGod,
-                level);
 
             shrineManager.Refresh();
             shrineManager.CompleteShrine();

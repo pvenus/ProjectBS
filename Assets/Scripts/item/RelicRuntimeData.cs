@@ -1,6 +1,6 @@
-
-
 using System.Collections.Generic;
+using Effect;
+using System;
 using UnityEngine;
 
 namespace Item
@@ -9,9 +9,15 @@ namespace Item
     public class RelicRuntimeData
     {
         [SerializeField]
-        private List<RelicSO> relics = new();
+        private List<RelicEntry> relics = new();
 
-        public IReadOnlyList<RelicSO> Relics => relics;
+        [SerializeField]
+        private int maxRelicCount = 3;
+
+        public IReadOnlyList<RelicEntry> Relics => relics;
+
+        public int MaxRelicCount => maxRelicCount;
+
 
         public bool AddRelic(RelicSO relic)
         {
@@ -20,12 +26,23 @@ namespace Item
                 return false;
             }
 
-            if (relics.Contains(relic))
+            if (HasRelic(relic))
             {
                 return false;
             }
 
-            relics.Add(relic);
+            int equippedCount =
+                relics.FindAll(x => x != null
+                    && x.isEquipped).Count;
+
+            RelicEntry entry = new()
+            {
+                relic = relic,
+                acquiredAt = DateTime.UtcNow.Ticks,
+                isEquipped = equippedCount < maxRelicCount,
+            };
+
+            relics.Add(entry);
             return true;
         }
 
@@ -36,22 +53,47 @@ namespace Item
                 return false;
             }
 
-            return relics.Remove(relic);
-        }
+            RelicEntry entry = FindRelic(relic);
 
-        public bool HasRelic(RelicSO relic)
-        {
-            if (relic == null)
+            if (entry == null)
             {
                 return false;
             }
 
-            return relics.Contains(relic);
+            return relics.Remove(entry);
+        }
+
+        public bool HasRelic(RelicSO relic)
+        {
+            return FindRelic(relic) != null;
+        }
+
+        public RelicEntry FindRelic(RelicSO relic)
+        {
+            if (relic == null)
+            {
+                return null;
+            }
+
+            return relics.Find(x => x != null
+                && x.relic == relic);
         }
 
         public void Clear()
         {
             relics.Clear();
         }
+    }
+
+    [Serializable]
+    public class RelicEntry
+    {
+        public RelicSO relic;
+
+        public long acquiredAt;
+
+        public bool isEquipped = true;
+
+        public List<Effect.EffectRuntimeData> runtimeEffects = new();
     }
 }

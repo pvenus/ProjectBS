@@ -223,8 +223,7 @@ namespace Shrine
                 return;
             }
 
-            if (shrineManager == null
-                || shrineManager.PlayerRuntimeData == null)
+            if (shrineManager == null)
             {
                 faithListText.text = "Faith : None";
                 return;
@@ -233,29 +232,43 @@ namespace Shrine
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Faith Levels");
 
-            var faithEntries =
-                shrineManager.PlayerRuntimeData
-                    .FaithEntries;
+            ShrineGodType[] godTypes =
+            {
+                ShrineGodType.Life,
+                ShrineGodType.War,
+                ShrineGodType.Greed,
+                ShrineGodType.Dark
+            };
 
-            if (faithEntries.Count == 0)
+            bool hasAnyFaith = false;
+
+            foreach (ShrineGodType godType in godTypes)
+            {
+                int faithLevel =
+                    shrineManager.GetFaithLevel(godType);
+
+                int affinity =
+                    shrineManager.GetFaithAffinity(godType);
+
+                if (faithLevel <= 0
+                    && affinity <= 0)
+                {
+                    continue;
+                }
+
+                hasAnyFaith = true;
+
+                sb.AppendLine(
+                    $"- {godType} : Lv.{faithLevel} / Affinity {affinity}");
+            }
+
+            if (!hasAnyFaith)
             {
                 sb.AppendLine("- None");
             }
-            else
-            {
-                foreach (ShrineFaithEntry entry in faithEntries)
-                {
-                    if (entry == null)
-                    {
-                        continue;
-                    }
 
-                    sb.AppendLine($"- {entry.godType} : {entry.faithLevel}");
-                }
-            }
-
-            if (shrineManager.PlayerRuntimeData
-                .HasLockedFaith)
+            if (shrineManager.PlayerRuntimeData != null
+                && shrineManager.PlayerRuntimeData.HasLockedFaith)
             {
                 sb.AppendLine();
                 sb.AppendLine(

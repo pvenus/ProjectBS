@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Effect;
 using UnityEngine;
 
 namespace Item
@@ -91,6 +93,15 @@ namespace Item
                 return false;
             }
 
+            RelicEntry entry =
+                relicRuntimeData.FindRelic(relic);
+
+            if (entry != null
+                && entry.isEquipped)
+            {
+                ApplyRelicEffects(relic);
+            }
+
             if (logDebug)
             {
                 Debug.Log(
@@ -107,6 +118,8 @@ namespace Item
             {
                 return false;
             }
+
+            RemoveRelicEffects(relic);
 
             bool removed =
                 relicRuntimeData.RemoveRelic(relic);
@@ -134,6 +147,151 @@ namespace Item
             }
 
             return relicRuntimeData.HasRelic(relic);
+        }
+
+        public bool EquipRelic(RelicSO relic)
+        {
+            if (relic == null)
+            {
+                return false;
+            }
+
+            RelicEntry entry =
+                relicRuntimeData.FindRelic(relic);
+
+            if (entry == null)
+            {
+                return false;
+            }
+
+            int equippedCount =
+                relicRuntimeData.Relics
+                    .Count(x => x != null
+                        && x.isEquipped);
+
+            if (equippedCount >= relicRuntimeData.MaxRelicCount)
+            {
+                return false;
+            }
+
+            if (entry.isEquipped)
+            {
+                return false;
+            }
+
+            entry.isEquipped = true;
+
+            ApplyRelicEffects(relic);
+
+            return true;
+        }
+
+        public bool UnequipRelic(RelicSO relic)
+        {
+            if (relic == null)
+            {
+                return false;
+            }
+
+            RelicEntry entry =
+                relicRuntimeData.FindRelic(relic);
+
+            if (entry == null)
+            {
+                return false;
+            }
+
+            if (!entry.isEquipped)
+            {
+                return false;
+            }
+
+            entry.isEquipped = false;
+
+            RemoveRelicEffects(relic);
+
+            return true;
+        }
+
+        private void ApplyRelicEffects(RelicSO relic)
+        {
+            if (relic == null)
+            {
+                return;
+            }
+
+            if (EffectManager.Instance == null)
+            {
+                return;
+            }
+
+            RelicEntry entry =
+                relicRuntimeData.FindRelic(relic);
+
+            if (entry == null)
+            {
+                return;
+            }
+
+            if (!entry.isEquipped)
+            {
+                return;
+            }
+
+            foreach (EffectSO effect in relic.effects)
+            {
+                if (effect == null)
+                {
+                    continue;
+                }
+
+                if (effect is StatModifierEffectSO statModifierEffect)
+                {
+                    StatModifierEffectRuntime runtime =
+                        new(
+                            statModifierEffect,
+                            EffectSourceType.Relic,
+                            relic.relicId);
+
+                    EffectManager.Instance.AddEffect(runtime);
+
+                    entry.runtimeEffects.Add(runtime);
+                }
+            }
+        }
+
+        private void RemoveRelicEffects(RelicSO relic)
+        {
+            if (relic == null)
+            {
+                return;
+            }
+
+            if (EffectManager.Instance == null)
+            {
+                return;
+            }
+
+            RelicEntry entry =
+                relicRuntimeData.FindRelic(relic);
+
+            if (entry == null)
+            {
+                return;
+            }
+
+            foreach (Effect.EffectRuntimeData runtimeEffect
+                in entry.runtimeEffects)
+            {
+                if (runtimeEffect == null)
+                {
+                    continue;
+                }
+
+                EffectManager.Instance.RemoveEffect(runtimeEffect);
+            }
+
+            entry.runtimeEffects.Clear();
         }
 
         public bool AddConsume(ConsumeSO consume)

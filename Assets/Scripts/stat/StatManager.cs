@@ -24,7 +24,11 @@ namespace Stat
         [SerializeField]
         private List<StatEntry> stats = new();
 
-        public event Action<StatType, float> OnStatChanged;
+        public event Action<StatType, float, float> OnAnyStatChanged;
+
+        private readonly Dictionary<
+            StatType,
+            Action<StatType, float, float>> statListeners = new();
 
         private void Awake()
         {
@@ -36,6 +40,76 @@ namespace Stat
             }
 
             Instance = this;
+        }
+
+        public void RegisterListener(
+            StatType statType,
+            Action<StatType, float, float> listener)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (!statListeners.ContainsKey(statType))
+            {
+                statListeners[statType] = null;
+            }
+
+            statListeners[statType] += listener;
+        }
+
+        public void RegisterListener(
+            IEnumerable<StatType> statTypes,
+            Action<StatType, float, float> listener)
+        {
+            if (statTypes == null
+                || listener == null)
+            {
+                return;
+            }
+
+            foreach (StatType statType in statTypes)
+            {
+                RegisterListener(
+                    statType,
+                    listener);
+            }
+        }
+
+        public void UnregisterListener(
+            StatType statType,
+            Action<StatType, float, float> listener)
+        {
+            if (listener == null)
+            {
+                return;
+            }
+
+            if (!statListeners.ContainsKey(statType))
+            {
+                return;
+            }
+
+            statListeners[statType] -= listener;
+        }
+
+        public void UnregisterListener(
+            IEnumerable<StatType> statTypes,
+            Action<StatType, float, float> listener)
+        {
+            if (statTypes == null
+                || listener == null)
+            {
+                return;
+            }
+
+            foreach (StatType statType in statTypes)
+            {
+                UnregisterListener(
+                    statType,
+                    listener);
+            }
         }
 
         public float GetStat(StatType statType)
@@ -65,6 +139,11 @@ namespace Stat
         {
             StatEntry entry = FindStat(statType);
 
+            float previousValue =
+                entry != null
+                    ? entry.value
+                    : 0f;
+
             if (entry == null)
             {
                 entry = new StatEntry
@@ -83,10 +162,23 @@ namespace Stat
             if (logDebug)
             {
                 Debug.Log(
-                    $"[StatManager] Stat changed. type={statType} value={value}");
+                    $"[StatManager] Stat changed. type={statType} previous={previousValue} current={value}");
             }
 
-            OnStatChanged?.Invoke(statType, value);
+            if (statListeners.TryGetValue(
+                    statType,
+                    out Action<StatType, float, float> listeners))
+            {
+                listeners?.Invoke(
+                    statType,
+                    previousValue,
+                    value);
+            }
+
+            OnAnyStatChanged?.Invoke(
+                statType,
+                previousValue,
+                value);
         }
 
         public bool HasStat(StatType statType)
@@ -109,19 +201,5 @@ namespace Stat
             return stats.Find(x => x != null
                 && x.statType == statType);
         }
-    }
-
-    public enum StatType
-    {
-        None = 0,
-
-        Reputation = 100,
-        Fame = 200,
-        Notoriety = 300,
-
-        LifeFaith = 1000,
-        WarFaith = 1100,
-        GreedFaith = 1200,
-        DarkFaith = 1300,
     }
 }

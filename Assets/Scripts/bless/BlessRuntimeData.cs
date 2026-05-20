@@ -57,8 +57,6 @@ namespace Bless
 
                 if (source != null)
                 {
-                    runtimeValue = source.effectValue;
-
                     isTemporary =
                         source.durationType
                         != BlessDurationType.Permanent;
@@ -82,11 +80,6 @@ namespace Bless
                 => source != null
                     ? source.icon
                     : null;
-
-            public BlessEffectType EffectType
-                => source != null
-                    ? source.effectType
-                    : BlessEffectType.None;
 
             public BlessCategory Category
                 => source != null

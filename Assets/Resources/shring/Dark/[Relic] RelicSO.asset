@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8994f18c217b411fa876045e9ce7888, type: 3}
-  m_Name: RelicSO
+  m_Name: '[Relic] RelicSO'
   m_EditorClassIdentifier: Assembly-CSharp::Item.RelicSO
-  relicId: "\uC0DD\uBA85\uC758 \uC528\uC557"
-  displayName: "\uC0DD\uBA85\uC758 \uC528\uC557"
-  description: "\uC0DD\uBA85\uC758 \uC2E0 \uC720\uBB3C"
-  icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  relicId: relic.god.dark
+  displayName: "\uC2EC\uC5F0\uC758 \uC870\uAC01"
+  description: "\uC554\uD751\uC758 \uC2E0 \uC720\uBB3C"
+  icon: {fileID: 1603489632, guid: f07af969acabf44b4a15ba4e2daab96a, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
+  rarity: 0
+  effects:
+  - {fileID: 11400000, guid: 5fb9d0e6336e843fca7e7abdf9b83762, type: 2}
   category: 
   subCategory: 
   hidden: 0

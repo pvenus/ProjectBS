@@ -5,6 +5,7 @@ using UnityEngine;
 using Item;
 using Mission;
 using Bless;
+using Stat;
 
 namespace Shrine
 {
@@ -49,6 +50,7 @@ namespace Shrine
         public event Action<BlessRuntimeData.BlessEntry> OnBlessingCandidatesGenerated;
         public event Action<BlessRuntimeData.BlessEntry> OnBlessingSelected;
         public event Action<ShrineGodType, int> OnFaithChanged;
+        public event Action<ShrineGodType> OnFaithAscensionRequested;
         public event Action<int, int> OnPartyHpChanged;
         public event Action<int> OnGoldChanged;
 
@@ -57,6 +59,15 @@ namespace Shrine
         private ShrineRewardService rewardService;
         private ShrineFaithService faithService;
         private ShrineActionService actionService;
+        private StatManager statManager;
+
+        private readonly List<StatType> faithLevelStats = new()
+        {
+            StatType.LifeFaithLevel,
+            StatType.WarFaithLevel,
+            StatType.GreedFaithLevel,
+            StatType.DarkFaithLevel
+        };
 
         private void Awake()
         {
@@ -67,7 +78,7 @@ namespace Shrine
             }
 
             Instance = this;
-
+            statManager = StatManager.Instance;
 
             if (playerContext == null)
             {
@@ -106,6 +117,7 @@ namespace Shrine
                 logDebug);
 
             missionService?.RegisterUnlockMissions();
+            RegisterFaithStatListeners();
         }
 
         public void OpenShrine()
@@ -273,9 +285,7 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                playerRuntimeData != null
-                    ? playerRuntimeData.GetFaithLevel(godType)
-                    : 0;
+                GetFaithLevel(godType);
             return config.GetDonationCost(currentFaithLevel);
         }
 
@@ -287,6 +297,53 @@ namespace Shrine
             }
 
             return config.GetGod(godType);
+        }
+
+        public int GetFaithLevel(ShrineGodType godType)
+        {
+            return faithService != null
+                ? faithService.GetFaithLevel(godType)
+                : 0;
+        }
+
+        public int GetFaithAffinity(ShrineGodType godType)
+        {
+            return faithService != null
+                ? faithService.GetFaithAffinity(godType)
+                : 0;
+        }
+
+        public int AddFaith(
+            ShrineGodType godType,
+            int amount)
+        {
+            if (faithService == null)
+            {
+                return 0;
+            }
+
+            return faithService.AddFaith(
+                godType,
+                amount);
+        }
+
+        public void SetFaithLevel(
+            ShrineGodType godType,
+            int level)
+        {
+            faithService?.SetFaithLevel(
+                godType,
+                level);
+        }
+
+        public void AcceptFaithAscension()
+        {
+            faithService?.AcceptFaithAscension();
+        }
+
+        public void RejectFaithAscension()
+        {
+            faithService?.RejectFaithAscension();
         }
 
         public void SetGold(int gold)
@@ -312,11 +369,78 @@ namespace Shrine
             actionService?.ApplyHeal();
         }
 
-        public void NotifyFaithChanged(
-            ShrineGodType godType,
-            int level)
+        private void RegisterFaithStatListeners()
         {
-            OnFaithChanged?.Invoke(godType, level);
+            if (statManager == null)
+            {
+                return;
+            }
+
+            statManager.RegisterListener(
+                faithLevelStats,
+                OnFaithLevelStatChanged);
+        }
+
+        private void OnDestroy()
+        {
+            if (statManager == null)
+            {
+                return;
+            }
+
+            statManager.UnregisterListener(
+                faithLevelStats,
+                OnFaithLevelStatChanged);
+        }
+
+
+        private void OnFaithLevelStatChanged(
+            StatType statType,
+            float previous,
+            float current)
+        {
+            HandleFaithLevelChanged(
+                ConvertFaithStatToGodType(statType),
+                previous,
+                current);
+        }
+
+        private ShrineGodType ConvertFaithStatToGodType(
+            StatType statType)
+        {
+            return statType switch
+            {
+                StatType.LifeFaithLevel => ShrineGodType.Life,
+                StatType.WarFaithLevel => ShrineGodType.War,
+                StatType.GreedFaithLevel => ShrineGodType.Greed,
+                StatType.DarkFaithLevel => ShrineGodType.Dark,
+                _ => ShrineGodType.None
+            };
+        }
+
+        private void HandleFaithLevelChanged(
+            ShrineGodType godType,
+            float previous,
+            float current)
+        {
+            int previousLevel = Mathf.RoundToInt(previous);
+            int currentLevel = Mathf.RoundToInt(current);
+
+            OnFaithChanged?.Invoke(
+                godType,
+                currentLevel);
+
+            if (previousLevel < 5
+                && currentLevel >= 5)
+            {
+                NotifyFaithAscensionRequested(godType);
+            }
+        }
+
+        public void NotifyFaithAscensionRequested(
+            ShrineGodType godType)
+        {
+            OnFaithAscensionRequested?.Invoke(godType);
         }
 
         public void NotifyBlessingSelected(

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Bless;
+using Stat;
 
 namespace Shrine
 {
@@ -21,6 +22,7 @@ namespace Shrine
         private readonly ShrineMissionService missionService;
 
         private readonly bool logDebug;
+        private readonly StatManager statManager;
 
         public ShrineFaithService(
             ShrineManager shrineManager,
@@ -36,6 +38,7 @@ namespace Shrine
             this.rewardService = rewardService;
             this.missionService = missionService;
             this.logDebug = logDebug;
+            statManager = StatManager.Instance;
         }
 
         public int Pray(
@@ -90,15 +93,19 @@ namespace Shrine
             }
 
             int previousLevel =
-                playerRuntimeData.GetFaithLevel(godType);
+                GetFaithLevel(godType);
 
-            bool becameLocked =
-                playerRuntimeData.AddFaith(
-                    godType,
-                    amount);
+            AddFaithAffinity(
+                godType,
+                amount);
 
             int level =
-                playerRuntimeData.GetFaithLevel(godType);
+                GetFaithLevel(godType);
+
+            bool becameLocked =
+                TryLockFaith(
+                    godType,
+                    level);
 
             GiveFaithLevelRewards(
                 god,
@@ -128,7 +135,7 @@ namespace Shrine
             }
 
             int currentLevel =
-                playerRuntimeData.GetFaithLevel(
+                GetFaithLevel(
                     god.godType);
 
             if (currentLevel > 0)
@@ -141,11 +148,9 @@ namespace Shrine
                 return false;
             }
 
-            ShrineFaithEntry entry =
-                playerRuntimeData.GetOrCreateFaithEntry(
-                    god.godType);
-
-            entry.faithLevel = god.initialFaithLevel;
+            SetFaithLevel(
+                god.godType,
+                god.initialFaithLevel);
 
             return true;
         }
@@ -165,7 +170,7 @@ namespace Shrine
             }
 
             int currentFaithLevel =
-                playerRuntimeData.GetFaithLevel(
+                GetFaithLevel(
                     lockedGod.godType);
 
             missionService?.ActivateFaithMission(
@@ -178,9 +183,7 @@ namespace Shrine
             RemoveOtherFaithRelics(
                 lockedGod.godType);
 
-            playerRuntimeData.RemoveFaiths(
-                x => x != null
-                     && x.godType != lockedGod.godType);
+
         }
 
         private void RemoveOtherGodBlessings(
@@ -431,6 +434,178 @@ namespace Shrine
                         $"[ShrineFaithService] Enhanced blessing granted. god={god.godType}, blessing={blessing.name}, level={faithLevel}");
                 }
             }
+        }
+        public int GetFaithLevel(
+            ShrineGodType godType)
+        {
+            if (statManager == null)
+            {
+                return 0;
+            }
+
+            return Mathf.RoundToInt(
+                statManager.GetStat(
+                    ConvertFaithLevelStat(godType)));
+        }
+
+        public int GetFaithAffinity(
+            ShrineGodType godType)
+        {
+            if (statManager == null)
+            {
+                return 0;
+            }
+
+            return Mathf.RoundToInt(
+                statManager.GetStat(
+                    ConvertAffinityStat(godType)));
+        }
+
+        public void SetFaithLevel(
+            ShrineGodType godType,
+            int level)
+        {
+            if (statManager == null)
+            {
+                return;
+            }
+
+            statManager.SetStat(
+                ConvertFaithLevelStat(godType),
+                level);
+
+        }
+
+        private void AddFaithAffinity(
+            ShrineGodType godType,
+            int amount)
+        {
+            if (statManager == null)
+            {
+                return;
+            }
+
+            StatType affinityStat =
+                ConvertAffinityStat(godType);
+
+            float currentValue =
+                statManager.GetStat(affinityStat);
+
+            float nextValue =
+                currentValue + amount;
+
+            statManager.SetStat(
+                affinityStat,
+                nextValue);
+
+            int nextLevel =
+                config != null
+                    ? config.CalculateFaithLevel(
+                        Mathf.RoundToInt(nextValue))
+                    : Mathf.FloorToInt(nextValue / 100f);
+
+            SetFaithLevel(
+                godType,
+                nextLevel);
+        }
+
+        private StatType ConvertFaithLevelStat(
+            ShrineGodType godType)
+        {
+            return godType switch
+            {
+                ShrineGodType.Life => StatType.LifeFaithLevel,
+                ShrineGodType.War => StatType.WarFaithLevel,
+                ShrineGodType.Greed => StatType.GreedFaithLevel,
+                ShrineGodType.Dark => StatType.DarkFaithLevel,
+                _ => StatType.LifeFaithLevel
+            };
+        }
+
+        private StatType ConvertAffinityStat(
+            ShrineGodType godType)
+        {
+            return godType switch
+            {
+                ShrineGodType.Life => StatType.LifeAffinity,
+                ShrineGodType.War => StatType.WarAffinity,
+                ShrineGodType.Greed => StatType.GreedAffinity,
+                ShrineGodType.Dark => StatType.DarkAffinity,
+                _ => StatType.LifeAffinity
+            };
+        }
+
+        public void AcceptFaithAscension()
+        {
+            if (playerRuntimeData == null)
+            {
+                return;
+            }
+
+            if (!playerRuntimeData.HasPendingFaithAscension)
+            {
+                return;
+            }
+
+            ShrineGodType godType =
+                playerRuntimeData.PendingFaithGod;
+
+            playerRuntimeData.LockFaith(godType);
+
+            ShrineGodSO god =
+                shrineManager.GetGodSO(godType);
+
+            if (god != null)
+            {
+                HandleFaithLock(god);
+            }
+        }
+
+        public void RejectFaithAscension()
+        {
+            if (playerRuntimeData == null)
+            {
+                return;
+            }
+
+            playerRuntimeData.ClearFaithAscensionRequest();
+        }
+
+        private bool TryLockFaith(
+            ShrineGodType godType,
+            int level)
+        {
+            if (playerRuntimeData == null)
+            {
+                return false;
+            }
+
+            if (playerRuntimeData.HasLockedFaith)
+            {
+                return false;
+            }
+
+            if (playerRuntimeData.HasPendingFaithAscension)
+            {
+                return false;
+            }
+
+            if (level < 5)
+            {
+                return false;
+            }
+
+            playerRuntimeData.RequestFaithAscension(godType);
+
+            shrineManager?.NotifyFaithAscensionRequested(godType);
+
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ShrineFaithService] Faith ascension available. god={godType}, level={level}");
+            }
+
+            return false;
         }
     }
 }

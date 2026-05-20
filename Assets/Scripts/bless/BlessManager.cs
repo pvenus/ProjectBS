@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Shrine;
 using UnityEngine;
+using Effect;
 
 namespace Bless
 {
@@ -116,11 +117,52 @@ namespace Bless
                 source,
                 generatedFromPoolId,
                 slotIndex);
+
+            if (source.effects == null)
+            {
+                return;
+            }
+
+            foreach (EffectSO effect in source.effects)
+            {
+                if (effect == null)
+                {
+                    continue;
+                }
+
+                if (effect is StatModifierEffectSO statModifierEffect)
+                {
+                    StatModifierEffectRuntime runtime =
+                        new(
+                            statModifierEffect,
+                            EffectSourceType.Bless,
+                            source.blessingId);
+
+                    EffectManager.Instance.AddEffect(runtime);
+                }
+            }
         }
 
         public void RemoveBlesses(
             System.Predicate<BlessRuntimeData.BlessEntry> match)
         {
+            List<BlessRuntimeData.BlessEntry> targets =
+                runtimeData.GetBlessings()
+                    .Where(x => x != null && match(x))
+                    .ToList();
+
+            foreach (BlessRuntimeData.BlessEntry entry in targets)
+            {
+                if (entry == null || entry.source == null)
+                {
+                    continue;
+                }
+
+                EffectManager.Instance.RemoveEffectsBySource(
+                    EffectSourceType.Bless,
+                    entry.source.blessingId);
+            }
+
             runtimeData.RemoveBlesses(match);
         }
 

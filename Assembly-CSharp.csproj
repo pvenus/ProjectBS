@@ -97,6 +97,7 @@
     <Compile Include="Assets/Scripts/ui/UIEquipmentUpgradeMono.cs" />
     <Compile Include="Assets/Scripts/bless/BlessEnum.cs" />
     <Compile Include="Assets/Scripts/bless/BlessRuntimeData.cs" />
+    <Compile Include="Assets/Scripts/stat/StatEnum.cs" />
     <Compile Include="Assets/Scripts/wave/SpawnCirclePattern.cs" />
     <Compile Include="Assets/Scripts/mission/MissionManager.cs" />
     <Compile Include="Assets/Scripts/stage/StageRouteRecord.cs" />
@@ -174,8 +175,10 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowRunner.cs" />
     <Compile Include="Assets/Scripts/party/PerceptionMono.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/hit/SkillHitOncePolicy.cs" />
+    <Compile Include="Assets/Scripts/effect/EffectManager.cs" />
     <Compile Include="Assets/Scripts/shader/detail/DeathDissolveFeature.cs" />
     <Compile Include="Assets/Scripts/skills/projectile_new/ProjectileLifetime.cs" />
+    <Compile Include="Assets/Scripts/effect/so/StatModifierEffectSO.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileWarpMovementDto.cs" />
     <Compile Include="Assets/Scripts/stage/so/EventPoolSO.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/hit/SKillHitIntervalPolicy.cs" />
@@ -198,6 +201,7 @@
     <Compile Include="Assets/Scripts/ProbCoinMono.cs" />
     <Compile Include="Assets/Scripts/stage/so/BattleDefinitionSO.cs" />
     <Compile Include="Assets/Scripts/stage/so/RoundNodeSO.cs" />
+    <Compile Include="Assets/Scripts/effect/StatModifierEffectRuntime.cs" />
     <Compile Include="Assets/Scripts/skills/runtime/ProjectileRuntimeData.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillExecutionRequest.cs" />
     <Compile Include="Assets/Scripts/skills/runtime/SkillStatModifierRuntimeData.cs" />
@@ -218,10 +222,12 @@
     <Compile Include="Assets/Scripts/stage/StageGenerator.cs" />
     <Compile Include="Assets/Scripts/skills/service/ProjectileFactory.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyleResolver.cs" />
+    <Compile Include="Assets/Scripts/shring/ui/FaithAscensionPopupUI.cs" />
     <Compile Include="Assets/Scripts/stage/RoundNode.cs" />
     <Compile Include="Assets/Scripts/stage/EventRewardExecutor.cs" />
     <Compile Include="Assets/Scripts/stage/StageRuntimeData.cs" />
     <Compile Include="Assets/Scripts/item/so/ConsumePoolSO.cs" />
+    <Compile Include="Assets/Scripts/effect/EffectRuntimeData.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyle.cs" />
     <Compile Include="Assets/Scripts/party/StatMono.cs" />
     <Compile Include="Assets/Scripts/shring/ShrineEnum.cs" />
@@ -264,6 +270,7 @@
     <Compile Include="Assets/Scripts/party/dto/SkillBrainEnum.cs" />
     <Compile Include="Assets/Scripts/shring/service/ShrineActionService.cs" />
     <Compile Include="Assets/Scripts/skills/service/EquipmentStatResolver.cs" />
+    <Compile Include="Assets/Scripts/effect/EffectEnum.cs" />
     <Compile Include="Assets/Scripts/party/dto/SkillBrainOutput.cs" />
     <Compile Include="Assets/Scripts/movement/MovementController.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/animation/SkillProjectileVisualMono.cs" />
@@ -275,6 +282,7 @@
     <Compile Include="Assets/Scripts/skills/MarkTargetSkill.cs" />
     <Compile Include="Assets/Scripts/skills/runtime/EquipmentUpgradeRuntimeData.cs" />
     <Compile Include="Assets/Scripts/NpcPartyStateMono.cs" />
+    <Compile Include="Assets/Scripts/effect/so/EffectSO.cs" />
     <Compile Include="Assets/Scripts/shring/so/ShrineConfigSO.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileHoverMovement.cs" />
     <Compile Include="Assets/Scripts/item/so/RelicSO.cs" />

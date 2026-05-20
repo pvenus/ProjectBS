@@ -100,16 +100,21 @@ namespace Shrine.UI
                     ? shrineManager.PlayerRuntimeData
                     : null;
 
-            int faithLevel = faithData != null
-                ? faithData.GetFaithLevel(god.godType)
-                : 0;
+            int faithLevel =
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(god.godType)
+                    : 0;
+
+            int faithAffinity =
+                shrineManager != null
+                    ? shrineManager.GetFaithAffinity(god.godType)
+                    : 0;
 
             FaithStageState state = FaithStageState.None;
 
             if (faithData != null)
             {
-                int currentFaith =
-                    faithData.GetFaithLevel(god.godType);
+                int currentFaith = faithLevel;
 
                 bool hasLockedFaith =
                     faithData.HasLockedFaith
@@ -168,7 +173,8 @@ namespace Shrine.UI
 
             if (faithLevelText != null)
             {
-                faithLevelText.text = $"Faith Lv.{faithLevel}";
+                faithLevelText.text =
+                    $"Faith Lv.{faithLevel}\nAffinity : {faithAffinity}";
             }
 
             if (stateText != null)

@@ -240,16 +240,15 @@ namespace Mission
                         return;
                     }
 
-                    bool becameLocked =
-                        shrineManager.PlayerRuntimeData
-                            .AddFaith(
-                                lockedGod,
-                                mission.rewardFaith);
+                    int faithLevel =
+                        shrineManager.AddFaith(
+                            lockedGod,
+                            mission.rewardFaith);
 
                     if (logDebug)
                     {
                         Debug.Log(
-                            $"[MissionManager] Faith reward granted. god={lockedGod}, amount={mission.rewardFaith}, locked={becameLocked}");
+                            $"[MissionManager] Faith reward granted. god={lockedGod}, amount={mission.rewardFaith}, level={faithLevel}");
                     }
 
                     break;

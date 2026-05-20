@@ -36,6 +36,22 @@ namespace Shrine
         [Min(0)]
         public int donateFaithGain = 2;
 
+        [Header("Faith Level")]
+        [Tooltip("레벨 별 필요 경험치")]
+        public List<int> faithLevelRequiredExp = new()
+        {
+            100,
+            125,
+            150,
+            200,
+            250,
+            325,
+            400,
+            500,
+            650,
+            800
+        };
+
         [Tooltip("기본적으로 선택 가능한 신 목록")]
         public List<ShrineGodType> defaultAvailableGods = new()
         {
@@ -74,6 +90,61 @@ namespace Shrine
         [Header("Debug")]
         public bool useFixedSeed = false;
         public int seed = 0;
+
+        public int GetRequiredFaithExp(int level)
+        {
+            if (faithLevelRequiredExp == null
+                || faithLevelRequiredExp.Count <= 0)
+            {
+                return 0;
+            }
+
+            int normalizedLevel =
+                Mathf.Clamp(
+                    level,
+                    1,
+                    faithLevelRequiredExp.Count);
+
+            return Mathf.Max(
+                0,
+                faithLevelRequiredExp[normalizedLevel - 1]);
+        }
+
+        public int CalculateFaithLevel(int affinity)
+        {
+            if (affinity <= 0)
+            {
+                return 0;
+            }
+
+            if (faithLevelRequiredExp == null
+                || faithLevelRequiredExp.Count <= 0)
+            {
+                return 0;
+            }
+
+            int level = 0;
+            int remainingExp = affinity;
+
+            while (level < faithLevelRequiredExp.Count)
+            {
+                int requiredExp =
+                    GetRequiredFaithExp(level + 1);
+
+                if (remainingExp < requiredExp)
+                {
+                    break;
+                }
+
+                remainingExp -= requiredExp;
+                level++;
+            }
+
+            return Mathf.Clamp(
+                level,
+                0,
+                faithLevelRequiredExp.Count);
+        }
 
         public int GetDonationCost(int currentFaithLevel)
         {

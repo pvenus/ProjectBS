@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78d04932d5ec544649485d99ea6ef2f9, type: 3}
-  m_Name: '[2] Shrine Blessing SO'
+  m_Name: '[1] Shrine Blessing SO'
   m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
-  blessingId: bless id
-  groupId: common
-  blessingName: bless name
-  description: bless desc
-  icon: {fileID: -1012452516807424640, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
-  category: 100
-  effectType: 1000
-  effectValue: 1
-  secondaryValue: 0
+  blessingId: bless.weapon_mastery
+  groupId: god.common
+  blessingName: "\uBB34\uAE30 \uAC15\uD654"
+  description: 
+  icon: {fileID: 1369259156, guid: 21c03474a4a8d46e6aa938d434876c44, type: 3}
+  category: 1000
+  effects:
+  - {fileID: 11400000, guid: 906467138016849de8288d293fe57a4e, type: 2}
   godType: 0
   durationType: 0
   durationBattleCount: -1

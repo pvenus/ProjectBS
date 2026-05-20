@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Shrine;
+using Effect;
 
 namespace Bless
 {
@@ -26,14 +27,9 @@ namespace Bless
 
         [Header("Blessing")]
         public BlessCategory category = BlessCategory.None;
-        public BlessEffectType effectType = BlessEffectType.None;
 
-        [Tooltip("효과 수치")]
-        public float effectValue = 0f;
-
-        [Tooltip("추가 수치가 필요한 경우 사용")]
-        public float secondaryValue = 0f;
-
+        [Header("Effects")]
+        public List<EffectSO> effects = new();
 
         [Tooltip("특정 신 전용 축복 여부")]
         public ShrineGodType godType = ShrineGodType.None;
@@ -79,58 +75,27 @@ namespace Bless
 
         public string GetEffectDescription()
         {
-            switch (effectType)
+            if (effects == null || effects.Count == 0)
             {
-                case BlessEffectType.AttackPowerPercent:
-                    return $"Attack Power +{effectValue}%";
-
-                case BlessEffectType.AttackSpeedPercent:
-                    return $"Attack Speed +{effectValue}%";
-
-                case BlessEffectType.CriticalChancePercent:
-                    return $"Critical Chance +{effectValue}%";
-
-                case BlessEffectType.BossDamagePercent:
-                    return $"Boss Damage +{effectValue}%";
-
-                case BlessEffectType.DamageReductionPercent:
-                    return $"Damage Reduction +{effectValue}%";
-
-                case BlessEffectType.MaxHpPercent:
-                    return $"Max HP +{effectValue}%";
-
-                case BlessEffectType.StatusResistancePercent:
-                    return $"Status Resistance +{effectValue}%";
-
-                case BlessEffectType.LowHpDefensePercent:
-                    return $"Low HP Defense +{effectValue}%";
-
-                case BlessEffectType.ExpGainPercent:
-                    return $"EXP Gain +{effectValue}%";
-
-                case BlessEffectType.GoldGainPercent:
-                    return $"Gold Gain +{effectValue}%";
-
-                case BlessEffectType.RelicDropPercent:
-                    return $"Relic Drop Chance +{effectValue}%";
-
-                case BlessEffectType.AiReactionSpeedPercent:
-                    return $"AI Reaction Speed +{effectValue}%";
-
-                case BlessEffectType.CooldownReductionPercent:
-                    return $"Cooldown Reduction +{effectValue}%";
-
-                case BlessEffectType.ConsumableEffectPercent:
-                    return $"Consumable Effect +{effectValue}%";
-
-                case BlessEffectType.StartBattleShield:
-                    return $"Gain Shield at Battle Start";
-
-                case BlessEffectType.Special:
-                    return description;
+                return description;
             }
 
-            return description;
+            List<string> lines = new();
+
+            foreach (var effect in effects)
+            {
+                if (effect == null)
+                {
+                    continue;
+                }
+
+                if (!string.IsNullOrWhiteSpace(effect.description))
+                {
+                    lines.Add(effect.description);
+                }
+            }
+
+            return string.Join("\n", lines);
         }
     }
 }

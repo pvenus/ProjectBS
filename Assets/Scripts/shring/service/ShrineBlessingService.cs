@@ -147,8 +147,8 @@ namespace Shrine
             }
 
             int faithLevel =
-                shrineManager.PlayerRuntimeData != null
-                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(godType)
                     : 0;
 
             for (int i = 0; i < commonPool.blessings.Count; i++)
@@ -202,8 +202,8 @@ namespace Shrine
             }
 
             int faithLevel =
-                shrineManager.PlayerRuntimeData != null
-                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(godType)
                     : 0;
 
             List<BlessSO> blessings =
@@ -248,8 +248,8 @@ namespace Shrine
             }
 
             int faithLevel =
-                shrineManager.PlayerRuntimeData != null
-                    ? shrineManager.PlayerRuntimeData.GetFaithLevel(godType)
+                shrineManager != null
+                    ? shrineManager.GetFaithLevel(godType)
                     : 0;
 
             List<BlessPoolSO.BlessPoolEntry> candidates = new();

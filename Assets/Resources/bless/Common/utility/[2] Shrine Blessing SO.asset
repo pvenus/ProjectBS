@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d04932d5ec544649485d99ea6ef2f9, type: 3}
+  m_Name: '[2] Shrine Blessing SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
+  blessingId: bless.minor_fortune
+  groupId: god.common
+  blessingName: "\uC791\uC740 \uD589\uC6B4"
+  description: 
+  icon: {fileID: -274536901, guid: ca311b362e83148d7b084e03e817c328, type: 3}
+  category: 1200
+  effects:
+  - {fileID: 11400000, guid: a1562006cb32e4ec394c7c38f560ec6b, type: 2}
+  godType: 0
+  durationType: 0
+  durationBattleCount: -1
+  tags: []
