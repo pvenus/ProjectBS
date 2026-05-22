@@ -13,6 +13,10 @@ namespace Stat
 
         Hp = 1100,
 
+        HpRegen = 1110,
+        HpRegenPercent = 1120,
+        MaxHpRegenPercentPerSecond = 1130,
+
         Attack = 1200,
         AttackPercent = 1210,
         AttackSpeed = 1220,
@@ -25,6 +29,9 @@ namespace Stat
         EliteDamagePercent = 1270,
 
         LowHpAttackBonus = 1280,
+
+        MissingHpAttackPercent = 1290,
+        MissingHpFinalDamageAmplify = 1295,
 
         Defense = 1300,
         DefensePercent = 1310,
@@ -50,6 +57,12 @@ namespace Stat
 
 
         EliteGoldBonus = 1460,
+        BattleEndBonusGold = 1470,
+
+        MaxOwnedGold = 1480,
+        MaxOwnedGoldAttackPercent = 1490,
+
+        GoldInterestPercent = 1495,
 
         AiReactionSpeed = 1500,
         AiReactionSpeedPercent = 1510,
@@ -64,6 +77,14 @@ namespace Stat
 
         SkillRange = 1570,
         SkillRangePercent = 1580,
+
+        KillStack = 1590,
+        KillStackAttackPercent = 1592,
+        KillStackAttackPercentAmplify = 1595,
+
+        KillCount = 1600,
+        EliteKillCount = 1610,
+        BossKillCount = 1620,
 
         LifeFaithLevel = 2000,
         WarFaithLevel = 2100,

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d04932d5ec544649485d99ea6ef2f9, type: 3}
+  m_Name: '[Common][3] Shrine Blessing SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Shrine.ShrineBlessingSO
+  blessingId: bless.god.greed.blessing_of_gold.3
+  groupId: god.greed
+  blessingName: "\uD669\uAE08\uC758 \uCD95\uBCF5 3"
+  description: 
+  icon: {fileID: 150710493, guid: f07af969acabf44b4a15ba4e2daab96a, type: 3}
+  category: 1
+  effects:
+  - {fileID: 11400000, guid: 35c6ad8219ef6462fa62b4de3fb39b5f, type: 2}
+  godType: 3
+  durationType: 0
+  durationBattleCount: -1
+  tags: []
