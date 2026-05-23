@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
+using Character;
+using Stat;
 
 public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
@@ -23,6 +25,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     private venus.eldawn.party.AnimationMono _animationMono;
     private EquipmentSkillResolver _equipmentSkillResolver;
     private ProjectileFactory _projectileFactory;
+    private CharacterManager _characterManager;
     private void Awake()
     {
         if (skillLoadout == null)
@@ -31,6 +34,10 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         _animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
         _equipmentSkillResolver = new EquipmentSkillResolver();
         _projectileFactory = new ProjectileFactory();
+        _characterManager = GetComponent<CharacterManager>();
+
+        if (_characterManager == null)
+            _characterManager = GetComponentInParent<CharacterManager>();
     }
 
 	public bool Execute(SkillBrainOutput output, Transform caster)
@@ -218,10 +225,76 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         TryPlayBasicAttackAnimation(skill);
 
         float cooldown = GetResolvedCooldown(skill, request.Caster);
+
+        if (IsBasicAttackSkill(skill))
+        {
+            cooldown = ApplyAttackSpeedCooldown(cooldown);
+        }
+        else
+        {
+            cooldown = ApplyCooldownReduction(cooldown);
+        }
+
         if (cooldown > 0f)
             _cooldowns[skill] = cooldown;
 
         return true;
+    }
+
+    private CharacterManager GetCharacterManager()
+    {
+        if (_characterManager == null)
+        {
+            _characterManager = GetComponent<CharacterManager>();
+
+            if (_characterManager == null)
+                _characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        return _characterManager;
+    }
+
+    private float ApplyAttackSpeedCooldown(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float attackSpeed =
+            characterManager.GetStatValue(StatType.AttackSpeed);
+
+        if (attackSpeed <= 0f)
+            attackSpeed = 1f;
+
+        return cooldown / attackSpeed;
+    }
+
+    private float ApplyCooldownReduction(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float cooldownReduction =
+            characterManager.GetStatValue(StatType.CooldownReduction);
+
+        if (cooldownReduction <= 0f)
+            return cooldown;
+
+        cooldownReduction =
+            Mathf.Clamp(cooldownReduction, 0f, 95f);
+
+        return cooldown * (1f - cooldownReduction / 100f);
     }
 
     public ScriptableObject GetBasicAttackSkill()

@@ -1,4 +1,6 @@
 using UnityEngine;
+using Character;
+using Stat;
 using Status.Dto;
 using Status.Resolver;
 
@@ -7,7 +9,7 @@ namespace Status.Service
     [System.Serializable]
     public class DamageAmountDto
     {
-        public float baseDamage;
+        public float attackDamagePercent = 100f;
         public float flatBonusDamage;
     }
 
@@ -76,12 +78,26 @@ namespace Status.Service
             }
 
             CombatStatusMono status = request.target.GetComponent<CombatStatusMono>();
-            StatMono stat = request.target.GetComponent<StatMono>();
+            CharacterManager characterManager =
+                request.target.GetComponent<CharacterManager>();
 
-            float baseDamage = request.damage != null ? request.damage.baseDamage : 0f;
+            if (characterManager == null)
+            {
+                characterManager =
+                    request.target.GetComponentInParent<CharacterManager>();
+            }
+
+            float attackerAttack =
+                GetAttackerAttack(request);
+
+            float baseDamage = 0f;
+
             if (request.damage != null)
             {
-                baseDamage += request.damage.flatBonusDamage;
+                baseDamage =
+                    attackerAttack
+                    * (request.damage.attackDamagePercent / 100f)
+                    + request.damage.flatBonusDamage;
             }
 
             float bonusDamage = 0f;
@@ -96,7 +112,7 @@ namespace Status.Service
                     0f
                 );
 
-                float bonusBaseDamage = request.damage != null ? request.damage.baseDamage : 0f;
+                float bonusBaseDamage = baseDamage;
                 bonusDamage = HeatResolver.CalculateBasicAttackBonusDamage(
                     heatState,
                     bonusBaseDamage,
@@ -117,19 +133,25 @@ namespace Status.Service
             result.appliedDamage = finalDamage;
 
             // 3. 최종 피해 적용 (기본 데미지와 추뎀을 분리해서 호출)
-            if (stat != null)
+            if (characterManager != null)
             {
                 if (baseDamage > 0f)
                 {
-                    stat.TakeDamage(baseDamage);
+                    characterManager.TakeDamage(baseDamage);
                 }
 
-                if (!stat.IsDead && bonusDamage > 0f)
+                bool isDead =
+                    characterManager.RuntimeData != null
+                    && characterManager.RuntimeData.isDead;
+
+                if (!isDead && bonusDamage > 0f)
                 {
-                    stat.TakeDamage(bonusDamage);
+                    characterManager.TakeDamage(bonusDamage);
                 }
 
-                result.targetDied = stat.IsDead;
+                result.targetDied =
+                    characterManager.RuntimeData != null
+                    && characterManager.RuntimeData.isDead;
             }
 
             // 4. Fire Heat 누적 및 Overheat 처리
@@ -149,6 +171,30 @@ namespace Status.Service
             }
 
             return result;
+        }
+
+        private float GetAttackerAttack(DamageRequest request)
+        {
+            if (request == null || request.attacker == null)
+            {
+                return 0f;
+            }
+
+            CharacterManager attackerManager =
+                request.attacker.GetComponent<CharacterManager>();
+
+            if (attackerManager == null)
+            {
+                attackerManager =
+                    request.attacker.GetComponentInParent<CharacterManager>();
+            }
+
+            if (attackerManager == null)
+            {
+                return 0f;
+            }
+
+            return attackerManager.GetStatValue(StatType.Attack);
         }
     }
 }

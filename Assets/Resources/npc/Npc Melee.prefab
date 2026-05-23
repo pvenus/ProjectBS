@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 7721478771642578854}
   - component: {fileID: 3978440672586092253}
   - component: {fileID: 8619171120343976739}
-  - component: {fileID: 7335336865651831873}
   - component: {fileID: -7770207776363605684}
   - component: {fileID: 5278800703448428477}
   - component: {fileID: 6088967056557728472}
@@ -26,6 +25,7 @@ GameObject:
   - component: {fileID: 7104248785386914847}
   - component: {fileID: 4519757924942294139}
   - component: {fileID: -2441933339808948738}
+  - component: {fileID: 3136085184654651528}
   m_Layer: 6
   m_Name: Npc Melee
   m_TagString: Untagged
@@ -45,7 +45,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4324922476073373443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6332101413371762216
@@ -127,7 +128,7 @@ MonoBehaviour:
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
   skillExecutor: {fileID: 3978440672586092253}
-  statMono: {fileID: 7335336865651831873}
+  statMono: {fileID: 0}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
@@ -284,52 +285,6 @@ MonoBehaviour:
     subElements: 
     projectilePrefabOverride: {fileID: 0}
     projectileLifetimeOverride: -1
---- !u!114 &7335336865651831873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824118302539419720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatMono
-  maxHp: 500
-  currentHp: 500
-  maxMana: 50
-  currentMana: 50
-  damage: 10
-  enableContactDamage: 0
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  contactRadius: 0.55
-  damagePerEnemyPerTick: 1
-  contactTickInterval: 0.35
-  showHpHud: 1
-  hideHudWhenFullHp: 0
-  hudOffset: {x: 0, y: 0.9, z: 0}
-  hudBarSize: {x: 1.8, y: 0.22}
-  hudBarBackgroundSize: {x: 1.95, y: 0.3}
-  hudHighColor: {r: 0, g: 1, b: 0, a: 1}
-  hudMidColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  hudLowColor: {r: 1, g: 0, b: 0, a: 1}
-  hudBackgroundColor: {r: 0, g: 0, b: 0, a: 0.75}
-  hudSortingLayerName: UI
-  hudSortingOrder: 200
-  showDamagePopups: 1
-  damagePopupLife: 0.6
-  damagePopupRiseSpeed: 1.2
-  damagePopupFontSize: 58
-  damagePopupCharacterSize: 0.075
-  damagePopupSortingLayerName: UI
-  damagePopupSortingOrder: 210
-  debugLog: 0
-  shaderController: {fileID: 0}
-  playDeathDissolveOnDeath: 1
-  deathDestroyDelay: 1
 --- !u!114 &-7770207776363605684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,3 +578,61 @@ MonoBehaviour:
   heatDecayPerSecond: 0
   decayOnlyWhenNotOverheated: 1
   enableDebugLog: 0
+--- !u!114 &3136085184654651528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ee57d3c85e8400c8ecb9d6800adb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterManager
+  runtimeData:
+    characterSO: {fileID: 0}
+    level: 1
+    exp: 0
+    currentHp: 0
+    isDead: 0
+    stats: []
+    finalStats: []
+  battleHudPrefab: {fileID: 1118014624461748563, guid: ffebd6248e7044bc596009e6f06757ed, type: 3}
+  hudRoot: {fileID: 4324922476073373443}
+  showDamagePopup: 1
+  damagePopupOffset: {x: 0, y: 0.9, z: 0}
+  shaderController: {fileID: 0}
+  playDeathDissolveOnDeath: 1
+  deathDestroyDelay: 0.6
+--- !u!1 &8846571706493524385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4324922476073373443}
+  m_Layer: 6
+  m_Name: HUD Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4324922476073373443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846571706493524385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8035534010441190192}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

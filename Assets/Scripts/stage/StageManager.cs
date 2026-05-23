@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Session;
 
 namespace Stage
 {
@@ -16,7 +17,7 @@ namespace Stage
         [SerializeField] private StageDefinitionSO stageDefinition;
 
         [Header("Runtime")]
-        [SerializeField] private StageRuntimeData runtimeData = new();
+        [SerializeField] private StageRuntimeData runtimeData;
 
         public StageDefinitionSO StageDefinition => stageDefinition;
         public StageRuntimeData RuntimeData => runtimeData;
@@ -40,10 +41,35 @@ namespace Stage
             }
 
             Instance = this;
+
+            // InitializeRuntime(); // Moved to Start()
+        }
+
+        private void InitializeRuntime()
+        {
+            GameSession gameSession =
+                GameSession.Instance;
+
+            if (gameSession == null)
+            {
+                Debug.LogError(
+                    "[StageManager] GameSession not found.");
+                return;
+            }
+
+            runtimeData =
+                gameSession.StageSession.RuntimeData;
+
+            if (runtimeData == null)
+            {
+                Debug.LogError(
+                    "[StageManager] StageSession RuntimeData is null.");
+            }
         }
 
         private void Start()
         {
+            InitializeRuntime();
             if (stageDefinition != null && runtimeData.currentGraph == null)
             {
                 GenerateStage(stageDefinition);
@@ -70,7 +96,12 @@ namespace Stage
 
             StageGenerator generator = new StageGenerator();
 
-            runtimeData = new StageRuntimeData();
+            if (runtimeData == null)
+            {
+                Debug.LogError(
+                    "[StageManager] RuntimeData is null.");
+                return null;
+            }
 
             runtimeData.currentGraph = generator.Generate(stageDefinition);
 
@@ -191,8 +222,17 @@ namespace Stage
 
         public void ClearRuntime()
         {
-            runtimeData = new StageRuntimeData();
-            OnStageProgressChanged?.Invoke(StageProgressState.NotStarted);
+            GameSession.Instance
+                .StageSession
+                .ResetRuntime();
+
+            runtimeData =
+                GameSession.Instance
+                    .StageSession
+                    .RuntimeData;
+
+            OnStageProgressChanged?.Invoke(
+                StageProgressState.NotStarted);
         }
     }
 }

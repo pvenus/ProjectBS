@@ -1,5 +1,3 @@
-
-
 using Skills.Dto;
 using Status.Service;
 using UnityEngine;
@@ -57,7 +55,7 @@ public class SkillDamageSO : ScriptableObject
             skillId = skillId,
             damageType = damageType,
             elementType = elementType,
-            baseDamage = Mathf.Max(0f, baseDamage),
+            attackDamagePercent = Mathf.Max(0f, baseDamage),
             flatBonusDamage = flatBonusDamage,
             heatCoefficient = Mathf.Max(0f, heatCoefficient),
             heatGain = Mathf.Max(0f, heatGain),

@@ -138,8 +138,62 @@ namespace Bless
                             EffectSourceType.Bless,
                             source.blessingId);
 
-                    EffectManager.Instance.AddEffect(runtime);
+                    AddRuntimeEffectToEffectManagers(runtime);
                 }
+            }
+        }
+
+        private void AddRuntimeEffectToEffectManagers(
+            Effect.EffectRuntimeData runtimeEffect)
+        {
+            if (runtimeEffect == null)
+            {
+                return;
+            }
+
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                effectManager.AddEffect(runtimeEffect);
+            }
+        }
+
+        private void RemoveEffectsFromEffectManagers(
+            EffectSourceType sourceType,
+            string sourceId)
+        {
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                effectManager.RemoveEffectsBySource(
+                    sourceType,
+                    sourceId);
             }
         }
 
@@ -158,7 +212,7 @@ namespace Bless
                     continue;
                 }
 
-                EffectManager.Instance.RemoveEffectsBySource(
+                RemoveEffectsFromEffectManagers(
                     EffectSourceType.Bless,
                     entry.source.blessingId);
             }

@@ -33,6 +33,18 @@ public class EquipmentBaseProfileSO : ScriptableObject
     [SerializeField] private float criticalMultiplier = 1.5f;
     [SerializeField] private bool ignoreDefense = false;
 
+    [Header("Brain Meta")]
+    [SerializeField] private BattleSkillCategory category = BattleSkillCategory.None;
+    [SerializeField] private BattleSkillTargetType targetType = BattleSkillTargetType.None;
+    [SerializeField] private BattleSkillTacticalNeed tacticalNeed = BattleSkillTacticalNeed.None;
+    [SerializeField] private float basePriority = 0f;
+
+    public BattleSkillCategory Category => category;
+    public BattleSkillTargetType TargetType => targetType;
+    public BattleSkillTacticalNeed TacticalNeed => tacticalNeed;
+    public float BasePriority => basePriority;
+
+
     public EquipmentGrade BaseGrade => baseGrade;
     public int BaseRuneSlotCount => baseRuneSlotCount;
     public AttackArchetype AttackArchetype => attackArchetype;

@@ -337,7 +337,7 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     private IEnumerator ApplySplitDamageRoutine(Collider2D targetCollider, StatMono stat)
     {
-        int totalBaseDamage = _damageProfile != null ? Mathf.RoundToInt(_damageProfile.baseDamage) : 0;
+        int totalBaseDamage = _damageProfile != null ? Mathf.RoundToInt(_damageProfile.attackDamagePercent) : 0;
         int[] splitDamages = BuildLogSplitDamageSequence(totalBaseDamage, _splitHitCount);
 
         for (int i = 0; i < splitDamages.Length; i++)
@@ -356,7 +356,7 @@ public class SkillProjectileHitMono : MonoBehaviour
                     skillId = _damageProfile.skillId,
                     damageType = _damageProfile.damageType,
                     elementType = _damageProfile.elementType,
-                    baseDamage = damage,
+                    attackDamagePercent = damage,
                     flatBonusDamage = _damageProfile.flatBonusDamage,
                     heatCoefficient = _damageProfile.heatCoefficient,
                     heatGain = _damageProfile.heatGain,

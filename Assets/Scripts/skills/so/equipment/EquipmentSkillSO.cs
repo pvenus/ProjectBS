@@ -55,4 +55,9 @@ public class EquipmentSkillSO : ScriptableObject
     public IReadOnlyList<SkillEffectSO> Effects => effects;
     public bool HasAnyEffect => effects != null && effects.Count > 0;
 
+    public float EvaluateBrainScore(object context, int roleBias = 0)
+    {
+        return baseProfileSo.BasePriority + roleBias;
+    }
+
 }

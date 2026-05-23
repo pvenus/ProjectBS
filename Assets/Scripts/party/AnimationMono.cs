@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using Character;
+using Stat;
 
 namespace venus.eldawn.party
 {
@@ -59,6 +61,7 @@ namespace venus.eldawn.party
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer targetSpriteRenderer;
         [SerializeField] private MovementController movementController;
+        [SerializeField] private CharacterManager characterManager;
 
         [Header("Default")]
         [SerializeField] private bool playIdleOnStart = true;
@@ -101,6 +104,7 @@ namespace venus.eldawn.party
         {
             targetSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
             movementController = GetComponent<MovementController>();
+            characterManager = GetComponent<CharacterManager>();
             animator = GetComponent<Animator>();
             if (animator == null)
             {
@@ -113,6 +117,10 @@ namespace venus.eldawn.party
             EnsureAnimatorOnSpriteRenderer();
             if (movementController == null)
                 movementController = GetComponent<MovementController>();
+            if (characterManager == null)
+                characterManager = GetComponent<CharacterManager>();
+            if (characterManager == null)
+                characterManager = GetComponentInParent<CharacterManager>();
             _currentDirection = defaultDirection;
         }
 
@@ -279,11 +287,13 @@ namespace venus.eldawn.party
 
             StopOneShotRoutine();
             StopPlayRoutine();
+            float attackSpeed = GetAttackSpeed();
+
             _isPlayingOneShot = true;
             _currentState = AnimationState.Attack;
             _currentClip = clip;
-            _playRoutine = StartCoroutine(PlayOneShotClipRoutine(clip));
-            _oneShotRoutine = StartCoroutine(PlayAttackRoutine(clip));
+            _playRoutine = StartCoroutine(PlayOneShotClipRoutine(clip, attackSpeed));
+            _oneShotRoutine = StartCoroutine(PlayAttackRoutine(clip, attackSpeed));
         }
 
         public void StopAnimation()
@@ -361,9 +371,35 @@ namespace venus.eldawn.party
             _playRoutine = StartCoroutine(PlayLoopClipRoutine(clip));
         }
 
-        private IEnumerator PlayAttackRoutine(AnimationClip clip)
+        private float GetAttackSpeed()
         {
-            float duration = Mathf.Max(0.01f, clip.length);
+            if (characterManager == null)
+            {
+                characterManager = GetComponent<CharacterManager>();
+
+                if (characterManager == null)
+                    characterManager = GetComponentInParent<CharacterManager>();
+            }
+
+            if (characterManager == null)
+            {
+                return 1f;
+            }
+
+            float attackSpeed =
+                characterManager.GetStatValue(StatType.AttackSpeed);
+
+            if (attackSpeed <= 0f)
+            {
+                return 1f;
+            }
+
+            return attackSpeed;
+        }
+
+        private IEnumerator PlayAttackRoutine(AnimationClip clip, float attackSpeed)
+        {
+            float duration = Mathf.Max(0.01f, clip.length / Mathf.Max(0.01f, attackSpeed));
             yield return new WaitForSeconds(duration);
 
             _oneShotRoutine = null;
@@ -436,7 +472,7 @@ namespace venus.eldawn.party
             }
         }
 
-        private IEnumerator PlayOneShotClipRoutine(AnimationClip clip)
+        private IEnumerator PlayOneShotClipRoutine(AnimationClip clip, float speedMultiplier = 1f)
         {
             if (clip == null)
                 yield break;
@@ -445,11 +481,12 @@ namespace venus.eldawn.party
 
             float length = Mathf.Max(0.01f, clip.length);
             float time = 0f;
+            float speed = Mathf.Max(0.01f, speedMultiplier);
 
             while (time < length)
             {
                 clip.SampleAnimation(gameObject, time);
-                time += Time.deltaTime;
+                time += Time.deltaTime * speed;
                 yield return null;
             }
 

@@ -1,4 +1,5 @@
 using Stat;
+using Character;
 using UnityEngine;
 
 namespace Effect
@@ -43,6 +44,27 @@ namespace Effect
             statManager.AddStat(
                 effectSO.targetStat,
                 appliedValue);
+
+            CharacterManager[] characterManagers =
+                Object.FindObjectsByType<CharacterManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < characterManagers.Length;
+                 i++)
+            {
+                CharacterManager characterManager =
+                    characterManagers[i];
+
+                if (characterManager == null)
+                {
+                    continue;
+                }
+
+                characterManager.AddStat(
+                    effectSO.targetStat,
+                    appliedValue);
+            }
         }
 
         public override void OnRemove()
@@ -56,6 +78,27 @@ namespace Effect
             statManager.AddStat(
                 effectSO.targetStat,
                 -appliedValue);
+
+            CharacterManager[] characterManagers =
+                Object.FindObjectsByType<CharacterManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < characterManagers.Length;
+                 i++)
+            {
+                CharacterManager characterManager =
+                    characterManagers[i];
+
+                if (characterManager == null)
+                {
+                    continue;
+                }
+
+                characterManager.AddStat(
+                    effectSO.targetStat,
+                    -appliedValue);
+            }
         }
 
         private float CalculateModifierValue()

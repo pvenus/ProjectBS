@@ -1,3 +1,5 @@
+using Character;
+using Stat;
 using UnityEngine;
 using venus.eldawn.party;
 
@@ -99,6 +101,7 @@ public class PartyMovementMono : MonoBehaviour
     private MovementController _movementController;
     private PerceptionMono _perception;
     private AnimationMono _animationMono;
+    private CharacterManager _characterManager;
 
     private Transform _cachedTower;
 
@@ -117,6 +120,10 @@ public class PartyMovementMono : MonoBehaviour
             _movementController = gameObject.AddComponent<MovementController>();
         _perception = GetComponent<PerceptionMono>();
         _animationMono = GetComponentInChildren<AnimationMono>();
+        _characterManager = GetComponent<CharacterManager>();
+
+        if (_characterManager == null)
+            _characterManager = GetComponentInParent<CharacterManager>();
 
         // Stable per-agent randomization so party members don't collapse to one point.
         float ang = Random.Range(0f, Mathf.PI * 2f);
@@ -543,12 +550,38 @@ public class PartyMovementMono : MonoBehaviour
             _movementController.Stop();
     }
 
+    private float GetMoveSpeed()
+    {
+        if (_characterManager == null)
+        {
+            _characterManager = GetComponent<CharacterManager>();
+
+            if (_characterManager == null)
+                _characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        if (_characterManager == null)
+        {
+            return moveSpeed;
+        }
+
+        float statMoveSpeed =
+            _characterManager.GetStatValue(StatType.MoveSpeed);
+
+        if (statMoveSpeed <= 0f)
+        {
+            return moveSpeed;
+        }
+
+        return statMoveSpeed;
+    }
+
     private void SyncMovementControllerConfig(float speedMultiplier = 1f)
     {
         if (_movementController == null)
             return;
 
-        _movementController.SetMoveSpeed(moveSpeed * Mathf.Max(0f, speedMultiplier));
+        _movementController.SetMoveSpeed(GetMoveSpeed() * Mathf.Max(0f, speedMultiplier));
         _movementController.SetArriveDistance(arriveDistance);
     }
 

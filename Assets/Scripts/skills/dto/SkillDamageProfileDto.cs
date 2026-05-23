@@ -1,7 +1,6 @@
-
-
 using System;
 using UnityEngine;
+using Status.Dto;
 using Status.Service;
 
 namespace Skills.Dto
@@ -19,7 +18,7 @@ namespace Skills.Dto
         public ElementType elementType = ElementType.None;
 
         [Header("Damage")]
-        public float baseDamage;
+        public float attackDamagePercent = 100f;
         public float flatBonusDamage;
 
         [Header("Fire / Heat")]
@@ -44,7 +43,7 @@ namespace Skills.Dto
                 hitPoint = hitPoint,
                 damage = new DamageAmountDto
                 {
-                    baseDamage = baseDamage,
+                    attackDamagePercent = attackDamagePercent,
                     flatBonusDamage = flatBonusDamage
                 },
                 skill = new SkillContextDto
@@ -88,7 +87,7 @@ namespace Skills.Dto
         /// </summary>
         public static SkillDamageProfileDto CreateBasicAttack(
             string skillId,
-            float baseDamage,
+            float attackDamagePercent,
             ElementType elementType = ElementType.None,
             float flatBonusDamage = 0f)
         {
@@ -97,7 +96,7 @@ namespace Skills.Dto
                 skillId = skillId,
                 damageType = DamageType.Normal,
                 elementType = elementType,
-                baseDamage = baseDamage,
+                attackDamagePercent = attackDamagePercent,
                 flatBonusDamage = flatBonusDamage
             };
         }
@@ -108,7 +107,7 @@ namespace Skills.Dto
         public static SkillDamageProfileDto CreateFireProfile(
             string skillId,
             DamageType damageType,
-            float baseDamage,
+            float attackDamagePercent,
             float heatCoefficient,
             float heatGain,
             float flatBonusDamage = 0f)
@@ -118,7 +117,7 @@ namespace Skills.Dto
                 skillId = skillId,
                 damageType = damageType,
                 elementType = ElementType.Fire,
-                baseDamage = baseDamage,
+                attackDamagePercent = attackDamagePercent,
                 flatBonusDamage = flatBonusDamage,
                 heatCoefficient = heatCoefficient,
                 heatGain = heatGain,

@@ -194,7 +194,7 @@ public class EquipmentSkillResolver
         }
 
         EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
-        dto.baseDamage = statResolver.ResolveBaseDamage(equipmentSo, resolvedStatModifiers);
+        dto.attackDamagePercent = statResolver.ResolveBaseDamage(equipmentSo, resolvedStatModifiers);
         dto.flatBonusDamage = statResolver.GetFlatBonusDamage(equipmentSo);
         dto.criticalMultiplier = statResolver.GetCriticalMultiplier(equipmentSo);
 

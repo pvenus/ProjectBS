@@ -213,14 +213,65 @@ namespace Item
             return true;
         }
 
-        private void ApplyRelicEffects(RelicSO relic)
+        private void ApplyRuntimeEffectToCharacters(
+            Effect.EffectRuntimeData runtimeEffect)
         {
-            if (relic == null)
+            if (runtimeEffect == null)
             {
                 return;
             }
 
-            if (EffectManager.Instance == null)
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                effectManager.AddEffect(runtimeEffect);
+            }
+        }
+
+        private void RemoveRuntimeEffectFromCharacters(
+            Effect.EffectRuntimeData runtimeEffect)
+        {
+            if (runtimeEffect == null)
+            {
+                return;
+            }
+
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                effectManager.RemoveEffect(runtimeEffect);
+            }
+        }
+
+        private void ApplyRelicEffects(RelicSO relic)
+        {
+            if (relic == null)
             {
                 return;
             }
@@ -253,7 +304,7 @@ namespace Item
                             EffectSourceType.Relic,
                             relic.relicId);
 
-                    EffectManager.Instance.AddEffect(runtime);
+                    ApplyRuntimeEffectToCharacters(runtime);
 
                     entry.runtimeEffects.Add(runtime);
                 }
@@ -263,11 +314,6 @@ namespace Item
         private void RemoveRelicEffects(RelicSO relic)
         {
             if (relic == null)
-            {
-                return;
-            }
-
-            if (EffectManager.Instance == null)
             {
                 return;
             }
@@ -288,7 +334,7 @@ namespace Item
                     continue;
                 }
 
-                EffectManager.Instance.RemoveEffect(runtimeEffect);
+                RemoveRuntimeEffectFromCharacters(runtimeEffect);
             }
 
             entry.runtimeEffects.Clear();

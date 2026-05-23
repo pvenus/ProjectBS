@@ -22,6 +22,9 @@ namespace Stat
         AttackSpeed = 1220,
         AttackSpeedPercent = 1230,
 
+        MoveSpeed = 1235,
+        MoveSpeedPercent = 1237,
+
         CritChance = 1240,
         CritDamage = 1250,
 
@@ -51,6 +54,9 @@ namespace Stat
 
         ExpGain = 1420,
         ExpGainPercent = 1430,
+
+        DropGold = 1435,
+        DropExp = 1437,
 
         RelicDropRate = 1440,
         RelicDropRatePercent = 1450,

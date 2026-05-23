@@ -1,3 +1,5 @@
+using Character;
+using Stat;
 using UnityEngine;
 
 /// <summary>
@@ -18,7 +20,7 @@ public class NpcMono : MonoBehaviour
     [SerializeField] private NpcPathing pathing;
     [SerializeField] private NpcMovementProfile movementProfile;
     [SerializeField] private SkillExecutorMono skillExecutor;
-    [SerializeField] private StatMono statMono;
+    [SerializeField] private CharacterManager characterManager;
 
     [Header("Knockback")]
     [Tooltip("If > 0, knockback overrides pathing briefly.")]
@@ -98,7 +100,7 @@ public class NpcMono : MonoBehaviour
         _repathCollisionTimer -= Time.deltaTime;
         _basicAttackRequestTimer -= Time.deltaTime;
 
-        if (useBasicAttackOnly && !statMono.IsDead)
+        if (useBasicAttackOnly && !IsDead())
             TryRequestBasicAttack();
     }
 
@@ -157,8 +159,10 @@ public class NpcMono : MonoBehaviour
             movementProfile = GetComponent<NpcMovementProfile>();
         if (skillExecutor == null)
             skillExecutor = GetComponent<SkillExecutorMono>();
-        if (statMono == null)
-            statMono = GetComponent<StatMono>();
+        if (characterManager == null)
+            characterManager = GetComponent<CharacterManager>();
+        if (characterManager == null)
+            characterManager = GetComponentInParent<CharacterManager>();
     }
 
     private void ConfigurePhysics()
@@ -278,73 +282,72 @@ public class NpcMono : MonoBehaviour
         if (mark != null && mark.IsMarked)
             finalAmount = Mathf.Max(1, Mathf.RoundToInt(finalAmount * mark.GetDamageMultiplier()));
 
-        if (statMono != null)
+        if (characterManager == null)
         {
-            statMono.TakeDamage(finalAmount);
+            CacheComponents();
+        }
 
-            if (IsStatDead())
-            {
-                DropCoins();
-                Destroy(gameObject);
-            }
+        if (characterManager == null)
+        {
+            return;
+        }
+
+        characterManager.TakeDamage(finalAmount);
+
+        if (IsDead())
+        {
+            DropCoins();
         }
     }
 
     public int GetHp()
     {
-        return ReadStatIntValue("GetHp", "hp", "currentHp", "currentHP");
+        if (characterManager == null)
+        {
+            CacheComponents();
+        }
+
+        if (characterManager == null)
+        {
+            return 0;
+        }
+
+        return Mathf.RoundToInt(
+            characterManager.GetStatValue(StatType.Hp));
     }
 
     public int GetMaxHp()
     {
-        return Mathf.Max(1, ReadStatIntValue("GetMaxHp", "maxHp", "maxHP"));
-    }
-
-    private bool IsStatDead()
-    {
-        if (statMono == null)
-            return true;
-
-        var type = statMono.GetType();
-
-        var isDeadProp = type.GetProperty("IsDead");
-        if (isDeadProp != null && isDeadProp.PropertyType == typeof(bool))
-            return (bool)isDeadProp.GetValue(statMono);
-
-        return GetHp() <= 0;
-    }
-
-    private int ReadStatIntValue(string methodName, params string[] fieldNames)
-    {
-        if (statMono == null)
-            return 0;
-
-        var type = statMono.GetType();
-
-        var method = type.GetMethod(methodName, System.Type.EmptyTypes);
-        if (method != null)
+        if (characterManager == null)
         {
-            object methodValue = method.Invoke(statMono, null);
-            if (methodValue is int intValue)
-                return intValue;
-            if (methodValue is float floatValue)
-                return Mathf.RoundToInt(floatValue);
+            CacheComponents();
         }
 
-        for (int i = 0; i < fieldNames.Length; i++)
+        if (characterManager == null)
         {
-            var field = type.GetField(fieldNames[i], System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
-            if (field == null)
-                continue;
-
-            object fieldValue = field.GetValue(statMono);
-            if (fieldValue is int intField)
-                return intField;
-            if (fieldValue is float floatField)
-                return Mathf.RoundToInt(floatField);
+            return 1;
         }
 
-        return 0;
+        return Mathf.Max(
+            1,
+            Mathf.RoundToInt(
+                characterManager.GetStatValue(StatType.MaxHp)));
+    }
+
+    private bool IsDead()
+    {
+        if (characterManager == null)
+        {
+            CacheComponents();
+        }
+
+        if (characterManager == null
+            || characterManager.RuntimeData == null)
+        {
+            return false;
+        }
+
+        return characterManager.RuntimeData.isDead;
     }
 
     private void UpdateSortingOrder()

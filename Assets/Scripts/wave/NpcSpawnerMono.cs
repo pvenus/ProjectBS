@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Character;
+
 /// <summary>
 /// Simple registered-point spawner.
 ///
@@ -21,8 +23,8 @@ public class NpcSpawnerMono : MonoBehaviour
     [System.Serializable]
     public class MonsterSpawnEntry
     {
-        [Tooltip("Monster prefab to spawn.")]
-        public GameObject prefab;
+        [Tooltip("Monster character definition to spawn.")]
+        public CharacterSO characterSO;
 
         [Tooltip("Relative selection weight. Higher = spawned more often.")]
         [Min(0f)] public float weight = 1f;
@@ -30,11 +32,14 @@ public class NpcSpawnerMono : MonoBehaviour
         [Tooltip("How many of this monster may be spawned in total. -1 = unlimited.")]
         public int maxSpawnCount = -1;
 
+        [Header("Runtime Stat")]
+        [Min(1f)] public float maxHp = 100f;
+
         [HideInInspector] public int spawnedCount;
 
         public bool CanSpawn()
         {
-            if (prefab == null)
+            if (characterSO == null || characterSO.prefab == null)
                 return false;
 
             if (weight <= 0f)
@@ -168,19 +173,56 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
-        GameObject spawned = Instantiate(entry.prefab, spawnPos, point.rotation);
+        GameObject spawned = Instantiate(entry.characterSO.prefab, spawnPos, point.rotation);
         if (spawned == null)
             return false;
 
         _alive.Add(spawned);
         entry.spawnedCount++;
 
+        SetupSpawnedCharacter(
+            spawned,
+            entry);
+
         if (debugLog)
         {
-            Debug.Log($"[NpcSpawnerMono] Spawned prefab={entry.prefab.name} point={point.name} alive={_alive.Count}", this);
+            Debug.Log($"[NpcSpawnerMono] Spawned character={entry.characterSO.name} point={point.name} alive={_alive.Count}", this);
         }
 
         return true;
+    }
+
+    private void SetupSpawnedCharacter(
+        GameObject spawned,
+        MonsterSpawnEntry entry)
+    {
+        if (spawned == null || entry == null)
+        {
+            return;
+        }
+
+        CharacterManager characterManager =
+            spawned.GetComponent<CharacterManager>();
+
+        if (characterManager == null)
+        {
+            characterManager =
+                spawned.GetComponentInChildren<CharacterManager>();
+        }
+
+        if (characterManager == null)
+        {
+            if (debugLog)
+            {
+                Debug.LogWarning(
+                    $"[NpcSpawnerMono] CharacterManager not found on spawned npc={spawned.name}",
+                    spawned);
+            }
+
+            return;
+        }
+
+        characterManager.InitializeFromSO(entry.characterSO);
     }
 
     private MonsterSpawnEntry PickMonsterEntry()

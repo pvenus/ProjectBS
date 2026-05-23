@@ -21,8 +21,12 @@ MonoBehaviour:
   projectileScale: 1
   projectileLifetime: 0.4
   damageType: 0
-  baseDamage: 1
+  baseDamage: 100
   flatBonusDamage: 0
   canCritical: 1
   criticalMultiplier: 1.5
   ignoreDefense: 0
+  category: 1
+  targetType: 3
+  tacticalNeed: 0
+  basePriority: 0

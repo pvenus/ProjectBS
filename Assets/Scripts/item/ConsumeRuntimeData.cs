@@ -1,5 +1,4 @@
 
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,43 +12,15 @@ namespace Item
         public class ConsumeEntry
         {
             [SerializeField] private ConsumeSO consume;
-
             [SerializeField] private bool owned;
 
-            [SerializeField] private int usedCountInBattle;
-
             public ConsumeSO Consume => consume;
-
             public bool Owned => owned;
-
-            public int UsedCountInBattle => usedCountInBattle;
-
-            public int RemainingUseCountInBattle
-            {
-                get
-                {
-                    if (consume == null)
-                    {
-                        return 0;
-                    }
-
-                    if (!consume.useLimitPerBattle)
-                    {
-                        return int.MaxValue;
-                    }
-
-                    return Mathf.Max(
-                        0,
-                        consume.maxUseCountPerBattle
-                        - usedCountInBattle);
-                }
-            }
 
             public ConsumeEntry(ConsumeSO consume)
             {
                 this.consume = consume;
                 owned = consume != null;
-                usedCountInBattle = 0;
             }
 
             public bool CanUseInBattle()
@@ -64,30 +35,16 @@ namespace Item
                     return false;
                 }
 
-                if (!consume.useLimitPerBattle)
-                {
-                    return true;
-                }
-
-                return usedCountInBattle
-                    < consume.maxUseCountPerBattle;
+                return consume.reusable;
             }
 
             public bool UseInBattle()
             {
-                if (!CanUseInBattle())
-                {
-                    return false;
-                }
-
-                usedCountInBattle++;
-
-                return true;
+                return CanUseInBattle();
             }
 
             public void ResetBattleUsage()
             {
-                usedCountInBattle = 0;
             }
 
             public void SetOwned(bool value)

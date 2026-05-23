@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Status.Service;
+using Character;
 
 /// <summary>
 /// ProjectileEntity의 충돌/히트 처리를 담당하는 컴포넌트.
@@ -19,7 +19,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private ProjectileEntity ownerEntity;
     private ProjectileRuntimeData runtimeData;
-    private CombatDamageService damageService;
+    private CharacterManager ownerCharacter;
     private readonly HashSet<Collider2D> hitTargets = new();
 
     public bool IsInitialized => initialized;
@@ -55,7 +55,17 @@ public class ProjectileHitHandler : MonoBehaviour
             consumeOnHit = data.hit.deactivateAfterFirstHit;
         }
 
-        damageService = new CombatDamageService();
+        if (runtimeData.owner != null)
+        {
+            ownerCharacter =
+                runtimeData.owner.GetComponent<CharacterManager>();
+
+            if (ownerCharacter == null)
+            {
+                ownerCharacter =
+                    runtimeData.owner.GetComponentInParent<CharacterManager>();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -80,8 +90,10 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
-        StatMono targetStat = other.GetComponentInParent<StatMono>();
-        if (targetStat == null)
+        CharacterManager targetCharacter =
+            other.GetComponentInParent<CharacterManager>();
+
+        if (targetCharacter == null)
         {
             return;
         }
@@ -91,14 +103,17 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
-        DamageRequest request = BuildDamageRequest(targetStat);
+        CharacterDamageRequest request =
+            BuildDamageRequest(targetCharacter);
+
         if (request == null)
         {
             return;
         }
 
         hitTargets.Add(other);
-        damageService.Apply(request);
+
+        ownerCharacter?.ApplyDamage(request);
 
         if (consumeOnHit)
         {
@@ -116,35 +131,28 @@ public class ProjectileHitHandler : MonoBehaviour
         return other.transform.root == runtimeData.owner.transform.root;
     }
 
-    private DamageRequest BuildDamageRequest(StatMono targetStat)
+    private CharacterDamageRequest BuildDamageRequest(CharacterManager targetCharacter)
     {
-        if (targetStat == null || runtimeData == null || runtimeData.damageProfile == null)
+        if (targetCharacter == null
+            || runtimeData == null
+            || runtimeData.damageProfile == null)
         {
             return null;
         }
 
-        var request = new DamageRequest
+        return new CharacterDamageRequest
         {
-            target = targetStat.gameObject,
-            damage = new DamageAmountDto
-            {
-                baseDamage = runtimeData.damageProfile.baseDamage,
-                flatBonusDamage = runtimeData.damageProfile.flatBonusDamage
-            },
-            element = new ElementContextDto
-            {
-                elementType = runtimeData.damageProfile.elementType,
-                heatGain = runtimeData.damageProfile.heatGain,
-                heatCoefficient = runtimeData.damageProfile.heatCoefficient,
-                canTriggerOverheat = runtimeData.damageProfile.canTriggerOverheat
-            },
-            modifiers = new DamageModifierDto
-            {
-                isCritical = false,
-                criticalMultiplier = runtimeData.damageProfile.criticalMultiplier
-            }
-        };
+            attacker = runtimeData.owner != null
+                ? runtimeData.owner.gameObject
+                : null,
 
-        return request;
+            target = targetCharacter.gameObject,
+
+            attackDamagePercent =
+                runtimeData.damageProfile.attackDamagePercent,
+
+            flatBonusDamage =
+                runtimeData.damageProfile.flatBonusDamage
+        };
     }
 }

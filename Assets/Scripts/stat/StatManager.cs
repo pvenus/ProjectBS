@@ -4,16 +4,15 @@ using UnityEngine;
 
 namespace Stat
 {
+    [Serializable]
+    public class StatEntry
+    {
+        public StatType statType;
+
+        public float value;
+    }
     public class StatManager : MonoBehaviour
     {
-        [Serializable]
-        public class StatEntry
-        {
-            public StatType statType;
-
-            public float value;
-        }
-
         public static StatManager Instance { get; private set; }
 
         [Header("Debug")]

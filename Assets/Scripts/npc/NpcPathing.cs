@@ -1,3 +1,5 @@
+using Character;
+using Stat;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +28,7 @@ public class NpcPathing : MonoBehaviour
     [SerializeField] private SkillExecutorMono skillExecutor;
     [SerializeField] private MovementController movementController;
     [SerializeField] private venus.eldawn.party.AnimationMono animationMono;
+    [SerializeField] private CharacterManager characterManager;
 
     [Header("Movement")]
     [SerializeField] private PathingArchetype archetype = PathingArchetype.Normal;
@@ -96,6 +99,11 @@ public class NpcPathing : MonoBehaviour
 
         if (animationMono == null)
             animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+
+        if (characterManager == null)
+            characterManager = GetComponent<CharacterManager>();
+        if (characterManager == null)
+            characterManager = GetComponentInParent<CharacterManager>();
 
         SyncMovementControllerConfig();
 
@@ -288,6 +296,25 @@ public class NpcPathing : MonoBehaviour
 
     private float GetMoveSpeed()
     {
+        if (characterManager == null)
+        {
+            characterManager = GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+                characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        if (characterManager != null)
+        {
+            float statMoveSpeed =
+                characterManager.GetStatValue(StatType.MoveSpeed);
+
+            if (statMoveSpeed > 0f)
+            {
+                return statMoveSpeed;
+            }
+        }
+
         if (movementProfile != null)
             return movementProfile.GetMoveSpeed();
 

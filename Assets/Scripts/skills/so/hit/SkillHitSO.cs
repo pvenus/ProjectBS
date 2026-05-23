@@ -58,7 +58,9 @@ public class SkillHitSO : ScriptableObject
 
         if (resolvedDamageProfile != null)
         {
-            resolvedDamageProfile.baseDamage = Mathf.Max(0f, resolvedDamageProfile.baseDamage + upgradeData.damageAdd);
+            resolvedDamageProfile.attackDamagePercent = Mathf.Max(
+                0f,
+                resolvedDamageProfile.attackDamagePercent + upgradeData.damageAdd);
         }
 
         resolvedKnockbackForce = Mathf.Max(0f, resolvedKnockbackForce + upgradeData.knockbackForceAdd);

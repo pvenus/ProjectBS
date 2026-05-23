@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3273765135786117438}
   - component: {fileID: 8087681909227235347}
   - component: {fileID: 5111479814381369370}
-  - component: {fileID: 1153119435230886499}
   - component: {fileID: 233276334655432482}
   - component: {fileID: 4848224181017767734}
   - component: {fileID: 2045198098585316608}
@@ -97,10 +96,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttackSkill: {fileID: 11400000, guid: 991972ba4008b4174ad9e70e5ef23188, type: 2}
-  skill1: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
-  skill2: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
-  skill3: {fileID: 11400000, guid: 94aae57b6910d4749a9c84d3a55216bd, type: 2}
+  basicAttack:
+    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+    currentGrade: 0
+    currentRuneSlotCount: 1
+    mainElement: 0
+    subElements: 
+    projectilePrefabOverride: {fileID: 0}
+    projectileLifetimeOverride: -1
+  skill1:
+    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+    currentGrade: 0
+    currentRuneSlotCount: 1
+    mainElement: 0
+    subElements: 
+    projectilePrefabOverride: {fileID: 0}
+    projectileLifetimeOverride: -1
+  skill2:
+    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+    currentGrade: 0
+    currentRuneSlotCount: 1
+    mainElement: 0
+    subElements: 
+    projectilePrefabOverride: {fileID: 0}
+    projectileLifetimeOverride: -1
+  skill3:
+    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+    currentGrade: 0
+    currentRuneSlotCount: 1
+    mainElement: 0
+    subElements: 
+    projectilePrefabOverride: {fileID: 0}
+    projectileLifetimeOverride: -1
 --- !u!114 &8087681909227235347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,52 +165,6 @@ MonoBehaviour:
   hate: 0.2
   desire: 0.4
   decaySpeed: 0.02
---- !u!114 &1153119435230886499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852732401579861008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatMono
-  maxHp: 100
-  currentHp: 100
-  maxMana: 50
-  currentMana: 50
-  damage: 10
-  enableContactDamage: 0
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 64
-  contactRadius: 0.55
-  damagePerEnemyPerTick: 1
-  contactTickInterval: 0.35
-  showHpHud: 1
-  hideHudWhenFullHp: 0
-  hudOffset: {x: 0, y: 0.9, z: 0}
-  hudBarSize: {x: 1.8, y: 0.22}
-  hudBarBackgroundSize: {x: 1.95, y: 0.3}
-  hudHighColor: {r: 0, g: 1, b: 0, a: 1}
-  hudMidColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  hudLowColor: {r: 1, g: 0, b: 0, a: 1}
-  hudBackgroundColor: {r: 0, g: 0, b: 0, a: 0.75}
-  hudSortingLayerName: UI
-  hudSortingOrder: 200
-  showDamagePopups: 1
-  damagePopupLife: 0.6
-  damagePopupRiseSpeed: 1.2
-  damagePopupFontSize: 58
-  damagePopupCharacterSize: 0.075
-  damagePopupSortingLayerName: UI
-  damagePopupSortingOrder: 210
-  debugLog: 0
-  shaderController: {fileID: 0}
-  playDeathDissolveOnDeath: 1
-  deathDestroyDelay: 0.6
 --- !u!114 &233276334655432482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +221,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   skillLoadout: {fileID: 0}
+  useDangerFlow: 1
+  dangerFlowRunner: {fileID: 0}
+  fallbackToGenericWhenDangerFlowFails: 1
   debugBrain: 1
   perceptionProfile: {fileID: 11400000, guid: 900b09e5fac3c4207a39bc5310e47c76, type: 2}
 --- !u!114 &6910135096768399594
@@ -585,6 +569,7 @@ GameObject:
   - component: {fileID: 6759621670227581714}
   - component: {fileID: 8728748517530592526}
   - component: {fileID: 7955202524105714281}
+  - component: {fileID: 3401977722939686457}
   m_Layer: 7
   m_Name: PartyMemberDPS
   m_TagString: Untagged
@@ -606,6 +591,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6777114975216093103}
+  - {fileID: 1690876914902908944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4808884066511986877
@@ -743,6 +729,64 @@ MonoBehaviour:
   restoreMovementAfterKnockback: 1
   stopMovementOnKnockbackStart: 1
   debugLog: 0
+--- !u!114 &3401977722939686457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378610511697526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ee57d3c85e8400c8ecb9d6800adb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterManager
+  runtimeData:
+    characterSO: {fileID: 0}
+    level: 1
+    exp: 0
+    currentHp: 0
+    isDead: 0
+    stats: []
+    finalStats: []
+  battleHudPrefab: {fileID: 1118014624461748563, guid: ffebd6248e7044bc596009e6f06757ed, type: 3}
+  hudRoot: {fileID: 1690876914902908944}
+  showDamagePopup: 1
+  damagePopupOffset: {x: 0, y: 0.9, z: 0}
+  shaderController: {fileID: 0}
+  playDeathDissolveOnDeath: 1
+  deathDestroyDelay: 0.6
+--- !u!1 &6681253981359778901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1690876914902908944}
+  m_Layer: 7
+  m_Name: HUDRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1690876914902908944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681253981359778901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4067234384640296582}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7137210795493006585
 GameObject:
   m_ObjectHideFlags: 0

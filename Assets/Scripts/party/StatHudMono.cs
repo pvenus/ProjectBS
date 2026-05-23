@@ -1,4 +1,6 @@
 using UnityEngine;
+using Character;
+using Stat;
 
 /// <summary>
 /// StatHudMono
@@ -13,6 +15,7 @@ public class StatHudMono : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private StatMono stat;
+    [SerializeField] private CharacterManager characterManager;
 
     [Header("Display")]
     [SerializeField] private bool showHud = true;
@@ -44,12 +47,22 @@ public class StatHudMono : MonoBehaviour
     private void Reset()
     {
         stat = GetComponent<StatMono>();
+        characterManager = GetComponent<CharacterManager>();
+
+        if (characterManager == null)
+            characterManager = GetComponentInParent<CharacterManager>();
     }
 
     private void Awake()
     {
         if (stat == null)
             stat = GetComponent<StatMono>();
+
+        if (characterManager == null)
+            characterManager = GetComponent<CharacterManager>();
+
+        if (characterManager == null)
+            characterManager = GetComponentInParent<CharacterManager>();
 
         EnsureHud();
         RefreshHud(force: true);
@@ -76,9 +89,9 @@ public class StatHudMono : MonoBehaviour
         if (_hudRoot == null || _backgroundRenderer == null || _fillRenderer == null)
             return;
 
-        float maxHp = stat != null ? stat.MaxHp : 0f;
-        float currentHp = stat != null ? stat.CurrentHp : 0f;
-        bool isDead = stat == null || stat.IsDead;
+        float maxHp = GetMaxHp();
+        float currentHp = GetCurrentHp();
+        bool isDead = IsDead();
 
         float ratio = maxHp > 0f ? Mathf.Clamp01(currentHp / maxHp) : 0f;
         bool visible = showHud && !isDead && (!hideWhenFullHp || ratio < 0.999f);
@@ -121,6 +134,47 @@ public class StatHudMono : MonoBehaviour
 
         if (refreshImmediately)
             RefreshHud(force: true);
+    }
+
+    public void SetCharacterManager(
+        CharacterManager targetCharacterManager,
+        bool refreshImmediately = true)
+    {
+        characterManager = targetCharacterManager;
+
+        if (refreshImmediately)
+            RefreshHud(force: true);
+    }
+
+    private float GetMaxHp()
+    {
+        if (characterManager != null)
+        {
+            return characterManager.GetStatValue(StatType.MaxHp);
+        }
+
+        return stat != null ? stat.MaxHp : 0f;
+    }
+
+    private float GetCurrentHp()
+    {
+        if (characterManager != null)
+        {
+            return characterManager.GetStatValue(StatType.Hp);
+        }
+
+        return stat != null ? stat.CurrentHp : 0f;
+    }
+
+    private bool IsDead()
+    {
+        if (characterManager != null
+            && characterManager.RuntimeData != null)
+        {
+            return characterManager.RuntimeData.isDead;
+        }
+
+        return stat == null || stat.IsDead;
     }
 
     private void EnsureHud()
