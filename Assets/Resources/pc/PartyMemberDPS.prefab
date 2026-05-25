@@ -96,38 +96,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttack:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill1:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill2:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill3:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
+  skillPool:
+    slots:
+    - slotKey: basic_attack
+      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
+    - slotKey: active_1
+      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
+    - slotKey: active_2
+      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
+    - slotKey: active_3
+      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
 --- !u!114 &8087681909227235347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +332,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   targetSpriteRenderer: {fileID: 0}
   movementController: {fileID: 0}
+  characterManager: {fileID: 0}
   playIdleOnStart: 1
   defaultDirection: 2
   resetToPreviousLocomotionAfterAttack: 1
@@ -570,6 +573,7 @@ GameObject:
   - component: {fileID: 8728748517530592526}
   - component: {fileID: 7955202524105714281}
   - component: {fileID: 3401977722939686457}
+  - component: {fileID: 7321556470737944840}
   m_Layer: 7
   m_Name: PartyMemberDPS
   m_TagString: Untagged
@@ -756,6 +760,21 @@ MonoBehaviour:
   shaderController: {fileID: 0}
   playDeathDissolveOnDeath: 1
   deathDestroyDelay: 0.6
+--- !u!114 &7321556470737944840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378610511697526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217b9f3846b9349058fe75843cead1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectManager
+  logDebug: 1
+  activeEffects: []
+  activeEffectLifetimes: []
 --- !u!1 &6681253981359778901
 GameObject:
   m_ObjectHideFlags: 0

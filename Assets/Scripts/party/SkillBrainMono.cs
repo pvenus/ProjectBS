@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using SKill;
 
 /// <summary>
 /// SkillBrainMono
@@ -741,14 +742,14 @@ public class SkillBrainMono : MonoBehaviour
         if (skillLoadout == null)
             return System.Array.Empty<EquipmentSkillSO>();
 
-        EquipmentSkillLoadoutEntry[] activeEntries = skillLoadout.GetActiveEntries();
+        SkillPoolSlotData[] activeEntries = skillLoadout.GetActiveEntries();
         if (activeEntries == null || activeEntries.Length == 0)
             return System.Array.Empty<EquipmentSkillSO>();
 
         List<EquipmentSkillSO> result = new List<EquipmentSkillSO>(activeEntries.Length);
         for (int i = 0; i < activeEntries.Length; i++)
         {
-            EquipmentSkillLoadoutEntry entry = activeEntries[i];
+            SkillPoolSlotData entry = activeEntries[i];
             if (entry == null)
                 continue;
 

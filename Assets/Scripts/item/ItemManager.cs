@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using Effect;
 using UnityEngine;
+using Session;
+using Character;
 
 namespace Item
 {
@@ -9,7 +11,7 @@ namespace Item
     /// 공용 Item 시스템 매니저.
     ///
     /// 현재는 Relic(Runtime) 관리 중심으로 구성되어 있으며,
-    /// 이후 Equipment / Consumable / Currency 등으로 확장 가능하다.
+    /// 이후 Equipment / Strategic Skill Item / Currency 등으로 확장 가능하다.
     /// </summary>
     public class ItemManager : MonoBehaviour
     {
@@ -20,9 +22,6 @@ namespace Item
         private RelicRuntimeData relicRuntimeData = new();
 
         [SerializeField]
-        private ConsumeRuntimeData consumeRuntimeData = new();
-
-        [SerializeField]
         private AIFunctionRuntimeData aiFunctionRuntimeData = new();
 
         [Header("Debug")]
@@ -31,8 +30,8 @@ namespace Item
 
         public RelicRuntimeData RelicRuntimeData => relicRuntimeData;
 
-        public ConsumeRuntimeData ConsumeRuntimeData
-            => consumeRuntimeData;
+        public StrategicSkillItemRuntimeData StrategicSkillItemRuntimeData
+            => ResolveStrategicSkillItemRuntimeData();
 
         public AIFunctionRuntimeData AIFunctionRuntimeData
             => aiFunctionRuntimeData;
@@ -41,9 +40,9 @@ namespace Item
 
         public event Action<RelicSO> OnRelicRemoved;
 
-        public event Action<ConsumeSO> OnConsumeAdded;
+        public event Action<StrategicSkillItemSO> OnStrategicSkillItemAdded;
 
-        public event Action<ConsumeSO> OnConsumeRemoved;
+        public event Action<StrategicSkillItemSO> OnStrategicSkillItemRemoved;
 
         public event Action<AIFunctionSO> OnAIFunctionAdded;
 
@@ -65,16 +64,27 @@ namespace Item
                 relicRuntimeData = new RelicRuntimeData();
             }
 
-            if (consumeRuntimeData == null)
-            {
-                consumeRuntimeData =
-                    new ConsumeRuntimeData();
-            }
-
             if (aiFunctionRuntimeData == null)
             {
                 aiFunctionRuntimeData =
                     new AIFunctionRuntimeData();
+            }
+        }
+
+
+        public void InitializeRuntimeData(
+            RelicRuntimeData relicRuntimeData,
+            AIFunctionRuntimeData aiFunctionRuntimeData)
+        {
+            this.relicRuntimeData =
+                relicRuntimeData ?? new RelicRuntimeData();
+
+            this.aiFunctionRuntimeData =
+                aiFunctionRuntimeData ?? new AIFunctionRuntimeData();
+
+            if (logDebug)
+            {
+                Debug.Log("[ItemManager] Runtime data initialized.");
             }
         }
 
@@ -213,10 +223,13 @@ namespace Item
             return true;
         }
 
-        private void ApplyRuntimeEffectToCharacters(
-            Effect.EffectRuntimeData runtimeEffect)
+        private void ApplyEffectToCharacters(
+            EffectSO effect,
+            EffectSourceType sourceType,
+            string sourceId,
+            RelicEntry relicEntry)
         {
-            if (runtimeEffect == null)
+            if (effect == null || relicEntry == null)
             {
                 return;
             }
@@ -237,7 +250,23 @@ namespace Item
                     continue;
                 }
 
+                CharacterManager targetCharacterManager =
+                    ResolveCharacterManager(effectManager);
+
+                Effect.EffectRuntimeData runtimeEffect =
+                    CreateRuntimeEffect(
+                        effect,
+                        sourceType,
+                        sourceId,
+                        targetCharacterManager);
+
+                if (runtimeEffect == null)
+                {
+                    continue;
+                }
+
                 effectManager.AddEffect(runtimeEffect);
+                relicEntry.runtimeEffects.Add(runtimeEffect);
             }
         }
 
@@ -269,6 +298,61 @@ namespace Item
             }
         }
 
+        private Effect.EffectRuntimeData CreateRuntimeEffect(
+            EffectSO effect,
+            EffectSourceType sourceType,
+            string sourceId,
+            CharacterManager targetCharacterManager)
+        {
+            if (effect == null)
+            {
+                return null;
+            }
+
+            if (effect is StatModifierEffectSO statModifierEffect)
+            {
+                if (targetCharacterManager == null)
+                {
+                    return null;
+                }
+
+                return new StatModifierEffectRuntime(
+                    statModifierEffect,
+                    sourceType,
+                    sourceId,
+                    targetCharacterManager);
+            }
+
+            return null;
+        }
+
+        private CharacterManager ResolveCharacterManager(
+            EffectManager effectManager)
+        {
+            if (effectManager == null)
+            {
+                return null;
+            }
+
+            CharacterManager characterManager =
+                effectManager.GetComponent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            characterManager =
+                effectManager.GetComponentInParent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            return effectManager.GetComponentInChildren<CharacterManager>();
+        }
+
         private void ApplyRelicEffects(RelicSO relic)
         {
             if (relic == null)
@@ -296,18 +380,11 @@ namespace Item
                     continue;
                 }
 
-                if (effect is StatModifierEffectSO statModifierEffect)
-                {
-                    StatModifierEffectRuntime runtime =
-                        new(
-                            statModifierEffect,
-                            EffectSourceType.Relic,
-                            relic.relicId);
-
-                    ApplyRuntimeEffectToCharacters(runtime);
-
-                    entry.runtimeEffects.Add(runtime);
-                }
+                ApplyEffectToCharacters(
+                    effect,
+                    EffectSourceType.Relic,
+                    relic.relicId,
+                    entry);
             }
         }
 
@@ -340,15 +417,23 @@ namespace Item
             entry.runtimeEffects.Clear();
         }
 
-        public bool AddConsume(ConsumeSO consume)
+        private StrategicSkillItemRuntimeData ResolveStrategicSkillItemRuntimeData()
         {
-            if (consume == null)
+            return GameSession.Instance.StageSession.StrategicSkillItemRuntimeData;
+        }
+
+        public bool AddStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
+        {
+            if (strategicSkillItem == null)
             {
                 return false;
             }
 
+            StrategicSkillItemRuntimeData runtimeData =
+                ResolveStrategicSkillItemRuntimeData();
+
             bool added =
-                consumeRuntimeData.AddConsume(consume);
+                runtimeData.AddStrategicSkillItem(strategicSkillItem);
 
             if (!added)
             {
@@ -358,22 +443,25 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Consume added. consume={consume.displayName}");
+                    $"[ItemManager] Strategic skill item added. item={strategicSkillItem.displayName}");
             }
 
-            OnConsumeAdded?.Invoke(consume);
+            OnStrategicSkillItemAdded?.Invoke(strategicSkillItem);
             return true;
         }
 
-        public bool RemoveConsume(ConsumeSO consume)
+        public bool RemoveStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
         {
-            if (consume == null)
+            if (strategicSkillItem == null)
             {
                 return false;
             }
 
+            StrategicSkillItemRuntimeData runtimeData =
+                ResolveStrategicSkillItemRuntimeData();
+
             bool removed =
-                consumeRuntimeData.RemoveConsume(consume);
+                runtimeData.RemoveStrategicSkillItem(strategicSkillItem);
 
             if (!removed)
             {
@@ -383,21 +471,22 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Consume removed. consume={consume.displayName}");
+                    $"[ItemManager] Strategic skill item removed. item={strategicSkillItem.displayName}");
             }
 
-            OnConsumeRemoved?.Invoke(consume);
+            OnStrategicSkillItemRemoved?.Invoke(strategicSkillItem);
             return true;
         }
 
-        public bool HasConsume(ConsumeSO consume)
+        public bool HasStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
         {
-            if (consume == null)
+            if (strategicSkillItem == null)
             {
                 return false;
             }
 
-            return consumeRuntimeData.HasConsume(consume);
+            return ResolveStrategicSkillItemRuntimeData()
+                .HasStrategicSkillItem(strategicSkillItem);
         }
 
         public bool AddAIFunction(AIFunctionSO function)
@@ -463,7 +552,7 @@ namespace Item
         public void ClearRelics()
         {
             relicRuntimeData.Clear();
-            consumeRuntimeData.Clear();
+            ResolveStrategicSkillItemRuntimeData().Clear();
             aiFunctionRuntimeData.Clear();
 
             if (logDebug)

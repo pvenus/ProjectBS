@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Character;
 using Stat;
+using SKill;
 
 public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
@@ -302,7 +303,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (skillLoadout == null)
             return null;
 
-        EquipmentSkillLoadoutEntry entry = skillLoadout.BasicAttack;
+        SkillPoolSlotData entry = skillLoadout.BasicAttack;
         return entry != null ? entry.SkillSo : null;
     }
 
@@ -320,7 +321,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (_projectileFactory == null)
             _projectileFactory = new ProjectileFactory();
 
-        EquipmentSkillLoadoutEntry entry = FindLoadoutEntry(skill);
+        SkillPoolSlotData entry = FindLoadoutEntry(skill);
         EquipmentSkillRuntimeData runtime = entry != null ? entry.RuntimeData : null;
         if (runtime == null)
         {
@@ -356,18 +357,18 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         return true;
     }
 
-    private EquipmentSkillLoadoutEntry FindLoadoutEntry(ScriptableObject skill)
+    private SkillPoolSlotData FindLoadoutEntry(ScriptableObject skill)
     {
         if (skillLoadout == null || skill == null)
             return null;
 
-        EquipmentSkillLoadoutEntry[] entries = skillLoadout.GetAllEntries();
+        SkillPoolSlotData[] entries = skillLoadout.GetAllEntries();
         if (entries == null || entries.Length == 0)
             return null;
 
         for (int i = 0; i < entries.Length; i++)
         {
-            EquipmentSkillLoadoutEntry entry = entries[i];
+            SkillPoolSlotData entry = entries[i];
             if (entry != null && entry.SkillSo == skill)
                 return entry;
         }

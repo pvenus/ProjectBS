@@ -7,14 +7,14 @@ using UnityEngine;
 namespace Item
 {
     [CreateAssetMenu(
-        fileName = "ConsumePool",
-        menuName = "BS/Item/Consume Pool")]
-    public class ConsumePoolSO : ScriptableObject
+        fileName = "StrategicSkillItemPool",
+        menuName = "BS/Item/Strategic Skill Item Pool")]
+    public class StrategicSkillItemPoolSO : ScriptableObject
     {
         [Serializable]
-        public class ConsumePoolEntry
+        public class StrategicSkillItemPoolEntry
         {
-            public ConsumeSO consume;
+            public StrategicSkillItemSO strategicSkillItem;
 
             [Min(1)]
             public int weight = 1;
@@ -29,22 +29,22 @@ namespace Item
         public string description;
 
         [Header("Pool")]
-        public List<ConsumePoolEntry> consumes = new();
+        public List<StrategicSkillItemPoolEntry> strategicSkillItems = new();
 
-        public ConsumeSO GetRandomConsume()
+        public StrategicSkillItemSO GetRandomStrategicSkillItem()
         {
-            if (consumes == null
-                || consumes.Count == 0)
+            if (strategicSkillItems == null
+                || strategicSkillItems.Count == 0)
             {
                 return null;
             }
 
             int totalWeight = 0;
 
-            foreach (ConsumePoolEntry entry in consumes)
+            foreach (StrategicSkillItemPoolEntry entry in strategicSkillItems)
             {
                 if (entry == null
-                    || entry.consume == null)
+                    || entry.strategicSkillItem == null)
                 {
                     continue;
                 }
@@ -60,10 +60,10 @@ namespace Item
             int randomValue = UnityEngine.Random.Range(0, totalWeight);
             int currentWeight = 0;
 
-            foreach (ConsumePoolEntry entry in consumes)
+            foreach (StrategicSkillItemPoolEntry entry in strategicSkillItems)
             {
                 if (entry == null
-                    || entry.consume == null)
+                    || entry.strategicSkillItem == null)
                 {
                     continue;
                 }
@@ -72,12 +72,12 @@ namespace Item
 
                 if (randomValue < currentWeight)
                 {
-                    return entry.consume;
+                    return entry.strategicSkillItem;
                 }
             }
 
-            return consumes[0] != null
-                ? consumes[0].consume
+            return strategicSkillItems[0] != null
+                ? strategicSkillItems[0].strategicSkillItem
                 : null;
         }
     }

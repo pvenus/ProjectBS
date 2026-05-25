@@ -1,3 +1,4 @@
+using System;
 using Stat;
 using UnityEngine;
 using Party.UI;
@@ -7,6 +8,7 @@ namespace Character
 {
     public class CharacterManager : MonoBehaviour
     {
+        public static event Action<CharacterManager> OnAnyCharacterDied = delegate { };
         [Header("Runtime")]
         [SerializeField] private CharacterRuntimeData runtimeData;
 
@@ -299,6 +301,8 @@ namespace Character
 
             isDying = true;
 
+            NotifyCharacterDied();
+
             venus.eldawn.party.AnimationMono animationMono =
                 GetComponentInChildren<venus.eldawn.party.AnimationMono>();
 
@@ -337,6 +341,11 @@ namespace Character
             }
 
             StartCoroutine(DestroyAfterDeathRoutine());
+        }
+
+        private void NotifyCharacterDied()
+        {
+            OnAnyCharacterDied?.Invoke(this);
         }
 
         private System.Collections.IEnumerator DestroyAfterDeathRoutine()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SKill;
 
 /// <summary>
 /// SkillUpgradeMono
@@ -219,7 +220,7 @@ public class SkillUpgradeMono : MonoBehaviour
         if (skillLoadout == null)
             return null;
 
-        EquipmentSkillLoadoutEntry entry = skillLoadout.GetEntryBySlot(slotIndex);
+        SkillPoolSlotData entry = skillLoadout.GetEntryBySlot(slotIndex);
         return entry != null ? entry.SkillSo : null;
     }
 
@@ -534,7 +535,7 @@ public class SkillUpgradeMono : MonoBehaviour
 
         for (int slotIndex = 0; slotIndex <= 3; slotIndex++)
         {
-            EquipmentSkillLoadoutEntry entry = skillLoadout.GetEntryBySlot(slotIndex);
+            SkillPoolSlotData entry = skillLoadout.GetEntryBySlot(slotIndex);
             if (entry != null && entry.SkillSo == skill)
                 return slotIndex;
         }

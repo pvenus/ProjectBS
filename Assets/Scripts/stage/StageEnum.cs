@@ -90,8 +90,8 @@ namespace Stage
 
         Relic = 2000,
         RelicPool = 2050,
-        Consume = 2100,
-        ConsumePool = 2150,
+        StrategicSkillItem = 2100,
+        StrategicSkillItemPool = 2150,
         Blessing = 2200,
         BlessingPool = 2250,
         AIFunction = 2300,

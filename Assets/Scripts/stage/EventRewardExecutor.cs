@@ -63,12 +63,12 @@ namespace Stage
                     GiveRelicFromPool(reward.targetData);
                     break;
 
-                case PopupEventRewardType.Consume:
-                    GiveConsume(reward.targetData);
+                case PopupEventRewardType.StrategicSkillItem:
+                    GiveStrategicSkillItem(reward.targetData);
                     break;
 
-                case PopupEventRewardType.ConsumePool:
-                    GiveConsumeFromPool(reward.targetData);
+                case PopupEventRewardType.StrategicSkillItemPool:
+                    GiveStrategicSkillItemFromPool(reward.targetData);
                     break;
 
                 case PopupEventRewardType.AIFunction:
@@ -181,7 +181,7 @@ namespace Stage
                 $"[EventRewardExecutor] Relic granted from pool. pool={pool.name} relic={relic.name}");
         }
 
-        private void GiveConsume(
+        private void GiveStrategicSkillItem(
             ScriptableObject targetData)
         {
             if (itemManager == null)
@@ -192,20 +192,21 @@ namespace Stage
                 return;
             }
 
-            ConsumeSO consume = targetData as ConsumeSO;
+            StrategicSkillItemSO strategicSkillItem =
+                targetData as StrategicSkillItemSO;
 
-            if (consume == null)
+            if (strategicSkillItem == null)
             {
                 Debug.LogWarning(
-                    "[EventRewardExecutor] Invalid consume reward.");
+                    "[EventRewardExecutor] Invalid strategic skill item reward.");
 
                 return;
             }
 
-            itemManager.AddConsume(consume);
+            itemManager.AddStrategicSkillItem(strategicSkillItem);
         }
 
-        private void GiveConsumeFromPool(
+        private void GiveStrategicSkillItemFromPool(
             ScriptableObject targetData)
         {
             if (itemManager == null)
@@ -216,31 +217,32 @@ namespace Stage
                 return;
             }
 
-            ConsumePoolSO pool =
-                targetData as ConsumePoolSO;
+            StrategicSkillItemPoolSO pool =
+                targetData as StrategicSkillItemPoolSO;
 
             if (pool == null)
             {
                 Debug.LogWarning(
-                    "[EventRewardExecutor] Invalid consume pool reward.");
+                    "[EventRewardExecutor] Invalid strategic skill item pool reward.");
 
                 return;
             }
 
-            ConsumeSO consume = pool.GetRandomConsume();
+            StrategicSkillItemSO strategicSkillItem =
+                pool.GetRandomStrategicSkillItem();
 
-            if (consume == null)
+            if (strategicSkillItem == null)
             {
                 Debug.LogWarning(
-                    $"[EventRewardExecutor] Consume pool is empty. pool={pool.name}");
+                    $"[EventRewardExecutor] Strategic skill item pool is empty. pool={pool.name}");
 
                 return;
             }
 
-            itemManager.AddConsume(consume);
+            itemManager.AddStrategicSkillItem(strategicSkillItem);
 
             Debug.Log(
-                $"[EventRewardExecutor] Consume granted from pool. pool={pool.name} consume={consume.name}");
+                $"[EventRewardExecutor] Strategic skill item granted from pool. pool={pool.name} item={strategicSkillItem.name}");
         }
 
         private void GiveBlessingFromPool(

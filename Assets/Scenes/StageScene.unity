@@ -323,8 +323,6 @@ MonoBehaviour:
   relicRuntimeData:
     relics: []
     maxRelicCount: 3
-  consumeRuntimeData:
-    consumes: []
   aiFunctionRuntimeData:
     functions: []
   logDebug: 0
@@ -2324,6 +2322,10 @@ MonoBehaviour:
       recentEventIds: []
       stageCompleted: 0
       stageFailed: 0
+    StrategicSkillItemRuntimeData:
+      strategicSkillItems:
+      - strategicSkillItem: {fileID: 11400000, guid: 158798a605a9b438ca9fd612761ae4ae, type: 2}
+        owned: 1
   BattleSession:
     IsBattleActive: 0
     BattleId: 

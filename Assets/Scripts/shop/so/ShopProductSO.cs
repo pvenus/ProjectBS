@@ -45,8 +45,8 @@ namespace Shop
         [Header("Relic")]
         public RelicSO relic;
 
-        [Header("Consumable")]
-        public ScriptableObject consumable;
+        [Header("Strategic Skill Item")]
+        public StrategicSkillItemSO strategicSkillItem;
 
         [Header("AI")]
         public ScriptableObject aiFunction;
@@ -57,7 +57,7 @@ namespace Shop
         None = 0,
 
         Relic = 100,
-        Consumable = 200,
+        StrategicSkillItem = 200,
         AIFunction = 300,
     }
 
@@ -66,7 +66,7 @@ namespace Shop
         None = 0,
 
         Relic = 100,
-        Consumable = 200,
+        StrategicSkillItem = 200,
         AIFunction = 300,
     }
 }

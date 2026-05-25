@@ -225,6 +225,23 @@ namespace Character
                 CalculateWithPercent(
                     StatType.CooldownReduction,
                     StatType.CooldownReductionPercent));
+
+            ClampCurrentHpToMaxHp();
+        }
+
+        private void ClampCurrentHpToMaxHp()
+        {
+            float maxHp = GetStat(StatType.MaxHp);
+            float currentHp = GetStat(StatType.Hp);
+
+            if (currentHp <= maxHp)
+            {
+                return;
+            }
+
+            SetStat(
+                StatType.Hp,
+                maxHp);
         }
 
         private void MergeNonFormulaStatsToFinalStats()

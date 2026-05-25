@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 4519757924942294139}
   - component: {fileID: -2441933339808948738}
   - component: {fileID: 3136085184654651528}
+  - component: {fileID: 787100099225214566}
   m_Layer: 6
   m_Name: Npc Melee
   m_TagString: Untagged
@@ -128,7 +129,7 @@ MonoBehaviour:
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
   skillExecutor: {fileID: 3978440672586092253}
-  statMono: {fileID: 0}
+  characterManager: {fileID: 3136085184654651528}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
@@ -161,6 +162,7 @@ MonoBehaviour:
   skillExecutor: {fileID: 0}
   movementController: {fileID: 0}
   animationMono: {fileID: 0}
+  characterManager: {fileID: 0}
   archetype: 1
   chaseRange: 300
   holdExitDistanceBuffer: 0.1
@@ -253,38 +255,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttack:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill1:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill2:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill3:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
+  skillPool:
+    slots:
+    - slotKey: basic_attack
+      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
 --- !u!114 &-7770207776363605684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +280,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   targetSpriteRenderer: {fileID: 0}
   movementController: {fileID: 0}
+  characterManager: {fileID: 0}
   playIdleOnStart: 1
   defaultDirection: 2
   resetToPreviousLocomotionAfterAttack: 1
@@ -605,6 +586,21 @@ MonoBehaviour:
   shaderController: {fileID: 0}
   playDeathDissolveOnDeath: 1
   deathDestroyDelay: 0.6
+--- !u!114 &787100099225214566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217b9f3846b9349058fe75843cead1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectManager
+  logDebug: 1
+  activeEffects: []
+  activeEffectLifetimes: []
 --- !u!1 &8846571706493524385
 GameObject:
   m_ObjectHideFlags: 0
