@@ -20,10 +20,13 @@ MonoBehaviour:
   hitStartTime: 0
   hitDuration: 0.1
   deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   damageSo: {fileID: 0}
   buffEffects:
-  - effectSo: {fileID: 0}
-    lifetimeType: 4
+  - effectSo: {fileID: 11400000, guid: 05b006bb3280841b4b29c9825e011c90, type: 2}
+    lifetimeType: 0
     categoryType: 0
     duration: -1
     maxApplyCount: 1
