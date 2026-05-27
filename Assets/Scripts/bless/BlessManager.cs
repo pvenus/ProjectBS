@@ -3,6 +3,7 @@ using System.Linq;
 using Shrine;
 using UnityEngine;
 using Effect;
+using Character;
 
 namespace Bless
 {
@@ -130,16 +131,136 @@ namespace Bless
                     continue;
                 }
 
-                if (effect is StatModifierEffectSO statModifierEffect)
-                {
-                    StatModifierEffectRuntime runtime =
-                        new(
-                            statModifierEffect,
-                            EffectSourceType.Bless,
-                            source.blessingId);
+                AddEffectToEffectManagers(
+                    effect,
+                    EffectSourceType.Bless,
+                    source.blessingId);
+            }
+        }
 
-                    EffectManager.Instance.AddEffect(runtime);
+        private void AddEffectToEffectManagers(
+            EffectSO effect,
+            EffectSourceType sourceType,
+            string sourceId)
+        {
+            if (effect == null)
+            {
+                return;
+            }
+
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
                 }
+
+                CharacterManager targetCharacterManager =
+                    ResolveCharacterManager(effectManager);
+
+                Effect.EffectRuntimeData runtimeEffect =
+                    CreateRuntimeEffect(
+                        effect,
+                        sourceType,
+                        sourceId,
+                        targetCharacterManager);
+
+                if (runtimeEffect == null)
+                {
+                    continue;
+                }
+
+                effectManager.AddEffect(runtimeEffect);
+            }
+        }
+
+        private Effect.EffectRuntimeData CreateRuntimeEffect(
+            EffectSO effect,
+            EffectSourceType sourceType,
+            string sourceId,
+            CharacterManager targetCharacterManager)
+        {
+            if (effect == null)
+            {
+                return null;
+            }
+
+            if (effect is StatModifierEffectSO statModifierEffect)
+            {
+                if (targetCharacterManager == null)
+                {
+                    return null;
+                }
+
+                return new StatModifierEffectRuntime(
+                    statModifierEffect,
+                    sourceType,
+                    sourceId,
+                    targetCharacterManager);
+            }
+
+            return null;
+        }
+
+        private CharacterManager ResolveCharacterManager(
+            EffectManager effectManager)
+        {
+            if (effectManager == null)
+            {
+                return null;
+            }
+
+            CharacterManager characterManager =
+                effectManager.GetComponent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            characterManager =
+                effectManager.GetComponentInParent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            return effectManager.GetComponentInChildren<CharacterManager>();
+        }
+
+        private void RemoveEffectsFromEffectManagers(
+            EffectSourceType sourceType,
+            string sourceId)
+        {
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0;
+                 i < effectManagers.Length;
+                 i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                effectManager.RemoveEffectsBySource(
+                    sourceType,
+                    sourceId);
             }
         }
 
@@ -158,7 +279,7 @@ namespace Bless
                     continue;
                 }
 
-                EffectManager.Instance.RemoveEffectsBySource(
+                RemoveEffectsFromEffectManagers(
                     EffectSourceType.Bless,
                     entry.source.blessingId);
             }

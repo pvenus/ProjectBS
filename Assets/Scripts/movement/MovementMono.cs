@@ -1,6 +1,6 @@
 
-
 using UnityEngine;
+using Character;
 
 /// <summary>
 /// MovementMono
@@ -20,6 +20,7 @@ public class MovementMono : MonoBehaviour
     [SerializeField] private MovementController movementController;
     [SerializeField] private KnockbackController knockbackController;
     [SerializeField] private Rigidbody2D targetRigidbody;
+    [SerializeField] private CharacterManager characterManager;
 
     [Header("Debug")]
     [SerializeField] private bool debugLog;
@@ -54,6 +55,9 @@ public class MovementMono : MonoBehaviour
 
     public bool IsMoving()
     {
+        if (IsStunned())
+            return false;
+
         return movementController != null && movementController.IsMoving;
     }
 
@@ -73,10 +77,24 @@ public class MovementMono : MonoBehaviour
             knockbackController.ApplyKnockback(direction.normalized * Mathf.Max(0f, force));
     }
 
+    public bool CanMove()
+    {
+        return !IsStunned();
+    }
+
+    private bool IsStunned()
+    {
+        return characterManager != null
+            && characterManager.IsStunned;
+    }
+
     private void CacheOrCreateControllers()
     {
         if (targetRigidbody == null)
             targetRigidbody = GetComponent<Rigidbody2D>();
+
+        if (characterManager == null)
+            characterManager = GetComponent<CharacterManager>();
 
         if (ensureMovementController)
         {

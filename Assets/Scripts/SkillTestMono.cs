@@ -151,7 +151,7 @@ public class SkillTestMono : MonoBehaviour
 
         if (projectileData.damageProfile != null)
         {
-            Debug.Log($"[Upgrade Test] Damage = {projectileData.damageProfile.baseDamage}", this);
+            Debug.Log($"[Upgrade Test] Damage Percent = {projectileData.damageProfile.attackDamagePercent}", this);
         }
         else
         {

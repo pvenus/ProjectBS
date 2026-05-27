@@ -3,10 +3,47 @@ using UnityEngine;
 
 namespace Effect
 {
+    public enum EffectLifetimeType
+    {
+        Instant,
+        Manual,
+        CombatOnly,
+        Timed,
+        CombatTimed,
+        ConsumeOnBattleStart,
+        ConsumeOnBattleEnd
+    }
+
+    public enum EffectCategoryType
+    {
+        Neutral = 0,
+        Buff = 1,
+        Debuff = 2
+    }
+
+    [System.Serializable]
+    public class EffectLifetimeData
+    {
+        public string runtimeId;
+        public EffectLifetimeType lifetimeType;
+        public EffectCategoryType categoryType;
+        public float remainingTime;
+
+        public EffectLifetimeData(
+            string runtimeId,
+            EffectLifetimeType lifetimeType,
+            float duration,
+            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+        {
+            this.runtimeId = runtimeId;
+            this.lifetimeType = lifetimeType;
+            this.categoryType = categoryType;
+            remainingTime = duration;
+        }
+    }
+
     public class EffectManager : MonoBehaviour
     {
-        public static EffectManager Instance { get; private set; }
-
         [Header("Debug")]
         [SerializeField] private bool logDebug = true;
 
@@ -14,19 +51,16 @@ namespace Effect
         [SerializeField]
         private List<EffectRuntimeData> activeEffects = new();
 
+        [SerializeField]
+        private List<EffectLifetimeData> activeEffectLifetimes = new();
+
+        private bool isBattleActive;
+
         public event System.Action<EffectRuntimeData> OnEffectAdded;
         public event System.Action<EffectRuntimeData> OnEffectRemoved;
 
         private void Awake()
         {
-            if (Instance != null
-                && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
         }
 
         public IReadOnlyList<EffectRuntimeData> ActiveEffects
@@ -35,12 +69,82 @@ namespace Effect
         public void AddEffect(
             EffectRuntimeData runtimeData)
         {
+            AddEffect(
+                runtimeData,
+                EffectLifetimeType.Manual,
+                -1f);
+        }
+
+        public void AddInstantEffect(
+            EffectRuntimeData runtimeData,
+            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+        {
+            AddEffect(
+                runtimeData,
+                EffectLifetimeType.Instant,
+                -1f,
+                categoryType);
+        }
+
+        public void AddBuff(
+            EffectRuntimeData runtimeData,
+            EffectLifetimeType lifetimeType = EffectLifetimeType.CombatTimed,
+            float duration = -1f)
+        {
+            AddEffect(
+                runtimeData,
+                lifetimeType,
+                duration,
+                EffectCategoryType.Buff);
+        }
+
+        public void AddDebuff(
+            EffectRuntimeData runtimeData,
+            EffectLifetimeType lifetimeType = EffectLifetimeType.CombatTimed,
+            float duration = -1f)
+        {
+            AddEffect(
+                runtimeData,
+                lifetimeType,
+                duration,
+                EffectCategoryType.Debuff);
+        }
+
+        public void AddEffect(
+            EffectRuntimeData runtimeData,
+            EffectLifetimeType lifetimeType,
+            float duration = -1f,
+            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+        {
             if (runtimeData == null)
             {
                 return;
             }
 
+            if (lifetimeType == EffectLifetimeType.Instant)
+            {
+                runtimeData.OnApply();
+                OnEffectAdded?.Invoke(runtimeData);
+
+                if (logDebug)
+                {
+                    Debug.Log(
+                        $"[EffectManager] Instant effect applied. id={runtimeData.RuntimeId}, category={categoryType}");
+                }
+
+                return;
+            }
+
+            RemoveEffectsByRuntimeId(runtimeData.RuntimeId);
+
             activeEffects.Add(runtimeData);
+
+            activeEffectLifetimes.Add(
+                new EffectLifetimeData(
+                    runtimeData.RuntimeId,
+                    lifetimeType,
+                    duration,
+                    categoryType));
 
             runtimeData.OnApply();
 
@@ -49,7 +153,38 @@ namespace Effect
             if (logDebug)
             {
                 Debug.Log(
-                    $"[EffectManager] Effect added. id={runtimeData.RuntimeId}");
+                    $"[EffectManager] Effect added. id={runtimeData.RuntimeId}, category={categoryType}, lifetime={lifetimeType}, duration={duration}");
+            }
+        }
+        private void RemoveEffectsByRuntimeId(string runtimeId)
+        {
+            if (string.IsNullOrEmpty(runtimeId))
+            {
+                return;
+            }
+
+            for (int i = activeEffects.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectRuntimeData activeEffect =
+                    activeEffects[i];
+
+                if (activeEffect == null)
+                {
+                    activeEffects.RemoveAt(i);
+                    continue;
+                }
+
+                if (!string.Equals(
+                        activeEffect.RuntimeId,
+                        runtimeId,
+                        System.StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                RemoveEffect(activeEffect);
             }
         }
 
@@ -66,6 +201,8 @@ namespace Effect
                 return;
             }
 
+            RemoveLifetime(runtimeData.RuntimeId);
+
             runtimeData.OnRemove();
 
             OnEffectRemoved?.Invoke(runtimeData);
@@ -74,6 +211,235 @@ namespace Effect
             {
                 Debug.Log(
                     $"[EffectManager] Effect removed. id={runtimeData.RuntimeId}");
+            }
+        }
+        private void Update()
+        {
+            TickTimedEffects(Time.deltaTime);
+        }
+        public void OnBattleStarted()
+        {
+            isBattleActive = true;
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.ConsumeOnBattleStart);
+        }
+
+        public void OnBattleEnded()
+        {
+            isBattleActive = false;
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.CombatOnly);
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.CombatTimed);
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.ConsumeOnBattleEnd);
+        }
+
+        public void OnStageEntered()
+        {
+            isBattleActive = false;
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.CombatOnly);
+
+            RemoveEffectsByLifetime(
+                EffectLifetimeType.CombatTimed);
+        }
+        private void TickTimedEffects(float deltaTime)
+        {
+            for (int i = activeEffectLifetimes.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectLifetimeData lifetimeData =
+                    activeEffectLifetimes[i];
+
+                if (lifetimeData == null)
+                {
+                    activeEffectLifetimes.RemoveAt(i);
+                    continue;
+                }
+
+                if (!ShouldTickLifetime(lifetimeData))
+                {
+                    continue;
+                }
+
+                lifetimeData.remainingTime -= deltaTime;
+
+                if (lifetimeData.remainingTime > 0f)
+                {
+                    continue;
+                }
+
+                EffectRuntimeData effect =
+                    FindEffect(lifetimeData.runtimeId);
+
+                if (effect != null)
+                {
+                    RemoveEffect(effect);
+                }
+                else
+                {
+                    activeEffectLifetimes.RemoveAt(i);
+                }
+            }
+        }
+
+        private bool ShouldTickLifetime(
+            EffectLifetimeData lifetimeData)
+        {
+            if (lifetimeData.remainingTime < 0f)
+            {
+                return false;
+            }
+
+            if (lifetimeData.lifetimeType == EffectLifetimeType.Instant)
+            {
+                return false;
+            }
+
+            if (lifetimeData.lifetimeType == EffectLifetimeType.Timed)
+            {
+                return true;
+            }
+
+            if (lifetimeData.lifetimeType == EffectLifetimeType.CombatTimed)
+            {
+                return isBattleActive;
+            }
+
+            return false;
+        }
+
+        private void RemoveEffectsByLifetime(
+            EffectLifetimeType lifetimeType)
+        {
+            for (int i = activeEffectLifetimes.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectLifetimeData lifetimeData =
+                    activeEffectLifetimes[i];
+
+                if (lifetimeData == null
+                    || lifetimeData.lifetimeType != lifetimeType)
+                {
+                    continue;
+                }
+
+                EffectRuntimeData effect =
+                    FindEffect(lifetimeData.runtimeId);
+
+                if (effect != null)
+                {
+                    RemoveEffect(effect);
+                }
+                else
+                {
+                    activeEffectLifetimes.RemoveAt(i);
+                }
+            }
+        }
+
+        public void RemoveBuffs()
+        {
+            RemoveEffectsByCategory(
+                EffectCategoryType.Buff);
+        }
+
+        public void RemoveDebuffs()
+        {
+            RemoveEffectsByCategory(
+                EffectCategoryType.Debuff);
+        }
+
+        public void RemoveEffectsByCategory(
+            EffectCategoryType categoryType)
+        {
+            for (int i = activeEffectLifetimes.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectLifetimeData lifetimeData =
+                    activeEffectLifetimes[i];
+
+                if (lifetimeData == null
+                    || lifetimeData.categoryType != categoryType)
+                {
+                    continue;
+                }
+
+                EffectRuntimeData effect =
+                    FindEffect(lifetimeData.runtimeId);
+
+                if (effect != null)
+                {
+                    RemoveEffect(effect);
+                }
+                else
+                {
+                    activeEffectLifetimes.RemoveAt(i);
+                }
+            }
+        }
+
+        public bool HasBuff(string runtimeId)
+        {
+            return HasEffectByCategory(
+                runtimeId,
+                EffectCategoryType.Buff);
+        }
+
+        public bool HasDebuff(string runtimeId)
+        {
+            return HasEffectByCategory(
+                runtimeId,
+                EffectCategoryType.Debuff);
+        }
+
+        public bool HasEffectByCategory(
+            string runtimeId,
+            EffectCategoryType categoryType)
+        {
+            EffectLifetimeData lifetimeData =
+                FindLifetime(runtimeId);
+
+            return lifetimeData != null
+                && lifetimeData.categoryType == categoryType
+                && FindEffect(runtimeId) != null;
+        }
+
+        private EffectLifetimeData FindLifetime(string runtimeId)
+        {
+            return activeEffectLifetimes.Find(x => x != null
+                && string.Equals(
+                    x.runtimeId,
+                    runtimeId,
+                    System.StringComparison.Ordinal));
+        }
+
+        private void RemoveLifetime(string runtimeId)
+        {
+            for (int i = activeEffectLifetimes.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectLifetimeData lifetimeData =
+                    activeEffectLifetimes[i];
+
+                if (lifetimeData == null
+                    || string.Equals(
+                        lifetimeData.runtimeId,
+                        runtimeId,
+                        System.StringComparison.Ordinal))
+                {
+                    activeEffectLifetimes.RemoveAt(i);
+                }
             }
         }
 

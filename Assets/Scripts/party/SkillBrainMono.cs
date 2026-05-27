@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using SKill;
 
 /// <summary>
 /// SkillBrainMono
@@ -97,7 +98,7 @@ public class SkillBrainMono : MonoBehaviour
 	{
 		decisionState = BrainDecisionState.None;
 
-		BattleSkillBase[] activeSkills = GetActiveBattleSkills();
+		EquipmentSkillSO[] activeSkills = GetActiveBattleSkills();
 		if (activeSkills.Length == 0)
 		{
 			decisionState = CreateDecisionState(BrainPhase.Decide, TacticalNeed.None, "NoActiveBattleSkills", 0f, null, Vector3.zero);
@@ -124,7 +125,7 @@ public class SkillBrainMono : MonoBehaviour
 
 	private bool TryEvaluateDangerFlowSkill(
 		BrainContext context,
-		BattleSkillBase[] activeSkills,
+		EquipmentSkillSO[] activeSkills,
 		out SkillBrainOutput output,
 		out BrainDecisionState decisionState)
 	{
@@ -145,7 +146,7 @@ public class SkillBrainMono : MonoBehaviour
 			return false;
 		}
 
-		BattleSkillBase selectedSkill = FindSkillById(activeSkills, decision.skillId);
+		EquipmentSkillSO selectedSkill = FindSkillById(activeSkills, decision.skillId);
 		if (selectedSkill == null)
 		{
 			if (debugBrain)
@@ -194,7 +195,7 @@ public class SkillBrainMono : MonoBehaviour
 	}
 
 	private bool TryCreateOutputFromDangerFlowDecision(
-		BattleSkillBase skill,
+		EquipmentSkillSO skill,
 		DangerFlowDecision decision,
 		out SkillBrainOutput output,
 		out BrainDecisionState decisionState)
@@ -207,7 +208,7 @@ public class SkillBrainMono : MonoBehaviour
 
 		float score = decision.score;
 		string reason = $"DangerFlow selected {decision.displayName} ({decision.skillId}) :: {decision.reason}";
-		TacticalNeed need = ConvertTacticalNeed(skill.TacticalNeed);
+		TacticalNeed need = ConvertTacticalNeed(skill.BaseProfileSo.TacticalNeed);
 		string label = $"DangerFlow_{decision.skillId}";
 
 		SkillOutputTargetMode targetMode = ResolveOutputTargetMode(decision, skill);
@@ -246,7 +247,7 @@ public class SkillBrainMono : MonoBehaviour
 		}
 	}
 
-	private SkillOutputTargetMode ResolveOutputTargetMode(DangerFlowDecision decision, BattleSkillBase skill)
+	private SkillOutputTargetMode ResolveOutputTargetMode(DangerFlowDecision decision, EquipmentSkillSO skill)
 	{
 		if (decision != null && decision.targetMode != SkillOutputTargetMode.None)
 			return decision.targetMode;
@@ -254,7 +255,7 @@ public class SkillBrainMono : MonoBehaviour
 		if (skill == null)
 			return SkillOutputTargetMode.None;
 
-		switch (skill.TargetType)
+		switch (skill.BaseProfileSo.TargetType)
 		{
 		case BattleSkillTargetType.Self:
 			return SkillOutputTargetMode.Self;
@@ -272,7 +273,7 @@ public class SkillBrainMono : MonoBehaviour
 	}
 
 	private bool TryCreateOutputByBattleSkillTargetType(
-		BattleSkillBase skill,
+		EquipmentSkillSO skill,
 		float score,
 		string reason,
 		string label,
@@ -286,7 +287,7 @@ public class SkillBrainMono : MonoBehaviour
 		if (skill == null)
 			return false;
 
-		switch (skill.TargetType)
+		switch (skill.BaseProfileSo.TargetType)
 		{
 		case BattleSkillTargetType.Self:
 		{
@@ -329,12 +330,12 @@ public class SkillBrainMono : MonoBehaviour
 		return false;
 	}
 
-	private Transform ResolveTargetForSkill(BattleSkillBase skill)
+	private Transform ResolveTargetForSkill(EquipmentSkillSO skill)
 	{
 		if (skill == null)
 			return null;
 
-		switch (skill.TargetType)
+		switch (skill.BaseProfileSo.TargetType)
 		{
 		case BattleSkillTargetType.Self:
 			return transform;
@@ -349,7 +350,7 @@ public class SkillBrainMono : MonoBehaviour
 		}
 	}
 
-	private Vector3 ResolvePointForSkill(BattleSkillBase skill)
+	private Vector3 ResolvePointForSkill(EquipmentSkillSO skill)
 	{
 		if (skill == null)
 			return transform.position;
@@ -357,25 +358,25 @@ public class SkillBrainMono : MonoBehaviour
 		return ResolvePointSkillPosition(skill, out _);
 	}
 
-	private float GetSkillAcquireRange(BattleSkillBase skill)
+	private float GetSkillAcquireRange(EquipmentSkillSO skill)
 	{
 		if (skill == null)
 			return enemyCheckRadius;
 
-		return Mathf.Max(0.1f, skill.Range > 0f ? skill.Range : enemyCheckRadius);
+		return Mathf.Max(0.1f, skill.CastSo.Range > 0f ? skill.CastSo.Range : enemyCheckRadius);
 	}
 
-	private float GetAllyAcquireRange(BattleSkillBase skill)
+	private float GetAllyAcquireRange(EquipmentSkillSO skill)
 	{
 		if (skill == null)
 			return enemyCheckRadius * 3f;
 
-		return Mathf.Max(0.1f, skill.Range > 0f ? skill.Range : enemyCheckRadius * 3f);
+		return Mathf.Max(0.1f, skill.CastSo.Range > 0f ? skill.CastSo.Range : enemyCheckRadius * 3f);
 	}
 
 	private SkillBrainOutput EvaluateGenericSkillOutput(
 		BrainContext context,
-		BattleSkillBase[] activeSkills,
+		EquipmentSkillSO[] activeSkills,
 		out BrainDecisionState decisionState)
 	{
 		decisionState = BrainDecisionState.None;
@@ -386,7 +387,7 @@ public class SkillBrainMono : MonoBehaviour
 
 		for (int i = 0; i < activeSkills.Length; i++)
 		{
-			BattleSkillBase skill = activeSkills[i];
+			EquipmentSkillSO skill = activeSkills[i];
 			if (skill == null)
 				continue;
 
@@ -440,7 +441,7 @@ public class SkillBrainMono : MonoBehaviour
 		return SkillBrainOutput.None;
 	}
 
-	private bool TryEvaluateGenericSkill(BattleSkillBase skill, BrainContext context, out SkillBrainOutput output, out BrainDecisionState decisionState)
+	private bool TryEvaluateGenericSkill(EquipmentSkillSO skill, BrainContext context, out SkillBrainOutput output, out BrainDecisionState decisionState)
 	{
 		output = SkillBrainOutput.None;
 		decisionState = BrainDecisionState.None;
@@ -454,13 +455,13 @@ public class SkillBrainMono : MonoBehaviour
 
 		if (debugBrain)
 		{
-			Debug.Log($"[SkillBrain][Generic] base-eval skill={skill.DisplayName} category={skill.Category} targetType={skill.TargetType} tacticalNeed={skill.TacticalNeed} baseScore={score:0.00} selfHp={context.selfHp01:0.00} lowestAllyHp={context.lowestAllyHp01:0.00} enemies={context.nearbyEnemyCount}");
+			Debug.Log($"[SkillBrain][Generic] base-eval skill={skill.DisplayName} category={skill.BaseProfileSo.Category} targetType={skill.BaseProfileSo.TargetType} tacticalNeed={skill.BaseProfileSo.TacticalNeed} baseScore={score:0.00} selfHp={context.selfHp01:0.00} lowestAllyHp={context.lowestAllyHp01:0.00} enemies={context.nearbyEnemyCount}");
 		}
 
-		TacticalNeed need = ConvertTacticalNeed(skill.TacticalNeed);
+		TacticalNeed need = ConvertTacticalNeed(skill.BaseProfileSo.TacticalNeed);
 		string label = $"Generic_{skill.DisplayName}";
 
-		switch (skill.TargetType)
+		switch (skill.BaseProfileSo.TargetType)
 		{
 		case BattleSkillTargetType.Self:
 		{
@@ -519,7 +520,7 @@ public class SkillBrainMono : MonoBehaviour
 		return false;
 	}
 
-	private float CalculateGenericSkillScore(BattleSkillBase skill, BrainContext context)
+	private float CalculateGenericSkillScore(EquipmentSkillSO skill, BrainContext context)
 	{
 		if (skill == null)
 			return float.NegativeInfinity;
@@ -534,7 +535,7 @@ public class SkillBrainMono : MonoBehaviour
 		float selfMissingHp = Mathf.Clamp01(1f - context.selfHp01);
 		float allyMissingHp = Mathf.Clamp01(1f - context.lowestAllyHp01);
 
-		switch (skill.TacticalNeed)
+		switch (skill.BaseProfileSo.TacticalNeed)
 		{
 		case BattleSkillTacticalNeed.SelfDefense:
 			score += survival switch
@@ -589,7 +590,7 @@ public class SkillBrainMono : MonoBehaviour
 			break;
 		}
 
-		if (skill.TargetType == BattleSkillTargetType.Ally && !context.hasHealTarget)
+		if (skill.BaseProfileSo.TargetType == BattleSkillTargetType.Ally && !context.hasHealTarget)
 			score -= 100f;
 
 		if (debugBrain)
@@ -600,7 +601,7 @@ public class SkillBrainMono : MonoBehaviour
 		return score;
 	}
 
-	private int GetRoleBias(BattleSkillBase skill, Role currentRole)
+	private int GetRoleBias(EquipmentSkillSO skill, Role currentRole)
 	{
 		if (skill == null)
 			return 0;
@@ -610,18 +611,18 @@ public class SkillBrainMono : MonoBehaviour
 		switch (currentRole)
 		{
 		case Role.Tank:
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 3;
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.OffensivePressure) bias += 1;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 3;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.OffensivePressure) bias += 1;
 			break;
 
 		case Role.Support:
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.AllySupport) bias += 5;
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 2;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.AllySupport) bias += 5;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 2;
 			break;
 
 		case Role.DPS:
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.OffensivePressure) bias += 5;
-			if (skill.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 3;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.OffensivePressure) bias += 5;
+			if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.AreaControl) bias += 3;
 			break;
 		}
 
@@ -640,21 +641,21 @@ public class SkillBrainMono : MonoBehaviour
 		}
 	}
 
-	private Vector3 ResolvePointSkillPosition(BattleSkillBase skill, out float scoreBonus)
+	private Vector3 ResolvePointSkillPosition(EquipmentSkillSO skill, out float scoreBonus)
 	{
 		scoreBonus = 0f;
 
 		if (skill == null)
 			return transform.position;
 
-		if (skill.TacticalNeed == BattleSkillTacticalNeed.AllySupport)
+		if (skill.BaseProfileSo.TacticalNeed == BattleSkillTacticalNeed.AllySupport)
 		{
-			Vector3 point = FindBestPointForAllies(skill.Radius > 0f ? skill.Radius : skill.Range, out int allyCount);
+			Vector3 point = FindBestPointForAllies(skill.CastSo.Range > 0f ? skill.CastSo.Range : skill.CastSo.Range, out int allyCount);
 			scoreBonus = allyCount * 3f;
 			return point;
 		}
 
-		Vector3 enemyPoint = FindBestPointForEnemies(skill.Radius > 0f ? skill.Radius : skill.Range, out int enemyCount);
+		Vector3 enemyPoint = FindBestPointForEnemies(skill.CastSo.Range > 0f ? skill.CastSo.Range : skill.CastSo.Range, out int enemyCount);
 		scoreBonus = enemyCount * 3f;
 		return enemyPoint;
 	}
@@ -736,42 +737,42 @@ public class SkillBrainMono : MonoBehaviour
 		return bestPos;
 	}
 
-    private BattleSkillBase[] GetActiveBattleSkills()
+    private EquipmentSkillSO[] GetActiveBattleSkills()
     {
         if (skillLoadout == null)
-            return System.Array.Empty<BattleSkillBase>();
+            return System.Array.Empty<EquipmentSkillSO>();
 
-        EquipmentSkillLoadoutEntry[] activeEntries = skillLoadout.GetActiveEntries();
+        SkillPoolSlotData[] activeEntries = skillLoadout.GetActiveEntries();
         if (activeEntries == null || activeEntries.Length == 0)
-            return System.Array.Empty<BattleSkillBase>();
+            return System.Array.Empty<EquipmentSkillSO>();
 
-        List<BattleSkillBase> result = new List<BattleSkillBase>(activeEntries.Length);
+        List<EquipmentSkillSO> result = new List<EquipmentSkillSO>(activeEntries.Length);
         for (int i = 0; i < activeEntries.Length; i++)
         {
-            EquipmentSkillLoadoutEntry entry = activeEntries[i];
+            SkillPoolSlotData entry = activeEntries[i];
             if (entry == null)
                 continue;
 
             ScriptableObject skill = entry.SkillSo;
-            if (skill is BattleSkillBase battleSkill)
+            if (skill is EquipmentSkillSO battleSkill)
                 result.Add(battleSkill);
         }
 
         return result.ToArray();
     }
 
-	private BattleSkillBase FindSkillById(BattleSkillBase[] skills, string skillId)
+	private EquipmentSkillSO FindSkillById(EquipmentSkillSO[] skills, string skillId)
 	{
 		if (skills == null || string.IsNullOrWhiteSpace(skillId))
 			return null;
 
 		for (int i = 0; i < skills.Length; i++)
 		{
-			BattleSkillBase skill = skills[i];
+			EquipmentSkillSO skill = skills[i];
 			if (skill == null)
 				continue;
 
-			if (skill.SkillId == skillId)
+			if (skill.EquipmentId == skillId)
 				return skill;
 		}
 

@@ -73,4 +73,38 @@ namespace Stage
         Hidden,
         Conditional
     }
+
+    /// <summary>
+    /// 팝업 이벤트 보상 타입
+    /// </summary>
+    public enum PopupEventRewardType
+    {
+        None = 0,
+
+        Gold = 100,
+        Hp = 200,
+        HpPercent = 300,
+
+        Reputation = 1000,
+        Faith = 1100,
+
+        Relic = 2000,
+        RelicPool = 2050,
+        StrategicSkillItem = 2100,
+        StrategicSkillItemPool = 2150,
+        Blessing = 2200,
+        BlessingPool = 2250,
+        AIFunction = 2300,
+
+        SpecialBattle = 3000,
+        BossBattle = 3100,
+
+        UnlockRoute = 4000,
+        RevealHiddenNode = 4050,
+        NextEvent = 4100,
+
+        NextBattleAttackSpeed = 5000,
+        NextBattleMoveSpeed = 5100,
+        NextBattleDefense = 5200,
+    }
 }

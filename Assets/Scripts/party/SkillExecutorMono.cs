@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
+using Character;
+using Stat;
+using SKill;
 
 public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
@@ -23,6 +26,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     private venus.eldawn.party.AnimationMono _animationMono;
     private EquipmentSkillResolver _equipmentSkillResolver;
     private ProjectileFactory _projectileFactory;
+    private CharacterManager _characterManager;
     private void Awake()
     {
         if (skillLoadout == null)
@@ -31,6 +35,10 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         _animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
         _equipmentSkillResolver = new EquipmentSkillResolver();
         _projectileFactory = new ProjectileFactory();
+        _characterManager = GetComponent<CharacterManager>();
+
+        if (_characterManager == null)
+            _characterManager = GetComponentInParent<CharacterManager>();
     }
 
 	public bool Execute(SkillBrainOutput output, Transform caster)
@@ -129,6 +137,14 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             return false;
         }
 
+        if (IsCasterStunned(req.Caster))
+        {
+            if (debugLog)
+                Debug.Log($"[SkillExecutor] stunned block skill={req.Skill.name} caster={req.Caster.name}");
+
+            return false;
+        }
+
         if (IsOnCooldown(req.Skill))
         {
             if (debugLog)
@@ -167,6 +183,9 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     private bool TryExecuteSkillRequest(SkillExecutionRequest request, ScriptableObject skill, string failedReason)
     {
         if (request.Caster == null || skill == null)
+            return false;
+
+        if (IsCasterStunned(request.Caster))
             return false;
 
         bool used = false;
@@ -218,10 +237,94 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         TryPlayBasicAttackAnimation(skill);
 
         float cooldown = GetResolvedCooldown(skill, request.Caster);
+
+        if (IsBasicAttackSkill(skill))
+        {
+            cooldown = ApplyAttackSpeedCooldown(cooldown);
+        }
+        else
+        {
+            cooldown = ApplyCooldownReduction(cooldown);
+        }
+
         if (cooldown > 0f)
             _cooldowns[skill] = cooldown;
 
         return true;
+    }
+
+    private bool IsCasterStunned(Transform caster)
+    {
+        CharacterManager characterManager = null;
+
+        if (caster != null)
+        {
+            characterManager = caster.GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+                characterManager = caster.GetComponentInParent<CharacterManager>();
+        }
+
+        if (characterManager == null)
+            characterManager = GetCharacterManager();
+
+        return characterManager != null && characterManager.IsStunned;
+    }
+
+    private CharacterManager GetCharacterManager()
+    {
+        if (_characterManager == null)
+        {
+            _characterManager = GetComponent<CharacterManager>();
+
+            if (_characterManager == null)
+                _characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        return _characterManager;
+    }
+
+    private float ApplyAttackSpeedCooldown(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float attackSpeed =
+            characterManager.GetStatValue(StatType.AttackSpeed);
+
+        if (attackSpeed <= 0f)
+            attackSpeed = 1f;
+
+        return cooldown / attackSpeed;
+    }
+
+    private float ApplyCooldownReduction(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float cooldownReduction =
+            characterManager.GetStatValue(StatType.CooldownReduction);
+
+        if (cooldownReduction <= 0f)
+            return cooldown;
+
+        cooldownReduction =
+            Mathf.Clamp(cooldownReduction, 0f, 95f);
+
+        return cooldown * (1f - cooldownReduction / 100f);
     }
 
     public ScriptableObject GetBasicAttackSkill()
@@ -229,7 +332,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (skillLoadout == null)
             return null;
 
-        EquipmentSkillLoadoutEntry entry = skillLoadout.BasicAttack;
+        SkillPoolSlotData entry = skillLoadout.BasicAttack;
         return entry != null ? entry.SkillSo : null;
     }
 
@@ -247,7 +350,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (_projectileFactory == null)
             _projectileFactory = new ProjectileFactory();
 
-        EquipmentSkillLoadoutEntry entry = FindLoadoutEntry(skill);
+        SkillPoolSlotData entry = FindLoadoutEntry(skill);
         EquipmentSkillRuntimeData runtime = entry != null ? entry.RuntimeData : null;
         if (runtime == null)
         {
@@ -283,18 +386,18 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         return true;
     }
 
-    private EquipmentSkillLoadoutEntry FindLoadoutEntry(ScriptableObject skill)
+    private SkillPoolSlotData FindLoadoutEntry(ScriptableObject skill)
     {
         if (skillLoadout == null || skill == null)
             return null;
 
-        EquipmentSkillLoadoutEntry[] entries = skillLoadout.GetAllEntries();
+        SkillPoolSlotData[] entries = skillLoadout.GetAllEntries();
         if (entries == null || entries.Length == 0)
             return null;
 
         for (int i = 0; i < entries.Length; i++)
         {
-            EquipmentSkillLoadoutEntry entry = entries[i];
+            SkillPoolSlotData entry = entries[i];
             if (entry != null && entry.SkillSo == skill)
                 return entry;
         }
@@ -376,6 +479,67 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             if (_cooldowns[key] <= 0f)
                 _cooldowns.Remove(key);
         }
+    }
+
+    public void ReduceAllCooldowns(
+        float percent,
+        float seconds)
+    {
+        if (_cooldowns.Count == 0)
+            return;
+
+        percent = Mathf.Clamp01(percent);
+        seconds = Mathf.Max(0f, seconds);
+
+        List<ScriptableObject> keys =
+            new List<ScriptableObject>(_cooldowns.Keys);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            ScriptableObject key = keys[i];
+
+            if (!_cooldowns.TryGetValue(key, out float remain))
+                continue;
+
+            if (remain <= 0f)
+                continue;
+
+            if (percent > 0f)
+            {
+                remain *= (1f - percent);
+            }
+
+            if (seconds > 0f)
+            {
+                remain -= seconds;
+            }
+
+            remain = Mathf.Max(0f, remain);
+
+            if (remain <= 0f)
+            {
+                _cooldowns.Remove(key);
+            }
+            else
+            {
+                _cooldowns[key] = remain;
+            }
+        }
+
+        if (debugLog)
+        {
+            Debug.Log($"[SkillExecutor] cooldown reduced percent={percent:0.##} seconds={seconds:0.##}");
+        }
+    }
+
+    public void ReduceAllCooldownsByPercent(float percent)
+    {
+        ReduceAllCooldowns(percent, 0f);
+    }
+
+    public void ReduceAllCooldownsBySeconds(float seconds)
+    {
+        ReduceAllCooldowns(0f, seconds);
     }
 
     private bool IsOnCooldown(ScriptableObject skill)

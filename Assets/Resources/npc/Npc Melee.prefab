@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 7721478771642578854}
   - component: {fileID: 3978440672586092253}
   - component: {fileID: 8619171120343976739}
-  - component: {fileID: 7335336865651831873}
   - component: {fileID: -7770207776363605684}
   - component: {fileID: 5278800703448428477}
   - component: {fileID: 6088967056557728472}
@@ -26,6 +25,8 @@ GameObject:
   - component: {fileID: 7104248785386914847}
   - component: {fileID: 4519757924942294139}
   - component: {fileID: -2441933339808948738}
+  - component: {fileID: 3136085184654651528}
+  - component: {fileID: 787100099225214566}
   m_Layer: 6
   m_Name: Npc Melee
   m_TagString: Untagged
@@ -45,7 +46,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4324922476073373443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6332101413371762216
@@ -127,7 +129,7 @@ MonoBehaviour:
   pathing: {fileID: 7021143568330146581}
   movementProfile: {fileID: 7721478771642578854}
   skillExecutor: {fileID: 3978440672586092253}
-  statMono: {fileID: 7335336865651831873}
+  characterManager: {fileID: 3136085184654651528}
   knockbackDuration: 0.18
   knockbackDamping: 0.85
   knockbackMaxSpeed: 18
@@ -160,6 +162,7 @@ MonoBehaviour:
   skillExecutor: {fileID: 0}
   movementController: {fileID: 0}
   animationMono: {fileID: 0}
+  characterManager: {fileID: 0}
   archetype: 1
   chaseRange: 300
   holdExitDistanceBuffer: 0.1
@@ -252,84 +255,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369588326f33642dc8db6a9aa7803234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillLoadoutMono
-  basicAttack:
-    skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill1:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill2:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
-  skill3:
-    skillSo: {fileID: 0}
-    currentGrade: 0
-    currentRuneSlotCount: 1
-    mainElement: 0
-    subElements: 
-    projectilePrefabOverride: {fileID: 0}
-    projectileLifetimeOverride: -1
---- !u!114 &7335336865651831873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824118302539419720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa5393baabf9453eb5423c592e262a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatMono
-  maxHp: 500
-  currentHp: 500
-  maxMana: 50
-  currentMana: 50
-  damage: 10
-  enableContactDamage: 0
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  contactRadius: 0.55
-  damagePerEnemyPerTick: 1
-  contactTickInterval: 0.35
-  showHpHud: 1
-  hideHudWhenFullHp: 0
-  hudOffset: {x: 0, y: 0.9, z: 0}
-  hudBarSize: {x: 1.8, y: 0.22}
-  hudBarBackgroundSize: {x: 1.95, y: 0.3}
-  hudHighColor: {r: 0, g: 1, b: 0, a: 1}
-  hudMidColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  hudLowColor: {r: 1, g: 0, b: 0, a: 1}
-  hudBackgroundColor: {r: 0, g: 0, b: 0, a: 0.75}
-  hudSortingLayerName: UI
-  hudSortingOrder: 200
-  showDamagePopups: 1
-  damagePopupLife: 0.6
-  damagePopupRiseSpeed: 1.2
-  damagePopupFontSize: 58
-  damagePopupCharacterSize: 0.075
-  damagePopupSortingLayerName: UI
-  damagePopupSortingOrder: 210
-  debugLog: 0
-  shaderController: {fileID: 0}
-  playDeathDissolveOnDeath: 1
-  deathDestroyDelay: 1
+  skillPool:
+    slots:
+    - slotKey: basic_attack
+      skillSo: {fileID: 11400000, guid: 4bfcc4bb1e0b24a75b05f7cd6d07ed2c, type: 2}
+      currentGrade: 0
+      currentRuneSlotCount: 0
+      mainElement: 0
+      subElements: 
+      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectileLifetimeOverride: 0
 --- !u!114 &-7770207776363605684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,6 +280,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   targetSpriteRenderer: {fileID: 0}
   movementController: {fileID: 0}
+  characterManager: {fileID: 0}
   playIdleOnStart: 1
   defaultDirection: 2
   resetToPreviousLocomotionAfterAttack: 1
@@ -552,6 +488,21 @@ MonoBehaviour:
     allowRefreshWhilePlaying: 1
     isPlaying: 0
     timer: 0
+  stunBlink:
+    enabled: 1
+    stunRimColor: {r: 0.65, g: 0.9, b: 1, a: 1}
+    stunRimIntensity: 1.25
+    stunPulseIntensity: 0.55
+    stunSparkleIntensity: 0.15
+    blinkSpeed: 7
+    minBlend: 0.15
+    maxBlend: 1
+    blinkCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   debugSpawnReveal: 1
   debugDeathDissolve: 1
 --- !u!114 &-971621509823145148
@@ -571,6 +522,7 @@ MonoBehaviour:
   movementController: {fileID: 7104248785386914847}
   knockbackController: {fileID: 4519757924942294139}
   targetRigidbody: {fileID: 6332101413371762216}
+  characterManager: {fileID: 0}
   debugLog: 0
 --- !u!114 &7104248785386914847
 MonoBehaviour:
@@ -623,3 +575,76 @@ MonoBehaviour:
   heatDecayPerSecond: 0
   decayOnlyWhenNotOverheated: 1
   enableDebugLog: 0
+--- !u!114 &3136085184654651528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ee57d3c85e8400c8ecb9d6800adb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterManager
+  runtimeData:
+    characterSO: {fileID: 0}
+    level: 1
+    exp: 0
+    currentHp: 0
+    isDead: 0
+    stats: []
+    finalStats: []
+  battleHudPrefab: {fileID: 1118014624461748563, guid: ffebd6248e7044bc596009e6f06757ed, type: 3}
+  hudRoot: {fileID: 4324922476073373443}
+  showDamagePopup: 1
+  damagePopupOffset: {x: 0, y: 0.9, z: 0}
+  shaderController: {fileID: 0}
+  playDeathDissolveOnDeath: 1
+  deathDestroyDelay: 0.6
+--- !u!114 &787100099225214566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824118302539419720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217b9f3846b9349058fe75843cead1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectManager
+  logDebug: 1
+  activeEffects: []
+  activeEffectLifetimes: []
+--- !u!1 &8846571706493524385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4324922476073373443}
+  m_Layer: 6
+  m_Name: HUD Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4324922476073373443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846571706493524385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8035534010441190192}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

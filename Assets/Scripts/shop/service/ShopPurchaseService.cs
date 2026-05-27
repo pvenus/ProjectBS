@@ -85,9 +85,9 @@ namespace Shop
                     return GiveRelic(
                         rewardData.relic);
 
-                case ShopRewardType.Consumable:
-                    return GiveConsumable(
-                        rewardData.consumable);
+                case ShopRewardType.StrategicSkillItem:
+                    return GiveStrategicSkillItem(
+                        rewardData.strategicSkillItem);
 
                 case ShopRewardType.AIFunction:
                     return GiveAIFunction(
@@ -121,10 +121,10 @@ namespace Shop
             return true;
         }
 
-        private bool GiveConsumable(
-            ScriptableObject consumable)
+        private bool GiveStrategicSkillItem(
+            ScriptableObject strategicSkillItemObject)
         {
-            if (consumable == null)
+            if (strategicSkillItemObject == null)
             {
                 return false;
             }
@@ -137,30 +137,30 @@ namespace Shop
                 return false;
             }
 
-            ConsumeSO consume =
-                consumable as ConsumeSO;
+            StrategicSkillItemSO strategicSkillItem =
+                strategicSkillItemObject as StrategicSkillItemSO;
 
-            if (consume == null)
+            if (strategicSkillItem == null)
             {
                 Debug.LogWarning(
-                    $"[ShopPurchaseService] Invalid consume type. type={consumable.GetType().Name}");
+                    $"[ShopPurchaseService] Invalid strategic skill item type. type={strategicSkillItemObject.GetType().Name}");
 
                 return false;
             }
 
             bool added =
-                itemManager.AddConsume(consume);
+                itemManager.AddStrategicSkillItem(strategicSkillItem);
 
             if (!added)
             {
                 Debug.LogWarning(
-                    $"[ShopPurchaseService] Failed to add consume. consume={consume.displayName}");
+                    $"[ShopPurchaseService] Failed to add strategic skill item. item={strategicSkillItem.displayName}");
 
                 return false;
             }
 
             Debug.Log(
-                $"[ShopPurchaseService] Consumable granted. consumable={consume.displayName}");
+                $"[ShopPurchaseService] Strategic skill item granted. item={strategicSkillItem.displayName}");
 
             return true;
         }

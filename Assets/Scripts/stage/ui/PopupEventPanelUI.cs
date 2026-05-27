@@ -415,8 +415,8 @@ namespace Stage.UI
                 case RelicSO relic:
                     return relic.icon;
 
-                case ConsumeSO consume:
-                    return consume.icon;
+                case StrategicSkillItemSO strategicSkillItem:
+                    return strategicSkillItem.icon;
 
                 case AIFunctionSO function:
                     return function.icon;

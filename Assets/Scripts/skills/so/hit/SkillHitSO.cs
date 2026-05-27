@@ -1,5 +1,6 @@
 using UnityEngine;
 using Skills.Dto;
+using Effect;
 
 [CreateAssetMenu(
     fileName = "SkillHit",
@@ -20,6 +21,9 @@ public class SkillHitSO : ScriptableObject
     [SerializeField, Min(0f)] private float hitDuration = 0.1f;
     [SerializeField] private bool deactivateAfterFirstHit;
 
+    [Header("Target")]
+    [SerializeField] private LayerMask targetLayerMask = ~0;
+
     public int MaxHitCount => maxHitCount;
     public bool IgnoreSameRoot => ignoreSameRoot;
     public bool UseRepeatInterval => useRepeatInterval;
@@ -29,12 +33,22 @@ public class SkillHitSO : ScriptableObject
     public float HitStartTime => hitStartTime;
     public float HitDuration => hitDuration;
     public bool DeactivateAfterFirstHit => deactivateAfterFirstHit;
+    public LayerMask TargetLayerMask => targetLayerMask;
+
+    public SkillDamageSO DamageSo => damageSo;
 
     [Header("Damage")]
     [SerializeField] private SkillDamageSO damageSo;
 
-    public SkillDamageSO DamageSo => damageSo;
-    public bool ApplyDamage => damageSo != null;
+    [Header("Additional Effects")]
+    [Tooltip("히트 성공 시 대상에게 추가로 적용할 버프 효과 목록")]
+    [SerializeField] private SkillProjectileHitEffectEntry[] buffEffects;
+
+    [Tooltip("히트 성공 시 대상에게 추가로 적용할 디버프 효과 목록")]
+    [SerializeField] private SkillProjectileHitEffectEntry[] debuffEffects;
+
+    public SkillProjectileHitEffectEntry[] BuffEffects => buffEffects;
+    public SkillProjectileHitEffectEntry[] DebuffEffects => debuffEffects;
 
     [Header("Split Multi-Hit Damage")]
     [SerializeField] private bool useSplitMultiHitDamage;
@@ -51,25 +65,23 @@ public class SkillHitSO : ScriptableObject
     public bool UseKnockback => useKnockback;
     public float KnockbackForce => knockbackForce;
 
-    private void ResolveValues(SkillUpgradeMono.SkillUpgradeData upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce)
+    public SkillDamageProfileDto CreateDamageProfileDto()
     {
-        resolvedDamageProfile = damageSo != null ? damageSo.CreateDto() : null;
-        resolvedKnockbackForce = Mathf.Max(0f, knockbackForce);
-
-        if (resolvedDamageProfile != null)
-        {
-            resolvedDamageProfile.baseDamage = Mathf.Max(0f, resolvedDamageProfile.baseDamage + upgradeData.damageAdd);
-        }
-
-        resolvedKnockbackForce = Mathf.Max(0f, resolvedKnockbackForce + upgradeData.knockbackForceAdd);
-    }
-    public SkillProjectileHitDto CreateDto(SkillUpgradeMono.SkillUpgradeData upgradeData)
-    {
-        ResolveValues(upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce);
-        return CreateDto(resolvedDamageProfile, resolvedKnockbackForce);
+        return damageSo != null
+            ? damageSo.CreateDto()
+            : null;
     }
 
-    public SkillProjectileHitDto CreateDto(SkillDamageProfileDto resolvedDamageProfile, float resolvedKnockbackForce)
+    public SkillProjectileHitDto CreateDto()
+    {
+        return CreateDto(
+            CreateDamageProfileDto(),
+            knockbackForce);
+    }
+
+    public SkillProjectileHitDto CreateDto(
+        SkillDamageProfileDto resolvedDamageProfile,
+        float resolvedKnockbackForce)
     {
         return new SkillProjectileHitDto
         {
@@ -81,13 +93,52 @@ public class SkillHitSO : ScriptableObject
             hitStartTime = Mathf.Max(0f, hitStartTime),
             hitDuration = Mathf.Max(0f, hitDuration),
             deactivateAfterFirstHit = deactivateAfterFirstHit,
+            targetLayerMask = targetLayerMask,
             damageProfile = resolvedDamageProfile,
             applyDamage = resolvedDamageProfile != null,
+            buffEffects = CopyEffectEntries(buffEffects, EffectCategoryType.Buff),
+            debuffEffects = CopyEffectEntries(debuffEffects, EffectCategoryType.Debuff),
             useSplitMultiHitDamage = useSplitMultiHitDamage,
             splitHitCount = Mathf.Max(1, splitHitCount),
             splitHitInterval = Mathf.Max(0f, splitHitInterval),
             useKnockback = useKnockback,
             knockbackForce = Mathf.Max(0f, resolvedKnockbackForce)
         };
+    }
+
+    private SkillProjectileHitEffectEntry[] CopyEffectEntries(
+        SkillProjectileHitEffectEntry[] source,
+        EffectCategoryType defaultCategoryType)
+    {
+        if (source == null || source.Length == 0)
+        {
+            return null;
+        }
+
+        SkillProjectileHitEffectEntry[] result =
+            new SkillProjectileHitEffectEntry[source.Length];
+
+        for (int i = 0; i < source.Length; i++)
+        {
+            SkillProjectileHitEffectEntry entry = source[i];
+
+            if (entry == null)
+            {
+                continue;
+            }
+
+            result[i] = new SkillProjectileHitEffectEntry
+            {
+                effectSo = entry.effectSo,
+                lifetimeType = entry.lifetimeType,
+                categoryType = entry.categoryType == EffectCategoryType.Neutral
+                    ? defaultCategoryType
+                    : entry.categoryType,
+                duration = entry.duration,
+                maxApplyCount = Mathf.Max(0, entry.maxApplyCount)
+            };
+        }
+
+        return result;
     }
 }

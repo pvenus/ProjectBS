@@ -106,62 +106,54 @@ public class EquipmentStatResolver
 
     public DamageType GetDamageType(EquipmentSkillSO equipmentSo)
     {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.DamageType;
-        }
+        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
 
-        return DamageType.Normal;
+        return damageSo != null
+            ? damageSo.DamageType
+            : DamageType.Normal;
     }
 
     public float GetBaseDamage(EquipmentSkillSO equipmentSo)
     {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return Mathf.Max(0f, equipmentSo.BaseProfileSo.BaseDamage);
-        }
+        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
 
-        return 10f;
+        return damageSo != null
+            ? Mathf.Max(0f, damageSo.BaseDamage)
+            : 0f;
     }
 
-    public float GetFlatBonusDamage(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.FlatBonusDamage;
-        }
-
-        return 0f;
-    }
 
     public bool GetCanCritical(EquipmentSkillSO equipmentSo)
     {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.CanCritical;
-        }
+        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
 
-        return true;
-    }
-
-    public float GetCriticalMultiplier(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return Mathf.Max(1f, equipmentSo.BaseProfileSo.CriticalMultiplier);
-        }
-
-        return 1.5f;
+        return damageSo != null && damageSo.CanCritical;
     }
 
     public bool GetIgnoreDefense(EquipmentSkillSO equipmentSo)
     {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+
+        return damageSo != null && damageSo.IgnoreDefense;
+    }
+
+    public float GetAttackPercentDamage(EquipmentSkillSO equipmentSo)
+    {
+        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+
+        return damageSo != null
+            ? Mathf.Max(0f, damageSo.AttackPercentDamage)
+            : 0f;
+    }
+
+    private SkillDamageSO GetDamageSo(EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo == null || equipmentSo.HitSo == null)
         {
-            return equipmentSo.BaseProfileSo.IgnoreDefense;
+            return null;
         }
 
-        return false;
+        return equipmentSo.HitSo.DamageSo;
     }
 
     public int GetProjectileCount(EquipmentSkillSO equipmentSo)

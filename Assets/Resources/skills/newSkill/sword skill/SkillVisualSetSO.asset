@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7651025721a43ce823e31c59823582, type: 3}
+  m_Name: SkillVisualSetSO
+  m_EditorClassIdentifier: Assembly-CSharp::SkillVisualSetSO
+  baseVisualSo: {fileID: 11400000, guid: 7fecd32d9b4e048f892339dad9d87605, type: 2}
+  mainElementVisualLibrarySo: {fileID: 11400000, guid: c69e923ad1aaf492a986704cf6931d2e, type: 2}
+  subElementEffectLibrarySo: {fileID: 0}
+  impactVisualSo: {fileID: 0}
