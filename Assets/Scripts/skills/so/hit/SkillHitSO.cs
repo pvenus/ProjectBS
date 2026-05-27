@@ -35,6 +35,8 @@ public class SkillHitSO : ScriptableObject
     public bool DeactivateAfterFirstHit => deactivateAfterFirstHit;
     public LayerMask TargetLayerMask => targetLayerMask;
 
+    public SkillDamageSO DamageSo => damageSo;
+
     [Header("Damage")]
     [SerializeField] private SkillDamageSO damageSo;
 
@@ -63,27 +65,23 @@ public class SkillHitSO : ScriptableObject
     public bool UseKnockback => useKnockback;
     public float KnockbackForce => knockbackForce;
 
-    private void ResolveValues(SkillUpgradeMono.SkillUpgradeData upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce)
+    public SkillDamageProfileDto CreateDamageProfileDto()
     {
-        resolvedDamageProfile = damageSo != null ? damageSo.CreateDto() : null;
-        resolvedKnockbackForce = Mathf.Max(0f, knockbackForce);
-
-        if (resolvedDamageProfile != null)
-        {
-            resolvedDamageProfile.attackDamagePercent = Mathf.Max(
-                0f,
-                resolvedDamageProfile.attackDamagePercent + upgradeData.damageAdd);
-        }
-
-        resolvedKnockbackForce = Mathf.Max(0f, resolvedKnockbackForce + upgradeData.knockbackForceAdd);
-    }
-    public SkillProjectileHitDto CreateDto(SkillUpgradeMono.SkillUpgradeData upgradeData)
-    {
-        ResolveValues(upgradeData, out SkillDamageProfileDto resolvedDamageProfile, out float resolvedKnockbackForce);
-        return CreateDto(resolvedDamageProfile, resolvedKnockbackForce);
+        return damageSo != null
+            ? damageSo.CreateDto()
+            : null;
     }
 
-    public SkillProjectileHitDto CreateDto(SkillDamageProfileDto resolvedDamageProfile, float resolvedKnockbackForce)
+    public SkillProjectileHitDto CreateDto()
+    {
+        return CreateDto(
+            CreateDamageProfileDto(),
+            knockbackForce);
+    }
+
+    public SkillProjectileHitDto CreateDto(
+        SkillDamageProfileDto resolvedDamageProfile,
+        float resolvedKnockbackForce)
     {
         return new SkillProjectileHitDto
         {

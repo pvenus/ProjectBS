@@ -8,8 +8,8 @@ namespace Character
 
         public GameObject target;
 
-        public float attackDamagePercent = 100f;
+        public float baseDamage;
 
-        public float flatBonusDamage;
+        public float attackDamagePercent = 1f;
     }
 }

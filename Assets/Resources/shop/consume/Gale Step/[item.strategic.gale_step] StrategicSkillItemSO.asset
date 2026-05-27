@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a53571d7508b4ef18f97b13aa0f54c3, type: 3}
+  m_Name: '[item.strategic.gale_step] StrategicSkillItemSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Item.StrategicSkillItemSO
+  strategicSkillItemId: item.strategic.gale_step
+  displayName: "\uC9C8\uD48D\uBCF4"
+  description: 
+  icon: {fileID: 700024022509521953, guid: f2ab208f6fcfa4601931c115de14dbc3, type: 3}
+  gaugeCost: 15
+  reusable: 1
+  skillSo: {fileID: 11400000, guid: a6e4f50bc6a164749bcdf39d308b9348, type: 2}
+  projectilePrefabOverride: {fileID: 4118216556720441464, guid: 6c2deab84d79043cda1c9dcd19b9eb5b, type: 3}
+  projectileLifetimeOverride: -1
+  castType: 2
+  targetType: 5
+  defaultPrice: 100
+  tags: []

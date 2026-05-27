@@ -137,6 +137,14 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             return false;
         }
 
+        if (IsCasterStunned(req.Caster))
+        {
+            if (debugLog)
+                Debug.Log($"[SkillExecutor] stunned block skill={req.Skill.name} caster={req.Caster.name}");
+
+            return false;
+        }
+
         if (IsOnCooldown(req.Skill))
         {
             if (debugLog)
@@ -175,6 +183,9 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     private bool TryExecuteSkillRequest(SkillExecutionRequest request, ScriptableObject skill, string failedReason)
     {
         if (request.Caster == null || skill == null)
+            return false;
+
+        if (IsCasterStunned(request.Caster))
             return false;
 
         bool used = false;
@@ -240,6 +251,24 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             _cooldowns[skill] = cooldown;
 
         return true;
+    }
+
+    private bool IsCasterStunned(Transform caster)
+    {
+        CharacterManager characterManager = null;
+
+        if (caster != null)
+        {
+            characterManager = caster.GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+                characterManager = caster.GetComponentInParent<CharacterManager>();
+        }
+
+        if (characterManager == null)
+            characterManager = GetCharacterManager();
+
+        return characterManager != null && characterManager.IsStunned;
     }
 
     private CharacterManager GetCharacterManager()
@@ -450,6 +479,67 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             if (_cooldowns[key] <= 0f)
                 _cooldowns.Remove(key);
         }
+    }
+
+    public void ReduceAllCooldowns(
+        float percent,
+        float seconds)
+    {
+        if (_cooldowns.Count == 0)
+            return;
+
+        percent = Mathf.Clamp01(percent);
+        seconds = Mathf.Max(0f, seconds);
+
+        List<ScriptableObject> keys =
+            new List<ScriptableObject>(_cooldowns.Keys);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            ScriptableObject key = keys[i];
+
+            if (!_cooldowns.TryGetValue(key, out float remain))
+                continue;
+
+            if (remain <= 0f)
+                continue;
+
+            if (percent > 0f)
+            {
+                remain *= (1f - percent);
+            }
+
+            if (seconds > 0f)
+            {
+                remain -= seconds;
+            }
+
+            remain = Mathf.Max(0f, remain);
+
+            if (remain <= 0f)
+            {
+                _cooldowns.Remove(key);
+            }
+            else
+            {
+                _cooldowns[key] = remain;
+            }
+        }
+
+        if (debugLog)
+        {
+            Debug.Log($"[SkillExecutor] cooldown reduced percent={percent:0.##} seconds={seconds:0.##}");
+        }
+    }
+
+    public void ReduceAllCooldownsByPercent(float percent)
+    {
+        ReduceAllCooldowns(percent, 0f);
+    }
+
+    public void ReduceAllCooldownsBySeconds(float seconds)
+    {
+        ReduceAllCooldowns(0f, seconds);
     }
 
     private bool IsOnCooldown(ScriptableObject skill)

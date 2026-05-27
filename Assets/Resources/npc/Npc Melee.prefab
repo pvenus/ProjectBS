@@ -258,7 +258,7 @@ MonoBehaviour:
   skillPool:
     slots:
     - slotKey: basic_attack
-      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      skillSo: {fileID: 11400000, guid: 4bfcc4bb1e0b24a75b05f7cd6d07ed2c, type: 2}
       currentGrade: 0
       currentRuneSlotCount: 0
       mainElement: 0
@@ -488,6 +488,21 @@ MonoBehaviour:
     allowRefreshWhilePlaying: 1
     isPlaying: 0
     timer: 0
+  stunBlink:
+    enabled: 1
+    stunRimColor: {r: 0.65, g: 0.9, b: 1, a: 1}
+    stunRimIntensity: 1.25
+    stunPulseIntensity: 0.55
+    stunSparkleIntensity: 0.15
+    blinkSpeed: 7
+    minBlend: 0.15
+    maxBlend: 1
+    blinkCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   debugSpawnReveal: 1
   debugDeathDissolve: 1
 --- !u!114 &-971621509823145148
@@ -507,6 +522,7 @@ MonoBehaviour:
   movementController: {fileID: 7104248785386914847}
   knockbackController: {fileID: 4519757924942294139}
   targetRigidbody: {fileID: 6332101413371762216}
+  characterManager: {fileID: 0}
   debugLog: 0
 --- !u!114 &7104248785386914847
 MonoBehaviour:

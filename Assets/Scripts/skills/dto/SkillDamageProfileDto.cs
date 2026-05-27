@@ -18,17 +18,11 @@ namespace Skills.Dto
         public ElementType elementType = ElementType.None;
 
         [Header("Damage")]
-        public float attackDamagePercent = 100f;
-        public float flatBonusDamage;
-
-        [Header("Fire / Heat")]
-        public float heatCoefficient;
-        public float heatGain;
-        public bool canTriggerOverheat = true;
+        public float baseDamage;
+        public float attackDamagePercent = 1f;
 
         [Header("Critical / Modifiers")]
         public bool canCritical;
-        public float criticalMultiplier = 1.5f;
         public bool ignoreDefense;
 
         /// <summary>
@@ -43,8 +37,8 @@ namespace Skills.Dto
                 hitPoint = hitPoint,
                 damage = new DamageAmountDto
                 {
-                    attackDamagePercent = attackDamagePercent,
-                    flatBonusDamage = flatBonusDamage
+                    baseDamage = baseDamage,
+                    attackDamagePercent = attackDamagePercent
                 },
                 skill = new SkillContextDto
                 {
@@ -53,15 +47,11 @@ namespace Skills.Dto
                 },
                 element = new ElementContextDto
                 {
-                    elementType = elementType,
-                    heatCoefficient = heatCoefficient,
-                    heatGain = heatGain,
-                    canTriggerOverheat = canTriggerOverheat
+                    elementType = elementType
                 },
                 modifiers = new DamageModifierDto
                 {
                     isCritical = false,
-                    criticalMultiplier = criticalMultiplier,
                     ignoreDefense = ignoreDefense
                 }
             };
@@ -87,41 +77,17 @@ namespace Skills.Dto
         /// </summary>
         public static SkillDamageProfileDto CreateBasicAttack(
             string skillId,
+            float baseDamage,
             float attackDamagePercent,
-            ElementType elementType = ElementType.None,
-            float flatBonusDamage = 0f)
+            ElementType elementType = ElementType.None)
         {
             return new SkillDamageProfileDto
             {
                 skillId = skillId,
                 damageType = DamageType.Normal,
                 elementType = elementType,
-                attackDamagePercent = attackDamagePercent,
-                flatBonusDamage = flatBonusDamage
-            };
-        }
-
-        /// <summary>
-        /// Fire 평타/스킬용 빠른 생성 헬퍼.
-        /// </summary>
-        public static SkillDamageProfileDto CreateFireProfile(
-            string skillId,
-            DamageType damageType,
-            float attackDamagePercent,
-            float heatCoefficient,
-            float heatGain,
-            float flatBonusDamage = 0f)
-        {
-            return new SkillDamageProfileDto
-            {
-                skillId = skillId,
-                damageType = damageType,
-                elementType = ElementType.Fire,
-                attackDamagePercent = attackDamagePercent,
-                flatBonusDamage = flatBonusDamage,
-                heatCoefficient = heatCoefficient,
-                heatGain = heatGain,
-                canTriggerOverheat = true
+                baseDamage = baseDamage,
+                attackDamagePercent = attackDamagePercent
             };
         }
     }

@@ -107,28 +107,28 @@ MonoBehaviour:
       projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
       projectileLifetimeOverride: 0
     - slotKey: active_1
-      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      skillSo: {fileID: 11400000, guid: 13e44b41044e5421eb740b2169757a7f, type: 2}
       currentGrade: 0
       currentRuneSlotCount: 0
       mainElement: 0
       subElements: 
-      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectilePrefabOverride: {fileID: 0}
       projectileLifetimeOverride: 0
     - slotKey: active_2
-      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      skillSo: {fileID: 11400000, guid: 13e44b41044e5421eb740b2169757a7f, type: 2}
       currentGrade: 0
       currentRuneSlotCount: 0
       mainElement: 0
       subElements: 
-      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectilePrefabOverride: {fileID: 0}
       projectileLifetimeOverride: 0
     - slotKey: active_3
-      skillSo: {fileID: 11400000, guid: 990497af3086341d8a2063acde068e55, type: 2}
+      skillSo: {fileID: 11400000, guid: 13e44b41044e5421eb740b2169757a7f, type: 2}
       currentGrade: 0
       currentRuneSlotCount: 0
       mainElement: 0
       subElements: 
-      projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
+      projectilePrefabOverride: {fileID: 0}
       projectileLifetimeOverride: 0
 --- !u!114 &8087681909227235347
 MonoBehaviour:
@@ -527,6 +527,21 @@ MonoBehaviour:
     allowRefreshWhilePlaying: 1
     isPlaying: 0
     timer: 0
+  stunBlink:
+    enabled: 1
+    stunRimColor: {r: 0.65, g: 0.9, b: 1, a: 1}
+    stunRimIntensity: 1.25
+    stunPulseIntensity: 0.55
+    stunSparkleIntensity: 0.15
+    blinkSpeed: 7
+    minBlend: 0.15
+    maxBlend: 1
+    blinkCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   debugSpawnReveal: 1
   debugDeathDissolve: 1
 --- !u!114 &7137317844394987334
@@ -712,6 +727,7 @@ MonoBehaviour:
   movementController: {fileID: 6759621670227581714}
   knockbackController: {fileID: 7955202524105714281}
   targetRigidbody: {fileID: 4808884066511986877}
+  characterManager: {fileID: 0}
   debugLog: 0
 --- !u!114 &7955202524105714281
 MonoBehaviour:

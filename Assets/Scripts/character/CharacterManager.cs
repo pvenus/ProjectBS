@@ -40,6 +40,47 @@ namespace Character
 
         public CharacterRuntimeData RuntimeData => runtimeData;
 
+        public bool IsStunned => GetStatValue(StatType.StunDuration) > 0f;
+
+        private void Update()
+        {
+            UpdateStunDuration();
+        }
+
+        private void UpdateStunDuration()
+        {
+            if (runtimeData == null || runtimeData.isDead)
+            {
+                return;
+            }
+
+            float stunDuration =
+                GetStatValue(StatType.StunDuration);
+
+            if (stunDuration <= 0f)
+            {
+                return;
+            }
+
+            shaderController?.PlayStunBlink();
+
+            stunDuration -= Time.deltaTime;
+
+            if (stunDuration < 0f)
+            {
+                stunDuration = 0f;
+            }
+
+            SetStat(
+                StatType.StunDuration,
+                stunDuration);
+
+            if (stunDuration <= 0f)
+            {
+                shaderController?.StopStunBlink();
+            }
+        }
+
         public void InitializeFromSO(CharacterSO characterSO)
         {
             ResolveComponents();

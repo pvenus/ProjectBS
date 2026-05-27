@@ -218,6 +218,13 @@ public class PartyMovementMono : MonoBehaviour
             return;
         }
 
+        if (_characterManager != null && _characterManager.IsStunned)
+        {
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
+            return;
+        }
+
         if (_isMovementControlledByPlayer)
         {
             HandleManualMovement();

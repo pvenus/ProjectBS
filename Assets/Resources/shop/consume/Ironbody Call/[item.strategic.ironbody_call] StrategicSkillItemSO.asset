@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a53571d7508b4ef18f97b13aa0f54c3, type: 3}
+  m_Name: '[item.strategic.ironbody_call] StrategicSkillItemSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Item.StrategicSkillItemSO
+  strategicSkillItemId: item.strategic.ironbody_call
+  displayName: "\uCCA0\uC2E0\uD638"
+  description: 
+  icon: {fileID: 700024022509521953, guid: f2ab208f6fcfa4601931c115de14dbc3, type: 3}
+  gaugeCost: 20
+  reusable: 1
+  skillSo: {fileID: 11400000, guid: a53a5098a00a54fe2a9ab8fc25196166, type: 2}
+  projectilePrefabOverride: {fileID: 0}
+  projectileLifetimeOverride: -1
+  castType: 2
+  targetType: 5
+  defaultPrice: 100
+  tags: []

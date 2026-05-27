@@ -129,7 +129,7 @@ public class NpcPathing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsMovementLockedByAttack())
+        if (IsMovementLocked())
         {
             StopMovement();
             UpdateMovementAnimation();
@@ -518,8 +518,13 @@ public class NpcPathing : MonoBehaviour
         movementController.SetArriveDistance(0.03f);
     }
 
-    private bool IsMovementLockedByAttack()
+    private bool IsMovementLocked()
     {
+        if (characterManager != null && characterManager.IsStunned)
+        {
+            return true;
+        }
+
         return animationMono != null && animationMono.IsPlayingAttack();
     }
     private void UpdateMovementAnimation()

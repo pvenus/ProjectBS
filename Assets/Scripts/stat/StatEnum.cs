@@ -44,6 +44,8 @@ namespace Stat
         StatusResistance = 1330,
         StatusResistancePercent = 1340,
 
+        StunDuration = 1345,
+
         Shield = 1350,
         ShieldPercent = 1360,
 

@@ -144,7 +144,7 @@ public class SkillProjectileHitMono : MonoBehaviour
         if (hitConfig == null)
             return;
 
-        Initialize(hitConfig.CreateDto(_context.upgradeData));
+        Initialize(hitConfig.CreateDto());
     }
 
     /// <summary>
@@ -162,6 +162,7 @@ public class SkillProjectileHitMono : MonoBehaviour
         _hitStartTime = Mathf.Max(0f, dto.hitStartTime);
         _hitDuration = Mathf.Max(0f, dto.hitDuration);
         _deactivateAfterFirstHit = dto.deactivateAfterFirstHit;
+        targetLayerMask = dto.targetLayerMask;
         _elapsedTime = 0f;
         _hitWindowClosed = false;
 
@@ -337,7 +338,9 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     private IEnumerator ApplySplitDamageRoutine(Collider2D targetCollider, StatMono stat)
     {
-        int totalBaseDamage = _damageProfile != null ? Mathf.RoundToInt(_damageProfile.attackDamagePercent) : 0;
+        int totalBaseDamage = _damageProfile != null
+            ? Mathf.RoundToInt(_damageProfile.baseDamage)
+            : 0;
         int[] splitDamages = BuildLogSplitDamageSequence(totalBaseDamage, _splitHitCount);
 
         for (int i = 0; i < splitDamages.Length; i++)
@@ -356,13 +359,9 @@ public class SkillProjectileHitMono : MonoBehaviour
                     skillId = _damageProfile.skillId,
                     damageType = _damageProfile.damageType,
                     elementType = _damageProfile.elementType,
-                    attackDamagePercent = damage,
-                    flatBonusDamage = _damageProfile.flatBonusDamage,
-                    heatCoefficient = _damageProfile.heatCoefficient,
-                    heatGain = _damageProfile.heatGain,
-                    canTriggerOverheat = _damageProfile.canTriggerOverheat,
+                    baseDamage = damage,
+                    attackDamagePercent = _damageProfile.attackDamagePercent,
                     canCritical = _damageProfile.canCritical,
-                    criticalMultiplier = _damageProfile.criticalMultiplier,
                     ignoreDefense = _damageProfile.ignoreDefense
                 };
 

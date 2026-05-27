@@ -33,7 +33,7 @@ namespace Character
             float defensePercent =
                 targetManager.GetStatValue(StatType.Defense);
 
-              if (defensePercent > 0f)
+            if (defensePercent > 0f)
             {
                 damage -= damage * (defensePercent / 100f);
             }
@@ -84,6 +84,46 @@ namespace Character
             {
                 targetManager.HandleDeath();
             }
+        }
+
+        public static CharacterDamageResult ApplyWithoutOwner(
+            CharacterDamageRequest request)
+        {
+            CharacterDamageResult result = new();
+
+            if (request == null
+                || request.target == null)
+            {
+                return result;
+            }
+
+            CharacterManager targetManager =
+                ResolveCharacterManagerStatic(request.target);
+
+            if (targetManager == null)
+            {
+                return result;
+            }
+
+            float finalDamage =
+                Mathf.Max(0f, request.baseDamage);
+
+            result.damage = finalDamage;
+            result.isCritical = false;
+
+            if (finalDamage > 0f)
+            {
+                new CharacterDamageService().TakeDamage(
+                    targetManager,
+                    finalDamage,
+                    false);
+            }
+
+            result.targetDied =
+                targetManager.RuntimeData != null
+                && targetManager.RuntimeData.isDead;
+
+            return result;
         }
 
         public CharacterDamageResult Apply(CharacterDamageRequest request)
@@ -154,9 +194,8 @@ namespace Character
                     ? attackerManager.GetStatValue(StatType.Attack)
                     : 0f;
 
-            return attackerAttack
-                   * (request.attackDamagePercent / 100f)
-                   + request.flatBonusDamage;
+            return request.baseDamage
+                   + attackerAttack * request.attackDamagePercent/100f;
         }
 
         private bool RollCritical(CharacterManager attackerManager)
@@ -207,6 +246,25 @@ namespace Character
             }
 
             return ResolveCharacterManager(request.attacker);
+        }
+
+        private static CharacterManager ResolveCharacterManagerStatic(GameObject target)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            CharacterManager characterManager =
+                target.GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+            {
+                characterManager =
+                    target.GetComponentInParent<CharacterManager>();
+            }
+
+            return characterManager;
         }
 
         private CharacterManager ResolveCharacterManager(GameObject target)

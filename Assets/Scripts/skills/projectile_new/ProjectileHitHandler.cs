@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
@@ -22,6 +23,10 @@ public class ProjectileHitHandler : MonoBehaviour
     private ProjectileRuntimeData runtimeData;
     private CharacterManager ownerCharacter;
     private readonly HashSet<Collider2D> hitTargets = new();
+    private readonly List<Collider2D> pendingHitTargets = new();
+    private Coroutine collectCoroutine;
+    private bool isCollectingInitialHits;
+    private bool initialHitCollectionCompleted;
 
     public bool IsInitialized => initialized;
     public bool ConsumeOnHit => consumeOnHit;
@@ -50,6 +55,15 @@ public class ProjectileHitHandler : MonoBehaviour
         runtimeData = data;
         initialized = true;
         hitTargets.Clear();
+        pendingHitTargets.Clear();
+        initialHitCollectionCompleted = false;
+        isCollectingInitialHits = false;
+
+        if (collectCoroutine != null)
+        {
+            StopCoroutine(collectCoroutine);
+            collectCoroutine = null;
+        }
 
         if (data.hit != null)
         {
@@ -67,31 +81,142 @@ public class ProjectileHitHandler : MonoBehaviour
                     runtimeData.owner.GetComponentInParent<CharacterManager>();
             }
         }
+
+        StartInitialHitCollectionIfNeeded();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!initialized || ownerEntity == null || runtimeData == null)
+        if (!CanProcessCollider(other))
         {
             return;
+        }
+
+        if (isCollectingInitialHits && !initialHitCollectionCompleted)
+        {
+            RegisterPendingHit(other);
+            return;
+        }
+
+        ProcessHit(other);
+    }
+
+    private void StartInitialHitCollectionIfNeeded()
+    {
+        float collectDelay = runtimeData != null && runtimeData.hit != null
+            ? Mathf.Max(0f, runtimeData.hit.hitStartTime)
+            : 0f;
+
+        if (collectDelay <= 0f)
+        {
+            initialHitCollectionCompleted = true;
+            return;
+        }
+
+        isCollectingInitialHits = true;
+        collectCoroutine = StartCoroutine(
+            CollectInitialHitsAndProcess(collectDelay));
+    }
+
+    private IEnumerator CollectInitialHitsAndProcess(float collectDelay)
+    {
+        yield return new WaitForSeconds(collectDelay);
+
+        isCollectingInitialHits = false;
+        initialHitCollectionCompleted = true;
+        collectCoroutine = null;
+
+        ProcessPendingHitsByDistance();
+    }
+
+    private void RegisterPendingHit(Collider2D other)
+    {
+        if (other == null || pendingHitTargets.Contains(other))
+        {
+            return;
+        }
+
+        pendingHitTargets.Add(other);
+    }
+
+    private void ProcessPendingHitsByDistance()
+    {
+        if (pendingHitTargets.Count == 0)
+        {
+            return;
+        }
+
+        pendingHitTargets.RemoveAll(x => x == null);
+        pendingHitTargets.Sort(CompareColliderDistanceToProjectile);
+
+        for (int i = 0; i < pendingHitTargets.Count; i++)
+        {
+            Collider2D target = pendingHitTargets[i];
+
+            if (!CanProcessCollider(target))
+            {
+                continue;
+            }
+
+            ProcessHit(target);
+
+            if (consumeOnHit)
+            {
+                break;
+            }
+        }
+
+        pendingHitTargets.Clear();
+    }
+
+    private int CompareColliderDistanceToProjectile(Collider2D a, Collider2D b)
+    {
+        Vector2 origin = transform.position;
+
+        float distanceA = a != null
+            ? ((Vector2)a.ClosestPoint(origin) - origin).sqrMagnitude
+            : float.MaxValue;
+
+        float distanceB = b != null
+            ? ((Vector2)b.ClosestPoint(origin) - origin).sqrMagnitude
+            : float.MaxValue;
+
+        return distanceA.CompareTo(distanceB);
+    }
+
+    private bool CanProcessCollider(Collider2D other)
+    {
+        if (!initialized || ownerEntity == null || runtimeData == null)
+        {
+            return false;
         }
 
         if (other == null)
         {
-            return;
+            return false;
         }
 
         if (!IsTargetLayer(other.gameObject.layer))
         {
-            return;
+            return false;
         }
 
         if (ignoreOwner && IsOwnerCollider(other))
         {
-            return;
+            return false;
         }
 
         if (hitTargets.Contains(other))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void ProcessHit(Collider2D other)
+    {
+        if (!CanProcessCollider(other))
         {
             return;
         }
@@ -131,7 +256,14 @@ public class ProjectileHitHandler : MonoBehaviour
 
         if (request != null)
         {
-            ownerCharacter?.ApplyDamage(request);
+            if (ownerCharacter != null)
+            {
+                ownerCharacter.ApplyDamage(request);
+            }
+            else
+            {
+                CharacterDamageService.ApplyWithoutOwner(request);
+            }
         }
 
         ApplyAdditionalEffects(targetCharacter);
@@ -140,6 +272,19 @@ public class ProjectileHitHandler : MonoBehaviour
         {
             ownerEntity.Despawn();
         }
+    }
+
+    private void OnDisable()
+    {
+        if (collectCoroutine != null)
+        {
+            StopCoroutine(collectCoroutine);
+            collectCoroutine = null;
+        }
+
+        pendingHitTargets.Clear();
+        isCollectingInitialHits = false;
+        initialHitCollectionCompleted = false;
     }
 
     private bool IsTargetLayer(int layer)
@@ -164,7 +309,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private void ApplyAdditionalEffects(CharacterManager targetCharacter)
     {
-        if (targetCharacter == null || runtimeData == null)
+        if (targetCharacter == null || runtimeData == null || runtimeData.hit == null)
         {
             return;
         }
@@ -215,9 +360,13 @@ public class ProjectileHitHandler : MonoBehaviour
             }
 
             Effect.EffectRuntimeData effectRuntimeData =
-                CreateEffectRuntimeData(
+                EffectResolveHelper.CreateRuntimeData(
                     effectEntry.effectSo,
-                    targetCharacter);
+                    EffectSourceType.Skill,
+                    GetEffectSourceId(),
+                    targetCharacter,
+                    ResolveKnockbackSourceTransform(),
+                    Vector2.zero);
 
             if (effectRuntimeData == null)
             {
@@ -236,40 +385,14 @@ public class ProjectileHitHandler : MonoBehaviour
         }
     }
 
-    private Effect.EffectRuntimeData CreateEffectRuntimeData(
-        EffectSO effectSo,
-        CharacterManager targetCharacter)
+    private Transform ResolveKnockbackSourceTransform()
     {
-        if (effectSo == null)
+        if (runtimeData != null && runtimeData.owner != null)
         {
-            return null;
+            return runtimeData.owner.transform;
         }
 
-        if (effectSo is StatModifierEffectSO statModifierEffect)
-        {
-            if (targetCharacter == null)
-            {
-                return null;
-            }
-
-            return new StatModifierEffectRuntime(
-                statModifierEffect,
-                EffectSourceType.Skill,
-                GetEffectSourceId(),
-                targetCharacter);
-        }
-
-        if (effectSo is HealEffectSO healEffect)
-        {
-            if (targetCharacter == null)
-            {
-                return null;
-            }
-
-            return healEffect.CreateRuntimeData(targetCharacter);
-        }
-
-        return null;
+        return transform;
     }
 
     private string GetEffectSourceId()
@@ -305,11 +428,11 @@ public class ProjectileHitHandler : MonoBehaviour
 
             target = targetCharacter.gameObject,
 
-            attackDamagePercent =
-                runtimeData.hit.damageProfile.attackDamagePercent,
+            baseDamage =
+                runtimeData.hit.damageProfile.baseDamage,
 
-            flatBonusDamage =
-                runtimeData.hit.damageProfile.flatBonusDamage
+            attackDamagePercent =
+                runtimeData.hit.damageProfile.attackDamagePercent
         };
     }
 }

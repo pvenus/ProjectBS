@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f0f6f0544b64806bbbb78ae0c756b5, type: 3}
+  m_Name: '[item.strategic.emergency_pill][skill] EquipmentBaseProfileSO'
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentBaseProfileSO
+  baseGrade: 0
+  baseRuneSlotCount: 1
+  attackArchetype: 1
+  projectilePrefab: {fileID: 4118216556720441464, guid: f4c5ec85de09442e8a31b03fbe104a6c, type: 3}
+  projectileSpawnOffset: 0.5
+  projectileCount: 1
+  projectileScale: 1
+  projectileLifetime: 0.2
+  damageType: 0
+  baseDamage: 100
+  flatBonusDamage: 0
+  canCritical: 1
+  criticalMultiplier: 1.5
+  ignoreDefense: 0
+  category: 1
+  targetType: 3
+  tacticalNeed: 0
+  basePriority: 0

@@ -108,9 +108,12 @@ public class EquipmentSkillResolver
             effectRuntimeSet = runtime.effectRuntimeSet
         };
 
+        SkillDamageProfileDto damageProfile =
+            CreateDamageProfileDto(runtime, resolvedStatModifiers);
+
         projectileData.move = CreateMoveDto(runtime.moveSo, target, resolvedSpawnPosition, direction);
-        projectileData.hit = CreateHitDto(runtime.hitSo);
-        projectileData.damageProfile = CreateDamageProfileDto(runtime, resolvedStatModifiers);
+        projectileData.hit = CreateHitDto(runtime.hitSo, damageProfile);
+        projectileData.damageProfile = damageProfile;
 
         ResolveProjectileVisualRuntime(runtime, projectileData);
         return projectileData;
@@ -167,15 +170,30 @@ public class EquipmentSkillResolver
         return moveSo.CreateDto(targetTransform, startPosition, targetPosition);
     }
 
-    private SkillProjectileHitDto CreateHitDto(SkillHitSO hitSo)
+    private SkillProjectileHitDto CreateHitDto(
+        SkillHitSO hitSo,
+        SkillDamageProfileDto damageProfile)
     {
-        SkillProjectileHitDto dto = ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(hitSo);
+        SkillProjectileHitDto dto =
+            ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(
+                hitSo,
+                new object[] { damageProfile, 0f });
+
         if (dto != null)
         {
             return dto;
         }
 
-        return ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(hitSo, new object[] { null });
+        dto = ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(
+            hitSo,
+            new object[] { damageProfile });
+
+        if (dto != null)
+        {
+            return dto;
+        }
+
+        return ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(hitSo);
     }
 
     private SkillDamageProfileDto CreateDamageProfileDto(
@@ -187,20 +205,20 @@ public class EquipmentSkillResolver
             return null;
         }
 
-        SkillDamageProfileDto dto = ReflectionHelper.TryInvokeCreateDto<SkillDamageProfileDto>(runtime.damageSo);
+        SkillDamageProfileDto dto = ReflectionHelper.TryInvokeCreateDto<SkillDamageProfileDto>(runtime.hitSo.DamageSo);
         if (dto == null)
         {
             dto = new SkillDamageProfileDto();
         }
 
         EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
-        dto.attackDamagePercent = statResolver.ResolveBaseDamage(equipmentSo, resolvedStatModifiers);
-        dto.flatBonusDamage = statResolver.GetFlatBonusDamage(equipmentSo);
-        dto.criticalMultiplier = statResolver.GetCriticalMultiplier(equipmentSo);
 
-        ReflectionHelper.WriteMemberObject(dto, "damageType", statResolver.GetDamageType(equipmentSo));
-        ReflectionHelper.WriteMemberObject(dto, "canCritical", statResolver.GetCanCritical(equipmentSo));
-        ReflectionHelper.WriteMemberObject(dto, "ignoreDefense", statResolver.GetIgnoreDefense(equipmentSo));
+        if (equipmentSo != null)
+        {
+            ReflectionHelper.WriteMemberObject(dto, "damageType", statResolver.GetDamageType(equipmentSo));
+            ReflectionHelper.WriteMemberObject(dto, "canCritical", statResolver.GetCanCritical(equipmentSo));
+            ReflectionHelper.WriteMemberObject(dto, "ignoreDefense", statResolver.GetIgnoreDefense(equipmentSo));
+        }
 
         return dto;
     }

@@ -1,6 +1,3 @@
-
-
-
 using UnityEngine;
 
 /// <summary>
@@ -25,14 +22,6 @@ public class EquipmentBaseProfileSO : ScriptableObject
     [SerializeField] private float projectileScale = 1f;
     [SerializeField] private float projectileLifetime = 3f;
 
-    [Header("Base Damage")]
-    [SerializeField] private DamageType damageType = DamageType.Normal;
-    [SerializeField] private float baseDamage = 10f;
-    [SerializeField] private float flatBonusDamage = 0f;
-    [SerializeField] private bool canCritical = true;
-    [SerializeField] private float criticalMultiplier = 1.5f;
-    [SerializeField] private bool ignoreDefense = false;
-
     [Header("Brain Meta")]
     [SerializeField] private BattleSkillCategory category = BattleSkillCategory.None;
     [SerializeField] private BattleSkillTargetType targetType = BattleSkillTargetType.None;
@@ -53,11 +42,4 @@ public class EquipmentBaseProfileSO : ScriptableObject
     public int ProjectileCount => Mathf.Max(1, projectileCount);
     public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
     public float ProjectileLifetime => Mathf.Max(0.01f, projectileLifetime);
-
-    public DamageType DamageType => damageType;
-    public float BaseDamage => baseDamage;
-    public float FlatBonusDamage => flatBonusDamage;
-    public bool CanCritical => canCritical;
-    public float CriticalMultiplier => criticalMultiplier;
-    public bool IgnoreDefense => ignoreDefense;
 }

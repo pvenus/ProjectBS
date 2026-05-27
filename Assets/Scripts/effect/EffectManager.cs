@@ -135,6 +135,8 @@ namespace Effect
                 return;
             }
 
+            RemoveEffectsByRuntimeId(runtimeData.RuntimeId);
+
             activeEffects.Add(runtimeData);
 
             activeEffectLifetimes.Add(
@@ -152,6 +154,37 @@ namespace Effect
             {
                 Debug.Log(
                     $"[EffectManager] Effect added. id={runtimeData.RuntimeId}, category={categoryType}, lifetime={lifetimeType}, duration={duration}");
+            }
+        }
+        private void RemoveEffectsByRuntimeId(string runtimeId)
+        {
+            if (string.IsNullOrEmpty(runtimeId))
+            {
+                return;
+            }
+
+            for (int i = activeEffects.Count - 1;
+                 i >= 0;
+                 i--)
+            {
+                EffectRuntimeData activeEffect =
+                    activeEffects[i];
+
+                if (activeEffect == null)
+                {
+                    activeEffects.RemoveAt(i);
+                    continue;
+                }
+
+                if (!string.Equals(
+                        activeEffect.RuntimeId,
+                        runtimeId,
+                        System.StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                RemoveEffect(activeEffect);
             }
         }
 

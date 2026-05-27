@@ -1,3 +1,4 @@
+using ShaderDetail;
 using UnityEngine;
 
 /// <summary>
@@ -24,6 +25,9 @@ public class ShaderControllerMono : MonoBehaviour
     [Header("Feature - Death Dissolve")]
     [SerializeField] private DeathDissolveFeature deathDissolve = new DeathDissolveFeature();
 
+    [Header("Feature - Stun Blink")]
+    [SerializeField] private StunBlinkFeature stunBlink = new StunBlinkFeature();
+
     [Header("Debug")]
     [SerializeField] private bool debugSpawnReveal = true;
     [SerializeField] private bool debugDeathDissolve = true;
@@ -32,6 +36,7 @@ public class ShaderControllerMono : MonoBehaviour
     public bool IsHitFlashPlaying => hitFlash != null && hitFlash.isPlaying;
     public bool IsSpawnRevealPlaying => spawnReveal != null && spawnReveal.isPlaying;
     public bool IsDeathDissolvePlaying => deathDissolve != null && deathDissolve.isPlaying;
+    public bool IsStunBlinkActive => stunBlink != null && stunBlink.IsActive;
 
     private void Reset()
     {
@@ -55,6 +60,9 @@ public class ShaderControllerMono : MonoBehaviour
 
         if (deathDissolve != null)
             deathDissolve.EnsureDefaults();
+
+        if (stunBlink != null)
+            stunBlink.EnsureDefaults();
 
         ApplyBaseState(forceApply: true);
     }
@@ -120,6 +128,21 @@ public class ShaderControllerMono : MonoBehaviour
             }
         }
 
+        if (stunBlink != null && stunBlink.enabled)
+        {
+            bool wasActive = stunBlink.IsActive;
+            stunBlink.Tick(Time.deltaTime);
+
+            bool isDeathPlaying = deathDissolve != null && deathDissolve.enabled && deathDissolve.isPlaying;
+            bool isHitPlaying = hitFlash != null && hitFlash.enabled && hitFlash.isPlaying;
+
+            if ((wasActive || stunBlink.IsActive) && !isDeathPlaying && !isHitPlaying)
+            {
+                ApplyStunBlinkFeature();
+                changed = true;
+            }
+        }
+
         if (changed)
             shaderMono.ApplyIfDirty();
     }
@@ -171,6 +194,9 @@ public class ShaderControllerMono : MonoBehaviour
 
         if (hitFlash != null)
             hitFlash.StopImmediate();
+
+        if (stunBlink != null)
+            stunBlink.StopImmediate();
 
         deathDissolve.Play();
 
@@ -271,10 +297,95 @@ public class ShaderControllerMono : MonoBehaviour
             }
         }
 
+        if (stunBlink != null)
+        {
+            stunBlink.EnsureDefaults();
+        }
+
         if (forceApply)
             shaderMono.Apply();
         else
             shaderMono.ApplyIfDirty();
+    }
+
+    public void PlayStunBlink()
+    {
+        SetStunBlinkActive(true);
+    }
+
+    public void StopStunBlink(bool restoreBaseState = true)
+    {
+        SetStunBlinkActive(false);
+
+        if (restoreBaseState)
+        {
+            bool isHitPlaying = hitFlash != null && hitFlash.enabled && hitFlash.isPlaying;
+            bool isSpawnPlaying = spawnReveal != null && spawnReveal.enabled && spawnReveal.isPlaying;
+            bool isDeathPlaying = deathDissolve != null && deathDissolve.enabled && deathDissolve.isPlaying;
+
+            if (!isHitPlaying && !isSpawnPlaying && !isDeathPlaying)
+            {
+                ApplyBaseState(forceApply: false);
+            }
+        }
+    }
+
+    public void SetStunBlinkActive(bool active)
+    {
+        if (stunBlink == null || !stunBlink.enabled)
+            return;
+
+        bool wasActive = stunBlink.IsActive;
+        stunBlink.SetActive(active);
+
+        if (active)
+        {
+            ApplyStunBlinkFeature();
+            shaderMono?.ApplyIfDirty();
+            return;
+        }
+
+        if (wasActive)
+        {
+            shaderMono?.ApplyIfDirty();
+        }
+    }
+
+    private void ApplyStunBlinkFeature()
+    {
+        if (shaderMono == null || stunBlink == null || !stunBlink.IsActive)
+            return;
+
+        stunBlink.EnsureDefaults();
+
+        Color baseRimColor = hitFlash != null
+            ? hitFlash.baseRimColor
+            : Color.white;
+
+        float baseRimIntensity = hitFlash != null
+            ? hitFlash.baseRimIntensity
+            : 0f;
+
+        float baseRimPower = hitFlash != null
+            ? hitFlash.baseRimPower
+            : 2f;
+
+        float basePulseIntensity = hitFlash != null
+            ? hitFlash.basePulseIntensity
+            : 0f;
+
+        float basePulseSpeed = hitFlash != null
+            ? hitFlash.basePulseSpeed
+            : 1f;
+
+        float blend = stunBlink.EvaluateBlink01();
+        Color rimColor = Color.Lerp(baseRimColor, stunBlink.EvaluateRimColor(), blend);
+        float rimIntensity = stunBlink.EvaluateRimIntensity(baseRimIntensity);
+        float pulseIntensity = stunBlink.EvaluatePulseIntensity(basePulseIntensity);
+
+        shaderMono.SetRim(rimColor, rimIntensity);
+        shaderMono.SetRimPower(baseRimPower);
+        shaderMono.SetPulse(pulseIntensity, basePulseSpeed);
     }
 
     private void ApplyHitFlashFeature()
