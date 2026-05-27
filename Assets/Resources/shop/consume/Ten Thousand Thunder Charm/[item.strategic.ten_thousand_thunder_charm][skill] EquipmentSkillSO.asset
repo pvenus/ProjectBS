@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: '[item.strategic.ten_thousand_thunder_charm][skill] EquipmentSkillSO'
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentSkillSO
+  equipmentId: eqp sword
+  displayName: eqp sword
+  description: eqp sword
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 04997925a6604bd4bf1798be4a34b8d2, type: 2}
+  castSo: {fileID: 0}
+  damageSo: {fileID: 0}
+  hitSo: {fileID: 11400000, guid: ec4099e583e3447aa59575a264b3f543, type: 2}
+  moveSo: {fileID: 11400000, guid: 96003d06c3664f8ca3ccc048c8c6bae5, type: 2}
+  visualSetSo: {fileID: 11400000, guid: e16e8ebe4dfc404c88c79b9e76cbac4c, type: 2}
+  upgradeTableSo: {fileID: 0}
+  effects: []
