@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8888911725151988846}
   - component: {fileID: 7890756974711065464}
   m_Layer: 5
-  m_Name: UI_NameText
+  m_Name: Item_NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,10 +169,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5444607094046042552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 360, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7152527103157470936
 CanvasRenderer:
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3746628594448466026}
   - component: {fileID: 1553900931679939757}
   m_Layer: 5
-  m_Name: UI_IconImage
+  m_Name: Item_IconImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 267}
+  m_AnchoredPosition: {x: 0, y: 199.79999}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3746628594448466026
@@ -322,8 +322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.3038, y: -218.6}
-  m_SizeDelta: {x: 372.7057, y: 100}
+  m_AnchoredPosition: {x: 0, y: -246}
+  m_SizeDelta: {x: 361.11, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4330460313488820272
 MonoBehaviour:
@@ -507,8 +507,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.796, y: -45.66693}
-  m_SizeDelta: {x: 358.6213, y: 425.3339}
+  m_AnchoredPosition: {x: 1.796, y: -34.401}
+  m_SizeDelta: {x: 358.6213, y: 268.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3779436275658898408
 MonoBehaviour:
@@ -691,7 +691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.4, y: 239.2}
+  m_AnchoredPosition: {x: 0.4, y: 172}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7066072472276241774
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 8384611382621392205}
   - component: {fileID: 8742754847950556402}
   m_Layer: 5
-  m_Name: UI_DescText
+  m_Name: Item_DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,10 +901,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 172982822536352016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 179.31065, y: -209}
-  m_SizeDelta: {x: 358.6213, y: 225.6712}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -54.9742}
+  m_SizeDelta: {x: 320, y: 198.0515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8384611382621392205
 CanvasRenderer:
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 7982852148595130495}
   - component: {fileID: 5326571614492477855}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Item_PriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1153,10 +1153,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5444607094046042552}
   - component: {fileID: 504390725624975454}
+  - component: {fileID: 2234700627150293831}
   - component: {fileID: 9139789214394489302}
   - component: {fileID: 6651020217036399185}
   - component: {fileID: 5808021351053639625}
-  - component: {fileID: 3479774916377587563}
   m_Layer: 5
   m_Name: ShopItemCard_Detail
   m_TagString: Untagged
@@ -1171,7 +1171,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9005934153629137217}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1200,6 +1200,32 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2234700627150293831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9005934153629137217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935efaff5fee5b044b8745104d19edfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemCard
+  iconImage: {fileID: 1553900931679939757}
+  nameText: {fileID: 7890756974711065464}
+  descriptionText: {fileID: 8742754847950556402}
+  priceText: {fileID: 5326571614492477855}
+  typeText: {fileID: 0}
+  effectText: {fileID: 0}
+  buyButton: {fileID: 1091004997644204508}
+  buyButtonText: {fileID: 0}
+  soldOutRoot: {fileID: 0}
+  lockedRoot: {fileID: 0}
+  buyLabel: Buy
+  soldOutLabel: Sold Out
+  lockedLabel: Locked
+  cannotAffordLabel: Need Gold
 --- !u!114 &9139789214394489302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,28 +1288,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverScaler
   hoverScale: 1.1
   duration: 0.1
---- !u!114 &3479774916377587563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9005934153629137217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd120506a7a69564b918896ceec6c3dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shrine.UI.ShrineGodCard
-  thumbButton: {fileID: 1553900931679939757}
-  nameText: {fileID: 7890756974711065464}
-  highlightObj: {fileID: 0}
-  tooltipRoot: {fileID: 0}
-  tooltipText: {fileID: 0}
-  showStartOffset: {x: 0, y: 120}
-  showDuration: 0.45
-  selectedOffset: {x: 0, y: 45}
-  deselectedOffset: {x: 0, y: -45}
-  selectedDuration: 0.35
-  deselectedDuration: 0.25
-  showFadeDuration: 0.5
-  deselectFadeDuration: 0.25

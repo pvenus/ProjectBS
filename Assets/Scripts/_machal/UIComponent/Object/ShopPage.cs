@@ -16,16 +16,8 @@ public class ShopPage : UIPage
     [AutoBind] [SerializeField] private ShopCategoryPanel consumable;
     [AutoBind] [SerializeField] private ShopCategoryPanel tactic;
 
-    [Header("Carousel Animation")]
-    [SerializeField] private float verticalSpacing = 350f;     // 비활성 패널이 위아래로 떨어지는 거리
-    [SerializeField] private float inactiveScale = 0.85f;      // 비활성 패널의 축소 비율
-    [SerializeField] private float inactiveAlpha = 0.6f;       // 비활성 패널의 투명도
-    [SerializeField] private float lerpSpeed = 10f;            // 애니메이션 속도
-
-    private int currentCategoryIndex = 1; // 0: 위, 1: 중앙(기본), 2: 아래
-    private ShopCategoryPanel[] categories;
-    private RectTransform[] categoryRects;
-    private CanvasGroup[] categoryCanvasGroups;
+    [Header("Carousel Widget (Shop_CarouselWidget 등)")]
+    [AutoBind] [SerializeField] private UICarouselWidget carouselWidget;
 
     [Header("Tooltip (Shop_TooltipWidget 등)")]
     [AutoBind] [SerializeField] private UITooltipWidget tooltipWidget;
@@ -41,22 +33,22 @@ public class ShopPage : UIPage
             Debug.LogWarning("[ShopPage] PanelRoot가 할당되지 않았습니다. 현재 스크립트가 있는 오브젝트 자식으로 UI 패널을 구성하고 할당해주세요.");
         }
 
-        // 카테고리 배열 초기화 (위치 및 스케일 제어용)
-        categories = new ShopCategoryPanel[] { relic, consumable, tactic };
-        categoryRects = new RectTransform[3];
-        categoryCanvasGroups = new CanvasGroup[3];
-
-        for (int i = 0; i < 3; i++)
+        // 캐러셀 위젯 초기화 (하드코딩하지 않고 하위의 모든 카테고리 패널을 자동 수집)
+        if (carouselWidget != null)
         {
-            if (categories[i] != null)
+            ShopCategoryPanel[] allPanels = GetComponentsInChildren<ShopCategoryPanel>(true);
+            
+            // AutoBind 필드로 선언된 3개 외에 사용자가 추가한 카테고리도 모두 포함되도록 리스트화
+            List<RectTransform> panelList = new List<RectTransform>();
+            foreach (var panel in allPanels)
             {
-                categoryRects[i] = categories[i].GetComponent<RectTransform>();
-                categoryCanvasGroups[i] = categories[i].GetComponent<CanvasGroup>();
-                if (categoryCanvasGroups[i] == null)
+                if (panel != null)
                 {
-                    categoryCanvasGroups[i] = categories[i].gameObject.AddComponent<CanvasGroup>();
+                    panelList.Add(panel.GetComponent<RectTransform>());
                 }
             }
+            
+            carouselWidget.Initialize(panelList.ToArray(), 1);
         }
 
         Hide();
@@ -247,75 +239,6 @@ public class ShopPage : UIPage
         if (tooltipWidget != null)
         {
             tooltipWidget.Hide();
-        }
-    }
-
-    private void Update()
-    {
-        if (panelRoot == null || !panelRoot.activeSelf) return;
-
-        HandleScrollInput();
-        UpdateCarouselAnimation();
-    }
-
-    private void HandleScrollInput()
-    {
-        float scroll = Input.mouseScrollDelta.y;
-        if (scroll > 0f)
-        {
-            // 위로 스크롤 (이전 카테고리)
-            currentCategoryIndex = Mathf.Max(0, currentCategoryIndex - 1);
-        }
-        else if (scroll < 0f)
-        {
-            // 아래로 스크롤 (다음 카테고리)
-            currentCategoryIndex = Mathf.Min(2, currentCategoryIndex + 1);
-        }
-    }
-
-    private void UpdateCarouselAnimation()
-    {
-        if (categories == null || categoryRects == null) return;
-
-        for (int i = 0; i < 3; i++)
-        {
-            if (categoryRects[i] == null) continue;
-
-            // 목표 상태 계산
-            float targetY = (i - currentCategoryIndex) * -verticalSpacing; 
-            // i < currentIndex 면 양수(위로), i > currentIndex 면 음수(아래로) 배치
-
-            float targetScale = (i == currentCategoryIndex) ? 1f : inactiveScale;
-            float targetAlpha = (i == currentCategoryIndex) ? 1f : inactiveAlpha;
-
-            // 서서히 이동, 축소/확대, 투명도 조절
-            categoryRects[i].anchoredPosition = Vector2.Lerp(
-                categoryRects[i].anchoredPosition, 
-                new Vector2(categoryRects[i].anchoredPosition.x, targetY), 
-                Time.deltaTime * lerpSpeed);
-
-            categoryRects[i].localScale = Vector3.Lerp(
-                categoryRects[i].localScale, 
-                new Vector3(targetScale, targetScale, 1f), 
-                Time.deltaTime * lerpSpeed);
-
-            if (categoryCanvasGroups[i] != null)
-            {
-                categoryCanvasGroups[i].alpha = Mathf.Lerp(
-                    categoryCanvasGroups[i].alpha, 
-                    targetAlpha, 
-                    Time.deltaTime * lerpSpeed);
-                
-                // 선택되지 않은 패널은 클릭 방지
-                categoryCanvasGroups[i].interactable = (i == currentCategoryIndex);
-                categoryCanvasGroups[i].blocksRaycasts = (i == currentCategoryIndex);
-            }
-
-            // 하이어라키 순서 조정 (중앙 패널이 항상 맨 앞으로 오도록)
-            if (i == currentCategoryIndex)
-            {
-                categoryRects[i].SetAsLastSibling();
-            }
         }
     }
 }
