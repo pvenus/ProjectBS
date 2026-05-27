@@ -28,6 +28,9 @@ namespace Stat
         CritChance = 1240,
         CritDamage = 1250,
 
+        LifeSteal = 1255,
+        LifeStealPercent = 1257,
+
         BossDamagePercent = 1260,
         EliteDamagePercent = 1270,
 
