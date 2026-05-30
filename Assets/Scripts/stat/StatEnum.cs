@@ -17,6 +17,8 @@ namespace Stat
         HpRegenPercent = 1120,
         MaxHpRegenPercentPerSecond = 1130,
 
+        BleedDamagePerSecond = 1140,
+
         Attack = 1200,
         AttackPercent = 1210,
         AttackSpeed = 1220,
@@ -34,6 +36,8 @@ namespace Stat
         BossDamagePercent = 1260,
         EliteDamagePercent = 1270,
 
+        EliteApproachMoveSpeedPercent = 1275,
+
         LowHpAttackBonus = 1280,
 
         MissingHpAttackPercent = 1290,
@@ -43,11 +47,15 @@ namespace Stat
         DefensePercent = 1310,
 
         DamageReductionPercent = 1320,
+        ReflectDamagePercent = 1325,
 
         StatusResistance = 1330,
         StatusResistancePercent = 1340,
 
+
         StunDuration = 1345,
+
+        RootDuration = 1347,
 
         Shield = 1350,
         ShieldPercent = 1360,
@@ -61,6 +69,8 @@ namespace Stat
         ExpGainPercent = 1430,
 
         DropGold = 1435,
+        BonusGoldDropChance = 1436,
+        BonusGoldDropPercent = 1438,
         DropExp = 1437,
 
         RelicDropRate = 1440,

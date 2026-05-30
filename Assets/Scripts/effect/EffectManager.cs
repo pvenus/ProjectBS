@@ -123,7 +123,14 @@ namespace Effect
 
             if (lifetimeType == EffectLifetimeType.Instant)
             {
+                runtimeData.IsActive = true;
                 runtimeData.OnApply();
+
+                if (!runtimeData.IsActive)
+                {
+                    return;
+                }
+
                 OnEffectAdded?.Invoke(runtimeData);
 
                 if (logDebug)
@@ -146,7 +153,15 @@ namespace Effect
                     duration,
                     categoryType));
 
+            runtimeData.IsActive = true;
             runtimeData.OnApply();
+
+            if (!runtimeData.IsActive)
+            {
+                activeEffects.Remove(runtimeData);
+                RemoveLifetime(runtimeData.RuntimeId);
+                return;
+            }
 
             OnEffectAdded?.Invoke(runtimeData);
 
@@ -251,10 +266,18 @@ namespace Effect
         }
         private void TickTimedEffects(float deltaTime)
         {
+            List<EffectRuntimeData> expiredEffects =
+                new List<EffectRuntimeData>();
+
             for (int i = activeEffectLifetimes.Count - 1;
                  i >= 0;
                  i--)
             {
+                if (i >= activeEffectLifetimes.Count)
+                {
+                    continue;
+                }
+
                 EffectLifetimeData lifetimeData =
                     activeEffectLifetimes[i];
 
@@ -281,12 +304,17 @@ namespace Effect
 
                 if (effect != null)
                 {
-                    RemoveEffect(effect);
+                    expiredEffects.Add(effect);
                 }
                 else
                 {
                     activeEffectLifetimes.RemoveAt(i);
                 }
+            }
+
+            for (int i = 0; i < expiredEffects.Count; i++)
+            {
+                RemoveEffect(expiredEffects[i]);
             }
         }
 

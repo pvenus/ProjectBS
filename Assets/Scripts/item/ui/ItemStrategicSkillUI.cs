@@ -204,7 +204,7 @@ namespace Item.UI
 
             projectileData = skillResolver.ResolveProjectileRuntime(
                 runtimeData,
-                gameObject,
+                null,
                 null,
                 spawnPosition,
                 direction);
@@ -217,7 +217,6 @@ namespace Item.UI
 
             projectileData.projectilePrefab = projectilePrefab;
             projectileData.spawnPosition = spawnPosition;
-            projectileData.owner = gameObject;
 
             if (logDebug)
             {

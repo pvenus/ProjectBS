@@ -9,6 +9,7 @@ namespace Character
         public event Action<StatType, float> OnStatChanged;
 
         private readonly CharacterRuntimeData runtimeData;
+        private float appliedMissingHpAttackBonus;
 
         public CharacterStatService(CharacterRuntimeData runtimeData)
         {
@@ -172,6 +173,8 @@ namespace Character
                     StatType.Attack,
                     StatType.AttackPercent));
 
+            ApplyMissingHpDerivedDamageStats();
+
             SetCalculatedFinalStat(
                 StatType.AttackSpeed,
                 CalculateWithPercent(
@@ -227,6 +230,79 @@ namespace Character
                     StatType.CooldownReductionPercent));
 
             ClampCurrentHpToMaxHp();
+        }
+
+        public void RefreshMissingHpDerivedDamageStats()
+        {
+            RefreshFinalStats();
+        }
+
+        private void ApplyMissingHpDerivedDamageStats()
+        {
+            if (runtimeData == null || runtimeData.stats == null)
+            {
+                return;
+            }
+
+            float maxHp = GetStat(StatType.MaxHp);
+            float currentHp = GetRuntimeStatSum(StatType.Hp);
+
+            if (maxHp <= 0f)
+            {
+                ApplyMissingHpAttackBonusDiff(0f);
+                return;
+            }
+
+            float missingHp = Mathf.Max(
+                0f,
+                maxHp - currentHp);
+
+            float missingHpRatio = Mathf.Clamp01(
+                missingHp / maxHp);
+
+            float missingHpPercent =
+                missingHpRatio * 100f;
+
+            float missingHpAttackPercent =
+                GetRuntimeStatSum(StatType.MissingHpAttackPercent);
+
+            float missingHpFinalDamageAmplify =
+                GetRuntimeStatSum(StatType.MissingHpFinalDamageAmplify);
+
+            float amplifiedMissingHpAttackPercent =
+                missingHpAttackPercent
+                + missingHpAttackPercent * (missingHpFinalDamageAmplify / 100f);
+
+            float baseAttack =
+                Mathf.Max(
+                    0f,
+                    GetRuntimeStatSum(StatType.Attack));
+
+            float nextAttackBonus =
+                baseAttack
+                * (amplifiedMissingHpAttackPercent * missingHpPercent / 100f);
+
+            ApplyMissingHpAttackBonusDiff(nextAttackBonus);
+        }
+
+        private void ApplyMissingHpAttackBonusDiff(float nextAttackBonus)
+        {
+            float diff = nextAttackBonus - appliedMissingHpAttackBonus;
+
+            if (Mathf.Abs(diff) <= 0.0001f)
+            {
+                return;
+            }
+
+            AddOrMergeFinalStat(
+                StatType.Attack,
+                diff);
+
+            appliedMissingHpAttackBonus = nextAttackBonus;
+
+            OnStatChanged?.Invoke(
+                StatType.Attack,
+                GetStat(StatType.Attack));
         }
 
         private void ClampCurrentHpToMaxHp()
@@ -350,6 +426,8 @@ namespace Character
                    || statType == StatType.ShieldPercent
                    || statType == StatType.CooldownReduction
                    || statType == StatType.CooldownReductionPercent
+                   || statType == StatType.MissingHpAttackPercent
+                   || statType == StatType.MissingHpFinalDamageAmplify
                    || statType == StatType.SkillRange
                    || statType == StatType.SkillRangePercent;
         }

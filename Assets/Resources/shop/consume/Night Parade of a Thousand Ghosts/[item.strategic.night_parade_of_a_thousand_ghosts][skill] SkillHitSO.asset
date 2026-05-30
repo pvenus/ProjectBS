@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
   maxHitCount: 999
   ignoreSameRoot: 1
-  useRepeatInterval: 0
-  repeatInterval: 0.25
+  useRepeatInterval: 1
+  repeatInterval: 1
   useHitWindow: 0
   hitStartTime: 0.1
   hitDuration: 0.1
@@ -23,13 +23,8 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  damageSo: {fileID: 0}
-  buffEffects:
-  - effectSo: {fileID: 11400000, guid: e72641ec214346d7ac67bccb9e2ee625, type: 2}
-    lifetimeType: 3
-    categoryType: 1
-    duration: 8
-    maxApplyCount: 1
+  damageSo: {fileID: 11400000, guid: 0db8ebba398b944fc9492cfcf6aeb6f0, type: 2}
+  buffEffects: []
   debuffEffects: []
   useSplitMultiHitDamage: 0
   splitHitCount: 4

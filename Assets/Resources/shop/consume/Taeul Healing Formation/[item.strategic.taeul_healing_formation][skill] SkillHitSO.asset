@@ -22,13 +22,13 @@ MonoBehaviour:
   deactivateAfterFirstHit: 0
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   damageSo: {fileID: 0}
   buffEffects:
   - effectSo: {fileID: 11400000, guid: c85eb85cf4434925be232d902275d946, type: 2}
     lifetimeType: 3
     categoryType: 1
-    duration: 8
+    duration: 6
     maxApplyCount: 1
   debuffEffects: []
   useSplitMultiHitDamage: 0

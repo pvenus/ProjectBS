@@ -137,10 +137,10 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             return false;
         }
 
-        if (IsCasterStunned(req.Caster))
+        if (IsCasterSkillBlocked(req.Caster))
         {
             if (debugLog)
-                Debug.Log($"[SkillExecutor] stunned block skill={req.Skill.name} caster={req.Caster.name}");
+                Debug.Log($"[SkillExecutor] skill blocked skill={req.Skill.name} caster={req.Caster.name}");
 
             return false;
         }
@@ -185,7 +185,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (request.Caster == null || skill == null)
             return false;
 
-        if (IsCasterStunned(request.Caster))
+        if (IsCasterSkillBlocked(request.Caster))
             return false;
 
         bool used = false;
@@ -253,7 +253,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         return true;
     }
 
-    private bool IsCasterStunned(Transform caster)
+    private bool IsCasterSkillBlocked(Transform caster)
     {
         CharacterManager characterManager = null;
 
@@ -268,7 +268,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (characterManager == null)
             characterManager = GetCharacterManager();
 
-        return characterManager != null && characterManager.IsStunned;
+        return characterManager != null && !characterManager.CanUseSkill;
     }
 
     private CharacterManager GetCharacterManager()

@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Effect;
+using Effect.Helper;
 using UnityEngine;
 using Session;
 using Character;
@@ -28,7 +30,8 @@ namespace Item
         [SerializeField]
         private bool logDebug;
 
-        public RelicRuntimeData RelicRuntimeData => relicRuntimeData;
+
+        public RelicRuntimeData RelicRuntimeData => ResolveRelicRuntimeData();
 
         public StrategicSkillItemRuntimeData StrategicSkillItemRuntimeData
             => ResolveStrategicSkillItemRuntimeData();
@@ -64,6 +67,9 @@ namespace Item
                 relicRuntimeData = new RelicRuntimeData();
             }
 
+            relicRuntimeData =
+                ResolveRelicRuntimeData();
+
             if (aiFunctionRuntimeData == null)
             {
                 aiFunctionRuntimeData =
@@ -71,13 +77,26 @@ namespace Item
             }
         }
 
+        private void OnEnable()
+        {
+            CharacterManager.OnAnyDamageApplied += HandleAnyDamageApplied;
+        }
+
+        private void OnDisable()
+        {
+            CharacterManager.OnAnyDamageApplied -= HandleAnyDamageApplied;
+        }
+
+
 
         public void InitializeRuntimeData(
             RelicRuntimeData relicRuntimeData,
             AIFunctionRuntimeData aiFunctionRuntimeData)
         {
             this.relicRuntimeData =
-                relicRuntimeData ?? new RelicRuntimeData();
+                relicRuntimeData ?? ResolveRelicRuntimeData();
+
+            PushRelicRuntimeDataToSession(this.relicRuntimeData);
 
             this.aiFunctionRuntimeData =
                 aiFunctionRuntimeData ?? new AIFunctionRuntimeData();
@@ -94,9 +113,11 @@ namespace Item
             {
                 return false;
             }
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
 
             bool added =
-                relicRuntimeData.AddRelic(relic);
+                runtimeData.AddRelic(relic);
 
             if (!added)
             {
@@ -104,7 +125,7 @@ namespace Item
             }
 
             RelicEntry entry =
-                relicRuntimeData.FindRelic(relic);
+                runtimeData.FindRelic(relic);
 
             if (entry != null
                 && entry.isEquipped)
@@ -130,9 +151,11 @@ namespace Item
             }
 
             RemoveRelicEffects(relic);
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
 
             bool removed =
-                relicRuntimeData.RemoveRelic(relic);
+                runtimeData.RemoveRelic(relic);
 
             if (!removed)
             {
@@ -155,8 +178,8 @@ namespace Item
             {
                 return false;
             }
-
-            return relicRuntimeData.HasRelic(relic);
+            return ResolveRelicRuntimeData()
+                .HasRelic(relic);
         }
 
         public bool EquipRelic(RelicSO relic)
@@ -165,9 +188,11 @@ namespace Item
             {
                 return false;
             }
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
 
             RelicEntry entry =
-                relicRuntimeData.FindRelic(relic);
+                runtimeData.FindRelic(relic);
 
             if (entry == null)
             {
@@ -175,11 +200,11 @@ namespace Item
             }
 
             int equippedCount =
-                relicRuntimeData.Relics
+                runtimeData.Relics
                     .Count(x => x != null
                         && x.isEquipped);
 
-            if (equippedCount >= relicRuntimeData.MaxRelicCount)
+            if (equippedCount >= runtimeData.MaxRelicCount)
             {
                 return false;
             }
@@ -202,9 +227,11 @@ namespace Item
             {
                 return false;
             }
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
 
             RelicEntry entry =
-                relicRuntimeData.FindRelic(relic);
+                runtimeData.FindRelic(relic);
 
             if (entry == null)
             {
@@ -224,12 +251,12 @@ namespace Item
         }
 
         private void ApplyEffectToCharacters(
-            EffectSO effect,
+            RelicEffectEntry effectEntry,
             EffectSourceType sourceType,
             string sourceId,
             RelicEntry relicEntry)
         {
-            if (effect == null || relicEntry == null)
+            if (effectEntry == null || effectEntry.effect == null || relicEntry == null)
             {
                 return;
             }
@@ -254,8 +281,8 @@ namespace Item
                     ResolveCharacterManager(effectManager);
 
                 Effect.EffectRuntimeData runtimeEffect =
-                    CreateRuntimeEffect(
-                        effect,
+                    EffectResolveHelper.CreateRuntimeData(
+                        effectEntry.effect,
                         sourceType,
                         sourceId,
                         targetCharacterManager);
@@ -265,8 +292,18 @@ namespace Item
                     continue;
                 }
 
-                effectManager.AddEffect(runtimeEffect);
-                relicEntry.runtimeEffects.Add(runtimeEffect);
+                bool applied =
+                    EffectApplyHelper.ApplyRuntimeData(
+                        effectManager,
+                        runtimeEffect,
+                        effectEntry.lifetimeType,
+                        effectEntry.duration,
+                        effectEntry.categoryType);
+
+                if (!applied)
+                {
+                    continue;
+                }
             }
         }
 
@@ -298,33 +335,136 @@ namespace Item
             }
         }
 
-        private Effect.EffectRuntimeData CreateRuntimeEffect(
-            EffectSO effect,
-            EffectSourceType sourceType,
-            string sourceId,
-            CharacterManager targetCharacterManager)
+
+        private void HandleAnyDamageApplied(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
         {
-            if (effect == null)
+            if (request == null
+                || result == null
+                || request.attacker == null
+                || request.target == null)
             {
-                return null;
+                return;
             }
 
-            if (effect is StatModifierEffectSO statModifierEffect)
+            CharacterManager attackerCharacterManager =
+                ResolveCharacterManager(request.attacker);
+
+            if (attackerCharacterManager == null
+                || attackerCharacterManager.RuntimeData == null
+                || attackerCharacterManager.RuntimeData.characterSO == null
+                || attackerCharacterManager.RuntimeData.characterSO.characterType != CharacterType.Player)
             {
-                if (targetCharacterManager == null)
+                return;
+            }
+            
+            ApplyEquippedRelicEffectsOnDamage(
+                request,
+                result);
+        }
+
+        private void ApplyEquippedRelicEffectsOnDamage(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
+        {
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
+            if (runtimeData == null
+                || runtimeData.Relics == null
+                || runtimeData.Relics.Count == 0)
+            {
+                return;
+            }
+
+            EffectManager targetEffectManager =
+                request.target.GetComponent<EffectManager>();
+
+            if (targetEffectManager == null)
+            {
+                targetEffectManager =
+                    request.target.GetComponentInChildren<EffectManager>();
+            }
+
+            if (targetEffectManager == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < runtimeData.Relics.Count; i++)
+            {
+                RelicEntry relicEntry =
+                    runtimeData.Relics[i];
+
+                if (relicEntry == null
+                    || !relicEntry.isEquipped
+                    || relicEntry.relic == null
+                    || relicEntry.relic.effects == null)
                 {
-                    return null;
+                    continue;
                 }
 
-                return new StatModifierEffectRuntime(
-                    statModifierEffect,
-                    sourceType,
-                    sourceId,
-                    targetCharacterManager);
+                ApplyRelicEffectsOnDamageToTarget(
+                    relicEntry,
+                    request,
+                    result,
+                    targetEffectManager);
+            }
+        }
+
+        private void ApplyRelicEffectsOnDamageToTarget(
+            RelicEntry relicEntry,
+            CharacterDamageRequest request,
+            CharacterDamageResult result,
+            EffectManager targetEffectManager)
+        {
+            if (relicEntry == null
+                || relicEntry.relic == null
+                || request == null
+                || result == null
+                || targetEffectManager == null)
+            {
+                return;
             }
 
-            return null;
+            for (int i = 0; i < relicEntry.relic.effects.Count; i++)
+            {
+                RelicEffectEntry effectEntry =
+                    relicEntry.relic.effects[i];
+
+                if (effectEntry == null
+                    || effectEntry.effect == null
+                    || effectEntry.applyType != RelicEffectApplyType.OnAttack)
+                {
+                    continue;
+                }
+
+                CharacterManager targetCharacterManager =
+                    ResolveCharacterManager(request.target);
+
+                if (targetCharacterManager == null)
+                {
+                    continue;
+                }
+
+                CharacterManager sourceCharacterManager =
+                    ResolveCharacterManager(request.attacker);
+
+                EffectApplyHelper.ApplyEffect(
+                    targetEffectManager,
+                    targetCharacterManager,
+                    effectEntry.effect,
+                    EffectSourceType.Relic,
+                    relicEntry.relic.relicId,
+                    effectEntry.lifetimeType,
+                    effectEntry.duration,
+                    effectEntry.categoryType,
+                    request.attacker.transform,
+                    Vector2.zero,
+                    sourceCharacterManager);
+            }
         }
+
 
         private CharacterManager ResolveCharacterManager(
             EffectManager effectManager)
@@ -353,15 +493,42 @@ namespace Item
             return effectManager.GetComponentInChildren<CharacterManager>();
         }
 
+        private CharacterManager ResolveCharacterManager(
+            GameObject gameObject)
+        {
+            if (gameObject == null)
+            {
+                return null;
+            }
+
+            CharacterManager characterManager =
+                gameObject.GetComponent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            characterManager =
+                gameObject.GetComponentInParent<CharacterManager>();
+
+            if (characterManager != null)
+            {
+                return characterManager;
+            }
+
+            return gameObject.GetComponentInChildren<CharacterManager>();
+        }
+
         private void ApplyRelicEffects(RelicSO relic)
         {
             if (relic == null)
             {
                 return;
             }
-
             RelicEntry entry =
-                relicRuntimeData.FindRelic(relic);
+                ResolveRelicRuntimeData()
+                    .FindRelic(relic);
 
             if (entry == null)
             {
@@ -373,15 +540,17 @@ namespace Item
                 return;
             }
 
-            foreach (EffectSO effect in relic.effects)
+            foreach (RelicEffectEntry effectEntry in relic.effects)
             {
-                if (effect == null)
+                if (effectEntry == null
+                    || effectEntry.effect == null
+                    || effectEntry.applyType != RelicEffectApplyType.OnEquip)
                 {
                     continue;
                 }
 
                 ApplyEffectToCharacters(
-                    effect,
+                    effectEntry,
                     EffectSourceType.Relic,
                     relic.relicId,
                     entry);
@@ -390,22 +559,70 @@ namespace Item
 
         private void RemoveRelicEffects(RelicSO relic)
         {
-            if (relic == null)
+            if (relic == null || relic.effects == null)
             {
                 return;
             }
 
             RelicEntry entry =
-                relicRuntimeData.FindRelic(relic);
+                ResolveRelicRuntimeData()
+                    .FindRelic(relic);
 
             if (entry == null)
             {
                 return;
             }
 
-            foreach (Effect.EffectRuntimeData runtimeEffect
-                in entry.runtimeEffects)
+            foreach (RelicEffectEntry effectEntry in relic.effects)
             {
+                if (effectEntry == null
+                    || effectEntry.effect == null
+                    || effectEntry.applyType != RelicEffectApplyType.OnEquip)
+                {
+                    continue;
+                }
+
+                RemoveRelicEffectFromCharacters(
+                    effectEntry,
+                    EffectSourceType.Relic,
+                    relic.relicId);
+            }
+        }
+
+        private void RemoveRelicEffectFromCharacters(
+            RelicEffectEntry effectEntry,
+            EffectSourceType sourceType,
+            string sourceId)
+        {
+            if (effectEntry == null || effectEntry.effect == null)
+            {
+                return;
+            }
+
+            EffectManager[] effectManagers =
+                FindObjectsByType<EffectManager>(
+                    FindObjectsSortMode.None);
+
+            for (int i = 0; i < effectManagers.Length; i++)
+            {
+                EffectManager effectManager =
+                    effectManagers[i];
+
+                if (effectManager == null)
+                {
+                    continue;
+                }
+
+                CharacterManager targetCharacterManager =
+                    ResolveCharacterManager(effectManager);
+
+                Effect.EffectRuntimeData runtimeEffect =
+                    EffectResolveHelper.CreateRuntimeData(
+                        effectEntry.effect,
+                        sourceType,
+                        sourceId,
+                        targetCharacterManager);
+
                 if (runtimeEffect == null)
                 {
                     continue;
@@ -413,8 +630,44 @@ namespace Item
 
                 RemoveRuntimeEffectFromCharacters(runtimeEffect);
             }
+        }
 
-            entry.runtimeEffects.Clear();
+        private RelicRuntimeData ResolveRelicRuntimeData()
+        {
+            if (GameSession.Instance != null
+                && GameSession.Instance.StageSession != null)
+            {
+                if (GameSession.Instance.StageSession.RelicRuntimeData == null)
+                {
+                    GameSession.Instance.StageSession.RelicRuntimeData =
+                        relicRuntimeData ?? new RelicRuntimeData();
+                }
+
+                relicRuntimeData =
+                    GameSession.Instance.StageSession.RelicRuntimeData;
+
+                return relicRuntimeData;
+            }
+
+            if (relicRuntimeData == null)
+            {
+                relicRuntimeData = new RelicRuntimeData();
+            }
+
+            return relicRuntimeData;
+        }
+
+        private void PushRelicRuntimeDataToSession(
+            RelicRuntimeData runtimeData)
+        {
+            if (runtimeData == null
+                || GameSession.Instance == null
+                || GameSession.Instance.StageSession == null)
+            {
+                return;
+            }
+
+            GameSession.Instance.StageSession.RelicRuntimeData = runtimeData;
         }
 
         private StrategicSkillItemRuntimeData ResolveStrategicSkillItemRuntimeData()
@@ -551,7 +804,7 @@ namespace Item
 
         public void ClearRelics()
         {
-            relicRuntimeData.Clear();
+            ResolveRelicRuntimeData().Clear();
             ResolveStrategicSkillItemRuntimeData().Clear();
             aiFunctionRuntimeData.Clear();
 

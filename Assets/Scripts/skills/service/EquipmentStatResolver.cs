@@ -196,6 +196,30 @@ public class EquipmentStatResolver
         return 0f;
     }
 
+    public float GetProjectileSpawnInterval(EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return Mathf.Max(
+                0f,
+                equipmentSo.BaseProfileSo.ProjectileSpawnInterval);
+        }
+
+        return 0f;
+    }
+
+    public float GetProjectileSpawnRadius(EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return Mathf.Max(
+                0f,
+                equipmentSo.BaseProfileSo.ProjectileSpawnRadius);
+        }
+
+        return 0f;
+    }
+
     private void AddModifiers(
         List<SkillStatModifierRuntimeData> target,
         IEnumerable<SkillStatModifierRuntimeData> source)

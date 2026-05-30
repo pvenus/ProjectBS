@@ -3,12 +3,15 @@ using Stat;
 using UnityEngine;
 using Party.UI;
 using Party;
+using Character.Service;
 
 namespace Character
 {
     public class CharacterManager : MonoBehaviour
     {
         public static event Action<CharacterManager> OnAnyCharacterDied = delegate { };
+        public static event Action<CharacterDamageRequest, CharacterDamageResult> OnAnyDamageApplied = delegate { };
+        public static event Action<CharacterManager, CharacterManager, GoldDropService.Result> OnAnyGoldDropped = delegate { };
         [Header("Runtime")]
         [SerializeField] private CharacterRuntimeData runtimeData;
 
@@ -34,51 +37,58 @@ namespace Character
 
         private CharacterDamageService damageService;
 
+        private CharacterStatusTickService statusTickService;
+
+        private CharacterPresentationService presentationService;
+
+        private CharacterDeathService deathService;
+
+        private GoldDropService goldDropService;
+
         private CharacterBattleHudUI spawnedBattleHud;
 
         private bool isDying;
+
+        private CharacterManager lastHitAttacker;
+
+        [Header("Regen")]
+        [SerializeField] private float hpRegenTickInterval = 0.25f;
+
+        [Header("Bleed")]
+        [SerializeField] private float bleedTickInterval = 1f;
 
         public CharacterRuntimeData RuntimeData => runtimeData;
 
         public bool IsStunned => GetStatValue(StatType.StunDuration) > 0f;
 
+        public bool IsRooted => GetStatValue(StatType.RootDuration) > 0f;
+
+        public bool CanMove => !IsStunned && !IsRooted;
+
+        public bool CanUseSkill => !IsStunned;
+
         private void Update()
         {
-            UpdateStunDuration();
-        }
-
-        private void UpdateStunDuration()
-        {
-            if (runtimeData == null || runtimeData.isDead)
+            if (statusTickService == null)
             {
-                return;
+                statusTickService =
+                    new CharacterStatusTickService();
             }
 
-            float stunDuration =
-                GetStatValue(StatType.StunDuration);
-
-            if (stunDuration <= 0f)
+            if (damageService == null)
             {
-                return;
+                damageService =
+                    new CharacterDamageService();
             }
 
-            shaderController?.PlayStunBlink();
-
-            stunDuration -= Time.deltaTime;
-
-            if (stunDuration < 0f)
-            {
-                stunDuration = 0f;
-            }
-
-            SetStat(
-                StatType.StunDuration,
-                stunDuration);
-
-            if (stunDuration <= 0f)
-            {
-                shaderController?.StopStunBlink();
-            }
+            statusTickService.Tick(
+                this,
+                runtimeData,
+                statService,
+                damageService,
+                Time.deltaTime,
+                hpRegenTickInterval,
+                bleedTickInterval);
         }
 
         public void InitializeFromSO(CharacterSO characterSO)
@@ -129,6 +139,20 @@ namespace Character
             damageService =
                 new CharacterDamageService();
 
+            statusTickService =
+                new CharacterStatusTickService();
+            statusTickService.Reset();
+
+            presentationService =
+                new CharacterPresentationService();
+
+            deathService =
+                new CharacterDeathService();
+            deathService.Reset();
+
+            goldDropService =
+                new GoldDropService();
+
             statService.RefreshFinalStats();
 
             SetStat(
@@ -149,6 +173,20 @@ namespace Character
 
             damageService =
                 new CharacterDamageService();
+
+            statusTickService =
+                new CharacterStatusTickService();
+            statusTickService.Reset();
+
+            presentationService =
+                new CharacterPresentationService();
+
+            deathService =
+                new CharacterDeathService();
+            deathService.Reset();
+
+            goldDropService =
+                new GoldDropService();
 
             statService.RefreshFinalStats();
 
@@ -180,29 +218,23 @@ namespace Character
 
         private void CreateBattleHud()
         {
-            if (battleHudPrefab == null)
+            if (battleHudPrefab == null || spawnedBattleHud != null)
             {
                 return;
             }
 
-            if (spawnedBattleHud != null)
+            if (presentationService == null)
             {
-                return;
+                presentationService =
+                    new CharacterPresentationService();
             }
-
-            Transform parent =
-                hudRoot != null
-                    ? hudRoot
-                    : null;
 
             spawnedBattleHud =
-                Instantiate(
+                presentationService.CreateBattleHud(
                     battleHudPrefab,
-                    transform.position,
-                    Quaternion.identity,
-                    parent);
-
-            spawnedBattleHud.Initialize(this);
+                    transform,
+                    hudRoot,
+                    hud => hud.Initialize(this));
         }
 
         public float GetStatValue(StatType statType)
@@ -261,8 +293,30 @@ namespace Character
                     new CharacterDamageService();
             }
 
-            return damageService.Apply(request);
+            CharacterDamageResult result =
+                damageService.Apply(request);
+
+            NotifyDamageApplied(
+                request,
+                result);
+
+            return result;
         }
+
+        private void NotifyDamageApplied(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
+        {
+            if (request == null || result == null)
+            {
+                return;
+            }
+
+            OnAnyDamageApplied?.Invoke(
+                request,
+                result);
+        }
+
 
         public void TakeDamage(
             float damage,
@@ -286,51 +340,69 @@ namespace Character
         {
             shaderController?.PlayHitFlash();
 
-            if (!showDamagePopup)
+            if (presentationService == null)
             {
-                return;
+                presentationService =
+                    new CharacterPresentationService();
             }
 
-            if (DamagePupupManager.Instance == null)
-            {
-                return;
-            }
-
-            Vector3 popupPosition =
-                transform.position
-                + damagePopupOffset
-                + new Vector3(
-                    UnityEngine.Random.Range(-0.15f, 0.15f),
-                    0f,
-                    0f);
-
-            DamagePupupManager.Instance.ShowDamage(
+            presentationService.PlayDamagePresentation(
+                spawnedBattleHud,
                 damage,
-                popupPosition,
-                isCritical);
+                isCritical,
+                (hud, damageValue, critical) =>
+                {
+                    if (!showDamagePopup)
+                    {
+                        return;
+                    }
+
+                    if (DamagePupupManager.Instance == null)
+                    {
+                        return;
+                    }
+
+                    Vector3 popupPosition =
+                        transform.position
+                        + damagePopupOffset
+                        + new Vector3(
+                            UnityEngine.Random.Range(-0.15f, 0.15f),
+                            0f,
+                            0f);
+
+                    DamagePupupManager.Instance.ShowDamage(
+                        damageValue,
+                        popupPosition,
+                        critical);
+                });
         }
 
         public void Heal(float value)
         {
-            if (runtimeData == null)
+            if (runtimeData == null || value <= 0f)
             {
                 return;
             }
 
-            float currentHp =
-                GetStatValue(StatType.Hp);
+            if (damageService == null)
+            {
+                damageService =
+                    new CharacterDamageService();
+            }
 
-            currentHp += value;
+            damageService.Heal(
+                this,
+                value);
+        }
 
-            float maxHp =
-                GetStatValue(StatType.MaxHp);
+        public void RegisterLastHitAttacker(CharacterManager attacker)
+        {
+            if (attacker == null || attacker == this)
+            {
+                return;
+            }
 
-            currentHp =
-                Mathf.Min(currentHp, maxHp);
-
-            SetStat(
-                StatType.Hp,
-                currentHp);
+            lastHitAttacker = attacker;
         }
 
         public void HandleDeath()
@@ -342,7 +414,37 @@ namespace Character
 
             isDying = true;
 
+            if (deathService == null)
+            {
+                deathService =
+                    new CharacterDeathService();
+            }
+
+            deathService.HandleDeath(
+                new CharacterDeathService.Context
+                {
+                    characterManager = this,
+                    runtimeData = runtimeData,
+                    lastHitAttacker = lastHitAttacker,
+                    coroutineOwner = this,
+                    gameObject = gameObject,
+                    rigidbody2D = GetComponent<Rigidbody2D>(),
+                    colliders = GetComponentsInChildren<Collider2D>(true),
+                    destroyDelay = deathDestroyDelay,
+                    onDeath = OnDeathStarted,
+                    onBeforeDestroy = OnBeforeDeathDestroy
+                });
+        }
+
+        private void NotifyCharacterDied()
+        {
+            OnAnyCharacterDied?.Invoke(this);
+        }
+
+        private void OnDeathStarted(CharacterManager attacker)
+        {
             NotifyCharacterDied();
+            ProcessGoldDrop(attacker);
 
             venus.eldawn.party.AnimationMono animationMono =
                 GetComponentInChildren<venus.eldawn.party.AnimationMono>();
@@ -352,51 +454,43 @@ namespace Character
                 animationMono.PlayDeath();
             }
 
-            Collider2D[] colliders =
-                GetComponentsInChildren<Collider2D>(true);
-
-            for (int i = 0;
-                 i < colliders.Length;
-                 i++)
-            {
-                if (colliders[i] != null)
-                {
-                    colliders[i].enabled = false;
-                }
-            }
-
-            Rigidbody2D rigidbody2D =
-                GetComponent<Rigidbody2D>();
-
-            if (rigidbody2D != null)
-            {
-                rigidbody2D.linearVelocity = Vector2.zero;
-                rigidbody2D.angularVelocity = 0f;
-                rigidbody2D.simulated = false;
-            }
-
             if (playDeathDissolveOnDeath
                 && shaderController != null)
             {
                 shaderController.PlayDeathDissolve();
             }
-
-            StartCoroutine(DestroyAfterDeathRoutine());
         }
 
-        private void NotifyCharacterDied()
+        private void ProcessGoldDrop(CharacterManager attacker)
         {
-            OnAnyCharacterDied?.Invoke(this);
-        }
-
-        private System.Collections.IEnumerator DestroyAfterDeathRoutine()
-        {
-            if (deathDestroyDelay > 0f)
+            if (goldDropService == null)
             {
-                yield return new WaitForSeconds(deathDestroyDelay);
+                goldDropService =
+                    new GoldDropService();
+            }
+            GoldDropService.Result result =
+                goldDropService.DropGold(
+                    this,
+                    attacker);
+
+            if (result.totalGold <= 0)
+            {
+                return;
             }
 
-            Destroy(gameObject);
+            OnAnyGoldDropped?.Invoke(
+                this,
+                attacker,
+                result);
+        }
+
+        private void OnBeforeDeathDestroy()
+        {
+            if (presentationService != null)
+            {
+                presentationService.DestroyBattleHud(spawnedBattleHud);
+                spawnedBattleHud = null;
+            }
         }
     }
 }

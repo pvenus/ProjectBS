@@ -1,6 +1,6 @@
 using Character;
+using Npc.Service;
 using Stat;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -52,23 +52,23 @@ public class NpcPathing : MonoBehaviour
 
 
     private Rigidbody2D _rb;
-    private Vector2 _wanderDir = Vector2.right;
-    private float _wanderTimer;
-    private float _pauseTimer;
-    private bool _isPausing;
 
     private Vector2 _spawnPosition;
-    private Vector2 _flyingMoveDirection = Vector2.right;
-    private bool _hasFlyingMoveDirection;
     private bool _isHoldingAtRange;
     private Vector2 _currentDesiredPoint;
     private float _currentDesiredStopDistance;
-    private Transform _lastStopJitterTarget;
     private float _stableAngleBiasDegrees;
     private float _stableDistanceBias01;
     private float _stableLateralBias;
     private float _decisionIntervalBias;
-    private float _nextDecisionTime;
+    private readonly NpcRangePositioningService _rangePositioningService =
+        new NpcRangePositioningService();
+    private readonly NpcFlyingMovementService _flyingMovementService =
+        new NpcFlyingMovementService();
+    private readonly NpcWanderService _wanderService =
+        new NpcWanderService();
+    private readonly NpcMovementAnimationService _movementAnimationService =
+        new NpcMovementAnimationService();
 
     private void Awake()
     {
@@ -108,11 +108,12 @@ public class NpcPathing : MonoBehaviour
         SyncMovementControllerConfig();
 
         InitializeStableSpreadBias();
-        ScheduleNextDecision(true);
+        _rangePositioningService.Reset();
         _spawnPosition = _rb != null ? _rb.position : (Vector2)transform.position;
         _isHoldingAtRange = false;
-        InitializeFlyingDirection();
-        PickNewWanderDirection(true);
+        InitializeFlyingService();
+        _wanderService.Reset();
+        _movementAnimationService.Reset();
     }
 
     private void Update()
@@ -144,8 +145,7 @@ public class NpcPathing : MonoBehaviour
         {
             if (IsFlyingArchetype())
             {
-                MoveFlyingStraight();
-                CheckFlyingAutoDespawn();
+                HandleFlyingMovement(target);
                 UpdateMovementAnimation();
                 return;
             }
@@ -169,14 +169,17 @@ public class NpcPathing : MonoBehaviour
             return;
         }
 
-        if (!enableWanderWhenNoTarget || _isPausing)
+        NpcWanderService.Result wanderResult =
+            _wanderService.Evaluate(CreateWanderContext());
+
+        if (!wanderResult.shouldMove)
         {
             StopMovement();
             UpdateMovementAnimation();
             return;
         }
 
-        MoveInDirection(_wanderDir);
+        MoveInDirection(wanderResult.moveDirection);
         UpdateMovementAnimation();
     }
     private bool UsesDirectRangeChase()
@@ -188,87 +191,65 @@ public class NpcPathing : MonoBehaviour
     }
     private void UpdateWanderState()
     {
-        if (_isPausing)
-        {
-            _pauseTimer -= Time.deltaTime;
-            if (_pauseTimer <= 0f)
-            {
-                _isPausing = false;
-                PickNewWanderDirection(false);
-            }
-            return;
-        }
-
-        _wanderTimer -= Time.deltaTime;
-        if (_wanderTimer <= 0f)
-        {
-            _isPausing = true;
-            _pauseTimer = Mathf.Max(0.01f, pauseBetweenWanders);
-        }
+        _wanderService.Evaluate(CreateWanderContext());
     }
 
-    private void PickNewWanderDirection(bool immediate)
+    private NpcWanderService.Context CreateWanderContext()
     {
-        Vector2 random = Random.insideUnitCircle;
-        if (random.sqrMagnitude <= 0.0001f)
-            random = Vector2.right;
-
-        _wanderDir = random.normalized;
-        _wanderTimer = immediate ? Mathf.Max(0.25f, wanderInterval * 0.5f) : Mathf.Max(0.25f, wanderInterval);
-        _isPausing = false;
-        _pauseTimer = 0f;
+        return new NpcWanderService.Context
+        {
+            deltaTime = Time.deltaTime,
+            wanderDuration = wanderInterval,
+            pauseDuration = pauseBetweenWanders,
+            canWander = enableWanderWhenNoTarget
+        };
     }
 
-    private void InitializeFlyingDirection()
+    private void InitializeFlyingService()
     {
         if (!IsFlyingArchetype())
             return;
 
-        Transform target = targeting != null ? targeting.GetCurrentTarget() : null;
-        if (target == null)
-        {
-            _flyingMoveDirection = Vector2.right;
-            _hasFlyingMoveDirection = true;
-            return;
-        }
-
-        Vector2 from = _rb != null ? _rb.position : (Vector2)transform.position;
-        Vector2 to = (Vector2)target.position - from;
-        if (to.sqrMagnitude <= 0.0001f)
-            to = Vector2.right;
-
-        _flyingMoveDirection = to.normalized;
-        _hasFlyingMoveDirection = true;
+        _flyingMovementService.Reset();
+        _flyingMovementService.Initialize(CreateFlyingContext(targeting != null ? targeting.GetCurrentTarget() : null));
     }
 
-    private void MoveFlyingStraight()
+    private void HandleFlyingMovement(Transform target)
     {
-        if (!_hasFlyingMoveDirection || _flyingMoveDirection.sqrMagnitude <= 0.0001f)
-            InitializeFlyingDirection();
+        NpcFlyingMovementService.Result result =
+            _flyingMovementService.Evaluate(CreateFlyingContext(target));
 
-        Vector2 dir = _flyingMoveDirection.sqrMagnitude <= 0.0001f ? Vector2.right : _flyingMoveDirection.normalized;
-        MoveInDirection(dir);
-    }
-
-    private void CheckFlyingAutoDespawn()
-    {
-        if (!IsFlyingArchetype())
-            return;
-
-        Vector2 currentPos = _rb != null ? _rb.position : (Vector2)transform.position;
-        Vector2 fromSpawn = currentPos - _spawnPosition;
-        float forwardProgress = Vector2.Dot(fromSpawn, _flyingMoveDirection);
-
-        if (forwardProgress <= -Mathf.Max(0.1f, flyingDespawnBacktrackDistance))
+        if (result.shouldDespawn)
         {
             Destroy(gameObject);
             return;
         }
 
-        if (forwardProgress >= Mathf.Max(1f, flyingForwardLifetimeDistance))
+        if (!result.hasMoveDirection)
         {
-            Destroy(gameObject);
+            StopMovement();
+            return;
         }
+
+        MoveInDirection(result.moveDirection);
+    }
+
+    private NpcFlyingMovementService.Context CreateFlyingContext(Transform target)
+    {
+        Vector2 currentPosition = _rb != null
+            ? _rb.position
+            : (Vector2)transform.position;
+
+        return new NpcFlyingMovementService.Context
+        {
+            selfPosition = currentPosition,
+            spawnPosition = _spawnPosition,
+            configuredDirection = Vector2.right,
+            target = target,
+            useTargetDirectionOnInitialize = true,
+            autoDespawnByDistance = true,
+            autoDespawnDistance = Mathf.Max(1f, flyingForwardLifetimeDistance)
+        };
     }
     private float GetStopDistanceForCurrentArchetype()
     {
@@ -350,7 +331,7 @@ public class NpcPathing : MonoBehaviour
             return false;
         }
 
-        float stopDistance = GetDesiredStopDistance(target);
+        float stopDistance = GetStopDistanceForCurrentArchetype();
         if (stopDistance <= 0f)
         {
             if (allowStateWrite)
@@ -415,41 +396,67 @@ public class NpcPathing : MonoBehaviour
         if (_rb == null || target == null)
             return;
 
-        float stopDistance = GetDesiredStopDistance(target);
-        if (stopDistance <= 0.01f)
-            stopDistance = GetStopDistanceForCurrentArchetype();
+        float stopDistance = GetStopDistanceForCurrentArchetype();
         if (stopDistance <= 0.01f)
             return;
 
         Vector2 pos = _rb.position;
         Vector2 targetPos = target.position;
-        Vector2 desiredPoint = GetDesiredPoint(target);
-        Vector2 toDesired = desiredPoint - pos;
-        float distToDesired = toDesired.magnitude;
 
-        Vector2 toTarget = targetPos - pos;
-        float distToTarget = toTarget.magnitude;
-        if (distToTarget <= 0.0001f)
-            return;
-
-        float enterDistance = stopDistance + Mathf.Max(0.05f, rangeControlEnterBuffer);
-        bool nearPreferredBand = distToTarget <= enterDistance;
-
-        // Far away: move toward the current desired point.
-        if (!nearPreferredBand)
-        {
-            if (distToDesired <= 0.0001f)
+        NpcRangePositioningService.Context context =
+            new NpcRangePositioningService.Context
             {
-                StopMovement();
-                return;
-            }
+                selfPosition = pos,
+                targetPosition = targetPos,
+                targetTransform = target,
+                preferredRange = stopDistance,
+                stopDistance = stopDistance,
+                minDistance = Mathf.Max(0.1f, stopDistance * Mathf.Clamp01(1f - stopDistanceInwardJitterRatio)),
+                maxDistance = stopDistance,
+                decisionInterval = stopJitterRefreshInterval + _decisionIntervalBias,
+                repathDistance = Mathf.Max(0.5f, stopDistance * 0.5f),
+                ringMoveAngle = _stableAngleBiasDegrees,
+                spacingRadius = Mathf.Max(0.8f, stopDistance * (0.45f + stopDistanceInwardJitterRatio * 0.6f)),
+                spacingWeight = 1.15f,
+                stopJitterRadius = Mathf.Max(0.35f, stopDistance * 0.55f) * Mathf.Abs(_stableLateralBias),
+                useRingMovement = true,
+                useLocalSpacing = true,
+                useStopJitter = useDynamicStopJitter,
+                time = Time.time
+            };
 
-            MoveTowardPoint(desiredPoint);
+        NpcRangePositioningService.Result result =
+            _rangePositioningService.Evaluate(context);
+
+        _currentDesiredStopDistance = result.desiredStopDistance;
+        _currentDesiredPoint = result.desiredPoint;
+
+        if (result.shouldStop)
+        {
+            _isHoldingAtRange = true;
+            StopMovement();
             return;
         }
 
-        // Near the preferred ring: keep sliding around the target instead of freezing into one point.
-        MoveAlongTargetRing(target, stopDistance, desiredPoint);
+        _isHoldingAtRange = false;
+
+        if (!result.hasDesiredPoint)
+        {
+            StopMovement();
+            return;
+        }
+
+        Vector2 toTarget = targetPos - pos;
+        float distToTarget = toTarget.magnitude;
+        float enterDistance = stopDistance + Mathf.Max(0.05f, rangeControlEnterBuffer);
+
+        if (distToTarget > enterDistance)
+        {
+            MoveTowardPoint(result.desiredPoint);
+            return;
+        }
+
+        MoveAlongTargetRing(target, stopDistance, result.desiredPoint);
     }
     private void MoveAlongTargetRing(Transform target, float stopDistance, Vector2 desiredPoint)
     {
@@ -520,7 +527,15 @@ public class NpcPathing : MonoBehaviour
 
     private bool IsMovementLocked()
     {
-        if (characterManager != null && characterManager.IsStunned)
+        if (characterManager == null)
+        {
+            characterManager = GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+                characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        if (characterManager != null && !characterManager.CanMove)
         {
             return true;
         }
@@ -541,81 +556,8 @@ public class NpcPathing : MonoBehaviour
             animationMono.PlayIdle();
     }
 
-    private float GetDesiredStopDistance(Transform target)
-    {
-        RefreshDynamicStopJitter(target);
-        return _currentDesiredStopDistance > 0f ? _currentDesiredStopDistance : GetStopDistanceForCurrentArchetype();
-    }
 
-    private Vector2 GetDesiredPoint(Transform target)
-    {
-        RefreshDynamicStopJitter(target);
-        return _currentDesiredPoint;
-    }
 
-    private void RefreshDynamicStopJitter(Transform target)
-    {
-        if (target == null)
-        {
-            ResetDynamicStopJitter();
-            return;
-        }
-
-        float baseStopDistance = GetStopDistanceForCurrentArchetype();
-        if (baseStopDistance <= 0.01f)
-        {
-            _currentDesiredStopDistance = 0f;
-            _currentDesiredPoint = target.position;
-            return;
-        }
-
-        bool isDynamicArchetype = UsesDirectRangeChase();
-        bool targetChanged = _lastStopJitterTarget != target;
-        bool decisionTimeReached = Time.time >= _nextDecisionTime;
-        bool desiredPointInvalid = _currentDesiredStopDistance <= 0.01f;
-        bool reachedDesiredPoint = _rb != null && Vector2.Distance(_rb.position, _currentDesiredPoint) <= 0.35f;
-
-        bool needsRefresh = targetChanged
-            || decisionTimeReached
-            || desiredPointInvalid
-            || reachedDesiredPoint;
-
-        if (!isDynamicArchetype || !useDynamicStopJitter)
-        {
-            _currentDesiredStopDistance = baseStopDistance;
-            Vector2 baseDirSimple = GetSpreadBaseDirection(target);
-            _currentDesiredPoint = BuildDesiredPoint(target, baseDirSimple, _currentDesiredStopDistance);
-            _lastStopJitterTarget = target;
-            ScheduleNextDecision(false);
-            return;
-        }
-
-        if (!needsRefresh)
-            return;
-
-        float inwardMin = Mathf.Max(0.1f, baseStopDistance * Mathf.Clamp01(1f - stopDistanceInwardJitterRatio));
-        float inwardMax = Mathf.Max(inwardMin, baseStopDistance);
-
-        float stableDesiredDistance = Mathf.Lerp(inwardMin, inwardMax, _stableDistanceBias01);
-        float dynamicDesiredDistance = Random.Range(inwardMin, inwardMax);
-        float desiredStopDistance = Mathf.Lerp(stableDesiredDistance, dynamicDesiredDistance, 0.35f);
-
-        Vector2 baseDirDynamic = GetSpreadBaseDirection(target);
-        float dynamicAngle = Random.Range(-stopAngleJitterDegrees, stopAngleJitterDegrees);
-        float angle = _stableAngleBiasDegrees + dynamicAngle;
-        Vector2 jitteredDir = RotateVector(baseDirDynamic, angle).normalized;
-        if (jitteredDir.sqrMagnitude <= 0.0001f)
-            jitteredDir = baseDirDynamic;
-
-        jitteredDir = ApplyLocalSpacingBias(target, jitteredDir, stopDistanceInwardJitterRatio, desiredStopDistance);
-        if (jitteredDir.sqrMagnitude <= 0.0001f)
-            jitteredDir = baseDirDynamic;
-
-        _currentDesiredStopDistance = Mathf.Min(baseStopDistance, desiredStopDistance);
-        _currentDesiredPoint = BuildDesiredPoint(target, jitteredDir, _currentDesiredStopDistance);
-        _lastStopJitterTarget = target;
-        ScheduleNextDecision(false);
-    }
 
     private void InitializeStableSpreadBias()
     {
@@ -631,137 +573,37 @@ public class NpcPathing : MonoBehaviour
         _stableLateralBias = Mathf.Lerp(-0.95f, 0.95f, ((hashA >> 8) & 0xFFFF) / 65535f);
         _decisionIntervalBias = Mathf.Lerp(-0.06f, 0.08f, ((hashB >> 8) & 0xFFFF) / 65535f);
     }
-    private void ScheduleNextDecision(bool immediate)
-    {
-        float baseInterval = Mathf.Max(0.01f, stopJitterRefreshInterval);
-        float resolvedInterval = Mathf.Max(0.05f, baseInterval + _decisionIntervalBias + Random.Range(-0.02f, 0.04f));
-        _nextDecisionTime = immediate ? Time.time : Time.time + resolvedInterval;
-    }
 
-    private Vector2 ApplyLocalSpacingBias(Transform target, Vector2 currentDir, float inwardRatio, float desiredStopDistance)
-    {
-        if (_rb == null || target == null)
-            return currentDir;
 
-        float baseStopDistance = GetStopDistanceForCurrentArchetype();
-        if (baseStopDistance <= 0.01f)
-            return currentDir;
 
-        float spacingRadius = Mathf.Max(0.8f, baseStopDistance * (0.45f + inwardRatio * 0.6f));
-        Collider2D[] nearby = Physics2D.OverlapCircleAll(_rb.position, spacingRadius);
-        if (nearby == null || nearby.Length == 0)
-            return currentDir;
 
-        Vector2 targetPos = target.position;
-        Vector2 myDesiredPoint = targetPos + currentDir * Mathf.Min(baseStopDistance, desiredStopDistance);
-        Vector2 separation = Vector2.zero;
-        int count = 0;
-
-        for (int i = 0; i < nearby.Length; i++)
-        {
-            Collider2D col = nearby[i];
-            if (col == null)
-                continue;
-
-            NpcPathing other = col.GetComponentInParent<NpcPathing>();
-            if (other == null || other == this)
-                continue;
-
-            if (other.archetype != archetype)
-                continue;
-
-            Vector2 delta = _rb.position - (Vector2)other.transform.position;
-            float dist = delta.magnitude;
-            if (dist > spacingRadius)
-                continue;
-
-            if (dist > 0.0001f)
-            {
-                float bodyWeight = 1f - Mathf.Clamp01(dist / spacingRadius);
-                separation += delta.normalized * bodyWeight;
-                count++;
-            }
-
-            if (other._currentDesiredStopDistance > 0.01f)
-            {
-                Vector2 desiredDelta = myDesiredPoint - other._currentDesiredPoint;
-                float desiredDist = desiredDelta.magnitude;
-                float desiredSpacing = Mathf.Max(0.75f, baseStopDistance * 0.22f);
-                if (desiredDist <= desiredSpacing)
-                {
-                    Vector2 pushDir = desiredDist > 0.0001f ? desiredDelta / desiredDist : new Vector2(-currentDir.y, currentDir.x);
-                    float desiredWeight = 1f - Mathf.Clamp01(desiredDist / desiredSpacing);
-                    separation += pushDir * (desiredWeight * 1.6f);
-                    count++;
-                }
-            }
-        }
-
-        if (count == 0 || separation.sqrMagnitude <= 0.0001f)
-            return currentDir;
-
-        Vector2 tangent = new Vector2(-currentDir.y, currentDir.x) * Mathf.Sign(_stableLateralBias == 0f ? 1f : _stableLateralBias);
-        Vector2 blended = (currentDir + separation.normalized * 1.15f + tangent * 0.35f).normalized;
-        return blended.sqrMagnitude > 0.0001f ? blended : currentDir;
-    }
-    
-
-    private Vector2 BuildDesiredPoint(Transform target, Vector2 radialDir, float stopDistance)
-    {
-        Vector2 targetPos = target != null ? (Vector2)target.position : Vector2.zero;
-        Vector2 radial = radialDir.sqrMagnitude <= 0.0001f ? Vector2.right : radialDir.normalized;
-        Vector2 tangent = new Vector2(-radial.y, radial.x);
-
-        float lateralDistance = Mathf.Max(0.35f, stopDistance * 0.55f) * _stableLateralBias;
-        return targetPos + radial * stopDistance + tangent * lateralDistance;
-    }
-
-    private Vector2 GetPreferredTargetDirection(Transform target)
-    {
-        Vector2 targetPos = target != null ? (Vector2)target.position : Vector2.zero;
-        Vector2 fromTargetToSelf = (_rb != null ? _rb.position : (Vector2)transform.position) - targetPos;
-        if (fromTargetToSelf.sqrMagnitude <= 0.0001f)
-            return Vector2.right;
-
-        return fromTargetToSelf.normalized;
-    }
-
-    private void ResetDynamicStopJitter()
+    private void ResetRangePositioning()
     {
         _currentDesiredPoint = Vector2.zero;
         _currentDesiredStopDistance = 0f;
-        _lastStopJitterTarget = null;
-        ScheduleNextDecision(true);
+        _rangePositioningService.ForceRepath();
     }
 
-    private static Vector2 RotateVector(Vector2 v, float angleDeg)
-    {
-        float rad = angleDeg * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(rad);
-        float sin = Mathf.Sin(rad);
-        return new Vector2(
-            v.x * cos - v.y * sin,
-            v.x * sin + v.y * cos);
-    }
 
     public void ForceRepath()
     {
         _isHoldingAtRange = false;
         StopMovement();
-        ResetDynamicStopJitter();
+        ResetRangePositioning();
+        _rangePositioningService.ForceRepath();
     }
 
     public void SetArchetype(PathingArchetype newArchetype)
     {
         archetype = newArchetype;
         InitializeStableSpreadBias();
-        ScheduleNextDecision(true);
         _isHoldingAtRange = false;
         _spawnPosition = _rb != null ? _rb.position : (Vector2)transform.position;
-        _hasFlyingMoveDirection = false;
-        InitializeFlyingDirection();
+        _flyingMovementService.Reset();
+        InitializeFlyingService();
         SyncMovementControllerConfig();
-        ResetDynamicStopJitter();
+        ResetRangePositioning();
+        _rangePositioningService.Reset();
         ForceRepath();
     }
 
@@ -787,19 +629,11 @@ public class NpcPathing : MonoBehaviour
         {
             Gizmos.color = new Color(0.4f, 0.8f, 1f, 0.9f);
             Vector3 start = _spawnPosition;
-            Vector3 dir = _flyingMoveDirection.sqrMagnitude <= 0.0001f ? Vector2.right : _flyingMoveDirection.normalized;
+            Vector3 dir = _flyingMovementService.HasMoveDirection
+                ? _flyingMovementService.MoveDirection
+                : Vector2.right;
             Gizmos.DrawLine(start, start + dir * flyingForwardLifetimeDistance);
         }
     }
 #endif
-    private Vector2 GetSpreadBaseDirection(Transform target)
-    {
-        Vector2 radial = GetPreferredTargetDirection(target);
-        if (radial.sqrMagnitude <= 0.0001f)
-            radial = Vector2.right;
-
-        Vector2 tangent = new Vector2(-radial.y, radial.x);
-        Vector2 blended = (radial + tangent * _stableLateralBias).normalized;
-        return blended.sqrMagnitude > 0.0001f ? blended : radial;
-    }
 }

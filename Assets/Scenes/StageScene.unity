@@ -2327,6 +2327,11 @@ MonoBehaviour:
       strategicSkillItems:
       - strategicSkillItem: {fileID: 11400000, guid: 158798a605a9b438ca9fd612761ae4ae, type: 2}
         owned: 1
+    RelicRuntimeData:
+      relics: []
+      maxRelicCount: 3
+    CurrencyRuntimeData:
+      gold: 0
   BattleSession:
     IsBattleActive: 0
     BattleId: 
@@ -2342,6 +2347,8 @@ MonoBehaviour:
         isDead: 0
         stats: []
         finalStats: []
+  startProfile: {fileID: 11400000, guid: ecd4fe117d5904fbc8a686d440d82a83, type: 2}
+  startProfileApplyDelayFrame: 1
   enableBattleSceneTest: 1
   battleTestKey: 282
   returnStageTestKey: 283

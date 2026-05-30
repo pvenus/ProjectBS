@@ -218,7 +218,7 @@ public class PartyMovementMono : MonoBehaviour
             return;
         }
 
-        if (_characterManager != null && _characterManager.IsStunned)
+        if (IsMovementBlocked())
         {
             StopMovement();
             UpdateMovementAnimation(Vector2.zero);
@@ -238,6 +238,19 @@ public class PartyMovementMono : MonoBehaviour
             StopMovement();
             UpdateMovementAnimation(Vector2.zero);
         }
+    }
+
+    private bool IsMovementBlocked()
+    {
+        if (_characterManager == null)
+        {
+            _characterManager = GetComponent<CharacterManager>();
+
+            if (_characterManager == null)
+                _characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        return _characterManager != null && !_characterManager.CanMove;
     }
 
     private void AutoSelectMode()
@@ -484,6 +497,13 @@ public class PartyMovementMono : MonoBehaviour
 
     private void HandleManualMovement()
     {
+        if (IsMovementBlocked())
+        {
+            StopMovement();
+            UpdateMovementAnimation(Vector2.zero);
+            return;
+        }
+
         if (_manualMoveInput.sqrMagnitude <= 0.0001f)
         {
             StopMovement();

@@ -55,7 +55,7 @@ public class MovementMono : MonoBehaviour
 
     public bool IsMoving()
     {
-        if (IsStunned())
+        if (!CanMove())
             return false;
 
         return movementController != null && movementController.IsMoving;
@@ -79,13 +79,12 @@ public class MovementMono : MonoBehaviour
 
     public bool CanMove()
     {
-        return !IsStunned();
+        return characterManager == null || characterManager.CanMove;
     }
 
-    private bool IsStunned()
+    public bool IsMovementBlocked()
     {
-        return characterManager != null
-            && characterManager.IsStunned;
+        return characterManager != null && !characterManager.CanMove;
     }
 
     private void CacheOrCreateControllers()
@@ -95,6 +94,9 @@ public class MovementMono : MonoBehaviour
 
         if (characterManager == null)
             characterManager = GetComponent<CharacterManager>();
+
+        if (characterManager == null)
+            characterManager = GetComponentInParent<CharacterManager>();
 
         if (ensureMovementController)
         {

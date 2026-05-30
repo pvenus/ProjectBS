@@ -1,12 +1,16 @@
 using UnityEngine;
+using Currency;
+using Character;
 
 /// <summary>
 /// Prototype coin drop.
 /// - Visible via runtime-generated sprite
 /// - Small bob/rotate animation
-/// - Distance-based pickup (no collision/trigger)
+/// - Collected only by CharacterManager whose CharacterSO type is Player
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class ProbCoin : MonoBehaviour
 {
     [Header("Visual")]
@@ -19,29 +23,26 @@ public class ProbCoin : MonoBehaviour
     [SerializeField] private float spinSpeed = 180f;
 
     [Header("Pickup")]
-    [Tooltip("If player comes within this distance, coin is collected (no collision/trigger).")]
-    [SerializeField] private float pickupRadius = 3.0f;
-    [Tooltip("Optional. If null, auto-find tag 'Player'.")]
-    [SerializeField] private Transform player;
+    [SerializeField] private int goldAmount = 1;
 
     [Header("Lifetime")]
     [Tooltip("0 = infinite")]
     [SerializeField] private float lifetime = 0f;
 
     private SpriteRenderer _sr;
+    private CircleCollider2D _collider;
+    private Rigidbody2D _rb;
     private Vector3 _basePos;
     private float _t;
 
     private void Reset()
     {
-        _sr = GetComponent<SpriteRenderer>();
-        if (_sr == null) _sr = gameObject.AddComponent<SpriteRenderer>();
+        ResolveComponents();
     }
 
     private void Awake()
     {
-        _sr = GetComponent<SpriteRenderer>();
-        if (_sr == null) _sr = gameObject.AddComponent<SpriteRenderer>();
+        ResolveComponents();
 
         if (_sr.sprite == null)
         {
@@ -50,12 +51,39 @@ public class ProbCoin : MonoBehaviour
         }
 
         _basePos = transform.position;
+    }
 
-        if (player == null)
+    private void ResolveComponents()
+    {
+        _sr = GetComponent<SpriteRenderer>();
+        if (_sr == null)
         {
-            var p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null) player = p.transform;
+            _sr = gameObject.AddComponent<SpriteRenderer>();
         }
+
+        _collider = GetComponent<CircleCollider2D>();
+        if (_collider == null)
+        {
+            _collider = gameObject.AddComponent<CircleCollider2D>();
+        }
+
+        _collider.isTrigger = true;
+        _collider.radius = 0.45f;
+
+        _rb = GetComponent<Rigidbody2D>();
+        if (_rb == null)
+        {
+            _rb = gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        _rb.bodyType = RigidbodyType2D.Kinematic;
+        _rb.simulated = true;
+        _rb.gravityScale = 0f;
+    }
+
+    public void SetGoldAmount(int amount)
+    {
+        goldAmount = Mathf.Max(0, amount);
     }
 
     private void Update()
@@ -69,29 +97,53 @@ public class ProbCoin : MonoBehaviour
         // Spin (visual only)
         transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
 
-        // Distance-based pickup (no collision)
-        if (player != null && pickupRadius > 0f)
-        {
-            float d = Vector2.Distance(transform.position, player.position);
-            if (d <= pickupRadius)
-            {
-                var pm = player.GetComponent<PlayerMono>();
-                if (pm != null)
-                {
-                    int expValue = 1;
-                    pm.AddExp(expValue);
-                }
-                // TODO: later add currency/inventory increment here.
-                Destroy(gameObject);
-                return;
-            }
-        }
-
         // Optional lifetime cleanup
         if (lifetime > 0f && _t >= lifetime)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TryCollect(other);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision == null)
+        {
+            return;
+        }
+
+        TryCollect(collision.collider);
+    }
+
+    private void TryCollect(Collider2D collider)
+    {
+        if (collider == null)
+        {
+            return;
+        }
+
+        CharacterManager characterManager =
+            collider.GetComponentInParent<CharacterManager>();
+
+        if (characterManager == null
+            || characterManager.RuntimeData == null
+            || characterManager.RuntimeData.characterSO == null)
+        {
+            return;
+        }
+
+        if (characterManager.RuntimeData.characterSO.characterType
+            != CharacterType.Player)
+        {
+            return;
+        }
+
+        CurrencyManager.Instance.AddGold(goldAmount);
+        Destroy(gameObject);
     }
 
     private static Sprite CreateCoinSprite(int w, int h, float ppu)

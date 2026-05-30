@@ -25,7 +25,7 @@ namespace Item
         [Header("Gameplay")]
         public RelicRarity rarity = RelicRarity.Common;
 
-        public List<EffectSO> effects = new();
+        public List<RelicEffectEntry> effects = new();
 
         [Header("Tags")]
         public string category;
@@ -36,6 +36,30 @@ namespace Item
         public bool hidden;
 
         public bool developerOnly;
+    }
+
+    [System.Serializable]
+    public class RelicEffectEntry
+    {
+        public EffectSO effect;
+
+        public RelicEffectApplyType applyType =
+            RelicEffectApplyType.OnEquip;
+
+        public EffectLifetimeType lifetimeType =
+            EffectLifetimeType.Instant;
+
+        [Min(0f)]
+        public float duration;
+
+        public EffectCategoryType categoryType =
+            EffectCategoryType.Neutral;
+    }
+
+    public enum RelicEffectApplyType
+    {
+        OnEquip = 0,
+        OnAttack = 100,
     }
 
     public enum RelicRarity

@@ -23,13 +23,8 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  damageSo: {fileID: 0}
-  buffEffects:
-  - effectSo: {fileID: 11400000, guid: f98c49cf5539459ca9c549629abc41ef, type: 2}
-    lifetimeType: 3
-    categoryType: 1
-    duration: 8
-    maxApplyCount: 1
+  damageSo: {fileID: 11400000, guid: 40c74391d62cb426ea0304014c4f095b, type: 2}
+  buffEffects: []
   debuffEffects: []
   useSplitMultiHitDamage: 0
   splitHitCount: 4

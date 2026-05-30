@@ -22,6 +22,10 @@ public class EquipmentBaseProfileSO : ScriptableObject
     [SerializeField] private float projectileScale = 1f;
     [SerializeField] private float projectileLifetime = 3f;
 
+    [Header("Projectile Spawn Sequence")]
+    [SerializeField, Min(0f)] private float projectileSpawnInterval = 0f;
+    [SerializeField, Min(0f)] private float projectileSpawnRadius = 0f;
+
     [Header("Brain Meta")]
     [SerializeField] private BattleSkillCategory category = BattleSkillCategory.None;
     [SerializeField] private BattleSkillTargetType targetType = BattleSkillTargetType.None;
@@ -42,4 +46,6 @@ public class EquipmentBaseProfileSO : ScriptableObject
     public int ProjectileCount => Mathf.Max(1, projectileCount);
     public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
     public float ProjectileLifetime => Mathf.Max(0.01f, projectileLifetime);
+    public float ProjectileSpawnInterval => Mathf.Max(0f, projectileSpawnInterval);
+    public float ProjectileSpawnRadius => Mathf.Max(0f, projectileSpawnRadius);
 }

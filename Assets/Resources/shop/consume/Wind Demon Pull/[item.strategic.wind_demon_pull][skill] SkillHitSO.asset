@@ -27,8 +27,13 @@ MonoBehaviour:
   buffEffects:
   - effectSo: {fileID: 11400000, guid: 62285681f64c4600b3aa897221ded780, type: 2}
     lifetimeType: 3
-    categoryType: 1
+    categoryType: 2
     duration: 8
+    maxApplyCount: 1
+  - effectSo: {fileID: 11400000, guid: f1544ff8bb97547d5b2c578623459ea6, type: 2}
+    lifetimeType: 0
+    categoryType: 0
+    duration: -1
     maxApplyCount: 1
   debuffEffects: []
   useSplitMultiHitDamage: 0

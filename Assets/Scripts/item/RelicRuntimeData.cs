@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Effect;
 using System;
 using UnityEngine;
 
@@ -93,7 +92,5 @@ namespace Item
         public long acquiredAt;
 
         public bool isEquipped = true;
-
-        public List<Effect.EffectRuntimeData> runtimeEffects = new();
     }
 }

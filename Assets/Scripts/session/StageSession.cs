@@ -1,5 +1,6 @@
 using System;
 using Item;
+using Currency;
 using Stage;
 
 namespace Session
@@ -11,12 +12,18 @@ namespace Session
 
         public StrategicSkillItemRuntimeData StrategicSkillItemRuntimeData;
 
+        public RelicRuntimeData RelicRuntimeData;
+
+        public CurrencyRutimeData CurrencyRuntimeData;
+
         public void Initialize(
             StageRuntimeData runtimeData)
         {
             RuntimeData = runtimeData;
             
             StrategicSkillItemRuntimeData ??= new StrategicSkillItemRuntimeData();
+            RelicRuntimeData ??= new RelicRuntimeData();
+            CurrencyRuntimeData ??= new CurrencyRutimeData();
         }
 
         public void ResetRuntime()
@@ -24,6 +31,8 @@ namespace Session
             RuntimeData = new StageRuntimeData();
 
             StrategicSkillItemRuntimeData = new StrategicSkillItemRuntimeData();
+            RelicRuntimeData = new RelicRuntimeData();
+            CurrencyRuntimeData = new CurrencyRutimeData();
         }
 
         public void Clear()
@@ -31,6 +40,8 @@ namespace Session
             RuntimeData = null;
 
             StrategicSkillItemRuntimeData = null;
+            RelicRuntimeData = null;
+            CurrencyRuntimeData = null;
         }
     }
 }

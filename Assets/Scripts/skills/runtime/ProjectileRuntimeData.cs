@@ -32,6 +32,8 @@ public class ProjectileRuntimeData
     public int projectileCount = 1;
     public int spawnOrder = 0;
     public float projectileScale = 1f;
+    public float projectileSpawnInterval = 0f;
+    public float projectileSpawnRadius = 0f;
 
     [Header("Visual")]
     public ResolvedVisualContextDto visualContext;

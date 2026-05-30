@@ -17,9 +17,11 @@ MonoBehaviour:
   attackArchetype: 1
   projectilePrefab: {fileID: 4118216556720441464, guid: c495a7f3c75447e1b9430c2e3ae7681b, type: 3}
   projectileSpawnOffset: 0.5
-  projectileCount: 1
+  projectileCount: 20
   projectileScale: 1
   projectileLifetime: 3
+  projectileSpawnInterval: 0.5
+  projectileSpawnRadius: 7
   category: 1
   targetType: 3
   tacticalNeed: 0

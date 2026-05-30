@@ -1,4 +1,5 @@
 using UnityEngine;
+using Npc.Service;
 
 /// <summary>
 /// Handles NPC target selection.
@@ -28,6 +29,8 @@ public class NpcTargeting : MonoBehaviour
     private float _forcedUntil;
     private Transform _currentTarget;
     private float _targetRefreshTimer;
+    private readonly NpcTargetSearchService _targetSearchService =
+        new NpcTargetSearchService();
 
     private void Awake()
     {
@@ -59,6 +62,7 @@ public class NpcTargeting : MonoBehaviour
         _forcedTarget = target;
         _forcedUntil = Mathf.Max(_forcedUntil, Time.time + Mathf.Max(0.05f, duration));
         _currentTarget = _forcedTarget;
+        ForcePathingRepath();
     }
 
     public void ClearForcedTarget(Transform target)
@@ -67,11 +71,23 @@ public class NpcTargeting : MonoBehaviour
             return;
 
         _forcedTarget = null;
+        ForcePathingRepath();
         RefreshCurrentTargetIfNeeded(true);
     }
 
     public void RefreshCurrentTargetIfNeeded(bool force = false)
     {
+        if (_forcedTarget != null && Time.time < _forcedUntil)
+        {
+            _currentTarget = _forcedTarget;
+            return;
+        }
+
+        if (_forcedTarget != null && Time.time >= _forcedUntil)
+        {
+            _forcedTarget = null;
+            ForcePathingRepath();
+        }
         if (!force)
         {
             _targetRefreshTimer -= Time.deltaTime;
@@ -85,115 +101,15 @@ public class NpcTargeting : MonoBehaviour
 
     public Transform FindNearestAvailableTarget()
     {
-        bool siegeTowerOnly = archetype == TargetingArchetype.Siege;
-        bool flyingRandomTarget = archetype == TargetingArchetype.Flying;
-
-        if (flyingRandomTarget)
-            return FindRandomAvailableTarget();
-
-        Vector3 selfPos = transform.position;
-        Transform best = null;
-        float bestScore = float.MaxValue;
-
-        if (!siegeTowerOnly && includePartyMembersAsTargets)
-        {
-            PartyMovementMono[] members = FindObjectsByType<PartyMovementMono>(FindObjectsSortMode.None);
-            for (int i = 0; i < members.Length; i++)
+        return _targetSearchService.FindTarget(
+            new NpcTargetSearchService.Context
             {
-                PartyMovementMono member = members[i];
-                if (member == null || !member.gameObject.activeInHierarchy)
-                    continue;
-
-                ConsiderCandidate(member.transform, selfPos, ref best, ref bestScore, false);
-            }
-        }
-
-        if (includeTowersAsTargets)
-        {
-            TowerPropMono[] towers = FindObjectsByType<TowerPropMono>(FindObjectsSortMode.None);
-            for (int i = 0; i < towers.Length; i++)
-            {
-                TowerPropMono tower = towers[i];
-                if (tower == null || !tower.gameObject.activeInHierarchy)
-                    continue;
-
-                if (tower.IsDead())
-                    continue;
-
-                ConsiderCandidate(tower.transform, selfPos, ref best, ref bestScore, true);
-            }
-        }
-
-        return best;
-    }
-
-    private Transform FindRandomAvailableTarget()
-    {
-        System.Collections.Generic.List<Transform> candidates = new System.Collections.Generic.List<Transform>();
-
-        if (includePartyMembersAsTargets)
-        {
-            PartyMovementMono[] members = FindObjectsByType<PartyMovementMono>(FindObjectsSortMode.None);
-            for (int i = 0; i < members.Length; i++)
-            {
-                PartyMovementMono member = members[i];
-                if (member == null || !member.gameObject.activeInHierarchy)
-                    continue;
-
-                if (member.transform == transform)
-                    continue;
-
-                candidates.Add(member.transform);
-            }
-        }
-
-        if (includeTowersAsTargets)
-        {
-            TowerPropMono[] towers = FindObjectsByType<TowerPropMono>(FindObjectsSortMode.None);
-            for (int i = 0; i < towers.Length; i++)
-            {
-                TowerPropMono tower = towers[i];
-                if (tower == null || !tower.gameObject.activeInHierarchy)
-                    continue;
-
-                if (tower.IsDead())
-                    continue;
-
-                candidates.Add(tower.transform);
-            }
-        }
-
-        if (candidates.Count == 0)
-            return null;
-
-        int index = Random.Range(0, candidates.Count);
-        return candidates[index];
-    }
-
-    private void ConsiderCandidate(Transform candidate, Vector3 selfPos, ref Transform best, ref float bestScore, bool isTower)
-    {
-        if (candidate == null)
-            return;
-
-        if (candidate == transform)
-            return;
-
-        float distSqr = (candidate.position - selfPos).sqrMagnitude;
-        float score = distSqr;
-
-        if (archetype == TargetingArchetype.Siege && siegePrioritizeTowers)
-        {
-            if (isTower)
-                score *= 0.35f;
-            else
-                score *= 1.65f;
-        }
-
-        if (score < bestScore)
-        {
-            best = candidate;
-            bestScore = score;
-        }
+                self = transform,
+                archetype = archetype,
+                includePartyMembersAsTargets = includePartyMembersAsTargets,
+                includeTowersAsTargets = includeTowersAsTargets,
+                siegePrioritizeTowers = siegePrioritizeTowers
+            });
     }
 
     public bool HasForcedTarget()
@@ -215,6 +131,16 @@ public class NpcTargeting : MonoBehaviour
     {
         archetype = newArchetype;
         RefreshCurrentTargetIfNeeded(true);
+    }
+
+    private void ForcePathingRepath()
+    {
+        NpcPathing pathing = GetComponent<NpcPathing>();
+
+        if (pathing != null)
+        {
+            pathing.ForceRepath();
+        }
     }
 
     private void OnDrawGizmosSelected()

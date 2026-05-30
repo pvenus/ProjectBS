@@ -1,8 +1,10 @@
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
 using Effect;
+using Effect.Helper;
 
 /// <summary>
 /// ProjectileEntity의 충돌/히트 처리를 담당하는 컴포넌트.
@@ -19,12 +21,15 @@ public class ProjectileHitHandler : MonoBehaviour
     [SerializeField] private bool consumeOnHit = true;
     [SerializeField] private bool ignoreOwner = true;
 
+
     private ProjectileEntity ownerEntity;
     private ProjectileRuntimeData runtimeData;
     private CharacterManager ownerCharacter;
     private readonly HashSet<Collider2D> hitTargets = new();
     private readonly List<Collider2D> pendingHitTargets = new();
+    private readonly HashSet<Collider2D> overlapTargets = new();
     private Coroutine collectCoroutine;
+    private Coroutine repeatHitCoroutine;
     private bool isCollectingInitialHits;
     private bool initialHitCollectionCompleted;
 
@@ -56,6 +61,7 @@ public class ProjectileHitHandler : MonoBehaviour
         initialized = true;
         hitTargets.Clear();
         pendingHitTargets.Clear();
+        overlapTargets.Clear();
         initialHitCollectionCompleted = false;
         isCollectingInitialHits = false;
 
@@ -63,6 +69,12 @@ public class ProjectileHitHandler : MonoBehaviour
         {
             StopCoroutine(collectCoroutine);
             collectCoroutine = null;
+        }
+
+        if (repeatHitCoroutine != null)
+        {
+            StopCoroutine(repeatHitCoroutine);
+            repeatHitCoroutine = null;
         }
 
         if (data.hit != null)
@@ -83,12 +95,19 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         StartInitialHitCollectionIfNeeded();
+        StartRepeatHitIfNeeded();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!CanProcessCollider(other))
         {
+            return;
+        }
+
+        if (runtimeData.hit.useRepeatInterval)
+        {
+            RegisterOverlapTarget(other);
             return;
         }
 
@@ -99,6 +118,81 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         ProcessHit(other);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other == null)
+        {
+            return;
+        }
+
+        overlapTargets.Remove(other);
+    }
+
+    private void StartRepeatHitIfNeeded()
+    {
+        if (runtimeData == null
+            || runtimeData.hit == null
+            || !runtimeData.hit.useRepeatInterval)
+        {
+            return;
+        }
+
+        float interval = Mathf.Max(
+            0.05f,
+            runtimeData.hit.repeatInterval);
+
+        repeatHitCoroutine = StartCoroutine(
+            RepeatHitRoutine(interval));
+    }
+
+    private IEnumerator RepeatHitRoutine(float interval)
+    {
+        WaitForSeconds wait = new WaitForSeconds(interval);
+
+        while (initialized && ownerEntity != null && runtimeData != null)
+        {
+            yield return wait;
+            ProcessOverlapHits();
+        }
+    }
+
+    private void RegisterOverlapTarget(Collider2D other)
+    {
+        if (other == null)
+        {
+            return;
+        }
+
+        overlapTargets.Add(other);
+    }
+
+    private void ProcessOverlapHits()
+    {
+        if (overlapTargets.Count == 0)
+        {
+            return;
+        }
+
+        List<Collider2D> targets = new List<Collider2D>(overlapTargets);
+        targets.RemoveAll(x => x == null);
+        targets.Sort(CompareColliderDistanceToProjectile);
+
+        overlapTargets.Clear();
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+            Collider2D target = targets[i];
+
+            if (!CanProcessCollider(target, true))
+            {
+                continue;
+            }
+
+            overlapTargets.Add(target);
+            ProcessHit(target, true, false);
+        }
     }
 
     private void StartInitialHitCollectionIfNeeded()
@@ -186,6 +280,11 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private bool CanProcessCollider(Collider2D other)
     {
+        return CanProcessCollider(other, false);
+    }
+
+    private bool CanProcessCollider(Collider2D other, bool ignoreHitHistory)
+    {
         if (!initialized || ownerEntity == null || runtimeData == null)
         {
             return false;
@@ -206,7 +305,7 @@ public class ProjectileHitHandler : MonoBehaviour
             return false;
         }
 
-        if (hitTargets.Contains(other))
+        if (!ignoreHitHistory && hitTargets.Contains(other))
         {
             return false;
         }
@@ -216,7 +315,15 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private void ProcessHit(Collider2D other)
     {
-        if (!CanProcessCollider(other))
+        ProcessHit(other, false, consumeOnHit);
+    }
+
+    private void ProcessHit(
+        Collider2D other,
+        bool ignoreHitHistory,
+        bool consumeAfterHit)
+    {
+        if (!CanProcessCollider(other, ignoreHitHistory))
         {
             return;
         }
@@ -252,7 +359,10 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
-        hitTargets.Add(other);
+        if (!ignoreHitHistory)
+        {
+            hitTargets.Add(other);
+        }
 
         if (request != null)
         {
@@ -268,7 +378,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
         ApplyAdditionalEffects(targetCharacter);
 
-        if (consumeOnHit)
+        if (consumeAfterHit)
         {
             ownerEntity.Despawn();
         }
@@ -282,7 +392,14 @@ public class ProjectileHitHandler : MonoBehaviour
             collectCoroutine = null;
         }
 
+        if (repeatHitCoroutine != null)
+        {
+            StopCoroutine(repeatHitCoroutine);
+            repeatHitCoroutine = null;
+        }
+
         pendingHitTargets.Clear();
+        overlapTargets.Clear();
         isCollectingInitialHits = false;
         initialHitCollectionCompleted = false;
     }
@@ -347,10 +464,15 @@ public class ProjectileHitHandler : MonoBehaviour
         SkillProjectileHitEffectEntry[] effects,
         EffectCategoryType defaultCategoryType)
     {
-        if (effectManager == null || effects == null || effects.Length == 0)
+        if (effectManager == null
+            || targetCharacter == null
+            || effects == null
+            || effects.Length == 0)
         {
             return;
         }
+
+        string sourceId = GetEffectSourceId();
 
         foreach (SkillProjectileHitEffectEntry effectEntry in effects)
         {
@@ -359,30 +481,62 @@ public class ProjectileHitHandler : MonoBehaviour
                 continue;
             }
 
-            Effect.EffectRuntimeData effectRuntimeData =
-                EffectResolveHelper.CreateRuntimeData(
-                    effectEntry.effectSo,
-                    EffectSourceType.Skill,
-                    GetEffectSourceId(),
-                    targetCharacter,
-                    ResolveKnockbackSourceTransform(),
-                    Vector2.zero);
-
-            if (effectRuntimeData == null)
-            {
-                continue;
-            }
-
             EffectCategoryType categoryType = effectEntry.categoryType != EffectCategoryType.Neutral
                 ? effectEntry.categoryType
                 : defaultCategoryType;
 
-            effectManager.AddEffect(
-                effectRuntimeData,
+            EffectApplyHelper.ApplyEffect(
+                effectManager,
+                targetCharacter,
+                effectEntry.effectSo,
+                EffectSourceType.Skill,
+                sourceId,
                 effectEntry.lifetimeType,
                 effectEntry.duration,
-                categoryType);
+                categoryType,
+                ResolveEffectSourceTransform(effectEntry.effectSo),
+                Vector2.zero);
         }
+    }
+
+    private Transform ResolveEffectSourceTransform(EffectSO effectSo)
+    {
+        if (effectSo is TauntEffectSO && IsTauntLurePointEnabled(effectSo))
+        {
+            return transform;
+        }
+
+        return ResolveKnockbackSourceTransform();
+    }
+
+    private bool IsTauntLurePointEnabled(EffectSO effectSo)
+    {
+        if (effectSo == null)
+        {
+            return false;
+        }
+
+        FieldInfo useLurePointField = effectSo.GetType().GetField(
+            "useLurePoint",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+        if (useLurePointField != null
+            && useLurePointField.FieldType == typeof(bool))
+        {
+            return (bool)useLurePointField.GetValue(effectSo);
+        }
+
+        PropertyInfo useLurePointProperty = effectSo.GetType().GetProperty(
+            "UseLurePoint",
+            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+        if (useLurePointProperty != null
+            && useLurePointProperty.PropertyType == typeof(bool))
+        {
+            return (bool)useLurePointProperty.GetValue(effectSo);
+        }
+
+        return false;
     }
 
     private Transform ResolveKnockbackSourceTransform()

@@ -1,5 +1,3 @@
-
-
 using Character;
 using UnityEngine;
 
@@ -75,10 +73,10 @@ namespace Effect
         {
             switch (effectSO.directionType)
             {
-                case KnockbackDirectionType.FromSourceToTarget:
+                case KnockbackDirectionType.PushAwayFromSource:
                     return ResolveSourceToTargetDirection();
 
-                case KnockbackDirectionType.FromTargetToSource:
+                case KnockbackDirectionType.PullToSource:
                     return -ResolveSourceToTargetDirection();
 
                 case KnockbackDirectionType.ProjectileDirection:

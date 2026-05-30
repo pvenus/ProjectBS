@@ -20,6 +20,8 @@ namespace Skills.Dto
         [Header("Damage")]
         public float baseDamage;
         public float attackDamagePercent = 1f;
+        public float projectileSpawnInterval;
+        public float projectileSpawnRadius;
 
         [Header("Critical / Modifiers")]
         public bool canCritical;

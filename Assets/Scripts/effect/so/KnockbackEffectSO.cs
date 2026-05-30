@@ -6,10 +6,18 @@ namespace Effect
 {
     public enum KnockbackDirectionType
     {
-        FromSourceToTarget = 0,
-        FromTargetToSource = 1,
+        /// <summary>
+        /// 중심에서 바깥 방향으로 밀어냄.
+        /// </summary>
+        PushAwayFromSource = 0,
+
+        /// <summary>
+        /// 중심점 방향으로 끌어당김.
+        /// </summary>
+        PullToSource = 1,
+
         ProjectileDirection = 2,
-        CustomDirection = 3
+        CustomDirection = 3,
     }
 
     [CreateAssetMenu(
@@ -21,8 +29,9 @@ namespace Effect
         [Min(0f)]
         public float force = 5f;
 
+        [Tooltip("PushAwayFromSource = 바깥 방향 넉백, PullToSource = 중심점 끌어당김")]
         public KnockbackDirectionType directionType =
-            KnockbackDirectionType.FromSourceToTarget;
+            KnockbackDirectionType.PushAwayFromSource;
 
         [Tooltip("directionType이 CustomDirection일 때 사용할 방향")]
         public Vector2 customDirection = Vector2.up;

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c14e7e54100441c8612f20ef5fb9b2, type: 3}
+  m_Name: '[item.relic.golden_fang][1] StatModifierEffectSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.StatModifierEffectSO
+  effectId: effect.item.relic.golden_fang.1
+  effectName: effect.item.relic.golden_fang.1
+  description: 
+  icon: {fileID: 0}
+  isPermanent: 1
+  allowDuplicate: 1
+  duration: 0
+  maxStack: 1
+  tags: []
+  targetStat: 1436
+  modifierType: 0
+  value: 6

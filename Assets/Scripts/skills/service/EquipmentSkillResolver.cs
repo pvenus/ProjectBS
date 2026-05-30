@@ -111,6 +111,14 @@ public class EquipmentSkillResolver
         SkillDamageProfileDto damageProfile =
             CreateDamageProfileDto(runtime, resolvedStatModifiers);
 
+        projectileData.projectileSpawnInterval =
+            damageProfile != null
+                ? damageProfile.projectileSpawnInterval
+                : 0f;
+
+        projectileData.projectileSpawnRadius =
+            statResolver.GetProjectileSpawnRadius(runtime.sourceEquipment);
+
         projectileData.move = CreateMoveDto(runtime.moveSo, target, resolvedSpawnPosition, direction);
         projectileData.hit = CreateHitDto(runtime.hitSo, damageProfile);
         projectileData.damageProfile = damageProfile;
@@ -215,11 +223,15 @@ public class EquipmentSkillResolver
 
         if (equipmentSo != null)
         {
-            ReflectionHelper.WriteMemberObject(dto, "damageType", statResolver.GetDamageType(equipmentSo));
-            ReflectionHelper.WriteMemberObject(dto, "canCritical", statResolver.GetCanCritical(equipmentSo));
-            ReflectionHelper.WriteMemberObject(dto, "ignoreDefense", statResolver.GetIgnoreDefense(equipmentSo));
+            dto.damageType = statResolver.GetDamageType(equipmentSo);
+            dto.canCritical = statResolver.GetCanCritical(equipmentSo);
+            dto.ignoreDefense = statResolver.GetIgnoreDefense(equipmentSo);
         }
 
+        dto.projectileSpawnInterval =
+            statResolver.GetProjectileSpawnInterval(equipmentSo);
+        dto.projectileSpawnRadius =
+            statResolver.GetProjectileSpawnRadius(equipmentSo);
         return dto;
     }
 

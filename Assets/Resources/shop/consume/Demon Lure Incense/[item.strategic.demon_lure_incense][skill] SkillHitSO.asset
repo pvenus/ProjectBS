@@ -25,10 +25,10 @@ MonoBehaviour:
     m_Bits: 64
   damageSo: {fileID: 0}
   buffEffects:
-  - effectSo: {fileID: 11400000, guid: fd3d3e09cb114096a120720ac424ee6b, type: 2}
-    lifetimeType: 3
-    categoryType: 1
-    duration: 8
+  - effectSo: {fileID: 11400000, guid: 2b79dbc71c13144299541fd87de47e74, type: 2}
+    lifetimeType: 0
+    categoryType: 0
+    duration: -1
     maxApplyCount: 1
   debuffEffects: []
   useSplitMultiHitDamage: 0
