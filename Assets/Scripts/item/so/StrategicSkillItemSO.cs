@@ -1,4 +1,5 @@
 using UnityEngine;
+using String;
 
 namespace Item
 {
@@ -11,12 +12,23 @@ namespace Item
         [Tooltip("전략 스킬 아이템 고유 ID")]
         public string strategicSkillItemId;
 
-        [Tooltip("전략 스킬 아이템 표시 이름")]
-        public string displayName;
+        public string LocalizationMainKey => strategicSkillItemId;
+        public string DisplayNameSubKey => "name";
+        public string DescriptionSubKey => "desc";
+        public string DisplayNameLocalizationKey =>
+            $"{LocalizationMainKey}.{DisplayNameSubKey}";
+        public string DescriptionLocalizationKey =>
+            $"{LocalizationMainKey}.{DescriptionSubKey}";
 
-        [TextArea]
-        [Tooltip("전략 스킬 아이템 설명")]
-        public string description;
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                DisplayNameSubKey);
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                DescriptionSubKey);
 
         [Tooltip("UI에 표시할 아이콘")]
         public Sprite icon;

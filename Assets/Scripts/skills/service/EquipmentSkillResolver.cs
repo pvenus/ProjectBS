@@ -23,11 +23,11 @@ public class EquipmentSkillResolver
 
         EquipmentGrade resolvedGrade = instanceData != null
             ? instanceData.currentGrade
-            : GetBaseGrade(equipmentSo);
+            : EquipmentGrade.Common;
 
         int resolvedRuneSlotCount = instanceData != null && instanceData.currentRuneSlotCount > 0
             ? instanceData.currentRuneSlotCount
-            : GetBaseRuneSlotCount(equipmentSo);
+            : 1;
 
         ElementType mainElement = instanceData != null
             ? instanceData.mainElement
@@ -62,7 +62,6 @@ public class EquipmentSkillResolver
             subElements = subElements,
 
             castSo = equipmentSo.CastSo,
-            damageSo = equipmentSo.DamageSo,
             hitSo = equipmentSo.HitSo,
             moveSo = equipmentSo.MoveSo,
             visualSetSo = equipmentSo.VisualSetSo,
@@ -249,41 +248,26 @@ public class EquipmentSkillResolver
         }
 
         BaseVisualSO baseVisual = visualSet.BaseVisualSo;
-        MainElementVisualEntry mainEntry = ResolveMainElementVisualEntry(runtime);
 
-        projectileData.spawnClip = mainEntry != null && mainEntry.ProjectileClipOverride != null
-            ? mainEntry.ProjectileClipOverride
-            : baseVisual != null ? baseVisual.ProjectileLoopClip : null;
+        projectileData.spawnClip = baseVisual != null
+            ? baseVisual.ProjectileLoopClip
+            : null;
 
-        projectileData.hitClip = baseVisual != null ? baseVisual.HitClip : null;
+        projectileData.hitClip = baseVisual != null
+            ? baseVisual.HitClip
+            : null;
+
         projectileData.despawnClip = null;
 
-        projectileData.sprite = mainEntry != null && mainEntry.MainSprite != null
-            ? mainEntry.MainSprite
-            : baseVisual != null ? baseVisual.BaseSprite : null;
+        projectileData.sprite = baseVisual != null
+            ? baseVisual.BaseSprite
+            : null;
 
-        projectileData.material = mainEntry != null ? mainEntry.MainMaterial : null;
+        projectileData.material = null;
         projectileData.color = Color.white;
         projectileData.useAnimatorTriggers = projectileData.spawnClip == null
             && projectileData.hitClip == null
             && projectileData.despawnClip == null;
-    }
-
-    private MainElementVisualEntry ResolveMainElementVisualEntry(EquipmentSkillRuntimeData runtime)
-    {
-        if (runtime == null || runtime.mainElement == ElementType.None)
-        {
-            return null;
-        }
-
-        SkillVisualSetSO visualSet = runtime.visualSetSo;
-        if (visualSet == null || visualSet.MainElementVisualLibrarySo == null)
-        {
-            return null;
-        }
-
-        MainElementVisualGroupSO group = visualSet.MainElementVisualLibrarySo.GetGroup(runtime.mainElement);
-        return group != null ? group.Get(runtime.resolvedGrade) : null;
     }
 
     private ResolvedVisualContextDto BuildVisualContext(
@@ -302,39 +286,11 @@ public class EquipmentSkillResolver
             baseVisualId = equipmentSo.VisualSetSo != null && equipmentSo.VisualSetSo.BaseVisualSo != null
                 ? equipmentSo.VisualSetSo.BaseVisualSo.VisualId
                 : string.Empty,
-            mainVisualId = BuildMainVisualId(archetype, mainElement, grade)
+            mainVisualId = string.Empty
         };
     }
 
-    private string BuildMainVisualId(AttackArchetype archetype, ElementType element, EquipmentGrade grade)
-    {
-        if (element == ElementType.None)
-        {
-            return string.Empty;
-        }
-
-        return $"{archetype}_{element}_{grade}";
-    }
-
-    private EquipmentGrade GetBaseGrade(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.BaseGrade;
-        }
-
-        return EquipmentGrade.Common;
-    }
-
-    private int GetBaseRuneSlotCount(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return Mathf.Max(1, equipmentSo.BaseProfileSo.BaseRuneSlotCount);
-        }
-
-        return 1;
-    }
+    
 
     private AttackArchetype GetAttackArchetype(EquipmentSkillSO equipmentSo)
     {

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Shop;
+using Currency;
 
 [AutoBindPrefix("Item")]
 public class ShopItemCard : UIComponent, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -71,9 +72,7 @@ public class ShopItemCard : UIComponent, IPointerEnterHandler, IPointerExitHandl
         bool isSoldOut = runtimeItem.IsSoldOut;
         bool isLocked = runtimeItem.IsLocked;
         
-        // 현재 이 카드의 가격을 살 수 있는지는 ShopPage에서 판단해야 하지만,
-        // 위젯 내부에서는 상점 매니저의 인스턴스를 통해 직접 접근해서 버튼 상태를 제어할 수 있습니다.
-        bool canAfford = StageShopManager.Instance == null || StageShopManager.Instance.CurrentGold >= runtimeItem.price;
+        bool canAfford = CurrencyManager.Instance.Gold >= runtimeItem.price;
         bool canBuy = runtimeItem.IsAvailable && canAfford;
 
         if (soldOutRoot != null) soldOutRoot.SetActive(isSoldOut);

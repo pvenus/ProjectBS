@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Shrine
 {
-    public delegate void GoldChangedHandler(int currentGold);
 
     public delegate void HpChangedHandler(
         int currentHp,
@@ -19,9 +18,6 @@ namespace Shrine
     [System.Serializable]
     public class ShrinePlayerContext
     {
-        [Header("Debug Runtime")]
-        [SerializeField]
-        private int currentGold = 999;
 
         [SerializeField]
         private int currentHp = 100;
@@ -29,48 +25,14 @@ namespace Shrine
         [SerializeField]
         private int maxHp = 100;
 
-        public int CurrentGold => currentGold;
 
         public int CurrentHp => currentHp;
 
         public int MaxHp => maxHp;
 
-        public event GoldChangedHandler OnGoldChanged;
 
         public event HpChangedHandler OnHpChanged;
 
-        public bool HasEnoughGold(int amount)
-        {
-            return currentGold >= amount;
-        }
-
-        public bool SpendGold(int amount)
-        {
-            if (amount <= 0)
-            {
-                return false;
-            }
-
-            if (!HasEnoughGold(amount))
-            {
-                return false;
-            }
-
-            currentGold -= amount;
-            OnGoldChanged?.Invoke(currentGold);
-            return true;
-        }
-
-        public void AddGold(int amount)
-        {
-            if (amount <= 0)
-            {
-                return;
-            }
-
-            currentGold += amount;
-            OnGoldChanged?.Invoke(currentGold);
-        }
 
         public void HealHp(int amount)
         {
@@ -103,11 +65,6 @@ namespace Shrine
             HealHp(healAmount);
         }
 
-        public void SetGold(int amount)
-        {
-            currentGold = Mathf.Max(0, amount);
-            OnGoldChanged?.Invoke(currentGold);
-        }
 
         public void SetHp(
             int hp,

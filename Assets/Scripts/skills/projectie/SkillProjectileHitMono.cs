@@ -358,7 +358,6 @@ public class SkillProjectileHitMono : MonoBehaviour
                 {
                     skillId = _damageProfile.skillId,
                     damageType = _damageProfile.damageType,
-                    elementType = _damageProfile.elementType,
                     baseDamage = damage,
                     attackDamagePercent = _damageProfile.attackDamagePercent,
                     canCritical = _damageProfile.canCritical,

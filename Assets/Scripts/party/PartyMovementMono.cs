@@ -1,7 +1,6 @@
 using Character;
 using Stat;
 using UnityEngine;
-using venus.eldawn.party;
 
 /// <summary>
 /// PartyMovementMono

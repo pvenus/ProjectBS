@@ -46,7 +46,6 @@ public class EquipmentSkillRuntimeData
 
     [Header("Resolved SO References")]
     public SkillCastSO castSo;
-    public SkillDamageSO damageSo;
     public SkillHitSO hitSo;
     public SkillMoveSO moveSo;
     public SkillVisualSetSO visualSetSo;

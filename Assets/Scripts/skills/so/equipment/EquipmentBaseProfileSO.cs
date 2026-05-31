@@ -9,8 +9,6 @@ using UnityEngine;
 public class EquipmentBaseProfileSO : ScriptableObject
 {
     [Header("Identity")]
-    [SerializeField] private EquipmentGrade baseGrade = EquipmentGrade.Common;
-    [SerializeField, Min(1)] private int baseRuneSlotCount = 1;
     [SerializeField] private AttackArchetype attackArchetype = AttackArchetype.None;
 
     [Header("Projectile Resource")]
@@ -38,8 +36,6 @@ public class EquipmentBaseProfileSO : ScriptableObject
     public float BasePriority => basePriority;
 
 
-    public EquipmentGrade BaseGrade => baseGrade;
-    public int BaseRuneSlotCount => baseRuneSlotCount;
     public AttackArchetype AttackArchetype => attackArchetype;
     public ProjectileEntity ProjectilePrefab => projectilePrefab;
     public float ProjectileSpawnOffset => projectileSpawnOffset;

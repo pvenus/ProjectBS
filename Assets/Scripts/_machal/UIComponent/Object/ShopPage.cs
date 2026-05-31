@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Shop;
+using Currency;
 
 [AutoBindPrefix("Shop")]
 public class ShopPage : UIPage
@@ -162,52 +163,65 @@ public class ShopPage : UIPage
 
         Show(); // 오버라이드된 Show() 호출하여 패널 활성화
 
-        if (titleText != null) 
-            titleText.text = string.IsNullOrWhiteSpace(shop.shopName) ? "상점" : shop.shopName;
-
-        if (goldText != null && shopManager != null)
-            goldText.text = shopManager.CurrentGold.ToString();
-
-        List<ShopRuntimeItem> relics = new List<ShopRuntimeItem>();
-        List<ShopRuntimeItem> consumables = new List<ShopRuntimeItem>();
-        List<ShopRuntimeItem> tactics = new List<ShopRuntimeItem>();
-
-        if (shop.items != null && !string.IsNullOrWhiteSpace(shop.generatedFromPoolId))
+        if (titleText != null)
         {
-            string[] poolIds = shop.generatedFromPoolId.Split(',');
-
-            foreach (var item in shop.items)
-            {
-                if (item == null) continue;
-
-                // 기존 ShopPopupUI의 로직을 그대로 이식하여, ProductType이 아닌 생성된 Pool 순서대로 카테고리를 분류합니다.
-                string targetPool = item.generatedFromPoolId;
-                
-                int poolIndex = -1;
-                for (int i = 0; i < poolIds.Length; i++)
-                {
-                    if (poolIds[i] == targetPool)
-                    {
-                        poolIndex = i;
-                        break;
-                    }
-                }
-
-                if (poolIndex == 0) relics.Add(item);
-                else if (poolIndex == 1) consumables.Add(item);
-                else if (poolIndex == 2) tactics.Add(item);
-                else relics.Add(item); // 매칭 실패 시 기본으로 첫 번째에 배치
-            }
+            titleText.text = "상점";
         }
 
-        if (relic != null) 
-            relic.Bind("유물", relics, OnItemClicked, OnItemHoverEnter, OnItemHoverExit);
-            
-        if (consumable != null) 
-            consumable.Bind("소모품", consumables, OnItemClicked, OnItemHoverEnter, OnItemHoverExit);
-            
-        if (tactic != null) 
-            tactic.Bind("전술", tactics, OnItemClicked, OnItemHoverEnter, OnItemHoverExit);
+        if (goldText != null)
+        {
+            goldText.text = CurrencyManager.Instance.Gold.ToString();
+        }
+
+        BindGroupPanel(
+            relic,
+            shop,
+            0);
+
+        BindGroupPanel(
+            consumable,
+            shop,
+            1);
+
+        BindGroupPanel(
+            tactic,
+            shop,
+            2);
+    }
+
+    private void BindGroupPanel(
+        ShopCategoryPanel panel,
+        ShopRuntimeData shop,
+        int groupIndex)
+    {
+        if (panel == null)
+        {
+            return;
+        }
+
+        ShopRuntimeGroup group = shop.groups != null && groupIndex >= 0 && groupIndex < shop.groups.Count
+            ? shop.groups[groupIndex]
+            : null;
+
+        panel.gameObject.SetActive(group != null);
+
+        if (group == null)
+        {
+            return;
+        }
+
+        string groupName = group.groupName;
+
+        List<ShopRuntimeItem> groupItems = group.items != null
+            ? group.items
+            : new List<ShopRuntimeItem>();
+
+        panel.Bind(
+            groupName,
+            groupItems,
+            OnItemClicked,
+            OnItemHoverEnter,
+            OnItemHoverExit);
     }
 
     private void OnItemClicked(ShopItemCard card)

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using String;
 
 /// <summary>
 /// 장비 = 스킬의 원형 데이터를 정의하는 최상위 허브 SO.
@@ -11,8 +11,6 @@ public class EquipmentSkillSO : ScriptableObject
 {
     [Header("Identity")]
     [SerializeField] private string equipmentId;
-    [SerializeField] private string displayName;
-    [SerializeField, TextArea] private string description;
     [SerializeField] private Sprite icon;
 
     [Header("Base Profile")]
@@ -20,40 +18,37 @@ public class EquipmentSkillSO : ScriptableObject
 
     [Header("Core Profiles")]
     [SerializeField] private SkillCastSO castSo;
-    [SerializeField] private SkillDamageSO damageSo;
     [SerializeField] private SkillHitSO hitSo;
     [SerializeField] private SkillMoveSO moveSo;
 
     [Header("Visual")]
     [SerializeField] private SkillVisualSetSO visualSetSo;
 
-    [Header("Upgrade")]
-    [SerializeField] private EquipmentUpgradeTableSO upgradeTableSo;
-
-    [Header("Effects")]
-    [SerializeField] private List<SkillEffectSO> effects = new();
-
     public string EquipmentId => equipmentId;
-    public string DisplayName => displayName;
-    public string Description => description;
+    public string LocalizationMainKey => equipmentId;
+
+    public string DisplayName =>
+        StringManager.Instance.Get(
+            LocalizationMainKey,
+            "name");
+
+    public string Description =>
+        StringManager.Instance.Get(
+            LocalizationMainKey,
+            "desc");
+
     public Sprite Icon => icon;
 
     public EquipmentBaseProfileSO BaseProfileSo => baseProfileSo;
     public AttackArchetype AttackArchetype => baseProfileSo != null ? baseProfileSo.AttackArchetype : AttackArchetype.Melee;
-    public EquipmentGrade BaseGrade => baseProfileSo != null ? baseProfileSo.BaseGrade : EquipmentGrade.Common;
-    public int BaseRuneSlotCount => baseProfileSo != null ? baseProfileSo.BaseRuneSlotCount : 1;
 
     public ProjectileEntity ProjectilePrefab => baseProfileSo != null ? baseProfileSo.ProjectilePrefab : null;
     public float ProjectileSpawnOffset => baseProfileSo != null ? baseProfileSo.ProjectileSpawnOffset : 0f;
 
     public SkillCastSO CastSo => castSo;
-    public SkillDamageSO DamageSo => damageSo;
     public SkillHitSO HitSo => hitSo;
     public SkillMoveSO MoveSo => moveSo;
     public SkillVisualSetSO VisualSetSo => visualSetSo;
-    public EquipmentUpgradeTableSO UpgradeTableSo => upgradeTableSo;
-    public IReadOnlyList<SkillEffectSO> Effects => effects;
-    public bool HasAnyEffect => effects != null && effects.Count > 0;
 
     public float EvaluateBrainScore(object context, int roleBias = 0)
     {

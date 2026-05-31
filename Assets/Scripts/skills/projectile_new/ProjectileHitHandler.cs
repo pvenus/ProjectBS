@@ -32,6 +32,7 @@ public class ProjectileHitHandler : MonoBehaviour
     private Coroutine repeatHitCoroutine;
     private bool isCollectingInitialHits;
     private bool initialHitCollectionCompleted;
+    private int currentHitCount;
 
     public bool IsInitialized => initialized;
     public bool ConsumeOnHit => consumeOnHit;
@@ -64,6 +65,7 @@ public class ProjectileHitHandler : MonoBehaviour
         overlapTargets.Clear();
         initialHitCollectionCompleted = false;
         isCollectingInitialHits = false;
+        currentHitCount = 0;
 
         if (collectCoroutine != null)
         {
@@ -313,6 +315,17 @@ public class ProjectileHitHandler : MonoBehaviour
         return true;
     }
 
+    private bool HasReachedMaxHitCount()
+    {
+        if (runtimeData == null || runtimeData.hit == null)
+        {
+            return false;
+        }
+
+        return runtimeData.hit.maxHitCount > 0
+            && currentHitCount >= runtimeData.hit.maxHitCount;
+    }
+
     private void ProcessHit(Collider2D other)
     {
         ProcessHit(other, false, consumeOnHit);
@@ -323,6 +336,10 @@ public class ProjectileHitHandler : MonoBehaviour
         bool ignoreHitHistory,
         bool consumeAfterHit)
     {
+        if (HasReachedMaxHitCount())
+        {
+            return;
+        }
         if (!CanProcessCollider(other, ignoreHitHistory))
         {
             return;
@@ -364,6 +381,8 @@ public class ProjectileHitHandler : MonoBehaviour
             hitTargets.Add(other);
         }
 
+        currentHitCount++;
+
         if (request != null)
         {
             if (ownerCharacter != null)
@@ -377,6 +396,12 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         ApplyAdditionalEffects(targetCharacter);
+
+        if (HasReachedMaxHitCount())
+        {
+            ownerEntity.Despawn();
+            return;
+        }
 
         if (consumeAfterHit)
         {

@@ -1,5 +1,3 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,18 +17,13 @@ public class EquipmentInventoryMono : MonoBehaviour
 
     public OwnedEquipmentData Acquire(EquipmentSkillSO equipmentSo)
     {
-        return Acquire(equipmentSo, ResolveBaseGrade(equipmentSo));
-    }
-
-    public OwnedEquipmentData Acquire(EquipmentSkillSO equipmentSo, EquipmentGrade grade)
-    {
         if (equipmentSo == null)
         {
             Debug.LogWarning("EquipmentInventoryMono.Acquire failed: equipmentSo is null.", this);
             return null;
         }
 
-        OwnedEquipmentData owned = OwnedEquipmentData.Create(equipmentSo, grade);
+        OwnedEquipmentData owned = OwnedEquipmentData.Create(equipmentSo);
         equipments.Add(owned);
         return owned;
     }
@@ -70,32 +63,6 @@ public class EquipmentInventoryMono : MonoBehaviour
         return null;
     }
 
-    public List<OwnedEquipmentData> FindSameEquipmentAndGrade(string equipmentId, EquipmentGrade grade)
-    {
-        var result = new List<OwnedEquipmentData>();
-
-        if (string.IsNullOrWhiteSpace(equipmentId) || equipments == null)
-        {
-            return result;
-        }
-
-        for (int i = 0; i < equipments.Count; i++)
-        {
-            OwnedEquipmentData equipment = equipments[i];
-            if (equipment == null || !equipment.HasEquipment)
-            {
-                continue;
-            }
-
-            if (equipment.EquipmentId == equipmentId && equipment.CurrentGrade == grade)
-            {
-                result.Add(equipment);
-            }
-        }
-
-        return result;
-    }
-
     public List<OwnedEquipmentData> FindUpgradeMaterials(OwnedEquipmentData target)
     {
         var result = new List<OwnedEquipmentData>();
@@ -113,7 +80,7 @@ public class EquipmentInventoryMono : MonoBehaviour
                 continue;
             }
 
-            if (!equipment.CanUseAsUpgradeMaterial(target.EquipmentId, target.CurrentGrade))
+            if (!equipment.CanUseAsUpgradeMaterial(target.EquipmentId))
             {
                 continue;
             }
@@ -147,11 +114,6 @@ public class EquipmentInventoryMono : MonoBehaviour
             return false;
         }
 
-        if (!TryGetNextGrade(target.CurrentGrade, out _))
-        {
-            return false;
-        }
-
         return FindUpgradeMaterials(target).Count >= UpgradeMaterialCount;
     }
 
@@ -168,11 +130,6 @@ public class EquipmentInventoryMono : MonoBehaviour
             return false;
         }
 
-        if (!TryGetNextGrade(target.CurrentGrade, out EquipmentGrade nextGrade))
-        {
-            return false;
-        }
-
         List<OwnedEquipmentData> materials = FindUpgradeMaterials(target);
         if (materials.Count < UpgradeMaterialCount)
         {
@@ -184,7 +141,7 @@ public class EquipmentInventoryMono : MonoBehaviour
             equipments.Remove(materials[i]);
         }
 
-        target.UpgradeGrade(nextGrade);
+        equipments.Remove(target);
         return true;
     }
 
@@ -201,11 +158,6 @@ public class EquipmentInventoryMono : MonoBehaviour
             return false;
         }
 
-        if (!TryGetNextGrade(target.CurrentGrade, out EquipmentGrade nextGrade))
-        {
-            return false;
-        }
-
         var materials = new List<OwnedEquipmentData>();
         for (int i = 0; i < materialInstanceIds.Count; i++)
         {
@@ -215,7 +167,7 @@ public class EquipmentInventoryMono : MonoBehaviour
                 return false;
             }
 
-            if (!material.CanUseAsUpgradeMaterial(target.EquipmentId, target.CurrentGrade))
+            if (!material.CanUseAsUpgradeMaterial(target.EquipmentId))
             {
                 return false;
             }
@@ -243,7 +195,7 @@ public class EquipmentInventoryMono : MonoBehaviour
             equipments.Remove(materials[i]);
         }
 
-        target.UpgradeGrade(nextGrade);
+        equipments.Remove(target);
         return true;
     }
 
@@ -332,34 +284,5 @@ public class EquipmentInventoryMono : MonoBehaviour
     public void Clear()
     {
         equipments.Clear();
-    }
-
-    private EquipmentGrade ResolveBaseGrade(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.BaseGrade;
-        }
-
-        return EquipmentGrade.Common;
-    }
-
-    private bool TryGetNextGrade(EquipmentGrade current, out EquipmentGrade next)
-    {
-        switch (current)
-        {
-            case EquipmentGrade.Common:
-                next = EquipmentGrade.Rare;
-                return true;
-            case EquipmentGrade.Rare:
-                next = EquipmentGrade.Epic;
-                return true;
-            case EquipmentGrade.Epic:
-                next = EquipmentGrade.Legendary;
-                return true;
-            default:
-                next = current;
-                return false;
-        }
     }
 }

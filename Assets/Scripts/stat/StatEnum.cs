@@ -14,8 +14,6 @@ namespace Stat
         Hp = 1100,
 
         HpRegen = 1110,
-        HpRegenPercent = 1120,
-        MaxHpRegenPercentPerSecond = 1130,
 
         BleedDamagePerSecond = 1140,
 
@@ -44,7 +42,8 @@ namespace Stat
         MissingHpFinalDamageAmplify = 1295,
 
         Defense = 1300,
-        DefensePercent = 1310,
+
+        LowHpDefenseBonus = 1370,
 
         DamageReductionPercent = 1320,
         ReflectDamagePercent = 1325,
@@ -60,13 +59,11 @@ namespace Stat
         Shield = 1350,
         ShieldPercent = 1360,
 
-        LowHpDefenseBonus = 1370,
-
         GoldGain = 1400,
-        GoldGainPercent = 1410,
 
         ExpGain = 1420,
-        ExpGainPercent = 1430,
+
+        Experience = 1431,
 
         DropGold = 1435,
         BonusGoldDropChance = 1436,
@@ -85,6 +82,16 @@ namespace Stat
 
         GoldInterestPercent = 1495,
 
+        BattleEndGoldInterestPercent = 1497,
+
+        KillStack = 1590,
+        KillStackAttackPercent = 1592,
+        KillStackAttackPercentAmplify = 1595,
+
+        KillCount = 1600,
+        EliteKillCount = 1610,
+        BossKillCount = 1620,
+
         AiReactionSpeed = 1500,
         AiReactionSpeedPercent = 1510,
 
@@ -99,13 +106,6 @@ namespace Stat
         SkillRange = 1570,
         SkillRangePercent = 1580,
 
-        KillStack = 1590,
-        KillStackAttackPercent = 1592,
-        KillStackAttackPercentAmplify = 1595,
-
-        KillCount = 1600,
-        EliteKillCount = 1610,
-        BossKillCount = 1620,
 
         LifeFaithLevel = 2000,
         WarFaithLevel = 2100,

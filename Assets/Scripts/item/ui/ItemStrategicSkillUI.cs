@@ -121,7 +121,7 @@ namespace Item.UI
                     out ProjectileEntity projectilePrefab,
                     out ProjectileRuntimeData projectileData))
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] Failed to build strategic skill projectile data. item={strategicSkillItem.displayName}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] Failed to build strategic skill projectile data. item={strategicSkillItem.DisplayName}", this);
                 return false;
             }
 
@@ -129,7 +129,7 @@ namespace Item.UI
             {
                 if (logDebug)
                 {
-                    Debug.Log($"[ItemStrategicSkillUI] Not enough strategic skill gauge. item={strategicSkillItem.displayName} cost={strategicSkillItem.gaugeCost}", this);
+                    Debug.Log($"[ItemStrategicSkillUI] Not enough strategic skill gauge. item={strategicSkillItem.DisplayName} cost={strategicSkillItem.gaugeCost}", this);
                 }
 
                 return false;
@@ -139,12 +139,12 @@ namespace Item.UI
 
             if (logDebug)
             {
-                Debug.Log($"[ItemStrategicSkillUI] Strategic skill projectile spawned. item={strategicSkillItem.displayName} prefab={projectilePrefab.name} pos={worldPosition}", this);
+                Debug.Log($"[ItemStrategicSkillUI] Strategic skill projectile spawned. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} pos={worldPosition}", this);
             }
 
             if (logDebug)
             {
-                Debug.Log($"[ItemStrategicSkillUI] Strategic skill used. item={strategicSkillItem.displayName} pos={worldPosition}", this);
+                Debug.Log($"[ItemStrategicSkillUI] Strategic skill used. item={strategicSkillItem.DisplayName} pos={worldPosition}", this);
             }
 
             return true;
@@ -166,7 +166,7 @@ namespace Item.UI
 
             if (strategicSkillItem.skillSo == null)
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] SkillSO is null. item={strategicSkillItem.displayName}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] SkillSO is null. item={strategicSkillItem.DisplayName}", this);
                 return false;
             }
 
@@ -185,7 +185,7 @@ namespace Item.UI
 
             if (runtimeData == null)
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] RuntimeData is null. item={strategicSkillItem.displayName}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] RuntimeData is null. item={strategicSkillItem.DisplayName}", this);
                 return false;
             }
 
@@ -195,7 +195,7 @@ namespace Item.UI
 
             if (projectilePrefab == null)
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] Projectile prefab is null. item={strategicSkillItem.displayName} skill={strategicSkillItem.skillSo.name}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] Projectile prefab is null. item={strategicSkillItem.DisplayName} skill={strategicSkillItem.skillSo.name}", this);
                 return false;
             }
 
@@ -211,7 +211,7 @@ namespace Item.UI
 
             if (projectileData == null)
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] ProjectileRuntimeData is null. item={strategicSkillItem.displayName} skill={strategicSkillItem.skillSo.name}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] ProjectileRuntimeData is null. item={strategicSkillItem.DisplayName} skill={strategicSkillItem.skillSo.name}", this);
                 return false;
             }
 
@@ -220,7 +220,7 @@ namespace Item.UI
 
             if (logDebug)
             {
-                Debug.Log($"[ItemStrategicSkillUI] Projectile data built. item={strategicSkillItem.displayName} prefab={projectilePrefab.name} pos={spawnPosition}", this);
+                Debug.Log($"[ItemStrategicSkillUI] Projectile data built. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} pos={spawnPosition}", this);
             }
 
             return true;

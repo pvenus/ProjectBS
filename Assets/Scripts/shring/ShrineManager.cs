@@ -37,7 +37,6 @@ namespace Shrine
         public ShrineConfigSO Config => config;
         public ShrineRuntimeData CurrentShrine => currentShrine;
         public ShrinePlayerRuntimeData PlayerRuntimeData => playerRuntimeData;
-        public int CurrentGold => playerContext.CurrentGold;
         public int PartyCurrentHp => playerContext.CurrentHp;
         public int PartyMaxHp => playerContext.MaxHp;
         public bool HasShrine => currentShrine != null;
@@ -52,7 +51,6 @@ namespace Shrine
         public event Action<ShrineGodType, int> OnFaithChanged;
         public event Action<ShrineGodType> OnFaithAscensionRequested;
         public event Action<int, int> OnPartyHpChanged;
-        public event Action<int> OnGoldChanged;
 
         private ShrineBlessingService blessingService;
         private ShrineMissionService missionService;
@@ -85,7 +83,6 @@ namespace Shrine
                 playerContext = new ShrinePlayerContext();
             }
 
-            playerContext.OnGoldChanged += HandleGoldChanged;
             playerContext.OnHpChanged += HandleHpChanged;
 
             blessingService = new ShrineBlessingService(
@@ -345,19 +342,6 @@ namespace Shrine
         {
             faithService?.RejectFaithAscension();
         }
-
-        public void SetGold(int gold)
-        {
-            playerContext.SetGold(gold);
-            Refresh();
-        }
-
-        public void AddGold(int amount)
-        {
-            playerContext.AddGold(amount);
-            Refresh();
-        }
-
         public void SetPartyHp(int currentHp, int maxHp)
         {
             playerContext.SetHp(currentHp, maxHp);
@@ -447,11 +431,6 @@ namespace Shrine
             BlessRuntimeData.BlessEntry blessing)
         {
             OnBlessingSelected?.Invoke(blessing);
-        }
-
-        private void HandleGoldChanged(int currentGold)
-        {
-            OnGoldChanged?.Invoke(currentGold);
         }
 
         private void HandleHpChanged(

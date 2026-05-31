@@ -1,37 +1,24 @@
-using UnityEngine;
 using Item;
+using Currency;
+using UnityEngine;
 
 namespace Shop
 {
     public class ShopPurchaseService
     {
-        private readonly ItemManager itemManager;
 
-        private int currentGold;
-
-        public int CurrentGold => currentGold;
-
-        public ShopPurchaseService(
-            ItemManager itemManager,
-            int startGold = 0)
+        public ShopPurchaseService()
         {
-            this.itemManager = itemManager;
-            currentGold = Mathf.Max(0, startGold);
         }
 
         public void SetGold(int amount)
         {
-            currentGold = Mathf.Max(0, amount);
+            CurrencyManager.Instance.SetGold(amount);
         }
 
         public void AddGold(int amount)
         {
-            if (amount <= 0)
-            {
-                return;
-            }
-
-            currentGold += amount;
+            CurrencyManager.Instance.AddGold(amount);
         }
 
         public bool CanPurchase(
@@ -42,12 +29,7 @@ namespace Shop
                 return false;
             }
 
-            if (currentGold < product.price)
-            {
-                return false;
-            }
-
-            return true;
+            return CurrencyManager.Instance.CanSpendGold(product.price);
         }
 
         public bool TryPurchase(
@@ -63,10 +45,10 @@ namespace Shop
                 return false;
             }
 
-            currentGold -= product.price;
+            CurrencyManager.Instance.TrySpendGold(product.price);
 
             Debug.Log(
-                $"[ShopPurchaseService] Purchase success. product={product.displayName}, remainGold={currentGold}");
+                $"[ShopPurchaseService] Purchase success. product={product.DisplayName}, remainGold={CurrencyManager.Instance.Gold}");
 
             return true;
         }
@@ -83,15 +65,15 @@ namespace Shop
             {
                 case ShopRewardType.Relic:
                     return GiveRelic(
-                        rewardData.relic);
+                        rewardData.Relic);
 
                 case ShopRewardType.StrategicSkillItem:
                     return GiveStrategicSkillItem(
-                        rewardData.strategicSkillItem);
+                        rewardData.StrategicSkillItem);
 
                 case ShopRewardType.AIFunction:
                     return GiveAIFunction(
-                        rewardData.aiFunction);
+                        rewardData.reward);
             }
 
             return false;
@@ -105,7 +87,7 @@ namespace Shop
                 return false;
             }
 
-            if (itemManager == null)
+            if (ItemManager.Instance == null)
             {
                 Debug.LogWarning(
                     "[ShopPurchaseService] ItemManager is null.");
@@ -113,7 +95,7 @@ namespace Shop
                 return false;
             }
 
-            itemManager.AddRelic(relic);
+            ItemManager.Instance.AddRelic(relic);
 
             Debug.Log(
                 $"[ShopPurchaseService] Relic granted. relic={relic.name}");
@@ -122,14 +104,14 @@ namespace Shop
         }
 
         private bool GiveStrategicSkillItem(
-            ScriptableObject strategicSkillItemObject)
+            StrategicSkillItemSO strategicSkillItem)
         {
-            if (strategicSkillItemObject == null)
+            if (strategicSkillItem == null)
             {
                 return false;
             }
 
-            if (itemManager == null)
+            if (ItemManager.Instance == null)
             {
                 Debug.LogWarning(
                     "[ShopPurchaseService] ItemManager is null.");
@@ -137,30 +119,19 @@ namespace Shop
                 return false;
             }
 
-            StrategicSkillItemSO strategicSkillItem =
-                strategicSkillItemObject as StrategicSkillItemSO;
-
-            if (strategicSkillItem == null)
-            {
-                Debug.LogWarning(
-                    $"[ShopPurchaseService] Invalid strategic skill item type. type={strategicSkillItemObject.GetType().Name}");
-
-                return false;
-            }
-
             bool added =
-                itemManager.AddStrategicSkillItem(strategicSkillItem);
+                ItemManager.Instance.AddStrategicSkillItem(strategicSkillItem);
 
             if (!added)
             {
                 Debug.LogWarning(
-                    $"[ShopPurchaseService] Failed to add strategic skill item. item={strategicSkillItem.displayName}");
+                    $"[ShopPurchaseService] Failed to add strategic skill item. item={strategicSkillItem.DisplayName}");
 
                 return false;
             }
 
             Debug.Log(
-                $"[ShopPurchaseService] Strategic skill item granted. item={strategicSkillItem.displayName}");
+                $"[ShopPurchaseService] Strategic skill item granted. item={strategicSkillItem.DisplayName}");
 
             return true;
         }
@@ -173,7 +144,7 @@ namespace Shop
                 return false;
             }
 
-            if (itemManager == null)
+            if (ItemManager.Instance == null)
             {
                 Debug.LogWarning(
                     "[ShopPurchaseService] ItemManager is null.");
@@ -193,7 +164,7 @@ namespace Shop
             }
 
             bool added =
-                itemManager.AddAIFunction(function);
+                ItemManager.Instance.AddAIFunction(function);
 
             if (!added)
             {

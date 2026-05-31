@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Item;
+using Currency;
 
 namespace Shop
 {
@@ -21,20 +22,15 @@ namespace Shop
 
         [Header("Generation")]
         [SerializeField] private string shopId = "test_shop";
-        [SerializeField] private string shopName = "Shop";
         [SerializeField] private int itemCount = 6;
         [SerializeField] private int maxPoolCount = 3;
         [SerializeField] private bool useFixedSeed = false;
         [SerializeField] private int seed = 0;
 
-        [Header("Player Debug")]
-        [SerializeField] private int currentGold = 500;
-
         [Header("Runtime")]
         [SerializeField] private ShopRuntimeData currentShop;
 
         public ShopRuntimeData CurrentShop => currentShop;
-        public int CurrentGold => currentGold;
         public bool HasShop => currentShop != null;
         public bool IsOpened => currentShop != null && currentShop.isOpened;
 
@@ -56,23 +52,8 @@ namespace Shop
             }
 
             Instance = this;
-
-            ItemManager itemManager = ItemManager.Instance;
-
-            if (itemManager == null)
-            {
-                itemManager = FindFirstObjectByType<ItemManager>();
-
-                if (itemManager == null)
-                {
-                    Debug.LogWarning(
-                        "[StageShopManager] ItemManager not found in scene.");
-                }
-            }
-
-            purchaseService = new ShopPurchaseService(
-                itemManager,
-                currentGold);
+            
+            purchaseService = new ShopPurchaseService();
         }
 
         public void OpenDefaultShop()
@@ -129,7 +110,7 @@ namespace Shop
                 return false;
             }
 
-            ShopRuntimeItem item = currentShop.GetItem(runtimeItemId);
+            ShopRuntimeItem item = FindItem(runtimeItemId);
             if (item == null)
             {
                 Debug.LogWarning($"[StageShopManager] Purchase failed. Item not found. runtimeId={runtimeItemId}");
@@ -144,9 +125,9 @@ namespace Shop
                 return false;
             }
 
-            if (!item.CanPurchase(currentGold))
+            if (!item.CanPurchase(CurrencyManager.Instance.Gold))
             {
-                Debug.Log($"[StageShopManager] Cannot purchase item. item={item.DisplayName}, price={item.price}, gold={currentGold}, state={item.state}");
+                Debug.Log($"[StageShopManager] Cannot purchase item. item={item.DisplayName}, price={item.price}, gold={CurrencyManager.Instance.Gold}, state={item.state}");
                 return false;
             }
 
@@ -163,18 +144,16 @@ namespace Shop
             if (!purchaseService.TryPurchase(product))
             {
                 Debug.LogWarning(
-                    $"[StageShopManager] Purchase service failed. product={product.displayName}");
+                    $"[StageShopManager] Purchase service failed. product={product.DisplayName}");
 
                 return false;
             }
 
-            currentGold = purchaseService.CurrentGold;
-
             item.MarkPurchased();
 
-            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={product.price}, remainingGold={currentGold}");
+            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={product.price}, remainingGold={CurrencyManager.Instance.Gold}");
 
-            OnGoldChanged?.Invoke(currentGold);
+            OnGoldChanged?.Invoke(CurrencyManager.Instance.Gold);
             OnItemPurchased?.Invoke(item);
             OnShopRefreshed?.Invoke(currentShop);
             return true;
@@ -182,23 +161,48 @@ namespace Shop
 
         public void SetGold(int gold)
         {
-            currentGold = Mathf.Max(0, gold);
-            purchaseService?.SetGold(currentGold);
-            OnGoldChanged?.Invoke(currentGold);
+            CurrencyManager.Instance.SetGold(gold);
+            OnGoldChanged?.Invoke(CurrencyManager.Instance.Gold);
             OnShopRefreshed?.Invoke(currentShop);
         }
 
         public void AddGold(int amount)
         {
-            currentGold = Mathf.Max(0, currentGold + amount);
-            purchaseService?.SetGold(currentGold);
-            OnGoldChanged?.Invoke(currentGold);
+            CurrencyManager.Instance.AddGold(amount);
+            OnGoldChanged?.Invoke(CurrencyManager.Instance.Gold);
             OnShopRefreshed?.Invoke(currentShop);
         }
 
         public void RefreshDefaultShop()
         {
             OpenDefaultShop();
+        }
+
+        private ShopRuntimeItem FindItem(string runtimeItemId)
+        {
+            if (currentShop?.groups == null)
+            {
+                return null;
+            }
+
+            foreach (ShopRuntimeGroup group in currentShop.groups)
+            {
+                if (group?.items == null)
+                {
+                    continue;
+                }
+
+                ShopRuntimeItem item =
+                    group.items.FirstOrDefault(
+                        x => x != null && x.runtimeId == runtimeItemId);
+
+                if (item != null)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
         private ShopRuntimeData GenerateShop(
@@ -220,16 +224,34 @@ namespace Shop
                 return null;
             }
 
+
             ShopRuntimeData shop =
                 new ShopRuntimeData(
                     shopId,
-                    shopName,
                     targetShopType)
                 {
                     generatedFromPoolId = string.Join(",",
                         selectedPools.Select(x => x.poolId)),
                     seed = seed
                 };
+
+            Dictionary<string, ShopRuntimeGroup> runtimeGroups =
+                new Dictionary<string, ShopRuntimeGroup>();
+
+            foreach (ShopItemPoolSO pool in selectedPools)
+            {
+                if (pool == null)
+                {
+                    continue;
+                }
+
+                ShopRuntimeGroup group =
+                    shop.AddGroup(
+                        pool.poolId,
+                        pool.DisplayName);
+
+                runtimeGroups[pool.poolId] = group;
+            }
 
             int runtimeIndex = 0;
 
@@ -284,7 +306,14 @@ namespace Shop
 
                     runtimeIndex++;
 
-                    shop.AddItem(runtimeItem);
+                    if (runtimeGroups.TryGetValue(
+                            pool.poolId,
+                            out ShopRuntimeGroup group))
+                    {
+                        shop.AddItemToGroup(
+                            group,
+                            runtimeItem);
+                    }
 
                     if (!pool.allowDuplicate)
                     {

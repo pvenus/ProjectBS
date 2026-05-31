@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8994f18c217b411fa876045e9ce7888, type: 3}
   m_Name: '[Relic] RelicSO'
   m_EditorClassIdentifier: Assembly-CSharp::Item.RelicSO
-  relicId: relic.god.dark
-  displayName: "\uC2EC\uC5F0\uC758 \uC870\uAC01"
-  description: "\uC554\uD751\uC758 \uC2E0 \uC720\uBB3C"
+  relicId: item.relic.god.dark
   icon: {fileID: 1603489632, guid: f07af969acabf44b4a15ba4e2daab96a, type: 3}
   themeColor: {r: 1, g: 1, b: 1, a: 1}
   rarity: 0
   effects:
-  - {fileID: 11400000, guid: 5fb9d0e6336e843fca7e7abdf9b83762, type: 2}
+  - effect: {fileID: 0}
+    applyType: 0
+    lifetimeType: 0
+    duration: 0
+    categoryType: 1
   category: 
   subCategory: 
   hidden: 0

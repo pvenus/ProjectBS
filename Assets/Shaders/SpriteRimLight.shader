@@ -34,7 +34,7 @@ Shader "Custom/SpriteRimLight"
         _RevealEdgeIntensity ("Reveal Edge Intensity", Range(0, 5)) = 1.5
         _RevealNoiseStrength ("Reveal Noise Strength", Range(0, 1)) = 0.15
 
-        _DeathProgress ("Death Progress", Range(0, 1)) = 0.0
+        _DeathProgress ("Death Progress", Range(0, 1)) = 1.0
         _DeathSoftness ("Death Softness", Range(0.001, 0.5)) = 0.06
         _DeathEdgeWidth ("Death Edge Width", Range(0.001, 0.5)) = 0.1
         _DeathEdgeColor ("Death Edge Color", Color) = (0.75, 0.75, 0.75, 1.0)
@@ -162,23 +162,36 @@ Shader "Custom/SpriteRimLight"
 
                 if (isOutline)
                 {
-                    return fixed4(_OutlineColor.rgb, _OutlineColor.a * neighborAlpha);
+                    float outlineAlpha = _OutlineColor.a * neighborAlpha;
+                    return fixed4(_OutlineColor.rgb * outlineAlpha, outlineAlpha);
                 }
 
                 float timeY = _Time.y;
 
-                float revealNoise = frac(sin(dot((IN.uv + timeY * 0.15) * 53.0, float2(18.371, 42.117))) * 14375.8543);
-                float revealThreshold = saturate(IN.uv.y + (revealNoise - 0.5) * _RevealNoiseStrength);
-                float revealBody = 1.0 - smoothstep(_RevealProgress - _RevealSoftness, _RevealProgress + _RevealSoftness, revealThreshold);
-                float revealEdgeMask = smoothstep(_RevealProgress - _RevealEdgeWidth, _RevealProgress, revealThreshold)
-                                     * (1.0 - smoothstep(_RevealProgress, _RevealProgress + _RevealEdgeWidth, revealThreshold));
+                float revealBody = 1.0;
+                float revealEdgeMask = 0.0;
 
-                float2 deathNoiseUV = IN.uv + float2(0.0, timeY * _DeathDriftY);
-                float deathNoise = frac(sin(dot(deathNoiseUV * 61.0, float2(23.417, 51.913))) * 19642.3491);
-                float deathThreshold = saturate(deathNoise + IN.uv.y * 0.35 + (deathNoise - 0.5) * _DeathNoiseStrength);
-                float deathBody = 1.0 - smoothstep(_DeathProgress - _DeathSoftness, _DeathProgress + _DeathSoftness, deathThreshold);
-                float deathEdgeMask = smoothstep(_DeathProgress - _DeathEdgeWidth, _DeathProgress, deathThreshold)
-                                    * (1.0 - smoothstep(_DeathProgress, _DeathProgress + _DeathEdgeWidth, deathThreshold));
+                if (_RevealProgress < 0.999)
+                {
+                    float revealNoise = frac(sin(dot((IN.uv + timeY * 0.15) * 53.0, float2(18.371, 42.117))) * 14375.8543);
+                    float revealThreshold = saturate(IN.uv.y + (revealNoise - 0.5) * _RevealNoiseStrength);
+                    revealBody = 1.0 - smoothstep(_RevealProgress - _RevealSoftness, _RevealProgress + _RevealSoftness, revealThreshold);
+                    revealEdgeMask = smoothstep(_RevealProgress - _RevealEdgeWidth, _RevealProgress, revealThreshold)
+                                   * (1.0 - smoothstep(_RevealProgress, _RevealProgress + _RevealEdgeWidth, revealThreshold));
+                }
+
+                float deathBody = 1.0;
+                float deathEdgeMask = 0.0;
+
+                if (_DeathProgress < 0.999)
+                {
+                    float2 deathNoiseUV = IN.uv + float2(0.0, timeY * _DeathDriftY);
+                    float deathNoise = frac(sin(dot(deathNoiseUV * 61.0, float2(23.417, 51.913))) * 19642.3491);
+                    float deathThreshold = saturate(deathNoise * _DeathNoiseStrength + IN.uv.y * 0.35);
+                    deathBody = 1.0 - smoothstep(_DeathProgress - _DeathSoftness, _DeathProgress + _DeathSoftness, deathThreshold);
+                    deathEdgeMask = smoothstep(_DeathProgress - _DeathEdgeWidth, _DeathProgress, deathThreshold)
+                                  * (1.0 - smoothstep(_DeathProgress, _DeathProgress + _DeathEdgeWidth, deathThreshold));
+                }
 
                 baseCol.a *= revealBody;
                 baseCol.a *= deathBody;
@@ -201,13 +214,13 @@ Shader "Custom/SpriteRimLight"
                 float sparkleNoise = frac(sin(dot((IN.uv + timeY * _SparkleSpeed) * 91.7, float2(15.123, 47.321))) * 24634.6345);
                 float sparkle = step(_SparkleThreshold, sparkleNoise) * _SparkleIntensity * baseCol.a;
 
-                fixed3 finalRgb = baseCol.rgb;
+                fixed3 finalRgb = baseCol.rgb * baseCol.a;
                 finalRgb += _RimColor.rgb * rim * baseCol.a;
                 finalRgb += _RimColor.rgb * pulse * baseCol.a;
                 finalRgb += _RimColor.rgb * flow * baseCol.a;
-                finalRgb += sparkle;
-                finalRgb += _RevealEdgeColor.rgb * revealEdgeMask * _RevealEdgeIntensity;
-                finalRgb += _DeathEdgeColor.rgb * deathEdgeMask * _DeathEdgeIntensity;
+                finalRgb += sparkle * baseCol.a;
+                finalRgb += _RevealEdgeColor.rgb * revealEdgeMask * _RevealEdgeIntensity * baseCol.a;
+                finalRgb += _DeathEdgeColor.rgb * deathEdgeMask * _DeathEdgeIntensity * baseCol.a;
 
                 return fixed4(finalRgb, baseCol.a);
             }
@@ -224,7 +237,7 @@ Shader "Custom/SpriteRimLight"
     // 4) Strong modern magic look:
     //    _RimIntensity = 1.2, _PulseIntensity = 0.4, _SparkleIntensity = 0.35, _FlowIntensity = 0.2
     // 5) Death dissolve smoky fade:
-    //    _DeathProgress = 0 -> 1 over time
+    //    _DeathProgress = 1 -> 0 over time
     //    _DeathSoftness = 0.06
     //    _DeathEdgeWidth = 0.1
     //    _DeathEdgeIntensity = 1.4

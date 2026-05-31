@@ -27,7 +27,7 @@ public class NpcPathing : MonoBehaviour
     [SerializeField] private NpcMovementProfile movementProfile;
     [SerializeField] private SkillExecutorMono skillExecutor;
     [SerializeField] private MovementController movementController;
-    [SerializeField] private venus.eldawn.party.AnimationMono animationMono;
+    [SerializeField] private AnimationMono animationMono;
     [SerializeField] private CharacterManager characterManager;
 
     [Header("Movement")]
@@ -98,7 +98,7 @@ public class NpcPathing : MonoBehaviour
             movementController = gameObject.AddComponent<MovementController>();
 
         if (animationMono == null)
-            animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+            animationMono = GetComponentInChildren<AnimationMono>();
 
         if (characterManager == null)
             characterManager = GetComponent<CharacterManager>();

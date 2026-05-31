@@ -17,12 +17,16 @@ namespace Character.Service
         private float hpRegenTimer;
         private float bleedTimer;
         private float appliedEliteApproachMoveSpeedBonus;
+        private float appliedLowHpAttackBonus;
+        private float appliedLowHpDefenseBonus;
 
         public void Reset()
         {
             hpRegenTimer = 0f;
             bleedTimer = 0f;
             appliedEliteApproachMoveSpeedBonus = 0f;
+            appliedLowHpAttackBonus = 0f;
+            appliedLowHpDefenseBonus = 0f;
         }
 
         public void Tick(
@@ -68,6 +72,10 @@ namespace Character.Service
                 statService);
 
             UpdateEliteApproachMoveSpeed(
+                characterManager);
+            UpdateLowHpAttackBonus(
+                characterManager);
+            UpdateLowHpDefenseBonus(
                 characterManager);
         }
 
@@ -222,6 +230,104 @@ namespace Character.Service
                 diff);
 
             appliedEliteApproachMoveSpeedBonus =
+                targetBonus;
+        }
+
+        private void UpdateLowHpAttackBonus(
+            CharacterManager characterManager)
+        {
+            if (characterManager == null)
+            {
+                return;
+            }
+
+            float bonusPercent =
+                characterManager.GetStatValue(
+                    StatType.LowHpAttackBonus);
+
+            float currentHp =
+                characterManager.GetStatValue(
+                    StatType.Hp);
+
+            float maxHp =
+                characterManager.GetStatValue(
+                    StatType.MaxHp);
+
+            if (maxHp <= 0f)
+            {
+                return;
+            }
+
+            bool isLowHp =
+                currentHp <= maxHp * 0.5f;
+
+            float targetBonus =
+                isLowHp
+                    ? bonusPercent
+                    : 0f;
+
+            float diff =
+                targetBonus - appliedLowHpAttackBonus;
+
+            if (Mathf.Abs(diff) <= 0.001f)
+            {
+                return;
+            }
+
+            characterManager.AddStat(
+                StatType.AttackPercent,
+                diff);
+
+            appliedLowHpAttackBonus =
+                targetBonus;
+        }
+
+        private void UpdateLowHpDefenseBonus(
+            CharacterManager characterManager)
+        {
+            if (characterManager == null)
+            {
+                return;
+            }
+
+            float bonusPercent =
+                characterManager.GetStatValue(
+                    StatType.LowHpDefenseBonus);
+
+            float currentHp =
+                characterManager.GetStatValue(
+                    StatType.Hp);
+
+            float maxHp =
+                characterManager.GetStatValue(
+                    StatType.MaxHp);
+
+            if (maxHp <= 0f)
+            {
+                return;
+            }
+
+            bool isLowHp =
+                currentHp <= maxHp * 0.3f;
+
+            float targetBonus =
+                isLowHp
+                    ? bonusPercent
+                    : 0f;
+
+            float diff =
+                targetBonus - appliedLowHpDefenseBonus;
+
+            if (Mathf.Abs(diff) <= 0.001f)
+            {
+                return;
+            }
+
+            characterManager.AddStat(
+                StatType.Defense,
+                diff);
+
+            appliedLowHpDefenseBonus =
                 targetBonus;
         }
 

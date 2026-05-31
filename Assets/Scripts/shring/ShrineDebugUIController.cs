@@ -1,6 +1,7 @@
 using System.Text;
 using TMPro;
 using Bless;
+using Currency;
 using UnityEngine;
 
 namespace Shrine
@@ -60,7 +61,6 @@ namespace Shrine
 
             shrineManager.OnShrineOpened += HandleShrineChanged;
             shrineManager.OnShrineRefreshed += HandleShrineChanged;
-            shrineManager.OnGoldChanged += HandleGoldChanged;
             shrineManager.OnPartyHpChanged += HandleHpChanged;
             shrineManager.OnFaithChanged += HandleFaithChanged;
             shrineManager.OnBlessingSelected += HandleBlessingSelected;
@@ -75,7 +75,6 @@ namespace Shrine
 
             shrineManager.OnShrineOpened -= HandleShrineChanged;
             shrineManager.OnShrineRefreshed -= HandleShrineChanged;
-            shrineManager.OnGoldChanged -= HandleGoldChanged;
             shrineManager.OnPartyHpChanged -= HandleHpChanged;
             shrineManager.OnFaithChanged -= HandleFaithChanged;
             shrineManager.OnBlessingSelected -= HandleBlessingSelected;
@@ -84,11 +83,6 @@ namespace Shrine
         private void HandleShrineChanged(ShrineRuntimeData shrine)
         {
             RefreshAll();
-        }
-
-        private void HandleGoldChanged(int value)
-        {
-            RefreshGold();
         }
 
         private void HandleHpChanged(int currentHp, int maxHp)
@@ -135,13 +129,13 @@ namespace Shrine
 
         private void RefreshGold()
         {
-            if (goldText == null || shrineManager == null)
+            if (goldText == null)
             {
                 return;
             }
 
             goldText.text =
-                $"Gold : {shrineManager.CurrentGold}";
+                $"Gold : {CurrencyManager.Instance.Gold}";
         }
 
         private void RefreshHp()

@@ -45,6 +45,8 @@ namespace Character
 
         private GoldDropService goldDropService;
 
+        private CharacterExperienceService experienceService;
+
         private CharacterBattleHudUI spawnedBattleHud;
 
         private bool isDying;
@@ -153,13 +155,69 @@ namespace Character
             goldDropService =
                 new GoldDropService();
 
+            experienceService =
+                new CharacterExperienceService();
+
             statService.RefreshFinalStats();
 
             SetStat(
                 StatType.Hp,
                 GetStatValue(StatType.MaxHp));
 
+            ApplyAnimationOverride(characterSO);
+            ApplySkillOverride(characterSO);
+
             CreateBattleHud();
+
+            StartCoroutine(PlaySpawnRevealNextFrame());
+        }
+
+        private void ApplyAnimationOverride(CharacterSO characterSO)
+        {
+            if (characterSO == null || characterSO.animationOverrideSet == null)
+            {
+                return;
+            }
+
+            AnimationMono animationMono =
+                GetComponent<AnimationMono>();
+
+            if (animationMono == null)
+            {
+                animationMono =
+                    GetComponentInChildren<AnimationMono>();
+            }
+
+            if (animationMono == null)
+            {
+                return;
+            }
+
+            animationMono.OverrideClipSet(characterSO.animationOverrideSet);
+        }
+
+        private void ApplySkillOverride(CharacterSO characterSO)
+        {
+            if (characterSO == null || characterSO.skillOverrideSet == null)
+            {
+                return;
+            }
+
+            SkillLoadoutMono skillLoadout =
+                GetComponent<SkillLoadoutMono>();
+
+            if (skillLoadout == null)
+            {
+                skillLoadout =
+                    GetComponentInChildren<SkillLoadoutMono>();
+            }
+
+            if (skillLoadout == null)
+            {
+                return;
+            }
+
+            skillLoadout.ApplyOverride(characterSO.skillOverrideSet);
         }
 
         public void Initialize(CharacterRuntimeData data)
@@ -188,6 +246,9 @@ namespace Character
             goldDropService =
                 new GoldDropService();
 
+            experienceService =
+                new CharacterExperienceService();
+
             statService.RefreshFinalStats();
 
             if (GetStatValue(StatType.Hp) <= 0f
@@ -198,7 +259,22 @@ namespace Character
                     GetStatValue(StatType.MaxHp));
             }
 
+            ApplyAnimationOverride(
+                runtimeData?.characterSO);
+            ApplySkillOverride(
+                runtimeData?.characterSO);
+
             CreateBattleHud();
+
+            StartCoroutine(PlaySpawnRevealNextFrame());
+
+        }
+
+        private System.Collections.IEnumerator PlaySpawnRevealNextFrame()
+        {
+            yield return null;
+
+            shaderController?.PlaySpawnReveal();
         }
 
         private void ResolveComponents()
@@ -395,6 +471,24 @@ namespace Character
                 value);
         }
 
+        public void GainExperience(float baseExperience)
+        {
+            if (runtimeData == null || baseExperience <= 0f)
+            {
+                return;
+            }
+
+            if (experienceService == null)
+            {
+                experienceService =
+                    new CharacterExperienceService();
+            }
+
+            experienceService.GainExperience(
+                this,
+                baseExperience);
+        }
+
         public void RegisterLastHitAttacker(CharacterManager attacker)
         {
             if (attacker == null || attacker == this)
@@ -444,10 +538,11 @@ namespace Character
         private void OnDeathStarted(CharacterManager attacker)
         {
             NotifyCharacterDied();
+            ProcessKillStack(attacker);
             ProcessGoldDrop(attacker);
 
-            venus.eldawn.party.AnimationMono animationMono =
-                GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+            AnimationMono animationMono =
+                GetComponentInChildren<AnimationMono>();
 
             if (animationMono != null)
             {
@@ -459,6 +554,18 @@ namespace Character
             {
                 shaderController.PlayDeathDissolve();
             }
+        }
+
+        private void ProcessKillStack(CharacterManager attacker)
+        {
+            if (attacker == null || attacker == this)
+            {
+                return;
+            }
+
+            attacker.AddStat(
+                StatType.KillStack,
+                1f);
         }
 
         private void ProcessGoldDrop(CharacterManager attacker)

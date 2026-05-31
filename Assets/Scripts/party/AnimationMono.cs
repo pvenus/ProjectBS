@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using System;
-using Character;
 using Stat;
 
-namespace venus.eldawn.party
+namespace Character
 {
     /// <summary>
     /// Animation clip based controller for party members.
@@ -98,6 +97,55 @@ namespace venus.eldawn.party
         public bool IsPlayingAttack()
         {
             return _isPlayingOneShot && _currentState == AnimationState.Attack;
+        }
+
+        public void OverrideClipSet(AnimationClipSetSO clipSet)
+        {
+            if (clipSet == null)
+            {
+                return;
+            }
+
+            if (clipSet.idleClips != null)
+            {
+                idleClips = ConvertClipSet(clipSet.idleClips);
+            }
+
+            if (clipSet.moveClips != null)
+            {
+                moveClips = ConvertClipSet(clipSet.moveClips);
+            }
+
+            if (clipSet.attackClips != null)
+            {
+                attackClips = ConvertClipSet(clipSet.attackClips);
+            }
+
+            if (clipSet.deathClips != null)
+            {
+                deathClips = ConvertClipSet(clipSet.deathClips);
+            }
+
+            if (_currentState == AnimationState.Idle || _currentState == AnimationState.Move)
+            {
+                PlayState(_currentState, restartIfSameState: true);
+            }
+        }
+
+        private DirectionalClipSet ConvertClipSet(DirectionalAnimationClips source)
+        {
+            if (source == null)
+            {
+                return null;
+            }
+
+            return new DirectionalClipSet
+            {
+                upRight = source.upRight,
+                upLeft = source.upLeft,
+                downRight = source.downRight,
+                downLeft = source.downLeft
+            };
         }
 
         private void Reset()

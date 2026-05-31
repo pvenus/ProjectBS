@@ -400,7 +400,6 @@ MonoBehaviour:
     generatedFromConfigId: 
   missionManager: {fileID: 480205270}
   playerContext:
-    currentGold: 999
     currentHp: 100
     maxHp: 100
   playerRuntimeData:
@@ -894,22 +893,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shop.StageShopManager
   defaultPools:
-  - {fileID: 11400000, guid: 7304e5b0ddfd84b038290551ee3382ed, type: 2}
-  - {fileID: 11400000, guid: 3d1da11e4b76c4723adfc5f0ee9d334d, type: 2}
-  - {fileID: 11400000, guid: c73602d09108e4b35a660eab7244d1fd, type: 2}
+  - {fileID: 11400000, guid: 41ed2e3e261b5460e95917b22782862a, type: 2}
+  - {fileID: 11400000, guid: 40e22fc91a63b4895bbb728e8f7ba8c6, type: 2}
   shopType: 0
   shopId: test_shop
-  shopName: Shop
-  itemCount: 18
+  itemCount: 12
   maxPoolCount: 3
   useFixedSeed: 0
   seed: 0
-  currentGold: 500
   currentShop:
     shopId: 
-    shopName: 
     shopType: 0
-    items: []
+    shopName: 
+    groups: []
     isOpened: 0
     isClosed: 0
     generatedFromPoolId: 
@@ -2006,6 +2002,7 @@ Transform:
   - {fileID: 219472380}
   - {fileID: 480205271}
   - {fileID: 1082660219}
+  - {fileID: 1171468134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920874187
@@ -2261,6 +2258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070351588}
   - component: {fileID: 1070351587}
+  - component: {fileID: 1070351589}
   m_Layer: 0
   m_Name: '[Core] GameSession'
   m_TagString: Untagged
@@ -2324,9 +2322,7 @@ MonoBehaviour:
       stageCompleted: 0
       stageFailed: 0
     StrategicSkillItemRuntimeData:
-      strategicSkillItems:
-      - strategicSkillItem: {fileID: 11400000, guid: 158798a605a9b438ca9fd612761ae4ae, type: 2}
-        owned: 1
+      strategicSkillItems: []
     RelicRuntimeData:
       relics: []
       maxRelicCount: 3
@@ -2340,14 +2336,128 @@ MonoBehaviour:
     LoadingSceneName: LoadingScene
     PartyRuntimeData:
       Members:
-      - characterSO: {fileID: 11400000, guid: 73cfb0337ad8b43bb961c290bf495fc4, type: 2}
+      - characterSO: {fileID: 11400000, guid: c6e48f78c14a74a0ca5a0b601067e925, type: 2}
         level: 1
         exp: 0
         currentHp: 0
         isDead: 0
         stats: []
         finalStats: []
-  startProfile: {fileID: 11400000, guid: ecd4fe117d5904fbc8a686d440d82a83, type: 2}
+      - characterSO: {fileID: 11400000, guid: 3ea33611496fb48d48b37eff7a234bf4, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 827ef7fae44ea41d091bed7983094820, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: e3afbfa80089b408e8e2f794204d5668, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 39c985939f35748118fa72a2ac1c3487, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 8ea8e09caad37417eb65e3913f0e79d2, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: bea2e90fe80fa4a7892ae5997745f91a, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 179c0241cc31e4f4d993ae72bdb7de42, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: b3846f871893845aaac7e7fface9d6e5, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: f870d3eabd48946c3bc1235946a940cc, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 8ac7482672a044c4dbe1084996a5fdf1, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: c9d772707fefd40b8b99dbcabf106e46, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: ba068314d0f9d4db5a250f5fdc9a7a42, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: c291ab0d81f9643b3a9961716828dacd, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+      - characterSO: {fileID: 11400000, guid: 972d1d2372e314daa84d1f1837777ec8, type: 2}
+        level: 1
+        exp: 0
+        currentHp: 0
+        isDead: 0
+        stats: []
+        finalStats: []
+    BattleSO: {fileID: 11400000, guid: ff7a1bd10d13f4c0aa96f1ff59549e95, type: 2}
+    BattleRuntime:
+      battleId: 
+      battleName: 
+      victoryRule: 0
+      survivalTimeSeconds: 0
+      rewardExperience: 0
+      relicDropPool: {fileID: 0}
+      normalRelicDropChance: 0
+      bossRelicDropChance: 0
+      backgroundPrefab: {fileID: 0}
+      monsterSpawnerPrefab: {fileID: 0}
+      bossKilled: 0
+      remainingEnemyCount: 0
+      isCompleted: 0
+      elapsedTime: 0
+  startProfile: {fileID: 11400000, guid: ad87da48e4d414641bc0048d98b240d2, type: 2}
   startProfileApplyDelayFrame: 1
   enableBattleSceneTest: 1
   battleTestKey: 282
@@ -2368,6 +2478,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070351589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070351586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01a51aa191854a92ab2abc20d718cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::String.StringManager
+  resourcePath: string/string_table
+  currentLanguage: 0
+  loadOnAwake: 1
+  logMissingKey: 0
 --- !u!1 &1082660217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,6 +2712,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149929300}
   m_CullTransparentMesh: 1
+--- !u!1 &1171468133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171468134}
+  - component: {fileID: 1171468135}
+  m_Layer: 0
+  m_Name: currency manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1171468134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171468133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 900931270}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1171468135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171468133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605f502bb7198478384bd73734100d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Currency.CurrencyManager
 --- !u!1001 &1194116033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4150,10 +4320,70 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 459393375}
     m_Modifications:
+    - target: {fileID: 695526104879855887, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 695526104879855887, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 695526104879855887, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919546899838898848, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 919546899838898848, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 919546899838898848, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2034851242619698737, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
       propertyPath: m_Name
       value: UI_ShopNormal
       objectReference: {fileID: 0}
+    - target: {fileID: 3146814247221051865, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 3146814247221051865, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
+    - target: {fileID: 3146814247221051865, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427384721693435019, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: relic
+      value: 
+      objectReference: {fileID: 7116515737966116695}
+    - target: {fileID: 5427384721693435019, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: tactic
+      value: 
+      objectReference: {fileID: 7116515737966116691}
+    - target: {fileID: 5427384721693435019, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: consumable
+      value: 
+      objectReference: {fileID: 7116515737966116694}
+    - target: {fileID: 5427384721693435019, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: carouselWidget
+      value: 
+      objectReference: {fileID: 7116515737966116696}
+    - target: {fileID: 8167761347731951662, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: titleText
+      value: 
+      objectReference: {fileID: 7116515737966116693}
+    - target: {fileID: 8167761347731951662, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+      propertyPath: scrollWidget
+      value: 
+      objectReference: {fileID: 7116515737966116692}
     - target: {fileID: 8837908137662637641, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4239,6 +4469,72 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+--- !u!114 &7116515737966116691 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5856614608379531765, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae73dbb899de77a40ab711fa864a8777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopCategoryPanel
+--- !u!114 &7116515737966116692 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5052974773789019154, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088421b5ba3ca4546af012148bc71180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIScrollViewWidget
+--- !u!114 &7116515737966116693 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 919546899838898848, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &7116515737966116694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8167761347731951662, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae73dbb899de77a40ab711fa864a8777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopCategoryPanel
+--- !u!114 &7116515737966116695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4693779540159575628, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae73dbb899de77a40ab711fa864a8777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopCategoryPanel
+--- !u!114 &7116515737966116696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7951645061824095507, guid: cbbcff49a6ecc7a42b9a38f1e756068f, type: 3}
+  m_PrefabInstance: {fileID: 7116515737966116690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f129acb2c9ea441b2bb54172b6d028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UICarouselWidget
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

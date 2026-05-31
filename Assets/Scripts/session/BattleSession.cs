@@ -1,5 +1,6 @@
 using System;
 using Party;
+using Battle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,10 @@ namespace Session
         public string LoadingSceneName = "LoadingScene";
 
         public PartyRuntimeData PartyRuntimeData = new();
+
+        public BattleSO BattleSO;
+
+        public BattleRuntime BattleRuntime;
 
         public void BeginBattle(
             string battleId,
@@ -65,6 +70,7 @@ namespace Session
             IsBattleActive = false;
 
             BattleId = string.Empty;
+            BattleSO = null;
             BattleSceneName = string.Empty;
             ReturnSceneName = string.Empty;
         }

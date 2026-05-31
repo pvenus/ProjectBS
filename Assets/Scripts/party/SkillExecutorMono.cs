@@ -23,7 +23,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     private bool _hasPendingRequest;
     private SkillExecutionRequest _pendingRequest;
     private readonly Dictionary<ScriptableObject, float> _cooldowns = new Dictionary<ScriptableObject, float>();
-    private venus.eldawn.party.AnimationMono _animationMono;
+    private AnimationMono _animationMono;
     private EquipmentSkillResolver _equipmentSkillResolver;
     private ProjectileFactory _projectileFactory;
     private CharacterManager _characterManager;
@@ -32,7 +32,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (skillLoadout == null)
             skillLoadout = GetComponent<SkillLoadoutMono>();
 
-        _animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+        _animationMono = GetComponentInChildren<AnimationMono>();
         _equipmentSkillResolver = new EquipmentSkillResolver();
         _projectileFactory = new ProjectileFactory();
         _characterManager = GetComponent<CharacterManager>();
@@ -354,7 +354,15 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         EquipmentSkillRuntimeData runtime = entry != null ? entry.RuntimeData : null;
         if (runtime == null)
         {
-            EquipmentSkillInstanceData instanceData = entry != null ? entry.BuildInstanceData() : new EquipmentSkillInstanceData();
+            EquipmentSkillInstanceData instanceData = new EquipmentSkillInstanceData();
+
+            if (entry != null)
+            {
+                instanceData.equipmentId = equipmentSkill.EquipmentId;
+                instanceData.projectilePrefab = entry.ProjectilePrefabOverride;
+                instanceData.projectileLifetimeOverride = entry.ProjectileLifetimeOverride;
+            }
+
             runtime = _equipmentSkillResolver.Resolve(equipmentSkill, instanceData);
         }
 
@@ -363,6 +371,7 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 
         Vector2 spawnPosition = request.Caster.position;
         Vector2 direction = ResolveExecutionDirection(request, explicitTarget);
+        TrySetAnimationDirection(direction);
         GameObject targetObject = explicitTarget != null ? explicitTarget.gameObject : null;
 
         ProjectileRuntimeData projectileData = _equipmentSkillResolver.ResolveProjectileRuntime(
@@ -429,13 +438,30 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         return request.Caster.right;
     }
 
+    private void TrySetAnimationDirection(Vector2 direction)
+    {
+        if (direction.sqrMagnitude <= 0.0001f)
+            return;
+
+        if (_animationMono == null)
+            _animationMono = GetComponentInChildren<AnimationMono>();
+
+        if (_animationMono == null)
+            return;
+
+        _animationMono.SetDirectionFromVector(direction);
+
+        if (debugLog)
+            Debug.Log($"[SkillExecutor] animation direction set direction={direction} caster={name}");
+    }
+
     private void TryPlayBasicAttackAnimation(ScriptableObject skill)
     {
         if (!IsBasicAttackSkill(skill))
             return;
 
         if (_animationMono == null)
-            _animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+            _animationMono = GetComponentInChildren<AnimationMono>();
 
         if (_animationMono == null)
             return;

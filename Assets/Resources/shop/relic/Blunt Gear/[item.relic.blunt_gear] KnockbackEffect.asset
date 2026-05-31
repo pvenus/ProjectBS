@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4151e7e36a82c4e2495e1edcfa81a281, type: 3}
+  m_Name: '[item.relic.blunt_gear] KnockbackEffect'
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.KnockbackEffectSO
+  effectId: effect.item.relic.blunt_gear
+  effectName: effect.item.relic.blunt_gear
+  description: 
+  icon: {fileID: 469897177, guid: d5d4f8c3e6ab64b00a2992f2a2038fd4, type: 3}
+  isPermanent: 0
+  allowDuplicate: 1
+  duration: 0
+  maxStack: 1
+  tags: []
+  force: 5
+  directionType: 0
+  customDirection: {x: 0, y: 1}
+  normalizeDirection: 1
+  fallbackToProjectileDirection: 1

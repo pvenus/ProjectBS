@@ -9,7 +9,7 @@ using TMPro;
 /// 장비 획득 / 합성 테스트용 UI Mono.
 /// - Acquire 버튼으로 테스트 장비를 인벤토리에 추가한다.
 /// - 장비 리스트 버튼을 클릭해 합성 대상 장비를 선택한다.
-/// - Upgrade 버튼으로 같은 장비/같은 등급 3개 합성을 시도한다.
+/// - Upgrade 버튼으로 같은 장비 3개 합성을 시도한다.
 /// - 성공/실패 후 UI를 갱신한다.
 /// </summary>
 public class UIEquipmentUpgradeMono : MonoBehaviour
@@ -336,7 +336,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         selectedEquipment = owned;
 
         SetStatus(owned != null
-            ? $"Acquired: {owned.DisplayName} / {owned.CurrentGrade}"
+            ? $"Acquired: {owned.DisplayName}"
             : "Acquire failed.");
 
         RefreshUI();
@@ -356,12 +356,11 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
             return;
         }
 
-        EquipmentGrade beforeGrade = selectedEquipment.CurrentGrade;
         bool success = equipmentInventory.TryUpgrade(selectedEquipment);
 
         SetStatus(success
-            ? $"Upgrade success: {beforeGrade} → {selectedEquipment.CurrentGrade}"
-            : "Upgrade failed. Need same equipment / same grade x3.");
+            ? $"Upgrade success: {selectedEquipment.DisplayName}"
+            : "Upgrade failed. Need same equipment x3.");
 
         RefreshUI();
     }
@@ -417,7 +416,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         {
             selectedEquipment = equipment;
             SetSelectedText(selectedEquipment);
-            SetStatus($"Selected: {equipment.DisplayName} / {equipment.CurrentGrade}");
+            SetStatus($"Selected: {equipment.DisplayName}");
             RefreshUI();
         });
     }
@@ -428,7 +427,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         string equipMark = equipment.IsEquipped ? " [Equipped]" : string.Empty;
         string lockMark = equipment.IsLocked ? " [Locked]" : string.Empty;
 
-        return $"{selectedMark}{index + 1}. {equipment.DisplayName} / {equipment.CurrentGrade}{equipMark}{lockMark}";
+        return $"{selectedMark}{index + 1}. {equipment.DisplayName}{equipMark}{lockMark}";
     }
 
     private void ClearList()
@@ -471,7 +470,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         }
 
         selectedText.text = equipment != null
-            ? $"Selected: {equipment.DisplayName} / {equipment.CurrentGrade}\nID: {equipment.InstanceId}"
+            ? $"Selected: {equipment.DisplayName}\nID: {equipment.InstanceId}"
             : "Selected: None";
     }
 

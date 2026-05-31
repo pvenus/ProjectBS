@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_confucian_scholar_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.confucian_scholar.1
+  characterType: 0
+  prefab: {fileID: 6378610511697526054, guid: eb0a892b397a2498e804f102bdfc5b33, type: 3}
+  animationOverrideSet: {fileID: 11400000, guid: 7b0d9942117d143adb56cef0573a3fde, type: 2}
+  skillOverrideSet: {fileID: 11400000, guid: 3fddfae3af32d483ca2d71020ae94bcf, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 10
+  - statType: 1000
+    value: 100
+  - statType: 1220
+    value: 1
+  - statType: 1240
+    value: 90
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4b5ffea3bc48a88384ebf306310b2, type: 3}
+  m_Name: character_confucian_scholar_3_SkillOverride
+  m_EditorClassIdentifier: Assembly-CSharp::Character.SkillPoolOverrideSO
+  overrides:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: f952a26eaf58a4e3a941ddc5b7c3e120, type: 2}
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: e57742056e2e14220bbce3da41eaf6d0, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: 633cbf19b0b4e49a285d8f5b681d329b, type: 2}
+  - slotKey: active_3
+    skillSo: {fileID: 11400000, guid: f6cead888998b4d3eb7aa50cf7940178, type: 2}

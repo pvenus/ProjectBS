@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// EquipmentSkillResolver를 사용하는 정식 투사체 발사 테스트용 MonoBehaviour.
-/// 키 입력 시 EquipmentSkillSO + InstanceData를 해석하여 ProjectileRuntimeData를 만들고 발사한다.
+/// 키 입력 시 EquipmentSkillSO를 해석하여 ProjectileRuntimeData를 만들고 발사한다.
 /// </summary>
 public class SkillTestMono : MonoBehaviour
 {
@@ -20,11 +19,7 @@ public class SkillTestMono : MonoBehaviour
     [SerializeField] private KeyCode acquireKey = KeyCode.A;
     [SerializeField] private KeyCode upgradeKey = KeyCode.U;
 
-    [Header("Instance Data")]
-    [SerializeField] private EquipmentGrade currentGrade = EquipmentGrade.Common;
-    [SerializeField, Min(1)] private int currentRuneSlotCount = 1;
-    [SerializeField] private ElementType mainElement = ElementType.None;
-    [SerializeField] private ElementType[] subElements;
+    [Header("Projectile Override")]
     [SerializeField] private float projectileLifetimeOverride = -1f;
 
     private ProjectileFactory projectileFactory;
@@ -84,14 +79,14 @@ public class SkillTestMono : MonoBehaviour
             return;
         }
 
-        testOwnedEquipment = equipmentInventory.Acquire(equipmentSkill, currentGrade);
+        testOwnedEquipment = equipmentInventory.Acquire(equipmentSkill);
         if (testOwnedEquipment == null)
         {
             Debug.LogError("SkillTestMono: failed to acquire equipment.", this);
             return;
         }
 
-        Debug.Log($"[Inventory Test] Acquired {testOwnedEquipment.DisplayName} / grade={testOwnedEquipment.CurrentGrade} / instanceId={testOwnedEquipment.InstanceId}", this);
+        Debug.Log($"[Inventory Test] Acquired {testOwnedEquipment.DisplayName} / instanceId={testOwnedEquipment.InstanceId}", this);
     }
 
     private void UpgradeTestEquipment()
@@ -109,7 +104,7 @@ public class SkillTestMono : MonoBehaviour
         }
 
         bool upgraded = equipmentInventory.TryUpgrade(testOwnedEquipment);
-        Debug.Log($"[Inventory Test] Upgrade result={upgraded} / grade={testOwnedEquipment.CurrentGrade}", this);
+        Debug.Log($"[Inventory Test] Upgrade result={upgraded}", this);
     }
 
     private void Fire()
@@ -179,31 +174,21 @@ public class SkillTestMono : MonoBehaviour
 
     private EquipmentSkillInstanceData BuildInstanceData(OwnedEquipmentData activeOwnedEquipment)
     {
-        if (activeOwnedEquipment != null)
-        {
-            EquipmentSkillInstanceData ownedInstanceData = activeOwnedEquipment.ToInstanceData();
-            ownedInstanceData.mainElement = mainElement;
-            ownedInstanceData.subElements = subElements != null ? new List<ElementType>(subElements) : new List<ElementType>();
-            ownedInstanceData.projectilePrefab = projectilePrefab;
-
-            if (projectileLifetimeOverride > 0f)
+        EquipmentSkillInstanceData instanceData = activeOwnedEquipment != null
+            ? activeOwnedEquipment.ToInstanceData()
+            : new EquipmentSkillInstanceData
             {
-                ownedInstanceData.projectileLifetimeOverride = projectileLifetimeOverride;
-            }
+                equipmentId = equipmentSkill != null ? equipmentSkill.EquipmentId : string.Empty
+            };
 
-            return ownedInstanceData;
+        instanceData.projectilePrefab = projectilePrefab;
+
+        if (projectileLifetimeOverride > 0f)
+        {
+            instanceData.projectileLifetimeOverride = projectileLifetimeOverride;
         }
 
-        return new EquipmentSkillInstanceData
-        {
-            equipmentId = equipmentSkill != null ? equipmentSkill.EquipmentId : string.Empty,
-            currentGrade = currentGrade,
-            currentRuneSlotCount = Mathf.Max(1, currentRuneSlotCount),
-            mainElement = mainElement,
-            subElements = subElements != null ? new List<ElementType>(subElements) : new List<ElementType>(),
-            projectilePrefab = projectilePrefab,
-            projectileLifetimeOverride = projectileLifetimeOverride
-        };
+        return instanceData;
     }
 
     private Vector2 ResolveDirection(Vector2 spawnPosition)

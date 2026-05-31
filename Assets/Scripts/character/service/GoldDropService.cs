@@ -14,6 +14,7 @@ namespace Character.Service
     /// - GoldGain: 막타 공격자의 GoldGain% 만큼 기본 골드 증가
     /// - BonusGoldDropChance: 막타 공격자 기준 추가 골드 발생 확률
     /// - BonusGoldDropPercent: 기본 골드 기준 추가 골드 비율
+    /// - EliteGoldBonus: 보스 사망 시 막타 공격자 기준 추가 골드 비율
     /// </summary>
     public class GoldDropService
     {
@@ -22,6 +23,7 @@ namespace Character.Service
             public int baseGold;
             public int goldGainBonus;
             public int bonusGold;
+            public int bossGoldBonus;
             public int totalGold;
             public bool bonusTriggered;
         }
@@ -52,6 +54,7 @@ namespace Character.Service
             float goldGainPercent = 0f;
             float bonusGoldDropChance = 0f;
             float bonusGoldDropPercent = 0f;
+            float eliteGoldBonusPercent = 0f;
 
             if (lastHitAttacker != null
                 && lastHitAttacker.RuntimeData != null)
@@ -70,6 +73,11 @@ namespace Character.Service
                     Mathf.Max(
                         0f,
                         lastHitAttacker.GetStatValue(StatType.BonusGoldDropPercent));
+
+                eliteGoldBonusPercent =
+                    Mathf.Max(
+                        0f,
+                        lastHitAttacker.GetStatValue(StatType.EliteGoldBonus));
             }
 
             float goldGainBonus =
@@ -83,12 +91,17 @@ namespace Character.Service
                 ? dropGold * (bonusGoldDropPercent / 100f)
                 : 0f;
 
+            float bossGoldBonus = IsBoss(deadCharacter)
+                ? dropGold * (eliteGoldBonusPercent / 100f)
+                : 0f;
+
             result.baseGold = Mathf.RoundToInt(dropGold);
             result.goldGainBonus = Mathf.RoundToInt(goldGainBonus);
             result.bonusGold = Mathf.RoundToInt(bonusGold);
+            result.bossGoldBonus = Mathf.RoundToInt(bossGoldBonus);
             result.totalGold = Mathf.Max(
                 0,
-                result.baseGold + result.goldGainBonus + result.bonusGold);
+                result.baseGold + result.goldGainBonus + result.bonusGold + result.bossGoldBonus);
             result.bonusTriggered = bonusTriggered;
 
             if (result.totalGold <= 0)
@@ -117,8 +130,23 @@ namespace Character.Service
                     "BonusGold");
             }
 
+            if (result.bossGoldBonus > 0)
+            {
+                SpawnGoldCoin(
+                    deadCharacter.transform.position + new Vector3(-0.35f, 0.15f, 0f),
+                    result.bossGoldBonus,
+                    "BossGoldBonus");
+            }
+
             onGoldGained?.Invoke(result.totalGold);
             return result;
+        }
+
+        private bool IsBoss(CharacterManager characterManager)
+        {
+            return characterManager != null
+                   && characterManager.RuntimeData != null
+                   && characterManager.RuntimeData.characterSO.characterType == CharacterType.Boss;
         }
 
         private void SpawnGoldCoin(

@@ -1,5 +1,6 @@
 using UnityEngine;
 using SKill;
+using Character;
 
 public class SkillLoadoutMono : MonoBehaviour
 {
@@ -103,6 +104,43 @@ public class SkillLoadoutMono : MonoBehaviour
     {
         EnsureSkillPoolService();
         skillPoolService.ResolvePool(skillPool);
+    }
+
+    public void ApplyOverride(SkillPoolOverrideSO overrideSo)
+    {
+        if (overrideSo == null || skillPool == null)
+        {
+            return;
+        }
+
+        foreach (SkillPoolOverrideEntry entry in overrideSo.overrides)
+        {
+            if (entry == null || string.IsNullOrEmpty(entry.slotKey))
+            {
+                continue;
+            }
+
+            SkillPoolSlotData slot = skillPool.GetSlotByKey(entry.slotKey);
+
+            if (slot == null)
+            {
+                continue;
+            }
+
+            slot.SetSkill(entry.skillSo);
+        }
+
+        ResolveAllSkills();
+    }
+
+    public void ApplyOverrideFromCharacter(CharacterSO characterSo)
+    {
+        if (characterSo == null)
+        {
+            return;
+        }
+
+        ApplyOverride(characterSo.skillOverrideSet);
     }
 
     public void RefreshSlotRuntime(int slotIndex)

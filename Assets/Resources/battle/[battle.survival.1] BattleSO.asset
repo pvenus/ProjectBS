@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897374d37d5b749a5923405ad58ad77e, type: 3}
+  m_Name: '[battle.survival.1] BattleSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
+  battleId: battle.survival.1
+  battleName: "\uC11C\uBC14\uC774\uBC8C 1"
+  backgroundPrefab: {fileID: 3609337308155714168, guid: c2d645e65aa4d4e389be7a281b022378, type: 3}
+  monsterSpawnerPrefab: {fileID: 4638205885691374152, guid: 3b5f5b7f5ae93495b923979b2f7d9411, type: 3}
+  victoryRule: 2
+  survivalTimeSeconds: 180
+  rewardExperience: 10
+  relicDropPool: {fileID: 11400000, guid: 9bc1ecda65ded41caa894e67472c0bd0, type: 2}
+  normalRelicDropChance: 1
+  bossRelicDropChance: 10

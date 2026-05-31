@@ -10,6 +10,9 @@ namespace Character
 
         private readonly CharacterRuntimeData runtimeData;
         private float appliedMissingHpAttackBonus;
+        private float appliedKillStackAttackBonus;
+        private int appliedKillStackUnit;
+        private bool isBattleStartShieldApplied;
 
         public CharacterStatService(CharacterRuntimeData runtimeData)
         {
@@ -173,6 +176,7 @@ namespace Character
                     StatType.Attack,
                     StatType.AttackPercent));
 
+            ApplyKillStackDerivedAttackStats();
             ApplyMissingHpDerivedDamageStats();
 
             SetCalculatedFinalStat(
@@ -187,23 +191,6 @@ namespace Character
                     StatType.MoveSpeed,
                     StatType.MoveSpeedPercent));
 
-            SetCalculatedFinalStat(
-                StatType.Defense,
-                CalculateWithPercent(
-                    StatType.Defense,
-                    StatType.DefensePercent));
-
-            SetCalculatedFinalStat(
-                StatType.GoldGain,
-                CalculateWithPercent(
-                    StatType.GoldGain,
-                    StatType.GoldGainPercent));
-
-            SetCalculatedFinalStat(
-                StatType.ExpGain,
-                CalculateWithPercent(
-                    StatType.ExpGain,
-                    StatType.ExpGainPercent));
 
             SetCalculatedFinalStat(
                 StatType.RelicDropRate,
@@ -230,11 +217,78 @@ namespace Character
                     StatType.CooldownReductionPercent));
 
             ClampCurrentHpToMaxHp();
+            ApplyBattleStartShieldOnce();
         }
 
         public void RefreshMissingHpDerivedDamageStats()
         {
             RefreshFinalStats();
+        }
+
+        private void ApplyKillStackDerivedAttackStats()
+        {
+            if (runtimeData == null || runtimeData.stats == null)
+            {
+                return;
+            }
+
+            float killStack =
+                GetRuntimeStatSum(StatType.KillStack);
+
+            int killStackUnit =
+                Mathf.FloorToInt(killStack / 100f);
+
+            float killStackAttackPercent =
+                GetRuntimeStatSum(StatType.KillStackAttackPercent);
+
+            float baseAttack =
+                Mathf.Max(
+                    0f,
+                    GetRuntimeStatSum(StatType.Attack));
+
+            float nextAttackBonus =
+                baseAttack
+                * (killStackUnit * killStackAttackPercent / 100f);
+
+            ApplyKillStackAttackBonusDiff(
+                nextAttackBonus,
+                killStackUnit);
+        }
+
+        private void ApplyKillStackAttackBonusDiff(
+            float nextAttackBonus,
+            int killStackUnit)
+        {
+            bool isSameBonus =
+                Mathf.Abs(nextAttackBonus - appliedKillStackAttackBonus) <= 0.0001f;
+
+            bool isSameUnit =
+                killStackUnit == appliedKillStackUnit;
+
+            if (isSameBonus && isSameUnit)
+            {
+                return;
+            }
+
+            float diff =
+                nextAttackBonus - appliedKillStackAttackBonus;
+
+            if (Mathf.Abs(diff) > 0.0001f)
+            {
+                AddOrMergeFinalStat(
+                    StatType.Attack,
+                    diff);
+            }
+
+            appliedKillStackAttackBonus =
+                nextAttackBonus;
+
+            appliedKillStackUnit =
+                killStackUnit;
+
+            OnStatChanged?.Invoke(
+                StatType.Attack,
+                GetStat(StatType.Attack));
         }
 
         private void ApplyMissingHpDerivedDamageStats()
@@ -303,6 +357,33 @@ namespace Character
             OnStatChanged?.Invoke(
                 StatType.Attack,
                 GetStat(StatType.Attack));
+        }
+
+        private void ApplyBattleStartShieldOnce()
+        {
+            if (isBattleStartShieldApplied)
+            {
+                return;
+            }
+
+            float shieldToAdd =
+                GetRuntimeStatSum(StatType.StartBattleShield);
+
+            if (Mathf.Abs(shieldToAdd) <= 0.0001f)
+            {
+                isBattleStartShieldApplied = true;
+                return;
+            }
+
+            AddOrMergeFinalStat(
+                StatType.Shield,
+                shieldToAdd);
+
+            isBattleStartShieldApplied = true;
+
+            OnStatChanged?.Invoke(
+                StatType.Shield,
+                GetStat(StatType.Shield));
         }
 
         private void ClampCurrentHpToMaxHp()
@@ -414,18 +495,15 @@ namespace Character
                    || statType == StatType.AttackSpeedPercent
                    || statType == StatType.MoveSpeed
                    || statType == StatType.MoveSpeedPercent
-                   || statType == StatType.Defense
-                   || statType == StatType.DefensePercent
-                   || statType == StatType.GoldGain
-                   || statType == StatType.GoldGainPercent
-                   || statType == StatType.ExpGain
-                   || statType == StatType.ExpGainPercent
                    || statType == StatType.RelicDropRate
                    || statType == StatType.RelicDropRatePercent
                    || statType == StatType.Shield
                    || statType == StatType.ShieldPercent
+                   || statType == StatType.StartBattleShield
                    || statType == StatType.CooldownReduction
                    || statType == StatType.CooldownReductionPercent
+                   || statType == StatType.KillStack
+                   || statType == StatType.KillStackAttackPercent
                    || statType == StatType.MissingHpAttackPercent
                    || statType == StatType.MissingHpFinalDamageAmplify
                    || statType == StatType.SkillRange

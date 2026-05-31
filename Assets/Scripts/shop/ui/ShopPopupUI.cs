@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Currency;
 
 namespace Shop
 {
@@ -168,13 +169,12 @@ namespace Shop
 
             if (titleText != null)
             {
-                titleText.text = string.IsNullOrWhiteSpace(shop.shopName) ? "Shop" : shop.shopName;
+                titleText.text = "Shop";
             }
 
             if (goldText != null)
             {
-                int gold = shopManager != null ? shopManager.CurrentGold : 0;
-                goldText.text = gold.ToString();
+                goldText.text = CurrencyManager.Instance.Gold.ToString();
             }
 
             if (shopTypeText != null)
@@ -187,7 +187,7 @@ namespace Shop
         {
             ClearItems();
 
-            if (shop == null || shop.items == null)
+            if (shop == null || shop.groups == null)
             {
                 return;
             }
@@ -205,78 +205,78 @@ namespace Shop
             }
 
             Dictionary<string, int> poolIndices = new();
-            int i = 0;
-            foreach (ShopRuntimeItem item in shop.items)
+
+            foreach (ShopRuntimeGroup group in shop.groups)
             {
-                if (item == null)
+                if (group?.items == null)
                 {
                     continue;
                 }
 
-                RectTransform targetRoot =
-                    GetPoolRoot(item.generatedFromPoolId);
-
-                if (targetRoot == null)
+                foreach (ShopRuntimeItem item in group.items)
                 {
-                    targetRoot = contentRoot;
-                }
-
-                ShopItemEntryUI entry = Instantiate(itemEntryPrefab, targetRoot);
-
-                if (forcePositionOffset)
-                {
-                    RectTransform rectTransform =
-                        entry.GetComponent<RectTransform>();
-
-                    if (rectTransform != null)
+                    if (item == null)
                     {
-                        if (!poolIndices.ContainsKey(item.generatedFromPoolId))
-                        {
-                            poolIndices[item.generatedFromPoolId] = 0;
-                        }
-
-                        int localIndex =
-                            poolIndices[item.generatedFromPoolId];
-
-                        rectTransform.anchoredPosition =
-                            new Vector2(
-                                itemOffset.x * localIndex,
-                                itemOffset.y * localIndex);
-
-                        poolIndices[item.generatedFromPoolId] =
-                            localIndex + 1;
+                        continue;
                     }
-                }
 
-                entry.Bind(item, shopManager);
-                spawnedEntries.Add(entry);
+                    RectTransform targetRoot =
+                        GetPoolRoot(group.groupId);
+
+                    if (targetRoot == null)
+                    {
+                        targetRoot = contentRoot;
+                    }
+
+                    ShopItemEntryUI entry = Instantiate(itemEntryPrefab, targetRoot);
+
+                    if (forcePositionOffset)
+                    {
+                        RectTransform rectTransform =
+                            entry.GetComponent<RectTransform>();
+
+                        if (rectTransform != null)
+                        {
+                            if (!poolIndices.ContainsKey(group.groupId))
+                            {
+                                poolIndices[group.groupId] = 0;
+                            }
+
+                            int localIndex = poolIndices[group.groupId];
+
+                            rectTransform.anchoredPosition =
+                                new Vector2(
+                                    itemOffset.x * localIndex,
+                                    itemOffset.y * localIndex);
+
+                            poolIndices[group.groupId] =
+                                localIndex + 1;
+                        }
+                    }
+
+                    entry.Bind(item, shopManager);
+                    spawnedEntries.Add(entry);
+                }
             }
         }
 
         private RectTransform GetPoolRoot(string poolId)
         {
-            if (string.IsNullOrWhiteSpace(poolId))
-            {
-                return firstPoolRoot;
-            }
-
             ShopRuntimeData currentShop =
                 shopManager != null
                     ? shopManager.CurrentShop
                     : null;
 
-            if (currentShop == null
-                || string.IsNullOrWhiteSpace(currentShop.generatedFromPoolId))
+            if (currentShop?.groups == null)
             {
                 return firstPoolRoot;
             }
 
-            string[] poolIds =
-                currentShop.generatedFromPoolId.Split(',');
-
-            for (int i = 0; i < poolIds.Length; i++)
+            for (int i = 0; i < currentShop.groups.Count; i++)
             {
-                if (poolIds[i] != poolId)
+                ShopRuntimeGroup group = currentShop.groups[i];
+
+                if (group == null || group.groupId != poolId)
                 {
                     continue;
                 }

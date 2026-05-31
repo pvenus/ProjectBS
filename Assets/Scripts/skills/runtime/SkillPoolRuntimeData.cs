@@ -31,12 +31,6 @@ namespace SKill
         [Header("Skill")]
         [SerializeField] private EquipmentSkillSO skillSo;
 
-        [Header("Instance")]
-        [SerializeField] private EquipmentGrade currentGrade = EquipmentGrade.Common;
-        [SerializeField, Min(1)] private int currentRuneSlotCount = 1;
-        [SerializeField] private ElementType mainElement = ElementType.None;
-        [SerializeField] private List<ElementType> subElements = new();
-
         [Header("Override")]
         [SerializeField] private ProjectileEntity projectilePrefabOverride;
         [SerializeField] private float projectileLifetimeOverride = -1f;
@@ -45,34 +39,20 @@ namespace SKill
 
         public string SlotKey => slotKey;
         public EquipmentSkillSO SkillSo => skillSo;
-        public EquipmentGrade CurrentGrade => currentGrade;
-        public int CurrentRuneSlotCount => currentRuneSlotCount;
-        public ElementType MainElement => mainElement;
-        public IReadOnlyList<ElementType> SubElements => subElements;
         public ProjectileEntity ProjectilePrefabOverride => projectilePrefabOverride;
         public float ProjectileLifetimeOverride => projectileLifetimeOverride;
         public EquipmentSkillRuntimeData RuntimeData => runtimeData;
         public bool HasSkill => skillSo != null;
 
+        public void SetSkill(EquipmentSkillSO newSkillSo)
+        {
+            skillSo = newSkillSo;
+            runtimeData = null;
+        }
+
         public bool IsSlotKey(string key)
         {
             return string.Equals(slotKey, key, StringComparison.Ordinal);
-        }
-
-        public EquipmentSkillInstanceData BuildInstanceData()
-        {
-            return new EquipmentSkillInstanceData
-            {
-                equipmentId = skillSo != null ? skillSo.EquipmentId : string.Empty,
-                currentGrade = currentGrade,
-                currentRuneSlotCount = Mathf.Max(1, currentRuneSlotCount),
-                mainElement = mainElement,
-                subElements = subElements != null
-                    ? new List<ElementType>(subElements)
-                    : new List<ElementType>(),
-                projectilePrefab = projectilePrefabOverride,
-                projectileLifetimeOverride = projectileLifetimeOverride
-            };
         }
 
         public EquipmentSkillRuntimeData ResolveRuntime(EquipmentSkillResolver resolver)
@@ -83,7 +63,14 @@ namespace SKill
                 return null;
             }
 
-            runtimeData = resolver.Resolve(skillSo, BuildInstanceData());
+            runtimeData = resolver.Resolve(
+                skillSo,
+                new EquipmentSkillInstanceData
+                {
+                    equipmentId = skillSo != null ? skillSo.EquipmentId : string.Empty,
+                    projectilePrefab = projectilePrefabOverride,
+                    projectileLifetimeOverride = projectileLifetimeOverride
+                });
             return runtimeData;
         }
 

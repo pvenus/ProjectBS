@@ -3,6 +3,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Currency;
 
 namespace Shop
 {
@@ -133,7 +134,7 @@ namespace Shop
         {
             bool isSoldOut = runtimeItem != null && runtimeItem.IsSoldOut;
             bool isLocked = runtimeItem != null && runtimeItem.IsLocked;
-            bool canAfford = shopManager == null || runtimeItem == null || shopManager.CurrentGold >= runtimeItem.price;
+            bool canAfford = runtimeItem == null || CurrencyManager.Instance.Gold >= runtimeItem.price;
             bool canBuy = runtimeItem != null && runtimeItem.IsAvailable && canAfford;
 
             if (soldOutRoot != null)

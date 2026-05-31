@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Effect;
+using String;
 
 namespace Item
 {
@@ -12,10 +13,17 @@ namespace Item
         [Header("Identity")]
         public string relicId;
 
-        public string displayName;
+        public string LocalizationMainKey => relicId;
 
-        [TextArea]
-        public string description;
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
 
         [Header("UI")]
         public Sprite icon;

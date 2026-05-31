@@ -1,5 +1,3 @@
-
-
 using Item;
 using UnityEngine;
 
@@ -52,7 +50,7 @@ namespace Shrine
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ShrineRewardService] Faith relic granted. god={god.godType}, level={faithLevel}, relic={rewardRelic.displayName}, added={added}");
+                    $"[ShrineRewardService] Faith relic granted. god={god.godType}, level={faithLevel}, relic={rewardRelic.DisplayName}, added={added}");
             }
 
             return added;
@@ -101,7 +99,7 @@ namespace Shrine
                 if (logDebug && removed)
                 {
                     Debug.Log(
-                        $"[ShrineRewardService] Faith relic removed. relic={reward.relicReward.displayName}");
+                        $"[ShrineRewardService] Faith relic removed. relic={reward.relicReward.DisplayName}");
                 }
             }
         }

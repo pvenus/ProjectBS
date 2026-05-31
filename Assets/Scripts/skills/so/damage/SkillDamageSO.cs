@@ -8,7 +8,6 @@ public class SkillDamageSO : ScriptableObject
     [Header("Skill")]
     [SerializeField] private string skillId = "skill_damage";
     [SerializeField] private DamageType damageType = DamageType.Normal;
-    [SerializeField] private ElementType elementType = ElementType.None;
 
     [Header("Damage")]
     // 기본 데미지: Heat 스케일링 및 최종 데미지의 기준이 되는 값
@@ -23,7 +22,6 @@ public class SkillDamageSO : ScriptableObject
 
     public string SkillId => skillId;
     public DamageType DamageType => damageType;
-    public ElementType ElementType => elementType;
     public float BaseDamage => baseDamage;
     public float AttackPercentDamage => attackPercentDamage;
     public bool CanCritical => canCritical;
@@ -40,7 +38,6 @@ public class SkillDamageSO : ScriptableObject
         {
             skillId = skillId,
             damageType = damageType,
-            elementType = elementType,
             baseDamage = Mathf.Max(0f, baseDamage),
             attackDamagePercent = Mathf.Max(0f, attackPercentDamage),
             canCritical = canCritical,

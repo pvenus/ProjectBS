@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Shrine;
+using Currency;
 
 [AutoBindPrefix("UI")]
 public class ShrineMainPage : UIPage
@@ -179,7 +180,7 @@ public class ShrineMainPage : UIPage
 
             if (goldText != null)
             {
-                goldText.text = $"Gold: {ShrineManager.Instance.CurrentGold}";
+                goldText.text = $"Gold: {CurrencyManager.Instance.Gold}";
             }
         }
 

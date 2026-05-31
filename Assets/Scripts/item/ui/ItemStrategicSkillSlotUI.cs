@@ -64,7 +64,7 @@ namespace Item.UI
             if (nameText != null)
             {
                 nameText.text = strategicSkillItem != null
-                    ? strategicSkillItem.displayName
+                    ? strategicSkillItem.DisplayName
                     : string.Empty;
             }
         }

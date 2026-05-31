@@ -12,12 +12,6 @@ namespace Shop
         [Header("Identity")]
         public string productId;
 
-        public string displayName;
-
-        [TextArea]
-        public string description;
-
-        public Sprite icon;
 
         [Header("Shop")]
         public ShopProductType productType;
@@ -35,6 +29,60 @@ namespace Shop
 
         [Header("Reward")]
         public ShopRewardData rewardData;
+
+        public Sprite Icon
+        {
+            get
+            {
+                if (rewardData?.Relic != null)
+                {
+                    return rewardData.Relic.icon;
+                }
+
+                if (rewardData?.StrategicSkillItem != null)
+                {
+                    return rewardData.StrategicSkillItem.icon;
+                }
+
+                return null;
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                if (rewardData?.Relic != null)
+                {
+                    return rewardData.Relic.DisplayName;
+                }
+
+                if (rewardData?.StrategicSkillItem != null)
+                {
+                    return rewardData.StrategicSkillItem.DisplayName;
+                }
+
+                return productId;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                if (rewardData?.Relic != null)
+                {
+                    return rewardData.Relic.Description;
+                }
+
+                if (rewardData?.StrategicSkillItem != null)
+                {
+                    return rewardData.StrategicSkillItem.Description;
+                }
+
+                return string.Empty;
+            }
+        }
     }
 
     [Serializable]
@@ -42,14 +90,13 @@ namespace Shop
     {
         public ShopRewardType rewardType;
 
-        [Header("Relic")]
-        public RelicSO relic;
+        [Header("Reward")]
+        public ScriptableObject reward;
 
-        [Header("Strategic Skill Item")]
-        public StrategicSkillItemSO strategicSkillItem;
+        public RelicSO Relic => reward as RelicSO;
 
-        [Header("AI")]
-        public ScriptableObject aiFunction;
+        public StrategicSkillItemSO StrategicSkillItem =>
+            reward as StrategicSkillItemSO;
     }
 
     public enum ShopProductType

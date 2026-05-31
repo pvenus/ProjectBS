@@ -14,17 +14,10 @@ public class SkillVisualSetSO : ScriptableObject
     [Header("Base Visual")]
     [SerializeField] private BaseVisualSO baseVisualSo;
 
-    [Header("Main Element Visual Library")]
-    [SerializeField] private MainElementVisualLibrarySO mainElementVisualLibrarySo;
-
-    [Header("Sub Element Effect Library")]
-    [SerializeField] private SubElementEffectLibrarySO subElementEffectLibrarySo;
 
     [Header("Impact / State Visual")]
     [SerializeField] private ImpactVisualSO impactVisualSo;
 
     public BaseVisualSO BaseVisualSo => baseVisualSo;
-    public MainElementVisualLibrarySO MainElementVisualLibrarySo => mainElementVisualLibrarySo;
-    public SubElementEffectLibrarySO SubElementEffectLibrarySo => subElementEffectLibrarySo;
     public ImpactVisualSO ImpactVisualSo => impactVisualSo;
 }

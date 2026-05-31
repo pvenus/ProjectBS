@@ -136,7 +136,7 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Relic added. relic={relic.displayName}");
+                    $"[ItemManager] Relic added. relic={relic.DisplayName}");
             }
 
             OnRelicAdded?.Invoke(relic);
@@ -165,7 +165,7 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Relic removed. relic={relic.displayName}");
+                    $"[ItemManager] Relic removed. relic={relic.DisplayName}");
             }
 
             OnRelicRemoved?.Invoke(relic);
@@ -696,7 +696,7 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Strategic skill item added. item={strategicSkillItem.displayName}");
+                    $"[ItemManager] Strategic skill item added. item={strategicSkillItem.DisplayName}");
             }
 
             OnStrategicSkillItemAdded?.Invoke(strategicSkillItem);
@@ -724,7 +724,7 @@ namespace Item
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ItemManager] Strategic skill item removed. item={strategicSkillItem.displayName}");
+                    $"[ItemManager] Strategic skill item removed. item={strategicSkillItem.DisplayName}");
             }
 
             OnStrategicSkillItemRemoved?.Invoke(strategicSkillItem);

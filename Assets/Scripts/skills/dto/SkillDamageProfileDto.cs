@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Status.Dto;
 using Status.Service;
 
 namespace Skills.Dto
@@ -15,7 +14,6 @@ namespace Skills.Dto
         [Header("Skill")]
         public string skillId;
         public DamageType damageType = DamageType.Normal;
-        public ElementType elementType = ElementType.None;
 
         [Header("Damage")]
         public float baseDamage;
@@ -47,10 +45,6 @@ namespace Skills.Dto
                     skillId = skillId,
                     damageType = damageType
                 },
-                element = new ElementContextDto
-                {
-                    elementType = elementType
-                },
                 modifiers = new DamageModifierDto
                 {
                     isCritical = false,
@@ -80,14 +74,12 @@ namespace Skills.Dto
         public static SkillDamageProfileDto CreateBasicAttack(
             string skillId,
             float baseDamage,
-            float attackDamagePercent,
-            ElementType elementType = ElementType.None)
+            float attackDamagePercent)
         {
             return new SkillDamageProfileDto
             {
                 skillId = skillId,
                 damageType = DamageType.Normal,
-                elementType = elementType,
                 baseDamage = baseDamage,
                 attackDamagePercent = attackDamagePercent
             };

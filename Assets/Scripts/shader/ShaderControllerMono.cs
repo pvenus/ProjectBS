@@ -83,7 +83,7 @@ public class ShaderControllerMono : MonoBehaviour
                 ApplySpawnRevealFeature();
                 changed = true;
 
-                if (wasPlaying && !spawnReveal.isPlaying && spawnReveal.resetToBaseWhenFinished)
+                if (wasPlaying && !spawnReveal.isPlaying)
                 {
                     bool isHitPlaying = hitFlash != null && hitFlash.enabled && hitFlash.isPlaying;
                     bool isDeathPlaying = deathDissolve != null && deathDissolve.enabled && deathDissolve.isPlaying;
@@ -171,6 +171,17 @@ public class ShaderControllerMono : MonoBehaviour
 
         if (spawnReveal == null || !spawnReveal.enabled)
             return;
+
+        if (deathDissolve != null)
+            deathDissolve.StopImmediate();
+
+        if (hitFlash != null)
+            hitFlash.StopImmediate();
+
+        if (stunBlink != null)
+            stunBlink.StopImmediate();
+
+        ApplyBaseState(forceApply: true);
 
         spawnReveal.Play();
 
@@ -260,12 +271,12 @@ public class ShaderControllerMono : MonoBehaviour
         {
             spawnReveal.EnsureDefaults();
             shaderMono.SetRevealFeature(
-                spawnReveal.endProgress,
+                1f,
                 spawnReveal.softness,
                 spawnReveal.edgeWidth,
                 spawnReveal.edgeColor,
                 0f,
-                spawnReveal.noiseStrength
+                0f
             );
 
             if (spawnReveal.boostRimAndPulse)
@@ -280,13 +291,13 @@ public class ShaderControllerMono : MonoBehaviour
         {
             deathDissolve.EnsureDefaults();
             shaderMono.SetDeathFeature(
-                deathDissolve.startProgress,
+                1f,
                 deathDissolve.softness,
                 deathDissolve.edgeWidth,
                 deathDissolve.edgeColor,
                 0f,
-                deathDissolve.noiseStrength,
-                deathDissolve.driftY
+                0f,
+                0f
             );
 
             if (deathDissolve.fadeRimAndPulse)
@@ -415,9 +426,21 @@ public class ShaderControllerMono : MonoBehaviour
 
         spawnReveal.EnsureDefaults();
 
-        float revealProgress = spawnReveal.isPlaying ? spawnReveal.EvaluateRevealProgress() : spawnReveal.endProgress;
-        float boost01 = spawnReveal.isPlaying ? spawnReveal.EvaluateBoost01() : 0f;
+        if (!spawnReveal.isPlaying)
+        {
+            shaderMono.SetRevealFeature(
+                1f,
+                spawnReveal.softness,
+                spawnReveal.edgeWidth,
+                spawnReveal.edgeColor,
+                0f,
+                0f
+            );
+            return;
+        }
 
+        float revealProgress = spawnReveal.EvaluateRevealProgress();
+        float boost01 = spawnReveal.EvaluateBoost01();
 
         shaderMono.SetRevealFeature(
             revealProgress,

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using String;
 
 namespace Shop
 {
@@ -13,10 +14,11 @@ namespace Shop
     {
         [Header("Identity")]
         public string poolId;
-        public string poolName;
 
-        [TextArea]
-        public string description;
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                $"{poolId}",
+                "name");
 
         [Header("Pool")]
         public List<ShopProductSO> products = new();

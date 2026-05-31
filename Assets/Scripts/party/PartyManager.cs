@@ -86,9 +86,15 @@ namespace Party
                     continue;
                 }
 
+                Vector2 randomOffset =
+                    Random.insideUnitCircle * 3f;
+
                 Vector3 spawnPosition =
                     transform.position
-                    + Vector3.right * (i * spacing);
+                    + new Vector3(
+                        randomOffset.x,
+                        randomOffset.y,
+                        0f);
 
                 GameObject spawnedObject =
                     Instantiate(

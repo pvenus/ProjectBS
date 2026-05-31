@@ -54,7 +54,12 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/SkillProfileJsonTypes.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/SkillProfileJsonImporter.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/ContextStateDebugEditor.cs" />
+    <Compile Include="Assets/Editor/resource_tools/GenerateClips.cs" />
+    <Compile Include="Assets/Editor/resource_tools/SetResourcesSpritesToSingle.cs" />
+    <Compile Include="Assets/Editor/resource_tools/ImageFlip.cs" />
+    <Compile Include="Assets/Editor/resource_tools/CharacterJsonGenerator.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/ProblemStateDebugEditor.cs" />
+    <Compile Include="Assets/Editor/resource_tools/EquipmentSkillJsonGenerator.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/SkillSelectionStateDebugEditor.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/SituationStateDebugEditor.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Editor/SolutionStateDebugEditor.cs" />

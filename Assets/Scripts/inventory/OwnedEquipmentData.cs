@@ -15,7 +15,6 @@ public class OwnedEquipmentData
     [SerializeField] private EquipmentSkillSO equipmentSo;
 
     [Header("State")]
-    [SerializeField] private EquipmentGrade currentGrade = EquipmentGrade.Common;
     [SerializeField] private bool isLocked;
 
     [Header("Equip")]
@@ -31,7 +30,6 @@ public class OwnedEquipmentData
 
     public string InstanceId => instanceId;
     public EquipmentSkillSO EquipmentSo => equipmentSo;
-    public EquipmentGrade CurrentGrade => currentGrade;
     public bool IsLocked => isLocked;
     public bool IsEquipped => isEquipped;
     public int EquippedSlotIndex => equippedSlotIndex;
@@ -41,15 +39,14 @@ public class OwnedEquipmentData
 
     public bool HasEquipment => equipmentSo != null;
     public string EquipmentId => equipmentSo != null ? equipmentSo.EquipmentId : string.Empty;
-    public string DisplayName => equipmentSo != null ? equipmentSo.name : string.Empty;
+    public string DisplayName => equipmentSo != null ? equipmentSo.DisplayName : string.Empty;
 
-    public static OwnedEquipmentData Create(EquipmentSkillSO source, EquipmentGrade grade = EquipmentGrade.Common)
+    public static OwnedEquipmentData Create(EquipmentSkillSO source)
     {
         return new OwnedEquipmentData
         {
             instanceId = Guid.NewGuid().ToString("N"),
             equipmentSo = source,
-            currentGrade = grade,
             isLocked = false,
             isEquipped = false,
             equippedSlotIndex = -1,
@@ -69,21 +66,6 @@ public class OwnedEquipmentData
         instanceId = string.IsNullOrWhiteSpace(id)
             ? Guid.NewGuid().ToString("N")
             : id;
-    }
-
-    public void SetGrade(EquipmentGrade grade)
-    {
-        currentGrade = grade;
-    }
-
-    public void UpgradeGrade(EquipmentGrade nextGrade)
-    {
-        if (nextGrade <= currentGrade)
-        {
-            return;
-        }
-
-        currentGrade = nextGrade;
     }
 
     public void SetLocked(bool locked)
@@ -113,7 +95,7 @@ public class OwnedEquipmentData
         projectileLifetimeOverride = lifetime;
     }
 
-    public bool CanUseAsUpgradeMaterial(string targetEquipmentId, EquipmentGrade targetGrade)
+    public bool CanUseAsUpgradeMaterial(string targetEquipmentId)
     {
         if (!HasEquipment)
         {
@@ -130,7 +112,7 @@ public class OwnedEquipmentData
             return false;
         }
 
-        return currentGrade == targetGrade;
+        return true;
     }
 
     public bool AddRune(RuneSO rune, int maxRuneSlotCount)
@@ -174,23 +156,11 @@ public class OwnedEquipmentData
         return new EquipmentSkillInstanceData
         {
             equipmentId = EquipmentId,
-            currentGrade = currentGrade,
-            currentRuneSlotCount = GetResolvedRuneSlotCount(),
-            mainElement = ElementType.None,
-            subElements = new List<ElementType>(),
-            equippedRunes = equippedRunes != null ? new List<RuneSO>(equippedRunes) : new List<RuneSO>(),
+            equippedRunes = equippedRunes != null
+                ? new List<RuneSO>(equippedRunes)
+                : new List<RuneSO>(),
             projectilePrefab = projectilePrefabOverride,
             projectileLifetimeOverride = projectileLifetimeOverride
         };
-    }
-
-    private int GetResolvedRuneSlotCount()
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return Mathf.Max(1, equipmentSo.BaseProfileSo.BaseRuneSlotCount);
-        }
-
-        return Mathf.Max(1, equippedRunes != null ? equippedRunes.Count : 1);
     }
 }

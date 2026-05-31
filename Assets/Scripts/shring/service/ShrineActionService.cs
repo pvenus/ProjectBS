@@ -1,5 +1,6 @@
 using UnityEngine;
 using Bless;
+using Currency;
 
 namespace Shrine
 {
@@ -109,16 +110,16 @@ namespace Shrine
                     ? config.GetDonationCost(currentFaithLevel)
                     : 0;
 
-            if (!playerContext.HasEnoughGold(cost))
+            if (!CurrencyManager.Instance.CanSpendGold(cost))
             {
                 Debug.LogWarning(
-                    $"[ShrineActionService] Not enough gold. cost={cost}, currentGold={playerContext.CurrentGold}");
+                    $"[ShrineActionService] Not enough gold. cost={cost}, currentGold={CurrencyManager.Instance.Gold}");
 
                 return false;
             }
 
             bool spendSuccess =
-                playerContext.SpendGold(cost);
+                CurrencyManager.Instance.TrySpendGold(cost);
 
             if (!spendSuccess)
             {
@@ -132,7 +133,7 @@ namespace Shrine
 
             if (level <= 0)
             {
-                playerContext.AddGold(cost);
+                CurrencyManager.Instance.AddGold(cost);
                 return false;
             }
 

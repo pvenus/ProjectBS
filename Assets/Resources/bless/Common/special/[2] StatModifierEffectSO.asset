@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c14e7e54100441c8612f20ef5fb9b2, type: 3}
   m_Name: '[2] StatModifierEffectSO'
   m_EditorClassIdentifier: Assembly-CSharp::Effect.StatModifierEffectSO
-  effectId: effect.bless.skill_mastery
-  effectName: effect.bless.skill_mastery
+  effectId: effect.bless.tactical_maintenance
+  effectName: effect.bless.tactical_maintenance
   description: 
-  icon: {fileID: 1007018561, guid: ca311b362e83148d7b084e03e817c328, type: 3}
+  icon: {fileID: 2013909868, guid: ca311b362e83148d7b084e03e817c328, type: 3}
   isPermanent: 1
   allowDuplicate: 1
   duration: 0
   maxStack: 1
   tags: []
-  targetStat: 1530
+  targetStat: 1520
   modifierType: 0
   value: 8

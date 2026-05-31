@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using Bless;
+using Currency;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -157,7 +158,7 @@ namespace Shrine.UI
 
             if (goldText != null)
             {
-                goldText.text = $"Gold : {shrineManager.CurrentGold}";
+                goldText.text = $"Gold : {CurrencyManager.Instance.Gold}";
             }
 
             if (hpText != null)

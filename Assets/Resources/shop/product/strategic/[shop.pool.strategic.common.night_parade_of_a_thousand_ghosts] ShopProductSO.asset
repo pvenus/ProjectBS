@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92471079cd84e4a3a972f115d06a150f, type: 3}
+  m_Name: '[shop.pool.strategic.common.night_parade_of_a_thousand_ghosts] ShopProductSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Shop.ShopProductSO
+  productId: shop.pool.strategic.common.night_parade_of_a_thousand_ghosts
+  icon: {fileID: -341452664, guid: ca311b362e83148d7b084e03e817c328, type: 3}
+  productType: 200
+  price: 100
+  weight: 100
+  uniqueProduct: 0
+  tags: []
+  rewardData:
+    rewardType: 200
+    reward: {fileID: 11400000, guid: b87fa2b25fe04e4cb4eef8dfcaa6da8c, type: 2}

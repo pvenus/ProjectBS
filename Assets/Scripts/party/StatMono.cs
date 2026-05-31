@@ -127,7 +127,6 @@ public class StatMono : MonoBehaviour
 
     private void Start()
     {
-        shaderController?.PlaySpawnReveal();
     }
 
     private void Update()
@@ -353,7 +352,7 @@ public class StatMono : MonoBehaviour
         if (debugLog)
             Debug.Log($"[StatMono] {name} died");
 
-        venus.eldawn.party.AnimationMono animationMono = GetComponentInChildren<venus.eldawn.party.AnimationMono>();
+        AnimationMono animationMono = GetComponentInChildren<AnimationMono>();
         if (animationMono != null)
             animationMono.PlayDeath();
 

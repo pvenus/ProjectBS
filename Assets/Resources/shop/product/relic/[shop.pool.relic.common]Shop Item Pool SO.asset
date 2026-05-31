@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39382def09d6d413d88f9aecdb5c574d, type: 3}
+  m_Name: '[shop.pool.relic.common]Shop Item Pool SO'
+  m_EditorClassIdentifier: Assembly-CSharp::Shop.ShopItemPoolSO
+  poolId: shop.pool.relic.common
+  products:
+  - {fileID: 11400000, guid: 33347bbeb4d95402ea5117c1006e0078, type: 2}
+  - {fileID: 11400000, guid: 400debb298f6e4579bff9ddd9ee93d3d, type: 2}
+  - {fileID: 11400000, guid: 441cdb9b5853947b08c2ddbfa9266f5e, type: 2}
+  - {fileID: 11400000, guid: a9c43e7e3bdc5467b8ce49ccab30daab, type: 2}
+  - {fileID: 11400000, guid: 064494cdd7e344a38b0318ced549c142, type: 2}
+  - {fileID: 11400000, guid: 599c5d740d9d44e94b55c304603093f5, type: 2}
+  - {fileID: 11400000, guid: 668e1bc9942ec4bb5ae0c5309b2e7152, type: 2}
+  - {fileID: 11400000, guid: bdfa5cdbc6ffa44918ee64c30f9e80bf, type: 2}
+  - {fileID: 11400000, guid: 279dbfce43f564428b64c59233f3fc5e, type: 2}
+  - {fileID: 11400000, guid: 55ac5c9c18f6f4bb7af0d1f22cf5efae, type: 2}
+  allowDuplicate: 0
+  includeDisabledEntries: 0
