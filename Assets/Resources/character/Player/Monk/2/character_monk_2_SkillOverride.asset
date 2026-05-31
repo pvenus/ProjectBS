@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4b5ffea3bc48a88384ebf306310b2, type: 3}
+  m_Name: character_monk_2_SkillOverride
+  m_EditorClassIdentifier: Assembly-CSharp::Character.SkillPoolOverrideSO
+  overrides:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 0604aa87310684752bb9fa3a9832f61b, type: 2}
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: cd2ea3554f8084072bcc3c2f81b58459, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: 825d5edaa8ced4535a473356757d9376, type: 2}
+  - slotKey: active_3
+    skillSo: {fileID: 11400000, guid: 56bdae569e74c440597ebb326767419b, type: 2}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4b5ffea3bc48a88384ebf306310b2, type: 3}
+  m_Name: character_geusunsae_SkillOverride
+  m_EditorClassIdentifier: Assembly-CSharp::Character.SkillPoolOverrideSO
+  overrides:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 69307dc6f6ffc4c148fb71020e35599c, type: 2}
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 84a397c87e002458eaaa6f98b23cacdd, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: 524c2802bf4e54efca6447f67590d1b2, type: 2}
+  - slotKey: active_3
+    skillSo: {fileID: 11400000, guid: 06a7ec4a6a5114f3aa2b3c8f1903a3bd, type: 2}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4b5ffea3bc48a88384ebf306310b2, type: 3}
+  m_Name: character_ghost_male_SkillOverride
+  m_EditorClassIdentifier: Assembly-CSharp::Character.SkillPoolOverrideSO
+  overrides:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 269332232033d44808947e930793fb01, type: 2}
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: c9a774b4296634b9aaa0906845bf2215, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: a17eccea0fe3e4aeaa22800979818079, type: 2}
+  - slotKey: active_3
+    skillSo: {fileID: 11400000, guid: 47ef498361c38407ca7df1164bd17b84, type: 2}

@@ -1,0 +1,109 @@
+{
+  "equipmentId": "active_3",
+  "slotName": "active_3",
+  "skillName": "active_3",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "projectile_basic_attack",
+
+    "attackArchetype": "Melee",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0.5,
+
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileLifetime": 0.3,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+
+    "category": "Attack",
+    "targetType": "Party",
+    "tacticalNeed": "None",
+    "basePriority": 0
+  },
+  "cast": {
+    "castId": "basic_attack_cast",
+
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 2,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "basic_attack_move",
+    "moveType": "Linear",
+    "speed": 0.1,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": -90,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": true,
+    "hoverAmplitude": 0.15,
+    "hoverFrequency": 2.5,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 1.5,
+    "orbitAngularSpeed": 180,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0
+  },
+  "visualSet": {
+    "visualSetId": "basic_attack_visual",
+    "baseVisualId": "basic_attack_base_visual",
+    "impactVisualId": "basic_attack_impact_visual"
+  },
+  "hit": {
+    "hitId": "basic_attack_hit",
+
+    "maxHitCount": 1,
+    "ignoreSameRoot": true,
+    "useRepeatInterval": false,
+    "repeatInterval": 0.25,
+
+    "useHitWindow": false,
+    "hitStartTime": 0,
+    "hitDuration": 0.1,
+    "deactivateAfterFirstHit": false,
+
+    "targetLayerMask": "Enemy",
+
+    "damage": {
+      "skillId": "basic_attack_damage",
+      "damageType": "Normal",
+      "baseDamage": 10,
+      "attackPercentDamage": 1.0,
+      "canCritical": false,
+      "ignoreDefense": false
+    },
+
+    "buffEffects": [],
+    "debuffEffects": [],
+
+    "useSplitMultiHitDamage": false,
+    "splitHitCount": 4,
+    "splitHitInterval": 0.1,
+
+    "useKnockback": false,
+    "knockbackForce": 0
+  }
+}
