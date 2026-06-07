@@ -1,0 +1,178 @@
+{
+  "battleId": "battle.jugwi_mother.1",
+  "battleName": "저퀴모 강림 저지",
+  "victoryRule": "AllEnemiesDefeated",
+  "survivalTimeSeconds": 0,
+
+  "backgroundPrefab": "background.jugwi_forest_graveyard",
+
+  "rewardExperience": 100,
+  "normalRelicDropChance": 0.2,
+  "bossRelicDropChance": 1.0,
+
+  "timedPropPlacements": [
+    {
+      "propId": "battle.prop.grave",
+      "spawnTimeSeconds": 0,
+      "position": { "x": 2, "y": 1.5, "z": 0 },
+      "rotationZ": 0,
+      "runtimeId": "grave_01"
+    },
+    {
+      "propId": "battle.prop.grave",
+      "spawnTimeSeconds": 0,
+      "position": { "x": 2, "y": -1.5, "z": 0 },
+      "rotationZ": 0,
+      "runtimeId": "grave_02"
+    },
+    {
+      "propId": "battle.prop.grave",
+      "spawnTimeSeconds": 0,
+      "position": { "x": 6.5, "y": 1.5, "z": 0 },
+      "rotationZ": 0,
+      "runtimeId": "grave_03"
+    },
+    {
+      "propId": "battle.prop.grave",
+      "spawnTimeSeconds": 0,
+      "position": { "x": 6.5, "y": -1.5, "z": 0 },
+      "rotationZ": 0,
+      "runtimeId": "grave_04"
+    }
+  ],
+
+  "propDefinitions": [
+    {
+      "propId": "battle.prop.grave",
+      "role": "Grave",
+      "prefab": "Battle Prop",
+      "skills": [],
+      "stateVisuals": [
+        {
+          "state": "Normal",
+          "animationClip": "grave_idle",
+          "effectPrefab": null
+        }
+      ],
+      "spawnOnHit": {
+        "spawnHitThreshold": 10,
+        "spawnPropOnHit": "battle.prop.grave_spawner",
+        "destroyAfterSpawnOnHit": true
+      },
+      "waveSpawner": {
+        "waveSO": null,
+        "createWaveSpawnerOnInitialize": false,
+        "waveSpawnerObjectName": "PropNpcSpawner"
+      }
+    }
+    ,
+    {
+      "propId": "battle.prop.grave_spawner",
+      "role": "Spawner",
+      "prefab": "Battle Prop",
+      "skills": [],
+      "stateVisuals": [
+        {
+          "state": "Normal",
+          "animationClip": "grave_idle",
+          "effectPrefab": null
+        }
+      ],
+      "spawnOnHit": {
+        "spawnHitThreshold": 0,
+        "spawnPropOnHit": null,
+        "destroyAfterSpawnOnHit": false
+      },
+      "waveSpawner": {
+        "waveSO": {
+          "waveId": "stage_1_grave_spawner",
+          "duration": 60,
+          "spawnArea": {
+            "spawnStartX": -1,
+            "spawnEndX": 1,
+            "yMin": -1,
+            "yMax": 1,
+            "groupSpreadRadius": 0.5
+          },
+          "phases": [
+            {
+              "phaseId": "phase_01_eodukshini_from_grave",
+              "startTime": 0,
+              "endTime": 60,
+              "spawnInterval": 999,
+              "spawnCountPerTick": 1,
+              "maxAliveCount": 1,
+              "monsters": [
+                { "characterId": "character.egg_ghost.1", "weight": 1 }
+              ]
+            }
+          ]
+        },
+        "createWaveSpawnerOnInitialize": true,
+        "waveSpawnerObjectName": "PropNpcSpawner"
+      }
+    }
+  ],
+
+  "stage": {
+    "waveId": "stage_1",
+    "duration": 60,
+
+    "spawnArea": {
+      "spawnStartX": 0,
+      "spawnEndX": 9,
+      "yMin": -2,
+      "yMax": 2,
+      "groupSpreadRadius": 0.75
+    },
+
+
+
+    "phases": [
+      {
+        "phaseId": "phase_01_basic_intro",
+        "startTime": 0,
+        "endTime": 20,
+        "spawnInterval": 3,
+        "spawnCountPerTick": 1,
+        "maxAliveCount": 3,
+        "monsters": [
+          { "characterId": "character.eodukshini.1", "weight": 1 }
+        ]
+      },
+      {
+        "phaseId": "phase_02_basic_pressure",
+        "startTime": 20,
+        "endTime": 40,
+        "spawnInterval": 2.5,
+        "spawnCountPerTick": 1,
+        "maxAliveCount": 5,
+        "monsters": [
+          { "characterId": "character.eodukshini.1", "weight": 1 }
+        ]
+      },
+      {
+        "phaseId": "phase_03_final_pressure",
+        "startTime": 40,
+        "endTime": 55,
+        "spawnInterval": 2,
+        "spawnCountPerTick": 2,
+        "maxAliveCount": 7,
+        "monsters": [
+          { "characterId": "character.eodukshini.1", "weight": 1 }
+        ]
+      },
+      {
+        "phaseId": "phase_04_boss",
+        "startTime": 55,
+        "endTime": 60,
+        "spawnInterval": 999,
+        "spawnCountPerTick": 1,
+        "maxAliveCount": 1,
+        "monsters": [
+          { "characterId": "character.eodukshini.1", "weight": 1 }
+        ]
+      }
+    ]
+  }
+}

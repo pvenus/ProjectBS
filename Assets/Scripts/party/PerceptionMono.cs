@@ -11,7 +11,8 @@ public class PerceptionMono : MonoBehaviour
 {
     [Header("Detection")]
     [SerializeField] private LayerMask enemyMask;
-    [SerializeField] private float detectRadius = 4f;
+
+    private const float DetectRadius = 16f;
 
     [Header("Update")]
     [Tooltip("How often perception scans the environment")]
@@ -39,7 +40,7 @@ public class PerceptionMono : MonoBehaviour
 
     void ScanEnemies()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectRadius, enemyMask);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, DetectRadius, enemyMask);
 
         EnemyCount = 0;
         ClosestEnemy = null;
@@ -74,7 +75,7 @@ public class PerceptionMono : MonoBehaviour
             return;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectRadius);
+        Gizmos.DrawWireSphere(transform.position, DetectRadius);
 
         if (ClosestEnemy != null)
         {

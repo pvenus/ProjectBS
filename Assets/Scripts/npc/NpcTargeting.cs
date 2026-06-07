@@ -105,10 +105,12 @@ public class NpcTargeting : MonoBehaviour
             new NpcTargetSearchService.Context
             {
                 self = transform,
+                basicAttackTargetLayerMask = 0,
                 archetype = archetype,
                 includePartyMembersAsTargets = includePartyMembersAsTargets,
                 includeTowersAsTargets = includeTowersAsTargets,
-                siegePrioritizeTowers = siegePrioritizeTowers
+                siegePrioritizeTowers = siegePrioritizeTowers,                
+                includeBattlePropsAsTargets = true
             });
     }
 

@@ -1,6 +1,5 @@
-
-
 using Stage;
+using String;
 using UnityEngine;
 
 namespace Common.SO
@@ -13,21 +12,19 @@ namespace Common.SO
         [Header("Info")]
         public PopupEventRewardType rewardType;
 
-        public string displayName;
+        public string localizationMainKey;
 
-        [TextArea]
-        public string description;
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                localizationMainKey,
+                "title");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                localizationMainKey,
+                "description");
 
         [Header("Visual")]
         public Sprite icon;
-
-        public Color color = Color.white;
-
-        [Header("Formatting")]
-        public string valuePrefix = "+";
-
-        public string valueSuffix;
-
-        public bool hideValue;
     }
 }

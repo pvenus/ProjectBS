@@ -28,7 +28,7 @@
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 2,
+    "range": 0.7,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -72,7 +72,8 @@
     "baseVisualId": "basic_attack_base_visual",
     "impactVisualId": "basic_attack_impact_visual"
   },
-  "hit": {
+  "hits": [
+    {
     "hitId": "basic_attack_hit",
 
     "maxHitCount": 1,
@@ -85,7 +86,7 @@
     "hitDuration": 0.1,
     "deactivateAfterFirstHit": false,
 
-    "targetLayerMask": "Enemy",
+    "targetLayerMask": "Grave",
 
     "damage": {
       "skillId": "basic_attack_damage",
@@ -105,5 +106,6 @@
 
     "useKnockback": false,
     "knockbackForce": 0
-  }
+    }
+  ]
 }

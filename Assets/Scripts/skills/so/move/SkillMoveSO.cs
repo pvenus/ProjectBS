@@ -38,7 +38,6 @@ public class SkillMoveSO : ScriptableObject
 
     [Header("Orbit Layout")]
     [SerializeField] private int spawnOrder = 0;
-    [SerializeField, Min(1)] private int maxProjectileCount = 1;
     [SerializeField] private bool resetPhaseWhenLayoutChanges = true;
 
     [Header("Orbit Pulse")]
@@ -65,7 +64,6 @@ public class SkillMoveSO : ScriptableObject
     public float OrbitAngularSpeed => orbitAngularSpeed;
     public bool Clockwise => clockwise;
     public int SpawnOrder => spawnOrder;
-    public int MaxProjectileCount => maxProjectileCount;
     public bool ResetPhaseWhenLayoutChanges => resetPhaseWhenLayoutChanges;
     public bool UseRadialPulse => useRadialPulse;
     public float RadialPulseAmplitude => radialPulseAmplitude;
@@ -97,7 +95,6 @@ public class SkillMoveSO : ScriptableObject
             orbitAngularSpeed = orbitAngularSpeed,
             clockwise = clockwise,
             spawnOrder = Mathf.Max(0, spawnOrder),
-            maxProjectileCount = Mathf.Max(1, maxProjectileCount),
             resetPhaseWhenLayoutChanges = resetPhaseWhenLayoutChanges,
             useRadialPulse = useRadialPulse,
             radialPulseAmplitude = Mathf.Max(0f, radialPulseAmplitude),

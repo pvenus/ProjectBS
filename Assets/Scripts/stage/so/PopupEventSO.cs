@@ -1,6 +1,7 @@
 
 
 using System.Collections.Generic;
+using String;
 using UnityEngine;
 
 namespace Stage
@@ -14,11 +15,19 @@ namespace Stage
     {
         [Header("Identity")]
         public string eventId;
-        public string title;
+
+        public string LocalizationMainKey => eventId;
+
+        public string Title =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "title");
 
         [Header("Content")]
-        [TextArea(3, 8)]
-        public string body;
+        public string Body =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "body");
 
         [Header("Visual")]
         public Sprite mainImage;

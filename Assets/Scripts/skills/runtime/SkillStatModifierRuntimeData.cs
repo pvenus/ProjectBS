@@ -22,8 +22,9 @@ public enum SkillStatModifierType
     Cooldown = 1,
     Range = 2,
     ProjectileCount = 3,
-    ProjectileScale = 4,
-    Lifetime = 5
+    ProjectileSpreadAngle = 4,
+    ProjectileScale = 5,
+    Lifetime = 6
 }
 
 /// <summary>

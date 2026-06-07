@@ -43,19 +43,38 @@ namespace Effect
                 return;
             }
 
-            if (effectSO.chancePercent <= 0f)
+            IsActive = true;
+        }
+
+        public void OnHit(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
+        {
+            if (!IsActive
+                || effectSO == null
+                || targetCharacter == null
+                || request == null)
             {
-                IsActive = false;
                 return;
             }
 
-            float randomValue =
-                Random.Range(0f, 100f);
+            if (request.target.GetComponent<CharacterManager>() != targetCharacter)
+            {
+                return;
+            }
+
+            float randomValue = Random.Range(0f, 100f);
 
             if (randomValue > effectSO.chancePercent)
             {
-                IsActive = false;
                 return;
+            }
+
+            if (isApplied && !Mathf.Approximately(appliedValue, 0f))
+            {
+                targetCharacter.AddStat(
+                    effectSO.statType,
+                    -appliedValue);
             }
 
             float currentValue =
@@ -66,7 +85,6 @@ namespace Effect
 
             if (Mathf.Approximately(appliedValue, 0f))
             {
-                IsActive = false;
                 return;
             }
 
@@ -86,9 +104,6 @@ namespace Effect
             {
                 return;
             }
-
-            float currentValue =
-                targetCharacter.GetStatValue(effectSO.statType);
 
             targetCharacter.AddStat(
                 effectSO.statType,

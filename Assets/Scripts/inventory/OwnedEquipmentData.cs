@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 플레이어가 실제로 보유한 장비 1개의 인스턴스 데이터.
 /// 같은 EquipmentSkillSO를 가진 장비라도 각각 별도 인스턴스로 관리한다.

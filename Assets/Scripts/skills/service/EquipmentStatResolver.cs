@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 장비 스킬의 수치 계산 전담 Resolver.
 /// 장비 기본값 + 룬 modifier + 강화 modifier를 조합해 최종 런타임 수치를 계산한다.
+/// Damage는 SkillHitSO 내부의 SkillDamageSO 기준으로 계산한다.
 /// </summary>
 public class EquipmentStatResolver
 {
@@ -57,6 +58,19 @@ public class EquipmentStatResolver
         return Mathf.Max(1, Mathf.RoundToInt(resolved));
     }
 
+    public float ResolveProjectileSpreadAngle(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        float baseValue = GetProjectileSpreadAngle(equipmentSo);
+        float resolved = ApplyStatModifiers(
+            baseValue,
+            SkillStatModifierType.ProjectileSpreadAngle,
+            modifiers);
+
+        return Mathf.Max(0f, resolved);
+    }
+
     public float ResolveProjectileScale(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
@@ -92,10 +106,10 @@ public class EquipmentStatResolver
     }
 
     public float ResolveBaseDamage(
-        EquipmentSkillSO equipmentSo,
+        SkillDamageSO damageSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
     {
-        float baseValue = GetBaseDamage(equipmentSo);
+        float baseValue = GetBaseDamage(damageSo);
         float resolved = ApplyStatModifiers(
             baseValue,
             SkillStatModifierType.Damage,
@@ -106,8 +120,16 @@ public class EquipmentStatResolver
 
     public DamageType GetDamageType(EquipmentSkillSO equipmentSo)
     {
-        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+        return GetDamageType(GetDamageSo(equipmentSo));
+    }
 
+    public DamageType GetDamageType(SkillHitSO hitSo)
+    {
+        return GetDamageType(GetDamageSo(hitSo));
+    }
+
+    public DamageType GetDamageType(SkillDamageSO damageSo)
+    {
         return damageSo != null
             ? damageSo.DamageType
             : DamageType.Normal;
@@ -115,45 +137,88 @@ public class EquipmentStatResolver
 
     public float GetBaseDamage(EquipmentSkillSO equipmentSo)
     {
-        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+        return GetBaseDamage(GetDamageSo(equipmentSo));
+    }
 
+    public float GetBaseDamage(SkillHitSO hitSo)
+    {
+        return GetBaseDamage(GetDamageSo(hitSo));
+    }
+
+    public float GetBaseDamage(SkillDamageSO damageSo)
+    {
         return damageSo != null
             ? Mathf.Max(0f, damageSo.BaseDamage)
             : 0f;
     }
-
-
     public bool GetCanCritical(EquipmentSkillSO equipmentSo)
     {
-        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
-
+        return GetCanCritical(GetDamageSo(equipmentSo));
+    }
+    public bool GetCanCritical(SkillHitSO hitSo)
+    {
+        return GetCanCritical(GetDamageSo(hitSo));
+    }
+    public bool GetCanCritical(SkillDamageSO damageSo)
+    {
         return damageSo != null && damageSo.CanCritical;
     }
 
     public bool GetIgnoreDefense(EquipmentSkillSO equipmentSo)
     {
-        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
-
+        return GetIgnoreDefense(GetDamageSo(equipmentSo));
+    }
+    public bool GetIgnoreDefense(SkillHitSO hitSo)
+    {
+        return GetIgnoreDefense(GetDamageSo(hitSo));
+    }
+    public bool GetIgnoreDefense(SkillDamageSO damageSo)
+    {
         return damageSo != null && damageSo.IgnoreDefense;
     }
 
     public float GetAttackPercentDamage(EquipmentSkillSO equipmentSo)
     {
-        SkillDamageSO damageSo = GetDamageSo(equipmentSo);
-
+        return GetAttackPercentDamage(GetDamageSo(equipmentSo));
+    }
+    public float GetAttackPercentDamage(SkillHitSO hitSo)
+    {
+        return GetAttackPercentDamage(GetDamageSo(hitSo));
+    }
+    public float GetAttackPercentDamage(SkillDamageSO damageSo)
+    {
         return damageSo != null
             ? Mathf.Max(0f, damageSo.AttackPercentDamage)
             : 0f;
     }
 
-    private SkillDamageSO GetDamageSo(EquipmentSkillSO equipmentSo)
+    public SkillDamageSO GetDamageSo(EquipmentSkillSO equipmentSo)
     {
-        if (equipmentSo == null || equipmentSo.HitSo == null)
+        if (equipmentSo == null ||
+            equipmentSo.HitSos == null ||
+            equipmentSo.HitSos.Length == 0)
         {
             return null;
         }
 
-        return equipmentSo.HitSo.DamageSo;
+        for (int i = 0; i < equipmentSo.HitSos.Length; i++)
+        {
+            SkillDamageSO damageSo = GetDamageSo(equipmentSo.HitSos[i]);
+
+            if (damageSo != null)
+            {
+                return damageSo;
+            }
+        }
+
+        return null;
+    }
+
+    public SkillDamageSO GetDamageSo(SkillHitSO hitSo)
+    {
+        return hitSo != null
+            ? hitSo.DamageSo
+            : null;
     }
 
     public int GetProjectileCount(EquipmentSkillSO equipmentSo)
@@ -164,6 +229,18 @@ public class EquipmentStatResolver
         }
 
         return 1;
+    }
+
+    public float GetProjectileSpreadAngle(EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return Mathf.Max(
+                0f,
+                equipmentSo.BaseProfileSo.ProjectileSpreadAngle);
+        }
+
+        return 0f;
     }
 
     public float GetProjectileScale(EquipmentSkillSO equipmentSo)

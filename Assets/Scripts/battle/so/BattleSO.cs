@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Item;
+using Battle.Prop.SO;
+using Wave.SO;
 
 namespace Battle
 {
@@ -8,6 +12,20 @@ namespace Battle
         menuName = "Battle/BattleSO")]
     public class BattleSO : ScriptableObject
     {
+        [Serializable]
+        public class TimedPropPlacement
+        {
+            [Min(0f)]
+            public float spawnTimeSeconds;
+
+            public BattlePropSO prop;
+
+            public Vector3 position;
+
+            public Quaternion rotation = Quaternion.identity;
+
+            public string runtimeId;
+        }
         [Header("Basic Info")]
         [SerializeField]
         private string battleId;
@@ -20,7 +38,11 @@ namespace Battle
         private GameObject backgroundPrefab;
 
         [SerializeField]
-        private GameObject monsterSpawnerPrefab;
+        private StageWaveSO waveSO;
+
+        [Header("Timed Props")]
+        [SerializeField]
+        private List<TimedPropPlacement> timedPropPlacements = new();
 
         [Header("Victory Rule")]
         [SerializeField]
@@ -53,7 +75,9 @@ namespace Battle
 
         public GameObject BackgroundPrefab => backgroundPrefab;
 
-        public GameObject MonsterSpawnerPrefab => monsterSpawnerPrefab;
+        public StageWaveSO WaveSO => waveSO;
+
+        public IReadOnlyList<TimedPropPlacement> TimedPropPlacements => timedPropPlacements;
 
         public BattleVictoryRule VictoryRule => victoryRule;
 

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Character;
+using Battle.Prop;
 using UnityEngine;
 
 namespace Npc.Service
@@ -16,7 +18,9 @@ namespace Npc.Service
             public NpcTargeting.TargetingArchetype archetype;
             public bool includePartyMembersAsTargets;
             public bool includeTowersAsTargets;
+            public bool includeBattlePropsAsTargets;
             public bool siegePrioritizeTowers;
+            public LayerMask basicAttackTargetLayerMask;
         }
 
         public Transform FindTarget(Context context)
@@ -45,20 +49,64 @@ namespace Npc.Service
 
             if (!siegeTowerOnly && context.includePartyMembersAsTargets)
             {
-                PartyMovementMono[] members =
-                    Object.FindObjectsByType<PartyMovementMono>(FindObjectsSortMode.None);
+                CharacterManager[] members =
+                    Object.FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
 
                 for (int i = 0; i < members.Length; i++)
                 {
-                    PartyMovementMono member = members[i];
+                    CharacterManager member = members[i];
 
                     if (member == null || !member.gameObject.activeInHierarchy)
                     {
                         continue;
                     }
 
+                    if (member.RuntimeData == null || member.RuntimeData.characterSO == null || member.RuntimeData.characterSO.characterType != CharacterType.Player)
+                    {
+                        continue;
+                    }
+
+                    if (!IsLayerAllowed(member.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
                     ConsiderCandidate(
                         member.transform,
+                        selfPos,
+                        false,
+                        context,
+                        ref best,
+                        ref bestScore);
+                }
+            }
+
+            if (!siegeTowerOnly && context.includeBattlePropsAsTargets)
+            {
+                BattlePropController[] props =
+                    Object.FindObjectsByType<BattlePropController>(FindObjectsSortMode.None);
+
+                for (int i = 0; i < props.Length; i++)
+                {
+                    BattlePropController prop = props[i];
+
+                    if (prop == null || !prop.gameObject.activeInHierarchy)
+                    {
+                        continue;
+                    }
+
+                    if (!prop.IsTargetable())
+                    {
+                        continue;
+                    }
+
+                    if (!IsLayerAllowed(prop.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
+                    ConsiderCandidate(
+                        prop.transform,
                         selfPos,
                         false,
                         context,
@@ -86,6 +134,11 @@ namespace Npc.Service
                         continue;
                     }
 
+                    if (!IsLayerAllowed(tower.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
                     ConsiderCandidate(
                         tower.transform,
                         selfPos,
@@ -105,12 +158,12 @@ namespace Npc.Service
 
             if (context.includePartyMembersAsTargets)
             {
-                PartyMovementMono[] members =
-                    Object.FindObjectsByType<PartyMovementMono>(FindObjectsSortMode.None);
+                CharacterManager[] members =
+                    Object.FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
 
                 for (int i = 0; i < members.Length; i++)
                 {
-                    PartyMovementMono member = members[i];
+                    CharacterManager member = members[i];
 
                     if (member == null || !member.gameObject.activeInHierarchy)
                     {
@@ -122,7 +175,45 @@ namespace Npc.Service
                         continue;
                     }
 
+                    if (!IsLayerAllowed(member.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
                     candidates.Add(member.transform);
+                }
+            }
+
+            if (context.includeBattlePropsAsTargets)
+            {
+                BattlePropController[] props =
+                    Object.FindObjectsByType<BattlePropController>(FindObjectsSortMode.None);
+
+                for (int i = 0; i < props.Length; i++)
+                {
+                    BattlePropController prop = props[i];
+
+                    if (prop == null || !prop.gameObject.activeInHierarchy)
+                    {
+                        continue;
+                    }
+
+                    if (!prop.IsTargetable())
+                    {
+                        continue;
+                    }
+
+                    if (prop.transform == context.self)
+                    {
+                        continue;
+                    }
+
+                    if (!IsLayerAllowed(prop.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
+                    candidates.Add(prop.transform);
                 }
             }
 
@@ -145,6 +236,11 @@ namespace Npc.Service
                         continue;
                     }
 
+                    if (!IsLayerAllowed(tower.gameObject, context.basicAttackTargetLayerMask))
+                    {
+                        continue;
+                    }
+
                     candidates.Add(tower.transform);
                 }
             }
@@ -156,6 +252,24 @@ namespace Npc.Service
 
             int index = Random.Range(0, candidates.Count);
             return candidates[index];
+        }
+
+        private bool IsLayerAllowed(
+            GameObject target,
+            LayerMask targetLayerMask)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            if (targetLayerMask.value == 0)
+            {
+                return true;
+            }
+
+            int targetLayerBit = 1 << target.layer;
+            return (targetLayerMask.value & targetLayerBit) != 0;
         }
 
         private void ConsiderCandidate(

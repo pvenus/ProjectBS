@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Character;
+using Wave.SO;
 
 /// <summary>
 /// Simple registered-point spawner.
@@ -20,99 +21,12 @@ using Character;
 /// </summary>
 public class NpcSpawnerMono : MonoBehaviour
 {
-    [System.Serializable]
-    public class MonsterSpawnEntry
-    {
-        [Tooltip("Monster character definition to spawn.")]
-        public CharacterSO characterSO;
-
-        [Tooltip("Relative selection weight. Higher = spawned more often.")]
-        [Min(0f)] public float weight = 1f;
-
-        [Tooltip("How many of this monster may be spawned in total. -1 = unlimited.")]
-        public int maxSpawnCount = -1;
-
-
-        [HideInInspector] public int spawnedCount;
-
-        public bool CanSpawn()
-        {
-            if (characterSO == null || characterSO.prefab == null)
-                return false;
-
-            if (weight <= 0f)
-                return false;
-
-            return maxSpawnCount < 0 || spawnedCount < maxSpawnCount;
-        }
-    }
-
-    [System.Serializable]
-    public class SpawnPointEntry
-    {
-        [Tooltip("Spawn point transform. If empty, this spawner transform is used.")]
-        public Transform point;
-
-        [Tooltip("Relative selection weight. Higher = used more often.")]
-        [Min(0f)] public float weight = 1f;
-
-        public bool CanUse()
-        {
-            return weight > 0f;
-        }
-    }
-
-    [System.Serializable]
-    public class SpawnPhase
-    {
-        [Header("Time")]
-        [Min(0f)] public float startTime;
-        [Min(0f)] public float endTime = 60f;
-
-        [Header("Timing")]
-        [Min(0.05f)] public float spawnInterval = 5f;
-        [Min(1)] public int spawnBurst = 1;
-
-        [Header("Monster Pool")]
-        public List<MonsterSpawnEntry> monsterPool = new List<MonsterSpawnEntry>();
-
-        [Header("Spawn Points")]
-        public List<SpawnPointEntry> spawnPoints = new List<SpawnPointEntry>();
-
-        [HideInInspector] public float spawnTimer;
-
-        public bool IsActive(float elapsedTime)
-        {
-            return elapsedTime >= startTime && elapsedTime < endTime;
-        }
-
-        public void ResetProgress()
-        {
-            spawnTimer = spawnInterval;
-
-            if (monsterPool == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < monsterPool.Count; i++)
-            {
-                if (monsterPool[i] != null)
-                {
-                    monsterPool[i].spawnedCount = 0;
-                }
-            }
-        }
-    }
-
-    [Header("Stage Spawn")]
-    [SerializeField, Min(0f)] private float stageDuration = 180f;
+    [Header("Stage Wave")]
+    [SerializeField] private StageWaveSO stageWaveSo;
     [SerializeField] private bool autoSpawn = true;
-    [SerializeField] private List<SpawnPhase> phases = new List<SpawnPhase>();
 
     [Header("Spawn Limits")]
     [SerializeField] private bool respectAliveLimit = true;
-    [SerializeField, Min(1)] private int maxAliveCount = 30;
 
     [Header("Spawn Validation")]
     [SerializeField] private bool validateByOverlap = false;
@@ -126,8 +40,10 @@ public class NpcSpawnerMono : MonoBehaviour
 
     private readonly List<GameObject> _alive = new List<GameObject>();
     private float _elapsedTime;
+    private readonly Dictionary<SpawnPhase, float> _phaseTimers = new Dictionary<SpawnPhase, float>();
+    private readonly Dictionary<SpawnPhase, List<GameObject>> _phaseAlive = new Dictionary<SpawnPhase, List<GameObject>>();
 
-    public IReadOnlyList<SpawnPhase> Phases => phases;
+    public StageWaveSO StageWaveSo => stageWaveSo;
     public int AliveCount
     {
         get
@@ -151,7 +67,7 @@ public class NpcSpawnerMono : MonoBehaviour
             return;
         }
 
-        if (stageDuration > 0f && _elapsedTime >= stageDuration)
+        if (stageWaveSo != null && stageWaveSo.Duration > 0f && _elapsedTime >= stageWaveSo.Duration)
         {
             return;
         }
@@ -163,18 +79,25 @@ public class NpcSpawnerMono : MonoBehaviour
     public void ResetSpawnProgress()
     {
         _elapsedTime = 0f;
+        _phaseTimers.Clear();
+        _phaseAlive.Clear();
 
-        if (phases == null)
+        if (stageWaveSo == null || stageWaveSo.Phases == null)
         {
             return;
         }
 
-        for (int i = 0; i < phases.Count; i++)
+        for (int i = 0; i < stageWaveSo.Phases.Count; i++)
         {
-            if (phases[i] != null)
+            SpawnPhase phase = stageWaveSo.Phases[i];
+
+            if (phase == null)
             {
-                phases[i].ResetProgress();
+                continue;
             }
+
+            _phaseTimers[phase] = 0f;
+            _phaseAlive[phase] = new List<GameObject>();
         }
     }
 
@@ -187,50 +110,44 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
-        if (respectAliveLimit && _alive.Count >= maxAliveCount)
+        if (respectAliveLimit && phase.MaxAliveCount > 0 && CountAliveInPhase(phase) >= phase.MaxAliveCount)
         {
             return false;
         }
 
-        MonsterSpawnEntry entry = PickMonsterEntry(phase);
-        if (entry == null)
+        SpawnMonsterEntry entry = PickMonsterEntry(phase);
+        if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
         {
             return false;
         }
 
-        Transform point = PickSpawnPoint(phase);
-        if (point == null)
-        {
-            return false;
-        }
-
-        Vector3 spawnPos = point.position;
+        Vector3 spawnPos = GetSpawnPosition();
         if (validateByOverlap && !IsSpawnPositionFree(spawnPos))
         {
             if (debugLog)
             {
-                Debug.Log($"[NpcSpawnerMono] Spawn blocked at point={point.name} pos={spawnPos}", this);
+                Debug.Log($"[NpcSpawnerMono] Spawn blocked pos={spawnPos}", this);
             }
 
             return false;
         }
 
-        GameObject spawned = Instantiate(entry.characterSO.prefab, spawnPos, point.rotation);
+        GameObject spawned = Instantiate(entry.characterSo.prefab, spawnPos, Quaternion.identity);
         if (spawned == null)
         {
             return false;
         }
 
         _alive.Add(spawned);
-        entry.spawnedCount++;
+        RegisterPhaseAlive(phase, spawned);
 
         SetupSpawnedCharacter(
             spawned,
-            entry);
+            entry.characterSo);
 
         if (debugLog)
         {
-            Debug.Log($"[NpcSpawnerMono] Spawned character={entry.characterSO.name} point={point.name} alive={_alive.Count}", this);
+            Debug.Log($"[NpcSpawnerMono] Spawned character={entry.characterSo.name} pos={spawnPos} alive={_alive.Count}", this);
         }
 
         return true;
@@ -238,31 +155,36 @@ public class NpcSpawnerMono : MonoBehaviour
 
     private void UpdateActivePhases()
     {
-        if (phases == null || phases.Count == 0)
+        if (stageWaveSo == null || stageWaveSo.Phases == null || stageWaveSo.Phases.Count == 0)
         {
             if (debugLog)
             {
-                Debug.LogWarning($"[NpcSpawnerMono] Spawn phases are empty on {name}.", this);
+                Debug.LogWarning($"[NpcSpawnerMono] StageWaveSO or phases are empty on {name}.", this);
             }
 
             return;
         }
 
-        for (int i = 0; i < phases.Count; i++)
+        for (int i = 0; i < stageWaveSo.Phases.Count; i++)
         {
-            SpawnPhase phase = phases[i];
+            SpawnPhase phase = stageWaveSo.Phases[i];
             if (phase == null || !phase.IsActive(_elapsedTime))
             {
                 continue;
             }
 
-            phase.spawnTimer -= Time.deltaTime;
-            if (phase.spawnTimer > 0f)
+            if (!_phaseTimers.ContainsKey(phase))
+            {
+                _phaseTimers[phase] = 0f;
+            }
+
+            _phaseTimers[phase] -= Time.deltaTime;
+            if (_phaseTimers[phase] > 0f)
             {
                 continue;
             }
 
-            phase.spawnTimer = phase.spawnInterval;
+            _phaseTimers[phase] = phase.SpawnInterval;
             SpawnPhaseBurst(phase);
         }
     }
@@ -271,7 +193,7 @@ public class NpcSpawnerMono : MonoBehaviour
     {
         CleanupDead();
 
-        if (phase == null || phase.monsterPool == null || phase.monsterPool.Count == 0)
+        if (phase == null || phase.monsters == null || phase.monsters.Count == 0)
         {
             if (debugLog)
             {
@@ -282,9 +204,9 @@ public class NpcSpawnerMono : MonoBehaviour
         }
 
         int spawned = 0;
-        for (int i = 0; i < phase.spawnBurst; i++)
+        for (int i = 0; i < phase.SpawnCountPerTick; i++)
         {
-            if (respectAliveLimit && _alive.Count >= maxAliveCount)
+            if (respectAliveLimit && phase.MaxAliveCount > 0 && CountAliveInPhase(phase) >= phase.MaxAliveCount)
             {
                 break;
             }
@@ -302,9 +224,9 @@ public class NpcSpawnerMono : MonoBehaviour
 
     private void SetupSpawnedCharacter(
         GameObject spawned,
-        MonsterSpawnEntry entry)
+        CharacterSO characterSo)
     {
-        if (spawned == null || entry == null)
+        if (spawned == null || characterSo == null)
         {
             return;
         }
@@ -330,95 +252,102 @@ public class NpcSpawnerMono : MonoBehaviour
             return;
         }
 
-        characterManager.InitializeFromSO(entry.characterSO);
+        characterManager.InitializeFromSO(characterSo);
     }
 
+    private void RegisterPhaseAlive(SpawnPhase phase, GameObject spawned)
+    {
+        if (phase == null || spawned == null)
+        {
+            return;
+        }
 
-    private MonsterSpawnEntry PickMonsterEntry(SpawnPhase phase)
+        if (!_phaseAlive.TryGetValue(phase, out List<GameObject> aliveList) || aliveList == null)
+        {
+            aliveList = new List<GameObject>();
+            _phaseAlive[phase] = aliveList;
+        }
+
+        aliveList.Add(spawned);
+    }
+
+    private int CountAliveInPhase(SpawnPhase phase)
     {
         if (phase == null)
         {
+            return 0;
+        }
+
+        if (!_phaseAlive.TryGetValue(phase, out List<GameObject> aliveList) || aliveList == null)
+        {
+            return 0;
+        }
+
+        for (int i = aliveList.Count - 1; i >= 0; i--)
+        {
+            if (aliveList[i] == null)
+            {
+                aliveList.RemoveAt(i);
+            }
+        }
+
+        return aliveList.Count;
+    }
+
+    private SpawnMonsterEntry PickMonsterEntry(SpawnPhase phase)
+    {
+        if (phase == null || phase.monsters == null || phase.monsters.Count == 0)
+        {
             return null;
         }
 
-        if (phase.monsterPool == null || phase.monsterPool.Count == 0)
-            return null;
-
-        float totalWeight = 0f;
-        for (int i = 0; i < phase.monsterPool.Count; i++)
+        int totalWeight = 0;
+        for (int i = 0; i < phase.monsters.Count; i++)
         {
-            MonsterSpawnEntry entry = phase.monsterPool[i];
-            if (entry == null || !entry.CanSpawn())
+            SpawnMonsterEntry entry = phase.monsters[i];
+            if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
+            {
                 continue;
+            }
 
-            totalWeight += entry.weight;
+            totalWeight += entry.Weight;
         }
 
-        if (totalWeight <= 0f)
-            return null;
-
-        float pick = Random.Range(0f, totalWeight);
-        float cumulative = 0f;
-
-        for (int i = 0; i < phase.monsterPool.Count; i++)
+        if (totalWeight <= 0)
         {
-            MonsterSpawnEntry entry = phase.monsterPool[i];
-            if (entry == null || !entry.CanSpawn())
-                continue;
+            return null;
+        }
 
-            cumulative += entry.weight;
-            if (pick <= cumulative)
+        int pick = Random.Range(0, totalWeight);
+        int cumulative = 0;
+
+        for (int i = 0; i < phase.monsters.Count; i++)
+        {
+            SpawnMonsterEntry entry = phase.monsters[i];
+            if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
+            {
+                continue;
+            }
+
+            cumulative += entry.Weight;
+            if (pick < cumulative)
+            {
                 return entry;
+            }
         }
 
         return null;
     }
 
-    private Transform PickSpawnPoint(SpawnPhase phase)
+    private Vector3 GetSpawnPosition()
     {
-        if (phase == null || phase.spawnPoints == null || phase.spawnPoints.Count == 0)
+        if (stageWaveSo == null)
         {
-            return transform;
+            return transform.position;
         }
 
-        float totalWeight = 0f;
-        for (int i = 0; i < phase.spawnPoints.Count; i++)
-        {
-            SpawnPointEntry entry = phase.spawnPoints[i];
-            if (entry == null || !entry.CanUse())
-            {
-                continue;
-            }
-
-            totalWeight += entry.weight;
-        }
-
-        if (totalWeight <= 0f)
-        {
-            return transform;
-        }
-
-        float pick = Random.Range(0f, totalWeight);
-        float cumulative = 0f;
-
-        for (int i = 0; i < phase.spawnPoints.Count; i++)
-        {
-            SpawnPointEntry entry = phase.spawnPoints[i];
-            if (entry == null || !entry.CanUse())
-            {
-                continue;
-            }
-
-            cumulative += entry.weight;
-            if (pick <= cumulative)
-            {
-                return entry.point != null
-                    ? entry.point
-                    : transform;
-            }
-        }
-
-        return transform;
+        return stageWaveSo.GetRandomSpawnPosition(_elapsedTime)
+            + stageWaveSo.GetRandomGroupOffset();
     }
 
     private bool IsSpawnPositionFree(Vector3 pos)
@@ -446,6 +375,22 @@ public class NpcSpawnerMono : MonoBehaviour
             if (_alive[i] == null)
                 _alive.RemoveAt(i);
         }
+
+        foreach (List<GameObject> aliveList in _phaseAlive.Values)
+        {
+            if (aliveList == null)
+            {
+                continue;
+            }
+
+            for (int i = aliveList.Count - 1; i >= 0; i--)
+            {
+                if (aliveList[i] == null)
+                {
+                    aliveList.RemoveAt(i);
+                }
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -455,5 +400,28 @@ public class NpcSpawnerMono : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, gizmoRadius);
+
+        if (stageWaveSo == null)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.cyan;
+        Vector3 startTop = new Vector3(stageWaveSo.SpawnStartX, stageWaveSo.YMax, 0f);
+        Vector3 startBottom = new Vector3(stageWaveSo.SpawnStartX, stageWaveSo.YMin, 0f);
+        Gizmos.DrawLine(startTop, startBottom);
+        Gizmos.DrawSphere(startTop, gizmoRadius);
+        Gizmos.DrawSphere(startBottom, gizmoRadius);
+
+        Gizmos.color = Color.magenta;
+        Vector3 endTop = new Vector3(stageWaveSo.SpawnEndX, stageWaveSo.YMax, 0f);
+        Vector3 endBottom = new Vector3(stageWaveSo.SpawnEndX, stageWaveSo.YMin, 0f);
+        Gizmos.DrawLine(endTop, endBottom);
+        Gizmos.DrawSphere(endTop, gizmoRadius);
+        Gizmos.DrawSphere(endBottom, gizmoRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(startTop, endTop);
+        Gizmos.DrawLine(startBottom, endBottom);
     }
 }

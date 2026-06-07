@@ -1,0 +1,79 @@
+{
+  "waveId": "stage_1",
+  "duration": 60,
+
+  "spawnArea": {
+    "spawnStartX": 0,
+    "spawnEndX": 9,
+    "yMin": -2,
+    "yMax": 2,
+    "groupSpreadRadius": 0.75
+  },
+
+  "phases": [
+    {
+      "phaseId": "phase_01_basic_intro",
+      "startTime": 0,
+      "endTime": 20,
+      "spawnInterval": 3,
+      "spawnCountPerTick": 1,
+      "maxAliveCount": 3,
+      "monsters": [
+        {
+          "characterId": "character.egg_ghost.1",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_02_basic_pressure",
+      "startTime": 20,
+      "endTime": 40,
+      "spawnInterval": 2.5,
+      "spawnCountPerTick": 1,
+      "maxAliveCount": 5,
+      "monsters": [
+        {
+          "characterId": "character.egg_ghost.1",
+          "weight": 4
+        },
+        {
+          "characterId": "character.ghost_male.1",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_03_final_pressure",
+      "startTime": 40,
+      "endTime": 55,
+      "spawnInterval": 2,
+      "spawnCountPerTick": 2,
+      "maxAliveCount": 7,
+      "monsters": [
+        {
+          "characterId": "character.egg_ghost.1",
+          "weight": 3
+        },
+        {
+          "characterId": "character.ghost_male.1",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_04_boss",
+      "startTime": 55,
+      "endTime": 60,
+      "spawnInterval": 999,
+      "spawnCountPerTick": 1,
+      "maxAliveCount": 1,
+      "monsters": [
+        {
+          "characterId": "character.eodukshini.1",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

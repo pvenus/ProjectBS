@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 [System.Serializable]
 public class MainElementVisualEntry
 {
@@ -33,18 +33,8 @@ public class MainElementVisualEntry
 public class MainElementVisualGroupSO : ScriptableObject
 {
     [Header("Identity")]
-    [SerializeField] private ElementType element;
     [SerializeField] private AttackArchetype archetype;
 
     [Header("Entries")]
     [SerializeField] private List<MainElementVisualEntry> entries = new();
-
-    public ElementType Element => element;
-    public AttackArchetype Archetype => archetype;
-    public IReadOnlyList<MainElementVisualEntry> Entries => entries;
-
-    public MainElementVisualEntry Get(EquipmentGrade grade)
-    {
-        return entries.Find(entry => entry != null && entry.Matches(grade));
-    }
 }

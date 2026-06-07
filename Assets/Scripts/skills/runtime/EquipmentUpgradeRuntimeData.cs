@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 현재 장비의 등급 상태를 런타임에서 해석한 결과 데이터.
 /// Resolver는 이 데이터를 기반으로 장비 기본 성능에 등급별 modifier를 적용한다.

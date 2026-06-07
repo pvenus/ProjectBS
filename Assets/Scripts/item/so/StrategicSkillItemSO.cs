@@ -1,6 +1,6 @@
 using UnityEngine;
 using String;
-
+using Skill;
 namespace Item
 {
     [CreateAssetMenu(

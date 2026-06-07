@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0955a25309a8f4b8cbf478af07744a03, type: 3}
+  m_Name: battle.prop.grave
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.Prop.SO.BattlePropSO
+  propId: battle.prop.grave
+  role: 100
+  prefab: {fileID: 6859368266873543689, guid: 6b16e79f0f182457b8b88796bb852c20, type: 3}
+  skills: []
+  stateVisuals:
+  - state: 100
+    animationClip: {fileID: 7400000, guid: abe962c3079b4429da8c15f955f17caa, type: 2}
+    effectPrefab: {fileID: 0}
+  spawnHitThreshold: 10
+  spawnPropOnHit: {fileID: 11400000, guid: cf4b257c00cef4d398ef84dcc65461f6, type: 2}
+  destroyAfterSpawnOnHit: 1
+  waveSO: {fileID: 0}
+  createWaveSpawnerOnInitialize: 0
+  waveSpawnerObjectName: PropNpcSpawner

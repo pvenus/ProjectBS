@@ -96,12 +96,12 @@ namespace Stage.UI
 
             if (titleText != null)
             {
-                titleText.text = popupEvent.title;
+                titleText.text = popupEvent.Title;
             }
 
             if (bodyText != null)
             {
-                bodyText.text = popupEvent.body;
+                bodyText.text = popupEvent.Body;
             }
 
             if (resultText != null)
@@ -208,9 +208,11 @@ namespace Stage.UI
                 TMP_Text buttonText = GetChoiceText(i, button);
                 if (buttonText != null)
                 {
-                    buttonText.text = string.IsNullOrWhiteSpace(choice.label)
+                    string label = choice.Label;
+
+                    buttonText.text = string.IsNullOrWhiteSpace(label)
                         ? $"Choice {i + 1}"
-                        : choice.label;
+                        : label;
                 }
             }
         }
@@ -288,7 +290,7 @@ namespace Stage.UI
         {
             if (resultText != null && choice != null)
             {
-                resultText.text = choice.resultText;
+                resultText.text = choice.ResultText;
             }
 
             RefreshRewardViews(choice);
@@ -398,7 +400,7 @@ namespace Stage.UI
                 return null;
             }
 
-            RewardVisualSO visual =
+            RewardVisualLibrarySO.RewardVisualEntry visual =
                 LibraryManager.Instance.GetRewardVisual(
                     reward.rewardType);
 

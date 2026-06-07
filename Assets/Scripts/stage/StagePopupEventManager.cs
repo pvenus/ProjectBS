@@ -81,7 +81,7 @@ namespace Stage
             pendingChoice = null;
         }
 
-        private void  HandleNodeSelected(RoundNode node)
+        private void HandleNodeSelected(RoundNode node)
         {
             TryOpen(node);
         }
@@ -93,7 +93,9 @@ namespace Stage
                 return false;
             }
 
-            if (node.executeMode != RoundExecuteMode.Popup)
+            if (node.nodeType != RoundNodeType.Event &&
+                node.nodeType != RoundNodeType.Battle &&
+                node.nodeType != RoundNodeType.Boss)
             {
                 return false;
             }

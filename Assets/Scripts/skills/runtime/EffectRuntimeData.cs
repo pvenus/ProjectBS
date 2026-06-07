@@ -53,7 +53,6 @@ public class EffectRuntimeData
     public int maxStack = 1;
 
     [Header("Tags")]
-    public ElementType elementType = ElementType.None;
     public List<string> tags = new();
 
     public bool HasEffect => sourceEffect != null;
@@ -85,7 +84,6 @@ public class EffectRuntimeData
             duration = 0f;
             chance = 1f;
             maxStack = 1;
-            elementType = ElementType.None;
             tags.Clear();
             return;
         }
@@ -98,7 +96,6 @@ public class EffectRuntimeData
         duration = effect.Duration;
         chance = Mathf.Clamp01(effect.Chance);
         maxStack = Mathf.Max(1, effect.MaxStack);
-        elementType = effect.ElementType;
         tags = effect.Tags != null ? new List<string>(effect.Tags) : new List<string>();
     }
 }

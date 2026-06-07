@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7001302013948792496}
   - component: {fileID: 6877355841773126689}
   - component: {fileID: 1377160339823919520}
+  - component: {fileID: 7445648339546671405}
   m_Layer: 0
   m_Name: projectile
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   hitHandler: {fileID: 0}
   lifetime: {fileID: 0}
   visual: {fileID: 0}
+  spawner: {fileID: 0}
   initialized: 0
 --- !u!114 &5261600450906435731
 MonoBehaviour:
@@ -243,3 +245,15 @@ MonoBehaviour:
   initialized: 0
   isClipPlaying: 0
   deactivateAfterClipFinished: 0
+--- !u!114 &7445648339546671405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121122920866559880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5b1a306052f4d2b97bba8e38bbc264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileSpawner

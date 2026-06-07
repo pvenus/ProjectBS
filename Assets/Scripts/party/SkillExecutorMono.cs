@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using Character;
 using Stat;
-using SKill;
+using Skill;
 
 public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
@@ -13,12 +13,22 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 
     [Header("Range Check")]
     [SerializeField] private bool useClosestPointForRangeCheck = true;
-    [SerializeField] private float skillRangeCheckInset = 0.5f;
+    private const float skillRangeCheckInset = 0f;
 
     [Header("Fallback")]
     [SerializeField] private bool enableBasicAttackFallback = true;
     [Header("Skill Loadout")]
     [SerializeField] private SkillLoadoutMono skillLoadout;
+
+    [Header("Execution Mode")]
+    [SerializeField] private bool manualExecutionMode = false;
+
+    public bool ManualExecutionMode => manualExecutionMode;
+
+    public void SetManualExecutionMode(bool enabled)
+    {
+        manualExecutionMode = enabled;
+    }
 
     private bool _hasPendingRequest;
     private SkillExecutionRequest _pendingRequest;
@@ -110,6 +120,9 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 
         if (!_hasPendingRequest)
             return false;
+        
+        if (manualExecutionMode)
+            return true;
 
         return TryExecutePending();
     }
@@ -124,6 +137,14 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
     }
 
     public bool HasPendingRequest => _hasPendingRequest;
+
+    public SkillExecutionRequest PendingRequest => _pendingRequest;
+
+    public bool TryGetPendingRequest(out SkillExecutionRequest request)
+    {
+        request = _pendingRequest;
+        return _hasPendingRequest;
+    }
 
     public bool TryExecutePending()
     {
@@ -188,6 +209,17 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         if (IsCasterSkillBlocked(request.Caster))
             return false;
 
+        if (IsBasicAttackSkill(skill) && !HasValidBasicAttackTargetInRange(skill, request))
+        {
+            if (debugLog)
+            {
+                string prefix = string.IsNullOrEmpty(failedReason) ? string.Empty : $" fallback reason={failedReason}";
+                Debug.Log($"[SkillExecutor] basic attack blocked by no target in range{prefix} skill={skill.name} caster={request.Caster.name}");
+            }
+
+            return false;
+        }
+
         bool used = false;
 
         if (request.UseTarget && request.Target != null)
@@ -251,6 +283,26 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             _cooldowns[skill] = cooldown;
 
         return true;
+    }
+
+    private bool HasValidBasicAttackTargetInRange(
+        ScriptableObject skill,
+        SkillExecutionRequest request)
+    {
+        if (skill == null || request.Caster == null)
+        {
+            return false;
+        }
+
+        if (!request.UseTarget || request.Target == null)
+        {
+            return false;
+        }
+
+        return IsInSkillRange(
+            skill,
+            request.Caster,
+            request.Target);
     }
 
     private bool IsCasterSkillBlocked(Transform caster)
@@ -374,25 +426,43 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         TrySetAnimationDirection(direction);
         GameObject targetObject = explicitTarget != null ? explicitTarget.gameObject : null;
 
-        ProjectileRuntimeData projectileData = _equipmentSkillResolver.ResolveProjectileRuntime(
+        ProjectileRuntimeData[] projectileDatas = _equipmentSkillResolver.ResolveProjectileRuntime(
             runtime,
             request.Caster.gameObject,
             targetObject,
             spawnPosition,
-            direction);
+            direction,
+            usePoint ? request.TargetPoint : null);
 
-        if (projectileData == null)
+        if (projectileDatas == null || projectileDatas.Length == 0)
             return false;
 
-        ProjectileEntity projectilePrefab = projectileData.projectilePrefab != null
-            ? projectileData.projectilePrefab
-            : runtime.projectilePrefab;
+        bool firedAny = false;
 
-        if (projectilePrefab == null)
-            return false;
+        for (int i = 0; i < projectileDatas.Length; i++)
+        {
+            ProjectileRuntimeData projectileData = projectileDatas[i];
 
-        _projectileFactory.SpawnOriented(projectilePrefab, projectileData);
-        return true;
+            if (projectileData == null)
+                continue;
+
+            if (usePoint && projectileData.move != null)
+            {
+                projectileData.move.targetPosition = request.TargetPoint;
+            }
+
+            ProjectileEntity projectilePrefab = projectileData.projectilePrefab != null
+                ? projectileData.projectilePrefab
+                : runtime.projectilePrefab;
+
+            if (projectilePrefab == null)
+                continue;
+
+            _projectileFactory.SpawnOriented(projectilePrefab, projectileData);
+            firedAny = true;
+        }
+
+        return firedAny;
     }
 
     private SkillPoolSlotData FindLoadoutEntry(ScriptableObject skill)
@@ -486,6 +556,9 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         UpdateCooldowns();
 
         if (!_hasPendingRequest)
+            return;
+
+        if (manualExecutionMode)
             return;
 
         TryExecutePending();

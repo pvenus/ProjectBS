@@ -27,6 +27,8 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
 
         [Header("Behavior")]
         public bool endWhenOwnerMissing = true;
+
+        public Transform targetTransform;
     }
 
     private HoverMovementDto _dto;
@@ -60,7 +62,7 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         _hasReachedEnd = false;
         _initialized = true;
 
-        _targetTransform = _context.targetTransform;
+        _targetTransform = dto.targetTransform;
 
         Vector2 startPosition = _targetTransform != null
             ? (Vector2)_targetTransform.position

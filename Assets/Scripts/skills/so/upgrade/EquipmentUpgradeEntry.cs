@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 업그레이드 테이블에서 사용하는 등급별 정의 데이터 (SO용).
 /// 특정 장비 등급에 도달했을 때 어떤 modifier가 적용되는지 정의한다.

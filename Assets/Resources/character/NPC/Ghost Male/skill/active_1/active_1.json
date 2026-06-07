@@ -28,7 +28,7 @@
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 2,
+    "range": 0.7,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -85,7 +85,7 @@
     "hitDuration": 0.1,
     "deactivateAfterFirstHit": false,
 
-    "targetLayerMask": "Enemy",
+    "targetLayerMask": "EPartyemy",
 
     "damage": {
       "skillId": "basic_attack_damage",

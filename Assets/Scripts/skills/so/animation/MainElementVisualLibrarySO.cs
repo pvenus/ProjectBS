@@ -15,13 +15,4 @@ public class MainElementVisualLibrarySO : ScriptableObject
     [SerializeField] private List<MainElementVisualGroupSO> elementGroups = new();
 
     public IReadOnlyList<MainElementVisualGroupSO> ElementGroups => elementGroups;
-    public MainElementVisualGroupSO GetGroup(ElementType element)
-    {
-        return elementGroups.Find(group => group != null && group.Element == element);
-    }
-    public MainElementVisualEntry Get(ElementType element, EquipmentGrade grade)
-    {
-        MainElementVisualGroupSO group = GetGroup(element);
-        return group != null ? group.Get(grade) : null;
-    }
 }

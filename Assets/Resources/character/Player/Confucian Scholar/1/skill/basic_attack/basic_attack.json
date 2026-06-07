@@ -28,7 +28,7 @@
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 2,
+    "range": 0.75,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -75,7 +75,7 @@
   "hit": {
     "hitId": "basic_attack_hit",
 
-    "maxHitCount": 1,
+    "maxHitCount": 3,
     "ignoreSameRoot": true,
     "useRepeatInterval": false,
     "repeatInterval": 0.25,
@@ -90,8 +90,8 @@
     "damage": {
       "skillId": "basic_attack_damage",
       "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
+      "baseDamage": 0,
+      "attackPercentDamage": 100,
       "canCritical": false,
       "ignoreDefense": false
     },

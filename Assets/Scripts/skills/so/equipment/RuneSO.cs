@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 장비에 장착 가능한 룬 원형 데이터.
 /// 룬 하나는 여러 스탯 modifier와 여러 Effect를 가질 수 있다.
@@ -15,7 +15,6 @@ public class RuneSO : ScriptableObject
     [SerializeField] private string description;
 
     [Header("Classification")]
-    [SerializeField] private ElementType elementType = ElementType.None;
     [SerializeField] private EquipmentGrade grade = EquipmentGrade.Common;
     [SerializeField] private List<string> tags = new();
 
@@ -28,8 +27,6 @@ public class RuneSO : ScriptableObject
     public string RuneId => runeId;
     public string DisplayName => displayName;
     public string Description => description;
-
-    public ElementType ElementType => elementType;
     public EquipmentGrade Grade => grade;
     public IReadOnlyList<string> Tags => tags;
 

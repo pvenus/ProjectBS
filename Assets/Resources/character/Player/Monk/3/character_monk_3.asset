@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
   characterId: character.monk.3
   characterType: 0
-  prefab: {fileID: 6378610511697526054, guid: b9a5d75a3d590490eb5e5c2caa71780e, type: 3}
+  prefab: {fileID: 6378610511697526054, guid: 94dbff30185974a2b8ce2811fca69b4e, type: 3}
   animationOverrideSet: {fileID: 11400000, guid: ee4dc9ac9ad1240c295ea5192fd61770, type: 2}
   skillOverrideSet: {fileID: 11400000, guid: 51adf1d93801e4960a8a690fe73ae335, type: 2}
   baseStats:
   - statType: 1200
-    value: 10
+    value: 16
   - statType: 1000
-    value: 100
+    value: 260
   - statType: 1220
-    value: 1
+    value: 1.43
   - statType: 1240
-    value: 90
+    value: 20
   - statType: 1250
-    value: 50
+    value: 125
   - statType: 1235
-    value: 1
+    value: 0.81

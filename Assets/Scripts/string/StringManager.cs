@@ -19,7 +19,7 @@ namespace String
     /// </summary>
     public class StringManager : MonoBehaviour
     {
-        private const string DefaultResourcePath = "string/string_table";
+        private const string DefaultResourcePath = "string";
         private const string DefaultLanguage = "ko";
 
         public static StringManager Instance { get; private set; }
@@ -69,24 +69,44 @@ namespace String
 
         public void Load()
         {
-            TextAsset textAsset =
-                Resources.Load<TextAsset>(resourcePath);
+            TextAsset[] csvFiles =
+                Resources.LoadAll<TextAsset>(resourcePath);
 
-            if (textAsset == null)
+            if (csvFiles == null || csvFiles.Length == 0)
             {
                 Debug.LogWarning(
-                    $"[StringManager] CSV not found. path=Resources/{resourcePath}.csv");
+                    $"[StringManager] CSV files not found. path=Resources/{resourcePath}");
                 return;
             }
 
-            LoadFromCsv(textAsset.text);
+            table.Clear();
+            languages.Clear();
+
+            bool headerLoaded = false;
+
+            foreach (TextAsset csvFile in csvFiles)
+            {
+                if (csvFile == null)
+                {
+                    continue;
+                }
+
+                LoadFromCsv(csvFile.text, !headerLoaded);
+                headerLoaded = true;
+            }
         }
 
         public void LoadFromCsv(string csvText)
         {
             table.Clear();
             languages.Clear();
+            LoadFromCsv(csvText, true);
+        }
 
+        private void LoadFromCsv(
+            string csvText,
+            bool loadHeader)
+        {
             if (string.IsNullOrWhiteSpace(csvText))
             {
                 return;
@@ -112,13 +132,17 @@ namespace String
                 return;
             }
 
-            for (int i = 2; i < headers.Count; i++)
+            if (loadHeader)
             {
-                string language = headers[i].Trim();
-
-                if (!string.IsNullOrEmpty(language))
+                for (int i = 2; i < headers.Count; i++)
                 {
-                    languages.Add(language);
+                    string language = headers[i].Trim();
+
+                    if (!string.IsNullOrEmpty(language)
+                        && !languages.Contains(language))
+                    {
+                        languages.Add(language);
+                    }
                 }
             }
 

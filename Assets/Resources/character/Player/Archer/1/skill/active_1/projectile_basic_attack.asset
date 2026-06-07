@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f0f6f0544b64806bbbb78ae0c756b5, type: 3}
   m_Name: projectile_basic_attack
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentBaseProfileSO
-  attackArchetype: 1
-  projectilePrefab: {fileID: 4118216556720441464, guid: 33aafa25e56c341669ae5c4618bc5b23, type: 3}
+  attackArchetype: 2
+  projectilePrefab: {fileID: 4118216556720441464, guid: a952449ec50fc4e1eb8e0be96e66a4aa, type: 3}
   projectileSpawnOffset: 0.5
-  projectileCount: 1
+  projectileCount: 5
+  projectileSpreadAngle: 30
   projectileScale: 1
-  projectileLifetime: 0.3
+  projectileLifetime: 0.4
   projectileSpawnInterval: 0
   projectileSpawnRadius: 0
   category: 1

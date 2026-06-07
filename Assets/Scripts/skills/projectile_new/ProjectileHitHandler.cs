@@ -5,6 +5,7 @@ using UnityEngine;
 using Character;
 using Effect;
 using Effect.Helper;
+using Battle.Prop;
 
 /// <summary>
 /// ProjectileEntity의 충돌/히트 처리를 담당하는 컴포넌트.
@@ -32,6 +33,7 @@ public class ProjectileHitHandler : MonoBehaviour
     private Coroutine repeatHitCoroutine;
     private bool isCollectingInitialHits;
     private bool initialHitCollectionCompleted;
+    private bool hasAppliedDamage;
     private int currentHitCount;
 
     public bool IsInitialized => initialized;
@@ -65,6 +67,7 @@ public class ProjectileHitHandler : MonoBehaviour
         overlapTargets.Clear();
         initialHitCollectionCompleted = false;
         isCollectingInitialHits = false;
+        hasAppliedDamage = false;
         currentHitCount = 0;
 
         if (collectCoroutine != null)
@@ -345,6 +348,34 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
+        BattlePropController targetProp =
+            other.GetComponentInParent<BattlePropController>();
+
+        if (targetProp != null)
+        {
+            targetProp.OnProjectileHit();
+
+            if (!ignoreHitHistory)
+            {
+                hitTargets.Add(other);
+            }
+
+            currentHitCount++;
+
+            if (HasReachedMaxHitCount())
+            {
+                ownerEntity.Despawn();
+                return;
+            }
+
+            if (consumeAfterHit)
+            {
+                ownerEntity.Despawn();
+            }
+
+            return;
+        }
+
         CharacterManager targetCharacter =
             other.GetComponentInParent<CharacterManager>();
 
@@ -393,6 +424,8 @@ public class ProjectileHitHandler : MonoBehaviour
             {
                 CharacterDamageService.ApplyWithoutOwner(request);
             }
+
+            hasAppliedDamage = true;
         }
 
         ApplyAdditionalEffects(targetCharacter);
@@ -427,6 +460,7 @@ public class ProjectileHitHandler : MonoBehaviour
         overlapTargets.Clear();
         isCollectingInitialHits = false;
         initialHitCollectionCompleted = false;
+        hasAppliedDamage = false;
     }
 
     private bool IsTargetLayer(int layer)
@@ -599,6 +633,18 @@ public class ProjectileHitHandler : MonoBehaviour
             return null;
         }
 
+        float baseDamage = runtimeData.hit.damageProfile.baseDamage;
+
+        bool useFirstHitDamage =
+            runtimeData.hit.hitStartTime > 0f
+            && !hasAppliedDamage
+            && runtimeData.hit.firstHitBaseDamage > 0f;
+
+        if (useFirstHitDamage)
+        {
+            baseDamage = runtimeData.hit.firstHitBaseDamage;
+        }
+
         return new CharacterDamageRequest
         {
             attacker = runtimeData.owner != null
@@ -607,8 +653,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
             target = targetCharacter.gameObject,
 
-            baseDamage =
-                runtimeData.hit.damageProfile.baseDamage,
+            baseDamage = baseDamage,
 
             attackDamagePercent =
                 runtimeData.hit.damageProfile.attackDamagePercent

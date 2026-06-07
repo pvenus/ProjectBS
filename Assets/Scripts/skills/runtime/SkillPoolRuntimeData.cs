@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKill
+namespace Skill
 {
     /// <summary>
     /// 범용 스킬 풀에서 사용하는 슬롯 키 모음.
@@ -15,6 +15,7 @@ namespace SKill
         public const string Active1 = "active_1";
         public const string Active2 = "active_2";
         public const string Active3 = "active_3";
+        public const string Passive1 = "passive_1";
 
         public const string Strategic1 = "strategic_1";
         public const string Strategic2 = "strategic_2";
@@ -43,6 +44,15 @@ namespace SKill
         public float ProjectileLifetimeOverride => projectileLifetimeOverride;
         public EquipmentSkillRuntimeData RuntimeData => runtimeData;
         public bool HasSkill => skillSo != null;
+
+        public void Configure(
+            string newSlotKey,
+            EquipmentSkillSO newSkillSo)
+        {
+            slotKey = newSlotKey;
+            skillSo = newSkillSo;
+            runtimeData = null;
+        }
 
         public void SetSkill(EquipmentSkillSO newSkillSo)
         {

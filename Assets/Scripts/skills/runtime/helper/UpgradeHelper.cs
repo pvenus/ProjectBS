@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using Skill;
 /// <summary>
 /// 장비 업그레이드 런타임 변환용 헬퍼.
 /// Entry/SO는 순수 데이터로 두고, 런타임 modifier 복사/변환은 여기서 처리한다.

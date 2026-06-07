@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Projectile 이동 전용 DTO.
 /// - 시작/목표 좌표 기반 이동을 기본으로 한다.
-/// - 직선 이동과 순간 이동(워프)을 포함한다.
+/// - 직선 이동, 순간 이동(워프), 부유/궤도/호밍 이동을 포함한다.
 /// </summary>
 [System.Serializable]
 public class SkillProjectileMoveDto
@@ -14,13 +14,17 @@ public class SkillProjectileMoveDto
         Linear = 1,
         Warp = 2,
         Hover = 3,
-        Orbit = 4
+        Orbit = 4,
+        Homing = 5
     }
 
     /// <summary>
     /// 이동 방식.
     /// Linear: 시작점에서 목표점까지 속도 기반 이동.
     /// Warp: 시작 직후 목표 지점으로 즉시 이동.
+    /// Hover: owner 주변을 따라다니는 부유 이동.
+    /// Orbit: owner 기준 궤도 이동.
+    /// Homing: 실시간 타겟을 추적하는 유도 이동.
     /// </summary>
     public MoveType moveType = MoveType.Linear;
 
@@ -41,8 +45,8 @@ public class SkillProjectileMoveDto
     public Vector2 targetPosition;
 
     /// <summary>
-    /// 직선 이동 시 속도.
-    /// Warp에서는 무시될 수 있다.
+    /// 이동 속도.
+    /// Linear/Homing에서 사용하며, Warp에서는 무시될 수 있다.
     /// </summary>
     public float speed;
 
@@ -147,17 +151,18 @@ public class SkillProjectileMoveDto
     public bool resetPhaseWhenLayoutChanges = true;
 
     /// <summary>
-    /// 반지름을 진동시키는 효과 사용 여부
+    /// 궤도 반지름을 주기적으로 흔드는 효과 사용 여부.
+    /// Orbit 계열 이동에서 사용한다.
     /// </summary>
     public bool useRadialPulse = false;
 
     /// <summary>
-    /// 반지름 진동 크기
+    /// 반지름 흔들림 진폭.
     /// </summary>
     public float radialPulseAmplitude = 0f;
 
     /// <summary>
-    /// 반지름 진동 주파수
+    /// 반지름 흔들림 주파수.
     /// </summary>
     public float radialPulseFrequency = 0f;
 

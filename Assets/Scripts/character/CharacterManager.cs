@@ -4,6 +4,7 @@ using UnityEngine;
 using Party.UI;
 using Party;
 using Character.Service;
+using Character.Skill;
 
 namespace Character
 {
@@ -46,6 +47,7 @@ namespace Character
         private GoldDropService goldDropService;
 
         private CharacterExperienceService experienceService;
+        private CharacterStateManager stateManager;
 
         private CharacterBattleHudUI spawnedBattleHud;
 
@@ -65,7 +67,32 @@ namespace Character
 
         public bool IsRooted => GetStatValue(StatType.RootDuration) > 0f;
 
-        public bool CanMove => !IsStunned && !IsRooted;
+        public bool CanMove => CanMoveNow();
+
+        public bool CanMoveNow()
+        {
+            if (isDying)
+            {
+                return false;
+            }
+
+            if (runtimeData != null && runtimeData.isDead)
+            {
+                return false;
+            }
+
+            if (IsStunned)
+            {
+                return false;
+            }
+
+            if (IsRooted)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         public bool CanUseSkill => !IsStunned;
 
@@ -166,6 +193,7 @@ namespace Character
 
             ApplyAnimationOverride(characterSO);
             ApplySkillOverride(characterSO);
+            InitializeSkillManager(characterSO);
 
             CreateBattleHud();
 
@@ -220,6 +248,19 @@ namespace Character
             skillLoadout.ApplyOverride(characterSO.skillOverrideSet);
         }
 
+        private void InitializeSkillManager(CharacterSO characterSO)
+        {
+            CharacterSkillManager skillManager = GetComponent<CharacterSkillManager>()
+                ?? GetComponentInChildren<CharacterSkillManager>();
+
+            if (skillManager == null)
+            {
+                skillManager = gameObject.AddComponent<CharacterSkillManager>();
+            }
+
+            skillManager.InitializeSkills(characterSO);
+        }
+
         public void Initialize(CharacterRuntimeData data)
         {
             ResolveComponents();
@@ -263,6 +304,7 @@ namespace Character
                 runtimeData?.characterSO);
             ApplySkillOverride(
                 runtimeData?.characterSO);
+            InitializeSkillManager(runtimeData?.characterSO);
 
             CreateBattleHud();
 
@@ -289,6 +331,18 @@ namespace Character
             {
                 shaderController =
                     GetComponentInChildren<ShaderControllerMono>();
+            }
+
+            if (stateManager == null)
+            {
+                stateManager =
+                    GetComponent<CharacterStateManager>();
+            }
+
+            if (stateManager == null)
+            {
+                stateManager =
+                    gameObject.AddComponent<CharacterStateManager>();
             }
         }
 

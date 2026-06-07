@@ -1,6 +1,5 @@
-
-
 using Common.SO;
+using Stage;
 using UnityEngine;
 
 namespace Common
@@ -13,12 +12,34 @@ namespace Common
         [SerializeField]
         private RewardVisualLibrarySO rewardVisualLibrary;
 
+        [Header("Stage Node")]
+        [SerializeField]
+        private NodeTypeIconLibrarySO nodeTypeIconLibrary;
+
         [Header("Debug")]
         [SerializeField]
         private bool logDebug;
 
         public RewardVisualLibrarySO RewardVisualLibrary =>
             rewardVisualLibrary;
+
+        public Sprite GetNodeTypeIcon(RoundNodeType nodeType)
+        {
+            if (nodeTypeIconLibrary == null)
+            {
+                return null;
+            }
+
+            Sprite icon = nodeTypeIconLibrary.GetIcon(nodeType);
+
+            if (icon == null && logDebug)
+            {
+                Debug.LogWarning(
+                    $"[LibraryManager] NodeType icon not found. nodeType={nodeType}");
+            }
+
+            return icon;
+        }
 
         private void Awake()
         {
@@ -37,7 +58,7 @@ namespace Common
             }
         }
 
-        public RewardVisualSO GetRewardVisual(
+        public RewardVisualLibrarySO.RewardVisualEntry GetRewardVisual(
             Stage.PopupEventRewardType rewardType)
         {
             if (rewardVisualLibrary == null)

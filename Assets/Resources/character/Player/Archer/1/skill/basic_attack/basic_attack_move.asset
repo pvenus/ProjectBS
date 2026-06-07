@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: basic_attack_move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
   moveType: 1
-  speed: 0.1
+  speed: 12
   arrivalThreshold: 0.01
   applyDirectionRotation: 1
-  rotationOffset: -90
+  rotationOffset: 180
   followOffset: {x: 0, y: 0}
   followLerpSpeed: 12
   snapOnInitialize: 1

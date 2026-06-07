@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -69,14 +70,9 @@ namespace Stage
 
             return new RoundNode(
                 "start",
-                "Start",
                 RoundNodeType.Start,
-                RoundExecuteMode.Immediate,
                 0,
-                0)
-            {
-                description = "스테이지 시작 지점입니다."
-            };
+                0);
         }
 
         private RoundNode CreateBossNode(int depth)
@@ -90,14 +86,9 @@ namespace Stage
 
             return new RoundNode(
                 $"boss_{depth}",
-                "Boss",
                 RoundNodeType.Boss,
-                RoundExecuteMode.Scene,
                 depth,
-                0)
-            {
-                description = "스테이지 보스 전투입니다."
-            };
+                0);
         }
 
         private List<RoundNode> CreateMiddleDepthNodes(int depth)
@@ -150,13 +141,10 @@ namespace Stage
 
             return new RoundNode(
                 $"pool_{depth}_{indexInDepth}",
-                "?",
                 RoundNodeType.Event,
-                RoundExecuteMode.Popup,
                 depth,
                 indexInDepth)
             {
-                description = "Unknown Event",
                 useRandomEventPool = true,
                 randomPool = selectedPool,
                 resolved = false
@@ -195,19 +183,13 @@ namespace Stage
 
             RoundNode node = new RoundNode(
                 nodeId,
-                string.IsNullOrWhiteSpace(source.title) ? source.name : source.title,
                 source.nodeType,
-                source.executeMode,
                 depth,
                 indexInDepth)
             {
-                description = source.description,
-                sceneName = source.sceneName,
-                eventId = source.eventId,
                 popupEvent = source.popupEvent,
-                battleGroupId = source.battleGroupId,
-                icon = source.icon,
-                isRequired = source.isRequired
+                isRequired = source.isRequired,
+                icon = LibraryManager.Instance.GetNodeTypeIcon(source.nodeType)
             };
 
             return node;
@@ -217,14 +199,9 @@ namespace Stage
         {
             return new RoundNode(
                 $"fallback_battle_{depth}_{indexInDepth}",
-                "Battle",
                 RoundNodeType.Battle,
-                RoundExecuteMode.Scene,
                 depth,
-                indexInDepth)
-            {
-                description = "기본 전투 라운드입니다."
-            };
+                indexInDepth);
         }
 
         private void ConnectDepths(StageGraph graph, Dictionary<int, List<RoundNode>> depthNodes, int bossDepth)

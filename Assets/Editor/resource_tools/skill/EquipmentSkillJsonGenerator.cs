@@ -1,0 +1,489 @@
+#if UNITY_EDITOR
+using System;
+using System.IO;
+using Skill;
+using UnityEditor;
+using UnityEngine;
+
+namespace ResourceTools.Skill
+{
+    public static class EquipmentSkillJsonGenerator
+    {
+        // New JSON model (2024-06):
+        [Serializable]
+        public class EquipmentSkillJson
+        {
+            public string equipmentId;
+            public string slotName;
+            public string skillName;
+            public string iconName;
+
+            public BaseProfileJson baseProfile;
+            public CastJson cast;
+            public MoveJson move;
+            public HitJson[] hits;
+            public SpawnSkillJson spawnSkill;
+            public VisualSetJson visualSet;
+        }
+
+        [Serializable]
+        public class SpawnSkillJson
+        {
+            public string spawnSkillId;
+            public string timing;
+            public string position;
+            public int spawnCount = 1;
+            public float spawnInterval;
+            public EquipmentSkillJson skill;
+        }
+
+        // Example JSON format:
+        // {
+        //   "equipmentId": "basic_attack",
+        //   "characterName": "military_officer",
+        //   "slotName": "basic",
+        //   "skillName": "basic_attack",
+        //   "iconName": "basic_attack"
+        // }
+        // Usage:
+        // Select a json file in the Project window.
+        // Right Click -> Skill -> Generate EquipmentSkillSO From Json
+        [MenuItem("Assets/Skill/Generate EquipmentSkillSO From Json", false, 2000)]
+        public static void Generate()
+        {
+            TextAsset jsonAsset = Selection.activeObject as TextAsset;
+
+            if (jsonAsset == null)
+            {
+                Debug.LogError("[EquipmentSkillJsonGenerator] Select a json file in the Project window first.");
+                return;
+            }
+
+            string jsonPath = AssetDatabase.GetAssetPath(jsonAsset);
+            GenerateFromJsonPath(jsonPath);
+        }
+
+        public static EquipmentSkillSO GenerateFromJsonPath(string jsonPath)
+        {
+            if (string.IsNullOrEmpty(jsonPath) || !jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                Debug.LogError("[EquipmentSkillJsonGenerator] Selected asset is not a json file.");
+                return null;
+            }
+
+            string json = File.ReadAllText(jsonPath);
+            EquipmentSkillJson data = JsonUtility.FromJson<EquipmentSkillJson>(json);
+
+            if (data?.visualSet != null)
+            {
+                Debug.Log($"[EquipmentSkillJsonGenerator] VisualSet detected: {data.visualSet.visualSetId}");
+            }
+
+            if (data == null || string.IsNullOrEmpty(data.equipmentId))
+            {
+                Debug.LogError($"[EquipmentSkillJsonGenerator] Invalid EquipmentSkill json: {jsonPath}");
+                return null;
+            }
+
+            string outputFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+
+            if (string.IsNullOrEmpty(outputFolder))
+            {
+                Debug.LogError("[EquipmentSkillJsonGenerator] Cannot resolve output folder from json path.");
+                return null;
+            }
+
+            return CreateOrUpdateSkill(data, outputFolder);
+        }
+
+        public static EquipmentSkillSO CreateOrUpdateSkill(
+            EquipmentSkillJson data,
+            string outputFolder)
+        {
+            if (data == null || string.IsNullOrEmpty(data.equipmentId))
+            {
+                Debug.LogError("[EquipmentSkillJsonGenerator] Invalid EquipmentSkill json data.");
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(outputFolder))
+            {
+                Debug.LogError("[EquipmentSkillJsonGenerator] outputFolder is empty.");
+                return null;
+            }
+
+            EnsureFolder(outputFolder);
+
+            string assetPath = $"{outputFolder}/{data.equipmentId}.asset";
+            EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(assetPath);
+            bool isNewAsset = false;
+
+            EquipmentBaseProfileSO baseProfileSo =
+                EquipmentBaseProfileAssetBuilder.CreateOrUpdate(
+                    data.baseProfile,
+                    outputFolder);
+
+            SkillCastSO castSo =
+                SkillCastAssetBuilder.CreateOrUpdate(
+                    data.cast,
+                    outputFolder) as SkillCastSO;
+
+            SkillMoveSO moveSo =
+                SkillMoveAssetBuilder.CreateOrUpdate(
+                    data.move,
+                    outputFolder) as SkillMoveSO;
+
+            SkillHitSO[] hitSos =
+                CreateOrUpdateHits(
+                    data.hits,
+                    outputFolder);
+
+            SpawnSkillSO spawnSkillSo =
+                CreateOrUpdateSpawnSkill(
+                    data.spawnSkill,
+                    outputFolder);
+
+            ScriptableObject visualSetSo =
+                SkillVisualSetAssetBuilder.CreateOrUpdate(
+                    data.visualSet,
+                    outputFolder);
+
+            if (skillSo == null)
+            {
+                skillSo = ScriptableObject.CreateInstance<EquipmentSkillSO>();
+                isNewAsset = true;
+            }
+
+            ApplySkillFields(
+                skillSo,
+                data,
+                baseProfileSo,
+                castSo,
+                moveSo,
+                hitSos,
+                spawnSkillSo,
+                visualSetSo);
+
+            if (isNewAsset)
+            {
+                AssetDatabase.CreateAsset(skillSo, assetPath);
+                Debug.Log($"[EquipmentSkillJsonGenerator] Created EquipmentSkillSO: {assetPath}");
+            }
+            else
+            {
+                EditorUtility.SetDirty(skillSo);
+                Debug.Log($"[EquipmentSkillJsonGenerator] Updated EquipmentSkillSO: {assetPath}");
+            }
+
+            AssetDatabase.SaveAssetIfDirty(skillSo);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            return skillSo;
+        }
+
+        private static void ApplySkillFields(
+            EquipmentSkillSO skillSo,
+            EquipmentSkillJson data,
+            EquipmentBaseProfileSO baseProfileSo,
+            SkillCastSO castSo,
+            SkillMoveSO moveSo,
+            SkillHitSO[] hitSos,
+            SpawnSkillSO spawnSkillSo,
+            ScriptableObject visualSetSo)
+        {
+            SerializedObject serializedObject = new SerializedObject(skillSo);
+
+            SetString(serializedObject, "equipmentId", data.equipmentId);
+            SetObjectReference(serializedObject, "icon", FindSpriteById(data.iconName));
+            SetObjectReference(serializedObject, "baseProfileSo", baseProfileSo);
+            SetObjectReference(serializedObject, "castSo", castSo);
+            SetObjectReference(serializedObject, "moveSo", moveSo);
+            SetObjectArray(serializedObject, "hitSos", hitSos);
+            SetObjectReference(serializedObject, "spawnSkillSo", spawnSkillSo);
+            SetObjectReference(serializedObject, "visualSetSo", visualSetSo);
+
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static SpawnSkillSO CreateOrUpdateSpawnSkill(
+            SpawnSkillJson spawnJson,
+            string outputFolder)
+        {
+            if (spawnJson == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(spawnJson.spawnSkillId))
+            {
+                Debug.LogWarning("[EquipmentSkillJsonGenerator] spawnSkillId is empty. SpawnSkillSO will not be created.");
+                return null;
+            }
+
+            EnsureFolder(outputFolder);
+
+            string assetPath = $"{outputFolder}/{SanitizeFileName(spawnJson.spawnSkillId)}.asset";
+            SpawnSkillSO spawnSkillSo = AssetDatabase.LoadAssetAtPath<SpawnSkillSO>(assetPath);
+
+            if (spawnSkillSo == null)
+            {
+                spawnSkillSo = ScriptableObject.CreateInstance<SpawnSkillSO>();
+                AssetDatabase.CreateAsset(spawnSkillSo, assetPath);
+            }
+
+            EquipmentSkillSO childSkillSo = null;
+
+            if (spawnJson.skill != null)
+            {
+                string childOutputFolder = $"{outputFolder}/spawn_skills";
+                EnsureFolder(childOutputFolder);
+                childSkillSo = CreateOrUpdateSkill(
+                    spawnJson.skill,
+                    childOutputFolder);
+            }
+
+            SerializedObject serializedObject = new SerializedObject(spawnSkillSo);
+
+            SetEnum(serializedObject, "timing", spawnJson.timing);
+            SetEnum(serializedObject, "position", spawnJson.position);
+            SetInt(serializedObject, "spawnCount", Mathf.Max(1, spawnJson.spawnCount));
+            SetFloat(serializedObject, "spawnInterval", Mathf.Max(0f, spawnJson.spawnInterval));
+            SetObjectReference(serializedObject, "skill", childSkillSo);
+
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+
+            EditorUtility.SetDirty(spawnSkillSo);
+            AssetDatabase.SaveAssetIfDirty(spawnSkillSo);
+
+            return spawnSkillSo;
+        }
+
+        private static void SetString(
+            SerializedObject serializedObject,
+            string propertyName,
+            string value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.stringValue = value;
+        }
+
+        private static void SetInt(
+            SerializedObject serializedObject,
+            string propertyName,
+            int value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.intValue = value;
+        }
+
+        private static void SetFloat(
+            SerializedObject serializedObject,
+            string propertyName,
+            float value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.floatValue = value;
+        }
+
+        private static void SetEnum(
+            SerializedObject serializedObject,
+            string propertyName,
+            string value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            if (property.propertyType != SerializedPropertyType.Enum)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Property is not enum: {propertyName} type={property.propertyType}");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return;
+            }
+
+            for (int i = 0; i < property.enumNames.Length; i++)
+            {
+                if (string.Equals(property.enumNames[i], value, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(property.enumDisplayNames[i], value, StringComparison.OrdinalIgnoreCase))
+                {
+                    property.enumValueIndex = i;
+                    return;
+                }
+            }
+
+            Debug.LogWarning($"[EquipmentSkillJsonGenerator] Enum value not found. property={propertyName} value={value}");
+        }
+
+        private static void SetObjectReference(
+            SerializedObject serializedObject,
+            string propertyName,
+            UnityEngine.Object value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.objectReferenceValue = value;
+        }
+
+        private static void SetObjectArray<T>(
+            SerializedObject serializedObject,
+            string propertyName,
+            T[] values)
+            where T : UnityEngine.Object
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            if (!property.isArray)
+            {
+                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property is not array: {propertyName}");
+                return;
+            }
+
+            int length = values != null ? values.Length : 0;
+            property.arraySize = length;
+
+            for (int i = 0; i < length; i++)
+            {
+                property.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+            }
+        }
+
+        private static string SanitizeFileName(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return "skill.spawn";
+            }
+
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
+            {
+                value = value.Replace(invalidChar, '_');
+            }
+
+            return value;
+        }
+
+        private static SkillHitSO[] CreateOrUpdateHits(
+            HitJson[] hits,
+            string outputFolder)
+        {
+            if (hits == null || hits.Length == 0)
+            {
+                return Array.Empty<SkillHitSO>();
+            }
+
+            SkillHitSO[] result = new SkillHitSO[hits.Length];
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                result[i] = SkillHitAssetBuilder.CreateOrUpdate(
+                    hits[i],
+                    outputFolder) as SkillHitSO;
+            }
+
+            return result;
+        }
+
+        [MenuItem("Assets/Skill/Generate EquipmentSkillSO From Json", true)]
+        private static bool ValidateGenerate()
+        {
+            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            return !string.IsNullOrEmpty(path) && path.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static Sprite FindSpriteById(string iconId)
+        {
+            if (string.IsNullOrEmpty(iconId))
+            {
+                return null;
+            }
+
+            Debug.Log($"[EquipmentSkillJsonGenerator] Find icon sprite: {iconId}");
+            string[] guids = AssetDatabase.FindAssets($"{iconId} t:Sprite");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+                if (sprite != null && sprite.name.Equals(iconId, StringComparison.OrdinalIgnoreCase))
+                {
+                    return sprite;
+                }
+            }
+
+            Debug.LogWarning($"[EquipmentSkillJsonGenerator] Icon sprite not found: {iconId}");
+            return null;
+        }
+
+        private static void EnsureFolder(string folder)
+        {
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            folder = folder.Replace("\\", "/");
+
+            if (AssetDatabase.IsValidFolder(folder))
+            {
+                return;
+            }
+
+            string parent = Path.GetDirectoryName(folder)?.Replace("\\", "/");
+            string leaf = Path.GetFileName(folder);
+
+            if (!string.IsNullOrEmpty(parent) && !AssetDatabase.IsValidFolder(parent))
+            {
+                EnsureFolder(parent);
+            }
+
+            if (!string.IsNullOrEmpty(parent) && !string.IsNullOrEmpty(leaf))
+            {
+                AssetDatabase.CreateFolder(parent, leaf);
+            }
+        }
+    }
+}
+#endif

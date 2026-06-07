@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdfb642961ab451b87e9c00a70de4c1, type: 3}
   m_Name: basic_attack_cast
   m_EditorClassIdentifier: Assembly-CSharp::SkillCastSO
-  cooldown: 3
+  cooldown: 8
   castTime: 0
-  range: 2
+  range: 4
   burstCount: 1
   burstInterval: 0
   castType: 0

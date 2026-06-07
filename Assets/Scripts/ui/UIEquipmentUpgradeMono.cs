@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using Skill;
 /// <summary>
 /// 장비 획득 / 합성 테스트용 UI Mono.
 /// - Acquire 버튼으로 테스트 장비를 인벤토리에 추가한다.

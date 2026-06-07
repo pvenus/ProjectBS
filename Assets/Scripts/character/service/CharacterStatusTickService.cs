@@ -19,6 +19,8 @@ namespace Character.Service
         private float appliedEliteApproachMoveSpeedBonus;
         private float appliedLowHpAttackBonus;
         private float appliedLowHpDefenseBonus;
+        private float appliedSurroundedAttackPercent;
+        private float appliedSurroundedDamageReductionPercent;
 
         public void Reset()
         {
@@ -27,6 +29,8 @@ namespace Character.Service
             appliedEliteApproachMoveSpeedBonus = 0f;
             appliedLowHpAttackBonus = 0f;
             appliedLowHpDefenseBonus = 0f;
+            appliedSurroundedAttackPercent = 0f;
+            appliedSurroundedDamageReductionPercent = 0f;
         }
 
         public void Tick(
@@ -76,6 +80,8 @@ namespace Character.Service
             UpdateLowHpAttackBonus(
                 characterManager);
             UpdateLowHpDefenseBonus(
+                characterManager);
+            UpdateSurroundedBonuses(
                 characterManager);
         }
 
@@ -329,6 +335,163 @@ namespace Character.Service
 
             appliedLowHpDefenseBonus =
                 targetBonus;
+        }
+
+        private void UpdateSurroundedBonuses(
+            CharacterManager characterManager)
+        {
+            if (characterManager == null)
+            {
+                return;
+            }
+
+            bool isSurrounded = IsSurroundedByEnemies(
+                characterManager,
+                3f,
+                10);
+
+            UpdateSurroundedAttackPercent(
+                characterManager,
+                isSurrounded);
+
+            UpdateSurroundedDamageReductionPercent(
+                characterManager,
+                isSurrounded);
+        }
+
+        private void UpdateSurroundedAttackPercent(
+            CharacterManager characterManager,
+            bool isSurrounded)
+        {
+            float bonusPercent =
+                characterManager.GetStatValue(
+                    StatType.SurroundedAttackPercent);
+
+            float targetBonus =
+                isSurrounded
+                    ? bonusPercent
+                    : 0f;
+
+            float diff =
+                targetBonus - appliedSurroundedAttackPercent;
+
+            if (Mathf.Abs(diff) <= 0.001f)
+            {
+                return;
+            }
+
+            characterManager.AddStat(
+                StatType.AttackPercent,
+                diff);
+
+            appliedSurroundedAttackPercent =
+                targetBonus;
+        }
+
+        private void UpdateSurroundedDamageReductionPercent(
+            CharacterManager characterManager,
+            bool isSurrounded)
+        {
+            float bonusPercent =
+                characterManager.GetStatValue(
+                    StatType.SurroundedDamageReductionPercent);
+
+            float targetBonus =
+                isSurrounded
+                    ? bonusPercent
+                    : 0f;
+
+            float diff =
+                targetBonus - appliedSurroundedDamageReductionPercent;
+
+            if (Mathf.Abs(diff) <= 0.001f)
+            {
+                return;
+            }
+
+            characterManager.AddStat(
+                StatType.Defense,
+                diff);
+
+            appliedSurroundedDamageReductionPercent =
+                targetBonus;
+        }
+
+        private bool IsSurroundedByEnemies(
+            CharacterManager source,
+            float radius,
+            int requiredEnemyCount)
+        {
+            if (source == null ||
+                source.RuntimeData == null ||
+                source.RuntimeData.characterSO == null)
+            {
+                return false;
+            }
+
+            CharacterManager[] characters =
+                Object.FindObjectsByType<CharacterManager>(
+                    FindObjectsSortMode.None);
+
+            Vector3 position = source.transform.position;
+            CharacterType sourceType =
+                source.RuntimeData.characterSO.characterType;
+
+            int enemyCount = 0;
+
+            for (int i = 0; i < characters.Length; i++)
+            {
+                CharacterManager target = characters[i];
+
+                if (target == null || target == source)
+                {
+                    continue;
+                }
+
+                if (target.RuntimeData == null ||
+                    target.RuntimeData.isDead ||
+                    target.RuntimeData.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (!IsEnemyCharacterType(
+                        sourceType,
+                        target.RuntimeData.characterSO.characterType))
+                {
+                    continue;
+                }
+
+                float distance = Vector3.Distance(
+                    position,
+                    target.transform.position);
+
+                if (distance > radius)
+                {
+                    continue;
+                }
+
+                enemyCount++;
+
+                if (enemyCount >= requiredEnemyCount)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsEnemyCharacterType(
+            CharacterType sourceType,
+            CharacterType targetType)
+        {
+            if (sourceType == CharacterType.Player)
+            {
+                return targetType != CharacterType.Player;
+            }
+
+            return targetType == CharacterType.Player;
         }
 
         private bool IsEliteNearby(

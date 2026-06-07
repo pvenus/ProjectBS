@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using Skills.Dto;
-
+using Skill;
 /// <summary>
 /// 실제 투사체가 런타임에서 사용하는 최종 데이터 묶음.
 /// 원형 SO, 룬, 업그레이드, Resolver 결과를 다 반영한 뒤
@@ -19,6 +19,9 @@ public class ProjectileRuntimeData
     public Vector2 spawnPosition;
     public Vector2 direction;
 
+    [Header("Target")]
+    public TargetingType targetingType = TargetingType.None;
+
     [Header("Runtime Profiles")]
     public SkillProjectileMoveDto move;
     public SkillProjectileHitDto hit;
@@ -31,6 +34,7 @@ public class ProjectileRuntimeData
     public ProjectileEntity projectilePrefab;
     public int projectileCount = 1;
     public int spawnOrder = 0;
+    public float projectileSpreadAngle = 0f;
     public float projectileScale = 1f;
     public float projectileSpawnInterval = 0f;
     public float projectileSpawnRadius = 0f;
@@ -40,6 +44,9 @@ public class ProjectileRuntimeData
 
     [Header("Effects")]
     public EffectRuntimeSetData effectRuntimeSet;
+
+    [Header("Spawn Skill")]
+    public SpawnSkillSO spawnSkillSo;
 
     // --- Resolved Visual Runtime (filled by resolver) ---
     [Header("Resolved Visual Runtime")]
@@ -72,11 +79,6 @@ public class ResolvedVisualContextDto
     [Header("Base Context")]
     public AttackArchetype attackArchetype;
     public EquipmentGrade equipmentGrade;
-
-    [Header("Element Context")]
-    public ElementType mainElement = ElementType.None;
-    public ElementType[] subElements;
-
     [Header("Optional Runtime Keys")]
     public string baseVisualId;
     public string mainVisualId;

@@ -1,7 +1,6 @@
 using Skills.Dto;
-using Status.Service;
 using UnityEngine;
-
+using Skill;
 [CreateAssetMenu(fileName = "SkillDamageSO", menuName = "BS/Skills/Damage/SkillDamageSO")]
 public class SkillDamageSO : ScriptableObject
 {

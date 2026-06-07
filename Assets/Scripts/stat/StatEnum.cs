@@ -45,7 +45,9 @@ namespace Stat
 
         LowHpDefenseBonus = 1370,
 
-        DamageReductionPercent = 1320,
+        SurroundedAttackPercent = 1380,
+        SurroundedDamageReductionPercent = 1390,
+
         ReflectDamagePercent = 1325,
 
         StatusResistance = 1330,

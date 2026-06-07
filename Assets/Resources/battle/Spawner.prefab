@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3365863515408974047}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -141,62 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89190b5e764ce4737b8eb45e4a68a92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcSpawnerMono
-  stageDuration: 180
+  stageWaveSo: {fileID: 11400000, guid: 6179c2319817f46efb0d3e74a38b8c33, type: 2}
   autoSpawn: 1
-  phases:
-  - startTime: 0
-    endTime: 180
-    spawnInterval: 1
-    spawnBurst: 5
-    monsterPool:
-    - characterSO: {fileID: 11400000, guid: bb0b6152125fd46e69c9b3f0a1cf4d38, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: fd9f171badfa1426c8e8f6fe60d4afa7, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: f66d91d7c915641bdb66b99308dda011, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: 0978b782bfe3e4f9c9c52f001bbc55bc, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: 8c1331924b6a94fe1bf43f9dc4e67d8e, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: adcd77eb873df4344a6c76000e7b55a7, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: 873f0a9ff344d43559411fa030ff1b0b, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: f421f08fe3e904e68ab17a0a6f96e96f, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    - characterSO: {fileID: 11400000, guid: 2ca7ffea754fd43eaa3531b944d2f3dd, type: 2}
-      weight: 100
-      maxSpawnCount: -1
-      spawnedCount: 0
-    spawnPoints:
-    - point: {fileID: 3013956169001733845}
-      weight: 25
-    - point: {fileID: 1485269571278682972}
-      weight: 25
-    - point: {fileID: 4212354814666493485}
-      weight: 25
-    - point: {fileID: 1611503552744638061}
-      weight: 25
-    spawnTimer: 0
   respectAliveLimit: 1
-  maxAliveCount: 100
   validateByOverlap: 0
   spawnCheckRadius: 0.4
   blockedMask:
@@ -230,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 4802952254605850304}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -70,7 +70,7 @@ namespace Stage
         private void Start()
         {
             InitializeRuntime();
-            if (stageDefinition != null && runtimeData.currentGraph == null)
+            if (stageDefinition != null && runtimeData.currentGraph.nodes.Count == 0)
             {
                 GenerateStage(stageDefinition);
             }

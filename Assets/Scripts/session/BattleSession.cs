@@ -25,6 +25,21 @@ namespace Session
         public BattleRuntime BattleRuntime;
 
         public void BeginBattle(
+            BattleSO battleSO,
+            string battleSceneName,
+            string returnSceneName)
+        {
+            BattleSO = battleSO;
+
+            BeginBattle(
+                battleSO != null
+                    ? battleSO.BattleId
+                    : string.Empty,
+                battleSceneName,
+                returnSceneName);
+        }
+
+        public void BeginBattle(
             string battleId,
             string battleSceneName,
             string returnSceneName)

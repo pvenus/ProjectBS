@@ -1,8 +1,5 @@
-
-
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Stage.UI
 {
@@ -15,7 +12,6 @@ namespace Stage.UI
         [SerializeField] private Button button;
         [SerializeField] private Image iconImage;
         [SerializeField] private Image backgroundImage;
-        [SerializeField] private TMP_Text titleText;
         [SerializeField] private GameObject selectedMark;
         [SerializeField] private GameObject clearedMark;
 
@@ -26,11 +22,6 @@ namespace Stage.UI
         public void Initialize(RoundNode nodeData)
         {
             node = nodeData;
-
-            if (titleText != null)
-            {
-                titleText.text = node.title;
-            }
 
             if (iconImage != null)
             {
@@ -67,11 +58,6 @@ namespace Stage.UI
             if (clearedMark != null)
             {
                 clearedMark.SetActive(node.IsCompleted);
-            }
-
-            if (titleText != null)
-            {
-                titleText.text = node.title;
             }
 
             if (iconImage != null)

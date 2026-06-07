@@ -1,14 +1,12 @@
-
-
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKill
+namespace Skill
 {
     /// <summary>
     /// 범용 스킬 풀 서비스.
     /// SkillPoolRuntimeData를 받아 slotKey 기반으로 RuntimeData 조회/갱신 기능을 제공한다.
-    /// 캐릭터 스킬셋은 SkillPoolSlotKeys.BasicAttack / Active1~3 키를 사용한다.
+    /// 캐릭터 스킬셋은 SkillPoolSlotKeys.BasicAttack / Active1~3 / Passive1 키를 사용한다.
     /// </summary>
     public class SkillPoolService
     {
@@ -133,6 +131,12 @@ namespace SKill
                 || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active3);
         }
 
+        public bool HasPassiveSkill(SkillPoolRuntimeData poolRuntimeData)
+        {
+            return poolRuntimeData != null
+                && poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Passive1);
+        }
+
         public bool CanUseSlot(
             SkillPoolRuntimeData poolRuntimeData,
             int slotIndex)
@@ -163,6 +167,18 @@ namespace SKill
                 SkillPoolSlotKeys.Active3);
         }
 
+        public List<SkillPoolSlotData> GetPassiveEntries(
+            SkillPoolRuntimeData poolRuntimeData)
+        {
+            if (poolRuntimeData == null)
+            {
+                return new List<SkillPoolSlotData>();
+            }
+
+            return poolRuntimeData.GetEntriesByKeys(
+                SkillPoolSlotKeys.Passive1);
+        }
+
         public List<EquipmentSkillRuntimeData> GetActiveRuntimes(
             SkillPoolRuntimeData poolRuntimeData)
         {
@@ -171,6 +187,16 @@ namespace SKill
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
+
+            return result;
+        }
+
+        public List<EquipmentSkillRuntimeData> GetPassiveRuntimes(
+            SkillPoolRuntimeData poolRuntimeData)
+        {
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(1);
+
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
 
             return result;
         }
@@ -187,18 +213,20 @@ namespace SKill
                 SkillPoolSlotKeys.BasicAttack,
                 SkillPoolSlotKeys.Active1,
                 SkillPoolSlotKeys.Active2,
-                SkillPoolSlotKeys.Active3);
+                SkillPoolSlotKeys.Active3,
+                SkillPoolSlotKeys.Passive1);
         }
 
         public List<EquipmentSkillRuntimeData> GetAllRuntimes(
             SkillPoolRuntimeData poolRuntimeData)
         {
-            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(4);
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(5);
 
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
 
             return result;
         }
@@ -223,6 +251,7 @@ namespace SKill
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
 
             return result;
         }
@@ -269,6 +298,7 @@ namespace SKill
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1), "Active1");
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2), "Active2");
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3), "Active3");
+            DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), "Passive1");
         }
 
         private EquipmentSkillRuntimeData ResolveSlotIfNeeded(SkillPoolSlotData slot)
@@ -338,6 +368,8 @@ namespace SKill
                     return SkillPoolSlotKeys.Active2;
                 case 3:
                     return SkillPoolSlotKeys.Active3;
+                case 4:
+                    return SkillPoolSlotKeys.Passive1;
                 default:
                     return null;
             }

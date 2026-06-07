@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4043fe1ef4846749e32cde5b16d0f6, type: 3}
+  m_Name: stage_1
+  m_EditorClassIdentifier: Assembly-CSharp::Wave.SO.StageWaveSO
+  waveId: stage_1
+  duration: 60
+  spawnStartX: 0
+  spawnEndX: 9
+  yMin: -2
+  yMax: 2
+  groupSpreadRadius: 0.75
+  phases:
+  - phaseId: phase_01_basic_intro
+    startTime: 0
+    endTime: 20
+    spawnInterval: 3
+    spawnCountPerTick: 1
+    maxAliveCount: 3
+    monsters:
+    - characterSo: {fileID: 11400000, guid: bb0b6152125fd46e69c9b3f0a1cf4d38, type: 2}
+      weight: 1
+  - phaseId: phase_02_basic_pressure
+    startTime: 20
+    endTime: 40
+    spawnInterval: 2.5
+    spawnCountPerTick: 1
+    maxAliveCount: 5
+    monsters:
+    - characterSo: {fileID: 11400000, guid: bb0b6152125fd46e69c9b3f0a1cf4d38, type: 2}
+      weight: 4
+  - phaseId: phase_03_final_pressure
+    startTime: 40
+    endTime: 55
+    spawnInterval: 2
+    spawnCountPerTick: 2
+    maxAliveCount: 7
+    monsters:
+    - characterSo: {fileID: 11400000, guid: bb0b6152125fd46e69c9b3f0a1cf4d38, type: 2}
+      weight: 3
+  - phaseId: phase_04_boss
+    startTime: 55
+    endTime: 60
+    spawnInterval: 999
+    spawnCountPerTick: 1
+    maxAliveCount: 1
+    monsters:
+    - characterSo: {fileID: 11400000, guid: 873f0a9ff344d43559411fa030ff1b0b, type: 2}
+      weight: 1

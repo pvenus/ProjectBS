@@ -112,7 +112,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.05
+  m_Radius: 0.2
 --- !u!114 &8974071253183869805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,10 +259,6 @@ MonoBehaviour:
     slots:
     - slotKey: basic_attack
       skillSo: {fileID: 11400000, guid: 4bfcc4bb1e0b24a75b05f7cd6d07ed2c, type: 2}
-      currentGrade: 0
-      currentRuneSlotCount: 0
-      mainElement: 0
-      subElements: 
       projectilePrefabOverride: {fileID: 4118216556720441464, guid: 7951c9996883b4d67a17635d7686d30d, type: 3}
       projectileLifetimeOverride: 0
 --- !u!114 &-7770207776363605684
@@ -602,6 +598,8 @@ MonoBehaviour:
   shaderController: {fileID: 0}
   playDeathDissolveOnDeath: 1
   deathDestroyDelay: 0.6
+  hpRegenTickInterval: 0.25
+  bleedTickInterval: 1
 --- !u!114 &787100099225214566
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class SkillProjectileHitEffectEntry
     /// 지속 시간 기반 효과일 경우 사용.
     /// 0 이하이면 Effect 기본값 사용.
     /// </summary>
-    public float duration = -1f;
+    public float duration = -1f;    
 
     /// <summary>
     /// 반복 적용 제한.
@@ -36,12 +36,14 @@ public class SkillProjectileHitDto
 
     public bool useHitWindow;
     public float hitStartTime;
-    public float hitDuration = 0.1f;
     public bool deactivateAfterFirstHit;
 
     public LayerMask targetLayerMask = ~0;
 
     public SkillDamageProfileDto damageProfile;
+
+    public float firstHitBaseDamage;
+
     public bool applyDamage = true;
 
     public SkillProjectileHitEffectEntry[] buffEffects;
@@ -50,7 +52,4 @@ public class SkillProjectileHitDto
     public bool useSplitMultiHitDamage;
     public int splitHitCount = 1;
     public float splitHitInterval;
-
-    public bool useKnockback;
-    public float knockbackForce;
 }

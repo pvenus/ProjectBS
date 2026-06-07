@@ -1,5 +1,3 @@
-
-
 using System.Text;
 using UnityEngine;
 
@@ -103,7 +101,7 @@ namespace Stage
 
             if (logOnRouteChanged)
             {
-                Debug.Log($"[StageRouteManager] Selected: {node.nodeId} / {node.title}");
+                Debug.Log($"[StageRouteManager] Selected: {node.nodeId} / {node.nodeType}");
             }
         }
 
@@ -119,7 +117,7 @@ namespace Stage
 
             if (logOnRouteChanged)
             {
-                Debug.Log($"[StageRouteManager] Completed: {node.nodeId} / {node.title}");
+                Debug.Log($"[StageRouteManager] Completed: {node.nodeId} / {node.nodeType}");
             }
         }
 
@@ -135,7 +133,7 @@ namespace Stage
 
             if (logOnRouteChanged)
             {
-                Debug.Log($"[StageRouteManager] Failed: {node.nodeId} / {node.title}");
+                Debug.Log($"[StageRouteManager] Failed: {node.nodeId} / {node.nodeType}");
             }
         }
 
@@ -152,7 +150,7 @@ namespace Stage
             for (int i = 0; i < currentRouteRecord.records.Count; i++)
             {
                 StageRouteNodeRecord record = currentRouteRecord.records[i];
-                builder.AppendLine($"{i + 1}. [{record.actionType}] {record.nodeId} / {record.title} / depth={record.depth} / type={record.nodeType}");
+                builder.AppendLine($"{i + 1}. [{record.actionType}] {record.nodeId} / depth={record.depth} / type={record.nodeType}");
             }
 
             return builder.ToString();

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 룬 하나를 런타임에서 해석한 결과 데이터.
 /// 룬 원형, 속성, 수치 보정, Effect 목록을 함께 보관한다.
@@ -15,7 +15,6 @@ public class RuneRuntimeData
     public string displayName;
 
     [Header("Identity")]
-    public ElementType elementType = ElementType.None;
     public EquipmentGrade grade = EquipmentGrade.Common;
 
     [Header("Resolved Modifiers")]
@@ -48,7 +47,6 @@ public class RuneRuntimeData
         {
             runeId = string.Empty;
             displayName = string.Empty;
-            elementType = ElementType.None;
             grade = EquipmentGrade.Common;
             statModifiers.Clear();
             effects.Clear();
@@ -57,7 +55,6 @@ public class RuneRuntimeData
 
         runeId = rune.RuneId;
         displayName = rune.DisplayName;
-        elementType = rune.ElementType;
         grade = rune.Grade;
 
         statModifiers = rune.StatModifiers != null

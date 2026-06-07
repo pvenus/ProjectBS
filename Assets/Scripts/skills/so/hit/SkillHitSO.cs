@@ -18,7 +18,6 @@ public class SkillHitSO : ScriptableObject
     [Header("Hit Timing")]
     [SerializeField] private bool useHitWindow;
     [SerializeField, Min(0f)] private float hitStartTime;
-    [SerializeField, Min(0f)] private float hitDuration = 0.1f;
     [SerializeField] private bool deactivateAfterFirstHit;
 
     [Header("Target")]
@@ -31,7 +30,6 @@ public class SkillHitSO : ScriptableObject
 
     public bool UseHitWindow => useHitWindow;
     public float HitStartTime => hitStartTime;
-    public float HitDuration => hitDuration;
     public bool DeactivateAfterFirstHit => deactivateAfterFirstHit;
     public LayerMask TargetLayerMask => targetLayerMask;
 
@@ -39,6 +37,10 @@ public class SkillHitSO : ScriptableObject
 
     [Header("Damage")]
     [SerializeField] private SkillDamageSO damageSo;
+    [SerializeField, Min(0f)] private float firstHitBaseDamage;
+
+    public float FirstHitBaseDamage => Mathf.Max(0f, firstHitBaseDamage);
+    public bool HasFirstHitBaseDamage => firstHitBaseDamage > 0f;
 
     [Header("Additional Effects")]
     [Tooltip("히트 성공 시 대상에게 추가로 적용할 버프 효과 목록")]
@@ -55,15 +57,9 @@ public class SkillHitSO : ScriptableObject
     [SerializeField, Min(1)] private int splitHitCount = 4;
     [SerializeField, Min(0f)] private float splitHitInterval = 0.1f;
 
-    [Header("Knockback")]
-    [SerializeField] private bool useKnockback;
-    [SerializeField, Min(0f)] private float knockbackForce;
-
     public bool UseSplitMultiHitDamage => useSplitMultiHitDamage;
     public int SplitHitCount => splitHitCount;
     public float SplitHitInterval => splitHitInterval;
-    public bool UseKnockback => useKnockback;
-    public float KnockbackForce => knockbackForce;
 
     public SkillDamageProfileDto CreateDamageProfileDto()
     {
@@ -75,13 +71,11 @@ public class SkillHitSO : ScriptableObject
     public SkillProjectileHitDto CreateDto()
     {
         return CreateDto(
-            CreateDamageProfileDto(),
-            knockbackForce);
+            CreateDamageProfileDto());
     }
 
     public SkillProjectileHitDto CreateDto(
-        SkillDamageProfileDto resolvedDamageProfile,
-        float resolvedKnockbackForce)
+        SkillDamageProfileDto resolvedDamageProfile)
     {
         return new SkillProjectileHitDto
         {
@@ -91,18 +85,16 @@ public class SkillHitSO : ScriptableObject
             repeatInterval = Mathf.Max(0f, repeatInterval),
             useHitWindow = useHitWindow,
             hitStartTime = Mathf.Max(0f, hitStartTime),
-            hitDuration = Mathf.Max(0f, hitDuration),
             deactivateAfterFirstHit = deactivateAfterFirstHit,
             targetLayerMask = targetLayerMask,
             damageProfile = resolvedDamageProfile,
+            firstHitBaseDamage = Mathf.Max(0f, firstHitBaseDamage),
             applyDamage = resolvedDamageProfile != null,
             buffEffects = CopyEffectEntries(buffEffects, EffectCategoryType.Buff),
             debuffEffects = CopyEffectEntries(debuffEffects, EffectCategoryType.Debuff),
             useSplitMultiHitDamage = useSplitMultiHitDamage,
             splitHitCount = Mathf.Max(1, splitHitCount),
             splitHitInterval = Mathf.Max(0f, splitHitInterval),
-            useKnockback = useKnockback,
-            knockbackForce = Mathf.Max(0f, resolvedKnockbackForce)
         };
     }
 

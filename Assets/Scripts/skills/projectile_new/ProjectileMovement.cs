@@ -1,5 +1,5 @@
 using UnityEngine;
-using Skills.Dto;
+using Skill;
 
 /// <summary>
 /// ProjectileEntity의 실제 이동을 담당하는 컴포넌트.
@@ -67,7 +67,8 @@ public class ProjectileMovement : MonoBehaviour
             new SkillProjectileLinearMovement(),
             new SkillProjectileWarpMovement(),
             new SkillProjectileHoverMovement(),
-            new SkillProjectileOrbitMovement());
+            new SkillProjectileOrbitMovement(),
+            new SkillProjectileHomingMovement());
     }
 
     private void InitializeMoveController()
@@ -85,7 +86,7 @@ public class ProjectileMovement : MonoBehaviour
     private SkillProjectileMovementContext BuildMovementContext(ProjectileRuntimeData data)
     {
         Transform ownerTransform = data.owner != null ? data.owner.transform : null;
-        Transform targetTransform = transform;
+        Transform targetTransform = data.target != null ? data.target.transform : null;
 
         return new SkillProjectileMovementContext
         {
@@ -108,11 +109,51 @@ public class ProjectileMovement : MonoBehaviour
             return null;
         }
 
-        moveDto.targetTransform = data.target != null ? data.target.transform : null;
+        bool useRuntimeTargetPosition =
+            data.targetingType == TargetingType.AutoTargetDirection ||
+            data.targetingType == TargetingType.Directional ||
+            data.targetingType == TargetingType.Position ||
+            (moveDto.moveType == SkillProjectileMoveDto.MoveType.Linear &&
+             data.projectileCount > 1 &&
+             data.projectileSpreadAngle > 0f);
+
         moveDto.startPosition = data.spawnPosition;
-        moveDto.targetPosition = moveDto.targetTransform != null
-            ? (Vector2)moveDto.targetTransform.position
-            : data.spawnPosition + data.NormalizedDirection;
+
+        if (useRuntimeTargetPosition)
+        {
+            // ProjectileFactory / EquipmentSkillResolver already calculated the final destination.
+            // Do not bind this movement back to the enemy target transform, otherwise
+            // direction-based or spread projectiles can converge to the same target point.
+            moveDto.targetTransform = null;
+
+            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            {
+                moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+            }
+        }
+        else if (data.targetingType == TargetingType.AutoTarget)
+        {
+            moveDto.targetTransform = data.target != null ? data.target.transform : null;
+            if (moveDto.targetTransform != null)
+            {
+                moveDto.targetPosition = moveDto.targetTransform.position;
+            }
+
+            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            {
+                moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+            }
+        }
+        else
+        {
+            moveDto.targetTransform = null;
+            // Do not overwrite moveDto.targetPosition from data.targetPosition here.
+
+            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            {
+                moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+            }
+        }
 
         var controllerDto = new SkillProjectileMoveControllerDto
         {
@@ -136,7 +177,7 @@ public class ProjectileMovement : MonoBehaviour
             warpMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp
                 ? new SkillProjectileWarpMovementDto
                 {
-                    targetTransform = moveDto.targetTransform,
+                    targetTransform = transform,
                     startPosition = moveDto.startPosition,
                     targetPosition = moveDto.targetPosition,
                     direction = moveDto.GetDirection(),
@@ -147,6 +188,7 @@ public class ProjectileMovement : MonoBehaviour
             hoverMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Hover
                 ? new SkillProjectileHoverMovement.HoverMovementDto
                 {
+                    targetTransform = transform,
                     followOffset = moveDto.followOffset,
                     followLerpSpeed = moveDto.followLerpSpeed,
                     snapOnInitialize = moveDto.snapOnInitialize,
@@ -172,6 +214,15 @@ public class ProjectileMovement : MonoBehaviour
                     useRadialPulse = moveDto.useRadialPulse,
                     radialPulseAmplitude = moveDto.radialPulseAmplitude,
                     radialPulseFrequency = moveDto.radialPulseFrequency
+                }
+                : null,
+
+            homingMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Homing
+                ? new HomingMovementDto
+                {
+                    targetTransform = transform,
+                    speed = moveDto.speed,
+                    arrivalThreshold = moveDto.arrivalThreshold
                 }
                 : null
         };

@@ -66,6 +66,18 @@ namespace Effect
                     targetCharacter);
             }
 
+            if (effectSo is ChanceOnHitSkillEffectSO chanceOnHitSkillEffect)
+            {
+                if (targetCharacter == null || sourceCharacter == null)
+                {
+                    return null;
+                }
+
+                return chanceOnHitSkillEffect.CreateRuntimeData(
+                    targetCharacter,
+                    sourceCharacter);
+            }
+
             if (effectSo is AttackBleedEffectSO attackBleedEffect)
             {
                 if (targetCharacter == null || sourceCharacter == null)

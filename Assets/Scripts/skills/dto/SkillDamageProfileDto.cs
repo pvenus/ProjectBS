@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using Status.Service;
-
+using Skill;
 namespace Skills.Dto
 {
     /// <summary>

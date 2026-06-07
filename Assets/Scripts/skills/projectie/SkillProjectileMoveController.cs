@@ -1,4 +1,5 @@
 using UnityEngine;
+using Skill;
 
 public class SkillProjectileMoveController
 {
@@ -7,6 +8,7 @@ public class SkillProjectileMoveController
     private ISkillProjectileMovement _warpMovement;
     private ISkillProjectileMovement _hoverMovement;
     private ISkillProjectileMovement _orbitMovement;
+    private ISkillProjectileMovement _homingMovement;
 
     private SkillProjectileMoveDto.MoveType _moveType = SkillProjectileMoveDto.MoveType.Linear;
     private bool _initialized;
@@ -21,12 +23,14 @@ public class SkillProjectileMoveController
         ISkillProjectileMovement linearMovement,
         ISkillProjectileMovement warpMovement = null,
         ISkillProjectileMovement hoverMovement = null,
-        ISkillProjectileMovement orbitMovement = null)
+        ISkillProjectileMovement orbitMovement = null,
+        ISkillProjectileMovement homingMovement = null)
     {
         _linearMovement = linearMovement;
         _warpMovement = warpMovement;
         _hoverMovement = hoverMovement;
         _orbitMovement = orbitMovement;
+        _homingMovement = homingMovement;
 
         if (_linearMovement == null)
         {
@@ -71,6 +75,10 @@ public class SkillProjectileMoveController
                 InitializeOrbit(dto.orbitMovement, movementContext);
                 break;
 
+            case SkillProjectileMoveDto.MoveType.Homing:
+                InitializeHoming(dto.homingMovement, movementContext);
+                break;
+
             default:
                 Debug.LogWarning($"Unsupported move type: {_moveType}");
                 break;
@@ -99,6 +107,10 @@ public class SkillProjectileMoveController
             case SkillProjectileMoveDto.MoveType.Orbit:
                 _orbitMovement?.TickMovement(deltaTime);
                 break;
+
+            case SkillProjectileMoveDto.MoveType.Homing:
+                _homingMovement?.TickMovement(deltaTime);
+                break;
         }
         ApplyRotation();
     }
@@ -114,6 +126,7 @@ public class SkillProjectileMoveController
             SkillProjectileMoveDto.MoveType.Warp => _warpMovement != null && _warpMovement.HasReachedEnd(),
             SkillProjectileMoveDto.MoveType.Hover => _hoverMovement != null && _hoverMovement.HasReachedEnd(),
             SkillProjectileMoveDto.MoveType.Orbit => _orbitMovement != null && _orbitMovement.HasReachedEnd(),
+            SkillProjectileMoveDto.MoveType.Homing => _homingMovement != null && _homingMovement.HasReachedEnd(),
             _ => false
         };
     }
@@ -182,6 +195,7 @@ public class SkillProjectileMoveController
             SkillProjectileMoveDto.MoveType.Warp => _warpMovement,
             SkillProjectileMoveDto.MoveType.Hover => _hoverMovement,
             SkillProjectileMoveDto.MoveType.Orbit => _orbitMovement,
+            SkillProjectileMoveDto.MoveType.Homing => _homingMovement,
             _ => null
         };
     }
@@ -214,6 +228,10 @@ public class SkillProjectileMoveController
 
             case SkillProjectileMoveDto.MoveType.Orbit:
                 _orbitMovement?.ResetMovement();
+                break;
+
+            case SkillProjectileMoveDto.MoveType.Homing:
+                _homingMovement?.ResetMovement();
                 break;
         }
 
@@ -307,6 +325,27 @@ public class SkillProjectileMoveController
             _initialized = true;
         }
     }
+
+    private void InitializeHoming(HomingMovementDto dto, SkillProjectileMovementContext movementContext)
+    {
+        if (_homingMovement == null)
+        {
+            Debug.LogError("Homing movement component is missing or does not implement ISkillProjectileMovement");
+            return;
+        }
+
+        _homingMovement.SetContext(movementContext);
+        _homingMovement.Initialize(dto);
+
+        if (_homingMovement is SkillProjectileHomingMovement homing)
+        {
+            _initialized = homing.IsInitialized;
+        }
+        else
+        {
+            _initialized = true;
+        }
+    }
 }
 
 public class SkillProjectileMoveControllerDto
@@ -316,6 +355,7 @@ public class SkillProjectileMoveControllerDto
     public SkillProjectileWarpMovementDto warpMovement;
     public SkillProjectileHoverMovement.HoverMovementDto hoverMovement;
     public SkillProjectileOrbitMovement.OrbitMovementDto orbitMovement;
+    public HomingMovementDto homingMovement;
 
     public bool applyDirectionRotation;
     public Transform rotationTarget;

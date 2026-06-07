@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 플레이어가 보유한 장비 인스턴스 목록을 관리한다.
 /// 같은 EquipmentSkillSO라도 각각 별도 OwnedEquipmentData로 보관하며,

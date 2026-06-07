@@ -1,6 +1,7 @@
 using UnityEngine;
 using Character;
 using Stat;
+using Skill;
 
 namespace Status.Service
 {
@@ -20,12 +21,6 @@ namespace Status.Service
     }
 
     [System.Serializable]
-    public class ElementContextDto
-    {
-        public ElementType elementType = ElementType.None;
-    }
-
-    [System.Serializable]
     public class DamageModifierDto
     {
         public bool isCritical;
@@ -41,7 +36,6 @@ namespace Status.Service
 
         public DamageAmountDto damage = new DamageAmountDto();
         public SkillContextDto skill = new SkillContextDto();
-        public ElementContextDto element = new ElementContextDto();
         public DamageModifierDto modifiers = new DamageModifierDto();
     }
 

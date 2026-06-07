@@ -77,15 +77,6 @@ namespace Item
             }
         }
 
-        private void OnEnable()
-        {
-            CharacterManager.OnAnyDamageApplied += HandleAnyDamageApplied;
-        }
-
-        private void OnDisable()
-        {
-            CharacterManager.OnAnyDamageApplied -= HandleAnyDamageApplied;
-        }
 
 
 
@@ -336,134 +327,6 @@ namespace Item
         }
 
 
-        private void HandleAnyDamageApplied(
-            CharacterDamageRequest request,
-            CharacterDamageResult result)
-        {
-            if (request == null
-                || result == null
-                || request.attacker == null
-                || request.target == null)
-            {
-                return;
-            }
-
-            CharacterManager attackerCharacterManager =
-                ResolveCharacterManager(request.attacker);
-
-            if (attackerCharacterManager == null
-                || attackerCharacterManager.RuntimeData == null
-                || attackerCharacterManager.RuntimeData.characterSO == null
-                || attackerCharacterManager.RuntimeData.characterSO.characterType != CharacterType.Player)
-            {
-                return;
-            }
-            
-            ApplyEquippedRelicEffectsOnDamage(
-                request,
-                result);
-        }
-
-        private void ApplyEquippedRelicEffectsOnDamage(
-            CharacterDamageRequest request,
-            CharacterDamageResult result)
-        {
-            RelicRuntimeData runtimeData =
-                ResolveRelicRuntimeData();
-            if (runtimeData == null
-                || runtimeData.Relics == null
-                || runtimeData.Relics.Count == 0)
-            {
-                return;
-            }
-
-            EffectManager targetEffectManager =
-                request.target.GetComponent<EffectManager>();
-
-            if (targetEffectManager == null)
-            {
-                targetEffectManager =
-                    request.target.GetComponentInChildren<EffectManager>();
-            }
-
-            if (targetEffectManager == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < runtimeData.Relics.Count; i++)
-            {
-                RelicEntry relicEntry =
-                    runtimeData.Relics[i];
-
-                if (relicEntry == null
-                    || !relicEntry.isEquipped
-                    || relicEntry.relic == null
-                    || relicEntry.relic.effects == null)
-                {
-                    continue;
-                }
-
-                ApplyRelicEffectsOnDamageToTarget(
-                    relicEntry,
-                    request,
-                    result,
-                    targetEffectManager);
-            }
-        }
-
-        private void ApplyRelicEffectsOnDamageToTarget(
-            RelicEntry relicEntry,
-            CharacterDamageRequest request,
-            CharacterDamageResult result,
-            EffectManager targetEffectManager)
-        {
-            if (relicEntry == null
-                || relicEntry.relic == null
-                || request == null
-                || result == null
-                || targetEffectManager == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < relicEntry.relic.effects.Count; i++)
-            {
-                RelicEffectEntry effectEntry =
-                    relicEntry.relic.effects[i];
-
-                if (effectEntry == null
-                    || effectEntry.effect == null
-                    || effectEntry.applyType != RelicEffectApplyType.OnAttack)
-                {
-                    continue;
-                }
-
-                CharacterManager targetCharacterManager =
-                    ResolveCharacterManager(request.target);
-
-                if (targetCharacterManager == null)
-                {
-                    continue;
-                }
-
-                CharacterManager sourceCharacterManager =
-                    ResolveCharacterManager(request.attacker);
-
-                EffectApplyHelper.ApplyEffect(
-                    targetEffectManager,
-                    targetCharacterManager,
-                    effectEntry.effect,
-                    EffectSourceType.Relic,
-                    relicEntry.relic.relicId,
-                    effectEntry.lifetimeType,
-                    effectEntry.duration,
-                    effectEntry.categoryType,
-                    request.attacker.transform,
-                    Vector2.zero,
-                    sourceCharacterManager);
-            }
-        }
 
 
         private CharacterManager ResolveCharacterManager(
@@ -520,6 +383,13 @@ namespace Item
             return gameObject.GetComponentInChildren<CharacterManager>();
         }
 
+        private bool ShouldApplyRelicEffectOnEquip(
+            RelicEffectApplyType applyType)
+        {
+            return applyType == RelicEffectApplyType.OnEquip
+                || applyType == RelicEffectApplyType.OnAttack;
+        }
+
         private void ApplyRelicEffects(RelicSO relic)
         {
             if (relic == null)
@@ -544,7 +414,7 @@ namespace Item
             {
                 if (effectEntry == null
                     || effectEntry.effect == null
-                    || effectEntry.applyType != RelicEffectApplyType.OnEquip)
+                    || !ShouldApplyRelicEffectOnEquip(effectEntry.applyType))
                 {
                     continue;
                 }
@@ -577,7 +447,7 @@ namespace Item
             {
                 if (effectEntry == null
                     || effectEntry.effect == null
-                    || effectEntry.applyType != RelicEffectApplyType.OnEquip)
+                    || !ShouldApplyRelicEffectOnEquip(effectEntry.applyType))
                 {
                     continue;
                 }

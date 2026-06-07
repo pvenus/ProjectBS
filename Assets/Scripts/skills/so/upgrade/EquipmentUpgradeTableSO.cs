@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 장비 등급별 modifier 정의 테이블.
 /// EquipmentUpgradeEntry 목록을 보관하고,

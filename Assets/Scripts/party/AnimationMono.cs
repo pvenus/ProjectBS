@@ -66,6 +66,7 @@ namespace Character
         [SerializeField] private bool playIdleOnStart = true;
         [SerializeField] private DiagonalDirection defaultDirection = DiagonalDirection.DownRight;
         [SerializeField] private bool resetToPreviousLocomotionAfterAttack = true;
+        private const float AttackRecoveryDelay = 0.3f;
 
         [Header("Clips - Idle")]
         [SerializeField] private DirectionalClipSet idleClips;
@@ -93,6 +94,32 @@ namespace Character
         public DiagonalDirection CurrentDirection => _currentDirection;
         public bool IsPlayingOneShot => _isPlayingOneShot;
         public bool IsDead => _isDead;
+        public float GetAttackDuration()
+        {
+            AnimationClip clip = GetClip(
+                AnimationState.Attack,
+                _currentDirection);
+
+            if (clip == null)
+            {
+                return 0f;
+            }
+
+            return clip.length /
+                Mathf.Max(0.01f, GetAttackSpeed());
+        }
+
+        public float GetAttackFireDelay(float normalizedFireTime = 2f / 3f)
+        {
+            float duration = GetAttackDuration();
+
+            if (duration <= 0f)
+            {
+                return 0f;
+            }
+
+            return duration * Mathf.Clamp01(normalizedFireTime);
+        }
 
         public bool IsPlayingAttack()
         {
@@ -447,8 +474,24 @@ namespace Character
 
         private IEnumerator PlayAttackRoutine(AnimationClip clip, float attackSpeed)
         {
-            float duration = Mathf.Max(0.01f, clip.length / Mathf.Max(0.01f, attackSpeed));
-            yield return new WaitForSeconds(duration);
+            float animationDuration =
+                Mathf.Max(0.01f, clip.length / Mathf.Max(0.01f, attackSpeed));
+
+            yield return new WaitForSeconds(animationDuration);
+
+            AnimationState nextState = _previousLocomotionState == AnimationState.Move
+                ? AnimationState.Move
+                : AnimationState.Idle;
+
+            if (resetToPreviousLocomotionAfterAttack)
+            {
+                PlayLocomotionVisualOnly(AnimationState.Idle);
+            }
+
+            if (AttackRecoveryDelay > 0f)
+            {
+                yield return new WaitForSeconds(AttackRecoveryDelay);
+            }
 
             _oneShotRoutine = null;
             _isPlayingOneShot = false;
@@ -456,15 +499,31 @@ namespace Character
 
             if (resetToPreviousLocomotionAfterAttack)
             {
-                AnimationState nextState = _previousLocomotionState == AnimationState.Move
-                    ? AnimationState.Move
-                    : AnimationState.Idle;
                 PlayState(nextState, restartIfSameState: true);
             }
             else
             {
                 _currentState = AnimationState.None;
             }
+        }
+
+        private void PlayLocomotionVisualOnly(AnimationState state)
+        {
+            if (state != AnimationState.Idle && state != AnimationState.Move)
+            {
+                return;
+            }
+
+            AnimationClip clip = GetClip(state, _currentDirection);
+
+            if (!CanPlayClip(clip, state, _currentDirection))
+            {
+                return;
+            }
+
+            StopPlayRoutine();
+            _currentClip = clip;
+            _playRoutine = StartCoroutine(PlayLoopClipRoutine(clip));
         }
 
         private AnimationClip GetClip(AnimationState state, DiagonalDirection direction)

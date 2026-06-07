@@ -17,7 +17,6 @@ public class SkillEffectSO : ScriptableObject
     [SerializeField] private string description;
 
     [Header("Classification")]
-    [SerializeField] private ElementType elementType = ElementType.None;
     [SerializeField] private List<string> tags = new();
 
     [Header("Trigger")]
@@ -34,7 +33,6 @@ public class SkillEffectSO : ScriptableObject
     public string DisplayName => displayName;
     public string Description => description;
 
-    public ElementType ElementType => elementType;
     public IReadOnlyList<string> Tags => tags;
 
     public SkillEffectTriggerType TriggerType => triggerType;

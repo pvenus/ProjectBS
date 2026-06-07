@@ -18,12 +18,12 @@ MonoBehaviour:
   repeatInterval: 0.25
   useHitWindow: 0
   hitStartTime: 0
-  hitDuration: 0.1
   deactivateAfterFirstHit: 0
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 64
-  damageSo: {fileID: 11400000, guid: c545172547ca943ebad419792a8618c7, type: 2}
+    m_Bits: 1024
+  damageSo: {fileID: 11400000, guid: 292752d1f7e1f462789d3a6287ddc9dc, type: 2}
+  firstHitBaseDamage: 0
   buffEffects: []
   debuffEffects: []
   useSplitMultiHitDamage: 0

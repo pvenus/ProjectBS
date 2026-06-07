@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// EquipmentSkillResolver를 사용하는 정식 투사체 발사 테스트용 MonoBehaviour.
 /// 키 입력 시 EquipmentSkillSO를 해석하여 ProjectileRuntimeData를 만들고 발사한다.
@@ -131,35 +131,50 @@ public class SkillTestMono : MonoBehaviour
         Vector2 spawnPosition = firePoint.position;
         Vector2 direction = ResolveDirection(spawnPosition);
 
-        ProjectileRuntimeData projectileData = resolver.ResolveProjectileRuntime(
+        ProjectileRuntimeData[] projectileDatas = resolver.ResolveProjectileRuntime(
             runtime,
             gameObject,
             target,
             spawnPosition,
             direction);
 
-        if (projectileData == null)
+        if (projectileDatas == null || projectileDatas.Length == 0)
         {
-            Debug.LogError("SkillTestMono: resolver.ResolveProjectileRuntime returned null.", this);
+            Debug.LogError("SkillTestMono: resolver.ResolveProjectileRuntime returned empty.", this);
             return;
         }
 
-        if (projectileData.damageProfile != null)
+        ProjectileRuntimeData firstProjectileData = projectileDatas[0];
+
+        if (firstProjectileData != null && firstProjectileData.damageProfile != null)
         {
-            Debug.Log($"[Upgrade Test] Damage Percent = {projectileData.damageProfile.attackDamagePercent}", this);
+            Debug.Log($"[Upgrade Test] Damage Percent = {firstProjectileData.damageProfile.attackDamagePercent}", this);
         }
         else
         {
             Debug.LogWarning("[Upgrade Test] damageProfile is null", this);
         }
 
-        if (runtime.projectilePrefab == null)
+        for (int i = 0; i < projectileDatas.Length; i++)
         {
-            Debug.LogError("SkillTestMono: runtime.projectilePrefab is null.", this);
-            return;
-        }
+            ProjectileRuntimeData projectileData = projectileDatas[i];
 
-        projectileFactory.Spawn(runtime.projectilePrefab, projectileData);
+            if (projectileData == null)
+            {
+                continue;
+            }
+
+            ProjectileEntity spawnPrefab = projectileData.projectilePrefab != null
+                ? projectileData.projectilePrefab
+                : runtime.projectilePrefab;
+
+            if (spawnPrefab == null)
+            {
+                continue;
+            }
+
+            projectileFactory.Spawn(spawnPrefab, projectileData);
+        }
     }
 
     private OwnedEquipmentData GetActiveOwnedEquipment()

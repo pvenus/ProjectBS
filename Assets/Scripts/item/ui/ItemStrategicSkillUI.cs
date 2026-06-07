@@ -119,7 +119,7 @@ namespace Item.UI
                     strategicSkillItem,
                     worldPosition,
                     out ProjectileEntity projectilePrefab,
-                    out ProjectileRuntimeData projectileData))
+                    out ProjectileRuntimeData[] projectileDatas))
             {
                 Debug.LogWarning($"[ItemStrategicSkillUI] Failed to build strategic skill projectile data. item={strategicSkillItem.DisplayName}", this);
                 return false;
@@ -135,11 +135,21 @@ namespace Item.UI
                 return false;
             }
 
-            projectileFactory.SpawnOriented(projectilePrefab, projectileData);
+            for (int i = 0; i < projectileDatas.Length; i++)
+            {
+                ProjectileRuntimeData projectileData = projectileDatas[i];
+
+                if (projectileData == null)
+                {
+                    continue;
+                }
+
+                projectileFactory.SpawnOriented(projectilePrefab, projectileData);
+            }
 
             if (logDebug)
             {
-                Debug.Log($"[ItemStrategicSkillUI] Strategic skill projectile spawned. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} pos={worldPosition}", this);
+                Debug.Log($"[ItemStrategicSkillUI] Strategic skill projectile spawned. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} count={projectileDatas.Length} pos={worldPosition}", this);
             }
 
             if (logDebug)
@@ -154,10 +164,10 @@ namespace Item.UI
             StrategicSkillItemSO strategicSkillItem,
             Vector3 worldPosition,
             out ProjectileEntity projectilePrefab,
-            out ProjectileRuntimeData projectileData)
+            out ProjectileRuntimeData[] projectileDatas)
         {
             projectilePrefab = null;
-            projectileData = null;
+            projectileDatas = null;
 
             if (strategicSkillItem == null)
             {
@@ -202,25 +212,35 @@ namespace Item.UI
             Vector2 spawnPosition = worldPosition;
             Vector2 direction = Vector2.up;
 
-            projectileData = skillResolver.ResolveProjectileRuntime(
+            projectileDatas = skillResolver.ResolveProjectileRuntime(
                 runtimeData,
                 null,
                 null,
                 spawnPosition,
                 direction);
 
-            if (projectileData == null)
+            if (projectileDatas == null || projectileDatas.Length == 0)
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] ProjectileRuntimeData is null. item={strategicSkillItem.DisplayName} skill={strategicSkillItem.skillSo.name}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] ProjectileRuntimeData is empty. item={strategicSkillItem.DisplayName} skill={strategicSkillItem.skillSo.name}", this);
                 return false;
             }
 
-            projectileData.projectilePrefab = projectilePrefab;
-            projectileData.spawnPosition = spawnPosition;
+            for (int i = 0; i < projectileDatas.Length; i++)
+            {
+                ProjectileRuntimeData projectileData = projectileDatas[i];
+
+                if (projectileData == null)
+                {
+                    continue;
+                }
+
+                projectileData.projectilePrefab = projectilePrefab;
+                projectileData.spawnPosition = spawnPosition;
+            }
 
             if (logDebug)
             {
-                Debug.Log($"[ItemStrategicSkillUI] Projectile data built. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} pos={spawnPosition}", this);
+                Debug.Log($"[ItemStrategicSkillUI] Projectile data built. item={strategicSkillItem.DisplayName} prefab={projectilePrefab.name} count={projectileDatas.Length} pos={spawnPosition}", this);
             }
 
             return true;

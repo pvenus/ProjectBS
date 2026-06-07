@@ -13,6 +13,7 @@ public class ProjectileEntity : MonoBehaviour
     [SerializeField] private ProjectileHitHandler hitHandler;
     [SerializeField] private ProjectileLifetime lifetime;
     [SerializeField] private ProjectileVisual visual;
+    [SerializeField] private ProjectileSpawner spawner;
 
     [Header("Runtime State")]
     [SerializeField] private bool initialized;
@@ -22,6 +23,7 @@ public class ProjectileEntity : MonoBehaviour
     public bool IsInitialized => initialized;
     public ProjectileRuntimeData RuntimeData => runtimeData;
     public ProjectileVisual Visual => visual;
+    public ProjectileSpawner Spawner => spawner;
 
     private void Reset()
     {
@@ -29,29 +31,45 @@ public class ProjectileEntity : MonoBehaviour
         hitHandler = GetComponent<ProjectileHitHandler>();
         lifetime = GetComponent<ProjectileLifetime>();
         visual = GetComponent<ProjectileVisual>();
+        spawner = GetComponent<ProjectileSpawner>();
     }
 
     private void Awake()
     {
         if (movement == null)
         {
-            movement = GetComponent<ProjectileMovement>();
+            movement = GetOrAddComponent<ProjectileMovement>();
         }
 
         if (hitHandler == null)
         {
-            hitHandler = GetComponent<ProjectileHitHandler>();
+            hitHandler = GetOrAddComponent<ProjectileHitHandler>();
         }
 
         if (lifetime == null)
         {
-            lifetime = GetComponent<ProjectileLifetime>();
+            lifetime = GetOrAddComponent<ProjectileLifetime>();
         }
 
         if (visual == null)
         {
-            visual = GetComponent<ProjectileVisual>();
+            visual = GetOrAddComponent<ProjectileVisual>();
         }
+
+        if (spawner == null)
+        {
+            spawner = GetOrAddComponent<ProjectileSpawner>();
+        }
+    }
+
+    private T GetOrAddComponent<T>() where T : Component
+    {
+        T component = GetComponent<T>();
+        if (component != null)
+        {
+            return component;
+        }
+        return gameObject.AddComponent<T>();
     }
 
     /// <summary>
@@ -88,6 +106,11 @@ public class ProjectileEntity : MonoBehaviour
         if (visual != null)
         {
             visual.Initialize(this, data);
+        }
+
+        if (spawner != null)
+        {
+            spawner.Initialize(this, data);
         }
     }
 

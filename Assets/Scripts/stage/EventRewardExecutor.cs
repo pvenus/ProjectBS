@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using Item;
 using Bless;
 using Stat;
+using Session;
+using Battle;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Stage
 {
@@ -91,11 +94,65 @@ namespace Stage
                     UnlockRoute(reward.tag, reward.value);
                     break;
 
+                case PopupEventRewardType.SpecialBattle:
+                    StartBattle(reward.targetData, reward.rewardType);
+                    break;
+
+                case PopupEventRewardType.BossBattle:
+                    StartBattle(reward.targetData, reward.rewardType);
+                    break;
+
                 default:
                     Debug.LogWarning(
                         $"[EventRewardExecutor] Unsupported reward type. type={reward.rewardType}");
                     break;
             }
+        }
+
+        private void StartBattle(
+            ScriptableObject targetData,
+            PopupEventRewardType rewardType)
+        {
+            BattleSO battleSO =
+                targetData as BattleSO;
+
+            if (battleSO == null)
+            {
+                Debug.LogWarning(
+                    $"[EventRewardExecutor] Invalid battle reward. type={rewardType}");
+
+                return;
+            }
+
+            GameSession gameSession =
+                GameSession.Instance;
+
+            if (gameSession == null)
+            {
+                Debug.LogWarning(
+                    "[EventRewardExecutor] GameSession is null.");
+
+                return;
+            }
+
+            if (gameSession.BattleSession == null)
+            {
+                Debug.LogWarning(
+                    "[EventRewardExecutor] BattleSession is null.");
+
+                return;
+            }
+
+            string currentSceneName =
+                SceneManager.GetActiveScene().name;
+
+            gameSession.BattleSession.BeginBattle(
+                battleSO,
+                "BattleScene",
+                currentSceneName);
+
+            Debug.Log(
+                $"[EventRewardExecutor] Battle reward started. type={rewardType} battle={battleSO.name}");
         }
 
         private void ApplyGold(int value)

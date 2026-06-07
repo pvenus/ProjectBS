@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41a661d9c6f94f19b59d9c40ba4e30b, type: 3}
   m_Name: basic_attack_move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
-  moveType: 1
+  moveType: 0
   speed: 0.1
   arrivalThreshold: 0.01
   applyDirectionRotation: 1
@@ -29,7 +29,6 @@ MonoBehaviour:
   orbitAngularSpeed: 180
   clockwise: 0
   spawnOrder: 0
-  maxProjectileCount: 1
   resetPhaseWhenLayoutChanges: 1
   useRadialPulse: 0
   radialPulseAmplitude: 0

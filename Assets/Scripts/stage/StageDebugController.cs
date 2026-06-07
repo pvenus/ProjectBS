@@ -140,7 +140,7 @@ namespace Stage
                         ? "-"
                         : string.Join(", ", node.nextNodeIds);
 
-                    builder.AppendLine($"  - {node.nodeId} | {node.title} | {node.nodeType} | {node.state} | next: {next}");
+                    builder.AppendLine($"  - {node.nodeId} | {node.nodeType} | {node.state} | next: {next}");
                 }
             }
 
@@ -156,7 +156,7 @@ namespace Stage
             }
 
             RoundNode node = stageManager.CurrentNode;
-            Debug.Log($"[StageDebugController] Current Node: {node.nodeId} / {node.title} / {node.nodeType} / {node.state}");
+            Debug.Log($"[StageDebugController] Current Node: {node.nodeId} / {node.nodeType} / {node.state}");
         }
 
         public void LogAvailableNodes()
@@ -172,7 +172,7 @@ namespace Stage
 
             foreach (RoundNode node in stageManager.GetAvailableNodes())
             {
-                builder.AppendLine($"  - {node.nodeId} | {node.title} | {node.nodeType}");
+                builder.AppendLine($"  - {node.nodeId} | {node.nodeType}");
             }
 
             Debug.Log(builder.ToString());
@@ -213,7 +213,7 @@ namespace Stage
                 return;
             }
 
-            Debug.Log($"[StageDebugController] Node Selected: {node.nodeId} / {node.title} / {node.nodeType}");
+            Debug.Log($"[StageDebugController] Node Selected: {node.nodeId} / {node.nodeType}");
         }
 
         private void HandleNodeCompleted(RoundNode node)
@@ -223,7 +223,7 @@ namespace Stage
                 return;
             }
 
-            Debug.Log($"[StageDebugController] Node Completed: {node.nodeId} / {node.title} / {node.nodeType}");
+            Debug.Log($"[StageDebugController] Node Completed: {node.nodeId} / {node.nodeType}");
             LogAvailableNodes();
         }
 

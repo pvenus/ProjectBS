@@ -1,5 +1,5 @@
 using UnityEngine;
-using SKill;
+using Skill;
 using Character;
 
 public class SkillLoadoutMono : MonoBehaviour
@@ -124,6 +124,13 @@ public class SkillLoadoutMono : MonoBehaviour
 
             if (slot == null)
             {
+                SkillPoolSlotData newSlot = new SkillPoolSlotData();
+                newSlot.Configure(
+                    entry.slotKey,
+                    entry.skillSo);
+
+                skillPool.AddSlot(newSlot);
+
                 continue;
             }
 

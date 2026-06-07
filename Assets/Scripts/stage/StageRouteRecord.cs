@@ -116,7 +116,6 @@ namespace Stage
     public class StageRouteNodeRecord
     {
         public string nodeId;
-        public string title;
         public int depth;
         public int indexInDepth;
         public RoundNodeType nodeType;
@@ -130,7 +129,6 @@ namespace Stage
         public StageRouteNodeRecord(RoundNode node, StageRouteActionType actionType)
         {
             nodeId = node.nodeId;
-            title = node.title;
             depth = node.depth;
             indexInDepth = node.indexInDepth;
             nodeType = node.nodeType;

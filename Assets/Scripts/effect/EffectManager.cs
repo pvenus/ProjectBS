@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Character;
 
 namespace Effect
 {
@@ -63,6 +64,16 @@ namespace Effect
         {
         }
 
+        private void OnEnable()
+        {
+            CharacterManager.OnAnyDamageApplied += HandleAnyDamageApplied;
+        }
+
+        private void OnDisable()
+        {
+            CharacterManager.OnAnyDamageApplied -= HandleAnyDamageApplied;
+        }
+
         public IReadOnlyList<EffectRuntimeData> ActiveEffects
             => activeEffects;
 
@@ -84,30 +95,6 @@ namespace Effect
                 EffectLifetimeType.Instant,
                 -1f,
                 categoryType);
-        }
-
-        public void AddBuff(
-            EffectRuntimeData runtimeData,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.CombatTimed,
-            float duration = -1f)
-        {
-            AddEffect(
-                runtimeData,
-                lifetimeType,
-                duration,
-                EffectCategoryType.Buff);
-        }
-
-        public void AddDebuff(
-            EffectRuntimeData runtimeData,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.CombatTimed,
-            float duration = -1f)
-        {
-            AddEffect(
-                runtimeData,
-                lifetimeType,
-                duration,
-                EffectCategoryType.Debuff);
         }
 
         public void AddEffect(
@@ -516,6 +503,42 @@ namespace Effect
                     x.RuntimeId,
                     runtimeId,
                     System.StringComparison.Ordinal));
+        }
+
+        private void HandleAnyDamageApplied(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
+        {
+            if (activeEffects == null || activeEffects.Count <= 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < activeEffects.Count; i++)
+            {
+                EffectRuntimeData runtimeData = activeEffects[i];
+
+                if (runtimeData == null || !runtimeData.IsActive)
+                {
+                    continue;
+                }
+
+                if (runtimeData is ChanceOnHitSkillEffectRuntime chanceOnHitSkillEffect)
+                {
+                    chanceOnHitSkillEffect.OnHit(
+                        request.attacker.GetComponent<CharacterManager>(),
+                        request.target.GetComponent<CharacterManager>(),
+                        true);
+                    continue;
+                }
+
+                if (runtimeData is ChanceOnHitStatModifierEffectRuntime chanceOnHitStatModifierEffect)
+                {
+                    chanceOnHitStatModifierEffect.OnHit(
+                        request,
+                        result);
+                }
+            }
         }
 
         public void Clear()
