@@ -1,0 +1,47 @@
+{
+  "eventId": "event.rainy_graveyard",
+  "nodeId": "node.event.rainy_graveyard",
+  "nodeType": "Event",
+  "isRequired": false,
+  "mainImage": "main",
+  "choices": [
+    {
+      "choiceId": "event.rainy_graveyard.1",
+      "rewards": [
+        {
+          "rewardType": "PartyHealPercent",
+          "value": 25
+        },
+        {
+          "rewardType": "Reputation",
+          "value": 1
+        }
+      ],
+      "completesEvent": true
+    },
+    {
+      "choiceId": "event.rainy_graveyard.2",
+      "rewards": [
+        {
+          "rewardType": "PartyHealPercent",
+          "value": 15
+        }
+      ],
+      "completesEvent": true
+    },
+    {
+      "choiceId": "event.rainy_graveyard.3",
+      "rewards": [
+        {
+          "rewardType": "Gold",
+          "value": 200
+        },
+        {
+          "rewardType": "Reputation",
+          "value": -1
+        }
+      ],
+      "completesEvent": true
+    }
+  ]
+}

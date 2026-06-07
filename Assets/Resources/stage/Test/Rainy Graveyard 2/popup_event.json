@@ -1,0 +1,39 @@
+{
+  "eventId": "event.broken_automaton",
+  "nodeId": "node.event.broken_automaton",
+  "nodeType": "Event",
+  "isRequired": false,
+  "mainImage": "main",
+  "choices": [
+    {
+      "choiceId": "event.broken_automaton.1",
+      "rewards": [
+        {
+          "rewardType": "Relic",
+          "targetId": "relic.automaton_core"
+        }
+      ],
+      "completesEvent": true
+    },
+    {
+      "choiceId": "event.broken_automaton.2",
+      "rewards": [
+        {
+          "rewardType": "Gold",
+          "value": 300
+        }
+      ],
+      "completesEvent": true
+    },
+    {
+      "choiceId": "event.broken_automaton.3",
+      "rewards": [
+        {
+          "rewardType": "SpecialBattle",
+          "targetId": "battle.automaton_repair_failure"
+        }
+      ],
+      "completesEvent": true
+    }
+  ]
+}

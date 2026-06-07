@@ -1,0 +1,57 @@
+
+
+{
+  "rewardVisuals": [
+    {
+      "rewardType": "Gold",
+      "localizationMainKey": "reward.gold",
+      "icon": "icon.reward.gold"
+    },
+    {
+      "rewardType": "Relic",
+      "localizationMainKey": "reward.relic",
+      "icon": "icon.reward.relic"
+    },
+    {
+      "rewardType": "PartyHealPercent",
+      "localizationMainKey": "reward.party_heal_percent",
+      "icon": "icon.reward.heal"
+    },
+    {
+      "rewardType": "SpecialBattle",
+      "localizationMainKey": "reward.special_battle",
+      "icon": "icon.reward.special_battle"
+    },
+    {
+      "rewardType": "BossBattle",
+      "localizationMainKey": "reward.boss_battle",
+      "icon": "icon.reward.boss_battle"
+    }
+  ],
+  "nodeTypeIcons": [
+    {
+      "nodeType": "Start",
+      "icon": "icon.node.start"
+    },
+    {
+      "nodeType": "Event",
+      "icon": "icon.node.event"
+    },
+    {
+      "nodeType": "Battle",
+      "icon": "icon.node.battle"
+    },
+    {
+      "nodeType": "Shop",
+      "icon": "icon.node.shop"
+    },
+    {
+      "nodeType": "Boss",
+      "icon": "icon.node.boss"
+    },
+    {
+      "nodeType": "Rest",
+      "icon": "icon.node.rest"
+    }
+  ]
+}
