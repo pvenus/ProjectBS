@@ -1,15 +1,15 @@
 {
   "equipmentId": "basic_attack",
   "slotName": "basic",
-  "skillName": "basic_attack",
+  "skillName": "skill.monk.3.basic_attack",
   "iconName": "basic_attack",
   "baseProfile": {
-    "profileId": "projectile_basic_attack",
+    "profileId": "skill.monk.3.basic_attack.profile",
 
     "attackArchetype": "Melee",
 
-    "projectilePrefabName": "projectile",
-    "projectileSpawnOffset": 0.5,
+    "projectilePrefabName": "skill.monk.3.basic_attack.projectile",
+    "projectileSpawnOffset": 0,
 
     "projectileCount": 1,
     "projectileScale": 1,
@@ -24,11 +24,11 @@
     "basePriority": 0
   },
   "cast": {
-    "castId": "basic_attack_cast",
+    "castId": "skill.monk.3.basic_attack.cast",
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 0.7,
+    "range": 0.5,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -41,69 +41,135 @@
     "autoCast": true
   },
   "move": {
-    "moveId": "basic_attack_move",
-    "moveType": "Linear",
-    "speed": 0.1,
+    "moveId": "skill.monk.3.basic_attack.move",
+    "moveType": "FixedArea",
+    "speed": 0,
     "arrivalThreshold": 0.01,
-    "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
-    "useHoverMotion": true,
-    "hoverAmplitude": 0.15,
-    "hoverFrequency": 2.5,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
     "hoverAxisX": 0,
     "hoverAxisY": 1,
     "endWhenOwnerMissing": true,
-    "orbitRadius": 1.5,
-    "orbitAngularSpeed": 180,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
     "clockwise": false,
     "spawnOrder": 0,
     "maxProjectileCount": 1,
     "resetPhaseWhenLayoutChanges": true,
-    "useRadialPulse": false,
-    "radialPulseAmplitude": 0,
-    "radialPulseFrequency": 0
+    "useRadialPulse": true,
+    "radialPulseAmplitude": 0.2,
+    "radialPulseFrequency": 6
   },
   "visualSet": {
-    "visualSetId": "basic_attack_visual",
-    "baseVisualId": "basic_attack_base_visual",
-    "impactVisualId": "basic_attack_impact_visual"
-  },
-  "hit": {
-    "hitId": "basic_attack_hit",
+    "visualSetId": "skill.monk.3.basic_attack.visual",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
-
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "hitDuration": 0.1,
-    "deactivateAfterFirstHit": false,
-
-    "targetLayerMask": "Enemy",
-
-    "damage": {
-      "skillId": "basic_attack_damage",
-      "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
-      "canCritical": false,
-      "ignoreDefense": false
+    "baseVisual": {
+      "visualId": "skill.monk.3.basic_attack.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "nova_basic",
+      "animatorController": "nova_animator",
+      "idleClip": "nova_idle",
+      "castClip": "nova_cast",
+      "attackClip": "nova_attack",
+      "projectileLoopClip": "nova_active",
+      "hitClip": "nova_hit"
     },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+    "impactVisual": {
+      "visualId": "skill.monk.3.basic_attack.visual.impact",
+      "impactType": "Normal",
+      "element": "None",
+      "effectPrefab": "fx_nova_hit",
+      "sound": "sfx_nova_hit",
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+    "trailVisual": {
+      "trailId": "skill.monk.3.basic_attack.visual.trail",
+      "effectPrefab": "fx_nova_wave",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.monk.3.basic_attack.hit.enemy",
 
-    "useKnockback": false,
-    "knockbackForce": 0
-  }
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Enemy",
+
+      "damage": {
+        "skillId": "skill.monk.3.basic_attack.damage.enemy",
+        "damageType": "Normal",
+        "baseDamage": 30,
+        "attackPercentDamage": 85,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    },
+    {
+      "hitId": "skill.monk.3.basic_attack.hit.ally_heal",
+
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Party",
+
+      "damage": {},
+
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.basic_attack.ally.heal",
+            "effectType": "Heal",
+            "effectName": "기파술 회복",
+            "flatHealAmount": 8,
+            "useAttackScaling": true,
+            "attackPercentHeal": 0.2,
+            "clampToMaxHp": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
 }

@@ -119,34 +119,46 @@ namespace ResourceTools.Skill
             bool isNewAsset = false;
 
             EquipmentBaseProfileSO baseProfileSo =
-                EquipmentBaseProfileAssetBuilder.CreateOrUpdate(
-                    data.baseProfile,
-                    outputFolder);
+                HasBaseProfile(data.baseProfile)
+                    ? EquipmentBaseProfileAssetBuilder.CreateOrUpdate(
+                        data.baseProfile,
+                        outputFolder)
+                    : null;
 
             SkillCastSO castSo =
-                SkillCastAssetBuilder.CreateOrUpdate(
-                    data.cast,
-                    outputFolder) as SkillCastSO;
+                HasCast(data.cast)
+                    ? SkillCastAssetBuilder.CreateOrUpdate(
+                        data.cast,
+                        outputFolder) as SkillCastSO
+                    : null;
 
             SkillMoveSO moveSo =
-                SkillMoveAssetBuilder.CreateOrUpdate(
-                    data.move,
-                    outputFolder) as SkillMoveSO;
+                HasMove(data.move)
+                    ? SkillMoveAssetBuilder.CreateOrUpdate(
+                        data.move,
+                        outputFolder) as SkillMoveSO
+                    : null;
 
             SkillHitSO[] hitSos =
-                CreateOrUpdateHits(
-                    data.hits,
-                    outputFolder);
+                HasHits(data.hits)
+                    ? CreateOrUpdateHits(
+                        data.hits,
+                        outputFolder)
+                    : Array.Empty<SkillHitSO>();
 
             SpawnSkillSO spawnSkillSo =
-                CreateOrUpdateSpawnSkill(
-                    data.spawnSkill,
-                    outputFolder);
+                HasSpawnSkill(data.spawnSkill)
+                    ? CreateOrUpdateSpawnSkill(
+                        data.spawnSkill,
+                        outputFolder)
+                    : null;
 
             ScriptableObject visualSetSo =
-                SkillVisualSetAssetBuilder.CreateOrUpdate(
-                    data.visualSet,
-                    outputFolder);
+                HasVisualSet(data.visualSet)
+                    ? SkillVisualSetAssetBuilder.CreateOrUpdate(
+                        data.visualSet,
+                        outputFolder)
+                    : null;
 
             if (skillSo == null)
             {
@@ -180,6 +192,63 @@ namespace ResourceTools.Skill
             AssetDatabase.Refresh();
 
             return skillSo;
+        }
+
+        private static bool HasBaseProfile(
+            BaseProfileJson baseProfile)
+        {
+            return baseProfile != null &&
+                   !string.IsNullOrWhiteSpace(baseProfile.profileId);
+        }
+
+        private static bool HasCast(
+            CastJson cast)
+        {
+            return cast != null &&
+                   !string.IsNullOrWhiteSpace(cast.castId);
+        }
+
+        private static bool HasMove(
+            MoveJson move)
+        {
+            return move != null &&
+                   !string.IsNullOrWhiteSpace(move.moveId);
+        }
+
+        private static bool HasVisualSet(
+            VisualSetJson visualSet)
+        {
+            return visualSet != null &&
+                   !string.IsNullOrWhiteSpace(visualSet.visualSetId);
+        }
+
+        private static bool HasSpawnSkill(
+            SpawnSkillJson spawnSkill)
+        {
+            return spawnSkill != null &&
+                   !string.IsNullOrWhiteSpace(spawnSkill.spawnSkillId) &&
+                   spawnSkill.skill != null &&
+                   !string.IsNullOrWhiteSpace(spawnSkill.skill.equipmentId);
+        }
+
+        private static bool HasHits(
+            HitJson[] hits)
+        {
+            if (hits == null || hits.Length == 0)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i] != null &&
+                    !string.IsNullOrWhiteSpace(hits[i].hitId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static void ApplySkillFields(
@@ -413,13 +482,37 @@ namespace ResourceTools.Skill
                 return Array.Empty<SkillHitSO>();
             }
 
-            SkillHitSO[] result = new SkillHitSO[hits.Length];
+            int validCount = 0;
 
             for (int i = 0; i < hits.Length; i++)
             {
-                result[i] = SkillHitAssetBuilder.CreateOrUpdate(
+                if (hits[i] != null &&
+                    !string.IsNullOrWhiteSpace(hits[i].hitId))
+                {
+                    validCount++;
+                }
+            }
+
+            if (validCount == 0)
+            {
+                return Array.Empty<SkillHitSO>();
+            }
+
+            SkillHitSO[] result = new SkillHitSO[validCount];
+            int resultIndex = 0;
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i] == null ||
+                    string.IsNullOrWhiteSpace(hits[i].hitId))
+                {
+                    continue;
+                }
+
+                result[resultIndex] = SkillHitAssetBuilder.CreateOrUpdate(
                     hits[i],
                     outputFolder) as SkillHitSO;
+                resultIndex++;
             }
 
             return result;

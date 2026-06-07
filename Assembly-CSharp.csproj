@@ -89,6 +89,7 @@
     <Compile Include="Assets/Scripts/skills/SanctuarySkill.cs" />
     <Compile Include="Assets/Scripts/party/service/PartyAnchorService.cs" />
     <Compile Include="Assets/Scripts/npc/NpcTargeting.cs" />
+    <Compile Include="Assets/Scripts/effect/so/ChanceOnHealCooldownReduceEffectSO.cs" />
     <Compile Include="Assets/Scripts/skills/SingleHealSkill.cs" />
     <Compile Include="Assets/Scripts/_machal/UIUtility/ScrollViewItemSpawner.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Debug/DangerDebugRunner.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Assets/Scripts/character/service/CharacterMovementExecutionService.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DecisionLayer/ISkillExecutor.cs" />
     <Compile Include="Assets/Scripts/common/LibraryManager.cs" />
+    <Compile Include="Assets/Scripts/effect/runtime/ChanceOnHealStatModifierEffectRuntime.cs" />
     <Compile Include="Assets/Scripts/skills/vfx/VFX_RangedHit.cs" />
     <Compile Include="Assets/Scripts/effect/so/TauntEffectSO.cs" />
     <Compile Include="Assets/Scripts/skills/service/EquipmentUpgradeResolver.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Assets/Scripts/skills/so/damage/SkillDamageSO.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/ShrineGodCard.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileOrbitMovement.cs" />
+    <Compile Include="Assets/Scripts/effect/runtime/ChanceOnHealCooldownReduceEffectRuntime.cs" />
     <Compile Include="Assets/Scripts/npc/service/NpcMovementAnimationService.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Layout/UICircleLayout.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DecisionLayer/TacticToSkillSelector.cs" />
@@ -357,6 +360,7 @@
     <Compile Include="Assets/Scripts/_machal/UIComponent/Animation/UIAnimationSequence.cs" />
     <Compile Include="Assets/Scripts/stage/ui/PopupEventPanelUI.cs" />
     <Compile Include="Assets/Scripts/battle/StrategicSkillCostUI.cs" />
+    <Compile Include="Assets/Scripts/effect/so/ChanceOnHealStatModifierEffectSO.cs" />
     <Compile Include="Assets/Scripts/shader/ShaderControllerMono.cs" />
     <Compile Include="Assets/Scripts/skills/TauntSkill.cs" />
     <Compile Include="Assets/Scripts/skills/so/skill/ProjectileSkillSO.cs" />

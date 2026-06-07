@@ -11,11 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
   m_Name: active_2
-  m_EditorClassIdentifier: Assembly-CSharp::EquipmentSkillSO
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: active_2
   icon: {fileID: 0}
-  baseProfileSo: {fileID: 11400000, guid: f8c7cd5a9895d48bf9773a4f257d7a88, type: 2}
-  castSo: {fileID: 11400000, guid: fdfc044ea68a34c3aaefe12a1255f78a, type: 2}
-  hitSo: {fileID: 11400000, guid: 39816608d744b46f0b6341b193e45ec0, type: 2}
-  moveSo: {fileID: 11400000, guid: 7d6546746ebc644deb547ff496387b98, type: 2}
-  visualSetSo: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: d2ebda3005f5e4f3486810c22c40c9b4, type: 2}
+  castSo: {fileID: 11400000, guid: f4731784831cb46ff94fe1bae4de54e8, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: a1ff3a4abea964f88b8421e13138c9ae, type: 2}
+  moveSo: {fileID: 11400000, guid: 24c10c67ea8274224851be724d579d6c, type: 2}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 11400000, guid: 167058c5c954e4556a162e641ed84003, type: 2}

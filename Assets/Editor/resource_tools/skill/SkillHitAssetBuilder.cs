@@ -72,7 +72,9 @@ namespace ResourceTools.Skill
             }
 
             ScriptableObject damageSo =
-                SkillDamageAssetBuilder.CreateOrUpdate(json.damage, outputFolder);
+                HasDamage(json.damage)
+                    ? SkillDamageAssetBuilder.CreateOrUpdate(json.damage, outputFolder)
+                    : null;
 
             Apply(hitSo, json, damageSo, outputFolder);
 
@@ -83,6 +85,13 @@ namespace ResourceTools.Skill
             Debug.Log($"[SkillHitAssetBuilder] Updated SkillHitSO: {assetPath}");
 
             return hitSo;
+        }
+
+        private static bool HasDamage(
+            DamageJson damage)
+        {
+            return damage != null &&
+                   !string.IsNullOrWhiteSpace(damage.skillId);
         }
 
         private static string ResolveAssetName(HitJson json)

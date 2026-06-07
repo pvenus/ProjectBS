@@ -354,6 +354,11 @@ namespace Character
                     attackerManager,
                     isCritical);
 
+            finalDamage =
+                ApplyFinalDamageAmplify(
+                    finalDamage,
+                    attackerManager);
+
             result.damage = finalDamage;
             result.isCritical = isCritical;
 
@@ -429,6 +434,27 @@ namespace Character
 
             return baseDamage
                    + baseDamage * (critDamage / 100f);
+        }
+
+        private float ApplyFinalDamageAmplify(
+            float damage,
+            CharacterManager attackerManager)
+        {
+            if (damage <= 0f || attackerManager == null)
+            {
+                return damage;
+            }
+
+            float finalDamageAmplify =
+                attackerManager.GetStatValue(StatType.FinalDamageAmplify);
+
+            if (finalDamageAmplify <= 0f)
+            {
+                return damage;
+            }
+
+            return damage
+                   + damage * (finalDamageAmplify / 100f);
         }
 
         private void ApplyReflectDamage(

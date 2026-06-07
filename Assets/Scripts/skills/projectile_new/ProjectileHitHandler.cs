@@ -69,6 +69,7 @@ public class ProjectileHitHandler : MonoBehaviour
         isCollectingInitialHits = false;
         hasAppliedDamage = false;
         currentHitCount = 0;
+        ignoreOwner = data.hit.ignoreSameRoot; 
 
         if (collectCoroutine != null)
         {

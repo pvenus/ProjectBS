@@ -210,11 +210,6 @@ namespace Character
                     StatType.SkillRange,
                     StatType.SkillRangePercent));
 
-            SetCalculatedFinalStat(
-                StatType.CooldownReduction,
-                CalculateWithPercent(
-                    StatType.CooldownReduction,
-                    StatType.CooldownReductionPercent));
 
             ClampCurrentHpToMaxHp();
             ApplyBattleStartShieldOnce();
@@ -500,8 +495,6 @@ namespace Character
                    || statType == StatType.Shield
                    || statType == StatType.ShieldPercent
                    || statType == StatType.StartBattleShield
-                   || statType == StatType.CooldownReduction
-                   || statType == StatType.CooldownReductionPercent
                    || statType == StatType.KillStack
                    || statType == StatType.KillStackAttackPercent
                    || statType == StatType.MissingHpAttackPercent

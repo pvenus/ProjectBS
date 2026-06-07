@@ -1,7 +1,6 @@
-
-
 using System.Collections;
 using Character;
+using Stat;
 using UnityEngine;
 
 namespace Character.Service
@@ -52,6 +51,11 @@ namespace Character.Service
                 return;
             }
 
+            if (TryReviveWithToken(context))
+            {
+                return;
+            }
+
             isHandlingDeath = true;
             context.runtimeData.isDead = true;
 
@@ -71,6 +75,39 @@ namespace Character.Service
                 context.onBeforeDestroy?.Invoke();
                 Object.Destroy(context.gameObject);
             }
+        }
+
+        private bool TryReviveWithToken(Context context)
+        {
+            CharacterManager characterManager = context.characterManager;
+
+            if (characterManager == null)
+            {
+                return false;
+            }
+
+            float tokenCount = characterManager.GetStatValue(
+                StatType.ResurrectionToken);
+
+            if (tokenCount <= 0f)
+            {
+                return false;
+            }
+
+            characterManager.AddStat(
+                StatType.ResurrectionToken,
+                -1f);
+
+            float maxHp = characterManager.GetStatValue(
+                StatType.MaxHp);
+            float reviveHp = Mathf.Max(1f, maxHp * 0.3f);
+
+            context.runtimeData.currentHp = reviveHp;
+            context.runtimeData.isDead = false;
+
+            isHandlingDeath = false;
+
+            return true;
         }
 
         private void DisablePhysics(Rigidbody2D rigidbody2D)

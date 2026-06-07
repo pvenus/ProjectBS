@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
+  m_Name: skill.monk.3.divine_acupuncture.hit.ally
+  m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  maxHitCount: 1
+  ignoreSameRoot: 0
+  useRepeatInterval: 0
+  repeatInterval: 0.25
+  useHitWindow: 0
+  hitStartTime: 0
+  deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  damageSo: {fileID: 0}
+  firstHitBaseDamage: 0
+  buffEffects:
+  - effectSo: {fileID: 11400000, guid: f887dea1826fe4d01b85bf3c806d37ce, type: 2}
+    lifetimeType: 3
+    categoryType: 1
+    duration: 6
+    maxApplyCount: 1
+  - effectSo: {fileID: 11400000, guid: 3625d0db09b49460c926343379e1aa02, type: 2}
+    lifetimeType: 3
+    categoryType: 1
+    duration: 6
+    maxApplyCount: 1
+  debuffEffects:
+  - effectSo: {fileID: 11400000, guid: 50a72e25019d94ee6ae3aa2a1b73e00e, type: 2}
+    lifetimeType: 3
+    categoryType: 2
+    duration: 6
+    maxApplyCount: 1
+  useSplitMultiHitDamage: 0
+  splitHitCount: 1
+  splitHitInterval: 0

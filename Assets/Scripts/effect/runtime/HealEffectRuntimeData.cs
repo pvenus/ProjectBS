@@ -8,13 +8,16 @@ namespace Effect
     {
         private readonly HealEffectSO effectSO;
         private readonly CharacterManager targetCharacter;
+        private readonly CharacterManager sourceCharacter;
 
         public HealEffectRuntime(
             HealEffectSO effectSO,
-            CharacterManager targetCharacter = null)
+            CharacterManager targetCharacter = null,
+            CharacterManager sourceCharacter = null)
         {
             this.effectSO = effectSO;
             this.targetCharacter = targetCharacter;
+            this.sourceCharacter = sourceCharacter;
 
             RuntimeId =
                 $"Heal_{effectSO.effectId}_{GetTargetRuntimeId()}";
@@ -34,14 +37,7 @@ namespace Effect
                 return;
             }
 
-            targetCharacter.AddStat(
-                Stat.StatType.Hp,
-                healAmount);
-
-            if (effectSO.clampToMaxHp)
-            {
-                ClampHpToMaxHp();
-            }
+            targetCharacter.Heal(healAmount);
         }
 
         public override void OnRemove()
@@ -62,29 +58,18 @@ namespace Effect
                 result += maxHp * effectSO.maxHpPercent;
             }
 
-            return Mathf.Max(0f, result);
-        }
-
-        private void ClampHpToMaxHp()
-        {
-            float hp =
-                targetCharacter.GetStatValue(
-                    Stat.StatType.Hp);
-
-            float maxHp =
-                targetCharacter.GetStatValue(
-                    Stat.StatType.MaxHp);
-
-            if (hp <= maxHp)
+            if (effectSO.useAttackScaling &&
+                sourceCharacter != null)
             {
-                return;
+                float attack =
+                    sourceCharacter.GetStatValue(
+                        Stat.StatType.Attack);
+
+                result += attack * effectSO.attackPercentHeal;
             }
 
-            targetCharacter.SetStat(
-                Stat.StatType.Hp,
-                maxHp);
+            return Mathf.Max(0f, result);
         }
-
         private string GetTargetRuntimeId()
         {
             return targetCharacter != null

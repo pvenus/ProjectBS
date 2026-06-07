@@ -82,13 +82,17 @@ namespace Character
                         continue;
                     }
 
-                    if (hit.transform == context.OwnerTransform)
-                    {
-                        continue;
-                    }
+                    bool isOwner = IsOwnerTransform(
+                        hit.transform,
+                        context.OwnerTransform);
 
                     float distanceSqr =
                         ((Vector2)hit.transform.position - origin).sqrMagnitude;
+
+                    if (isOwner)
+                    {
+                        distanceSqr += SearchRadius * SearchRadius;
+                    }
 
                     if (distanceSqr < closestDistanceSqr)
                     {
@@ -101,9 +105,69 @@ namespace Character
                 {
                     return closestTarget;
                 }
+
+                if (MaskContainsAnyOwnerLayer(
+                        _targetMasks[maskIndex],
+                        context.OwnerTransform))
+                {
+                    return context.OwnerTransform;
+                }
             }
 
             return null;
+        }
+
+        private static bool IsOwnerTransform(
+            Transform target,
+            Transform owner)
+        {
+            if (target == null || owner == null)
+            {
+                return false;
+            }
+
+            return target == owner || target.IsChildOf(owner);
+        }
+
+        private static bool MaskContainsAnyOwnerLayer(
+            LayerMask mask,
+            Transform owner)
+        {
+            if (owner == null)
+            {
+                return false;
+            }
+
+            if (MaskContainsLayer(mask, owner.gameObject.layer))
+            {
+                return true;
+            }
+
+            Transform[] children = owner.GetComponentsInChildren<Transform>(true);
+
+            for (int i = 0; i < children.Length; i++)
+            {
+                Transform child = children[i];
+
+                if (child == null)
+                {
+                    continue;
+                }
+
+                if (MaskContainsLayer(mask, child.gameObject.layer))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool MaskContainsLayer(
+            LayerMask mask,
+            int layer)
+        {
+            return (mask.value & (1 << layer)) != 0;
         }
 
         private static string GetTargetName(Transform target)

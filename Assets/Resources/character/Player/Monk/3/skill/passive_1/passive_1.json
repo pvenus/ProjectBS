@@ -1,0 +1,36 @@
+{
+  "equipmentId": "passive_1",
+  "slotName": "passive_1",
+  "skillName": "skill.monk.3.passive_1.blood_qi_circulation",
+  "iconName": "passive_1",
+  "baseProfile": {
+    "profileId": "skill.monk.3.passive_1.blood_qi_circulation.profile",
+    "skillType": "Passive",
+    "attackArchetype": "None",
+    "category": "Support"
+  },
+  "hits": [
+    {
+      "hitId": "skill.monk.3.passive_1.blood_qi_circulation.hit",
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.passive_1.blood_qi_circulation.on_any_ally_heal_cooldown_reduce_effect",
+            "effectType": "ChanceOnHealCooldownReduce",
+            "effectName": "기혈 순환 쿨타임 순환",
+            "chance": 1,
+            "triggerTargetType": "AnyAlly",
+            "reduceType": "FlatSeconds",
+            "reducePercent": 0,
+            "reduceSeconds": 1
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": []
+    }
+  ]
+}

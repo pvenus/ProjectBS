@@ -40,7 +40,8 @@ namespace Effect
                     return null;
                 }
 
-                return healEffect.CreateRuntimeData(targetCharacter);
+                return healEffect.CreateRuntimeData(
+                    targetCharacter);
             }
 
             if (effectSo is CooldownReduceEffectSO cooldownReduceEffect)
@@ -63,6 +64,29 @@ namespace Effect
                 }
 
                 return chanceOnHitStatModifierEffect.CreateRuntimeData(
+                    targetCharacter);
+            }
+
+            if (effectSo is ChanceOnHealStatModifierEffectSO chanceOnHealStatModifierEffect)
+            {
+                if (targetCharacter == null)
+                {
+                    return null;
+                }
+
+                return new ChanceOnHealStatModifierEffectRuntime(
+                    chanceOnHealStatModifierEffect,
+                    targetCharacter);
+            }
+
+            if (effectSo is ChanceOnHealCooldownReduceEffectSO chanceOnHealCooldownReduceEffect)
+            {
+                if (targetCharacter == null)
+                {
+                    return null;
+                }
+
+                return chanceOnHealCooldownReduceEffect.CreateRuntimeData(
                     targetCharacter);
             }
 

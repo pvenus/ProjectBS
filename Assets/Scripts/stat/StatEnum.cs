@@ -41,6 +41,8 @@ namespace Stat
         MissingHpAttackPercent = 1290,
         MissingHpFinalDamageAmplify = 1295,
 
+        FinalDamageAmplify = 1297,
+
         Defense = 1300,
 
         LowHpDefenseBonus = 1370,
@@ -98,12 +100,13 @@ namespace Stat
         AiReactionSpeedPercent = 1510,
 
         CooldownReduction = 1520,
-        CooldownReductionPercent = 1530,
 
         ConsumableEffectiveness = 1540,
         ConsumableEffectivenessPercent = 1550,
 
         StartBattleShield = 1560,
+
+        ResurrectionToken = 1565,
 
         SkillRange = 1570,
         SkillRangePercent = 1580,

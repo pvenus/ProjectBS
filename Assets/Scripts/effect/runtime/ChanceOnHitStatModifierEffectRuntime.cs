@@ -118,11 +118,11 @@ namespace Effect
         {
             switch (effectSO.valueType)
             {
-                case ChanceOnHitStatModifierValueType.Flat:
+                case StatModifierType.Flat:
                     return effectSO.value;
 
-                case ChanceOnHitStatModifierValueType.PercentOfCurrentValue:
-                    return currentValue * effectSO.value;
+                case StatModifierType.Percent:
+                    return currentValue * (effectSO.value / 100f);
 
                 default:
                     return 0f;

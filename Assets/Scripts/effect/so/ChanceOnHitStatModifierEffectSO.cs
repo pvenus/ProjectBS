@@ -17,8 +17,8 @@ namespace Effect
         public StatType statType =
             StatType.Attack;
 
-        public ChanceOnHitStatModifierValueType valueType =
-            ChanceOnHitStatModifierValueType.PercentOfCurrentValue;
+        public StatModifierType valueType =
+            StatModifierType.Percent;
 
         public float value = -15f;
 
@@ -34,11 +34,5 @@ namespace Effect
                 this,
                 targetCharacter);
         }
-    }
-
-    public enum ChanceOnHitStatModifierValueType
-    {
-        Flat = 0,
-        PercentOfCurrentValue = 100,
     }
 }

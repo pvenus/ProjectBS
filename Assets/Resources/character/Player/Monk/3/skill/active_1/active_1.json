@@ -1,34 +1,35 @@
 {
   "equipmentId": "active_1",
   "slotName": "active_1",
-  "skillName": "active_1",
+  "skillName": "skill.monk.3.medicine_prescription",
   "iconName": "basic_attack",
   "baseProfile": {
-    "profileId": "projectile_basic_attack",
+    "profileId": "skill.monk.3.medicine_prescription.profile",
 
     "attackArchetype": "Melee",
 
-    "projectilePrefabName": "projectile",
-    "projectileSpawnOffset": 0.5,
+    "projectilePrefabName": "projectile11",
+    "projectileSpawnOffset": 0,
 
     "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileLifetime": 0.3,
+    "projectileSpreadAngle": 0,
+    "projectileScale": 1.2,
+    "projectileLifetime": 1,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
 
-    "category": "Attack",
-    "targetType": "Enemy",
-    "tacticalNeed": "None",
-    "basePriority": 0
+    "category": "Support",
+    "targetType": "Ally",
+    "tacticalNeed": "Heal",
+    "basePriority": 0.8
   },
   "cast": {
-    "castId": "basic_attack_cast",
+    "castId": "skill.monk.3.medicine_prescription.cast",
 
-    "cooldown": 3,
+    "cooldown": 16,
     "castTime": 0,
-    "range": 0.7,
+    "range": 5,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -36,14 +37,15 @@
     "castType": "Instant",
     "targetingType": "AutoTarget",
 
-    "canMoveWhileCasting": true,
-    "canCancelCasting": true,
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
     "autoCast": true
   },
   "move": {
-    "moveId": "basic_attack_move",
-    "moveType": "Linear",
-    "speed": 0.1,
+    "moveId": "skill.monk.3.medicine_prescription.move",
+    "moveType": "Warp",
+    "speed": 0,
+    "duration": 0.3,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
     "rotationOffset": -90,
@@ -51,14 +53,14 @@
     "followOffsetY": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
-    "useHoverMotion": true,
-    "hoverAmplitude": 0.15,
-    "hoverFrequency": 2.5,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
     "hoverAxisX": 0,
     "hoverAxisY": 1,
     "endWhenOwnerMissing": true,
-    "orbitRadius": 1.5,
-    "orbitAngularSpeed": 180,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
     "clockwise": false,
     "spawnOrder": 0,
     "maxProjectileCount": 1,
@@ -68,42 +70,79 @@
     "radialPulseFrequency": 0
   },
   "visualSet": {
-    "visualSetId": "basic_attack_visual",
-    "baseVisualId": "basic_attack_base_visual",
-    "impactVisualId": "basic_attack_impact_visual"
-  },
-  "hit": {
-    "hitId": "basic_attack_hit",
+    "visualSetId": "skill.monk.3.medicine_prescription.visual",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
-
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "hitDuration": 0.1,
-    "deactivateAfterFirstHit": false,
-
-    "targetLayerMask": "Enemy",
-
-    "damage": {
-      "skillId": "basic_attack_damage",
-      "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
-      "canCritical": false,
-      "ignoreDefense": false
+    "baseVisual": {
+      "visualId": "skill.monk.3.medicine_prescription.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "medicine_basic",
+      "animatorController": "slash_animator",
+      "idleClip": "slash_idle",
+      "castClip": "slash_cast",
+      "attackClip": "slash_attack",
+      "projectileLoopClip": "slash_fly",
+      "hitClip": "slash_hit"
     },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+    "impactVisual": {
+      "visualId": "skill.swordsman.3.charge.visual.impact",
+      "impactType": "Hit",
+      "element": "None",
+      "effectPrefab": "fx_slash_hit",
+      "sound": "sfx_slash_hit",
+      "scale": 1.1,
+      "intensity": 1.0,
+      "duration": 0.4
+    },
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+    "trailVisual": {
+      "trailId": "skill.monk.3.medicine_prescription.visual.trail",
+      "effectPrefab": "fx_heal_trail",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.monk.3.medicine_prescription.hit.ally",
 
-    "useKnockback": false,
-    "knockbackForce": 0
-  }
+      "maxHitCount": 1,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.3,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Party",
+
+      "damage": {},
+
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.medicine_prescription.heal",
+            "effectType": "Heal",
+            "effectName": "탕약 처방",
+            "flatHealAmount": 60,
+            "useAttackScaling": true,
+            "attackPercentHeal": 0.4,
+            "clampToMaxHp": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
 }

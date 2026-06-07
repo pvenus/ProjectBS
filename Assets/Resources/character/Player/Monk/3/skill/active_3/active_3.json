@@ -1,34 +1,36 @@
+
+
 {
   "equipmentId": "active_3",
   "slotName": "active_3",
-  "skillName": "active_3",
+  "skillName": "skill.monk.3.divine_acupuncture",
   "iconName": "basic_attack",
   "baseProfile": {
-    "profileId": "projectile_basic_attack",
+    "profileId": "skill.monk.3.divine_acupuncture.profile",
 
     "attackArchetype": "Melee",
 
     "projectilePrefabName": "projectile",
-    "projectileSpawnOffset": 0.5,
+    "projectileSpawnOffset": 0,
 
     "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileLifetime": 0.3,
+    "projectileScale": 1.5,
+    "projectileLifetime": 0.5,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
 
-    "category": "Attack",
-    "targetType": "Enemy",
-    "tacticalNeed": "None",
-    "basePriority": 0
+    "category": "Support",
+    "targetType": "Ally",
+    "tacticalNeed": "Buff",
+    "basePriority": 1.0
   },
   "cast": {
-    "castId": "basic_attack_cast",
+    "castId": "skill.monk.3.divine_acupuncture.cast",
 
-    "cooldown": 3,
+    "cooldown": 30,
     "castTime": 0,
-    "range": 0.7,
+    "range": 5,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -36,29 +38,29 @@
     "castType": "Instant",
     "targetingType": "AutoTarget",
 
-    "canMoveWhileCasting": true,
-    "canCancelCasting": true,
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
     "autoCast": true
   },
   "move": {
-    "moveId": "basic_attack_move",
-    "moveType": "Linear",
-    "speed": 0.1,
+    "moveId": "skill.monk.3.divine_acupuncture.move",
+    "moveType": "Warp",
+    "speed": 0,
     "arrivalThreshold": 0.01,
-    "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
-    "useHoverMotion": true,
-    "hoverAmplitude": 0.15,
-    "hoverFrequency": 2.5,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
     "hoverAxisX": 0,
     "hoverAxisY": 1,
     "endWhenOwnerMissing": true,
-    "orbitRadius": 1.5,
-    "orbitAngularSpeed": 180,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
     "clockwise": false,
     "spawnOrder": 0,
     "maxProjectileCount": 1,
@@ -68,42 +70,106 @@
     "radialPulseFrequency": 0
   },
   "visualSet": {
-    "visualSetId": "basic_attack_visual",
-    "baseVisualId": "basic_attack_base_visual",
-    "impactVisualId": "basic_attack_impact_visual"
-  },
-  "hit": {
-    "hitId": "basic_attack_hit",
+    "visualSetId": "skill.monk.3.divine_acupuncture.visual",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
-
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "hitDuration": 0.1,
-    "deactivateAfterFirstHit": false,
-
-    "targetLayerMask": "Enemy",
-
-    "damage": {
-      "skillId": "basic_attack_damage",
-      "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
-      "canCritical": false,
-      "ignoreDefense": false
+    "baseVisual": {
+      "visualId": "skill.monk.3.divine_acupuncture.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "acupuncture_needle_basic",
+      "animatorController": "acupuncture_needle_animator",
+      "idleClip": "acupuncture_needle_idle",
+      "castClip": "acupuncture_needle_cast",
+      "attackClip": "acupuncture_needle_attack",
+      "projectileLoopClip": "acupuncture_needle_active",
+      "hitClip": "acupuncture_needle_hit"
     },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+    "impactVisual": {
+      "visualId": "skill.monk.3.divine_acupuncture.visual.impact",
+      "impactType": "Buff",
+      "element": "None",
+      "effectPrefab": "fx_divine_acupuncture_apply",
+      "sound": "sfx_divine_acupuncture_apply",
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+    "trailVisual": {
+      "trailId": "skill.monk.3.divine_acupuncture.visual.trail",
+      "effectPrefab": "fx_divine_acupuncture_trail",
+      "followProjectile": true,
+      "duration": 0.5
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.monk.3.divine_acupuncture.hit.ally",
+      "maxHitCount": 1,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.2,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
 
-    "useKnockback": false,
-    "knockbackForce": 0
-  }
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.divine_acupuncture.damage_up",
+            "effectType": "StatModifier",
+
+            "statType": "FinalDamageAmplify",
+            "modifierType": "Flat",
+            "value": 50,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 6,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.monk.3.divine_acupuncture.revive_token",
+            "effectType": "StatModifier",
+            "effectName": "신의 침술 부활",
+            "statType": "ResurrectionToken",
+            "modifierType": "Flat",
+            "value": 1,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 6,
+          "maxApplyCount": 1
+        }
+      ],
+
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.divine_acupuncture.defense_down",
+            "effectType": "StatModifier",
+            "effectName": "신의 침술 받는 피해 증가",
+            "statType": "Defense",
+            "modifierType": "Flat",
+            "value": -10,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 6,
+          "maxApplyCount": 1
+        }
+      ],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
 }

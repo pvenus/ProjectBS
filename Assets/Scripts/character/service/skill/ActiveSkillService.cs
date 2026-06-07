@@ -231,7 +231,10 @@ namespace Character.Skill
             yield return null;
 
             AnimationMono animationMono = ResolveAnimation(caster);
-            float delay = ResolveAttackFireDelay(animationMono);
+            float attackSpeed = ResolveAttackSpeed(caster);
+            float delay = ResolveAttackFireDelay(
+                animationMono,
+                attackSpeed);
 
             if (delay > 0f)
             {
@@ -252,14 +255,39 @@ namespace Character.Skill
         }
 
         private float ResolveAttackFireDelay(
-            AnimationMono animationMono)
+            AnimationMono animationMono,
+            float attackSpeed)
         {
             if (animationMono == null)
             {
                 return 0f;
             }
 
-            return animationMono.GetAttackFireDelay(2f / 3f);
+            return animationMono.GetAttackFireDelay(2f / 3f) /
+                   Mathf.Max(0.01f, attackSpeed);
+        }
+
+        private float ResolveAttackSpeed(
+            Transform caster)
+        {
+            if (caster == null)
+            {
+                return 1f;
+            }
+
+            CharacterManager characterManager =
+                caster.GetComponent<CharacterManager>()
+                ?? caster.GetComponentInParent<CharacterManager>()
+                ?? caster.GetComponentInChildren<CharacterManager>();
+
+            if (characterManager == null)
+            {
+                return 1f;
+            }
+
+            return Mathf.Max(
+                0.01f,
+                characterManager.GetStatValue(Stat.StatType.AttackSpeed));
         }
 
         private Vector2 ResolveDirection(

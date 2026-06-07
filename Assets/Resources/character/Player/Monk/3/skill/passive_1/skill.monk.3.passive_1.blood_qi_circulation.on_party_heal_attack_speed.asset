@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55515b61a41824b61bac1d93f4e3587b, type: 3}
+  m_Name: skill.monk.3.passive_1.blood_qi_circulation.on_party_heal_attack_speed
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.ChanceOnHealStatModifierEffectSO
+  effectId: skill.monk.3.passive_1.blood_qi_circulation.on_party_heal_attack_speed
+  effectName: "\uAE30\uD608 \uC21C\uD658 \uD30C\uD2F0 \uD68C\uBCF5 \uACF5\uACA9\uC18D\uB3C4
+    \uC99D\uAC00"
+  description: 
+  icon: {fileID: 0}
+  isPermanent: 0
+  allowDuplicate: 0
+  duration: -1
+  maxStack: 1
+  tags: []
+  chance: 1
+  triggerTargetType: 3
+  statType: 1220
+  valueType: 100
+  value: 10

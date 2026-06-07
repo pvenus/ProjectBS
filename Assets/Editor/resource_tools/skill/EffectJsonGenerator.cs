@@ -45,6 +45,17 @@ namespace ResourceTools.Effect
             public float value;
             public bool isPercent;
 
+            [Header("Heal")]
+            public float flatHealAmount;
+            public bool useMaxHpPercent;
+            public float maxHpPercent;
+            public bool useAttackScaling;
+            public float attackPercentHeal;
+            public bool clampToMaxHp = true;
+
+            [Header("Chance On Heal Stat Modifier")]
+            public string triggerTargetType;
+
             [Header("Status")]
             public float chance = 1f;
             public bool requireCriticalHit;
@@ -58,6 +69,9 @@ namespace ResourceTools.Effect
             [Header("Skill / Cooldown")]
             public float cooldownReduceValue;
             public bool cooldownReducePercent;
+            public string reduceType;
+            public float reducePercent;
+            public float reduceSeconds;
         }
 
         [Serializable]
@@ -338,6 +352,18 @@ namespace ResourceTools.Effect
                 case "ChanceOnHitSkillEffectSO":
                     ApplyChanceOnHitSkillFields(effect, data, outputFolder);
                     break;
+
+                case "ChanceOnHealStatModifier":
+                case "ChanceOnHealStatModifierEffect":
+                case "ChanceOnHealStatModifierEffectSO":
+                    ApplyChanceOnHealStatModifierFields(effect, data);
+                    break;
+
+                case "ChanceOnHealCooldownReduce":
+                case "ChanceOnHealCooldownReduceEffect":
+                case "ChanceOnHealCooldownReduceEffectSO":
+                    ApplyChanceOnHealCooldownReduceFields(effect, data);
+                    break;
             }
         }
 
@@ -346,7 +372,7 @@ namespace ResourceTools.Effect
             EffectJson data)
         {
             SetEnumFirstExistingField(effect, data.statType, "statType", "targetStat", "stat");
-            SetEnumFirstExistingField(effect, data.modifierType, "modifierType", "modifyType", "operationType");
+            SetEnumFirstExistingField(effect, data.modifierType, "modifierType", "valueType", "modifyType", "operationType");
             SetFirstExistingField(effect, data.value, "value", "amount", "modifierValue");
             SetFirstExistingField(effect, data.isPercent, "isPercent", "usePercent");
         }
@@ -355,8 +381,36 @@ namespace ResourceTools.Effect
             EffectSO effect,
             EffectJson data)
         {
+            SetFirstExistingField(effect, data.flatHealAmount, "flatHealAmount");
+            SetFirstExistingField(effect, data.useMaxHpPercent, "useMaxHpPercent");
+            SetFirstExistingField(effect, data.maxHpPercent, "maxHpPercent");
+            SetFirstExistingField(effect, data.useAttackScaling, "useAttackScaling");
+            SetFirstExistingField(effect, data.attackPercentHeal, "attackPercentHeal");
+            SetFirstExistingField(effect, data.clampToMaxHp, "clampToMaxHp");
+
             SetFirstExistingField(effect, data.value, "value", "amount", "healAmount");
             SetFirstExistingField(effect, data.isPercent, "isPercent", "usePercent", "isPercentHeal");
+        }
+        private static void ApplyChanceOnHealStatModifierFields(
+            EffectSO effect,
+            EffectJson data)
+        {
+            SetFirstExistingField(effect, data.chance, "chance", "chancePercent");
+            SetEnumFirstExistingField(effect, data.triggerTargetType, "triggerTargetType");
+            SetEnumFirstExistingField(effect, data.statType, "statType", "targetStat", "stat");
+            SetEnumFirstExistingField(effect, data.modifierType, "valueType", "modifierType", "modifyType", "operationType");
+            SetFirstExistingField(effect, data.value, "value", "amount", "modifierValue");
+        }
+
+        private static void ApplyChanceOnHealCooldownReduceFields(
+            EffectSO effect,
+            EffectJson data)
+        {
+            SetFirstExistingField(effect, data.chance, "chance", "chancePercent");
+            SetEnumFirstExistingField(effect, data.triggerTargetType, "triggerTargetType");
+            SetEnumFirstExistingField(effect, data.reduceType, "reduceType");
+            SetFirstExistingField(effect, data.reducePercent, "reducePercent");
+            SetFirstExistingField(effect, data.reduceSeconds, "reduceSeconds");
         }
 
         private static void ApplyStatusFields(
@@ -382,6 +436,9 @@ namespace ResourceTools.Effect
         {
             SetFirstExistingField(effect, data.cooldownReduceValue, "cooldownReduceValue", "value", "amount");
             SetFirstExistingField(effect, data.cooldownReducePercent, "cooldownReducePercent", "isPercent", "usePercent");
+            SetEnumFirstExistingField(effect, data.reduceType, "reduceType");
+            SetFirstExistingField(effect, data.reducePercent, "reducePercent");
+            SetFirstExistingField(effect, data.reduceSeconds, "reduceSeconds");
         }
 
         private static void ApplyChanceOnHitSkillFields(
@@ -505,6 +562,14 @@ namespace ResourceTools.Effect
                 case "ChanceOnHitSkillEffect":
                     return "ChanceOnHitSkillEffectSO";
 
+                case "ChanceOnHealStatModifier":
+                case "ChanceOnHealStatModifierEffect":
+                    return "ChanceOnHealStatModifierEffectSO";
+
+                case "ChanceOnHealCooldownReduce":
+                case "ChanceOnHealCooldownReduceEffect":
+                    return "ChanceOnHealCooldownReduceEffectSO";
+
                 default:
                     return effectType;
             }
@@ -593,9 +658,18 @@ namespace ResourceTools.Effect
                     continue;
                 }
 
+                if (!Enum.TryParse(
+                        field.FieldType,
+                        enumValue,
+                        true,
+                        out object parsedValue))
+                {
+                    continue;
+                }
+
                 field.SetValue(
                     target,
-                    Enum.Parse(field.FieldType, enumValue, true));
+                    parsedValue);
                 return;
             }
         }

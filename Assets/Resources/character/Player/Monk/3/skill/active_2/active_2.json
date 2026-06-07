@@ -1,34 +1,35 @@
 {
   "equipmentId": "active_2",
   "slotName": "active_2",
-  "skillName": "active_2",
+  "skillName": "skill.monk.3.ten_tonic_soup",
   "iconName": "basic_attack",
   "baseProfile": {
-    "profileId": "projectile_basic_attack",
+    "profileId": "skill.monk.3.ten_tonic_soup.profile",
 
     "attackArchetype": "Melee",
 
     "projectilePrefabName": "projectile",
-    "projectileSpawnOffset": 0.5,
+    "projectileSpawnOffset": 0,
 
     "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileLifetime": 0.3,
+    "projectileSpreadAngle": 0,
+    "projectileScale": 6,
+    "projectileLifetime": 0.5,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
 
-    "category": "Attack",
-    "targetType": "Enemy",
-    "tacticalNeed": "None",
-    "basePriority": 0
+    "category": "Support",
+    "targetType": "Ally",
+    "tacticalNeed": "Buff",
+    "basePriority": 0.85
   },
   "cast": {
-    "castId": "basic_attack_cast",
+    "castId": "skill.monk.3.ten_tonic_soup.cast",
 
-    "cooldown": 3,
+    "cooldown": 22,
     "castTime": 0,
-    "range": 0.7,
+    "range": 999,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -36,74 +37,142 @@
     "castType": "Instant",
     "targetingType": "AutoTarget",
 
-    "canMoveWhileCasting": true,
-    "canCancelCasting": true,
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
     "autoCast": true
   },
   "move": {
-    "moveId": "basic_attack_move",
-    "moveType": "Linear",
-    "speed": 0.1,
+    "moveId": "skill.monk.3.ten_tonic_soup.move",
+    "moveType": "Warp",
+    "speed": 0,
+    "duration": 0.5,
     "arrivalThreshold": 0.01,
-    "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
-    "useHoverMotion": true,
-    "hoverAmplitude": 0.15,
-    "hoverFrequency": 2.5,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
     "hoverAxisX": 0,
     "hoverAxisY": 1,
     "endWhenOwnerMissing": true,
-    "orbitRadius": 1.5,
-    "orbitAngularSpeed": 180,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
     "clockwise": false,
     "spawnOrder": 0,
     "maxProjectileCount": 1,
     "resetPhaseWhenLayoutChanges": true,
-    "useRadialPulse": false,
-    "radialPulseAmplitude": 0,
-    "radialPulseFrequency": 0
+    "useRadialPulse": true,
+    "radialPulseAmplitude": 0.25,
+    "radialPulseFrequency": 4
   },
   "visualSet": {
-    "visualSetId": "basic_attack_visual",
-    "baseVisualId": "basic_attack_base_visual",
-    "impactVisualId": "basic_attack_impact_visual"
-  },
-  "hit": {
-    "hitId": "basic_attack_hit",
+    "visualSetId": "skill.monk.3.ten_tonic_soup.visual",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
-
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "hitDuration": 0.1,
-    "deactivateAfterFirstHit": false,
-
-    "targetLayerMask": "Enemy",
-
-    "damage": {
-      "skillId": "basic_attack_damage",
-      "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
-      "canCritical": false,
-      "ignoreDefense": false
+    "baseVisual": {
+      "visualId": "skill.monk.3.ten_tonic_soup.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "buff_aura_basic",
+      "animatorController": "buff_aura_animator",
+      "idleClip": "buff_aura_idle",
+      "castClip": "buff_aura_cast",
+      "attackClip": "buff_aura_attack",
+      "projectileLoopClip": "buff_aura_active",
+      "hitClip": "buff_aura_hit"
     },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+    "impactVisual": {
+      "visualId": "skill.monk.3.ten_tonic_soup.visual.impact",
+      "impactType": "Buff",
+      "element": "None",
+      "effectPrefab": "fx_buff_apply",
+      "sound": "sfx_buff_apply",
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+    "trailVisual": {
+      "trailId": "skill.monk.3.ten_tonic_soup.visual.trail",
+      "effectPrefab": "fx_buff_aura",
+      "followProjectile": true,
+      "duration": 0.5
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.monk.3.ten_tonic_soup.hit.party",
 
-    "useKnockback": false,
-    "knockbackForce": 0
-  }
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.5,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Party",
+
+      "damage": {},
+
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.monk.3.ten_tonic_soup.attack_speed_up",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 공격속도 증가",
+            "statType": "AttackSpeedPercent",
+            "valueType": "Percent",
+            "value": 20,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.monk.3.ten_tonic_soup.cooldown_reduce",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 쿨타임 감소",
+            "statType": "CooldownReduction",
+            "valueType": "Flat",
+            "value": 25,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.monk.3.ten_tonic_soup.defense_up",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 피해 감소",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
 }

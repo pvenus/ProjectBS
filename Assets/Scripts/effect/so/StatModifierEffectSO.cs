@@ -16,11 +16,4 @@ namespace Effect
 
         public float value;
     }
-
-    public enum StatModifierType
-    {
-        Flat = 0,
-        Percent = 100,
-        Multiply = 200,
-    }
 }

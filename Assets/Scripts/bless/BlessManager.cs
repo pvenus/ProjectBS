@@ -3,6 +3,7 @@ using System.Linq;
 using Shrine;
 using UnityEngine;
 using Effect;
+using Effect.Helper;
 using Character;
 
 namespace Bless
@@ -167,48 +168,23 @@ namespace Bless
                 CharacterManager targetCharacterManager =
                     ResolveCharacterManager(effectManager);
 
-                Effect.EffectRuntimeData runtimeEffect =
-                    CreateRuntimeEffect(
-                        effect,
-                        sourceType,
-                        sourceId,
-                        targetCharacterManager);
-
-                if (runtimeEffect == null)
+                if (targetCharacterManager == null)
                 {
                     continue;
                 }
 
-                effectManager.AddEffect(runtimeEffect);
-            }
-        }
-
-        private Effect.EffectRuntimeData CreateRuntimeEffect(
-            EffectSO effect,
-            EffectSourceType sourceType,
-            string sourceId,
-            CharacterManager targetCharacterManager)
-        {
-            if (effect == null)
-            {
-                return null;
-            }
-
-            if (effect is StatModifierEffectSO statModifierEffect)
-            {
-                if (targetCharacterManager == null)
-                {
-                    return null;
-                }
-
-                return new StatModifierEffectRuntime(
-                    statModifierEffect,
+                EffectApplyHelper.ApplyEffect(
+                    effectManager,
+                    targetCharacterManager,
+                    effect,
                     sourceType,
                     sourceId,
-                    targetCharacterManager);
+                    EffectLifetimeType.Manual,
+                    -1f,
+                    EffectCategoryType.Buff,
+                    ResolveEffectSourceTransform(effect, targetCharacterManager),
+                    Vector2.zero);
             }
-
-            return null;
         }
 
         private CharacterManager ResolveCharacterManager(
@@ -236,6 +212,20 @@ namespace Bless
             }
 
             return effectManager.GetComponentInChildren<CharacterManager>();
+        }
+
+        private Transform ResolveEffectSourceTransform(
+            EffectSO effect,
+            CharacterManager targetCharacterManager)
+        {
+            if (effect is KnockbackEffectSO)
+            {
+                return targetCharacterManager != null
+                    ? targetCharacterManager.transform
+                    : null;
+            }
+
+            return null;
         }
 
         private void RemoveEffectsFromEffectManagers(

@@ -67,36 +67,17 @@ namespace Effect
         private void OnEnable()
         {
             CharacterManager.OnAnyDamageApplied += HandleAnyDamageApplied;
+            CharacterManager.OnAnyHealed += HandleAnyHealed;
         }
 
         private void OnDisable()
         {
             CharacterManager.OnAnyDamageApplied -= HandleAnyDamageApplied;
+            CharacterManager.OnAnyHealed -= HandleAnyHealed;
         }
 
         public IReadOnlyList<EffectRuntimeData> ActiveEffects
             => activeEffects;
-
-        public void AddEffect(
-            EffectRuntimeData runtimeData)
-        {
-            AddEffect(
-                runtimeData,
-                EffectLifetimeType.Manual,
-                -1f);
-        }
-
-        public void AddInstantEffect(
-            EffectRuntimeData runtimeData,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral)
-        {
-            AddEffect(
-                runtimeData,
-                EffectLifetimeType.Instant,
-                -1f,
-                categoryType);
-        }
-
         public void AddEffect(
             EffectRuntimeData runtimeData,
             EffectLifetimeType lifetimeType,
@@ -503,6 +484,34 @@ namespace Effect
                     x.RuntimeId,
                     runtimeId,
                     System.StringComparison.Ordinal));
+        }
+
+        private void HandleAnyHealed(
+            CharacterManager healTarget,
+            float healAmount)
+        {
+            if (activeEffects == null || activeEffects.Count <= 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < activeEffects.Count; i++)
+            {
+                EffectRuntimeData runtimeData = activeEffects[i];
+
+                if (runtimeData == null || !runtimeData.IsActive)
+                {
+                    continue;
+                }
+
+                if (runtimeData is ChanceOnHealStatModifierEffectRuntime chanceOnHealStatModifierEffect)
+                {
+                    chanceOnHealStatModifierEffect.OnHeal(
+                        null,
+                        healTarget,
+                        healAmount);
+                }
+            }
         }
 
         private void HandleAnyDamageApplied(

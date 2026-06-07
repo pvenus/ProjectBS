@@ -13,6 +13,7 @@ namespace Character
         public static event Action<CharacterManager> OnAnyCharacterDied = delegate { };
         public static event Action<CharacterDamageRequest, CharacterDamageResult> OnAnyDamageApplied = delegate { };
         public static event Action<CharacterManager, CharacterManager, GoldDropService.Result> OnAnyGoldDropped = delegate { };
+        public static event Action<CharacterManager, float> OnAnyHealed = delegate { };
         [Header("Runtime")]
         [SerializeField] private CharacterRuntimeData runtimeData;
 
@@ -521,6 +522,10 @@ namespace Character
             }
 
             damageService.Heal(
+                this,
+                value);
+
+            OnAnyHealed?.Invoke(
                 this,
                 value);
         }

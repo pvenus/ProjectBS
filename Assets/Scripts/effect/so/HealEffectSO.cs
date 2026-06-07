@@ -14,9 +14,15 @@ namespace Effect
         public bool useMaxHpPercent = true;
 
         [Range(0f, 10f)]
-        public float maxHpPercent = 0.08f;
+        public float maxHpPercent = 0f;
 
         public float flatHealAmount;
+
+        [Header("Attack Scaling")]
+        public bool useAttackScaling;
+
+        [Range(0f, 20f)]
+        public float attackPercentHeal = 0f;
 
         public bool clampToMaxHp = true;
 

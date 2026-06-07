@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2e706464e6f4acebce40480a57e18d, type: 3}
+  m_Name: skill.monk.3.passive_1.blood_qi_circulation.on_any_ally_heal_cooldown_reduce_effect
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.ChanceOnHealCooldownReduceEffectSO
+  effectId: skill.monk.3.passive_1.blood_qi_circulation.on_any_ally_heal_cooldown_reduce_effect
+  effectName: "\uAE30\uD608 \uC21C\uD658 \uCFE8\uD0C0\uC784 \uC21C\uD658"
+  description: 
+  icon: {fileID: 0}
+  isPermanent: 0
+  allowDuplicate: 0
+  duration: -1
+  maxStack: 1
+  tags: []
+  chance: 1
+  triggerTargetType: 0
+  reduceType: 1
+  reducePercent: 0
+  reduceSeconds: 1

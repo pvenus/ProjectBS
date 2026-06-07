@@ -109,6 +109,9 @@ public class ProjectileMovement : MonoBehaviour
             return null;
         }
 
+        bool isWarpMovement =
+            moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp;
+
         bool useRuntimeTargetPosition =
             data.targetingType == TargetingType.AutoTargetDirection ||
             data.targetingType == TargetingType.Directional ||
@@ -126,7 +129,8 @@ public class ProjectileMovement : MonoBehaviour
             // direction-based or spread projectiles can converge to the same target point.
             moveDto.targetTransform = null;
 
-            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            if (!isWarpMovement &&
+                (moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
             {
                 moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
             }
@@ -139,7 +143,8 @@ public class ProjectileMovement : MonoBehaviour
                 moveDto.targetPosition = moveDto.targetTransform.position;
             }
 
-            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            if (!isWarpMovement &&
+                (moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
             {
                 moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
             }
@@ -149,7 +154,8 @@ public class ProjectileMovement : MonoBehaviour
             moveDto.targetTransform = null;
             // Do not overwrite moveDto.targetPosition from data.targetPosition here.
 
-            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            if (!isWarpMovement &&
+                (moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
             {
                 moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
             }

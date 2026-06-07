@@ -490,7 +490,11 @@ namespace Character
 
             if (AttackRecoveryDelay > 0f)
             {
-                yield return new WaitForSeconds(AttackRecoveryDelay);
+                float recoveryDelay =
+                    AttackRecoveryDelay /
+                    Mathf.Max(0.01f, attackSpeed);
+
+                yield return new WaitForSeconds(recoveryDelay);
             }
 
             _oneShotRoutine = null;
