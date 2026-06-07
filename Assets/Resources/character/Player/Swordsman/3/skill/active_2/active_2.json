@@ -131,21 +131,25 @@
       "buffEffects": [],
       "debuffEffects": [
         {
-          "effectId": "skill.swordsman.3.crane_wing_formation.enemy.move_speed_down",
-          "effectType": "StatModifier",
-          "statType": "MoveSpeed",
-          "valueType": "Percent",
-          "value": -35,
-          "duration": 1.1
+          "effect": {
+            "effectId": "skill.swordsman.3.crane_wing_formation.enemy.move_speed_down",
+            "effectType": "StatModifier",
+            "effectName": "학익진 이동속도 감소",
+            "statType": "MoveSpeed",
+            "valueType": "Percent",
+            "value": -35,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 1.1,
+          "maxApplyCount": 1
         }
       ],
 
       "useSplitMultiHitDamage": false,
       "splitHitCount": 1,
-      "splitHitInterval": 0,
-
-      "useKnockback": false,
-      "knockbackForce": 0
+      "splitHitInterval": 0
     },
     {
       "hitId": "skill.swordsman.3.crane_wing_formation.hit.ally",
@@ -173,21 +177,26 @@
 
       "buffEffects": [
         {
-          "effectId": "skill.swordsman.3.crane_wing_formation.ally.damage_reduction",
-          "effectType": "DamageTakenModifier",
-          "valueType": "Percent",
-          "value": -10,
-          "duration": 1.1
+          "effect": {
+            "effectId": "skill.swordsman.3.crane_wing_formation.ally.defense_up",
+            "effectType": "StatModifier",
+            "effectName": "학익진 방어 증가",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 1.1,
+          "maxApplyCount": 1
         }
       ],
       "debuffEffects": [],
 
       "useSplitMultiHitDamage": false,
       "splitHitCount": 1,
-      "splitHitInterval": 0,
-
-      "useKnockback": false,
-      "knockbackForce": 0
+      "splitHitInterval": 0
     }
   ]
 }

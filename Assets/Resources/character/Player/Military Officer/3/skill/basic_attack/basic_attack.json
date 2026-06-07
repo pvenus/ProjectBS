@@ -1,19 +1,19 @@
 {
   "equipmentId": "basic_attack",
   "slotName": "basic",
-  "skillName": "basic_attack",
+  "skillName": "skill.military_officer.3.basic_attack",
   "iconName": "basic_attack",
   "baseProfile": {
-    "profileId": "projectile_basic_attack",
+    "profileId": "skill.military_officer.3.basic_attack.profile",
 
     "attackArchetype": "Melee",
 
-    "projectilePrefabName": "projectile",
-    "projectileSpawnOffset": 0.5,
+    "projectilePrefabName": "melee_slash",
+    "projectileSpawnOffset": 1.0,
 
     "projectileCount": 1,
     "projectileScale": 1,
-    "projectileLifetime": 0.3,
+    "projectileLifetime": 0.2,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
@@ -24,11 +24,11 @@
     "basePriority": 0
   },
   "cast": {
-    "castId": "basic_attack_cast",
+    "castId": "skill.military_officer.3.basic_attack.cast",
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 0.7,
+    "range": 1.0,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -41,17 +41,17 @@
     "autoCast": true
   },
   "move": {
-    "moveId": "basic_attack_move",
-    "moveType": "Linear",
-    "speed": 0.1,
+    "moveId": "skill.military_officer.3.basic_attack.move",
+    "moveType": "FixedArea",
+    "speed": 0,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "rotationOffset": 0,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
-    "useHoverMotion": true,
+    "useHoverMotion": false,
     "hoverAmplitude": 0.15,
     "hoverFrequency": 2.5,
     "hoverAxisX": 0,
@@ -68,42 +68,69 @@
     "radialPulseFrequency": 0
   },
   "visualSet": {
-    "visualSetId": "basic_attack_visual",
-    "baseVisualId": "basic_attack_base_visual",
-    "impactVisualId": "basic_attack_impact_visual"
-  },
-  "hit": {
-    "hitId": "basic_attack_hit",
+    "visualSetId": "skill.military_officer.3.basic_attack.visual",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
-
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "hitDuration": 0.1,
-    "deactivateAfterFirstHit": false,
-
-    "targetLayerMask": "Enemy",
-
-    "damage": {
-      "skillId": "basic_attack_damage",
-      "damageType": "Normal",
-      "baseDamage": 10,
-      "attackPercentDamage": 1.0,
-      "canCritical": false,
-      "ignoreDefense": false
+    "baseVisual": {
+      "visualId": "skill.military_officer.3.basic_attack.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "melee_slash",
+      "projectileSprite": "slash_basic",
+      "animatorController": "slash_animator",
+      "idleClip": "slash_idle",
+      "castClip": "slash_cast",
+      "attackClip": "slash_attack",
+      "projectileLoopClip": "slash_active",
+      "hitClip": "slash_hit"
     },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+    "impactVisual": {
+      "visualId": "skill.military_officer.3.basic_attack.visual.impact",
+      "impactType": "Normal",
+      "element": "None",
+      "effectPrefab": "fx_slash_hit",
+      "sound": "sfx_slash_hit",
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+    "trailVisual": {
+      "trailId": "skill.military_officer.3.basic_attack.visual.trail",
+      "effectPrefab": "fx_slash_trail",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.military_officer.3.basic_attack.hit",
 
-    "useKnockback": false,
-    "knockbackForce": 0
-  }
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+
+      "targetLayerMask": "Enemy",
+
+      "damage": {
+        "skillId": "skill.military_officer.3.basic_attack.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "attackPercentDamage": 100,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 4,
+      "splitHitInterval": 0.1
+    }
+  ]
 }

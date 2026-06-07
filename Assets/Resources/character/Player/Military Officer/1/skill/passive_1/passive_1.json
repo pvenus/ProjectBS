@@ -1,0 +1,50 @@
+{
+  "equipmentId": "passive_1",
+  "slotName": "passive_1",
+  "skillName": "skill.military_officer.1.indomitable",
+  "iconName": "passive_1",
+  "baseProfile": {
+    "profileId": "skill.military_officer.1.indomitable.profile",
+    "skillType": "Passive",
+    "attackArchetype": "None",
+    "category": "None"
+  },
+  "hits": [
+    {
+      "hitId": "skill.military_officer.1.indomitable.hit",
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "effect_military_officer_1_indomitable_surrounded_attack",
+            "effectType": "StatModifier",
+            "effectName": "불퇴전 공격 증가",
+            "statType": "SurroundedAttackPercent",
+            "valueType": "Flat",
+            "value": 20,
+            "duration": -1
+          },
+          "lifetimeType": "Manual",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "effect_military_officer_1_indomitable_surrounded_damage_reduction",
+            "effectType": "StatModifier",
+            "effectName": "불퇴전 피해 감소",
+            "statType": "SurroundedDamageReductionPercent",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": -1
+          },
+          "lifetimeType": "Manual",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": []
+    }
+  ]
+}

@@ -30,16 +30,28 @@ namespace Skill.Service.Helper
 
         public static bool FireProjectiles(
             EquipmentSkillRuntimeData runtime,
-            ProjectileRuntimeData[] projectileDatas,
+            GameObject caster,
+            GameObject target,
+            Vector2 spawnPosition,
+            Vector2 direction,
             Vector2 targetPoint,
             bool usePoint)
         {
             ProjectileFactory factory = GetProjectileFactory();
 
-            if (factory == null || runtime == null)
+            if (factory == null || runtime == null || caster == null)
             {
                 return false;
             }
+
+            ProjectileRuntimeData[] projectileDatas =
+                skillResolver.ResolveProjectileRuntime(
+                    runtime,
+                    caster,
+                    target,
+                    spawnPosition,
+                    direction,
+                    targetPoint);
 
             if (projectileDatas == null || projectileDatas.Length == 0)
             {
@@ -62,9 +74,9 @@ namespace Skill.Service.Helper
                     projectileData.move.targetPosition = targetPoint;
                 }
 
-                ProjectileEntity projectilePrefab = ResolveProjectilePrefab(
-                    runtime,
-                    projectileData);
+                ProjectileEntity projectilePrefab = projectileData.projectilePrefab != null
+                    ? projectileData.projectilePrefab
+                    : runtime.projectilePrefab;
 
                 if (projectilePrefab == null)
                 {
@@ -148,24 +160,6 @@ namespace Skill.Service.Helper
 
         public static bool UseSkillProjectilesAndSelfEffects(
             EquipmentSkillRuntimeData runtime,
-            GameObject caster,
-            ProjectileRuntimeData[] projectileDatas,
-            Vector2 targetPoint,
-            bool usePoint)
-        {
-            ApplyCastSelfEffects(
-                runtime,
-                caster);
-
-            return FireProjectiles(
-                runtime,
-                projectileDatas,
-                targetPoint,
-                usePoint);
-        }
-
-        public static bool UseSkillProjectilesAndSelfEffects(
-            EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target,
             bool usePoint,
@@ -191,7 +185,11 @@ namespace Skill.Service.Helper
                 true,
                 resolvedTargetPoint);
 
-            return UseSkillProjectilesAndSelfEffects(
+            ApplyCastSelfEffects(
+                runtime,
+                caster.gameObject);
+
+            return FireProjectiles(
                 runtime,
                 caster.gameObject,
                 target != null ? target.gameObject : null,
@@ -201,38 +199,7 @@ namespace Skill.Service.Helper
                 usePoint);
         }
 
-        public static bool UseSkillProjectilesAndSelfEffects(
-            EquipmentSkillRuntimeData runtime,
-            GameObject caster,
-            GameObject target,
-            Vector2 spawnPosition,
-            Vector2 direction,
-            Vector2 targetPoint,
-            bool usePoint)
-        {
-            if (runtime == null || caster == null)
-            {
-                return false;
-            }
-
-            ProjectileRuntimeData[] projectileDatas =
-                skillResolver.ResolveProjectileRuntime(
-                    runtime,
-                    caster,
-                    target,
-                    spawnPosition,
-                    direction,
-                    targetPoint);
-
-            return UseSkillProjectilesAndSelfEffects(
-                runtime,
-                caster,
-                projectileDatas,
-                targetPoint,
-                usePoint);
-        }
-
-        private static Vector2 ResolveTargetPoint(
+        public static Vector2 ResolveTargetPoint(
             EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target,
@@ -273,7 +240,7 @@ namespace Skill.Service.Helper
                 : Vector2.zero;
         }
 
-        private static Vector2 ResolveDirection(
+        public static Vector2 ResolveDirection(
             Vector2 spawnPosition,
             Transform caster,
             Transform target,
@@ -304,20 +271,6 @@ namespace Skill.Service.Helper
             }
 
             return direction;
-        }
-
-        private static ProjectileEntity ResolveProjectilePrefab(
-            EquipmentSkillRuntimeData runtime,
-            ProjectileRuntimeData projectileData)
-        {
-            if (projectileData != null && projectileData.projectilePrefab != null)
-            {
-                return projectileData.projectilePrefab;
-            }
-
-            return runtime != null
-                ? runtime.projectilePrefab
-                : null;
         }
 
         private static EffectManager ResolveEffectManager(GameObject caster)

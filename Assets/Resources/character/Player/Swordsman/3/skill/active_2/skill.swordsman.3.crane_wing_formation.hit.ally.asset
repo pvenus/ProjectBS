@@ -25,14 +25,12 @@ MonoBehaviour:
   damageSo: {fileID: 11400000, guid: 52334a694bc754b10904e5413d9a62d9, type: 2}
   firstHitBaseDamage: 0
   buffEffects:
-  - effectSo: {fileID: 0}
-    lifetimeType: 4
-    categoryType: 0
+  - effectSo: {fileID: 11400000, guid: eeb0a1a6f33884eb59c69e8730891189, type: 2}
+    lifetimeType: 3
+    categoryType: 1
     duration: 1.1
     maxApplyCount: 1
   debuffEffects: []
   useSplitMultiHitDamage: 0
   splitHitCount: 1
   splitHitInterval: 0
-  useKnockback: 0
-  knockbackForce: 0

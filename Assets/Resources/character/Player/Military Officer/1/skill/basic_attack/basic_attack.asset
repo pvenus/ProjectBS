@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSkillSO
   equipmentId: basic_attack
   icon: {fileID: 0}
-  baseProfileSo: {fileID: 11400000, guid: 7f5bef65a737d45e48b603aa5e322bc5, type: 2}
-  castSo: {fileID: 11400000, guid: d7a9b098f907e4c6aa218ed0793e84f7, type: 2}
-  hitSo: {fileID: 11400000, guid: c41ff49f3caf44abcabb6d34dc31bf10, type: 2}
-  moveSo: {fileID: 11400000, guid: b5259cc52d1fc4f8bb01bb895c03e347, type: 2}
-  visualSetSo: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 8015db51f329641bc8266660c1ea35cd, type: 2}
+  castSo: {fileID: 11400000, guid: 323cd81b7777f43538b9db8374d32ce0, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 7967fe4a0522c472ba21cc8bcbd39e38, type: 2}
+  moveSo: {fileID: 11400000, guid: fda1c535ddde1457995e4f517b56401a, type: 2}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 11400000, guid: 17abf0e2f85c74a259f7e3f7fc12f0d7, type: 2}
