@@ -1,0 +1,202 @@
+{
+  "equipmentId": "active_2",
+  "slotName": "active_2",
+  "skillName": "skill.military_officer.2.crane_wing_formation",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "skill.military_officer.2.crane_wing_formation.profile",
+
+    "attackArchetype": "Melee",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0,
+
+    "projectileCount": 1,
+    "projectileSpreadAngle": 0,
+    "projectileScale": 3,
+    "projectileLifetime": 5,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+
+    "category": "Attack",
+    "targetType": "Point",
+    "tacticalNeed": "AreaControl",
+    "basePriority": 0.9
+  },
+  "cast": {
+    "castId": "skill.military_officer.2.crane_wing_formation.cast",
+
+    "cooldown": 18,
+    "castTime": 0,
+    "range": 0,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "Self",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "skill.military_officer.2.crane_wing_formation.move",
+    "moveType": "Hover",
+    "speed": 0,
+    "duration": 5,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0
+  },
+  "visualSet": {
+    "visualSetId": "skill.military_officer.2.crane_wing_formation.visual",
+
+    "baseVisual": {
+      "visualId": "skill.military_officer.2.crane_wing_formation.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "formation_circle_basic",
+      "animatorController": "formation_animator",
+      "idleClip": "formation_idle",
+      "castClip": "formation_cast",
+      "attackClip": "formation_attack",
+      "projectileLoopClip": "formation_loop",
+      "hitClip": "formation_hit"
+    },
+
+    "impactVisual": {
+      "visualId": "skill.military_officer.2.crane_wing_formation.visual.impact",
+      "impactType": "Hit",
+      "element": "None",
+      "effectPrefab": "fx_formation_hit",
+      "sound": "sfx_formation_hit",
+      "scale": 3.0,
+      "intensity": 1.0,
+      "duration": 0.4
+    },
+
+    "trailVisual": {
+      "trailId": "skill.military_officer.2.crane_wing_formation.visual.trail",
+      "effectPrefab": "fx_formation_trail",
+      "followProjectile": true,
+      "duration": 5
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.military_officer.2.crane_wing_formation.hit.enemy",
+
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": true,
+      "repeatInterval": 1,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 5,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Enemy",
+
+      "damage": {
+        "skillId": "skill.military_officer.2.crane_wing_formation.damage.enemy_dot",
+        "damageType": "Dot",
+        "baseDamage": 75,
+        "attackPercentDamage": 0.6,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.military_officer.2.crane_wing_formation.enemy.move_speed_down",
+            "effectType": "StatModifier",
+            "effectName": "학익진 이동속도 감소",
+            "statType": "MoveSpeed",
+            "valueType": "Percent",
+            "value": -25,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 1.1,
+          "maxApplyCount": 1
+        }
+      ],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    },
+    {
+      "hitId": "skill.military_officer.2.crane_wing_formation.hit.ally",
+
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": true,
+      "repeatInterval": 1,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 5,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Player",
+
+      "damage": {
+        "skillId": "skill.military_officer.2.crane_wing_formation.damage.none",
+        "damageType": "Normal",
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.military_officer.2.crane_wing_formation.ally.defense_up",
+            "effectType": "StatModifier",
+            "effectName": "학익진 방어 증가",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": 7,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 1.1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
+}

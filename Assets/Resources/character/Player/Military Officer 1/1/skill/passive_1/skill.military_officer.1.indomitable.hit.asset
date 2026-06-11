@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
+  m_Name: skill.military_officer.1.indomitable.hit
+  m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  maxHitCount: 0
+  ignoreSameRoot: 0
+  useRepeatInterval: 0
+  repeatInterval: 0
+  useHitWindow: 0
+  hitStartTime: 0
+  deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  damageSo: {fileID: 11400000, guid: 8e918042b94f24c17892d12a5a64552a, type: 2}
+  firstHitBaseDamage: 0
+  buffEffects:
+  - effectSo: {fileID: 11400000, guid: 78bddb993543749c39c489773a3d7f3a, type: 2}
+    lifetimeType: 1
+    categoryType: 1
+    duration: -1
+    maxApplyCount: 1
+  - effectSo: {fileID: 11400000, guid: 633b6a94587484f66aae05a7306e6c55, type: 2}
+    lifetimeType: 1
+    categoryType: 1
+    duration: -1
+    maxApplyCount: 1
+  debuffEffects: []
+  useSplitMultiHitDamage: 0
+  splitHitCount: 0
+  splitHitInterval: 0

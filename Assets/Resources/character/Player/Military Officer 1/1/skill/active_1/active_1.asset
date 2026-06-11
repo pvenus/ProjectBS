@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: active_1
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentSkillSO
+  equipmentId: active_1
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 95019c2ae612240cc913963330dcbca6, type: 2}
+  castSo: {fileID: 11400000, guid: d11c7febb80f948718f67fd1a95800f7, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: ab149cabc1f5a43f0b691b08871a6d84, type: 2}
+  moveSo: {fileID: 11400000, guid: 875fbec23e45543baae2eeb866c6767d, type: 2}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 11400000, guid: d66247f12d0fd4dcb91f5ba58813db26, type: 2}

@@ -1,0 +1,301 @@
+{
+  "equipmentId": "active_3",
+  "slotName": "active_3",
+  "skillName": "skill.military_officer.3.turtle_ship_assault",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "skill.military_officer.3.turtle_ship_assault.profile",
+
+    "attackArchetype": "Melee",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0.4,
+
+    "projectileCount": 2,
+    "projectileSpreadAngle": 0,
+    "projectileScale": 2.5,
+    "projectileLifetime": 4,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+
+    "category": "Attack",
+    "targetType": "Point",
+    "tacticalNeed": "AreaControl",
+    "basePriority": 1.0
+  },
+  "cast": {
+    "castId": "skill.military_officer.3.turtle_ship_assault.cast",
+
+    "cooldown": 32,
+    "castTime": 0,
+    "range": 12,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "AutoTargetDirection",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "skill.military_officer.3.turtle_ship_assault.move",
+    "moveType": "Linear",
+    "speed": 1,
+    "duration": 3,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0
+  },
+  "spawnSkill": {
+    "spawnSkillId": "skill.military_officer.3.turtle_ship_assault.spawn.cannon_zone",
+    "timing": "OnInterval",
+    "position": "ProjectilePosition",
+    "spawnCount": 4,
+    "spawnInterval": 0.8,
+    "skill": {
+      "equipmentId": "skill.military_officer.3.turtle_ship_cannon_zone",
+      "slotName": "spawn_child",
+      "skillName": "skill.military_officer.3.turtle_ship_cannon_zone",
+      "iconName": "basic_attack",
+      "baseProfile": {
+        "profileId": "skill.military_officer.3.turtle_ship_cannon_zone.profile",
+
+        "attackArchetype": "Melee",
+
+        "projectilePrefabName": "projectile",
+        "projectileSpawnOffset": 0,
+
+        "projectileCount": 1,
+        "projectileSpreadAngle": 0,
+        "projectileScale": 2.2,
+        "projectileLifetime": 4,
+
+        "projectileSpawnInterval": 0,
+        "projectileSpawnRadius": 0,
+
+        "category": "Attack",
+        "targetType": "Point",
+        "tacticalNeed": "AreaControl",
+        "basePriority": 0
+      },
+      "cast": {
+        "castId": "skill.military_officer.3.turtle_ship_cannon_zone.cast",
+
+        "cooldown": 0,
+        "castTime": 0,
+        "range": 0,
+
+        "burstCount": 1,
+        "burstInterval": 0,
+
+        "castType": "Instant",
+        "targetingType": "Position",
+
+        "canMoveWhileCasting": true,
+        "canCancelCasting": true,
+        "autoCast": false
+      },
+      "move": {
+        "moveId": "skill.military_officer.3.turtle_ship_cannon_zone.move",
+        "moveType": "Linear",
+        "speed": 0,
+        "duration": 4,
+        "arrivalThreshold": 0.01,
+        "applyDirectionRotation": false,
+        "rotationOffset": 0,
+        "followOffsetX": 0,
+        "followOffsetY": 0,
+        "followLerpSpeed": 12,
+        "snapOnInitialize": true,
+        "useHoverMotion": false,
+        "hoverAmplitude": 0,
+        "hoverFrequency": 0,
+        "hoverAxisX": 0,
+        "hoverAxisY": 1,
+        "endWhenOwnerMissing": false,
+        "orbitRadius": 0,
+        "orbitAngularSpeed": 0,
+        "clockwise": false,
+        "spawnOrder": 0,
+        "maxProjectileCount": 1,
+        "resetPhaseWhenLayoutChanges": true,
+        "useRadialPulse": false,
+        "radialPulseAmplitude": 0,
+        "radialPulseFrequency": 0
+      },
+      "visualSet": {
+        "visualSetId": "skill.military_officer.3.turtle_ship_cannon_zone.visual",
+
+        "baseVisual": {
+          "visualId": "skill.military_officer.3.turtle_ship_cannon_zone.visual.base",
+          "archetype": "Melee",
+          "projectilePrefab": "projectile",
+          "projectileSprite": "cannon_zone_basic",
+          "animatorController": "cannon_zone_animator",
+          "idleClip": "cannon_zone_idle",
+          "castClip": "cannon_zone_cast",
+          "attackClip": "cannon_zone_attack",
+          "projectileLoopClip": "cannon_zone_loop",
+          "hitClip": "cannon_zone_hit"
+        },
+
+        "impactVisual": {
+          "visualId": "skill.military_officer.3.turtle_ship_cannon_zone.visual.impact",
+          "impactType": "Hit",
+          "element": "None",
+          "effectPrefab": "fx_cannon_zone_hit",
+          "sound": "sfx_cannon_zone_hit",
+          "scale": 1.2,
+          "intensity": 1.0,
+          "duration": 0.4
+        },
+
+        "trailVisual": {
+          "trailId": "skill.military_officer.3.turtle_ship_cannon_zone.visual.trail",
+          "effectPrefab": "fx_cannon_zone_loop",
+          "followProjectile": true,
+          "duration": 4
+        }
+      },
+      "hits": [
+        {
+          "hitId": "skill.military_officer.3.turtle_ship_cannon_zone.hit.enemy",
+
+          "maxHitCount": 999,
+          "ignoreSameRoot": true,
+          "useRepeatInterval": true,
+          "repeatInterval": 1,
+
+          "useHitWindow": false,
+          "hitStartTime": 0,
+          "hitDuration": 4,
+          "deactivateAfterFirstHit": false,
+
+          "targetLayerMask": "Enemy",
+
+          "damage": {
+            "skillId": "skill.military_officer.3.turtle_ship_cannon_zone.damage",
+            "damageType": "Dot",
+            "baseDamage": 50,
+            "attackPercentDamage": 0.8,
+            "canCritical": false,
+            "ignoreDefense": false
+          },
+
+          "buffEffects": [],
+          "debuffEffects": [],
+
+          "useSplitMultiHitDamage": false,
+          "splitHitCount": 1,
+          "splitHitInterval": 0
+        }
+      ]
+    }
+  },
+  "visualSet": {
+    "visualSetId": "skill.military_officer.3.turtle_ship_assault.visual",
+
+    "baseVisual": {
+      "visualId": "skill.military_officer.3.turtle_ship_assault.visual.base",
+      "archetype": "Melee",
+      "projectilePrefab": "projectile",
+      "projectileSprite": "turtle_ship_basic",
+      "animatorController": "turtle_ship_animator",
+      "idleClip": "turtle_ship_idle",
+      "castClip": "turtle_ship_cast",
+      "attackClip": "turtle_ship_attack",
+      "projectileLoopClip": "turtle_ship_sail",
+      "hitClip": "turtle_ship_hit"
+    },
+
+    "impactVisual": {
+      "visualId": "skill.military_officer.3.turtle_ship_assault.visual.impact",
+      "impactType": "Hit",
+      "element": "None",
+      "effectPrefab": "fx_turtle_ship_hit",
+      "sound": "sfx_turtle_ship_hit",
+      "scale": 1.5,
+      "intensity": 1.2,
+      "duration": 0.5
+    },
+
+    "trailVisual": {
+      "trailId": "skill.military_officer.3.turtle_ship_assault.visual.trail",
+      "effectPrefab": "fx_turtle_ship_trail",
+      "followProjectile": true,
+      "duration": 3
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.military_officer.3.turtle_ship_assault.hit.enemy",
+
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 3,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Enemy",
+
+      "damage": {
+        "skillId": "skill.military_officer.3.turtle_ship_assault.damage",
+        "damageType": "Normal",
+        "baseDamage": 200,
+        "attackPercentDamage": 4.5,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.military_officer.3.turtle_ship_assault.enemy.defense_down",
+            "effectType": "StatModifier",
+            "effectName": "거북선 출정 방어 감소",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": -20,
+            "duration": 3
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 3,
+          "maxApplyCount": 1
+        }
+      ],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 1,
+      "splitHitInterval": 0
+    }
+  ]
+}
