@@ -1,5 +1,3 @@
-
-
 using Skill;
 
 namespace Character.Helper.Skill
@@ -32,12 +30,14 @@ namespace Character.Helper.Skill
         public static float GetCooldown(
             EquipmentSkillRuntimeData skillRuntime)
         {
-            if (skillRuntime == null || skillRuntime.castSo == null)
+            if (skillRuntime == null ||
+                skillRuntime.sourceEquipment == null ||
+                skillRuntime.sourceEquipment.CastSo == null)
             {
                 return 0f;
             }
 
-            return skillRuntime.castSo.Cooldown;
+            return skillRuntime.sourceEquipment.CastSo.Cooldown;
         }
     }
 }

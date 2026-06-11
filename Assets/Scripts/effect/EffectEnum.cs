@@ -26,4 +26,22 @@ namespace Effect
         Percent = 100,
         Multiply = 200,
     }
+
+    public enum EffectLifetimeType
+    {
+        Instant,
+        Manual,
+        CombatOnly,
+        Timed,
+        CombatTimed,
+        ConsumeOnBattleStart,
+        ConsumeOnBattleEnd
+    }
+
+    public enum EffectCategoryType
+    {
+        Neutral = 0,
+        Buff = 1,
+        Debuff = 2
+    }
 }

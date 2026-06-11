@@ -161,15 +161,28 @@ namespace Character.Skill
 
         private bool RequiresTarget(EquipmentSkillRuntimeData runtime)
         {
-            if (runtime == null || runtime.castSo == null)
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            if (castSo == null)
             {
                 return true;
             }
 
-            TargetingType targetingType = runtime.castSo.TargetingType;
+            TargetingType targetingType = castSo.TargetingType;
 
             return targetingType != TargetingType.None &&
                    targetingType != TargetingType.Self;
+        }
+
+        private SkillCastSO ResolveCastSo(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null || runtime.sourceEquipment == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.CastSo;
         }
 
         private AnimationMono ResolveAnimation(CharacterActionContext context)

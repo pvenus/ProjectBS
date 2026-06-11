@@ -39,6 +39,10 @@ namespace Character
                 GetComponent<SkillExecutorMono>()
                 ?? GetComponentInChildren<SkillExecutorMono>();
 
+            CharacterSkillManager skillManager =
+                GetComponent<CharacterSkillManager>()
+                ?? GetComponentInChildren<CharacterSkillManager>();
+
             AnimationMono animationMono =
                 GetComponent<AnimationMono>()
                 ?? GetComponentInChildren<AnimationMono>();
@@ -50,6 +54,7 @@ namespace Character
                 CharacterManager = GetComponent<CharacterManager>(),
                 StateManager = this,
                 SkillExecutor = skillExecutor,
+                SkillManager = skillManager,
                 MovementController = movementController,
                 MovementExecutionService = new CharacterMovementExecutionService(),
                 AnimationMono = animationMono
@@ -67,7 +72,7 @@ namespace Character
                 return;
             }
 
-            if (characterManager.RuntimeData.characterSO.characterType == CharacterType.Player)
+            if (characterManager.RuntimeData.characterSO.CharacterType == CharacterType.Player)
             {
                 _context.SkillExecutor?.SetManualExecutionMode(true);
             }
@@ -75,7 +80,7 @@ namespace Character
 
         private void Update()
         {
-            if (_context.CharacterManager?.RuntimeData.characterSO.characterType != CharacterType.Player)            
+            if (_context.CharacterManager?.RuntimeData.characterSO.CharacterType != CharacterType.Player)
             {
                 return;
             }
@@ -113,6 +118,15 @@ namespace Character
 
             if (nextState == null)
             {
+                return;
+            }
+
+            if (_context.SkillManager != null &&
+                _context.SkillManager.IsSkillExecuting &&
+                _currentState != null)
+            {
+                LogStateMessage(
+                    $"Decision blocked: skill executing Current={GetStateName(_currentState)}");
                 return;
             }
 

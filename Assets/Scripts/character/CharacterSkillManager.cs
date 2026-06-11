@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Skill;
 using Character.Runtime.Skill;
+using Character.Skill;
 using Effect;
 using Effect.Helper;
-namespace Character.Skill
+
+namespace Character
 {
     /// <summary>
     /// Character skill selection / cooldown manager.
@@ -26,6 +28,10 @@ namespace Character.Skill
         private readonly ActiveSkillService skillService = new();
         private readonly PassiveSkillService passiveSkillService = new();
         private readonly CastMoveService castMoveService = new();
+
+        private int skillExecutionLockCount;
+
+        public bool IsSkillExecuting => skillExecutionLockCount > 0;
 
         public CharacterSkillRuntimeData SkillRuntimeData => skillRuntimeData;
         public SkillPoolRuntimeData SkillPool => skillRuntimeData?.skillPool;
@@ -55,14 +61,18 @@ namespace Character.Skill
 
             SkillPoolRuntimeData skillPool = new SkillPoolRuntimeData();
 
-            if (characterSO == null || characterSO.skillOverrideSet == null)
+            SkillPoolOverrideSO skillOverrideSet = characterSO != null
+                ? characterSO.SkillOverrideSet
+                : null;
+
+            if (skillOverrideSet == null)
             {
                 return;
             }
 
-            for (int i = 0; i < characterSO.skillOverrideSet.overrides.Count; i++)
+            for (int i = 0; i < skillOverrideSet.overrides.Count; i++)
             {
-                SkillPoolOverrideEntry entry = characterSO.skillOverrideSet.overrides[i];
+                SkillPoolOverrideEntry entry = skillOverrideSet.overrides[i];
                 if (entry == null || entry.skillSo == null)
                 {
                     continue;
@@ -113,21 +123,42 @@ namespace Character.Skill
             return null;
         }
 
+        public void BeginSkillExecution()
+        {
+            skillExecutionLockCount++;
+        }
+
+        public void EndSkillExecution()
+        {
+            skillExecutionLockCount = Mathf.Max(
+                0,
+                skillExecutionLockCount - 1);
+        }
+
         public bool FireSkill(
             EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target)
         {
+            BeginSkillExecution();
+
             TryStartCastMove(
                 runtime,
                 caster,
                 target);
 
-            return skillService.FireSkill(
+            bool started = skillService.FireSkill(
                 this,
                 runtime,
                 caster,
                 target);
+
+            if (!started)
+            {
+                EndSkillExecution();
+            }
+
+            return started;
         }
 
         private void TryStartCastMove(
@@ -135,7 +166,7 @@ namespace Character.Skill
             Transform caster,
             Transform target)
         {
-            SkillCastMoveSO castMoveSo = runtime?.castSo?.CastMove;
+            SkillCastMoveSO castMoveSo = ResolveCastMoveSo(runtime);
 
             if (castMoveSo == null || !castMoveSo.HasMove)
             {
@@ -156,6 +187,19 @@ namespace Character.Skill
                 target,
                 castDirection,
                 castMoveSo);
+        }
+
+        private SkillCastMoveSO ResolveCastMoveSo(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null ||
+                runtime.sourceEquipment == null ||
+                runtime.sourceEquipment.CastSo == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.CastSo.CastMove;
         }
 
         private Vector2 ResolveCastDirection(

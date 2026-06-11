@@ -140,14 +140,14 @@ namespace Character
             runtimeData.stats.Clear();
             runtimeData.finalStats.Clear();
 
-            if (characterSO.baseStats != null)
+            if (characterSO.BaseStats != null)
             {
                 for (int i = 0;
-                     i < characterSO.baseStats.Count;
+                     i < characterSO.BaseStats.Count;
                      i++)
                 {
                     StatEntry entry =
-                        characterSO.baseStats[i];
+                        characterSO.BaseStats[i];
 
                     if (entry == null)
                     {
@@ -203,7 +203,7 @@ namespace Character
 
         private void ApplyAnimationOverride(CharacterSO characterSO)
         {
-            if (characterSO == null || characterSO.animationOverrideSet == null)
+            if (characterSO == null || characterSO.AnimationOverrideSet == null)
             {
                 return;
             }
@@ -222,12 +222,12 @@ namespace Character
                 return;
             }
 
-            animationMono.OverrideClipSet(characterSO.animationOverrideSet);
+            animationMono.OverrideClipSet(characterSO.AnimationOverrideSet);
         }
 
         private void ApplySkillOverride(CharacterSO characterSO)
         {
-            if (characterSO == null || characterSO.skillOverrideSet == null)
+            if (characterSO == null || characterSO.SkillOverrideSet == null)
             {
                 return;
             }
@@ -246,7 +246,7 @@ namespace Character
                 return;
             }
 
-            skillLoadout.ApplyOverride(characterSO.skillOverrideSet);
+            skillLoadout.ApplyOverride(characterSO.SkillOverrideSet);
         }
 
         private void InitializeSkillManager(CharacterSO characterSO)

@@ -238,6 +238,104 @@ public class ProjectileFactory
             return Vector2.zero;
         }
 
+        ProjectileArrangementType arrangement =
+            ResolveProjectileArrangement(source);
+
+        switch (arrangement)
+        {
+            case ProjectileArrangementType.Line:
+                return ResolveLineSpawnPosition(
+                    source,
+                    spawnOrder);
+
+            case ProjectileArrangementType.Circle:
+                return ResolveCircleSpawnPosition(
+                    source,
+                    spawnOrder);
+
+            case ProjectileArrangementType.Spread:
+            case ProjectileArrangementType.Single:
+            default:
+                return ResolveLegacyRadiusSpawnPosition(
+                    source,
+                    spawnOrder);
+        }
+    }
+
+    private Vector2 ResolveLineSpawnPosition(
+        ProjectileRuntimeData source,
+        int spawnOrder)
+    {
+        if (source == null)
+        {
+            return Vector2.zero;
+        }
+
+        int count = Mathf.Max(1, source.projectileCount);
+        float spacing = ResolveArrangementValue(source);
+
+        if (count <= 1 || spacing <= 0f)
+        {
+            return source.spawnPosition;
+        }
+
+        Vector2 direction =
+            source.direction.sqrMagnitude <= 0.0001f
+                ? Vector2.right
+                : source.direction.normalized;
+
+        Vector2 perpendicular =
+            new Vector2(-direction.y, direction.x);
+
+        int safeOrder = Mathf.Clamp(
+            spawnOrder,
+            0,
+            count - 1);
+
+        float centerOffset = (count - 1) * 0.5f;
+        float offset = (safeOrder - centerOffset) * spacing;
+
+        return source.spawnPosition + perpendicular * offset;
+    }
+
+    private Vector2 ResolveCircleSpawnPosition(
+        ProjectileRuntimeData source,
+        int spawnOrder)
+    {
+        if (source == null)
+        {
+            return Vector2.zero;
+        }
+
+        float radius = ResolveArrangementValue(source);
+
+        if (radius <= 0f)
+        {
+            radius = Mathf.Max(0f, source.projectileSpawnRadius);
+        }
+
+        int count = Mathf.Max(1, source.projectileCount);
+
+        if (radius <= 0f || count <= 1)
+        {
+            return source.spawnPosition;
+        }
+
+        float angle = 360f / count * Mathf.Clamp(spawnOrder, 0, count - 1);
+        Vector2 direction = DirectionFromAngle(angle);
+
+        return source.spawnPosition + direction * radius;
+    }
+
+    private Vector2 ResolveLegacyRadiusSpawnPosition(
+        ProjectileRuntimeData source,
+        int spawnOrder)
+    {
+        if (source == null)
+        {
+            return Vector2.zero;
+        }
+
         float radius = Mathf.Max(0f, source.projectileSpawnRadius);
         int count = Mathf.Max(1, source.projectileCount);
 
@@ -257,6 +355,17 @@ public class ProjectileFactory
             positions.Length - 1);
 
         return positions[index];
+    }
+
+    private float ResolveArrangementValue(
+        ProjectileRuntimeData source)
+    {
+        if (source == null)
+        {
+            return 0f;
+        }
+
+        return Mathf.Max(0f, source.projectileArrangementValue);
     }
 
     private Vector2[] BuildRandomRadiusPatternPositions(
@@ -393,24 +502,88 @@ public class ProjectileFactory
             return -baseDirection;
         }
 
+        ProjectileArrangementType arrangement =
+            ResolveProjectileArrangement(source);
+
+        switch (arrangement)
+        {
+            case ProjectileArrangementType.Spread:
+                return ResolveSpreadProjectileDirection(
+                    baseDirection,
+                    source,
+                    spawnOrder);
+
+            case ProjectileArrangementType.Line:
+            case ProjectileArrangementType.Circle:
+            case ProjectileArrangementType.Single:
+            default:
+                return baseDirection;
+        }
+    }
+
+    private ProjectileArrangementType ResolveProjectileArrangement(
+        ProjectileRuntimeData source)
+    {
+        if (source == null)
+        {
+            return ProjectileArrangementType.Single;
+        }
+
+        if (source.projectileArrangement != ProjectileArrangementType.Single)
+        {
+            return source.projectileArrangement;
+        }
+
         int projectileCount = Mathf.Max(1, source.projectileCount);
         float spreadAngle = Mathf.Max(0f, source.projectileSpreadAngle);
+
+        if (projectileCount > 1 && spreadAngle > 0f)
+        {
+            return ProjectileArrangementType.Spread;
+        }
+
+        return ProjectileArrangementType.Single;
+    }
+
+    private Vector2 ResolveSpreadProjectileDirection(
+        Vector2 baseDirection,
+        ProjectileRuntimeData source,
+        int spawnOrder)
+    {
+        int projectileCount = Mathf.Max(1, source.projectileCount);
+        float spreadAngle = ResolveSpreadAngle(source);
 
         if (projectileCount <= 1 || spreadAngle <= 0f)
         {
             return baseDirection;
         }
 
-        float step =
-            spreadAngle / Mathf.Max(1, projectileCount - 1);
-
-        float startAngle =
-            -spreadAngle * 0.5f;
-
-        float angle =
-            startAngle + step * spawnOrder;
+        float angle = EvaluateSpreadAngle(
+            spawnOrder,
+            projectileCount,
+            spreadAngle);
 
         return RotateDirection(baseDirection, angle);
+    }
+
+    private float ResolveSpreadAngle(
+        ProjectileRuntimeData source)
+    {
+        if (source == null)
+        {
+            return 0f;
+        }
+
+        if (source.projectileArrangement == ProjectileArrangementType.Spread &&
+            source.projectileArrangementValue > 0f)
+        {
+            int projectileCount = Mathf.Max(1, source.projectileCount);
+
+            return source.projectileArrangementValue *
+                   Mathf.Max(0, projectileCount - 1);
+        }
+
+        return Mathf.Max(0f, source.projectileSpreadAngle);
     }
 
     private Vector2 RotateDirection(
@@ -443,6 +616,8 @@ public class ProjectileFactory
 
             projectileCount = source.projectileCount,
             projectileSpreadAngle = source.projectileSpreadAngle,
+            projectileArrangement = source.projectileArrangement,
+            projectileArrangementValue = source.projectileArrangementValue,
             projectileScale = source.projectileScale,
             spawnOrder = spawnOrder,
             projectileSpawnInterval = source.projectileSpawnInterval,

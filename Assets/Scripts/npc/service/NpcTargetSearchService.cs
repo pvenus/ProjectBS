@@ -61,7 +61,7 @@ namespace Npc.Service
                         continue;
                     }
 
-                    if (member.RuntimeData == null || member.RuntimeData.characterSO == null || member.RuntimeData.characterSO.characterType != CharacterType.Player)
+                    if (member.RuntimeData == null || member.RuntimeData.characterSO == null || member.RuntimeData.characterSO.CharacterType != CharacterType.Player)
                     {
                         continue;
                     }

@@ -115,8 +115,11 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
+        GameObject prefab = ResolveCharacterPrefab(entry: null);
         SpawnMonsterEntry entry = PickMonsterEntry(phase);
-        if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
+        prefab = ResolveCharacterPrefab(entry);
+
+        if (entry == null || entry.characterSo == null || prefab == null)
         {
             return false;
         }
@@ -132,7 +135,7 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
-        GameObject spawned = Instantiate(entry.characterSo.prefab, spawnPos, Quaternion.identity);
+        GameObject spawned = Instantiate(prefab, spawnPos, Quaternion.identity);
         if (spawned == null)
         {
             return false;
@@ -294,6 +297,17 @@ public class NpcSpawnerMono : MonoBehaviour
         return aliveList.Count;
     }
 
+    private GameObject ResolveCharacterPrefab(
+        SpawnMonsterEntry entry)
+    {
+        if (entry == null || entry.characterSo == null)
+        {
+            return null;
+        }
+
+        return entry.characterSo.ResolvePrefab();
+    }
+
     private SpawnMonsterEntry PickMonsterEntry(SpawnPhase phase)
     {
         if (phase == null || phase.monsters == null || phase.monsters.Count == 0)
@@ -305,7 +319,7 @@ public class NpcSpawnerMono : MonoBehaviour
         for (int i = 0; i < phase.monsters.Count; i++)
         {
             SpawnMonsterEntry entry = phase.monsters[i];
-            if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
+            if (entry == null || entry.characterSo == null || ResolveCharacterPrefab(entry) == null)
             {
                 continue;
             }
@@ -324,7 +338,7 @@ public class NpcSpawnerMono : MonoBehaviour
         for (int i = 0; i < phase.monsters.Count; i++)
         {
             SpawnMonsterEntry entry = phase.monsters[i];
-            if (entry == null || entry.characterSo == null || entry.characterSo.prefab == null)
+            if (entry == null || entry.characterSo == null || ResolveCharacterPrefab(entry) == null)
             {
                 continue;
             }

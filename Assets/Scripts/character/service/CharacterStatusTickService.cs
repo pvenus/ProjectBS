@@ -435,7 +435,7 @@ namespace Character.Service
 
             Vector3 position = source.transform.position;
             CharacterType sourceType =
-                source.RuntimeData.characterSO.characterType;
+                source.RuntimeData.characterSO.CharacterType;
 
             int enemyCount = 0;
 
@@ -457,7 +457,7 @@ namespace Character.Service
 
                 if (!IsEnemyCharacterType(
                         sourceType,
-                        target.RuntimeData.characterSO.characterType))
+                        target.RuntimeData.characterSO.CharacterType))
                 {
                     continue;
                 }
@@ -519,7 +519,7 @@ namespace Character.Service
                     continue;
                 }
 
-                if (target.RuntimeData.characterSO.characterType
+                if (target.RuntimeData.characterSO.CharacterType
                     != CharacterType.Boss)
                 {
                     continue;

@@ -12,13 +12,6 @@ namespace Character
         public CharacterSO characterSO;
 
         [Header("Progression")]
-        public int level = 1;
-
-        public int exp;
-
-        [Header("Current State")]
-        public float currentHp;
-
         public bool isDead;
 
         [Header("Runtime Stats")]

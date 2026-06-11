@@ -4,23 +4,6 @@ using Character;
 
 namespace Effect
 {
-    public enum EffectLifetimeType
-    {
-        Instant,
-        Manual,
-        CombatOnly,
-        Timed,
-        CombatTimed,
-        ConsumeOnBattleStart,
-        ConsumeOnBattleEnd
-    }
-
-    public enum EffectCategoryType
-    {
-        Neutral = 0,
-        Buff = 1,
-        Debuff = 2
-    }
 
     [System.Serializable]
     public class EffectLifetimeData

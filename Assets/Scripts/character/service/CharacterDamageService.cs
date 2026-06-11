@@ -599,7 +599,7 @@ namespace Character
                 return baseDamage;
             }
 
-            if (targetManager.RuntimeData.characterSO.characterType != CharacterType.Boss)
+            if (targetManager.RuntimeData.characterSO.CharacterType != CharacterType.Boss)
             {
                 return baseDamage;
             }

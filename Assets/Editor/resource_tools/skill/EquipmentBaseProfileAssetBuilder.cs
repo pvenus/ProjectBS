@@ -11,6 +11,7 @@ namespace ResourceTools.Skill
     {
         public string profileId;
         public string skillType;
+        public string effectType;
 
         public string attackArchetype;
         public bool skipAttackAnimation;
@@ -19,6 +20,8 @@ namespace ResourceTools.Skill
         public float projectileSpawnOffset;
 
         public int projectileCount;
+        public string projectileArrangement;
+        public float projectileArrangementValue;
         public float projectileSpreadAngle;
         public float projectileScale;
         public float projectileLifetime;
@@ -97,12 +100,12 @@ namespace ResourceTools.Skill
         {
             SerializedObject serializedObject = new SerializedObject(profile);
 
-            SetString(serializedObject, "profileId", json.profileId);
             SetString(serializedObject, "skillType", json.skillType);
+            SetString(serializedObject, "effectType", json.effectType);
             SetString(serializedObject, "attackArchetype", json.attackArchetype);
             SetBool(serializedObject, "skipAttackAnimation", json.skipAttackAnimation);
 
-            SetString(serializedObject, "projectilePrefabName", json.projectilePrefabName);
+            // SetString(serializedObject, "projectilePrefabName", json.projectilePrefabName);
             SetObjectReference(
                 serializedObject,
                 "projectilePrefab",
@@ -110,6 +113,8 @@ namespace ResourceTools.Skill
 
             SetFloat(serializedObject, "projectileSpawnOffset", json.projectileSpawnOffset);
             SetInt(serializedObject, "projectileCount", json.projectileCount);
+            SetString(serializedObject, "projectileArrangement", json.projectileArrangement);
+            SetFloat(serializedObject, "projectileArrangementValue", json.projectileArrangementValue);
             SetFloat(serializedObject, "projectileSpreadAngle", json.projectileSpreadAngle);
             SetFloat(serializedObject, "projectileScale", json.projectileScale);
             SetFloat(serializedObject, "projectileLifetime", json.projectileLifetime);
@@ -133,8 +138,8 @@ namespace ResourceTools.Skill
 
             if (property == null)
             {
-                Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-                return;
+                throw new InvalidOperationException(
+                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
             }
 
             if (property.propertyType == SerializedPropertyType.String)
@@ -149,7 +154,8 @@ namespace ResourceTools.Skill
                 return;
             }
 
-            Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Property is not string or enum: {propertyName} type={property.propertyType}");
+            throw new InvalidOperationException(
+                $"[EquipmentBaseProfileAssetBuilder] Property is not string or enum: {propertyName} type={property.propertyType}");
         }
 
         private static void SetEnum(
@@ -177,7 +183,8 @@ namespace ResourceTools.Skill
                 }
             }
 
-            Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Enum value not found. property={propertyName} value={value}");
+            throw new InvalidOperationException(
+                $"[EquipmentBaseProfileAssetBuilder] Enum value not found. property={propertyName} value={value}");
         }
 
         private static void SetBool(
@@ -189,8 +196,8 @@ namespace ResourceTools.Skill
 
             if (property == null)
             {
-                Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-                return;
+                throw new InvalidOperationException(
+                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
             }
 
             property.boolValue = value;
@@ -205,8 +212,8 @@ namespace ResourceTools.Skill
 
             if (property == null)
             {
-                Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-                return;
+                throw new InvalidOperationException(
+                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
             }
 
             property.intValue = value;
@@ -221,8 +228,8 @@ namespace ResourceTools.Skill
 
             if (property == null)
             {
-                Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-                return;
+                throw new InvalidOperationException(
+                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
             }
 
             property.floatValue = value;
@@ -237,8 +244,8 @@ namespace ResourceTools.Skill
 
             if (property == null)
             {
-                Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-                return;
+                throw new InvalidOperationException(
+                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
             }
 
             property.objectReferenceValue = value;

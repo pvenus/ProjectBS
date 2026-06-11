@@ -378,8 +378,8 @@ namespace Skill
                 return true;
             }
 
-            return ownerCharacter.RuntimeData.characterSO.characterType
-                != candidate.RuntimeData.characterSO.characterType;
+            return ownerCharacter.RuntimeData.characterSO.CharacterType
+                != candidate.RuntimeData.characterSO.CharacterType;
         }
 
         private CharacterManager ResolveCharacterManager(Transform target)

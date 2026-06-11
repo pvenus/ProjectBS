@@ -5,6 +5,7 @@ public enum BattleSkillCategory
 {
     None,
     Attack,
+    Support,
     Defense,
     Heal,
     Control,

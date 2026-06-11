@@ -1,3 +1,4 @@
+using System.Collections;
 using Character;
 using Effect;
 using Effect.Helper;
@@ -6,6 +7,22 @@ using UnityEngine;
 
 namespace Skill.Service.Helper
 {
+    public sealed class SkillUseContext
+    {
+        public EquipmentSkillRuntimeData Runtime { get; set; }
+        public Transform Caster { get; set; }
+        public Transform Target { get; set; }
+        public bool UsePoint { get; set; }
+        public Vector2 TargetPoint { get; set; }
+        public MonoBehaviour CoroutineRunner { get; set; }
+
+        public GameObject CasterObject =>
+            Caster != null ? Caster.gameObject : null;
+
+        public GameObject TargetObject =>
+            Target != null ? Target.gameObject : null;
+    }
+
     /// <summary>
     /// 스킬 사용 시 공통 실행 로직을 모은 헬퍼.
     ///
@@ -27,6 +44,322 @@ namespace Skill.Service.Helper
 
             return projectileFactory;
         }
+
+        public static bool UseSkill(
+            SkillUseContext context)
+        {
+            if (context == null ||
+                context.Runtime == null ||
+                context.Caster == null)
+            {
+                return false;
+            }
+
+            switch (ResolveEffectType(context.Runtime))
+            {
+                case EffectType.Spawn:
+                    return UseSpawnSkillAndSelfEffects(context);
+
+                case EffectType.Projectile:
+                default:
+                    return UseProjectileSkillAndSelfEffects(context);
+            }
+        }
+
+        private static EffectType ResolveEffectType(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null ||
+                runtime.sourceEquipment == null ||
+                runtime.sourceEquipment.BaseProfileSo == null)
+            {
+                return EffectType.Projectile;
+            }
+
+            return runtime.sourceEquipment.BaseProfileSo.EffectType;
+        }
+
+        private static bool UseProjectileSkillAndSelfEffects(
+            SkillUseContext context)
+        {
+            return UseSkillProjectilesAndSelfEffects(
+                context.Runtime,
+                context.Caster,
+                context.Target,
+                context.UsePoint,
+                context.TargetPoint);
+        }
+
+        private static bool UseSpawnSkillAndSelfEffects(
+            SkillUseContext context)
+        {
+            ApplyCastSelfEffects(
+                context.Runtime,
+                context.CasterObject);
+
+            if (context == null ||
+                context.Runtime == null ||
+                context.Runtime.sourceEquipment == null ||
+                context.Caster == null ||
+                context.Runtime.sourceEquipment.SpawnSkillSo == null)
+            {
+                return false;
+            }
+            SpawnSkillSO spawnSkill = ResolveSpawnSkill(context.Runtime);
+            GameObject prefab = ResolveSpawnPrefab(spawnSkill);
+
+            if (prefab == null)
+            {
+                Debug.LogWarning(
+                    "[SkillUseHelper] Spawn prefab is missing.");
+                return false;
+            }
+
+            if (context.CoroutineRunner == null)
+            {
+                return UseSpawnSkillImmediately(context);
+            }
+
+            context.CoroutineRunner.StartCoroutine(
+                UseSpawnSkillRoutine(context));
+
+            return true;
+        }
+
+        private static IEnumerator UseSpawnSkillRoutine(
+            SkillUseContext context)
+        {
+            if (context == null ||
+                context.Runtime == null ||
+                context.Caster == null)
+            {
+                yield break;
+            }
+
+            SpawnSkillSO spawnSkill = ResolveSpawnSkill(context.Runtime);
+            int spawnCount = ResolveSpawnCount(spawnSkill);
+            float spawnInterval = ResolveSpawnInterval(spawnSkill);
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                SpawnOneCharacter(
+                    context,
+                    spawnSkill,
+                    i,
+                    spawnCount);
+
+                if (i < spawnCount - 1 && spawnInterval > 0f)
+                {
+                    yield return new WaitForSeconds(spawnInterval);
+                }
+            }
+        }
+
+        private static bool UseSpawnSkillImmediately(
+            SkillUseContext context)
+        {
+            if (context == null ||
+                context.Runtime == null ||
+                context.Caster == null)
+            {
+                return false;
+            }
+
+            SpawnSkillSO spawnSkill = ResolveSpawnSkill(context.Runtime);
+            int spawnCount = ResolveSpawnCount(spawnSkill);
+            bool spawnedAny = false;
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                spawnedAny = SpawnOneCharacter(
+                    context,
+                    spawnSkill,
+                    i,
+                    spawnCount) || spawnedAny;
+            }
+
+            return spawnedAny;
+        }
+
+        private static bool SpawnOneCharacter(
+            SkillUseContext context,
+            SpawnSkillSO spawnSkill,
+            int index,
+            int count)
+        {
+            if (context == null ||
+                context.Caster == null ||
+                spawnSkill == null)
+            {
+                return false;
+            }
+
+            CharacterSO characterSo = ResolveSpawnCharacterSo(spawnSkill);
+            GameObject prefab = ResolveSpawnPrefab(spawnSkill);
+
+            if (prefab == null)
+            {
+                return false;
+            }
+
+            float duration = ResolveSpawnDuration(spawnSkill);
+            float spawnRadius = ResolveSpawnRadius(spawnSkill);
+
+            Vector3 spawnPosition = ResolveSpawnPosition(
+                context.Caster.position,
+                index,
+                count,
+                spawnRadius);
+
+            GameObject spawnedObject = Object.Instantiate(
+                prefab,
+                spawnPosition,
+                context.Caster.rotation);
+
+            if (spawnedObject == null)
+            {
+                return false;
+            }
+
+            CharacterManager spawnedCharacter = ResolveCharacterManager(
+                spawnedObject);
+
+            InitializeSpawnedCharacter(
+                spawnedCharacter,
+                characterSo);
+
+            if (IsCharacterSpawn(spawnSkill) && duration > 0f)
+            {
+                Object.Destroy(
+                    spawnedObject,
+                    duration);
+            }
+
+            return true;
+        }
+
+        private static SpawnSkillSO ResolveSpawnSkill(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null ||
+                runtime.sourceEquipment == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.SpawnSkillSo;
+        }
+
+        private static CharacterSO ResolveSpawnCharacterSo(
+            SpawnSkillSO spawnSkill)
+        {
+            if (spawnSkill == null)
+            {
+                return null;
+            }
+
+            return spawnSkill.CharacterSO;
+        }
+
+        private static GameObject ResolveSpawnPrefab(
+            SpawnSkillSO spawnSkill)
+        {
+            CharacterSO characterSo = ResolveSpawnCharacterSo(spawnSkill);
+
+            if (characterSo == null)
+            {
+                return null;
+            }
+
+            return characterSo.ResolvePrefab();
+        }
+
+        private static int ResolveSpawnCount(
+            SpawnSkillSO spawnSkill)
+        {
+            if (spawnSkill == null)
+            {
+                return 1;
+            }
+
+            return Mathf.Max(
+                1,
+                spawnSkill.SpawnCount);
+        }
+
+        private static float ResolveSpawnInterval(
+            SpawnSkillSO spawnSkill)
+        {
+            if (spawnSkill == null)
+            {
+                return 0f;
+            }
+
+            return Mathf.Max(
+                0f,
+                spawnSkill.SpawnInterval);
+        }
+
+        private static float ResolveSpawnDuration(
+            SpawnSkillSO spawnSkill)
+        {
+            if (spawnSkill == null)
+            {
+                return 0f;
+            }
+
+            return Mathf.Max(
+                0f,
+                spawnSkill.Duration);
+        }
+
+
+        private static bool IsCharacterSpawn(
+            SpawnSkillSO spawnSkill)
+        {
+            return ResolveSpawnCharacterSo(spawnSkill) != null;
+        }
+
+        private static float ResolveSpawnRadius(
+            SpawnSkillSO spawnSkill)
+        {
+            return 0.75f;
+        }
+
+
+
+        private static Vector3 ResolveSpawnPosition(
+            Vector3 origin,
+            int index,
+            int count,
+            float radius)
+        {
+            if (count <= 1 || radius <= 0f)
+            {
+                return origin;
+            }
+
+            float angle = 360f / count * index;
+            Vector3 offset = new Vector3(
+                Mathf.Cos(angle * Mathf.Deg2Rad),
+                Mathf.Sin(angle * Mathf.Deg2Rad),
+                0f) * radius;
+
+            return origin + offset;
+        }
+
+        private static void InitializeSpawnedCharacter(
+            CharacterManager spawnedCharacter,
+            CharacterSO characterSo)
+        {
+            if (spawnedCharacter == null || characterSo == null)
+            {
+                return;
+            }
+
+            spawnedCharacter.InitializeFromSO(characterSo);
+        }
+
 
         public static bool FireProjectiles(
             EquipmentSkillRuntimeData runtime,
@@ -100,12 +433,14 @@ namespace Skill.Service.Helper
             EquipmentSkillRuntimeData runtime,
             GameObject caster)
         {
-            if (runtime == null || runtime.castSo == null || caster == null)
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            if (castSo == null || caster == null)
             {
                 return;
             }
 
-            SkillProjectileHitEffectEntry[] selfEffects = runtime.castSo.SelfEffects;
+            SkillProjectileHitEffectEntry[] selfEffects = castSo.SelfEffects;
 
             if (selfEffects == null || selfEffects.Length == 0)
             {
@@ -206,7 +541,9 @@ namespace Skill.Service.Helper
             bool usePoint,
             Vector2 targetPoint)
         {
-            if (runtime == null || runtime.castSo == null)
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            if (castSo == null)
             {
                 return usePoint
                     ? targetPoint
@@ -215,7 +552,7 @@ namespace Skill.Service.Helper
                         : Vector2.zero;
             }
 
-            TargetingType targetingType = runtime.castSo.TargetingType;
+            TargetingType targetingType = castSo.TargetingType;
 
             if (targetingType == TargetingType.Self ||
                 targetingType == TargetingType.None)
@@ -273,6 +610,17 @@ namespace Skill.Service.Helper
             return direction;
         }
 
+        private static SkillCastSO ResolveCastSo(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null || runtime.sourceEquipment == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.CastSo;
+        }
+
         private static EffectManager ResolveEffectManager(GameObject caster)
         {
             if (caster == null)
@@ -295,6 +643,30 @@ namespace Skill.Service.Helper
             }
 
             return caster.GetComponentInChildren<EffectManager>();
+        }
+
+        private static CharacterManager ResolveCharacterManager(GameObject obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            CharacterManager manager = obj.GetComponent<CharacterManager>();
+
+            if (manager != null)
+            {
+                return manager;
+            }
+
+            manager = obj.GetComponentInParent<CharacterManager>();
+
+            if (manager != null)
+            {
+                return manager;
+            }
+
+            return obj.GetComponentInChildren<CharacterManager>();
         }
 
         private static Transform ResolveEffectSourceTransform(

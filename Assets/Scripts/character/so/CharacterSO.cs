@@ -18,26 +18,70 @@ namespace Character
     public class CharacterSO : ScriptableObject
     {
         [Header("Identity")]
-        public string characterId;
+        [SerializeField] private string characterId;
+        [SerializeField] private CharacterType characterType = CharacterType.Npc;
 
+        [Header("Prefab")]
+        [SerializeField] private GameObject prefab;
+
+        [Header("Animation Override")]
+        [SerializeField] private AnimationClipSetSO animationOverrideSet;
+
+        [Header("Skill Override")]
+        [SerializeField] private SkillPoolOverrideSO skillOverrideSet;
+
+        [Header("Base Stats")]
+        [SerializeField] private List<StatEntry> baseStats = new();
+
+        public string CharacterId => characterId;
+        public CharacterType CharacterType => characterType;
+        public GameObject Prefab => prefab;
+        public AnimationClipSetSO AnimationOverrideSet => animationOverrideSet;
+        public SkillPoolOverrideSO SkillOverrideSet => skillOverrideSet;
+        public IReadOnlyList<StatEntry> BaseStats => baseStats;
 
         public string DisplayName =>
             StringManager.Instance.Get(
                 characterId,
                 "name");
 
-        public CharacterType characterType = CharacterType.Npc;
+        public bool HasPrefab => prefab != null;
+        public bool HasAnimationOverrideSet => animationOverrideSet != null;
+        public bool HasSkillOverrideSet => skillOverrideSet != null;
 
-        [Header("Prefab")]
-        public GameObject prefab;
+        public GameObject ResolvePrefab()
+        {
+            return prefab;
+        }
 
-        [Header("Animation Override")]
-        public AnimationClipSetSO animationOverrideSet;
+        public AnimationClipSetSO ResolveAnimationOverrideSet()
+        {
+            return animationOverrideSet;
+        }
 
-        [Header("Skill Override")]
-        public SkillPoolOverrideSO skillOverrideSet;
+        public SkillPoolOverrideSO ResolveSkillOverrideSet()
+        {
+            return skillOverrideSet;
+        }
 
-        [Header("Base Stats")]
-        public List<StatEntry> baseStats = new();
+        public IReadOnlyList<StatEntry> ResolveBaseStats()
+        {
+            return baseStats;
+        }
+
+        public bool IsPlayer()
+        {
+            return characterType == CharacterType.Player;
+        }
+
+        public bool IsNpc()
+        {
+            return characterType == CharacterType.Npc;
+        }
+
+        public bool IsBoss()
+        {
+            return characterType == CharacterType.Boss;
+        }
     }
 }

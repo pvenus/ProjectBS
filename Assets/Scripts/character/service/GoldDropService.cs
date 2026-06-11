@@ -146,7 +146,7 @@ namespace Character.Service
         {
             return characterManager != null
                    && characterManager.RuntimeData != null
-                   && characterManager.RuntimeData.characterSO.characterType == CharacterType.Boss;
+                   && characterManager.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
         }
 
         private void SpawnGoldCoin(

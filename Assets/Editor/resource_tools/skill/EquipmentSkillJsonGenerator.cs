@@ -23,19 +23,10 @@ namespace ResourceTools.Skill
             public MoveJson move;
             public HitJson[] hits;
             public SpawnSkillJson spawnSkill;
+            public SpawnSkillJson spawn;
             public VisualSetJson visualSet;
         }
 
-        [Serializable]
-        public class SpawnSkillJson
-        {
-            public string spawnSkillId;
-            public string timing;
-            public string position;
-            public int spawnCount = 1;
-            public float spawnInterval;
-            public EquipmentSkillJson skill;
-        }
 
         // Example JSON format:
         // {
@@ -146,11 +137,15 @@ namespace ResourceTools.Skill
                         outputFolder)
                     : Array.Empty<SkillHitSO>();
 
+            // Support both spawnSkill and spawn for spawn skill JSON
+            SpawnSkillJson resolvedSpawnSkill = data.spawnSkill ?? data.spawn;
+
             SpawnSkillSO spawnSkillSo =
-                HasSpawnSkill(data.spawnSkill)
-                    ? CreateOrUpdateSpawnSkill(
-                        data.spawnSkill,
-                        outputFolder)
+                SkillSpawnAssetBuilder.HasSpawnSkill(resolvedSpawnSkill)
+                    ? SkillSpawnAssetBuilder.CreateOrUpdate(
+                        resolvedSpawnSkill,
+                        outputFolder,
+                        CreateOrUpdateSkill)
                     : null;
 
             ScriptableObject visualSetSo =
@@ -222,14 +217,6 @@ namespace ResourceTools.Skill
                    !string.IsNullOrWhiteSpace(visualSet.visualSetId);
         }
 
-        private static bool HasSpawnSkill(
-            SpawnSkillJson spawnSkill)
-        {
-            return spawnSkill != null &&
-                   !string.IsNullOrWhiteSpace(spawnSkill.spawnSkillId) &&
-                   spawnSkill.skill != null &&
-                   !string.IsNullOrWhiteSpace(spawnSkill.skill.equipmentId);
-        }
 
         private static bool HasHits(
             HitJson[] hits)
@@ -275,58 +262,6 @@ namespace ResourceTools.Skill
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        private static SpawnSkillSO CreateOrUpdateSpawnSkill(
-            SpawnSkillJson spawnJson,
-            string outputFolder)
-        {
-            if (spawnJson == null)
-            {
-                return null;
-            }
-
-            if (string.IsNullOrWhiteSpace(spawnJson.spawnSkillId))
-            {
-                Debug.LogWarning("[EquipmentSkillJsonGenerator] spawnSkillId is empty. SpawnSkillSO will not be created.");
-                return null;
-            }
-
-            EnsureFolder(outputFolder);
-
-            string assetPath = $"{outputFolder}/{SanitizeFileName(spawnJson.spawnSkillId)}.asset";
-            SpawnSkillSO spawnSkillSo = AssetDatabase.LoadAssetAtPath<SpawnSkillSO>(assetPath);
-
-            if (spawnSkillSo == null)
-            {
-                spawnSkillSo = ScriptableObject.CreateInstance<SpawnSkillSO>();
-                AssetDatabase.CreateAsset(spawnSkillSo, assetPath);
-            }
-
-            EquipmentSkillSO childSkillSo = null;
-
-            if (spawnJson.skill != null)
-            {
-                string childOutputFolder = $"{outputFolder}/spawn_skills";
-                EnsureFolder(childOutputFolder);
-                childSkillSo = CreateOrUpdateSkill(
-                    spawnJson.skill,
-                    childOutputFolder);
-            }
-
-            SerializedObject serializedObject = new SerializedObject(spawnSkillSo);
-
-            SetEnum(serializedObject, "timing", spawnJson.timing);
-            SetEnum(serializedObject, "position", spawnJson.position);
-            SetInt(serializedObject, "spawnCount", Mathf.Max(1, spawnJson.spawnCount));
-            SetFloat(serializedObject, "spawnInterval", Mathf.Max(0f, spawnJson.spawnInterval));
-            SetObjectReference(serializedObject, "skill", childSkillSo);
-
-            serializedObject.ApplyModifiedPropertiesWithoutUndo();
-
-            EditorUtility.SetDirty(spawnSkillSo);
-            AssetDatabase.SaveAssetIfDirty(spawnSkillSo);
-
-            return spawnSkillSo;
-        }
 
         private static void SetString(
             SerializedObject serializedObject,
@@ -344,74 +279,6 @@ namespace ResourceTools.Skill
             property.stringValue = value;
         }
 
-        private static void SetInt(
-            SerializedObject serializedObject,
-            string propertyName,
-            int value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            property.intValue = value;
-        }
-
-        private static void SetFloat(
-            SerializedObject serializedObject,
-            string propertyName,
-            float value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            property.floatValue = value;
-        }
-
-        private static void SetEnum(
-            SerializedObject serializedObject,
-            string propertyName,
-            string value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            if (property.propertyType != SerializedPropertyType.Enum)
-            {
-                Debug.LogWarning($"[EquipmentSkillJsonGenerator] Property is not enum: {propertyName} type={property.propertyType}");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return;
-            }
-
-            for (int i = 0; i < property.enumNames.Length; i++)
-            {
-                if (string.Equals(property.enumNames[i], value, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(property.enumDisplayNames[i], value, StringComparison.OrdinalIgnoreCase))
-                {
-                    property.enumValueIndex = i;
-                    return;
-                }
-            }
-
-            Debug.LogWarning($"[EquipmentSkillJsonGenerator] Enum value not found. property={propertyName} value={value}");
-        }
 
         private static void SetObjectReference(
             SerializedObject serializedObject,
@@ -458,20 +325,6 @@ namespace ResourceTools.Skill
             }
         }
 
-        private static string SanitizeFileName(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return "skill.spawn";
-            }
-
-            foreach (char invalidChar in Path.GetInvalidFileNameChars())
-            {
-                value = value.Replace(invalidChar, '_');
-            }
-
-            return value;
-        }
 
         private static SkillHitSO[] CreateOrUpdateHits(
             HitJson[] hits,

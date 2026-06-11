@@ -30,20 +30,17 @@ public class EquipmentSkillRuntimeData
     public EquipmentSkillInstanceData instanceData;
 
     [Header("Resolved Identity")]
-    public SkillType skillType;
-    public AttackArchetype attackArchetype;
     public bool skipAttackAnimation;
     public EquipmentGrade resolvedGrade;
-    public int resolvedRuneSlotCount;
+
+    public int resolvedBurstCount = 1;
+    public float resolvedBurstInterval;
+
     public int resolvedProjectileCount;
     public float resolvedProjectileSpreadAngle;
+    public ProjectileArrangementType resolvedProjectileArrangement = ProjectileArrangementType.Single;
+    public float resolvedProjectileArrangementValue;
     public float resolvedProjectileScale;
-    [Header("Resolved SO References")]
-    public SkillCastSO castSo;
-    public SkillHitSO[] hitSos;
-    public SkillMoveSO moveSo;
-    public SpawnSkillSO spawnSkillSo;
-    public SkillVisualSetSO visualSetSo;
 
     [Header("Resolved Runtime Context")]
     public ResolvedVisualContextDto visualContext;

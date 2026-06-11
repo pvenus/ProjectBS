@@ -147,7 +147,7 @@ public class SkillLoadoutMono : MonoBehaviour
             return;
         }
 
-        ApplyOverride(characterSo.skillOverrideSet);
+        ApplyOverride(characterSo.SkillOverrideSet);
     }
 
     public void RefreshSlotRuntime(int slotIndex)

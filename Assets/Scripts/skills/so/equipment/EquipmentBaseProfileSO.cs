@@ -12,6 +12,7 @@ namespace Skill
     {
         [Header("Identity")]
         [SerializeField] private SkillType skillType = SkillType.Active;
+        [SerializeField] private EffectType effectType = EffectType.Projectile;
         [SerializeField] private AttackArchetype attackArchetype = AttackArchetype.None;
         [SerializeField] private bool skipAttackAnimation;
 
@@ -21,6 +22,8 @@ namespace Skill
 
         [Header("Projectile Base Stats")]
         [SerializeField, Min(1)] private int projectileCount = 1;
+        [SerializeField] private ProjectileArrangementType projectileArrangement = ProjectileArrangementType.Single;
+        [SerializeField, Min(0f)] private float projectileArrangementValue = 0f;
         [SerializeField, Min(0f)] private float projectileSpreadAngle = 0f;
         [SerializeField] private float projectileScale = 1f;
         [SerializeField] private float projectileLifetime = 3f;
@@ -42,11 +45,14 @@ namespace Skill
 
 
         public SkillType SkillType => skillType;
+        public EffectType EffectType => effectType;
         public AttackArchetype AttackArchetype => attackArchetype;
         public bool SkipAttackAnimation => skipAttackAnimation;
         public ProjectileEntity ProjectilePrefab => projectilePrefab;
         public float ProjectileSpawnOffset => projectileSpawnOffset;
         public int ProjectileCount => Mathf.Max(1, projectileCount);
+        public ProjectileArrangementType ProjectileArrangement => projectileArrangement;
+        public float ProjectileArrangementValue => Mathf.Max(0f, projectileArrangementValue);
         public float ProjectileSpreadAngle => Mathf.Max(0f, projectileSpreadAngle);
         public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
         public float ProjectileLifetime => Mathf.Max(0.01f, projectileLifetime);

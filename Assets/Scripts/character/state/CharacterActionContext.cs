@@ -1,5 +1,6 @@
 using UnityEngine;
 using Skill;
+using Character.Skill;
 
 namespace Character
 {
@@ -20,6 +21,8 @@ namespace Character
         public Transform CurrentTarget;
 
         public SkillExecutorMono SkillExecutor;
+
+        public CharacterSkillManager SkillManager;
 
         public MovementController MovementController;
 

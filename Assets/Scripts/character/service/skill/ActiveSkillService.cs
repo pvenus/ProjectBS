@@ -187,37 +187,16 @@ namespace Character.Skill
                 return true;
             }
 
-            bool fired = SkillUseHelper.UseSkillProjectilesAndSelfEffects(
-                runtime,
-                caster,
-                isSelfOrNoTargetSkill ? null : target,
-                isSelfOrNoTargetSkill || usePoint,
-                resolvedTargetPoint);
+            skillManager.StartCoroutine(
+                FireSkillBurstRoutine(
+                    skillManager,
+                    runtime,
+                    caster,
+                    isSelfOrNoTargetSkill ? null : target,
+                    isSelfOrNoTargetSkill || usePoint,
+                    resolvedTargetPoint));
 
-            if (fired)
-            {
-                UseSkill(skillManager, runtime);
-            }
-
-            return fired;
-        }
-
-        private bool ShouldPlayAttackAnimation(
-            EquipmentSkillRuntimeData runtime)
-        {
-            return runtime != null &&
-                   runtime.sourceEquipment != null &&
-                   !runtime.skipAttackAnimation &&
-                   !HasCastMove(runtime);
-        }
-
-        private bool HasCastMove(
-            EquipmentSkillRuntimeData runtime)
-        {
-            return runtime != null &&
-                   runtime.castSo != null &&
-                   runtime.castSo.CastMove != null &&
-                   runtime.castSo.CastMove.HasMove;
+            return true;
         }
 
         private IEnumerator FireSkillAtAttackTiming(
@@ -241,17 +220,110 @@ namespace Character.Skill
                 yield return new WaitForSeconds(delay);
             }
 
-            bool fired = SkillUseHelper.UseSkillProjectilesAndSelfEffects(
+            yield return FireSkillBurstRoutine(
+                skillManager,
                 runtime,
                 caster,
                 target,
                 usePoint,
                 targetPoint);
+        }
+
+        private IEnumerator FireSkillBurstRoutine(
+            CharacterSkillManager skillManager,
+            EquipmentSkillRuntimeData runtime,
+            Transform caster,
+            Transform target,
+            bool usePoint,
+            Vector2 targetPoint)
+        {
+            bool fired = false;
+            int burstCount = ResolveBurstCount(runtime);
+            float burstInterval = ResolveBurstInterval(runtime);
+
+            for (int burstIndex = 0; burstIndex < burstCount; burstIndex++)
+            {
+                bool burstFired = UseSkillOnce(
+                    skillManager,
+                    runtime,
+                    caster,
+                    target,
+                    usePoint,
+                    targetPoint);
+
+                fired = fired || burstFired;
+
+                if (burstIndex < burstCount - 1 && burstInterval > 0f)
+                {
+                    yield return new WaitForSeconds(burstInterval);
+                }
+            }
 
             if (fired)
             {
                 UseSkill(skillManager, runtime);
             }
+        }
+
+        private bool UseSkillOnce(
+            CharacterSkillManager skillManager,
+            EquipmentSkillRuntimeData runtime,
+            Transform caster,
+            Transform target,
+            bool usePoint,
+            Vector2 targetPoint)
+        {
+            return SkillUseHelper.UseSkill(
+                new SkillUseContext
+                {
+                    Runtime = runtime,
+                    Caster = caster,
+                    Target = target,
+                    UsePoint = usePoint,
+                    TargetPoint = targetPoint,
+                    CoroutineRunner = skillManager
+                });
+        }
+
+        private int ResolveBurstCount(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null)
+            {
+                return 1;
+            }
+
+            return Mathf.Max(1, runtime.resolvedBurstCount);
+        }
+
+        private float ResolveBurstInterval(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null)
+            {
+                return 0f;
+            }
+
+            return Mathf.Max(0f, runtime.resolvedBurstInterval);
+        }
+
+        private bool ShouldPlayAttackAnimation(
+            EquipmentSkillRuntimeData runtime)
+        {
+            return runtime != null &&
+                   runtime.sourceEquipment != null &&
+                   !runtime.skipAttackAnimation &&
+                   !HasCastMove(runtime);
+        }
+
+        private bool HasCastMove(
+            EquipmentSkillRuntimeData runtime)
+        {
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            return castSo != null &&
+                   castSo.CastMove != null &&
+                   castSo.CastMove.HasMove;
         }
 
         private float ResolveAttackFireDelay(
@@ -330,7 +402,9 @@ namespace Character.Skill
             bool usePoint,
             Vector2 targetPoint)
         {
-            if (runtime == null || runtime.castSo == null)
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            if (castSo == null)
             {
                 return usePoint
                     ? targetPoint
@@ -339,7 +413,7 @@ namespace Character.Skill
                         : Vector2.zero;
             }
 
-            TargetingType targetingType = runtime.castSo.TargetingType;
+            TargetingType targetingType = castSo.TargetingType;
 
             if (targetingType == TargetingType.Self ||
                 targetingType == TargetingType.None)
@@ -367,15 +441,28 @@ namespace Character.Skill
         private bool IsSelfOrNoTargetSkill(
             EquipmentSkillRuntimeData runtime)
         {
-            if (runtime == null || runtime.castSo == null)
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            if (castSo == null)
             {
                 return false;
             }
 
-            TargetingType targetingType = runtime.castSo.TargetingType;
+            TargetingType targetingType = castSo.TargetingType;
 
             return targetingType == TargetingType.Self ||
                    targetingType == TargetingType.None;
+        }
+
+        private SkillCastSO ResolveCastSo(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null || runtime.sourceEquipment == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.CastSo;
         }
 
         private void ApplyAnimationDirection(

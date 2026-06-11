@@ -132,7 +132,7 @@ namespace Battle
                 return;
             }
 
-            AddGaugeByCharacterType(characterRuntimeData.characterSO.characterType);
+            AddGaugeByCharacterType(characterRuntimeData.characterSO.CharacterType);
         }
 
         public void AddGaugeByCharacterType(CharacterType characterType)

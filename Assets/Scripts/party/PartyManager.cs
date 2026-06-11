@@ -121,8 +121,15 @@ namespace Party
                     runtimeData.Members[i];
 
                 if (characterRuntime == null
-                    || characterRuntime.characterSO == null
-                    || characterRuntime.characterSO.prefab == null)
+                    || characterRuntime.characterSO == null)
+                {
+                    continue;
+                }
+
+                GameObject characterPrefab =
+                    characterRuntime.characterSO.ResolvePrefab();
+
+                if (characterPrefab == null)
                 {
                     continue;
                 }
@@ -135,7 +142,7 @@ namespace Party
 
                 GameObject spawnedObject =
                     Instantiate(
-                        characterRuntime.characterSO.prefab,
+                        characterPrefab,
                         spawnPosition,
                         Quaternion.identity,
                         spawnRoot);

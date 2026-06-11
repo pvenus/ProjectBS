@@ -136,7 +136,7 @@ public class ProbCoin : MonoBehaviour
             return;
         }
 
-        if (characterManager.RuntimeData.characterSO.characterType
+        if (characterManager.RuntimeData.characterSO.CharacterType
             != CharacterType.Player)
         {
             return;

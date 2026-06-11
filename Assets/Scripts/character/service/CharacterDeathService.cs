@@ -102,7 +102,6 @@ namespace Character.Service
                 StatType.MaxHp);
             float reviveHp = Mathf.Max(1f, maxHp * 0.3f);
 
-            context.runtimeData.currentHp = reviveHp;
             context.runtimeData.isDead = false;
 
             isHandlingDeath = false;

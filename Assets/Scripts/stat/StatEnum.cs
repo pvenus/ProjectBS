@@ -67,6 +67,7 @@ namespace Stat
 
         ExpGain = 1420,
 
+        Level = 1430,
         Experience = 1431,
 
         DropGold = 1435,

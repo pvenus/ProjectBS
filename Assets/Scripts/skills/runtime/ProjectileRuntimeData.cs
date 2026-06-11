@@ -34,6 +34,8 @@ public class ProjectileRuntimeData
     public ProjectileEntity projectilePrefab;
     public int projectileCount = 1;
     public int spawnOrder = 0;
+    public ProjectileArrangementType projectileArrangement = ProjectileArrangementType.Single;
+    public float projectileArrangementValue = 0f;
     public float projectileSpreadAngle = 0f;
     public float projectileScale = 1f;
     public float projectileSpawnInterval = 0f;

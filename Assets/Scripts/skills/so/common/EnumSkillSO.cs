@@ -54,6 +54,17 @@ namespace Skill
     }
 
     /// <summary>
+    /// 다중 투사체 배치 방식
+    /// </summary>
+    public enum ProjectileArrangementType
+    {
+        Single = 0,
+        Spread = 1,
+        Line = 2,
+        Circle = 3
+    }
+
+    /// <summary>
     /// 시전자 본체 이동 타입
     /// </summary>
     public enum CastMoveType

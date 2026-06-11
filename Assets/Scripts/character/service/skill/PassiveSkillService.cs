@@ -7,8 +7,8 @@ namespace Character.Skill
     /// Passive skill business logic.
     ///
     /// Passive skill rule:
-    /// - Only EquipmentSkillRuntimeData with SkillType.Passive is handled.
-    /// - Passive effects are read from runtime.hitSos[].buffEffects.
+    /// - Only runtime.sourceEquipment.BaseProfileSo.SkillType.Passive is handled.
+    /// - Passive effects are read from runtime.sourceEquipment.HitSos[].buffEffects.
     /// - This service is responsible for selecting passive skill runtimes and
     ///   exposing the effect list to the caller that actually applies effects.
     ///
@@ -54,28 +54,43 @@ namespace Character.Skill
             EquipmentSkillRuntimeData runtime)
         {
             return runtime != null &&
-                   runtime.skillType == global::Skill.SkillType.Passive;
+                   runtime.sourceEquipment != null &&
+                   runtime.sourceEquipment.BaseProfileSo != null &&
+                   runtime.sourceEquipment.BaseProfileSo.SkillType == global::Skill.SkillType.Passive;
+        }
+
+        private SkillHitSO[] ResolveHitSos(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null || runtime.sourceEquipment == null)
+            {
+                return null;
+            }
+
+            return runtime.sourceEquipment.HitSos;
         }
 
         public bool HasPassiveEffects(
             EquipmentSkillRuntimeData runtime)
         {
+            SkillHitSO[] hitSos = ResolveHitSos(runtime);
+
             if (!IsPassiveSkill(runtime) ||
-                runtime.hitSos == null ||
-                runtime.hitSos.Length == 0)
+                hitSos == null ||
+                hitSos.Length == 0)
             {
                 return false;
             }
 
-            for (int i = 0; i < runtime.hitSos.Length; i++)
+            for (int i = 0; i < hitSos.Length; i++)
             {
-                if (runtime.hitSos[i] == null)
+                if (hitSos[i] == null)
                 {
                     continue;
                 }
 
                 SkillProjectileHitDto hitDto =
-                    runtime.hitSos[i].CreateDto(
+                    hitSos[i].CreateDto(
                         resolvedDamageProfile: null);
 
                 if (hitDto != null &&
@@ -94,22 +109,24 @@ namespace Character.Skill
         {
             List<SkillProjectileHitEffectEntry> result = new();
 
+            SkillHitSO[] hitSos = ResolveHitSos(runtime);
+
             if (!IsPassiveSkill(runtime) ||
-                runtime.hitSos == null ||
-                runtime.hitSos.Length == 0)
+                hitSos == null ||
+                hitSos.Length == 0)
             {
                 return result;
             }
 
-            for (int hitIndex = 0; hitIndex < runtime.hitSos.Length; hitIndex++)
+            for (int hitIndex = 0; hitIndex < hitSos.Length; hitIndex++)
             {
-                if (runtime.hitSos[hitIndex] == null)
+                if (hitSos[hitIndex] == null)
                 {
                     continue;
                 }
 
                 SkillProjectileHitDto hitDto =
-                    runtime.hitSos[hitIndex].CreateDto(
+                    hitSos[hitIndex].CreateDto(
                         resolvedDamageProfile: null);
 
                 if (hitDto == null || hitDto.buffEffects == null)

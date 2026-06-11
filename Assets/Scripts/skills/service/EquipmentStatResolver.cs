@@ -71,6 +71,28 @@ public class EquipmentStatResolver
         return Mathf.Max(0f, resolved);
     }
 
+    public int ResolveBurstCount(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        int baseValue = equipmentSo != null && equipmentSo.CastSo != null
+            ? Mathf.Max(1, equipmentSo.CastSo.BurstCount)
+            : 1;
+
+        return Mathf.Max(1, baseValue);
+    }
+
+    public float ResolveBurstInterval(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        float baseValue = equipmentSo != null && equipmentSo.CastSo != null
+            ? equipmentSo.CastSo.BurstInterval
+            : 0f;
+
+        return Mathf.Max(0f, baseValue);
+    }
+
     public float ResolveProjectileScale(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
@@ -238,6 +260,30 @@ public class EquipmentStatResolver
             return Mathf.Max(
                 0f,
                 equipmentSo.BaseProfileSo.ProjectileSpreadAngle);
+        }
+
+        return 0f;
+    }
+
+    public ProjectileArrangementType GetProjectileArrangement(
+        EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return equipmentSo.BaseProfileSo.ProjectileArrangement;
+        }
+
+        return ProjectileArrangementType.Single;
+    }
+
+    public float GetProjectileArrangementValue(
+        EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return Mathf.Max(
+                0f,
+                equipmentSo.BaseProfileSo.ProjectileArrangementValue);
         }
 
         return 0f;

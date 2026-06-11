@@ -94,6 +94,11 @@ namespace Character.Skill
             {
                 return true;
             }
+            if (context.SelectedSkill.BaseProfileSo != null &&
+                context.SelectedSkill.BaseProfileSo.EffectType == EffectType.Spawn)
+            {
+                return false;
+            }
 
             TargetingType targetingType = context.SelectedSkill.CastSo.TargetingType;
 
@@ -132,6 +137,11 @@ namespace Character.Skill
             if (context.SelectedSkill == null)
             {
                 return false;
+            }
+            if (context.SelectedSkill.BaseProfileSo != null &&
+                context.SelectedSkill.BaseProfileSo.EffectType == EffectType.Spawn)
+            {
+                return true;
             }
 
             float range = context.SelectedSkillRange;
