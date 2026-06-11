@@ -12,8 +12,8 @@
     "projectileSpawnOffset": 0.5,
 
     "projectileCount": 1,
-    "projectileScale": 2,
-    "projectileLifetime": 1.2,
+    "projectileScale": 1,
+    "projectileLifetime": 1.67,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
@@ -43,7 +43,7 @@
   "move": {
     "moveId": "skill.archer.3.arrow_wave.move",
     "moveType": "Linear",
-    "speed": 12,
+    "speed": 6,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
     "rotationOffset": 180,
@@ -81,7 +81,7 @@
       "idleClip": "arrow_idle",
       "castClip": "arrow_cast",
       "attackClip": "arrow_attack",
-      "projectileLoopClip": "arrow_fly",
+      "projectileLoopClip": "archer_piercing",
       "hitClip": "arrow_hit"
     },
 
@@ -108,37 +108,37 @@
   },
   "hits": [
     {
-    "hitId": "skill.archer.3.arrow_wave.hit",
+      "hitId": "skill.archer.3.arrow_wave.hit",
 
-    "maxHitCount": 20,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
+      "maxHitCount": 20,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
 
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "deactivateAfterFirstHit": false,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
 
-    "targetLayerMask": "Enemy",
+      "targetLayerMask": "Enemy",
 
-    "damage": {
-      "skillId": "skill.archer.3.arrow_wave.damage",
-      "damageType": "Normal",
-      "baseDamage": 200,
-      "attackPercentDamage": 200,
-      "canCritical": true,
-      "ignoreDefense": false
-    },
+      "damage": {
+        "skillId": "skill.archer.3.arrow_wave.damage",
+        "damageType": "Normal",
+        "baseDamage": 200,
+        "attackPercentDamage": 200,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+      "buffEffects": [],
+      "debuffEffects": [],
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1,
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 4,
+      "splitHitInterval": 0.1,
 
-    "useKnockback": false,
-    "knockbackForce": 0
+      "useKnockback": false,
+      "knockbackForce": 0
     }
   ]
 }

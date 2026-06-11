@@ -12,9 +12,9 @@ namespace ResourceTools.Skill
         public string visualId;
 
         public string archetype;
+        public string projectileVisualType;
         public string projectilePrefab;
         public string projectileSprite;
-        public string animatorController;
         public string idleClip;
         public string castClip;
         public string attackClip;
@@ -24,7 +24,6 @@ namespace ResourceTools.Skill
         public string prefabName;
         public string spriteName;
         public string animationClipName;
-        public string animatorControllerName;
 
         public float scale = 1f;
         public float offsetX;
@@ -101,16 +100,10 @@ namespace ResourceTools.Skill
             }
 
             string prefabName = ResolvePrefabName(json);
-            string spriteName = ResolveSpriteName(json);
 
             if (!string.IsNullOrWhiteSpace(prefabName))
             {
                 return SanitizeFileName(prefabName + ".base_visual");
-            }
-
-            if (!string.IsNullOrWhiteSpace(spriteName))
-            {
-                return SanitizeFileName(spriteName + ".base_visual");
             }
 
             return "skill.base.visual";
@@ -121,8 +114,6 @@ namespace ResourceTools.Skill
             BaseVisualJson json)
         {
             string prefabName = ResolvePrefabName(json);
-            string spriteName = ResolveSpriteName(json);
-            string animatorControllerName = ResolveAnimatorControllerName(json);
             string animationClipName = ResolveAnimationClipName(json);
 
             EditorFieldSetter.SetFirstExistingField(
@@ -140,19 +131,16 @@ namespace ResourceTools.Skill
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
+                json.projectileVisualType,
+                "projectileVisualType");
+
+            EditorFieldSetter.SetFirstExistingField(
+                visualSo,
                 FindPrefabByName(prefabName),
                 "prefab",
                 "visualPrefab",
                 "effectPrefab",
                 "projectilePrefab");
-
-            EditorFieldSetter.SetFirstExistingField(
-                visualSo,
-                FindSpriteByName(spriteName),
-                "sprite",
-                "visualSprite",
-                "projectileSprite",
-                "icon");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
@@ -187,13 +175,6 @@ namespace ResourceTools.Skill
                 visualSo,
                 FindAnimationClipByName(json.hitClip),
                 "hitClip");
-
-            EditorFieldSetter.SetFirstExistingField(
-                visualSo,
-                FindAnimatorControllerByName(animatorControllerName),
-                "animatorController",
-                "runtimeAnimatorController",
-                "controller");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
@@ -261,30 +242,6 @@ namespace ResourceTools.Skill
                 : json.prefabName;
         }
 
-        private static string ResolveSpriteName(BaseVisualJson json)
-        {
-            if (json == null)
-            {
-                return null;
-            }
-
-            return !string.IsNullOrWhiteSpace(json.projectileSprite)
-                ? json.projectileSprite
-                : json.spriteName;
-        }
-
-        private static string ResolveAnimatorControllerName(BaseVisualJson json)
-        {
-            if (json == null)
-            {
-                return null;
-            }
-
-            return !string.IsNullOrWhiteSpace(json.animatorController)
-                ? json.animatorController
-                : json.animatorControllerName;
-        }
-
         private static string ResolveAnimationClipName(BaseVisualJson json)
         {
             if (json == null)
@@ -333,29 +290,6 @@ namespace ResourceTools.Skill
             return null;
         }
 
-        private static Sprite FindSpriteByName(string spriteName)
-        {
-            if (string.IsNullOrWhiteSpace(spriteName))
-            {
-                return null;
-            }
-
-            string[] guids = AssetDatabase.FindAssets($"{spriteName} t:Sprite");
-
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-
-                if (sprite != null && sprite.name == spriteName)
-                {
-                    return sprite;
-                }
-            }
-
-            return null;
-        }
-
         private static AnimationClip FindAnimationClipByName(string clipName)
         {
             if (string.IsNullOrWhiteSpace(clipName))
@@ -373,30 +307,6 @@ namespace ResourceTools.Skill
                 if (clip != null && clip.name == clipName)
                 {
                     return clip;
-                }
-            }
-
-            return null;
-        }
-
-        private static RuntimeAnimatorController FindAnimatorControllerByName(string controllerName)
-        {
-            if (string.IsNullOrWhiteSpace(controllerName))
-            {
-                return null;
-            }
-
-            string[] guids = AssetDatabase.FindAssets($"{controllerName} t:RuntimeAnimatorController");
-
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                RuntimeAnimatorController controller =
-                    AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
-
-                if (controller != null && controller.name == controllerName)
-                {
-                    return controller;
                 }
             }
 

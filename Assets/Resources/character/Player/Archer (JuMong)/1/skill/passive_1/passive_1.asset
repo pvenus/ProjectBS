@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: passive_1
   icon: {fileID: 0}
-  baseProfileSo: {fileID: 11400000, guid: 58686bd07486a4d7e9d1895006e29a54, type: 2}
-  castSo: {fileID: 11400000, guid: d56b31e9c82cf46f0bea41515ef83c43, type: 2}
-  hitSo: {fileID: 11400000, guid: 322536d660be94c7882e67de6a6b60fa, type: 2}
-  moveSo: {fileID: 11400000, guid: 5fbba8009903849c8901525ec9ca0dfe, type: 2}
-  visualSetSo: {fileID: 11400000, guid: f2db61edd1cfa4759a0188966043e8c8, type: 2}
+  baseProfileSo: {fileID: 11400000, guid: f3413e02143ab4d708487c48ad49de2b, type: 2}
+  castSo: {fileID: 0}
+  hitSos:
+  - {fileID: 11400000, guid: f1734c2707b1d408291ee57fc128bcfc, type: 2}
+  moveSo: {fileID: 0}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 0}

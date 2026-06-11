@@ -22,10 +22,10 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  damageSo: {fileID: 11400000, guid: c112352011f0f44e380a982576beef4c, type: 2}
+  damageSo: {fileID: 0}
   firstHitBaseDamage: 0
   buffEffects:
-  - effectSo: {fileID: 11400000, guid: bad9565031f1940adb99fe4e0e62f744, type: 2}
+  - effectSo: {fileID: 11400000, guid: 2324bf232248542088cbf1a783277efc, type: 2}
     lifetimeType: 1
     categoryType: 1
     duration: -1
@@ -34,5 +34,3 @@ MonoBehaviour:
   useSplitMultiHitDamage: 0
   splitHitCount: 0
   splitHitInterval: 0
-  useKnockback: 0
-  knockbackForce: 0

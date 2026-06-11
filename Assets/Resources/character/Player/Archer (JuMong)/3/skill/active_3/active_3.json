@@ -12,7 +12,7 @@
     "projectileSpawnOffset": 0.5,
 
     "projectileCount": 1,
-    "projectileScale": 3,
+    "projectileScale": 1,
     "projectileLifetime": 3.1,
 
     "projectileSpawnInterval": 0,
@@ -72,6 +72,7 @@
     "baseVisual": {
       "visualId": "skill.archer.3.heaven_bow.visual.base",
       "archetype": "Ranged",
+      "projectileVisualType": "Rain",
 
       "projectilePrefab": "projectile",
       "projectileSprite": "arrow_basic",
@@ -81,7 +82,7 @@
       "idleClip": "arrow_idle",
       "castClip": "arrow_cast",
       "attackClip": "arrow_attack",
-      "projectileLoopClip": "thunder2",
+      "projectileLoopClip": "archer_heaven_bow",
       "hitClip": "arrow_hit"
     },
 

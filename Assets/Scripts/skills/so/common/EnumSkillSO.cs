@@ -147,6 +147,25 @@ namespace Skill
         /// </summary>
         Position = 5
     }
+
+    /// <summary>
+    /// 투사체 비주얼 표현 방식
+    /// </summary>
+    public enum ProjectileVisualType
+    {
+        /// <summary>
+        /// 기본 비주얼 처리.
+        /// 애니메이션 클립을 독립적으로 재생한다.
+        /// </summary>
+        Default = 0,
+
+        /// <summary>
+        /// 화살비, 운석우, 낙뢰 등 다수 오브젝트 낙하 연출.
+        /// 별도 코드 로직으로 처리한다.
+        /// </summary>
+        Rain = 1
+    }
+
     public enum ImpactType
     {
         Hit,

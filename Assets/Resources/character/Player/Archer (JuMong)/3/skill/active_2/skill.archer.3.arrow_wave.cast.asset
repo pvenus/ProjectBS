@@ -18,7 +18,9 @@ MonoBehaviour:
   burstCount: 1
   burstInterval: 0
   castType: 0
-  targetingType: 2
+  targetingType: 3
+  castMove: {fileID: 0}
+  selfEffects: []
   canMoveWhileCasting: 0
-  canCancelCasting: 1
+  canCancelCasting: 0
   autoCast: 1

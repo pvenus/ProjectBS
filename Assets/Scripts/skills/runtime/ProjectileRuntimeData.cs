@@ -52,11 +52,11 @@ public class ProjectileRuntimeData
 
     // --- Resolved Visual Runtime (filled by resolver) ---
     [Header("Resolved Visual Runtime")]
+    public ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
     public AnimationClip spawnClip;
     public AnimationClip hitClip;
     public AnimationClip despawnClip;
 
-    public Sprite sprite;
     public Material material;
     public Color color = Color.white;
 

@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BaseVisualSO
   visualId: skill.archer.1.multi_shot.visual.base
   archetype: 2
-  baseSprite: {fileID: 0}
-  animatorController: {fileID: 0}
+  projectileVisualType: 0
   idleClip: {fileID: 0}
   castClip: {fileID: 0}
   attackClip: {fileID: 0}
-  projectileLoopClip: {fileID: 7400000, guid: 3a59a29df86b84f009f9a2b5d18e49d5, type: 2}
+  projectileLoopClip: {fileID: 7400000, guid: 0a1d50d726508428da8b829cf4898707, type: 2}
   hitClip: {fileID: 0}

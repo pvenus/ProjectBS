@@ -12,9 +12,8 @@ public class BaseVisualSO : ScriptableObject
     [SerializeField] private string visualId;
     [SerializeField] private AttackArchetype archetype = AttackArchetype.Melee;
 
-    [Header("Base Sprite")]
-    [SerializeField] private Sprite baseSprite;
-    [SerializeField] private RuntimeAnimatorController animatorController;
+    [Header("Visual Type")]
+    [SerializeField] private ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
 
     [Header("Animation Clips")]
     [SerializeField] private AnimationClip idleClip;
@@ -25,9 +24,7 @@ public class BaseVisualSO : ScriptableObject
 
     public string VisualId => visualId;
     public AttackArchetype Archetype => archetype;
-
-    public Sprite BaseSprite => baseSprite;
-    public RuntimeAnimatorController AnimatorController => animatorController;
+    public ProjectileVisualType ProjectileVisualType => projectileVisualType;
 
     public AnimationClip IdleClip => idleClip;
     public AnimationClip CastClip => castClip;

@@ -635,9 +635,9 @@ public class ProjectileFactory
             spawnClip = source.spawnClip,
             hitClip = source.hitClip,
             despawnClip = source.despawnClip,
-            sprite = source.sprite,
             material = source.material,
             color = source.color,
+            projectileVisualType = source.projectileVisualType,
             useAnimatorTriggers = source.useAnimatorTriggers
         };
 

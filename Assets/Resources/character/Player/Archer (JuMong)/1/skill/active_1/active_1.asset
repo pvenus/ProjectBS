@@ -11,11 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
   m_Name: active_1
-  m_EditorClassIdentifier: Assembly-CSharp::EquipmentSkillSO
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: active_1
   icon: {fileID: 0}
   baseProfileSo: {fileID: 11400000, guid: f1b6848718c92484489d5d8761030726, type: 2}
   castSo: {fileID: 11400000, guid: 79c90991d21f94fe98cbf31d091502b1, type: 2}
-  hitSo: {fileID: 11400000, guid: 07fc480263d3a4c4d8933b0dc5915c41, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 07fc480263d3a4c4d8933b0dc5915c41, type: 2}
   moveSo: {fileID: 11400000, guid: 927bc6a605e1b453cb7ede0817d458fe, type: 2}
+  spawnSkillSo: {fileID: 0}
   visualSetSo: {fileID: 11400000, guid: 9dae64920fb8a49c2adcd7a87db6f1b1, type: 2}

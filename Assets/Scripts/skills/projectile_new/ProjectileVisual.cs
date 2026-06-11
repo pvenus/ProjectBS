@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using Skill;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -26,6 +29,17 @@ public class ProjectileVisual : MonoBehaviour
     [SerializeField] private AnimationClip hitClip;
     [SerializeField] private AnimationClip despawnClip;
 
+    [Header("Rain Visual")]
+    [SerializeField] private int rainBurstCount = 16;
+    [SerializeField] private float rainSpawnRadius = 2f;
+    [SerializeField] private float rainStartHeight = 2.5f;
+    [SerializeField] private float rainFallDistance = 5f;
+    [SerializeField] private float rainDuration = 0.45f;
+    [SerializeField] private float rainSpawnInterval = 0.03f;
+    [SerializeField] private float rainRandomXJitter = 0.25f;
+    [SerializeField] private float rainRandomStartDelay = 0.08f;
+    [SerializeField] private bool hideSourceRendererForRain = true;
+
     [Header("Debug")]
     [SerializeField] private bool initialized;
     [SerializeField] private bool isClipPlaying;
@@ -39,6 +53,11 @@ public class ProjectileVisual : MonoBehaviour
     private AnimationClip currentClip;
     private double currentClipDuration;
     private bool graphCreated;
+
+    private readonly List<SpriteRenderer> rainRenderers = new();
+    private Coroutine rainRoutine;
+    private readonly List<PlayableGraph> rainGraphs = new();
+    private readonly Dictionary<SpriteRenderer, PlayableGraph> rainGraphByRenderer = new();
 
     public bool IsInitialized => initialized;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
@@ -107,6 +126,7 @@ public class ProjectileVisual : MonoBehaviour
 
     private void OnDestroy()
     {
+        StopRainRoutine();
         DestroyPlayableGraph();
     }
 
@@ -140,6 +160,12 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
+        if (IsRainVisualType())
+        {
+            PlayRainVisual();
+            return;
+        }
+
         if (!ShouldUseAnimatorTriggers() && spawnClip != null)
         {
             PlayClip(spawnClip);
@@ -152,6 +178,11 @@ public class ProjectileVisual : MonoBehaviour
     public void OnHit()
     {
         if (!initialized)
+        {
+            return;
+        }
+
+        if (IsRainVisualType())
         {
             return;
         }
@@ -169,6 +200,12 @@ public class ProjectileVisual : MonoBehaviour
     {
         if (!initialized)
         {
+            return;
+        }
+
+        if (IsRainVisualType())
+        {
+            StopRainRoutine();
             return;
         }
 
@@ -281,11 +318,6 @@ public class ProjectileVisual : MonoBehaviour
         hitClip = data.hitClip;
         despawnClip = data.despawnClip;
 
-        if (data.sprite != null)
-        {
-            SetSprite(data.sprite);
-        }
-
         SetColor(data.color);
 
         if (data.material != null)
@@ -297,6 +329,258 @@ public class ProjectileVisual : MonoBehaviour
     private bool ShouldUseAnimatorTriggers()
     {
         return runtimeData != null && runtimeData.useAnimatorTriggers;
+    }
+
+    private bool IsRainVisualType()
+    {
+        return runtimeData != null &&
+               runtimeData.projectileVisualType == ProjectileVisualType.Rain;
+    }
+
+    private void PlayRainVisual()
+    {
+        StopRainRoutine();
+        ClearRainRenderers();
+
+        if (spawnClip == null)
+        {
+            return;
+        }
+
+        if (hideSourceRendererForRain && spriteRenderer != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        rainRoutine = StartCoroutine(PlayRainRoutine());
+    }
+
+    private IEnumerator PlayRainRoutine()
+    {
+        int burstCount = Mathf.Max(1, rainBurstCount);
+        float lifetime = ResolveRainLifetime();
+        float fallDuration = ResolveRainFallDuration();
+
+        float spawnWindow = Mathf.Max(0.01f, lifetime - fallDuration);
+        float interval = spawnWindow / burstCount;
+
+        for (int i = 0; i < burstCount; i++)
+        {
+            SpriteRenderer rainRenderer = CreateRainRenderer(i, burstCount);
+
+            if (rainRenderer != null)
+            {
+                StartCoroutine(AnimateRainRenderer(rainRenderer));
+            }
+
+            if (i < burstCount - 1)
+            {
+                yield return new WaitForSeconds(interval);
+            }
+        }
+    }
+
+    private SpriteRenderer CreateRainRenderer(int index, int count)
+    {
+        if (spawnClip == null)
+        {
+            return null;
+        }
+
+        Transform parent = vfxRoot != null
+            ? vfxRoot
+            : transform;
+
+        GameObject rainObject = new GameObject($"RainProjectile_{index + 1:00}");
+        rainObject.transform.SetParent(parent, false);
+
+        SpriteRenderer rainRenderer = rainObject.AddComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            rainRenderer.color = spriteRenderer.color;
+            rainRenderer.flipX = spriteRenderer.flipX;
+            rainRenderer.flipY = spriteRenderer.flipY;
+            rainRenderer.sortingLayerID = spriteRenderer.sortingLayerID;
+            rainRenderer.sortingOrder = spriteRenderer.sortingOrder + index + 1;
+            rainRenderer.sharedMaterial = spriteRenderer.sharedMaterial;
+        }
+
+        Animator rainAnimator = rainObject.AddComponent<Animator>();
+        PlayableGraph rainGraph = PlayRainClip(rainAnimator, spawnClip);
+
+        if (rainGraph.IsValid())
+        {
+            rainGraphByRenderer[rainRenderer] = rainGraph;
+        }
+
+        // New: spawn in circular area instead of horizontal line
+        Vector2 randomCircle = Random.insideUnitCircle * Mathf.Max(0f, rainSpawnRadius);
+        randomCircle.x += Random.Range(-rainRandomXJitter, rainRandomXJitter);
+
+        rainObject.transform.localPosition = new Vector3(
+            randomCircle.x,
+            rainStartHeight + randomCircle.y,
+            0f);
+        if (spriteRenderer != null)
+        {
+            rainObject.transform.localRotation = spriteRenderer.transform.localRotation;
+            rainObject.transform.localScale = spriteRenderer.transform.localScale;
+        }
+
+        rainRenderers.Add(rainRenderer);
+        return rainRenderer;
+    }
+
+    private PlayableGraph PlayRainClip(Animator rainAnimator, AnimationClip clip)
+    {
+        if (rainAnimator == null || clip == null)
+        {
+            return default;
+        }
+
+        PlayableGraph graph = PlayableGraph.Create($"RainProjectileVisual_{name}");
+        graph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+
+        AnimationClipPlayable playable = AnimationClipPlayable.Create(graph, clip);
+        playable.SetApplyFootIK(false);
+        playable.SetApplyPlayableIK(false);
+        playable.SetDuration(clip.length);
+        playable.SetTime(0d);
+        playable.SetSpeed(1d);
+
+        AnimationPlayableOutput output = AnimationPlayableOutput.Create(
+            graph,
+            "RainProjectileOutput",
+            rainAnimator);
+        output.SetSourcePlayable(playable);
+
+        graph.Play();
+        rainGraphs.Add(graph);
+
+        return graph;
+    }
+
+    private IEnumerator AnimateRainRenderer(SpriteRenderer rainRenderer)
+    {
+        if (rainRenderer == null)
+        {
+            yield break;
+        }
+
+        float delay = Random.Range(0f, Mathf.Max(0f, rainRandomStartDelay));
+
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        Transform rainTransform = rainRenderer.transform;
+        Vector3 start = rainTransform.localPosition;
+        Vector3 end = start + Vector3.down * Mathf.Max(0f, rainFallDistance);
+        float duration = ResolveRainFallDuration();
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            if (rainRenderer == null)
+            {
+                yield break;
+            }
+
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            rainTransform.localPosition = Vector3.Lerp(start, end, t);
+
+            yield return null;
+        }
+
+        DestroyRainRenderer(rainRenderer);
+    }
+    private void DestroyRainRenderer(SpriteRenderer rainRenderer)
+    {
+        if (rainRenderer == null)
+        {
+            return;
+        }
+
+        if (rainGraphByRenderer.TryGetValue(rainRenderer, out PlayableGraph graph))
+        {
+            if (graph.IsValid())
+            {
+                graph.Destroy();
+            }
+
+            rainGraphs.Remove(graph);
+            rainGraphByRenderer.Remove(rainRenderer);
+        }
+
+        rainRenderers.Remove(rainRenderer);
+        Destroy(rainRenderer.gameObject);
+    }
+
+    private float ResolveRainLifetime()
+    {
+        if (runtimeData != null && runtimeData.lifetime > 0f)
+        {
+            return runtimeData.lifetime;
+        }
+
+        return Mathf.Max(ResolveRainFallDuration(), rainDuration);
+    }
+
+    private float ResolveRainFallDuration()
+    {
+        if (spawnClip != null && spawnClip.length > 0f)
+        {
+            return spawnClip.length;
+        }
+
+        return Mathf.Max(0.01f, rainDuration);
+    }
+
+    private void StopRainRoutine()
+    {
+        if (rainRoutine != null)
+        {
+            StopCoroutine(rainRoutine);
+            rainRoutine = null;
+        }
+
+        ClearRainRenderers();
+
+        if (spriteRenderer != null && hideSourceRendererForRain)
+        {
+            spriteRenderer.enabled = true;
+        }
+    }
+
+    private void ClearRainRenderers()
+    {
+        for (int i = rainGraphs.Count - 1; i >= 0; i--)
+        {
+            PlayableGraph graph = rainGraphs[i];
+
+            if (graph.IsValid())
+            {
+                graph.Destroy();
+            }
+        }
+
+        rainGraphByRenderer.Clear();
+        rainGraphs.Clear();
+
+        for (int i = rainRenderers.Count - 1; i >= 0; i--)
+        {
+            SpriteRenderer rainRenderer = rainRenderers[i];
+
+            if (rainRenderer != null)
+            {
+                Destroy(rainRenderer.gameObject);
+            }
+        }
+
+        rainRenderers.Clear();
     }
 
     public void SetSprite(Sprite sprite)

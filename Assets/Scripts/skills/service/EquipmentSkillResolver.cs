@@ -213,10 +213,10 @@ public class EquipmentSkillResolver
             visualContext = source.visualContext,
             effectRuntimeSet = source.effectRuntimeSet,
             spawnSkillSo = source.spawnSkillSo,
+            projectileVisualType = source.projectileVisualType,
             spawnClip = source.spawnClip,
             hitClip = source.hitClip,
             despawnClip = source.despawnClip,
-            sprite = source.sprite,
             material = source.material,
             color = source.color,
             useAnimatorTriggers = source.useAnimatorTriggers
@@ -440,6 +440,10 @@ public class EquipmentSkillResolver
 
         BaseVisualSO baseVisual = visualSet.BaseVisualSo;
 
+        projectileData.projectileVisualType = baseVisual != null
+            ? baseVisual.ProjectileVisualType
+            : ProjectileVisualType.Default;
+
         projectileData.spawnClip = baseVisual != null
             ? baseVisual.ProjectileLoopClip
             : null;
@@ -449,10 +453,6 @@ public class EquipmentSkillResolver
             : null;
 
         projectileData.despawnClip = null;
-
-        projectileData.sprite = baseVisual != null
-            ? baseVisual.BaseSprite
-            : null;
 
         projectileData.material = null;
         projectileData.color = Color.white;

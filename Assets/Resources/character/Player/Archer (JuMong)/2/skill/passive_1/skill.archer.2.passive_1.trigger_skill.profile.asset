@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f0f6f0544b64806bbbb78ae0c756b5, type: 3}
+  m_Name: skill.archer.2.passive_1.trigger_skill.profile
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
+  skillType: 0
+  effectType: 0
+  attackArchetype: 2
+  skipAttackAnimation: 1
+  projectilePrefab: {fileID: 4118216556720441464, guid: a952449ec50fc4e1eb8e0be96e66a4aa, type: 3}
+  projectileSpawnOffset: 0.5
+  projectileCount: 1
+  projectileArrangement: 0
+  projectileArrangementValue: 0
+  projectileSpreadAngle: 0
+  projectileScale: 0.5
+  projectileLifetime: 5
+  projectileSpawnInterval: 0
+  projectileSpawnRadius: 0
+  category: 1
+  targetType: 3
+  tacticalNeed: 0
+  basePriority: 0

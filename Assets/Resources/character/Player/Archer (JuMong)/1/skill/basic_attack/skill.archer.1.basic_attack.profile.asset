@@ -11,14 +11,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2f0f6f0544b64806bbbb78ae0c756b5, type: 3}
   m_Name: skill.archer.1.basic_attack.profile
-  m_EditorClassIdentifier: Assembly-CSharp::EquipmentBaseProfileSO
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
+  skillType: 0
+  effectType: 0
   attackArchetype: 2
+  skipAttackAnimation: 0
   projectilePrefab: {fileID: 4118216556720441464, guid: a952449ec50fc4e1eb8e0be96e66a4aa, type: 3}
   projectileSpawnOffset: 0.5
   projectileCount: 1
+  projectileArrangement: 0
+  projectileArrangementValue: 0
   projectileSpreadAngle: 0
-  projectileScale: 1
-  projectileLifetime: 0.4
+  projectileScale: 0.5
+  projectileLifetime: 0.6
   projectileSpawnInterval: 0
   projectileSpawnRadius: 0
   category: 1

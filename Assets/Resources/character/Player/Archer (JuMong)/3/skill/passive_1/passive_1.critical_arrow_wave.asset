@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: passive_1.critical_arrow_wave
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: passive_1.critical_arrow_wave
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 74d2096d1b1004c7d8b58a70acb1b403, type: 2}
+  castSo: {fileID: 11400000, guid: af3c137f356fd4931982f13e4bcc1681, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: c040d9c7dfd7741309a0069ce4b67196, type: 2}
+  moveSo: {fileID: 11400000, guid: 85a6dc7cb41d041d0965021ac190a932, type: 2}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 11400000, guid: f6d0f59ea0a0641f1baddb974980af56, type: 2}

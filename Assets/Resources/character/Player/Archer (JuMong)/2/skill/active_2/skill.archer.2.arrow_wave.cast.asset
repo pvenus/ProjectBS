@@ -11,14 +11,16 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bdfb642961ab451b87e9c00a70de4c1, type: 3}
   m_Name: skill.archer.2.arrow_wave.cast
-  m_EditorClassIdentifier: Assembly-CSharp::SkillCastSO
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
   cooldown: 14
   castTime: 0
-  range: 4
+  range: 10
   burstCount: 1
   burstInterval: 0
   castType: 0
-  targetingType: 1
-  canMoveWhileCasting: 1
-  canCancelCasting: 1
+  targetingType: 3
+  castMove: {fileID: 0}
+  selfEffects: []
+  canMoveWhileCasting: 0
+  canCancelCasting: 0
   autoCast: 1
