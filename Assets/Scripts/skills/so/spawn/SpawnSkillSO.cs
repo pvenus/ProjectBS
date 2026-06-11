@@ -13,6 +13,7 @@ namespace Skill
         [SerializeField] private int spawnCount = 1;
         [SerializeField] private float spawnInterval;
         [SerializeField] private float duration;
+        [SerializeField] private float scale = 1f;
         [SerializeField] private CharacterSO characterSO;
         [SerializeField] private EquipmentSkillSO skill;
 
@@ -21,6 +22,7 @@ namespace Skill
         public int SpawnCount => spawnCount;
         public float SpawnInterval => spawnInterval;
         public float Duration => duration;
+        public float Scale => scale;
         public CharacterSO CharacterSO => characterSO;
         public EquipmentSkillSO Skill => skill;
     }

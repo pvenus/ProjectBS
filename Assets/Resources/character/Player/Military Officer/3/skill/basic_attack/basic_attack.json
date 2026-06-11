@@ -9,7 +9,7 @@
     "attackArchetype": "Melee",
 
     "projectilePrefabName": "melee_slash",
-    "projectileSpawnOffset": 1.0,
+    "projectileSpawnOffset": 0.5,
 
     "projectileCount": 1,
     "projectileScale": 1,
@@ -79,7 +79,7 @@
       "idleClip": "slash_idle",
       "castClip": "slash_cast",
       "attackClip": "slash_attack",
-      "projectileLoopClip": "slash_active",
+      "projectileLoopClip": "",
       "hitClip": "slash_hit"
     },
 

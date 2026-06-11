@@ -21,7 +21,7 @@
 
     "category": "Attack",
     "targetType": "Enemy",
-    "tacticalNeed": "Engage",
+    "tacticalNeed": "OffensivePressure",
     "basePriority": 0.8
   },
   "cast": {
@@ -75,7 +75,7 @@
     "duration": 0.3,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "rotationOffset": 180,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
@@ -108,7 +108,7 @@
       "idleClip": "slash_idle",
       "castClip": "slash_cast",
       "attackClip": "slash_attack",
-      "projectileLoopClip": "slash_fly",
+      "projectileLoopClip": "military_officer_rush",
       "hitClip": "slash_hit"
     },
 

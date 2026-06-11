@@ -122,15 +122,6 @@ public class ProjectileFactory
             return null;
         }
 
-        Quaternion rotation = Quaternion.identity;
-
-        if (runtimeData.move != null &&
-            runtimeData.move.applyDirectionRotation)
-        {
-            Vector2 direction = runtimeData.NormalizedDirection;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rotation = Quaternion.Euler(0f, 0f, angle);
-        }
 
         ProjectileEntity firstInstance = null;
         int count = Mathf.Max(1, runtimeData.projectileCount);
@@ -149,8 +140,8 @@ public class ProjectileFactory
         for (int i = 0; i < count; i++)
         {
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
-
-            ProjectileEntity instance = Object.Instantiate(prefab, instanceData.spawnPosition, rotation);
+            Quaternion instanceRotation = ResolveSpawnRotation(instanceData);
+            ProjectileEntity instance = Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation);
             instance.transform.localScale = Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);
             instance.Initialize(instanceData);
 
@@ -162,6 +153,30 @@ public class ProjectileFactory
 
 
         return firstInstance;
+    }
+    private Quaternion ResolveSpawnRotation(ProjectileRuntimeData runtimeData)
+    {
+        if (runtimeData == null || runtimeData.move == null)
+        {
+            return Quaternion.identity;
+        }
+
+        if (!runtimeData.move.applyDirectionRotation)
+        {
+            return Quaternion.identity;
+        }
+
+        Vector2 direction = runtimeData.NormalizedDirection;
+
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            return Quaternion.identity;
+        }
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle += runtimeData.move.rotationOffset;
+
+        return Quaternion.Euler(0f, 0f, angle);
     }
     private bool ShouldSpawnWithInterval(ProjectileRuntimeData runtimeData, int count)
     {
@@ -182,22 +197,18 @@ public class ProjectileFactory
             0f,
             runtimeData.damageProfile.projectileSpawnInterval);
 
-        Quaternion rotation = Quaternion.identity;
-
-        if (oriented)
-        {
-            Vector2 direction = runtimeData.NormalizedDirection;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rotation = Quaternion.Euler(0f, 0f, angle);
-        }
+        // Removed shared rotation calculation. Each instance will have its own rotation.
 
         for (int i = 0; i < count; i++)
         {
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
+            Quaternion instanceRotation = oriented
+                ? ResolveSpawnRotation(instanceData)
+                : Quaternion.identity;
 
             ProjectileEntity instance = parent != null
-                ? Object.Instantiate(prefab, instanceData.spawnPosition, rotation, parent)
-                : Object.Instantiate(prefab, instanceData.spawnPosition, rotation);
+                ? Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation, parent)
+                : Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation);
 
             instance.transform.localScale =
                 Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);

@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: skill.military_officer.3.indomitable.profile
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
   skillType: 1
+  effectType: 0
   attackArchetype: 0
   skipAttackAnimation: 0
   projectilePrefab: {fileID: 0}
   projectileSpawnOffset: 0
   projectileCount: 0
+  projectileArrangement: 0
+  projectileArrangementValue: 0
   projectileSpreadAngle: 0
   projectileScale: 0
   projectileLifetime: 0

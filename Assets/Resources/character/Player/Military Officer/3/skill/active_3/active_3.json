@@ -14,14 +14,14 @@
     "projectileCount": 2,
     "projectileSpreadAngle": 0,
     "projectileScale": 2.5,
-    "projectileLifetime": 4,
+    "projectileLifetime": 6,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
 
     "category": "Attack",
-    "targetType": "Area",
-    "tacticalNeed": "Control",
+    "targetType": "Point",
+    "tacticalNeed": "AreaControl",
     "basePriority": 1.0
   },
   "cast": {
@@ -44,7 +44,7 @@
   "move": {
     "moveId": "skill.military_officer.3.turtle_ship_assault.move",
     "moveType": "Linear",
-    "speed": 1,
+    "speed": 3,
     "duration": 3,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
@@ -90,15 +90,15 @@
 
         "projectileCount": 1,
         "projectileSpreadAngle": 0,
-        "projectileScale": 2.2,
+        "projectileScale": 0.15,
         "projectileLifetime": 4,
 
         "projectileSpawnInterval": 0,
         "projectileSpawnRadius": 0,
 
         "category": "Attack",
-        "targetType": "Area",
-        "tacticalNeed": "Control",
+        "targetType": "Point",
+        "tacticalNeed": "AreaControl",
         "basePriority": 0
       },
       "cast": {
@@ -158,7 +158,7 @@
           "idleClip": "cannon_zone_idle",
           "castClip": "cannon_zone_cast",
           "attackClip": "cannon_zone_attack",
-          "projectileLoopClip": "cannon_zone_loop",
+          "projectileLoopClip": "military_officer_crane_wing_formation",
           "hitClip": "cannon_zone_hit"
         },
 
@@ -227,7 +227,7 @@
       "idleClip": "turtle_ship_idle",
       "castClip": "turtle_ship_cast",
       "attackClip": "turtle_ship_attack",
-      "projectileLoopClip": "turtle_ship_sail",
+      "projectileLoopClip": "military_officer_turtleship",
       "hitClip": "turtle_ship_hit"
     },
 

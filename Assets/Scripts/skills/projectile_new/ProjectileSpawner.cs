@@ -1,4 +1,5 @@
 using Skill;
+using Skill.Service.Helper;
 using UnityEngine;
 
 /// <summary>
@@ -174,56 +175,27 @@ public class ProjectileSpawner : MonoBehaviour
             return false;
         }
 
-        Vector2 spawnPosition = ResolveChildSpawnPosition(
-            spawnSkillSo.Position);
 
-        Vector2 direction = ResolveChildDirection();
+        Transform spawnTransform = ownerProjectile != null
+            ? ownerProjectile.transform
+            : transform;
 
-        ProjectileRuntimeData[] childProjectiles =
-            skillResolver.ResolveProjectileRuntime(
-                childRuntime,
-                ownerRuntimeData.owner,
-                ownerRuntimeData.target,
-                spawnPosition,
-                direction,
-                spawnPosition);
+        Vector2 spawnPosition = spawnTransform.position;
 
-        if (childProjectiles == null || childProjectiles.Length == 0)
-        {
-            return false;
-        }
+        Transform targetTransform = ownerRuntimeData.target != null
+            ? ownerRuntimeData.target.transform
+            : null;
 
-        bool spawnedAny = false;
+        SkillUseHelper.UseSkillProjectilesAndSelfEffects(
+            childRuntime,
+            spawnTransform,
+            targetTransform,
+            false,
+            spawnPosition);
 
-        for (int i = 0; i < childProjectiles.Length; i++)
-        {
-            ProjectileRuntimeData childProjectile = childProjectiles[i];
-
-            if (childProjectile == null)
-            {
-                continue;
-            }
-
-            ProjectileEntity prefab = childProjectile.projectilePrefab != null
-                ? childProjectile.projectilePrefab
-                : childRuntime.projectilePrefab;
-
-            if (prefab == null)
-            {
-                continue;
-            }
-
-            ProjectileEntity projectile = Instantiate(
-                prefab,
-                childProjectile.spawnPosition,
-                Quaternion.identity);
-
-            projectile.Initialize(childProjectile);
-            spawnedAny = true;
-        }
-
-        return spawnedAny;
+        return true;
     }
+
 
     private bool CanSpawnChildSkill(
         SpawnSkillSO spawnSkillSo)

@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: skill.military_officer.3.crane_wing_formation.profile
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
   skillType: 0
+  effectType: 0
   attackArchetype: 1
   skipAttackAnimation: 0
   projectilePrefab: {fileID: 4118216556720441464, guid: a952449ec50fc4e1eb8e0be96e66a4aa, type: 3}
   projectileSpawnOffset: 0
   projectileCount: 1
+  projectileArrangement: 0
+  projectileArrangementValue: 0
   projectileSpreadAngle: 0
-  projectileScale: 3
+  projectileScale: 0.5
   projectileLifetime: 5
   projectileSpawnInterval: 0
   projectileSpawnRadius: 0
   category: 1
-  targetType: 0
-  tacticalNeed: 0
+  targetType: 4
+  tacticalNeed: 3
   basePriority: 0.9

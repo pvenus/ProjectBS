@@ -102,7 +102,6 @@
     <Compile Include="Assets/Scripts/character/service/CharacterStatusTickService.cs" />
     <Compile Include="Assets/Scripts/item/ItemDebugConsole.cs" />
     <Compile Include="Assets/Scripts/shop/so/ShopItemPoolSO.cs" />
-    <Compile Include="Assets/Scripts/skills/so/animation/MainElementVisualGroupSO.cs" />
     <Compile Include="Assets/Scripts/effect/runtime/TauntEffectRuntime.cs" />
     <Compile Include="Assets/Scripts/venus/DangerPerceptionProfile.cs" />
     <Compile Include="Assets/Scripts/skills/SkillEnum.cs" />
@@ -127,11 +126,9 @@
     <Compile Include="Assets/Scripts/party/ui/DamagePopupUI.cs" />
     <Compile Include="Assets/Scripts/stage/StageRouteRecord.cs" />
     <Compile Include="Assets/Scripts/bless/so/BlessPoolSO.cs" />
-    <Compile Include="Assets/Scripts/skills/so/animation/MainElementVisualLibrarySO.cs" />
     <Compile Include="Assets/Scripts/_machal/UIUtility/ItemTester.cs" />
     <Compile Include="Assets/Scripts/effect/so/AttackBleedEffectSO.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Interpreters/SolutionToTactic.cs" />
-    <Compile Include="Assets/Scripts/skills/so/animation/SubElementEffectLibrarySO.cs" />
     <Compile Include="Assets/Scripts/character/service/CharacterPresentationService.cs" />
     <Compile Include="Assets/Scripts/party/service/PartyMovementPositionService.cs" />
     <Compile Include="Assets/Scripts/skills/SlamSkill.cs" />

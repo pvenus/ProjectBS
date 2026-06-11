@@ -13,15 +13,15 @@
 
     "projectileCount": 1,
     "projectileSpreadAngle": 0,
-    "projectileScale": 3,
+    "projectileScale": 0.5,
     "projectileLifetime": 5,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
 
     "category": "Attack",
-    "targetType": "Area",
-    "tacticalNeed": "Control",
+    "targetType": "Point",
+    "tacticalNeed": "AreaControl",
     "basePriority": 0.9
   },
   "cast": {
@@ -81,7 +81,7 @@
       "idleClip": "formation_idle",
       "castClip": "formation_cast",
       "attackClip": "formation_attack",
-      "projectileLoopClip": "formation_loop",
+      "projectileLoopClip": "military_officer_crane_wing_formation",
       "hitClip": "formation_hit"
     },
 

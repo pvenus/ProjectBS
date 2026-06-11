@@ -36,8 +36,6 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
     private bool _initialized;
     private bool _hasReachedEnd;
     private float _hoverTime;
-    private Vector2 _currentDirection = Vector2.up;
-    private Vector2 _lastPosition;
     private Transform _targetTransform;
     private Vector2 _currentPosition;
 
@@ -87,9 +85,6 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         {
             _currentPosition = startPosition;
         }
-
-        _lastPosition = startPosition;
-        _currentDirection = Vector2.up;
     }
 
     public void SetContext(SkillProjectileMovementContext context)
@@ -112,11 +107,10 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         if (_targetTransform == null)
             return;
 
-        _hoverTime += Mathf.Max(0f, deltaTime);
+        // _hoverTime is not updated, disabling hover/sine wobble
 
         Vector2 basePosition = EvaluateBaseFollowPosition();
-        Vector2 hoverOffset = EvaluateHoverOffset();
-        Vector2 desiredPosition = basePosition + hoverOffset;
+        Vector2 desiredPosition = basePosition;
         Vector2 currentPosition = _targetTransform != null ? (Vector2)_targetTransform.position : _currentPosition;
 
         Vector2 nextPosition;
@@ -130,15 +124,12 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
             nextPosition = Vector2.Lerp(currentPosition, desiredPosition, t);
         }
 
-        Vector2 delta = nextPosition - _lastPosition;
-        if (delta.sqrMagnitude > 0.000001f)
-            _currentDirection = delta.normalized;
+
 
         _currentPosition = nextPosition;
         if (_targetTransform != null)
             _targetTransform.position = nextPosition;
 
-        _lastPosition = nextPosition;
     }
 
     public bool HasReachedEnd()
@@ -155,13 +146,11 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         _initialized = false;
         _hasReachedEnd = false;
         _hoverTime = 0f;
-        _currentDirection = Vector2.up;
-        _lastPosition = Vector2.zero;
     }
 
     public Vector2 GetDirection()
     {
-        return _currentDirection;
+        return Vector2.zero;
     }
 
     public Vector2 GetPosition()
@@ -181,11 +170,7 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
 
     private Vector2 EvaluateHoverOffset()
     {
-        if (_dto == null || !_dto.useHoverMotion)
-            return Vector2.zero;
-
-        Vector2 axis = _dto.hoverAxis.sqrMagnitude > 0.0001f ? _dto.hoverAxis.normalized : Vector2.up;
-        float wave = Mathf.Sin(_hoverTime * Mathf.PI * 2f * _dto.hoverFrequency);
-        return axis * (_dto.hoverAmplitude * wave);
+        // Hover offset disabled
+        return Vector2.zero;
     }
 }
