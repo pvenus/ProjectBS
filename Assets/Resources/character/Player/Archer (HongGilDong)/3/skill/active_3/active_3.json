@@ -1,0 +1,83 @@
+{
+  "equipmentId": "active_3",
+  "slotName": "active_3",
+  "skillName": "skill.archerII.3.outlaw_appearance",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "skill.archerII.3.outlaw_appearance.profile",
+
+    "attackArchetype": "Ranged",
+    "effectType": "Spawn",
+
+    "category": "Support",
+    "targetType": "Self",
+    "tacticalNeed": "None",
+    "basePriority": 0
+  },
+  "cast": {
+    "castId": "skill.archerII.3.outlaw_appearance.cast",
+
+    "cooldown": 28,
+    "castTime": 0,
+    "range": 0,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "Self",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "spawnSkill": {
+    "spawnSkillId": "skill.archerII.3.outlaw_appearance.spawn",
+    "timing": "OnCast",
+    "position": "CasterAround",
+    "spawnCount": 3,
+    "spawnInterval": 0,
+    "duration": 8,
+    "characterSO": "character.archerII_spawn.3"
+  },
+  "visualSet": {
+    "visualSetId": "skill.archerII.3.outlaw_appearance.visual",
+
+    "baseVisual": {
+      "visualId": "skill.archerII.3.outlaw_appearance.visual.base",
+      "archetype": "Ranged",
+
+      "projectilePrefab": "projectile",
+      "projectileSprite": "smoke_spawn",
+
+      "animatorController": "arrow_animator",
+
+      "idleClip": "arrow_idle",
+      "castClip": "arrow_cast",
+      "attackClip": "arrow_attack",
+      "projectileLoopClip": "smoke_spawn",
+      "hitClip": "arrow_hit"
+    },
+
+    "impactVisual": {
+      "visualId": "skill.archerII.3.outlaw_appearance.visual.impact",
+
+      "impactType": "Normal",
+      "element": "None",
+
+      "effectPrefab": "fx_smoke_spawn",
+      "sound": "sfx_smoke_spawn",
+
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
+
+    "trailVisual": {
+      "trailId": "skill.archerII.3.outlaw_appearance.visual.trail",
+      "effectPrefab": "fx_smoke_trail",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  }
+}

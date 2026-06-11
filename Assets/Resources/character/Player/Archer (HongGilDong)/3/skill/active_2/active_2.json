@@ -1,0 +1,143 @@
+{
+  "equipmentId": "active_2",
+  "slotName": "active_2",
+  "skillName": "skill.archerII.3.hwalbin_barrage",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "skill.archerII.3.hwalbin_barrage.profile",
+
+    "attackArchetype": "Ranged",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0.5,
+
+    "projectileCount": 3,
+    "projectileArrangement": "Line",
+    "projectileArrangementValue": 0.45,
+    "projectileScale": 0.5,
+    "projectileLifetime": 0.75,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0
+  },
+  "cast": {
+    "castId": "skill.archerII.3.hwalbin_barrage.cast",
+
+    "cooldown": 12,
+    "castTime": 0,
+    "range": 10,
+
+    "burstCount": 4,
+    "burstInterval": 0.15,
+
+    "castType": "Instant",
+    "targetingType": "AutoTargetDirection",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "skill.archerII.3.hwalbin_barrage.move",
+    "moveType": "Linear",
+    "speed": 12,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0.15,
+    "hoverFrequency": 2.5,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 1.5,
+    "orbitAngularSpeed": 180,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0
+  },
+  "visualSet": {
+    "visualSetId": "skill.archerII.3.hwalbin_barrage.visual",
+
+    "baseVisual": {
+      "visualId": "skill.archerII.3.hwalbin_barrage.visual.base",
+      "archetype": "Ranged",
+
+      "projectilePrefab": "projectile",
+      "projectileSprite": "hwalbin_arrow_basic",
+
+      "animatorController": "arrow_animator",
+
+      "idleClip": "arrow_idle",
+      "castClip": "arrow_cast",
+      "attackClip": "arrow_attack",
+      "projectileLoopClip": "archer_hwalbin_barrage",
+      "hitClip": "arrow_hit"
+    },
+
+    "impactVisual": {
+      "visualId": "skill.archerII.3.hwalbin_barrage.visual.impact",
+
+      "impactType": "Normal",
+      "element": "None",
+
+      "effectPrefab": "fx_hwalbin_arrow_hit",
+      "sound": "sfx_hwalbin_arrow_hit",
+
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
+
+    "trailVisual": {
+      "trailId": "skill.archerII.3.hwalbin_barrage.visual.trail",
+      "effectPrefab": "fx_hwalbin_arrow_trail",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.archerII.3.hwalbin_barrage.hit",
+
+      "maxHitCount": 20,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+
+      "targetLayerMask": "Enemy",
+
+      "damage": {
+        "skillId": "skill.archerII.3.hwalbin_barrage.damage",
+        "damageType": "Normal",
+        "baseDamage": 60,
+        "attackPercentDamage": 45,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+
+      "buffEffects": [],
+      "debuffEffects": [],
+
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 4,
+      "splitHitInterval": 0.1
+    }
+  ]
+}

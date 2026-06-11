@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: passive_1
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: passive_1
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: cb6fc5f9ed81942c1a23b78a967318d6, type: 2}
+  castSo: {fileID: 0}
+  hitSos:
+  - {fileID: 11400000, guid: 754f79fdc33af429fabe62c90b9ace79, type: 2}
+  moveSo: {fileID: 0}
+  spawnSkillSo: {fileID: 0}
+  visualSetSo: {fileID: 0}

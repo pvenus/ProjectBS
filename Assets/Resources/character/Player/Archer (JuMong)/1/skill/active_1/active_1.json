@@ -1,0 +1,143 @@
+{
+  "equipmentId": "active_1",
+  "slotName": "active_1",
+  "skillName": "skill.archer.1.multi_shot",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "profileId": "skill.archer.1.multi_shot.profile",
+
+    "attackArchetype": "Ranged",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0.5,
+
+    "projectileCount": 5,
+    "projectileSpreadAngle": 30,
+    "projectileScale": 1,
+    "projectileLifetime": 0.6,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0
+  },
+  "cast": {
+    "castId": "skill.archer.1.multi_shot.cast",
+
+    "cooldown": 8,
+    "castTime": 0,
+    "range": 4,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "skill.archer.1.multi_shot.move",
+    "moveType": "Linear",
+    "speed": 9,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": 180,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0.15,
+    "hoverFrequency": 2.5,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 1.5,
+    "orbitAngularSpeed": 180,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0
+  },
+  "visualSet": {
+    "visualSetId": "skill.archer.1.multi_shot.visual",
+
+    "baseVisual": {
+      "visualId": "skill.archer.1.multi_shot.visual.base",
+      "archetype": "Ranged",
+
+      "projectilePrefab": "projectile",
+      "projectileSprite": "arrow_basic",
+
+      "animatorController": "arrow_animator",
+
+      "idleClip": "arrow_idle",
+      "castClip": "arrow_cast",
+      "attackClip": "arrow_attack",
+      "projectileLoopClip": "arrow_fly",
+      "hitClip": "arrow_hit"
+    },
+
+    "impactVisual": {
+      "visualId": "skill.archer.1.multi_shot.visual.impact",
+
+      "impactType": "Normal",
+      "element": "None",
+
+      "effectPrefab": "fx_arrow_hit",
+      "sound": "sfx_arrow_hit",
+
+      "scale": 1.0,
+      "intensity": 1.0,
+      "duration": 0.5
+    },
+
+    "trailVisual": {
+      "trailId": "skill.archer.1.multi_shot.visual.trail",
+      "effectPrefab": "fx_arrow_trail",
+      "followProjectile": true,
+      "duration": 0.3
+    }
+  },
+  "hit": {
+    "hitId": "skill.archer.1.multi_shot.hit",
+
+    "maxHitCount": 1,
+    "ignoreSameRoot": true,
+    "useRepeatInterval": false,
+    "repeatInterval": 0.25,
+
+    "useHitWindow": false,
+    "hitStartTime": 0,
+    "deactivateAfterFirstHit": false,
+
+    "targetLayerMask": "Enemy",
+
+    "damage": {
+      "skillId": "skill.archer.1.multi_shot.damage",
+      "damageType": "Normal",
+      "baseDamage": 30,
+      "attackPercentDamage": 60,
+      "canCritical": true,
+      "ignoreDefense": false
+    },
+
+    "buffEffects": [],
+    "debuffEffects": [],
+
+    "useSplitMultiHitDamage": false,
+    "splitHitCount": 4,
+    "splitHitInterval": 0.1,
+
+    "useKnockback": false,
+    "knockbackForce": 0
+  }
+}

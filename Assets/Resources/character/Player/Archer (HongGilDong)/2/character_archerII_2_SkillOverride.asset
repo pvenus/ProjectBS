@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d4b5ffea3bc48a88384ebf306310b2, type: 3}
+  m_Name: character_archerII_2_SkillOverride
+  m_EditorClassIdentifier: Assembly-CSharp::Character.SkillPoolOverrideSO
+  overrides:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 185b456d167eb4b6d8f2f692d99553bc, type: 2}
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 03dd5c96a5a5a48458ed5f2e0cbb71ae, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: 3cf281006afd146c699bd5f82d641e69, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: a25949aff200d4f2eb276f6686ef4495, type: 2}

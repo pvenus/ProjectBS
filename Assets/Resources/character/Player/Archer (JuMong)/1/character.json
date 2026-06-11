@@ -1,0 +1,58 @@
+
+
+{
+  "characterId": "character.archer.1",
+
+  "characterType": "Player",
+
+  "prefabName": "character_member",
+  "baseStats": [
+    {
+      "statType": "Attack",
+      "value": 10
+    },
+    {
+      "statType": "MaxHp",
+      "value": 100
+    },
+    {
+      "statType": "AttackSpeed",
+      "value": 1
+    },
+    {
+      "statType": "CritChance",
+      "value": 90
+    },
+    {
+      "statType": "CritDamage",
+      "value": 50
+    },
+    {
+      "statType": "MoveSpeed",
+      "value": 1
+    }
+  ],
+  "animationOverrideSet": {
+    "animationSetId": "character.archer.1",
+    "animationFolder": "animation"
+  },
+
+  "skillOverrideSet": {
+    "overrideId": "character.archer.1",
+
+    "slots": [
+      {
+        "slot": "basic_attack",
+        "skillJson": "skill/basic_attack/basic_attack.json"
+      },
+      {
+        "slot": "active_1",
+        "skillJson": "skill/active_1/active_1.json"
+      },
+      {
+        "slot": "passive_1",
+        "skillJson": "skill/passive_1/passive_1.json"
+      }
+    ]
+  }
+}
