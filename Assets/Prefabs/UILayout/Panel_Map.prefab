@@ -229,21 +229,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6940318976914548113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d26cb22f39f65045968b18e6e96ae75, type: 3}
+  m_Script: {fileID: 11500000, guid: 09fd23c29d1b74bb68208a90180ecec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.Map.ProceduralNodeMapUI
   stageManager: {fileID: 0}
-  contentRoot: {fileID: 628050963890307663}
-  pathRoot: {fileID: 6763533216031076503}
-  nodeButtonPrefab: {fileID: 6722017001363366838, guid: 9c11d88ddbc6c8a4ebf2abab3732c7c7, type: 3}
-  pathSegmentPrefab: {fileID: 2339694828086439905, guid: ea51f587b92068343b10e4a6b270c481, type: 3}
-  horizontalSpacing: 400
-  verticalSpacing: 185.1
-  randomOffsetX: 61
-  randomOffsetY: 50
+  contentRoot: {fileID: 0}
+  pathRoot: {fileID: 0}
+  nodeButtonPrefab: {fileID: 0}
+  pathSegmentPrefab: {fileID: 0}
+  horizontalSpacing: 150
+  verticalSpacing: 180
+  randomOffsetX: 25
+  randomOffsetY: 25
   startPosition: {x: 0, y: 0}
   growUpwards: 1
-  pathSegmentSpacing: 40
+  pathSegmentSpacing: 25
   pathSegmentRotationNoise: 15
   useFixedSeed: 0
   randomSeed: 0

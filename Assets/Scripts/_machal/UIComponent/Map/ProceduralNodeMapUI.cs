@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Stage; // 실제 게임의 StageGraph, RoundNode 등을 사용
@@ -55,8 +56,28 @@ namespace UIFramework.Map
         {
             if (stageManager == null) stageManager = StageManager.Instance;
             Subscribe();
-            
-            if (rebuildOnEnable && stageManager != null && stageManager.HasGraph())
+
+            if (rebuildOnEnable)
+            {
+                StartCoroutine(RebuildAfterStageManagerStart());
+            }
+        }
+
+        private IEnumerator RebuildAfterStageManagerStart()
+        {
+            yield return null;
+
+            if (!isActiveAndEnabled)
+            {
+                yield break;
+            }
+
+            if (stageManager == null)
+            {
+                stageManager = StageManager.Instance;
+            }
+
+            if (stageManager != null && stageManager.HasGraph())
             {
                 Build(stageManager.CurrentGraph);
             }
