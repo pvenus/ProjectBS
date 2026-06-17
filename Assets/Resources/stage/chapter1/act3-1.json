@@ -1,0 +1,47 @@
+{
+  "stageNodeId": "stage.ch1.act3_1",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "chapter1",
+  "actId": "act3_1",
+  "actNumber": 31,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 3,
+  "titleKo": "첫 번째 동행자",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "영입",
+  "summaryKo": "이전 액트에서 열린 경로를 따라 첫 번째 동행자를 영입하는 액트.",
+  "startNodeId": "node.ch1.act3_1.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.act3_1.001",
+      "locationId": "location.deep_forest_path",
+      "bodyKo": "의원이 짚어준 단서를 따라 숲 안쪽으로 들어가자 오래된 산길이 모습을 드러냈다.\n\n평범한 사람이 다니는 길은 아니었다.\n\n서진은 누군가 의도적으로 흔적을 감추고 있다는 느낌을 받았다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act3_1.follow_physician_clue",
+          "labelKo": "의원이 말한 단서를 추적한다.",
+          "nextNodeId": "node.ch1.act3_1.002"
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.act3_1.002",
+      "locationId": "location.hidden_forest_cabin",
+      "bodyKo": "숲 깊은 곳에서 서진은 다친 아이를 돌보고 있는 젊은 의원을 다시 만나게 되었다.\n\n그는 이미 자신의 안전보다 아이들을 우선하고 있었다.\n\n\"혹시 살아있는 아이를 찾게 된다면 반드시 치료할 사람이 필요합니다.\"\n\n\"저도 함께 가겠습니다.\"",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act3_1.recruit_jihan",
+          "labelKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
+          "resultKo": "지한이 파티에 합류했다.\n\n이제 서진은 혼자가 아니었다.",
+          "rewards": [
+            {
+              "rewardType": "party_candidate",
+              "rewardId": "character.jihan"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

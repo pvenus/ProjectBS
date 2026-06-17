@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4043fe1ef4846749e32cde5b16d0f6, type: 3}
+  m_Name: stage_1_grave_spawner
+  m_EditorClassIdentifier: Assembly-CSharp::Wave.SO.StageWaveSO
+  waveId: stage_1_grave_spawner
+  duration: 60
+  spawnStartX: 0
+  spawnEndX: 9
+  yMin: -1
+  yMax: 1
+  groupSpreadRadius: 0.5
+  phases:
+  - phaseId: phase_01_eodukshini_from_grave
+    startTime: 0
+    endTime: 60
+    spawnInterval: 999
+    spawnCountPerTick: 1
+    maxAliveCount: 1
+    monsters:
+    - characterSo: {fileID: 11400000, guid: bb0b6152125fd46e69c9b3f0a1cf4d38, type: 2}
+      weight: 1

@@ -1,0 +1,161 @@
+{
+  "stageId": "stage.chapter1",
+  "stageName": "Chapter 1 - Cheongun Village",
+  "useFixedSeed": false,
+  "seed": 1,
+  "requiredSubEvents": [
+    {
+      "nodeId": "stage.ch1.act1",
+      "jsonPath": "Assets/Resources/stage/chapter1/act1.json",
+      "fixedDepth": 0,
+      "fixedColumn": 0
+    },
+    {
+      "nodeId": "stage.ch1.act2",
+      "jsonPath": "Assets/Resources/stage/chapter1/act2.json",
+      "fixedDepth": 1,
+      "fixedColumn": 0
+    },
+    {
+      "nodeId": "stage.ch1.act3_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/act3-1.json",
+      "fixedDepth": 4,
+      "fixedColumn": 0,
+      "hiddenByDefault": true
+    },
+    {
+      "nodeId": "stage.ch1.act3_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/act3-2.json",
+      "fixedDepth": 4,
+      "fixedColumn": 1,
+      "hiddenByDefault": true
+    },
+    {
+      "nodeId": "stage.ch1.act4_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/act4-1.json",
+      "fixedDepth": 7,
+      "fixedColumn": 0
+    },
+    {
+      "nodeId": "stage.ch1.act4_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/act4-2.json",
+      "fixedDepth": 7,
+      "fixedColumn": 1
+    },
+    {
+      "nodeId": "stage.ch1.act5_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/act5-1.json",
+      "fixedDepth": 8,
+      "fixedColumn": 0
+    },
+    {
+      "nodeId": "stage.ch1.act5_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/act5-2.json",
+      "fixedDepth": 8,
+      "fixedColumn": 1
+    },
+    {
+      "nodeId": "stage.ch1.act6",
+      "jsonPath": "Assets/Resources/stage/chapter1/act6.json",
+      "fixedDepth": 11,
+      "fixedColumn": 0
+    }
+  ],
+  "segmentRules": [
+    {
+      "fromDepth": 1,
+      "fromColumn": 0,
+      "toDepth": 4,
+      "toColumn": 0,
+      "minTotalWeight": 90,
+      "maxTotalWeight": 110,
+      "minLayerCount": 2,
+      "maxLayerCount": 2,
+      "minLayerWeight": 20,
+      "maxLayerWeight": 60,
+      "minNodesPerLayer": 2,
+      "maxNodesPerLayer": 3,
+      "pools": [
+        {
+          "poolId": "stage.chapter1.pre_recruit.random"
+        }
+      ]
+    },
+    {
+      "fromDepth": 4,
+      "fromColumn": 0,
+      "toDepth": 7,
+      "toColumn": 0,
+      "minTotalWeight": 90,
+      "maxTotalWeight": 110,
+      "minLayerCount": 2,
+      "maxLayerCount": 2,
+      "minLayerWeight": 20,
+      "maxLayerWeight": 60,
+      "minNodesPerLayer": 2,
+      "maxNodesPerLayer": 3,
+      "pools": [
+        {
+          "poolId": "stage.chapter1.jihan_route.random"
+        }
+      ]
+    },
+    {
+      "fromDepth": 4,
+      "fromColumn": 1,
+      "toDepth": 7,
+      "toColumn": 1,
+      "minTotalWeight": 90,
+      "maxTotalWeight": 110,
+      "minLayerCount": 2,
+      "maxLayerCount": 2,
+      "minLayerWeight": 20,
+      "maxLayerWeight": 60,
+      "minNodesPerLayer": 2,
+      "maxNodesPerLayer": 3,
+      "pools": [
+        {
+          "poolId": "stage.chapter1.yujin_route.random"
+        }
+      ]
+    },
+    {
+      "fromDepth": 8,
+      "fromColumn": 0,
+      "toDepth": 11,
+      "toColumn": 0,
+      "minTotalWeight": 90,
+      "maxTotalWeight": 110,
+      "minLayerCount": 2,
+      "maxLayerCount": 2,
+      "minLayerWeight": 20,
+      "maxLayerWeight": 60,
+      "minNodesPerLayer": 2,
+      "maxNodesPerLayer": 3,
+      "pools": [
+        {
+          "poolId": "stage.chapter1.pre_bandit.random"
+        }
+      ]
+    },
+    {
+      "fromDepth": 8,
+      "fromColumn": 1,
+      "toDepth": 11,
+      "toColumn": 0,
+      "minTotalWeight": 90,
+      "maxTotalWeight": 110,
+      "minLayerCount": 2,
+      "maxLayerCount": 2,
+      "minLayerWeight": 20,
+      "maxLayerWeight": 60,
+      "minNodesPerLayer": 2,
+      "maxNodesPerLayer": 3,
+      "pools": [
+        {
+          "poolId": "stage.chapter1.pre_bandit.random"
+        }
+      ]
+    }
+  ]
+}

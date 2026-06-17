@@ -14,6 +14,16 @@ namespace Stage
         [Header("Identity")]
         public string nodeId;
 
+        public string LocalizationMainKey =>
+            roundNodeSO != null
+                ? roundNodeSO.LocalizationMainKey
+                : nodeId;
+
+        public string Title =>
+            roundNodeSO != null
+                ? roundNodeSO.Title
+                : string.Empty;
+
         [Header("Stage Position")]
         public int depth;
         public int indexInDepth;
@@ -23,6 +33,7 @@ namespace Stage
         public RoundNodeState state = RoundNodeState.Locked;
 
         [Header("Execute Payload")]
+        public RoundNodeSO roundNodeSO;
 
         [Header("Resolve")]
         public bool useRandomEventPool;

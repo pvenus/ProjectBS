@@ -1420,12 +1420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05aa7072b42849f2986a798f8463fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stage.StageRuntime
-  stageDefinition: {fileID: 11400000, guid: b8a67499df88143678e2d71d65078b15, type: 2}
+  stageDefinition: {fileID: 11400000, guid: 5732dcb27dc534c01b544ed164e872c7, type: 2}
   runtimeData:
     stageId: 
     currentDepth: 0
     currentRound: 0
-    stageSeed: 0
+    stageSeed: 1
     currentGraph:
       stageId: 
       stageName: 
@@ -1440,6 +1440,7 @@ MonoBehaviour:
       indexInDepth: 0
       nodeType: 0
       state: 0
+      roundNodeSO: {fileID: 0}
       useRandomEventPool: 0
       randomPool: {fileID: 0}
       resolved: 0
@@ -2313,6 +2314,7 @@ MonoBehaviour:
         indexInDepth: 0
         nodeType: 0
         state: 0
+        roundNodeSO: {fileID: 0}
         useRandomEventPool: 0
         randomPool: {fileID: 0}
         resolved: 0
@@ -2398,7 +2400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01a51aa191854a92ab2abc20d718cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::String.StringManager
-  resourcePath: string/string_table
+  resourcePath: string
   currentLanguage: 0
   loadOnAwake: 1
   logMissingKey: 0
