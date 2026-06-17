@@ -149,11 +149,6 @@ namespace Stage
 
             pendingChoice = choice;
 
-            if (rewardExecutor != null)
-            {
-                rewardExecutor.Execute(choice.rewards);
-            }
-
             OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
         }
 
@@ -169,17 +164,25 @@ namespace Stage
 
             if (confirmedChoice.nextEvent != null)
             {
+                if (confirmedChoice.rewards != null && confirmedChoice.rewards.Count > 0)
+                {
+                    rewardExecutor?.Execute(confirmedChoice.rewards);
+                }
+
                 Open(confirmedChoice.nextEvent, currentNode);
                 return;
             }
 
-            bool shouldCompleteEvent =
-                confirmedChoice.completesEvent
-                || confirmedChoice.nextEvent == null;
+            bool shouldCompleteEvent = confirmedChoice.completesEvent;
 
             if (shouldCompleteEvent)
             {
                 Complete();
+            }
+
+            if (confirmedChoice.rewards != null && confirmedChoice.rewards.Count > 0)
+            {
+                rewardExecutor?.Execute(confirmedChoice.rewards);
             }
         }
 

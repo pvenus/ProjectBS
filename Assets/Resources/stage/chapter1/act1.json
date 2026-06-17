@@ -1,0 +1,202 @@
+{
+  "stageNodeId": "stage.ch1.act1",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "chapter1",
+  "actId": "act1",
+  "actNumber": 1,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "titleKo": "청운촌의 습격",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "사건 인지",
+  "summaryKo": "서진이 청운촌에 도착하자마자 마을을 습격한 적들과 맞서며, 사건의 심각성을 처음 인지하는 도입 액트.",
+  "startNodeId": "node.ch1.act1.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.act1.001",
+      "locationId": "location.cheongun_village_entrance",
+      "bodyKo": "청운촌에 가까워질수록 공기는 이상하리만큼 무거워졌다.\n\n마을 입구에는 쓰러진 수레와 버려진 짐들이 흩어져 있었고, 멀리서 사람들의 비명과 짐승 같은 울음소리가 뒤섞여 들려왔다.\n\n서진이 광장 쪽으로 발을 옮기자, 검은 천을 두른 무리들이 주민들을 몰아붙이고 있었다.\n\n아직 사정을 들을 시간은 없었다.\n\n지금 필요한 것은 질문이 아니라, 마을 사람들을 지키는 일이었다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act1.enter_battle",
+          "labelKo": "마을 사람들을 구한다.",
+          "resultKo": "서진은 무기를 고쳐 쥐고 습격자들 사이로 뛰어들었다.",
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "battle": {
+                "battleId": "battle.jugwi_mother.1",
+                "battleName": "저퀴모 강림 저지",
+                "victoryRule": "AllEnemiesDefeated",
+                "survivalTimeSeconds": 0,
+                "backgroundPrefab": "background.jugwi_forest_graveyard",
+                "rewardExperience": 100,
+                "normalRelicDropChance": 0.2,
+                "bossRelicDropChance": 1.0,
+                "timedPropPlacements": [
+                  {
+                    "propId": "battle.prop.grave",
+                    "spawnTimeSeconds": 0,
+                    "position": { "x": 2, "y": 1.5, "z": 0 },
+                    "rotationZ": 0,
+                    "runtimeId": "grave_01"
+                  },
+                  {
+                    "propId": "battle.prop.grave",
+                    "spawnTimeSeconds": 0,
+                    "position": { "x": 2, "y": -1.5, "z": 0 },
+                    "rotationZ": 0,
+                    "runtimeId": "grave_02"
+                  },
+                  {
+                    "propId": "battle.prop.grave",
+                    "spawnTimeSeconds": 0,
+                    "position": { "x": 6.5, "y": 1.5, "z": 0 },
+                    "rotationZ": 0,
+                    "runtimeId": "grave_03"
+                  },
+                  {
+                    "propId": "battle.prop.grave",
+                    "spawnTimeSeconds": 0,
+                    "position": { "x": 6.5, "y": -1.5, "z": 0 },
+                    "rotationZ": 0,
+                    "runtimeId": "grave_04"
+                  }
+                ],
+                "propDefinitions": [
+                  {
+                    "propId": "battle.prop.grave",
+                    "role": "Grave",
+                    "prefab": "Battle Prop",
+                    "skills": [],
+                    "stateVisuals": [
+                      {
+                        "state": "Normal",
+                        "animationClip": "grave_idle",
+                        "effectPrefab": null
+                      }
+                    ],
+                    "spawnOnHit": {
+                      "spawnHitThreshold": 10,
+                      "spawnPropOnHit": "battle.prop.grave_spawner",
+                      "destroyAfterSpawnOnHit": true
+                    },
+                    "waveSpawner": {
+                      "waveSO": null,
+                      "createWaveSpawnerOnInitialize": false,
+                      "waveSpawnerObjectName": "PropNpcSpawner"
+                    }
+                  },
+                  {
+                    "propId": "battle.prop.grave_spawner",
+                    "role": "Spawner",
+                    "prefab": "Battle Prop",
+                    "skills": [],
+                    "stateVisuals": [
+                      {
+                        "state": "Normal",
+                        "animationClip": "grave_idle",
+                        "effectPrefab": null
+                      }
+                    ],
+                    "spawnOnHit": {
+                      "spawnHitThreshold": 0,
+                      "spawnPropOnHit": null,
+                      "destroyAfterSpawnOnHit": false
+                    },
+                    "waveSpawner": {
+                      "waveSO": {
+                        "waveId": "stage_1_grave_spawner",
+                        "duration": 60,
+                        "spawnArea": {
+                          "spawnStartX": -1,
+                          "spawnEndX": 1,
+                          "yMin": -1,
+                          "yMax": 1,
+                          "groupSpreadRadius": 0.5
+                        },
+                        "phases": [
+                          {
+                            "phaseId": "phase_01_eodukshini_from_grave",
+                            "startTime": 0,
+                            "endTime": 60,
+                            "spawnInterval": 999,
+                            "spawnCountPerTick": 1,
+                            "maxAliveCount": 1,
+                            "monsters": [
+                              { "characterId": "character.egg_ghost.1", "weight": 1 }
+                            ]
+                          }
+                        ]
+                      },
+                      "createWaveSpawnerOnInitialize": true,
+                      "waveSpawnerObjectName": "PropNpcSpawner"
+                    }
+                  }
+                ],
+                "stage": {
+                  "waveId": "stage_1",
+                  "duration": 60,
+                  "spawnArea": {
+                    "spawnStartX": 0,
+                    "spawnEndX": 9,
+                    "yMin": -2,
+                    "yMax": 2,
+                    "groupSpreadRadius": 0.75
+                  },
+                  "phases": [
+                    {
+                      "phaseId": "phase_01_basic_intro",
+                      "startTime": 0,
+                      "endTime": 20,
+                      "spawnInterval": 3,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 3,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase_02_basic_pressure",
+                      "startTime": 20,
+                      "endTime": 40,
+                      "spawnInterval": 2.5,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 5,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase_03_final_pressure",
+                      "startTime": 40,
+                      "endTime": 55,
+                      "spawnInterval": 2,
+                      "spawnCountPerTick": 2,
+                      "maxAliveCount": 7,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase_04_boss",
+                      "startTime": 55,
+                      "endTime": 60,
+                      "spawnInterval": 999,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 1,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

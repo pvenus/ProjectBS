@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +66,11 @@ namespace Stage
             nodes.Add(node);
 
             if (node.nodeType == RoundNodeType.Start)
+            {
+                startNodeId = node.nodeId;
+            }
+            else if (string.IsNullOrWhiteSpace(startNodeId)
+                     || node.depth < StartNode.depth)
             {
                 startNodeId = node.nodeId;
             }
@@ -179,16 +182,21 @@ namespace Stage
                 node.SetSelected(false);
             }
 
-            RoundNode startNode = StartNode;
-            if (startNode == null)
+            List<RoundNode> firstDepthNodes = GetNodesByDepth(0);
+            if (firstDepthNodes.Count == 0)
             {
-                Debug.LogWarning("[StageGraph] StartStage failed. Start node is missing.");
+                Debug.LogWarning("[StageGraph] StartStage failed. First depth node is missing.");
                 return;
             }
 
-            startNode.SetCleared();
-            currentNodeId = startNode.nodeId;
-            UnlockNextNodes(startNode);
+            foreach (RoundNode node in firstDepthNodes)
+            {
+                node.SetAvailable();
+            }
+
+            RoundNode firstNode = firstDepthNodes[0];
+            startNodeId = firstNode.nodeId;
+            currentNodeId = firstNode.nodeId;
         }
 
         public bool SelectNode(string nodeId)
@@ -226,6 +234,8 @@ namespace Stage
             }
 
             currentNode.SetCleared();
+            Debug.Log(
+                $"[StageGraph] Complete node={currentNode.nodeId}, nextCount={currentNode.nextNodeIds.Count}, next={string.Join(",", currentNode.nextNodeIds)}");
 
             if (currentNode.IsBossNode)
             {
@@ -233,13 +243,29 @@ namespace Stage
                 return;
             }
 
-            LockAllAvailableNodes();
+            LockAvailableNodesAtDepth(currentNode.depth);
             UnlockNextNodes(currentNode);
         }
 
         public void FailStage()
         {
             progressState = StageProgressState.Failed;
+        }
+
+        private void LockAvailableNodesAtDepth(int depth)
+        {
+            foreach (RoundNode node in nodes)
+            {
+                if (node.depth != depth)
+                {
+                    continue;
+                }
+
+                if (node.IsAvailable)
+                {
+                    node.SetLocked();
+                }
+            }
         }
 
         private void UnlockNextNodes(RoundNode fromNode)

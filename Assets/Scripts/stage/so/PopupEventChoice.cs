@@ -32,8 +32,10 @@ namespace Stage
         public string ResultText =>
             StringManager.Instance.Get(
                 LocalizationMainKey,
-                "result");
+                "result", true);
 
+        [Header("Requirements")]
+        public List<PopupEventRequirementData> requirements = new();
 
         [Header("Rewards")]
         public List<PopupEventRewardData> rewards = new();
@@ -60,5 +62,30 @@ namespace Stage
 
 
         public string tag;
+    }
+
+    [Serializable]
+    public class PopupEventRequirementData
+    {
+        public PopupEventRequirementType requirementType;
+
+        public ScriptableObject targetData;
+
+        public int value;
+
+        public string tag;
+    }
+
+    public enum PopupEventRequirementType
+    {
+        None = 0,
+
+        StoryItem = 1,
+
+        Relic = 2,
+
+        Bless = 3,
+
+        Tag = 4
     }
 }

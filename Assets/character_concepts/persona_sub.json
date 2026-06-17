@@ -1,0 +1,133 @@
+{
+  "sub_characters": [
+    {
+      "id": "npc.chief_choi_manseok",
+      "name_ko": "최만석",
+      "name_en": "Choi Manseok",
+      "title_ko": "청운촌 촌장",
+      "title_en": "Chief of Cheongun Village",
+      "role": "chapter_1_client_and_hidden_key_figure",
+      "core_values": ["책임", "현실", "희생"],
+      "personality": "마을을 지켜온 책임감 강한 어른. 겉으로는 침착하지만 오래된 죄책감과 비밀을 숨기고 있다.",
+      "worldview": "모두를 살릴 수 없다면 누군가는 선택해야 한다.",
+      "dialogue_tone": "품위 있고 절제된 현대 사극톤. 감정을 누르고 짧고 무겁게 말한다.",
+      "sample_lines": [
+        "와주셔서 감사합니다.",
+        "청운촌 촌장 최만석이라 합니다.",
+        "이런 일로 모시게 되어 송구합니다.",
+        "한 달 사이 아이 셋이 사라졌습니다.",
+        "부디 아이들을 찾아주십시오.",
+        "서로를 탓해도 아이들은 돌아오지 않습니다.",
+        "어떤 선택은 평생 잊히지 않습니다."
+      ]
+    },
+    {
+      "id": "npc.missing_child_mother",
+      "name_ko": "연화 모",
+      "name_en": "Yeonhwa's Mother",
+      "title_ko": "실종 아동의 어머니",
+      "title_en": "Mother of a Missing Child",
+      "role": "chapter_1_victim_family",
+      "core_values": ["불안", "기다림", "모성"],
+      "personality": "아이를 잃은 충격으로 무너져 있지만, 작은 단서라도 붙잡으려 한다.",
+      "worldview": "아이만 돌아온다면 무엇이든 믿을 수 있다.",
+      "dialogue_tone": "감정을 억누르지 못하는 말투. 짧고 떨리는 문장이 많다.",
+      "sample_lines": [
+        "그 아이는 숲 근처에 가지 말라고 했는데...",
+        "아직 살아있겠지요?",
+        "제발 찾아주십시오.",
+        "그 애가 혼자 얼마나 무서울지..."
+      ]
+    },
+    {
+      "id": "npc.hunter_old_man",
+      "name_ko": "박노인",
+      "name_en": "Old Hunter Park",
+      "title_ko": "늙은 사냥꾼",
+      "title_en": "Old Hunter",
+      "role": "chapter_1_beast_clue_provider",
+      "core_values": ["경험", "의심", "생존"],
+      "personality": "숲을 오래 봐온 사냥꾼. 귀신 이야기는 믿지 않지만, 최근 숲이 이상하다는 것은 느끼고 있다.",
+      "worldview": "숲은 거짓말하지 않는다. 이상한 일이 있다면 흔적이 남는다.",
+      "dialogue_tone": "거칠고 짧은 말투. 사극톤은 약하고 생활감이 강하다.",
+      "sample_lines": [
+        "짐승 발자국이 늘었어.",
+        "하지만 짐승만의 일은 아니야.",
+        "숲이 전과 달라졌네.",
+        "밤에는 들어가지 않는 게 좋아."
+      ]
+    },
+    {
+      "id": "npc.village_old_woman",
+      "name_ko": "노파",
+      "name_en": "Old Woman",
+      "title_ko": "소문을 전하는 노파",
+      "title_en": "Rumor-bearing Old Woman",
+      "role": "chapter_1_ghost_rumor_provider",
+      "core_values": ["두려움", "기억", "금기"],
+      "personality": "마을의 오래된 이야기를 기억하는 인물. 진실을 전부 말하지는 못하지만, 중요한 금기를 알고 있다.",
+      "worldview": "숲에는 건드려서는 안 되는 것이 있다.",
+      "dialogue_tone": "낮고 불안한 말투. 직접 말하기보다 암시를 남긴다.",
+      "sample_lines": [
+        "밤마다 아이 웃음소리가 들리네.",
+        "숲은 아이들을 그냥 데려가지 않아.",
+        "그 이름을 함부로 부르면 안 되네.",
+        "묻지 말게. 오래된 일일수록 입 밖에 내면 화가 되네."
+      ]
+    },
+    {
+      "id": "npc.merchant_stranger",
+      "name_ko": "떠돌이 상인",
+      "name_en": "Traveling Merchant",
+      "title_ko": "떠돌이 상인",
+      "title_en": "Traveling Merchant",
+      "role": "chapter_1_bandit_clue_provider",
+      "core_values": ["거래", "눈치", "생존"],
+      "personality": "마을 밖 소식을 아는 인물. 겁이 많지만 이익이 되면 정보를 판다.",
+      "worldview": "세상에 공짜 정보는 없다.",
+      "dialogue_tone": "조심스럽고 계산적인 말투. 직접 확신하지 않고 빠져나갈 여지를 둔다.",
+      "sample_lines": [
+        "수상한 자들이 산길을 오가긴 했습니다.",
+        "제가 봤다는 건 아닙니다. 들었다는 겁니다.",
+        "정보에도 값이 있는 법이지요.",
+        "그쪽 길은 산적들도 잘 쓰지 않습니다."
+      ]
+    },
+    {
+      "id": "npc.bandit_leader",
+      "name_ko": "마철",
+      "name_en": "Macheol",
+      "title_ko": "산적 두목",
+      "title_en": "Bandit Leader",
+      "role": "chapter_1_mid_boss",
+      "core_values": ["생존", "탐욕", "두려움"],
+      "personality": "거칠고 폭력적이지만 완전한 악인은 아니다. 아이들을 납치했으나 숲 안쪽의 무언가를 두려워한다.",
+      "worldview": "살아남기 위해선 더 약한 것을 붙잡아야 한다.",
+      "dialogue_tone": "거칠고 직선적. 품위 없는 말투지만 너무 현대적인 비속어는 피한다.",
+      "sample_lines": [
+        "우리가 데려간 애들은 살아있다.",
+        "숲 안쪽으로 간 애들은 우리도 못 찾아.",
+        "그 안에는 사람이 건드릴 게 아니야.",
+        "살고 싶으면 여기서 돌아가."
+      ]
+    },
+    {
+      "id": "enemy.laughing_ghost",
+      "name_ko": "웃는 귀신",
+      "name_en": "Laughing Ghost",
+      "title_ko": "챕터 1 최종 보스",
+      "title_en": "Chapter 1 Final Boss",
+      "role": "chapter_1_final_boss_and_sangwi_foreshadow",
+      "core_values": ["미련", "외로움", "부름"],
+      "personality": "아이의 형상을 한 원혼. 악의보다 외로움과 미련에 가깝다. 산귀와 연결된 첫 번째 초자연적 단서.",
+      "worldview": "혼자 남겨진 아이는 누군가를 계속 부른다.",
+      "dialogue_tone": "짧고 반복적인 말. 순수하지만 불길한 느낌.",
+      "sample_lines": [
+        "같이 가자.",
+        "언니가 기다려.",
+        "왜 혼자 갔어?",
+        "언니는 아직 있어..."
+      ]
+    }
+  ]
+}

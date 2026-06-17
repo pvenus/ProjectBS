@@ -198,24 +198,39 @@ namespace String
             }
         }
 
-        public string Get(string mainKey, string subKey)
+        public string Get(
+            string mainKey,
+            string subKey,
+            bool returnNullIfMissing = false)
         {
-            return Get(mainKey, subKey, GetLanguageCode(currentLanguage));
+            return Get(
+                mainKey,
+                subKey,
+                GetLanguageCode(currentLanguage),
+                returnNullIfMissing);
         }
 
-        public string Get(string mainKey, string subKey, string language)
+        public string Get(
+            string mainKey,
+            string subKey,
+            string language,
+            bool returnNullIfMissing = false)
         {
             if (string.IsNullOrWhiteSpace(mainKey)
                 || string.IsNullOrWhiteSpace(subKey))
             {
-                return string.Empty;
+                return returnNullIfMissing
+                    ? null
+                    : string.Empty;
             }
 
             string fullKey = BuildKey(mainKey, subKey);
 
             if (!table.TryGetValue(fullKey, out Dictionary<string, string> localizedValues))
             {
-                return Missing(fullKey);
+                return returnNullIfMissing
+                    ? null
+                    : Missing(fullKey);
             }
 
             string resolvedLanguage = string.IsNullOrWhiteSpace(language)
@@ -235,7 +250,9 @@ namespace String
                 return fallbackValue;
             }
 
-            return Missing(fullKey);
+            return returnNullIfMissing
+                ? null
+                : Missing(fullKey);
         }
 
         public string GetByFullKey(string fullKey)

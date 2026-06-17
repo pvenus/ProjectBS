@@ -96,7 +96,12 @@ namespace Stage.UI
 
             if (titleText != null)
             {
-                titleText.text = popupEvent.Title;
+                string title = node != null
+                    ? node.Title
+                    : string.Empty;
+
+                titleText.text = title;
+                titleText.gameObject.SetActive(!string.IsNullOrWhiteSpace(title));
             }
 
             if (bodyText != null)
@@ -107,6 +112,7 @@ namespace Stage.UI
             if (resultText != null)
             {
                 resultText.text = string.Empty;
+                resultText.gameObject.SetActive(false);
             }
 
             ClearRewardViews();
@@ -144,7 +150,6 @@ namespace Stage.UI
             currentNode = null;
 
             ClearChoiceButtons();
-
             ClearRewardViews();
 
             if (resultText != null)
@@ -210,11 +215,27 @@ namespace Stage.UI
                 {
                     string label = choice.Label;
 
-                    buttonText.text = string.IsNullOrWhiteSpace(label)
-                        ? $"Choice {i + 1}"
+                    buttonText.text = ShouldUseNextLabel(choice, label)
+                        ? "다음"
                         : label;
                 }
             }
+        }
+
+        private static bool ShouldUseNextLabel(PopupEventChoice choice, string label)
+        {
+            if (choice == null || string.IsNullOrWhiteSpace(label))
+            {
+                return true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(choice.choiceId)
+                && choice.choiceId.EndsWith(".next"))
+            {
+                return true;
+            }
+
+            return string.Equals(label, choice.choiceId + ".label");
         }
 
         private void ClearChoiceButtons()
@@ -288,13 +309,38 @@ namespace Stage.UI
 
         private void HandlePopupEventChoiceSelected(PopupEventSO popupEvent, PopupEventChoice choice, RoundNode node)
         {
-            if (resultText != null && choice != null)
+            string result = choice != null
+                ? choice.ResultText
+                : null;
+
+            bool hasResult = !string.IsNullOrWhiteSpace(result)
+                && !string.Equals(result, (choice != null ? choice.choiceId : string.Empty) + ".result");
+
+            bool hasRewards = choice != null
+                && choice.rewards != null
+                && choice.rewards.Count > 0;
+
+            if (!hasResult && !hasRewards)
             {
-                resultText.text = choice.ResultText;
+                HandleConfirmButtonClicked();
+                return;
+            }
+
+            if (hasResult)
+            {
+                if (bodyText != null)
+                {
+                    bodyText.text = result;
+                }
+
+                if (resultText != null)
+                {
+                    resultText.gameObject.SetActive(false);
+                    resultText.text = string.Empty;
+                }
             }
 
             RefreshRewardViews(choice);
-
             ClearChoiceButtons();
 
             if (confirmButton != null)
@@ -325,18 +371,13 @@ namespace Stage.UI
                 return;
             }
 
-            int count = Mathf.Min(
-                rewardIcons.Count,
-                choice.rewards.Count);
+            int count = Mathf.Min(rewardIcons.Count, choice.rewards.Count);
 
             for (int i = 0; i < count; i++)
             {
-                PopupEventRewardData reward =
-                    choice.rewards[i];
-
+                PopupEventRewardData reward = choice.rewards[i];
                 Image icon = rewardIcons[i];
-                TMP_Text text =
-                    i < rewardTexts.Count
+                TMP_Text text = i < rewardTexts.Count
                     ? rewardTexts[i]
                     : null;
 
@@ -389,7 +430,6 @@ namespace Stage.UI
             }
 
             Sprite runtimeIcon = GetRuntimeRewardIcon(reward);
-
             if (runtimeIcon != null)
             {
                 return runtimeIcon;
@@ -401,16 +441,14 @@ namespace Stage.UI
             }
 
             RewardVisualLibrarySO.RewardVisualEntry visual =
-                LibraryManager.Instance.GetRewardVisual(
-                    reward.rewardType);
+                LibraryManager.Instance.GetRewardVisual(reward.rewardType);
 
             return visual != null
                 ? visual.icon
                 : null;
         }
 
-        private Sprite GetRuntimeRewardIcon(
-            PopupEventRewardData reward)
+        private Sprite GetRuntimeRewardIcon(PopupEventRewardData reward)
         {
             switch (reward.targetData)
             {
@@ -437,18 +475,18 @@ namespace Stage.UI
             switch (reward.rewardType)
             {
                 case PopupEventRewardType.Gold:
-                    return $"+{reward.value}";
+                    return "+" + reward.value;
 
                 case PopupEventRewardType.Hp:
-                    return $"+{reward.value}";
+                    return "+" + reward.value;
 
                 case PopupEventRewardType.HpPercent:
-                    return $"+{reward.value}%";
+                    return "+" + reward.value + "%";
 
                 case PopupEventRewardType.Reputation:
                 case PopupEventRewardType.Faith:
                     return reward.value >= 0
-                        ? $"+{reward.value}"
+                        ? "+" + reward.value
                         : reward.value.ToString();
             }
 

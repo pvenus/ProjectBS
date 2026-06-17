@@ -1,6 +1,7 @@
 
 
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace Stage.UI
@@ -44,7 +45,27 @@ namespace Stage.UI
 
             Subscribe();
 
-            if (rebuildOnEnable && stageManager != null && stageManager.HasGraph())
+            if (rebuildOnEnable)
+            {
+                StartCoroutine(RebuildAfterStageManagerStart());
+            }
+        }
+
+        private IEnumerator RebuildAfterStageManagerStart()
+        {
+            yield return null;
+
+            if (!isActiveAndEnabled)
+            {
+                yield break;
+            }
+
+            if (stageManager == null)
+            {
+                stageManager = StageManager.Instance;
+            }
+
+            if (stageManager != null && stageManager.HasGraph())
             {
                 Build(stageManager.CurrentGraph);
             }

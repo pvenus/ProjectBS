@@ -57,6 +57,149 @@ namespace ResourceTools
                 jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
         }
 
+        public static IReadOnlyList<BattleSO> GenerateFromPath(
+            string inputPath,
+            bool includeSubFolders = true)
+        {
+            List<BattleSO> results = new();
+            IReadOnlyList<string> jsonFiles = CollectBattleJsonFiles(inputPath, includeSubFolders);
+
+            foreach (string jsonFile in jsonFiles)
+            {
+                BattleSO generated = GenerateFromJsonPath(jsonFile);
+                if (generated != null)
+                {
+                    results.Add(generated);
+                }
+            }
+
+            return results;
+        }
+
+        public static IReadOnlyList<string> CollectBattleJsonFiles(
+            string inputPath,
+            bool includeSubFolders = true)
+        {
+            List<string> result = new();
+
+            if (string.IsNullOrEmpty(inputPath))
+            {
+                return result;
+            }
+
+            inputPath = NormalizeAssetPath(inputPath);
+
+            if (File.Exists(ToFullPath(inputPath)))
+            {
+                if (IsBattleJson(inputPath))
+                {
+                    result.Add(inputPath);
+                }
+
+                return result;
+            }
+
+            string fullPath = ToFullPath(inputPath);
+            if (!Directory.Exists(fullPath))
+            {
+                return result;
+            }
+
+            SearchOption option = includeSubFolders
+                ? SearchOption.AllDirectories
+                : SearchOption.TopDirectoryOnly;
+
+            foreach (string file in Directory.GetFiles(fullPath, "*.json", option))
+            {
+                string assetPath = ToAssetPath(file);
+                if (IsBattleJson(assetPath))
+                {
+                    result.Add(assetPath);
+                }
+            }
+
+            result.Sort(StringComparer.OrdinalIgnoreCase);
+            return result;
+        }
+
+        public static bool IsBattleJson(string jsonPath)
+        {
+            if (string.IsNullOrEmpty(jsonPath))
+            {
+                return false;
+            }
+
+            string fullPath = ToFullPath(jsonPath);
+            if (!File.Exists(fullPath))
+            {
+                return false;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(fullPath);
+                if (string.IsNullOrWhiteSpace(json) || !json.Contains("\"battleId\""))
+                {
+                    return false;
+                }
+
+                BattleJson data = JsonUtility.FromJson<BattleJson>(json);
+                return data != null && !string.IsNullOrEmpty(data.battleId);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static BattleSO GenerateFromData(BattleJson data)
+        {
+            if (data == null || string.IsNullOrEmpty(data.battleId))
+            {
+                Debug.LogError("[BattleJsonGenerator] Battle data is invalid.");
+                return null;
+            }
+
+            string outputFolder = "Assets/Resources/generated/battle";
+            EnsureFolder(outputFolder);
+
+            CreateOrUpdatePropDefinitions(
+                data.propDefinitions,
+                outputFolder,
+                outputFolder);
+
+            StageWaveSO waveSO = CreateOrFindWaveSO(
+                data,
+                outputFolder,
+                data.battleId);
+
+            string safeBattleAssetName = ToSafeAssetName(data.battleId);
+            string assetPath = $"{outputFolder}/{safeBattleAssetName}.asset";
+            BattleSO battleSO = AssetDatabase.LoadAssetAtPath<BattleSO>(assetPath);
+
+            if (battleSO == null)
+            {
+                battleSO = ScriptableObject.CreateInstance<BattleSO>();
+                AssetDatabase.CreateAsset(battleSO, assetPath);
+            }
+
+            ApplyData(
+                battleSO,
+                data,
+                waveSO);
+
+            EditorUtility.SetDirty(battleSO);
+            AssetDatabase.SaveAssetIfDirty(battleSO);
+            AssetDatabase.ImportAsset(
+                assetPath,
+                ImportAssetOptions.ForceUpdate);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+            Debug.Log($"[BattleJsonGenerator] Generated embedded BattleSO: {assetPath}");
+            return battleSO;
+        }
+
         public static BattleSO GenerateFromJsonPath(string jsonPath)
         {
             if (string.IsNullOrEmpty(jsonPath))
@@ -787,6 +930,26 @@ namespace ResourceTools
             return null;
         }
 
+        private static string ToAssetPath(string fullPath)
+        {
+            if (string.IsNullOrEmpty(fullPath))
+            {
+                return string.Empty;
+            }
+
+            string normalizedFullPath = NormalizeAssetPath(fullPath);
+            string projectRoot = Directory.GetParent(Application.dataPath)?.FullName;
+            string normalizedProjectRoot = NormalizeAssetPath(projectRoot ?? string.Empty);
+
+            if (!string.IsNullOrEmpty(normalizedProjectRoot) &&
+                normalizedFullPath.StartsWith(normalizedProjectRoot, StringComparison.OrdinalIgnoreCase))
+            {
+                return normalizedFullPath.Substring(normalizedProjectRoot.Length).TrimStart('/');
+            }
+
+            return normalizedFullPath;
+        }
+
         private static string ToFullPath(string assetPath)
         {
             if (string.IsNullOrEmpty(assetPath))
@@ -831,7 +994,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class BattleJson
+        public class BattleJson
         {
             public string battleId;
             public string battleName;
@@ -849,7 +1012,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class PropDefinitionJson
+        public class PropDefinitionJson
         {
             public string propId;
             public string role;
@@ -861,7 +1024,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class PropStateVisualJson
+        public class PropStateVisualJson
         {
             public string state;
             public string animationClip;
@@ -869,7 +1032,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class SpawnOnHitJson
+        public class SpawnOnHitJson
         {
             public int spawnHitThreshold = 10;
             public string spawnPropOnHit;
@@ -877,7 +1040,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class WaveSpawnerJson
+        public class WaveSpawnerJson
         {
             public StageJson waveSO;
             public string waveId;
@@ -886,7 +1049,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class StageJson
+        public class StageJson
         {
             public string waveId;
             public float duration;
@@ -895,7 +1058,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class SpawnAreaJson
+        public class SpawnAreaJson
         {
             public float spawnStartX;
             public float spawnEndX;
@@ -905,7 +1068,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class SpawnPhaseJson
+        public class SpawnPhaseJson
         {
             public string phaseId;
             public float startTime;
@@ -917,14 +1080,14 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class WeightedMonsterJson
+        public class WeightedMonsterJson
         {
             public string characterId;
             public int weight;
         }
 
         [Serializable]
-        private class TimedPropPlacementJson
+        public class TimedPropPlacementJson
         {
             public float spawnTimeSeconds;
             public string propId;
@@ -934,7 +1097,7 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class Vector3Json
+        public class Vector3Json
         {
             public float x;
             public float y;

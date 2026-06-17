@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.ch1.act2.005b
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.ch1.act2.005b
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.ch1.act2.ask_human_trace
+    requirements: []
+    rewards: []
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: cf57704cbc0964faba671a20fe1e14c3, type: 2}
+  - choiceId: choice.ch1.act2.confirm_field
+    requirements: []
+    rewards: []
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: b5fd0b6dad1fc4342adf24db58221a19, type: 2}
