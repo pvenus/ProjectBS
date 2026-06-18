@@ -256,6 +256,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35664844}
   m_CullTransparentMesh: 1
+--- !u!224 &138250801 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6964532840001574385, guid: 2840b2e59f0195e498c536b25d214463, type: 3}
+  m_PrefabInstance: {fileID: 144717858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &144717858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,7 +364,7 @@ PrefabInstance:
     - target: {fileID: 4137122798555083157, guid: 2840b2e59f0195e498c536b25d214463, type: 3}
       propertyPath: contentRoot
       value: 
-      objectReference: {fileID: 457152900}
+      objectReference: {fileID: 138250801}
     - target: {fileID: 4137122798555083157, guid: 2840b2e59f0195e498c536b25d214463, type: 3}
       propertyPath: stageManager
       value: 
@@ -1054,11 +1059,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 609221693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &457152900 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 628050963890307663, guid: 2840b2e59f0195e498c536b25d214463, type: 3}
-  m_PrefabInstance: {fileID: 144717858}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &459393374
 GameObject:
   m_ObjectHideFlags: 0
