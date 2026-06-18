@@ -18,6 +18,7 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act3_1.follow_physician_clue
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: 6da97346e689a49149752d71d5dbe855, type: 2}

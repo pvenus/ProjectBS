@@ -1,0 +1,172 @@
+{
+  "strategicSkillItemId": "item.strategic.emergency_pill",
+  "grade": "Basic",
+
+  "nameKo": "응급 단약",
+  "descriptionKo": "전장을 떠도는 의원들이 사용하는 기초 단약.",
+
+  "icon": "bless icon_8",
+
+  "gaugeCost": 10,
+  "reusable": true,
+
+  "skillId": "skill.strategic.emergency_pill",
+
+  "defaultPrice": 150,
+
+  "tags": [
+    "basic",
+    "heal"
+  ],
+
+  "skill": {
+    "equipmentId": "strategic_emergency_pill",
+    "slotName": "strategic",
+    "skillName": "skill.strategic.emergency_pill",
+    "iconName": "icon_heal",
+
+    "baseProfile": {
+      "profileId": "skill.strategic.emergency_pill.profile",
+
+      "attackArchetype": "None",
+
+      "projectilePrefabName": "[item.strategic.emergency_pill][prefab] projectile",
+      "projectileSpawnOffset": 0,
+
+      "projectileCount": 0,
+      "projectileScale": 1,
+      "projectileLifetime": 0,
+
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+
+      "category": "Heal",
+      "targetType": "Ally",
+      "tacticalNeed": "AllySupport",
+      "basePriority": 100
+    },
+
+    "cast": {
+      "castId": "skill.strategic.emergency_pill.cast",
+
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+
+      "burstCount": 1,
+      "burstInterval": 0,
+
+      "castType": "Instant",
+      "targetingType": "LowestHpAlly",
+
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+
+    "move": {
+      "moveId": "skill.strategic.emergency_pill.move",
+      "moveType": "None",
+      "speed": 0,
+      "arrivalThreshold": 0,
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "followOffsetX": 0,
+      "followOffsetY": 0,
+      "followLerpSpeed": 0,
+      "snapOnInitialize": true,
+      "useHoverMotion": false,
+      "hoverAmplitude": 0,
+      "hoverFrequency": 0,
+      "hoverAxisX": 0,
+      "hoverAxisY": 0,
+      "endWhenOwnerMissing": true,
+      "orbitRadius": 0,
+      "orbitAngularSpeed": 0,
+      "clockwise": false,
+      "spawnOrder": 0,
+      "maxProjectileCount": 0,
+      "resetPhaseWhenLayoutChanges": false,
+      "useRadialPulse": false,
+      "radialPulseAmplitude": 0,
+      "radialPulseFrequency": 0
+    },
+
+    "visualSet": {
+      "visualSetId": "skill.strategic.emergency_pill.visual",
+
+      "baseVisual": {
+        "visualId": "skill.strategic.emergency_pill.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "",
+        "projectileSprite": "",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "",
+        "hitClip": ""
+      },
+
+      "impactVisual": {
+        "visualId": "skill.strategic.emergency_pill.visual.impact",
+        "impactType": "Heal",
+        "element": "None",
+        "effectPrefab": "fx_heal_small",
+        "sound": "sfx_heal_small",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0.5
+      },
+
+      "trailVisual": {
+        "trailId": "skill.strategic.emergency_pill.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+
+    "hits": [
+      {
+        "hitId": "skill.strategic.emergency_pill.hit",
+
+        "maxHitCount": 1,
+        "ignoreSameRoot": false,
+        "useRepeatInterval": false,
+        "repeatInterval": 0,
+
+        "useHitWindow": false,
+        "hitStartTime": 0,
+        "deactivateAfterFirstHit": true,
+
+        "targetLayerMask": "Player",
+
+        "damage": {
+          "skillId": "skill.strategic.emergency_pill.damage",
+          "damageType": "None",
+          "baseDamage": 0,
+          "attackPercentDamage": 0,
+          "canCritical": false,
+          "ignoreDefense": true
+        },
+
+        "buffEffects": [
+          {
+            "effectId": "effect.strategic.emergency_pill.heal_30",
+            "effectType": "InstantHeal",
+            "targetType": "Ally",
+            "value": 30,
+            "duration": 0,
+            "tickInterval": 0
+          }
+        ],
+        "debuffEffects": [],
+
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    ]
+  }
+}

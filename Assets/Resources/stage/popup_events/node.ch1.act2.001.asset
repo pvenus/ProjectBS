@@ -18,11 +18,13 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act2.check_facts
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: 2a439cd44e22b450aadcc88230b7dc5d, type: 2}
   - choiceId: choice.ch1.act2.listen_villagers
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: 9317d5b341af548a4a78d6d4fe946864, type: 2}

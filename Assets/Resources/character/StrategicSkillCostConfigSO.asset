@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: StrategicSkillCostConfigSO
   m_EditorClassIdentifier: Assembly-CSharp::Battle.StrategicSkillCostConfigSO
   maxGauge: 100
-  initialGauge: 100
+  initialGauge: 0
   normalMonsterKillGain: 1
   eliteMonsterKillGain: 8
   bossMonsterKillGain: 20
   usePassiveGain: 1
   passiveGainInterval: 1
-  passiveGainAmount: 5
+  passiveGainAmount: 1

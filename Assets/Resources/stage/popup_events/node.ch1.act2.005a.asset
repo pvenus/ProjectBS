@@ -18,11 +18,13 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act2.ask_child_alive
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: f0c1df806932749efb05ed81c2f1eb48, type: 2}
   - choiceId: choice.ch1.act2.ask_last_words
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: c82c876c133854c50999daffc532eda1, type: 2}

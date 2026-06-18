@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a53571d7508b4ef18f97b13aa0f54c3, type: 3}
+  m_Name: item.strategic.emergency_pill
+  m_EditorClassIdentifier: Assembly-CSharp::Item.StrategicSkillItemSO
+  strategicSkillItemId: item.strategic.emergency_pill
+  icon: {fileID: -743474857, guid: 21c03474a4a8d46e6aa938d434876c44, type: 3}
+  gaugeCost: 10
+  reusable: 1
+  skillSo: {fileID: 11400000, guid: badce7d07e5c34419a399da2592d63a9, type: 2}
+  defaultPrice: 150
+  tags:
+  - basic
+  - heal

@@ -14,7 +14,7 @@
     "projectileCount": 1,
     "projectileSpreadAngle": 0,
     "projectileScale": 1.2,
-    "projectileLifetime": 1,
+    "projectileLifetime": 0.3,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
@@ -75,7 +75,7 @@
     "duration": 0.3,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
-    "rotationOffset": -90,
+    "rotationOffset": 180,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
@@ -108,7 +108,7 @@
       "idleClip": "slash_idle",
       "castClip": "slash_cast",
       "attackClip": "slash_attack",
-      "projectileLoopClip": "slash_fly",
+      "projectileLoopClip": "military_officer_rush",
       "hitClip": "slash_hit"
     },
 
@@ -162,7 +162,7 @@
             "effectId": "skill.military_officer.2.charge.knockback",
             "effectType": "Knockback",
             "effectName": "돌격 넉백",
-            "force": 10,
+            "force": 15,
             "directionType": "PushAwayFromSource",
             "normalizeDirection": true,
             "fallbackToProjectileDirection": true

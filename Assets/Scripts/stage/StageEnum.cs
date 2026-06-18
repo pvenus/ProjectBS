@@ -96,6 +96,9 @@ namespace Stage
         BlessingPool = 2250,
         AIFunction = 2300,
 
+        FirstJobChange = 2400,
+        SecondJobChange = 2450,
+
         SpecialBattle = 3000,
         BossBattle = 3100,
 

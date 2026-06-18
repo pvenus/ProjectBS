@@ -14,7 +14,7 @@
     "projectileCount": 1,
     "projectileSpreadAngle": 0,
     "projectileScale": 1.2,
-    "projectileLifetime": 1,
+    "projectileLifetime": 0.3,
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
@@ -113,7 +113,7 @@
     },
 
     "impactVisual": {
-      "visualId": "skill.swordsman.3.charge.visual.impact",
+      "visualId": "skill.military_officer.3.charge.visual.impact",
       "impactType": "Hit",
       "element": "None",
       "effectPrefab": "fx_slash_hit",

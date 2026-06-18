@@ -27,6 +27,7 @@ namespace Party
         private const float BattleZoneRefreshInterval = 2.0f;
 
         private readonly List<GameObject> spawnedMembers = new();
+        private readonly List<GameObject> runtimeMemberObjects = new();
 
         private readonly List<PartyMovementMono> movementMembers = new();
 
@@ -184,6 +185,7 @@ namespace Party
         private void InitializeExistingCharacters(
             PartyRuntimeData runtimeData)
         {
+            ClearRuntimeMemberObjects();
             for (int i = 0;
                  i < runtimeData.Members.Count;
                  i++)
@@ -203,6 +205,7 @@ namespace Party
                 runtimeObject.transform.SetParent(
                     transform,
                     false);
+                runtimeMemberObjects.Add(runtimeObject);
 
                 CharacterManager characterManager =
                     runtimeObject.AddComponent<CharacterManager>();
@@ -226,6 +229,212 @@ namespace Party
                         characterManager.RuntimeData;
                 }
             }
+        }
+
+        public bool TryChangePartyMemberJob(
+            CharacterJob fromJob,
+            CharacterJob toJob)
+        {
+            PartyRuntimeData runtimeData = GetPartyRuntimeData();
+            if (runtimeData == null)
+            {
+                return false;
+            }
+
+            CharacterSO targetCharacterSO = FindPlayerCharacterSOByJob(toJob);
+            if (targetCharacterSO == null)
+            {
+                Debug.LogWarning(
+                    $"[PartyManager] Target job CharacterSO not found. toJob={toJob}");
+
+                return false;
+            }
+
+            for (int i = 0; i < runtimeData.Members.Count; i++)
+            {
+                CharacterRuntimeData currentRuntime = runtimeData.Members[i];
+                if (currentRuntime?.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (currentRuntime.characterSO.CharacterType != CharacterType.Player)
+                {
+                    continue;
+                }
+
+                if (currentRuntime.characterSO.Job != fromJob)
+                {
+                    continue;
+                }
+
+                DestroyRuntimeObject(currentRuntime);
+
+                CharacterManager newCharacterManager = CreateRuntimeCharacterManager(targetCharacterSO);
+                if (newCharacterManager == null)
+                {
+                    return false;
+                }
+
+                runtimeData.Members[i] = newCharacterManager.RuntimeData;
+
+                Debug.Log(
+                    $"[PartyManager] Party member job changed. from={fromJob}, to={toJob}");
+
+                return true;
+            }
+
+            Debug.LogWarning(
+                $"[PartyManager] Source job party member not found. fromJob={fromJob}");
+
+            return false;
+        }
+
+        public bool TryAddPartyMember(CharacterSO characterSO)
+        {
+            if (characterSO == null)
+            {
+                return false;
+            }
+
+            PartyRuntimeData runtimeData = GetPartyRuntimeData();
+            if (runtimeData == null)
+            {
+                return false;
+            }
+
+            CharacterManager characterManager = CreateRuntimeCharacterManager(characterSO);
+            if (characterManager == null)
+            {
+                return false;
+            }
+
+            runtimeData.Members.Add(characterManager.RuntimeData);
+            return true;
+        }
+
+        public bool TryRemovePartyMember(CharacterJob job)
+        {
+            PartyRuntimeData runtimeData = GetPartyRuntimeData();
+            if (runtimeData == null)
+            {
+                return false;
+            }
+
+            for (int i = runtimeData.Members.Count - 1; i >= 0; i--)
+            {
+                CharacterRuntimeData currentRuntime = runtimeData.Members[i];
+                if (currentRuntime?.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (currentRuntime.characterSO.Job != job)
+                {
+                    continue;
+                }
+
+                DestroyRuntimeObject(currentRuntime);
+                runtimeData.Members.RemoveAt(i);
+                return true;
+            }
+
+            return false;
+        }
+
+        private PartyRuntimeData GetPartyRuntimeData()
+        {
+            GameSession gameSession = GameSession.Instance;
+            if (gameSession == null || gameSession.BattleSession == null)
+            {
+                Debug.LogWarning("[PartyManager] GameSession or BattleSession is null.");
+                return null;
+            }
+
+            PartyRuntimeData runtimeData = gameSession.BattleSession.PartyRuntimeData;
+            if (runtimeData == null)
+            {
+                Debug.LogWarning("[PartyManager] PartyRuntimeData is null.");
+            }
+
+            return runtimeData;
+        }
+
+        private CharacterManager CreateRuntimeCharacterManager(CharacterSO characterSO)
+        {
+            if (characterSO == null)
+            {
+                return null;
+            }
+
+            GameObject runtimeObject = new($"CharacterRuntime_{characterSO.name}");
+            runtimeObject.transform.SetParent(transform, false);
+            runtimeMemberObjects.Add(runtimeObject);
+
+            CharacterManager characterManager = runtimeObject.AddComponent<CharacterManager>();
+            runtimeObject.AddComponent<EffectManager>();
+            characterManager.InitializeFromSO(characterSO);
+
+            return characterManager;
+        }
+
+        private void DestroyRuntimeObject(CharacterRuntimeData runtimeData)
+        {
+            if (runtimeData == null)
+            {
+                return;
+            }
+
+            CharacterManager[] managers = FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
+            foreach (CharacterManager manager in managers)
+            {
+                if (manager == null || manager.RuntimeData != runtimeData)
+                {
+                    continue;
+                }
+
+                runtimeMemberObjects.Remove(manager.gameObject);
+                spawnedMembers.Remove(manager.gameObject);
+                Destroy(manager.gameObject);
+                return;
+            }
+        }
+
+        private CharacterSO FindPlayerCharacterSOByJob(CharacterJob job)
+        {
+            CharacterSO[] characterSOs = Resources.LoadAll<CharacterSO>("character");
+            foreach (CharacterSO characterSO in characterSOs)
+            {
+                if (characterSO == null)
+                {
+                    continue;
+                }
+
+                if (characterSO.CharacterType != CharacterType.Player)
+                {
+                    continue;
+                }
+
+                if (characterSO.Job == job)
+                {
+                    return characterSO;
+                }
+            }
+
+            return null;
+        }
+
+        private void ClearRuntimeMemberObjects()
+        {
+            for (int i = 0; i < runtimeMemberObjects.Count; i++)
+            {
+                if (runtimeMemberObjects[i] != null)
+                {
+                    Destroy(runtimeMemberObjects[i]);
+                }
+            }
+
+            runtimeMemberObjects.Clear();
         }
 
         public BattleZoneService.BattleZoneData GetCurrentBattleZone(
@@ -363,6 +572,7 @@ namespace Party
             }
 
             spawnedMembers.Clear();
+            ClearRuntimeMemberObjects();
             movementMembers.Clear();
             cachedBattleZone = null;
             lastBattleZoneRefreshTime = -999f;

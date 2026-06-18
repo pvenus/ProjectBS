@@ -22,15 +22,15 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  damageSo: {fileID: 11400000, guid: a76fa135679b34bbb980b1289da0e78c, type: 2}
+  damageSo: {fileID: 0}
   firstHitBaseDamage: 0
   buffEffects:
-  - effectSo: {fileID: 11400000, guid: bf09ab7a6f2eb46cb8cc2c43d8db5528, type: 2}
+  - effectSo: {fileID: 11400000, guid: 5f4fe5d49c1ae4237b4c2e4e3f08b489, type: 2}
     lifetimeType: 1
     categoryType: 1
     duration: -1
     maxApplyCount: 1
-  - effectSo: {fileID: 11400000, guid: 988f04f9e9a264bcf8dc4c11a5ea87fb, type: 2}
+  - effectSo: {fileID: 11400000, guid: f50a09bd80da24b4fbb6745a41afd823, type: 2}
     lifetimeType: 1
     categoryType: 1
     duration: -1

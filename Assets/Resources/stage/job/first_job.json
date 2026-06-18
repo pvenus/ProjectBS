@@ -1,0 +1,118 @@
+{
+  "stageNodeId": "stage.job.first_job",
+  "roundNodeType": "Event",
+  "chapterId": "job",
+  "actId": "first_job",
+  "actNumber": 1,
+  "isRequired": true,
+  "titleKo": "첫 번째 전직",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "전직",
+  "summaryKo": "기본 직업별 첫 번째 상위 직업으로 전직하는 노드.",
+  "startNodeId": "node.job.first_job.001",
+  "nodes": [
+    {
+      "nodeId": "node.job.first_job.001",
+      "locationId": "location.job_shrine",
+      "bodyKo": "길고 긴 전투 끝에 일행은 낡은 전직의 제단 앞에 섰다.\n\n제단에는 각자의 길을 증명한 자만이 새 이름을 받을 수 있다는 문장이 새겨져 있었다.\n\n서진은 동료들을 돌아보았다.\n\n누구도 이전과 같은 모습으로 남아 있을 수는 없었다.\n\n이제 각자는 자신의 본래 직업에서 한 단계 더 깊은 길을 선택해야 했다.",
+      "choices": [
+        {
+          "choiceId": "choice.job.first.soldier_general",
+          "labelKo": "군졸을 장군으로 전직시킨다.",
+          "resultKo": "군졸이 전장을 지휘하는 장군의 길에 들어섰다.",
+          "visibleConditions": [
+            {
+              "conditionType": "HasCharacterJob",
+              "targetId": "SoldierBase"
+            }
+          ],
+          "rewards": [
+            {
+              "rewardType": "FirstJobChange",
+              "rewardId": "character.military_officer.2",
+              "targetId": "SoldierBase"
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.job.first.archer_archmaster",
+          "labelKo": "궁수를 신궁으로 전직시킨다.",
+          "resultKo": "궁수가 먼 거리의 적을 꿰뚫는 신궁의 길에 들어섰다.",
+          "visibleConditions": [
+            {
+              "conditionType": "HasCharacterJob",
+              "targetId": "ArcherBase"
+            }
+          ],
+          "rewards": [
+            {
+              "rewardType": "FirstJobChange",
+              "rewardId": "ArcherFirst",
+              "targetId": "ArcherBase"
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.job.first.scholar_strategist",
+          "labelKo": "유생을 병법가로 전직시킨다.",
+          "resultKo": "유생이 전장의 흐름을 읽는 병법가의 길에 들어섰다.",
+          "visibleConditions": [
+            {
+              "conditionType": "HasCharacterJob",
+              "targetId": "ScholarBase"
+            }
+          ],
+          "rewards": [
+            {
+              "rewardType": "FirstJobChange",
+              "rewardId": "ScholarFirst",
+              "targetId": "ScholarBase"
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.job.first.physician_royal_physician",
+          "labelKo": "의관을 어의로 전직시킨다.",
+          "resultKo": "의관이 전장의 생명을 살리는 어의의 길에 들어섰다.",
+          "visibleConditions": [
+            {
+              "conditionType": "HasCharacterJob",
+              "targetId": "PhysicianBase"
+            }
+          ],
+          "rewards": [
+            {
+              "rewardType": "FirstJobChange",
+              "rewardId": "PhysicianFirst",
+              "targetId": "PhysicianBase"
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.job.first.monk_vajra_monk",
+          "labelKo": "승려를 금강승으로 전직시킨다.",
+          "resultKo": "승려가 흔들리지 않는 금강승의 길에 들어섰다.",
+          "visibleConditions": [
+            {
+              "conditionType": "HasCharacterJob",
+              "targetId": "MonkBase"
+            }
+          ],
+          "rewards": [
+            {
+              "rewardType": "FirstJobChange",
+              "rewardId": "MonkFirst",
+              "targetId": "MonkBase"
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.job.first.skip",
+          "labelKo": "지금은 전직하지 않는다.",
+          "resultKo": "일행은 아직 때가 아니라고 판단하고 전직을 보류했다.",
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

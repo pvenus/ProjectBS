@@ -185,8 +185,6 @@ namespace Item.UI
             EquipmentSkillInstanceData instanceData = new EquipmentSkillInstanceData
             {
                 equipmentId = strategicSkillItem.skillSo.EquipmentId,
-                projectilePrefab = strategicSkillItem.projectilePrefabOverride,
-                projectileLifetimeOverride = strategicSkillItem.projectileLifetimeOverride
             };
 
             EquipmentSkillRuntimeData runtimeData = skillResolver.Resolve(
@@ -199,9 +197,7 @@ namespace Item.UI
                 return false;
             }
 
-            projectilePrefab = strategicSkillItem.projectilePrefabOverride != null
-                ? strategicSkillItem.projectilePrefabOverride
-                : runtimeData.projectilePrefab;
+            projectilePrefab = runtimeData.projectilePrefab;
 
             if (projectilePrefab == null)
             {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Item;
 using Common;
 using Common.SO;
+using Character;
 
 namespace Stage.UI
 {
@@ -193,11 +194,12 @@ namespace Stage.UI
                 return;
             }
 
-            int count = Mathf.Min(choiceButtons.Count, popupEvent.choices.Count);
+            List<int> visibleChoiceIndexes = GetVisibleChoiceIndexes(popupEvent);
+            int count = Mathf.Min(choiceButtons.Count, visibleChoiceIndexes.Count);
             for (int i = 0; i < count; i++)
             {
-                int choiceIndex = i;
-                PopupEventChoice choice = popupEvent.choices[i];
+                int choiceIndex = visibleChoiceIndexes[i];
+                PopupEventChoice choice = popupEvent.choices[choiceIndex];
                 Button button = choiceButtons[i];
 
                 if (button == null)
@@ -220,6 +222,243 @@ namespace Stage.UI
                         : label;
                 }
             }
+        }
+
+        private List<int> GetVisibleChoiceIndexes(PopupEventSO popupEvent)
+        {
+            List<int> result = new();
+            if (popupEvent == null || popupEvent.choices == null)
+            {
+                return result;
+            }
+
+            for (int i = 0; i < popupEvent.choices.Count; i++)
+            {
+                PopupEventChoice choice = popupEvent.choices[i];
+                if (IsChoiceVisible(choice))
+                {
+                    result.Add(i);
+                }
+            }
+
+            return result;
+        }
+
+        private bool IsChoiceVisible(PopupEventChoice choice)
+        {
+            if (choice == null)
+            {
+                return false;
+            }
+
+            if (choice.visibleConditions == null || choice.visibleConditions.Count == 0)
+            {
+                return true;
+            }
+
+            foreach (PopupEventChoiceConditionData condition in choice.visibleConditions)
+            {
+                if (!IsChoiceConditionSatisfied(condition))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsChoiceConditionSatisfied(PopupEventChoiceConditionData condition)
+        {
+            if (condition == null || condition.conditionType == PopupEventChoiceConditionType.None)
+            {
+                return true;
+            }
+
+            bool satisfied = condition.conditionType switch
+            {
+                PopupEventChoiceConditionType.HasCharacter => HasCharacter(condition.targetId),
+                PopupEventChoiceConditionType.HasCharacterJob => HasCharacterJob(condition.targetId),
+                PopupEventChoiceConditionType.HasCharacterJobFamily => HasCharacterJobFamily(condition.targetId),
+                PopupEventChoiceConditionType.HasCharacterJobTier => HasCharacterJobTier(condition.targetId),
+                PopupEventChoiceConditionType.HasTag => HasTag(condition.tag),
+                PopupEventChoiceConditionType.HasRelic => HasRelic(condition.targetId),
+                PopupEventChoiceConditionType.HasBless => HasBless(condition.targetId),
+                PopupEventChoiceConditionType.HasItem => HasItem(condition.targetId),
+                _ => true
+            };
+
+            return condition.invert ? !satisfied : satisfied;
+        }
+
+        private bool HasCharacter(string characterId)
+        {
+            if (string.IsNullOrWhiteSpace(characterId))
+            {
+                return false;
+            }
+
+            Debug.LogWarning($"[PopupEventPanelUI] HasCharacter condition is not connected yet. characterId={characterId}");
+            return false;
+        }
+
+        private bool HasCharacterJob(string jobText)
+        {
+            if (string.IsNullOrWhiteSpace(jobText))
+            {
+                return false;
+            }
+
+            if (!System.Enum.TryParse(jobText, out CharacterJob targetJob))
+            {
+                Debug.LogWarning($"[PopupEventPanelUI] Invalid CharacterJob condition. job={jobText}");
+                return false;
+            }
+
+            return HasCharacterJob(targetJob);
+        }
+
+        private bool HasCharacterJob(CharacterJob targetJob)
+        {
+            CharacterManager[] managers = FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
+
+            foreach (CharacterManager manager in managers)
+            {
+                var runtimeData = manager?.RuntimeData;
+                if (runtimeData?.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.CharacterType != CharacterType.Player)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.Job == targetJob)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasCharacterJobFamily(string familyText)
+        {
+            if (string.IsNullOrWhiteSpace(familyText))
+            {
+                return false;
+            }
+
+            if (!System.Enum.TryParse(familyText, out CharacterJobFamily targetFamily))
+            {
+                Debug.LogWarning($"[PopupEventPanelUI] Invalid CharacterJobFamily condition. family={familyText}");
+                return false;
+            }
+
+            CharacterManager[] managers = FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
+
+            foreach (CharacterManager manager in managers)
+            {
+                var runtimeData = manager?.RuntimeData;
+                if (runtimeData?.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.CharacterType != CharacterType.Player)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.JobFamily == targetFamily)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasCharacterJobTier(string tierText)
+        {
+            if (string.IsNullOrWhiteSpace(tierText))
+            {
+                return false;
+            }
+
+            if (!System.Enum.TryParse(tierText, out CharacterJobTier targetTier))
+            {
+                Debug.LogWarning($"[PopupEventPanelUI] Invalid CharacterJobTier condition. tier={tierText}");
+                return false;
+            }
+
+            CharacterManager[] managers = FindObjectsByType<CharacterManager>(FindObjectsSortMode.None);
+
+            foreach (CharacterManager manager in managers)
+            {
+                var runtimeData = manager?.RuntimeData;
+                if (runtimeData?.characterSO == null)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.CharacterType != CharacterType.Player)
+                {
+                    continue;
+                }
+
+                if (runtimeData.characterSO.JobTier == targetTier)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasTag(string tag)
+        {
+            if (string.IsNullOrWhiteSpace(tag))
+            {
+                return false;
+            }
+
+            Debug.LogWarning($"[PopupEventPanelUI] HasTag condition is not connected yet. tag={tag}");
+            return false;
+        }
+
+        private bool HasRelic(string targetId)
+        {
+            if (string.IsNullOrWhiteSpace(targetId))
+            {
+                return false;
+            }
+
+            Debug.LogWarning($"[PopupEventPanelUI] HasRelic condition is not connected yet. targetId={targetId}");
+            return false;
+        }
+
+        private bool HasBless(string targetId)
+        {
+            if (string.IsNullOrWhiteSpace(targetId))
+            {
+                return false;
+            }
+
+            Debug.LogWarning($"[PopupEventPanelUI] HasBless condition is not connected yet. targetId={targetId}");
+            return false;
+        }
+
+        private bool HasItem(string targetId)
+        {
+            if (string.IsNullOrWhiteSpace(targetId))
+            {
+                return false;
+            }
+
+            Debug.LogWarning($"[PopupEventPanelUI] HasItem condition is not connected yet. targetId={targetId}");
+            return false;
         }
 
         private static bool ShouldUseNextLabel(PopupEventChoice choice, string label)

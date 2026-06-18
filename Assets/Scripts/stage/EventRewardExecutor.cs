@@ -6,6 +6,8 @@ using Session;
 using Battle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Character;
+using Party;
 
 namespace Stage
 {
@@ -63,6 +65,9 @@ namespace Stage
             Register(new AIFunctionRewardHandler());
             Register(new BlessingRewardHandler());
             Register(new BlessingPoolRewardHandler());
+
+            Register(new JobChangeRewardHandler(PopupEventRewardType.FirstJobChange));
+            Register(new JobChangeRewardHandler(PopupEventRewardType.SecondJobChange));
 
             Register(new RevealHiddenNodeRewardHandler());
             Register(new UnlockRouteRewardHandler());
@@ -398,6 +403,68 @@ namespace Stage
         }
     }
 
+    public sealed class JobChangeRewardHandler : EventRewardHandlerBase
+    {
+        public override PopupEventRewardType RewardType { get; }
+
+        public JobChangeRewardHandler(PopupEventRewardType rewardType)
+        {
+            RewardType = rewardType;
+        }
+
+        public override void Execute(PopupEventRewardData reward, EventRewardContext context)
+        {
+            if (reward == null)
+            {
+                return;
+            }
+
+            if (!TryGetTarget(reward, out CharacterSO targetCharacterSO))
+            {
+                return;
+            }
+
+            if (targetCharacterSO.Job == CharacterJob.None)
+            {
+                Debug.LogWarning($"[EventRewardExecutor] Job change target has no job. character={targetCharacterSO.name}");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(reward.targetId))
+            {
+                Debug.LogWarning($"[EventRewardExecutor] Job change source targetId is empty. rewardId={reward.rewardId}");
+                return;
+            }
+
+            if (!System.Enum.TryParse(reward.targetId, out CharacterJob sourceJob))
+            {
+                Debug.LogWarning($"[EventRewardExecutor] Invalid job change source job. targetId={reward.targetId}");
+                return;
+            }
+
+            PartyManager partyManager = Object.FindFirstObjectByType<PartyManager>();
+            if (partyManager == null)
+            {
+                Debug.LogWarning("[EventRewardExecutor] PartyManager not found.");
+                return;
+            }
+
+            bool changed = partyManager.TryChangePartyMemberJob(
+                sourceJob,
+                targetCharacterSO.Job);
+
+            if (!changed)
+            {
+                Debug.LogWarning(
+                    $"[EventRewardExecutor] Job change failed. from={sourceJob}, to={targetCharacterSO.Job}, targetCharacter={targetCharacterSO.CharacterId}");
+                return;
+            }
+
+            Debug.Log(
+                $"[EventRewardExecutor] Job changed. type={RewardType}, from={sourceJob}, to={targetCharacterSO.Job}, targetCharacter={targetCharacterSO.CharacterId}");
+        }
+    }
+
     public sealed class BattleRewardHandler : EventRewardHandlerBase
     {
         public override PopupEventRewardType RewardType { get; }
@@ -408,7 +475,7 @@ namespace Stage
         }
 
         public override void Execute(PopupEventRewardData reward, EventRewardContext context)
-        {
+        {   
             if (!TryGetTarget(reward, out BattleSO battleSO))
             {
                 return;

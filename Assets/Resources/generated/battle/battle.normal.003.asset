@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897374d37d5b749a5923405ad58ad77e, type: 3}
+  m_Name: battle.normal.003
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
+  battleId: battle.normal.003
+  battleName: "\uC77C\uBC18 \uC804\uD22C 3"
+  backgroundPrefab: {fileID: 0}
+  waveSO: {fileID: 11400000, guid: 733ad961276844dbba41cd64cf12cb49, type: 2}
+  timedPropPlacements: []
+  victoryRule: 2
+  survivalTimeSeconds: 60
+  rewardExperience: 100
+  relicDropPool: {fileID: 0}
+  normalRelicDropChance: 0.2
+  bossRelicDropChance: 0

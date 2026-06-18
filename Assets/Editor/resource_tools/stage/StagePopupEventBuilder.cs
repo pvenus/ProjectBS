@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+
 using Battle;
+using Character;
 
 namespace ResourceTools.Stage
 {
@@ -67,7 +69,18 @@ namespace ResourceTools.Stage
             public string textKo;
             public string valueTag;
             public string nextNodeId;
+            public List<PopupEventChoiceConditionJson> visibleConditions;
             public List<PopupEventRewardJson> rewards;
+        }
+
+        [Serializable]
+        private sealed class PopupEventChoiceConditionJson
+        {
+            public string conditionType;
+            public string targetId;
+            public int value;
+            public string tag;
+            public bool invert;
         }
 
         [Serializable]
@@ -75,6 +88,7 @@ namespace ResourceTools.Stage
         {
             public string rewardType;
             public string rewardId;
+            public string targetId;
             public int amount;
             public int value;
             public string tag;
@@ -249,6 +263,13 @@ namespace ResourceTools.Stage
                 SetMemberValue(choice, "id", choiceJson.choiceId);
                 SetMemberValue(choice, "valueTag", choiceJson.valueTag);
 
+                TrySetVisibleConditions(
+                    choice,
+                    choiceJson.visibleConditions,
+                    result,
+                    node.nodeId,
+                    choiceJson.choiceId);
+
                 var nextEvent = ResolveNextEvent(choiceJson.nextNodeId, result, node.nodeId, choiceJson.choiceId);
                 SetMemberValue(choice, "nextEvent", nextEvent);
 
@@ -283,6 +304,76 @@ namespace ResourceTools.Stage
 
             return list;
         }
+
+        private static void TrySetVisibleConditions(
+            object choice,
+            List<PopupEventChoiceConditionJson> conditions,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            if (conditions == null || conditions.Count == 0)
+            {
+                SetMemberValue(choice, "visibleConditions", null);
+                return;
+            }
+
+            Type conditionsMemberType = GetMemberType(choice.GetType(), "visibleConditions");
+            if (conditionsMemberType == null)
+            {
+                return;
+            }
+
+            Type conditionType = GetListElementType(conditionsMemberType);
+            if (conditionType == null)
+            {
+                result.warnings.Add($"visibleConditions field is not a supported List<T> or array type. node={nodeId}, choice={choiceId}");
+                return;
+            }
+
+            List<object> conditionObjects = conditions.Select(conditionJson =>
+            {
+                object condition = CreateChoiceInstance(conditionType);
+                if (condition == null)
+                {
+                    return null;
+                }
+
+                SetMemberValue(condition, "conditionType", conditionJson.conditionType);
+                SetMemberValue(condition, "targetId", conditionJson.targetId);
+                SetMemberValue(condition, "value", conditionJson.value);
+                SetMemberValue(condition, "tag", conditionJson.tag);
+                SetMemberValue(condition, "invert", conditionJson.invert);
+
+                return condition;
+            }).Where(c => c != null).ToList();
+
+            object finalConditions;
+            if (conditionsMemberType.IsArray)
+            {
+                Array array = Array.CreateInstance(conditionType, conditionObjects.Count);
+                for (int i = 0; i < conditionObjects.Count; i++)
+                {
+                    array.SetValue(conditionObjects[i], i);
+                }
+
+                finalConditions = array;
+            }
+            else
+            {
+                Type listType = typeof(List<>).MakeGenericType(conditionType);
+                System.Collections.IList list = (System.Collections.IList)Activator.CreateInstance(listType);
+                foreach (object condition in conditionObjects)
+                {
+                    list.Add(condition);
+                }
+
+                finalConditions = list;
+            }
+
+            SetMemberValue(choice, "visibleConditions", finalConditions);
+        }
+
 
         private static ScriptableObject ResolveNextEvent(string nextNodeId, BuildResult result, string nodeId, string choiceId)
         {
@@ -333,14 +424,15 @@ namespace ResourceTools.Stage
                 SetMemberValue(reward, "type", rewardJson.rewardType);
                 SetMemberValue(reward, "rewardId", rewardJson.rewardId);
                 SetMemberValue(reward, "id", rewardJson.rewardId);
+                SetMemberValue(reward, "targetId", rewardJson.targetId);
                 SetMemberValue(reward, "amount", rewardJson.amount);
                 SetMemberValue(reward, "value", rewardJson.value != 0 ? rewardJson.value : rewardJson.amount);
                 SetMemberValue(reward, "tag", rewardJson.tag);
 
-                BattleSO embeddedBattle = BuildEmbeddedBattle(rewardJson);
-                if (embeddedBattle != null)
+                ScriptableObject targetData = BuildRewardTargetData(rewardJson, result, nodeId, choiceId);
+                if (targetData != null)
                 {
-                    SetMemberValue(reward, "targetData", embeddedBattle);
+                    SetMemberValue(reward, "targetData", targetData);
                 }
 
                 return reward;
@@ -370,6 +462,60 @@ namespace ResourceTools.Stage
             }
 
             SetMemberValue(choice, "rewards", finalRewards);
+        }
+
+
+        private static ScriptableObject BuildRewardTargetData(
+            PopupEventRewardJson rewardJson,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            if (rewardJson == null)
+            {
+                return null;
+            }
+
+            if (IsJobChangeReward(rewardJson.rewardType))
+            {
+                CharacterSO characterSO = FindCharacterSOByCharacterId(rewardJson.rewardId);
+                if (characterSO != null)
+                {
+                    return characterSO;
+                }
+
+                result.warnings.Add(
+                    $"CharacterSO not found for job reward. rewardId={rewardJson.rewardId}, node={nodeId}, choice={choiceId}");
+
+                return null;
+            }
+
+            return BuildEmbeddedBattle(rewardJson);
+        }
+
+        private static bool IsJobChangeReward(string rewardType)
+        {
+            return string.Equals(rewardType, "FirstJobChange", StringComparison.OrdinalIgnoreCase)
+                   || string.Equals(rewardType, "SecondJobChange", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static CharacterSO FindCharacterSOByCharacterId(string characterId)
+        {
+            if (string.IsNullOrWhiteSpace(characterId))
+            {
+                return null;
+            }
+
+            CharacterSO[] characterSOs = Resources.LoadAll<CharacterSO>("character");
+            foreach (CharacterSO characterSO in characterSOs)
+            {
+                if (characterSO != null && characterSO.CharacterId == characterId)
+                {
+                    return characterSO;
+                }
+            }
+
+            return null;
         }
 
 

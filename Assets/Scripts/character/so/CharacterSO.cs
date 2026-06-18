@@ -20,6 +20,7 @@ namespace Character
         [Header("Identity")]
         [SerializeField] private string characterId;
         [SerializeField] private CharacterType characterType = CharacterType.Npc;
+        [SerializeField] private CharacterJob job;
 
         [Header("Prefab")]
         [SerializeField] private GameObject prefab;
@@ -35,6 +36,7 @@ namespace Character
 
         public string CharacterId => characterId;
         public CharacterType CharacterType => characterType;
+        public CharacterJob Job => job;
         public GameObject Prefab => prefab;
         public AnimationClipSetSO AnimationOverrideSet => animationOverrideSet;
         public SkillPoolOverrideSO SkillOverrideSet => skillOverrideSet;
@@ -44,6 +46,15 @@ namespace Character
             StringManager.Instance.Get(
                 characterId,
                 "name");
+
+        public CharacterJobFamily JobFamily =>
+            CharacterJobHelper.GetFamily(job);
+
+        public CharacterJobTier JobTier =>
+            CharacterJobHelper.GetTier(job);
+
+        public CharacterJobBranch JobBranch =>
+            CharacterJobHelper.GetBranch(job);
 
         public bool HasPrefab => prefab != null;
         public bool HasAnimationOverrideSet => animationOverrideSet != null;

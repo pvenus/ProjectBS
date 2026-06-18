@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: skill.military_officer.2.basic_attack.profile
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
   skillType: 0
+  effectType: 0
   attackArchetype: 1
   skipAttackAnimation: 0
   projectilePrefab: {fileID: 4118216556720441464, guid: 90b982409ebb142678e2700175593067, type: 3}
-  projectileSpawnOffset: 1
+  projectileSpawnOffset: 0.5
   projectileCount: 1
+  projectileArrangement: 0
+  projectileArrangementValue: 0
   projectileSpreadAngle: 0
-  projectileScale: 1
+  projectileScale: 2
   projectileLifetime: 0.2
   projectileSpawnInterval: 0
   projectileSpawnRadius: 0

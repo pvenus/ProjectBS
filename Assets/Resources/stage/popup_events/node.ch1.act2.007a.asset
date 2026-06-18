@@ -18,8 +18,11 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act2.unlock_physician_path
     requirements: []
+    visibleConditions: []
     rewards:
     - rewardType: 0
+      rewardId: hidden_route.ch1.act2.physician_path
+      targetId: 
       value: 0
       godType: 0
       targetData: {fileID: 0}

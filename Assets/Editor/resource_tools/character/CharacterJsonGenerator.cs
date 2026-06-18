@@ -16,6 +16,7 @@ namespace ResourceTools
         {
             public string characterId;
             public string characterType;
+            public string job;
             public string prefabName;
             public List<StatEntryJson> baseStats = new();
             public AnimationOverrideSetJson animationOverrideSet;
@@ -103,6 +104,7 @@ namespace ResourceTools
 
             SetField(characterSo, "characterId", data.characterId);
             SetEnumField(characterSo, "characterType", data.characterType);
+            SetEnumField(characterSo, "job", data.job);
             SetField(characterSo, "prefab", FindPrefabByName(data.prefabName, outputFolder));
             SetField(characterSo, "baseStats", ConvertBaseStats(data.baseStats));
             SetField(characterSo, "animationOverrideSet", GenerateOrLoadAnimationSet(data.animationOverrideSet, outputFolder, jsonPath));

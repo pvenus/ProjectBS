@@ -18,8 +18,11 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act3_1.recruit_jihan
     requirements: []
+    visibleConditions: []
     rewards:
     - rewardType: 0
+      rewardId: character.jihan
+      targetId: 
       value: 0
       godType: 0
       targetData: {fileID: 0}

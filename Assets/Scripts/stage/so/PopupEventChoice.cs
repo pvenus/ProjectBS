@@ -37,6 +37,10 @@ namespace Stage
         [Header("Requirements")]
         public List<PopupEventRequirementData> requirements = new();
 
+        [Header("Conditions")]
+        [Tooltip("모든 조건을 만족해야 선택지가 표시된다.")]
+        public List<PopupEventChoiceConditionData> visibleConditions = new();
+
         [Header("Rewards")]
         public List<PopupEventRewardData> rewards = new();
 
@@ -54,6 +58,11 @@ namespace Stage
     {
         public PopupEventRewardType rewardType;
 
+        public string rewardId;
+
+        [Tooltip("보상 적용 대상 ID. 예: 전직 대상 CharacterJob enum 이름, characterId")]
+        public string targetId;
+
         public int value;
 
         public ShrineGodType godType;
@@ -62,6 +71,22 @@ namespace Stage
 
 
         public string tag;
+    }
+
+    [Serializable]
+    public class PopupEventChoiceConditionData
+    {
+        public PopupEventChoiceConditionType conditionType;
+
+        [Tooltip("조건 체크에 사용할 대상 ID. 예: CharacterJob enum 이름, characterId, tag")]
+        public string targetId;
+
+        public int value;
+
+        public string tag;
+
+        [Tooltip("true면 조건 결과를 반대로 사용한다.")]
+        public bool invert;
     }
 
     [Serializable]
@@ -74,6 +99,21 @@ namespace Stage
         public int value;
 
         public string tag;
+    }
+
+    public enum PopupEventChoiceConditionType
+    {
+        None = 0,
+
+        HasCharacter = 100,
+        HasCharacterJob = 110,
+        HasCharacterJobFamily = 120,
+        HasCharacterJobTier = 130,
+
+        HasTag = 200,
+        HasRelic = 300,
+        HasBless = 400,
+        HasItem = 500,
     }
 
     public enum PopupEventRequirementType

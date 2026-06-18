@@ -2366,7 +2366,9 @@ MonoBehaviour:
       stageCompleted: 0
       stageFailed: 0
     StrategicSkillItemRuntimeData:
-      strategicSkillItems: []
+      strategicSkillItems:
+      - strategicSkillItem: {fileID: 11400000, guid: f4cb0ecb5788046038213dc09859288f, type: 2}
+        owned: 1
     RelicRuntimeData:
       relics: []
       maxRelicCount: 3
@@ -2380,7 +2382,7 @@ MonoBehaviour:
     LoadingSceneName: LoadingScene
     PartyRuntimeData:
       Members:
-      - characterSO: {fileID: 11400000, guid: e3afbfa80089b408e8e2f794204d5668, type: 2}
+      - characterSO: {fileID: 11400000, guid: 3ea33611496fb48d48b37eff7a234bf4, type: 2}
         isDead: 0
         stats: []
         finalStats: []

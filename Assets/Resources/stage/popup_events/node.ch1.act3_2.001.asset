@@ -18,6 +18,7 @@ MonoBehaviour:
   choices:
   - choiceId: choice.ch1.act3_2.follow_deeper_trace
     requirements: []
+    visibleConditions: []
     rewards: []
     completesEvent: 1
     nextEvent: {fileID: 11400000, guid: 1e034bd4a9d374534b2f7c595f758d45, type: 2}

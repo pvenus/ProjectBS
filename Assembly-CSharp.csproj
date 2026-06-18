@@ -110,6 +110,7 @@
     <Compile Include="Assets/Scripts/character/CharacterDamageResult.cs" />
     <Compile Include="Assets/Scripts/shop/ui/ShopPopupUI.cs" />
     <Compile Include="Assets/Scripts/currency/CurrencyRutimeData.cs" />
+    <Compile Include="Assets/Scripts/character/helper/job/CharacterJobHelper.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Debug/DangerDebugView.cs" />
     <Compile Include="Assets/Scripts/skills/so/equipment/EquipmentBaseProfileSO.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/ISkillProjectileMovement.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Assets/Scripts/battle/runtime/BattleRuntime.cs" />
     <Compile Include="Assets/Scripts/bless/BlessEnum.cs" />
     <Compile Include="Assets/Scripts/bless/BlessRuntimeData.cs" />
+    <Compile Include="Assets/Scripts/character/CharacterEnum.cs" />
     <Compile Include="Assets/Scripts/shader/detail/StunBlinkFeature.cs" />
     <Compile Include="Assets/Scripts/skills/service/SkillPoolService.cs" />
     <Compile Include="Assets/Scripts/stat/StatEnum.cs" />

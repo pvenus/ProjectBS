@@ -13,7 +13,7 @@
 
     "projectileCount": 1,
     "projectileSpreadAngle": 0,
-    "projectileScale": 3,
+    "projectileScale": 0.5,
     "projectileLifetime": 5,
 
     "projectileSpawnInterval": 0,
@@ -81,7 +81,7 @@
       "idleClip": "formation_idle",
       "castClip": "formation_cast",
       "attackClip": "formation_attack",
-      "projectileLoopClip": "formation_loop",
+      "projectileLoopClip": "military_officer_crane_wing_formation",
       "hitClip": "formation_hit"
     },
 
@@ -122,7 +122,7 @@
       "damage": {
         "skillId": "skill.military_officer.2.crane_wing_formation.damage.enemy_dot",
         "damageType": "Dot",
-        "baseDamage": 75,
+        "baseDamage": 100,
         "attackPercentDamage": 0.6,
         "canCritical": false,
         "ignoreDefense": false
@@ -137,7 +137,7 @@
             "effectName": "학익진 이동속도 감소",
             "statType": "MoveSpeed",
             "valueType": "Percent",
-            "value": -25,
+            "value": -35,
             "duration": 1.1
           },
           "lifetimeType": "Timed",
@@ -183,7 +183,7 @@
             "effectName": "학익진 방어 증가",
             "statType": "Defense",
             "valueType": "Flat",
-            "value": 7,
+            "value": 10,
             "duration": 1.1
           },
           "lifetimeType": "Timed",

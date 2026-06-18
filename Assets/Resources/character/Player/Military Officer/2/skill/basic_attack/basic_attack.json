@@ -9,10 +9,10 @@
     "attackArchetype": "Melee",
 
     "projectilePrefabName": "melee_slash",
-    "projectileSpawnOffset": 1.0,
+    "projectileSpawnOffset": 0.5,
 
     "projectileCount": 1,
-    "projectileScale": 1,
+    "projectileScale": 2,
     "projectileLifetime": 0.2,
 
     "projectileSpawnInterval": 0,
@@ -24,11 +24,11 @@
     "basePriority": 0
   },
   "cast": {
-    "castId": "skill.military_officer.2.basic_attack.cast",
+    "castId": "skill.military_officer.3.basic_attack.cast",
 
     "cooldown": 3,
     "castTime": 0,
-    "range": 1.0,
+    "range": 2,
 
     "burstCount": 1,
     "burstInterval": 0,
@@ -79,7 +79,7 @@
       "idleClip": "slash_idle",
       "castClip": "slash_cast",
       "attackClip": "slash_attack",
-      "projectileLoopClip": "slash_active",
+      "projectileLoopClip": "",
       "hitClip": "slash_hit"
     },
 
@@ -103,34 +103,34 @@
   },
   "hits": [
     {
-    "hitId": "skill.military_officer.2.basic_attack.hit",
+      "hitId": "skill.military_officer.2.basic_attack.hit",
 
-    "maxHitCount": 1,
-    "ignoreSameRoot": true,
-    "useRepeatInterval": false,
-    "repeatInterval": 0.25,
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
 
-    "useHitWindow": false,
-    "hitStartTime": 0,
-    "deactivateAfterFirstHit": true,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
 
-    "targetLayerMask": "Enemy",
+      "targetLayerMask": "Enemy",
 
-    "damage": {
-      "skillId": "skill.military_officer.2.basic_attack.damage",
-      "damageType": "Normal",
-      "baseDamage": 30,
-      "attackPercentDamage": 100,
-      "canCritical": true,
-      "ignoreDefense": false
-    },
+      "damage": {
+        "skillId": "skill.military_officer.2.basic_attack.damage",
+        "damageType": "Normal",
+        "baseDamage": 30,
+        "attackPercentDamage": 1,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
 
-    "buffEffects": [],
-    "debuffEffects": [],
+      "buffEffects": [],
+      "debuffEffects": [],
 
-    "useSplitMultiHitDamage": false,
-    "splitHitCount": 4,
-    "splitHitInterval": 0.1
+      "useSplitMultiHitDamage": false,
+      "splitHitCount": 4,
+      "splitHitInterval": 0.1
     }
   ]
 }

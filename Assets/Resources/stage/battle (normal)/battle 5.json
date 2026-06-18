@@ -1,0 +1,81 @@
+{
+  "stageNodeId": "stage.battle.normal.005",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "battle_normal",
+  "actNumber": 5,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "titleKo": "수상한 수도승",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경고",
+  "summaryKo": "길목을 지키던 수도승이 다가오는 위협을 경고한다.",
+  "startNodeId": "node.battle.normal.005",
+  "nodes": [
+    {
+      "nodeId": "node.battle.normal.005",
+      "locationId": "location.wilderness",
+      "bodyKo": "좁은 산길 어귀에서 한 수도승이 길을 가로막고 서 있었다.\n\n그는 낡은 승복을 걸치고 있었지만 눈빛만큼은 이상할 정도로 날카로웠다.\n\n\"앞으로 가지 마시오.\"\n\n수도승은 짧게 말한 뒤 숲 너머를 바라보았다.\n\n잠시 후, 바람도 없는데 주변 나무들이 흔들리기 시작했다.\n\n어둠 속에서는 누군가가 숨을 죽인 채 지켜보는 듯한 기척이 느껴졌다.\n\n수도승은 염주를 움켜쥐며 낮게 중얼거렸다.\n\n\"이미 따라붙었군.\"\n\n서진은 그의 시선을 따라 검을 뽑아 들었다.",
+      "choices": [
+        {
+          "choiceId": "choice.battle.normal.005.prepare_battle",
+          "labelKo": "전투를 준비한다.",
+          "resultKo": "일행은 수도승의 경고를 뒤로하고 다가오는 위협에 대비했다.",
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "battle": {
+                "battleId": "battle.normal.005",
+                "battleName": "일반 전투 5",
+                "victoryRule": "SurviveTime",
+                "survivalTimeSeconds": 60,
+                "backgroundPrefab": "background.jugwi_forest_graveyard",
+                "rewardExperience": 100,
+                "normalRelicDropChance": 0.2,
+                "bossRelicDropChance": 0.0,
+                "timedPropPlacements": [],
+                "propDefinitions": [],
+                "stage": {
+                  "waveId": "wave.battle.normal.005",
+                  "duration": 60,
+                  "spawnArea": {
+                    "spawnStartX": 0,
+                    "spawnEndX": 9,
+                    "yMin": -2,
+                    "yMax": 2,
+                    "groupSpreadRadius": 0.75
+                  },
+                  "phases": [
+                    {
+                      "phaseId": "phase.battle.normal.005.01",
+                      "startTime": 0,
+                      "endTime": 15,
+                      "spawnInterval": 3,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 3,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase.battle.normal.005.02",
+                      "startTime": 15,
+                      "endTime": 30,
+                      "spawnInterval": 2.5,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 5,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
