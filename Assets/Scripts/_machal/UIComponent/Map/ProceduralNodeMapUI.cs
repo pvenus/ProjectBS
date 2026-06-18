@@ -115,6 +115,9 @@ namespace UIFramework.Map
             // 3. 실제 노드(버튼) 생성
             CreateNodeViews(graph);
 
+            // 4. 전부 배치한 다음 위젯의 사이즈와 정렬 갱신
+            UpdateLayoutAndContentSize();
+
             RefreshAll();
         }
         
@@ -150,6 +153,115 @@ namespace UIFramework.Map
             }
         }
 
+        private void UpdateLayoutAndContentSize()
+        {
+            if (spawnedButtons.Count == 0) return;
+
+            // 1. 실제로 생성된 노드들의 로컬 anchoredPosition 기준 바운딩 박스 계산
+            float minX = float.MaxValue;
+            float maxX = float.MinValue;
+            float minY = float.MaxValue;
+            float maxY = float.MinValue;
+
+            foreach (var button in spawnedButtons)
+            {
+                if (button == null) continue;
+                RectTransform rect = button.GetComponent<RectTransform>();
+                if (rect == null) continue;
+
+                Vector2 pos = rect.anchoredPosition;
+                if (pos.x < minX) minX = pos.x;
+                if (pos.x > maxX) maxX = pos.x;
+                if (pos.y < minY) minY = pos.y;
+                if (pos.y > maxY) maxY = pos.y;
+            }
+
+            // 여백(Padding) 설정
+            float paddingX = horizontalSpacing * 0.8f;
+            float paddingY = verticalSpacing * 0.8f;
+
+            float mapWidth = (maxX - minX) + paddingX * 2f;
+            float mapHeight = (maxY - minY) + paddingY * 2f;
+
+            RectTransform scrollContent = contentRoot.parent as RectTransform;
+            if (scrollContent != null)
+            {
+                // ContentSizeFitter 충돌 방지 비활성화
+                var fitter = scrollContent.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+                if (fitter != null) fitter.enabled = false;
+
+                var contentFitter = contentRoot.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+                if (contentFitter != null) contentFitter.enabled = false;
+                if (pathRoot != null && pathRoot != contentRoot)
+                {
+                    var pathFitter = pathRoot.GetComponent<UnityEngine.UI.ContentSizeFitter>();
+                    if (pathFitter != null) pathFitter.enabled = false;
+                }
+
+                // NodeRoot와 PathRoot를 Stretch 구조로 밀착
+                ResetRootRectTransform(contentRoot);
+                if (pathRoot != null && pathRoot != contentRoot)
+                {
+                    ResetRootRectTransform(pathRoot);
+                }
+
+                // 최하단 기준 배치 및 위쪽 확장 방식 (Pivot을 하단 중앙 0.5, 0 으로 설정)
+                scrollContent.anchorMin = new Vector2(0.5f, 0f);
+                scrollContent.anchorMax = new Vector2(0.5f, 0f);
+                scrollContent.pivot = new Vector2(0.5f, 0f);
+
+                scrollContent.sizeDelta = new Vector2(mapWidth, mapHeight);
+                // anchoredPosition.y = 0 이면 하단(시작 지점)이 화면에 보임
+                scrollContent.anchoredPosition = Vector2.zero;
+            }
+
+            // 2. 모든 자식 오브젝트(노드 버튼 및 패스 세그먼트)의 좌표를 보정된 크기에 맞춰 일괄 시프트
+            // 가로는 중앙 정렬, 세로는 최하단(y=0) 기준 위쪽 방향 정렬
+            float offsetX = -(minX + maxX) * 0.5f;
+            float offsetY = -minY + paddingY;
+
+            // 노드 버튼 시프트
+            foreach (var button in spawnedButtons)
+            {
+                if (button == null) continue;
+                RectTransform rect = button.GetComponent<RectTransform>();
+                if (rect != null)
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    rect.anchoredPosition = new Vector2(pos.x + offsetX, pos.y + offsetY);
+                }
+            }
+
+            // 패스 세그먼트 시프트 (길)
+            foreach (var path in spawnedPathViews)
+            {
+                if (path == null) continue;
+                RectTransform rect = path.GetComponent<RectTransform>();
+                if (rect != null)
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    rect.anchoredPosition = new Vector2(pos.x + offsetX, pos.y + offsetY);
+                }
+            }
+
+            // 3. UI 강제 즉시 갱신 (스크롤 범위 즉각 반영 보장)
+            if (scrollContent != null)
+            {
+                UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(scrollContent);
+            }
+        }
+
+        private void ResetRootRectTransform(RectTransform rect)
+        {
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(0.5f, 0f);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = Vector2.zero;
+        }
+
         private void CreatePathViews(StageGraph graph, System.Random rng)
         {
             if (pathSegmentPrefab == null || pathRoot == null) return;
@@ -177,7 +289,10 @@ namespace UIFramework.Map
                         
                         GameObject segment = Instantiate(pathSegmentPrefab, pathRoot);
                         RectTransform rect = segment.GetComponent<RectTransform>();
-                        rect.localPosition = new Vector3(pos.x, pos.y, 0f);
+                        rect.anchorMin = new Vector2(0.5f, 0f);
+                        rect.anchorMax = new Vector2(0.5f, 0f);
+                        rect.pivot = new Vector2(0.5f, 0.5f);
+                        rect.anchoredPosition = pos;
                         
                         // 방향에 맞게 회전 + 무작위 오차
                         float noise = (float)(rng.NextDouble() * 2 - 1) * pathSegmentRotationNoise;
@@ -199,7 +314,10 @@ namespace UIFramework.Map
                 RectTransform rectTransform = button.GetComponent<RectTransform>();
                 if (rectTransform != null)
                 {
-                    rectTransform.localPosition = new Vector3(pos.x, pos.y, 0f);
+                    rectTransform.anchorMin = new Vector2(0.5f, 0f);
+                    rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                    rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                    rectTransform.anchoredPosition = pos;
                 }
 
                 button.Initialize(node);
