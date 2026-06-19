@@ -1,0 +1,81 @@
+{
+  "stageNodeId": "stage.battle.normal.001",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "battle_normal",
+  "actNumber": 1,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "titleKo": "도망치는 상인",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조 요청",
+  "summaryKo": "위협에 쫓기던 상인이 일행에게 도움을 요청한다.",
+  "startNodeId": "node.battle.normal.001",
+  "nodes": [
+    {
+      "nodeId": "node.battle.normal.001",
+      "locationId": "location.wilderness",
+      "bodyKo": "짐마차를 끌던 상인이 다급히 달려와 일행의 앞을 막아섰다.\n\n그의 옷은 먼지투성이였고 얼굴에는 공포가 가득했다.\n\n\"제발 도와주시오! 짐이고 돈이고 다 버릴 테니 목숨만 살고 싶소!\"\n\n상인은 떨리는 손으로 뒤쪽을 가리켰다.\n\n멀지 않은 곳에서 인기척이 빠르게 다가오고 있었다.\n\n무엇이 쫓아오는지는 알 수 없었지만, 적의를 품고 있다는 것만은 분명했다.\n\n서진은 말없이 무기를 고쳐 쥐었다.",
+      "choices": [
+        {
+          "choiceId": "choice.battle.normal.001.help_merchant",
+          "labelKo": "상인을 돕는다.",
+          "resultKo": "일행은 상인을 보호하기 위해 다가오는 위협과 맞서기로 했다.",
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "battle": {
+                "battleId": "battle.normal.001",
+                "battleName": "일반 전투 1",
+                "victoryRule": "SurviveTime",
+                "survivalTimeSeconds": 60,
+                "backgroundPrefab": "background.jugwi_forest_graveyard",
+                "rewardExperience": 100,
+                "normalRelicDropChance": 0.2,
+                "bossRelicDropChance": 0.0,
+                "timedPropPlacements": [],
+                "propDefinitions": [],
+                "stage": {
+                  "waveId": "wave.battle.normal.001",
+                  "duration": 60,
+                  "spawnArea": {
+                    "spawnStartX": 0,
+                    "spawnEndX": 9,
+                    "yMin": -2,
+                    "yMax": 2,
+                    "groupSpreadRadius": 0.75
+                  },
+                  "phases": [
+                    {
+                      "phaseId": "phase.battle.normal.001.01",
+                      "startTime": 0,
+                      "endTime": 15,
+                      "spawnInterval": 3,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 3,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase.battle.normal.001.02",
+                      "startTime": 15,
+                      "endTime": 30,
+                      "spawnInterval": 2.5,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 5,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

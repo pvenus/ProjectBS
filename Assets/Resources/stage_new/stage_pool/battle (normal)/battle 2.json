@@ -1,0 +1,81 @@
+{
+  "stageNodeId": "stage.battle.normal.002",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "battle_normal",
+  "actNumber": 2,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "titleKo": "부상당한 포졸",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "호위",
+  "summaryKo": "길가에 쓰러진 포졸이 일행에게 남은 위협을 경고한다.",
+  "startNodeId": "node.battle.normal.002",
+  "nodes": [
+    {
+      "nodeId": "node.battle.normal.002",
+      "locationId": "location.wilderness",
+      "bodyKo": "길가에 쓰러진 포졸 하나가 피를 흘리며 숨을 몰아쉬고 있었다.\n\n그의 손에는 부러진 창대가 쥐어져 있었고, 갑옷 곳곳에는 급히 막은 상처가 남아 있었다.\n\n\"그냥 지나치지 마시오... 아직 끝난 것이 아닙니다.\"\n\n포졸은 떨리는 손으로 길 너머를 가리켰다.\n\n어둠 속에서 무언가가 천천히 다가오는 기척이 들렸다.\n\n그가 누구와 싸웠는지, 무엇을 지키려 했는지는 알 수 없었다.\n\n하지만 지금 그를 버려두면 다음 희생자가 생길 것은 분명했다.\n\n서진은 포졸을 뒤로 물리고 앞으로 나섰다.",
+      "choices": [
+        {
+          "choiceId": "choice.battle.normal.002.protect_guard",
+          "labelKo": "포졸을 지킨다.",
+          "resultKo": "일행은 쓰러진 포졸을 등지고 다가오는 위협과 맞섰다.",
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "battle": {
+                "battleId": "battle.normal.002",
+                "battleName": "일반 전투 2",
+                "victoryRule": "SurviveTime",
+                "survivalTimeSeconds": 60,
+                "backgroundPrefab": "background.jugwi_forest_graveyard",
+                "rewardExperience": 100,
+                "normalRelicDropChance": 0.2,
+                "bossRelicDropChance": 0.0,
+                "timedPropPlacements": [],
+                "propDefinitions": [],
+                "stage": {
+                  "waveId": "wave.battle.normal.002",
+                  "duration": 60,
+                  "spawnArea": {
+                    "spawnStartX": 0,
+                    "spawnEndX": 9,
+                    "yMin": -2,
+                    "yMax": 2,
+                    "groupSpreadRadius": 0.75
+                  },
+                  "phases": [
+                    {
+                      "phaseId": "phase.battle.normal.002.01",
+                      "startTime": 0,
+                      "endTime": 15,
+                      "spawnInterval": 3,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 3,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase.battle.normal.002.02",
+                      "startTime": 15,
+                      "endTime": 30,
+                      "spawnInterval": 2.5,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 5,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

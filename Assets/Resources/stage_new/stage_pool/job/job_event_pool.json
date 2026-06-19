@@ -1,0 +1,19 @@
+{
+  "poolId": "stage.pool.job.first_job",
+  "displayName": "1차 전직 이벤트 풀",
+  "entries": [
+    {
+      "entryId": "entry.job.first_job",
+      "nodeJsonPath": "Assets/Resources/stage/job/first_job.json",
+      "weight": 100,
+      "oneShot": true,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 0,
+      "tags": [
+        "job",
+        "first_job"
+      ]
+    }
+  ]
+}

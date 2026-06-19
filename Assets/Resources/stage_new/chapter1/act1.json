@@ -1,0 +1,81 @@
+{
+  "stageNodeId": "stage.ch1.act1",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "chapter1",
+  "actId": "act1",
+  "actNumber": 1,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "titleKo": "청운촌의 습격",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "사건 인지",
+  "summaryKo": "서진이 청운촌에 도착하자마자 마을을 습격한 적들과 맞서며, 사건의 심각성을 처음 인지하는 도입 액트.",
+  "startNodeId": "node.ch1.act1.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.act1.001",
+      "locationId": "location.cheongun_village_entrance",
+      "bodyKo": "청운촌에 가까워질수록 공기는 이상하리만큼 무거워졌다.\n\n마을 입구에는 쓰러진 수레와 버려진 짐들이 흩어져 있었고, 멀리서 사람들의 비명과 짐승 같은 울음소리가 뒤섞여 들려왔다.\n\n서진이 광장 쪽으로 발을 옮기자, 검은 천을 두른 무리들이 주민들을 몰아붙이고 있었다.\n\n아직 사정을 들을 시간은 없었다.\n\n지금 필요한 것은 질문이 아니라, 마을 사람들을 지키는 일이었다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act1.enter_battle",
+          "labelKo": "마을 사람들을 구한다.",
+          "resultKo": "서진은 무기를 고쳐 쥐고 습격자들 사이로 뛰어들었다.",
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "battle": {
+                "battleId": "battle.chapter1.act1.defense",
+                "battleName": "청운촌 방어전",
+                "victoryRule": "SurviveTime",
+                "survivalTimeSeconds": 60,
+                "backgroundPrefab": "background.jugwi_forest_graveyard",
+                "rewardExperience": 100,
+                "normalRelicDropChance": 0.2,
+                "bossRelicDropChance": 0.0,
+                "timedPropPlacements": [],
+                "propDefinitions": [],
+                "stage": {
+                  "waveId": "wave.chapter1.act1.defense",
+                  "duration": 60,
+                  "spawnArea": {
+                    "spawnStartX": 0,
+                    "spawnEndX": 9,
+                    "yMin": -2,
+                    "yMax": 2,
+                    "groupSpreadRadius": 0.75
+                  },
+                  "phases": [
+                    {
+                      "phaseId": "phase.chapter1.act1.01",
+                      "startTime": 0,
+                      "endTime": 15,
+                      "spawnInterval": 3,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 3,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    },
+                    {
+                      "phaseId": "phase.chapter1.act1.02",
+                      "startTime": 15,
+                      "endTime": 30,
+                      "spawnInterval": 2.5,
+                      "spawnCountPerTick": 1,
+                      "maxAliveCount": 5,
+                      "monsters": [
+                        { "characterId": "character.eodukshini.1", "weight": 1 }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "poolId": "stage.pool.battle.normal",
+  "displayName": "일반 전투 이벤트 풀",
+  "entries": [
+    {
+      "entryId": "entry.battle.normal.001",
+      "nodeJsonPath": "Assets/Resources/stage/battle (normal)/battle 1.json",
+      "weight": 100,
+      "oneShot": false,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 999,
+      "tags": [
+        "battle",
+        "normal"
+      ]
+    },
+    {
+      "entryId": "entry.battle.normal.002",
+      "nodeJsonPath": "Assets/Resources/stage/battle (normal)/battle 2.json",
+      "weight": 100,
+      "oneShot": false,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 999,
+      "tags": [
+        "battle",
+        "normal"
+      ]
+    },
+    {
+      "entryId": "entry.battle.normal.003",
+      "nodeJsonPath": "Assets/Resources/stage/battle (normal)/battle 3.json",
+      "weight": 100,
+      "oneShot": false,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 999,
+      "tags": [
+        "battle",
+        "normal"
+      ]
+    },
+    {
+      "entryId": "entry.battle.normal.004",
+      "nodeJsonPath": "Assets/Resources/stage/battle (normal)/battle 4.json",
+      "weight": 100,
+      "oneShot": false,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 999,
+      "tags": [
+        "battle",
+        "normal"
+      ]
+    },
+    {
+      "entryId": "entry.battle.normal.005",
+      "nodeJsonPath": "Assets/Resources/stage/battle (normal)/battle 5.json",
+      "weight": 100,
+      "oneShot": false,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 999,
+      "tags": [
+        "battle",
+        "normal"
+      ]
+    }
+  ]
+}

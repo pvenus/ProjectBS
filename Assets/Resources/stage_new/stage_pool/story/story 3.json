@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.normal.003",
+  "title": "강가의 나룻배",
+  "nodes": [
+    {
+      "nodeId": "start",
+      "body": "강가에 도착하자 작은 나룻배 한 척이 정박해 있었다.\n배를 지키던 노인은 낚싯대를 드리운 채 강물을 바라보고 있었다.\n\n\"길을 재촉하는 여행자인가? 잠시 쉬어 가도 좋고, 일을 도와줘도 좋네.\"",
+      "choices": [
+        {
+          "choiceId": "fish"
+        },
+        {
+          "choiceId": "row"
+        },
+        {
+          "choiceId": "explore"
+        }
+      ]
+    },
+    {
+      "nodeId": "fish",
+      "body": "노인과 함께 강가에 앉아 잠시 낚시를 즐겼다.\n조용한 물소리를 듣고 있으니 긴장이 풀리고 몸이 한결 가벼워진다.",
+      "rewardType": "heal",
+      "rewardValue": 20,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "row",
+      "body": "당신은 노인을 대신해 나룻배를 저어 사람들을 강 건너로 옮겨 주었다.\n노인은 감사의 뜻으로 여행에 도움이 될 조언을 건넸다.",
+      "rewardType": "exp",
+      "rewardValue": 50,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "explore",
+      "body": "배 주변을 둘러보던 중 갈대숲에 걸린 낡은 주머니를 발견했다.\n안에는 물에 젖지 않은 은전들이 들어 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 100,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "end",
+      "body": "잔잔한 강물을 뒤로하고 다시 길을 떠난다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "fish",
+      "text": "강가에서 쉬며 낚시한다"
+    },
+    {
+      "choiceId": "row",
+      "text": "나룻배 일을 돕는다"
+    },
+    {
+      "choiceId": "explore",
+      "text": "주변을 둘러본다"
+    }
+  ]
+}

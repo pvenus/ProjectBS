@@ -1,0 +1,48 @@
+{
+  "stageNodeId": "stage.ch1.act3_2",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "chapter1",
+  "actId": "act3_2",
+  "actNumber": 32,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 3,
+  "hiddenByDefault": true,
+  "titleKo": "두 번째 동행자",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "영입",
+  "summaryKo": "숲길에서 만난 첫 번째 동행자와 함께 다음 단서를 따라가며 두 번째 동행자를 영입하는 액트.",
+  "startNodeId": "node.ch1.act3_2.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.act3_2.001",
+      "locationId": "location.deep_forest_path",
+      "bodyKo": "지한이 합류하자 숲길의 공기는 조금 달라졌다.\n\n서진은 더 이상 혼자가 아니었지만, 사라진 아이들의 흔적은 여전히 희미했다.\n\n두 사람은 오래된 발자국과 부러진 나뭇가지를 따라 더 깊은 곳으로 향했다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act3_2.follow_deeper_trace",
+          "labelKo": "더 깊은 숲의 흔적을 따라간다.",
+          "nextNodeId": "node.ch1.act3_2.002"
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.act3_2.002",
+      "locationId": "location.abandoned_training_ground",
+      "bodyKo": "숲속 공터에는 낡은 수련장의 흔적이 남아 있었다.\n\n그곳에서 서진은 홀로 주변을 경계하던 젊은 무인을 만났다.\n\n그는 아이들을 데려간 자들의 흔적을 쫓고 있었고, 이미 몇 차례 위험한 싸움을 치른 듯했다.\n\n\"혼자서는 더 깊이 들어갈 수 없었습니다.\"\n\n\"같은 목적이라면, 저도 함께하겠습니다.\"",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.act3_2.recruit_muin",
+          "labelKo": "함께 가주십시오. 아이들을 구하는 데 힘이 필요합니다.",
+          "resultKo": "무인이 파티에 합류했다.\n\n서진의 여정에 두 번째 동행자가 생겼다.",
+          "rewards": [
+            {
+              "rewardType": "party_candidate",
+              "rewardId": "character.muin"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
