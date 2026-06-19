@@ -3,57 +3,57 @@
   "title": "떠돌이 장터",
   "nodes": [
     {
-      "nodeId": "start",
+      "nodeId": "stage.story.normal.005.start",
       "body": "산길 끝자락에서 작은 장터를 발견했다.\n상인들은 잠시 쉬어 가며 물건을 정리하고 있었고, 여행객 몇 명이 모닥불 주변에 모여 이야기를 나누고 있었다.\n장터는 곧 해산할 분위기였다.",
       "choices": [
         {
-          "choiceId": "eat"
+          "choiceId": "stage.story.normal.005.choice.eat"
         },
         {
-          "choiceId": "help"
+          "choiceId": "stage.story.normal.005.choice.help"
         },
         {
-          "choiceId": "trade"
+          "choiceId": "stage.story.normal.005.choice.trade"
         }
       ]
     },
     {
-      "nodeId": "eat",
+      "nodeId": "stage.story.normal.005.eat",
       "body": "상인이 권한 따뜻한 국밥 한 그릇을 먹었다.\n허기와 피로가 가시며 몸에 힘이 돌아오는 것을 느낀다.",
       "rewardType": "heal",
       "rewardValue": 20,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.005.end"
     },
     {
-      "nodeId": "help",
+      "nodeId": "stage.story.normal.005.help",
       "body": "장터를 정리하는 상인들을 도와주었다.\n그들은 여러 지방을 돌아다니며 들은 이야기를 들려주었고, 당신은 여행에 도움이 될 지식을 얻었다.",
       "rewardType": "exp",
       "rewardValue": 50,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.005.end"
     },
     {
-      "nodeId": "trade",
+      "nodeId": "stage.story.normal.005.trade",
       "body": "장터 한쪽에서 버려진 상자를 발견했다.\n주인을 찾아보았지만 아무도 아는 사람이 없었고, 안에는 은전 몇 닢이 남아 있었다.",
       "rewardType": "gold",
       "rewardValue": 120,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.005.end"
     },
     {
-      "nodeId": "end",
+      "nodeId": "stage.story.normal.005.end",
       "body": "장터를 뒤로하고 다시 길을 떠난다."
     }
   ],
   "choices": [
     {
-      "choiceId": "eat",
+      "choiceId": "stage.story.normal.005.choice.eat",
       "text": "음식을 사 먹는다"
     },
     {
-      "choiceId": "help",
+      "choiceId": "stage.story.normal.005.choice.help",
       "text": "장터 정리를 돕는다"
     },
     {
-      "choiceId": "trade",
+      "choiceId": "stage.story.normal.005.choice.trade",
       "text": "장터를 둘러본다"
     }
   ]

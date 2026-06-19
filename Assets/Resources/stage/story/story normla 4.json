@@ -1,61 +1,59 @@
-
-
 {
   "stageNodeId": "stage.story.normal.004",
   "title": "버려진 객잔",
   "nodes": [
     {
-      "nodeId": "start",
+      "nodeId": "stage.story.normal.004.start",
       "body": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.\n문은 반쯤 부서져 있었지만 내부는 생각보다 깔끔하게 정리되어 있었다.\n누군가 최근까지 머물다 떠난 듯한 흔적도 남아 있었다.",
       "choices": [
         {
-          "choiceId": "rest"
+          "choiceId": "stage.story.normal.004.choice.rest"
         },
         {
-          "choiceId": "clean"
+          "choiceId": "stage.story.normal.004.choice.clean"
         },
         {
-          "choiceId": "search"
+          "choiceId": "stage.story.normal.004.choice.search"
         }
       ]
     },
     {
-      "nodeId": "rest",
+      "nodeId": "stage.story.normal.004.rest",
       "body": "객잔 한쪽 방에서 잠시 눈을 붙였다.\n오랜만에 편안한 휴식을 취한 덕분에 몸의 피로가 상당히 회복되었다.",
       "rewardType": "heal",
       "rewardValue": 20,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.004.end"
     },
     {
-      "nodeId": "clean",
+      "nodeId": "stage.story.normal.004.clean",
       "body": "무너진 의자를 세우고 먼지를 쓸어냈다.\n한때 이곳을 오갔을 사람들의 흔적을 살피며 많은 것을 배울 수 있었다.",
       "rewardType": "exp",
       "rewardValue": 50,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.004.end"
     },
     {
-      "nodeId": "search",
+      "nodeId": "stage.story.normal.004.search",
       "body": "주방 근처를 뒤지던 중 바닥 판자 아래 숨겨진 주머니를 발견했다.\n주머니 안에는 은전과 몇 개의 동전이 들어 있었다.",
       "rewardType": "gold",
       "rewardValue": 120,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.004.end"
     },
     {
-      "nodeId": "end",
+      "nodeId": "stage.story.normal.004.end",
       "body": "객잔을 뒤로하고 다시 여정을 이어간다."
     }
   ],
   "choices": [
     {
-      "choiceId": "rest",
+      "choiceId": "stage.story.normal.004.choice.rest",
       "text": "잠시 쉬어 간다"
     },
     {
-      "choiceId": "clean",
+      "choiceId": "stage.story.normal.004.choice.clean",
       "text": "객잔을 정리한다"
     },
     {
-      "choiceId": "search",
+      "choiceId": "stage.story.normal.004.choice.search",
       "text": "객잔을 수색한다"
     }
   ]
