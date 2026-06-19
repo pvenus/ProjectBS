@@ -3,57 +3,57 @@
   "title": "마른 우물",
   "nodes": [
     {
-      "nodeId": "start",
+      "nodeId": "stage.story.normal.002.start",
       "body": "숲길을 걷던 중 오래된 우물을 발견했다.\n주변에는 사람의 흔적이 없었지만 우물 아래에서는 희미하게 물 흐르는 소리가 들려온다.\n우물 곁에는 낡은 두레박과 밧줄이 남아 있었다.",
       "choices": [
         {
-          "choiceId": "draw_water"
+          "choiceId": "stage.story.normal.002.choice.draw_water"
         },
         {
-          "choiceId": "climb_down"
+          "choiceId": "stage.story.normal.002.choice.climb_down"
         },
         {
-          "choiceId": "leave"
+          "choiceId": "stage.story.normal.002.choice.leave"
         }
       ]
     },
     {
-      "nodeId": "draw_water",
+      "nodeId": "stage.story.normal.002.draw_water",
       "body": "두레박을 내려 물을 길어 올렸다.\n맑고 차가운 물을 마시자 지친 몸에 생기가 돌아온다.",
       "rewardType": "heal",
       "rewardValue": 20,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.002.end"
     },
     {
-      "nodeId": "climb_down",
+      "nodeId": "stage.story.normal.002.climb_down",
       "body": "밧줄을 붙잡고 우물 아래로 내려갔다.\n바닥에는 오래전에 떨어진 것으로 보이는 작은 상자가 묻혀 있었다.\n상자 안에는 은전이 가득 들어 있었다.",
       "rewardType": "gold",
       "rewardValue": 120,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.002.end"
     },
     {
-      "nodeId": "leave",
+      "nodeId": "stage.story.normal.002.leave",
       "body": "수상한 장소에는 이유가 있는 법이다.\n당신은 우물을 뒤로한 채 길을 재촉했다.\n조심스러운 판단 덕분인지 여행의 요령을 하나 깨달은 기분이 든다.",
       "rewardType": "exp",
       "rewardValue": 50,
-      "nextNodeId": "end"
+      "nextNodeId": "stage.story.normal.002.end"
     },
     {
-      "nodeId": "end",
+      "nodeId": "stage.story.normal.002.end",
       "body": "우물을 뒤로하고 다시 여정을 이어간다."
     }
   ],
   "choices": [
     {
-      "choiceId": "draw_water",
+      "choiceId": "stage.story.normal.002.choice.draw_water",
       "text": "물을 길어 마신다"
     },
     {
-      "choiceId": "climb_down",
+      "choiceId": "stage.story.normal.002.choice.climb_down",
       "text": "우물 아래로 내려간다"
     },
     {
-      "choiceId": "leave",
+      "choiceId": "stage.story.normal.002.choice.leave",
       "text": "그냥 지나간다"
     }
   ]
