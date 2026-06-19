@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.007",
-  "title": "찻집의 남은 불씨",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 7,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "찻집의 남은 불씨",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "휴식",
+  "summaryKo": "길모퉁이 작은 찻집에서 은은한 차 향이 새어 나왔다.",
+  "startNodeId": "node.story.easy.007",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.007.start",
+      "nodeId": "node.story.easy.007",
       "body": "길모퉁이 작은 찻집에서 은은한 차 향이 새어 나왔다.\n주인은 하루 장사를 마치며 남은 불씨를 정리하고 있었다.\n잠깐 앉아 쉬어도 좋다는 손짓을 보냈다.",
       "choices": [
         {

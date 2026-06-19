@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.009",
-  "title": "바람개비 언덕",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 9,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "바람개비 언덕",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "조사",
+  "summaryKo": "낮은 언덕 위에 낡은 바람개비들이 줄지어 서 있었다.",
+  "startNodeId": "node.story.normal.009",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.009.start",
+      "nodeId": "node.story.normal.009",
       "body": "낮은 언덕 위에 낡은 바람개비들이 줄지어 서 있었다.\n대부분은 멈춰 있었지만, 가장 큰 바람개비 하나만 삐걱거리며 천천히 돌고 있었다.\n언덕 아래 농부가 망가진 장치를 보며 한숨을 쉬고 있다.",
       "choices": [
         {

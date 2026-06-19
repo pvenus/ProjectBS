@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.006",
-  "title": "비에 젖은 서신",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 6,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "비에 젖은 서신",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "발견",
+  "summaryKo": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.",
+  "startNodeId": "node.story.normal.006",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.006.start",
+      "nodeId": "node.story.normal.006",
       "body": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.\n주머니 안에는 봉인이 반쯤 풀린 서신과 작은 표식 하나가 들어 있었다.\n멀지 않은 곳에서 누군가 급히 지나간 발자국이 진흙 위에 남아 있다.",
       "choices": [
         {

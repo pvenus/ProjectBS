@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.011",
-  "title": "비탈길의 수레바퀴",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 11,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "비탈길의 수레바퀴",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조",
+  "summaryKo": "비탈길 한가운데에서 짐수레가 멈춰 서 있었다.",
+  "startNodeId": "node.story.normal.011",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.011.start",
+      "nodeId": "node.story.normal.011",
       "body": "비탈길 한가운데에서 짐수레가 멈춰 서 있었다.\n한쪽 바퀴가 진흙에 깊게 빠졌고, 상인은 젖은 짐을 지키느라 얼굴이 굳어 있었다.\n서두르면 길을 막은 수레를 빼낼 수 있을 듯하다.",
       "choices": [
         {

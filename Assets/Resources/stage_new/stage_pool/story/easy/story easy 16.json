@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.016",
-  "title": "마른 우물의 두레박",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 16,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "마른 우물의 두레박",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "복구",
+  "summaryKo": "작은 마을의 마른 우물 옆에 낡은 두레박이 놓여 있었다.",
+  "startNodeId": "node.story.easy.016",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.016.start",
+      "nodeId": "node.story.easy.016",
       "body": "작은 마을의 마른 우물 옆에 낡은 두레박이 놓여 있었다.\n우물가는 조용했지만, 아이들이 물동이를 들고 빈손으로 돌아가려는 모습이 보였다.\n조금만 손을 보태면 아직 남은 물을 길어 올릴 수 있을 듯하다.",
       "choices": [
         {

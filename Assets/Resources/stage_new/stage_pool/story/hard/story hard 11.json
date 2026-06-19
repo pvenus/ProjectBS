@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.011",
-  "title": "무너진 감시탑",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 11,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "무너진 감시탑",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.",
+  "startNodeId": "node.story.hard.011",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.011.start",
+      "nodeId": "node.story.hard.011",
       "body": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.\n부서진 계단 사이로 찬바람이 불고, 꼭대기에는 아직 꺼지지 않은 신호등이 희미하게 흔들렸다.\n조심하지 않으면 작은 돌 하나에도 균형을 잃을 수 있다.",
       "choices": [
         {

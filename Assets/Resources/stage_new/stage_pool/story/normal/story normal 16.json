@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.016",
-  "title": "무너진 서고의 사다리",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 16,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "무너진 서고의 사다리",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "버려진 서고 안쪽에서 먼지 낀 책장이 비스듬히 기울어져 있었다.",
+  "startNodeId": "node.story.normal.016",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.016.start",
+      "nodeId": "node.story.normal.016",
       "body": "버려진 서고 안쪽에서 먼지 낀 책장이 비스듬히 기울어져 있었다.\n부러진 사다리 아래에는 흩어진 기록지가 쌓여 있고, 창문 틈으로 들어온 빛이 책등을 가늘게 비추었다.\n조심스럽게 정리하면 쓸 만한 지식을 얻을 수 있을 것 같다.",
       "choices": [
         {

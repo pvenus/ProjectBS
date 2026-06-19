@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.015",
-  "title": "고양이 없는 지붕",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 15,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "고양이 없는 지붕",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조",
+  "summaryKo": "작은 여관 지붕 위에서 빈 바구니가 덜컹거렸다.",
+  "startNodeId": "node.story.easy.015",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.015.start",
+      "nodeId": "node.story.easy.015",
       "body": "작은 여관 지붕 위에서 빈 바구니가 덜컹거렸다.\n여관 주인은 바람에 날아간 수건을 찾으며 사다리를 붙잡고 있었다.\n높지 않은 지붕이라 조심하면 금방 정리할 수 있을 것 같다.",
       "choices": [
         {

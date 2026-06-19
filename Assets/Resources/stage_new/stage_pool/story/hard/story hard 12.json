@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.012",
-  "title": "가라앉은 성문",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 12,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "가라앉은 성문",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐험",
+  "summaryKo": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.",
+  "startNodeId": "node.story.hard.012",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.012.start",
+      "nodeId": "node.story.hard.012",
       "body": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.\n문 위의 문장은 진흙으로 뒤덮였고, 물속에서는 무언가 금속성으로 부딪히는 소리가 났다.\n발을 잘못 디디면 깊은 진창에 빠질 수 있다.",
       "choices": [
         {

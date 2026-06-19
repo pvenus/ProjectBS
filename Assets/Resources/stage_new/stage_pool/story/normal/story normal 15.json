@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.015",
-  "title": "빗속의 천막 극장",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 15,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "빗속의 천막 극장",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "공연",
+  "summaryKo": "비 내리는 공터에 작은 천막 극장이 세워져 있었다.",
+  "startNodeId": "node.story.normal.015",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.015.start",
+      "nodeId": "node.story.normal.015",
       "body": "비 내리는 공터에 작은 천막 극장이 세워져 있었다.\n공연은 끝났지만 배우들은 젖은 소품을 정리하지 못해 난감한 표정이었다.\n천막 안쪽에서는 아직 따뜻한 조명이 흔들리고 있다.",
       "choices": [
         {

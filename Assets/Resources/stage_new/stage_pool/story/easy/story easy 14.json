@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.014",
-  "title": "언덕 위 풍차",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 14,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "언덕 위 풍차",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "노동",
+  "summaryKo": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.",
+  "startNodeId": "node.story.easy.014",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.014.start",
+      "nodeId": "node.story.easy.014",
       "body": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.\n밀가루 자루 몇 개가 문 앞에 놓여 있고, 풍차지기는 삐걱거리는 날개를 걱정스럽게 올려다보았다.\n바람은 잔잔하고 주변은 평화롭다.",
       "choices": [
         {

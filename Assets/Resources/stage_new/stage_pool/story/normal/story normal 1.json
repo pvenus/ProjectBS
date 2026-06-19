@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.001",
-  "title": "갈림길의 약초꾼",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 1,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "갈림길의 약초꾼",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "채집",
+  "summaryKo": "산길을 걷던 중 작은 쉼터를 발견했다.",
+  "startNodeId": "node.story.normal.001",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.001.start",
+      "nodeId": "node.story.normal.001",
       "body": "산길을 걷던 중 작은 쉼터를 발견했다.\n낡은 천막 아래에는 백발의 약초꾼이 앉아 있었고, 주변에는 여러 약초가 말려지고 있었다.\n노인은 피곤해 보이는 당신을 바라보며 말을 건넨다.\n\n\"먼 길을 걷는 모양이구나. 잠시 쉬어 가겠느냐?\"",
       "choices": [
         {

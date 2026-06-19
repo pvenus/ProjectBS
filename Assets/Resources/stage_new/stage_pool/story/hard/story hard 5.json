@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.005",
-  "title": "폭풍 속 등대",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 5,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "폭풍 속 등대",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "생존",
+  "summaryKo": "해안 절벽 위 등대가 폭풍 속에서 깜박이고 있었다.",
+  "startNodeId": "node.story.hard.005",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.005.start",
+      "nodeId": "node.story.hard.005",
       "body": "해안 절벽 위 등대가 폭풍 속에서 깜박이고 있었다.\n등대지기는 보이지 않고, 꺼져가는 불빛 때문에 먼 바다의 배들이 길을 잃을 듯했다.\n계단은 젖어 미끄럽고 바람은 몸을 밀어낸다.",
       "choices": [
         {

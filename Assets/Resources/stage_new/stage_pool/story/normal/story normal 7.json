@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.007",
-  "title": "무너진 돌다리",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 7,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "무너진 돌다리",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "복구",
+  "summaryKo": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.",
+  "startNodeId": "node.story.normal.007",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.007.start",
+      "nodeId": "node.story.normal.007",
       "body": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.\n건너편에서는 짐을 든 여행자가 난처한 얼굴로 주변을 살피고 있었다.\n물살은 거세지만 조금만 손을 보태면 임시로 길을 만들 수 있을 듯하다.",
       "choices": [
         {

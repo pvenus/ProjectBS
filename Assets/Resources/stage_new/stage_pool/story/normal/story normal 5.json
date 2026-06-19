@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.005",
-  "title": "떠돌이 장터",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 5,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "떠돌이 장터",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "거래",
+  "summaryKo": "산길 끝자락에서 작은 장터를 발견했다.",
+  "startNodeId": "node.story.normal.005",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.005.start",
+      "nodeId": "node.story.normal.005",
       "body": "산길 끝자락에서 작은 장터를 발견했다.\n상인들은 잠시 쉬어 가며 물건을 정리하고 있었고, 여행객 몇 명이 모닥불 주변에 모여 이야기를 나누고 있었다.\n장터는 곧 해산할 분위기였다.",
       "choices": [
         {

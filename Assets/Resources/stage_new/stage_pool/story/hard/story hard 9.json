@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.009",
-  "title": "갈라진 왕의 길",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 9,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "갈라진 왕의 길",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "돌파",
+  "summaryKo": "오래된 왕도가 지진으로 크게 갈라져 있었다.",
+  "startNodeId": "node.story.hard.009",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.009.start",
+      "nodeId": "node.story.hard.009",
       "body": "오래된 왕도가 지진으로 크게 갈라져 있었다.\n균열 아래에서는 따뜻한 바람과 함께 금속 냄새가 올라왔다.\n맞은편에는 무너진 석상과 봉인된 표식이 보인다.",
       "choices": [
         {

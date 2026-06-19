@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.003",
-  "title": "붉은 달의 묘지기",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 3,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "붉은 달의 묘지기",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경계",
+  "summaryKo": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.",
+  "startNodeId": "node.story.hard.003",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.003.start",
+      "nodeId": "node.story.hard.003",
       "body": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.\n묘지기는 무너진 묘비를 세우며 침묵을 지키고 있었다.\n땅 밑에서는 낮은 울림이 들리고, 오래 머무를수록 공기가 무거워진다.",
       "choices": [
         {

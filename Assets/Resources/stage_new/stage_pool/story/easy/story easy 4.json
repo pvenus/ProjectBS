@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.004",
-  "title": "종소리 작은 예배당",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 4,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "종소리 작은 예배당",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "안식",
+  "summaryKo": "숲길 옆 오래된 예배당에서 맑은 종소리가 울렸다.",
+  "startNodeId": "node.story.easy.004",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.004.start",
+      "nodeId": "node.story.easy.004",
       "body": "숲길 옆 오래된 예배당에서 맑은 종소리가 울렸다.\n문은 열려 있었고 안쪽에는 여행자들이 잠시 쉬어 갈 수 있는 긴 의자가 놓여 있었다.\n관리인은 조용히 촛대를 정리하고 있었다.",
       "choices": [
         {

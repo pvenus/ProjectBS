@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.007",
-  "title": "얼어붙은 고갯길",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 7,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "얼어붙은 고갯길",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조",
+  "summaryKo": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.",
+  "startNodeId": "node.story.hard.007",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.007.start",
+      "nodeId": "node.story.hard.007",
       "body": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.\n바퀴는 얼음에 박혀 있고, 짐칸 안에서는 희미한 숨소리가 들렸다.\n추위가 빠르게 체온을 빼앗아가고 있다.",
       "choices": [
         {

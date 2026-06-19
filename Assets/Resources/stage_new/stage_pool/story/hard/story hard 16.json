@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.016",
-  "title": "폭풍 전야의 등대",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 16,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "폭풍 전야의 등대",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "생존",
+  "summaryKo": "검은 구름 아래 낡은 등대가 거센 바람을 맞으며 서 있었다.",
+  "startNodeId": "node.story.hard.016",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.016.start",
+      "nodeId": "node.story.hard.016",
       "body": "검은 구름 아래 낡은 등대가 거센 바람을 맞으며 서 있었다.\n계단은 바닷물에 젖어 미끄러웠고, 꼭대기 등불은 꺼질 듯 흔들리고 있었다.\n폭풍이 오기 전에 등대를 살피면 중요한 단서를 얻을 수 있을지도 모른다.",
       "choices": [
         {

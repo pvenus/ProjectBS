@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.008",
-  "title": "푸른 리본 표지판",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 8,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "푸른 리본 표지판",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "길찾기",
+  "summaryKo": "갈림길 표지판에 푸른 리본이 묶여 있었다.",
+  "startNodeId": "node.story.easy.008",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.008.start",
+      "nodeId": "node.story.easy.008",
       "body": "갈림길 표지판에 푸른 리본이 묶여 있었다.\n바람에 리본이 흔들릴 때마다 낡은 표지판이 삐걱거렸다.\n누군가 길을 잃지 않도록 남겨둔 표시 같았다.",
       "choices": [
         {

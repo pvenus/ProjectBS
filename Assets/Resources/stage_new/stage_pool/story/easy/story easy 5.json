@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.005",
-  "title": "새벽 이슬 약초밭",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 5,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "새벽 이슬 약초밭",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "채집",
+  "summaryKo": "새벽 이슬이 맺힌 작은 약초밭을 발견했다.",
+  "startNodeId": "node.story.easy.005",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.005.start",
+      "nodeId": "node.story.easy.005",
       "body": "새벽 이슬이 맺힌 작은 약초밭을 발견했다.\n밭 주인은 허리를 펴며 수확할 손이 부족하다고 웃었다.\n약초 향은 맑고 부드러워 가까이 있는 것만으로도 기분이 나아진다.",
       "choices": [
         {

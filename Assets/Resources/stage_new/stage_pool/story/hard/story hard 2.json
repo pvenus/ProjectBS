@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.002",
-  "title": "절벽 위 구조 신호",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 2,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "절벽 위 구조 신호",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조",
+  "summaryKo": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.",
+  "startNodeId": "node.story.hard.002",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.002.start",
+      "nodeId": "node.story.hard.002",
       "body": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.\n아래쪽에서는 사람 목소리인지 바람 소리인지 모를 울림이 들렸다.\n발을 헛디디면 위험하지만, 그냥 지나치기에는 신호가 또렷하다.",
       "choices": [
         {

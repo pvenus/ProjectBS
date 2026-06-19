@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.012",
-  "title": "밤길의 순찰 종",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 12,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "밤길의 순찰 종",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경계",
+  "summaryKo": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.",
+  "startNodeId": "node.story.normal.012",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.012.start",
+      "nodeId": "node.story.normal.012",
       "body": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.\n초소 안에는 졸음을 참는 파수꾼이 앉아 있었고, 벽에는 최근 길목에서 본 흔적들이 적혀 있었다.\n조심스럽게 살피면 쓸 만한 정보를 얻을 수 있다.",
       "choices": [
         {

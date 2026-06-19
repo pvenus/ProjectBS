@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.001",
-  "title": "검은 안개의 초소",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 1,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "검은 안개의 초소",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.",
+  "startNodeId": "node.story.hard.001",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.001.start",
+      "nodeId": "node.story.hard.001",
       "body": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.\n안개 속에서는 오래된 경보 종이 바람도 없이 흔들렸다.\n초소 안쪽 어둠에는 누군가 남긴 기록과 보급품이 있을지도 모른다.",
       "choices": [
         {

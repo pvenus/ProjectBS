@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.013",
-  "title": "꽃집 앞의 화분",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 13,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "꽃집 앞의 화분",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "돌봄",
+  "summaryKo": "골목 모퉁이의 작은 꽃집 앞에 화분들이 줄지어 놓여 있었다.",
+  "startNodeId": "node.story.easy.013",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.013.start",
+      "nodeId": "node.story.easy.013",
       "body": "골목 모퉁이의 작은 꽃집 앞에 화분들이 줄지어 놓여 있었다.\n갑작스러운 바람에 흙이 흩어지고, 주인은 물뿌리개를 찾느라 가게 안팎을 오가고 있었다.\n잠깐만 도우면 꽃들이 다시 고개를 들 것 같다.",
       "choices": [
         {

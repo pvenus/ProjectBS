@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.003",
-  "title": "길 잃은 강아지",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 3,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "길 잃은 강아지",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "도움",
+  "summaryKo": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.",
+  "startNodeId": "node.story.easy.003",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.003.start",
+      "nodeId": "node.story.easy.003",
       "body": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.\n목줄에는 마을 이름이 적힌 낡은 나무패가 달려 있었다.\n멀리서 누군가 애타게 부르는 소리가 들린다.",
       "choices": [
         {

@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.006",
-  "title": "독초가 핀 늪지",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 6,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "독초가 핀 늪지",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "생존",
+  "summaryKo": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.",
+  "startNodeId": "node.story.hard.006",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.006.start",
+      "nodeId": "node.story.hard.006",
       "body": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.\n늪 가장자리에는 길을 잃은 채 쓰러진 짐꾼의 발자국이 이어져 있었다.\n숨을 잘못 들이마시면 정신이 흐려질 만큼 공기가 탁하다.",
       "choices": [
         {

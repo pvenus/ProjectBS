@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.001",
-  "title": "햇살 아래 빨래터",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 1,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "햇살 아래 빨래터",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "휴식",
+  "summaryKo": "마을 어귀의 빨래터에서 잠시 손을 보태거나 쉬어 간다.",
+  "startNodeId": "node.story.easy.001",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.001.start",
+      "nodeId": "node.story.easy.001",
       "body": "마을 어귀의 작은 빨래터에 맑은 물소리가 흐르고 있었다.\n아이들은 물가에서 조약돌을 고르고, 노인은 널어둔 천이 바람에 날아가지 않도록 붙잡고 있었다.\n잠시 손을 보태면 모두가 편해질 듯하다.",
       "choices": [
         {

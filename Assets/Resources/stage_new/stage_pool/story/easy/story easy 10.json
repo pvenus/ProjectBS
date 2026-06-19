@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.010",
-  "title": "마을 입구의 우체통",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 10,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "마을 입구의 우체통",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "전달",
+  "summaryKo": "마을 입구에 빨간 우체통 하나가 서 있었다.",
+  "startNodeId": "node.story.easy.010",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.010.start",
+      "nodeId": "node.story.easy.010",
       "body": "마을 입구에 빨간 우체통 하나가 서 있었다.\n옆에는 배달할 편지를 품에 안은 우편배달부가 잠시 숨을 고르고 있었다.\n편지 몇 장이 바람에 날려 길 위에 흩어졌다.",
       "choices": [
         {

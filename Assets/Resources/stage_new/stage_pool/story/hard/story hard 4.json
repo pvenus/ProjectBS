@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.004",
-  "title": "무너지는 광산길",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 4,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "무너지는 광산길",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "구조",
+  "summaryKo": "폐광 입구에서 돌가루가 계속 떨어지고 있었다.",
+  "startNodeId": "node.story.hard.004",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.004.start",
+      "nodeId": "node.story.hard.004",
       "body": "폐광 입구에서 돌가루가 계속 떨어지고 있었다.\n안쪽에서는 막힌 갱도를 두드리는 둔탁한 소리가 들렸다.\n언제 무너질지 알 수 없지만, 안에는 사람이나 귀중한 광물이 남아 있을 수 있다.",
       "choices": [
         {

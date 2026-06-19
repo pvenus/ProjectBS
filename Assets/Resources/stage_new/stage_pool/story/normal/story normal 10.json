@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.010",
-  "title": "잠든 수레꾼",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 10,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "잠든 수레꾼",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경계",
+  "summaryKo": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.",
+  "startNodeId": "node.story.normal.010",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.010.start",
+      "nodeId": "node.story.normal.010",
       "body": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.\n수레에는 천으로 덮인 짐이 실려 있었고, 말은 지친 듯 고개를 숙이고 있었다.\n주변에는 다른 사람의 기척이 없어 잠시 살펴볼 시간이 있다.",
       "choices": [
         {

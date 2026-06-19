@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.002",
-  "title": "달콤한 과수원",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 2,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "달콤한 과수원",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "수확",
+  "summaryKo": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.",
+  "startNodeId": "node.story.easy.002",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.002.start",
+      "nodeId": "node.story.easy.002",
       "body": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.\n과수원 주인은 떨어진 과일을 주우며 바쁘게 움직이고 있었다.\n길손에게도 잠깐 머물 자리를 내어줄 만큼 인심이 좋아 보인다.",
       "choices": [
         {

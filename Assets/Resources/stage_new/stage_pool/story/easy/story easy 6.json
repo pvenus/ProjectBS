@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.006",
-  "title": "느린 나룻배",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 6,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "느린 나룻배",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "이동",
+  "summaryKo": "잔잔한 물가에 작은 나룻배가 묶여 있었다.",
+  "startNodeId": "node.story.easy.006",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.006.start",
+      "nodeId": "node.story.easy.006",
       "body": "잔잔한 물가에 작은 나룻배가 묶여 있었다.\n사공은 노를 손질하며 손님이 올 때까지 기다리고 있었다.\n강물은 낮고 평온해 잠깐 건너기에도 좋아 보인다.",
       "choices": [
         {

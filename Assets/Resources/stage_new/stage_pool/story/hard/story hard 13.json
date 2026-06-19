@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.013",
-  "title": "얼어붙은 광산 입구",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 13,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "얼어붙은 광산 입구",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐사",
+  "summaryKo": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.",
+  "startNodeId": "node.story.hard.013",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.013.start",
+      "nodeId": "node.story.hard.013",
       "body": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.\n안쪽에서는 오래된 갱도의 나무기둥이 삐걱거리는 소리가 들렸고, 입구 주변에는 광부들이 남긴 표식이 흩어져 있었다.\n차가운 공기가 숨을 얕게 만들었다.",
       "choices": [
         {

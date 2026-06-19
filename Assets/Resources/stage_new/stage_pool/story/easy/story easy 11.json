@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.011",
-  "title": "새벽 시장의 등불",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 11,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "새벽 시장의 등불",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "시장",
+  "summaryKo": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.",
+  "startNodeId": "node.story.easy.011",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.011.start",
+      "nodeId": "node.story.easy.011",
       "body": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.\n상인들은 좌판을 펴느라 분주했고, 한 과일 장수가 빈 상자를 옮기다 잠시 멈춰 섰다.\n조용히 손을 보태기 좋은 순간이다.",
       "choices": [
         {

@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.002",
-  "title": "마른 우물",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 2,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "마른 우물",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "숲길을 걷던 중 오래된 우물을 발견했다.",
+  "startNodeId": "node.story.normal.002",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.002.start",
+      "nodeId": "node.story.normal.002",
       "body": "숲길을 걷던 중 오래된 우물을 발견했다.\n주변에는 사람의 흔적이 없었지만 우물 아래에서는 희미하게 물 흐르는 소리가 들려온다.\n우물 곁에는 낡은 두레박과 밧줄이 남아 있었다.",
       "choices": [
         {

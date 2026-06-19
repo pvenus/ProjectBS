@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.008",
-  "title": "밤의 등불",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 8,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "밤의 등불",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경계",
+  "summaryKo": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.",
+  "startNodeId": "node.story.normal.008",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.008.start",
+      "nodeId": "node.story.normal.008",
       "body": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.\n등불 아래에는 방향을 잃은 아이가 웅크리고 있었고, 멀리 마을 종소리가 희미하게 들려왔다.\n숲은 어둡지만 아직 위험한 기척은 느껴지지 않는다.",
       "choices": [
         {

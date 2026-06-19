@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.014",
-  "title": "붉은 협곡의 봉화",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 14,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "붉은 협곡의 봉화",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "경계",
+  "summaryKo": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.",
+  "startNodeId": "node.story.hard.014",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.014.start",
+      "nodeId": "node.story.hard.014",
       "body": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.\n바닥에는 최근까지 누군가 머문 흔적이 남아 있었고, 절벽 사이로 모래바람이 세차게 몰아쳤다.\n봉화대 위에서는 먼 길을 내려다볼 수 있을 것 같다.",
       "choices": [
         {

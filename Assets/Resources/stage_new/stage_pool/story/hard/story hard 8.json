@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.hard.008",
-  "title": "가면 쓴 행렬",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_hard",
+  "actNumber": 8,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "가면 쓴 행렬",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "추적",
+  "summaryKo": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.",
+  "startNodeId": "node.story.hard.008",
   "nodes": [
     {
-      "nodeId": "stage.story.hard.008.start",
+      "nodeId": "node.story.hard.008",
       "body": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.\n그들은 말없이 등불을 들고 지나가며 당신에게도 하나의 가면을 내밀었다.\n행렬을 따라가면 비밀스러운 의식 장소에 닿을 듯하다.",
       "choices": [
         {

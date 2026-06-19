@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.014",
-  "title": "숲속 석비의 글자",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 14,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "숲속 석비의 글자",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "조사",
+  "summaryKo": "숲길 옆에 이끼 낀 석비가 반쯤 쓰러져 있었다.",
+  "startNodeId": "node.story.normal.014",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.014.start",
+      "nodeId": "node.story.normal.014",
       "body": "숲길 옆에 이끼 낀 석비가 반쯤 쓰러져 있었다.\n글자는 오래되어 흐릿했지만, 누군가 최근에 주변 잡초를 베어낸 흔적이 남아 있었다.\n석비 아래쪽에는 작은 틈이 보인다.",
       "choices": [
         {

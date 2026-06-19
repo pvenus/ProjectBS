@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.004",
-  "title": "버려진 객잔",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 4,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "버려진 객잔",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.",
+  "startNodeId": "node.story.normal.004",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.004.start",
+      "nodeId": "node.story.normal.004",
       "body": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.\n문은 반쯤 부서져 있었지만 내부는 생각보다 깔끔하게 정리되어 있었다.\n누군가 최근까지 머물다 떠난 듯한 흔적도 남아 있었다.",
       "choices": [
         {

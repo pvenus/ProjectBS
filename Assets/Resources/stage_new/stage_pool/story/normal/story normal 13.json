@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.013",
-  "title": "강변의 빈 나룻배",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 13,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "강변의 빈 나룻배",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "탐색",
+  "summaryKo": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.",
+  "startNodeId": "node.story.normal.013",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.013.start",
+      "nodeId": "node.story.normal.013",
       "body": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.\n사공은 끊어진 노끈을 고치며 강 건너 안개를 바라보고 있었다.\n강물은 느리지만 깊어 보여 함부로 움직이기 어렵다.",
       "choices": [
         {

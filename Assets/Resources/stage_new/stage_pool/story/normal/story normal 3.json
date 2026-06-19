@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.normal.003",
-  "title": "강가의 나룻배",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_normal",
+  "actNumber": 3,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "강가의 나룻배",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "이동",
+  "summaryKo": "강가에 도착하자 작은 나룻배 한 척이 정박해 있었다.",
+  "startNodeId": "node.story.normal.003",
   "nodes": [
     {
-      "nodeId": "stage.story.normal.003.start",
+      "nodeId": "node.story.normal.003",
       "body": "강가에 도착하자 작은 나룻배 한 척이 정박해 있었다.\n배를 지키던 노인은 낚싯대를 드리운 채 강물을 바라보고 있었다.\n\n\"길을 재촉하는 여행자인가? 잠시 쉬어 가도 좋고, 일을 도와줘도 좋네.\"",
       "choices": [
         {

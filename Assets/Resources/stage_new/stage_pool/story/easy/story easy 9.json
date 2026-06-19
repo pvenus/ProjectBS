@@ -1,9 +1,20 @@
 {
   "stageNodeId": "stage.story.easy.009",
-  "title": "작은 음악 상자",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "actId": "story_easy",
+  "actNumber": 9,
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "titleKo": "작은 음악 상자",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "발견",
+  "summaryKo": "숲 가장자리 벤치 위에 작은 음악 상자가 놓여 있었다.",
+  "startNodeId": "node.story.easy.009",
   "nodes": [
     {
-      "nodeId": "stage.story.easy.009.start",
+      "nodeId": "node.story.easy.009",
       "body": "숲 가장자리 벤치 위에 작은 음악 상자가 놓여 있었다.\n뚜껑은 닫혀 있었지만 안쪽에서 희미한 선율이 새어 나왔다.\n근처에는 물건을 찾는 듯한 소녀가 두리번거리고 있었다.",
       "choices": [
         {
