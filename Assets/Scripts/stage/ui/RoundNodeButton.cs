@@ -14,6 +14,7 @@ namespace Stage.UI
         [SerializeField] private Image backgroundImage;
         [SerializeField] private GameObject selectedMark;
         [SerializeField] private GameObject clearedMark;
+        [SerializeField] private CanvasGroup canvasGroup;
 
         private RoundNode node;
 
@@ -22,6 +23,11 @@ namespace Stage.UI
         public void Initialize(RoundNode nodeData)
         {
             node = nodeData;
+
+            if (canvasGroup == null)
+            {
+                canvasGroup = GetComponent<CanvasGroup>();
+            }
 
             if (iconImage != null)
             {
@@ -41,6 +47,14 @@ namespace Stage.UI
         public void Refresh()
         {
             if (node == null)
+            {
+                return;
+            }
+
+            bool visible = IsNodeVisible();
+            ApplyVisibility(visible);
+
+            if (!visible)
             {
                 return;
             }
@@ -67,6 +81,47 @@ namespace Stage.UI
             }
 
             UpdateBackgroundColor();
+        }
+
+        private bool IsNodeVisible()
+        {
+            return node != null && !node.isHidden;
+        }
+
+        private void ApplyVisibility(bool visible)
+        {
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = visible ? 1f : 0f;
+                canvasGroup.interactable = visible;
+                canvasGroup.blocksRaycasts = visible;
+                return;
+            }
+
+            if (button != null)
+            {
+                button.interactable = visible && node != null && node.IsAvailable;
+            }
+
+            if (iconImage != null)
+            {
+                iconImage.enabled = visible && node != null && node.icon != null;
+            }
+
+            if (backgroundImage != null)
+            {
+                backgroundImage.enabled = visible;
+            }
+
+            if (selectedMark != null)
+            {
+                selectedMark.SetActive(visible && node != null && node.isSelected);
+            }
+
+            if (clearedMark != null)
+            {
+                clearedMark.SetActive(visible && node != null && node.IsCompleted);
+            }
         }
 
         private void UpdateBackgroundColor()

@@ -40,6 +40,8 @@ public class SkillProjectileHitDto
 
     public LayerMask targetLayerMask = ~0;
 
+    public float projectileColliderRadius = 0.5f;
+
     public SkillDamageProfileDto damageProfile;
 
     public float firstHitBaseDamage;

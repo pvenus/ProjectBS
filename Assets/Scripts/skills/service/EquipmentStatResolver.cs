@@ -299,6 +299,18 @@ public class EquipmentStatResolver
         return 1f;
     }
 
+    public float GetProjectileColliderRadius(EquipmentSkillSO equipmentSo)
+    {
+        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
+        {
+            return Mathf.Max(
+                0.01f,
+                equipmentSo.BaseProfileSo.ProjectileColliderRadius);
+        }
+
+        return 0.5f;
+    }
+
     public float GetProjectileLifetime(EquipmentSkillSO equipmentSo)
     {
         if (equipmentSo != null && equipmentSo.BaseProfileSo != null)

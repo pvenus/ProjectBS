@@ -3,22 +3,16 @@ using UnityEngine;
 using Skill;
 /// <summary>
 /// ProjectileEntity 생성 전용 팩토리.
-/// 현재는 Instantiate 기반의 최소 구현이며,
-/// 이후 풀링 / 멀티샷 / 분열탄 / 패턴 발사 확장 지점으로 사용한다.
+/// 프리팹 Instantiate 없이 GameObject를 코드에서 생성한다.
+/// ProjectileEntity가 자신이 관장하는 컴포넌트를 Awake에서 보장한다.
 /// </summary>
 public class ProjectileFactory
 {
     /// <summary>
-    /// 지정된 프리팹으로 투사체를 생성하고 런타임 데이터를 주입한다.
+    /// 투사체 GameObject를 생성하고 런타임 데이터를 주입한다.
     /// </summary>
-    public ProjectileEntity Spawn(ProjectileEntity prefab, ProjectileRuntimeData runtimeData)
+    public ProjectileEntity Spawn(ProjectileRuntimeData runtimeData)
     {
-        if (prefab == null)
-        {
-            Debug.LogError("ProjectileFactory.Spawn failed: prefab is null.");
-            return null;
-        }
-
         if (runtimeData == null)
         {
             Debug.LogError("ProjectileFactory.Spawn failed: runtimeData is null.");
@@ -31,7 +25,6 @@ public class ProjectileFactory
         {
             GetRunner().StartCoroutine(
                 SpawnRoutine(
-                    prefab,
                     runtimeData,
                     null,
                     false));
@@ -43,8 +36,11 @@ public class ProjectileFactory
         {
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
 
-            ProjectileEntity instance = Object.Instantiate(prefab, instanceData.spawnPosition, Quaternion.identity);
-            instance.transform.localScale = Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);
+            ProjectileEntity instance = CreateProjectileInstance(
+                instanceData,
+                Quaternion.identity,
+                null);
+            ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
             if (firstInstance == null)
@@ -59,14 +55,8 @@ public class ProjectileFactory
     /// <summary>
     /// 부모 Transform 아래에 투사체를 생성하고 런타임 데이터를 주입한다.
     /// </summary>
-    public ProjectileEntity Spawn(ProjectileEntity prefab, ProjectileRuntimeData runtimeData, Transform parent)
+    public ProjectileEntity Spawn(ProjectileRuntimeData runtimeData, Transform parent)
     {
-        if (prefab == null)
-        {
-            Debug.LogError("ProjectileFactory.Spawn failed: prefab is null.");
-            return null;
-        }
-
         if (runtimeData == null)
         {
             Debug.LogError("ProjectileFactory.Spawn failed: runtimeData is null.");
@@ -79,7 +69,6 @@ public class ProjectileFactory
         {
             GetRunner().StartCoroutine(
                 SpawnRoutine(
-                    prefab,
                     runtimeData,
                     parent,
                     false));
@@ -91,8 +80,11 @@ public class ProjectileFactory
         {
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
 
-            ProjectileEntity instance = Object.Instantiate(prefab, instanceData.spawnPosition, Quaternion.identity, parent);
-            instance.transform.localScale = Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);
+            ProjectileEntity instance = CreateProjectileInstance(
+                instanceData,
+                Quaternion.identity,
+                parent);
+            ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
             if (firstInstance == null)
@@ -108,14 +100,8 @@ public class ProjectileFactory
     /// 발사 방향을 기준으로 회전을 적용해 투사체를 생성한다.
     /// 2D 게임에서 Sprite 방향 정렬이 필요한 경우 사용한다.
     /// </summary>
-    public ProjectileEntity SpawnOriented(ProjectileEntity prefab, ProjectileRuntimeData runtimeData)
+    public ProjectileEntity SpawnOriented(ProjectileRuntimeData runtimeData)
     {
-        if (prefab == null)
-        {
-            Debug.LogError("ProjectileFactory.SpawnOriented failed: prefab is null.");
-            return null;
-        }
-
         if (runtimeData == null)
         {
             Debug.LogError("ProjectileFactory.SpawnOriented failed: runtimeData is null.");
@@ -129,7 +115,6 @@ public class ProjectileFactory
         {
             GetRunner().StartCoroutine(
                 SpawnRoutine(
-                    prefab,
                     runtimeData,
                     null,
                     true));
@@ -141,8 +126,11 @@ public class ProjectileFactory
         {
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
             Quaternion instanceRotation = ResolveSpawnRotation(instanceData);
-            ProjectileEntity instance = Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation);
-            instance.transform.localScale = Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);
+            ProjectileEntity instance = CreateProjectileInstance(
+                instanceData,
+                instanceRotation,
+                null);
+            ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
             if (firstInstance == null)
@@ -154,6 +142,37 @@ public class ProjectileFactory
 
         return firstInstance;
     }
+    private ProjectileEntity CreateProjectileInstance(
+        ProjectileRuntimeData runtimeData,
+        Quaternion rotation,
+        Transform parent)
+    {
+        GameObject projectileObject = new GameObject("ProjectileEntity");
+
+        if (parent != null)
+        {
+            projectileObject.transform.SetParent(parent, false);
+        }
+
+        projectileObject.transform.position = runtimeData.spawnPosition;
+        projectileObject.transform.rotation = rotation;
+
+        return projectileObject.AddComponent<ProjectileEntity>();
+    }
+
+    private void ConfigureSpawnedProjectile(
+        ProjectileEntity instance,
+        ProjectileRuntimeData runtimeData)
+    {
+        if (instance == null || runtimeData == null)
+        {
+            return;
+        }
+
+        float scale = Mathf.Max(0.01f, runtimeData.projectileScale);
+        instance.transform.localScale = Vector3.one * scale;
+    }
+
     private Quaternion ResolveSpawnRotation(ProjectileRuntimeData runtimeData)
     {
         if (runtimeData == null || runtimeData.move == null)
@@ -187,7 +206,6 @@ public class ProjectileFactory
     }
 
     private IEnumerator SpawnRoutine(
-        ProjectileEntity prefab,
         ProjectileRuntimeData runtimeData,
         Transform parent,
         bool oriented)
@@ -206,12 +224,12 @@ public class ProjectileFactory
                 ? ResolveSpawnRotation(instanceData)
                 : Quaternion.identity;
 
-            ProjectileEntity instance = parent != null
-                ? Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation, parent)
-                : Object.Instantiate(prefab, instanceData.spawnPosition, instanceRotation);
+            ProjectileEntity instance = CreateProjectileInstance(
+                instanceData,
+                instanceRotation,
+                parent);
 
-            instance.transform.localScale =
-                Vector3.one * Mathf.Max(0.01f, instanceData.projectileScale);
+            ConfigureSpawnedProjectile(instance, instanceData);
 
             instance.Initialize(instanceData);
 

@@ -370,9 +370,7 @@ namespace Skill.Service.Helper
             Vector2 targetPoint,
             bool usePoint)
         {
-            ProjectileFactory factory = GetProjectileFactory();
-
-            if (factory == null || runtime == null || caster == null)
+            if (runtime == null || caster == null)
             {
                 return false;
             }
@@ -387,6 +385,13 @@ namespace Skill.Service.Helper
                     targetPoint);
 
             if (projectileDatas == null || projectileDatas.Length == 0)
+            {
+                return false;
+            }
+
+            ProjectileFactory factory = GetProjectileFactory();
+
+            if (factory == null)
             {
                 return false;
             }
@@ -407,17 +412,7 @@ namespace Skill.Service.Helper
                     projectileData.move.targetPosition = targetPoint;
                 }
 
-                ProjectileEntity projectilePrefab = projectileData.projectilePrefab != null
-                    ? projectileData.projectilePrefab
-                    : runtime.projectilePrefab;
-
-                if (projectilePrefab == null)
-                {
-                    continue;
-                }
-
                 ProjectileEntity projectile = factory.SpawnOriented(
-                    projectilePrefab,
                     projectileData);
 
                 if (projectile != null)

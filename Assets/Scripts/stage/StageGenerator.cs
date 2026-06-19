@@ -66,6 +66,11 @@ namespace Stage
 
                 node.hiddenByDefault = source.hiddenByDefault;
 
+                if (node.hiddenByDefault)
+                {
+                    node.Hide();
+                }
+
                 result.Add(node);
                 fixedNodeByPosition[MakeFixedPositionKey(depth, column)] = node;
                 Debug.Log($"[StageGenerator] Fixed node registered. node={node.nodeId}, depth={depth}, column={column}, key={MakeFixedPositionKey(depth, column)}");

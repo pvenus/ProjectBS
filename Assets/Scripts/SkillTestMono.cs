@@ -10,7 +10,6 @@ public class SkillTestMono : MonoBehaviour
     [SerializeField] private EquipmentSkillSO equipmentSkill;
     [SerializeField] private EquipmentInventoryMono equipmentInventory;
     [SerializeField] private UIEquipmentUpgradeMono equipmentUpgradeUi;
-    [SerializeField] private ProjectileEntity projectilePrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject target;
 
@@ -164,16 +163,7 @@ public class SkillTestMono : MonoBehaviour
                 continue;
             }
 
-            ProjectileEntity spawnPrefab = projectileData.projectilePrefab != null
-                ? projectileData.projectilePrefab
-                : runtime.projectilePrefab;
-
-            if (spawnPrefab == null)
-            {
-                continue;
-            }
-
-            projectileFactory.Spawn(spawnPrefab, projectileData);
+            projectileFactory.Spawn(projectileData);
         }
     }
 
@@ -195,8 +185,6 @@ public class SkillTestMono : MonoBehaviour
             {
                 equipmentId = equipmentSkill != null ? equipmentSkill.EquipmentId : string.Empty
             };
-
-        instanceData.projectilePrefab = projectilePrefab;
 
         if (projectileLifetimeOverride > 0f)
         {

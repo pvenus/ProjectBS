@@ -23,6 +23,7 @@ namespace Stage
         public List<string> visitedNodeIds = new();
         public List<string> visitedEventIds = new();
         public List<string> recentEventIds = new();
+        public List<string> unlockedRouteIds = new();
 
         [Header("Event Runtime")]
         public Dictionary<string, float> eventWeightModifiers = new();
@@ -69,6 +70,38 @@ namespace Stage
             {
                 recentEventIds.RemoveAt(0);
             }
+        }
+
+        public void UnlockRoute(string routeId)
+        {
+            if (string.IsNullOrWhiteSpace(routeId))
+            {
+                return;
+            }
+
+            if (!unlockedRouteIds.Contains(routeId))
+            {
+                unlockedRouteIds.Add(routeId);
+            }
+
+            RoundNode node = currentGraph?.GetNode(routeId);
+            if (node == null)
+            {
+                Debug.LogWarning($"[StageRuntimeData] UnlockRoute node not found. routeId={routeId}");
+                return;
+            }
+
+            node.Reveal();
+        }
+
+        public bool IsRouteUnlocked(string routeId)
+        {
+            if (string.IsNullOrWhiteSpace(routeId))
+            {
+                return false;
+            }
+
+            return unlockedRouteIds.Contains(routeId);
         }
 
         public void AddTagModifier(

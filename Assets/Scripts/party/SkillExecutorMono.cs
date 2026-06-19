@@ -411,7 +411,6 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             if (entry != null)
             {
                 instanceData.equipmentId = equipmentSkill.EquipmentId;
-                instanceData.projectilePrefab = entry.ProjectilePrefabOverride;
                 instanceData.projectileLifetimeOverride = entry.ProjectileLifetimeOverride;
             }
 
@@ -451,15 +450,12 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
                 projectileData.move.targetPosition = request.TargetPoint;
             }
 
-            ProjectileEntity projectilePrefab = projectileData.projectilePrefab != null
-                ? projectileData.projectilePrefab
-                : runtime.projectilePrefab;
+            ProjectileEntity projectile = _projectileFactory.SpawnOriented(projectileData);
 
-            if (projectilePrefab == null)
-                continue;
-
-            _projectileFactory.SpawnOriented(projectilePrefab, projectileData);
-            firedAny = true;
+            if (projectile != null)
+            {
+                firedAny = true;
+            }
         }
 
         return firedAny;

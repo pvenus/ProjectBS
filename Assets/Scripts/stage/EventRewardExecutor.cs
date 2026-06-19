@@ -374,12 +374,6 @@ namespace Stage
 
         public override void Execute(PopupEventRewardData reward, EventRewardContext context)
         {
-            if (string.IsNullOrWhiteSpace(reward.tag))
-            {
-                Debug.LogWarning("[EventRewardExecutor] Route tag is empty.");
-                return;
-            }
-
             StageManager stageManager = StageManager.Instance;
             if (stageManager == null)
             {
@@ -394,12 +388,14 @@ namespace Stage
                 return;
             }
 
-            float multiplier = reward.value <= 0
-                ? 1.5f
-                : reward.value;
+            if (string.IsNullOrWhiteSpace(reward.rewardId))
+            {
+                Debug.LogWarning("[EventRewardExecutor] Route rewardId is empty.");
+                return;
+            }
 
-            runtimeData.AddTagModifier(reward.tag, multiplier);
-            Debug.Log($"[EventRewardExecutor] Route unlocked. tag={reward.tag} multiplier={multiplier}");
+            runtimeData.UnlockRoute(reward.rewardId);
+            Debug.Log($"[EventRewardExecutor] Route unlocked. routeId={reward.rewardId}");
         }
     }
 

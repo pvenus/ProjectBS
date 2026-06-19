@@ -33,14 +33,12 @@ namespace Skill
         [SerializeField] private EquipmentSkillSO skillSo;
 
         [Header("Override")]
-        [SerializeField] private ProjectileEntity projectilePrefabOverride;
         [SerializeField] private float projectileLifetimeOverride = -1f;
 
         [NonSerialized] private EquipmentSkillRuntimeData runtimeData;
 
         public string SlotKey => slotKey;
         public EquipmentSkillSO SkillSo => skillSo;
-        public ProjectileEntity ProjectilePrefabOverride => projectilePrefabOverride;
         public float ProjectileLifetimeOverride => projectileLifetimeOverride;
         public EquipmentSkillRuntimeData RuntimeData => runtimeData;
         public bool HasSkill => skillSo != null;
@@ -78,7 +76,6 @@ namespace Skill
                 new EquipmentSkillInstanceData
                 {
                     equipmentId = skillSo != null ? skillSo.EquipmentId : string.Empty,
-                    projectilePrefab = projectilePrefabOverride,
                     projectileLifetimeOverride = projectileLifetimeOverride
                 });
             return runtimeData;

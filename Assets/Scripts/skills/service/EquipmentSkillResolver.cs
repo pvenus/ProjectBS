@@ -58,11 +58,7 @@ public class EquipmentSkillResolver
             visualContext = BuildVisualContext(equipmentSo, attackArchetype, resolvedGrade),
             runeRuntimeSet = runeRuntimeSet,
             effectRuntimeSet = effectRuntimeSet,
-            upgradeRuntimeData = upgradeRuntimeData,
-
-            projectilePrefab = instanceData != null && instanceData.projectilePrefab != null
-                ? instanceData.projectilePrefab
-                : GetProjectilePrefab(equipmentSo)
+            upgradeRuntimeData = upgradeRuntimeData
         };
     }
 
@@ -172,7 +168,6 @@ public class EquipmentSkillResolver
             direction = direction,
             targetingType = targetingType,
             lifetime = statResolver.ResolveProjectileLifetime(runtime, resolvedStatModifiers),
-            projectilePrefab = runtime.projectilePrefab,
             projectileCount = Mathf.Max(1, runtime.resolvedProjectileCount),
             projectileSpreadAngle = Mathf.Max(0f, runtime.resolvedProjectileSpreadAngle),
             projectileArrangement = runtime.resolvedProjectileArrangement,
@@ -200,7 +195,6 @@ public class EquipmentSkillResolver
             direction = source.direction,
             targetingType = source.targetingType,
             lifetime = source.lifetime,
-            projectilePrefab = source.projectilePrefab,
             projectileCount = source.projectileCount,
             projectileSpreadAngle = source.projectileSpreadAngle,
             projectileArrangement = source.projectileArrangement,
@@ -351,17 +345,19 @@ public class EquipmentSkillResolver
             {
                 continue;
             }
-
             SkillDamageProfileDto damageProfile =
                 CreateDamageProfileDto(
                     runtime,
                     hitSo,
                     resolvedStatModifiers);
 
+            float projectileColliderRadius =
+                statResolver.GetProjectileColliderRadius(runtime.sourceEquipment);
+
             SkillProjectileHitDto hitDto =
                 ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(
                     hitSo,
-                    new object[] { damageProfile, 0f });
+                    new object[] { damageProfile, projectileColliderRadius });
 
             if (hitDto == null)
             {
@@ -377,6 +373,8 @@ public class EquipmentSkillResolver
 
             if (hitDto != null)
             {
+                hitDto.projectileColliderRadius = projectileColliderRadius;
+
                 results.Add(new ResolvedHitRuntimeData
                 {
                     hit = hitDto,
@@ -496,15 +494,6 @@ public class EquipmentSkillResolver
         return AttackArchetype.Melee;
     }
 
-    private ProjectileEntity GetProjectilePrefab(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.ProjectilePrefab;
-        }
-
-        return null;
-    }
 
     private SkillCastSO ResolveCastSo(
         EquipmentSkillRuntimeData runtime)

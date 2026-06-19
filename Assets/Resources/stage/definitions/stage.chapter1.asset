@@ -17,12 +17,12 @@ MonoBehaviour:
   segmentRules:
   - fromDepth: 1
     fromColumn: 0
-    toDepth: 5
+    toDepth: 3
     toColumn: 0
     minTotalWeight: 90
     maxTotalWeight: 110
-    minLayerCount: 3
-    maxLayerCount: 3
+    minLayerCount: 1
+    maxLayerCount: 1
     minLayerWeight: 20
     maxLayerWeight: 60
     minNodesPerLayer: 2
@@ -36,9 +36,13 @@ MonoBehaviour:
       required: 0
       maxAppearCount: 0
       priority: 10
-  - fromDepth: 5
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 0
+      priority: 20
+  - fromDepth: 3
     fromColumn: 0
-    toDepth: 8
+    toDepth: 6
     toColumn: 0
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -53,9 +57,13 @@ MonoBehaviour:
       required: 0
       maxAppearCount: 1
       priority: 0
-  - fromDepth: 5
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 3
     fromColumn: 1
-    toDepth: 8
+    toDepth: 6
     toColumn: 1
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -70,6 +78,52 @@ MonoBehaviour:
       required: 0
       maxAppearCount: 1
       priority: 0
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 6
+    fromColumn: 0
+    toDepth: 9
+    toColumn: 0
+    minTotalWeight: 90
+    maxTotalWeight: 110
+    minLayerCount: 2
+    maxLayerCount: 2
+    minLayerWeight: 20
+    maxLayerWeight: 60
+    minNodesPerLayer: 2
+    maxNodesPerLayer: 3
+    pools:
+    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 6
+    fromColumn: 1
+    toDepth: 9
+    toColumn: 1
+    minTotalWeight: 90
+    maxTotalWeight: 110
+    minLayerCount: 2
+    maxLayerCount: 2
+    minLayerWeight: 20
+    maxLayerWeight: 60
+    minNodesPerLayer: 2
+    maxNodesPerLayer: 3
+    pools:
+    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
   - fromDepth: 9
     fromColumn: 0
     toDepth: 12
@@ -84,6 +138,10 @@ MonoBehaviour:
     maxNodesPerLayer: 3
     pools:
     - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -104,6 +162,10 @@ MonoBehaviour:
       required: 0
       maxAppearCount: 1
       priority: 0
+    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
   requiredSubEvents:
   - node: {fileID: 11400000, guid: a94391a9a006a462dbee9ed4a1b107e9, type: 2}
     depth: 0
@@ -114,19 +176,19 @@ MonoBehaviour:
     column: 0
     hiddenByDefault: 0
   - node: {fileID: 11400000, guid: 3bd6d0373254f4a38a57c3a28a591781, type: 2}
-    depth: 5
+    depth: 3
     column: 0
     hiddenByDefault: 1
   - node: {fileID: 11400000, guid: fdbd7cb97259d4d26be9580374013bb4, type: 2}
-    depth: 5
+    depth: 3
     column: 1
     hiddenByDefault: 1
   - node: {fileID: 11400000, guid: 04204601d256f43b4a548ac73e41d396, type: 2}
-    depth: 8
+    depth: 6
     column: 0
     hiddenByDefault: 0
   - node: {fileID: 11400000, guid: a37e4f3b6f7b6437583f22e843d6615c, type: 2}
-    depth: 8
+    depth: 6
     column: 1
     hiddenByDefault: 0
   - node: {fileID: 11400000, guid: be665a244d25c47c4bb4267a16a1aa81, type: 2}

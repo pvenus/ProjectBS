@@ -25,7 +25,6 @@ public class OwnedEquipmentData
     [SerializeField] private List<RuneSO> equippedRunes = new();
 
     [Header("Runtime Overrides")]
-    [SerializeField] private ProjectileEntity projectilePrefabOverride;
     [SerializeField] private float projectileLifetimeOverride = -1f;
 
     public string InstanceId => instanceId;
@@ -34,7 +33,6 @@ public class OwnedEquipmentData
     public bool IsEquipped => isEquipped;
     public int EquippedSlotIndex => equippedSlotIndex;
     public IReadOnlyList<RuneSO> EquippedRunes => equippedRunes;
-    public ProjectileEntity ProjectilePrefabOverride => projectilePrefabOverride;
     public float ProjectileLifetimeOverride => projectileLifetimeOverride;
 
     public bool HasEquipment => equipmentSo != null;
@@ -51,7 +49,6 @@ public class OwnedEquipmentData
             isEquipped = false,
             equippedSlotIndex = -1,
             equippedRunes = new List<RuneSO>(),
-            projectilePrefabOverride = null,
             projectileLifetimeOverride = -1f
         };
     }
@@ -83,11 +80,6 @@ public class OwnedEquipmentData
     {
         isEquipped = false;
         equippedSlotIndex = -1;
-    }
-
-    public void SetProjectilePrefabOverride(ProjectileEntity prefab)
-    {
-        projectilePrefabOverride = prefab;
     }
 
     public void SetProjectileLifetimeOverride(float lifetime)
@@ -159,7 +151,6 @@ public class OwnedEquipmentData
             equippedRunes = equippedRunes != null
                 ? new List<RuneSO>(equippedRunes)
                 : new List<RuneSO>(),
-            projectilePrefab = projectilePrefabOverride,
             projectileLifetimeOverride = projectileLifetimeOverride
         };
     }

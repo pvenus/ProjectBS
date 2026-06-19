@@ -204,6 +204,7 @@ namespace Stage
             return runtimeData.currentGraph.GetDepths();
         }
 
+
         public RoundNode GetNode(string nodeId)
         {
             if (runtimeData.currentGraph == null)
@@ -212,6 +213,45 @@ namespace Stage
             }
 
             return runtimeData.currentGraph.GetNode(nodeId);
+        }
+
+        public void UnlockRoute(string routeId)
+        {
+            if (string.IsNullOrWhiteSpace(routeId))
+            {
+                Debug.LogWarning("[StageManager] UnlockRoute failed. routeId is empty.");
+                return;
+            }
+
+            if (runtimeData == null)
+            {
+                Debug.LogWarning("[StageManager] UnlockRoute failed. RuntimeData is null.");
+                return;
+            }
+
+            runtimeData.UnlockRoute(routeId);
+
+            if (runtimeData.currentGraph == null || runtimeData.currentGraph.nodes == null)
+            {
+                Debug.LogWarning("[StageManager] UnlockRoute failed. Current graph is null.");
+                return;
+            }
+
+            foreach (RoundNode node in runtimeData.currentGraph.nodes)
+            {
+                if (node == null)
+                {
+                    continue;
+                }
+
+                if (node.nodeId != routeId)
+                {
+                    continue;
+                }
+
+                node.Reveal();
+                Debug.Log($"[StageManager] Route node revealed. routeId={routeId}");
+            }
         }
 
 

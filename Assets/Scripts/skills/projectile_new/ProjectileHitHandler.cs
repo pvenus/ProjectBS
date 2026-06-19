@@ -45,6 +45,11 @@ public class ProjectileHitHandler : MonoBehaviour
         hitCollider = GetComponent<Collider2D>();
     }
 
+    private void Awake()
+    {
+        EnsureHitCollider();
+    }
+
     public void Initialize(ProjectileEntity entity, ProjectileRuntimeData data)
     {
         if (entity == null)
@@ -61,6 +66,8 @@ public class ProjectileHitHandler : MonoBehaviour
 
         ownerEntity = entity;
         runtimeData = data;
+        EnsureHitCollider();
+        ConfigureHitCollider(data);
         initialized = true;
         hitTargets.Clear();
         pendingHitTargets.Clear();
@@ -69,7 +76,7 @@ public class ProjectileHitHandler : MonoBehaviour
         isCollectingInitialHits = false;
         hasAppliedDamage = false;
         currentHitCount = 0;
-        ignoreOwner = data.hit.ignoreSameRoot; 
+        ignoreOwner = data.hit != null && data.hit.ignoreSameRoot;
 
         if (collectCoroutine != null)
         {
@@ -102,6 +109,49 @@ public class ProjectileHitHandler : MonoBehaviour
 
         StartInitialHitCollectionIfNeeded();
         StartRepeatHitIfNeeded();
+    }
+
+    private void EnsureHitCollider()
+    {
+        if (hitCollider != null)
+        {
+            return;
+        }
+
+        hitCollider = GetComponent<Collider2D>();
+
+        if (hitCollider == null)
+        {
+            CircleCollider2D circleCollider = gameObject.AddComponent<CircleCollider2D>();
+            circleCollider.radius = 0.5f;
+            hitCollider = circleCollider;
+        }
+
+        hitCollider.isTrigger = true;
+    }
+
+    private void ConfigureHitCollider(ProjectileRuntimeData data)
+    {
+        EnsureHitCollider();
+
+        CircleCollider2D circleCollider = hitCollider as CircleCollider2D;
+
+        if (circleCollider == null)
+        {
+            return;
+        }
+
+        circleCollider.radius = ResolveProjectileColliderRadius(data);
+    }
+
+    private float ResolveProjectileColliderRadius(ProjectileRuntimeData data)
+    {
+        if (data == null || data.hit == null)
+        {
+            return 0.5f;
+        }
+
+        return Mathf.Max(0.01f, data.hit.projectileColliderRadius);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

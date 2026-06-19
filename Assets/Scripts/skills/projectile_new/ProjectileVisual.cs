@@ -80,21 +80,65 @@ public class ProjectileVisual : MonoBehaviour
 
     private void Awake()
     {
-        if (spriteRenderer == null)
+        EnsureVisualComponents();
+    }
+
+    private void EnsureVisualComponents()
+    {
+        EnsureSpriteRenderer();
+        EnsureAnimator();
+        EnsureMaterialTargetRenderer();
+        EnsureVfxRoot();
+    }
+
+    private void EnsureSpriteRenderer()
+    {
+        if (spriteRenderer != null)
         {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            return;
         }
 
-        if (materialTargetRenderer == null)
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        if (spriteRenderer == null)
         {
-            materialTargetRenderer = GetComponentInChildren<Renderer>();
+            spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
+    }
+
+    private void EnsureAnimator()
+    {
+        if (animator != null)
+        {
+            return;
+        }
+
+        animator = GetComponentInChildren<Animator>();
 
         if (animator == null)
         {
-            animator = GetComponentInChildren<Animator>();
+            animator = gameObject.AddComponent<Animator>();
+        }
+    }
+
+    private void EnsureMaterialTargetRenderer()
+    {
+        if (materialTargetRenderer != null)
+        {
+            return;
         }
 
+        if (spriteRenderer != null)
+        {
+            materialTargetRenderer = spriteRenderer;
+            return;
+        }
+
+        materialTargetRenderer = GetComponentInChildren<Renderer>();
+    }
+
+    private void EnsureVfxRoot()
+    {
         if (vfxRoot == null)
         {
             vfxRoot = transform;
@@ -146,6 +190,7 @@ public class ProjectileVisual : MonoBehaviour
 
         owner = ownerEntity;
         runtimeData = data;
+        EnsureVisualComponents();
         initialized = true;
 
         ApplyRuntimeVisualData(data);
@@ -299,6 +344,8 @@ public class ProjectileVisual : MonoBehaviour
 
     public void SetMaterial(Material material)
     {
+        EnsureMaterialTargetRenderer();
+
         if (materialTargetRenderer == null || material == null)
         {
             return;
@@ -585,6 +632,8 @@ public class ProjectileVisual : MonoBehaviour
 
     public void SetSprite(Sprite sprite)
     {
+        EnsureSpriteRenderer();
+
         if (spriteRenderer == null)
         {
             return;
@@ -595,6 +644,8 @@ public class ProjectileVisual : MonoBehaviour
 
     public void SetColor(Color color)
     {
+        EnsureSpriteRenderer();
+
         if (spriteRenderer == null)
         {
             return;
@@ -605,6 +656,8 @@ public class ProjectileVisual : MonoBehaviour
 
     public void SetFlipX(bool flipX)
     {
+        EnsureSpriteRenderer();
+
         if (spriteRenderer == null)
         {
             return;
@@ -615,6 +668,8 @@ public class ProjectileVisual : MonoBehaviour
 
     public void SetSortingOrder(int sortingOrder)
     {
+        EnsureSpriteRenderer();
+
         if (spriteRenderer == null)
         {
             return;

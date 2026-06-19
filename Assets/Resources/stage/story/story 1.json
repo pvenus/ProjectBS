@@ -1,0 +1,62 @@
+
+
+{
+  "stageNodeId": "stage.story.normal.001",
+  "title": "갈림길의 약초꾼",
+  "nodes": [
+    {
+      "nodeId": "start",
+      "body": "산길을 걷던 중 작은 쉼터를 발견했다.\n낡은 천막 아래에는 백발의 약초꾼이 앉아 있었고, 주변에는 여러 약초가 말려지고 있었다.\n노인은 피곤해 보이는 당신을 바라보며 말을 건넨다.\n\n\"먼 길을 걷는 모양이구나. 잠시 쉬어 가겠느냐?\"",
+      "choices": [
+        {
+          "choiceId": "rest"
+        },
+        {
+          "choiceId": "help"
+        },
+        {
+          "choiceId": "search"
+        }
+      ]
+    },
+    {
+      "nodeId": "rest",
+      "body": "노인이 내어준 따뜻한 약초차를 마셨다.\n몸속 깊은 곳까지 온기가 퍼지며 피로가 사라지는 기분이 든다.",
+      "rewardType": "heal",
+      "rewardValue": 20,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "help",
+      "body": "당신은 약초꾼의 일을 도와주었다.\n산비탈에서 약초를 채집하고 짐을 옮기는 동안 노인은 여러 이야기를 들려주었다.\n헤어질 무렵 그는 고개를 끄덕이며 말했다.\n\n\"덕분에 오랜만에 사람다운 대화를 나누었구나.\"",
+      "rewardType": "exp",
+      "rewardValue": 50,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "search",
+      "body": "천막 주변을 둘러보던 중 누군가 떨어뜨린 듯한 작은 주머니를 발견했다.\n약초꾼은 그 존재를 모르는 눈치였다.\n주머니 안에는 은전이 들어 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 100,
+      "nextNodeId": "end"
+    },
+    {
+      "nodeId": "end",
+      "body": "잠시 머물렀던 쉼터를 뒤로하고 다시 길을 나선다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "rest",
+      "text": "약초차를 마시며 쉰다"
+    },
+    {
+      "choiceId": "help",
+      "text": "약초 채집을 도와준다"
+    },
+    {
+      "choiceId": "search",
+      "text": "주변을 둘러본다"
+    }
+  ]
+}

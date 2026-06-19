@@ -15,8 +15,6 @@ public class EquipmentSkillInstanceData
     [Header("Runes")]
     public List<RuneSO> equippedRunes = new();
 
-    [Header("Runtime Resources")]
-    public ProjectileEntity projectilePrefab;
 
     [Header("Optional Overrides")]
     public float projectileLifetimeOverride = -1f;
@@ -47,5 +45,4 @@ public class EquipmentSkillRuntimeData
     public RuneRuntimeSetData runeRuntimeSet;
     public EffectRuntimeSetData effectRuntimeSet;
     public EquipmentUpgradeRuntimeData upgradeRuntimeData;
-    public ProjectileEntity projectilePrefab;
 }

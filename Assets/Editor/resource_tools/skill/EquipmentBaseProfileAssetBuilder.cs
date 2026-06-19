@@ -16,7 +16,6 @@ namespace ResourceTools.Skill
         public string attackArchetype;
         public bool skipAttackAnimation;
 
-        public string projectilePrefabName;
         public float projectileSpawnOffset;
 
         public int projectileCount;
@@ -24,6 +23,7 @@ namespace ResourceTools.Skill
         public float projectileArrangementValue;
         public float projectileSpreadAngle;
         public float projectileScale;
+        public float projectileColliderRadius;
         public float projectileLifetime;
 
         public float projectileSpawnInterval;
@@ -105,11 +105,6 @@ namespace ResourceTools.Skill
             SetString(serializedObject, "attackArchetype", json.attackArchetype);
             SetBool(serializedObject, "skipAttackAnimation", json.skipAttackAnimation);
 
-            // SetString(serializedObject, "projectilePrefabName", json.projectilePrefabName);
-            SetObjectReference(
-                serializedObject,
-                "projectilePrefab",
-                FindProjectilePrefab(json.projectilePrefabName));
 
             SetFloat(serializedObject, "projectileSpawnOffset", json.projectileSpawnOffset);
             SetInt(serializedObject, "projectileCount", json.projectileCount);
@@ -117,6 +112,7 @@ namespace ResourceTools.Skill
             SetFloat(serializedObject, "projectileArrangementValue", json.projectileArrangementValue);
             SetFloat(serializedObject, "projectileSpreadAngle", json.projectileSpreadAngle);
             SetFloat(serializedObject, "projectileScale", json.projectileScale);
+            SetFloat(serializedObject, "projectileColliderRadius", json.projectileColliderRadius);
             SetFloat(serializedObject, "projectileLifetime", json.projectileLifetime);
             SetFloat(serializedObject, "projectileSpawnInterval", json.projectileSpawnInterval);
             SetFloat(serializedObject, "projectileSpawnRadius", json.projectileSpawnRadius);
@@ -235,54 +231,7 @@ namespace ResourceTools.Skill
             property.floatValue = value;
         }
 
-        private static void SetObjectReference(
-            SerializedObject serializedObject,
-            string propertyName,
-            UnityEngine.Object value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
 
-            if (property == null)
-            {
-                throw new InvalidOperationException(
-                    $"[EquipmentBaseProfileAssetBuilder] Serialized property not found: {propertyName}");
-            }
-
-            property.objectReferenceValue = value;
-        }
-
-        private static UnityEngine.Object FindProjectilePrefab(string prefabName)
-        {
-            if (string.IsNullOrWhiteSpace(prefabName))
-            {
-                return null;
-            }
-
-            string[] guids = AssetDatabase.FindAssets($"{prefabName} t:Prefab");
-
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-
-                if (prefab == null || prefab.name != prefabName)
-                {
-                    continue;
-                }
-
-                ProjectileEntity projectileEntity = prefab.GetComponent<ProjectileEntity>();
-
-                if (projectileEntity != null)
-                {
-                    return projectileEntity;
-                }
-
-                return prefab;
-            }
-
-            Debug.LogWarning($"[EquipmentBaseProfileAssetBuilder] Projectile prefab not found: {prefabName}");
-            return null;
-        }
 
         private static void EnsureFolder(string folderPath)
         {

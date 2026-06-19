@@ -17,7 +17,6 @@ namespace Skill
         [SerializeField] private bool skipAttackAnimation;
 
         [Header("Projectile Resource")]
-        [SerializeField] private ProjectileEntity projectilePrefab;
         [SerializeField] private float projectileSpawnOffset = 0f;
 
         [Header("Projectile Base Stats")]
@@ -26,6 +25,7 @@ namespace Skill
         [SerializeField, Min(0f)] private float projectileArrangementValue = 0f;
         [SerializeField, Min(0f)] private float projectileSpreadAngle = 0f;
         [SerializeField] private float projectileScale = 1f;
+        [SerializeField] private float projectileColliderRadius = 0.5f;
         [SerializeField] private float projectileLifetime = 3f;
 
         [Header("Projectile Spawn Sequence")]
@@ -48,13 +48,13 @@ namespace Skill
         public EffectType EffectType => effectType;
         public AttackArchetype AttackArchetype => attackArchetype;
         public bool SkipAttackAnimation => skipAttackAnimation;
-        public ProjectileEntity ProjectilePrefab => projectilePrefab;
         public float ProjectileSpawnOffset => projectileSpawnOffset;
         public int ProjectileCount => Mathf.Max(1, projectileCount);
         public ProjectileArrangementType ProjectileArrangement => projectileArrangement;
         public float ProjectileArrangementValue => Mathf.Max(0f, projectileArrangementValue);
         public float ProjectileSpreadAngle => Mathf.Max(0f, projectileSpreadAngle);
         public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
+        public float ProjectileColliderRadius => Mathf.Max(0.01f, projectileColliderRadius);
         public float ProjectileLifetime => Mathf.Max(0.01f, projectileLifetime);
         public float ProjectileSpawnInterval => Mathf.Max(0f, projectileSpawnInterval);
         public float ProjectileSpawnRadius => Mathf.Max(0f, projectileSpawnRadius);
