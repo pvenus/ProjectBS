@@ -10,10 +10,10 @@ namespace ResourceTools.Stage
 {
     public static class StagePoolGennerator
     {
-        private const string DefaultJsonPath = "Assets/Resources/stage/job/job_event_pool.json";
-        private const string DefaultPoolOutputFolder = "Assets/Resources/stage/event_pools";
-        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage/nodes";
-        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage/popup_events";
+        private const string DefaultJsonPath = "Assets/Resources/stage_new/stage_pool/job/job_event_pool.json";
+        private const string DefaultPoolOutputFolder = "Assets/Resources/stage_new/event_pools";
+        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
+        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
 
         [MenuItem("Assets/Stage/Stage Pool Generator", false, 2001)]
         public static void GenerateSelectedJsonMenu()

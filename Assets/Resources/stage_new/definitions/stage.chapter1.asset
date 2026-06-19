@@ -28,15 +28,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: ddf9271c163dd403daa3e0b51aff270b, type: 2}
-      required: 1
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 10
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 0
       priority: 20
@@ -53,11 +45,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -74,11 +62,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -95,11 +79,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -116,11 +96,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -137,11 +113,7 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
@@ -158,48 +130,44 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 76d31638146aa4d488149de4d2a7c90d, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 7deb5cd2c77594253b99b1a32a0756df, type: 2}
+    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
   requiredSubEvents:
-  - node: {fileID: 11400000, guid: a94391a9a006a462dbee9ed4a1b107e9, type: 2}
+  - node: {fileID: 11400000, guid: 2fd8340bf4cc547719192892df0eb303, type: 2}
     depth: 0
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: f604e564bcb5d463485835f86b1897d8, type: 2}
+  - node: {fileID: 11400000, guid: 7c1275d5f090c4dcd8d6a1e15b1dce36, type: 2}
     depth: 1
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 3bd6d0373254f4a38a57c3a28a591781, type: 2}
+  - node: {fileID: 11400000, guid: 5fa9fa564520743048adcf703c3a1f4a, type: 2}
     depth: 3
     column: 0
     hiddenByDefault: 1
-  - node: {fileID: 11400000, guid: fdbd7cb97259d4d26be9580374013bb4, type: 2}
+  - node: {fileID: 11400000, guid: b37ba98e7d5414f0c9d235150bbc2b43, type: 2}
     depth: 3
     column: 1
     hiddenByDefault: 1
-  - node: {fileID: 11400000, guid: 04204601d256f43b4a548ac73e41d396, type: 2}
+  - node: {fileID: 11400000, guid: 9d9d4106d2ebd4a1492d5dc45994b471, type: 2}
     depth: 6
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: a37e4f3b6f7b6437583f22e843d6615c, type: 2}
+  - node: {fileID: 11400000, guid: a7276608103a644fdbf85dee5b7f7141, type: 2}
     depth: 6
     column: 1
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: be665a244d25c47c4bb4267a16a1aa81, type: 2}
+  - node: {fileID: 11400000, guid: 8ca84dc697ba34e59ae74df4051ee7c0, type: 2}
     depth: 9
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 9db8bd9dcd62b4ca9aca3b8a258c6b00, type: 2}
+  - node: {fileID: 11400000, guid: 2d7d00747f6cd4020bbe206d73b8e8b9, type: 2}
     depth: 9
     column: 1
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 7e3966f85d07b4e37b25f252c02507d6, type: 2}
+  - node: {fileID: 11400000, guid: 1d5edcba4f3d240bd851c3dbb4bf0a4d, type: 2}
     depth: 12
     column: 0
     hiddenByDefault: 0

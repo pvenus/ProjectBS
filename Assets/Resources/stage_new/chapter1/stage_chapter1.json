@@ -95,6 +95,12 @@
           "priority": 20
         },
         {
+          "poolId": "stage.pool.story.easy",
+          "required": false,
+          "maxAppearCount": 0,
+          "priority": 25
+        },
+        {
           "poolId": "stage.chapter1.pre_recruit.random",
           "required": false,
           "maxAppearCount": 0,
@@ -123,6 +129,9 @@
           "poolId": "stage.pool.story.normal"
         },
         {
+          "poolId": "stage.pool.story.hard"
+        },
+        {
           "poolId": "stage.chapter1.jihan_route.random"
         }
       ]
@@ -148,6 +157,9 @@
           "poolId": "stage.pool.story.normal"
         },
         {
+          "poolId": "stage.pool.story.hard"
+        },
+        {
           "poolId": "stage.chapter1.yujin_route.random"
         }
       ]
@@ -171,6 +183,9 @@
         },
         {
           "poolId": "stage.pool.story.normal"
+        },
+        {
+          "poolId": "stage.pool.story.hard"
         }
       ]
     },
@@ -193,6 +208,9 @@
         },
         {
           "poolId": "stage.pool.story.normal"
+        },
+        {
+          "poolId": "stage.pool.story.hard"
         }
       ]
     },
@@ -215,6 +233,9 @@
         },
         {
           "poolId": "stage.pool.story.normal"
+        },
+        {
+          "poolId": "stage.pool.story.hard"
         },
         {
           "poolId": "stage.chapter1.pre_bandit.random"
@@ -240,6 +261,9 @@
         },
         {
           "poolId": "stage.pool.story.normal"
+        },
+        {
+          "poolId": "stage.pool.story.hard"
         },
         {
           "poolId": "stage.chapter1.pre_bandit.random"
