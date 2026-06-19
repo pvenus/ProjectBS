@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.015",
+  "title": "고양이 없는 지붕",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.015.start",
+      "body": "작은 여관 지붕 위에서 빈 바구니가 덜컹거렸다.\n여관 주인은 바람에 날아간 수건을 찾으며 사다리를 붙잡고 있었다.\n높지 않은 지붕이라 조심하면 금방 정리할 수 있을 것 같다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.015.choice.towel"
+        },
+        {
+          "choiceId": "stage.story.easy.015.choice.room"
+        },
+        {
+          "choiceId": "stage.story.easy.015.choice.gutter"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.015.towel",
+      "body": "지붕 위에 걸린 수건들을 모아 내려주었다.\n여관 주인은 여행객이 자주 묻는 안전한 길을 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.015.end"
+    },
+    {
+      "nodeId": "stage.story.easy.015.room",
+      "body": "여관 안쪽 빈방에서 잠시 쉬어가도 좋다는 허락을 받았다.\n짧은 휴식이지만 몸에 온기가 돌아왔다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.015.end"
+    },
+    {
+      "nodeId": "stage.story.easy.015.gutter",
+      "body": "처마 홈을 살피다 오래된 동전 몇 닢을 발견했다.\n주인은 청소해준 값이라며 웃으며 넘겨주었다.",
+      "rewardType": "gold",
+      "rewardValue": 70,
+      "nextNodeId": "stage.story.easy.015.end"
+    },
+    {
+      "nodeId": "stage.story.easy.015.end",
+      "body": "바구니가 다시 제자리에 놓이고 여관 앞길이 조용해진다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.015.choice.towel",
+      "text": "수건을 모아준다"
+    },
+    {
+      "choiceId": "stage.story.easy.015.choice.room",
+      "text": "빈방에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.easy.015.choice.gutter",
+      "text": "처마 홈을 살핀다"
+    }
+  ]
+}

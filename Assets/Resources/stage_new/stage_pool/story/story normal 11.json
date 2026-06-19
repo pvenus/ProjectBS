@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.normal.011",
+  "title": "비탈길의 수레바퀴",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.011.start",
+      "body": "비탈길 한가운데에서 짐수레가 멈춰 서 있었다.\n한쪽 바퀴가 진흙에 깊게 빠졌고, 상인은 젖은 짐을 지키느라 얼굴이 굳어 있었다.\n서두르면 길을 막은 수레를 빼낼 수 있을 듯하다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.011.choice.push"
+        },
+        {
+          "choiceId": "stage.story.normal.011.choice.tent"
+        },
+        {
+          "choiceId": "stage.story.normal.011.choice.box"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.normal.011.push",
+      "body": "바퀴 아래에 납작한 돌을 끼우고 힘껏 수레를 밀었다.\n수레가 빠져나오자 상인은 근처 험한 길을 피하는 방법을 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 55,
+      "nextNodeId": "stage.story.normal.011.end"
+    },
+    {
+      "nodeId": "stage.story.normal.011.tent",
+      "body": "비가 그칠 때까지 수레 덮개 아래에서 쉬었다.\n상인이 건넨 따뜻한 빵 덕분에 허기가 가셨다.",
+      "rewardType": "heal",
+      "rewardValue": 25,
+      "nextNodeId": "stage.story.normal.011.end"
+    },
+    {
+      "nodeId": "stage.story.normal.011.box",
+      "body": "흔들린 짐을 정리하다가 바닥에 굴러다니는 작은 주머니를 발견했다.\n상인은 사례로 주머니 속 동전 일부를 나누어주었다.",
+      "rewardType": "gold",
+      "rewardValue": 120,
+      "nextNodeId": "stage.story.normal.011.end"
+    },
+    {
+      "nodeId": "stage.story.normal.011.end",
+      "body": "수레가 천천히 비탈을 내려가고 길이 다시 열렸다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.normal.011.choice.push",
+      "text": "수레를 밀어준다"
+    },
+    {
+      "choiceId": "stage.story.normal.011.choice.tent",
+      "text": "덮개 아래서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.normal.011.choice.box",
+      "text": "짐을 정리한다"
+    }
+  ]
+}

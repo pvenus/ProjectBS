@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.013",
+  "title": "꽃집 앞의 화분",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.013.start",
+      "body": "골목 모퉁이의 작은 꽃집 앞에 화분들이 줄지어 놓여 있었다.\n갑작스러운 바람에 흙이 흩어지고, 주인은 물뿌리개를 찾느라 가게 안팎을 오가고 있었다.\n잠깐만 도우면 꽃들이 다시 고개를 들 것 같다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.013.choice.water"
+        },
+        {
+          "choiceId": "stage.story.easy.013.choice.smell"
+        },
+        {
+          "choiceId": "stage.story.easy.013.choice.pot"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.013.water",
+      "body": "마른 화분에 물을 주고 흩어진 흙을 쓸어 담았다.\n꽃집 주인은 계절마다 피는 꽃 이름을 즐겁게 들려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.013.end"
+    },
+    {
+      "nodeId": "stage.story.easy.013.smell",
+      "body": "향이 은은한 꽃 앞에 잠시 멈춰 섰다.\n맑은 향기가 머릿속까지 스며들며 긴장이 풀렸다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.013.end"
+    },
+    {
+      "nodeId": "stage.story.easy.013.pot",
+      "body": "깨진 화분 조각을 모으다가 흙 속에 묻힌 작은 은화를 발견했다.\n주인은 오래된 장식이라며 선물로 건넸다.",
+      "rewardType": "gold",
+      "rewardValue": 75,
+      "nextNodeId": "stage.story.easy.013.end"
+    },
+    {
+      "nodeId": "stage.story.easy.013.end",
+      "body": "꽃잎 위에 물방울이 맺히고 골목은 한층 밝아졌다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.013.choice.water",
+      "text": "화분에 물을 준다"
+    },
+    {
+      "choiceId": "stage.story.easy.013.choice.smell",
+      "text": "꽃향기를 맡는다"
+    },
+    {
+      "choiceId": "stage.story.easy.013.choice.pot",
+      "text": "깨진 화분을 치운다"
+    }
+  ]
+}

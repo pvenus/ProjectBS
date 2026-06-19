@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.normal.014",
+  "title": "숲속 석비의 글자",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.014.start",
+      "body": "숲길 옆에 이끼 낀 석비가 반쯤 쓰러져 있었다.\n글자는 오래되어 흐릿했지만, 누군가 최근에 주변 잡초를 베어낸 흔적이 남아 있었다.\n석비 아래쪽에는 작은 틈이 보인다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.014.choice.read"
+        },
+        {
+          "choiceId": "stage.story.normal.014.choice.moss"
+        },
+        {
+          "choiceId": "stage.story.normal.014.choice.gap"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.normal.014.read",
+      "body": "이끼를 조심스레 걷어내고 남은 글자를 읽었다.\n오래된 길 안내 문구에서 잊힌 숲길의 방향을 알아냈다.",
+      "rewardType": "exp",
+      "rewardValue": 55,
+      "nextNodeId": "stage.story.normal.014.end"
+    },
+    {
+      "nodeId": "stage.story.normal.014.moss",
+      "body": "석비 곁의 마른 자리에 앉아 숨을 돌렸다.\n숲속의 차분한 공기가 상처의 열기를 가라앉혔다.",
+      "rewardType": "heal",
+      "rewardValue": 20,
+      "nextNodeId": "stage.story.normal.014.end"
+    },
+    {
+      "nodeId": "stage.story.normal.014.gap",
+      "body": "석비 아래 틈에 손을 넣자 낡은 가죽 주머니가 잡혔다.\n주머니 속 은전들은 아직 쓸 수 있을 만큼 깨끗했다.",
+      "rewardType": "gold",
+      "rewardValue": 110,
+      "nextNodeId": "stage.story.normal.014.end"
+    },
+    {
+      "nodeId": "stage.story.normal.014.end",
+      "body": "숲바람이 지나가며 석비의 글자가 잠시 더 선명해졌다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.normal.014.choice.read",
+      "text": "석비를 읽는다"
+    },
+    {
+      "choiceId": "stage.story.normal.014.choice.moss",
+      "text": "곁에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.normal.014.choice.gap",
+      "text": "아래 틈을 살핀다"
+    }
+  ]
+}

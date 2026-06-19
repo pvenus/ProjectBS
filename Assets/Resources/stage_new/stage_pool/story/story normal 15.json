@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.normal.015",
+  "title": "빗속의 천막 극장",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.015.start",
+      "body": "비 내리는 공터에 작은 천막 극장이 세워져 있었다.\n공연은 끝났지만 배우들은 젖은 소품을 정리하지 못해 난감한 표정이었다.\n천막 안쪽에서는 아직 따뜻한 조명이 흔들리고 있다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.015.choice.prop"
+        },
+        {
+          "choiceId": "stage.story.normal.015.choice.seat"
+        },
+        {
+          "choiceId": "stage.story.normal.015.choice.backstage"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.normal.015.prop",
+      "body": "젖은 소품을 닦고 무대 뒤 상자에 나누어 담았다.\n배우는 여행길에 마음을 다잡는 짧은 대사를 가르쳐주었다.",
+      "rewardType": "exp",
+      "rewardValue": 50,
+      "nextNodeId": "stage.story.normal.015.end"
+    },
+    {
+      "nodeId": "stage.story.normal.015.seat",
+      "body": "빈 객석에 앉아 빗소리를 들었다.\n천막을 두드리는 일정한 소리가 지친 몸을 편안하게 만들었다.",
+      "rewardType": "heal",
+      "rewardValue": 25,
+      "nextNodeId": "stage.story.normal.015.end"
+    },
+    {
+      "nodeId": "stage.story.normal.015.backstage",
+      "body": "무대 뒤를 정리하다가 관객이 두고 간 작은 지갑을 찾았다.\n극단장은 주인을 찾기 어렵다며 보상으로 일부를 나누어주었다.",
+      "rewardType": "gold",
+      "rewardValue": 115,
+      "nextNodeId": "stage.story.normal.015.end"
+    },
+    {
+      "nodeId": "stage.story.normal.015.end",
+      "body": "비가 잦아들고 천막의 불빛이 조용히 꺼졌다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.normal.015.choice.prop",
+      "text": "소품을 정리한다"
+    },
+    {
+      "choiceId": "stage.story.normal.015.choice.seat",
+      "text": "객석에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.normal.015.choice.backstage",
+      "text": "무대 뒤를 살핀다"
+    }
+  ]
+}

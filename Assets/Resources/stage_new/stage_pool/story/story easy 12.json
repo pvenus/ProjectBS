@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.012",
+  "title": "개울가의 작은 다리",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.012.start",
+      "body": "얕은 개울 위로 놓인 나무다리가 비스듬히 기울어져 있었다.\n아이 하나가 다리 앞에서 망설이고, 물살에는 부러진 나뭇가지가 걸려 있었다.\n서두르지 않으면 누구나 안전하게 건널 수 있을 듯하다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.012.choice.fix"
+        },
+        {
+          "choiceId": "stage.story.easy.012.choice.water"
+        },
+        {
+          "choiceId": "stage.story.easy.012.choice.branch"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.012.fix",
+      "body": "다리 아래에 돌을 괴고 흔들리는 판자를 눌러 고정했다.\n아이는 고맙다며 건너편 언덕의 길을 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.012.end"
+    },
+    {
+      "nodeId": "stage.story.easy.012.water",
+      "body": "맑은 개울물에 손과 얼굴을 씻었다.\n차가운 물이 먼지와 피로를 함께 씻어내는 듯하다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.012.end"
+    },
+    {
+      "nodeId": "stage.story.easy.012.branch",
+      "body": "걸린 나뭇가지를 걷어내자 물밑에서 반짝이는 동전이 드러났다.\n작은 행운이 주머니 안으로 들어왔다.",
+      "rewardType": "gold",
+      "rewardValue": 70,
+      "nextNodeId": "stage.story.easy.012.end"
+    },
+    {
+      "nodeId": "stage.story.easy.012.end",
+      "body": "다리가 다시 조용해지고 개울물만 맑게 흘러간다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.012.choice.fix",
+      "text": "다리를 고친다"
+    },
+    {
+      "choiceId": "stage.story.easy.012.choice.water",
+      "text": "개울물로 씻는다"
+    },
+    {
+      "choiceId": "stage.story.easy.012.choice.branch",
+      "text": "나뭇가지를 걷어낸다"
+    }
+  ]
+}
