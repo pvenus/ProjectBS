@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.004",
+  "title": "종소리 작은 예배당",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.004.start",
+      "body": "숲길 옆 오래된 예배당에서 맑은 종소리가 울렸다.\n문은 열려 있었고 안쪽에는 여행자들이 잠시 쉬어 갈 수 있는 긴 의자가 놓여 있었다.\n관리인은 조용히 촛대를 정리하고 있었다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.004.choice.clean"
+        },
+        {
+          "choiceId": "stage.story.easy.004.choice.pray"
+        },
+        {
+          "choiceId": "stage.story.easy.004.choice.donation"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.004.clean",
+      "body": "먼지 쌓인 의자와 바닥을 닦았다.\n관리인은 오래된 순례길에 대한 이야기를 들려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 40,
+      "nextNodeId": "stage.story.easy.004.end"
+    },
+    {
+      "nodeId": "stage.story.easy.004.pray",
+      "body": "촛불 앞에 앉아 조용히 숨을 골랐다.\n불안하던 마음이 차분하게 가라앉았다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.004.end"
+    },
+    {
+      "nodeId": "stage.story.easy.004.donation",
+      "body": "헌금함 아래에 떨어져 있던 작은 동전들을 모았다.\n관리인은 분실물이 아니라며 여비에 보태라고 건넸다.",
+      "rewardType": "gold",
+      "rewardValue": 60,
+      "nextNodeId": "stage.story.easy.004.end"
+    },
+    {
+      "nodeId": "stage.story.easy.004.end",
+      "body": "종소리가 멀어질 때까지 길은 평온했다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.004.choice.clean",
+      "text": "예배당 청소를 돕는다"
+    },
+    {
+      "choiceId": "stage.story.easy.004.choice.pray",
+      "text": "잠시 기도한다"
+    },
+    {
+      "choiceId": "stage.story.easy.004.choice.donation",
+      "text": "헌금함 주변을 정리한다"
+    }
+  ]
+}

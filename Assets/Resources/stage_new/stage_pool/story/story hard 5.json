@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.hard.005",
+  "title": "폭풍 속 등대",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.005.start",
+      "body": "해안 절벽 위 등대가 폭풍 속에서 깜박이고 있었다.\n등대지기는 보이지 않고, 꺼져가는 불빛 때문에 먼 바다의 배들이 길을 잃을 듯했다.\n계단은 젖어 미끄럽고 바람은 몸을 밀어낸다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.005.choice.light"
+        },
+        {
+          "choiceId": "stage.story.hard.005.choice.shelter"
+        },
+        {
+          "choiceId": "stage.story.hard.005.choice.chest"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.005.light",
+      "body": "미끄러운 계단을 올라가 렌즈와 심지를 정리했다.\n불빛이 다시 바다를 비추자 항로의 구조를 이해할 수 있었다.",
+      "rewardType": "exp",
+      "rewardValue": 95,
+      "nextNodeId": "stage.story.hard.005.end"
+    },
+    {
+      "nodeId": "stage.story.hard.005.shelter",
+      "body": "두꺼운 문을 닫고 폭풍이 잦아들기를 기다렸다.\n거친 바람을 피하는 동안 몸의 열을 되찾았다.",
+      "rewardType": "heal",
+      "rewardValue": 45,
+      "nextNodeId": "stage.story.hard.005.end"
+    },
+    {
+      "nodeId": "stage.story.hard.005.chest",
+      "body": "창고 구석에서 방수 천으로 감싼 상자를 발견했다.\n안에는 비상금과 오래된 항해 기록이 들어 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 225,
+      "nextNodeId": "stage.story.hard.005.end"
+    },
+    {
+      "nodeId": "stage.story.hard.005.end",
+      "body": "폭풍이 조금 누그러지고 등대 불빛이 규칙적으로 돌아간다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.hard.005.choice.light",
+      "text": "등대 불을 되살린다"
+    },
+    {
+      "choiceId": "stage.story.hard.005.choice.shelter",
+      "text": "등대 안에서 버틴다"
+    },
+    {
+      "choiceId": "stage.story.hard.005.choice.chest",
+      "text": "등대지기 상자를 찾는다"
+    }
+  ]
+}

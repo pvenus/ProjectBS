@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.007",
+  "title": "찻집의 남은 불씨",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.007.start",
+      "body": "길모퉁이 작은 찻집에서 은은한 차 향이 새어 나왔다.\n주인은 하루 장사를 마치며 남은 불씨를 정리하고 있었다.\n잠깐 앉아 쉬어도 좋다는 손짓을 보냈다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.007.choice.serve"
+        },
+        {
+          "choiceId": "stage.story.easy.007.choice.drink"
+        },
+        {
+          "choiceId": "stage.story.easy.007.choice.counter"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.007.serve",
+      "body": "비어 있는 찻잔과 의자를 가지런히 정리했다.\n주인은 여러 손님에게 들은 길 이야기를 나눠주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.007.end"
+    },
+    {
+      "nodeId": "stage.story.easy.007.drink",
+      "body": "남은 차를 한 잔 받아 마셨다.\n따뜻한 향이 목을 타고 내려가며 몸이 가벼워졌다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.007.end"
+    },
+    {
+      "nodeId": "stage.story.easy.007.counter",
+      "body": "계산대 아래에 굴러 들어간 동전을 주워 건넸다.\n주인은 정직함에 고마워하며 일부를 사례로 돌려주었다.",
+      "rewardType": "gold",
+      "rewardValue": 65,
+      "nextNodeId": "stage.story.easy.007.end"
+    },
+    {
+      "nodeId": "stage.story.easy.007.end",
+      "body": "찻집 문이 닫히고 길 위에는 따뜻한 향만 남았다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.007.choice.serve",
+      "text": "찻잔 정리를 돕는다"
+    },
+    {
+      "choiceId": "stage.story.easy.007.choice.drink",
+      "text": "따뜻한 차를 마신다"
+    },
+    {
+      "choiceId": "stage.story.easy.007.choice.counter",
+      "text": "계산대를 정리한다"
+    }
+  ]
+}

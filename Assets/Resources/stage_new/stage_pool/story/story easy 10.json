@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.010",
+  "title": "마을 입구의 우체통",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.010.start",
+      "body": "마을 입구에 빨간 우체통 하나가 서 있었다.\n옆에는 배달할 편지를 품에 안은 우편배달부가 잠시 숨을 고르고 있었다.\n편지 몇 장이 바람에 날려 길 위에 흩어졌다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.010.choice.collect"
+        },
+        {
+          "choiceId": "stage.story.easy.010.choice.sit"
+        },
+        {
+          "choiceId": "stage.story.easy.010.choice.slot"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.010.collect",
+      "body": "흩어진 편지를 모두 모아 우편배달부에게 건넸다.\n그는 고마워하며 가까운 마을들의 위치를 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 40,
+      "nextNodeId": "stage.story.easy.010.end"
+    },
+    {
+      "nodeId": "stage.story.easy.010.sit",
+      "body": "우체통 옆 그늘에 앉아 잠시 숨을 돌렸다.\n서늘한 바람이 지나가며 피로가 누그러졌다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.010.end"
+    },
+    {
+      "nodeId": "stage.story.easy.010.slot",
+      "body": "우체통 아래쪽에 끼어 있던 작은 봉투를 발견했다.\n안에는 반송된 편지와 함께 동전 몇 닢이 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 80,
+      "nextNodeId": "stage.story.easy.010.end"
+    },
+    {
+      "nodeId": "stage.story.easy.010.end",
+      "body": "우편배달부가 떠난 뒤 당신도 마을길로 들어선다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.010.choice.collect",
+      "text": "편지를 주워준다"
+    },
+    {
+      "choiceId": "stage.story.easy.010.choice.sit",
+      "text": "우체통 옆에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.easy.010.choice.slot",
+      "text": "우체통 아래를 살핀다"
+    }
+  ]
+}

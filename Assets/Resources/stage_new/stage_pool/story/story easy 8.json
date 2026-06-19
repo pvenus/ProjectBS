@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.008",
+  "title": "푸른 리본 표지판",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.008.start",
+      "body": "갈림길 표지판에 푸른 리본이 묶여 있었다.\n바람에 리본이 흔들릴 때마다 낡은 표지판이 삐걱거렸다.\n누군가 길을 잃지 않도록 남겨둔 표시 같았다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.008.choice.fix"
+        },
+        {
+          "choiceId": "stage.story.easy.008.choice.follow"
+        },
+        {
+          "choiceId": "stage.story.easy.008.choice.post"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.008.fix",
+      "body": "기울어진 표지판을 세우고 리본을 다시 단단히 묶었다.\n길의 방향을 확인하며 주변 지리를 익혔다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.008.end"
+    },
+    {
+      "nodeId": "stage.story.easy.008.follow",
+      "body": "푸른 리본이 이어진 완만한 길을 걸었다.\n험한 길을 피한 덕분에 체력을 아낄 수 있었다.",
+      "rewardType": "heal",
+      "rewardValue": 10,
+      "nextNodeId": "stage.story.easy.008.end"
+    },
+    {
+      "nodeId": "stage.story.easy.008.post",
+      "body": "표지판 아래 작은 돌무더기에서 동전 몇 닢을 발견했다.\n길 안내를 남긴 사람이 둔 사례금 같았다.",
+      "rewardType": "gold",
+      "rewardValue": 70,
+      "nextNodeId": "stage.story.easy.008.end"
+    },
+    {
+      "nodeId": "stage.story.easy.008.end",
+      "body": "정돈된 표지판을 뒤로하고 망설임 없이 길을 고른다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.008.choice.fix",
+      "text": "표지판을 바로 세운다"
+    },
+    {
+      "choiceId": "stage.story.easy.008.choice.follow",
+      "text": "리본 길을 따라간다"
+    },
+    {
+      "choiceId": "stage.story.easy.008.choice.post",
+      "text": "표지판 밑을 본다"
+    }
+  ]
+}

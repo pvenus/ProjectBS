@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.normal.009",
+  "title": "바람개비 언덕",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.009.start",
+      "body": "낮은 언덕 위에 낡은 바람개비들이 줄지어 서 있었다.\n대부분은 멈춰 있었지만, 가장 큰 바람개비 하나만 삐걱거리며 천천히 돌고 있었다.\n언덕 아래 농부가 망가진 장치를 보며 한숨을 쉬고 있다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.009.choice.fix"
+        },
+        {
+          "choiceId": "stage.story.normal.009.choice.listen"
+        },
+        {
+          "choiceId": "stage.story.normal.009.choice.search"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.normal.009.fix",
+      "body": "바람개비의 축을 고정하고 엉킨 천을 풀어주었다.\n다시 바람을 받은 날개들이 차례로 돌기 시작하자 농부의 얼굴이 밝아졌다.",
+      "rewardType": "exp",
+      "rewardValue": 55,
+      "nextNodeId": "stage.story.normal.009.end"
+    },
+    {
+      "nodeId": "stage.story.normal.009.listen",
+      "body": "언덕 위에 앉아 바람개비가 내는 규칙적인 소리를 들었다.\n차분한 바람이 몸을 감싸며 긴장이 풀렸다.",
+      "rewardType": "heal",
+      "rewardValue": 20,
+      "nextNodeId": "stage.story.normal.009.end"
+    },
+    {
+      "nodeId": "stage.story.normal.009.search",
+      "body": "멈춘 바람개비 아래를 살펴보다가 오래된 공구함을 발견했다.\n공구함 안쪽에는 누군가 숨겨둔 은전이 남아 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 115,
+      "nextNodeId": "stage.story.normal.009.end"
+    },
+    {
+      "nodeId": "stage.story.normal.009.end",
+      "body": "언덕을 내려오자 등 뒤에서 바람개비 소리가 한동안 따라왔다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.normal.009.choice.fix",
+      "text": "바람개비를 고친다"
+    },
+    {
+      "choiceId": "stage.story.normal.009.choice.listen",
+      "text": "바람 소리를 듣는다"
+    },
+    {
+      "choiceId": "stage.story.normal.009.choice.search",
+      "text": "언덕을 살펴본다"
+    }
+  ]
+}

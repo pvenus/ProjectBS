@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.hard.004",
+  "title": "무너지는 광산길",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.004.start",
+      "body": "폐광 입구에서 돌가루가 계속 떨어지고 있었다.\n안쪽에서는 막힌 갱도를 두드리는 둔탁한 소리가 들렸다.\n언제 무너질지 알 수 없지만, 안에는 사람이나 귀중한 광물이 남아 있을 수 있다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.004.choice.rescue"
+        },
+        {
+          "choiceId": "stage.story.hard.004.choice.brace"
+        },
+        {
+          "choiceId": "stage.story.hard.004.choice.ore"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.004.rescue",
+      "body": "무너진 갱도 사이를 기어가 갇힌 광부를 찾아냈다.\n광부는 탈출하며 갱도 지도를 머릿속에 새겨주었다.",
+      "rewardType": "exp",
+      "rewardValue": 100,
+      "nextNodeId": "stage.story.hard.004.end"
+    },
+    {
+      "nodeId": "stage.story.hard.004.brace",
+      "body": "부러진 지지대를 다시 세우고 안전한 공간을 만들었다.\n먼지를 피해 잠시 쉬며 몸을 추스를 수 있었다.",
+      "rewardType": "heal",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.hard.004.end"
+    },
+    {
+      "nodeId": "stage.story.hard.004.ore",
+      "body": "버려진 광석 더미 깊숙한 곳에서 정제된 은괴를 발견했다.\n위험을 감수한 만큼 묵직한 보상이었다.",
+      "rewardType": "gold",
+      "rewardValue": 240,
+      "nextNodeId": "stage.story.hard.004.end"
+    },
+    {
+      "nodeId": "stage.story.hard.004.end",
+      "body": "폐광 밖으로 나오자 입구 뒤편에서 돌이 무너지는 소리가 울렸다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.hard.004.choice.rescue",
+      "text": "소리가 나는 곳으로 간다"
+    },
+    {
+      "choiceId": "stage.story.hard.004.choice.brace",
+      "text": "기둥을 세워 길을 확보한다"
+    },
+    {
+      "choiceId": "stage.story.hard.004.choice.ore",
+      "text": "광석 더미를 조사한다"
+    }
+  ]
+}

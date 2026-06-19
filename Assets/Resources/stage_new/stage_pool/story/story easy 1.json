@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.001",
+  "title": "햇살 아래 빨래터",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.001.start",
+      "body": "마을 어귀의 작은 빨래터에 맑은 물소리가 흐르고 있었다.\n아이들은 물가에서 조약돌을 고르고, 노인은 널어둔 천이 바람에 날아가지 않도록 붙잡고 있었다.\n잠시 손을 보태면 모두가 편해질 듯하다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.001.choice.help"
+        },
+        {
+          "choiceId": "stage.story.easy.001.choice.rest"
+        },
+        {
+          "choiceId": "stage.story.easy.001.choice.search"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.001.help",
+      "body": "젖은 천을 짜고 빨랫줄을 다시 묶어주었다.\n노인은 고마워하며 여행길에 도움이 될 이야기를 들려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.001.end"
+    },
+    {
+      "nodeId": "stage.story.easy.001.rest",
+      "body": "차가운 물에 손을 담그고 잠시 쉬었다.\n잔잔한 물소리 덕분에 피로가 조금 가셨다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.001.end"
+    },
+    {
+      "nodeId": "stage.story.easy.001.search",
+      "body": "반짝이는 조약돌 사이에서 작은 동전 몇 닢을 발견했다.\n누군가 잃어버린 것이지만 주인을 찾을 수는 없었다.",
+      "rewardType": "gold",
+      "rewardValue": 70,
+      "nextNodeId": "stage.story.easy.001.end"
+    },
+    {
+      "nodeId": "stage.story.easy.001.end",
+      "body": "햇살이 기울기 전에 다시 길을 나선다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.001.choice.help",
+      "text": "빨래를 도와준다"
+    },
+    {
+      "choiceId": "stage.story.easy.001.choice.rest",
+      "text": "물가에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.easy.001.choice.search",
+      "text": "조약돌을 살펴본다"
+    }
+  ]
+}

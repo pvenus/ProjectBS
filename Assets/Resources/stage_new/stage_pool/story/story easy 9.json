@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.009",
+  "title": "작은 음악 상자",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.009.start",
+      "body": "숲 가장자리 벤치 위에 작은 음악 상자가 놓여 있었다.\n뚜껑은 닫혀 있었지만 안쪽에서 희미한 선율이 새어 나왔다.\n근처에는 물건을 찾는 듯한 소녀가 두리번거리고 있었다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.009.choice.return"
+        },
+        {
+          "choiceId": "stage.story.easy.009.choice.listen"
+        },
+        {
+          "choiceId": "stage.story.easy.009.choice.open"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.009.return",
+      "body": "음악 상자를 소녀에게 건넸다.\n소녀는 활짝 웃으며 이 물건에 얽힌 추억을 들려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 40,
+      "nextNodeId": "stage.story.easy.009.end"
+    },
+    {
+      "nodeId": "stage.story.easy.009.listen",
+      "body": "음악 상자의 선율을 잠시 들었다.\n낯설지만 편안한 멜로디가 마음을 달래주었다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.009.end"
+    },
+    {
+      "nodeId": "stage.story.easy.009.open",
+      "body": "뚜껑 안쪽에 작은 금속 장식과 동전이 들어 있었다.\n소녀는 장식만 챙기고 동전은 사례로 남겼다.",
+      "rewardType": "gold",
+      "rewardValue": 75,
+      "nextNodeId": "stage.story.easy.009.end"
+    },
+    {
+      "nodeId": "stage.story.easy.009.end",
+      "body": "음악 소리가 멀어지고 숲길은 다시 조용해졌다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.009.choice.return",
+      "text": "소녀에게 돌려준다"
+    },
+    {
+      "choiceId": "stage.story.easy.009.choice.listen",
+      "text": "선율을 들어본다"
+    },
+    {
+      "choiceId": "stage.story.easy.009.choice.open",
+      "text": "상자 안을 확인한다"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.hard.010",
+  "title": "심야의 검문소",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.010.start",
+      "body": "자정이 가까운 시각, 폐쇄된 검문소에 횃불 하나가 켜져 있었다.\n문서 더미는 바람에 흩어져 있고, 감시탑 위에서는 금속이 부딪히는 소리가 났다.\n이곳에서 무엇이 사라졌는지 알아낼 수 있을 것 같다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.010.choice.records"
+        },
+        {
+          "choiceId": "stage.story.hard.010.choice.tower"
+        },
+        {
+          "choiceId": "stage.story.hard.010.choice.safe"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.010.records",
+      "body": "흩어진 통행 기록과 밀수 표식을 대조했다.\n검문소가 버려진 이유와 위험한 거래 경로를 파악했다.",
+      "rewardType": "exp",
+      "rewardValue": 100,
+      "nextNodeId": "stage.story.hard.010.end"
+    },
+    {
+      "nodeId": "stage.story.hard.010.tower",
+      "body": "삐걱이는 계단을 올라 주변을 살폈다.\n높은 곳의 차가운 밤공기가 정신을 맑게 해주었다.",
+      "rewardType": "heal",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.hard.010.end"
+    },
+    {
+      "nodeId": "stage.story.hard.010.safe",
+      "body": "감시실 벽 뒤에 숨겨진 금고를 찾아냈다.\n안에는 압수된 금화와 봉인된 증표가 들어 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 240,
+      "nextNodeId": "stage.story.hard.010.end"
+    },
+    {
+      "nodeId": "stage.story.hard.010.end",
+      "body": "검문소를 떠날 때 횃불은 스스로 꺼진 듯 어둠 속으로 사라졌다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.hard.010.choice.records",
+      "text": "문서를 조사한다"
+    },
+    {
+      "choiceId": "stage.story.hard.010.choice.tower",
+      "text": "감시탑에 오른다"
+    },
+    {
+      "choiceId": "stage.story.hard.010.choice.safe",
+      "text": "잠긴 금고를 연다"
+    }
+  ]
+}

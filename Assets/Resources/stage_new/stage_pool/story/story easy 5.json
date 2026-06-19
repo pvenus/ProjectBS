@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.005",
+  "title": "새벽 이슬 약초밭",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.005.start",
+      "body": "새벽 이슬이 맺힌 작은 약초밭을 발견했다.\n밭 주인은 허리를 펴며 수확할 손이 부족하다고 웃었다.\n약초 향은 맑고 부드러워 가까이 있는 것만으로도 기분이 나아진다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.005.choice.harvest"
+        },
+        {
+          "choiceId": "stage.story.easy.005.choice.tea"
+        },
+        {
+          "choiceId": "stage.story.easy.005.choice.bundle"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.005.harvest",
+      "body": "잎이 상하지 않도록 조심스레 약초를 땄다.\n밭 주인은 약초를 구별하는 간단한 법을 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 35,
+      "nextNodeId": "stage.story.easy.005.end"
+    },
+    {
+      "nodeId": "stage.story.easy.005.tea",
+      "body": "따뜻한 약초차를 천천히 마셨다.\n몸속에 은은한 온기가 퍼졌다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.005.end"
+    },
+    {
+      "nodeId": "stage.story.easy.005.bundle",
+      "body": "말린 약초 묶음 사이에서 오래된 은화를 발견했다.\n밭 주인은 잊고 있던 것이라며 사례로 건넸다.",
+      "rewardType": "gold",
+      "rewardValue": 80,
+      "nextNodeId": "stage.story.easy.005.end"
+    },
+    {
+      "nodeId": "stage.story.easy.005.end",
+      "body": "이슬이 마르기 전 밭을 떠나 다음 길로 향한다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.005.choice.harvest",
+      "text": "약초 수확을 돕는다"
+    },
+    {
+      "choiceId": "stage.story.easy.005.choice.tea",
+      "text": "약초차를 마신다"
+    },
+    {
+      "choiceId": "stage.story.easy.005.choice.bundle",
+      "text": "말린 약초 묶음을 본다"
+    }
+  ]
+}
