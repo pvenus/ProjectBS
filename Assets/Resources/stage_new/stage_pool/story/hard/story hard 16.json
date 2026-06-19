@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.hard.016",
+  "title": "폭풍 전야의 등대",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.016.start",
+      "body": "검은 구름 아래 낡은 등대가 거센 바람을 맞으며 서 있었다.\n계단은 바닷물에 젖어 미끄러웠고, 꼭대기 등불은 꺼질 듯 흔들리고 있었다.\n폭풍이 오기 전에 등대를 살피면 중요한 단서를 얻을 수 있을지도 모른다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.016.choice.lamp"
+        },
+        {
+          "choiceId": "stage.story.hard.016.choice.room"
+        },
+        {
+          "choiceId": "stage.story.hard.016.choice.lockbox"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.016.lamp",
+      "body": "젖은 계단을 붙잡고 꼭대기에 올라 등불을 다시 고정했다.\n불빛이 바다를 가르자 절벽 아래 숨은 암초와 안전한 길목이 드러났다.",
+      "rewardType": "exp",
+      "rewardValue": 100,
+      "nextNodeId": "stage.story.hard.016.end"
+    },
+    {
+      "nodeId": "stage.story.hard.016.room",
+      "body": "등대 아래 관리인 방에서 바람을 피했다.\n두꺼운 벽이 폭풍 소리를 막아주어 상처를 정리할 시간을 벌었다.",
+      "rewardType": "heal",
+      "rewardValue": 45,
+      "nextNodeId": "stage.story.hard.016.end"
+    },
+    {
+      "nodeId": "stage.story.hard.016.lockbox",
+      "body": "관리인 책상 밑에 묶인 방수 상자를 발견했다.\n잠금쇠를 풀자 항해자들이 남긴 금화가 마른 천에 싸여 있었다.",
+      "rewardType": "gold",
+      "rewardValue": 240,
+      "nextNodeId": "stage.story.hard.016.end"
+    },
+    {
+      "nodeId": "stage.story.hard.016.end",
+      "body": "등대 불빛이 폭풍 속에서도 꺼지지 않고 길게 뻗어 나갔다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.hard.016.choice.lamp",
+      "text": "등불을 고정한다"
+    },
+    {
+      "choiceId": "stage.story.hard.016.choice.room",
+      "text": "관리인 방에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.hard.016.choice.lockbox",
+      "text": "방수 상자를 연다"
+    }
+  ]
+}

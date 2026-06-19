@@ -1,0 +1,60 @@
+{
+  "stageNodeId": "stage.story.easy.016",
+  "title": "마른 우물의 두레박",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.016.start",
+      "body": "작은 마을의 마른 우물 옆에 낡은 두레박이 놓여 있었다.\n우물가는 조용했지만, 아이들이 물동이를 들고 빈손으로 돌아가려는 모습이 보였다.\n조금만 손을 보태면 아직 남은 물을 길어 올릴 수 있을 듯하다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.016.choice.bucket"
+        },
+        {
+          "choiceId": "stage.story.easy.016.choice.shade"
+        },
+        {
+          "choiceId": "stage.story.easy.016.choice.stone"
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.016.bucket",
+      "body": "두레박 줄을 다시 묶고 천천히 물을 길어 올렸다.\n아이들은 고마워하며 마을 뒤편의 안전한 길을 알려주었다.",
+      "rewardType": "exp",
+      "rewardValue": 40,
+      "nextNodeId": "stage.story.easy.016.end"
+    },
+    {
+      "nodeId": "stage.story.easy.016.shade",
+      "body": "우물가 그늘에 앉아 잠시 숨을 골랐다.\n서늘한 돌벽에서 올라오는 냉기가 피로를 덜어주었다.",
+      "rewardType": "heal",
+      "rewardValue": 15,
+      "nextNodeId": "stage.story.easy.016.end"
+    },
+    {
+      "nodeId": "stage.story.easy.016.stone",
+      "body": "우물 턱의 흔들리는 돌을 바로잡다가 아래에 숨은 동전을 발견했다.\n작은 보답처럼 주머니가 조금 묵직해졌다.",
+      "rewardType": "gold",
+      "rewardValue": 80,
+      "nextNodeId": "stage.story.easy.016.end"
+    },
+    {
+      "nodeId": "stage.story.easy.016.end",
+      "body": "두레박이 다시 우물 안으로 내려가고 마을길에는 물소리가 돌아왔다."
+    }
+  ],
+  "choices": [
+    {
+      "choiceId": "stage.story.easy.016.choice.bucket",
+      "text": "두레박을 고친다"
+    },
+    {
+      "choiceId": "stage.story.easy.016.choice.shade",
+      "text": "그늘에서 쉰다"
+    },
+    {
+      "choiceId": "stage.story.easy.016.choice.stone",
+      "text": "우물 턱을 살핀다"
+    }
+  ]
+}
