@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using Skills.Dto.Move;
-
+using Skill;
 namespace Skills.Move.Config
 {
     [Serializable]
@@ -9,6 +9,8 @@ namespace Skills.Move.Config
     {
         [Header("Movement")]
         public float speed = 1f;
+
+        public override ProjectileMoveType MoveType => ProjectileMoveType.Linear;
 
         public override SkillMoveRuntimeDto CreateMoveDto(
             Transform targetTransform,

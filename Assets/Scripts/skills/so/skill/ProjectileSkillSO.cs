@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Skills.Dto;
+using Skill;
 
 /// <summary>
 /// BasicThrowSkill
@@ -299,7 +300,7 @@ public class ProjectileSkill : BattleSkillBase
         if (moveConfig == null)
             return;
 
-        if (moveConfig.MoveType != SkillProjectileMoveDto.MoveType.Orbit)
+        if (moveConfig.MoveType != ProjectileMoveType.Orbit)
             return;
 
         int safeCurrent = Mathf.Max(0, currentMaxProjectileCount);

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// Projectile 이동 전용 DTO.
 /// - 시작/목표 좌표 기반 이동을 기본으로 한다.
@@ -8,16 +8,6 @@ using UnityEngine;
 [System.Serializable]
 public class SkillProjectileMoveDto
 {
-    public enum MoveType
-    {
-        None = 0,
-        Linear = 1,
-        Warp = 2,
-        Hover = 3,
-        Orbit = 4,
-        Homing = 5
-    }
-
     /// <summary>
     /// 이동 방식.
     /// Linear: 시작점에서 목표점까지 속도 기반 이동.
@@ -26,7 +16,7 @@ public class SkillProjectileMoveDto
     /// Orbit: owner 기준 궤도 이동.
     /// Homing: 실시간 타겟을 추적하는 유도 이동.
     /// </summary>
-    public MoveType moveType = MoveType.Linear;
+    public ProjectileMoveType moveType = ProjectileMoveType.Linear;
 
     /// <summary>
     /// 실제 이동을 적용할 대상 Transform.

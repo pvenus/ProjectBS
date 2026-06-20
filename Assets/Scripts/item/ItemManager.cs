@@ -6,6 +6,7 @@ using Effect.Helper;
 using UnityEngine;
 using Session;
 using Character;
+using Item.Service;
 
 namespace Item
 {
@@ -26,10 +27,13 @@ namespace Item
         [SerializeField]
         private AIFunctionRuntimeData aiFunctionRuntimeData = new();
 
+        private RelicItemService relicService;
+        private StrategicSkillItemService strategicSkillItemService;
+        private AIFunctionItemService aiFunctionItemService;
+
         [Header("Debug")]
         [SerializeField]
         private bool logDebug;
-
 
         public RelicRuntimeData RelicRuntimeData => ResolveRelicRuntimeData();
 
@@ -61,12 +65,24 @@ namespace Item
             }
 
             Instance = this;
+            relicService = new RelicItemService();
+            relicService.OnRelicAdded += HandleRelicAdded;
+            relicService.OnRelicRemoved += HandleRelicRemoved;
+            relicService.OnRelicEquipped += ApplyRelicEffects;
+            relicService.OnRelicUnequipped += RemoveRelicEffects;
+
+            strategicSkillItemService = new StrategicSkillItemService();
+            strategicSkillItemService.OnStrategicSkillItemAdded += HandleStrategicSkillItemAdded;
+            strategicSkillItemService.OnStrategicSkillItemRemoved += HandleStrategicSkillItemRemoved;
+
+            aiFunctionItemService = new AIFunctionItemService();
+            aiFunctionItemService.OnAIFunctionAdded += HandleAIFunctionAdded;
+            aiFunctionItemService.OnAIFunctionRemoved += HandleAIFunctionRemoved;
 
             if (relicRuntimeData == null)
             {
                 relicRuntimeData = new RelicRuntimeData();
             }
-
             relicRuntimeData =
                 ResolveRelicRuntimeData();
 
@@ -76,9 +92,6 @@ namespace Item
                     new AIFunctionRuntimeData();
             }
         }
-
-
-
 
         public void InitializeRuntimeData(
             RelicRuntimeData relicRuntimeData,
@@ -100,145 +113,33 @@ namespace Item
 
         public bool AddRelic(RelicSO relic)
         {
-            if (relic == null)
-            {
-                return false;
-            }
-            RelicRuntimeData runtimeData =
-                ResolveRelicRuntimeData();
-
-            bool added =
-                runtimeData.AddRelic(relic);
-
-            if (!added)
-            {
-                return false;
-            }
-
-            RelicEntry entry =
-                runtimeData.FindRelic(relic);
-
-            if (entry != null
-                && entry.isEquipped)
-            {
-                ApplyRelicEffects(relic);
-            }
-
-            if (logDebug)
-            {
-                Debug.Log(
-                    $"[ItemManager] Relic added. relic={relic.DisplayName}");
-            }
-
-            OnRelicAdded?.Invoke(relic);
-            return true;
+            return relicService != null
+                && relicService.Add(relic);
         }
 
         public bool RemoveRelic(RelicSO relic)
         {
-            if (relic == null)
-            {
-                return false;
-            }
-
-            RemoveRelicEffects(relic);
-            RelicRuntimeData runtimeData =
-                ResolveRelicRuntimeData();
-
-            bool removed =
-                runtimeData.RemoveRelic(relic);
-
-            if (!removed)
-            {
-                return false;
-            }
-
-            if (logDebug)
-            {
-                Debug.Log(
-                    $"[ItemManager] Relic removed. relic={relic.DisplayName}");
-            }
-
-            OnRelicRemoved?.Invoke(relic);
-            return true;
+            return relicService != null
+                && relicService.Remove(relic);
         }
 
         public bool HasRelic(RelicSO relic)
         {
-            if (relic == null)
-            {
-                return false;
-            }
-            return ResolveRelicRuntimeData()
-                .HasRelic(relic);
+            return relic != null
+                && relicService != null
+                && relicService.IsOwned(relic.relicId);
         }
 
         public bool EquipRelic(RelicSO relic)
         {
-            if (relic == null)
-            {
-                return false;
-            }
-            RelicRuntimeData runtimeData =
-                ResolveRelicRuntimeData();
-
-            RelicEntry entry =
-                runtimeData.FindRelic(relic);
-
-            if (entry == null)
-            {
-                return false;
-            }
-
-            int equippedCount =
-                runtimeData.Relics
-                    .Count(x => x != null
-                        && x.isEquipped);
-
-            if (equippedCount >= runtimeData.MaxRelicCount)
-            {
-                return false;
-            }
-
-            if (entry.isEquipped)
-            {
-                return false;
-            }
-
-            entry.isEquipped = true;
-
-            ApplyRelicEffects(relic);
-
-            return true;
+            return relicService != null
+                && relicService.Equip(relic);
         }
 
         public bool UnequipRelic(RelicSO relic)
         {
-            if (relic == null)
-            {
-                return false;
-            }
-            RelicRuntimeData runtimeData =
-                ResolveRelicRuntimeData();
-
-            RelicEntry entry =
-                runtimeData.FindRelic(relic);
-
-            if (entry == null)
-            {
-                return false;
-            }
-
-            if (!entry.isEquipped)
-            {
-                return false;
-            }
-
-            entry.isEquipped = false;
-
-            RemoveRelicEffects(relic);
-
-            return true;
+            return relicService != null
+                && relicService.Unequip(relic);
         }
 
         private void ApplyEffectToCharacters(
@@ -325,9 +226,6 @@ namespace Item
                 effectManager.RemoveEffect(runtimeEffect);
             }
         }
-
-
-
 
         private CharacterManager ResolveCharacterManager(
             EffectManager effectManager)
@@ -502,6 +400,26 @@ namespace Item
             }
         }
 
+        private void HandleRelicAdded(RelicSO relic)
+        {
+            if (logDebug)
+            {
+                Debug.Log($"[ItemManager] Relic added. relic={relic.DisplayName}");
+            }
+
+            OnRelicAdded?.Invoke(relic);
+        }
+
+        private void HandleRelicRemoved(RelicSO relic)
+        {
+            if (logDebug)
+            {
+                Debug.Log($"[ItemManager] Relic removed. relic={relic.DisplayName}");
+            }
+
+            OnRelicRemoved?.Invoke(relic);
+        }
+
         private RelicRuntimeData ResolveRelicRuntimeData()
         {
             if (GameSession.Instance != null
@@ -547,22 +465,43 @@ namespace Item
 
         public bool AddStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
         {
-            if (strategicSkillItem == null)
-            {
-                return false;
-            }
+            return strategicSkillItemService != null
+                && strategicSkillItemService.Add(strategicSkillItem);
+        }
 
-            StrategicSkillItemRuntimeData runtimeData =
-                ResolveStrategicSkillItemRuntimeData();
+        public bool RemoveStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
+        {
+            return strategicSkillItemService != null
+                && strategicSkillItemService.Remove(strategicSkillItem);
+        }
 
-            bool added =
-                runtimeData.AddStrategicSkillItem(strategicSkillItem);
+        public bool HasStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
+        {
+            return strategicSkillItem != null
+                && strategicSkillItemService != null
+                && strategicSkillItemService.Has(strategicSkillItem);
+        }
 
-            if (!added)
-            {
-                return false;
-            }
+        public bool TryUseStrategicSkillItemFromScreenPosition(
+            StrategicSkillItemSO strategicSkillItem,
+            Vector2 screenPosition,
+            Camera worldCamera,
+            bool logDebugOverride = false,
+            UnityEngine.Object logContext = null)
+        {
+            strategicSkillItemService ??= new StrategicSkillItemService();
 
+            return strategicSkillItemService.TryUseFromScreenPosition(
+                strategicSkillItem,
+                screenPosition,
+                worldCamera,
+                logDebug || logDebugOverride,
+                logContext != null ? logContext : this);
+        }
+
+        private void HandleStrategicSkillItemAdded(
+            StrategicSkillItemSO strategicSkillItem)
+        {
             if (logDebug)
             {
                 Debug.Log(
@@ -570,27 +509,11 @@ namespace Item
             }
 
             OnStrategicSkillItemAdded?.Invoke(strategicSkillItem);
-            return true;
         }
 
-        public bool RemoveStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
+        private void HandleStrategicSkillItemRemoved(
+            StrategicSkillItemSO strategicSkillItem)
         {
-            if (strategicSkillItem == null)
-            {
-                return false;
-            }
-
-            StrategicSkillItemRuntimeData runtimeData =
-                ResolveStrategicSkillItemRuntimeData();
-
-            bool removed =
-                runtimeData.RemoveStrategicSkillItem(strategicSkillItem);
-
-            if (!removed)
-            {
-                return false;
-            }
-
             if (logDebug)
             {
                 Debug.Log(
@@ -598,78 +521,25 @@ namespace Item
             }
 
             OnStrategicSkillItemRemoved?.Invoke(strategicSkillItem);
-            return true;
-        }
-
-        public bool HasStrategicSkillItem(StrategicSkillItemSO strategicSkillItem)
-        {
-            if (strategicSkillItem == null)
-            {
-                return false;
-            }
-
-            return ResolveStrategicSkillItemRuntimeData()
-                .HasStrategicSkillItem(strategicSkillItem);
         }
 
         public bool AddAIFunction(AIFunctionSO function)
         {
-            if (function == null)
-            {
-                return false;
-            }
-
-            bool added =
-                aiFunctionRuntimeData.AddFunction(function);
-
-            if (!added)
-            {
-                return false;
-            }
-
-            if (logDebug)
-            {
-                Debug.Log(
-                    $"[ItemManager] AI Function added. function={function.displayName}");
-            }
-
-            OnAIFunctionAdded?.Invoke(function);
-            return true;
+            return aiFunctionItemService != null
+                && aiFunctionItemService.Add(function);
         }
 
         public bool RemoveAIFunction(AIFunctionSO function)
         {
-            if (function == null)
-            {
-                return false;
-            }
-
-            bool removed =
-                aiFunctionRuntimeData.RemoveFunction(function);
-
-            if (!removed)
-            {
-                return false;
-            }
-
-            if (logDebug)
-            {
-                Debug.Log(
-                    $"[ItemManager] AI Function removed. function={function.displayName}");
-            }
-
-            OnAIFunctionRemoved?.Invoke(function);
-            return true;
+            return aiFunctionItemService != null
+                && aiFunctionItemService.Remove(function);
         }
 
         public bool HasAIFunction(AIFunctionSO function)
         {
-            if (function == null)
-            {
-                return false;
-            }
-
-            return aiFunctionRuntimeData.HasFunction(function);
+            return function != null
+                && aiFunctionItemService != null
+                && aiFunctionItemService.Has(function);
         }
 
         public void ClearRelics()
@@ -683,6 +553,28 @@ namespace Item
                 Debug.Log(
                     "[ItemManager] All relics cleared.");
             }
+        }
+
+        private void HandleAIFunctionAdded(AIFunctionSO function)
+        {
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] AI Function added. function={function.displayName}");
+            }
+
+            OnAIFunctionAdded?.Invoke(function);
+        }
+
+        private void HandleAIFunctionRemoved(AIFunctionSO function)
+        {
+            if (logDebug)
+            {
+                Debug.Log(
+                    $"[ItemManager] AI Function removed. function={function.displayName}");
+            }
+
+            OnAIFunctionRemoved?.Invoke(function);
         }
     }
 }

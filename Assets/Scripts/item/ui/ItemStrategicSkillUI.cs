@@ -32,7 +32,6 @@ namespace Item.UI
         [SerializeField] private bool logDebug;
 
         private readonly List<ItemStrategicSkillSlotUI> spawnedSlots = new();
-        private StrategicSkillItemUseService useService;
 
         private void Awake()
         {
@@ -94,79 +93,6 @@ namespace Item.UI
                 spawnedSlots.Add(slot);
             }
         }
-
-        public bool TryUseStrategicSkillItem(
-            StrategicSkillItemSO strategicSkillItem,
-            Vector2 screenPosition)
-        {
-            if (strategicSkillItem == null)
-            {
-                return false;
-            }
-
-            ResolveReferences();
-
-            // Removed costManager null check and TrySpend call as per refactor instructions.
-
-            Vector3 worldPosition = ScreenToWorldPosition(screenPosition);
-
-            EnsureSkillRuntimeHelpers();
-
-            if (!useService.TryUse(
-                    strategicSkillItem,
-                    worldPosition,
-                    this,
-                    logDebug,
-                    this))
-            {
-                Debug.LogWarning($"[ItemStrategicSkillUI] Failed to use strategic skill. item={strategicSkillItem.DisplayName}", this);
-                return false;
-            }
-
-            if (logDebug)
-            {
-                Debug.Log($"[ItemStrategicSkillUI] Strategic skill used. item={strategicSkillItem.DisplayName} pos={worldPosition}", this);
-            }
-
-            return true;
-        }
-
-        private void EnsureSkillRuntimeHelpers()
-        {
-            useService ??= new StrategicSkillItemUseService();
-        }
-
-        private Vector3 ScreenToWorldPosition(Vector2 screenPosition)
-        {
-            Camera cameraToUse = worldCamera != null ? worldCamera : Camera.main;
-
-            if (cameraToUse == null)
-            {
-                Vector3 fallback = screenPosition;
-
-                if (fixedZ)
-                {
-                    fallback.z = spawnZ;
-                }
-
-                return fallback;
-            }
-
-            Vector3 screenPoint = new Vector3(
-                screenPosition.x,
-                screenPosition.y,
-                Mathf.Abs(cameraToUse.transform.position.z));
-
-            Vector3 worldPosition = cameraToUse.ScreenToWorldPoint(screenPoint);
-
-            if (fixedZ)
-            {
-                worldPosition.z = spawnZ;
-            }
-
-            return worldPosition;
-        }
-
         private void ResolveReferences()
         {
             // Removed costManager resolution as per refactor instructions.

@@ -17,6 +17,7 @@ namespace ResourceTools.Skill
 
         public LinearMoveJson linear;
         public HoverMoveJson hover;
+        public WarpMoveJson warp;
 
         public float speed;
         public float acceleration;
@@ -69,6 +70,11 @@ namespace ResourceTools.Skill
         public float followOffsetY;
     }
 
+    [Serializable]
+    public class WarpMoveJson
+    {
+    }
+
     public static class SkillMoveAssetBuilder
     {
         public static ScriptableObject CreateOrUpdate(
@@ -116,16 +122,9 @@ namespace ResourceTools.Skill
         {
             SerializedObject serializedObject = new SerializedObject(moveSo);
 
-            SetString(serializedObject, "moveId", json.moveId);
-            SetMoveType(serializedObject, ResolveMoveType(json));
-            ApplyConfig(serializedObject, json);
+            SkillMoveConfig config = ApplyConfig(serializedObject, json);
+            SetMoveType(serializedObject, config != null ? config.MoveType.ToString() : ResolveMoveType(json));
 
-            SetFloat(serializedObject, "speed", json.speed);
-            SetFloat(serializedObject, "acceleration", json.acceleration);
-            SetFloat(serializedObject, "turnSpeed", json.turnSpeed);
-            SetFloat(serializedObject, "duration", json.duration);
-
-            SetFloat(serializedObject, "arrivalThreshold", json.arrivalThreshold);
             SetBool(serializedObject, "applyDirectionRotation", json.applyDirectionRotation);
             SetFloat(serializedObject, "rotationOffset", json.rotationOffset);
 
@@ -160,7 +159,7 @@ namespace ResourceTools.Skill
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        private static void ApplyConfig(
+        private static SkillMoveConfig ApplyConfig(
             SerializedObject serializedObject,
             MoveJson json)
         {
@@ -169,7 +168,7 @@ namespace ResourceTools.Skill
             if (configProperty == null)
             {
                 Debug.LogWarning("[SkillMoveAssetBuilder] Serialized property not found: config");
-                return;
+                return null;
             }
 
             string moveType = ResolveMoveType(json);
@@ -184,7 +183,7 @@ namespace ResourceTools.Skill
 
                 config.speed = json.linear.speed;
                 configProperty.managedReferenceValue = config;
-                return;
+                return config;
             }
 
             if (string.Equals(moveType, "Hover", StringComparison.OrdinalIgnoreCase) && json?.hover != null)
@@ -199,10 +198,23 @@ namespace ResourceTools.Skill
                     json.hover.followOffsetX,
                     json.hover.followOffsetY);
                 configProperty.managedReferenceValue = config;
-                return;
+                return config;
+            }
+
+            if (string.Equals(moveType, "Warp", StringComparison.OrdinalIgnoreCase))
+            {
+                WarpMoveConfig config = configProperty.managedReferenceValue as WarpMoveConfig;
+                if (config == null)
+                {
+                    config = new WarpMoveConfig();
+                }
+
+                configProperty.managedReferenceValue = config;
+                return config;
             }
 
             configProperty.managedReferenceValue = null;
+            return null;
         }
 
         private static string ResolveMoveType(MoveJson json)

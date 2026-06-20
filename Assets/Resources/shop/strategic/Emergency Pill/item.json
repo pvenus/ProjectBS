@@ -20,10 +20,9 @@
   ],
 
   "skill": {
-    "equipmentId": "strategic_emergency_pill",
+    "equipmentId": "skill.strategic.emergency_pill",
     "slotName": "strategic",
-    "skillName": "skill.strategic.emergency_pill",
-    "iconName": "icon_heal",
+    "skillName": "응급 단약",
 
     "baseProfile": {
       "profileId": "skill.strategic.emergency_pill.profile",
@@ -67,30 +66,10 @@
 
     "move": {
       "moveId": "skill.strategic.emergency_pill.move",
-      "moveType": "None",
-      "speed": 0,
-      "arrivalThreshold": 0,
+      "moveType": "Warp",
       "applyDirectionRotation": false,
       "rotationOffset": 0,
-      "followOffsetX": 0,
-      "followOffsetY": 0,
-      "followLerpSpeed": 0,
-      "snapOnInitialize": true,
-      "useHoverMotion": false,
-      "hoverAmplitude": 0,
-      "hoverFrequency": 0,
-      "hoverAxisX": 0,
-      "hoverAxisY": 0,
-      "endWhenOwnerMissing": true,
-      "orbitRadius": 0,
-      "orbitAngularSpeed": 0,
-      "clockwise": false,
-      "spawnOrder": 0,
-      "maxProjectileCount": 0,
-      "resetPhaseWhenLayoutChanges": false,
-      "useRadialPulse": false,
-      "radialPulseAmplitude": 0,
-      "radialPulseFrequency": 0
+      "warp": {}
     },
 
     "visualSet": {
@@ -134,17 +113,14 @@
 
         "maxHitCount": 999,
         "ignoreSameRoot": false,
-        "useRepeatInterval": false,
         "repeatInterval": 0,
 
-        "useHitWindow": false,
         "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
 
         "targetLayerMask": "Party",
 
-        "damage": {
-        },
+        "damage": null,
 
         "buffEffects": [
           {
@@ -165,7 +141,6 @@
         ],
         "debuffEffects": [],
 
-        "useSplitMultiHitDamage": false,
         "splitHitCount": 1,
         "splitHitInterval": 0
       }

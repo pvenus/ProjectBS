@@ -1,5 +1,6 @@
 using UnityEngine;
 using Skills.Dto.Move;
+using Skill;
 
 /// <summary>
 /// Projectile 이동 전용 게이트웨이 Mono.
@@ -21,8 +22,8 @@ public class SkillProjectileMoveMono : MonoBehaviour
 
     public bool IsReady => _moveController != null;
     public bool IsInitialized => _moveController != null && _moveController.IsInitialized;
-    public SkillProjectileMoveDto.MoveType MoveType =>
-        _moveController != null ? _moveController.MoveType : SkillProjectileMoveDto.MoveType.Linear;
+    public ProjectileMoveType MoveType =>
+        _moveController != null ? _moveController.MoveType : ProjectileMoveType.Linear;
 
     public SkillMoveSO CurrentMoveConfig => moveConfig;
 
@@ -92,17 +93,7 @@ public class SkillProjectileMoveMono : MonoBehaviour
         var controllerDto = new SkillProjectileMoveControllerDto
         {
             moveType = moveDto.moveType,
-            warpMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp
-                ? new SkillProjectileWarpMovementDto
-                {
-                    targetTransform = moveDto.targetTransform,
-                    startPosition = moveDto.startPosition,
-                    targetPosition = moveDto.targetPosition,
-                    direction = moveDto.GetDirection(),
-                    arrivalThreshold = moveDto.arrivalThreshold
-                }
-                : null,
-            orbitMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Orbit
+            orbitMovement = moveDto.moveType == ProjectileMoveType.Orbit
                 ? new SkillProjectileOrbitMovement.OrbitMovementDto
                 {
                     orbitRadius = moveDto.orbitRadius,
@@ -172,17 +163,7 @@ public class SkillProjectileMoveMono : MonoBehaviour
         var controllerDto = new SkillProjectileMoveControllerDto
         {
             moveType = moveDto.moveType,
-            warpMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp
-                ? new SkillProjectileWarpMovementDto
-                {
-                    targetTransform = moveDto.targetTransform,
-                    startPosition = moveDto.startPosition,
-                    targetPosition = moveDto.targetPosition,
-                    direction = moveDto.GetDirection(),
-                    arrivalThreshold = moveDto.arrivalThreshold
-                }
-                : null,
-            orbitMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Orbit
+            orbitMovement = moveDto.moveType == ProjectileMoveType.Orbit
                 ? new SkillProjectileOrbitMovement.OrbitMovementDto
                 {
                     orbitRadius = moveDto.orbitRadius,
@@ -245,11 +226,6 @@ public class SkillProjectileMoveMono : MonoBehaviour
         if (_moveController == null)
         {
             BuildController();
-        }
-
-        if (dto.moveType == SkillProjectileMoveDto.MoveType.Warp && dto.warpMovement != null)
-        {
-            dto.warpMovement.targetTransform = transform;
         }
 
         _moveController.Initialize(dto, movementContext);

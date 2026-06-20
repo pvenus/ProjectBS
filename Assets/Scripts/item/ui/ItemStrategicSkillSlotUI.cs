@@ -1,5 +1,4 @@
 using TMPro;
-using Item.Service;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,7 +18,6 @@ namespace Item.UI
         [SerializeField, Range(0f, 1f)] private float draggingAlpha = 0.5f;
 
         private StrategicSkillItemSO strategicSkillItem;
-        private StrategicSkillItemUseService useService;
         private Camera worldCamera;
         private RectTransform rectTransform;
         private Canvas rootCanvas;
@@ -48,7 +46,6 @@ namespace Item.UI
             StrategicSkillItemSO strategicSkillItem)
         {
             this.strategicSkillItem = strategicSkillItem;
-            useService ??= new StrategicSkillItemUseService();
             worldCamera = Camera.main;
 
             if (iconImage != null)
@@ -120,21 +117,15 @@ namespace Item.UI
                 return;
             }
 
-            if (useService == null)
-            {
-                useService = new StrategicSkillItemUseService();
-            }
-
             if (worldCamera == null)
             {
                 worldCamera = Camera.main;
             }
 
-            useService.TryUseFromScreenPosition(
+            ItemManager.Instance?.TryUseStrategicSkillItemFromScreenPosition(
                 strategicSkillItem,
                 eventData.position,
                 worldCamera,
-                this,
                 false,
                 this);
         }

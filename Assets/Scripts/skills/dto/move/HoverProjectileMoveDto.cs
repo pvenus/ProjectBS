@@ -1,6 +1,5 @@
-
-
 using UnityEngine;
+using Skill;
 
 namespace Skills.Dto.Move
 {

@@ -1,3 +1,5 @@
+using Skill;
+
 namespace Skills.Dto.Move
 {
     public abstract class SkillMoveRuntimeDto
@@ -6,11 +8,5 @@ namespace Skills.Dto.Move
         public float rotationOffset;
         public abstract ProjectileMoveType MoveType { get; }
 
-        public enum ProjectileMoveType
-        {
-            Linear,
-            Hover,
-            Orbit
-        }
     }
 }

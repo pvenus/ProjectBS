@@ -526,7 +526,7 @@ public class ProjectileFactory
                 : source.direction.normalized;
 
         if (source.move != null
-            && source.move.moveType == SkillProjectileMoveDto.MoveType.Homing)
+            && source.move.moveType == ProjectileMoveType.Homing)
         {
             return -baseDirection;
         }
@@ -855,14 +855,14 @@ public class ProjectileFactory
 
         SkillProjectileMoveDto move = CloneMoveDto(source.move);
 
-        if (move.moveType == SkillProjectileMoveDto.MoveType.Homing)
+        if (move.moveType == ProjectileMoveType.Homing)
         {
             move.startPosition = spawnPosition;
             move.targetTransform = source.target != null ? source.target.transform : null;
             return move;
         }
 
-        if (move.moveType != SkillProjectileMoveDto.MoveType.Linear)
+        if (move.moveType != ProjectileMoveType.Linear)
         {
             if (source.targetingType == TargetingType.AutoTargetDirection ||
                 source.targetingType == TargetingType.Directional)

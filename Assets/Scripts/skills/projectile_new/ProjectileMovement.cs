@@ -89,6 +89,13 @@ public class ProjectileMovement : MonoBehaviour
             return;
         }
 
+        if (runtimeData.moveRuntime is WarpProjectileMoveDto warpMoveDto)
+        {
+            PrepareWarpRuntimeMoveDto(runtimeData, warpMoveDto);
+            moveController.InitializeWarp(warpMoveDto, movementContext);
+            return;
+        }
+
         SkillProjectileMoveControllerDto controllerDto = BuildMoveControllerDto(runtimeData);
         if (controllerDto == null)
         {
@@ -161,6 +168,27 @@ public class ProjectileMovement : MonoBehaviour
             moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
         }
     }
+
+    private void PrepareWarpRuntimeMoveDto(
+        ProjectileRuntimeData data,
+        WarpProjectileMoveDto moveDto)
+    {
+        if (data == null || moveDto == null)
+        {
+            return;
+        }
+
+        if (data.targetingType == TargetingType.AutoTarget)
+        {
+            Transform targetTransform = data.target != null ? data.target.transform : null;
+
+            if (targetTransform != null)
+            {
+                moveDto.targetPosition = targetTransform.position;
+            }
+        }
+    }
+
     private SkillProjectileMoveControllerDto BuildMoveControllerDto(ProjectileRuntimeData data)
     {
         if (data == null)
@@ -175,13 +203,13 @@ public class ProjectileMovement : MonoBehaviour
         }
 
         bool isWarpMovement =
-            moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp;
+            moveDto.moveType == ProjectileMoveType.Warp;
 
         bool useRuntimeTargetPosition =
             data.targetingType == TargetingType.AutoTargetDirection ||
             data.targetingType == TargetingType.Directional ||
             data.targetingType == TargetingType.Position ||
-            (moveDto.moveType == SkillProjectileMoveDto.MoveType.Linear &&
+            (moveDto.moveType == ProjectileMoveType.Linear &&
              data.projectileCount > 1 &&
              data.projectileSpreadAngle > 0f);
 
@@ -230,18 +258,7 @@ public class ProjectileMovement : MonoBehaviour
         {
             applyDirectionRotation = moveDto.applyDirectionRotation,
             rotationOffset = moveDto.rotationOffset,
-
-            warpMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp
-                ? new SkillProjectileWarpMovementDto
-                {
-                    targetTransform = transform,
-                    startPosition = moveDto.startPosition,
-                    targetPosition = moveDto.targetPosition,
-                    direction = moveDto.GetDirection(),
-                    arrivalThreshold = moveDto.arrivalThreshold
-                }
-                : null,
-            orbitMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Orbit
+            orbitMovement = moveDto.moveType == ProjectileMoveType.Orbit
                 ? new SkillProjectileOrbitMovement.OrbitMovementDto
                 {
                     orbitRadius = moveDto.orbitRadius,
@@ -258,7 +275,7 @@ public class ProjectileMovement : MonoBehaviour
                 }
                 : null,
 
-            homingMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Homing
+            homingMovement = moveDto.moveType == ProjectileMoveType.Homing
                 ? new HomingMovementDto
                 {
                     targetTransform = transform,

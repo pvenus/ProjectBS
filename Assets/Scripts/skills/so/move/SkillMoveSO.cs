@@ -1,6 +1,7 @@
 using UnityEngine;
 using Skills.Move.Config;
 using Skills.Dto.Move;
+using Skill;
 
 [CreateAssetMenu(
     fileName = "SkillMove",
@@ -9,7 +10,7 @@ using Skills.Dto.Move;
 public class SkillMoveSO : ScriptableObject
 {
     [Header("Move Type")]
-    [SerializeField] private SkillProjectileMoveDto.MoveType moveType = SkillProjectileMoveDto.MoveType.Linear;
+    [SerializeField] private ProjectileMoveType moveType = ProjectileMoveType.Linear;
 
     [Header("Config")]
     [SerializeReference] private SkillMoveConfig config;
@@ -32,7 +33,7 @@ public class SkillMoveSO : ScriptableObject
     [SerializeField, Min(0f)] private float radialPulseAmplitude = 0f;
     [SerializeField, Min(0f)] private float radialPulseFrequency = 0f;
 
-    public SkillProjectileMoveDto.MoveType MoveType => moveType;
+    public ProjectileMoveType MoveType => moveType;
     public bool ApplyDirectionRotation => applyDirectionRotation;
     public float RotationOffset => rotationOffset;
 
@@ -74,15 +75,28 @@ public class SkillMoveSO : ScriptableObject
         Vector2 startPosition,
         Vector2 targetPosition)
     {
-        if (config != null)
+        SkillMoveConfig moveConfig = config ?? CreateDefaultConfig(moveType);
+
+        if (moveConfig == null)
         {
-            return config.CreateMoveDto(
-                targetTransform,
-                startPosition,
-                targetPosition);
+            return null;
         }
 
-        return null;
+        return moveConfig.CreateMoveDto(
+            targetTransform,
+            startPosition,
+            targetPosition);
+    }
+
+    private static SkillMoveConfig CreateDefaultConfig(ProjectileMoveType moveType)
+    {
+        return moveType switch
+        {
+            ProjectileMoveType.Linear => new LinearMoveConfig(),
+            ProjectileMoveType.Hover => new HoverMoveConfig(),
+            ProjectileMoveType.Warp => new WarpMoveConfig(),
+            _ => null
+        };
     }
 
     public LinearProjectileMoveDto CreateLinearProjectileMoveDto(

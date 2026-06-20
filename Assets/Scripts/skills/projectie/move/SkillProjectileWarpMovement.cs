@@ -1,28 +1,16 @@
-
-
 using UnityEngine;
-
+using Skills.Dto.Move;
 public class SkillProjectileWarpMovement : ISkillProjectileMovement
 {
-    private Transform _targetTransform;
     private SkillProjectileMovementContext _context;
-    private Vector2 _start;
-    private Vector2 _targetPosition;
-    private Vector2 _direction = Vector2.right;
-    private float _arrivalThreshold = 0.01f;
+    private SkillMoveRuntimeDto _dto;
     private bool _initialized;
-    private bool _hasReachedEnd;
-
-    public Transform TargetTransform => _targetTransform;
-    public Vector2 StartPosition => _start;
-    public Vector2 TargetPosition => _targetPosition;
-    public Vector2 Direction => _direction;
-    public float ArrivalThreshold => _arrivalThreshold;
+    public Transform TargetTransform => _context.projectileTransform;
     public bool IsInitialized => _initialized;
 
     public void Initialize(object dto)
     {
-        if (dto is SkillProjectileWarpMovementDto typed)
+        if (dto is WarpProjectileMoveDto typed)
         {
             Initialize(typed);
         }
@@ -37,32 +25,20 @@ public class SkillProjectileWarpMovement : ISkillProjectileMovement
         _context = context;
     }
 
-    public void Initialize(SkillProjectileWarpMovementDto dto)
+    public void Initialize(WarpProjectileMoveDto dto)
     {
         if (dto == null)
         {
-            Debug.LogError("SkillProjectileWarpMovementDto is null");
+            Debug.LogError("WarpProjectileMoveDto is null");
             return;
         }
 
-        if (dto.targetTransform == null)
+        _dto = dto;
+
+        if (_context.projectileTransform != null)
         {
-            Debug.LogError("SkillProjectileWarpMovement targetTransform is null");
-            return;
+            _context.projectileTransform.position = dto.targetPosition;
         }
-
-        _targetTransform = dto.targetTransform;
-        _start = dto.startPosition;
-        _targetPosition = dto.targetPosition;
-        _arrivalThreshold = Mathf.Max(0.0001f, dto.arrivalThreshold);
-
-        Vector2 delta = _targetPosition - _start;
-        _direction = delta.sqrMagnitude <= 0.0001f
-            ? (dto.direction.sqrMagnitude <= 0.0001f ? Vector2.right : dto.direction.normalized)
-            : delta.normalized;
-
-        _targetTransform.position = _targetPosition;
-        _hasReachedEnd = true;
         _initialized = true;
     }
 
@@ -73,34 +49,31 @@ public class SkillProjectileWarpMovement : ISkillProjectileMovement
 
     public bool HasReachedEnd()
     {
-        if (!_initialized || _targetTransform == null)
-            return false;
-
-        if (_hasReachedEnd)
-            return true;
-
-        return Vector2.Distance(_targetTransform.position, _targetPosition) <= _arrivalThreshold;
+        return _initialized;
     }
 
     public void ResetMovement()
     {
-        _targetTransform = null;
         _context = default;
-        _start = Vector2.zero;
-        _targetPosition = Vector2.zero;
-        _direction = Vector2.right;
-        _arrivalThreshold = 0.01f;
+        _dto = null;
         _initialized = false;
-        _hasReachedEnd = false;
     }
 
     public Vector2 GetDirection()
     {
-        return _direction;
+        {
+            return Vector2.zero;
+        }
     }
 
     public Vector2 GetPosition()
     {
-        return _targetTransform != null ? (Vector2)_targetTransform.position : _targetPosition;
+        {
+            return _context.projectileTransform != null
+                ? (Vector2)_context.projectileTransform.position
+                : (_dto is WarpProjectileMoveDto warpDto
+                    ? warpDto.targetPosition
+                    : Vector2.zero);
+        }
     }
 }

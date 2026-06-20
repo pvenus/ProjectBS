@@ -84,6 +84,7 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowDecision.cs" />
     <Compile Include="Assets/Scripts/party/service/mode/AggressivePositionModeService.cs" />
     <Compile Include="Assets/Scripts/ui/UIUpgradeBottomMono.cs" />
+    <Compile Include="Assets/Scripts/skills/so/move/config/WarpMoveConfig.cs" />
     <Compile Include="Assets/Scripts/party/service/mode/ReturnToDestinationModeService.cs" />
     <Compile Include="Assets/Scripts/party/TowerPropMono.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowContext.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Assets/Scripts/skills/so/animation/SkillVisualSetSO.cs" />
     <Compile Include="Assets/Scripts/stage/resolver/StageEventResolver.cs" />
     <Compile Include="Assets/Scripts/skills/so/damage/SkillDamageSO.cs" />
+    <Compile Include="Assets/Scripts/item/service/AIFunctionItemService.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/ShrineGodCard.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileOrbitMovement.cs" />
     <Compile Include="Assets/Scripts/effect/runtime/ChanceOnHealCooldownReduceEffectRuntime.cs" />
@@ -200,7 +202,6 @@
     <Compile Include="Assets/Scripts/stat/StatManager.cs" />
     <Compile Include="Assets/Scripts/character/state/AttackTargetState.cs" />
     <Compile Include="Assets/Scripts/character/state/MoveToTargetState.cs" />
-    <Compile Include="Assets/Scripts/item/service/StrategicSkillItemUseService.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileLifeTimeMono.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/ShopPage.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DecisionLayer/SkillUseState.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="Assets/Scripts/skills/projectie/move/SkillProjectileHomingMovement.cs" />
     <Compile Include="Assets/Scripts/skills/runtime/SkillPoolRuntimeData.cs" />
     <Compile Include="Assets/Scripts/venus/SolutionStyle.cs" />
+    <Compile Include="Assets/Scripts/skills/dto/move/WarpProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/party/StatMono.cs" />
     <Compile Include="Assets/Scripts/shring/ShrineEnum.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Debug/SkillSelectionStateDebug.cs" />
@@ -385,6 +387,7 @@
     <Compile Include="Assets/Scripts/skills/JudgementMarkSkill.cs" />
     <Compile Include="Assets/Scripts/bless/so/BlessConfigSO.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Interpreters/ProblemToSolution.cs" />
+    <Compile Include="Assets/Scripts/item/service/RelicItemService.cs" />
     <Compile Include="Assets/Scripts/item/so/StrategicSkillItemSO.cs" />
     <Compile Include="Assets/Scripts/stage/runtime/StageRuntimeData.cs" />
     <Compile Include="Assets/Scripts/shop/ShopEnum.cs" />
@@ -437,6 +440,7 @@
     <Compile Include="Assets/Scripts/party/SkillBrainInputBuilder.cs" />
     <Compile Include="Assets/Scripts/skills/so/animation/SkillAnimationSO.cs" />
     <Compile Include="Assets/Scripts/NpcBossMono.cs" />
+    <Compile Include="Assets/Scripts/item/service/StrategicSkillItemService.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/inventory/EquipmentInventoryMono.cs" />
     <Compile Include="Assets/Scripts/wave/NpcSpawnerMono.cs" />

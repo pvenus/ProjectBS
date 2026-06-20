@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41a661d9c6f94f19b59d9c40ba4e30b, type: 3}
   m_Name: skill.strategic.emergency_pill.move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
-  moveType: 0
+  moveType: 2
   config:
-    rid: -2
+    rid: 6756114586817790022
   applyDirectionRotation: 0
   rotationOffset: 0
   orbitRadius: 0
@@ -28,5 +28,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 6756114586817790022
+      type: {class: WarpMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
+      data: 

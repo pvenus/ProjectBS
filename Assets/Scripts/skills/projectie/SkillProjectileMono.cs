@@ -1,6 +1,6 @@
 using UnityEngine;
 using Skills.Dto;
-
+using Skill;
 public class SkillProjectileMono : MonoBehaviour
 {
     // runtime refresh (fixed interval)
@@ -70,7 +70,7 @@ public class SkillProjectileMono : MonoBehaviour
 
         if (dto.moveConfig != null)
         {
-            if (dto.moveConfig.MoveType == SkillProjectileMoveDto.MoveType.Orbit)
+            if (dto.moveConfig.MoveType == ProjectileMoveType.Orbit)
             {
                 SkillProjectileMoveDto orbitDto = dto.moveConfig.CreateDto(transform, spawnPosition, targetPosition);
                 orbitDto.spawnOrder = _spawnOrder;
