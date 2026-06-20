@@ -1,4 +1,5 @@
 using TMPro;
+using Item.Service;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,8 +18,9 @@ namespace Item.UI
         [SerializeField] private RectTransform dragVisual;
         [SerializeField, Range(0f, 1f)] private float draggingAlpha = 0.5f;
 
-        private ItemStrategicSkillUI owner;
         private StrategicSkillItemSO strategicSkillItem;
+        private StrategicSkillItemUseService useService;
+        private Camera worldCamera;
         private RectTransform rectTransform;
         private Canvas rootCanvas;
         private Vector2 originalAnchoredPosition;
@@ -45,8 +47,9 @@ namespace Item.UI
             ItemStrategicSkillUI owner,
             StrategicSkillItemSO strategicSkillItem)
         {
-            this.owner = owner;
             this.strategicSkillItem = strategicSkillItem;
+            useService ??= new StrategicSkillItemUseService();
+            worldCamera = Camera.main;
 
             if (iconImage != null)
             {
@@ -112,14 +115,28 @@ namespace Item.UI
                 canvasGroup.alpha = 1f;
             }
 
-            if (owner == null || strategicSkillItem == null)
+            if (strategicSkillItem == null)
             {
                 return;
             }
 
-            owner.TryUseStrategicSkillItem(
+            if (useService == null)
+            {
+                useService = new StrategicSkillItemUseService();
+            }
+
+            if (worldCamera == null)
+            {
+                worldCamera = Camera.main;
+            }
+
+            useService.TryUseFromScreenPosition(
                 strategicSkillItem,
-                eventData.position);
+                eventData.position,
+                worldCamera,
+                this,
+                false,
+                this);
         }
     }
 }

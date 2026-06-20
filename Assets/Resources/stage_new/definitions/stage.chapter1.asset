@@ -15,9 +15,9 @@ MonoBehaviour:
   stageId: stage.chapter1
   stageName: Chapter 1 - Cheongun Village
   segmentRules:
-  - fromDepth: 1
+  - fromDepth: 2
     fromColumn: 0
-    toDepth: 3
+    toDepth: 5
     toColumn: 0
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -28,30 +28,25 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 826fdcdf7fea14a4b88b7c84e2d19e9c, type: 2}
+      required: 1
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
+      required: 0
+      maxAppearCount: 0
+      priority: 10
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
       required: 0
       maxAppearCount: 0
       priority: 20
-  - fromDepth: 3
-    fromColumn: 0
-    toDepth: 6
-    toColumn: 0
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: ab7ac272b200f49cd86388d8be54bc34, type: 2}
       required: 0
-      maxAppearCount: 1
-      priority: 0
-  - fromDepth: 3
+      maxAppearCount: 0
+      priority: 25
+  - fromDepth: 2
     fromColumn: 1
-    toDepth: 6
+    toDepth: 5
     toColumn: 1
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -62,13 +57,21 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
-  - fromDepth: 6
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 5
     fromColumn: 0
-    toDepth: 9
+    toDepth: 8
     toColumn: 0
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -79,13 +82,21 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
-  - fromDepth: 6
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 5
     fromColumn: 1
-    toDepth: 9
+    toDepth: 8
     toColumn: 1
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -96,13 +107,21 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
-  - fromDepth: 9
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 8
     fromColumn: 0
-    toDepth: 12
+    toDepth: 11
     toColumn: 0
     minTotalWeight: 90
     maxTotalWeight: 110
@@ -113,14 +132,22 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
-  - fromDepth: 9
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+  - fromDepth: 8
     fromColumn: 1
-    toDepth: 12
-    toColumn: 0
+    toDepth: 11
+    toColumn: 1
     minTotalWeight: 90
     maxTotalWeight: 110
     minLayerCount: 2
@@ -130,45 +157,53 @@ MonoBehaviour:
     minNodesPerLayer: 2
     maxNodesPerLayer: 3
     pools:
-    - pool: {fileID: 11400000, guid: 4468aaa605c4a4de9ac99866141d0d9e, type: 2}
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
       required: 0
       maxAppearCount: 1
       priority: 0
   requiredSubEvents:
-  - node: {fileID: 11400000, guid: 2fd8340bf4cc547719192892df0eb303, type: 2}
+  - node: {fileID: 11400000, guid: 5f119d2daafba4c0c9d8a9701aef8694, type: 2}
     depth: 0
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 7c1275d5f090c4dcd8d6a1e15b1dce36, type: 2}
+  - node: {fileID: 11400000, guid: 9604474f0680347cda43c0a80dc70579, type: 2}
     depth: 1
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 5fa9fa564520743048adcf703c3a1f4a, type: 2}
-    depth: 3
+  - node: {fileID: 11400000, guid: 6f93290da82dc4d4193db79a14f8cb54, type: 2}
+    depth: 2
     column: 0
     hiddenByDefault: 1
-  - node: {fileID: 11400000, guid: b37ba98e7d5414f0c9d235150bbc2b43, type: 2}
-    depth: 3
+  - node: {fileID: 11400000, guid: 3090b6fa0023349d5a319ffb7593e289, type: 2}
+    depth: 2
     column: 1
     hiddenByDefault: 1
-  - node: {fileID: 11400000, guid: 9d9d4106d2ebd4a1492d5dc45994b471, type: 2}
-    depth: 6
+  - node: {fileID: 11400000, guid: 32a4726f5ddb545b3a911aba159f9215, type: 2}
+    depth: 5
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: a7276608103a644fdbf85dee5b7f7141, type: 2}
-    depth: 6
+  - node: {fileID: 11400000, guid: ffb27bdff023d494b99f2b4dc66087e0, type: 2}
+    depth: 5
     column: 1
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 8ca84dc697ba34e59ae74df4051ee7c0, type: 2}
-    depth: 9
+  - node: {fileID: 11400000, guid: be066564766fc427eae568cbc88620a1, type: 2}
+    depth: 8
     column: 0
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 2d7d00747f6cd4020bbe206d73b8e8b9, type: 2}
-    depth: 9
+  - node: {fileID: 11400000, guid: 1e6d33c6750ab437f8272b0faf7d0446, type: 2}
+    depth: 8
     column: 1
     hiddenByDefault: 0
-  - node: {fileID: 11400000, guid: 1d5edcba4f3d240bd851c3dbb4bf0a4d, type: 2}
-    depth: 12
+  - node: {fileID: 11400000, guid: 2ca520ab184b34cdebafb1a5b21b43b6, type: 2}
+    depth: 11
     column: 0
     hiddenByDefault: 0
   useFixedSeed: 0

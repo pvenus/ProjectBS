@@ -1,8 +1,7 @@
 {
-  "equipmentId": "active_1",
+  "equipmentId": "skill.military_officer.1.active_1",
   "slotName": "active_1",
-  "skillName": "skill.military_officer.1.charge",
-  "iconName": "basic_attack",
+  "skillName": "돌격",
   "baseProfile": {
     "profileId": "skill.military_officer.1.charge.profile",
 
@@ -71,30 +70,12 @@
   "move": {
     "moveId": "skill.military_officer.1.charge.move",
     "moveType": "Hover",
-    "speed": 0,
-    "duration": 0.3,
-    "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
     "rotationOffset": 180,
-    "followOffsetX": 0,
-    "followOffsetY": 0,
-    "followLerpSpeed": 12,
-    "snapOnInitialize": true,
-    "useHoverMotion": false,
-    "hoverAmplitude": 0,
-    "hoverFrequency": 0,
-    "hoverAxisX": 0,
-    "hoverAxisY": 1,
-    "endWhenOwnerMissing": true,
-    "orbitRadius": 0,
-    "orbitAngularSpeed": 0,
-    "clockwise": false,
-    "spawnOrder": 0,
-    "maxProjectileCount": 1,
-    "resetPhaseWhenLayoutChanges": true,
-    "useRadialPulse": false,
-    "radialPulseAmplitude": 0,
-    "radialPulseFrequency": 0
+    "hover": {
+      "followOffsetX": 0,
+      "followOffsetY": 0
+    }
   },
   "visualSet": {
     "visualSetId": "skill.military_officer.1.charge.visual",
@@ -136,12 +117,9 @@
 
       "maxHitCount": 20,
       "ignoreSameRoot": true,
-      "useRepeatInterval": false,
       "repeatInterval": 0.25,
 
-      "useHitWindow": false,
       "hitStartTime": 0,
-      "hitDuration": 0.3,
       "deactivateAfterFirstHit": false,
 
       "targetLayerMask": "Enemy",
@@ -150,6 +128,7 @@
         "skillId": "skill.military_officer.1.charge.damage",
         "damageType": "Normal",
         "baseDamage": 50,
+        "firstHitBaseDamage": 0,
         "attackPercentDamage": 1.8,
         "canCritical": false,
         "ignoreDefense": false
@@ -174,7 +153,6 @@
         }
       ],
 
-      "useSplitMultiHitDamage": false,
       "splitHitCount": 1,
       "splitHitInterval": 0
     }

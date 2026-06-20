@@ -33,12 +33,13 @@
       "projectilePrefabName": "[item.strategic.emergency_pill][prefab] projectile",
       "projectileSpawnOffset": 0,
 
-      "projectileCount": 0,
+      "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 0,
+      "projectileLifetime": 0.1,
 
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
+      "projectileColliderRadius": 1,
 
       "category": "Heal",
       "targetType": "Ally",
@@ -131,34 +132,35 @@
       {
         "hitId": "skill.strategic.emergency_pill.hit",
 
-        "maxHitCount": 1,
+        "maxHitCount": 999,
         "ignoreSameRoot": false,
         "useRepeatInterval": false,
         "repeatInterval": 0,
 
         "useHitWindow": false,
         "hitStartTime": 0,
-        "deactivateAfterFirstHit": true,
+        "deactivateAfterFirstHit": false,
 
-        "targetLayerMask": "Player",
+        "targetLayerMask": "Party",
 
         "damage": {
-          "skillId": "skill.strategic.emergency_pill.damage",
-          "damageType": "None",
-          "baseDamage": 0,
-          "attackPercentDamage": 0,
-          "canCritical": false,
-          "ignoreDefense": true
         },
 
         "buffEffects": [
           {
-            "effectId": "effect.strategic.emergency_pill.heal_30",
-            "effectType": "InstantHeal",
-            "targetType": "Ally",
-            "value": 30,
+            "effect": {
+              "effectId": "effect.strategic.emergency_pill.heal_30",
+              "effectType": "Heal",
+              "effectName": "응급 단약 회복",
+              "flatHealAmount": 30,
+              "useAttackScaling": false,
+              "attackPercentHeal": 0,
+              "clampToMaxHp": true
+            },
+            "lifetimeType": "Instant",
+            "categoryType": "Buff",
             "duration": 0,
-            "tickInterval": 0
+            "maxApplyCount": 1
           }
         ],
         "debuffEffects": [],

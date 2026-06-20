@@ -1,29 +1,20 @@
 using UnityEngine;
+using Skills.Dto.Move;
 
 public class SkillProjectileLinearMovement : ISkillProjectileMovement
 {
-    private Transform _targetTransform;
+    // DTO는 외부 입력 설정값을 보관하고, 계산/변경되는 상태만 내부 필드가 소유한다.
+    private LinearProjectileMoveDto _dto;
     private SkillProjectileMovementContext _context;
-    private Vector2 _start;
-    private Vector2 _targetPosition;
     private Vector2 _direction = Vector2.right;
-    private float _speed;
-    private float _maxDistance;
-    private float _arrivalThreshold = 0.01f;
     private bool _initialized;
-    private bool _hasReachedEnd;
 
-    public Transform TargetTransform => _targetTransform;
-    public Vector2 StartPosition => _start;
-    public Vector2 TargetPosition => _targetPosition;
-    public Vector2 Direction => _direction;
-    public float Speed => _speed;
-    public float MaxDistance => _maxDistance;
+    public Transform MovingTransform => _context.projectileTransform;
     public bool IsInitialized => _initialized;
 
     public void Initialize(object dto)
     {
-        if (dto is SkillProjectileLinearMovementDto typed)
+        if (dto is LinearProjectileMoveDto typed)
         {
             Initialize(typed);
         }
@@ -38,93 +29,53 @@ public class SkillProjectileLinearMovement : ISkillProjectileMovement
         _context = context;
     }
 
-    public void Initialize(SkillProjectileLinearMovementDto dto)
+    public void Initialize(LinearProjectileMoveDto dto)
     {
         if (dto == null)
         {
-            Debug.LogError("SkillProjectileLinearMovementDto is null");
+            Debug.LogError("LinearProjectileMoveDto is null");
             return;
         }
 
-        if (dto.targetTransform == null)
+        _dto = dto;
+        if (_context.projectileTransform == null)
         {
-            Debug.LogError("SkillProjectileLinearMovement targetTransform is null");
+            Debug.LogError("SkillProjectileLinearMovement moving projectile transform is null");
             return;
         }
 
-        _targetTransform = dto.targetTransform;
-        _start = dto.startPosition;
-        _targetPosition = dto.targetPosition;
-
-        Vector2 delta = _targetPosition - _start;
+        Vector2 delta = _dto.targetPosition - _dto.startPosition;
         _direction = delta.sqrMagnitude <= 0.0001f
-            ? (dto.direction.sqrMagnitude <= 0.0001f ? Vector2.right : dto.direction.normalized)
+            ? Vector2.right
             : delta.normalized;
-
-        _speed = Mathf.Max(0f, dto.speed);
-        _maxDistance = delta.magnitude > 0.0001f ? delta.magnitude : Mathf.Max(0f, dto.maxDistance);
-        _arrivalThreshold = Mathf.Max(0.0001f, dto.arrivalThreshold);
-        _hasReachedEnd = false;
         _initialized = true;
 
-        _targetTransform.position = _start;
+        _context.projectileTransform.position = _dto.startPosition;
     }
 
     public void TickMovement(float deltaTime)
     {
-        if (!_initialized || _targetTransform == null || _hasReachedEnd)
+        if (!_initialized || _dto == null || _context.projectileTransform == null)
             return;
 
-        Vector2 current = _targetTransform.position;
-        Vector2 toTarget = _targetPosition - current;
-        float remainingDistance = toTarget.magnitude;
-
-        if (remainingDistance <= _arrivalThreshold)
-        {
-            _targetTransform.position = _targetPosition;
-            _hasReachedEnd = true;
-            return;
-        }
-
-        float step = _speed * deltaTime;
+        float step = Mathf.Max(0f, _dto.speed) * deltaTime;
         if (step <= 0f)
             return;
 
-        if (step >= remainingDistance)
-        {
-            _targetTransform.position = _targetPosition;
-            _hasReachedEnd = true;
-            return;
-        }
-
-        Vector2 moveDir = toTarget / remainingDistance;
-        _direction = moveDir;
-        _targetTransform.position = current + moveDir * step;
+        _context.projectileTransform.position += (Vector3)(_direction * step);
     }
 
     public bool HasReachedEnd()
     {
-        if (!_initialized || _targetTransform == null)
-            return false;
-
-        if (_hasReachedEnd)
-            return true;
-
-        return Vector2.Distance(_targetTransform.position, _targetPosition) <= _arrivalThreshold;
+        return false;
     }
 
     public void ResetMovement()
     {
-        _targetTransform = null;
+        _dto = null;
         _context = default;
-        _start = Vector2.zero;
-        _targetPosition = Vector2.zero;
         _direction = Vector2.right;
-        _speed = 0f;
-        _maxDistance = 0f;
-        _arrivalThreshold = 0.01f;
         _initialized = false;
-        _hasReachedEnd = false;
     }
 
     public Vector2 GetDirection()
@@ -134,37 +85,6 @@ public class SkillProjectileLinearMovement : ISkillProjectileMovement
 
     public Vector2 GetPosition()
     {
-        return _targetTransform != null ? (Vector2)_targetTransform.position : _start;
+        return _context.projectileTransform != null ? (Vector2)_context.projectileTransform.position : Vector2.zero;
     }
-
-    public void SetDirection(Vector2 direction)
-    {
-        if (direction.sqrMagnitude <= 0.0001f)
-            return;
-
-        _direction = direction.normalized;
-        _targetPosition = _start + (_direction * _maxDistance);
-    }
-
-    public void SetSpeed(float speed)
-    {
-        _speed = Mathf.Max(0f, speed);
-    }
-
-    public void SetMaxDistance(float maxDistance)
-    {
-        _maxDistance = Mathf.Max(0f, maxDistance);
-        _targetPosition = _start + (_direction * _maxDistance);
-    }
-}
-
-public class SkillProjectileLinearMovementDto
-{
-    public Transform targetTransform;
-    public Vector2 startPosition;
-    public Vector2 targetPosition;
-    public Vector2 direction;
-    public float speed;
-    public float maxDistance;
-    public float arrivalThreshold = 0.01f;
 }

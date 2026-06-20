@@ -1,8 +1,7 @@
 {
-  "equipmentId": "basic_attack",
+  "equipmentId": "skill.military_officer.3.basic_attack",
   "slotName": "basic",
-  "skillName": "skill.military_officer.3.basic_attack",
-  "iconName": "basic_attack",
+  "skillName": "기본 공격",
   "baseProfile": {
     "profileId": "skill.military_officer.3.basic_attack.profile",
 
@@ -42,30 +41,12 @@
   },
   "move": {
     "moveId": "skill.military_officer.3.basic_attack.move",
-    "moveType": "FixedArea",
-    "speed": 0,
-    "arrivalThreshold": 0.01,
+    "moveType": "Linear",
     "applyDirectionRotation": true,
     "rotationOffset": 0,
-    "followOffsetX": 0,
-    "followOffsetY": 0,
-    "followLerpSpeed": 12,
-    "snapOnInitialize": true,
-    "useHoverMotion": false,
-    "hoverAmplitude": 0.15,
-    "hoverFrequency": 2.5,
-    "hoverAxisX": 0,
-    "hoverAxisY": 1,
-    "endWhenOwnerMissing": true,
-    "orbitRadius": 1.5,
-    "orbitAngularSpeed": 180,
-    "clockwise": false,
-    "spawnOrder": 0,
-    "maxProjectileCount": 1,
-    "resetPhaseWhenLayoutChanges": true,
-    "useRadialPulse": false,
-    "radialPulseAmplitude": 0,
-    "radialPulseFrequency": 0
+    "linear": {
+      "speed": 0
+    }
   },
   "visualSet": {
     "visualSetId": "skill.military_officer.3.basic_attack.visual",
@@ -107,10 +88,8 @@
 
       "maxHitCount": 999,
       "ignoreSameRoot": true,
-      "useRepeatInterval": false,
       "repeatInterval": 0.25,
 
-      "useHitWindow": false,
       "hitStartTime": 0,
       "deactivateAfterFirstHit": true,
 
@@ -120,6 +99,7 @@
         "skillId": "skill.military_officer.3.basic_attack.damage",
         "damageType": "Normal",
         "baseDamage": 45,
+        "firstHitBaseDamage": 0,
         "attackPercentDamage": 100,
         "canCritical": true,
         "ignoreDefense": false
@@ -128,7 +108,6 @@
       "buffEffects": [],
       "debuffEffects": [],
 
-      "useSplitMultiHitDamage": false,
       "splitHitCount": 4,
       "splitHitInterval": 0.1
     }

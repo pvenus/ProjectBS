@@ -1,7 +1,7 @@
 using Skills.Dto;
 using UnityEngine;
 using Skill;
-[CreateAssetMenu(fileName = "SkillDamageSO", menuName = "BS/Skills/Damage/SkillDamageSO")]
+[CreateAssetMenu(fileName = "SkillDamageSO", menuName = "Game/Skills/Damage/SkillDamageSO")]
 public class SkillDamageSO : ScriptableObject
 {
     [Header("Skill")]
@@ -11,6 +11,7 @@ public class SkillDamageSO : ScriptableObject
     [Header("Damage")]
     // 기본 데미지: Heat 스케일링 및 최종 데미지의 기준이 되는 값
     [SerializeField] private float baseDamage = 10f;
+    [SerializeField] private float firstHitBaseDamage = 0f;
 
     // 공격력 계수 기반 추가 데미지
     [SerializeField] private float attackPercentDamage = 1f;
@@ -22,6 +23,7 @@ public class SkillDamageSO : ScriptableObject
     public string SkillId => skillId;
     public DamageType DamageType => damageType;
     public float BaseDamage => baseDamage;
+    public float FirstHitBaseDamage => firstHitBaseDamage;
     public float AttackPercentDamage => attackPercentDamage;
     public bool CanCritical => canCritical;
     public bool IgnoreDefense => ignoreDefense;
@@ -38,6 +40,7 @@ public class SkillDamageSO : ScriptableObject
             skillId = skillId,
             damageType = damageType,
             baseDamage = Mathf.Max(0f, baseDamage),
+            firstHitBaseDamage = Mathf.Max(0f, firstHitBaseDamage),
             attackDamagePercent = Mathf.Max(0f, attackPercentDamage),
             canCritical = canCritical,
             ignoreDefense = ignoreDefense

@@ -23,8 +23,8 @@ namespace ResourceTools.Stage
     /// </summary>
     public static class StageNodeBuilder
     {
-        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage/nodes";
-        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage/popup_events";
+        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
+        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
 
         public sealed class BuildResult
         {
@@ -134,6 +134,17 @@ namespace ResourceTools.Stage
             if (startEvent != null)
             {
                 asset.popupEvent = startEvent;
+
+                Sprite mainImage = FindMainImageByStageNodeId(stageNodeId);
+                if (mainImage != null)
+                {
+                    startEvent.mainImage = mainImage;
+                    EditorUtility.SetDirty(startEvent);
+                }
+                else
+                {
+                    result.warnings.Add($"Main image not found. stageNodeId={stageNodeId}");
+                }
             }
             else
             {
@@ -193,6 +204,42 @@ namespace ResourceTools.Stage
 
             Debug.LogWarning($"[StageNodeBuilder] Unknown roundNodeType={value}. Fallback to Event.");
             return RoundNodeType.Event;
+        }
+
+        private static Sprite FindMainImageByStageNodeId(string stageNodeId)
+        {
+            if (string.IsNullOrWhiteSpace(stageNodeId))
+            {
+                return null;
+            }
+
+            string[] guids = AssetDatabase.FindAssets($"{stageNodeId} t:Sprite");
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sprite == null)
+                {
+                    continue;
+                }
+
+                if (sprite.name == stageNodeId)
+                {
+                    return sprite;
+                }
+            }
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sprite != null)
+                {
+                    return sprite;
+                }
+            }
+
+            return null;
         }
 
         private static string GetAssetPath(string outputFolder, string id)

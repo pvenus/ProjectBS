@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Skill;
+using Skills.Dto.Move;
 /// <summary>
 /// ProjectileEntity 생성 전용 팩토리.
 /// 프리팹 Instantiate 없이 GameObject를 코드에서 생성한다.
@@ -201,8 +202,7 @@ public class ProjectileFactory
     {
         return runtimeData != null
             && count > 1
-            && runtimeData.damageProfile != null
-            && runtimeData.damageProfile.projectileSpawnInterval > 0f;
+            && runtimeData.projectileSpawnInterval > 0f;
     }
 
     private IEnumerator SpawnRoutine(
@@ -213,7 +213,7 @@ public class ProjectileFactory
         int count = Mathf.Max(1, runtimeData.projectileCount);
         float interval = Mathf.Max(
             0f,
-            runtimeData.damageProfile.projectileSpawnInterval);
+            runtimeData.projectileSpawnInterval);
 
         // Removed shared rotation calculation. Each instance will have its own rotation.
 
@@ -656,6 +656,10 @@ public class ProjectileFactory
                 source,
                 spawnOrder,
                 spawnPosition),
+            moveRuntime = CreateInstanceMoveRuntimeDto(
+                source,
+                spawnOrder,
+                spawnPosition),
             hit = source.hit,
             damageProfile = source.damageProfile,
             visualContext = source.visualContext,
@@ -671,6 +675,172 @@ public class ProjectileFactory
         };
 
         return data;
+    }
+
+    private SkillMoveRuntimeDto CreateInstanceMoveRuntimeDto(
+        ProjectileRuntimeData source,
+        int spawnOrder,
+        Vector2 spawnPosition)
+    {
+        if (source == null || source.moveRuntime == null)
+        {
+            return source?.moveRuntime;
+        }
+
+        if (source.moveRuntime is LinearProjectileMoveDto linear)
+        {
+            return CreateInstanceLinearMoveDto(
+                source,
+                linear,
+                spawnOrder,
+                spawnPosition);
+        }
+
+        return source.moveRuntime;
+    }
+
+    private LinearProjectileMoveDto CreateInstanceLinearMoveDto(
+        ProjectileRuntimeData source,
+        LinearProjectileMoveDto sourceMove,
+        int spawnOrder,
+        Vector2 spawnPosition)
+    {
+        LinearProjectileMoveDto move = CloneLinearMoveDto(sourceMove);
+        move.startPosition = spawnPosition;
+
+        if (source.targetingType == TargetingType.AutoTargetDirection ||
+            source.targetingType == TargetingType.Directional)
+        {
+            move.targetPosition = ResolveDirectionBasedDestination(
+                source,
+                move,
+                spawnPosition);
+        }
+        else if (source.targetingType == TargetingType.Position)
+        {
+            move.targetPosition = sourceMove.targetPosition;
+        }
+
+        int projectileCount = Mathf.Max(1, source.projectileCount);
+        float spreadAngle = Mathf.Max(0f, source.projectileSpreadAngle);
+
+        if (projectileCount <= 1 || spreadAngle <= 0f)
+        {
+            return move;
+        }
+
+        Vector2 baseDirection = ResolveLinearBaseDirection(
+            move,
+            source,
+            spawnPosition);
+
+        Vector2 spreadDirection = RotateDirection(
+            baseDirection,
+            EvaluateSpreadAngle(
+                spawnOrder,
+                projectileCount,
+                spreadAngle));
+
+        float distance = source.targetingType == TargetingType.AutoTargetDirection ||
+            source.targetingType == TargetingType.Directional
+                ? Vector2.Distance(
+                    spawnPosition,
+                    ResolveDirectionBasedDestination(source, move, spawnPosition))
+                : ResolveLinearDistance(
+                    move,
+                    spawnPosition);
+
+        move.targetPosition = spawnPosition + spreadDirection * distance;
+
+        return move;
+    }
+
+    private LinearProjectileMoveDto CloneLinearMoveDto(LinearProjectileMoveDto source)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        return new LinearProjectileMoveDto
+        {
+            startPosition = source.startPosition,
+            targetPosition = source.targetPosition,
+            speed = source.speed,
+            applyDirectionRotation = source.applyDirectionRotation,
+            rotationOffset = source.rotationOffset
+        };
+    }
+    private Vector2 ResolveDirectionBasedDestination(
+        ProjectileRuntimeData source,
+        LinearProjectileMoveDto move,
+        Vector2 spawnPosition)
+    {
+        Vector2 direction = source != null && source.direction.sqrMagnitude > 0.0001f
+            ? source.direction.normalized
+            : Vector2.right;
+
+        float targetDistance = source != null
+            ? Vector2.Distance(spawnPosition, move.targetPosition)
+            : 0f;
+
+        float lifetimeDistance = 0f;
+
+        if (source != null && move != null && source.lifetime > 0f && move.speed > 0f)
+        {
+            lifetimeDistance = source.lifetime * move.speed;
+        }
+
+        float distance = Mathf.Max(targetDistance, lifetimeDistance);
+
+        if (distance <= 0.0001f)
+        {
+            distance = 1f;
+        }
+
+        return spawnPosition + direction * distance;
+    }
+    private Vector2 ResolveLinearBaseDirection(
+        LinearProjectileMoveDto move,
+        ProjectileRuntimeData source,
+        Vector2 spawnPosition)
+    {
+        if (move == null)
+        {
+            return ResolveProjectileDirection(source, 0);
+        }
+
+        Vector2 toTarget = move.targetPosition - spawnPosition;
+
+        if (toTarget.sqrMagnitude > 0.0001f)
+        {
+            return toTarget.normalized;
+        }
+
+        return ResolveProjectileDirection(source, 0);
+    }
+
+    private float ResolveLinearDistance(
+        LinearProjectileMoveDto move,
+        Vector2 spawnPosition)
+    {
+        if (move == null)
+        {
+            return 0f;
+        }
+
+        float targetDistance = Vector2.Distance(
+            spawnPosition,
+            move.targetPosition);
+
+        if (targetDistance > 0.0001f)
+        {
+            return targetDistance;
+        }
+
+        return Vector2.Distance(
+            move.startPosition,
+            move.targetPosition);
     }
 
     private SkillProjectileMoveDto CreateInstanceMoveDto(

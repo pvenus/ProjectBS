@@ -1,4 +1,6 @@
 using UnityEngine;
+using Skills.Move.Config;
+using Skills.Dto.Move;
 
 [CreateAssetMenu(
     fileName = "SkillMove",
@@ -9,27 +11,12 @@ public class SkillMoveSO : ScriptableObject
     [Header("Move Type")]
     [SerializeField] private SkillProjectileMoveDto.MoveType moveType = SkillProjectileMoveDto.MoveType.Linear;
 
-    [Header("Linear / Common")]
-    [SerializeField, Min(0f)] private float speed = 1f;
-    [SerializeField, Min(0f)] private float arrivalThreshold = 0.01f;
+    [Header("Config")]
+    [SerializeReference] private SkillMoveConfig config;
 
     [Header("Rotation")]
     [SerializeField] private bool applyDirectionRotation;
     [SerializeField] private float rotationOffset;
-
-    [Header("Hover / Follow")]
-    [SerializeField] private Vector2 followOffset = Vector2.zero;
-    [SerializeField, Min(0f)] private float followLerpSpeed = 12f;
-    [SerializeField] private bool snapOnInitialize = true;
-
-    [Header("Hover Motion")]
-    [SerializeField] private bool useHoverMotion = true;
-    [SerializeField, Min(0f)] private float hoverAmplitude = 0.15f;
-    [SerializeField, Min(0f)] private float hoverFrequency = 2.5f;
-    [SerializeField] private Vector2 hoverAxis = Vector2.up;
-
-    [Header("Hover Behavior")]
-    [SerializeField] private bool endWhenOwnerMissing = true;
 
     [Header("Orbit")]
     [SerializeField, Min(0f)] private float orbitRadius = 1.5f;
@@ -46,19 +33,8 @@ public class SkillMoveSO : ScriptableObject
     [SerializeField, Min(0f)] private float radialPulseFrequency = 0f;
 
     public SkillProjectileMoveDto.MoveType MoveType => moveType;
-    public float Speed => speed;
-    public float ArrivalThreshold => arrivalThreshold;
     public bool ApplyDirectionRotation => applyDirectionRotation;
     public float RotationOffset => rotationOffset;
-
-    public Vector2 FollowOffset => followOffset;
-    public float FollowLerpSpeed => followLerpSpeed;
-    public bool SnapOnInitialize => snapOnInitialize;
-    public bool UseHoverMotion => useHoverMotion;
-    public float HoverAmplitude => hoverAmplitude;
-    public float HoverFrequency => hoverFrequency;
-    public Vector2 HoverAxis => hoverAxis;
-    public bool EndWhenOwnerMissing => endWhenOwnerMissing;
 
     public float OrbitRadius => orbitRadius;
     public float OrbitAngularSpeed => orbitAngularSpeed;
@@ -77,19 +53,10 @@ public class SkillMoveSO : ScriptableObject
             targetTransform = targetTransform,
             startPosition = startPosition,
             targetPosition = targetPosition,
-            speed = Mathf.Max(0f, speed),
-            arrivalThreshold = Mathf.Max(0.0001f, arrivalThreshold),
+            speed = 0f,
+            arrivalThreshold = 0.0001f,
             applyDirectionRotation = applyDirectionRotation,
             rotationOffset = rotationOffset,
-
-            followOffset = followOffset,
-            followLerpSpeed = Mathf.Max(0f, followLerpSpeed),
-            snapOnInitialize = snapOnInitialize,
-            useHoverMotion = useHoverMotion,
-            hoverAmplitude = Mathf.Max(0f, hoverAmplitude),
-            hoverFrequency = Mathf.Max(0f, hoverFrequency),
-            hoverAxis = hoverAxis,
-            endWhenOwnerMissing = endWhenOwnerMissing,
 
             orbitRadius = Mathf.Max(0f, orbitRadius),
             orbitAngularSpeed = orbitAngularSpeed,
@@ -100,5 +67,32 @@ public class SkillMoveSO : ScriptableObject
             radialPulseAmplitude = Mathf.Max(0f, radialPulseAmplitude),
             radialPulseFrequency = Mathf.Max(0f, radialPulseFrequency)
         };
+    }
+
+    public SkillMoveRuntimeDto CreateMoveRuntimeDto(
+        Transform targetTransform,
+        Vector2 startPosition,
+        Vector2 targetPosition)
+    {
+        if (config != null)
+        {
+            return config.CreateMoveDto(
+                targetTransform,
+                startPosition,
+                targetPosition);
+        }
+
+        return null;
+    }
+
+    public LinearProjectileMoveDto CreateLinearProjectileMoveDto(
+        Transform targetTransform,
+        Vector2 startPosition,
+        Vector2 targetPosition)
+    {
+        if (config is LinearMoveConfig linearConfig)
+            return linearConfig.CreateMoveDto(targetTransform, startPosition, targetPosition) as LinearProjectileMoveDto;
+
+        return null;
     }
 }

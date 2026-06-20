@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 using Skill;
+using Skills.Move.Config;
 
 namespace ResourceTools.Skill
 {
@@ -13,6 +14,9 @@ namespace ResourceTools.Skill
         public string moveId;
         public string moveType;
         public string movementType;
+
+        public LinearMoveJson linear;
+        public HoverMoveJson hover;
 
         public float speed;
         public float acceleration;
@@ -50,6 +54,19 @@ namespace ResourceTools.Skill
         public bool useTarget;
         public bool useOwnerDirection;
         public bool rotateToMovement;
+    }
+
+    [Serializable]
+    public class LinearMoveJson
+    {
+        public float speed;
+    }
+
+    [Serializable]
+    public class HoverMoveJson
+    {
+        public float followOffsetX;
+        public float followOffsetY;
     }
 
     public static class SkillMoveAssetBuilder
@@ -101,6 +118,8 @@ namespace ResourceTools.Skill
 
             SetString(serializedObject, "moveId", json.moveId);
             SetMoveType(serializedObject, ResolveMoveType(json));
+            ApplyConfig(serializedObject, json);
+
             SetFloat(serializedObject, "speed", json.speed);
             SetFloat(serializedObject, "acceleration", json.acceleration);
             SetFloat(serializedObject, "turnSpeed", json.turnSpeed);
@@ -139,6 +158,51 @@ namespace ResourceTools.Skill
             SetBool(serializedObject, "rotateToMovement", json.rotateToMovement);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void ApplyConfig(
+            SerializedObject serializedObject,
+            MoveJson json)
+        {
+            SerializedProperty configProperty = serializedObject.FindProperty("config");
+
+            if (configProperty == null)
+            {
+                Debug.LogWarning("[SkillMoveAssetBuilder] Serialized property not found: config");
+                return;
+            }
+
+            string moveType = ResolveMoveType(json);
+
+            if (string.Equals(moveType, "Linear", StringComparison.OrdinalIgnoreCase) && json?.linear != null)
+            {
+                LinearMoveConfig config = configProperty.managedReferenceValue as LinearMoveConfig;
+                if (config == null)
+                {
+                    config = new LinearMoveConfig();
+                }
+
+                config.speed = json.linear.speed;
+                configProperty.managedReferenceValue = config;
+                return;
+            }
+
+            if (string.Equals(moveType, "Hover", StringComparison.OrdinalIgnoreCase) && json?.hover != null)
+            {
+                HoverMoveConfig config = configProperty.managedReferenceValue as HoverMoveConfig;
+                if (config == null)
+                {
+                    config = new HoverMoveConfig();
+                }
+
+                config.followOffset = new Vector2(
+                    json.hover.followOffsetX,
+                    json.hover.followOffsetY);
+                configProperty.managedReferenceValue = config;
+                return;
+            }
+
+            configProperty.managedReferenceValue = null;
         }
 
         private static string ResolveMoveType(MoveJson json)

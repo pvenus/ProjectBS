@@ -1,5 +1,6 @@
 using UnityEngine;
 using Skill;
+using Skills.Dto.Move;
 
 public class SkillProjectileMoveController
 {
@@ -13,7 +14,6 @@ public class SkillProjectileMoveController
     private SkillProjectileMoveDto.MoveType _moveType = SkillProjectileMoveDto.MoveType.Linear;
     private bool _initialized;
     private bool _applyDirectionRotation;
-    private Transform _rotationTarget;
     private float _rotationOffset;
 
     public SkillProjectileMoveDto.MoveType MoveType => _moveType;
@@ -43,6 +43,50 @@ public class SkillProjectileMoveController
         Initialize(dto, default);
     }
 
+    public void InitializeLinear(
+        LinearProjectileMoveDto moveDto,
+        Transform movingTransform,
+        SkillProjectileMovementContext movementContext = default)
+    {
+        if (moveDto == null)
+        {
+            Debug.LogError("SkillProjectileMoveController.InitializeLinear failed: moveDto is null");
+            return;
+        }
+
+        if (movingTransform == null)
+        {
+            Debug.LogError("SkillProjectileMoveController.InitializeLinear failed: movingTransform is null");
+            return;
+        }
+
+        _moveType = SkillProjectileMoveDto.MoveType.Linear;
+        _initialized = false;
+        _applyDirectionRotation = moveDto.applyDirectionRotation;
+        _rotationOffset = moveDto.rotationOffset;
+
+        movementContext.projectileTransform = movingTransform;
+        InitializeLinear(moveDto, movementContext);
+    }
+
+    public void InitializeHover(
+        HoverProjectileMoveDto moveDto,
+        SkillProjectileMovementContext movementContext = default)
+    {
+        if (moveDto == null)
+        {
+            Debug.LogError("SkillProjectileMoveController.InitializeHover failed: moveDto is null");
+            return;
+        }
+
+        _moveType = SkillProjectileMoveDto.MoveType.Hover;
+        _initialized = false;
+        _applyDirectionRotation = false;
+        _rotationOffset = 0f;
+
+        InitializeHoverInternal(moveDto, movementContext);
+    }
+
     public void Initialize(SkillProjectileMoveControllerDto dto, SkillProjectileMovementContext movementContext)
     {
         if (dto == null)
@@ -54,7 +98,6 @@ public class SkillProjectileMoveController
         _moveType = dto.moveType;
         _initialized = false;
         _applyDirectionRotation = dto.applyDirectionRotation;
-        _rotationTarget = dto.rotationTarget;
         _rotationOffset = dto.rotationOffset;
 
         switch (_moveType)
@@ -68,7 +111,7 @@ public class SkillProjectileMoveController
                 break;
 
             case SkillProjectileMoveDto.MoveType.Hover:
-                InitializeHover(dto.hoverMovement, movementContext);
+                InitializeHoverInternal(dto.hoverMovement, movementContext);
                 break;
 
             case SkillProjectileMoveDto.MoveType.Orbit:
@@ -143,11 +186,6 @@ public class SkillProjectileMoveController
         return movement != null ? movement.GetPosition() : Vector2.zero;
     }
 
-    public Transform GetRotationTarget()
-    {
-        return _rotationTarget;
-    }
-
     public void ApplyRuntimeUpgrade(SkillUpgradeMono.SkillUpgradeData upgradeData)
     {
         switch (_moveType)
@@ -174,11 +212,7 @@ public class SkillProjectileMoveController
         if (direction.sqrMagnitude <= 0.0001f)
             return;
 
-        Transform target = _rotationTarget;
-        if (target == null)
-        {
-            target = GetDefaultRotationTarget();
-        }
+        Transform target = GetDefaultRotationTarget();
 
         if (target == null)
             return;
@@ -204,7 +238,7 @@ public class SkillProjectileMoveController
     {
         return _moveType switch
         {
-            SkillProjectileMoveDto.MoveType.Linear when _linearMovement is SkillProjectileLinearMovement linear => linear.TargetTransform,
+            SkillProjectileMoveDto.MoveType.Linear when _linearMovement is SkillProjectileLinearMovement linear => linear.MovingTransform,
             SkillProjectileMoveDto.MoveType.Warp when _warpMovement is SkillProjectileWarpMovement warp => warp.TargetTransform,
             _ => null
         };
@@ -236,13 +270,12 @@ public class SkillProjectileMoveController
         }
 
         _applyDirectionRotation = false;
-        _rotationTarget = null;
         _rotationOffset = 0f;
         _moveType = SkillProjectileMoveDto.MoveType.Linear;
         _initialized = false;
     }
 
-    private void InitializeLinear(SkillProjectileLinearMovementDto dto, SkillProjectileMovementContext movementContext)
+    private void InitializeLinear(LinearProjectileMoveDto dto, SkillProjectileMovementContext movementContext)
     {
         if (_linearMovement == null)
         {
@@ -256,6 +289,27 @@ public class SkillProjectileMoveController
         if (_linearMovement is SkillProjectileLinearMovement linear)
         {
             _initialized = linear.IsInitialized;
+        }
+        else
+        {
+            _initialized = true;
+        }
+    }
+
+    private void InitializeHoverInternal(HoverProjectileMoveDto dto, SkillProjectileMovementContext movementContext)
+    {
+        if (_hoverMovement == null)
+        {
+            Debug.LogError("Hover movement component is missing or does not implement ISkillProjectileMovement");
+            return;
+        }
+
+        _hoverMovement.SetContext(movementContext);
+        _hoverMovement.Initialize(dto);
+
+        if (_hoverMovement is SkillProjectileHoverMovement hover)
+        {
+            _initialized = true;
         }
         else
         {
@@ -277,27 +331,6 @@ public class SkillProjectileMoveController
         if (_warpMovement is SkillProjectileWarpMovement warp)
         {
             _initialized = warp.IsInitialized;
-        }
-        else
-        {
-            _initialized = true;
-        }
-    }
-
-    private void InitializeHover(SkillProjectileHoverMovement.HoverMovementDto dto, SkillProjectileMovementContext movementContext)
-    {
-        if (_hoverMovement == null)
-        {
-            Debug.LogError("Hover movement component is missing or does not implement ISkillProjectileMovement");
-            return;
-        }
-
-        _hoverMovement.SetContext(movementContext);
-        _hoverMovement.Initialize(dto);
-
-        if (_hoverMovement is SkillProjectileHoverMovement hover)
-        {
-            _initialized = true;
         }
         else
         {
@@ -351,13 +384,12 @@ public class SkillProjectileMoveController
 public class SkillProjectileMoveControllerDto
 {
     public SkillProjectileMoveDto.MoveType moveType;
-    public SkillProjectileLinearMovementDto linearMovement;
+    public LinearProjectileMoveDto linearMovement;
     public SkillProjectileWarpMovementDto warpMovement;
-    public SkillProjectileHoverMovement.HoverMovementDto hoverMovement;
+    public HoverProjectileMoveDto hoverMovement;
     public SkillProjectileOrbitMovement.OrbitMovementDto orbitMovement;
     public HomingMovementDto homingMovement;
 
     public bool applyDirectionRotation;
-    public Transform rotationTarget;
     public float rotationOffset;
 }

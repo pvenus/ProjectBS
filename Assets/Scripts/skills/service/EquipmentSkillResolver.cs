@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Skills.Dto;
+using Skills.Dto.Move;
 using Skill;
 /// <summary>
 /// 장비 스킬 런타임 조립용 최상위 Resolver.
@@ -119,6 +120,14 @@ public class EquipmentSkillResolver
             direction,
             resolvedTargetPosition);
 
+        baseProjectileData.moveRuntime = CreateMoveRuntimeDto(
+            ResolveMoveSo(runtime),
+            target,
+            targetingType,
+            resolvedSpawnPosition,
+            direction,
+            resolvedTargetPosition);
+
         baseProjectileData.spawnSkillSo = ResolveSpawnSkillSo(runtime);
 
         if (baseProjectileData.move != null)
@@ -203,6 +212,7 @@ public class EquipmentSkillResolver
             projectileSpawnInterval = source.projectileSpawnInterval,
             projectileSpawnRadius = source.projectileSpawnRadius,
             move = source.move,
+            moveRuntime = source.moveRuntime,
             damageProfile = source.damageProfile,
             visualContext = source.visualContext,
             effectRuntimeSet = source.effectRuntimeSet,
@@ -317,6 +327,29 @@ public class EquipmentSkillResolver
         return moveSo.CreateDto(targetTransform, startPosition, targetPosition);
     }
 
+    private SkillMoveRuntimeDto CreateMoveRuntimeDto(
+        SkillMoveSO moveSo,
+        GameObject target,
+        TargetingType targetingType,
+        Vector2 startPosition,
+        Vector2 direction,
+        Vector2 targetPosition)
+    {
+        if (moveSo == null)
+        {
+            return null;
+        }
+
+        Transform targetTransform = targetingType == TargetingType.AutoTarget && target != null
+            ? target.transform
+            : null;
+
+        return moveSo.CreateMoveRuntimeDto(
+            targetTransform,
+            startPosition,
+            targetPosition);
+    }
+
 
     private class ResolvedHitRuntimeData
     {
@@ -415,11 +448,6 @@ public class EquipmentSkillResolver
         dto.attackDamagePercent = statResolver.GetAttackPercentDamage(damageSo);
         dto.canCritical = statResolver.GetCanCritical(damageSo);
         dto.ignoreDefense = statResolver.GetIgnoreDefense(damageSo);
-
-        dto.projectileSpawnInterval =
-            statResolver.GetProjectileSpawnInterval(equipmentSo);
-        dto.projectileSpawnRadius =
-            statResolver.GetProjectileSpawnRadius(equipmentSo);
         return dto;
     }
 

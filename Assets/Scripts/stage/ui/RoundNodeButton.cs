@@ -85,7 +85,7 @@ namespace Stage.UI
 
         private bool IsNodeVisible()
         {
-            return node != null && !node.isHidden;
+            return node != null;
         }
 
         private void ApplyVisibility(bool visible)

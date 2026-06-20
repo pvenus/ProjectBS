@@ -8,7 +8,7 @@ using String;
 /// </summary>
 namespace Skill
 {
-    [CreateAssetMenu(fileName = "EquipmentSkillSO", menuName = "BS/Skills/Equipment/EquipmentSkillSO")]
+    [CreateAssetMenu(fileName = "EquipmentSkillSO", menuName = "Game/Skills/Equipment/EquipmentSkillSO")]
     public class EquipmentSkillSO : ScriptableObject
     {
         [Header("Identity")]

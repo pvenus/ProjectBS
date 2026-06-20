@@ -18,6 +18,7 @@
 
     "projectileSpawnInterval": 0,
     "projectileSpawnRadius": 0,
+    "projectileColliderRadius": 3,
 
     "category": "Attack",
     "targetType": "Point",
@@ -118,7 +119,6 @@
       "deactivateAfterFirstHit": false,
 
       "targetLayerMask": "Enemy",
-      "projectileColliderRadius": 3,
 
       "damage": {
         "skillId": "skill.military_officer.2.crane_wing_formation.damage.enemy_dot",
@@ -166,7 +166,6 @@
       "deactivateAfterFirstHit": false,
 
       "targetLayerMask": "Player",
-      "projectileColliderRadius": 3,
 
       "damage": {
         "skillId": "skill.military_officer.2.crane_wing_formation.damage.none",

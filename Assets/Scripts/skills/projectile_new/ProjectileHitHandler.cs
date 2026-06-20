@@ -689,11 +689,11 @@ public class ProjectileHitHandler : MonoBehaviour
         bool useFirstHitDamage =
             runtimeData.hit.hitStartTime > 0f
             && !hasAppliedDamage
-            && runtimeData.hit.firstHitBaseDamage > 0f;
+            && runtimeData.hit.damageProfile.firstHitBaseDamage > 0f;
 
         if (useFirstHitDamage)
         {
-            baseDamage = runtimeData.hit.firstHitBaseDamage;
+            baseDamage = runtimeData.hit.damageProfile.firstHitBaseDamage;
         }
 
         return new CharacterDamageRequest

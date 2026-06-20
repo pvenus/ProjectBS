@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Battle;
+using Item.Service;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using Battle;
 
 namespace Item.UI
 {
@@ -15,7 +14,8 @@ namespace Item.UI
     public class ItemStrategicSkillUI : MonoBehaviour
     {
         [Header("Source")]
-        [SerializeField] private StrategicSkillCostManager costManager;
+        // Removed StrategicSkillCostManager costManager field as per refactor instructions.
+
         [SerializeField] private Camera worldCamera;
 
         [Header("Slot UI")]
@@ -32,8 +32,7 @@ namespace Item.UI
         [SerializeField] private bool logDebug;
 
         private readonly List<ItemStrategicSkillSlotUI> spawnedSlots = new();
-        private EquipmentSkillResolver skillResolver;
-        private ProjectileFactory projectileFactory;
+        private StrategicSkillItemUseService useService;
 
         private void Awake()
         {
@@ -107,48 +106,21 @@ namespace Item.UI
 
             ResolveReferences();
 
-            if (costManager == null)
-            {
-                Debug.LogWarning("[ItemStrategicSkillUI] StrategicSkillCostManager is null.", this);
-                return false;
-            }
+            // Removed costManager null check and TrySpend call as per refactor instructions.
 
             Vector3 worldPosition = ScreenToWorldPosition(screenPosition);
 
-            if (!TryBuildStrategicSkillProjectileData(
+            EnsureSkillRuntimeHelpers();
+
+            if (!useService.TryUse(
                     strategicSkillItem,
                     worldPosition,
-                    out ProjectileRuntimeData[] projectileDatas))
+                    this,
+                    logDebug,
+                    this))
             {
-                Debug.LogWarning($"[ItemStrategicSkillUI] Failed to build strategic skill projectile data. item={strategicSkillItem.DisplayName}", this);
+                Debug.LogWarning($"[ItemStrategicSkillUI] Failed to use strategic skill. item={strategicSkillItem.DisplayName}", this);
                 return false;
-            }
-
-            if (!costManager.TrySpend(strategicSkillItem.gaugeCost))
-            {
-                if (logDebug)
-                {
-                    Debug.Log($"[ItemStrategicSkillUI] Not enough strategic skill gauge. item={strategicSkillItem.DisplayName} cost={strategicSkillItem.gaugeCost}", this);
-                }
-
-                return false;
-            }
-
-            for (int i = 0; i < projectileDatas.Length; i++)
-            {
-                ProjectileRuntimeData projectileData = projectileDatas[i];
-
-                if (projectileData == null)
-                {
-                    continue;
-                }
-
-                projectileFactory.SpawnOriented(projectileData);
-            }
-
-            if (logDebug)
-            {
-                Debug.Log($"[ItemStrategicSkillUI] Strategic skill projectile spawned. item={strategicSkillItem.DisplayName} count={projectileDatas.Length} pos={worldPosition}", this);
             }
 
             if (logDebug)
@@ -159,81 +131,9 @@ namespace Item.UI
             return true;
         }
 
-        private bool TryBuildStrategicSkillProjectileData(
-            StrategicSkillItemSO strategicSkillItem,
-            Vector3 worldPosition,
-            out ProjectileRuntimeData[] projectileDatas)
-        {
-            projectileDatas = null;
-
-            if (strategicSkillItem == null)
-            {
-                return false;
-            }
-
-            if (strategicSkillItem.skillSo == null)
-            {
-                Debug.LogWarning($"[ItemStrategicSkillUI] SkillSO is null. item={strategicSkillItem.DisplayName}", this);
-                return false;
-            }
-
-            EnsureSkillRuntimeHelpers();
-
-            EquipmentSkillInstanceData instanceData = new EquipmentSkillInstanceData
-            {
-                equipmentId = strategicSkillItem.skillSo.EquipmentId,
-            };
-
-            EquipmentSkillRuntimeData runtimeData = skillResolver.Resolve(
-                strategicSkillItem.skillSo,
-                instanceData);
-
-            if (runtimeData == null)
-            {
-                Debug.LogWarning($"[ItemStrategicSkillUI] RuntimeData is null. item={strategicSkillItem.DisplayName}", this);
-                return false;
-            }
-
-            Vector2 spawnPosition = worldPosition;
-            Vector2 direction = Vector2.up;
-
-            projectileDatas = skillResolver.ResolveProjectileRuntime(
-                runtimeData,
-                null,
-                null,
-                spawnPosition,
-                direction);
-
-            if (projectileDatas == null || projectileDatas.Length == 0)
-            {
-                Debug.LogWarning($"[ItemStrategicSkillUI] ProjectileRuntimeData is empty. item={strategicSkillItem.DisplayName} skill={strategicSkillItem.skillSo.name}", this);
-                return false;
-            }
-
-            for (int i = 0; i < projectileDatas.Length; i++)
-            {
-                ProjectileRuntimeData projectileData = projectileDatas[i];
-
-                if (projectileData == null)
-                {
-                    continue;
-                }
-
-                projectileData.spawnPosition = spawnPosition;
-            }
-
-            if (logDebug)
-            {
-                Debug.Log($"[ItemStrategicSkillUI] Projectile data built. item={strategicSkillItem.DisplayName} count={projectileDatas.Length} pos={spawnPosition}", this);
-            }
-
-            return true;
-        }
-
         private void EnsureSkillRuntimeHelpers()
         {
-            skillResolver ??= new EquipmentSkillResolver();
-            projectileFactory ??= new ProjectileFactory();
+            useService ??= new StrategicSkillItemUseService();
         }
 
         private Vector3 ScreenToWorldPosition(Vector2 screenPosition)
@@ -269,10 +169,7 @@ namespace Item.UI
 
         private void ResolveReferences()
         {
-            if (costManager == null)
-            {
-                costManager = StrategicSkillCostManager.Instance;
-            }
+            // Removed costManager resolution as per refactor instructions.
 
             if (worldCamera == null)
             {

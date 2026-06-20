@@ -490,6 +490,11 @@ namespace ResourceTools.Stage
                 return null;
             }
 
+            if (IsUnlockRouteReward(rewardJson.rewardType))
+            {
+                return null;
+            }
+
             return BuildEmbeddedBattle(rewardJson);
         }
 
@@ -497,6 +502,11 @@ namespace ResourceTools.Stage
         {
             return string.Equals(rewardType, "FirstJobChange", StringComparison.OrdinalIgnoreCase)
                    || string.Equals(rewardType, "SecondJobChange", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsUnlockRouteReward(string rewardType)
+        {
+            return string.Equals(rewardType, "UnlockRoute", StringComparison.OrdinalIgnoreCase);
         }
 
         private static CharacterSO FindCharacterSOByCharacterId(string characterId)

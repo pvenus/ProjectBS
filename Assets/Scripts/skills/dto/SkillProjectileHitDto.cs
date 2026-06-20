@@ -34,7 +34,6 @@ public class SkillProjectileHitDto
     public bool useRepeatInterval;
     public float repeatInterval = 0.25f;
 
-    public bool useHitWindow;
     public float hitStartTime;
     public bool deactivateAfterFirstHit;
 
@@ -44,14 +43,10 @@ public class SkillProjectileHitDto
 
     public SkillDamageProfileDto damageProfile;
 
-    public float firstHitBaseDamage;
-
-    public bool applyDamage = true;
 
     public SkillProjectileHitEffectEntry[] buffEffects;
     public SkillProjectileHitEffectEntry[] debuffEffects;
 
-    public bool useSplitMultiHitDamage;
     public int splitHitCount = 1;
     public float splitHitInterval;
 }

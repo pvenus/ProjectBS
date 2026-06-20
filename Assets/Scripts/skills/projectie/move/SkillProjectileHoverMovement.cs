@@ -1,4 +1,5 @@
 using UnityEngine;
+using Skills.Dto.Move;
 
 /// <summary>
 /// 시전자(owner)를 기준으로 지정된 오프셋 위치를 따라다니는 호버링 이동.
@@ -11,37 +12,13 @@ using UnityEngine;
 /// </summary>
 public class SkillProjectileHoverMovement : ISkillProjectileMovement
 {
-    [System.Serializable]
-    public class HoverMovementDto
-    {
-        [Header("Follow")]
-        public Vector2 followOffset = Vector2.zero;
-        public float followLerpSpeed = 12f;
-        public bool snapOnInitialize = true;
-
-        [Header("Hover")]
-        public bool useHoverMotion = true;
-        public float hoverAmplitude = 0.15f;
-        public float hoverFrequency = 2.5f;
-        public Vector2 hoverAxis = Vector2.up;
-
-        [Header("Behavior")]
-        public bool endWhenOwnerMissing = true;
-
-        public Transform targetTransform;
-    }
-
-    private HoverMovementDto _dto;
+    private HoverProjectileMoveDto _dto;
     private SkillProjectileMovementContext _context;
     private bool _initialized;
-    private bool _hasReachedEnd;
-    private float _hoverTime;
-    private Transform _targetTransform;
-    private Vector2 _currentPosition;
 
     public void Initialize(object dto)
     {
-        if (dto is HoverMovementDto typed)
+        if (dto is HoverProjectileMoveDto typed)
         {
             Initialize(typed);
         }
@@ -51,39 +28,27 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         }
     }
 
-    public void Initialize(HoverMovementDto dto)
+    public void Initialize(HoverProjectileMoveDto dto)
     {
-        _dto = dto ?? new HoverMovementDto();
-        _dto.followLerpSpeed = Mathf.Max(0f, _dto.followLerpSpeed);
-        _dto.hoverFrequency = Mathf.Max(0f, _dto.hoverFrequency);
-        _hoverTime = 0f;
-        _hasReachedEnd = false;
+        if (dto == null)
+        {
+            Debug.LogError("HoverProjectileMoveDto is null");
+            return;
+        }
+
+        if (_context.projectileTransform == null)
+        {
+            Debug.LogError("SkillProjectileHoverMovement moving projectile transform is null");
+            return;
+        }
+
+        _dto = dto;
         _initialized = true;
-
-        _targetTransform = dto.targetTransform;
-
-        Vector2 startPosition = _targetTransform != null
-            ? (Vector2)_targetTransform.position
-            : _context.spawnPosition;
 
         if (_context.owner != null)
         {
             Vector2 target = EvaluateBaseFollowPosition();
-            if (_dto.snapOnInitialize)
-            {
-                _currentPosition = target;
-                if (_targetTransform != null)
-                    _targetTransform.position = target;
-                startPosition = target;
-            }
-            else
-            {
-                _currentPosition = startPosition;
-            }
-        }
-        else
-        {
-            _currentPosition = startPosition;
+            _context.projectileTransform.position = target;
         }
     }
 
@@ -94,58 +59,29 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
 
     public void TickMovement(float deltaTime)
     {
-        if (!_initialized || _hasReachedEnd)
+        if (!_initialized)
             return;
 
         if (_context.owner == null)
-        {
-            if (_dto != null && _dto.endWhenOwnerMissing)
-                _hasReachedEnd = true;
-            return;
-        }
-
-        if (_targetTransform == null)
             return;
 
-        // _hoverTime is not updated, disabling hover/sine wobble
+        if (_context.projectileTransform == null)
+            return;
 
-        Vector2 basePosition = EvaluateBaseFollowPosition();
-        Vector2 desiredPosition = basePosition;
-        Vector2 currentPosition = _targetTransform != null ? (Vector2)_targetTransform.position : _currentPosition;
-
-        Vector2 nextPosition;
-        if (_dto.followLerpSpeed <= 0f)
-        {
-            nextPosition = desiredPosition;
-        }
-        else
-        {
-            float t = 1f - Mathf.Exp(-_dto.followLerpSpeed * Mathf.Max(0f, deltaTime));
-            nextPosition = Vector2.Lerp(currentPosition, desiredPosition, t);
-        }
-
-
-
-        _currentPosition = nextPosition;
-        if (_targetTransform != null)
-            _targetTransform.position = nextPosition;
+        _context.projectileTransform.position = EvaluateBaseFollowPosition();
 
     }
 
     public bool HasReachedEnd()
     {
-        return _hasReachedEnd;
+        return false;
     }
 
     public void ResetMovement()
     {
         _dto = null;
         _context = default;
-        _targetTransform = null;
-        _currentPosition = Vector2.zero;
         _initialized = false;
-        _hasReachedEnd = false;
-        _hoverTime = 0f;
     }
 
     public Vector2 GetDirection()
@@ -155,7 +91,7 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
 
     public Vector2 GetPosition()
     {
-        return _targetTransform != null ? (Vector2)_targetTransform.position : _currentPosition;
+        return _context.projectileTransform.position;
     }
 
     private Vector2 EvaluateBaseFollowPosition()
@@ -166,11 +102,5 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         Vector2 ownerPosition = _context.owner.position;
         Vector2 offset = _dto != null ? _dto.followOffset : Vector2.zero;
         return ownerPosition + offset;
-    }
-
-    private Vector2 EvaluateHoverOffset()
-    {
-        // Hover offset disabled
-        return Vector2.zero;
     }
 }

@@ -16,13 +16,13 @@ MonoBehaviour:
   effectType: 0
   attackArchetype: 1
   skipAttackAnimation: 0
-  projectilePrefab: {fileID: 4118216556720441464, guid: 90b982409ebb142678e2700175593067, type: 3}
-  projectileSpawnOffset: 0.5
+  projectileSpawnOffset: 0.3
   projectileCount: 1
   projectileArrangement: 0
   projectileArrangementValue: 0
   projectileSpreadAngle: 0
   projectileScale: 2
+  projectileColliderRadius: 0.6
   projectileLifetime: 0.2
   projectileSpawnInterval: 0
   projectileSpawnRadius: 0

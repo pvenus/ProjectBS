@@ -68,7 +68,7 @@ namespace Stage
 
                 if (node.hiddenByDefault)
                 {
-                    node.Hide();
+                    //node.Hide();
                 }
 
                 result.Add(node);
@@ -493,16 +493,61 @@ namespace Stage
 
             RegisterPoolUse(poolUseCounts, selectedPool);
 
-            return new RoundNode(
-                nodeId,
-                RoundNodeType.Event,
-                depth,
-                indexInDepth)
+            EventPoolEntry selectedEntry = PickRandomEntry(selectedPool);
+            if (selectedEntry == null || selectedEntry.node == null)
             {
-                useRandomEventPool = true,
-                randomPool = selectedPool,
-                resolved = false
-            };
+                Debug.LogWarning($"[StageGenerator] Segment pool has no valid entry. Fallback event node created. pool={selectedPool.name}, nodeId={nodeId}");
+                return new RoundNode(
+                    nodeId,
+                    RoundNodeType.Event,
+                    depth,
+                    indexInDepth);
+            }
+
+            RoundNode node = CreateNodeFromSO(
+                selectedEntry.node,
+                depth,
+                indexInDepth,
+                nodeId);
+
+            node.useRandomEventPool = false;
+            node.randomPool = selectedPool;
+            node.resolved = true;
+
+            return node;
+        }
+
+        private EventPoolEntry PickRandomEntry(EventPoolSO pool)
+        {
+            if (pool == null || pool.entries == null || pool.entries.Count == 0)
+            {
+                return null;
+            }
+
+            List<EventPoolEntry> validEntries = pool.entries
+                .Where(x => x != null && x.node != null)
+                .Where(x => IsRoundNodeConditionSatisfied(x.node))
+                .ToList();
+
+            if (validEntries.Count == 0)
+            {
+                return null;
+            }
+
+            int totalWeight = validEntries.Sum(x => Mathf.Max(1, x.weight));
+            int roll = GetRandomRangeInclusive(1, totalWeight);
+            int current = 0;
+
+            foreach (EventPoolEntry entry in validEntries)
+            {
+                current += Mathf.Max(1, entry.weight);
+                if (roll <= current)
+                {
+                    return entry;
+                }
+            }
+
+            return validEntries[0];
         }
 
         private EventPoolSO PickRandomPool(

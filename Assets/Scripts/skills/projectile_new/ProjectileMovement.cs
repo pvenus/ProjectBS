@@ -1,5 +1,6 @@
 using UnityEngine;
 using Skill;
+using Skills.Dto.Move;
 
 /// <summary>
 /// ProjectileEntity의 실제 이동을 담당하는 컴포넌트.
@@ -73,13 +74,27 @@ public class ProjectileMovement : MonoBehaviour
 
     private void InitializeMoveController()
     {
+        SkillProjectileMovementContext movementContext = BuildMovementContext(runtimeData);
+
+        if (runtimeData.moveRuntime is LinearProjectileMoveDto linearMoveDto)
+        {
+            PrepareLinearRuntimeMoveDto(runtimeData, linearMoveDto);
+            moveController.InitializeLinear(linearMoveDto, transform, movementContext);
+            return;
+        }
+
+        if (runtimeData.moveRuntime is HoverProjectileMoveDto hoverMoveDto)
+        {
+            moveController.InitializeHover(hoverMoveDto, movementContext);
+            return;
+        }
+
         SkillProjectileMoveControllerDto controllerDto = BuildMoveControllerDto(runtimeData);
         if (controllerDto == null)
         {
             return;
         }
 
-        SkillProjectileMovementContext movementContext = BuildMovementContext(runtimeData);
         moveController.Initialize(controllerDto, movementContext);
     }
 
@@ -91,11 +106,61 @@ public class ProjectileMovement : MonoBehaviour
         return new SkillProjectileMovementContext
         {
             owner = ownerTransform,
+            projectileTransform = transform,
             targetTransform = targetTransform,
             spawnPosition = data.spawnPosition
         };
     }
 
+    private void PrepareLinearRuntimeMoveDto(
+        ProjectileRuntimeData data,
+        LinearProjectileMoveDto moveDto)
+    {
+        if (data == null || moveDto == null)
+        {
+            return;
+        }
+
+        moveDto.startPosition = data.spawnPosition;
+
+        bool useRuntimeTargetPosition =
+            data.targetingType == TargetingType.AutoTargetDirection ||
+            data.targetingType == TargetingType.Directional ||
+            data.targetingType == TargetingType.Position ||
+            (data.projectileCount > 1 && data.projectileSpreadAngle > 0f);
+
+        if (useRuntimeTargetPosition)
+        {
+            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            {
+                moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+            }
+
+            return;
+        }
+
+        if (data.targetingType == TargetingType.AutoTarget)
+        {
+            Transform targetTransform = data.target != null ? data.target.transform : null;
+
+            if (targetTransform != null)
+            {
+                moveDto.targetPosition = targetTransform.position;
+            }
+
+            if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+            {
+                moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+            }
+
+            return;
+        }
+
+        if ((moveDto.targetPosition - data.spawnPosition).sqrMagnitude <= 0.0001f)
+        {
+            moveDto.targetPosition = data.spawnPosition + data.NormalizedDirection;
+        }
+    }
     private SkillProjectileMoveControllerDto BuildMoveControllerDto(ProjectileRuntimeData data)
     {
         if (data == null)
@@ -164,21 +229,7 @@ public class ProjectileMovement : MonoBehaviour
         var controllerDto = new SkillProjectileMoveControllerDto
         {
             applyDirectionRotation = moveDto.applyDirectionRotation,
-            rotationTarget = moveDto.rotationTarget,
             rotationOffset = moveDto.rotationOffset,
-
-            linearMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Linear
-                ? new SkillProjectileLinearMovementDto
-                {
-                    targetTransform = transform,
-                    startPosition = moveDto.startPosition,
-                    targetPosition = moveDto.targetPosition,
-                    direction = moveDto.GetDirection(),
-                    speed = moveDto.speed,
-                    maxDistance = Vector2.Distance(moveDto.startPosition, moveDto.targetPosition),
-                    arrivalThreshold = moveDto.arrivalThreshold
-                }
-                : null,
 
             warpMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Warp
                 ? new SkillProjectileWarpMovementDto
@@ -190,22 +241,6 @@ public class ProjectileMovement : MonoBehaviour
                     arrivalThreshold = moveDto.arrivalThreshold
                 }
                 : null,
-
-            hoverMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Hover
-                ? new SkillProjectileHoverMovement.HoverMovementDto
-                {
-                    targetTransform = transform,
-                    followOffset = moveDto.followOffset,
-                    followLerpSpeed = moveDto.followLerpSpeed,
-                    snapOnInitialize = moveDto.snapOnInitialize,
-                    useHoverMotion = moveDto.useHoverMotion,
-                    hoverAmplitude = moveDto.hoverAmplitude,
-                    hoverFrequency = moveDto.hoverFrequency,
-                    hoverAxis = moveDto.hoverAxis,
-                    endWhenOwnerMissing = moveDto.endWhenOwnerMissing
-                }
-                : null,
-
             orbitMovement = moveDto.moveType == SkillProjectileMoveDto.MoveType.Orbit
                 ? new SkillProjectileOrbitMovement.OrbitMovementDto
                 {

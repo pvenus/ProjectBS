@@ -3,6 +3,7 @@
 using UnityEngine;
 using Skills.Dto;
 using Skill;
+using Skills.Dto.Move;
 /// <summary>
 /// 실제 투사체가 런타임에서 사용하는 최종 데이터 묶음.
 /// 원형 SO, 룬, 업그레이드, Resolver 결과를 다 반영한 뒤
@@ -24,6 +25,7 @@ public class ProjectileRuntimeData
 
     [Header("Runtime Profiles")]
     public SkillProjectileMoveDto move;
+    public SkillMoveRuntimeDto moveRuntime;
     public SkillProjectileHitDto hit;
     public SkillDamageProfileDto damageProfile;
 

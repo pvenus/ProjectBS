@@ -13,18 +13,10 @@ MonoBehaviour:
   m_Name: skill.strategic.emergency_pill.move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
   moveType: 0
-  speed: 0
-  arrivalThreshold: 0
+  config:
+    rid: -2
   applyDirectionRotation: 0
   rotationOffset: 0
-  followOffset: {x: 0, y: 0}
-  followLerpSpeed: 0
-  snapOnInitialize: 1
-  useHoverMotion: 0
-  hoverAmplitude: 0
-  hoverFrequency: 0
-  hoverAxis: {x: 0, y: 1}
-  endWhenOwnerMissing: 1
   orbitRadius: 0
   orbitAngularSpeed: 0
   clockwise: 0
@@ -33,3 +25,8 @@ MonoBehaviour:
   useRadialPulse: 0
   radialPulseAmplitude: 0
   radialPulseFrequency: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

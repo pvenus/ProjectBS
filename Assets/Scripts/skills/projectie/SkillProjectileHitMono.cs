@@ -35,15 +35,11 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     private CircleCollider2D _circleCollider;
     private SkillDamageProfileDto _damageProfile;
-    private bool _applyDamage = true;
-    private bool _useHitWindow;
     private float _hitStartTime;
     private bool _deactivateAfterFirstHit;
-    private float _firstHitBaseDamage;
     private bool _hasAppliedDamage;
     private float _elapsedTime;
     private bool _hitWindowClosed;
-    private bool _useSplitMultiHitDamage;
     private int _splitHitCount = 1;
     private float _splitHitInterval = 0f;
     private readonly Dictionary<Collider2D, Coroutine> _activeSplitDamageRoutines = new Dictionary<Collider2D, Coroutine>();
@@ -66,7 +62,7 @@ public class SkillProjectileHitMono : MonoBehaviour
         if (_hitController.HasReachedMaxHitCount)
             return;
 
-        if (_useHitWindow && _elapsedTime < _hitStartTime)
+        if (_elapsedTime < _hitStartTime)
             return;
 
         Vector2 center = transform.TransformPoint(_circleCollider.offset);
@@ -153,18 +149,14 @@ public class SkillProjectileHitMono : MonoBehaviour
             return;
         }
 
-        _useHitWindow = dto.useHitWindow;
         _hitStartTime = Mathf.Max(0f, dto.hitStartTime);
         _deactivateAfterFirstHit = dto.deactivateAfterFirstHit;
-        _firstHitBaseDamage = Mathf.Max(0f, dto.firstHitBaseDamage);
         _hasAppliedDamage = false;
         targetLayerMask = dto.targetLayerMask;
         _elapsedTime = 0f;
         _hitWindowClosed = false;
 
         _damageProfile = dto.damageProfile;
-        _applyDamage = dto.applyDamage;
-        _useSplitMultiHitDamage = dto.useSplitMultiHitDamage;
         _splitHitCount = Mathf.Max(1, dto.splitHitCount);
         _splitHitInterval = Mathf.Max(0f, dto.splitHitInterval);
 
@@ -194,15 +186,12 @@ public class SkillProjectileHitMono : MonoBehaviour
 
         var stat = other.GetComponentInParent<StatMono>();
 
-        if (_applyDamage)
+        if (stat != null && _damageProfile != null)
         {
-            if (stat == null || _damageProfile == null)
-                return;
-
             bool isFirstHit = !_hasAppliedDamage;
             _hasAppliedDamage = true;
 
-            if (_useSplitMultiHitDamage)
+            if (_splitHitCount > 1)
             {
                 StartSplitDamageRoutine(other, stat, isFirstHit);
             }
@@ -221,14 +210,16 @@ public class SkillProjectileHitMono : MonoBehaviour
         if (source == null)
             return null;
 
-        if (!isFirstHit || _firstHitBaseDamage <= 0f)
+        float firstHitBaseDamage = Mathf.Max(0f, source.firstHitBaseDamage);
+        if (!isFirstHit || firstHitBaseDamage <= 0f)
             return source;
 
         return new SkillDamageProfileDto
         {
             skillId = source.skillId,
             damageType = source.damageType,
-            baseDamage = _firstHitBaseDamage,
+            baseDamage = firstHitBaseDamage,
+            firstHitBaseDamage = source.firstHitBaseDamage,
             attackDamagePercent = source.attackDamagePercent,
             canCritical = source.canCritical,
             ignoreDefense = source.ignoreDefense
@@ -244,11 +235,27 @@ public class SkillProjectileHitMono : MonoBehaviour
         Transform source = _context.owner != null ? _context.owner : transform;
         Vector2 hitPoint = other.bounds.center;
 
-        DamageRequest request = damageProfile.CreateRequest(
-            source != null ? source.gameObject : gameObject,
-            stat.gameObject,
-            hitPoint
-        );
+        DamageRequest request = new DamageRequest
+        {
+            attacker = source != null ? source.gameObject : gameObject,
+            target = stat.gameObject,
+            hitPoint = hitPoint,
+            damage = new DamageAmountDto
+            {
+                baseDamage = damageProfile.baseDamage,
+                attackDamagePercent = damageProfile.attackDamagePercent
+            },
+            skill = new SkillContextDto
+            {
+                skillId = damageProfile.skillId,
+                damageType = damageProfile.damageType
+            },
+            modifiers = new DamageModifierDto
+            {
+                isCritical = false,
+                ignoreDefense = damageProfile.ignoreDefense
+            }
+        };
 
         _damageService.Apply(request);
     }
@@ -377,6 +384,7 @@ public class SkillProjectileHitMono : MonoBehaviour
                     skillId = effectiveProfile.skillId,
                     damageType = effectiveProfile.damageType,
                     baseDamage = damage,
+                    firstHitBaseDamage = effectiveProfile.firstHitBaseDamage,
                     attackDamagePercent = effectiveProfile.attackDamagePercent,
                     canCritical = effectiveProfile.canCritical,
                     ignoreDefense = effectiveProfile.ignoreDefense
@@ -474,7 +482,6 @@ public class SkillProjectileHitMono : MonoBehaviour
         _splitHitInterval = 0f;
         _useKnockback = false;
         _knockbackForce = 0f;
-        _firstHitBaseDamage = 0f;
         _hasAppliedDamage = false;
         _context = default;
 

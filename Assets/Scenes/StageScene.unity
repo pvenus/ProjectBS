@@ -1554,7 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05aa7072b42849f2986a798f8463fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stage.StageRuntime
-  stageDefinition: {fileID: 11400000, guid: 5732dcb27dc534c01b544ed164e872c7, type: 2}
+  stageDefinition: {fileID: 11400000, guid: 0b54972cb1a2d43b1bd4f6dc0fbca54f, type: 2}
   runtimeData:
     stageId: 
     currentDepth: 0
@@ -1590,6 +1590,7 @@ MonoBehaviour:
     visitedNodeIds: []
     visitedEventIds: []
     recentEventIds: []
+    unlockedRouteIds: []
     stageCompleted: 0
     stageFailed: 0
 --- !u!4 &641711438
@@ -2363,6 +2364,7 @@ MonoBehaviour:
       visitedNodeIds: []
       visitedEventIds: []
       recentEventIds: []
+      unlockedRouteIds: []
       stageCompleted: 0
       stageFailed: 0
     StrategicSkillItemRuntimeData:
