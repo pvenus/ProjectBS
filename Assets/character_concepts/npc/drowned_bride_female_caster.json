@@ -1,0 +1,11 @@
+{
+  "id": "npc.drowned_wedding.bride_female_caster",
+  "displayName": "수몰 혼례 · 물귀신 신부 공격 마법형",
+  "groupTags": ["drowned_wedding", "spirit", "mid_late"],
+  "identityKeywords": ["여성", "신부", "공격 마법", "물"],
+  "appearance": "물에 번진 붉은 혼례복과 젖은 족두리, 얼굴 대신 잔물결이 일렁이는 여성 원혼.",
+  "combat": {"role": "광역 공격술사", "attackType": "water_spirit_magic", "targetPriority": "밀집 지역", "signature": "검은 물웅덩이를 만들어 둔화시키고 일정 시간 후 익사 피해", "weakness": "번개와 위치 이동"},
+  "stats": {"health": 5, "attack": 8, "defense": 4, "speed": 4, "range": 8, "support": 5},
+  "storyUse": "가문 간 약속 때문에 원치 않는 혼례길에 올라 물에 몸을 던진 신부의 의념이다.",
+  "reuse": ["나루터 괴담", "수몰 혼례", "비 오는 전장의 마도사"]
+}

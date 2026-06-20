@@ -1,0 +1,18 @@
+{
+  "id": "group.drowned_wedding",
+  "displayName": "물 아래 이어지는 혼례",
+  "progression": "중반~후반",
+  "intent": "물웅덩이와 유도로 위치를 무너뜨리고 수호·결속 회복으로 버티는 제어형 조합.",
+  "storyCharacter": "강요된 혼례에서 희생된 신랑·신부·하인과 이를 성사시킨 중매쟁이가 매일 밤 같은 비극을 반복한다.",
+  "npcFiles": ["drowned_bride_female_caster.json", "drowned_groom_male_spear_guard.json", "drowned_attendant_female_lantern_ranged.json", "drowned_matchmaker_female_healer.json"],
+  "compositionRules": {"minCount": 1, "maxCount": 10, "duplicatePolicy": "신부·신랑·중매쟁이는 각각 최대 1, 초롱 시녀는 복수 사용 가능", "coreSynergy": "물웅덩이·유인·호위·피해 분담"},
+  "recipes": [
+    {"count": 1, "name": "나루터의 신부", "members": {"drowned_bride_female_caster.json": 1}, "purpose": "단일 보스형 장판 회피"},
+    {"count": 2, "name": "닿지 못한 두 사람", "members": {"drowned_bride_female_caster.json": 1, "drowned_groom_male_spear_guard.json": 1}, "purpose": "호위를 뚫는 전술"},
+    {"count": 3, "name": "청사초롱 길", "members": {"drowned_bride_female_caster.json": 1, "drowned_attendant_female_lantern_ranged.json": 2}, "purpose": "유인과 장판 연계"},
+    {"count": 5, "name": "가라앉은 혼례", "members": {"drowned_bride_female_caster.json": 1, "drowned_groom_male_spear_guard.json": 1, "drowned_attendant_female_lantern_ranged.json": 2, "drowned_matchmaker_female_healer.json": 1}, "purpose": "완성형 제어·회복 조합"},
+    {"count": 7, "name": "비 오는 혼례길", "members": {"drowned_bride_female_caster.json": 1, "drowned_groom_male_spear_guard.json": 1, "drowned_attendant_female_lantern_ranged.json": 4, "drowned_matchmaker_female_healer.json": 1}, "purpose": "다방향 유도 압박"},
+    {"count": 10, "name": "강바닥의 하객", "members": {"drowned_bride_female_caster.json": 1, "drowned_groom_male_spear_guard.json": 1, "drowned_attendant_female_lantern_ranged.json": 7, "drowned_matchmaker_female_healer.json": 1}, "purpose": "후반 공간 제어 생존전"}
+  ],
+  "crossGroupUse": ["혼불 도깨비를 추가해 젖음 대상 연쇄 마법 강화", "방울 아이를 하객 원혼으로 섞어 회복 감소 부여"]
+}

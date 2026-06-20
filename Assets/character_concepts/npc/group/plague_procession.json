@@ -1,0 +1,18 @@
+{
+  "id": "group.plague_procession",
+  "displayName": "끝나지 않는 역병 상여",
+  "progression": "중반~후반",
+  "intent": "역병 중첩을 쌓고 치유·약화로 시간을 번 뒤 폭발시키는 지속전 조합. 빠른 핵심 처치가 해법이다.",
+  "storyCharacter": "병자, 짐꾼, 의원, 유가족의 원한이 하나의 장례 행렬로 굳었다. 누구 하나만 악의 근원이라 말할 수 없다.",
+  "npcFiles": ["plague_bearer_corpse_melee.json", "plague_bell_child_ranged.json", "plague_physician_male_healer.json", "plague_palanquin_mother_leader.json"],
+  "compositionRules": {"minCount": 1, "maxCount": 10, "duplicatePolicy": "상여 어미는 최대 1, 의원은 최대 2, 나머지는 복수 사용 가능", "coreSynergy": "역병 누적·회복 감소·언데드 회복·중첩 폭발"},
+  "recipes": [
+    {"count": 1, "name": "버려진 짐꾼", "members": {"plague_bearer_corpse_melee.json": 1}, "purpose": "사망 시 감염을 익히는 단일 조우"},
+    {"count": 2, "name": "방울 소리", "members": {"plague_bearer_corpse_melee.json": 1, "plague_bell_child_ranged.json": 1}, "purpose": "감염과 회복 감소 소개"},
+    {"count": 3, "name": "죽은 자의 의원", "members": {"plague_bearer_corpse_melee.json": 1, "plague_bell_child_ranged.json": 1, "plague_physician_male_healer.json": 1}, "purpose": "지원 NPC 우선 처치 판단"},
+    {"count": 5, "name": "검은 상여", "members": {"plague_bearer_corpse_melee.json": 2, "plague_bell_child_ranged.json": 1, "plague_physician_male_healer.json": 1, "plague_palanquin_mother_leader.json": 1}, "purpose": "중첩 폭발 완성 조합"},
+    {"count": 7, "name": "공동묘 행렬", "members": {"plague_bearer_corpse_melee.json": 3, "plague_bell_child_ranged.json": 2, "plague_physician_male_healer.json": 1, "plague_palanquin_mother_leader.json": 1}, "purpose": "다수 감염원 속 핵심 식별"},
+    {"count": 10, "name": "마을의 마지막 장례", "members": {"plague_bearer_corpse_melee.json": 5, "plague_bell_child_ranged.json": 2, "plague_physician_male_healer.json": 2, "plague_palanquin_mother_leader.json": 1}, "purpose": "후반 장기전과 정화 자원 시험"}
+  ],
+  "crossGroupUse": ["붉은 안개 산적 무당과 의원을 함께 배치해 회복 방식 대비", "상여 어미 없이 짐꾼 시귀를 후반 소환물로 사용"]
+}

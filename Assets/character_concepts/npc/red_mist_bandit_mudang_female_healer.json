@@ -1,0 +1,11 @@
+{
+  "id": "npc.red_mist_bandit.mudang_female_healer",
+  "displayName": "붉은 안개 산적 · 무당 여성 회복형",
+  "groupTags": ["red_mist_bandits", "human", "mid", "support"],
+  "identityKeywords": ["여성", "무당", "회복 마법", "부적"],
+  "appearance": "빛바랜 무복과 검은 장옷, 작은 방울 꾸러미를 든 노년 여성. 붉은 안개가 발목을 감싼다.",
+  "combat": {"role": "회복·정화 지원", "attackType": "spirit_support", "targetPriority": "체력이 낮은 아군", "signature": "부적을 태워 범위 회복하고 인간 계열의 공포를 해제", "weakness": "낮은 체력과 침묵"},
+  "stats": {"health": 3, "attack": 2, "defense": 3, "speed": 4, "range": 6, "support": 9},
+  "storyUse": "마을에서 역병의 책임을 뒤집어쓰고 쫓겨난 무당. 치유와 저주가 믿는 자의 시선에 따라 달라짐을 보여 준다.",
+  "reuse": ["산적 의무대", "떠돌이 무당", "귀신과 인간 혼성 조합의 연결점"]
+}

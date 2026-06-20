@@ -1,0 +1,18 @@
+{
+  "id": "group.red_mist_bandits",
+  "displayName": "붉은 안개 산적단",
+  "progression": "초반~중후반, 인간·귀신 혼성 조합에 재사용",
+  "intent": "전열 돌격, 후열 표식, 회복, 방어 파괴가 분명한 인간 전술 조합. 플레이어에게 우선 처치 판단을 요구한다.",
+  "storyCharacter": "전쟁과 기근, 누명 때문에 산으로 밀려난 사람들. 악당이면서 시대의 피해자라는 세계관의 상대성을 담당한다.",
+  "npcFiles": ["red_mist_bandit_sword_male_melee.json", "red_mist_bandit_bow_female_ranged.json", "red_mist_bandit_mudang_female_healer.json", "red_mist_bandit_axe_male_boss.json"],
+  "compositionRules": {"minCount": 1, "maxCount": 10, "duplicatePolicy": "두목과 무당은 각각 최대 1, 칼잡이·활잡이는 복수 사용 가능", "coreSynergy": "표식·집중 사격·공포 정화·방어 파괴"},
+  "recipes": [
+    {"count": 1, "name": "굶주린 길잡이", "members": {"red_mist_bandit_sword_male_melee.json": 1}, "purpose": "산적의 인간적 대사와 기본 근접전"},
+    {"count": 2, "name": "길목 매복", "members": {"red_mist_bandit_sword_male_melee.json": 1, "red_mist_bandit_bow_female_ranged.json": 1}, "purpose": "전후열 기본 전술 소개"},
+    {"count": 3, "name": "부적 화살대", "members": {"red_mist_bandit_sword_male_melee.json": 1, "red_mist_bandit_bow_female_ranged.json": 2}, "purpose": "표식 대상 집중 피해"},
+    {"count": 5, "name": "붉은 안개 본대", "members": {"red_mist_bandit_sword_male_melee.json": 2, "red_mist_bandit_bow_female_ranged.json": 1, "red_mist_bandit_mudang_female_healer.json": 1, "red_mist_bandit_axe_male_boss.json": 1}, "purpose": "완성형 산적 역할 조합"},
+    {"count": 7, "name": "탈영병 잔당", "members": {"red_mist_bandit_sword_male_melee.json": 3, "red_mist_bandit_bow_female_ranged.json": 2, "red_mist_bandit_mudang_female_healer.json": 1, "red_mist_bandit_axe_male_boss.json": 1}, "purpose": "지속 회복 아래 전후열 동시 압박"},
+    {"count": 10, "name": "산채 총동원", "members": {"red_mist_bandit_sword_male_melee.json": 4, "red_mist_bandit_bow_female_ranged.json": 4, "red_mist_bandit_mudang_female_healer.json": 1, "red_mist_bandit_axe_male_boss.json": 1}, "purpose": "대규모 인간 전투와 항복 분기"}
+  ],
+  "crossGroupUse": ["회색 수컷 늑대 1~2체를 추적견으로 추가", "후반 무너진 사당에서 무당을 의념 중계자로 재사용"]
+}

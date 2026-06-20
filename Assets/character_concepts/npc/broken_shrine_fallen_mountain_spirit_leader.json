@@ -1,0 +1,11 @@
+{
+  "id": "npc.broken_shrine.fallen_mountain_spirit_leader",
+  "displayName": "무너진 사당 · 타락한 산신 우두머리",
+  "groupTags": ["broken_shrine_retinue", "divinity", "late", "leader"],
+  "identityKeywords": ["산신", "우두머리", "공격 마법", "소환"],
+  "appearance": "호랑이 가죽과 부서진 신관을 쓴 중성적인 신격. 얼굴은 보는 이가 믿는 수호자의 모습으로 바뀐다.",
+  "combat": {"role": "지휘·소환 마도사", "attackType": "spirit_magic", "targetPriority": "의념 강화가 많은 적", "signature": "쓰러진 아군의 역할을 본뜬 의념 분신 소환, 짐승·도깨비·원혼 모두 강화", "weakness": "신도와 소환물이 없으면 능력 약화"},
+  "stats": {"health": 9, "attack": 10, "defense": 7, "speed": 5, "range": 9, "support": 10},
+  "storyUse": "수호를 바라는 믿음과 제물을 요구하는 공포가 함께 빚은 신격. 신과 악귀가 같은 근원이라는 세계관을 직접 드러낸다.",
+  "reuse": ["무너진 사당 최종 조합", "산신제 분기 보스", "초반 NPC 재등장 조합의 지휘자"]
+}

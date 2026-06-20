@@ -1,0 +1,11 @@
+{
+  "id": "npc.ash_wolf.red_alpha_leader",
+  "displayName": "잿빛 늑대 · 붉은 우두머리",
+  "groupTags": ["ash_wolf_pack", "beast", "mid_late", "leader"],
+  "identityKeywords": ["붉은색", "수컷", "우두머리", "근거리"],
+  "appearance": "핏빛 갈기와 한쪽이 혼불로 대체된 눈, 사람 키에 가까운 거대한 체구의 늑대.",
+  "combat": {"role": "근접 지휘수", "attackType": "physical_spirit_melee", "targetPriority": "전열 핵심", "signature": "포효로 늑대 계열의 속도와 공격을 올리고 쓰러진 늑대마다 광폭화", "weakness": "부하가 없을 때 효율 감소"},
+  "stats": {"health": 8, "attack": 8, "defense": 6, "speed": 7, "range": 1, "support": 6},
+  "storyUse": "산신에게 제물로 바쳐진 늑대의 의념이 우두머리로 굳어진 존재. 단순 악귀가 아닌 희생의 결과다.",
+  "reuse": ["늑대 무리 우두머리", "후반 산신 권속", "단독 정예 추격전"]
+}

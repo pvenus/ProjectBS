@@ -1,0 +1,11 @@
+{
+  "id": "npc.plague_procession.bell_child_ranged",
+  "displayName": "역병 행렬 · 방울 아이 원거리형",
+  "groupTags": ["plague_procession", "spirit", "mid"],
+  "identityKeywords": ["아이", "방울", "원거리", "약화"],
+  "appearance": "얼굴을 흰 천으로 가린 작은 원혼. 손의 상여 방울마다 검보라 의념이 고여 있다.",
+  "combat": {"role": "원거리 약화술사", "attackType": "spirit_ranged", "targetPriority": "공격력이 높은 적", "signature": "방울 소리로 공격 속도와 회복량 감소", "weakness": "빠른 암살자"},
+  "stats": {"health": 3, "attack": 4, "defense": 2, "speed": 5, "range": 7, "support": 7},
+  "storyUse": "이름 없이 공동묘에 묻힌 아이들의 기억이 한 형상으로 뭉친 존재다.",
+  "reuse": ["폐가 괴담", "역병 행렬", "후반 약화 지원"]
+}

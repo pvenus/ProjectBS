@@ -1,0 +1,11 @@
+{
+  "id": "npc.broken_shrine.stone_dokkaebi_tank",
+  "displayName": "무너진 사당 · 돌 도깨비 방어형",
+  "groupTags": ["broken_shrine_retinue", "dokkaebi", "late"],
+  "identityKeywords": ["돌", "도깨비", "근거리", "방어"],
+  "appearance": "장승과 기단석이 합쳐진 육중한 도깨비. 금 간 몸 안에서 자색 의념이 빛난다.",
+  "combat": {"role": "최전열 방어수", "attackType": "physical_melee", "targetPriority": "가장 가까운 적", "signature": "움직이지 않는 동안 방어가 누적되고 도발 파동 발생", "weakness": "방어 관통과 강제 이동"},
+  "stats": {"health": 10, "attack": 5, "defense": 10, "speed": 1, "range": 1, "support": 5},
+  "storyUse": "사당을 지키라는 믿음만 남아 누구를 지키는지도 잊은 수호신의 잔재다.",
+  "reuse": ["무너진 사당 전열", "폐성 장승", "후반 마도사 호위"]
+}

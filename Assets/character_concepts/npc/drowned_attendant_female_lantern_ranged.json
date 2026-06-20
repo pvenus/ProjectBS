@@ -1,0 +1,11 @@
+{
+  "id": "npc.drowned_wedding.attendant_female_lantern_ranged",
+  "displayName": "수몰 혼례 · 초롱 시녀 원거리형",
+  "groupTags": ["drowned_wedding", "spirit", "mid"],
+  "identityKeywords": ["여성", "시녀", "초롱", "원거리"],
+  "appearance": "청색 저고리와 진흙 묻은 치마, 물고기 뼈로 만든 청사초롱을 든 작은 원혼.",
+  "combat": {"role": "원거리 유도수", "attackType": "spirit_ranged", "targetPriority": "후열", "signature": "혼불을 날려 대상을 물웅덩이 쪽으로 유인", "weakness": "낮은 체력"},
+  "stats": {"health": 3, "attack": 5, "defense": 2, "speed": 6, "range": 7, "support": 6},
+  "storyUse": "혼례를 준비하다 함께 희생된 하인의 존재를 드러내 사건이 두 사람만의 비극이 아니었음을 알린다.",
+  "reuse": ["늪지 혼불", "수몰 혼례 지원", "후반 위치 제어 조합"]
+}

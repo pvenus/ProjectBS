@@ -1,0 +1,19 @@
+{
+  "id": "group.broken_shrine_retinue",
+  "displayName": "무너진 사당의 잊힌 권속",
+  "progression": "후반",
+  "intent": "초반 세력까지 신격의 권속으로 재구성하는 종합 조합. 탱킹·마법·처형·소환에 앞선 조합의 핵심을 섞어 숙련도를 시험한다.",
+  "storyCharacter": "수호를 구한 믿음과 제물을 바친 공포가 같은 산신을 만들었다. 인간, 짐승, 귀신, 신의 경계 붕괴를 전투 구성으로 보여 준다.",
+  "npcFiles": ["broken_shrine_stone_dokkaebi_tank.json", "broken_shrine_flame_dokkaebi_mage.json", "broken_shrine_masked_executioner_melee.json", "broken_shrine_fallen_mountain_spirit_leader.json"],
+  "externalNpcFiles": ["ash_wolf_gray_male_melee.json", "ash_wolf_white_female_ranged.json", "ash_wolf_black_female_guard.json", "red_mist_bandit_mudang_female_healer.json", "plague_bell_child_ranged.json", "drowned_attendant_female_lantern_ranged.json"],
+  "compositionRules": {"minCount": 1, "maxCount": 10, "duplicatePolicy": "산신은 최대 1, 망나니는 최대 2, 나머지는 복수 사용 가능", "coreSynergy": "도발·강화 탈취·상태 이상 처형·범용 소환 강화"},
+  "recipes": [
+    {"count": 1, "name": "잊힌 장승", "members": {"broken_shrine_stone_dokkaebi_tank.json": 1}, "purpose": "후반 단일 방어 관통 시험"},
+    {"count": 2, "name": "단청의 불", "members": {"broken_shrine_stone_dokkaebi_tank.json": 1, "broken_shrine_flame_dokkaebi_mage.json": 1}, "purpose": "튼튼한 전열과 고화력 후열"},
+    {"count": 3, "name": "산신의 사냥", "members": {"broken_shrine_fallen_mountain_spirit_leader.json": 1, "ash_wolf_gray_male_melee.json": 1, "ash_wolf_white_female_ranged.json": 1}, "purpose": "초반 늑대의 후반 재등장과 역할 강화"},
+    {"count": 5, "name": "깨진 제단", "members": {"broken_shrine_stone_dokkaebi_tank.json": 1, "broken_shrine_flame_dokkaebi_mage.json": 1, "broken_shrine_masked_executioner_melee.json": 1, "red_mist_bandit_mudang_female_healer.json": 1, "broken_shrine_fallen_mountain_spirit_leader.json": 1}, "purpose": "인간과 신격의 완성형 혼성"},
+    {"count": 7, "name": "네 갈래 원한", "members": {"broken_shrine_stone_dokkaebi_tank.json": 1, "broken_shrine_flame_dokkaebi_mage.json": 1, "broken_shrine_masked_executioner_melee.json": 1, "broken_shrine_fallen_mountain_spirit_leader.json": 1, "ash_wolf_black_female_guard.json": 1, "plague_bell_child_ranged.json": 1, "drowned_attendant_female_lantern_ranged.json": 1}, "purpose": "짐승·원혼·도깨비·신격의 종합 상태 이상 연계"},
+    {"count": 10, "name": "믿음이 만든 악귀", "members": {"broken_shrine_stone_dokkaebi_tank.json": 2, "broken_shrine_flame_dokkaebi_mage.json": 2, "broken_shrine_masked_executioner_melee.json": 1, "broken_shrine_fallen_mountain_spirit_leader.json": 1, "ash_wolf_gray_male_melee.json": 1, "ash_wolf_white_female_ranged.json": 1, "red_mist_bandit_mudang_female_healer.json": 1, "plague_bell_child_ranged.json": 1}, "purpose": "후반 최종 일반 이벤트용 10체 종합전"}
+  ],
+  "crossGroupUse": ["산신의 범용 강화 태그로 초기 NPC를 자연스럽게 상향", "이벤트 선택에 따라 이전에 구원하지 못한 세력만 권속으로 등장"]
+}

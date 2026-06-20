@@ -1,0 +1,11 @@
+{
+  "id": "npc.drowned_wedding.groom_male_spear_guard",
+  "displayName": "수몰 혼례 · 창 든 신랑 수호형",
+  "groupTags": ["drowned_wedding", "undead", "mid_late"],
+  "identityKeywords": ["남성", "신랑", "창", "수호"],
+  "appearance": "푸른 단령이 물풀에 감긴 창백한 신랑. 긴 혼례 창 끝에 작은 청사초롱이 달려 있다.",
+  "combat": {"role": "중거리 수호수", "attackType": "physical_melee", "targetPriority": "신부를 노리는 적", "signature": "두 칸 거리에서 찌르고 신부에게 접근하는 적을 가로막음", "weakness": "측면 공격"},
+  "stats": {"health": 8, "attack": 6, "defense": 7, "speed": 4, "range": 2, "support": 5},
+  "storyUse": "신부를 구하지 못한 죄책감과 가문의 명예 사이에 붙잡힌 채 혼례를 반복한다.",
+  "reuse": ["수몰 혼례 전열", "나루터 수문장", "원거리 마도사 호위"]
+}

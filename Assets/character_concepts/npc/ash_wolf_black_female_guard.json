@@ -1,0 +1,11 @@
+{
+  "id": "npc.ash_wolf.black_female_guard",
+  "displayName": "잿빛 늑대 · 검은 암컷 수호형",
+  "groupTags": ["ash_wolf_pack", "beast", "mid"],
+  "identityKeywords": ["검은색", "암컷", "근거리", "수호"],
+  "appearance": "숯처럼 검은 털과 넓은 어깨, 목덜미에 낡은 붉은 금줄이 엉켜 있는 큰 늑대.",
+  "combat": {"role": "근접 수호수", "attackType": "physical_melee", "targetPriority": "우두머리를 노리는 적", "signature": "인접 아군 대신 피해를 받고 반격", "weakness": "느린 이동과 지속 마법 피해"},
+  "stats": {"health": 8, "attack": 4, "defense": 7, "speed": 4, "range": 1, "support": 4},
+  "storyUse": "본래 마을의 수호견이었음을 보여 주는 금줄로 인간에게 버림받은 짐승의 원한을 표현한다.",
+  "reuse": ["중반 늑대 무리", "역귀 호위", "후반 보스 경호"]
+}

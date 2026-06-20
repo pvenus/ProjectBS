@@ -1,0 +1,11 @@
+{
+  "id": "npc.plague_procession.physician_male_healer",
+  "displayName": "역병 행렬 · 의원 남성 회복형",
+  "groupTags": ["plague_procession", "undead", "mid_late", "support"],
+  "identityKeywords": ["남성", "의원", "회복 마법", "역치유"],
+  "appearance": "부리처럼 긴 약재 가면과 검은 도포, 허리에는 약병과 뼛조각 침통이 매달려 있다.",
+  "combat": {"role": "회복·감염 증폭술사", "attackType": "spirit_support", "targetPriority": "손상된 아군", "signature": "시귀는 회복하고 살아 있는 적에게는 같은 술이 역병 피해로 전환", "weakness": "침묵과 신성 정화"},
+  "stats": {"health": 5, "attack": 4, "defense": 4, "speed": 4, "range": 6, "support": 9},
+  "storyUse": "사람을 살리지 못했다는 죄책감이 의념으로 뒤틀려 죽은 자만 치료하는 의원이 되었다.",
+  "reuse": ["역병 행렬 핵심 지원", "금지된 의원", "후반 언데드 혼성 조합"]
+}

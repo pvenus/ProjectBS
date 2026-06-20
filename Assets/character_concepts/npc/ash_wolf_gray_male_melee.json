@@ -1,0 +1,11 @@
+{
+  "id": "npc.ash_wolf.gray_male_melee",
+  "displayName": "잿빛 늑대 · 회색 수컷 근접형",
+  "groupTags": ["ash_wolf_pack", "beast", "early"],
+  "identityKeywords": ["회색", "수컷", "근거리", "추격"],
+  "appearance": "먹빛 등털과 재색 배털, 오른쪽 귀가 찢어진 보통 체구의 늑대. 청색 의념이 발톱 끝에 희미하게 맺힌다.",
+  "combat": {"role": "근접 추격수", "attackType": "physical_melee", "targetPriority": "후열 원거리", "signature": "상처 냄새를 맡아 체력이 낮은 적에게 돌진", "weakness": "밀쳐내기와 속박"},
+  "stats": {"health": 5, "attack": 5, "defense": 3, "speed": 8, "range": 1, "support": 1},
+  "storyUse": "사냥터의 평범한 위협처럼 보이지만 굶주린 새끼를 지키는 흔적으로 악귀와 짐승의 경계를 흐린다.",
+  "reuse": ["초반 산길 습격", "후반 산신 권속의 사냥개", "산적 추적대의 길잡이"]
+}

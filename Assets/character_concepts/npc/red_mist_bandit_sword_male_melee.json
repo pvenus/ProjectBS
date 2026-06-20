@@ -1,0 +1,11 @@
+{
+  "id": "npc.red_mist_bandit.sword_male_melee",
+  "displayName": "붉은 안개 산적 · 칼잡이 남성 근접형",
+  "groupTags": ["red_mist_bandits", "human", "early"],
+  "identityKeywords": ["남성", "칼", "근거리", "돌격"],
+  "appearance": "해진 군복 위에 짚갑옷을 걸치고 녹슨 환도를 든 젊은 탈영병. 붉은 천으로 코와 입을 가렸다.",
+  "combat": {"role": "근접 돌격수", "attackType": "physical_melee", "targetPriority": "가장 가까운 적", "signature": "첫 공격이 방어 일부를 무시", "weakness": "낮은 정신 저항"},
+  "stats": {"health": 5, "attack": 6, "defense": 4, "speed": 6, "range": 1, "support": 1},
+  "storyUse": "기근과 징집을 피해 산으로 오른 인간. 악행과 생존 사이의 회색 지대를 보여 준다.",
+  "reuse": ["초반 길목 강탈", "관군 탈영병", "후반 사교 집단의 호위"]
+}

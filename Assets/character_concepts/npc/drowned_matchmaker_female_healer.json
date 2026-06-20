@@ -1,0 +1,11 @@
+{
+  "id": "npc.drowned_wedding.matchmaker_female_healer",
+  "displayName": "수몰 혼례 · 중매쟁이 여성 회복형",
+  "groupTags": ["drowned_wedding", "human_spirit", "late", "support"],
+  "identityKeywords": ["여성", "중매쟁이", "회복 마법", "붉은 실"],
+  "appearance": "반은 노파, 반은 백골인 중매쟁이. 양손의 붉은 실이 아군의 상처를 꿰맨다.",
+  "combat": {"role": "회복·결속술사", "attackType": "spirit_support", "targetPriority": "체력이 낮은 한 쌍", "signature": "두 아군을 실로 묶어 피해를 분담시키고 지속 회복", "weakness": "실이 끊기면 기절"},
+  "stats": {"health": 4, "attack": 2, "defense": 4, "speed": 3, "range": 6, "support": 10},
+  "storyUse": "비극을 만든 당사자이면서 가문의 압력에 복종한 피해자이기도 한 모순된 인물.",
+  "reuse": ["수몰 혼례 회복 지원", "저주받은 혼례 중개인", "후반 2인 정예 조합"]
+}

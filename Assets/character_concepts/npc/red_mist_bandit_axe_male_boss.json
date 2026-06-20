@@ -1,0 +1,11 @@
+{
+  "id": "npc.red_mist_bandit.axe_male_boss",
+  "displayName": "붉은 안개 산적 · 도끼 두목",
+  "groupTags": ["red_mist_bandits", "human", "mid_late", "leader"],
+  "identityKeywords": ["남성", "도끼", "두목", "근거리"],
+  "appearance": "관군 장수의 철갑을 조각내 걸치고 양날 도끼를 든 거한. 목의 교수형 자국에서 붉은 안개가 샌다.",
+  "combat": {"role": "근접 파괴자", "attackType": "physical_melee", "targetPriority": "방어력이 높은 전열", "signature": "도끼 내려찍기로 방어를 파괴하고 산적이 쓰러지면 임시 보호막 획득", "weakness": "느린 공격 준비"},
+  "stats": {"health": 9, "attack": 9, "defense": 7, "speed": 3, "range": 1, "support": 5},
+  "storyUse": "죽었다 살아났다는 소문을 이용해 부하들의 믿음을 모으고, 그 믿음이 실제 신격에 가까운 힘을 만든다.",
+  "reuse": ["산적 두목전", "후반 처형귀의 인간 그릇", "단독 정예"]
+}

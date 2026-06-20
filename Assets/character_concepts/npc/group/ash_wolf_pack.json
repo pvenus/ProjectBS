@@ -1,0 +1,18 @@
+{
+  "id": "group.ash_wolf_pack",
+  "displayName": "재 먹은 늑대 무리",
+  "progression": "초반~중반, 후반 산신 조합에 재등장 가능",
+  "intent": "빠른 추격으로 후열 배치를 흔드는 입문형 짐승 조합. 외형 색과 체구만으로 역할이 즉시 구분된다.",
+  "storyCharacter": "기근과 제의 때문에 인간의 원혼을 먹은 산짐승들. 적이지만 새끼와 영역을 지키는 행동으로 연민을 남긴다.",
+  "npcFiles": ["ash_wolf_gray_male_melee.json", "ash_wolf_white_female_ranged.json", "ash_wolf_black_female_guard.json", "ash_wolf_red_alpha_leader.json"],
+  "compositionRules": {"minCount": 1, "maxCount": 10, "duplicatePolicy": "우두머리는 최대 1, 나머지는 복수 사용 가능", "coreSynergy": "추격·공포·보호·광폭화"},
+  "recipes": [
+    {"count": 1, "name": "굶주린 척후", "members": {"ash_wolf_gray_male_melee.json": 1}, "purpose": "초반 단일 근접 NPC 소개"},
+    {"count": 2, "name": "안개 사냥", "members": {"ash_wolf_gray_male_melee.json": 1, "ash_wolf_white_female_ranged.json": 1}, "purpose": "공포 후 추격의 기본 연계"},
+    {"count": 3, "name": "어미의 경계", "members": {"ash_wolf_gray_male_melee.json": 2, "ash_wolf_black_female_guard.json": 1}, "purpose": "수호수를 먼저 처리할지 우회할지 선택"},
+    {"count": 5, "name": "핏빛 포효", "members": {"ash_wolf_gray_male_melee.json": 2, "ash_wolf_white_female_ranged.json": 1, "ash_wolf_black_female_guard.json": 1, "ash_wolf_red_alpha_leader.json": 1}, "purpose": "완성형 역할 조합"},
+    {"count": 7, "name": "산신의 사냥개", "members": {"ash_wolf_gray_male_melee.json": 3, "ash_wolf_white_female_ranged.json": 2, "ash_wolf_black_female_guard.json": 1, "ash_wolf_red_alpha_leader.json": 1}, "purpose": "중후반 다중 추격 압박"},
+    {"count": 10, "name": "재빛 대이동", "members": {"ash_wolf_gray_male_melee.json": 4, "ash_wolf_white_female_ranged.json": 3, "ash_wolf_black_female_guard.json": 2, "ash_wolf_red_alpha_leader.json": 1}, "purpose": "대규모 생존전과 광폭화 순서 퍼즐"}
+  ],
+  "crossGroupUse": ["붉은 안개 산적의 추적견으로 회색 수컷 1~2체", "타락한 산신 조합의 초반 회귀 요소로 모든 늑대 사용"]
+}

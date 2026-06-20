@@ -1,0 +1,11 @@
+{
+  "id": "npc.ash_wolf.white_female_ranged",
+  "displayName": "잿빛 늑대 · 흰 암컷 원거리형",
+  "groupTags": ["ash_wolf_pack", "beast", "early_mid"],
+  "identityKeywords": ["흰색", "암컷", "원거리", "울음"],
+  "appearance": "안개처럼 옅은 흰 털과 푸른 눈을 지닌 마른 늑대. 울 때 입김이 작은 혼불 조각으로 갈라진다.",
+  "combat": {"role": "원거리 교란수", "attackType": "spirit_ranged", "targetPriority": "밀집 지역", "signature": "혼불 울음으로 원거리 피해와 짧은 공포 부여", "weakness": "낮은 방어와 긴 재사용 대기"},
+  "stats": {"health": 3, "attack": 5, "defense": 2, "speed": 7, "range": 7, "support": 3},
+  "storyUse": "죽은 사냥꾼들의 공포를 의념으로 토해 내며 무리가 인간의 원혼에 물들었음을 암시한다.",
+  "reuse": ["안개 숲 매복", "원혼 사냥개", "후반 혼성 조합의 공포 지원"]
+}

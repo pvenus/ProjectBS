@@ -1,0 +1,11 @@
+{
+  "id": "npc.plague_procession.palanquin_mother_leader",
+  "displayName": "역병 행렬 · 상여 어미 우두머리",
+  "groupTags": ["plague_procession", "spirit", "late", "leader"],
+  "identityKeywords": ["여성", "상여", "우두머리", "공격 마법"],
+  "appearance": "검은 상여와 융합된 거대한 여성 원혼. 여러 팔이 만장과 붉은 실을 조종한다.",
+  "combat": {"role": "광역 공격 마도사", "attackType": "spirit_magic", "targetPriority": "감염 중첩이 높은 적", "signature": "붉은 실로 적을 묶고 누적 역병을 한꺼번에 폭발", "weakness": "긴 시전 시간과 실 끊기"},
+  "stats": {"health": 9, "attack": 9, "defense": 6, "speed": 2, "range": 8, "support": 7},
+  "storyUse": "역병으로 자식을 잃은 어머니들의 애도와 원망이 합쳐진 공동 의념의 신격 후보.",
+  "reuse": ["역병 행렬 보스", "상여 괴담", "후반 원혼 제단 수호자"]
+}
