@@ -18,43 +18,8 @@ namespace ResourceTools.Skill
         public LinearMoveJson linear;
         public HoverMoveJson hover;
         public WarpMoveJson warp;
-
-        public float speed;
-        public float acceleration;
-        public float turnSpeed;
-        public float duration;
-
-        public float arrivalThreshold;
-        public bool applyDirectionRotation;
-        public float rotationOffset;
-
-        public float followOffsetX;
-        public float followOffsetY;
-        public float followLerpSpeed;
-        public bool snapOnInitialize;
-
-        public bool useHoverMotion;
-        public float hoverAmplitude;
-        public float hoverFrequency;
-        public float hoverAxisX;
-        public float hoverAxisY;
-
-        public bool endWhenOwnerMissing;
-
-        public float orbitRadius;
-        public float orbitAngularSpeed;
-        public bool clockwise;
-
-        public int spawnOrder;
-        public int maxProjectileCount;
-        public bool resetPhaseWhenLayoutChanges;
-        public bool useRadialPulse;
-        public float radialPulseAmplitude;
-        public float radialPulseFrequency;
-
-        public bool useTarget;
-        public bool useOwnerDirection;
-        public bool rotateToMovement;
+        public HomingMoveJson homing;
+        public OrbitMoveJson orbit;
     }
 
     [Serializable]
@@ -73,6 +38,28 @@ namespace ResourceTools.Skill
     [Serializable]
     public class WarpMoveJson
     {
+    }
+
+    [Serializable]
+    public class HomingMoveJson
+    {
+        public float speed;
+        public float turnSpeed;
+    }
+
+    [Serializable]
+    public class OrbitMoveJson
+    {
+        public float orbitRadius;
+        public float orbitAngularSpeed;
+        public bool clockwise;
+
+        public int spawnOrder;
+        public int maxProjectileCount;
+        public bool resetPhaseWhenLayoutChanges;
+
+        public float radialPulseAmplitude;
+        public float radialPulseFrequency;
     }
 
     public static class SkillMoveAssetBuilder
@@ -124,37 +111,6 @@ namespace ResourceTools.Skill
 
             SkillMoveConfig config = ApplyConfig(serializedObject, json);
             SetMoveType(serializedObject, config != null ? config.MoveType.ToString() : ResolveMoveType(json));
-
-            SetBool(serializedObject, "applyDirectionRotation", json.applyDirectionRotation);
-            SetFloat(serializedObject, "rotationOffset", json.rotationOffset);
-
-            SetFloat(serializedObject, "followOffsetX", json.followOffsetX);
-            SetFloat(serializedObject, "followOffsetY", json.followOffsetY);
-            SetFloat(serializedObject, "followLerpSpeed", json.followLerpSpeed);
-            SetBool(serializedObject, "snapOnInitialize", json.snapOnInitialize);
-
-            SetBool(serializedObject, "useHoverMotion", json.useHoverMotion);
-            SetFloat(serializedObject, "hoverAmplitude", json.hoverAmplitude);
-            SetFloat(serializedObject, "hoverFrequency", json.hoverFrequency);
-            SetFloat(serializedObject, "hoverAxisX", json.hoverAxisX);
-            SetFloat(serializedObject, "hoverAxisY", json.hoverAxisY);
-
-            SetBool(serializedObject, "endWhenOwnerMissing", json.endWhenOwnerMissing);
-
-            SetFloat(serializedObject, "orbitRadius", json.orbitRadius);
-            SetFloat(serializedObject, "orbitAngularSpeed", json.orbitAngularSpeed);
-            SetBool(serializedObject, "clockwise", json.clockwise);
-
-            SetInt(serializedObject, "spawnOrder", json.spawnOrder);
-            SetInt(serializedObject, "maxProjectileCount", json.maxProjectileCount);
-            SetBool(serializedObject, "resetPhaseWhenLayoutChanges", json.resetPhaseWhenLayoutChanges);
-            SetBool(serializedObject, "useRadialPulse", json.useRadialPulse);
-            SetFloat(serializedObject, "radialPulseAmplitude", json.radialPulseAmplitude);
-            SetFloat(serializedObject, "radialPulseFrequency", json.radialPulseFrequency);
-
-            SetBool(serializedObject, "useTarget", json.useTarget);
-            SetBool(serializedObject, "useOwnerDirection", json.useOwnerDirection);
-            SetBool(serializedObject, "rotateToMovement", json.rotateToMovement);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
@@ -213,6 +169,48 @@ namespace ResourceTools.Skill
                 return config;
             }
 
+            if (string.Equals(moveType, "Homing", StringComparison.OrdinalIgnoreCase))
+            {
+                HomingMoveConfig config = configProperty.managedReferenceValue as HomingMoveConfig;
+                if (config == null)
+                {
+                    config = new HomingMoveConfig();
+                }
+
+                if (json?.homing != null)
+                {
+                    config.speed = json.homing.speed;
+                    config.turnSpeed = json.homing.turnSpeed;
+                }
+
+                configProperty.managedReferenceValue = config;
+                return config;
+            }
+
+            if (string.Equals(moveType, "Orbit", StringComparison.OrdinalIgnoreCase))
+            {
+                OrbitMoveConfig config = configProperty.managedReferenceValue as OrbitMoveConfig;
+                if (config == null)
+                {
+                    config = new OrbitMoveConfig();
+                }
+
+                if (json?.orbit != null)
+                {
+                    config.orbitRadius = json.orbit.orbitRadius;
+                    config.orbitAngularSpeed = json.orbit.orbitAngularSpeed;
+                    config.clockwise = json.orbit.clockwise;
+                    config.spawnOrder = json.orbit.spawnOrder;
+                    config.maxProjectileCount = json.orbit.maxProjectileCount;
+                    config.resetPhaseWhenLayoutChanges = json.orbit.resetPhaseWhenLayoutChanges;
+                    config.radialPulseAmplitude = json.orbit.radialPulseAmplitude;
+                    config.radialPulseFrequency = json.orbit.radialPulseFrequency;
+                }
+
+                configProperty.managedReferenceValue = config;
+                return config;
+            }
+
             configProperty.managedReferenceValue = null;
             return null;
         }
@@ -256,34 +254,6 @@ namespace ResourceTools.Skill
             Debug.LogWarning($"[SkillMoveAssetBuilder] moveType property is not enum or string. type={property.propertyType}");
         }
 
-        private static void SetString(
-            SerializedObject serializedObject,
-            string propertyName,
-            string value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            if (property.propertyType == SerializedPropertyType.String)
-            {
-                property.stringValue = value;
-                return;
-            }
-
-            if (property.propertyType == SerializedPropertyType.Enum)
-            {
-                SetEnum(property, value, propertyName);
-                return;
-            }
-
-            Debug.LogWarning($"[SkillMoveAssetBuilder] Property is not string or enum: {propertyName} type={property.propertyType}");
-        }
-
         private static void SetEnum(
             SerializedProperty property,
             string value,
@@ -306,55 +276,6 @@ namespace ResourceTools.Skill
 
             Debug.LogWarning($"[SkillMoveAssetBuilder] Enum value not found. property={propertyName} value={value}");
         }
-
-        private static void SetFloat(
-            SerializedObject serializedObject,
-            string propertyName,
-            float value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            property.floatValue = value;
-        }
-
-        private static void SetInt(
-            SerializedObject serializedObject,
-            string propertyName,
-            int value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            property.intValue = value;
-        }
-
-        private static void SetBool(
-            SerializedObject serializedObject,
-            string propertyName,
-            bool value)
-        {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
-
-            if (property == null)
-            {
-                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
-                return;
-            }
-
-            property.boolValue = value;
-        }
-
 
         private static void EnsureFolder(string folderPath)
         {
