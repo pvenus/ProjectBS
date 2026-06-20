@@ -1,6 +1,5 @@
-
-
 using UnityEngine;
+using Skills.Dto.Move;
 
 /// <summary>
 /// owner를 중심으로 원형 궤도를 도는 투사체 이동.
@@ -20,39 +19,14 @@ using UnityEngine;
 /// </summary>
 public class SkillProjectileOrbitMovement : ISkillProjectileMovement
 {
-    [System.Serializable]
-    public class OrbitMovementDto
-    {
-        [Header("Orbit")]
-        public float orbitRadius = 1.5f;
-        public float orbitAngularSpeed = 180f;
-        public bool clockwise;
-
-        [Header("Layout")]
-        public int spawnOrder;
-        public int maxProjectileCount = 1;
-        public bool snapOnInitialize = true;
-        public bool resetPhaseWhenLayoutChanges = true;
-
-        [Header("Behavior")]
-        public bool endWhenOwnerMissing = true;
-
-        [Header("Optional Radial Pulse")]
-        public bool useRadialPulse;
-        public float radialPulseAmplitude;
-        public float radialPulseFrequency;
-    }
-
-    private OrbitMovementDto _dto;
+    private OrbitProjectileMoveDto _dto;
     private SkillProjectileMovementContext _context;
 
-    private Transform _targetTransform;
     private Vector2 _currentPosition;
     private Vector2 _lastPosition;
     private Vector2 _currentDirection = Vector2.right;
 
     private bool _initialized;
-    private bool _hasReachedEnd;
     private int _lastResolvedMaxProjectileCount;
 
     /// <summary>
@@ -66,7 +40,7 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
 
     public void Initialize(object dto)
     {
-        if (dto is OrbitMovementDto typed)
+        if (dto is OrbitProjectileMoveDto typed)
         {
             Initialize(typed);
         }
@@ -76,20 +50,24 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
         }
     }
 
-    public void Initialize(OrbitMovementDto dto)
+    public void Initialize(OrbitProjectileMoveDto dto)
     {
-        _dto = dto ?? new OrbitMovementDto();
+        if (dto == null)
+        {
+            Debug.LogError("OrbitProjectileMoveDto is null");
+            return;
+        }
+
+        _dto = dto;
         _dto.orbitRadius = Mathf.Max(0f, _dto.orbitRadius);
         _dto.maxProjectileCount = Mathf.Max(1, _dto.maxProjectileCount);
         _dto.radialPulseAmplitude = Mathf.Max(0f, _dto.radialPulseAmplitude);
         _dto.radialPulseFrequency = Mathf.Max(0f, _dto.radialPulseFrequency);
 
-        _targetTransform = _context.targetTransform;
-        _hasReachedEnd = false;
         _initialized = true;
 
         _lastResolvedMaxProjectileCount = ResolveCurrentMaxProjectileCount();
-        ResetOrbitLayout(_dto.snapOnInitialize);
+        ResetOrbitLayout(true);
     }
 
     public void SetContext(SkillProjectileMovementContext context)
@@ -108,17 +86,13 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
 
     public void TickMovement(float deltaTime)
     {
-        if (!_initialized || _hasReachedEnd)
+        if (!_initialized)
             return;
 
         if (_context.owner == null)
-        {
-            if (_dto != null && _dto.endWhenOwnerMissing)
-                _hasReachedEnd = true;
             return;
-        }
 
-        if (_targetTransform == null)
+        if (_context.projectileTransform == null)
             return;
 
         int resolvedMaxProjectileCount = ResolveCurrentMaxProjectileCount();
@@ -135,25 +109,23 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
             _currentDirection = delta.normalized;
 
         _currentPosition = nextPosition;
-        _targetTransform.position = nextPosition;
+        _context.projectileTransform.position = nextPosition;
         _lastPosition = nextPosition;
     }
 
     public bool HasReachedEnd()
     {
-        return _hasReachedEnd;
+        return false;
     }
 
     public void ResetMovement()
     {
         _dto = null;
         _context = default;
-        _targetTransform = null;
         _currentPosition = Vector2.zero;
         _lastPosition = Vector2.zero;
         _currentDirection = Vector2.right;
         _initialized = false;
-        _hasReachedEnd = false;
         _lastResolvedMaxProjectileCount = 1;
         _runtimeMaxProjectileCountOverride = 0;
     }
@@ -165,21 +137,23 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
 
     public Vector2 GetPosition()
     {
-        return _targetTransform != null ? (Vector2)_targetTransform.position : _currentPosition;
+        return _context.projectileTransform != null
+            ? (Vector2)_context.projectileTransform.position
+            : _currentPosition;
     }
 
     private void ResetOrbitLayout(bool resetPhase)
     {
-        if (_targetTransform == null)
+        if (_context.projectileTransform == null)
             return;
 
         Vector2 startPosition = EvaluateOrbitPosition(GetSynchronizedOrbitTime(), _lastResolvedMaxProjectileCount);
 
         _currentPosition = startPosition;
         _lastPosition = startPosition;
-        _targetTransform.position = startPosition;
+        _context.projectileTransform.position = startPosition;
 
-        SkillProjectileVisualMono visualMono = _targetTransform.GetComponentInChildren<SkillProjectileVisualMono>(true);
+        SkillProjectileVisualMono visualMono = _context.projectileTransform.GetComponentInChildren<SkillProjectileVisualMono>(true);
         if (visualMono != null)
         {
             visualMono.RestartCurrentClip();
@@ -202,7 +176,7 @@ public class SkillProjectileOrbitMovement : ISkillProjectileMovement
         float currentAngleRad = currentAngleDeg * Mathf.Deg2Rad;
 
         float radius = _dto.orbitRadius;
-        if (_dto.useRadialPulse && _dto.radialPulseAmplitude > 0f && _dto.radialPulseFrequency > 0f)
+        if (_dto.radialPulseAmplitude > 0f && _dto.radialPulseFrequency > 0f)
         {
             float wave = Mathf.Sin(elapsedTime * Mathf.PI * 2f * _dto.radialPulseFrequency);
             radius += _dto.radialPulseAmplitude * wave;

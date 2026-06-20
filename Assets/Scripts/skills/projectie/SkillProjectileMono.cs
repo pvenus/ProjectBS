@@ -72,14 +72,6 @@ public class SkillProjectileMono : MonoBehaviour
         {
             if (dto.moveConfig.MoveType == ProjectileMoveType.Orbit)
             {
-                SkillProjectileMoveDto orbitDto = dto.moveConfig.CreateDto(transform, spawnPosition, targetPosition);
-                orbitDto.spawnOrder = _spawnOrder;
-                orbitDto.maxProjectileCount = _currentMaxProjectileCount;
-                _moveMono.Initialize(orbitDto, caster, transform, spawnPosition, targetPosition);
-            }
-            else
-            {
-                _moveMono.Initialize(dto.moveConfig, caster, transform, spawnPosition, targetPosition);
             }
         }
         else

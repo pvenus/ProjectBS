@@ -1,4 +1,5 @@
 using Character;
+using Skills.Dto.Move;
 using UnityEngine;
 
 namespace Skill
@@ -10,68 +11,53 @@ namespace Skill
     /// </summary>
     public class SkillProjectileHomingMovement : ISkillProjectileMovement
     {
-        private const float DefaultSpeed = 12f;
         private const float DefaultRetargetInterval = 0.15f;
         private const float DefaultSearchRadius = 50f;
-        private const float DefaultTurnSpeed = 180f;
         private const float DefaultArrivalThreshold = 0.05f;
-        private const float DefaultNoTargetLifeTime = 1.5f;
-        private const bool EnableDebugLog = true;
 
         private SkillProjectileMovementContext context;
-        private Transform projectileTransform;
-        private Transform ownerTransform;
-        private Transform targetTransform;
 
         private Vector2 currentTargetPosition;
         private bool hasTargetPosition;
 
         private Vector2 position;
         private Vector2 direction;
-        private float speed = DefaultSpeed;
-        private float arrivalThreshold = DefaultArrivalThreshold;
+        private HomingProjectileMoveDto moveDto;
         private float retargetTimer;
-        private float noTargetTimer;
-        private bool reachedEnd;
-        private int debugInstanceId;
-        private float debugMoveLogTimer;
 
         public bool IsInitialized { get; private set; }
 
         public void Initialize(object dto)
         {
-            HomingMovementDto homingDto = dto as HomingMovementDto;
+            if (dto is HomingProjectileMoveDto homingDto)
+            {
+                Initialize(homingDto);
+                return;
+            }
 
-            speed = homingDto != null
-                ? Mathf.Max(0f, homingDto.speed)
-                : DefaultSpeed;
+            Debug.LogError($"SkillProjectileHomingMovement expected HomingProjectileMoveDto but received {(dto != null ? dto.GetType().Name : "null")}");
+        }
 
-            arrivalThreshold = homingDto != null && homingDto.arrivalThreshold > 0f
-                ? homingDto.arrivalThreshold
-                : DefaultArrivalThreshold;
+        public void Initialize(HomingProjectileMoveDto dto)
+        {
+            if (dto == null)
+            {
+                Debug.LogError("HomingProjectileMoveDto is null");
+                return;
+            }
 
-            projectileTransform = homingDto != null
-                ? homingDto.targetTransform
-                : null;
-
+            moveDto = dto;
             IsInitialized = true;
 
-            LogDebug(
-                $"Initialize Speed={speed:F2} ArrivalThreshold={arrivalThreshold:F2} " +
-                $"Projectile={GetTransformName(projectileTransform)} " +
-                $"Dto={(dto != null ? dto.GetType().Name : "null")}");
         }
 
         public void SetContext(SkillProjectileMovementContext movementContext)
         {
             context = movementContext;
-            debugInstanceId = GetHashCode();
-            ownerTransform = context.owner;
-            targetTransform = context.targetTransform;
 
-            if (targetTransform != null)
+            if (context.targetTransform != null)
             {
-                currentTargetPosition = targetTransform.position;
+                currentTargetPosition = context.targetTransform.position;
                 hasTargetPosition = true;
             }
             else
@@ -80,8 +66,8 @@ namespace Skill
                 hasTargetPosition = false;
             }
 
-            position = projectileTransform != null
-                ? projectileTransform.position
+            position = context.projectileTransform != null
+                ? context.projectileTransform.position
                 : context.spawnPosition;
 
             ApplyPositionToProjectile();
@@ -95,72 +81,37 @@ namespace Skill
             }
 
             retargetTimer = 0f;
-            noTargetTimer = 0f;
-            reachedEnd = false;
             IsInitialized = true;
 
-            LogDebug(
-                $"SetContext Projectile={GetTransformName(projectileTransform)} " +
-                $"Owner={GetTransformName(ownerTransform)} " +
-                $"Target={GetTransformName(targetTransform)} " +
-                $"TargetPosition={currentTargetPosition} HasTargetPosition={hasTargetPosition} " +
-                $"Spawn={position} Direction={direction} Speed={speed:F2} " +
-                $"InitialMode=OppositeTargetDirection");
         }
 
         public void TickMovement(float deltaTime)
         {
-            if (reachedEnd)
-            {
-                LogDebug("Tick skipped because reachedEnd=true");
-                return;
-            }
-
             RefreshTarget(deltaTime);
 
             if (!hasTargetPosition)
             {
-                noTargetTimer += deltaTime;
-
-                LogMoveDebug(
-                    $"NoTargetPosition waiting Position={position} Direction={direction} " +
-                    $"NoTargetTimer={noTargetTimer:F2}/{DefaultNoTargetLifeTime:F2}");
-
-                if (noTargetTimer >= DefaultNoTargetLifeTime)
-                {
-                    reachedEnd = true;
-                    LogDebug("ReachedEnd because no target position timeout");
-                }
-
                 return;
             }
-
-            noTargetTimer = 0f;
 
             Vector2 targetPosition = currentTargetPosition;
             Vector2 toTarget = targetPosition - position;
             float distance = toTarget.magnitude;
 
-            if (distance <= arrivalThreshold)
+            if (distance <= DefaultArrivalThreshold)
             {
-                LogMoveDebug(
-                    $"ArrivalThresholdReached but keep moving for hit detection " +
-                    $"Distance={distance:F3} Threshold={arrivalThreshold:F3} " +
-                    $"Target={GetTransformName(targetTransform)}");
             }
 
             Vector2 desiredDirection = toTarget.normalized;
             direction = RotateDirectionToward(
                 direction,
                 desiredDirection,
-                DefaultTurnSpeed * deltaTime);
+                (moveDto != null ? moveDto.turnSpeed : 0f) * deltaTime);
 
-            float moveDistance = speed * deltaTime;
+            float moveDistance = (moveDto != null ? moveDto.speed : 0f) * deltaTime;
 
             if (moveDistance <= Mathf.Epsilon)
             {
-                LogMoveDebug(
-                    $"Move skipped because moveDistance is zero Speed={speed:F2} DeltaTime={deltaTime:F4}");
                 return;
             }
 
@@ -169,33 +120,25 @@ namespace Skill
             ApplyPositionToProjectile();
             ApplyRotationToProjectile();
 
-            LogMoveDebug(
-                $"HomingMove Position={position} Target={GetTransformName(targetTransform)} " +
-                $"MoveDistance={moveDistance:F3} TurnDelta={DefaultTurnSpeed * deltaTime:F2} " +
-                $"TargetPos={targetPosition} HasTargetPosition={hasTargetPosition} Distance={distance:F2} " +
-                $"Desired={desiredDirection} Direction={direction} Speed={speed:F2}");
         }
 
         public bool HasReachedEnd()
         {
-            return reachedEnd;
+            return false;
         }
 
         public void ResetMovement()
         {
-            position = projectileTransform != null
-                ? projectileTransform.position
+            position = context.projectileTransform != null
+                ? context.projectileTransform.position
                 : context.spawnPosition;
 
             ApplyPositionToProjectile();
             ApplyRotationToProjectile();
 
-            targetTransform = context.targetTransform;
-            ownerTransform = context.owner;
-
-            if (targetTransform != null)
+            if (context.targetTransform != null)
             {
-                currentTargetPosition = targetTransform.position;
+                currentTargetPosition = context.targetTransform.position;
                 hasTargetPosition = true;
             }
             else
@@ -212,13 +155,12 @@ namespace Skill
             }
 
             retargetTimer = 0f;
-            noTargetTimer = 0f;
-            reachedEnd = false;
+            if (moveDto == null)
+            {
+                Debug.LogError("HomingProjectileMoveDto is null");
+            }
             IsInitialized = true;
 
-            LogDebug(
-                $"ResetMovement Position={position} Target={GetTransformName(targetTransform)} " +
-                $"Direction={direction}");
         }
 
         public Vector2 GetDirection()
@@ -243,9 +185,9 @@ namespace Skill
                 }
             }
 
-            if (ownerTransform != null)
+            if (context.owner != null)
             {
-                Vector2 fromOwnerToSpawn = position - (Vector2)ownerTransform.position;
+                Vector2 fromOwnerToSpawn = position - (Vector2)context.owner.position;
 
                 if (fromOwnerToSpawn.sqrMagnitude > Mathf.Epsilon)
                 {
@@ -260,28 +202,24 @@ namespace Skill
         {
             retargetTimer -= deltaTime;
 
-            if (targetTransform != null && IsTargetValid(targetTransform))
+            if (context.targetTransform != null && IsTargetValid(context.targetTransform))
             {
-                if (retargetTimer <= 0f)
-                {
-                    currentTargetPosition = targetTransform.position;
-                    hasTargetPosition = true;
-                    retargetTimer = DefaultRetargetInterval;
-
-                    LogDebug(
-                        $"Refresh target position Target={GetTransformName(targetTransform)} " +
-                        $"TargetPosition={currentTargetPosition}");
-                }
+            if (retargetTimer <= 0f)
+            {
+                currentTargetPosition = context.targetTransform.position;
+                hasTargetPosition = true;
+                retargetTimer = DefaultRetargetInterval;
+            }
 
                 return;
             }
 
-            if (targetTransform != null)
-            {
-                LogDebug($"Target invalid: {GetTransformName(targetTransform)}");
-            }
+            // if (context.targetTransform != null)
+            // {
+            //     LogDebug($"Target invalid: {GetTransformName(context.targetTransform)}");
+            // }
 
-            targetTransform = null;
+            context.targetTransform = null;
 
             if (retargetTimer > 0f)
             {
@@ -289,22 +227,19 @@ namespace Skill
             }
 
             retargetTimer = DefaultRetargetInterval;
-            targetTransform = FindNearestTarget();
+            context.targetTransform = FindNearestTarget();
 
-            if (targetTransform != null)
+            if (context.targetTransform != null)
             {
-                currentTargetPosition = targetTransform.position;
+                currentTargetPosition = context.targetTransform.position;
                 hasTargetPosition = true;
             }
 
-            LogDebug(
-                $"Retarget result: {GetTransformName(targetTransform)} " +
-                $"TargetPosition={currentTargetPosition} HasTargetPosition={hasTargetPosition}");
         }
 
         private Transform FindNearestTarget()
         {
-            CharacterManager ownerCharacter = ResolveCharacterManager(ownerTransform);
+            CharacterManager ownerCharacter = ResolveCharacterManager(context.owner);
 
             CharacterManager[] characters = Object.FindObjectsByType<CharacterManager>(
                 FindObjectsInactive.Exclude,
@@ -344,10 +279,6 @@ namespace Skill
                 nearestDistanceSqr = distanceSqr;
             }
 
-            LogDebug(
-                $"FindNearestTarget Owner={GetTransformName(ownerTransform)} " +
-                $"Nearest={(nearest != null ? nearest.name : "null")} " +
-                $"DistanceSqr={nearestDistanceSqr:F2}");
 
             return nearest != null ? nearest.transform : null;
         }
@@ -402,23 +333,23 @@ namespace Skill
 
         private void ApplyPositionToProjectile()
         {
-            if (projectileTransform == null)
+            if (context.projectileTransform == null)
             {
                 return;
             }
 
-            projectileTransform.position = position;
+            context.projectileTransform.position = position;
         }
 
         private void ApplyRotationToProjectile()
         {
-            if (projectileTransform == null || direction.sqrMagnitude <= Mathf.Epsilon)
+            if (context.projectileTransform == null || direction.sqrMagnitude <= Mathf.Epsilon)
             {
                 return;
             }
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            projectileTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+            context.projectileTransform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
 
@@ -451,35 +382,6 @@ namespace Skill
                 Mathf.Sin(radian)).normalized;
         }
 
-
-        private void LogMoveDebug(string message)
-        {
-            if (!EnableDebugLog)
-            {
-                return;
-            }
-
-            debugMoveLogTimer -= Time.deltaTime;
-
-            if (debugMoveLogTimer > 0f)
-            {
-                return;
-            }
-
-            debugMoveLogTimer = 0.25f;
-            LogDebug(message);
-        }
-
-        private void LogDebug(string message)
-        {
-            if (!EnableDebugLog)
-            {
-                return;
-            }
-
-            Debug.Log(
-                $"[HomingMovement:{debugInstanceId}] {message}");
-        }
 
         private string GetTransformName(Transform target)
         {

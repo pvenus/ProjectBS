@@ -50,71 +50,8 @@ public class SkillProjectileMoveMono : MonoBehaviour
         Vector2 runtimeTargetPosition = targetPositionOverride.sqrMagnitude <= 0.0001f
             ? runtimeStart
             : targetPositionOverride;
-
-        Initialize(moveConfig, runtimeCaster, runtimeTarget, runtimeStart, runtimeTargetPosition);
     }
 
-    public void Initialize(SkillMoveSO config, Transform targetTransform, Vector2 startPosition, Vector2 targetPosition)
-    {
-        Initialize(config, targetTransform, targetTransform, startPosition, targetPosition);
-    }
-
-    public void Initialize(SkillMoveSO config, Transform caster, Transform targetTransform, Vector2 startPosition, Vector2 targetPosition)
-    {
-        if (config == null)
-        {
-            Debug.LogError("SkillMoveSO is null", this);
-            return;
-        }
-
-        moveConfig = config;
-
-        LinearProjectileMoveDto linearMoveDto = config.CreateLinearProjectileMoveDto(
-            targetTransform,
-            startPosition,
-            targetPosition);
-
-        if (linearMoveDto != null)
-        {
-            Initialize(linearMoveDto, caster, targetTransform, startPosition);
-            return;
-        }
-
-        SkillProjectileMoveDto moveDto = config.CreateDto(targetTransform, startPosition, targetPosition);
-
-        SkillProjectileMovementContext movementContext = new SkillProjectileMovementContext
-        {
-            owner = caster,
-            projectileTransform = transform,
-            targetTransform = targetTransform,
-            spawnPosition = startPosition
-        };
-
-        var controllerDto = new SkillProjectileMoveControllerDto
-        {
-            moveType = moveDto.moveType,
-            orbitMovement = moveDto.moveType == ProjectileMoveType.Orbit
-                ? new SkillProjectileOrbitMovement.OrbitMovementDto
-                {
-                    orbitRadius = moveDto.orbitRadius,
-                    orbitAngularSpeed = moveDto.orbitAngularSpeed,
-                    clockwise = moveDto.clockwise,
-                    spawnOrder = moveDto.spawnOrder,
-                    maxProjectileCount = moveDto.maxProjectileCount,
-                    snapOnInitialize = moveDto.snapOnInitialize,
-                    resetPhaseWhenLayoutChanges = moveDto.resetPhaseWhenLayoutChanges,
-                    endWhenOwnerMissing = moveDto.endWhenOwnerMissing,
-                    useRadialPulse = moveDto.useRadialPulse,
-                    radialPulseAmplitude = moveDto.radialPulseAmplitude,
-                    radialPulseFrequency = moveDto.radialPulseFrequency
-                }
-                : null,
-            applyDirectionRotation = moveDto.applyDirectionRotation,
-            rotationOffset = moveDto.rotationOffset
-        };
-
-        Initialize(controllerDto, movementContext);
-    }
 
     public void Initialize(
         LinearProjectileMoveDto moveDto,
@@ -159,31 +96,6 @@ public class SkillProjectileMoveMono : MonoBehaviour
             targetTransform = targetTransform,
             spawnPosition = startPosition
         };
-
-        var controllerDto = new SkillProjectileMoveControllerDto
-        {
-            moveType = moveDto.moveType,
-            orbitMovement = moveDto.moveType == ProjectileMoveType.Orbit
-                ? new SkillProjectileOrbitMovement.OrbitMovementDto
-                {
-                    orbitRadius = moveDto.orbitRadius,
-                    orbitAngularSpeed = moveDto.orbitAngularSpeed,
-                    clockwise = moveDto.clockwise,
-                    spawnOrder = moveDto.spawnOrder,
-                    maxProjectileCount = moveDto.maxProjectileCount,
-                    snapOnInitialize = moveDto.snapOnInitialize,
-                    resetPhaseWhenLayoutChanges = moveDto.resetPhaseWhenLayoutChanges,
-                    endWhenOwnerMissing = moveDto.endWhenOwnerMissing,
-                    useRadialPulse = moveDto.useRadialPulse,
-                    radialPulseAmplitude = moveDto.radialPulseAmplitude,
-                    radialPulseFrequency = moveDto.radialPulseFrequency
-                }
-                : null,
-            applyDirectionRotation = moveDto.applyDirectionRotation,
-            rotationOffset = moveDto.rotationOffset
-        };
-
-        Initialize(controllerDto, movementContext);
     }
 
     private void Update()
@@ -200,35 +112,6 @@ public class SkillProjectileMoveMono : MonoBehaviour
     /// </summary>
     public void BuildController()
     {
-        _moveController = new SkillProjectileMoveController(
-            new SkillProjectileLinearMovement(),
-            new SkillProjectileWarpMovement(),
-            new SkillProjectileHoverMovement(),
-            new SkillProjectileOrbitMovement());
-    }
-
-    /// <summary>
-    /// 런타임 DTO로 이동 컨트롤러를 초기화한다.
-    /// </summary>
-    public void Initialize(SkillProjectileMoveControllerDto dto)
-    {
-        Initialize(dto, default);
-    }
-
-    public void Initialize(SkillProjectileMoveControllerDto dto, SkillProjectileMovementContext movementContext)
-    {
-        if (dto == null)
-        {
-            Debug.LogError("SkillProjectileMoveControllerDto is null", this);
-            return;
-        }
-
-        if (_moveController == null)
-        {
-            BuildController();
-        }
-
-        _moveController.Initialize(dto, movementContext);
     }
 
     /// <summary>
