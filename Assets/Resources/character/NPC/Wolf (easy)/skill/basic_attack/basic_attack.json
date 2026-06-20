@@ -1,0 +1,88 @@
+{
+  "equipmentId": "skill.npc.default.basic_attack_melee",
+  "slotName": "basic",
+  "skillName": "기본 공격",
+  "baseProfile": {
+    "profileId": "skill.npc.default.basic_attack_melee.profile",
+
+    "attackArchetype": "Melee",
+
+    "projectilePrefabName": "projectile",
+    "projectileSpawnOffset": 0.25,
+
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileLifetime": 0.2,
+
+    "projectileSpawnInterval": 0,
+    "projectileSpawnRadius": 0,
+    "projectileColliderRadius": 0.5,
+
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0
+  },
+  "cast": {
+    "castId": "skill.npc.default.basic_attack_melee.cast",
+
+    "cooldown": 2,
+    "castTime": 0,
+    "range": 0.3,
+
+    "burstCount": 1,
+    "burstInterval": 0,
+
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true
+  },
+  "move": {
+    "moveId": "skill.npc.default.basic_attack_melee.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": -90,
+    "linear": {
+      "speed": 0.1
+    }
+  },
+  "visualSet": {
+    "visualSetId": "skill.npc.default.basic_attack_melee.visual_set",
+    "baseVisualId": "skill.npc.default.basic_attack_melee.visual.base",
+    "impactVisualId": "skill.npc.default.basic_attack_melee.visual.impact"
+  },
+  "hits": [
+    {
+    "hitId": "skill.npc.default.basic_attack_melee.hit",
+
+    "maxHitCount": 1,
+    "ignoreSameRoot": true,
+    "useRepeatInterval": false,
+    "repeatInterval": 0.25,
+
+    "hitStartTime": 0,
+    "deactivateAfterFirstHit": false,
+
+    "targetLayerMask": "Party",
+
+    "damage": {
+      "skillId": "skill.npc.default.basic_attack_melee.damage",
+      "damageType": "Normal",
+      "baseDamage": 2,
+      "firstHitBaseDamage": 0,
+      "attackPercentDamage": 1.5,
+      "canCritical": false,
+      "ignoreDefense": false
+    },
+
+    "buffEffects": [],
+    "debuffEffects": [],
+
+    "splitHitCount": 1,
+    "splitHitInterval": 0
+    }
+  ]
+}

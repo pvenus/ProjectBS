@@ -1,0 +1,50 @@
+
+
+{
+  "characterId": "character.wolf.easy.1",
+
+  "characterType": "NPC",
+
+  "prefabName": "NPC",
+  "baseStats": [
+    {
+      "statType": "Attack",
+      "value": 8
+    },
+    {
+      "statType": "MaxHp",
+      "value": 50
+    },
+    {
+      "statType": "AttackSpeed",
+      "value": 1
+    },
+    {
+      "statType": "CritChance",
+      "value": 5
+    },
+    {
+      "statType": "CritDamage",
+      "value": 50
+    },
+    {
+      "statType": "MoveSpeed",
+      "value": 1.2
+    }
+  ],
+  "animationOverrideSet": {
+    "animationSetId": "character.wolf.easy.1",
+    "animationFolder": "animation"
+  },
+
+  "skillOverrideSet": {
+    "overrideId": "character.wolf.easy.1",
+
+    "slots": [
+      {
+        "slot": "basic_attack",
+        "skillJson": "skill/basic_attack/basic_attack.json"
+      }
+    ]
+  }
+}
