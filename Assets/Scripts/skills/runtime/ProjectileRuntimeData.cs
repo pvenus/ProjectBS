@@ -24,7 +24,7 @@ public class ProjectileRuntimeData
     public TargetingType targetingType = TargetingType.None;
 
     [Header("Runtime Profiles")]
-    public SkillProjectileMoveDto move;
+    public SkillProjectileMoveDto move; // TODO delete
     public SkillMoveRuntimeDto moveRuntime;
     public SkillProjectileHitDto hit;
     public SkillDamageProfileDto damageProfile;

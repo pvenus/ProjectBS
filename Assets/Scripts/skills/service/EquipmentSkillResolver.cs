@@ -112,13 +112,6 @@ public class EquipmentSkillResolver
 
         baseProjectileData.projectileSpawnRadius =
             statResolver.GetProjectileSpawnRadius(runtime.sourceEquipment);
-        baseProjectileData.move = CreateMoveDto(
-            ResolveMoveSo(runtime),
-            target,
-            targetingType,
-            resolvedSpawnPosition,
-            direction,
-            resolvedTargetPosition);
 
         baseProjectileData.moveRuntime = CreateMoveRuntimeDto(
             ResolveMoveSo(runtime),
@@ -305,26 +298,6 @@ public class EquipmentSkillResolver
             default:
                 return explicitTargetPosition ?? startPosition + forward * distance;
         }
-    }
-
-    private SkillProjectileMoveDto CreateMoveDto(
-        SkillMoveSO moveSo,
-        GameObject target,
-        TargetingType targetingType,
-        Vector2 startPosition,
-        Vector2 direction,
-        Vector2 targetPosition)
-    {
-        if (moveSo == null)
-        {
-            return null;
-        }
-
-        Transform targetTransform = targetingType == TargetingType.AutoTarget && target != null
-            ? target.transform
-            : null;
-
-        return moveSo.CreateDto(targetTransform, startPosition, targetPosition);
     }
 
     private SkillMoveRuntimeDto CreateMoveRuntimeDto(
