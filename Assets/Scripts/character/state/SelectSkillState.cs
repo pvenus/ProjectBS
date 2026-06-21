@@ -1,4 +1,3 @@
-using UnityEngine;
 using Skill;
 
 namespace Character.Skill
@@ -8,12 +7,8 @@ namespace Character.Skill
     ///
     /// Current simple rule:
     /// - Use CharacterSkillManager as the primary selector.
-    /// - Pick the first cooldown-ready skill from the character skill pool.
+    /// - Select the first cooldown-ready skill returned by CharacterSkillManager.
     /// - Store the selected EquipmentSkillSO in CharacterActionContext.
-    ///
-    /// Fallback:
-    /// - If CharacterSkillManager is missing or no ready runtime exists,
-    ///   use SkillExecutorMono basic attack for legacy compatibility.
     /// </summary>
     public class SelectSkillState : ICharacterActionState
     {
@@ -32,7 +27,7 @@ namespace Character.Skill
                 SelectSkill(context);
 
                 context.StateManager?.LogStateMessage(
-                    $"SelectSkillState Result: Skill={GetSkillName(context.SelectedSkill)} Range={context.SelectedSkillRange:F2}");
+                    $"SelectSkillState Result: Skill={GetSkillName(context.SelectedSkillRuntime?.sourceEquipment)} Range={context.SelectedSkillRange:F2}");
             }
 
             IsFinished = true;
@@ -76,52 +71,19 @@ namespace Character.Skill
 
                 if (selectedSkill != null)
                 {
-                    context.SelectedSkill = selectedSkill;
+                    context.SelectedSkillRuntime = selectedRuntime;
 
                     context.StateManager?.LogStateMessage(
                         $"SelectSkillState RuntimeInfo: SkillManager={skillManager.name} " +
-                        $"SelectedSkill={GetSkillName(context.SelectedSkill)} " +
+                        $"SelectedSkill={GetSkillName(context.SelectedSkillRuntime.sourceEquipment)} " +
                         $"SelectedRange={context.SelectedSkillRange:F2}");
 
                     return;
                 }
-
-                context.StateManager?.LogStateMessage(
-                    $"SelectSkillState RuntimeInfo: SkillManager={skillManager.name} ReadySkill=null");
             }
 
-            SelectLegacyBasicAttack(context);
+            context.SelectedSkillRuntime = null;
         }
-
-        private void SelectLegacyBasicAttack(CharacterActionContext context)
-        {
-            if (context.SkillExecutor == null && context.Owner != null)
-            {
-                context.SkillExecutor =
-                    context.Owner.GetComponent<SkillExecutorMono>()
-                    ?? context.Owner.GetComponentInChildren<SkillExecutorMono>();
-            }
-
-            SkillExecutorMono executor = context.SkillExecutor;
-
-            if (executor == null)
-            {
-                context.SelectedSkill = null;
-
-                context.StateManager?.LogStateMessage(
-                    "SelectSkillState RuntimeInfo: SkillManager=null SkillExecutor=null");
-                return;
-            }
-
-            context.SelectedSkill =
-                executor.GetBasicAttackSkill() as EquipmentSkillSO;
-
-            context.StateManager?.LogStateMessage(
-                $"SelectSkillState RuntimeInfo: LegacyBasicAttack SkillExecutor={executor.name} " +
-                $"SelectedSkill={GetSkillName(context.SelectedSkill)} " +
-                $"SelectedRange={context.SelectedSkillRange:F2}");
-        }
-
 
         private static string GetSkillName(EquipmentSkillSO skill)
         {

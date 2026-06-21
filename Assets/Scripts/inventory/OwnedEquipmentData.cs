@@ -147,11 +147,7 @@ public class OwnedEquipmentData
     {
         return new EquipmentSkillInstanceData
         {
-            equipmentId = EquipmentId,
-            equippedRunes = equippedRunes != null
-                ? new List<RuneSO>(equippedRunes)
-                : new List<RuneSO>(),
-            projectileLifetimeOverride = projectileLifetimeOverride
+            equipmentId = EquipmentId
         };
     }
 }

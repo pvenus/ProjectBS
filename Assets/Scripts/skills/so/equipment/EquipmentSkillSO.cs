@@ -24,6 +24,9 @@ namespace Skill
         [SerializeField] private SkillMoveSO moveSo;
         [SerializeField] private SpawnSkillSO spawnSkillSo;
 
+        [Header("Upgrade")]
+        [SerializeField] private EquipmentUpgradeTableSO upgradeTableSo;
+
         [Header("Visual")]
         [SerializeField] private SkillVisualSetSO visualSetSo;
 
@@ -45,6 +48,7 @@ namespace Skill
         public SkillHitSO[] HitSos => hitSos;
         public SkillMoveSO MoveSo => moveSo;
         public SpawnSkillSO SpawnSkillSo => spawnSkillSo;
+        public EquipmentUpgradeTableSO UpgradeTableSo => upgradeTableSo;
         public SkillVisualSetSO VisualSetSo => visualSetSo;
 
         public float EvaluateBrainScore(object context, int roleBias = 0)

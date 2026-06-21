@@ -18,7 +18,6 @@ public class SkillLoadoutMono : MonoBehaviour
     private void Awake()
     {
         skillPoolService = new SkillPoolService();
-        ResolveAllSkills();
     }
 
     public int ActiveSkillCount
@@ -52,17 +51,6 @@ public class SkillLoadoutMono : MonoBehaviour
         return skillPoolService.GetEntryBySlot(skillPool, slotIndex);
     }
 
-    public EquipmentSkillRuntimeData GetRuntimeBySlot(int slotIndex)
-    {
-        EnsureSkillPoolService();
-        return skillPoolService.GetRuntimeBySlot(skillPool, slotIndex);
-    }
-
-    public EquipmentSkillRuntimeData GetBasicAttackRuntime()
-    {
-        EnsureSkillPoolService();
-        return skillPoolService.GetBasicAttackRuntime(skillPool);
-    }
 
     public SkillPoolSlotData[] GetActiveEntries()
     {
@@ -70,22 +58,11 @@ public class SkillLoadoutMono : MonoBehaviour
         return skillPoolService.GetActiveEntries(skillPool).ToArray();
     }
 
-    public EquipmentSkillRuntimeData[] GetActiveRuntimes()
-    {
-        EnsureSkillPoolService();
-        return skillPoolService.GetActiveRuntimes(skillPool).ToArray();
-    }
 
     public SkillPoolSlotData[] GetAllEntries()
     {
         EnsureSkillPoolService();
         return skillPoolService.GetAllEntries(skillPool).ToArray();
-    }
-
-    public EquipmentSkillRuntimeData[] GetAllRuntimes()
-    {
-        EnsureSkillPoolService();
-        return skillPoolService.GetAllRuntimes(skillPool).ToArray();
     }
 
     public bool HasAnyActiveSkill()
@@ -98,12 +75,6 @@ public class SkillLoadoutMono : MonoBehaviour
     {
         EnsureSkillPoolService();
         return skillPoolService.HasBasicAttack(skillPool);
-    }
-
-    public void ResolveAllSkills()
-    {
-        EnsureSkillPoolService();
-        skillPoolService.ResolvePool(skillPool);
     }
 
     public void ApplyOverride(SkillPoolOverrideSO overrideSo)
@@ -136,8 +107,6 @@ public class SkillLoadoutMono : MonoBehaviour
 
             slot.SetSkill(entry.skillSo);
         }
-
-        ResolveAllSkills();
     }
 
     public void ApplyOverrideFromCharacter(CharacterSO characterSo)
@@ -149,13 +118,6 @@ public class SkillLoadoutMono : MonoBehaviour
 
         ApplyOverride(characterSo.SkillOverrideSet);
     }
-
-    public void RefreshSlotRuntime(int slotIndex)
-    {
-        EnsureSkillPoolService();
-        skillPoolService.RefreshSlotRuntime(skillPool, slotIndex);
-    }
-
     public void ClearAllRuntimeData()
     {
         EnsureSkillPoolService();

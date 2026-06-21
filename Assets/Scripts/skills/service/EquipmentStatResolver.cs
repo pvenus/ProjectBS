@@ -9,15 +9,147 @@ using Skill;
 public class EquipmentStatResolver
 {
     public List<SkillStatModifierRuntimeData> CombineStatModifiers(
-        IEnumerable<SkillStatModifierRuntimeData> first,
         IEnumerable<SkillStatModifierRuntimeData> second)
     {
         var result = new List<SkillStatModifierRuntimeData>();
 
-        AddModifiers(result, first);
         AddModifiers(result, second);
 
         return result;
+    }
+
+    public float GetBaseStatValue(
+        EquipmentSkillSO equipmentSo,
+        SkillStatModifierType modifierType)
+    {
+        if (equipmentSo == null)
+        {
+            return 0f;
+        }
+
+        switch (modifierType)
+        {
+            case SkillStatModifierType.BaseDamage:
+            {
+                SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+                return damageSo != null
+                    ? Mathf.Max(0f, damageSo.BaseDamage)
+                    : 0f;
+            }
+
+            case SkillStatModifierType.AttackPercentDamage:
+            {
+                SkillDamageSO damageSo = GetDamageSo(equipmentSo);
+                return damageSo != null
+                    ? Mathf.Max(0f, damageSo.AttackPercentDamage)
+                    : 0f;
+            }
+
+            case SkillStatModifierType.Cooldown:
+                return equipmentSo.CastSo != null
+                    ? Mathf.Max(0f, equipmentSo.CastSo.Cooldown)
+                    : 0f;
+
+            case SkillStatModifierType.Range:
+                return equipmentSo.CastSo != null
+                    ? Mathf.Max(0f, equipmentSo.CastSo.Range)
+                    : 0f;
+                    
+            case SkillStatModifierType.ProjectileCount:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(1, equipmentSo.BaseProfileSo.ProjectileCount)
+                    : 1;
+
+            case SkillStatModifierType.ProjectileSpreadAngle:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0f, equipmentSo.BaseProfileSo.ProjectileSpreadAngle)
+                    : 0f;
+
+            case SkillStatModifierType.ProjectileScale:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0.01f, equipmentSo.BaseProfileSo.ProjectileScale)
+                    : 1f;
+
+            case SkillStatModifierType.Lifetime:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0.01f, equipmentSo.BaseProfileSo.ProjectileLifetime)
+                    : 3f;
+
+            default:
+                return 0f;
+        }
+    }
+
+    public float ResolveStatValue(
+        EquipmentSkillSO equipmentSo,
+        SkillStatModifierType modifierType,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        float baseValue = GetBaseStatValue(
+            equipmentSo,
+            modifierType);
+
+        return ApplyStatModifiers(
+            baseValue,
+            modifierType,
+            modifiers);
+    }
+
+    public float ResolveStat(
+        EquipmentSkillSO equipmentSo,
+        SkillStatModifierType modifierType,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        float resolved = ResolveStatValue(
+            equipmentSo,
+            modifierType,
+            modifiers);
+
+        return ClampResolvedStat(
+            modifierType,
+            resolved);
+    }
+
+    public int ResolveIntStat(
+        EquipmentSkillSO equipmentSo,
+        SkillStatModifierType modifierType,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        float resolved = ResolveStat(
+            equipmentSo,
+            modifierType,
+            modifiers);
+
+        return Mathf.RoundToInt(resolved);
+    }
+
+    private float ClampResolvedStat(
+        SkillStatModifierType modifierType,
+        float value)
+    {
+        switch (modifierType)
+        {
+            case SkillStatModifierType.ProjectileCount:
+            case SkillStatModifierType.SplitHitCount:
+                return Mathf.Max(1f, value);
+
+            case SkillStatModifierType.ProjectileScale:
+            case SkillStatModifierType.Lifetime:
+                return Mathf.Max(0.01f, value);
+
+            case SkillStatModifierType.ProjectileSpreadAngle:
+            case SkillStatModifierType.ProjectileSpawnInterval:
+            case SkillStatModifierType.ProjectileSpawnRadius:
+            case SkillStatModifierType.ProjectileColliderRadius:
+            case SkillStatModifierType.Cooldown:
+            case SkillStatModifierType.Range:
+            case SkillStatModifierType.BaseDamage:
+            case SkillStatModifierType.AttackPercentDamage:
+                return Mathf.Max(0f, value);
+
+            default:
+                return value;
+        }
     }
 
     public float ApplyStatModifiers(
@@ -49,26 +181,20 @@ public class EquipmentStatResolver
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
     {
-        int baseValue = GetProjectileCount(equipmentSo);
-        float resolved = ApplyStatModifiers(
-            baseValue,
+        return ResolveIntStat(
+            equipmentSo,
             SkillStatModifierType.ProjectileCount,
             modifiers);
-
-        return Mathf.Max(1, Mathf.RoundToInt(resolved));
     }
 
     public float ResolveProjectileSpreadAngle(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
     {
-        float baseValue = GetProjectileSpreadAngle(equipmentSo);
-        float resolved = ApplyStatModifiers(
-            baseValue,
+        return ResolveStat(
+            equipmentSo,
             SkillStatModifierType.ProjectileSpreadAngle,
             modifiers);
-
-        return Mathf.Max(0f, resolved);
     }
 
     public int ResolveBurstCount(
@@ -97,34 +223,30 @@ public class EquipmentStatResolver
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
     {
-        float baseValue = GetProjectileScale(equipmentSo);
-        float resolved = ApplyStatModifiers(
-            baseValue,
+        return ResolveStat(
+            equipmentSo,
             SkillStatModifierType.ProjectileScale,
             modifiers);
-
-        return Mathf.Max(0.01f, resolved);
     }
 
     public float ResolveProjectileLifetime(
         EquipmentSkillRuntimeData runtime,
         IEnumerable<SkillStatModifierRuntimeData> modifiers)
     {
-        if (runtime == null)
-        {
-            return 3f;
-        }
-
-        float baseLifetime = runtime.instanceData != null && runtime.instanceData.projectileLifetimeOverride > 0f
-            ? runtime.instanceData.projectileLifetimeOverride
-            : GetProjectileLifetime(runtime.sourceEquipment);
-
-        float resolved = ApplyStatModifiers(
-            baseLifetime,
+        return ResolveStat(
+            runtime?.sourceEquipment,
             SkillStatModifierType.Lifetime,
             modifiers);
+    }
 
-        return Mathf.Max(0.01f, resolved);
+    public float ResolveBaseDamage(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        return ResolveStat(
+            equipmentSo,
+            SkillStatModifierType.BaseDamage,
+            modifiers);
     }
 
     public float ResolveBaseDamage(
@@ -134,12 +256,41 @@ public class EquipmentStatResolver
         float baseValue = GetBaseDamage(damageSo);
         float resolved = ApplyStatModifiers(
             baseValue,
-            SkillStatModifierType.Damage,
+            SkillStatModifierType.BaseDamage,
             modifiers);
 
         return Mathf.Max(0f, resolved);
     }
 
+    public float ResolveAttackPercentDamage(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        return ResolveStat(
+            equipmentSo,
+            SkillStatModifierType.AttackPercentDamage,
+            modifiers);
+    }
+
+    public float ResolveCooldown(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        return ResolveStat(
+            equipmentSo,
+            SkillStatModifierType.Cooldown,
+            modifiers);
+    }
+
+    public float ResolveRange(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+    {
+        return ResolveStat(
+            equipmentSo,
+            SkillStatModifierType.Range,
+            modifiers);
+    }
     public DamageType GetDamageType(EquipmentSkillSO equipmentSo)
     {
         return GetDamageType(GetDamageSo(equipmentSo));
@@ -173,6 +324,8 @@ public class EquipmentStatResolver
             ? Mathf.Max(0f, damageSo.BaseDamage)
             : 0f;
     }
+
+
     public bool GetCanCritical(EquipmentSkillSO equipmentSo)
     {
         return GetCanCritical(GetDamageSo(equipmentSo));

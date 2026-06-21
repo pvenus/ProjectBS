@@ -22,14 +22,18 @@ namespace Skill
             this.resolver = resolver ?? new EquipmentSkillResolver();
         }
 
-        public void ResolvePool(SkillPoolRuntimeData poolRuntimeData)
+        public void ResolvePool(
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             if (poolRuntimeData == null)
             {
                 return;
             }
 
-            poolRuntimeData.ResolveAllSkills(resolver);
+            poolRuntimeData.ResolveAllSkills(
+                resolver,
+                characterRuntimeData);
         }
 
         public void ClearResolvedRuntimeData(SkillPoolRuntimeData poolRuntimeData)
@@ -77,32 +81,45 @@ namespace Skill
 
         public EquipmentSkillRuntimeData GetRuntimeData(
             SkillPoolRuntimeData poolRuntimeData,
-            int slotIndex)
+            int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             SkillPoolSlotData slot = GetSlot(poolRuntimeData, slotIndex);
-            return ResolveSlotIfNeeded(slot);
+            return ResolveSlotIfNeeded(
+                slot,
+                characterRuntimeData);
         }
 
         public EquipmentSkillRuntimeData GetRuntimeBySlot(
             SkillPoolRuntimeData poolRuntimeData,
-            int slotIndex)
+            int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             SkillPoolSlotData slot = GetEntryBySlot(poolRuntimeData, slotIndex);
-            return ResolveSlotIfNeeded(slot);
+            return ResolveSlotIfNeeded(
+                slot,
+                characterRuntimeData);
         }
 
         public EquipmentSkillRuntimeData GetRuntimeByKey(
             SkillPoolRuntimeData poolRuntimeData,
-            string slotKey)
+            string slotKey,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             SkillPoolSlotData slot = GetSlotByKey(poolRuntimeData, slotKey);
-            return ResolveSlotIfNeeded(slot);
+            return ResolveSlotIfNeeded(
+                slot,
+                characterRuntimeData);
         }
 
         public EquipmentSkillRuntimeData GetBasicAttackRuntime(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
-            return GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack);
+            return GetRuntimeByKey(
+                poolRuntimeData,
+                SkillPoolSlotKeys.BasicAttack,
+                characterRuntimeData);
         }
 
         public bool HasSkill(
@@ -139,17 +156,25 @@ namespace Skill
 
         public bool CanUseSlot(
             SkillPoolRuntimeData poolRuntimeData,
-            int slotIndex)
+            int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
-            return GetRuntimeBySlot(poolRuntimeData, slotIndex) != null;
+            return GetRuntimeBySlot(
+                poolRuntimeData,
+                slotIndex,
+                characterRuntimeData) != null;
         }
 
         public bool TryGetRuntimeData(
             SkillPoolRuntimeData poolRuntimeData,
             int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData,
             out EquipmentSkillRuntimeData runtimeData)
         {
-            runtimeData = GetRuntimeBySlot(poolRuntimeData, slotIndex);
+            runtimeData = GetRuntimeBySlot(
+                poolRuntimeData,
+                slotIndex,
+                characterRuntimeData);
             return runtimeData != null;
         }
 
@@ -180,23 +205,25 @@ namespace Skill
         }
 
         public List<EquipmentSkillRuntimeData> GetActiveRuntimes(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(3);
 
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
 
             return result;
         }
 
         public List<EquipmentSkillRuntimeData> GetPassiveRuntimes(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(1);
 
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1, characterRuntimeData));
 
             return result;
         }
@@ -218,27 +245,32 @@ namespace Skill
         }
 
         public List<EquipmentSkillRuntimeData> GetAllRuntimes(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(5);
 
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
-            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1, characterRuntimeData));
 
             return result;
         }
 
         public List<EquipmentSkillRuntimeData> GetAllRuntimeData(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
-            return GetAllRuntimes(poolRuntimeData);
+            return GetAllRuntimes(
+                poolRuntimeData,
+                characterRuntimeData);
         }
 
         public List<SkillPoolSlotData> GetUsableSlots(
-            SkillPoolRuntimeData poolRuntimeData)
+            SkillPoolRuntimeData poolRuntimeData,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             List<SkillPoolSlotData> result = new List<SkillPoolSlotData>();
 
@@ -247,11 +279,11 @@ namespace Skill
                 return result;
             }
 
-            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack));
-            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1));
-            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2));
-            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3));
-            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1));
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), characterRuntimeData);
 
             return result;
         }
@@ -259,6 +291,7 @@ namespace Skill
         public bool TryResolveSlot(
             SkillPoolRuntimeData poolRuntimeData,
             int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData,
             out SkillPoolSlotData slot)
         {
             slot = GetEntryBySlot(poolRuntimeData, slotIndex);
@@ -268,12 +301,18 @@ namespace Skill
                 return false;
             }
 
-            return slot.ResolveRuntime(resolver) != null;
+            EquipmentSkillInstanceData instanceData =
+                characterRuntimeData?.GetOrCreateSkillInstance(slot.SkillSo.EquipmentId);
+
+            return slot.ResolveRuntime(
+                resolver,
+                instanceData) != null;
         }
 
         public void RefreshSlotRuntime(
             SkillPoolRuntimeData poolRuntimeData,
-            int slotIndex)
+            int slotIndex,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             if (poolRuntimeData == null)
             {
@@ -282,7 +321,8 @@ namespace Skill
 
             poolRuntimeData.RefreshSlotRuntimeByKey(
                 GetCharacterSlotKey(slotIndex),
-                resolver);
+                resolver,
+                characterRuntimeData);
         }
 
         public void DebugLogPool(
@@ -301,7 +341,9 @@ namespace Skill
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), "Passive1");
         }
 
-        private EquipmentSkillRuntimeData ResolveSlotIfNeeded(SkillPoolSlotData slot)
+        private EquipmentSkillRuntimeData ResolveSlotIfNeeded(
+            SkillPoolSlotData slot,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             if (slot == null || !slot.HasSkill)
             {
@@ -310,7 +352,12 @@ namespace Skill
 
             if (slot.RuntimeData == null)
             {
-                return slot.ResolveRuntime(resolver);
+                EquipmentSkillInstanceData instanceData =
+                    characterRuntimeData?.GetOrCreateSkillInstance(slot.SkillSo.EquipmentId);
+
+                return slot.ResolveRuntime(
+                    resolver,
+                    instanceData);
             }
 
             return slot.RuntimeData;
@@ -330,14 +377,15 @@ namespace Skill
 
         private void AddSlotIfRuntimeExists(
             List<SkillPoolSlotData> result,
-            SkillPoolSlotData slot)
+            SkillPoolSlotData slot,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             if (result == null || slot == null)
             {
                 return;
             }
 
-            if (ResolveSlotIfNeeded(slot) == null)
+            if (ResolveSlotIfNeeded(slot, characterRuntimeData) == null)
             {
                 return;
             }

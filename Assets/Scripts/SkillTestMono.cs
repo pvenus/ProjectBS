@@ -169,11 +169,6 @@ public class SkillTestMono : MonoBehaviour
 
     private OwnedEquipmentData GetActiveOwnedEquipment()
     {
-        if (equipmentUpgradeUi != null && equipmentUpgradeUi.SelectedEquipment != null)
-        {
-            return equipmentUpgradeUi.SelectedEquipment;
-        }
-
         return testOwnedEquipment;
     }
 
@@ -185,11 +180,6 @@ public class SkillTestMono : MonoBehaviour
             {
                 equipmentId = equipmentSkill != null ? equipmentSkill.EquipmentId : string.Empty
             };
-
-        if (projectileLifetimeOverride > 0f)
-        {
-            instanceData.projectileLifetimeOverride = projectileLifetimeOverride;
-        }
 
         return instanceData;
     }

@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 using Currency;
 using Item;
 using Session.SO;
+using Character;
+using Party;
 
 namespace Session
 {
@@ -27,6 +30,7 @@ namespace Session
 
         [SerializeField] private KeyCode battleTestKey = KeyCode.F1;
         [SerializeField] private KeyCode returnStageTestKey = KeyCode.F2;
+        [SerializeField] private KeyCode skillUpgradeTestKey = KeyCode.F3;
 
         [SerializeField] private string battleSceneName = "BattleScene";
 
@@ -84,6 +88,33 @@ namespace Session
 
                 BattleSession.EndBattle();
             }
+
+            if (Input.GetKeyDown(skillUpgradeTestKey))
+            {
+                OpenSkillUpgradeWindowForDebug();
+            }
+        }
+
+        private void OpenSkillUpgradeWindowForDebug()
+        {
+            UIEquipmentUpgradeMono upgradeUI =
+                FindObjectOfType<UIEquipmentUpgradeMono>(true);
+
+            if (upgradeUI == null)
+            {
+                Debug.LogError("[GameSession] UIEquipmentUpgradeMono not found.");
+                return;
+            }
+
+            IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas =
+                CollectPartyCharacterRuntimeDatas();
+
+            upgradeUI.Open(characterRuntimeDatas);
+        }
+
+        private IReadOnlyList<CharacterRuntimeData> CollectPartyCharacterRuntimeDatas()
+        {
+            return BattleSession.PartyRuntimeData.Members;
         }
 
         private IEnumerator ApplyStartProfileDelayed()

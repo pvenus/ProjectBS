@@ -48,7 +48,7 @@ namespace Character
                 return;
             }
 
-            if (context.SelectedSkill == null)
+            if (context.SelectedSkillRuntime == null)
             {
                 context.StateManager?.LogStateMessage(
                     "MoveToTargetState Finish: SkillMissing");

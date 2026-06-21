@@ -21,21 +21,9 @@ public class EquipmentSkillResolver
             Debug.LogError("EquipmentSkillResolver.Resolve failed: equipmentSo is null.");
             return null;
         }
-
-        EquipmentGrade resolvedGrade = instanceData != null
-            ? instanceData.currentGrade
-            : EquipmentGrade.Common;
-
-        int resolvedRuneSlotCount = instanceData != null && instanceData.currentRuneSlotCount > 0
-            ? instanceData.currentRuneSlotCount
-            : 1;
-
-        RuneRuntimeSetData runeRuntimeSet = runeResolver.Resolve(instanceData);
-        EffectRuntimeSetData effectRuntimeSet = runeResolver.ResolveEffectRuntimeSet(runeRuntimeSet);
         EquipmentUpgradeRuntimeData upgradeRuntimeData = upgradeResolver.Resolve(equipmentSo, instanceData);
 
         List<SkillStatModifierRuntimeData> resolvedStatModifiers = statResolver.CombineStatModifiers(
-            runeResolver.ExtractModifiers(runeRuntimeSet),
             upgradeResolver.ExtractModifiers(upgradeRuntimeData));
 
         AttackArchetype attackArchetype = GetAttackArchetype(equipmentSo);
@@ -47,7 +35,13 @@ public class EquipmentSkillResolver
             instanceData = instanceData,
 
             skipAttackAnimation = skipAttackAnimation,
-            resolvedGrade = resolvedGrade,
+            resolvedLevel = instanceData != null
+                ? Mathf.Max(1, instanceData.currentLevel)
+                : 1,
+            resolvedRange = statResolver.ResolveStat(
+                equipmentSo,
+                SkillStatModifierType.Range,
+                resolvedStatModifiers),
             resolvedBurstCount = statResolver.ResolveBurstCount(equipmentSo, resolvedStatModifiers),
             resolvedBurstInterval = statResolver.ResolveBurstInterval(equipmentSo, resolvedStatModifiers),
             resolvedProjectileCount = statResolver.ResolveProjectileCount(equipmentSo, resolvedStatModifiers),
@@ -56,9 +50,7 @@ public class EquipmentSkillResolver
             resolvedProjectileArrangementValue = statResolver.GetProjectileArrangementValue(equipmentSo),
             resolvedProjectileScale = statResolver.ResolveProjectileScale(equipmentSo, resolvedStatModifiers),
 
-            visualContext = BuildVisualContext(equipmentSo, attackArchetype, resolvedGrade),
-            runeRuntimeSet = runeRuntimeSet,
-            effectRuntimeSet = effectRuntimeSet,
+            visualContext = BuildVisualContext(equipmentSo, attackArchetype),
             upgradeRuntimeData = upgradeRuntimeData
         };
     }
@@ -80,15 +72,19 @@ public class EquipmentSkillResolver
         List<SkillStatModifierRuntimeData> resolvedStatModifiers = ResolveStatModifiers(runtime);
         Vector2 resolvedSpawnPosition = ResolveProjectileSpawnPosition(runtime, spawnPosition, direction);
 
-        SkillCastSO castSo = ResolveCastSo(runtime);
+        EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
+        SkillCastSO castSo = equipmentSo != null
+            ? equipmentSo.CastSo
+            : null;
 
         TargetingType targetingType = castSo != null
             ? castSo.TargetingType
             : TargetingType.None;
 
-        float castRange = castSo != null
-            ? castSo.Range
-            : 0f;
+        float castRange = statResolver.ResolveStat(
+            equipmentSo,
+            SkillStatModifierType.Range,
+            resolvedStatModifiers);
 
         Vector2 resolvedTargetPosition = ResolveProjectileTargetPosition(
             targetingType,
@@ -108,20 +104,28 @@ public class EquipmentSkillResolver
             resolvedStatModifiers);
 
         baseProjectileData.projectileSpawnInterval =
-            statResolver.GetProjectileSpawnInterval(runtime.sourceEquipment);
+            statResolver.ResolveStat(
+                equipmentSo,
+                SkillStatModifierType.ProjectileSpawnInterval,
+                resolvedStatModifiers);
 
         baseProjectileData.projectileSpawnRadius =
-            statResolver.GetProjectileSpawnRadius(runtime.sourceEquipment);
+            statResolver.ResolveStat(
+                equipmentSo,
+                SkillStatModifierType.ProjectileSpawnRadius,
+                resolvedStatModifiers);
 
         baseProjectileData.moveRuntime = CreateMoveRuntimeDto(
-            ResolveMoveSo(runtime),
+            equipmentSo != null ? equipmentSo.MoveSo : null,
             target,
             targetingType,
             resolvedSpawnPosition,
             direction,
             resolvedTargetPosition);
 
-        baseProjectileData.spawnSkillSo = ResolveSpawnSkillSo(runtime);
+        baseProjectileData.spawnSkillSo = equipmentSo != null
+            ? equipmentSo.SpawnSkillSo
+            : null;
 
         if (baseProjectileData.move != null)
         {
@@ -162,6 +166,7 @@ public class EquipmentSkillResolver
         TargetingType targetingType,
         List<SkillStatModifierRuntimeData> resolvedStatModifiers)
     {
+        EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
         return new ProjectileRuntimeData
         {
             owner = owner,
@@ -176,8 +181,9 @@ public class EquipmentSkillResolver
             projectileArrangementValue = Mathf.Max(0f, runtime.resolvedProjectileArrangementValue),
             projectileScale = Mathf.Max(0.01f, runtime.resolvedProjectileScale),
             visualContext = runtime.visualContext,
-            effectRuntimeSet = runtime.effectRuntimeSet,
-            spawnSkillSo = ResolveSpawnSkillSo(runtime)
+            spawnSkillSo = equipmentSo != null
+                ? equipmentSo.SpawnSkillSo
+                : null
         };
     }
 
@@ -228,7 +234,6 @@ public class EquipmentSkillResolver
         }
 
         return statResolver.CombineStatModifiers(
-            runeResolver.ExtractModifiers(runtime.runeRuntimeSet),
             upgradeResolver.ExtractModifiers(runtime.upgradeRuntimeData));
     }
 
@@ -334,7 +339,10 @@ public class EquipmentSkillResolver
         EquipmentSkillRuntimeData runtime,
         List<SkillStatModifierRuntimeData> resolvedStatModifiers)
     {
-        SkillHitSO[] hitSos = ResolveHitSos(runtime);
+        EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
+        SkillHitSO[] hitSos = equipmentSo != null
+            ? equipmentSo.HitSos
+            : null;
 
         if (hitSos == null || hitSos.Length == 0)
         {
@@ -358,7 +366,10 @@ public class EquipmentSkillResolver
                     resolvedStatModifiers);
 
             float projectileColliderRadius =
-                statResolver.GetProjectileColliderRadius(runtime.sourceEquipment);
+                statResolver.ResolveStat(
+                    equipmentSo,
+                    SkillStatModifierType.ProjectileColliderRadius,
+                    resolvedStatModifiers);
 
             SkillProjectileHitDto hitDto =
                 ReflectionHelper.TryInvokeCreateDto<SkillProjectileHitDto>(
@@ -415,10 +426,20 @@ public class EquipmentSkillResolver
         EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
 
         dto.damageType = statResolver.GetDamageType(damageSo);
-        dto.baseDamage = statResolver.ResolveBaseDamage(
-            damageSo,
-            resolvedStatModifiers);
-        dto.attackDamagePercent = statResolver.GetAttackPercentDamage(damageSo);
+        dto.baseDamage = equipmentSo != null
+            ? statResolver.ResolveStat(
+                equipmentSo,
+                SkillStatModifierType.BaseDamage,
+                resolvedStatModifiers)
+            : statResolver.ResolveBaseDamage(
+                damageSo,
+                resolvedStatModifiers);
+        dto.attackDamagePercent = equipmentSo != null
+            ? statResolver.ResolveStat(
+                equipmentSo,
+                SkillStatModifierType.AttackPercentDamage,
+                resolvedStatModifiers)
+            : statResolver.GetAttackPercentDamage(damageSo);
         dto.canCritical = statResolver.GetCanCritical(damageSo);
         dto.ignoreDefense = statResolver.GetIgnoreDefense(damageSo);
         return dto;
@@ -431,7 +452,9 @@ public class EquipmentSkillResolver
             return;
         }
 
-        SkillVisualSetSO visualSet = ResolveVisualSetSo(runtime);
+        SkillVisualSetSO visualSet = runtime.sourceEquipment != null
+            ? runtime.sourceEquipment.VisualSetSo
+            : null;
         if (visualSet == null)
         {
             return;
@@ -462,13 +485,11 @@ public class EquipmentSkillResolver
 
     private ResolvedVisualContextDto BuildVisualContext(
         EquipmentSkillSO equipmentSo,
-        AttackArchetype archetype,
-        EquipmentGrade grade)
+        AttackArchetype archetype)
     {
         return new ResolvedVisualContextDto
         {
             attackArchetype = archetype,
-            equipmentGrade = grade,
             baseVisualId = equipmentSo.VisualSetSo != null && equipmentSo.VisualSetSo.BaseVisualSo != null
                 ? equipmentSo.VisualSetSo.BaseVisualSo.VisualId
                 : string.Empty,
@@ -496,33 +517,4 @@ public class EquipmentSkillResolver
     }
 
 
-    private SkillCastSO ResolveCastSo(
-        EquipmentSkillRuntimeData runtime)
-    {
-        return runtime?.sourceEquipment?.CastSo;
-    }
-
-    private SkillHitSO[] ResolveHitSos(
-        EquipmentSkillRuntimeData runtime)
-    {
-        return runtime?.sourceEquipment?.HitSos;
-    }
-
-    private SkillMoveSO ResolveMoveSo(
-        EquipmentSkillRuntimeData runtime)
-    {
-        return runtime?.sourceEquipment?.MoveSo;
-    }
-
-    private SpawnSkillSO ResolveSpawnSkillSo(
-        EquipmentSkillRuntimeData runtime)
-    {
-        return runtime?.sourceEquipment?.SpawnSkillSo;
-    }
-
-    private SkillVisualSetSO ResolveVisualSetSo(
-        EquipmentSkillRuntimeData runtime)
-    {
-        return runtime?.sourceEquipment?.VisualSetSo;
-    }
 }

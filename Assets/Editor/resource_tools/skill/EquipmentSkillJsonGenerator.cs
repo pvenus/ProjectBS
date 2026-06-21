@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Skill;
 using UnityEditor;
@@ -24,6 +25,7 @@ namespace ResourceTools.Skill
             public HitJson[] hits;
             public SpawnSkillJson spawnSkill;
             public SpawnSkillJson spawn;
+            public SkillUpgradeAsssetBuilder.SkillUpgradeTableJson upgrade;
             public VisualSetJson visualSet;
         }
 
@@ -84,12 +86,16 @@ namespace ResourceTools.Skill
                 return null;
             }
 
-            return CreateOrUpdateSkill(data, outputFolder);
+            return CreateOrUpdateSkill(
+                data,
+                outputFolder,
+                jsonPath);
         }
 
         public static EquipmentSkillSO CreateOrUpdateSkill(
             EquipmentSkillJson data,
-            string outputFolder)
+            string outputFolder,
+            string sourceJsonPath = null)
         {
             if (data == null || string.IsNullOrEmpty(data.equipmentId))
             {
@@ -145,7 +151,17 @@ namespace ResourceTools.Skill
                     ? SkillSpawnAssetBuilder.CreateOrUpdate(
                         resolvedSpawnSkill,
                         outputFolder,
-                        CreateOrUpdateSkill)
+                        (skillJson, folder) => CreateOrUpdateSkill(
+                            skillJson,
+                            folder,
+                            sourceJsonPath))
+                    : null;
+
+            EquipmentUpgradeTableSO upgradeTableSo =
+                data.upgrade != null
+                    ? SkillUpgradeAsssetBuilder.CreateOrUpdate(
+                        data.upgrade,
+                        sourceJsonPath)
                     : null;
 
             ScriptableObject visualSetSo =
@@ -169,6 +185,7 @@ namespace ResourceTools.Skill
                 moveSo,
                 hitSos,
                 spawnSkillSo,
+                upgradeTableSo,
                 visualSetSo);
 
             if (isNewAsset)
@@ -184,7 +201,6 @@ namespace ResourceTools.Skill
 
             AssetDatabase.SaveAssetIfDirty(skillSo);
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
 
             return skillSo;
         }
@@ -246,6 +262,7 @@ namespace ResourceTools.Skill
             SkillMoveSO moveSo,
             SkillHitSO[] hitSos,
             SpawnSkillSO spawnSkillSo,
+            EquipmentUpgradeTableSO upgradeTableSo,
             ScriptableObject visualSetSo)
         {
             SerializedObject serializedObject = new SerializedObject(skillSo);
@@ -257,6 +274,7 @@ namespace ResourceTools.Skill
             SetObjectReference(serializedObject, "moveSo", moveSo);
             SetObjectArray(serializedObject, "hitSos", hitSos);
             SetObjectReference(serializedObject, "spawnSkillSo", spawnSkillSo);
+            SetObjectReference(serializedObject, "upgradeTableSo", upgradeTableSo);
             SetObjectReference(serializedObject, "visualSetSo", visualSetSo);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
@@ -335,40 +353,34 @@ namespace ResourceTools.Skill
                 return Array.Empty<SkillHitSO>();
             }
 
-            int validCount = 0;
+            List<SkillHitSO> result = new();
 
             for (int i = 0; i < hits.Length; i++)
             {
-                if (hits[i] != null &&
-                    !string.IsNullOrWhiteSpace(hits[i].hitId))
-                {
-                    validCount++;
-                }
-            }
-
-            if (validCount == 0)
-            {
-                return Array.Empty<SkillHitSO>();
-            }
-
-            SkillHitSO[] result = new SkillHitSO[validCount];
-            int resultIndex = 0;
-
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if (hits[i] == null ||
-                    string.IsNullOrWhiteSpace(hits[i].hitId))
+                HitJson hitJson = hits[i];
+                if (hitJson == null ||
+                    string.IsNullOrWhiteSpace(hitJson.hitId))
                 {
                     continue;
                 }
 
-                result[resultIndex] = SkillHitAssetBuilder.CreateOrUpdate(
-                    hits[i],
+                SkillHitSO hitSo = SkillHitAssetBuilder.CreateOrUpdate(
+                    hitJson,
                     outputFolder) as SkillHitSO;
-                resultIndex++;
+
+                if (hitSo == null)
+                {
+                    Debug.LogError(
+                        $"[EquipmentSkillJsonGenerator] Failed to create hit asset. hitId={hitJson.hitId}");
+                    continue;
+                }
+
+                result.Add(hitSo);
             }
 
-            return result;
+            return result.Count > 0
+                ? result.ToArray()
+                : Array.Empty<SkillHitSO>();
         }
 
         [MenuItem("Assets/Skill/Generate EquipmentSkillSO From Json", true)]

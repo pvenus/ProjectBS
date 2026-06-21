@@ -8,7 +8,7 @@ namespace Character.Skill
     ///
     /// This state assumes earlier states already selected:
     /// - CurrentTarget
-    /// - SelectedSkill
+    /// - SelectedSkillRuntime
     ///
     /// Movement is not handled here.
     /// </summary>
@@ -99,10 +99,10 @@ namespace Character.Skill
                 return false;
             }
 
-            if (context.SelectedSkill == null)
+            if (context.SelectedSkillRuntime == null)
             {
                 context.StateManager?.LogStateMessage(
-                    "AttackTargetState Failed: SelectedSkillMissing");
+                    "AttackTargetState Failed: SelectedSkillRuntimeMissing");
                 return false;
             }
 
@@ -116,19 +116,12 @@ namespace Character.Skill
             if (!context.CharacterManager.CanUseSkill)
             {
                 context.StateManager?.LogStateMessage(
-                    $"AttackTargetState Failed: SkillNotUsable {GetSkillName(context.SelectedSkill)}");
+                    $"AttackTargetState Failed: SkillNotUsable {GetSkillName(context.SelectedSkillRuntime)}");
                 return false;
             }
 
             EquipmentSkillRuntimeData selectedRuntime =
-                skillManager.GetRuntimeBySkill(context.SelectedSkill);
-
-            if (selectedRuntime == null)
-            {
-                context.StateManager?.LogStateMessage(
-                    $"AttackTargetState Failed: RuntimeMissing {GetSkillName(context.SelectedSkill)}");
-                return false;
-            }
+                context.SelectedSkillRuntime;
 
             bool requiresTarget = RequiresTarget(selectedRuntime);
 
@@ -150,7 +143,7 @@ namespace Character.Skill
                     target);
 
             context.StateManager?.LogStateMessage(
-                $"AttackTargetState Result: Skill={GetSkillName(context.SelectedSkill)} " +
+                $"AttackTargetState Result: Skill={GetSkillName(selectedRuntime)} " +
                 $"RuntimeFound={selectedRuntime != null} " +
                 $"RequiresTarget={requiresTarget} " +
                 $"Target={GetTargetName(target)} " +
@@ -204,9 +197,9 @@ namespace Character.Skill
             }
 
             context.StateManager?.LogStateMessage(
-                $"AttackTargetState ClearSelectedSkill: {GetSkillName(context.SelectedSkill)}");
+                $"AttackTargetState ClearSelectedSkill: {GetSkillName(context.SelectedSkillRuntime)}");
 
-            context.SelectedSkill = null;
+            context.SelectedSkillRuntime = null;
         }
 
         private void ClearCurrentTarget(CharacterActionContext context)
@@ -233,8 +226,9 @@ namespace Character.Skill
                 ?? context.Owner.GetComponentInChildren<CharacterSkillManager>();
         }
 
-        private static string GetSkillName(EquipmentSkillSO skill)
+        private static string GetSkillName(EquipmentSkillRuntimeData runtime)
         {
+            EquipmentSkillSO skill = runtime?.sourceEquipment;
             return skill == null
                 ? "null"
                 : skill.name;

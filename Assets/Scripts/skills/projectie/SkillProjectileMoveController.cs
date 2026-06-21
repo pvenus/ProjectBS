@@ -61,6 +61,14 @@ public class SkillProjectileMoveController
                 Debug.LogWarning($"Unsupported move runtime dto type: {moveDto.GetType().Name}");
                 break;
         }
+
+        _applyDirectionRotation = moveDto.applyDirectionRotation;
+        _rotationOffset = moveDto.rotationOffset;
+
+        if (_applyDirectionRotation)
+        {
+            ApplyRotation();
+        }        
     }
 
     public void InitializeLinear(
@@ -82,8 +90,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Linear;
         _initialized = false;
-        _applyDirectionRotation = moveDto.applyDirectionRotation;
-        _rotationOffset = moveDto.rotationOffset;
 
         movementContext.projectileTransform = movingTransform;
         InitializeLinear(moveDto, movementContext);
@@ -101,9 +107,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Hover;
         _initialized = false;
-        _applyDirectionRotation = false;
-        _rotationOffset = 0f;
-
         InitializeHoverInternal(moveDto, movementContext);
     }
 
@@ -179,6 +182,7 @@ public class SkillProjectileMoveController
         {
             SkillProjectileLinearMovement linear => linear.MovingTransform,
             SkillProjectileWarpMovement warp => warp.TargetTransform,
+            SkillProjectileHoverMovement hover => hover.TargetTransform,
             _ => null
         };
     }
@@ -203,8 +207,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Linear;
         _initialized = false;
-        _applyDirectionRotation = dto.applyDirectionRotation;
-        _rotationOffset = dto.rotationOffset;
 
         _movement.SetContext(movementContext);
         _movement.Initialize(dto);
@@ -243,8 +245,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Warp;
         _initialized = false;
-        _applyDirectionRotation = false;
-        _rotationOffset = 0f;
 
         _movement.SetContext(movementContext);
         _movement.Initialize(dto);
@@ -269,8 +269,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Orbit;
         _initialized = false;
-        _applyDirectionRotation = false;
-        _rotationOffset = 0f;
 
         _movement.SetContext(movementContext);
         _movement.Initialize(dto);
@@ -295,8 +293,6 @@ public class SkillProjectileMoveController
 
         _moveType = ProjectileMoveType.Homing;
         _initialized = false;
-        _applyDirectionRotation = false;
-        _rotationOffset = 0f;
 
         _movement.SetContext(movementContext);
         _movement.Initialize(dto);

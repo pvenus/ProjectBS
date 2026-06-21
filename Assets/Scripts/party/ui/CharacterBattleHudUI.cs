@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Party.UI
 {
+    [DisallowMultipleComponent]
     public class CharacterBattleHudUI : MonoBehaviour
     {
         [Header("Target")]
@@ -72,6 +73,56 @@ namespace Party.UI
             ResolveTarget();
 
             Refresh(force: true);
+        }
+
+        public static CharacterBattleHudUI CreateFor(
+            CharacterManager target,
+            Transform parent = null)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            GameObject hudObject = new("CharacterBattleHudUI");
+
+            Transform hudParent = parent != null
+                ? parent
+                : target.transform;
+
+            hudObject.transform.SetParent(hudParent, false);
+            hudObject.transform.localPosition = Vector3.zero;
+            hudObject.transform.localRotation = Quaternion.identity;
+            hudObject.transform.localScale = Vector3.one;
+
+            CharacterBattleHudUI hud =
+                hudObject.AddComponent<CharacterBattleHudUI>();
+
+            hud.Initialize(target);
+            return hud;
+        }
+
+        public static CharacterBattleHudUI EnsureFor(
+            CharacterManager target,
+            Transform parent = null)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            CharacterBattleHudUI existing =
+                target.GetComponentInChildren<CharacterBattleHudUI>(true);
+
+            if (existing != null)
+            {
+                existing.Initialize(target);
+                return existing;
+            }
+
+            return CreateFor(
+                target,
+                parent);
         }
 
         public void Refresh(bool force = false)

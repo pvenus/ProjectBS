@@ -411,7 +411,6 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             if (entry != null)
             {
                 instanceData.equipmentId = equipmentSkill.EquipmentId;
-                instanceData.projectileLifetimeOverride = entry.ProjectileLifetimeOverride;
             }
 
             runtime = _equipmentSkillResolver.Resolve(equipmentSkill, instanceData);

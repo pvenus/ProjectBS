@@ -15,6 +15,10 @@ public class SkillMoveSO : ScriptableObject
     [Header("Config")]
     [SerializeReference] private SkillMoveConfig config;
 
+    [Header("Rotation")]
+    [SerializeField] private bool applyDirectionRotation = true;
+    [SerializeField] private float rotationOffset;
+
     public ProjectileMoveType MoveType => moveType;
 
     public SkillMoveRuntimeDto CreateMoveRuntimeDto(
@@ -29,10 +33,18 @@ public class SkillMoveSO : ScriptableObject
             return null;
         }
 
-        return moveConfig.CreateMoveDto(
+        SkillMoveRuntimeDto runtimeDto = moveConfig.CreateMoveDto(
             targetTransform,
             startPosition,
             targetPosition);
+
+        if (runtimeDto != null)
+        {
+            runtimeDto.applyDirectionRotation = applyDirectionRotation;
+            runtimeDto.rotationOffset = rotationOffset;
+        }
+
+        return runtimeDto;
     }
 
     private static SkillMoveConfig CreateDefaultConfig(ProjectileMoveType moveType)

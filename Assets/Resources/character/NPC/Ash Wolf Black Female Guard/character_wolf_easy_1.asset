@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_wolf_easy_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.wolf.easy.1
+  characterType: 1
+  job: 0
+  prefab: {fileID: 0}
+  animationOverrideSet: {fileID: 11400000, guid: 79fb252dbd8d44a46bdab779154fcc81, type: 2}
+  skillOverrideSet: {fileID: 11400000, guid: bc9ac6b66dfe54ec3a3ff210a6744ad6, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 8
+  - statType: 1000
+    value: 50
+  - statType: 1220
+    value: 1
+  - statType: 1240
+    value: 5
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.2

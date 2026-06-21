@@ -30,12 +30,12 @@ namespace Character
 
         public AnimationMono AnimationMono;
 
-        public EquipmentSkillSO SelectedSkill;
+        public EquipmentSkillRuntimeData SelectedSkillRuntime;
 
         public float SelectedSkillRange =>
-            SelectedSkill?.CastSo?.Range ?? 0f;
+            SelectedSkillRuntime?.resolvedRange ?? 0f;
 
-        public bool HasSelectedSkill => SelectedSkill != null;
+        public bool HasSelectedSkill => SelectedSkillRuntime != null;
 
         public Vector2 DestinationPosition;
 

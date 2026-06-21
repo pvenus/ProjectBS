@@ -16,6 +16,8 @@ namespace Character
     /// This component does not require an Animator Controller asset.
     /// It uses Playables directly on an Animator component.
     /// </summary>
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(Animator))]
     public class AnimationMono : MonoBehaviour
     {
         public enum AnimationState
@@ -177,35 +179,17 @@ namespace Character
 
         private void Reset()
         {
-            targetSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            movementController = GetComponent<MovementController>();
-            characterManager = GetComponent<CharacterManager>();
-            animator = GetComponent<Animator>();
-            if (animator == null)
-            {
-                animator = gameObject.AddComponent<Animator>();
-            }
+            ResolveRequiredComponents();
         }
 
         private void Awake()
         {
-            EnsureAnimatorOnSpriteRenderer();
-            if (movementController == null)
-                movementController = GetComponent<MovementController>();
-            if (characterManager == null)
-                characterManager = GetComponent<CharacterManager>();
-            if (characterManager == null)
-                characterManager = GetComponentInParent<CharacterManager>();
+            ResolveRequiredComponents();
             _currentDirection = defaultDirection;
         }
 
-        private void EnsureAnimatorOnSpriteRenderer()
+        private void ResolveRequiredComponents()
         {
-            if (targetSpriteRenderer == null)
-            {
-                targetSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            }
-
             if (animator == null)
             {
                 animator = GetComponent<Animator>();
@@ -214,6 +198,35 @@ namespace Character
             if (animator == null)
             {
                 animator = gameObject.AddComponent<Animator>();
+            }
+
+            if (targetSpriteRenderer == null)
+            {
+                targetSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
+
+            if (targetSpriteRenderer == null)
+            {
+                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+                targetSpriteRenderer = spriteRenderer != null
+                    ? spriteRenderer
+                    : gameObject.AddComponent<SpriteRenderer>();
+            }
+
+            if (movementController == null)
+            {
+                movementController =
+                    GetComponent<MovementController>()
+                    ?? GetComponentInParent<MovementController>()
+                    ?? gameObject.AddComponent<MovementController>();
+            }
+
+            if (characterManager == null)
+            {
+                characterManager =
+                    GetComponent<CharacterManager>()
+                    ?? GetComponentInParent<CharacterManager>()
+                    ?? gameObject.AddComponent<CharacterManager>();
             }
         }
 

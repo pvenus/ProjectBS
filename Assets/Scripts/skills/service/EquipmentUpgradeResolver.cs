@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using Skill;
 /// <summary>
 /// 장비 업그레이드 해석 전담 Resolver.
-/// 현재 등급 기반 업그레이드 로직은 제거되었으므로 빈 Runtime 데이터를 반환한다.
+/// EquipmentSkillSO의 업그레이드 테이블과 인스턴스 레벨을 조합해
+/// 현재 적용 가능한 레벨별 업그레이드 Runtime 데이터를 생성한다.
 /// </summary>
 public class EquipmentUpgradeResolver
 {
@@ -10,7 +11,29 @@ public class EquipmentUpgradeResolver
         EquipmentSkillSO equipmentSo,
         EquipmentSkillInstanceData instanceData)
     {
-        return EquipmentUpgradeRuntimeData.Empty();
+        if (equipmentSo == null || equipmentSo.UpgradeTableSo == null)
+        {
+            return EquipmentUpgradeRuntimeData.Empty();
+        }
+
+        int level = ResolveLevel(instanceData);
+
+        return EquipmentUpgradeRuntimeData.FromEntries(
+            level,
+            equipmentSo.UpgradeTableSo.Entries,
+            equipmentSo.EquipmentId);
+    }
+
+    private static int ResolveLevel(EquipmentSkillInstanceData instanceData)
+    {
+        if (instanceData == null)
+        {
+            return 1;
+        }
+
+        return instanceData.currentLevel <= 0
+            ? 1
+            : instanceData.currentLevel;
     }
 
     public List<SkillStatModifierRuntimeData> ExtractModifiers(

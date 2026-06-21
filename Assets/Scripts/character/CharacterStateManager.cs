@@ -43,10 +43,6 @@ namespace Character
                 GetComponent<CharacterSkillManager>()
                 ?? GetComponentInChildren<CharacterSkillManager>();
 
-            AnimationMono animationMono =
-                GetComponent<AnimationMono>()
-                ?? GetComponentInChildren<AnimationMono>();
-
             _context = new CharacterActionContext
             {
                 Owner = gameObject,
@@ -57,7 +53,7 @@ namespace Character
                 SkillManager = skillManager,
                 MovementController = movementController,
                 MovementExecutionService = new CharacterMovementExecutionService(),
-                AnimationMono = animationMono
+                AnimationMono = null
             };
 
             _decisionEngine = new CharacterDecisionEngine(targetMask);
@@ -65,6 +61,7 @@ namespace Character
 
         private void Start()
         {
+            ResolveLateComponents();
             CharacterManager characterManager = _context.CharacterManager;
 
             if (characterManager?.RuntimeData?.characterSO == null)
@@ -72,19 +69,55 @@ namespace Character
                 return;
             }
 
-            if (characterManager.RuntimeData.characterSO.CharacterType == CharacterType.Player)
+            //if (characterManager.RuntimeData.characterSO.CharacterType == CharacterType.Player)
             {
                 _context.SkillExecutor?.SetManualExecutionMode(true);
             }
         }
 
-        private void Update()
+        private void ResolveLateComponents()
         {
-            if (_context.CharacterManager?.RuntimeData.characterSO.CharacterType != CharacterType.Player)
+            if (_context == null)
             {
                 return;
             }
 
+            _context.AnimationMono =
+                GetComponent<AnimationMono>()
+                ?? GetComponentInChildren<AnimationMono>();
+
+            if (_context.SkillExecutor == null)
+            {
+                _context.SkillExecutor =
+                    GetComponent<SkillExecutorMono>()
+                    ?? GetComponentInChildren<SkillExecutorMono>();
+            }
+
+            if (_context.SkillManager == null)
+            {
+                _context.SkillManager =
+                    GetComponent<CharacterSkillManager>()
+                    ?? GetComponentInChildren<CharacterSkillManager>();
+            }
+
+            if (_context.MovementController == null)
+            {
+                _context.MovementController =
+                    GetComponent<MovementController>()
+                    ?? GetComponentInChildren<MovementController>();
+            }
+
+            if (_context.CharacterManager == null)
+            {
+                _context.CharacterManager =
+                    GetComponent<CharacterManager>()
+                    ?? GetComponentInChildren<CharacterManager>();
+            }
+        }
+
+        private void Update()
+        {
+            ResolveLateComponents();
             _context.DeltaTime = Time.deltaTime;
 
             if (_currentState == null || _currentState.IsFinished)

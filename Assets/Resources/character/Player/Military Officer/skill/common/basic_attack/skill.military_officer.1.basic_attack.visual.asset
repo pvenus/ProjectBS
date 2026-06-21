@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7651025721a43ce823e31c59823582, type: 3}
+  m_Name: skill.military_officer.1.basic_attack.visual
+  m_EditorClassIdentifier: Assembly-CSharp::SkillVisualSetSO
+  baseVisualSo: {fileID: 11400000, guid: 2911a80772d554270b53104c1c17ba29, type: 2}
+  impactVisualSo: {fileID: 11400000, guid: 7b6ad01a1101d4233b79c52b5c8567ef, type: 2}

@@ -89,8 +89,29 @@ namespace Character
             skillRuntimeData.skillPool = skillPool ?? new SkillPoolRuntimeData();
 
             EquipmentSkillResolver resolver = new EquipmentSkillResolver();
-            skillRuntimeData.skillPool.ResolveAllSkills(resolver);
+            CharacterRuntimeData characterRuntimeData = ResolveCharacterRuntimeData();
+
+            if (characterRuntimeData == null)
+            {
+                Debug.LogError(
+                    $"[CharacterSkillManager] CharacterRuntimeData not found. Character={name}");
+                return;
+            }
+
+            skillRuntimeData.skillPool.ResolveAllSkills(
+                resolver,
+                characterRuntimeData);
+
             ApplyPassiveSkills();
+        }
+
+        private CharacterRuntimeData ResolveCharacterRuntimeData()
+        {
+            CharacterManager characterManager =
+                GetComponent<CharacterManager>()
+                ?? GetComponentInChildren<CharacterManager>();
+
+            return characterManager?.RuntimeData;
         }
 
         public EquipmentSkillRuntimeData SelectReadyActiveSkill()
@@ -125,14 +146,14 @@ namespace Character
 
         public void BeginSkillExecution()
         {
-            skillExecutionLockCount++;
+            //skillExecutionLockCount++;
         }
 
         public void EndSkillExecution()
         {
-            skillExecutionLockCount = Mathf.Max(
-                0,
-                skillExecutionLockCount - 1);
+            //skillExecutionLockCount = Mathf.Max(
+            //    0,
+            //    skillExecutionLockCount - 1);
         }
 
         public bool FireSkill(

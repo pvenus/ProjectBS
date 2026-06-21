@@ -63,7 +63,9 @@ namespace Skill
             return string.Equals(slotKey, key, StringComparison.Ordinal);
         }
 
-        public EquipmentSkillRuntimeData ResolveRuntime(EquipmentSkillResolver resolver)
+        public EquipmentSkillRuntimeData ResolveRuntime(
+            EquipmentSkillResolver resolver,
+            EquipmentSkillInstanceData instanceData)
         {
             if (resolver == null || skillSo == null)
             {
@@ -73,11 +75,8 @@ namespace Skill
 
             runtimeData = resolver.Resolve(
                 skillSo,
-                new EquipmentSkillInstanceData
-                {
-                    equipmentId = skillSo != null ? skillSo.EquipmentId : string.Empty,
-                    projectileLifetimeOverride = projectileLifetimeOverride
-                });
+                instanceData);
+
             return runtimeData;
         }
 
@@ -160,7 +159,9 @@ namespace Skill
             return slot != null && slot.HasSkill;
         }
 
-        public void ResolveAllSkills(EquipmentSkillResolver resolver)
+        public void ResolveAllSkills(
+            EquipmentSkillResolver resolver,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
             if (slots == null)
             {
@@ -169,18 +170,56 @@ namespace Skill
 
             foreach (SkillPoolSlotData slot in slots)
             {
-                slot?.ResolveRuntime(resolver);
+                if (slot == null || !slot.HasSkill)
+                {
+                    continue;
+                }
+
+                EquipmentSkillInstanceData instanceData =
+                    characterRuntimeData?.GetOrCreateSkillInstance(slot.SkillSo.EquipmentId);
+
+                slot.ResolveRuntime(
+                    resolver,
+                    instanceData);
             }
         }
 
-        public void RefreshSlotRuntime(int slotIndex, EquipmentSkillResolver resolver)
+        public void RefreshSlotRuntime(
+            int slotIndex,
+            EquipmentSkillResolver resolver,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
-            GetSlot(slotIndex)?.ResolveRuntime(resolver);
+            SkillPoolSlotData slot = GetSlot(slotIndex);
+            if (slot == null || !slot.HasSkill)
+            {
+                return;
+            }
+
+            EquipmentSkillInstanceData instanceData =
+                characterRuntimeData?.GetOrCreateSkillInstance(slot.SkillSo.EquipmentId);
+
+            slot.ResolveRuntime(
+                resolver,
+                instanceData);
         }
 
-        public void RefreshSlotRuntimeByKey(string slotKey, EquipmentSkillResolver resolver)
+        public void RefreshSlotRuntimeByKey(
+            string slotKey,
+            EquipmentSkillResolver resolver,
+            Character.CharacterRuntimeData characterRuntimeData)
         {
-            GetSlotByKey(slotKey)?.ResolveRuntime(resolver);
+            SkillPoolSlotData slot = GetSlotByKey(slotKey);
+            if (slot == null || !slot.HasSkill)
+            {
+                return;
+            }
+
+            EquipmentSkillInstanceData instanceData =
+                characterRuntimeData?.GetOrCreateSkillInstance(slot.SkillSo.EquipmentId);
+
+            slot.ResolveRuntime(
+                resolver,
+                instanceData);
         }
 
         public void ClearAllRuntimeData()

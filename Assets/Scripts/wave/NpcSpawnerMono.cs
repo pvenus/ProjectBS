@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Character;
+using Character.Helper;
 using Wave.SO;
 
 /// <summary>
@@ -115,11 +116,10 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
-        GameObject prefab = ResolveCharacterPrefab(entry: null);
         SpawnMonsterEntry entry = PickMonsterEntry(phase);
-        prefab = ResolveCharacterPrefab(entry);
+        GameObject prefab = ResolveCharacterPrefab(entry);
 
-        if (entry == null || entry.characterSo == null || prefab == null)
+        if (entry == null || entry.characterSo == null)
         {
             return false;
         }
@@ -135,7 +135,16 @@ public class NpcSpawnerMono : MonoBehaviour
             return false;
         }
 
-        GameObject spawned = Instantiate(prefab, spawnPos, Quaternion.identity);
+        GameObject spawned = CharacterBuilder.CreateOrBuildNpcObject(
+            prefab,
+            entry.characterSo.name,
+            transform,
+            spawnPos,
+            Quaternion.identity,
+            "Enemy",
+            null,
+            true);
+
         if (spawned == null)
         {
             return false;
@@ -319,7 +328,7 @@ public class NpcSpawnerMono : MonoBehaviour
         for (int i = 0; i < phase.monsters.Count; i++)
         {
             SpawnMonsterEntry entry = phase.monsters[i];
-            if (entry == null || entry.characterSo == null || ResolveCharacterPrefab(entry) == null)
+            if (entry == null || entry.characterSo == null)
             {
                 continue;
             }
@@ -338,7 +347,7 @@ public class NpcSpawnerMono : MonoBehaviour
         for (int i = 0; i < phase.monsters.Count; i++)
         {
             SpawnMonsterEntry entry = phase.monsters[i];
-            if (entry == null || entry.characterSo == null || ResolveCharacterPrefab(entry) == null)
+            if (entry == null || entry.characterSo == null)
             {
                 continue;
             }

@@ -166,6 +166,7 @@
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/SettingsPage.cs" />
     <Compile Include="Assets/Scripts/stage/StagePopupEventManager.cs" />
     <Compile Include="Assets/Scripts/_machal/UIFramework/Core/AutoBindBehaviour.cs" />
+    <Compile Include="Assets/Scripts/party/ui/CharacterUpgradeUI.cs" />
     <Compile Include="Assets/Scripts/npc/NpcPathing.cs" />
     <Compile Include="Assets/Scripts/battle/prop/BattlePropManager.cs" />
     <Compile Include="Assets/Scripts/character/state/CharacterActionContext.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileHitMono.cs" />
     <Compile Include="Assets/Scripts/effect/helper/EffectApplyHelper.cs" />
     <Compile Include="Assets/Scripts/status/resolver/HeatResolver.cs" />
+    <Compile Include="Assets/Scripts/character/helper/CharacterBuilder.cs" />
     <Compile Include="Assets/Scripts/mission/MissionDebugConsole.cs" />
     <Compile Include="Assets/Scripts/item/so/AIFunctionSO.cs" />
     <Compile Include="Assets/Scripts/skills/projectie/SkillProjectileMono.cs" />

@@ -145,8 +145,7 @@ namespace Effect
                 effectSO.skillSo,
                 new EquipmentSkillInstanceData
                 {
-                    equipmentId = effectSO.skillSo.EquipmentId,
-                    projectileLifetimeOverride = -1f
+                    equipmentId = effectSO.skillSo.EquipmentId
                 });
         }
     }

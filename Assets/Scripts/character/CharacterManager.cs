@@ -1,7 +1,6 @@
 using System;
 using Stat;
 using UnityEngine;
-using Party.UI;
 using Party;
 using Character.Service;
 using Character.Skill;
@@ -17,18 +16,12 @@ namespace Character
         [Header("Runtime")]
         [SerializeField] private CharacterRuntimeData runtimeData;
 
-        [Header("Hud")]
-        [SerializeField] private CharacterBattleHudUI battleHudPrefab;
-
-        [SerializeField] private Transform hudRoot;
 
         [Header("Damage Popup")]
         [SerializeField] private bool showDamagePopup = true;
 
         [SerializeField] private Vector3 damagePopupOffset = new(0f, 0.9f, 0f);
 
-        [Header("Effect")]
-        [SerializeField] private ShaderControllerMono shaderController;
 
         [Header("Death")]
         [SerializeField] private bool playDeathDissolveOnDeath = true;
@@ -48,9 +41,7 @@ namespace Character
         private GoldDropService goldDropService;
 
         private CharacterExperienceService experienceService;
-        private CharacterStateManager stateManager;
 
-        private CharacterBattleHudUI spawnedBattleHud;
 
         private bool isDying;
 
@@ -196,8 +187,6 @@ namespace Character
             ApplySkillOverride(characterSO);
             InitializeSkillManager(characterSO);
 
-            CreateBattleHud();
-
             StartCoroutine(PlaySpawnRevealNextFrame());
         }
 
@@ -307,8 +296,6 @@ namespace Character
                 runtimeData?.characterSO);
             InitializeSkillManager(runtimeData?.characterSO);
 
-            CreateBattleHud();
-
             StartCoroutine(PlaySpawnRevealNextFrame());
 
         }
@@ -317,56 +304,34 @@ namespace Character
         {
             yield return null;
 
-            shaderController?.PlaySpawnReveal();
+            GetComponent<ShaderControllerMono>()?.PlaySpawnReveal();
         }
 
         private void ResolveComponents()
         {
-            if (shaderController == null)
-            {
-                shaderController =
-                    GetComponent<ShaderControllerMono>();
-            }
-
-            if (shaderController == null)
-            {
-                shaderController =
-                    GetComponentInChildren<ShaderControllerMono>();
-            }
-
-            if (stateManager == null)
-            {
-                stateManager =
-                    GetComponent<CharacterStateManager>();
-            }
-
-            if (stateManager == null)
-            {
-                stateManager =
-                    gameObject.AddComponent<CharacterStateManager>();
-            }
+            EnsureComponent<CharacterStateManager>();
+            EnsureComponent<AnimationMono>();
+            EnsureComponent<ShaderControllerMono>();
         }
 
-        private void CreateBattleHud()
+        private T EnsureComponent<T>()
+            where T : Component
         {
-            if (battleHudPrefab == null || spawnedBattleHud != null)
+            T component = GetComponent<T>();
+            if (component != null)
             {
-                return;
+                return component;
             }
 
-            if (presentationService == null)
+            component = GetComponentInChildren<T>();
+            if (component != null)
             {
-                presentationService =
-                    new CharacterPresentationService();
+                return component;
             }
 
-            spawnedBattleHud =
-                presentationService.CreateBattleHud(
-                    battleHudPrefab,
-                    transform,
-                    hudRoot,
-                    hud => hud.Initialize(this));
+            return gameObject.AddComponent<T>();
         }
+
 
         public float GetStatValue(StatType statType)
         {
@@ -469,7 +434,7 @@ namespace Character
             float damage,
             bool isCritical)
         {
-            shaderController?.PlayHitFlash();
+            GetComponent<ShaderControllerMono>()?.PlayHitFlash();
 
             if (presentationService == null)
             {
@@ -478,7 +443,7 @@ namespace Character
             }
 
             presentationService.PlayDamagePresentation(
-                spawnedBattleHud,
+                GetComponentInChildren<Party.UI.CharacterBattleHudUI>(),
                 damage,
                 isCritical,
                 (hud, damageValue, critical) =>
@@ -608,6 +573,9 @@ namespace Character
                 animationMono.PlayDeath();
             }
 
+            ShaderControllerMono shaderController =
+                GetComponent<ShaderControllerMono>();
+
             if (playDeathDissolveOnDeath
                 && shaderController != null)
             {
@@ -652,11 +620,6 @@ namespace Character
 
         private void OnBeforeDeathDestroy()
         {
-            if (presentationService != null)
-            {
-                presentationService.DestroyBattleHud(spawnedBattleHud);
-                spawnedBattleHud = null;
-            }
         }
     }
 }

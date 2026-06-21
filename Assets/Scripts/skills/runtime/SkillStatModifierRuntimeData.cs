@@ -2,30 +2,11 @@
 
 using System;
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// 스탯 수정 연산 타입
 /// </summary>
-public enum SkillStatModifierOperationType
-{
-    Add = 0,
-    Multiply = 1,
-    Override = 2
-}
 
-/// <summary>
-/// 수정 대상 스탯 타입
-/// </summary>
-public enum SkillStatModifierType
-{
-    Damage = 0,
-    Cooldown = 1,
-    Range = 2,
-    ProjectileCount = 3,
-    ProjectileSpreadAngle = 4,
-    ProjectileScale = 5,
-    Lifetime = 6
-}
 
 /// <summary>
 /// 런타임에서 사용되는 스탯 수정 데이터
@@ -35,16 +16,14 @@ public enum SkillStatModifierType
 public class SkillStatModifierRuntimeData
 {
     [Header("Target")]
-    public SkillStatModifierType modifierType = SkillStatModifierType.Damage;
+    public SkillStatModifierType modifierType = SkillStatModifierType.BaseDamage;
 
     [Header("Operation")]
-    public SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Add;
+    public SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Flat;
 
     [Header("Value")]
     public float value;
 
-    [Header("Source")]
-    public string sourceId;
 
     public static SkillStatModifierRuntimeData Create(
         SkillStatModifierType type,
@@ -56,8 +35,7 @@ public class SkillStatModifierRuntimeData
         {
             modifierType = type,
             operationType = op,
-            value = val,
-            sourceId = source
+            value = val
         };
     }
 
@@ -65,10 +43,10 @@ public class SkillStatModifierRuntimeData
     {
         switch (operationType)
         {
-            case SkillStatModifierOperationType.Add:
+            case SkillStatModifierOperationType.Flat:
                 return baseValue + value;
 
-            case SkillStatModifierOperationType.Multiply:
+            case SkillStatModifierOperationType.Percent:
                 return baseValue * (1f + value);
 
             case SkillStatModifierOperationType.Override:

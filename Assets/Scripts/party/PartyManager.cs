@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Session;
 using Character;
-using Effect;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using Character.Helper;
 
 namespace Party
 {
@@ -27,6 +27,14 @@ namespace Party
         private const float BattleZoneRefreshInterval = 2.0f;
 
         private readonly List<GameObject> spawnedMembers = new();
+
+        public IReadOnlyList<CharacterManager> Members =>
+            spawnedMembers
+                .Select(x => x != null
+                    ? x.GetComponent<CharacterManager>()
+                    : null)
+                .Where(x => x != null)
+                .ToList();
         private readonly List<GameObject> runtimeMemberObjects = new();
 
         private readonly List<PartyMovementMono> movementMembers = new();
@@ -130,11 +138,6 @@ namespace Party
                 GameObject characterPrefab =
                     characterRuntime.characterSO.ResolvePrefab();
 
-                if (characterPrefab == null)
-                {
-                    continue;
-                }
-
                 Vector3 spawnPosition =
                     new Vector3(
                         battleSpawnX + Random.Range(-0.5f, 0.5f),
@@ -142,11 +145,14 @@ namespace Party
                         0f);
 
                 GameObject spawnedObject =
-                    Instantiate(
+                    CharacterBuilder.CreateOrBuildPlayerObject(
                         characterPrefab,
+                        characterRuntime.characterSO.name,
+                        spawnRoot,
                         spawnPosition,
                         Quaternion.identity,
-                        spawnRoot);
+                        null,
+                        true);
 
                 spawnedMembers.Add(spawnedObject);
 
@@ -200,17 +206,27 @@ namespace Party
                 }
 
                 GameObject runtimeObject =
-                    new($"CharacterRuntime_{characterRuntime.characterSO.name}");
+                    CharacterBuilder.CreateOrBuildPlayerObject(
+                        characterRuntime.characterSO.ResolvePrefab(),
+                        $"CharacterRuntime_{characterRuntime.characterSO.name}",
+                        transform,
+                        Vector3.zero,
+                        Quaternion.identity,
+                        null,
+                        true);
 
-                runtimeObject.transform.SetParent(
-                    transform,
-                    false);
                 runtimeMemberObjects.Add(runtimeObject);
 
                 CharacterManager characterManager =
-                    runtimeObject.AddComponent<CharacterManager>();
+                    runtimeObject.GetComponent<CharacterManager>();
 
-                runtimeObject.AddComponent<EffectManager>();
+                if (characterManager == null)
+                {
+                    Debug.LogError(
+                        "[PartyManager] CharacterManager not found on runtime object.");
+
+                    continue;
+                }
 
                 bool hasRuntimeStats =
                     characterRuntime.stats != null
@@ -367,12 +383,21 @@ namespace Party
                 return null;
             }
 
-            GameObject runtimeObject = new($"CharacterRuntime_{characterSO.name}");
-            runtimeObject.transform.SetParent(transform, false);
+            GameObject runtimeObject =
+                CharacterBuilder.CreateOrBuildPlayerObject(
+                    characterSO.ResolvePrefab(),
+                    $"CharacterRuntime_{characterSO.name}",
+                    transform,
+                    Vector3.zero,
+                    Quaternion.identity,
+                    null,
+                    true);
+
             runtimeMemberObjects.Add(runtimeObject);
 
-            CharacterManager characterManager = runtimeObject.AddComponent<CharacterManager>();
-            runtimeObject.AddComponent<EffectManager>();
+            CharacterManager characterManager =
+                runtimeObject.GetComponent<CharacterManager>();
+
             characterManager.InitializeFromSO(characterSO);
 
             return characterManager;

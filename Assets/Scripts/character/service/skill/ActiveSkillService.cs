@@ -45,7 +45,7 @@ namespace Character.Skill
                 return null;
             }
 
-            for (int i = 0; i < runtimes.Length; i++)
+            for (int i = runtimes.Length - 1; i >= 0; i--)
             {
                 EquipmentSkillRuntimeData runtime = runtimes[i];
 
@@ -97,6 +97,8 @@ namespace Character.Skill
             {
                 return false;
             }
+
+            UseSkill(skillManager, runtime);
 
             return StartSkillUseRoutine(
                 skillManager,
@@ -259,10 +261,8 @@ namespace Character.Skill
                 }
             }
 
-            if (fired)
-            {
-                UseSkill(skillManager, runtime);
-            }
+            // Cooldown is started before the firing coroutine begins
+            // to prevent duplicate coroutine scheduling in the same window.
         }
 
         private bool UseSkillOnce(

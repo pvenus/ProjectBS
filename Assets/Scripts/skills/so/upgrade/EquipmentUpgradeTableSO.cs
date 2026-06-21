@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Skill;
 /// <summary>
-/// 장비 등급별 modifier 정의 테이블.
+/// 장비 레벨별 modifier 정의 테이블.
 /// EquipmentUpgradeEntry 목록을 보관하고,
-/// 현재 장비 등급 이하의 entry들을 조회하는 역할을 한다.
+/// 현재 장비 레벨 이하의 entry들을 조회하는 역할을 한다.
 /// </summary>
 [CreateAssetMenu(fileName = "EquipmentUpgradeTableSO", menuName = "BS/Skills/Upgrade/EquipmentUpgradeTableSO")]
 public class EquipmentUpgradeTableSO : ScriptableObject
@@ -20,7 +19,7 @@ public class EquipmentUpgradeTableSO : ScriptableObject
     public string DisplayName => displayName;
     public IReadOnlyList<EquipmentUpgradeEntry> Entries => entries;
 
-    public EquipmentUpgradeEntry GetEntry(EquipmentGrade grade)
+    public EquipmentUpgradeEntry GetEntry(int level)
     {
         if (entries == null || entries.Count == 0)
         {
@@ -30,7 +29,7 @@ public class EquipmentUpgradeTableSO : ScriptableObject
         for (int i = 0; i < entries.Count; i++)
         {
             EquipmentUpgradeEntry entry = entries[i];
-            if (entry != null && entry.Grade == grade)
+            if (entry != null && entry.Level == level)
             {
                 return entry;
             }
@@ -39,7 +38,7 @@ public class EquipmentUpgradeTableSO : ScriptableObject
         return null;
     }
 
-    public List<EquipmentUpgradeEntry> GetEntriesUpToGrade(EquipmentGrade grade)
+    public List<EquipmentUpgradeEntry> GetEntriesUpToLevel(int level)
     {
         var result = new List<EquipmentUpgradeEntry>();
 
@@ -56,7 +55,7 @@ public class EquipmentUpgradeTableSO : ScriptableObject
                 continue;
             }
 
-            if (entry.Grade <= grade)
+            if (entry.Level <= level)
             {
                 result.Add(entry);
             }

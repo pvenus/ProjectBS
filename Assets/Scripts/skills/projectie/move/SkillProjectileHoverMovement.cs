@@ -15,6 +15,8 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
     private HoverProjectileMoveDto _dto;
     private SkillProjectileMovementContext _context;
     private bool _initialized;
+    private Vector2 _direction;
+    public Transform TargetTransform => _context.projectileTransform;
 
     public void Initialize(object dto)
     {
@@ -44,6 +46,17 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
 
         _dto = dto;
         _initialized = true;
+
+        if (_context.owner != null)
+        {
+            Vector2 ownerPosition = _context.owner.position;
+            Vector2 targetPosition = _context.targetTransform.position;
+            Vector2 direction = targetPosition - ownerPosition;
+
+            _direction = direction.sqrMagnitude > Mathf.Epsilon
+                ? direction.normalized
+                : Vector2.right;
+        }
 
         if (_context.owner != null)
         {
@@ -82,11 +95,12 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         _dto = null;
         _context = default;
         _initialized = false;
+        _direction = Vector2.zero;
     }
 
     public Vector2 GetDirection()
     {
-        return Vector2.zero;
+        return _direction;
     }
 
     public Vector2 GetPosition()

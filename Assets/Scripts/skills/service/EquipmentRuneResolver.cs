@@ -9,16 +9,6 @@ using System.Collections.Generic;
 /// </summary>
 public class EquipmentRuneResolver
 {
-    public RuneRuntimeSetData Resolve(EquipmentSkillInstanceData instanceData)
-    {
-        if (instanceData == null || instanceData.equippedRunes == null || instanceData.equippedRunes.Count == 0)
-        {
-            return RuneRuntimeSetData.Empty();
-        }
-
-        return RuneRuntimeSetData.FromRunes(instanceData.equippedRunes);
-    }
-
     public List<SkillStatModifierRuntimeData> ExtractModifiers(RuneRuntimeSetData runtimeSet)
     {
         if (runtimeSet == null || runtimeSet.statModifiers == null)

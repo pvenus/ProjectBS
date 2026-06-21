@@ -82,7 +82,6 @@ public class ResolvedVisualContextDto
 {
     [Header("Base Context")]
     public AttackArchetype attackArchetype;
-    public EquipmentGrade equipmentGrade;
     [Header("Optional Runtime Keys")]
     public string baseVisualId;
     public string mainVisualId;

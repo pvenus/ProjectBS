@@ -1,0 +1,255 @@
+
+{
+  "documentId": "balance_guide.stat_design.v1",
+  "titleKo": "스탯 설계 가이드",
+  "purposeKo": "캐릭터, NPC, 스킬, 유물, 축복 밸런스를 설계할 때 사용하는 공통 기준 문서다. 모든 수치는 실제 플레이 테스트 전의 1차 기준이며, 전투 시간과 체감 난이도에 따라 조정한다.",
+  "corePrinciples": [
+    {
+      "nameKo": "역할 우선",
+      "descriptionKo": "스탯은 수치가 아니라 역할을 표현해야 한다. 전위는 생존력, 궁수는 사거리와 지속 화력, 도사는 제어와 보조처럼 직업 정체성이 먼저 드러나야 한다."
+    },
+    {
+      "nameKo": "초반 단순성",
+      "descriptionKo": "초반 캐릭터와 NPC는 복잡한 조건부 스탯보다 공격력, 체력, 이동속도, 공격속도 중심으로 설계한다."
+    },
+    {
+      "nameKo": "성장 체감",
+      "descriptionKo": "레벨, 장비, 축복, 유물로 인한 성장은 한 전투 안에서 눈에 보이는 차이를 만들어야 한다. 단, 한 스탯만 과도하게 누적되어 전투 구조를 무너뜨리지 않도록 한다."
+    },
+    {
+      "nameKo": "전투 시간 기준",
+      "descriptionKo": "일반 전투는 1~3분, 보스 전투는 2~4분을 기준으로 설계한다. 몬스터 체력과 피해량은 이 전투 시간 안에서 의미 있는 압박을 주는 수준이어야 한다."
+    }
+  ],
+  "primaryStats": [
+    {
+      "statType": "MaxHp",
+      "nameKo": "최대 체력",
+      "roleKo": "생존력의 기본값",
+      "designNoteKo": "전위형 캐릭터와 보스에게 가장 크게 부여한다. 힐, 보호막, 방어력과 함께 너무 높아지면 전투가 늘어지므로 주의한다.",
+      "earlyGameRange": {
+        "player": "90~160",
+        "normalNpc": "50~120",
+        "eliteNpc": "180~350",
+        "boss": "800~1800"
+      }
+    },
+    {
+      "statType": "Attack",
+      "nameKo": "공격력",
+      "roleKo": "기본 피해량의 핵심값",
+      "designNoteKo": "모든 피해 스킬의 기준점이다. 다단히트, 광역, 지속 피해 스킬은 공격력 계수를 낮게 잡고 단일 강타 스킬은 높게 잡는다.",
+      "earlyGameRange": {
+        "player": "8~18",
+        "normalNpc": "5~14",
+        "eliteNpc": "16~30",
+        "boss": "24~45"
+      }
+    },
+    {
+      "statType": "Defense",
+      "nameKo": "방비",
+      "roleKo": "받는 피해 감소",
+      "designNoteKo": "체력보다 전투 체감이 덜 직접적이므로 과도하게 높이지 않는다. 전위 캐릭터와 중갑형 적의 정체성을 표현할 때 사용한다.",
+      "earlyGameRange": {
+        "player": "0~15",
+        "normalNpc": "0~8",
+        "eliteNpc": "8~20",
+        "boss": "15~35"
+      }
+    },
+    {
+      "statType": "MoveSpeed",
+      "nameKo": "이동속도",
+      "roleKo": "포지셔닝과 접근 속도",
+      "designNoteKo": "근접 적은 너무 느리면 위협이 사라지고, 너무 빠르면 회피/배치 의미가 줄어든다. 기본값 1을 중심으로 조정한다.",
+      "earlyGameRange": {
+        "slow": "0.7~0.9",
+        "normal": "1.0",
+        "fast": "1.1~1.4"
+      }
+    },
+    {
+      "statType": "AttackSpeed",
+      "nameKo": "공격속도",
+      "roleKo": "평타 빈도와 지속 화력",
+      "designNoteKo": "공격력과 곱연산처럼 체감되므로 함께 높이지 않는다. 빠른 공격형 캐릭터는 공격력을 낮추고, 느린 강타형 캐릭터는 공격력을 높인다.",
+      "earlyGameRange": {
+        "slow": "0.7~0.9",
+        "normal": "1.0",
+        "fast": "1.1~1.5"
+      }
+    },
+    {
+      "statType": "CritChance",
+      "nameKo": "치명 확률",
+      "roleKo": "순간 폭발력",
+      "designNoteKo": "초반에는 낮게 유지한다. 궁수, 검객처럼 공격 횟수가 많은 직업은 치명 확률이 높을수록 체감이 크다.",
+      "earlyGameRange": {
+        "low": "0~5",
+        "normal": "5~10",
+        "high": "10~20"
+      }
+    },
+    {
+      "statType": "CritDamage",
+      "nameKo": "치명 피해",
+      "roleKo": "치명타 발생 시 추가 피해",
+      "designNoteKo": "기본값 50을 기준으로 한다. 치명 확률과 동시에 많이 올리면 폭발력이 지나치게 커질 수 있다.",
+      "earlyGameRange": {
+        "default": "50",
+        "specialized": "70~120"
+      }
+    }
+  ],
+  "secondaryStats": [
+    {
+      "statType": "HpRegen",
+      "nameKo": "체력 재생",
+      "designNoteKo": "전투 지속력이 늘어나므로 전투 시간이 길어지는 원인이 된다. 초반에는 낮게 부여하고 유물/축복으로 차별화한다."
+    },
+    {
+      "statType": "Lifesteal",
+      "nameKo": "흡혈",
+      "designNoteKo": "공격속도, 광역 공격과 함께 강해진다. 다단히트 캐릭터에게는 낮은 값만 부여한다."
+    },
+    {
+      "statType": "ExpGain",
+      "nameKo": "경험치 획득량",
+      "designNoteKo": "직접 전투력은 아니지만 장기 성장 속도를 바꾼다. 공용 축복이나 유물에 적합하다."
+    },
+    {
+      "statType": "EliteGoldBonus",
+      "nameKo": "정예 골드 보너스",
+      "designNoteKo": "경제 성장용 스탯이다. 전투 난이도에는 직접 관여하지 않으므로 보상형 유물에 사용한다."
+    }
+  ],
+  "roleBaselines": [
+    {
+      "roleId": "vanguard",
+      "nameKo": "전위",
+      "statPriority": ["MaxHp", "Defense", "MoveSpeed", "Attack"],
+      "descriptionKo": "아군 전열을 유지하고 적의 접근을 받아낸다. 체력과 방비가 높고 공격력은 중간 수준이다."
+    },
+    {
+      "roleId": "swordsman",
+      "nameKo": "검객",
+      "statPriority": ["Attack", "AttackSpeed", "CritChance", "MoveSpeed"],
+      "descriptionKo": "근접 지속 화력 담당. 생존력은 전위보다 낮지만 공격 빈도와 치명타로 차별화한다."
+    },
+    {
+      "roleId": "archer",
+      "nameKo": "궁수",
+      "statPriority": ["AttackSpeed", "CritChance", "Attack", "MoveSpeed"],
+      "descriptionKo": "후방 원거리 딜러. 체력은 낮고, 안정적인 지속 피해와 치명타 기반 성장을 가진다."
+    },
+    {
+      "roleId": "monk",
+      "nameKo": "승려",
+      "statPriority": ["MaxHp", "HpRegen", "Defense", "Attack"],
+      "descriptionKo": "회복과 보호에 특화된 보조 전투원. 직접 공격력보다 파티 생존 기여도가 중요하다."
+    },
+    {
+      "roleId": "daoist",
+      "nameKo": "도사",
+      "statPriority": ["Attack", "SkillEffect", "MoveSpeed", "Cooldown"],
+      "descriptionKo": "술법과 제어 효과 중심. 기본 스탯은 낮아도 스킬 효과로 전투 흐름을 바꾼다."
+    }
+  ],
+  "npcBaselines": [
+    {
+      "npcType": "normal_melee",
+      "nameKo": "일반 근접 잡몹",
+      "statPatternKo": "체력 낮음, 공격력 낮음~보통, 이동속도 보통~빠름",
+      "exampleKo": "늑대, 하급 도깨비"
+    },
+    {
+      "npcType": "normal_ranged",
+      "nameKo": "일반 원거리 잡몹",
+      "statPatternKo": "체력 낮음, 공격력 보통, 이동속도 낮음~보통",
+      "exampleKo": "저주술사, 활잡이 망령"
+    },
+    {
+      "npcType": "elite",
+      "nameKo": "정예",
+      "statPatternKo": "체력 높음, 공격력 높음, 특수 패턴 1개 이상",
+      "exampleKo": "어둑시니, 역귀"
+    },
+    {
+      "npcType": "boss",
+      "nameKo": "보스",
+      "statPatternKo": "높은 체력, 단계별 패턴, 광역기 또는 소환 패턴 보유",
+      "exampleKo": "산귀, 중간급 악귀"
+    }
+  ],
+  "skillScalingGuide": {
+    "basicAttack": {
+      "damageFormulaKo": "기본 피해 = 고정값 + 공격력 × 계수",
+      "recommendedKo": "평타는 캐릭터 정체성을 보여주는 최소 기능이다. 너무 강하면 액티브 스킬 가치가 떨어진다."
+    },
+    "singleHit": {
+      "attackPercentRange": "120%~250%",
+      "descriptionKo": "단일 강타 스킬. 쿨타임이 길수록 계수를 높인다."
+    },
+    "multiHit": {
+      "attackPercentRange": "30%~80% per hit",
+      "descriptionKo": "다단히트 스킬. 총합 피해가 단일 강타보다 약간 높아도 되지만 흡혈/치명과의 시너지를 주의한다."
+    },
+    "areaDamage": {
+      "attackPercentRange": "40%~120%",
+      "descriptionKo": "광역 피해 스킬. 타격 대상 수가 많을수록 계수를 낮춘다."
+    },
+    "damageOverTime": {
+      "attackPercentRange": "10%~40% per tick",
+      "descriptionKo": "지속 피해. 틱 간격과 지속시간을 함께 고려한다."
+    },
+    "heal": {
+      "formulaKo": "회복량 = 고정 회복 + 공격력 × 회복 계수",
+      "descriptionKo": "힐은 전투 시간을 크게 늘릴 수 있으므로 즉시 회복, 지속 회복, 광역 회복을 구분해서 설계한다."
+    }
+  },
+  "effectBalanceGuide": {
+    "buff": {
+      "descriptionKo": "공격력, 방비, 이동속도 상승은 짧은 지속시간과 명확한 조건을 가진다.",
+      "recommendedDuration": "3~8초"
+    },
+    "debuff": {
+      "descriptionKo": "이동속도 감소, 방비 감소, 공격력 감소는 보스에게 과도하게 누적되지 않도록 제한한다.",
+      "recommendedDuration": "2~6초"
+    },
+    "cc": {
+      "descriptionKo": "기절, 속박, 도발은 전투 흐름을 크게 바꾸므로 지속시간을 짧게 유지한다.",
+      "normalNpcDuration": "1~3초",
+      "bossDuration": "0.3~1초 또는 면역"
+    }
+  },
+  "growthRules": {
+    "flatVsPercent": {
+      "flatKo": "초반에는 고정 수치가 체감이 크다.",
+      "percentKo": "후반 성장에서는 퍼센트 증가가 강력하다. 중첩 제한이 필요하다."
+    },
+    "stacking": {
+      "descriptionKo": "동일 계열 효과는 무한 중첩을 피한다. 누적형 효과는 maxApplyCount, RuntimeId, 지속시간 정책을 명확히 둔다."
+    },
+    "lowHpEffects": {
+      "descriptionKo": "체력 조건부 효과는 긴장감을 만들지만, 회복 효과와 결합하면 무한 유지될 수 있다."
+    }
+  },
+  "initialTuningTargets": {
+    "normalBattleDuration": "60~180초",
+    "bossBattleDuration": "120~240초",
+    "playerPartySize": 3,
+    "standardMonsterGroupSize": "3~6",
+    "earlyGoldPerNormalMonster": 10,
+    "earlyDifficultyGoalKo": "초반 일반 전투는 조작 없이도 승리 가능하지만, 체력 손실이 누적되어 다음 선택에 영향을 주는 정도를 목표로 한다."
+  },
+  "reviewChecklist": [
+    "이 스탯이 캐릭터 역할을 분명하게 보여주는가?",
+    "공격력과 공격속도가 동시에 과도하게 높지 않은가?",
+    "체력, 방비, 회복이 함께 높아 전투가 늘어지지 않는가?",
+    "광역/다단히트 스킬이 흡혈, 치명, OnHit 효과와 과도하게 시너지 나지 않는가?",
+    "보스에게 CC가 너무 오래 적용되지 않는가?",
+    "초반 플레이어가 성장 체감을 느끼는가?",
+    "전투 종료 시간이 목표 범위 안에 들어오는가?"
+  ]
+}

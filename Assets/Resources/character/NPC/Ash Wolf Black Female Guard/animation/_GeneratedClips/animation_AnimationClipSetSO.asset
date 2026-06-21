@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004a772e8f7da444f9d7118a4684ecd0, type: 3}
+  m_Name: animation_AnimationClipSetSO
+  m_EditorClassIdentifier: Assembly-CSharp::Character.AnimationClipSetSO
+  idleClips:
+    upRight: {fileID: 7400000, guid: 9bd0de823c420437796a1bf285d6bc8f, type: 2}
+    upLeft: {fileID: 7400000, guid: b0f37d99e4ef84190bb1bf80a9bb670f, type: 2}
+    downRight: {fileID: 7400000, guid: 0ce9fa207b2c748f18e52f64fdae5426, type: 2}
+    downLeft: {fileID: 7400000, guid: fde27a421f11b4cf4ad5ab7e865e9c8c, type: 2}
+  moveClips:
+    upRight: {fileID: 7400000, guid: f22a2934582934807a16c456d166c960, type: 2}
+    upLeft: {fileID: 7400000, guid: cab88abc4eb31456d9c0e2ec64c1d656, type: 2}
+    downRight: {fileID: 7400000, guid: 81698c7bd57894dfebe0a73603ebeeec, type: 2}
+    downLeft: {fileID: 7400000, guid: 0c7c9c27ea746457c8167aa41de40f6b, type: 2}
+  attackClips:
+    upRight: {fileID: 7400000, guid: 6f8ce741acc01408b9add2d4ab480cb4, type: 2}
+    upLeft: {fileID: 7400000, guid: 94106274320aa4020b56cd2ed461499f, type: 2}
+    downRight: {fileID: 7400000, guid: 2488e6042668146a8bf92b1858e0209e, type: 2}
+    downLeft: {fileID: 7400000, guid: c401394562a644f209a52c69aa842c5a, type: 2}
+  deathClips:
+    upRight: {fileID: 0}
+    upLeft: {fileID: 0}
+    downRight: {fileID: 0}
+    downLeft: {fileID: 0}

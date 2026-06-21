@@ -1,436 +1,486 @@
-
-
 using System.Collections.Generic;
+using System.Text;
+using Character;
+using Skill;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using Skill;
+
 /// <summary>
-/// 장비 획득 / 합성 테스트용 UI Mono.
-/// - Acquire 버튼으로 테스트 장비를 인벤토리에 추가한다.
-/// - 장비 리스트 버튼을 클릭해 합성 대상 장비를 선택한다.
-/// - Upgrade 버튼으로 같은 장비 3개 합성을 시도한다.
-/// - 성공/실패 후 UI를 갱신한다.
+/// 전투 중 스킬 레벨업 선택 UI.
+/// - 보유 캐릭터의 스킬 인스턴스 중 업그레이드 가능한 후보를 랜덤으로 보여준다.
+/// - 선택 시 해당 스킬 레벨을 1 증가시킨다.
+/// - 창이 열려 있는 동안 전투 타이머를 정지한다.
 /// </summary>
 public class UIEquipmentUpgradeMono : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private EquipmentInventoryMono equipmentInventory;
-    [SerializeField] private EquipmentSkillSO acquireEquipmentSo;
-
-    [Header("Buttons")]
-    [SerializeField] private Button acquireButton;
-    [SerializeField] private Button upgradeButton;
-    [SerializeField] private Button refreshButton;
-
-    [Header("List UI")]
     [SerializeField] private Transform listRoot;
-    [SerializeField] private Button itemButtonPrefab;
+    [SerializeField] private Button optionButtonPrefab;
 
     [Header("Text UI")]
-    [SerializeField] private TMP_Text selectedText;
+    [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text statusText;
-    [SerializeField] private TMP_Text countText;
+
+    [Header("Skill Upgrade")]
+    [SerializeField] private int randomOptionCount = 3;
+    [SerializeField] private int maxSkillLevel = 10;
+    [SerializeField] private bool pauseTimeOnOpen = true;
 
     private readonly List<Button> spawnedButtons = new();
-    private OwnedEquipmentData selectedEquipment;
+    private readonly List<SkillUpgradeOption> options = new();
 
-    public OwnedEquipmentData SelectedEquipment => selectedEquipment;
+    private bool isOpen;
+    private float previousTimeScale = 1f;
+    private readonly EquipmentStatResolver statResolver = new();
+
+    public bool IsOpen => isOpen;
 
     private void Awake()
     {
-        if (equipmentInventory == null)
-        {
-            equipmentInventory = FindObjectOfType<EquipmentInventoryMono>();
-        }
-
-        // Auto-find UI components if not assigned
-        if (acquireButton == null)
-            acquireButton = transform.Find("AcquireButton")?.GetComponent<Button>();
-
-        if (upgradeButton == null)
-            upgradeButton = transform.Find("UpgradeButton")?.GetComponent<Button>();
-
-        if (refreshButton == null)
-            refreshButton = transform.Find("RefreshButton")?.GetComponent<Button>();
-
-        if (listRoot == null)
-            listRoot = transform.Find("ListRoot");
-
-        if (itemButtonPrefab == null)
-            itemButtonPrefab = Resources.Load<Button>("UI/ItemButtonPrefab");
-
-        if (selectedText == null)
-            selectedText = transform.Find("SelectedText")?.GetComponent<TMPro.TMP_Text>();
-
-        if (statusText == null)
-            statusText = transform.Find("StatusText")?.GetComponent<TMPro.TMP_Text>();
-
-        if (countText == null)
-            countText = transform.Find("CountText")?.GetComponent<TMPro.TMP_Text>();
-
-        EnsureGeneratedUI();
-    }
-
-    private void EnsureGeneratedUI()
-    {
-        if (acquireButton != null && upgradeButton != null && listRoot != null && selectedText != null && statusText != null && countText != null && itemButtonPrefab != null)
-        {
-            return;
-        }
-
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasGo = new GameObject("EquipmentUpgradeTestCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            canvas = canvasGo.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-            CanvasScaler scaler = canvasGo.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.matchWidthOrHeight = 0.5f;
-
-            transform.SetParent(canvas.transform, false);
-        }
-
-        RectTransform root = GetComponent<RectTransform>();
-        if (root == null)
-        {
-            root = gameObject.AddComponent<RectTransform>();
-        }
-
-        root.anchorMin = new Vector2(0f, 1f);
-        root.anchorMax = new Vector2(0f, 1f);
-        root.pivot = new Vector2(0f, 1f);
-        root.anchoredPosition = new Vector2(40f, -40f);
-        root.sizeDelta = new Vector2(520f, 700f);
-
-        Image background = GetComponent<Image>();
-        if (background == null)
-        {
-            background = gameObject.AddComponent<Image>();
-        }
-        background.color = new Color(0f, 0f, 0f, 0.65f);
-
-        VerticalLayoutGroup rootLayout = GetComponent<VerticalLayoutGroup>();
-        if (rootLayout == null)
-        {
-            rootLayout = gameObject.AddComponent<VerticalLayoutGroup>();
-        }
-        rootLayout.padding = new RectOffset(16, 16, 16, 16);
-        rootLayout.spacing = 8f;
-        rootLayout.childControlWidth = true;
-        rootLayout.childControlHeight = false;
-        rootLayout.childForceExpandWidth = true;
-        rootLayout.childForceExpandHeight = false;
-
-        if (countText == null)
-        {
-            countText = CreateText("CountText", transform, "Owned: 0", 24, 36f);
-        }
-
-        if (selectedText == null)
-        {
-            selectedText = CreateText("SelectedText", transform, "Selected: None", 20, 58f);
-        }
-
-        if (statusText == null)
-        {
-            statusText = CreateText("StatusText", transform, "Ready", 18, 42f);
-        }
-
-        if (acquireButton == null || upgradeButton == null || refreshButton == null)
-        {
-            Transform buttonRow = CreatePanel("ButtonRow", transform, 48f);
-            HorizontalLayoutGroup rowLayout = buttonRow.gameObject.AddComponent<HorizontalLayoutGroup>();
-            rowLayout.spacing = 8f;
-            rowLayout.childControlWidth = true;
-            rowLayout.childControlHeight = true;
-            rowLayout.childForceExpandWidth = true;
-            rowLayout.childForceExpandHeight = true;
-
-            if (acquireButton == null)
-            {
-                acquireButton = CreateButton("AcquireButton", buttonRow, "Acquire");
-            }
-
-            if (upgradeButton == null)
-            {
-                upgradeButton = CreateButton("UpgradeButton", buttonRow, "Upgrade");
-            }
-
-            if (refreshButton == null)
-            {
-                refreshButton = CreateButton("RefreshButton", buttonRow, "Refresh");
-            }
-        }
-
-        if (listRoot == null)
-        {
-            Transform listPanel = CreatePanel("ListPanel", transform, 480f);
-            ScrollRect scrollRect = listPanel.gameObject.AddComponent<ScrollRect>();
-            Image listBackground = listPanel.gameObject.AddComponent<Image>();
-            listBackground.color = new Color(1f, 1f, 1f, 0.08f);
-
-            GameObject viewportGo = new GameObject("Viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
-            viewportGo.transform.SetParent(listPanel, false);
-            RectTransform viewportRect = viewportGo.GetComponent<RectTransform>();
-            viewportRect.anchorMin = Vector2.zero;
-            viewportRect.anchorMax = Vector2.one;
-            viewportRect.offsetMin = Vector2.zero;
-            viewportRect.offsetMax = Vector2.zero;
-            viewportGo.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.02f);
-            viewportGo.GetComponent<Mask>().showMaskGraphic = false;
-
-            GameObject contentGo = new GameObject("ListRoot", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
-            contentGo.transform.SetParent(viewportGo.transform, false);
-            RectTransform contentRect = contentGo.GetComponent<RectTransform>();
-            contentRect.anchorMin = new Vector2(0f, 1f);
-            contentRect.anchorMax = new Vector2(1f, 1f);
-            contentRect.pivot = new Vector2(0.5f, 1f);
-            contentRect.offsetMin = Vector2.zero;
-            contentRect.offsetMax = Vector2.zero;
-
-            VerticalLayoutGroup contentLayout = contentGo.GetComponent<VerticalLayoutGroup>();
-            contentLayout.padding = new RectOffset(8, 8, 8, 8);
-            contentLayout.spacing = 6f;
-            contentLayout.childControlWidth = true;
-            contentLayout.childControlHeight = false;
-            contentLayout.childForceExpandWidth = true;
-            contentLayout.childForceExpandHeight = false;
-
-            ContentSizeFitter fitter = contentGo.GetComponent<ContentSizeFitter>();
-            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            scrollRect.viewport = viewportRect;
-            scrollRect.content = contentRect;
-            scrollRect.horizontal = false;
-            scrollRect.vertical = true;
-
-            listRoot = contentGo.transform;
-        }
-
-        if (itemButtonPrefab == null)
-        {
-            itemButtonPrefab = CreateButton("ItemButtonPrefab", transform, "Item");
-            itemButtonPrefab.gameObject.SetActive(false);
-        }
-    }
-
-    private Transform CreatePanel(string objectName, Transform parent, float height)
-    {
-        GameObject go = new GameObject(objectName, typeof(RectTransform), typeof(LayoutElement));
-        go.transform.SetParent(parent, false);
-
-        LayoutElement layoutElement = go.GetComponent<LayoutElement>();
-        layoutElement.preferredHeight = height;
-        layoutElement.minHeight = height;
-        layoutElement.flexibleWidth = 1f;
-
-        return go.transform;
-    }
-
-    private TMP_Text CreateText(string objectName, Transform parent, string text, int fontSize, float height)
-    {
-        GameObject go = new GameObject(objectName, typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
-        go.transform.SetParent(parent, false);
-
-        TMP_Text tmp = go.GetComponent<TMP_Text>();
-        tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.color = Color.white;
-        tmp.alignment = TextAlignmentOptions.MidlineLeft;
-        tmp.enableWordWrapping = true;
-
-        LayoutElement layoutElement = go.GetComponent<LayoutElement>();
-        layoutElement.preferredHeight = height;
-        layoutElement.minHeight = height;
-        layoutElement.flexibleWidth = 1f;
-
-        return tmp;
-    }
-
-    private Button CreateButton(string objectName, Transform parent, string label)
-    {
-        GameObject go = new GameObject(objectName, typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
-        go.transform.SetParent(parent, false);
-
-        Image image = go.GetComponent<Image>();
-        image.color = new Color(0.2f, 0.2f, 0.2f, 0.95f);
-
-        Button button = go.GetComponent<Button>();
-
-        LayoutElement layoutElement = go.GetComponent<LayoutElement>();
-        layoutElement.preferredHeight = 44f;
-        layoutElement.minHeight = 44f;
-        layoutElement.flexibleWidth = 1f;
-
-        TMP_Text text = CreateText("Text", go.transform, label, 18, 44f);
-        text.alignment = TextAlignmentOptions.Center;
-
-        RectTransform textRect = text.GetComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
-        textRect.anchorMax = Vector2.one;
-        textRect.offsetMin = Vector2.zero;
-        textRect.offsetMax = Vector2.zero;
-
-        return button;
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log($"[UIEquipmentUpgradeMono] Auto wiring status - AcquireBtn:{acquireButton!=null}, UpgradeBtn:{upgradeButton!=null}, ListRoot:{listRoot!=null}", this);
-
-        if (acquireButton != null)
-        {
-            acquireButton.onClick.AddListener(OnClickAcquire);
-        }
-
-        if (upgradeButton != null)
-        {
-            upgradeButton.onClick.AddListener(OnClickUpgrade);
-        }
-
-        if (refreshButton != null)
-        {
-            refreshButton.onClick.AddListener(RefreshUI);
-        }
-
-        RefreshUI();
+        ResolveReferences();
+        gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
-        if (acquireButton != null)
+        RestoreTimeScaleIfNeeded();
+        ClearOptions();
+        isOpen = false;
+    }
+
+    public void Open(
+        IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas)
+    {
+        ResolveReferences();
+        ClearOptions();
+        BuildRandomOptions(characterRuntimeDatas);
+
+        isOpen = true;
+        gameObject.SetActive(true);
+
+        PauseTimeIfNeeded();
+        Refresh();
+    }
+
+    public void Close()
+    {
+        if (!isOpen)
         {
-            acquireButton.onClick.RemoveListener(OnClickAcquire);
+            gameObject.SetActive(false);
+            return;
         }
 
-        if (upgradeButton != null)
+        isOpen = false;
+        RestoreTimeScaleIfNeeded();
+        ClearOptions();
+        gameObject.SetActive(false);
+    }
+
+    private void Refresh()
+    {
+        ClearSpawnedButtons();
+
+        SetTitle("스킬 업그레이드 선택");
+
+        if (options.Count == 0)
         {
-            upgradeButton.onClick.RemoveListener(OnClickUpgrade);
+            SetStatus("업그레이드 가능한 스킬이 없습니다.");
+            return;
         }
 
-        if (refreshButton != null)
+        SetStatus("업그레이드할 스킬을 선택하세요.");
+
+        for (int i = 0; i < options.Count; i++)
         {
-            refreshButton.onClick.RemoveListener(RefreshUI);
+            CreateOptionButton(options[i], i);
         }
     }
 
-    private void OnClickAcquire()
+    private void BuildRandomOptions(
+        IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas)
     {
-        if (equipmentInventory == null)
+        List<SkillUpgradeOption> candidates = new();
+
+        if (characterRuntimeDatas != null)
         {
-            SetStatus("Inventory is null.");
-            return;
-        }
-
-        if (acquireEquipmentSo == null)
-        {
-            SetStatus("Acquire Equipment SO is null.");
-            return;
-        }
-
-        OwnedEquipmentData owned = equipmentInventory.Acquire(acquireEquipmentSo);
-        selectedEquipment = owned;
-
-        SetStatus(owned != null
-            ? $"Acquired: {owned.DisplayName}"
-            : "Acquire failed.");
-
-        RefreshUI();
-    }
-
-    private void OnClickUpgrade()
-    {
-        if (equipmentInventory == null)
-        {
-            SetStatus("Inventory is null.");
-            return;
-        }
-
-        if (selectedEquipment == null)
-        {
-            SetStatus("Select equipment first.");
-            return;
-        }
-
-        bool success = equipmentInventory.TryUpgrade(selectedEquipment);
-
-        SetStatus(success
-            ? $"Upgrade success: {selectedEquipment.DisplayName}"
-            : "Upgrade failed. Need same equipment x3.");
-
-        RefreshUI();
-    }
-
-    public void RefreshUI()
-    {
-        ClearList();
-
-        if (equipmentInventory == null)
-        {
-            SetSelectedText(null);
-            SetCountText(0);
-            return;
-        }
-
-        IReadOnlyList<OwnedEquipmentData> equipments = equipmentInventory.Equipments;
-        SetCountText(equipments != null ? equipments.Count : 0);
-
-        if (equipments != null)
-        {
-            for (int i = 0; i < equipments.Count; i++)
+            for (int characterIndex = 0; characterIndex < characterRuntimeDatas.Count; characterIndex++)
             {
-                CreateItemButton(equipments[i], i);
+                CharacterRuntimeData characterRuntimeData = characterRuntimeDatas[characterIndex];
+                if (characterRuntimeData == null || characterRuntimeData.skillInstances == null)
+                {
+                    continue;
+                }
+
+                for (int skillIndex = 0; skillIndex < characterRuntimeData.skillInstances.Count; skillIndex++)
+                {
+                    EquipmentSkillInstanceData skillInstance = characterRuntimeData.skillInstances[skillIndex];
+                    if (!CanUpgrade(skillInstance))
+                    {
+                        continue;
+                    }
+
+                    EquipmentSkillSO skillSo = ResolveSkillSo(skillInstance.equipmentId);
+
+                    candidates.Add(
+                        new SkillUpgradeOption(
+                            characterRuntimeData,
+                            skillInstance,
+                            skillSo));
+                }
             }
         }
 
-        if (selectedEquipment != null && !ContainsEquipment(selectedEquipment))
-        {
-            selectedEquipment = null;
-        }
+        int optionCount = Mathf.Min(
+            Mathf.Max(1, randomOptionCount),
+            candidates.Count);
 
-        SetSelectedText(selectedEquipment);
+        for (int i = 0; i < optionCount; i++)
+        {
+            int selectedIndex = Random.Range(i, candidates.Count);
+            (candidates[i], candidates[selectedIndex]) =
+                (candidates[selectedIndex], candidates[i]);
+
+            options.Add(candidates[i]);
+        }
     }
 
-    private void CreateItemButton(OwnedEquipmentData equipment, int index)
+    private bool CanUpgrade(EquipmentSkillInstanceData skillInstance)
     {
-        if (equipment == null || listRoot == null || itemButtonPrefab == null)
+        if (skillInstance == null || string.IsNullOrWhiteSpace(skillInstance.equipmentId))
+        {
+            return false;
+        }
+
+        return Mathf.Max(1, skillInstance.currentLevel) < maxSkillLevel;
+    }
+
+    private void CreateOptionButton(
+        SkillUpgradeOption option,
+        int index)
+    {
+        if (option == null || listRoot == null || optionButtonPrefab == null)
         {
             return;
         }
 
-        Button button = Instantiate(itemButtonPrefab, listRoot);
+        Button button = Instantiate(optionButtonPrefab, listRoot);
+
+        LayoutElement layoutElement =
+            button.GetComponent<LayoutElement>();
+
+        if (layoutElement == null)
+        {
+            layoutElement = button.gameObject.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.preferredWidth = 300f;
+        layoutElement.minWidth = 300f;
+        layoutElement.preferredHeight = 180f;
+        layoutElement.minHeight = 180f;
+
         button.gameObject.SetActive(true);
         spawnedButtons.Add(button);
 
-        TMP_Text text = button.GetComponentInChildren<TMP_Text>();
-        if (text != null)
+        TMP_Text label = button.GetComponentInChildren<TMP_Text>();
+        if (label != null)
         {
-            text.text = BuildItemLabel(equipment, index);
+            label.text = BuildOptionLabel(option, index);
         }
 
-        button.onClick.AddListener(() =>
-        {
-            selectedEquipment = equipment;
-            SetSelectedText(selectedEquipment);
-            SetStatus($"Selected: {equipment.DisplayName}");
-            RefreshUI();
-        });
+        button.onClick.AddListener(() => ApplyUpgrade(option));
     }
 
-    private string BuildItemLabel(OwnedEquipmentData equipment, int index)
+    private string BuildOptionLabel(
+        SkillUpgradeOption option,
+        int index)
     {
-        string selectedMark = equipment == selectedEquipment ? "▶ " : string.Empty;
-        string equipMark = equipment.IsEquipped ? " [Equipped]" : string.Empty;
-        string lockMark = equipment.IsLocked ? " [Locked]" : string.Empty;
+        string characterName = option.CharacterRuntimeData?.characterSO != null
+            ? option.CharacterRuntimeData.characterSO.name
+            : "Character";
 
-        return $"{selectedMark}{index + 1}. {equipment.DisplayName}{equipMark}{lockMark}";
+        string skillName = option.SkillSo != null
+            ? option.SkillSo.name
+            : option.SkillInstance.equipmentId;
+
+        int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
+        int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
+
+        StringBuilder builder = new();
+        builder.AppendLine($"{index + 1}. {characterName}");
+        builder.AppendLine(skillName);
+        builder.AppendLine($"Lv.{currentLevel} → Lv.{nextLevel}");
+
+        string comparisonText = BuildUpgradeComparisonText(
+            option,
+            currentLevel,
+            nextLevel);
+
+        if (!string.IsNullOrWhiteSpace(comparisonText))
+        {
+            builder.Append(comparisonText);
+        }
+
+        return builder.ToString();
     }
 
-    private void ClearList()
+    private string BuildUpgradeComparisonText(
+        SkillUpgradeOption option,
+        int currentLevel,
+        int nextLevel)
+    {
+        if (option == null || option.SkillSo == null || option.SkillSo.UpgradeTableSo == null)
+        {
+            return string.Empty;
+        }
+
+        List<SkillStatModifierRuntimeData> currentModifiers =
+            EquipmentUpgradeRuntimeData.FromEntries(
+                currentLevel,
+                option.SkillSo.UpgradeTableSo.Entries,
+                option.SkillSo.EquipmentId).statModifiers;
+
+        List<SkillStatModifierRuntimeData> nextModifiers =
+            EquipmentUpgradeRuntimeData.FromEntries(
+                nextLevel,
+                option.SkillSo.UpgradeTableSo.Entries,
+                option.SkillSo.EquipmentId).statModifiers;
+
+        List<SkillStatModifierType> changedTypes = CollectChangedModifierTypes(
+            option.SkillSo,
+            currentModifiers,
+            nextModifiers);
+
+        if (changedTypes.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new();
+
+        for (int i = 0; i < changedTypes.Count; i++)
+        {
+            SkillStatModifierType modifierType = changedTypes[i];
+            float currentValue = statResolver.ResolveStat(
+                option.SkillSo,
+                modifierType,
+                currentModifiers);
+            float nextValue = statResolver.ResolveStat(
+                option.SkillSo,
+                modifierType,
+                nextModifiers);
+
+            if (Mathf.Approximately(currentValue, nextValue))
+            {
+                continue;
+            }
+
+            builder.AppendLine(
+                $"{GetModifierDisplayName(modifierType)} {FormatModifierValue(modifierType, currentValue)} → {FormatModifierValue(modifierType, nextValue)}");
+        }
+
+        return builder.ToString();
+    }
+
+    private List<SkillStatModifierType> CollectChangedModifierTypes(
+        EquipmentSkillSO skillSo,
+        IReadOnlyList<SkillStatModifierRuntimeData> currentModifiers,
+        IReadOnlyList<SkillStatModifierRuntimeData> nextModifiers)
+    {
+        List<SkillStatModifierType> result = new();
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.BaseDamage, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.AttackPercentDamage, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Cooldown, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Range, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.SplitHitCount, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.ProjectileCount, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.ProjectileScale, currentModifiers, nextModifiers, result);
+        return result;
+    }
+
+    private void AddModifierTypeIfChanged(
+        EquipmentSkillSO skillSo,
+        SkillStatModifierType modifierType,
+        IReadOnlyList<SkillStatModifierRuntimeData> currentModifiers,
+        IReadOnlyList<SkillStatModifierRuntimeData> nextModifiers,
+        List<SkillStatModifierType> result)
+    {
+        float currentValue = statResolver.ResolveStat(
+            skillSo,
+            modifierType,
+            currentModifiers);
+        float nextValue = statResolver.ResolveStat(
+            skillSo,
+            modifierType,
+            nextModifiers);
+
+        if (!Mathf.Approximately(currentValue, nextValue))
+        {
+            result.Add(modifierType);
+        }
+    }
+
+    private string GetModifierDisplayName(SkillStatModifierType modifierType)
+    {
+        switch (modifierType)
+        {
+            case SkillStatModifierType.BaseDamage:
+                return "데미지";
+            case SkillStatModifierType.AttackPercentDamage:
+                return "공격력 퍼센트 데미지";
+            case SkillStatModifierType.Cooldown:
+                return "쿨타임";
+            case SkillStatModifierType.Range:
+                return "사정거리";
+            case SkillStatModifierType.SplitHitCount:
+                return "타격 수";
+            case SkillStatModifierType.ProjectileCount:
+                return "투사체 수";
+            case SkillStatModifierType.ProjectileScale:
+                return "범위 크기";
+            default:
+                return modifierType.ToString();
+        }
+    }
+
+    private string FormatModifierValue(
+        SkillStatModifierType modifierType,
+        float value)
+    {
+        switch (modifierType)
+        {
+            case SkillStatModifierType.AttackPercentDamage:
+                return $"{Mathf.RoundToInt(value * 100f)}%";
+            case SkillStatModifierType.Cooldown:
+                return $"{value:0.##}초";
+            case SkillStatModifierType.Range:
+            case SkillStatModifierType.ProjectileScale:
+                return value.ToString("0.##");
+            case SkillStatModifierType.SplitHitCount:
+            case SkillStatModifierType.ProjectileCount:
+                return Mathf.RoundToInt(value).ToString();
+            default:
+                return value.ToString("0.##");
+        }
+    }
+
+    private EquipmentSkillSO ResolveSkillSo(string equipmentId)
+    {
+        if (string.IsNullOrWhiteSpace(equipmentId))
+        {
+            return null;
+        }
+
+        EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
+        for (int i = 0; i < skills.Length; i++)
+        {
+            EquipmentSkillSO skill = skills[i];
+            if (skill != null && skill.EquipmentId == equipmentId)
+            {
+                return skill;
+            }
+        }
+
+        return null;
+    }
+
+    private void ApplyUpgrade(SkillUpgradeOption option)
+    {
+        if (option == null || option.CharacterRuntimeData == null || option.SkillInstance == null)
+        {
+            return;
+        }
+
+        int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
+        int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
+
+        option.CharacterRuntimeData.SetSkillLevel(
+            option.SkillInstance.equipmentId,
+            nextLevel);
+
+        SetStatus($"{option.SkillInstance.equipmentId} Lv.{currentLevel} → Lv.{nextLevel}");
+        Close();
+    }
+
+    private void ResolveReferences()
+    {
+        if (listRoot == null)
+        {
+            listRoot = transform.Find("ListRoot");
+        }
+
+        if (listRoot != null)
+        {
+            VerticalLayoutGroup verticalLayout =
+                listRoot.GetComponent<VerticalLayoutGroup>();
+
+            if (verticalLayout != null)
+            {
+                Destroy(verticalLayout);
+            }
+
+            HorizontalLayoutGroup layoutGroup =
+                listRoot.GetComponent<HorizontalLayoutGroup>();
+
+            if (layoutGroup == null)
+            {
+                layoutGroup = listRoot.gameObject.AddComponent<HorizontalLayoutGroup>();
+            }
+
+            layoutGroup.spacing = 30f;
+            layoutGroup.childControlWidth = true;
+            layoutGroup.childControlHeight = true;
+            layoutGroup.childForceExpandWidth = true;
+            layoutGroup.childForceExpandHeight = true;
+            layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+        }
+
+        if (optionButtonPrefab == null)
+        {
+            optionButtonPrefab = Resources.Load<Button>("UI/ItemButtonPrefab");
+        }
+
+        if (titleText == null)
+        {
+            titleText = transform.Find("TitleText")?.GetComponent<TMP_Text>();
+        }
+
+        if (statusText == null)
+        {
+            statusText = transform.Find("StatusText")?.GetComponent<TMP_Text>();
+        }
+    }
+
+    private void PauseTimeIfNeeded()
+    {
+        if (!pauseTimeOnOpen)
+        {
+            return;
+        }
+
+        previousTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+    }
+
+    private void RestoreTimeScaleIfNeeded()
+    {
+        if (!pauseTimeOnOpen)
+        {
+            return;
+        }
+
+        Time.timeScale = previousTimeScale <= 0f
+            ? 1f
+            : previousTimeScale;
+    }
+
+    private void ClearOptions()
+    {
+        options.Clear();
+        ClearSpawnedButtons();
+    }
+
+    private void ClearSpawnedButtons()
     {
         for (int i = 0; i < spawnedButtons.Count; i++)
         {
@@ -443,35 +493,12 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         spawnedButtons.Clear();
     }
 
-    private bool ContainsEquipment(OwnedEquipmentData equipment)
+    private void SetTitle(string message)
     {
-        if (equipmentInventory == null || equipmentInventory.Equipments == null || equipment == null)
+        if (titleText != null)
         {
-            return false;
+            titleText.text = message;
         }
-
-        IReadOnlyList<OwnedEquipmentData> equipments = equipmentInventory.Equipments;
-        for (int i = 0; i < equipments.Count; i++)
-        {
-            if (equipments[i] == equipment)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void SetSelectedText(OwnedEquipmentData equipment)
-    {
-        if (selectedText == null)
-        {
-            return;
-        }
-
-        selectedText.text = equipment != null
-            ? $"Selected: {equipment.DisplayName}\nID: {equipment.InstanceId}"
-            : "Selected: None";
     }
 
     private void SetStatus(string message)
@@ -481,14 +508,23 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
             statusText.text = message;
         }
 
-        Debug.Log($"[EquipmentUpgradeUI] {message}", this);
+        Debug.Log($"[SkillUpgradeUI] {message}", this);
     }
 
-    private void SetCountText(int count)
+    private class SkillUpgradeOption
     {
-        if (countText != null)
+        public SkillUpgradeOption(
+            CharacterRuntimeData characterRuntimeData,
+            EquipmentSkillInstanceData skillInstance,
+            EquipmentSkillSO skillSo)
         {
-            countText.text = $"Owned: {count}";
+            CharacterRuntimeData = characterRuntimeData;
+            SkillInstance = skillInstance;
+            SkillSo = skillSo;
         }
+
+        public CharacterRuntimeData CharacterRuntimeData { get; }
+        public EquipmentSkillInstanceData SkillInstance { get; }
+        public EquipmentSkillSO SkillSo { get; }
     }
 }

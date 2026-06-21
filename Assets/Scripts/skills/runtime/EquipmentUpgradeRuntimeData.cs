@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Skill;
 /// <summary>
-/// 현재 장비의 등급 상태를 런타임에서 해석한 결과 데이터.
-/// Resolver는 이 데이터를 기반으로 장비 기본 성능에 등급별 modifier를 적용한다.
+/// 현재 장비의 레벨별 업그레이드 상태를 런타임에서 해석한 결과 데이터.
+/// Resolver는 이 데이터를 기반으로 장비 기본 성능에 레벨별 modifier를 적용한다.
 /// </summary>
 [Serializable]
 public class EquipmentUpgradeRuntimeData
 {
     [Header("State")]
-    public EquipmentGrade currentGrade;
+    public int currentLevel;
+
+    [Header("Level Upgrade Infos")]
+    public List<EquipmentLevelUpgradeRuntimeData> levelUpgradeInfos = new();
 
     [Header("Resolved Modifiers")]
     public List<SkillStatModifierRuntimeData> statModifiers = new();
@@ -23,13 +26,13 @@ public class EquipmentUpgradeRuntimeData
     }
 
     public static EquipmentUpgradeRuntimeData FromEntries(
-        EquipmentGrade grade,
+        int level,
         IEnumerable<EquipmentUpgradeEntry> entries,
         string sourceId = null)
     {
         var runtime = new EquipmentUpgradeRuntimeData
         {
-            currentGrade = grade
+            currentLevel = level
         };
 
         runtime.ApplyEntries(entries, sourceId);
@@ -38,6 +41,7 @@ public class EquipmentUpgradeRuntimeData
 
     public void ApplyEntries(IEnumerable<EquipmentUpgradeEntry> entries, string sourceId = null)
     {
+        levelUpgradeInfos.Clear();
         statModifiers.Clear();
 
         if (entries == null)
@@ -52,14 +56,30 @@ public class EquipmentUpgradeRuntimeData
                 continue;
             }
 
-            if (entry.Grade > currentGrade)
+            int entryLevel = entry.Level;
+            List<SkillStatModifierRuntimeData> copiedModifiers =
+                UpgradeHelper.CopyModifiers(entry.StatModifiers, sourceId);
+
+            levelUpgradeInfos.Add(
+                new EquipmentLevelUpgradeRuntimeData
+                {
+                    level = entryLevel,
+                    statModifiers = copiedModifiers
+                });
+
+            if (entryLevel > currentLevel)
             {
                 continue;
             }
 
-            statModifiers.AddRange(
-                UpgradeHelper.CopyModifiers(entry.StatModifiers, sourceId)
-            );
+            statModifiers.AddRange(copiedModifiers);
         }
     }
+}
+
+[Serializable]
+public class EquipmentLevelUpgradeRuntimeData
+{
+    public int level;
+    public List<SkillStatModifierRuntimeData> statModifiers = new();
 }

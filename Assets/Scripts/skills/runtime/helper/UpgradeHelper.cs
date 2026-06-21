@@ -43,13 +43,12 @@ public static class UpgradeHelper
         return SkillStatModifierRuntimeData.Create(
             source.modifierType,
             source.operationType,
-            source.value,
-            string.IsNullOrWhiteSpace(sourceId) ? source.sourceId : sourceId);
+            source.value);
     }
 
-    public static List<SkillStatModifierRuntimeData> CollectModifiersUpToGrade(
+    public static List<SkillStatModifierRuntimeData> CollectModifiersUpToLevel(
         IEnumerable<EquipmentUpgradeEntry> entries,
-        EquipmentGrade currentGrade,
+        int currentLevel,
         string sourceId = null)
     {
         var result = new List<SkillStatModifierRuntimeData>();
@@ -66,7 +65,7 @@ public static class UpgradeHelper
                 continue;
             }
 
-            if (entry.Grade > currentGrade)
+            if (entry.Level > currentLevel)
             {
                 continue;
             }

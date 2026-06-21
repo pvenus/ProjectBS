@@ -32,7 +32,7 @@ namespace Character.Skill
             }
 
             context.StateManager?.LogStateMessage(
-                $"Decision check: Skill={GetSkillName(context.SelectedSkill)} " +
+                $"Decision check: Skill={GetSkillName(context.SelectedSkillRuntime?.sourceEquipment)} " +
                 $"Target={GetTargetName(context.CurrentTarget)}");
 
             if (!context.HasSelectedSkill)
@@ -72,14 +72,14 @@ namespace Character.Skill
 
         private LayerMask[] ResolveTargetMask(CharacterActionContext context)
         {
-            if (context?.SelectedSkill?.HitSos != null &&
-                context.SelectedSkill.HitSos.Length > 0)
+            if (context?.SelectedSkillRuntime?.sourceEquipment?.HitSos != null &&
+                context.SelectedSkillRuntime.sourceEquipment.HitSos.Length > 0)
             {
-                LayerMask[] targetMasks = new LayerMask[context.SelectedSkill.HitSos.Length];
+                LayerMask[] targetMasks = new LayerMask[context.SelectedSkillRuntime.sourceEquipment.HitSos.Length];
 
-                for (int i = 0; i < context.SelectedSkill.HitSos.Length; i++)
+                for (int i = 0; i < context.SelectedSkillRuntime.sourceEquipment.HitSos.Length; i++)
                 {
-                    targetMasks[i] = context.SelectedSkill.HitSos[i].TargetLayerMask;
+                    targetMasks[i] = context.SelectedSkillRuntime.sourceEquipment.HitSos[i].TargetLayerMask;
                 }
 
                 return targetMasks;
@@ -90,17 +90,17 @@ namespace Character.Skill
 
         private bool RequiresTarget(CharacterActionContext context)
         {
-            if (context?.SelectedSkill == null || context.SelectedSkill.CastSo == null)
+            if (context?.SelectedSkillRuntime == null || context.SelectedSkillRuntime.sourceEquipment.CastSo == null)
             {
                 return true;
             }
-            if (context.SelectedSkill.BaseProfileSo != null &&
-                context.SelectedSkill.BaseProfileSo.EffectType == EffectType.Spawn)
+            if (context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo != null &&
+                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.EffectType == EffectType.Spawn)
             {
                 return false;
             }
 
-            TargetingType targetingType = context.SelectedSkill.CastSo.TargetingType;
+            TargetingType targetingType = context.SelectedSkillRuntime.sourceEquipment.CastSo.TargetingType;
 
             return targetingType != TargetingType.None &&
                    targetingType != TargetingType.Self;
@@ -134,12 +134,12 @@ namespace Character.Skill
                 return false;
             }
 
-            if (context.SelectedSkill == null)
+            if (context.SelectedSkillRuntime == null)
             {
                 return false;
             }
-            if (context.SelectedSkill.BaseProfileSo != null &&
-                context.SelectedSkill.BaseProfileSo.EffectType == EffectType.Spawn)
+            if (context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo != null &&
+                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.EffectType == EffectType.Spawn)
             {
                 return true;
             }
