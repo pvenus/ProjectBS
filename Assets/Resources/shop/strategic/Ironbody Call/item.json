@@ -1,0 +1,115 @@
+{
+  "strategicSkillItemId": "item.strategic.ironbody_call",
+  "grade": "Basic",
+  "nameKo": "철신호",
+  "descriptionKo": "",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237",
+  "gaugeCost": 20,
+  "reusable": true,
+  "skillId": "skill.strategic.ironbody_call",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.ironbody_call",
+    "slotName": "strategic",
+    "skillName": "철신호",
+    "baseProfile": {
+      "profileId": "skill.strategic.ironbody_call.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.ironbody_call][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 3,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.ironbody_call.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.ironbody_call.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.ironbody_call.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.ironbody_call.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.ironbody_call][prefab] projectile",
+        "projectileSprite": "[item.strategic.ironbody_call][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.ironbody_call][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.ironbody_call.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.ironbody_call.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.ironbody_call.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Party",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.flash_charm",
+              "effectType": "StatModifier",
+              "effectName": "철신호 방어력 증가",
+              "statType": "Defense",
+              "valueType": "Flat",
+              "value": 20,
+              "duration": 0
+            },
+            "lifetimeType": "Timed",
+            "categoryType": "Buff",
+            "duration": 5,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

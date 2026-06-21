@@ -1,0 +1,106 @@
+{
+  "strategicSkillItemId": "item.strategic.ten_thousand_thunder_charm",
+  "grade": "Basic",
+  "nameKo": "만뢰부",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 60,
+  "reusable": true,
+  "skillId": "skill.strategic.ten_thousand_thunder_charm",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.ten_thousand_thunder_charm",
+    "slotName": "strategic",
+    "skillName": "만뢰부",
+    "baseProfile": {
+      "profileId": "skill.strategic.ten_thousand_thunder_charm.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.ten_thousand_thunder_charm][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 8,
+      "projectileScale": 1,
+      "projectileLifetime": 1,
+      "projectileSpawnInterval": 0.5,
+      "projectileSpawnRadius": 2,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.ten_thousand_thunder_charm.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.ten_thousand_thunder_charm.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.ten_thousand_thunder_charm.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.ten_thousand_thunder_charm.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.ten_thousand_thunder_charm][prefab] projectile",
+        "projectileSprite": "[item.strategic.ten_thousand_thunder_charm][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.ten_thousand_thunder_charm][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.ten_thousand_thunder_charm.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.ten_thousand_thunder_charm.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.ten_thousand_thunder_charm.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Enemy",
+        "damage": {
+          "skillId": "fire generator common",
+          "damageType": "Normal",
+          "baseDamage": 120,
+          "attackPercentDamage": 0,
+          "canCritical": false,
+          "ignoreDefense": false
+        },
+        "buffEffects": [],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

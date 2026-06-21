@@ -1,0 +1,115 @@
+{
+  "strategicSkillItemId": "item.strategic.crushing_war_cry",
+  "grade": "Basic",
+  "nameKo": "파쇄격령",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 50,
+  "reusable": true,
+  "skillId": "skill.strategic.crushing_war_cry",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.crushing_war_cry",
+    "slotName": "strategic",
+    "skillName": "파쇄격령",
+    "baseProfile": {
+      "profileId": "skill.strategic.crushing_war_cry.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.crushing_war_cry][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 3,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.crushing_war_cry.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.crushing_war_cry.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.crushing_war_cry.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.crushing_war_cry.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.crushing_war_cry][prefab] projectile",
+        "projectileSprite": "[item.strategic.crushing_war_cry][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.crushing_war_cry][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.crushing_war_cry.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.crushing_war_cry.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.crushing_war_cry.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Party",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.crushing_war_cry",
+              "effectType": "StatModifier",
+              "effectName": "파쇄격령 공격력 증가",
+              "statType": "Attack",
+              "valueType": "Flat",
+              "value": 40,
+              "duration": 0
+            },
+            "lifetimeType": "Timed",
+            "categoryType": "Buff",
+            "duration": 8,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

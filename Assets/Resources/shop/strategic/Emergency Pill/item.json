@@ -1,69 +1,50 @@
 {
   "strategicSkillItemId": "item.strategic.emergency_pill",
   "grade": "Basic",
-
   "nameKo": "응급 단약",
   "descriptionKo": "전장을 떠도는 의원들이 사용하는 기초 단약.",
-
   "icon": "bless icon_8",
-
   "gaugeCost": 10,
   "reusable": true,
-
   "skillId": "skill.strategic.emergency_pill",
-
   "defaultPrice": 150,
-
   "tags": [
     "basic",
     "heal"
   ],
-
   "skill": {
     "equipmentId": "skill.strategic.emergency_pill",
     "slotName": "strategic",
     "skillName": "응급 단약",
-
     "baseProfile": {
       "profileId": "skill.strategic.emergency_pill.profile",
-
       "attackArchetype": "None",
-
       "projectilePrefabName": "[item.strategic.emergency_pill][prefab] projectile",
       "projectileSpawnOffset": 0,
-
       "projectileCount": 1,
       "projectileScale": 1,
       "projectileLifetime": 0.1,
-
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
       "projectileColliderRadius": 1,
-
       "category": "Heal",
       "targetType": "Ally",
       "tacticalNeed": "AllySupport",
       "basePriority": 100
     },
-
     "cast": {
       "castId": "skill.strategic.emergency_pill.cast",
-
       "cooldown": 0,
       "castTime": 0,
       "range": 999,
-
       "burstCount": 1,
       "burstInterval": 0,
-
       "castType": "Instant",
       "targetingType": "LowestHpAlly",
-
       "canMoveWhileCasting": true,
       "canCancelCasting": true,
       "autoCast": false
     },
-
     "move": {
       "moveId": "skill.strategic.emergency_pill.move",
       "moveType": "Warp",
@@ -71,10 +52,8 @@
       "rotationOffset": 0,
       "warp": {}
     },
-
     "visualSet": {
       "visualSetId": "skill.strategic.emergency_pill.visual",
-
       "baseVisual": {
         "visualId": "skill.strategic.emergency_pill.visual.base",
         "archetype": "None",
@@ -87,7 +66,6 @@
         "projectileLoopClip": "",
         "hitClip": ""
       },
-
       "impactVisual": {
         "visualId": "skill.strategic.emergency_pill.visual.impact",
         "impactType": "Heal",
@@ -98,7 +76,6 @@
         "intensity": 1,
         "duration": 0.5
       },
-
       "trailVisual": {
         "trailId": "skill.strategic.emergency_pill.visual.trail",
         "effectPrefab": "",
@@ -106,22 +83,16 @@
         "duration": 0
       }
     },
-
     "hits": [
       {
         "hitId": "skill.strategic.emergency_pill.hit",
-
         "maxHitCount": 999,
         "ignoreSameRoot": false,
         "repeatInterval": 0,
-
         "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
-
         "targetLayerMask": "Party",
-
         "damage": null,
-
         "buffEffects": [
           {
             "effect": {
@@ -140,7 +111,6 @@
           }
         ],
         "debuffEffects": [],
-
         "splitHitCount": 1,
         "splitHitInterval": 0
       }

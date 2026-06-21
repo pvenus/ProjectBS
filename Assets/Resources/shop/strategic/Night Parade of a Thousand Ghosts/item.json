@@ -1,0 +1,106 @@
+{
+  "strategicSkillItemId": "item.strategic.night_parade_of_a_thousand_ghosts",
+  "grade": "Basic",
+  "nameKo": "만귀야행",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 90,
+  "reusable": true,
+  "skillId": "skill.strategic.night_parade_of_a_thousand_ghosts",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.night_parade_of_a_thousand_ghosts",
+    "slotName": "strategic",
+    "skillName": "만귀야행",
+    "baseProfile": {
+      "profileId": "skill.strategic.night_parade_of_a_thousand_ghosts.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.night_parade_of_a_thousand_ghosts][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 10,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.night_parade_of_a_thousand_ghosts.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.night_parade_of_a_thousand_ghosts.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.night_parade_of_a_thousand_ghosts][prefab] projectile",
+        "projectileSprite": "[item.strategic.night_parade_of_a_thousand_ghosts][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.night_parade_of_a_thousand_ghosts][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.night_parade_of_a_thousand_ghosts.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 1,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Enemy",
+        "damage": {
+          "skillId": "fire generator common",
+          "damageType": "Normal",
+          "baseDamage": 220,
+          "attackPercentDamage": 0,
+          "canCritical": false,
+          "ignoreDefense": false
+        },
+        "buffEffects": [],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

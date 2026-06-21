@@ -1,0 +1,115 @@
+{
+  "strategicSkillItemId": "item.strategic.flash_charm",
+  "grade": "Basic",
+  "nameKo": "섬광부",
+  "descriptionKo": "반경 4m 적 1초 기절",
+  "icon": "shring_god_icon",
+  "gaugeCost": 10,
+  "reusable": true,
+  "skillId": "skill.strategic.flash_charm",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.flash_charm",
+    "slotName": "strategic",
+    "skillName": "섬광부",
+    "baseProfile": {
+      "profileId": "skill.strategic.flash_charm.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.flash_charm][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 3,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.flash_charm.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.flash_charm.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.flash_charm.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.flash_charm.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.flash_charm][prefab] projectile",
+        "projectileSprite": "[item.strategic.flash_charm][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.flash_charm][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.flash_charm.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.flash_charm.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.flash_charm.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Party",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.flash_charm",
+              "effectType": "StatModifier",
+              "effectName": "섬광부 기절",
+              "statType": "StunDuration",
+              "valueType": "Flat",
+              "value": 1,
+              "duration": 0
+            },
+            "lifetimeType": "Instant",
+            "categoryType": "Buff",
+            "duration": 0,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

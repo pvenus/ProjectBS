@@ -1,0 +1,118 @@
+{
+  "strategicSkillItemId": "item.strategic.demon_lure_incense",
+  "grade": "Basic",
+  "nameKo": "요귀향",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 40,
+  "reusable": true,
+  "skillId": "skill.strategic.demon_lure_incense",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.demon_lure_incense",
+    "slotName": "strategic",
+    "skillName": "요귀향",
+    "baseProfile": {
+      "profileId": "skill.strategic.demon_lure_incense.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.demon_lure_incense][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 6,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.demon_lure_incense.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.demon_lure_incense.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.demon_lure_incense.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.demon_lure_incense.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.demon_lure_incense][prefab] projectile",
+        "projectileSprite": "[item.strategic.demon_lure_incense][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.demon_lure_incense][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.demon_lure_incense.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.demon_lure_incense.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.demon_lure_incense.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Enemy",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.demon_lure_incense.taunt",
+              "effectType": "Taunt",
+              "effectName": "요귀향 도발",
+              "forceTargetToCaster": true,
+              "blockRetargeting": true,
+              "allowAttack": true,
+              "allowMovement": true,
+              "useLurePoint": true,
+              "lureRadius": 0.75,
+              "lureMoveSpeedMultiplier": 1
+            },
+            "lifetimeType": "Instant",
+            "categoryType": "Buff",
+            "duration": 0,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

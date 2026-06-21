@@ -1,0 +1,115 @@
+{
+  "strategicSkillItemId": "item.strategic.soulbreaking_formation",
+  "grade": "Basic",
+  "nameKo": "사혼진",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 65,
+  "reusable": true,
+  "skillId": "skill.strategic.soulbreaking_formation",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.soulbreaking_formation",
+    "slotName": "strategic",
+    "skillName": "사혼진",
+    "baseProfile": {
+      "profileId": "skill.strategic.soulbreaking_formation.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.soulbreaking_formation][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 3,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.soulbreaking_formation.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.soulbreaking_formation.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.soulbreaking_formation.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.soulbreaking_formation.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.soulbreaking_formation][prefab] projectile",
+        "projectileSprite": "[item.strategic.soulbreaking_formation][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.soulbreaking_formation][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.soulbreaking_formation.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.soulbreaking_formation.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.soulbreaking_formation.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Enemy",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.soulbreaking_formation",
+              "effectType": "StatModifier",
+              "effectName": "사혼진 이동속도 감소",
+              "statType": "MoveSpeedPercent",
+              "valueType": "Flat",
+              "value": -80,
+              "duration": 0
+            },
+            "lifetimeType": "Timed",
+            "categoryType": "Debuff",
+            "duration": 6,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}

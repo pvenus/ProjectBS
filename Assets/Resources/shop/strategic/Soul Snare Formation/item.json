@@ -1,0 +1,115 @@
+{
+  "strategicSkillItemId": "item.strategic.soul_snare_formation",
+  "grade": "Basic",
+  "nameKo": "유혼진",
+  "descriptionKo": "",
+  "icon": "shring_god_icon",
+  "gaugeCost": 45,
+  "reusable": true,
+  "skillId": "skill.strategic.soul_snare_formation",
+  "defaultPrice": 100,
+  "tags": [],
+  "skill": {
+    "equipmentId": "skill.strategic.soul_snare_formation",
+    "slotName": "strategic",
+    "skillName": "유혼진",
+    "baseProfile": {
+      "profileId": "skill.strategic.soul_snare_formation.profile",
+      "attackArchetype": "Melee",
+      "projectilePrefabName": "[item.strategic.soul_snare_formation][prefab] projectile",
+      "projectileSpawnOffset": 0.5,
+      "projectileCount": 1,
+      "projectileScale": 1,
+      "projectileLifetime": 3,
+      "projectileSpawnInterval": 0,
+      "projectileSpawnRadius": 0,
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "cast": {
+      "castId": "skill.strategic.soul_snare_formation.cast",
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 999,
+      "burstCount": 1,
+      "burstInterval": 0,
+      "castType": "Instant",
+      "targetingType": "AutoTarget",
+      "canMoveWhileCasting": true,
+      "canCancelCasting": true,
+      "autoCast": false
+    },
+    "move": {
+      "moveId": "skill.strategic.soul_snare_formation.move",
+      "moveType": "Linear",
+      "applyDirectionRotation": true,
+      "rotationOffset": -90,
+      "linear": {}
+    },
+    "visualSet": {
+      "visualSetId": "skill.strategic.soul_snare_formation.visual",
+      "baseVisual": {
+        "visualId": "skill.strategic.soul_snare_formation.visual.base",
+        "archetype": "None",
+        "projectilePrefab": "[item.strategic.soul_snare_formation][prefab] projectile",
+        "projectileSprite": "[item.strategic.soul_snare_formation][animation] texture2d",
+        "animatorController": "",
+        "idleClip": "",
+        "castClip": "",
+        "attackClip": "",
+        "projectileLoopClip": "[item.strategic.soul_snare_formation][animation] clip",
+        "hitClip": ""
+      },
+      "impactVisual": {
+        "visualId": "skill.strategic.soul_snare_formation.visual.impact",
+        "impactType": "None",
+        "element": "None",
+        "effectPrefab": "",
+        "sound": "",
+        "scale": 1,
+        "intensity": 1,
+        "duration": 0
+      },
+      "trailVisual": {
+        "trailId": "skill.strategic.soul_snare_formation.visual.trail",
+        "effectPrefab": "",
+        "followProjectile": false,
+        "duration": 0
+      }
+    },
+    "hits": [
+      {
+        "hitId": "skill.strategic.soul_snare_formation.hit",
+        "maxHitCount": 999,
+        "ignoreSameRoot": true,
+        "repeatInterval": 0.25,
+        "hitStartTime": 0.1,
+        "deactivateAfterFirstHit": false,
+        "targetLayerMask": "Enemy",
+        "damage": null,
+        "buffEffects": [
+          {
+            "effect": {
+              "effectId": "effect.item.strategic.soul_snare_formation",
+              "effectType": "StatModifier",
+              "effectName": "유혼진 속박",
+              "statType": "RootDuration",
+              "valueType": "Flat",
+              "value": 2,
+              "duration": 0
+            },
+            "lifetimeType": "Timed",
+            "categoryType": "Debuff",
+            "duration": 8,
+            "maxApplyCount": 1
+          }
+        ],
+        "debuffEffects": [],
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    ]
+  }
+}
