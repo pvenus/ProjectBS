@@ -336,6 +336,16 @@ namespace Character
             return result.ToArray();
         }
 
+        public void ReduceAllCooldowns(
+            float percent,
+            float seconds)
+        {
+            skillService.ReduceAllCooldowns(
+                skillRuntimeData,
+                percent,
+                seconds);
+        }
+
         private void AddRuntimeBySlotKey(
             List<EquipmentSkillRuntimeData> result,
             string slotKey)

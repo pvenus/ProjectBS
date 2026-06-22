@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.gale_step
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.gale_step
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 915c70295b5ad4be2894733031514c23, type: 2}
+  castSo: {fileID: 11400000, guid: 8cd0fb1de1f3d416a8beb62fa7342370, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: b75c668b1157f4764b948e4aebc5bb90, type: 2}
+  moveSo: {fileID: 11400000, guid: 8305c8c839806432aaf47bcce422ee6e, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: d87e48510864647f391635bc7ba85369, type: 2}
+  visualSetSo: {fileID: 11400000, guid: 9a27f34740dbf444499fe2513c097a7e, type: 2}

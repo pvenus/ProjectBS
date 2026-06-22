@@ -2,8 +2,8 @@
   "strategicSkillItemId": "item.strategic.blood_meridian_release",
   "grade": "Basic",
   "nameKo": "혈맥 개방",
-  "descriptionKo": "",
-  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237",
+  "descriptionKo": "모든 아군의 현재 HP를 10% 소모하고 재사용 대기시간을 20% 감소시킨다.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 20,
   "reusable": true,
   "skillId": "skill.strategic.blood_meridian_release",
@@ -17,14 +17,15 @@
       "profileId": "skill.strategic.blood_meridian_release.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.blood_meridian_release][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
-      "category": "Attack",
-      "targetType": "Enemy",
+      "projectileColliderRadius": 999,
+      "category": "Buff",
+      "targetType": "Ally",
       "tacticalNeed": "None",
       "basePriority": 0
     },
@@ -36,31 +37,23 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.blood_meridian_release.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.blood_meridian_release.visual",
       "baseVisual": {
         "visualId": "skill.strategic.blood_meridian_release.visual.base",
-        "archetype": "None",
-        "projectilePrefab": "[item.strategic.blood_meridian_release][prefab] projectile",
-        "projectileSprite": "[item.strategic.blood_meridian_release][animation] texture2d",
-        "animatorController": "",
-        "idleClip": "",
-        "castClip": "",
-        "attackClip": "",
-        "projectileLoopClip": "[item.strategic.blood_meridian_release][animation] clip",
-        "hitClip": ""
+        "archetype": "None"
       },
       "impactVisual": {
         "visualId": "skill.strategic.blood_meridian_release.visual.impact",
@@ -83,9 +76,9 @@
       {
         "hitId": "skill.strategic.blood_meridian_release.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Party",
         "damage": null,
@@ -121,8 +114,8 @@
           }
         ],
         "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

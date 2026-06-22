@@ -27,15 +27,15 @@ namespace Effect
                 return;
             }
 
-            SkillExecutorMono skillExecutor =
-                ResolveSkillExecutor(targetCharacter);
+            CharacterSkillManager skillManager =
+                ResolveCharacterSkillManager(targetCharacter);
 
-            if (skillExecutor == null)
+            if (skillManager == null)
             {
                 return;
             }
 
-            TryReduceCooldowns(skillExecutor);
+            TryReduceCooldowns(skillManager);
         }
 
         public override void OnRemove()
@@ -44,9 +44,9 @@ namespace Effect
         }
 
         private void TryReduceCooldowns(
-            SkillExecutorMono skillExecutor)
+            CharacterSkillManager skillManager)
         {
-            if (skillExecutor == null)
+            if (skillManager == null)
             {
                 return;
             }
@@ -59,7 +59,7 @@ namespace Effect
                 ? Mathf.Max(0f, effectSO.reduceSeconds)
                 : 0f;
 
-            skillExecutor.ReduceAllCooldowns(
+            skillManager.ReduceAllCooldowns(
                 percent,
                 seconds);
         }
@@ -76,7 +76,7 @@ namespace Effect
                 || effectSO.reduceType == CooldownReduceType.PercentAndFlat;
         }
 
-        private SkillExecutorMono ResolveSkillExecutor(
+        private CharacterSkillManager ResolveCharacterSkillManager(
             CharacterManager characterManager)
         {
             if (characterManager == null)
@@ -84,22 +84,22 @@ namespace Effect
                 return null;
             }
 
-            SkillExecutorMono executor =
-                characterManager.GetComponent<SkillExecutorMono>();
+            CharacterSkillManager skillManager =
+                characterManager.GetComponent<CharacterSkillManager>();
 
-            if (executor != null)
+            if (skillManager != null)
             {
-                return executor;
+                return skillManager;
             }
 
-            executor = characterManager.GetComponentInChildren<SkillExecutorMono>();
+            skillManager = characterManager.GetComponentInChildren<CharacterSkillManager>();
 
-            if (executor != null)
+            if (skillManager != null)
             {
-                return executor;
+                return skillManager;
             }
 
-            return characterManager.GetComponentInParent<SkillExecutorMono>();
+            return characterManager.GetComponentInParent<CharacterSkillManager>();
         }
 
         private string GetTargetRuntimeId()

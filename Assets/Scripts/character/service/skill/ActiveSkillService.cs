@@ -142,6 +142,65 @@ namespace Character.Skill
 
             return true;
         }
+        public void ReduceAllCooldowns(
+            CharacterSkillRuntimeData runtimeData,
+            float percent,
+            float seconds)
+        {
+            if (runtimeData == null ||
+                runtimeData.cooldownEndTimes == null ||
+                runtimeData.cooldownEndTimes.Count == 0)
+            {
+                return;
+            }
+
+            string[] skillIds = new string[runtimeData.cooldownEndTimes.Count];
+            runtimeData.cooldownEndTimes.Keys.CopyTo(skillIds, 0);
+
+            for (int i = 0; i < skillIds.Length; i++)
+            {
+                ReduceCooldown(
+                    runtimeData,
+                    skillIds[i],
+                    percent,
+                    seconds);
+            }
+        }
+
+        private void ReduceCooldown(
+            CharacterSkillRuntimeData runtimeData,
+            string skillId,
+            float percent,
+            float seconds)
+        {
+            if (runtimeData == null || string.IsNullOrEmpty(skillId))
+            {
+                return;
+            }
+
+            if (!runtimeData.cooldownEndTimes.TryGetValue(
+                    skillId,
+                    out float cooldownEndTime))
+            {
+                return;
+            }
+
+            float remainingCooldown = cooldownEndTime - Time.time;
+
+            if (remainingCooldown <= 0f)
+            {
+                return;
+            }
+
+            float reducedByPercent =
+                remainingCooldown * percent;
+
+            float reducedAmount =
+                Mathf.Max(reducedByPercent, seconds);
+
+            runtimeData.cooldownEndTimes[skillId] =
+                Mathf.Max(Time.time, cooldownEndTime - reducedAmount);
+        }
 
         private bool StartSkillUseRoutine(
             CharacterSkillManager skillManager,
