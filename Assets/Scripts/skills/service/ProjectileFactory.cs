@@ -696,7 +696,29 @@ public class ProjectileFactory
                 spawnPosition);
         }
 
+        if (source.moveRuntime is WarpProjectileMoveDto warp)
+        {
+            return CreateInstanceWarpMoveDto(
+                warp,
+                spawnPosition);
+        }
+
         return source.moveRuntime;
+    }
+
+    private WarpProjectileMoveDto CreateInstanceWarpMoveDto(
+        WarpProjectileMoveDto sourceMove,
+        Vector2 spawnPosition)
+    {
+        if (sourceMove == null)
+        {
+            return null;
+        }
+
+        return new WarpProjectileMoveDto
+        {
+            targetPosition = spawnPosition
+        };
     }
 
     private LinearProjectileMoveDto CreateInstanceLinearMoveDto(

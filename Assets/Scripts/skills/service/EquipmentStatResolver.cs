@@ -75,6 +75,21 @@ public class EquipmentStatResolver
                     ? Mathf.Max(0.01f, equipmentSo.BaseProfileSo.ProjectileLifetime)
                     : 3f;
 
+            case SkillStatModifierType.ProjectileColliderRadius:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0.01f, equipmentSo.BaseProfileSo.ProjectileColliderRadius)
+                    : 3f;
+
+            case SkillStatModifierType.ProjectileSpawnRadius:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0f, equipmentSo.BaseProfileSo.ProjectileSpawnRadius)
+                    : 0f;
+
+            case SkillStatModifierType.ProjectileSpawnInterval:
+                return equipmentSo.BaseProfileSo != null
+                    ? Mathf.Max(0f, equipmentSo.BaseProfileSo.ProjectileSpawnInterval)
+                    : 0f;
+
             default:
                 return 0f;
         }

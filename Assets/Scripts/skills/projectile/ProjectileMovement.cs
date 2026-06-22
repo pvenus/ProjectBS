@@ -134,6 +134,7 @@ public class ProjectileMovement : MonoBehaviour
             owner = ownerTransform,
             projectileTransform = transform,
             targetTransform = targetTransform,
+            targetLayerMask = data.hit.targetLayerMask,
             spawnPosition = data.spawnPosition
         };
     }

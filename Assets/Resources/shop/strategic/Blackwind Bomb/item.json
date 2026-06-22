@@ -3,8 +3,8 @@
   "grade": "Basic",
   "nameKo": "흑풍탄",
   "descriptionKo": "",
-  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237",
-  "gaugeCost": 1,
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
+  "gaugeCost": 30,
   "reusable": true,
   "skillId": "skill.strategic.blackwind_bomb",
   "defaultPrice": 100,
@@ -15,14 +15,20 @@
     "skillName": "흑풍탄",
     "baseProfile": {
       "profileId": "skill.strategic.blackwind_bomb.profile",
+
       "attackArchetype": "Melee",
-      "projectilePrefabName": "[item.strategic.thundercrash_orb][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+
+      "projectileSpawnOffset": 0,
+
       "projectileCount": 1,
+      "projectileSpreadAngle": 0,
       "projectileScale": 1,
       "projectileLifetime": 0.4,
+
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
+      "projectileColliderRadius": 6,
+
       "category": "Attack",
       "targetType": "Enemy",
       "tacticalNeed": "None",
@@ -30,36 +36,38 @@
     },
     "cast": {
       "castId": "skill.strategic.blackwind_bomb.cast",
+
       "cooldown": 0,
       "castTime": 0,
       "range": 999,
+
       "burstCount": 1,
       "burstInterval": 0,
+      
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.blackwind_bomb.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.blackwind_bomb.visual",
       "baseVisual": {
         "visualId": "skill.strategic.blackwind_bomb.visual.base",
         "archetype": "None",
-        "projectilePrefab": "[item.strategic.thundercrash_orb][prefab] projectile",
-        "projectileSprite": "[item.strategic.blackwind_bomb][animation] texture2d",
         "animatorController": "",
         "idleClip": "",
         "castClip": "",
         "attackClip": "",
-        "projectileLoopClip": "[item.strategic.blackwind_bomb][animation] clip",
+        "projectileLoopClip": "",
         "hitClip": ""
       },
       "impactVisual": {
@@ -82,21 +90,27 @@
     "hits": [
       {
         "hitId": "skill.strategic.blackwind_bomb.hit",
+
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
+
         "targetLayerMask": "Enemy",
+
         "damage": {
-          "skillId": "fire generator common",
+          "skillId": "skill.strategic.blackwind_bomb.damage",
           "damageType": "Normal",
           "baseDamage": 240,
+          "firstHitBaseDamage": 0,
           "attackPercentDamage": 0,
           "canCritical": false,
           "ignoreDefense": false
         },
-        "buffEffects": [
+        "buffEffects": [],
+        "debuffEffects": [
           {
             "effect": {
               "effectId": "effect.item.strategic.blackwind_bomb.knockback",
@@ -108,14 +122,13 @@
               "fallbackToProjectileDirection": true
             },
             "lifetimeType": "Instant",
-            "categoryType": "Buff",
+            "categoryType": "Debuff",
             "duration": 5,
             "maxApplyCount": 1
           }
         ],
-        "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

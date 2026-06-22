@@ -14,11 +14,14 @@ namespace Skill
         private const float DefaultRetargetInterval = 0.15f;
         private const float DefaultSearchRadius = 50f;
         private const float DefaultArrivalThreshold = 0.05f;
+        private const float WanderRadius = 4f;
+        private const float WanderRetargetDistance = 0.25f;
 
         private SkillProjectileMovementContext context;
 
         private Vector2 currentTargetPosition;
         private bool hasTargetPosition;
+        private bool isWanderTarget;
 
         private Vector2 position;
         private Vector2 direction;
@@ -62,8 +65,7 @@ namespace Skill
             }
             else
             {
-                currentTargetPosition = context.spawnPosition;
-                hasTargetPosition = false;
+                SetRandomWanderTarget();
             }
 
             position = context.projectileTransform != null
@@ -91,15 +93,18 @@ namespace Skill
 
             if (!hasTargetPosition)
             {
-                return;
+                SetRandomWanderTarget();
             }
 
             Vector2 targetPosition = currentTargetPosition;
             Vector2 toTarget = targetPosition - position;
             float distance = toTarget.magnitude;
 
-            if (distance <= DefaultArrivalThreshold)
+            if (isWanderTarget && distance <= WanderRetargetDistance)
             {
+                SetRandomWanderTarget();
+                targetPosition = currentTargetPosition;
+                toTarget = targetPosition - position;
             }
 
             Vector2 desiredDirection = toTarget.normalized;
@@ -143,8 +148,7 @@ namespace Skill
             }
             else
             {
-                currentTargetPosition = position;
-                hasTargetPosition = false;
+                SetRandomWanderTarget();
             }
 
             direction = ResolveInitialDirection();
@@ -204,12 +208,13 @@ namespace Skill
 
             if (context.targetTransform != null && IsTargetValid(context.targetTransform))
             {
-            if (retargetTimer <= 0f)
-            {
-                currentTargetPosition = context.targetTransform.position;
-                hasTargetPosition = true;
-                retargetTimer = DefaultRetargetInterval;
-            }
+                if (retargetTimer <= 0f)
+                {
+                    currentTargetPosition = context.targetTransform.position;
+                    hasTargetPosition = true;
+                    isWanderTarget = false;
+                    retargetTimer = DefaultRetargetInterval;
+                }
 
                 return;
             }
@@ -220,6 +225,7 @@ namespace Skill
             // }
 
             context.targetTransform = null;
+            isWanderTarget = true;
 
             if (retargetTimer > 0f)
             {
@@ -233,24 +239,47 @@ namespace Skill
             {
                 currentTargetPosition = context.targetTransform.position;
                 hasTargetPosition = true;
+                isWanderTarget = false;
             }
 
+        }
+
+        private void SetRandomWanderTarget()
+        {
+            Vector2 randomOffset = Random.insideUnitCircle * WanderRadius;
+
+            if (randomOffset.sqrMagnitude <= 0.0001f)
+            {
+                randomOffset = Vector2.right * WanderRadius;
+            }
+
+            currentTargetPosition = position + randomOffset;
+            hasTargetPosition = true;
+            isWanderTarget = true;
         }
 
         private Transform FindNearestTarget()
         {
             CharacterManager ownerCharacter = ResolveCharacterManager(context.owner);
 
-            CharacterManager[] characters = Object.FindObjectsByType<CharacterManager>(
-                FindObjectsInactive.Exclude,
-                FindObjectsSortMode.None);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(
+                position,
+                DefaultSearchRadius,
+                context.targetLayerMask);
 
-            CharacterManager nearest = null;
+            Transform nearest = null;
             float nearestDistanceSqr = DefaultSearchRadius * DefaultSearchRadius;
 
-            for (int i = 0; i < characters.Length; i++)
+            for (int i = 0; i < colliders.Length; i++)
             {
-                CharacterManager candidate = characters[i];
+                Collider2D collider = colliders[i];
+
+                if (collider == null)
+                {
+                    continue;
+                }
+
+                CharacterManager candidate = ResolveCharacterManager(collider.transform);
 
                 if (candidate == null || candidate == ownerCharacter)
                 {
@@ -275,12 +304,11 @@ namespace Skill
                     continue;
                 }
 
-                nearest = candidate;
+                nearest = candidate.transform;
                 nearestDistanceSqr = distanceSqr;
             }
 
-
-            return nearest != null ? nearest.transform : null;
+            return nearest;
         }
 
         private bool IsTargetValid(Transform target)

@@ -5,6 +5,7 @@ public struct SkillProjectileMovementContext
     public Transform owner;
     public Transform projectileTransform;
     public Transform targetTransform;
+    public LayerMask targetLayerMask;
     public Vector2 spawnPosition;
 }
 

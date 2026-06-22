@@ -314,6 +314,7 @@ namespace Character
             EnsureComponent<AnimationMono>();
             EnsureComponent<ShaderControllerMono>();
             EnsureComponent<EffectManager>();
+            EnsureComponent<MovementMono>();
         }
 
         private T EnsureComponent<T>()

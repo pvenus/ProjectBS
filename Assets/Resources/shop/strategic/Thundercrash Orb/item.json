@@ -1,9 +1,9 @@
 {
   "strategicSkillItemId": "item.strategic.thundercrash_orb",
-  "grade": "Basic",
+  "grade": "Advanced",
   "nameKo": "진천뢰",
-  "descriptionKo": "",
-  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237",
+  "descriptionKo": "벼락의 기운이 봉인된 쇠구슬.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 20,
   "reusable": true,
   "skillId": "skill.strategic.thundercrash_orb",
@@ -17,12 +17,13 @@
       "profileId": "skill.strategic.thundercrash_orb.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.thundercrash_orb][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
+      "projectileColliderRadius": 5,
       "category": "Attack",
       "targetType": "Enemy",
       "tacticalNeed": "None",
@@ -36,17 +37,17 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
+      "targetingType": "Position",
       "canMoveWhileCasting": true,
       "canCancelCasting": true,
       "autoCast": false
     },
     "move": {
       "moveId": "skill.strategic.thundercrash_orb.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.thundercrash_orb.visual",
@@ -83,39 +84,39 @@
       {
         "hitId": "skill.strategic.thundercrash_orb.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
+        "ignoreSameRoot": false,
         "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Enemy",
         "damage": {
-          "skillId": "fire generator common",
+          "skillId": "skill.strategic.thundercrash_orb.damage",
           "damageType": "Normal",
           "baseDamage": 140,
           "attackPercentDamage": 0,
           "canCritical": false,
           "ignoreDefense": false
         },
-        "buffEffects": [
+        "buffEffects": [],
+        "debuffEffects": [
           {
             "effect": {
-              "effectId": "effect.item.strategic.thundercrash_orb",
+              "effectId": "effect.item.strategic.thundercrash_orb.stun",
               "effectType": "StatModifier",
               "effectName": "진천뢰 기절",
               "statType": "StunDuration",
               "valueType": "Flat",
-              "value": 5,
+              "value": 1,
               "duration": 0
             },
             "lifetimeType": "Instant",
-            "categoryType": "Buff",
-            "duration": 5,
+            "categoryType": "Debuff",
+            "duration": 0,
             "maxApplyCount": 1
           }
         ],
-        "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

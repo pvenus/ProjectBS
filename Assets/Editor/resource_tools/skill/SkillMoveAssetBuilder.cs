@@ -15,6 +15,9 @@ namespace ResourceTools.Skill
         public string moveType;
         public string movementType;
 
+        public bool applyDirectionRotation;
+        public float rotationOffset;
+
         public LinearMoveJson linear;
         public HoverMoveJson hover;
         public WarpMoveJson warp;
@@ -111,6 +114,9 @@ namespace ResourceTools.Skill
 
             SkillMoveConfig config = ApplyConfig(serializedObject, json);
             SetMoveType(serializedObject, config != null ? config.MoveType.ToString() : ResolveMoveType(json));
+
+            SetBool(serializedObject, "applyDirectionRotation", json.applyDirectionRotation);
+            SetFloat(serializedObject, "rotationOffset", json.rotationOffset);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
@@ -275,6 +281,38 @@ namespace ResourceTools.Skill
             }
 
             Debug.LogWarning($"[SkillMoveAssetBuilder] Enum value not found. property={propertyName} value={value}");
+        }
+
+        private static void SetFloat(
+            SerializedObject serializedObject,
+            string propertyName,
+            float value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.floatValue = value;
+        }
+
+        private static void SetBool(
+            SerializedObject serializedObject,
+            string propertyName,
+            bool value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+            if (property == null)
+            {
+                Debug.LogWarning($"[SkillMoveAssetBuilder] Serialized property not found: {propertyName}");
+                return;
+            }
+
+            property.boolValue = value;
         }
 
         private static void EnsureFolder(string folderPath)

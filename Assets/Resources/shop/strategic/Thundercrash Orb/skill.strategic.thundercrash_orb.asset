@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.thundercrash_orb
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.thundercrash_orb
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 50341038c1b954edfb888154af1a8536, type: 2}
+  castSo: {fileID: 11400000, guid: 39bacc883f2844f87a770e83e9073503, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 06ba5e0c399c94c51aca04a8efe598ce, type: 2}
+  moveSo: {fileID: 11400000, guid: 12d6d54263be345b084bcab2462aac07, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: d87e48510864647f391635bc7ba85369, type: 2}
+  visualSetSo: {fileID: 11400000, guid: 5d76e1730fe864d0797bd7e404e47342, type: 2}

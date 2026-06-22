@@ -3,7 +3,7 @@
   "grade": "Basic",
   "nameKo": "천뢰낙",
   "descriptionKo": "",
-  "icon": "shring_god_icon",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 80,
   "reusable": true,
   "skillId": "skill.strategic.heavenfall_thunder",
@@ -17,12 +17,13 @@
       "profileId": "skill.strategic.heavenfall_thunder.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.heavenfall_thunder][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
+      "projectileColliderRadius": 10,
       "category": "Attack",
       "targetType": "Enemy",
       "tacticalNeed": "None",
@@ -36,17 +37,17 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
+      "targetingType": "Position",
       "canMoveWhileCasting": true,
       "canCancelCasting": true,
       "autoCast": false
     },
     "move": {
       "moveId": "skill.strategic.heavenfall_thunder.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.heavenfall_thunder.visual",
@@ -83,13 +84,13 @@
       {
         "hitId": "skill.strategic.heavenfall_thunder.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
+        "ignoreSameRoot": false,
         "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Enemy",
         "damage": {
-          "skillId": "fire generator common",
+          "skillId": "skill.strategic.heavenfall_thunder.damage",
           "damageType": "Normal",
           "baseDamage": 750,
           "attackPercentDamage": 0,
@@ -98,8 +99,8 @@
         },
         "buffEffects": [],
         "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

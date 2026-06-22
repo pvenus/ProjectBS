@@ -14,13 +14,6 @@ namespace ResourceTools.Skill
         public string archetype;
         public string projectileVisualType;
         public string projectilePrefab;
-        public string projectileSprite;
-        public string idleClip;
-        public string castClip;
-        public string attackClip;
-        public string projectileLoopClip;
-        public string hitClip;
-
         public string prefabName;
         public string spriteName;
         public string animationClipName;
@@ -114,7 +107,6 @@ namespace ResourceTools.Skill
             BaseVisualJson json)
         {
             string prefabName = ResolvePrefabName(json);
-            string animationClipName = ResolveAnimationClipName(json);
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
@@ -142,9 +134,15 @@ namespace ResourceTools.Skill
                 "effectPrefab",
                 "projectilePrefab");
 
+            AnimationClip idleClip = FindAnimationClipByVisualId(json.visualId, "idle");
+            AnimationClip castClip = FindAnimationClipByVisualId(json.visualId, "cast");
+            AnimationClip attackClip = FindAnimationClipByVisualId(json.visualId, "attack");
+            AnimationClip loopClip = FindAnimationClipByVisualId(json.visualId, "loop");
+            AnimationClip hitClip = FindAnimationClipByVisualId(json.visualId, "hit");
+
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(animationClipName),
+                idleClip,
                 "animationClip",
                 "clip",
                 "spawnAnimationClip",
@@ -152,28 +150,28 @@ namespace ResourceTools.Skill
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(json.idleClip),
+                idleClip,
                 "idleClip");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(json.castClip),
+                castClip,
                 "castClip");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(json.attackClip),
+                attackClip,
                 "attackClip");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(json.projectileLoopClip),
+                loopClip,
                 "projectileLoopClip",
                 "loopClip");
 
             EditorFieldSetter.SetFirstExistingField(
                 visualSo,
-                FindAnimationClipByName(json.hitClip),
+                hitClip,
                 "hitClip");
 
             EditorFieldSetter.SetFirstExistingField(
@@ -242,31 +240,6 @@ namespace ResourceTools.Skill
                 : json.prefabName;
         }
 
-        private static string ResolveAnimationClipName(BaseVisualJson json)
-        {
-            if (json == null)
-            {
-                return null;
-            }
-
-            if (!string.IsNullOrWhiteSpace(json.animationClipName))
-            {
-                return json.animationClipName;
-            }
-
-            if (!string.IsNullOrWhiteSpace(json.projectileLoopClip))
-            {
-                return json.projectileLoopClip;
-            }
-
-            if (!string.IsNullOrWhiteSpace(json.idleClip))
-            {
-                return json.idleClip;
-            }
-
-            return null;
-        }
-
         private static GameObject FindPrefabByName(string prefabName)
         {
             if (string.IsNullOrWhiteSpace(prefabName))
@@ -288,6 +261,18 @@ namespace ResourceTools.Skill
             }
 
             return null;
+        }
+
+        private static AnimationClip FindAnimationClipByVisualId(
+            string visualId,
+            string suffix)
+        {
+            if (string.IsNullOrWhiteSpace(visualId) || string.IsNullOrWhiteSpace(suffix))
+            {
+                return null;
+            }
+
+            return FindAnimationClipByName($"{visualId}.{suffix}");
         }
 
         private static AnimationClip FindAnimationClipByName(string clipName)
