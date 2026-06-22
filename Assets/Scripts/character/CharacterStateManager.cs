@@ -19,11 +19,6 @@ namespace Character
         private ICharacterActionState _currentState;
         private CharacterActionContext _context;
         private CharacterDecisionEngine _decisionEngine;
-
-        public ICharacterActionState CurrentState => _currentState;
-
-        public bool HasState => _currentState != null;
-
         private void Awake()
         {
             MovementController movementController =
@@ -119,6 +114,8 @@ namespace Character
         {
             ResolveLateComponents();
             _context.DeltaTime = Time.deltaTime;
+            TryGetForcedTarget(out _);
+            TryGetLurePoint(out _);
 
             if (_currentState == null || _currentState.IsFinished)
             {
@@ -198,6 +195,82 @@ namespace Character
         public bool IsCurrentStateFinished()
         {
             return _currentState != null && _currentState.IsFinished;
+        }
+
+        public void ApplyForcedTarget(
+            Transform target,
+            float duration)
+        {
+            _context?.ApplyForcedTarget(
+                target,
+                duration);
+        }
+
+        public void ClearForcedTarget()
+        {
+            _context?.ClearForcedTarget();
+        }
+
+        public void ClearForcedTarget(
+            Transform target)
+        {
+            if (_context == null || _context.ForcedTarget != target)
+            {
+                return;
+            }
+
+            _context.ClearForcedTarget();
+        }
+
+        public bool TryGetForcedTarget(out Transform target)
+        {
+            if (_context == null)
+            {
+                target = null;
+                return false;
+            }
+
+            return _context.TryGetForcedTarget(out target);
+        }
+
+        public bool IsForcedTarget(Transform target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            return TryGetForcedTarget(out Transform forcedTarget)
+                   && forcedTarget == target;
+        }
+
+        public void ApplyLurePoint(
+            Vector2 lurePoint,
+            float duration,
+            float lureRadius,
+            float lureMoveSpeedMultiplier)
+        {
+            _context?.ApplyLurePoint(
+                lurePoint,
+                duration,
+                lureRadius,
+                lureMoveSpeedMultiplier);
+        }
+
+        public void ClearLurePoint()
+        {
+            _context?.ClearLurePoint();
+        }
+
+        public bool TryGetLurePoint(out Vector2 lurePoint)
+        {
+            if (_context == null)
+            {
+                lurePoint = Vector2.zero;
+                return false;
+            }
+
+            return _context.TryGetLurePoint(out lurePoint);
         }
 
         public void LogStateMessage(string message)

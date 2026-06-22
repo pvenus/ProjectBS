@@ -2,8 +2,8 @@
   "strategicSkillItemId": "item.strategic.ghost_soul_charm",
   "grade": "Basic",
   "nameKo": "귀혼부",
-  "descriptionKo": "",
-  "icon": "shring_god_icon",
+  "descriptionKo": "8초간 모든 아군의 흡혈을 12% 증가시킨다.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 35,
   "reusable": true,
   "skillId": "skill.strategic.ghost_soul_charm",
@@ -17,14 +17,15 @@
       "profileId": "skill.strategic.ghost_soul_charm.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.ghost_soul_charm][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
-      "category": "Attack",
-      "targetType": "Enemy",
+      "projectileColliderRadius": 999,
+      "category": "Buff",
+      "targetType": "Ally",
       "tacticalNeed": "None",
       "basePriority": 0
     },
@@ -36,31 +37,23 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.ghost_soul_charm.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.ghost_soul_charm.visual",
       "baseVisual": {
         "visualId": "skill.strategic.ghost_soul_charm.visual.base",
-        "archetype": "None",
-        "projectilePrefab": "[item.strategic.ghost_soul_charm][prefab] projectile",
-        "projectileSprite": "[item.strategic.ghost_soul_charm][animation] texture2d",
-        "animatorController": "",
-        "idleClip": "",
-        "castClip": "",
-        "attackClip": "",
-        "projectileLoopClip": "[item.strategic.ghost_soul_charm][animation] clip",
-        "hitClip": ""
+        "archetype": "None"
       },
       "impactVisual": {
         "visualId": "skill.strategic.ghost_soul_charm.visual.impact",
@@ -83,9 +76,9 @@
       {
         "hitId": "skill.strategic.ghost_soul_charm.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Party",
         "damage": null,
@@ -95,7 +88,7 @@
               "effectId": "effect.item.strategic.ghost_soul_charm",
               "effectType": "StatModifier",
               "effectName": "귀혼부 흡혈 증가",
-              "statType": "Stat_1255",
+              "statType": "LifeSteal",
               "valueType": "Flat",
               "value": 12,
               "duration": 0
@@ -107,8 +100,8 @@
           }
         ],
         "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

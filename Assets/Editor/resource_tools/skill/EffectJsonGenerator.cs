@@ -66,6 +66,15 @@ namespace ResourceTools.Effect
             public float force;
             public float distance;
 
+            [Header("Taunt")]
+            public bool forceTargetToCaster;
+            public bool blockRetargeting;
+            public bool allowAttack;
+            public bool allowMovement;
+            public bool useLurePoint;
+            public float lureRadius;
+            public float lureMoveSpeedMultiplier;
+
             [Header("Skill / Cooldown")]
             public float cooldownReduceValue;
             public bool cooldownReducePercent;
@@ -358,6 +367,12 @@ namespace ResourceTools.Effect
                     ApplyKnockbackFields(effect, data);
                     break;
 
+                case "Taunt":
+                case "TauntEffect":
+                case "TauntEffectSO":
+                    ApplyTauntFields(effect, data);
+                    break;
+
                 case "CooldownReduce":
                 case "CooldownReduceEffect":
                 case "CooldownReduceEffectSO":
@@ -445,6 +460,19 @@ namespace ResourceTools.Effect
         {
             SetFirstExistingField(effect, data.force, "force", "knockbackForce");
             SetFirstExistingField(effect, data.distance, "distance", "knockbackDistance");
+        }
+
+        private static void ApplyTauntFields(
+            EffectSO effect,
+            EffectJson data)
+        {
+            SetFirstExistingField(effect, data.forceTargetToCaster, "forceTargetToCaster");
+            SetFirstExistingField(effect, data.blockRetargeting, "blockRetargeting");
+            SetFirstExistingField(effect, data.allowAttack, "allowAttack");
+            SetFirstExistingField(effect, data.allowMovement, "allowMovement");
+            SetFirstExistingField(effect, data.useLurePoint, "useLurePoint");
+            SetFirstExistingField(effect, data.lureRadius, "lureRadius");
+            SetFirstExistingField(effect, data.lureMoveSpeedMultiplier, "lureMoveSpeedMultiplier");
         }
 
         private static void ApplyCooldownReduceFields(
@@ -570,6 +598,10 @@ namespace ResourceTools.Effect
                 case "Knockback":
                 case "KnockbackEffect":
                     return "KnockbackEffectSO";
+
+                case "Taunt":
+                case "TauntEffect":
+                    return "TauntEffectSO";
 
                 case "CooldownReduce":
                 case "CooldownReduceEffect":

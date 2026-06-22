@@ -10,7 +10,7 @@ namespace Effect
         private readonly CharacterManager targetCharacter;
         private readonly Transform tauntTarget;
 
-        private NpcTargeting npcTargeting;
+        private CharacterStateManager stateManager;
         private bool applied;
 
         public TauntEffectRuntime(
@@ -38,16 +38,27 @@ namespace Effect
                 return;
             }
 
-            npcTargeting = ResolveNpcTargeting(targetCharacter);
+            stateManager = ResolveCharacterStateManager(targetCharacter);
 
-            if (npcTargeting == null)
+            if (stateManager == null)
             {
                 return;
             }
 
-            npcTargeting.ForceTarget(
-                tauntTarget,
-                effectSO.duration);
+            if (effectSO.UseLurePoint)
+            {
+                stateManager.ApplyLurePoint(
+                    tauntTarget.position,
+                    effectSO.duration,
+                    effectSO.LureRadius,
+                    effectSO.LureMoveSpeedMultiplier);
+            }
+            else
+            {
+                stateManager.ApplyForcedTarget(
+                    tauntTarget,
+                    effectSO.duration);
+            }
 
             applied = true;
         }
@@ -55,17 +66,24 @@ namespace Effect
         public override void OnRemove()
         {
             if (!applied
-                || npcTargeting == null
-                || tauntTarget == null)
+                || stateManager == null)
             {
                 return;
             }
 
-            npcTargeting.ClearForcedTarget(tauntTarget);
+            if (effectSO != null && effectSO.UseLurePoint)
+            {
+                stateManager.ClearLurePoint();
+            }
+            else
+            {
+                stateManager.ClearForcedTarget(tauntTarget);
+            }
+
             applied = false;
         }
 
-        private NpcTargeting ResolveNpcTargeting(
+        private CharacterStateManager ResolveCharacterStateManager(
             CharacterManager characterManager)
         {
             if (characterManager == null)
@@ -73,22 +91,22 @@ namespace Effect
                 return null;
             }
 
-            NpcTargeting targeting =
-                characterManager.GetComponent<NpcTargeting>();
+            CharacterStateManager manager =
+                characterManager.GetComponent<CharacterStateManager>();
 
-            if (targeting != null)
+            if (manager != null)
             {
-                return targeting;
+                return manager;
             }
 
-            targeting = characterManager.GetComponentInChildren<NpcTargeting>();
+            manager = characterManager.GetComponentInChildren<CharacterStateManager>();
 
-            if (targeting != null)
+            if (manager != null)
             {
-                return targeting;
+                return manager;
             }
 
-            return characterManager.GetComponentInParent<NpcTargeting>();
+            return characterManager.GetComponentInParent<CharacterStateManager>();
         }
 
         private string GetEffectId()

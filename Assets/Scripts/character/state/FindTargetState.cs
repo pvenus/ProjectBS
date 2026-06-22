@@ -30,10 +30,21 @@ namespace Character
 
             if (context != null)
             {
-                context.CurrentTarget = FindClosestTarget(context);
+                if (context.StateManager != null &&
+                    context.StateManager.TryGetForcedTarget(out Transform forcedTarget))
+                {
+                    context.CurrentTarget = forcedTarget;
 
-                context.StateManager?.LogStateMessage(
-                    $"FindTargetState Result: {GetTargetName(context.CurrentTarget)}");
+                    context.StateManager.LogStateMessage(
+                        $"FindTargetState ForcedTarget Result: {GetTargetName(context.CurrentTarget)}");
+                }
+                else
+                {
+                    context.CurrentTarget = FindClosestTarget(context);
+
+                    context.StateManager?.LogStateMessage(
+                        $"FindTargetState Result: {GetTargetName(context.CurrentTarget)}");
+                }
             }
 
             IsFinished = true;
