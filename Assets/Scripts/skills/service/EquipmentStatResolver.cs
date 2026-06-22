@@ -8,10 +8,10 @@ using Skill;
 /// </summary>
 public class EquipmentStatResolver
 {
-    public List<SkillStatModifierRuntimeData> CombineStatModifiers(
-        IEnumerable<SkillStatModifierRuntimeData> second)
+    public List<SkillStatModifierData> CombineStatModifiers(
+        IEnumerable<SkillStatModifierData> second)
     {
-        var result = new List<SkillStatModifierRuntimeData>();
+        var result = new List<SkillStatModifierData>();
 
         AddModifiers(result, second);
 
@@ -83,7 +83,7 @@ public class EquipmentStatResolver
     public float ResolveStatValue(
         EquipmentSkillSO equipmentSo,
         SkillStatModifierType modifierType,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float baseValue = GetBaseStatValue(
             equipmentSo,
@@ -98,7 +98,7 @@ public class EquipmentStatResolver
     public float ResolveStat(
         EquipmentSkillSO equipmentSo,
         SkillStatModifierType modifierType,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float resolved = ResolveStatValue(
             equipmentSo,
@@ -113,7 +113,7 @@ public class EquipmentStatResolver
     public int ResolveIntStat(
         EquipmentSkillSO equipmentSo,
         SkillStatModifierType modifierType,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float resolved = ResolveStat(
             equipmentSo,
@@ -155,7 +155,7 @@ public class EquipmentStatResolver
     public float ApplyStatModifiers(
         float baseValue,
         SkillStatModifierType modifierType,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float value = baseValue;
 
@@ -164,7 +164,7 @@ public class EquipmentStatResolver
             return value;
         }
 
-        foreach (SkillStatModifierRuntimeData modifier in modifiers)
+        foreach (SkillStatModifierData modifier in modifiers)
         {
             if (modifier == null || modifier.modifierType != modifierType)
             {
@@ -179,7 +179,7 @@ public class EquipmentStatResolver
 
     public int ResolveProjectileCount(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveIntStat(
             equipmentSo,
@@ -189,7 +189,7 @@ public class EquipmentStatResolver
 
     public float ResolveProjectileSpreadAngle(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -199,7 +199,7 @@ public class EquipmentStatResolver
 
     public int ResolveBurstCount(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         int baseValue = equipmentSo != null && equipmentSo.CastSo != null
             ? Mathf.Max(1, equipmentSo.CastSo.BurstCount)
@@ -210,7 +210,7 @@ public class EquipmentStatResolver
 
     public float ResolveBurstInterval(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float baseValue = equipmentSo != null && equipmentSo.CastSo != null
             ? equipmentSo.CastSo.BurstInterval
@@ -221,7 +221,7 @@ public class EquipmentStatResolver
 
     public float ResolveProjectileScale(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -231,7 +231,7 @@ public class EquipmentStatResolver
 
     public float ResolveProjectileLifetime(
         EquipmentSkillRuntimeData runtime,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             runtime?.sourceEquipment,
@@ -241,7 +241,7 @@ public class EquipmentStatResolver
 
     public float ResolveBaseDamage(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -251,7 +251,7 @@ public class EquipmentStatResolver
 
     public float ResolveBaseDamage(
         SkillDamageSO damageSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         float baseValue = GetBaseDamage(damageSo);
         float resolved = ApplyStatModifiers(
@@ -264,7 +264,7 @@ public class EquipmentStatResolver
 
     public float ResolveAttackPercentDamage(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -274,7 +274,7 @@ public class EquipmentStatResolver
 
     public float ResolveCooldown(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -284,7 +284,7 @@ public class EquipmentStatResolver
 
     public float ResolveRange(
         EquipmentSkillSO equipmentSo,
-        IEnumerable<SkillStatModifierRuntimeData> modifiers)
+        IEnumerable<SkillStatModifierData> modifiers)
     {
         return ResolveStat(
             equipmentSo,
@@ -509,15 +509,15 @@ public class EquipmentStatResolver
     }
 
     private void AddModifiers(
-        List<SkillStatModifierRuntimeData> target,
-        IEnumerable<SkillStatModifierRuntimeData> source)
+        List<SkillStatModifierData> target,
+        IEnumerable<SkillStatModifierData> source)
     {
         if (target == null || source == null)
         {
             return;
         }
 
-        foreach (SkillStatModifierRuntimeData modifier in source)
+        foreach (SkillStatModifierData modifier in source)
         {
             if (modifier != null)
             {

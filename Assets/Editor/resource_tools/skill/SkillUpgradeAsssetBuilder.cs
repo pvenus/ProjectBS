@@ -153,6 +153,10 @@ namespace ResourceTools.Skill
                         entry,
                         "statModifiers",
                         CreateStatModifiers(entryJson.statModifiers));
+                    SetPrivateField(
+                        entry,
+                        "effectModifiers",
+                        CreateEffectModifiers(entryJson.effectModifiers));
 
                     entries.Add(entry);
                 }
@@ -162,10 +166,10 @@ namespace ResourceTools.Skill
             SetPrivateField(tableSo, "entries", entries);
         }
 
-        private static List<SkillStatModifierRuntimeData> CreateStatModifiers(
+        private static List<SkillStatModifierData> CreateStatModifiers(
             List<SkillStatModifierJson> modifierJsons)
         {
-            List<SkillStatModifierRuntimeData> result = new();
+            List<SkillStatModifierData> result = new();
 
             if (modifierJsons == null)
             {
@@ -180,10 +184,50 @@ namespace ResourceTools.Skill
                     continue;
                 }
 
+                if (!Enum.TryParse(
+                        modifierJson.statType,
+                        true,
+                        out SkillStatModifierType statType))
+                {
+                    Debug.LogWarning($"[SkillUpgradeAsssetBuilder] Invalid statType. value={modifierJson.statType}");
+                    continue;
+                }
+
                 result.Add(
-                    new SkillStatModifierRuntimeData
+                    new SkillStatModifierData
                     {
-                        modifierType = modifierJson.statType,
+                        modifierType = statType,
+                        operationType = ResolveOperationType(modifierJson),
+                        value = modifierJson.value
+                    });
+            }
+
+            return result;
+        }
+
+        private static List<EffectUpgradeModifierData> CreateEffectModifiers(
+            List<EffectUpgradeModifierJson> modifierJsons)
+        {
+            List<EffectUpgradeModifierData> result = new();
+
+            if (modifierJsons == null)
+            {
+                return result;
+            }
+
+            for (int i = 0; i < modifierJsons.Count; i++)
+            {
+                EffectUpgradeModifierJson modifierJson = modifierJsons[i];
+                if (modifierJson == null || string.IsNullOrWhiteSpace(modifierJson.effectId))
+                {
+                    continue;
+                }
+
+                result.Add(
+                    new EffectUpgradeModifierData
+                    {
+                        effectId = modifierJson.effectId,
+                        fieldType = ResolveEffectFieldType(modifierJson),
                         operationType = ResolveOperationType(modifierJson),
                         value = modifierJson.value
                     });
@@ -200,9 +244,56 @@ namespace ResourceTools.Skill
                 return SkillStatModifierOperationType.Flat;
             }
 
-            return modifierJson.hasOperationType
+            string operationName = modifierJson.hasOperationType
                 ? modifierJson.operationType
                 : modifierJson.modifierType;
+
+            return Enum.TryParse(
+                operationName,
+                true,
+                out SkillStatModifierOperationType operationType)
+                ? operationType
+                : SkillStatModifierOperationType.Flat;
+        }
+
+        private static SkillStatModifierOperationType ResolveOperationType(
+            EffectUpgradeModifierJson modifierJson)
+        {
+            if (modifierJson == null)
+            {
+                return SkillStatModifierOperationType.Flat;
+            }
+
+            string operationName = modifierJson.hasOperationType
+                ? modifierJson.operationType
+                : modifierJson.modifierType;
+
+            return Enum.TryParse(
+                operationName,
+                true,
+                out SkillStatModifierOperationType operationType)
+                ? operationType
+                : SkillStatModifierOperationType.Flat;
+        }
+
+        private static EffectModifierFieldType ResolveEffectFieldType(
+            EffectUpgradeModifierJson modifierJson)
+        {
+            if (modifierJson == null)
+            {
+                return EffectModifierFieldType.Value;
+            }
+
+            string fieldName = modifierJson.hasFieldType
+                ? modifierJson.fieldType
+                : modifierJson.targetField;
+
+            return Enum.TryParse(
+                fieldName,
+                true,
+                out EffectModifierFieldType fieldType)
+                ? fieldType
+                : EffectModifierFieldType.Value;
         }
 
         private static string ResolveTableId(SkillUpgradeTableJson tableJson)
@@ -401,14 +492,28 @@ namespace ResourceTools.Skill
         {
             public int level = 1;
             public List<SkillStatModifierJson> statModifiers = new();
+            public List<EffectUpgradeModifierJson> effectModifiers = new();
         }
 
         [Serializable]
         public class SkillStatModifierJson
         {
-            public SkillStatModifierType statType;
-            public SkillStatModifierOperationType modifierType = SkillStatModifierOperationType.Flat;
-            public SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Flat;
+            public string statType;
+            public string modifierType = "Flat";
+            public string operationType = "Flat";
+            public bool hasOperationType;
+            public float value;
+        }
+
+        [Serializable]
+        public class EffectUpgradeModifierJson
+        {
+            public string effectId;
+            public string targetField = "Value";
+            public string fieldType = "Value";
+            public bool hasFieldType;
+            public string modifierType = "Flat";
+            public string operationType = "Flat";
             public bool hasOperationType;
             public float value;
         }

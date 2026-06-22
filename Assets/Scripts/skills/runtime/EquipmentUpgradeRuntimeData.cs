@@ -16,9 +16,13 @@ public class EquipmentUpgradeRuntimeData
     public List<EquipmentLevelUpgradeRuntimeData> levelUpgradeInfos = new();
 
     [Header("Resolved Modifiers")]
-    public List<SkillStatModifierRuntimeData> statModifiers = new();
+    public List<SkillStatModifierData> statModifiers = new();
 
-    public bool HasAnyModifier => statModifiers != null && statModifiers.Count > 0;
+    public List<EffectUpgradeModifierData> effectModifiers = new();
+
+    public bool HasAnyModifier =>
+        (statModifiers != null && statModifiers.Count > 0) ||
+        (effectModifiers != null && effectModifiers.Count > 0);
 
     public static EquipmentUpgradeRuntimeData Empty()
     {
@@ -43,6 +47,7 @@ public class EquipmentUpgradeRuntimeData
     {
         levelUpgradeInfos.Clear();
         statModifiers.Clear();
+        effectModifiers.Clear();
 
         if (entries == null)
         {
@@ -57,14 +62,18 @@ public class EquipmentUpgradeRuntimeData
             }
 
             int entryLevel = entry.Level;
-            List<SkillStatModifierRuntimeData> copiedModifiers =
+            List<SkillStatModifierData> copiedStatModifiers =
                 UpgradeHelper.CopyModifiers(entry.StatModifiers, sourceId);
+
+            List<EffectUpgradeModifierData> copiedEffectModifiers =
+                UpgradeHelper.CopyEffectModifiers(entry.EffectModifiers);
 
             levelUpgradeInfos.Add(
                 new EquipmentLevelUpgradeRuntimeData
                 {
                     level = entryLevel,
-                    statModifiers = copiedModifiers
+                    statModifiers = copiedStatModifiers,
+                    effectModifiers = copiedEffectModifiers
                 });
 
             if (entryLevel > currentLevel)
@@ -72,7 +81,8 @@ public class EquipmentUpgradeRuntimeData
                 continue;
             }
 
-            statModifiers.AddRange(copiedModifiers);
+            statModifiers.AddRange(copiedStatModifiers);
+            effectModifiers.AddRange(copiedEffectModifiers);
         }
     }
 }
@@ -81,5 +91,6 @@ public class EquipmentUpgradeRuntimeData
 public class EquipmentLevelUpgradeRuntimeData
 {
     public int level;
-    public List<SkillStatModifierRuntimeData> statModifiers = new();
+    public List<SkillStatModifierData> statModifiers = new();
+    public List<EffectUpgradeModifierData> effectModifiers = new();
 }

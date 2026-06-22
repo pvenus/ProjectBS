@@ -347,7 +347,7 @@ namespace Character.Service
 
             bool isSurrounded = IsSurroundedByEnemies(
                 characterManager,
-                3f,
+                2f,
                 10);
 
             UpdateSurroundedAttackPercent(

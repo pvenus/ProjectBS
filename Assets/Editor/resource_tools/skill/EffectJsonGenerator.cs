@@ -154,6 +154,8 @@ namespace ResourceTools.Effect
 
             EnsureFolder(outputFolder);
 
+            GenerateEffectString(data);
+
             Type effectType = ResolveEffectSoType(data.effectType);
 
             if (effectType == null)
@@ -286,6 +288,21 @@ namespace ResourceTools.Effect
 
             Debug.LogWarning($"[EffectJsonGenerator] EffectSO not found: {effectName}");
             return null;
+        }
+
+        private static void GenerateEffectString(
+            EffectJson data)
+        {
+            if (data == null ||
+                string.IsNullOrWhiteSpace(data.effectId) ||
+                string.IsNullOrWhiteSpace(data.effectName))
+            {
+                return;
+            }
+
+            ResourceTools.Skill.SkillStringBuilder.ExtractSkillName(
+                data.effectId,
+                data.effectName);
         }
 
         private static void ApplyCommonFields(

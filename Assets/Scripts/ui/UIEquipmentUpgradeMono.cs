@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Text;
 using Character;
 using Skill;
+using String;
 using TMPro;
+using Effect;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,18 +51,51 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         isOpen = false;
     }
 
+    public void Open()
+    {
+        Open(CollectPlayerCharacterManagers());
+    }
+
     public void Open(
-        IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas)
+        IReadOnlyList<CharacterManager> characterManagers)
     {
         ResolveReferences();
         ClearOptions();
-        BuildRandomOptions(characterRuntimeDatas);
+        BuildRandomOptions(characterManagers);
 
         isOpen = true;
         gameObject.SetActive(true);
 
         PauseTimeIfNeeded();
         Refresh();
+    }
+
+    private IReadOnlyList<CharacterManager> CollectPlayerCharacterManagers()
+    {
+        List<CharacterManager> result = new();
+
+        CharacterManager[] characterManagers =
+            FindObjectsOfType<CharacterManager>(true);
+
+        for (int i = 0; i < characterManagers.Length; i++)
+        {
+            CharacterManager characterManager = characterManagers[i];
+            CharacterRuntimeData runtimeData = characterManager?.RuntimeData;
+
+            if (runtimeData == null || runtimeData.characterSO == null)
+            {
+                continue;
+            }
+
+            if (runtimeData.characterSO.CharacterType != CharacterType.Player)
+            {
+                continue;
+            }
+
+            result.Add(characterManager);
+        }
+
+        return result;
     }
 
     public void Close()
@@ -98,16 +133,27 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     }
 
     private void BuildRandomOptions(
-        IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas)
+        IReadOnlyList<CharacterManager> characterManagers)
     {
         List<SkillUpgradeOption> candidates = new();
 
-        if (characterRuntimeDatas != null)
+        if (characterManagers != null)
         {
-            for (int characterIndex = 0; characterIndex < characterRuntimeDatas.Count; characterIndex++)
+            for (int characterIndex = 0; characterIndex < characterManagers.Count; characterIndex++)
             {
-                CharacterRuntimeData characterRuntimeData = characterRuntimeDatas[characterIndex];
-                if (characterRuntimeData == null || characterRuntimeData.skillInstances == null)
+                CharacterManager characterManager = characterManagers[characterIndex];
+                CharacterRuntimeData characterRuntimeData = characterManager?.RuntimeData;
+
+                if (characterManager == null || characterRuntimeData == null || characterRuntimeData.skillInstances == null)
+                {
+                    continue;
+                }
+
+                CharacterSkillManager skillManager =
+                    characterManager.GetComponent<CharacterSkillManager>()
+                    ?? characterManager.GetComponentInChildren<CharacterSkillManager>();
+
+                if (skillManager == null)
                 {
                     continue;
                 }
@@ -126,7 +172,8 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
                         new SkillUpgradeOption(
                             characterRuntimeData,
                             skillInstance,
-                            skillSo));
+                            skillSo,
+                            skillManager));
                 }
             }
         }
@@ -196,11 +243,11 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         int index)
     {
         string characterName = option.CharacterRuntimeData?.characterSO != null
-            ? option.CharacterRuntimeData.characterSO.name
+            ? option.CharacterRuntimeData.characterSO.DisplayName
             : "Character";
 
         string skillName = option.SkillSo != null
-            ? option.SkillSo.name
+            ? option.SkillSo.DisplayName
             : option.SkillInstance.equipmentId;
 
         int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
@@ -234,27 +281,34 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
             return string.Empty;
         }
 
-        List<SkillStatModifierRuntimeData> currentModifiers =
+        List<SkillStatModifierData> currentModifiers =
             EquipmentUpgradeRuntimeData.FromEntries(
                 currentLevel,
                 option.SkillSo.UpgradeTableSo.Entries,
                 option.SkillSo.EquipmentId).statModifiers;
 
-        List<SkillStatModifierRuntimeData> nextModifiers =
+        List<SkillStatModifierData> nextModifiers =
             EquipmentUpgradeRuntimeData.FromEntries(
                 nextLevel,
                 option.SkillSo.UpgradeTableSo.Entries,
                 option.SkillSo.EquipmentId).statModifiers;
 
+        List<EffectUpgradeModifierData> currentEffectModifiers =
+            EquipmentUpgradeRuntimeData.FromEntries(
+                currentLevel,
+                option.SkillSo.UpgradeTableSo.Entries,
+                option.SkillSo.EquipmentId).effectModifiers;
+
+        List<EffectUpgradeModifierData> nextEffectModifiers =
+            EquipmentUpgradeRuntimeData.FromEntries(
+                nextLevel,
+                option.SkillSo.UpgradeTableSo.Entries,
+                option.SkillSo.EquipmentId).effectModifiers;
+
         List<SkillStatModifierType> changedTypes = CollectChangedModifierTypes(
             option.SkillSo,
             currentModifiers,
             nextModifiers);
-
-        if (changedTypes.Count == 0)
-        {
-            return string.Empty;
-        }
 
         StringBuilder builder = new();
 
@@ -279,13 +333,288 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
                 $"{GetModifierDisplayName(modifierType)} {FormatModifierValue(modifierType, currentValue)} → {FormatModifierValue(modifierType, nextValue)}");
         }
 
+        string effectComparisonText = BuildEffectUpgradeComparisonText(
+            option.SkillSo,
+            currentEffectModifiers,
+            nextEffectModifiers);
+
+        if (!string.IsNullOrWhiteSpace(effectComparisonText))
+        {
+            builder.Append(effectComparisonText);
+        }
+
         return builder.ToString();
+    }
+
+    private string BuildEffectUpgradeComparisonText(
+        EquipmentSkillSO skillSo,
+        IReadOnlyList<EffectUpgradeModifierData> currentModifiers,
+        IReadOnlyList<EffectUpgradeModifierData> nextModifiers)
+    {
+        List<EffectUpgradeModifierKey> changedKeys = CollectChangedEffectModifierKeys(
+            skillSo,
+            currentModifiers,
+            nextModifiers);
+
+        if (changedKeys.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new();
+
+        for (int i = 0; i < changedKeys.Count; i++)
+        {
+            EffectUpgradeModifierKey key = changedKeys[i];
+            float currentValue = ResolveEffectModifierValue(
+                skillSo,
+                key,
+                currentModifiers);
+            float nextValue = ResolveEffectModifierValue(
+                skillSo,
+                key,
+                nextModifiers);
+
+            if (Mathf.Approximately(currentValue, nextValue))
+            {
+                continue;
+            }
+
+            builder.AppendLine(
+                $"{GetEffectModifierDisplayName(key)} {FormatEffectModifierValue(key.fieldType, currentValue)} → {FormatEffectModifierValue(key.fieldType, nextValue)}");
+        }
+
+        return builder.ToString();
+    }
+
+    private List<EffectUpgradeModifierKey> CollectChangedEffectModifierKeys(
+        EquipmentSkillSO skillSo,
+        IReadOnlyList<EffectUpgradeModifierData> currentModifiers,
+        IReadOnlyList<EffectUpgradeModifierData> nextModifiers)
+    {
+        List<EffectUpgradeModifierKey> result = new();
+        AddEffectModifierKeys(currentModifiers, result);
+        AddEffectModifierKeys(nextModifiers, result);
+
+        for (int i = result.Count - 1; i >= 0; i--)
+        {
+            EffectUpgradeModifierKey key = result[i];
+            float currentValue = ResolveEffectModifierValue(
+                skillSo,
+                key,
+                currentModifiers);
+            float nextValue = ResolveEffectModifierValue(
+                skillSo,
+                key,
+                nextModifiers);
+
+            if (Mathf.Approximately(currentValue, nextValue))
+            {
+                result.RemoveAt(i);
+            }
+        }
+
+        return result;
+    }
+
+    private void AddEffectModifierKeys(
+        IReadOnlyList<EffectUpgradeModifierData> modifiers,
+        List<EffectUpgradeModifierKey> result)
+    {
+        if (modifiers == null || result == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < modifiers.Count; i++)
+        {
+            EffectUpgradeModifierData modifier = modifiers[i];
+            if (modifier == null || string.IsNullOrWhiteSpace(modifier.effectId))
+            {
+                continue;
+            }
+
+            EffectUpgradeModifierKey key = new EffectUpgradeModifierKey(
+                modifier.effectId,
+                modifier.fieldType);
+
+            if (!ContainsEffectModifierKey(result, key))
+            {
+                result.Add(key);
+            }
+        }
+    }
+
+    private bool ContainsEffectModifierKey(
+        List<EffectUpgradeModifierKey> keys,
+        EffectUpgradeModifierKey target)
+    {
+        if (keys == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            if (keys[i].Equals(target))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private float ResolveEffectModifierValue(
+        EquipmentSkillSO skillSo,
+        EffectUpgradeModifierKey key,
+        IReadOnlyList<EffectUpgradeModifierData> modifiers)
+    {
+        float value = ResolveEffectBaseValue(
+            key.effectId,
+            key.fieldType);
+
+        if (modifiers == null)
+        {
+            return value;
+        }
+
+        for (int i = 0; i < modifiers.Count; i++)
+        {
+            EffectUpgradeModifierData modifier = modifiers[i];
+            if (modifier == null ||
+                modifier.effectId != key.effectId ||
+                modifier.fieldType != key.fieldType)
+            {
+                continue;
+            }
+
+            value = ApplyEffectModifierValue(
+                value,
+                modifier);
+        }
+
+        return value;
+    }
+
+    private float ResolveEffectBaseValue(
+        string effectId,
+        EffectModifierFieldType fieldType)
+    {
+        if (string.IsNullOrWhiteSpace(effectId))
+        {
+            return 0f;
+        }
+
+        EffectSO effectSo = ResolveEffectSo(effectId);
+        if (effectSo == null)
+        {
+            return 0f;
+        }
+
+        switch (fieldType)
+        {
+            case EffectModifierFieldType.Value:
+                return ResolveEffectValue(effectSo);
+            default:
+                return 0f;
+        }
+    }
+
+    private float ResolveEffectValue(EffectSO effectSo)
+    {
+        switch (effectSo)
+        {
+            case StatModifierEffectSO statModifierEffectSo:
+                return statModifierEffectSo.value;
+            default:
+                return 0f;
+        }
+    }
+
+    private EffectSO ResolveEffectSo(string effectId)
+    {
+        if (string.IsNullOrWhiteSpace(effectId))
+        {
+            return null;
+        }
+
+        EffectSO[] effects = Resources.LoadAll<EffectSO>(string.Empty);
+        for (int i = 0; i < effects.Length; i++)
+        {
+            EffectSO effectSo = effects[i];
+            if (effectSo != null && effectSo.effectId == effectId)
+            {
+                return effectSo;
+            }
+        }
+
+        return null;
+    }
+
+    private float ApplyEffectModifierValue(
+        float currentValue,
+        EffectUpgradeModifierData modifier)
+    {
+        switch (modifier.operationType)
+        {
+            case SkillStatModifierOperationType.Flat:
+                return currentValue + modifier.value;
+            case SkillStatModifierOperationType.Percent:
+                return currentValue * (1f + modifier.value);
+            case SkillStatModifierOperationType.Override:
+                return modifier.value;
+            default:
+                return currentValue;
+        }
+    }
+
+    private string GetEffectModifierDisplayName(
+        EffectUpgradeModifierKey key)
+    {
+        string effectName = StringManager.Instance.Get(
+            key.effectId,
+            "name");
+
+        if (string.IsNullOrWhiteSpace(effectName))
+        {
+            effectName = key.effectId;
+        }
+
+        switch (key.fieldType)
+        {
+            case EffectModifierFieldType.Duration:
+                return $"{effectName} 지속시간";
+            case EffectModifierFieldType.MaxApplyCount:
+                return $"{effectName} 적용 횟수";
+            default:
+                return effectName;
+        }
+    }
+
+    private string FormatEffectModifierValue(
+        EffectModifierFieldType fieldType,
+        float value)
+    {
+        switch (fieldType)
+        {
+            case EffectModifierFieldType.Duration:
+            case EffectModifierFieldType.Cooldown:
+            case EffectModifierFieldType.TickInterval:
+                return $"{value:0.##}초";
+            case EffectModifierFieldType.Chance:
+                return $"{Mathf.RoundToInt(value * 100f)}%";
+            case EffectModifierFieldType.MaxApplyCount:
+                return Mathf.RoundToInt(value).ToString();
+            default:
+                return value.ToString("0.##");
+        }
     }
 
     private List<SkillStatModifierType> CollectChangedModifierTypes(
         EquipmentSkillSO skillSo,
-        IReadOnlyList<SkillStatModifierRuntimeData> currentModifiers,
-        IReadOnlyList<SkillStatModifierRuntimeData> nextModifiers)
+        IReadOnlyList<SkillStatModifierData> currentModifiers,
+        IReadOnlyList<SkillStatModifierData> nextModifiers)
     {
         List<SkillStatModifierType> result = new();
         AddModifierTypeIfChanged(skillSo, SkillStatModifierType.BaseDamage, currentModifiers, nextModifiers, result);
@@ -301,8 +630,8 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     private void AddModifierTypeIfChanged(
         EquipmentSkillSO skillSo,
         SkillStatModifierType modifierType,
-        IReadOnlyList<SkillStatModifierRuntimeData> currentModifiers,
-        IReadOnlyList<SkillStatModifierRuntimeData> nextModifiers,
+        IReadOnlyList<SkillStatModifierData> currentModifiers,
+        IReadOnlyList<SkillStatModifierData> nextModifiers,
         List<SkillStatModifierType> result)
     {
         float currentValue = statResolver.ResolveStat(
@@ -322,25 +651,9 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
 
     private string GetModifierDisplayName(SkillStatModifierType modifierType)
     {
-        switch (modifierType)
-        {
-            case SkillStatModifierType.BaseDamage:
-                return "데미지";
-            case SkillStatModifierType.AttackPercentDamage:
-                return "공격력 퍼센트 데미지";
-            case SkillStatModifierType.Cooldown:
-                return "쿨타임";
-            case SkillStatModifierType.Range:
-                return "사정거리";
-            case SkillStatModifierType.SplitHitCount:
-                return "타격 수";
-            case SkillStatModifierType.ProjectileCount:
-                return "투사체 수";
-            case SkillStatModifierType.ProjectileScale:
-                return "범위 크기";
-            default:
-                return modifierType.ToString();
-        }
+        return StringManager.Instance.Get(
+            $"enum.{nameof(SkillStatModifierType)}.{modifierType}",
+            "name");
     }
 
     private string FormatModifierValue(
@@ -394,9 +707,15 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
         int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
 
-        option.CharacterRuntimeData.SetSkillLevel(
-            option.SkillInstance.equipmentId,
-            nextLevel);
+        bool upgraded = option.SkillManager.TryUpgradeSkill(
+            option.SkillInstance,
+            maxSkillLevel);
+
+        if (!upgraded)
+        {
+            SetStatus($"업그레이드 실패: {option.SkillInstance.equipmentId}");
+            return;
+        }
 
         SetStatus($"{option.SkillInstance.equipmentId} Lv.{currentLevel} → Lv.{nextLevel}");
         Close();
@@ -511,20 +830,43 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         Debug.Log($"[SkillUpgradeUI] {message}", this);
     }
 
+    private readonly struct EffectUpgradeModifierKey
+    {
+        public EffectUpgradeModifierKey(
+            string effectId,
+            EffectModifierFieldType fieldType)
+        {
+            this.effectId = effectId;
+            this.fieldType = fieldType;
+        }
+
+        public readonly string effectId;
+        public readonly EffectModifierFieldType fieldType;
+
+        public bool Equals(EffectUpgradeModifierKey other)
+        {
+            return effectId == other.effectId &&
+                   fieldType == other.fieldType;
+        }
+    }
+
     private class SkillUpgradeOption
     {
         public SkillUpgradeOption(
             CharacterRuntimeData characterRuntimeData,
             EquipmentSkillInstanceData skillInstance,
-            EquipmentSkillSO skillSo)
+            EquipmentSkillSO skillSo,
+            CharacterSkillManager skillManager)
         {
             CharacterRuntimeData = characterRuntimeData;
             SkillInstance = skillInstance;
             SkillSo = skillSo;
+            SkillManager = skillManager;
         }
 
         public CharacterRuntimeData CharacterRuntimeData { get; }
         public EquipmentSkillInstanceData SkillInstance { get; }
         public EquipmentSkillSO SkillSo { get; }
+        public CharacterSkillManager SkillManager { get; }
     }
 }

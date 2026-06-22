@@ -36,14 +36,25 @@ public class EquipmentUpgradeResolver
             : instanceData.currentLevel;
     }
 
-    public List<SkillStatModifierRuntimeData> ExtractModifiers(
+    public List<SkillStatModifierData> ExtractModifiers(
         EquipmentUpgradeRuntimeData runtimeData)
     {
         if (runtimeData == null || runtimeData.statModifiers == null)
         {
-            return new List<SkillStatModifierRuntimeData>();
+            return new List<SkillStatModifierData>();
         }
 
         return runtimeData.statModifiers;
+    }
+
+    public List<EffectUpgradeModifierData> ExtractEffectModifiers(
+        EquipmentUpgradeRuntimeData runtimeData)
+    {
+        if (runtimeData == null || runtimeData.effectModifiers == null)
+        {
+            return new List<EffectUpgradeModifierData>();
+        }
+
+        return runtimeData.effectModifiers;
     }
 }

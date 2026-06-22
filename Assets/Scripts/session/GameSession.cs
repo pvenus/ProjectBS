@@ -99,17 +99,7 @@ namespace Session
         {
             UIEquipmentUpgradeMono upgradeUI =
                 FindObjectOfType<UIEquipmentUpgradeMono>(true);
-
-            if (upgradeUI == null)
-            {
-                Debug.LogError("[GameSession] UIEquipmentUpgradeMono not found.");
-                return;
-            }
-
-            IReadOnlyList<CharacterRuntimeData> characterRuntimeDatas =
-                CollectPartyCharacterRuntimeDatas();
-
-            upgradeUI.Open(characterRuntimeDatas);
+            upgradeUI?.Open();
         }
 
         private IReadOnlyList<CharacterRuntimeData> CollectPartyCharacterRuntimeDatas()

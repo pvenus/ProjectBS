@@ -17,114 +17,124 @@ MonoBehaviour:
   entries:
   - level: 1
     statModifiers: []
+    effectModifiers: []
   - level: 2
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 2
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.05
+    effectModifiers: []
   - level: 3
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 2
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.05
-    - modifierType: 0
+    - modifierType: 3
       operationType: 0
       value: 0.1
+    effectModifiers: []
   - level: 4
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 3
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.06
-    - modifierType: 0
+    - modifierType: 2
       operationType: 0
       value: -0.08
+    effectModifiers: []
   - level: 5
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 4
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.07
-    - modifierType: 0
+    - modifierType: 3
       operationType: 0
       value: 0.1
-    - modifierType: 0
+    - modifierType: 4
       operationType: 0
       value: 1
+    effectModifiers: []
   - level: 6
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 5
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.08
-    - modifierType: 0
+    - modifierType: 2
       operationType: 0
       value: -0.08
+    effectModifiers: []
   - level: 7
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 6
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.09
-    - modifierType: 0
+    - modifierType: 3
       operationType: 0
       value: 0.15
+    effectModifiers: []
   - level: 8
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 7
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.1
-    - modifierType: 0
+    - modifierType: 2
       operationType: 0
       value: -0.09
-    - modifierType: 0
+    - modifierType: 4
       operationType: 0
       value: 1
+    effectModifiers: []
   - level: 9
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 8
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.12
-    - modifierType: 0
+    - modifierType: 3
       operationType: 0
       value: 0.15
-    - modifierType: 0
+    - modifierType: 2
       operationType: 0
       value: -0.08
+    effectModifiers: []
   - level: 10
     statModifiers:
     - modifierType: 0
       operationType: 0
       value: 9
-    - modifierType: 0
+    - modifierType: 1
       operationType: 0
       value: 0.13
-    - modifierType: 0
+    - modifierType: 3
       operationType: 0
       value: 0.15
-    - modifierType: 0
+    - modifierType: 2
       operationType: 0
       value: -0.09
-    - modifierType: 0
+    - modifierType: 4
       operationType: 0
       value: 1
+    effectModifiers: []

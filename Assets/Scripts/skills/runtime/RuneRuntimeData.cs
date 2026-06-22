@@ -18,7 +18,7 @@ public class RuneRuntimeData
     public EquipmentGrade grade = EquipmentGrade.Common;
 
     [Header("Resolved Modifiers")]
-    public List<SkillStatModifierRuntimeData> statModifiers = new();
+    public List<SkillStatModifierData> statModifiers = new();
 
     [Header("Resolved Effects")]
     public List<SkillEffectSO> effects = new();
@@ -58,8 +58,8 @@ public class RuneRuntimeData
         grade = rune.Grade;
 
         statModifiers = rune.StatModifiers != null
-            ? new List<SkillStatModifierRuntimeData>(rune.StatModifiers)
-            : new List<SkillStatModifierRuntimeData>();
+            ? new List<SkillStatModifierData>(rune.StatModifiers)
+            : new List<SkillStatModifierData>();
 
         effects = rune.Effects != null
             ? new List<SkillEffectSO>(rune.Effects)
@@ -77,7 +77,7 @@ public class RuneRuntimeSetData
     public List<RuneRuntimeData> runes = new();
 
     [Header("Flattened Result")]
-    public List<SkillStatModifierRuntimeData> statModifiers = new();
+    public List<SkillStatModifierData> statModifiers = new();
     public List<SkillEffectSO> effects = new();
 
     public bool HasAnyRune => runes != null && runes.Count > 0;

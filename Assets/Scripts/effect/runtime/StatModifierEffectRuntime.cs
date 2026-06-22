@@ -7,6 +7,7 @@ namespace Effect
     {
         private readonly StatModifierEffectSO effectSO;
         private readonly CharacterManager targetCharacterManager;
+        private readonly float? valueOverride;
 
         private float appliedValue;
 
@@ -14,10 +15,12 @@ namespace Effect
             StatModifierEffectSO effectSO,
             EffectSourceType sourceType,
             string sourceId,
-            CharacterManager targetCharacterManager)
+            CharacterManager targetCharacterManager,
+            float? valueOverride = null)
         {
             this.effectSO = effectSO;
             this.targetCharacterManager = targetCharacterManager;
+            this.valueOverride = valueOverride;
 
             SourceType = sourceType;
             SourceId = sourceId;
@@ -57,19 +60,19 @@ namespace Effect
             float currentValue =
                 targetCharacterManager.GetStatValue(
                     effectSO.targetStat);
-
+            float resolvedValue = valueOverride ?? effectSO.value;
             return effectSO.modifierType switch
             {
                 StatModifierType.Flat
-                    => effectSO.value,
+                    => resolvedValue,
 
                 StatModifierType.Percent
-                    => currentValue * effectSO.value,
+                    => currentValue * resolvedValue,
 
                 StatModifierType.Multiply
-                    => currentValue * (effectSO.value - 1f),
+                    => currentValue * (resolvedValue - 1f),
 
-                _ => effectSO.value
+                _ => resolvedValue
             };
         }
 

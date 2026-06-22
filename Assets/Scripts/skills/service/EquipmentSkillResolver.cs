@@ -23,7 +23,7 @@ public class EquipmentSkillResolver
         }
         EquipmentUpgradeRuntimeData upgradeRuntimeData = upgradeResolver.Resolve(equipmentSo, instanceData);
 
-        List<SkillStatModifierRuntimeData> resolvedStatModifiers = statResolver.CombineStatModifiers(
+        List<SkillStatModifierData> resolvedStatModifiers = statResolver.CombineStatModifiers(
             upgradeResolver.ExtractModifiers(upgradeRuntimeData));
 
         AttackArchetype attackArchetype = GetAttackArchetype(equipmentSo);
@@ -69,7 +69,7 @@ public class EquipmentSkillResolver
             return Array.Empty<ProjectileRuntimeData>();
         }
 
-        List<SkillStatModifierRuntimeData> resolvedStatModifiers = ResolveStatModifiers(runtime);
+        List<SkillStatModifierData> resolvedStatModifiers = ResolveStatModifiers(runtime);
         Vector2 resolvedSpawnPosition = ResolveProjectileSpawnPosition(runtime, spawnPosition, direction);
 
         EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
@@ -164,7 +164,7 @@ public class EquipmentSkillResolver
         Vector2 resolvedSpawnPosition,
         Vector2 direction,
         TargetingType targetingType,
-        List<SkillStatModifierRuntimeData> resolvedStatModifiers)
+        List<SkillStatModifierData> resolvedStatModifiers)
     {
         EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
         return new ProjectileRuntimeData
@@ -226,11 +226,11 @@ public class EquipmentSkillResolver
         };
     }
 
-    private List<SkillStatModifierRuntimeData> ResolveStatModifiers(EquipmentSkillRuntimeData runtime)
+    private List<SkillStatModifierData> ResolveStatModifiers(EquipmentSkillRuntimeData runtime)
     {
         if (runtime == null)
         {
-            return new List<SkillStatModifierRuntimeData>();
+            return new List<SkillStatModifierData>();
         }
 
         return statResolver.CombineStatModifiers(
@@ -337,7 +337,7 @@ public class EquipmentSkillResolver
 
     private ResolvedHitRuntimeData[] CreateHitRuntimeDatas(
         EquipmentSkillRuntimeData runtime,
-        List<SkillStatModifierRuntimeData> resolvedStatModifiers)
+        List<SkillStatModifierData> resolvedStatModifiers)
     {
         EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
         SkillHitSO[] hitSos = equipmentSo != null
@@ -406,7 +406,7 @@ public class EquipmentSkillResolver
     private SkillDamageProfileDto CreateDamageProfileDto(
         EquipmentSkillRuntimeData runtime,
         SkillHitSO hitSo,
-        IEnumerable<SkillStatModifierRuntimeData> resolvedStatModifiers)
+        IEnumerable<SkillStatModifierData> resolvedStatModifiers)
     {
         if (runtime == null)
         {

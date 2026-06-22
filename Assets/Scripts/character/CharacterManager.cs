@@ -4,6 +4,7 @@ using UnityEngine;
 using Party;
 using Character.Service;
 using Character.Skill;
+using Effect;
 
 namespace Character
 {
@@ -312,6 +313,7 @@ namespace Character
             EnsureComponent<CharacterStateManager>();
             EnsureComponent<AnimationMono>();
             EnsureComponent<ShaderControllerMono>();
+            EnsureComponent<EffectManager>();
         }
 
         private T EnsureComponent<T>()

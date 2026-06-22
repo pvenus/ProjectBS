@@ -4,8 +4,6 @@ using UnityEngine;
 using Skill;
 using Character.Runtime.Skill;
 using Character.Skill;
-using Effect;
-using Effect.Helper;
 
 namespace Character
 {
@@ -28,6 +26,7 @@ namespace Character
         private readonly ActiveSkillService skillService = new();
         private readonly PassiveSkillService passiveSkillService = new();
         private readonly CastMoveService castMoveService = new();
+        private readonly SkillUpgradeService skillUpgradeService = new();
 
         private int skillExecutionLockCount;
 
@@ -112,6 +111,42 @@ namespace Character
                 ?? GetComponentInChildren<CharacterManager>();
 
             return characterManager?.RuntimeData;
+        }
+
+        public bool TryUpgradeSkill(
+            EquipmentSkillInstanceData skillInstance,
+            int maxSkillLevel)
+        {
+            CharacterRuntimeData characterRuntimeData = ResolveCharacterRuntimeData();
+
+            return skillUpgradeService.TryUpgradeSkill(
+                characterRuntimeData,
+                skillInstance,
+                this,
+                maxSkillLevel);
+        }
+
+        public void RefreshSkillRuntimes()
+        {
+            if (skillRuntimeData == null || skillRuntimeData.skillPool == null)
+            {
+                return;
+            }
+
+            CharacterRuntimeData characterRuntimeData = ResolveCharacterRuntimeData();
+            if (characterRuntimeData == null)
+            {
+                Debug.LogError(
+                    $"[CharacterSkillManager] CharacterRuntimeData not found. Character={name}");
+                return;
+            }
+
+            EquipmentSkillResolver resolver = new EquipmentSkillResolver();
+            skillRuntimeData.skillPool.ResolveAllSkills(
+                resolver,
+                characterRuntimeData);
+
+            ApplyPassiveSkills();
         }
 
         public EquipmentSkillRuntimeData SelectReadyActiveSkill()
@@ -329,77 +364,14 @@ namespace Character
 
         private void ApplyPassiveSkills()
         {
-            List<EquipmentSkillRuntimeData> passiveSkills =
-                passiveSkillService.GetPassiveSkills(this);
+            CharacterManager ownerCharacter =
+                GetComponent<CharacterManager>()
+                ?? GetComponentInParent<CharacterManager>()
+                ?? GetComponentInChildren<CharacterManager>();
 
-            if (passiveSkills == null || passiveSkills.Count == 0)
-            {
-                return;
-            }
-
-            CharacterManager characterManager =
-                GetComponent<CharacterManager>();
-
-            if (characterManager == null)
-            {
-                return;
-            }
-
-            EffectManager effectManager =
-                GetComponent<EffectManager>()
-                ?? GetComponentInChildren<EffectManager>();
-
-            if (effectManager == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < passiveSkills.Count; i++)
-            {
-                EquipmentSkillRuntimeData skillRuntime =
-                    passiveSkills[i];
-
-                if (skillRuntime == null)
-                {
-                    continue;
-                }
-
-                List<SkillProjectileHitEffectEntry> passiveEffects =
-                    passiveSkillService.GetPassiveEffects(skillRuntime);
-
-                if (passiveEffects == null || passiveEffects.Count == 0)
-                {
-                    continue;
-                }
-
-                string sourceId = skillRuntime.sourceEquipment != null
-                    ? skillRuntime.sourceEquipment.EquipmentId
-                    : "PassiveSkill";
-
-                for (int j = 0; j < passiveEffects.Count; j++)
-                {
-                    SkillProjectileHitEffectEntry entry =
-                        passiveEffects[j];
-
-                    if (entry == null || entry.effectSo == null)
-                    {
-                        continue;
-                    }
-
-                    EffectApplyHelper.ApplyEffect(
-                        effectManager,
-                        characterManager,
-                        entry.effectSo,
-                        EffectSourceType.Skill,
-                        sourceId,
-                        entry.lifetimeType,
-                        entry.duration,
-                        entry.categoryType,
-                        transform,
-                        Vector2.zero,
-                        characterManager);
-                }
-            }
+            passiveSkillService.ApplyPassiveSkills(
+                this,
+                ownerCharacter);
         }
 
         private void Awake()

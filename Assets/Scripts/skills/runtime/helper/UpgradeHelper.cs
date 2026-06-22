@@ -6,11 +6,11 @@ using Skill;
 /// </summary>
 public static class UpgradeHelper
 {
-    public static List<SkillStatModifierRuntimeData> CopyModifiers(
-        IReadOnlyList<SkillStatModifierRuntimeData> source,
+    public static List<SkillStatModifierData> CopyModifiers(
+        IReadOnlyList<SkillStatModifierData> source,
         string sourceId = null)
     {
-        var result = new List<SkillStatModifierRuntimeData>();
+        var result = new List<SkillStatModifierData>();
 
         if (source == null || source.Count == 0)
         {
@@ -19,7 +19,7 @@ public static class UpgradeHelper
 
         for (int i = 0; i < source.Count; i++)
         {
-            SkillStatModifierRuntimeData modifier = source[i];
+            SkillStatModifierData modifier = source[i];
             if (modifier == null)
             {
                 continue;
@@ -31,8 +31,8 @@ public static class UpgradeHelper
         return result;
     }
 
-    public static SkillStatModifierRuntimeData CopyModifier(
-        SkillStatModifierRuntimeData source,
+    public static SkillStatModifierData CopyModifier(
+        SkillStatModifierData source,
         string sourceId = null)
     {
         if (source == null)
@@ -40,18 +40,57 @@ public static class UpgradeHelper
             return null;
         }
 
-        return SkillStatModifierRuntimeData.Create(
+        return SkillStatModifierData.Create(
             source.modifierType,
             source.operationType,
             source.value);
     }
 
-    public static List<SkillStatModifierRuntimeData> CollectModifiersUpToLevel(
+    public static List<EffectUpgradeModifierData> CopyEffectModifiers(
+        IReadOnlyList<EffectUpgradeModifierData> source)
+    {
+        var result = new List<EffectUpgradeModifierData>();
+
+        if (source == null || source.Count == 0)
+        {
+            return result;
+        }
+
+        for (int i = 0; i < source.Count; i++)
+        {
+            EffectUpgradeModifierData modifier = source[i];
+            if (modifier == null)
+            {
+                continue;
+            }
+
+            result.Add(CopyEffectModifier(modifier));
+        }
+
+        return result;
+    }
+
+    public static EffectUpgradeModifierData CopyEffectModifier(
+        EffectUpgradeModifierData source)
+    {
+        if (source == null)
+        {
+            return null;
+        }
+
+        return EffectUpgradeModifierData.Create(
+            source.effectId,
+            source.fieldType,
+            source.operationType,
+            source.value);
+    }
+
+    public static List<SkillStatModifierData> CollectModifiersUpToLevel(
         IEnumerable<EquipmentUpgradeEntry> entries,
         int currentLevel,
         string sourceId = null)
     {
-        var result = new List<SkillStatModifierRuntimeData>();
+        var result = new List<SkillStatModifierData>();
 
         if (entries == null)
         {
@@ -71,6 +110,35 @@ public static class UpgradeHelper
             }
 
             result.AddRange(CopyModifiers(entry.StatModifiers, sourceId));
+        }
+
+        return result;
+    }
+
+    public static List<EffectUpgradeModifierData> CollectEffectModifiersUpToLevel(
+        IEnumerable<EquipmentUpgradeEntry> entries,
+        int currentLevel)
+    {
+        var result = new List<EffectUpgradeModifierData>();
+
+        if (entries == null)
+        {
+            return result;
+        }
+
+        foreach (EquipmentUpgradeEntry entry in entries)
+        {
+            if (entry == null)
+            {
+                continue;
+            }
+
+            if (entry.Level > currentLevel)
+            {
+                continue;
+            }
+
+            result.AddRange(CopyEffectModifiers(entry.EffectModifiers));
         }
 
         return result;

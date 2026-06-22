@@ -29,6 +29,29 @@ namespace Skill
     }
 
     /// <summary>
+    /// 업그레이드 대상 구분
+    /// </summary>
+    public enum SkillUpgradeTargetType
+    {
+        SkillStat = 0,
+        Effect = 1
+    }
+
+    /// <summary>
+    /// Effect 내부에서 수정할 필드
+    /// </summary>
+    public enum EffectModifierFieldType
+    {
+        Value = 0,
+        Duration = 1,
+        Chance = 2,
+        Cooldown = 3,
+        MaxApplyCount = 4,
+        TickInterval = 5,
+        Radius = 6
+    }
+
+    /// <summary>
     /// 수정 대상 스탯 타입
     /// </summary>
     public enum SkillStatModifierType

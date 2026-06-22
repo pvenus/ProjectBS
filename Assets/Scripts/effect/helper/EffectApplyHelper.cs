@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Character;
 using UnityEngine;
+using Skills.Dto;
 
 namespace Effect.Helper
 {
@@ -21,7 +22,8 @@ namespace Effect.Helper
             EffectCategoryType categoryType = EffectCategoryType.Neutral,
             Transform sourceTransform = null,
             Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null)
+            CharacterManager sourceCharacter = null,
+            SkillProjectileHitEffectEntry effectEntry = null)
         {
             if (effectManager == null || targetCharacter == null || effectSo == null)
             {
@@ -35,7 +37,8 @@ namespace Effect.Helper
                 targetCharacter,
                 sourceTransform,
                 projectileDirection,
-                sourceCharacter);
+                sourceCharacter,
+                effectEntry);
 
             if (runtimeData == null)
             {
@@ -57,7 +60,8 @@ namespace Effect.Helper
             EffectCategoryType categoryType = EffectCategoryType.Neutral,
             Transform sourceTransform = null,
             Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null)
+            CharacterManager sourceCharacter = null,
+            SkillProjectileHitEffectEntry effectEntry = null)
         {
             if (effects == null)
             {
@@ -79,7 +83,8 @@ namespace Effect.Helper
                     categoryType,
                     sourceTransform,
                     projectileDirection,
-                    sourceCharacter);
+                    sourceCharacter,
+                    effectEntry);
 
                 if (applied)
                 {

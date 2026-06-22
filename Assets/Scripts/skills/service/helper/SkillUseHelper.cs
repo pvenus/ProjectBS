@@ -474,17 +474,24 @@ namespace Skill.Service.Helper
                     ? runtime.sourceEquipment.EquipmentId
                     : "Skill";
 
+                SkillProjectileHitEffectEntry resolvedEntry =
+                    CreateResolvedSelfEffectEntry(
+                        entry,
+                        runtime.upgradeRuntimeData?.effectModifiers);
+
                 EffectApplyHelper.ApplyEffect(
                     effectManager,
                     casterCharacter,
-                    entry.effectSo,
+                    resolvedEntry.effectSo,
                     EffectSourceType.Skill,
                     sourceId,
-                    entry.lifetimeType,
-                    entry.duration,
-                    entry.categoryType,
-                    ResolveEffectSourceTransform(entry.effectSo, caster),
-                    Vector2.zero);
+                    resolvedEntry.lifetimeType,
+                    resolvedEntry.duration,
+                    resolvedEntry.categoryType,
+                    ResolveEffectSourceTransform(resolvedEntry.effectSo, caster),
+                    Vector2.zero,
+                    casterCharacter,
+                    resolvedEntry);
             }
         }
 
@@ -615,6 +622,16 @@ namespace Skill.Service.Helper
 
             return runtime.sourceEquipment.CastSo;
         }
+
+        private static SkillProjectileHitEffectEntry CreateResolvedSelfEffectEntry(
+            SkillProjectileHitEffectEntry source,
+            System.Collections.Generic.IReadOnlyList<EffectUpgradeModifierData> modifiers)
+        {
+            return EffectUpgradeApplyHelper.CreateResolvedEntry(
+                source,
+                modifiers);
+        }
+
 
         private static EffectManager ResolveEffectManager(GameObject caster)
         {

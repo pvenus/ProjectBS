@@ -1,6 +1,9 @@
 using UnityEngine;
 using Skills.Dto;
 using Effect;
+using System.Collections.Generic;
+using Skill;
+using Effect.Helper;
 
 [CreateAssetMenu(
     fileName = "SkillHit",
@@ -75,7 +78,8 @@ public class SkillHitSO : ScriptableObject
     }
 
     public SkillProjectileHitDto CreateDto(
-        SkillDamageProfileDto resolvedDamageProfile)
+        SkillDamageProfileDto resolvedDamageProfile,
+        IReadOnlyList<EffectUpgradeModifierData> effectUpgradeModifiers = null)
     {
         return new SkillProjectileHitDto
         {
@@ -87,8 +91,14 @@ public class SkillHitSO : ScriptableObject
             deactivateAfterFirstHit = deactivateAfterFirstHit,
             targetLayerMask = targetLayerMask,
             damageProfile = resolvedDamageProfile,
-            buffEffects = CopyEffectEntries(buffEffects, EffectCategoryType.Buff),
-            debuffEffects = CopyEffectEntries(debuffEffects, EffectCategoryType.Debuff),
+            buffEffects = CopyEffectEntries(
+                buffEffects,
+                EffectCategoryType.Buff,
+                effectUpgradeModifiers),
+            debuffEffects = CopyEffectEntries(
+                debuffEffects,
+                EffectCategoryType.Debuff,
+                effectUpgradeModifiers),
             splitHitCount = Mathf.Max(1, splitHitCount),
             splitHitInterval = Mathf.Max(0f, splitHitInterval),
         };
@@ -96,7 +106,8 @@ public class SkillHitSO : ScriptableObject
 
     private SkillProjectileHitEffectEntry[] CopyEffectEntries(
         SkillProjectileHitEffectEntry[] source,
-        EffectCategoryType defaultCategoryType)
+        EffectCategoryType defaultCategoryType,
+        IReadOnlyList<EffectUpgradeModifierData> effectUpgradeModifiers)
     {
         if (source == null || source.Length == 0)
         {
@@ -115,16 +126,17 @@ public class SkillHitSO : ScriptableObject
                 continue;
             }
 
-            result[i] = new SkillProjectileHitEffectEntry
-            {
-                effectSo = entry.effectSo,
-                lifetimeType = entry.lifetimeType,
-                categoryType = entry.categoryType == EffectCategoryType.Neutral
+            SkillProjectileHitEffectEntry copiedEntry =
+                EffectUpgradeApplyHelper.CreateResolvedEntry(
+                    entry,
+                    effectUpgradeModifiers);
+
+            copiedEntry.categoryType =
+                copiedEntry.categoryType == EffectCategoryType.Neutral
                     ? defaultCategoryType
-                    : entry.categoryType,
-                duration = entry.duration,
-                maxApplyCount = Mathf.Max(0, entry.maxApplyCount)
-            };
+                    : copiedEntry.categoryType;
+
+            result[i] = copiedEntry;
         }
 
         return result;

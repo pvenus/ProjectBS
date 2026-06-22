@@ -24,6 +24,17 @@ public class SkillProjectileHitEffectEntry
     /// 0 이하이면 무제한.
     /// </summary>
     public int maxApplyCount = 1;
+
+    /// <summary>
+    /// EffectSO 값을 업그레이드 등으로 덮어쓸 경우 사용.
+    /// false이면 EffectSO 원본 값을 사용.
+    /// </summary>
+    public bool hasValueOverride;
+
+    /// <summary>
+    /// EffectSO의 value 필드 대체값.
+    /// </summary>
+    public float valueOverride;
 }
 
 [System.Serializable]

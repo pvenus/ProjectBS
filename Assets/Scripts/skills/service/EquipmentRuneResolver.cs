@@ -1,6 +1,5 @@
-
-
 using System.Collections.Generic;
+using Skill;
 
 /// <summary>
 /// 장비에 장착된 룬 해석 전담 Resolver.
@@ -9,11 +8,11 @@ using System.Collections.Generic;
 /// </summary>
 public class EquipmentRuneResolver
 {
-    public List<SkillStatModifierRuntimeData> ExtractModifiers(RuneRuntimeSetData runtimeSet)
+    public List<SkillStatModifierData> ExtractModifiers(RuneRuntimeSetData runtimeSet)
     {
         if (runtimeSet == null || runtimeSet.statModifiers == null)
         {
-            return new List<SkillStatModifierRuntimeData>();
+            return new List<SkillStatModifierData>();
         }
 
         return runtimeSet.statModifiers;

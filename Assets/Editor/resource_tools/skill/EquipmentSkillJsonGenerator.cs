@@ -111,6 +111,8 @@ namespace ResourceTools.Skill
 
             EnsureFolder(outputFolder);
 
+            GenerateSkillString(data);
+
             string assetPath = $"{outputFolder}/{data.equipmentId}.asset";
             EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(assetPath);
             bool isNewAsset = false;
@@ -252,6 +254,21 @@ namespace ResourceTools.Skill
             }
 
             return false;
+        }
+
+        private static void GenerateSkillString(
+            EquipmentSkillJson data)
+        {
+            if (data == null ||
+                string.IsNullOrWhiteSpace(data.equipmentId) ||
+                string.IsNullOrWhiteSpace(data.skillName))
+            {
+                return;
+            }
+
+            SkillStringBuilder.ExtractSkillName(
+                data.equipmentId,
+                data.skillName);
         }
 
         private static void ApplySkillFields(

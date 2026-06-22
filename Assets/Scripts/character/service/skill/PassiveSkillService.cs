@@ -1,3 +1,5 @@
+using Character;
+using Effect.Helper;
 using System.Collections.Generic;
 using Effect;
 
@@ -91,7 +93,8 @@ namespace Character.Skill
 
                 SkillProjectileHitDto hitDto =
                     hitSos[i].CreateDto(
-                        resolvedDamageProfile: null);
+                        resolvedDamageProfile: null,
+                        effectUpgradeModifiers: runtime.upgradeRuntimeData?.effectModifiers);
 
                 if (hitDto != null &&
                     hitDto.buffEffects != null &&
@@ -127,7 +130,8 @@ namespace Character.Skill
 
                 SkillProjectileHitDto hitDto =
                     hitSos[hitIndex].CreateDto(
-                        resolvedDamageProfile: null);
+                        resolvedDamageProfile: null,
+                        effectUpgradeModifiers: runtime.upgradeRuntimeData?.effectModifiers);
 
                 if (hitDto == null || hitDto.buffEffects == null)
                 {
@@ -170,6 +174,48 @@ namespace Character.Skill
             }
 
             return result;
+        }
+
+        public void ApplyPassiveSkills(
+            CharacterSkillManager skillManager,
+            CharacterManager ownerCharacter)
+        {
+            if (skillManager == null || ownerCharacter == null)
+            {
+                return;
+            }
+
+            EffectManager effectManager = ownerCharacter.GetComponent<EffectManager>();
+            if (effectManager == null)
+            {
+                return;
+            }
+
+            List<SkillProjectileHitEffectEntry> effects =
+                GetAllPassiveEffects(skillManager);
+
+            for (int i = 0; i < effects.Count; i++)
+            {
+                SkillProjectileHitEffectEntry effectEntry = effects[i];
+                if (effectEntry == null || effectEntry.effectSo == null)
+                {
+                    continue;
+                }
+
+                EffectApplyHelper.ApplyEffect(
+                    effectManager,
+                    ownerCharacter,
+                    effectEntry.effectSo,
+                    EffectSourceType.Skill,
+                    effectEntry.effectSo.effectId,
+                    effectEntry.lifetimeType,
+                    effectEntry.duration,
+                    effectEntry.categoryType,
+                    ownerCharacter.transform,
+                    default,
+                    ownerCharacter,
+                    effectEntry);
+            }
         }
     }
 }

@@ -64,3 +64,10 @@ shop.pool.relic.common,name,유물,relic
 character.npc.dokkaebi,name,도깨비,Dokkaebi
 character.npc.restless_spirit,name,망령,Restless Spirit
 character.npc.oni_soldier,name,귀면병,Oni Soldier
+enum.SkillStatModifierType.BaseDamage,name,데미지,Damage
+enum.SkillStatModifierType.AttackPercentDamage,name,공격력 퍼센트 데미지,Attack Percent Damage
+enum.SkillStatModifierType.Cooldown,name,쿨타임,Cooldown
+enum.SkillStatModifierType.Range,name,사정거리,Range
+enum.SkillStatModifierType.SplitHitCount,name,타격 수,Hit Count
+enum.SkillStatModifierType.ProjectileCount,name,투사체 수,Projectile Count
+enum.SkillStatModifierType.ProjectileScale,name,범위 크기,Area Size

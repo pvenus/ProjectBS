@@ -1,5 +1,6 @@
 using Character;
 using UnityEngine;
+using Skills.Dto;
 
 namespace Effect
 {
@@ -12,7 +13,8 @@ namespace Effect
             CharacterManager targetCharacter,
             Transform sourceTransform = null,
             Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null)
+            CharacterManager sourceCharacter = null,
+            SkillProjectileHitEffectEntry effectEntry = null)
         {
             if (effectSo == null)
             {
@@ -30,7 +32,10 @@ namespace Effect
                     statModifierEffect,
                     sourceType,
                     sourceId,
-                    targetCharacter);
+                    targetCharacter,
+                    effectEntry?.hasValueOverride == true
+                        ? effectEntry.valueOverride
+                        : (float?)null);
             }
 
             if (effectSo is HealEffectSO healEffect)

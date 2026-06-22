@@ -19,13 +19,15 @@ MonoBehaviour:
   burstInterval: 0
   castType: 0
   targetingType: 2
-  castMove: {fileID: 11400000, guid: 7015f9d0bacc44793a867f03f0cd4147, type: 2}
+  castMove: {fileID: 11400000, guid: 2a9ac057ba59548bfa28cc1c66b7e538, type: 2}
   selfEffects:
-  - effectSo: {fileID: 11400000, guid: a8e26a491f41f47c59c5fab150f63139, type: 2}
+  - effectSo: {fileID: 11400000, guid: 59423d98b26f147da9e3555ad22b71ce, type: 2}
     lifetimeType: 3
     categoryType: 1
     duration: 3
     maxApplyCount: 1
+    hasValueOverride: 0
+    valueOverride: 0
   canMoveWhileCasting: 0
   canCancelCasting: 0
   autoCast: 1

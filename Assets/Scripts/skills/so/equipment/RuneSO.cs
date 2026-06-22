@@ -19,7 +19,7 @@ public class RuneSO : ScriptableObject
     [SerializeField] private List<string> tags = new();
 
     [Header("Runtime Modifiers")]
-    [SerializeField] private List<SkillStatModifierRuntimeData> statModifiers = new();
+    [SerializeField] private List<SkillStatModifierData> statModifiers = new();
 
     [Header("Effects")]
     [SerializeField] private List<SkillEffectSO> effects = new();
@@ -30,7 +30,7 @@ public class RuneSO : ScriptableObject
     public EquipmentGrade Grade => grade;
     public IReadOnlyList<string> Tags => tags;
 
-    public IReadOnlyList<SkillStatModifierRuntimeData> StatModifiers => statModifiers;
+    public IReadOnlyList<SkillStatModifierData> StatModifiers => statModifiers;
     public IReadOnlyList<SkillEffectSO> Effects => effects;
 
     public bool HasAnyModifier => statModifiers != null && statModifiers.Count > 0;

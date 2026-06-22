@@ -12,7 +12,7 @@
 
     "projectileCount": 1,
     "projectileSpreadAngle": 0,
-    "projectileScale": 1.2,
+    "projectileScale": 1,
     "projectileLifetime": 0.3,
 
     "projectileSpawnInterval": 0,
@@ -50,7 +50,7 @@
         "effect": {
           "effectId": "skill.military_officer.1.charge.self.damage_reduction",
           "effectType": "StatModifier",
-          "effectName": "돌격 피해 감소",
+          "effectName": "피해 감소(%)",
           "statType": "Defense",
           "valueType": "Flat",
           "value": 20,
@@ -140,7 +140,7 @@
           "effect": {
             "effectId": "skill.military_officer.1.charge.knockback",
             "effectType": "Knockback",
-            "effectName": "돌격 넉백",
+            "effectName": "넉백",
             "force": 15,
             "directionType": "PushAwayFromSource",
             "normalizeDirection": true,
@@ -156,5 +156,207 @@
       "splitHitCount": 1,
       "splitHitInterval": 0
     }
-  ]
+  ],
+  "upgrade": {
+    "skillId": "skill.military_officer.1.active_1",
+    "upgradeTableId": "upgrade.skill.military_officer.1.active_1",
+    "displayName": "돌격 강화",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [],
+        "effectModifiers": []
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "statType": "BaseDamage",
+            "modifierType": "Flat",
+            "value": 10
+          },
+          {
+            "statType": "AttackPercentDamage",
+            "modifierType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "statType": "Cooldown",
+            "modifierType": "Flat",
+            "value": -0.5
+          }
+        ],
+        "effectModifiers": [
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Value",
+            "modifierType": "Flat",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "statType": "Range",
+            "modifierType": "Flat",
+            "value": 0.25
+          },
+          {
+            "statType": "BaseDamage",
+            "modifierType": "Flat",
+            "value": 12
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "statType": "ProjectileLifetime",
+            "modifierType": "Flat",
+            "value": 0.05
+          },
+          {
+            "statType": "AttackPercentDamage",
+            "modifierType": "Flat",
+            "value": 0.15
+          }
+        ],
+        "effectModifiers": [
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Duration",
+            "modifierType": "Flat",
+            "value": 0.5
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "statModifiers": [
+          {
+            "statType": "Cooldown",
+            "modifierType": "Flat",
+            "value": -0.5
+          },
+          {
+            "statType": "BaseDamage",
+            "modifierType": "Flat",
+            "value": 15
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 7,
+        "statModifiers": [
+          {
+            "statType": "Range",
+            "modifierType": "Flat",
+            "value": 0.25
+          },
+          {
+            "statType": "AttackPercentDamage",
+            "modifierType": "Flat",
+            "value": 0.2
+          }
+        ],
+        "effectModifiers": [
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Value",
+            "modifierType": "Flat",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "statModifiers": [
+          {
+            "statType": "Cooldown",
+            "modifierType": "Flat",
+            "value": -0.75
+          },
+          {
+            "statType": "ProjectileLifetime",
+            "modifierType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 9,
+        "statModifiers": [
+          {
+            "statType": "BaseDamage",
+            "modifierType": "Flat",
+            "value": 18
+          },
+          {
+            "statType": "AttackPercentDamage",
+            "modifierType": "Flat",
+            "value": 0.25
+          }
+        ],
+        "effectModifiers": [
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Duration",
+            "modifierType": "Flat",
+            "value": 0.5
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "statModifiers": [
+          {
+            "statType": "Cooldown",
+            "modifierType": "Flat",
+            "value": -1
+          },
+          {
+            "statType": "Range",
+            "modifierType": "Flat",
+            "value": 0.5
+          },
+          {
+            "statType": "BaseDamage",
+            "modifierType": "Flat",
+            "value": 25
+          },
+          {
+            "statType": "AttackPercentDamage",
+            "modifierType": "Flat",
+            "value": 0.3
+          }
+        ],
+        "effectModifiers": [
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Value",
+            "modifierType": "Flat",
+            "value": 10
+          },
+          {
+            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "targetField": "Duration",
+            "modifierType": "Flat",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  }
 }
