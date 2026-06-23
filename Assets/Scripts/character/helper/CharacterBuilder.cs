@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Party.UI;
+using Character.UI;
 
 namespace Character.Helper
 {
@@ -260,6 +261,11 @@ namespace Character.Helper
                 EnsureComponent<CharacterManager>(target);
 
             CharacterBattleHudUI.EnsureFor(characterManager);
+
+            if (IsPartyLayer(layerName))
+            {
+                CharacterSkillCooldownUI.EnsureFor(characterManager);
+            }
         }
 
         private static void SetupTransform(

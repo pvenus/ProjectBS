@@ -3,7 +3,7 @@
   "slotName": "active_1",
   "skillName": "돌격",
   "baseProfile": {
-    "profileId": "skill.military_officer.1.charge.profile",
+    "profileId": "skill.military_officer.1.active_1.profile",
 
     "attackArchetype": "Melee",
 
@@ -24,7 +24,7 @@
     "basePriority": 0.8
   },
   "cast": {
-    "castId": "skill.military_officer.1.charge.cast",
+    "castId": "skill.military_officer.1.active_1.cast",
 
     "cooldown": 10,
     "castTime": 0,
@@ -37,7 +37,7 @@
     "targetingType": "AutoTarget",
 
     "castMove": {
-      "castMoveId": "skill.military_officer.1.charge.cast_move",
+      "castMoveId": "skill.military_officer.1.active_1.cast_move",
       "moveType": "DashForward",
       "distance": 2,
       "duration": 0.25,
@@ -48,7 +48,7 @@
     "selfEffects": [
       {
         "effect": {
-          "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+        "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
           "effectType": "StatModifier",
           "effectName": "피해 감소(%)",
           "statType": "Defense",
@@ -68,7 +68,7 @@
     "autoCast": true
   },
   "move": {
-    "moveId": "skill.military_officer.1.charge.move",
+    "moveId": "skill.military_officer.1.active_1.move",
     "moveType": "Hover",
     "applyDirectionRotation": true,
     "rotationOffset": 180,
@@ -78,10 +78,10 @@
     }
   },
   "visualSet": {
-    "visualSetId": "skill.military_officer.1.charge.visual",
+    "visualSetId": "skill.military_officer.1.active_1.visual",
 
     "baseVisual": {
-      "visualId": "skill.military_officer.1.charge.visual.base",
+      "visualId": "skill.military_officer.1.active_1.visual.base",
       "archetype": "Melee",
       "projectilePrefab": "projectile",
       "projectileSprite": "slash_basic",
@@ -94,7 +94,7 @@
     },
 
     "impactVisual": {
-      "visualId": "skill.military_officer.1.charge.visual.impact",
+      "visualId": "skill.military_officer.1.active_1.visual.impact",
       "impactType": "Hit",
       "element": "None",
       "effectPrefab": "fx_slash_hit",
@@ -105,7 +105,7 @@
     },
 
     "trailVisual": {
-      "trailId": "skill.military_officer.1.charge.visual.trail",
+      "trailId": "skill.military_officer.1.active_1.visual.trail",
       "effectPrefab": "fx_charge_trail",
       "followProjectile": true,
       "duration": 0.3
@@ -113,7 +113,7 @@
   },
   "hits": [
     {
-      "hitId": "skill.military_officer.1.charge.hit.enemy",
+      "hitId": "skill.military_officer.1.active_1.hit.enemy",
 
       "maxHitCount": 20,
       "ignoreSameRoot": true,
@@ -125,7 +125,7 @@
       "targetLayerMask": "Enemy",
 
       "damage": {
-        "skillId": "skill.military_officer.1.charge.damage",
+        "skillId": "skill.military_officer.1.active_1.damage",
         "damageType": "Normal",
         "baseDamage": 50,
         "firstHitBaseDamage": 0,
@@ -138,7 +138,7 @@
       "debuffEffects": [
         {
           "effect": {
-            "effectId": "skill.military_officer.1.charge.knockback",
+          "effectId": "skill.military_officer.1.active_1.knockback",
             "effectType": "Knockback",
             "effectName": "넉백",
             "force": 15,
@@ -194,7 +194,7 @@
         ],
         "effectModifiers": [
           {
-            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
             "targetField": "Value",
             "modifierType": "Flat",
             "value": 5
@@ -233,7 +233,7 @@
         ],
         "effectModifiers": [
           {
-            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
             "targetField": "Duration",
             "modifierType": "Flat",
             "value": 0.5
@@ -272,7 +272,7 @@
         ],
         "effectModifiers": [
           {
-            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
             "targetField": "Value",
             "modifierType": "Flat",
             "value": 5
@@ -311,7 +311,7 @@
         ],
         "effectModifiers": [
           {
-            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
             "targetField": "Duration",
             "modifierType": "Flat",
             "value": 0.5
@@ -344,7 +344,7 @@
         ],
         "effectModifiers": [
           {
-            "effectId": "skill.military_officer.1.charge.self.damage_reduction",
+            "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
             "targetField": "Value",
             "modifierType": "Flat",
             "value": 10

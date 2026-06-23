@@ -32,6 +32,7 @@ namespace Skill
 
         public string EquipmentId => equipmentId;
         public string LocalizationMainKey => equipmentId;
+        public Sprite Icon => icon;
 
         public string DisplayName =>
             StringManager.Instance.Get(

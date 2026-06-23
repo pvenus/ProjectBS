@@ -229,6 +229,33 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         button.gameObject.SetActive(true);
         spawnedButtons.Add(button);
 
+        // Set the skill icon if possible.
+        Image iconImage =
+            button.transform.Find("Icon")?.GetComponent<Image>();
+
+        if (iconImage != null)
+        {
+            iconImage.sprite = option.SkillSo?.Icon;
+            iconImage.enabled = iconImage.sprite != null;
+        }
+
+        if (iconImage == null)
+        {
+            Image[] images = button.GetComponentsInChildren<Image>(true);
+
+            for (int imageIndex = 0; imageIndex < images.Length; imageIndex++)
+            {
+                if (images[imageIndex].gameObject == button.gameObject)
+                {
+                    continue;
+                }
+
+                images[imageIndex].sprite = option.SkillSo?.Icon;
+                images[imageIndex].enabled = images[imageIndex].sprite != null;
+                break;
+            }
+        }
+
         TMP_Text label = button.GetComponentInChildren<TMP_Text>();
         if (label != null)
         {

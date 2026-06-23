@@ -15,9 +15,7 @@ namespace ResourceTools.Skill
         public class EquipmentSkillJson
         {
             public string equipmentId;
-            public string slotName;
             public string skillName;
-            public string iconName;
 
             public BaseProfileJson baseProfile;
             public CastJson cast;
@@ -285,7 +283,10 @@ namespace ResourceTools.Skill
             SerializedObject serializedObject = new SerializedObject(skillSo);
 
             SetString(serializedObject, "equipmentId", data.equipmentId);
-            SetObjectReference(serializedObject, "icon", FindSpriteById(data.iconName));
+            SetObjectReference(
+                serializedObject,
+                "icon",
+                FindSpriteById($"{data.equipmentId}.icon"));
             SetObjectReference(serializedObject, "baseProfileSo", baseProfileSo);
             SetObjectReference(serializedObject, "castSo", castSo);
             SetObjectReference(serializedObject, "moveSo", moveSo);

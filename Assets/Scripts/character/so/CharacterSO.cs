@@ -33,7 +33,7 @@ namespace Character
 
         [Header("Base Stats")]
         [SerializeField] private List<StatEntry> baseStats = new();
-
+        public string LocalizationMainKey => characterId;
         public string CharacterId => characterId;
         public CharacterType CharacterType => characterType;
         public CharacterJob Job => job;
@@ -44,7 +44,7 @@ namespace Character
 
         public string DisplayName =>
             StringManager.Instance.Get(
-                characterId,
+                LocalizationMainKey,
                 "name");
 
         public CharacterJobFamily JobFamily =>

@@ -64,6 +64,7 @@
     <Compile Include="Assets/Scripts/npc/service/NpcFlyingMovementService.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowSkillParam.cs" />
     <Compile Include="Assets/Scripts/item/ui/ItemStrategicSkillSlotUI.cs" />
+    <Compile Include="Assets/Scripts/character/ui/CharacterSkillCooldownUI.cs" />
     <Compile Include="Assets/Scripts/skills/so/move/config/HoverMoveConfig.cs" />
     <Compile Include="Assets/Scripts/skills/so/equipment/RuneSO.cs" />
     <Compile Include="Assets/Scripts/CameraFollowMono.cs" />
@@ -440,6 +441,7 @@
     <Compile Include="Assets/Scripts/skills/so/hit/SkillHitSO.cs" />
     <Compile Include="Assets/Scripts/venus/ProblemFocus.cs" />
     <Compile Include="Assets/Scripts/shring/so/ShrineUnlockConditionSO.cs" />
+    <Compile Include="Assets/Scripts/character/ui/CharacterSkillCooldownSlot.cs" />
     <Compile Include="Assets/Scripts/skills/runtime/RuneRuntimeData.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Widget/UICarouselWidget.cs" />
     <Compile Include="Assets/Scripts/skills/dto/move/OrbitProjectileMoveDto.cs" />

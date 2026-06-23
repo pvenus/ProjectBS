@@ -32,14 +32,10 @@ namespace Skill
         [Header("Skill")]
         [SerializeField] private EquipmentSkillSO skillSo;
 
-        [Header("Override")]
-        [SerializeField] private float projectileLifetimeOverride = -1f;
-
         [NonSerialized] private EquipmentSkillRuntimeData runtimeData;
 
         public string SlotKey => slotKey;
         public EquipmentSkillSO SkillSo => skillSo;
-        public float ProjectileLifetimeOverride => projectileLifetimeOverride;
         public EquipmentSkillRuntimeData RuntimeData => runtimeData;
         public bool HasSkill => skillSo != null;
 

@@ -31,7 +31,6 @@ namespace ResourceTools.Effect
             public string effectType;
             public string effectName;
             public string description;
-            public string iconName;
             public Skill.EquipmentSkillJsonGenerator.EquipmentSkillJson skill;
 
             [Header("Lifetime / Stack")]
@@ -319,10 +318,11 @@ namespace ResourceTools.Effect
             SetFirstExistingField(effect, data.maxStack, "maxStack", "stackCount", "maxStackCount");
             SetFirstExistingField(effect, data.allowDuplicate, "allowDuplicate", "allowDuplicates", "canDuplicate");
 
-            if (!string.IsNullOrEmpty(data.iconName))
-            {
-                SetFirstExistingField(effect, FindSpriteByName(data.iconName), "icon", "sprite");
-            }
+            SetFirstExistingField(
+                effect,
+                FindSpriteByName($"{data.effectId}.icon"),
+                "icon",
+                "sprite");
         }
 
         private static void ApplyTypedFields(

@@ -28,10 +28,6 @@ namespace Character
         private readonly CastMoveService castMoveService = new();
         private readonly SkillUpgradeService skillUpgradeService = new();
 
-        private int skillExecutionLockCount;
-
-        public bool IsSkillExecuting => skillExecutionLockCount > 0;
-
         public CharacterSkillRuntimeData SkillRuntimeData => skillRuntimeData;
         public SkillPoolRuntimeData SkillPool => skillRuntimeData?.skillPool;
 

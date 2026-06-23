@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using Character;
 using Stat;
+using ResourceTools.Character;
 using UnityEditor;
 using UnityEngine;
 using Skill;
-namespace ResourceTools
+namespace ResourceTools.Character
 {
     public static class CharacterJsonGenerator
     {
@@ -15,6 +16,7 @@ namespace ResourceTools
         private class CharacterJson
         {
             public string characterId;
+            public string name;
             public string characterType;
             public string job;
             public string prefabName;
@@ -103,6 +105,9 @@ namespace ResourceTools
             }
 
             SetField(characterSo, "characterId", data.characterId);
+            CharacterStringBuilder.ExtractCharacterName(
+                data.characterId,
+                data.name);
             SetEnumField(characterSo, "characterType", data.characterType);
             SetEnumField(characterSo, "job", data.job);
             SetField(characterSo, "prefab", FindPrefabByName(data.prefabName, outputFolder));

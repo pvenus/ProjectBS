@@ -150,15 +150,6 @@ namespace Character
                 return;
             }
 
-            if (_context.SkillManager != null &&
-                _context.SkillManager.IsSkillExecuting &&
-                _currentState != null)
-            {
-                LogStateMessage(
-                    $"Decision blocked: skill executing Current={GetStateName(_currentState)}");
-                return;
-            }
-
             ChangeState(nextState);
         }
 
