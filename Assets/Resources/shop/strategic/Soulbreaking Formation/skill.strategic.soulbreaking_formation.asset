@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.soulbreaking_formation
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.soulbreaking_formation
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 1dcefc1d84ffd445089155756711cbeb, type: 2}
+  castSo: {fileID: 11400000, guid: 9391c02fc67f44fd0b63938e0df945d2, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: f59ff9f83136f477ab7c245451052a3b, type: 2}
+  moveSo: {fileID: 11400000, guid: 000948fe30aa443bcb4acdcb1655791e, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: d87e48510864647f391635bc7ba85369, type: 2}
+  visualSetSo: {fileID: 11400000, guid: 6690afcdac87a4beab2bb2e7a3a1d710, type: 2}

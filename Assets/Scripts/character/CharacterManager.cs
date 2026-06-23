@@ -49,7 +49,7 @@ namespace Character
         private CharacterManager lastHitAttacker;
 
         [Header("Regen")]
-        [SerializeField] private float hpRegenTickInterval = 0.25f;
+        [SerializeField] private float hpRegenTickInterval = 1f;
 
         [Header("Bleed")]
         [SerializeField] private float bleedTickInterval = 1f;

@@ -2,8 +2,8 @@
   "strategicSkillItemId": "item.strategic.nine_heavens_thunderfall_formation",
   "grade": "Basic",
   "nameKo": "구천멸뢰진",
-  "descriptionKo": "",
-  "icon": "shring_god_icon",
+  "descriptionKo": "반경 7m 지역에 20개의 낙뢰를 떨어뜨려 각각 240 피해를 준다.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 100,
   "reusable": true,
   "skillId": "skill.strategic.nine_heavens_thunderfall_formation",
@@ -17,12 +17,13 @@
       "profileId": "skill.strategic.nine_heavens_thunderfall_formation.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.nine_heavens_thunderfall_formation][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 20,
       "projectileScale": 1,
-      "projectileLifetime": 3,
-      "projectileSpawnInterval": 0.5,
-      "projectileSpawnRadius": 7,
+      "projectileLifetime": 0.4,
+      "projectileSpawnInterval": 0.1,
+      "projectileSpawnRadius": 5,
+      "projectileColliderRadius": 2,
       "category": "Attack",
       "targetType": "Enemy",
       "tacticalNeed": "None",
@@ -36,17 +37,17 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.nine_heavens_thunderfall_formation.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.nine_heavens_thunderfall_formation.visual",
@@ -54,13 +55,7 @@
         "visualId": "skill.strategic.nine_heavens_thunderfall_formation.visual.base",
         "archetype": "None",
         "projectilePrefab": "[item.strategic.nine_heavens_thunderfall_formation][prefab] projectile",
-        "projectileSprite": "[item.strategic.nine_heavens_thunderfall_formation][animation] texture2d",
-        "animatorController": "",
-        "idleClip": "",
-        "castClip": "",
-        "attackClip": "",
-        "projectileLoopClip": "[item.strategic.nine_heavens_thunderfall_formation][animation] clip",
-        "hitClip": ""
+        "animatorController": ""
       },
       "impactVisual": {
         "visualId": "skill.strategic.nine_heavens_thunderfall_formation.visual.impact",
@@ -83,13 +78,13 @@
       {
         "hitId": "skill.strategic.nine_heavens_thunderfall_formation.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Enemy",
         "damage": {
-          "skillId": "fire generator common",
+          "skillId": "skill.strategic.nine_heavens_thunderfall_formation",
           "damageType": "Normal",
           "baseDamage": 240,
           "attackPercentDamage": 0,
@@ -98,8 +93,8 @@
         },
         "buffEffects": [],
         "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

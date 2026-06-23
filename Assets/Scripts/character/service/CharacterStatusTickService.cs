@@ -8,7 +8,7 @@ namespace Character.Service
     /// CharacterManager.Update()에서 처리하던 주기성 상태 갱신 로직을 담당한다.
     /// - StunDuration 감소
     /// - RootDuration 감소
-    /// - HpRegen 회복
+    /// - HpRegen / HpRegenMaxHpPercent 회복
     /// - BleedDamage tick
     /// - Missing HP 기반 파생 스탯 갱신
     /// </summary>
@@ -140,16 +140,33 @@ namespace Character.Service
 
             hpRegenTimer = interval;
 
-            float hpRegenPerSecond =
+            float flatHpRegenPerSecond =
                 characterManager.GetStatValue(StatType.HpRegen);
 
-            if (hpRegenPerSecond <= 0f)
+            float maxHpRegenPercentPerSecond =
+                characterManager.GetStatValue(StatType.HpRegenMaxHpPercent);
+
+            if (flatHpRegenPerSecond <= 0f &&
+                maxHpRegenPercentPerSecond <= 0f)
             {
                 return;
             }
 
+            float maxHp =
+                characterManager.GetStatValue(StatType.MaxHp);
+
+            float percentHpRegenPerSecond =
+                maxHp > 0f
+                    ? maxHp * maxHpRegenPercentPerSecond * 0.01f
+                    : 0f;
+
             float healAmount =
-                hpRegenPerSecond * interval;
+                (flatHpRegenPerSecond + percentHpRegenPerSecond) * interval;
+
+            if (healAmount <= 0f)
+            {
+                return;
+            }
 
             damageService.Heal(
                 characterManager,

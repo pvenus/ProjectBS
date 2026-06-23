@@ -14,20 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
   moveType: 2
   config:
-    rid: 6756114586817790022
+    rid: 6756114653485727823
   applyDirectionRotation: 0
   rotationOffset: 0
-  orbitRadius: 0
-  orbitAngularSpeed: 0
-  clockwise: 0
-  spawnOrder: 0
-  resetPhaseWhenLayoutChanges: 0
-  useRadialPulse: 0
-  radialPulseAmplitude: 0
-  radialPulseFrequency: 0
   references:
     version: 2
     RefIds:
-    - rid: 6756114586817790022
+    - rid: 6756114653485727823
       type: {class: WarpMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
       data: 

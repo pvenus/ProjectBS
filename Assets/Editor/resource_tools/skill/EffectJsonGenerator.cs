@@ -65,7 +65,9 @@ namespace ResourceTools.Effect
             [Header("Movement / Knockback")]
             public float force;
             public float distance;
-
+            public string directionType;
+            public bool normalizeDirection;
+            public bool fallbackToProjectileDirection;
 
             [Header("Skill / Cooldown")]
             public float cooldownReduceValue;
@@ -451,6 +453,9 @@ namespace ResourceTools.Effect
         {
             SetFirstExistingField(effect, data.force, "force", "knockbackForce");
             SetFirstExistingField(effect, data.distance, "distance", "knockbackDistance");
+            SetEnumFirstExistingField(effect, data.directionType, "directionType");
+            SetFirstExistingField(effect, data.normalizeDirection, "normalizeDirection");
+            SetFirstExistingField(effect, data.fallbackToProjectileDirection, "fallbackToProjectileDirection");
         }
 
 

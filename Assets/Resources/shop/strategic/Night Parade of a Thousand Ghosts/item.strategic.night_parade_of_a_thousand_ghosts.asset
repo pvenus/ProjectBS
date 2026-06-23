@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a53571d7508b4ef18f97b13aa0f54c3, type: 3}
   m_Name: item.strategic.night_parade_of_a_thousand_ghosts
   m_EditorClassIdentifier: Assembly-CSharp::Item.StrategicSkillItemSO
-  strategicSkillItemId: 
-  icon: {fileID: 0}
-  gaugeCost: 10
+  strategicSkillItemId: item.strategic.night_parade_of_a_thousand_ghosts
+  icon: {fileID: 700024022509521953, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  gaugeCost: 90
   reusable: 1
-  skillSo: {fileID: 0}
+  skillSo: {fileID: 11400000, guid: 94c4fbb89a43a47989d5422e6bc5c984, type: 2}
   defaultPrice: 100
   tags: []

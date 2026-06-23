@@ -25,11 +25,13 @@ MonoBehaviour:
   damageSo: {fileID: 0}
   firstHitBaseDamage: 0
   buffEffects:
-  - effectSo: {fileID: 11400000, guid: 3d5d7fbf97f7b4d35a38ecf8b9043b4b, type: 2}
+  - effectSo: {fileID: 11400000, guid: fb37cbd1bff0b4e0bab44dba26d86e70, type: 2}
     lifetimeType: 0
     categoryType: 1
     duration: 0
     maxApplyCount: 1
+    hasValueOverride: 0
+    valueOverride: 0
   debuffEffects: []
   useSplitMultiHitDamage: 0
   splitHitCount: 1

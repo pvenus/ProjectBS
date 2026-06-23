@@ -14,6 +14,7 @@ namespace Stat
         Hp = 1100,
 
         HpRegen = 1110,
+        HpRegenMaxHpPercent = 1120,
 
         BleedDamagePerSecond = 1140,
 

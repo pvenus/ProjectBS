@@ -2,8 +2,8 @@
   "strategicSkillItemId": "item.strategic.golden_chain_formation",
   "grade": "Basic",
   "nameKo": "금쇄진",
-  "descriptionKo": "",
-  "icon": "shring_god_icon",
+  "descriptionKo": "반경 8m 적을 3초간 기절시킨다.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 85,
   "reusable": true,
   "skillId": "skill.strategic.golden_chain_formation",
@@ -17,12 +17,13 @@
       "profileId": "skill.strategic.golden_chain_formation.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.golden_chain_formation][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
+      "projectileColliderRadius": 8,
       "category": "Attack",
       "targetType": "Enemy",
       "tacticalNeed": "None",
@@ -36,17 +37,17 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.golden_chain_formation.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.golden_chain_formation.visual",
@@ -54,13 +55,7 @@
         "visualId": "skill.strategic.golden_chain_formation.visual.base",
         "archetype": "None",
         "projectilePrefab": "[item.strategic.golden_chain_formation][prefab] projectile",
-        "projectileSprite": "[item.strategic.golden_chain_formation][animation] texture2d",
-        "animatorController": "",
-        "idleClip": "",
-        "castClip": "",
-        "attackClip": "",
-        "projectileLoopClip": "[item.strategic.golden_chain_formation][animation] clip",
-        "hitClip": ""
+        "animatorController": ""
       },
       "impactVisual": {
         "visualId": "skill.strategic.golden_chain_formation.visual.impact",
@@ -83,13 +78,14 @@
       {
         "hitId": "skill.strategic.golden_chain_formation.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Enemy",
         "damage": null,
-        "buffEffects": [
+        "buffEffects": [],
+        "debuffEffects": [
           {
             "effect": {
               "effectId": "effect.item.strategic.golden_chain_formation",
@@ -100,15 +96,14 @@
               "value": 3,
               "duration": 0
             },
-            "lifetimeType": "Timed",
-            "categoryType": "Buff",
-            "duration": 8,
+            "lifetimeType": "Instant",
+            "categoryType": "Debuff",
+            "duration": 0,
             "maxApplyCount": 1
           }
         ],
-        "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

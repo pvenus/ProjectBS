@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a53571d7508b4ef18f97b13aa0f54c3, type: 3}
   m_Name: item.strategic.ironbody_call
   m_EditorClassIdentifier: Assembly-CSharp::Item.StrategicSkillItemSO
-  strategicSkillItemId: 
-  icon: {fileID: 0}
-  gaugeCost: 10
+  strategicSkillItemId: item.strategic.ironbody_call
+  icon: {fileID: 700024022509521953, guid: dbd7761738ae6433b84ef4ee6a62c944, type: 3}
+  gaugeCost: 20
   reusable: 1
-  skillSo: {fileID: 0}
+  skillSo: {fileID: 11400000, guid: 7352100eb09f24602a9076730eae38d6, type: 2}
   defaultPrice: 100
   tags: []
