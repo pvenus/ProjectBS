@@ -444,11 +444,6 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
             if (projectileData == null)
                 continue;
 
-            if (usePoint && projectileData.move != null)
-            {
-                projectileData.move.targetPosition = request.TargetPoint;
-            }
-
             ProjectileEntity projectile = _projectileFactory.SpawnOriented(projectileData);
 
             if (projectile != null)

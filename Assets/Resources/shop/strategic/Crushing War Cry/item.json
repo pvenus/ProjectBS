@@ -2,8 +2,8 @@
   "strategicSkillItemId": "item.strategic.crushing_war_cry",
   "grade": "Basic",
   "nameKo": "파쇄격령",
-  "descriptionKo": "",
-  "icon": "shring_god_icon",
+  "descriptionKo": "8초간 모든 아군 공격력을 40 증가시킨다.",
+  "icon": "pixellab-A-clean-2D-game-UI-icon-for-a--1777882647237_3",
   "gaugeCost": 50,
   "reusable": true,
   "skillId": "skill.strategic.crushing_war_cry",
@@ -17,14 +17,15 @@
       "profileId": "skill.strategic.crushing_war_cry.profile",
       "attackArchetype": "Melee",
       "projectilePrefabName": "[item.strategic.crushing_war_cry][prefab] projectile",
-      "projectileSpawnOffset": 0.5,
+      "projectileSpawnOffset": 0,
       "projectileCount": 1,
       "projectileScale": 1,
-      "projectileLifetime": 3,
+      "projectileLifetime": 0.4,
       "projectileSpawnInterval": 0,
       "projectileSpawnRadius": 0,
-      "category": "Attack",
-      "targetType": "Enemy",
+      "projectileColliderRadius": 999,
+      "category": "Buff",
+      "targetType": "Ally",
       "tacticalNeed": "None",
       "basePriority": 0
     },
@@ -36,31 +37,23 @@
       "burstCount": 1,
       "burstInterval": 0,
       "castType": "Instant",
-      "targetingType": "AutoTarget",
-      "canMoveWhileCasting": true,
-      "canCancelCasting": true,
-      "autoCast": false
+      "targetingType": "Position",
+      "canMoveWhileCasting": false,
+      "canCancelCasting": false,
+      "autoCast": true
     },
     "move": {
       "moveId": "skill.strategic.crushing_war_cry.move",
-      "moveType": "Linear",
-      "applyDirectionRotation": true,
-      "rotationOffset": -90,
-      "linear": {}
+      "moveType": "Warp",
+      "applyDirectionRotation": false,
+      "rotationOffset": 0,
+      "warp": {}
     },
     "visualSet": {
       "visualSetId": "skill.strategic.crushing_war_cry.visual",
       "baseVisual": {
         "visualId": "skill.strategic.crushing_war_cry.visual.base",
-        "archetype": "None",
-        "projectilePrefab": "[item.strategic.crushing_war_cry][prefab] projectile",
-        "projectileSprite": "[item.strategic.crushing_war_cry][animation] texture2d",
-        "animatorController": "",
-        "idleClip": "",
-        "castClip": "",
-        "attackClip": "",
-        "projectileLoopClip": "[item.strategic.crushing_war_cry][animation] clip",
-        "hitClip": ""
+        "archetype": "None"
       },
       "impactVisual": {
         "visualId": "skill.strategic.crushing_war_cry.visual.impact",
@@ -83,9 +76,9 @@
       {
         "hitId": "skill.strategic.crushing_war_cry.hit",
         "maxHitCount": 999,
-        "ignoreSameRoot": true,
-        "repeatInterval": 0.25,
-        "hitStartTime": 0.1,
+        "ignoreSameRoot": false,
+        "repeatInterval": 0,
+        "hitStartTime": 0,
         "deactivateAfterFirstHit": false,
         "targetLayerMask": "Party",
         "damage": null,
@@ -107,8 +100,8 @@
           }
         ],
         "debuffEffects": [],
-        "splitHitCount": 4,
-        "splitHitInterval": 0.1
+        "splitHitCount": 1,
+        "splitHitInterval": 0
       }
     ]
   }

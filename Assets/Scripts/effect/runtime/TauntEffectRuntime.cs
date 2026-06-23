@@ -45,20 +45,9 @@ namespace Effect
                 return;
             }
 
-            if (effectSO.UseLurePoint)
-            {
-                stateManager.ApplyLurePoint(
-                    tauntTarget.position,
-                    effectSO.duration,
-                    effectSO.LureRadius,
-                    effectSO.LureMoveSpeedMultiplier);
-            }
-            else
-            {
-                stateManager.ApplyForcedTarget(
-                    tauntTarget,
-                    effectSO.duration);
-            }
+            stateManager.ApplyForcedTarget(
+                tauntTarget,
+                effectSO.duration);
 
             applied = true;
         }
@@ -71,14 +60,7 @@ namespace Effect
                 return;
             }
 
-            if (effectSO != null && effectSO.UseLurePoint)
-            {
-                stateManager.ClearLurePoint();
-            }
-            else
-            {
-                stateManager.ClearForcedTarget(tauntTarget);
-            }
+            stateManager.ClearForcedTarget(tauntTarget);
 
             applied = false;
         }

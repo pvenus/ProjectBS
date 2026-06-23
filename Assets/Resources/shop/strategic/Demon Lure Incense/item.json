@@ -91,13 +91,7 @@
               "effectId": "effect.item.strategic.demon_lure_incense.taunt",
               "effectType": "Taunt",
               "effectName": "요귀향 도발",
-              "forceTargetToCaster": true,
-              "blockRetargeting": true,
-              "allowAttack": true,
-              "allowMovement": true,
-              "useLurePoint": true,
-              "lureRadius": 0.75,
-              "lureMoveSpeedMultiplier": 1
+              "duration": 6
             },
             "lifetimeType": "Instant",
             "categoryType": "Debuff",

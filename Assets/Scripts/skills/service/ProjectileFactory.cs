@@ -176,12 +176,12 @@ public class ProjectileFactory
 
     private Quaternion ResolveSpawnRotation(ProjectileRuntimeData runtimeData)
     {
-        if (runtimeData == null || runtimeData.move == null)
+        if (runtimeData == null || runtimeData.moveRuntime == null)
         {
             return Quaternion.identity;
         }
 
-        if (!runtimeData.move.applyDirectionRotation)
+        if (!runtimeData.moveRuntime.applyDirectionRotation)
         {
             return Quaternion.identity;
         }
@@ -194,7 +194,7 @@ public class ProjectileFactory
         }
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle += runtimeData.move.rotationOffset;
+        angle += runtimeData.moveRuntime.rotationOffset;
 
         return Quaternion.Euler(0f, 0f, angle);
     }
@@ -525,8 +525,8 @@ public class ProjectileFactory
                 ? Vector2.right
                 : source.direction.normalized;
 
-        if (source.move != null
-            && source.move.moveType == ProjectileMoveType.Homing)
+        if (source.moveRuntime != null
+            && source.moveRuntime.MoveType == ProjectileMoveType.Homing)
         {
             return -baseDirection;
         }
@@ -652,10 +652,6 @@ public class ProjectileFactory
             projectileSpawnInterval = source.projectileSpawnInterval,
             projectileSpawnRadius = source.projectileSpawnRadius,
 
-            move = CreateInstanceMoveDto(
-                source,
-                spawnOrder,
-                spawnPosition),
             moveRuntime = CreateInstanceMoveRuntimeDto(
                 source,
                 spawnOrder,
@@ -844,216 +840,6 @@ public class ProjectileFactory
 
     private float ResolveLinearDistance(
         LinearProjectileMoveDto move,
-        Vector2 spawnPosition)
-    {
-        if (move == null)
-        {
-            return 0f;
-        }
-
-        float targetDistance = Vector2.Distance(
-            spawnPosition,
-            move.targetPosition);
-
-        if (targetDistance > 0.0001f)
-        {
-            return targetDistance;
-        }
-
-        return Vector2.Distance(
-            move.startPosition,
-            move.targetPosition);
-    }
-
-    private SkillProjectileMoveDto CreateInstanceMoveDto(
-        ProjectileRuntimeData source,
-        int spawnOrder,
-        Vector2 spawnPosition)
-    {
-        if (source == null || source.move == null)
-        {
-            return source?.move;
-        }
-
-        SkillProjectileMoveDto move = CloneMoveDto(source.move);
-
-        if (move.moveType == ProjectileMoveType.Homing)
-        {
-            move.startPosition = spawnPosition;
-            move.targetTransform = source.target != null ? source.target.transform : null;
-            return move;
-        }
-
-        if (move.moveType != ProjectileMoveType.Linear)
-        {
-            if (source.targetingType == TargetingType.AutoTargetDirection ||
-                source.targetingType == TargetingType.Directional)
-            {
-                move.targetTransform = null;
-                move.startPosition = spawnPosition;
-                move.targetPosition = ResolveDirectionBasedDestination(
-                    source,
-                    move,
-                    spawnPosition);
-            }
-            else if (source.targetingType == TargetingType.Position)
-            {
-                move.targetTransform = null;
-                move.targetPosition = source.move.targetPosition;
-            }
-
-            return move;
-        }
-
-        if (source.targetingType == TargetingType.AutoTargetDirection ||
-            source.targetingType == TargetingType.Directional)
-        {
-            move.targetTransform = null;
-            move.startPosition = spawnPosition;
-            move.targetPosition = ResolveDirectionBasedDestination(
-                source,
-                move,
-                spawnPosition);
-        }
-        else if (source.targetingType == TargetingType.Position)
-        {
-            move.targetTransform = null;
-            move.targetPosition = source.move.targetPosition;
-        }
-
-        int projectileCount = Mathf.Max(1, source.projectileCount);
-        float spreadAngle = Mathf.Max(0f, source.projectileSpreadAngle);
-
-        if (projectileCount <= 1 || spreadAngle <= 0f)
-        {
-            return move;
-        }
-
-        Vector2 baseDirection = ResolveLinearBaseDirection(
-            move,
-            source,
-            spawnPosition);
-
-        Vector2 spreadDirection = RotateDirection(
-            baseDirection,
-            EvaluateSpreadAngle(
-                spawnOrder,
-                projectileCount,
-                spreadAngle));
-
-        float distance = source.targetingType == TargetingType.AutoTargetDirection ||
-            source.targetingType == TargetingType.Directional
-                ? Vector2.Distance(
-                    spawnPosition,
-                    ResolveDirectionBasedDestination(source, move, spawnPosition))
-                : ResolveLinearDistance(
-                    move,
-                    spawnPosition);
-
-        move.startPosition = spawnPosition;
-        move.targetPosition =
-            spawnPosition + spreadDirection * distance;
-
-        // Spread shots must use their own destination.
-        // If targetTransform remains assigned, downstream movement
-        // code may recompute the destination from the same target,
-        // causing every projectile to converge to one point.
-        move.targetTransform = null;
-
-        Debug.Log($"Spread Shot [{spawnOrder}] Target={move.targetPosition} Direction={spreadDirection}");
-
-        return move;
-    }
-
-    private SkillProjectileMoveDto CloneMoveDto(SkillProjectileMoveDto source)
-    {
-        if (source == null)
-        {
-            return null;
-        }
-
-        return new SkillProjectileMoveDto
-        {
-            moveType = source.moveType,
-            targetTransform = source.targetTransform,
-            startPosition = source.startPosition,
-            targetPosition = source.targetPosition,
-            speed = source.speed,
-            arrivalThreshold = source.arrivalThreshold,
-            applyDirectionRotation = source.applyDirectionRotation,
-            rotationTarget = source.rotationTarget,
-            rotationOffset = source.rotationOffset,
-
-            followOffset = source.followOffset,
-            followLerpSpeed = source.followLerpSpeed,
-            snapOnInitialize = source.snapOnInitialize,
-            useHoverMotion = source.useHoverMotion,
-            hoverAmplitude = source.hoverAmplitude,
-            hoverFrequency = source.hoverFrequency,
-            hoverAxis = source.hoverAxis,
-            endWhenOwnerMissing = source.endWhenOwnerMissing,
-
-            orbitRadius = source.orbitRadius,
-            orbitAngularSpeed = source.orbitAngularSpeed,
-            clockwise = source.clockwise,
-            spawnOrder = source.spawnOrder,
-            maxProjectileCount = source.maxProjectileCount,
-            resetPhaseWhenLayoutChanges = source.resetPhaseWhenLayoutChanges
-        };
-    }
-
-    private Vector2 ResolveDirectionBasedDestination(
-        ProjectileRuntimeData source,
-        SkillProjectileMoveDto move,
-        Vector2 spawnPosition)
-    {
-        Vector2 direction = source != null && source.direction.sqrMagnitude > 0.0001f
-            ? source.direction.normalized
-            : Vector2.right;
-
-        float targetDistance = source != null
-            ? Vector2.Distance(spawnPosition, source.move.targetPosition)
-            : 0f;
-
-        float lifetimeDistance = 0f;
-
-        if (source != null && move != null && source.lifetime > 0f && move.speed > 0f)
-        {
-            lifetimeDistance = source.lifetime * move.speed;
-        }
-
-        float distance = Mathf.Max(targetDistance, lifetimeDistance);
-
-        if (distance <= 0.0001f)
-        {
-            distance = 1f;
-        }
-
-        return spawnPosition + direction * distance;
-    }
-
-    private Vector2 ResolveLinearBaseDirection(
-        SkillProjectileMoveDto move,
-        ProjectileRuntimeData source,
-        Vector2 spawnPosition)
-    {
-        if (move == null)
-        {
-            return ResolveProjectileDirection(source, 0);
-        }
-
-        Vector2 toTarget = move.targetPosition - spawnPosition;
-
-        if (toTarget.sqrMagnitude > 0.0001f)
-        {
-            return toTarget.normalized;
-        }
-
-        return ResolveProjectileDirection(source, 0);
-    }
-
-    private float ResolveLinearDistance(
-        SkillProjectileMoveDto move,
         Vector2 spawnPosition)
     {
         if (move == null)

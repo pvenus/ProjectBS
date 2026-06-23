@@ -613,44 +613,13 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private Transform ResolveEffectSourceTransform(EffectSO effectSo)
     {
-        if (effectSo is TauntEffectSO && IsTauntLurePointEnabled(effectSo))
+        if (effectSo is TauntEffectSO)
         {
             return transform;
         }
 
         return ResolveKnockbackSourceTransform();
     }
-
-    private bool IsTauntLurePointEnabled(EffectSO effectSo)
-    {
-        if (effectSo == null)
-        {
-            return false;
-        }
-
-        FieldInfo useLurePointField = effectSo.GetType().GetField(
-            "useLurePoint",
-            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-        if (useLurePointField != null
-            && useLurePointField.FieldType == typeof(bool))
-        {
-            return (bool)useLurePointField.GetValue(effectSo);
-        }
-
-        PropertyInfo useLurePointProperty = effectSo.GetType().GetProperty(
-            "UseLurePoint",
-            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-        if (useLurePointProperty != null
-            && useLurePointProperty.PropertyType == typeof(bool))
-        {
-            return (bool)useLurePointProperty.GetValue(effectSo);
-        }
-
-        return false;
-    }
-
     private Transform ResolveKnockbackSourceTransform()
     {
         if (runtimeData != null && runtimeData.owner != null)

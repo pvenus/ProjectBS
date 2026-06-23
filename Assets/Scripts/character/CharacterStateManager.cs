@@ -115,7 +115,6 @@ namespace Character
             ResolveLateComponents();
             _context.DeltaTime = Time.deltaTime;
             TryGetForcedTarget(out _);
-            TryGetLurePoint(out _);
 
             if (_currentState == null || _currentState.IsFinished)
             {
@@ -242,35 +241,6 @@ namespace Character
 
             return TryGetForcedTarget(out Transform forcedTarget)
                    && forcedTarget == target;
-        }
-
-        public void ApplyLurePoint(
-            Vector2 lurePoint,
-            float duration,
-            float lureRadius,
-            float lureMoveSpeedMultiplier)
-        {
-            _context?.ApplyLurePoint(
-                lurePoint,
-                duration,
-                lureRadius,
-                lureMoveSpeedMultiplier);
-        }
-
-        public void ClearLurePoint()
-        {
-            _context?.ClearLurePoint();
-        }
-
-        public bool TryGetLurePoint(out Vector2 lurePoint)
-        {
-            if (_context == null)
-            {
-                lurePoint = Vector2.zero;
-                return false;
-            }
-
-            return _context.TryGetLurePoint(out lurePoint);
         }
 
         public void LogStateMessage(string message)

@@ -33,6 +33,12 @@ namespace Character
                 return;
             }
 
+            if (context.StateManager != null &&
+                context.StateManager.TryGetForcedTarget(out Transform forcedTarget))
+            {
+                context.CurrentTarget = forcedTarget;
+            }
+
             if (context.AnimationMono != null && context.AnimationMono.IsPlayingAttack())
             {
                 StopMovement(context);

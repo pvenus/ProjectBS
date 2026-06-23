@@ -24,16 +24,6 @@ namespace Character
 
         public float ForcedTargetEndTime;
 
-        public bool HasLurePoint;
-
-        public Vector2 LurePoint;
-
-        public float LureEndTime;
-
-        public float LureRadius;
-
-        public float LureMoveSpeedMultiplier = 1f;
-
         public SkillExecutorMono SkillExecutor;
 
         public CharacterSkillManager SkillManager;
@@ -75,41 +65,6 @@ namespace Character
             }
 
             target = ForcedTarget;
-            return true;
-        }
-
-        public void ApplyLurePoint(
-            Vector2 lurePoint,
-            float duration,
-            float lureRadius,
-            float lureMoveSpeedMultiplier)
-        {
-            HasLurePoint = true;
-            LurePoint = lurePoint;
-            LureEndTime = Time.time + Mathf.Max(0f, duration);
-            LureRadius = Mathf.Max(0f, lureRadius);
-            LureMoveSpeedMultiplier = Mathf.Max(0f, lureMoveSpeedMultiplier);
-        }
-
-        public void ClearLurePoint()
-        {
-            HasLurePoint = false;
-            LurePoint = Vector2.zero;
-            LureEndTime = 0f;
-            LureRadius = 0f;
-            LureMoveSpeedMultiplier = 1f;
-        }
-
-        public bool TryGetLurePoint(out Vector2 lurePoint)
-        {
-            if (!HasLurePoint || Time.time > LureEndTime)
-            {
-                ClearLurePoint();
-                lurePoint = Vector2.zero;
-                return false;
-            }
-
-            lurePoint = LurePoint;
             return true;
         }
 

@@ -66,14 +66,6 @@ namespace ResourceTools.Effect
             public float force;
             public float distance;
 
-            [Header("Taunt")]
-            public bool forceTargetToCaster;
-            public bool blockRetargeting;
-            public bool allowAttack;
-            public bool allowMovement;
-            public bool useLurePoint;
-            public float lureRadius;
-            public float lureMoveSpeedMultiplier;
 
             [Header("Skill / Cooldown")]
             public float cooldownReduceValue;
@@ -370,7 +362,6 @@ namespace ResourceTools.Effect
                 case "Taunt":
                 case "TauntEffect":
                 case "TauntEffectSO":
-                    ApplyTauntFields(effect, data);
                     break;
 
                 case "CooldownReduce":
@@ -462,18 +453,6 @@ namespace ResourceTools.Effect
             SetFirstExistingField(effect, data.distance, "distance", "knockbackDistance");
         }
 
-        private static void ApplyTauntFields(
-            EffectSO effect,
-            EffectJson data)
-        {
-            SetFirstExistingField(effect, data.forceTargetToCaster, "forceTargetToCaster");
-            SetFirstExistingField(effect, data.blockRetargeting, "blockRetargeting");
-            SetFirstExistingField(effect, data.allowAttack, "allowAttack");
-            SetFirstExistingField(effect, data.allowMovement, "allowMovement");
-            SetFirstExistingField(effect, data.useLurePoint, "useLurePoint");
-            SetFirstExistingField(effect, data.lureRadius, "lureRadius");
-            SetFirstExistingField(effect, data.lureMoveSpeedMultiplier, "lureMoveSpeedMultiplier");
-        }
 
         private static void ApplyCooldownReduceFields(
             EffectSO effect,

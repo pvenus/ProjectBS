@@ -127,11 +127,6 @@ public class EquipmentSkillResolver
             ? equipmentSo.SpawnSkillSo
             : null;
 
-        if (baseProjectileData.move != null)
-        {
-            baseProjectileData.move.maxProjectileCount = baseProjectileData.projectileCount;
-        }
-
         ResolvedHitRuntimeData[] hitRuntimes =
             CreateHitRuntimeDatas(runtime, resolvedStatModifiers);
 
@@ -210,7 +205,6 @@ public class EquipmentSkillResolver
             projectileScale = source.projectileScale,
             projectileSpawnInterval = source.projectileSpawnInterval,
             projectileSpawnRadius = source.projectileSpawnRadius,
-            move = source.move,
             moveRuntime = source.moveRuntime,
             damageProfile = source.damageProfile,
             visualContext = source.visualContext,

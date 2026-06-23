@@ -407,9 +407,10 @@ namespace Skill.Service.Helper
                     continue;
                 }
 
-                if (usePoint && projectileData.move != null)
+                if (usePoint && projectileData.moveRuntime != null)
                 {
-                    projectileData.move.targetPosition = targetPoint;
+                    projectileData.spawnPosition = targetPoint;
+                    projectileData.moveRuntime.targetPosition = targetPoint;
                 }
 
                 ProjectileEntity projectile = factory.SpawnOriented(
