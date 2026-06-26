@@ -12,7 +12,7 @@ using UnityEngine;
 /// - Avoids obstacles via Physics2D overlap checks.
 /// </summary>
 [System.Serializable]
-public class SpawnPattern
+public class NpcSpawnPattern
 {
     public enum ShapeType
     {
@@ -35,7 +35,7 @@ public class WaveConfig
 {
     public string name;
     public float duration;
-    public List<SpawnPattern> patterns;
+    public List<NpcSpawnPattern> patterns;
 }
 
 public class NpcSpawnMono : MonoBehaviour
@@ -76,7 +76,7 @@ public class NpcSpawnMono : MonoBehaviour
 
     private int currentWaveIndex;
     private float waveTimer;
-    private SpawnPattern currentPattern;
+    private NpcSpawnPattern currentPattern;
 
     [Header("Legacy Flat Spawn (used when wave pacing is disabled)")]
     [SerializeField] private int spawnBurst = 3;
@@ -127,63 +127,63 @@ public class NpcSpawnMono : MonoBehaviour
                 {
                     name = "Dummy Wave",
                     duration = 10f,
-                    patterns = new List<SpawnPattern>
+                    patterns = new List<NpcSpawnPattern>
                     {
-                        new SpawnPattern
+                        new NpcSpawnPattern
                         {
                             name = "Dummy Circle Pattern",
                             burst = 6,
                             interval = 10f,
                             maxAlive = 30,
-                            shapeType = SpawnPattern.ShapeType.Circle,
+                            shapeType = NpcSpawnPattern.ShapeType.Circle,
                             circlePattern = new SpawnCirclePattern()
                         },
-                        new SpawnPattern
+                        new NpcSpawnPattern
                         {
                             name = "Top Horizontal Line",
                             burst = 5,
                             interval = 10f,
                             maxAlive = 30,
-                            shapeType = SpawnPattern.ShapeType.Line,
+                            shapeType = NpcSpawnPattern.ShapeType.Line,
                             linePattern = new SpawnLinePattern()
                                 .SetCenterOffset(new Vector2(0f, 30f))
                                 .SetSpawnCount(10)
                                 .SetSpacing(3f)
                                 .SetDirectionMode(SpawnLinePattern.LineDirectionMode.AutoPerpendicularToOffset)
                         },
-                        new SpawnPattern
+                        new NpcSpawnPattern
                         {
                             name = "Bottom Horizontal Line",
                             burst = 5,
                             interval = 10f,
                             maxAlive = 30,
-                            shapeType = SpawnPattern.ShapeType.Line,
+                            shapeType = NpcSpawnPattern.ShapeType.Line,
                             linePattern = new SpawnLinePattern()
                                 .SetCenterOffset(new Vector2(0f, -30f))
                                 .SetSpawnCount(10)
                                 .SetSpacing(3f)
                                 .SetDirectionMode(SpawnLinePattern.LineDirectionMode.AutoPerpendicularToOffset)
                         },
-                        new SpawnPattern
+                        new NpcSpawnPattern
                         {
                             name = "Left Vertical Line",
                             burst = 5,
                             interval = 10f,
                             maxAlive = 30,
-                            shapeType = SpawnPattern.ShapeType.Line,
+                            shapeType = NpcSpawnPattern.ShapeType.Line,
                             linePattern = new SpawnLinePattern()
                                 .SetCenterOffset(new Vector2(-30f, 0f))
                                 .SetSpawnCount(10)
                                 .SetSpacing(3f)
                                 .SetDirectionMode(SpawnLinePattern.LineDirectionMode.AutoPerpendicularToOffset)
                         },
-                        new SpawnPattern
+                        new NpcSpawnPattern
                         {
                             name = "Right Vertical Line",
                             burst = 5,
                             interval = 10f,
                             maxAlive = 30,
-                            shapeType = SpawnPattern.ShapeType.Line,
+                            shapeType = NpcSpawnPattern.ShapeType.Line,
                             linePattern = new SpawnLinePattern()
                                 .SetCenterOffset(new Vector2(30f, 0f))
                                 .SetSpawnCount(10)
@@ -241,8 +241,8 @@ public class NpcSpawnMono : MonoBehaviour
         if (currentPattern == null)
             return false;
 
-        return currentPattern.shapeType == SpawnPattern.ShapeType.Circle
-            || currentPattern.shapeType == SpawnPattern.ShapeType.Line;
+        return currentPattern.shapeType == NpcSpawnPattern.ShapeType.Circle
+            || currentPattern.shapeType == NpcSpawnPattern.ShapeType.Line;
     }
 
     private int GetSpawnCountForCurrentPattern(int need)
@@ -252,12 +252,12 @@ public class NpcSpawnMono : MonoBehaviour
 
         switch (currentPattern.shapeType)
         {
-            case SpawnPattern.ShapeType.Circle:
+            case NpcSpawnPattern.ShapeType.Circle:
                 if (currentPattern.circlePattern != null)
                     return Mathf.Min(need, currentPattern.circlePattern.GetTotalSpawnCount());
                 break;
 
-            case SpawnPattern.ShapeType.Line:
+            case NpcSpawnPattern.ShapeType.Line:
                 if (currentPattern.linePattern != null)
                     return Mathf.Min(need, currentPattern.linePattern.GetTotalSpawnCount());
                 break;
@@ -273,13 +273,13 @@ public class NpcSpawnMono : MonoBehaviour
 
         switch (currentPattern.shapeType)
         {
-            case SpawnPattern.ShapeType.Circle:
+            case NpcSpawnPattern.ShapeType.Circle:
                 return TrySpawnCirclePattern(count);
 
-            case SpawnPattern.ShapeType.Line:
+            case NpcSpawnPattern.ShapeType.Line:
                 return TrySpawnLinePattern(count);
 
-            case SpawnPattern.ShapeType.Random:
+            case NpcSpawnPattern.ShapeType.Random:
             default:
                 return false;
         }
@@ -560,11 +560,11 @@ public class NpcSpawnMono : MonoBehaviour
                 ? GetPatternOrigin()
                 : (player != null ? (Vector2)player.position : rectCenter);
 
-            if (currentPattern.shapeType == SpawnPattern.ShapeType.Circle && currentPattern.circlePattern != null)
+            if (currentPattern.shapeType == NpcSpawnPattern.ShapeType.Circle && currentPattern.circlePattern != null)
             {
                 currentPattern.circlePattern.DrawGizmos(origin, Color.cyan, Color.blue);
             }
-            else if (currentPattern.shapeType == SpawnPattern.ShapeType.Line && currentPattern.linePattern != null)
+            else if (currentPattern.shapeType == NpcSpawnPattern.ShapeType.Line && currentPattern.linePattern != null)
             {
                 currentPattern.linePattern.DrawGizmos(origin, Color.yellow, Color.red);
             }

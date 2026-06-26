@@ -40,6 +40,10 @@ namespace Battle
         [SerializeField]
         private StageWaveSO waveSO;
 
+        [Header("New Spawn System")]
+        [SerializeField]
+        private SpawnSequenceSO spawnSequence;
+
         [Header("Timed Props")]
         [SerializeField]
         private List<TimedPropPlacement> timedPropPlacements = new();
@@ -76,6 +80,8 @@ namespace Battle
         public GameObject BackgroundPrefab => backgroundPrefab;
 
         public StageWaveSO WaveSO => waveSO;
+
+        public SpawnSequenceSO SpawnSequence => spawnSequence;
 
         public IReadOnlyList<TimedPropPlacement> TimedPropPlacements => timedPropPlacements;
 

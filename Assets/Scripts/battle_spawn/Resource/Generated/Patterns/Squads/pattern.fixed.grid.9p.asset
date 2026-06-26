@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6f94f39c453d042992a6d9b01ee889, type: 3}
+  m_Name: pattern.fixed.grid.9p
+  m_EditorClassIdentifier: Assembly-CSharp::FixedPatternSO
+  patternId: pattern.fixed.grid.9p
+  displayName: "\uC0AC\uAC01 9\uC2AC\uB86F \uACA9\uC790 \uBC30\uCE58"
+  slots:
+  - localPosition: {x: -1, y: 1}
+    localRotation: 0
+  - localPosition: {x: 0, y: 1}
+    localRotation: 0
+  - localPosition: {x: 1, y: 1}
+    localRotation: 0
+  - localPosition: {x: -1, y: 0}
+    localRotation: 0
+  - localPosition: {x: 0, y: 0}
+    localRotation: 0
+  - localPosition: {x: 1, y: 0}
+    localRotation: 0
+  - localPosition: {x: -1, y: -1}
+    localRotation: 0
+  - localPosition: {x: 0, y: -1}
+    localRotation: 0
+  - localPosition: {x: 1, y: -1}
+    localRotation: 0

@@ -1,0 +1,124 @@
+[
+  {
+    "patternId": "pattern.fixed.origin",
+    "patternType": "FixedPosition",
+    "displayName": "1슬롯 원점",
+    "spawnDelay": 0.0,
+    "positions": [
+      { "localPosition": { "x": 0.0, "y": 0.0 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.circle.6p",
+    "patternType": "FixedPosition",
+    "displayName": "원형 6슬롯 배치",
+    "spawnDelay": 0.2,
+    "positions": [
+      { "localPosition": { "x": 1.0, "y": 0.0 } },
+      { "localPosition": { "x": 0.5, "y": 0.866 } },
+      { "localPosition": { "x": -0.5, "y": 0.866 } },
+      { "localPosition": { "x": -1.0, "y": 0.0 } },
+      { "localPosition": { "x": -0.5, "y": -0.866 } },
+      { "localPosition": { "x": 0.5, "y": -0.866 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.grid.9p",
+    "patternType": "FixedPosition",
+    "displayName": "사각 9슬롯 격자 배치",
+    "spawnDelay": 0.15,
+    "positions": [
+      { "localPosition": { "x": -1.0, "y": 1.0 } },
+      { "localPosition": { "x": 0.0, "y": 1.0 } },
+      { "localPosition": { "x": 1.0, "y": 1.0 } },
+      { "localPosition": { "x": -1.0, "y": 0.0 } },
+      { "localPosition": { "x": 0.0, "y": 0.0 } },
+      { "localPosition": { "x": 1.0, "y": 0.0 } },
+      { "localPosition": { "x": -1.0, "y": -1.0 } },
+      { "localPosition": { "x": 0.0, "y": -1.0 } },
+      { "localPosition": { "x": 1.0, "y": -1.0 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.triangle.6p",
+    "patternType": "FixedPosition",
+    "displayName": "삼각 6슬롯 피라미드 배치",
+    "spawnDelay": 0.25,
+    "positions": [
+      { "localPosition": { "x": 0.0, "y": 1.0 } },
+      { "localPosition": { "x": -0.5, "y": 0.0 } },
+      { "localPosition": { "x": 0.5, "y": 0.0 } },
+      { "localPosition": { "x": -1.0, "y": -1.0 } },
+      { "localPosition": { "x": 0.0, "y": -1.0 } },
+      { "localPosition": { "x": 1.0, "y": -1.0 } }
+    ]
+  },
+  {
+    "patternId": "pattern.random.circle.r3",
+    "patternType": "RangeRandom",
+    "displayName": "랜덤 원형 배치",
+    "spawnDelay": 0.1,
+    "shape": "Circle",
+    "areaSize": { "x": 1.0, "y": 0.0 },
+    "quantity": 8,
+    "scale": 3.0,
+    "rotation": 0.0
+  },
+  {
+    "patternId": "pattern.random.rect.6x4",
+    "patternType": "RangeRandom",
+    "displayName": "랜덤 사각 배치",
+    "spawnDelay": 0.1,
+    "shape": "Rectangle",
+    "areaSize": { "x": 1.5, "y": 1.0 },
+    "quantity": 10,
+    "scale": 4.0,
+    "rotation": 15.0
+  },
+  {
+    "patternId": "pattern.fixed.triangle.3p",
+    "patternType": "FixedPosition",
+    "displayName": "삼각 3슬롯 분대 배치",
+    "spawnDelay": 0.2,
+    "positions": [
+      { "localPosition": { "x": 0.0, "y": 0.8 } },
+      { "localPosition": { "x": -0.6, "y": -0.4 } },
+      { "localPosition": { "x": 0.6, "y": -0.4 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.circle.4p",
+    "patternType": "FixedPosition",
+    "displayName": "원형 4슬롯 분대 배치",
+    "spawnDelay": 0.2,
+    "positions": [
+      { "localPosition": { "x": 0.0, "y": 0.8 } },
+      { "localPosition": { "x": 0.8, "y": 0.0 } },
+      { "localPosition": { "x": 0.0, "y": -0.8 } },
+      { "localPosition": { "x": -0.8, "y": 0.0 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.grid.4p",
+    "patternType": "FixedPosition",
+    "displayName": "사각 4슬롯 분대 배치",
+    "spawnDelay": 0.2,
+    "positions": [
+      { "localPosition": { "x": -0.5, "y": 0.5 } },
+      { "localPosition": { "x": 0.5, "y": 0.5 } },
+      { "localPosition": { "x": -0.5, "y": -0.5 } },
+      { "localPosition": { "x": 0.5, "y": -0.5 } }
+    ]
+  },
+  {
+    "patternId": "pattern.fixed.line.3p",
+    "patternType": "FixedPosition",
+    "displayName": "1줄 3슬롯 분대 배치",
+    "spawnDelay": 0.2,
+    "positions": [
+      { "localPosition": { "x": -1.0, "y": 0.0 } },
+      { "localPosition": { "x": 0.0, "y": 0.0 } },
+      { "localPosition": { "x": 1.0, "y": 0.0 } }
+    ]
+  }
+]

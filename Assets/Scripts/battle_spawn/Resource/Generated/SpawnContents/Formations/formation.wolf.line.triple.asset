@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c964c6c4e2a1a7d4db6100b7222626de, type: 3}
+  m_Name: formation.wolf.line.triple
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnFormationSO
+  contentId: formation.wolf.line.triple
+  spawnDelay: 0
+  squad: {fileID: 11400000, guid: 5e0104d8396372f428ad1c7b7e7f1d37, type: 2}
+  pattern: {fileID: 11400000, guid: 22ad32085bb8ba044aff72603ed2dde0, type: 2}
+  slotInterval: 0.4
+  quantity: 1
+  legacyPattern: {fileID: 0}
