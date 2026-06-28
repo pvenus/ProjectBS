@@ -1,0 +1,33 @@
+{
+  "stageNodeId": "stage.ch1.episode4_2",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode4-2",
+  "episodeNumber": 4,
+  "isRequired": true,
+  "titleKo": "끊어진 발자국",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "동행과 추적",
+  "summaryKo": "유진과 함께 지워진 발자국을 추적하던 서진이, 산적 정찰대와 맞서며 산귀 소문 뒤에 사람의 손길이 있음을 확인하는 협력 전투 에피소드.",
+  "startNodeId": "node.ch1.episode4_2.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode4_2.001",
+      "locationId": "location.forest_broken_tracks",
+      "bodyKo": "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n그 말과 동시에 숲 안쪽에서 화살이 날아와 나무에 박혔다. 산귀의 저주가 아니라, 길목을 지키던 산적의 정찰대였다.\n\n유진은 활시위를 당기며 서진의 옆에 섰다.\n\n\"길은 내가 찾을게. 앞은 네가 열어.\"\n\n서진은 검을 뽑았다.\n\n이 싸움은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 흔적을 붙잡기 위한 싸움이었다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode4_2.break_scouts",
+          "labelKo": "유진과 함께 정찰대를 돌파한다.",
+          "resultKo": "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 적의 시선을 끌며 앞으로 나섰다.",
+          "rewards": [
+            {
+              "rewardType": "battle",
+              "rewardId": "battle.ch1.episode4_2.break_scouts"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

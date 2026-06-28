@@ -61,6 +61,7 @@ namespace ResourceTools.Stage
             public string roundNodeId;
             public string nodeId;
             public string actId;
+            public string episodeId;
             public string titleKo;
             public string summaryKo;
             public string bodyKo;
@@ -322,6 +323,11 @@ namespace ResourceTools.Stage
             if (!string.IsNullOrWhiteSpace(root.actId))
             {
                 return root.actId;
+            }
+
+            if (!string.IsNullOrWhiteSpace(root.episodeId))
+            {
+                return root.episodeId;
             }
 
             return null;

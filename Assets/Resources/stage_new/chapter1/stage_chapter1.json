@@ -1,62 +1,62 @@
-{
+﻿{
   "stageId": "stage.chapter1",
   "stageName": "Chapter 1 - Cheongun Village",
   "useFixedSeed": false,
   "seed": 1,
   "requiredSubEvents": [
     {
-      "nodeId": "stage.ch1.act1",
-      "jsonPath": "Assets/Resources/stage/chapter1/act1.json",
+      "nodeId": "stage.ch1.episode1",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode1.json",
       "fixedDepth": 0,
       "fixedColumn": 0
     },
     {
-      "nodeId": "stage.ch1.act2",
-      "jsonPath": "Assets/Resources/stage/chapter1/act2.json",
+      "nodeId": "stage.ch1.episode2",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode2.json",
       "fixedDepth": 1,
       "fixedColumn": 0
     },
     {
-      "nodeId": "stage.ch1.act3_1",
-      "jsonPath": "Assets/Resources/stage/chapter1/act3-1.json",
+      "nodeId": "stage.ch1.episode3_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode3-1.json",
       "fixedDepth": 2,
       "fixedColumn": 0,
       "hiddenByDefault": true
     },
     {
-      "nodeId": "stage.ch1.act3_2",
-      "jsonPath": "Assets/Resources/stage/chapter1/act3-2.json",
+      "nodeId": "stage.ch1.episode3_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode3-2.json",
       "fixedDepth": 2,
       "fixedColumn": 1,
       "hiddenByDefault": true
     },
     {
-      "nodeId": "stage.ch1.act4_1",
-      "jsonPath": "Assets/Resources/stage/chapter1/act4-1.json",
+      "nodeId": "stage.ch1.episode4_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode4-1.json",
       "fixedDepth": 5,
       "fixedColumn": 0
     },
     {
-      "nodeId": "stage.ch1.act4_2",
-      "jsonPath": "Assets/Resources/stage/chapter1/act4-2.json",
+      "nodeId": "stage.ch1.episode4_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode4-2.json",
       "fixedDepth": 5,
       "fixedColumn": 1
     },
     {
-      "nodeId": "stage.ch1.act5_1",
-      "jsonPath": "Assets/Resources/stage/chapter1/act5-1.json",
+      "nodeId": "stage.ch1.episode5_1",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode5-1.json",
       "fixedDepth": 8,
       "fixedColumn": 0
     },
     {
-      "nodeId": "stage.ch1.act5_2",
-      "jsonPath": "Assets/Resources/stage/chapter1/act5-2.json",
+      "nodeId": "stage.ch1.episode5_2",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode5-2.json",
       "fixedDepth": 8,
       "fixedColumn": 1
     },
     {
-      "nodeId": "stage.ch1.act6",
-      "jsonPath": "Assets/Resources/stage/chapter1/act6.json",
+      "nodeId": "stage.ch1.episode6",
+      "jsonPath": "Assets/Resources/stage/chapter1/episode6.json",
       "fixedDepth": 11,
       "fixedColumn": 0
     }

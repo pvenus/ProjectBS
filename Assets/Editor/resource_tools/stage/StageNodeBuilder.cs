@@ -42,8 +42,10 @@ namespace ResourceTools.Stage
             public string roundNodeId;
             public string nodeId;
             public string actId;
+            public string episodeId;
             public string chapterId;
             public int actNumber;
+            public int episodeNumber;
             public string titleKo;
             public string summary;
             public string nodeType;
@@ -113,7 +115,7 @@ namespace ResourceTools.Stage
             var stageNodeId = ResolveStageNodeId(root);
             if (string.IsNullOrWhiteSpace(stageNodeId))
             {
-                throw new InvalidDataException($"Stage node json has no stageNodeId/roundNodeId/nodeId/actId: {jsonPath}");
+                throw new InvalidDataException($"Stage node json has no stageNodeId/roundNodeId/nodeId/actId/episodeId: {jsonPath}");
             }
 
             var assetPath = GetAssetPath(stageNodeOutputFolder, stageNodeId);
@@ -181,6 +183,11 @@ namespace ResourceTools.Stage
             if (!string.IsNullOrWhiteSpace(root.actId))
             {
                 return root.actId;
+            }
+
+            if (!string.IsNullOrWhiteSpace(root.episodeId))
+            {
+                return root.episodeId;
             }
 
             return null;

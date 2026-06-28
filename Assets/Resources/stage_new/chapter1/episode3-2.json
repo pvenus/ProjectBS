@@ -1,0 +1,48 @@
+{
+  "stageNodeId": "stage.ch1.episode3_2",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "chapter1",
+  "episodeId": "episode3_2",
+  "episodeNumber": 32,
+  "isRequired": true,
+  "useFixedDepth": true,
+  "fixedDepth": 3,
+  "hiddenByDefault": true,
+  "titleKo": "숲길의 궁수",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "영입",
+  "summaryKo": "지워진 발자국과 수레 자국을 따라 숲으로 들어간 서진이, 산길을 읽는 궁수 유진과 동행하게 되는 에피소드.",
+  "startNodeId": "node.ch1.episode3_2.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode3_2.001",
+      "locationId": "location.deep_forest_path",
+      "bodyKo": "유진이 가리킨 흔적은 숲 입구 너머에서도 이어졌다.\n\n사람 발자국과 수레 자국은 오래된 산길을 따라 깊어지다가, 어느 순간부터 의도적으로 흩어져 있었다. 나뭇가지는 부러졌고, 흙은 덮였으며, 발자국의 방향은 여러 갈래로 속여져 있었다.\n\n길가에 떨어진 낡은 천 조각을 본 서진은 자신도 모르게 걸음을 멈췄다. 오래전 청운촌 근처 산길에서 놓쳤던 작은 손이 떠올랐다.\n\n서진은 이 일이 단순한 산적질이 아니라는 것을 느꼈다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode3_2.follow_deeper_trace",
+          "labelKo": "지워진 흔적을 더 깊이 추적한다.",
+          "nextNodeId": "node.ch1.episode3_2.002"
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.episode3_2.002",
+      "locationId": "location.abandoned_training_ground",
+      "bodyKo": "숲속 공터에는 낡은 수련장의 흔적이 남아 있었다.\n\n그곳에서 서진은 홀로 주변을 경계하던 궁수 유진과 마주했다. 그녀의 옷자락에는 마른 피가 묻어 있었고, 발치에는 쓰러진 산적의 흔적이 남아 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 활시위를 늦추지 않은 채 말했다.\n\n\"혼자서는 더 깊이 들어갈 수 없었습니다. 같은 목적이라면, 저도 함께하겠습니다.\"",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode3_2.recruit_yujin",
+          "labelKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+          "resultKo": "유진이 파티에 합류했다.\n\n서진은 이제 산길을 읽는 눈과 함께 움직이게 되었다.",
+          "rewards": [
+            {
+              "rewardType": "party_candidate",
+              "rewardId": "character.yujin"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

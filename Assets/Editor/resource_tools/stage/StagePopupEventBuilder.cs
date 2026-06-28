@@ -41,8 +41,10 @@ namespace ResourceTools.Stage
         private sealed class PopupEventJsonRoot
         {
             public string actId;
+            public string episodeId;
             public string chapterId;
             public int actNumber;
+            public int episodeNumber;
             public string titleKo;
             public string summary;
             public string startNodeId;

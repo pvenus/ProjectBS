@@ -1,0 +1,33 @@
+{
+  "stageNodeId": "stage.ch1.episode4_1",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode4-1",
+  "episodeNumber": 4,
+  "isRequired": true,
+  "titleKo": "피 묻은 산길",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "동행과 시험",
+  "summaryKo": "지한과 함께 피 묻은 산길을 돌파하며, 실종된 아이들이 아직 살아 있을 가능성과 산속의 이상한 흔적을 확인하는 협력 전투 에피소드.",
+  "startNodeId": "node.ch1.episode4_1.001",
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode4_1.001",
+      "locationId": "location.mountain_road_blood_trace",
+      "bodyKo": "지한이 합류한 뒤, 서진 일행은 아이가 남긴 붉은 천의 흔적을 따라 산길로 들어섰다.\n\n길가에는 짓밟힌 약초와 찢어진 옷감, 급히 끌려간 듯한 작은 발자국이 흩어져 있었다. 지한은 그중 하나를 집어 들고 눈을 가늘게 떴다.\n\n\"아이 옷감입니다. 오래되지 않았습니다.\"\n\n말이 끝나기도 전에 숲 아래쪽에서 굶주린 짐승들의 울음소리가 번졌다. 피 냄새를 맡은 것들이었다.\n\n지한은 약상자를 내려놓고 부상자의 흔적이 이어진 길을 가리켰다.\n\n\"제가 뒤를 보겠습니다. 길을 열어주십시오.\"\n\n서진은 고개를 끄덕이고 검을 뽑았다.\n\n이 싸움은 단순히 적을 쓰러뜨리는 일이 아니었다. 아직 늦지 않았다는 가능성을 지키는 싸움이었다.",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode4_1.protect_jihan",
+          "labelKo": "지한을 지키며 산길을 돌파한다.",
+          "resultKo": "서진은 지한이 아이의 흔적을 살필 수 있도록 앞을 막아섰다.",
+          "rewards": [
+            {
+              "rewardType": "battle",
+              "rewardId": "battle.ch1.episode4_1.protect_physician"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
