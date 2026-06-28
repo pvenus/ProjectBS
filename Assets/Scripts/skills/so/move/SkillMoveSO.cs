@@ -1,7 +1,6 @@
 using UnityEngine;
 using Skills.Move.Config;
 using Skill;
-using Skills.Dto.Move;
 
 [CreateAssetMenu(
     fileName = "SkillMove",
@@ -9,54 +8,38 @@ using Skills.Dto.Move;
     order = 15)]
 public class SkillMoveSO : ScriptableObject
 {
-    [Header("Move Type")]
-    [SerializeField] private ProjectileMoveType moveType = ProjectileMoveType.Linear;
-
-    [Header("Config")]
-    [SerializeReference] private SkillMoveConfig config;
-
+    [Header("Move")]
+    [SerializeField] private string moveId;
     [Header("Rotation")]
     [SerializeField] private bool applyDirectionRotation = true;
     [SerializeField] private float rotationOffset;
-
+    [Header("Move Type")]
+    [SerializeField] private ProjectileMoveType moveType = ProjectileMoveType.Linear;
+    [Header("Config")]
+    [SerializeReference] private SkillMoveConfig config;
+    public string MoveId => moveId;
     public ProjectileMoveType MoveType => moveType;
+    public SkillMoveConfig Config => config;
+    public bool ApplyDirectionRotation => applyDirectionRotation;
+    public float RotationOffset => rotationOffset;
 
-    public SkillMoveRuntimeDto CreateMoveRuntimeDto(
-        Transform targetTransform,
-        Vector2 startPosition,
-        Vector2 targetPosition)
+#if UNITY_EDITOR
+    public void ApplyEditorData(
+        string moveId,
+        ProjectileMoveType moveType,
+        bool applyDirectionRotation,
+        float rotationOffset)
     {
-        SkillMoveConfig moveConfig = config ?? CreateDefaultConfig(moveType);
-
-        if (moveConfig == null)
-        {
-            return null;
-        }
-
-        SkillMoveRuntimeDto runtimeDto = moveConfig.CreateMoveDto(
-            targetTransform,
-            startPosition,
-            targetPosition);
-
-        if (runtimeDto != null)
-        {
-            runtimeDto.applyDirectionRotation = applyDirectionRotation;
-            runtimeDto.rotationOffset = rotationOffset;
-        }
-
-        return runtimeDto;
+        this.moveId = moveId;
+        this.moveType = moveType;
+        this.applyDirectionRotation = applyDirectionRotation;
+        this.rotationOffset = rotationOffset;
     }
 
-    private static SkillMoveConfig CreateDefaultConfig(ProjectileMoveType moveType)
+    public void ApplyEditorConfig(
+        SkillMoveConfig config)
     {
-        return moveType switch
-        {
-            ProjectileMoveType.Linear => new LinearMoveConfig(),
-            ProjectileMoveType.Hover => new HoverMoveConfig(),
-            ProjectileMoveType.Warp => new WarpMoveConfig(),
-            ProjectileMoveType.Homing => new HomingMoveConfig(),
-            ProjectileMoveType.Orbit => new OrbitMoveConfig(),
-            _ => null
-        };
+        this.config = config;
     }
+#endif
 }

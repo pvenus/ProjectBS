@@ -24,10 +24,6 @@ public class ProjectileVisual : MonoBehaviour
     [SerializeField] private string hitTriggerName = "Hit";
     [SerializeField] private string despawnTriggerName = "Despawn";
 
-    [Header("Optional Direct Clips")]
-    [SerializeField] private AnimationClip spawnClip;
-    [SerializeField] private AnimationClip hitClip;
-    [SerializeField] private AnimationClip despawnClip;
 
     [Header("Rain Visual")]
     [SerializeField] private int rainBurstCount = 16;
@@ -211,9 +207,10 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
-        if (!ShouldUseAnimatorTriggers() && spawnClip != null)
+        AnimationClip clip = ResolveAnimationClip(SkillAnimationClipType.ProjectileLoop);
+        if (!ShouldUseAnimatorTriggers() && clip != null)
         {
-            PlayClip(spawnClip);
+            PlayClip(clip);
             return;
         }
 
@@ -232,9 +229,10 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
-        if (!ShouldUseAnimatorTriggers() && hitClip != null)
+        AnimationClip clip = ResolveAnimationClip(SkillAnimationClipType.Hit);
+        if (!ShouldUseAnimatorTriggers() && clip != null)
         {
-            PlayClip(hitClip);
+            PlayClip(clip);
             return;
         }
 
@@ -251,12 +249,6 @@ public class ProjectileVisual : MonoBehaviour
         if (IsRainVisualType())
         {
             StopRainRoutine();
-            return;
-        }
-
-        if (!ShouldUseAnimatorTriggers() && despawnClip != null)
-        {
-            PlayClip(despawnClip, true);
             return;
         }
 
@@ -327,20 +319,6 @@ public class ProjectileVisual : MonoBehaviour
         }
     }
 
-    public void SetSpawnClip(AnimationClip clip)
-    {
-        spawnClip = clip;
-    }
-
-    public void SetHitClip(AnimationClip clip)
-    {
-        hitClip = clip;
-    }
-
-    public void SetDespawnClip(AnimationClip clip)
-    {
-        despawnClip = clip;
-    }
 
     public void SetMaterial(Material material)
     {
@@ -361,16 +339,38 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
-        spawnClip = data.spawnClip;
-        hitClip = data.hitClip;
-        despawnClip = data.despawnClip;
-
         SetColor(data.color);
 
         if (data.material != null)
         {
             SetMaterial(data.material);
         }
+    }
+
+    private AnimationClip ResolveAnimationClip(
+        SkillAnimationClipType clipType)
+    {
+        BaseVisualSO baseVisual = runtimeData != null &&
+                                  runtimeData.sourceEquipment != null
+            ? runtimeData.sourceEquipment.BaseVisualSo
+            : null;
+
+        if (baseVisual == null || baseVisual.AnimationClips == null)
+        {
+            return null;
+        }
+
+        AnimationClipEntry[] clips = baseVisual.AnimationClips;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            AnimationClipEntry entry = clips[i];
+            if (entry != null && entry.ClipType == clipType)
+            {
+                return entry.Clip;
+            }
+        }
+
+        return null;
     }
 
     private bool ShouldUseAnimatorTriggers()
@@ -389,7 +389,7 @@ public class ProjectileVisual : MonoBehaviour
         StopRainRoutine();
         ClearRainRenderers();
 
-        if (spawnClip == null)
+        if (ResolveAnimationClip(SkillAnimationClipType.ProjectileLoop) == null)
         {
             return;
         }
@@ -429,7 +429,8 @@ public class ProjectileVisual : MonoBehaviour
 
     private SpriteRenderer CreateRainRenderer(int index, int count)
     {
-        if (spawnClip == null)
+        AnimationClip rainClip = ResolveAnimationClip(SkillAnimationClipType.ProjectileLoop);
+        if (rainClip == null)
         {
             return null;
         }
@@ -454,7 +455,7 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         Animator rainAnimator = rainObject.AddComponent<Animator>();
-        PlayableGraph rainGraph = PlayRainClip(rainAnimator, spawnClip);
+        PlayableGraph rainGraph = PlayRainClip(rainAnimator, rainClip);
 
         if (rainGraph.IsValid())
         {
@@ -578,9 +579,10 @@ public class ProjectileVisual : MonoBehaviour
 
     private float ResolveRainFallDuration()
     {
-        if (spawnClip != null && spawnClip.length > 0f)
+        AnimationClip rainClip = ResolveAnimationClip(SkillAnimationClipType.ProjectileLoop);
+        if (rainClip != null && rainClip.length > 0f)
         {
-            return spawnClip.length;
+            return rainClip.length;
         }
 
         return Mathf.Max(0.01f, rainDuration);

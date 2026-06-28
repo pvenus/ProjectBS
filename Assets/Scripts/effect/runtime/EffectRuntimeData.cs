@@ -7,9 +7,6 @@ namespace Effect
     {
         public string RuntimeId;
 
-        public EffectSourceType SourceType;
-        public string SourceId;
-
         public bool IsActive = true;
 
         public virtual void OnApply()

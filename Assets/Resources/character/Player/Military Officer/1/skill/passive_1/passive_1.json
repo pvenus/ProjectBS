@@ -1,52 +1,45 @@
 {
   "equipmentId": "skill.military_officer.1.passive_1",
-  "slotName": "passive_1",
   "skillName": "불퇴전",
-  "iconName": "passive_1",
   "baseProfile": {
     "profileId": "skill.military_officer.1.indomitable.profile",
-    "skillType": "Passive",
-    "attackArchetype": "None",
-    "category": "None"
+    "skillType": "Passive"
   },
-  "hits": [
-    {
-      "hitId": "skill.military_officer.1.indomitable.hit",
-      "buffEffects": [
-        {
-          "effect": {
-            "effectId": "effect.military_officer.1.indomitable_surrounded_attack",
-            "effectType": "StatModifier",
-            "effectName": "주변 적 10명 이상 시 공격력(%)",
-            "statType": "SurroundedAttackPercent",
-            "valueType": "Flat",
-            "value": 20,
-            "duration": -1
-          },
-          "lifetimeType": "Manual",
-          "categoryType": "Buff",
-          "duration": -1,
-          "maxApplyCount": 1
+  "cast": {
+    "castId": "skill.military_officer.1.indomitable.cast",
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.military_officer.1.indomitable_surrounded_attack",
+          "effectType": "StatModifier",
+          "effectName": "주변 적 10명 이상 시 공격력(%)",
+          "statType": "SurroundedAttackPercent",
+          "valueType": "Flat",
+          "value": 20,
+          "duration": -1
         },
-        {
-          "effect": {
-            "effectId": "effect.military_officer.1.indomitable_surrounded_damage_reduction",
-            "effectType": "StatModifier",
-            "effectName": "주변 적 10명 이상 시 피해 감소(%)",
-            "statType": "SurroundedDamageReductionPercent",
-            "valueType": "Flat",
-            "value": 10,
-            "duration": -1
-          },
-          "lifetimeType": "Manual",
-          "categoryType": "Buff",
-          "duration": -1,
-          "maxApplyCount": 1
-        }
-      ],
-      "debuffEffects": []
-    }
-  ],
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": -1,
+        "maxApplyCount": 1
+      },
+      {
+        "effect": {
+          "effectId": "effect.military_officer.1.indomitable_surrounded_damage_reduction",
+          "effectType": "StatModifier",
+          "effectName": "주변 적 10명 이상 시 피해 감소(%)",
+          "statType": "SurroundedDamageReductionPercent",
+          "valueType": "Flat",
+          "value": 10,
+          "duration": -1
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": -1,
+        "maxApplyCount": 1
+      }
+    ]
+  },
   "upgrade": {
     "skillId": "skill.military_officer.1.indomitable",
     "upgradeTableId": "upgrade.skill.military_officer.1.indomitable",

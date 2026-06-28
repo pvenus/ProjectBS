@@ -1,0 +1,198 @@
+{
+  "balanceBasis": {
+    "type": "BasicAttack",
+    "baseScore": 100,
+    "expectedAttackPower": 20,
+    "areaFactor": 0.5,
+    "hitCount": 2,
+    "note": "논타겟팅 근접 기본 공격은 좁은 전방 범위의 N마리 타격을 기본으로 하되, 전열베기는 등급과 업그레이드를 통해 최대 타격 수가 늘어나는 구조로 설계"
+  },
+  "skills": [
+    {
+      "grade": 1,
+      "title": "기본 공격 - 전열베기",
+      "targetScore": 100,
+      "spec": {
+        "attackType": "근접 직선 범위 공격",
+        "castRange": 0.3,
+        "hitRange": 0.5,
+        "hitCount": 2,
+        "cooldown": 3,
+        "damage": {
+          "baseDamage": 10,
+          "attackPercent": 100
+        },
+        "wikiSource": "전방 2m / 폭 1m, 3초, 15 + 공력 100%",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 30 / 쿨타임 3초 = 대상당 DPS 10. 최대 2마리, 좁은 전방 범위 areaFactor 0.5 적용 시 BalanceScore 100"
+      }
+    },
+    {
+      "grade": 2,
+      "title": "기본 공격 - 전열베기",
+      "targetScore": 225,
+      "spec": {
+        "attackType": "근접 직선 범위 공격",
+        "castRange": 0.35,
+        "hitRange": 0.55,
+        "hitCount": 3,
+        "cooldown": 3,
+        "damage": {
+          "baseDamage": 25,
+          "attackPercent": 100
+        },
+        "wikiSource": "전방 2m / 폭 1m, 3초, 30 + 공력 100%",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 45 / 쿨타임 3초 = 대상당 DPS 15. 등급 상승으로 최대 3마리 타격, 좁은 전방 범위 areaFactor 0.5 적용 시 BalanceScore 225"
+      }
+    },
+    {
+      "grade": 3,
+      "title": "기본 공격 - 전열베기",
+      "targetScore": 440,
+      "spec": {
+        "attackType": "근접 직선 범위 공격",
+        "castRange": 0.4,
+        "hitRange": 0.6,
+        "hitCount": 4,
+        "cooldown": 3,
+        "damage": {
+          "baseDamage": 46,
+          "attackPercent": 100
+        },
+        "wikiSource": "전방 2m / 폭 1m, 3초, 45 + 공력 100%",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 66 / 쿨타임 3초 = 대상당 DPS 22. 등급 상승으로 최대 4마리 타격, 좁은 전방 범위 areaFactor 0.5 적용 시 BalanceScore 440"
+      }
+    }
+  ],
+  "upgrade": {
+    "maxLevel": 15,
+    "scoreGrowth": {
+      "level1": 100,
+      "level5": 145,
+      "level10": 235,
+      "level15": 350
+    },
+    "entries": [
+      {
+        "level": 2,
+        "description": [
+          "기본 데미지 +1",
+          "공격력 계수 +5%"
+        ]
+      },
+      {
+        "level": 3,
+        "description": [
+          "기본 데미지 +1",
+          "공격력 계수 +5%",
+          "타격 범위 +0.03"
+        ]
+      },
+      {
+        "level": 4,
+        "description": [
+          "기본 데미지 +2",
+          "공격력 계수 +7%",
+          "쿨타임 -0.05초"
+        ]
+      },
+      {
+        "level": 5,
+        "description": [
+          "기본 데미지 +2",
+          "공격력 계수 +8%",
+          "타격 범위 +0.05",
+          "최대 타격 수 +1"
+        ]
+      },
+      {
+        "level": 6,
+        "description": [
+          "기본 데미지 +2",
+          "공격력 계수 +10%",
+          "쿨타임 -0.05초"
+        ]
+      },
+      {
+        "level": 7,
+        "description": [
+          "기본 데미지 +3",
+          "공격력 계수 +10%",
+          "사정거리 +0.03"
+        ]
+      },
+      {
+        "level": 8,
+        "description": [
+          "기본 데미지 +3",
+          "공격력 계수 +12%",
+          "타격 범위 +0.05"
+        ]
+      },
+      {
+        "level": 9,
+        "description": [
+          "기본 데미지 +4",
+          "공격력 계수 +12%",
+          "쿨타임 -0.06초"
+        ]
+      },
+      {
+        "level": 10,
+        "description": [
+          "기본 데미지 +4",
+          "공격력 계수 +15%",
+          "타격 범위 +0.07",
+          "최대 타격 수 +1"
+        ]
+      },
+      {
+        "level": 11,
+        "description": [
+          "기본 데미지 +5",
+          "공격력 계수 +15%",
+          "사정거리 +0.05"
+        ]
+      },
+      {
+        "level": 12,
+        "description": [
+          "기본 데미지 +5",
+          "공격력 계수 +18%",
+          "쿨타임 -0.07초"
+        ]
+      },
+      {
+        "level": 13,
+        "description": [
+          "기본 데미지 +6",
+          "공격력 계수 +20%",
+          "타격 범위 +0.08"
+        ]
+      },
+      {
+        "level": 14,
+        "description": [
+          "기본 데미지 +7",
+          "공격력 계수 +22%",
+          "쿨타임 -0.08초"
+        ]
+      },
+      {
+        "level": 15,
+        "description": [
+          "기본 데미지 +8",
+          "공격력 계수 +25%",
+          "사정거리 +0.07",
+          "타격 범위 +0.1",
+          "최대 타격 수 +1"
+        ]
+      }
+    ],
+    "gradeMaxLevel": {
+      "grade1": 5,
+      "grade2": 10,
+      "grade3": 15
+    },
+    "note": "Generated skill JSON stores upgrade entries only up to each grade max level: grade 1 Lv5, grade 2 Lv10, grade 3 Lv15."
+  }
+}

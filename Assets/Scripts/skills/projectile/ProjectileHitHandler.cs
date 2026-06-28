@@ -536,7 +536,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private void ApplyAdditionalEffects(CharacterManager targetCharacter)
     {
-        if (targetCharacter == null || runtimeData == null || runtimeData.hit == null)
+        if (runtimeData == null || runtimeData.hit == null)
         {
             return;
         }
@@ -557,92 +557,36 @@ public class ProjectileHitHandler : MonoBehaviour
 
         ApplyEffects(
             effectManager,
-            targetCharacter,
-            runtimeData.hit.buffEffects,
-            EffectCategoryType.Buff);
+            runtimeData.hit.buffEffects);
 
         ApplyEffects(
             effectManager,
-            targetCharacter,
-            runtimeData.hit.debuffEffects,
-            EffectCategoryType.Debuff);
+            runtimeData.hit.debuffEffects);
     }
 
     private void ApplyEffects(
         EffectManager effectManager,
-        CharacterManager targetCharacter,
-        SkillProjectileHitEffectEntry[] effects,
-        EffectCategoryType defaultCategoryType)
+        EffectEntryRuntime[] effects)
     {
         if (effectManager == null
-            || targetCharacter == null
             || effects == null
             || effects.Length == 0)
         {
             return;
         }
 
-        string sourceId = GetEffectSourceId();
-
-        foreach (SkillProjectileHitEffectEntry effectEntry in effects)
+        foreach (EffectEntryRuntime effectEntry in effects)
         {
-            if (effectEntry == null || effectEntry.effectSo == null)
+            if (effectEntry == null
+                || effectEntry.RuntimeData == null)
             {
                 continue;
             }
 
-            EffectCategoryType categoryType = effectEntry.categoryType != EffectCategoryType.Neutral
-                ? effectEntry.categoryType
-                : defaultCategoryType;
-
             EffectApplyHelper.ApplyEffect(
                 effectManager,
-                targetCharacter,
-                effectEntry.effectSo,
-                EffectSourceType.Skill,
-                sourceId,
-                effectEntry.lifetimeType,
-                effectEntry.duration,
-                categoryType,
-                ResolveEffectSourceTransform(effectEntry.effectSo),
-                Vector2.zero,
-                ownerCharacter,
                 effectEntry);
         }
-    }
-
-    private Transform ResolveEffectSourceTransform(EffectSO effectSo)
-    {
-        if (effectSo is TauntEffectSO)
-        {
-            return transform;
-        }
-
-        return ResolveKnockbackSourceTransform();
-    }
-    private Transform ResolveKnockbackSourceTransform()
-    {
-        if (runtimeData != null && runtimeData.owner != null)
-        {
-            return runtimeData.owner.transform;
-        }
-
-        return transform;
-    }
-
-    private string GetEffectSourceId()
-    {
-        if (runtimeData != null && runtimeData.projectilePrefab != null)
-        {
-            return runtimeData.projectilePrefab.name;
-        }
-
-        if (ownerEntity != null)
-        {
-            return ownerEntity.name;
-        }
-
-        return gameObject.name;
     }
 
     private CharacterDamageRequest BuildDamageRequest(CharacterManager targetCharacter)

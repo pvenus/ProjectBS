@@ -208,7 +208,7 @@ namespace Shrine
 
             int healAmount =
                 Mathf.RoundToInt(
-                    playerContext.MaxHp * config.partyHealRatio);
+                    playerContext.MaxHp * config.PartyHealRatio);
 
             playerContext.HealHp(healAmount);
 

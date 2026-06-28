@@ -1,0 +1,35 @@
+{
+  "balanceBasis": {
+    "type": "NpcBasicMeleeCharge",
+    "baseScore": 45,
+    "expectedAttackPower": 10,
+    "areaFactor": 1,
+    "hitCount": 999,
+    "note": "몬스터 공통 근접 돌격형 기본 스킬. 짧은 돌진 경로 안의 대상을 타격할 수 있으므로 피해량과 쿨타임을 보수적으로 잡아 score 30~50 구간에 맞춘다"
+  },
+  "skills": [
+    {
+      "grade": 1,
+      "title": "몬스터 근접 돌격",
+      "targetScore": 45,
+      "spec": {
+        "attackType": "전방 돌격 경로 공격",
+        "castRange": 1.2,
+        "hitRange": 0.45,
+        "hitCount": 999,
+        "cooldown": 4,
+        "damage": {
+          "baseDamage": 4,
+          "attackPercent": 70
+        },
+        "targetLayerMask": "Party",
+        "castMove": {
+          "moveType": "DashForward",
+          "distance": 1.2,
+          "duration": 0.25
+        },
+        "balanceNote": "예상 공격력 10 기준 피해 11, 짧은 경로 전체 타격 가능성을 반영해 쿨타임 4초와 낮은 피해량으로 score 45 수준에 맞춘다"
+      }
+    }
+  ]
+}

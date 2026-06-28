@@ -1,0 +1,229 @@
+{
+  "balanceBasis": {
+    "type": "Active1",
+    "baseScore": 100,
+    "expectedAttackPower": 20,
+    "areaFactor": 1.2,
+    "hitCount": 999,
+    "utilityFactor": 1.25,
+    "note": "돌격은 전열베기보다 조금 강한 active1로, grade 1 기준 BalanceScore 120~150 범위에 맞춘다. 이동/넉백/방비 유틸리티가 있어 피해량은 위키 원문보다 낮춰 보정; 돌진 경로상의 적은 제한 없이 처리하도록 maxHitCount 999로 설정한다"
+  },
+  "skills": [
+    {
+      "grade": 1,
+      "title": "액티브 1 - 돌격",
+      "targetScore": 135,
+      "spec": {
+        "attackType": "전방 돌진",
+        "castRange": 1.2,
+        "hitRange": 1.2,
+        "hitCount": 999,
+        "cooldown": 10,
+        "damage": {
+          "baseDamage": 25,
+          "attackPercent": 100
+        },
+        "effects": [
+          {
+            "type": "Knockback",
+            "target": "Enemy",
+            "value": 1,
+            "unit": "m"
+          },
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 20,
+            "duration": 3
+          }
+        ],
+        "wikiSource": "범위 1.5m, 피해량 50 + 공력 180%, 적 넉백 1m, 방비 +20, 지속시간 3초, 쿨타임 10초",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 45 / 쿨타임 10초 = 대상당 DPS 4.5. 범위 내 전체, 돌진 areaFactor 1.2, 유틸리티 1.25 적용 시 BalanceScore 203이지만 피해/넉백/이동 동시 적중 빈도를 보수적으로 0.67배 적용해 targetScore 135로 산정 maxHitCount는 999로 두되 실제 성능 평가는 돌진 경로/범위 적중 빈도로 보정한다",
+        "hitPolicy": "AllTargetsInChargePath"
+      }
+    },
+    {
+      "grade": 2,
+      "title": "액티브 1 - 돌격",
+      "targetScore": 195,
+      "spec": {
+        "attackType": "전방 돌진",
+        "castRange": 1.35,
+        "hitRange": 1.35,
+        "hitCount": 999,
+        "cooldown": 10,
+        "damage": {
+          "baseDamage": 40,
+          "attackPercent": 125
+        },
+        "effects": [
+          {
+            "type": "Knockback",
+            "target": "Enemy",
+            "value": 1,
+            "unit": "m"
+          },
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 20,
+            "duration": 3
+          }
+        ],
+        "wikiSource": "범위 1.5m, 피해량 80 + 공력 180%, 적 넉백 1m, 방비 +20, 지속시간 3초, 쿨타임 10초",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 65 / 쿨타임 10초 = 대상당 DPS 6.5. 범위 내 전체와 유틸리티를 반영하되 실전 적중 보정 0.67배를 적용해 targetScore 195로 산정 maxHitCount는 999로 두되 실제 성능 평가는 돌진 경로/범위 적중 빈도로 보정한다",
+        "hitPolicy": "AllTargetsInChargePath"
+      }
+    },
+    {
+      "grade": 3,
+      "title": "액티브 1 - 돌격",
+      "targetScore": 270,
+      "spec": {
+        "attackType": "전방 돌진",
+        "castRange": 1.5,
+        "hitRange": 1.5,
+        "hitCount": 999,
+        "cooldown": 10,
+        "damage": {
+          "baseDamage": 60,
+          "attackPercent": 150
+        },
+        "effects": [
+          {
+            "type": "Knockback",
+            "target": "Enemy",
+            "value": 1,
+            "unit": "m"
+          },
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 20,
+            "duration": 3
+          }
+        ],
+        "wikiSource": "범위 1.5m, 피해량 120 + 공력 180%, 적 넉백 1m, 방비 +20, 지속시간 3초, 쿨타임 10초",
+        "balanceNote": "예상 공격력 20 기준 대상당 총 피해 90 / 쿨타임 10초 = 대상당 DPS 9.0. grade 3은 범위 내 전체로 성장하지만 실전 적중 보정과 유틸리티 중복 가치를 반영해 targetScore 270으로 제한 maxHitCount는 999로 두되 실제 성능 평가는 돌진 경로/범위 적중 빈도로 보정한다",
+        "hitPolicy": "AllTargetsInChargePath"
+      }
+    }
+  ],
+  "upgrade": {
+    "maxLevel": 15,
+    "scoreGrowth": {
+      "level1": 135,
+      "level5": 175,
+      "level10": 245,
+      "level15": 340
+    },
+    "entries": [
+      {
+        "level": 2,
+        "description": [
+          "기본 데미지 +5",
+          "공격력 계수 +5%"
+        ]
+      },
+      {
+        "level": 3,
+        "description": [
+          "쿨타임 -0.3초",
+          "방비 증가량 +2"
+        ]
+      },
+      {
+        "level": 4,
+        "description": [
+          "기본 데미지 +7",
+          "돌진 사정거리 +0.1"
+        ]
+      },
+      {
+        "level": 5,
+        "description": [
+          "공격력 계수 +8%",
+          "방비 지속시간 +0.3초"
+        ]
+      },
+      {
+        "level": 6,
+        "description": [
+          "기본 데미지 +8",
+          "쿨타임 -0.3초"
+        ]
+      },
+      {
+        "level": 7,
+        "description": [
+          "공격력 계수 +10%",
+          "넉백 거리 +0.1m"
+        ]
+      },
+      {
+        "level": 8,
+        "description": [
+          "기본 데미지 +10",
+          "타격 범위 +0.1"
+        ]
+      },
+      {
+        "level": 9,
+        "description": [
+          "쿨타임 -0.4초",
+          "방비 증가량 +3"
+        ]
+      },
+      {
+        "level": 10,
+        "description": [
+          "기본 데미지 +12",
+          "공격력 계수 +12%"
+        ]
+      },
+      {
+        "level": 11,
+        "description": [
+          "돌진 사정거리 +0.15",
+          "방비 지속시간 +0.5초"
+        ]
+      },
+      {
+        "level": 12,
+        "description": [
+          "기본 데미지 +14",
+          "쿨타임 -0.5초"
+        ]
+      },
+      {
+        "level": 13,
+        "description": [
+          "공격력 계수 +15%",
+          "넉백 거리 +0.15m"
+        ]
+      },
+      {
+        "level": 14,
+        "description": [
+          "기본 데미지 +16",
+          "방비 증가량 +5"
+        ]
+      },
+      {
+        "level": 15,
+        "description": [
+          "기본 데미지 +20",
+          "공격력 계수 +20%",
+          "돌진 사정거리 +0.2",
+          "타격 범위 +0.15"
+        ]
+      }
+    ],
+    "gradeMaxLevel": {
+      "grade1": 5,
+      "grade2": 10,
+      "grade3": 15
+    },
+    "note": "Generated skill JSON stores upgrade entries only up to each grade max level: grade 1 Lv5, grade 2 Lv10, grade 3 Lv15."
+  }
+}

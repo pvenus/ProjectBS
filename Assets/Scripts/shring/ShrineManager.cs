@@ -128,8 +128,8 @@ namespace Shrine
 
             currentShrine = new ShrineRuntimeData(shrineId, shrineName)
             {
-                seed = config.seed,
-                generatedFromConfigId = config.configId
+                seed = config.Seed,
+                generatedFromConfigId = config.ConfigId
             };
 
             currentShrine.SetAvailableGods(GetAvailableGodTypes());
@@ -465,7 +465,7 @@ namespace Shrine
             List<BlessSO> selectedBlessings =
                 blessingService.GenerateBlessingCandidates(
                     godType,
-                    Mathf.Max(1, config.blessingCandidateCount));
+                    config.BlessingCandidateCount);
 
             List<BlessRuntimeData.BlessEntry> runtimeCandidates = new();
 
@@ -482,7 +482,7 @@ namespace Shrine
                 runtimeCandidates.Add(
                     new BlessRuntimeData.BlessEntry(
                         blessing,
-                        config.configId,
+                        config.ConfigId,
                         i));
             }
             if (currentShrine == null)
@@ -506,8 +506,8 @@ namespace Shrine
 
             List<ShrineGodType> result = new();
 
-            List<ShrineGodType> defaults =
-                config.GetDefaultAvailableGods();
+            IReadOnlyList<ShrineGodType> defaults =
+                config.DefaultAvailableGods;
 
             if (defaults != null)
             {

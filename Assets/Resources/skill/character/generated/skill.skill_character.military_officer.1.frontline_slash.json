@@ -1,0 +1,159 @@
+{
+  "equipmentId": "skill.skill_character.military_officer.1.frontline_slash",
+  "baseProfile": {
+    "baseProfileId": "skill.skill_character.military_officer.1.frontline_slash.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 0.2,
+    "projectileSpawn": {
+      "spawnOffset": 0.3,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.skill_character.military_officer.1.frontline_slash.cast",
+    "targetingType": "Directional",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 0.3,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.skill_character.military_officer.1.frontline_slash.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.skill_character.military_officer.1.frontline_slash.hit",
+      "maxHitCount": 2,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "baseDamage": 10,
+        "attackPercentDamage": 1
+      }
+    }
+  ],
+  "upgradeTable": {
+    "upgradeTableId": "upgrade.skill.skill_character.military_officer.1.frontline_slash",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.03
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.07
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.08
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "MaxHitCount",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      }
+    ]
+  },
+  "baseVisual": {
+    "visualId": "skill.skill_character.military_officer.1.frontline_slash.visual",
+    "projectileVisualType": "Default"
+  }
+}

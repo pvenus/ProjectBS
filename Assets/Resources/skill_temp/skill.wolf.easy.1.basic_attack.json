@@ -1,0 +1,44 @@
+{
+  "equipmentId": "skill.wolf.easy.1.basic_attack",
+  "baseProfile": {
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 0.3,
+    "projectileSpawn": {
+      "spawnOffset": 1,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.wolf.easy.1.basic_attack.cast",
+    "targetingType": "Directional",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 2,
+    "skipAttackAnimation": false
+  },
+  "hits": [
+    {
+      "hitId": "skill.wolf.easy.1.basic_attack.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Party",
+      "damage": {
+        "damageType": "Normal",
+        "baseDamage": 15,
+        "attackPercentDamage": 100
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.wolf.easy.1.basic_attack.visual",
+    "projectileVisualType": "Default"
+  }
+}

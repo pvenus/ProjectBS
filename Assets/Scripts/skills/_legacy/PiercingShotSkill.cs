@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Skill;
 /// <summary>
 /// PiercingShotSkill
 /// - Fires a long straight projectile that can pierce through multiple enemies.

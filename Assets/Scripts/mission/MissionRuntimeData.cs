@@ -50,12 +50,15 @@ namespace Mission
                 conditions = new List<MissionConditionRuntimeEntry>(),
             };
 
-            if (mission.conditions != null)
+            IReadOnlyList<MissionConditionData> conditions =
+                mission.Conditions;
+
+            if (conditions != null)
             {
-                for (int i = 0; i < mission.conditions.Count; i++)
+                for (int i = 0; i < conditions.Count; i++)
                 {
                     MissionConditionData condition =
-                        mission.conditions[i];
+                        conditions[i];
 
                     if (condition == null)
                     {
@@ -104,6 +107,13 @@ namespace Mission
             {
                 return false;
             }
+            IReadOnlyList<MissionConditionData> conditions =
+                mission.Conditions;
+
+            if (conditions == null)
+            {
+                return false;
+            }
 
             MissionConditionRuntimeEntry runtimeCondition =
                 entry.conditions.Find(x => x.progressKey == key);
@@ -113,8 +123,20 @@ namespace Mission
                 return false;
             }
 
-            MissionConditionData missionCondition =
-                mission.conditions.Find(x => x != null && x.progressKey == key);
+            MissionConditionData missionCondition = null;
+
+            for (int i = 0; i < conditions.Count; i++)
+            {
+                MissionConditionData condition = conditions[i];
+
+                if (condition == null || condition.progressKey != key)
+                {
+                    continue;
+                }
+
+                missionCondition = condition;
+                break;
+            }
 
             if (missionCondition == null)
             {
@@ -134,7 +156,7 @@ namespace Mission
                 if (missionCondition.targetCount <= 0)
                 {
                     Debug.LogWarning(
-                        $"[MissionRuntimeData] Counter mission requires targetCount > 0. mission={mission.displayName}, key={key}");
+                        $"[MissionRuntimeData] Counter mission requires targetCount > 0. mission={mission.DisplayName}, key={key}");
 
                     return false;
                 }
@@ -148,7 +170,7 @@ namespace Mission
                         != MissionCompareType.Equal)
                 {
                     Debug.LogWarning(
-                        $"[MissionRuntimeData] State mission requires valid targetValue. mission={mission.displayName}, key={key}");
+                        $"[MissionRuntimeData] State mission requires valid targetValue. mission={mission.DisplayName}, key={key}");
                 }
             }
 
@@ -163,7 +185,7 @@ namespace Mission
                     == MissionCompareType.None)
             {
                 Debug.LogWarning(
-                    $"[MissionRuntimeData] CompareType is required for State mission. mission={mission.displayName}, key={key}");
+                    $"[MissionRuntimeData] CompareType is required for State mission. mission={mission.DisplayName}, key={key}");
 
                 return false;
             }

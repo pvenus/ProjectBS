@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Skill;
+using Effect;
 /// <summary>
 /// 장비 업그레이드 런타임 변환용 헬퍼.
 /// Entry/SO는 순수 데이터로 두고, 런타임 modifier 복사/변환은 여기서 처리한다.
@@ -40,10 +40,13 @@ public static class UpgradeHelper
             return null;
         }
 
-        return SkillStatModifierData.Create(
-            source.modifierType,
-            source.operationType,
-            source.value);
+        SkillStatModifierData copied = new SkillStatModifierData();
+        copied.ApplyEditorData(
+            source.ModifierType,
+            source.OperationType,
+            source.Value);
+
+        return copied;
     }
 
     public static List<EffectUpgradeModifierData> CopyEffectModifiers(
@@ -78,11 +81,14 @@ public static class UpgradeHelper
             return null;
         }
 
-        return EffectUpgradeModifierData.Create(
-            source.effectId,
-            source.fieldType,
-            source.operationType,
-            source.value);
+        EffectUpgradeModifierData copied = new EffectUpgradeModifierData();
+        copied.ApplyEditorData(
+            source.TargetEffectId,
+            source.FieldType,
+            source.OperationType,
+            source.Value);
+
+        return copied;
     }
 
     public static List<SkillStatModifierData> CollectModifiersUpToLevel(

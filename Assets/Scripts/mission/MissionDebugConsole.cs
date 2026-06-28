@@ -47,18 +47,22 @@ namespace Mission
 
                 string missionName =
                     mission != null
-                        ? mission.displayName
+                        ? mission.DisplayName
                         : "NULL";
+
+                IReadOnlyList<MissionConditionData> conditions =
+                    mission != null
+                        ? mission.Conditions
+                        : null;
 
                 string conditionText = string.Empty;
 
-                if (mission != null
-                    && mission.conditions != null)
+                if (conditions != null)
                 {
-                    for (int j = 0; j < mission.conditions.Count; j++)
+                    for (int j = 0; j < conditions.Count; j++)
                     {
                         MissionConditionData condition =
-                            mission.conditions[j];
+                            conditions[j];
 
                         if (condition == null)
                         {

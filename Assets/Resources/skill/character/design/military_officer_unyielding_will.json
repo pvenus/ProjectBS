@@ -1,0 +1,209 @@
+{
+  "balanceBasis": {
+    "type": "Passive",
+    "baseScore": 100,
+    "expectedAttackPower": 20,
+    "areaFactor": 1,
+    "hitCount": 0,
+    "note": "불퇴전은 주변 2m 이내 적 10명 이상일 때 적용되는 조건부 생존/화력 패시브다. 발동 필요 적 수는 현재 런타임 구조상 업그레이드 value로 조절하지 않고 10명으로 고정하며, 해당 성장 score는 공력/방비/발동 반경 증가로 환산한다",
+    "triggerRequirement": {
+      "type": "EnemyCountInRange",
+      "range": 2,
+      "enemyCount": 10,
+      "upgradePolicy": "SpecOutEnemyCountValue",
+      "scoreReplacement": "Convert enemy-count requirement reduction into AttackBuff, DefenseBuff, or trigger radius growth"
+    }
+  },
+  "skills": [
+    {
+      "grade": 1,
+      "title": "패시브 - 불퇴전",
+      "targetScore": 100,
+      "spec": {
+        "trigger": {
+          "type": "EnemyCountInRange",
+          "range": 2,
+          "enemyCount": 10
+        },
+        "effects": [
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 10
+          },
+          {
+            "type": "AttackBuff",
+            "target": "Self",
+            "value": 20
+          }
+        ],
+        "wikiSource": "주변 2m 이내 적 10명 이상, 방비 +10, 공력 +20",
+        "balanceNote": "직접 DPS는 없지만 공력 +20은 예상 공격력 20 기준 공격 성능을 크게 올리고, 방비 +10이 전열 유지력을 보강한다. 적 10명 조건이 빡빡하므로 grade 1 Score 100으로 산정"
+      }
+    },
+    {
+      "grade": 2,
+      "title": "패시브 - 불퇴전",
+      "targetScore": 145,
+      "spec": {
+        "trigger": {
+          "type": "EnemyCountInRange",
+          "range": 2.2,
+          "enemyCount": 10
+        },
+        "effects": [
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 12
+          },
+          {
+            "type": "AttackBuff",
+            "target": "Self",
+            "value": 24
+          }
+        ],
+        "wikiSource": "군졸 공통 패시브를 2등급 성장치로 보정",
+        "balanceNote": "조건은 유지하되 감지 반경과 수치를 소폭 증가시킨다. 조건부 패시브라 성장 폭을 과하게 잡지 않고 grade 2 Score 145로 산정"
+      }
+    },
+    {
+      "grade": 3,
+      "title": "패시브 - 불퇴전",
+      "targetScore": 210,
+      "spec": {
+        "trigger": {
+          "type": "EnemyCountInRange",
+          "range": 2.5,
+          "enemyCount": 10
+        },
+        "effects": [
+          {
+            "type": "DefenseBuff",
+            "target": "Self",
+            "value": 15
+          },
+          {
+            "type": "AttackBuff",
+            "target": "Self",
+            "value": 30
+          }
+        ],
+        "wikiSource": "군졸 공통 패시브를 3등급 성장치로 보정",
+        "balanceNote": "grade 3은 전열 유지 역할을 강화하기 위해 발동 반경 2.5m, 방비 +15, 공력 +30으로 조정한다. 발동 조건은 여전히 제한적이므로 Score 210으로 산정"
+      }
+    }
+  ],
+  "upgrade": {
+    "maxLevel": 15,
+    "scoreGrowth": {
+      "level1": 100,
+      "level5": 135,
+      "level10": 195,
+      "level15": 285
+    },
+    "entries": [
+      {
+        "level": 2,
+        "description": [
+          "방비 증가량 +1",
+          "공력 증가량 +2"
+        ]
+      },
+      {
+        "level": 3,
+        "description": [
+          "발동 반경 +0.05",
+          "공력 증가량 +2"
+        ]
+      },
+      {
+        "level": 4,
+        "description": [
+          "방비 증가량 +1",
+          "공력 증가량 +3"
+        ]
+      },
+      {
+        "level": 5,
+        "description": [
+          "공력 증가량 +4"
+        ]
+      },
+      {
+        "level": 6,
+        "description": [
+          "방비 증가량 +2",
+          "공력 증가량 +3"
+        ]
+      },
+      {
+        "level": 7,
+        "description": [
+          "발동 반경 +0.05",
+          "방비 증가량 +1"
+        ]
+      },
+      {
+        "level": 8,
+        "description": [
+          "공력 증가량 +4"
+        ]
+      },
+      {
+        "level": 9,
+        "description": [
+          "방비 증가량 +2",
+          "발동 반경 +0.1"
+        ]
+      },
+      {
+        "level": 10,
+        "description": [
+          "공력 증가량 +5",
+          "방비 증가량 +2"
+        ]
+      },
+      {
+        "level": 11,
+        "description": [
+          "방비 증가량 +2",
+          "공력 증가량 +5"
+        ]
+      },
+      {
+        "level": 12,
+        "description": [
+          "발동 반경 +0.1"
+        ]
+      },
+      {
+        "level": 13,
+        "description": [
+          "방비 증가량 +3",
+          "공력 증가량 +6"
+        ]
+      },
+      {
+        "level": 14,
+        "description": [
+          "방비 증가량 +4"
+        ]
+      },
+      {
+        "level": 15,
+        "description": [
+          "방비 증가량 +5",
+          "공력 증가량 +10",
+          "발동 반경 +0.15"
+        ]
+      }
+    ],
+    "gradeMaxLevel": {
+      "grade1": 5,
+      "grade2": 10,
+      "grade3": 15
+    },
+    "note": "Generated skill JSON stores upgrade entries only up to each grade max level: grade 1 Lv5, grade 2 Lv10, grade 3 Lv15."
+  }
+}

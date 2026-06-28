@@ -17,7 +17,7 @@ namespace Effect
             string runtimeId,
             EffectLifetimeType lifetimeType,
             float duration,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+            EffectCategoryType categoryType)
         {
             this.runtimeId = runtimeId;
             this.lifetimeType = lifetimeType;
@@ -63,9 +63,25 @@ namespace Effect
             => activeEffects;
         public void AddEffect(
             EffectRuntimeData runtimeData,
+            EffectEntrySO effectEntry)
+        {
+            if (effectEntry == null)
+            {
+                return;
+            }
+
+            AddEffect(
+                runtimeData,
+                effectEntry.LifetimeType,
+                effectEntry.Duration,
+                effectEntry.CategoryType);
+        }
+
+        public void AddEffect(
+            EffectRuntimeData runtimeData,
             EffectLifetimeType lifetimeType,
-            float duration = -1f,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+            float duration,
+            EffectCategoryType categoryType)
         {
             if (runtimeData == null)
             {
@@ -423,8 +439,7 @@ namespace Effect
         }
 
         public void RemoveEffectsBySource(
-            EffectSourceType sourceType,
-            string sourceId)
+            string runtimeId)
         {
             for (int i = activeEffects.Count - 1;
                  i >= 0;
@@ -438,14 +453,9 @@ namespace Effect
                     continue;
                 }
 
-                if (runtimeData.SourceType != sourceType)
-                {
-                    continue;
-                }
-
                 if (!string.Equals(
-                        runtimeData.SourceId,
-                        sourceId,
+                        runtimeData.RuntimeId,
+                        runtimeId,
                         System.StringComparison.Ordinal))
                 {
                     continue;

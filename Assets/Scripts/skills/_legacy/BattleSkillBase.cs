@@ -1,37 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
-
-public enum BattleSkillCategory
-{
-    None,
-    Attack,
-    Support,
-    Defense,
-    Heal,
-    Control,
-    Buff,
-    Debuff,
-    Utility
-}
-
-public enum BattleSkillTargetType
-{
-    None,
-    Self,
-    Ally,
-    Enemy,
-    Point
-}
-
-public enum BattleSkillTacticalNeed
-{
-    None,
-    SelfDefense,
-    AllySupport,
-    AreaControl,
-    OffensivePressure,
-    Utility
-}
+using Skill;
 
 public abstract class BattleSkillBase : ScriptableObject
 {

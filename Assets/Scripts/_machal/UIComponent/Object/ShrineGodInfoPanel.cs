@@ -72,15 +72,15 @@ public class ShrineGodInfoPanel : UIComponent
                 nameText.text = currentGodSo.DisplayName;
 
             if (descText != null)
-                descText.text = currentGodSo.description;
+                descText.text = currentGodSo.Description;
 
             if (iconImage != null)
             {
-                iconImage.sprite = currentGodSo.icon;
-                iconImage.enabled = currentGodSo.icon != null;
+                iconImage.sprite = currentGodSo.Icon;
+                iconImage.enabled = currentGodSo.Icon != null;
             }
 
-            int faithLevel = currentManager.GetFaithLevel(currentGodSo.godType);
+            int faithLevel = currentManager.GetFaithLevel(currentGodSo.GodType);
             if (faithLevelText != null)
                 faithLevelText.text = $"Faith Lv.{faithLevel}";
 
@@ -88,7 +88,7 @@ public class ShrineGodInfoPanel : UIComponent
             {
                 FaithStageState state = FaithStageState.Normal;
                 ShrinePlayerRuntimeData playerData = currentManager.PlayerRuntimeData;
-                bool hasLockedFaith = playerData != null && playerData.HasLockedFaith && playerData.LockedGod == currentGodSo.godType;
+                bool hasLockedFaith = playerData != null && playerData.HasLockedFaith && playerData.LockedGod == currentGodSo.GodType;
 
                 if (hasLockedFaith) state = FaithStageState.Locked;
                 else if (faithLevel >= 7) state = FaithStageState.Successor;
@@ -102,23 +102,23 @@ public class ShrineGodInfoPanel : UIComponent
             {
                 StringBuilder sb = new StringBuilder();
 
-                if (currentGodSo.unlockMissions != null)
+                if (currentGodSo.UnlockMissions != null)
                 {
-                    foreach (var mission in currentGodSo.unlockMissions)
+                    foreach (var mission in currentGodSo.UnlockMissions)
                     {
                         if (mission == null) continue;
                         if (sb.Length > 0) sb.AppendLine();
-                        sb.Append($"Unlock: {mission.displayName}");
+                        sb.Append($"Unlock: {mission.DisplayName}");
                     }
                 }
 
-                if (currentGodSo.faithMissions != null)
+                if (currentGodSo.FaithMissions != null)
                 {
-                    foreach (var mission in currentGodSo.faithMissions)
+                    foreach (var mission in currentGodSo.FaithMissions)
                     {
                         if (mission == null) continue;
                         if (sb.Length > 0) sb.AppendLine();
-                        sb.Append($"Faith: {mission.displayName}");
+                        sb.Append($"Faith: {mission.DisplayName}");
                     }
                 }
 

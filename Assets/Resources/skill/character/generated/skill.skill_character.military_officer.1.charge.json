@@ -1,0 +1,176 @@
+{
+  "equipmentId": "skill.skill_character.military_officer.1.charge",
+  "baseProfile": {
+    "baseProfileId": "skill.skill_character.military_officer.1.charge.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.2,
+    "projectileLifetime": 0.3
+  },
+  "cast": {
+    "castId": "skill.skill_character.military_officer.1.charge.cast",
+    "targetingType": "Directional",
+    "cooldown": 10,
+    "castTime": 0,
+    "range": 1.2,
+    "skipAttackAnimation": false,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "skill.military_officer.1.active_1.self.damage_reduction",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "Defense",
+            "modifierType": "Flat",
+            "value": 20
+          }
+        },
+        "lifetimeType": "Timed",
+        "categoryType": "Buff",
+        "duration": 3,
+        "maxApplyCount": 1
+      }
+    ],
+    "castMove": {
+      "moveType": "DashForward",
+      "distance": 1.2,
+      "duration": 0.25
+    }
+  },
+  "move": {
+    "moveId": "skill.skill_character.military_officer.1.charge.move",
+    "moveType": "Hover",
+    "applyDirectionRotation": true,
+    "rotationOffset": 180,
+    "config": {
+      "followOffset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.skill_character.military_officer.1.charge.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "baseDamage": 25,
+        "attackPercentDamage": 1
+      },
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.military_officer.1.active_1.knockback",
+            "effectType": "Knockback",
+            "config": {
+              "force": 1,
+              "directionType": "PushAwayFromSource"
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  ],
+  "upgradeTable": {
+    "upgradeTableId": "upgrade.skill.skill_character.military_officer.1.charge",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 5
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.3
+          }
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "skill.military_officer.1.active_1.self.damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 7
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.08
+          }
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "skill.military_officer.1.active_1.self.damage_reduction",
+            "fieldType": "Duration",
+            "operationType": "Flat",
+            "value": 0.3
+          }
+        ]
+      }
+    ]
+  },
+  "baseVisual": {
+    "visualId": "skill.skill_character.military_officer.1.charge.visual",
+    "projectileVisualType": "Default"
+  }
+}

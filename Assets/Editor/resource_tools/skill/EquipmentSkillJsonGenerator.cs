@@ -17,24 +17,29 @@ namespace ResourceTools.Skill
             public string equipmentId;
             public string skillName;
 
-            public BaseProfileJson baseProfile;
-            public CastJson cast;
-            public MoveJson move;
-            public HitJson[] hits;
-            public SpawnSkillJson spawnSkill;
-            public SpawnSkillJson spawn;
-            public SkillUpgradeAsssetBuilder.SkillUpgradeTableJson upgrade;
-            public VisualSetJson visualSet;
+            public string baseProfile;
+            public string cast;
+            public string move;
+            public string hits;
+            public string spawnSkill;
+            public string spawn;
+            public string upgrade;
+            public string baseVisual;
+        }
+
+        [Serializable]
+        private class EquipmentSkillRootJson
+        {
+            public string equipmentId;
+            public string skillName;
         }
 
 
         // Example JSON format:
         // {
-        //   "equipmentId": "basic_attack",
+        //   "equipmentId": "skill.military_officer.1.passive_1",
         //   "characterName": "military_officer",
-        //   "slotName": "basic",
         //   "skillName": "basic_attack",
-        //   "iconName": "basic_attack"
         // }
         // Usage:
         // Select a json file in the Project window.
@@ -63,11 +68,12 @@ namespace ResourceTools.Skill
             }
 
             string json = File.ReadAllText(jsonPath);
-            EquipmentSkillJson data = JsonUtility.FromJson<EquipmentSkillJson>(json);
+            EquipmentSkillJson data = ParseEquipmentSkillJson(json);
 
-            if (data?.visualSet != null)
+            BaseVisualJson baseVisual = ParseObject<BaseVisualJson>(data?.baseVisual);
+            if (baseVisual != null)
             {
-                Debug.Log($"[EquipmentSkillJsonGenerator] VisualSet detected: {data.visualSet.visualSetId}");
+                Debug.Log($"[EquipmentSkillJsonGenerator] BaseVisual detected: {baseVisual.visualId}");
             }
 
             if (data == null || string.IsNullOrEmpty(data.equipmentId))
@@ -111,63 +117,69 @@ namespace ResourceTools.Skill
 
             GenerateSkillString(data);
 
+            BaseProfileJson baseProfile = ParseBaseProfile(data.baseProfile);
+            CastJson cast = ParseCast(data.cast);
+            MoveJson move = ParseObject<MoveJson>(data.move);
+            HitJson[] hits = ParseHitArray(data.hits);
+            SpawnSkillJson spawnSkill = ParseObject<SpawnSkillJson>(data.spawnSkill);
+            SpawnSkillJson spawn = ParseObject<SpawnSkillJson>(data.spawn);
+            SkillUpgradeAsssetBuilder.SkillUpgradeTableJson upgrade =
+                ParseObject<SkillUpgradeAsssetBuilder.SkillUpgradeTableJson>(data.upgrade);
+            BaseVisualJson baseVisual = ParseObject<BaseVisualJson>(data.baseVisual);
+
             string assetPath = $"{outputFolder}/{data.equipmentId}.asset";
             EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(assetPath);
             bool isNewAsset = false;
 
             EquipmentBaseProfileSO baseProfileSo =
-                HasBaseProfile(data.baseProfile)
+                HasBaseProfile(baseProfile)
                     ? EquipmentBaseProfileAssetBuilder.CreateOrUpdate(
-                        data.baseProfile,
+                        baseProfile,
                         outputFolder)
                     : null;
 
             SkillCastSO castSo =
-                HasCast(data.cast)
+                HasCast(cast)
                     ? SkillCastAssetBuilder.CreateOrUpdate(
-                        data.cast,
+                        cast,
                         outputFolder) as SkillCastSO
                     : null;
 
             SkillMoveSO moveSo =
-                HasMove(data.move)
+                HasMove(move)
                     ? SkillMoveAssetBuilder.CreateOrUpdate(
-                        data.move,
+                        move,
                         outputFolder) as SkillMoveSO
                     : null;
 
             SkillHitSO[] hitSos =
-                HasHits(data.hits)
+                HasHits(hits)
                     ? CreateOrUpdateHits(
-                        data.hits,
+                        hits,
                         outputFolder)
                     : Array.Empty<SkillHitSO>();
 
             // Support both spawnSkill and spawn for spawn skill JSON
-            SpawnSkillJson resolvedSpawnSkill = data.spawnSkill ?? data.spawn;
+            SpawnSkillJson resolvedSpawnSkill = spawnSkill ?? spawn;
 
             SpawnSkillSO spawnSkillSo =
                 SkillSpawnAssetBuilder.HasSpawnSkill(resolvedSpawnSkill)
                     ? SkillSpawnAssetBuilder.CreateOrUpdate(
                         resolvedSpawnSkill,
-                        outputFolder,
-                        (skillJson, folder) => CreateOrUpdateSkill(
-                            skillJson,
-                            folder,
-                            sourceJsonPath))
+                        outputFolder)
                     : null;
 
             EquipmentUpgradeTableSO upgradeTableSo =
-                data.upgrade != null
+                upgrade != null
                     ? SkillUpgradeAsssetBuilder.CreateOrUpdate(
-                        data.upgrade,
+                        upgrade,
                         sourceJsonPath)
                     : null;
 
-            ScriptableObject visualSetSo =
-                HasVisualSet(data.visualSet)
-                    ? SkillVisualSetAssetBuilder.CreateOrUpdate(
-                        data.visualSet,
+            BaseVisualSO baseVisualSo =
+                HasBaseVisual(baseVisual)
+                    ? SkillBaseVisualAssetBuilder.CreateOrUpdate(
+                        baseVisual,
                         outputFolder)
                     : null;
 
@@ -186,7 +198,7 @@ namespace ResourceTools.Skill
                 hitSos,
                 spawnSkillSo,
                 upgradeTableSo,
-                visualSetSo);
+                baseVisualSo);
 
             if (isNewAsset)
             {
@@ -205,11 +217,12 @@ namespace ResourceTools.Skill
             return skillSo;
         }
 
+
         private static bool HasBaseProfile(
             BaseProfileJson baseProfile)
         {
             return baseProfile != null &&
-                   !string.IsNullOrWhiteSpace(baseProfile.profileId);
+                   !string.IsNullOrWhiteSpace(baseProfile.baseProfileId);
         }
 
         private static bool HasCast(
@@ -226,11 +239,11 @@ namespace ResourceTools.Skill
                    !string.IsNullOrWhiteSpace(move.moveId);
         }
 
-        private static bool HasVisualSet(
-            VisualSetJson visualSet)
+        private static bool HasBaseVisual(
+            BaseVisualJson baseVisual)
         {
-            return visualSet != null &&
-                   !string.IsNullOrWhiteSpace(visualSet.visualSetId);
+            return baseVisual != null &&
+                   !string.IsNullOrWhiteSpace(baseVisual.visualId);
         }
 
 
@@ -278,7 +291,7 @@ namespace ResourceTools.Skill
             SkillHitSO[] hitSos,
             SpawnSkillSO spawnSkillSo,
             EquipmentUpgradeTableSO upgradeTableSo,
-            ScriptableObject visualSetSo)
+            BaseVisualSO baseVisualSo)
         {
             SerializedObject serializedObject = new SerializedObject(skillSo);
 
@@ -293,7 +306,7 @@ namespace ResourceTools.Skill
             SetObjectArray(serializedObject, "hitSos", hitSos);
             SetObjectReference(serializedObject, "spawnSkillSo", spawnSkillSo);
             SetObjectReference(serializedObject, "upgradeTableSo", upgradeTableSo);
-            SetObjectReference(serializedObject, "visualSetSo", visualSetSo);
+            SetObjectReference(serializedObject, "baseVisualSo", baseVisualSo);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
@@ -459,6 +472,279 @@ namespace ResourceTools.Skill
             {
                 AssetDatabase.CreateFolder(parent, leaf);
             }
+        }
+        private static EquipmentSkillJson ParseEquipmentSkillJson(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            EquipmentSkillRootJson root = JsonUtility.FromJson<EquipmentSkillRootJson>(json);
+            if (root == null)
+            {
+                return null;
+            }
+
+            EquipmentSkillJson data = new EquipmentSkillJson
+            {
+                equipmentId = root.equipmentId,
+                skillName = root.skillName,
+                baseProfile = ExtractJsonValue(json, "baseProfile"),
+                cast = ExtractJsonValue(json, "cast"),
+                move = ExtractJsonValue(json, "move"),
+                hits = ExtractJsonValue(json, "hits"),
+                spawnSkill = ExtractJsonValue(json, "spawnSkill"),
+                spawn = ExtractJsonValue(json, "spawn"),
+                upgrade = ExtractJsonValue(json, "upgradeTable"),
+                baseVisual = ExtractJsonValue(json, "baseVisual")
+            };
+
+            return data;
+        }
+
+        private static BaseProfileJson ParseBaseProfile(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            BaseProfileJson baseProfile = JsonUtility.FromJson<BaseProfileJson>(json);
+            if (baseProfile != null)
+            {
+                baseProfile.projectile = ExtractJsonValue(json, "projectile");
+                baseProfile.projectileSpawn = ExtractJsonValue(json, "projectileSpawn");
+                baseProfile.brainMeta = ExtractJsonValue(json, "brainMeta");
+            }
+
+            return baseProfile;
+        }
+
+        private static CastJson ParseCast(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            CastJson cast = JsonUtility.FromJson<CastJson>(json);
+            if (cast != null)
+            {
+                cast.burst = ExtractJsonValue(json, "burst");
+                cast.castMove = ExtractJsonValue(json, "castMove");
+                cast.selfEffects = ExtractJsonValue(json, "selfEffects");
+            }
+
+            return cast;
+        }
+
+        private static HitJson[] ParseHitArray(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            string[] itemJsons = ExtractJsonArrayItems(json);
+            if (itemJsons == null || itemJsons.Length == 0)
+            {
+                return Array.Empty<HitJson>();
+            }
+
+            HitJson[] result = new HitJson[itemJsons.Length];
+            for (int i = 0; i < itemJsons.Length; i++)
+            {
+                string itemJson = itemJsons[i];
+                HitJson hitJson = JsonUtility.FromJson<HitJson>(itemJson);
+
+                if (hitJson != null)
+                {
+                    hitJson.damage = ExtractJsonValue(itemJson, "damage");
+                    hitJson.buffEffects = ExtractJsonValue(itemJson, "buffEffects");
+                    hitJson.debuffEffects = ExtractJsonValue(itemJson, "debuffEffects");
+                    hitJson.split = ExtractJsonValue(itemJson, "split");
+                }
+
+                result[i] = hitJson;
+            }
+
+            return result;
+        }
+
+        private static string[] ExtractJsonArrayItems(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            int startIndex = json.IndexOf('[');
+            int endIndex = json.LastIndexOf(']');
+            if (startIndex < 0 || endIndex <= startIndex)
+            {
+                return null;
+            }
+
+            List<string> items = new();
+            int index = startIndex + 1;
+
+            while (index < endIndex)
+            {
+                while (index < endIndex &&
+                       (char.IsWhiteSpace(json[index]) || json[index] == ','))
+                {
+                    index++;
+                }
+
+                if (index >= endIndex)
+                {
+                    break;
+                }
+
+                if (json[index] != '{')
+                {
+                    break;
+                }
+
+                string item = ExtractBalancedJson(json, index, '{', '}');
+                if (string.IsNullOrWhiteSpace(item))
+                {
+                    break;
+                }
+
+                items.Add(item);
+                index += item.Length;
+            }
+
+            return items.ToArray();
+        }
+        private static T ParseObject<T>(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return default;
+            }
+
+            return JsonUtility.FromJson<T>(json);
+        }
+
+        private static T[] ParseArray<T>(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return null;
+            }
+
+            ArrayWrapper<T> wrapper = JsonUtility.FromJson<ArrayWrapper<T>>($"{{\"items\":{json}}}");
+            return wrapper != null
+                ? wrapper.items
+                : null;
+        }
+
+        [Serializable]
+        private class ArrayWrapper<T>
+        {
+            public T[] items;
+        }
+
+        private static string ExtractJsonValue(string json, string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(json) || string.IsNullOrWhiteSpace(propertyName))
+            {
+                return null;
+            }
+
+            string key = $"\"{propertyName}\"";
+            int keyIndex = json.IndexOf(key, StringComparison.Ordinal);
+            if (keyIndex < 0)
+            {
+                return null;
+            }
+
+            int colonIndex = json.IndexOf(':', keyIndex + key.Length);
+            if (colonIndex < 0)
+            {
+                return null;
+            }
+
+            int valueStart = colonIndex + 1;
+            while (valueStart < json.Length && char.IsWhiteSpace(json[valueStart]))
+            {
+                valueStart++;
+            }
+
+            if (valueStart >= json.Length)
+            {
+                return null;
+            }
+
+            char startChar = json[valueStart];
+            if (startChar == '{')
+            {
+                return ExtractBalancedJson(json, valueStart, '{', '}');
+            }
+
+            if (startChar == '[')
+            {
+                return ExtractBalancedJson(json, valueStart, '[', ']');
+            }
+
+            return null;
+        }
+
+        private static string ExtractBalancedJson(
+            string json,
+            int startIndex,
+            char openChar,
+            char closeChar)
+        {
+            int depth = 0;
+            bool inString = false;
+            bool escape = false;
+
+            for (int i = startIndex; i < json.Length; i++)
+            {
+                char current = json[i];
+
+                if (escape)
+                {
+                    escape = false;
+                    continue;
+                }
+
+                if (current == '\\')
+                {
+                    escape = true;
+                    continue;
+                }
+
+                if (current == '"')
+                {
+                    inString = !inString;
+                    continue;
+                }
+
+                if (inString)
+                {
+                    continue;
+                }
+
+                if (current == openChar)
+                {
+                    depth++;
+                }
+                else if (current == closeChar)
+                {
+                    depth--;
+                    if (depth == 0)
+                    {
+                        return json.Substring(startIndex, i - startIndex + 1);
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

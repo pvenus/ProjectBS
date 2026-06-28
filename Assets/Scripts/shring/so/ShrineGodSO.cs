@@ -3,6 +3,7 @@ using UnityEngine;
 using Bless;
 using Item;
 using Mission;
+using String;
 
 namespace Shrine
 {
@@ -14,47 +15,63 @@ namespace Shrine
     public class ShrineGodSO : ScriptableObject
     {
         [Header("Identity")]
-        public string godId;
-        public string godName;
-        public ShrineGodType godType = ShrineGodType.None;
-
-        [TextArea]
-        public string description;
+        [SerializeField] private string godId;
+        [SerializeField] private ShrineGodType godType = ShrineGodType.None;
 
         [Header("Display")]
-        public Sprite icon;
-        public Color themeColor = Color.white;
+        [SerializeField] private Sprite icon;
+        [SerializeField] private Color themeColor = Color.white;
 
         [Header("Faith")]
         [Tooltip("신 선택 시 시작 신앙 레벨")]
         [Range(0, 10)]
-        public int initialFaithLevel = 1;
+        [SerializeField] private int initialFaithLevel = 1;
 
         [Tooltip("신앙 고정 레벨")]
         [Range(1, 10)]
-        public int lockFaithLevel = 5;
+        [SerializeField] private int lockFaithLevel = 5;
 
         [Range(1, 10)]
-        public int successorFaithLevel = 10;
+        [SerializeField] private int successorFaithLevel = 10;
 
         [Header("Blessing Pools")]
         [Tooltip("신 전용 축복 풀")]
-        public List<BlessPoolSO> blessingPools = new();
+        [SerializeField] private List<BlessPoolSO> blessingPools = new();
 
         [Header("Faith Rewards")]
         [Tooltip("특정 신앙 레벨 도달 시 지급되는 유물")]
-        public List<ShrineFaithRelicReward> faithRelicRewards = new();
+        [SerializeField] private List<ShrineFaithRelicReward> faithRelicRewards = new();
 
         [Header("Mission")]
         [Tooltip("이 신을 해금하는 공용 미션 목록")]
-        public List<MissionSO> unlockMissions = new();
+        [SerializeField] private List<MissionSO> unlockMissions = new();
 
         [Tooltip("Faith Lock 이후 활성화 되는 공용 미션 목록")]
-        public List<MissionSO> faithMissions = new();
+        [SerializeField] private List<MissionSO> faithMissions = new();
 
-        public string DisplayName => string.IsNullOrWhiteSpace(godName)
-            ? name
-            : godName;
+        public string LocalizationMainKey => godId;
+
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
+
+        public string GodId => godId;
+        public ShrineGodType GodType => godType;
+        public Sprite Icon => icon;
+        public Color ThemeColor => themeColor;
+        public int InitialFaithLevel => initialFaithLevel;
+        public int LockFaithLevel => lockFaithLevel;
+        public int SuccessorFaithLevel => successorFaithLevel;
+        public IReadOnlyList<BlessPoolSO> BlessingPools => blessingPools;
+        public IReadOnlyList<ShrineFaithRelicReward> FaithRelicRewards => faithRelicRewards;
+        public IReadOnlyList<MissionSO> UnlockMissions => unlockMissions;
+        public IReadOnlyList<MissionSO> FaithMissions => faithMissions;
 
         public bool HasBlessingPools => blessingPools != null && blessingPools.Count > 0;
 
@@ -76,30 +93,30 @@ namespace Shrine
             foreach (BlessPoolSO pool in blessingPools)
             {
                 if (pool == null
-                    || pool.blessings == null)
+                    || pool.Blessings == null)
                 {
                     continue;
                 }
 
-                foreach (BlessPoolSO.BlessPoolEntry entry in pool.blessings)
+                foreach (BlessPoolSO.BlessPoolEntry entry in pool.Blessings)
                 {
                     if (entry == null
-                        || entry.blessing == null)
+                        || entry.Blessing == null)
                     {
                         continue;
                     }
 
-                    if (entry.progressionStep != faithLevel)
+                    if (entry.ProgressionStep != faithLevel)
                     {
                         continue;
                     }
 
-                    if (result.Contains(entry.blessing))
+                    if (result.Contains(entry.Blessing))
                     {
                         continue;
                     }
 
-                    result.Add(entry.blessing);
+                    result.Add(entry.Blessing);
                 }
             }
 
@@ -123,12 +140,12 @@ namespace Shrine
                     continue;
                 }
 
-                if (reward.faithLevel != faithLevel)
+                if (reward.FaithLevel != faithLevel)
                 {
                     continue;
                 }
 
-                return reward.relicReward;
+                return reward.RelicReward;
             }
 
             return null;
@@ -138,10 +155,12 @@ namespace Shrine
     [System.Serializable]
     public class ShrineFaithRelicReward
     {
-        [Range(1, 10)]
-        public int faithLevel = 1;
+        [SerializeField] private int faithLevel = 1;
 
-        public RelicSO relicReward;
+        [SerializeField] private RelicSO relicReward;
+
+        public int FaithLevel => faithLevel;
+        public RelicSO RelicReward => relicReward;
     }
 
     public enum ShrineBlessingGroup

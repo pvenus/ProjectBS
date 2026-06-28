@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Shrine;
+using String;
 
 namespace Bless
 {
@@ -13,32 +14,44 @@ namespace Bless
         [Serializable]
         public class BlessPoolEntry
         {
-            public BlessSO blessing;
+            [SerializeField] private BlessSO blessing;
 
-            [Min(1)]
-            public int weight = 1;
+            [SerializeField, Min(1)] private int weight = 1;
 
-            [Min(0)]
-            public int progressionStep = 0;
+            [SerializeField, Min(0)] private int progressionStep = 0;
+
+            public BlessSO Blessing => blessing;
+            public int Weight => Mathf.Max(1, weight);
+            public int ProgressionStep => Mathf.Max(0, progressionStep);
         }
 
         [Header("Info")]
-        public string poolId;
-
-        public string displayName;
-
-        [TextArea]
-        public string description;
-
+        [SerializeField] private string poolId;
 
         [Header("Visual")]
-        public Sprite icon;
+        [SerializeField] private Sprite icon;
 
         [Header("Pool")]
-        public List<BlessPoolEntry> blessings = new();
+        [SerializeField] private List<BlessPoolEntry> blessings = new();
+
+        public string LocalizationMainKey => poolId;
+
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
+
+        public string PoolId => poolId;
+        public Sprite Icon => icon;
+        public IReadOnlyList<BlessPoolEntry> Blessings => blessings;
 
         public BlessSO GetRandomBlessing(
-            Shrine.ShrineGodType godType,
+            ShrineGodType godType,
             int progressionStep,
             List<BlessSO> excludeList = null)
         {
@@ -53,24 +66,24 @@ namespace Bless
             foreach (BlessPoolEntry entry in blessings)
             {
                 if (entry == null
-                    || entry.blessing == null)
+                    || entry.Blessing == null)
                 {
                     continue;
                 }
 
-                if (entry.blessing.godType != Shrine.ShrineGodType.None
-                    && entry.blessing.godType != godType)
+                if (entry.Blessing.GodType != ShrineGodType.None
+                    && entry.Blessing.GodType != godType)
                 {
                     continue;
                 }
 
-                if (entry.progressionStep != progressionStep)
+                if (entry.ProgressionStep != progressionStep)
                 {
                     continue;
                 }
 
                 if (excludeList != null
-                    && excludeList.Contains(entry.blessing))
+                    && excludeList.Contains(entry.Blessing))
                 {
                     continue;
                 }
@@ -87,7 +100,7 @@ namespace Bless
 
             foreach (BlessPoolEntry entry in candidates)
             {
-                totalWeight += Mathf.Max(1, entry.weight);
+                totalWeight += entry.Weight;
             }
 
             int randomValue = UnityEngine.Random.Range(0, totalWeight);
@@ -95,15 +108,15 @@ namespace Bless
 
             foreach (BlessPoolEntry entry in candidates)
             {
-                currentWeight += Mathf.Max(1, entry.weight);
+                currentWeight += entry.Weight;
 
                 if (randomValue < currentWeight)
                 {
-                    return entry.blessing;
+                    return entry.Blessing;
                 }
             }
 
-            return candidates[0].blessing;
+            return candidates[0].Blessing;
         }
 
         public BlessSO GetRandomBlessing()
@@ -119,12 +132,12 @@ namespace Bless
             foreach (BlessPoolEntry entry in blessings)
             {
                 if (entry == null
-                    || entry.blessing == null)
+                    || entry.Blessing == null)
                 {
                     continue;
                 }
 
-                totalWeight += Mathf.Max(1, entry.weight);
+                totalWeight += entry.Weight;
             }
 
             if (totalWeight <= 0)
@@ -138,21 +151,21 @@ namespace Bless
             foreach (BlessPoolEntry entry in blessings)
             {
                 if (entry == null
-                    || entry.blessing == null)
+                    || entry.Blessing == null)
                 {
                     continue;
                 }
 
-                currentWeight += Mathf.Max(1, entry.weight);
+                currentWeight += entry.Weight;
 
                 if (randomValue < currentWeight)
                 {
-                    return entry.blessing;
+                    return entry.Blessing;
                 }
             }
 
             return blessings[0] != null
-                ? blessings[0].blessing
+                ? blessings[0].Blessing
                 : null;
         }
     }

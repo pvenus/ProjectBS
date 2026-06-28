@@ -132,10 +132,6 @@ public class SkillProjectileHitMono : MonoBehaviour
 
     private void ApplyContext()
     {
-        if (hitConfig == null)
-            return;
-
-        Initialize(hitConfig.CreateDto());
     }
 
     /// <summary>

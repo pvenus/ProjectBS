@@ -27,22 +27,33 @@ public class EquipmentStatResolver
             return 0f;
         }
 
+        SkillHitSO hitSo = null;
+        if (equipmentSo.HitSos != null && equipmentSo.HitSos.Length > 0)
+        {
+            hitSo = equipmentSo.HitSos[0];
+        }
+
         switch (modifierType)
         {
             case SkillStatModifierType.BaseDamage:
             {
-                SkillDamageSO damageSo = GetDamageSo(equipmentSo);
-                return damageSo != null
-                    ? Mathf.Max(0f, damageSo.BaseDamage)
+                return hitSo != null
+                    ? Mathf.Max(0f, hitSo.BaseDamage)
                     : 0f;
             }
 
             case SkillStatModifierType.AttackPercentDamage:
             {
-                SkillDamageSO damageSo = GetDamageSo(equipmentSo);
-                return damageSo != null
-                    ? Mathf.Max(0f, damageSo.AttackPercentDamage)
+                return hitSo != null
+                    ? Mathf.Max(0f, hitSo.AttackPercentDamage)
                     : 0f;
+            }
+
+            case SkillStatModifierType.MaxHitCount:
+            {
+                return hitSo != null
+                    ? Mathf.Max(1, hitSo.MaxHitCount)
+                    : 1;
             }
 
             case SkillStatModifierType.Cooldown:
@@ -146,6 +157,7 @@ public class EquipmentStatResolver
         {
             case SkillStatModifierType.ProjectileCount:
             case SkillStatModifierType.SplitHitCount:
+            case SkillStatModifierType.MaxHitCount:
                 return Mathf.Max(1f, value);
 
             case SkillStatModifierType.ProjectileScale:
@@ -181,7 +193,7 @@ public class EquipmentStatResolver
 
         foreach (SkillStatModifierData modifier in modifiers)
         {
-            if (modifier == null || modifier.modifierType != modifierType)
+            if (modifier == null || modifier.ModifierType != modifierType)
             {
                 continue;
             }
@@ -264,19 +276,6 @@ public class EquipmentStatResolver
             modifiers);
     }
 
-    public float ResolveBaseDamage(
-        SkillDamageSO damageSo,
-        IEnumerable<SkillStatModifierData> modifiers)
-    {
-        float baseValue = GetBaseDamage(damageSo);
-        float resolved = ApplyStatModifiers(
-            baseValue,
-            SkillStatModifierType.BaseDamage,
-            modifiers);
-
-        return Mathf.Max(0f, resolved);
-    }
-
     public float ResolveAttackPercentDamage(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierData> modifiers)
@@ -284,6 +283,15 @@ public class EquipmentStatResolver
         return ResolveStat(
             equipmentSo,
             SkillStatModifierType.AttackPercentDamage,
+            modifiers);
+    }
+    public int ResolveMaxHitCount(
+        EquipmentSkillSO equipmentSo,
+        IEnumerable<SkillStatModifierData> modifiers)
+    {
+        return ResolveIntStat(
+            equipmentSo,
+            SkillStatModifierType.MaxHitCount,
             modifiers);
     }
 
@@ -308,107 +316,83 @@ public class EquipmentStatResolver
     }
     public DamageType GetDamageType(EquipmentSkillSO equipmentSo)
     {
-        return GetDamageType(GetDamageSo(equipmentSo));
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
+        {
+            return DamageType.Normal;
+        }
+        return equipmentSo.HitSos[0].DamageType;
     }
 
     public DamageType GetDamageType(SkillHitSO hitSo)
     {
-        return GetDamageType(GetDamageSo(hitSo));
-    }
-
-    public DamageType GetDamageType(SkillDamageSO damageSo)
-    {
-        return damageSo != null
-            ? damageSo.DamageType
-            : DamageType.Normal;
+        return hitSo != null ? hitSo.DamageType : DamageType.Normal;
     }
 
     public float GetBaseDamage(EquipmentSkillSO equipmentSo)
     {
-        return GetBaseDamage(GetDamageSo(equipmentSo));
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
+        {
+            return 0f;
+        }
+        return Mathf.Max(0f, equipmentSo.HitSos[0].BaseDamage);
     }
 
     public float GetBaseDamage(SkillHitSO hitSo)
     {
-        return GetBaseDamage(GetDamageSo(hitSo));
+        return hitSo != null ? Mathf.Max(0f, hitSo.BaseDamage) : 0f;
     }
-
-    public float GetBaseDamage(SkillDamageSO damageSo)
-    {
-        return damageSo != null
-            ? Mathf.Max(0f, damageSo.BaseDamage)
-            : 0f;
-    }
-
 
     public bool GetCanCritical(EquipmentSkillSO equipmentSo)
     {
-        return GetCanCritical(GetDamageSo(equipmentSo));
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
+        {
+            return false;
+        }
+        return equipmentSo.HitSos[0].CanCritical;
     }
     public bool GetCanCritical(SkillHitSO hitSo)
     {
-        return GetCanCritical(GetDamageSo(hitSo));
-    }
-    public bool GetCanCritical(SkillDamageSO damageSo)
-    {
-        return damageSo != null && damageSo.CanCritical;
+        return hitSo != null && hitSo.CanCritical;
     }
 
     public bool GetIgnoreDefense(EquipmentSkillSO equipmentSo)
     {
-        return GetIgnoreDefense(GetDamageSo(equipmentSo));
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
+        {
+            return false;
+        }
+        return equipmentSo.HitSos[0].IgnoreDefense;
     }
     public bool GetIgnoreDefense(SkillHitSO hitSo)
     {
-        return GetIgnoreDefense(GetDamageSo(hitSo));
-    }
-    public bool GetIgnoreDefense(SkillDamageSO damageSo)
-    {
-        return damageSo != null && damageSo.IgnoreDefense;
+        return hitSo != null && hitSo.IgnoreDefense;
     }
 
     public float GetAttackPercentDamage(EquipmentSkillSO equipmentSo)
     {
-        return GetAttackPercentDamage(GetDamageSo(equipmentSo));
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
+        {
+            return 0f;
+        }
+        return Mathf.Max(0f, equipmentSo.HitSos[0].AttackPercentDamage);
     }
     public float GetAttackPercentDamage(SkillHitSO hitSo)
     {
-        return GetAttackPercentDamage(GetDamageSo(hitSo));
+        return hitSo != null ? Mathf.Max(0f, hitSo.AttackPercentDamage) : 0f;
     }
-    public float GetAttackPercentDamage(SkillDamageSO damageSo)
+    public int GetMaxHitCount(EquipmentSkillSO equipmentSo)
     {
-        return damageSo != null
-            ? Mathf.Max(0f, damageSo.AttackPercentDamage)
-            : 0f;
-    }
-
-    public SkillDamageSO GetDamageSo(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo == null ||
-            equipmentSo.HitSos == null ||
-            equipmentSo.HitSos.Length == 0)
+        if (equipmentSo == null || equipmentSo.HitSos == null || equipmentSo.HitSos.Length == 0)
         {
-            return null;
+            return 1;
         }
 
-        for (int i = 0; i < equipmentSo.HitSos.Length; i++)
-        {
-            SkillDamageSO damageSo = GetDamageSo(equipmentSo.HitSos[i]);
-
-            if (damageSo != null)
-            {
-                return damageSo;
-            }
-        }
-
-        return null;
+        return Mathf.Max(1, equipmentSo.HitSos[0].MaxHitCount);
     }
 
-    public SkillDamageSO GetDamageSo(SkillHitSO hitSo)
+    public int GetMaxHitCount(SkillHitSO hitSo)
     {
-        return hitSo != null
-            ? hitSo.DamageSo
-            : null;
+        return hitSo != null ? Mathf.Max(1, hitSo.MaxHitCount) : 1;
     }
 
     public int GetProjectileCount(EquipmentSkillSO equipmentSo)
@@ -432,18 +416,6 @@ public class EquipmentStatResolver
 
         return 0f;
     }
-
-    public ProjectileArrangementType GetProjectileArrangement(
-        EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return equipmentSo.BaseProfileSo.ProjectileArrangement;
-        }
-
-        return ProjectileArrangementType.Single;
-    }
-
     public float GetProjectileArrangementValue(
         EquipmentSkillSO equipmentSo)
     {
@@ -506,18 +478,6 @@ public class EquipmentStatResolver
             return Mathf.Max(
                 0f,
                 equipmentSo.BaseProfileSo.ProjectileSpawnInterval);
-        }
-
-        return 0f;
-    }
-
-    public float GetProjectileSpawnRadius(EquipmentSkillSO equipmentSo)
-    {
-        if (equipmentSo != null && equipmentSo.BaseProfileSo != null)
-        {
-            return Mathf.Max(
-                0f,
-                equipmentSo.BaseProfileSo.ProjectileSpawnRadius);
         }
 
         return 0f;

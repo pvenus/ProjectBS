@@ -10,72 +10,20 @@ public class EquipmentUpgradeTableSO : ScriptableObject
 {
     [Header("Identity")]
     [SerializeField] private string upgradeTableId;
-    [SerializeField] private string displayName;
 
     [Header("Entries")]
     [SerializeField] private List<EquipmentUpgradeEntry> entries = new();
 
     public string UpgradeTableId => upgradeTableId;
-    public string DisplayName => displayName;
     public IReadOnlyList<EquipmentUpgradeEntry> Entries => entries;
 
-    public EquipmentUpgradeEntry GetEntry(int level)
-    {
-        if (entries == null || entries.Count == 0)
-        {
-            return null;
-        }
-
-        for (int i = 0; i < entries.Count; i++)
-        {
-            EquipmentUpgradeEntry entry = entries[i];
-            if (entry != null && entry.Level == level)
-            {
-                return entry;
-            }
-        }
-
-        return null;
-    }
-
-    public List<EquipmentUpgradeEntry> GetEntriesUpToLevel(int level)
-    {
-        var result = new List<EquipmentUpgradeEntry>();
-
-        if (entries == null || entries.Count == 0)
-        {
-            return result;
-        }
-
-        for (int i = 0; i < entries.Count; i++)
-        {
-            EquipmentUpgradeEntry entry = entries[i];
-            if (entry == null)
-            {
-                continue;
-            }
-
-            if (entry.Level <= level)
-            {
-                result.Add(entry);
-            }
-        }
-
-        return result;
-    }
-
 #if UNITY_EDITOR
-    private void OnValidate()
+    public void ApplyEditorData(
+        string upgradeTableId,
+        List<EquipmentUpgradeEntry> entries)
     {
-        if (string.IsNullOrWhiteSpace(upgradeTableId))
-        {
-            upgradeTableId = name;
-        }
-
-        if (string.IsNullOrWhiteSpace(displayName))
-        {
-            displayName = name;
-        }
+        this.upgradeTableId = upgradeTableId;
+        this.entries = entries ?? new List<EquipmentUpgradeEntry>();
     }
 #endif
 }

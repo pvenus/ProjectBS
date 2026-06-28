@@ -1,7 +1,5 @@
-using Character;
-using Effect.Helper;
+using Skill.Service.Helper;
 using System.Collections.Generic;
-using Effect;
 
 namespace Character.Skill
 {
@@ -10,12 +8,10 @@ namespace Character.Skill
     ///
     /// Passive skill rule:
     /// - Only runtime.sourceEquipment.BaseProfileSo.SkillType.Passive is handled.
-    /// - Passive effects are read from runtime.sourceEquipment.HitSos[].buffEffects.
-    /// - This service is responsible for selecting passive skill runtimes and
-    ///   exposing the effect list to the caller that actually applies effects.
-    ///
-    /// Effect application/removal is intentionally not hard-wired here yet,
-    /// because EffectManager target/source policy is still shared with relic/bless logic.
+    /// - Passive self effects are applied through the same cast self-effect path
+    ///   used by active skills.
+    /// - Legacy runtime.sourceEquipment.HitSos[].buffEffects is intentionally not
+    ///   used here anymore.
     /// </summary>
     public class PassiveSkillService
     {
@@ -61,119 +57,18 @@ namespace Character.Skill
                    runtime.sourceEquipment.BaseProfileSo.SkillType == global::Skill.SkillType.Passive;
         }
 
-        private SkillHitSO[] ResolveHitSos(
-            EquipmentSkillRuntimeData runtime)
-        {
-            if (runtime == null || runtime.sourceEquipment == null)
-            {
-                return null;
-            }
-
-            return runtime.sourceEquipment.HitSos;
-        }
-
         public bool HasPassiveEffects(
             EquipmentSkillRuntimeData runtime)
         {
-            SkillHitSO[] hitSos = ResolveHitSos(runtime);
-
             if (!IsPassiveSkill(runtime) ||
-                hitSos == null ||
-                hitSos.Length == 0)
+                runtime.sourceEquipment == null ||
+                runtime.sourceEquipment.CastSo == null ||
+                runtime.sourceEquipment.CastSo.SelfEffects == null)
             {
                 return false;
             }
 
-            for (int i = 0; i < hitSos.Length; i++)
-            {
-                if (hitSos[i] == null)
-                {
-                    continue;
-                }
-
-                SkillProjectileHitDto hitDto =
-                    hitSos[i].CreateDto(
-                        resolvedDamageProfile: null,
-                        effectUpgradeModifiers: runtime.upgradeRuntimeData?.effectModifiers);
-
-                if (hitDto != null &&
-                    hitDto.buffEffects != null &&
-                    hitDto.buffEffects.Length > 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public List<SkillProjectileHitEffectEntry> GetPassiveEffects(
-            EquipmentSkillRuntimeData runtime)
-        {
-            List<SkillProjectileHitEffectEntry> result = new();
-
-            SkillHitSO[] hitSos = ResolveHitSos(runtime);
-
-            if (!IsPassiveSkill(runtime) ||
-                hitSos == null ||
-                hitSos.Length == 0)
-            {
-                return result;
-            }
-
-            for (int hitIndex = 0; hitIndex < hitSos.Length; hitIndex++)
-            {
-                if (hitSos[hitIndex] == null)
-                {
-                    continue;
-                }
-
-                SkillProjectileHitDto hitDto =
-                    hitSos[hitIndex].CreateDto(
-                        resolvedDamageProfile: null,
-                        effectUpgradeModifiers: runtime.upgradeRuntimeData?.effectModifiers);
-
-                if (hitDto == null || hitDto.buffEffects == null)
-                {
-                    continue;
-                }
-
-                for (int i = 0; i < hitDto.buffEffects.Length; i++)
-                {
-                    SkillProjectileHitEffectEntry effectEntry =
-                        hitDto.buffEffects[i];
-
-                    if (effectEntry == null)
-                    {
-                        continue;
-                    }
-
-                    result.Add(effectEntry);
-                }
-            }
-
-            return result;
-        }
-
-        public List<SkillProjectileHitEffectEntry> GetAllPassiveEffects(
-            CharacterSkillManager skillManager)
-        {
-            List<SkillProjectileHitEffectEntry> result = new();
-            List<EquipmentSkillRuntimeData> passiveSkills =
-                GetPassiveSkills(skillManager);
-
-            for (int i = 0; i < passiveSkills.Count; i++)
-            {
-                List<SkillProjectileHitEffectEntry> effects =
-                    GetPassiveEffects(passiveSkills[i]);
-
-                for (int j = 0; j < effects.Count; j++)
-                {
-                    result.Add(effects[j]);
-                }
-            }
-
-            return result;
+            return runtime.sourceEquipment.CastSo.SelfEffects.Length > 0;
         }
 
         public void ApplyPassiveSkills(
@@ -185,36 +80,19 @@ namespace Character.Skill
                 return;
             }
 
-            EffectManager effectManager = ownerCharacter.GetComponent<EffectManager>();
-            if (effectManager == null)
-            {
-                return;
-            }
+            List<EquipmentSkillRuntimeData> passiveSkills =
+                GetPassiveSkills(skillManager);
 
-            List<SkillProjectileHitEffectEntry> effects =
-                GetAllPassiveEffects(skillManager);
-
-            for (int i = 0; i < effects.Count; i++)
+            for (int i = 0; i < passiveSkills.Count; i++)
             {
-                SkillProjectileHitEffectEntry effectEntry = effects[i];
-                if (effectEntry == null || effectEntry.effectSo == null)
+                EquipmentSkillRuntimeData runtime = passiveSkills[i];
+
+                if (!HasPassiveEffects(runtime))
                 {
                     continue;
                 }
 
-                EffectApplyHelper.ApplyEffect(
-                    effectManager,
-                    ownerCharacter,
-                    effectEntry.effectSo,
-                    EffectSourceType.Skill,
-                    effectEntry.effectSo.effectId,
-                    effectEntry.lifetimeType,
-                    effectEntry.duration,
-                    effectEntry.categoryType,
-                    ownerCharacter.transform,
-                    default,
-                    ownerCharacter,
-                    effectEntry);
+                SkillUseHelper.ApplyCastSelfEffects(runtime, ownerCharacter.gameObject);
             }
         }
     }

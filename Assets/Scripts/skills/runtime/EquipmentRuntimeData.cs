@@ -19,7 +19,6 @@ public class EquipmentSkillRuntimeData
     public EquipmentSkillInstanceData instanceData;
 
     [Header("Resolved Identity")]
-    public bool skipAttackAnimation;
     public int resolvedLevel;
     public float resolvedRange;
 
@@ -28,7 +27,6 @@ public class EquipmentSkillRuntimeData
 
     public int resolvedProjectileCount;
     public float resolvedProjectileSpreadAngle;
-    public ProjectileArrangementType resolvedProjectileArrangement = ProjectileArrangementType.Single;
     public float resolvedProjectileArrangementValue;
     public float resolvedProjectileScale;
 

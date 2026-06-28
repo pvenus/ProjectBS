@@ -1,0 +1,61 @@
+{
+  "equipmentId": "skill.skill_npc.monster.1.melee_charge",
+  "baseProfile": {
+    "baseProfileId": "skill.skill_npc.monster.1.melee_charge.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.45,
+    "projectileLifetime": 0.3,
+    "projectileSpawn": {
+      "spawnOffset": 0.45,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.skill_npc.monster.1.melee_charge.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 4,
+    "castTime": 0,
+    "range": 1.2,
+    "skipAttackAnimation": false,
+    "castMove": {
+      "moveType": "DashForward",
+      "distance": 1.2,
+      "duration": 0.25
+    }
+  },
+  "move": {
+    "moveId": "skill.skill_npc.monster.1.melee_charge.move",
+    "moveType": "Hover",
+    "applyDirectionRotation": true,
+    "rotationOffset": 180,
+    "config": {
+      "followOffset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.skill_npc.monster.1.melee_charge.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 4,
+        "attackPercentDamage": 0.7
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.skill_npc.monster.1.melee_charge.visual",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "equipmentId": "skill.skill_character.military_officer.2.unyielding_will",
+  "baseProfile": {
+    "baseProfileId": "skill.skill_character.military_officer.2.unyielding_will.profile",
+    "skillType": "Passive",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.1,
+    "projectileLifetime": 0.1
+  },
+  "cast": {
+    "castId": "skill.skill_character.military_officer.2.unyielding_will.cast",
+    "targetingType": "Self",
+    "cooldown": 0,
+    "castTime": 0,
+    "range": 0,
+    "skipAttackAnimation": true,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.military_officer.2.indomitable_surrounded_attack",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "SurroundedAttackPercent",
+            "modifierType": "Flat",
+            "value": 24
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      },
+      {
+        "effect": {
+          "effectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "SurroundedDamageReductionPercent",
+            "modifierType": "Flat",
+            "value": 12
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      }
+    ]
+  },
+  "upgradeTable": {
+    "upgradeTableId": "upgrade.skill.skill_character.military_officer.2.unyielding_will",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Radius",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Radius",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Radius",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 5
+          },
+          {
+            "targetEffectId": "effect.military_officer.2.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      }
+    ]
+  }
+}

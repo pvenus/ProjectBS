@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Mission;
 using UnityEngine;
 
@@ -40,28 +41,34 @@ namespace Shrine
                 return;
             }
 
-            if (config.gods == null)
+            IReadOnlyList<ShrineGodSO> gods =
+                config.Gods;
+
+            if (gods == null)
             {
                 return;
             }
 
-            for (int i = 0; i < config.gods.Count; i++)
+            for (int i = 0; i < gods.Count; i++)
             {
                 ShrineGodSO god =
-                    config.gods[i];
+                    gods[i];
 
                 if (god == null)
                 {
                     continue;
                 }
 
-                if (god.unlockMissions == null
-                    || god.unlockMissions.Count <= 0)
+                IReadOnlyList<MissionSO> unlockMissions =
+                    god.UnlockMissions;
+
+                if (unlockMissions == null
+                    || unlockMissions.Count <= 0)
                 {
                     continue;
                 }
 
-                foreach (MissionSO mission in god.unlockMissions)
+                foreach (MissionSO mission in unlockMissions)
                 {
                     if (mission == null)
                     {
@@ -74,7 +81,7 @@ namespace Shrine
                     if (logDebug)
                     {
                         Debug.Log(
-                            $"[ShrineMissionService] Unlock mission registered. god={god.godType}, mission={mission.displayName}");
+                            $"[ShrineMissionService] Unlock mission registered. god={god.GodType}, mission={mission.DisplayName}");
                     }
                 }
             }
@@ -92,8 +99,11 @@ namespace Shrine
                 return;
             }
 
-            if (god.faithMissions == null
-                || god.faithMissions.Count <= 0)
+            IReadOnlyList<MissionSO> faithMissions =
+                god.FaithMissions;
+
+            if (faithMissions == null
+                || faithMissions.Count <= 0)
             {
                 return;
             }
@@ -103,7 +113,7 @@ namespace Shrine
                 if (logDebug)
                 {
                     Debug.Log(
-                        $"[ShrineMissionService] Faith mission skipped. god={god.godType}, level={faithLevel}");
+                        $"[ShrineMissionService] Faith mission skipped. god={god.GodType}, level={faithLevel}");
                 }
 
                 return;
@@ -114,7 +124,7 @@ namespace Shrine
                 return;
             }
 
-            foreach (MissionSO mission in god.faithMissions)
+            foreach (MissionSO mission in faithMissions)
             {
                 if (mission == null)
                 {
@@ -127,7 +137,7 @@ namespace Shrine
                 if (logDebug)
                 {
                     Debug.Log(
-                        $"[ShrineMissionService] Faith mission activated. god={god.godType}, level={faithLevel}, mission={mission.displayName}");
+                        $"[ShrineMissionService] Faith mission activated. god={god.GodType}, level={faithLevel}, mission={mission.DisplayName}");
                 }
             }
         }

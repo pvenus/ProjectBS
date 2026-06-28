@@ -143,12 +143,10 @@ namespace Item
         }
 
         private void ApplyEffectToCharacters(
-            RelicEffectEntry effectEntry,
-            EffectSourceType sourceType,
-            string sourceId,
+            EffectEntrySO effectEntry,
             RelicEntry relicEntry)
         {
-            if (effectEntry == null || effectEntry.effect == null || relicEntry == null)
+            if (effectEntry == null || effectEntry.EffectSO == null || relicEntry == null)
             {
                 return;
             }
@@ -172,30 +170,20 @@ namespace Item
                 CharacterManager targetCharacterManager =
                     ResolveCharacterManager(effectManager);
 
-                Effect.EffectRuntimeData runtimeEffect =
-                    EffectResolveHelper.CreateRuntimeData(
-                        effectEntry.effect,
-                        sourceType,
-                        sourceId,
+                EffectEntryRuntime runtimeEntry =
+                    EffectResolveHelper.CreateRuntimeEntry(
+                        effectEntry,
                         targetCharacterManager);
 
-                if (runtimeEffect == null)
+                if (runtimeEntry?.RuntimeData == null)
                 {
                     continue;
                 }
 
                 bool applied =
-                    EffectApplyHelper.ApplyRuntimeData(
+                    EffectApplyHelper.ApplyEffect(
                         effectManager,
-                        runtimeEffect,
-                        effectEntry.lifetimeType,
-                        effectEntry.duration,
-                        effectEntry.categoryType);
-
-                if (!applied)
-                {
-                    continue;
-                }
+                        runtimeEntry);
             }
         }
 
@@ -308,26 +296,19 @@ namespace Item
                 return;
             }
 
-            foreach (RelicEffectEntry effectEntry in relic.effects)
+            foreach (EffectEntrySO effectEntry in relic.effectEntries)
             {
-                if (effectEntry == null
-                    || effectEntry.effect == null
-                    || !ShouldApplyRelicEffectOnEquip(effectEntry.applyType))
+                if (effectEntry == null || effectEntry.EffectSO == null)
                 {
                     continue;
                 }
-
-                ApplyEffectToCharacters(
-                    effectEntry,
-                    EffectSourceType.Relic,
-                    relic.relicId,
-                    entry);
+                ApplyEffectToCharacters(effectEntry, entry);
             }
         }
 
         private void RemoveRelicEffects(RelicSO relic)
         {
-            if (relic == null || relic.effects == null)
+            if (relic == null || relic.effectEntries == null)
             {
                 return;
             }
@@ -341,28 +322,20 @@ namespace Item
                 return;
             }
 
-            foreach (RelicEffectEntry effectEntry in relic.effects)
+            foreach (EffectEntrySO effectEntry in relic.effectEntries)
             {
-                if (effectEntry == null
-                    || effectEntry.effect == null
-                    || !ShouldApplyRelicEffectOnEquip(effectEntry.applyType))
+                if (effectEntry == null || effectEntry.EffectSO == null)
                 {
                     continue;
                 }
-
-                RemoveRelicEffectFromCharacters(
-                    effectEntry,
-                    EffectSourceType.Relic,
-                    relic.relicId);
+                RemoveRelicEffectFromCharacters(effectEntry);
             }
         }
 
         private void RemoveRelicEffectFromCharacters(
-            RelicEffectEntry effectEntry,
-            EffectSourceType sourceType,
-            string sourceId)
+            EffectEntrySO effectEntry)
         {
-            if (effectEntry == null || effectEntry.effect == null)
+            if (effectEntry == null || effectEntry.EffectSO == null)
             {
                 return;
             }
@@ -384,19 +357,12 @@ namespace Item
                 CharacterManager targetCharacterManager =
                     ResolveCharacterManager(effectManager);
 
-                Effect.EffectRuntimeData runtimeEffect =
-                    EffectResolveHelper.CreateRuntimeData(
-                        effectEntry.effect,
-                        sourceType,
-                        sourceId,
+                EffectEntryRuntime runtimeEntry =
+                    EffectResolveHelper.CreateRuntimeEntry(
+                        effectEntry,
                         targetCharacterManager);
 
-                if (runtimeEffect == null)
-                {
-                    continue;
-                }
-
-                RemoveRuntimeEffectFromCharacters(runtimeEffect);
+                RemoveRuntimeEffectFromCharacters(runtimeEntry?.RuntimeData);
             }
         }
 

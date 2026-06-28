@@ -47,7 +47,7 @@ namespace Shrine
             return AddFaith(
                 godType,
                 config != null
-                    ? config.prayFaithGain
+                    ? config.PrayFaithGain
                     : 1);
         }
 
@@ -57,7 +57,7 @@ namespace Shrine
             return AddFaith(
                 godType,
                 config != null
-                    ? config.donateFaithGain
+                    ? config.DonateFaithGain
                     : 2);
         }
 
@@ -136,21 +136,21 @@ namespace Shrine
 
             int currentLevel =
                 GetFaithLevel(
-                    god.godType);
+                    god.GodType);
 
             if (currentLevel > 0)
             {
                 return false;
             }
 
-            if (god.initialFaithLevel <= 0)
+            if (god.InitialFaithLevel <= 0)
             {
                 return false;
             }
 
             SetFaithLevel(
-                god.godType,
-                god.initialFaithLevel);
+                god.GodType,
+                god.InitialFaithLevel);
 
             return true;
         }
@@ -166,22 +166,22 @@ namespace Shrine
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ShrineFaithService] Faith locked. god={lockedGod.godType}");
+                    $"[ShrineFaithService] Faith locked. god={lockedGod.GodType}");
             }
 
             int currentFaithLevel =
                 GetFaithLevel(
-                    lockedGod.godType);
+                    lockedGod.GodType);
 
             missionService?.ActivateFaithMission(
                 lockedGod,
                 currentFaithLevel);
 
             RemoveOtherGodBlessings(
-                lockedGod.godType);
+                lockedGod.GodType);
 
             RemoveOtherFaithRelics(
-                lockedGod.godType);
+                lockedGod.GodType);
 
 
         }
@@ -195,24 +195,27 @@ namespace Shrine
             }
 
             if (config == null
-                || config.gods == null)
+                || config.Gods == null)
             {
                 return;
             }
 
+            IReadOnlyList<ShrineGodSO> gods =
+                config.Gods;
+
             List<ShrineGodSO> targetGods = new();
 
-            for (int i = 0; i < config.gods.Count; i++)
+            for (int i = 0; i < gods.Count; i++)
             {
                 ShrineGodSO god =
-                    config.gods[i];
+                    gods[i];
 
                 if (god == null)
                 {
                     continue;
                 }
 
-                if (god.godType == lockedGodType)
+                if (god.GodType == lockedGodType)
                 {
                     continue;
                 }
@@ -248,49 +251,49 @@ namespace Shrine
             List<BlessSO> blessings =
                 new();
 
-            if (god.blessingPools != null)
+            if (god.BlessingPools != null)
             {
-                for (int i = 0; i < god.blessingPools.Count; i++)
+                for (int i = 0; i < god.BlessingPools.Count; i++)
                 {
                     BlessPoolSO pool =
-                        god.blessingPools[i];
+                        god.BlessingPools[i];
 
                     if (pool == null
-                        || pool.blessings == null)
+                        || pool.Blessings == null)
                     {
                         continue;
                     }
 
-                    for (int j = 0; j < pool.blessings.Count; j++)
+                    for (int j = 0; j < pool.Blessings.Count; j++)
                     {
                         BlessPoolSO.BlessPoolEntry entry =
-                            pool.blessings[j];
+                            pool.Blessings[j];
 
                         if (entry == null
-                            || entry.blessing == null)
+                            || entry.Blessing == null)
                         {
                             continue;
                         }
 
-                        if (string.IsNullOrWhiteSpace(entry.blessing.groupId))
+                        if (string.IsNullOrWhiteSpace(entry.Blessing.GroupId))
                         {
                             continue;
                         }
 
-                        if (blessings.Contains(entry.blessing))
+                        if (blessings.Contains(entry.Blessing))
                         {
                             continue;
                         }
 
-                        blessings.Add(entry.blessing);
+                        blessings.Add(entry.Blessing);
 
                         string targetGroupId =
-                            entry.blessing.groupId;
+                            entry.Blessing.GroupId;
 
                         BlessManager.Instance.RemoveBlesses(
                             x => x != null
                                  && x.source != null
-                                 && x.source.groupId == targetGroupId);
+                                 && x.source.GroupId == targetGroupId);
                     }
                 }
             }
@@ -309,42 +312,45 @@ namespace Shrine
                 return;
             }
 
-            if (config.gods == null)
+            if (config.Gods == null)
             {
                 return;
             }
 
-            for (int i = 0; i < config.gods.Count; i++)
+            IReadOnlyList<ShrineGodSO> gods =
+                config.Gods;
+
+            for (int i = 0; i < gods.Count; i++)
             {
                 ShrineGodSO god =
-                    config.gods[i];
+                    gods[i];
 
                 if (god == null)
                 {
                     continue;
                 }
 
-                if (god.godType == lockedGodType)
+                if (god.GodType == lockedGodType)
                 {
                     continue;
                 }
 
-                if (god.faithRelicRewards == null)
+                if (god.FaithRelicRewards == null)
                 {
                     continue;
                 }
 
-                for (int j = 0; j < god.faithRelicRewards.Count; j++)
+                for (int j = 0; j < god.FaithRelicRewards.Count; j++)
                 {
                     ShrineFaithRelicReward reward =
-                        god.faithRelicRewards[j];
+                        god.FaithRelicRewards[j];
 
                     if (reward == null)
                     {
                         continue;
                     }
 
-                    if (reward.relicReward == null)
+                    if (reward.RelicReward == null)
                     {
                         continue;
                     }
@@ -426,12 +432,12 @@ namespace Shrine
 
                 BlessManager.Instance.AddBless(
                     blessing,
-                    $"faith_{god.godType}_{faithLevel}");
+                    $"faith_{god.GodType}_{faithLevel}");
 
                 if (logDebug)
                 {
                     Debug.Log(
-                        $"[ShrineFaithService] Enhanced blessing granted. god={god.godType}, blessing={blessing.name}, level={faithLevel}");
+                        $"[ShrineFaithService] Enhanced blessing granted. god={god.GodType}, blessing={blessing.BlessingId}, level={faithLevel}");
                 }
             }
         }

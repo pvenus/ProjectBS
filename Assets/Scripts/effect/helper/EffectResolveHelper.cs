@@ -1,152 +1,39 @@
-using Character;
-using UnityEngine;
-using Skills.Dto;
-
 namespace Effect
 {
     public static class EffectResolveHelper
     {
-        public static EffectRuntimeData CreateRuntimeData(
-            EffectSO effectSo,
-            EffectSourceType sourceType,
-            string sourceId,
-            CharacterManager targetCharacter,
-            Transform sourceTransform = null,
-            Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null,
-            SkillProjectileHitEffectEntry effectEntry = null)
+        private static readonly EffectResolver resolver = new();
+
+        public static EffectEntryRuntime CreateRuntimeEntry(
+            EffectEntrySO effectEntrySo,
+            Character.CharacterManager targetCharacter,
+            Character.CharacterManager sourceCharacter = null,
+            UnityEngine.Transform sourceTransform = null,
+            UnityEngine.Vector2 projectileDirection = default)
         {
-            if (effectSo == null)
-            {
-                return null;
-            }
+            return resolver.Resolve(
+                effectEntrySo,
+                targetCharacter,
+                sourceCharacter,
+                sourceTransform,
+                projectileDirection);
+        }
 
-            if (effectSo is StatModifierEffectSO statModifierEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
+        public static EffectRuntimeData CreateRuntimeData(
+            EffectEntrySO effectEntrySo,
+            Character.CharacterManager targetCharacter,
+            Character.CharacterManager sourceCharacter = null,
+            UnityEngine.Transform sourceTransform = null,
+            UnityEngine.Vector2 projectileDirection = default)
+        {
+            EffectEntryRuntime runtimeEntry = CreateRuntimeEntry(
+                effectEntrySo,
+                targetCharacter,
+                sourceCharacter,
+                sourceTransform,
+                projectileDirection);
 
-                return new StatModifierEffectRuntime(
-                    statModifierEffect,
-                    sourceType,
-                    sourceId,
-                    targetCharacter,
-                    effectEntry?.hasValueOverride == true
-                        ? effectEntry.valueOverride
-                        : (float?)null);
-            }
-
-            if (effectSo is HealEffectSO healEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return healEffect.CreateRuntimeData(
-                    targetCharacter);
-            }
-
-            if (effectSo is CooldownReduceEffectSO cooldownReduceEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return new CooldownReduceEffectRuntime(
-                    cooldownReduceEffect,
-                    targetCharacter);
-            }
-
-            if (effectSo is ChanceOnHitStatModifierEffectSO chanceOnHitStatModifierEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return chanceOnHitStatModifierEffect.CreateRuntimeData(
-                    targetCharacter);
-            }
-
-            if (effectSo is ChanceOnHealStatModifierEffectSO chanceOnHealStatModifierEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return new ChanceOnHealStatModifierEffectRuntime(
-                    chanceOnHealStatModifierEffect,
-                    targetCharacter);
-            }
-
-            if (effectSo is ChanceOnHealCooldownReduceEffectSO chanceOnHealCooldownReduceEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return chanceOnHealCooldownReduceEffect.CreateRuntimeData(
-                    targetCharacter);
-            }
-
-            if (effectSo is ChanceOnHitSkillEffectSO chanceOnHitSkillEffect)
-            {
-                if (targetCharacter == null || sourceCharacter == null)
-                {
-                    return null;
-                }
-
-                return chanceOnHitSkillEffect.CreateRuntimeData(
-                    targetCharacter,
-                    sourceCharacter);
-            }
-
-            if (effectSo is AttackBleedEffectSO attackBleedEffect)
-            {
-                if (targetCharacter == null || sourceCharacter == null)
-                {
-                    return null;
-                }
-
-                return attackBleedEffect.CreateRuntimeData(
-                    targetCharacter,
-                    sourceCharacter);
-            }
-
-            if (effectSo is KnockbackEffectSO knockbackEffect)
-            {
-                if (targetCharacter == null)
-                {
-                    return null;
-                }
-
-                return new KnockbackEffectRuntime(
-                    knockbackEffect,
-                    targetCharacter,
-                    sourceTransform,
-                    projectileDirection);
-            }
-
-            if (effectSo is TauntEffectSO tauntEffect)
-            {
-                if (targetCharacter == null || sourceTransform == null)
-                {
-                    return null;
-                }
-
-                return new TauntEffectRuntime(
-                    tauntEffect,
-                    targetCharacter,
-                    sourceTransform);
-            }
-
-            return null;
+            return runtimeEntry?.RuntimeData;
         }
     }
 }

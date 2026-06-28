@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using String;
 using UnityEngine;
 
 namespace Effect
@@ -9,26 +9,41 @@ namespace Effect
     public class EffectSO : ScriptableObject
     {
         [Header("Identity")]
-        public string effectId;
-
-        public string effectName;
-
-        [TextArea]
-        public string description;
+        [SerializeField] private string effectId;
 
         [Header("Visual")]
-        public Sprite icon;
+        [SerializeField] private Sprite icon;
+        
+        [Header("Config")]
+        [SerializeReference] private EffectConfig config;
 
-        [Header("Runtime")]
-        public bool isPermanent;
+        public EffectConfig Config => config;
 
-        public bool allowDuplicate = true;
+        public string LocalizationMainKey => effectId;
 
-        public float duration;
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
 
-        public int maxStack = 1;
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
 
-        [Header("Tags")]
-        public List<string> tags = new();
+        public string EffectId => effectId;
+        public Sprite Icon => icon;
+
+#if UNITY_EDITOR
+        public void ApplyEditorData(
+            string effectId,
+            Sprite icon,
+            EffectConfig config)
+        {
+            this.effectId = effectId;
+            this.icon = icon;
+            this.config = config;
+        }
+#endif
     }
 }

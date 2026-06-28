@@ -370,9 +370,16 @@ namespace Character.Skill
             EquipmentSkillRuntimeData runtime)
         {
             return runtime != null &&
-                   runtime.sourceEquipment != null &&
-                   !runtime.skipAttackAnimation &&
+                   !ShouldSkipAttackAnimation(runtime) &&
                    !HasCastMove(runtime);
+        }
+
+        private bool ShouldSkipAttackAnimation(
+            EquipmentSkillRuntimeData runtime)
+        {
+            SkillCastSO castSo = ResolveCastSo(runtime);
+
+            return castSo != null && castSo.SkipAttackAnimation;
         }
 
         private bool HasCastMove(
@@ -382,7 +389,7 @@ namespace Character.Skill
 
             return castSo != null &&
                    castSo.CastMove != null &&
-                   castSo.CastMove.HasMove;
+                   castSo.CastMove.MoveType != CastMoveType.None;
         }
 
         private float ResolveAttackFireDelay(
@@ -580,7 +587,7 @@ namespace Character.Skill
             AnimationMono animationMono =
                 ResolveAnimation(caster);
 
-            if (!runtime.skipAttackAnimation
+            if (!ShouldSkipAttackAnimation(runtime)
                 && animationMono != null
                 && animationMono.IsPlayingAttack())
             {

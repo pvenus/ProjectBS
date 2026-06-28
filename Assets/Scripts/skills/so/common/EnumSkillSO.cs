@@ -58,10 +58,9 @@ namespace Skill
     /// </summary>
     public enum ProjectileArrangementType
     {
-        Single = 0,
-        Spread = 1,
-        Line = 2,
-        Circle = 3
+        Spread = 0,
+        Line = 1,
+        Circle = 2
     }
 
     /// <summary>
@@ -97,16 +96,6 @@ namespace Skill
         Target = 1,
         HitPoint = 2,
         ProjectilePosition = 3
-    }
-
-    /// <summary>
-    /// 스킬 발동 방식
-    /// </summary>
-    public enum CastType
-    {
-        Instant = 0,
-        Channeling,
-        Charge
     }
 
     /// <summary>
@@ -166,6 +155,18 @@ namespace Skill
         Rain = 1
     }
 
+    /// <summary>
+    /// 스킬에서 사용하는 애니메이션 클립 종류.
+    /// </summary>
+    public enum SkillAnimationClipType
+    {
+        Idle = 0,
+        Cast = 1,
+        Attack = 2,
+        ProjectileLoop = 3,
+        Hit = 4
+    }
+
     public enum ImpactType
     {
         Hit,
@@ -173,5 +174,94 @@ namespace Skill
         Critical,
         Overheat,
         Special
+    }
+    public enum BattleSkillCategory
+    {
+        None,
+        Attack,
+        Support,
+        Defense,
+        Heal,
+        Control,
+        Buff,
+        Debuff,
+        Utility
+    }
+    public enum BattleSkillTargetType
+    {
+        None,
+        Self,
+        Ally,
+        Enemy,
+        Point
+    }
+    public enum BattleSkillTacticalNeed
+    {
+        None,
+        SelfDefense,
+        AllySupport,
+        AreaControl,
+        OffensivePressure,
+        Utility
+    }
+
+    public enum SkillType
+    {
+        Active = 0,
+        Passive = 1
+    }
+
+    public enum SkillComponentType
+    {
+        Projectile = 0,
+        Spawn = 1
+    }
+
+    public enum ProjectileMoveType
+    {
+        None = 0,
+        Linear = 1,
+        Warp = 2,
+        Hover = 3,
+        Orbit = 4,
+        Homing = 5
+    }
+    public enum SkillStatModifierOperationType
+    {
+        Flat = 0,
+        Percent = 1,
+        Override = 2
+    }
+
+    /// <summary>
+    /// 업그레이드 대상 구분
+    /// </summary>
+    public enum SkillUpgradeTargetType
+    {
+        SkillStat = 0,
+        Effect = 1
+    }
+
+    /// <summary>
+    /// 수정 대상 스탯 타입
+    /// </summary>
+    public enum SkillStatModifierType
+    {
+        BaseDamage = 0,
+        AttackPercentDamage = 1,
+
+        Cooldown = 2,
+        Range = 3,
+        SplitHitCount = 4,
+
+        ProjectileCount = 5,
+        ProjectileSpreadAngle = 6,
+        ProjectileScale = 7,
+        Lifetime = 8,
+
+        ProjectileSpawnInterval = 9,
+        ProjectileSpawnRadius = 10,
+        ProjectileColliderRadius = 11,
+        MaxHitCount = 12
     }
 }

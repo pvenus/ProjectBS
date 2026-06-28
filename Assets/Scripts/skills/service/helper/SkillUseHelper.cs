@@ -34,6 +34,7 @@ namespace Skill.Service.Helper
     {
         private static ProjectileFactory projectileFactory;
         private static readonly EquipmentSkillResolver skillResolver = new();
+        private static readonly EffectResolver effectResolver = new();
 
         private static ProjectileFactory GetProjectileFactory()
         {
@@ -55,28 +56,28 @@ namespace Skill.Service.Helper
                 return false;
             }
 
-            switch (ResolveEffectType(context.Runtime))
+            switch (ResolveSkillComponentType(context.Runtime))
             {
-                case EffectType.Spawn:
+                case SkillComponentType.Spawn:
                     return UseSpawnSkillAndSelfEffects(context);
 
-                case EffectType.Projectile:
+                case SkillComponentType.Projectile:
                 default:
                     return UseProjectileSkillAndSelfEffects(context);
             }
         }
 
-        private static EffectType ResolveEffectType(
+        private static SkillComponentType ResolveSkillComponentType(
             EquipmentSkillRuntimeData runtime)
         {
             if (runtime == null ||
                 runtime.sourceEquipment == null ||
                 runtime.sourceEquipment.BaseProfileSo == null)
             {
-                return EffectType.Projectile;
+                return SkillComponentType.Projectile;
             }
 
-            return runtime.sourceEquipment.BaseProfileSo.EffectType;
+            return runtime.sourceEquipment.BaseProfileSo.SkillComponentType;
         }
 
         private static bool UseProjectileSkillAndSelfEffects(
@@ -202,7 +203,7 @@ namespace Skill.Service.Helper
                 return false;
             }
 
-            float duration = ResolveSpawnDuration(spawnSkill);
+            float spawnLifeTime = ResolveSpawnLifeTime(spawnSkill);
             float spawnRadius = ResolveSpawnRadius(spawnSkill);
 
             Vector3 spawnPosition = ResolveSpawnPosition(
@@ -228,11 +229,11 @@ namespace Skill.Service.Helper
                 spawnedCharacter,
                 characterSo);
 
-            if (IsCharacterSpawn(spawnSkill) && duration > 0f)
+            if (IsCharacterSpawn(spawnSkill) && spawnLifeTime > 0f)
             {
                 Object.Destroy(
                     spawnedObject,
-                    duration);
+                    spawnLifeTime);
             }
 
             return true;
@@ -300,7 +301,7 @@ namespace Skill.Service.Helper
                 spawnSkill.SpawnInterval);
         }
 
-        private static float ResolveSpawnDuration(
+        private static float ResolveSpawnLifeTime(
             SpawnSkillSO spawnSkill)
         {
             if (spawnSkill == null)
@@ -310,7 +311,7 @@ namespace Skill.Service.Helper
 
             return Mathf.Max(
                 0f,
-                spawnSkill.Duration);
+                spawnSkill.SpawnLifeTime);
         }
 
 
@@ -436,7 +437,7 @@ namespace Skill.Service.Helper
                 return;
             }
 
-            SkillProjectileHitEffectEntry[] selfEffects = castSo.SelfEffects;
+            EffectEntrySO[] selfEffects = castSo.SelfEffects;
 
             if (selfEffects == null || selfEffects.Length == 0)
             {
@@ -462,38 +463,17 @@ namespace Skill.Service.Helper
                 return;
             }
 
-            for (int i = 0; i < selfEffects.Length; i++)
-            {
-                SkillProjectileHitEffectEntry entry = selfEffects[i];
+            EffectEntryRuntime[] resolvedEffects =
+                effectResolver.ResolveEntries(
+                    selfEffects,
+                    caster,
+                    caster,
+                    EffectCategoryType.Buff,
+                    runtime.upgradeRuntimeData?.effectModifiers);
 
-                if (entry == null || entry.effectSo == null)
-                {
-                    continue;
-                }
-
-                string sourceId = runtime.sourceEquipment != null
-                    ? runtime.sourceEquipment.EquipmentId
-                    : "Skill";
-
-                SkillProjectileHitEffectEntry resolvedEntry =
-                    CreateResolvedSelfEffectEntry(
-                        entry,
-                        runtime.upgradeRuntimeData?.effectModifiers);
-
-                EffectApplyHelper.ApplyEffect(
-                    effectManager,
-                    casterCharacter,
-                    resolvedEntry.effectSo,
-                    EffectSourceType.Skill,
-                    sourceId,
-                    resolvedEntry.lifetimeType,
-                    resolvedEntry.duration,
-                    resolvedEntry.categoryType,
-                    ResolveEffectSourceTransform(resolvedEntry.effectSo, caster),
-                    Vector2.zero,
-                    casterCharacter,
-                    resolvedEntry);
-            }
+            EffectApplyHelper.ApplyEffects(
+                effectManager,
+                resolvedEffects);
         }
 
         public static bool UseSkillProjectilesAndSelfEffects(
@@ -624,14 +604,6 @@ namespace Skill.Service.Helper
             return runtime.sourceEquipment.CastSo;
         }
 
-        private static SkillProjectileHitEffectEntry CreateResolvedSelfEffectEntry(
-            SkillProjectileHitEffectEntry source,
-            System.Collections.Generic.IReadOnlyList<EffectUpgradeModifierData> modifiers)
-        {
-            return EffectUpgradeApplyHelper.CreateResolvedEntry(
-                source,
-                modifiers);
-        }
 
 
         private static EffectManager ResolveEffectManager(GameObject caster)
@@ -682,20 +654,5 @@ namespace Skill.Service.Helper
             return obj.GetComponentInChildren<CharacterManager>();
         }
 
-        private static Transform ResolveEffectSourceTransform(
-            EffectSO effectSo,
-            GameObject fallback)
-        {
-            if (effectSo == null)
-            {
-                return fallback != null
-                    ? fallback.transform
-                    : null;
-            }
-
-            return fallback != null
-                ? fallback.transform
-                : null;
-        }
     }
 }

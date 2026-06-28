@@ -218,9 +218,9 @@ namespace Character
             Transform caster,
             Transform target)
         {
-            SkillCastMoveSO castMoveSo = ResolveCastMoveSo(runtime);
+            CastMoveProfile castMove = ResolveCastMove(runtime);
 
-            if (castMoveSo == null || !castMoveSo.HasMove)
+            if (castMove == null || castMove.MoveType == CastMoveType.None)
             {
                 return;
             }
@@ -238,10 +238,10 @@ namespace Character
                 resolvedCaster,
                 target,
                 castDirection,
-                castMoveSo);
+                castMove);
         }
 
-        private SkillCastMoveSO ResolveCastMoveSo(
+        private CastMoveProfile ResolveCastMove(
             EquipmentSkillRuntimeData runtime)
         {
             if (runtime == null ||
@@ -280,17 +280,6 @@ namespace Character
 
             return Vector2.right;
         }
-
-        public List<SkillProjectileHitEffectEntry> GetPassiveEffects()
-        {
-            return passiveSkillService.GetAllPassiveEffects(this);
-        }
-
-        public List<EquipmentSkillRuntimeData> GetPassiveSkills()
-        {
-            return passiveSkillService.GetPassiveSkills(this);
-        }
-
         public EquipmentSkillRuntimeData[] GetAllRuntimes()
         {
             if (SkillPool == null || SkillPool.Slots == null)

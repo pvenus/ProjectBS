@@ -77,11 +77,11 @@ public class ShrineGodCard : UIComponent,
 			: godType.ToString();
 
 		string godDescription = godSo != null
-			? godSo.description
+			? godSo.Description
 			: string.Empty;
 
 		Sprite iconSprite = godSo != null
-			? godSo.icon
+			? godSo.Icon
 			: null;
 
 		Bind(

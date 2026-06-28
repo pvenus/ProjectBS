@@ -10,25 +10,51 @@ public class BaseVisualSO : ScriptableObject
 {
     [Header("Identity")]
     [SerializeField] private string visualId;
-    [SerializeField] private AttackArchetype archetype = AttackArchetype.Melee;
 
     [Header("Visual Type")]
     [SerializeField] private ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
 
     [Header("Animation Clips")]
-    [SerializeField] private AnimationClip idleClip;
-    [SerializeField] private AnimationClip castClip;
-    [SerializeField] private AnimationClip attackClip;
-    [SerializeField] private AnimationClip projectileLoopClip;
-    [SerializeField] private AnimationClip hitClip;
+    [SerializeField] private AnimationClipEntry[] animationClips;
 
     public string VisualId => visualId;
-    public AttackArchetype Archetype => archetype;
     public ProjectileVisualType ProjectileVisualType => projectileVisualType;
 
-    public AnimationClip IdleClip => idleClip;
-    public AnimationClip CastClip => castClip;
-    public AnimationClip AttackClip => attackClip;
-    public AnimationClip ProjectileLoopClip => projectileLoopClip;
-    public AnimationClip HitClip => hitClip;
+    public AnimationClipEntry[] AnimationClips => animationClips;
+
+#if UNITY_EDITOR
+    public void ApplyEditorData(
+        string visualId,
+        ProjectileVisualType projectileVisualType,
+        AnimationClipEntry[] animationClips)
+    {
+        this.visualId = visualId;
+        this.projectileVisualType = projectileVisualType;
+        this.animationClips = animationClips;
+    }
+#endif
+}
+
+[System.Serializable]
+public class AnimationClipEntry
+{
+    [SerializeField] private SkillAnimationClipType clipType;
+    [SerializeField] private AnimationClip clip;
+
+    public SkillAnimationClipType ClipType => clipType;
+    public AnimationClip Clip => clip;
+
+    public AnimationClipEntry()
+    {
+    }
+
+#if UNITY_EDITOR
+    public AnimationClipEntry(
+        SkillAnimationClipType clipType,
+        AnimationClip clip)
+    {
+        this.clipType = clipType;
+        this.clip = clip;
+    }
+#endif
 }

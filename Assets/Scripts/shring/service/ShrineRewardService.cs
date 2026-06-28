@@ -50,7 +50,7 @@ namespace Shrine
             if (logDebug)
             {
                 Debug.Log(
-                    $"[ShrineRewardService] Faith relic granted. god={god.godType}, level={faithLevel}, relic={rewardRelic.DisplayName}, added={added}");
+                    $"[ShrineRewardService] Faith relic granted. god={god.GodType}, level={faithLevel}, relic={rewardRelic.DisplayName}, added={added}");
             }
 
             return added;
@@ -72,34 +72,36 @@ namespace Shrine
                 return;
             }
 
-            if (god.faithRelicRewards == null)
+            var faithRelicRewards = god.FaithRelicRewards;
+
+            if (faithRelicRewards == null)
             {
                 return;
             }
 
-            for (int i = 0; i < god.faithRelicRewards.Count; i++)
+            for (int i = 0; i < faithRelicRewards.Count; i++)
             {
                 ShrineFaithRelicReward reward =
-                    god.faithRelicRewards[i];
+                    faithRelicRewards[i];
 
                 if (reward == null)
                 {
                     continue;
                 }
 
-                if (reward.relicReward == null)
+                if (reward.RelicReward == null)
                 {
                     continue;
                 }
 
                 bool removed =
                     ItemManager.Instance.RemoveRelic(
-                        reward.relicReward);
+                        reward.RelicReward);
 
                 if (logDebug && removed)
                 {
                     Debug.Log(
-                        $"[ShrineRewardService] Faith relic removed. relic={reward.relicReward.DisplayName}");
+                        $"[ShrineRewardService] Faith relic removed. relic={reward.RelicReward.DisplayName}");
                 }
             }
         }

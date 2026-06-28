@@ -49,7 +49,7 @@ namespace Mission
             if (logDebug)
             {
                 Debug.Log(
-                    $"[MissionManager] Mission activated. mission={mission.displayName}");
+                    $"[MissionManager] Mission activated. mission={mission.DisplayName}");
             }
 
             OnMissionActivated?.Invoke(mission);
@@ -77,17 +77,20 @@ namespace Mission
 
                 if (missionEntry == null
                     || missionEntry.mission == null
-                    || missionEntry.mission.conditions == null)
+                    || missionEntry.mission.Conditions == null)
                 {
                     continue;
                 }
 
+                IReadOnlyList<MissionConditionData> entryConditions =
+                    missionEntry.mission.Conditions;
+
                 for (int j = 0;
-                     j < missionEntry.mission.conditions.Count;
+                     j < entryConditions.Count;
                      j++)
                 {
                     MissionConditionData condition =
-                        missionEntry.mission.conditions[j];
+                        entryConditions[j];
 
                     if (condition == null)
                     {
@@ -148,18 +151,21 @@ namespace Mission
                     continue;
                 }
 
-                if (mission.conditions == null
-                    || mission.conditions.Count <= 0)
+                IReadOnlyList<MissionConditionData> missionConditions =
+                    mission.Conditions;
+
+                if (missionConditions == null
+                    || missionConditions.Count <= 0)
                 {
                     continue;
                 }
 
                 bool hasMatchedCondition = false;
 
-                for (int j = 0; j < mission.conditions.Count; j++)
+                for (int j = 0; j < missionConditions.Count; j++)
                 {
                     MissionConditionData condition =
-                        mission.conditions[j];
+                        missionConditions[j];
 
                     if (condition == null)
                     {
@@ -194,7 +200,7 @@ namespace Mission
                 if (logDebug)
                 {
                     Debug.Log(
-                        $"[MissionManager] Mission progressed. mission={mission.displayName}, progress={entry.currentCount}/{mission.GetTotalTargetCount()}");
+                        $"[MissionManager] Mission progressed. mission={mission.DisplayName}, progress={entry.currentCount}/{mission.GetTotalTargetCount()}");
                 }
 
                 if (!completed)
@@ -205,7 +211,7 @@ namespace Mission
                 if (logDebug)
                 {
                     Debug.Log(
-                        $"[MissionManager] Mission completed. mission={mission.displayName}");
+                        $"[MissionManager] Mission completed. mission={mission.DisplayName}");
                 }
 
                 GiveReward(mission);
@@ -222,7 +228,7 @@ namespace Mission
                 return;
             }
 
-            switch (mission.rewardType)
+            switch (mission.RewardType)
             {
                 case MissionRewardType.Faith:
                 {
@@ -243,12 +249,12 @@ namespace Mission
                     int faithLevel =
                         shrineManager.AddFaith(
                             lockedGod,
-                            mission.rewardFaith);
+                            mission.RewardFaith);
 
                     if (logDebug)
                     {
                         Debug.Log(
-                            $"[MissionManager] Faith reward granted. god={lockedGod}, amount={mission.rewardFaith}, level={faithLevel}");
+                            $"[MissionManager] Faith reward granted. god={lockedGod}, amount={mission.RewardFaith}, level={faithLevel}");
                     }
 
                     break;
@@ -261,19 +267,19 @@ namespace Mission
                         return;
                     }
 
-                    if (mission.unlockGodType == ShrineGodType.None)
+                    if (mission.UnlockGodType == ShrineGodType.None)
                     {
                         return;
                     }
 
                     shrineManager.CurrentShrine
                         .availableGods
-                        .Add(mission.unlockGodType);
+                        .Add(mission.UnlockGodType);
 
                     if (logDebug)
                     {
                         Debug.Log(
-                            $"[MissionManager] God unlocked. god={mission.unlockGodType}");
+                            $"[MissionManager] God unlocked. god={mission.UnlockGodType}");
                     }
 
                     break;
@@ -290,7 +296,7 @@ namespace Mission
             }
 
             return missionDatabase.Find(
-                x => x != null && x.missionId == missionId);
+                x => x != null && x.MissionId == missionId);
         }
     }
 }

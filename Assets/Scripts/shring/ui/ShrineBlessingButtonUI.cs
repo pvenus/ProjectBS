@@ -116,7 +116,7 @@ namespace Shrine.UI
             if (effectText != null)
             {
                 effectText.text = blessingRuntime.source != null
-                    ? blessingRuntime.source.description
+                    ? blessingRuntime.source.Description
                     : string.Empty;
             }
 

@@ -28,7 +28,7 @@ namespace Skill
         [SerializeField] private EquipmentUpgradeTableSO upgradeTableSo;
 
         [Header("Visual")]
-        [SerializeField] private SkillVisualSetSO visualSetSo;
+        [SerializeField] private BaseVisualSO baseVisualSo;
 
         public string EquipmentId => equipmentId;
         public string LocalizationMainKey => equipmentId;
@@ -50,7 +50,7 @@ namespace Skill
         public SkillMoveSO MoveSo => moveSo;
         public SpawnSkillSO SpawnSkillSo => spawnSkillSo;
         public EquipmentUpgradeTableSO UpgradeTableSo => upgradeTableSo;
-        public SkillVisualSetSO VisualSetSo => visualSetSo;
+        public BaseVisualSO BaseVisualSo => baseVisualSo;
 
         public float EvaluateBrainScore(object context, int roleBias = 0)
         {

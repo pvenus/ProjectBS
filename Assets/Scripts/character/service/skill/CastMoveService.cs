@@ -38,9 +38,12 @@ namespace Character.Skill
             Transform casterTransform,
             Transform targetTransform,
             Vector2 castDirection,
-            SkillCastMoveSO castMoveSo)
+            CastMoveProfile castMove)
         {
-            if (runner == null || casterTransform == null || castMoveSo == null || !castMoveSo.HasMove)
+            if (runner == null ||
+                casterTransform == null ||
+                castMove == null ||
+                castMove.MoveType == CastMoveType.None)
             {
                 return false;
             }
@@ -51,7 +54,7 @@ namespace Character.Skill
                 casterTransform,
                 targetTransform,
                 castDirection,
-                castMoveSo.MoveType);
+                castMove.MoveType);
 
             if (direction.sqrMagnitude <= 0.0001f)
             {
@@ -63,9 +66,8 @@ namespace Character.Skill
                 MoveRoutine(
                     casterTransform,
                     direction.normalized,
-                    castMoveSo.Distance,
-                    castMoveSo.Duration,
-                    castMoveSo.StopOnWall));
+                    castMove.Distance,
+                    castMove.Duration));
 
             return true;
         }
@@ -74,8 +76,7 @@ namespace Character.Skill
             Transform target,
             Vector2 direction,
             float distance,
-            float duration,
-            bool stopOnWall)
+            float duration)
         {
             if (target == null)
             {

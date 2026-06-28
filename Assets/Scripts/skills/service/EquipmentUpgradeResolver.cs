@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Skill;
+using Effect;
 /// <summary>
 /// 장비 업그레이드 해석 전담 Resolver.
 /// EquipmentSkillSO의 업그레이드 테이블과 인스턴스 레벨을 조합해

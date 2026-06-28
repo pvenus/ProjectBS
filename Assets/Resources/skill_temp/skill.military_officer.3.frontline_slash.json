@@ -1,0 +1,44 @@
+{
+  "equipmentId": "skill.military_officer.3.frontline_slash",
+  "baseProfile": {
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 0.3,
+    "projectileSpawn": {
+      "spawnOffset": 1,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.military_officer.3.frontline_slash.cast",
+    "targetingType": "Directional",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 2,
+    "skipAttackAnimation": false
+  },
+  "hits": [
+    {
+      "hitId": "skill.military_officer.3.frontline_slash.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "attackPercentDamage": 100
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.military_officer.3.frontline_slash.visual",
+    "projectileVisualType": "Default"
+  }
+}

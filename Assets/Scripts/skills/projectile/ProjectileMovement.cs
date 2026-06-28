@@ -151,9 +151,9 @@ public class ProjectileMovement : MonoBehaviour
         moveDto.startPosition = data.spawnPosition;
 
         bool useRuntimeTargetPosition =
-            data.targetingType == TargetingType.AutoTargetDirection ||
-            data.targetingType == TargetingType.Directional ||
-            data.targetingType == TargetingType.Position ||
+            data.sourceEquipment.CastSo.TargetingType == TargetingType.AutoTargetDirection ||
+            data.sourceEquipment.CastSo.TargetingType == TargetingType.Directional ||
+            data.sourceEquipment.CastSo.TargetingType == TargetingType.Position ||
             (data.projectileCount > 1 && data.projectileSpreadAngle > 0f);
 
         if (useRuntimeTargetPosition)
@@ -166,7 +166,7 @@ public class ProjectileMovement : MonoBehaviour
             return;
         }
 
-        if (data.targetingType == TargetingType.AutoTarget)
+        if (data.sourceEquipment.CastSo.TargetingType == TargetingType.AutoTarget)
         {
             Transform targetTransform = data.target != null ? data.target.transform : null;
 
@@ -198,7 +198,7 @@ public class ProjectileMovement : MonoBehaviour
             return;
         }
 
-        if (data.targetingType == TargetingType.AutoTarget)
+        if (data.sourceEquipment.CastSo.TargetingType == TargetingType.AutoTarget)
         {
             Transform targetTransform = data.target != null ? data.target.transform : null;
 

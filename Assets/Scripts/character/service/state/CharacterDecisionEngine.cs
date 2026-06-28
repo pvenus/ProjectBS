@@ -95,7 +95,7 @@ namespace Character.Skill
                 return true;
             }
             if (context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo != null &&
-                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.EffectType == EffectType.Spawn)
+                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.SkillComponentType == SkillComponentType.Spawn)
             {
                 return false;
             }
@@ -139,7 +139,7 @@ namespace Character.Skill
                 return false;
             }
             if (context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo != null &&
-                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.EffectType == EffectType.Spawn)
+                context.SelectedSkillRuntime.sourceEquipment.BaseProfileSo.SkillComponentType == SkillComponentType.Spawn)
             {
                 return true;
             }

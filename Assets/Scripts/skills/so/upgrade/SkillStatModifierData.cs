@@ -15,29 +15,25 @@ using Skill;
 [Serializable]
 public class SkillStatModifierData
 {
-    [Header("Target")]
-    public SkillStatModifierType modifierType = SkillStatModifierType.BaseDamage;
+    [SerializeField] private SkillStatModifierType modifierType = SkillStatModifierType.BaseDamage;
+    [SerializeField] private SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Flat;
+    [SerializeField] private float value;
 
-    [Header("Operation")]
-    public SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Flat;
+    public SkillStatModifierType ModifierType => modifierType;
+    public SkillStatModifierOperationType OperationType => operationType;
+    public float Value => value;
 
-    [Header("Value")]
-    public float value;
-
-
-    public static SkillStatModifierData Create(
-        SkillStatModifierType type,
-        SkillStatModifierOperationType op,
-        float val,
-        string source = null)
+    #if UNITY_EDITOR
+    public void ApplyEditorData(
+        SkillStatModifierType modifierType,
+        SkillStatModifierOperationType operationType,
+        float value)
     {
-        return new SkillStatModifierData
-        {
-            modifierType = type,
-            operationType = op,
-            value = val
-        };
+        this.modifierType = modifierType;
+        this.operationType = operationType;
+        this.value = value;
     }
+    #endif
 
     public float Apply(float baseValue)
     {
@@ -45,13 +41,10 @@ public class SkillStatModifierData
         {
             case SkillStatModifierOperationType.Flat:
                 return baseValue + value;
-
             case SkillStatModifierOperationType.Percent:
                 return baseValue * (1f + value);
-
             case SkillStatModifierOperationType.Override:
                 return value;
-
             default:
                 return baseValue;
         }

@@ -9,10 +9,15 @@ namespace Bless
     {
         [Header("Common Pools")]
         [Tooltip("공용 블레스 풀")]
-        public BlessPoolSO commonPool;
+        [SerializeField]
+        private BlessPoolSO commonPool;
 
         [Header("Settings")]
         [Tooltip("기본 공용 블레스 선택 개수")]
-        public int commonBlessingCount = 1;
+        [SerializeField]
+        private int commonBlessingCount = 1;
+
+        public BlessPoolSO CommonPool => commonPool;
+        public int CommonBlessingCount => Mathf.Max(1, commonBlessingCount);
     }
 }

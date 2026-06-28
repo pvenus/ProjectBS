@@ -15,13 +15,11 @@ public class ProjectileRuntimeData
     [Header("Ownership")]
     public GameObject owner;
     public GameObject target;
+    public EquipmentSkillSO sourceEquipment;
 
     [Header("Spawn")]
     public Vector2 spawnPosition;
     public Vector2 direction;
-
-    [Header("Target")]
-    public TargetingType targetingType = TargetingType.None;
 
     [Header("Runtime Profiles")]
     public SkillMoveRuntimeDto moveRuntime;
@@ -32,10 +30,8 @@ public class ProjectileRuntimeData
     public float lifetime = 3f;
 
     [Header("Projectile Common")]
-    public ProjectileEntity projectilePrefab;
     public int projectileCount = 1;
     public int spawnOrder = 0;
-    public ProjectileArrangementType projectileArrangement = ProjectileArrangementType.Single;
     public float projectileArrangementValue = 0f;
     public float projectileSpreadAngle = 0f;
     public float projectileScale = 1f;
@@ -54,13 +50,8 @@ public class ProjectileRuntimeData
     // --- Resolved Visual Runtime (filled by resolver) ---
     [Header("Resolved Visual Runtime")]
     public ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
-    public AnimationClip spawnClip;
-    public AnimationClip hitClip;
-    public AnimationClip despawnClip;
-
     public Material material;
     public Color color = Color.white;
-
     // Optional: if true, prefer Animator triggers over direct clips
     public bool useAnimatorTriggers;
 
@@ -79,8 +70,6 @@ public class ProjectileRuntimeData
 [System.Serializable]
 public class ResolvedVisualContextDto
 {
-    [Header("Base Context")]
-    public AttackArchetype attackArchetype;
     [Header("Optional Runtime Keys")]
     public string baseVisualId;
     public string mainVisualId;

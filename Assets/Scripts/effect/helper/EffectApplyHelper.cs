@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Character;
 using UnityEngine;
-using Skills.Dto;
 
 namespace Effect.Helper
 {
@@ -13,55 +11,26 @@ namespace Effect.Helper
     {
         public static bool ApplyEffect(
             EffectManager effectManager,
-            CharacterManager targetCharacter,
-            EffectSO effectSo,
-            EffectSourceType sourceType,
-            string sourceId,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.Instant,
-            float duration = 0f,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral,
-            Transform sourceTransform = null,
-            Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null,
-            SkillProjectileHitEffectEntry effectEntry = null)
+            EffectEntryRuntime effectEntry)
         {
-            if (effectManager == null || targetCharacter == null || effectSo == null)
+            if (effectManager == null
+                || effectEntry == null
+                || effectEntry.RuntimeData == null)
             {
                 return false;
             }
 
-            EffectRuntimeData runtimeData = EffectResolveHelper.CreateRuntimeData(
-                effectSo,
-                sourceType,
-                sourceId,
-                targetCharacter,
-                sourceTransform,
-                projectileDirection,
-                sourceCharacter,
-                effectEntry);
-
-            if (runtimeData == null)
-            {
-                return false;
-            }
-
-            effectManager.AddEffect(runtimeData, lifetimeType, duration, categoryType);
+            effectManager.AddEffect(
+                effectEntry.RuntimeData,
+                effectEntry.LifetimeType,
+                effectEntry.Duration,
+                effectEntry.CategoryType);
             return true;
         }
 
         public static int ApplyEffects(
             EffectManager effectManager,
-            CharacterManager targetCharacter,
-            IEnumerable<EffectSO> effects,
-            EffectSourceType sourceType,
-            string sourceId,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.Instant,
-            float duration = 0f,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral,
-            Transform sourceTransform = null,
-            Vector2 projectileDirection = default,
-            CharacterManager sourceCharacter = null,
-            SkillProjectileHitEffectEntry effectEntry = null)
+            IEnumerable<EffectEntryRuntime> effects)
         {
             if (effects == null)
             {
@@ -70,20 +39,10 @@ namespace Effect.Helper
 
             int appliedCount = 0;
 
-            foreach (EffectSO effectSo in effects)
+            foreach (EffectEntryRuntime effectEntry in effects)
             {
                 bool applied = ApplyEffect(
                     effectManager,
-                    targetCharacter,
-                    effectSo,
-                    sourceType,
-                    sourceId,
-                    lifetimeType,
-                    duration,
-                    categoryType,
-                    sourceTransform,
-                    projectileDirection,
-                    sourceCharacter,
                     effectEntry);
 
                 if (applied)
@@ -98,9 +57,9 @@ namespace Effect.Helper
         public static bool ApplyRuntimeData(
             EffectManager effectManager,
             EffectRuntimeData runtimeData,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.Instant,
-            float duration = 0f,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+            EffectLifetimeType lifetimeType,
+            float duration,
+            EffectCategoryType categoryType)
         {
             if (effectManager == null || runtimeData == null)
             {
@@ -114,9 +73,9 @@ namespace Effect.Helper
         public static int ApplyRuntimeDataList(
             EffectManager effectManager,
             IEnumerable<EffectRuntimeData> runtimeDataList,
-            EffectLifetimeType lifetimeType = EffectLifetimeType.Instant,
-            float duration = 0f,
-            EffectCategoryType categoryType = EffectCategoryType.Neutral)
+            EffectLifetimeType lifetimeType,
+            float duration,
+            EffectCategoryType categoryType)
         {
             if (runtimeDataList == null)
             {

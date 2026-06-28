@@ -24,7 +24,7 @@ namespace Bless
             runtimeData.GetBlessings();
         public BlessPoolSO CommonPool =>
             config != null
-                ? config.commonPool
+                ? config.CommonPool
                 : null;
 
         private void Awake()
@@ -60,7 +60,7 @@ namespace Bless
         {
             BlessPoolSO commonPool =
                 config != null
-                    ? config.commonPool
+                    ? config.CommonPool
                     : null;
 
             if (commonPool == null)
@@ -70,7 +70,7 @@ namespace Bless
 
             int commonBlessingCount =
                 config != null
-                    ? config.commonBlessingCount
+                    ? config.CommonBlessingCount
                     : 1;
 
             for (int i = 0;
@@ -89,7 +89,7 @@ namespace Bless
                 }
 
                 result.RemoveAll(x => x != null
-                    && x.godType == ShrineGodType.None);
+                    && x.GodType == ShrineGodType.None);
 
                 result.Add(blessing);
             }
@@ -105,13 +105,13 @@ namespace Bless
                 return;
             }
 
-            if (source.godType == ShrineGodType.None
-                && source.durationType == BlessDurationType.Permanent)
+            if (source.GodType == ShrineGodType.None
+                && source.DurationType == BlessDurationType.Permanent)
             {
                 runtimeData.RemoveBlesses(
                     x => x != null
                          && x.source != null
-                         && x.source.godType == ShrineGodType.None
+                         && x.source.GodType == ShrineGodType.None
                          && !x.isTemporary);
             }
 
@@ -120,31 +120,26 @@ namespace Bless
                 generatedFromPoolId,
                 slotIndex);
 
-            if (source.effects == null)
+            if (source.EffectEntries == null)
             {
                 return;
             }
 
-            foreach (EffectSO effect in source.effects)
+            foreach (EffectEntrySO effectEntry in source.EffectEntries)
             {
-                if (effect == null)
+                if (effectEntry == null)
                 {
                     continue;
                 }
 
-                AddEffectToEffectManagers(
-                    effect,
-                    EffectSourceType.Bless,
-                    source.blessingId);
+                AddEffectToEffectManagers(effectEntry);
             }
         }
 
         private void AddEffectToEffectManagers(
-            EffectSO effect,
-            EffectSourceType sourceType,
-            string sourceId)
+            EffectEntrySO effectEntry)
         {
-            if (effect == null)
+            if (effectEntry == null)
             {
                 return;
             }
@@ -173,17 +168,17 @@ namespace Bless
                     continue;
                 }
 
+                EffectEntryRuntime runtimeEntry =
+                    EffectResolveHelper.CreateRuntimeEntry(
+                        effectEntry,
+                        targetCharacterManager,
+                        null,
+                        ResolveEffectSourceTransform(effectEntry.EffectSO, targetCharacterManager),
+                        Vector2.zero);
+
                 EffectApplyHelper.ApplyEffect(
                     effectManager,
-                    targetCharacterManager,
-                    effect,
-                    sourceType,
-                    sourceId,
-                    EffectLifetimeType.Manual,
-                    -1f,
-                    EffectCategoryType.Buff,
-                    ResolveEffectSourceTransform(effect, targetCharacterManager),
-                    Vector2.zero);
+                    runtimeEntry);
             }
         }
 
@@ -218,7 +213,8 @@ namespace Bless
             EffectSO effect,
             CharacterManager targetCharacterManager)
         {
-            if (effect is KnockbackEffectSO)
+            if (effect != null
+                && effect.Config is KnockbackEffectConfig)
             {
                 return targetCharacterManager != null
                     ? targetCharacterManager.transform
@@ -229,9 +225,13 @@ namespace Bless
         }
 
         private void RemoveEffectsFromEffectManagers(
-            EffectSourceType sourceType,
-            string sourceId)
+            BlessSO source)
         {
+            if (source == null || source.EffectEntries == null)
+            {
+                return;
+            }
+
             EffectManager[] effectManagers =
                 FindObjectsByType<EffectManager>(
                     FindObjectsSortMode.None);
@@ -248,9 +248,38 @@ namespace Bless
                     continue;
                 }
 
-                effectManager.RemoveEffectsBySource(
-                    sourceType,
-                    sourceId);
+                CharacterManager targetCharacterManager =
+                    ResolveCharacterManager(effectManager);
+
+                if (targetCharacterManager == null)
+                {
+                    continue;
+                }
+
+                foreach (EffectEntrySO effectEntry in source.EffectEntries)
+                {
+                    if (effectEntry == null)
+                    {
+                        continue;
+                    }
+
+                    EffectEntryRuntime runtimeEntry =
+                        EffectResolveHelper.CreateRuntimeEntry(
+                            effectEntry,
+                            targetCharacterManager,
+                            null,
+                            ResolveEffectSourceTransform(effectEntry.EffectSO, targetCharacterManager),
+                            Vector2.zero);
+
+                    if (runtimeEntry?.RuntimeData == null
+                        || string.IsNullOrWhiteSpace(runtimeEntry.RuntimeData.RuntimeId))
+                    {
+                        continue;
+                    }
+
+                    effectManager.RemoveEffectsBySource(
+                        runtimeEntry.RuntimeData.RuntimeId);
+                }
             }
         }
 
@@ -269,9 +298,7 @@ namespace Bless
                     continue;
                 }
 
-                RemoveEffectsFromEffectManagers(
-                    EffectSourceType.Bless,
-                    entry.source.blessingId);
+                RemoveEffectsFromEffectManagers(entry.source);
             }
 
             runtimeData.RemoveBlesses(match);

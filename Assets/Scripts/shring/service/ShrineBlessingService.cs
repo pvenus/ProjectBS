@@ -151,28 +151,31 @@ namespace Shrine
                     ? shrineManager.GetFaithLevel(godType)
                     : 0;
 
-            for (int i = 0; i < commonPool.blessings.Count; i++)
+            IReadOnlyList<BlessPoolSO.BlessPoolEntry> blessings =
+                commonPool.Blessings;
+
+            for (int i = 0; i < blessings.Count; i++)
             {
                 BlessPoolSO.BlessPoolEntry entry =
-                    commonPool.blessings[i];
+                    blessings[i];
 
                 if (entry == null
-                    || entry.blessing == null)
+                    || entry.Blessing == null)
                 {
                     continue;
                 }
 
-                if (entry.progressionStep != faithLevel)
+                if (entry.ProgressionStep != faithLevel)
                 {
                     continue;
                 }
 
-                if (!entry.blessing.CanAppear(godType, faithLevel))
+                if (!entry.Blessing.CanAppear(godType, faithLevel))
                 {
                     continue;
                 }
 
-                result.Add(entry.blessing);
+                result.Add(entry.Blessing);
             }
 
             return result;
@@ -274,10 +277,10 @@ namespace Shrine
                 }
 
                 BlessPoolSO.BlessPoolEntry entry =
-                    commonPool.blessings
-                        .Find(x => x != null
-                                   && x.blessing == blessing
-                                   && x.progressionStep == faithLevel);
+                    commonPool.Blessings
+                        .FirstOrDefault(x => x != null
+                                             && x.Blessing == blessing
+                                             && x.ProgressionStep == faithLevel);
 
                 if (entry == null)
                 {
@@ -296,7 +299,7 @@ namespace Shrine
 
             for (int i = 0; i < candidates.Count; i++)
             {
-                totalWeight += Mathf.Max(1, candidates[i].weight);
+                totalWeight += Mathf.Max(1, candidates[i].Weight);
             }
 
             int randomValue = Random.Range(0, totalWeight);
@@ -304,15 +307,15 @@ namespace Shrine
 
             for (int i = 0; i < candidates.Count; i++)
             {
-                currentWeight += Mathf.Max(1, candidates[i].weight);
+                currentWeight += Mathf.Max(1, candidates[i].Weight);
 
                 if (randomValue < currentWeight)
                 {
-                    return candidates[i].blessing;
+                    return candidates[i].Blessing;
                 }
             }
 
-            return candidates[0].blessing;
+            return candidates[0].Blessing;
         }
     }
 }

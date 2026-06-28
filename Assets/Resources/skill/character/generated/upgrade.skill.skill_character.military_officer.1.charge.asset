@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22366fecc41a348abb0ff8cb94e16463, type: 3}
+  m_Name: upgrade.skill.skill_character.military_officer.1.charge
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentUpgradeTableSO
+  upgradeTableId: upgrade.skill.skill_character.military_officer.1.charge
+  entries:
+  - level: 1
+    statModifiers: []
+    effectModifiers: []
+  - level: 2
+    statModifiers:
+    - modifierType: 0
+      operationType: 0
+      value: 5
+    - modifierType: 1
+      operationType: 0
+      value: 0.05
+    effectModifiers: []
+  - level: 3
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -0.3
+    effectModifiers:
+    - targetEffectId: skill.military_officer.1.active_1.self.damage_reduction
+      fieldType: 0
+      operationType: 0
+      value: 2
+  - level: 4
+    statModifiers:
+    - modifierType: 0
+      operationType: 0
+      value: 7
+    - modifierType: 3
+      operationType: 0
+      value: 0.1
+    effectModifiers: []
+  - level: 5
+    statModifiers:
+    - modifierType: 1
+      operationType: 0
+      value: 0.08
+    effectModifiers:
+    - targetEffectId: skill.military_officer.1.active_1.self.damage_reduction
+      fieldType: 1
+      operationType: 0
+      value: 0.3

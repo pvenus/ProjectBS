@@ -102,12 +102,12 @@ namespace Shrine.UI
 
             int faithLevel =
                 shrineManager != null
-                    ? shrineManager.GetFaithLevel(god.godType)
+                    ? shrineManager.GetFaithLevel(god.GodType)
                     : 0;
 
             int faithAffinity =
                 shrineManager != null
-                    ? shrineManager.GetFaithAffinity(god.godType)
+                    ? shrineManager.GetFaithAffinity(god.GodType)
                     : 0;
 
             FaithStageState state = FaithStageState.None;
@@ -118,7 +118,7 @@ namespace Shrine.UI
 
                 bool hasLockedFaith =
                     faithData.HasLockedFaith
-                    && faithData.LockedGod == god.godType;
+                    && faithData.LockedGod == god.GodType;
 
                 if (hasLockedFaith)
                 {
@@ -144,21 +144,21 @@ namespace Shrine.UI
 
             isSelected = shrineManager != null
                          && shrineManager.CurrentShrine != null
-                         && shrineManager.CurrentShrine.selectedGod == god.godType;
+                         && shrineManager.CurrentShrine.selectedGod == god.GodType;
 
             bool isUnlocked =
                 shrineManager != null
                 && shrineManager.CurrentShrine != null
                 && shrineManager.CurrentShrine
                     .availableGods
-                    .Contains(god.godType);
+                    .Contains(god.GodType);
 
             isLocked = !isUnlocked;
 
             if (iconImage != null)
             {
-                iconImage.sprite = god.icon;
-                iconImage.enabled = god.icon != null;
+                iconImage.sprite = god.Icon;
+                iconImage.enabled = god.Icon != null;
             }
 
             if (nameText != null)
@@ -168,7 +168,7 @@ namespace Shrine.UI
 
             if (descriptionText != null)
             {
-                descriptionText.text = god.description;
+                descriptionText.text = god.Description;
             }
 
             if (faithLevelText != null)
@@ -186,9 +186,9 @@ namespace Shrine.UI
             {
                 string missionLabel = string.Empty;
 
-                if (god.unlockMissions != null)
+                if (god.UnlockMissions != null)
                 {
-                    foreach (Mission.MissionSO mission in god.unlockMissions)
+                    foreach (Mission.MissionSO mission in god.UnlockMissions)
                     {
                         if (mission == null)
                         {
@@ -201,13 +201,13 @@ namespace Shrine.UI
                         }
 
                         missionLabel +=
-                            $"Unlock : {mission.displayName}";
+                            $"Unlock : {mission.DisplayName}";
                     }
                 }
 
-                if (god.faithMissions != null)
+                if (god.FaithMissions != null)
                 {
-                    foreach (Mission.MissionSO mission in god.faithMissions)
+                    foreach (Mission.MissionSO mission in god.FaithMissions)
                     {
                         if (mission == null)
                         {
@@ -220,7 +220,7 @@ namespace Shrine.UI
                         }
 
                         missionLabel +=
-                            $"Faith : {mission.displayName}";
+                            $"Faith : {mission.DisplayName}";
                     }
                 }
 
@@ -323,7 +323,7 @@ namespace Shrine.UI
                 return;
             }
 
-            shrineManager.SelectGod(god.godType);
+            shrineManager.SelectGod(god.GodType);
             Refresh();
         }
     }

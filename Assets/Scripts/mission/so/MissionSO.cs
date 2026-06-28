@@ -3,6 +3,7 @@ using Item;
 using Shrine;
 using System;
 using System.Collections.Generic;
+using String;
 
 namespace Mission
 {
@@ -12,40 +13,72 @@ namespace Mission
     public class MissionSO : ScriptableObject
     {
         [Header("Identity")]
-        public string missionId;
-
-        public string displayName;
-
-        [TextArea]
-        public string description;
+        [SerializeField]
+        private string missionId;
 
         [Header("UI")]
-        public Sprite icon;
+        [SerializeField]
+        private Sprite icon;
 
-        public Color themeColor = Color.white;
+        [SerializeField]
+        private Color themeColor = Color.white;
 
         [Header("Progress")]
-        public List<MissionConditionData> conditions = new();
+        [SerializeField]
+        private List<MissionConditionData> conditions = new();
 
         [Header("Reward")]
-        public MissionRewardType rewardType = MissionRewardType.None;
+        [SerializeField]
+        private MissionRewardType rewardType = MissionRewardType.None;
 
-        public int rewardGold;
+        [SerializeField]
+        private int rewardGold;
 
-        public int rewardFaith;
+        [SerializeField]
+        private int rewardFaith;
 
-        public RelicSO rewardRelic;
+        [SerializeField]
+        private RelicSO rewardRelic;
 
         [Tooltip("해금되는 신")]
-        public ShrineGodType unlockGodType = ShrineGodType.None;
+        [SerializeField]
+        private ShrineGodType unlockGodType = ShrineGodType.None;
 
         [Tooltip("해금되는 컨텐츠 ID")]
-        public string unlockContentId;
+        [SerializeField]
+        private string unlockContentId;
 
         [Header("Flags")]
-        public bool hidden;
+        [SerializeField]
+        private bool hidden;
 
-        public bool repeatable;
+        [SerializeField]
+        private bool repeatable;
+
+        public string LocalizationMainKey => missionId;
+
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
+
+        public string MissionId => missionId;
+        public Sprite Icon => icon;
+        public Color ThemeColor => themeColor;
+        public IReadOnlyList<MissionConditionData> Conditions => conditions;
+        public MissionRewardType RewardType => rewardType;
+        public int RewardGold => rewardGold;
+        public int RewardFaith => rewardFaith;
+        public RelicSO RewardRelic => rewardRelic;
+        public ShrineGodType UnlockGodType => unlockGodType;
+        public string UnlockContentId => unlockContentId;
+        public bool Hidden => hidden;
+        public bool Repeatable => repeatable;
 
         public int GetTotalTargetCount()
         {

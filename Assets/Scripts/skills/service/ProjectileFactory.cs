@@ -267,6 +267,11 @@ public class ProjectileFactory
             return Vector2.zero;
         }
 
+        if (Mathf.Max(1, source.projectileCount) <= 1)
+        {
+            return source.spawnPosition;
+        }
+
         ProjectileArrangementType arrangement =
             ResolveProjectileArrangement(source);
 
@@ -283,7 +288,6 @@ public class ProjectileFactory
                     spawnOrder);
 
             case ProjectileArrangementType.Spread:
-            case ProjectileArrangementType.Single:
             default:
                 return ResolveLegacyRadiusSpawnPosition(
                     source,
@@ -544,7 +548,6 @@ public class ProjectileFactory
 
             case ProjectileArrangementType.Line:
             case ProjectileArrangementType.Circle:
-            case ProjectileArrangementType.Single:
             default:
                 return baseDirection;
         }
@@ -553,25 +556,20 @@ public class ProjectileFactory
     private ProjectileArrangementType ResolveProjectileArrangement(
         ProjectileRuntimeData source)
     {
-        if (source == null)
-        {
-            return ProjectileArrangementType.Single;
-        }
-
-        if (source.projectileArrangement != ProjectileArrangementType.Single)
-        {
-            return source.projectileArrangement;
-        }
-
-        int projectileCount = Mathf.Max(1, source.projectileCount);
-        float spreadAngle = Mathf.Max(0f, source.projectileSpreadAngle);
-
-        if (projectileCount > 1 && spreadAngle > 0f)
+        if (source == null || source.sourceEquipment == null)
         {
             return ProjectileArrangementType.Spread;
         }
 
-        return ProjectileArrangementType.Single;
+        EquipmentBaseProfileSO baseProfile =
+            source.sourceEquipment.BaseProfileSo;
+
+        if (baseProfile == null)
+        {
+            return ProjectileArrangementType.Spread;
+        }
+
+        return baseProfile.ProjectileArrangement;
     }
 
     private Vector2 ResolveSpreadProjectileDirection(
@@ -603,7 +601,7 @@ public class ProjectileFactory
             return 0f;
         }
 
-        if (source.projectileArrangement == ProjectileArrangementType.Spread &&
+        if (ResolveProjectileArrangement(source) == ProjectileArrangementType.Spread &&
             source.projectileArrangementValue > 0f)
         {
             int projectileCount = Mathf.Max(1, source.projectileCount);
@@ -636,16 +634,16 @@ public class ProjectileFactory
         {
             owner = source.owner,
             target = source.target,
+            sourceEquipment = source.sourceEquipment,
             spawnPosition = spawnPosition,
             direction = ResolveProjectileDirection(
                 source,
                 spawnOrder),
-            targetingType = source.targetingType,
-            lifetime = source.lifetime,
 
+            lifetime = source.lifetime,
             projectileCount = source.projectileCount,
             projectileSpreadAngle = source.projectileSpreadAngle,
-            projectileArrangement = source.projectileArrangement,
+            // projectileArrangement = source.projectileArrangement, // REMOVED
             projectileArrangementValue = source.projectileArrangementValue,
             projectileScale = source.projectileScale,
             spawnOrder = spawnOrder,
@@ -661,9 +659,6 @@ public class ProjectileFactory
             visualContext = source.visualContext,
             spawnSkillSo = source.spawnSkillSo,
 
-            spawnClip = source.spawnClip,
-            hitClip = source.hitClip,
-            despawnClip = source.despawnClip,
             material = source.material,
             color = source.color,
             projectileVisualType = source.projectileVisualType,
@@ -726,15 +721,15 @@ public class ProjectileFactory
         LinearProjectileMoveDto move = CloneLinearMoveDto(sourceMove);
         move.startPosition = spawnPosition;
 
-        if (source.targetingType == TargetingType.AutoTargetDirection ||
-            source.targetingType == TargetingType.Directional)
+        if (source.sourceEquipment.CastSo.TargetingType == TargetingType.AutoTargetDirection ||
+            source.sourceEquipment.CastSo.TargetingType == TargetingType.Directional)
         {
             move.targetPosition = ResolveDirectionBasedDestination(
                 source,
                 move,
                 spawnPosition);
         }
-        else if (source.targetingType == TargetingType.Position)
+        else if (source.sourceEquipment.CastSo.TargetingType == TargetingType.Position)
         {
             move.targetPosition = sourceMove.targetPosition;
         }
@@ -759,8 +754,8 @@ public class ProjectileFactory
                 projectileCount,
                 spreadAngle));
 
-        float distance = source.targetingType == TargetingType.AutoTargetDirection ||
-            source.targetingType == TargetingType.Directional
+        float distance = source.sourceEquipment.CastSo.TargetingType == TargetingType.AutoTargetDirection ||
+            source.sourceEquipment.CastSo.TargetingType == TargetingType.Directional
                 ? Vector2.Distance(
                     spawnPosition,
                     ResolveDirectionBasedDestination(source, move, spawnPosition))

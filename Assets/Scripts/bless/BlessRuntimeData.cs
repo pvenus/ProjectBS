@@ -58,32 +58,32 @@ namespace Bless
                 if (source != null)
                 {
                     isTemporary =
-                        source.durationType
+                        source.DurationType
                         != BlessDurationType.Permanent;
 
                     remainingBattleCount =
-                        source.durationBattleCount;
+                        source.DurationBattleCount;
                 }
             }
 
             public string DisplayName
                 => source != null
-                    ? source.blessingName
+                    ? source.DisplayName
                     : "Unknown Bless";
 
             public string Description
                 => source != null
-                    ? source.description
+                    ? source.Description
                     : string.Empty;
 
             public Sprite Icon
                 => source != null
-                    ? source.icon
+                    ? source.Icon
                     : null;
 
             public BlessCategory Category
                 => source != null
-                    ? source.category
+                    ? source.Category
                     : BlessCategory.None;
 
             public bool CanSelect
@@ -154,7 +154,7 @@ namespace Bless
             {
                 string blessId =
                     source != null
-                        ? source.name
+                        ? source.BlessingId
                         : "null";
 
                 return $"{blessId}_{slotIndex}_{Guid.NewGuid():N}";
@@ -186,8 +186,8 @@ namespace Bless
                 blessings.FirstOrDefault(
                     x => x != null
                          && x.source != null
-                         && x.source.groupId == source.groupId
-                         && !string.IsNullOrWhiteSpace(source.groupId));
+                         && x.source.GroupId == source.GroupId
+                         && !string.IsNullOrWhiteSpace(source.GroupId));
 
             if (existing != null)
             {

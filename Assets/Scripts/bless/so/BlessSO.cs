@@ -3,6 +3,7 @@ using UnityEngine;
 
 using Shrine;
 using Effect;
+using String;
 
 namespace Bless
 {
@@ -15,41 +16,55 @@ namespace Bless
     public class BlessSO : ScriptableObject
     {
         [Header("Identity")]
-        public string blessingId;
-        public string groupId;
-        public string blessingName;
-
-        [TextArea]
-        public string description;
+        [SerializeField] private string blessingId;
+        [SerializeField] private string groupId;
 
         [Header("Display")]
-        public Sprite icon;
+        [SerializeField] private Sprite icon;
 
         [Header("Blessing")]
-        public BlessCategory category = BlessCategory.None;
+        [SerializeField] private BlessCategory category = BlessCategory.None;
 
         [Header("Effects")]
-        public List<EffectSO> effects = new();
+        [SerializeField] private List<EffectEntrySO> effectEntries = new();
 
         [Tooltip("특정 신 전용 축복 여부")]
-        public ShrineGodType godType = ShrineGodType.None;
+        [SerializeField] private ShrineGodType godType = ShrineGodType.None;
 
 
         [Header("Duration")]
-        public BlessDurationType durationType = BlessDurationType.Permanent;
+        [SerializeField] private BlessDurationType durationType = BlessDurationType.Permanent;
 
         [Tooltip("전투 기준 지속 횟수")]
-        public int durationBattleCount = -1;
+        [SerializeField] private int durationBattleCount = -1;
 
 
 
         [Header("Tags")]
         [Tooltip("생성 필터링용 태그")]
-        public List<string> tags = new();
+        [SerializeField] private List<string> tags = new();
 
-        public string DisplayName => string.IsNullOrWhiteSpace(blessingName)
-            ? name
-            : blessingName;
+        public string LocalizationMainKey => blessingId;
+
+        public string DisplayName =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "name");
+
+        public string Description =>
+            StringManager.Instance.Get(
+                LocalizationMainKey,
+                "desc");
+
+        public string BlessingId => blessingId;
+        public string GroupId => groupId;
+        public Sprite Icon => icon;
+        public BlessCategory Category => category;
+        public IReadOnlyList<EffectEntrySO> EffectEntries => effectEntries;
+        public ShrineGodType GodType => godType;
+        public BlessDurationType DurationType => durationType;
+        public int DurationBattleCount => durationBattleCount;
+        public IReadOnlyList<string> Tags => tags;
 
         public bool HasTag(string tag)
         {
@@ -75,23 +90,23 @@ namespace Bless
 
         public string GetEffectDescription()
         {
-            if (effects == null || effects.Count == 0)
+            if (effectEntries == null || effectEntries.Count == 0)
             {
-                return description;
+                return Description;
             }
 
             List<string> lines = new();
 
-            foreach (var effect in effects)
+            foreach (var effectEntry in effectEntries)
             {
-                if (effect == null)
+                if (effectEntry?.EffectSO == null)
                 {
                     continue;
                 }
 
-                if (!string.IsNullOrWhiteSpace(effect.description))
+                if (!string.IsNullOrWhiteSpace(effectEntry.EffectSO.Description))
                 {
-                    lines.Add(effect.description);
+                    lines.Add(effectEntry.EffectSO.Description);
                 }
             }
 

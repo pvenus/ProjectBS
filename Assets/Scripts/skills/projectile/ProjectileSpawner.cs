@@ -17,10 +17,6 @@ public class ProjectileSpawner : MonoBehaviour
     private readonly EquipmentSkillResolver skillResolver = new();
 
     private ProjectileRuntimeData ownerRuntimeData;
-    private SpawnSkillSO activeSpawnSkillSo;
-    private int spawnedCount;
-    private float elapsed;
-    private bool isRunning;
 
     public void Initialize(
         ProjectileEntity projectile,
@@ -28,153 +24,36 @@ public class ProjectileSpawner : MonoBehaviour
     {
         ownerProjectile = projectile;
         ownerRuntimeData = runtimeData;
-
-        StopSpawnTimer();
-
-        if (ownerProjectile == null || ownerRuntimeData == null)
-        {
-            return;
-        }
-
-        StartSpawnTimer(ownerRuntimeData.spawnSkillSo);
-    }
-
-    private void Update()
-    {
-        TickSpawnTimer(Time.deltaTime);
-    }
-
-    private void TickSpawnTimer(float deltaTime)
-    {
-        if (!isRunning)
-        {
-            return;
-        }
-
-        if (!CanSpawnChildSkill(activeSpawnSkillSo))
-        {
-            StopSpawnTimer();
-            return;
-        }
-
-        elapsed += deltaTime;
-
-        float interval = Mathf.Max(0f, activeSpawnSkillSo.SpawnInterval);
-
-        if (elapsed < interval)
-        {
-            return;
-        }
-
-        elapsed = 0f;
-
-        if (SpawnChildSkillOnce(activeSpawnSkillSo))
-        {
-            spawnedCount++;
-        }
-
-        if (spawnedCount >= Mathf.Max(1, activeSpawnSkillSo.SpawnCount))
-        {
-            StopSpawnTimer();
-        }
-    }
-
-    private void StartSpawnTimer(
-        SpawnSkillSO spawnSkillSo)
-    {
-        if (!CanSpawnChildSkill(spawnSkillSo))
-        {
-            return; 
-        }
-
-        switch (spawnSkillSo.Timing)
-        {
-            case SpawnSkillTiming.OnCast:
-                SpawnChildSkillOnce(spawnSkillSo);
-                break;
-
-            case SpawnSkillTiming.OnInterval:
-                RegisterIntervalSpawn(spawnSkillSo);
-                break;
-        }
-    }
-
-    private void RegisterIntervalSpawn(
-        SpawnSkillSO spawnSkillSo)
-    {
-        if (!CanSpawnChildSkill(spawnSkillSo))
-        {
-            return;
-        }
-
-        activeSpawnSkillSo = spawnSkillSo;
-        spawnedCount = 0;
-        elapsed = 0f;
-        isRunning = true;
-
-        // First spawn happens immediately on registration.
-        if (SpawnChildSkillOnce(activeSpawnSkillSo))
-        {
-            spawnedCount = 1;
-        }
-
-        if (spawnedCount >= Mathf.Max(1, activeSpawnSkillSo.SpawnCount))
-        {
-            StopSpawnTimer();
-        }
     }
 
     public bool TrySpawnChildSkill(
         SpawnSkillTiming timing)
     {
-        if (ownerRuntimeData == null)
+        if (timing != SpawnSkillTiming.OnHit)
         {
             return false;
         }
 
-        SpawnSkillSO spawnSkillSo = ownerRuntimeData.spawnSkillSo;
-
-        if (!CanSpawnChildSkill(spawnSkillSo) || spawnSkillSo.Timing != timing)
-        {
-            return false;
-        }
-
-        switch (spawnSkillSo.Timing)
-        {
-            case SpawnSkillTiming.OnHit:
-            case SpawnSkillTiming.OnProjectileEnd:
-                return SpawnChildSkillOnce(spawnSkillSo);
-
-            case SpawnSkillTiming.OnInterval:
-                RegisterIntervalSpawn(spawnSkillSo);
-                return true;
-
-            case SpawnSkillTiming.OnCast:
-                return SpawnChildSkillOnce(spawnSkillSo);
-
-            case SpawnSkillTiming.None:
-            default:
-                return false;
-        }
+        return SpawnChildSkillOnce(
+            ResolveSpawnSkill());
     }
 
     private bool SpawnChildSkillOnce(
-        SpawnSkillSO spawnSkillSo)
+        EquipmentSkillSO spawnSkill)
     {
-        if (!CanSpawnChildSkill(spawnSkillSo))
+        if (!CanSpawnChildSkill(spawnSkill))
         {
             return false;
         }
 
         EquipmentSkillRuntimeData childRuntime = skillResolver.Resolve(
-            spawnSkillSo.Skill,
+            spawnSkill,
             null);
 
         if (childRuntime == null)
         {
             return false;
         }
-
 
         Transform spawnTransform = ownerProjectile != null
             ? ownerProjectile.transform
@@ -196,68 +75,18 @@ public class ProjectileSpawner : MonoBehaviour
         return true;
     }
 
-
     private bool CanSpawnChildSkill(
-        SpawnSkillSO spawnSkillSo)
+        EquipmentSkillSO spawnSkill)
     {
         return ownerProjectile != null &&
                ownerRuntimeData != null &&
-               spawnSkillSo != null &&
-               spawnSkillSo.Skill != null;
+               spawnSkill != null;
     }
 
-    private void StopSpawnTimer()
+    private EquipmentSkillSO ResolveSpawnSkill()
     {
-        activeSpawnSkillSo = null;
-        spawnedCount = 0;
-        elapsed = 0f;
-        isRunning = false;
-    }
-
-    private Vector2 ResolveChildSpawnPosition(
-        SpawnSkillPosition position)
-    {
-        switch (position)
-        {
-            case SpawnSkillPosition.Caster:
-                if (ownerRuntimeData.owner != null)
-                {
-                    return ownerRuntimeData.owner.transform.position;
-                }
-
-                return ownerRuntimeData.spawnPosition;
-
-            case SpawnSkillPosition.Target:
-                if (ownerRuntimeData.target != null)
-                {
-                    return ownerRuntimeData.target.transform.position;
-                }
-
-                return transform.position;
-
-            case SpawnSkillPosition.ProjectilePosition:
-            case SpawnSkillPosition.HitPoint:
-                return transform.position;
-
-            default:
-                return transform.position;
-        }
-    }
-
-    private Vector2 ResolveChildDirection()
-    {
-        if (ownerRuntimeData.direction.sqrMagnitude > 0.0001f)
-        {
-            return ownerRuntimeData.direction.normalized;
-        }
-
-        Vector2 right = transform.right;
-
-        if (right.sqrMagnitude > 0.0001f)
-        {
-            return right.normalized;
-        }
-
-        return Vector2.right;
+        return ownerRuntimeData != null && ownerRuntimeData.hit != null
+            ? ownerRuntimeData.hit.spawnSkill
+            : null;
     }
 }

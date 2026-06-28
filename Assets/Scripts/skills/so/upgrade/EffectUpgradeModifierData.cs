@@ -1,38 +1,37 @@
-
-
 using System;
+using Skill;
+using UnityEngine;
 
-namespace Skill
+namespace Effect
 {
     /// <summary>
-    /// 특정 Effect의 값을 업그레이드하기 위한 데이터.
-    /// 예) 공격력 버프 수치 증가, 지속시간 증가, 발동 확률 증가
+    /// Defines how a specific effect is modified by an equipment upgrade.
     /// </summary>
     [Serializable]
     public class EffectUpgradeModifierData
     {
-        public string effectId;
+        [SerializeField] private string targetEffectId;
+        [SerializeField] private EffectModifierFieldType fieldType;
+        [SerializeField] private SkillStatModifierOperationType operationType = SkillStatModifierOperationType.Flat;
+        [SerializeField] private float value;
 
-        public EffectModifierFieldType fieldType;
+        public string TargetEffectId => targetEffectId;
+        public EffectModifierFieldType FieldType => fieldType;
+        public SkillStatModifierOperationType OperationType => operationType;
+        public float Value => value;
 
-        public SkillStatModifierOperationType operationType =
-            SkillStatModifierOperationType.Flat;
-
-        public float value;
-
-        public static EffectUpgradeModifierData Create(
-            string effectId,
+#if UNITY_EDITOR
+        public void ApplyEditorData(
+            string targetEffectId,
             EffectModifierFieldType fieldType,
             SkillStatModifierOperationType operationType,
             float value)
         {
-            return new EffectUpgradeModifierData
-            {
-                effectId = effectId,
-                fieldType = fieldType,
-                operationType = operationType,
-                value = value
-            };
+            this.targetEffectId = targetEffectId;
+            this.fieldType = fieldType;
+            this.operationType = operationType;
+            this.value = value;
         }
+#endif
     }
 }

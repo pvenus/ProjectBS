@@ -35,6 +35,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     private bool isOpen;
     private float previousTimeScale = 1f;
     private readonly EquipmentStatResolver statResolver = new();
+    private readonly EquipmentUpgradeComparisonService comparisonService = new();
 
     public bool IsOpen => isOpen;
 
@@ -303,74 +304,15 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         int currentLevel,
         int nextLevel)
     {
-        if (option == null || option.SkillSo == null || option.SkillSo.UpgradeTableSo == null)
+        if (option == null || option.SkillSo == null)
         {
             return string.Empty;
         }
 
-        List<SkillStatModifierData> currentModifiers =
-            EquipmentUpgradeRuntimeData.FromEntries(
-                currentLevel,
-                option.SkillSo.UpgradeTableSo.Entries,
-                option.SkillSo.EquipmentId).statModifiers;
-
-        List<SkillStatModifierData> nextModifiers =
-            EquipmentUpgradeRuntimeData.FromEntries(
-                nextLevel,
-                option.SkillSo.UpgradeTableSo.Entries,
-                option.SkillSo.EquipmentId).statModifiers;
-
-        List<EffectUpgradeModifierData> currentEffectModifiers =
-            EquipmentUpgradeRuntimeData.FromEntries(
-                currentLevel,
-                option.SkillSo.UpgradeTableSo.Entries,
-                option.SkillSo.EquipmentId).effectModifiers;
-
-        List<EffectUpgradeModifierData> nextEffectModifiers =
-            EquipmentUpgradeRuntimeData.FromEntries(
-                nextLevel,
-                option.SkillSo.UpgradeTableSo.Entries,
-                option.SkillSo.EquipmentId).effectModifiers;
-
-        List<SkillStatModifierType> changedTypes = CollectChangedModifierTypes(
+        return comparisonService.BuildComparisonText(
             option.SkillSo,
-            currentModifiers,
-            nextModifiers);
-
-        StringBuilder builder = new();
-
-        for (int i = 0; i < changedTypes.Count; i++)
-        {
-            SkillStatModifierType modifierType = changedTypes[i];
-            float currentValue = statResolver.ResolveStat(
-                option.SkillSo,
-                modifierType,
-                currentModifiers);
-            float nextValue = statResolver.ResolveStat(
-                option.SkillSo,
-                modifierType,
-                nextModifiers);
-
-            if (Mathf.Approximately(currentValue, nextValue))
-            {
-                continue;
-            }
-
-            builder.AppendLine(
-                $"{GetModifierDisplayName(modifierType)} {FormatModifierValue(modifierType, currentValue)} → {FormatModifierValue(modifierType, nextValue)}");
-        }
-
-        string effectComparisonText = BuildEffectUpgradeComparisonText(
-            option.SkillSo,
-            currentEffectModifiers,
-            nextEffectModifiers);
-
-        if (!string.IsNullOrWhiteSpace(effectComparisonText))
-        {
-            builder.Append(effectComparisonText);
-        }
-
-        return builder.ToString();
+            currentLevel,
+            nextLevel);
     }
 
     private string BuildEffectUpgradeComparisonText(
@@ -379,7 +321,6 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         IReadOnlyList<EffectUpgradeModifierData> nextModifiers)
     {
         List<EffectUpgradeModifierKey> changedKeys = CollectChangedEffectModifierKeys(
-            skillSo,
             currentModifiers,
             nextModifiers);
 
@@ -394,11 +335,9 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         {
             EffectUpgradeModifierKey key = changedKeys[i];
             float currentValue = ResolveEffectModifierValue(
-                skillSo,
                 key,
                 currentModifiers);
             float nextValue = ResolveEffectModifierValue(
-                skillSo,
                 key,
                 nextModifiers);
 
@@ -415,7 +354,6 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     }
 
     private List<EffectUpgradeModifierKey> CollectChangedEffectModifierKeys(
-        EquipmentSkillSO skillSo,
         IReadOnlyList<EffectUpgradeModifierData> currentModifiers,
         IReadOnlyList<EffectUpgradeModifierData> nextModifiers)
     {
@@ -427,11 +365,9 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         {
             EffectUpgradeModifierKey key = result[i];
             float currentValue = ResolveEffectModifierValue(
-                skillSo,
                 key,
                 currentModifiers);
             float nextValue = ResolveEffectModifierValue(
-                skillSo,
                 key,
                 nextModifiers);
 
@@ -456,14 +392,13 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         for (int i = 0; i < modifiers.Count; i++)
         {
             EffectUpgradeModifierData modifier = modifiers[i];
-            if (modifier == null || string.IsNullOrWhiteSpace(modifier.effectId))
+            if (modifier == null)
             {
                 continue;
             }
 
             EffectUpgradeModifierKey key = new EffectUpgradeModifierKey(
-                modifier.effectId,
-                modifier.fieldType);
+                modifier.FieldType);
 
             if (!ContainsEffectModifierKey(result, key))
             {
@@ -493,13 +428,10 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     }
 
     private float ResolveEffectModifierValue(
-        EquipmentSkillSO skillSo,
         EffectUpgradeModifierKey key,
         IReadOnlyList<EffectUpgradeModifierData> modifiers)
     {
-        float value = ResolveEffectBaseValue(
-            key.effectId,
-            key.fieldType);
+        float value = 0f;
 
         if (modifiers == null)
         {
@@ -510,8 +442,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         {
             EffectUpgradeModifierData modifier = modifiers[i];
             if (modifier == null ||
-                modifier.effectId != key.effectId ||
-                modifier.fieldType != key.fieldType)
+                modifier.FieldType != key.fieldType)
             {
                 continue;
             }
@@ -550,10 +481,10 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
 
     private float ResolveEffectValue(EffectSO effectSo)
     {
-        switch (effectSo)
+        switch (effectSo?.Config)
         {
-            case StatModifierEffectSO statModifierEffectSo:
-                return statModifierEffectSo.value;
+            case StatModifierEffectConfig statModifierConfig:
+                return statModifierConfig.Value;
             default:
                 return 0f;
         }
@@ -570,7 +501,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         for (int i = 0; i < effects.Length; i++)
         {
             EffectSO effectSo = effects[i];
-            if (effectSo != null && effectSo.effectId == effectId)
+            if (effectSo != null && effectSo.EffectId == effectId)
             {
                 return effectSo;
             }
@@ -583,14 +514,14 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         float currentValue,
         EffectUpgradeModifierData modifier)
     {
-        switch (modifier.operationType)
+        switch (modifier.OperationType)
         {
             case SkillStatModifierOperationType.Flat:
-                return currentValue + modifier.value;
+                return currentValue + modifier.Value;
             case SkillStatModifierOperationType.Percent:
-                return currentValue * (1f + modifier.value);
+                return currentValue * (1f + modifier.Value);
             case SkillStatModifierOperationType.Override:
-                return modifier.value;
+                return modifier.Value;
             default:
                 return currentValue;
         }
@@ -599,23 +530,24 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     private string GetEffectModifierDisplayName(
         EffectUpgradeModifierKey key)
     {
-        string effectName = StringManager.Instance.Get(
-            key.effectId,
-            "name");
-
-        if (string.IsNullOrWhiteSpace(effectName))
-        {
-            effectName = key.effectId;
-        }
-
         switch (key.fieldType)
         {
+            case EffectModifierFieldType.Value:
+                return "Effect Value";
             case EffectModifierFieldType.Duration:
-                return $"{effectName} 지속시간";
+                return "Duration";
+            case EffectModifierFieldType.Chance:
+                return "Chance";
+            case EffectModifierFieldType.Cooldown:
+                return "Cooldown";
             case EffectModifierFieldType.MaxApplyCount:
-                return $"{effectName} 적용 횟수";
+                return "Max Apply Count";
+            case EffectModifierFieldType.TickInterval:
+                return "Tick Interval";
+            case EffectModifierFieldType.Radius:
+                return "Radius";
             default:
-                return effectName;
+                return "Effect";
         }
     }
 
@@ -860,20 +792,16 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     private readonly struct EffectUpgradeModifierKey
     {
         public EffectUpgradeModifierKey(
-            string effectId,
             EffectModifierFieldType fieldType)
         {
-            this.effectId = effectId;
             this.fieldType = fieldType;
         }
 
-        public readonly string effectId;
         public readonly EffectModifierFieldType fieldType;
 
         public bool Equals(EffectUpgradeModifierKey other)
         {
-            return effectId == other.effectId &&
-                   fieldType == other.fieldType;
+            return fieldType == other.fieldType;
         }
     }
 
