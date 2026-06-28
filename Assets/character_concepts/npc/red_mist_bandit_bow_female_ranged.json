@@ -1,11 +1,135 @@
 {
   "id": "npc.red_mist_bandit.bow_female_ranged",
   "displayName": "붉은 안개 산적 · 활잡이 여성 원거리형",
-  "groupTags": ["red_mist_bandits", "human", "early_mid"],
-  "identityKeywords": ["여성", "활", "원거리", "표식"],
+  "groupTags": [
+    "red_mist_bandits",
+    "human",
+    "early_mid"
+  ],
+  "identityKeywords": [
+    "여성",
+    "활",
+    "원거리",
+    "표식"
+  ],
   "appearance": "검붉은 두루마기 소매를 묶고 각궁을 든 여성. 화살깃마다 약탈한 부적 조각이 달려 있다.",
-  "combat": {"role": "원거리 저격수", "attackType": "physical_ranged", "targetPriority": "회복 담당", "signature": "표식 화살로 대상이 받는 집중 공격 피해 증가", "weakness": "근접 압박"},
-  "stats": {"health": 4, "attack": 7, "defense": 3, "speed": 6, "range": 8, "support": 3},
+  "combat": {
+    "role": "원거리 저격수",
+    "attackType": "physical_ranged",
+    "targetPriority": "회복 담당",
+    "signature": "표식 화살로 대상이 받는 집중 공격 피해 증가",
+    "weakness": "근접 압박"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 1,
+    "score": 30,
+    "typeId": "ranged_dps",
+    "tags": [
+      "human"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 9
+      },
+      {
+        "statType": "MaxHp",
+        "value": 88
+      },
+      {
+        "statType": "HpRegen",
+        "value": 1.34
+      },
+      {
+        "statType": "Defense",
+        "value": 15
+      },
+      {
+        "statType": "CritChance",
+        "value": 14.2
+      },
+      {
+        "statType": "CritDamage",
+        "value": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.2
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.58
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 8.7511,
+        "finalValue": 9,
+        "appliedAxisMultiple": 1.273
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 88.2,
+        "finalValue": 88,
+        "appliedAxisMultiple": 0.735
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1.3388,
+        "finalValue": 1.34,
+        "appliedAxisMultiple": 1.05
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 15.0,
+        "finalValue": 15
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 14.175,
+        "finalValue": 14.2
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 57.5,
+        "finalValue": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.2,
+        "finalValue": 2.2
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.575,
+        "finalValue": 1.58
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 4,
+      "attack": 7,
+      "defense": 3,
+      "speed": 6,
+      "range": 8,
+      "support": 3
+    }
+  },
   "storyUse": "죽은 가족의 부적을 화살에 묶어 복수를 이어 가며 신앙이 폭력의 의념으로 변하는 모습을 담는다.",
-  "reuse": ["산적 매복", "마을 민병대 적대 분기", "후반 혼성 원거리 전력"]
+  "reuse": [
+    "산적 매복",
+    "마을 민병대 적대 분기",
+    "후반 혼성 원거리 전력"
+  ]
 }

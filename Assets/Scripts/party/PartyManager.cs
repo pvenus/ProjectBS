@@ -135,8 +135,7 @@ namespace Party
                     continue;
                 }
 
-                GameObject characterPrefab =
-                    characterRuntime.characterSO.ResolvePrefab();
+                // Removed prefab support; pass null as prefab argument.
 
                 Vector3 spawnPosition =
                     new Vector3(
@@ -146,7 +145,7 @@ namespace Party
 
                 GameObject spawnedObject =
                     CharacterBuilder.CreateOrBuildPlayerObject(
-                        characterPrefab,
+                        null,
                         characterRuntime.characterSO.name,
                         spawnRoot,
                         spawnPosition,
@@ -207,7 +206,7 @@ namespace Party
 
                 GameObject runtimeObject =
                     CharacterBuilder.CreateOrBuildPlayerObject(
-                        characterRuntime.characterSO.ResolvePrefab(),
+                        null,
                         $"CharacterRuntime_{characterRuntime.characterSO.name}",
                         transform,
                         Vector3.zero,
@@ -385,7 +384,7 @@ namespace Party
 
             GameObject runtimeObject =
                 CharacterBuilder.CreateOrBuildPlayerObject(
-                    characterSO.ResolvePrefab(),
+                    null,
                     $"CharacterRuntime_{characterSO.name}",
                     transform,
                     Vector3.zero,

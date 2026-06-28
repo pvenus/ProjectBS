@@ -106,15 +106,6 @@ namespace Skill.Service.Helper
             {
                 return false;
             }
-            SpawnSkillSO spawnSkill = ResolveSpawnSkill(context.Runtime);
-            GameObject prefab = ResolveSpawnPrefab(spawnSkill);
-
-            if (prefab == null)
-            {
-                Debug.LogWarning(
-                    "[SkillUseHelper] Spawn prefab is missing.");
-                return false;
-            }
 
             if (context.CoroutineRunner == null)
             {
@@ -196,9 +187,8 @@ namespace Skill.Service.Helper
             }
 
             CharacterSO characterSo = ResolveSpawnCharacterSo(spawnSkill);
-            GameObject prefab = ResolveSpawnPrefab(spawnSkill);
 
-            if (prefab == null)
+            if (characterSo == null)
             {
                 return false;
             }
@@ -212,10 +202,14 @@ namespace Skill.Service.Helper
                 count,
                 spawnRadius);
 
-            GameObject spawnedObject = Object.Instantiate(
-                prefab,
+            GameObject spawnedObject = Character.Helper.CharacterBuilder.CreateOrBuildPlayerObject(
+                null,
+                characterSo.name,
+                null,
                 spawnPosition,
-                context.Caster.rotation);
+                context.Caster.rotation,
+                null,
+                true);
 
             if (spawnedObject == null)
             {
@@ -262,18 +256,6 @@ namespace Skill.Service.Helper
             return spawnSkill.CharacterSO;
         }
 
-        private static GameObject ResolveSpawnPrefab(
-            SpawnSkillSO spawnSkill)
-        {
-            CharacterSO characterSo = ResolveSpawnCharacterSo(spawnSkill);
-
-            if (characterSo == null)
-            {
-                return null;
-            }
-
-            return characterSo.ResolvePrefab();
-        }
 
         private static int ResolveSpawnCount(
             SpawnSkillSO spawnSkill)

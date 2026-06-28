@@ -1,11 +1,137 @@
 {
   "id": "npc.drowned_wedding.matchmaker_female_healer",
   "displayName": "수몰 혼례 · 중매쟁이 여성 회복형",
-  "groupTags": ["drowned_wedding", "human_spirit", "late", "support"],
-  "identityKeywords": ["여성", "중매쟁이", "회복 마법", "붉은 실"],
+  "groupTags": [
+    "drowned_wedding",
+    "human_spirit",
+    "late",
+    "support"
+  ],
+  "identityKeywords": [
+    "여성",
+    "중매쟁이",
+    "회복 마법",
+    "붉은 실"
+  ],
   "appearance": "반은 노파, 반은 백골인 중매쟁이. 양손의 붉은 실이 아군의 상처를 꿰맨다.",
-  "combat": {"role": "회복·결속술사", "attackType": "spirit_support", "targetPriority": "체력이 낮은 한 쌍", "signature": "두 아군을 실로 묶어 피해를 분담시키고 지속 회복", "weakness": "실이 끊기면 기절"},
-  "stats": {"health": 4, "attack": 2, "defense": 4, "speed": 3, "range": 6, "support": 10},
+  "combat": {
+    "role": "회복·결속술사",
+    "attackType": "spirit_support",
+    "targetPriority": "체력이 낮은 한 쌍",
+    "signature": "두 아군을 실로 묶어 피해를 분담시키고 지속 회복",
+    "weakness": "실이 끊기면 기절"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 3,
+    "score": 67.5,
+    "typeId": "support",
+    "tags": [
+      "spirit",
+      "human"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 7
+      },
+      {
+        "statType": "MaxHp",
+        "value": 194
+      },
+      {
+        "statType": "HpRegen",
+        "value": 16.22
+      },
+      {
+        "statType": "Defense",
+        "value": 18
+      },
+      {
+        "statType": "CritChance",
+        "value": 8.8
+      },
+      {
+        "statType": "CritDamage",
+        "value": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.18
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.96
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 6.6772,
+        "finalValue": 7,
+        "appliedAxisMultiple": 0.6412
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 194.0294,
+        "finalValue": 194,
+        "appliedAxisMultiple": 0.7011
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 16.2216,
+        "finalValue": 16.22,
+        "appliedAxisMultiple": 2.2448
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 18.4,
+        "finalValue": 18
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 8.8406,
+        "finalValue": 8.8
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 57.5,
+        "finalValue": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.185,
+        "finalValue": 2.18
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.9562,
+        "finalValue": 1.96
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 4,
+      "attack": 2,
+      "defense": 4,
+      "speed": 3,
+      "range": 6,
+      "support": 10
+    }
+  },
   "storyUse": "비극을 만든 당사자이면서 가문의 압력에 복종한 피해자이기도 한 모순된 인물.",
-  "reuse": ["수몰 혼례 회복 지원", "저주받은 혼례 중개인", "후반 2인 정예 조합"]
+  "reuse": [
+    "수몰 혼례 회복 지원",
+    "저주받은 혼례 중개인",
+    "후반 2인 정예 조합"
+  ]
 }

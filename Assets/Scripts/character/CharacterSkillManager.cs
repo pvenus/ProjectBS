@@ -56,18 +56,19 @@ namespace Character
 
             SkillPoolRuntimeData skillPool = new SkillPoolRuntimeData();
 
-            SkillPoolOverrideSO skillOverrideSet = characterSO != null
-                ? characterSO.SkillOverrideSet
+            IReadOnlyList<CharacterSkillEntry> skills = characterSO != null
+                ? characterSO.Skills
                 : null;
 
-            if (skillOverrideSet == null)
+            if (skills == null || skills.Count == 0)
             {
+                skillRuntimeData.skillPool = skillPool;
                 return;
             }
 
-            for (int i = 0; i < skillOverrideSet.overrides.Count; i++)
+            for (int i = 0; i < skills.Count; i++)
             {
-                SkillPoolOverrideEntry entry = skillOverrideSet.overrides[i];
+                CharacterSkillEntry entry = skills[i];
                 if (entry == null || entry.skillSo == null)
                 {
                     continue;

@@ -1,11 +1,136 @@
 {
   "id": "npc.plague_procession.physician_male_healer",
   "displayName": "역병 행렬 · 의원 남성 회복형",
-  "groupTags": ["plague_procession", "undead", "mid_late", "support"],
-  "identityKeywords": ["남성", "의원", "회복 마법", "역치유"],
+  "groupTags": [
+    "plague_procession",
+    "undead",
+    "mid_late",
+    "support"
+  ],
+  "identityKeywords": [
+    "남성",
+    "의원",
+    "회복 마법",
+    "역치유"
+  ],
   "appearance": "부리처럼 긴 약재 가면과 검은 도포, 허리에는 약병과 뼛조각 침통이 매달려 있다.",
-  "combat": {"role": "회복·감염 증폭술사", "attackType": "spirit_support", "targetPriority": "손상된 아군", "signature": "시귀는 회복하고 살아 있는 적에게는 같은 술이 역병 피해로 전환", "weakness": "침묵과 신성 정화"},
-  "stats": {"health": 5, "attack": 4, "defense": 4, "speed": 4, "range": 6, "support": 9},
+  "combat": {
+    "role": "회복·감염 증폭술사",
+    "attackType": "spirit_support",
+    "targetPriority": "손상된 아군",
+    "signature": "시귀는 회복하고 살아 있는 적에게는 같은 술이 역병 피해로 전환",
+    "weakness": "침묵과 신성 정화"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "support",
+    "tags": [
+      "undead"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 5
+      },
+      {
+        "statType": "MaxHp",
+        "value": 289
+      },
+      {
+        "statType": "HpRegen",
+        "value": 4.27
+      },
+      {
+        "statType": "Defense",
+        "value": 23
+      },
+      {
+        "statType": "CritChance",
+        "value": 7.3
+      },
+      {
+        "statType": "CritDamage",
+        "value": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 1.94
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.42
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 5.1862,
+        "finalValue": 5,
+        "appliedAxisMultiple": 0.735
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 289.0755,
+        "finalValue": 289,
+        "appliedAxisMultiple": 1.064
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 4.2703,
+        "finalValue": 4.27,
+        "appliedAxisMultiple": 1.4877
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 23.22,
+        "finalValue": 23
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 7.2563,
+        "finalValue": 7.3
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 53.75,
+        "finalValue": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.9404,
+        "finalValue": 1.94
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.419,
+        "finalValue": 1.42
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 5,
+      "attack": 4,
+      "defense": 4,
+      "speed": 4,
+      "range": 6,
+      "support": 9
+    }
+  },
   "storyUse": "사람을 살리지 못했다는 죄책감이 의념으로 뒤틀려 죽은 자만 치료하는 의원이 되었다.",
-  "reuse": ["역병 행렬 핵심 지원", "금지된 의원", "후반 언데드 혼성 조합"]
+  "reuse": [
+    "역병 행렬 핵심 지원",
+    "금지된 의원",
+    "후반 언데드 혼성 조합"
+  ]
 }

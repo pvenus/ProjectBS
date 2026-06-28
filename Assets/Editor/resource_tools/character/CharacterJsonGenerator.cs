@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Character;
 using Stat;
-using ResourceTools.Character;
 using UnityEditor;
 using UnityEngine;
 using Skill;
@@ -19,10 +18,7 @@ namespace ResourceTools.Character
             public string name;
             public string characterType;
             public string job;
-            public string prefabName;
             public List<StatEntryJson> baseStats = new();
-            public AnimationOverrideSetJson animationOverrideSet;
-            public SkillOverrideSetJson skillOverrideSet;
         }
 
         [Serializable]
@@ -32,25 +28,6 @@ namespace ResourceTools.Character
             public float value;
         }
 
-        [Serializable]
-        private class AnimationOverrideSetJson
-        {
-            public string animationSetId;
-        }
-
-        [Serializable]
-        private class SkillOverrideSetJson
-        {
-            public string overrideId;
-            public List<SkillSlotJson> slots = new();
-        }
-
-        [Serializable]
-        private class SkillSlotJson
-        {
-            public string slot;
-            public string skillJson;
-        }
 
         [MenuItem("Assets/Character/Generate CharacterSO From Json", false, 2000)]
         public static void Generate()
@@ -104,16 +81,23 @@ namespace ResourceTools.Character
                 isNewAsset = true;
             }
 
-            SetField(characterSo, "characterId", data.characterId);
-            CharacterStringBuilder.ExtractCharacterName(
+            CharacterType characterType =
+                (CharacterType)Enum.Parse(
+                    typeof(CharacterType),
+                    data.characterType,
+                    true);
+            CharacterJob job =
+                (CharacterJob)Enum.Parse(
+                    typeof(CharacterJob),
+                    data.job,
+                    true);
+            characterSo.ApplyEditorData(
                 data.characterId,
-                data.name);
-            SetEnumField(characterSo, "characterType", data.characterType);
-            SetEnumField(characterSo, "job", data.job);
-            SetField(characterSo, "prefab", FindPrefabByName(data.prefabName, outputFolder));
-            SetField(characterSo, "baseStats", ConvertBaseStats(data.baseStats));
-            SetField(characterSo, "animationOverrideSet", GenerateOrLoadAnimationSet(data.animationOverrideSet, outputFolder, jsonPath));
-            SetField(characterSo, "skillOverrideSet", CreateOrUpdateSkillOverrideSet(data.skillOverrideSet, outputFolder, jsonPath));
+                characterType,
+                job,
+                BuildAnimationClips(data.characterId),
+                BuildSkills(data.characterId),
+                ConvertBaseStats(data.baseStats));
 
             if (isNewAsset)
             {
@@ -155,248 +139,226 @@ namespace ResourceTools.Character
                     continue;
                 }
 
-                try
+                result.Add(new StatEntry
                 {
-                    result.Add(new StatEntry
-                    {
-                        statType = (StatType)Enum.Parse(typeof(StatType), stat.statType, true),
-                        value = stat.value
-                    });
-                }
-                catch
-                {
-                    Debug.LogWarning($"[CharacterJsonGenerator] Failed to parse StatType: {stat.statType}");
-                }
+                    statType = (StatType)Enum.Parse(
+                        typeof(StatType),
+                        stat.statType,
+                        true),
+                    value = stat.value
+                });
             }
 
             return result;
         }
 
-        private static SkillPoolOverrideSO CreateOrUpdateSkillOverrideSet(
-            SkillOverrideSetJson data,
-            string outputFolder,
-            string characterJsonPath)
+        private static List<CharacterAnimationClipEntry> BuildAnimationClips(string characterId)
         {
-            if (data == null || string.IsNullOrEmpty(data.overrideId))
+            List<CharacterAnimationClipEntry> result = new();
+
+            if (string.IsNullOrWhiteSpace(characterId))
             {
-                Debug.LogWarning("[CharacterJsonGenerator] SkillOverrideSetJson is empty. skillOverrideSet will not be assigned.");
-                return null;
+                return result;
             }
 
-            string assetName = GetSafeAssetName(data.overrideId) + "_SkillOverride";
-            string assetPath = $"{outputFolder}/{assetName}.asset";
+            Array clipTypes = Enum.GetValues(typeof(CharacterAnimationClipType));
 
-            SkillPoolOverrideSO overrideSo = AssetDatabase.LoadAssetAtPath<SkillPoolOverrideSO>(assetPath);
-            bool isNewAsset = false;
-
-            if (overrideSo == null)
+            foreach (object value in clipTypes)
             {
-                overrideSo = ScriptableObject.CreateInstance<SkillPoolOverrideSO>();
-                isNewAsset = true;
-            }
+                CharacterAnimationClipType clipType = (CharacterAnimationClipType)value;
+                string clipName = $"{characterId}.{clipType}";
+                AnimationClip clip = CreateOrUpdateAnimationClipFromSprites(clipName);
 
-            overrideSo.overrides.Clear();
-
-            if (data.slots != null)
-            {
-                string characterFolder = Path.GetDirectoryName(characterJsonPath)?.Replace("\\", "/") ?? outputFolder;
-
-                foreach (SkillSlotJson slot in data.slots)
-                {
-                    if (slot == null || string.IsNullOrEmpty(slot.slot) || string.IsNullOrEmpty(slot.skillJson))
-                    {
-                        continue;
-                    }
-
-                    string skillJsonPath = NormalizeAssetPath(Path.Combine(characterFolder, slot.skillJson));
-                    EquipmentSkillSO skillSo = GenerateOrLoadSkill(skillJsonPath);
-
-                    if (skillSo == null)
-                    {
-                        Debug.LogWarning($"[CharacterJsonGenerator] Skill generation failed. slot={slot.slot}, path={skillJsonPath}");
-                        continue;
-                    }
-
-                    overrideSo.overrides.Add(new SkillPoolOverrideEntry
-                    {
-                        slotKey = slot.slot,
-                        skillSo = skillSo
-                    });
-                }
-            }
-
-            if (isNewAsset)
-            {
-                AssetDatabase.CreateAsset(overrideSo, assetPath);
-                Debug.Log($"[CharacterJsonGenerator] Created SkillPoolOverrideSO: {assetPath}");
-            }
-            else
-            {
-                EditorUtility.SetDirty(overrideSo);
-                Debug.Log($"[CharacterJsonGenerator] Updated SkillPoolOverrideSO: {assetPath}");
-            }
-
-            return overrideSo;
-        }
-
-        private static AnimationClipSetSO GenerateOrLoadAnimationSet(
-            AnimationOverrideSetJson data,
-            string outputFolder,
-            string characterJsonPath)
-        {
-            if (data == null || string.IsNullOrEmpty(data.animationSetId))
-            {
-                Debug.LogWarning("[CharacterJsonGenerator] AnimationOverrideSetJson is empty. animationOverrideSet will not be assigned.");
-                return null;
-            }
-
-            string characterFolder = Path.GetDirectoryName(characterJsonPath)?.Replace("\\", "/") ?? outputFolder;
-            string animationFolderPath = $"{characterFolder}/animation";
-
-            if (AssetDatabase.IsValidFolder(animationFolderPath))
-            {
-                AnimationClipSetSO generatedSet = GenerateClips.GenerateFromFolderPath(animationFolderPath);
-
-                if (generatedSet != null)
-                {
-                    return generatedSet;
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Animation folder not found: {animationFolderPath}");
-            }
-
-            return FindAnimationClipSet(data.animationSetId);
-        }
-
-        private static EquipmentSkillSO GenerateOrLoadSkill(string skillJsonPath)
-        {
-            if (string.IsNullOrEmpty(skillJsonPath) || !File.Exists(skillJsonPath))
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Skill json not found: {skillJsonPath}");
-                return null;
-            }
-
-            EquipmentSkillSO generated = Skill.EquipmentSkillJsonGenerator.GenerateFromJsonPath(skillJsonPath);
-
-            if (generated != null)
-            {
-                return generated;
-            }
-
-            string folder = Path.GetDirectoryName(skillJsonPath)?.Replace("\\", "/");
-            string fileName = Path.GetFileNameWithoutExtension(skillJsonPath);
-            string fallbackAssetPath = $"{folder}/{fileName}.asset";
-            return AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(fallbackAssetPath);
-        }
-
-        private static GameObject FindPrefabInFolder(
-            string prefabName,
-            string folder)
-        {
-            if (string.IsNullOrEmpty(prefabName) || string.IsNullOrEmpty(folder))
-            {
-                return null;
-            }
-
-            string directPath = NormalizeAssetPath(
-                Path.Combine(folder, $"{prefabName}.prefab"));
-
-            GameObject directPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(directPath);
-
-            if (directPrefab != null)
-            {
-                return directPrefab;
-            }
-
-            string[] guids = AssetDatabase.FindAssets(
-                $"{prefabName} t:Prefab",
-                new[] { folder });
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-                if (prefab != null && prefab.name.Equals(prefabName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return prefab;
-                }
-            }
-
-            return null;
-        }
-
-        private static GameObject FindPrefabByName(
-            string prefabName,
-            string characterFolder)
-        {
-            if (string.IsNullOrEmpty(prefabName))
-            {
-                return null;
-            }
-
-            GameObject localPrefab = FindPrefabInFolder(
-                prefabName,
-                characterFolder);
-
-            if (localPrefab != null)
-            {
-                return localPrefab;
-            }
-
-            string[] guids = AssetDatabase.FindAssets($"{prefabName} t:Prefab");
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-                if (prefab != null && prefab.name.Equals(prefabName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return prefab;
-                }
-            }
-
-            Debug.LogWarning($"[CharacterJsonGenerator] Prefab not found: {prefabName}");
-            return null;
-        }
-
-        private static AnimationClipSetSO FindAnimationClipSet(string animationSetId)
-        {
-            if (string.IsNullOrEmpty(animationSetId))
-            {
-                return null;
-            }
-
-            string safeName = GetSafeAssetName(animationSetId);
-            string[] guids = AssetDatabase.FindAssets("t:AnimationClipSetSO");
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                AnimationClipSetSO set = AssetDatabase.LoadAssetAtPath<AnimationClipSetSO>(path);
-
-                if (set == null)
+                if (clip == null)
                 {
                     continue;
                 }
 
-                if (set.name.Equals(animationSetId, StringComparison.OrdinalIgnoreCase) ||
-                    set.name.Equals(safeName, StringComparison.OrdinalIgnoreCase))
+                result.Add(new CharacterAnimationClipEntry
                 {
-                    return set;
-                }
+                    clipType = clipType,
+                    clip = clip
+                });
             }
 
-            Debug.LogWarning($"[CharacterJsonGenerator] AnimationClipSetSO not found: {animationSetId}");
-            return null;
+            return result;
         }
 
-        private static string NormalizeAssetPath(string path)
+        private static List<CharacterSkillEntry> BuildSkills(string characterId)
         {
-            return path.Replace("\\", "/");
+            List<CharacterSkillEntry> result = new();
+
+            if (string.IsNullOrWhiteSpace(characterId))
+            {
+                return result;
+            }
+
+            string skillPrefix = $"skill.{characterId}.";
+            string[] guids = AssetDatabase.FindAssets($"skill.{characterId} t:EquipmentSkillSO");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(path);
+
+                if (skillSo == null)
+                {
+                    continue;
+                }
+
+                string skillId = !string.IsNullOrWhiteSpace(skillSo.EquipmentId)
+                    ? skillSo.EquipmentId
+                    : skillSo.name;
+
+                if (string.IsNullOrWhiteSpace(skillId) ||
+                    !skillId.StartsWith(skillPrefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                string remainder = skillId.Substring(skillPrefix.Length);
+                int dotIndex = remainder.IndexOf('.');
+
+                if (dotIndex <= 0)
+                {
+                    Debug.LogWarning($"[CharacterJsonGenerator] Cannot resolve slotKey from skillId={skillId}");
+                    continue;
+                }
+
+                string slotKey = remainder.Substring(0, dotIndex);
+
+                result.Add(new CharacterSkillEntry
+                {
+                    slotKey = slotKey,
+                    skillSo = skillSo
+                });
+            }
+
+            return result;
+        }
+
+
+        private static AnimationClip CreateOrUpdateAnimationClipFromSprites(string clipName)
+        {
+            const string spriteFolder = "Assets/Resources/character/animation_png";
+            const string clipFolder = "Assets/Resources/character/animation_clip";
+
+            List<Sprite> sprites = FindSpritesForClip(spriteFolder, clipName);
+
+            if (sprites.Count == 0)
+            {
+                return null;
+            }
+
+            EnsureFolder(clipFolder);
+
+            string clipPath = $"{clipFolder}/{clipName}.clip";
+            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+            AnimationClip generatedClip = CreateSpriteAnimationClip(sprites);
+
+            if (clip == null)
+            {
+                AssetDatabase.CreateAsset(generatedClip, clipPath);
+                return generatedClip;
+            }
+
+            EditorUtility.CopySerialized(generatedClip, clip);
+            EditorUtility.SetDirty(clip);
+            return clip;
+        }
+
+        private static List<Sprite> FindSpritesForClip(
+            string spriteFolder,
+            string clipName)
+        {
+            List<Sprite> result = new();
+
+            string[] guids = AssetDatabase.FindAssets(
+                $"{clipName} t:Sprite",
+                new[] { spriteFolder });
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+                if (sprite == null)
+                {
+                    continue;
+                }
+
+                if (!sprite.name.StartsWith(clipName, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                result.Add(sprite);
+            }
+
+            result.Sort((left, right) =>
+                string.Compare(
+                    left != null ? left.name : string.Empty,
+                    right != null ? right.name : string.Empty,
+                    StringComparison.OrdinalIgnoreCase));
+
+            return result;
+        }
+
+        private static AnimationClip CreateSpriteAnimationClip(
+            List<Sprite> sprites)
+        {
+            AnimationClip clip = new AnimationClip
+            {
+                frameRate = 12f
+            };
+
+            EditorCurveBinding binding = new EditorCurveBinding
+            {
+                type = typeof(SpriteRenderer),
+                path = string.Empty,
+                propertyName = "m_Sprite"
+            };
+
+            ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Count];
+
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                keyframes[i] = new ObjectReferenceKeyframe
+                {
+                    time = i / clip.frameRate,
+                    value = sprites[i]
+                };
+            }
+
+            AnimationUtility.SetObjectReferenceCurve(
+                clip,
+                binding,
+                keyframes);
+
+            return clip;
+        }
+
+        private static void EnsureFolder(string folderPath)
+        {
+            if (AssetDatabase.IsValidFolder(folderPath))
+            {
+                return;
+            }
+
+            string[] parts = folderPath.Split('/');
+            string current = parts[0];
+
+            for (int i = 1; i < parts.Length; i++)
+            {
+                string next = $"{current}/{parts[i]}";
+
+                if (!AssetDatabase.IsValidFolder(next))
+                {
+                    AssetDatabase.CreateFolder(current, parts[i]);
+                }
+
+                current = next;
+            }
         }
 
         private static string GetSafeAssetName(string id)
@@ -404,64 +366,6 @@ namespace ResourceTools.Character
             return string.IsNullOrEmpty(id)
                 ? "generated_asset"
                 : id.Replace(".", "_").Replace("/", "_").Replace(" ", "_");
-        }
-
-        private static void SetField(object target, string fieldName, object value)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            var field = target.GetType().GetField(
-                fieldName,
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Public);
-
-            if (field == null)
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Field not found: {fieldName}");
-                return;
-            }
-
-            field.SetValue(target, value);
-        }
-
-        private static void SetEnumField(object target, string fieldName, string enumName)
-        {
-            if (target == null || string.IsNullOrEmpty(enumName))
-            {
-                return;
-            }
-
-            var field = target.GetType().GetField(
-                fieldName,
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Public);
-
-            if (field == null)
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Field not found: {fieldName}");
-                return;
-            }
-
-            if (!field.FieldType.IsEnum)
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Field is not enum: {fieldName}");
-                return;
-            }
-
-            try
-            {
-                object parsedValue = Enum.Parse(field.FieldType, enumName, true);
-                field.SetValue(target, parsedValue);
-            }
-            catch
-            {
-                Debug.LogWarning($"[CharacterJsonGenerator] Failed to parse enum {fieldName}: {enumName}");
-            }
         }
     }
 }

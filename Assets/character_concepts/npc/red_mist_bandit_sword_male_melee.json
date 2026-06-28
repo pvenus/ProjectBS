@@ -1,11 +1,135 @@
 {
   "id": "npc.red_mist_bandit.sword_male_melee",
   "displayName": "붉은 안개 산적 · 칼잡이 남성 근접형",
-  "groupTags": ["red_mist_bandits", "human", "early"],
-  "identityKeywords": ["남성", "칼", "근거리", "돌격"],
+  "groupTags": [
+    "red_mist_bandits",
+    "human",
+    "early"
+  ],
+  "identityKeywords": [
+    "남성",
+    "칼",
+    "근거리",
+    "돌격"
+  ],
   "appearance": "해진 군복 위에 짚갑옷을 걸치고 녹슨 환도를 든 젊은 탈영병. 붉은 천으로 코와 입을 가렸다.",
-  "combat": {"role": "근접 돌격수", "attackType": "physical_melee", "targetPriority": "가장 가까운 적", "signature": "첫 공격이 방어 일부를 무시", "weakness": "낮은 정신 저항"},
-  "stats": {"health": 5, "attack": 6, "defense": 4, "speed": 6, "range": 1, "support": 1},
+  "combat": {
+    "role": "근접 돌격수",
+    "attackType": "physical_melee",
+    "targetPriority": "가장 가까운 적",
+    "signature": "첫 공격이 방어 일부를 무시",
+    "weakness": "낮은 정신 저항"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 1,
+    "score": 30,
+    "typeId": "melee_dps",
+    "tags": [
+      "human"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 9
+      },
+      {
+        "statType": "MaxHp",
+        "value": 122
+      },
+      {
+        "statType": "HpRegen",
+        "value": 1.15
+      },
+      {
+        "statType": "Defense",
+        "value": 18
+      },
+      {
+        "statType": "CritChance",
+        "value": 12.7
+      },
+      {
+        "statType": "CritDamage",
+        "value": 55.0
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.16
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.5
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 9.2846,
+        "finalValue": 9,
+        "appliedAxisMultiple": 1.3133
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 121.5,
+        "finalValue": 122,
+        "appliedAxisMultiple": 0.9
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1.1475,
+        "finalValue": 1.15,
+        "appliedAxisMultiple": 0.85
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 18.0,
+        "finalValue": 18
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 12.6788,
+        "finalValue": 12.7
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 55.0,
+        "finalValue": 55.0
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.16,
+        "finalValue": 2.16
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.5,
+        "finalValue": 1.5
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 5,
+      "attack": 6,
+      "defense": 4,
+      "speed": 6,
+      "range": 1,
+      "support": 1
+    }
+  },
   "storyUse": "기근과 징집을 피해 산으로 오른 인간. 악행과 생존 사이의 회색 지대를 보여 준다.",
-  "reuse": ["초반 길목 강탈", "관군 탈영병", "후반 사교 집단의 호위"]
+  "reuse": [
+    "초반 길목 강탈",
+    "관군 탈영병",
+    "후반 사교 집단의 호위"
+  ]
 }

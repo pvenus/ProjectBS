@@ -1,11 +1,136 @@
 {
   "id": "npc.ash_wolf.red_alpha_leader",
   "displayName": "잿빛 늑대 · 붉은 우두머리",
-  "groupTags": ["ash_wolf_pack", "beast", "mid_late", "leader"],
-  "identityKeywords": ["붉은색", "수컷", "우두머리", "근거리"],
+  "groupTags": [
+    "ash_wolf_pack",
+    "beast",
+    "mid_late",
+    "leader"
+  ],
+  "identityKeywords": [
+    "붉은색",
+    "수컷",
+    "우두머리",
+    "근거리"
+  ],
   "appearance": "핏빛 갈기와 한쪽이 혼불로 대체된 눈, 사람 키에 가까운 거대한 체구의 늑대.",
-  "combat": {"role": "근접 지휘수", "attackType": "physical_spirit_melee", "targetPriority": "전열 핵심", "signature": "포효로 늑대 계열의 속도와 공격을 올리고 쓰러진 늑대마다 광폭화", "weakness": "부하가 없을 때 효율 감소"},
-  "stats": {"health": 8, "attack": 8, "defense": 6, "speed": 7, "range": 1, "support": 6},
+  "combat": {
+    "role": "근접 지휘수",
+    "attackType": "physical_spirit_melee",
+    "targetPriority": "전열 핵심",
+    "signature": "포효로 늑대 계열의 속도와 공격을 올리고 쓰러진 늑대마다 광폭화",
+    "weakness": "부하가 없을 때 효율 감소"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "elite",
+    "grade": 2,
+    "score": 750,
+    "typeId": "melee_dps",
+    "tags": [
+      "wolf"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 234
+      },
+      {
+        "statType": "MaxHp",
+        "value": 2337
+      },
+      {
+        "statType": "HpRegen",
+        "value": 34.73
+      },
+      {
+        "statType": "Defense",
+        "value": 17
+      },
+      {
+        "statType": "CritChance",
+        "value": 14.4
+      },
+      {
+        "statType": "CritDamage",
+        "value": 59.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.56
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 2.05
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 234.3462,
+        "finalValue": 234,
+        "appliedAxisMultiple": 1.3519
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 2337.3563,
+        "finalValue": 2337,
+        "appliedAxisMultiple": 0.7695
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 34.7314,
+        "finalValue": 34.73,
+        "appliedAxisMultiple": 1.0832
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 17.415,
+        "finalValue": 17
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 14.4196,
+        "finalValue": 14.4
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 59.125,
+        "finalValue": 59.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.56,
+        "finalValue": 2.56
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.055,
+        "finalValue": 2.05
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 8,
+      "attack": 8,
+      "defense": 6,
+      "speed": 7,
+      "range": 1,
+      "support": 6
+    }
+  },
   "storyUse": "산신에게 제물로 바쳐진 늑대의 의념이 우두머리로 굳어진 존재. 단순 악귀가 아닌 희생의 결과다.",
-  "reuse": ["늑대 무리 우두머리", "후반 산신 권속", "단독 정예 추격전"]
+  "reuse": [
+    "늑대 무리 우두머리",
+    "후반 산신 권속",
+    "단독 정예 추격전"
+  ]
 }

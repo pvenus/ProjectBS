@@ -117,7 +117,6 @@ public class NpcSpawnerMono : MonoBehaviour
         }
 
         SpawnMonsterEntry entry = PickMonsterEntry(phase);
-        GameObject prefab = ResolveCharacterPrefab(entry);
 
         if (entry == null || entry.characterSo == null)
         {
@@ -136,7 +135,7 @@ public class NpcSpawnerMono : MonoBehaviour
         }
 
         GameObject spawned = CharacterBuilder.CreateOrBuildNpcObject(
-            prefab,
+            null,
             entry.characterSo.name,
             transform,
             spawnPos,
@@ -306,16 +305,6 @@ public class NpcSpawnerMono : MonoBehaviour
         return aliveList.Count;
     }
 
-    private GameObject ResolveCharacterPrefab(
-        SpawnMonsterEntry entry)
-    {
-        if (entry == null || entry.characterSo == null)
-        {
-            return null;
-        }
-
-        return entry.characterSo.ResolvePrefab();
-    }
 
     private SpawnMonsterEntry PickMonsterEntry(SpawnPhase phase)
     {

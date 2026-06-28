@@ -1,11 +1,135 @@
 {
   "id": "npc.ash_wolf.black_female_guard",
   "displayName": "잿빛 늑대 · 검은 암컷 수호형",
-  "groupTags": ["ash_wolf_pack", "beast", "mid"],
-  "identityKeywords": ["검은색", "암컷", "근거리", "수호"],
+  "groupTags": [
+    "ash_wolf_pack",
+    "beast",
+    "mid"
+  ],
+  "identityKeywords": [
+    "검은색",
+    "암컷",
+    "근거리",
+    "수호"
+  ],
   "appearance": "숯처럼 검은 털과 넓은 어깨, 목덜미에 낡은 붉은 금줄이 엉켜 있는 큰 늑대.",
-  "combat": {"role": "근접 수호수", "attackType": "physical_melee", "targetPriority": "우두머리를 노리는 적", "signature": "인접 아군 대신 피해를 받고 반격", "weakness": "느린 이동과 지속 마법 피해"},
-  "stats": {"health": 8, "attack": 4, "defense": 7, "speed": 4, "range": 1, "support": 4},
+  "combat": {
+    "role": "근접 수호수",
+    "attackType": "physical_melee",
+    "targetPriority": "우두머리를 노리는 적",
+    "signature": "인접 아군 대신 피해를 받고 반격",
+    "weakness": "느린 이동과 지속 마법 피해"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "defense",
+    "tags": [
+      "wolf"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 6
+      },
+      {
+        "statType": "MaxHp",
+        "value": 286
+      },
+      {
+        "statType": "HpRegen",
+        "value": 2.77
+      },
+      {
+        "statType": "Defense",
+        "value": 24
+      },
+      {
+        "statType": "CritChance",
+        "value": 9.3
+      },
+      {
+        "statType": "CritDamage",
+        "value": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.03
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 2.02
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 6.1082,
+        "finalValue": 6,
+        "appliedAxisMultiple": 0.7828
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 286.0924,
+        "finalValue": 286,
+        "appliedAxisMultiple": 1.2393
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 2.7675,
+        "finalValue": 2.77,
+        "appliedAxisMultiple": 1.2331
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 24.381,
+        "finalValue": 24
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 9.288,
+        "finalValue": 9.3
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 53.75,
+        "finalValue": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0318,
+        "finalValue": 2.03
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0245,
+        "finalValue": 2.02
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 8,
+      "attack": 4,
+      "defense": 7,
+      "speed": 4,
+      "range": 1,
+      "support": 4
+    }
+  },
   "storyUse": "본래 마을의 수호견이었음을 보여 주는 금줄로 인간에게 버림받은 짐승의 원한을 표현한다.",
-  "reuse": ["중반 늑대 무리", "역귀 호위", "후반 보스 경호"]
+  "reuse": [
+    "중반 늑대 무리",
+    "역귀 호위",
+    "후반 보스 경호"
+  ]
 }

@@ -78,4 +78,34 @@ namespace Character
         Main,
         Alt
     }
+
+    public enum CharacterType
+    {
+        Player,
+        Npc,
+        Boss
+    }
+    public enum CharacterAnimationClipType
+    {
+        IdleUpRight,
+        IdleUpLeft,
+        IdleDownRight,
+        IdleDownLeft,
+
+        MoveUpRight,
+        MoveUpLeft,
+        MoveDownRight,
+        MoveDownLeft,
+
+        AttackUpRight,
+        AttackUpLeft,
+        AttackDownRight,
+        AttackDownLeft,
+
+        DeathUpRight,
+        DeathUpLeft,
+        DeathDownRight,
+        DeathDownLeft
+    }
+
 }

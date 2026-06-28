@@ -60,7 +60,7 @@ namespace Mission
         public string DisplayName =>
             StringManager.Instance.Get(
                 LocalizationMainKey,
-                "name");
+                "name", true);
 
         public string Description =>
             StringManager.Instance.Get(

@@ -1,11 +1,135 @@
 {
   "id": "npc.plague_procession.bearer_corpse_melee",
   "displayName": "역병 행렬 · 짐꾼 시귀 근접형",
-  "groupTags": ["plague_procession", "undead", "mid"],
-  "identityKeywords": ["남성", "시귀", "근거리", "감염"],
+  "groupTags": [
+    "plague_procession",
+    "undead",
+    "mid"
+  ],
+  "identityKeywords": [
+    "남성",
+    "시귀",
+    "근거리",
+    "감염"
+  ],
   "appearance": "상여 밧줄이 몸에 파고든 부패한 짐꾼. 누런 삼베옷과 청색 혼불이 대비된다.",
-  "combat": {"role": "근접 소모수", "attackType": "physical_dot_melee", "targetPriority": "전열", "signature": "공격과 사망 시 역병 중첩을 남김", "weakness": "정화와 화염"},
-  "stats": {"health": 6, "attack": 4, "defense": 5, "speed": 3, "range": 1, "support": 2},
+  "combat": {
+    "role": "근접 소모수",
+    "attackType": "physical_dot_melee",
+    "targetPriority": "전열",
+    "signature": "공격과 사망 시 역병 중첩을 남김",
+    "weakness": "정화와 화염"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "melee_dps",
+    "tags": [
+      "undead"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 12
+      },
+      {
+        "statType": "MaxHp",
+        "value": 266
+      },
+      {
+        "statType": "HpRegen",
+        "value": 1.4
+      },
+      {
+        "statType": "Defense",
+        "value": 21
+      },
+      {
+        "statType": "CritChance",
+        "value": 11.1
+      },
+      {
+        "statType": "CritDamage",
+        "value": 59.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.1
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.42
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 11.885,
+        "finalValue": 12,
+        "appliedAxisMultiple": 1.225
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 266.1929,
+        "finalValue": 266,
+        "appliedAxisMultiple": 1.0584
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1.3981,
+        "finalValue": 1.4,
+        "appliedAxisMultiple": 0.7671
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 20.898,
+        "finalValue": 21
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 11.1262,
+        "finalValue": 11.1
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 59.125,
+        "finalValue": 59.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0956,
+        "finalValue": 2.1
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.419,
+        "finalValue": 1.42
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 6,
+      "attack": 4,
+      "defense": 5,
+      "speed": 3,
+      "range": 1,
+      "support": 2
+    }
+  },
   "storyUse": "생전에 시신을 나르다 함께 버려진 인부들로, 재난에서 가장 먼저 희생되는 이들을 상징한다.",
-  "reuse": ["역병 마을", "무덤 도굴", "후반 대규모 소환물"]
+  "reuse": [
+    "역병 마을",
+    "무덤 도굴",
+    "후반 대규모 소환물"
+  ]
 }

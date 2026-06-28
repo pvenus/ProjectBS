@@ -1,11 +1,137 @@
 {
   "id": "npc.broken_shrine.fallen_mountain_spirit_leader",
   "displayName": "무너진 사당 · 타락한 산신 우두머리",
-  "groupTags": ["broken_shrine_retinue", "divinity", "late", "leader"],
-  "identityKeywords": ["산신", "우두머리", "공격 마법", "소환"],
+  "groupTags": [
+    "broken_shrine_retinue",
+    "divinity",
+    "late",
+    "leader"
+  ],
+  "identityKeywords": [
+    "산신",
+    "우두머리",
+    "공격 마법",
+    "소환"
+  ],
   "appearance": "호랑이 가죽과 부서진 신관을 쓴 중성적인 신격. 얼굴은 보는 이가 믿는 수호자의 모습으로 바뀐다.",
-  "combat": {"role": "지휘·소환 마도사", "attackType": "spirit_magic", "targetPriority": "의념 강화가 많은 적", "signature": "쓰러진 아군의 역할을 본뜬 의념 분신 소환, 짐승·도깨비·원혼 모두 강화", "weakness": "신도와 소환물이 없으면 능력 약화"},
-  "stats": {"health": 9, "attack": 10, "defense": 7, "speed": 5, "range": 9, "support": 10},
+  "combat": {
+    "role": "지휘·소환 마도사",
+    "attackType": "spirit_magic",
+    "targetPriority": "의념 강화가 많은 적",
+    "signature": "쓰러진 아군의 역할을 본뜬 의념 분신 소환, 짐승·도깨비·원혼 모두 강화",
+    "weakness": "신도와 소환물이 없으면 능력 약화"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "elite",
+    "grade": 3,
+    "score": 1125,
+    "typeId": "ranged_dps",
+    "tags": [
+      "divinity",
+      "spirit"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 417
+      },
+      {
+        "statType": "MaxHp",
+        "value": 3019
+      },
+      {
+        "statType": "HpRegen",
+        "value": 113.81
+      },
+      {
+        "statType": "Defense",
+        "value": 17
+      },
+      {
+        "statType": "CritChance",
+        "value": 15.7
+      },
+      {
+        "statType": "CritDamage",
+        "value": 72.7
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.88
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 417.0488,
+        "finalValue": 417,
+        "appliedAxisMultiple": 1.4456
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 3018.9074,
+        "finalValue": 3019,
+        "appliedAxisMultiple": 0.6929
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 113.8094,
+        "finalValue": 113.81,
+        "appliedAxisMultiple": 1.6649
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 16.767,
+        "finalValue": 17
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 15.6975,
+        "finalValue": 15.7
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 72.7375,
+        "finalValue": 72.7
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.53,
+        "finalValue": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.8837,
+        "finalValue": 1.88
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 9,
+      "attack": 10,
+      "defense": 7,
+      "speed": 5,
+      "range": 9,
+      "support": 10
+    }
+  },
   "storyUse": "수호를 바라는 믿음과 제물을 요구하는 공포가 함께 빚은 신격. 신과 악귀가 같은 근원이라는 세계관을 직접 드러낸다.",
-  "reuse": ["무너진 사당 최종 조합", "산신제 분기 보스", "초반 NPC 재등장 조합의 지휘자"]
+  "reuse": [
+    "무너진 사당 최종 조합",
+    "산신제 분기 보스",
+    "초반 NPC 재등장 조합의 지휘자"
+  ]
 }

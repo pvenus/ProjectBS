@@ -1,11 +1,136 @@
 {
   "id": "npc.red_mist_bandit.mudang_female_healer",
   "displayName": "붉은 안개 산적 · 무당 여성 회복형",
-  "groupTags": ["red_mist_bandits", "human", "mid", "support"],
-  "identityKeywords": ["여성", "무당", "회복 마법", "부적"],
+  "groupTags": [
+    "red_mist_bandits",
+    "human",
+    "mid",
+    "support"
+  ],
+  "identityKeywords": [
+    "여성",
+    "무당",
+    "회복 마법",
+    "부적"
+  ],
   "appearance": "빛바랜 무복과 검은 장옷, 작은 방울 꾸러미를 든 노년 여성. 붉은 안개가 발목을 감싼다.",
-  "combat": {"role": "회복·정화 지원", "attackType": "spirit_support", "targetPriority": "체력이 낮은 아군", "signature": "부적을 태워 범위 회복하고 인간 계열의 공포를 해제", "weakness": "낮은 체력과 침묵"},
-  "stats": {"health": 3, "attack": 2, "defense": 3, "speed": 4, "range": 6, "support": 9},
+  "combat": {
+    "role": "회복·정화 지원",
+    "attackType": "spirit_support",
+    "targetPriority": "체력이 낮은 아군",
+    "signature": "부적을 태워 범위 회복하고 인간 계열의 공포를 해제",
+    "weakness": "낮은 체력과 침묵"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "support",
+    "tags": [
+      "human"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 6
+      },
+      {
+        "statType": "MaxHp",
+        "value": 214
+      },
+      {
+        "statType": "HpRegen",
+        "value": 4.99
+      },
+      {
+        "statType": "Defense",
+        "value": 22
+      },
+      {
+        "statType": "CritChance",
+        "value": 8.5
+      },
+      {
+        "statType": "CritDamage",
+        "value": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.04
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.61
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 5.5598,
+        "finalValue": 6,
+        "appliedAxisMultiple": 0.7497
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 213.75,
+        "finalValue": 214,
+        "appliedAxisMultiple": 0.95
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 4.9946,
+        "finalValue": 4.99,
+        "appliedAxisMultiple": 1.5225
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 21.5,
+        "finalValue": 22
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 8.4656,
+        "finalValue": 8.5
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 53.75,
+        "finalValue": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0425,
+        "finalValue": 2.04
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.6125,
+        "finalValue": 1.61
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 3,
+      "attack": 2,
+      "defense": 3,
+      "speed": 4,
+      "range": 6,
+      "support": 9
+    }
+  },
   "storyUse": "마을에서 역병의 책임을 뒤집어쓰고 쫓겨난 무당. 치유와 저주가 믿는 자의 시선에 따라 달라짐을 보여 준다.",
-  "reuse": ["산적 의무대", "떠돌이 무당", "귀신과 인간 혼성 조합의 연결점"]
+  "reuse": [
+    "산적 의무대",
+    "떠돌이 무당",
+    "귀신과 인간 혼성 조합의 연결점"
+  ]
 }

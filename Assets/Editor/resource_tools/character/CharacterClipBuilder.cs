@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ResourceTools
 {
-    public static class GenerateClips
+    public static class CharacterClipBuilder
     {
         private const float FrameRate = 12f;
         private const string OutputFolderName = "_GeneratedClips";
@@ -56,12 +56,12 @@ namespace ResourceTools
             GenerateFromFolderPath(selectedPath);
         }
 
-        public static AnimationClipSetSO GenerateFromFolderPath(string selectedPath)
+        public static List<AnimationClip> GenerateFromFolderPath(string selectedPath)
         {
             if (string.IsNullOrEmpty(selectedPath) || !AssetDatabase.IsValidFolder(selectedPath))
             {
                 Debug.LogWarning($"[GenerateClips] Invalid folder path: {selectedPath}");
-                return null;
+                return new List<AnimationClip>();
             }
 
             string outputFolderPath = EnsureOutputFolder(selectedPath);
@@ -108,26 +108,22 @@ namespace ResourceTools
                 });
             }
 
-            AnimationClipSetSO clipSet = null;
-
-            if (generatedClips.Count > 0)
-            {
-                clipSet = CreateOrUpdateAnimationClipSetSO(selectedPath, outputFolderPath, generatedClips);
-            }
-
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
             Debug.Log($"[GenerateClips] Complete. Created/Updated {generatedClips.Count} clips. Skipped {skippedCount} folders without sprites.");
-            return clipSet;
+            return generatedClips
+                .Where(info => info != null && info.Clip != null)
+                .Select(info => info.Clip)
+                .ToList();
         }
 
-        public static AnimationClipSetSO GenerateFromCharacterFolderPath(string characterFolderPath)
+        public static List<AnimationClip> GenerateFromCharacterFolderPath(string characterFolderPath)
         {
             if (string.IsNullOrEmpty(characterFolderPath) || !AssetDatabase.IsValidFolder(characterFolderPath))
             {
                 Debug.LogWarning($"[GenerateClips] Invalid character folder path: {characterFolderPath}");
-                return null;
+                return new List<AnimationClip>();
             }
 
             string animationFolderPath = $"{characterFolderPath}/animation";
@@ -135,7 +131,7 @@ namespace ResourceTools
             if (!AssetDatabase.IsValidFolder(animationFolderPath))
             {
                 Debug.LogWarning($"[GenerateClips] Animation folder not found: {animationFolderPath}");
-                return null;
+                return new List<AnimationClip>();
             }
 
             return GenerateFromFolderPath(animationFolderPath);
@@ -175,219 +171,6 @@ namespace ResourceTools
             return clip;
         }
 
-        private static AnimationClipSetSO CreateOrUpdateAnimationClipSetSO(
-            string selectedPath,
-            string outputFolderPath,
-            List<GeneratedClipInfo> generatedClips)
-        {
-            string selectedFolderName = new DirectoryInfo(selectedPath).Name;
-            string assetPath = $"{outputFolderPath}/{selectedFolderName}_AnimationClipSetSO.asset";
-
-            AnimationClipSetSO clipSet = AssetDatabase.LoadAssetAtPath<AnimationClipSetSO>(assetPath);
-            bool isNewAsset = false;
-
-            if (clipSet == null)
-            {
-                clipSet = ScriptableObject.CreateInstance<AnimationClipSetSO>();
-                isNewAsset = true;
-            }
-
-            clipSet.idleClips = new DirectionalAnimationClips();
-            clipSet.moveClips = new DirectionalAnimationClips();
-            clipSet.attackClips = new DirectionalAnimationClips();
-            clipSet.deathClips = new DirectionalAnimationClips();
-
-            foreach (GeneratedClipInfo info in generatedClips)
-            {
-                if (!TryParseClipName(info.ClipName, out string stateName, out string directionName))
-                {
-                    Debug.LogWarning($"[GenerateClips] Cannot map clip name to AnimationClipSetSO: {info.ClipName}");
-                    continue;
-                }
-
-                DirectionalAnimationClips target = GetTargetClips(clipSet, stateName);
-
-                if (target == null)
-                {
-                    Debug.LogWarning($"[GenerateClips] Unknown state: {stateName} / Clip: {info.ClipName}");
-                    continue;
-                }
-
-                AssignDirectionalClip(target, directionName, info.Clip, info.ClipName);
-            }
-
-            if (isNewAsset)
-            {
-                AssetDatabase.CreateAsset(clipSet, assetPath);
-                Debug.Log($"[GenerateClips] Created AnimationClipSetSO: {assetPath}");
-            }
-            else
-            {
-                EditorUtility.SetDirty(clipSet);
-                Debug.Log($"[GenerateClips] Updated AnimationClipSetSO: {assetPath}");
-            }
-
-            return clipSet;
-        }
-
-        private static DirectionalAnimationClips GetTargetClips(AnimationClipSetSO clipSet, string stateName)
-        {
-            switch (NormalizeToken(stateName))
-            {
-                case "idle":
-                    return clipSet.idleClips;
-
-                case "move":
-                case "walk":
-                case "run":
-                    return clipSet.moveClips;
-
-                case "attack":
-                case "atk":
-                    return clipSet.attackClips;
-
-                case "death":
-                case "die":
-                    return clipSet.deathClips;
-
-                default:
-                    return null;
-            }
-        }
-
-        private static void AssignDirectionalClip(
-            DirectionalAnimationClips target,
-            string directionName,
-            AnimationClip clip,
-            string clipName)
-        {
-            switch (NormalizeToken(directionName))
-            {
-                case "upright":
-                case "northeast":
-                case "ne":
-                    target.upRight = clip;
-                    break;
-
-                case "upleft":
-                case "northwest":
-                case "nw":
-                    target.upLeft = clip;
-                    break;
-
-                case "downright":
-                case "southeast":
-                case "se":
-                    target.downRight = clip;
-                    break;
-
-                case "downleft":
-                case "southwest":
-                case "sw":
-                    target.downLeft = clip;
-                    break;
-
-                default:
-                    Debug.LogWarning($"[GenerateClips] Unknown direction: {directionName} / Clip: {clipName}");
-                    break;
-            }
-        }
-
-        private static bool TryParseClipName(string clipName, out string stateName, out string directionName)
-        {
-            stateName = null;
-            directionName = null;
-
-            string[] tokens = clipName.Split(new[] { '_', '-', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (tokens.Length < 2)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (!IsStateToken(NormalizeToken(tokens[i])))
-                {
-                    continue;
-                }
-
-                string combinedDirection = string.Concat(tokens.Skip(i + 1));
-
-                if (IsDirectionToken(NormalizeToken(combinedDirection)))
-                {
-                    stateName = tokens[i];
-                    directionName = combinedDirection;
-                    return true;
-                }
-
-                for (int j = i + 1; j < tokens.Length; j++)
-                {
-                    if (!IsDirectionToken(NormalizeToken(tokens[j])))
-                    {
-                        continue;
-                    }
-
-                    stateName = tokens[i];
-                    directionName = tokens[j];
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool IsStateToken(string token)
-        {
-            switch (token)
-            {
-                case "idle":
-                case "move":
-                case "walk":
-                case "run":
-                case "attack":
-                case "atk":
-                case "death":
-                case "die":
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        private static bool IsDirectionToken(string token)
-        {
-            switch (token)
-            {
-                case "upright":
-                case "upleft":
-                case "downright":
-                case "downleft":
-                case "northeast":
-                case "northwest":
-                case "southeast":
-                case "southwest":
-                case "ne":
-                case "nw":
-                case "se":
-                case "sw":
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        private static string NormalizeToken(string value)
-        {
-            return string.IsNullOrEmpty(value)
-                ? string.Empty
-                : value.Replace("_", string.Empty)
-                    .Replace("-", string.Empty)
-                    .Replace(" ", string.Empty)
-                    .ToLowerInvariant();
-        }
 
         private static Sprite[] LoadSpritesInFolderOnly(string folderPath)
         {

@@ -1,11 +1,135 @@
 {
   "id": "npc.drowned_wedding.attendant_female_lantern_ranged",
   "displayName": "수몰 혼례 · 초롱 시녀 원거리형",
-  "groupTags": ["drowned_wedding", "spirit", "mid"],
-  "identityKeywords": ["여성", "시녀", "초롱", "원거리"],
+  "groupTags": [
+    "drowned_wedding",
+    "spirit",
+    "mid"
+  ],
+  "identityKeywords": [
+    "여성",
+    "시녀",
+    "초롱",
+    "원거리"
+  ],
   "appearance": "청색 저고리와 진흙 묻은 치마, 물고기 뼈로 만든 청사초롱을 든 작은 원혼.",
-  "combat": {"role": "원거리 유도수", "attackType": "spirit_ranged", "targetPriority": "후열", "signature": "혼불을 날려 대상을 물웅덩이 쪽으로 유인", "weakness": "낮은 체력"},
-  "stats": {"health": 3, "attack": 5, "defense": 2, "speed": 6, "range": 7, "support": 6},
+  "combat": {
+    "role": "원거리 유도수",
+    "attackType": "spirit_ranged",
+    "targetPriority": "후열",
+    "signature": "혼불을 날려 대상을 물웅덩이 쪽으로 유인",
+    "weakness": "낮은 체력"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "support",
+    "tags": [
+      "spirit"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 4
+      },
+      {
+        "statType": "MaxHp",
+        "value": 129
+      },
+      {
+        "statType": "HpRegen",
+        "value": 10.14
+      },
+      {
+        "statType": "Defense",
+        "value": 17
+      },
+      {
+        "statType": "CritChance",
+        "value": 8.1
+      },
+      {
+        "statType": "CritDamage",
+        "value": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.04
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.83
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 4.3861,
+        "finalValue": 4,
+        "appliedAxisMultiple": 0.6412
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 129.3529,
+        "finalValue": 129,
+        "appliedAxisMultiple": 0.7011
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 10.1449,
+        "finalValue": 10.14,
+        "appliedAxisMultiple": 2.1901
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 17.2,
+        "finalValue": 17
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 8.0625,
+        "finalValue": 8.1
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 53.75,
+        "finalValue": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0425,
+        "finalValue": 2.04
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.8286,
+        "finalValue": 1.83
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 3,
+      "attack": 5,
+      "defense": 2,
+      "speed": 6,
+      "range": 7,
+      "support": 6
+    }
+  },
   "storyUse": "혼례를 준비하다 함께 희생된 하인의 존재를 드러내 사건이 두 사람만의 비극이 아니었음을 알린다.",
-  "reuse": ["늪지 혼불", "수몰 혼례 지원", "후반 위치 제어 조합"]
+  "reuse": [
+    "늪지 혼불",
+    "수몰 혼례 지원",
+    "후반 위치 제어 조합"
+  ]
 }
