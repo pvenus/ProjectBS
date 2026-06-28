@@ -40,8 +40,8 @@ git merge main
 
 | Input | Description |
 |-------|-------------|
-| characterName | 캐릭터 이름. 파일명에는 `character.{characterName}` 형태로 사용한다. |
-| grade | 캐릭터 등급. 이미지 페이지 선택 또는 다운로드 기준으로 사용한다. |
+| characterName | 캐릭터 이름. 파일명에는 `character.{characterName}.{grade}` 형태로 사용한다. |
+| grade | 캐릭터 등급. 파일명에는 `character.{characterName}.{grade}` 형태로 사용하며, 이미지 페이지 선택 또는 다운로드 기준으로도 사용한다. |
 | imagePage | 캐릭터 애니메이션 이미지를 다운로드할 이미지 페이지 주소 또는 작업 페이지. |
 
 예시:
@@ -115,7 +115,7 @@ Death 애니메이션을 별도로 다운로드하는 경우에는 동일한 방
 각 PNG 파일은 다음 규칙으로 이름을 변경한다.
 
 ```text
-character.{characterName}.{animation_enum}.{original_frame_name}.png
+character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
 ```
 
 `original_frame_name`은 기존 파일명에서 확장자를 제외한 값을 유지한다.
@@ -127,7 +127,7 @@ character.{characterName}.{animation_enum}.{original_frame_name}.png
 animations/idle/south-east/frame_000.png
 
 변경 후:
-character.seojin.IdleDownRight.frame_000.png
+character.seojin.1.IdleDownRight.frame_000.png
 ```
 
 ```text
@@ -135,12 +135,13 @@ character.seojin.IdleDownRight.frame_000.png
 animations/attack/north-west/frame_005.png
 
 변경 후:
-character.seojin.AttackUpLeft.frame_005.png
+character.seojin.1.AttackUpLeft.frame_005.png
 ```
 
 중요 규칙:
 
 - `characterName`은 캐릭터 ID에 사용하는 이름과 동일해야 한다.
+- `grade`는 캐릭터 등급과 동일해야 하며 파일명에서 `characterName` 바로 뒤에 위치한다.
 - `animation_enum`은 `CharacterAnimationClipType` enum 이름과 정확히 일치해야 한다.
 - 마지막 프레임 이름(`frame_000`, `frame_001` 등)은 기존 파일명을 유지한다.
 - 확장자는 `.png`를 유지한다.
@@ -158,7 +159,7 @@ character.seojin.AttackUpLeft.frame_005.png
 Unity 생성기는 이 경로를 기준으로 다음 규칙의 파일을 찾는다.
 
 ```text
-character.{characterName}.{animation_enum}*
+character.{characterName}.{grade}.{animation_enum}*
 ```
 
 그리고 찾은 Sprite들을 오름차순으로 정렬한 뒤 AnimationClip을 생성한다.
@@ -172,7 +173,7 @@ character.{characterName}.{animation_enum}*
 저장 파일명 규칙:
 
 ```text
-character.{characterName}.{animation_enum}.clip
+character.{characterName}.{grade}.{animation_enum}.clip
 ```
 
 ---
@@ -196,7 +197,7 @@ Unity 리소스에 필요한 최종 PNG만 `Assets/Resources/character/animation
 Unity에서 캐릭터 생성기를 실행하기 전 다음을 확인한다.
 
 - `animation_png` 폴더에 파일이 복사되었는가?
-- 파일명이 `character.{characterName}.{animation_enum}.frame_000.png` 형식인가?
+- 파일명이 `character.{characterName}.{grade}.{animation_enum}.frame_000.png` 형식인가?
 - `animation_enum`이 `CharacterAnimationClipType` enum과 일치하는가?
 - 각 애니메이션 방향별 frame이 누락되지 않았는가?
 - `characterName`이 CharacterSO의 `characterId`와 일치하는가?
@@ -255,7 +256,7 @@ Git 최신화
 → 이미지 페이지에서 Export 다운로드
 → 압축 해제
 → animations/{type}/{direction} 파일 확인
-→ character.{characterName}.{animation_enum}.{frame}.png 로 이름 변경
+→ character.{characterName}.{grade}.{animation_enum}.{frame}.png 로 이름 변경
 → Assets/Resources/character/animation_png 로 복사
 → 압축 파일 및 임시 폴더 정리
 → Git commit
