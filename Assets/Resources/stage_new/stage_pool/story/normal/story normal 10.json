@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.010",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 10,
+  "episodeId": "story_normal",
+  "episodeNumber": 10,
+  "titleKo": "잠든 수레꾼",
+  "summaryKo": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "잠든 수레꾼",
   "mainCharacterId": "character.seojin",
   "themeKo": "경계",
-  "summaryKo": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.",
   "startNodeId": "node.story.normal.010",
   "nodes": [
     {
       "nodeId": "node.story.normal.010",
-      "body": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.\n수레에는 천으로 덮인 짐이 실려 있었고, 말은 지친 듯 고개를 숙이고 있었다.\n주변에는 다른 사람의 기척이 없어 잠시 살펴볼 시간이 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.010.choice.wake"
+          "choiceId": "stage.story.normal.010.choice.wake",
+          "labelKo": "수레꾼을 깨운다",
+          "nextNodeId": "stage.story.normal.010.wake",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 50
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.010.choice.care"
+          "choiceId": "stage.story.normal.010.choice.care",
+          "labelKo": "말과 수레를 돌본다",
+          "nextNodeId": "stage.story.normal.010.care",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.010.choice.check"
+          "choiceId": "stage.story.normal.010.choice.check",
+          "labelKo": "수레 주변을 확인한다",
+          "nextNodeId": "stage.story.normal.010.check",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 120
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "길가에 멈춘 수레 옆에서 수레꾼이 깊이 잠들어 있었다.\n수레에는 천으로 덮인 짐이 실려 있었고, 말은 지친 듯 고개를 숙이고 있었다.\n주변에는 다른 사람의 기척이 없어 잠시 살펴볼 시간이 있다."
     },
     {
       "nodeId": "stage.story.normal.010.wake",
-      "body": "수레꾼을 깨워 길 한가운데 오래 머무르면 위험하다고 알려주었다.\n그는 깜짝 놀라 일어나더니 당신에게 고마움을 전했다.",
-      "rewardType": "exp",
-      "rewardValue": 50,
-      "nextNodeId": "stage.story.normal.010.end"
+      "nextNodeId": "stage.story.normal.010.end",
+      "bodyKo": "수레꾼을 깨워 길 한가운데 오래 머무르면 위험하다고 알려주었다.\n그는 깜짝 놀라 일어나더니 당신에게 고마움을 전했다."
     },
     {
       "nodeId": "stage.story.normal.010.care",
-      "body": "말에게 물을 먹이고 수레바퀴를 점검했다.\n수레꾼이 깨어났을 때, 당신도 잠시 쉬며 숨을 고를 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 25,
-      "nextNodeId": "stage.story.normal.010.end"
+      "nextNodeId": "stage.story.normal.010.end",
+      "bodyKo": "말에게 물을 먹이고 수레바퀴를 점검했다.\n수레꾼이 깨어났을 때, 당신도 잠시 쉬며 숨을 고를 수 있었다."
     },
     {
       "nodeId": "stage.story.normal.010.check",
-      "body": "수레 아래에 굴러 들어간 작은 상자를 발견했다.\n상자에는 길에서 잃어버린 듯한 동전과 낡은 장부가 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 120,
-      "nextNodeId": "stage.story.normal.010.end"
+      "nextNodeId": "stage.story.normal.010.end",
+      "bodyKo": "수레 아래에 굴러 들어간 작은 상자를 발견했다.\n상자에는 길에서 잃어버린 듯한 동전과 낡은 장부가 들어 있었다."
     },
     {
       "nodeId": "stage.story.normal.010.end",
-      "body": "수레가 다시 움직이는 소리를 들으며 당신도 길을 재촉한다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.010.choice.wake",
-      "text": "수레꾼을 깨운다"
-    },
-    {
-      "choiceId": "stage.story.normal.010.choice.care",
-      "text": "말과 수레를 돌본다"
-    },
-    {
-      "choiceId": "stage.story.normal.010.choice.check",
-      "text": "수레 주변을 확인한다"
+      "bodyKo": "수레가 다시 움직이는 소리를 들으며 당신도 길을 재촉한다."
     }
   ]
 }

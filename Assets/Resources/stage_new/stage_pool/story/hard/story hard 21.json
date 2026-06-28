@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.hard.021",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_hard",
+  "episodeNumber": 21,
+  "titleKo": "눈사태에 갇힌 마차 행렬",
+  "summaryKo": "얼어붙은 산길에서 고립된 마차 행렬을 구조한다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "고난과 구조",
+  "startNodeId": "stage.story.hard.021.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.021.start",
+      "bodyKo": "눈사태가 지나간 산길에 마차 행렬이 비스듬히 멈춰 있었다. 앞마차의 말들은 겁에 질려 날뛰고, 약품 짐칸과 귀중품 짐칸은 얼음 틈새로 기울어졌다. 언제 다시 눈더미가 무너질지 알 수 없었다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.021.choice.engine",
+          "labelKo": "앞마차를 안정시킨다",
+          "nextNodeId": "stage.story.hard.021.engine",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 105
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.021.choice.medical",
+          "labelKo": "약품 짐칸으로 간다",
+          "nextNodeId": "stage.story.hard.021.medical",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 50
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.021.choice.transport",
+          "labelKo": "귀중품 짐칸을 연다",
+          "nextNodeId": "stage.story.hard.021.transport",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 240
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.021.engine",
+      "bodyKo": "앞마차의 고삐를 잡고 바퀴 밑에 돌을 괴었다. 말들이 진정되자 행렬 전체가 더는 아래로 밀리지 않았다.",
+      "nextNodeId": "stage.story.hard.021.end"
+    },
+    {
+      "nodeId": "stage.story.hard.021.medical",
+      "bodyKo": "약품 짐칸의 문을 열고 얼어붙지 않은 치료 물자를 찾아냈다. 다친 사람들의 상처를 묶자 행렬에 다시 숨이 돌았다.",
+      "nextNodeId": "stage.story.hard.021.end"
+    },
+    {
+      "nodeId": "stage.story.hard.021.transport",
+      "bodyKo": "귀중품 짐칸의 얼음을 깨고 구조 보상함을 확보했다. 눈더미가 다시 움직이기 전에 필요한 것만 챙겨 안전한 곳으로 옮겼다.",
+      "nextNodeId": "stage.story.hard.021.end"
+    },
+    {
+      "nodeId": "stage.story.hard.021.end",
+      "bodyKo": "바퀴가 버티는 사이 사람들은 낮은 능선으로 대피했다. 멀리서 다시 눈이 쓸려 내려오는 소리가 들렸다."
+    }
+  ]
+}

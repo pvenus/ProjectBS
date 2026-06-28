@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.011",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 11,
+  "episodeId": "story_hard",
+  "episodeNumber": 11,
+  "titleKo": "무너진 감시탑",
+  "summaryKo": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "무너진 감시탑",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐색",
-  "summaryKo": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.",
   "startNodeId": "node.story.hard.011",
   "nodes": [
     {
       "nodeId": "node.story.hard.011",
-      "body": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.\n부서진 계단 사이로 찬바람이 불고, 꼭대기에는 아직 꺼지지 않은 신호등이 희미하게 흔들렸다.\n조심하지 않으면 작은 돌 하나에도 균형을 잃을 수 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.011.choice.climb"
+          "choiceId": "stage.story.hard.011.choice.climb",
+          "labelKo": "꼭대기에 오른다",
+          "nextNodeId": "stage.story.hard.011.climb",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 95
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.011.choice.shelter"
+          "choiceId": "stage.story.hard.011.choice.shelter",
+          "labelKo": "탑 아래서 쉰다",
+          "nextNodeId": "stage.story.hard.011.shelter",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.011.choice.chest"
+          "choiceId": "stage.story.hard.011.choice.chest",
+          "labelKo": "철제 함을 꺼낸다",
+          "nextNodeId": "stage.story.hard.011.chest",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 230
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "절벽 끝의 감시탑이 반쯤 무너진 채 서 있었다.\n부서진 계단 사이로 찬바람이 불고, 꼭대기에는 아직 꺼지지 않은 신호 등불이 희미하게 흔들렸다.\n조심하지 않으면 작은 돌 하나에도 균형을 잃을 수 있다."
     },
     {
       "nodeId": "stage.story.hard.011.climb",
-      "body": "무너진 계단을 붙잡고 꼭대기까지 올라갔다.\n멀리 이어진 적막한 길과 위험한 지형을 한눈에 파악했다.",
-      "rewardType": "exp",
-      "rewardValue": 95,
-      "nextNodeId": "stage.story.hard.011.end"
+      "nextNodeId": "stage.story.hard.011.end",
+      "bodyKo": "무너진 계단을 붙잡고 꼭대기까지 올라갔다.\n멀리 이어진 적막한 길과 위험한 지형을 한눈에 파악했다."
     },
     {
       "nodeId": "stage.story.hard.011.shelter",
-      "body": "탑 아래 바람이 덜 드는 공간에 몸을 낮추고 쉬었다.\n거친 바람이 잦아들 때까지 상처를 단단히 묶을 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 45,
-      "nextNodeId": "stage.story.hard.011.end"
+      "nextNodeId": "stage.story.hard.011.end",
+      "bodyKo": "탑 아래 바람이 덜 드는 공간에 몸을 낮추고 쉬었다.\n거친 바람이 잦아들 때까지 상처를 단단히 묶을 수 있었다."
     },
     {
       "nodeId": "stage.story.hard.011.chest",
-      "body": "잔해 아래에 깔린 철제 함을 끌어냈다.\n녹슨 잠금쇠를 열자 오래된 경비대의 군자금이 모습을 드러냈다.",
-      "rewardType": "gold",
-      "rewardValue": 230,
-      "nextNodeId": "stage.story.hard.011.end"
+      "nextNodeId": "stage.story.hard.011.end",
+      "bodyKo": "잔해 아래에 깔린 철제 함을 끌어냈다.\n녹슨 잠금쇠를 열자 오래된 경비대의 군자금이 모습을 드러냈다."
     },
     {
       "nodeId": "stage.story.hard.011.end",
-      "body": "감시탑의 신호등이 마지막으로 흔들리고 어둠 속으로 사라졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.011.choice.climb",
-      "text": "꼭대기에 오른다"
-    },
-    {
-      "choiceId": "stage.story.hard.011.choice.shelter",
-      "text": "탑 아래서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.011.choice.chest",
-      "text": "철제 함을 꺼낸다"
+      "bodyKo": "감시탑의 신호 등불이 마지막으로 흔들리고 어둠 속으로 사라졌다."
     }
   ]
 }

@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.016",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 16,
+  "episodeId": "story_hard",
+  "episodeNumber": 16,
+  "titleKo": "폭풍 전야의 봉수대",
+  "summaryKo": "폭풍이 오기 전 봉수대의 경계와 물자를 정비한다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "폭풍 전야의 등대",
   "mainCharacterId": "character.seojin",
-  "themeKo": "생존",
-  "summaryKo": "검은 구름 아래 낡은 등대가 거센 바람을 맞으며 서 있었다.",
-  "startNodeId": "node.story.hard.016",
+  "themeKo": "고난과 구조",
+  "startNodeId": "stage.story.hard.016.start",
   "nodes": [
     {
-      "nodeId": "node.story.hard.016",
-      "body": "검은 구름 아래 낡은 등대가 거센 바람을 맞으며 서 있었다.\n계단은 바닷물에 젖어 미끄러웠고, 꼭대기 등불은 꺼질 듯 흔들리고 있었다.\n폭풍이 오기 전에 등대를 살피면 중요한 단서를 얻을 수 있을지도 모른다.",
+      "nodeId": "stage.story.hard.016.start",
+      "bodyKo": "먹구름이 바닷길 위로 낮게 내려앉았다. 절벽의 봉수대에서는 불씨가 약해지고, 봉수꾼들은 다음 신호를 보낼 준비를 서두르고 있었다. 바람이 더 거세지면 이곳은 고립될 터였다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.016.choice.lamp"
+          "choiceId": "stage.story.hard.016.choice.fire",
+          "labelKo": "화로를 보강한다",
+          "nextNodeId": "stage.story.hard.016.fire",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 100
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.016.choice.room"
+          "choiceId": "stage.story.hard.016.choice.evacuate",
+          "labelKo": "사람들을 아래로 보낸다",
+          "nextNodeId": "stage.story.hard.016.evacuate",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 42
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.016.choice.lockbox"
+          "choiceId": "stage.story.hard.016.choice.chest",
+          "labelKo": "비상 궤짝을 확인한다",
+          "nextNodeId": "stage.story.hard.016.chest",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 210
+            }
+          ]
         }
       ]
     },
     {
-      "nodeId": "stage.story.hard.016.lamp",
-      "body": "젖은 계단을 붙잡고 꼭대기에 올라 등불을 다시 고정했다.\n불빛이 바다를 가르자 절벽 아래 숨은 암초와 안전한 길목이 드러났다.",
-      "rewardType": "exp",
-      "rewardValue": 100,
+      "nodeId": "stage.story.hard.016.fire",
+      "bodyKo": "돌로 화로를 막고 마른 쑥단을 안쪽에 넣었다. 폭풍이 와도 한동안 신호를 지킬 수 있게 되었다.",
       "nextNodeId": "stage.story.hard.016.end"
     },
     {
-      "nodeId": "stage.story.hard.016.room",
-      "body": "등대 아래 관리인 방에서 바람을 피했다.\n두꺼운 벽이 폭풍 소리를 막아주어 상처를 정리할 시간을 벌었다.",
-      "rewardType": "heal",
-      "rewardValue": 45,
+      "nodeId": "stage.story.hard.016.evacuate",
+      "bodyKo": "다친 봉수꾼과 잡역꾼들을 먼저 아래 길로 내려보냈다. 남은 이들이 마음 놓고 신호를 준비했다.",
       "nextNodeId": "stage.story.hard.016.end"
     },
     {
-      "nodeId": "stage.story.hard.016.lockbox",
-      "body": "관리인 책상 밑에 묶인 방수 상자를 발견했다.\n잠금쇠를 풀자 항해자들이 남긴 금화가 마른 천에 싸여 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 240,
+      "nodeId": "stage.story.hard.016.chest",
+      "bodyKo": "비상 궤짝에는 오래 보관한 엽전과 방수 천이 있었다. 필요한 만큼 챙겨 봉수대의 문을 단단히 닫았다.",
       "nextNodeId": "stage.story.hard.016.end"
     },
     {
       "nodeId": "stage.story.hard.016.end",
-      "body": "등대 불빛이 폭풍 속에서도 꺼지지 않고 길게 뻗어 나갔다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.016.choice.lamp",
-      "text": "등불을 고정한다"
-    },
-    {
-      "choiceId": "stage.story.hard.016.choice.room",
-      "text": "관리인 방에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.016.choice.lockbox",
-      "text": "방수 상자를 연다"
+      "bodyKo": "첫 번개가 절벽 뒤를 밝혔다. 봉수대의 불씨는 흔들렸지만 꺼지지 않았다."
     }
   ]
 }

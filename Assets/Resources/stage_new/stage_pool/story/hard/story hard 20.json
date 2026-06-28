@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.hard.020",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_hard",
+  "episodeNumber": 20,
+  "titleKo": "저주받은 왕릉의 재판",
+  "summaryKo": "왕릉 깊은 방에서 세 석상이 동시에 눈을 뜬다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.hard.020.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.020.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.020.choice.trial",
+          "labelKo": "석상의 질문에 답한다",
+          "nextNodeId": "stage.story.hard.020.trial",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 110
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.020.choice.fountain",
+          "labelKo": "치유의 샘으로 간다",
+          "nextNodeId": "stage.story.hard.020.fountain",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.020.choice.tribute",
+          "labelKo": "공물 제단을 해제한다",
+          "nextNodeId": "stage.story.hard.020.tribute",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 250
+            }
+          ]
+        }
+      ],
+      "bodyKo": "왕릉 깊은 방에서 세 석상이 동시에 눈을 뜬다. 벽에는 진실을 증명하라는 문장이 떠오르고, 치유의 샘과 공물 제단은 서로 반대편에서 희미하게 빛난다."
+    },
+    {
+      "nodeId": "stage.story.hard.020.trial",
+      "nextNodeId": "stage.story.hard.020.end",
+      "bodyKo": "석상들이 던지는 모순된 질문의 답을 하나씩 밝혀냈다. 고대 왕국의 몰락과 맹세의 의미를 깨달으며 큰 경험을 얻었다."
+    },
+    {
+      "nodeId": "stage.story.hard.020.fountain",
+      "nextNodeId": "stage.story.hard.020.end",
+      "bodyKo": "재판을 잠시 미루고 치유의 샘물을 상처에 발랐다. 차가운 빛이 저주의 흔적을 밀어내며 몸을 회복시켰다."
+    },
+    {
+      "nodeId": "stage.story.hard.020.tribute",
+      "nextNodeId": "stage.story.hard.020.end",
+      "bodyKo": "공물 제단의 함정을 해제하고 왕실 주화를 꺼냈다. 석상들이 정당한 승자의 몫이라 선언하자 봉인이 열렸다."
+    },
+    {
+      "nodeId": "stage.story.hard.020.end",
+      "bodyKo": "판결의 종이 울리고 석상들이 다시 잠들자 왕릉의 출구가 조용히 열렸다."
+    }
+  ]
+}

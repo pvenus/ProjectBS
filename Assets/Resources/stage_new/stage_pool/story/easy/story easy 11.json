@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.011",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 11,
+  "episodeId": "story_easy",
+  "episodeNumber": 11,
+  "titleKo": "새벽 시장의 등불",
+  "summaryKo": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "새벽 시장의 등불",
   "mainCharacterId": "character.seojin",
   "themeKo": "시장",
-  "summaryKo": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.",
   "startNodeId": "node.story.easy.011",
   "nodes": [
     {
       "nodeId": "node.story.easy.011",
-      "body": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.\n상인들은 좌판을 펴느라 분주했고, 한 과일 장수가 빈 상자를 옮기다 잠시 멈춰 섰다.\n조용히 손을 보태기 좋은 순간이다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.011.choice.carry"
+          "choiceId": "stage.story.easy.011.choice.carry",
+          "labelKo": "상자를 옮긴다",
+          "nextNodeId": "stage.story.easy.011.carry",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.011.choice.warm"
+          "choiceId": "stage.story.easy.011.choice.warm",
+          "labelKo": "등불 곁에서 쉰다",
+          "nextNodeId": "stage.story.easy.011.warm",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.011.choice.crate"
+          "choiceId": "stage.story.easy.011.choice.crate",
+          "labelKo": "상자 틈을 살핀다",
+          "nextNodeId": "stage.story.easy.011.crate",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 80
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "해가 뜨기 전의 작은 시장에 등불 몇 개가 흔들리고 있었다.\n상인들은 좌판을 펴느라 분주했고, 한 과일 장수가 빈 상자를 옮기다 잠시 멈춰 섰다.\n조용히 손을 보태기 좋은 순간이다."
     },
     {
       "nodeId": "stage.story.easy.011.carry",
-      "body": "빈 상자를 차곡차곡 옮겨 좌판 옆에 쌓아주었다.\n장수는 환하게 웃으며 근처 길목의 지름길을 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.easy.011.end"
+      "nextNodeId": "stage.story.easy.011.end",
+      "bodyKo": "빈 상자를 차곡차곡 옮겨 좌판 옆에 쌓아주었다.\n장수는 환하게 웃으며 근처 길목의 지름길을 알려주었다."
     },
     {
       "nodeId": "stage.story.easy.011.warm",
-      "body": "등불 곁에서 따뜻한 차를 한 잔 얻어 마셨다.\n새벽 찬기가 누그러지며 몸이 한결 가벼워졌다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
-      "nextNodeId": "stage.story.easy.011.end"
+      "nextNodeId": "stage.story.easy.011.end",
+      "bodyKo": "등불 곁에서 따뜻한 차를 한 잔 얻어 마셨다.\n새벽 찬기가 누그러지며 몸이 한결 가벼워졌다."
     },
     {
       "nodeId": "stage.story.easy.011.crate",
-      "body": "삐걱거리는 상자 틈에서 작은 동전 주머니를 발견했다.\n장수는 오래전에 잊은 물건이라며 가져도 좋다고 했다.",
-      "rewardType": "gold",
-      "rewardValue": 80,
-      "nextNodeId": "stage.story.easy.011.end"
+      "nextNodeId": "stage.story.easy.011.end",
+      "bodyKo": "삐걱거리는 상자 틈에서 작은 동전 주머니를 발견했다.\n장수는 오래전에 잊은 물건이라며 가져도 좋다고 했다."
     },
     {
       "nodeId": "stage.story.easy.011.end",
-      "body": "시장에 첫 손님이 들어설 무렵 다시 길을 나선다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.011.choice.carry",
-      "text": "상자를 옮긴다"
-    },
-    {
-      "choiceId": "stage.story.easy.011.choice.warm",
-      "text": "등불 곁에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.easy.011.choice.crate",
-      "text": "상자 틈을 살핀다"
+      "bodyKo": "시장에 첫 손님이 들어설 무렵 다시 길을 나선다."
     }
   ]
 }

@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.014",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 14,
+  "episodeId": "story_easy",
+  "episodeNumber": 14,
+  "titleKo": "언덕 위 풍차",
+  "summaryKo": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "언덕 위 풍차",
   "mainCharacterId": "character.seojin",
   "themeKo": "노동",
-  "summaryKo": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.",
   "startNodeId": "node.story.easy.014",
   "nodes": [
     {
       "nodeId": "node.story.easy.014",
-      "body": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.\n밀가루 자루 몇 개가 문 앞에 놓여 있고, 풍차지기는 삐걱거리는 날개를 걱정스럽게 올려다보았다.\n바람은 잔잔하고 주변은 평화롭다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.014.choice.sack"
+          "choiceId": "stage.story.easy.014.choice.sack",
+          "labelKo": "자루를 옮긴다",
+          "nextNodeId": "stage.story.easy.014.sack",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.014.choice.rest"
+          "choiceId": "stage.story.easy.014.choice.rest",
+          "labelKo": "그늘에서 쉰다",
+          "nextNodeId": "stage.story.easy.014.rest",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.014.choice.gear"
+          "choiceId": "stage.story.easy.014.choice.gear",
+          "labelKo": "기어 주변을 본다",
+          "nextNodeId": "stage.story.easy.014.gear",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 80
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "낮은 언덕 위의 풍차가 느리게 돌아가고 있었다.\n밀가루 자루 몇 개가 문 앞에 놓여 있고, 풍차지기는 삐걱거리는 날개를 걱정스럽게 올려다보았다.\n바람은 잔잔하고 주변은 평화롭다."
     },
     {
       "nodeId": "stage.story.easy.014.sack",
-      "body": "밀가루 자루를 창고 안쪽까지 옮겨주었다.\n풍차지기는 언덕 너머 마을 이야기를 들려주며 고마워했다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.easy.014.end"
+      "nextNodeId": "stage.story.easy.014.end",
+      "bodyKo": "밀가루 자루를 창고 안쪽까지 옮겨주었다.\n풍차지기는 언덕 너머 마을 이야기를 들려주며 고마워했다."
     },
     {
       "nodeId": "stage.story.easy.014.rest",
-      "body": "풍차 그늘에 앉아 천천히 숨을 골랐다.\n날개가 도는 규칙적인 소리가 마음을 안정시켰다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
-      "nextNodeId": "stage.story.easy.014.end"
+      "nextNodeId": "stage.story.easy.014.end",
+      "bodyKo": "풍차 그늘에 앉아 천천히 숨을 골랐다.\n날개가 도는 규칙적인 소리가 마음을 안정시켰다."
     },
     {
       "nodeId": "stage.story.easy.014.gear",
-      "body": "기어 옆에 떨어진 작은 금속 장식을 주웠다.\n풍차지기는 쓸모없는 부품이라며 사례로 동전을 얹어주었다.",
-      "rewardType": "gold",
-      "rewardValue": 80,
-      "nextNodeId": "stage.story.easy.014.end"
+      "nextNodeId": "stage.story.easy.014.end",
+      "bodyKo": "기어 옆에 떨어진 작은 금속 장식을 주웠다.\n풍차지기는 쓸모없는 부품이라며 사례로 동전을 얹어주었다."
     },
     {
       "nodeId": "stage.story.easy.014.end",
-      "body": "풍차 날개가 다시 부드럽게 돌기 시작한다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.014.choice.sack",
-      "text": "자루를 옮긴다"
-    },
-    {
-      "choiceId": "stage.story.easy.014.choice.rest",
-      "text": "그늘에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.easy.014.choice.gear",
-      "text": "기어 주변을 본다"
+      "bodyKo": "풍차 날개가 다시 부드럽게 돌기 시작한다."
     }
   ]
 }

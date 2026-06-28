@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.normal.017",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_normal",
+  "episodeNumber": 17,
+  "titleKo": "안개 낀 수차 방앗간",
+  "summaryKo": "강가의 오래된 방앗간에서 수차가 둔한 소리를 내며 멈춰 서 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.normal.017.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.017.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.017.choice.wheel",
+          "labelKo": "수차를 수리한다",
+          "nextNodeId": "stage.story.normal.017.wheel",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 60
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.017.choice.hearth",
+          "labelKo": "화덕 옆에서 쉰다",
+          "nextNodeId": "stage.story.normal.017.hearth",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.017.choice.crate",
+          "labelKo": "포대 뒤를 조사한다",
+          "nextNodeId": "stage.story.normal.017.crate",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 120
+            }
+          ]
+        }
+      ],
+      "bodyKo": "강가의 오래된 방앗간에서 수차가 둔한 소리를 내며 멈춰 서 있다. 안개 속 물길에는 나뭇가지가 걸렸고, 안쪽 화덕에는 아직 온기가 남아 있다. 기계를 살피면 방앗간의 숨은 사정을 알 수 있을 듯하다."
+    },
+    {
+      "nodeId": "stage.story.normal.017.wheel",
+      "nextNodeId": "stage.story.normal.017.end",
+      "bodyKo": "물길을 막은 가지를 걷어 내고 수차의 축을 다시 맞췄다. 복잡한 톱니가 돌아가는 원리를 익히며 값진 경험을 얻었다."
+    },
+    {
+      "nodeId": "stage.story.normal.017.hearth",
+      "nextNodeId": "stage.story.normal.017.end",
+      "bodyKo": "방앗간 화덕 옆에서 젖은 장비를 말렸다. 따뜻한 공기가 스며들어 피로와 통증이 누그러졌다."
+    },
+    {
+      "nodeId": "stage.story.normal.017.crate",
+      "nextNodeId": "stage.story.normal.017.end",
+      "bodyKo": "밀가루 포대 뒤에서 주인 없는 거래 상자를 찾았다. 장부에 폐기 물품으로 적힌 동전을 필요한 만큼 챙겼다."
+    },
+    {
+      "nodeId": "stage.story.normal.017.end",
+      "bodyKo": "수차가 안개를 가르며 돌기 시작하고 방앗간 안에 규칙적인 진동이 돌아왔다."
+    }
+  ]
+}

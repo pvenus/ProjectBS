@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.easy.018",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_easy",
+  "episodeNumber": 18,
+  "titleKo": "졸고 있는 전서구",
+  "summaryKo": "낡은 서찰통을 단 전서구가 길가에서 쉬고 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "길 위의 작은 사건",
+  "startNodeId": "stage.story.easy.018.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.018.start",
+      "bodyKo": "낮은 담장 위에 전서구 한 마리가 졸고 있었다. 다리에는 작은 서찰통이 묶여 있었고, 날개에는 먼지가 잔뜩 묻어 있었다. 너무 오래 날아온 탓인지 사람을 보고도 도망치지 않았다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.018.choice.send",
+          "labelKo": "서찰을 목적지로 보낸다",
+          "nextNodeId": "stage.story.easy.018.send",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.018.choice.treat",
+          "labelKo": "날개를 살핀다",
+          "nextNodeId": "stage.story.easy.018.treat",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 14
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.018.choice.tube",
+          "labelKo": "서찰통을 확인한다",
+          "nextNodeId": "stage.story.easy.018.tube",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 80
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.018.send",
+      "bodyKo": "전서구에게 물을 먹이고 높은 곳에서 날려 보냈다. 새는 잠시 맴돌다 방향을 잡고 힘차게 날아갔다.",
+      "nextNodeId": "stage.story.easy.018.end"
+    },
+    {
+      "nodeId": "stage.story.easy.018.treat",
+      "bodyKo": "날개에 박힌 가시를 빼내고 천으로 감싸 주었다. 전서구는 손등을 가볍게 쪼아 인사하듯 고개를 숙였다.",
+      "nextNodeId": "stage.story.easy.018.end"
+    },
+    {
+      "nodeId": "stage.story.easy.018.tube",
+      "bodyKo": "서찰통 안에는 배달을 부탁한 작은 사례금이 들어 있었다. 서찰은 이미 비에 젖어 읽을 수 없었지만, 값은 길 위의 수고로 남았다.",
+      "nextNodeId": "stage.story.easy.018.end"
+    },
+    {
+      "nodeId": "stage.story.easy.018.end",
+      "bodyKo": "전서구는 해가 기울기 전 다시 하늘로 올랐다. 흰 깃털 하나만 담장 위에 남았다."
+    }
+  ]
+}

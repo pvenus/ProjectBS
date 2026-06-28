@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.normal.018",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_normal",
+  "episodeNumber": 18,
+  "titleKo": "봉인된 순례자 야영지",
+  "summaryKo": "숲길 옆 야영지에는 불이 꺼진 화로와 봉인된 천막이 남아 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.normal.018.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.018.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.018.choice.runes",
+          "labelKo": "표식을 해독한다",
+          "nextNodeId": "stage.story.normal.018.runes",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 55
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.018.choice.blanket",
+          "labelKo": "천막에서 쉰다",
+          "nextNodeId": "stage.story.normal.018.blanket",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.018.choice.cache",
+          "labelKo": "화로 아래를 살핀다",
+          "nextNodeId": "stage.story.normal.018.cache",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 125
+            }
+          ]
+        }
+      ],
+      "bodyKo": "숲길 옆 야영지에는 불이 꺼진 화로와 봉인된 천막이 남아 있다. 순례자들은 급히 떠난 듯하지만 바닥의 표식은 질서정연하다. 표식을 해독하면 이들이 피한 위험을 알아낼 수 있다."
+    },
+    {
+      "nodeId": "stage.story.normal.018.runes",
+      "nextNodeId": "stage.story.normal.018.end",
+      "bodyKo": "돌에 새겨진 순례 표식을 순서대로 읽었다. 근처의 위험 지역과 안전한 우회로를 파악해 여정에 도움이 될 지식을 얻었다."
+    },
+    {
+      "nodeId": "stage.story.normal.018.blanket",
+      "nextNodeId": "stage.story.normal.018.end",
+      "bodyKo": "바람을 막아 주는 천막 한쪽에서 약초 향이 남은 담요를 찾았다. 잠시 몸을 감싸자 상처가 편안해졌다."
+    },
+    {
+      "nodeId": "stage.story.normal.018.cache",
+      "nextNodeId": "stage.story.normal.018.end",
+      "bodyKo": "꺼진 화로 아래의 빈 공간에서 공동 자금 일부를 발견했다. 함께 남겨진 쪽지에는 뒤따르는 여행자가 사용하라고 적혀 있었다."
+    },
+    {
+      "nodeId": "stage.story.normal.018.end",
+      "bodyKo": "야영지를 떠나자 봉인 끈이 바람에 흔들리며 조용한 작별을 알렸다."
+    }
+  ]
+}

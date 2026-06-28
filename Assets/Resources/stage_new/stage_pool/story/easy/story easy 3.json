@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.003",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 3,
+  "episodeId": "story_easy",
+  "episodeNumber": 3,
+  "titleKo": "길 잃은 강아지",
+  "summaryKo": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "길 잃은 강아지",
   "mainCharacterId": "character.seojin",
   "themeKo": "도움",
-  "summaryKo": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.",
   "startNodeId": "node.story.easy.003",
   "nodes": [
     {
       "nodeId": "node.story.easy.003",
-      "body": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.\n목줄에는 마을 이름이 적힌 낡은 나무패가 달려 있었다.\n멀리서 누군가 애타게 부르는 소리가 들린다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.003.choice.return"
+          "choiceId": "stage.story.easy.003.choice.return",
+          "labelKo": "주인에게 데려간다",
+          "nextNodeId": "stage.story.easy.003.return",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 35
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.003.choice.feed"
+          "choiceId": "stage.story.easy.003.choice.feed",
+          "labelKo": "먹을 것을 나눠준다",
+          "nextNodeId": "stage.story.easy.003.feed",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 10
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.003.choice.tag"
+          "choiceId": "stage.story.easy.003.choice.tag",
+          "labelKo": "목줄을 확인한다",
+          "nextNodeId": "stage.story.easy.003.tag",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 65
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "작은 강아지 한 마리가 길가에서 꼬리를 내린 채 낑낑거리고 있었다.\n목줄에는 마을 이름이 적힌 낡은 나무패가 달려 있었다.\n멀리서 누군가 애타게 부르는 소리가 들린다."
     },
     {
       "nodeId": "stage.story.easy.003.return",
-      "body": "강아지를 안고 소리가 들리는 쪽으로 향했다.\n주인은 크게 안도하며 당신의 친절을 기억하겠다고 말했다.",
-      "rewardType": "exp",
-      "rewardValue": 35,
-      "nextNodeId": "stage.story.easy.003.end"
+      "nextNodeId": "stage.story.easy.003.end",
+      "bodyKo": "강아지를 안고 소리가 들리는 쪽으로 향했다.\n주인은 크게 안도하며 당신의 친절을 기억하겠다고 말했다."
     },
     {
       "nodeId": "stage.story.easy.003.feed",
-      "body": "가지고 있던 마른 빵을 조금 나눠주었다.\n강아지는 안정을 되찾았고 당신도 잠시 마음이 놓였다.",
-      "rewardType": "heal",
-      "rewardValue": 10,
-      "nextNodeId": "stage.story.easy.003.end"
+      "nextNodeId": "stage.story.easy.003.end",
+      "bodyKo": "가지고 있던 마른 빵을 조금 나눠주었다.\n강아지는 안정을 되찾았고 당신도 잠시 마음이 놓였다."
     },
     {
       "nodeId": "stage.story.easy.003.tag",
-      "body": "목줄 뒤쪽에 작은 사례금 주머니가 묶여 있었다.\n주인을 찾아주기 위한 표시로 남겨둔 듯했다.",
-      "rewardType": "gold",
-      "rewardValue": 65,
-      "nextNodeId": "stage.story.easy.003.end"
+      "nextNodeId": "stage.story.easy.003.end",
+      "bodyKo": "목줄 뒤쪽에 작은 사례금 주머니가 묶여 있었다.\n주인을 찾아주기 위한 표시로 남겨둔 듯했다."
     },
     {
       "nodeId": "stage.story.easy.003.end",
-      "body": "강아지가 안전해진 것을 확인하고 발걸음을 옮긴다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.003.choice.return",
-      "text": "주인에게 데려간다"
-    },
-    {
-      "choiceId": "stage.story.easy.003.choice.feed",
-      "text": "먹을 것을 나눠준다"
-    },
-    {
-      "choiceId": "stage.story.easy.003.choice.tag",
-      "text": "목줄을 확인한다"
+      "bodyKo": "강아지가 안전해진 것을 확인하고 발걸음을 옮긴다."
     }
   ]
 }

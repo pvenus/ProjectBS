@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.006",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 6,
+  "episodeId": "story_normal",
+  "episodeNumber": 6,
+  "titleKo": "비에 젖은 서신",
+  "summaryKo": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "비에 젖은 서신",
   "mainCharacterId": "character.seojin",
   "themeKo": "발견",
-  "summaryKo": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.",
   "startNodeId": "node.story.normal.006",
   "nodes": [
     {
       "nodeId": "node.story.normal.006",
-      "body": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.\n주머니 안에는 봉인이 반쯤 풀린 서신과 작은 표식 하나가 들어 있었다.\n멀지 않은 곳에서 누군가 급히 지나간 발자국이 진흙 위에 남아 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.006.choice.deliver"
+          "choiceId": "stage.story.normal.006.choice.deliver",
+          "labelKo": "주인을 찾아준다",
+          "nextNodeId": "stage.story.normal.006.deliver",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 55
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.006.choice.read"
+          "choiceId": "stage.story.normal.006.choice.read",
+          "labelKo": "서신 내용을 확인한다",
+          "nextNodeId": "stage.story.normal.006.read",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.006.choice.keep"
+          "choiceId": "stage.story.normal.006.choice.keep",
+          "labelKo": "주머니를 챙긴다",
+          "nextNodeId": "stage.story.normal.006.keep",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 130
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "소나기가 지나간 숲길 위에 젖은 가죽 주머니가 떨어져 있었다.\n주머니 안에는 봉인이 반쯤 풀린 서신과 작은 표식 하나가 들어 있었다.\n멀지 않은 곳에서 누군가 급히 지나간 발자국이 진흙 위에 남아 있다."
     },
     {
       "nodeId": "stage.story.normal.006.deliver",
-      "body": "발자국을 따라가 서신의 주인을 찾아주었다.\n상인은 크게 안도하며 당신의 성실함에 감사를 표했다.",
-      "rewardType": "exp",
-      "rewardValue": 55,
-      "nextNodeId": "stage.story.normal.006.end"
+      "nextNodeId": "stage.story.normal.006.end",
+      "bodyKo": "발자국을 따라가 서신의 주인을 찾아주었다.\n상인은 크게 안도하며 당신의 성실함에 감사를 표했다."
     },
     {
       "nodeId": "stage.story.normal.006.read",
-      "body": "젖은 서신을 조심스럽게 펼쳐 내용을 살폈다.\n인근 길목의 위험한 구간과 우회로에 대한 기록이 적혀 있었다.",
-      "rewardType": "exp",
-      "rewardValue": 45,
-      "nextNodeId": "stage.story.normal.006.end"
+      "nextNodeId": "stage.story.normal.006.end",
+      "bodyKo": "젖은 서신을 조심스럽게 펼쳐 내용을 살폈다.\n인근 길목의 위험한 구간과 우회로에 대한 기록이 적혀 있었다."
     },
     {
       "nodeId": "stage.story.normal.006.keep",
-      "body": "주머니 속 표식을 챙겼다.\n표식 아래쪽에는 비를 맞고도 녹슬지 않은 은화 몇 닢이 숨겨져 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 130,
-      "nextNodeId": "stage.story.normal.006.end"
+      "nextNodeId": "stage.story.normal.006.end",
+      "bodyKo": "주머니 속 표식을 챙겼다.\n표식 아래쪽에는 비를 맞고도 녹슬지 않은 은화 몇 닢이 숨겨져 있었다."
     },
     {
       "nodeId": "stage.story.normal.006.end",
-      "body": "비 냄새가 남은 길을 지나 다시 여정을 이어간다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.006.choice.deliver",
-      "text": "주인을 찾아준다"
-    },
-    {
-      "choiceId": "stage.story.normal.006.choice.read",
-      "text": "서신 내용을 확인한다"
-    },
-    {
-      "choiceId": "stage.story.normal.006.choice.keep",
-      "text": "주머니를 챙긴다"
+      "bodyKo": "비 냄새가 남은 길을 지나 다시 여정을 이어간다."
     }
   ]
 }

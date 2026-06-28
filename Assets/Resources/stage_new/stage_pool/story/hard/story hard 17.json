@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.hard.017",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_hard",
+  "episodeNumber": 17,
+  "titleKo": "붕괴 직전의 관상대",
+  "summaryKo": "낡은 관상대에서 별자리 기록과 갇힌 사람을 구한다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "고난과 구조",
+  "startNodeId": "stage.story.hard.017.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.017.start",
+      "bodyKo": "산등성이의 낡은 관상대가 균열 속에서 삐걱거렸다. 혼천의는 한쪽으로 기울었고, 별자리판은 바닥에 흩어져 있었다. 안쪽 석실에서는 누군가 문을 두드리는 소리가 들렸다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.017.choice.instrument",
+          "labelKo": "혼천의를 고정한다",
+          "nextNodeId": "stage.story.hard.017.instrument",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 110
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.017.choice.shelter",
+          "labelKo": "석실 문을 연다",
+          "nextNodeId": "stage.story.hard.017.shelter",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 48
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.017.choice.vault",
+          "labelKo": "관측 궤짝을 챙긴다",
+          "nextNodeId": "stage.story.hard.017.vault",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 230
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.hard.017.instrument",
+      "bodyKo": "무너지는 받침대를 밧줄로 묶어 혼천의를 고정했다. 별자리판의 위치가 맞춰지자 오래된 기록의 의미가 드러났다.",
+      "nextNodeId": "stage.story.hard.017.end"
+    },
+    {
+      "nodeId": "stage.story.hard.017.shelter",
+      "bodyKo": "돌문을 밀어 갇혀 있던 관측자를 구했다. 그는 다친 팔을 감싸며 관상대 아래의 안전한 통로를 알려 주었다.",
+      "nextNodeId": "stage.story.hard.017.end"
+    },
+    {
+      "nodeId": "stage.story.hard.017.vault",
+      "bodyKo": "관측 궤짝에서 낡은 은전과 방수 종이를 꺼냈다. 천장이 내려앉기 전 필요한 것만 챙겨 빠져나왔다.",
+      "nextNodeId": "stage.story.hard.017.end"
+    },
+    {
+      "nodeId": "stage.story.hard.017.end",
+      "bodyKo": "관상대의 일부가 뒤늦게 무너졌다. 별을 보던 높은 방은 먼지 속에 가라앉았다."
+    }
+  ]
+}

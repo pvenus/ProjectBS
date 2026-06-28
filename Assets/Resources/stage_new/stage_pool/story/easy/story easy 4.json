@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.004",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 4,
+  "episodeId": "story_easy",
+  "episodeNumber": 4,
+  "titleKo": "종소리 작은 사당",
+  "summaryKo": "버려진 사당에서 낡은 종과 등잔을 발견한다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "종소리 작은 예배당",
   "mainCharacterId": "character.seojin",
-  "themeKo": "안식",
-  "summaryKo": "숲길 옆 오래된 예배당에서 맑은 종소리가 울렸다.",
-  "startNodeId": "node.story.easy.004",
+  "themeKo": "길 위의 작은 사건",
+  "startNodeId": "stage.story.easy.004.start",
   "nodes": [
     {
-      "nodeId": "node.story.easy.004",
-      "body": "숲길 옆 오래된 예배당에서 맑은 종소리가 울렸다.\n문은 열려 있었고 안쪽에는 여행자들이 잠시 쉬어 갈 수 있는 긴 의자가 놓여 있었다.\n관리인은 조용히 촛대를 정리하고 있었다.",
+      "nodeId": "stage.story.easy.004.start",
+      "bodyKo": "숲길 끝 작은 사당에서 낮고 맑은 종소리가 울렸다. 툇마루에는 먼지가 쌓였고, 꺼진 등잔 옆에는 누군가 남긴 나무 패가 놓여 있었다. 사당은 오래 비어 있었지만, 이상하게도 종만은 방금 울린 듯 미세하게 떨리고 있었다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.004.choice.clean"
+          "choiceId": "stage.story.easy.004.choice.pray",
+          "labelKo": "나무 패를 바로 세운다",
+          "nextNodeId": "stage.story.easy.004.pray",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 35
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.004.choice.pray"
+          "choiceId": "stage.story.easy.004.choice.lantern",
+          "labelKo": "등잔을 살핀다",
+          "nextNodeId": "stage.story.easy.004.lantern",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 12
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.004.choice.donation"
+          "choiceId": "stage.story.easy.004.choice.bell",
+          "labelKo": "종을 한 번 울린다",
+          "nextNodeId": "stage.story.easy.004.bell",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 60
+            }
+          ]
         }
       ]
     },
     {
-      "nodeId": "stage.story.easy.004.clean",
-      "body": "먼지 쌓인 의자와 바닥을 닦았다.\n관리인은 오래된 순례길에 대한 이야기를 들려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.easy.004.end"
-    },
-    {
       "nodeId": "stage.story.easy.004.pray",
-      "body": "촛불 앞에 앉아 조용히 숨을 골랐다.\n불안하던 마음이 차분하게 가라앉았다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
+      "bodyKo": "넘어진 나무 패를 바로 세우고 짧게 묵념했다. 사당 안의 찬 기운이 누그러지고, 마음이 조금 가벼워졌다.",
       "nextNodeId": "stage.story.easy.004.end"
     },
     {
-      "nodeId": "stage.story.easy.004.donation",
-      "body": "헌금함 아래에 떨어져 있던 작은 동전들을 모았다.\n관리인은 분실물이 아니라며 여비에 보태라고 건넸다.",
-      "rewardType": "gold",
-      "rewardValue": 60,
+      "nodeId": "stage.story.easy.004.lantern",
+      "bodyKo": "등잔 밑에서 말린 약초 꾸러미를 발견했다. 오래되었지만 아직 쓸 수 있는 것이었다.",
+      "nextNodeId": "stage.story.easy.004.end"
+    },
+    {
+      "nodeId": "stage.story.easy.004.bell",
+      "bodyKo": "종을 조심스레 울리자 사당 뒤편의 작은 함이 열렸다. 함 안에는 길손을 위해 남겨 둔 엽전이 들어 있었다.",
       "nextNodeId": "stage.story.easy.004.end"
     },
     {
       "nodeId": "stage.story.easy.004.end",
-      "body": "종소리가 멀어질 때까지 길은 평온했다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.004.choice.clean",
-      "text": "예배당 청소를 돕는다"
-    },
-    {
-      "choiceId": "stage.story.easy.004.choice.pray",
-      "text": "잠시 기도한다"
-    },
-    {
-      "choiceId": "stage.story.easy.004.choice.donation",
-      "text": "헌금함 주변을 정리한다"
+      "bodyKo": "사당의 종소리는 곧 잦아들었다. 길 위에는 다시 조용한 바람만 남았다."
     }
   ]
 }

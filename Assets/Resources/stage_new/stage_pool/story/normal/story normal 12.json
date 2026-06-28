@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.012",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 12,
+  "episodeId": "story_normal",
+  "episodeNumber": 12,
+  "titleKo": "밤길의 순찰 종",
+  "summaryKo": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "밤길의 순찰 종",
   "mainCharacterId": "character.seojin",
   "themeKo": "경계",
-  "summaryKo": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.",
   "startNodeId": "node.story.normal.012",
   "nodes": [
     {
       "nodeId": "node.story.normal.012",
-      "body": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.\n초소 안에는 졸음을 참는 파수꾼이 앉아 있었고, 벽에는 최근 길목에서 본 흔적들이 적혀 있었다.\n조심스럽게 살피면 쓸 만한 정보를 얻을 수 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.012.choice.report"
+          "choiceId": "stage.story.normal.012.choice.report",
+          "labelKo": "발자국을 보고한다",
+          "nextNodeId": "stage.story.normal.012.report",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 55
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.012.choice.fire"
+          "choiceId": "stage.story.normal.012.choice.fire",
+          "labelKo": "화로 옆에서 쉰다",
+          "nextNodeId": "stage.story.normal.012.fire",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.012.choice.map"
+          "choiceId": "stage.story.normal.012.choice.map",
+          "labelKo": "지도를 살핀다",
+          "nextNodeId": "stage.story.normal.012.map",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 115
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "마을 외곽의 순찰 종이 밤바람에 희미하게 울렸다.\n초소 안에는 졸음을 참는 파수꾼이 앉아 있었고, 벽에는 최근 길목에서 본 흔적들이 적혀 있었다.\n조심스럽게 살피면 쓸 만한 정보를 얻을 수 있다."
     },
     {
       "nodeId": "stage.story.normal.012.report",
-      "body": "길에서 본 이상한 발자국을 파수꾼에게 알려주었다.\n그는 고개를 끄덕이며 경계해야 할 지형을 자세히 설명해주었다.",
-      "rewardType": "exp",
-      "rewardValue": 55,
-      "nextNodeId": "stage.story.normal.012.end"
+      "nextNodeId": "stage.story.normal.012.end",
+      "bodyKo": "길에서 본 이상한 발자국을 파수꾼에게 알려주었다.\n그는 고개를 끄덕이며 경계해야 할 지형을 자세히 설명해주었다."
     },
     {
       "nodeId": "stage.story.normal.012.fire",
-      "body": "초소 화로 옆에서 잠시 몸을 녹였다.\n타오르는 불빛을 보고 있자 긴 밤길의 피로가 풀렸다.",
-      "rewardType": "heal",
-      "rewardValue": 25,
-      "nextNodeId": "stage.story.normal.012.end"
+      "nextNodeId": "stage.story.normal.012.end",
+      "bodyKo": "초소 화로 옆에서 잠시 몸을 녹였다.\n타오르는 불빛을 보고 있자 긴 밤길의 피로가 풀렸다."
     },
     {
       "nodeId": "stage.story.normal.012.map",
-      "body": "벽에 걸린 낡은 지도 뒤에서 작은 비상금 봉투를 발견했다.\n파수꾼은 기록을 도와준 보답이라며 봉투를 건넸다.",
-      "rewardType": "gold",
-      "rewardValue": 115,
-      "nextNodeId": "stage.story.normal.012.end"
+      "nextNodeId": "stage.story.normal.012.end",
+      "bodyKo": "벽에 걸린 낡은 지도 뒤에서 작은 비상금 봉투를 발견했다.\n파수꾼은 기록을 도와준 보답이라며 봉투를 건넸다."
     },
     {
       "nodeId": "stage.story.normal.012.end",
-      "body": "종소리가 멀어지고 밤길은 조금 더 선명해졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.012.choice.report",
-      "text": "발자국을 보고한다"
-    },
-    {
-      "choiceId": "stage.story.normal.012.choice.fire",
-      "text": "화로 옆에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.normal.012.choice.map",
-      "text": "지도를 살핀다"
+      "bodyKo": "종소리가 멀어지고 밤길은 조금 더 선명해졌다."
     }
   ]
 }

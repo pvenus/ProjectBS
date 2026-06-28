@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.easy.020",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_easy",
+  "episodeNumber": 20,
+  "titleKo": "개울의 나무 징검다리",
+  "summaryKo": "맑은 개울 위에 놓인 나무 징검다리 하나가 물살에 비뚤어져 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "? ?? ?? ??",
+  "startNodeId": "stage.story.easy.020.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.020.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.020.choice.bridge",
+          "labelKo": "징검다리를 고친다",
+          "nextNodeId": "stage.story.easy.020.bridge",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.020.choice.wash",
+          "labelKo": "개울물에 쉰다",
+          "nextNodeId": "stage.story.easy.020.wash",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.020.choice.pouch",
+          "labelKo": "반짝이는 것을 건진다",
+          "nextNodeId": "stage.story.easy.020.pouch",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 80
+            }
+          ]
+        }
+      ],
+      "bodyKo": "맑은 개울 위에 놓인 나무 징검다리 하나가 물살에 비뚤어져 있다. 폭은 좁지만 마을 사람들이 자주 쓰는 길인 듯 발자국이 선명하다. 근처의 둥근 돌과 밧줄이면 쉽게 바로잡을 수 있다."
+    },
+    {
+      "nodeId": "stage.story.easy.020.bridge",
+      "nextNodeId": "stage.story.easy.020.end",
+      "bodyKo": "돌과 밧줄로 나무를 단단히 고정했다. 안전한 건넘길을 만든 경험이 앞으로의 여정에도 도움이 될 듯하다."
+    },
+    {
+      "nodeId": "stage.story.easy.020.wash",
+      "nextNodeId": "stage.story.easy.020.end",
+      "bodyKo": "개울가에 발을 담그고 차가운 물로 상처를 씻었다. 맑은 물이 열기를 가라앉혀 주었다."
+    },
+    {
+      "nodeId": "stage.story.easy.020.pouch",
+      "nextNodeId": "stage.story.easy.020.end",
+      "bodyKo": "물속에서 반짝이는 작은 주머니를 건졌다. 떠내려온 주머니 안에는 녹슬지 않은 동전이 들어 있었다."
+    },
+    {
+      "nodeId": "stage.story.easy.020.end",
+      "bodyKo": "고쳐진 나무 위로 물방울이 반짝이고, 개울 건너 길이 한층 가까워졌다."
+    }
+  ]
+}

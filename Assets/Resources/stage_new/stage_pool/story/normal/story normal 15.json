@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.015",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 15,
+  "episodeId": "story_normal",
+  "episodeNumber": 15,
+  "titleKo": "빗속의 광대패 천막",
+  "summaryKo": "비에 잠긴 광대패 천막에서 남은 물건들을 수습한다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "빗속의 천막 극장",
   "mainCharacterId": "character.seojin",
-  "themeKo": "공연",
-  "summaryKo": "비 내리는 공터에 작은 천막 극장이 세워져 있었다.",
-  "startNodeId": "node.story.normal.015",
+  "themeKo": "위험한 조우",
+  "startNodeId": "stage.story.normal.015.start",
   "nodes": [
     {
-      "nodeId": "node.story.normal.015",
-      "body": "비 내리는 공터에 작은 천막 극장이 세워져 있었다.\n공연은 끝났지만 배우들은 젖은 소품을 정리하지 못해 난감한 표정이었다.\n천막 안쪽에서는 아직 따뜻한 조명이 흔들리고 있다.",
+      "nodeId": "stage.story.normal.015.start",
+      "bodyKo": "장맛비가 멎지 않는 빈터에 광대패 천막이 반쯤 주저앉아 있었다. 기름등은 꺼져 있었고, 젖은 탈과 북이 바닥에 흩어져 있었다. 사람들은 떠난 뒤였지만 천막 안쪽에서 아직 인기척이 났다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.015.choice.prop"
+          "choiceId": "stage.story.normal.015.choice.rescue",
+          "labelKo": "천막 안 사람을 찾는다",
+          "nextNodeId": "stage.story.normal.015.rescue",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 70
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.015.choice.seat"
+          "choiceId": "stage.story.normal.015.choice.props",
+          "labelKo": "탈과 북을 챙긴다",
+          "nextNodeId": "stage.story.normal.015.props",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 22
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.015.choice.backstage"
+          "choiceId": "stage.story.normal.015.choice.box",
+          "labelKo": "공연 상자를 연다",
+          "nextNodeId": "stage.story.normal.015.box",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 125
+            }
+          ]
         }
       ]
     },
     {
-      "nodeId": "stage.story.normal.015.prop",
-      "body": "젖은 소품을 닦고 무대 뒤 상자에 나누어 담았다.\n배우는 여행길에 마음을 다잡는 짧은 대사를 가르쳐주었다.",
-      "rewardType": "exp",
-      "rewardValue": 50,
+      "nodeId": "stage.story.normal.015.rescue",
+      "bodyKo": "무너진 천막살 아래 갇힌 아이를 끌어냈다. 아이는 광대패가 남긴 샛길 표식을 알려 주었다.",
       "nextNodeId": "stage.story.normal.015.end"
     },
     {
-      "nodeId": "stage.story.normal.015.seat",
-      "body": "빈 객석에 앉아 빗소리를 들었다.\n천막을 두드리는 일정한 소리가 지친 몸을 편안하게 만들었다.",
-      "rewardType": "heal",
-      "rewardValue": 25,
+      "nodeId": "stage.story.normal.015.props",
+      "bodyKo": "젖은 탈과 북을 마른 천으로 감싸 보존했다. 익살스러운 얼굴의 탈을 보니 무거운 마음이 조금 풀렸다.",
       "nextNodeId": "stage.story.normal.015.end"
     },
     {
-      "nodeId": "stage.story.normal.015.backstage",
-      "body": "무대 뒤를 정리하다가 관객이 두고 간 작은 지갑을 찾았다.\n극단장은 주인을 찾기 어렵다며 보상으로 일부를 나누어주었다.",
-      "rewardType": "gold",
-      "rewardValue": 115,
+      "nodeId": "stage.story.normal.015.box",
+      "bodyKo": "공연 상자 안에는 관객들이 던진 엽전이 조금 남아 있었다. 버려진 천막의 위험을 감수한 값으로 챙겼다.",
       "nextNodeId": "stage.story.normal.015.end"
     },
     {
       "nodeId": "stage.story.normal.015.end",
-      "body": "비가 잦아들고 천막의 불빛이 조용히 꺼졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.015.choice.prop",
-      "text": "소품을 정리한다"
-    },
-    {
-      "choiceId": "stage.story.normal.015.choice.seat",
-      "text": "객석에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.normal.015.choice.backstage",
-      "text": "무대 뒤를 살핀다"
+      "bodyKo": "비는 여전히 내렸지만, 천막은 더는 누군가를 짓누르지 않았다."
     }
   ]
 }

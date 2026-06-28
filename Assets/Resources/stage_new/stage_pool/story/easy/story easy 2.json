@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.002",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 2,
+  "episodeId": "story_easy",
+  "episodeNumber": 2,
+  "titleKo": "달콤한 과수원",
+  "summaryKo": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "달콤한 과수원",
   "mainCharacterId": "character.seojin",
   "themeKo": "수확",
-  "summaryKo": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.",
   "startNodeId": "node.story.easy.002",
   "nodes": [
     {
       "nodeId": "node.story.easy.002",
-      "body": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.\n과수원 주인은 떨어진 과일을 주우며 바쁘게 움직이고 있었다.\n길손에게도 잠깐 머물 자리를 내어줄 만큼 인심이 좋아 보인다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.002.choice.pick"
+          "choiceId": "stage.story.easy.002.choice.pick",
+          "labelKo": "과일 줍기를 돕는다",
+          "nextNodeId": "stage.story.easy.002.pick",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.002.choice.eat"
+          "choiceId": "stage.story.easy.002.choice.eat",
+          "labelKo": "과일을 얻어먹는다",
+          "nextNodeId": "stage.story.easy.002.eat",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.002.choice.crate"
+          "choiceId": "stage.story.easy.002.choice.crate",
+          "labelKo": "빈 상자를 정리한다",
+          "nextNodeId": "stage.story.easy.002.crate",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 75
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "낮은 울타리 너머로 잘 익은 과일 향이 흘러나왔다.\n과수원 주인은 떨어진 과일을 주우며 바쁘게 움직이고 있었다.\n길손에게도 잠깐 머물 자리를 내어줄 만큼 인심이 좋아 보인다."
     },
     {
       "nodeId": "stage.story.easy.002.pick",
-      "body": "바구니 가득 떨어진 과일을 모아주었다.\n주인은 수확 요령과 길가의 지형을 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.easy.002.end"
+      "nextNodeId": "stage.story.easy.002.end",
+      "bodyKo": "바구니 가득 떨어진 과일을 모아주었다.\n주인은 수확 요령과 길가의 지형을 알려주었다."
     },
     {
       "nodeId": "stage.story.easy.002.eat",
-      "body": "막 씻은 과일을 한입 베어 물었다.\n상큼한 단맛이 입안에 퍼지며 기운이 돌아왔다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
-      "nextNodeId": "stage.story.easy.002.end"
+      "nextNodeId": "stage.story.easy.002.end",
+      "bodyKo": "막 씻은 과일을 한입 베어 물었다.\n상큼한 단맛이 입안에 퍼지며 기운이 돌아왔다."
     },
     {
       "nodeId": "stage.story.easy.002.crate",
-      "body": "빈 상자를 옮기던 중 틈새에 끼어 있던 동전 주머니를 발견했다.\n주인은 오래된 물건이라며 가져가도 좋다고 했다.",
-      "rewardType": "gold",
-      "rewardValue": 75,
-      "nextNodeId": "stage.story.easy.002.end"
+      "nextNodeId": "stage.story.easy.002.end",
+      "bodyKo": "빈 상자를 옮기던 중 틈새에 끼어 있던 동전 주머니를 발견했다.\n주인은 오래된 물건이라며 가져가도 좋다고 했다."
     },
     {
       "nodeId": "stage.story.easy.002.end",
-      "body": "과일 향을 뒤로하고 부드러운 흙길을 따라 걷는다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.002.choice.pick",
-      "text": "과일 줍기를 돕는다"
-    },
-    {
-      "choiceId": "stage.story.easy.002.choice.eat",
-      "text": "과일을 얻어먹는다"
-    },
-    {
-      "choiceId": "stage.story.easy.002.choice.crate",
-      "text": "빈 상자를 정리한다"
+      "bodyKo": "과일 향을 뒤로하고 부드러운 흙길을 따라 걷는다."
     }
   ]
 }

@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.normal.019",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_normal",
+  "episodeNumber": 19,
+  "titleKo": "절벽의 약초 채집꾼",
+  "summaryKo": "절벽 중턱에서 약초 채집꾼이 끊어진 밧줄을 붙잡고 난처해하고 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.normal.019.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.019.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.019.choice.rope",
+          "labelKo": "밧줄을 다시 묶는다",
+          "nextNodeId": "stage.story.normal.019.rope",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 60
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.019.choice.salve",
+          "labelKo": "휴식 굴로 간다",
+          "nextNodeId": "stage.story.normal.019.salve",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.019.choice.silver",
+          "labelKo": "바위틈을 조사한다",
+          "nextNodeId": "stage.story.normal.019.silver",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 120
+            }
+          ]
+        }
+      ],
+      "bodyKo": "절벽 중턱에서 약초 채집꾼이 끊어진 밧줄을 붙잡고 난처해하고 있다. 귀한 푸른 잎은 손이 닿기 어려운 바위틈에 자라고, 아래에는 작은 휴식 굴이 보인다."
+    },
+    {
+      "nodeId": "stage.story.normal.019.rope",
+      "nextNodeId": "stage.story.normal.019.end",
+      "bodyKo": "밧줄을 다시 묶고 안전한 매듭으로 채집꾼의 길을 확보했다. 그는 절벽 식물과 독초를 구별하는 법을 상세히 알려주었다."
+    },
+    {
+      "nodeId": "stage.story.normal.019.salve",
+      "nextNodeId": "stage.story.normal.019.end",
+      "bodyKo": "바람이 들지 않는 굴에서 채집꾼의 약초 연고를 발랐다. 서늘한 향이 퍼지며 상처의 통증이 가라앉았다."
+    },
+    {
+      "nodeId": "stage.story.normal.019.silver",
+      "nextNodeId": "stage.story.normal.019.end",
+      "bodyKo": "바위틈의 푸른 잎 옆에서 광부가 흘린 은화 꾸러미를 찾았다. 채집꾼과 나누고도 넉넉한 몫이 남았다."
+    },
+    {
+      "nodeId": "stage.story.normal.019.end",
+      "bodyKo": "채집꾼의 바구니에 푸른 잎이 담기고 절벽길에는 새 밧줄이 팽팽히 걸렸다."
+    }
+  ]
+}

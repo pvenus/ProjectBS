@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.004",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 4,
+  "episodeId": "story_normal",
+  "episodeNumber": 4,
+  "titleKo": "버려진 객잔",
+  "summaryKo": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "버려진 객잔",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐색",
-  "summaryKo": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.",
   "startNodeId": "node.story.normal.004",
   "nodes": [
     {
       "nodeId": "node.story.normal.004",
-      "body": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.\n문은 반쯤 부서져 있었지만 내부는 생각보다 깔끔하게 정리되어 있었다.\n누군가 최근까지 머물다 떠난 듯한 흔적도 남아 있었다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.004.choice.rest"
+          "choiceId": "stage.story.normal.004.choice.rest",
+          "labelKo": "잠시 쉬어 간다",
+          "nextNodeId": "stage.story.normal.004.rest",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 20
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.004.choice.clean"
+          "choiceId": "stage.story.normal.004.choice.clean",
+          "labelKo": "객잔을 정리한다",
+          "nextNodeId": "stage.story.normal.004.clean",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 50
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.004.choice.search"
+          "choiceId": "stage.story.normal.004.choice.search",
+          "labelKo": "객잔을 수색한다",
+          "nextNodeId": "stage.story.normal.004.search",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 120
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "해가 저물 무렵, 길가에서 오래된 객잔을 발견했다.\n문은 반쯤 부서져 있었지만 내부는 생각보다 깔끔하게 정리되어 있었다.\n누군가 최근까지 머물다 떠난 듯한 흔적도 남아 있었다."
     },
     {
       "nodeId": "stage.story.normal.004.rest",
-      "body": "객잔 한쪽 방에서 잠시 눈을 붙였다.\n오랜만에 편안한 휴식을 취한 덕분에 몸의 피로가 상당히 회복되었다.",
-      "rewardType": "heal",
-      "rewardValue": 20,
-      "nextNodeId": "stage.story.normal.004.end"
+      "nextNodeId": "stage.story.normal.004.end",
+      "bodyKo": "객잔 한쪽 방에서 잠시 눈을 붙였다.\n오랜만에 편안한 휴식을 취한 덕분에 몸의 피로가 상당히 회복되었다."
     },
     {
       "nodeId": "stage.story.normal.004.clean",
-      "body": "무너진 의자를 세우고 먼지를 쓸어냈다.\n한때 이곳을 오갔을 사람들의 흔적을 살피며 많은 것을 배울 수 있었다.",
-      "rewardType": "exp",
-      "rewardValue": 50,
-      "nextNodeId": "stage.story.normal.004.end"
+      "nextNodeId": "stage.story.normal.004.end",
+      "bodyKo": "무너진 의자를 세우고 먼지를 쓸어냈다.\n한때 이곳을 오갔을 사람들의 흔적을 살피며 많은 것을 배울 수 있었다."
     },
     {
       "nodeId": "stage.story.normal.004.search",
-      "body": "주방 근처를 뒤지던 중 바닥 판자 아래 숨겨진 주머니를 발견했다.\n주머니 안에는 은전과 몇 개의 동전이 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 120,
-      "nextNodeId": "stage.story.normal.004.end"
+      "nextNodeId": "stage.story.normal.004.end",
+      "bodyKo": "주방 근처를 뒤지던 중 바닥 판자 아래 숨겨진 주머니를 발견했다.\n주머니 안에는 은전과 몇 개의 동전이 들어 있었다."
     },
     {
       "nodeId": "stage.story.normal.004.end",
-      "body": "객잔을 뒤로하고 다시 여정을 이어간다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.004.choice.rest",
-      "text": "잠시 쉬어 간다"
-    },
-    {
-      "choiceId": "stage.story.normal.004.choice.clean",
-      "text": "객잔을 정리한다"
-    },
-    {
-      "choiceId": "stage.story.normal.004.choice.search",
-      "text": "객잔을 수색한다"
+      "bodyKo": "객잔을 뒤로하고 다시 여정을 이어간다."
     }
   ]
 }

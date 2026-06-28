@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.008",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 8,
+  "episodeId": "story_normal",
+  "episodeNumber": 8,
+  "titleKo": "밤의 등불",
+  "summaryKo": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "밤의 등불",
   "mainCharacterId": "character.seojin",
   "themeKo": "경계",
-  "summaryKo": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.",
   "startNodeId": "node.story.normal.008",
   "nodes": [
     {
       "nodeId": "node.story.normal.008",
-      "body": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.\n등불 아래에는 방향을 잃은 아이가 웅크리고 있었고, 멀리 마을 종소리가 희미하게 들려왔다.\n숲은 어둡지만 아직 위험한 기척은 느껴지지 않는다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.008.choice.guide"
+          "choiceId": "stage.story.normal.008.choice.guide",
+          "labelKo": "아이를 데려다준다",
+          "nextNodeId": "stage.story.normal.008.guide",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 65
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.008.choice.wait"
+          "choiceId": "stage.story.normal.008.choice.wait",
+          "labelKo": "함께 기다린다",
+          "nextNodeId": "stage.story.normal.008.wait",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.008.choice.inspect"
+          "choiceId": "stage.story.normal.008.choice.inspect",
+          "labelKo": "등불을 살펴본다",
+          "nextNodeId": "stage.story.normal.008.inspect",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 125
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "해가 완전히 저문 뒤, 길가에 홀로 켜진 등불 하나를 발견했다.\n등불 아래에는 방향을 잃은 아이가 웅크리고 있었고, 멀리 마을 종소리가 희미하게 들려왔다.\n숲은 어둡지만 아직 위험한 기척은 느껴지지 않는다."
     },
     {
       "nodeId": "stage.story.normal.008.guide",
-      "body": "아이를 데리고 종소리가 들리는 방향으로 걸었다.\n마을 입구에서 아이의 가족을 만났고, 그들은 깊이 고개 숙여 감사를 표했다.",
-      "rewardType": "exp",
-      "rewardValue": 65,
-      "nextNodeId": "stage.story.normal.008.end"
+      "nextNodeId": "stage.story.normal.008.end",
+      "bodyKo": "아이를 데리고 종소리가 들리는 방향으로 걸었다.\n마을 입구에서 아이의 가족을 만났고, 그들은 깊이 고개 숙여 감사를 표했다."
     },
     {
       "nodeId": "stage.story.normal.008.wait",
-      "body": "등불 곁에서 아이와 함께 기다렸다.\n따뜻한 불빛 아래 잠시 숨을 돌리자 지친 몸이 조금 회복되었다.",
-      "rewardType": "heal",
-      "rewardValue": 25,
-      "nextNodeId": "stage.story.normal.008.end"
+      "nextNodeId": "stage.story.normal.008.end",
+      "bodyKo": "등불 곁에서 아이와 함께 기다렸다.\n따뜻한 불빛 아래 잠시 숨을 돌리자 지친 몸이 조금 회복되었다."
     },
     {
       "nodeId": "stage.story.normal.008.inspect",
-      "body": "등불 받침대를 살펴보니 작은 보관함이 숨겨져 있었다.\n안에는 길 안내를 부탁한 사람이 남긴 사례금이 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 125,
-      "nextNodeId": "stage.story.normal.008.end"
+      "nextNodeId": "stage.story.normal.008.end",
+      "bodyKo": "등불 받침대를 살펴보니 작은 보관함이 숨겨져 있었다.\n안에는 길 안내를 부탁한 사람이 남긴 사례금이 들어 있었다."
     },
     {
       "nodeId": "stage.story.normal.008.end",
-      "body": "등불의 온기가 멀어질 때까지 길은 은은하게 밝았다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.008.choice.guide",
-      "text": "아이를 데려다준다"
-    },
-    {
-      "choiceId": "stage.story.normal.008.choice.wait",
-      "text": "함께 기다린다"
-    },
-    {
-      "choiceId": "stage.story.normal.008.choice.inspect",
-      "text": "등불을 살펴본다"
+      "bodyKo": "등불의 온기가 멀어질 때까지 길은 은은하게 밝았다."
     }
   ]
 }

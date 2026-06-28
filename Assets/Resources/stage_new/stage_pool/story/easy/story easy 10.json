@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.010",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 10,
+  "episodeId": "story_easy",
+  "episodeNumber": 10,
+  "titleKo": "마을 입구의 전갈함",
+  "summaryKo": "낡은 전갈함에서 주인을 찾지 못한 서찰을 발견한다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "마을 입구의 우체통",
   "mainCharacterId": "character.seojin",
-  "themeKo": "전달",
-  "summaryKo": "마을 입구에 빨간 우체통 하나가 서 있었다.",
-  "startNodeId": "node.story.easy.010",
+  "themeKo": "길 위의 작은 사건",
+  "startNodeId": "stage.story.easy.010.start",
   "nodes": [
     {
-      "nodeId": "node.story.easy.010",
-      "body": "마을 입구에 빨간 우체통 하나가 서 있었다.\n옆에는 배달할 편지를 품에 안은 우편배달부가 잠시 숨을 고르고 있었다.\n편지 몇 장이 바람에 날려 길 위에 흩어졌다.",
+      "nodeId": "stage.story.easy.010.start",
+      "bodyKo": "마을 입구 장승 아래 낡은 전갈함이 기울어져 있었다. 파발꾼이 한동안 오지 못한 듯, 젖은 서찰 몇 장이 틈새에 끼어 있었다. 봉인이 흐려진 한 장은 아직 읽을 수 있었다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.010.choice.collect"
+          "choiceId": "stage.story.easy.010.choice.deliver",
+          "labelKo": "서찰의 주인을 찾아준다",
+          "nextNodeId": "stage.story.easy.010.deliver",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.010.choice.sit"
+          "choiceId": "stage.story.easy.010.choice.dry",
+          "labelKo": "젖은 서찰을 말린다",
+          "nextNodeId": "stage.story.easy.010.dry",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 10
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.010.choice.slot"
+          "choiceId": "stage.story.easy.010.choice.coin",
+          "labelKo": "전갈함 밑을 확인한다",
+          "nextNodeId": "stage.story.easy.010.coin",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 70
+            }
+          ]
         }
       ]
     },
     {
-      "nodeId": "stage.story.easy.010.collect",
-      "body": "흩어진 편지를 모두 모아 우편배달부에게 건넸다.\n그는 고마워하며 가까운 마을들의 위치를 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
+      "nodeId": "stage.story.easy.010.deliver",
+      "bodyKo": "서찰에 적힌 이름을 따라가 늙은 장정에게 전했다. 그는 오래 기다렸다는 듯 고개를 숙이고 작게 사례했다.",
       "nextNodeId": "stage.story.easy.010.end"
     },
     {
-      "nodeId": "stage.story.easy.010.sit",
-      "body": "우체통 옆 그늘에 앉아 잠시 숨을 돌렸다.\n서늘한 바람이 지나가며 피로가 누그러졌다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
+      "nodeId": "stage.story.easy.010.dry",
+      "bodyKo": "젖은 서찰을 조심스레 말려 글자를 살렸다. 급한 소식은 아니었지만, 누군가에게는 필요한 안부였다.",
       "nextNodeId": "stage.story.easy.010.end"
     },
     {
-      "nodeId": "stage.story.easy.010.slot",
-      "body": "우체통 아래쪽에 끼어 있던 작은 봉투를 발견했다.\n안에는 반송된 편지와 함께 동전 몇 닢이 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 80,
+      "nodeId": "stage.story.easy.010.coin",
+      "bodyKo": "전갈함 밑에서 파발꾼의 사례금으로 보이는 엽전 꾸러미를 발견했다. 주인을 찾을 수 없어 길의 보상으로 챙겼다.",
       "nextNodeId": "stage.story.easy.010.end"
     },
     {
       "nodeId": "stage.story.easy.010.end",
-      "body": "우편배달부가 떠난 뒤 당신도 마을길로 들어선다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.010.choice.collect",
-      "text": "편지를 주워준다"
-    },
-    {
-      "choiceId": "stage.story.easy.010.choice.sit",
-      "text": "우체통 옆에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.easy.010.choice.slot",
-      "text": "우체통 아래를 살핀다"
+      "bodyKo": "전갈함은 다시 단단히 닫혔다. 다음 길손이 길을 잃지 않도록 장승 옆에 바로 세워 두었다."
     }
   ]
 }

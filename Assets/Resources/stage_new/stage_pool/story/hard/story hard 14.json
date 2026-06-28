@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.014",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 14,
+  "episodeId": "story_hard",
+  "episodeNumber": 14,
+  "titleKo": "붉은 협곡의 봉화",
+  "summaryKo": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "붉은 협곡의 봉화",
   "mainCharacterId": "character.seojin",
   "themeKo": "경계",
-  "summaryKo": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.",
   "startNodeId": "node.story.hard.014",
   "nodes": [
     {
       "nodeId": "node.story.hard.014",
-      "body": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.\n바닥에는 최근까지 누군가 머문 흔적이 남아 있었고, 절벽 사이로 모래바람이 세차게 몰아쳤다.\n봉화대 위에서는 먼 길을 내려다볼 수 있을 것 같다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.014.choice.beacon"
+          "choiceId": "stage.story.hard.014.choice.beacon",
+          "labelKo": "봉화를 되살린다",
+          "nextNodeId": "stage.story.hard.014.beacon",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 90
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.014.choice.wall"
+          "choiceId": "stage.story.hard.014.choice.wall",
+          "labelKo": "절벽 그늘에서 쉰다",
+          "nextNodeId": "stage.story.hard.014.wall",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.014.choice.ash"
+          "choiceId": "stage.story.hard.014.choice.ash",
+          "labelKo": "식은 재를 살핀다",
+          "nextNodeId": "stage.story.hard.014.ash",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 220
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "붉은 협곡의 좁은 길 끝에 꺼진 봉화대가 있었다.\n바닥에는 최근까지 누군가 머문 흔적이 남아 있었고, 절벽 사이로 모래바람이 세차게 몰아쳤다.\n봉화대 위에서는 먼 길을 내려다볼 수 있을 것 같다."
     },
     {
       "nodeId": "stage.story.hard.014.beacon",
-      "body": "마른 장작을 모아 봉화대에 다시 불씨를 살렸다.\n연기가 오르자 협곡을 지나는 바람의 흐름과 길목이 눈에 들어왔다.",
-      "rewardType": "exp",
-      "rewardValue": 90,
-      "nextNodeId": "stage.story.hard.014.end"
+      "nextNodeId": "stage.story.hard.014.end",
+      "bodyKo": "마른 장작을 모아 봉화대에 다시 불씨를 살렸다.\n연기가 오르자 협곡을 지나는 바람의 흐름과 길목이 눈에 들어왔다."
     },
     {
       "nodeId": "stage.story.hard.014.wall",
-      "body": "절벽 그늘에 몸을 붙이고 모래바람이 지나가길 기다렸다.\n거친 먼지가 잦아들자 숨을 고르고 상처를 살필 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.hard.014.end"
+      "nextNodeId": "stage.story.hard.014.end",
+      "bodyKo": "절벽 그늘에 몸을 붙이고 모래바람이 지나가길 기다렸다.\n거친 먼지가 잦아들자 숨을 고르고 상처를 살필 수 있었다."
     },
     {
       "nodeId": "stage.story.hard.014.ash",
-      "body": "식은 재를 헤치자 불에 그을린 작은 철함이 나왔다.\n안에는 협곡 수비대가 남긴 보급금이 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 220,
-      "nextNodeId": "stage.story.hard.014.end"
+      "nextNodeId": "stage.story.hard.014.end",
+      "bodyKo": "식은 재를 헤치자 불에 그을린 작은 철함이 나왔다.\n안에는 협곡 수비대가 남긴 보급금이 들어 있었다."
     },
     {
       "nodeId": "stage.story.hard.014.end",
-      "body": "봉화 연기가 하늘로 흩어지고 협곡 길은 다시 붉게 잠겼다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.014.choice.beacon",
-      "text": "봉화를 되살린다"
-    },
-    {
-      "choiceId": "stage.story.hard.014.choice.wall",
-      "text": "절벽 그늘에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.014.choice.ash",
-      "text": "식은 재를 살핀다"
+      "bodyKo": "봉화 연기가 하늘로 흩어지고 협곡 길은 다시 붉게 잠겼다."
     }
   ]
 }

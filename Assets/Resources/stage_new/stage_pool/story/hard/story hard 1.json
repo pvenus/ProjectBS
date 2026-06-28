@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.001",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 1,
+  "episodeId": "story_hard",
+  "episodeNumber": 1,
+  "titleKo": "검은 안개의 초소",
+  "summaryKo": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "검은 안개의 초소",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐색",
-  "summaryKo": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.",
   "startNodeId": "node.story.hard.001",
   "nodes": [
     {
       "nodeId": "node.story.hard.001",
-      "body": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.\n안개 속에서는 오래된 경보 종이 바람도 없이 흔들렸다.\n초소 안쪽 어둠에는 누군가 남긴 기록과 보급품이 있을지도 모른다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.001.choice.enter"
+          "choiceId": "stage.story.hard.001.choice.enter",
+          "labelKo": "초소 안으로 들어간다",
+          "nextNodeId": "stage.story.hard.001.enter",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 90
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.001.choice.camp"
+          "choiceId": "stage.story.hard.001.choice.camp",
+          "labelKo": "불을 피워 버틴다",
+          "nextNodeId": "stage.story.hard.001.camp",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.001.choice.locker"
+          "choiceId": "stage.story.hard.001.choice.locker",
+          "labelKo": "보급함을 연다",
+          "nextNodeId": "stage.story.hard.001.locker",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 210
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "산등성이의 버려진 초소가 검은 안개에 잠겨 있었다.\n안개 속에서는 오래된 경보 종이 바람도 없이 흔들렸다.\n초소 안쪽 어둠에는 누군가 남긴 기록과 보급품이 있을지도 모른다."
     },
     {
       "nodeId": "stage.story.hard.001.enter",
-      "body": "숨을 낮추고 초소 안을 조사했다.\n낡은 순찰 기록에서 위험한 길목을 피하는 단서를 얻었다.",
-      "rewardType": "exp",
-      "rewardValue": 90,
-      "nextNodeId": "stage.story.hard.001.end"
+      "nextNodeId": "stage.story.hard.001.end",
+      "bodyKo": "숨을 낮추고 초소 안을 조사했다.\n낡은 순찰 기록에서 위험한 길목을 피하는 단서를 얻었다."
     },
     {
       "nodeId": "stage.story.hard.001.camp",
-      "body": "젖은 장작에 어렵게 불을 붙였다.\n안개가 잠시 물러난 사이 몸을 녹이며 상처를 돌볼 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.hard.001.end"
+      "nextNodeId": "stage.story.hard.001.end",
+      "bodyKo": "젖은 장작에 어렵게 불을 붙였다.\n안개가 잠시 물러난 사이 몸을 녹이며 상처를 돌볼 수 있었다."
     },
     {
       "nodeId": "stage.story.hard.001.locker",
-      "body": "녹슨 보급함의 자물쇠를 힘겹게 열었다.\n안쪽에는 오래된 군자금이 조금 남아 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 210,
-      "nextNodeId": "stage.story.hard.001.end"
+      "nextNodeId": "stage.story.hard.001.end",
+      "bodyKo": "녹슨 보급함의 자물쇠를 힘겹게 열었다.\n안쪽에는 오래된 군자금이 조금 남아 있었다."
     },
     {
       "nodeId": "stage.story.hard.001.end",
-      "body": "경보 종이 멎자 안개 속 길이 희미하게 드러났다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.001.choice.enter",
-      "text": "초소 안으로 들어간다"
-    },
-    {
-      "choiceId": "stage.story.hard.001.choice.camp",
-      "text": "불을 피워 버틴다"
-    },
-    {
-      "choiceId": "stage.story.hard.001.choice.locker",
-      "text": "보급함을 연다"
+      "bodyKo": "경보 종이 멎자 안개 속 길이 희미하게 드러났다."
     }
   ]
 }

@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.015",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 15,
+  "episodeId": "story_hard",
+  "episodeNumber": 15,
+  "titleKo": "잠긴 문서고",
+  "summaryKo": "폐허가 된 관청 지하에 문서고 문이 굳게 잠겨 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "잠긴 기록 보관소",
   "mainCharacterId": "character.seojin",
   "themeKo": "조사",
-  "summaryKo": "폐허가 된 관청 지하에 기록 보관소 문이 굳게 잠겨 있었다.",
   "startNodeId": "node.story.hard.015",
   "nodes": [
     {
       "nodeId": "node.story.hard.015",
-      "body": "폐허가 된 관청 지하에 기록 보관소 문이 굳게 잠겨 있었다.\n문틈으로는 마른 종이 냄새와 차가운 먼지가 흘러나왔고, 바닥에는 부서진 열쇠 조각이 흩어져 있었다.\n안쪽 기록은 오래된 비밀을 품고 있을지도 모른다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.015.choice.record"
+          "choiceId": "stage.story.hard.015.choice.record",
+          "labelKo": "기록을 조사한다",
+          "nextNodeId": "stage.story.hard.015.record",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 100
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.015.choice.desk"
+          "choiceId": "stage.story.hard.015.choice.desk",
+          "labelKo": "책상 옆에서 쉰다",
+          "nextNodeId": "stage.story.hard.015.desk",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.015.choice.safe"
+          "choiceId": "stage.story.hard.015.choice.safe",
+          "labelKo": "숨은 금고를 연다",
+          "nextNodeId": "stage.story.hard.015.safe",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 240
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "폐허가 된 관청 지하에 문서고 문이 굳게 잠겨 있었다.\n문틈으로는 마른 종이 냄새와 차가운 먼지가 흘러나왔고, 바닥에는 부서진 열쇠 조각이 흩어져 있었다.\n안쪽 기록은 오래된 비밀을 품고 있을지도 모른다."
     },
     {
       "nodeId": "stage.story.hard.015.record",
-      "body": "부서진 열쇠 조각을 맞춰 잠금 구조를 파악하고 문을 열었다.\n낡은 기록에서 사라진 관리들의 이동 경로와 숨은 통로를 알아냈다.",
-      "rewardType": "exp",
-      "rewardValue": 100,
-      "nextNodeId": "stage.story.hard.015.end"
+      "nextNodeId": "stage.story.hard.015.end",
+      "bodyKo": "부서진 열쇠 조각을 맞춰 잠금 구조를 파악하고 문을 열었다.\n낡은 기록에서 사라진 관리들의 이동 경로와 숨은 통로를 알아냈다."
     },
     {
       "nodeId": "stage.story.hard.015.desk",
-      "body": "지하 책상 옆의 마른 의자에 앉아 숨을 골랐다.\n먼지가 많았지만 벽이 바람을 막아주어 잠시 몸을 회복할 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 45,
-      "nextNodeId": "stage.story.hard.015.end"
+      "nextNodeId": "stage.story.hard.015.end",
+      "bodyKo": "지하 책상 옆의 마른 의자에 앉아 숨을 골랐다.\n먼지가 많았지만 벽이 바람을 막아주어 잠시 몸을 회복할 수 있었다."
     },
     {
       "nodeId": "stage.story.hard.015.safe",
-      "body": "기록장 아래 숨겨진 작은 금고를 발견했다.\n녹슨 장치를 조심스레 풀자 봉인된 금화 묶음이 모습을 드러냈다.",
-      "rewardType": "gold",
-      "rewardValue": 240,
-      "nextNodeId": "stage.story.hard.015.end"
+      "nextNodeId": "stage.story.hard.015.end",
+      "bodyKo": "기록장 아래 숨겨진 작은 금고를 발견했다.\n녹슨 장치를 조심스레 풀자 봉인된 금화 묶음이 모습을 드러냈다."
     },
     {
       "nodeId": "stage.story.hard.015.end",
-      "body": "보관소 문이 다시 닫히고 지하의 먼지가 천천히 가라앉았다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.015.choice.record",
-      "text": "기록을 조사한다"
-    },
-    {
-      "choiceId": "stage.story.hard.015.choice.desk",
-      "text": "책상 옆에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.015.choice.safe",
-      "text": "숨은 금고를 연다"
+      "bodyKo": "문서고 문이 다시 닫히고 지하의 먼지가 천천히 가라앉았다."
     }
   ]
 }

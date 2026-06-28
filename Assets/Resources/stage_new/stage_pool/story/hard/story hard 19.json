@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.hard.019",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_hard",
+  "episodeNumber": 19,
+  "titleKo": "용암 수로의 제련소",
+  "summaryKo": "폐쇄된 지하 제련소에서 용암 수로의 차단벽이 붉게 달아오르고 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.hard.019.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.019.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.019.choice.coolant",
+          "labelKo": "냉각 장치를 복구한다",
+          "nextNodeId": "stage.story.hard.019.coolant",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 100
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.019.choice.refuge",
+          "labelKo": "방열문 뒤로 피한다",
+          "nextNodeId": "stage.story.hard.019.refuge",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 50
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.019.choice.foreman",
+          "labelKo": "감독관 금고를 회수한다",
+          "nextNodeId": "stage.story.hard.019.foreman",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 245
+            }
+          ]
+        }
+      ],
+      "bodyKo": "폐쇄된 지하 제련소에서 용암 수로의 차단벽이 붉게 달아오르고 있다. 냉각 장치는 멈췄으며 작업자 휴게실과 감독관 금고로 향하는 길에도 불길이 번진다."
+    },
+    {
+      "nodeId": "stage.story.hard.019.coolant",
+      "nextNodeId": "stage.story.hard.019.end",
+      "bodyKo": "열기를 견디며 냉각 밸브를 순서대로 열었다. 금속과 압력의 변화를 읽어 차단벽을 안정시키고 귀중한 기술을 익혔다."
+    },
+    {
+      "nodeId": "stage.story.hard.019.refuge",
+      "nextNodeId": "stage.story.hard.019.end",
+      "bodyKo": "두꺼운 방열문 뒤 휴게실에서 냉각수를 사용해 화상을 치료했다. 뜨거운 숨이 가라앉고 다시 움직일 힘이 생겼다."
+    },
+    {
+      "nodeId": "stage.story.hard.019.foreman",
+      "nextNodeId": "stage.story.hard.019.end",
+      "bodyKo": "감독관 금고를 수로 밖으로 밀어낸 뒤 봉인을 풀었다. 위험 수당으로 보관된 금화를 챙기자 천장이 흔들리기 시작했다."
+    },
+    {
+      "nodeId": "stage.story.hard.019.end",
+      "bodyKo": "냉각수가 수로를 감싸며 증기가 솟았고, 제련소의 붉은 빛이 가까스로 잦아들었다."
+    }
+  ]
+}

@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.009",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 9,
+  "episodeId": "story_hard",
+  "episodeNumber": 9,
+  "titleKo": "갈라진 옛 관도",
+  "summaryKo": "무너진 관도에서 길을 잃은 사람들을 돕는다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "갈라진 왕의 길",
   "mainCharacterId": "character.seojin",
-  "themeKo": "돌파",
-  "summaryKo": "오래된 왕도가 지진으로 크게 갈라져 있었다.",
-  "startNodeId": "node.story.hard.009",
+  "themeKo": "고난과 구조",
+  "startNodeId": "stage.story.hard.009.start",
   "nodes": [
     {
-      "nodeId": "node.story.hard.009",
-      "body": "오래된 왕도가 지진으로 크게 갈라져 있었다.\n균열 아래에서는 따뜻한 바람과 함께 금속 냄새가 올라왔다.\n맞은편에는 무너진 석상과 봉인된 표식이 보인다.",
+      "nodeId": "stage.story.hard.009.start",
+      "bodyKo": "오래된 관도가 산사태로 갈라져 있었다. 한쪽에는 부서진 수레가 걸려 있었고, 다른 쪽에는 길을 잃은 장정들이 불안하게 서 있었다. 더 늦으면 길 전체가 흙더미에 묻힐 듯했다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.009.choice.bridge"
+          "choiceId": "stage.story.hard.009.choice.bridge",
+          "labelKo": "임시 다리를 놓는다",
+          "nextNodeId": "stage.story.hard.009.bridge",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 95
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.009.choice.seal"
+          "choiceId": "stage.story.hard.009.choice.people",
+          "labelKo": "사람들을 대피시킨다",
+          "nextNodeId": "stage.story.hard.009.people",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 38
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.009.choice.statue"
+          "choiceId": "stage.story.hard.009.choice.cart",
+          "labelKo": "수레 짐을 수습한다",
+          "nextNodeId": "stage.story.hard.009.cart",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 190
+            }
+          ]
         }
       ]
     },
     {
       "nodeId": "stage.story.hard.009.bridge",
-      "body": "무너진 석재를 옮겨 임시 발판을 만들었다.\n왕도의 구조를 살피며 옛길의 비밀을 알아냈다.",
-      "rewardType": "exp",
-      "rewardValue": 95,
+      "bodyKo": "부러진 나무와 밧줄로 임시 다리를 놓았다. 사람들은 조심스레 건너며 관도의 반대편으로 이동했다.",
       "nextNodeId": "stage.story.hard.009.end"
     },
     {
-      "nodeId": "stage.story.hard.009.seal",
-      "body": "봉인 표식 주변은 이상하게 따뜻했다.\n그 온기 덕분에 긴장이 풀리고 숨이 안정되었다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
+      "nodeId": "stage.story.hard.009.people",
+      "bodyKo": "장정들을 낮은 능선으로 이끌었다. 안전한 곳에 닿자 그들이 약초와 물을 나눠 주었다.",
       "nextNodeId": "stage.story.hard.009.end"
     },
     {
-      "nodeId": "stage.story.hard.009.statue",
-      "body": "석상 받침대 안쪽에서 금속 함을 꺼냈다.\n함 안에는 오래된 왕가의 동전이 남아 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 230,
+      "nodeId": "stage.story.hard.009.cart",
+      "bodyKo": "부서진 수레에서 흩어진 짐을 거두었다. 주인을 찾을 수 없는 물건은 길의 통행세처럼 남았다.",
       "nextNodeId": "stage.story.hard.009.end"
     },
     {
       "nodeId": "stage.story.hard.009.end",
-      "body": "갈라진 길 너머로 지나오자 따뜻한 바람이 갑자기 멎었다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.009.choice.bridge",
-      "text": "균열을 건널 길을 만든다"
-    },
-    {
-      "choiceId": "stage.story.hard.009.choice.seal",
-      "text": "봉인 표식 앞에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.009.choice.statue",
-      "text": "무너진 석상을 조사한다"
+      "bodyKo": "갈라진 관도에는 흙먼지만 남았다. 그러나 사람들은 해가 지기 전 무사히 길을 벗어났다."
     }
   ]
 }

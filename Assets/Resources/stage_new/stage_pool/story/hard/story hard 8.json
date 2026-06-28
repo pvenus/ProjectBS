@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.008",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 8,
+  "episodeId": "story_hard",
+  "episodeNumber": 8,
+  "titleKo": "가면 쓴 행렬",
+  "summaryKo": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "가면 쓴 행렬",
   "mainCharacterId": "character.seojin",
   "themeKo": "추적",
-  "summaryKo": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.",
   "startNodeId": "node.story.hard.008",
   "nodes": [
     {
       "nodeId": "node.story.hard.008",
-      "body": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.\n그들은 말없이 등불을 들고 지나가며 당신에게도 하나의 가면을 내밀었다.\n행렬을 따라가면 비밀스러운 의식 장소에 닿을 듯하다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.008.choice.follow"
+          "choiceId": "stage.story.hard.008.choice.follow",
+          "labelKo": "행렬을 따라간다",
+          "nextNodeId": "stage.story.hard.008.follow",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 90
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.008.choice.observe"
+          "choiceId": "stage.story.hard.008.choice.observe",
+          "labelKo": "멀리서 지켜본다",
+          "nextNodeId": "stage.story.hard.008.observe",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 35
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.008.choice.altar"
+          "choiceId": "stage.story.hard.008.choice.altar",
+          "labelKo": "의식 제단을 조사한다",
+          "nextNodeId": "stage.story.hard.008.altar",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 220
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "해 질 무렵 숲길에서 가면을 쓴 행렬과 마주쳤다.\n그들은 말없이 등불을 들고 지나가며 당신에게도 하나의 가면을 내밀었다.\n행렬을 따라가면 비밀스러운 의식 장소에 닿을 듯하다."
     },
     {
       "nodeId": "stage.story.hard.008.follow",
-      "body": "가면을 쓰고 행렬 뒤에 섰다.\n낯선 의식의 규칙을 지켜보며 숨겨진 길의 의미를 깨달았다.",
-      "rewardType": "exp",
-      "rewardValue": 90,
-      "nextNodeId": "stage.story.hard.008.end"
+      "nextNodeId": "stage.story.hard.008.end",
+      "bodyKo": "가면을 쓰고 행렬 뒤에 섰다.\n낯선 의식의 규칙을 지켜보며 숨겨진 길의 의미를 깨달았다."
     },
     {
       "nodeId": "stage.story.hard.008.observe",
-      "body": "나무 뒤에 몸을 숨기고 행렬이 지나가기를 기다렸다.\n긴장된 시간이 지나자 오히려 정신이 또렷해졌다.",
-      "rewardType": "heal",
-      "rewardValue": 35,
-      "nextNodeId": "stage.story.hard.008.end"
+      "nextNodeId": "stage.story.hard.008.end",
+      "bodyKo": "나무 뒤에 몸을 숨기고 행렬이 지나가기를 기다렸다.\n긴장된 시간이 지나자 오히려 정신이 또렷해졌다."
     },
     {
       "nodeId": "stage.story.hard.008.altar",
-      "body": "행렬이 사라진 뒤 제단 위를 살폈다.\n촛농 아래 숨겨진 작은 금패를 발견했다.",
-      "rewardType": "gold",
-      "rewardValue": 220,
-      "nextNodeId": "stage.story.hard.008.end"
+      "nextNodeId": "stage.story.hard.008.end",
+      "bodyKo": "행렬이 사라진 뒤 제단 위를 살폈다.\n촛농 아래 숨겨진 작은 금패를 발견했다."
     },
     {
       "nodeId": "stage.story.hard.008.end",
-      "body": "가면의 시선이 사라진 뒤에야 숲길은 평범한 어둠을 되찾았다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.008.choice.follow",
-      "text": "행렬을 따라간다"
-    },
-    {
-      "choiceId": "stage.story.hard.008.choice.observe",
-      "text": "멀리서 지켜본다"
-    },
-    {
-      "choiceId": "stage.story.hard.008.choice.altar",
-      "text": "의식 제단을 조사한다"
+      "bodyKo": "가면의 시선이 사라진 뒤에야 숲길은 평범한 어둠을 되찾았다."
     }
   ]
 }

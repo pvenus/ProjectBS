@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.013",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 13,
+  "episodeId": "story_normal",
+  "episodeNumber": 13,
+  "titleKo": "강변의 빈 나룻배",
+  "summaryKo": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "강변의 빈 나룻배",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐색",
-  "summaryKo": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.",
   "startNodeId": "node.story.normal.013",
   "nodes": [
     {
       "nodeId": "node.story.normal.013",
-      "body": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.\n사공은 끊어진 노끈을 고치며 강 건너 안개를 바라보고 있었다.\n강물은 느리지만 깊어 보여 함부로 움직이기 어렵다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.013.choice.rope"
+          "choiceId": "stage.story.normal.013.choice.rope",
+          "labelKo": "밧줄을 고친다",
+          "nextNodeId": "stage.story.normal.013.rope",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 50
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.013.choice.deck"
+          "choiceId": "stage.story.normal.013.choice.deck",
+          "labelKo": "갑판에서 쉰다",
+          "nextNodeId": "stage.story.normal.013.deck",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.013.choice.net"
+          "choiceId": "stage.story.normal.013.choice.net",
+          "labelKo": "그물을 풀어낸다",
+          "nextNodeId": "stage.story.normal.013.net",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 120
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "강변 나루터에 빈 나룻배 한 척이 밧줄에 묶여 흔들리고 있었다.\n사공은 끊어진 노끈을 고치며 강 건너 안개를 바라보고 있었다.\n강물은 느리지만 깊어 보여 함부로 움직이기 어렵다."
     },
     {
       "nodeId": "stage.story.normal.013.rope",
-      "body": "젖은 밧줄을 단단히 다시 묶고 노끈까지 손봐주었다.\n사공은 강을 건너는 안전한 때를 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 50,
-      "nextNodeId": "stage.story.normal.013.end"
+      "nextNodeId": "stage.story.normal.013.end",
+      "bodyKo": "젖은 밧줄을 단단히 다시 묶고 노끈까지 손봐주었다.\n사공은 강을 건너는 안전한 때를 알려주었다."
     },
     {
       "nodeId": "stage.story.normal.013.deck",
-      "body": "나룻배 갑판에 앉아 강바람을 맞았다.\n차분한 물결 소리가 마음을 가라앉혀 주었다.",
-      "rewardType": "heal",
-      "rewardValue": 25,
-      "nextNodeId": "stage.story.normal.013.end"
+      "nextNodeId": "stage.story.normal.013.end",
+      "bodyKo": "나룻배 갑판에 앉아 강바람을 맞았다.\n차분한 물결 소리가 마음을 가라앉혀 주었다."
     },
     {
       "nodeId": "stage.story.normal.013.net",
-      "body": "배 아래 얽힌 그물을 풀어내자 작은 상자가 따라 올라왔다.\n안에는 물에 젖지 않은 동전들이 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 120,
-      "nextNodeId": "stage.story.normal.013.end"
+      "nextNodeId": "stage.story.normal.013.end",
+      "bodyKo": "배 아래 얽힌 그물을 풀어내자 작은 상자가 따라 올라왔다.\n안에는 물에 젖지 않은 동전들이 들어 있었다."
     },
     {
       "nodeId": "stage.story.normal.013.end",
-      "body": "안개가 걷히며 강 건너 불빛이 희미하게 보인다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.013.choice.rope",
-      "text": "밧줄을 고친다"
-    },
-    {
-      "choiceId": "stage.story.normal.013.choice.deck",
-      "text": "갑판에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.normal.013.choice.net",
-      "text": "그물을 풀어낸다"
+      "bodyKo": "안개가 걷히며 강 건너 불빛이 희미하게 보인다."
     }
   ]
 }

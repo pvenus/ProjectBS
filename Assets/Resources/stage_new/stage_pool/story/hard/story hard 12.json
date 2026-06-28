@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.012",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 12,
+  "episodeId": "story_hard",
+  "episodeNumber": 12,
+  "titleKo": "가라앉은 성문",
+  "summaryKo": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "가라앉은 성문",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐험",
-  "summaryKo": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.",
   "startNodeId": "node.story.hard.012",
   "nodes": [
     {
       "nodeId": "node.story.hard.012",
-      "body": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.\n문 위의 문장은 진흙으로 뒤덮였고, 물속에서는 무언가 금속성으로 부딪히는 소리가 났다.\n발을 잘못 디디면 깊은 진창에 빠질 수 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.012.choice.mark"
+          "choiceId": "stage.story.hard.012.choice.mark",
+          "labelKo": "문장을 확인한다",
+          "nextNodeId": "stage.story.hard.012.mark",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 90
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.012.choice.stone"
+          "choiceId": "stage.story.hard.012.choice.stone",
+          "labelKo": "돌 위에서 쉰다",
+          "nextNodeId": "stage.story.hard.012.stone",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.012.choice.water"
+          "choiceId": "stage.story.hard.012.choice.water",
+          "labelKo": "물속을 더듬는다",
+          "nextNodeId": "stage.story.hard.012.water",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 220
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "늪 가장자리에서 오래된 성문이 반쯤 물에 잠겨 있었다.\n문 위의 문장은 진흙으로 뒤덮였고, 물속에서는 무언가 금속성으로 부딪히는 소리가 났다.\n발을 잘못 디디면 깊은 진창에 빠질 수 있다."
     },
     {
       "nodeId": "stage.story.hard.012.mark",
-      "body": "진흙을 걷어내고 성문의 문장을 확인했다.\n문장 아래 새겨진 옛 통행 규칙에서 안전한 우회로를 알아냈다.",
-      "rewardType": "exp",
-      "rewardValue": 90,
-      "nextNodeId": "stage.story.hard.012.end"
+      "nextNodeId": "stage.story.hard.012.end",
+      "bodyKo": "진흙을 걷어내고 성문의 문장을 확인했다.\n문장 아래 새겨진 옛 통행 규칙에서 안전한 우회로를 알아냈다."
     },
     {
       "nodeId": "stage.story.hard.012.stone",
-      "body": "단단한 돌 위에 앉아 젖은 장비를 말렸다.\n늪의 찬 기운은 거셌지만 잠시 숨을 고르기에는 충분했다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.hard.012.end"
+      "nextNodeId": "stage.story.hard.012.end",
+      "bodyKo": "단단한 돌 위에 앉아 젖은 장비를 말렸다.\n늪의 찬 기운은 거셌지만 잠시 숨을 고르기에는 충분했다."
     },
     {
       "nodeId": "stage.story.hard.012.water",
-      "body": "긴 나뭇가지로 물속을 더듬어 묵직한 금속 상자를 끌어냈다.\n상자 안에는 물기에도 변색되지 않은 금화가 남아 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 220,
-      "nextNodeId": "stage.story.hard.012.end"
+      "nextNodeId": "stage.story.hard.012.end",
+      "bodyKo": "긴 나뭇가지로 물속을 더듬어 묵직한 금속 상자를 끌어냈다.\n상자 안에는 물기에도 변색되지 않은 금화가 남아 있었다."
     },
     {
       "nodeId": "stage.story.hard.012.end",
-      "body": "성문 뒤로 늪안개가 밀려오고 발자국은 금세 지워졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.012.choice.mark",
-      "text": "문장을 확인한다"
-    },
-    {
-      "choiceId": "stage.story.hard.012.choice.stone",
-      "text": "돌 위에서 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.012.choice.water",
-      "text": "물속을 더듬는다"
+      "bodyKo": "성문 뒤로 늪안개가 밀려오고 발자국은 금세 지워졌다."
     }
   ]
 }

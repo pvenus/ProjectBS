@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.002",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 2,
+  "episodeId": "story_hard",
+  "episodeNumber": 2,
+  "titleKo": "절벽 위 구조 신호",
+  "summaryKo": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "절벽 위 구조 신호",
   "mainCharacterId": "character.seojin",
   "themeKo": "구조",
-  "summaryKo": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.",
   "startNodeId": "node.story.hard.002",
   "nodes": [
     {
       "nodeId": "node.story.hard.002",
-      "body": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.\n아래쪽에서는 사람 목소리인지 바람 소리인지 모를 울림이 들렸다.\n발을 헛디디면 위험하지만, 그냥 지나치기에는 신호가 또렷하다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.002.choice.climb"
+          "choiceId": "stage.story.hard.002.choice.climb",
+          "labelKo": "절벽을 내려간다",
+          "nextNodeId": "stage.story.hard.002.climb",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 100
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.002.choice.rope"
+          "choiceId": "stage.story.hard.002.choice.rope",
+          "labelKo": "밧줄을 고정한다",
+          "nextNodeId": "stage.story.hard.002.rope",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 35
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.002.choice.pack"
+          "choiceId": "stage.story.hard.002.choice.pack",
+          "labelKo": "찢어진 배낭을 회수한다",
+          "nextNodeId": "stage.story.hard.002.pack",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 230
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "깎아지른 절벽 위에서 붉은 천 조각이 흔들리고 있었다.\n아래쪽에서는 사람 목소리인지 바람 소리인지 모를 울림이 들렸다.\n발을 헛디디면 위험하지만, 그냥 지나치기에는 신호가 또렷하다."
     },
     {
       "nodeId": "stage.story.hard.002.climb",
-      "body": "바위 틈을 붙잡고 천천히 내려갔다.\n아래에 갇힌 여행자를 발견해 안전한 길로 이끌었다.",
-      "rewardType": "exp",
-      "rewardValue": 100,
-      "nextNodeId": "stage.story.hard.002.end"
+      "nextNodeId": "stage.story.hard.002.end",
+      "bodyKo": "바위 틈을 붙잡고 천천히 내려갔다.\n아래에 갇힌 여행자를 발견해 안전한 길로 이끌었다."
     },
     {
       "nodeId": "stage.story.hard.002.rope",
-      "body": "주변 나무에 밧줄을 묶고 몸을 안정시켰다.\n긴장이 풀리자 그제야 호흡을 가다듬을 수 있었다.",
-      "rewardType": "heal",
-      "rewardValue": 35,
-      "nextNodeId": "stage.story.hard.002.end"
+      "nextNodeId": "stage.story.hard.002.end",
+      "bodyKo": "주변 나무에 밧줄을 묶고 몸을 안정시켰다.\n긴장이 풀리자 그제야 호흡을 가다듬을 수 있었다."
     },
     {
       "nodeId": "stage.story.hard.002.pack",
-      "body": "절벽 턱에 걸린 배낭을 끌어올렸다.\n안에는 주인을 찾기 어려운 값나가는 물건이 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 230,
-      "nextNodeId": "stage.story.hard.002.end"
+      "nextNodeId": "stage.story.hard.002.end",
+      "bodyKo": "절벽 턱에 걸린 배낭을 끌어올렸다.\n안에는 주인을 찾기 어려운 값나가는 물건이 들어 있었다."
     },
     {
       "nodeId": "stage.story.hard.002.end",
-      "body": "절벽을 벗어난 뒤에도 손끝에는 차가운 돌 감각이 남았다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.002.choice.climb",
-      "text": "절벽을 내려간다"
-    },
-    {
-      "choiceId": "stage.story.hard.002.choice.rope",
-      "text": "밧줄을 고정한다"
-    },
-    {
-      "choiceId": "stage.story.hard.002.choice.pack",
-      "text": "찢어진 배낭을 회수한다"
+      "bodyKo": "절벽을 벗어난 뒤에도 손끝에는 차가운 돌 감각이 남았다."
     }
   ]
 }

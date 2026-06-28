@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.007",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 7,
+  "episodeId": "story_hard",
+  "episodeNumber": 7,
+  "titleKo": "얼어붙은 고갯길",
+  "summaryKo": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "얼어붙은 고갯길",
   "mainCharacterId": "character.seojin",
   "themeKo": "구조",
-  "summaryKo": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.",
   "startNodeId": "node.story.hard.007",
   "nodes": [
     {
       "nodeId": "node.story.hard.007",
-      "body": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.\n바퀴는 얼음에 박혀 있고, 짐칸 안에서는 희미한 숨소리가 들렸다.\n추위가 빠르게 체온을 빼앗아가고 있다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.007.choice.free"
+          "choiceId": "stage.story.hard.007.choice.free",
+          "labelKo": "마차를 꺼낸다",
+          "nextNodeId": "stage.story.hard.007.free",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 100
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.007.choice.fire"
+          "choiceId": "stage.story.hard.007.choice.fire",
+          "labelKo": "바람막이를 만들고 불을 피운다",
+          "nextNodeId": "stage.story.hard.007.fire",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.007.choice.trunk"
+          "choiceId": "stage.story.hard.007.choice.trunk",
+          "labelKo": "짐칸 상자를 연다",
+          "nextNodeId": "stage.story.hard.007.trunk",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 235
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "눈보라가 몰아치는 고갯길에서 얼어붙은 마차를 발견했다.\n바퀴는 얼음에 박혀 있고, 짐칸 안에서는 희미한 숨소리가 들렸다.\n추위가 빠르게 체온을 빼앗아가고 있다."
     },
     {
       "nodeId": "stage.story.hard.007.free",
-      "body": "얼음을 깨고 바퀴를 밀어 마차를 움직였다.\n살아 있던 승객은 눈길을 건너는 요령을 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 100,
-      "nextNodeId": "stage.story.hard.007.end"
+      "nextNodeId": "stage.story.hard.007.end",
+      "bodyKo": "얼음을 깨고 바퀴를 밀어 마차를 움직였다.\n살아 있던 승객은 눈길을 건너는 요령을 알려주었다."
     },
     {
       "nodeId": "stage.story.hard.007.fire",
-      "body": "눈벽을 쌓아 바람을 막고 작은 불씨를 살렸다.\n손끝 감각이 돌아오며 몸이 조금 회복되었다.",
-      "rewardType": "heal",
-      "rewardValue": 45,
-      "nextNodeId": "stage.story.hard.007.end"
+      "nextNodeId": "stage.story.hard.007.end",
+      "bodyKo": "눈벽을 쌓아 바람을 막고 작은 불씨를 살렸다.\n손끝 감각이 돌아오며 몸이 조금 회복되었다."
     },
     {
       "nodeId": "stage.story.hard.007.trunk",
-      "body": "짐칸 깊숙한 곳에서 얼어붙은 상자를 꺼냈다.\n상자 안에는 추위에도 손상되지 않은 보석 조각이 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 235,
-      "nextNodeId": "stage.story.hard.007.end"
+      "nextNodeId": "stage.story.hard.007.end",
+      "bodyKo": "짐칸 깊숙한 곳에서 얼어붙은 상자를 꺼냈다.\n상자 안에는 추위에도 손상되지 않은 보석 조각이 있었다."
     },
     {
       "nodeId": "stage.story.hard.007.end",
-      "body": "고갯길 아래로 내려오자 눈보라 소리가 조금씩 멀어졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.007.choice.free",
-      "text": "마차를 꺼낸다"
-    },
-    {
-      "choiceId": "stage.story.hard.007.choice.fire",
-      "text": "바람막이를 만들고 불을 피운다"
-    },
-    {
-      "choiceId": "stage.story.hard.007.choice.trunk",
-      "text": "짐칸 상자를 연다"
+      "bodyKo": "고갯길 아래로 내려오자 눈보라 소리가 조금씩 멀어졌다."
     }
   ]
 }

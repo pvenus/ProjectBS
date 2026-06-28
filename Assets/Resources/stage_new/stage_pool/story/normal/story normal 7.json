@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.normal.007",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_normal",
-  "actNumber": 7,
+  "episodeId": "story_normal",
+  "episodeNumber": 7,
+  "titleKo": "무너진 돌다리",
+  "summaryKo": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "무너진 돌다리",
   "mainCharacterId": "character.seojin",
   "themeKo": "복구",
-  "summaryKo": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.",
   "startNodeId": "node.story.normal.007",
   "nodes": [
     {
       "nodeId": "node.story.normal.007",
-      "body": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.\n건너편에서는 짐을 든 여행자가 난처한 얼굴로 주변을 살피고 있었다.\n물살은 거세지만 조금만 손을 보태면 임시로 길을 만들 수 있을 듯하다.",
       "choices": [
         {
-          "choiceId": "stage.story.normal.007.choice.repair"
+          "choiceId": "stage.story.normal.007.choice.repair",
+          "labelKo": "다리를 보수한다",
+          "nextNodeId": "stage.story.normal.007.repair",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 60
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.007.choice.cross"
+          "choiceId": "stage.story.normal.007.choice.cross",
+          "labelKo": "조심히 건넌다",
+          "nextNodeId": "stage.story.normal.007.cross",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.normal.007.choice.detour"
+          "choiceId": "stage.story.normal.007.choice.detour",
+          "labelKo": "우회로를 찾는다",
+          "nextNodeId": "stage.story.normal.007.detour",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 110
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "계곡을 건너는 낡은 돌다리가 절반쯤 무너져 있었다.\n건너편에서는 짐을 든 여행자가 난처한 얼굴로 주변을 살피고 있었다.\n물살은 거세지만 조금만 손을 보태면 임시로 길을 만들 수 있을 듯하다."
     },
     {
       "nodeId": "stage.story.normal.007.repair",
-      "body": "주변의 돌과 나무를 모아 다리를 임시로 보수했다.\n여행자는 무사히 계곡을 건넌 뒤 감사 인사를 전했다.",
-      "rewardType": "exp",
-      "rewardValue": 60,
-      "nextNodeId": "stage.story.normal.007.end"
+      "nextNodeId": "stage.story.normal.007.end",
+      "bodyKo": "주변의 돌과 나무를 모아 다리를 임시로 보수했다.\n여행자는 무사히 계곡을 건넌 뒤 감사 인사를 전했다."
     },
     {
       "nodeId": "stage.story.normal.007.cross",
-      "body": "조심스럽게 남은 돌을 밟아 계곡을 건넜다.\n차가운 물보라를 맞았지만 긴장 덕분에 정신이 맑아졌다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
-      "nextNodeId": "stage.story.normal.007.end"
+      "nextNodeId": "stage.story.normal.007.end",
+      "bodyKo": "조심스럽게 남은 돌을 밟아 계곡을 건넜다.\n차가운 물보라를 맞았지만 긴장 덕분에 정신이 맑아졌다."
     },
     {
       "nodeId": "stage.story.normal.007.detour",
-      "body": "계곡 아래쪽의 우회로를 찾던 중 오래된 제단 틈에서 작은 동전 주머니를 발견했다.",
-      "rewardType": "gold",
-      "rewardValue": 110,
-      "nextNodeId": "stage.story.normal.007.end"
+      "nextNodeId": "stage.story.normal.007.end",
+      "bodyKo": "계곡 아래쪽의 우회로를 찾던 중 오래된 제단 틈에서 작은 동전 주머니를 발견했다."
     },
     {
       "nodeId": "stage.story.normal.007.end",
-      "body": "거친 물소리를 뒤로하고 다음 길로 향한다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.normal.007.choice.repair",
-      "text": "다리를 보수한다"
-    },
-    {
-      "choiceId": "stage.story.normal.007.choice.cross",
-      "text": "조심히 건넌다"
-    },
-    {
-      "choiceId": "stage.story.normal.007.choice.detour",
-      "text": "우회로를 찾는다"
+      "bodyKo": "거친 물소리를 뒤로하고 다음 길로 향한다."
     }
   ]
 }

@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.hard.018",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_hard",
+  "episodeNumber": 18,
+  "titleKo": "검은 파도 위의 난파선",
+  "summaryKo": "폭풍이 몰아치는 암초 사이에 반쯤 부서진 상선이 걸려 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.hard.018.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.hard.018.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.hard.018.choice.rescue",
+          "labelKo": "선원들을 구조한다",
+          "nextNodeId": "stage.story.hard.018.rescue",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 105
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.018.choice.cabin",
+          "labelKo": "밀폐 선실에서 치료한다",
+          "nextNodeId": "stage.story.hard.018.cabin",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.hard.018.choice.cargo",
+          "labelKo": "화물 상자를 끌어낸다",
+          "nextNodeId": "stage.story.hard.018.cargo",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 250
+            }
+          ]
+        }
+      ],
+      "bodyKo": "폭풍이 몰아치는 암초 사이에 반쯤 부서진 상선이 걸려 있다. 갑판 아래에서는 구조 신호가 들리고, 선장실의 항해도와 화물칸의 쇠상자가 물에 잠기기 시작한다."
+    },
+    {
+      "nodeId": "stage.story.hard.018.rescue",
+      "nextNodeId": "stage.story.hard.018.end",
+      "bodyKo": "부서진 돛대를 지렛대로 삼아 갇힌 선원들을 구조했다. 거센 파도를 헤친 경험과 선원들의 항해 지식이 큰 자산이 되었다."
+    },
+    {
+      "nodeId": "stage.story.hard.018.cabin",
+      "nextNodeId": "stage.story.hard.018.end",
+      "bodyKo": "배 안쪽의 밀폐 선실로 들어가 응급 약품으로 상처를 묶었다. 파도가 잦아드는 짧은 틈에 숨을 돌렸다."
+    },
+    {
+      "nodeId": "stage.story.hard.018.cargo",
+      "nextNodeId": "stage.story.hard.018.end",
+      "bodyKo": "침수되는 화물칸에서 쇠상자를 끌어냈다. 정당한 구조 보상이라 적힌 금화 일부를 챙기고 나머지는 선원에게 돌렸다."
+    },
+    {
+      "nodeId": "stage.story.hard.018.end",
+      "bodyKo": "마지막 선원이 암초를 벗어나자 난파선은 검은 파도 아래로 천천히 가라앉았다."
+    }
+  ]
+}

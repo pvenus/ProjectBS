@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.easy.019",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_easy",
+  "episodeNumber": 19,
+  "titleKo": "바람에 넘어진 허수아비",
+  "summaryKo": "작은 보리밭 한가운데 허수아비가 바람에 넘어져 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "? ?? ?? ??",
+  "startNodeId": "stage.story.easy.019.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.019.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.019.choice.repair",
+          "labelKo": "허수아비를 세운다",
+          "nextNodeId": "stage.story.easy.019.repair",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.019.choice.hay",
+          "labelKo": "짚더미에서 쉰다",
+          "nextNodeId": "stage.story.easy.019.hay",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.019.choice.hat",
+          "labelKo": "모자 안을 확인한다",
+          "nextNodeId": "stage.story.easy.019.hat",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 70
+            }
+          ]
+        }
+      ],
+      "bodyKo": "작은 보리밭 한가운데 허수아비가 바람에 넘어져 있다. 새들은 아직 멀찍이 앉아 있지만 곧 밭으로 몰려들 기세다. 주변에는 부러진 막대와 마른 짚이 넉넉하다."
+    },
+    {
+      "nodeId": "stage.story.easy.019.repair",
+      "nextNodeId": "stage.story.easy.019.end",
+      "bodyKo": "새 막대를 덧대 허수아비를 세웠다. 밭주인은 손놀림을 칭찬하며 도구를 다루는 요령을 알려주었다."
+    },
+    {
+      "nodeId": "stage.story.easy.019.hay",
+      "nextNodeId": "stage.story.easy.019.end",
+      "bodyKo": "마른 짚을 모아 푹신한 자리를 만들고 잠시 누웠다. 들판의 따뜻한 바람이 피로를 씻어 주었다."
+    },
+    {
+      "nodeId": "stage.story.easy.019.hat",
+      "nextNodeId": "stage.story.easy.019.end",
+      "bodyKo": "넘어진 허수아비의 모자 속에서 밭주인이 숨겨 둔 비상 동전을 찾았다. 곁의 쪽지에는 도운 이가 가져가도 좋다고 적혀 있었다."
+    },
+    {
+      "nodeId": "stage.story.easy.019.end",
+      "bodyKo": "허수아비가 다시 들판을 지키자 새들은 일제히 먼 울타리로 날아갔다."
+    }
+  ]
+}

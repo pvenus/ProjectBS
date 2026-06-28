@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.easy.017",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_easy",
+  "episodeNumber": 17,
+  "titleKo": "길가의 빈 바구니",
+  "summaryKo": "길가에 버려진 바구니와 작은 발자국을 발견한다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "길 위의 작은 사건",
+  "startNodeId": "stage.story.easy.017.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.017.start",
+      "bodyKo": "비탈진 길목에 빈 바구니가 엎어져 있었다. 바구니 옆에는 작은 발자국과 흩어진 도토리 껍질이 이어졌다. 주인을 찾아도 좋고, 잠시 쉬어 가도 좋은 조용한 길이었다.",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.017.choice.return",
+          "labelKo": "발자국을 따라간다",
+          "nextNodeId": "stage.story.easy.017.return",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.017.choice.rest",
+          "labelKo": "그늘에서 쉰다",
+          "nextNodeId": "stage.story.easy.017.rest",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.017.choice.coins",
+          "labelKo": "바구니 밑을 본다",
+          "nextNodeId": "stage.story.easy.017.coins",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "stage.story.easy.017.return",
+      "bodyKo": "발자국을 따라가다 바구니를 잃어버린 아이를 찾았다. 바구니를 돌려주자 아이는 고맙다며 샛길을 알려 주었다.",
+      "nextNodeId": "stage.story.easy.017.end"
+    },
+    {
+      "nodeId": "stage.story.easy.017.rest",
+      "bodyKo": "오래된 느티나무 그늘에서 잠시 쉬었다. 습한 흙냄새가 지친 몸을 가볍게 만들었다.",
+      "nextNodeId": "stage.story.easy.017.end"
+    },
+    {
+      "nodeId": "stage.story.easy.017.coins",
+      "bodyKo": "바구니 아래에 묶여 있던 작은 엽전 주머니를 발견했다. 주인을 찾을 흔적이 없어 길을 관리하던 이의 보상으로 챙겼다.",
+      "nextNodeId": "stage.story.easy.017.end"
+    },
+    {
+      "nodeId": "stage.story.easy.017.end",
+      "bodyKo": "빈 바구니는 제 주인을 찾아가고, 길에는 다시 고요한 풀내음만 남았다."
+    }
+  ]
+}

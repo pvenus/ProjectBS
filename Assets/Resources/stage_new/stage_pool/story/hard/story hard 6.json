@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.006",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 6,
+  "episodeId": "story_hard",
+  "episodeNumber": 6,
+  "titleKo": "독초가 핀 늪지",
+  "summaryKo": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "독초가 핀 늪지",
   "mainCharacterId": "character.seojin",
   "themeKo": "생존",
-  "summaryKo": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.",
   "startNodeId": "node.story.hard.006",
   "nodes": [
     {
       "nodeId": "node.story.hard.006",
-      "body": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.\n늪 가장자리에는 길을 잃은 채 쓰러진 짐꾼의 발자국이 이어져 있었다.\n숨을 잘못 들이마시면 정신이 흐려질 만큼 공기가 탁하다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.006.choice.track"
+          "choiceId": "stage.story.hard.006.choice.track",
+          "labelKo": "발자국을 따라간다",
+          "nextNodeId": "stage.story.hard.006.track",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 95
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.006.choice.herb"
+          "choiceId": "stage.story.hard.006.choice.herb",
+          "labelKo": "해독 약초를 찾는다",
+          "nextNodeId": "stage.story.hard.006.herb",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.006.choice.cargo"
+          "choiceId": "stage.story.hard.006.choice.cargo",
+          "labelKo": "버려진 짐을 확인한다",
+          "nextNodeId": "stage.story.hard.006.cargo",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 215
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "짙은 늪지에 보랏빛 독초가 빽빽하게 피어 있었다.\n늪 가장자리에는 길을 잃은 채 쓰러진 짐꾼의 발자국이 이어져 있었다.\n숨을 잘못 들이마시면 정신이 흐려질 만큼 공기가 탁하다."
     },
     {
       "nodeId": "stage.story.hard.006.track",
-      "body": "독초 사이로 난 희미한 흔적을 추적했다.\n쓰러진 짐꾼을 찾아내고 늪을 빠져나오는 법을 익혔다.",
-      "rewardType": "exp",
-      "rewardValue": 95,
-      "nextNodeId": "stage.story.hard.006.end"
+      "nextNodeId": "stage.story.hard.006.end",
+      "bodyKo": "독초 사이로 난 희미한 흔적을 추적했다.\n쓰러진 짐꾼을 찾아내고 늪을 빠져나오는 법을 익혔다."
     },
     {
       "nodeId": "stage.story.hard.006.herb",
-      "body": "독초 사이에서 해독에 쓰이는 잎을 골라냈다.\n쓴 즙을 삼키자 흐려지던 정신이 맑아졌다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.hard.006.end"
+      "nextNodeId": "stage.story.hard.006.end",
+      "bodyKo": "독초 사이에서 해독에 쓰이는 잎을 골라냈다.\n쓴 즙을 삼키자 흐려지던 정신이 맑아졌다."
     },
     {
       "nodeId": "stage.story.hard.006.cargo",
-      "body": "늪가에 버려진 방수 가방을 열었다.\n안에는 젖지 않은 귀중품과 작은 금화가 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 215,
-      "nextNodeId": "stage.story.hard.006.end"
+      "nextNodeId": "stage.story.hard.006.end",
+      "bodyKo": "늪가에 버려진 방수 가방을 열었다.\n안에는 젖지 않은 귀중품과 작은 금화가 들어 있었다."
     },
     {
       "nodeId": "stage.story.hard.006.end",
-      "body": "늪을 벗어난 뒤에도 독초 향이 옷자락에 희미하게 남았다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.006.choice.track",
-      "text": "발자국을 따라간다"
-    },
-    {
-      "choiceId": "stage.story.hard.006.choice.herb",
-      "text": "해독 약초를 찾는다"
-    },
-    {
-      "choiceId": "stage.story.hard.006.choice.cargo",
-      "text": "버려진 짐을 확인한다"
+      "bodyKo": "늪을 벗어난 뒤에도 독초 향이 옷자락에 희미하게 남았다."
     }
   ]
 }

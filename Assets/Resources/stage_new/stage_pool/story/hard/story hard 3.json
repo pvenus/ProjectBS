@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.003",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 3,
+  "episodeId": "story_hard",
+  "episodeNumber": 3,
+  "titleKo": "붉은 달의 묘지기",
+  "summaryKo": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "붉은 달의 묘지기",
   "mainCharacterId": "character.seojin",
   "themeKo": "경계",
-  "summaryKo": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.",
   "startNodeId": "node.story.hard.003",
   "nodes": [
     {
       "nodeId": "node.story.hard.003",
-      "body": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.\n묘지기는 무너진 묘비를 세우며 침묵을 지키고 있었다.\n땅 밑에서는 낮은 울림이 들리고, 오래 머무를수록 공기가 무거워진다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.003.choice.guard"
+          "choiceId": "stage.story.hard.003.choice.guard",
+          "labelKo": "묘지기를 돕는다",
+          "nextNodeId": "stage.story.hard.003.guard",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 90
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.003.choice.lantern"
+          "choiceId": "stage.story.hard.003.choice.lantern",
+          "labelKo": "등불 곁에 선다",
+          "nextNodeId": "stage.story.hard.003.lantern",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.003.choice.crypt"
+          "choiceId": "stage.story.hard.003.choice.crypt",
+          "labelKo": "열린 납골당을 살핀다",
+          "nextNodeId": "stage.story.hard.003.crypt",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 220
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "붉은 달빛 아래 낡은 공동묘지가 모습을 드러냈다.\n묘지기는 무너진 묘비를 세우며 침묵을 지키고 있었다.\n땅 밑에서는 낮은 울림이 들리고, 오래 머무를수록 공기가 무거워진다."
     },
     {
       "nodeId": "stage.story.hard.003.guard",
-      "body": "묘비를 바로 세우고 흐트러진 흙을 덮었다.\n묘지기는 죽은 자를 모시는 법과 금기를 조용히 알려주었다.",
-      "rewardType": "exp",
-      "rewardValue": 90,
-      "nextNodeId": "stage.story.hard.003.end"
+      "nextNodeId": "stage.story.hard.003.end",
+      "bodyKo": "묘비를 바로 세우고 흐트러진 흙을 덮었다.\n묘지기는 죽은 자를 모시는 법과 금기를 조용히 알려주었다."
     },
     {
       "nodeId": "stage.story.hard.003.lantern",
-      "body": "묘지기의 등불 옆에서 숨을 골랐다.\n붉은 달빛이 닿지 않는 곳에서 몸의 떨림이 조금 가라앉았다.",
-      "rewardType": "heal",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.hard.003.end"
+      "nextNodeId": "stage.story.hard.003.end",
+      "bodyKo": "묘지기의 등불 옆에서 숨을 골랐다.\n붉은 달빛이 닿지 않는 곳에서 몸의 떨림이 조금 가라앉았다."
     },
     {
       "nodeId": "stage.story.hard.003.crypt",
-      "body": "반쯤 열린 납골당 안에서 작은 금속 상자를 발견했다.\n상자는 오래전 봉인된 공물처럼 보였다.",
-      "rewardType": "gold",
-      "rewardValue": 220,
-      "nextNodeId": "stage.story.hard.003.end"
+      "nextNodeId": "stage.story.hard.003.end",
+      "bodyKo": "반쯤 열린 납골당 안에서 작은 금속 상자를 발견했다.\n상자는 오래전 봉인된 공물처럼 보였다."
     },
     {
       "nodeId": "stage.story.hard.003.end",
-      "body": "묘지기를 뒤로하자 붉은 달이 구름 뒤로 숨어들었다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.003.choice.guard",
-      "text": "묘지기를 돕는다"
-    },
-    {
-      "choiceId": "stage.story.hard.003.choice.lantern",
-      "text": "등불 곁에 선다"
-    },
-    {
-      "choiceId": "stage.story.hard.003.choice.crypt",
-      "text": "열린 납골당을 살핀다"
+      "bodyKo": "묘지기를 뒤로하자 붉은 달이 구름 뒤로 숨어들었다."
     }
   ]
 }

@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.normal.020",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_normal",
+  "episodeNumber": 20,
+  "titleKo": "물에 잠긴 세관 초소",
+  "summaryKo": "폭우가 지나간 강변 세관 초소가 무릎 높이까지 물에 잠겨 있다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.normal.020.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.020.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.020.choice.records",
+          "labelKo": "문서 상자를 건진다",
+          "nextNodeId": "stage.story.normal.020.records",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 55
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.020.choice.roof",
+          "labelKo": "지붕에서 몸을 말린다",
+          "nextNodeId": "stage.story.normal.020.roof",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.020.choice.safe",
+          "labelKo": "보급실을 조사한다",
+          "nextNodeId": "stage.story.normal.020.safe",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 130
+            }
+          ]
+        }
+      ],
+      "bodyKo": "폭우가 지나간 강변 세관 초소가 무릎 높이까지 물에 잠겨 있다. 떠다니는 문서 상자와 반쯤 열린 보급실, 지붕으로 이어지는 사다리가 눈에 들어온다."
+    },
+    {
+      "nodeId": "stage.story.normal.020.records",
+      "nextNodeId": "stage.story.normal.020.end",
+      "bodyKo": "문서 상자를 건져 날짜와 표식을 맞춰 정리했다. 오래된 교역로와 검문 규칙을 읽으며 유용한 지식을 얻었다."
+    },
+    {
+      "nodeId": "stage.story.normal.020.roof",
+      "nextNodeId": "stage.story.normal.020.end",
+      "bodyKo": "사다리를 올라 마른 지붕에서 젖은 옷과 장비를 말렸다. 햇볕이 몸을 데워 기운이 돌아왔다."
+    },
+    {
+      "nodeId": "stage.story.normal.020.safe",
+      "nextNodeId": "stage.story.normal.020.end",
+      "bodyKo": "보급실의 물을 빼다가 바닥 금고를 발견했다. 부식된 자물쇠가 열리며 비상 운영비가 모습을 드러냈다."
+    },
+    {
+      "nodeId": "stage.story.normal.020.end",
+      "bodyKo": "강물이 조금씩 빠지면서 초소의 표지판과 옛길이 다시 모습을 드러냈다."
+    }
+  ]
+}

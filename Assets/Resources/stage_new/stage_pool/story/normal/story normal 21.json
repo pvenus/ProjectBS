@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.normal.021",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_normal",
+  "episodeNumber": 21,
+  "titleKo": "밤시장 가면 장수",
+  "summaryKo": "해가 진 골목에 하루만 열린다는 가면 시장이 나타났다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "??? ??",
+  "startNodeId": "stage.story.normal.021.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.normal.021.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.normal.021.choice.warrior",
+          "labelKo": "전사의 가면을 고른다",
+          "nextNodeId": "stage.story.normal.021.warrior",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 65
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.021.choice.smile",
+          "labelKo": "미소 가면을 써 본다",
+          "nextNodeId": "stage.story.normal.021.smile",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.normal.021.choice.blank",
+          "labelKo": "무표정 가면을 살핀다",
+          "nextNodeId": "stage.story.normal.021.blank",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 115
+            }
+          ]
+        }
+      ],
+      "bodyKo": "해가 진 골목에 하루만 열린다는 가면 시장이 나타났다. 한 장수의 진열대에는 표정이 다른 세 가면과 낡은 가격표가 놓여 있다. 장수는 돈 대신 가면 하나의 이야기를 들어 달라고 말한다."
+    },
+    {
+      "nodeId": "stage.story.normal.021.warrior",
+      "nextNodeId": "stage.story.normal.021.end",
+      "bodyKo": "전사의 가면에 얽힌 전투와 실수를 끝까지 들었다. 장수의 생생한 설명에서 위기를 읽는 감각을 배웠다."
+    },
+    {
+      "nodeId": "stage.story.normal.021.smile",
+      "nextNodeId": "stage.story.normal.021.end",
+      "bodyKo": "미소 짓는 가면을 쓰자 은은한 향과 함께 긴장이 풀렸다. 잠깐의 평온이 지친 몸을 회복시켰다."
+    },
+    {
+      "nodeId": "stage.story.normal.021.blank",
+      "nextNodeId": "stage.story.normal.021.end",
+      "bodyKo": "무표정한 가면의 안감을 살피니 오래된 금화가 박혀 있었다. 장수는 가면의 비밀을 찾은 값이라며 금화를 내주었다."
+    },
+    {
+      "nodeId": "stage.story.normal.021.end",
+      "bodyKo": "가면을 돌려놓자 시장의 등불이 하나씩 꺼지고 골목은 원래의 어둠으로 돌아갔다."
+    }
+  ]
+}

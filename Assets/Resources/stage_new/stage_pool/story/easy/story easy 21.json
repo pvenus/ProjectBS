@@ -1,0 +1,75 @@
+{
+  "stageNodeId": "stage.story.easy.021",
+  "roundNodeType": "PopupEvent",
+  "chapterId": "common",
+  "episodeId": "story_easy",
+  "episodeNumber": 21,
+  "titleKo": "저녁 종을 기다리는 염소",
+  "summaryKo": "마을 어귀의 작은 종탑 아래에서 흰 염소 한 마리가 목줄을 끌며 서성인다.",
+  "isRequired": false,
+  "useFixedDepth": false,
+  "fixedDepth": 0,
+  "mainCharacterId": "character.seojin",
+  "themeKo": "? ?? ?? ??",
+  "startNodeId": "stage.story.easy.021.start",
+  "nodes": [
+    {
+      "nodeId": "stage.story.easy.021.start",
+      "choices": [
+        {
+          "choiceId": "stage.story.easy.021.choice.herd",
+          "labelKo": "우리로 데려간다",
+          "nextNodeId": "stage.story.easy.021.herd",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 35
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.021.choice.shade",
+          "labelKo": "종탑 아래서 쉰다",
+          "nextNodeId": "stage.story.easy.021.shade",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "choiceId": "stage.story.easy.021.choice.ribbon",
+          "labelKo": "목줄을 살핀다",
+          "nextNodeId": "stage.story.easy.021.ribbon",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 75
+            }
+          ]
+        }
+      ],
+      "bodyKo": "마을 어귀의 작은 종탑 아래에서 흰 염소 한 마리가 목줄을 끌며 서성인다. 목줄 끝에는 목동의 이름표가 달려 있고, 멀리 우리 쪽에서 저녁 종소리가 들려온다."
+    },
+    {
+      "nodeId": "stage.story.easy.021.herd",
+      "nextNodeId": "stage.story.easy.021.end",
+      "bodyKo": "이름표를 따라 염소를 우리까지 데려다주었다. 목동은 안전한 산길과 야생 짐승의 흔적을 구별하는 법을 가르쳐 주었다."
+    },
+    {
+      "nodeId": "stage.story.easy.021.shade",
+      "nextNodeId": "stage.story.easy.021.end",
+      "bodyKo": "염소와 함께 종탑 그늘에 앉아 잠시 기다렸다. 느긋한 울음소리를 듣는 사이 숨이 고르게 돌아왔다."
+    },
+    {
+      "nodeId": "stage.story.easy.021.ribbon",
+      "nextNodeId": "stage.story.easy.021.end",
+      "bodyKo": "목줄에 엉킨 작은 장식 주머니를 풀었다. 목동이 사례로 남겨 둔 동전 몇 닢이 들어 있었다."
+    },
+    {
+      "nodeId": "stage.story.easy.021.end",
+      "bodyKo": "저녁 종이 울리자 염소는 익숙한 길을 따라 목동 곁으로 돌아갔다."
+    }
+  ]
+}

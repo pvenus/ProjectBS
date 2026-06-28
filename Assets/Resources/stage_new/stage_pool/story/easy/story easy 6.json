@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.easy.006",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_easy",
-  "actNumber": 6,
+  "episodeId": "story_easy",
+  "episodeNumber": 6,
+  "titleKo": "느린 나룻배",
+  "summaryKo": "잔잔한 물가에 작은 나룻배가 묶여 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "느린 나룻배",
   "mainCharacterId": "character.seojin",
   "themeKo": "이동",
-  "summaryKo": "잔잔한 물가에 작은 나룻배가 묶여 있었다.",
   "startNodeId": "node.story.easy.006",
   "nodes": [
     {
       "nodeId": "node.story.easy.006",
-      "body": "잔잔한 물가에 작은 나룻배가 묶여 있었다.\n사공은 노를 손질하며 손님이 올 때까지 기다리고 있었다.\n강물은 낮고 평온해 잠깐 건너기에도 좋아 보인다.",
       "choices": [
         {
-          "choiceId": "stage.story.easy.006.choice.row"
+          "choiceId": "stage.story.easy.006.choice.row",
+          "labelKo": "노 젓기를 거든다",
+          "nextNodeId": "stage.story.easy.006.row",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 40
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.006.choice.ride"
+          "choiceId": "stage.story.easy.006.choice.ride",
+          "labelKo": "배에 앉아 쉰다",
+          "nextNodeId": "stage.story.easy.006.ride",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 15
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.easy.006.choice.dock"
+          "choiceId": "stage.story.easy.006.choice.dock",
+          "labelKo": "선착장을 살펴본다",
+          "nextNodeId": "stage.story.easy.006.dock",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 70
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "잔잔한 물가에 작은 나룻배가 묶여 있었다.\n사공은 노를 손질하며 손님이 올 때까지 기다리고 있었다.\n강물은 낮고 평온해 잠깐 건너기에도 좋아 보인다."
     },
     {
       "nodeId": "stage.story.easy.006.row",
-      "body": "사공과 함께 천천히 노를 저었다.\n물길을 읽는 방법을 배우며 강을 무사히 건넜다.",
-      "rewardType": "exp",
-      "rewardValue": 40,
-      "nextNodeId": "stage.story.easy.006.end"
+      "nextNodeId": "stage.story.easy.006.end",
+      "bodyKo": "사공과 함께 천천히 노를 저었다.\n물길을 읽는 방법을 배우며 강을 무사히 건넜다."
     },
     {
       "nodeId": "stage.story.easy.006.ride",
-      "body": "나룻배에 앉아 강바람을 맞았다.\n부드러운 흔들림에 지친 몸이 조금 풀렸다.",
-      "rewardType": "heal",
-      "rewardValue": 15,
-      "nextNodeId": "stage.story.easy.006.end"
+      "nextNodeId": "stage.story.easy.006.end",
+      "bodyKo": "나룻배에 앉아 강바람을 맞았다.\n부드러운 흔들림에 지친 몸이 조금 풀렸다."
     },
     {
       "nodeId": "stage.story.easy.006.dock",
-      "body": "선착장 나무판 사이에 끼어 있던 작은 주머니를 발견했다.\n사공은 오래된 분실물이라며 가져가도 좋다고 했다.",
-      "rewardType": "gold",
-      "rewardValue": 70,
-      "nextNodeId": "stage.story.easy.006.end"
+      "nextNodeId": "stage.story.easy.006.end",
+      "bodyKo": "선착장 나무판 사이에 끼어 있던 작은 주머니를 발견했다.\n사공은 오래된 분실물이라며 가져가도 좋다고 했다."
     },
     {
       "nodeId": "stage.story.easy.006.end",
-      "body": "나룻배가 물결을 가르며 조용히 멀어진다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.easy.006.choice.row",
-      "text": "노 젓기를 거든다"
-    },
-    {
-      "choiceId": "stage.story.easy.006.choice.ride",
-      "text": "배에 앉아 쉰다"
-    },
-    {
-      "choiceId": "stage.story.easy.006.choice.dock",
-      "text": "선착장을 살펴본다"
+      "bodyKo": "나룻배가 물결을 가르며 조용히 멀어진다."
     }
   ]
 }

@@ -2,70 +2,74 @@
   "stageNodeId": "stage.story.hard.013",
   "roundNodeType": "PopupEvent",
   "chapterId": "common",
-  "actId": "story_hard",
-  "actNumber": 13,
+  "episodeId": "story_hard",
+  "episodeNumber": 13,
+  "titleKo": "얼어붙은 광산 입구",
+  "summaryKo": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.",
   "isRequired": false,
   "useFixedDepth": false,
   "fixedDepth": 0,
-  "titleKo": "얼어붙은 광산 입구",
   "mainCharacterId": "character.seojin",
   "themeKo": "탐사",
-  "summaryKo": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.",
   "startNodeId": "node.story.hard.013",
   "nodes": [
     {
       "nodeId": "node.story.hard.013",
-      "body": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.\n안쪽에서는 오래된 갱도의 나무기둥이 삐걱거리는 소리가 들렸고, 입구 주변에는 광부들이 남긴 표식이 흩어져 있었다.\n차가운 공기가 숨을 얕게 만들었다.",
       "choices": [
         {
-          "choiceId": "stage.story.hard.013.choice.sign"
+          "choiceId": "stage.story.hard.013.choice.sign",
+          "labelKo": "광부 표식을 읽는다",
+          "nextNodeId": "stage.story.hard.013.sign",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 95
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.013.choice.fire"
+          "choiceId": "stage.story.hard.013.choice.fire",
+          "labelKo": "불을 피워 쉰다",
+          "nextNodeId": "stage.story.hard.013.fire",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 45
+            }
+          ]
         },
         {
-          "choiceId": "stage.story.hard.013.choice.cart"
+          "choiceId": "stage.story.hard.013.choice.cart",
+          "labelKo": "수레를 밀어낸다",
+          "nextNodeId": "stage.story.hard.013.cart",
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "value": 230
+            }
+          ]
         }
-      ]
+      ],
+      "bodyKo": "산중턱의 폐광 입구가 두꺼운 얼음으로 막혀 있었다.\n안쪽에서는 오래된 갱도의 나무기둥이 삐걱거리는 소리가 들렸고, 입구 주변에는 광부들이 남긴 표식이 흩어져 있었다.\n차가운 공기가 숨을 얕게 만들었다."
     },
     {
       "nodeId": "stage.story.hard.013.sign",
-      "body": "얼음에 묻힌 표식을 하나씩 확인했다.\n광부들이 남긴 경고를 통해 무너진 갱도를 피하는 감각을 익혔다.",
-      "rewardType": "exp",
-      "rewardValue": 95,
-      "nextNodeId": "stage.story.hard.013.end"
+      "nextNodeId": "stage.story.hard.013.end",
+      "bodyKo": "얼음에 묻힌 표식을 하나씩 확인했다.\n광부들이 남긴 경고를 통해 무너진 갱도를 피하는 감각을 익혔다."
     },
     {
       "nodeId": "stage.story.hard.013.fire",
-      "body": "입구 바깥에 작은 불을 피우고 얼어붙은 손을 녹였다.\n잠시나마 몸에 온기가 돌아오며 통증이 가라앉았다.",
-      "rewardType": "heal",
-      "rewardValue": 45,
-      "nextNodeId": "stage.story.hard.013.end"
+      "nextNodeId": "stage.story.hard.013.end",
+      "bodyKo": "입구 바깥에 작은 불을 피우고 얼어붙은 손을 녹였다.\n잠시나마 몸에 온기가 돌아오며 통증이 가라앉았다."
     },
     {
       "nodeId": "stage.story.hard.013.cart",
-      "body": "눈에 묻힌 광산 수레를 밀어내자 바닥에 금속 상자가 드러났다.\n상자 속에는 오래전 채굴된 광석과 금화가 함께 들어 있었다.",
-      "rewardType": "gold",
-      "rewardValue": 230,
-      "nextNodeId": "stage.story.hard.013.end"
+      "nextNodeId": "stage.story.hard.013.end",
+      "bodyKo": "눈에 묻힌 광산 수레를 밀어내자 바닥에 금속 상자가 드러났다.\n상자 속에는 오래전 채굴된 광석과 금화가 함께 들어 있었다."
     },
     {
       "nodeId": "stage.story.hard.013.end",
-      "body": "폐광 안쪽에서 울리던 소리가 멎고 눈발이 다시 거세졌다."
-    }
-  ],
-  "choices": [
-    {
-      "choiceId": "stage.story.hard.013.choice.sign",
-      "text": "광부 표식을 읽는다"
-    },
-    {
-      "choiceId": "stage.story.hard.013.choice.fire",
-      "text": "불을 피워 쉰다"
-    },
-    {
-      "choiceId": "stage.story.hard.013.choice.cart",
-      "text": "수레를 밀어낸다"
+      "bodyKo": "폐광 안쪽에서 울리던 소리가 멎고 눈발이 다시 거세졌다."
     }
   ]
 }
