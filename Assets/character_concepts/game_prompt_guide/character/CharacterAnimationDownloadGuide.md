@@ -152,7 +152,7 @@ character.seojin.AttackUpLeft.frame_005.png
 이름 변경이 완료된 PNG 파일은 다음 폴더로 복사한다.
 
 ```text
-/Users/pvenus/ProjectBS/Assets/Resources/character/animation_png
+/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_png
 ```
 
 Unity 생성기는 이 경로를 기준으로 다음 규칙의 파일을 찾는다.
@@ -166,7 +166,7 @@ character.{characterName}.{animation_enum}*
 생성된 AnimationClip은 다음 경로에 저장된다.
 
 ```text
-/Users/pvenus/ProjectBS/Assets/Resources/character/animation_clip
+/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_clip
 ```
 
 저장 파일명 규칙:
