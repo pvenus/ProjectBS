@@ -121,6 +121,22 @@ These values should grow over time, but new low-grade skills should still be rea
 
 Basic skills are balanced around repeated use.
 
+### NPC Tier / Grade Slot Limits
+
+The skill category table describes possible skill slots, not the number of skills every unit should receive.
+
+For NPCs, choose the slot count from `stats.tierId` and `stats.grade` before selecting target scores.
+
+| NPC tierId | Grade | Slot budget | Balance note |
+|------------|------:|-------------|--------------|
+| normal | 1 | Basic only | Keep score close to the Basic baseline. |
+| normal | 2 | Basic + 1 identity skill | The identity skill should usually be Passive or low-impact Active1. |
+| normal | 3 | Basic + 1-2 identity skills | Add a second identity skill only when the role needs it. |
+| elite / leader | 2-3 | Basic + Active1 + Passive | Use Active2 only for explicitly high-impact elite patterns. |
+| boss | any | Multiple active skills and passive/phase mechanics | Active2/Active3 are reserved for boss-like encounters. |
+
+Normal NPCs should stay readable in group combat. A normal grade 2 NPC with `typeId: defense` should usually use `basic + passive`, not `basic + active1 + passive`.
+
 Active skills are balanced around target score and target DPS.
 
 Passive skills are balanced by estimating how much damage, defense, utility, or sustain they add over time.
@@ -569,6 +585,12 @@ Upgrade level and skill grade are different concepts.
 
 Upgrade data is shared by all skill grades unless a skill explicitly needs a special table.
 
+### Upgrade Applicability
+
+Upgrade data is for upgradeable player/equipment skills unless a document explicitly says an NPC skill can be upgraded.
+
+Do not generate Lv1-Lv15 upgrade plans for normal NPC concept JSON. NPC difficulty should come from `tierId`, `grade`, stats, encounter composition, and a small number of readable skill behaviors.
+
 ### Growth Target
 
 | Level | Target Score |
@@ -651,7 +673,7 @@ When creating a new skill, follow this order.
 11. Add projectile, summon, buff, debuff, heal, shield, or CC value.
 12. Calculate final BalanceScore.
 13. Compare final BalanceScore with target score.
-14. Generate Lv2~Lv15 upgrade descriptions.
+14. Generate Lv2~Lv15 upgrade descriptions only for upgradeable player/equipment skills. Skip this for normal NPC concept JSON.
 15. Convert planning JSON into implementation JSON.
 ```
 
@@ -677,7 +699,8 @@ Before accepting a new skill design, check the following.
 [ ] Is hitRange included through AreaFactor?
 [ ] Are projectile behaviors converted into ProjectileFactor?
 [ ] Are buffs, debuffs, heals, shields, summons, and CC converted into UtilityScore?
-[ ] Does Lv1~Lv15 upgrade growth follow the target score curve?
+[ ] If this is an upgradeable player/equipment skill, does Lv1~Lv15 upgrade growth follow the target score curve?
+[ ] If this is an NPC skill, did you avoid generating an upgrade plan unless explicitly required?
 [ ] Are planning descriptions readable and not overly implementation-specific?
 ```
 

@@ -2,8 +2,14 @@
 
 ## Generate Character Image
 
+### Mandatory Tool
+- Generate the character image only in PixelLab at https://www.pixellab.ai/create-character.
+- Do not use ChatGPT, Codex built-in image generation, local image generation tools, or any other image generation service for this workflow.
+- If PixelLab cannot be opened or used, stop and report the blocker instead of generating the image elsewhere.
+
 ### 1. Open PixelLab
-- Open https://www.pixellab.ai/create-character.
+- Open https://www.pixellab.ai/create-character directly in a browser.
+- Confirm that the PixelLab Create Character page is loaded before continuing.
 
 ### 2. Create Character
 - Click **Create**.
@@ -25,8 +31,9 @@
 ### 6. Image Size
 - Adjust the image width, height, and aspect ratio to fit the target output.
 
-### 7. Generate
-- Click **Generate v3 Character**.
+### 7. Generate in PixelLab
+- Click **Generate v3 Character** inside PixelLab.
+- The generated result must come from PixelLab; do not substitute a generated image from another tool.
 - Search for the generated character using the generated image prompt.
 - Select the generated character.
 - Click **Add tag**.
@@ -35,8 +42,8 @@
 
 ### 8. Image Evaluation
 - Click **Export** and download the generated images.
-- Save the downloaded files under `/Users/pvenus/Documents`.
-- Create a folder using the format `<CharacterName>_<Grade>`.
+- Save the downloaded files under `/Users/pvenus/Documents/PixelLab`.
+- Create a folder using the format `/Users/pvenus/Documents/PixelLab/<CharacterName>_<Grade>`.
 - Store all exported files in the created folder.
 - Perform the evaluation using the PNG images in the `rotations` folder.
 

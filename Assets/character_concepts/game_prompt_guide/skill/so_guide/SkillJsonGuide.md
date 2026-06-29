@@ -79,6 +79,11 @@ visualId       = {equipmentId}.visual
 upgradeTableId = {equipmentId}.upgrade
 ```
 
+### Upgrade Table Scope
+
+The `upgradeTableId = {equipmentId}.upgrade` derivation only defines the ID format when an upgrade table is actually generated.
+
+Do not generate an upgrade table for normal NPC skills unless the source design JSON explicitly marks the NPC skill as upgradeable. Normal NPC difficulty should be controlled by `tierId`, `grade`, stats, encounter composition, and a small readable skill set.
 ### Effect IDs
 
 Effect IDs use the following format:
