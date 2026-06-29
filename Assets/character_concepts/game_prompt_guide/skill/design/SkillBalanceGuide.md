@@ -1,63 +1,8 @@
 # Skill Balance Guide
 
-1. Purpose
-
-2. Golden Rule
-   - Attack = 20
-   - DPS 10 = Score 100
-   - Basic Attack Baseline
-
-3. Core Formula
-   - Total Damage
-   - DPS
-   - Balance Score
-
-4. Expected Stats
-   - Attack
-   - HP
-   - Enemy HP
-   - Enemy Attack
-
-5. Skill Categories
-   - Basic
-   - Active1
-   - Active2
-   - Active3
-   - Passive
-
-6. Target Score
-   - Slot별 목표 Score
-
-7. Damage
-   - BaseDamage
-   - AttackPercentDamage
-
-8. Cooldown
-
-9. HitCount
-
-10. HitRange
-
-11. Projectile
-
-12. Buff / Debuff
-
-13. Crowd Control
-
-14. Heal / Shield
-
-15. Summon
-
-16. Upgrade (Lv1~15)
-
-17. Skill Generation Workflow
-
-18. Checklist
-# Skill Balance Guide
-
 ## 1. Purpose
 
-This document defines the baseline rules used to design new skills, buff effects, debuff effects, summon effects, and upgrade data.
+This document defines the main planning and balance rules used to design skills, buff effects, debuff effects, summon effects, and upgrade data.
 
 The numbers in this document are design guidelines, not final implementation limits.
 
@@ -65,7 +10,15 @@ When generating a new skill, use this guide first, then convert the result into 
 
 ---
 
-## 2. Golden Rule
+## 2. Unit Scale
+
+`1` means `1 Unity unit`.
+
+All range values in planning JSON use Unity unit scale.
+
+---
+
+## 3. Golden Rule
 
 All skill balance starts from the basic attack baseline.
 
@@ -90,7 +43,7 @@ This keeps early-game UI numbers small while still allowing later growth into 10
 
 ---
 
-## 3. Core Formula
+## 4. Core Formula
 
 ### Total Damage
 
@@ -137,7 +90,7 @@ Use this score as an internal design value. It is not shown to players.
 
 ---
 
-## 4. Expected Stats
+## 5. Expected Stats
 
 Use these values as the default early-game balance baseline.
 
@@ -156,7 +109,7 @@ These values should grow over time, but new low-grade skills should still be rea
 
 ---
 
-## 5. Skill Categories
+## 6. Skill Categories
 
 | Category | Role | Baseline |
 |----------|------|----------|
@@ -174,7 +127,7 @@ Passive skills are balanced by estimating how much damage, defense, utility, or 
 
 ---
 
-## 6. Target Score
+## 7. Target Score
 
 | Skill Slot | Target DPS | Target Score | Notes |
 |------------|-----------:|-------------:|-------|
@@ -183,9 +136,13 @@ Passive skills are balanced by estimating how much damage, defense, utility, or 
 | Active2 | 25 | 500 | Main active skill |
 | Active3 | 40 | 800 | High-impact skill |
 
-`Target DPS` alone does not always equal `Target Score`.
+`Target DPS` is the damage-only baseline.
+
+`Target Score` is the final total value after adding hit count, area value, projectile value, and utility value.
 
 Active skills may include wide area, crowd control, buff, debuff, projectile behavior, or summon value.
+
+When a skill has no utility and only hits a single target, its final score should stay close to the damage-only score.
 
 Example:
 
@@ -198,7 +155,7 @@ Final Score = 300
 
 ---
 
-## 7. Damage
+## 8. Damage
 
 Skill damage is composed of fixed damage and attack-scaling damage.
 
@@ -242,22 +199,30 @@ Use higher percent damage for skills that should scale well with equipment or la
 
 These values assume single-target or small-area skills. Reduce damage when hit count, hit range, or utility is high.
 
+Do not balance `BaseDamage` and `AttackPercentDamage` as if they have the same value.
+
+The same percent value can be weak or strong depending on expected attack power.
+
 ---
 
-## 8. Cooldown
+## 9. Cooldown
 
 Cooldown depends on skill type and user type.
 
 ### Repeating Skills
 
-| User Type | Fast | Standard | Slow |
-|-----------|-----:|---------:|-----:|
-| PC | 1s | 2s | 3s |
-| NPC | 1s | 3s | 5s |
+Repeating skills include basic attacks or simple attacks used frequently.
 
-PC repeated attacks should feel responsive.
+| User Type | Fast | Standard | Slow | Notes |
+|-----------|-----:|---------:|-----:|-------|
+| PC | 2s | 3s | 4s | PC basic attacks should preserve the Score 100 baseline |
+| NPC | 1s | 3s | 5s | NPC attacks can use a wider range for pattern variety |
 
-NPC repeated attacks can use a wider cooldown range to create readable patterns.
+PC basic attacks use `3s` as the standard cooldown.
+
+PC repeated skills may use `2s` only when their damage is reduced to preserve the intended target score.
+
+NPC repeated attacks use `3s` as the standard cooldown.
 
 ### Active Skills
 
@@ -277,9 +242,91 @@ Cooldown = 6s
 
 After calculating cooldown, adjust slightly for gameplay feel.
 
+Do not assign active cooldown only by feeling.
+
+First decide:
+
+```text
+1. Target DPS
+2. Expected total damage
+3. Cooldown needed to match target DPS
+```
+
+Then adjust the final cooldown for gameplay feel.
+
 ---
 
-## 9. HitCount
+## 10. castRange and hitRange
+
+`castRange` and `hitRange` are separate concepts.
+
+- `castRange` means how far the skill can be used from the caster.
+- `hitRange` means the size of the damage area.
+- `hitRange` is interpreted as radius.
+
+Because `hitRange` is radius-based, a large hitRange can cover behind the caster as well.
+
+For example, if `hitRange` is `0.5`, the damage area extends `0.5` units in every direction from its center. If `castRange` is also too large, the skill may feel like it hits farther than intended for a melee attack.
+
+For most melee attacks:
+
+```text
+castRange <= hitRange
+```
+
+Example:
+
+```json
+{
+  "castRange": 0.3,
+  "hitRange": 0.5
+}
+```
+
+This means the caster only reaches slightly forward, while the hit area itself has a 0.5 unit radius.
+
+### Melee Range Guidelines
+
+These are guidelines, not fixed rules.
+
+The important point is the relationship between `castRange` and `hitRange`.
+
+| Melee Type | castRange | hitRange | Notes |
+|------------|----------:|---------:|-------|
+| Close melee | 0.2 - 0.3 | 0.4 - 0.5 | Short weapon or body-close attack |
+| Standard melee | 0.3 - 0.5 | 0.5 - 0.7 | Normal sword-range attack |
+| Extended melee | 0.5 - 0.8 | 0.6 - 0.9 | Spear-like or slightly longer melee attack |
+
+When the weapon should feel longer, increase `castRange` slightly while keeping `hitRange` close to the actual hit size.
+
+Example:
+
+```json
+{
+  "castRange": 0.6,
+  "hitRange": 0.7
+}
+```
+
+This is suitable for a spear-like melee attack.
+
+### AreaFactor Guideline
+
+| hitRange | AreaFactor | Notes |
+|---------:|-----------:|-------|
+| 0.3 | 0.8 | Very small hit |
+| 0.5 | 1.0 | Standard melee hit |
+| 0.7 | 1.15 | Wide melee hit |
+| 1.0 | 1.3 | Small AoE |
+| 1.5 | 1.6 | Medium AoE |
+| 2.0 | 2.0 | Large AoE |
+| 3.0 | 2.8 | Very large AoE |
+
+Large hit ranges should usually reduce damage, cooldown efficiency, or utility.
+
+---
+
+## 11. HitCount
 
 `hitCount` means the maximum number of enemies that can be damaged by one hit.
 
@@ -312,49 +359,44 @@ Example:
 DPS 10 × HitCount 3 = Score 300
 ```
 
+Use `999` only for intentionally designed piercing or full AoE skills.
+
 ---
 
-## 10. HitRange
+## 12. Area Scaling
 
-`hitRange` means damage area size.
+Skill balance should not be determined by DPS alone.
 
-`hitRange` is radius-based.
+The effective value of a skill increases as both the number of targets and the attack area increase.
 
-A large `hitRange` can include targets behind the caster.
-
-`castRange` and `hitRange` must be tuned together.
-
-For melee attacks:
+Conceptually:
 
 ```text
-castRange <= hitRange
+BalanceScore = DPS × HitCount × AreaFactor
 ```
 
-Recommended melee guideline:
+Where:
 
-| Melee Type | castRange | hitRange | Notes |
-|------------|----------:|---------:|-------|
-| Close melee | 0.2 - 0.3 | 0.4 - 0.5 | Very short attack |
-| Standard melee | 0.3 - 0.5 | 0.5 - 0.7 | Normal sword range |
-| Extended melee | 0.5 - 0.8 | 0.6 - 0.9 | Spear-like melee |
+- DPS: Expected sustained damage
+- HitCount: Maximum number of targets
+- AreaFactor: Value derived from hitRange
 
-AreaFactor guideline:
+Example:
 
-| hitRange | AreaFactor | Notes |
-|---------:|-----------:|-------|
-| 0.3 | 0.8 | Very small hit |
-| 0.5 | 1.0 | Standard melee hit |
-| 0.7 | 1.15 | Wide melee hit |
-| 1.0 | 1.3 | Small AoE |
-| 1.5 | 1.6 | Medium AoE |
-| 2.0 | 2.0 | Large AoE |
-| 3.0 | 2.8 | Very large AoE |
+```text
+DPS = 100
+HitCount = 3
+AreaFactor = 1.5
+BalanceScore = 450
+```
 
-Large hit ranges should usually reduce damage, cooldown efficiency, or utility.
+The exact `AreaFactor` formula can be adjusted later.
+
+Designers should evaluate hit count and hit area together instead of balancing them independently.
 
 ---
 
-## 11. Projectile
+## 13. Projectile
 
 Projectile behavior changes skill value.
 
@@ -384,7 +426,7 @@ Use a higher factor only when hit reliability is high.
 
 ---
 
-## 12. Buff / Debuff
+## 14. Buff / Debuff
 
 Buffs and debuffs are converted into UtilityScore.
 
@@ -424,7 +466,7 @@ Default party count is `3`.
 
 ---
 
-## 13. Crowd Control
+## 15. Crowd Control
 
 Crowd control value is based on duration and severity.
 
@@ -452,7 +494,7 @@ Stun 1s × 3 targets = 300 score
 
 ---
 
-## 14. Heal / Shield
+## 16. Heal / Shield
 
 Healing and shielding are converted into score using the same scale as damage.
 
@@ -490,7 +532,7 @@ For healing over time or shielding over time, apply duration value reduction.
 
 ---
 
-## 15. Summon
+## 17. Summon
 
 Summon value is calculated from expected damage and utility.
 
@@ -518,7 +560,7 @@ Summons with taunt, blocking, heal, or debuff effects should add UtilityScore.
 
 ---
 
-## 16. Upgrade (Lv1~15)
+## 18. Upgrade (Lv1~15)
 
 Upgrade level and skill grade are different concepts.
 
@@ -532,11 +574,13 @@ Upgrade data is shared by all skill grades unless a skill explicitly needs a spe
 | Level | Target Score |
 |------:|-------------:|
 | 1 | 100 |
-| 5 | 140 |
-| 10 | 215 |
-| 15 | 315 |
+| 5 | 125 |
+| 10 | 165 |
+| 15 | 220 |
 
-This means a Lv15 skill should feel roughly `3.15x` stronger than the Lv1 baseline, including damage, range, cooldown, hit count, and utility.
+This means a Lv15 skill should feel roughly `2.2x` stronger than the Lv1 baseline, including damage, range, cooldown, hit count, and utility.
+
+Because player skills also gain power through grade progression, upgrade growth should remain moderate.
 
 ### Upgrade Budget Ratio
 
@@ -559,8 +603,8 @@ Good:
 {
   "level": 2,
   "description": [
-    "기본 데미지 +1",
-    "공격력 계수 +5%"
+    "Base damage +1",
+    "Attack scaling +5%"
   ]
 }
 ```
@@ -569,7 +613,27 @@ Avoid implementation-style data in planning JSON unless explicitly requested.
 
 ---
 
-## 17. Skill Generation Workflow
+## 19. Balancing Priority
+
+Balance skills in the following order.
+
+```text
+1. Target DPS
+2. Hit Count
+3. Hit Range
+4. Cooldown
+5. Additional Utility
+```
+
+If a skill has a higher `HitCount` or larger `hitRange`, it should generally compensate by reducing one or more of the following.
+
+- DPS
+- Cooldown efficiency
+- Additional utility
+
+---
+
+## 20. Skill Generation Workflow
 
 When creating a new skill, follow this order.
 
@@ -595,7 +659,7 @@ Do not generate final implementation data before completing the balance calculat
 
 ---
 
-## 18. Checklist
+## 21. Checklist
 
 Before accepting a new skill design, check the following.
 
@@ -603,9 +667,12 @@ Before accepting a new skill design, check the following.
 [ ] Does it use Expected Attack = 20?
 [ ] Does DPS 10 equal Score 100?
 [ ] Is Basic Grade1 close to Score 100?
+[ ] Does PC Basic Attack use 3s cooldown unless damage is adjusted?
 [ ] Is the target score appropriate for the skill slot?
 [ ] Are BaseDamage and AttackPercentDamage both reasonable?
 [ ] Is cooldown calculated from target DPS?
+[ ] Are castRange and hitRange treated separately?
+[ ] For melee attacks, is castRange <= hitRange?
 [ ] Is hitCount included in score calculation?
 [ ] Is hitRange included through AreaFactor?
 [ ] Are projectile behaviors converted into ProjectileFactor?
@@ -615,3 +682,14 @@ Before accepting a new skill design, check the following.
 ```
 
 If the answer is unclear, revise the skill before implementation.
+
+---
+
+## 22. Notes
+
+- Do not treat `castRange` as the full damage range.
+- Do not treat `hitRange` as skill use distance.
+- `hitRange` is the damage area radius.
+- `castRange` is the skill reach from the caster.
+- For melee attacks, tune both values together.
+- Use `999` hitCount only when the skill is intentionally designed as unlimited penetration or full AoE.
