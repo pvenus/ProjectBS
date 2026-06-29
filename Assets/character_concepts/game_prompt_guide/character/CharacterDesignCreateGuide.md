@@ -33,7 +33,7 @@ Do **NOT** inspect or search any other folders or files.
 
 If required information is missing, leave a short note inside the JSON instead of searching outside the allowed scope.
 
-### Player / NPC
+### Player / NPC1
 
 Determine the character type before generating any data.
 
