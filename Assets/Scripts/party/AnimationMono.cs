@@ -112,7 +112,7 @@ namespace Character
             ResolveRequiredComponents();
             _currentDirection = defaultDirection;
         }
-
+        
         private void ResolveRequiredComponents()
         {
             if (animator == null)
@@ -158,6 +158,8 @@ namespace Character
         private IEnumerator Start()
         {
             yield return null;
+            
+            animationClips.AddRange(GetComponent<CharacterManager>().RuntimeData.characterSO.AnimationClips);
 
             if (playIdleOnStart)
             {

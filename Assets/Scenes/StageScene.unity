@@ -545,7 +545,7 @@ MonoBehaviour:
     pendingFaithGod: 0
   shrineId: test_shrine
   shrineName: Shrine
-  logDebug: 1
+  logDebug: 0
 --- !u!4 &219472380
 Transform:
   m_ObjectHideFlags: 0
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   runtimeData:
     missions: []
   shrineManager: {fileID: 219472379}
-  logDebug: 1
+  logDebug: 0
 --- !u!4 &480205271
 Transform:
   m_ObjectHideFlags: 0
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mission.MissionDebugConsole
   missionManager: {fileID: 480205270}
-  logDebug: 1
+  logDebug: 0
 --- !u!4 &1082660219
 Transform:
   m_ObjectHideFlags: 0

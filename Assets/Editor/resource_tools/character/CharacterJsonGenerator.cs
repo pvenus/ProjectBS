@@ -194,47 +194,104 @@ namespace ResourceTools.Character
             }
 
             string skillPrefix = $"skill.{characterId}.";
-            string[] guids = AssetDatabase.FindAssets($"skill.{characterId} t:EquipmentSkillSO");
+            List<EquipmentSkillSO> generatedSkills = GenerateSkillsFromJson(characterId);
+
+            foreach (EquipmentSkillSO skillSo in generatedSkills)
+            {
+                AddSkillEntry(
+                    result,
+                    skillSo,
+                    skillPrefix);
+            }
+
+            string[] guids = AssetDatabase.FindAssets($"skill.character.{characterId} t:EquipmentSkillSO");
 
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(path);
 
-                if (skillSo == null)
-                {
-                    continue;
-                }
-
-                string skillId = !string.IsNullOrWhiteSpace(skillSo.EquipmentId)
-                    ? skillSo.EquipmentId
-                    : skillSo.name;
-
-                if (string.IsNullOrWhiteSpace(skillId) ||
-                    !skillId.StartsWith(skillPrefix, StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                string remainder = skillId.Substring(skillPrefix.Length);
-                int dotIndex = remainder.IndexOf('.');
-
-                if (dotIndex <= 0)
-                {
-                    Debug.LogWarning($"[CharacterJsonGenerator] Cannot resolve slotKey from skillId={skillId}");
-                    continue;
-                }
-
-                string slotKey = remainder.Substring(0, dotIndex);
-
-                result.Add(new CharacterSkillEntry
-                {
-                    slotKey = slotKey,
-                    skillSo = skillSo
-                });
+                AddSkillEntry(
+                    result,
+                    skillSo,
+                    skillPrefix);
             }
 
             return result;
+        }
+
+        private static List<EquipmentSkillSO> GenerateSkillsFromJson(string characterId)
+        {
+            List<EquipmentSkillSO> result = new();
+
+            string[] guids = AssetDatabase.FindAssets($"skill.{characterId} t:TextAsset");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+
+                if (string.IsNullOrWhiteSpace(path) ||
+                    !path.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                EquipmentSkillSO skillSo = Skill.EquipmentSkillJsonGenerator.GenerateFromJsonPath(path);
+
+                if (skillSo != null)
+                {
+                    result.Add(skillSo);
+                }
+            }
+
+            return result;
+        }
+
+        private static void AddSkillEntry(
+            List<CharacterSkillEntry> result,
+            EquipmentSkillSO skillSo,
+            string skillPrefix)
+        {
+            if (result == null || skillSo == null || string.IsNullOrWhiteSpace(skillPrefix))
+            {
+                return;
+            }
+
+            string skillId = !string.IsNullOrWhiteSpace(skillSo.EquipmentId)
+                ? skillSo.EquipmentId
+                : skillSo.name;
+
+            if (string.IsNullOrWhiteSpace(skillId) ||
+                !skillId.StartsWith(skillPrefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            string remainder = skillId.Substring(skillPrefix.Length);
+            int dotIndex = remainder.IndexOf('.');
+
+            if (dotIndex <= 0)
+            {
+                Debug.LogWarning($"[CharacterJsonGenerator] Cannot resolve slotKey from skillId={skillId}");
+                return;
+            }
+
+            string slotKey = remainder.Substring(0, dotIndex);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                CharacterSkillEntry existing = result[i];
+                if (existing != null && existing.slotKey == slotKey)
+                {
+                    return;
+                }
+            }
+
+            result.Add(new CharacterSkillEntry
+            {
+                slotKey = slotKey,
+                skillSo = skillSo
+            });
         }
 
 
@@ -252,7 +309,7 @@ namespace ResourceTools.Character
 
             EnsureFolder(clipFolder);
 
-            string clipPath = $"{clipFolder}/{clipName}.clip";
+            string clipPath = $"{clipFolder}/{clipName}.clip.anim";
             AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
             AnimationClip generatedClip = CreateSpriteAnimationClip(sprites);
 

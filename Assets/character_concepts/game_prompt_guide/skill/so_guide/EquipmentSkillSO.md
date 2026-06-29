@@ -124,6 +124,37 @@ Expected string keys:
 {equipmentId}.desc
 ```
 
+## ID Derivation
+
+`equipmentId` must follow the Skill ID format defined in `SkillJsonGuide.md`.
+
+For character skills, use:
+
+```text
+skill.character.{character_name}.{grade}.{slot}.{skill_name}
+```
+
+Example:
+
+```text
+skill.character.military_officer.1.active_1.charge
+```
+
+Use the slot value from the source design JSON. For example, `BasicAttack` maps to `basic_attack`, `Active1` maps to `active_1`, and `Passive` maps to `passive_1` unless the design explicitly defines a more specific passive slot.
+
+Child SO IDs should be derived from `equipmentId` to keep generated JSON consistent.
+
+```text
+baseProfileId  = {equipmentId}.profile
+castId         = {equipmentId}.cast
+hitId          = {equipmentId}.hit
+moveId         = {equipmentId}.move
+visualId       = {equipmentId}.visual
+upgradeTableId = {equipmentId}.upgrade
+```
+
+Do not include SO names, folder names, generated asset type names, or builder implementation names in `equipmentId`.
+
 ## Validation
 
 ```text

@@ -1,0 +1,140 @@
+{
+  "equipmentId": "skill.character.military_officer.1.passive_1.unyielding_will",
+  "baseProfile": {
+    "baseProfileId": "skill.character.military_officer.1.passive_1.unyielding_will.profile",
+    "skillType": "Passive",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.1,
+    "projectileLifetime": 0.1
+  },
+  "cast": {
+    "castId": "skill.character.military_officer.1.passive_1.unyielding_will.cast",
+    "targetingType": "Self",
+    "cooldown": 0,
+    "castTime": 0,
+    "range": 0,
+    "skipAttackAnimation": true,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.military_officer.1.indomitable_surrounded_attack",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "SurroundedAttackPercent",
+            "modifierType": "Flat",
+            "value": 20
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      },
+      {
+        "effect": {
+          "effectId": "effect.military_officer.1.indomitable_surrounded_damage_reduction",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "SurroundedDamageReductionPercent",
+            "modifierType": "Flat",
+            "value": 10
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      }
+    ]
+  },
+  "upgradeTable": {
+    "upgradeTableId": "skill.character.military_officer.1.passive_1.unyielding_will.upgrade",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_attack",
+            "fieldType": "Radius",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_damage_reduction",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+          {
+            "targetEffectId": "effect.military_officer.1.indomitable_surrounded_attack",
+            "fieldType": "Value",
+            "operationType": "Flat",
+            "value": 4
+          }
+        ]
+      }
+    ]
+  }
+}
