@@ -18,6 +18,28 @@ Save all generated JSON files to:
 Assets/Doc/Character
 ```
 
+When creating an initial group of approximately 10 characters, the planning data may be split into:
+
+- One common data JSON for shared group data.
+- One character JSON per character.
+
+Do not force all 10 characters into a single JSON if split files are easier to review or reuse.
+
+Recommended file names:
+
+```text
+{groupId}.common.json
+{characterId}.json
+```
+
+Example:
+
+```text
+sangui_spirit.common.json
+mist_lingering_child.json
+red_doll_carrier.json
+```
+
 ### Allowed References
 
 Only the following documents may be referenced.
@@ -92,6 +114,10 @@ Assets/Doc
 ### 3. Create Race Group
 
 Create approximately **10 NPC concepts** belonging to the same race.
+
+For the initial 10-character group, separate shared race/group information from character-specific information when useful.
+
+Common data should describe the group once. Character files should reference the common data instead of duplicating the same shared settings.
 
 The group should contain various combat roles.
 
@@ -207,6 +233,92 @@ reuse
 stats
 skills
 ```
+
+### Split JSON Structure
+
+For an initial 10-character set, prefer this split when the group has shared race, faction, story context, or guide references.
+
+#### Common Data JSON
+
+The common data JSON contains shared information used by every character in the group.
+
+Recommended fields:
+
+```text
+documentId
+documentType
+sourceGuides
+group
+race
+faction
+worldUse
+storyUse
+reuse
+sharedVisualStyle
+sharedSkillRules
+notes
+```
+
+Recommended `documentType`:
+
+```text
+characterPlanningCommon
+```
+
+Example file:
+
+```text
+Assets/Doc/Character/sangui_spirit.common.json
+```
+
+#### Character Data JSON
+
+Each character data JSON contains only one character's planning data.
+
+Recommended fields:
+
+```text
+documentId
+documentType
+commonDataRef
+identity
+appearance
+combat
+planningScore
+stats
+skills
+notes
+```
+
+Recommended `documentType`:
+
+```text
+characterPlanning
+```
+
+`commonDataRef` must point to the common data JSON using a project-relative path.
+
+Example:
+
+```json
+{
+  "commonDataRef": "Assets/Doc/Character/sangui_spirit.common.json"
+}
+```
+
+Example file:
+
+```text
+Assets/Doc/Character/mist_lingering_child.json
+```
+
+### Duplication Rule
+
+Do not duplicate shared race, faction, world, source guide, or reuse data in every character JSON.
+
+Keep shared information in the common data JSON and keep character-specific identity, stat, skill, combat, and appearance data in each character JSON.
+
+If a character intentionally overrides common data, write only the override in the character JSON and leave a short note explaining why.
 
 The exact schema does not need to match existing files perfectly.
 

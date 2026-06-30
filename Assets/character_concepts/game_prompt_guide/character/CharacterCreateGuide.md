@@ -53,6 +53,7 @@ Assets/Doc
 3. Assign planning score and stat intent.
 4. Design the expected skill slots and behavior.
 5. Balance skill intent using target score, cooldown, cast range, hit range, and utility rules.
+6. For an initial 10-character group, split shared group data and per-character data when useful.
 
 ### Output
 
@@ -62,11 +63,25 @@ Save planning JSON under:
 Assets/Doc/Character
 ```
 
-Example:
+Single-file example:
 
 ```text
 Assets/Doc/Character/sangui_spirit_npc_group.json
 ```
+
+Split-file example:
+
+```text
+Assets/Doc/Character/sangui_spirit.common.json
+Assets/Doc/Character/mist_lingering_child.json
+Assets/Doc/Character/red_doll_carrier.json
+```
+
+Use the common data JSON for shared race, faction, world, story, reuse, and source guide data.
+
+Use each character JSON for one character's identity, appearance, combat, planning score, stats, and skills.
+
+Each character JSON should reference the common data JSON with `commonDataRef`.
 
 ### Validation
 
@@ -75,6 +90,8 @@ Assets/Doc/Character/sangui_spirit_npc_group.json
 - NPC rules affect composition and upgrades only.
 - NPC rules do not change runtime resource domains to `npc`.
 - Skill intent includes enough data for the skill JSON step.
+- Shared group data is not duplicated across all 10 character JSON files.
+- Character JSON files reference the common data JSON with a project-relative `commonDataRef`.
 
 ---
 
