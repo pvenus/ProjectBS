@@ -1,0 +1,1054 @@
+{
+  "documentId": "character.npc_group.sangui_spirit",
+  "documentType": "npcCharacterPlanningGroup",
+  "sourceGuides": [
+    "Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md",
+    "Assets/character_concepts/game_prompt_guide/character/CharacterStatGuide.md",
+    "Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md",
+    "Assets/character_concepts/game_prompt_guide/skill/design/SkillBalanceGuide.md",
+    "Assets/Doc"
+  ],
+  "notes": [
+    "Only the allowed guide references were used.",
+    "No separate NPC design md file was found inside the allowed reference list; this file follows the NPC rules from the provided character, stat, skill design, and skill balance guides.",
+    "Exact runtime stat formulas require type multiplier tables that are not present in the allowed references, so stats are first-pass planning values derived from score, role, grade, and the spirit tag identity."
+  ],
+  "identity": {
+    "groupName": "산귀령 무리",
+    "groupId": "npc_group.sangui_spirit",
+    "characterType": "NPC",
+    "race": {
+      "raceId": "race.sangui_spirit",
+      "raceName": "산귀령",
+      "baseTagId": "spirit",
+      "reuseDecision": "Reuse existing tag spirit instead of creating a new stat tag.",
+      "description": "청운촌의 오래된 제사, 버려진 아이의 원한, 산길에 남은 이름 없는 위패에서 흘러나온 혼령성 존재들이다. 대부분은 완전한 귀신이라기보다 산귀의 원한에 붙잡힌 그림자에 가깝다."
+    },
+    "faction": "산귀의 원한",
+    "worldUse": "Act 1 청운촌, 산길, 버려진 사당, 산채 깊은 제단, 산귀와의 대면 구간"
+  },
+  "storyUse": {
+    "settingSummary": "조선풍 가상 산촌 청운촌은 가뭄, 아이 실종, 산적의 조작, 오래된 제사의 죄가 얽힌 장소다.",
+    "narrativePurpose": "플레이어가 처음에는 괴담의 위협으로 받아들이지만, 전투를 거듭할수록 산귀가 마을의 죄와 버려진 아이의 원한에서 태어난 존재임을 느끼게 만드는 NPC 그룹이다.",
+    "encounterProgression": [
+      "Chapter 1-2: 산길 입구와 마을 주변에서 낮은 점수의 잔향형 적 등장",
+      "Chapter 3: 버려진 사당 주변에서 추적, 혼란, 저주형 적 등장",
+      "Chapter 4: 산채와 제단에서 산적의 폭력과 산귀의 원한이 섞인 중상위 적 등장",
+      "Chapter 5: 산귀의 대면 구간에서 수호자, 매개자, 보스형 적 등장"
+    ]
+  },
+  "reuse": {
+    "existingTagsUsed": [
+      "spirit"
+    ],
+    "secondaryTags": [],
+    "newRaceCreated": true,
+    "newStatTagCreated": false,
+    "reason": "The existing spirit tag already covers low physical durability, high utility, recovery, and specialness. A new race name is useful for story identity, but a new stat tag is unnecessary."
+  },
+  "characters": [
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.mist_lingering_child",
+        "name": "안개에 남은 아이",
+        "role": "Scout",
+        "tierId": "normal",
+        "grade": 1,
+        "typeId": "melee_dps",
+        "tagId": "spirit",
+        "encounterScore": 80
+      },
+      "appearance": {
+        "silhouette": "작은 아이의 그림자처럼 낮고 가늘다.",
+        "visualKeywords": [
+          "젖은 흙 묻은 발",
+          "흐릿한 흰 저고리",
+          "산안개에 녹아드는 가장자리",
+          "눈 대신 희미한 빛"
+        ],
+        "mood": "불쌍하지만 가까이 오면 차가운 적의"
+      },
+      "combat": {
+        "combatRole": "빠르게 접근해 낮은 피해를 반복하는 초반 정찰형 적",
+        "rangeStyle": "close melee",
+        "behavior": "짧게 다가와 할퀴고 안개 속으로 물러난다."
+      },
+      "planningScore": {
+        "Overall": 80,
+        "Health": 45,
+        "Attack": 70,
+        "Defense": 30,
+        "Speed": 90,
+        "Range": 20,
+        "Support": 35
+      },
+      "stats": {
+        "totalScore": 80,
+        "growthType": "mobile_melee",
+        "statIntent": "낮은 HP와 방어, 빠른 이동, 평균 이하 공격",
+        "baseStats": {
+          "attack": 14,
+          "defense": 14,
+          "criticalChance": 10,
+          "criticalDamage": 50,
+          "attackSpeed": 2.1,
+          "maxHp": 52,
+          "hpRegen": 1.2,
+          "moveSpeed": 1.75
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.mist_lingering_child.cold_scratch",
+          "name": "차가운 할퀴기",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "가까운 대상을 작은 손톱으로 할퀴어 차가운 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 6,
+            "attackPercentDamage": 60,
+            "totalDamage": 18,
+            "cooldown": 2.4,
+            "targetDps": 7.5,
+            "castRange": 0.25,
+            "hitRange": 0.45,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 0,
+            "finalBalanceScore": 75
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.red_doll_carrier",
+        "name": "붉은 인형 운반령",
+        "role": "Warrior",
+        "tierId": "normal",
+        "grade": 2,
+        "typeId": "melee_dps",
+        "tagId": "spirit",
+        "encounterScore": 105
+      },
+      "appearance": {
+        "silhouette": "품에 붉은 인형을 안은 작은 혼령.",
+        "visualKeywords": [
+          "붉은 천 인형",
+          "말라붙은 흙",
+          "끊어진 머리끈",
+          "떨리는 어깨"
+        ],
+        "mood": "겁먹은 듯 보이지만 인형을 빼앗으려 하면 흉포해진다."
+      },
+      "combat": {
+        "combatRole": "초중반 근접 압박형",
+        "rangeStyle": "standard melee",
+        "behavior": "대상에게 달라붙어 인형을 휘두르고 짧은 둔화를 남긴다."
+      },
+      "planningScore": {
+        "Overall": 105,
+        "Health": 65,
+        "Attack": 90,
+        "Defense": 45,
+        "Speed": 75,
+        "Range": 25,
+        "Support": 55
+      },
+      "stats": {
+        "totalScore": 105,
+        "growthType": "melee_dps",
+        "statIntent": "일반 적 기준보다 약간 높은 공격, 낮은 방어, spirit 태그의 약한 회복성",
+        "baseStats": {
+          "attack": 19,
+          "defense": 16,
+          "criticalChance": 10,
+          "criticalDamage": 50,
+          "attackSpeed": 2.0,
+          "maxHp": 70,
+          "hpRegen": 1.8,
+          "moveSpeed": 1.6
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.red_doll_carrier.doll_strike",
+          "name": "인형 후려치기",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "붉은 인형을 휘둘러 가까운 대상을 공격한다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 8,
+            "attackPercentDamage": 80,
+            "totalDamage": 24,
+            "cooldown": 2.6,
+            "targetDps": 9.2,
+            "castRange": 0.35,
+            "hitRange": 0.55,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 0,
+            "finalBalanceScore": 92
+          }
+        },
+        {
+          "skillId": "skill.npc.red_doll_carrier.clinging_thread",
+          "name": "달라붙는 붉은 실",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "인형의 붉은 실이 대상의 발목을 감아 짧게 이동 속도를 낮춘다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 8,
+            "attackPercentDamage": 40,
+            "totalDamage": 16,
+            "cooldown": 6.0,
+            "targetDps": 2.7,
+            "castRange": 1.2,
+            "hitRange": 0.4,
+            "hitCount": 1,
+            "areaFactor": 0.9,
+            "utilityScore": 30,
+            "finalBalanceScore": 54
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.shrine_tablet_guard",
+        "name": "이름 지워진 위패지기",
+        "role": "Defender",
+        "tierId": "normal",
+        "grade": 2,
+        "typeId": "defense",
+        "tagId": "spirit",
+        "encounterScore": 130
+      },
+      "appearance": {
+        "silhouette": "등에 낡은 위패 조각이 박힌 웅크린 형상.",
+        "visualKeywords": [
+          "긁혀 지워진 이름",
+          "부서진 사당 나무",
+          "검은 흙 갑각",
+          "느린 걸음"
+        ],
+        "mood": "슬픔이 굳어 방패가 된 느낌"
+      },
+      "combat": {
+        "combatRole": "길목을 막는 방어형 일반 적",
+        "rangeStyle": "close melee",
+        "behavior": "좁은 길에서 버티며 근접 대상을 밀어낸다."
+      },
+      "planningScore": {
+        "Overall": 130,
+        "Health": 115,
+        "Attack": 55,
+        "Defense": 100,
+        "Speed": 35,
+        "Range": 20,
+        "Support": 45
+      },
+      "stats": {
+        "totalScore": 130,
+        "growthType": "defense",
+        "statIntent": "spirit 치고는 높은 HP와 방어, 낮은 이동 속도와 낮은 공격",
+        "baseStats": {
+          "attack": 15,
+          "defense": 24,
+          "criticalChance": 6,
+          "criticalDamage": 50,
+          "attackSpeed": 1.7,
+          "maxHp": 130,
+          "hpRegen": 2.3,
+          "moveSpeed": 1.15
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.shrine_tablet_guard.wooden_bash",
+          "name": "위패 밀치기",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "위패 조각으로 가까운 대상을 밀쳐 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 7,
+            "attackPercentDamage": 60,
+            "totalDamage": 19,
+            "cooldown": 3.0,
+            "targetDps": 6.3,
+            "castRange": 0.3,
+            "hitRange": 0.55,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 10,
+            "finalBalanceScore": 73
+          }
+        },
+        {
+          "skillId": "skill.npc.shrine_tablet_guard.unreadable_name",
+          "name": "읽을 수 없는 이름",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "HP가 높을수록 무너지지 않고 길목을 오래 막는다.",
+          "balance": {
+            "estimatedEffect": "Self durability identity only; no party-wide buff.",
+            "utilityScore": 45,
+            "finalBalanceScore": 45
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.cold_path_archer",
+        "name": "찬 산길 사수령",
+        "role": "Archer",
+        "tierId": "normal",
+        "grade": 2,
+        "typeId": "ranged_dps",
+        "tagId": "spirit",
+        "encounterScore": 145
+      },
+      "appearance": {
+        "silhouette": "부러진 나뭇가지를 활처럼 든 마른 혼령.",
+        "visualKeywords": [
+          "서리 낀 나뭇가지",
+          "찢어진 소매",
+          "먼 곳을 보는 빈 눈",
+          "발밑 안개"
+        ],
+        "mood": "산길 끝에서 조용히 기다리는 위협"
+      },
+      "combat": {
+        "combatRole": "원거리 견제와 추적 압박",
+        "rangeStyle": "ranged",
+        "behavior": "중거리에서 차가운 화살을 쏘고 후퇴한다."
+      },
+      "planningScore": {
+        "Overall": 145,
+        "Health": 55,
+        "Attack": 120,
+        "Defense": 35,
+        "Speed": 80,
+        "Range": 120,
+        "Support": 40
+      },
+      "stats": {
+        "totalScore": 145,
+        "growthType": "ranged_dps",
+        "statIntent": "낮은 내구, 높은 사거리와 공격, spirit 태그 기반 유틸성",
+        "baseStats": {
+          "attack": 24,
+          "defense": 14,
+          "criticalChance": 12,
+          "criticalDamage": 50,
+          "attackSpeed": 1.9,
+          "maxHp": 72,
+          "hpRegen": 1.7,
+          "moveSpeed": 1.5
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.cold_path_archer.frost_arrow",
+          "name": "서리 화살",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "차가운 산안개를 화살처럼 쏘아 단일 대상에게 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 10,
+            "attackPercentDamage": 90,
+            "totalDamage": 28,
+            "cooldown": 3.0,
+            "targetDps": 9.3,
+            "castRange": 4.5,
+            "hitRange": 0.25,
+            "hitCount": 1,
+            "areaFactor": 0.8,
+            "utilityScore": 0,
+            "finalBalanceScore": 74
+          }
+        },
+        {
+          "skillId": "skill.npc.cold_path_archer.trail_mark",
+          "name": "끊긴 발자국",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "대상 위치에 차가운 흔적을 남겨 짧은 시간 이동 속도를 낮춘다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 12,
+            "attackPercentDamage": 60,
+            "totalDamage": 24,
+            "cooldown": 7.0,
+            "targetDps": 3.4,
+            "castRange": 4.0,
+            "hitRange": 0.7,
+            "hitCount": 2,
+            "areaFactor": 1.15,
+            "utilityScore": 60,
+            "finalBalanceScore": 138
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.erased_footprint_stalker",
+        "name": "발자국 지우는 추적령",
+        "role": "Assassin",
+        "tierId": "elite",
+        "grade": 2,
+        "typeId": "melee_dps",
+        "tagId": "spirit",
+        "encounterScore": 180
+      },
+      "appearance": {
+        "silhouette": "상체는 아이, 하체는 안개처럼 흩어지는 날렵한 형상.",
+        "visualKeywords": [
+          "뒤집힌 발자국",
+          "검은 손끝",
+          "흐릿한 얼굴",
+          "찢긴 옷자락"
+        ],
+        "mood": "찾는 순간 이미 등 뒤에 있는 불안감"
+      },
+      "combat": {
+        "combatRole": "후열 교란형 엘리트",
+        "rangeStyle": "close melee",
+        "behavior": "빠르게 접근해 표식을 남기고 후퇴한다."
+      },
+      "planningScore": {
+        "Overall": 180,
+        "Health": 80,
+        "Attack": 155,
+        "Defense": 55,
+        "Speed": 160,
+        "Range": 35,
+        "Support": 70
+      },
+      "stats": {
+        "totalScore": 180,
+        "growthType": "mobile_melee_dps",
+        "statIntent": "높은 이동 속도와 공격, 낮은 방어, 엘리트 기준의 적당한 HP",
+        "baseStats": {
+          "attack": 31,
+          "defense": 17,
+          "criticalChance": 15,
+          "criticalDamage": 60,
+          "attackSpeed": 2.3,
+          "maxHp": 145,
+          "hpRegen": 2.5,
+          "moveSpeed": 1.9
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.erased_footprint_stalker.back_scratch",
+          "name": "등 뒤의 손톱",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "가까운 대상을 빠르게 베어 단일 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 12,
+            "attackPercentDamage": 100,
+            "totalDamage": 32,
+            "cooldown": 2.8,
+            "targetDps": 11.4,
+            "castRange": 0.3,
+            "hitRange": 0.5,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 0,
+            "finalBalanceScore": 114
+          }
+        },
+        {
+          "skillId": "skill.npc.erased_footprint_stalker.vanishing_step",
+          "name": "사라지는 발걸음",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "짧게 이동해 대상에게 접근하며 다음 공격의 위협을 높인다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 18,
+            "attackPercentDamage": 90,
+            "totalDamage": 36,
+            "cooldown": 8.0,
+            "targetDps": 4.5,
+            "castRange": 2.5,
+            "hitRange": 0.45,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 80,
+            "finalBalanceScore": 125
+          }
+        },
+        {
+          "skillId": "skill.npc.erased_footprint_stalker.trace_erasure",
+          "name": "흔적 지우기",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "전투 중 이동성이 높아 후열 접근 빈도가 높다.",
+          "balance": {
+            "estimatedEffect": "Mobility pressure equivalent to moderate utility.",
+            "utilityScore": 60,
+            "finalBalanceScore": 60
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.withered_prayer_shaman",
+        "name": "마른 기도 무당령",
+        "role": "Shaman",
+        "tierId": "elite",
+        "grade": 2,
+        "typeId": "support",
+        "tagId": "spirit",
+        "encounterScore": 210
+      },
+      "appearance": {
+        "silhouette": "말라붙은 제의복을 입고 부적을 늘어뜨린 혼령.",
+        "visualKeywords": [
+          "바랜 부적",
+          "갈라진 방울",
+          "먼지 낀 제의복",
+          "검붉은 기도문"
+        ],
+        "mood": "구원인지 저주인지 구분되지 않는 의식성"
+      },
+      "combat": {
+        "combatRole": "회복과 약화로 전투를 늘리는 지원형 엘리트",
+        "rangeStyle": "mid range support",
+        "behavior": "후방에서 아군 혼령을 붙잡고 적에게 약한 저주를 건다."
+      },
+      "planningScore": {
+        "Overall": 210,
+        "Health": 90,
+        "Attack": 65,
+        "Defense": 50,
+        "Speed": 60,
+        "Range": 90,
+        "Support": 180
+      },
+      "stats": {
+        "totalScore": 210,
+        "growthType": "support",
+        "statIntent": "낮은 공격, 낮은 방어, 높은 지원 점수와 spirit 태그의 회복성",
+        "baseStats": {
+          "attack": 18,
+          "defense": 15,
+          "criticalChance": 8,
+          "criticalDamage": 50,
+          "attackSpeed": 1.7,
+          "maxHp": 150,
+          "hpRegen": 4.0,
+          "moveSpeed": 1.35
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.withered_prayer_shaman.ritual_pebble",
+          "name": "제단 돌멩이",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "작은 제단 돌을 던져 약한 원거리 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 7,
+            "attackPercentDamage": 70,
+            "totalDamage": 21,
+            "cooldown": 3.2,
+            "targetDps": 6.6,
+            "castRange": 3.5,
+            "hitRange": 0.3,
+            "hitCount": 1,
+            "areaFactor": 0.8,
+            "utilityScore": 0,
+            "finalBalanceScore": 53
+          }
+        },
+        {
+          "skillId": "skill.npc.withered_prayer_shaman.dry_prayer",
+          "name": "마른 기도",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "주변 혼령 하나를 회복시키고 짧은 시간 버티게 한다.",
+          "balance": {
+            "expectedAttack": 20,
+            "heal": 30,
+            "shield": 15,
+            "cooldown": 10.0,
+            "castRange": 3.0,
+            "hitRange": 1.0,
+            "hitCount": 1,
+            "areaFactor": 1.3,
+            "utilityScore": 150,
+            "finalBalanceScore": 150
+          }
+        },
+        {
+          "skillId": "skill.npc.withered_prayer_shaman.unfinished_rite",
+          "name": "끝나지 않은 제사",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "전투가 길어질수록 주변 혼령의 회복 분위기를 강화한다.",
+          "balance": {
+            "estimatedEffect": "Small sustain aura for nearby spirit NPCs.",
+            "utilityScore": 90,
+            "finalBalanceScore": 90
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.black_cloth_bound",
+        "name": "검은 천에 묶인 원혼",
+        "role": "Elite",
+        "tierId": "elite",
+        "grade": 3,
+        "typeId": "melee_dps",
+        "tagId": "spirit",
+        "encounterScore": 260
+      },
+      "appearance": {
+        "silhouette": "검은 천으로 눈과 팔 일부가 묶인 큰 혼령.",
+        "visualKeywords": [
+          "검은 천",
+          "산적의 부적",
+          "갈라진 손톱",
+          "흙먼지와 피"
+        ],
+        "mood": "산적의 조작과 산귀의 원한이 뒤섞인 폭력성"
+      },
+      "combat": {
+        "combatRole": "중후반 강습형 엘리트",
+        "rangeStyle": "extended melee",
+        "behavior": "넓은 근접 범위를 휘둘러 진형을 무너뜨린다."
+      },
+      "planningScore": {
+        "Overall": 260,
+        "Health": 160,
+        "Attack": 220,
+        "Defense": 100,
+        "Speed": 105,
+        "Range": 75,
+        "Support": 50
+      },
+      "stats": {
+        "totalScore": 260,
+        "growthType": "melee_dps",
+        "statIntent": "높은 공격과 준수한 HP, 엘리트답게 읽히는 광역 근접 위협",
+        "baseStats": {
+          "attack": 42,
+          "defense": 22,
+          "criticalChance": 13,
+          "criticalDamage": 60,
+          "attackSpeed": 2.0,
+          "maxHp": 230,
+          "hpRegen": 3.8,
+          "moveSpeed": 1.45
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.black_cloth_bound.bound_swing",
+          "name": "묶인 팔 휘두르기",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "검은 천에 묶인 팔을 넓게 휘둘러 근접 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 14,
+            "attackPercentDamage": 110,
+            "totalDamage": 36,
+            "cooldown": 3.2,
+            "targetDps": 11.3,
+            "castRange": 0.55,
+            "hitRange": 0.7,
+            "hitCount": 2,
+            "areaFactor": 1.15,
+            "utilityScore": 0,
+            "finalBalanceScore": 260
+          }
+        },
+        {
+          "skillId": "skill.npc.black_cloth_bound.cloth_snare",
+          "name": "검은 천 올가미",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "검은 천을 뻗어 전방 대상을 붙잡고 짧게 느리게 만든다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 22,
+            "attackPercentDamage": 100,
+            "totalDamage": 42,
+            "cooldown": 8.0,
+            "targetDps": 5.3,
+            "castRange": 2.2,
+            "hitRange": 0.6,
+            "hitCount": 2,
+            "areaFactor": 1.1,
+            "utilityScore": 70,
+            "finalBalanceScore": 186
+          }
+        },
+        {
+          "skillId": "skill.npc.black_cloth_bound.borrowed_fear",
+          "name": "빌려온 공포",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "산귀 소문을 흉내 내어 가까운 대상의 접근을 압박한다.",
+          "balance": {
+            "estimatedEffect": "Minor fear pressure represented as soft control value.",
+            "utilityScore": 80,
+            "finalBalanceScore": 80
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.tablet_captain",
+        "name": "위패 대장령",
+        "role": "Captain",
+        "tierId": "leader",
+        "grade": 3,
+        "typeId": "defense",
+        "tagId": "spirit",
+        "encounterScore": 320
+      },
+      "appearance": {
+        "silhouette": "여러 위패 조각을 갑옷처럼 두른 큰 혼령.",
+        "visualKeywords": [
+          "위패 갑옷",
+          "긁힌 이름들",
+          "부서진 향로",
+          "무거운 발걸음"
+        ],
+        "mood": "잊힌 이름들의 원망을 대신 짊어진 지휘자"
+      },
+      "combat": {
+        "combatRole": "혼령 무리를 보호하는 리더형 방어 적",
+        "rangeStyle": "standard melee",
+        "behavior": "전방을 막고 주변 혼령의 생존 시간을 늘린다."
+      },
+      "planningScore": {
+        "Overall": 320,
+        "Health": 280,
+        "Attack": 120,
+        "Defense": 230,
+        "Speed": 45,
+        "Range": 45,
+        "Support": 150
+      },
+      "stats": {
+        "totalScore": 320,
+        "growthType": "defense_support",
+        "statIntent": "높은 HP와 방어, 낮은 이동 속도, 주변 보호에 예산 배분",
+        "baseStats": {
+          "attack": 30,
+          "defense": 36,
+          "criticalChance": 6,
+          "criticalDamage": 50,
+          "attackSpeed": 1.6,
+          "maxHp": 420,
+          "hpRegen": 5.2,
+          "moveSpeed": 1.05
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.tablet_captain.nameplate_bash",
+          "name": "이름판 내려찍기",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "위패 갑옷을 앞으로 내리쳐 넓은 근접 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 16,
+            "attackPercentDamage": 90,
+            "totalDamage": 34,
+            "cooldown": 3.5,
+            "targetDps": 9.7,
+            "castRange": 0.45,
+            "hitRange": 0.75,
+            "hitCount": 2,
+            "areaFactor": 1.15,
+            "utilityScore": 20,
+            "finalBalanceScore": 243
+          }
+        },
+        {
+          "skillId": "skill.npc.tablet_captain.names_of_the_forgotten",
+          "name": "잊힌 이름들",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "주변 혼령에게 짧은 보호막을 부여한다.",
+          "balance": {
+            "expectedAttack": 20,
+            "shield": 30,
+            "affectedAllyCount": 3,
+            "cooldown": 12.0,
+            "castRange": 0.0,
+            "hitRange": 2.0,
+            "hitCount": 3,
+            "areaFactor": 2.0,
+            "utilityScore": 300,
+            "finalBalanceScore": 300
+          }
+        },
+        {
+          "skillId": "skill.npc.tablet_captain.unbroken_grudge",
+          "name": "끊기지 않는 원망",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "HP가 낮아질수록 방어적 버티기가 강해진다.",
+          "balance": {
+            "estimatedEffect": "Self defensive value comparable to Damage Reduction 10% for a short window.",
+            "utilityScore": 70,
+            "finalBalanceScore": 70
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.sister_medium_guardian",
+        "name": "매개자를 지키는 그림자",
+        "role": "Guardian",
+        "tierId": "elite",
+        "grade": 3,
+        "typeId": "support",
+        "tagId": "spirit",
+        "encounterScore": 380
+      },
+      "appearance": {
+        "silhouette": "서진의 여동생 주변에 겹쳐 보이는 긴 그림자.",
+        "visualKeywords": [
+          "흰 치맛자락 같은 안개",
+          "두 겹의 손",
+          "차가운 눈물",
+          "끊어지지 않는 붉은 실"
+        ],
+        "mood": "보호와 속박이 동시에 느껴지는 존재"
+      },
+      "combat": {
+        "combatRole": "핵심 대상 보호와 파티 방해를 담당하는 후반 지원형",
+        "rangeStyle": "mid range support",
+        "behavior": "매개자나 산귀 주변에서 보호막과 둔화를 사용한다."
+      },
+      "planningScore": {
+        "Overall": 380,
+        "Health": 190,
+        "Attack": 90,
+        "Defense": 120,
+        "Speed": 85,
+        "Range": 120,
+        "Support": 300
+      },
+      "stats": {
+        "totalScore": 380,
+        "growthType": "support",
+        "statIntent": "높은 지원 예산, 중간 HP, 낮은 직접 공격",
+        "baseStats": {
+          "attack": 26,
+          "defense": 24,
+          "criticalChance": 8,
+          "criticalDamage": 50,
+          "attackSpeed": 1.7,
+          "maxHp": 330,
+          "hpRegen": 6.0,
+          "moveSpeed": 1.35
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.sister_medium_guardian.thread_touch",
+          "name": "붉은 실의 손길",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "붉은 실을 뻗어 약한 원거리 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 10,
+            "attackPercentDamage": 70,
+            "totalDamage": 24,
+            "cooldown": 3.0,
+            "targetDps": 8.0,
+            "castRange": 3.0,
+            "hitRange": 0.4,
+            "hitCount": 1,
+            "areaFactor": 0.9,
+            "utilityScore": 0,
+            "finalBalanceScore": 72
+          }
+        },
+        {
+          "skillId": "skill.npc.sister_medium_guardian.dont_take_her",
+          "name": "데려가지 마",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "주변 적의 이동 속도를 낮추고 보호 대상에게 보호막을 부여한다.",
+          "balance": {
+            "expectedAttack": 20,
+            "shield": 60,
+            "slow": "30% for 2s",
+            "cooldown": 12.0,
+            "castRange": 0.0,
+            "hitRange": 1.5,
+            "hitCount": 3,
+            "areaFactor": 1.6,
+            "utilityScore": 290,
+            "finalBalanceScore": 290
+          }
+        },
+        {
+          "skillId": "skill.npc.sister_medium_guardian.holding_grudge",
+          "name": "원한 붙잡기",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "근처 산귀령이 쓰러지는 속도를 늦추는 보호 정체성.",
+          "balance": {
+            "estimatedEffect": "Sustain aura, not a direct heal spam pattern.",
+            "utilityScore": 120,
+            "finalBalanceScore": 120
+          }
+        }
+      ]
+    },
+    {
+      "identity": {
+        "characterId": "npc.sangui_spirit.abandoned_mountain_child",
+        "name": "버려진 산아이 산귀",
+        "role": "Boss",
+        "tierId": "boss",
+        "grade": 3,
+        "typeId": "ranged_dps",
+        "tagId": "spirit",
+        "encounterScore": 520
+      },
+      "appearance": {
+        "silhouette": "흙과 피로 더럽혀진 아이의 형상, 뒤로 거대한 산안개가 펼쳐진다.",
+        "visualKeywords": [
+          "흙 묻은 맨발",
+          "피처럼 붉은 실",
+          "이름 없는 위패",
+          "아이의 얼굴과 귀신의 그림자",
+          "비 오기 전의 먹구름"
+        ],
+        "mood": "가해자라기보다 버려진 피해자가 원한으로 변한 비극성"
+      },
+      "combat": {
+        "combatRole": "Act 1 최종 보스, 광역 원한과 소환성 압박",
+        "rangeStyle": "boss caster",
+        "behavior": "원거리 저주, 광역 둔화, 혼령 소환, 후반 폭주 패턴으로 전투를 단계화한다."
+      },
+      "planningScore": {
+        "Overall": 520,
+        "Health": 520,
+        "Attack": 360,
+        "Defense": 180,
+        "Speed": 95,
+        "Range": 320,
+        "Support": 260
+      },
+      "stats": {
+        "totalScore": 520,
+        "growthType": "boss_ranged_dps_support",
+        "statIntent": "보스 기준 높은 HP, 높은 원거리 공격과 광역 유틸, spirit 태그 기반 회복/특수성",
+        "baseStats": {
+          "attack": 58,
+          "defense": 32,
+          "criticalChance": 10,
+          "criticalDamage": 60,
+          "attackSpeed": 1.6,
+          "maxHp": 900,
+          "hpRegen": 8.0,
+          "moveSpeed": 1.25
+        }
+      },
+      "skills": [
+        {
+          "skillId": "skill.npc.abandoned_mountain_child.why_only_me",
+          "name": "왜 나만 버려졌어",
+          "slot": "Basic",
+          "category": "Basic",
+          "description": "응어리진 원한을 던져 단일 대상에게 피해를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 18,
+            "attackPercentDamage": 120,
+            "totalDamage": 42,
+            "cooldown": 3.0,
+            "targetDps": 14.0,
+            "castRange": 5.0,
+            "hitRange": 0.45,
+            "hitCount": 1,
+            "areaFactor": 1.0,
+            "utilityScore": 0,
+            "finalBalanceScore": 140
+          }
+        },
+        {
+          "skillId": "skill.npc.abandoned_mountain_child.red_doll_rain",
+          "name": "붉은 인형비",
+          "slot": "Active1",
+          "category": "Active1",
+          "description": "붉은 인형들이 떨어져 여러 대상에게 피해와 둔화를 준다.",
+          "balance": {
+            "expectedAttack": 20,
+            "baseDamage": 26,
+            "attackPercentDamage": 100,
+            "totalDamage": 46,
+            "cooldown": 9.0,
+            "targetDps": 5.1,
+            "castRange": 4.5,
+            "hitRange": 1.5,
+            "hitCount": 4,
+            "areaFactor": 1.6,
+            "utilityScore": 120,
+            "finalBalanceScore": 446
+          }
+        },
+        {
+          "skillId": "skill.npc.abandoned_mountain_child.call_the_lost",
+          "name": "잃어버린 아이 부르기",
+          "slot": "Active2",
+          "category": "Active2",
+          "description": "산안개 속에서 낮은 등급의 산귀령을 불러 전장을 압박한다.",
+          "balance": {
+            "expectedAttack": 20,
+            "summonDps": 5,
+            "summonLifetime": 10,
+            "cooldown": 18.0,
+            "summonScore": 500,
+            "utilityScore": 80,
+            "finalBalanceScore": 580
+          }
+        },
+        {
+          "skillId": "skill.npc.abandoned_mountain_child.left_again",
+          "name": "또 버려졌어",
+          "slot": "Passive",
+          "category": "Passive",
+          "description": "HP가 낮아지면 원한이 폭주해 광역 패턴 빈도와 위협이 증가한다.",
+          "balance": {
+            "estimatedEffect": "Boss phase pressure and soft enrage.",
+            "utilityScore": 220,
+            "finalBalanceScore": 220
+          }
+        }
+      ]
+    }
+  ]
+}
