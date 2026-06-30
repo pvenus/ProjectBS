@@ -38,38 +38,45 @@
 ### 5. Edit animation name
 - After generating the character's Walk, Attack, and Idle animations, edit the names of the generated animations in the **Animations** tab to **Walk**, **Attack**, and **Idle**, respectively.
 
+### 6. Download
 
-### 6. Animation Evaluation
+On the image page, use the `Export` button to download the character animation images.
+
+After downloading, extract the archive.
+
+The extracted folder should normally contain this structure:
+
+```text
+animations/
+  idle/
+  move/
+  attack/
+```
+
+Each animation type folder should contain directional folders:
+
+```text
+south-east/
+south-west/
+north-east/
+north-west/
+```
+
+- Create a folder using the format `<PixelLabExportRoot>/<CharacterName>_<Grade>`.
+- Store all exported files in the created folder.
+- Perform the evaluation using the PNG images in the `animations` folder.
+
+### 7. Animation Evaluation
+
 - Evaluation begins once the animation generation process is complete.
 - The images from the generated character's 8-directional preview serve as the reference.
 - The animation is reviewed based on the preview image corresponding to the **South-East** direction.
-
-#### Evaluation Criteria
-- Walk animation evaluation
-  - Verify that the walk motion is moving correctly in the designated direction.
-  - Check whether the hands and feet move symmetrically, regularly, and naturally.
-  - Check whether the direction of your hands and feet aligns with the direction in which your body is moving.
-  - Verify that the character's appearance, equipment, and weapons match the reference image.
-  - Passing Score: **90 / 100** or higher.
-
-- Attack animation evaluation
-  - Check whether the character attacks naturally in a way that suits the weapon they are holding.
-  - Check whether the character moves appropriately according to the prompt.
-  - Check if the character's body or joints exhibit abnormal movement.
-  - Passing Score: **90 / 100** or higher.
-
-- frame to frame animation movement evaluation
-  - Check whether the character's movement between frames connects naturally and smoothly.
-  - Check that all character elements are displayed in every frame.
-  - Check whether the character's central axis is consistent across all frames.
-  - Passing Score: **80 / 100** or higher.
-
-- Weapon Review
-  - Check to ensure the shape and color of the weapon being held do not break or become distorted.
-  - Check to ensure that additional weapons not held by the character do not appear or disappear.
-  - Check whether the weapon's direction and angle match those of the base character's weapon.
-  - Check to ensure the weapon does not move to the other hand or another location.
-  - Check whether you are gripping the weapon firmly and correctly.
-  - Verify that the weapon's characteristics and physical properties have been accurately implemented.
-  - Passing Score: **80 / 100** or higher.
-
+- Perform the evaluation according to the criteria defined in `EvaluationAnimationGuide.md`.
+- The evaluation result must include every evaluation item defined in `EvaluationAnimationGuide.md`.
+- Save the evaluation result as `evaluation_animation_result.txt` in the character folder.
+- The evaluation result should include:
+  - Evaluation item
+  - Evaluation score
+  - Pass / Fail result
+  - Failure reason (if applicable)
+  - Additional notes (if applicable)

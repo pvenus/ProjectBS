@@ -11,6 +11,7 @@ Pipeline:
 ```text
 Character planning
   -> Image generation
+  -> Animation generation
   -> Animation extraction
   -> Skill JSON generation
   -> Character JSON generation
@@ -165,7 +166,58 @@ Save PixelLab exports under the configured PixelLab export root:
 
 ---
 
-## Step 3. Animation Extraction
+## Step 3. Animation Generation
+
+### Purpose
+
+Generate Walk, Attack, and Idle animations for the selected PixelLab character before downloading animation frames.
+
+### Reference Files
+
+```text
+Assets/character_concepts/game_prompt_guide/character/CharacterGenerateAnimation.md
+```
+
+### Main Work
+
+1. Open PixelLab:
+
+```text
+https://www.pixellab.ai/create-character
+```
+
+2. Open the generated character.
+3. Click **+ Add Animation**.
+4. In Character Preview, select **South-East** direction.
+5. Generate the required animations:
+   - Walk animation from the **MOVEMENT / Walking / Walk** option.
+   - Attack animation using **CUSTOM / Custom Animation V3**.
+   - Idle animation using **CUSTOM / Custom Animation V3**.
+6. Use `8 Frames` for Attack animation.
+7. Use `6 Frames` for Idle animation.
+8. Enable **Keep first frame (idle pose)** for custom animations.
+9. Rename generated animations to:
+   - `Walk`
+   - `Attack`
+   - `Idle`
+
+### Output
+
+The selected PixelLab character has generated animations ready for export.
+
+### Validation
+
+- Animation generation is performed in PixelLab only.
+- Walk animation score is at least `90 / 100`.
+- Attack animation score is at least `90 / 100`.
+- Frame-to-frame movement score is at least `80 / 100`.
+- Weapon review score is at least `80 / 100`.
+- Animation names are exactly `Walk`, `Attack`, and `Idle`.
+- The character appearance, equipment, and weapon remain consistent with the generated image.
+
+---
+
+## Step 4. Animation Extraction
 
 ### Purpose
 
@@ -222,7 +274,7 @@ Assets/Resources/character/animation_clip
 
 ---
 
-## Step 4. Skill JSON Generation
+## Step 5. Skill JSON Generation
 
 ### Purpose
 
@@ -311,7 +363,7 @@ Assets/Resources/skill/character/generated/skill.character.mist_lingering_child.
 
 ---
 
-## Step 5. Character JSON Generation
+## Step 6. Character JSON Generation
 
 ### Purpose
 
@@ -382,6 +434,7 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 
 - Planning JSON exists in `Assets/Doc/Character`.
 - PixelLab image export exists under `<PixelLabExportRoot>`.
+- PixelLab animations are generated and named `Walk`, `Attack`, and `Idle`.
 - Animation PNGs exist in `Assets/Resources/character/animation_png`.
 - Skill JSON files exist and use `skill.character`.
 - Character JSON exists and uses `character`.
