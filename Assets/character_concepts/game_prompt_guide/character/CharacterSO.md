@@ -2,13 +2,37 @@
 
 # CharacterSO Guide
 
-## Purpose
+# Purpose
 
-`CharacterSO` defines all static data required for a character.
+Generate a character JSON used as the input for CharacterSO generation.
 
-A CharacterSO is generated from a character JSON file and automatically links animations, skills, and localized strings.
+The generated JSON defines the static character data required by the CharacterSO generator.
+
+The CharacterSO generator will later read this JSON and automatically generate CharacterSO assets, animation links, skills, and localization data.
 
 ---
+
+# Output
+
+Generate one character JSON file.
+
+Output directory:
+
+```text
+Assets/Resources/character/json
+```
+
+Output file name:
+
+```text
+{characterId}.json
+```
+
+Example:
+
+```text
+character.seojin.1.json
+```
 
 # Input
 
@@ -50,6 +74,18 @@ Example:
   ]
 }
 ```
+# JSON Fields
+
+The generated JSON should contain the following fields.
+
+| Field | Required |
+|------|----------|
+| characterId | Yes |
+| characterType | Yes |
+| job | Yes |
+| baseStats | Yes |
+
+Animation clips, skills, and localization are generated automatically by the CharacterSO generator and should not be included in the character JSON.
 
 # CharacterType
 
@@ -201,33 +237,9 @@ name
 
 ---
 
-# Output
-
-The generator creates or updates:
-
-```text
-CharacterSO
-EquipmentSkillSO
-AnimationClip
-Character String
-```
-
----
-
-# Summary
-
-Generation flow:
-
-```text
-Character JSON
+Character Planning
     ↓
-Parse Character
+Generate Character JSON
     ↓
-Generate AnimationClips
-    ↓
-Generate EquipmentSkillSO
-    ↓
-Generate Localization
-    ↓
-Update CharacterSO
-```
+Save
+Assets/Resources/character/json/{characterId}.json
