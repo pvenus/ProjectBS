@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_mist_lingering_child_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.mist_lingering_child.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 520e0694d8eff41129dc7bf880f53ed2, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: e37f8fc8906a642d3846ab5cb02795e5, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 10cd0f3aa0c374e8e97fd8cba96b7dff, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 5363456fe3f8f40d0ba8f445b6ff7bc4, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 44c898162ef2141de896d3f36e247209, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 282ef811be093433090581ead2ed043e, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 8de91ed856a0a451cb848b716d44aa26, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 8f24dee2f73934281893f97a0f9b8fed, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 99184ceacb03341f9819b3f2bba9672f, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: fbde2208c0f06444abe02630f96292b2, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c50a6c17c07ae48a5952f7d8b1c58ac8, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 44b6dbc6985054f86ac53c7e3b5731a3, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: c19f1f110ad354652abe481fd9520c8d, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 14
+  - statType: 1300
+    value: 14
+  - statType: 1000
+    value: 52
+  - statType: 1110
+    value: 1.2
+  - statType: 1220
+    value: 2.1
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.75

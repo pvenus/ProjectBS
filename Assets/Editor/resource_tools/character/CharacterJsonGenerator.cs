@@ -204,19 +204,6 @@ namespace ResourceTools.Character
                     skillPrefix);
             }
 
-            string[] guids = AssetDatabase.FindAssets($"skill.character.{characterId} t:EquipmentSkillSO");
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                EquipmentSkillSO skillSo = AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(path);
-
-                AddSkillEntry(
-                    result,
-                    skillSo,
-                    skillPrefix);
-            }
-
             return result;
         }
 

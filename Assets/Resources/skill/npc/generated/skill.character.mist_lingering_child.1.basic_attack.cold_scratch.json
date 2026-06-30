@@ -1,7 +1,7 @@
 {
-  "equipmentId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch",
+  "equipmentId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch",
   "baseProfile": {
-    "baseProfileId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.profile",
+    "baseProfileId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch.profile",
     "skillType": "Active",
     "skillComponentType": "Projectile",
     "projectileCount": 1,
@@ -14,7 +14,7 @@
     }
   },
   "cast": {
-    "castId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.cast",
+    "castId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch.cast",
     "targetingType": "AutoTargetDirection",
     "cooldown": 2.4,
     "castTime": 0,
@@ -22,7 +22,7 @@
     "skipAttackAnimation": false
   },
   "move": {
-    "moveId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.move",
+    "moveId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch.move",
     "moveType": "Linear",
     "applyDirectionRotation": true,
     "rotationOffset": 0,
@@ -32,7 +32,7 @@
   },
   "hits": [
     {
-      "hitId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.hit",
+      "hitId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch.hit",
       "maxHitCount": 1,
       "ignoreSameRoot": true,
       "useRepeatInterval": false,
@@ -47,7 +47,7 @@
     }
   ],
   "baseVisual": {
-    "visualId": "skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.visual",
+    "visualId": "skill.character.mist_lingering_child.1.basic_attack.cold_scratch.visual",
     "projectileVisualType": "Default"
   }
 }

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41a661d9c6f94f19b59d9c40ba4e30b, type: 3}
-  m_Name: skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.move
+  m_Name: skill.character.mist_lingering_child.1.basic_attack.cold_scratch.move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
-  moveId: skill.npc.mist_lingering_child.1.basic_attack.cold_scratch.move
+  moveId: skill.character.mist_lingering_child.1.basic_attack.cold_scratch.move
   applyDirectionRotation: 1
   rotationOffset: 0
   moveType: 1
   config:
-    rid: 6756114813241262080
+    rid: 6756114813241262082
   references:
     version: 2
     RefIds:
-    - rid: 6756114813241262080
+    - rid: 6756114813241262082
       type: {class: LinearMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
       data:
         speed: 0
