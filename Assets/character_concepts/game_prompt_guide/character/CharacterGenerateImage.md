@@ -42,7 +42,7 @@
 
 ### 8. Image Evaluation
 - Click **Export** and download the generated images.
-- Save the downloaded files under `/Users/pvenus/Documents/PixelLab`.
+- Save the downloaded f iles under `/Users/pvenus/Documents/PixelLab`.
 - Create a folder using the format `/Users/pvenus/Documents/PixelLab/<CharacterName>_<Grade>`.
 - Store all exported files in the created folder.
 - Perform the evaluation using the PNG images in the `rotations` folder.
