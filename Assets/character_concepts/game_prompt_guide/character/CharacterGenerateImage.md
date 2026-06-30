@@ -42,8 +42,8 @@
 
 ### 8. Image Evaluation
 - Click **Export** and download the generated images.
-- Save the downloaded files under `/Users/pvenus/Documents/PixelLab`.
-- Create a folder using the format `/Users/pvenus/Documents/PixelLab/<CharacterName>_<Grade>`.
+- Save the downloaded files under the configured PixelLab export root.
+- Create a folder using the format `<PixelLabExportRoot>/<CharacterName>_<Grade>`.
 - Store all exported files in the created folder.
 - Perform the evaluation using the PNG images in the `rotations` folder.
 
@@ -57,7 +57,7 @@
   - Passing Score: **80 / 100** or higher.
 
 - Reference Style Compatibility
-  - Reference Image Directory: `/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character`
+  - Reference Image Directory: `Assets/Resources/character`
   - Randomly select 5 reference images from the reference image directory.
   - Compare the generated image with each selected reference image.
   - Evaluate harmony with the game's visual style rather than pixel-level similarity.

@@ -10,7 +10,7 @@ The workflow covers the story agent branch flow: update Git state, download imag
 
 ## Git Update
 
-Before starting, update the `/Users/pvenus/Documents/ProjectBS-story-agent` repository.
+Before starting, update the project repository.
 
 Standard flow:
 
@@ -22,7 +22,7 @@ Standard flow:
 Example:
 
 ```bash
-cd /Users/pvenus/Documents/ProjectBS-story-agent
+cd <ProjectRoot>
 
 git checkout main
 git pull origin main
@@ -170,7 +170,7 @@ Important rules:
 After renaming, copy all PNG files to this folder:
 
 ```text
-/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_png
+Assets/Resources/character/animation_png
 ```
 
 The Unity generator searches this path using the following pattern:
@@ -184,7 +184,7 @@ The generator sorts the matched sprites in ascending order and creates an Animat
 Generated AnimationClips are saved here:
 
 ```text
-/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_clip
+Assets/Resources/character/animation_clip
 ```
 
 Generated AnimationClip file names use this format:
