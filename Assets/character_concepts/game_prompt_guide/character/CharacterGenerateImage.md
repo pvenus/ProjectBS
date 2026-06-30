@@ -17,19 +17,23 @@
 
 ### 3. Character Type
 - Select **Character Type** to match the character concept.
-- If the character is a quadruped, select the appropriate **Quadruped** model.
+- If the character is a quadruped, set **Generation MDDE** to **Pro** and select the appropriate **Quadruped** model.
 
 ### 4. Generation Settings
-- **Generation Mode:** Pro
-- **Camera View:** High Top-Down
+
+- **Generation Mode:** V3
+- **Camera View:** Low Top-Down
 - **Detail:** Highly detailed
 - **Outline:** Black outline
 
+
 ### 5. Character Description
-- Write the character description based on the design concept.
+- Write a character description based on a design concept rooted in traditional Korean design standards.
 
 ### 6. Image Size
 - Adjust the image width, height, and aspect ratio to fit the target output.
+- Based on the recorded information, select small (48px), medium (64px), large (128px), or extra-large (256px).
+- The size of the reference playable character is 64px.
 
 ### 7. Generate in PixelLab
 - Click **Generate v3 Character** inside PixelLab.
