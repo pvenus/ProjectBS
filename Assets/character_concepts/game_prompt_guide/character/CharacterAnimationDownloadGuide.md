@@ -64,7 +64,7 @@ The extracted folder should normally contain this structure:
 ```text
 animations/
   idle/
-  run/
+  move/
   attack/
 ```
 
