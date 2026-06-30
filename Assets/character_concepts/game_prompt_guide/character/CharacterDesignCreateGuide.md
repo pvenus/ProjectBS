@@ -46,6 +46,21 @@ Player and NPC use different rules for:
 
 Always follow the corresponding guide documents.
 
+### Domain Naming
+
+Use `character` as the generation domain for all character-related runtime data.
+
+`Player`, `Npc`, and `Boss` are character types, not ID domains.
+
+Do not use `npc` as a runtime resource domain when generating IDs for CharacterSO, character skills, animation links, or localization keys.
+
+Examples:
+
+```text
+character.mist_lingering_child.1
+skill.character.mist_lingering_child.1.basic_attack.cold_scratch
+```
+
 ---
 
 ## Workflow

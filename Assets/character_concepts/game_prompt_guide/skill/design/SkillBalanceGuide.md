@@ -279,6 +279,8 @@ Then adjust the final cooldown for gameplay feel.
 - `castRange` means how far the skill can be used from the caster.
 - `hitRange` means the size of the damage area.
 - `hitRange` is interpreted as radius.
+- The minimum `castRange` for any skill is `0.4`.
+- Do not generate a skill with `castRange` below `0.4`, even for very short melee attacks.
 
 Because `hitRange` is radius-based, a large hitRange can cover behind the caster as well.
 
@@ -294,7 +296,7 @@ Example:
 
 ```json
 {
-  "castRange": 0.3,
+  "castRange": 0.4,
   "hitRange": 0.5
 }
 ```
@@ -309,8 +311,8 @@ The important point is the relationship between `castRange` and `hitRange`.
 
 | Melee Type | castRange | hitRange | Notes |
 |------------|----------:|---------:|-------|
-| Close melee | 0.2 - 0.3 | 0.4 - 0.5 | Short weapon or body-close attack |
-| Standard melee | 0.3 - 0.5 | 0.5 - 0.7 | Normal sword-range attack |
+| Close melee | 0.4 | 0.4 - 0.5 | Short weapon or body-close attack |
+| Standard melee | 0.4 - 0.5 | 0.5 - 0.7 | Normal sword-range attack |
 | Extended melee | 0.5 - 0.8 | 0.6 - 0.9 | Spear-like or slightly longer melee attack |
 
 When the weapon should feel longer, increase `castRange` slightly while keeping `hitRange` close to the actual hit size.

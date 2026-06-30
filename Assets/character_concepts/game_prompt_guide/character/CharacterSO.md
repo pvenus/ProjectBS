@@ -34,6 +34,19 @@ Example:
 character.seojin.1.json
 ```
 
+# ID Domain
+
+CharacterSO input JSON always uses the `character` domain for `characterId`.
+
+`characterType` determines whether the character is a Player, Npc, or Boss. It must not change the `characterId` domain to `npc`.
+
+Examples:
+
+```text
+character.military_officer.1
+character.mist_lingering_child.1
+```
+
 # Input
 
 The generator requires a character JSON file.
