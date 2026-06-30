@@ -7,6 +7,26 @@ The generated skill design must be consistent with the character concept, combat
 
 ---
 
+# Skill Domain Naming
+
+All character-owned skills use the `skill.character` domain, regardless of whether the owner is a Player, Npc, or Boss.
+
+NPC skill rules below define composition, upgrade availability, and balance only. They do not change the runtime skill ID domain to `skill.npc`.
+
+Use:
+
+```text
+skill.character.{character_name}.{grade}.{slot}.{skill_name}
+```
+
+Do not use:
+
+```text
+skill.npc.{character_name}.{grade}.{slot}.{skill_name}
+```
+
+---
+
 # Player Skill Structure
 
 ## Grade 1

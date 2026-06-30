@@ -10,7 +10,7 @@ The workflow covers the story agent branch flow: update Git state, download imag
 
 ## Git Update
 
-Before starting, update the `/Users/pvenus/Documents/ProjectBS-story-agent` repository.
+Before starting, update the project repository.
 
 Standard flow:
 
@@ -22,7 +22,7 @@ Standard flow:
 Example:
 
 ```bash
-cd /Users/pvenus/Documents/ProjectBS-story-agent
+cd <ProjectRoot>
 
 git checkout main
 git pull origin main
@@ -64,7 +64,7 @@ The extracted folder should normally contain this structure:
 ```text
 animations/
   idle/
-  run/
+  move/
   attack/
 ```
 
@@ -89,10 +89,10 @@ Map downloaded direction folders to the ProjectBS `CharacterAnimationClipType` e
 | idle | south-west | IdleDownLeft |
 | idle | north-east | IdleUpRight |
 | idle | north-west | IdleUpLeft |
-| run | south-east | MoveDownRight |
-| run | south-west | MoveDownLeft |
-| run | north-east | MoveUpRight |
-| run | north-west | MoveUpLeft |
+| move | south-east | MoveDownRight |
+| move | south-west | MoveDownLeft |
+| move | north-east | MoveUpRight |
+| move | north-west | MoveUpLeft |
 | attack | south-east | AttackDownRight |
 | attack | south-west | AttackDownLeft |
 | attack | north-east | AttackUpRight |
@@ -106,6 +106,24 @@ If Death animations are downloaded separately, use the same direction mapping.
 | death | south-west | DeathDownLeft |
 | death | north-east | DeathUpRight |
 | death | north-west | DeathUpLeft |
+
+### Missing Direction Rule
+
+Some exports may not include the `north-east` or `north-west` animation folders.
+
+If either folder is missing, duplicate the corresponding south-facing images before applying the file naming rules.
+
+| Missing Direction | Use Images From |
+|-------------------|-----------------|
+| north-east | south-east |
+| north-west | south-west |
+
+The duplicated images should then be renamed using the appropriate `CharacterAnimationClipType` enum:
+
+- `north-east` → `MoveUpRight`, `IdleUpRight`, `AttackUpRight`, `DeathUpRight`
+- `north-west` → `MoveUpLeft`, `IdleUpLeft`, `AttackUpLeft`, `DeathUpLeft`
+
+The duplicated files should be treated exactly the same as normal downloaded images.
 
 ---
 
@@ -152,7 +170,7 @@ Important rules:
 After renaming, copy all PNG files to this folder:
 
 ```text
-/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_png
+Assets/Resources/character/animation_png
 ```
 
 The Unity generator searches this path using the following pattern:
@@ -166,7 +184,7 @@ The generator sorts the matched sprites in ascending order and creates an Animat
 Generated AnimationClips are saved here:
 
 ```text
-/Users/pvenus/Documents/ProjectBS-story-agent/Assets/Resources/character/animation_clip
+Assets/Resources/character/animation_clip
 ```
 
 Generated AnimationClip file names use this format:

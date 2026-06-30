@@ -40,7 +40,7 @@ SkillCastSO owns cast timing, target selection, cast-time movement, repeat casti
 | targetingType | TargetingType | Target selection method | Required |
 | cooldown | float | Cooldown seconds | >= 0 |
 | castTime | float | Cast time seconds | >= 0 |
-| range | float | Cast range | >= 0 |
+| range | float | Cast range | >= 0.4 |
 | skipAttackAnimation | bool | Skip attack animation | true / false |
 
 ## Optional Profiles
@@ -115,7 +115,7 @@ castId                : Required
 targetingType         : Required enum
 cooldown              : >= 0
 castTime              : >= 0
-range                 : >= 0
+range                 : >= 0.4
 burst                 : Optional.
 castMove              : Optional.
 selfEffects           : Optional.

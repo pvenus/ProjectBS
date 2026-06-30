@@ -18,6 +18,38 @@ Save all generated JSON files to:
 Assets/Doc/Character
 ```
 
+Create one folder per planning group.
+
+Recommended folder:
+
+```text
+Assets/Doc/Character/{groupId}
+```
+
+When creating an initial group of approximately 10 characters, the planning data may be split into:
+
+- One common data JSON for shared group data.
+- One character JSON per character.
+
+Do not force all 10 characters into a single JSON if split files are easier to review or reuse.
+
+All common and character JSON files for the same planning group should be stored in the same group folder.
+
+Recommended file names:
+
+```text
+{groupId}/{groupId}.common.json
+{groupId}/{characterId}.json
+```
+
+Example:
+
+```text
+Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
+Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
+Assets/Doc/Character/sangui_spirit/red_doll_carrier.json
+```
+
 ### Allowed References
 
 Only the following documents may be referenced.
@@ -45,6 +77,21 @@ Player and NPC use different rules for:
 - Balance
 
 Always follow the corresponding guide documents.
+
+### Domain Naming
+
+Use `character` as the generation domain for all character-related runtime data.
+
+`Player`, `Npc`, and `Boss` are character types, not ID domains.
+
+Do not use `npc` as a runtime resource domain when generating IDs for CharacterSO, character skills, animation links, or localization keys.
+
+Examples:
+
+```text
+character.mist_lingering_child.1
+skill.character.mist_lingering_child.1.basic_attack.cold_scratch
+```
 
 ---
 
@@ -77,6 +124,12 @@ Assets/Doc
 ### 3. Create Race Group
 
 Create approximately **10 NPC concepts** belonging to the same race.
+
+For the initial 10-character group, separate shared race/group information from character-specific information when useful.
+
+Common data should describe the group once. Character files should reference the common data instead of duplicating the same shared settings.
+
+Create a dedicated folder for the group before writing planning JSON files.
 
 The group should contain various combat roles.
 
@@ -192,6 +245,112 @@ reuse
 stats
 skills
 ```
+
+### Split JSON Structure
+
+For an initial 10-character set, prefer this split when the group has shared race, faction, story context, or guide references.
+
+#### Common Data JSON
+
+The common data JSON contains shared information used by every character in the group.
+
+Recommended fields:
+
+```text
+documentId
+documentType
+sourceGuides
+group
+race
+faction
+worldUse
+storyUse
+reuse
+sharedVisualStyle
+sharedSkillRules
+notes
+```
+
+Recommended `documentType`:
+
+```text
+characterPlanningCommon
+```
+
+Example file:
+
+```text
+Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
+```
+
+#### Character Data JSON
+
+Each character data JSON contains only one character's planning data.
+
+Recommended fields:
+
+```text
+documentId
+documentType
+commonDataRef
+identity
+appearance
+combat
+planningScore
+stats
+skills
+notes
+```
+
+Recommended `documentType`:
+
+```text
+characterPlanning
+```
+
+`commonDataRef` must point to the common data JSON using a project-relative path.
+
+Example:
+
+```json
+{
+  "commonDataRef": "Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json"
+}
+```
+
+Example file:
+
+```text
+Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
+```
+
+### Group Folder Rule
+
+Every planning group must be managed in its own folder under `Assets/Doc/Character`.
+
+Use this structure:
+
+```text
+Assets/Doc/Character/{groupId}/
+  {groupId}.common.json
+  {characterId}.json
+  {characterId}.json
+  {characterId}.json
+```
+
+The group folder should contain only planning JSON files for that group.
+
+Do not mix multiple character planning groups in the same folder.
+
+Do not place initial 10-character group JSON files directly under `Assets/Doc/Character` unless the task explicitly asks for a single legacy file.
+
+### Duplication Rule
+
+Do not duplicate shared race, faction, world, source guide, or reuse data in every character JSON.
+
+Keep shared information in the common data JSON and keep character-specific identity, stat, skill, combat, and appearance data in each character JSON.
+
+If a character intentionally overrides common data, write only the override in the character JSON and leave a short note explaining why.
 
 The exact schema does not need to match existing files perfectly.
 

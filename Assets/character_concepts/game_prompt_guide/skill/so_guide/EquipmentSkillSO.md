@@ -134,6 +134,10 @@ For character skills, use:
 skill.character.{character_name}.{grade}.{slot}.{skill_name}
 ```
 
+Use `skill.character` for Player, Npc, and Boss character skills.
+
+`Npc` is a `characterType`, not a skill ID domain. Do not use `skill.npc` for CharacterSO-linked skills.
+
 Example:
 
 ```text

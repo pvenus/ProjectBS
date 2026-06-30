@@ -9,8 +9,8 @@ namespace Character.Helper
     {
         private const string EnemyLayerName = "Enemy";
         private const string PartyLayerName = "Party";
-        private const float EnemyColliderRadius = 0.2f;
-        private const float PartyColliderRadius = 0.1f;
+        private const float EnemyColliderRadius = 0.1f;
+        private const float PartyColliderRadius = 0.05f;
 
         public static GameObject CreateNpcObject(
             string objectName = "Npc",
