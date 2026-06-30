@@ -2,14 +2,23 @@ using System.Collections.Generic;
 using Stat;
 using UnityEngine;
 using String;
+using System;
+using Skill;
 
 namespace Character
 {
-    public enum CharacterType
+    [Serializable]
+    public class CharacterAnimationClipEntry
     {
-        Player,
-        Npc,
-        Boss
+        public CharacterAnimationClipType clipType;
+        public AnimationClip clip;
+    }
+
+    [Serializable]
+    public class CharacterSkillEntry
+    {
+        public string slotKey;
+        public EquipmentSkillSO skillSo;
     }
 
     [CreateAssetMenu(
@@ -22,14 +31,12 @@ namespace Character
         [SerializeField] private CharacterType characterType = CharacterType.Npc;
         [SerializeField] private CharacterJob job;
 
-        [Header("Prefab")]
-        [SerializeField] private GameObject prefab;
 
-        [Header("Animation Override")]
-        [SerializeField] private AnimationClipSetSO animationOverrideSet;
+        [Header("Animation Clips")]
+        [SerializeField] private List<CharacterAnimationClipEntry> animationClips = new();
 
-        [Header("Skill Override")]
-        [SerializeField] private SkillPoolOverrideSO skillOverrideSet;
+        [Header("Skills")]
+        [SerializeField] private List<CharacterSkillEntry> skills = new();
 
         [Header("Base Stats")]
         [SerializeField] private List<StatEntry> baseStats = new();
@@ -37,9 +44,8 @@ namespace Character
         public string CharacterId => characterId;
         public CharacterType CharacterType => characterType;
         public CharacterJob Job => job;
-        public GameObject Prefab => prefab;
-        public AnimationClipSetSO AnimationOverrideSet => animationOverrideSet;
-        public SkillPoolOverrideSO SkillOverrideSet => skillOverrideSet;
+        public IReadOnlyList<CharacterAnimationClipEntry> AnimationClips => animationClips;
+        public IReadOnlyList<CharacterSkillEntry> Skills => skills;
         public IReadOnlyList<StatEntry> BaseStats => baseStats;
 
         public string DisplayName =>
@@ -56,43 +62,25 @@ namespace Character
         public CharacterJobBranch JobBranch =>
             CharacterJobHelper.GetBranch(job);
 
-        public bool HasPrefab => prefab != null;
-        public bool HasAnimationOverrideSet => animationOverrideSet != null;
-        public bool HasSkillOverrideSet => skillOverrideSet != null;
+        public bool HasAnimationClips => animationClips != null && animationClips.Count > 0;
+        public bool HasSkills => skills != null && skills.Count > 0;
 
-        public GameObject ResolvePrefab()
+#if UNITY_EDITOR
+        public void ApplyEditorData(
+            string characterId,
+            CharacterType characterType,
+            CharacterJob job,
+            List<CharacterAnimationClipEntry> animationClips,
+            List<CharacterSkillEntry> skills,
+            List<StatEntry> baseStats)
         {
-            return prefab;
+            this.characterId = characterId;
+            this.characterType = characterType;
+            this.job = job;
+            this.animationClips = animationClips ?? new List<CharacterAnimationClipEntry>();
+            this.skills = skills ?? new List<CharacterSkillEntry>();
+            this.baseStats = baseStats ?? new List<StatEntry>();
         }
-
-        public AnimationClipSetSO ResolveAnimationOverrideSet()
-        {
-            return animationOverrideSet;
-        }
-
-        public SkillPoolOverrideSO ResolveSkillOverrideSet()
-        {
-            return skillOverrideSet;
-        }
-
-        public IReadOnlyList<StatEntry> ResolveBaseStats()
-        {
-            return baseStats;
-        }
-
-        public bool IsPlayer()
-        {
-            return characterType == CharacterType.Player;
-        }
-
-        public bool IsNpc()
-        {
-            return characterType == CharacterType.Npc;
-        }
-
-        public bool IsBoss()
-        {
-            return characterType == CharacterType.Boss;
-        }
+#endif
     }
 }

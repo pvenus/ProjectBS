@@ -1,11 +1,135 @@
 {
   "id": "npc.ash_wolf.white_female_ranged",
   "displayName": "잿빛 늑대 · 흰 암컷 원거리형",
-  "groupTags": ["ash_wolf_pack", "beast", "early_mid"],
-  "identityKeywords": ["흰색", "암컷", "원거리", "울음"],
+  "groupTags": [
+    "ash_wolf_pack",
+    "beast",
+    "early_mid"
+  ],
+  "identityKeywords": [
+    "흰색",
+    "암컷",
+    "원거리",
+    "울음"
+  ],
   "appearance": "안개처럼 옅은 흰 털과 푸른 눈을 지닌 마른 늑대. 울 때 입김이 작은 혼불 조각으로 갈라진다.",
-  "combat": {"role": "원거리 교란수", "attackType": "spirit_ranged", "targetPriority": "밀집 지역", "signature": "혼불 울음으로 원거리 피해와 짧은 공포 부여", "weakness": "낮은 방어와 긴 재사용 대기"},
-  "stats": {"health": 3, "attack": 5, "defense": 2, "speed": 7, "range": 7, "support": 3},
+  "combat": {
+    "role": "원거리 교란수",
+    "attackType": "spirit_ranged",
+    "targetPriority": "밀집 지역",
+    "signature": "혼불 울음으로 원거리 피해와 짧은 공포 부여",
+    "weakness": "낮은 방어와 긴 재사용 대기"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 1,
+    "score": 30,
+    "typeId": "ranged_dps",
+    "tags": [
+      "wolf"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 8
+      },
+      {
+        "statType": "MaxHp",
+        "value": 66
+      },
+      {
+        "statType": "HpRegen",
+        "value": 1.68
+      },
+      {
+        "statType": "Defense",
+        "value": 14
+      },
+      {
+        "statType": "CritChance",
+        "value": 14.9
+      },
+      {
+        "statType": "CritDamage",
+        "value": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.43
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 2.08
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 8.4145,
+        "finalValue": 8,
+        "appliedAxisMultiple": 1.2731
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 65.61,
+        "finalValue": 66,
+        "appliedAxisMultiple": 0.6075
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1.6808,
+        "finalValue": 1.68,
+        "appliedAxisMultiple": 1.3877
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 13.5,
+        "finalValue": 14
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 14.85,
+        "finalValue": 14.9
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 57.5,
+        "finalValue": 57.5
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.4255,
+        "finalValue": 2.43
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0815,
+        "finalValue": 2.08
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 3,
+      "attack": 5,
+      "defense": 2,
+      "speed": 7,
+      "range": 7,
+      "support": 3
+    }
+  },
   "storyUse": "죽은 사냥꾼들의 공포를 의념으로 토해 내며 무리가 인간의 원혼에 물들었음을 암시한다.",
-  "reuse": ["안개 숲 매복", "원혼 사냥개", "후반 혼성 조합의 공포 지원"]
+  "reuse": [
+    "안개 숲 매복",
+    "원혼 사냥개",
+    "후반 혼성 조합의 공포 지원"
+  ]
 }

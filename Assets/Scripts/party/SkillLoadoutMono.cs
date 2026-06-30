@@ -77,47 +77,6 @@ public class SkillLoadoutMono : MonoBehaviour
         return skillPoolService.HasBasicAttack(skillPool);
     }
 
-    public void ApplyOverride(SkillPoolOverrideSO overrideSo)
-    {
-        if (overrideSo == null || skillPool == null)
-        {
-            return;
-        }
-
-        foreach (SkillPoolOverrideEntry entry in overrideSo.overrides)
-        {
-            if (entry == null || string.IsNullOrEmpty(entry.slotKey))
-            {
-                continue;
-            }
-
-            SkillPoolSlotData slot = skillPool.GetSlotByKey(entry.slotKey);
-
-            if (slot == null)
-            {
-                SkillPoolSlotData newSlot = new SkillPoolSlotData();
-                newSlot.Configure(
-                    entry.slotKey,
-                    entry.skillSo);
-
-                skillPool.AddSlot(newSlot);
-
-                continue;
-            }
-
-            slot.SetSkill(entry.skillSo);
-        }
-    }
-
-    public void ApplyOverrideFromCharacter(CharacterSO characterSo)
-    {
-        if (characterSo == null)
-        {
-            return;
-        }
-
-        ApplyOverride(characterSo.SkillOverrideSet);
-    }
     public void ClearAllRuntimeData()
     {
         EnsureSkillPoolService();

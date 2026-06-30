@@ -99,6 +99,37 @@ NPC skills may use a wider `1s - 5s` cooldown range to create varied combat patt
 
 ---
 
+## NPC Skill Complexity Guidelines
+
+Before assigning skill slots to an NPC, read the NPC concept fields in this order:
+
+```text
+stats.tierId -> stats.grade -> stats.typeId -> groupTags -> combat.role/signature
+```
+
+Do not infer boss-level complexity from `reuse` text alone. For example, a normal NPC that can be reused as a boss guard is still a normal NPC unless `stats.tierId` is `boss`, `elite`, or the group tags include `leader`.
+
+### Recommended NPC Skill Slots
+
+| NPC tierId / grade | Recommended skill slots | Notes |
+|--------------------|--------------------------|-------|
+| normal / grade 1 | basic only | Introduces one readable behavior. |
+| normal / grade 2 | basic + one identity passive or one low-impact active1 | Use only one extra behavior. Prefer passive for defense/support identity. |
+| normal / grade 3 | basic + active1 or passive; up to two extra behaviors only when the role requires it | Late normal monsters can be more expressive but should not feel like elites. |
+| elite or leader | basic + active1 + passive | Suitable for commanders, summoners, or named encounter units. |
+| boss | basic + multiple active skills + passive/phase mechanics | Bosses may use active2/active3 and encounter patterns. |
+
+### NPC Slot Selection Rules
+
+- Start every NPC from `basic`.
+- Add `passive` when the identity is conditional, defensive, supportive, or always-on.
+- Add `active1` only when the NPC needs an explicit timed pattern.
+- Do not add both `active1` and `passive` to a normal grade 1 or normal grade 2 NPC unless the design JSON explicitly marks it as elite, leader, or boss.
+- Do not add `active2` or `active3` to normal NPCs.
+- Do not add upgrade plans to NPC planning JSON.
+
+---
+
 ## Active Skill Cooldown and DPS
 
 Active skills should not use cooldown alone as the starting point.

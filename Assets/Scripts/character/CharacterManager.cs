@@ -184,60 +184,12 @@ namespace Character
                 StatType.Hp,
                 GetStatValue(StatType.MaxHp));
 
-            ApplyAnimationOverride(characterSO);
-            ApplySkillOverride(characterSO);
+            // Removed old animation/skill override flow
             InitializeSkillManager(characterSO);
 
             StartCoroutine(PlaySpawnRevealNextFrame());
         }
 
-        private void ApplyAnimationOverride(CharacterSO characterSO)
-        {
-            if (characterSO == null || characterSO.AnimationOverrideSet == null)
-            {
-                return;
-            }
-
-            AnimationMono animationMono =
-                GetComponent<AnimationMono>();
-
-            if (animationMono == null)
-            {
-                animationMono =
-                    GetComponentInChildren<AnimationMono>();
-            }
-
-            if (animationMono == null)
-            {
-                return;
-            }
-
-            animationMono.OverrideClipSet(characterSO.AnimationOverrideSet);
-        }
-
-        private void ApplySkillOverride(CharacterSO characterSO)
-        {
-            if (characterSO == null || characterSO.SkillOverrideSet == null)
-            {
-                return;
-            }
-
-            SkillLoadoutMono skillLoadout =
-                GetComponent<SkillLoadoutMono>();
-
-            if (skillLoadout == null)
-            {
-                skillLoadout =
-                    GetComponentInChildren<SkillLoadoutMono>();
-            }
-
-            if (skillLoadout == null)
-            {
-                return;
-            }
-
-            skillLoadout.ApplyOverride(characterSO.SkillOverrideSet);
-        }
 
         private void InitializeSkillManager(CharacterSO characterSO)
         {
@@ -291,10 +243,7 @@ namespace Character
                     GetStatValue(StatType.MaxHp));
             }
 
-            ApplyAnimationOverride(
-                runtimeData?.characterSO);
-            ApplySkillOverride(
-                runtimeData?.characterSO);
+            // Removed old animation/skill override flow
             InitializeSkillManager(runtimeData?.characterSO);
 
             StartCoroutine(PlaySpawnRevealNextFrame());

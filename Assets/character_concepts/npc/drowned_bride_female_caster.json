@@ -1,11 +1,135 @@
 {
   "id": "npc.drowned_wedding.bride_female_caster",
   "displayName": "수몰 혼례 · 물귀신 신부 공격 마법형",
-  "groupTags": ["drowned_wedding", "spirit", "mid_late"],
-  "identityKeywords": ["여성", "신부", "공격 마법", "물"],
+  "groupTags": [
+    "drowned_wedding",
+    "spirit",
+    "mid_late"
+  ],
+  "identityKeywords": [
+    "여성",
+    "신부",
+    "공격 마법",
+    "물"
+  ],
   "appearance": "물에 번진 붉은 혼례복과 젖은 족두리, 얼굴 대신 잔물결이 일렁이는 여성 원혼.",
-  "combat": {"role": "광역 공격술사", "attackType": "water_spirit_magic", "targetPriority": "밀집 지역", "signature": "검은 물웅덩이를 만들어 둔화시키고 일정 시간 후 익사 피해", "weakness": "번개와 위치 이동"},
-  "stats": {"health": 5, "attack": 8, "defense": 4, "speed": 4, "range": 8, "support": 5},
+  "combat": {
+    "role": "광역 공격술사",
+    "attackType": "water_spirit_magic",
+    "targetPriority": "밀집 지역",
+    "signature": "검은 물웅덩이를 만들어 둔화시키고 일정 시간 후 익사 피해",
+    "weakness": "번개와 위치 이동"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "ranged_dps",
+    "tags": [
+      "spirit"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 12
+      },
+      {
+        "statType": "MaxHp",
+        "value": 72
+      },
+      {
+        "statType": "HpRegen",
+        "value": 3.29
+      },
+      {
+        "statType": "Defense",
+        "value": 13
+      },
+      {
+        "statType": "CritChance",
+        "value": 14.5
+      },
+      {
+        "statType": "CritDamage",
+        "value": 61.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.37
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.83
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 11.9373,
+        "finalValue": 12,
+        "appliedAxisMultiple": 1.2312
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 71.893,
+        "finalValue": 72,
+        "appliedAxisMultiple": 0.5412
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 3.2927,
+        "finalValue": 3.29,
+        "appliedAxisMultiple": 1.4112
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 12.9,
+        "finalValue": 13
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 14.5125,
+        "finalValue": 14.5
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 61.8125,
+        "finalValue": 61.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.365,
+        "finalValue": 2.37
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.8286,
+        "finalValue": 1.83
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 5,
+      "attack": 8,
+      "defense": 4,
+      "speed": 4,
+      "range": 8,
+      "support": 5
+    }
+  },
   "storyUse": "가문 간 약속 때문에 원치 않는 혼례길에 올라 물에 몸을 던진 신부의 의념이다.",
-  "reuse": ["나루터 괴담", "수몰 혼례", "비 오는 전장의 마도사"]
+  "reuse": [
+    "나루터 괴담",
+    "수몰 혼례",
+    "비 오는 전장의 마도사"
+  ]
 }

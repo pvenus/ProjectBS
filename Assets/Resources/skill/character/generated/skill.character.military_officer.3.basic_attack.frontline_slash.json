@@ -1,0 +1,404 @@
+{
+  "equipmentId": "skill.character.military_officer.3.basic_attack.frontline_slash",
+  "baseProfile": {
+    "baseProfileId": "skill.character.military_officer.3.basic_attack.frontline_slash.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.6,
+    "projectileLifetime": 0.2,
+    "projectileSpawn": {
+      "spawnOffset": 0.4,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.military_officer.3.basic_attack.frontline_slash.cast",
+    "targetingType": "Directional",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 0.4,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.military_officer.3.basic_attack.frontline_slash.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.military_officer.3.basic_attack.frontline_slash.hit",
+      "maxHitCount": 4,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "baseDamage": 46,
+        "attackPercentDamage": 1
+      }
+    }
+  ],
+  "upgradeTable": {
+    "upgradeTableId": "skill.character.military_officer.3.basic_attack.frontline_slash.upgrade",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 1
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.03
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.07
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.08
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "MaxHitCount",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 6,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 7,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 3
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.03
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 8,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 3
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.12
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 9,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 4
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.12
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.06
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 10,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 4
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.07
+          },
+          {
+            "modifierType": "MaxHitCount",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 11,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 5
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 12,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 5
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.18
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.07
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 13,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 6
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.08
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 14,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 7
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.22
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.08
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 15,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 8
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.25
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.07
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "MaxHitCount",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      }
+    ]
+  },
+  "baseVisual": {
+    "visualId": "skill.character.military_officer.3.basic_attack.frontline_slash.visual",
+    "projectileVisualType": "Default"
+  }
+}

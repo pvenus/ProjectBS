@@ -7,21 +7,86 @@
 - If an optional profile is omitted, the builder keeps existing SO values or uses runtime defaults.
 - Prefer the simplest JSON that fully describes the skill.
 
-- Skill IDs use the following format:
+## ID Rules
+
+### Skill IDs
+
+Skill IDs use the following format:
 
 ```text
-skill.{source_id}
+skill.{domain}.{character_name}.{grade}.{slot}.{skill_name}
 ```
 
-`source_id` is composed as:
+Use this ID as the `equipmentId` value and as the base for child SO IDs.
+
+`domain` identifies who owns or uses the skill.
 
 ```text
-{so_name}.{character_name}.{grade}.{skill_name}
+character
+npc
 ```
-Example:
-skill.skill_temp.common.1.frontline_slash
 
-- Effect IDs use the following format:
+For player character skills, use `character`.
+
+For monster or NPC skills, use `npc`.
+
+`character_name` is the design character id, such as `military_officer`.
+
+`grade` is the character or skill grade number.
+
+`slot` must come from the source design JSON. Do not infer it only from the skill file name.
+
+Use the following mapping unless the design JSON explicitly defines a more specific slot:
+
+| Design value | Slot |
+|--------------|------|
+| BasicAttack | basic_attack |
+| Active1 | active_1 |
+| Active2 | active_2 |
+| Passive | passive_1 |
+| Passive1 | passive_1 |
+| Passive2 | passive_2 |
+
+Known slot values:
+
+```text
+basic_attack
+active_1
+active_2
+passive_1
+passive_2
+```
+
+Examples:
+
+```text
+skill.character.military_officer.1.active_1.charge
+skill.character.military_officer.1.basic_attack.frontline_slash
+skill.character.military_officer.1.passive_1.unyielding_will
+skill.npc.monster.1.basic_attack.melee_attack
+```
+
+Do not include SO names, folder names, generated asset type names, or builder implementation names in the skill ID.
+
+Child SO IDs are derived from the skill ID:
+
+```text
+baseProfileId  = {equipmentId}.profile
+castId         = {equipmentId}.cast
+hitId          = {equipmentId}.hit
+moveId         = {equipmentId}.move
+visualId       = {equipmentId}.visual
+upgradeTableId = {equipmentId}.upgrade
+```
+
+### Upgrade Table Scope
+
+The `upgradeTableId = {equipmentId}.upgrade` derivation only defines the ID format when an upgrade table is actually generated.
+
+Do not generate an upgrade table for normal NPC skills unless the source design JSON explicitly marks the NPC skill as upgradeable. Normal NPC difficulty should be controlled by `tierId`, `grade`, stats, encounter composition, and a small readable skill set.
+### Effect IDs
+
+Effect IDs use the following format:
 
 ```text
 effect.{source_id}

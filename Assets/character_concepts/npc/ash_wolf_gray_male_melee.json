@@ -1,11 +1,135 @@
 {
   "id": "npc.ash_wolf.gray_male_melee",
   "displayName": "잿빛 늑대 · 회색 수컷 근접형",
-  "groupTags": ["ash_wolf_pack", "beast", "early"],
-  "identityKeywords": ["회색", "수컷", "근거리", "추격"],
+  "groupTags": [
+    "ash_wolf_pack",
+    "beast",
+    "early"
+  ],
+  "identityKeywords": [
+    "회색",
+    "수컷",
+    "근거리",
+    "추격"
+  ],
   "appearance": "먹빛 등털과 재색 배털, 오른쪽 귀가 찢어진 보통 체구의 늑대. 청색 의념이 발톱 끝에 희미하게 맺힌다.",
-  "combat": {"role": "근접 추격수", "attackType": "physical_melee", "targetPriority": "후열 원거리", "signature": "상처 냄새를 맡아 체력이 낮은 적에게 돌진", "weakness": "밀쳐내기와 속박"},
-  "stats": {"health": 5, "attack": 5, "defense": 3, "speed": 8, "range": 1, "support": 1},
+  "combat": {
+    "role": "근접 추격수",
+    "attackType": "physical_melee",
+    "targetPriority": "후열 원거리",
+    "signature": "상처 냄새를 맡아 체력이 낮은 적에게 돌진",
+    "weakness": "밀쳐내기와 속박"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 1,
+    "score": 30,
+    "typeId": "melee_dps",
+    "tags": [
+      "wolf"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 9
+      },
+      {
+        "statType": "MaxHp",
+        "value": 93
+      },
+      {
+        "statType": "HpRegen",
+        "value": 1.39
+      },
+      {
+        "statType": "Defense",
+        "value": 16
+      },
+      {
+        "statType": "CritChance",
+        "value": 13.4
+      },
+      {
+        "statType": "CritDamage",
+        "value": 55.0
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.38
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.91
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 9.3738,
+        "finalValue": 9,
+        "appliedAxisMultiple": 1.3519
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 93.4942,
+        "finalValue": 93,
+        "appliedAxisMultiple": 0.7695
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1.3893,
+        "finalValue": 1.39,
+        "appliedAxisMultiple": 1.0832
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 16.2,
+        "finalValue": 16
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 13.4136,
+        "finalValue": 13.4
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 55.0,
+        "finalValue": 55.0
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.3814,
+        "finalValue": 2.38
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.9116,
+        "finalValue": 1.91
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 5,
+      "attack": 5,
+      "defense": 3,
+      "speed": 8,
+      "range": 1,
+      "support": 1
+    }
+  },
   "storyUse": "사냥터의 평범한 위협처럼 보이지만 굶주린 새끼를 지키는 흔적으로 악귀와 짐승의 경계를 흐린다.",
-  "reuse": ["초반 산길 습격", "후반 산신 권속의 사냥개", "산적 추적대의 길잡이"]
+  "reuse": [
+    "초반 산길 습격",
+    "후반 산신 권속의 사냥개",
+    "산적 추적대의 길잡이"
+  ]
 }

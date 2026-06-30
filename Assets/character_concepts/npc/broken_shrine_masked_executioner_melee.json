@@ -1,11 +1,136 @@
 {
   "id": "npc.broken_shrine.masked_executioner_melee",
   "displayName": "무너진 사당 · 탈 쓴 망나니 근접형",
-  "groupTags": ["broken_shrine_retinue", "human_spirit", "late"],
-  "identityKeywords": ["남성", "망나니", "근거리", "처형"],
+  "groupTags": [
+    "broken_shrine_retinue",
+    "human_spirit",
+    "late"
+  ],
+  "identityKeywords": [
+    "남성",
+    "망나니",
+    "근거리",
+    "처형"
+  ],
   "appearance": "하회탈을 비뚤게 쓰고 검붉은 참수도를 끄는 장신의 사내. 그림자가 본체보다 먼저 움직인다.",
-  "combat": {"role": "근접 처형자", "attackType": "physical_spirit_melee", "targetPriority": "체력이 낮거나 약화된 적", "signature": "상태 이상이 둘 이상인 적에게 처형 피해", "weakness": "상태 이상이 없는 전투 초반"},
-  "stats": {"health": 7, "attack": 10, "defense": 5, "speed": 5, "range": 1, "support": 2},
+  "combat": {
+    "role": "근접 처형자",
+    "attackType": "physical_spirit_melee",
+    "targetPriority": "체력이 낮거나 약화된 적",
+    "signature": "상태 이상이 둘 이상인 적에게 처형 피해",
+    "weakness": "상태 이상이 없는 전투 초반"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 3,
+    "score": 67.5,
+    "typeId": "melee_dps",
+    "tags": [
+      "spirit",
+      "human"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 18
+      },
+      {
+        "statType": "MaxHp",
+        "value": 184
+      },
+      {
+        "statType": "HpRegen",
+        "value": 4.03
+      },
+      {
+        "statType": "Defense",
+        "value": 17
+      },
+      {
+        "statType": "CritChance",
+        "value": 13.9
+      },
+      {
+        "statType": "CritDamage",
+        "value": 63.2
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.48
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.86
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 17.7802,
+        "finalValue": 18,
+        "appliedAxisMultiple": 1.2174
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 183.8173,
+        "finalValue": 184,
+        "appliedAxisMultiple": 0.738
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 4.0319,
+        "finalValue": 4.03,
+        "appliedAxisMultiple": 1.088
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 16.56,
+        "finalValue": 17
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 13.8945,
+        "finalValue": 13.9
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 63.25,
+        "finalValue": 63.2
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.484,
+        "finalValue": 2.48
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.863,
+        "finalValue": 1.86
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 7,
+      "attack": 10,
+      "defense": 5,
+      "speed": 5,
+      "range": 1,
+      "support": 2
+    }
+  },
   "storyUse": "왕명을 신의 뜻이라 믿고 사람을 베었던 망나니의 신념이 신격의 칼로 남았다.",
-  "reuse": ["무너진 사당 처형자", "도끼 두목 빙의전", "후반 상태 이상 조합"]
+  "reuse": [
+    "무너진 사당 처형자",
+    "도끼 두목 빙의전",
+    "후반 상태 이상 조합"
+  ]
 }

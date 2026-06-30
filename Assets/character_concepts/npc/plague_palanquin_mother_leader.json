@@ -1,11 +1,136 @@
 {
   "id": "npc.plague_procession.palanquin_mother_leader",
   "displayName": "역병 행렬 · 상여 어미 우두머리",
-  "groupTags": ["plague_procession", "spirit", "late", "leader"],
-  "identityKeywords": ["여성", "상여", "우두머리", "공격 마법"],
+  "groupTags": [
+    "plague_procession",
+    "spirit",
+    "late",
+    "leader"
+  ],
+  "identityKeywords": [
+    "여성",
+    "상여",
+    "우두머리",
+    "공격 마법"
+  ],
   "appearance": "검은 상여와 융합된 거대한 여성 원혼. 여러 팔이 만장과 붉은 실을 조종한다.",
-  "combat": {"role": "광역 공격 마도사", "attackType": "spirit_magic", "targetPriority": "감염 중첩이 높은 적", "signature": "붉은 실로 적을 묶고 누적 역병을 한꺼번에 폭발", "weakness": "긴 시전 시간과 실 끊기"},
-  "stats": {"health": 9, "attack": 9, "defense": 6, "speed": 2, "range": 8, "support": 7},
+  "combat": {
+    "role": "광역 공격 마도사",
+    "attackType": "spirit_magic",
+    "targetPriority": "감염 중첩이 높은 적",
+    "signature": "붉은 실로 적을 묶고 누적 역병을 한꺼번에 폭발",
+    "weakness": "긴 시전 시간과 실 끊기"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "elite",
+    "grade": 3,
+    "score": 1125,
+    "typeId": "ranged_dps",
+    "tags": [
+      "spirit"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 298
+      },
+      {
+        "statType": "MaxHp",
+        "value": 1797
+      },
+      {
+        "statType": "HpRegen",
+        "value": 82.32
+      },
+      {
+        "statType": "Defense",
+        "value": 14
+      },
+      {
+        "statType": "CritChance",
+        "value": 15.5
+      },
+      {
+        "statType": "CritDamage",
+        "value": 66.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.96
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 298.4336,
+        "finalValue": 298,
+        "appliedAxisMultiple": 1.2312
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 1797.3252,
+        "finalValue": 1797,
+        "appliedAxisMultiple": 0.5412
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 82.3171,
+        "finalValue": 82.32,
+        "appliedAxisMultiple": 1.4112
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 13.8,
+        "finalValue": 14
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 15.525,
+        "finalValue": 15.5
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 66.125,
+        "finalValue": 66.1
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.53,
+        "finalValue": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.9562,
+        "finalValue": 1.96
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 9,
+      "attack": 9,
+      "defense": 6,
+      "speed": 2,
+      "range": 8,
+      "support": 7
+    }
+  },
   "storyUse": "역병으로 자식을 잃은 어머니들의 애도와 원망이 합쳐진 공동 의념의 신격 후보.",
-  "reuse": ["역병 행렬 보스", "상여 괴담", "후반 원혼 제단 수호자"]
+  "reuse": [
+    "역병 행렬 보스",
+    "상여 괴담",
+    "후반 원혼 제단 수호자"
+  ]
 }

@@ -1,11 +1,233 @@
 {
   "id": "npc.ash_wolf.black_female_guard",
   "displayName": "잿빛 늑대 · 검은 암컷 수호형",
-  "groupTags": ["ash_wolf_pack", "beast", "mid"],
-  "identityKeywords": ["검은색", "암컷", "근거리", "수호"],
+  "groupTags": [
+    "ash_wolf_pack",
+    "beast",
+    "mid"
+  ],
+  "identityKeywords": [
+    "검은색",
+    "암컷",
+    "근거리",
+    "수호"
+  ],
   "appearance": "숯처럼 검은 털과 넓은 어깨, 목덜미에 낡은 붉은 금줄이 엉켜 있는 큰 늑대.",
-  "combat": {"role": "근접 수호수", "attackType": "physical_melee", "targetPriority": "우두머리를 노리는 적", "signature": "인접 아군 대신 피해를 받고 반격", "weakness": "느린 이동과 지속 마법 피해"},
-  "stats": {"health": 8, "attack": 4, "defense": 7, "speed": 4, "range": 1, "support": 4},
+  "combat": {
+    "role": "근접 수호수",
+    "attackType": "physical_melee",
+    "targetPriority": "우두머리를 노리는 적",
+    "signature": "인접 아군 대신 피해를 받고 반격",
+    "weakness": "느린 이동과 지속 마법 피해"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 2,
+    "score": 45,
+    "typeId": "defense",
+    "tags": [
+      "wolf"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 6
+      },
+      {
+        "statType": "MaxHp",
+        "value": 286
+      },
+      {
+        "statType": "HpRegen",
+        "value": 2.77
+      },
+      {
+        "statType": "Defense",
+        "value": 24
+      },
+      {
+        "statType": "CritChance",
+        "value": 9.3
+      },
+      {
+        "statType": "CritDamage",
+        "value": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.03
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 2.02
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 6.1082,
+        "finalValue": 6,
+        "appliedAxisMultiple": 0.7828
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 286.0924,
+        "finalValue": 286,
+        "appliedAxisMultiple": 1.2393
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 2.7675,
+        "finalValue": 2.77,
+        "appliedAxisMultiple": 1.2331
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 24.381,
+        "finalValue": 24
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 9.288,
+        "finalValue": 9.3
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 53.75,
+        "finalValue": 53.8
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0318,
+        "finalValue": 2.03
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.0245,
+        "finalValue": 2.02
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 8,
+      "attack": 4,
+      "defense": 7,
+      "speed": 4,
+      "range": 1,
+      "support": 4
+    }
+  },
   "storyUse": "본래 마을의 수호견이었음을 보여 주는 금줄로 인간에게 버림받은 짐승의 원한을 표현한다.",
-  "reuse": ["중반 늑대 무리", "역귀 호위", "후반 보스 경호"]
+  "reuse": [
+    "중반 늑대 무리",
+    "역귀 호위",
+    "후반 보스 경호"
+  ],
+  "skills": {
+    "schema": "skill_planning.v1",
+    "sourceGuides": [
+      "Assets/character_concepts/game_prompt_guide/skill/design/SkillGuide.md",
+      "Assets/character_concepts/game_prompt_guide/skill/design/SkillBalanceGuide.md"
+    ],
+    "expectedAttack": 20,
+    "designNotes": [
+      "Normal Grade 2 defense-type NPC skill set.",
+      "Use only a basic attack and one identity passive; this NPC is not a boss or elite leader.",
+      "Core identity: protects nearby allies by taking part of their damage, then retaliates lightly.",
+      "No upgrade plan: upgrade growth is not used for normal NPC skills.",
+      "Slot budget follows npc_skill_complexity.v1 recommendedSlots."
+    ],
+    "basic": {
+      "id": "skill.npc.ash_wolf.black_female_guard.2.basic_attack.guard_bite",
+      "displayName": "금줄 물어뜯기",
+      "category": "BasicAttack",
+      "grade": 2,
+      "role": "simple close melee attack",
+      "description": "검은 늑대가 짧게 파고들어 적을 물어뜯는다.",
+      "mechanics": {
+        "damageType": "physical_melee",
+        "castRange": 0.3,
+        "hitRange": 0.5,
+        "hitCount": 1,
+        "cooldown": 3,
+        "baseDamage": 25,
+        "attackPercentDamage": 1
+      },
+      "balance": {
+        "expectedTotalDamage": 45,
+        "dps": 15,
+        "damageScore": 150,
+        "hitCountFactor": 1,
+        "areaFactor": 1,
+        "utilityScore": 0,
+        "finalScore": 150,
+        "targetScore": 100,
+        "calculation": "TotalDamage 25 + 20 * 100% = 45; DPS 45 / 3 = 15; DamageScore 15 * 10 = 150.",
+        "note": "Grade 2 normal NPC basic attack is slightly above Grade 1 baseline, with no extra debuff to keep the pattern readable."
+      }
+    },
+    "passive": {
+      "id": "skill.npc.ash_wolf.black_female_guard.2.passive_1.red_rope_guard",
+      "displayName": "붉은 금줄 수호",
+      "category": "Passive",
+      "grade": 2,
+      "role": "simple nearby ally protection trait",
+      "description": "인접 아군이 피해를 받을 때, 검은 늑대가 일부 피해를 대신 받아내고 다음 기본 공격을 약간 강화한다.",
+      "mechanics": {
+        "trigger": "nearby_ally_takes_damage",
+        "triggerRange": 1,
+        "internalCooldown": 8,
+        "effects": [
+          {
+            "type": "redirect_damage_to_self",
+            "value": 0.25,
+            "target": "nearby_ally"
+          },
+          {
+            "type": "next_attack_buff",
+            "stat": "AttackPercentDamage",
+            "value": 0.3,
+            "duration": 5
+          }
+        ]
+      },
+      "balance": {
+        "expectedCounterDamage": 6,
+        "counterDpsValue": 0.75,
+        "damageScore": 8,
+        "utilityScore": 90,
+        "finalScore": 98,
+        "targetScore": 100,
+        "calculation": "Next attack bonus 20 * 30% = 6 expected damage per 8s = 0.75 DPS, score 8. Redirect 25% nearby ally damage estimated as 90 utility score.",
+        "note": "Kept as a lightweight identity passive suitable for a normal Grade 2 guard NPC."
+      }
+    }
+  },
+  "skillComplexity": {
+    "schema": "npc_skill_complexity.v1",
+    "ownerDomain": "npc",
+    "tierId": "normal",
+    "grade": 2,
+    "typeId": "defense",
+    "recommendedSlots": [
+      "basic",
+      "passive"
+    ],
+    "excludedSlots": [
+      "active1",
+      "active2",
+      "active3",
+      "upgradePlan"
+    ],
+    "reason": "normal grade 2 defense NPC; not elite, leader, or boss. Reuse as boss guard does not change this unit tier."
+  }
 }

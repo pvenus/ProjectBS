@@ -1,11 +1,135 @@
 {
   "id": "npc.broken_shrine.flame_dokkaebi_mage",
   "displayName": "무너진 사당 · 혼불 도깨비 공격 마법형",
-  "groupTags": ["broken_shrine_retinue", "dokkaebi", "late"],
-  "identityKeywords": ["혼불", "도깨비", "원거리", "공격 마법"],
+  "groupTags": [
+    "broken_shrine_retinue",
+    "dokkaebi",
+    "late"
+  ],
+  "identityKeywords": [
+    "혼불",
+    "도깨비",
+    "원거리",
+    "공격 마법"
+  ],
   "appearance": "몸통 없이 탈과 두 팔만 청색 불꽃 속에 떠 있는 도깨비. 전통 단청 무늬가 불길에 흐른다.",
-  "combat": {"role": "연쇄 공격술사", "attackType": "spirit_magic", "targetPriority": "표식 또는 젖은 적", "signature": "혼불이 적 사이를 튕기며 의념 강화 효과를 훔침", "weakness": "단일 대상 집중 공격"},
-  "stats": {"health": 4, "attack": 9, "defense": 3, "speed": 7, "range": 9, "support": 4},
+  "combat": {
+    "role": "연쇄 공격술사",
+    "attackType": "spirit_magic",
+    "targetPriority": "표식 또는 젖은 적",
+    "signature": "혼불이 적 사이를 튕기며 의념 강화 효과를 훔침",
+    "weakness": "단일 대상 집중 공격"
+  },
+  "stats": {
+    "schema": "npc_stat_profile.v1",
+    "sourceFormula": "character_stat.type_grade_multiplier_table.v3",
+    "tierId": "normal",
+    "grade": 3,
+    "score": 67.5,
+    "typeId": "ranged_dps",
+    "tags": [
+      "dokkaebi"
+    ],
+    "baseStats": [
+      {
+        "statType": "Attack",
+        "value": 25
+      },
+      {
+        "statType": "MaxHp",
+        "value": 190
+      },
+      {
+        "statType": "HpRegen",
+        "value": 3.26
+      },
+      {
+        "statType": "Defense",
+        "value": 18
+      },
+      {
+        "statType": "CritChance",
+        "value": 14.7
+      },
+      {
+        "statType": "CritDamage",
+        "value": 78.6
+      },
+      {
+        "statType": "AttackSpeed",
+        "value": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "value": 1.86
+      }
+    ],
+    "calculationSummary": [
+      {
+        "statType": "Attack",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 25.1418,
+        "finalValue": 25,
+        "appliedAxisMultiple": 1.4515
+      },
+      {
+        "statType": "MaxHp",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 189.6129,
+        "finalValue": 190,
+        "appliedAxisMultiple": 0.6885
+      },
+      {
+        "statType": "HpRegen",
+        "equation": "score100Value * monsterScoreRatio * typeAxis * tagAxisAndOverride * typeStat * tagStatAndOverride",
+        "rawValue": 3.2577,
+        "finalValue": 3.26,
+        "appliedAxisMultiple": 1.1356
+      },
+      {
+        "statType": "Defense",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 17.595,
+        "finalValue": 18
+      },
+      {
+        "statType": "CritChance",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 14.6625,
+        "finalValue": 14.7
+      },
+      {
+        "statType": "CritDamage",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 78.5565,
+        "finalValue": 78.6
+      },
+      {
+        "statType": "AttackSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 2.53,
+        "finalValue": 2.53
+      },
+      {
+        "statType": "MoveSpeed",
+        "equation": "score100Value * gradeStatMultiple * typeStat * tagStatAndOverride",
+        "rawValue": 1.8638,
+        "finalValue": 1.86
+      }
+    ],
+    "legacyConceptScores": {
+      "health": 4,
+      "attack": 9,
+      "defense": 3,
+      "speed": 7,
+      "range": 9,
+      "support": 4
+    }
+  },
   "storyUse": "사당에 바친 소원들이 주인을 잃고 장난스럽고 잔혹한 불꽃으로 뭉쳤다.",
-  "reuse": ["도깨비 장난", "무너진 사당 후열", "젖음 연계 혼성 조합"]
+  "reuse": [
+    "도깨비 장난",
+    "무너진 사당 후열",
+    "젖음 연계 혼성 조합"
+  ]
 }

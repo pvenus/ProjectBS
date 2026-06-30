@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Stat;
@@ -37,26 +38,6 @@ namespace Character
             DownLeft
         }
 
-        [System.Serializable]
-        public class DirectionalClipSet
-        {
-            public AnimationClip upRight;
-            public AnimationClip upLeft;
-            public AnimationClip downRight;
-            public AnimationClip downLeft;
-
-            public AnimationClip Get(DiagonalDirection direction)
-            {
-                return direction switch
-                {
-                    DiagonalDirection.UpRight => upRight,
-                    DiagonalDirection.UpLeft => upLeft,
-                    DiagonalDirection.DownRight => downRight,
-                    DiagonalDirection.DownLeft => downLeft,
-                    _ => null
-                };
-            }
-        }
 
         [Header("References")]
         [SerializeField] private Animator animator;
@@ -70,17 +51,8 @@ namespace Character
         [SerializeField] private bool resetToPreviousLocomotionAfterAttack = true;
         private const float AttackRecoveryDelay = 0.3f;
 
-        [Header("Clips - Idle")]
-        [SerializeField] private DirectionalClipSet idleClips;
-
-        [Header("Clips - Move")]
-        [SerializeField] private DirectionalClipSet moveClips;
-
-        [Header("Clips - Attack")]
-        [SerializeField] private DirectionalClipSet attackClips;
-
-        [Header("Clips - Death")]
-        [SerializeField] private DirectionalClipSet deathClips;
+        [Header("Animation Clips")]
+        [SerializeField] private List<CharacterAnimationClipEntry> animationClips = new();
 
         private Coroutine _playRoutine;
         private Coroutine _oneShotRoutine;
@@ -128,54 +100,7 @@ namespace Character
             return _isPlayingOneShot && _currentState == AnimationState.Attack;
         }
 
-        public void OverrideClipSet(AnimationClipSetSO clipSet)
-        {
-            if (clipSet == null)
-            {
-                return;
-            }
 
-            if (clipSet.idleClips != null)
-            {
-                idleClips = ConvertClipSet(clipSet.idleClips);
-            }
-
-            if (clipSet.moveClips != null)
-            {
-                moveClips = ConvertClipSet(clipSet.moveClips);
-            }
-
-            if (clipSet.attackClips != null)
-            {
-                attackClips = ConvertClipSet(clipSet.attackClips);
-            }
-
-            if (clipSet.deathClips != null)
-            {
-                deathClips = ConvertClipSet(clipSet.deathClips);
-            }
-
-            if (_currentState == AnimationState.Idle || _currentState == AnimationState.Move)
-            {
-                PlayState(_currentState, restartIfSameState: true);
-            }
-        }
-
-        private DirectionalClipSet ConvertClipSet(DirectionalAnimationClips source)
-        {
-            if (source == null)
-            {
-                return null;
-            }
-
-            return new DirectionalClipSet
-            {
-                upRight = source.upRight,
-                upLeft = source.upLeft,
-                downRight = source.downRight,
-                downLeft = source.downLeft
-            };
-        }
 
         private void Reset()
         {
@@ -187,7 +112,7 @@ namespace Character
             ResolveRequiredComponents();
             _currentDirection = defaultDirection;
         }
-
+        
         private void ResolveRequiredComponents()
         {
             if (animator == null)
@@ -233,6 +158,8 @@ namespace Character
         private IEnumerator Start()
         {
             yield return null;
+            
+            animationClips.AddRange(GetComponent<CharacterManager>().RuntimeData.characterSO.AnimationClips);
 
             if (playIdleOnStart)
             {
@@ -545,14 +472,87 @@ namespace Character
 
         private AnimationClip GetClip(AnimationState state, DiagonalDirection direction)
         {
-            return state switch
+            CharacterAnimationClipType clipType = ToAnimationClipType(
+                state,
+                direction);
+
+            if (animationClips == null)
             {
-                AnimationState.Idle => idleClips != null ? idleClips.Get(direction) : null,
-                AnimationState.Move => moveClips != null ? moveClips.Get(direction) : null,
-                AnimationState.Attack => attackClips != null ? attackClips.Get(direction) : null,
-                AnimationState.Death => deathClips != null ? deathClips.Get(direction) : null,
-                _ => null
-            };
+                return null;
+            }
+
+            foreach (CharacterAnimationClipEntry entry in animationClips)
+            {
+                if (entry != null && entry.clipType == clipType)
+                {
+                    return entry.clip;
+                }
+            }
+
+            return null;
+        }
+
+        private static CharacterAnimationClipType ToAnimationClipType(
+            AnimationState state,
+            DiagonalDirection direction)
+        {
+            switch (state)
+            {
+                case AnimationState.Idle:
+                    switch (direction)
+                    {
+                        case DiagonalDirection.UpRight:
+                            return CharacterAnimationClipType.IdleUpRight;
+                        case DiagonalDirection.UpLeft:
+                            return CharacterAnimationClipType.IdleUpLeft;
+                        case DiagonalDirection.DownLeft:
+                            return CharacterAnimationClipType.IdleDownLeft;
+                        default:
+                            return CharacterAnimationClipType.IdleDownRight;
+                    }
+
+                case AnimationState.Move:
+                    switch (direction)
+                    {
+                        case DiagonalDirection.UpRight:
+                            return CharacterAnimationClipType.MoveUpRight;
+                        case DiagonalDirection.UpLeft:
+                            return CharacterAnimationClipType.MoveUpLeft;
+                        case DiagonalDirection.DownLeft:
+                            return CharacterAnimationClipType.MoveDownLeft;
+                        default:
+                            return CharacterAnimationClipType.MoveDownRight;
+                    }
+
+                case AnimationState.Attack:
+                    switch (direction)
+                    {
+                        case DiagonalDirection.UpRight:
+                            return CharacterAnimationClipType.AttackUpRight;
+                        case DiagonalDirection.UpLeft:
+                            return CharacterAnimationClipType.AttackUpLeft;
+                        case DiagonalDirection.DownLeft:
+                            return CharacterAnimationClipType.AttackDownLeft;
+                        default:
+                            return CharacterAnimationClipType.AttackDownRight;
+                    }
+
+                case AnimationState.Death:
+                    switch (direction)
+                    {
+                        case DiagonalDirection.UpRight:
+                            return CharacterAnimationClipType.DeathUpRight;
+                        case DiagonalDirection.UpLeft:
+                            return CharacterAnimationClipType.DeathUpLeft;
+                        case DiagonalDirection.DownLeft:
+                            return CharacterAnimationClipType.DeathDownLeft;
+                        default:
+                            return CharacterAnimationClipType.DeathDownRight;
+                    }
+
+                default:
+                    return CharacterAnimationClipType.IdleDownRight;
+            }
         }
 
         private bool CanPlayClip(AnimationClip clip, AnimationState state, DiagonalDirection direction)
