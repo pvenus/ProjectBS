@@ -63,6 +63,12 @@ Save planning JSON under:
 Assets/Doc/Character
 ```
 
+Create one folder per planning group:
+
+```text
+Assets/Doc/Character/{groupId}
+```
+
 Single-file example:
 
 ```text
@@ -72,9 +78,9 @@ Assets/Doc/Character/sangui_spirit_npc_group.json
 Split-file example:
 
 ```text
-Assets/Doc/Character/sangui_spirit.common.json
-Assets/Doc/Character/mist_lingering_child.json
-Assets/Doc/Character/red_doll_carrier.json
+Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
+Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
+Assets/Doc/Character/sangui_spirit/red_doll_carrier.json
 ```
 
 Use the common data JSON for shared race, faction, world, story, reuse, and source guide data.
@@ -82,6 +88,14 @@ Use the common data JSON for shared race, faction, world, story, reuse, and sour
 Use each character JSON for one character's identity, appearance, combat, planning score, stats, and skills.
 
 Each character JSON should reference the common data JSON with `commonDataRef`.
+
+Example:
+
+```json
+{
+  "commonDataRef": "Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json"
+}
+```
 
 ### Validation
 
@@ -92,6 +106,8 @@ Each character JSON should reference the common data JSON with `commonDataRef`.
 - Skill intent includes enough data for the skill JSON step.
 - Shared group data is not duplicated across all 10 character JSON files.
 - Character JSON files reference the common data JSON with a project-relative `commonDataRef`.
+- Initial 10-character planning files are stored inside `Assets/Doc/Character/{groupId}`.
+- Different planning groups are not mixed in the same folder.
 
 ---
 

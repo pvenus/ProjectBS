@@ -18,6 +18,14 @@ Save all generated JSON files to:
 Assets/Doc/Character
 ```
 
+Create one folder per planning group.
+
+Recommended folder:
+
+```text
+Assets/Doc/Character/{groupId}
+```
+
 When creating an initial group of approximately 10 characters, the planning data may be split into:
 
 - One common data JSON for shared group data.
@@ -25,19 +33,21 @@ When creating an initial group of approximately 10 characters, the planning data
 
 Do not force all 10 characters into a single JSON if split files are easier to review or reuse.
 
+All common and character JSON files for the same planning group should be stored in the same group folder.
+
 Recommended file names:
 
 ```text
-{groupId}.common.json
-{characterId}.json
+{groupId}/{groupId}.common.json
+{groupId}/{characterId}.json
 ```
 
 Example:
 
 ```text
-sangui_spirit.common.json
-mist_lingering_child.json
-red_doll_carrier.json
+Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
+Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
+Assets/Doc/Character/sangui_spirit/red_doll_carrier.json
 ```
 
 ### Allowed References
@@ -118,6 +128,8 @@ Create approximately **10 NPC concepts** belonging to the same race.
 For the initial 10-character group, separate shared race/group information from character-specific information when useful.
 
 Common data should describe the group once. Character files should reference the common data instead of duplicating the same shared settings.
+
+Create a dedicated folder for the group before writing planning JSON files.
 
 The group should contain various combat roles.
 
@@ -268,7 +280,7 @@ characterPlanningCommon
 Example file:
 
 ```text
-Assets/Doc/Character/sangui_spirit.common.json
+Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
 ```
 
 #### Character Data JSON
@@ -302,15 +314,35 @@ Example:
 
 ```json
 {
-  "commonDataRef": "Assets/Doc/Character/sangui_spirit.common.json"
+  "commonDataRef": "Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json"
 }
 ```
 
 Example file:
 
 ```text
-Assets/Doc/Character/mist_lingering_child.json
+Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
 ```
+
+### Group Folder Rule
+
+Every planning group must be managed in its own folder under `Assets/Doc/Character`.
+
+Use this structure:
+
+```text
+Assets/Doc/Character/{groupId}/
+  {groupId}.common.json
+  {characterId}.json
+  {characterId}.json
+  {characterId}.json
+```
+
+The group folder should contain only planning JSON files for that group.
+
+Do not mix multiple character planning groups in the same folder.
+
+Do not place initial 10-character group JSON files directly under `Assets/Doc/Character` unless the task explicitly asks for a single legacy file.
 
 ### Duplication Rule
 
