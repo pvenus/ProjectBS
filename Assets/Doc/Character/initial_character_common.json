@@ -1,0 +1,58 @@
+{
+  "race": {
+    "raceId": "race.cheongun_mountain_tragedy",
+    "raceName": "청운산 비극의 잔재",
+    "primaryTags": [
+      "human",
+      "spirit"
+    ],
+    "description": "청운촌의 가뭄, 아이 실종, 버려진 사당, 산귀의 원한에 얽힌 인간과 혼령 계열 캐릭터를 함께 묶는 초기 기획용 공용 종족/출신 데이터다."
+  },
+  "faction": {
+    "factionId": "faction.cheongun_incident",
+    "factionName": "청운촌 사건",
+    "groups": [
+      "서진 일행",
+      "청운산 잔향",
+      "산귀의 원한"
+    ]
+  },
+  "worldUse": {
+    "domain": "character",
+    "setting": "조선풍 가상 동양 산촌 세계",
+    "mainLocations": [
+      "청운촌",
+      "마른 논과 우물",
+      "산길",
+      "버려진 사당",
+      "산채",
+      "산귀의 제단"
+    ],
+    "runtimeDomainNote": "Runtime domain should use character."
+  },
+  "storyUse": {
+    "act": "Act 1",
+    "chapters": [
+      "Chapter 1: 청운촌의 의뢰",
+      "Chapter 2-4: 조사, 산길, 사당, 산채 진행",
+      "Chapter 5: 산귀와의 대면"
+    ],
+    "summary": "서진, 지한, 유진이 청운촌의 아이 실종 사건을 추적하며 산적과 괴담 뒤에 숨은 마을의 죄, 버려진 아이의 원한, 산귀의 정체에 접근한다."
+  },
+  "reuse": {
+    "existingTagsUsed": [
+      "human",
+      "spirit"
+    ],
+    "newStatTagCreated": false,
+    "reason": "허용된 CharacterStatGuide의 human, spirit 태그만으로 플레이어 일행과 산귀 계열 적의 기본 전투 정체성을 표현할 수 있다."
+  },
+  "sourceGuides": [
+    "Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md",
+    "Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md",
+    "Assets/character_concepts/game_prompt_guide/character/CharacterStatGuide.md",
+    "Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md",
+    "Assets/character_concepts/game_prompt_guide/skill/design/SkillBalanceGuide.md",
+    "Assets/Doc"
+  ]
+}

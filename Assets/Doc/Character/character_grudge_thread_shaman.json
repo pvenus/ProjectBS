@@ -1,0 +1,102 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.grudge_thread_shaman",
+    "name": "원한실 무당령",
+    "characterType": "Npc",
+    "archetype": "지원형 혼령",
+    "combatRole": "shaman",
+    "grade": 3,
+    "tagId": "spirit"
+  },
+  "appearance": {
+    "silhouette": "무속 방울과 붉은 실을 끌고 다니는 떠 있는 형상.",
+    "visualKeywords": [
+      "붉은 실타래",
+      "무속 방울",
+      "찢어진 치마",
+      "얼굴을 가린 천"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, Korean shaman ghost with red threads"
+  },
+  "combat": {
+    "typeId": "support",
+    "rangeStyle": "mid support",
+    "behavior": "아군 혼령을 회복시키고 적에게 받는 피해 증가 디버프를 부여한다.",
+    "strength": "회복과 디버프",
+    "weakness": "단독 전투력 낮음"
+  },
+  "planningScore": {
+    "Overall": 155,
+    "Health": 80,
+    "Attack": 65,
+    "Defense": 55,
+    "Speed": 60,
+    "Range": 90,
+    "Support": 150
+  },
+  "stats": {
+    "totalScore": 155,
+    "growthType": "support",
+    "statIntent": "지원 점수를 높이고 직접 공격 능력은 제한한다.",
+    "baseStats": {
+      "attack": 18,
+      "defense": 17,
+      "criticalChance": 8,
+      "criticalDamage": 50,
+      "attackSpeed": 1.7,
+      "maxHp": 95,
+      "hpRegen": 3.8,
+      "moveSpeed": 1.35
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.grudge_thread_shaman.bell_hit",
+      "name": "방울 울림",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "방울 소리로 작은 영파를 보내 단일 대상을 공격한다.",
+      "balance": {
+        "baseDamage": 7,
+        "attackPercentDamage": 60,
+        "cooldown": 3.2,
+        "castRange": 3.5,
+        "hitRange": 0.4,
+        "hitCount": 1,
+        "finalBalanceScore": 59
+      }
+    },
+    {
+      "skillId": "skill.character.grudge_thread_shaman.red_thread_hex",
+      "name": "붉은 실 저주",
+      "slot": "Active1",
+      "category": "Active1",
+      "description": "대상이 받는 피해를 짧게 증가시킨다.",
+      "balance": {
+        "baseDamage": 6,
+        "attackPercentDamage": 30,
+        "cooldown": 8.0,
+        "castRange": 4.0,
+        "hitRange": 0.5,
+        "hitCount": 1,
+        "damageTakenIncreasePercent": 10,
+        "duration": 5.0,
+        "finalBalanceScore": 140
+      }
+    },
+    {
+      "skillId": "skill.character.grudge_thread_shaman.mourners_breath",
+      "name": "상주의 숨",
+      "slot": "Passive",
+      "category": "Passive",
+      "description": "주변 혼령의 HP 재생을 소폭 증가시킨다.",
+      "balance": {
+        "hpRegenBonus": 1.0,
+        "auraRange": 3.0,
+        "utilityScore": 90,
+        "finalBalanceScore": 90
+      }
+    }
+  ]
+}

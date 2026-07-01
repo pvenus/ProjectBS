@@ -1,0 +1,84 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.yujin",
+    "name": "유진",
+    "characterType": "Player",
+    "archetype": "궁수 / 추적자",
+    "combatRole": "ranged_dps",
+    "grade": 1,
+    "tagId": "human"
+  },
+  "appearance": {
+    "silhouette": "활과 짧은 망토를 든 날렵한 추적자.",
+    "visualKeywords": [
+      "대나무 활",
+      "화살통",
+      "낮게 묶은 머리",
+      "흔적을 살피는 자세"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, Joseon fantasy archer tracker"
+  },
+  "combat": {
+    "typeId": "ranged_dps",
+    "rangeStyle": "long ranged",
+    "behavior": "후방에서 단일 대상을 꾸준히 압박하고 위험한 적을 우선 제거한다.",
+    "strength": "사거리, 단일 지속 피해, 추적",
+    "weakness": "근접 압박에 취약"
+  },
+  "planningScore": {
+    "Overall": 115,
+    "Health": 75,
+    "Attack": 130,
+    "Defense": 55,
+    "Speed": 90,
+    "Range": 135,
+    "Support": 35
+  },
+  "stats": {
+    "totalScore": 115,
+    "growthType": "ranged_dps",
+    "statIntent": "공격과 사거리에 예산을 집중하고 방어와 HP는 낮게 유지한다.",
+    "baseStats": {
+      "attack": 25,
+      "defense": 16,
+      "criticalChance": 13,
+      "criticalDamage": 50,
+      "attackSpeed": 2.0,
+      "maxHp": 85,
+      "hpRegen": 2.0,
+      "moveSpeed": 1.55
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.yujin.tracker_arrow",
+      "name": "추적자의 화살",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "먼 거리의 대상을 정확히 쏘는 기본 공격.",
+      "balance": {
+        "baseDamage": 10,
+        "attackPercentDamage": 100,
+        "cooldown": 3.0,
+        "castRange": 5.0,
+        "hitRange": 0.25,
+        "hitCount": 1,
+        "finalBalanceScore": 100
+      }
+    },
+    {
+      "skillId": "skill.character.yujin.cold_read",
+      "name": "차가운 판단",
+      "slot": "Passive",
+      "category": "Passive",
+      "description": "처음 공격하는 적에게 치명타 확률이 잠시 증가한다.",
+      "balance": {
+        "critChanceBonus": 10,
+        "duration": 5.0,
+        "utilityScore": 35,
+        "finalBalanceScore": 35
+      }
+    }
+  ]
+}

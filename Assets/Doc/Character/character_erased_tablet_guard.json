@@ -1,0 +1,85 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.erased_tablet_guard",
+    "name": "이름 지워진 위패지기",
+    "characterType": "Npc",
+    "archetype": "방어형 혼령",
+    "combatRole": "defender",
+    "grade": 2,
+    "tagId": "spirit"
+  },
+  "appearance": {
+    "silhouette": "등에 낡은 위패 조각이 박힌 웅크린 형상.",
+    "visualKeywords": [
+      "지워진 이름",
+      "부서진 사당 나무",
+      "검은 흙 갑각",
+      "느린 걸음"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, shrine tablet ghost defender"
+  },
+  "combat": {
+    "typeId": "defense",
+    "rangeStyle": "close melee",
+    "behavior": "좁은 길에서 버티며 근접 대상을 밀어낸다.",
+    "strength": "길막, 방어, 진형 붕괴",
+    "weakness": "속도와 화력 부족"
+  },
+  "planningScore": {
+    "Overall": 130,
+    "Health": 115,
+    "Attack": 55,
+    "Defense": 100,
+    "Speed": 35,
+    "Range": 20,
+    "Support": 45
+  },
+  "stats": {
+    "totalScore": 130,
+    "growthType": "defense",
+    "statIntent": "spirit 계열 예외형 방어 적. 높은 HP와 방어 대신 이동 속도와 공격을 낮춘다.",
+    "baseStats": {
+      "attack": 15,
+      "defense": 24,
+      "criticalChance": 8,
+      "criticalDamage": 50,
+      "attackSpeed": 1.6,
+      "maxHp": 135,
+      "hpRegen": 2.0,
+      "moveSpeed": 1.05
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.erased_tablet_guard.tablet_bash",
+      "name": "위패 밀치기",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "위패 조각으로 가까운 적을 밀어내며 공격한다.",
+      "balance": {
+        "baseDamage": 7,
+        "attackPercentDamage": 70,
+        "cooldown": 3.0,
+        "castRange": 0.35,
+        "hitRange": 0.6,
+        "hitCount": 1,
+        "knockback": "small",
+        "finalBalanceScore": 70
+      }
+    },
+    {
+      "skillId": "skill.character.erased_tablet_guard.rooted_grudge",
+      "name": "뿌리내린 원한",
+      "slot": "Passive",
+      "category": "Passive",
+      "description": "움직이지 않는 동안 방어가 증가한다.",
+      "balance": {
+        "defenseBonusPercent": 20,
+        "condition": "stationary",
+        "utilityScore": 80,
+        "finalBalanceScore": 80
+      }
+    }
+  ]
+}

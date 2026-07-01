@@ -1,0 +1,103 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.mountain_brigand_captain",
+    "name": "산채 두령",
+    "characterType": "Npc",
+    "archetype": "인간 산적 지휘관",
+    "combatRole": "captain",
+    "grade": 3,
+    "tagId": "human"
+  },
+  "appearance": {
+    "silhouette": "낡은 갑옷과 큰 도끼를 든 거친 지휘관.",
+    "visualKeywords": [
+      "찢어진 관군 갑옷",
+      "큰 도끼",
+      "검은 어깨천",
+      "거친 수염"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, Joseon mountain bandit captain with axe"
+  },
+  "combat": {
+    "typeId": "defense",
+    "rangeStyle": "extended melee",
+    "behavior": "전방에서 버티며 넓은 휘두르기와 지휘 버프로 산적을 강화한다.",
+    "strength": "넓은 근접 범위와 지휘",
+    "weakness": "느린 공격 선딜"
+  },
+  "planningScore": {
+    "Overall": 180,
+    "Health": 170,
+    "Attack": 130,
+    "Defense": 135,
+    "Speed": 55,
+    "Range": 65,
+    "Support": 80
+  },
+  "stats": {
+    "totalScore": 180,
+    "growthType": "defense_leader",
+    "statIntent": "중반 인간 지휘관. HP와 방어를 높이고, 공격은 느리지만 묵직하게 둔다.",
+    "baseStats": {
+      "attack": 30,
+      "defense": 28,
+      "criticalChance": 10,
+      "criticalDamage": 50,
+      "attackSpeed": 1.5,
+      "maxHp": 210,
+      "hpRegen": 3.0,
+      "moveSpeed": 1.15
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.mountain_brigand_captain.axe_swing",
+      "name": "도끼 휘두르기",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "넓은 범위로 도끼를 휘둘러 전방 적을 공격한다.",
+      "balance": {
+        "baseDamage": 14,
+        "attackPercentDamage": 90,
+        "cooldown": 3.5,
+        "castRange": 0.7,
+        "hitRange": 0.8,
+        "hitCount": 2,
+        "finalBalanceScore": 183
+      }
+    },
+    {
+      "skillId": "skill.character.mountain_brigand_captain.black_cloth_order",
+      "name": "검은 천의 호령",
+      "slot": "Passive",
+      "category": "Passive",
+      "description": "주변 인간 산적의 공격력을 잠시 높인다.",
+      "balance": {
+        "attackBonusPercent": 10,
+        "duration": 5.0,
+        "auraRange": 3.5,
+        "expectedAffectedAllies": 2,
+        "finalBalanceScore": 80
+      }
+    },
+    {
+      "skillId": "skill.character.mountain_brigand_captain.ground_break",
+      "name": "흙바닥 내려찍기",
+      "slot": "Active1",
+      "category": "Active1",
+      "description": "도끼로 땅을 내려쳐 작은 범위의 적을 느리게 만든다.",
+      "balance": {
+        "baseDamage": 28,
+        "attackPercentDamage": 100,
+        "cooldown": 8.0,
+        "castRange": 0.8,
+        "hitRange": 1.0,
+        "hitCount": 3,
+        "slowPercent": 30,
+        "slowDuration": 2.0,
+        "finalBalanceScore": 300
+      }
+    }
+  ]
+}

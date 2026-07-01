@@ -77,6 +77,19 @@ north-east/
 north-west/
 ```
 
+## PixelLab South-West Mirroring
+
+After generating each animation in PixelLab, duplicate the generated `south-east` direction to `south-west` with the PixelLab south-west mirror button before exporting.
+
+Apply this rule immediately after each animation is generated:
+
+- Source direction: `south-east`
+- Target direction: `south-west`
+- Required animation types: `Walk`, `Attack`, `Idle`, and any additional generated animation
+- Keep the animation name unchanged. Only add the mirrored direction frames.
+
+Before using the `Export` button, confirm that every generated animation contains both the original `south-east` direction and the mirrored `south-west` direction in PixelLab.
+
 ---
 
 ## Animation Enum Mapping
@@ -213,6 +226,7 @@ Only the final PNG files required by Unity should remain in `Assets/Resources/ch
 
 Before running the Unity character generator, check the following:
 
+- Does each generated animation contain both `south-east` and PixelLab-mirrored `south-west` before export?
 - Are the PNG files copied into `animation_png`?
 - Do file names follow `character.{characterName}.{grade}.{animation_enum}.frame_000.png`?
 - Does `animation_enum` exactly match `CharacterAnimationClipType`?

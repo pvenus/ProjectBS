@@ -1,0 +1,118 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.sangui",
+    "name": "산귀",
+    "characterType": "Boss",
+    "archetype": "버려진 아이의 원한",
+    "combatRole": "final_guardian",
+    "grade": 3,
+    "tagId": "spirit"
+  },
+  "appearance": {
+    "silhouette": "흙과 피로 더럽혀진 아이의 형상 위로 거대한 산그림자가 겹쳐진다.",
+    "visualKeywords": [
+      "흙 묻은 아이 얼굴",
+      "찢어진 제의 천",
+      "붉은 실과 위패",
+      "산처럼 번지는 그림자"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, tragic mountain spirit child form for final encounter"
+  },
+  "combat": {
+    "typeId": "area_control",
+    "rangeStyle": "mixed area",
+    "behavior": "원한 장판, 소환, 광역 제어로 전장을 잠식하며 후반 선택의 압박을 전투로 표현한다.",
+    "strength": "광역 제어, 소환, 높은 지속력",
+    "weakness": "패턴 후 빈틈이 크고 감정 연출 구간에서 취약해진다."
+  },
+  "planningScore": {
+    "Overall": 500,
+    "Health": 520,
+    "Attack": 360,
+    "Defense": 260,
+    "Speed": 90,
+    "Range": 420,
+    "Support": 480
+  },
+  "stats": {
+    "totalScore": 500,
+    "growthType": "area_control_support",
+    "statIntent": "최종 대면용 기획값. HP 800+ 기준을 만족하고 직접 피해보다 전장 제어와 소환 예산을 높인다.",
+    "baseStats": {
+      "attack": 55,
+      "defense": 32,
+      "criticalChance": 10,
+      "criticalDamage": 55,
+      "attackSpeed": 1.4,
+      "maxHp": 980,
+      "hpRegen": 8.0,
+      "moveSpeed": 1.1
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.sangui.soil_grasp",
+      "name": "흙손 붙잡기",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "흙에서 솟은 손이 가까운 대상을 붙잡아 피해를 준다.",
+      "balance": {
+        "baseDamage": 16,
+        "attackPercentDamage": 100,
+        "cooldown": 3.0,
+        "castRange": 1.2,
+        "hitRange": 0.7,
+        "hitCount": 2,
+        "finalBalanceScore": 276
+      }
+    },
+    {
+      "skillId": "skill.character.sangui.abandoned_question",
+      "name": "왜 나만 버려졌어",
+      "slot": "Passive",
+      "category": "Passive",
+      "description": "전투 시간이 길어질수록 원한이 쌓여 주변 적에게 약한 둔화를 준다.",
+      "balance": {
+        "slowPercent": 30,
+        "auraRange": 3.0,
+        "stackCondition": "timeInBattle",
+        "utilityScore": 180,
+        "finalBalanceScore": 180
+      }
+    },
+    {
+      "skillId": "skill.character.sangui.red_tablet_rain",
+      "name": "붉은 위패비",
+      "slot": "Active1",
+      "category": "Active2",
+      "description": "지워진 위패 조각을 떨어뜨려 원형 범위에 피해와 받는 피해 증가를 남긴다.",
+      "balance": {
+        "baseDamage": 42,
+        "attackPercentDamage": 140,
+        "cooldown": 8.0,
+        "castRange": 4.5,
+        "hitRange": 1.5,
+        "hitCount": 5,
+        "damageTakenIncreasePercent": 10,
+        "duration": 5.0,
+        "finalBalanceScore": 520
+      }
+    },
+    {
+      "skillId": "skill.character.sangui.call_lost_children",
+      "name": "잃어버린 아이 부르기",
+      "slot": "Active2",
+      "category": "Active3",
+      "description": "안개에 남은 아이들을 소환해 전장을 압박한다.",
+      "balance": {
+        "summonId": "character.mist_lingering_child",
+        "summonCount": 3,
+        "lifetime": 12.0,
+        "cooldown": 22.0,
+        "utilityScore": 260,
+        "finalBalanceScore": 800
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.mist_lingering_child",
+    "name": "안개에 남은 아이",
+    "characterType": "Npc",
+    "archetype": "초반 정찰형 혼령",
+    "combatRole": "scout",
+    "grade": 1,
+    "tagId": "spirit"
+  },
+  "appearance": {
+    "silhouette": "산안개에 반쯤 녹은 작은 아이의 그림자.",
+    "visualKeywords": [
+      "흐릿한 흰 저고리",
+      "젖은 흙 묻은 발",
+      "희미한 눈빛",
+      "흩어지는 윤곽"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, small ghost child in mountain mist"
+  },
+  "combat": {
+    "typeId": "melee_dps",
+    "rangeStyle": "close melee",
+    "behavior": "빠르게 접근해 낮은 피해를 주고 물러난다.",
+    "strength": "속도와 초반 압박",
+    "weakness": "낮은 체력과 방어"
+  },
+  "planningScore": {
+    "Overall": 80,
+    "Health": 45,
+    "Attack": 70,
+    "Defense": 30,
+    "Speed": 90,
+    "Range": 20,
+    "Support": 35
+  },
+  "stats": {
+    "totalScore": 80,
+    "growthType": "mobile_melee",
+    "statIntent": "초반 일반 적. spirit 태그에 맞춰 낮은 물리 내구와 높은 이동성을 준다.",
+    "baseStats": {
+      "attack": 14,
+      "defense": 14,
+      "criticalChance": 10,
+      "criticalDamage": 50,
+      "attackSpeed": 2.1,
+      "maxHp": 52,
+      "hpRegen": 1.2,
+      "moveSpeed": 1.75
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.mist_lingering_child.cold_scratch",
+      "name": "차가운 할퀴기",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "가까운 대상을 짧게 할퀴어 차가운 피해를 준다.",
+      "balance": {
+        "baseDamage": 6,
+        "attackPercentDamage": 60,
+        "cooldown": 2.4,
+        "castRange": 0.25,
+        "hitRange": 0.45,
+        "hitCount": 1,
+        "finalBalanceScore": 75
+      }
+    }
+  ]
+}

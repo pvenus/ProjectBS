@@ -1,0 +1,89 @@
+{
+  "commonDataRef": "Assets/Doc/Character/initial_character_common.json",
+  "identity": {
+    "characterId": "character.shrine_wisp_archer",
+    "name": "사당 도깨비불 사수",
+    "characterType": "Npc",
+    "archetype": "원거리 혼령",
+    "combatRole": "archer",
+    "grade": 2,
+    "tagId": "spirit"
+  },
+  "appearance": {
+    "silhouette": "작은 도깨비불을 활처럼 당기는 가느다란 혼령.",
+    "visualKeywords": [
+      "푸른 도깨비불",
+      "부러진 제례 장식",
+      "긴 소매",
+      "떠 있는 발"
+    ],
+    "cameraPrompt": "High Top-Down, highly detailed, black outline, shrine wisp ghost archer"
+  },
+  "combat": {
+    "typeId": "ranged_dps",
+    "rangeStyle": "mid ranged",
+    "behavior": "후방에서 느린 투사체를 발사해 플레이어 이동을 압박한다.",
+    "strength": "사거리와 배치 압박",
+    "weakness": "근접 접근에 취약"
+  },
+  "planningScore": {
+    "Overall": 125,
+    "Health": 55,
+    "Attack": 110,
+    "Defense": 35,
+    "Speed": 70,
+    "Range": 120,
+    "Support": 50
+  },
+  "stats": {
+    "totalScore": 125,
+    "growthType": "ranged_dps",
+    "statIntent": "허약하지만 원거리 피해와 사거리가 높은 spirit 원거리 적.",
+    "baseStats": {
+      "attack": 23,
+      "defense": 14,
+      "criticalChance": 10,
+      "criticalDamage": 50,
+      "attackSpeed": 1.8,
+      "maxHp": 64,
+      "hpRegen": 2.0,
+      "moveSpeed": 1.5
+    }
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.shrine_wisp_archer.wisp_shot",
+      "name": "도깨비불 쏘기",
+      "slot": "Basic",
+      "category": "Basic",
+      "description": "푸른 불씨를 날려 단일 대상을 공격한다.",
+      "balance": {
+        "baseDamage": 9,
+        "attackPercentDamage": 90,
+        "cooldown": 3.0,
+        "castRange": 4.5,
+        "hitRange": 0.3,
+        "hitCount": 1,
+        "projectile": "normal",
+        "finalBalanceScore": 90
+      }
+    },
+    {
+      "skillId": "skill.character.shrine_wisp_archer.trailing_flame",
+      "name": "따라붙는 잔불",
+      "slot": "Active1",
+      "category": "Active1",
+      "description": "느리게 따라가는 불씨를 날려 명중 신뢰도를 높인다.",
+      "balance": {
+        "baseDamage": 18,
+        "attackPercentDamage": 80,
+        "cooldown": 7.0,
+        "castRange": 5.0,
+        "hitRange": 0.35,
+        "hitCount": 1,
+        "projectile": "homing",
+        "finalBalanceScore": 210
+      }
+    }
+  ]
+}

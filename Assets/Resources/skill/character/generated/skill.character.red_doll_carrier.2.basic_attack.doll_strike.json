@@ -1,0 +1,53 @@
+{
+  "equipmentId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike",
+  "baseProfile": {
+    "baseProfileId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.55,
+    "projectileLifetime": 0.2,
+    "projectileSpawn": {
+      "spawnOffset": 0.4,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 2.6,
+    "castTime": 0,
+    "range": 0.4,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 8,
+        "attackPercentDamage": 0.8
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.red_doll_carrier.2.basic_attack.doll_strike.visual",
+    "projectileVisualType": "Default"
+  }
+}
