@@ -1,0 +1,37 @@
+{
+  "equipmentId": "skill.character.sangui.3.passive_1.abandoned_question",
+  "baseProfile": {
+    "baseProfileId": "skill.character.sangui.3.passive_1.abandoned_question.profile",
+    "skillType": "Passive",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.1,
+    "projectileLifetime": 0.1
+  },
+  "cast": {
+    "castId": "skill.character.sangui.3.passive_1.abandoned_question.cast",
+    "targetingType": "Self",
+    "cooldown": 0,
+    "castTime": 0,
+    "range": 0.4,
+    "skipAttackAnimation": true,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.skill.character.sangui.3.passive_1.abandoned_question.attack_up",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "AttackPercent",
+            "modifierType": "Flat",
+            "value": 10
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      }
+    ]
+  }
+}

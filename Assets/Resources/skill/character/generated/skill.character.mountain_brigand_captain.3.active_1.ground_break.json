@@ -1,0 +1,70 @@
+{
+  "equipmentId": "skill.character.mountain_brigand_captain.3.active_1.ground_break",
+  "baseProfile": {
+    "baseProfileId": "skill.character.mountain_brigand_captain.3.active_1.ground_break.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.0,
+    "projectileLifetime": 0.35,
+    "projectileSpawn": {
+      "spawnOffset": 0.8,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.mountain_brigand_captain.3.active_1.ground_break.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 8.0,
+    "castTime": 0,
+    "range": 0.8,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.mountain_brigand_captain.3.active_1.ground_break.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.mountain_brigand_captain.3.active_1.ground_break.hit",
+      "maxHitCount": 3,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 28,
+        "attackPercentDamage": 1.0
+      },
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "effect.skill.character.mountain_brigand_captain.3.active_1.ground_break.move_speed_down",
+            "effectType": "StatModifier",
+            "config": {
+              "targetStat": "MoveSpeed",
+              "modifierType": "Percent",
+              "value": -30
+            }
+          },
+          "lifetimeType": "CombatTimed",
+          "categoryType": "Debuff",
+          "duration": 2,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.mountain_brigand_captain.3.active_1.ground_break.visual",
+    "projectileVisualType": "Default"
+  }
+}

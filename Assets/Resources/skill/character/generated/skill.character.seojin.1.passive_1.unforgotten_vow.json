@@ -1,0 +1,37 @@
+{
+  "equipmentId": "skill.character.seojin.1.passive_1.unforgotten_vow",
+  "baseProfile": {
+    "baseProfileId": "skill.character.seojin.1.passive_1.unforgotten_vow.profile",
+    "skillType": "Passive",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.1,
+    "projectileLifetime": 0.1
+  },
+  "cast": {
+    "castId": "skill.character.seojin.1.passive_1.unforgotten_vow.cast",
+    "targetingType": "Self",
+    "cooldown": 0,
+    "castTime": 0,
+    "range": 0.4,
+    "skipAttackAnimation": true,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.skill.character.seojin.1.passive_1.unforgotten_vow.low_hp_defense",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "LowHpDefenseBonus",
+            "modifierType": "Flat",
+            "value": 10
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      }
+    ]
+  }
+}

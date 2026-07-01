@@ -1,0 +1,70 @@
+{
+  "equipmentId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex",
+  "baseProfile": {
+    "baseProfileId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 0.8,
+    "projectileSpawn": {
+      "spawnOffset": 0.4,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 8.0,
+    "castTime": 0,
+    "range": 4.0,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 6
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 6,
+        "attackPercentDamage": 0.3
+      },
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "effect.skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.defense_down",
+            "effectType": "StatModifier",
+            "config": {
+              "targetStat": "Defense",
+              "modifierType": "Percent",
+              "value": -10
+            }
+          },
+          "lifetimeType": "CombatTimed",
+          "categoryType": "Debuff",
+          "duration": 5,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.grudge_thread_shaman.3.active_1.red_thread_hex.visual",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "equipmentId": "skill.character.mountain_brigand_captain.3.passive_1.black_cloth_order",
+  "baseProfile": {
+    "baseProfileId": "skill.character.mountain_brigand_captain.3.passive_1.black_cloth_order.profile",
+    "skillType": "Passive",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.1,
+    "projectileLifetime": 0.1
+  },
+  "cast": {
+    "castId": "skill.character.mountain_brigand_captain.3.passive_1.black_cloth_order.cast",
+    "targetingType": "Self",
+    "cooldown": 0,
+    "castTime": 0,
+    "range": 0.4,
+    "skipAttackAnimation": true,
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "effect.skill.character.mountain_brigand_captain.3.passive_1.black_cloth_order.attack_up",
+          "effectType": "StatModifier",
+          "config": {
+            "targetStat": "AttackPercent",
+            "modifierType": "Flat",
+            "value": 10
+          }
+        },
+        "lifetimeType": "Manual",
+        "categoryType": "Buff",
+        "duration": 0,
+        "maxApplyCount": 1
+      }
+    ]
+  }
+}
