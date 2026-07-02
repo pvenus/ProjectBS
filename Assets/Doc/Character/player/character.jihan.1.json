@@ -1,0 +1,98 @@
+{
+  "documentId": "character_planning.character.jihan.1",
+  "documentType": "characterPlanning",
+  "commonDataRef": "Assets/Doc/Character/player/cheongun_sangui_act2.player_common.json",
+  "identity": {
+    "characterId": "character.jihan.1",
+    "characterType": "Player",
+    "runtimeDomain": "character",
+    "name": "??",
+    "grade": 1,
+    "tierId": "player_grade1",
+    "role": "healer_monk",
+    "tags": [
+      "human",
+      "support",
+      "monk"
+    ]
+  },
+  "appearance": {
+    "silhouette": "?? ?? ? ???? ? ??? ??",
+    "weapon": "??? ?? ???",
+    "visualKeywords": [
+      "human",
+      "support",
+      "monk"
+    ]
+  },
+  "combat": {
+    "roleIntent": "healer_monk",
+    "preferredRange": "ranged",
+    "partyFunction": [
+      "heal",
+      "shield",
+      "calm_spirit"
+    ]
+  },
+  "planningScore": {
+    "overall": 115,
+    "health": 100,
+    "attack": 80,
+    "defense": 90,
+    "speed": 90,
+    "range": 100,
+    "support": 150
+  },
+  "stats": {
+    "grade": 1,
+    "totalScore": 115,
+    "growthType": "utility",
+    "primaryTag": "human",
+    "statBias": [
+      "hp_regen",
+      "support_utility",
+      "low_attack"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.jihan.1.basic_attack.staff_tap",
+      "slot": "basic_attack",
+      "name": "??? ??",
+      "category": "Basic",
+      "intent": "??? ?? ???? ????.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 8,
+        "attackPercentDamage": 80,
+        "cooldown": 3.0,
+        "castRange": 0.5,
+        "hitRange": 0.5,
+        "hitCount": 1,
+        "targetScore": 80,
+        "utility": []
+      }
+    },
+    {
+      "skillId": "skill.character.jihan.1.passive.merciful_medicine",
+      "slot": "passive",
+      "name": "??? ??",
+      "category": "Passive",
+      "intent": "?? ???? ?? ? ??? ?? ??/?? ??? ???.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "cooldown": 0,
+        "castRange": 0.4,
+        "hitRange": 1.5,
+        "hitCount": 3,
+        "targetScore": 130,
+        "utility": [
+          "small_party_heal_or_shield"
+        ]
+      }
+    }
+  ],
+  "notes": []
+}

@@ -1,0 +1,98 @@
+{
+  "documentId": "character_planning.character.seojin.1",
+  "documentType": "characterPlanning",
+  "commonDataRef": "Assets/Doc/Character/player/cheongun_sangui_act2.player_common.json",
+  "identity": {
+    "characterId": "character.seojin.1",
+    "characterType": "Player",
+    "runtimeDomain": "character",
+    "name": "??",
+    "grade": 1,
+    "tierId": "player_grade1",
+    "role": "frontline_swordsman",
+    "tags": [
+      "human",
+      "melee",
+      "rescuer"
+    ]
+  },
+  "appearance": {
+    "silhouette": "?? ?? ??? ?? ??? ?? ??? ??",
+    "weapon": "?",
+    "visualKeywords": [
+      "human",
+      "melee",
+      "rescuer"
+    ]
+  },
+  "combat": {
+    "roleIntent": "frontline_swordsman",
+    "preferredRange": "melee",
+    "partyFunction": [
+      "front_basic",
+      "protect_ally",
+      "interrupt"
+    ]
+  },
+  "planningScore": {
+    "overall": 130,
+    "health": 120,
+    "attack": 130,
+    "defense": 115,
+    "speed": 100,
+    "range": 60,
+    "support": 70
+  },
+  "stats": {
+    "grade": 1,
+    "totalScore": 130,
+    "growthType": "standard",
+    "primaryTag": "human",
+    "statBias": [
+      "attack",
+      "max_hp",
+      "steady_defense"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.seojin.1.basic_attack.field_sword_cut",
+      "slot": "basic_attack",
+      "name": "?? ??",
+      "category": "Basic",
+      "intent": "?? ?? ?? ????? ?? ??? ????.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 10,
+        "attackPercentDamage": 100,
+        "cooldown": 3.0,
+        "castRange": 0.5,
+        "hitRange": 0.6,
+        "hitCount": 1,
+        "targetScore": 100,
+        "utility": []
+      }
+    },
+    {
+      "skillId": "skill.character.seojin.1.passive.child_rescue_oath",
+      "slot": "passive",
+      "name": "??? ????? ??",
+      "category": "Passive",
+      "intent": "?? ?? ???? ?? ??? ???? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "cooldown": 0,
+        "castRange": 0.4,
+        "hitRange": 0.4,
+        "hitCount": 1,
+        "targetScore": 80,
+        "utility": [
+          "near_objective_damage_reduction_small"
+        ]
+      }
+    }
+  ],
+  "notes": []
+}

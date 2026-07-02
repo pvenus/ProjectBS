@@ -1,0 +1,138 @@
+{
+  "documentId": "character_planning.character.sangui_abandoned_child.3",
+  "documentType": "characterPlanning",
+  "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act2/cheongun_sangui_act2.common.json",
+  "identity": {
+    "characterId": "character.sangui_abandoned_child.3",
+    "characterType": "Boss",
+    "runtimeDomain": "character",
+    "name": "??? ? ??? ??",
+    "grade": 3,
+    "tierId": "boss",
+    "role": "act_boss_spirit",
+    "tags": [
+      "spirit",
+      "boss",
+      "grudge"
+    ]
+  },
+  "appearance": {
+    "silhouette": "?? ?? ???? ?? ??, ??? ???? ?? ?? ??? ?? ??",
+    "visualKeywords": [
+      "spirit",
+      "boss",
+      "grudge"
+    ]
+  },
+  "combat": {
+    "roleIntent": "???? ??? ????? Act ??",
+    "preferredRange": "melee",
+    "partyFunction": [
+      "act_boss_spirit"
+    ]
+  },
+  "planningScore": {
+    "overall": 520,
+    "health": 800,
+    "attack": 240,
+    "defense": 140,
+    "speed": 100,
+    "range": 160,
+    "support": 260
+  },
+  "stats": {
+    "grade": 3,
+    "totalScore": 520,
+    "growthType": "utility",
+    "primaryTag": "spirit",
+    "statBias": [
+      "boss_hp",
+      "summon_or_area_pressure",
+      "phase_change"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch",
+      "slot": "basic_attack",
+      "name": "?? ???",
+      "category": "Basic",
+      "intent": "??? ??? ?? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 18,
+        "attackPercentDamage": 120,
+        "cooldown": 3.0,
+        "castRange": 0.5,
+        "hitRange": 0.7,
+        "hitCount": 2,
+        "targetScore": 150,
+        "utility": []
+      }
+    },
+    {
+      "skillId": "skill.character.sangui_abandoned_child.3.passive.left_alone_again",
+      "slot": "passive",
+      "name": "? ?? ????",
+      "category": "Passive",
+      "intent": "?? ?? ?? ?? ??? ?? ?? ??? ??? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "cooldown": 0,
+        "castRange": 0.4,
+        "hitRange": 3.0,
+        "hitCount": 5,
+        "targetScore": 350,
+        "utility": [
+          "phase_pressure",
+          "summon_wraith_hint"
+        ]
+      }
+    },
+    {
+      "skillId": "skill.character.sangui_abandoned_child.3.active1.cold_mountain_call",
+      "slot": "active1",
+      "name": "??? ??? ??",
+      "category": "Active1",
+      "intent": "??? ?? ??? ?? ?? ???.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 20,
+        "attackPercentDamage": 120,
+        "cooldown": 8.0,
+        "castRange": 3.2,
+        "hitRange": 1.5,
+        "hitCount": 5,
+        "targetScore": 500,
+        "utility": [
+          "slow_50_percent_2s",
+          "summon_minor_wraith_hint"
+        ]
+      }
+    },
+    {
+      "skillId": "skill.character.sangui_abandoned_child.3.active2.why_only_me",
+      "slot": "active2",
+      "name": "? ?? ????",
+      "category": "Active2",
+      "intent": "?? ?? ?? ??. ??? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 35,
+        "attackPercentDamage": 180,
+        "cooldown": 12.0,
+        "castRange": 2.5,
+        "hitRange": 2.0,
+        "hitCount": 6,
+        "targetScore": 800,
+        "utility": [
+          "stun_or_heavy_slow_short",
+          "boss_phase_burst"
+        ]
+      }
+    }
+  ],
+  "notes": []
+}

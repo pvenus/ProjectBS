@@ -1,0 +1,146 @@
+{
+  "contextId": "monster_context.cheongun_sangui_act2",
+  "actId": "act.02",
+  "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act2/cheongun_sangui_act2.common.json",
+  "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act2/monster_composition.chapter_01_05.json",
+  "sourceStoryRefs": [
+    "Assets/Doc/Story/00_Background.md",
+    "Assets/Doc/Story/01_Overall_Story.md",
+    "Assets/Doc/Story/Act_01_Background.md",
+    "Assets/Doc/Story/Characters.md",
+    "Assets/Doc/Story/Chapter_01.md",
+    "Assets/Doc/Story/Chapter_02.md",
+    "Assets/Doc/Story/Chapter_03.md",
+    "Assets/Doc/Story/Chapter_04.md",
+    "Assets/Doc/Story/Chapter_05.md"
+  ],
+  "monsterPoolRefs": [
+    {
+      "characterId": "character.starving_mountain_wolf.1",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.starving_mountain_wolf.1.json",
+      "roleSlots": [
+        "fast_melee_swarm"
+      ],
+      "storyUseTags": [
+        "wolf",
+        "beast",
+        "fast"
+      ]
+    },
+    {
+      "characterId": "character.black_cloth_raider.1",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.black_cloth_raider.1.json",
+      "roleSlots": [
+        "melee_dps"
+      ],
+      "storyUseTags": [
+        "human",
+        "bandit",
+        "melee"
+      ]
+    },
+    {
+      "characterId": "character.mountain_path_archer.1",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.mountain_path_archer.1.json",
+      "roleSlots": [
+        "ranged_dps"
+      ],
+      "storyUseTags": [
+        "human",
+        "bandit",
+        "ranged"
+      ]
+    },
+    {
+      "characterId": "character.red_doll_hexer.2",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.red_doll_hexer.2.json",
+      "roleSlots": [
+        "support_debuffer"
+      ],
+      "storyUseTags": [
+        "human",
+        "ritual",
+        "support"
+      ]
+    },
+    {
+      "characterId": "character.cage_guard_bandit.2",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.cage_guard_bandit.2.json",
+      "roleSlots": [
+        "defender"
+      ],
+      "storyUseTags": [
+        "human",
+        "bandit",
+        "defense"
+      ]
+    },
+    {
+      "characterId": "character.abandoned_shrine_wraith.2",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.abandoned_shrine_wraith.2.json",
+      "roleSlots": [
+        "spirit_ranged"
+      ],
+      "storyUseTags": [
+        "spirit",
+        "ranged",
+        "ambush"
+      ]
+    },
+    {
+      "characterId": "character.nameless_tablet_guardian.3",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.nameless_tablet_guardian.3.json",
+      "roleSlots": [
+        "elite_defender"
+      ],
+      "storyUseTags": [
+        "spirit",
+        "defense",
+        "elite"
+      ]
+    }
+  ],
+  "bossRefs": [
+    {
+      "characterId": "character.sangui_abandoned_child.3",
+      "planningRef": "Assets/Doc/Character/cheongun_sangui_act2/npc/character.sangui_abandoned_child.3.json",
+      "roleSlots": [
+        "act_boss_spirit"
+      ],
+      "storyUseTags": [
+        "spirit",
+        "boss",
+        "grudge"
+      ]
+    }
+  ],
+  "playerPlanningRefs": [
+    {
+      "characterId": "character.seojin.1",
+      "planningRef": "Assets/Doc/Character/player/character.seojin.1.json",
+      "storyUseTags": [
+        "player",
+        "frontline",
+        "rescuer"
+      ]
+    },
+    {
+      "characterId": "character.jihan.1",
+      "planningRef": "Assets/Doc/Character/player/character.jihan.1.json",
+      "storyUseTags": [
+        "player",
+        "support",
+        "mercy"
+      ]
+    },
+    {
+      "characterId": "character.yujin.1",
+      "planningRef": "Assets/Doc/Character/player/character.yujin.1.json",
+      "storyUseTags": [
+        "player",
+        "ranged",
+        "tracker"
+      ]
+    }
+  ]
+}

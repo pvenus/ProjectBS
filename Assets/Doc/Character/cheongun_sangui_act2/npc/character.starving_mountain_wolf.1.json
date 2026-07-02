@@ -1,0 +1,75 @@
+{
+  "documentId": "character_planning.character.starving_mountain_wolf.1",
+  "documentType": "characterPlanning",
+  "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act2/cheongun_sangui_act2.common.json",
+  "identity": {
+    "characterId": "character.starving_mountain_wolf.1",
+    "characterType": "Npc",
+    "runtimeDomain": "character",
+    "name": "??? ???",
+    "grade": 1,
+    "tierId": "normal",
+    "role": "fast_melee_swarm",
+    "tags": [
+      "wolf",
+      "beast",
+      "fast"
+    ]
+  },
+  "appearance": {
+    "silhouette": "?? ???? ??? ???, ?? ??? ?? ??",
+    "visualKeywords": [
+      "wolf",
+      "beast",
+      "fast"
+    ]
+  },
+  "combat": {
+    "roleIntent": "?? ???? ?? ??? ?? ?? ?? ?",
+    "preferredRange": "melee",
+    "partyFunction": [
+      "fast_melee_swarm"
+    ]
+  },
+  "planningScore": {
+    "overall": 70,
+    "health": 55,
+    "attack": 70,
+    "defense": 45,
+    "speed": 120,
+    "range": 30,
+    "support": 0
+  },
+  "stats": {
+    "grade": 1,
+    "totalScore": 70,
+    "growthType": "mobile",
+    "primaryTag": "wolf",
+    "statBias": [
+      "move_speed",
+      "low_hp",
+      "quick_contact"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.starving_mountain_wolf.1.basic_attack.hunger_bite",
+      "slot": "basic_attack",
+      "name": "??? ????",
+      "category": "Basic",
+      "intent": "?? ???? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 6,
+        "attackPercentDamage": 80,
+        "cooldown": 2.2,
+        "castRange": 0.4,
+        "hitRange": 0.45,
+        "hitCount": 1,
+        "targetScore": 80,
+        "utility": []
+      }
+    }
+  ],
+  "notes": []
+}

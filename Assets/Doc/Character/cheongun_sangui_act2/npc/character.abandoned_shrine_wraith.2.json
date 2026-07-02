@@ -1,0 +1,96 @@
+{
+  "documentId": "character_planning.character.abandoned_shrine_wraith.2",
+  "documentType": "characterPlanning",
+  "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act2/cheongun_sangui_act2.common.json",
+  "identity": {
+    "characterId": "character.abandoned_shrine_wraith.2",
+    "characterType": "Npc",
+    "runtimeDomain": "character",
+    "name": "??? ?? ??",
+    "grade": 2,
+    "tierId": "elite",
+    "role": "spirit_ranged",
+    "tags": [
+      "spirit",
+      "ranged",
+      "ambush"
+    ]
+  },
+  "appearance": {
+    "silhouette": "??? ?? ??? ??? ??? ?? ?? ??",
+    "visualKeywords": [
+      "spirit",
+      "ranged",
+      "ambush"
+    ]
+  },
+  "combat": {
+    "roleIntent": "?? ?? ???? ?? ??? ???/?? ?",
+    "preferredRange": "ranged",
+    "partyFunction": [
+      "spirit_ranged"
+    ]
+  },
+  "planningScore": {
+    "overall": 145,
+    "health": 85,
+    "attack": 125,
+    "defense": 50,
+    "speed": 105,
+    "range": 130,
+    "support": 100
+  },
+  "stats": {
+    "grade": 2,
+    "totalScore": 145,
+    "growthType": "utility",
+    "primaryTag": "spirit",
+    "statBias": [
+      "hp_regen",
+      "utility",
+      "fragile"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper",
+      "slot": "basic_attack",
+      "name": "??? ???",
+      "category": "Basic",
+      "intent": "?? ???? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 9,
+        "attackPercentDamage": 90,
+        "cooldown": 3.0,
+        "castRange": 3.0,
+        "hitRange": 0.45,
+        "hitCount": 1,
+        "targetScore": 95,
+        "utility": []
+      }
+    },
+    {
+      "skillId": "skill.character.abandoned_shrine_wraith.2.active1.lost_child_cry",
+      "slot": "active1",
+      "name": "???? ??",
+      "category": "Active1",
+      "intent": "?? ?? ??? ?? ??.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 6,
+        "attackPercentDamage": 60,
+        "cooldown": 7.0,
+        "castRange": 2.8,
+        "hitRange": 1.2,
+        "hitCount": 3,
+        "targetScore": 280,
+        "utility": [
+          "slow_30_percent_2s",
+          "fear_tone_only"
+        ]
+      }
+    }
+  ],
+  "notes": []
+}
