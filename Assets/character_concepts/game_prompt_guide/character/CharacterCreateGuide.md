@@ -9,7 +9,8 @@ Use this guide as the orchestration document when creating a character from plan
 Pipeline:
 
 ```text
-Character planning
+Act / Chapter story input
+  -> Character planning
   -> Image generation
   -> Animation generation
   -> Animation extraction
@@ -28,6 +29,49 @@ Character planning
 - For Player, Npc, and Boss character-owned runtime data, use the `character` domain.
 - `Player`, `Npc`, and `Boss` are character types, not resource ID domains.
 - Character-owned skill IDs must use `skill.character`, not `skill.npc`.
+- Planning files should separate playable characters from NPC and Boss combat pool files.
+- Boss uses `characterType: "Boss"` but belongs to the enemy combat pool folder unless the task explicitly needs a separate boss folder.
+
+---
+
+## Story Input
+
+Character planning should be generated from Act and Chapter context, not from an isolated monster prompt.
+
+Input may be provided as:
+
+```text
+actId: act.01
+chapterIds: [chapter.01.01, chapter.01.02]
+chapterFiles:
+  - Assets/Doc/Story/Chapter_01.md
+  - Assets/Doc/Story/Chapter_02.md
+```
+
+If only a Chapter file is provided, resolve the Act using:
+
+```text
+Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md
+Assets/Doc/Story/00_Background.md
+Assets/Doc/Story/01_Overall_Story.md
+Assets/Doc/Story/Act_01_Background.md
+Assets/Doc/Story/Characters.md
+Assets/Doc/Story/Chapter_XX.md
+```
+
+Use Act context for shared world, race, faction, tone, and reuse data.
+
+Use `Assets/Doc/Story/Characters.md` as the global story character reference.
+
+Do not treat `Characters.md` as Chapter-local output.
+
+Use Chapter context for concrete character needs:
+
+- Which monsters or NPCs must appear
+- Which combat roles are needed
+- Which monsters should be delayed or forbidden
+- Which boss, elite, support, ranged, or objective-pressure roles are required
+- Which player characters are present or referenced
 
 ---
 
@@ -40,6 +84,7 @@ Create the planning JSON that defines the character concept, role, stat intent, 
 ### Reference Files
 
 ```text
+Assets/character_concepts/game_prompt_guide/character/ActCharacterPlanningStartGuide.md
 Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md
 Assets/character_concepts/game_prompt_guide/character/CharacterStatGuide.md
 Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md
@@ -54,7 +99,8 @@ Assets/Doc
 3. Assign planning score and stat intent.
 4. Design the expected skill slots and behavior.
 5. Balance skill intent using target score, cooldown, cast range, hit range, and utility rules.
-6. For an initial 10-character group, split shared group data and per-character data when useful.
+6. Create as many planning characters as the Act, Chapter, and battle-role needs require.
+7. Split shared group data and per-character data when useful.
 
 ### Output
 
@@ -79,12 +125,16 @@ Assets/Doc/Character/sangui_spirit_npc_group.json
 Split-file example:
 
 ```text
+Assets/Doc/Character/player/sangui_spirit.player_common.json
+Assets/Doc/Character/player/character.seojin.1.json
 Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json
-Assets/Doc/Character/sangui_spirit/mist_lingering_child.json
-Assets/Doc/Character/sangui_spirit/red_doll_carrier.json
+Assets/Doc/Character/sangui_spirit/npc/character.mist_lingering_child.1.json
+Assets/Doc/Character/sangui_spirit/npc/character.red_doll_carrier.1.json
 ```
 
-Use the common data JSON for shared race, faction, world, story, reuse, and source guide data.
+Use player common data JSON for player-side shared race, faction, world, story, reuse, and source guide data.
+
+Use monster common data JSON for enemy pool shared race, faction, world, story, reuse, and source guide data.
 
 Use each character JSON for one character's identity, appearance, combat, planning score, stats, and skills.
 
@@ -94,9 +144,28 @@ Example:
 
 ```json
 {
-  "commonDataRef": "Assets/Doc/Character/sangui_spirit/sangui_spirit.common.json"
+  "commonDataRef": "Assets/Doc/Character/player/sangui_spirit.player_common.json"
 }
 ```
+
+Recommended group folder shape:
+
+```text
+Assets/Doc/Character/player/
+  {groupId}.player_common.json
+  character.{player_name}.{grade}.json
+Assets/Doc/Character/{groupId}/
+  {groupId}.common.json
+  monster_context.{groupId}.json
+  monster_composition.chapter_XX_YY.json
+  npc/
+    character.{npc_name}.{grade}.json
+    character.{boss_name}.{grade}.json
+```
+
+`monster_context` should contain refs and lightweight role information only.
+
+`monster_composition` should map Act and Chapter battle needs to monster planning refs.
 
 ### Validation
 
@@ -105,9 +174,11 @@ Example:
 - NPC rules affect composition and upgrades only.
 - NPC rules do not change runtime resource domains to `npc`.
 - Skill intent includes enough data for the skill JSON step.
-- Shared group data is not duplicated across all 10 character JSON files.
+- Shared group data is not duplicated across character JSON files.
 - Character JSON files reference the common data JSON with a project-relative `commonDataRef`.
-- Initial 10-character planning files are stored inside `Assets/Doc/Character/{groupId}`.
+- Player planning files are stored inside `Assets/Doc/Character/player`.
+- Npc and Boss combat-pool planning files are stored inside `Assets/Doc/Character/{groupId}/npc`.
+- Chapter-specific monster composition is documented in a JSON or Markdown-visible section before final battle generation.
 - Different planning groups are not mixed in the same folder.
 
 ---

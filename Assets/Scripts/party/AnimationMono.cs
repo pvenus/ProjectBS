@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Stat;
+using Util;
 
 namespace Character
 {
@@ -44,6 +45,7 @@ namespace Character
         [SerializeField] private SpriteRenderer targetSpriteRenderer;
         [SerializeField] private MovementController movementController;
         [SerializeField] private CharacterManager characterManager;
+        [SerializeField] private SortingOrderMono sortingOrderMono;
 
         [Header("Default")]
         [SerializeField] private bool playIdleOnStart = true;
@@ -136,6 +138,12 @@ namespace Character
                 targetSpriteRenderer = spriteRenderer != null
                     ? spriteRenderer
                     : gameObject.AddComponent<SpriteRenderer>();
+            }
+
+            if (sortingOrderMono == null)
+            {
+                sortingOrderMono = GetComponent<SortingOrderMono>()
+                    ?? gameObject.AddComponent<SortingOrderMono>();
             }
 
             if (movementController == null)

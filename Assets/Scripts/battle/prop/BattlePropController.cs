@@ -29,7 +29,8 @@ namespace Battle.Prop
 
         private bool spawnOnHitCompleted;
 
-        private GameObject waveSpawnerObject;
+        private SpawnSequenceRunner spawnSequenceRunner;
+        private SpawnSequenceRuntime spawnSequenceRuntime;
 
         public string RuntimeId => runtimeId;
         public BattlePropRole Role => role;
@@ -65,7 +66,18 @@ namespace Battle.Prop
         }
         private void OnDestroy()
         {
+            StopSpawnSequence();
             DestroyAnimationGraph();
+        }
+
+        private void Update()
+        {
+            if (spawnSequenceRunner != null &&
+                spawnSequenceRuntime != null &&
+                spawnSequenceRuntime.IsRunning)
+            {
+                spawnSequenceRunner.Tick(Time.deltaTime);
+            }
         }
 
         private void Start()
@@ -101,7 +113,7 @@ namespace Battle.Prop
             spawnOnHitCompleted = false;
 
             SetState(BattlePropState.Normal);
-            TryCreateWaveSpawner();
+            TryPlaySpawnSequence();
         }
 
         public void OnProjectileHit()
@@ -147,31 +159,49 @@ namespace Battle.Prop
             }
         }
 
-        private void TryCreateWaveSpawner()
+        private void TryPlaySpawnSequence()
         {
-            if (propSO == null || !propSO.createWaveSpawnerOnInitialize)
+            if (propSO == null || !propSO.playSpawnSequenceOnInitialize)
             {
                 return;
             }
 
-            if (propSO.waveSO == null)
+            if (propSO.spawnSequence == null)
             {
                 return;
             }
 
-            if (waveSpawnerObject != null)
+            StopSpawnSequence();
+
+            spawnSequenceRuntime =
+                new SpawnSequenceRuntime(propSO.spawnSequence);
+
+            for (int i = 0; i < spawnSequenceRuntime.StepRuntimes.Count; i++)
             {
-                return;
+                SpawnContentRuntime stepRuntime =
+                    spawnSequenceRuntime.StepRuntimes[i];
+
+                if (stepRuntime != null)
+                {
+                    stepRuntime.AnchorPosition = transform.position;
+                }
             }
 
-            string objectName = string.IsNullOrEmpty(propSO.waveSpawnerObjectName)
-                ? $"{runtimeId}_NpcSpawner"
-                : propSO.waveSpawnerObjectName;
+            spawnSequenceRunner = new SpawnSequenceRunner();
+            spawnSequenceRunner.StartSequence(
+                spawnSequenceRuntime,
+                () => Debug.Log($"[BattlePropController] SpawnSequence completed. runtimeId={runtimeId}"));
+        }
 
-            waveSpawnerObject = BattleManager.CreateNpcSpawnerFromWaveSO(
-                propSO.waveSO,
-                transform,
-                objectName);
+        private void StopSpawnSequence()
+        {
+            if (spawnSequenceRunner != null)
+            {
+                spawnSequenceRunner.StopSequence();
+                spawnSequenceRunner = null;
+            }
+
+            spawnSequenceRuntime = null;
         }
 
         public void SetState(BattlePropState state)

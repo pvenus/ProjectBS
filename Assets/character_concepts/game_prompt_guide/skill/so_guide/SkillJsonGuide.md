@@ -43,9 +43,10 @@ Use the following mapping unless the design JSON explicitly defines a more speci
 | BasicAttack | basic_attack |
 | Active1 | active_1 |
 | Active2 | active_2 |
+| Active3 | active_3 |
 | Passive | passive_1 |
 | Passive1 | passive_1 |
-| Passive2 | passive_2 |
+| Passive2 | passive_2 only when explicitly supported by the source design and runtime |
 
 Known slot values:
 
@@ -53,9 +54,14 @@ Known slot values:
 basic_attack
 active_1
 active_2
+active_3
 passive_1
 passive_2
 ```
+
+`active_3` is reserved for boss-like or explicitly high-impact skill designs.
+
+`passive_2` should not be generated for normal character or NPC skills unless the source design and runtime setup explicitly require a second passive slot.
 
 Examples:
 

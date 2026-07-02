@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Wave.SO;
 
 namespace Battle.Prop.SO
 {
@@ -38,9 +37,8 @@ namespace Battle.Prop.SO
         public BattlePropSO spawnPropOnHit;
         public bool destroyAfterSpawnOnHit = true;
 
-        [Header("Wave Spawner")]
-        public StageWaveSO waveSO;
-        public bool createWaveSpawnerOnInitialize;
-        public string waveSpawnerObjectName = "PropNpcSpawner";
+        [Header("Spawn Sequence")]
+        public SpawnSequenceSO spawnSequence;
+        public bool playSpawnSequenceOnInitialize;
     }
 }

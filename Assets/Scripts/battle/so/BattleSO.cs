@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Item;
 using Battle.Prop.SO;
-using Wave.SO;
 
 namespace Battle
 {
@@ -27,59 +26,43 @@ namespace Battle
             public string runtimeId;
         }
         [Header("Basic Info")]
-        [SerializeField]
-        private string battleId;
+        public string battleId;
 
-        [SerializeField]
-        private string battleName;
+        public string battleName;
 
         [Header("Prefab")]
-        [SerializeField]
-        private GameObject backgroundPrefab;
-
-        [SerializeField]
-        private StageWaveSO waveSO;
+        public GameObject backgroundPrefab;
 
         [Header("New Spawn System")]
-        [SerializeField]
-        private SpawnSequenceSO spawnSequence;
+        public SpawnSequenceSO spawnSequence;
 
         [Header("Timed Props")]
-        [SerializeField]
-        private List<TimedPropPlacement> timedPropPlacements = new();
+        public List<TimedPropPlacement> timedPropPlacements = new();
 
         [Header("Victory Rule")]
-        [SerializeField]
-        private BattleVictoryRule victoryRule;
+        public BattleVictoryRule victoryRule;
 
-        [SerializeField]
         [Min(0f)]
-        private float survivalTimeSeconds;
+        public float survivalTimeSeconds;
 
         [Header("Reward")]
-        [SerializeField]
         [Min(0f)]
-        private float rewardExperience;
+        public float rewardExperience;
 
         [Header("Relic Drop")]
-        [SerializeField]
-        private RelicPoolSO relicDropPool;
+        public RelicPoolSO relicDropPool;
 
-        [SerializeField]
         [Range(0f, 100f)]
-        private float normalRelicDropChance;
+        public float normalRelicDropChance;
 
-        [SerializeField]
         [Range(0f, 100f)]
-        private float bossRelicDropChance;
+        public float bossRelicDropChance;
 
         public string BattleId => battleId;
 
         public string BattleName => battleName;
 
         public GameObject BackgroundPrefab => backgroundPrefab;
-
-        public StageWaveSO WaveSO => waveSO;
 
         public SpawnSequenceSO SpawnSequence => spawnSequence;
 

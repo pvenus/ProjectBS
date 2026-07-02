@@ -1,5 +1,3 @@
-using System.Reflection;
-using Wave.SO;
 using Session;
 using UnityEngine;
 
@@ -34,6 +32,16 @@ namespace Battle
         private void Update()
         {
             UpdateVictoryRule();
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeBattleSpawnManager();
+
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
 
         private void Initialize()
@@ -122,88 +130,56 @@ namespace Battle
                 battleRuntime.backgroundPrefab,
                 "Background");
 
-            CreateNpcSpawnerFromWaveSO(
-                battleSession.BattleSO.WaveSO,
-                transform,
-                "NpcSpawner");
+            StartBattleSpawnSequence();
 
             isInitialPrefabSpawned = true;
         }
 
-        public static GameObject CreateNpcSpawnerFromWaveSO(
-            StageWaveSO waveSO,
-            Transform parent,
-            string objectName = "NpcSpawner")
+        private void StartBattleSpawnSequence()
         {
-            if (waveSO == null)
+            if (battleSession == null ||
+                battleSession.BattleSO == null)
             {
-                return null;
+                Debug.LogError("[BattleManager] BattleSO not found.");
+                return;
             }
 
-            GameObject spawnerObject = new GameObject(objectName);
+            SpawnSequenceSO spawnSequence =
+                battleSession.BattleSO.SpawnSequence;
 
-            if (parent != null)
+            if (spawnSequence == null)
             {
-                spawnerObject.transform.SetParent(parent, false);
+                Debug.LogError(
+                    "[BattleManager] SpawnSequence not assigned. BattleSO must use the new spawn system.");
+                return;
             }
 
-            NpcSpawnerMono spawner =
-                spawnerObject.AddComponent<NpcSpawnerMono>();
+            BattleSpawnManager spawnManager =
+                EnsureBattleSpawnManager();
 
-            ApplyWaveSOToSpawner(
-                spawner,
-                waveSO);
+            if (spawnManager == null)
+            {
+                Debug.LogError("[BattleManager] BattleSpawnManager not found.");
+                return;
+            }
 
-            return spawnerObject;
+            UnsubscribeBattleSpawnManager();
+            spawnManager.OnSequenceFinished += HandleSpawnSequenceFinished;
+            spawnManager.PlaySequence(spawnSequence);
         }
 
-        private static void ApplyWaveSOToSpawner(
-            NpcSpawnerMono spawner,
-            StageWaveSO waveSO)
+        private BattleSpawnManager EnsureBattleSpawnManager()
         {
-            if (spawner == null || waveSO == null)
+            if (BattleSpawnManager.Instance != null)
             {
-                return;
+                return BattleSpawnManager.Instance;
             }
 
-            BindingFlags flags =
-                BindingFlags.Instance |
-                BindingFlags.Public |
-                BindingFlags.NonPublic;
+            GameObject spawnManagerObject =
+                new GameObject("BattleSpawnManager");
+            spawnManagerObject.transform.SetParent(transform, false);
 
-            FieldInfo[] fields = typeof(NpcSpawnerMono).GetFields(flags);
-
-            for (int i = 0; i < fields.Length; i++)
-            {
-                FieldInfo field = fields[i];
-
-                if (field.FieldType != typeof(StageWaveSO))
-                {
-                    continue;
-                }
-
-                field.SetValue(spawner, waveSO);
-                return;
-            }
-
-            PropertyInfo[] properties = typeof(NpcSpawnerMono).GetProperties(flags);
-
-            for (int i = 0; i < properties.Length; i++)
-            {
-                PropertyInfo property = properties[i];
-
-                if (property.PropertyType != typeof(StageWaveSO) ||
-                    !property.CanWrite)
-                {
-                    continue;
-                }
-
-                property.SetValue(spawner, waveSO);
-                return;
-            }
-
-            Debug.LogWarning(
-                "[BattleManager] StageWaveSO field/property not found on NpcSpawnerMono.");
+            return spawnManagerObject.AddComponent<BattleSpawnManager>();
         }
 
         private GameObject SpawnPrefab(
@@ -275,9 +251,39 @@ namespace Battle
                 return;
             }
 
+            if (battleSession.BattleSO != null &&
+                battleSession.BattleSO.SpawnSequence != null)
+            {
+                return;
+            }
+
             if (battleSession.BattleRuntime.remainingEnemyCount <= 0)
             {
                 CompleteBattle();
+            }
+        }
+
+        private void HandleSpawnSequenceFinished()
+        {
+            UnsubscribeBattleSpawnManager();
+
+            if (battleSession == null ||
+                battleSession.BattleRuntime == null)
+            {
+                return;
+            }
+
+            if (battleSession.BattleRuntime.victoryRule == BattleVictoryRule.ClearAllEnemies)
+            {
+                CompleteBattle();
+            }
+        }
+
+        private void UnsubscribeBattleSpawnManager()
+        {
+            if (BattleSpawnManager.Instance != null)
+            {
+                BattleSpawnManager.Instance.OnSequenceFinished -= HandleSpawnSequenceFinished;
             }
         }
 
