@@ -17,18 +17,40 @@
 
 ### 3. Character Type
 - Select **Character Type** to match the character concept.
-- If the character is a quadruped, set **Generation MDDE** to **Pro** and select the appropriate **Quadruped** model.
+- If the character is a quadruped, set **Generation Mode** to **Pro** and select the appropriate **Quadruped** model.
 
 ### 4. Generation Settings
 
-- **Generation Mode:** V3
-- **Camera View:** Low Top-Down
+- **Generation Mode:** Pro
+- **Camera View:** High Top-Down
 - **Detail:** Highly detailed
 - **Outline:** Black outline
 
 
 ### 5. Character Description
 - Write a character description based on a design concept rooted in traditional Korean design standards.
+- The final prompt must be written as one English paragraph that can be pasted directly into PixelLab.
+
+#### Character Prompt Required Elements
+
+The PixelLab image prompt must include the following elements:
+
+- character name
+- grade
+- characterType
+- race, faction, and world tone
+- body shape and readable silhouette
+- clothing, equipment, and weapon
+- combat role and pose
+- dominant colors
+- no extra characters
+- no gore
+- High top-down game character sprite
+- highly detailed
+- black outline
+- full body visible
+- transparent background
+- clean readable silhouette
 
 ### 6. Image Size
 - Adjust the image width, height, and aspect ratio to fit the target output.
@@ -36,7 +58,7 @@
 - The size of the reference playable character is 64px.
 
 ### 7. Generate in PixelLab
-- Click **Generate v3 Character** inside PixelLab.
+- Click **Generate Pro Character** inside PixelLab.
 - The generated result must come from PixelLab; do not substitute a generated image from another tool.
 - Search for the generated character using the generated image prompt.
 - Select the generated character.
