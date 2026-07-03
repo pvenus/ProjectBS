@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_mountain_path_archer_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.mountain_path_archer.1
+  characterType: 1
+  job: 33
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: e35648db771f84138aaf0c07d1ecaac2, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 6db5c0ee976da449cb17826c680f96bc, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 2b7afceb5802d4b609bace53e0b3a40f, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 569762fce873a428eabd22158ca550b3, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 014704d25d3314884a8ebafdc546cd97, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 29d418434e26c4f91b5d533b3f4f1e69, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 130074abadfa34aeb90d6b98a0acefae, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 489423226d2e94c54939ccdd2cb16078, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 39c2e8664362248bcb48fc2052d9cd26, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: fa9a6713fd0594e9cb22703e8f8acb67, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: b97328951b4fc41d5b729aaddbde8d3d, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 07e1d3b6daa794b41990a3abf78cce2a, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 123baa28817864093bfe61b690208bfa, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 27
+  - statType: 1300
+    value: 11
+  - statType: 1000
+    value: 315
+  - statType: 1110
+    value: 4.3
+  - statType: 1220
+    value: 2
+  - statType: 1240
+    value: 13
+  - statType: 1250
+    value: 55
+  - statType: 1235
+    value: 1.45

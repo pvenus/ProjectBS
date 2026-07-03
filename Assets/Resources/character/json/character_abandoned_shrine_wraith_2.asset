@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_abandoned_shrine_wraith_2
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.abandoned_shrine_wraith.2
+  characterType: 1
+  job: 65
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: ba928dc4129714c0593c0f846c95ebaf, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: fd5234c0510ee43b0b5de6a3cc2a7a41, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 65f576a1b87a64fd7a6e7011f04b73c3, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: bca86cef365c644e7871e68eb997a49d, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 8ed13f25e9d364218920fc666d943c50, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 427724cde9f9646289a94edf06d4336b, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 9c4a8746b06e94b6ca578f4771f312f3, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 3fe217728a7f447568766cd281f71cfb, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 91c7ccf069d714b3f8c40065c8393be9, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 8b644d30a959d4b27b8139fd7c25488a, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 4d9f857851709477f9b8d17d5b6364ae, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 4299d055aa2c045738c1d6d621567da3, type: 2}
+  skills:
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 1659f819aa1194242b3c1c1c7727c9c9, type: 2}
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 1e39630c9904d4ed088ea240ccba5cf0, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 20
+  - statType: 1300
+    value: 8
+  - statType: 1000
+    value: 314
+  - statType: 1110
+    value: 8.8
+  - statType: 1220
+    value: 2.15
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.65

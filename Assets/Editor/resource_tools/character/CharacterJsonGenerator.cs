@@ -44,6 +44,45 @@ namespace ResourceTools.Character
             GenerateFromJsonPath(jsonPath);
         }
 
+        [MenuItem("Assets/Character/Generate CharacterSO From Json Folder", false, 2001)]
+        public static void GenerateFromSelectedFolder()
+        {
+            string selectedPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+            if (string.IsNullOrEmpty(selectedPath) || !AssetDatabase.IsValidFolder(selectedPath))
+            {
+                Debug.LogError("[CharacterJsonGenerator] Select a folder that contains character json files in the Project window first.");
+                return;
+            }
+
+            string[] guids = AssetDatabase.FindAssets("t:TextAsset", new[] { selectedPath });
+            int successCount = 0;
+            int failCount = 0;
+
+            foreach (string guid in guids)
+            {
+                string jsonPath = AssetDatabase.GUIDToAssetPath(guid);
+
+                if (string.IsNullOrEmpty(jsonPath) ||
+                    !jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                CharacterSO characterSo = GenerateFromJsonPath(jsonPath);
+
+                if (characterSo == null)
+                {
+                    failCount++;
+                    continue;
+                }
+
+                successCount++;
+            }
+
+            Debug.Log($"[CharacterJsonGenerator] Folder generation completed. Folder={selectedPath}, Success={successCount}, Failed={failCount}");
+        }
+
         public static CharacterSO GenerateFromJsonPath(string jsonPath)
         {
             if (string.IsNullOrEmpty(jsonPath) || !jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
@@ -121,6 +160,13 @@ namespace ResourceTools.Character
         {
             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
             return !string.IsNullOrEmpty(path) && path.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
+        }
+
+        [MenuItem("Assets/Character/Generate CharacterSO From Json Folder", true)]
+        private static bool ValidateGenerateFromSelectedFolder()
+        {
+            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            return !string.IsNullOrEmpty(path) && AssetDatabase.IsValidFolder(path);
         }
 
         private static List<StatEntry> ConvertBaseStats(List<StatEntryJson> stats)

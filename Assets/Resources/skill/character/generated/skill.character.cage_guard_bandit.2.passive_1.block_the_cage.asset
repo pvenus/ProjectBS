@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.cage_guard_bandit.2.passive_1.block_the_cage
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.cage_guard_bandit.2.passive_1.block_the_cage
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 0284e8f0c1cad4d8b9f26c888464af0f, type: 2}
+  castSo: {fileID: 11400000, guid: d5bc779575a054cf49ed23690b18bcf4, type: 2}
+  hitSos: []
+  moveSo: {fileID: 0}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 0}

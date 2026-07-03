@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_black_cloth_raider_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.black_cloth_raider.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 14962844bc70c4fc0ba0fa7669dbd2a3, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: f500bb32877c54ebeb1a8d6cd8d1fad0, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 281126f279ac9409bb1fa0ce7d567454, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 0031d70d835674bc2acd9a6f48b72de5, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 105a80a1ccb2141a28d909254bca1745, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: c5b9e9c3d25814265af7a3152e7708d4, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: e1c29af93b2f14dabafec789bb8f1f7c, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 5b59787283ca14d7da3046ed83978f8d, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 735c60a395bf3475c82af5bcdc331a0a, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 94be0cac5ab914112a3dd65b1d0656e3, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c58ba902fae8b47e0ad9a5433b6b6f2d, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 0dbb3707e554f4cde8709b55a2e20934, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 7fbe98ac2e24d4347bfcd9753481ed12, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 24
+  - statType: 1300
+    value: 14
+  - statType: 1000
+    value: 383
+  - statType: 1110
+    value: 4.5
+  - statType: 1220
+    value: 2
+  - statType: 1240
+    value: 12
+  - statType: 1250
+    value: 55
+  - statType: 1235
+    value: 1.45
