@@ -29,7 +29,18 @@ Use this prompt when downloading PixelLab animation images, preserving the origi
    - south-west
    - north-east
    - north-west
-9. EvaluationAnimationGuide.md 기준으로 원본 추출 이미지들을 평가한다.
+9. Required Folder Structure Hard Fail 조건을 먼저 확인한다.
+   - animations/ 폴더가 없으면 즉시 실패 처리하고 중단한다.
+   - idle, move, attack 중 하나라도 없으면 즉시 실패 처리하고 중단한다.
+   - 각 animation type의 south-east 또는 south-west가 없으면 즉시 실패 처리하고 중단한다.
+   - south-east 또는 south-west 폴더에 PNG frame이 없으면 즉시 실패 처리하고 중단한다.
+   - 같은 animation type에서 south-east와 south-west frame count가 다르면 즉시 실패 처리하고 중단한다.
+   - 원본 frame이 불완전하거나 Missing Direction Rule 복제에 사용할 수 없으면 즉시 실패 처리하고 중단한다.
+   - north-east 또는 north-west만 누락된 경우, south-facing 원본이 완전하면 즉시 실패가 아니며 Missing Direction Rule로 처리한다.
+10. Required Folder Structure Hard Fail이 발생하면 평가, 변환, Unity 리소스 복사를 진행하지 않는다.
+   - 가능한 경우 실패 사유를 {PixelLabExportRoot}/{CharacterName}_{Grade}/evaluation_animation_result.txt에 저장한다.
+   - original archive와 extracted 원본은 삭제하지 않는다.
+11. EvaluationAnimationGuide.md 기준으로 원본 추출 이미지들을 평가한다.
    - 평가 대상: {PixelLabExportRoot}/{CharacterName}_{Grade}/original/extracted/animations
    - frame-to-frame movement score
    - weapon review score
@@ -38,19 +49,20 @@ Use this prompt when downloading PixelLab animation images, preserving the origi
    - pass / fail
    - failure reason, if failed
    - missing direction notes, if any
-10. 평가 결과를 아래 파일로 저장한다.
+12. 평가 결과를 아래 파일로 저장한다.
    - {PixelLabExportRoot}/{CharacterName}_{Grade}/evaluation_animation_result.txt
-11. 평가 Pass / Fail과 관계없이 변환 작업은 계속 진행한다.
-12. 원본 추출 파일은 이름 변경하거나 이동하지 않는다.
-13. CharacterAnimationDownloadGuide.md의 Animation Enum Mapping에 따라 direction folder를 CharacterAnimationClipType enum 이름으로 매핑한다.
-14. north-east 또는 north-west 방향이 누락된 경우 Missing Direction Rule에 따라 south-facing 원본에서 복사해 converted에 생성한다.
-15. 원본 PNG를 아래 폴더에 복사하면서 ProjectBS 파일명으로 변경한다.
+13. 평가 Pass / Fail과 관계없이 변환 작업은 계속 진행한다.
+14. 단, 9번의 Required Folder Structure Hard Fail은 평가 실패와 다르며, 발생 시 변환 작업을 진행하지 않는다.
+15. 원본 추출 파일은 이름 변경하거나 이동하지 않는다.
+16. CharacterAnimationDownloadGuide.md의 Animation Enum Mapping에 따라 direction folder를 CharacterAnimationClipType enum 이름으로 매핑한다.
+17. north-east 또는 north-west 방향이 누락된 경우 Missing Direction Rule에 따라 south-facing 원본에서 복사해 converted에 생성한다.
+18. 원본 PNG를 아래 폴더에 복사하면서 ProjectBS 파일명으로 변경한다.
    - {PixelLabExportRoot}/{CharacterName}_{Grade}/converted
    - character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
-16. converted 폴더의 PNG를 Unity 리소스 폴더로 복사한다.
+19. converted 폴더의 PNG를 Unity 리소스 폴더로 복사한다.
    - Assets/Resources/character/animation_png
-17. 임시 다운로드 캐시나 중간 작업 폴더만 정리한다.
-18. 아래 파일과 폴더는 삭제하지 않는다.
+20. 임시 다운로드 캐시나 중간 작업 폴더만 정리한다.
+21. 아래 파일과 폴더는 삭제하지 않는다.
    - {PixelLabExportRoot}/{CharacterName}_{Grade}/original
    - {PixelLabExportRoot}/{CharacterName}_{Grade}/converted
    - {PixelLabExportRoot}/{CharacterName}_{Grade}/evaluation_animation_result.txt
@@ -61,6 +73,8 @@ Use this prompt when downloading PixelLab animation images, preserving the origi
 - Export Folder:
 - Original Archive:
 - Extracted Structure:
+- Folder Structure Check:
+- Hard Fail:
 - Direction Check:
 - Missing Direction Handling:
 - Evaluation File:
@@ -76,8 +90,9 @@ Use this prompt when downloading PixelLab animation images, preserving the origi
 
 주의:
 - 다운로드와 Export는 반드시 PixelLab에서 수행한다.
+- 작업 진행에 필요한 animation folder structure가 완전하지 않으면 즉시 실패 처리하고 평가/변환/Unity 복사를 진행하지 않는다.
 - 평가는 원본 추출 이미지 기준으로 수행한다.
-- 평가 실패 여부와 관계없이 converted 생성과 Unity 리소스 복사는 계속 진행한다.
+- 평가 실패 여부와 관계없이 converted 생성과 Unity 리소스 복사는 계속 진행한다. 단, Required Folder Structure Hard Fail은 예외로 즉시 중단한다.
 - 원본 추출 파일은 평가 근거이므로 삭제하거나 이름 변경하지 않는다.
 - 이름 변경은 converted 폴더에 복사본을 만들면서 수행한다.
 - CharacterAnimationClipType enum 이름은 가이드의 mapping 표와 정확히 일치해야 한다.

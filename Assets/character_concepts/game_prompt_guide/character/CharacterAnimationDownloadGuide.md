@@ -107,6 +107,32 @@ Recommended preserved export structure:
 
 `converted/` is the renamed copy used before copying into Unity resources.
 
+## Required Folder Structure Hard Fail
+
+Before evaluation, renaming, conversion, or Unity resource copy, validate the extracted animation folder structure.
+
+Immediately mark the work as failed and stop processing if any required structure is incomplete.
+
+Hard fail conditions:
+
+- `animations/` is missing.
+- Any required animation type folder is missing: `idle`, `move`, `attack`.
+- Any required source direction folder is missing for a required animation type: `south-east`, `south-west`.
+- A required source direction folder exists but contains no PNG frames.
+- `south-east` and `south-west` frame counts do not match for the same animation type.
+- Required source frames are incomplete, unreadable, or cannot be used for Missing Direction Rule duplication.
+
+The `north-east` and `north-west` folders are not hard fail conditions by themselves when the matching south-facing source folders are complete. In that case, continue using the Missing Direction Rule.
+
+When a hard fail occurs:
+
+- Do not run animation evaluation.
+- Do not create converted files.
+- Do not copy files into Unity resources.
+- Preserve the downloaded archive and extracted original files.
+- Save the failure reason to `evaluation_animation_result.txt` if the character export folder is available.
+- Report the failure as a folder structure failure in the final summary.
+
 ## PixelLab South-West Mirroring
 
 After generating each animation in PixelLab, duplicate the generated `south-east` direction to `south-west` with the PixelLab south-west mirror button before exporting.
@@ -158,6 +184,8 @@ Save the evaluation result here:
 Evaluation does not block conversion.
 
 Regardless of Pass / Fail, continue the conversion and copy process so the generated resources can be reviewed in Unity. If evaluation fails, record the failure reason in `evaluation_animation_result.txt` and report it in the final summary.
+
+This non-blocking rule applies only to animation quality evaluation failures. Folder structure hard failures must stop the workflow before evaluation and conversion.
 
 Do not delete the original extracted animation images used for evaluation.
 
@@ -312,6 +340,7 @@ The PixelLab export folder should retain the original source result, converted c
 Before running the Unity character generator, check the following:
 
 - Does each generated animation contain both `south-east` and PixelLab-mirrored `south-west` before export?
+- Did the extracted folder structure pass the Required Folder Structure Hard Fail check?
 - Is the downloaded archive preserved under `<PixelLabExportRoot>/<CharacterName>_<Grade>/original`?
 - Are original extracted animation files preserved for evaluation?
 - Does `evaluation_animation_result.txt` exist under the character export folder?
@@ -378,6 +407,7 @@ Update Git state
 -> Save archive under <PixelLabExportRoot>/<CharacterName>_<Grade>/original
 -> Extract the archive under original/extracted
 -> Check animations/{type}/{direction} files
+-> Stop immediately if Required Folder Structure Hard Fail conditions are found
 -> Evaluate original extracted images using EvaluationAnimationGuide.md
 -> Save evaluation_animation_result.txt under the character export folder
 -> Copy and rename files into <PixelLabExportRoot>/<CharacterName>_<Grade>/converted
