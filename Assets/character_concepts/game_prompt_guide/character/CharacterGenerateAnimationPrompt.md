@@ -33,9 +33,9 @@ Use this prompt when generating PixelLab animations for a character from a chara
 11. 검색 결과에서 이미지 생성 완료/평가 정보와 가장 일치하는 기존 캐릭터를 연다.
 12. 이미지는 다시 생성하지 않는다. 검색으로 찾은 기존 캐릭터를 사용한다.
 13. Character Preview 방향은 South-East를 선택한다.
-14. Walk 애니메이션을 생성한다.
+14. Move 애니메이션을 생성한다.
    - MOVEMENT / Walking / Walk 사용
-   - 생성 후 애니메이션 이름을 Walk로 수정
+   - 생성 후 애니메이션 이름을 Move로 수정
    - 생성 후 South-West 미러링 버튼으로 south-east를 south-west에 복제
 15. Attack 애니메이션을 생성한다.
    - CUSTOM / Custom Animation V3 사용
@@ -51,7 +51,7 @@ Use this prompt when generating PixelLab animations for a character from a chara
    - Keep first frame 체크
    - 생성 후 애니메이션 이름을 Idle로 수정
    - 생성 후 South-West 미러링 버튼으로 south-east를 south-west에 복제
-17. PixelLab 상세 페이지에서 Walk, Attack, Idle 이름이 정확히 존재하는지 확인한다.
+17. PixelLab 상세 페이지에서 Move, Attack, Idle 이름이 정확히 존재하는지 확인한다.
 18. 각 애니메이션에 south-east와 south-west 방향이 모두 존재하는지 확인한다.
 19. 다운로드, Export, 압축 해제, 파일 정리, 평가 파일 저장은 수행하지 않는다.
 
@@ -62,7 +62,7 @@ Use this prompt when generating PixelLab animations for a character from a chara
 - Image Evaluation Result:
 - PixelLab Search Query:
 - PixelLab Page:
-- Walk:
+- Move:
 - Attack Prompt:
 - Attack:
 - Idle Prompt:
@@ -74,9 +74,9 @@ Use this prompt when generating PixelLab animations for a character from a chara
 - Notes:
 
 생성 확인 기준:
-- Animation names must be exactly Walk, Attack, and Idle.
-- Walk, Attack, and Idle must include South-East.
-- Walk, Attack, and Idle must include mirrored South-West.
+- Animation names must be exactly Move, Attack, and Idle.
+- Move, Attack, and Idle must include South-East.
+- Move, Attack, and Idle must include mirrored South-West.
 - Attack motion must match the character weapon and combat style.
 - Idle motion must match the character appearance and personality.
 - Character appearance, equipment, and weapon must remain consistent with the generated image.

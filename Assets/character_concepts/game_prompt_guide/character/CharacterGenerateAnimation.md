@@ -47,6 +47,7 @@ If multiple PixelLab characters match the search query, prefer the character who
 #### (1) Generate Walking Animation
 - If you want to create a walk animation, open the **Walking** section under the **MOVEMENT** tab and select **Walk**.
 - Click **Generate in Background** to generate the walk animation.
+- After generation, this animation must be renamed to **Move** in the **Animations** tab.
 #### (2) Generate Attack Animation
 - Select **Custom Animation V3** in the **CUSTOM** tab.
 - In the **Action Description**, generate and enter an attack motion prompt that matches the hand holding the weapon and the weapon itself.
@@ -61,7 +62,8 @@ If multiple PixelLab characters match the search query, prefer the character who
 - Click **Generate in Background** to generate the idle animation.
 
 ### 5. Edit animation name
-- After generating the character's Walk, Attack, and Idle animations, edit the names of the generated animations in the **Animations** tab to **Walk**, **Attack**, and **Idle**, respectively.
+- After generating the character's movement, attack, and idle animations, edit the names of the generated animations in the **Animations** tab to **Move**, **Attack**, and **Idle**, respectively.
+- The movement animation may be generated from PixelLab's **MOVEMENT / Walking / Walk** preset, but the final animation name must be **Move**, not **Walk**.
 
 ### 6. Download
 
