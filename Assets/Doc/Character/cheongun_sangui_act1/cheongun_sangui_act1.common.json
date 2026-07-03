@@ -1,0 +1,86 @@
+﻿{
+    "documentId":  "character_planning_common.cheongun_sangui_act1",
+    "documentType":  "characterPlanningCommon",
+    "actId":  "act.01",
+    "group":  {
+                  "groupId":  "cheongun_sangui_act1",
+                  "groupName":  "청운촌 산귀와 산채 위협",
+                  "folderRole":  "enemyCombatPool"
+              },
+    "race":  [
+                 {
+                     "raceId":  "human",
+                     "name":  "인간",
+                     "use":  "산적, 사병 출신, 마을 공포를 이용하는 적"
+                 },
+                 {
+                     "raceId":  "beast",
+                     "name":  "굶주린 산짐승",
+                     "use":  "가뭄으로 마을 가까이 내려온 초반 야생 위협",
+                     "note":  "런타임 스탯 태그는 기존 guide 범위 안에서 wolf/human 등으로 매핑 가능"
+                 },
+                 {
+                     "raceId":  "spirit",
+                     "name":  "산귀/원혼",
+                     "use":  "버려진 아이의 원한과 사당의 잔재"
+                 }
+             ],
+    "faction":  [
+                    {
+                        "factionId":  "mountain_bandits",
+                        "name":  "검은 천 산채 무리",
+                        "alignment":  "enemy",
+                        "storyUse":  "산귀 소문을 이용해 아이들을 납치하고 마을을 위협"
+                    },
+                    {
+                        "factionId":  "sangui_grudge",
+                        "name":  "산귀의 원한",
+                        "alignment":  "enemy",
+                        "storyUse":  "희생된 아이의 원한이 산과 사당에 남아 폭주"
+                    },
+                    {
+                        "factionId":  "wild_mountain",
+                        "name":  "굶주린 산",
+                        "alignment":  "hazard",
+                        "storyUse":  "가뭄과 굶주림이 만든 자연 위협"
+                    }
+                ],
+    "worldUse":  [
+                     "청운촌 인근 산길, 숲, 버려진 사당, 낡은 산채",
+                     "괴담을 가장한 인간 폭력과 실제 원혼이 겹쳐지는 Act 위협"
+                 ],
+    "storyUse":  [
+                     "Chapter 1~2: 조사와 산길 진입의 읽기 쉬운 위협",
+                     "Chapter 3: 사당과 실종 흔적의 초자연 압박",
+                     "Chapter 4: 산채 산적과 정규 장비의 인간 적대",
+                     "Chapter 5: 산귀 보스와 원한 폭주"
+                 ],
+    "reuse":  {
+                  "policy":  "act_local_pool",
+                  "notes":  [
+                                "청운촌 산귀 사건에 맞는 적만 재사용한다.",
+                                "Boss는 npc 폴더에 두고 characterType으로만 구분한다."
+                            ]
+              },
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/00_Background.md",
+                            "Assets/Doc/Story/01_Overall_Story.md",
+                            "Assets/Doc/Story/Act_01_Background.md",
+                            "Assets/Doc/Story/Characters.md",
+                            "Assets/Doc/Story/Chapter_01.md",
+                            "Assets/Doc/Story/Chapter_02.md",
+                            "Assets/Doc/Story/Chapter_03.md",
+                            "Assets/Doc/Story/Chapter_04.md",
+                            "Assets/Doc/Story/Chapter_05.md"
+                        ],
+    "sourceGuides":  [
+                         "Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/ActCharacterPlanningStartGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterStatGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/skill/design/SkillBalanceGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md"
+                     ]
+}

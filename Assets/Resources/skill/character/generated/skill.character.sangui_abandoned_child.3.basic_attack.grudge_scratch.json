@@ -1,0 +1,49 @@
+{
+  "equipmentId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch",
+  "baseProfile": {
+    "baseProfileId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.7,
+    "projectileLifetime": 0.25,
+    "projectileSpawn": {
+      "spawnOffset": 0.5,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 3.0,
+    "castTime": 0,
+    "range": 0.5,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch.hit",
+      "maxHitCount": 2,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 18,
+        "attackPercentDamage": 1.2
+      }
+    }
+  ]
+}

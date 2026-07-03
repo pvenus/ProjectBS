@@ -1,0 +1,68 @@
+﻿{
+    "documentId":  "character_planning_common.player.cheongun_sangui_act1",
+    "documentType":  "characterPlanningCommon",
+    "actId":  "act.01",
+    "group":  {
+                  "groupId":  "cheongun_sangui_act1",
+                  "groupName":  "청운 산귀 사건 플레이어 측",
+                  "folderRole":  "playerPlanningRoot"
+              },
+    "race":  [
+                 {
+                     "raceId":  "human",
+                     "name":  "인간",
+                     "use":  "조선풍 산촌 세계의 플레이어 측 인물"
+                 }
+             ],
+    "faction":  [
+                    {
+                        "factionId":  "wanderer_rescue_party",
+                        "name":  "구출 조사 일행",
+                        "alignment":  "playerSide",
+                        "members":  [
+                                        "character.seojin.1",
+                                        "character.jihan.1",
+                                        "character.yujin.1"
+                                    ]
+                    }
+                ],
+    "worldUse":  [
+                     "가상의 동양풍 산간 지역",
+                     "관의 질서가 약하고 괴담과 현실 폭력이 섞인 세계",
+                     "아이 실종 사건을 추적하는 소규모 일행"
+                 ],
+    "storyUse":  [
+                     "청운촌 아이 실종 사건 조사",
+                     "산귀의 정체와 마을의 죄를 마주하는 판단축",
+                     "구원과 처단 사이의 갈등 표현"
+                 ],
+    "reuse":  {
+                  "policy":  "global_story_characters_reusable",
+                  "source":  "Assets/Doc/Story/Characters.md",
+                  "notes":  [
+                                "플레이어 측 공통 데이터만 포함한다.",
+                                "적 풀 데이터는 포함하지 않는다."
+                            ]
+              },
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/00_Background.md",
+                            "Assets/Doc/Story/01_Overall_Story.md",
+                            "Assets/Doc/Story/Act_01_Background.md",
+                            "Assets/Doc/Story/Characters.md",
+                            "Assets/Doc/Story/Chapter_01.md",
+                            "Assets/Doc/Story/Chapter_02.md",
+                            "Assets/Doc/Story/Chapter_03.md",
+                            "Assets/Doc/Story/Chapter_04.md",
+                            "Assets/Doc/Story/Chapter_05.md"
+                        ],
+    "sourceGuides":  [
+                         "Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/ActCharacterPlanningStartGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/character/CharacterStatGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/skill/design/SkillBalanceGuide.md",
+                         "Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md"
+                     ]
+}

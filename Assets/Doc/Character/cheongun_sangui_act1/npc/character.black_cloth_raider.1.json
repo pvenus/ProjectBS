@@ -1,0 +1,78 @@
+﻿{
+    "documentId":  "character_planning.character.black_cloth_raider.1",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity":  {
+                     "characterId":  "character.black_cloth_raider.1",
+                     "characterType":  "Npc",
+                     "runtimeDomain":  "character",
+                     "name":  "검은 천 습격자",
+                     "grade":  1,
+                     "tierId":  "normal",
+                     "role":  "melee_dps",
+                     "tags":  [
+                                  "human",
+                                  "bandit",
+                                  "melee"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "검은 천으로 얼굴을 가린 산채 습격자, 규격화된 칼과 가죽 갑옷",
+                       "visualKeywords":  [
+                                              "human",
+                                              "bandit",
+                                              "melee"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "산귀 소문을 이용하는 기본 인간 근접병",
+                   "preferredRange":  "melee",
+                   "partyFunction":  [
+                                         "melee_dps"
+                                     ]
+               },
+    "planningScore":  {
+                          "overall":  95,
+                          "health":  85,
+                          "attack":  100,
+                          "defense":  80,
+                          "speed":  90,
+                          "range":  45,
+                          "support":  0
+                      },
+    "stats":  {
+                  "grade":  1,
+                  "totalScore":  95,
+                  "growthType":  "offense",
+                  "primaryTag":  "human",
+                  "statBias":  [
+                                   "attack",
+                                   "readable_melee"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut",
+                       "slot":  "basic_attack",
+                       "name":  "검은 칼질",
+                       "category":  "Basic",
+                       "intent":  "정면 단일 베기.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  9,
+                                       "attackPercentDamage":  95,
+                                       "cooldown":  3,
+                                       "castRange":  0.5,
+                                       "hitRange":  0.55,
+                                       "hitCount":  1,
+                                       "targetScore":  95,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+
+              ]
+}

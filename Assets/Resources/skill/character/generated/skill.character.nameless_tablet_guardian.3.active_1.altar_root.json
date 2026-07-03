@@ -1,0 +1,66 @@
+{
+  "equipmentId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root",
+  "baseProfile": {
+    "baseProfileId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.0,
+    "projectileLifetime": 0.5,
+    "projectileSpawn": {
+      "spawnOffset": 0.6,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 8.0,
+    "castTime": 0,
+    "range": 2.0,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 6
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root.hit",
+      "maxHitCount": 3,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 10,
+        "attackPercentDamage": 0.8
+      },
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "effect.skill.character.nameless_tablet_guardian.3.active_1.altar_root.root_like_move_lock",
+            "effectType": "StatModifier",
+            "config": {
+              "targetStat": "MoveSpeedPercent",
+              "modifierType": "Percent",
+              "value": -100
+            }
+          },
+          "lifetimeType": "CombatTimed",
+          "categoryType": "Debuff",
+          "duration": 1,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  ]
+}

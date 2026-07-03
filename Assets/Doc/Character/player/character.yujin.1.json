@@ -1,98 +1,102 @@
-{
-  "documentId": "character_planning.character.yujin.1",
-  "documentType": "characterPlanning",
-  "commonDataRef": "Assets/Doc/Character/player/cheongun_sangui_act2.player_common.json",
-  "identity": {
-    "characterId": "character.yujin.1",
-    "characterType": "Player",
-    "runtimeDomain": "character",
-    "name": "??",
-    "grade": 1,
-    "tierId": "player_grade1",
-    "role": "ranged_tracker",
-    "tags": [
-      "human",
-      "ranged",
-      "tracker"
-    ]
-  },
-  "appearance": {
-    "silhouette": "??? ?? ??? ??? ? ??? ??",
-    "weapon": "?",
-    "visualKeywords": [
-      "human",
-      "ranged",
-      "tracker"
-    ]
-  },
-  "combat": {
-    "roleIntent": "ranged_tracker",
-    "preferredRange": "ranged",
-    "partyFunction": [
-      "single_target_pickoff",
-      "flank_watch",
-      "mark_target"
-    ]
-  },
-  "planningScore": {
-    "overall": 125,
-    "health": 90,
-    "attack": 135,
-    "defense": 80,
-    "speed": 120,
-    "range": 150,
-    "support": 80
-  },
-  "stats": {
-    "grade": 1,
-    "totalScore": 125,
-    "growthType": "offense",
-    "primaryTag": "human",
-    "statBias": [
-      "attack",
-      "crit_chance",
-      "range_control"
-    ]
-  },
-  "skills": [
-    {
-      "skillId": "skill.character.yujin.1.basic_attack.tracker_arrow",
-      "slot": "basic_attack",
-      "name": "???? ??",
-      "category": "Basic",
-      "intent": "??? ?? ???? ??? ??? ??.",
-      "balance": {
-        "expectedAttack": 20,
-        "baseDamage": 10,
-        "attackPercentDamage": 100,
-        "cooldown": 3.0,
-        "castRange": 3.5,
-        "hitRange": 0.35,
-        "hitCount": 1,
-        "targetScore": 100,
-        "utility": []
-      }
-    },
-    {
-      "skillId": "skill.character.yujin.1.passive.read_the_tracks",
-      "slot": "passive",
-      "name": "?? ??",
-      "category": "Passive",
-      "intent": "???? ??? ?? ?? ???? ?? ?? ??.",
-      "balance": {
-        "expectedAttack": 20,
-        "baseDamage": 0,
-        "attackPercentDamage": 0,
-        "cooldown": 0,
-        "castRange": 0.4,
-        "hitRange": 3.0,
-        "hitCount": 1,
-        "targetScore": 70,
-        "utility": [
-          "anti_ambush_awareness"
-        ]
-      }
-    }
-  ],
-  "notes": []
+﻿{
+    "documentId":  "character_planning.character.yujin.1",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/player/cheongun_sangui_act1.player_common.json",
+    "identity":  {
+                     "characterId":  "character.yujin.1",
+                     "characterType":  "Player",
+                     "runtimeDomain":  "character",
+                     "name":  "유진",
+                     "grade":  1,
+                     "tierId":  "player_grade1",
+                     "role":  "ranged_tracker",
+                     "tags":  [
+                                  "human",
+                                  "ranged",
+                                  "tracker"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "가벼운 산길 복장과 활통을 멘 냉정한 궁수",
+                       "weapon":  "활",
+                       "visualKeywords":  [
+                                              "bow",
+                                              "tracker_cloak",
+                                              "lean_silhouette"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "흔적을 읽고 후열에서 위협을 제거하는 원거리 딜러",
+                   "preferredRange":  "ranged",
+                   "partyFunction":  [
+                                         "single_target_pickoff",
+                                         "flank_watch",
+                                         "mark_target"
+                                     ]
+               },
+    "planningScore":  {
+                          "overall":  125,
+                          "health":  90,
+                          "attack":  135,
+                          "defense":  80,
+                          "speed":  120,
+                          "range":  150,
+                          "support":  80
+                      },
+    "stats":  {
+                  "grade":  1,
+                  "totalScore":  125,
+                  "growthType":  "offense",
+                  "primaryTag":  "human",
+                  "statBias":  [
+                                   "attack",
+                                   "crit_chance",
+                                   "range_control"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.yujin.1.basic_attack.tracker_arrow",
+                       "slot":  "basic_attack",
+                       "name":  "추적자의 화살",
+                       "category":  "Basic",
+                       "intent":  "원거리 단일 대상에게 일관된 피해를 준다.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  10,
+                                       "attackPercentDamage":  100,
+                                       "cooldown":  3,
+                                       "castRange":  3.5,
+                                       "hitRange":  0.35,
+                                       "hitCount":  1,
+                                       "targetScore":  100,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.yujin.1.passive.read_the_tracks",
+                       "slot":  "passive",
+                       "name":  "흔적 읽기",
+                       "category":  "Passive",
+                       "intent":  "매복이나 은신형 적을 먼저 포착하는 전투 기획 의도.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  0,
+                                       "attackPercentDamage":  0,
+                                       "cooldown":  0,
+                                       "castRange":  0.4,
+                                       "hitRange":  3,
+                                       "hitCount":  1,
+                                       "targetScore":  70,
+                                       "utility":  [
+                                                       "anti_ambush_awareness"
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+
+              ]
 }

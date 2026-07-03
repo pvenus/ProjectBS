@@ -1,0 +1,276 @@
+﻿{
+    "compositionId":  "monster_composition.chapter_01_05",
+    "actId":  "act.01",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/00_Background.md",
+                            "Assets/Doc/Story/01_Overall_Story.md",
+                            "Assets/Doc/Story/Act_01_Background.md",
+                            "Assets/Doc/Story/Characters.md",
+                            "Assets/Doc/Story/Chapter_01.md",
+                            "Assets/Doc/Story/Chapter_02.md",
+                            "Assets/Doc/Story/Chapter_03.md",
+                            "Assets/Doc/Story/Chapter_04.md",
+                            "Assets/Doc/Story/Chapter_05.md"
+                        ],
+    "chapterCompositions":  [
+                                {
+                                    "chapterId":  "chapter.01.01",
+                                    "chapterTitle":  "청운촌의 소문",
+                                    "coreBattleIntent":  "아이 실종 소문과 가뭄으로 내려온 산짐승을 통해 초반 위협을 소개한다.",
+                                    "battleScale":  "small_intro",
+                                    "locationTags":  [
+                                                         "village_edge",
+                                                         "forest_entrance"
+                                                     ],
+                                    "situationTags":  [
+                                                          "patrol_contact",
+                                                          "rumor_investigation"
+                                                      ],
+                                    "recommendedSpawnTags":  [
+                                                                 "front",
+                                                                 "light_flank"
+                                                             ],
+                                    "forbiddenSpawnTags":  [
+                                                               "heavy_surround",
+                                                               "boss_intro"
+                                                           ],
+                                    "primaryMonsters":  [
+                                                            {
+                                                                "characterId":  "character.starving_mountain_wolf.1",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json"
+                                                            }
+                                                        ],
+                                    "secondaryMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.black_cloth_raider.1",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+                                                              }
+                                                          ],
+                                    "lockedOutMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.sangui_abandoned_child.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json"
+                                                              },
+                                                              {
+                                                                  "characterId":  "character.nameless_tablet_guardian.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.nameless_tablet_guardian.3.json"
+                                                              }
+                                                          ],
+                                    "notes":  [
+                                                  "산귀의 실체는 드러내지 않는다."
+                                              ]
+                                },
+                                {
+                                    "chapterId":  "chapter.01.02",
+                                    "chapterTitle":  "산으로 향하다",
+                                    "coreBattleIntent":  "서진, 지한, 유진이 합류한 뒤 흔적을 따라 산으로 들어가며 매복과 추적 전투를 경험한다.",
+                                    "battleScale":  "small_normal",
+                                    "locationTags":  [
+                                                         "forest",
+                                                         "narrow_path"
+                                                     ],
+                                    "situationTags":  [
+                                                          "ambush",
+                                                          "tracking"
+                                                      ],
+                                    "recommendedSpawnTags":  [
+                                                                 "front_then_flank",
+                                                                 "delayed_ambush"
+                                                             ],
+                                    "forbiddenSpawnTags":  [
+                                                               "boss_intro",
+                                                               "altar_objective"
+                                                           ],
+                                    "primaryMonsters":  [
+                                                            {
+                                                                "characterId":  "character.starving_mountain_wolf.1",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json"
+                                                            },
+                                                            {
+                                                                "characterId":  "character.black_cloth_raider.1",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+                                                            }
+                                                        ],
+                                    "secondaryMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.mountain_path_archer.1",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json"
+                                                              }
+                                                          ],
+                                    "lockedOutMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.sangui_abandoned_child.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json"
+                                                              }
+                                                          ],
+                                    "notes":  [
+                                                  "사람의 손이 개입했다는 힌트를 보존한다."
+                                              ]
+                                },
+                                {
+                                    "chapterId":  "chapter.01.03",
+                                    "chapterTitle":  "진실의 조각",
+                                    "coreBattleIntent":  "버려진 사당과 지워진 위패 주변에서 원혼의 압박을 처음 체감한다.",
+                                    "battleScale":  "normal_mystery",
+                                    "locationTags":  [
+                                                         "forest",
+                                                         "abandoned_shrine",
+                                                         "ruins"
+                                                     ],
+                                    "situationTags":  [
+                                                          "ritual_hint",
+                                                          "survival",
+                                                          "investigation"
+                                                      ],
+                                    "recommendedSpawnTags":  [
+                                                                 "front",
+                                                                 "flank",
+                                                                 "delayed_ambush"
+                                                             ],
+                                    "forbiddenSpawnTags":  [
+                                                               "bandit_only_resolution",
+                                                               "boss_phase"
+                                                           ],
+                                    "primaryMonsters":  [
+                                                            {
+                                                                "characterId":  "character.abandoned_shrine_wraith.2",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+                                                            }
+                                                        ],
+                                    "secondaryMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.starving_mountain_wolf.1",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json"
+                                                              },
+                                                              {
+                                                                  "characterId":  "character.red_doll_hexer.2",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json"
+                                                              }
+                                                          ],
+                                    "lockedOutMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.sangui_abandoned_child.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json"
+                                                              }
+                                                          ],
+                                    "notes":  [
+                                                  "산귀는 직접 처치 대상으로 사용하지 않는다."
+                                              ]
+                                },
+                                {
+                                    "chapterId":  "chapter.01.04",
+                                    "chapterTitle":  "산채의 그림자",
+                                    "coreBattleIntent":  "산채의 조직적인 인간 적과 아이 우리/제단을 둘러싼 목표 압박을 만든다.",
+                                    "battleScale":  "normal_elite",
+                                    "locationTags":  [
+                                                         "mountain_hideout",
+                                                         "cage",
+                                                         "altar"
+                                                     ],
+                                    "situationTags":  [
+                                                          "breakthrough",
+                                                          "objective_pressure",
+                                                          "reinforcement"
+                                                      ],
+                                    "recommendedSpawnTags":  [
+                                                                 "front_then_flank",
+                                                                 "objective_guard",
+                                                                 "reinforcement"
+                                                             ],
+                                    "forbiddenSpawnTags":  [
+                                                               "boss_intro_final",
+                                                               "random_only"
+                                                           ],
+                                    "primaryMonsters":  [
+                                                            {
+                                                                "characterId":  "character.black_cloth_raider.1",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+                                                            },
+                                                            {
+                                                                "characterId":  "character.cage_guard_bandit.2",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.cage_guard_bandit.2.json"
+                                                            }
+                                                        ],
+                                    "secondaryMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.mountain_path_archer.1",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json"
+                                                              },
+                                                              {
+                                                                  "characterId":  "character.red_doll_hexer.2",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json"
+                                                              },
+                                                              {
+                                                                  "characterId":  "character.nameless_tablet_guardian.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.nameless_tablet_guardian.3.json"
+                                                              }
+                                                          ],
+                                    "lockedOutMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.sangui_abandoned_child.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json"
+                                                              }
+                                                          ],
+                                    "notes":  [
+                                                  "산적의 조작과 더 오래된 존재의 흔적을 동시에 남긴다."
+                                              ]
+                                },
+                                {
+                                    "chapterId":  "chapter.01.05",
+                                    "chapterTitle":  "산귀와의 대면",
+                                    "coreBattleIntent":  "아이 구출 이후 산귀 보스와 마주하며 구원/처단/희생의 갈등을 전투로 압축한다.",
+                                    "battleScale":  "boss",
+                                    "locationTags":  [
+                                                         "deep_hideout",
+                                                         "old_altar",
+                                                         "boss_arena"
+                                                     ],
+                                    "situationTags":  [
+                                                          "boss_intro",
+                                                          "phase_change",
+                                                          "rescue_aftermath"
+                                                      ],
+                                    "recommendedSpawnTags":  [
+                                                                 "boss_phase",
+                                                                 "front",
+                                                                 "summon_support"
+                                                             ],
+                                    "forbiddenSpawnTags":  [
+                                                               "normal_patrol",
+                                                               "beast_only"
+                                                           ],
+                                    "primaryMonsters":  [
+                                                            {
+                                                                "characterId":  "character.sangui_abandoned_child.3",
+                                                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json"
+                                                            }
+                                                        ],
+                                    "secondaryMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.abandoned_shrine_wraith.2",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+                                                              },
+                                                              {
+                                                                  "characterId":  "character.nameless_tablet_guardian.3",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.nameless_tablet_guardian.3.json"
+                                                              }
+                                                          ],
+                                    "lockedOutMonsters":  [
+                                                              {
+                                                                  "characterId":  "character.black_cloth_raider.1",
+                                                                  "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+                                                              }
+                                                          ],
+                                    "notes":  [
+                                                  "보스는 악한 괴물만으로 묘사하지 말고 버려진 아이의 원한이라는 톤을 유지한다."
+                                              ]
+                                }
+                            ],
+    "globalRules":  {
+                        "usePlanningRefsOnly":  true,
+                        "runtimeDomain":  "character",
+                        "doNotCopyFullCharacterData":  true
+                    }
+}
