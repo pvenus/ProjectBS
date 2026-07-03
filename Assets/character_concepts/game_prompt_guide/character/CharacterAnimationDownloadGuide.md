@@ -42,6 +42,7 @@ The task requires the following inputs.
 | characterName | Character name. Used in file names as `character.{characterName}.{grade}`. |
 | grade | Character grade. Used in file names immediately after `characterName`, and may also determine which image page or export to use. |
 | imagePage | Image page URL or working page used to download the character animation images. |
+| PixelLabExportRoot | Root folder where PixelLab exports and evaluation results are preserved. |
 
 Example:
 
@@ -49,6 +50,7 @@ Example:
 characterName = seojin
 grade = 1
 imagePage = <image page url>
+PixelLabExportRoot = /Users/pvenus/ProjectBS/PixelLabExports
 ```
 
 ---
@@ -57,7 +59,15 @@ imagePage = <image page url>
 
 On the image page, use the `Export` button to download the character animation images.
 
-After downloading, extract the archive.
+Save the downloaded archive under the character export folder:
+
+```text
+<PixelLabExportRoot>/<CharacterName>_<Grade>
+```
+
+After downloading, extract the archive inside the same character export folder.
+
+Do not use the extracted original files as the renamed Unity resource files directly. Preserve the downloaded archive and extracted original files as the PixelLab source result.
 
 The extracted folder should normally contain this structure:
 
@@ -77,6 +87,26 @@ north-east/
 north-west/
 ```
 
+Recommended preserved export structure:
+
+```text
+<PixelLabExportRoot>/<CharacterName>_<Grade>/
+  original/
+    <downloaded_archive>.zip
+    extracted/
+      animations/
+        idle/
+        move/
+        attack/
+  converted/
+    character.{characterName}.{grade}.{animation_enum}.{frame}.png
+  evaluation_animation_result.txt
+```
+
+`original/` is the preserved PixelLab source result and is used for evaluation.
+
+`converted/` is the renamed copy used before copying into Unity resources.
+
 ## PixelLab South-West Mirroring
 
 After generating each animation in PixelLab, duplicate the generated `south-east` direction to `south-west` with the PixelLab south-west mirror button before exporting.
@@ -89,6 +119,47 @@ Apply this rule immediately after each animation is generated:
 - Keep the animation name unchanged. Only add the mirrored direction frames.
 
 Before using the `Export` button, confirm that every generated animation contains both the original `south-east` direction and the mirrored `south-west` direction in PixelLab.
+
+---
+
+## Animation Evaluation
+
+Evaluate the downloaded animation images after extraction and before renaming/copying them into Unity resources.
+
+Use the preserved original extracted files:
+
+```text
+<PixelLabExportRoot>/<CharacterName>_<Grade>/original/extracted/animations
+```
+
+Perform the evaluation according to:
+
+```text
+Assets/character_concepts/game_prompt_guide/character/EvaluationAnimationGuide.md
+```
+
+Evaluation must check:
+
+- Frame-to-frame movement score
+- Weapon review score
+- Walk animation score
+- Attack animation score
+- Pass / Fail result
+- Failure reason, if failed
+- Missing direction notes, if any
+- Additional notes, if needed
+
+Save the evaluation result here:
+
+```text
+<PixelLabExportRoot>/<CharacterName>_<Grade>/evaluation_animation_result.txt
+```
+
+Evaluation does not block conversion.
+
+Regardless of Pass / Fail, continue the conversion and copy process so the generated resources can be reviewed in Unity. If evaluation fails, record the failure reason in `evaluation_animation_result.txt` and report it in the final summary.
+
+Do not delete the original extracted animation images used for evaluation.
 
 ---
 
@@ -142,7 +213,7 @@ The duplicated files should be treated exactly the same as normal downloaded ima
 
 ## File Naming Rules
 
-Rename each PNG file using this format:
+Copy each source PNG from the preserved original extraction into the character export folder's `converted/` folder, then rename the copied file using this format:
 
 ```text
 character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
@@ -175,12 +246,14 @@ Important rules:
 - `animation_enum` must exactly match a `CharacterAnimationClipType` enum name.
 - Preserve the original frame name, such as `frame_000` or `frame_001`.
 - Keep the `.png` extension.
+- Do not rename or move the original PixelLab files inside `original/extracted`.
+- Missing direction duplicates are created as renamed copies in `converted/`; do not modify the original extracted folders.
 
 ---
 
 ## Copy to Unity Resource Path
 
-After renaming, copy all PNG files to this folder:
+After creating renamed files in `converted/`, copy all converted PNG files to this folder:
 
 ```text
 Assets/Resources/character/animation_png
@@ -210,15 +283,27 @@ character.{characterName}.{grade}.{animation_enum}.clip
 
 ## Cleanup
 
-After copying the final PNG files, remove temporary files created during the download and extraction process.
+After copying the final PNG files, remove only temporary working files that are outside the character export folder.
 
 Clean up:
 
-- Downloaded archive files
-- Extracted folders
-- Intermediate temporary working folders
+- Browser download cache copies, if separately created
+- Intermediate temporary working folders outside `<PixelLabExportRoot>/<CharacterName>_<Grade>`
+- Any duplicate scratch folders created only for processing
 
-Only the final PNG files required by Unity should remain in `Assets/Resources/character/animation_png`.
+Do not delete:
+
+- `<PixelLabExportRoot>/<CharacterName>_<Grade>/original`
+- `<PixelLabExportRoot>/<CharacterName>_<Grade>/converted`
+- `<PixelLabExportRoot>/<CharacterName>_<Grade>/evaluation_animation_result.txt`
+
+The Unity resource folder should contain the final copied PNG files:
+
+```text
+Assets/Resources/character/animation_png
+```
+
+The PixelLab export folder should retain the original source result, converted copies, and evaluation result.
 
 ---
 
@@ -227,7 +312,12 @@ Only the final PNG files required by Unity should remain in `Assets/Resources/ch
 Before running the Unity character generator, check the following:
 
 - Does each generated animation contain both `south-east` and PixelLab-mirrored `south-west` before export?
+- Is the downloaded archive preserved under `<PixelLabExportRoot>/<CharacterName>_<Grade>/original`?
+- Are original extracted animation files preserved for evaluation?
+- Does `evaluation_animation_result.txt` exist under the character export folder?
+- Does the evaluation result include Pass / Fail and failure reason if failed?
 - Are the PNG files copied into `animation_png`?
+- Are renamed PNG files also preserved under `<PixelLabExportRoot>/<CharacterName>_<Grade>/converted`?
 - Do file names follow `character.{characterName}.{grade}.{animation_enum}.frame_000.png`?
 - Does `animation_enum` exactly match `CharacterAnimationClipType`?
 - Are any frames missing for each animation direction?
@@ -285,11 +375,14 @@ Overall workflow:
 ```text
 Update Git state
 -> Download Export from the image page
--> Extract the archive
+-> Save archive under <PixelLabExportRoot>/<CharacterName>_<Grade>/original
+-> Extract the archive under original/extracted
 -> Check animations/{type}/{direction} files
--> Rename to character.{characterName}.{grade}.{animation_enum}.{frame}.png
--> Copy to Assets/Resources/character/animation_png
--> Remove archive files and temporary folders
+-> Evaluate original extracted images using EvaluationAnimationGuide.md
+-> Save evaluation_animation_result.txt under the character export folder
+-> Copy and rename files into <PixelLabExportRoot>/<CharacterName>_<Grade>/converted
+-> Copy converted files to Assets/Resources/character/animation_png
+-> Remove only temporary files outside the character export folder
 -> Git commit
 -> Merge to main
 -> Deploy
