@@ -42,7 +42,7 @@ The task requires the following inputs.
 | characterName | Character name. Used in file names as `character.{characterName}.{grade}`. |
 | grade | Character grade. Used in file names immediately after `characterName`, and may also determine which image page or export to use. |
 | imagePage | Image page URL or working page used to download the character animation images. |
-| PixelLabExportRoot | Root folder where PixelLab exports and evaluation results are preserved. |
+| PixelLabExportRoot | Root folder where character PixelLab animation folders and evaluation results are preserved. |
 
 Example:
 
@@ -57,22 +57,40 @@ PixelLabExportRoot = /Users/pvenus/ProjectBS/PixelLabExports
 
 ## Download
 
-On the image page, use the `Export` button to download the character animation images.
-
-Save the downloaded archive under the character export folder:
+Use the character folder under `PixelLabExportRoot` as the source of truth:
 
 ```text
-<PixelLabExportRoot>/<CharacterName>_<Grade>
+<PixelLabExportRoot>/<CharacterName>_<Grade>/animations
 ```
 
-After downloading, extract the archive inside the same character export folder.
+If this `animations` folder already exists for the target character, use it directly for structure validation, evaluation, conversion, and Unity copy unless the task explicitly asks for a new PixelLab export for that target character.
 
-Do not use the extracted original files as the renamed Unity resource files directly. Preserve the downloaded archive and extracted original files as the PixelLab source result.
+If the `animations` folder does not exist, or if the task explicitly targets the character for a new download/export, open the image page and use the PixelLab `Export` button to download the character animation images.
 
-The extracted folder should normally contain this structure:
+For a specific target character, a new successful export is treated as a replacement for that character's previous animation source folder. Replace only that character's `animations/` folder.
+
+Export handling:
+
+1. Download and extract the PixelLab export into a temporary working folder.
+2. Locate the extracted `animations/` folder.
+3. Validate the temporary `animations/` folder with the Required Folder Structure Hard Fail rules.
+4. If validation fails, stop immediately and do not replace the existing character `animations` folder.
+5. If validation passes, replace the target character's existing `animations/` folder with the extracted `animations/` folder:
 
 ```text
-animations/
+<PixelLabExportRoot>/<CharacterName>_<Grade>/animations
+```
+
+Do not move the whole extracted archive folder. Only the `animations/` folder becomes the preserved PixelLab source result for the target character.
+
+After the `animations/` folder is moved into the character folder, the temporary downloaded archive and extracted wrapper folders can be cleaned up.
+
+Do not use the source files inside `animations/` as the renamed Unity resource files directly.
+
+The character animation source folder should contain this structure:
+
+```text
+<PixelLabExportRoot>/<CharacterName>_<Grade>/animations/
   idle/
   move/
   attack/
@@ -91,31 +109,28 @@ Recommended preserved export structure:
 
 ```text
 <PixelLabExportRoot>/<CharacterName>_<Grade>/
-  original/
-    <downloaded_archive>.zip
-    extracted/
-      animations/
-        idle/
-        move/
-        attack/
+  animations/
+    idle/
+    move/
+    attack/
   converted/
     character.{characterName}.{grade}.{animation_enum}.{frame}.png
   evaluation_animation_result.txt
 ```
 
-`original/` is the preserved PixelLab source result and is used for evaluation.
+`animations/` is the preserved PixelLab source result and is used for evaluation.
 
 `converted/` is the renamed copy used before copying into Unity resources.
 
 ## Required Folder Structure Hard Fail
 
-Before evaluation, renaming, conversion, or Unity resource copy, validate the extracted animation folder structure.
+Before evaluation, renaming, conversion, or Unity resource copy, validate the character `animations` folder structure.
 
 Immediately mark the work as failed and stop processing if any required structure is incomplete.
 
 Hard fail conditions:
 
-- `animations/` is missing.
+- `<PixelLabExportRoot>/<CharacterName>_<Grade>/animations/` is missing after the download-or-use-existing step.
 - Any required animation type folder is missing: `idle`, `move`, `attack`.
 - Any required source direction folder is missing for a required animation type: `south-east`, `south-west`.
 - A required source direction folder exists but contains no PNG frames.
@@ -129,7 +144,7 @@ When a hard fail occurs:
 - Do not run animation evaluation.
 - Do not create converted files.
 - Do not copy files into Unity resources.
-- Preserve the downloaded archive and extracted original files.
+- Preserve any existing character `animations` folder when a new export failed validation.
 - Save the failure reason to `evaluation_animation_result.txt` if the character export folder is available.
 - Report the failure as a folder structure failure in the final summary.
 
@@ -150,12 +165,12 @@ Before using the `Export` button, confirm that every generated animation contain
 
 ## Animation Evaluation
 
-Evaluate the downloaded animation images after extraction and before renaming/copying them into Unity resources.
+Evaluate the character animation source folder before renaming/copying images into Unity resources.
 
-Use the preserved original extracted files:
+Use the preserved source files:
 
 ```text
-<PixelLabExportRoot>/<CharacterName>_<Grade>/original/extracted/animations
+<PixelLabExportRoot>/<CharacterName>_<Grade>/animations
 ```
 
 Perform the evaluation according to:
@@ -163,6 +178,8 @@ Perform the evaluation according to:
 ```text
 Assets/character_concepts/game_prompt_guide/character/EvaluationAnimationGuide.md
 ```
+
+Do not add a separate rotation evaluation in this download workflow. Character image rotations should already be available from the image generation evaluation stage; this workflow only validates animation folder structure, animation quality, direction folders, and frame resources.
 
 Evaluation must check:
 
@@ -187,13 +204,13 @@ Regardless of Pass / Fail, continue the conversion and copy process so the gener
 
 This non-blocking rule applies only to animation quality evaluation failures. Folder structure hard failures must stop the workflow before evaluation and conversion.
 
-Do not delete the original extracted animation images used for evaluation.
+Do not delete the source animation images used for evaluation.
 
 ---
 
 ## Animation Enum Mapping
 
-Map downloaded direction folders to the ProjectBS `CharacterAnimationClipType` enum names.
+Map source direction folders to the ProjectBS `CharacterAnimationClipType` enum names.
 
 | Animation Type | Direction | Animation Enum |
 |----------------|-----------|----------------|
@@ -241,7 +258,7 @@ The duplicated files should be treated exactly the same as normal downloaded ima
 
 ## File Naming Rules
 
-Copy each source PNG from the preserved original extraction into the character export folder's `converted/` folder, then rename the copied file using this format:
+Copy each source PNG from the preserved `animations/` folder into the character export folder's `converted/` folder, then rename the copied file using this format:
 
 ```text
 character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
@@ -274,8 +291,8 @@ Important rules:
 - `animation_enum` must exactly match a `CharacterAnimationClipType` enum name.
 - Preserve the original frame name, such as `frame_000` or `frame_001`.
 - Keep the `.png` extension.
-- Do not rename or move the original PixelLab files inside `original/extracted`.
-- Missing direction duplicates are created as renamed copies in `converted/`; do not modify the original extracted folders.
+- Do not rename or move the source PixelLab files inside `<PixelLabExportRoot>/<CharacterName>_<Grade>/animations`.
+- Missing direction duplicates are created as renamed copies in `converted/`; do not modify the source `animations/` folder.
 
 ---
 
@@ -321,7 +338,7 @@ Clean up:
 
 Do not delete:
 
-- `<PixelLabExportRoot>/<CharacterName>_<Grade>/original`
+- `<PixelLabExportRoot>/<CharacterName>_<Grade>/animations`
 - `<PixelLabExportRoot>/<CharacterName>_<Grade>/converted`
 - `<PixelLabExportRoot>/<CharacterName>_<Grade>/evaluation_animation_result.txt`
 
@@ -331,7 +348,7 @@ The Unity resource folder should contain the final copied PNG files:
 Assets/Resources/character/animation_png
 ```
 
-The PixelLab export folder should retain the original source result, converted copies, and evaluation result.
+The PixelLab export folder should retain the source `animations/` folder, converted copies, and evaluation result.
 
 ---
 
@@ -340,9 +357,9 @@ The PixelLab export folder should retain the original source result, converted c
 Before running the Unity character generator, check the following:
 
 - Does each generated animation contain both `south-east` and PixelLab-mirrored `south-west` before export?
-- Did the extracted folder structure pass the Required Folder Structure Hard Fail check?
-- Is the downloaded archive preserved under `<PixelLabExportRoot>/<CharacterName>_<Grade>/original`?
-- Are original extracted animation files preserved for evaluation?
+- Did the character `animations/` folder pass the Required Folder Structure Hard Fail check?
+- If a new export was required, was only the extracted `animations/` folder moved into the character folder?
+- Are source animation files preserved for evaluation?
 - Does `evaluation_animation_result.txt` exist under the character export folder?
 - Does the evaluation result include Pass / Fail and failure reason if failed?
 - Are the PNG files copied into `animation_png`?
@@ -403,12 +420,12 @@ Overall workflow:
 
 ```text
 Update Git state
--> Download Export from the image page
--> Save archive under <PixelLabExportRoot>/<CharacterName>_<Grade>/original
--> Extract the archive under original/extracted
+-> Use existing <PixelLabExportRoot>/<CharacterName>_<Grade>/animations if present and no new export is required
+-> If animations is missing or replacement is required, Export from PixelLab into a temporary folder
+-> Move only the extracted animations folder into <PixelLabExportRoot>/<CharacterName>_<Grade>/animations
 -> Check animations/{type}/{direction} files
 -> Stop immediately if Required Folder Structure Hard Fail conditions are found
--> Evaluate original extracted images using EvaluationAnimationGuide.md
+-> Evaluate source animations using EvaluationAnimationGuide.md
 -> Save evaluation_animation_result.txt under the character export folder
 -> Copy and rename files into <PixelLabExportRoot>/<CharacterName>_<Grade>/converted
 -> Copy converted files to Assets/Resources/character/animation_png
