@@ -1,0 +1,104 @@
+﻿{
+    "documentId":  "character_planning.character.ritual_bell_handler.2",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity":  {
+                     "characterId":  "character.ritual_bell_handler.2",
+                     "characterType":  "Npc",
+                     "runtimeDomain":  "character",
+                     "name":  "의식 방울잡이",
+                     "grade":  2,
+                     "tierId":  "normal",
+                     "role":  "ritual_support_beast_agitation",
+                     "tags":  [
+                                  "human",
+                                  "ritual",
+                                  "support",
+                                  "beast_handler"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "긴 머리를 붉은 끈으로 묶고 아이 손바닥만 한 천 조각과 작은 방울 주술패를 흔드는 의식 담당",
+                       "weapon":  "방울 주술패",
+                       "visualKeywords":  [
+                                              "ritual_bell",
+                                              "red_hair_tie",
+                                              "child_cloth_tags"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "산채 전투에서 짐승을 날뛰게 하고 산귀 의식 분위기를 강화하는 지원 적",
+                   "preferredRange":  "mid",
+                   "partyFunction":  [
+                                         "beast_agitation",
+                                         "ritual_support"
+                                     ],
+                   "episodeUse":  [
+                                      "episode.01.01.06"
+                                  ]
+               },
+    "planningScore":  {
+                          "overall":  145,
+                          "health":  95,
+                          "attack":  70,
+                          "defense":  65,
+                          "speed":  75,
+                          "range":  120,
+                          "support":  180
+                      },
+    "stats":  {
+                  "grade":  2,
+                  "totalScore":  145,
+                  "growthType":  "utility",
+                  "primaryTag":  "human",
+                  "statBias":  [
+                                   "support_utility",
+                                   "low_direct_damage"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.ritual_bell_handler.2.basic_attack.bell_charm_throw",
+                       "slot":  "basic_attack",
+                       "name":  "방울 부적 던지기",
+                       "category":  "Basic",
+                       "intent":  "낮은 피해의 중거리 부적 투척.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  6,
+                                       "attackPercentDamage":  70,
+                                       "cooldown":  3,
+                                       "castRange":  2.8,
+                                       "hitRange":  0.4,
+                                       "hitCount":  1,
+                                       "targetScore":  75,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.ritual_bell_handler.2.active1.agitate_caged_beasts",
+                       "slot":  "active1",
+                       "name":  "짐승 흔들기",
+                       "category":  "Active1",
+                       "intent":  "주변 짐승 또는 근접 적의 돌입 압박을 높이는 의도.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  0,
+                                       "attackPercentDamage":  0,
+                                       "cooldown":  9,
+                                       "castRange":  3,
+                                       "hitRange":  2,
+                                       "hitCount":  5,
+                                       "targetScore":  300,
+                                       "utility":  [
+                                                       "beast_speed_pressure_hint"
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+                  "red_doll_hexer의 산채 지원형 확장."
+              ]
+}

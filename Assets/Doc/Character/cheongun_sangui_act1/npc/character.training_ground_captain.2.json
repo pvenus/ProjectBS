@@ -1,0 +1,105 @@
+﻿{
+    "documentId":  "character_planning.character.training_ground_captain.2",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity":  {
+                     "characterId":  "character.training_ground_captain.2",
+                     "characterType":  "Npc",
+                     "runtimeDomain":  "character",
+                     "name":  "수련장 우두머리",
+                     "grade":  2,
+                     "tierId":  "elite",
+                     "role":  "elite_bandit_leader",
+                     "tags":  [
+                                  "human",
+                                  "bandit",
+                                  "leader",
+                                  "melee"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "검은 겉옷 위 낡은 비늘 갑옷을 걸치고 붉은 실에 짐승 발톱 세 개를 단 우두머리",
+                       "weapon":  "장검",
+                       "visualKeywords":  [
+                                              "scale_armor",
+                                              "red_thread_claws",
+                                              "training_ground_leader"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "파티 완성 직후 등장하는 소형 리더. 포위망의 중심 압박을 담당한다.",
+                   "preferredRange":  "melee",
+                   "partyFunction":  [
+                                         "leader_pressure",
+                                         "front_duelist"
+                                     ],
+                   "episodeUse":  [
+                                      "episode.01.01.05-1"
+                                  ]
+               },
+    "planningScore":  {
+                          "overall":  190,
+                          "health":  175,
+                          "attack":  165,
+                          "defense":  130,
+                          "speed":  85,
+                          "range":  50,
+                          "support":  70
+                      },
+    "stats":  {
+                  "grade":  2,
+                  "totalScore":  190,
+                  "growthType":  "standard",
+                  "primaryTag":  "human",
+                  "statBias":  [
+                                   "attack",
+                                   "max_hp",
+                                   "leader_presence"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.training_ground_captain.2.basic_attack.captain_cut",
+                       "slot":  "basic_attack",
+                       "name":  "우두머리 베기",
+                       "category":  "Basic",
+                       "intent":  "전방 단일 대상 베기.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  13,
+                                       "attackPercentDamage":  110,
+                                       "cooldown":  3,
+                                       "castRange":  0.5,
+                                       "hitRange":  0.6,
+                                       "hitCount":  1,
+                                       "targetScore":  120,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.training_ground_captain.2.active1.break_the_line",
+                       "slot":  "active1",
+                       "name":  "포위 지시",
+                       "category":  "Active1",
+                       "intent":  "주변 근접병의 진입 타이밍을 앞당기는 리더 의도.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  8,
+                                       "attackPercentDamage":  80,
+                                       "cooldown":  8,
+                                       "castRange":  2,
+                                       "hitRange":  1,
+                                       "hitCount":  3,
+                                       "targetScore":  280,
+                                       "utility":  [
+                                                       "minor_attack_order_hint"
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+                  "Chapter01 중반 엘리트 리더."
+              ]
+}
