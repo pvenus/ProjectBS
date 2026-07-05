@@ -15,6 +15,20 @@ SpawnPatternSO
 
 `SpawnSequenceSO` is the asset referenced by `BattleSO`.
 
+This document describes the concrete runtime JSON shape.
+
+For independent reusable spawn variation authoring before monster binding, read:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+```
+
+For converting a selected variation and selected monster pool into this JSON, read:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
+```
+
 ## Output
 
 Recommended all-in-one JSON path:
@@ -52,6 +66,8 @@ Use all-in-one JSON for agent generation unless a task explicitly asks for separ
 
 Spawn SO JSON is the baked output of a selected spawn variation.
 
+Do not use concrete Spawn SO JSON as the only source of reusable spawner design. Keep independent selection rules, role slots, and balance knobs in `SpawnVariationProfile` planning data first.
+
 The current runtime JSON does not require a separate `variation` field. Instead, encode the selected variation through:
 
 - Pattern IDs
@@ -64,11 +80,13 @@ The current runtime JSON does not require a separate `variation` field. Instead,
 Conceptual flow:
 
 ```text
-Monster pool + selected variation
+SpawnVariationProfile + monster pool + role bindings
   -> bound squads/formations
   -> sequence steps
   -> SpawnSequenceSO
 ```
+
+Preserve the selected variation ID in planning notes or the intermediate spawner mapping artifact. The final `SpawnSequenceSO` only needs the generated sequence ID that `BattleSO` references.
 
 ### Variation Naming
 
@@ -589,6 +607,7 @@ Before handing JSON to Unity, check:
 ## Agent Authoring Rules
 
 - Prefer all-in-one JSON.
+- Use `SpawnerVariationCreateGuide.md` for reusable variation profiles before writing concrete JSON.
 - Define patterns before squads.
 - Define squads before formations.
 - Define formations before sequences.

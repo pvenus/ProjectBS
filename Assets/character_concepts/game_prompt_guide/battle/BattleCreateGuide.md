@@ -13,8 +13,8 @@ Story planning source
   -> BattleStoryContext
   -> Encounter planning
   -> Monster pool selection
-  -> Spawn variation selection
-  -> Spawner JSON generation
+  -> Optional SpawnVariationProfile selection
+  -> Optional Spawner JSON generation
   -> Battle JSON generation
   -> Unity SO generation
   -> Scene/prefab verification
@@ -29,8 +29,9 @@ Story planning source
 - Keep battle JSON separate from spawner JSON.
 - Make IDs stable and readable.
 - Use exact enum names from the guide documents.
-- Select reusable spawn variations from story and monster composition before writing final spawner JSON.
+- Select reusable spawn variations from story and monster composition only when the task includes spawner selection.
 - Use `BattleStoryContext` as the battle-specific story extraction layer, not the full story planning source.
+- Current battle planning may stop at monster pool selection. In that case, preserve spawn tags and role-slot hints for a later spawner mapping task.
 
 ## Step 1. Encounter Planning
 
@@ -53,10 +54,11 @@ Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md
 4. Determine the battle theme, difficulty, and expected duration.
 5. Select victory rule.
 6. Define available monster pool.
-7. Select candidate spawn variations.
-8. Bind monsters into selected variation role slots.
-9. Decide whether battle props are needed.
-10. Decide rewards and relic drop chances.
+7. Preserve required/forbidden spawn tags for later variation selection.
+8. Select candidate spawn variations only if the task includes spawner mapping.
+9. Bind monsters into selected variation role slots only if a variation was selected.
+10. Decide whether battle props are needed.
+11. Decide rewards and relic drop chances.
 
 ### Required Pre-Generation Inputs
 
@@ -72,6 +74,7 @@ Use these inputs before creating final spawner JSON:
 | Difficulty budget | Limits count, elite use, overlap, flank/back/surround pressure. |
 | Encounter rhythm | Chooses one-shot, escalating, ambush, loop, objective, boss phase. |
 | Forbidden rules | Prevents unfair or story-breaking combinations. |
+| SpawnVariationProfile catalog | Optional. Used only when selecting an independent spawner variation. |
 
 ### Spawn Intent Notes
 
@@ -94,7 +97,20 @@ The result should be expressible in spawner JSON as pattern names, squad groups,
 
 ### Spawn Variation Selection
 
-Select a spawn variation before writing concrete squads and formations.
+Select a spawn variation before writing concrete squads and formations only when the task includes spawner mapping.
+
+Independent spawn variation authoring is defined in:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+```
+
+Concrete SpawnSO JSON generation is defined in:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
+Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
+```
 
 Examples:
 
@@ -112,6 +128,19 @@ If several variations match, choose the one that best expresses the story and di
 
 Do not generate a new bespoke variation when an existing one can be filled by the monster pool.
 
+If the current task is battle planning only, do not select a concrete `selectedVariationId`. Instead, preserve:
+
+```text
+requiredSpawnTags
+forbiddenSpawnTags
+spaceTags
+rhythmTags
+objectiveTags
+requiredRoleSlotHints
+```
+
+These fields will let a later spawner mapping task choose a `SpawnVariationProfile`.
+
 ### Output
 
 Planning can be written in task notes or a planning JSON under:
@@ -128,8 +157,8 @@ Assets/Doc/Battle
 - Any prop behavior is described before authoring `propDefinitions`.
 - Monster skill slots are connected to meaningful front/back/flank/surround placement.
 - Back, flank, and surround spawns are intentional and fair.
-- A reusable spawn variation was selected before concrete sequence authoring.
-- The monster pool can fill every required variation role slot.
+- A reusable spawn variation is selected before concrete sequence authoring, when spawner generation is in scope.
+- The monster pool can fill every required variation role slot, when a variation was selected.
 
 ## Step 2. Spawner JSON Generation
 
@@ -137,11 +166,14 @@ Assets/Doc/Battle
 
 Create the spawn assets used by the battle by baking the selected variation and monster bindings into concrete JSON.
 
+Skip this step when the current task only asks for battle planning or monster pool selection.
+
 ### Reference Files
 
 ```text
 Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
 Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
 Assets/Scripts/battle_spawn/Resource/Jsons/presets_all_in_one.json
 ```
 
@@ -171,6 +203,7 @@ Assets/Scripts/battle_spawn/Resource/Jsons/{battleId}.spawn.json
 - Every sequence step `contentId` exists in `squads` or `formations`.
 - `repeatMode` is `Once` or `Infinite`.
 - `completionMode` is `AfterSpawnCompleted` or `AfterSpawnedEnemiesDefeated`.
+- `selectedVariationId` and role bindings can be traced back to `BattleStoryContext` tags.
 
 ## Step 3. Battle JSON Generation
 

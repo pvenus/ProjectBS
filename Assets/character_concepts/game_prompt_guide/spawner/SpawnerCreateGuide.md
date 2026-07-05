@@ -2,20 +2,27 @@
 
 ## Purpose
 
-This document defines the agent workflow for creating spawn JSON used by battle encounters.
+This document defines the agent workflow for creating concrete spawn JSON used by battle encounters.
 
-Use this guide before writing `BattleSO` JSON.
+Use this guide after a reusable spawn variation has been selected and battle monsters have been bound to its role slots.
+
+For independent spawn variation authoring, read:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+```
 
 Pipeline:
 
 ```text
-Encounter spawn intent
-  -> Monster pool analysis
-  -> Spawn variation selection
-  -> Monster binding
-  -> Battle-specific sequence assembly
-  -> All-in-one spawn JSON
+BattleStoryContext
+  -> Monster pool selection
+  -> SpawnVariationProfile selection
+  -> Monster role binding
+  -> Concrete battle-specific sequence assembly
+  -> All-in-one SpawnSO JSON
   -> Spawn SO generation
+  -> BattleSO spawnSequenceId
 ```
 
 ## Global Rules
@@ -28,6 +35,8 @@ Encounter spawn intent
 - Create the main `SpawnSequenceSO` before authoring `BattleSO`.
 - Prefer reusable spawn variations over one-off battle-specific layouts.
 - Treat monster composition and spawn variation as separate authoring layers.
+- Do not invent a new variation here unless no existing `SpawnVariationProfile` can satisfy the battle context.
+- Preserve `selectedVariationId`, role slot names, and binding reasons in planning notes or intermediate mapping data.
 
 ## Spawn Variation Architecture
 
@@ -41,8 +50,9 @@ Use this structure:
 
 ```text
 Story / battle intent
+  -> BattleStoryContext
   -> Monster pool
-  -> Spawn variation candidates
+  -> SpawnVariationProfile candidates
   -> Monster binding into variation roles
   -> Generated battle sequence
 ```
@@ -52,7 +62,7 @@ Story / battle intent
 | Layer | Owns | Should Be Reusable |
 |---|---|---:|
 | Monster Pool | Which monsters can appear | Yes, across battles in the same faction/area |
-| Spawn Variation | Timing, pressure direction, pattern shape, wave rhythm | Yes, across many battles |
+| Spawn Variation Profile | Timing, pressure direction, role slots, balance knobs, wave rhythm | Yes, across many battles |
 | Monster Binding | Which monster fills each variation role | Battle-specific |
 | Battle Sequence | Final `SpawnSequenceSO` selected by BattleSO | Battle-specific |
 
@@ -67,8 +77,15 @@ It should describe:
 - Role slots: front pressure, backline pressure, diver, support, swarm, boss
 - Timing: step order, start delays, completion modes
 - Difficulty budget: expected count, density, overlap, elite/boss allowance
+- Selection points: location, situation, intent, space, rhythm, difficulty, avoid tags
 
 It should not hard-code one specific monster unless the variation is intentionally monster-specific.
+
+The independent profile shape is defined in:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+```
 
 ### Variation Examples
 
@@ -119,16 +136,17 @@ Avoid jumping directly from simple front pressure to surround + elite + overlap 
 
 ### Purpose
 
-Understand the desired battle pacing and enemy composition.
+Understand the desired battle pacing, selected monster pool, and selected spawn variation.
 
 ### Main Work
 
 1. Identify story and battle intent.
-2. Identify available monster pool.
-3. Identify target difficulty and expected duration.
-4. Select candidate spawn variations.
-5. Bind monster pool entries into variation role slots.
-6. Decide whether the final sequence is one-shot or looping.
+2. Read `BattleStoryContext` when available.
+3. Identify available monster pool.
+4. Identify target difficulty and expected duration.
+5. Select candidate `SpawnVariationProfile` entries.
+6. Bind monster pool entries into variation role slots.
+7. Decide whether the final sequence is one-shot or looping.
 
 ### Validation
 
@@ -136,6 +154,7 @@ Understand the desired battle pacing and enemy composition.
 - Every selected variation can be filled by the monster pool.
 - The intended encounter can be expressed as reusable variation steps.
 - Repeated or large groups are represented by formations instead of duplicating many sequence steps.
+- `selectedVariationId` is preserved for explanation and later battle mapping.
 
 ## Step 1-A. Monster Spawn Role Mapping
 
@@ -481,10 +500,24 @@ After generation, pass the main sequence ID to battle JSON:
 
 Do not duplicate sequence steps in battle JSON.
 
+Keep the battle connection thin:
+
+```text
+BattleStoryContext.requiredSpawnTags / forbiddenSpawnTags
+  -> selectedVariationId
+  -> roleBindings
+  -> spawnSequenceId
+  -> BattleSO.spawnSequenceId
+```
+
+Battle JSON should not contain role slot data, pattern data, or sequence steps.
+
 ## Agent Checklist
 
+- Read `SpawnerVariationCreateGuide.md` when selecting or creating reusable variations.
 - Read `SpawnSO.md`.
 - Confirm NPC IDs.
+- Confirm `selectedVariationId` and role slot bindings.
 - Generate all-in-one JSON.
 - Validate references in memory before writing the file.
 - Ensure the main sequence ID is clear for `BattleSO`.
