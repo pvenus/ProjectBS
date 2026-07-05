@@ -8,6 +8,7 @@ public sealed class Spawner : MonoBehaviour
     [Header("Asset Configuration")]
     [SerializeField] private SpawnContentSO contentToSpawn;
     [SerializeField] private SpawnSequenceSO sequenceToSpawn;
+    [SerializeField] private SpawnUnitBinding[] unitBindings;
 
     [Header("Position Configuration")]
     [SerializeField] private Transform anchorTransform;
@@ -90,7 +91,7 @@ public sealed class Spawner : MonoBehaviour
         if (content == null) return;
 
         Debug.Log($"[Spawner] SpawnContent 실행 시작: '{content.ContentId}', 위치: {position}");
-        _contentRunner = NpcSpawnService.Instance.SpawnContent(content, position);
+        _contentRunner = NpcSpawnService.Instance.SpawnContent(content, position, null, CreateUnitResolver());
     }
 
     /// <summary>
@@ -107,7 +108,8 @@ public sealed class Spawner : MonoBehaviour
         _sequenceRunner = NpcSpawnService.Instance.SpawnSequence(
             sequence, 
             position, 
-            () => Debug.Log($"[Spawner] 시퀀스 완료: '{sequence.SequenceId}'"));
+            () => Debug.Log($"[Spawner] 시퀀스 완료: '{sequence.SequenceId}'"),
+            CreateUnitResolver());
     }
 
     /// <summary>
@@ -150,5 +152,10 @@ public sealed class Spawner : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    private ISpawnUnitResolver CreateUnitResolver()
+    {
+        return new SpawnUnitBindingResolver(unitBindings);
     }
 }

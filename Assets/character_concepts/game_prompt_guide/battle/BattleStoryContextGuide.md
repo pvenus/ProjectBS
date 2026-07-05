@@ -395,7 +395,7 @@ Convert story language into battle context using these rules:
 Do not put these in `BattleStoryContext`:
 
 - Exact `SpawnSequenceSO` step data
-- Final `patternId`, `squadId`, or `formationId`
+- Final spawner pattern config, squad content, or spawn slot binding data
 - Concrete `selectedVariationId` unless the task explicitly performs spawner selection
 - Exact reward values
 - Full monster stats
@@ -499,7 +499,7 @@ After spawner selection happens, use a separate mapping artifact or task notes t
 encounterProfileId
 selectedVariationId
 monsterGroupId
-roleBindings
+spawnUnitBindingHints
 spawnSequenceId
 ```
 

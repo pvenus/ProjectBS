@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Character;
 
 public sealed class SpawnContentRunner
 {
@@ -9,6 +10,7 @@ public sealed class SpawnContentRunner
     private int nextCommandIndex = 0;
     private float elapsedTime = 0f;
     private SpawnSequenceRuntime legacySequenceRuntime;
+    private ISpawnUnitResolver unitResolver;
 
     // 레거시 호환 멤버
     private bool _isCompleted = false;
@@ -16,15 +18,19 @@ public sealed class SpawnContentRunner
 
     public SpawnExecutionRuntime Run(SpawnRequest request)
     {
-        return Run(request, null);
+        return Run(request, null, null);
     }
 
-    public SpawnExecutionRuntime Run(SpawnRequest request, SpawnSequenceRuntime legacySeqRuntime)
+    public SpawnExecutionRuntime Run(
+        SpawnRequest request,
+        SpawnSequenceRuntime legacySeqRuntime,
+        ISpawnUnitResolver resolver = null)
     {
         this.runtime = new SpawnExecutionRuntime();
         this.nextCommandIndex = 0;
         this.elapsedTime = 0f;
         this.legacySequenceRuntime = legacySeqRuntime;
+        this.unitResolver = resolver;
         this._isCompleted = false;
 
         if (request.Content == null)
@@ -60,12 +66,13 @@ public sealed class SpawnContentRunner
             var cmd = plan.Commands[nextCommandIndex];
             if (cmd.StartTime <= elapsedTime)
             {
-                if (cmd.Character != null)
+                CharacterSO character = ResolveCharacter(cmd);
+                if (character != null)
                 {
                     try
                     {
                         GameObject spawnedNpc = NpcSpawnService.Instance.SpawnNpc(
-                            cmd.Character,
+                            character,
                             cmd.Position,
                             cmd.Rotation,
                             legacySequenceRuntime
@@ -83,8 +90,12 @@ public sealed class SpawnContentRunner
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogError($"[SpawnContentRunner] NPC 소환 오류: {cmd.Character.CharacterId}. 에러: {ex.Message}");
+                        Debug.LogError($"[SpawnContentRunner] NPC 소환 오류: {character.CharacterId}. 에러: {ex.Message}");
                     }
+                }
+                else
+                {
+                    Debug.LogWarning($"[SpawnContentRunner] UnitKey '{cmd.UnitKey}', Role '{cmd.Role}'에 매핑된 CharacterSO가 없습니다.");
                 }
                 nextCommandIndex++;
             }
@@ -104,6 +115,14 @@ public sealed class SpawnContentRunner
     // --- 레거시 호환용 ---
     public void Start(SpawnContentRuntime runtimeContent, SpawnSequenceRuntime sequenceRuntime)
     {
+        Start(runtimeContent, sequenceRuntime, null);
+    }
+
+    public void Start(
+        SpawnContentRuntime runtimeContent,
+        SpawnSequenceRuntime sequenceRuntime,
+        ISpawnUnitResolver resolver)
+    {
         if (runtimeContent == null || runtimeContent.Content == null)
         {
             _isCompleted = true;
@@ -116,6 +135,16 @@ public sealed class SpawnContentRunner
             0f
         );
 
-        Run(request, sequenceRuntime);
+        Run(request, sequenceRuntime, resolver);
+    }
+
+    private CharacterSO ResolveCharacter(SpawnCommand command)
+    {
+        if (unitResolver == null)
+        {
+            return null;
+        }
+
+        return unitResolver.Resolve(new SpawnUnitRequest(command.UnitKey, command.Role));
     }
 }

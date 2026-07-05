@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Character;
 
 public sealed class SpawnSOFromJsonWindow : EditorWindow
 {
@@ -69,9 +68,8 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
     private List<UnityEngine.Object> sequenceJsonFiles = new List<UnityEngine.Object>();
     private UnityEngine.Object singlePresetJsonFile; // 일괄 프리셋용
 
-    private SpawnNpcPoolSO npcPoolAsset;
     private SpawnContentPoolSO contentPoolAsset;
-    private SpawnPatternPoolSO patternPoolAsset;
+    private readonly Dictionary<string, SpawnPatternData> generatedPatternDict = new Dictionary<string, SpawnPatternData>();
 
     private string baseOutputFolder = "Assets/Scripts/battle_spawn/Resource/Generated";
     private Vector2 scrollPos;
@@ -89,23 +87,11 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
 
     private void FindDefaultPoolAssets()
     {
-        if (npcPoolAsset == null)
-        {
-            string[] guids = AssetDatabase.FindAssets("t:SpawnNpcPoolSO");
-            if (guids.Length > 0)
-                npcPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnNpcPoolSO>(AssetDatabase.GUIDToAssetPath(guids[0]));
-        }
         if (contentPoolAsset == null)
         {
             string[] guids = AssetDatabase.FindAssets("t:SpawnContentPoolSO");
             if (guids.Length > 0)
                 contentPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnContentPoolSO>(AssetDatabase.GUIDToAssetPath(guids[0]));
-        }
-        if (patternPoolAsset == null)
-        {
-            string[] guids = AssetDatabase.FindAssets("t:SpawnPatternPoolSO");
-            if (guids.Length > 0)
-                patternPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnPatternPoolSO>(AssetDatabase.GUIDToAssetPath(guids[0]));
         }
     }
 
@@ -124,9 +110,7 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
         EditorGUILayout.LabelField("1. 공통 에셋 및 풀 설정", EditorStyles.boldLabel);
         EditorGUILayout.Space();
         
-        npcPoolAsset = (SpawnNpcPoolSO)EditorGUILayout.ObjectField("NPC 풀 에셋 (NpcPoolSO)", npcPoolAsset, typeof(SpawnNpcPoolSO), false);
         contentPoolAsset = (SpawnContentPoolSO)EditorGUILayout.ObjectField("콘텐츠 풀 에셋 (ContentPoolSO)", contentPoolAsset, typeof(SpawnContentPoolSO), false);
-        patternPoolAsset = (SpawnPatternPoolSO)EditorGUILayout.ObjectField("패턴 풀 에셋 (PatternPoolSO)", patternPoolAsset, typeof(SpawnPatternPoolSO), false);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("기본 출력 루트 폴더", EditorStyles.miniBoldLabel);
@@ -294,10 +278,6 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
 
     private void GenerateIndividualPatterns()
     {
-        string sub = (batchTargetType == PatternTargetType.Squad) ? "Squads" : "Formations";
-        string targetDir = $"{baseOutputFolder}/Patterns/{sub}";
-        if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
-
         int count = 0;
         foreach (var file in patternJsonFiles)
         {
@@ -306,27 +286,23 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             List<JsonSpawnPattern> plist = ParseJsonList<JsonSpawnPattern, JsonPatternListWrapper>(text, "patterns", w => w.patterns);
             foreach (var pat in plist)
             {
-                var asset = SpawnPatternBuilder.Build(pat, targetDir);
-                if (asset != null) count++;
+                var patternData = SpawnPatternBuilder.Build(pat);
+                if (patternData != null)
+                {
+                    generatedPatternDict[patternData.PatternId] = patternData;
+                    count++;
+                }
             }
         }
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         
-        RefreshPatternPool();
-        EditorUtility.DisplayDialog("완료", $"총 {count}개의 패턴 에셋을 생성/갱신했습니다.", "확인");
+        EditorUtility.DisplayDialog("완료", $"총 {count}개의 패턴 데이터를 로드했습니다.", "확인");
     }
 
     private void GenerateIndividualContents()
     {
-        if (npcPoolAsset == null || patternPoolAsset == null)
-        {
-            EditorUtility.DisplayDialog("오류", "NPC 풀과 패턴 풀 에셋 지정이 필요합니다.", "확인");
-            return;
-        }
-
-        Dictionary<string, CharacterSO> npcDict = BuildNpcDictionary();
-        Dictionary<string, SpawnPattern> patDict = GetActivePatternsDictionary();
+        Dictionary<string, SpawnPatternData> patDict = GetActivePatternsDictionary();
         Dictionary<string, SpawnSquadSO> squadDict = LoadSquadsDictionary($"{baseOutputFolder}/SpawnContents");
 
         int squadCount = 0;
@@ -337,7 +313,7 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             List<JsonSpawnSquad> slist = ParseJsonList<JsonSpawnSquad, JsonSquadListWrapper>(text, "squads", w => w.squads);
             foreach (var s in slist)
             {
-                var asset = SpawnContentBuilder.BuildSquad(s, $"{baseOutputFolder}/SpawnContents", npcDict, patDict);
+                var asset = SpawnContentBuilder.BuildSquad(s, $"{baseOutputFolder}/SpawnContents", patDict);
                 if (asset != null)
                 {
                     squadCount++;
@@ -418,30 +394,22 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             return;
         }
 
-        // 1. 전체 NPC CharacterSO 룩업 캐시 구축
-        Dictionary<string, CharacterSO> npcDict = BuildNpcDictionary();
-
-        // 2. 패턴 생성
-        Dictionary<string, SpawnPattern> patternDict = new Dictionary<string, SpawnPattern>();
+        // 1. 패턴 생성
+        Dictionary<string, SpawnPatternData> patternDict = new Dictionary<string, SpawnPatternData>();
         if (preset.patterns != null)
         {
             foreach (var pat in preset.patterns)
             {
                 if (string.IsNullOrEmpty(pat.patternId)) continue;
-                bool isForm = pat.patternId.Contains("formation") || pat.patternId.Contains("format");
-                string subFolder = isForm ? "Formations" : "Squads";
-                string targetDir = $"{baseOutputFolder}/Patterns/{subFolder}";
-                if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
-
-                SpawnPattern patAsset = SpawnPatternBuilder.Build(pat, targetDir);
-                if (patAsset != null)
+                SpawnPatternData patternData = SpawnPatternBuilder.Build(pat);
+                if (patternData != null)
                 {
-                    patternDict[patAsset.name] = patAsset;
+                    patternDict[patternData.PatternId] = patternData;
                 }
             }
         }
 
-        // 3. 스쿼드 생성
+        // 2. 스쿼드 생성
         Dictionary<string, SpawnSquadSO> squadDict = new Dictionary<string, SpawnSquadSO>();
         if (preset.squads != null)
         {
@@ -449,7 +417,7 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             foreach (var sqd in preset.squads)
             {
                 if (string.IsNullOrEmpty(sqd.contentId)) continue;
-                SpawnSquadSO squadAsset = SpawnContentBuilder.BuildSquad(sqd, contentDir, npcDict, patternDict);
+                SpawnSquadSO squadAsset = SpawnContentBuilder.BuildSquad(sqd, contentDir, patternDict);
                 if (squadAsset != null)
                 {
                     squadDict[squadAsset.ContentId] = squadAsset;
@@ -457,15 +425,15 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             }
         }
 
-        // 4. 포메이션 생성
-        Dictionary<string, SpawnFormationSO> formationDict = new Dictionary<string, SpawnFormationSO>();
+        // 3. 포메이션 생성
+        Dictionary<string, SpawnSquadSO> formationDict = new Dictionary<string, SpawnSquadSO>();
         if (preset.formations != null)
         {
             string contentDir = $"{baseOutputFolder}/SpawnContents";
             foreach (var form in preset.formations)
             {
                 if (string.IsNullOrEmpty(form.contentId)) continue;
-                SpawnFormationSO formAsset = SpawnContentBuilder.BuildFormation(form, contentDir, squadDict, patternDict);
+                SpawnSquadSO formAsset = SpawnContentBuilder.BuildFormation(form, contentDir, squadDict, patternDict);
                 if (formAsset != null)
                 {
                     formationDict[formAsset.ContentId] = formAsset;
@@ -473,7 +441,7 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
             }
         }
 
-        // 5. 시퀀스 생성
+        // 4. 시퀀스 생성
         Dictionary<string, SpawnContentSO> combinedContents = new Dictionary<string, SpawnContentSO>();
         foreach (var kv in squadDict) combinedContents[kv.Key] = kv.Value;
         foreach (var kv in formationDict) combinedContents[kv.Key] = kv.Value;
@@ -493,7 +461,6 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        RefreshPatternPool();
         RefreshContentPool();
 
         EditorUtility.DisplayDialog("Bake All 완료", 
@@ -639,40 +606,12 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
         return asset;
     }
 
-    private Dictionary<string, CharacterSO> BuildNpcDictionary()
+    private Dictionary<string, SpawnPatternData> GetActivePatternsDictionary()
     {
-        Dictionary<string, CharacterSO> npcDict = new Dictionary<string, CharacterSO>();
-        if (npcPoolAsset != null && npcPoolAsset.Npcs != null)
+        Dictionary<string, SpawnPatternData> patDict = new Dictionary<string, SpawnPatternData>();
+        foreach (var kv in generatedPatternDict)
         {
-            foreach (var n in npcPoolAsset.Npcs)
-            {
-                if (n != null && !npcDict.ContainsKey(n.CharacterId)) npcDict.Add(n.CharacterId, n);
-            }
-        }
-        string[] npcGuids = AssetDatabase.FindAssets("t:CharacterSO");
-        foreach (var guid in npcGuids)
-        {
-            CharacterSO c = AssetDatabase.LoadAssetAtPath<CharacterSO>(AssetDatabase.GUIDToAssetPath(guid));
-            if (c != null && !string.IsNullOrEmpty(c.CharacterId) && !npcDict.ContainsKey(c.CharacterId))
-            {
-                npcDict.Add(c.CharacterId, c);
-            }
-        }
-        return npcDict;
-    }
-
-    private Dictionary<string, SpawnPattern> GetActivePatternsDictionary()
-    {
-        Dictionary<string, SpawnPattern> patDict = new Dictionary<string, SpawnPattern>();
-        if (patternPoolAsset != null && patternPoolAsset.Patterns != null)
-        {
-            foreach (var p in patternPoolAsset.Patterns)
-            {
-                if (p == null) continue;
-                string path = AssetDatabase.GetAssetPath(p);
-                SpawnPattern so = AssetDatabase.LoadAssetAtPath<SpawnPattern>(path);
-                if (so != null && !patDict.ContainsKey(so.name)) patDict.Add(so.name, so);
-            }
+            patDict[kv.Key] = kv.Value;
         }
         return patDict;
     }
@@ -706,11 +645,6 @@ public sealed class SpawnSOFromJsonWindow : EditorWindow
 
     private void RefreshPatternPool()
     {
-        if (patternPoolAsset != null)
-        {
-            patternPoolAsset.CollectAllPatterns();
-            EditorUtility.SetDirty(patternPoolAsset);
-        }
     }
 
     private void RefreshContentPool()

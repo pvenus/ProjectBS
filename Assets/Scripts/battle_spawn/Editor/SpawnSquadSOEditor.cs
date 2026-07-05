@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Character;
 
 [CustomEditor(typeof(SpawnSquadSO))]
 public sealed class SpawnSquadSOEditor : Editor
@@ -23,9 +22,29 @@ public sealed class SpawnSquadSOEditor : Editor
         
         EditorGUILayout.Space();
 
+        EditorGUILayout.LabelField("부대 기준점 배치 (Formation Pattern)", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("formationPatternId"), new GUIContent("Formation Pattern ID"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("formationPatternDisplayName"), new GUIContent("Formation Pattern Display Name"));
+        SerializedProperty formationKindProp = serializedObject.FindProperty("formationPatternKind");
+        EditorGUILayout.PropertyField(formationKindProp, new GUIContent("Formation Pattern Kind"));
+        EnsureFormationPatternConfig();
+        SerializedProperty formationConfigProp = serializedObject.FindProperty("formationPatternConfig");
+        if ((SpawnPatternKind)formationKindProp.enumValueIndex != SpawnPatternKind.None)
+        {
+            EditorGUILayout.PropertyField(formationConfigProp, new GUIContent("Formation Pattern Config"), true);
+        }
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("formationSlotInterval"), new GUIContent("Formation Slot Interval"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("formationQuantity"), new GUIContent("Formation Quantity"));
+
+        EditorGUILayout.Space();
+
         // 1. Group Interval 설정
         SerializedProperty groupIntervalProp = serializedObject.FindProperty("groupInterval");
         EditorGUILayout.PropertyField(groupIntervalProp, new GUIContent("Group Interval (그룹 간 대기시간)"));
+        SerializedProperty slotIntervalProp = serializedObject.FindProperty("slotInterval");
+        EditorGUILayout.PropertyField(slotIntervalProp, new GUIContent("Default Slot Interval (기본 슬롯 간 지연)"));
+        SerializedProperty quantityProp = serializedObject.FindProperty("quantity");
+        EditorGUILayout.PropertyField(quantityProp, new GUIContent("Default Quantity (기본 소환 수량)"));
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("소환 그룹 목록 (Squad Groups)", EditorStyles.boldLabel);
@@ -56,21 +75,10 @@ public sealed class SpawnSquadSOEditor : Editor
             float maxGroupDuration = 0f;
             foreach (var wrapper in orderGroup)
             {
-                SerializedProperty patProp = wrapper.Property.FindPropertyRelative("pattern");
-                SpawnPattern pat = patProp.objectReferenceValue as SpawnPattern;
-                int slotCount = 0;
-                if (pat != null)
-                {
-                    if (pat is FixedPatternSO fixedPat)
-                    {
-                        slotCount = fixedPat.GetSlots().Count;
-                    }
-                    else if (pat is RandomPatternSO)
-                    {
-                        slotCount = wrapper.Property.FindPropertyRelative("quantity").intValue;
-                    }
-                }
-                float slotInt = wrapper.Property.FindPropertyRelative("slotInterval").floatValue;
+                int groupQuantity = wrapper.Property.FindPropertyRelative("quantity").intValue;
+                int slotCount = ResolvePatternSlotCount(wrapper.Property, groupQuantity, squad.Quantity);
+                float groupSlotInterval = wrapper.Property.FindPropertyRelative("slotInterval").floatValue;
+                float slotInt = groupSlotInterval > 0f ? groupSlotInterval : squad.SlotInterval;
                 float duration = Mathf.Max(0f, (slotCount - 1) * slotInt);
                 if (duration > maxGroupDuration) maxGroupDuration = duration;
             }
@@ -120,25 +128,26 @@ public sealed class SpawnSquadSOEditor : Editor
                 SerializedProperty orderProp = wrapper.Property.FindPropertyRelative("order");
                 orderProp.intValue = EditorGUILayout.IntField("Order", orderProp.intValue);
 
-                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("character"), new GUIContent("Character (NPC)"));
+                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("spawnUnitKey"), new GUIContent("Spawn Unit Key"));
+                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("spawnRole"), new GUIContent("Spawn Role"));
                 
-                EditorGUI.BeginChangeCheck();
-                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("pattern"), new GUIContent("Pattern (SO)"));
-                if (EditorGUI.EndChangeCheck() || true)
+                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("patternId"), new GUIContent("Pattern ID"));
+                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("patternDisplayName"), new GUIContent("Pattern Display Name"));
+                SerializedProperty kindProp = wrapper.Property.FindPropertyRelative("patternKind");
+                EditorGUILayout.PropertyField(kindProp, new GUIContent("Pattern Kind"));
+                EnsurePatternConfig(wrapper.Property);
+                SerializedProperty patternConfigProp = wrapper.Property.FindPropertyRelative("patternConfig");
+                if ((SpawnPatternKind)kindProp.enumValueIndex != SpawnPatternKind.None)
                 {
-                    SerializedProperty patProp = wrapper.Property.FindPropertyRelative("pattern");
-                    SpawnPattern pat = patProp.objectReferenceValue as SpawnPattern;
-                    if (pat != null && pat is RandomPatternSO)
-                    {
-                        SerializedProperty qtyProp = wrapper.Property.FindPropertyRelative("quantity");
-                        qtyProp.intValue = EditorGUILayout.IntField("Random 소환 수량", qtyProp.intValue);
-                        if (qtyProp.intValue < 1) qtyProp.intValue = 1;
-                    }
+                    EditorGUILayout.PropertyField(patternConfigProp, new GUIContent("Pattern Config"), true);
                 }
+                SerializedProperty qtyProp = wrapper.Property.FindPropertyRelative("quantity");
+                qtyProp.intValue = EditorGUILayout.IntField("Quantity Override (0=기본값)", qtyProp.intValue);
+                if (qtyProp.intValue < 0) qtyProp.intValue = 0;
 
                 EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("localOffset"), new GUIContent("Local Offset"));
                 EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("localRotation"), new GUIContent("Local Rotation (도)"));
-                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("slotInterval"), new GUIContent("Slot Interval (슬롯 간 지연)"));
+                EditorGUILayout.PropertyField(wrapper.Property.FindPropertyRelative("slotInterval"), new GUIContent("Slot Interval Override (0=기본값)"));
 
                 EditorGUILayout.EndVertical();
             }
@@ -150,7 +159,10 @@ public sealed class SpawnSquadSOEditor : Editor
                 groupsProp.InsertArrayElementAtIndex(newIdx);
                 SerializedProperty newEl = groupsProp.GetArrayElementAtIndex(newIdx);
                 newEl.FindPropertyRelative("order").intValue = orderVal;
+                ResetUnitProperties(newEl);
+                ResetPatternProperties(newEl);
                 newEl.FindPropertyRelative("slotInterval").floatValue = 0f;
+                newEl.FindPropertyRelative("quantity").intValue = 0;
                 newEl.FindPropertyRelative("localRotation").floatValue = 0f;
                 newEl.FindPropertyRelative("localOffset").vector2Value = Vector2.zero;
                 break;
@@ -179,7 +191,10 @@ public sealed class SpawnSquadSOEditor : Editor
             groupsProp.InsertArrayElementAtIndex(newIdx);
             SerializedProperty newEl = groupsProp.GetArrayElementAtIndex(newIdx);
             newEl.FindPropertyRelative("order").intValue = maxOrder;
+            ResetUnitProperties(newEl);
+            ResetPatternProperties(newEl);
             newEl.FindPropertyRelative("slotInterval").floatValue = 0f;
+            newEl.FindPropertyRelative("quantity").intValue = 0;
             newEl.FindPropertyRelative("localRotation").floatValue = 0f;
             newEl.FindPropertyRelative("localOffset").vector2Value = Vector2.zero;
         }
@@ -210,6 +225,111 @@ public sealed class SpawnSquadSOEditor : Editor
             SerializedProperty orderProp = el.FindPropertyRelative("order");
             orderProp.intValue = Mathf.Max(0, orderProp.intValue + delta);
         }
+    }
+
+    private int ResolvePatternSlotCount(SerializedProperty groupProp, int groupQuantity, int defaultQuantity)
+    {
+        if (groupProp == null)
+        {
+            return groupQuantity > 0 ? groupQuantity : Mathf.Max(1, defaultQuantity);
+        }
+
+        SerializedProperty kindProp = groupProp.FindPropertyRelative("patternKind");
+        SpawnPatternKind kind = kindProp != null
+            ? (SpawnPatternKind)kindProp.enumValueIndex
+            : SpawnPatternKind.None;
+
+        if (kind.IsFixedSlotKind())
+        {
+            SerializedProperty configProp = groupProp.FindPropertyRelative("patternConfig");
+            SerializedProperty slotsProp = configProp != null ? configProp.FindPropertyRelative("slots") : null;
+            int slotCount = slotsProp != null ? slotsProp.arraySize : 0;
+            return groupQuantity > 1 ? groupQuantity : Mathf.Max(1, slotCount);
+        }
+
+        return groupQuantity > 0 ? groupQuantity : Mathf.Max(1, defaultQuantity);
+    }
+
+    private void ResetPatternProperties(SerializedProperty groupProp)
+    {
+        groupProp.FindPropertyRelative("patternId").stringValue = string.Empty;
+        groupProp.FindPropertyRelative("patternDisplayName").stringValue = string.Empty;
+        groupProp.FindPropertyRelative("patternKind").enumValueIndex = (int)SpawnPatternKind.None;
+        SerializedProperty configProp = groupProp.FindPropertyRelative("patternConfig");
+        if (configProp != null)
+        {
+            configProp.managedReferenceValue = null;
+        }
+    }
+
+    private void ResetUnitProperties(SerializedProperty groupProp)
+    {
+        groupProp.FindPropertyRelative("spawnUnitKey").stringValue = string.Empty;
+        groupProp.FindPropertyRelative("spawnRole").enumValueIndex = (int)SpawnUnitRole.Any;
+    }
+
+    private void EnsurePatternConfig(SerializedProperty groupProp)
+    {
+        SerializedProperty kindProp = groupProp.FindPropertyRelative("patternKind");
+        SerializedProperty configProp = groupProp.FindPropertyRelative("patternConfig");
+        if (kindProp == null || configProp == null)
+        {
+            return;
+        }
+
+        SpawnPatternKind kind = (SpawnPatternKind)kindProp.enumValueIndex;
+        if (kind == SpawnPatternKind.None)
+        {
+            configProp.managedReferenceValue = null;
+            return;
+        }
+
+        if (kind.IsFixedSlotKind() && !(configProp.managedReferenceValue is FixedSpawnPatternConfig))
+        {
+            configProp.managedReferenceValue = new FixedSpawnPatternConfig();
+            return;
+        }
+
+        if (kind.IsRandomAreaKind() && !(configProp.managedReferenceValue is RandomSpawnPatternConfig))
+        {
+            configProp.managedReferenceValue = CreateDefaultRandomConfig(kind);
+        }
+    }
+
+    private void EnsureFormationPatternConfig()
+    {
+        SerializedProperty kindProp = serializedObject.FindProperty("formationPatternKind");
+        SerializedProperty configProp = serializedObject.FindProperty("formationPatternConfig");
+        if (kindProp == null || configProp == null)
+        {
+            return;
+        }
+
+        SpawnPatternKind kind = (SpawnPatternKind)kindProp.enumValueIndex;
+        if (kind == SpawnPatternKind.None)
+        {
+            configProp.managedReferenceValue = null;
+            return;
+        }
+
+        if (kind.IsFixedSlotKind() && !(configProp.managedReferenceValue is FixedSpawnPatternConfig))
+        {
+            configProp.managedReferenceValue = new FixedSpawnPatternConfig();
+            return;
+        }
+
+        if (kind.IsRandomAreaKind() && !(configProp.managedReferenceValue is RandomSpawnPatternConfig))
+        {
+            configProp.managedReferenceValue = CreateDefaultRandomConfig(kind);
+        }
+    }
+
+    private static RandomSpawnPatternConfig CreateDefaultRandomConfig(SpawnPatternKind kind)
+    {
+        SpawnAreaShape shape = kind == SpawnPatternKind.RandomRectangle
+            ? SpawnAreaShape.Rectangle
+            : SpawnAreaShape.Circle;
+        return new RandomSpawnPatternConfig(shape, new Vector2(1f, 1f));
     }
 
     private void NormalizeOrders(SerializedProperty groupsProp)
@@ -307,8 +427,7 @@ public sealed class SpawnSquadSOEditor : Editor
             Color dotColor = Color.green;
             if (squad.Groups.Count > 0)
             {
-                // 이 커맨드의 CharacterSO가 매칭되는 Group의 Order를 유추
-                var matchedGroup = squad.Groups.FirstOrDefault(g => g.Character == cmd.Character);
+                var matchedGroup = squad.Groups.FirstOrDefault(g => g.SpawnUnitKey == cmd.UnitKey && g.SpawnRole == cmd.Role);
                 if (matchedGroup != null)
                 {
                     int colorIdx = orders.IndexOf(matchedGroup.Order);
@@ -326,7 +445,7 @@ public sealed class SpawnSquadSOEditor : Editor
             Handles.DrawLine(drawPos, drawPos + dirVec);
 
             // 타이밍/이름 라벨 표시
-            string labelText = $"[{cmd.StartTime:F1}s] {GetCharacterDisplayName(cmd.Character)}";
+            string labelText = $"[{cmd.StartTime:F1}s] {GetUnitDisplayName(cmd.UnitKey, cmd.Role)}";
             DrawLabel(drawPos, labelText);
         }
 
@@ -348,10 +467,10 @@ public sealed class SpawnSquadSOEditor : Editor
         }
     }
 
-    private string GetCharacterDisplayName(CharacterSO character)
+    private string GetUnitDisplayName(string unitKey, SpawnUnitRole role)
     {
-        if (character == null) return "None";
-        return !string.IsNullOrEmpty(character.CharacterId) ? character.CharacterId : character.name;
+        if (!string.IsNullOrEmpty(unitKey)) return unitKey;
+        return role != SpawnUnitRole.Any ? role.ToString() : "None";
     }
 
     private void DrawLabel(Vector2 pos, string text)

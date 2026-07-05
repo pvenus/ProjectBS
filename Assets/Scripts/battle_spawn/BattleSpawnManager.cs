@@ -9,6 +9,7 @@ public class BattleSpawnManager : MonoBehaviour
 
     [Header("Sequence Data (For Fallback / Testing / Manual Assignment)")]
     [SerializeField] private SpawnSequenceSO spawnSequence;
+    [SerializeField] private SpawnUnitBinding[] testUnitBindings;
     [SerializeField] private bool playOnStart = false;
 
     private BattleSession battleSession;
@@ -63,6 +64,11 @@ public class BattleSpawnManager : MonoBehaviour
     /// </summary>
     public void PlaySequence(SpawnSequenceSO sequence)
     {
+        PlaySequence(sequence, CreateTestUnitResolver());
+    }
+
+    public void PlaySequence(SpawnSequenceSO sequence, ISpawnUnitResolver unitResolver)
+    {
         if (sequence == null)
         {
             Debug.LogError("[BattleSpawnManager] PlaySequence: 전달된 sequence가 null입니다.");
@@ -88,7 +94,7 @@ public class BattleSpawnManager : MonoBehaviour
         }
 
         sequenceRunner = new SpawnSequenceRunner();
-        sequenceRunner.StartSequence(runtime, HandleSequenceFinished);
+        sequenceRunner.StartSequence(runtime, HandleSequenceFinished, unitResolver);
         Debug.Log($"[BattleSpawnManager] 신규 스폰 시퀀스 '{runtime.OriginalSequence.SequenceId}' 재생 시작");
     }
 
@@ -234,6 +240,11 @@ public class BattleSpawnManager : MonoBehaviour
         Debug.Log("[BattleSpawnManager] [Test] CompleteBattle - 배틀 완료!");
 
         battleSession.EndBattle();
+    }
+
+    private ISpawnUnitResolver CreateTestUnitResolver()
+    {
+        return new SpawnUnitBindingResolver(testUnitBindings);
     }
 
     #endregion

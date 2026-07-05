@@ -9,27 +9,25 @@ public static class TestSpawnResolver
     [MenuItem("BS/Spawn/Test Resolver Output")]
     public static void TestResolver()
     {
-        // 1. 임시로 pattern.fixed.circle.6p 패턴과 squad.wolf.line.3 스쿼드 에셋을 로드합니다.
-        string circlePatternPath = "Assets/Scripts/battle_spawn/Resource/Generated/Patterns/Squads/pattern.fixed.circle.6p.asset";
+        // 1. 임시로 circle pattern 데이터와 squad.wolf.line.3 스쿼드 에셋을 로드합니다.
         string line3SquadPath = "Assets/Scripts/battle_spawn/Resource/Generated/SpawnContents/Squads/squad.wolf.line.3.asset";
 
-        FixedPatternSO circlePat = AssetDatabase.LoadAssetAtPath<FixedPatternSO>(circlePatternPath);
+        SpawnPatternData circlePat = CreateCirclePatternData("pattern.test.circle.6p", "Test Circle 6", 6, 3f);
         SpawnSquadSO line3Squad = AssetDatabase.LoadAssetAtPath<SpawnSquadSO>(line3SquadPath);
 
-        if (circlePat == null)
-        {
-            Debug.LogError($"패턴 에셋 로드 실패: {circlePatternPath}");
-            return;
-        }
         if (line3Squad == null)
         {
             Debug.LogError($"스쿼드 에셋 로드 실패: {line3SquadPath}");
             return;
         }
 
-        // 2. 임시 포메이션 생성
-        SpawnFormationSO tempFormation = ScriptableObject.CreateInstance<SpawnFormationSO>();
-        tempFormation.Initialize("formation.test", circlePat, line3Squad, 0.5f, 1);
+        // 2. Formation 패턴을 흡수한 임시 Squad 생성
+        SpawnSquadSO tempFormation = CreateFormationSquad(
+            "formation.test",
+            circlePat,
+            line3Squad,
+            0.5f,
+            1);
 
         // 3. Resolver를 통해 좌표 생성
         SpawnRequest req = new SpawnRequest(tempFormation, Vector3.zero, 0f);
@@ -42,7 +40,7 @@ public static class TestSpawnResolver
         // circle6p의 슬롯이 6개이므로, 결과는 18마리여야 함 (6슬롯 * 3마리)
         for (int s = 0; s < 6; s++)
         {
-            var slots = circlePat.GetSlots();
+            var slots = circlePat.FixedConfig.Slots;
             var circleSlot = slots[s];
             Debug.Log($"[포메이션 슬롯 {s}] 위치: {circleSlot.LocalPosition}, 회전: {circleSlot.LocalRotation}");
 
@@ -76,8 +74,7 @@ public static class TestSpawnResolver
     [MenuItem("BS/Spawn/Test AxisY Circle Formation")]
     public static void TestAxisYCircleFormation()
     {
-        FixedPatternSO line3Pattern = ScriptableObject.CreateInstance<FixedPatternSO>();
-        line3Pattern.Initialize(
+        SpawnPatternData line3Pattern = new SpawnPatternData(
             "pattern.test.line3",
             "Test Line 3",
             new List<SpawnPatternSlot>
@@ -95,15 +92,15 @@ public static class TestSpawnResolver
             {
                 new SpawnSquadGroup(
                     0,
-                    null,
+                    "test_unit",
+                    SpawnUnitRole.Any,
                     line3Pattern,
                     Vector2.zero,
                     0f,
                     0f)
             });
 
-        FixedPatternSO diamondFormationPattern = ScriptableObject.CreateInstance<FixedPatternSO>();
-        diamondFormationPattern.Initialize(
+        SpawnPatternData diamondFormationPattern = new SpawnPatternData(
             "pattern.test.axisy.diamond4",
             "AxisY Diamond 4",
             new List<SpawnPatternSlot>
@@ -114,8 +111,7 @@ public static class TestSpawnResolver
                 new SpawnPatternSlot(new Vector2(-5f, 0f), 90f),
             });
 
-        SpawnFormationSO formation = ScriptableObject.CreateInstance<SpawnFormationSO>();
-        formation.Initialize(
+        SpawnSquadSO formation = CreateFormationSquad(
             "formation.test.axisy.diamond4",
             diamondFormationPattern,
             squad,
@@ -141,7 +137,7 @@ public static class TestSpawnResolver
             }
 
             SpawnPatternSlot formationSlot =
-                diamondFormationPattern.GetSlots()[slotIndex];
+                diamondFormationPattern.FixedConfig.Slots[slotIndex];
 
             SpawnCommand first = commands[commandStartIndex];
             SpawnCommand center = commands[commandStartIndex + 1];
@@ -167,9 +163,55 @@ public static class TestSpawnResolver
             .Select((cmd, index) => new { cmd, slotIndex = index / 3 })
             .All(x => Mathf.Abs(Mathf.DeltaAngle(
                 x.cmd.Rotation,
-                diamondFormationPattern.GetSlots()[x.slotIndex].LocalRotation)) <= 0.001f);
+                diamondFormationPattern.FixedConfig.Slots[x.slotIndex].LocalRotation)) <= 0.001f);
 
         Debug.Log($"[AxisY Circle Formation Diagnostic] All rotations match formation slots: {allRotationsOk}");
+    }
+
+    private static SpawnSquadSO CreateFormationSquad(
+        string id,
+        SpawnPatternData formationPattern,
+        SpawnSquadSO sourceSquad,
+        float formationSlotInterval,
+        int formationQuantity)
+    {
+        SpawnSquadSO squad = ScriptableObject.CreateInstance<SpawnSquadSO>();
+        List<SpawnSquadGroup> copiedGroups = new List<SpawnSquadGroup>();
+        if (sourceSquad != null && sourceSquad.Groups != null)
+        {
+            foreach (SpawnSquadGroup group in sourceSquad.Groups)
+            {
+                if (group != null)
+                {
+                    copiedGroups.Add(group.Clone());
+                }
+            }
+        }
+
+        squad.Initialize(
+            id,
+            formationPattern,
+            formationSlotInterval,
+            formationQuantity,
+            sourceSquad != null ? sourceSquad.GroupInterval : 0f,
+            sourceSquad != null ? sourceSquad.SlotInterval : 0f,
+            sourceSquad != null ? sourceSquad.Quantity : 1,
+            copiedGroups);
+        return squad;
+    }
+
+    private static SpawnPatternData CreateCirclePatternData(string id, string displayName, int count, float radius)
+    {
+        List<SpawnPatternSlot> slots = new List<SpawnPatternSlot>();
+        int safeCount = Mathf.Max(1, count);
+        for (int i = 0; i < safeCount; i++)
+        {
+            float angle = 360f * i / safeCount;
+            Vector2 pos = SpawnCoordinateUtility.Rotate(Vector2.up * radius, angle);
+            slots.Add(new SpawnPatternSlot(pos, angle));
+        }
+
+        return new SpawnPatternData(id, displayName, slots);
     }
 
     private static bool ApproximatelySameDirection(Vector2 lhs, Vector2 rhs)

@@ -61,12 +61,13 @@ ProjectBS 신규 적 소환 시스템 테스트 씬 구성 가이드 (TestSceneG
 런타임 자동 생성 코드 외에, 프로젝트 기획 데이터 에셋으로 직접 소환 스케줄을 빌드하려면 
 Project 뷰 우클릭 -> Create -> BS -> Spawn 메뉴군을 이용합니다.
 
-- [NpcDefinitionSO] 생성: Create -> BS -> Spawn -> NpcDefinition
-  - npcId 및 대응할 CharacterSO 에셋을 지정합니다.
-- [SpawnPatternSO] 생성: Create -> BS -> Spawn -> SpawnPattern
-  - anchorMarkerId (예: "SpawnAnchor_Center")와 anchorOffset을 입력합니다.
-  - 인스펙터 하단의 "배치 자동 생성 도구"를 통해 사각형(Rectangle), 원형(Circle) 등의 포지션 리스트를 원클릭 생성합니다.
-  - group 목록에 groupId별로 NpcDefinitionSO와 딜레이(delay)를 매핑합니다.
+- 스폰 유닛 연결
+  - SpawnSquadSO group에는 spawnUnitKey 또는 spawnRole을 지정합니다.
+  - 실제 CharacterSO 연결은 Spawner/BattleSpawnManager의 SpawnUnitBinding에서 지정합니다.
+- [SpawnSquadSO] 생성: Create -> Battle Spawn -> Content -> Squad
+  - formationPatternKind/config로 부대 기준점 배치를 설정합니다.
+  - group 목록의 patternKind/config로 기준점 내부 몬스터 배치를 설정합니다.
+  - 각 group에는 spawnUnitKey 또는 spawnRole을 입력합니다.
 - [SpawnWaveSO] 생성: Create -> BS -> Spawn -> SpawnWave
   - 웨이브 내에 실행할 패턴 스케줄 리스트를 구성하고 startDelay와 nextWaveDelay를 지정합니다.
 - [SpawnChannelSO] 생성: Create -> BS -> Spawn -> SpawnChannel

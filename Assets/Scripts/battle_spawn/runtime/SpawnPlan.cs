@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Character;
 
 public readonly struct SpawnCommand
 {
-    public CharacterSO Character { get; }
+    public string UnitKey { get; }
+    public SpawnUnitRole Role { get; }
     public Vector3 Position { get; }
     public float Rotation { get; }
     public float StartTime { get; }
 
     public SpawnCommand(
-        CharacterSO character,
+        string unitKey,
+        SpawnUnitRole role,
         Vector3 position,
         float rotation,
         float startTime)
     {
-        Character = character;
+        UnitKey = unitKey;
+        Role = role;
         Position = position;
         Rotation = rotation;
         StartTime = startTime;

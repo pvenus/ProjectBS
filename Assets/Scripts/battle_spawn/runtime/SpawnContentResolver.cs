@@ -31,10 +31,6 @@ public static class SpawnContentResolver
         {
             AppendSquad(squad, rootTransform, 0f, commands);
         }
-        else if (request.Content is SpawnFormationSO formation)
-        {
-            AppendFormation(formation, rootTransform, 0f, commands);
-        }
 
         // 모든 Command를 생성한 후 StartTime 오름차순으로 정렬
         commands.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
@@ -42,6 +38,41 @@ public static class SpawnContentResolver
     }
 
     private static void AppendSquad(
+        SpawnSquadSO squad,
+        SpawnTransform parentTransform,
+        float startTimeOffset,
+        List<SpawnCommand> commands)
+    {
+        if (squad == null || squad.Groups == null || squad.Groups.Count == 0) return;
+
+        if (squad.HasFormationPattern)
+        {
+            List<SpawnPatternSlot> formationSlots = ResolveSlots(
+                squad.FormationPattern,
+                0,
+                squad.FormationQuantity);
+
+            for (int i = 0; i < formationSlots.Count; i++)
+            {
+                SpawnPatternSlot slot = formationSlots[i];
+                if (slot == null) continue;
+
+                SpawnTransform squadTransform = SpawnCoordinateUtility.Compose(
+                    parentTransform,
+                    slot.LocalPosition,
+                    slot.LocalRotation);
+
+                float squadStartTime = startTimeOffset + (i * squad.FormationSlotInterval);
+                AppendSquadGroups(squad, squadTransform, squadStartTime, commands);
+            }
+
+            return;
+        }
+
+        AppendSquadGroups(squad, parentTransform, startTimeOffset, commands);
+    }
+
+    private static void AppendSquadGroups(
         SpawnSquadSO squad,
         SpawnTransform parentTransform,
         float startTimeOffset,
@@ -64,36 +95,11 @@ public static class SpawnContentResolver
 
             foreach (var group in orderGroup)
             {
-                if (group == null || group.Pattern == null) continue;
+                if (group == null) continue;
                 
-                // 가상 또는 실제 슬롯 리스트 확보
-                List<SpawnPatternSlot> slots = new List<SpawnPatternSlot>();
-                if (group.Pattern is FixedPatternSO fixedPat)
-                {
-                    slots.AddRange(fixedPat.GetSlots());
-                }
-                else if (group.Pattern is RandomPatternSO randPat)
-                {
-                    System.Random rand = new System.Random(randPat.name.GetHashCode() + group.Order);
-                    int qty = group.Quantity;
-                    for (int i = 0; i < qty; i++)
-                    {
-                        Vector2 localPos = Vector2.zero;
-                        if (randPat.Shape == SpawnAreaShape.Circle)
-                        {
-                            double angle = rand.NextDouble() * Math.PI * 2;
-                            double r = Math.Sqrt(rand.NextDouble()) * randPat.AreaSize.x;
-                            localPos = new Vector2((float)(Math.Cos(angle) * r), (float)(Math.Sin(angle) * r));
-                        }
-                        else if (randPat.Shape == SpawnAreaShape.Rectangle)
-                        {
-                            float rx = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.x;
-                            float ry = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.y;
-                            localPos = new Vector2(rx, ry);
-                        }
-                        slots.Add(new SpawnPatternSlot(localPos, 0f));
-                    }
-                }
+                int quantity = ResolveQuantity(squad, group);
+                float slotInterval = ResolveSlotInterval(squad, group);
+                List<SpawnPatternSlot> slots = ResolveSlots(group, quantity);
 
                 if (slots.Count == 0) continue;
 
@@ -109,7 +115,7 @@ public static class SpawnContentResolver
                     var slot = slots[i];
                     if (slot == null) continue;
 
-                    float spawnTime = currentOrderStartTime + (i * group.SlotInterval);
+                    float spawnTime = currentOrderStartTime + (i * slotInterval);
 
                     // 2. Pattern Slot Transform 합성 (Group Transform 기준)
                     SpawnTransform finalTransform = SpawnCoordinateUtility.Compose(
@@ -118,10 +124,15 @@ public static class SpawnContentResolver
                         slot.LocalRotation
                     );
 
-                    commands.Add(new SpawnCommand(group.Character, finalTransform.Position, finalTransform.Rotation, spawnTime));
+                    commands.Add(new SpawnCommand(
+                        group.SpawnUnitKey,
+                        group.SpawnRole,
+                        finalTransform.Position,
+                        finalTransform.Rotation,
+                        spawnTime));
                 }
 
-                float groupDuration = Mathf.Max(0f, (slots.Count - 1) * group.SlotInterval);
+                float groupDuration = Mathf.Max(0f, (slots.Count - 1) * slotInterval);
                 if (groupDuration > currentOrderDuration)
                 {
                     currentOrderDuration = groupDuration;
@@ -141,61 +152,126 @@ public static class SpawnContentResolver
         }
     }
 
-    private static void AppendFormation(
-        SpawnFormationSO formation,
-        SpawnTransform parentTransform,
-        float startTimeOffset,
-        List<SpawnCommand> commands)
+    private static int ResolveQuantity(SpawnSquadSO squad, SpawnSquadGroup group)
     {
-        if (formation == null || formation.Squad == null || formation.Pattern == null) return;
-
-        // 가상 또는 실제 슬롯 리스트 확보
-        List<SpawnPatternSlot> slots = new List<SpawnPatternSlot>();
-        if (formation.Pattern is FixedPatternSO fixedPat)
+        if (group != null && group.Quantity > 0)
         {
-            slots.AddRange(fixedPat.GetSlots());
+            return group.Quantity;
         }
-        else if (formation.Pattern is RandomPatternSO randPat)
+
+        return Mathf.Max(1, squad != null ? squad.Quantity : 1);
+    }
+
+    private static float ResolveSlotInterval(SpawnSquadSO squad, SpawnSquadGroup group)
+    {
+        if (group != null && group.SlotInterval > 0f)
         {
-            System.Random rand = new System.Random(randPat.name.GetHashCode());
-            int qty = formation.Quantity;
-            for (int i = 0; i < qty; i++)
+            return group.SlotInterval;
+        }
+
+        return Mathf.Max(0f, squad != null ? squad.SlotInterval : 0f);
+    }
+
+    private static List<SpawnPatternSlot> ResolveSlots(SpawnSquadGroup group, int quantity)
+    {
+        if (group == null || !group.HasPattern)
+        {
+            return ResolveNoneSlots(quantity);
+        }
+
+        return ResolveSlots(
+            group.PatternKind,
+            group.PatternId,
+            group.FixedConfig,
+            group.RandomConfig,
+            group.Order,
+            quantity);
+    }
+
+    private static List<SpawnPatternSlot> ResolveSlots(SpawnPatternData pattern, int seedOffset, int quantity)
+    {
+        if (pattern == null || !pattern.HasPattern)
+        {
+            return ResolveNoneSlots(quantity);
+        }
+
+        return ResolveSlots(
+            pattern.PatternKind,
+            pattern.PatternId,
+            pattern.FixedConfig,
+            pattern.RandomConfig,
+            seedOffset,
+            quantity);
+    }
+
+    private static List<SpawnPatternSlot> ResolveNoneSlots(int quantity)
+    {
+        List<SpawnPatternSlot> slots = new List<SpawnPatternSlot>();
+        int safeQuantity = Mathf.Max(1, quantity);
+        for (int i = 0; i < safeQuantity; i++)
+        {
+            slots.Add(new SpawnPatternSlot(Vector2.zero, 0f));
+        }
+        return slots;
+    }
+
+    private static List<SpawnPatternSlot> ResolveSlots(
+        SpawnPatternKind patternKind,
+        string patternId,
+        FixedSpawnPatternConfig fixedConfig,
+        RandomSpawnPatternConfig randomConfig,
+        int seedOffset,
+        int quantity)
+    {
+        List<SpawnPatternSlot> slots = new List<SpawnPatternSlot>();
+        int safeQuantity = Mathf.Max(1, quantity);
+
+        if (patternKind.IsFixedSlotKind())
+        {
+            IReadOnlyList<SpawnPatternSlot> fixedSlots = fixedConfig != null ? fixedConfig.Slots : null;
+            if (fixedSlots == null || fixedSlots.Count == 0)
+            {
+                return slots;
+            }
+
+            int spawnCount = quantity > 1 ? safeQuantity : fixedSlots.Count;
+            for (int i = 0; i < spawnCount; i++)
+            {
+                slots.Add(fixedSlots[i % fixedSlots.Count]);
+            }
+            return slots;
+        }
+
+        if (patternKind.IsRandomAreaKind())
+        {
+            if (randomConfig == null)
+            {
+                return slots;
+            }
+
+            int seed = string.IsNullOrEmpty(patternId) ? 0 : patternId.GetHashCode();
+            System.Random rand = new System.Random(seed + seedOffset);
+            for (int i = 0; i < safeQuantity; i++)
             {
                 Vector2 localPos = Vector2.zero;
-                if (randPat.Shape == SpawnAreaShape.Circle)
+                SpawnAreaShape shape = patternKind.ResolveAreaShape(randomConfig.Shape);
+                if (shape == SpawnAreaShape.Circle)
                 {
                     double angle = rand.NextDouble() * Math.PI * 2;
-                    double r = Math.Sqrt(rand.NextDouble()) * randPat.AreaSize.x;
+                    double r = Math.Sqrt(rand.NextDouble()) * randomConfig.AreaSize.x;
                     localPos = new Vector2((float)(Math.Cos(angle) * r), (float)(Math.Sin(angle) * r));
                 }
-                else if (randPat.Shape == SpawnAreaShape.Rectangle)
+                else if (shape == SpawnAreaShape.Rectangle)
                 {
-                    float rx = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.x;
-                    float ry = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.y;
+                    float rx = (float)(rand.NextDouble() - 0.5) * randomConfig.AreaSize.x;
+                    float ry = (float)(rand.NextDouble() - 0.5) * randomConfig.AreaSize.y;
                     localPos = new Vector2(rx, ry);
                 }
                 slots.Add(new SpawnPatternSlot(localPos, 0f));
             }
         }
 
-        if (slots.Count == 0) return;
-
-        for (int j = 0; j < slots.Count; j++)
-        {
-            var slot = slots[j];
-            if (slot == null) continue;
-
-            float squadStartTime = startTimeOffset + (j * formation.SlotInterval);
-
-            // 포메이션 슬롯의 최종 World Transform 합성 (부모 Transform 기준)
-            SpawnTransform formationSlotTransform = SpawnCoordinateUtility.Compose(
-                parentTransform,
-                slot.LocalPosition,
-                slot.LocalRotation
-            );
-
-            // 하위 스쿼드 해석 및 추가 (포메이션 슬롯의 Transform을 부모 기준으로 전달)
-            AppendSquad(formation.Squad, formationSlotTransform, squadStartTime, commands);
-        }
+        return slots;
     }
+
 }

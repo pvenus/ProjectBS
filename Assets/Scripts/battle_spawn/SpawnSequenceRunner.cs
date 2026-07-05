@@ -30,6 +30,7 @@ public sealed class SpawnSequenceRunner
 
     private SpawnSequenceRuntime _runtime;
     private Action _onSequenceCompleted;
+    private ISpawnUnitResolver _unitResolver;
 
     private List<List<int>> _groupedStepIndices = new List<List<int>>();
     private int _currentGroupIndex = 0;
@@ -38,6 +39,14 @@ public sealed class SpawnSequenceRunner
     private bool _needsWaitEnemiesDefeated = false;
 
     public void StartSequence(SpawnSequenceRuntime runtime, Action onSequenceCompleted)
+    {
+        StartSequence(runtime, onSequenceCompleted, null);
+    }
+
+    public void StartSequence(
+        SpawnSequenceRuntime runtime,
+        Action onSequenceCompleted,
+        ISpawnUnitResolver unitResolver)
     {
         if (runtime == null)
         {
@@ -50,6 +59,7 @@ public sealed class SpawnSequenceRunner
 
         _runtime = runtime;
         _onSequenceCompleted = onSequenceCompleted;
+        _unitResolver = unitResolver;
         _runtime.IsRunning = true;
         _runtime.IsCancelled = false;
         _runtime.IsCompleted = false;
@@ -161,7 +171,7 @@ public sealed class SpawnSequenceRunner
                         state.ContentRuntime.AnchorPosition,
                         0f
                     );
-                    state.ExecutionRuntime = state.ContentRunner.Run(request, _runtime);
+                    state.ExecutionRuntime = state.ContentRunner.Run(request, _runtime, _unitResolver);
                 }
                 else
                 {

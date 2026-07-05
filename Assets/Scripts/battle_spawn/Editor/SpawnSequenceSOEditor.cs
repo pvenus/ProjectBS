@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Character;
 
 [CustomEditor(typeof(SpawnSequenceSO))]
 public class SpawnSequenceSOEditor : Editor
@@ -152,7 +151,7 @@ public class SpawnSequenceSOEditor : Editor
                     Handles.DrawLine(drawPos, drawPos + dirVec);
 
                     // Label
-                    string labelText = $"[{step.Order}-{cmd.StartTime:F1}s] {GetNpcDisplayName(cmd.Character)}";
+                    string labelText = $"[{step.Order}-{cmd.StartTime:F1}s] {GetUnitDisplayName(cmd.UnitKey, cmd.Role)}";
                     DrawLabel(drawPos, labelText);
                 }
             }
@@ -162,18 +161,10 @@ public class SpawnSequenceSOEditor : Editor
         GUI.Label(new Rect(rect.x + 5, rect.y + 5, 250, 20), "Green dots: Mock Step Pivots (Spaced)", EditorStyles.miniLabel);
     }
 
-    private string GetNpcDisplayName(CharacterSO npc)
+    private string GetUnitDisplayName(string unitKey, SpawnUnitRole role)
     {
-        if (npc == null) return "Unknown";
-        try
-        {
-            string displayName = npc.DisplayName;
-            if (!string.IsNullOrEmpty(displayName)) return displayName;
-        }
-        catch
-        {
-        }
-        return !string.IsNullOrEmpty(npc.CharacterId) ? npc.CharacterId : npc.name;
+        if (!string.IsNullOrEmpty(unitKey)) return unitKey;
+        return role != SpawnUnitRole.Any ? role.ToString() : "Unknown";
     }
 
     private void DrawLabel(Vector2 pos, string text)
