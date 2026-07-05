@@ -246,11 +246,20 @@ namespace ResourceTools
             public string backgroundPrefab;
             public string spawnSequenceId;
             public string spawnSequencePath;
+            public List<SpawnUnitBindingJson> spawnUnitBindings = new();
             public int rewardExperience;
             public float normalRelicDropChance;
             public float bossRelicDropChance;
             public List<TimedPropPlacementJson> timedPropPlacements = new();
             public List<PropDefinitionJson> propDefinitions = new();
+        }
+
+        [Serializable]
+        public class SpawnUnitBindingJson
+        {
+            public string unitKey;
+            public string role;
+            public string characterId;
         }
 
         [Serializable]

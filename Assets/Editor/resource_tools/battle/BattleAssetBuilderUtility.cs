@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Battle.Prop.SO;
+using Character;
 using UnityEditor;
 using UnityEngine;
 
@@ -199,6 +200,39 @@ namespace ResourceTools
             }
 
             Debug.LogWarning($"[BattleAssetBuilderUtility] Prefab not found. key={key}");
+            return null;
+        }
+
+        public static CharacterSO FindCharacterSO(string characterId)
+        {
+            if (string.IsNullOrEmpty(characterId))
+            {
+                return null;
+            }
+
+            string normalizedTarget = NormalizeKey(characterId);
+            string[] guids = AssetDatabase.FindAssets("t:CharacterSO");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                CharacterSO characterSO = AssetDatabase.LoadAssetAtPath<CharacterSO>(path);
+
+                if (characterSO == null)
+                {
+                    continue;
+                }
+
+                string assetName = Path.GetFileNameWithoutExtension(path);
+
+                if (NormalizeKey(assetName) == normalizedTarget ||
+                    NormalizeKey(characterSO.CharacterId) == normalizedTarget)
+                {
+                    return characterSO;
+                }
+            }
+
+            Debug.LogWarning($"[BattleAssetBuilderUtility] CharacterSO not found. characterId={characterId}");
             return null;
         }
 

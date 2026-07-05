@@ -1,0 +1,89 @@
+{
+  "battleStoryContextId": "battle_story_context.act1.chapter01.example",
+  "sourceStoryId": "chapter.01.01",
+  "sourceStoryFile": "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+  "actId": "act.01",
+  "chapterId": "chapter.01.01",
+  "playerPlanningRoot": "Assets/Doc/Character/player",
+  "monsterContextRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+  "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+  "battleIdHint": "battle.act1.chapter01.example",
+  "summary": "Seojin reaches the drought-stricken edge of Cheongun Village and interrupts a small raid against villagers before the deeper mountain mystery is revealed.",
+  "locationTags": [
+    "village_edge",
+    "forest_entrance"
+  ],
+  "factionTags": [
+    "starving_beast",
+    "black_cloth_raiders"
+  ],
+  "situationTags": [
+    "patrol_contact",
+    "villager_rescue",
+    "rumor_investigation"
+  ],
+  "intentTags": [
+    "intro_pressure",
+    "protect_villagers",
+    "establish_threat"
+  ],
+  "spaceTags": [
+    "front",
+    "light_flank"
+  ],
+  "rhythmTags": [
+    "small_intro",
+    "front_then_light_flank"
+  ],
+  "objectiveTags": [],
+  "toneTags": [
+    "tense",
+    "dry_village",
+    "uneasy"
+  ],
+  "difficultyHint": "easy",
+  "requiredMonsterTags": [
+    "wolf",
+    "human",
+    "bandit"
+  ],
+  "preferredMonsterTags": [
+    "fast",
+    "melee",
+    "intro"
+  ],
+  "forbiddenMonsterTags": [
+    "boss",
+    "elite",
+    "spirit",
+    "sangui"
+  ],
+  "requiredSpawnTags": [
+    "front",
+    "light_flank"
+  ],
+  "forbiddenSpawnTags": [
+    "heavy_surround",
+    "boss_intro",
+    "altar_objective"
+  ],
+  "spawnSelectionHints": {
+    "preferredVariationTags": [
+      "front",
+      "light_flank",
+      "small_intro"
+    ],
+    "avoidVariationTags": [
+      "heavy_surround",
+      "boss_intro"
+    ],
+    "requiredRoleSlots": [
+      "spawn.front.pressure.melee",
+      "spawn.light_flank.melee"
+    ]
+  },
+  "notes": [
+    "Keep the Sangui truth hidden.",
+    "The fight should read as an early contact battle, not a full bandit formation or supernatural reveal."
+  ]
+}

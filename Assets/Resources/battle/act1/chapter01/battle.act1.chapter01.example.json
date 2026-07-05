@@ -1,0 +1,26 @@
+{
+  "battleId": "battle.act1.chapter01.example",
+  "battleName": "Cheongun Village Edge Contact",
+  "victoryRule": "ClearAllEnemies",
+  "survivalTimeSeconds": 0,
+  "backgroundPrefab": "battle_bg_1_0",
+  "spawnSequenceId": "seq.act1.chapter01.example",
+  "spawnSequencePath": "",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.front.pressure.melee",
+      "role": "Melee",
+      "characterId": "character.starving_mountain_wolf.1"
+    },
+    {
+      "unitKey": "spawn.light_flank.melee",
+      "role": "Melee",
+      "characterId": "character.black_cloth_raider.1"
+    }
+  ],
+  "rewardExperience": 30,
+  "normalRelicDropChance": 5,
+  "bossRelicDropChance": 0,
+  "timedPropPlacements": [],
+  "propDefinitions": []
+}

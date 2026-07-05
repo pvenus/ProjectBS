@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb9a5d55239c2e4cbde4bca537951d9, type: 3}
+  m_Name: squad.act1.chapter01.example.opening
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnSquadSO
+  contentId: squad.act1.chapter01.example.opening
+  spawnDelay: 0
+  formationPatternId: 
+  formationPatternDisplayName: Front Approach Pivot
+  formationPatternKind: 3
+  formationPatternConfig:
+    rid: 4316572826482770071
+  formationSlotInterval: 0
+  formationQuantity: 1
+  groupInterval: 0.35
+  slotInterval: 0
+  quantity: 1
+  groups:
+  - order: 0
+    spawnUnitKey: spawn.front.pressure.melee
+    spawnRole: 1
+    patternId: 
+    patternDisplayName: Front Three Slot Pressure
+    patternKind: 7
+    patternConfig:
+      rid: 4316572826482770072
+    localOffset: {x: 0, y: 0}
+    localRotation: 0
+    slotInterval: 0.15
+    quantity: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 4316572826482770071
+      type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
+      data:
+        slots:
+        - localPosition: {x: 0, y: 0}
+          localRotation: 0
+    - rid: 4316572826482770072
+      type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
+      data:
+        slots:
+        - localPosition: {x: 0, y: 0.55}
+          localRotation: 0
+        - localPosition: {x: -0.55, y: -0.55}
+          localRotation: 0
+        - localPosition: {x: 0.55, y: -0.55}
+          localRotation: 120

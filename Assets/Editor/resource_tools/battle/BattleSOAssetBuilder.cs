@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Battle;
 using Battle.Prop.SO;
+using Character;
 using UnityEditor;
 using UnityEngine;
 
@@ -99,8 +100,65 @@ namespace ResourceTools
             battleSO.backgroundPrefab =
                 BattleAssetBuilderUtility.FindPrefab(data.backgroundPrefab);
             battleSO.spawnSequence = spawnSequence;
+            battleSO.spawnUnitBindings =
+                ConvertSpawnUnitBindings(data.spawnUnitBindings);
             battleSO.timedPropPlacements =
                 ConvertTimedPropPlacements(data.timedPropPlacements);
+        }
+
+        private static SpawnUnitBinding[] ConvertSpawnUnitBindings(
+            List<BattleJsonGenerator.SpawnUnitBindingJson> jsonBindings)
+        {
+            if (jsonBindings == null || jsonBindings.Count == 0)
+            {
+                return new SpawnUnitBinding[0];
+            }
+
+            List<SpawnUnitBinding> result = new();
+
+            foreach (BattleJsonGenerator.SpawnUnitBindingJson jsonBinding in jsonBindings)
+            {
+                if (jsonBinding == null ||
+                    string.IsNullOrEmpty(jsonBinding.characterId))
+                {
+                    continue;
+                }
+
+                CharacterSO characterSO =
+                    BattleAssetBuilderUtility.FindCharacterSO(jsonBinding.characterId);
+
+                if (characterSO == null)
+                {
+                    Debug.LogWarning($"[BattleSOAssetBuilder] CharacterSO not found. characterId={jsonBinding.characterId}");
+                    continue;
+                }
+
+                SpawnUnitBinding binding = new();
+
+                EditorFieldSetter.SetFirstExistingField(
+                    binding,
+                    jsonBinding.unitKey,
+                    "unitKey");
+
+                if (BattleJsonValidation.TryParseSpawnUnitRole(
+                        jsonBinding.role,
+                        out SpawnUnitRole role))
+                {
+                    EditorFieldSetter.SetFirstExistingField(
+                        binding,
+                        role,
+                        "role");
+                }
+
+                EditorFieldSetter.SetFirstExistingField(
+                    binding,
+                    characterSO,
+                    "character");
+
+                result.Add(binding);
+            }
+
+            return result.ToArray();
         }
 
         private static List<BattleSO.TimedPropPlacement> ConvertTimedPropPlacements(

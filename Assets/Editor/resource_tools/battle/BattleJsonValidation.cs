@@ -46,6 +46,11 @@ namespace ResourceTools
                     errors.Add(
                         $"{sourceLabel}: SpawnSequenceSO를 찾을 수 없습니다. spawnSequenceId={data.spawnSequenceId}, spawnSequencePath={data.spawnSequencePath}");
                 }
+
+                ValidateSpawnUnitBindingCharacters(
+                    data.spawnUnitBindings,
+                    sourceLabel,
+                    errors);
             }
 
             if (data != null &&
@@ -70,6 +75,13 @@ namespace ResourceTools
             out BattlePropState state)
         {
             return TryParseEnum(value, out state);
+        }
+
+        public static bool TryParseSpawnUnitRole(
+            string value,
+            out SpawnUnitRole role)
+        {
+            return TryParseEnum(value, out role);
         }
 
         private static void ValidateCommon(
@@ -119,8 +131,78 @@ namespace ResourceTools
                 sourceLabel,
                 errors);
 
+            ValidateSpawnUnitBindings(data.spawnUnitBindings, sourceLabel, errors);
             ValidatePropDefinitions(data.propDefinitions, sourceLabel, errors);
             ValidateTimedPropPlacements(data.timedPropPlacements, sourceLabel, errors);
+        }
+
+        private static void ValidateSpawnUnitBindings(
+            List<BattleJsonGenerator.SpawnUnitBindingJson> bindings,
+            string sourceLabel,
+            List<string> errors)
+        {
+            if (bindings == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < bindings.Count; i++)
+            {
+                BattleJsonGenerator.SpawnUnitBindingJson binding = bindings[i];
+
+                if (binding == null)
+                {
+                    errors.Add($"{sourceLabel}: spawnUnitBindings[{i}] 항목이 비어 있습니다.");
+                    continue;
+                }
+
+                RequireText(
+                    binding.characterId,
+                    $"spawnUnitBindings[{i}].characterId",
+                    sourceLabel,
+                    errors);
+
+                if (string.IsNullOrEmpty(binding.unitKey) &&
+                    string.IsNullOrEmpty(binding.role))
+                {
+                    errors.Add(
+                        $"{sourceLabel}: spawnUnitBindings[{i}]는 unitKey 또는 role 중 하나가 필요합니다.");
+                }
+
+                if (!string.IsNullOrEmpty(binding.role) &&
+                    !TryParseEnum(binding.role, out SpawnUnitRole _))
+                {
+                    errors.Add(
+                        $"{sourceLabel}: spawnUnitBindings[{i}].role 값이 올바르지 않습니다. value={binding.role}, allowed={FormatEnumNames<SpawnUnitRole>()}");
+                }
+            }
+        }
+
+        private static void ValidateSpawnUnitBindingCharacters(
+            List<BattleJsonGenerator.SpawnUnitBindingJson> bindings,
+            string sourceLabel,
+            List<string> errors)
+        {
+            if (bindings == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < bindings.Count; i++)
+            {
+                BattleJsonGenerator.SpawnUnitBindingJson binding = bindings[i];
+
+                if (binding == null || string.IsNullOrEmpty(binding.characterId))
+                {
+                    continue;
+                }
+
+                if (BattleAssetBuilderUtility.FindCharacterSO(binding.characterId) == null)
+                {
+                    errors.Add(
+                        $"{sourceLabel}: spawnUnitBindings[{i}].characterId에 해당하는 CharacterSO를 찾을 수 없습니다. characterId={binding.characterId}");
+                }
+            }
         }
 
         private static void ValidatePropDefinitions(
