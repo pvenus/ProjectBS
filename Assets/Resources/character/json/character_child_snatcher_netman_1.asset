@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_child_snatcher_netman_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.child_snatcher_netman.1
+  characterType: 1
+  job: 65
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 27fe71b5424484080a5c218707dc8446, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 803eac4f87c174ceba0c471d8d6cdc5b, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 75816e90e38bc4239ac329fc4b460d8f, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: c40ecd7d9d7ba48f99814526e66c5594, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 62401fd9758b541b2aeef6981b5c2c81, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: e45bcfef3d4fd4dbb8cafcef1ffcd9b9, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 77bc56dd405e14ad2abe2fe4e0c7ea4d, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: d383851dfc15f4476acb46cc3f1fc760, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 959c8071739df4a299247daf2767ab72, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 961d12ca47b7a4921b8413106bb90346, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 96e82a7621f83413da74f214e7062be4, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: be5e20e2eeb224119b6f4cac7ee00001, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: a079b1497075e4874b639a0f7ea97d67, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 12
+  - statType: 1300
+    value: 10
+  - statType: 1000
+    value: 338
+  - statType: 1110
+    value: 7.2
+  - statType: 1220
+    value: 2.02
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.64

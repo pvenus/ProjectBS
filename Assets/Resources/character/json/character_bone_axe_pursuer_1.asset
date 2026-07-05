@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_bone_axe_pursuer_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.bone_axe_pursuer.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 2e242d1d55a8d488b8decb1d23601bbd, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 0b10e70d66c5e4b8d8ddd6749f7d3d15, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: a8676cb80a3c64bbe96f96991f3f7f8b, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: d8155f4d8c4c243f5805fceca612e904, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: a3e5cdde15943497a88aa8f0b83361f6, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 017d142cb00404f2cb07f3430c101891, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 3daca79ab9b1646478ca64e653ab9b99, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 06f63e38ac8ca47fd964a2612e7bd341, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 7dfc8c97f739c4800b9464c0df2e0746, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: cb743021ef6a14e27b200cbfea8e6d5b, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 31ff0f86c6d18464481ce187bb69e54b, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: ec299bbe4ef804133bfb5ca9d7acb05d, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 4bbad9c4ba80741f1bdef3fdabb27460, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 30
+  - statType: 1300
+    value: 15
+  - statType: 1000
+    value: 590
+  - statType: 1110
+    value: 3.6
+  - statType: 1220
+    value: 1.95
+  - statType: 1240
+    value: 12
+  - statType: 1250
+    value: 55
+  - statType: 1235
+    value: 1.38

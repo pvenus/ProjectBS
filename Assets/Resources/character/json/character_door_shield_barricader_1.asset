@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_door_shield_barricader_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.door_shield_barricader.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 19d6e75d7d71945719ae99d31f9e29c3, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 5e1ced2dd00c14f2e9e21f39eef72eb0, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 6d2d8849b928a4d6b8aa9786f5e61f01, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 38236c9fbe0234aae994e7f030f48d7f, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 7556245dc265a4be9846510c40c0ee0b, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 020230992d0cb45a295bbd3f20f8b526, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 06d4057dcb4a1464e922df1c0bd10bee, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 018bc3b3473e2471d92391eb948f71ab, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 63ad9430887674ba7a302644de5617e0, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 6fa18fae56cec442c8caee4f81c7231a, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 88490db557742453ebc65d9af1bbc667, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 481324af3a91e42cc93fb6275eb8ac8d, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: a6f21fff9549d49baa4c82c0a7746430, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 12
+  - statType: 1300
+    value: 37
+  - statType: 1000
+    value: 957
+  - statType: 1110
+    value: 4.8
+  - statType: 1220
+    value: 1.39
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.08

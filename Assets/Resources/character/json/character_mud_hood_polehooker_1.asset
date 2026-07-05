@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_mud_hood_polehooker_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.mud_hood_polehooker.1
+  characterType: 1
+  job: 65
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: e94e0d29b4bd344ee90b78311eb0e086, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 9d496f30917f24a7e8b76fd35145ff43, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 78933ae44020348c6a6eabedbe288fa3, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 49456b5a0999640b19bca5dd68be1948, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 57f2c9d54e58c469aac962f6e901dd1c, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 95340b86e02b94062b0ab4e3b5c17a44, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 458defd53fe94459d9d43ebf032844b2, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 7456d962172e84091b64c4d79cabc025, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 5eac9a9ac357645ad80d9c4ff3e77904, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: ad170100601ee4168804821ec8be1ee2, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 10690870625184f7a8f1382363563bf6, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: df7585875af154dfcb967b31ac784527, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 36193e0a6e2a14503979e58b10b8ace1, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 15
+  - statType: 1300
+    value: 13
+  - statType: 1000
+    value: 405
+  - statType: 1110
+    value: 6.6
+  - statType: 1220
+    value: 1.92
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.54
