@@ -1,148 +1,157 @@
-﻿{
-    "documentId":  "character_planning.character.sangui_abandoned_child.3",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.sangui_abandoned_child.3",
-                     "characterType":  "Boss",
-                     "runtimeDomain":  "character",
-                     "name":  "산귀가 된 버려진 아이",
-                     "grade":  3,
-                     "tierId":  "boss",
-                     "role":  "act_boss_spirit",
-                     "tags":  [
-                                  "spirit",
-                                  "boss",
-                                  "grudge"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "흙과 피로 더럽혀진 아이 형상, 차가운 산안개와 붉은 제사 흔적을 두른 보스",
-                       "visualKeywords":  [
-                                              "spirit",
-                                              "boss",
-                                              "grudge"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "버려짐의 원한을 폭주시키는 Act 보스",
-                   "preferredRange":  "melee",
-                   "partyFunction":  [
-                                         "act_boss_spirit"
-                                     ]
-               },
-    "planningScore":  {
-                          "overall":  163,
-                          "health":  200,
-                          "attack":  120,
-                          "defense":  140,
-                          "speed":  100,
-                          "range":  160,
-                          "support":  260
-                      },
-    "stats":  {
-                  "grade":  3,
-                  "totalScore":  163,
-                  "growthType":  "utility",
-                  "primaryTag":  "spirit",
-                  "statBias":  [
-                                   "boss_hp",
-                                   "summon_or_area_pressure",
-                                   "phase_change"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch",
-                       "slot":  "basic_attack",
-                       "name":  "원한 할퀴기",
-                       "category":  "Basic",
-                       "intent":  "가까운 대상을 긁는 기본 공격.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  9,
-                                       "attackPercentDamage":  60,
-                                       "cooldown":  3,
-                                       "castRange":  0.5,
-                                       "hitRange":  0.7,
-                                       "hitCount":  2,
-                                       "targetScore":  75,
-                                       "utility":  [
-
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.sangui_abandoned_child.3.passive.left_alone_again",
-                       "slot":  "passive",
-                       "name":  "또 나만 버려졌어",
-                       "category":  "Passive",
-                       "intent":  "체력 구간 또는 구출 선택에 따라 폭주 압박이 커지는 보스 의도.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  0,
-                                       "attackPercentDamage":  0,
-                                       "cooldown":  0,
-                                       "castRange":  0.4,
-                                       "hitRange":  3,
-                                       "hitCount":  5,
-                                       "targetScore":  350,
-                                       "utility":  [
-                                                       "phase_pressure",
-                                                       "summon_wraith_hint"
-                                                   ]
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.sangui_abandoned_child.3.active1.cold_mountain_call",
-                       "slot":  "active1",
-                       "name":  "산에서 부르는 소리",
-                       "category":  "Active1",
-                       "intent":  "중거리 범위 둔화와 원혼 소환 분위기.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  10,
-                                       "attackPercentDamage":  60,
-                                       "cooldown":  8,
-                                       "castRange":  3.2,
-                                       "hitRange":  1.5,
-                                       "hitCount":  5,
-                                       "targetScore":  250,
-                                       "utility":  [
-                                                       "slow_50_percent_2s",
-                                                       "summon_minor_wraith_hint"
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.sangui_abandoned_child.3.active2.why_only_me",
-                       "slot":  "active2",
-                       "name":  "왜 나만 버려졌어",
-                       "category":  "Active2",
-                       "intent":  "넓은 범위 원한 폭발. 보스전 핵심 패턴.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  18,
-                                       "attackPercentDamage":  90,
-                                       "cooldown":  12,
-                                       "castRange":  2.5,
-                                       "hitRange":  2,
-                                       "hitCount":  6,
-                                       "targetScore":  400,
-                                       "utility":  [
-                                                       "stun_or_heavy_slow_short",
-                                                       "boss_phase_burst"
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.sangui_abandoned_child.3",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.sangui_abandoned_child.3",
+        "characterType": "Boss",
+        "runtimeDomain": "character",
+        "name": "산귀가 된 버려진 아이",
+        "grade": 3,
+        "tierId": "boss",
+        "role": "act_boss_spirit",
+        "tags": [
+            "spirit",
+            "boss",
+            "grudge"
+        ]
+    },
+    "appearance": {
+        "silhouette": "흙과 피로 더럽혀진 아이 형상, 차가운 산안개와 붉은 제사 흔적을 두른 보스",
+        "visualKeywords": [
+            "spirit",
+            "boss",
+            "grudge"
+        ]
+    },
+    "combat": {
+        "roleIntent": "버려짐의 원한을 폭주시키는 Act 보스",
+        "preferredRange": "melee",
+        "partyFunction": [
+            "act_boss_spirit"
+        ]
+    },
+    "planningScore": {
+        "overall": 163,
+        "health": 200,
+        "attack": 120,
+        "defense": 140,
+        "speed": 100,
+        "range": 160,
+        "support": 260
+    },
+    "stats": {
+        "grade": 3,
+        "totalScore": 163,
+        "growthType": "utility",
+        "primaryTag": "spirit",
+        "statBias": [
+            "boss_hp",
+            "summon_or_area_pressure",
+            "phase_change"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 1.0,
+        "attackSpeedScale": 1.0,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch",
+            "slot": "basic_attack",
+            "name": "원한 할퀴기",
+            "category": "Basic",
+            "intent": "가까운 대상을 긁는 기본 공격.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 3,
+                "attackPercentDamage": 21,
+                "cooldown": 1.0,
+                "castRange": 0.5,
+                "hitRange": 0.7,
+                "hitCount": 2,
+                "targetScore": 75,
+                "utility": [],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        },
+        {
+            "skillId": "skill.character.sangui_abandoned_child.3.passive.left_alone_again",
+            "slot": "passive",
+            "name": "또 나만 버려졌어",
+            "category": "Passive",
+            "intent": "체력 구간 또는 구출 선택에 따라 폭주 압박이 커지는 보스 의도.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 0,
+                "attackPercentDamage": 0,
+                "cooldown": 0,
+                "castRange": 0.4,
+                "hitRange": 3,
+                "hitCount": 5,
+                "targetScore": 350,
+                "utility": [
+                    "phase_pressure",
+                    "summon_wraith_hint"
+                ]
+            }
+        },
+        {
+            "skillId": "skill.character.sangui_abandoned_child.3.active1.cold_mountain_call",
+            "slot": "active1",
+            "name": "산에서 부르는 소리",
+            "category": "Active1",
+            "intent": "중거리 범위 둔화와 원혼 소환 분위기.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 10,
+                "attackPercentDamage": 60,
+                "cooldown": 8.0,
+                "castRange": 3.2,
+                "hitRange": 1.5,
+                "hitCount": 5,
+                "targetScore": 250,
+                "utility": [
+                    "slow_50_percent_2s",
+                    "summon_minor_wraith_hint"
+                ],
+                "directDamageMultiplierApplied": 0.5,
+                "basePatternCooldownBeforeAttackSpeed": 8.0,
+                "cooldownFormula": "basePatternCooldown / attackSpeedScale"
+            }
+        },
+        {
+            "skillId": "skill.character.sangui_abandoned_child.3.active2.why_only_me",
+            "slot": "active2",
+            "name": "왜 나만 버려졌어",
+            "category": "Active2",
+            "intent": "넓은 범위 원한 폭발. 보스전 핵심 패턴.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 18,
+                "attackPercentDamage": 90,
+                "cooldown": 12.0,
+                "castRange": 2.5,
+                "hitRange": 2,
+                "hitCount": 6,
+                "targetScore": 400,
+                "utility": [
+                    "stun_or_heavy_slow_short",
+                    "boss_phase_burst"
+                ],
+                "directDamageMultiplierApplied": 0.5,
+                "basePatternCooldownBeforeAttackSpeed": 12.0,
+                "cooldownFormula": "basePatternCooldown / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

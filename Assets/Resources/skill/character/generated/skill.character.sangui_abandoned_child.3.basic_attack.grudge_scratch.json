@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1,
     "castTime": 0,
     "range": 0.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 18,
-        "attackPercentDamage": 1.2
+        "baseDamage": 3,
+        "attackPercentDamage": 0.21
       }
     }
   ]

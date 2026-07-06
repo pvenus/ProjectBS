@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.mountain_path_archer.1.basic_attack.hidden_arrow.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.2,
+    "cooldown": 1,
     "castTime": 0,
     "range": 3.8,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 10,
-        "attackPercentDamage": 1.0
+        "baseDamage": 2,
+        "attackPercentDamage": 0.17
       }
     }
   ]

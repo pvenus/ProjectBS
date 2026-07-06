@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.red_doll_hexer.2.basic_attack.charm_toss.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 2.8,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 7,
-        "attackPercentDamage": 0.8
+        "baseDamage": 2,
+        "attackPercentDamage": 0.18
       }
     }
   ]

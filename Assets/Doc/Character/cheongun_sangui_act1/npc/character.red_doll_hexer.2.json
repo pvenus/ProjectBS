@@ -1,103 +1,110 @@
-﻿{
-    "documentId":  "character_planning.character.red_doll_hexer.2",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.red_doll_hexer.2",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "붉은 인형 주술꾼",
-                     "grade":  2,
-                     "tierId":  "normal",
-                     "role":  "support_debuffer",
-                     "tags":  [
-                                  "human",
-                                  "ritual",
-                                  "support"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "붉은 인형과 부적을 들고 산귀 흉내를 내는 산채 주술 담당",
-                       "visualKeywords":  [
-                                              "human",
-                                              "ritual",
-                                              "support"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "속도 저하와 공포 분위기로 전열을 흔드는 지원 적",
-                   "preferredRange":  "ranged",
-                   "partyFunction":  [
-                                         "support_debuffer"
-                                     ]
-               },
-    "planningScore":  {
-                          "overall":  80,
-                          "health":  22,
-                          "attack":  35,
-                          "defense":  70,
-                          "speed":  80,
-                          "range":  120,
-                          "support":  155
-                      },
-    "stats":  {
-                  "grade":  2,
-                  "totalScore":  80,
-                  "growthType":  "utility",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "support_utility",
-                                   "low_direct_damage"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.red_doll_hexer.2.basic_attack.charm_toss",
-                       "slot":  "basic_attack",
-                       "name":  "부적 던지기",
-                       "category":  "Basic",
-                       "intent":  "낮은 피해의 원거리 견제.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  4,
-                                       "attackPercentDamage":  40,
-                                       "cooldown":  3,
-                                       "castRange":  2.8,
-                                       "hitRange":  0.4,
-                                       "hitCount":  1,
-                                       "targetScore":  40,
-                                       "utility":  [
-
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.red_doll_hexer.2.active1.red_doll_slow",
-                       "slot":  "active1",
-                       "name":  "붉은 인형 저주",
-                       "category":  "Active1",
-                       "intent":  "작은 범위의 이동 속도 저하로 추격 구도를 만든다.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  4,
-                                       "attackPercentDamage":  35,
-                                       "cooldown":  6,
-                                       "castRange":  3,
-                                       "hitRange":  1,
-                                       "hitCount":  3,
-                                       "targetScore":  130,
-                                       "utility":  [
-                                                       "slow_30_percent_2s"
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.red_doll_hexer.2",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.red_doll_hexer.2",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "붉은 인형 주술꾼",
+        "grade": 2,
+        "tierId": "normal",
+        "role": "support_debuffer",
+        "tags": [
+            "human",
+            "ritual",
+            "support"
+        ]
+    },
+    "appearance": {
+        "silhouette": "붉은 인형과 부적을 들고 산귀 흉내를 내는 산채 주술 담당",
+        "visualKeywords": [
+            "human",
+            "ritual",
+            "support"
+        ]
+    },
+    "combat": {
+        "roleIntent": "속도 저하와 공포 분위기로 전열을 흔드는 지원 적",
+        "preferredRange": "ranged",
+        "partyFunction": [
+            "support_debuffer"
+        ]
+    },
+    "planningScore": {
+        "overall": 80,
+        "health": 22,
+        "attack": 35,
+        "defense": 70,
+        "speed": 80,
+        "range": 120,
+        "support": 155
+    },
+    "stats": {
+        "grade": 2,
+        "totalScore": 80,
+        "growthType": "utility",
+        "primaryTag": "human",
+        "statBias": [
+            "support_utility",
+            "low_direct_damage"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 0.75,
+        "attackSpeedScale": 0.75,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.red_doll_hexer.2.basic_attack.charm_toss",
+            "slot": "basic_attack",
+            "name": "부적 던지기",
+            "category": "Basic",
+            "intent": "낮은 피해의 원거리 견제.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 2,
+                "attackPercentDamage": 18,
+                "cooldown": 1.33,
+                "castRange": 2.8,
+                "hitRange": 0.4,
+                "hitCount": 1,
+                "targetScore": 40,
+                "utility": [],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        },
+        {
+            "skillId": "skill.character.red_doll_hexer.2.active1.red_doll_slow",
+            "slot": "active1",
+            "name": "붉은 인형 저주",
+            "category": "Active1",
+            "intent": "작은 범위의 이동 속도 저하로 추격 구도를 만든다.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 4,
+                "attackPercentDamage": 35,
+                "cooldown": 8.0,
+                "castRange": 3,
+                "hitRange": 1,
+                "hitCount": 3,
+                "targetScore": 130,
+                "utility": [
+                    "slow_30_percent_2s"
+                ],
+                "directDamageMultiplierApplied": 0.5,
+                "basePatternCooldownBeforeAttackSpeed": 6.0,
+                "cooldownFormula": "basePatternCooldown / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

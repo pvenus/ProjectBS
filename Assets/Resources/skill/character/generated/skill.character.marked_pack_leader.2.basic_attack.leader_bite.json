@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.marked_pack_leader.2.basic_attack.leader_bite.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 2.5,
+    "cooldown": 0.67,
     "castTime": 0,
     "range": 0.4,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 12,
-        "attackPercentDamage": 1.1
+        "baseDamage": 1,
+        "attackPercentDamage": 0.13
       }
     }
   ]

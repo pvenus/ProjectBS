@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 4.0,
+    "cooldown": 2,
     "castTime": 0,
     "range": 0.6,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 18,
-        "attackPercentDamage": 1.2
+        "baseDamage": 6,
+        "attackPercentDamage": 0.4
       }
     }
   ]

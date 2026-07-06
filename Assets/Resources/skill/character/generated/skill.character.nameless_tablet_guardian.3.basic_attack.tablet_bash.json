@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.nameless_tablet_guardian.3.basic_attack.tablet_bash.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.8,
+    "cooldown": 2,
     "castTime": 0,
     "range": 0.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 14,
-        "attackPercentDamage": 1.0
+        "baseDamage": 5,
+        "attackPercentDamage": 0.35
       }
     }
   ]

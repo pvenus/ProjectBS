@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.sangui_abandoned_child.3.active_1.cold_mountain_call.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 8.0,
+    "cooldown": 8,
     "castTime": 0,
     "range": 3.2,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 20,
-        "attackPercentDamage": 1.2
+        "baseDamage": 10,
+        "attackPercentDamage": 0.6
       },
       "debuffEffects": [
         {

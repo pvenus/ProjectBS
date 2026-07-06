@@ -16,9 +16,9 @@
   "cast": {
     "castId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1,
     "castTime": 0,
-    "range": 3.0,
+    "range": 3,
     "skipAttackAnimation": false
   },
   "move": {
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 9,
-        "attackPercentDamage": 0.9
+        "baseDamage": 1,
+        "attackPercentDamage": 0.17
       }
     }
   ]

@@ -6,7 +6,7 @@
     "skillComponentType": "Projectile",
     "projectileCount": 1,
     "projectileScale": 1,
-    "projectileColliderRadius": 2.0,
+    "projectileColliderRadius": 2,
     "projectileLifetime": 0.5,
     "projectileSpawn": {
       "spawnOffset": 0.6,
@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.sangui_abandoned_child.3.active_2.why_only_me.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 12.0,
+    "cooldown": 12,
     "castTime": 0,
     "range": 2.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 35,
-        "attackPercentDamage": 1.8
+        "baseDamage": 18,
+        "attackPercentDamage": 0.9
       },
       "debuffEffects": [
         {

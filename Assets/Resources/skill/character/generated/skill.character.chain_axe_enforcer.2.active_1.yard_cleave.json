@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 7.0,
+    "cooldown": 14,
     "castTime": 0,
     "range": 0.8,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 20,
-        "attackPercentDamage": 1.4
+        "baseDamage": 10,
+        "attackPercentDamage": 0.7
       }
     }
   ]

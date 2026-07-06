@@ -1,91 +1,98 @@
-﻿{
-    "documentId":  "character_planning.character.track_eraser_scout.1",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.track_eraser_scout.1",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "흔적 지우는 정찰병",
-                     "grade":  1,
-                     "tierId":  "normal",
-                     "role":  "stealth_scout_trace_erasure",
-                     "tags":  [
-                                  "human",
-                                  "bandit",
-                                  "scout",
-                                  "ambush"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "숲색 망토와 검푸른 염료를 두르고 짐승 발 모양 나무판과 작은 솔을 든 정찰병",
-                       "weapon":  "짧은 창",
-                       "visualKeywords":  [
-                                              "forest_cloak",
-                                              "trace_brush",
-                                              "false_beast_track"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "직접 화력보다 매복 전조와 교란을 담당하는 약한 정찰형 적",
-                   "preferredRange":  "melee_extended",
-                   "partyFunction":  [
-                                         "ambush_setup",
-                                         "light_poke"
-                                     ],
-                   "episodeUse":  [
-                                      "episode.01.01.04-2",
-                                      "episode.01.01.06"
-                                  ]
-               },
-    "planningScore":  {
-                          "overall":  67,
-                          "health":  18,
-                          "attack":  38,
-                          "defense":  55,
-                          "speed":  120,
-                          "range":  80,
-                          "support":  90
-                      },
-    "stats":  {
-                  "grade":  1,
-                  "totalScore":  67,
-                  "growthType":  "utility",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "speed",
-                                   "utility",
-                                   "low_hp"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe",
-                       "slot":  "basic_attack",
-                       "name":  "짧은 창 견제",
-                       "category":  "Basic",
-                       "intent":  "짧은 창으로 거리를 재며 견제한다.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  4,
-                                       "attackPercentDamage":  40,
-                                       "cooldown":  2.8,
-                                       "castRange":  0.7,
-                                       "hitRange":  0.6,
-                                       "hitCount":  1,
-                                       "targetScore":  42,
-                                       "utility":  [
-                                                       "ambush_marker_hint"
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "조사 에피소드에서 바로 전투하지 않아도 이후 매복 풀로 재사용 가능.",
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.track_eraser_scout.1",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.track_eraser_scout.1",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "흔적 지우는 정찰병",
+        "grade": 1,
+        "tierId": "normal",
+        "role": "stealth_scout_trace_erasure",
+        "tags": [
+            "human",
+            "bandit",
+            "scout",
+            "ambush"
+        ]
+    },
+    "appearance": {
+        "silhouette": "숲색 망토와 검푸른 염료를 두르고 짐승 발 모양 나무판과 작은 솔을 든 정찰병",
+        "weapon": "짧은 창",
+        "visualKeywords": [
+            "forest_cloak",
+            "trace_brush",
+            "false_beast_track"
+        ]
+    },
+    "combat": {
+        "roleIntent": "직접 화력보다 매복 전조와 교란을 담당하는 약한 정찰형 적",
+        "preferredRange": "melee_extended",
+        "partyFunction": [
+            "ambush_setup",
+            "light_poke"
+        ],
+        "episodeUse": [
+            "episode.01.01.04-2",
+            "episode.01.01.06"
+        ]
+    },
+    "planningScore": {
+        "overall": 67,
+        "health": 18,
+        "attack": 38,
+        "defense": 55,
+        "speed": 120,
+        "range": 80,
+        "support": 90
+    },
+    "stats": {
+        "grade": 1,
+        "totalScore": 67,
+        "growthType": "utility",
+        "primaryTag": "human",
+        "statBias": [
+            "speed",
+            "utility",
+            "low_hp"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 1.0,
+        "attackSpeedScale": 1.0,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe",
+            "slot": "basic_attack",
+            "name": "짧은 창 견제",
+            "category": "Basic",
+            "intent": "짧은 창으로 거리를 재며 견제한다.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 1,
+                "attackPercentDamage": 14,
+                "cooldown": 1.0,
+                "castRange": 0.7,
+                "hitRange": 0.6,
+                "hitCount": 1,
+                "targetScore": 42,
+                "utility": [
+                    "ambush_marker_hint"
+                ],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "조사 에피소드에서 바로 전투하지 않아도 이후 매복 풀로 재사용 가능.",
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.starving_mountain_wolf.1.basic_attack.hunger_bite.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 2.2,
+    "cooldown": 1,
     "castTime": 0,
     "range": 0.4,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 6,
-        "attackPercentDamage": 0.8
+        "baseDamage": 1,
+        "attackPercentDamage": 0.15
       }
     }
   ]

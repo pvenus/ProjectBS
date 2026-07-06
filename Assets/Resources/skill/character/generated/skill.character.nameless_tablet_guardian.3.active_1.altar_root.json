@@ -6,7 +6,7 @@
     "skillComponentType": "Projectile",
     "projectileCount": 1,
     "projectileScale": 1,
-    "projectileColliderRadius": 1.0,
+    "projectileColliderRadius": 1,
     "projectileLifetime": 0.5,
     "projectileSpawn": {
       "spawnOffset": 0.6,
@@ -16,9 +16,9 @@
   "cast": {
     "castId": "skill.character.nameless_tablet_guardian.3.active_1.altar_root.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 8.0,
+    "cooldown": 16,
     "castTime": 0,
-    "range": 2.0,
+    "range": 2,
     "skipAttackAnimation": false
   },
   "move": {
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 10,
-        "attackPercentDamage": 0.8
+        "baseDamage": 5,
+        "attackPercentDamage": 0.4
       },
       "debuffEffects": [
         {

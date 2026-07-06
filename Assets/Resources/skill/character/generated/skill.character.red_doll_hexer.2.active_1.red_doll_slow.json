@@ -6,7 +6,7 @@
     "skillComponentType": "Projectile",
     "projectileCount": 1,
     "projectileScale": 1,
-    "projectileColliderRadius": 1.0,
+    "projectileColliderRadius": 1,
     "projectileLifetime": 0.5,
     "projectileSpawn": {
       "spawnOffset": 0.6,
@@ -16,9 +16,9 @@
   "cast": {
     "castId": "skill.character.red_doll_hexer.2.active_1.red_doll_slow.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 6.0,
+    "cooldown": 8,
     "castTime": 0,
-    "range": 3.0,
+    "range": 3,
     "skipAttackAnimation": false
   },
   "move": {
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 8,
-        "attackPercentDamage": 0.7
+        "baseDamage": 4,
+        "attackPercentDamage": 0.35
       },
       "debuffEffects": [
         {

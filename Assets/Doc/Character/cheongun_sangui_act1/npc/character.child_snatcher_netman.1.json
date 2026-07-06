@@ -1,90 +1,97 @@
-﻿{
-    "documentId":  "character_planning.character.child_snatcher_netman.1",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.child_snatcher_netman.1",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "아이 포획 그물잡이",
-                     "grade":  1,
-                     "tierId":  "normal",
-                     "role":  "net_captor_objective_pressure",
-                     "tags":  [
-                                  "human",
-                                  "bandit",
-                                  "captor",
-                                  "control"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "허리에 색이 바랜 아이 장난감 조각과 접은 그물을 단 마른 포획꾼",
-                       "weapon":  "그물과 짧은 칼",
-                       "visualKeywords":  [
-                                              "folded_net",
-                                              "toy_fragments",
-                                              "thin_fingers"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "오두막 탈출전에서 탈출로를 늦추고 보호 목표를 압박하는 포획형 적",
-                   "preferredRange":  "mid",
-                   "partyFunction":  [
-                                         "net_slow",
-                                         "objective_pressure"
-                                     ],
-                   "episodeUse":  [
-                                      "episode.01.01.05-2"
-                                  ]
-               },
-    "planningScore":  {
-                          "overall":  73,
-                          "health":  19,
-                          "attack":  35,
-                          "defense":  55,
-                          "speed":  105,
-                          "range":  110,
-                          "support":  115
-                      },
-    "stats":  {
-                  "grade":  1,
-                  "totalScore":  73,
-                  "growthType":  "utility",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "support_utility",
-                                   "speed",
-                                   "low_damage"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast",
-                       "slot":  "basic_attack",
-                       "name":  "무거운 그물 던지기",
-                       "category":  "Basic",
-                       "intent":  "낮은 피해와 짧은 둔화 의도의 그물 투척.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  2,
-                                       "attackPercentDamage":  25,
-                                       "cooldown":  4,
-                                       "castRange":  2.2,
-                                       "hitRange":  0.8,
-                                       "hitCount":  2,
-                                       "targetScore":  50,
-                                       "utility":  [
-                                                       "slow_30_percent_short"
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "아이를 직접 공격하기보다 이동 방해와 탈출 지연으로 사용.",
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.child_snatcher_netman.1",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.child_snatcher_netman.1",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "아이 포획 그물잡이",
+        "grade": 1,
+        "tierId": "normal",
+        "role": "net_captor_objective_pressure",
+        "tags": [
+            "human",
+            "bandit",
+            "captor",
+            "control"
+        ]
+    },
+    "appearance": {
+        "silhouette": "허리에 색이 바랜 아이 장난감 조각과 접은 그물을 단 마른 포획꾼",
+        "weapon": "그물과 짧은 칼",
+        "visualKeywords": [
+            "folded_net",
+            "toy_fragments",
+            "thin_fingers"
+        ]
+    },
+    "combat": {
+        "roleIntent": "오두막 탈출전에서 탈출로를 늦추고 보호 목표를 압박하는 포획형 적",
+        "preferredRange": "mid",
+        "partyFunction": [
+            "net_slow",
+            "objective_pressure"
+        ],
+        "episodeUse": [
+            "episode.01.01.05-2"
+        ]
+    },
+    "planningScore": {
+        "overall": 73,
+        "health": 19,
+        "attack": 35,
+        "defense": 55,
+        "speed": 105,
+        "range": 110,
+        "support": 115
+    },
+    "stats": {
+        "grade": 1,
+        "totalScore": 73,
+        "growthType": "utility",
+        "primaryTag": "human",
+        "statBias": [
+            "support_utility",
+            "speed",
+            "low_damage"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 1.0,
+        "attackSpeedScale": 1.0,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast",
+            "slot": "basic_attack",
+            "name": "무거운 그물 던지기",
+            "category": "Basic",
+            "intent": "낮은 피해와 짧은 둔화 의도의 그물 투척.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 1,
+                "attackPercentDamage": 18,
+                "cooldown": 1.0,
+                "castRange": 2.2,
+                "hitRange": 0.8,
+                "hitCount": 2,
+                "targetScore": 50,
+                "utility": [
+                    "slow_30_percent_short"
+                ],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "아이를 직접 공격하기보다 이동 방해와 탈출 지연으로 사용.",
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

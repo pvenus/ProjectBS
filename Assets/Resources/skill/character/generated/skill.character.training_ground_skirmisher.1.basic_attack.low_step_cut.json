@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.training_ground_skirmisher.1.basic_attack.low_step_cut.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 2.6,
+    "cooldown": 1,
     "castTime": 0,
     "range": 0.4,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 8,
-        "attackPercentDamage": 0.95
+        "baseDamage": 1,
+        "attackPercentDamage": 0.17
       }
     }
   ]

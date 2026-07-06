@@ -6,7 +6,7 @@
     "skillComponentType": "Projectile",
     "projectileCount": 1,
     "projectileScale": 1,
-    "projectileColliderRadius": 1.0,
+    "projectileColliderRadius": 1,
     "projectileLifetime": 0.5,
     "projectileSpawn": {
       "spawnOffset": 0.6,
@@ -16,9 +16,9 @@
   "cast": {
     "castId": "skill.character.training_ground_captain.2.active_1.break_the_line.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 8.0,
+    "cooldown": 10.67,
     "castTime": 0,
-    "range": 2.0,
+    "range": 2,
     "skipAttackAnimation": false,
     "selfEffects": [
       {
@@ -58,8 +58,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 8,
-        "attackPercentDamage": 0.8
+        "baseDamage": 4,
+        "attackPercentDamage": 0.4
       }
     }
   ]
