@@ -1,287 +1,205 @@
 # Battle Create Guide
 
-## Purpose
+This guide defines how to create BattleSO data from story context, monster pool
+data, and reusable spawn variations.
 
-This document defines the battle JSON creation process for agents.
+Battle data is responsible for choosing actual monsters. Spawner data is
+responsible only for timing, placement, and role slots.
 
-Use this guide when converting encounter intent into runtime JSON and generated SO assets.
+## Required References
 
-Pipeline:
+- Battle story context guide: `Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md`
+- Battle generation prompt: `Assets/character_concepts/game_prompt_guide/battle/BattleGenerationPrompt.md`
+- Spawner creation guide: `Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md`
+- Spawner SO schema: `Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md`
+- Character planning data: `Assets/Doc/Character`
+- Story data: `Assets/Doc/Story`
 
-```text
-Story planning source
-  -> BattleStoryContext
-  -> Encounter planning
-  -> Monster pool selection
-  -> Spawn variation selection
-  -> Spawner JSON generation
-  -> Battle JSON generation
-  -> Unity SO generation
-  -> Scene/prefab verification
+## Authoring Inputs
+
+Battle creation should receive:
+
+- act id
+- chapter id
+- episode or battle id
+- battle story context
+- selected monster pool
+- desired battle intensity
+- player progression context
+- reusable spawn variation candidates
+
+The battle generator should not invent monster identity directly from spawner
+slots. It should first select monsters from the prepared monster pool, then bind
+them to spawn slots.
+
+## Battle Creation Pipeline
+
+1. Read story context.
+2. Determine battle purpose:
+   - tutorial pressure
+   - patrol encounter
+   - ambush
+   - survival wave
+   - elite check
+   - boss battle
+   - boss reinforcement phase
+3. Select monster pool entries.
+4. Select a reusable spawn variation.
+5. Read the selected spawner's required `spawnUnitKey` and `spawnRole` slots.
+6. Map monsters to those slots through BattleSO `spawnUnitBindings`.
+7. Create or update BattleSO.
+8. Validate that the spawn sequence can resolve every required slot.
+
+## BattleSO Data
+
+BattleSO must store:
+
+- battle identity and display metadata
+- battle rules and rewards
+- selected `SpawnSequenceSO`
+- `spawnUnitBindings`
+
+`spawnUnitBindings` is the bridge between abstract spawner slots and concrete
+CharacterSO monsters.
+
+Example concept:
+
+```json
+{
+  "battleId": "battle.act1.chapter01.forest_ambush",
+  "spawnSequenceId": "seq.act1.forest.ambush",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.front.pressure.melee",
+      "role": "Melee",
+      "characterId": "monster.act1.forest.striker"
+    },
+    {
+      "unitKey": "spawn.rear.support.ranged",
+      "role": "Ranged",
+      "characterId": "monster.act1.forest.slinger"
+    }
+  ]
+}
 ```
 
-## Global Rules
+The exact runtime asset field is a CharacterSO reference. JSON authoring may use
+`characterId` only as an editor/build-time lookup key.
 
-- Generate JSON first.
-- Do not create Unity SO assets directly unless the task explicitly asks for it.
-- Use `BattleSpawnManager` and `SpawnSequenceSO` for enemy spawning.
-- Do not use the removed legacy wave spawner fields.
-- Keep battle JSON separate from spawner JSON.
-- Make IDs stable and readable.
-- Use exact enum names from the guide documents.
-- Select reusable spawn variations from story and monster composition before writing final spawner JSON.
-- Use `BattleStoryContext` as the battle-specific story extraction layer, not the full story planning source.
+## Spawner Selection Rules
 
-## Step 1. Encounter Planning
+Choose a spawn variation based on battle intent, not monster names.
 
-### Purpose
+Good matching signals:
 
-Define what the battle is trying to do before writing implementation JSON.
+- approach direction: front, rear, side, surround
+- tempo: burst, staggered, looped, delayed
+- threat shape: melee rush, ranged line, tank anchor, elite arrival
+- story moment: chase, trap, ritual, defense, boss phase
+- map topology: narrow lane, open arena, choke point, multi-entry space
+- player skill test: movement, dodge timing, target priority, area denial
 
-### Reference Files
+Avoid selecting a spawner because it was authored for a specific monster name.
 
-```text
-Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md
-Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md
+## Monster Binding Rules
+
+Use exact key binding when a specific slot matters.
+
+Example:
+
+```json
+{
+  "unitKey": "spawn.rear.support.ranged",
+  "role": "Ranged",
+  "characterId": "monster.act1.bandit.thrower"
+}
 ```
 
-### Main Work
+Use role fallback when the same monster can satisfy many equivalent slots.
 
-1. Read the input Chapter story.
-2. Read story references through `StoryStructureGuide.md`.
-3. Generate `BattleStoryContext`.
-4. Determine the battle theme, difficulty, and expected duration.
-5. Select victory rule.
-6. Define available monster pool.
-7. Select candidate spawn variations.
-8. Bind monsters into selected variation role slots.
-9. Decide whether battle props are needed.
-10. Decide rewards and relic drop chances.
+Example:
 
-### Required Pre-Generation Inputs
-
-Use these inputs before creating final spawner JSON:
-
-| Input | Purpose |
-|---|---|
-| Chapter story | Primary story input for battle context extraction. |
-| BattleStoryContext | Story-derived battle context used for generation. |
-| Location / space context | Chooses front, back, flank, surround, objective, or random pressure. |
-| Monster pool | Defines which character IDs can fill variation roles. |
-| Skill slot profile | Determines whether a monster fits front, ranged, flank, support, elite, or boss roles. |
-| Difficulty budget | Limits count, elite use, overlap, flank/back/surround pressure. |
-| Encounter rhythm | Chooses one-shot, escalating, ambush, loop, objective, boss phase. |
-| Forbidden rules | Prevents unfair or story-breaking combinations. |
-
-### Spawn Intent Notes
-
-Before writing spawner JSON, classify each monster group by its skill slot profile first.
-
-| Element | Examples | Why It Matters |
-|---|---|---|
-| Skill slot profile | `basic_attack`, `active_1`, `active_2`, `passive_1` | Primary source for visible combat behavior. |
-| Basic attack form | Melee, Ranged, Area, Summon-like | Drives default distance and pattern. |
-| Active hook | Charge, Jump, Projectile, Area, Summon, CC | Drives side, delay, and sequence timing. |
-| Passive hook | Tank, Aura, Support, Enrage, Objective | Drives grouping and ally spacing. |
-| Attack range | Melee, MidRange, LongRange | Drives front/back distance. |
-| Pressure direction | Front, Back, Flank, Surround, Random | Drives pattern choice. |
-| Target preference | Nearest, Backline, Structure, Random | Drives placement relative to party or props. |
-| Fairness requirement | Safe, Pressure, Ambush, Spike | Drives delay, distance, and completion mode. |
-
-Derived tactical labels such as `Blocker`, `Diver`, `Harasser`, `Artillery`, `Swarm`, or `Support` may be used after the slot profile is understood.
-
-The result should be expressible in spawner JSON as pattern names, squad groups, formations, and sequence steps.
-
-### Spawn Variation Selection
-
-Select a spawn variation before writing concrete squads and formations.
-
-Examples:
-
-| Story / Monster Composition | Recommended Variation |
-|---|---|
-| Simple patrol or first encounter | `front_line_basic` |
-| Melee with ranged support | `front_then_backline` |
-| Fast attacker in monster pool | `front_then_flank` |
-| Many weak monsters | `surround_swarm` or `front_line_basic` with higher quantity |
-| Elite plus weak adds | `elite_anchor` |
-| Objective or prop pressure | `objective_pressure` |
-| Boss battle | `boss_phase_adds` |
-
-If several variations match, choose the one that best expresses the story and difficulty budget.
-
-Do not generate a new bespoke variation when an existing one can be filled by the monster pool.
-
-### Output
-
-Planning can be written in task notes or a planning JSON under:
-
-```text
-Assets/Doc/Battle
+```json
+{
+  "unitKey": "",
+  "role": "Melee",
+  "characterId": "monster.act1.forest.striker"
+}
 ```
 
-### Validation
+Resolution order:
 
-- The battle has one clear victory condition.
-- Enemy pacing can be represented as spawn sequence steps.
-- Required character IDs already exist or are planned for generation.
-- Any prop behavior is described before authoring `propDefinitions`.
-- Monster skill slots are connected to meaningful front/back/flank/surround placement.
-- Back, flank, and surround spawns are intentional and fair.
-- A reusable spawn variation was selected before concrete sequence authoring.
-- The monster pool can fill every required variation role slot.
+1. exact `unitKey`
+2. fallback `role`
 
-## Step 2. Spawner JSON Generation
+## Validation Rules
 
-### Purpose
+Battle build should validate:
 
-Create the spawn assets used by the battle by baking the selected variation and monster bindings into concrete JSON.
+- `spawnSequenceId` resolves to a generated SpawnSequenceSO.
+- Every `spawnUnitKey` in the sequence is either exactly bound or has a role fallback.
+- Every `spawnRole` value is a supported enum.
+- Every binding resolves to a valid CharacterSO.
+- No spawner slot key contains concrete monster names.
+- Boss or elite roles are intentionally bound.
+- The selected monster pool can support all required spawn pressure.
 
-### Reference Files
+Spawner build should validate:
 
-```text
-Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
-Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
-Assets/Scripts/battle_spawn/Resource/Jsons/presets_all_in_one.json
-```
+- every step has inline `content`
+- every group has `spawnUnitKey` or `spawnRole`
+- every `patternKind` is valid
+- pattern config is legal for its kind
 
-### Main Work
+## Battle JSON Responsibility
 
-1. Choose the selected variation.
-2. Generate patterns required by the variation.
-3. Generate squads by binding monster pool entries to variation role slots.
-4. Generate formations when a variation repeats a squad as a larger layout.
-5. Generate one main sequence for the battle.
-6. Confirm the main sequence ID that `BattleSO` will reference.
+Battle JSON may reference generated spawner assets, but it should not duplicate
+the full spawner layout.
 
-### Output
+Battle JSON should contain:
 
-Recommended spawner JSON path:
+- `spawnSequenceId`
+- `spawnUnitBindings`
 
-```text
-Assets/Scripts/battle_spawn/Resource/Jsons/{battleId}.spawn.json
-```
+Spawner JSON should contain:
 
-### Validation
+- sequence steps
+- inline squad content
+- squad/group patterns
+- abstract spawn slot keys and roles
 
-- Every `npcId` matches an existing or planned `CharacterSO.characterId`.
-- Every squad `patternId` exists in `patterns`.
-- Every formation `squadId` exists in `squads`.
-- Every formation `patternId` exists in `patterns`.
-- Every sequence step `contentId` exists in `squads` or `formations`.
-- `repeatMode` is `Once` or `Infinite`.
-- `completionMode` is `AfterSpawnCompleted` or `AfterSpawnedEnemiesDefeated`.
+## Example Flow
 
-## Step 3. Battle JSON Generation
+Story context says:
 
-### Purpose
+- forest ambush
+- fast melee pressure from the front
+- ranged harassment from behind
+- no boss
 
-Create one BattleSO input JSON that references the generated main spawn sequence.
+Spawner selection:
 
-### Reference Files
+- choose a surround or rear-support spawn variation
 
-```text
-Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
-```
+Spawner slots:
 
-### Main Work
+- `spawn.front.pressure.melee`
+- `spawn.rear.support.ranged`
 
-1. Write `battleId` and `battleName`.
-2. Set `victoryRule`.
-3. Reference the main spawn sequence using `spawnSequenceId`.
-4. Add battle props only if the battle needs them.
-5. Add timed prop placements only for props that appear after battle start.
-6. Set reward and relic drop values.
+Monster pool:
 
-### Output
+- forest striker
+- forest slinger
 
-Recommended output path:
+BattleSO binding:
 
-```text
-Assets/Resources/battle/{battle_group}/{battleId}.json
-```
+- melee slot -> forest striker CharacterSO
+- ranged slot -> forest slinger CharacterSO
 
-### Validation
+## Output Checklist
 
-- `spawnSequenceId` matches the sequence generated in Step 2.
-- `victoryRule` matches the intended battle flow.
-- `SurviveTime` battles have `survivalTimeSeconds > 0`.
-- Relic chances are in `0..100`.
-- Props referenced by `timedPropPlacements` exist in `propDefinitions` or as existing `BattlePropSO` assets.
-
-## Step 4. Unity SO Generation
-
-### Spawner SO Generation
-
-Open:
-
-```text
-BS/Spawn/Spawn SO FromJson Window
-```
-
-Use the all-in-one JSON option when possible:
-
-```text
-Bake All from Single JSON
-```
-
-This creates or updates:
-
-```text
-SpawnPatternSO
-SpawnSquadSO
-SpawnFormationSO
-SpawnSequenceSO
-```
-
-### Battle SO Generation
-
-Select the battle JSON in Unity Project view and run:
-
-```text
-Assets/Battle/Generate BattleSO From Json
-```
-
-This creates or updates:
-
-```text
-BattlePropSO
-BattleSO
-```
-
-## Step 5. Scene And Prefab Verification
-
-### Battle Scene Requirements
-
-The battle scene must have runtime code that can initialize a `BattleSession` with a `BattleSO`.
-
-When battle starts:
-
-```text
-BattleManager
-  -> reads BattleSO.SpawnSequence
-  -> ensures BattleSpawnManager
-  -> BattleSpawnManager.PlaySequence(...)
-```
-
-### Required Runtime Assets
-
-- Main `BattleSO`
-- Referenced `SpawnSequenceSO`
-- Referenced `SpawnContentSO`
-- Referenced `SpawnPattern`
-- Referenced NPC `CharacterSO`
-- Referenced prop prefabs, if props are used
-- Background prefab, if used
-
-## Agent Checklist
-
-- Read `SpawnerCreateGuide.md`.
-- Read `SpawnSO.md`.
-- Generate spawner JSON.
-- Read `BattleSO.md`.
-- Generate battle JSON.
-- Confirm battle JSON has no legacy wave fields.
-- Confirm main sequence ID is referenced by battle JSON.
-- Confirm JSON is valid before handing it to Unity.
-- Run or ask the user to run the Unity builders.
+- BattleSO references the selected SpawnSequenceSO.
+- BattleSO has all required `spawnUnitBindings`.
+- The spawner JSON remains monster-agnostic.
+- Monster selection comes from the prepared monster pool.
+- The encounter purpose is readable from battle data and binding choices.

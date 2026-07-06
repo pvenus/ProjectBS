@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f0f6f0544b64806bbbb78ae0c756b5, type: 3}
+  m_Name: skill.character.door_shield_barricader.1.basic_attack.shield_bash.profile
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
+  baseProfileId: skill.character.door_shield_barricader.1.basic_attack.shield_bash.profile
+  skillType: 0
+  skillComponentType: 0
+  projectileCount: 1
+  projectileScale: 1
+  projectileColliderRadius: 0.7
+  projectileLifetime: 0.25
+  projectile:
+    arrangement: 0
+    arrangementValue: 0
+    spreadAngle: 0
+    radius: 0
+  projectileSpawn:
+    spawnOffset: 0.4
+    interval: 0
+  brainMeta:
+    category: 0
+    targetType: 0
+    tacticalNeed: 0
+    basePriority: 0

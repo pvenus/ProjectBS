@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: character.watchtower_marksman.1.AttackDownLeft.clip
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: -2890366362284634838, guid: 61d0006c607634a3d87573fbdcbd530c, type: 3}
+    - time: 0.083333336
+      value: {fileID: -5861293401552539222, guid: ac3be3bc4578847e0b8ba611fc3394eb, type: 3}
+    - time: 0.16666667
+      value: {fileID: -1309568153908856132, guid: ba1623d062c1f42c9b76b90c8b864800, type: 3}
+    - time: 0.25
+      value: {fileID: -1799789945785039745, guid: 4803d8b2a690c4e1690df875956be39c, type: 3}
+    - time: 0.33333334
+      value: {fileID: -2773154803389618297, guid: eb183dbdb1f1a4a7ab1a58e317fa5763, type: 3}
+    - time: 0.41666666
+      value: {fileID: 472913108940942777, guid: 0dc51cc85695245819e0bac9b7752977, type: 3}
+    - time: 0.5
+      value: {fileID: -5633581472553432970, guid: 94ec2fbac3fe8451c86882696b2aee09, type: 3}
+    - time: 0.5833333
+      value: {fileID: -2844658515654796323, guid: 9fda2de2ed6bb48218499761252a128e, type: 3}
+    - time: 0.6666667
+      value: {fileID: 3882107172331106408, guid: 8c725dca897514c69abf78ca86877933, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 12
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: -2890366362284634838, guid: 61d0006c607634a3d87573fbdcbd530c, type: 3}
+    - {fileID: -5861293401552539222, guid: ac3be3bc4578847e0b8ba611fc3394eb, type: 3}
+    - {fileID: -1309568153908856132, guid: ba1623d062c1f42c9b76b90c8b864800, type: 3}
+    - {fileID: -1799789945785039745, guid: 4803d8b2a690c4e1690df875956be39c, type: 3}
+    - {fileID: -2773154803389618297, guid: eb183dbdb1f1a4a7ab1a58e317fa5763, type: 3}
+    - {fileID: 472913108940942777, guid: 0dc51cc85695245819e0bac9b7752977, type: 3}
+    - {fileID: -5633581472553432970, guid: 94ec2fbac3fe8451c86882696b2aee09, type: 3}
+    - {fileID: -2844658515654796323, guid: 9fda2de2ed6bb48218499761252a128e, type: 3}
+    - {fileID: 3882107172331106408, guid: 8c725dca897514c69abf78ca86877933, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.75
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events: []

@@ -39,7 +39,7 @@ public class SpawnContentSOEditor : Editor
         Handles.DrawLine(new Vector2(rect.x, rect.center.y), new Vector2(rect.xMax, rect.center.y));
         Handles.DrawLine(new Vector2(rect.center.x, rect.y), new Vector2(rect.center.x, rect.yMax));
 
-        SpawnPattern pattern = GetPatternOfContent(content);
+        SpawnPatternData pattern = GetPatternOfContent(content);
 
         float maxAbs = CalculatePatternMaxAbs(pattern);
         if (maxAbs < 0.1f) maxAbs = 1f;
@@ -74,33 +74,34 @@ public class SpawnContentSOEditor : Editor
         GUI.color = Color.white;
     }
 
-    private SpawnPattern GetPatternOfContent(SpawnContentSO content)
+    private SpawnPatternData GetPatternOfContent(SpawnContentSO content)
     {
         if (content is SpawnSquadSO squad)
         {
+            if (squad.HasFormationPattern)
+            {
+                return squad.FormationPattern;
+            }
+
             if (squad.Groups != null && squad.Groups.Count > 0)
             {
-                return squad.Groups[0].Pattern;
+                return squad.Groups[0].ToPatternData();
             }
-            return squad.Pattern; // legacy
-        }
-        else if (content is SpawnFormationSO formation)
-        {
-            return formation.Pattern != null ? formation.Pattern : formation.LegacyPattern;
         }
         return null;
     }
 
-    private float CalculatePatternMaxAbs(SpawnPattern pattern)
+    private float CalculatePatternMaxAbs(SpawnPatternData pattern)
     {
-        if (pattern == null) return 1f;
+        if (pattern == null || !pattern.HasPattern) return 1f;
 
         float max = 0f;
-        if (pattern is FixedPatternSO fixedPat)
+        if (pattern.PatternKind.IsFixedSlotKind())
         {
-            if (fixedPat.Slots != null)
+            FixedSpawnPatternConfig fixedConfig = pattern.FixedConfig;
+            if (fixedConfig != null && fixedConfig.Slots != null)
             {
-                foreach (var pos in fixedPat.Slots)
+                foreach (var pos in fixedConfig.Slots)
                 {
                     if (pos == null) continue;
                     max = Mathf.Max(max, Mathf.Abs(pos.LocalPosition.x));
@@ -108,35 +109,40 @@ public class SpawnContentSOEditor : Editor
                 }
             }
         }
-        else if (pattern is RandomPatternSO randPat)
+        else if (pattern.PatternKind.IsRandomAreaKind())
         {
-            max = Mathf.Max(randPat.AreaSize.x, randPat.AreaSize.y);
+            RandomSpawnPatternConfig randomConfig = pattern.RandomConfig;
+            if (randomConfig != null)
+            {
+                max = Mathf.Max(randomConfig.AreaSize.x, randomConfig.AreaSize.y);
+            }
         }
         return max;
     }
 
     private void DrawPattern(
         SpawnContentSO content,
-        SpawnPattern pattern,
+        SpawnPatternData pattern,
         Vector2 pivot,
         float widthRatio,
         float heightRatio,
         string safeId)
     {
-        if (pattern == null)
+        if (pattern == null || !pattern.HasPattern)
         {
             EditorGUI.DrawRect(new Rect(pivot.x - 4, pivot.y - 4, 8, 8), Color.green);
             DrawLabel(pivot, "단일 소환 (Pattern: None)");
             return;
         }
 
-        if (pattern is FixedPatternSO fixedPat)
+        if (pattern.PatternKind.IsFixedSlotKind())
         {
-            if (fixedPat.Slots != null)
+            FixedSpawnPatternConfig fixedConfig = pattern.FixedConfig;
+            if (fixedConfig != null && fixedConfig.Slots != null)
             {
-                for (int i = 0; i < fixedPat.Slots.Count; i++)
+                for (int i = 0; i < fixedConfig.Slots.Count; i++)
                 {
-                    var pos = fixedPat.Slots[i];
+                    var pos = fixedConfig.Slots[i];
                     if (pos == null) continue;
 
                     Vector2 childScreenOffset = new Vector2(pos.LocalPosition.x * widthRatio, -pos.LocalPosition.y * heightRatio);
@@ -152,35 +158,47 @@ public class SpawnContentSOEditor : Editor
                 }
             }
         }
-        else if (pattern is RandomPatternSO randPat)
+        else if (pattern.PatternKind.IsRandomAreaKind())
         {
+            RandomSpawnPatternConfig randomConfig = pattern.RandomConfig;
+            if (randomConfig == null)
+            {
+                return;
+            }
+
             Color color = Color.green;
             Handles.color = new Color(color.r, color.g, color.b, 0.5f);
 
-            if (randPat.Shape == SpawnAreaShape.Circle)
+            SpawnAreaShape shape = pattern.PatternKind.ResolveAreaShape(randomConfig.Shape);
+            if (shape == SpawnAreaShape.Circle)
             {
-                float pixelRadius = randPat.AreaSize.x * widthRatio;
+                float pixelRadius = randomConfig.AreaSize.x * widthRatio;
                 Handles.DrawWireDisc(pivot, Vector3.forward, pixelRadius);
             }
-            else if (randPat.Shape == SpawnAreaShape.Rectangle)
+            else if (shape == SpawnAreaShape.Rectangle)
             {
-                float w = randPat.AreaSize.x * widthRatio;
-                float h = randPat.AreaSize.y * heightRatio;
+                float w = randomConfig.AreaSize.x * widthRatio;
+                float h = randomConfig.AreaSize.y * heightRatio;
                 Handles.DrawWireCube(pivot, new Vector3(w, h, 0f));
             }
 
             int qty = 1;
             if (content is SpawnSquadSO squad && squad.Groups != null && squad.Groups.Count > 0)
             {
-                var matched = squad.Groups.FirstOrDefault(g => g.Pattern == randPat);
-                qty = matched != null ? matched.Quantity : squad.Groups[0].Quantity;
+                if (squad.HasFormationPattern && pattern != null && pattern.PatternId == squad.FormationPatternId)
+                {
+                    qty = squad.FormationQuantity;
+                }
+                else
+                {
+                    var matched = squad.Groups.FirstOrDefault(g => g.PatternId == pattern.PatternId);
+                    int groupQuantity = matched != null ? matched.Quantity : squad.Groups[0].Quantity;
+                    qty = groupQuantity > 0 ? groupQuantity : squad.Quantity;
+                }
             }
-            else if (content is SpawnFormationSO formation)
-            {
-                qty = formation.Quantity;
-            }
+            qty = Mathf.Max(1, qty);
 
-            string dictKey = $"rand_{safeId}_{randPat.PatternId ?? "temp"}";
+            string dictKey = $"rand_{safeId}_{pattern.PatternId ?? "temp"}";
             if (!randomDotsCache.TryGetValue(dictKey, out List<Vector2> dots))
             {
                 dots = new List<Vector2>();
@@ -188,16 +206,16 @@ public class SpawnContentSOEditor : Editor
                 for (int d = 0; d < qty; d++)
                 {
                     Vector2 localPos = Vector2.zero;
-                    if (randPat.Shape == SpawnAreaShape.Circle)
+                    if (shape == SpawnAreaShape.Circle)
                     {
                         double angle = rand.NextDouble() * Math.PI * 2;
-                        double r = Math.Sqrt(rand.NextDouble()) * randPat.AreaSize.x;
+                        double r = Math.Sqrt(rand.NextDouble()) * randomConfig.AreaSize.x;
                         localPos = new Vector2((float)(Math.Cos(angle) * r), (float)(Math.Sin(angle) * r));
                     }
-                    else if (randPat.Shape == SpawnAreaShape.Rectangle)
+                    else if (shape == SpawnAreaShape.Rectangle)
                     {
-                        float rx = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.x;
-                        float ry = (float)(rand.NextDouble() - 0.5) * randPat.AreaSize.y;
+                        float rx = (float)(rand.NextDouble() - 0.5) * randomConfig.AreaSize.x;
+                        float ry = (float)(rand.NextDouble() - 0.5) * randomConfig.AreaSize.y;
                         localPos = new Vector2(rx, ry);
                     }
                     dots.Add(localPos);

@@ -1,0 +1,102 @@
+﻿{
+    "documentId":  "character_planning.character.seojin.1",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/player/cheongun_sangui_act1.player_common.json",
+    "identity":  {
+                     "characterId":  "character.seojin.1",
+                     "characterType":  "Player",
+                     "runtimeDomain":  "character",
+                     "name":  "서진",
+                     "grade":  1,
+                     "tierId":  "player_grade1",
+                     "role":  "frontline_swordsman",
+                     "tags":  [
+                                  "human",
+                                  "melee",
+                                  "rescuer"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "낡은 군졸 갑옷과 여행 망토를 걸친 떠돌이 무사",
+                       "weapon":  "검",
+                       "visualKeywords":  [
+                                              "worn_armor",
+                                              "plain_sword",
+                                              "dusty_travel_cloak"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "아이 구출을 우선하는 균형형 전열",
+                   "preferredRange":  "melee",
+                   "partyFunction":  [
+                                         "front_basic",
+                                         "protect_ally",
+                                         "interrupt"
+                                     ]
+               },
+    "planningScore":  {
+                          "overall":  130,
+                          "health":  120,
+                          "attack":  130,
+                          "defense":  115,
+                          "speed":  100,
+                          "range":  60,
+                          "support":  70
+                      },
+    "stats":  {
+                  "grade":  1,
+                  "totalScore":  130,
+                  "growthType":  "standard",
+                  "primaryTag":  "human",
+                  "statBias":  [
+                                   "attack",
+                                   "max_hp",
+                                   "steady_defense"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.seojin.1.basic_attack.field_sword_cut",
+                       "slot":  "basic_attack",
+                       "name":  "전장 베기",
+                       "category":  "Basic",
+                       "intent":  "전방 단일 적을 안정적으로 베어 전열을 유지한다.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  10,
+                                       "attackPercentDamage":  100,
+                                       "cooldown":  3,
+                                       "castRange":  0.5,
+                                       "hitRange":  0.6,
+                                       "hitCount":  1,
+                                       "targetScore":  100,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.seojin.1.passive.child_rescue_oath",
+                       "slot":  "passive",
+                       "name":  "아이를 구하겠다는 맹세",
+                       "category":  "Passive",
+                       "intent":  "구출 대상 주변에서 방어 의지가 올라가는 성향.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  0,
+                                       "attackPercentDamage":  0,
+                                       "cooldown":  0,
+                                       "castRange":  0.4,
+                                       "hitRange":  0.4,
+                                       "hitCount":  1,
+                                       "targetScore":  80,
+                                       "utility":  [
+                                                       "near_objective_damage_reduction_small"
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+
+              ]
+}

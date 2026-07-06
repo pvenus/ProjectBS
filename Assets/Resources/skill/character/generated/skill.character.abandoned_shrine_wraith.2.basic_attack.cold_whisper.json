@@ -1,0 +1,49 @@
+{
+  "equipmentId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper",
+  "baseProfile": {
+    "baseProfileId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.45,
+    "projectileLifetime": 0.5,
+    "projectileSpawn": {
+      "spawnOffset": 0.6,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 3.0,
+    "castTime": 0,
+    "range": 3.0,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 6
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 9,
+        "attackPercentDamage": 0.9
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "equipmentId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast",
+  "baseProfile": {
+    "baseProfileId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.8,
+    "projectileLifetime": 0.5,
+    "projectileSpawn": {
+      "spawnOffset": 0.6,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 4.0,
+    "castTime": 0,
+    "range": 2.2,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 6
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.hit",
+      "maxHitCount": 2,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 4,
+        "attackPercentDamage": 0.5
+      },
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "effect.skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.move_speed_down_30_short",
+            "effectType": "StatModifier",
+            "config": {
+              "targetStat": "MoveSpeedPercent",
+              "modifierType": "Percent",
+              "value": -30
+            }
+          },
+          "lifetimeType": "CombatTimed",
+          "categoryType": "Debuff",
+          "duration": 1.5,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  ]
+}

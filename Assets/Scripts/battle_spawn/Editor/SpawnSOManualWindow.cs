@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Character;
 
 public sealed class SpawnSOManualWindow : EditorWindow
 {
@@ -13,8 +12,9 @@ public sealed class SpawnSOManualWindow : EditorWindow
     private class TempSquadGroup
     {
         public int order;
-        public CharacterSO character;
-        public SpawnPattern pattern;
+        public string spawnUnitKey;
+        public SpawnUnitRole spawnRole;
+        public SpawnPatternData pattern;
         public Vector2 localOffset;
         public float localRotation;
         public float slotInterval;
@@ -23,12 +23,13 @@ public sealed class SpawnSOManualWindow : EditorWindow
         public TempSquadGroup()
         {
             order = 0;
-            character = null;
-            pattern = null;
+            spawnUnitKey = string.Empty;
+            spawnRole = SpawnUnitRole.Any;
+            pattern = SpawnPatternData.None();
             localOffset = Vector2.zero;
             localRotation = 0f;
             slotInterval = 0f;
-            quantity = 1;
+            quantity = 0;
         }
     }
 
@@ -36,9 +37,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
     private readonly string[] tabHeaders = { "Pattern Creator", "Squad Creator", "Formation Creator" };
     private Vector2 scrollPos;
 
-    private SpawnNpcPoolSO npcPoolAsset;
     private SpawnContentPoolSO contentPoolAsset;
-    private SpawnPatternPoolSO patternPoolAsset;
     private string baseOutputFolder = "Assets/Scripts/battle_spawn/Resource/Generated";
 
     // --- A. Pattern Creator State ---
@@ -73,6 +72,8 @@ public sealed class SpawnSOManualWindow : EditorWindow
     // --- B. Squad Creator State ---
     private string newSquadId = "squad.custom.squad_1";
     private float newSquadGroupInterval = 2.0f;
+    private float newSquadSlotInterval = 0f;
+    private int newSquadQuantity = 1;
     private List<TempSquadGroup> tempSquadGroups = new List<TempSquadGroup>();
     private bool showSquadPreview = true;
     private float squadPreviewScale = 1.0f;
@@ -81,7 +82,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
     private string newFormationId = "formation.custom.formation_1";
     private float newFormationSlotInterval = 1.5f;
     private SpawnSquadSO newFormationSquadSO;
-    private SpawnPattern newFormationPatternSO; // SpawnPatternSO -> SpawnPattern
+    private SpawnPatternData newFormationPattern = SpawnPatternData.None();
     private int newFormationQuantity = 1; // RandomPattern인 경우 소환 개수
     private bool showFormationPreview = true;
     private float formationPreviewScale = 1.0f;
@@ -99,17 +100,10 @@ public sealed class SpawnSOManualWindow : EditorWindow
 
     private void FindDefaultPoolAssets()
     {
-        string[] npcGuids = AssetDatabase.FindAssets("t:SpawnNpcPoolSO");
-        if (npcGuids.Length > 0)
-            npcPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnNpcPoolSO>(AssetDatabase.GUIDToAssetPath(npcGuids[0]));
-
         string[] contentGuids = AssetDatabase.FindAssets("t:SpawnContentPoolSO");
         if (contentGuids.Length > 0)
             contentPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnContentPoolSO>(AssetDatabase.GUIDToAssetPath(contentGuids[0]));
 
-        string[] patternGuids = AssetDatabase.FindAssets("t:SpawnPatternPoolSO");
-        if (patternGuids.Length > 0)
-            patternPoolAsset = AssetDatabase.LoadAssetAtPath<SpawnPatternPoolSO>(AssetDatabase.GUIDToAssetPath(patternGuids[0]));
     }
 
     private void OnGUI()
@@ -356,16 +350,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
             return;
         }
 
-        string subDir = (manualTargetType == PatternTargetType.Squad) ? "Squads" : "Formations";
-        string targetFolder = $"{baseOutputFolder}/Patterns/{subDir}";
-
-        if (!Directory.Exists(targetFolder))
-        {
-            Directory.CreateDirectory(targetFolder);
-        }
-
-        string assetPath = $"{targetFolder}/{newPatternId}.asset";
-
+        SpawnPatternData patternData;
         if (patternTypeTab == 0)
         {
             List<Vector2> coords = CalculateManualCoords();
@@ -373,13 +358,6 @@ public sealed class SpawnSOManualWindow : EditorWindow
             {
                 EditorUtility.DisplayDialog("오류", "유효한 슬롯 좌표가 없습니다.", "확인");
                 return;
-            }
-
-            FixedPatternSO asset = AssetDatabase.LoadAssetAtPath<FixedPatternSO>(assetPath);
-            if (asset == null)
-            {
-                asset = ScriptableObject.CreateInstance<FixedPatternSO>();
-                AssetDatabase.CreateAsset(asset, assetPath);
             }
 
             List<SpawnPatternSlot> newSlots = new List<SpawnPatternSlot>();
@@ -400,35 +378,18 @@ public sealed class SpawnSOManualWindow : EditorWindow
                 newSlots.Add(new SpawnPatternSlot(rotated, lookAngle));
             }
 
-            asset.Initialize(newPatternId, newPatternDisplayName, newSlots);
-            EditorUtility.SetDirty(asset);
-            Selection.activeObject = asset;
+            patternData = new SpawnPatternData(newPatternId, newPatternDisplayName, newSlots);
         }
         else
         {
-            RandomPatternSO asset = AssetDatabase.LoadAssetAtPath<RandomPatternSO>(assetPath);
-            if (asset == null)
-            {
-                asset = ScriptableObject.CreateInstance<RandomPatternSO>();
-                AssetDatabase.CreateAsset(asset, assetPath);
-            }
-
             Vector2 scaledAreaSize = randAreaSize * genScale;
-            asset.Initialize(newPatternId, newPatternDisplayName, randShape, scaledAreaSize);
-            EditorUtility.SetDirty(asset);
-            Selection.activeObject = asset;
+            patternData = new SpawnPatternData(newPatternId, newPatternDisplayName, randShape, scaledAreaSize);
         }
 
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-
-        if (patternPoolAsset != null)
-        {
-            patternPoolAsset.CollectAllPatterns();
-            EditorUtility.SetDirty(patternPoolAsset);
-        }
-
-        EditorUtility.DisplayDialog("Bake 완료", $"패턴 '{newPatternId}'이 성공적으로 저장되었습니다!\n위치: {assetPath}", "확인");
+        EditorUtility.DisplayDialog(
+            "패턴 생성 데이터 확인",
+            $"패턴 '{patternData.PatternId}' ({patternData.PatternKind}) 데이터가 생성 가능합니다.\n패턴은 이제 독립 SO 에셋이 아니라 SpawnSquadSO/SpawnSquadGroup config로 저장됩니다.",
+            "확인");
     }
 
     // --- (B) Squad Creator ---
@@ -443,6 +404,9 @@ public sealed class SpawnSOManualWindow : EditorWindow
 
         newSquadId = EditorGUILayout.TextField("분대 Content ID", newSquadId);
         newSquadGroupInterval = EditorGUILayout.FloatField("Group Interval (그룹 간 대기시간)", newSquadGroupInterval);
+        newSquadSlotInterval = EditorGUILayout.FloatField("Default Slot Interval (기본 슬롯 간 지연)", newSquadSlotInterval);
+        newSquadQuantity = EditorGUILayout.IntField("Default Quantity (기본 소환 수량)", newSquadQuantity);
+        if (newSquadQuantity < 1) newSquadQuantity = 1;
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("소환 그룹 목록 (Squad Groups)", EditorStyles.boldLabel);
@@ -483,18 +447,16 @@ public sealed class SpawnSOManualWindow : EditorWindow
             EditorGUILayout.EndHorizontal();
 
             g.order = EditorGUILayout.IntField("Order (실행 순서)", g.order);
-            g.character = (CharacterSO)EditorGUILayout.ObjectField("Character (NPC)", g.character, typeof(CharacterSO), false);
-            g.pattern = (SpawnPattern)EditorGUILayout.ObjectField("Pattern (SO)", g.pattern, typeof(SpawnPattern), false);
+            g.spawnUnitKey = EditorGUILayout.TextField("Spawn Unit Key", g.spawnUnitKey);
+            g.spawnRole = (SpawnUnitRole)EditorGUILayout.EnumPopup("Spawn Role", g.spawnRole);
+            DrawPatternSummary("Pattern", g.pattern);
             
-            if (g.pattern != null && g.pattern is RandomPatternSO)
-            {
-                g.quantity = EditorGUILayout.IntField("Random 소환 수량", g.quantity);
-                if (g.quantity < 1) g.quantity = 1;
-            }
+            g.quantity = EditorGUILayout.IntField("Quantity Override (0=기본값)", g.quantity);
+            if (g.quantity < 0) g.quantity = 0;
 
             g.localOffset = EditorGUILayout.Vector2Field("Local Offset", g.localOffset);
             g.localRotation = EditorGUILayout.FloatField("Local Rotation (도)", g.localRotation);
-            g.slotInterval = EditorGUILayout.FloatField("Slot Interval (슬롯 간 소환 지연)", g.slotInterval);
+            g.slotInterval = EditorGUILayout.FloatField("Slot Interval Override (0=기본값)", g.slotInterval);
 
             EditorGUILayout.EndVertical();
             EditorGUILayout.Space();
@@ -562,9 +524,9 @@ public sealed class SpawnSOManualWindow : EditorWindow
         List<SpawnSquadGroup> converted = new List<SpawnSquadGroup>();
         foreach (var tg in tempSquadGroups)
         {
-            converted.Add(new SpawnSquadGroup(tg.order, tg.character, tg.pattern, tg.localOffset, tg.localRotation, tg.slotInterval, tg.quantity));
+            converted.Add(new SpawnSquadGroup(tg.order, tg.spawnUnitKey, tg.spawnRole, tg.pattern, tg.localOffset, tg.localRotation, tg.slotInterval, tg.quantity));
         }
-        tempSO.Initialize(newSquadId, newSquadGroupInterval, converted);
+        tempSO.Initialize(newSquadId, newSquadGroupInterval, newSquadSlotInterval, newSquadQuantity, converted);
 
         SpawnPlan plan = null;
         try
@@ -581,7 +543,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
 
         if (plan == null || plan.Commands.Count == 0)
         {
-            GUI.Label(new Rect(rect.x + 10, rect.y + 10, 200, 20), "소환될 캐릭터 데이터가 없습니다.", EditorStyles.miniLabel);
+            GUI.Label(new Rect(rect.x + 10, rect.y + 10, 220, 20), "생성된 스폰 명령이 없습니다.", EditorStyles.miniLabel);
             return;
         }
 
@@ -610,7 +572,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
             if (!rect.Contains(drawPos)) continue;
 
             Color dotColor = Color.green;
-            var matchedGroup = tempSquadGroups.FirstOrDefault(tg => tg.character == cmd.Character);
+            var matchedGroup = tempSquadGroups.FirstOrDefault(tg => tg.spawnUnitKey == cmd.UnitKey && tg.spawnRole == cmd.Role);
             if (matchedGroup != null)
             {
                 int colorIdx = orders.IndexOf(matchedGroup.order);
@@ -624,7 +586,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
             Handles.color = Color.yellow;
             Handles.DrawLine(drawPos, drawPos + dirVec);
 
-            string txt = $"[{cmd.StartTime:F1}s] {GetCharacterDisplayName(cmd.Character)}";
+            string txt = $"[{cmd.StartTime:F1}s] {GetUnitDisplayName(cmd.UnitKey, cmd.Role)}";
             DrawLabel(drawPos, txt);
         }
 
@@ -641,7 +603,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
             return;
         }
 
-        bool hasPattern = tempSquadGroups.Any(tg => tg.pattern != null);
+        bool hasPattern = tempSquadGroups.Any(tg => tg.pattern != null && tg.pattern.HasPattern);
         string sub = hasPattern ? "Squads" : "Singles";
         string targetDir = $"{baseOutputFolder}/SpawnContent/{sub}";
         if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
@@ -658,10 +620,19 @@ public sealed class SpawnSOManualWindow : EditorWindow
         List<SpawnSquadGroup> converted = new List<SpawnSquadGroup>();
         foreach (var tg in tempSquadGroups)
         {
-            converted.Add(new SpawnSquadGroup(tg.order, tg.character, tg.pattern, tg.localOffset, tg.localRotation, tg.slotInterval, tg.quantity));
+            if (string.IsNullOrWhiteSpace(tg.spawnUnitKey) && tg.spawnRole == SpawnUnitRole.Any)
+            {
+                EditorUtility.DisplayDialog(
+                    "오류",
+                    $"Order {tg.order} 그룹에는 Spawn Unit Key 또는 Spawn Role이 필요합니다.\n실제 몬스터는 Spawner/BattleSpawnManager의 SpawnUnitBinding에서 연결해야 합니다.",
+                    "확인");
+                return;
+            }
+
+            converted.Add(new SpawnSquadGroup(tg.order, tg.spawnUnitKey, tg.spawnRole, tg.pattern, tg.localOffset, tg.localRotation, tg.slotInterval, tg.quantity));
         }
 
-        asset.Initialize(newSquadId, newSquadGroupInterval, converted);
+        asset.Initialize(newSquadId, newSquadGroupInterval, newSquadSlotInterval, newSquadQuantity, converted);
         EditorUtility.SetDirty(asset);
 
         AssetDatabase.SaveAssets();
@@ -684,16 +655,16 @@ public sealed class SpawnSOManualWindow : EditorWindow
         EditorGUILayout.BeginVertical("box");
         GUI.backgroundColor = Color.white;
 
-        EditorGUILayout.LabelField("Formation Creator (수동 포메이션 생성)", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Formation Squad Creator (수동 부대 기준점 생성)", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         newFormationId = EditorGUILayout.TextField("포메이션 Content ID", newFormationId);
         newFormationSlotInterval = EditorGUILayout.FloatField("슬롯 간 소환 지연 (Slot Interval)", newFormationSlotInterval);
 
         newFormationSquadSO = (SpawnSquadSO)EditorGUILayout.ObjectField("하위 스쿼드 (SpawnSquadSO)", newFormationSquadSO, typeof(SpawnSquadSO), false);
-        newFormationPatternSO = (SpawnPattern)EditorGUILayout.ObjectField("포메이션 배치 패턴 (SpawnPattern)", newFormationPatternSO, typeof(SpawnPattern), false);
+        DrawPatternSummary("포메이션 배치 패턴", newFormationPattern);
 
-        if (newFormationPatternSO != null && newFormationPatternSO is RandomPatternSO)
+        if (newFormationPattern != null && newFormationPattern.PatternKind.IsRandomAreaKind())
         {
             newFormationQuantity = EditorGUILayout.IntField("Random 소환 수량", newFormationQuantity);
             if (newFormationQuantity < 1) newFormationQuantity = 1;
@@ -701,7 +672,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
 
         EditorGUILayout.Space();
         GUI.backgroundColor = Color.green;
-        if (GUILayout.Button("Bake Formation SO (에셋 저장)", GUILayout.Height(30)))
+        if (GUILayout.Button("Bake Formation Squad SO (에셋 저장)", GUILayout.Height(30)))
         {
             BakeManualFormationAsset();
         }
@@ -731,14 +702,13 @@ public sealed class SpawnSOManualWindow : EditorWindow
         Handles.DrawLine(new Vector2(rect.x, rect.center.y), new Vector2(rect.xMax, rect.center.y));
         Handles.DrawLine(new Vector2(rect.center.x, rect.y), new Vector2(rect.center.x, rect.yMax));
 
-        if (newFormationSquadSO == null || newFormationPatternSO == null)
+        if (newFormationSquadSO == null || newFormationPattern == null || !newFormationPattern.HasPattern)
         {
             GUI.Label(new Rect(rect.x + 10, rect.y + 10, 220, 20), "스쿼드 및 패턴 에셋을 지정해주세요.", EditorStyles.miniLabel);
             return;
         }
 
-        SpawnFormationSO tempSO = ScriptableObject.CreateInstance<SpawnFormationSO>();
-        tempSO.Initialize(newFormationId, newFormationPatternSO, newFormationSquadSO, newFormationSlotInterval, newFormationQuantity);
+        SpawnSquadSO tempSO = CreateFormationSquadPreview();
 
         SpawnPlan plan = null;
         try
@@ -788,7 +758,7 @@ public sealed class SpawnSOManualWindow : EditorWindow
             Handles.color = Color.yellow;
             Handles.DrawLine(drawPos, drawPos + dirVec);
 
-            string labelText = $"[{cmd.StartTime:F1}s] {GetCharacterDisplayName(cmd.Character)}";
+            string labelText = $"[{cmd.StartTime:F1}s] {GetUnitDisplayName(cmd.UnitKey, cmd.Role)}";
             DrawLabel(drawPos, labelText);
         }
 
@@ -809,25 +779,34 @@ public sealed class SpawnSOManualWindow : EditorWindow
             EditorUtility.DisplayDialog("오류", "하위 스쿼드(SpawnSquadSO)가 지정되지 않았습니다.", "확인");
             return;
         }
-        if (newFormationPatternSO == null)
+        if (newFormationPattern == null || !newFormationPattern.HasPattern)
         {
             EditorUtility.DisplayDialog("오류", "배치 패턴(SpawnPattern)이 지정되지 않았습니다.", "확인");
             return;
         }
 
-        string targetDir = $"{baseOutputFolder}/SpawnContent/Formations";
+        string targetDir = $"{baseOutputFolder}/SpawnContent/Squads";
         if (!Directory.Exists(targetDir)) Directory.CreateDirectory(targetDir);
 
         string assetPath = $"{targetDir}/{newFormationId}.asset";
-        SpawnFormationSO asset = AssetDatabase.LoadAssetAtPath<SpawnFormationSO>(assetPath);
+        SpawnSquadSO asset = AssetDatabase.LoadAssetAtPath<SpawnSquadSO>(assetPath);
         bool isNew = (asset == null);
         if (isNew)
         {
-            asset = ScriptableObject.CreateInstance<SpawnFormationSO>();
+            asset = ScriptableObject.CreateInstance<SpawnSquadSO>();
             AssetDatabase.CreateAsset(asset, assetPath);
         }
 
-        asset.Initialize(newFormationId, newFormationPatternSO, newFormationSquadSO, newFormationSlotInterval, newFormationQuantity);
+        List<SpawnSquadGroup> copiedGroups = CopySquadGroups(newFormationSquadSO);
+        asset.Initialize(
+            newFormationId,
+            newFormationPattern,
+            newFormationSlotInterval,
+            newFormationQuantity,
+            newFormationSquadSO.GroupInterval,
+            newFormationSquadSO.SlotInterval,
+            newFormationSquadSO.Quantity,
+            copiedGroups);
         EditorUtility.SetDirty(asset);
 
         AssetDatabase.SaveAssets();
@@ -840,7 +819,41 @@ public sealed class SpawnSOManualWindow : EditorWindow
         }
 
         Selection.activeObject = asset;
-        EditorUtility.DisplayDialog("Bake 완료", $"포메이션 '{newFormationId}'이(가) 저장되었습니다!\n위치: {assetPath}", "확인");
+        EditorUtility.DisplayDialog("Bake 완료", $"Formation Squad '{newFormationId}'이(가) 저장되었습니다!\n위치: {assetPath}", "확인");
+    }
+
+    private SpawnSquadSO CreateFormationSquadPreview()
+    {
+        SpawnSquadSO tempSO = ScriptableObject.CreateInstance<SpawnSquadSO>();
+        tempSO.Initialize(
+            newFormationId,
+            newFormationPattern,
+            newFormationSlotInterval,
+            newFormationQuantity,
+            newFormationSquadSO.GroupInterval,
+            newFormationSquadSO.SlotInterval,
+            newFormationSquadSO.Quantity,
+            CopySquadGroups(newFormationSquadSO));
+        return tempSO;
+    }
+
+    private List<SpawnSquadGroup> CopySquadGroups(SpawnSquadSO source)
+    {
+        List<SpawnSquadGroup> copiedGroups = new List<SpawnSquadGroup>();
+        if (source == null || source.Groups == null)
+        {
+            return copiedGroups;
+        }
+
+        foreach (SpawnSquadGroup group in source.Groups)
+        {
+            if (group != null)
+            {
+                copiedGroups.Add(group.Clone());
+            }
+        }
+
+        return copiedGroups;
     }
 
     private Color GetColorByIndex(int idx)
@@ -857,10 +870,18 @@ public sealed class SpawnSOManualWindow : EditorWindow
         }
     }
 
-    private string GetCharacterDisplayName(CharacterSO character)
+    private string GetUnitDisplayName(string unitKey, SpawnUnitRole role)
     {
-        if (character == null) return "None";
-        return !string.IsNullOrEmpty(character.CharacterId) ? character.CharacterId : character.name;
+        if (!string.IsNullOrEmpty(unitKey)) return unitKey;
+        return role != SpawnUnitRole.Any ? role.ToString() : "None";
+    }
+
+    private void DrawPatternSummary(string label, SpawnPatternData pattern)
+    {
+        string value = pattern != null && pattern.HasPattern
+            ? $"{pattern.PatternId} ({pattern.PatternKind})"
+            : "(None)";
+        EditorGUILayout.LabelField(label, value);
     }
 
     private void DrawLabel(Vector2 pos, string text)

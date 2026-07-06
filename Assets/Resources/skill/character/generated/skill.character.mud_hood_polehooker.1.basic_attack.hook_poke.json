@@ -1,0 +1,49 @@
+{
+  "equipmentId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke",
+  "baseProfile": {
+    "baseProfileId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.7,
+    "projectileLifetime": 0.25,
+    "projectileSpawn": {
+      "spawnOffset": 0.6,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 3.0,
+    "castTime": 0,
+    "range": 0.8,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 9,
+        "attackPercentDamage": 0.85
+      }
+    }
+  ]
+}

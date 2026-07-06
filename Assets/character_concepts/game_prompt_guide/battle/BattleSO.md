@@ -9,11 +9,17 @@ Generate a Battle JSON file used as the input for `BattleSO` generation.
 - Battle identity
 - Background prefab reference
 - Main `SpawnSequenceSO` reference
+- Spawn unit bindings from abstract spawner slots to CharacterSO assets
 - Optional timed battle props
 - Victory condition
 - Reward and relic drop values
 
-NPC spawn waves are not authored directly in `BattleSO`. Use `SpawnSequenceSO` from the spawner guide and reference it from battle JSON.
+NPC spawn waves are not authored directly in `BattleSO`. Use `SpawnSequenceSO`
+from the spawner guide and reference it from battle JSON.
+
+Spawner JSON is intentionally monster-agnostic. BattleSO must provide
+`spawnUnitBindings` so the selected spawn slots can resolve to actual
+CharacterSO monsters at runtime.
 
 ## Output
 
@@ -50,7 +56,7 @@ Examples:
 
 ```text
 battle.forest.001
-battle.tutorial.wolf_intro
+battle.tutorial.first_contact
 battle.boss.black_guard
 ```
 
@@ -71,6 +77,13 @@ seq.{encounter_group}.{purpose}
   "backgroundPrefab": "ForestBattleBackground",
   "spawnSequenceId": "seq.forest.001.main",
   "spawnSequencePath": "",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.front.pressure.melee",
+      "role": "Melee",
+      "characterId": "monster.act1.forest.striker"
+    }
+  ],
   "rewardExperience": 30,
   "normalRelicDropChance": 5,
   "bossRelicDropChance": 0,
@@ -90,6 +103,7 @@ seq.{encounter_group}.{purpose}
 | backgroundPrefab | string | No | Prefab asset name lookup key. |
 | spawnSequenceId | string | Yes if path empty | Main `SpawnSequenceSO` lookup key. |
 | spawnSequencePath | string | Yes if id empty | Asset path or path relative to the battle JSON folder. |
+| spawnUnitBindings | array | Yes for spawner-driven battles | Maps spawner slot keys/roles to CharacterSO lookup IDs. |
 | rewardExperience | number | Yes | Must be `0` or greater. |
 | normalRelicDropChance | number | Yes | `0` to `100`. |
 | bossRelicDropChance | number | Yes | `0` to `100`. |
@@ -135,6 +149,55 @@ Use `spawnSequencePath` when the sequence asset is in a known folder:
 ```
 
 If both are present, the builder first tries `spawnSequencePath`, then `spawnSequenceId`.
+
+## Spawn Unit Bindings
+
+Every spawner-driven battle must bind abstract spawner slots to concrete
+CharacterSO monsters.
+
+Spawner JSON owns:
+
+```json
+{
+  "spawnUnitKey": "spawn.front.pressure.melee",
+  "spawnRole": "Melee"
+}
+```
+
+Battle JSON owns:
+
+```json
+{
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.front.pressure.melee",
+      "role": "Melee",
+      "characterId": "monster.act1.forest.striker"
+    },
+    {
+      "unitKey": "",
+      "role": "Ranged",
+      "characterId": "monster.act1.forest.slinger"
+    }
+  ]
+}
+```
+
+Fields:
+
+| Field | Required | Notes |
+|---|---:|---|
+| unitKey | No | Exact spawner slot key. Use this when a specific slot matters. |
+| role | No | Fallback role. Use exact `SpawnUnitRole` enum names. |
+| characterId | Yes | Editor/build-time lookup key for the CharacterSO. |
+
+At runtime the resolver checks:
+
+1. exact `unitKey`
+2. fallback `role`
+
+The Battle JSON builder must convert each entry into `BattleSO.spawnUnitBindings`
+with a CharacterSO reference. Do not put `characterId` directly in spawner JSON.
 
 ## Timed Prop Placements
 
@@ -226,6 +289,9 @@ Parsing validation rejects:
 - Missing `battleId`
 - Missing or invalid `victoryRule`
 - Missing both `spawnSequenceId` and `spawnSequencePath`
+- Invalid `spawnUnitBindings[].role`
+- Missing `spawnUnitBindings[].characterId`
+- `spawnUnitBindings[]` entry with neither `unitKey` nor `role`
 - Negative `survivalTimeSeconds`
 - Negative `rewardExperience`
 - Relic drop chances outside `0..100`
@@ -240,6 +306,8 @@ Parsing validation rejects:
 Build validation also rejects:
 
 - Referenced `SpawnSequenceSO` not found
+- Referenced `CharacterSO` for a spawn unit binding not found
+- Required spawn sequence slot not covered by exact key binding or role fallback
 
 ## Minimal Battle Example
 
@@ -252,6 +320,18 @@ Build validation also rejects:
   "backgroundPrefab": "ForestBattleBackground",
   "spawnSequenceId": "seq.forest.001.main",
   "spawnSequencePath": "",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.front.pressure.melee",
+      "role": "Melee",
+      "characterId": "monster.act1.forest.striker"
+    },
+    {
+      "unitKey": "spawn.rear.support.ranged",
+      "role": "Ranged",
+      "characterId": "monster.act1.forest.slinger"
+    }
+  ],
   "rewardExperience": 30,
   "normalRelicDropChance": 5,
   "bossRelicDropChance": 0,
@@ -264,8 +344,10 @@ Build validation also rejects:
 
 - Generate or confirm spawner JSON first.
 - Do not write old wave fields such as `waveId`, `waveSO`, `waveJsonPath`, or `waveSpawner`.
-- Do not author NPC spawn lists inside battle JSON.
+- Do not author NPC spawn waves inside battle JSON.
+- Do author `spawnUnitBindings` so abstract spawner slots resolve to CharacterSO assets.
 - Keep battle JSON focused on battle-level orchestration.
 - Use exact enum names.
 - Keep optional arrays empty when unused.
 - Verify the referenced `SpawnSequenceSO` can be generated from spawner JSON.
+- Verify every required spawner slot is covered by exact key or role fallback.

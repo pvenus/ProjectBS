@@ -35,6 +35,7 @@ namespace Battle
 
         [Header("New Spawn System")]
         public SpawnSequenceSO spawnSequence;
+        public SpawnUnitBinding[] spawnUnitBindings;
 
         [Header("Timed Props")]
         public List<TimedPropPlacement> timedPropPlacements = new();
@@ -65,6 +66,8 @@ namespace Battle
         public GameObject BackgroundPrefab => backgroundPrefab;
 
         public SpawnSequenceSO SpawnSequence => spawnSequence;
+
+        public IReadOnlyList<SpawnUnitBinding> SpawnUnitBindings => spawnUnitBindings;
 
         public IReadOnlyList<TimedPropPlacement> TimedPropPlacements => timedPropPlacements;
 

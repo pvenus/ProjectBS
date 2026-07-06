@@ -1,0 +1,49 @@
+{
+  "equipmentId": "skill.character.cage_guard_bandit.2.basic_attack.club_slam",
+  "baseProfile": {
+    "baseProfileId": "skill.character.cage_guard_bandit.2.basic_attack.club_slam.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 0.7,
+    "projectileLifetime": 0.25,
+    "projectileSpawn": {
+      "spawnOffset": 0.5,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.cage_guard_bandit.2.basic_attack.club_slam.cast",
+    "targetingType": "AutoTargetDirection",
+    "cooldown": 4.0,
+    "castTime": 0,
+    "range": 0.5,
+    "skipAttackAnimation": false
+  },
+  "move": {
+    "moveId": "skill.character.cage_guard_bandit.2.basic_attack.club_slam.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.cage_guard_bandit.2.basic_attack.club_slam.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "baseDamage": 12,
+        "attackPercentDamage": 1.0
+      }
+    }
+  ]
+}

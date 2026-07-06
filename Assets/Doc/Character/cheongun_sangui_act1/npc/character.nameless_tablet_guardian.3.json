@@ -1,0 +1,119 @@
+﻿{
+    "documentId":  "character_planning.character.nameless_tablet_guardian.3",
+    "documentType":  "characterPlanning",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity":  {
+                     "characterId":  "character.nameless_tablet_guardian.3",
+                     "characterType":  "Npc",
+                     "runtimeDomain":  "character",
+                     "name":  "이름 없는 위패 수호령",
+                     "grade":  3,
+                     "tierId":  "elite",
+                     "role":  "elite_defender",
+                     "tags":  [
+                                  "spirit",
+                                  "defense",
+                                  "elite"
+                              ]
+                 },
+    "appearance":  {
+                       "silhouette":  "이름이 긁혀 지워진 위패와 마른 흙으로 이루어진 수호령",
+                       "visualKeywords":  [
+                                              "spirit",
+                                              "defense",
+                                              "elite"
+                                          ]
+                   },
+    "combat":  {
+                   "roleIntent":  "후반 사당/제단에서 길을 막는 엘리트 방어 적",
+                   "preferredRange":  "melee",
+                   "partyFunction":  [
+                                         "elite_defender"
+                                     ]
+               },
+    "planningScore":  {
+                          "overall":  210,
+                          "health":  210,
+                          "attack":  120,
+                          "defense":  170,
+                          "speed":  55,
+                          "range":  70,
+                          "support":  120
+                      },
+    "stats":  {
+                  "grade":  3,
+                  "totalScore":  210,
+                  "growthType":  "defense",
+                  "primaryTag":  "spirit",
+                  "statBias":  [
+                                   "max_hp",
+                                   "hp_regen",
+                                   "area_control"
+                               ]
+              },
+    "skills":  [
+                   {
+                       "skillId":  "skill.character.nameless_tablet_guardian.3.basic_attack.tablet_bash",
+                       "slot":  "basic_attack",
+                       "name":  "위패 들이받기",
+                       "category":  "Basic",
+                       "intent":  "느린 근접 범위 타격.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  14,
+                                       "attackPercentDamage":  100,
+                                       "cooldown":  3.8,
+                                       "castRange":  0.5,
+                                       "hitRange":  0.8,
+                                       "hitCount":  2,
+                                       "targetScore":  120,
+                                       "utility":  [
+
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.nameless_tablet_guardian.3.active1.altar_root",
+                       "slot":  "active1",
+                       "name":  "제단의 붙잡음",
+                       "category":  "Active1",
+                       "intent":  "좁은 범위 속박으로 전열을 묶는다.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  10,
+                                       "attackPercentDamage":  80,
+                                       "cooldown":  8,
+                                       "castRange":  2,
+                                       "hitRange":  1,
+                                       "hitCount":  3,
+                                       "targetScore":  320,
+                                       "utility":  [
+                                                       "root_1s"
+                                                   ]
+                                   }
+                   },
+                   {
+                       "skillId":  "skill.character.nameless_tablet_guardian.3.passive.grudge_shell",
+                       "slot":  "passive",
+                       "name":  "원한의 껍질",
+                       "category":  "Passive",
+                       "intent":  "낮은 체력에서 방어가 올라가는 엘리트 의도.",
+                       "balance":  {
+                                       "expectedAttack":  20,
+                                       "baseDamage":  0,
+                                       "attackPercentDamage":  0,
+                                       "cooldown":  0,
+                                       "castRange":  0.4,
+                                       "hitRange":  0.4,
+                                       "hitCount":  1,
+                                       "targetScore":  120,
+                                       "utility":  [
+                                                       "low_hp_defense_up"
+                                                   ]
+                                   }
+                   }
+               ],
+    "notes":  [
+
+              ]
+}

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_nameless_tablet_guardian_3
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.nameless_tablet_guardian.3
+  characterType: 1
+  job: 257
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: abf79f87d57af4be2b5746d7ee251049, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 4d21753f906e649b88067585fb49e96f, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 3ee796ac405de4e9e80cf2a1c2514b0b, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 9b6e878ea14bf4649916dae8f438c8ec, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: d8388ac8950df46b29aa50461c49a271, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 6037ee9ec9852497fb9165b709ecc2af, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: a1b034b3425ca4613b08b71351d4aca3, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: c492c83536fae4dd6b613b1cbc60d782, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: e35d476499a234863a393cc81e6b7da7, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 15ee3aecf623148f6b740e87e426d4d8, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: e368bd31712cb4322986a571d5878a65, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 2097e572b8d6d4b7f83ebfb7b567ffd7, type: 2}
+  skills:
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 63e943f54ec0548cda221cc497a1dd6b, type: 2}
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 61254ab10576645b0a6d2c984061672e, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: 756a625a51a264852871e25c04d4615d, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 19
+  - statType: 1300
+    value: 34
+  - statType: 1000
+    value: 1076
+  - statType: 1110
+    value: 8.8
+  - statType: 1220
+    value: 1.45
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.2

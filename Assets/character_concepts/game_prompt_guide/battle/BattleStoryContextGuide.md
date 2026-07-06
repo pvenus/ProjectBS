@@ -48,11 +48,20 @@ Act / Chapter story input
   -> BattleStoryContext
   -> Monster Pool
   -> Monster Mapping
+  -> Spawner Variation Selection
   -> Spawner Mapping
   -> Battle JSON / Spawn JSON
 ```
 
 It should preserve enough story meaning for later stages without forcing final spawn decisions too early.
+
+When the current task only asks for battle or monster planning, stop at monster pool selection and preserve spawn-related tags. A later task can use those tags to select a reusable `SpawnVariationProfile`.
+
+Spawner variation authoring is defined here:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+```
 
 ## Input
 
@@ -61,13 +70,13 @@ Use one Chapter story document as the primary input, with Act information preser
 Current chapter inputs live under:
 
 ```text
-Assets/Doc/Story/Chapter_XX.md
+Assets/Doc/Story/ActXX/ChapterXX/Chapter_XX.md
 ```
 
 Example:
 
 ```text
-Assets/Doc/Story/Chapter_01.md
+Assets/Doc/Story/Act01/Chapter01/Chapter_01.md
 ```
 
 The agent should receive the Chapter story text or a path to the Chapter story file.
@@ -82,7 +91,7 @@ Recommended input package:
 {
   "actId": "act.01",
   "chapterId": "chapter.01.01",
-  "chapterFile": "Assets/Doc/Story/Chapter_01.md",
+  "chapterFile": "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
   "playerPlanningRoot": "Assets/Doc/Character/player",
   "monsterContextRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
   "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json"
@@ -103,10 +112,10 @@ Then use the story references described there:
 
 ```text
 Assets/Doc/Story/00_Background.md
-Assets/Doc/Story/01_Overall_Story.md
-Assets/Doc/Story/Act_01_Background.md
+Assets/Doc/Story/Act01/01_Overall_Story.md
+Assets/Doc/Story/Act01/Act_01_Background.md
 Assets/Doc/Story/Characters.md
-Assets/Doc/Story/Chapter_XX.md
+Assets/Doc/Story/ActXX/ChapterXX/Chapter_XX.md
 ```
 
 If available, also read the character planning refs:
@@ -116,6 +125,14 @@ Assets/Doc/Character/player/*.json
 Assets/Doc/Character/{groupId}/monster_context.{groupId}.json
 Assets/Doc/Character/{groupId}/monster_composition.chapter_XX_YY.json
 Assets/Doc/Character/{groupId}/npc/*.json
+```
+
+If selecting or preparing spawner mapping, also read:
+
+```text
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerVariationCreateGuide.md
+Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
+Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
 ```
 
 For battle-specific extraction rules, continue using this file.
@@ -161,7 +178,7 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
 {
   "battleStoryContextId": "battle_story_context.forest.wolf_pack.001",
   "sourceStoryId": "chapter.01.01",
-  "sourceStoryFile": "Assets/Doc/Story/Chapter_01.md",
+  "sourceStoryFile": "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
   "actId": "act.01",
   "chapterId": "chapter.01.01",
   "playerPlanningRoot": "Assets/Doc/Character/player",
@@ -183,6 +200,11 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
   "forbiddenMonsterTags": ["boss"],
   "requiredSpawnTags": ["front_then_flank"],
   "forbiddenSpawnTags": ["heavy_surround", "backline_artillery"],
+  "spawnSelectionHints": {
+    "preferredVariationTags": ["front_then_flank", "delayed_ambush"],
+    "avoidVariationTags": ["heavy_surround"],
+    "requiredRoleSlots": ["front_basic", "flank_active"]
+  },
   "notes": [
     "The encounter should feel like a natural animal ambush, not a military formation."
   ]
@@ -217,6 +239,7 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
 | forbiddenMonsterTags | No | Monster tags that should not appear. |
 | requiredSpawnTags | No | Spawn variation tags that should appear. |
 | forbiddenSpawnTags | No | Spawn variation tags that should not appear. |
+| spawnSelectionHints | No | Optional hints for later `SpawnVariationProfile` selection. |
 | notes | No | Short human-readable constraints. |
 
 ## Tag Groups
@@ -372,7 +395,8 @@ Convert story language into battle context using these rules:
 Do not put these in `BattleStoryContext`:
 
 - Exact `SpawnSequenceSO` step data
-- Final `patternId`, `squadId`, or `formationId`
+- Final spawner pattern config, squad content, or spawn slot binding data
+- Concrete `selectedVariationId` unless the task explicitly performs spawner selection
 - Exact reward values
 - Full monster stats
 - Full skill JSON
@@ -458,6 +482,29 @@ selectedVariationId
 
 This lets an agent explain why a spawn variation or monster binding was chosen.
 
+Before spawner selection happens, `BattleStoryContext` should preserve only the selection surface:
+
+```text
+requiredSpawnTags
+forbiddenSpawnTags
+spaceTags
+rhythmTags
+objectiveTags
+spawnSelectionHints
+```
+
+After spawner selection happens, use a separate mapping artifact or task notes to carry:
+
+```text
+encounterProfileId
+selectedVariationId
+monsterGroupId
+spawnUnitBindingHints
+spawnSequenceId
+```
+
+Do not expand concrete spawn sequence steps inside `BattleStoryContext`.
+
 ## Validation
 
 Before using `BattleStoryContext`, check:
@@ -478,5 +525,5 @@ Before using `BattleStoryContext`, check:
 - Generate `BattleStoryContext`.
 - Use it to create or select a monster pool.
 - Use it to create `EncounterProfile`.
-- Use `EncounterProfile` to select spawn variation.
+- Use `EncounterProfile` to select spawn variation only when the task includes spawner selection.
 - Preserve IDs and reasons in later artifacts.

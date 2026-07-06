@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_sangui_abandoned_child_3
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.sangui_abandoned_child.3
+  characterType: 2
+  job: 65
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: de5580ce44ab247629e167c23765ba4e, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 3e918ef3197584829b19f576a3ca79b3, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: c30b0c28591e54f209ce69adfbbe6f81, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 886c111ae1a1645c7825a3d766e310a8, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 823e215ddafeb4a3ba2ffd8fd36964d3, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 5c501f8fcd2c34edd9bf37ad5d5ca485, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: c5d39e8685d874d198c3086a763ac43b, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: a839200a7f9b94260b2bec93f77f8150, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: d1a9a595301c248dc9981e55a24a1c4b, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 41a7b96f05799492ea2b3aa6ce58b1f3, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 9658fcfdf172342f2b75fd759fb3f680, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 87eeb60f24c5c4629ae16b4b852de9d6, type: 2}
+  skills:
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 82d24f3e9e9754608bc5cdc2d891aa3d, type: 2}
+  - slotKey: active_2
+    skillSo: {fileID: 11400000, guid: fb2cb2344522a4498abb744eed7d5f96, type: 2}
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: c793ed2706e7d49999dcd9869b65120a, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: bd64a51c97c834c819ea26899c3b71bc, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 48
+  - statType: 1300
+    value: 22
+  - statType: 1000
+    value: 4592
+  - statType: 1110
+    value: 20
+  - statType: 1220
+    value: 2
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 60
+  - statType: 1235
+    value: 1.65

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_cage_guard_bandit_2
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.cage_guard_bandit.2
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 45dd897028065489788d3683ead06c29, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 6228748ce7bb741fe9e64b9fb3daa51a, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: d60123ece65f345248f792b2eef6a04a, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 353fd430d30d0448a99dc66228edb4a8, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: eabafaf334d0f4d54928692e08b53d0f, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 98d771b5a71cc4dd1838e1532fe1e2a2, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 629e527b28e06419c9fadb5aed16196b, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 1f48c3c035a4c40af9e8af91f050832b, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 1d2432495b0a74ca0b0a062d6a3c12d2, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 1adcdf34fa1c34021b18b4a7e7349e61, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 7e9bfc77fba754d25867145b26b26112, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 58baf6c44976c40da84439eaa35c1073, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: a4138f7859b81430da2b950606513fca, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: 75b90238a9d9b43368f5f80aceb7f05f, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 15
+  - statType: 1300
+    value: 36
+  - statType: 1000
+    value: 969
+  - statType: 1110
+    value: 5.2
+  - statType: 1220
+    value: 1.6
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.15

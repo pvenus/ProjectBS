@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_mountain_fort_spearman_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.mountain_fort_spearman.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: a1dee6cb765714b8b89c4eb6f65ff431, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: c890f80e402874dad9f5f18ef71a6de5, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 934f299b8e264412d8adc220e8f67c06, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 3de76c8a2a5204672996ae5c3620d648, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: c37248f37971a41039599ee7e44f6fdf, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 311b37243a28e4496852636f996346eb, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 08ae9c961f9424661a3d2f611e71cbff, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: f3b393abe56ea4103b2e3808c068786a, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 066b7919bf8e44d9981006a91aef5af7, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 71647f46c77b04deda3ea0a2dfcb0990, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c0716da3098c24b14b88858c41ba2d35, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 222c2f1c363844738bf7eb1859c6e559, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 82b1dc68739b44ab0ae105f6d1914481, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 17
+  - statType: 1300
+    value: 33
+  - statType: 1000
+    value: 755
+  - statType: 1110
+    value: 5.2
+  - statType: 1220
+    value: 1.53
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.12

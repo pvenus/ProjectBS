@@ -91,7 +91,11 @@ public sealed class NpcSpawnService
     /// <summary>
     /// SpawnContentSO 소환 실행 및 러너 반환 (위치 계산 및 실행은 러너에서 처리)
     /// </summary>
-    public SpawnContentRunner SpawnContent(SpawnContentSO content, Vector3 position, SpawnSequenceRuntime sequenceRuntime = null)
+    public SpawnContentRunner SpawnContent(
+        SpawnContentSO content,
+        Vector3 position,
+        SpawnSequenceRuntime sequenceRuntime = null,
+        ISpawnUnitResolver unitResolver = null)
     {
         if (content == null)
         {
@@ -107,14 +111,18 @@ public sealed class NpcSpawnService
         };
 
         var runner = new SpawnContentRunner();
-        runner.Start(runtime, sequenceRuntime);
+        runner.Start(runtime, sequenceRuntime, unitResolver);
         return runner;
     }
 
     /// <summary>
     /// SpawnSequenceSO 시퀀스 실행 및 러너 반환 (시퀀스 제어 상태는 러너에서 관리)
     /// </summary>
-    public SpawnSequenceRunner SpawnSequence(SpawnSequenceSO sequence, Vector3 position, Action onCompleted = null)
+    public SpawnSequenceRunner SpawnSequence(
+        SpawnSequenceSO sequence,
+        Vector3 position,
+        Action onCompleted = null,
+        ISpawnUnitResolver unitResolver = null)
     {
         if (sequence == null)
         {
@@ -134,7 +142,7 @@ public sealed class NpcSpawnService
         }
 
         var runner = new SpawnSequenceRunner();
-        runner.StartSequence(runtime, onCompleted);
+        runner.StartSequence(runtime, onCompleted, unitResolver);
         return runner;
     }
 }

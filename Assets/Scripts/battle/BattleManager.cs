@@ -165,7 +165,9 @@ namespace Battle
 
             UnsubscribeBattleSpawnManager();
             spawnManager.OnSequenceFinished += HandleSpawnSequenceFinished;
-            spawnManager.PlaySequence(spawnSequence);
+            spawnManager.PlaySequence(
+                spawnSequence,
+                new SpawnUnitBindingResolver(battleSession.BattleSO.SpawnUnitBindings));
         }
 
         private BattleSpawnManager EnsureBattleSpawnManager()

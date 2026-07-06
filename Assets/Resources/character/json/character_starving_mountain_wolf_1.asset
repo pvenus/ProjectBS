@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_starving_mountain_wolf_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.starving_mountain_wolf.1
+  characterType: 1
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: bab17d4be655c484db823b7a2a07b5b4, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 59378daecf5ee4e938af684eb735e42a, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: d67889491bdf440798efe29411e1883d, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: a14753a9d11ba4054a43e2ca706acdcc, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: f661d99e9351c4df59d1b2327a512445, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 8ec19018afcc7444286b8eecb5804c17, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 77a59b1ca6959489d9f4798aef7f06b0, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 84c146b3561bc4b64bdbfd919a6e888a, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: a5b22c73bb9ad41469a337eb65841650, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 9357309ab7b914fa2b8074910e433c59, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c536fdff0237f4f01bfd53bc9c3c0e4d, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 85a0950c507594862bd49390f1784c4d, type: 2}
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: fe7d1cb3e01b649fc891233960d48a6a, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 13
+  - statType: 1300
+    value: 6
+  - statType: 1000
+    value: 186
+  - statType: 1110
+    value: 3.2
+  - statType: 1220
+    value: 2.65
+  - statType: 1240
+    value: 11
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 2

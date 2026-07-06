@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.nameless_tablet_guardian.3.basic_attack.tablet_bash
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.nameless_tablet_guardian.3.basic_attack.tablet_bash
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 676db2a08dc724679be440a0c79d3631, type: 2}
+  castSo: {fileID: 11400000, guid: 4c842ed6c196545e18325f7b077ec37d, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 36fbb05d259444348928753cb2906e94, type: 2}
+  moveSo: {fileID: 11400000, guid: 0c422cab2e73a4a89b964a8854716849, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 0}

@@ -82,6 +82,7 @@
     <Compile Include="Assets/Scripts/skills/dto/move/LinearProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/shop/StageShopManager.cs" />
     <Compile Include="Assets/Scripts/stage/runtime/RoundNode.cs" />
+    <Compile Include="Assets/Scripts/battle_spawn/so/SpawnSequenceSO.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowDecision.cs" />
     <Compile Include="Assets/Scripts/party/service/mode/AggressivePositionModeService.cs" />
     <Compile Include="Assets/Scripts/ui/UIUpgradeBottomMono.cs" />
@@ -189,13 +190,11 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Debug/States/DangerStateDebug.cs" />
     <Compile Include="Assets/Scripts/shring/ShrineRuntimeData.cs" />
     <Compile Include="Assets/Scripts/skills/projectile/move/SkillProjectileHomingMovement.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/PlatoonSO.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Debug/States/DangerDebugRoot.cs" />
     <Compile Include="Assets/Scripts/battle_spawn/BattleSpawnManager.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Map/ProceduralNodeMapUI.cs" />
     <Compile Include="Assets/Scripts/skills/_legacy/projectie/SkillProjectileHitController.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Animation/UIFadeAnimation.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/SpawnPattern.cs" />
     <Compile Include="Assets/Scripts/status/CombatStatusMono.cs" />
     <Compile Include="Assets/Scripts/item/so/StrategicSkillItemPoolSO.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Widget/UIButtonList.cs" />
@@ -228,6 +227,7 @@
     <Compile Include="Assets/Scripts/character/state/MoveToTargetState.cs" />
     <Compile Include="Assets/Scripts/battle_spawn/EnemyRegistry.cs" />
     <Compile Include="Assets/Scripts/skills/_legacy/projectie/SkillProjectileMoveMono.cs" />
+    <Compile Include="Assets/Scripts/battle_spawn/so/PlatoonSO.cs" />
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/ShopPage.cs" />
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DecisionLayer/SkillUseState.cs" />
     <Compile Include="Assets/Scripts/PlayerAttackMono.cs" />
@@ -237,6 +237,7 @@
     <Compile Include="Assets/Scripts/session/StageSession.cs" />
     <Compile Include="Assets/Scripts/item/ui/ItemStrategicSkillUI.cs" />
     <Compile Include="Assets/Scripts/loading/LoadingSceneController.cs" />
+    <Compile Include="Assets/Scripts/battle_spawn/so/SpawnPattern.cs" />
     <Compile Include="Assets/Scripts/shader/detail/SpawnRevealFeature.cs" />
     <Compile Include="Assets/Scripts/shring/so/ShrineGodSO.cs" />
     <Compile Include="Assets/Scripts/effect/so/config/ChanceOnHealCooldownReduceEffectConfig.cs" />
@@ -251,7 +252,6 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/DangerFlowPipeline.cs" />
     <Compile Include="Assets/Scripts/skills/service/EquipmentUpgradeStatComparisonResolver.cs" />
     <Compile Include="Assets/Scripts/skills/_legacy/vfx/VFX_RangedCast.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/so/SpawnPatternPoolSO.cs" />
     <Compile Include="Assets/Scripts/venus/AIVectorMono.cs" />
     <Compile Include="Assets/Scripts/movement/MovementMono.cs" />
     <Compile Include="Assets/Scripts/character/service/skill/CastMoveService.cs" />
@@ -290,9 +290,9 @@
     <Compile Include="Assets/Scripts/effect/EffectManager.cs" />
     <Compile Include="Assets/Scripts/shader/detail/DeathDissolveFeature.cs" />
     <Compile Include="Assets/Scripts/effect/so/config/AttackBleedEffectConfig.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/so/SpawnFormationSO.cs" />
     <Compile Include="Assets/Scripts/party/service/mode/PatrolAroundTowerModeService.cs" />
     <Compile Include="Assets/Scripts/party/PartyManager.cs" />
+    <Compile Include="Assets/Scripts/battle_spawn/runtime/SpawnUnitBinding.cs" />
     <Compile Include="Assets/Scripts/skills/service/EquipmentUpgradeEffectComparisonResolver.cs" />
     <Compile Include="Assets/Scripts/skills/dto/SkillProjectileWarpMovementDto.cs" />
     <Compile Include="Assets/Scripts/session/so/StartProfileSO.cs" />
@@ -337,7 +337,6 @@
     <Compile Include="Assets/Scripts/_machal/UIComponent/Object/ShrineMainPage.cs" />
     <Compile Include="Assets/Scripts/skills/so/cast/SkillCastSO.cs" />
     <Compile Include="Assets/Scripts/stage/ui/RoundNodeButton.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/RandomPatternSO.cs" />
     <Compile Include="Assets/Scripts/shring/ShrineDebugUIController.cs" />
     <Compile Include="Assets/Scripts/skills/_legacy/projectie/SkillProjectileHitMono.cs" />
     <Compile Include="Assets/Scripts/battle_spawn/runtime/SpawnContentEmitter.cs" />
@@ -350,7 +349,6 @@
     <Compile Include="Assets/Scripts/venus/AIEngineMono.cs" />
     <Compile Include="Assets/Scripts/skills/projectile/SkillProjectileMoveController.cs" />
     <Compile Include="Assets/Scripts/party/service/mode/SafePositionModeService.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/FixedPatternSO.cs" />
     <Compile Include="Assets/Scripts/skills/dto/move/HoverProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/skills/dto/move/HomingProjectileMoveDto.cs" />
     <Compile Include="Assets/Scripts/_machal/UIFramework/Core/UIComponent.cs" />
@@ -387,7 +385,6 @@
     <Compile Include="Assets/Scripts/_machal/DangerFlowModel/Interpreters/DangerToProblem.cs" />
     <Compile Include="Assets/Scripts/effect/runtime/config/KnockbackEffectRuntime.cs" />
     <Compile Include="Assets/Scripts/common/so/RewardVisualSO.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/so/SpawnNpcPoolSO.cs" />
     <Compile Include="Assets/Scripts/MapMono.cs" />
     <Compile Include="Assets/Scripts/battle_spawn/SpawnSequenceRunnerComponent.cs" />
     <Compile Include="Assets/Scripts/item/runtime/StrategicSkillItemRuntimeData.cs" />
@@ -447,7 +444,6 @@
     <Compile Include="Assets/Scripts/party/dto/SkillBrainOutput.cs" />
     <Compile Include="Assets/Scripts/util/SortingOrderMono.cs" />
     <Compile Include="Assets/Scripts/skills/_legacy/JudgementMarkSkill.cs" />
-    <Compile Include="Assets/Scripts/battle_spawn/SpawnSequenceSO.cs" />
     <Compile Include="Assets/Scripts/movement/MovementController.cs" />
     <Compile Include="Assets/Scripts/common/so/NodeTypeIconLibrarySO.cs" />
     <Compile Include="Assets/Scripts/item/runtime/RelicRuntimeData.cs" />

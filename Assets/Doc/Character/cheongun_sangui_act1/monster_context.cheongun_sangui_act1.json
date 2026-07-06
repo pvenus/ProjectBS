@@ -1,0 +1,327 @@
+﻿{
+    "contextId":  "monster_context.cheongun_sangui_act1",
+    "actId":  "act.01",
+    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/00_Background.md",
+                            "Assets/Doc/Story/01_Overall_Story.md",
+                            "Assets/Doc/Story/Act_01_Background.md",
+                            "Assets/Doc/Story/Characters.md",
+                            "Assets/Doc/Story/Chapter_01.md",
+                            "Assets/Doc/Story/Chapter_02.md",
+                            "Assets/Doc/Story/Chapter_03.md",
+                            "Assets/Doc/Story/Chapter_04.md",
+                            "Assets/Doc/Story/Chapter_05.md"
+                        ],
+    "monsterPoolRefs":  [
+                            {
+                                "characterId":  "character.starving_mountain_wolf.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+                                "roleSlots":  [
+                                                  "fast_melee_swarm"
+                                              ],
+                                "storyUseTags":  [
+                                                     "wolf",
+                                                     "beast",
+                                                     "fast"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.black_cloth_raider.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+                                "roleSlots":  [
+                                                  "melee_dps"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "melee"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.mountain_path_archer.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json",
+                                "roleSlots":  [
+                                                  "ranged_dps"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "ranged"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.red_doll_hexer.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json",
+                                "roleSlots":  [
+                                                  "support_debuffer"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "ritual",
+                                                     "support"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.cage_guard_bandit.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.cage_guard_bandit.2.json",
+                                "roleSlots":  [
+                                                  "defender"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "defense"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.abandoned_shrine_wraith.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json",
+                                "roleSlots":  [
+                                                  "spirit_ranged"
+                                              ],
+                                "storyUseTags":  [
+                                                     "spirit",
+                                                     "ranged",
+                                                     "ambush"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.nameless_tablet_guardian.3",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.nameless_tablet_guardian.3.json",
+                                "roleSlots":  [
+                                                  "elite_defender"
+                                              ],
+                                "storyUseTags":  [
+                                                     "spirit",
+                                                     "defense",
+                                                     "elite"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.chain_dragger_raider.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.chain_dragger_raider.1.json",
+                                "roleSlots":  [
+                                                  "control_melee_pull"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "control",
+                                                     "melee"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.door_shield_barricader.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.door_shield_barricader.1.json",
+                                "roleSlots":  [
+                                                  "front_defender_barricade"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "defense"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.mud_hood_polehooker.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.mud_hood_polehooker.1.json",
+                                "roleSlots":  [
+                                                  "reach_control_captor"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "captor",
+                                                     "control"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.bone_axe_pursuer.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.bone_axe_pursuer.1.json",
+                                "roleSlots":  [
+                                                  "melee_bruiser_pursuit"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "melee",
+                                                     "bruiser"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.training_ground_skirmisher.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+                                "roleSlots":  [
+                                                  "fast_melee_ambusher"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "ambush",
+                                                     "melee"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.track_eraser_scout.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json",
+                                "roleSlots":  [
+                                                  "stealth_scout_trace_erasure"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "scout",
+                                                     "ambush"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.marked_pack_leader.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.marked_pack_leader.2.json",
+                                "roleSlots":  [
+                                                  "elite_beast_pack_leader"
+                                              ],
+                                "storyUseTags":  [
+                                                     "wolf",
+                                                     "beast",
+                                                     "elite",
+                                                     "fast"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.training_ground_captain.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.training_ground_captain.2.json",
+                                "roleSlots":  [
+                                                  "elite_bandit_leader"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "leader",
+                                                     "melee"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.child_snatcher_netman.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json",
+                                "roleSlots":  [
+                                                  "net_captor_objective_pressure"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "captor",
+                                                     "control"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.hut_blocker_guard.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.hut_blocker_guard.2.json",
+                                "roleSlots":  [
+                                                  "door_blocker_tank"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "defense",
+                                                     "captor"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.mountain_fort_spearman.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.mountain_fort_spearman.1.json",
+                                "roleSlots":  [
+                                                  "formation_defender_spear"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "spear",
+                                                     "defense"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.chain_axe_enforcer.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.chain_axe_enforcer.2.json",
+                                "roleSlots":  [
+                                                  "elite_melee_enforcer"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "elite",
+                                                     "bruiser"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.watchtower_marksman.1",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.watchtower_marksman.1.json",
+                                "roleSlots":  [
+                                                  "elevated_ranged_pressure"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "bandit",
+                                                     "ranged",
+                                                     "watchtower"
+                                                 ]
+                            },
+                            {
+                                "characterId":  "character.ritual_bell_handler.2",
+                                "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.ritual_bell_handler.2.json",
+                                "roleSlots":  [
+                                                  "ritual_support_beast_agitation"
+                                              ],
+                                "storyUseTags":  [
+                                                     "human",
+                                                     "ritual",
+                                                     "support",
+                                                     "beast_handler"
+                                                 ]
+                            }
+                        ],
+    "bossRefs":  [
+                     {
+                         "characterId":  "character.sangui_abandoned_child.3",
+                         "planningRef":  "Assets/Doc/Character/cheongun_sangui_act1/npc/character.sangui_abandoned_child.3.json",
+                         "roleSlots":  [
+                                           "act_boss_spirit"
+                                       ],
+                         "storyUseTags":  [
+                                              "spirit",
+                                              "boss",
+                                              "grudge"
+                                          ]
+                     }
+                 ],
+    "playerPlanningRefs":  [
+                               {
+                                   "characterId":  "character.seojin.1",
+                                   "planningRef":  "Assets/Doc/Character/player/character.seojin.1.json",
+                                   "storyUseTags":  [
+                                                        "player",
+                                                        "frontline",
+                                                        "rescuer"
+                                                    ]
+                               },
+                               {
+                                   "characterId":  "character.jihan.1",
+                                   "planningRef":  "Assets/Doc/Character/player/character.jihan.1.json",
+                                   "storyUseTags":  [
+                                                        "player",
+                                                        "support",
+                                                        "mercy"
+                                                    ]
+                               },
+                               {
+                                   "characterId":  "character.yujin.1",
+                                   "planningRef":  "Assets/Doc/Character/player/character.yujin.1.json",
+                                   "storyUseTags":  [
+                                                        "player",
+                                                        "ranged",
+                                                        "tracker"
+                                                    ]
+                               }
+                           ]
+}
