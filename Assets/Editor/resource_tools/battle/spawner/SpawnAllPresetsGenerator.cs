@@ -9,12 +9,19 @@ public static class SpawnAllPresetsGenerator
 {
     private const string AssetMenuRoot = "Assets/Battle/Spawner";
     private const string BaseGeneratedFolder = "Assets/Resources/battle/spawner/Generated";
-    private const string SequencesJsonPath = "Assets/Resources/battle/spawner/Jsons/sequence_presets.json";
+    private const string SequencesJsonPath = "Assets/Resources/battle/spawner/Jsons/sequence_presets";
+    private const string LegacySequencesJsonPath = "Assets/Resources/battle/spawner/Jsons/sequence_presets.json";
 
     [MenuItem("BS/Spawn/Generate All Preset Assets")]
     public static void GenerateAllPresets()
     {
-        GenerateFromJsonPath(SequencesJsonPath);
+        if (Directory.Exists(SequencesJsonPath))
+        {
+            GenerateFromPath(SequencesJsonPath);
+            return;
+        }
+
+        GenerateFromJsonPath(LegacySequencesJsonPath);
     }
 
     [MenuItem(AssetMenuRoot + "/Generate SpawnSequenceSO From Json", false, 2000)]
@@ -219,7 +226,7 @@ public static class SpawnAllPresetsGenerator
             string json = File.ReadAllText(jsonPath);
 
             if (string.IsNullOrWhiteSpace(json) ||
-                (!json.Contains("\"sequenceId\"") && !json.Contains("\"sequences\"")))
+                (!json.Contains("\"sequenceId\"") && !json.Contains("\"sequences\"") && !json.Contains("\"difficulties\"")))
             {
                 return false;
             }
@@ -270,6 +277,20 @@ public static class SpawnAllPresetsGenerator
     }
     [Serializable]
     public class JsonSequenceListWrapper { public List<JsonSpawnSequence> sequences; }
+    [Serializable]
+    public class JsonSpawnerDifficultyPreset
+    {
+        public string difficulty;
+        public JsonSpawnSequence sequence;
+    }
+    [Serializable]
+    public class JsonSpawnerTypePreset
+    {
+        public string spawnerType;
+        public string displayName;
+        public List<JsonSpawnerDifficultyPreset> difficulties;
+        public List<JsonSpawnSequence> sequences;
+    }
 
     private static SpawnSequenceSO BuildSequence(
         JsonSpawnSequence seq,
@@ -338,7 +359,7 @@ public static class SpawnAllPresetsGenerator
 
         if (!string.IsNullOrEmpty(step.contentId))
         {
-            Debug.LogError($"[SpawnAllPresetsGenerator] Sequence '{sequenceId}' step order {step.order}가 legacy contentId '{step.contentId}'를 사용합니다. sequence_presets.json에는 content를 inline으로 넣어야 합니다.");
+            Debug.LogError($"[SpawnAllPresetsGenerator] Sequence '{sequenceId}' step order {step.order}가 legacy contentId '{step.contentId}'를 사용합니다. sequence preset json에는 content를 inline으로 넣어야 합니다.");
             return null;
         }
 
@@ -424,7 +445,31 @@ public static class SpawnAllPresetsGenerator
         else
         {
             var wrapper = JsonUtility.FromJson<JsonSequenceListWrapper>(text);
-            if (wrapper != null && wrapper.sequences != null) results.AddRange(wrapper.sequences);
+
+            var typedPreset = JsonUtility.FromJson<JsonSpawnerTypePreset>(text);
+            bool hasTypedPreset = typedPreset != null &&
+                (!string.IsNullOrEmpty(typedPreset.spawnerType) ||
+                (typedPreset.difficulties != null && typedPreset.difficulties.Count > 0));
+
+            if (hasTypedPreset)
+            {
+                if (typedPreset.sequences != null) results.AddRange(typedPreset.sequences);
+
+                if (typedPreset.difficulties != null)
+                {
+                    foreach (JsonSpawnerDifficultyPreset difficultyPreset in typedPreset.difficulties)
+                    {
+                        if (difficultyPreset != null && difficultyPreset.sequence != null)
+                        {
+                            results.Add(difficultyPreset.sequence);
+                        }
+                    }
+                }
+            }
+            else if (wrapper != null && wrapper.sequences != null)
+            {
+                results.AddRange(wrapper.sequences);
+            }
         }
         return results;
     }

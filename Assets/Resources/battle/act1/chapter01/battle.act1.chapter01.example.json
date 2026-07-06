@@ -4,18 +4,28 @@
   "victoryRule": "ClearAllEnemies",
   "survivalTimeSeconds": 0,
   "backgroundPrefab": "battle_bg_1_0",
-  "spawnSequenceId": "seq.act1.chapter01.example",
+  "spawnSequenceId": "seq.elimination_90s_swarm.normal",
   "spawnSequencePath": "",
   "spawnUnitBindings": [
     {
-      "unitKey": "spawn.front.pressure.melee",
+      "unitKey": "spawn.swarm.fodder.melee",
       "role": "Melee",
       "characterId": "character.starving_mountain_wolf.1"
     },
     {
-      "unitKey": "spawn.light_flank.melee",
+      "unitKey": "spawn.swarm.fast.melee",
       "role": "Melee",
       "characterId": "character.black_cloth_raider.1"
+    },
+    {
+      "unitKey": "spawn.swarm.pressure.ranged",
+      "role": "Ranged",
+      "characterId": "character.mountain_path_archer.1"
+    },
+    {
+      "unitKey": "spawn.swarm.light.blocker",
+      "role": "Tank",
+      "characterId": "character.cage_guard_bandit.2"
     }
   ],
   "rewardExperience": 30,

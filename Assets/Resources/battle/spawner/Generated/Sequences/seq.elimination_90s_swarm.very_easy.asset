@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d07859dfaa6b849a0223a1815f6250, type: 3}
+  m_Name: seq.elimination_90s_swarm.very_easy
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnSequenceSO
+  sequenceId: seq.elimination_90s_swarm.very_easy
+  displayName: Elimination 90s Swarm Very Easy
+  repeatMode: 0
+  loopStartOrder: 0
+  steps:
+  - order: 0
+    startDelay: 0
+    content: {fileID: 11400000, guid: 89672731df50642a3916a0b2dd4191b4, type: 2}
+    completionMode: 0
+  - order: 10
+    startDelay: 9.5
+    content: {fileID: 11400000, guid: 59806e2e11bf74b3ca6c1072361657c9, type: 2}
+    completionMode: 0
+  - order: 20
+    startDelay: 9.5
+    content: {fileID: 11400000, guid: 3c7de0b61ae4e42faad506ac5a77e20f, type: 2}
+    completionMode: 0
+  - order: 30
+    startDelay: 9.5
+    content: {fileID: 11400000, guid: 8c927396c4b8a4f7faac878c4968c462, type: 2}
+    completionMode: 0
+  - order: 40
+    startDelay: 7
+    content: {fileID: 11400000, guid: e62423bf72aaa406896dd656bdc657dc, type: 2}
+    completionMode: 0

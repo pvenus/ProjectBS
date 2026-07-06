@@ -1,0 +1,887 @@
+{
+  "spawnerType": "elimination_90s_swarm",
+  "displayName": "Elimination 90s Swarm",
+  "difficulties": [
+    {
+      "difficulty": "very_easy",
+      "targetPartySize": 1,
+      "targetSpawnCount": 36,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.very_easy",
+        "displayName": "Elimination 90s Swarm Very Easy",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_easy.opening",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.4, "rotation": 0.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.9, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 10,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_easy.build",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.8, "rotation": 45.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.9, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 20,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_easy.mid",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.2, "rotation": 90.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 4, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 30,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_easy.peak",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.4, "rotation": 135.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 4, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 40,
+            "startDelay": 7.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_easy.last_push",
+              "groupInterval": 0.0,
+              "squadPattern": { "patternKind": "Point" },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 0.0,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "difficulty": "easy",
+      "targetPartySize": 2,
+      "targetSpawnCount": 80,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.easy",
+        "displayName": "Elimination 90s Swarm Easy",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.easy.opening",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.6, "rotation": 0.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 10,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.easy.build",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.0, "rotation": 45.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 20,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.easy.mid",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.4, "rotation": 90.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 7, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 30,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.easy.peak",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.8, "rotation": 135.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 8, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.light.blocker",
+                  "spawnRole": "Tank",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 40,
+            "startDelay": 7.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.easy.last_push",
+              "groupInterval": 0.0,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.2, "rotation": 180.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Triangle", "rows": 2, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "difficulty": "normal",
+      "targetPartySize": 3,
+      "targetSpawnCount": 80,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.normal",
+        "displayName": "Elimination 90s Swarm Normal",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.normal.opening",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.6, "rotation": 0.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 10,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.normal.build",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.0, "rotation": 45.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 20,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.normal.mid",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.4, "rotation": 90.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 7, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 30,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.normal.peak",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.8, "rotation": 135.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 8, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.light.blocker",
+                  "spawnRole": "Tank",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 40,
+            "startDelay": 7.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.normal.last_push",
+              "groupInterval": 0.0,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.2, "rotation": 180.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Triangle", "rows": 2, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "difficulty": "hard",
+      "targetPartySize": 3,
+      "targetSpawnCount": 80,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.hard",
+        "displayName": "Elimination 90s Swarm Hard",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.hard.opening",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.6, "rotation": 0.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 10,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.hard.build",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.0, "rotation": 45.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 20,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.hard.mid",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.4, "rotation": 90.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 7, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 30,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.hard.peak",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.8, "rotation": 135.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 8, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.7,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.light.blocker",
+                  "spawnRole": "Tank",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 40,
+            "startDelay": 7.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.hard.last_push",
+              "groupInterval": 0.0,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.2, "rotation": 180.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Triangle", "rows": 2, "spacing": 0.85, "rotation": 0.0 }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "difficulty": "very_hard",
+      "targetPartySize": 3,
+      "targetSpawnCount": 108,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.very_hard",
+        "displayName": "Elimination 90s Swarm Very Hard",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_hard.opening",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 2.8, "rotation": 0.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 6, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 10,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_hard.build",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.2, "rotation": 45.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 7, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                }
+              ]
+            }
+          },
+          {
+            "order": 20,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_hard.mid",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.6, "rotation": 90.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.55,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 8, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.light.blocker",
+                  "spawnRole": "Tank",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 30,
+            "startDelay": 9.5,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_hard.peak",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 3, "size": 4.0, "rotation": 120.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fodder.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.5,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 8, "spacing": 0.75, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.fast.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.65,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.8, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.heavy.blocker",
+                  "spawnRole": "Tank",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.elite.anchor",
+                  "spawnRole": "Elite",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          },
+          {
+            "order": 40,
+            "startDelay": 7.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.elimination_90s_swarm.very_hard.last_push",
+              "groupInterval": 0.25,
+              "squadPattern": { "patternKind": "Circle", "count": 2, "size": 3.4, "rotation": 180.0 },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 1.25,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.variant.reinforcement.melee",
+                  "spawnRole": "Melee",
+                  "slotInterval": 0.6,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Triangle", "rows": 2, "spacing": 0.85, "rotation": 0.0 }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.pressure.ranged",
+                  "spawnRole": "Ranged",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                },
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.swarm.elite.finisher",
+                  "spawnRole": "Elite",
+                  "slotInterval": 0.0,
+                  "quantity": 1,
+                  "pattern": { "patternKind": "Point" }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

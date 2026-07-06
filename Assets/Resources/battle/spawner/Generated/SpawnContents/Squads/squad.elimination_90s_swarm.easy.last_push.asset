@@ -10,49 +10,51 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb9a5d55239c2e4cbde4bca537951d9, type: 3}
-  m_Name: squad.act1.chapter01.example.light_flank
+  m_Name: squad.elimination_90s_swarm.easy.last_push
   m_EditorClassIdentifier: Assembly-CSharp::SpawnSquadSO
-  contentId: squad.act1.chapter01.example.light_flank
+  contentId: squad.elimination_90s_swarm.easy.last_push
   spawnDelay: 0
   formationPatternId: 
-  formationPatternDisplayName: Light Side Entry
+  formationPatternDisplayName: 
   formationPatternKind: 5
   formationPatternConfig:
-    rid: 4316572826482770073
-  formationSlotInterval: 0.25
+    rid: 4316572842846585017
+  formationSlotInterval: 1.25
   formationQuantity: 1
-  groupInterval: 0.4
+  groupInterval: 0
   slotInterval: 0
   quantity: 1
   groups:
   - order: 0
-    spawnUnitKey: spawn.light_flank.melee
+    spawnUnitKey: spawn.swarm.fodder.melee
     spawnRole: 1
     patternId: 
-    patternDisplayName: Two Slot Flank Line
-    patternKind: 4
+    patternDisplayName: 
+    patternKind: 7
     patternConfig:
-      rid: 4316572826482770074
+      rid: 4316572842846585018
     localOffset: {x: 0, y: 0}
     localRotation: 0
-    slotInterval: 0.2
+    slotInterval: 0.6
     quantity: 1
   references:
     version: 2
     RefIds:
-    - rid: 4316572826482770073
+    - rid: 4316572842846585017
       type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
       data:
         slots:
-        - localPosition: {x: -0.00000012239188, y: 2.8}
-          localRotation: 0
-        - localPosition: {x: 0.00000036717566, y: -2.8}
-          localRotation: 180
-    - rid: 4316572826482770074
+        - localPosition: {x: -3.2, y: -0.0000002797529}
+          localRotation: 90
+        - localPosition: {x: 3.2, y: 0.0000005595058}
+          localRotation: 270
+    - rid: 4316572842846585018
       type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
       data:
         slots:
-        - localPosition: {x: -0.45, y: 0}
+        - localPosition: {x: 0, y: 0.425}
           localRotation: 0
-        - localPosition: {x: 0.45, y: 0}
+        - localPosition: {x: -0.425, y: -0.425}
           localRotation: 0
+        - localPosition: {x: 0.425, y: -0.425}
+          localRotation: 120

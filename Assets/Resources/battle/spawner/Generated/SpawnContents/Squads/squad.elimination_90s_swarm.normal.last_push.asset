@@ -10,49 +10,51 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb9a5d55239c2e4cbde4bca537951d9, type: 3}
-  m_Name: squad.act1.chapter01.example.opening
+  m_Name: squad.elimination_90s_swarm.normal.last_push
   m_EditorClassIdentifier: Assembly-CSharp::SpawnSquadSO
-  contentId: squad.act1.chapter01.example.opening
+  contentId: squad.elimination_90s_swarm.normal.last_push
   spawnDelay: 0
   formationPatternId: 
-  formationPatternDisplayName: Front Approach Pivot
-  formationPatternKind: 3
+  formationPatternDisplayName: 
+  formationPatternKind: 5
   formationPatternConfig:
-    rid: 4316572826482770071
-  formationSlotInterval: 0
+    rid: 4316572842846585033
+  formationSlotInterval: 1.25
   formationQuantity: 1
-  groupInterval: 0.35
+  groupInterval: 0
   slotInterval: 0
   quantity: 1
   groups:
   - order: 0
-    spawnUnitKey: spawn.front.pressure.melee
+    spawnUnitKey: spawn.swarm.fodder.melee
     spawnRole: 1
     patternId: 
-    patternDisplayName: Front Three Slot Pressure
+    patternDisplayName: 
     patternKind: 7
     patternConfig:
-      rid: 4316572826482770072
+      rid: 4316572842846585034
     localOffset: {x: 0, y: 0}
     localRotation: 0
-    slotInterval: 0.15
+    slotInterval: 0.6
     quantity: 1
   references:
     version: 2
     RefIds:
-    - rid: 4316572826482770071
+    - rid: 4316572842846585033
       type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
       data:
         slots:
-        - localPosition: {x: 0, y: 0}
-          localRotation: 0
-    - rid: 4316572826482770072
+        - localPosition: {x: -3.2, y: -0.0000002797529}
+          localRotation: 90
+        - localPosition: {x: 3.2, y: 0.0000005595058}
+          localRotation: 270
+    - rid: 4316572842846585034
       type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
       data:
         slots:
-        - localPosition: {x: 0, y: 0.55}
+        - localPosition: {x: 0, y: 0.425}
           localRotation: 0
-        - localPosition: {x: -0.55, y: -0.55}
+        - localPosition: {x: -0.425, y: -0.425}
           localRotation: 0
-        - localPosition: {x: 0.55, y: -0.55}
+        - localPosition: {x: 0.425, y: -0.425}
           localRotation: 120
