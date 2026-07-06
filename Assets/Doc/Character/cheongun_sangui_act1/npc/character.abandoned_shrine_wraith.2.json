@@ -32,9 +32,9 @@
                                      ]
                },
     "planningScore":  {
-                          "overall":  145,
-                          "health":  85,
-                          "attack":  125,
+                          "overall":  78,
+                          "health":  21,
+                          "attack":  62,
                           "defense":  50,
                           "speed":  105,
                           "range":  130,
@@ -42,14 +42,16 @@
                       },
     "stats":  {
                   "grade":  2,
-                  "totalScore":  145,
+                  "totalScore":  78,
                   "growthType":  "utility",
                   "primaryTag":  "spirit",
                   "statBias":  [
-                                   "hp_regen",
                                    "utility",
                                    "fragile"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -60,16 +62,17 @@
                        "intent":  "짧은 투사체성 혼령 피해.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  9,
-                                       "attackPercentDamage":  90,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  45,
                                        "cooldown":  3,
                                        "castRange":  3,
                                        "hitRange":  0.45,
                                        "hitCount":  1,
-                                       "targetScore":  95,
+                                       "targetScore":  48,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -80,21 +83,22 @@
                        "intent":  "작은 범위 둔화와 시선 분산.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  6,
-                                       "attackPercentDamage":  60,
+                                       "baseDamage":  3,
+                                       "attackPercentDamage":  30,
                                        "cooldown":  7,
                                        "castRange":  2.8,
                                        "hitRange":  1.2,
                                        "hitCount":  3,
-                                       "targetScore":  280,
+                                       "targetScore":  140,
                                        "utility":  [
                                                        "slow_30_percent_2s",
                                                        "fear_tone_only"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

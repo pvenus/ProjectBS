@@ -39,9 +39,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  100,
-                          "health":  75,
-                          "attack":  105,
+                          "overall":  52,
+                          "health":  19,
+                          "attack":  52,
                           "defense":  55,
                           "speed":  125,
                           "range":  40,
@@ -49,14 +49,17 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  100,
+                  "totalScore":  52,
                   "growthType":  "mobile",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "move_speed",
                                    "attack",
                                    "low_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -67,20 +70,22 @@
                        "intent":  "빠르게 접근해 짧은 칼로 찌른다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  8,
-                                       "attackPercentDamage":  95,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  48,
                                        "cooldown":  2.6,
                                        "castRange":  0.4,
                                        "hitRange":  0.5,
                                        "hitCount":  1,
-                                       "targetScore":  95,
+                                       "targetScore":  48,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "수련장 전용 빠른 근접병."
+                  "수련장 전용 빠른 근접병.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

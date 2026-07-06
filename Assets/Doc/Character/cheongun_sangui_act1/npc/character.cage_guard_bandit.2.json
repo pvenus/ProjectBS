@@ -32,9 +32,9 @@
                                      ]
                },
     "planningScore":  {
-                          "overall":  130,
-                          "health":  155,
-                          "attack":  85,
+                          "overall":  59,
+                          "health":  39,
+                          "attack":  42,
                           "defense":  145,
                           "speed":  55,
                           "range":  45,
@@ -42,14 +42,17 @@
                       },
     "stats":  {
                   "grade":  2,
-                  "totalScore":  130,
+                  "totalScore":  59,
                   "growthType":  "defense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "max_hp",
                                    "defense",
                                    "low_speed"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -60,16 +63,17 @@
                        "intent":  "느리지만 묵직한 근접 공격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  12,
-                                       "attackPercentDamage":  100,
+                                       "baseDamage":  6,
+                                       "attackPercentDamage":  50,
                                        "cooldown":  4,
                                        "castRange":  0.5,
                                        "hitRange":  0.7,
                                        "hitCount":  1,
-                                       "targetScore":  95,
+                                       "targetScore":  48,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -94,6 +98,6 @@
                    }
                ],
     "notes":  [
-
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

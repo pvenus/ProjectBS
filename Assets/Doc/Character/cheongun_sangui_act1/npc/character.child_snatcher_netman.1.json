@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  110,
-                          "health":  75,
-                          "attack":  70,
+                          "overall":  73,
+                          "health":  19,
+                          "attack":  35,
                           "defense":  55,
                           "speed":  105,
                           "range":  110,
@@ -48,14 +48,17 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  110,
+                  "totalScore":  73,
                   "growthType":  "utility",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "support_utility",
                                    "speed",
                                    "low_damage"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,20 +69,22 @@
                        "intent":  "낮은 피해와 짧은 둔화 의도의 그물 투척.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  4,
-                                       "attackPercentDamage":  50,
+                                       "baseDamage":  2,
+                                       "attackPercentDamage":  25,
                                        "cooldown":  4,
                                        "castRange":  2.2,
                                        "hitRange":  0.8,
                                        "hitCount":  2,
-                                       "targetScore":  100,
+                                       "targetScore":  50,
                                        "utility":  [
                                                        "slow_30_percent_short"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "아이를 직접 공격하기보다 이동 방해와 탈출 지연으로 사용."
+                  "아이를 직접 공격하기보다 이동 방해와 탈출 지연으로 사용.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

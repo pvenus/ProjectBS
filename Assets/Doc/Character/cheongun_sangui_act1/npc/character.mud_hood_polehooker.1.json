@@ -39,9 +39,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  115,
-                          "health":  90,
-                          "attack":  85,
+                          "overall":  66,
+                          "health":  22,
+                          "attack":  42,
                           "defense":  70,
                           "speed":  85,
                           "range":  110,
@@ -49,13 +49,16 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  115,
+                  "totalScore":  66,
                   "growthType":  "utility",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "range_control",
                                    "moderate_speed"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,20 +69,22 @@
                        "intent":  "긴 장대로 전방 좁은 범위를 찌른다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  9,
-                                       "attackPercentDamage":  85,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  42,
                                        "cooldown":  3,
                                        "castRange":  0.8,
                                        "hitRange":  0.7,
                                        "hitCount":  1,
-                                       "targetScore":  100,
+                                       "targetScore":  50,
                                        "utility":  [
                                                        "short_reach_control"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "포획 연출용. 아이를 직접 공격하기보다 탈출로를 압박한다."
+                  "포획 연출용. 아이를 직접 공격하기보다 탈출로를 압박한다.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

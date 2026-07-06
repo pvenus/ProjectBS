@@ -39,9 +39,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  95,
-                          "health":  70,
-                          "attack":  75,
+                          "overall":  67,
+                          "health":  18,
+                          "attack":  38,
                           "defense":  55,
                           "speed":  120,
                           "range":  80,
@@ -49,14 +49,17 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  95,
+                  "totalScore":  67,
                   "growthType":  "utility",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "speed",
                                    "utility",
                                    "low_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -67,20 +70,22 @@
                        "intent":  "짧은 창으로 거리를 재며 견제한다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  7,
-                                       "attackPercentDamage":  80,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  40,
                                        "cooldown":  2.8,
                                        "castRange":  0.7,
                                        "hitRange":  0.6,
                                        "hitCount":  1,
-                                       "targetScore":  85,
+                                       "targetScore":  42,
                                        "utility":  [
                                                        "ambush_marker_hint"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "조사 에피소드에서 바로 전투하지 않아도 이후 매복 풀로 재사용 가능."
+                  "조사 에피소드에서 바로 전투하지 않아도 이후 매복 풀로 재사용 가능.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

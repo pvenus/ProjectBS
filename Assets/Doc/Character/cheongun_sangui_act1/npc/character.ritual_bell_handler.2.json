@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  145,
-                          "health":  95,
-                          "attack":  70,
+                          "overall":  83,
+                          "health":  24,
+                          "attack":  35,
                           "defense":  65,
                           "speed":  75,
                           "range":  120,
@@ -48,13 +48,16 @@
                       },
     "stats":  {
                   "grade":  2,
-                  "totalScore":  145,
+                  "totalScore":  83,
                   "growthType":  "utility",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "support_utility",
                                    "low_direct_damage"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -65,16 +68,17 @@
                        "intent":  "낮은 피해의 중거리 부적 투척.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  6,
-                                       "attackPercentDamage":  70,
+                                       "baseDamage":  3,
+                                       "attackPercentDamage":  35,
                                        "cooldown":  3,
                                        "castRange":  2.8,
                                        "hitRange":  0.4,
                                        "hitCount":  1,
-                                       "targetScore":  75,
+                                       "targetScore":  38,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -99,6 +103,7 @@
                    }
                ],
     "notes":  [
-                  "red_doll_hexer의 산채 지원형 확장."
+                  "red_doll_hexer의 산채 지원형 확장.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }
