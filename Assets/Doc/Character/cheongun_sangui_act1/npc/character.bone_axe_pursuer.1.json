@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  115,
-                          "health":  115,
-                          "attack":  120,
+                          "overall":  48,
+                          "health":  29,
+                          "attack":  60,
                           "defense":  85,
                           "speed":  75,
                           "range":  40,
@@ -48,13 +48,16 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  115,
+                  "totalScore":  48,
                   "growthType":  "offense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "attack",
                                    "max_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -65,20 +68,22 @@
                        "intent":  "느리지만 공격력이 높은 근접 도끼 공격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  13,
-                                       "attackPercentDamage":  100,
+                                       "baseDamage":  6,
+                                       "attackPercentDamage":  50,
                                        "cooldown":  3.6,
                                        "castRange":  0.5,
                                        "hitRange":  0.6,
                                        "hitCount":  1,
-                                       "targetScore":  105,
+                                       "targetScore":  52,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "black_cloth_raider의 공격형 확장."
+                  "black_cloth_raider의 공격형 확장.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

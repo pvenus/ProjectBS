@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  120,
-                          "health":  115,
-                          "attack":  95,
+                          "overall":  63,
+                          "health":  29,
+                          "attack":  48,
                           "defense":  120,
                           "speed":  65,
                           "range":  90,
@@ -48,13 +48,16 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  120,
+                  "totalScore":  63,
                   "growthType":  "defense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "defense",
                                    "range_control"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -65,20 +68,22 @@
                        "intent":  "긴 근접 사거리로 전방을 찌른다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  10,
-                                       "attackPercentDamage":  90,
+                                       "baseDamage":  5,
+                                       "attackPercentDamage":  45,
                                        "cooldown":  3.4,
                                        "castRange":  0.8,
                                        "hitRange":  0.7,
                                        "hitCount":  1,
-                                       "targetScore":  105,
+                                       "targetScore":  52,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "산채 토벌 전용 전열 병력."
+                  "산채 토벌 전용 전열 병력.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

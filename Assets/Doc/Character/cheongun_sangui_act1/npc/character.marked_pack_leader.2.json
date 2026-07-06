@@ -39,9 +39,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  180,
-                          "health":  150,
-                          "attack":  160,
+                          "overall":  79,
+                          "health":  38,
+                          "attack":  80,
                           "defense":  80,
                           "speed":  160,
                           "range":  35,
@@ -49,14 +49,17 @@
                       },
     "stats":  {
                   "grade":  2,
-                  "totalScore":  180,
+                  "totalScore":  79,
                   "growthType":  "mobile",
                   "primaryTag":  "wolf",
                   "statBias":  [
                                    "move_speed",
                                    "attack",
                                    "elite_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -67,16 +70,17 @@
                        "intent":  "빠른 근접 물기.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  12,
-                                       "attackPercentDamage":  110,
+                                       "baseDamage":  6,
+                                       "attackPercentDamage":  55,
                                        "cooldown":  2.5,
                                        "castRange":  0.4,
                                        "hitRange":  0.55,
                                        "hitCount":  1,
-                                       "targetScore":  120,
+                                       "targetScore":  60,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -101,6 +105,7 @@
                    }
                ],
     "notes":  [
-                  "starving_mountain_wolf의 엘리트 확장."
+                  "starving_mountain_wolf의 엘리트 확장.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

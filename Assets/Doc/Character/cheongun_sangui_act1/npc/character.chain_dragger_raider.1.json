@@ -39,9 +39,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  105,
-                          "health":  95,
-                          "attack":  90,
+                          "overall":  64,
+                          "health":  24,
+                          "attack":  45,
                           "defense":  85,
                           "speed":  80,
                           "range":  70,
@@ -49,13 +49,16 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  105,
+                  "totalScore":  64,
                   "growthType":  "utility",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "control_utility",
                                    "moderate_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,20 +69,22 @@
                        "intent":  "짧은 전방 범위로 사슬을 휘둘러 길목을 방해한다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  8,
-                                       "attackPercentDamage":  90,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  45,
                                        "cooldown":  3.2,
                                        "castRange":  0.7,
                                        "hitRange":  0.8,
                                        "hitCount":  2,
-                                       "targetScore":  110,
+                                       "targetScore":  55,
                                        "utility":  [
                                                        "minor_pull_or_slow_hint"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "black_cloth_raider의 제어형 확장 후보에서 정식 기획화."
+                  "black_cloth_raider의 제어형 확장 후보에서 정식 기획화.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

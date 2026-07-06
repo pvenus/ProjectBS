@@ -32,9 +32,9 @@
                                      ]
                },
     "planningScore":  {
-                          "overall":  520,
-                          "health":  800,
-                          "attack":  240,
+                          "overall":  163,
+                          "health":  200,
+                          "attack":  120,
                           "defense":  140,
                           "speed":  100,
                           "range":  160,
@@ -42,14 +42,17 @@
                       },
     "stats":  {
                   "grade":  3,
-                  "totalScore":  520,
+                  "totalScore":  163,
                   "growthType":  "utility",
                   "primaryTag":  "spirit",
                   "statBias":  [
                                    "boss_hp",
                                    "summon_or_area_pressure",
                                    "phase_change"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -60,16 +63,17 @@
                        "intent":  "가까운 대상을 긁는 기본 공격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  18,
-                                       "attackPercentDamage":  120,
+                                       "baseDamage":  9,
+                                       "attackPercentDamage":  60,
                                        "cooldown":  3,
                                        "castRange":  0.5,
                                        "hitRange":  0.7,
                                        "hitCount":  2,
-                                       "targetScore":  150,
+                                       "targetScore":  75,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -101,17 +105,18 @@
                        "intent":  "중거리 범위 둔화와 원혼 소환 분위기.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  20,
-                                       "attackPercentDamage":  120,
+                                       "baseDamage":  10,
+                                       "attackPercentDamage":  60,
                                        "cooldown":  8,
                                        "castRange":  3.2,
                                        "hitRange":  1.5,
                                        "hitCount":  5,
-                                       "targetScore":  500,
+                                       "targetScore":  250,
                                        "utility":  [
                                                        "slow_50_percent_2s",
                                                        "summon_minor_wraith_hint"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -122,21 +127,22 @@
                        "intent":  "넓은 범위 원한 폭발. 보스전 핵심 패턴.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  35,
-                                       "attackPercentDamage":  180,
+                                       "baseDamage":  18,
+                                       "attackPercentDamage":  90,
                                        "cooldown":  12,
                                        "castRange":  2.5,
                                        "hitRange":  2,
                                        "hitCount":  6,
-                                       "targetScore":  800,
+                                       "targetScore":  400,
                                        "utility":  [
                                                        "stun_or_heavy_slow_short",
                                                        "boss_phase_burst"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

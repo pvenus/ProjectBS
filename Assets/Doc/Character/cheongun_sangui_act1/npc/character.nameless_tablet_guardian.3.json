@@ -32,9 +32,9 @@
                                      ]
                },
     "planningScore":  {
-                          "overall":  210,
-                          "health":  210,
-                          "attack":  120,
+                          "overall":  88,
+                          "health":  52,
+                          "attack":  60,
                           "defense":  170,
                           "speed":  55,
                           "range":  70,
@@ -42,14 +42,16 @@
                       },
     "stats":  {
                   "grade":  3,
-                  "totalScore":  210,
+                  "totalScore":  88,
                   "growthType":  "defense",
                   "primaryTag":  "spirit",
                   "statBias":  [
                                    "max_hp",
-                                   "hp_regen",
                                    "area_control"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -60,16 +62,17 @@
                        "intent":  "느린 근접 범위 타격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  14,
-                                       "attackPercentDamage":  100,
+                                       "baseDamage":  7,
+                                       "attackPercentDamage":  50,
                                        "cooldown":  3.8,
                                        "castRange":  0.5,
                                        "hitRange":  0.8,
                                        "hitCount":  2,
-                                       "targetScore":  120,
+                                       "targetScore":  60,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -80,16 +83,17 @@
                        "intent":  "좁은 범위 속박으로 전열을 묶는다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  10,
-                                       "attackPercentDamage":  80,
+                                       "baseDamage":  5,
+                                       "attackPercentDamage":  40,
                                        "cooldown":  8,
                                        "castRange":  2,
                                        "hitRange":  1,
                                        "hitCount":  3,
-                                       "targetScore":  320,
+                                       "targetScore":  160,
                                        "utility":  [
                                                        "root_1s"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -114,6 +118,6 @@
                    }
                ],
     "notes":  [
-
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

@@ -32,9 +32,9 @@
                                      ]
                },
     "planningScore":  {
-                          "overall":  100,
-                          "health":  70,
-                          "attack":  115,
+                          "overall":  65,
+                          "health":  18,
+                          "attack":  58,
                           "defense":  55,
                           "speed":  90,
                           "range":  150,
@@ -42,13 +42,16 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  100,
+                  "totalScore":  65,
                   "growthType":  "offense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "attack",
                                    "range"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -59,20 +62,21 @@
                        "intent":  "긴 사거리 단일 사격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  10,
-                                       "attackPercentDamage":  100,
+                                       "baseDamage":  5,
+                                       "attackPercentDamage":  50,
                                        "cooldown":  3.2,
                                        "castRange":  3.8,
                                        "hitRange":  0.3,
                                        "hitCount":  1,
-                                       "targetScore":  100,
+                                       "targetScore":  50,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

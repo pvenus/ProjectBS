@@ -1,4 +1,4 @@
-
+﻿
 
 # Character Stat Balance Guide
 
@@ -49,6 +49,46 @@ As a result:
 - HP Regen has significant long-term value.
 - Recovery effects should be evaluated across multiple battles.
 - Characters are expected to gradually lose HP over a run.
+
+---
+
+# NPC Hack-And-Slash Balance Override
+
+Use this override when the game mode is a monster-heavy hack-and-slash encounter where many NPC enemies can appear at the same time.
+
+This rule applies to `characterType: "Npc"` encounter enemies unless a later document explicitly marks an enemy as a solo elite or boss exception.
+
+## NPC Regen Rule
+
+NPC enemies must not own HP Regen as a generated stat.
+
+- Do not give NPC planning data an `hp_regen` stat bias.
+- Do not generate NPC base HP Regen values.
+- Do not use HP Regen as a hidden compensation for low HP.
+- If a special enemy needs recovery, design it as an explicit skill, phase mechanic, or encounter gimmick instead of a base stat.
+
+## Multi-Monster Damage And Health Scale
+
+For hack-and-slash mob encounters, start from the normal score model, then apply these NPC encounter multipliers:
+
+| NPC Budget | Multiplier | Purpose |
+|------------|-----------:|---------|
+| Attack score / direct skill damage | 0.50 | Many enemies can attack together, so each enemy's individual damage must be lower. |
+| Health score / Max HP budget | 0.25 | Enemies should die quickly enough to support dense combat and fast clear rhythm. |
+| HP Regen | 0 | NPC enemies do not regenerate by default. |
+
+Keep defense, range, speed, support, and utility scores as role identity values unless the encounter itself is still over budget.
+
+When updating existing NPC planning JSON:
+
+1. Multiply `planningScore.attack` by `0.50`.
+2. Multiply `planningScore.health` by `0.25`.
+3. Recalculate `planningScore.overall` and `stats.totalScore` from the adjusted planning budget.
+4. Remove `hp_regen` from NPC `stats.statBias`.
+5. Multiply direct NPC skill damage intent by `0.50`.
+6. Keep pure utility skills readable, but do not use HP Regen as their utility.
+
+Bosses may use separate boss-specific rules, but do not inherit NPC HP Regen by default.
 
 ---
 
@@ -380,3 +420,5 @@ Purpose:
 - Fast pursuit attacker
 - Better chase and engage speed
 - Lower durability than a stable frontline unit
+
+

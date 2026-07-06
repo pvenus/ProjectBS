@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  220,
-                          "health":  230,
-                          "attack":  210,
+                          "overall":  72,
+                          "health":  58,
+                          "attack":  105,
                           "defense":  130,
                           "speed":  60,
                           "range":  60,
@@ -48,14 +48,17 @@
                       },
     "stats":  {
                   "grade":  2,
-                  "totalScore":  220,
+                  "totalScore":  72,
                   "growthType":  "offense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "attack",
                                    "max_hp",
                                    "elite_pressure"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,16 +69,17 @@
                        "intent":  "느리지만 강한 근접 타격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  18,
-                                       "attackPercentDamage":  120,
+                                       "baseDamage":  9,
+                                       "attackPercentDamage":  60,
                                        "cooldown":  4,
                                        "castRange":  0.6,
                                        "hitRange":  0.8,
                                        "hitCount":  2,
-                                       "targetScore":  140,
+                                       "targetScore":  70,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    },
                    {
@@ -86,20 +90,22 @@
                        "intent":  "전방 넓은 범위로 휘둘러 진입을 막는다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  20,
-                                       "attackPercentDamage":  140,
+                                       "baseDamage":  10,
+                                       "attackPercentDamage":  70,
                                        "cooldown":  7,
                                        "castRange":  0.8,
                                        "hitRange":  1.2,
                                        "hitCount":  3,
-                                       "targetScore":  330,
+                                       "targetScore":  165,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "산채 토벌의 중형 엘리트."
+                  "산채 토벌의 중형 엘리트.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

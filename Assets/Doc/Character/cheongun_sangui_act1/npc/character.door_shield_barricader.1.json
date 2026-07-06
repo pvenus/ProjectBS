@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  110,
-                          "health":  135,
-                          "attack":  70,
+                          "overall":  52,
+                          "health":  34,
+                          "attack":  35,
                           "defense":  135,
                           "speed":  45,
                           "range":  35,
@@ -48,14 +48,17 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  110,
+                  "totalScore":  52,
                   "growthType":  "defense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "max_hp",
                                    "defense",
                                    "low_speed"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,20 +69,22 @@
                        "intent":  "느린 근접 밀치기로 전방을 막는다.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  7,
-                                       "attackPercentDamage":  80,
+                                       "baseDamage":  4,
+                                       "attackPercentDamage":  40,
                                        "cooldown":  3.8,
                                        "castRange":  0.4,
                                        "hitRange":  0.7,
                                        "hitCount":  2,
-                                       "targetScore":  95,
+                                       "targetScore":  48,
                                        "utility":  [
                                                        "minor_knockback_hint"
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "cage_guard_bandit보다 이른 시점에 쓰는 가벼운 방어형."
+                  "cage_guard_bandit보다 이른 시점에 쓰는 가벼운 방어형.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }

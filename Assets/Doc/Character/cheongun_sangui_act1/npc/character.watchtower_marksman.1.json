@@ -38,9 +38,9 @@
                                   ]
                },
     "planningScore":  {
-                          "overall":  115,
-                          "health":  75,
-                          "attack":  125,
+                          "overall":  69,
+                          "health":  19,
+                          "attack":  62,
                           "defense":  55,
                           "speed":  80,
                           "range":  170,
@@ -48,14 +48,17 @@
                       },
     "stats":  {
                   "grade":  1,
-                  "totalScore":  115,
+                  "totalScore":  69,
                   "growthType":  "offense",
                   "primaryTag":  "human",
                   "statBias":  [
                                    "attack",
                                    "range",
                                    "low_hp"
-                               ]
+                               ],
+                  "hackAndSlashMobBalanceApplied":  true,
+                  "attackScoreMultiplierApplied":  0.5,
+                  "healthScoreMultiplierApplied":  0.25
               },
     "skills":  [
                    {
@@ -66,20 +69,22 @@
                        "intent":  "긴 사거리 단일 사격.",
                        "balance":  {
                                        "expectedAttack":  20,
-                                       "baseDamage":  11,
-                                       "attackPercentDamage":  100,
+                                       "baseDamage":  6,
+                                       "attackPercentDamage":  50,
                                        "cooldown":  3.1,
                                        "castRange":  4.2,
                                        "hitRange":  0.3,
                                        "hitCount":  1,
-                                       "targetScore":  105,
+                                       "targetScore":  52,
                                        "utility":  [
 
-                                                   ]
+                                                   ],
+                                       "directDamageMultiplierApplied":  0.5
                                    }
                    }
                ],
     "notes":  [
-                  "mountain_path_archer의 산채 고지대 확장."
+                  "mountain_path_archer의 산채 고지대 확장.",
+                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
               ]
 }
