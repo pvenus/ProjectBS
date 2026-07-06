@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.watchtower_marksman.1.IdleDownRight.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,19 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -2040615653179703205, guid: 23e5c00a2e8454d31a865637a458c639, type: 3}
+      value: {fileID: 21300000, guid: 23e5c00a2e8454d31a865637a458c639, type: 3}
     - time: 0.083333336
-      value: {fileID: -9024367038892189032, guid: b8ed083fbf45145889aae27e58c33e65, type: 3}
+      value: {fileID: 21300000, guid: b8ed083fbf45145889aae27e58c33e65, type: 3}
     - time: 0.16666667
-      value: {fileID: -3601007952185659942, guid: 009aa511d042941bd821ec95d7520ed4, type: 3}
+      value: {fileID: 21300000, guid: 009aa511d042941bd821ec95d7520ed4, type: 3}
     - time: 0.25
-      value: {fileID: -6361046822607684039, guid: 176d2d305f31349e9a75e198a69b2ee1, type: 3}
+      value: {fileID: 21300000, guid: 176d2d305f31349e9a75e198a69b2ee1, type: 3}
     - time: 0.33333334
-      value: {fileID: 3733401217933822649, guid: 6c788d6d7da344c57bfb78c3953c36d5, type: 3}
+      value: {fileID: 21300000, guid: 6c788d6d7da344c57bfb78c3953c36d5, type: 3}
     - time: 0.41666666
-      value: {fileID: 4832582524988652305, guid: a81669c9068ee4b2cbf2a3b0a488f0e2, type: 3}
+      value: {fileID: 21300000, guid: a81669c9068ee4b2cbf2a3b0a488f0e2, type: 3}
     - time: 0.5
-      value: {fileID: 1582035929635119778, guid: f9130c612666b40f892ef96fe873f5c5, type: 3}
+      value: {fileID: 21300000, guid: f9130c612666b40f892ef96fe873f5c5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -45,24 +45,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -2040615653179703205, guid: 23e5c00a2e8454d31a865637a458c639, type: 3}
-    - {fileID: -9024367038892189032, guid: b8ed083fbf45145889aae27e58c33e65, type: 3}
-    - {fileID: -3601007952185659942, guid: 009aa511d042941bd821ec95d7520ed4, type: 3}
-    - {fileID: -6361046822607684039, guid: 176d2d305f31349e9a75e198a69b2ee1, type: 3}
-    - {fileID: 3733401217933822649, guid: 6c788d6d7da344c57bfb78c3953c36d5, type: 3}
-    - {fileID: 4832582524988652305, guid: a81669c9068ee4b2cbf2a3b0a488f0e2, type: 3}
-    - {fileID: 1582035929635119778, guid: f9130c612666b40f892ef96fe873f5c5, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

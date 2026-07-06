@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.mud_hood_polehooker.1.IdleDownLeft.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,19 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -8625905561616774243, guid: 640a97f30e2e94701b6e45d060d755e7, type: 3}
+      value: {fileID: 21300000, guid: 640a97f30e2e94701b6e45d060d755e7, type: 3}
     - time: 0.083333336
-      value: {fileID: 1065983235430145563, guid: 70456a2b7bad34e89b292e5c44c646a3, type: 3}
+      value: {fileID: 21300000, guid: 70456a2b7bad34e89b292e5c44c646a3, type: 3}
     - time: 0.16666667
-      value: {fileID: -3131651533699753773, guid: 566bae5b839fa4452bc82c7b630db55a, type: 3}
+      value: {fileID: 21300000, guid: 566bae5b839fa4452bc82c7b630db55a, type: 3}
     - time: 0.25
-      value: {fileID: -8335481274371646919, guid: 9d47064d9bc654069b38bdc25ab6b7f7, type: 3}
+      value: {fileID: 21300000, guid: 9d47064d9bc654069b38bdc25ab6b7f7, type: 3}
     - time: 0.33333334
-      value: {fileID: 6084976572481020657, guid: 196d79974440144289b59cb47fb6c1d3, type: 3}
+      value: {fileID: 21300000, guid: 196d79974440144289b59cb47fb6c1d3, type: 3}
     - time: 0.41666666
-      value: {fileID: -4501142936416415056, guid: 405901159e73f4941884670f2c1362f3, type: 3}
+      value: {fileID: 21300000, guid: 405901159e73f4941884670f2c1362f3, type: 3}
     - time: 0.5
-      value: {fileID: -5849033808213644305, guid: 911724b6bef95455c875e1ca3569c5c5, type: 3}
+      value: {fileID: 21300000, guid: 911724b6bef95455c875e1ca3569c5c5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -45,24 +45,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -8625905561616774243, guid: 640a97f30e2e94701b6e45d060d755e7, type: 3}
-    - {fileID: 1065983235430145563, guid: 70456a2b7bad34e89b292e5c44c646a3, type: 3}
-    - {fileID: -3131651533699753773, guid: 566bae5b839fa4452bc82c7b630db55a, type: 3}
-    - {fileID: -8335481274371646919, guid: 9d47064d9bc654069b38bdc25ab6b7f7, type: 3}
-    - {fileID: 6084976572481020657, guid: 196d79974440144289b59cb47fb6c1d3, type: 3}
-    - {fileID: -4501142936416415056, guid: 405901159e73f4941884670f2c1362f3, type: 3}
-    - {fileID: -5849033808213644305, guid: 911724b6bef95455c875e1ca3569c5c5, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

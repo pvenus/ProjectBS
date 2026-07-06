@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.chain_dragger_raider.1.AttackDownLeft.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -4364652248552063460, guid: 3c4b71bcf658b4c26b581aef8d7b1c62, type: 3}
+      value: {fileID: 21300000, guid: 3c4b71bcf658b4c26b581aef8d7b1c62, type: 3}
     - time: 0.083333336
-      value: {fileID: -2485146499149518737, guid: 1835f6bd86b2a44268c27b61823375ed, type: 3}
+      value: {fileID: 21300000, guid: 1835f6bd86b2a44268c27b61823375ed, type: 3}
     - time: 0.16666667
-      value: {fileID: 4869965030776018664, guid: c82da2f8123ff46d6b3e19dc13c12996, type: 3}
+      value: {fileID: 21300000, guid: c82da2f8123ff46d6b3e19dc13c12996, type: 3}
     - time: 0.25
-      value: {fileID: -5100048903206161925, guid: 98a519d2703784092a9c4d80e1376567, type: 3}
+      value: {fileID: 21300000, guid: 98a519d2703784092a9c4d80e1376567, type: 3}
     - time: 0.33333334
-      value: {fileID: -5579654888063069588, guid: 545b7bc28eccc426fabcb3168ae64e02, type: 3}
+      value: {fileID: 21300000, guid: 545b7bc28eccc426fabcb3168ae64e02, type: 3}
     - time: 0.41666666
-      value: {fileID: 2389707876283440405, guid: 8b48328821cd0406daf9a26c9c44d324, type: 3}
+      value: {fileID: 21300000, guid: 8b48328821cd0406daf9a26c9c44d324, type: 3}
     - time: 0.5
-      value: {fileID: -6547652833121531306, guid: 67ce77895e7014c6dad783385769f642, type: 3}
+      value: {fileID: 21300000, guid: 67ce77895e7014c6dad783385769f642, type: 3}
     - time: 0.5833333
-      value: {fileID: -6715628665349249316, guid: aa9ab9cd995b244b496edec41df0bf03, type: 3}
+      value: {fileID: 21300000, guid: aa9ab9cd995b244b496edec41df0bf03, type: 3}
     - time: 0.6666667
-      value: {fileID: 1984581097483586088, guid: 5fe66ce46f2ac4596b1a923bec80ff88, type: 3}
+      value: {fileID: 21300000, guid: 5fe66ce46f2ac4596b1a923bec80ff88, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -49,26 +49,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -4364652248552063460, guid: 3c4b71bcf658b4c26b581aef8d7b1c62, type: 3}
-    - {fileID: -2485146499149518737, guid: 1835f6bd86b2a44268c27b61823375ed, type: 3}
-    - {fileID: 4869965030776018664, guid: c82da2f8123ff46d6b3e19dc13c12996, type: 3}
-    - {fileID: -5100048903206161925, guid: 98a519d2703784092a9c4d80e1376567, type: 3}
-    - {fileID: -5579654888063069588, guid: 545b7bc28eccc426fabcb3168ae64e02, type: 3}
-    - {fileID: 2389707876283440405, guid: 8b48328821cd0406daf9a26c9c44d324, type: 3}
-    - {fileID: -6547652833121531306, guid: 67ce77895e7014c6dad783385769f642, type: 3}
-    - {fileID: -6715628665349249316, guid: aa9ab9cd995b244b496edec41df0bf03, type: 3}
-    - {fileID: 1984581097483586088, guid: 5fe66ce46f2ac4596b1a923bec80ff88, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

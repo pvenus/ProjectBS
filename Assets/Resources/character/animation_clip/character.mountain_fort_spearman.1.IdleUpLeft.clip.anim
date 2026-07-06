@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.mountain_fort_spearman.1.IdleUpLeft.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,19 +21,19 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -8281846770356395915, guid: a3ec8b3e23f9644a99080214b9a7c443, type: 3}
+      value: {fileID: 21300000, guid: a3ec8b3e23f9644a99080214b9a7c443, type: 3}
     - time: 0.083333336
-      value: {fileID: 1639834760554566374, guid: 1e13ba1580e5243af85efc6bf854ac35, type: 3}
+      value: {fileID: 21300000, guid: 1e13ba1580e5243af85efc6bf854ac35, type: 3}
     - time: 0.16666667
-      value: {fileID: 4664975087931303433, guid: d720a2166ee984eb19c0f5433df21ac0, type: 3}
+      value: {fileID: 21300000, guid: d720a2166ee984eb19c0f5433df21ac0, type: 3}
     - time: 0.25
-      value: {fileID: 3977591995861668004, guid: c13b49ab3b11e49e29452cee6c1eab23, type: 3}
+      value: {fileID: 21300000, guid: c13b49ab3b11e49e29452cee6c1eab23, type: 3}
     - time: 0.33333334
-      value: {fileID: 719695202661758639, guid: 0c12944608dce459789d9965e7b6765e, type: 3}
+      value: {fileID: 21300000, guid: 0c12944608dce459789d9965e7b6765e, type: 3}
     - time: 0.41666666
-      value: {fileID: 8133023353527457316, guid: 0d6be6e22c93a49ddbda4341c4dcf481, type: 3}
+      value: {fileID: 21300000, guid: 0d6be6e22c93a49ddbda4341c4dcf481, type: 3}
     - time: 0.5
-      value: {fileID: -1688230332948447842, guid: 4fbe0b89664334e19941b54996bc43d2, type: 3}
+      value: {fileID: 21300000, guid: 4fbe0b89664334e19941b54996bc43d2, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -45,24 +45,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -8281846770356395915, guid: a3ec8b3e23f9644a99080214b9a7c443, type: 3}
-    - {fileID: 1639834760554566374, guid: 1e13ba1580e5243af85efc6bf854ac35, type: 3}
-    - {fileID: 4664975087931303433, guid: d720a2166ee984eb19c0f5433df21ac0, type: 3}
-    - {fileID: 3977591995861668004, guid: c13b49ab3b11e49e29452cee6c1eab23, type: 3}
-    - {fileID: 719695202661758639, guid: 0c12944608dce459789d9965e7b6765e, type: 3}
-    - {fileID: 8133023353527457316, guid: 0d6be6e22c93a49ddbda4341c4dcf481, type: 3}
-    - {fileID: -1688230332948447842, guid: 4fbe0b89664334e19941b54996bc43d2, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

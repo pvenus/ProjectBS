@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.bone_axe_pursuer.1.AttackUpRight.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5994812501263475671, guid: 38a225d9d797340cb935a0845da6ce34, type: 3}
+      value: {fileID: 21300000, guid: 38a225d9d797340cb935a0845da6ce34, type: 3}
     - time: 0.083333336
-      value: {fileID: -787505620224929487, guid: d73b342a2d6894223a6a3df3414055a5, type: 3}
+      value: {fileID: 21300000, guid: d73b342a2d6894223a6a3df3414055a5, type: 3}
     - time: 0.16666667
-      value: {fileID: 5133510668224402805, guid: 0e01d146459ff49a3b0e6c1561f9e36c, type: 3}
+      value: {fileID: 21300000, guid: 0e01d146459ff49a3b0e6c1561f9e36c, type: 3}
     - time: 0.25
-      value: {fileID: 8370956135779993712, guid: feb61c9fb38594c86a4278fbbda96f58, type: 3}
+      value: {fileID: 21300000, guid: feb61c9fb38594c86a4278fbbda96f58, type: 3}
     - time: 0.33333334
-      value: {fileID: 8314955141716430684, guid: f0a9bca5a277c4932bd4b00a11931771, type: 3}
+      value: {fileID: 21300000, guid: f0a9bca5a277c4932bd4b00a11931771, type: 3}
     - time: 0.41666666
-      value: {fileID: 434054921459339887, guid: dd617724312984f1d976dae6cdbdea1e, type: 3}
+      value: {fileID: 21300000, guid: dd617724312984f1d976dae6cdbdea1e, type: 3}
     - time: 0.5
-      value: {fileID: -1049500447695541423, guid: b6a6a21a0129e4217a5601bf86ea6586, type: 3}
+      value: {fileID: 21300000, guid: b6a6a21a0129e4217a5601bf86ea6586, type: 3}
     - time: 0.5833333
-      value: {fileID: -4094918530806970888, guid: d3d40d45d6dcb4d7480534680196b3a3, type: 3}
+      value: {fileID: 21300000, guid: d3d40d45d6dcb4d7480534680196b3a3, type: 3}
     - time: 0.6666667
-      value: {fileID: -1571624134633365074, guid: 3ececb19a983343b9a4472852f2221aa, type: 3}
+      value: {fileID: 21300000, guid: 3ececb19a983343b9a4472852f2221aa, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -49,26 +49,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -5994812501263475671, guid: 38a225d9d797340cb935a0845da6ce34, type: 3}
-    - {fileID: -787505620224929487, guid: d73b342a2d6894223a6a3df3414055a5, type: 3}
-    - {fileID: 5133510668224402805, guid: 0e01d146459ff49a3b0e6c1561f9e36c, type: 3}
-    - {fileID: 8370956135779993712, guid: feb61c9fb38594c86a4278fbbda96f58, type: 3}
-    - {fileID: 8314955141716430684, guid: f0a9bca5a277c4932bd4b00a11931771, type: 3}
-    - {fileID: 434054921459339887, guid: dd617724312984f1d976dae6cdbdea1e, type: 3}
-    - {fileID: -1049500447695541423, guid: b6a6a21a0129e4217a5601bf86ea6586, type: 3}
-    - {fileID: -4094918530806970888, guid: d3d40d45d6dcb4d7480534680196b3a3, type: 3}
-    - {fileID: -1571624134633365074, guid: 3ececb19a983343b9a4472852f2221aa, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

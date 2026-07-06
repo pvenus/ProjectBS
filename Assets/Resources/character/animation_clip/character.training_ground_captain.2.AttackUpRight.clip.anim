@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character.training_ground_captain.2.AttackUpRight.clip
+  m_Name: 
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5180334022224388979, guid: f9c0f00fbeed64f7b987a5cd0b821243, type: 3}
+      value: {fileID: 21300000, guid: f9c0f00fbeed64f7b987a5cd0b821243, type: 3}
     - time: 0.083333336
-      value: {fileID: 7551036575136577619, guid: 9f7be61f3fbb74617bc5bd47fb950055, type: 3}
+      value: {fileID: 21300000, guid: 9f7be61f3fbb74617bc5bd47fb950055, type: 3}
     - time: 0.16666667
-      value: {fileID: -4840366289075146927, guid: f45f25f6a8a34461e92b35f471429074, type: 3}
+      value: {fileID: 21300000, guid: f45f25f6a8a34461e92b35f471429074, type: 3}
     - time: 0.25
-      value: {fileID: -2910440945824100540, guid: 46216bf79ff8d4e14bb8bdacc9be0f39, type: 3}
+      value: {fileID: 21300000, guid: 46216bf79ff8d4e14bb8bdacc9be0f39, type: 3}
     - time: 0.33333334
-      value: {fileID: 1091419701184341173, guid: 75d77e66d2cdd495ca6c5848c7daaff8, type: 3}
+      value: {fileID: 21300000, guid: 75d77e66d2cdd495ca6c5848c7daaff8, type: 3}
     - time: 0.41666666
-      value: {fileID: 5130255688467901466, guid: 5b9a97234c26e4eefaac533b91560842, type: 3}
+      value: {fileID: 21300000, guid: 5b9a97234c26e4eefaac533b91560842, type: 3}
     - time: 0.5
-      value: {fileID: 3240288238090490489, guid: 726faea0d7d644e18ace5cdb8515c6ec, type: 3}
+      value: {fileID: 21300000, guid: 726faea0d7d644e18ace5cdb8515c6ec, type: 3}
     - time: 0.5833333
-      value: {fileID: 761227106101120102, guid: e3d854ef8ea624a14a4ea9f933240621, type: 3}
+      value: {fileID: 21300000, guid: e3d854ef8ea624a14a4ea9f933240621, type: 3}
     - time: 0.6666667
-      value: {fileID: 1648292895152323717, guid: eb284efd4ce2a4a03b4fd8ca28871790, type: 3}
+      value: {fileID: 21300000, guid: eb284efd4ce2a4a03b4fd8ca28871790, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -49,26 +49,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    pptrCurveMapping:
-    - {fileID: -5180334022224388979, guid: f9c0f00fbeed64f7b987a5cd0b821243, type: 3}
-    - {fileID: 7551036575136577619, guid: 9f7be61f3fbb74617bc5bd47fb950055, type: 3}
-    - {fileID: -4840366289075146927, guid: f45f25f6a8a34461e92b35f471429074, type: 3}
-    - {fileID: -2910440945824100540, guid: 46216bf79ff8d4e14bb8bdacc9be0f39, type: 3}
-    - {fileID: 1091419701184341173, guid: 75d77e66d2cdd495ca6c5848c7daaff8, type: 3}
-    - {fileID: 5130255688467901466, guid: 5b9a97234c26e4eefaac533b91560842, type: 3}
-    - {fileID: 3240288238090490489, guid: 726faea0d7d644e18ace5cdb8515c6ec, type: 3}
-    - {fileID: 761227106101120102, guid: e3d854ef8ea624a14a4ea9f933240621, type: 3}
-    - {fileID: 1648292895152323717, guid: eb284efd4ce2a4a03b4fd8ca28871790, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
