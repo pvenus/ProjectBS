@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.training_ground_captain.2.basic_attack.captain_cut.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 0.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 13,
-        "attackPercentDamage": 1.1
+        "baseDamage": 3,
+        "attackPercentDamage": 0.26
       }
     }
   ]

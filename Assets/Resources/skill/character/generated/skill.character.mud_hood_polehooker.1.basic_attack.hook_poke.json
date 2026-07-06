@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 0.8,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 9,
-        "attackPercentDamage": 0.85
+        "baseDamage": 2,
+        "attackPercentDamage": 0.23
       }
     }
   ]

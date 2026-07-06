@@ -28,12 +28,27 @@ A Standard character with **Score 100** represents the baseline used for balanci
 | Defense | 20 (≈10% damage reduction reference) |
 | Critical Chance | 10% |
 | Critical Damage | +50% Attack Damage |
-| Attack Speed | 2 |
+| Attack Speed | 1.0 |
 | Max HP | 500 |
 | HP Regen | 5 / sec |
-| Move Speed | 1.5 |
+| Move Speed | 1.0 |
 
 These values are balancing references only.
+
+## Speed Scale Standard
+
+Movement speed and attack speed use `1.0` as the normal baseline.
+
+| Scale | Meaning | Use |
+|------:|---------|-----|
+| 0.50 | Very slow | Heavy blockers, rooted casters, slow elites |
+| 0.75 | Slow | Shield units, heavy bruisers, cautious ranged units |
+| 1.00 | Normal | Standard player and standard NPC movement/attack speed |
+| 1.50 | Fast | Pursuers, agile beasts, skirmishers |
+| 2.00 | Very fast | Explicitly speed-focused rushers or special burst phases |
+
+Use these values directly for `Move Speed` and `Attack Speed` intent. Avoid using older baselines where normal movement was `1.5` or normal attack speed was `2`.
+
 
 ---
 
@@ -373,8 +388,8 @@ This keeps tags from overpowering Type identity.
 
 | Stat | Min | Max |
 |------|----:|----:|
-| Move Speed | 0.75 | 2.4 |
-| Attack Speed | 0.6 | 3.2 |
+| Move Speed | 0.50 | 2.00 |
+| Attack Speed | 0.50 | 2.00 |
 | Critical Chance | 0 | 40 |
 | Defense | 0 | 80 |
 

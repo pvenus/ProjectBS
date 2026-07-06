@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.0,
+    "cooldown": 1,
     "castTime": 0,
     "range": 0.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 9,
-        "attackPercentDamage": 0.95
+        "baseDamage": 1,
+        "attackPercentDamage": 0.17
       }
     }
   ]

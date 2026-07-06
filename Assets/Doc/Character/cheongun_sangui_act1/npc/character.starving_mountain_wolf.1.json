@@ -1,83 +1,88 @@
-﻿{
-    "documentId":  "character_planning.character.starving_mountain_wolf.1",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.starving_mountain_wolf.1",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "굶주린 산짐승",
-                     "grade":  1,
-                     "tierId":  "normal",
-                     "role":  "fast_melee_swarm",
-                     "tags":  [
-                                  "wolf",
-                                  "beast",
-                                  "fast"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "마른 갈비뼈가 드러난 산짐승, 낮은 자세와 빠른 돌진",
-                       "visualKeywords":  [
-                                              "wolf",
-                                              "beast",
-                                              "fast"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "초반 산길에서 측면 압박을 주는 빠른 근접 적",
-                   "preferredRange":  "melee",
-                   "partyFunction":  [
-                                         "fast_melee_swarm"
-                                     ]
-               },
-    "planningScore":  {
-                          "overall":  41,
-                          "health":  14,
-                          "attack":  35,
-                          "defense":  45,
-                          "speed":  120,
-                          "range":  30,
-                          "support":  0
-                      },
-    "stats":  {
-                  "grade":  1,
-                  "totalScore":  41,
-                  "growthType":  "mobile",
-                  "primaryTag":  "wolf",
-                  "statBias":  [
-                                   "move_speed",
-                                   "low_hp",
-                                   "quick_contact"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.starving_mountain_wolf.1.basic_attack.hunger_bite",
-                       "slot":  "basic_attack",
-                       "name":  "굶주린 물어뜯기",
-                       "category":  "Basic",
-                       "intent":  "짧은 사거리의 빠른 물기.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  3,
-                                       "attackPercentDamage":  40,
-                                       "cooldown":  2.2,
-                                       "castRange":  0.4,
-                                       "hitRange":  0.45,
-                                       "hitCount":  1,
-                                       "targetScore":  40,
-                                       "utility":  [
-
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.starving_mountain_wolf.1",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.starving_mountain_wolf.1",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "굶주린 산짐승",
+        "grade": 1,
+        "tierId": "normal",
+        "role": "fast_melee_swarm",
+        "tags": [
+            "wolf",
+            "beast",
+            "fast"
+        ]
+    },
+    "appearance": {
+        "silhouette": "마른 갈비뼈가 드러난 산짐승, 낮은 자세와 빠른 돌진",
+        "visualKeywords": [
+            "wolf",
+            "beast",
+            "fast"
+        ]
+    },
+    "combat": {
+        "roleIntent": "초반 산길에서 측면 압박을 주는 빠른 근접 적",
+        "preferredRange": "melee",
+        "partyFunction": [
+            "fast_melee_swarm"
+        ]
+    },
+    "planningScore": {
+        "overall": 41,
+        "health": 14,
+        "attack": 35,
+        "defense": 45,
+        "speed": 120,
+        "range": 30,
+        "support": 0
+    },
+    "stats": {
+        "grade": 1,
+        "totalScore": 41,
+        "growthType": "mobile",
+        "primaryTag": "wolf",
+        "statBias": [
+            "move_speed",
+            "low_hp",
+            "quick_contact"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 1.0,
+        "attackSpeedScale": 1.0,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.starving_mountain_wolf.1.basic_attack.hunger_bite",
+            "slot": "basic_attack",
+            "name": "굶주린 물어뜯기",
+            "category": "Basic",
+            "intent": "짧은 사거리의 빠른 물기.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 1,
+                "attackPercentDamage": 15,
+                "cooldown": 1.0,
+                "castRange": 0.4,
+                "hitRange": 0.45,
+                "hitCount": 1,
+                "targetScore": 40,
+                "utility": [],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

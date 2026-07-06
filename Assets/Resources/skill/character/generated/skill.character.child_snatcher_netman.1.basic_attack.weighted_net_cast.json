@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 4.0,
+    "cooldown": 1,
     "castTime": 0,
     "range": 2.2,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 4,
-        "attackPercentDamage": 0.5
+        "baseDamage": 1,
+        "attackPercentDamage": 0.18
       },
       "debuffEffects": [
         {

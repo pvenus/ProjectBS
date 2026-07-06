@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.2,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 0.7,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 8,
-        "attackPercentDamage": 0.9
+        "baseDamage": 2,
+        "attackPercentDamage": 0.25
       },
       "debuffEffects": [
         {

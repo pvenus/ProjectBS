@@ -1,110 +1,115 @@
-﻿{
-    "documentId":  "character_planning.character.hut_blocker_guard.2",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.hut_blocker_guard.2",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "오두막 입구 막이",
-                     "grade":  2,
-                     "tierId":  "normal",
-                     "role":  "door_blocker_tank",
-                     "tags":  [
-                                  "human",
-                                  "bandit",
-                                  "defense",
-                                  "captor"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "여러 겹의 낡은 옷을 꿰맨 두꺼운 천 갑옷과 붉은 손자국 문양을 가진 거구",
-                       "weapon":  "큰 몽둥이",
-                       "visualKeywords":  [
-                                              "padded_cloth_armor",
-                                              "red_hand_mark",
-                                              "door_blocker"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "좁은 문과 탈출로를 막는 중형 방어 적",
-                   "preferredRange":  "melee",
-                   "partyFunction":  [
-                                         "block_exit",
-                                         "tank_front"
-                                     ],
-                   "episodeUse":  [
-                                      "episode.01.01.05-2"
-                                  ]
-               },
-    "planningScore":  {
-                          "overall":  64,
-                          "health":  48,
-                          "attack":  45,
-                          "defense":  165,
-                          "speed":  45,
-                          "range":  35,
-                          "support":  45
-                      },
-    "stats":  {
-                  "grade":  2,
-                  "totalScore":  64,
-                  "growthType":  "defense",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "max_hp",
-                                   "defense",
-                                   "low_speed"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam",
-                       "slot":  "basic_attack",
-                       "name":  "문간 내려치기",
-                       "category":  "Basic",
-                       "intent":  "좁은 전방을 크게 내려친다.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  6,
-                                       "attackPercentDamage":  45,
-                                       "cooldown":  4.2,
-                                       "castRange":  0.5,
-                                       "hitRange":  0.8,
-                                       "hitCount":  2,
-                                       "targetScore":  55,
-                                       "utility":  [
-
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.hut_blocker_guard.2.passive.hold_the_exit",
-                       "slot":  "passive",
-                       "name":  "출구 틀어막기",
-                       "category":  "Passive",
-                       "intent":  "출구나 목표 지점 근처에서 버티는 의도.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  0,
-                                       "attackPercentDamage":  0,
-                                       "cooldown":  0,
-                                       "castRange":  0.4,
-                                       "hitRange":  1,
-                                       "hitCount":  1,
-                                       "targetScore":  110,
-                                       "utility":  [
-                                                       "objective_guard_defense"
-                                                   ]
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "cage_guard_bandit의 오두막 탈출전 특화 확장.",
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.hut_blocker_guard.2",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.hut_blocker_guard.2",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "오두막 입구 막이",
+        "grade": 2,
+        "tierId": "normal",
+        "role": "door_blocker_tank",
+        "tags": [
+            "human",
+            "bandit",
+            "defense",
+            "captor"
+        ]
+    },
+    "appearance": {
+        "silhouette": "여러 겹의 낡은 옷을 꿰맨 두꺼운 천 갑옷과 붉은 손자국 문양을 가진 거구",
+        "weapon": "큰 몽둥이",
+        "visualKeywords": [
+            "padded_cloth_armor",
+            "red_hand_mark",
+            "door_blocker"
+        ]
+    },
+    "combat": {
+        "roleIntent": "좁은 문과 탈출로를 막는 중형 방어 적",
+        "preferredRange": "melee",
+        "partyFunction": [
+            "block_exit",
+            "tank_front"
+        ],
+        "episodeUse": [
+            "episode.01.01.05-2"
+        ]
+    },
+    "planningScore": {
+        "overall": 64,
+        "health": 48,
+        "attack": 45,
+        "defense": 165,
+        "speed": 45,
+        "range": 35,
+        "support": 45
+    },
+    "stats": {
+        "grade": 2,
+        "totalScore": 64,
+        "growthType": "defense",
+        "primaryTag": "human",
+        "statBias": [
+            "max_hp",
+            "defense",
+            "low_speed"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 0.5,
+        "attackSpeedScale": 0.5,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam",
+            "slot": "basic_attack",
+            "name": "문간 내려치기",
+            "category": "Basic",
+            "intent": "좁은 전방을 크게 내려친다.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 4,
+                "attackPercentDamage": 33,
+                "cooldown": 2.0,
+                "castRange": 0.5,
+                "hitRange": 0.8,
+                "hitCount": 2,
+                "targetScore": 55,
+                "utility": [],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        },
+        {
+            "skillId": "skill.character.hut_blocker_guard.2.passive.hold_the_exit",
+            "slot": "passive",
+            "name": "출구 틀어막기",
+            "category": "Passive",
+            "intent": "출구나 목표 지점 근처에서 버티는 의도.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 0,
+                "attackPercentDamage": 0,
+                "cooldown": 0,
+                "castRange": 0.4,
+                "hitRange": 1,
+                "hitCount": 1,
+                "targetScore": 110,
+                "utility": [
+                    "objective_guard_defense"
+                ]
+            }
+        }
+    ],
+    "notes": [
+        "cage_guard_bandit의 오두막 탈출전 특화 확장.",
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

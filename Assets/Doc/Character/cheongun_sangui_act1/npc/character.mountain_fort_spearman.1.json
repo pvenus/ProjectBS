@@ -1,89 +1,94 @@
-﻿{
-    "documentId":  "character_planning.character.mountain_fort_spearman.1",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
-    "identity":  {
-                     "characterId":  "character.mountain_fort_spearman.1",
-                     "characterType":  "Npc",
-                     "runtimeDomain":  "character",
-                     "name":  "산채 창병",
-                     "grade":  1,
-                     "tierId":  "normal",
-                     "role":  "formation_defender_spear",
-                     "tags":  [
-                                  "human",
-                                  "bandit",
-                                  "spear",
-                                  "defense"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "흰 산문양 견갑과 완장을 맞춰 찬 산채 문 앞 창병",
-                       "weapon":  "짧은 창",
-                       "visualKeywords":  [
-                                              "white_mountain_pauldrons",
-                                              "gate_guard",
-                                              "short_spear"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "산채 문 앞에서 전열을 유지하고 궁수/주술 담당을 보호하는 창병",
-                   "preferredRange":  "melee_extended",
-                   "partyFunction":  [
-                                         "front_gate_hold",
-                                         "protect_backline"
-                                     ],
-                   "episodeUse":  [
-                                      "episode.01.01.06"
-                                  ]
-               },
-    "planningScore":  {
-                          "overall":  63,
-                          "health":  29,
-                          "attack":  48,
-                          "defense":  120,
-                          "speed":  65,
-                          "range":  90,
-                          "support":  25
-                      },
-    "stats":  {
-                  "grade":  1,
-                  "totalScore":  63,
-                  "growthType":  "defense",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "defense",
-                                   "range_control"
-                               ],
-                  "hackAndSlashMobBalanceApplied":  true,
-                  "attackScoreMultiplierApplied":  0.5,
-                  "healthScoreMultiplierApplied":  0.25
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust",
-                       "slot":  "basic_attack",
-                       "name":  "문지기 창찌르기",
-                       "category":  "Basic",
-                       "intent":  "긴 근접 사거리로 전방을 찌른다.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  5,
-                                       "attackPercentDamage":  45,
-                                       "cooldown":  3.4,
-                                       "castRange":  0.8,
-                                       "hitRange":  0.7,
-                                       "hitCount":  1,
-                                       "targetScore":  52,
-                                       "utility":  [
-
-                                                   ],
-                                       "directDamageMultiplierApplied":  0.5
-                                   }
-                   }
-               ],
-    "notes":  [
-                  "산채 토벌 전용 전열 병력.",
-                  "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다."
-              ]
+{
+    "documentId": "character_planning.character.mountain_fort_spearman.1",
+    "documentType": "characterPlanning",
+    "commonDataRef": "Assets/Doc/Character/cheongun_sangui_act1/cheongun_sangui_act1.common.json",
+    "identity": {
+        "characterId": "character.mountain_fort_spearman.1",
+        "characterType": "Npc",
+        "runtimeDomain": "character",
+        "name": "산채 창병",
+        "grade": 1,
+        "tierId": "normal",
+        "role": "formation_defender_spear",
+        "tags": [
+            "human",
+            "bandit",
+            "spear",
+            "defense"
+        ]
+    },
+    "appearance": {
+        "silhouette": "흰 산문양 견갑과 완장을 맞춰 찬 산채 문 앞 창병",
+        "weapon": "짧은 창",
+        "visualKeywords": [
+            "white_mountain_pauldrons",
+            "gate_guard",
+            "short_spear"
+        ]
+    },
+    "combat": {
+        "roleIntent": "산채 문 앞에서 전열을 유지하고 궁수/주술 담당을 보호하는 창병",
+        "preferredRange": "melee_extended",
+        "partyFunction": [
+            "front_gate_hold",
+            "protect_backline"
+        ],
+        "episodeUse": [
+            "episode.01.01.06"
+        ]
+    },
+    "planningScore": {
+        "overall": 63,
+        "health": 29,
+        "attack": 48,
+        "defense": 120,
+        "speed": 65,
+        "range": 90,
+        "support": 25
+    },
+    "stats": {
+        "grade": 1,
+        "totalScore": 63,
+        "growthType": "defense",
+        "primaryTag": "human",
+        "statBias": [
+            "defense",
+            "range_control"
+        ],
+        "hackAndSlashMobBalanceApplied": true,
+        "attackScoreMultiplierApplied": 0.5,
+        "healthScoreMultiplierApplied": 0.25,
+        "movementSpeedScale": 0.75,
+        "attackSpeedScale": 0.75,
+        "speedScaleStandard": "0.5 very_slow, 0.75 slow, 1 normal, 1.5 fast, 2 very_fast",
+        "speedCooldownBalanceApplied": true
+    },
+    "skills": [
+        {
+            "skillId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust",
+            "slot": "basic_attack",
+            "name": "문지기 창찌르기",
+            "category": "Basic",
+            "intent": "긴 근접 사거리로 전방을 찌른다.",
+            "balance": {
+                "expectedAttack": 20,
+                "baseDamage": 2,
+                "attackPercentDamage": 22,
+                "cooldown": 1.33,
+                "castRange": 0.8,
+                "hitRange": 0.7,
+                "hitCount": 1,
+                "targetScore": 52,
+                "utility": [],
+                "directDamageMultiplierApplied": 0.5,
+                "damageAdjustedForAttackSpeedCooldown": true,
+                "cooldownFormula": "1 / attackSpeedScale"
+            }
+        }
+    ],
+    "notes": [
+        "산채 토벌 전용 전열 병력.",
+        "핵앤슬래시 다수 몬스터 전투 기준으로 공격 스코어 50%, 체력 스코어 25% 보정 적용. NPC 기본 회복 스탯은 사용하지 않는다.",
+        "Speed and attack speed baseline changed to 1.0; cooldowns now scale from attackSpeedScale."
+    ]
 }

@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.bone_axe_pursuer.1.basic_attack.rough_axe_chop.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.6,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 0.5,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 13,
-        "attackPercentDamage": 1.0
+        "baseDamage": 3,
+        "attackPercentDamage": 0.22
       }
     }
   ]

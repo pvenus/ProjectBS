@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.4,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 0.8,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 10,
-        "attackPercentDamage": 0.9
+        "baseDamage": 2,
+        "attackPercentDamage": 0.22
       }
     }
   ]

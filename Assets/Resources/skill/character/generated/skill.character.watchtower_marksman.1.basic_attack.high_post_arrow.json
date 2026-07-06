@@ -16,7 +16,7 @@
   "cast": {
     "castId": "skill.character.watchtower_marksman.1.basic_attack.high_post_arrow.cast",
     "targetingType": "AutoTargetDirection",
-    "cooldown": 3.1,
+    "cooldown": 1.33,
     "castTime": 0,
     "range": 4.2,
     "skipAttackAnimation": false
@@ -41,8 +41,8 @@
       "deactivateAfterFirstHit": true,
       "targetLayerMask": "Party",
       "damage": {
-        "baseDamage": 11,
-        "attackPercentDamage": 1.0
+        "baseDamage": 3,
+        "attackPercentDamage": 0.22
       }
     }
   ]

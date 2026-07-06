@@ -24,10 +24,11 @@ All skill balance starts from the basic attack baseline.
 
 ```text
 Expected Attack = 20
-Base Damage = 10
-Attack Percent Damage = 100%
-Total Damage = 10 + 20 = 30
-Cooldown = 3s
+Base Damage = 0
+Attack Percent Damage = 50%
+Total Damage = 0 + 20 x 50% = 10
+Attack Speed Scale = 1.0
+Cooldown = 1s
 DPS = 10
 Balance Score = 100
 ```
@@ -57,9 +58,9 @@ Example:
 
 ```text
 ExpectedAttack = 20
-BaseDamage = 10
-AttackPercentDamage = 100%
-TotalDamage = 10 + 20 = 30
+BaseDamage = 0
+AttackPercentDamage = 50%
+TotalDamage = 0 + 20 x 50% = 10
 ```
 
 ### DPS
@@ -98,7 +99,7 @@ Use these values as the default early-game balance baseline.
 |----------|------:|-------|
 | Expected PC Attack | 20 | Default value for damage calculations |
 | Basic Attack DPS | 10 | Equals Balance Score 100 |
-| Basic Attack Cooldown | 3s | Slow but readable early-game attack pace |
+| Basic Attack Cooldown | 1s at Attack Speed 1.0 | Cooldown scales from attack speed |
 | Normal Monster HP | 30 - 60 | Dies in roughly 3 - 6 seconds to baseline DPS |
 | Elite Monster HP | 150 - 250 | Requires sustained focus |
 | Boss HP | 800+ | Depends on encounter length |
@@ -206,7 +207,7 @@ Use higher percent damage for skills that should scale well with equipment or la
 
 | Skill Type | BaseDamage | AttackPercentDamage |
 |------------|-----------:|--------------------:|
-| Basic Grade1 | 10 | 100% |
+| Basic Grade1 | 0 - 5 | 25% - 50% |
 | Basic Grade2 | 25 | 100% |
 | Basic Grade3 | 46 | 100% |
 | Active1 damage-only | 25 - 40 | 100% - 150% |
@@ -223,52 +224,42 @@ The same percent value can be weak or strong depending on expected attack power.
 
 ## 9. Cooldown
 
-Cooldown depends on skill type and user type.
+Cooldown must scale from attack speed.
 
-### Repeating Skills
+Attack speed uses `1.0` as the normal baseline. A character with attack speed `1.0` uses a basic or repeating skill every `1s`.
 
-Repeating skills include basic attacks or simple attacks used frequently.
+| Attack Speed Scale | Meaning | Basic / Repeating Cooldown |
+|-------------------:|---------|---------------------------:|
+| 0.50 | Very slow | 2.00s |
+| 0.75 | Slow | 1.33s |
+| 1.00 | Normal | 1.00s |
+| 1.50 | Fast | 0.67s |
+| 2.00 | Very fast | 0.50s |
 
-| User Type | Fast | Standard | Slow | Notes |
-|-----------|-----:|---------:|-----:|-------|
-| PC | 2s | 3s | 4s | PC basic attacks should preserve the Score 100 baseline |
-| NPC | 1s | 3s | 5s | NPC attacks can use a wider range for pattern variety |
-
-PC basic attacks use `3s` as the standard cooldown.
-
-PC repeated skills may use `2s` only when their damage is reduced to preserve the intended target score.
-
-NPC repeated attacks use `3s` as the standard cooldown.
-
-### Active Skills
-
-Active skill cooldown should be calculated from target DPS.
+Formula:
 
 ```text
-Cooldown = TotalDamage / TargetDPS
+RepeatingCooldown = 1 / AttackSpeedScale
 ```
 
-Example:
+For active skills, first choose a base pattern cooldown from the skill's intended rhythm, then scale it by attack speed:
 
 ```text
-TargetDPS = 15
-TotalDamage = 90
-Cooldown = 6s
+FinalActiveCooldown = BasePatternCooldown / AttackSpeedScale
 ```
 
-After calculating cooldown, adjust slightly for gameplay feel.
-
-Do not assign active cooldown only by feeling.
-
-First decide:
+Examples:
 
 ```text
-1. Target DPS
-2. Expected total damage
-3. Cooldown needed to match target DPS
+AttackSpeedScale 1.0, BasicAttack = 1.00s
+AttackSpeedScale 1.5, BasicAttack = 0.67s
+AttackSpeedScale 0.75, BasicAttack = 1.33s
+BasePatternCooldown 6s, AttackSpeedScale 1.5 => FinalActiveCooldown 4s
 ```
 
-Then adjust the final cooldown for gameplay feel.
+When cooldown becomes shorter because attack speed is higher, reduce per-hit damage if the skill must preserve the same target DPS or target score.
+
+Do not use the older fixed `3s` basic attack baseline for new planning.
 
 ---
 
@@ -668,7 +659,7 @@ When creating a new skill, follow this order.
 4. Use Expected Attack = 20 unless specified otherwise.
 5. Choose BaseDamage and AttackPercentDamage.
 6. Calculate TotalDamage.
-7. Decide cooldown from target DPS.
+7. Decide attack speed scale and cooldown from `1 / AttackSpeedScale` or active pattern cooldown scaling.
 8. Decide hitCount.
 9. Decide castRange and hitRange.
 10. Apply AreaFactor.
@@ -691,7 +682,7 @@ Before accepting a new skill design, check the following.
 [ ] Does it use Expected Attack = 20?
 [ ] Does DPS 10 equal Score 100?
 [ ] Is Basic Grade1 close to Score 100?
-[ ] Does PC Basic Attack use 3s cooldown unless damage is adjusted?
+[ ] Does the basic or repeating cooldown use `1 / AttackSpeedScale`?
 [ ] Is the target score appropriate for the skill slot?
 [ ] Are BaseDamage and AttackPercentDamage both reasonable?
 [ ] Is cooldown calculated from target DPS?
