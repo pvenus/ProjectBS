@@ -7,7 +7,13 @@ namespace Character.UI
     {
         [SerializeField] private SpriteRenderer iconRenderer;
         [SerializeField] private TextMeshPro remainText;
+        [SerializeField] private int textSortingOrderOffset = 1;
         private float remainingSeconds;
+
+        private void Awake()
+        {
+            ApplySorting();
+        }
 
         private void Update()
         {
@@ -35,6 +41,7 @@ namespace Character.UI
         {
             iconRenderer = icon;
             remainText = text;
+            ApplySorting();
         }
 
         public void Show(
@@ -55,12 +62,34 @@ namespace Character.UI
             {
                 remainText.text = Mathf.CeilToInt(remainingSeconds).ToString();
             }
+
+            ApplySorting();
         }
 
         public void Hide()
         {
             remainingSeconds = 0f;
             gameObject.SetActive(false);
+        }
+
+        private void ApplySorting()
+        {
+            if (iconRenderer == null || remainText == null)
+            {
+                return;
+            }
+
+            MeshRenderer textRenderer =
+                remainText.GetComponent<MeshRenderer>();
+
+            if (textRenderer == null)
+            {
+                return;
+            }
+
+            textRenderer.sortingLayerID = iconRenderer.sortingLayerID;
+            textRenderer.sortingOrder =
+                iconRenderer.sortingOrder + textSortingOrderOffset;
         }
     }
 }
