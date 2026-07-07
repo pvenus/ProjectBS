@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41a661d9c6f94f19b59d9c40ba4e30b, type: 3}
   m_Name: skill.military_officer.1.basic_attack.move
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
-  moveType: 1
-  config:
-    rid: 6756114615276929093
+  moveId: skill.military_officer.1.basic_attack.move
   applyDirectionRotation: 1
   rotationOffset: 0
+  moveType: 1
+  config:
+    rid: 4316572842846584989
   references:
     version: 2
     RefIds:
-    - rid: 6756114615276929093
+    - rid: 4316572842846584989
       type: {class: LinearMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
       data:
         speed: 0

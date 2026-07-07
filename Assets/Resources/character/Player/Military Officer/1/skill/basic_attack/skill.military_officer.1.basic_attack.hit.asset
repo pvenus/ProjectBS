@@ -12,20 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
   m_Name: skill.military_officer.1.basic_attack.hit
   m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  hitId: skill.military_officer.1.basic_attack.hit
   maxHitCount: 999
   ignoreSameRoot: 1
   useRepeatInterval: 0
   repeatInterval: 0.25
-  useHitWindow: 0
   hitStartTime: 0
   deactivateAfterFirstHit: 1
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  damageSo: {fileID: 11400000, guid: ebe32f1b844194060b4e68c80c4279d5, type: 2}
-  firstHitBaseDamage: 0
-  buffEffects: []
-  debuffEffects: []
-  useSplitMultiHitDamage: 0
-  splitHitCount: 4
-  splitHitInterval: 0.1
+  damage:
+    damageType: 0
+    baseDamage: 15
+    firstHitBaseDamage: 0
+    attackPercentDamage: 1
+    canCritical: 1
+    ignoreDefense: 0
+  skillSpawn:
+    spawnSkill: {fileID: 0}
+  effects:
+    buffEffects: []
+    debuffEffects: []
+  split:
+    useSplitMultiHitDamage: 0
+    splitHitCount: 4
+    splitHitInterval: 0.1

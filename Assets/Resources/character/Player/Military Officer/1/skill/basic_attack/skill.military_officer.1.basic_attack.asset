@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: skill.military_officer.1.basic_attack
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.military_officer.1.basic_attack
-  icon: {fileID: 21300000, guid: 9b8f383251760458d9113be29f99454d, type: 3}
-  baseProfileSo: {fileID: 11400000, guid: dc960c5b059804c2193e6a46bce8b2ba, type: 2}
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 0}
   castSo: {fileID: 11400000, guid: 17a6e827a2cc047f9b4a6df5de0584c1, type: 2}
   hitSos:
   - {fileID: 11400000, guid: cf4e0c6fa76ff49efb5bb38965ee1269, type: 2}
   moveSo: {fileID: 11400000, guid: 27f327f675ef546cc82f96b5e7fb5e6b, type: 2}
   spawnSkillSo: {fileID: 0}
-  upgradeTableSo: {fileID: 11400000, guid: 674aac6faefd44a9eb24f1dce8b31eb4, type: 2}
-  visualSetSo: {fileID: 11400000, guid: 1af1b79b9b5c64932a37bb8b958f8a03, type: 2}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: d59c4fe4b49cd4e159317a401209512b, type: 2}

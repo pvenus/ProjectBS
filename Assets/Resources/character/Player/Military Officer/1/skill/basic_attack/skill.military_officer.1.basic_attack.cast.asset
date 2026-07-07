@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdfb642961ab451b87e9c00a70de4c1, type: 3}
   m_Name: skill.military_officer.1.basic_attack.cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
+  castId: skill.military_officer.1.basic_attack.cast
   cooldown: 1
   castTime: 0
-  range: 0.4
-  burstCount: 1
-  burstInterval: 0
-  castType: 0
+  range: 0.6
   targetingType: 2
-  castMove: {fileID: 0}
+  burst:
+    count: 1
+    interval: 0
+  castMove:
+    moveType: 0
+    distance: 0
+    duration: 0
   selfEffects: []
-  canMoveWhileCasting: 0
-  canCancelCasting: 0
-  autoCast: 1
+  skipAttackAnimation: 0
