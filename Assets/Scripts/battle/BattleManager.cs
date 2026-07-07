@@ -9,6 +9,8 @@ namespace Battle
 
         private BattleSession battleSession;
         private bool isInitialPrefabSpawned;
+        private bool isSpawnSequenceFinished;
+        private bool isWaitingForBattleEndUpgrade;
 
         public BattleSession BattleSession => battleSession;
 
@@ -164,6 +166,7 @@ namespace Battle
             }
 
             UnsubscribeBattleSpawnManager();
+            isSpawnSequenceFinished = false;
             spawnManager.OnSequenceFinished += HandleSpawnSequenceFinished;
             spawnManager.PlaySequence(
                 spawnSequence,
@@ -256,6 +259,16 @@ namespace Battle
             if (battleSession.BattleSO != null &&
                 battleSession.BattleSO.SpawnSequence != null)
             {
+                if (!isSpawnSequenceFinished)
+                {
+                    return;
+                }
+
+                if (EnemyRegistry.Instance.ActiveEnemies.Count <= 0)
+                {
+                    CompleteBattle();
+                }
+
                 return;
             }
 
@@ -275,10 +288,7 @@ namespace Battle
                 return;
             }
 
-            if (battleSession.BattleRuntime.victoryRule == BattleVictoryRule.ClearAllEnemies)
-            {
-                CompleteBattle();
-            }
+            isSpawnSequenceFinished = true;
         }
 
         private void UnsubscribeBattleSpawnManager()
@@ -320,6 +330,52 @@ namespace Battle
 
             battleSession.BattleRuntime.isCompleted = true;
 
+            OpenBattleEndUpgradeOrEndBattle();
+        }
+
+        private void OpenBattleEndUpgradeOrEndBattle()
+        {
+            if (isWaitingForBattleEndUpgrade)
+            {
+                return;
+            }
+
+            UIEquipmentUpgradeMono upgradeUI =
+                FindObjectOfType<UIEquipmentUpgradeMono>(true);
+
+            if (upgradeUI == null)
+            {
+                UIEquipmentUpgradeMono upgradePrefab =
+                    Resources.Load<UIEquipmentUpgradeMono>("skill/Upgrade UI");
+
+                if (upgradePrefab != null)
+                {
+                    upgradeUI = Instantiate(upgradePrefab);
+                }
+            }
+
+            if (upgradeUI == null)
+            {
+                Debug.LogWarning(
+                    "[BattleManager] Skill upgrade UI not found. Ending battle without upgrade.");
+
+                EndBattle();
+                return;
+            }
+
+            isWaitingForBattleEndUpgrade = true;
+            bool opened =
+                upgradeUI.OpenWithCompletion(HandleBattleEndUpgradeCompleted);
+
+            if (!opened)
+            {
+                isWaitingForBattleEndUpgrade = false;
+            }
+        }
+
+        private void HandleBattleEndUpgradeCompleted()
+        {
+            isWaitingForBattleEndUpgrade = false;
             EndBattle();
         }
 

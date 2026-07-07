@@ -34,6 +34,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
 
     private bool isOpen;
     private float previousTimeScale = 1f;
+    private System.Action onUpgradeCompleted;
     private readonly EquipmentStatResolver statResolver = new();
     private readonly EquipmentUpgradeComparisonService comparisonService = new();
 
@@ -55,6 +56,22 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
     public void Open()
     {
         Open(CollectPlayerCharacterManagers());
+    }
+
+    public bool OpenWithCompletion(
+        System.Action completionCallback)
+    {
+        Open(CollectPlayerCharacterManagers());
+
+        if (options.Count == 0)
+        {
+            Close();
+            completionCallback?.Invoke();
+            return false;
+        }
+
+        onUpgradeCompleted = completionCallback;
+        return true;
     }
 
     public void Open(
@@ -108,6 +125,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         }
 
         isOpen = false;
+        onUpgradeCompleted = null;
         RestoreTimeScaleIfNeeded();
         ClearOptions();
         gameObject.SetActive(false);
@@ -677,7 +695,9 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         }
 
         SetStatus($"{option.SkillInstance.equipmentId} Lv.{currentLevel} → Lv.{nextLevel}");
+        System.Action completionCallback = onUpgradeCompleted;
         Close();
+        completionCallback?.Invoke();
     }
 
     private void ResolveReferences()
