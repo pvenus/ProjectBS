@@ -21,7 +21,7 @@ namespace Battle
         public float normalRelicDropChance;
         public float bossRelicDropChance;
 
-        public GameObject backgroundPrefab;
+        public Sprite backgroundSprite;
         public GameObject monsterSpawnerPrefab;
 
         public bool bossKilled;

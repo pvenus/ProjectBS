@@ -203,6 +203,45 @@ namespace ResourceTools
             return null;
         }
 
+        public static Sprite FindSprite(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
+
+            string normalizedTarget = NormalizeKey(key);
+            string[] guids = AssetDatabase.FindAssets("t:Texture2D");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                UnityEngine.Object[] assets =
+                    AssetDatabase.LoadAllAssetsAtPath(path);
+
+                foreach (UnityEngine.Object asset in assets)
+                {
+                    Sprite sprite = asset as Sprite;
+
+                    if (sprite == null)
+                    {
+                        continue;
+                    }
+
+                    string assetName = Path.GetFileNameWithoutExtension(path);
+
+                    if (NormalizeKey(assetName) == normalizedTarget ||
+                        NormalizeKey(sprite.name) == normalizedTarget)
+                    {
+                        return sprite;
+                    }
+                }
+            }
+
+            Debug.LogWarning($"[BattleAssetBuilderUtility] Sprite not found. key={key}");
+            return null;
+        }
+
         public static CharacterSO FindCharacterSO(string characterId)
         {
             if (string.IsNullOrEmpty(characterId))

@@ -201,7 +201,7 @@ public class BattleSpawnManager : MonoBehaviour
             relicDropPool = battleSession.BattleSO.RelicDropPool,
             normalRelicDropChance = battleSession.BattleSO.NormalRelicDropChance,
             bossRelicDropChance = battleSession.BattleSO.BossRelicDropChance,
-            backgroundPrefab = battleSession.BattleSO.BackgroundPrefab,
+            backgroundSprite = battleSession.BattleSO.BackgroundSprite,
             bossKilled = false,
             remainingEnemyCount = 0,
             isCompleted = false,
@@ -214,21 +214,29 @@ public class BattleSpawnManager : MonoBehaviour
         if (isInitialPrefabSpawned) return;
 
         Battle.BattleRuntime runtime = battleSession.BattleRuntime;
-        if (runtime != null && runtime.backgroundPrefab != null)
+        if (runtime != null)
         {
-            SpawnPrefab(runtime.backgroundPrefab, "Background");
+            SpawnBackground(runtime);
         }
 
         isInitialPrefabSpawned = true;
     }
 
-    private GameObject SpawnPrefab(GameObject prefab, string objectName)
+    private GameObject SpawnBackground(Battle.BattleRuntime runtime)
     {
-        if (prefab == null) return null;
+        if (runtime.backgroundSprite != null)
+        {
+            GameObject backgroundObject = new GameObject("Background");
+            backgroundObject.transform.SetParent(transform, false);
 
-        GameObject spawnedObject = Instantiate(prefab, transform);
-        spawnedObject.name = objectName;
-        return spawnedObject;
+            SpriteRenderer renderer = backgroundObject.AddComponent<SpriteRenderer>();
+            renderer.sprite = runtime.backgroundSprite;
+            renderer.sortingOrder = -1000;
+
+            return backgroundObject;
+        }
+
+        return null;
     }
 
     private void CompleteBattleForTest()

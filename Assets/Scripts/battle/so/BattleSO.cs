@@ -30,8 +30,8 @@ namespace Battle
 
         public string battleName;
 
-        [Header("Prefab")]
-        public GameObject backgroundPrefab;
+        [Header("Background")]
+        public Sprite backgroundSprite;
 
         [Header("New Spawn System")]
         public SpawnSequenceSO spawnSequence;
@@ -63,7 +63,7 @@ namespace Battle
 
         public string BattleName => battleName;
 
-        public GameObject BackgroundPrefab => backgroundPrefab;
+        public Sprite BackgroundSprite => backgroundSprite;
 
         public SpawnSequenceSO SpawnSequence => spawnSequence;
 

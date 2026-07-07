@@ -243,7 +243,7 @@ namespace ResourceTools
             public string battleName;
             public string victoryRule;
             public float survivalTimeSeconds;
-            public string backgroundPrefab;
+            public string backgroundSprite;
             public string spawnSequenceId;
             public string spawnSequencePath;
             public List<SpawnUnitBindingJson> spawnUnitBindings = new();

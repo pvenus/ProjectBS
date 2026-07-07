@@ -97,13 +97,30 @@ namespace ResourceTools
             battleSO.rewardExperience = data.rewardExperience;
             battleSO.normalRelicDropChance = data.normalRelicDropChance;
             battleSO.bossRelicDropChance = data.bossRelicDropChance;
-            battleSO.backgroundPrefab =
-                BattleAssetBuilderUtility.FindPrefab(data.backgroundPrefab);
+            battleSO.backgroundSprite =
+                BattleAssetBuilderUtility.FindSprite(
+                    ResolveBackgroundSpriteKey(data));
             battleSO.spawnSequence = spawnSequence;
             battleSO.spawnUnitBindings =
                 ConvertSpawnUnitBindings(data.spawnUnitBindings);
             battleSO.timedPropPlacements =
                 ConvertTimedPropPlacements(data.timedPropPlacements);
+        }
+
+        private static string ResolveBackgroundSpriteKey(
+            BattleJsonGenerator.BattleJson data)
+        {
+            if (!string.IsNullOrEmpty(data.backgroundSprite))
+            {
+                return data.backgroundSprite;
+            }
+
+            if (!string.IsNullOrEmpty(data.battleId))
+            {
+                return $"{data.battleId}.background";
+            }
+
+            return string.Empty;
         }
 
         private static SpawnUnitBinding[] ConvertSpawnUnitBindings(

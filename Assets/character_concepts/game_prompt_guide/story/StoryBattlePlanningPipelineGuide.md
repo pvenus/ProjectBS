@@ -16,6 +16,7 @@ Episode Markdown
   -> Episode Planning JSON
   -> Episode Battle Monster Pool JSON
   -> Episode Battle Plan JSON
+  -> Battle Background Image
   -> BattleStoryContext JSON
   -> BattleSO Input JSON
   -> BattleSO Asset Builder
@@ -111,12 +112,42 @@ This step chooses:
 - spawner difficulty
 - spawn count balance
 - spawn slot to monster pool mapping
+- background image direction
 - BattleSO readiness
 
 If no reusable spawner matches, this step fails and does not create the battle
 plan JSON.
 
-### 4. Battle Generation From Plan
+### 4. Battle Background Image
+
+Guide:
+
+```text
+Assets/character_concepts/game_prompt_guide/battle/BattleCreateGuide.md
+Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
+```
+
+Input:
+
+```text
+Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_plan.chapter_XX.json
+```
+
+Creates:
+
+```text
+Assets/Resources/battle/battle_png/{battleId}.background.png
+```
+
+This step creates one composed 16:9 battle background Sprite by default.
+
+It uses `backgroundImageDirection` from the battle plan and should target
+`2560x1440` pixel-game background art unless the plan says otherwise.
+
+It must not create split floor/background/parallax layers unless explicitly
+requested.
+
+### 5. Battle Generation From Plan
 
 Guide:
 
@@ -142,7 +173,7 @@ This step creates the BattleSO input JSON.
 
 It does not need to run Unity editor asset generation unless explicitly asked.
 
-### 5. BattleSO Asset Build
+### 6. BattleSO Asset Build
 
 Guide:
 
@@ -203,4 +234,3 @@ Before finishing any step:
 - Validate referenced files exist, except future hint refs explicitly marked as hints.
 - Validate enum-like values against existing guides or code.
 - Report whether the next step can run.
-

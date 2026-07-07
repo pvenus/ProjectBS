@@ -102,7 +102,7 @@ namespace Battle
                 relicDropPool = battleSO.RelicDropPool,
                 normalRelicDropChance = battleSO.NormalRelicDropChance,
                 bossRelicDropChance = battleSO.BossRelicDropChance,
-                backgroundPrefab = battleSO.BackgroundPrefab,
+                backgroundSprite = battleSO.BackgroundSprite,
                 // monsterSpawnerPrefab assignment removed
                 bossKilled = false,
                 remainingEnemyCount = 0,
@@ -128,9 +128,8 @@ namespace Battle
                 return;
             }
 
-            SpawnPrefab(
-                battleRuntime.backgroundPrefab,
-                "Background");
+            SpawnBackground(
+                battleRuntime);
 
             StartBattleSpawnSequence();
 
@@ -187,24 +186,29 @@ namespace Battle
             return spawnManagerObject.AddComponent<BattleSpawnManager>();
         }
 
-        private GameObject SpawnPrefab(
-            GameObject prefab,
-            string objectName)
+        private GameObject SpawnBackground(
+            BattleRuntime battleRuntime)
         {
-            if (prefab == null)
+            if (battleRuntime == null)
             {
                 return null;
             }
 
-            GameObject spawnedObject =
-                Instantiate(
-                    prefab,
-                    transform);
+            if (battleRuntime.backgroundSprite != null)
+            {
+                GameObject backgroundObject =
+                    new GameObject("Background");
+                backgroundObject.transform.SetParent(transform, false);
 
-            spawnedObject.name =
-                objectName;
+                SpriteRenderer renderer =
+                    backgroundObject.AddComponent<SpriteRenderer>();
+                renderer.sprite = battleRuntime.backgroundSprite;
+                renderer.sortingOrder = -1000;
 
-            return spawnedObject;
+                return backgroundObject;
+            }
+
+            return null;
         }
 
         private void UpdateVictoryRule()

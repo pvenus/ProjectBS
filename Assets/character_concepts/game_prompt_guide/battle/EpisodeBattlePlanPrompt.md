@@ -33,9 +33,10 @@ Input:
 5. 각 후보의 difficulty, targetPartySize, targetSpawnCount, spawnRole, spawnUnitKey를 비교한다.
 6. forbidden role/pressure와 충돌하는 후보를 제외한다.
 7. 필수 슬롯을 몬스터 풀로 바인딩할 수 있는 후보를 선택한다.
-8. 후보가 있으면 episode_battle_plan.chapter_XX.json을 생성한다.
-9. 후보가 없으면 JSON을 만들지 말고 실패 메시지를 출력한다.
-10. story_context, episode_composition, episode JSON에 battlePlanRef 또는 battlePlanStatus를 갱신한다.
+8. battleDirection과 전투 공간 정보를 기준으로 backgroundImageDirection을 작성한다.
+9. 후보가 있으면 episode_battle_plan.chapter_XX.json을 생성한다.
+10. 후보가 없으면 JSON을 만들지 말고 실패 메시지를 출력한다.
+11. story_context, episode_composition, episode JSON에 battlePlanRef 또는 battlePlanStatus를 갱신한다.
 
 Output:
 - 선택된 스포너 요약 또는 실패 사유
@@ -43,6 +44,7 @@ Output:
 - battleId
 - battleStoryContextRef
 - battleJsonRef
+- backgroundImageDirection
 - spawnSequenceId
 - requiredSlots
 - selectedBindings
@@ -63,4 +65,3 @@ Output:
 - patternKind, spawnRole, victoryRule enum은 기존 코드/가이드와 맞아야 한다.
 - 후보가 없을 때 실패 JSON 파일을 만들지 않는다.
 ```
-

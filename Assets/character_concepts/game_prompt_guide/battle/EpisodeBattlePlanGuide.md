@@ -70,10 +70,62 @@ battleStoryContextRef
 battleJsonRef
 planningStatus
 battleDirection
+backgroundImageDirection
 spawnerSelection
 monsterPoolSelection
 battleSOReadiness
 ```
+
+## Background Image Direction
+
+The episode battle plan should include image-generation direction for the
+BattleSO background, but it should not create the image file.
+
+`backgroundImageDirection` should describe:
+
+```text
+status
+assetMode
+targetFileName
+targetResourcePath
+style
+aspectRatio
+targetResolution
+camera
+environment
+combatReadability
+mood
+mustInclude
+mustAvoid
+promptSeed
+```
+
+Recommended defaults:
+
+- `assetMode`: `single_sprite`
+- `targetFileName`: `{battleId}.background.png`
+- `targetResourcePath`: `Assets/Resources/battle/battle_png/{battleId}.background.png`
+- `style`: `pixel_game_background`
+- `aspectRatio`: `16:9`
+- `targetResolution`: `2560x1440`
+
+The direction should be derived from battle planning data:
+
+- story location and time from episode planning
+- battle purpose and emotional tone from `battleDirection`
+- space tags and gameplay constraints from battle story context
+- spawner rhythm only as visual pacing hints, not as literal spawn markers
+- forbidden conditions as visual avoid rules
+
+The background is a gameplay surface, not an illustration cutscene.
+
+It should preserve a readable central combat area, avoid large foreground
+blockers, and avoid characters, monsters, UI, text, logos, or story spoilers.
+
+Do not split background layers by default.
+
+Use one composed background sprite unless the user explicitly requests separate
+background/floor/parallax layers.
 
 ## Spawner Selection
 
@@ -144,4 +196,3 @@ Failure response should include:
 - Every required slot has exact binding or role fallback.
 - No forbidden role is used.
 - `battleSOReadiness.canCreateBattleSO` is true only when all bindings resolve.
-

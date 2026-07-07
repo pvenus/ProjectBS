@@ -50,14 +50,16 @@ them to spawn slots.
 5. Record the selected spawner type, difficulty, source file, and selection reason in battle JSON.
 6. Read the selected spawner's required `spawnUnitKey` and `spawnRole` slots.
 7. Map monsters to those slots through BattleSO `spawnUnitBindings`.
-8. Create or update BattleSO.
-9. Validate that the spawn sequence can resolve every required slot.
+8. Create or confirm the BattleSO background image from battle planning.
+9. Create or update BattleSO.
+10. Validate that the spawn sequence can resolve every required slot.
 
 ## BattleSO Data
 
 BattleSO must store:
 
 - battle identity and display metadata
+- selected background sprite
 - battle rules and rewards
 - selected `SpawnSequenceSO`
 - `spawnUnitBindings`
@@ -95,6 +97,60 @@ Example concept:
 
 The exact runtime asset field is a CharacterSO reference. JSON authoring may use
 `characterId` only as an editor/build-time lookup key.
+
+## Background Image Generation
+
+Battle background image generation is driven by battle planning data.
+
+Use the selected battle plan's `backgroundImageDirection` together with:
+
+- battle id
+- battle purpose
+- location and time of day
+- space tags
+- rhythm tags as mood/pacing hints
+- forbidden conditions
+- required gameplay readability
+
+Default output:
+
+```text
+Assets/Resources/battle/battle_png/{battleId}.background.png
+```
+
+The BattleSO input JSON should store:
+
+```json
+{
+  "backgroundSprite": "{battleId}.background"
+}
+```
+
+If `backgroundSprite` is omitted, the editor builder attempts to find a Sprite
+named `{battleId}.background`.
+
+Image generation requirements:
+
+- Create one composed 16:9 background sprite by default.
+- Target `2560x1440`.
+- Use a pixel-game background style unless the plan explicitly says otherwise.
+- Keep the center readable for combat.
+- Keep objects small enough that characters and enemy attacks remain visible.
+- Avoid characters, monsters, UI, text, logos, and large foreground blockers.
+- Do not include spawn markers or literal encounter diagrams.
+- Do not split floor/background/parallax layers unless the user explicitly asks.
+
+The generated PNG must be imported as a Sprite and saved with a stable `.meta`
+file.
+
+For pixel-game backgrounds, prefer point filtering in the texture importer.
+
+Validation:
+
+- The PNG exists at `Assets/Resources/battle/battle_png/{battleId}.background.png`.
+- The image has a 16:9 layout and expected target resolution.
+- The `.meta` imports it as `textureType: Sprite`.
+- The BattleSO asset references the same Sprite GUID after build.
 
 ## Battle-Spawner Connection Metadata
 

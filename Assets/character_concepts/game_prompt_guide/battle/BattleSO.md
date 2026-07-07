@@ -74,7 +74,7 @@ seq.{encounter_group}.{purpose}
   "battleName": "Forest Ambush",
   "victoryRule": "ClearAllEnemies",
   "survivalTimeSeconds": 0,
-  "backgroundPrefab": "ForestBattleBackground",
+  "backgroundSprite": "battle.forest.001.background",
   "spawnerSelection": {
     "spawnerType": "field_ambush",
     "difficulty": "normal",
@@ -107,7 +107,7 @@ seq.{encounter_group}.{purpose}
 | battleName | string | No | Display/debug name. |
 | victoryRule | enum string | Yes | `KillBoss`, `ClearAllEnemies`, or `SurviveTime`. |
 | survivalTimeSeconds | number | Yes | Must be `0` or greater. Used by `SurviveTime`. |
-| backgroundPrefab | string | No | Prefab asset name lookup key. |
+| backgroundSprite | string | No | Sprite asset lookup key. If omitted, builder tries `{battleId}.background`. Store generated battle background PNGs under `Assets/Resources/battle/battle_png/{battleId}.background.png`. |
 | spawnerSelection | object | No | Authoring/debug metadata describing which spawner type and difficulty were selected. |
 | spawnSequenceId | string | Yes if path empty | Main `SpawnSequenceSO` lookup key. |
 | spawnSequencePath | string | Yes if id empty | Asset path or path relative to the battle JSON folder. |
@@ -371,6 +371,44 @@ Build validation also rejects:
 - Referenced `CharacterSO` for a spawn unit binding not found
 - Required spawn sequence slot not covered by exact key binding or role fallback
 
+## Background Sprite Authoring
+
+BattleSO background sprites are generated from battle planning, not chosen as
+generic decorative images.
+
+Use the `backgroundImageDirection` from episode battle planning to generate one
+composed background image by default.
+
+Recommended path and name:
+
+```text
+Assets/Resources/battle/battle_png/{battleId}.background.png
+```
+
+Recommended JSON value:
+
+```json
+{
+  "backgroundSprite": "{battleId}.background"
+}
+```
+
+Generation guidelines:
+
+- Target `2560x1440`, 16:9.
+- Use a pixel-game background style for battle stages unless overridden.
+- Preserve a readable central combat area.
+- Keep props and environmental objects small enough for combat readability.
+- Avoid characters, monsters, UI, text, logos, and large foreground blockers.
+- Do not create separate floor/background layers unless explicitly requested.
+
+Validation:
+
+- PNG exists under `Assets/Resources/battle/battle_png/`.
+- PNG `.meta` imports as a Sprite.
+- `backgroundSprite` resolves by exact sprite/file name.
+- Built BattleSO stores the resolved Sprite reference.
+
 ## Minimal Battle Example
 
 ```json
@@ -379,7 +417,7 @@ Build validation also rejects:
   "battleName": "Forest Ambush",
   "victoryRule": "ClearAllEnemies",
   "survivalTimeSeconds": 0,
-  "backgroundPrefab": "ForestBattleBackground",
+  "backgroundSprite": "battle.forest.001.background",
   "spawnSequenceId": "seq.forest.001.main",
   "spawnSequencePath": "",
   "spawnUnitBindings": [
