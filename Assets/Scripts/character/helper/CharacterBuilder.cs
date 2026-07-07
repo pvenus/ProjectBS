@@ -9,8 +9,12 @@ namespace Character.Helper
     {
         private const string EnemyLayerName = "Enemy";
         private const string PartyLayerName = "Party";
-        private const float EnemyColliderRadius = 0.1f;
+        private const string PcMaterialResourcePath = "material/pc";
+        private const string NpcMaterialResourcePath = "material/npc";
+        private const float EnemyColliderRadius = 0.05f;
         private const float PartyColliderRadius = 0.05f;
+        private static Material pcMaterial;
+        private static Material npcMaterial;
 
         public static GameObject CreateNpcObject(
             string objectName = "Npc",
@@ -255,6 +259,7 @@ namespace Character.Helper
 
             SetupSpriteRenderer(
                 target,
+                layerName,
                 sprite);
 
             CharacterManager characterManager =
@@ -307,6 +312,7 @@ namespace Character.Helper
 
         private static void SetupSpriteRenderer(
             GameObject target,
+            string layerName,
             Sprite sprite)
         {
             SpriteRenderer spriteRenderer = EnsureComponent<SpriteRenderer>(target);
@@ -314,6 +320,24 @@ namespace Character.Helper
             {
                 spriteRenderer.sprite = sprite;
             }
+
+            Material material = ResolveSpriteMaterial(layerName);
+            if (material != null)
+            {
+                spriteRenderer.sharedMaterial = material;
+            }
+        }
+
+        private static Material ResolveSpriteMaterial(string layerName)
+        {
+            if (IsPartyLayer(layerName))
+            {
+                pcMaterial ??= Resources.Load<Material>(PcMaterialResourcePath);
+                return pcMaterial;
+            }
+
+            npcMaterial ??= Resources.Load<Material>(NpcMaterialResourcePath);
+            return npcMaterial;
         }
 
         private static float ResolveColliderRadius(string layerName)
