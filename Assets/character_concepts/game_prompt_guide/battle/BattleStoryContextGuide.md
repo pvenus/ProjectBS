@@ -195,15 +195,27 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
   "objectiveTags": [],
   "toneTags": ["tense", "wild"],
   "difficultyHint": "normal",
+  "targetPartySize": 3,
+  "battleModeHint": "elimination",
+  "targetBattleLengthSec": 90,
+  "spawnWindowSec": 60,
+  "clearWindowSec": 30,
   "requiredMonsterTags": ["wolf"],
   "preferredMonsterTags": ["fast", "melee"],
   "forbiddenMonsterTags": ["boss"],
   "requiredSpawnTags": ["front_then_flank"],
   "forbiddenSpawnTags": ["heavy_surround", "backline_artillery"],
   "spawnSelectionHints": {
+    "candidateSpawnerTypes": ["front_then_flank", "elimination_90s_swarm"],
+    "preferredDifficulty": "normal",
+    "targetPartySize": 3,
+    "targetSpawnCountHint": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
     "preferredVariationTags": ["front_then_flank", "delayed_ambush"],
     "avoidVariationTags": ["heavy_surround"],
-    "requiredRoleSlots": ["front_basic", "flank_active"]
+    "requiredRoleSlots": ["front_basic", "flank_active"],
+    "selectionReasonHint": "Use readable front contact with delayed flank pressure."
   },
   "notes": [
     "The encounter should feel like a natural animal ambush, not a military formation."
@@ -233,7 +245,12 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
 | rhythmTags | Yes | Timing and pacing implied by the story. |
 | objectiveTags | No | Prop/objective pressure, if present. |
 | toneTags | No | Emotional flavor for selection and naming. |
-| difficultyHint | Yes | `easy`, `normal`, `hard`, `elite`, or `boss`. |
+| difficultyHint | Yes | `very_easy`, `easy`, `normal`, `hard`, `very_hard`, or `boss`. |
+| targetPartySize | No | Expected party size for balancing. Use `1`, `2`, or `3` when known. |
+| battleModeHint | No | Battle mode such as `elimination`, `survival`, `defense`, or `boss`. |
+| targetBattleLengthSec | No | Desired total battle duration. Use `90` for standard elimination. |
+| spawnWindowSec | No | Desired active spawn window. Use about `60` for 90-second elimination. |
+| clearWindowSec | No | Desired cleanup window after final spawn. Use about `30` for 90-second elimination. |
 | requiredMonsterTags | No | Monster tags that must appear. |
 | preferredMonsterTags | No | Monster tags that fit the story. |
 | forbiddenMonsterTags | No | Monster tags that should not appear. |
@@ -241,6 +258,89 @@ It is not consumed directly by `BattleJsonGenerator` unless a future builder is 
 | forbiddenSpawnTags | No | Spawn variation tags that should not appear. |
 | spawnSelectionHints | No | Optional hints for later `SpawnVariationProfile` selection. |
 | notes | No | Short human-readable constraints. |
+
+## Battle Mode And Pacing Hints
+
+Story context should preserve enough pacing data for spawner selection.
+
+Use these fields when the story or design intent implies them:
+
+```json
+{
+  "battleModeHint": "elimination",
+  "targetPartySize": 3,
+  "targetBattleLengthSec": 90,
+  "spawnWindowSec": 60,
+  "clearWindowSec": 30,
+  "difficultyHint": "normal"
+}
+```
+
+Common battle modes:
+
+```text
+elimination
+survival
+defense
+escort
+boss
+boss_adds
+objective_pressure
+```
+
+For hack-and-slash elimination battles, default to:
+
+- `targetBattleLengthSec`: `90`
+- `spawnWindowSec`: `60`
+- `clearWindowSec`: `30`
+- `targetPartySize`: `3` for normal/hard/very hard/boss
+- `targetPartySize`: `2` for easy
+- `targetPartySize`: `1` for very easy
+
+Do not force these values when the story clearly implies another mode, such as
+survival, defense, or boss staging.
+
+## Spawner Selection Surface
+
+Spawner selection should be possible from `BattleStoryContext` without reading
+the full story again.
+
+The important selection surface is:
+
+- `battleModeHint`
+- `difficultyHint`
+- `targetPartySize`
+- `targetBattleLengthSec`
+- `spawnWindowSec`
+- `clearWindowSec`
+- `locationTags`
+- `situationTags`
+- `intentTags`
+- `spaceTags`
+- `rhythmTags`
+- `objectiveTags`
+- `requiredSpawnTags`
+- `forbiddenSpawnTags`
+- `spawnSelectionHints`
+- monster role availability from `monsterCompositionRef`
+
+`spawnSelectionHints` may include:
+
+```json
+{
+  "candidateSpawnerTypes": ["elimination_90s_swarm"],
+  "preferredDifficulty": "normal",
+  "targetSpawnCountHint": 80,
+  "preferredVariationTags": ["surround", "escalating", "staggered"],
+  "avoidVariationTags": ["heavy_surround"],
+  "requiredRoleSlots": ["fodder_melee", "fast_melee", "pressure_ranged"],
+  "selectionReasonHint": "The story needs a broad 90-second swarm rather than a short ambush."
+}
+```
+
+These hints should not name a final `SpawnSequenceSO` unless the task explicitly
+includes spawner selection. They are used later to choose `spawnerType`,
+`difficulty`, and finally `spawnSequenceId`.
 
 ## Tag Groups
 
@@ -389,6 +489,11 @@ Convert story language into battle context using these rules:
 | Player must survive | `intentTags: ["survive_contact"]`, `rhythmTags: ["loop_pressure"]` |
 | A leader appears | `requiredMonsterTags: ["elite"]` or `["boss"]` |
 | Story is an early tutorial | `forbiddenSpawnTags: ["heavy_surround", "overlap_pressure"]` |
+| Story calls for a short clear-all fight | `battleModeHint: "elimination"`, `targetBattleLengthSec: 90` |
+| Story calls for many weak enemies | `intentTags: ["pressure", "attrition"]`, `preferredVariationTags: ["swarm"]` |
+| Story calls for one-player testing | `targetPartySize: 1`, `difficultyHint: "very_easy"` |
+| Story calls for two-player testing | `targetPartySize: 2`, `difficultyHint: "easy"` |
+| Story calls for three-player baseline | `targetPartySize: 3`, `difficultyHint: "normal"` |
 
 ## Required Separation
 
@@ -398,6 +503,7 @@ Do not put these in `BattleStoryContext`:
 - Final spawner pattern config, squad content, or spawn slot binding data
 - Concrete `selectedVariationId` unless the task explicitly performs spawner selection
 - Exact reward values
+- Story reward rules or reward tables
 - Full monster stats
 - Full skill JSON
 - Full character planning JSON
@@ -516,6 +622,8 @@ Before using `BattleStoryContext`, check:
 - `spaceTags` do not contradict the story.
 - `difficultyHint` is compatible with forbidden spawn tags.
 - Required and forbidden tags do not conflict.
+- `battleModeHint`, `targetPartySize`, and timing hints match the intended design.
+- `spawnSelectionHints` are specific enough to select a spawner type and difficulty later.
 - No final spawner JSON data is embedded here.
 
 ## Agent Checklist

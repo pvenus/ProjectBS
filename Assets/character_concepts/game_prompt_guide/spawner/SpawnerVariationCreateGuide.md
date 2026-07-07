@@ -36,7 +36,7 @@ Spawner variation authoring
   -> Monster pool selection
   -> Spawner variation selection
   -> Monster role binding
-  -> Concrete SpawnSequenceSO JSON
+  -> Concrete typed spawner JSON
   -> BattleSO spawnSequenceId
 ```
 
@@ -64,7 +64,16 @@ Recommended index path:
 Assets/Doc/Spawner/{spawner_group}/spawn_variation_catalog.{spawner_group}.json
 ```
 
-Final runtime spawn JSON still follows `SpawnSO.md` and should be written only after a battle has selected monsters for the variation roles.
+Final runtime spawn JSON still follows `SpawnSO.md` and should be written only
+after a battle has selected monsters for the variation roles.
+
+Runtime spawner JSON path:
+
+```text
+Assets/Resources/battle/spawner/Jsons/sequence_presets/{spawnerType}.json
+```
+
+The runtime file contains one spawner type and one or more difficulty objects.
 
 ## Minimal Profile Shape
 
@@ -133,6 +142,9 @@ Final runtime spawn JSON still follows `SpawnSO.md` and should be written only a
     "eliteAllowance": "none_or_one",
     "rangedAllowance": "optional",
     "surroundAllowance": "none",
+    "normalTargetSpawnCount": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
     "recommendedDurationSec": { "min": 25, "max": 50 }
   },
   "fairnessRules": [
@@ -161,6 +173,71 @@ Final runtime spawn JSON still follows `SpawnSO.md` and should be written only a
 | balanceKnobs | Yes | Difficulty and density controls. |
 | fairnessRules | No | Human-readable constraints. |
 | handoffIds | Yes | IDs preserved for later battle/spawner mapping. |
+
+## Difficulty Expansion Policy
+
+Design one canonical shape per spawner type, then expand it into difficulty
+objects. Do not create unrelated shapes just because the difficulty changes.
+
+Use `normal` as the baseline:
+
+- 3-player target
+- canonical step order
+- canonical role mix
+- canonical total spawn count
+- canonical spawn window
+
+Difficulty expansion:
+
+- `very_easy`: 1-player target. Reduce count below easy, increase gaps, avoid ranged/tank/elite pressure unless required.
+- `easy`: 2-player target. Usually keep the normal shape but bind weaker monsters or slightly reduce role pressure.
+- `normal`: 3-player baseline. Defines the intended rhythm and count.
+- `hard`: 3-player target. Usually keep normal count but bind stronger monsters.
+- `very_hard`: 3-player target. Add elite or higher roles, irregular flank/surround pressure, or extra count.
+- `boss`: 3-player target. Design supporting spawns around boss readability and phase pressure.
+
+The same spawner type may therefore have several balance versions. A difficulty
+object may change count and roles, but it should still feel like the same type.
+
+## 90-Second Elimination Baseline
+
+For hack-and-slash elimination stages, use this baseline:
+
+- total battle target: `90` seconds
+- spawn activity target: about `60` seconds
+- cleanup target: about `30` seconds
+- normal party size: `3`
+- very easy party size: `1`
+- easy party size: `2`
+
+Avoid the pattern of long rest followed by one large burst. Instead:
+
+- keep rest beats short
+- stagger squad slots with `squadPatternSlotInterval`
+- stagger units inside a group with `slotInterval`
+- make later waves feel denser through role mix or overlap, not only instant count
+
+For example, a very easy 90-second swarm can spawn only 28 units, finish spawning
+around 54 seconds, and leave the player enough time to clean up without feeling
+like the last enemies appear artificially at the end.
+
+## Balance Heuristics
+
+Estimate difficulty from several axes:
+
+- total count: total spawned units
+- density: count per spawn window second
+- ramp: how quickly pressure increases
+- overlap: whether new steps arrive before old enemies are cleared
+- role mix: ranged, tank, support, elite, boss, irregular flank/surround
+- monster binding: weak or strong CharacterSO assigned to the same role slot
+
+Same count does not mean same difficulty. A shorter spawn window, stronger role
+mix, earlier elite pressure, or higher overlap makes a preset harder.
+
+Use monster group weight ratios when selecting bindings. The spawner provides
+role slots and count ratios; BattleSO bindings decide the actual CharacterSO and
+therefore the final weighted difficulty.
 
 ## Selection Tags
 

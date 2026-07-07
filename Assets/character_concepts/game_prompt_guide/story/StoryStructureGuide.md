@@ -246,6 +246,42 @@ Do not duplicate full character planning data in story context.
 
 Story-derived battle generation should carry these refs forward so later agents can inspect the source in Markdown and JSON files.
 
+## Story Planning Handoff
+
+Do not send raw episode prose directly to NPC, reward, battle, or spawner generation.
+
+Create a story planning layer first:
+
+```text
+Episode Markdown
+  -> StoryPlanningContext
+  -> Formal script generation / monster planning / BattleStoryContext / reward planning
+```
+
+Reference guide:
+
+```text
+Assets/character_concepts/game_prompt_guide/story/EpisodePlanningCreateGuide.md
+Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md
+```
+
+`StoryPlanningContext` should preserve:
+
+- script synopsis
+- scene beats
+- emotional tone
+- choice and result direction
+- reward direction
+- battle direction
+- monster family, role, and difficulty direction
+- reveal constraints
+
+Reward-specific rules should use:
+
+```text
+Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
+```
+
 ## Episode Document Expectations
 
 An Episode document should answer:
@@ -255,7 +291,10 @@ An Episode document should answer:
 - What is the player-facing goal?
 - What characters or factions are present?
 - Is this episode dialogue, exploration, battle, choice, reward, or transition?
-- If it contains battle, what story signals should become `BattleStoryContext`?
+- What synopsis should formal script generation preserve?
+- What reward direction is created by choices or episode completion?
+- If it contains battle, what battle direction should later become `BattleStoryContext`?
+- What monster family, role, and difficulty direction is implied?
 - What must not be contradicted by generated content?
 
 Recommended episode structure:
@@ -284,9 +323,21 @@ Characters present or referenced.
 
 Tags or notes useful for generation.
 
-## Battle Hooks
+## Script Synopsis
 
-Battle-relevant context, if any.
+Synopsis-level beats, emotional tone, must-show motifs, and must-hide reveals.
+
+## Reward Hooks
+
+Reward intent only. Use `RewardPlanningGuide.md` for concrete reward rules.
+
+## Monster Direction
+
+Monster family, role direction, difficulty direction, and forbidden monster types.
+
+## Battle Direction
+
+Battle mood, battle shape, difficulty direction, pace direction, and avoid rules.
 
 ## Constraints
 
@@ -317,6 +368,7 @@ The handoff should preserve:
 - act ID
 - chapter ID
 - episode ID
+- story planning context ID
 - short battle-relevant summary
 - location tags
 - faction tags
@@ -381,4 +433,6 @@ When generating story-derived content:
 - Episode IDs preserve Act and Chapter identity.
 - Character names and IDs match `Characters.md`.
 - Battle-related extraction uses `BattleStoryContext`, not raw story prose.
+- Reward extraction uses `RewardPlanningGuide`, not ad hoc reward prose.
+- NPC planning uses `StoryPlanningContext` and does not jump directly from raw episode prose.
 - Downstream artifacts preserve source IDs.

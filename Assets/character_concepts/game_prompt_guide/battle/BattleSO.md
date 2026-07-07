@@ -75,6 +75,13 @@ seq.{encounter_group}.{purpose}
   "victoryRule": "ClearAllEnemies",
   "survivalTimeSeconds": 0,
   "backgroundPrefab": "ForestBattleBackground",
+  "spawnerSelection": {
+    "spawnerType": "field_ambush",
+    "difficulty": "normal",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/field_ambush.json",
+    "sequenceId": "seq.field_ambush.normal",
+    "selectionReason": "Matches front melee pressure with delayed rear support."
+  },
   "spawnSequenceId": "seq.forest.001.main",
   "spawnSequencePath": "",
   "spawnUnitBindings": [
@@ -101,6 +108,7 @@ seq.{encounter_group}.{purpose}
 | victoryRule | enum string | Yes | `KillBoss`, `ClearAllEnemies`, or `SurviveTime`. |
 | survivalTimeSeconds | number | Yes | Must be `0` or greater. Used by `SurviveTime`. |
 | backgroundPrefab | string | No | Prefab asset name lookup key. |
+| spawnerSelection | object | No | Authoring/debug metadata describing which spawner type and difficulty were selected. |
 | spawnSequenceId | string | Yes if path empty | Main `SpawnSequenceSO` lookup key. |
 | spawnSequencePath | string | Yes if id empty | Asset path or path relative to the battle JSON folder. |
 | spawnUnitBindings | array | Yes for spawner-driven battles | Maps spawner slot keys/roles to CharacterSO lookup IDs. |
@@ -149,6 +157,60 @@ Use `spawnSequencePath` when the sequence asset is in a known folder:
 ```
 
 If both are present, the builder first tries `spawnSequencePath`, then `spawnSequenceId`.
+
+## Spawner Selection Metadata
+
+`spawnerSelection` records the authoring connection between battle context and
+the reusable spawner preset.
+
+This field is not the runtime reference by itself. Runtime still uses
+`spawnSequenceId` or `spawnSequencePath`.
+
+Recommended:
+
+```json
+{
+  "spawnerSelection": {
+    "spawnerType": "elimination_90s_swarm",
+    "difficulty": "normal",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+    "sequenceId": "seq.elimination_90s_swarm.normal",
+    "targetPartySize": 3,
+    "targetSpawnCount": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "matchedTags": {
+      "intentTags": ["pressure", "attrition"],
+      "spaceTags": ["surround"],
+      "rhythmTags": ["escalating", "staggered"]
+    },
+    "selectionReason": "Normal 90-second elimination swarm for a 3-player party.",
+    "requiredSlots": [
+      {
+        "unitKey": "spawn.swarm.fodder.melee",
+        "role": "Melee",
+        "purpose": "main filler",
+        "bindingStrategy": "exact"
+      }
+    ]
+  }
+}
+```
+
+Use it to answer:
+
+- which spawner file was selected
+- which difficulty object was selected
+- why it matched this battle
+- what slot keys/roles the battle must bind
+- what count/window assumptions the selection was based on
+
+Consistency rules:
+
+- `spawnerSelection.sequenceId` should equal `spawnSequenceId`.
+- `sourceJsonPath` should point to the typed spawner JSON file.
+- `requiredSlots` should match the selected sequence groups.
+- `spawnUnitBindings` should cover all required slots.
 
 ## Spawn Unit Bindings
 

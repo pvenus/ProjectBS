@@ -43,17 +43,61 @@ Battle data decides:
 
 ## JSON Source
 
-Current preset source:
+Current preset folder:
 
-`Assets/Scripts/battle_spawn/Resource/Jsons/sequence_presets.json`
+`Assets/Resources/battle/spawner/Jsons/sequence_presets`
 
-The generator currently expects sequence data with inline step content. New
-authoring should not depend on separate `pattern_presets`, `formation_presets`,
-or `squad_presets` files.
+Use one JSON file per spawner type:
+
+```text
+Assets/Resources/battle/spawner/Jsons/sequence_presets/{spawnerType}.json
+```
+
+The generator expects typed preset files with `difficulties[].sequence` and
+inline step content. New authoring should not depend on separate
+`pattern_presets`, `formation_presets`, or `squad_presets` files.
+
+Generated assets are written under:
+
+```text
+Assets/Resources/battle/spawner/Generated/Sequences
+Assets/Resources/battle/spawner/Generated/SpawnContents/Squads
+```
 
 ## Sequence Schema
 
-Root may be a JSON array:
+New spawner type files use this root object:
+
+```json
+{
+  "spawnerType": "example_type",
+  "displayName": "Example Type",
+  "difficulties": [
+    {
+      "difficulty": "normal",
+      "targetPartySize": 3,
+      "targetSpawnCount": 0,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.example_type.normal",
+        "displayName": "Example Type Normal",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": []
+      }
+    }
+  ]
+}
+```
+
+Legacy importer shapes may still appear in old data:
+
+```json
+{
+  "sequences": []
+}
+```
 
 ```json
 [
@@ -67,15 +111,45 @@ Root may be a JSON array:
 ]
 ```
 
-Or a wrapper object:
+Do not use legacy root shapes for new spawner types.
 
-```json
-{
-  "sequences": []
-}
-```
+## Typed Preset Fields
 
-Recommended root shape is the array form.
+Root object:
+
+Required:
+
+- `spawnerType`
+- `difficulties`
+
+Optional:
+
+- `displayName`
+
+Difficulty object:
+
+Required:
+
+- `difficulty`
+- `sequence`
+
+Recommended:
+
+- `targetPartySize`
+- `targetSpawnCount`
+- `spawnWindowSec`
+- `clearWindowSec`
+
+Supported difficulty names:
+
+- `very_easy`
+- `easy`
+- `normal`
+- `hard`
+- `very_hard`
+- `boss`
+
+`targetSpawnCount` must match the calculated sequence count.
 
 ## Sequence Fields
 
@@ -290,58 +364,69 @@ Use only the fields needed by the selected kind.
 ## Full Example
 
 ```json
-[
-  {
-    "sequenceId": "seq.act1.forest.ambush",
-    "displayName": "Act1 Forest Ambush",
-    "repeatMode": "Once",
-    "loopStartOrder": 0,
-    "steps": [
-      {
-        "order": 0,
-        "startDelay": 0.0,
-        "completionMode": "AfterSpawnCompleted",
-        "content": {
-          "contentId": "squad.act1.forest.ambush.opening",
-          "displayName": "Forest Ambush Opening",
-          "groupInterval": 0.4,
-          "squadPattern": {
-            "patternKind": "Circle",
-            "count": 4,
-            "size": 4.5,
-            "rotation": 25.0
-          },
-          "squadPatternQuantity": 1,
-          "squadPatternSlotInterval": 0.2,
-          "groups": [
-            {
-              "order": 0,
-              "spawnUnitKey": "spawn.front.pressure.melee",
-              "spawnRole": "Melee",
-              "quantity": 2,
-              "slotInterval": 0.15,
-              "pattern": {
-                "patternKind": "Line",
-                "count": 2,
-                "spacing": 0.9
-              }
-            },
-            {
-              "order": 1,
-              "spawnUnitKey": "spawn.rear.support.ranged",
-              "spawnRole": "Ranged",
-              "localOffset": { "x": 0.0, "y": -1.5 },
-              "quantity": 1,
-              "pattern": {
-                "patternKind": "Point"
-              }
+{
+  "spawnerType": "field_ambush",
+  "displayName": "Field Ambush",
+  "difficulties": [
+    {
+      "difficulty": "normal",
+      "targetPartySize": 3,
+      "targetSpawnCount": 12,
+      "spawnWindowSec": 30,
+      "clearWindowSec": 15,
+      "sequence": {
+        "sequenceId": "seq.field_ambush.normal",
+        "displayName": "Field Ambush Normal",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.field_ambush.normal.opening",
+              "displayName": "Field Ambush Opening",
+              "groupInterval": 0.4,
+              "squadPattern": {
+                "patternKind": "Circle",
+                "count": 4,
+                "size": 4.5,
+                "rotation": 25.0
+              },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 0.2,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.front.pressure.melee",
+                  "spawnRole": "Melee",
+                  "quantity": 1,
+                  "slotInterval": 0.15,
+                  "pattern": {
+                    "patternKind": "Line",
+                    "count": 2,
+                    "spacing": 0.9
+                  }
+                },
+                {
+                  "order": 1,
+                  "spawnUnitKey": "spawn.rear.support.ranged",
+                  "spawnRole": "Ranged",
+                  "localOffset": { "x": 0.0, "y": -1.5 },
+                  "quantity": 1,
+                  "pattern": {
+                    "patternKind": "Point"
+                  }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
-    ]
-  }
-]
+    }
+  ]
+}
 ```
 
 ## Battle Binding Example
@@ -369,7 +454,11 @@ At runtime the resolver checks exact `unitKey` first, then role fallback.
 
 ## Validation Checklist
 
-- Root contains sequence entries.
+- Root is one typed spawner object for new files.
+- File path is `sequence_presets/{spawnerType}.json`.
+- Root `spawnerType` matches the file name.
+- Root contains difficulty entries.
+- Every difficulty has a `sequence`.
 - Every sequence has a unique `sequenceId`.
 - Every step has inline `content`.
 - Every content block has a unique `contentId`.
@@ -377,6 +466,7 @@ At runtime the resolver checks exact `unitKey` first, then role fallback.
 - `spawnUnitKey` does not contain concrete monster identity.
 - `patternKind` is valid.
 - Pattern config is valid for its kind.
+- `targetSpawnCount` matches the calculated total spawn count.
 - BattleSO provides bindings for all required slots.
 
 Spawner JSON alone is not considered executable. It must be paired with

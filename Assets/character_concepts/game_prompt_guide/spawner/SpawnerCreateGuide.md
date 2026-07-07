@@ -19,17 +19,34 @@ The spawner is therefore a layout/timing asset, not a monster roster.
 - Spawner SO schema: `Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md`
 - Battle creation guide: `Assets/character_concepts/game_prompt_guide/battle/BattleCreateGuide.md`
 - Battle story context guide: `Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md`
-- Source JSON location: `Assets/Scripts/battle_spawn/Resource/Jsons/sequence_presets.json`
+- Source JSON folder: `Assets/Resources/battle/spawner/Jsons/sequence_presets`
+- Generated sequence folder: `Assets/Resources/battle/spawner/Generated/Sequences`
+- Generated squad folder: `Assets/Resources/battle/spawner/Generated/SpawnContents/Squads`
 
 ## Current Data Shape
 
-Use one sequence JSON source.
+Use one JSON file per spawner type.
 
 Do not create separate pattern, squad, or formation preset JSON files. The current
-source of truth is a sequence preset where each step owns its inline content.
+source of truth is a typed sequence preset where each difficulty owns one inline
+sequence and each step owns its inline content.
+
+Path pattern:
+
+```text
+Assets/Resources/battle/spawner/Jsons/sequence_presets/{spawnerType}.json
+```
+
+Example:
+
+```text
+Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json
+```
 
 Allowed:
 
+- one file per `spawnerType`
+- difficulty entries under `difficulties`
 - `SpawnSequenceSO`
 - inline `SpawnSquadSO` content in each sequence step
 - inline squad-level pattern
@@ -46,6 +63,46 @@ Removed from new authoring:
 - `SpawnFormationSO`
 - monster names inside `spawnUnitKey`
 - direct `CharacterSO` or monster binding inside spawner JSON
+- one global `sequence_presets.json` array for new spawner types
+
+## Typed Preset Shape
+
+Each spawner type file is an object with difficulty entries.
+
+```json
+{
+  "spawnerType": "elimination_90s_swarm",
+  "displayName": "Elimination 90s Swarm",
+  "difficulties": [
+    {
+      "difficulty": "normal",
+      "targetPartySize": 3,
+      "targetSpawnCount": 80,
+      "spawnWindowSec": 60,
+      "clearWindowSec": 30,
+      "sequence": {
+        "sequenceId": "seq.elimination_90s_swarm.normal",
+        "displayName": "Elimination 90s Swarm Normal",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": []
+      }
+    }
+  ]
+}
+```
+
+`sequenceId` and `contentId` should include the spawner type and difficulty.
+
+Good:
+
+```text
+seq.elimination_90s_swarm.normal
+squad.elimination_90s_swarm.normal.opening
+```
+
+Avoid IDs that only make sense for one battle unless the spawner is truly
+battle-specific.
 
 ## Authoring Pipeline
 
@@ -65,6 +122,65 @@ Removed from new authoring:
 7. Assign semantic `spawnUnitKey` and `spawnRole` placeholders.
 8. Generate SpawnSequenceSO and SpawnSquadSO assets.
 9. Let BattleSO bind those placeholders to actual monsters.
+
+## Difficulty Model
+
+Use `normal` as the baseline shape. Other difficulties should preserve the same
+spawner type identity while changing count, monster strength, role mix, timing,
+and variation pressure.
+
+Supported planning tiers:
+
+- `very_easy`: 1-player friendly. Fewer spawns than easy, longer gaps, simple roles.
+- `easy`: 2-player friendly. Can reuse normal count with weaker bound monsters.
+- `normal`: 3-player baseline. Defines the canonical rhythm and total count.
+- `hard`: 3-player. Can reuse normal count with stronger bound monsters.
+- `very_hard`: 3-player. Adds elite or higher roles and more irregular pressure.
+- `boss`: 3-player. Uses adds and timing to frame a boss stage, not raw swarm count.
+
+For the current 90-second elimination style, use this battle pacing:
+
+- spawn window: about `60` seconds
+- clear window: about `30` seconds
+- final battle length target: about `90` seconds
+
+Spawns should not arrive as one large burst after long rests. Prefer short rest
+beats plus staggered slot intervals so the rest feels brief while individual
+units still enter with readable timing.
+
+## Difficulty Scoring Heuristics
+
+Use these as authoring checks, not strict formulas:
+
+- Total spawned count is the primary total difficulty driver.
+- Spawn density is `targetSpawnCount / spawnWindowSec`.
+- Ramp pressure is how quickly count and role threat rise over time.
+- Overlap pressure increases when later steps start before earlier enemies are
+  likely cleared.
+- Role pressure increases when ranged, tank, support, elite, boss, or irregular
+  slots are introduced.
+- Monster binding can change perceived difficulty without changing the spawner.
+
+When two presets have the same total count, the one with shorter spawn windows,
+more overlap, stronger role mix, or earlier elites is harder.
+
+## Count Calculation
+
+Approximate one content count as:
+
+```text
+squadPattern slot count * sum(group pattern slot count * group quantity)
+```
+
+Step count is the content count. Sequence count is the sum of all step counts.
+
+Examples:
+
+- `Circle count 2` squad pattern + one `Line count 2` group = `4`
+- `Circle count 2` squad pattern + `Line count 3` and `Point count 1` groups = `8`
+- `Point` squad pattern + one `Line count 2` group = `2`
+
+Always keep `targetSpawnCount` in sync with the calculated count.
 
 ## Spawn Slot Naming
 
@@ -207,57 +323,68 @@ Default group values:
 ## JSON Example
 
 ```json
-[
-  {
-    "sequenceId": "seq.act1.forest.ambush",
-    "displayName": "Act1 Forest Ambush",
-    "repeatMode": "Once",
-    "loopStartOrder": 0,
-    "steps": [
-      {
-        "order": 0,
-        "startDelay": 0.0,
-        "completionMode": "AfterSpawnCompleted",
-        "content": {
-          "contentId": "squad.act1.forest.ambush.opening",
-          "groupInterval": 0.4,
-          "squadPattern": {
-            "patternKind": "Circle",
-            "count": 4,
-            "size": 4.5,
-            "rotation": 25.0
-          },
-          "squadPatternQuantity": 1,
-          "squadPatternSlotInterval": 0.2,
-          "groups": [
-            {
-              "order": 0,
-              "spawnUnitKey": "spawn.front.pressure.melee",
-              "spawnRole": "Melee",
-              "quantity": 2,
-              "slotInterval": 0.15,
-              "pattern": {
-                "patternKind": "Line",
-                "count": 2,
-                "spacing": 0.9
-              }
-            },
-            {
-              "order": 1,
-              "spawnUnitKey": "spawn.rear.support.ranged",
-              "spawnRole": "Ranged",
-              "localOffset": { "x": 0.0, "y": -1.5 },
-              "quantity": 1,
-              "pattern": {
-                "patternKind": "Point"
-              }
+{
+  "spawnerType": "field_ambush",
+  "displayName": "Field Ambush",
+  "difficulties": [
+    {
+      "difficulty": "normal",
+      "targetPartySize": 3,
+      "targetSpawnCount": 12,
+      "spawnWindowSec": 30,
+      "clearWindowSec": 15,
+      "sequence": {
+        "sequenceId": "seq.field_ambush.normal",
+        "displayName": "Field Ambush Normal",
+        "repeatMode": "Once",
+        "loopStartOrder": 0,
+        "steps": [
+          {
+            "order": 0,
+            "startDelay": 0.0,
+            "completionMode": "AfterSpawnCompleted",
+            "content": {
+              "contentId": "squad.field_ambush.normal.opening",
+              "groupInterval": 0.4,
+              "squadPattern": {
+                "patternKind": "Circle",
+                "count": 4,
+                "size": 4.5,
+                "rotation": 25.0
+              },
+              "squadPatternQuantity": 1,
+              "squadPatternSlotInterval": 0.4,
+              "groups": [
+                {
+                  "order": 0,
+                  "spawnUnitKey": "spawn.front.pressure.melee",
+                  "spawnRole": "Melee",
+                  "quantity": 1,
+                  "slotInterval": 0.2,
+                  "pattern": {
+                    "patternKind": "Line",
+                    "count": 2,
+                    "spacing": 0.9
+                  }
+                },
+                {
+                  "order": 1,
+                  "spawnUnitKey": "spawn.rear.support.ranged",
+                  "spawnRole": "Ranged",
+                  "localOffset": { "x": 0.0, "y": -1.5 },
+                  "quantity": 1,
+                  "pattern": {
+                    "patternKind": "Point"
+                  }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
-    ]
-  }
-]
+    }
+  ]
+}
 ```
 
 ## Validation Checklist
