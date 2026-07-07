@@ -4,6 +4,48 @@
   "victoryRule": "ClearAllEnemies",
   "survivalTimeSeconds": 0,
   "backgroundPrefab": "battle_bg_1_0",
+  "spawnerSelection": {
+    "spawnerType": "elimination_90s_swarm",
+    "difficulty": "normal",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+    "sequenceId": "seq.elimination_90s_swarm.normal",
+    "targetPartySize": 3,
+    "targetSpawnCount": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "matchedTags": {
+      "intentTags": ["pressure", "attrition"],
+      "spaceTags": ["surround"],
+      "rhythmTags": ["escalating", "staggered"]
+    },
+    "selectionReason": "Use normal 90-second elimination swarm pacing for a 3-player chapter opening contact.",
+    "requiredSlots": [
+      {
+        "unitKey": "spawn.swarm.fodder.melee",
+        "role": "Melee",
+        "purpose": "main filler melee count",
+        "bindingStrategy": "exact"
+      },
+      {
+        "unitKey": "spawn.swarm.fast.melee",
+        "role": "Melee",
+        "purpose": "fast melee pressure",
+        "bindingStrategy": "exact"
+      },
+      {
+        "unitKey": "spawn.swarm.pressure.ranged",
+        "role": "Ranged",
+        "purpose": "ranged movement pressure",
+        "bindingStrategy": "exact"
+      },
+      {
+        "unitKey": "spawn.swarm.light.blocker",
+        "role": "Tank",
+        "purpose": "light blocker pressure",
+        "bindingStrategy": "exact"
+      }
+    ]
+  },
   "spawnSequenceId": "seq.elimination_90s_swarm.normal",
   "spawnSequencePath": "",
   "spawnUnitBindings": [

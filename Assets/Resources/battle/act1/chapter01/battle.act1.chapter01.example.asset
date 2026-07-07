@@ -15,14 +15,20 @@ MonoBehaviour:
   battleId: battle.act1.chapter01.example
   battleName: Cheongun Village Edge Contact
   backgroundPrefab: {fileID: 3609337308155714168, guid: c2d645e65aa4d4e389be7a281b022378, type: 3}
-  spawnSequence: {fileID: 11400000, guid: 301d096edda2947ce8581d52de59b8fa, type: 2}
+  spawnSequence: {fileID: 11400000, guid: 3ebbf2a6d62434f56a90471e420c609b, type: 2}
   spawnUnitBindings:
-  - unitKey: spawn.front.pressure.melee
+  - unitKey: spawn.swarm.fodder.melee
     role: 1
     character: {fileID: 11400000, guid: 7e96d030d1f0048ee9e6166eedbb095d, type: 2}
-  - unitKey: spawn.light_flank.melee
+  - unitKey: spawn.swarm.fast.melee
     role: 1
     character: {fileID: 11400000, guid: b06feb8af2a524a628dc968742a2c8c3, type: 2}
+  - unitKey: spawn.swarm.pressure.ranged
+    role: 2
+    character: {fileID: 11400000, guid: 2c9a1ed9f26704a41b5c39d0b72ba627, type: 2}
+  - unitKey: spawn.swarm.light.blocker
+    role: 3
+    character: {fileID: 11400000, guid: c6d14dec1e4134499b53f698ca796c19, type: 2}
   timedPropPlacements: []
   victoryRule: 1
   survivalTimeSeconds: 0

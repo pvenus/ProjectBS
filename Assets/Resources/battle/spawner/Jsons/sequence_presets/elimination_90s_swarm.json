@@ -5,7 +5,7 @@
     {
       "difficulty": "very_easy",
       "targetPartySize": 1,
-      "targetSpawnCount": 36,
+      "targetSpawnCount": 28,
       "spawnWindowSec": 60,
       "clearWindowSec": 30,
       "sequence": {
@@ -31,14 +31,14 @@
                   "spawnRole": "Melee",
                   "slotInterval": 0.7,
                   "quantity": 1,
-                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.9, "rotation": 0.0 }
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
                 }
               ]
             }
           },
           {
             "order": 10,
-            "startDelay": 9.5,
+            "startDelay": 12.0,
             "completionMode": "AfterSpawnCompleted",
             "content": {
               "contentId": "squad.elimination_90s_swarm.very_easy.build",
@@ -53,7 +53,7 @@
                   "spawnRole": "Melee",
                   "slotInterval": 0.7,
                   "quantity": 1,
-                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.9, "rotation": 0.0 }
+                  "pattern": { "patternKind": "Line", "count": 2, "spacing": 0.9, "rotation": 0.0 }
                 },
                 {
                   "order": 0,
@@ -68,7 +68,7 @@
           },
           {
             "order": 20,
-            "startDelay": 9.5,
+            "startDelay": 12.0,
             "completionMode": "AfterSpawnCompleted",
             "content": {
               "contentId": "squad.elimination_90s_swarm.very_easy.mid",
@@ -83,7 +83,7 @@
                   "spawnRole": "Melee",
                   "slotInterval": 0.6,
                   "quantity": 1,
-                  "pattern": { "patternKind": "Line", "count": 4, "spacing": 0.85, "rotation": 0.0 }
+                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.85, "rotation": 0.0 }
                 },
                 {
                   "order": 0,
@@ -98,7 +98,7 @@
           },
           {
             "order": 30,
-            "startDelay": 9.5,
+            "startDelay": 12.0,
             "completionMode": "AfterSpawnCompleted",
             "content": {
               "contentId": "squad.elimination_90s_swarm.very_easy.peak",
@@ -113,7 +113,7 @@
                   "spawnRole": "Melee",
                   "slotInterval": 0.6,
                   "quantity": 1,
-                  "pattern": { "patternKind": "Line", "count": 4, "spacing": 0.85, "rotation": 0.0 }
+                  "pattern": { "patternKind": "Line", "count": 3, "spacing": 0.85, "rotation": 0.0 }
                 },
                 {
                   "order": 0,
@@ -128,7 +128,7 @@
           },
           {
             "order": 40,
-            "startDelay": 7.0,
+            "startDelay": 9.0,
             "completionMode": "AfterSpawnCompleted",
             "content": {
               "contentId": "squad.elimination_90s_swarm.very_easy.last_push",
