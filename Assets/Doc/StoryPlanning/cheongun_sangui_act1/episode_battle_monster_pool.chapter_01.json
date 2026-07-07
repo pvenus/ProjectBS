@@ -1,0 +1,189 @@
+{
+  "poolPlanId": "episode_battle_monster_pool.chapter_01.cheongun_sangui_act1",
+  "documentType": "episodeBattleMonsterPoolPlan",
+  "actId": "act.01",
+  "chapterId": "chapter.01.01",
+  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+  "storyContextRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+  "sourceStoryRefs": [
+    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+    "Assets/Doc/Story/Act01/Chapter01/01_episode1.md"
+  ],
+  "sourcePlanningRefs": [
+    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json"
+  ],
+  "globalRules": {
+    "preMonsterCreationStage": true,
+    "doNotAssumeExistingMonsters": true,
+    "existingMonsterRefsAreCandidatesOnly": true,
+    "doNotCreateStatsOrSkills": true,
+    "doNotCreateCharacterSO": true,
+    "useForBattleMonsterPoolSelection": true
+  },
+  "episodePools": [
+    {
+      "episodeId": "episode.act1.chapter01.01",
+      "episodeTitle": "청운촌의 습격",
+      "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+      "battleNeed": "required",
+      "poolPurpose": "청운촌 마을 습격 도입 전투에서 사용할 몬스터 풀 방향을 정의한다.",
+      "storyBasis": {
+        "summary": "검은 천을 두른 인간 습격자들이 주민을 몰아붙이고, 서진이 주민을 보호하기 위해 전투에 들어간다.",
+        "mustShow": [
+          "검은 천",
+          "흰 재 얼룩",
+          "붉은 천 인형",
+          "녹슨 도끼",
+          "뜯어낸 문짝 방패",
+          "쇠사슬과 방울",
+          "산귀 나무패"
+        ],
+        "mustHide": [
+          "sangui_true_form",
+          "spirit_boss",
+          "final_abduction_truth"
+        ]
+      },
+      "poolDirection": {
+        "monsterFamily": "black_cloth_raiders",
+        "difficultyIntent": "early_easy",
+        "battleDifficultyIntent": "easy_intro",
+        "recommendedTierRange": [
+          "normal"
+        ],
+        "primaryPressure": [
+          "basic_melee"
+        ],
+        "secondaryPressure": [
+          "light_control_melee",
+          "light_front_blocker"
+        ],
+        "optionalPressure": [
+          "fast_beast_flavor"
+        ],
+        "forbiddenPressure": [
+          "elite",
+          "boss",
+          "spirit",
+          "sangui_true_form",
+          "heavy_surround",
+          "backline_artillery"
+        ]
+      },
+      "desiredSlots": [
+        {
+          "slotKey": "episode.pool.black_cloth.basic_melee",
+          "slotRole": "Melee",
+          "need": "primary",
+          "difficultyIntent": "early_easy",
+          "countWeight": "high",
+          "storyReason": "마을을 습격하는 검은 천 인간 적의 기본 전열을 구성한다.",
+          "visualRequirements": [
+            "black_cloth",
+            "red_cloth_doll",
+            "improvised_weapon"
+          ],
+          "existingCandidateRefs": [
+            {
+              "candidateUse": "reference_only",
+              "characterId": "character.black_cloth_raider.1",
+              "planningRef": "Assets/Doc/Character/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+              "fitReason": "기본 인간 근접병 방향과 가장 잘 맞는다."
+            }
+          ]
+        },
+        {
+          "slotKey": "episode.pool.black_cloth.light_control",
+          "slotRole": "Melee",
+          "need": "secondary",
+          "difficultyIntent": "early_easy",
+          "countWeight": "medium",
+          "storyReason": "쇠사슬, 방울, 짐승 이빨 장식을 가진 기억점 있는 초반 제어 압박을 구성한다.",
+          "visualRequirements": [
+            "chain",
+            "bell",
+            "beast_teeth",
+            "sangui_wooden_charm"
+          ],
+          "existingCandidateRefs": [
+            {
+              "candidateUse": "reference_only",
+              "characterId": "character.chain_dragger_raider.1",
+              "planningRef": "Assets/Doc/Character/cheongun_sangui_act1/npc/character.chain_dragger_raider.1.json",
+              "fitReason": "사슬을 끄는 습격자 묘사와 light control melee 방향이 직접 맞는다."
+            }
+          ]
+        },
+        {
+          "slotKey": "episode.pool.black_cloth.light_blocker",
+          "slotRole": "Tank",
+          "need": "optional",
+          "difficultyIntent": "early_easy",
+          "countWeight": "low",
+          "storyReason": "뜯어낸 문짝 방패 묘사를 전열 방해 몬스터 방향으로 보존한다.",
+          "visualRequirements": [
+            "door_shield",
+            "old_bandage",
+            "front_block"
+          ],
+          "existingCandidateRefs": [
+            {
+              "candidateUse": "reference_only",
+              "characterId": "character.door_shield_barricader.1",
+              "planningRef": "Assets/Doc/Character/cheongun_sangui_act1/npc/character.door_shield_barricader.1.json",
+              "fitReason": "문짝 방패 묘사와 전열 방해 역할에 맞는다."
+            }
+          ]
+        },
+        {
+          "slotKey": "episode.pool.coerced_beast.flavor_fast",
+          "slotRole": "Melee",
+          "need": "optional_flavor",
+          "difficultyIntent": "early_easy",
+          "countWeight": "very_low",
+          "storyReason": "짐승 같은 울음소리와 산귀 소문 분위기를 보조로만 살릴 때 사용한다.",
+          "visualRequirements": [
+            "starving_beast",
+            "fast_pressure"
+          ],
+          "existingCandidateRefs": [
+            {
+              "candidateUse": "reference_only",
+              "characterId": "character.starving_mountain_wolf.1",
+              "planningRef": "Assets/Doc/Character/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+              "fitReason": "Act 전체 분위기에는 맞지만, 이 에피소드의 주 몬스터 방향은 아니므로 보조 후보로만 둔다."
+            }
+          ]
+        }
+      ],
+      "avoidExistingCandidatesForThisEpisode": [
+        {
+          "characterId": "character.mountain_path_archer.1",
+          "reason": "숲길/추적 전투에 더 적합하며 마을 광장 도입 전투의 핵심 압박은 아니다."
+        },
+        {
+          "characterId": "character.cage_guard_bandit.2",
+          "reason": "아이 우리/산채 목표 압박 맥락이 강해 에피소드 1 도입 전투에는 과하다."
+        },
+        {
+          "characterId": "character.red_doll_hexer.2",
+          "reason": "의식 담당과 지원 압박은 후속 전투에서 공개하는 편이 낫다."
+        },
+        {
+          "characterId": "character.sangui_abandoned_child.3",
+          "reason": "산귀의 실체는 아직 금지한다."
+        }
+      ],
+      "battlePoolReadiness": {
+        "requiredDirectionsCoveredByExistingCandidates": true,
+        "coverageSummary": "기존 후보만으로 basic_melee, light_control_melee, optional light blocker는 커버 가능하다. 단, 이 문서는 기존 후보 존재를 전제로 하지 않고 필요한 풀 방향을 먼저 정의한다.",
+        "missingDirections": []
+      },
+      "notes": [
+        "이 문서는 몬스터 생성 이전 단계의 배틀용 몬스터 풀 방향 문서다.",
+        "existingCandidateRefs는 현재 프로젝트에 이미 있는 기획 파일을 검토 후보로 연결한 것이며, 필수 전제는 아니다.",
+        "실제 CharacterSO 바인딩은 BattleSO 또는 이후 몬스터 매핑 단계에서 결정한다."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "battleStoryContextId": "battle_story_context.act1.chapter01.01.rescue_villagers",
+  "sourceStoryId": "episode.act1.chapter01.01",
+  "sourceStoryFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+  "sourceChapterFile": "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+  "actId": "act.01",
+  "chapterId": "chapter.01.01",
+  "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+  "episodeBattlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+  "playerPlanningRoot": "Assets/Doc/Character/player",
+  "monsterContextRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+  "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+  "battleIdHint": "battle.act1.chapter01.01.rescue_villagers",
+  "summary": "서진이 아이 실종 소문을 따라 청운촌에 도착하고, 주민을 몰아붙이는 검은 천 무리 사이로 뛰어드는 1인 도입 구출 전투.",
+  "locationTags": [
+    "village_edge",
+    "village_square",
+    "drought_stricken_settlement"
+  ],
+  "factionTags": [
+    "black_cloth_raiders"
+  ],
+  "situationTags": [
+    "villager_rescue",
+    "village_raid",
+    "intro_contact"
+  ],
+  "intentTags": [
+    "intro_pressure",
+    "protect_villagers",
+    "establish_human_threat"
+  ],
+  "spaceTags": [
+    "front",
+    "light_flank"
+  ],
+  "rhythmTags": [
+    "small_intro",
+    "staggered",
+    "front_then_light_flank"
+  ],
+  "objectiveTags": [
+    "clear_all_enemies"
+  ],
+  "toneTags": [
+    "tense",
+    "dry_village",
+    "urgent",
+    "uneasy",
+    "personal_regret"
+  ],
+  "difficultyHint": "very_easy",
+  "targetPartySize": 1,
+  "battleModeHint": "elimination",
+  "targetBattleLengthSec": 90,
+  "spawnWindowSec": 60,
+  "clearWindowSec": 30,
+  "requiredMonsterTags": [
+    "human",
+    "black_cloth",
+    "melee"
+  ],
+  "preferredMonsterTags": [
+    "basic_melee",
+    "light_control",
+    "chain"
+  ],
+  "forbiddenMonsterTags": [
+    "boss",
+    "elite",
+    "spirit",
+    "sangui_true_form",
+    "backline_artillery"
+  ],
+  "requiredSpawnTags": [
+    "front",
+    "light_flank",
+    "melee_only"
+  ],
+  "forbiddenSpawnTags": [
+    "heavy_surround",
+    "backline_artillery",
+    "boss_intro",
+    "altar_objective"
+  ],
+  "spawnSelectionHints": {
+    "candidateSpawnerTypes": [
+      "elimination_90s_swarm"
+    ],
+    "preferredDifficulty": "very_easy",
+    "selectedSequenceId": "seq.elimination_90s_swarm.very_easy",
+    "targetPartySize": 1,
+    "targetSpawnCountHint": 28,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "preferredVariationTags": [
+      "small_intro",
+      "front",
+      "light_flank",
+      "melee_only"
+    ],
+    "avoidVariationTags": [
+      "heavy_surround",
+      "backline_artillery",
+      "boss_intro"
+    ],
+    "requiredRoleSlots": [
+      "spawn.swarm.fodder.melee",
+      "spawn.swarm.fast.melee"
+    ],
+    "selectionReasonHint": "Use the existing very_easy 90-second elimination swarm because the story is a solo Seojin intro fight and only requires melee pressure."
+  },
+  "notes": [
+    "산귀의 실체는 드러내지 않는다.",
+    "전투는 인간 습격자의 위협과 서진의 구출 동기를 보여주는 도입부다.",
+    "문짝 방패형 Tank는 몬스터풀에서는 optional이지만 선택된 very_easy 스포너에는 슬롯이 없어 제외한다."
+  ]
+}

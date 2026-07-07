@@ -10,6 +10,8 @@ responsible only for timing, placement, and role slots.
 
 - Battle story context guide: `Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md`
 - Battle generation prompt: `Assets/character_concepts/game_prompt_guide/battle/BattleGenerationPrompt.md`
+- Episode battle plan guide: `Assets/character_concepts/game_prompt_guide/battle/EpisodeBattlePlanGuide.md`
+- Battle from episode plan prompt: `Assets/character_concepts/game_prompt_guide/battle/BattleFromEpisodePlanPrompt.md`
 - Spawner creation guide: `Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md`
 - Spawner SO schema: `Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md`
 - Character planning data: `Assets/Doc/Character`
@@ -45,10 +47,11 @@ them to spawn slots.
    - boss reinforcement phase
 3. Select monster pool entries.
 4. Select a reusable spawn variation.
-5. Read the selected spawner's required `spawnUnitKey` and `spawnRole` slots.
-6. Map monsters to those slots through BattleSO `spawnUnitBindings`.
-7. Create or update BattleSO.
-8. Validate that the spawn sequence can resolve every required slot.
+5. Record the selected spawner type, difficulty, source file, and selection reason in battle JSON.
+6. Read the selected spawner's required `spawnUnitKey` and `spawnRole` slots.
+7. Map monsters to those slots through BattleSO `spawnUnitBindings`.
+8. Create or update BattleSO.
+9. Validate that the spawn sequence can resolve every required slot.
 
 ## BattleSO Data
 
@@ -67,6 +70,13 @@ Example concept:
 ```json
 {
   "battleId": "battle.act1.chapter01.forest_ambush",
+  "spawnerSelection": {
+    "spawnerType": "field_ambush",
+    "difficulty": "normal",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/field_ambush.json",
+    "sequenceId": "seq.field_ambush.normal",
+    "selectionReason": "Matches forest ambush with front melee pressure and rear ranged support."
+  },
   "spawnSequenceId": "seq.act1.forest.ambush",
   "spawnUnitBindings": [
     {
@@ -85,6 +95,61 @@ Example concept:
 
 The exact runtime asset field is a CharacterSO reference. JSON authoring may use
 `characterId` only as an editor/build-time lookup key.
+
+## Battle-Spawner Connection Metadata
+
+Battle JSON should keep a `spawnerSelection` object so the encounter can be
+reviewed without opening the generated `SpawnSequenceSO`.
+
+This object is authoring/debug metadata. Runtime execution still depends on:
+
+- `spawnSequenceId` or `spawnSequencePath`
+- `spawnUnitBindings`
+
+Recommended shape:
+
+```json
+{
+  "spawnerSelection": {
+    "spawnerType": "elimination_90s_swarm",
+    "difficulty": "normal",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+    "sequenceId": "seq.elimination_90s_swarm.normal",
+    "targetPartySize": 3,
+    "targetSpawnCount": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "matchedTags": {
+      "intentTags": ["pressure", "attrition"],
+      "spaceTags": ["surround"],
+      "rhythmTags": ["escalating", "staggered"]
+    },
+    "selectionReason": "90-second elimination battle using normal 3-player swarm pacing.",
+    "requiredSlots": [
+      {
+        "unitKey": "spawn.swarm.fodder.melee",
+        "role": "Melee",
+        "purpose": "main count filler",
+        "bindingStrategy": "exact"
+      },
+      {
+        "unitKey": "spawn.swarm.pressure.ranged",
+        "role": "Ranged",
+        "purpose": "force movement and target priority",
+        "bindingStrategy": "exact"
+      }
+    ]
+  }
+}
+```
+
+Keep these fields consistent:
+
+- `spawnerSelection.sequenceId` must match `spawnSequenceId` unless `spawnSequencePath` is intentionally used.
+- `spawnerSelection.sourceJsonPath` must point to the typed spawner file.
+- `spawnerSelection.difficulty` must match the difficulty object that owns the selected sequence.
+- `spawnerSelection.requiredSlots` should be derived from the selected sequence groups.
+- `spawnUnitBindings` must cover every required slot through exact binding or role fallback.
 
 ## Spawner Selection Rules
 
@@ -158,6 +223,7 @@ the full spawner layout.
 
 Battle JSON should contain:
 
+- `spawnerSelection`
 - `spawnSequenceId`
 - `spawnUnitBindings`
 

@@ -1,0 +1,65 @@
+{
+  "battleId": "battle.act1.chapter01.01.rescue_villagers",
+  "battleName": "Cheongun Village Rescue",
+  "victoryRule": "ClearAllEnemies",
+  "survivalTimeSeconds": 0,
+  "backgroundPrefab": "battle_bg_1_0",
+  "spawnerSelection": {
+    "spawnerType": "elimination_90s_swarm",
+    "difficulty": "very_easy",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+    "sequenceId": "seq.elimination_90s_swarm.very_easy",
+    "targetPartySize": 1,
+    "targetSpawnCount": 28,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "matchedTags": {
+      "intentTags": [
+        "intro_pressure",
+        "protect_villagers"
+      ],
+      "spaceTags": [
+        "front",
+        "light_flank"
+      ],
+      "rhythmTags": [
+        "small_intro",
+        "staggered"
+      ]
+    },
+    "selectionReason": "Use the existing very_easy 90-second elimination swarm for Seojin's solo village rescue intro. It keeps the fight melee-only and avoids ranged, elite, boss, and spirit pressure.",
+    "requiredSlots": [
+      {
+        "unitKey": "spawn.swarm.fodder.melee",
+        "role": "Melee",
+        "purpose": "main black cloth raider count",
+        "bindingStrategy": "exact"
+      },
+      {
+        "unitKey": "spawn.swarm.fast.melee",
+        "role": "Melee",
+        "purpose": "chain-dragging light control pressure",
+        "bindingStrategy": "exact"
+      }
+    ]
+  },
+  "spawnSequenceId": "seq.elimination_90s_swarm.very_easy",
+  "spawnSequencePath": "",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.swarm.fodder.melee",
+      "role": "Melee",
+      "characterId": "character.black_cloth_raider.1"
+    },
+    {
+      "unitKey": "spawn.swarm.fast.melee",
+      "role": "Melee",
+      "characterId": "character.chain_dragger_raider.1"
+    }
+  ],
+  "rewardExperience": 10,
+  "normalRelicDropChance": 0,
+  "bossRelicDropChance": 0,
+  "timedPropPlacements": [],
+  "propDefinitions": []
+}

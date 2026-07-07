@@ -1,0 +1,118 @@
+{
+  "battlePlanId": "episode_battle_plan.chapter_01.cheongun_sangui_act1",
+  "documentType": "episodeBattlePlan",
+  "actId": "act.01",
+  "chapterId": "chapter.01.01",
+  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+  "storyContextRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+  "episodeCompositionRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+  "episodeBattleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+  "sourcePlanningRefs": [
+    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json"
+  ],
+  "globalRules": {
+    "preBattleSOStage": true,
+    "requiresExistingSpawnerSelection": true,
+    "doNotCreateSpawnerHere": true,
+    "doNotBindFinalCharacterSOHere": false,
+    "existingMonsterRefsAreCandidatesOnlyUntilBattleBinding": true
+  },
+  "episodeBattlePlans": [
+    {
+      "episodeId": "episode.act1.chapter01.01",
+      "episodeTitle": "청운촌의 습격",
+      "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+      "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+      "battleId": "battle.act1.chapter01.01.rescue_villagers",
+      "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+      "planningStatus": "ready",
+      "battleDirection": {
+        "battleNeed": "required",
+        "modeIntent": "Elimination",
+        "victoryRule": "ClearAllEnemies",
+        "battleLengthSec": 90,
+        "battleMood": "urgent_rescue",
+        "battleShape": "front_pressure_with_light_flank",
+        "difficultyIntent": "very_easy_intro",
+        "partyAssumption": "solo_story_intro",
+        "paceIntent": "short_readable_swarm",
+        "mustAvoid": [
+          "heavy_surround",
+          "backline_artillery",
+          "elite_pressure",
+          "boss_reveal",
+          "spirit_reveal",
+          "altar_objective"
+        ]
+      },
+      "spawnerSelection": {
+        "status": "selected",
+        "spawnerType": "elimination_90s_swarm",
+        "difficulty": "very_easy",
+        "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+        "sequenceId": "seq.elimination_90s_swarm.very_easy",
+        "sequenceAssetPath": "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.very_easy.asset",
+        "targetPartySize": 1,
+        "targetSpawnCount": 28,
+        "spawnWindowSec": 60,
+        "clearWindowSec": 30,
+        "selectionReason": "스토리 원문이 서진 1인 도입 전투이고, very_easy 스포너가 1인/근접 중심/원거리 없음 조건을 만족한다.",
+        "requiredSlots": [
+          {
+            "unitKey": "spawn.swarm.fodder.melee",
+            "role": "Melee",
+            "purpose": "검은 천 무리의 기본 전열",
+            "bindingStrategy": "exact"
+          },
+          {
+            "unitKey": "spawn.swarm.fast.melee",
+            "role": "Melee",
+            "purpose": "사슬을 끄는 제어형 근접 압박",
+            "bindingStrategy": "exact"
+          }
+        ],
+        "excludedOptionalSlots": [
+          {
+            "poolSlotKey": "episode.pool.black_cloth.light_blocker",
+            "role": "Tank",
+            "reason": "선택된 very_easy 스포너에는 Tank 슬롯이 없고, 해당 풀 슬롯은 optional이므로 제외한다."
+          }
+        ]
+      },
+      "monsterPoolSelection": {
+        "selectedBindings": [
+          {
+            "poolSlotKey": "episode.pool.black_cloth.basic_melee",
+            "spawnUnitKey": "spawn.swarm.fodder.melee",
+            "spawnRole": "Melee",
+            "characterId": "character.black_cloth_raider.1",
+            "bindingReason": "마을을 습격하는 검은 천 인간 적의 기본 전열에 가장 적합하다."
+          },
+          {
+            "poolSlotKey": "episode.pool.black_cloth.light_control",
+            "spawnUnitKey": "spawn.swarm.fast.melee",
+            "spawnRole": "Melee",
+            "characterId": "character.chain_dragger_raider.1",
+            "bindingReason": "사슬을 끄는 키 큰 사내 묘사와 light control 근접 압박을 담당한다."
+          }
+        ],
+        "excludedCandidates": [
+          "character.mountain_path_archer.1",
+          "character.cage_guard_bandit.2",
+          "character.red_doll_hexer.2",
+          "character.sangui_abandoned_child.3"
+        ]
+      },
+      "battleSOReadiness": {
+        "canCreateBattleSO": true,
+        "spawnSequenceResolution": "spawnSequenceId",
+        "spawnUnitBindingsCoverRequiredSlots": true,
+        "notes": [
+          "모든 필수 spawnUnitKey는 exact binding으로 해석 가능하다.",
+          "선택된 스포너에는 Ranged, Elite, Boss, Support 슬롯이 없다."
+        ]
+      }
+    }
+  ]
+}
