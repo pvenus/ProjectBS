@@ -1,70 +1,89 @@
-{
-  "contextId": "story_context.cheongun_sangui_act1",
-  "documentType": "storyPlanningContext",
-  "actId": "act.01",
-  "groupId": "cheongun_sangui_act1",
-  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
-  "episodeCompositionRefs": [
-    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json"
-  ],
-  "episodeBattleMonsterPoolRefs": [
-    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json"
-  ],
-  "episodeBattlePlanRefs": [
-    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json"
-  ],
-  "episodePlanningRefs": [
-    {
-      "episodeId": "episode.act1.chapter01.01",
-      "planningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
-      "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-      "battlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-      "battlePlanStatus": "created",
-      "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
-      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
-      "episodeRole": "intro",
-      "categorySummary": {
-        "story": "청운촌 도착, 마을 습격, 주민 보호 전투 진입을 시놉시스 수준으로 보존한다.",
-        "monster": "black_cloth_raiders / early_easy / basic_melee + light_control_melee 방향",
-        "battle": "urgent_rescue / front_pressure_with_light_flank / easy_intro / solo_story_intro 방향",
-        "reward": "gold_battle_reward"
-      },
-      "battleNeed": "required",
-      "monsterPlanningNeed": "required",
-      "rewardNeed": "gold_battle_reward"
-    }
-  ],
-  "sourceStoryRefs": [
-    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
-    "Assets/Doc/Story/Act01/Chapter01/01_episode1.md"
-  ],
-  "downstreamRefs": {
-    "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "episodeBattleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-    "episodeBattlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-    "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
-    "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
-    "monsterContextRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
-    "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json"
-  },
-  "globalRules": {
-    "usePlanningRefsOnly": true,
-    "doNotCopyFullEpisodeData": true,
-    "doNotCreateRuntimeIds": true,
-    "episodeBattleMonsterPoolIsPreMonsterCreation": true,
-    "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches": true,
-    "episodeBattlePlanUsesSelectedSpawner": true,
-    "existingMonsterRefsAreCandidatesOnly": true,
-    "episodeCategoryShape": [
-      "common",
-      "story",
-      "monster",
-      "battle",
-      "reward",
-      "handoff"
-    ],
-    "currentRewardTypes": [
-      "gold"
-    ]
-  }
+﻿{
+    "contextId":  "story_context.cheongun_sangui_act1",
+    "documentType":  "storyPlanningContext",
+    "actId":  "act.01",
+    "groupId":  "cheongun_sangui_act1",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "episodeCompositionRefs":  [
+                                   "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json"
+                               ],
+    "episodeBattleMonsterPoolRefs":  [
+                                         "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json"
+                                     ],
+    "episodeBattlePlanRefs":  [
+                                  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json"
+                              ],
+    "episodePlanningRefs":  [
+                                {
+                                    "episodeId":  "episode.act1.chapter01.01",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                                    "episodeRole":  "intro",
+                                    "categorySummary":  {
+                                                            "story":  "청운촌 도착, 마을 습격, 주민 보호 전투 진입을 시놉시스 수준으로 보존한다.",
+                                                            "monster":  "black_cloth_raiders / early_easy / basic_melee + light_control_melee 방향",
+                                                            "battle":  "urgent_rescue / front_pressure_with_light_flank / easy_intro / solo_story_intro 방향",
+                                                            "reward":  "gold_battle_reward"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.02",
+                                    "inputEpisodeId":  "episode.02",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.02.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "categorySummary":  {
+                                                            "story":  "아이 실종 단서, 지한의 생존 가능성 판단, 유진의 추적 판단을 통해 숲 추적으로 전환한다.",
+                                                            "monster":  "직접 적 출현 없이 붉은 천 인형, 지워진 발자국, 수레 자국으로 unknown_abductor_trace 방향만 보존한다.",
+                                                            "battle":  "전투 없음 / 조사 긴장 / 파티 규모 가정 없음",
+                                                            "reward":  "gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "not_required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear"
+                                }
+                            ],
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                            "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md"
+                        ],
+    "downstreamRefs":  {
+                           "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                           "episodeBattleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                           "episodeBattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                           "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                           "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                           "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json"
+                       },
+    "globalRules":  {
+                        "usePlanningRefsOnly":  true,
+                        "doNotCopyFullEpisodeData":  true,
+                        "doNotCreateRuntimeIds":  true,
+                        "episodeBattleMonsterPoolIsPreMonsterCreation":  true,
+                        "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches":  true,
+                        "episodeBattlePlanUsesSelectedSpawner":  true,
+                        "existingMonsterRefsAreCandidatesOnly":  true,
+                        "episodeCategoryShape":  [
+                                                     "common",
+                                                     "story",
+                                                     "monster",
+                                                     "battle",
+                                                     "reward",
+                                                     "handoff"
+                                                 ],
+                        "currentRewardTypes":  [
+                                                   "gold"
+                                               ]
+                    }
 }

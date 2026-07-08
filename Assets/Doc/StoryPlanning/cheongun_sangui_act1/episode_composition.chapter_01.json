@@ -1,76 +1,113 @@
-{
-  "compositionId": "episode_composition.chapter_01.cheongun_sangui_act1",
-  "documentType": "episodePlanningComposition",
-  "actId": "act.01",
-  "chapterId": "chapter.01.01",
-  "chapterTitle": "청운촌의 의뢰",
-  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
-  "storyContextRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
-  "episodeBattleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-  "episodeBattlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-  "sourceStoryRefs": [
-    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
-    "Assets/Doc/Story/Act01/Chapter01/01_episode1.md"
-  ],
-  "episodeCompositions": [
-    {
-      "episodeId": "episode.act1.chapter01.01",
-      "episodeTitle": "청운촌의 습격",
-      "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
-      "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-      "battlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-      "battlePlanStatus": "created",
-      "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
-      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
-      "episodeRole": "intro",
-      "storyPurpose": "청운촌의 위기, 아이 실종 사건, 서진의 개인적 동기를 첫 전투 진입으로 연결한다.",
-      "categorySummary": {
-        "story": "정식 스크립트에서 청운촌의 가뭄, 서진의 개인적 후회, 검은 천 무리의 습격을 보존한다.",
-        "monster": "검은 천 습격자 계열의 초반 easy 난이도 인간형 근접/제어 몬스터 방향을 제안한다.",
-        "battle": "서진 1인 기준의 급박한 주민 구조, 정면 압박과 약한 측면 압박을 가진 쉬운 도입 전투 방향을 제안한다.",
-        "reward": "전투 클리어 골드 보상 방향만 가진다."
-      },
-      "choiceOutcomeSummary": "마을 사람들을 구하는 선택을 통해 주민 보호 전투가 열린다는 방향만 보존한다.",
-      "scriptNeed": "required",
-      "monsterPlanningNeed": "required",
-      "battleNeed": "required",
-      "rewardNeed": "gold_battle_reward",
-      "downstreamNeeds": [
-        "FormalScript",
-        "EpisodeBattleMonsterPool",
-        "EpisodeBattlePlan",
-        "MonsterPlanning",
-        "BattleStoryContext",
-        "RewardPlanning"
-      ],
-      "lockedReveals": [
-        "sangui_true_form",
-        "spirit_boss",
-        "final_abduction_truth"
-      ],
-      "notes": [
-        "테스트 변환은 에피소드 1만 포함한다.",
-        "이후 전체 Chapter01 변환 시 episodeCompositions 배열에 나머지 에피소드를 추가한다."
-      ]
-    }
-  ],
-  "globalRules": {
-    "useEpisodePlanningRefsOnly": true,
-    "doNotCopyFullEpisodeData": true,
-    "episodeBattleMonsterPoolIsPreMonsterCreation": true,
-    "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches": true,
-    "episodeBattlePlanUsesSelectedSpawner": true,
-    "existingMonsterRefsAreCandidatesOnly": true,
-    "episodeCategoryShape": [
-      "common",
-      "story",
-      "monster",
-      "battle",
-      "reward",
-      "handoff"
-    ],
-    "currentRewardTypes": [
-      "gold"
-    ]
-  }
+﻿{
+    "compositionId":  "episode_composition.chapter_01.cheongun_sangui_act1",
+    "documentType":  "episodePlanningComposition",
+    "actId":  "act.01",
+    "chapterId":  "chapter.01.01",
+    "chapterTitle":  "청운촌의 의뢰",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "storyContextRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeBattleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+    "episodeBattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                            "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md"
+                        ],
+    "episodeCompositions":  [
+                                {
+                                    "episodeId":  "episode.act1.chapter01.01",
+                                    "episodeTitle":  "청운촌의 습격",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                                    "episodeRole":  "intro",
+                                    "storyPurpose":  "청운촌의 위기, 아이 실종 사건, 서진의 개인적 동기를 첫 전투 진입으로 연결한다.",
+                                    "categorySummary":  {
+                                                            "story":  "정식 스크립트에서 청운촌의 가뭄, 서진의 개인적 후회, 검은 천 무리의 습격을 보존한다.",
+                                                            "monster":  "검은 천 습격자 계열의 초반 easy 난이도 인간형 근접/제어 몬스터 방향을 제안한다.",
+                                                            "battle":  "서진 1인 기준의 급박한 주민 구조, 정면 압박과 약한 측면 압박을 가진 쉬운 도입 전투 방향을 제안한다.",
+                                                            "reward":  "전투 클리어 골드 보상 방향만 가진다."
+                                                        },
+                                    "choiceOutcomeSummary":  "마을 사람들을 구하는 선택을 통해 주민 보호 전투가 열린다는 방향만 보존한다.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "EpisodeBattlePlan",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth"
+                                                      ],
+                                    "notes":  [
+                                                  "테스트 변환은 에피소드 1만 포함한다.",
+                                                  "이후 전체 Chapter01 변환 시 episodeCompositions 배열에 나머지 에피소드를 추가한다."
+                                              ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.02",
+                                    "inputEpisodeId":  "episode.02",
+                                    "episodeTitle":  "남겨진 단서",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.02.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "storyPurpose":  "청운촌 습격 이후 아이 실종 단서를 조사하고, 지한과 유진의 관점을 통해 숲 추적으로 이어지는 근거를 만든다.",
+                                    "categorySummary":  {
+                                                            "story":  "촌장 증언, 실종 아이 가족, 붉은 천 인형 그림, 지워진 발자국과 수레 자국을 시놉시스 수준으로 보존한다.",
+                                                            "monster":  "직접 몬스터 등장 없이 후속 위협을 암시하는 단서 방향만 둔다.",
+                                                            "battle":  "전투 없음. 정확한 스포너, 스폰 수, BattleSO를 만들지 않는다.",
+                                                            "reward":  "조사 에피소드 클리어 골드 보상 방향만 가진다."
+                                                        },
+                                    "choiceOutcomeSummary":  "단서 확인 또는 가족 면담 선택은 모두 아이가 숲으로 유인되었을 가능성과 숲 추적 결정으로 이어진다.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "battleNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "RewardPlanning"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "원문 근거상 전투 에피소드가 아니므로 battleMonsterPoolRef와 battlePlanRef를 만들지 않는다.",
+                                                  "원문에서 지한과 유진은 단서 판단에 등장하지만 전투 파티 규모 근거는 제공하지 않는다."
+                                              ]
+                                }
+                            ],
+    "globalRules":  {
+                        "useEpisodePlanningRefsOnly":  true,
+                        "doNotCopyFullEpisodeData":  true,
+                        "episodeBattleMonsterPoolIsPreMonsterCreation":  true,
+                        "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches":  true,
+                        "episodeBattlePlanUsesSelectedSpawner":  true,
+                        "existingMonsterRefsAreCandidatesOnly":  true,
+                        "episodeCategoryShape":  [
+                                                     "common",
+                                                     "story",
+                                                     "monster",
+                                                     "battle",
+                                                     "reward",
+                                                     "handoff"
+                                                 ],
+                        "currentRewardTypes":  [
+                                                   "gold"
+                                               ]
+                    }
 }
