@@ -26,4 +26,10 @@ Prompt evaluation copy-ready prompts are under:
 Assets/character_concepts/game_prompts/prompt
 ```
 
+Stage node and popup event JSON prompts are under:
+
+```text
+Assets/character_concepts/game_prompts/stage
+```
+
 Do not put reference guides in this folder.
