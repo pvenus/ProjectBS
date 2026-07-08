@@ -19,18 +19,39 @@ MonoBehaviour:
   - choiceId: stage.story.hard.012.choice.mark
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 90
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 2b012f730cb9b453e9b5699c39f7735b, type: 2}
   - choiceId: stage.story.hard.012.choice.stone
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 40
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: e217a9c88ea024c61b8737b49152bec1, type: 2}
   - choiceId: stage.story.hard.012.choice.water
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 220
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 9858fec7cb264400585ec4441e70c6ff, type: 2}

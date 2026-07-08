@@ -19,18 +19,39 @@ MonoBehaviour:
   - choiceId: stage.story.easy.008.choice.fix
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 35
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 3fc5936d3eaa34493b9c2d06f49e7228, type: 2}
   - choiceId: stage.story.easy.008.choice.follow
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 10
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 60d19cbace92c4d8a882d398a3c762f2, type: 2}
   - choiceId: stage.story.easy.008.choice.post
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 70
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: b52005609dc4d470f9addb7dad9b281a, type: 2}

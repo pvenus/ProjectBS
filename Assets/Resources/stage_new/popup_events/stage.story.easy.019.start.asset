@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: stage.story.easy.019.start
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: stage.story.easy.019.start
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: stage.story.easy.019.choice.repair
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 40
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: b2aa3807965c14a69a645c51deaa274c, type: 2}
+  - choiceId: stage.story.easy.019.choice.hay
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 15
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: e816a8410e4524f91a43deb2404e9f68, type: 2}
+  - choiceId: stage.story.easy.019.choice.hat
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 70
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 4be2442b0df49403ea16d27496ac1319, type: 2}

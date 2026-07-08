@@ -19,18 +19,39 @@ MonoBehaviour:
   - choiceId: stage.story.normal.003.choice.fish
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 20
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 449d83e1a1d8244a288ac0226458e903, type: 2}
   - choiceId: stage.story.normal.003.choice.row
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 50
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 660ac781c61fd42e1a0b2c032389cd14, type: 2}
   - choiceId: stage.story.normal.003.choice.explore
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 100
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 737eadef4651141e8b2039d463957305, type: 2}

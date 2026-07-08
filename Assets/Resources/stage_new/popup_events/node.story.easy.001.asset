@@ -13,24 +13,45 @@ MonoBehaviour:
   m_Name: node.story.easy.001
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.story.easy.001
-  mainImage: {fileID: 21300000, guid: 02d3489ff52e74aa9828615a83b0c953, type: 3}
+  mainImage: {fileID: 0}
   icon: {fileID: 0}
   choices:
   - choiceId: stage.story.easy.001.choice.help
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 35
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: f4fabd275ff9c4493a23b3d47a779866, type: 2}
   - choiceId: stage.story.easy.001.choice.rest
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 15
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 1fa441e6c9df44ea280687401f501a3f, type: 2}
   - choiceId: stage.story.easy.001.choice.search
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 70
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: daf87dadcaa914acfaa51ff56946599d, type: 2}

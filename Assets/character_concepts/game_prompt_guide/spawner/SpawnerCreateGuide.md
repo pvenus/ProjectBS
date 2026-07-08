@@ -17,6 +17,7 @@ The spawner is therefore a layout/timing asset, not a monster roster.
 ## Required References
 
 - Spawner SO schema: `Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md`
+- Spawner creation prompt: `Assets/character_concepts/game_prompts/spawner/SpawnerCreatePrompt.md`
 - Battle creation guide: `Assets/character_concepts/game_prompt_guide/battle/BattleCreateGuide.md`
 - Battle story context guide: `Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md`
 - Source JSON folder: `Assets/Resources/battle/spawner/Jsons/sequence_presets`

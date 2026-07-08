@@ -9,9 +9,11 @@ responsible only for timing, placement, and role slots.
 ## Required References
 
 - Battle story context guide: `Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md`
-- Battle generation prompt: `Assets/character_concepts/game_prompt_guide/battle/BattleGenerationPrompt.md`
+- Battle generation prompt: `Assets/character_concepts/game_prompts/battle/BattleGenerationPrompt.md`
 - Episode battle plan guide: `Assets/character_concepts/game_prompt_guide/battle/EpisodeBattlePlanGuide.md`
-- Battle from episode plan prompt: `Assets/character_concepts/game_prompt_guide/battle/BattleFromEpisodePlanPrompt.md`
+- Battle from episode plan prompt: `Assets/character_concepts/game_prompts/battle/BattleFromEpisodePlanPrompt.md`
+- Battle background image prompt: `Assets/character_concepts/game_prompts/battle/BattleBackgroundImagePrompt.md`
+- BattleSO asset build prompt: `Assets/character_concepts/game_prompts/battle/BattleSOAssetBuildPrompt.md`
 - Spawner creation guide: `Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md`
 - Spawner SO schema: `Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md`
 - Character planning data: `Assets/Doc/Character`

@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: stage.story.hard.016.start
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: stage.story.hard.016.start
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: stage.story.hard.016.choice.fire
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 100
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: acb9fabd9601046bdb5323e1c8304d0a, type: 2}
+  - choiceId: stage.story.hard.016.choice.evacuate
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 42
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 21ea54c99dacc49ab92898282cb1eac1, type: 2}
+  - choiceId: stage.story.hard.016.choice.chest
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 210
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: eaee2b6c57b4443bf9167211d0139b4f, type: 2}

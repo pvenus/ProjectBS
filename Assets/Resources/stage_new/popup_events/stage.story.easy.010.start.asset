@@ -16,21 +16,42 @@ MonoBehaviour:
   mainImage: {fileID: 0}
   icon: {fileID: 0}
   choices:
-  - choiceId: stage.story.easy.010.choice.collect
+  - choiceId: stage.story.easy.010.choice.deliver
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 45
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
-  - choiceId: stage.story.easy.010.choice.sit
+    nextEvent: {fileID: 11400000, guid: 813922905e5e34cf189732955668d888, type: 2}
+  - choiceId: stage.story.easy.010.choice.dry
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 10
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
-  - choiceId: stage.story.easy.010.choice.slot
+    nextEvent: {fileID: 11400000, guid: 24052c2db10b54d64a8d38f10e9357aa, type: 2}
+  - choiceId: stage.story.easy.010.choice.coin
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 70
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: b72af4006cf32405686bb85ef9c3d36e, type: 2}

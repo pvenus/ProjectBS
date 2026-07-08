@@ -101,6 +101,7 @@ Assets/character_concepts/game_prompt_guide/story/StoryBattlePlanningPipelineGui
 Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md
 Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md
 Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
+Assets/character_concepts/game_prompt_guide/stage/EpisodeStageNodeCreateGuide.md
 Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md
 ```
 

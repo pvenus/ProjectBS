@@ -66,7 +66,7 @@ If the `animations` folder does not exist, or if the task explicitly targets the
 PixelLab character lookup:
 
 1. Search `targetCharacterFolder` for the image generation prompt and result metadata.
-2. Prefer the exact PixelLab prompt recorded by `CharacterGenerateImagePrompt.md` / `CharacterGenerateImage.md`.
+2. Prefer the exact PixelLab prompt recorded by `Assets/character_concepts/game_prompts/character/CharacterGenerateImagePrompt.md` / `Assets/character_concepts/game_prompt_guide/character/CharacterGenerateImage.md`.
 3. If multiple prompt records exist, use the one associated with the passing image evaluation result.
 4. Open `https://www.pixellab.ai/create-character` in Chrome.
 5. On that page, use the prompt text, character name, and grade tags to search the existing PixelLab character.

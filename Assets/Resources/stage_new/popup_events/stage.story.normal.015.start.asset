@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: stage.story.normal.015.start
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: stage.story.normal.015.start
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: stage.story.normal.015.choice.rescue
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 70
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: f88bb0451976d436d857ae98064580ab, type: 2}
+  - choiceId: stage.story.normal.015.choice.props
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 22
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 488d65b5e298a483e9570d2a35f034c4, type: 2}
+  - choiceId: stage.story.normal.015.choice.box
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 125
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 01616cc65a0fb4d5c9d96fe05fe08ab0, type: 2}

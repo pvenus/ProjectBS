@@ -76,7 +76,7 @@ For creating or updating only those index files, use:
 
 ```text
 Assets/character_concepts/game_prompt_guide/character/NpcPoolJsonCreateGuide.md
-Assets/character_concepts/game_prompt_guide/character/NpcPoolJsonCreatePrompt.md
+Assets/character_concepts/game_prompts/character/NpcPoolJsonCreatePrompt.md
 ```
 
 The index files should keep only refs, role slots, chapter use, and composition hints.

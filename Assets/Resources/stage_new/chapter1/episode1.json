@@ -1,6 +1,6 @@
 {
   "stageNodeId": "stage.ch1.episode1",
-  "roundNodeType": "PopupEvent",
+  "roundNodeType": "Event",
   "chapterId": "chapter1",
   "episodeId": "episode1",
   "episodeNumber": 1,
@@ -25,59 +25,7 @@
           "rewards": [
             {
               "rewardType": "SpecialBattle",
-              "battle": {
-                "battleId": "battle.chapter1.episode1.defense",
-                "battleName": "청운촌 방어전",
-                "victoryRule": "SurviveTime",
-                "survivalTimeSeconds": 60,
-                "backgroundPrefab": "background.jugwi_forest_graveyard",
-                "rewardExperience": 100,
-                "normalRelicDropChance": 0.2,
-                "bossRelicDropChance": 0,
-                "timedPropPlacements": [],
-                "propDefinitions": [],
-                "stage": {
-                  "waveId": "wave.chapter1.episode1.defense",
-                  "duration": 60,
-                  "spawnArea": {
-                    "spawnStartX": 0,
-                    "spawnEndX": 9,
-                    "yMin": -2,
-                    "yMax": 2,
-                    "groupSpreadRadius": 0.75
-                  },
-                  "phases": [
-                    {
-                      "phaseId": "phase.chapter1.episode1.01",
-                      "startTime": 0,
-                      "endTime": 15,
-                      "spawnInterval": 3,
-                      "spawnCountPerTick": 1,
-                      "maxAliveCount": 3,
-                      "monsters": [
-                        {
-                          "characterId": "character.wolf.easy.1",
-                          "weight": 1
-                        }
-                      ]
-                    },
-                    {
-                      "phaseId": "phase.chapter1.episode1.02",
-                      "startTime": 15,
-                      "endTime": 30,
-                      "spawnInterval": 2.5,
-                      "spawnCountPerTick": 1,
-                      "maxAliveCount": 5,
-                      "monsters": [
-                        {
-                          "characterId": "character.wolf.easy.1",
-                          "weight": 1
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
+              "rewardId": "battle.act1.chapter01.01.rescue_villagers"
             }
           ]
         }

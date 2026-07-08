@@ -25,6 +25,8 @@ namespace ResourceTools.Stage
     public static class PopupEventBuilder
     {
         private const string DefaultOutputFolder = "Assets/Resources/stage/popup_events";
+        private const string DefaultMainImageFolder = "Assets/Resources/stage_new/popup_png";
+        private const string MainImageSuffix = ".main";
 
         public sealed class BuildResult
         {
@@ -94,7 +96,6 @@ namespace ResourceTools.Stage
             public int amount;
             public int value;
             public string tag;
-            public BattleJsonGenerator.BattleJson battle;
         }
 
         public static BuildResult BuildFromJsonPath(string jsonPath)
@@ -173,6 +174,13 @@ namespace ResourceTools.Stage
                 // Optional compatibility fields. Missing fields are ignored.
                 SetMemberValue(asset, "nodeType", node.nodeType);
                 SetMemberValue(asset, "locationId", node.locationId);
+
+                Sprite mainImage = FindMainImageByEventId(node.nodeId);
+                SetMemberValue(asset, "mainImage", mainImage);
+                if (mainImage == null)
+                {
+                    result.warnings.Add($"Popup main image not found. eventId={node.nodeId}, expected={node.nodeId}{MainImageSuffix}");
+                }
 
                 EditorUtility.SetDirty(asset);
                 result.eventsById[node.nodeId] = asset;
@@ -497,7 +505,19 @@ namespace ResourceTools.Stage
                 return null;
             }
 
-            return BuildEmbeddedBattle(rewardJson);
+            if (IsBattleReward(rewardJson.rewardType))
+            {
+                BattleSO battleSO = FindBattleSOByBattleId(ResolveRewardTargetId(rewardJson));
+                if (battleSO != null)
+                {
+                    return battleSO;
+                }
+
+                result.warnings.Add(
+                    $"BattleSO not found for battle reward. rewardId={rewardJson.rewardId}, targetId={rewardJson.targetId}, node={nodeId}, choice={choiceId}");
+            }
+
+            return null;
         }
 
         private static bool IsJobChangeReward(string rewardType)
@@ -509,6 +529,22 @@ namespace ResourceTools.Stage
         private static bool IsUnlockRouteReward(string rewardType)
         {
             return string.Equals(rewardType, "UnlockRoute", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsBattleReward(string rewardType)
+        {
+            return string.Equals(rewardType, "SpecialBattle", StringComparison.OrdinalIgnoreCase)
+                   || string.Equals(rewardType, "BossBattle", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string ResolveRewardTargetId(PopupEventRewardJson rewardJson)
+        {
+            if (!string.IsNullOrWhiteSpace(rewardJson.rewardId))
+            {
+                return rewardJson.rewardId;
+            }
+
+            return rewardJson.targetId;
         }
 
         private static CharacterSO FindCharacterSOByCharacterId(string characterId)
@@ -530,15 +566,68 @@ namespace ResourceTools.Stage
             return null;
         }
 
-
-        private static BattleSO BuildEmbeddedBattle(PopupEventRewardJson rewardJson)
+        private static BattleSO FindBattleSOByBattleId(string battleId)
         {
-            if (rewardJson == null || rewardJson.battle == null)
+            if (string.IsNullOrWhiteSpace(battleId))
             {
                 return null;
             }
 
-            return BattleJsonGenerator.GenerateFromData(rewardJson.battle);
+            BattleSO[] battleSOs = Resources.LoadAll<BattleSO>("battle");
+            foreach (BattleSO battleSO in battleSOs)
+            {
+                if (battleSO != null && string.Equals(battleSO.BattleId, battleId, StringComparison.Ordinal))
+                {
+                    return battleSO;
+                }
+            }
+
+            return null;
+        }
+
+        private static Sprite FindMainImageByEventId(string eventId)
+        {
+            if (string.IsNullOrWhiteSpace(eventId))
+            {
+                return null;
+            }
+
+            string expectedName = eventId + MainImageSuffix;
+            string[] searchFolders = AssetDatabase.IsValidFolder(DefaultMainImageFolder)
+                ? new[] { DefaultMainImageFolder }
+                : null;
+
+            string[] guids = searchFolders != null
+                ? AssetDatabase.FindAssets("t:Sprite", searchFolders)
+                : AssetDatabase.FindAssets("t:Sprite");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sprite != null && string.Equals(sprite.name, expectedName, StringComparison.Ordinal))
+                {
+                    return sprite;
+                }
+            }
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                string fileName = Path.GetFileNameWithoutExtension(path);
+                if (!string.Equals(fileName, expectedName, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sprite != null)
+                {
+                    return sprite;
+                }
+            }
+
+            return null;
         }
 
         private static object CreateChoiceInstance(Type type)

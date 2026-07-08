@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: stage.story.hard.020.start
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: stage.story.hard.020.start
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: stage.story.hard.020.choice.trial
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 110
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: febdc36c2742246389978686cc89c652, type: 2}
+  - choiceId: stage.story.hard.020.choice.fountain
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 45
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 5087b18f5d3584a64a07e5c578143462, type: 2}
+  - choiceId: stage.story.hard.020.choice.tribute
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: 
+      targetId: 
+      value: 250
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 4a445f655bebe449f92d32b83ac5166f, type: 2}
