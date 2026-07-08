@@ -1,0 +1,267 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="3000" viewBox="0 0 1800 3000">
+  <defs>
+    <style>
+      .bg { fill: #f8f5ee; }
+      .title { font-family: Arial, sans-serif; font-size: 44px; font-weight: 700; fill: #222; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 21px; fill: #5c574f; }
+      .note { font-family: Arial, sans-serif; font-size: 17px; fill: #625d55; }
+      .label { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; fill: #1f1f1f; text-anchor: middle; }
+      .small { font-family: Arial, sans-serif; font-size: 14px; fill: #4d4943; text-anchor: middle; }
+      .tiny { font-family: Arial, sans-serif; font-size: 12px; fill: #6c655c; text-anchor: middle; }
+      .main { fill: #ffffff; stroke: #2a2a2a; stroke-width: 4; }
+      .jihan { fill: #eef7ff; stroke: #2364aa; stroke-width: 4; }
+      .yujin { fill: #fff1e3; stroke: #b45f06; stroke-width: 4; }
+      .random { fill: #e7e4dc; stroke: #8a8479; stroke-width: 3; stroke-dasharray: 7 7; }
+      .final { fill: #fff5bd; stroke: #ad8500; stroke-width: 5; }
+      .mainLine { fill: none; stroke: #292929; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .jihanLine { fill: none; stroke: #2364aa; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .yujinLine { fill: none; stroke: #b45f06; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .mergeLine { fill: none; stroke: #786f63; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .band { fill: #ede7da; opacity: 0.42; }
+      .legendBox { fill: #fffdf8; stroke: #d4cbbb; stroke-width: 2; rx: 14; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="3000"/>
+
+  <text class="title" x="900" y="72" text-anchor="middle">Chapter 1 Node Map 2</text>
+  <text class="subtitle" x="900" y="112" text-anchor="middle">Main choices define the first random layer, then random nodes expand into 1-3 nodes for three vertical layers.</text>
+
+  <rect class="legendBox" x="105" y="145" width="1590" height="105"/>
+  <circle class="main" cx="160" cy="198" r="22"/>
+  <text class="note" x="195" y="204">Main episode</text>
+  <circle class="random" cx="410" cy="198" r="22"/>
+  <text class="note" x="445" y="204">Random node</text>
+  <circle class="jihan" cx="670" cy="198" r="22"/>
+  <text class="note" x="705" y="204">Jihan route</text>
+  <circle class="yujin" cx="910" cy="198" r="22"/>
+  <text class="note" x="945" y="204">Yujin route</text>
+  <circle class="final" cx="1160" cy="198" r="22"/>
+  <text class="note" x="1195" y="204">Final merge</text>
+  <text class="note" x="1390" y="204">Direction: bottom to top</text>
+
+  <g transform="translate(0, 280)">
+    <rect class="band" x="150" y="2220" width="1500" height="250" rx="24"/>
+    <rect class="band" x="150" y="1705" width="1500" height="370" rx="24"/>
+    <rect class="band" x="150" y="1185" width="1500" height="370" rx="24"/>
+    <rect class="band" x="150" y="665" width="1500" height="370" rx="24"/>
+    <rect class="band" x="150" y="150" width="1500" height="370" rx="24"/>
+
+    <!-- Episode 1 and 2 are linear. -->
+    <circle class="main" cx="900" cy="2500" r="66"/>
+    <text class="label" x="900" y="2494">Episode 1</text>
+    <text class="small" x="900" y="2522">청운촌의 습격</text>
+    <path class="mainLine" d="M900 2434 L900 2346"/>
+    <text class="tiny" x="1005" y="2394">linear</text>
+
+    <circle class="main" cx="900" cy="2280" r="66"/>
+    <text class="label" x="900" y="2274">Episode 2</text>
+    <text class="small" x="900" y="2302">엇갈린 단서</text>
+
+    <!-- Episode 2 choice count: 2, so the first random layer has 2 nodes. -->
+    <text class="tiny" x="900" y="2170">Episode 2 choices: 지한의 단서 / 유진의 단서</text>
+    <path class="jihanLine" d="M865 2224 C740 2165 560 2140 430 2085"/>
+    <path class="yujinLine" d="M935 2224 C1060 2165 1240 2140 1370 2085"/>
+
+    <circle class="random" cx="430" cy="2085" r="34"/>
+    <text class="label" x="430" y="2092">?</text>
+    <text class="tiny" x="430" y="2132">R1</text>
+    <circle class="random" cx="1370" cy="2085" r="34"/>
+    <text class="label" x="1370" y="2092">?</text>
+    <text class="tiny" x="1370" y="2132">R1</text>
+
+    <path class="jihanLine" d="M430 2051 C375 2015 330 1985 285 1950"/>
+    <path class="jihanLine" d="M430 2051 C475 2015 530 1985 575 1950"/>
+    <circle class="random" cx="285" cy="1950" r="34"/>
+    <text class="label" x="285" y="1957">?</text>
+    <circle class="random" cx="575" cy="1950" r="34"/>
+    <text class="label" x="575" y="1957">?</text>
+
+    <path class="yujinLine" d="M1370 2051 L1370 1950"/>
+    <circle class="random" cx="1370" cy="1950" r="34"/>
+    <text class="label" x="1370" y="1957">?</text>
+
+    <path class="jihanLine" d="M285 1916 C280 1880 285 1850 285 1815"/>
+    <path class="jihanLine" d="M575 1916 C530 1880 495 1850 465 1815"/>
+    <path class="jihanLine" d="M575 1916 C585 1880 600 1850 615 1815"/>
+    <circle class="random" cx="285" cy="1815" r="34"/>
+    <text class="label" x="285" y="1822">?</text>
+    <circle class="random" cx="465" cy="1815" r="34"/>
+    <text class="label" x="465" y="1822">?</text>
+    <circle class="random" cx="615" cy="1815" r="34"/>
+    <text class="label" x="615" y="1822">?</text>
+
+    <path class="yujinLine" d="M1370 1916 C1325 1880 1290 1850 1255 1815"/>
+    <path class="yujinLine" d="M1370 1916 C1415 1880 1450 1850 1485 1815"/>
+    <circle class="random" cx="1255" cy="1815" r="34"/>
+    <text class="label" x="1255" y="1822">?</text>
+    <circle class="random" cx="1485" cy="1815" r="34"/>
+    <text class="label" x="1485" y="1822">?</text>
+
+    <path class="jihanLine" d="M285 1781 C345 1745 395 1710 430 1666"/>
+    <path class="jihanLine" d="M465 1781 C455 1745 440 1710 430 1666"/>
+    <path class="jihanLine" d="M615 1781 C550 1745 480 1710 430 1666"/>
+    <path class="yujinLine" d="M1255 1781 C1300 1745 1340 1710 1370 1666"/>
+    <path class="yujinLine" d="M1485 1781 C1435 1745 1400 1710 1370 1666"/>
+
+    <circle class="jihan" cx="430" cy="1600" r="66"/>
+    <text class="label" x="430" y="1594">Episode 3-1</text>
+    <text class="small" x="430" y="1622">숲속의 승려</text>
+    <circle class="yujin" cx="1370" cy="1600" r="66"/>
+    <text class="label" x="1370" y="1594">Episode 3-2</text>
+    <text class="small" x="1370" y="1622">숲길의 궁수</text>
+
+    <!-- After Episode 3: each episode has 1 outgoing story choice, random layers still expand 1-3. -->
+    <text class="tiny" x="430" y="1518">After E3-1: 1 / 3 / 2</text>
+    <text class="tiny" x="1370" y="1518">After E3-2: 1 / 2 / 3</text>
+    <path class="jihanLine" d="M430 1534 L430 1465"/>
+    <circle class="random" cx="430" cy="1465" r="34"/>
+    <text class="label" x="430" y="1472">?</text>
+    <path class="jihanLine" d="M430 1431 C370 1395 315 1365 265 1330"/>
+    <path class="jihanLine" d="M430 1431 L430 1330"/>
+    <path class="jihanLine" d="M430 1431 C490 1395 545 1365 595 1330"/>
+    <circle class="random" cx="265" cy="1330" r="34"/>
+    <text class="label" x="265" y="1337">?</text>
+    <circle class="random" cx="430" cy="1330" r="34"/>
+    <text class="label" x="430" y="1337">?</text>
+    <circle class="random" cx="595" cy="1330" r="34"/>
+    <text class="label" x="595" y="1337">?</text>
+    <path class="jihanLine" d="M265 1296 C305 1260 340 1230 375 1195"/>
+    <path class="jihanLine" d="M430 1296 C410 1260 390 1230 375 1195"/>
+    <path class="jihanLine" d="M595 1296 C560 1260 520 1230 485 1195"/>
+    <circle class="random" cx="375" cy="1195" r="34"/>
+    <text class="label" x="375" y="1202">?</text>
+    <circle class="random" cx="485" cy="1195" r="34"/>
+    <text class="label" x="485" y="1202">?</text>
+
+    <path class="yujinLine" d="M1370 1534 L1370 1465"/>
+    <circle class="random" cx="1370" cy="1465" r="34"/>
+    <text class="label" x="1370" y="1472">?</text>
+    <path class="yujinLine" d="M1370 1431 C1320 1395 1280 1365 1235 1330"/>
+    <path class="yujinLine" d="M1370 1431 C1420 1395 1460 1365 1505 1330"/>
+    <circle class="random" cx="1235" cy="1330" r="34"/>
+    <text class="label" x="1235" y="1337">?</text>
+    <circle class="random" cx="1505" cy="1330" r="34"/>
+    <text class="label" x="1505" y="1337">?</text>
+    <path class="yujinLine" d="M1235 1296 C1210 1260 1190 1230 1170 1195"/>
+    <path class="yujinLine" d="M1235 1296 C1285 1260 1330 1230 1370 1195"/>
+    <path class="yujinLine" d="M1505 1296 C1530 1260 1550 1230 1570 1195"/>
+    <circle class="random" cx="1170" cy="1195" r="34"/>
+    <text class="label" x="1170" y="1202">?</text>
+    <circle class="random" cx="1370" cy="1195" r="34"/>
+    <text class="label" x="1370" y="1202">?</text>
+    <circle class="random" cx="1570" cy="1195" r="34"/>
+    <text class="label" x="1570" y="1202">?</text>
+
+    <path class="jihanLine" d="M375 1161 C395 1125 415 1095 430 1056"/>
+    <path class="jihanLine" d="M485 1161 C465 1125 445 1095 430 1056"/>
+    <path class="yujinLine" d="M1170 1161 C1245 1125 1320 1095 1370 1056"/>
+    <path class="yujinLine" d="M1370 1161 L1370 1056"/>
+    <path class="yujinLine" d="M1570 1161 C1495 1125 1420 1095 1370 1056"/>
+
+    <circle class="jihan" cx="430" cy="990" r="66"/>
+    <text class="label" x="430" y="984">Episode 4-1</text>
+    <text class="small" x="430" y="1012">피 묻은 산길</text>
+    <circle class="yujin" cx="1370" cy="990" r="66"/>
+    <text class="label" x="1370" y="984">Episode 4-2</text>
+    <text class="small" x="1370" y="1012">끊어진 발자국</text>
+
+    <!-- After Episode 4: new random result, three layers per route. -->
+    <text class="tiny" x="430" y="908">After E4-1: 1 / 2 / 2</text>
+    <text class="tiny" x="1370" y="908">After E4-2: 1 / 3 / 2</text>
+    <path class="jihanLine" d="M430 924 L430 855"/>
+    <circle class="random" cx="430" cy="855" r="34"/>
+    <text class="label" x="430" y="862">?</text>
+    <path class="jihanLine" d="M430 821 C385 785 350 755 315 720"/>
+    <path class="jihanLine" d="M430 821 C475 785 510 755 545 720"/>
+    <circle class="random" cx="315" cy="720" r="34"/>
+    <text class="label" x="315" y="727">?</text>
+    <circle class="random" cx="545" cy="720" r="34"/>
+    <text class="label" x="545" y="727">?</text>
+    <path class="jihanLine" d="M315 686 C330 650 350 620 365 585"/>
+    <path class="jihanLine" d="M545 686 C520 650 485 620 450 585"/>
+    <circle class="random" cx="365" cy="585" r="34"/>
+    <text class="label" x="365" y="592">?</text>
+    <circle class="random" cx="450" cy="585" r="34"/>
+    <text class="label" x="450" y="592">?</text>
+
+    <path class="yujinLine" d="M1370 924 L1370 855"/>
+    <circle class="random" cx="1370" cy="855" r="34"/>
+    <text class="label" x="1370" y="862">?</text>
+    <path class="yujinLine" d="M1370 821 C1315 785 1260 755 1210 720"/>
+    <path class="yujinLine" d="M1370 821 L1370 720"/>
+    <path class="yujinLine" d="M1370 821 C1425 785 1480 755 1530 720"/>
+    <circle class="random" cx="1210" cy="720" r="34"/>
+    <text class="label" x="1210" y="727">?</text>
+    <circle class="random" cx="1370" cy="720" r="34"/>
+    <text class="label" x="1370" y="727">?</text>
+    <circle class="random" cx="1530" cy="720" r="34"/>
+    <text class="label" x="1530" y="727">?</text>
+    <path class="yujinLine" d="M1210 686 C1240 650 1270 620 1300 585"/>
+    <path class="yujinLine" d="M1370 686 C1350 650 1325 620 1300 585"/>
+    <path class="yujinLine" d="M1530 686 C1500 650 1470 620 1440 585"/>
+    <circle class="random" cx="1300" cy="585" r="34"/>
+    <text class="label" x="1300" y="592">?</text>
+    <circle class="random" cx="1440" cy="585" r="34"/>
+    <text class="label" x="1440" y="592">?</text>
+
+    <path class="jihanLine" d="M365 551 C390 515 415 485 430 446"/>
+    <path class="jihanLine" d="M450 551 C440 515 435 485 430 446"/>
+    <path class="yujinLine" d="M1300 551 C1325 515 1350 485 1370 446"/>
+    <path class="yujinLine" d="M1440 551 C1415 515 1390 485 1370 446"/>
+
+    <circle class="jihan" cx="430" cy="380" r="66"/>
+    <text class="label" x="430" y="374">Episode 5-1</text>
+    <text class="small" x="430" y="402">낡은 수련장</text>
+    <circle class="yujin" cx="1370" cy="380" r="66"/>
+    <text class="label" x="1370" y="374">Episode 5-2</text>
+    <text class="small" x="1370" y="402">숲길의 의원</text>
+
+    <!-- After Episode 5: separate random lanes, then final merge only at Episode 6. -->
+    <text class="tiny" x="900" y="300">After E5: routes stay separate, then merge into Episode 6</text>
+    <path class="jihanLine" d="M430 314 L430 250"/>
+    <path class="yujinLine" d="M1370 314 L1370 250"/>
+    <circle class="random" cx="430" cy="250" r="34"/>
+    <text class="label" x="430" y="257">?</text>
+    <circle class="random" cx="1370" cy="250" r="34"/>
+    <text class="label" x="1370" y="257">?</text>
+
+    <path class="jihanLine" d="M430 216 C385 180 350 150 315 115"/>
+    <path class="jihanLine" d="M430 216 C475 180 510 150 545 115"/>
+    <circle class="random" cx="315" cy="115" r="34"/>
+    <text class="label" x="315" y="122">?</text>
+    <circle class="random" cx="545" cy="115" r="34"/>
+    <text class="label" x="545" y="122">?</text>
+
+    <path class="yujinLine" d="M1370 216 C1325 180 1290 150 1255 115"/>
+    <path class="yujinLine" d="M1370 216 C1415 180 1450 150 1485 115"/>
+    <circle class="random" cx="1255" cy="115" r="34"/>
+    <text class="label" x="1255" y="122">?</text>
+    <circle class="random" cx="1485" cy="115" r="34"/>
+    <text class="label" x="1485" y="122">?</text>
+
+    <path class="jihanLine" d="M315 81 C320 45 340 15 360 -15"/>
+    <path class="jihanLine" d="M545 81 C510 45 475 15 440 -15"/>
+    <path class="yujinLine" d="M1255 81 C1290 45 1325 15 1360 -15"/>
+    <path class="yujinLine" d="M1485 81 C1480 45 1460 15 1440 -15"/>
+    <circle class="random" cx="360" cy="-15" r="34"/>
+    <text class="label" x="360" y="-8">?</text>
+    <circle class="random" cx="440" cy="-15" r="34"/>
+    <text class="label" x="440" y="-8">?</text>
+    <circle class="random" cx="1360" cy="-15" r="34"/>
+    <text class="label" x="1360" y="-8">?</text>
+    <circle class="random" cx="1440" cy="-15" r="34"/>
+    <text class="label" x="1440" y="-8">?</text>
+
+    <path class="mergeLine" d="M360 -49 C490 -125 650 -155 900 -170"/>
+    <path class="mergeLine" d="M440 -49 C560 -115 710 -145 900 -170"/>
+    <path class="mergeLine" d="M1360 -49 C1230 -125 1070 -155 900 -170"/>
+    <path class="mergeLine" d="M1440 -49 C1300 -115 1090 -145 900 -170"/>
+
+    <circle class="final" cx="900" cy="-235" r="70"/>
+    <text class="label" x="900" y="-241">Episode 6</text>
+    <text class="small" x="900" y="-213">산채의 토벌</text>
+  </g>
+
+  <text class="note" x="900" y="2950" text-anchor="middle">Generated from Act01/Chapter01 story files and NodeMapFormat.md version 2. Counts shown are one valid randomized example.</text>
+</svg>
