@@ -60,6 +60,7 @@ Assets/character_concepts/game_prompts/battle
 Assets/character_concepts/game_prompts/character
 Assets/character_concepts/game_prompts/skill
 Assets/character_concepts/game_prompts/spawner
+Assets/character_concepts/game_prompts/stage
 Assets/character_concepts/game_prompts/story
 ```
 
