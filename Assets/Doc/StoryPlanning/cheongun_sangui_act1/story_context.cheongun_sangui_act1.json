@@ -50,12 +50,38 @@
                                     "battleNeed":  "not_required",
                                     "monsterPlanningNeed":  "not_required",
                                     "rewardNeed":  "gold_episode_clear"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.03_1",
+                                    "inputEpisodeId":  "episode.03-1",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "categorySummary":  {
+                                                            "story":  "붉은 천 인형 흔적을 따라 숲속 오두막으로 들어가 지한과 합류하고, 다친 아이 보호 전투로 전환한다.",
+                                                            "monster":  "forest_pursuers_and_starving_beasts / 굶주린 짐승 + 검은 천 추격자 / fast melee + basic melee + reach blocker 방향",
+                                                            "battle":  "protect_injured_child / narrow_path_defense / 서진 전투 중심 + 지한 지원 동행 근거",
+                                                            "reward":  "gold_battle_reward"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
                                 }
                             ],
     "sourceStoryRefs":  [
                             "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
                             "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
-                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md"
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md"
                         ],
     "downstreamRefs":  {
                            "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
@@ -64,7 +90,10 @@
                            "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
                            "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
                            "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
-                           "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json"
+                           "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                           "episode03_1BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "episode03_1BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                           "episode03_1ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
                        },
     "globalRules":  {
                         "usePlanningRefsOnly":  true,

@@ -13,7 +13,8 @@
                             "Assets/Doc/Story/Act01/Act_01_Background.md",
                             "Assets/Doc/Story/Characters.md",
                             "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
-                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md"
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md"
                         ],
     "sourceGuides":  [
                          "Assets/Doc/Design/EpisodeFormat.md",
@@ -23,7 +24,9 @@
                          "Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md",
                          "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
                          "Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md",
-                         "Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md"
+                         "Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md",
+                         "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                         "Assets/Resources/stage_new/chapter1/episode1.json"
                      ],
     "worldUse":  [
                      "가뭄으로 말라가는 청운촌과 산길을 중심으로 한다.",
@@ -33,7 +36,8 @@
     "storyUse":  [
                      "Chapter 01은 서진의 개인적 동기, 청운촌의 위기, 아이 실종 사건의 출발점을 제시한다.",
                      "에피소드 1은 마을 습격을 통해 플레이어가 즉시 보호 전투에 들어가게 하는 도입부다.",
-                     "에피소드 2는 청운촌 아이 실종 단서를 조사하고 지한/유진의 관점을 통해 숲 추적으로 전환한다."
+                     "에피소드 2는 청운촌 아이 실종 단서를 조사하고 지한/유진의 관점을 통해 숲 추적으로 전환한다.",
+                     "에피소드 3-1은 붉은 천 인형 흔적을 따라 숲속 오두막으로 들어가 지한을 동료로 합류시키고, 다친 아이 보호 전투로 전환한다."
                  ],
     "episodeRules":  {
                          "planningShape":  [
@@ -66,6 +70,7 @@
     "notes":  [
                   "테스트 변환은 Episode 01만 포함한다.",
                   "Generated planning folders should contain JSON data artifacts only.",
-                  "Episode 02 planning was added as an investigation episode with no immediate battle need."
+                  "Episode 02 planning was added as an investigation episode with no immediate battle need.",
+                  "Episode 3-1 planning was added as a companion-join and protection battle entry episode."
               ]
 }

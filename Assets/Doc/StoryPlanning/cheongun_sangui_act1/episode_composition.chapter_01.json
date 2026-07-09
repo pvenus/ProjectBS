@@ -11,7 +11,8 @@
     "sourceStoryRefs":  [
                             "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
                             "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
-                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md"
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md"
                         ],
     "episodeCompositions":  [
                                 {
@@ -89,6 +90,53 @@
                                                   "원문 근거상 전투 에피소드가 아니므로 battleMonsterPoolRef와 battlePlanRef를 만들지 않는다.",
                                                   "원문에서 지한과 유진은 단서 판단에 등장하지만 전투 파티 규모 근거는 제공하지 않는다."
                                               ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.03_1",
+                                    "inputEpisodeId":  "episode.03-1",
+                                    "episodeTitle":  "숲속의 승려",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "storyPurpose":  "지한의 치료자 역할과 합류 이유를 보여주고, 다친 아이를 보호해야 하는 좁은 산길 전투로 연결한다.",
+                                    "categorySummary":  {
+                                                            "story":  "붉은 천 인형 흔적, 숲속 오두막, 다친 아이, 지한 합류, 추격자 출현을 시놉시스 수준으로 보존한다.",
+                                                            "monster":  "굶주린 들개/산늑대와 검은 천 추격자의 혼합 압박 방향만 둔다.",
+                                                            "battle":  "오두막 앞 좁은 길목에서 지한과 아이를 지키는 방어 전투 방향. 정확한 스포너나 스폰 수량은 만들지 않는다.",
+                                                            "reward":  "전투 클리어 골드 보상 방향만 가진다."
+                                                        },
+                                    "choiceOutcomeSummary":  "붉은 천 인형 흔적 추적은 지한 합류로, 지한 합류 선택은 다친 아이 보호 전투 진입으로 이어진다.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "원문에 지한 파티 합류와 아이 보호 전투 진입이 명시되어 있다.",
+                                                  "후속 라운드 노드 JSON은 stage sample 규칙을 따라 chapter1 / episode3_1 / stage.ch1.episode3_1 형태를 사용할 수 있다."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
                                 }
                             ],
     "globalRules":  {
