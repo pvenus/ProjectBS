@@ -1,0 +1,228 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.05_2",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.05_2",
+                   "inputEpisodeId":  "episode.05-2",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "??? ??",
+                   "episodeRole":  "companion_join",
+                   "secondaryRoles":  [
+                                          "rescue",
+                                          "breakthrough",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode5_2",
+                                           "suggestedStageNodeId":  "stage.ch1.episode5_2"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "??? ???? ??? ?? ????? ?? ??? ??? ??? ?? ???? ??. ??? ?? ????? ???? ???? ???? ????, ??? ??? ??? ??? ??? ?????? ?? ??.",
+                                         "sceneBeats":  [
+                                                            "??? ???? ??? ??? ??? ?? ? ???? ????.",
+                                                            "??? ??? ? ?? ?? ?? ??? ?? ?? ???? ????.",
+                                                            "??? ??? ?? ??? ??? ??? ??, ?? ?? ??? ?? ??? ???? ???.",
+                                                            "??? ??? ? ? ??? ??? ?? ??? ????? ????.",
+                                                            "??? ??? ??? ? ?? ??? ??? ?? ?? ? ???? ??? ?? ???? ???? ????.",
+                                                            "??? ??? ??? ??? ?? ???? ? ??? ???? ???? ??? ????."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "urgent_rescue",
+                                                               "healer_join",
+                                                               "capture_threat",
+                                                               "escape_pressure"
+                                                           ],
+                                         "sceneFunction":  "?? ??? ???? ??? ?????, ?? ?? ?? ??? ??? ?? ??? ??.",
+                                         "mustShow":  [
+                                                          "?? ???",
+                                                          "? ?? ?",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "? ?? ?? ?? ??",
+                                                          "?? ??? ??",
+                                                          "??? ??",
+                                                          "?? ?",
+                                                          "?? ??",
+                                                          "??? ?",
+                                                          "?? ??? ??"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "forest_hut",
+                                                                   "hut_exit"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_2.choice.accept_jihan_join.1",
+                                               "sourceChoiceText":  "?? ?????. ???? ???? ??? ???.",
+                                               "choiceIntent":  "??? ?? ???? ??? ?? ??? ?? ??? ??? ?????.",
+                                               "outcomeDirection":  "??? ???? ??? ??? ??? ?? ??? ? ?? ??.",
+                                               "opens":  [
+                                                             "companion_join",
+                                                             "battle_setup"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_2.choice.break_hut_encirclement.1",
+                                               "sourceChoiceText":  "???? ??? ???? ????.",
+                                               "choiceIntent":  "??? ??? ??? ???? ? ?? ??? ??? ? ?? ?? ???.",
+                                               "outcomeDirection":  "??? ??? ??? ??? ???? ???? ??? ?? ??? ????.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ]
+                                           }
+                                       ]
+              },
+    "monster":  {
+                    "monsterFamily":  "child_capture_raiders",
+                    "difficultyIntent":  "early_normal",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "door_blocker_tank",
+                                           "net_capture_melee",
+                                           "hook_pole_control",
+                                           "basic_masked_raider"
+                                       ],
+                    "visualDirection":  [
+                                            "white_dot_black_mask",
+                                            "red_hand_mark",
+                                            "hooked_pole",
+                                            "short_blade",
+                                            "folded_net",
+                                            "bamboo_tube",
+                                            "patched_cloth_armor",
+                                            "child_toy_thread"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form",
+                                           "fire_attack_on_hut"
+                                       ],
+                    "revealPolicy":  "??? ????? ?? ????? ?? ??? ???? ??? ??.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "protect_child_escape",
+                   "battleShape":  "hut_door_breakthrough",
+                   "difficultyIntent":  "early_normal",
+                   "partyAssumption":  "seojin_yujin_primary_combat_with_jihan_child_support",
+                   "partyAssumptionBasis":  "??? ??? ?? ???? ??? ??? ????. ?? ?? ? ??? ??? ?? ?? ??? ??? ??? ?????? ????.",
+                   "paceIntent":  "urgent_escape",
+                   "monsterPressure":  [
+                                           "door_blocker_tank",
+                                           "net_capture_melee",
+                                           "hook_pole_control"
+                                       ],
+                   "spaceDirection":  [
+                                          "hut_door",
+                                          "window_sides",
+                                          "single_escape_route"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "?? ??? ?? ?? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  100
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode05_2",
+                                               "suggestedStageNodeId":  "stage.ch1.episode05_2",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.05_2.hut_escape",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+                                           },
+                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                    "optionalBattleId":  "battle.act1.chapter01.05_2.hut_escape",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.05-2 from Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md."
+              ]
+}

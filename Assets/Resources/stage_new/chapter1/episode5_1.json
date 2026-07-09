@@ -1,0 +1,116 @@
+{
+  "stageNodeId": "stage.ch1.episode5_1",
+  "roundNodeType": "RequiredSubEvent",
+  "actId": "act.01",
+  "chapterId": "chapter1",
+  "planningChapterId": "chapter.01.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "episodeId": "episode5_1",
+  "planningEpisodeId": "episode.act1.chapter01.05_1",
+  "episodeNumber": 5,
+  "titleKo": "낡은 수련장",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "유진 합류와 포위망 돌파",
+  "summaryKo": "지한을 먼저 동료로 맞이한 서진 일행은 낡은 수련장에서 유진과 합류하고, 산적들의 포위망을 돌파한다.",
+  "startNodeId": "node.ch1.episode5_1.001",
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 8,
+  "fixedColumn": 0,
+  "tags": ["story", "act1", "chapter1", "episode5_1", "companion_join", "battle_entry"],
+  "sourceRefs": {
+    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+    "episodeBattlePlanFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+    "optionalEpisodeScriptFile": null
+  },
+  "battleRefs": [
+    {
+      "battleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+      "battleGroup": "act1/chapter01",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+    }
+  ],
+  "planningStatus": {
+    "textSource": "episodePlanningFile.synopsis",
+    "needsFormalScriptReview": true,
+    "battleNeed": "required",
+    "battlePlanStatus": "created",
+    "rewardDirection": "gold_battle_reward"
+  },
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode5_1.001",
+      "nodeType": "narration",
+      "locationId": "location.old_training_ground",
+      "speakerId": "character.jihan",
+      "speakerNameKo": "지한",
+      "titleKo": "낡은 수련장",
+      "textKo": "피 묻은 산길을 지나 서진과 지한은 숲속 깊은 곳의 낡은 수련장에 도착한다. 썩은 기둥과 부러진 목검 사이에서, 붉은 천 조각을 쥔 유진이 아이들의 흔적을 쫓고 있다.",
+      "bodyKo": "피 묻은 산길을 지나 서진과 지한은 숲속 깊은 곳의 낡은 수련장에 도착한다. 썩은 기둥과 부러진 목검 사이에서, 붉은 천 조각을 쥔 유진이 아이들의 흔적을 쫓고 있다.",
+      "mainImageRequired": true,
+      "imageDirection": "낡은 수련장, 썩은 기둥과 부러진 목검, 붉은 천 조각을 들고 서 있는 유진과 서진 일행",
+      "nextNodeId": "node.ch1.episode5_1.002",
+      "choices": []
+    },
+    {
+      "nodeId": "node.ch1.episode5_1.002",
+      "nodeType": "choice",
+      "locationId": "location.old_training_ground",
+      "speakerId": "character.yujin",
+      "speakerNameKo": "유진",
+      "titleKo": "같은 목적",
+      "textKo": "유진은 산귀 소문도 산적의 흔적도 같은 곳을 향하고 있다고 말한다. 서진은 목적이 같다면 따로 움직일 이유가 없다고 판단한다.",
+      "bodyKo": "유진은 산귀 소문도 산적의 흔적도 같은 곳을 향하고 있다고 말한다. 서진은 목적이 같다면 따로 움직일 이유가 없다고 판단한다.",
+      "mainImageRequired": true,
+      "imageDirection": "낡은 수련장 한가운데, 서진과 지한 앞에 선 유진, 세 사람이 같은 방향을 바라보는 합류 장면",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode5_1.accept_yujin_join",
+          "textKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+          "labelKo": "유진과 함께 움직인다",
+          "resultKo": "유진이 파티에 합류하고, 서진 일행은 산길을 읽는 눈까지 얻게 된다.",
+          "nextNodeId": "node.ch1.episode5_1.003",
+          "visibleConditions": [],
+          "rewards": []
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.episode5_1.003",
+      "nodeType": "battle_entry",
+      "locationId": "location.surrounded_clearing",
+      "speakerId": "character.seojin",
+      "speakerNameKo": "서진",
+      "titleKo": "포위망 돌파",
+      "textKo": "세 사람이 움직이려는 순간, 수련장 바깥의 풀숲이 일제히 흔들린다. 산적들과 굶주린 짐승들이 퇴로를 막고, 서진 일행은 포위망을 뚫어야 한다.",
+      "bodyKo": "세 사람이 움직이려는 순간, 수련장 바깥의 풀숲이 일제히 흔들린다. 산적들과 굶주린 짐승들이 퇴로를 막고, 서진 일행은 포위망을 뚫어야 한다.",
+      "mainImageRequired": true,
+      "imageDirection": "낡은 수련장을 둘러싼 산적과 굶주린 짐승, 서진 지한 유진이 돌파를 준비하는 전투 직전 장면",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode5_1.enter_battle",
+          "textKo": "지한, 유진과 함께 포위망을 돌파한다.",
+          "labelKo": "포위망을 돌파한다",
+          "resultKo": "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 전투에 들어간다.",
+          "visibleConditions": [],
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "rewardId": "battle.act1.chapter01.05_1.training_ground_breakout",
+              "battleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+              "battleGroup": "act1/chapter01",
+              "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+              "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+            }
+          ],
+          "completesEvent": true
+        }
+      ]
+    }
+  ]
+}

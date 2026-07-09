@@ -1,76 +1,423 @@
-{
-  "compositionId": "episode_composition.chapter_01.cheongun_sangui_act1",
-  "documentType": "episodePlanningComposition",
-  "actId": "act.01",
-  "chapterId": "chapter.01.01",
-  "chapterTitle": "청운촌의 의뢰",
-  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
-  "storyContextRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
-  "episodeBattleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-  "episodeBattlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-  "sourceStoryRefs": [
-    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
-    "Assets/Doc/Story/Act01/Chapter01/01_episode1.md"
-  ],
-  "episodeCompositions": [
-    {
-      "episodeId": "episode.act1.chapter01.01",
-      "episodeTitle": "청운촌의 습격",
-      "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
-      "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-      "battlePlanRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-      "battlePlanStatus": "created",
-      "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
-      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
-      "episodeRole": "intro",
-      "storyPurpose": "청운촌의 위기, 아이 실종 사건, 서진의 개인적 동기를 첫 전투 진입으로 연결한다.",
-      "categorySummary": {
-        "story": "정식 스크립트에서 청운촌의 가뭄, 서진의 개인적 후회, 검은 천 무리의 습격을 보존한다.",
-        "monster": "검은 천 습격자 계열의 초반 easy 난이도 인간형 근접/제어 몬스터 방향을 제안한다.",
-        "battle": "서진 1인 기준의 급박한 주민 구조, 정면 압박과 약한 측면 압박을 가진 쉬운 도입 전투 방향을 제안한다.",
-        "reward": "전투 클리어 골드 보상 방향만 가진다."
-      },
-      "choiceOutcomeSummary": "마을 사람들을 구하는 선택을 통해 주민 보호 전투가 열린다는 방향만 보존한다.",
-      "scriptNeed": "required",
-      "monsterPlanningNeed": "required",
-      "battleNeed": "required",
-      "rewardNeed": "gold_battle_reward",
-      "downstreamNeeds": [
-        "FormalScript",
-        "EpisodeBattleMonsterPool",
-        "EpisodeBattlePlan",
-        "MonsterPlanning",
-        "BattleStoryContext",
-        "RewardPlanning"
-      ],
-      "lockedReveals": [
-        "sangui_true_form",
-        "spirit_boss",
-        "final_abduction_truth"
-      ],
-      "notes": [
-        "테스트 변환은 에피소드 1만 포함한다.",
-        "이후 전체 Chapter01 변환 시 episodeCompositions 배열에 나머지 에피소드를 추가한다."
-      ]
-    }
-  ],
-  "globalRules": {
-    "useEpisodePlanningRefsOnly": true,
-    "doNotCopyFullEpisodeData": true,
-    "episodeBattleMonsterPoolIsPreMonsterCreation": true,
-    "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches": true,
-    "episodeBattlePlanUsesSelectedSpawner": true,
-    "existingMonsterRefsAreCandidatesOnly": true,
-    "episodeCategoryShape": [
-      "common",
-      "story",
-      "monster",
-      "battle",
-      "reward",
-      "handoff"
-    ],
-    "currentRewardTypes": [
-      "gold"
-    ]
-  }
+﻿{
+    "compositionId":  "episode_composition.chapter_01.cheongun_sangui_act1",
+    "documentType":  "episodePlanningComposition",
+    "actId":  "act.01",
+    "chapterId":  "chapter.01.01",
+    "chapterTitle":  "泥?슫珥뚯쓽 ?섎ː",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "storyContextRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeBattleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+    "episodeBattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+    "sourceStoryRefs":  [
+                            "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                            "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/06_episode6.md"
+                        ],
+    "episodeCompositions":  [
+                                {
+                                    "episodeId":  "episode.act1.chapter01.01",
+                                    "episodeTitle":  "泥?슫珥뚯쓽 ?듦꺽",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                                    "episodeRole":  "intro",
+                                    "storyPurpose":  "泥?슫珥뚯쓽 ?꾧린, ?꾩씠 ?ㅼ쥌 ?ш굔, ?쒖쭊??媛쒖씤???숆린瑜?泥??꾪닾 吏꾩엯?쇰줈 ?곌껐?쒕떎.",
+                                    "categorySummary":  {
+                                                            "story":  "?뺤떇 ?ㅽ겕由쏀듃?먯꽌 泥?슫珥뚯쓽 媛萸? ?쒖쭊??媛쒖씤???꾪쉶, 寃? 泥?臾대━???듦꺽??蹂댁〈?쒕떎.",
+                                                            "monster":  "寃? 泥??듦꺽??怨꾩뿴??珥덈컲 easy ?쒖씠???멸컙??洹쇱젒/?쒖뼱 紐ъ뒪??諛⑺뼢???쒖븞?쒕떎.",
+                                                            "battle":  "?쒖쭊 1??湲곗???湲됰컯??二쇰? 援ъ“, ?뺣㈃ ?뺣컯怨??쏀븳 痢〓㈃ ?뺣컯??媛吏??ъ슫 ?꾩엯 ?꾪닾 諛⑺뼢???쒖븞?쒕떎.",
+                                                            "reward":  "?꾪닾 ?대━??怨⑤뱶 蹂댁긽 諛⑺뼢留?媛吏꾨떎."
+                                                        },
+                                    "choiceOutcomeSummary":  "留덉쓣 ?щ엺?ㅼ쓣 援ы븯???좏깮???듯빐 二쇰? 蹂댄샇 ?꾪닾媛 ?대┛?ㅻ뒗 諛⑺뼢留?蹂댁〈?쒕떎.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "EpisodeBattlePlan",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth"
+                                                      ],
+                                    "notes":  [
+                                                  "?뚯뒪??蹂?섏? ?먰뵾?뚮뱶 1留??ы븿?쒕떎.",
+                                                  "?댄썑 ?꾩껜 Chapter01 蹂????episodeCompositions 諛곗뿴???섎㉧吏 ?먰뵾?뚮뱶瑜?異붽??쒕떎."
+                                              ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.02",
+                                    "inputEpisodeId":  "episode.02",
+                                    "episodeTitle":  "?④꺼吏??⑥꽌",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.02.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "storyPurpose":  "泥?슫珥??듦꺽 ?댄썑 ?꾩씠 ?ㅼ쥌 ?⑥꽌瑜?議곗궗?섍퀬, 吏?쒓낵 ?좎쭊??愿?먯쓣 ?듯빐 ??異붿쟻?쇰줈 ?댁뼱吏??洹쇨굅瑜?留뚮뱺??",
+                                    "categorySummary":  {
+                                                            "story":  "珥뚯옣 利앹뼵, ?ㅼ쥌 ?꾩씠 媛議? 遺됱? 泥??명삎 洹몃┝, 吏?뚯쭊 諛쒖옄援?낵 ?섎젅 ?먭뎅???쒕냹?쒖뒪 ?섏??쇰줈 蹂댁〈?쒕떎.",
+                                                            "monster":  "吏곸젒 紐ъ뒪???깆옣 ?놁씠 ?꾩냽 ?꾪삊???붿떆?섎뒗 ?⑥꽌 諛⑺뼢留??붾떎.",
+                                                            "battle":  "?꾪닾 ?놁쓬. ?뺥솗???ㅽ룷?? ?ㅽ룿 ?? runtime battle asset瑜?留뚮뱾吏 ?딅뒗??",
+                                                            "reward":  "議곗궗 ?먰뵾?뚮뱶 ?대━??怨⑤뱶 蹂댁긽 諛⑺뼢留?媛吏꾨떎."
+                                                        },
+                                    "choiceOutcomeSummary":  "?⑥꽌 ?뺤씤 ?먮뒗 媛議?硫대떞 ?좏깮? 紐⑤몢 ?꾩씠媛 ?뀁쑝濡??좎씤?섏뿀??媛?μ꽦怨???異붿쟻 寃곗젙?쇰줈 ?댁뼱吏꾨떎.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "battleNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "RewardPlanning"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "?먮Ц 洹쇨굅???꾪닾 ?먰뵾?뚮뱶媛 ?꾨땲誘濡?battleMonsterPoolRef? battlePlanRef瑜?留뚮뱾吏 ?딅뒗??",
+                                                  "?먮Ц?먯꽌 吏?쒓낵 ?좎쭊? ?⑥꽌 ?먮떒???깆옣?섏?留??꾪닾 ?뚰떚 洹쒕え 洹쇨굅???쒓났?섏? ?딅뒗??"
+                                              ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.03_1",
+                                    "inputEpisodeId":  "episode.03-1",
+                                    "episodeTitle":  "?뀁냽???밸젮",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "storyPurpose":  "吏?쒖쓽 移섎즺????븷怨??⑸쪟 ?댁쑀瑜?蹂댁뿬二쇨퀬, ?ㅼ튇 ?꾩씠瑜?蹂댄샇?댁빞 ?섎뒗 醫곸? ?곌만 ?꾪닾濡??곌껐?쒕떎.",
+                                    "categorySummary":  {
+                                                            "story":  "遺됱? 泥??명삎 ?붿쟻, ?뀁냽 ?ㅻ몢留? ?ㅼ튇 ?꾩씠, 吏???⑸쪟, 異붽꺽??異쒗쁽???쒕냹?쒖뒪 ?섏??쇰줈 蹂댁〈?쒕떎.",
+                                                            "monster":  "援띠＜由??ㅺ컻/?곕뒔?? 寃? 泥?異붽꺽?먯쓽 ?쇳빀 ?뺣컯 諛⑺뼢留??붾떎.",
+                                                            "battle":  "?ㅻ몢留???醫곸? 湲몃ぉ?먯꽌 吏?쒓낵 ?꾩씠瑜?吏?ㅻ뒗 諛⑹뼱 ?꾪닾 諛⑺뼢. ?뺥솗???ㅽ룷?덈굹 ?ㅽ룿 ?섎웾? 留뚮뱾吏 ?딅뒗??",
+                                                            "reward":  "?꾪닾 ?대━??怨⑤뱶 蹂댁긽 諛⑺뼢留?媛吏꾨떎."
+                                                        },
+                                    "choiceOutcomeSummary":  "遺됱? 泥??명삎 ?붿쟻 異붿쟻? 吏???⑸쪟濡? 吏???⑸쪟 ?좏깮? ?ㅼ튇 ?꾩씠 蹂댄샇 ?꾪닾 吏꾩엯?쇰줈 ?댁뼱吏꾨떎.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "?먮Ц??吏???뚰떚 ?⑸쪟? ?꾩씠 蹂댄샇 ?꾪닾 吏꾩엯??紐낆떆?섏뼱 ?덈떎.",
+                                                  "?꾩냽 ?쇱슫???몃뱶 JSON? stage sample 洹쒖튃???곕씪 chapter1 / episode3_1 / stage.ch1.episode3_1 ?뺥깭瑜??ъ슜?????덈떎."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                    "optionalruntime battle assetPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                    "expectedruntime battle assetPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.03_2",
+                                    "inputEpisodeId":  "episode.03-2",
+                                    "episodeTitle":  "??? ??",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "storyPurpose":  "??? ??? ??? ?? ??? ????, ?? ??? ?? ?? ??? ????.",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ???? ?? ??? ?? ?? ???? ???, ??? ?? ?? ??? ???? ??. ?? ???? ???? ???? ?? ? ??? ???? ???, ??? ??? ???? ?? ??.",
+                                                            "monster":  "training_ground_bandit_watchers ??",
+                                                            "battle":  "required / front_guard_with_archer_cover",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "??? ??? ????? ???? ???? ?? ???? ????. ??? ??? ???? ??? ?? ?? ???. ??? ??? ???? ???? ??? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.04_1",
+                                    "inputEpisodeId":  "episode.04-1",
+                                    "episodeTitle":  "? ?? ??",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "storyPurpose":  "???? ?? ?? ???? ??? ??? ?? ??? ???? ??/?? ?????.",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ? ?? ???? ?? ??? ??? ??? ????, ??? ??? ? ??? ?? ??? ???? ??? ??? ??? ????.",
+                                                            "monster":  "coerced_starving_beast_trace ??",
+                                                            "battle":  "not_required / avoid_beast_pack",
+                                                            "reward":  "gold_episode_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "??? ??? ?? ??? ???? ?? ? ?? ?? ???? ??? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "battleNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.04_2",
+                                    "inputEpisodeId":  "episode.04-2",
+                                    "episodeTitle":  "??? ???",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "storyPurpose":  "?? ?? ?? ??? ??? ??? ??? ?? ?? ?????.",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ? ???? ??? ?? ???? ????, ??? ???? ??? ??? ??? ??? ???? ??? ??? ????.",
+                                                            "monster":  "human_scout_trace_disguised_as_sangui ??",
+                                                            "battle":  "not_required / none",
+                                                            "reward":  "gold_episode_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "??? ??? ?? ???? ?? ??? ??? ???? ?? ?? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "battleNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ]
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.05_1",
+                                    "inputEpisodeId":  "episode.05-1",
+                                    "episodeTitle":  "?? ???",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "storyPurpose":  "?? ??? ???? ??? ?????, ? ?? ??? ?? ??? ??? ??? ?? ??? ??.",
+                                    "categorySummary":  {
+                                                            "story":  "??? ???? ??? ?? ????? ??? ?? ? ??? ???? ??. ? ??? ??? ??? ???? ????, ??? ???? ??? ??? ?? ?? ???? ????.",
+                                                            "monster":  "training_ground_encirclement_raiders ??",
+                                                            "battle":  "required / multi_side_pressure_break_one_side",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "??? ???? ?? ??? ?? ??? ??? ? ?? ??. ?? ??? ??? ??? ?? ???? ???? ??? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.05_2",
+                                    "inputEpisodeId":  "episode.05-2",
+                                    "episodeTitle":  "??? ??",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "storyPurpose":  "?? ??? ???? ??? ?????, ?? ?? ?? ??? ??? ?? ??? ??.",
+                                    "categorySummary":  {
+                                                            "story":  "??? ???? ??? ?? ????? ?? ??? ??? ??? ?? ???? ??. ??? ?? ????? ???? ???? ???? ????, ??? ??? ??? ??? ??? ?????? ?? ??.",
+                                                            "monster":  "child_capture_raiders ??",
+                                                            "battle":  "required / hut_door_breakthrough",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "??? ???? ??? ??? ??? ?? ??? ? ?? ??. ??? ??? ??? ??? ???? ???? ??? ?? ??? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.05_2.hut_escape",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.06",
+                                    "inputEpisodeId":  "episode.06",
+                                    "episodeTitle":  "??? ??",
+                                    "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "breakthrough",
+                                    "storyPurpose":  "Chapter 01? ?? ?? ????, ??? ??? ? ??? ??? ??? ?? ????.",
+                                    "categorySummary":  {
+                                                            "story":  "??, ??, ??? ? ??? ??? ?? ??? ??? ????. ???? ?? ??? ???? ??? ?????, ? ??? ??? ??? ?? ?? ??? ???? ??? ?? ?? ?? ??? ????.",
+                                                            "monster":  "organized_sangui_raider_fort ??",
+                                                            "battle":  "required / layered_fort_breakthrough",
+                                                            "reward":  "gold_battle_reward,gold_chapter_clear"
+                                                        },
+                                    "choiceOutcomeSummary":  "?? ??? ???? ??? ?? ??? ??? ?? ?? ??? ????.",
+                                    "scriptNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "battleNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_chapter_clear",
+                                    "downstreamNeeds":  [
+                                                            "FormalScript",
+                                                            "EpisodeBattleMonsterPool",
+                                                            "MonsterPlanning",
+                                                            "BattleStoryContext",
+                                                            "RewardPlanning",
+                                                            "RoundNodeJson"
+                                                        ],
+                                    "lockedReveals":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                    "notes":  [
+                                                  "???? planning ??? ???? ?? ??? ???? ???."
+                                              ],
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
+                                }
+                            ],
+    "globalRules":  {
+                        "useEpisodePlanningRefsOnly":  true,
+                        "doNotCopyFullEpisodeData":  true,
+                        "episodeBattleMonsterPoolIsPreMonsterCreation":  true,
+                        "doNotCreateEpisodeBattlePlanWhenNoSpawnerMatches":  true,
+                        "episodeBattlePlanUsesSelectedSpawner":  true,
+                        "existingMonsterRefsAreCandidatesOnly":  true,
+                        "episodeCategoryShape":  [
+                                                     "common",
+                                                     "story",
+                                                     "monster",
+                                                     "battle",
+                                                     "reward",
+                                                     "handoff"
+                                                 ],
+                        "currentRewardTypes":  [
+                                                   "gold"
+                                               ]
+                    }
 }

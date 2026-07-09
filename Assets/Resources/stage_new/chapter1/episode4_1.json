@@ -1,0 +1,80 @@
+{
+  "stageNodeId": "stage.ch1.episode4_1",
+  "roundNodeType": "RequiredSubEvent",
+  "actId": "act.01",
+  "chapterId": "chapter1",
+  "planningChapterId": "chapter.01.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "episodeId": "episode4_1",
+  "planningEpisodeId": "episode.act1.chapter01.04_1",
+  "episodeNumber": 4,
+  "titleKo": "피 묻은 산길",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "지한과 피 묻은 흔적 조사",
+  "summaryKo": "서진과 지한은 피 묻은 산길을 살피며 실종된 아이들이 아직 살아 있을 가능성과 산속의 이상한 표식을 확인한다.",
+  "startNodeId": "node.ch1.episode4_1.001",
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 5,
+  "fixedColumn": 0,
+  "tags": ["story", "act1", "chapter1", "episode4_1", "investigation", "no_battle"],
+  "sourceRefs": {
+    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json",
+    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+    "optionalEpisodeScriptFile": null
+  },
+  "planningStatus": {
+    "textSource": "episodePlanningFile.synopsis",
+    "needsFormalScriptReview": true,
+    "battleNeed": "not_required",
+    "rewardDirection": "gold_episode_clear"
+  },
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode4_1.001",
+      "nodeType": "narration",
+      "locationId": "location.bloody_mountain_path",
+      "speakerId": "character.jihan",
+      "speakerNameKo": "지한",
+      "titleKo": "피 묻은 산길",
+      "textKo": "지한이 합류한 뒤, 서진 일행은 붉은 천의 흔적을 따라 산길로 들어선다. 길가에는 짓밟힌 약초, 찢어진 옷감, 작은 발자국이 흩어져 있다.",
+      "bodyKo": "지한이 합류한 뒤, 서진 일행은 붉은 천의 흔적을 따라 산길로 들어선다. 길가에는 짓밟힌 약초, 찢어진 옷감, 작은 발자국이 흩어져 있다.",
+      "mainImageRequired": true,
+      "imageDirection": "비탈진 산길, 짓밟힌 약초와 찢어진 아이 옷감, 마른 피 흔적을 살피는 지한",
+      "nextNodeId": "node.ch1.episode4_1.002",
+      "choices": []
+    },
+    {
+      "nodeId": "node.ch1.episode4_1.002",
+      "nodeType": "choice",
+      "locationId": "location.forest_slope",
+      "speakerId": "character.seojin",
+      "speakerNameKo": "서진",
+      "titleKo": "소리 없는 추적",
+      "textKo": "굶주린 짐승들의 울음소리가 번지지만, 지금 필요한 것은 짐승을 자극하는 일이 아니다. 서진과 지한은 피 묻은 천이 이어지는 방향을 조심스럽게 확인한다.",
+      "bodyKo": "굶주린 짐승들의 울음소리가 번지지만, 지금 필요한 것은 짐승을 자극하는 일이 아니다. 서진과 지한은 피 묻은 천이 이어지는 방향을 조심스럽게 확인한다.",
+      "mainImageRequired": true,
+      "imageDirection": "좁고 비탈진 숲길, 피 묻은 천과 짓밟힌 풀잎, 조용히 흔적을 따라가는 서진과 지한",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode4_1.follow_bloody_trace",
+          "textKo": "지한과 함께 피 묻은 흔적을 따라간다.",
+          "labelKo": "피 묻은 흔적을 따라간다",
+          "resultKo": "서진과 지한은 짐승 무리를 피해 아이의 흔적이 이어지는 산길을 따라간다.",
+          "visibleConditions": [],
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.04_1.clear",
+              "amount": 50
+            }
+          ],
+          "completesEvent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+﻿{
+    "battleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+    "battleName":  "Training Ground Breakout",
+    "victoryRule":  "ClearAllEnemies",
+    "survivalTimeSeconds":  0,
+    "backgroundSprite":  "battle.act1.chapter01.05_1.training_ground_breakout.background",
+    "spawnerSelection":  {
+                             "spawnerType":  "elimination_90s_swarm",
+                             "difficulty":  "normal",
+                             "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                             "sequenceId":  "seq.elimination_90s_swarm.normal",
+                             "targetPartySize":  3,
+                             "targetSpawnCount":  80,
+                             "spawnWindowSec":  60,
+                             "clearWindowSec":  30,
+                             "matchedTags":  {
+                                                 "intentTags":  [
+                                                                    "surrounded_breakout",
+                                                                    "multi_side_pressure_break_one_side"
+                                                                ],
+                                                 "spaceTags":  [
+                                                                   "training_ground_center",
+                                                                   "three_side_encirclement",
+                                                                   "broken_exit"
+                                                               ],
+                                                 "rhythmTags":  [
+                                                                    "normal",
+                                                                    "urgent_breakout",
+                                                                    "staggered"
+                                                                ]
+                                             },
+                             "selectionReason":  "Selected existing normal elimination_90s_swarm because its required role slots can be covered by the Episode monster pool and it avoids forbidden boss/spirit/final reveal pressure.",
+                             "requiredSlots":  [
+                                                   {
+                                                       "unitKey":  "spawn.swarm.fodder.melee",
+                                                       "role":  "Melee",
+                                                       "purpose":  "main melee pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   },
+                                                   {
+                                                       "unitKey":  "spawn.swarm.fast.melee",
+                                                       "role":  "Melee",
+                                                       "purpose":  "fast melee pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   },
+                                                   {
+                                                       "unitKey":  "spawn.swarm.pressure.ranged",
+                                                       "role":  "Ranged",
+                                                       "purpose":  "ranged pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   },
+                                                   {
+                                                       "unitKey":  "spawn.swarm.light.blocker",
+                                                       "role":  "Tank",
+                                                       "purpose":  "light blocker pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   }
+                                               ]
+                         },
+    "spawnSequenceId":  "seq.elimination_90s_swarm.normal",
+    "spawnSequencePath":  "",
+    "spawnUnitBindings":  [
+                              {
+                                  "unitKey":  "spawn.swarm.fodder.melee",
+                                  "role":  "Melee",
+                                  "characterId":  "character.black_cloth_raider.1"
+                              },
+                              {
+                                  "unitKey":  "spawn.swarm.fast.melee",
+                                  "role":  "Melee",
+                                  "characterId":  "character.starving_mountain_wolf.1"
+                              },
+                              {
+                                  "unitKey":  "spawn.swarm.pressure.ranged",
+                                  "role":  "Ranged",
+                                  "characterId":  "character.mountain_path_archer.1"
+                              },
+                              {
+                                  "unitKey":  "spawn.swarm.light.blocker",
+                                  "role":  "Tank",
+                                  "characterId":  "character.door_shield_barricader.1"
+                              }
+                          ],
+    "rewardExperience":  35,
+    "normalRelicDropChance":  0,
+    "bossRelicDropChance":  0,
+    "timedPropPlacements":  [
+
+                            ],
+    "propDefinitions":  [
+
+                        ]
+}

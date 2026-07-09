@@ -1,0 +1,117 @@
+{
+  "stageNodeId": "stage.ch1.episode3_2",
+  "roundNodeType": "RequiredSubEvent",
+  "actId": "act.01",
+  "chapterId": "chapter1",
+  "planningChapterId": "chapter.01.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "episodeId": "episode3_2",
+  "planningEpisodeId": "episode.act1.chapter01.03_2",
+  "episodeNumber": 3,
+  "titleKo": "숲길의 궁수",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "유진 합류와 수련장 매복",
+  "summaryKo": "서진은 지워진 흔적을 따라 숲속 수련장에 이르고, 궁수 유진과 동행한 직후 매복한 산적들과 전투에 들어간다.",
+  "startNodeId": "node.ch1.episode3_2.001",
+  "isRequired": true,
+  "hiddenByDefault": true,
+  "useFixedDepth": true,
+  "fixedDepth": 2,
+  "fixedColumn": 1,
+  "tags": ["story", "act1", "chapter1", "episode3_2", "companion_join", "ambush", "battle_entry"],
+  "sourceRefs": {
+    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md",
+    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+    "episodeBattleMonsterPoolFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+    "episodeBattlePlanFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+    "optionalEpisodeScriptFile": null
+  },
+  "battleRefs": [
+    {
+      "battleId": "battle.act1.chapter01.03_2.training_ground_ambush",
+      "battleGroup": "act1/chapter01",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+    }
+  ],
+  "planningStatus": {
+    "textSource": "episodePlanningFile.synopsis",
+    "needsFormalScriptReview": true,
+    "battleNeed": "required",
+    "battlePlanStatus": "created",
+    "rewardDirection": "gold_battle_reward"
+  },
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode3_2.001",
+      "nodeType": "narration",
+      "locationId": "location.forest_path",
+      "speakerId": "character.seojin",
+      "speakerNameKo": "서진",
+      "titleKo": "지워진 숲길",
+      "textKo": "서진은 지워진 발자국과 수레 자국을 따라 숲길 깊숙이 들어간다. 오래된 산길에는 일부러 흩어 놓은 발자국과 낡은 천 조각이 남아 있다.",
+      "bodyKo": "서진은 지워진 발자국과 수레 자국을 따라 숲길 깊숙이 들어간다. 오래된 산길에는 일부러 흩어 놓은 발자국과 낡은 천 조각이 남아 있다.",
+      "mainImageRequired": true,
+      "imageDirection": "깊은 숲길, 흩어진 발자국과 수레 자국, 나뭇가지에 걸린 낡은 천 조각, 불안한 추적 분위기",
+      "nextNodeId": "node.ch1.episode3_2.002",
+      "choices": []
+    },
+    {
+      "nodeId": "node.ch1.episode3_2.002",
+      "nodeType": "choice",
+      "locationId": "location.old_training_ground",
+      "speakerId": "character.yujin",
+      "speakerNameKo": "유진",
+      "titleKo": "숲길의 궁수",
+      "textKo": "숲속 공터의 낡은 수련장에서 서진은 홀로 주변을 경계하던 궁수 유진을 만난다. 유진은 아이들을 데려간 자들을 쫓고 있었고, 같은 목적이라면 함께 가겠다고 말한다.",
+      "bodyKo": "숲속 공터의 낡은 수련장에서 서진은 홀로 주변을 경계하던 궁수 유진을 만난다. 유진은 아이들을 데려간 자들을 쫓고 있었고, 같은 목적이라면 함께 가겠다고 말한다.",
+      "mainImageRequired": true,
+      "imageDirection": "썩은 기둥과 부러진 목검이 남은 낡은 수련장, 붉은 천 조각을 쥔 궁수 유진, 경계 중인 조우 장면",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode3_2.accept_yujin_join",
+          "textKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+          "labelKo": "유진의 동행을 받아들인다",
+          "resultKo": "유진이 파티에 합류하고, 서진은 산길을 읽는 눈과 함께 움직이게 된다.",
+          "nextNodeId": "node.ch1.episode3_2.003",
+          "visibleConditions": [],
+          "rewards": []
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.episode3_2.003",
+      "nodeType": "battle_entry",
+      "locationId": "location.old_training_ground",
+      "speakerId": "character.seojin",
+      "speakerNameKo": "서진",
+      "titleKo": "수련장 돌파",
+      "textKo": "유진이 합류한 직후, 수련장을 감시하던 산적들이 모습을 드러낸다. 서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 전투를 준비한다.",
+      "bodyKo": "유진이 합류한 직후, 수련장을 감시하던 산적들이 모습을 드러낸다. 서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 전투를 준비한다.",
+      "mainImageRequired": true,
+      "imageDirection": "낡은 수련장 전투 직전, 서진이 전열을 막고 유진이 활을 겨누는 구도, 산적들이 둘러싼 긴장감",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode3_2.enter_battle",
+          "textKo": "유진과 함께 수련장의 산적들을 제압한다.",
+          "labelKo": "수련장의 산적들을 제압한다",
+          "resultKo": "서진과 유진은 낡은 수련장의 포위망을 돌파하기 위해 전투에 들어간다.",
+          "visibleConditions": [],
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "rewardId": "battle.act1.chapter01.03_2.training_ground_ambush",
+              "battleId": "battle.act1.chapter01.03_2.training_ground_ambush",
+              "battleGroup": "act1/chapter01",
+              "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+              "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+            }
+          ],
+          "completesEvent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.02",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.02",
+                   "inputEpisodeId":  "episode.02",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01",
+                   "normalizedChapterId":  "chapter.01.01",
+                   "title":  "남겨진 단서",
+                   "episodeRole":  "investigation",
+                   "secondaryRoles":  [
+                                          "companion_join",
+                                          "travel"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+                                  "requestedEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/Episode_02.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "sourceResolutionNote":  "Requested Episode_02.md was not present; existing Episode 02 source is 02_episode2.md in the same chapter folder."
+                              }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "서진은 청운촌 아이 실종 사건의 남겨진 단서를 조사하고, 지한의 생존 가능성 판단과 유진의 추적 판단을 통해 숲으로 이어지는 흔적을 확인한다.",
+                                         "sceneBeats":  [
+                                                            "습격이 물러간 뒤 청운촌 광장에는 가뭄과 불안, 아이 실종을 둘러싼 소문이 더 짙게 남는다.",
+                                                            "촌장 최만생은 아이들이 모두 숲 근처에서 마지막으로 목격되었다고 말하고, 서진은 단서 확인 또는 가족 면담을 선택할 수 있다.",
+                                                            "지한은 실종 아이의 집에서 지친 어머니와 대화하며 아이가 아직 살아 있을 가능성을 먼저 본다.",
+                                                            "아이의 그림에는 마른 나무 아래 붉은 천 인형과 아이를 꾀어내는 듯한 말이 남아 있어 의식의 흔적을 암시한다.",
+                                                            "유진은 숲 입구 근처에서 지워진 사람 발자국과 수레 자국을 확인하고, 흔적이 사라진 것이 아니라 누군가 지운 것이라고 판단한다.",
+                                                            "서진은 유진과 함께 발자국과 지워진 수레 자국을 따라 숲으로 들어가기로 한다."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "uneasy",
+                                                               "investigative",
+                                                               "restrained_grief",
+                                                               "dry_village",
+                                                               "growing_suspicion"
+                                                           ],
+                                         "sceneFunction":  "아이 실종 사건을 괴담이 아닌 추적 가능한 사건으로 전환하고, 지한과 유진을 각각 생존 가능성/현실 추적의 관점으로 세운다.",
+                                         "mustShow":  [
+                                                          "불안해진 청운촌 광장",
+                                                          "숲 근처에서 마지막으로 목격된 아이들",
+                                                          "지친 아이의 어머니",
+                                                          "아이 이름이 적힌 종이",
+                                                          "붉은 천 인형 그림",
+                                                          "아이를 부르는 말",
+                                                          "사람 발자국",
+                                                          "지워진 흔적",
+                                                          "수레 자국",
+                                                          "유진의 추적 판단"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "village_square_after_attack",
+                                                                   "missing_child_home",
+                                                                   "forest_entrance",
+                                                                   "trail_to_forest"
+                                                               ],
+                                         "scriptHandoffHint":  "정식 스크립트는 조사 선택지와 동료 관점 차이를 살리되, 최종 대사/지문으로 확장하지 않은 이 시놉시스를 기준으로 작성한다."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.02.choice.check_remaining_traces.1",
+                                               "sourceChoiceText":  "남은 흔적부터 확인하겠습니다.",
+                                               "choiceIntent":  "사건 현장과 마을 주변의 물리적 단서를 먼저 확인한다.",
+                                               "outcomeDirection":  "서진은 실종 사건을 소문이 아니라 추적 가능한 흔적의 문제로 보기 시작한다.",
+                                               "opens":  [
+                                                             "investigation"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.02.choice.ask_child_family.1",
+                                               "sourceChoiceText":  "아이의 가족에게 직접 묻겠습니다.",
+                                               "choiceIntent":  "실종 아이의 가족을 만나 마지막 목격 정보와 감정적 단서를 확인한다.",
+                                               "outcomeDirection":  "지한의 관점과 아이가 아직 살아 있을 수 있다는 가능성이 강화된다.",
+                                               "opens":  [
+                                                             "companion_perspective",
+                                                             "investigation"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.02.choice.follow_jihan_clue.1",
+                                               "sourceChoiceText":  "지한의 단서를 따라간다.",
+                                               "choiceIntent":  "붉은 천 인형과 아이의 마지막 말을 근거로 숲 안쪽 조사를 결정한다.",
+                                               "outcomeDirection":  "서진은 붉은 천 인형과 아이를 꾀어낸 말이 산귀 소문과 연결될 수 있음을 의식한다.",
+                                               "opens":  [
+                                                             "investigation",
+                                                             "forest_lead"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.02.choice.follow_yujin_trace.1",
+                                               "sourceChoiceText":  "유진의 흔적을 따라간다.",
+                                               "choiceIntent":  "유진이 확인한 발자국과 수레 자국을 따라 숲으로 진입한다.",
+                                               "outcomeDirection":  "서진은 유진과 함께 지워진 흔적을 따라 숲으로 들어가며 다음 에피소드의 추적 흐름을 연다.",
+                                               "opens":  [
+                                                             "travel",
+                                                             "next_episode"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           }
+                                       ]
+              },
+    "monster":  {
+                    "monsterFamily":  "unknown_abductor_trace",
+                    "difficultyIntent":  "none_in_episode",
+                    "recommendedTier":  "none",
+                    "roleDirections":  [
+                                           "investigation_clue_source",
+                                           "offscreen_human_or_sangui_linked_threat"
+                                       ],
+                    "visualDirection":  [
+                                            "red_cloth_doll",
+                                            "erased_footprints",
+                                            "wagon_track",
+                                            "forest_lure_trace"
+                                        ],
+                    "reusePreference":  "no_concrete_monster_selection_in_this_episode",
+                    "creationPolicy":  "이 에피소드는 몬스터 생성 단계가 아니라 단서와 흔적을 통해 후속 전투/몬스터 방향을 예고한다.",
+                    "forbiddenTypes":  [
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "적의 정체를 확정하지 않고, 산귀 소문과 인간 개입 가능성을 모두 남긴다.",
+                    "planningNotes":  [
+                                          "원문에는 직접 전투 또는 적 출현이 없다.",
+                                          "몬스터는 현장에 등장하지 않고 붉은 천 인형, 지워진 발자국, 수레 자국 같은 흔적으로만 방향을 남긴다.",
+                                          "구체 NPC, 스탯, 스킬, 런타임 캐릭터 자산은 만들지 않는다."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "not_required",
+                   "battleMood":  "investigation_tension",
+                   "battleShape":  "none",
+                   "difficultyIntent":  "none",
+                   "partyAssumption":  "no_battle_party_assumption",
+                   "partyAssumptionBasis":  "원문은 서진이 조사하고 지한/유진과 단서를 확인하는 장면을 제공하지만, 전투 진입 또는 전투 참여 인원 기준을 제시하지 않는다.",
+                   "paceIntent":  "slow_investigation_to_forest_transition",
+                   "monsterPressure":  [
+
+                                       ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "forced_two_or_three_member_party",
+                                 "boss_reveal",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "전투가 없는 에피소드이므로 BattleStoryContext 생성은 다음 전투 근거가 있는 에피소드에서 판단한다."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "아이 실종 단서를 확인하고 숲 추적으로 이어지는 조사 에피소드 클리어 보상 방향이다.",
+                   "rewardScaleHint":  "normal_episode_clear",
+                   "rewardIntent":  [
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  50
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  false,
+                    "battleStoryContextNeeded":  false,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  null,
+                    "battlePlanStatus":  "not_created_no_battle_need",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "nextStepHint":  "다음 단계는 정식 스크립트 작성과 숲 추적 이후 전투 근거가 있는 에피소드의 BattleStoryContext 판단이다."
+                },
+    "constraints":  [
+                        "이 문서는 시놉시스 수준의 1차 기획 JSON이며 정식 스크립트가 아니다.",
+                        "산귀의 실체와 최종 납치 진실을 드러내지 않는다.",
+                        "전투가 없으므로 정확한 스포너 종류, 스폰 순서, 스폰 수량, 전투 런타임 자산 데이터를 만들지 않는다.",
+                        "원문 근거 없이 2인 또는 3인 파티를 가정하지 않는다.",
+                        "몬스터가 이미 존재한다고 전제하지 않고, 단서 기반 방향성만 기록한다.",
+                        "현재 보상은 gold 기준만 사용한다."
+                    ],
+    "notes":  [
+                  "Requested source path Episode_02.md did not exist; 02_episode2.md was used as the actual episode source.",
+                  "Episode 02 is an investigation and companion-perspective episode, not a battle entry episode."
+              ]
+}
