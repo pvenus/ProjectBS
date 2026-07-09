@@ -37,6 +37,20 @@ namespace UIFramework.Map
         public bool useFixedSeed = false;
         public int randomSeed = 0;
 
+        [Header("Grid Layout Settings")]
+        public bool useGridLayout = true;
+        public MapGridSettings gridSettings = new MapGridSettings
+        {
+            gridPlacementMode = GridPlacementMode.Advanced,
+            gridColumnCount = 5,
+            gridCellSize = new Vector2(150, 180),
+            gridOrigin = Vector2.zero,
+            centerRoutesInGrid = true,
+            applyRandomOffsetInCell = true,
+            randomOffsetRange = new Vector2(15, 15),
+            growUpwards = true
+        };
+
         [Header("Options")]
         [SerializeField] private bool rebuildOnEnable = true;
 
@@ -102,11 +116,17 @@ namespace UIFramework.Map
                 return;
             }
 
+            // 런타임 방어 및 디버그용 검증 로그 추가
+            gridSettings.gridColumnCount = Mathf.Max(1, gridSettings.gridColumnCount);
+            gridSettings.gridCellSize.x = Mathf.Max(10f, gridSettings.gridCellSize.x);
+            gridSettings.gridCellSize.y = Mathf.Max(10f, gridSettings.gridCellSize.y);
+            Debug.Log($"[ProceduralNodeMapUI] Build 시작 - useGridLayout: {useGridLayout}, Mode: {gridSettings.gridPlacementMode}, gridColumnCount: {gridSettings.gridColumnCount}, gridCellSize: {gridSettings.gridCellSize}, CenterRoutes: {gridSettings.centerRoutesInGrid}, RandomOffset: {gridSettings.applyRandomOffsetInCell}");
+
             if (pathRoot == null) pathRoot = contentRoot;
 
             System.Random rng = useFixedSeed ? new System.Random(randomSeed) : new System.Random();
 
-            // 1. 노드들의 UI 좌표 계산 (가운데 정렬 + 랜덤 오프셋 적용)
+            // 1. 노드들의 UI 좌표 계산 (그리드 또는 레거시)
             CalculateNodePositions(graph, rng);
 
             // 2. 길(Path Segments) 생성 (노드보다 먼저/뒤에 그려지도록)
@@ -124,6 +144,18 @@ namespace UIFramework.Map
         private void CalculateNodePositions(StageGraph graph, System.Random rng)
         {
             nodeUIPositions.Clear();
+
+            if (useGridLayout)
+            {
+                nodeUIPositions = MapGridPositionResolver.CalculateGridNodePositions(graph, gridSettings, rng);
+                return;
+            }
+
+            CalculateLegacyNodePositions(graph, rng);
+        }
+
+        private void CalculateLegacyNodePositions(StageGraph graph, System.Random rng)
+        {
             List<int> depths = graph.GetDepths();
             
             foreach (int depth in depths)

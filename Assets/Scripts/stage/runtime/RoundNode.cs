@@ -13,11 +13,12 @@ namespace Stage
     {
         [Header("Identity")]
         public string nodeId;
+        public string templateNodeId;
 
         public string LocalizationMainKey =>
             roundNodeSO != null
                 ? roundNodeSO.LocalizationMainKey
-                : nodeId;
+                : (!string.IsNullOrEmpty(templateNodeId) ? templateNodeId : nodeId);
 
         public string Title =>
             roundNodeSO != null
@@ -27,6 +28,22 @@ namespace Stage
         [Header("Stage Position")]
         public int depth;
         public int indexInDepth;
+
+        [Header("Route")]
+        /// <summary>
+        /// 논리 경로 키. 연결 규칙의 핵심 데이터.
+        /// "0", "1", "1.0", "1.1" 등 점(.)으로 경로 계층을 구분한다.
+        /// GlobalHubNode는 빈 값을 허용한다.
+        /// </summary>
+        public string routeKey;
+
+        /// <summary>
+        /// 노드 연결 종류.
+        /// RouteNode     = 특정 routeKey 경로 전용 노드 (routeKey 정확히 일치 시 연결)
+        /// RouteHubNode  = routeKey 계열 하위 경로를 모으는 허브
+        /// GlobalHubNode = 모든 routeKey와 연결 가능한 전역 허브
+        /// </summary>
+        public StageNodeKind kind = StageNodeKind.RouteNode;
 
         [Header("Type")]
         public RoundNodeType nodeType = RoundNodeType.None;
@@ -62,19 +79,25 @@ namespace Stage
 
         public RoundNode()
         {
+            templateNodeId = string.Empty;
         }
 
         public RoundNode(
             string nodeId,
             RoundNodeType nodeType,
             int depth,
-            int indexInDepth)
+            int indexInDepth,
+            string routeKey = "",
+            StageNodeKind kind = StageNodeKind.RouteNode)
         {
             this.nodeId = nodeId;
             this.nodeType = nodeType;
             this.depth = depth;
             this.indexInDepth = indexInDepth;
+            this.routeKey = routeKey;
+            this.kind = kind;
             state = RoundNodeState.Locked;
+            templateNodeId = string.Empty;
         }
 
         public bool IsStartNode => nodeType == RoundNodeType.Start;

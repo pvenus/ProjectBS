@@ -54,4 +54,19 @@ namespace Stage
         [Header("Pools")]
         public List<StageSegmentPoolRule> pools = new();
     }
+
+    [Serializable]
+    public class StageRandomRouteRule
+    {
+        public int startDepth;
+        public int endDepth;
+
+        public int minBranchesPerRoute = 1;
+        public int maxBranchesPerRoute = 1;
+
+        public List<StageSegmentPoolRule> pools = new();
+
+        public int minTotalWeight;
+        public int maxTotalWeight;
+    }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage.StageDefinitionSO
   stageId: stage.chapter1
   stageName: Chapter 1 - Cheongun Village
+  generationMode: 0
   segmentRules:
   - fromDepth: 2
     fromColumn: 0
@@ -169,42 +170,122 @@ MonoBehaviour:
       required: 0
       maxAppearCount: 1
       priority: 0
+  randomRouteRules:
+  - startDepth: 2
+    endDepth: 5
+    minBranchesPerRoute: 1
+    maxBranchesPerRoute: 2
+    pools:
+    - pool: {fileID: 11400000, guid: 826fdcdf7fea14a4b88b7c84e2d19e9c, type: 2}
+      required: 1
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
+      required: 0
+      maxAppearCount: 0
+      priority: 10
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 0
+      priority: 20
+    - pool: {fileID: 11400000, guid: ab7ac272b200f49cd86388d8be54bc34, type: 2}
+      required: 0
+      maxAppearCount: 0
+      priority: 25
+    minTotalWeight: 0
+    maxTotalWeight: 0
+  - startDepth: 5
+    endDepth: 8
+    minBranchesPerRoute: 1
+    maxBranchesPerRoute: 2
+    pools:
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    minTotalWeight: 0
+    maxTotalWeight: 0
+  - startDepth: 8
+    endDepth: 11
+    minBranchesPerRoute: 1
+    maxBranchesPerRoute: 2
+    pools:
+    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      required: 0
+      maxAppearCount: 1
+      priority: 0
+    minTotalWeight: 0
+    maxTotalWeight: 0
   requiredSubEvents:
   - node: {fileID: 11400000, guid: a012d555d311f4806ae3a1f34f7f2f63, type: 2}
     depth: 0
     column: 0
     hiddenByDefault: 0
+    routeKey: 
+    kind: 2
   - node: {fileID: 11400000, guid: d0a65c235d1eb4fa98ffa3b657e99173, type: 2}
     depth: 1
     column: 0
     hiddenByDefault: 0
+    routeKey: 1
+    kind: 1
   - node: {fileID: 11400000, guid: 4a991cc98b4264e4f90f9f83dad2756d, type: 2}
     depth: 2
     column: 0
     hiddenByDefault: 1
+    routeKey: 1.1
+    kind: 0
   - node: {fileID: 11400000, guid: e2ee4efd757c0433e98911c86e7c27ca, type: 2}
     depth: 2
     column: 1
     hiddenByDefault: 1
+    routeKey: 1.2
+    kind: 0
   - node: {fileID: 11400000, guid: 15de93ccaa28e40a681202ffa7b21da9, type: 2}
     depth: 5
     column: 0
     hiddenByDefault: 0
+    routeKey: 1.1
+    kind: 0
   - node: {fileID: 11400000, guid: ca2827c8951424694bd631834f6ab6c2, type: 2}
     depth: 5
     column: 1
     hiddenByDefault: 0
+    routeKey: 1.2
+    kind: 0
   - node: {fileID: 11400000, guid: 7fa15d45cdd604a1da6f176a3031d724, type: 2}
     depth: 8
     column: 0
     hiddenByDefault: 0
+    routeKey: 1.1
+    kind: 0
   - node: {fileID: 11400000, guid: 75f4fbfe8203645909e85e0ab6c7bfdc, type: 2}
     depth: 8
     column: 1
     hiddenByDefault: 0
+    routeKey: 1.2
+    kind: 0
   - node: {fileID: 11400000, guid: 7d093e66bd01a4c218c730444e4f1a52, type: 2}
     depth: 11
     column: 0
     hiddenByDefault: 0
+    routeKey: 
+    kind: 2
   useFixedSeed: 0
   seed: 1
