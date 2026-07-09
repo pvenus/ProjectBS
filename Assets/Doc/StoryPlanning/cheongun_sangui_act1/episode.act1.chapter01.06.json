@@ -1,0 +1,225 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.06",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.06",
+                   "inputEpisodeId":  "episode.06",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "??? ??",
+                   "episodeRole":  "breakthrough",
+                   "secondaryRoles":  [
+                                          "assault",
+                                          "chapter_climax",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/06_episode6.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode6",
+                                           "suggestedStageNodeId":  "stage.ch1.episode6"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "??, ??, ??? ? ??? ??? ?? ??? ??? ????. ???? ?? ??? ???? ??? ?????, ? ??? ??? ??? ?? ?? ??? ???? ??? ?? ?? ?? ??? ????.",
+                                         "sceneBeats":  [
+                                                            "??? ?? ??? ??? ?? ???? ?? ?? ?? ?? ??? ????.",
+                                                            "???? ?? ???, ???? ??, ???? ??? ?? ??, ?? ??? ?? ??? ?? ??.",
+                                                            "?? ? ??, ? ??? ??, ?? ?? ?? ?? ??? ???? ????? ?? ??? ???? ????.",
+                                                            "?? ?? ???? ???? ?, ??? ?? ??, ??? ??? ?? ??? ??? ??? ???? ???? ??.",
+                                                            "??? ?? ???? ??? ?? ? ??? ????, ??? ? ??? ?? ?? ??? ????.",
+                                                            "??? ???? ???, ??, ????, ??? ??? ?? ?? ?? ?? ???? ??? ?? ???."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "chapter_climax",
+                                                               "organized_threat",
+                                                               "personal_dread",
+                                                               "assault_urgency"
+                                                           ],
+                                         "sceneFunction":  "Chapter 01? ?? ?? ????, ??? ??? ? ??? ??? ??? ?? ????.",
+                                         "mustShow":  [
+                                                          "?? ??",
+                                                          "?? ???",
+                                                          "?? ? ??",
+                                                          "? ??? ??",
+                                                          "?? ?? ?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "??? ????",
+                                                          "?? ???",
+                                                          "??? ??? ??",
+                                                          "? ?? ???"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "bandit_fort",
+                                                                   "watchtower",
+                                                                   "inner_yard",
+                                                                   "old_altar"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.06.choice.attack_bandit_fort.1",
+                                               "sourceChoiceText":  "??? ????.",
+                                               "choiceIntent":  "??, ??, ??? ???? ??? ?? ??? ??? ??? ????.",
+                                               "outcomeDirection":  "?? ??? ???? ??? ?? ??? ??? ?? ?? ??? ????.",
+                                               "opens":  [
+                                                             "battle",
+                                                             "chapter_transition"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward",
+                                                                       "gold_chapter_clear"
+                                                                   ]
+                                           }
+                                       ]
+              },
+    "monster":  {
+                    "monsterFamily":  "organized_sangui_raider_fort",
+                    "difficultyIntent":  "chapter_climax_normal",
+                    "recommendedTier":  "normal_to_veteran_direction",
+                    "roleDirections":  [
+                                           "watchtower_archer",
+                                           "shield_spearman",
+                                           "axe_bruiser",
+                                           "ritual_support",
+                                           "caged_beast_pressure"
+                                       ],
+                    "visualDirection":  [
+                                            "black_mask",
+                                            "white_mountain_shoulder",
+                                            "red_thread",
+                                            "beast_teeth",
+                                            "studded_shield",
+                                            "chain_axe",
+                                            "burn_scar_sangui_mark",
+                                            "bell_ritual_tablet",
+                                            "child_cloth_strips"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "final_boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "??? ??? ??? ??? ?? ??? ???? ?? ??? ?? ???? ???.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "bandit_fort_assault",
+                   "battleShape":  "layered_fort_breakthrough",
+                   "difficultyIntent":  "chapter_climax_normal",
+                   "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                   "partyAssumptionBasis":  "??? ??, ??, ??? ?? ??? ?? ????? ????.",
+                   "paceIntent":  "escalating_assault",
+                   "monsterPressure":  [
+                                           "watchtower_archer",
+                                           "shield_spearman",
+                                           "axe_bruiser",
+                                           "ritual_support",
+                                           "caged_beast_pressure"
+                                       ],
+                   "spaceDirection":  [
+                                          "fort_gate",
+                                          "watchtower",
+                                          "inner_yard",
+                                          "cage_area",
+                                          "old_altar"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "Chapter 01 ?? ??? ?? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "important_chapter_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_chapter_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  200
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode06",
+                                               "suggestedStageNodeId":  "stage.ch1.episode06",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
+                                           },
+                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                    "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.06 from Assets/Doc/Story/Act01/Chapter01/06_episode6.md."
+              ]
+}

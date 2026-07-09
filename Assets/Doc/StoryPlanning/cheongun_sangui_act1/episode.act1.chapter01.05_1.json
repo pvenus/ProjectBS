@@ -1,0 +1,223 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.05_1",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.05_1",
+                   "inputEpisodeId":  "episode.05-1",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "?? ???",
+                   "episodeRole":  "companion_join",
+                   "secondaryRoles":  [
+                                          "breakthrough",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode5_1",
+                                           "suggestedStageNodeId":  "stage.ch1.episode5_1"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "??? ???? ??? ?? ????? ??? ?? ? ??? ???? ??. ? ??? ??? ??? ???? ????, ??? ???? ??? ??? ?? ?? ???? ????.",
+                                         "sceneBeats":  [
+                                                            "??? ? ?? ??? ?? ???? ? ??? ?? ???.",
+                                                            "??? ??? ?? ?? ?? ???? ????.",
+                                                            "??? ??? ??? ?? ? ??? ? ? ?? ? ???, ?? ??? ?? ??? ?? ??? ???? ???.",
+                                                            "??? ??? ??? ??? ??? ??? ?? ??? ???.",
+                                                            "? ??? ????? ?? ??? ?? ??? ???? ??? ??? ??? ???.",
+                                                            "?? ??? ?? ???? ????? ?? ???? ???? ??? ????."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "party_convergence",
+                                                               "urgent_breakout",
+                                                               "surrounded",
+                                                               "rising_threat"
+                                                           ],
+                                         "sceneFunction":  "?? ??? ???? ??? ?????, ? ?? ??? ?? ??? ??? ??? ?? ??? ??.",
+                                         "mustShow":  [
+                                                          "?? ???",
+                                                          "?? ??",
+                                                          "?? ? ??",
+                                                          "?? ? ??",
+                                                          "?? ?? ??",
+                                                          "?? ? ??",
+                                                          "?? ?? ?????? ??? ??",
+                                                          "?? ?? ??"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "old_training_ground",
+                                                                   "surrounded_clearing"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
+                                               "sourceChoiceText":  "?? ?????. ???? ??? ?? ? ????.",
+                                               "choiceIntent":  "??? ?? ???? ??? ??? ?? ??? ?????.",
+                                               "outcomeDirection":  "??? ???? ?? ??? ?? ??? ??? ? ?? ??.",
+                                               "opens":  [
+                                                             "companion_join",
+                                                             "battle_setup"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+                                               "sourceChoiceText":  "??, ??? ?? ???? ????.",
+                                               "choiceIntent":  "? ??? ??? ??? ??? ???? ?? ?? ??? ??? ?? ?????.",
+                                               "outcomeDirection":  "?? ??? ??? ??? ?? ???? ???? ??? ????.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ]
+                                           }
+                                       ]
+              },
+    "monster":  {
+                    "monsterFamily":  "training_ground_encirclement_raiders",
+                    "difficultyIntent":  "early_normal",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "shield_frontliner",
+                                           "bandit_archer",
+                                           "fast_beast_melee",
+                                           "leader_like_pressure"
+                                       ],
+                    "visualDirection":  [
+                                            "sangui_eye_shield",
+                                            "mismatched_leather",
+                                            "short_arrow",
+                                            "red_cloth_dog",
+                                            "black_outerwear",
+                                            "scale_armor",
+                                            "beast_claw_charm"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form",
+                                           "heavy_magic"
+                                       ],
+                    "revealPolicy":  "?????? ??? ?? ??? ???? ??? ?? ??? ?? ???.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "surrounded_breakout",
+                   "battleShape":  "multi_side_pressure_break_one_side",
+                   "difficultyIntent":  "early_normal",
+                   "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                   "partyAssumptionBasis":  "??? ??? ??? ???? ? ??? ????? ?? ????, ???? ??/??? ?? ????? ????.",
+                   "paceIntent":  "urgent_breakout",
+                   "monsterPressure":  [
+                                           "shield_frontliner",
+                                           "bandit_archer",
+                                           "fast_beast_melee",
+                                           "leader_like_pressure"
+                                       ],
+                   "spaceDirection":  [
+                                          "training_ground_center",
+                                          "three_side_encirclement",
+                                          "broken_exit"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "?? ??? ??? ??? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  100
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode05_1",
+                                               "suggestedStageNodeId":  "stage.ch1.episode05_1",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+                                           },
+                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                    "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.05-1 from Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md."
+              ]
+}

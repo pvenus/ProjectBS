@@ -1,0 +1,236 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.03_2",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.03_2",
+                   "inputEpisodeId":  "episode.03-2",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "??? ??",
+                   "episodeRole":  "companion_join",
+                   "secondaryRoles":  [
+                                          "ambush",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode3_2",
+                                           "suggestedStageNodeId":  "stage.ch1.episode3_2"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "??? ??? ???? ?? ??? ?? ?? ???? ???, ??? ?? ?? ??? ???? ??. ?? ???? ???? ???? ?? ? ??? ???? ???, ??? ??? ???? ?? ??.",
+                                         "sceneBeats":  [
+                                                            "??? ??? ?? ???? ?? ??? ??? ??? ?? ????? ????? ????.",
+                                                            "??? ?? ? ??? ?? ??? ??? ???? ?? ???? ?? ???? ??? ???.",
+                                                            "?? ??? ?? ????? ??? ??? ??? ??? ?? ?? ??? ???.",
+                                                            "??? ???? ??? ??? ?? ???, ?? ????? ?????? ??.",
+                                                            "??? ??? ??? ? ???? ???? ???? ?? ? ??? ?? ?? ???.",
+                                                            "??? ??? ??? ??? ? ?? ?? ???? ???? ???? ??? ????."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "forest_tracking",
+                                                               "personal_memory",
+                                                               "companion_trust",
+                                                               "ambush_tension"
+                                                           ],
+                                         "sceneFunction":  "??? ??? ??? ?? ??? ????, ?? ??? ?? ?? ??? ????.",
+                                         "mustShow":  [
+                                                          "??? ???",
+                                                          "?? ??",
+                                                          "?? ? ??",
+                                                          "?? ???",
+                                                          "?? ??",
+                                                          "?? ? ??",
+                                                          "?? ??",
+                                                          "?? ? ???",
+                                                          "?? ?",
+                                                          "?? ?",
+                                                          "?? ?? ??"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "forest_path",
+                                                                   "old_training_ground"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_2.choice.track_erased_traces.1",
+                                               "sourceChoiceText":  "??? ??? ? ?? ????.",
+                                               "choiceIntent":  "??? ??? ??? ?? ?? ????? ????.",
+                                               "outcomeDirection":  "??? ??? ????? ???? ???? ?? ???? ????.",
+                                               "opens":  [
+                                                             "companion_encounter"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_2.choice.accept_yujin_join.1",
+                                               "sourceChoiceText":  "?? ?????. ???? ??? ?? ? ????.",
+                                               "choiceIntent":  "?? ??? ?? ??? ??? ?????.",
+                                               "outcomeDirection":  "??? ??? ???? ??? ?? ?? ???.",
+                                               "opens":  [
+                                                             "companion_join",
+                                                             "battle_setup"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ]
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_2.choice.subdue_training_ground_bandits.1",
+                                               "sourceChoiceText":  "??? ?? ???? ???? ????.",
+                                               "choiceIntent":  "??? ??? ??? ? ??? ??? ??? ?? ?? ???? ??.",
+                                               "outcomeDirection":  "??? ??? ???? ???? ??? ????.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ]
+                                           }
+                                       ]
+              },
+    "monster":  {
+                    "monsterFamily":  "training_ground_bandit_watchers",
+                    "difficultyIntent":  "early_easy_to_normal",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "bandit_archer",
+                                           "short_blade_flanker",
+                                           "watcher_melee"
+                                       ],
+                    "visualDirection":  [
+                                            "wooden_arm_guard",
+                                            "erased_school_mark",
+                                            "soot_camouflage",
+                                            "red_head_tie",
+                                            "short_bow",
+                                            "short_blade",
+                                            "sangui_mask_charm"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "??? ??? ??? ???? ???? ?? ???? ??? ??.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "ambush_at_training_ground",
+                   "battleShape":  "front_guard_with_archer_cover",
+                   "difficultyIntent":  "early_easy_to_normal",
+                   "partyAssumption":  "seojin_frontline_with_yujin_archer_companion",
+                   "partyAssumptionBasis":  "??? ??? ??? ????, ??? ??? ??? ??? ?? ??? ?? ?? ????? ?? ??? ??. ???? 3? ??? ? ??? ??? ??.",
+                   "paceIntent":  "short_breakout",
+                   "monsterPressure":  [
+                                           "bandit_archer",
+                                           "short_blade_flanker",
+                                           "watcher_melee"
+                                       ],
+                   "spaceDirection":  [
+                                          "old_training_ground",
+                                          "low_wall",
+                                          "wood_shadow"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "?? ??? ??? ?? ?? ?? ??? ?? ????.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  100
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode03_2",
+                                               "suggestedStageNodeId":  "stage.ch1.episode03_2",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+                                           },
+                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                    "optionalBattleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.03-2 from Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md."
+              ]
+}

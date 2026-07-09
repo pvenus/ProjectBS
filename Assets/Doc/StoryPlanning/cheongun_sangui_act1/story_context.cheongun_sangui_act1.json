@@ -24,9 +24,9 @@
                                     "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
                                     "episodeRole":  "intro",
                                     "categorySummary":  {
-                                                            "story":  "청운촌 도착, 마을 습격, 주민 보호 전투 진입을 시놉시스 수준으로 보존한다.",
-                                                            "monster":  "black_cloth_raiders / early_easy / basic_melee + light_control_melee 방향",
-                                                            "battle":  "urgent_rescue / front_pressure_with_light_flank / easy_intro / solo_story_intro 방향",
+                                                            "story":  "泥?슫珥??꾩갑, 留덉쓣 ?듦꺽, 二쇰? 蹂댄샇 ?꾪닾 吏꾩엯???쒕냹?쒖뒪 ?섏??쇰줈 蹂댁〈?쒕떎.",
+                                                            "monster":  "black_cloth_raiders / early_easy / basic_melee + light_control_melee 諛⑺뼢",
+                                                            "battle":  "urgent_rescue / front_pressure_with_light_flank / easy_intro / solo_story_intro 諛⑺뼢",
                                                             "reward":  "gold_battle_reward"
                                                         },
                                     "battleNeed":  "required",
@@ -42,9 +42,9 @@
                                     "battlePlanStatus":  "not_created_no_battle_need",
                                     "episodeRole":  "investigation",
                                     "categorySummary":  {
-                                                            "story":  "아이 실종 단서, 지한의 생존 가능성 판단, 유진의 추적 판단을 통해 숲 추적으로 전환한다.",
-                                                            "monster":  "직접 적 출현 없이 붉은 천 인형, 지워진 발자국, 수레 자국으로 unknown_abductor_trace 방향만 보존한다.",
-                                                            "battle":  "전투 없음 / 조사 긴장 / 파티 규모 가정 없음",
+                                                            "story":  "?꾩씠 ?ㅼ쥌 ?⑥꽌, 吏?쒖쓽 ?앹〈 媛?μ꽦 ?먮떒, ?좎쭊??異붿쟻 ?먮떒???듯빐 ??異붿쟻?쇰줈 ?꾪솚?쒕떎.",
+                                                            "monster":  "吏곸젒 ??異쒗쁽 ?놁씠 遺됱? 泥??명삎, 吏?뚯쭊 諛쒖옄援? ?섎젅 ?먭뎅?쇰줈 unknown_abductor_trace 諛⑺뼢留?蹂댁〈?쒕떎.",
+                                                            "battle":  "?꾪닾 ?놁쓬 / 議곗궗 湲댁옣 / ?뚰떚 洹쒕え 媛???놁쓬",
                                                             "reward":  "gold_episode_clear"
                                                         },
                                     "battleNeed":  "not_required",
@@ -60,9 +60,9 @@
                                     "battlePlanStatus":  "created",
                                     "episodeRole":  "companion_join",
                                     "categorySummary":  {
-                                                            "story":  "붉은 천 인형 흔적을 따라 숲속 오두막으로 들어가 지한과 합류하고, 다친 아이 보호 전투로 전환한다.",
-                                                            "monster":  "forest_pursuers_and_starving_beasts / 굶주린 짐승 + 검은 천 추격자 / fast melee + basic melee + reach blocker 방향",
-                                                            "battle":  "protect_injured_child / narrow_path_defense / 서진 전투 중심 + 지한 지원 동행 근거",
+                                                            "story":  "遺됱? 泥??명삎 ?붿쟻???곕씪 ?뀁냽 ?ㅻ몢留됱쑝濡??ㅼ뼱媛 吏?쒓낵 ?⑸쪟?섍퀬, ?ㅼ튇 ?꾩씠 蹂댄샇 ?꾪닾濡??꾪솚?쒕떎.",
+                                                            "monster":  "forest_pursuers_and_starving_beasts / 援띠＜由?吏먯듅 + 寃? 泥?異붽꺽??/ fast melee + basic melee + reach blocker 諛⑺뼢",
+                                                            "battle":  "protect_injured_child / narrow_path_defense / ?쒖쭊 ?꾪닾 以묒떖 + 吏??吏???숉뻾 洹쇨굅",
                                                             "reward":  "gold_battle_reward"
                                                         },
                                     "battleNeed":  "required",
@@ -73,15 +73,157 @@
                                     "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
                                     "optionalBattleGroup":  "act1/chapter01",
                                     "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
-                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
-                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+                                    "optionalruntime battle assetPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                    "expectedruntime battle assetPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.03_2",
+                                    "inputEpisodeId":  "episode.03-2",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ???? ?? ??? ?? ?? ???? ???, ??? ?? ?? ??? ???? ??. ?? ???? ???? ???? ?? ? ??? ???? ???, ??? ??? ???? ?? ??.",
+                                                            "monster":  "training_ground_bandit_watchers / bandit_archer, short_blade_flanker, watcher_melee",
+                                                            "battle":  "ambush_at_training_ground / front_guard_with_archer_cover / seojin_frontline_with_yujin_archer_companion",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.04_1",
+                                    "inputEpisodeId":  "episode.04-1",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ? ?? ???? ?? ??? ??? ??? ????, ??? ??? ? ??? ?? ??? ???? ??? ??? ??? ????.",
+                                                            "monster":  "coerced_starving_beast_trace / environmental_threat, offscreen_coerced_beast_clue",
+                                                            "battle":  "stealth_investigation / avoid_beast_pack / seojin_with_jihan_investigation_no_battle",
+                                                            "reward":  "gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "not_required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.04_2",
+                                    "inputEpisodeId":  "episode.04-2",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
+                                    "battleMonsterPoolRef":  null,
+                                    "battlePlanRef":  null,
+                                    "battlePlanStatus":  "not_created_no_battle_need",
+                                    "episodeRole":  "investigation",
+                                    "categorySummary":  {
+                                                            "story":  "??? ??? ? ???? ??? ?? ???? ????, ??? ???? ??? ??? ??? ??? ???? ??? ??? ????.",
+                                                            "monster":  "human_scout_trace_disguised_as_sangui / scout_trace, trail_erasure_specialist, offscreen_watcher",
+                                                            "battle":  "forensic_tracking / none / seojin_with_yujin_investigation_no_battle",
+                                                            "reward":  "gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "not_required",
+                                    "monsterPlanningNeed":  "not_required",
+                                    "rewardNeed":  "gold_episode_clear"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.05_1",
+                                    "inputEpisodeId":  "episode.05-1",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "categorySummary":  {
+                                                            "story":  "??? ???? ??? ?? ????? ??? ?? ? ??? ???? ??. ? ??? ??? ??? ???? ????, ??? ???? ??? ??? ?? ?? ???? ????.",
+                                                            "monster":  "training_ground_encirclement_raiders / shield_frontliner, bandit_archer, fast_beast_melee, leader_like_pressure",
+                                                            "battle":  "surrounded_breakout / multi_side_pressure_break_one_side / three_member_story_party_seojin_jihan_yujin",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.05_2",
+                                    "inputEpisodeId":  "episode.05-2",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "companion_join",
+                                    "categorySummary":  {
+                                                            "story":  "??? ???? ??? ?? ????? ?? ??? ??? ??? ?? ???? ??. ??? ?? ????? ???? ???? ???? ????, ??? ??? ??? ??? ??? ?????? ?? ??.",
+                                                            "monster":  "child_capture_raiders / door_blocker_tank, net_capture_melee, hook_pole_control, basic_masked_raider",
+                                                            "battle":  "protect_child_escape / hut_door_breakthrough / seojin_yujin_primary_combat_with_jihan_child_support",
+                                                            "reward":  "gold_battle_reward,gold_episode_clear"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_episode_clear",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.05_2.hut_escape",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+                                },
+                                {
+                                    "episodeId":  "episode.act1.chapter01.06",
+                                    "inputEpisodeId":  "episode.06",
+                                    "planningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                                    "battlePlanStatus":  "created",
+                                    "episodeRole":  "breakthrough",
+                                    "categorySummary":  {
+                                                            "story":  "??, ??, ??? ? ??? ??? ?? ??? ??? ????. ???? ?? ??? ???? ??? ?????, ? ??? ??? ??? ?? ?? ??? ???? ??? ?? ?? ?? ??? ????.",
+                                                            "monster":  "organized_sangui_raider_fort / watchtower_archer, shield_spearman, axe_bruiser, ritual_support, caged_beast_pressure",
+                                                            "battle":  "bandit_fort_assault / layered_fort_breakthrough / three_member_story_party_seojin_jihan_yujin",
+                                                            "reward":  "gold_battle_reward,gold_chapter_clear"
+                                                        },
+                                    "battleNeed":  "required",
+                                    "monsterPlanningNeed":  "required",
+                                    "rewardNeed":  "gold_battle_reward,gold_chapter_clear",
+                                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.story_context.json",
+                                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                    "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                    "optionalBattleGroup":  "act1/chapter01",
+                                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
                                 }
                             ],
     "sourceStoryRefs":  [
                             "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
                             "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
                             "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
-                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md"
+                            "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+                            "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
+                            "Assets/Doc/Story/Act01/Chapter01/06_episode6.md"
                         ],
     "downstreamRefs":  {
                            "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
@@ -93,7 +235,19 @@
                            "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
                            "episode03_1BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
                            "episode03_1BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
-                           "episode03_1ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+                           "episode03_1Expectedruntime battle assetPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                           "episode03_2BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "episode03_2BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                           "episode03_2ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                           "episode05_1BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "episode05_1BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                           "episode05_1ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                           "episode05_2BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "episode05_2BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                           "episode05_2ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                           "episode06BattlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                           "episode06BattleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                           "episode06ExpectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
                        },
     "globalRules":  {
                         "usePlanningRefsOnly":  true,

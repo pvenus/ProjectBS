@@ -1,0 +1,116 @@
+{
+  "stageNodeId": "stage.ch1.episode5_2",
+  "roundNodeType": "RequiredSubEvent",
+  "actId": "act.01",
+  "chapterId": "chapter1",
+  "planningChapterId": "chapter.01.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "episodeId": "episode5_2",
+  "planningEpisodeId": "episode.act1.chapter01.05_2",
+  "episodeNumber": 5,
+  "titleKo": "숲길의 의원",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "지한 합류와 오두막 탈출",
+  "summaryKo": "유진을 먼저 동료로 맞이한 서진 일행은 숲속 오두막에서 지한을 만나고, 다친 아이를 데리고 포위를 돌파한다.",
+  "startNodeId": "node.ch1.episode5_2.001",
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 8,
+  "fixedColumn": 1,
+  "tags": ["story", "act1", "chapter1", "episode5_2", "companion_join", "battle_entry"],
+  "sourceRefs": {
+    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
+    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+    "episodeBattlePlanFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+    "optionalEpisodeScriptFile": null
+  },
+  "battleRefs": [
+    {
+      "battleId": "battle.act1.chapter01.05_2.hut_escape",
+      "battleGroup": "act1/chapter01",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+    }
+  ],
+  "planningStatus": {
+    "textSource": "episodePlanningFile.synopsis",
+    "needsFormalScriptReview": true,
+    "battleNeed": "required",
+    "battlePlanStatus": "created",
+    "rewardDirection": "gold_battle_reward"
+  },
+  "nodes": [
+    {
+      "nodeId": "node.ch1.episode5_2.001",
+      "nodeType": "narration",
+      "locationId": "location.forest_hut",
+      "speakerId": "character.yujin",
+      "speakerNameKo": "유진",
+      "titleKo": "숲속 오두막",
+      "textKo": "정찰대를 돌파한 뒤, 유진은 얕은 자국과 꺾인 풀잎을 따라 숲 안쪽의 낡은 오두막에 도착한다. 문 앞에는 피 묻은 천과 간이 부목이 놓여 있다.",
+      "bodyKo": "정찰대를 돌파한 뒤, 유진은 얕은 자국과 꺾인 풀잎을 따라 숲 안쪽의 낡은 오두막에 도착한다. 문 앞에는 피 묻은 천과 간이 부목이 놓여 있다.",
+      "mainImageRequired": true,
+      "imageDirection": "숲속 낡은 오두막, 문 앞의 피 묻은 천과 나뭇가지 부목, 조심스러운 추적 분위기",
+      "nextNodeId": "node.ch1.episode5_2.002",
+      "choices": []
+    },
+    {
+      "nodeId": "node.ch1.episode5_2.002",
+      "nodeType": "choice",
+      "locationId": "location.forest_hut",
+      "speakerId": "character.jihan",
+      "speakerNameKo": "지한",
+      "titleKo": "숲길의 의원",
+      "textKo": "오두막 안에는 다친 아이를 돌보는 지한이 있다. 유진은 흔적을 읽을 수 있지만, 아이를 살릴 사람도 필요하다고 말한다.",
+      "bodyKo": "오두막 안에는 다친 아이를 돌보는 지한이 있다. 유진은 흔적을 읽을 수 있지만, 아이를 살릴 사람도 필요하다고 말한다.",
+      "mainImageRequired": true,
+      "imageDirection": "오두막 안, 약상자와 다친 아이를 돌보는 지한, 활을 낮춘 유진과 결정을 내리는 서진",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode5_2.accept_jihan_join",
+          "textKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
+          "labelKo": "지한의 동행을 받아들인다",
+          "resultKo": "지한이 파티에 합류하고, 서진과 유진은 아이들을 살려낼 손까지 얻게 된다.",
+          "nextNodeId": "node.ch1.episode5_2.003",
+          "visibleConditions": [],
+          "rewards": []
+        }
+      ]
+    },
+    {
+      "nodeId": "node.ch1.episode5_2.003",
+      "nodeType": "battle_entry",
+      "locationId": "location.hut_exit",
+      "speakerId": "character.seojin",
+      "speakerNameKo": "서진",
+      "titleKo": "오두막 탈출",
+      "textKo": "오두막 밖에서 낮은 휘파람 소리가 들린다. 아이를 놓친 자들이 문과 창문을 에워싸고, 서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 길을 열어야 한다.",
+      "bodyKo": "오두막 밖에서 낮은 휘파람 소리가 들린다. 아이를 놓친 자들이 문과 창문을 에워싸고, 서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 길을 열어야 한다.",
+      "mainImageRequired": true,
+      "imageDirection": "오두막 문 앞을 에워싼 검은 천 산적과 포획꾼, 아이를 보호하는 지한, 탈출로를 여는 서진과 유진",
+      "choices": [
+        {
+          "choiceId": "choice.ch1.episode5_2.enter_battle",
+          "textKo": "오두막을 에워싼 산적들을 돌파한다.",
+          "labelKo": "오두막 포위를 돌파한다",
+          "resultKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 오두막 앞 적들과 전투에 들어간다.",
+          "visibleConditions": [],
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "rewardId": "battle.act1.chapter01.05_2.hut_escape",
+              "battleId": "battle.act1.chapter01.05_2.hut_escape",
+              "battleGroup": "act1/chapter01",
+              "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+              "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+            }
+          ],
+          "completesEvent": true
+        }
+      ]
+    }
+  ]
+}
