@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: stage.ch1.episode2
   m_EditorClassIdentifier: Assembly-CSharp::Stage.RoundNodeSO
   nodeId: stage.ch1.episode2
-  nodeType: 5
+  nodeType: 6
   popupEvent: {fileID: 11400000, guid: 473b9b7c3bc3a473298fcb662e9fdd12, type: 2}
   isRequired: 1
   hiddenByDefault: 0
-  tags: []
+  tags:
+  - story
+  - act1
+  - chapter1
+  - episode2
+  - investigation
+  - companion_join
+  - travel
   appearanceConditions: []

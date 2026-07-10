@@ -13,19 +13,12 @@ MonoBehaviour:
   m_Name: node.ch1.episode3_1.002
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.ch1.episode3_1.002
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: c3036a49a5f041a2b70768692e6196fb, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: choice.ch1.episode3_1.recruit_jihan
+  - choiceId: choice.ch1.episode3_1.accept_jihan_join
     requirements: []
     visibleConditions: []
-    rewards:
-    - rewardType: 0
-      rewardId: character.jihan
-      targetId: 
-      value: 0
-      godType: 0
-      targetData: {fileID: 0}
-      tag: 
+    rewards: []
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 52a7140fcf3084bbea97530c6e445efc, type: 2}

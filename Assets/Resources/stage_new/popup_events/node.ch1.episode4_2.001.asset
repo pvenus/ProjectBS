@@ -13,19 +13,12 @@ MonoBehaviour:
   m_Name: node.ch1.episode4_2.001
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.ch1.episode4_2.001
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: d3c87f00a0944082844492b337028d98, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: choice.ch1.episode4_2.break_scouts
+  - choiceId: node.ch1.episode4_2.001.next
     requirements: []
     visibleConditions: []
-    rewards:
-    - rewardType: 0
-      rewardId: battle.ch1.episode4_2.break_scouts
-      targetId: 
-      value: 0
-      godType: 0
-      targetData: {fileID: 0}
-      tag: 
+    rewards: []
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: d62dacc376f2441ed9c580647a163fda, type: 2}

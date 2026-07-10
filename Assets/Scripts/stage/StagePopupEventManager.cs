@@ -95,7 +95,8 @@ namespace Stage
 
             if (node.nodeType != RoundNodeType.Event &&
                 node.nodeType != RoundNodeType.Battle &&
-                node.nodeType != RoundNodeType.Boss)
+                node.nodeType != RoundNodeType.Boss &&
+                node.nodeType != RoundNodeType.RequiredSubEvent)
             {
                 return false;
             }
