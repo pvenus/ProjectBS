@@ -5,7 +5,7 @@ Use this prompt after episode planning exists and before battle plan generation.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 EpisodeBattleMonsterPoolGuide.md, EpisodePlanningCreateGuide.md,
 StoryPlanningContextGuide.md, CharacterDesignCreateGuide.md 기준으로
@@ -16,18 +16,20 @@ StoryPlanningContextGuide.md, CharacterDesignCreateGuide.md 기준으로
 - Assets/character_concepts/game_prompt_guide/story/EpisodePlanningCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md
 - Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}
+- chapterGroup: {chapter_group}
+- monsterCompositionGroup: {monster_composition_group}
 - episodeId: {episode_id}
 - episodePlanningFile: Assets/Doc/StoryPlanning/{act_group_id}/episode.{episode_id}.json
 - storyContextFile: Assets/Doc/StoryPlanning/{act_group_id}/story_context.{act_group_id}.json
-- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.chapter_XX.json
+- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.{chapter_group}.json
 - optionalMonsterContextFile: Assets/Doc/Character/{act_group_id}/monster_context.{act_group_id}.json
-- optionalMonsterCompositionFile: Assets/Doc/Character/{act_group_id}/monster_composition.chapter_XX_YY.json
+- optionalMonsterCompositionFile: Assets/Doc/Character/{act_group_id}/monster_composition.{monster_composition_group}.json
 
 작업:
 1. episodePlanningFile의 story/monster/battle 항목을 읽는다.
@@ -35,7 +37,7 @@ Input:
 3. primary, secondary, optional, optional_flavor, forbidden을 구분한다.
 4. 기존 몬스터 기획 파일이 있으면 후보로만 연결한다.
 5. 기존 몬스터가 있다고 전제하지 않는다.
-6. episode_battle_monster_pool.chapter_XX.json을 생성 또는 갱신한다.
+6. episode_battle_monster_pool.{chapter_group}.json을 생성 또는 갱신한다.
 7. story_context, episode_composition, episode JSON에 battleMonsterPoolRef를 연결한다.
 
 Output:

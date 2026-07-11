@@ -5,7 +5,7 @@ Use this prompt after an episode battle plan has selected a reusable spawner.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 BattleStoryContextGuide.md, BattleCreateGuide.md, BattleSO.md 기준으로
 BattleStoryContext JSON과 BattleSO 입력 JSON을 생성해줘.
@@ -16,22 +16,24 @@ BattleStoryContext JSON과 BattleSO 입력 JSON을 생성해줘.
 - Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
 - Assets/character_concepts/game_prompt_guide/battle/EpisodeBattlePlanGuide.md
 - Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}
+- chapterGroup: {chapter_group}
+- monsterCompositionGroup: {monster_composition_group}
 - episodeId: {episode_id}
 - battleId: {battle_id}
 - battleGroup: {battle_group}
-- episodeBattlePlanFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_plan.chapter_XX.json
+- episodeBattlePlanFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_plan.{chapter_group}.json
 - episodePlanningFile: Assets/Doc/StoryPlanning/{act_group_id}/episode.{episode_id}.json
-- episodeBattleMonsterPoolFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_monster_pool.chapter_XX.json
+- episodeBattleMonsterPoolFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_monster_pool.{chapter_group}.json
 - storyContextFile: Assets/Doc/StoryPlanning/{act_group_id}/story_context.{act_group_id}.json
-- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.chapter_XX.json
+- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.{chapter_group}.json
 - monsterContextFile: Assets/Doc/Character/{act_group_id}/monster_context.{act_group_id}.json
-- monsterCompositionFile: Assets/Doc/Character/{act_group_id}/monster_composition.chapter_XX_YY.json
+- monsterCompositionFile: Assets/Doc/Character/{act_group_id}/monster_composition.{monster_composition_group}.json
 - selectedSpawnerJson: {selected_spawner_json_path}
 - backgroundImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
 - outputBattleStoryContextFile: Assets/Doc/Battle/{battle_group}/{battle_id}.story_context.json

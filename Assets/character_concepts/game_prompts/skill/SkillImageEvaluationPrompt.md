@@ -5,7 +5,7 @@
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 평가 가이드를 기준으로 캐릭터 독립형 스킬 이펙트 애니메이션을 평가해줘.
 생성 또는 수정은 하지 말고 평가만 수행해줘.
@@ -15,6 +15,7 @@
 - Assets/character_concepts/game_prompt_guide/skill/SkillImageEvaluationGuide.md
 
 Input:
+- projectRoot: {project_root}
 - skillSourcePath: {스킬 정보가 포함된 JSON 또는 문서 절대경로}
 - skillIdOrName: {평가할 스킬 ID 또는 이름}
 - assetPathOrPixelLabPage: {로컬 PNG/GIF/스프라이트 시트 경로 또는 열린 PixelLab 결과 페이지}

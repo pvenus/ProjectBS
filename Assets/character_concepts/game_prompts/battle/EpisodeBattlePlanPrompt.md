@@ -5,7 +5,7 @@ Use this prompt after episode battle monster pool JSON exists.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 EpisodeBattlePlanGuide.md, BattleCreateGuide.md, BattleSO.md,
 SpawnerCreateGuide.md, SpawnSO.md 기준으로 에피소드 배틀 플랜 JSON을
@@ -17,17 +17,18 @@ SpawnerCreateGuide.md, SpawnSO.md 기준으로 에피소드 배틀 플랜 JSON�
 - Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
 - Assets/character_concepts/game_prompt_guide/spawner/SpawnerCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}
+- chapterGroup: {chapter_group}
 - episodeId: {episode_id}
 - episodePlanningFile: Assets/Doc/StoryPlanning/{act_group_id}/episode.{episode_id}.json
-- episodeBattleMonsterPoolFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_monster_pool.chapter_XX.json
+- episodeBattleMonsterPoolFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_monster_pool.{chapter_group}.json
 - storyContextFile: Assets/Doc/StoryPlanning/{act_group_id}/story_context.{act_group_id}.json
-- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.chapter_XX.json
+- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.{chapter_group}.json
 - spawnerSearchRoots:
   - Assets/Resources/battle/spawner/Jsons/sequence_presets
   - Assets/Doc/Spawner
@@ -42,7 +43,7 @@ Input:
 6. forbidden role/pressure와 충돌하는 후보를 제외한다.
 7. 필수 슬롯을 몬스터 풀로 바인딩할 수 있는 후보를 선택한다.
 8. battleDirection과 전투 공간 정보를 기준으로 backgroundImageDirection을 작성한다.
-9. 후보가 있으면 episode_battle_plan.chapter_XX.json을 생성한다.
+9. 후보가 있으면 episode_battle_plan.{chapter_group}.json을 생성한다.
 10. 후보가 없으면 JSON을 만들지 말고 실패 메시지를 출력한다.
 11. story_context, episode_composition, episode JSON에 battlePlanRef 또는 battlePlanStatus를 갱신한다.
 

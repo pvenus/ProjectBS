@@ -5,7 +5,7 @@ PixelLab에서 생성한 스킬 기준 이미지와 애니메이션을 구분해
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 가이드를 먼저 읽고 PixelLab 스킬 이펙트 결과의 다운로드, 보존, Unity 복사, 슬라이스 검증, 평가, 임시 파일 정리를 진행해줘.
 
@@ -15,6 +15,7 @@ PixelLab에서 생성한 스킬 기준 이미지와 애니메이션을 구분해
 - Assets/character_concepts/game_prompt_guide/skill/SkillImageEvaluationGuide.md
 
 Input:
+- projectRoot: {project_root}
 - skillSourcePath: {스킬 JSON 절대경로}
 - skillId: {전체 equipment skill id}
 - skillSlug: {평가 폴더용 짧은 이름}

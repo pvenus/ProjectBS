@@ -5,21 +5,21 @@ Use this prompt when converting episode prose into synopsis-level planning JSON.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 EpisodeFormat.md, StoryStructureGuide.md, StoryPlanningContextGuide.md,
 EpisodePlanningCreateGuide.md, RewardPlanningGuide.md 기준으로 에피소드
 기획 JSON을 생성해줘.
 
 참조 가이드:
-- Assets/character_concepts/game_prompt_guide/story/EpisodeFormat.md
+- Assets/Doc/Design/EpisodeFormat.md
 - Assets/character_concepts/game_prompt_guide/story/StoryStructureGuide.md
 - Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md
 - Assets/character_concepts/game_prompt_guide/story/EpisodePlanningCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}

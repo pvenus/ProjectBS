@@ -6,7 +6,7 @@ Stage Node JSON의 특정 popup event를 기준으로 `PopupEventSO.mainImage`
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 참조 가이드를 기준으로 popup event 메인 이미지를 생성해줘.
 이 단계에서는 Stage Node JSON, PopupEventSO asset, RoundNodeSO asset을 수정하지 않고,
@@ -16,9 +16,9 @@ Stage Node JSON의 특정 popup event를 기준으로 `PopupEventSO.mainImage`
 - Assets/character_concepts/game_prompt_guide/stage/PopupEventMainImageCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/stage/PopupEventSO.md
 - Assets/character_concepts/game_prompt_guide/stage/EpisodeStageNodeCreateGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}

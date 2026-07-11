@@ -6,7 +6,7 @@ Export 결과와 이미지 평가 결과를 정리하는 프롬프트입니다.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 참조 가이드를 기준으로 PixelLab에서 캐릭터 이미지를 생성하고,
 Export 폴더와 평가 결과를 정리해줘.
@@ -14,10 +14,9 @@ Export 폴더와 평가 결과를 정리해줘.
 참조 가이드:
 - Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/character/CharacterGenerateImage.md
-- Assets/character_concepts/game_prompt_guide/character/EvaluationImageGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - characterFolderPath: {캐릭터_기획_JSON_폴더_절대경로}
 - PixelLabExportRoot: {PixelLab_export_저장_루트_절대경로}
 

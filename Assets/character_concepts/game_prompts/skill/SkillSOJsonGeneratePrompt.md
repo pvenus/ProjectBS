@@ -3,11 +3,12 @@
 Use this prompt when generating character skill JSON for ProjectBS Skill SO input.
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 입력을 기준으로 CharacterCreateGuide.md, SkillDegineGuide.md, SkillBalanceGuide.md, SkillJsonGuide.md, EquipmentSkillSO.md 및 필요한 SO 세부 가이드를 먼저 읽고, 캐릭터 기획 JSON의 skills를 기준으로 Skill SO 입력용 JSON만 생성해줘.
 
-입력:
+Input:
+- projectRoot: {project_root}
 - characterPlanningJson = {캐릭터별_기획_JSON_절대경로}
 - commonDataJson = {공용_데이터_JSON_절대경로_또는_null}
 - outputRoot = Assets/Resources/skill/character/generated
@@ -25,9 +26,8 @@ Use this prompt when generating character skill JSON for ProjectBS Skill SO inpu
 - Assets/character_concepts/game_prompt_guide/skill/so_guide/SpawnSkillSO.md
 - Assets/character_concepts/game_prompt_guide/skill/so_guide/BaseVisualSO.md
 - Assets/character_concepts/game_prompt_guide/skill/so_guide/EquipmentUpgradeTableSO.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
-핵심 실행 지시:
+작업:
 1. characterPlanningJson을 읽고 identity, combat, stats, skills 정보를 기준으로 스킬 JSON을 생성한다.
 2. commonDataJson 또는 commonDataRef가 있으면 race, faction, world tone, reuse/source guide 정보를 참고하되, 출력 JSON에는 Skill SO 입력에 필요한 필드만 작성한다.
 3. SO asset을 직접 만들지 말고 JSON 파일만 생성한다.
@@ -43,7 +43,7 @@ Use this prompt when generating character skill JSON for ProjectBS Skill SO inpu
 13. hits에서 maxHitCount가 1보다 크면 deactivateAfterFirstHit는 반드시 false로 작성한다.
 14. deactivateAfterFirstHit가 true이면 maxHitCount는 반드시 1로 작성한다.
 
-출력 형식:
+Output:
 - Character:
 - Character Type:
 - Grade:
