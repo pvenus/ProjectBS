@@ -100,6 +100,14 @@ For the complete animation verify:
 - The skill does not encode world-space travel unnecessarily.
 - Loop or one-shot behavior matches the skill design.
 
+When evaluating downloaded production candidates, also verify:
+
+- The reference and animation are stored as separate files.
+- The preserved evaluation PNG and Unity destination PNG have matching SHA-256 values.
+- Sheet width and height, frame cell size, columns, rows, and usable frame count are recorded.
+- Unity slice count and generated clip frame count match the usable frame count.
+- The evaluation uses the exact preserved file copied into Unity, not a preview or recompressed duplicate.
+
 ## 5. Result Classification
 
 - **Pass**: 85–100, no fatal failure.
@@ -116,10 +124,21 @@ Skill Image Animation Evaluation
 Skill:
 Source JSON:
 Asset Path or PixelLab Page:
+Reference Asset Path:
+Animation Asset Path:
+Unity Reference Path:
+Unity Animation Path:
 Canvas:
+Sheet Size:
+Frame Cell Size:
+Columns / Rows:
 Requested Frames:
 Observed Frames:
+Usable / Unity Sliced / Clip Frames:
 Loop Mode:
+Reference SHA-256:
+Animation SHA-256:
+Unity Copy Checksum Match: Pass / Fail / Not Applicable
 
 Fatal Failure Check:
 - Transparent background: Pass / Fail

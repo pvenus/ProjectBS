@@ -18,6 +18,10 @@ Input:
 - skillSourcePath: {스킬 정보가 포함된 JSON 또는 문서 절대경로}
 - skillIdOrName: {평가할 스킬 ID 또는 이름}
 - assetPathOrPixelLabPage: {로컬 PNG/GIF/스프라이트 시트 경로 또는 열린 PixelLab 결과 페이지}
+- referenceAssetPath: {기준 이미지 경로 또는 null}
+- animationAssetPath: {애니메이션 시트 경로 또는 null}
+- unityReferencePath: {Unity animation_ref_png 경로 또는 null}
+- unityAnimationPath: {Unity animation_png 경로 또는 null}
 - expectedCanvasSize: {예상 캔버스 크기}
 - expectedFrameCount: {예상 프레임 수}
 - expectedLoopMode: {loop | one_shot}
@@ -37,6 +41,8 @@ Input:
 12. 총점과 치명적 실패 여부를 기준으로 Pass / Conditional Pass / Fail을 판정한다.
 13. 실패 또는 감점 항목마다 관찰한 프레임과 구체적인 원인을 기록한다.
 14. 재생성이 필요한 경우 기존 프롬프트에서 변경해야 할 영어 문구를 제안한다.
+15. 로컬 평가인 경우 시트 크기, 셀 크기, columns, rows, usable frame count를 기록한다.
+16. Unity 경로가 제공되면 평가 파일과 Unity 파일의 SHA-256 일치 여부 및 슬라이스/클립 프레임 수를 확인한다.
 
 필수 채점:
 - Transparency and Isolation: /15
@@ -60,10 +66,17 @@ Skill Image Animation Evaluation
 Skill:
 Source JSON:
 Asset Path or PixelLab Page:
+Reference Asset Path:
+Animation Asset Path:
+Unity Reference Path:
+Unity Animation Path:
 Canvas:
+Sheet Size / Cell Size / Columns / Rows:
 Requested Frames:
 Observed Frames:
+Usable / Unity Sliced / Clip Frames:
 Loop Mode:
+Checksum Match:
 
 Fatal Failure Check:
 - Transparent background: Pass / Fail

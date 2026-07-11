@@ -16,6 +16,13 @@ The generated asset represents only the skill effect. Character movement, projec
 
 ## 3. Asset Requirements
 
+### 3.0 Eligibility
+
+- Do not generate a separate skill VFX animation for melee basic attacks.
+- A skill is treated as a melee basic attack when its ID contains `.basic_attack.` and `cast.range <= 1.0`.
+- Melee basic attacks use only the character's basic attack animation.
+- Ranged basic attacks may use an independent projectile VFX animation.
+
 ### 3.1 Character Independence
 
 The asset must not contain:
@@ -131,6 +138,17 @@ In **Animate with text (New)**:
 - Review every sprite-sheet frame, not only the animated preview.
 - Apply `SkillImageEvaluationGuide.md`.
 - Regenerate if a fatal failure is present or the total score is below the passing score.
+
+### Step 6: Download, Preserve, Copy, and Evaluate
+
+After a result is accepted, follow `SkillImageDownloadGuide.md` for the complete post-generation workflow.
+
+- Download the selected reference and final animation as separate deliverables.
+- Preserve them under `/Users/pvenus/Documents/PixelLab/skill` before Unity copy.
+- Copy them to `animation_ref_png` and `animation_png` using the full skill ID filenames.
+- Derive the slice grid from actual sheet dimensions; do not assume a fixed grid.
+- Save `generation_record.txt` and `evaluation/evaluation_result.txt`.
+- Delete ZIP and temporary extraction files only after preservation and verification succeed.
 
 ## 5. Prompt Construction Rules
 

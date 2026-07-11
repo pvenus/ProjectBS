@@ -28,7 +28,8 @@ namespace ResourceTools.Skill
 
         public static BaseVisualSO CreateOrUpdate(
             BaseVisualJson json,
-            string outputFolder)
+            string outputFolder,
+            bool generateAnimation = true)
         {
             if (json == null)
             {
@@ -57,7 +58,7 @@ namespace ResourceTools.Skill
             BaseVisualSO visualSo = ScriptableObject.CreateInstance<BaseVisualSO>();
             AssetDatabase.CreateAsset(visualSo, assetPath);
 
-            Apply(visualSo, json, outputFolder);
+            Apply(visualSo, json, outputFolder, generateAnimation);
 
             EditorUtility.SetDirty(visualSo);
             AssetDatabase.SaveAssets();
@@ -80,7 +81,8 @@ namespace ResourceTools.Skill
         private static void Apply(
             BaseVisualSO visualSo,
             BaseVisualJson json,
-            string outputFolder)
+            string outputFolder,
+            bool generateAnimation)
         {
             if (visualSo == null || json == null)
             {
@@ -88,9 +90,22 @@ namespace ResourceTools.Skill
             }
 
             ProjectileVisualType projectileVisualType = ResolveProjectileVisualType(json.projectileVisualType);
-            AnimationClipEntry[] animationClips = CreateAnimationClipEntries(
-                json.visualId,
-                outputFolder);
+            AnimationClipEntry[] animationClips;
+
+            if (generateAnimation)
+            {
+                animationClips = CreateAnimationClipEntries(
+                    json.visualId,
+                    outputFolder);
+            }
+            else
+            {
+                DeleteGeneratedAnimationClip(json.visualId, outputFolder);
+                animationClips = Array.Empty<AnimationClipEntry>();
+                Debug.Log(
+                    $"[SkillBaseVisualAssetBuilder] Skipped skill animation generation: " +
+                    $"visualId={json.visualId}");
+            }
 
             visualSo.ApplyEditorData(
                 json.visualId,
@@ -197,6 +212,23 @@ namespace ResourceTools.Skill
             }
 
             return clip;
+        }
+
+        private static void DeleteGeneratedAnimationClip(
+            string visualId,
+            string outputFolder)
+        {
+            if (string.IsNullOrWhiteSpace(visualId) || string.IsNullOrWhiteSpace(outputFolder))
+            {
+                return;
+            }
+
+            string clipPath = Path.Combine(
+                    outputFolder,
+                    $"{visualId}.loop.anim")
+                .Replace("\\", "/");
+
+            AnimationClipAssetHelper.DeleteAssetIfExists(clipPath);
         }
 
         private static string RemoveVisualSuffix(string visualId)
