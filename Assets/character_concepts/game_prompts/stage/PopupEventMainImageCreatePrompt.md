@@ -90,4 +90,70 @@ Output:
 - Stage Node JSON, PopupEventSO asset, RoundNodeSO asset은 수정하지 않는다.
 - eventId별 이미지가 필요하므로 여러 popup event 이미지는 eventId마다 반복 실행한다.
 - BattleSO 배경 이미지는 BattleBackgroundImagePrompt.md에서 별도로 생성한다.
+
+---
+
+## Embedded Image Style Guide
+
+아래 스타일 가이드는 모든 popup event 메인 이미지 생성에 공통 적용한다.
+
+# Image Style Guide
+
+## Core Prompt
+Cinematic anime style illustration with detailed ink linework, rough pixel texture, painterly finish, and muted earthy color palette.
+
+Focus tightly on the key clue and core situation. Keep the surrounding environment softly out of focus.
+
+Use expressive lighting detail inspired by dramatic anime story cuts: warm rim light, soft shadow layers, dust in the air, and natural light filtering through the scene.
+
+Actively infer and reflect the historical period, environment, handmade materials, social class, and everyday life from the story context.
+
+## Composition
+- Close-up composition around one key clue and one core situation.
+- The key clue is always the main subject.
+- Keep the key clue and situation in sharp focus.
+- Keep the surrounding environment in soft out-focus style.
+- Use environmental storytelling through objects, traces, hands, posture, tools, clothing, and spatial context.
+- Background supports the story and period context, never dominates.
+- Avoid multiple story beats in one image.
+- Remove specific image descriptions from the reusable guide.
+
+## Character Rule
+- Include characters only when the situation requires them.
+- Do not emphasize faces or facial expressions.
+- Avoid portrait-style composition.
+- Show emotion through hands, posture, clothing folds, silhouettes, cropped body parts, tools, and interaction with the environment.
+- Characters should support the story, never dominate it.
+- Keep the key clue and situation as the visual focus.
+- Human figures should be treated as environmental storytelling elements, not portrait subjects.
+- Characters are supporting elements.
+- The key clue is always the main subject.
+
+## Historical Authenticity
+- Actively infer and reflect the historical period, environment, social class, and everyday life from the story context.
+- Use historically grounded Korean period details when appropriate.
+- Use handmade objects only: wood, straw, hemp, bamboo, earthenware, aged hanji, rough cloth.
+- Use weathered, imperfect, handcrafted materials and practical tools.
+- Show story-relevant props only.
+- Every object should support the key clue or core situation.
+- Avoid modern objects, clean manufactured items, decorative fantasy props, readable text, and watermark.
+
+## Anime Style
+- Cinematic anime illustration.
+- Semi-realistic anime rendering.
+- Detailed ink linework.
+- Rough pixel depiction.
+- Painterly finish.
+- Muted earthy color palette.
+- Lighting detail: warm rim light, soft shadow layers, dust in the air, natural light filtering through the scene.
+- Key clue and core situation in focus; surroundings softly out of focus.
+- Historical Korean atmosphere grounded in period, environment, handmade materials, and everyday life.
+
+## Automation Notes
+- Apply this guide to any story node by replacing only the key clue, core situation, place, and period context.
+- Do not include scene-specific examples in this reusable guide.
+- Required focus: key clue and core situation in sharp focus; everything else in out-focus style.
+- Required style: anime style, expressive lighting detail, active historical and environmental inference, rough pixel depiction, muted earthy color palette.
+- Required character handling: face and expression detail removed; characters remain supporting environmental storytelling elements.
+
 ```
