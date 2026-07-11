@@ -1,49 +1,53 @@
-{
-  "equipmentId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe",
-  "baseProfile": {
-    "baseProfileId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 0.8,
-    "projectileLifetime": 0.25,
-    "projectileSpawn": {
-      "spawnOffset": 0.6,
-      "interval": 0
-    }
-  },
-  "cast": {
-    "castId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.cast",
-    "targetingType": "AutoTargetDirection",
-    "cooldown": 2,
-    "castTime": 0,
-    "range": 0.6,
-    "skipAttackAnimation": false
-  },
-  "move": {
-    "moveId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.move",
-    "moveType": "Linear",
-    "applyDirectionRotation": true,
-    "rotationOffset": 0,
-    "config": {
-      "speed": 0
-    }
-  },
-  "hits": [
-    {
-      "hitId": "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.hit",
-      "maxHitCount": 2,
-      "ignoreSameRoot": true,
-      "useRepeatInterval": false,
-      "repeatInterval": 0,
-      "hitStartTime": 0,
-      "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Party",
-      "damage": {
-        "baseDamage": 6,
-        "attackPercentDamage": 0.4
-      }
-    }
-  ]
+﻿{
+    "equipmentId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  0.8,
+                        "projectileLifetime":  0.25,
+                        "projectileSpawn":  {
+                                                "spawnOffset":  0.6,
+                                                "interval":  0
+                                            }
+                    },
+    "cast":  {
+                 "castId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.cast",
+                 "targetingType":  "AutoTargetDirection",
+                 "cooldown":  2,
+                 "castTime":  0,
+                 "range":  0.6,
+                 "skipAttackAnimation":  false
+             },
+    "move":  {
+                 "moveId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.move",
+                 "moveType":  "Linear",
+                 "applyDirectionRotation":  true,
+                 "rotationOffset":  0,
+                 "config":  {
+                                "speed":  0
+                            }
+             },
+    "hits":  [
+                 {
+                     "hitId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.hit",
+                     "maxHitCount":  2,
+                     "ignoreSameRoot":  true,
+                     "useRepeatInterval":  false,
+                     "repeatInterval":  0,
+                     "hitStartTime":  0,
+                     "deactivateAfterFirstHit":  false,
+                     "targetLayerMask":  "Party",
+                     "damage":  {
+                                    "baseDamage":  6,
+                                    "attackPercentDamage":  0.4
+                                }
+                 }
+             ],
+    "baseVisual":  {
+                       "visualId":  "skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

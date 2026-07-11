@@ -40,6 +40,8 @@ Use this prompt when generating character skill JSON for ProjectBS Skill SO inpu
 10. child SO id는 equipmentId를 기준으로 SkillJsonGuide.md의 ID Derivation 규칙에 따라 생성한다.
 11. JSON에는 localization string, Unity SO asset, `.meta` 파일을 생성하지 않는다.
 12. 결과 JSON은 outputRoot 아래에 저장한다.
+13. hits에서 maxHitCount가 1보다 크면 deactivateAfterFirstHit는 반드시 false로 작성한다.
+14. deactivateAfterFirstHit가 true이면 maxHitCount는 반드시 1로 작성한다.
 
 출력 형식:
 - Character:
@@ -74,6 +76,7 @@ Use this prompt when generating character skill JSON for ProjectBS Skill SO inpu
 - equipmentId는 skill.character.{character_name}.{grade}.{slot}.{skill_name} 형식을 따라야 한다.
 - slot은 SkillJsonGuide.md의 mapping과 맞아야 한다.
 - cast.range는 최소 0.4 이상이어야 한다.
+- 모든 hit는 `maxHitCount > 1 && deactivateAfterFirstHit == true` 충돌이 없어야 한다.
 - 필요한 optional profile만 생성해야 한다.
 - Unity SO asset, localization, `.meta` 파일은 생성하지 않아야 한다.
 

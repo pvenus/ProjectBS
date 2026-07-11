@@ -38,12 +38,12 @@ Movement, casting, visual data, and targeting are configured by other SOs.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | hitId | string | Required | Unique hit identifier |
-| maxHitCount | int | Required | Maximum number of times this hit can be applied |
+| maxHitCount | int | Required | Maximum number of successful hits across the projectile lifetime. Must be `1` when `deactivateAfterFirstHit` is `true` |
 | ignoreSameRoot | bool | Required | Prevents hitting targets with the same root |
 | useRepeatInterval | bool | Required | Enables interval-based repeated hits |
 | repeatInterval | float | Required | Time between repeated hits when repeat interval is enabled |
 | hitStartTime | float | Required | Delay before the hit becomes active |
-| deactivateAfterFirstHit | bool | Required | Deactivates the hit after the first successful hit |
+| deactivateAfterFirstHit | bool | Required | Despawns the projectile after its first successful hit. Must be `false` when `maxHitCount` is greater than `1` |
 | targetLayerMask | string | Required | Target layer mask name |
 | damage | SkillHitDamageProfile | Optional | Damage profile applied on hit |
 | buffEffects | EffectEntrySO[] | Optional | Buff effects applied on hit |
@@ -96,9 +96,30 @@ Example:
 
 ## Validation
 
+### Hit Count and Deactivation
+
+`maxHitCount` and `deactivateAfterFirstHit` must describe the same hit policy.
+
+```text
+Single-hit projectile:
+maxHitCount = 1
+deactivateAfterFirstHit = true
+
+Multi-hit or piercing projectile:
+maxHitCount > 1
+deactivateAfterFirstHit = false
+```
+
+Do not generate `maxHitCount > 1` together with `deactivateAfterFirstHit = true`.
+The projectile would despawn after the first successful hit, so the remaining hit count could never be used.
+
+`maxHitCount` is the total successful-hit budget of the projectile, not a per-target hit count.
+
 ```text
 hitId                    : Required
 maxHitCount              : >= 1
+deactivateAfterFirstHit  : true only when maxHitCount == 1
+maxHitCount > 1          : deactivateAfterFirstHit must be false
 repeatInterval           : >= 0
 hitStartTime             : >= 0
 split.splitHitCount      : >= 1 when split exists

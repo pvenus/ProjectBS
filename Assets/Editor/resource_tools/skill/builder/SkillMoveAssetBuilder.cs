@@ -17,11 +17,38 @@ namespace ResourceTools.Skill
         public bool applyDirectionRotation = true;
         public float rotationOffset;
 
+        public MoveConfigJson config;
+
+        // Legacy type-specific blocks. Kept as fallbacks for older JSON data.
         public LinearMoveJson linear;
         public HoverMoveJson hover;
         public WarpMoveJson warp;
         public HomingMoveJson homing;
         public OrbitMoveJson orbit;
+    }
+
+    [Serializable]
+    public class MoveConfigJson
+    {
+        public float speed;
+        public Vector2Json followOffset;
+        public float turnSpeed;
+
+        public float orbitRadius;
+        public float orbitAngularSpeed;
+        public bool clockwise;
+        public int spawnOrder;
+        public int maxProjectileCount;
+        public bool resetPhaseWhenLayoutChanges;
+        public float radialPulseAmplitude;
+        public float radialPulseFrequency;
+    }
+
+    [Serializable]
+    public class Vector2Json
+    {
+        public float x;
+        public float y;
     }
 
     [Serializable]
@@ -183,9 +210,11 @@ namespace ResourceTools.Skill
         {
             return new LinearMoveConfig
             {
-                speed = json != null && json.linear != null
-                    ? json.linear.speed
-                    : 0f
+                speed = json != null && json.config != null
+                    ? json.config.speed
+                    : json != null && json.linear != null
+                        ? json.linear.speed
+                        : 0f
             };
         }
 
@@ -194,7 +223,13 @@ namespace ResourceTools.Skill
         {
             var config = new HoverMoveConfig();
 
-            if (json != null && json.hover != null)
+            if (json != null && json.config != null && json.config.followOffset != null)
+            {
+                config.followOffset = new Vector2(
+                    json.config.followOffset.x,
+                    json.config.followOffset.y);
+            }
+            else if (json != null && json.hover != null)
             {
                 config.followOffset = new Vector2(
                     json.hover.followOffsetX,
@@ -209,7 +244,12 @@ namespace ResourceTools.Skill
         {
             var config = new HomingMoveConfig();
 
-            if (json != null && json.homing != null)
+            if (json != null && json.config != null)
+            {
+                config.speed = json.config.speed;
+                config.turnSpeed = json.config.turnSpeed;
+            }
+            else if (json != null && json.homing != null)
             {
                 config.speed = json.homing.speed;
                 config.turnSpeed = json.homing.turnSpeed;
@@ -223,7 +263,18 @@ namespace ResourceTools.Skill
         {
             var config = new OrbitMoveConfig();
 
-            if (json != null && json.orbit != null)
+            if (json != null && json.config != null)
+            {
+                config.orbitRadius = json.config.orbitRadius;
+                config.orbitAngularSpeed = json.config.orbitAngularSpeed;
+                config.clockwise = json.config.clockwise;
+                config.spawnOrder = json.config.spawnOrder;
+                config.maxProjectileCount = json.config.maxProjectileCount;
+                config.resetPhaseWhenLayoutChanges = json.config.resetPhaseWhenLayoutChanges;
+                config.radialPulseAmplitude = json.config.radialPulseAmplitude;
+                config.radialPulseFrequency = json.config.radialPulseFrequency;
+            }
+            else if (json != null && json.orbit != null)
             {
                 config.orbitRadius = json.orbit.orbitRadius;
                 config.orbitAngularSpeed = json.orbit.orbitAngularSpeed;

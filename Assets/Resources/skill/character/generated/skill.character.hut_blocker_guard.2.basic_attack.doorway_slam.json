@@ -1,49 +1,53 @@
-{
-  "equipmentId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam",
-  "baseProfile": {
-    "baseProfileId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 0.8,
-    "projectileLifetime": 0.25,
-    "projectileSpawn": {
-      "spawnOffset": 0.5,
-      "interval": 0
-    }
-  },
-  "cast": {
-    "castId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.cast",
-    "targetingType": "AutoTargetDirection",
-    "cooldown": 2,
-    "castTime": 0,
-    "range": 0.5,
-    "skipAttackAnimation": false
-  },
-  "move": {
-    "moveId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.move",
-    "moveType": "Linear",
-    "applyDirectionRotation": true,
-    "rotationOffset": 0,
-    "config": {
-      "speed": 0
-    }
-  },
-  "hits": [
-    {
-      "hitId": "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.hit",
-      "maxHitCount": 2,
-      "ignoreSameRoot": true,
-      "useRepeatInterval": false,
-      "repeatInterval": 0,
-      "hitStartTime": 0,
-      "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Party",
-      "damage": {
-        "baseDamage": 4,
-        "attackPercentDamage": 0.33
-      }
-    }
-  ]
+﻿{
+    "equipmentId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  0.8,
+                        "projectileLifetime":  0.25,
+                        "projectileSpawn":  {
+                                                "spawnOffset":  0.5,
+                                                "interval":  0
+                                            }
+                    },
+    "cast":  {
+                 "castId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.cast",
+                 "targetingType":  "AutoTargetDirection",
+                 "cooldown":  2,
+                 "castTime":  0,
+                 "range":  0.5,
+                 "skipAttackAnimation":  false
+             },
+    "move":  {
+                 "moveId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.move",
+                 "moveType":  "Linear",
+                 "applyDirectionRotation":  true,
+                 "rotationOffset":  0,
+                 "config":  {
+                                "speed":  0
+                            }
+             },
+    "hits":  [
+                 {
+                     "hitId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.hit",
+                     "maxHitCount":  2,
+                     "ignoreSameRoot":  true,
+                     "useRepeatInterval":  false,
+                     "repeatInterval":  0,
+                     "hitStartTime":  0,
+                     "deactivateAfterFirstHit":  false,
+                     "targetLayerMask":  "Party",
+                     "damage":  {
+                                    "baseDamage":  4,
+                                    "attackPercentDamage":  0.33
+                                }
+                 }
+             ],
+    "baseVisual":  {
+                       "visualId":  "skill.character.hut_blocker_guard.2.basic_attack.doorway_slam.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

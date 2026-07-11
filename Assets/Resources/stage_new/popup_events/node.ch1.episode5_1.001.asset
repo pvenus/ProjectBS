@@ -13,19 +13,12 @@ MonoBehaviour:
   m_Name: node.ch1.episode5_1.001
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.ch1.episode5_1.001
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: 5ee6063603cb4d25b23631b5e16cb00f, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: choice.ch1.episode5_1.recruit_yujin
+  - choiceId: node.ch1.episode5_1.001.next
     requirements: []
     visibleConditions: []
-    rewards:
-    - rewardType: 0
-      rewardId: character.yujin
-      targetId: 
-      value: 0
-      godType: 0
-      targetData: {fileID: 0}
-      tag: 
+    rewards: []
     completesEvent: 1
-    nextEvent: {fileID: 0}
+    nextEvent: {fileID: 11400000, guid: 8505b42bed20243b898f3fc373900bf5, type: 2}

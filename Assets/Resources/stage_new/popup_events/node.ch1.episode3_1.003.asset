@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.ch1.episode3_1.003
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.ch1.episode3_1.003
+  mainImage: {fileID: 21300000, guid: 8f8e36acd29442ff8a9e35b4f98be647, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: node.ch1.episode3_1.003.next
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 2b96a0cecf77c4745b6cb74db773150a, type: 2}

@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: stage.ch1.episode3_1
   m_EditorClassIdentifier: Assembly-CSharp::Stage.RoundNodeSO
   nodeId: stage.ch1.episode3_1
-  nodeType: 5
+  nodeType: 6
   popupEvent: {fileID: 11400000, guid: 863a779ef00a8456791840c6e5cda660, type: 2}
   isRequired: 1
-  hiddenByDefault: 1
-  tags: []
+  hiddenByDefault: 0
+  tags:
+  - story
+  - act1
+  - chapter1
+  - episode3_1
+  - companion_join
+  - battle_entry
+  - defense
   appearanceConditions: []

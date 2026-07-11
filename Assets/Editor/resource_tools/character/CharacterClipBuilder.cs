@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Character;
+using ResourceTools.Helper;
 using UnityEditor;
 using UnityEngine;
 
@@ -85,21 +86,19 @@ namespace ResourceTools
 
                 string clipName = CreateClipName(selectedPath, folderPath);
                 string clipPath = $"{outputFolderPath}/{clipName}.anim";
-                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+                AnimationClip clip = AnimationClipAssetHelper.RecreateSpriteAnimationClip(
+                    clipPath,
+                    sprites,
+                    FrameRate,
+                    true);
 
                 if (clip == null)
                 {
-                    clip = CreateSpriteAnimationClip(sprites);
-                    AssetDatabase.CreateAsset(clip, clipPath);
-                    Debug.Log($"[GenerateClips] Created clip: {clipPath} / Frames: {sprites.Length}");
+                    Debug.LogError($"[GenerateClips] Failed to recreate clip: {clipPath}");
+                    continue;
                 }
-                else
-                {
-                    AnimationClip updatedClip = CreateSpriteAnimationClip(sprites);
-                    EditorUtility.CopySerialized(updatedClip, clip);
-                    EditorUtility.SetDirty(clip);
-                    Debug.Log($"[GenerateClips] Updated clip: {clipPath} / Frames: {sprites.Length}");
-                }
+
+                Debug.Log($"[GenerateClips] Deleted and recreated clip: {clipPath} / Frames: {sprites.Length}");
 
                 generatedClips.Add(new GeneratedClipInfo
                 {
@@ -111,7 +110,7 @@ namespace ResourceTools
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log($"[GenerateClips] Complete. Created/Updated {generatedClips.Count} clips. Skipped {skippedCount} folders without sprites.");
+            Debug.Log($"[GenerateClips] Complete. Recreated {generatedClips.Count} clips. Skipped {skippedCount} folders without sprites.");
             return generatedClips
                 .Where(info => info != null && info.Clip != null)
                 .Select(info => info.Clip)
@@ -136,41 +135,6 @@ namespace ResourceTools
 
             return GenerateFromFolderPath(animationFolderPath);
         }
-
-        private static AnimationClip CreateSpriteAnimationClip(Sprite[] sprites)
-        {
-            AnimationClip clip = new AnimationClip
-            {
-                frameRate = FrameRate
-            };
-
-            EditorCurveBinding spriteBinding = new EditorCurveBinding
-            {
-                type = typeof(SpriteRenderer),
-                path = string.Empty,
-                propertyName = "m_Sprite"
-            };
-
-            ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
-
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                keyframes[i] = new ObjectReferenceKeyframe
-                {
-                    time = i / FrameRate,
-                    value = sprites[i]
-                };
-            }
-
-            AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, keyframes);
-
-            AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
-            settings.loopTime = true;
-            AnimationUtility.SetAnimationClipSettings(clip, settings);
-
-            return clip;
-        }
-
 
         private static Sprite[] LoadSpritesInFolderOnly(string folderPath)
         {

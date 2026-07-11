@@ -1,49 +1,53 @@
-{
-  "equipmentId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust",
-  "baseProfile": {
-    "baseProfileId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 0.7,
-    "projectileLifetime": 0.25,
-    "projectileSpawn": {
-      "spawnOffset": 0.6,
-      "interval": 0
-    }
-  },
-  "cast": {
-    "castId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.cast",
-    "targetingType": "AutoTargetDirection",
-    "cooldown": 1.33,
-    "castTime": 0,
-    "range": 0.8,
-    "skipAttackAnimation": false
-  },
-  "move": {
-    "moveId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.move",
-    "moveType": "Linear",
-    "applyDirectionRotation": true,
-    "rotationOffset": 0,
-    "config": {
-      "speed": 0
-    }
-  },
-  "hits": [
-    {
-      "hitId": "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.hit",
-      "maxHitCount": 1,
-      "ignoreSameRoot": true,
-      "useRepeatInterval": false,
-      "repeatInterval": 0,
-      "hitStartTime": 0,
-      "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Party",
-      "damage": {
-        "baseDamage": 2,
-        "attackPercentDamage": 0.22
-      }
-    }
-  ]
+﻿{
+    "equipmentId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  0.7,
+                        "projectileLifetime":  0.25,
+                        "projectileSpawn":  {
+                                                "spawnOffset":  0.6,
+                                                "interval":  0
+                                            }
+                    },
+    "cast":  {
+                 "castId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.cast",
+                 "targetingType":  "AutoTargetDirection",
+                 "cooldown":  1.33,
+                 "castTime":  0,
+                 "range":  0.8,
+                 "skipAttackAnimation":  false
+             },
+    "move":  {
+                 "moveId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.move",
+                 "moveType":  "Linear",
+                 "applyDirectionRotation":  true,
+                 "rotationOffset":  0,
+                 "config":  {
+                                "speed":  0
+                            }
+             },
+    "hits":  [
+                 {
+                     "hitId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.hit",
+                     "maxHitCount":  1,
+                     "ignoreSameRoot":  true,
+                     "useRepeatInterval":  false,
+                     "repeatInterval":  0,
+                     "hitStartTime":  0,
+                     "deactivateAfterFirstHit":  false,
+                     "targetLayerMask":  "Party",
+                     "damage":  {
+                                    "baseDamage":  2,
+                                    "attackPercentDamage":  0.22
+                                }
+                 }
+             ],
+    "baseVisual":  {
+                       "visualId":  "skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

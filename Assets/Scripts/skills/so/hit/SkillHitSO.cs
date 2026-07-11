@@ -13,6 +13,7 @@ public class SkillHitSO : ScriptableObject
     [SerializeField] private string hitId;
 
     [Header("Hit Policy")]
+    [Tooltip("투사체 전체에서 허용되는 최대 성공 타격 횟수입니다. 2 이상이면 deactivateAfterFirstHit를 false로 설정해야 합니다.")]
     [SerializeField, Min(1)] private int maxHitCount = 1;
     [SerializeField] private bool ignoreSameRoot = true;
     [SerializeField] private bool useRepeatInterval;
@@ -20,6 +21,7 @@ public class SkillHitSO : ScriptableObject
 
     [Header("Hit Timing")]
     [SerializeField, Min(0f)] private float hitStartTime;
+    [Tooltip("첫 성공 타격 직후 투사체를 제거합니다. true이면 maxHitCount는 반드시 1이어야 합니다.")]
     [SerializeField] private bool deactivateAfterFirstHit;
 
     [Header("Target")]
