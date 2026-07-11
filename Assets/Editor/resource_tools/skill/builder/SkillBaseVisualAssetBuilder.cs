@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using ResourceTools.Helper;
 using Skill;
 using UnityEditor;
 using UnityEngine;
@@ -42,14 +43,14 @@ namespace ResourceTools.Skill
             string assetPath = Path.Combine(outputFolder, assetName + ".asset")
                 .Replace("\\", "/");
 
-            BaseVisualSO visualSo =
-                AssetDatabase.LoadAssetAtPath<BaseVisualSO>(assetPath);
-
-            if (visualSo == null)
+            if (!AnimationClipAssetHelper.DeleteAssetIfExists(assetPath))
             {
-                visualSo = ScriptableObject.CreateInstance<BaseVisualSO>();
-                AssetDatabase.CreateAsset(visualSo, assetPath);
+                Debug.LogError($"[SkillBaseVisualAssetBuilder] Failed to delete existing BaseVisualSO: {assetPath}");
+                return null;
             }
+
+            BaseVisualSO visualSo = ScriptableObject.CreateInstance<BaseVisualSO>();
+            AssetDatabase.CreateAsset(visualSo, assetPath);
 
             Apply(visualSo, json);
 
@@ -57,7 +58,7 @@ namespace ResourceTools.Skill
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log($"[SkillBaseVisualAssetBuilder] Updated BaseVisualSO: {assetPath}");
+            Debug.Log($"[SkillBaseVisualAssetBuilder] Deleted and recreated BaseVisualSO: {assetPath}");
 
             return visualSo;
         }
