@@ -1,49 +1,53 @@
-{
-  "equipmentId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave",
-  "baseProfile": {
-    "baseProfileId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 1.2,
-    "projectileLifetime": 0.25,
-    "projectileSpawn": {
-      "spawnOffset": 0.6,
-      "interval": 0
-    }
-  },
-  "cast": {
-    "castId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.cast",
-    "targetingType": "AutoTargetDirection",
-    "cooldown": 14,
-    "castTime": 0,
-    "range": 0.8,
-    "skipAttackAnimation": false
-  },
-  "move": {
-    "moveId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.move",
-    "moveType": "Linear",
-    "applyDirectionRotation": true,
-    "rotationOffset": 0,
-    "config": {
-      "speed": 0
-    }
-  },
-  "hits": [
-    {
-      "hitId": "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.hit",
-      "maxHitCount": 3,
-      "ignoreSameRoot": true,
-      "useRepeatInterval": false,
-      "repeatInterval": 0,
-      "hitStartTime": 0,
-      "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Party",
-      "damage": {
-        "baseDamage": 10,
-        "attackPercentDamage": 0.7
-      }
-    }
-  ]
+﻿{
+    "equipmentId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  1.2,
+                        "projectileLifetime":  0.25,
+                        "projectileSpawn":  {
+                                                "spawnOffset":  0.6,
+                                                "interval":  0
+                                            }
+                    },
+    "cast":  {
+                 "castId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.cast",
+                 "targetingType":  "AutoTargetDirection",
+                 "cooldown":  14,
+                 "castTime":  0,
+                 "range":  0.8,
+                 "skipAttackAnimation":  false
+             },
+    "move":  {
+                 "moveId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.move",
+                 "moveType":  "Linear",
+                 "applyDirectionRotation":  true,
+                 "rotationOffset":  0,
+                 "config":  {
+                                "speed":  0
+                            }
+             },
+    "hits":  [
+                 {
+                     "hitId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.hit",
+                     "maxHitCount":  3,
+                     "ignoreSameRoot":  true,
+                     "useRepeatInterval":  false,
+                     "repeatInterval":  0,
+                     "hitStartTime":  0,
+                     "deactivateAfterFirstHit":  false,
+                     "targetLayerMask":  "Party",
+                     "damage":  {
+                                    "baseDamage":  10,
+                                    "attackPercentDamage":  0.7
+                                }
+                 }
+             ],
+    "baseVisual":  {
+                       "visualId":  "skill.character.chain_axe_enforcer.2.active_1.yard_cleave.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

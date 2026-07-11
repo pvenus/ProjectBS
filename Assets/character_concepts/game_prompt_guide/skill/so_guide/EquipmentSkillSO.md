@@ -1,4 +1,4 @@
-
+﻿
 
 
 # EquipmentSkillSO
@@ -44,20 +44,19 @@ EquipmentSkillSO is the top-level skill authoring object. It does not duplicate 
 | move | SkillMoveSO | Optional | Movement configuration |
 | spawnSkill | SpawnSkillSO | Optional | Spawn skill configuration |
 | upgradeTable | EquipmentUpgradeTableSO | Optional | Upgrade configuration |
-| baseVisual | BaseVisualSO | Optional | Visual configuration |
+| baseVisual | BaseVisualSO | Required | Visual configuration |
 
 ## Optional References
 
 The following references are optional.
 
-If omitted, the corresponding feature is disabled.
+If omitted, the corresponding feature is disabled. `baseVisual` is the exception: write it for every skill, even when no animation clips are registered yet.
 
 - icon
 - hits
 - move
 - spawnSkill
 - upgradeTable
-- baseVisual
 
 ## Base Profile
 
@@ -105,7 +104,7 @@ See `EquipmentUpgradeTableSO.md`.
 
 ## Visual
 
-`baseVisual` defines the static visual configuration.
+`baseVisual` defines the static visual configuration and must be written for every EquipmentSkillSO JSON input.
 
 Animation clips are resolved automatically from `visualId` inside BaseVisualSO.
 
@@ -169,7 +168,7 @@ hits          : Optional, required when hit detection is needed
 move          : Optional, required when movement behavior is needed
 spawnSkill    : Optional
 upgradeTable  : Optional
-baseVisual    : Optional
+baseVisual    : Required
 ```
 
 ## References
@@ -181,3 +180,4 @@ baseVisual    : Optional
 - Spawn Skill : `SpawnSkillSO.md`
 - Upgrade Table : `EquipmentUpgradeTableSO.md`
 - Visual : `BaseVisualSO.md`
+
