@@ -1,37 +1,41 @@
-{
-  "equipmentId": "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts",
-  "baseProfile": {
-    "baseProfileId": "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 2,
-    "projectileLifetime": 0.5
-  },
-  "cast": {
-    "castId": "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.cast",
-    "targetingType": "Self",
-    "cooldown": 12,
-    "castTime": 0,
-    "range": 3,
-    "skipAttackAnimation": false,
-    "selfEffects": [
-      {
-        "effect": {
-          "effectId": "effect.skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.beast_speed_pressure",
-          "effectType": "StatModifier",
-          "config": {
-            "targetStat": "MoveSpeedPercent",
-            "modifierType": "Percent",
-            "value": 15
-          }
-        },
-        "lifetimeType": "CombatTimed",
-        "categoryType": "Buff",
-        "duration": 4,
-        "maxApplyCount": 1
-      }
-    ]
-  }
+﻿{
+    "equipmentId":  "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  2,
+                        "projectileLifetime":  0.5
+                    },
+    "cast":  {
+                 "castId":  "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.cast",
+                 "targetingType":  "Self",
+                 "cooldown":  12,
+                 "castTime":  0,
+                 "range":  3,
+                 "skipAttackAnimation":  false,
+                 "selfEffects":  [
+                                     {
+                                         "effect":  {
+                                                        "effectId":  "effect.skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.beast_speed_pressure",
+                                                        "effectType":  "StatModifier",
+                                                        "config":  {
+                                                                       "targetStat":  "MoveSpeedPercent",
+                                                                       "modifierType":  "Percent",
+                                                                       "value":  15
+                                                                   }
+                                                    },
+                                         "lifetimeType":  "CombatTimed",
+                                         "categoryType":  "Buff",
+                                         "duration":  4,
+                                         "maxApplyCount":  1
+                                     }
+                                 ]
+             },
+    "baseVisual":  {
+                       "visualId":  "skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

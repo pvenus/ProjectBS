@@ -1,10 +1,10 @@
-# Skill JSON Guide
+﻿# Skill JSON Guide
 
 ## Common Rules
 
 - Only write fields that are required or actually used.
-- Do not write optional profiles when they are not needed.
-- If an optional profile is omitted, the builder keeps existing SO values or uses runtime defaults.
+- Do not write optional profiles when they are not needed, except `baseVisual`.
+- If an optional profile is omitted, the builder keeps existing SO values or uses runtime defaults. `baseVisual` must not be omitted from new skill JSON.
 - Prefer the simplest JSON that fully describes the skill.
 
 ## ID Rules
@@ -111,4 +111,5 @@ effect.common.buff.1.attack_up
 
 ## Optional Profiles
 
-Optional profiles are only written when additional behavior is required.
+Optional profiles are only written when additional behavior is required. `baseVisual` is a required standard profile for all skill JSON inputs, because the animation/visual stage can use it when clips exist and safely ignore missing clips when they do not.
+

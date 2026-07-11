@@ -1,37 +1,41 @@
-{
-  "equipmentId": "skill.character.cage_guard_bandit.2.passive_1.block_the_cage",
-  "baseProfile": {
-    "baseProfileId": "skill.character.cage_guard_bandit.2.passive_1.block_the_cage.profile",
-    "skillType": "Passive",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 0.1,
-    "projectileLifetime": 0.1
-  },
-  "cast": {
-    "castId": "skill.character.cage_guard_bandit.2.passive_1.block_the_cage.cast",
-    "targetingType": "Self",
-    "cooldown": 0,
-    "castTime": 0,
-    "range": 0.4,
-    "skipAttackAnimation": true,
-    "selfEffects": [
-      {
-        "effect": {
-          "effectId": "effect.skill.character.cage_guard_bandit.2.passive_1.block_the_cage.defense_up",
-          "effectType": "StatModifier",
-          "config": {
-            "targetStat": "Defense",
-            "modifierType": "Percent",
-            "value": 15
-          }
-        },
-        "lifetimeType": "Manual",
-        "categoryType": "Buff",
-        "duration": 0,
-        "maxApplyCount": 1
-      }
-    ]
-  }
+﻿{
+    "equipmentId":  "skill.character.cage_guard_bandit.2.passive_1.block_the_cage",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.cage_guard_bandit.2.passive_1.block_the_cage.profile",
+                        "skillType":  "Passive",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  0.1,
+                        "projectileLifetime":  0.1
+                    },
+    "cast":  {
+                 "castId":  "skill.character.cage_guard_bandit.2.passive_1.block_the_cage.cast",
+                 "targetingType":  "Self",
+                 "cooldown":  0,
+                 "castTime":  0,
+                 "range":  0.4,
+                 "skipAttackAnimation":  true,
+                 "selfEffects":  [
+                                     {
+                                         "effect":  {
+                                                        "effectId":  "effect.skill.character.cage_guard_bandit.2.passive_1.block_the_cage.defense_up",
+                                                        "effectType":  "StatModifier",
+                                                        "config":  {
+                                                                       "targetStat":  "Defense",
+                                                                       "modifierType":  "Percent",
+                                                                       "value":  15
+                                                                   }
+                                                    },
+                                         "lifetimeType":  "Manual",
+                                         "categoryType":  "Buff",
+                                         "duration":  0,
+                                         "maxApplyCount":  1
+                                     }
+                                 ]
+             },
+    "baseVisual":  {
+                       "visualId":  "skill.character.cage_guard_bandit.2.passive_1.block_the_cage.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }
