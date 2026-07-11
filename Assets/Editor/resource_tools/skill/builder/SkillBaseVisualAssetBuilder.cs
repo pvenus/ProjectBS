@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ResourceTools.Helper;
 using Skill;
 using UnityEditor;
@@ -21,6 +23,9 @@ namespace ResourceTools.Skill
     /// </summary>
     public static class SkillBaseVisualAssetBuilder
     {
+        private const string SkillAnimationSpriteFolder = "Assets/Resources/skill/animation_png";
+        private const float SkillAnimationFrameRate = 12f;
+
         public static BaseVisualSO CreateOrUpdate(
             BaseVisualJson json,
             string outputFolder)
@@ -52,7 +57,7 @@ namespace ResourceTools.Skill
             BaseVisualSO visualSo = ScriptableObject.CreateInstance<BaseVisualSO>();
             AssetDatabase.CreateAsset(visualSo, assetPath);
 
-            Apply(visualSo, json);
+            Apply(visualSo, json, outputFolder);
 
             EditorUtility.SetDirty(visualSo);
             AssetDatabase.SaveAssets();
@@ -74,7 +79,8 @@ namespace ResourceTools.Skill
 
         private static void Apply(
             BaseVisualSO visualSo,
-            BaseVisualJson json)
+            BaseVisualJson json,
+            string outputFolder)
         {
             if (visualSo == null || json == null)
             {
@@ -82,7 +88,9 @@ namespace ResourceTools.Skill
             }
 
             ProjectileVisualType projectileVisualType = ResolveProjectileVisualType(json.projectileVisualType);
-            AnimationClipEntry[] animationClips = CreateAnimationClipEntries(json.visualId);
+            AnimationClipEntry[] animationClips = CreateAnimationClipEntries(
+                json.visualId,
+                outputFolder);
 
             visualSo.ApplyEditorData(
                 json.visualId,
@@ -112,15 +120,23 @@ namespace ResourceTools.Skill
 
         // Animation clips are resolved automatically from visualId.
         // No clip information is stored in JSON.
-        private static AnimationClipEntry[] CreateAnimationClipEntries(string visualId)
+        private static AnimationClipEntry[] CreateAnimationClipEntries(
+            string visualId,
+            string outputFolder)
         {
+            AnimationClip generatedLoopClip = RecreateAnimationClipFromSpriteSheet(
+                visualId,
+                outputFolder);
+
             AnimationClip idleClip = FindAnimationClipByVisualId(visualId, "idle");
             AnimationClip castClip = FindAnimationClipByVisualId(visualId, "cast");
             AnimationClip attackClip = FindAnimationClipByVisualId(visualId, "attack");
-            AnimationClip loopClip = FindAnimationClipByVisualId(visualId, "loop");
+            AnimationClip loopClip = generatedLoopClip != null
+                ? generatedLoopClip
+                : FindAnimationClipByVisualId(visualId, "loop");
             AnimationClip hitClip = FindAnimationClipByVisualId(visualId, "hit");
 
-            System.Collections.Generic.List<AnimationClipEntry> entries = new();
+            List<AnimationClipEntry> entries = new();
             AddAnimationClipEntry(entries, SkillAnimationClipType.Idle, idleClip);
             AddAnimationClipEntry(entries, SkillAnimationClipType.Cast, castClip);
             AddAnimationClipEntry(entries, SkillAnimationClipType.Attack, attackClip);
@@ -128,6 +144,94 @@ namespace ResourceTools.Skill
             AddAnimationClipEntry(entries, SkillAnimationClipType.Hit, hitClip);
 
             return entries.ToArray();
+        }
+
+        private static AnimationClip RecreateAnimationClipFromSpriteSheet(
+            string visualId,
+            string outputFolder)
+        {
+            if (string.IsNullOrWhiteSpace(visualId) || string.IsNullOrWhiteSpace(outputFolder))
+            {
+                return null;
+            }
+
+            string skillId = RemoveVisualSuffix(visualId);
+            string spriteSheetPath = $"{SkillAnimationSpriteFolder}/{skillId}.animation.png";
+
+            if (AssetDatabase.LoadAssetAtPath<Texture2D>(spriteSheetPath) == null)
+            {
+                Debug.LogWarning(
+                    $"[SkillBaseVisualAssetBuilder] Animation sprite sheet not found. " +
+                    $"visualId={visualId}, path={spriteSheetPath}");
+                return null;
+            }
+
+            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheetPath)
+                .OfType<Sprite>()
+                .OrderBy(sprite => ExtractTrailingNumber(sprite.name))
+                .ThenBy(sprite => sprite.name, StringComparer.Ordinal)
+                .ToArray();
+
+            if (sprites.Length == 0)
+            {
+                Debug.LogWarning(
+                    $"[SkillBaseVisualAssetBuilder] No sliced sprites found: {spriteSheetPath}");
+                return null;
+            }
+
+            string clipName = $"{visualId}.loop";
+            string clipPath = Path.Combine(outputFolder, clipName + ".anim")
+                .Replace("\\", "/");
+
+            AnimationClip clip = AnimationClipAssetHelper.RecreateSpriteAnimationClip(
+                clipPath,
+                sprites,
+                SkillAnimationFrameRate,
+                true);
+
+            if (clip != null)
+            {
+                Debug.Log(
+                    $"[SkillBaseVisualAssetBuilder] Recreated animation clip: " +
+                    $"{clipPath} / Frames: {sprites.Length} / Source: {spriteSheetPath}");
+            }
+
+            return clip;
+        }
+
+        private static string RemoveVisualSuffix(string visualId)
+        {
+            const string suffix = ".visual";
+            string trimmed = visualId.Trim();
+
+            return trimmed.EndsWith(suffix, StringComparison.OrdinalIgnoreCase)
+                ? trimmed.Substring(0, trimmed.Length - suffix.Length)
+                : trimmed;
+        }
+
+        private static int ExtractTrailingNumber(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return int.MaxValue;
+            }
+
+            int endIndex = value.Length - 1;
+
+            while (endIndex >= 0 && char.IsDigit(value[endIndex]))
+            {
+                endIndex--;
+            }
+
+            if (endIndex == value.Length - 1)
+            {
+                return int.MaxValue;
+            }
+
+            string numberText = value.Substring(endIndex + 1);
+            return int.TryParse(numberText, out int number)
+                ? number
+                : int.MaxValue;
         }
 
         private static void AddAnimationClipEntry(
