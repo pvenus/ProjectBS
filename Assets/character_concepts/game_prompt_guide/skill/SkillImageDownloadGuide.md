@@ -126,6 +126,21 @@ Never copy a reference sheet into `animation_png`, or an animation sheet into `a
 
 ## 7. Unity Import and Slice Rules
 
+PNG 복사만으로 Unity 반영이 완료된 것으로 간주하지 않는다. PNG를 Unity 대상 경로에 복사한 직후 반드시 해당 PNG의 `.meta`를 생성하거나 갱신하고, 실제 시트 크기와 셀 크기에 맞는 Sprite Multiple 슬라이스를 구성해야 한다.
+
+필수 처리 순서:
+
+1. Unity 대상 PNG 복사 및 SHA-256 일치를 확인한다.
+2. 실제 PNG 크기를 셀 크기로 나누어 columns, rows, 전체 셀 수를 다시 계산한다.
+3. 모든 셀이 비어 있지 않은지 확인하여 usable frame count를 확정한다.
+4. 대상 PNG와 같은 경로에 `{filename}.png.meta`를 생성하거나 갱신한다.
+5. `.meta`에 Sprite Mode Multiple, Point filter, mipmap disabled, alpha transparency enabled, default compression None을 설정한다.
+6. Sprite rect는 Unity 좌표계를 사용하되 재생 순서는 원본 시트의 왼쪽 위에서 오른쪽 아래로 유지한다.
+7. animation은 `frame_00`부터, variation sheet는 `variation_00`부터 누락 없이 이름을 기록한다.
+8. 올바른 Unity Editor 버전에서 reimport한 뒤 실제 Sprite sub-asset 수와 이름을 확인한다.
+
+올바른 Unity Editor 버전을 실행할 수 없는 환경에서는 `.meta` 구성과 정적 검증까지만 완료하고 `slice configured / Unity reimport pending`으로 보고한다. 이 상태를 `Unity slice verified` 또는 clip 생성 완료로 보고하지 않는다.
+
 Animation sheet:
 
 - Texture Type: Sprite (2D and UI).
@@ -172,6 +187,8 @@ Verify after running the skill builder:
 
 The current builder creates a looping `ProjectileLoop` clip. A one-shot or Hit animation requires separate builder/runtime support and must not be claimed as automatically supported.
 
+`SkillBaseVisualAssetBuilder`는 PNG 복사 직후의 슬라이스 처리보다 나중에 실행한다. Sprite sub-asset이 실제로 임포트되지 않은 상태에서는 빌더를 실행하거나 clip 생성 성공으로 보고하지 않는다.
+
 ## 9. Evaluation
 
 Evaluate the preserved files under `{evaluationRoot}/{skillSlug}` using `SkillImageEvaluationGuide.md`.
@@ -217,7 +234,10 @@ After preservation, Unity copy, checksum verification, and evaluation result cre
 - [ ] Reference copied only to `animation_ref_png`.
 - [ ] Animation copied only to `animation_png`.
 - [ ] Unity meta uses Sprite Multiple and correct grid for the animation.
+- [ ] Unity 대상 PNG마다 같은 경로에 `.png.meta`가 존재한다.
+- [ ] `.meta`의 rect 수가 usable frame/variation 수와 일치한다.
 - [ ] Sprite names and numeric frame order are correct.
+- [ ] 올바른 Unity Editor에서 reimport 후 실제 Sprite sub-asset 수를 확인했거나, 실행 불가 시 `Unity reimport pending`으로 명시했다.
 - [ ] Generated clip frame count and `ProjectileLoop` registration verified.
 - [ ] `evaluation_result.txt` saved using the evaluation guide.
 - [ ] Source/destination checksums match.
