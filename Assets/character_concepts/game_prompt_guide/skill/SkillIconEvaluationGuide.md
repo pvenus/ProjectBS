@@ -400,6 +400,21 @@ Unity Import Status:
 Notes:
 ```
 
+When evaluation is part of the download and Unity-copy workflow, save the report to:
+
+```text
+{evaluationRoot}/{equipmentId}/evaluation/evaluation_result.txt
+```
+
+Evaluate the preserved source at:
+
+```text
+{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
+```
+
+Only a `Pass` result may proceed automatically to Unity copy. `Conditional Pass`
+requires explicit approval, and `Fail` must not be copied to Unity.
+
 ## 16. Failure Output
 
 If evaluation itself cannot be completed:
