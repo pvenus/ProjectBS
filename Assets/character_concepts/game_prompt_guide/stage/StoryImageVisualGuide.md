@@ -1,4 +1,4 @@
-# Story Image Visual Guide
+﻿# Story Image Visual Guide
 
 ## Purpose
 
@@ -12,19 +12,19 @@ props, architecture, social class, or everyday-life details. Use
 ## Art Style
 
 - Cinematic semi-realistic anime illustration.
-- Detailed ink linework.
+- Soft charcoal-like ink linework partially absorbed into rough brush texture.
 - Rough pixel texture.
 - Painterly finish.
-- Game-friendly readability.
+- Game-friendly readability through silhouette, value grouping, and restrained focal highlights rather than crisp detail.
 - Muted, earthy color palette.
 - No photorealistic rendering.
 - No glossy 3D rendering.
 
 ## Composition
 
-- Use a strong cinematic close-up.
+- Use a cinematic story-cut composition; close-up or medium-close framing is preferred only when it supports the clue.
 - Build the image around one key clue and one core situation.
-- Let the key clue dominate the composition.
+- Let the key clue dominate through silhouette, value grouping, and limited warm highlights rather than hard sharpness.
 - The dominant clue may be an object, trace, monster detail, wound, tool,
   footprint, broken material, hand gesture, abandoned item, or environmental
   sign.
@@ -46,12 +46,11 @@ props, architecture, social class, or everyday-life details. Use
 
 ## Lighting
 
-- Use expressive story-cut lighting.
-- Use warm rim light, layered soft shadows, natural light filtering through the
-  scene, airborne dust, mist, smoke, or weather only when it supports the story.
-- Keep the key clue readable through contrast.
+- Use expressive low-key story-cut lighting.
+- Use warm rim light, layered soft shadows, smoky haze, dust, ash, mist, or weather only when it supports the story.
+- Keep the key clue softly readable through silhouette and restrained local contrast.
 - Avoid flat, evenly lit scenes.
-- Avoid excessive glow or spectacle that hides the clue.
+- Avoid excessive glow, excessive crispness, or spectacle that hides the clue.
 
 ## Color Palette
 
@@ -63,10 +62,10 @@ props, architecture, social class, or everyday-life details. Use
 
 ## Focus Rule
 
-- The key clue and core situation must be the sharpest readable area.
+- The key clue and core situation should be softly readable, not clinically sharp.
 - Surrounding context should be softer and less dominant.
 - Important information should not be scattered across the frame.
-- The image should still read clearly at popup size.
+- The image should still read at popup size through large value shapes, silhouettes, and limited focal highlights.
 
 ## Storytelling
 
@@ -94,6 +93,7 @@ Avoid these expression choices:
 - Decorative spectacle that hides the clue.
 - UI text, captions, speech bubbles, buttons, labels, logos, or watermarks.
 - Overly clean poster-like composition.
+- Overly crisp linework, high clarity rendering, bright daylight clarity, or clean digital sharpness.
 - Symmetrical character showcase framing.
 
 ## Reusable Prompt Core
@@ -102,13 +102,17 @@ Use this core, then append the image-specific clue, situation, place, period,
 and context:
 
 ```text
-Cinematic semi-realistic anime illustration with detailed ink linework, rough
-pixel texture, painterly finish, and a muted earthy color palette. Strong
-cinematic close-up composition where one key clue dominates the frame and one
-story beat is implied rather than explained. Keep the key clue and core
-situation sharply readable while the surrounding context stays softly secondary.
-Use expressive story-cut lighting with controlled contrast, layered soft
-shadows, natural light, and atmospheric particles only when they support the
-clue. Avoid portrait framing, hero poses, photorealism, glossy rendering, high
-saturation, UI text, labels, and whole-scene explanation.
+Cinematic semi-realistic anime illustration with soft charcoal-like ink
+linework partially absorbed into rough brush texture, subtle pixel grain,
+painterly finish, and a muted dark earthy color palette. Use a dark atmospheric
+2D painted story-cut composition where one key clue dominates through
+silhouette, value grouping, and restrained warm highlights rather than crisp
+detail. Keep the key clue and core situation softly readable while surrounding
+context stays smoky, low-key, and secondary. Use compressed contrast, layered
+soft shadows, smoky haze, dust, ash, mist, and natural rim light only when they
+support the clue. Avoid portrait framing, hero poses, photorealism, glossy
+rendering, high saturation, UI text, labels, high clarity rendering, clean
+sharp outlines, bright daylight clarity, and whole-scene explanation.
 ```
+
+

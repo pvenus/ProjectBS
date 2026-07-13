@@ -1,4 +1,4 @@
-# Popup Event Main Image Create Guide
+﻿# Popup Event Main Image Create Guide
 
 ## Purpose
 
@@ -99,13 +99,13 @@ episode summary.
 Recommended aspect ratio:
 
 ```text
-16:9
+3:4
 ```
 
 Recommended working resolution:
 
 ```text
-1280x720
+960x1280
 ```
 
 Higher resolutions are acceptable when the project import settings preserve the
@@ -172,3 +172,4 @@ Before finishing, verify:
 - The image matches the popup event moment.
 - The Sprite import name can become `{eventId}.main`.
 - `PopupEventBuilder` can find the image by event id after Unity imports it.
+
