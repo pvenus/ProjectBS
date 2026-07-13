@@ -41,6 +41,18 @@ namespace Stage
         public List<StageRequiredNode> requiredSubEvents = new();
 
 
+        [Header("SVG Slot Map")]
+        [Tooltip("SVG에서 추출된 슬롯(자리) 목록. depth/orderInDepth/role/label/connections 포함.")]
+        public List<StageMapSlot> svgMapSlots = new();
+
+        [Header("SVG Story Bindings")]
+        [Tooltip("Story 슬롯에 고정 배치할 RoundNodeSO 매칭 목록. 에디터 툴이 자동 생성하며 수동 교체 가능.")]
+        public List<StageStorySlotBinding> svgStorySlotBindings = new();
+
+        [Header("SVG Random Sections")]
+        [Tooltip("Story 슬롯 사이의 Random 슬롯 묶음 및 배치 규칙 목록.")]
+        public List<StageRandomSection> svgRandomSections = new();
+
         [Header("Debug")]
         public bool useFixedSeed = false;
         public int seed = 0;
