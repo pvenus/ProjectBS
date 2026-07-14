@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62fdb74da8776143b7adb01dbd2faea, type: 3}
+  m_Name: PopupViewRegistrySO
+  m_EditorClassIdentifier: Assembly-CSharp::PopupViewRegistrySO
+  configs:
+  - type: 10
+    prefab: {fileID: 496988671154235151, guid: 50a26a0ccb593de48819135f617f0b8b, type: 3}
+  - type: 20
+    prefab: {fileID: 2599097604335172408, guid: fc4c8e8873c5aa849b405b3875cde303, type: 3}

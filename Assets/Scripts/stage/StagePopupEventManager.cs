@@ -2,6 +2,7 @@ using UnityEngine;
 using Item;
 using Stat;
 using Shrine;
+using UIFramework.Data;
 
 namespace Stage
 {
@@ -123,6 +124,22 @@ namespace Stage
             currentEvent = popupEvent;
             currentNode = node;
 
+            // UIPopupViewController 로 EventPopupView 열기
+            if (UIPopupViewController.Instance != null)
+            {
+                EventPopupView view = UIPopupViewController.Instance.Open<EventPopupView>(PopupType.EventPopup);
+                if (view != null)
+                {
+                    EventPopupViewData viewData = EventPopupViewDataBuilder.Build(popupEvent, node);
+                    view.SetData(viewData);
+                    view.OnChoiceClicked += (choiceIndex) =>
+                    {
+                        SelectChoiceByIndex(choiceIndex); // pendingChoice 세팅
+                        ConfirmChoiceResult();             // 보상 실행 및 팝업 완료 처리
+                    };
+                }
+            }
+
             OnPopupEventOpened?.Invoke(currentEvent, currentNode);
         }
 
@@ -196,6 +213,8 @@ namespace Stage
             currentNode = null;
             pendingChoice = null;
 
+            UIPopupViewController.Instance?.Close(PopupType.EventPopup);
+
             OnPopupEventClosed?.Invoke(closedEvent, node);
 
             if (stageManager != null && stageManager.CurrentNode == node)
@@ -212,6 +231,8 @@ namespace Stage
             currentEvent = null;
             currentNode = null;
             pendingChoice = null;
+
+            UIPopupViewController.Instance?.Close(PopupType.EventPopup);
 
             OnPopupEventClosed?.Invoke(closedEvent, node);
         }

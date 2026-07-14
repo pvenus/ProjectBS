@@ -1,4 +1,4 @@
-# Popup Event Main Image Create Prompt
+﻿# Popup Event Main Image Create Prompt
 
 Stage Node JSON의 특정 popup event를 기준으로 `PopupEventSO.mainImage`
 매핑용 메인 이미지를 생성하는 복사용 프롬프트입니다.
@@ -45,7 +45,7 @@ Input:
 6. optionalCharacterReferenceFiles와 optionalLocationReferenceFiles가 있으면 외형/장소 일관성 확인용으로만 사용한다.
 7. popup 전체 에피소드 요약이 아니라 해당 popup event의 현재 극적 순간 하나를 이미지 방향으로 잡는다.
 8. pixel-game-friendly painted illustration style의 이미지 생성 프롬프트를 작성한다.
-9. 권장 비율은 16:9, 권장 해상도는 1280x720으로 한다.
+9. 권장 비율은 3:4, 권장 해상도는 960x1280으로 한다.
 10. UI 텍스트, 자막, 말풍선, 버튼, 라벨은 이미지에 넣지 않는다.
 11. popup UI가 위에 올라와도 읽히도록 중요한 디테일은 가장자리와 하단 UI 영역에 몰아넣지 않는다.
 12. 생성 이미지를 outputImagePath에 저장한다.
@@ -81,7 +81,7 @@ Output:
 - 파일명에는 stageNodeId를 사용하지 않아야 한다.
 - Sprite name은 `{eventId}.main`으로 해석 가능해야 한다.
 - 이미지는 popup event의 현재 장면과 맞아야 한다.
-- 이미지는 16:9여야 한다.
+- 이미지는 3:4여야 한다.
 - UI 텍스트, 자막, 말풍선, 버튼, 라벨이 이미지에 들어가면 안 된다.
 - PopupEventBuilder가 Unity import 후 eventId로 이미지를 찾을 수 있어야 한다.
 
@@ -91,3 +91,4 @@ Output:
 - eventId별 이미지가 필요하므로 여러 popup event 이미지는 eventId마다 반복 실행한다.
 - BattleSO 배경 이미지는 BattleBackgroundImagePrompt.md에서 별도로 생성한다.
 ```
+
