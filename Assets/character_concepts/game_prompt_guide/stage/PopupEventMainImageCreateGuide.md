@@ -25,7 +25,7 @@ Use this file name:
 Example:
 
 ```text
-Assets/Resources/stage_new/popup_png/node.ch1.episode1.001.main.png
+Assets/Resources/stage_new/popup_png/node.act1.chapter01.episode01.village_arrival.main.png
 ```
 
 The imported Sprite name should be:
@@ -41,9 +41,13 @@ Required:
 ```text
 actId: {act_id}
 chapterId: {chapter_id}
+chapterGroup: {chapter_group}
+actGroupId: {act_group_id}
 episodeId: {episode_id}
-eventId: {event_id}
-stageNodeJsonFile: Assets/Resources/stage_new/{chapter_group}/episode{episode_number}.json
+popupName: {planning_popup_name}
+popupId: {planning_popup_id}
+eventId: {planning_popup_id}
+stageNodeJsonFile: Assets/Resources/stage_new/{chapter_group}/episode.{episode_id}.json
 ```
 
 Recommended:
@@ -68,6 +72,18 @@ styleReferenceImages:
 ## Image Direction
 
 Read the popup node from `stageNodeJsonFile` by `eventId`.
+
+For new content, `eventId` must equal the planning `popupId`, and the semantic id
+suffix must equal `popupName`. Read `imagePolicy` from the matched planning popup
+definition:
+
+- `generate`: create a distinct `{popupId}.main.png`.
+- `reuse`: require `imageSourcePopupId`, then copy its approved PNG byte-for-byte
+  to `{popupId}.main.png`. This preserves the current builder's per-event lookup
+  without regenerating the visual.
+- `none`: do not generate an image.
+
+Do not invent an event id in the image step.
 
 Use:
 
@@ -116,8 +132,8 @@ Sprite cleanly.
 Read these guides before writing the event-specific image prompt:
 
 ```text
-Assets/character_concepts/game_prompt_guide/StoryImageVisualGuide.md
-Assets/character_concepts/game_prompt_guide/StoryImageElementGuide.md
+Assets/character_concepts/game_prompt_guide/stage/StoryImageVisualGuide.md
+Assets/character_concepts/game_prompt_guide/stage/StoryImageElementGuide.md
 ```
 
 Append only the event-specific key clue, core situation, place, period,
@@ -131,15 +147,25 @@ Return:
 
 ```text
 eventId
-imagePath
+popupName
+popupId
+imagePolicy
+imagePath or null when imagePolicy is none
 spriteName
 sourceStageNodeJsonFile
 sourcePopupSummary
-visualPrompt
 validationResult
 ```
 
-The final `imagePath` must be:
+Policy-specific fields:
+
+- `generate`: return `visualPrompt` and `imageResolution`.
+- `reuse`: do not write a new visual prompt; return `sourceImagePath`,
+  `outputImagePath`, `sourceSha256`, and `copiedSha256`.
+- `none`: return `skipped: true` and `skipReason: image_policy_none`; no image
+  path, prompt, or resolution is required.
+
+For `generate` or `reuse`, the final `imagePath` must be:
 
 ```text
 Assets/Resources/stage_new/popup_png/{eventId}.main.png
@@ -166,10 +192,17 @@ names.
 
 Before finishing, verify:
 
-- The file exists at `Assets/Resources/stage_new/popup_png/{eventId}.main.png`.
+- For `generate` or `reuse`, the file exists at
+  `Assets/Resources/stage_new/popup_png/{eventId}.main.png`.
+- For `reuse`, source and destination PNG SHA-256 values match.
+- For `none`, no image output is required and the result is reported as skipped.
+- For new content, `eventId == popupId` and `popupId` matches the planning
+  `popupName` formula.
 - The file name does not use `stageNodeId`.
-- The image does not include UI text.
-- The image matches the popup event moment.
+- For `generate`, the image does not include UI text and matches the popup
+  event moment.
+- For `reuse`, current-event suitability is approved upstream by planning
+  `imagePolicy` and `imageSourcePopupId`. Do not alter the approved source image
+  to make it match; validate identity and checksum only.
 - The Sprite import name can become `{eventId}.main`.
 - `PopupEventBuilder` can find the image by event id after Unity imports it.
-

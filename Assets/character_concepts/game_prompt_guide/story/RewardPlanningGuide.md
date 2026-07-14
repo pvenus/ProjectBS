@@ -75,12 +75,17 @@ layer first.
 
 ```json
 {
-  "choiceId": "stage.node.choice.1",
+  "choiceName": "rescue_villagers",
+  "choiceId": "choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers",
   "rewardIntent": [
     "gold_clear_reward"
   ]
 }
 ```
+
+New `choiceId` values must use the permanent planning `popupName` and semantic
+`choiceName`; do not derive reward identity from a choice array index. Preserve
+existing indexed ids as immutable legacy ids.
 
 The story text should not decide final economy balance. It should only indicate
 that a gold reward is appropriate.

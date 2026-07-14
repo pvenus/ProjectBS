@@ -99,6 +99,17 @@ storyContextFile
 episodeCompositionFile
 ```
 
+For newly planned episodes, `episodePlanningFile` must provide:
+
+```text
+story.sourceNarration.blocks[]
+story.popupDefinitions[]
+```
+
+Each new popup definition owns the permanent `popupName` and `popupId` used by
+the Stage JSON. The Stage conversion step copies these identities; it does not
+invent, renumber, or rename them.
+
 Recommended script input:
 
 ```text
@@ -204,6 +215,9 @@ Each `nodes[]` entry becomes one `PopupEventSO`.
 
 ```json
 {
+  "popupName": "village_arrival",
+  "popupId": "node.act1.chapter01.episode01.village_arrival",
+  "popupOrder": 100,
   "nodeId": "node.act1.chapter01.episode01.village_arrival",
   "nodeType": "narration",
   "locationId": "location.cheongun_village_entrance",
@@ -214,6 +228,7 @@ Each `nodes[]` entry becomes one `PopupEventSO`.
   "textKo": "Player-facing popup body text derived from the original narration.",
   "textLayoutProfile": "stage_popup_v1",
   "textEditState": "generated",
+  "imagePolicy": "generate",
   "nextNodeId": "node.act1.chapter01.episode01.black_smoke",
   "mainImageRequired": true,
   "imageDirection": "Player-facing image direction for this semantic popup event.",
@@ -223,6 +238,9 @@ Each `nodes[]` entry becomes one `PopupEventSO`.
 
 Builder mapping:
 
+- planning `story.popupDefinitions[].popupId` -> `nodes[].nodeId`
+- planning `story.popupDefinitions[].popupName`, `popupId`, `popupOrder`, and
+  `imagePolicy` remain authoring metadata for review and validation.
 - `nodeId` -> `PopupEventSO.eventId`
 - `choices[].choiceId` -> `PopupEventChoice.choiceId`
 - `choices[].nextNodeId` -> `PopupEventChoice.nextEvent`
@@ -320,6 +338,9 @@ Use a permanent semantic id:
 node.{act}.{chapter}.{episode}.{semantic_key}
 ```
 
+For newly planned content, `{semantic_key}` is exactly the immutable planning
+`popupName`, and the complete value is the planning `popupId`.
+
 Examples:
 
 ```text
@@ -337,6 +358,15 @@ Rules:
   that would break string keys, references, images, and evaluation history.
 - Only newly issued ids use the semantic pattern. A new popup inserted between
   legacy nodes receives a semantic id without changing either neighboring id.
+- New Stage JSON must copy `popupId` from the matched planning
+  `popupDefinitions[]` entry into `nodes[].nodeId`; do not recompute a different
+  id or create a local-only popup name.
+- Copy planning `popupDefinitions[].nextPopupId` to the matching Stage
+  `nodes[].nextNodeId`. Copy each planning choice `nextPopupId` to its Stage
+  `nextNodeId`. Preserve `null` for terminal flow and never translate a popup
+  reference into an array index.
+- `popupOrder` controls planning/review order only. Runtime flow is still
+  expressed by `startNodeId`, `nextNodeId`, and choices.
 - Popup order is expressed by array order and `nextNodeId`, never by parsing the
   id suffix.
 - Inserted popup nodes receive a new semantic id; existing ids stay unchanged.
@@ -351,12 +381,17 @@ Rules:
   supported runtime presentation.
 - Never rename existing approved image files merely because a new popup was
   inserted before them.
+- If the 9-line/40-character profile requires another popup but planning has no
+  unused named popup definition for that segment, stop with
+  `missing_popup_definition`. Return to episode planning to assign `popupName`,
+  `popupId`, source mapping, popup type, order, and image policy. Do not generate
+  an anonymous or indexed popup in Stage conversion.
 
 ## Choice Shape
 
 ```json
 {
-  "choiceId": "choice.act1.chapter01.episode01.accept",
+  "choiceId": "choice.act1.chapter01.episode01.rescue_choice.accept",
   "textKo": "마을 사람들을 구한다.",
   "labelKo": "마을 사람들을 구한다.",
   "resultKo": "서진은 검은 천의 무리 사이로 뛰어들었다.",
@@ -507,6 +542,8 @@ Before building SO assets:
 - Every `nodeId` is unique.
 - Every newly issued `nodeId` is semantic and does not use its popup array
   position as an id. Pre-existing sequential legacy ids are preserved unchanged.
+- Every new `nodeId` exactly matches a planning `popupDefinitions[].popupId`, and
+  its semantic suffix exactly matches that entry's `popupName`.
 - Every `choices[].choiceId` is unique within the JSON.
 - Every `nextNodeId` exists in `nodes[]` unless intentionally external.
 - Every derived popup keeps its `sourceNarrationId` and source text provenance.
@@ -515,6 +552,8 @@ Before building SO assets:
 - No manual or automatic line break cuts a word or Korean eojeol in the middle.
 - Text exceeding the profile is split at a semantic boundary and is never
   silently truncated.
+- A layout split never creates an unnamed Stage-only popup; missing planning
+  identity fails as `missing_popup_definition`.
 - Existing `manual_override` display text and existing popup ids are not
   overwritten during regeneration.
 - Every `conditionType` parses as `PopupEventChoiceConditionType`.

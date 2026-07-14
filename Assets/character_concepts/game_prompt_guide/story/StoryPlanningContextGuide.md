@@ -83,11 +83,38 @@ One episode may have secondary roles, but it should have one primary role.
 Story text should be converted into a synopsis-level handoff for later formal
 script generation.
 
+The episode planning file may additionally preserve verbatim source narration
+and permanent popup definitions. These are provenance and identity contracts,
+not permission to author final runtime prose here.
+
 Recommended fields:
 
 ```json
 {
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+      "blocks": [
+        {
+          "sourceNarrationId": "narration.act1.chapter01.01.village_arrival",
+          "sourceOrder": 100,
+          "originalTextKo": "청운촌에 가까워질수록 공기는 무겁고 메말랐다."
+        }
+      ]
+    },
+    "popupDefinitions": [
+      {
+        "popupName": "village_arrival",
+        "popupNameKo": "청운촌 도착",
+        "popupId": "node.act1.chapter01.episode01.village_arrival",
+        "popupOrder": 100,
+        "popupType": "narration",
+        "sourceNarrationIds": [
+          "narration.act1.chapter01.01.village_arrival"
+        ],
+        "imagePolicy": "generate"
+      }
+    ],
     "scriptSynopsis": {
       "episodeSummary": "Seojin reaches Cheongun Village and enters the first rescue battle.",
       "sceneBeats": [
@@ -117,8 +144,9 @@ Recommended fields:
 }
 ```
 
-Use concise planning statements. Do not copy long story prose and do not write
-the final script here.
+Use concise planning statements in `scriptSynopsis`. Verbatim prose belongs only
+in `sourceNarration.blocks[].originalTextKo`; do not rewrite final script prose
+in this step.
 
 ## Choice And Result Planning
 
@@ -131,7 +159,9 @@ Recommended fields:
   "story": {
     "choiceDirections": [
       {
-        "choiceId": "stage.node.choice.1",
+        "popupName": "black_cloth_attack",
+        "choiceName": "rescue_villagers",
+        "choiceId": "choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers",
         "choiceIntent": "Protect villagers from the raiders.",
         "outcomeDirection": "Seojin enters combat to hold the raiders away from civilians.",
         "opens": [
@@ -334,7 +364,7 @@ Episode JSON should use large planning categories:
 | Category | Owns |
 |---|---|
 | `common` | Episode identity, role, and source refs. |
-| `story` | Script synopsis, scene beats, choice directions, tone, must-show/must-hide story direction. |
+| `story` | Source narration, permanent popup identity, script synopsis, choice directions, tone, and must-show/must-hide direction. |
 | `monster` | Monster family, role direction, difficulty direction, visual direction, reuse/creation policy. |
 | `battle` | Battle need, mood, shape, difficulty direction, pace direction, pressure, and avoid rules. |
 | `reward` | Reward direction, current reward type, reward reason, reward guide ref. |
@@ -410,6 +440,11 @@ It may contain:
     }
   },
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+      "blocks": []
+    },
+    "popupDefinitions": [],
     "scriptSynopsis": {
       "episodeSummary": "",
       "sceneBeats": [],
@@ -433,6 +468,12 @@ It may contain:
 ## Validation Checklist
 
 - The source episode file is preserved.
+- Source narration blocks preserve verbatim `originalTextKo` and stable
+  `sourceNarrationId` values.
+- Every new popup has an immutable semantic `popupName`, derived `popupId`, and
+  separate mutable `popupOrder`.
+- New popup/choice identity never depends on array position or numeric sequence.
+- Existing sequential popup/choice ids remain unchanged as legacy ids.
 - The episode role is clear.
 - `story.scriptSynopsis` is synopsis-level, not final script prose.
 - Choices explain what they open or change.

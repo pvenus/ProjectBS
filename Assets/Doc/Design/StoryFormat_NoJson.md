@@ -1,141 +1,77 @@
-# 에피소드 스토리 입력 포맷
+# 에피소드 스토리 입력 포맷 - 비 JSON 설명
 
 - formatId: `design.format.episode_story`
-- version: `4`
-
-## 목적
-
-기획자가 AI에게 에피소드 스토리를 전달할 때 사용할 최소 입력 포맷이다. 현재 episode JSON에 이미 존재하는 필드 중 기획자가 신경 쓸 만한 필드만 정리한다.
+- version: `5`
 
 ## 작성 대상
 
-기획자는 아래 항목만 작성한다.
+기획자는 원본 지문, 팝업의 영구 이름과 순서, 선택지, 결과, 이미지 정책을
+작성한다. 팝업 이름은 이후 Stage JSON, 문자열, 이미지, PopupEventSO의
+식별자 기준이 된다.
 
-- 에피소드 제목
-- 에피소드 전체 요약
-- 에피소드 주제 또는 기능
-- 플레이어에게 보여줄 지문
-- 지문 연결 순서
-- 선택지 문구
-- 선택 직후 결과 설명
-- 선택으로 발생하는 결과
+## 팝업 이름과 ID
 
-## 필드 목록
+- `popupName`: 에피소드 안에서 고유한 영문 소문자 snake_case 이름
+- `popupNameKo`: 사람이 읽는 검토용 이름
+- `popupId`: `node.{act}.{chapter}.{episode}.{popupName}`
+- `nodeId`: Stage 변환이 `popupId`를 그대로 복사하는 Builder 호환 값
+- `popupOrder`: 변경 가능한 순서 값이며 ID에 포함하지 않음
 
-| 필드 | 작성 내용 |
-| --- | --- |
-| `titleKo` | 에피소드 제목 |
-| `summaryKo` | 에피소드 전체 요약 |
-| `themeKo` | 에피소드의 주제 또는 기능 |
-| `nodes` | 플레이어에게 보여줄 지문 목록 |
-| `nodeId` | 지문을 구분하기 위한 숫자 ID |
-| `bodyKo` | 실제로 화면에 표시될 지문 |
-| `nextNodeId` | 다음에 이어질 지문의 `nodeId` |
-| `choices` | 플레이어 선택지 목록 |
-| `choiceId` | 선택지를 구분하기 위한 ID |
-| `labelKo` | 선택지 버튼 문구 |
-| `resultKo` | 선택 직후의 결과 설명 |
-| `rewards` | 선택으로 발생하는 결과 목록 |
-| `rewardType` | 보상 또는 결과의 종류 |
-| `rewardId` | 보상이 가리키는 대상 |
-| `battle` | 전투가 발생하는 선택지에서 사용하는 전투 정보 |
+좋은 이름:
 
-## 필드 설명
+```text
+village_arrival
+black_cloth_attack
+rescue_choice
+```
 
-### titleKo
+사용하지 않는 이름:
 
-에피소드 제목을 적는다.
+```text
+popup_1
+scene_2
+event_003
+```
 
-### summaryKo
+## 원본 지문
 
-에피소드 전체 내용을 짧게 요약한다. 이 에피소드에서 플레이어가 어떤 상황을 마주하고, 무엇을 선택하거나 해결하는지 드러나야 한다.
+원본은 `sourceNarration` 아래 의미 단위 block으로 보존한다.
 
-### themeKo
+- `sourceNarrationId`: 원문 block의 영구 의미 기반 ID
+- `sourceOrder`: 원문 표시 순서
+- `originalTextKo`: 축약·윤문·UI 개행을 하지 않은 원문
 
-에피소드의 주제 또는 기능을 적는다. 조사, 분기 선택, 전투 진입, 동료 합류처럼 이 에피소드가 게임 안에서 맡는 역할을 적으면 된다.
+팝업은 `sourceNarrationIds`로 원문 block을 참조한다.
 
-### nodes
+## 팝업 연결
 
-플레이어에게 순서대로 보여줄 지문 목록이다. 하나의 지문은 하나의 `node`로 작성한다.
+기획의 `nextPopupId`에는 다음 팝업의 `popupId`를 적는다. 마지막 팝업은
+`null`로 둔다. Stage 변환은 이를 `nextNodeId`로 복사한다. 숫자 `1`, `2`와
+종료값 `0`은 신규 데이터에서 사용하지 않는다.
 
-### nodeId
+## 선택지
 
-각 지문을 구분하기 위한 숫자 ID다. 지문 연결은 이 숫자를 기준으로 한다.
+- `choiceName`: 팝업 안에서 고유한 의미 기반 snake_case
+- `choiceId`: `choice.{act}.{chapter}.{episode}.{popupName}.{choiceName}`
+- `labelKo`: 버튼 문구
+- `resultKo`: 선택 직후 결과 지문
 
-### bodyKo
+선택지 배열 번호는 ID가 아니다.
 
-실제로 화면에 표시될 지문을 적는다. 대사, 상황 설명, 선택 직전의 묘사 등을 포함할 수 있다.
+## 이미지 정책
 
-### nextNodeId
+- `generate`: 이 팝업의 신규 이미지 생성
+- `reuse`: `imageSourcePopupId`의 승인 이미지를 변경 없이 새 popupId 파일명으로 복사
+- `none`: 이미지 없음
 
-다음에 이어질 지문의 `nodeId`를 숫자로 적는다. 마지막 지문이면 `0`으로 둔다.
-
-### choices
-
-플레이어가 고를 수 있는 선택지 목록이다. 선택지가 없는 일반 지문에는 작성하지 않아도 된다.
-
-### choiceId
-
-선택지를 구분하기 위한 ID다. 모든 선택지는 `choiceId`를 가져야 한다.
-
-기본 형식은 `카테고리.도메인.이름.인덱스`다.
-
-| 파트 | 의미 |
-| --- | --- |
-| 카테고리 | 큰 분류 |
-| 도메인 | 데이터 영역 |
-| 이름 | 선택지 성격 또는 이름 |
-| 인덱스 | 같은 지문 안에서의 선택지 번호 |
-
-전투가 발생하는 선택지의 경우에도 별도 전투 ID를 직접 적지 않는다. 변환 단계에서 `choiceId`를 기준으로 `battleId`를 추론한다.
-
-### labelKo
-
-선택지 버튼에 표시될 문구를 적는다.
-
-### resultKo
-
-플레이어가 선택지를 고른 직후 보여줄 결과 설명을 적는다.
-
-### rewards
-
-선택으로 발생하는 결과 목록을 적는다. 분기 해금, 전투 진입, 동료 후보 획득 같은 결과가 여기에 들어간다.
-
-### rewardType
-
-보상 또는 결과의 종류를 적는다.
-
-| 값 | 사용할 때 |
-| --- | --- |
-| `UnlockRoute` | 선택 결과로 다음 분기나 다른 에피소드 경로가 열릴 때 |
-| `SpecialBattle` | 선택 결과로 특수 전투가 바로 시작될 때 |
-| `battle` | 선택 결과로 일반 전투가 발생할 때 |
-| `party_candidate` | 선택 결과로 동료 후보 또는 합류 인물이 열릴 때 |
-
-특별한 결과가 없으면 `rewards`를 비워두거나 `rewardType`을 작성하지 않는다.
-
-### rewardId
-
-보상이 가리키는 대상을 적는다. 다음 에피소드, 분기, 캐릭터, 전투 이름 등을 사용할 수 있다.
-
-단, `rewardType`이 `SpecialBattle` 또는 `battle`이면 `rewardId`를 쓰지 않는다. 전투 ID는 `choiceId`를 기준으로 추론한다.
-
-### battle
-
-전투가 발생하는 선택지에서 사용하는 전투 정보다. 상세 수치는 전투 포맷에서 따로 관리할 수 있으므로, 스토리 포맷에서는 전투 이름과 의도만 적어도 된다.
+이미지 파일명은 `{popupId}.main.png`를 사용한다.
 
 ## 최소 작성 규칙
 
-1. 새 필드를 만들지 말고 이 문서에 적힌 필드만 사용한다.
-2. 제목, 요약, 테마는 `titleKo`, `summaryKo`, `themeKo`에 작성한다.
-3. 본문은 `nodes` 안의 `bodyKo`에 작성한다.
-4. 각 지문은 숫자 `nodeId`를 가진다.
-5. `nextNodeId`는 반드시 숫자로 적고, 연결할 지문의 `nodeId`를 가리킨다.
-6. 마지막 지문은 `nextNodeId`를 `0`으로 둔다.
-7. 선택지가 있으면 `choices`를 작성하고, 선택지 문구는 `labelKo`에 쓴다.
-8. `choices` 배열 안의 모든 선택지는 `choiceId`를 가진다.
-9. `choiceId`는 `카테고리.도메인.이름.인덱스` 형식으로 적는다.
-10. 선택 결과 설명은 `resultKo`에 쓴다.
-11. 분기 해금, 전투, 동료 후보 같은 결과는 `rewards`에 작성한다.
-12. `rewardType`이 `SpecialBattle` 또는 `battle`이면 `rewardId`를 쓰지 않는다.
-13. 기획자는 이 문서에 포함된 필드만 작성한다.
+1. 신규 팝업마다 영구 `popupName`을 기획 단계에서 지정한다.
+2. `popupId`는 공식 생성식으로 만들고 발급 후 변경하지 않는다.
+3. 순서는 `popupOrder`로 바꾸며 ID를 재번호화하지 않는다.
+4. 9줄×40자 때문에 분할되는 팝업도 각각 의미 기반 이름을 받는다.
+5. 이름 없는 Stage 전용 팝업을 만들지 않는다.
+6. 신규 선택지는 의미 기반 `choiceName`으로 ID를 만든다.
+7. 기존 숫자/순번형 ID는 영구 레거시 ID로 유지한다.
