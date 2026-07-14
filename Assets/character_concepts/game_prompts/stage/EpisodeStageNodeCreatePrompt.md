@@ -45,9 +45,9 @@ Input:
 6. optionalEpisodeScriptFile이 없으면 episodePlanningFile의 시놉시스 수준에서 과도하게 대사를 확장하지 않고 짧은 popup chain을 만든다.
 7. 각 원본 지문에 안정적인 `sourceNarrationId`를 연결하고, 완전한 원문 스냅샷을 `sourceTextKo`에 보존한다.
 8. 실제 팝업 표시본만 `textKo` 또는 `bodyKo`에 작성하고 `textLayoutProfile: stage_popup_v1`을 기록한다.
-9. 표시 지문은 팝업 하나당 최대 10줄, 줄당 최대 45개의 표시 문자로 구성한다. 표시 문자는 UTF-8 byte나 UTF-16 code unit가 아니라 Unicode text element(grapheme cluster) 기준으로 센다. 조합된 하나의 표시 문자는 1자, 공백과 표시 문장부호는 각각 1자로 계산하고 개행 문자는 줄 경계로만 계산한다.
-10. 줄바꿈은 문장, 절, 단어, 한국어 어절 경계를 우선한다. 정확히 45자를 채우기보다 읽기 좋은 균형을 우선하고 단어·어절·고유명사·숫자를 중간에서 자르지 않는다.
-11. 의미를 유지한 표시용 문장 정리만으로 10줄 안에 들어오지 않으면 문장 또는 문단 경계에서 여러 popup node로 분리한다. 원문을 생략하거나 말줄임표로 대체하지 않는다.
+9. 표시 지문은 팝업 하나당 최대 9줄, 줄당 최대 40개의 표시 문자로 구성한다. 표시 문자는 UTF-8 byte나 UTF-16 code unit가 아니라 Unicode text element(grapheme cluster) 기준으로 센다. 조합된 하나의 표시 문자는 1자, 공백과 표시 문장부호는 각각 1자로 계산하고 개행 문자는 줄 경계로만 계산한다.
+10. 줄바꿈은 문장, 절, 단어, 한국어 어절 경계를 우선한다. 정확히 40자를 채우기보다 읽기 좋은 균형을 우선하고 단어·어절·고유명사·숫자를 중간에서 자르지 않는다.
+11. 의미를 유지한 표시용 문장 정리만으로 9줄 안에 들어오지 않으면 문장 또는 문단 경계에서 여러 popup node로 분리한다. 원문을 생략하거나 말줄임표로 대체하지 않는다.
 12. optionalExistingStageNodeJsonFile이 있으면 기존 `nodeId`, `choiceId`, 이미지 파일 연결, `manual_override` 문구를 먼저 읽고 보존한다. `manual_override`가 stage_popup_v1을 초과하면 자동 수정·줄바꿈·분할·절단하지 않고 `manual_override_conflict`로 실패 처리하며 대상 id, 실제 줄 수, 가장 긴 줄의 표시 문자 수를 보고한다.
 13. 새 popup event의 `nodeId`는 배열 인덱스나 `.001` 같은 순번이 아닌 영구적인 의미 기반 eventId로 작성한다.
 14. 기존 JSON에 이미 존재하는 `.001` 형식의 레거시 nodeId는 문자열 키, 이미지, 평가 이력과의 연결을 위해 그대로 보존한다. 중간에 popup을 삽입하거나 순서를 바꿔도 기존 nodeId를 재번호화하지 않고 새 popup에만 새 의미 기반 nodeId를 발급한다.
@@ -115,12 +115,12 @@ Output:
 - nextNodeId가 있으면 nodes[] 안의 실제 nodeId를 가리켜야 한다.
 - 원본 지문은 `sourceTextKo`에 완전하게 보존되고 표시용 `textKo/bodyKo`와 구분되어야 한다.
 - 원본에서 파생된 모든 popup node는 `sourceNarrationId`를 유지해야 한다.
-- 모든 `textKo`, `bodyKo`, `choices[].resultKo`는 각각 최대 10줄이어야 한다.
-- 각 표시 줄은 Unicode text element 기준으로 공백과 표시 문장부호를 포함해 최대 45자여야 한다.
+- 모든 `textKo`, `bodyKo`, `choices[].resultKo`는 각각 최대 9줄이어야 한다.
+- 각 표시 줄은 Unicode text element 기준으로 공백과 표시 문장부호를 포함해 최대 40자여야 한다.
 - 단어, 한국어 어절, 고유명사, 숫자 중간에 강제 개행이 없어야 한다.
-- 10줄을 초과하는 내용은 문장 또는 문단 경계에서 별도 popup node로 분리되고 원문이 누락되지 않아야 한다.
+- 9줄을 초과하는 내용은 문장 또는 문단 경계에서 별도 popup node로 분리되고 원문이 누락되지 않아야 한다.
 - 재생성 시 기존 nodeId, choiceId, 이미지 파일명, `manual_override` 문구가 유지되어야 한다.
-- `manual_override`가 10줄 또는 줄당 45자를 초과하면 자동 변경하지 않고 `manual_override_conflict`로 실패해야 한다.
+- `manual_override`가 9줄 또는 줄당 40자를 초과하면 자동 변경하지 않고 `manual_override_conflict`로 실패해야 한다.
 - battle ref는 별도 BattleSO 입력 JSON 또는 BattleSO asset을 id/path로만 참조해야 한다.
 - CharacterSO, BattleSO, Sprite object reference를 JSON에 직접 넣지 않아야 한다.
 - main image 파일은 이 단계에서 생성하지 않고 `{eventId}.main.png` 규칙으로 후속 생성 가능해야 한다.

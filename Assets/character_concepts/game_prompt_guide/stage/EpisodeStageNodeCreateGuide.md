@@ -276,8 +276,8 @@ Use `textLayoutProfile: stage_popup_v1` for the current popup display rules.
 
 The profile applies independently to every player-facing popup body:
 
-- Maximum lines: `10`.
-- Maximum width per line: `45` displayed characters.
+- Maximum lines: `9`.
+- Maximum width per line: `40` displayed characters.
 - The newline character itself is not included in the width count.
 - Spaces and visible punctuation are included in the width count.
 - Count Unicode text elements (grapheme clusters), not UTF-8 bytes or UTF-16
@@ -285,21 +285,21 @@ The profile applies independently to every player-facing popup body:
   punctuation each count as one, and `\n` counts only as a line boundary.
 - Apply the same body budget to `textKo`, `bodyKo`, and `choices[].resultKo`.
 - `choices[].labelKo` is rendered in a separate button area and is not included
-  in the ten-line body budget. Keep it concise and apply the same word-boundary
+  in the nine-line body budget. Keep it concise and apply the same word-boundary
   wrapping principles if a line break is necessary.
 
 Line wrapping rules:
 
 1. Prefer natural sentence, clause, Korean eojeol, and word boundaries.
-2. Prefer a slightly shorter balanced line over filling all 45 characters when
+2. Prefer a slightly shorter balanced line over filling all 40 characters when
    that produces more natural reading rhythm.
 3. Insert explicit `\n` only after determining balanced semantic line breaks.
 4. Do not split a Korean eojeol, English word, number, proper noun, or punctuation
-   group in the middle merely to reach 45 characters.
+   group in the middle merely to reach 40 characters.
 5. If a sentence cannot fit cleanly, first rewrite only the display projection
    without changing its meaning. Preserve the unmodified wording in
    `sourceTextKo`.
-6. If the complete display text still exceeds 10 lines, split it into multiple
+6. If the complete display text still exceeds 9 lines, split it into multiple
    popup nodes at a sentence or paragraph boundary. Do not truncate the text.
 7. Do not use ellipses as a substitute for omitted source content unless the
    ellipsis is an intentional part of the narration.
@@ -307,7 +307,7 @@ Line wrapping rules:
 
 Avoid character-count-only hard wrapping. Automatic wrapping that cuts a word or
 eojeol in the middle is a validation failure even when the result technically
-fits within 45 characters.
+fits within 40 characters.
 
 ## Stable Popup And Image Identity
 
@@ -483,7 +483,7 @@ NextBattleDefense
 - Never use popup array indexes or sequential numbering for newly issued ids.
   Preserve existing legacy ids as permanent compatibility ids.
 - Preserve canonical narration separately from its popup display projection.
-- Apply `stage_popup_v1`: at most 10 lines and at most 45 displayed characters
+- Apply `stage_popup_v1`: at most 9 lines and at most 40 displayed characters
   per body line.
 - Wrap at sentence, clause, word, or Korean eojeol boundaries. Do not hard-wrap
   through a word or truncate source content.
@@ -510,8 +510,8 @@ Before building SO assets:
 - Every `choices[].choiceId` is unique within the JSON.
 - Every `nextNodeId` exists in `nodes[]` unless intentionally external.
 - Every derived popup keeps its `sourceNarrationId` and source text provenance.
-- Every `textKo`, `bodyKo`, and `resultKo` has at most 10 lines.
-- Every body/result line has at most 45 displayed characters.
+- Every `textKo`, `bodyKo`, and `resultKo` has at most 9 lines.
+- Every body/result line has at most 40 displayed characters.
 - No manual or automatic line break cuts a word or Korean eojeol in the middle.
 - Text exceeding the profile is split at a semantic boundary and is never
   silently truncated.
