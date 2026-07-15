@@ -1,119 +1,130 @@
-﻿{
+{
   "stageNodeId": "stage.ch1.episode3_1",
-  "roundNodeType": "RequiredSubEvent",
-  "actId": "act.01",
+  "roundNodeType": "Event",
   "chapterId": "chapter1",
-  "planningChapterId": "chapter.01.01",
-  "actGroupId": "cheongun_sangui_act1",
   "episodeId": "episode3_1",
-  "planningEpisodeId": "episode.act1.chapter01.03_1",
-  "episodeNumber": 3,
-  "titleKo": "숲속의 승려",
-  "mainCharacterId": "character.seojin",
-  "themeKo": "지한 합류와 오두막 방어",
-  "summaryKo": "서진은 붉은 천 인형의 흔적을 따라 숲속 오두막에 도착하고, 다친 아이를 돌보는 지한과 동행하게 된다. 곧 굶주린 짐승과 검은 천 추격자들이 오두막 앞 좁은 산길을 막아서며 전투가 시작된다.",
-  "startNodeId": "node.ch1.episode3_1.001",
+  "episodeNumber": 3.1,
   "isRequired": true,
-  "hiddenByDefault": false,
+  "hiddenByDefault": true,
+  "useFixedDepth": true,
+  "fixedDepth": 2,
+  "fixedColumn": 0,
+  "titleKo": "숲속의 승려",
+  "planningEpisodeId": "episode.act1.chapter01.03_1",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "companion_join",
+  "summaryKo": "붉은 천 인형과 아이의 마지막 말을 따라 숲으로 들어간 서진이, 다친 아이를 구하려는 승려 지한과 동행하게 되는 에피소드.",
+  "battleNeed": "required",
+  "startNodeId": "node.act1.chapter01.episode03_1.red_doll_trail",
   "tags": [
-    "story",
     "act1",
+    "chapter01",
     "chapter1",
     "episode3_1",
-    "companion_join",
-    "battle_entry",
-    "defense"
+    "episode.act1.chapter01.03_1",
+    "semantic_popup_id"
   ],
-  "sourceRefs": {
-    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md",
-    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
-    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
-    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
-    "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-    "battlePlanFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
-    "optionalEpisodeScriptFile": null
-  },
-  "battleRefs": [
-    {
-      "battleId": "battle.act1.chapter01.03_1.defend_hut",
-      "battleGroup": "act1/chapter01",
-      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
-      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
-    }
-  ],
-  "planningStatus": {
-    "textSource": "episodePlanningFile.synopsis",
-    "needsFormalScriptReview": true,
-    "battleNeed": "required",
-    "battlePlanStatus": "created",
-    "rewardDirection": "gold_battle_reward"
-  },
   "nodes": [
     {
-      "nodeId": "node.ch1.episode3_1.001",
-      "nodeType": "narration",
-      "locationId": "location.deep_forest_path",
-      "speakerId": "character.seojin",
-      "speakerNameKo": "서진",
-      "titleKo": "붉은 흔적",
-      "textKo": "서진은 붉은 천 인형의 흔적과 아이의 마지막 말을 따라 숲 안쪽의 오래된 산길로 들어선다. 꺾인 풀, 희미한 작은 발자국, 낡은 천 조각이 누군가 흔적을 감추며 아이들을 깊은 곳으로 이끌었다는 인상을 남긴다.",
+      "nodeId": "node.act1.chapter01.episode03_1.red_doll_trail",
+      "popupName": "red_doll_trail",
+      "eventId": "node.act1.chapter01.episode03_1.red_doll_trail",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode03_1.red_doll_trail",
+      "sourceTextKo": "붉은 천 인형의 단서를 따라 숲 안쪽으로 들어가자 오래된 산길이 모습을 드러냈다.\n\n길가의 풀은 누군가 급히 지나간 듯 꺾여 있었고, 마른 흙 위에는 작은 발자국이 희미하게 남아 있었다. 평범한 사람이 다니는 길은 아니었다.\n\n길모퉁이에 묶인 낡은 천 조각을 본 순간, 서진은 오래전 여동생의 머리끈을 떠올렸다. 색도 무늬도 달랐지만, 이상하게 손끝이 차가워졌다.\n\n서진은 누군가 아이들을 산 깊은 곳으로 이끌고, 그 흔적을 일부러 감추고 있다는 느낌을 받았다.",
+      "bodyKo": "붉은 천 인형의 단서를 따라 숲 안쪽으로 들어가자 오래된 산길이 모습을\n드러냈다. 길가의 풀은 누군가 급히 지나간 듯 꺾여 있었고, 마른 흙 위에는\n작은 발자국이 희미하게 남아 있었다. 평범한 사람이 다니는 길은 아니었다.\n길모퉁이에 묶인 낡은 천 조각을 본 순간, 서진은 오래전 여동생의 머리끈을\n떠올렸다. 색도 무늬도 달랐지만, 이상하게 손끝이 차가워졌다. 서진은 누군가\n아이들을 산 깊은 곳으로 이끌고, 그 흔적을 일부러 감추고 있다는 느낌을\n받았다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "오래된 숲속 산길, 꺾인 풀과 작은 발자국, 나뭇가지에 걸린 낡은 붉은 천 조각, 불안하고 건조한 숲 분위기",
-      "nextNodeId": "node.ch1.episode3_1.002",
-      "choices": []
-    },
-    {
-      "nodeId": "node.ch1.episode3_1.002",
-      "nodeType": "choice",
-      "locationId": "location.abandoned_hut_front",
-      "speakerId": "character.jihan",
-      "speakerNameKo": "지한",
-      "titleKo": "오두막의 승려",
-      "textKo": "숲 깊은 낡은 오두막 앞에는 피 묻은 천과 급히 만든 부목이 남아 있다. 안쪽에서 지한은 다친 아이를 돌보고 있으며, 살아 있는 아이들을 찾으려면 치료할 사람이 필요하다고 말한다.",
-      "mainImageRequired": true,
-      "imageDirection": "숲속 낡은 오두막 앞, 피 묻은 천과 급히 만든 부목, 약상자를 둔 승려 지한과 보호받는 다친 아이의 긴장된 장면",
+      "imageDirection": "Act1 Chapter1 story popup image for '숲속의 승려' / 'node.act1.chapter01.episode03_1.red_doll_trail'. Scene: 붉은 천 인형의 단서를 따라 숲 안쪽으로 들어가자 오래된 산길이 모습을 드러냈다. 길가의 풀은 누군가 급히 지나간 듯 꺾여 있었고, 마른 흙 위에는 작은 발자국이 희미하게 남아 있었다. 평범한 사람이 다니는 길은 아니었다. 길모퉁이에 묶인 낡은 천 조각을 본 순간, 서진은 오래전 여동생의 머리끈을 떠올렸다. 색도 무늬도 달랐지만, 이상하게 손끝이 차가워졌다. 서진은 누군가 아이들을 산 깊은 곳으로 이끌고, 그 흔적을 일부러 감추고 있다는 느낌을 받았다.. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [
         {
-          "choiceId": "choice.ch1.episode3_1.accept_jihan_join",
-          "textKo": "함께 가주십시오. 살아 있는 아이들을 구해야 합니다.",
-          "labelKo": "지한의 동행을 받아들인다",
-          "resultKo": "지한이 동행에 합류하고, 서진은 아이들을 살려낼 손과 함께 움직이게 된다.",
-          "nextNodeId": "node.ch1.episode3_1.003",
-          "visibleConditions": [],
-          "rewards": []
+          "choiceId": "choice.act1.chapter01.episode03_1.red_doll_trail.follow_red_doll_trace",
+          "choiceName": "follow_red_doll_trace",
+          "legacyChoiceId": "episode.act1.chapter01.03_1.choice.follow_red_doll_trace.1",
+          "labelKo": "붉은 천 인형의 흔적을 따라간다.",
+          "textKo": "붉은 천 인형의 흔적을 따라간다.",
+          "resultKo": "선택한 방향에 따라\n다음 장면으로 이어진다.",
+          "opens": [
+            "forest_investigation",
+            "companion_encounter"
+          ],
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode03_1.follow_red_doll_trace.clear",
+              "amount": 100
+            }
+          ],
+          "nextNodeId": "node.act1.chapter01.episode03_1.jihan_hut"
         }
-      ]
+      ],
+      "nextNodeId": "node.act1.chapter01.episode03_1.jihan_hut"
     },
     {
-      "nodeId": "node.ch1.episode3_1.003",
-      "nodeType": "narration",
-      "locationId": "location.narrow_path_chokepoint",
-      "speakerId": "character.jihan",
-      "speakerNameKo": "지한",
-      "titleKo": "좁은 길목의 숨소리",
-      "textKo": "지한이 아이를 뒤로 물린 직후, 오두막 뒤 수풀에서 거친 숨소리가 들린다. 굶주린 들개와 산늑대, 검은 천 추격자들이 좁은 산길을 막아서며 오두막 쪽으로 다가온다.",
+      "nodeId": "node.act1.chapter01.episode03_1.jihan_hut",
+      "popupName": "jihan_hut",
+      "eventId": "node.act1.chapter01.episode03_1.jihan_hut",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode03_1.jihan_hut",
+      "sourceTextKo": "숲 깊은 곳의 낡은 오두막 앞에는 피 묻은 천과 급히 만든 부목이 놓여 있었다.\n\n그곳에서 서진은 다친 아이를 돌보고 있는 지한을 다시 만났다. 지한은 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지 않았다.\n\n\"아직 늦지 않았습니다.\"\n\n그는 서진을 바라보았다.\n\n\"살아 있는 아이를 찾게 된다면 반드시 치료할 사람이 필요합니다. 저도 함께 가겠습니다.\"",
+      "bodyKo": "숲 깊은 곳의 낡은 오두막 앞에는 피 묻은 천과 급히 만든 부목이 놓여\n있었다. 그곳에서 서진은 다친 아이를 돌보고 있는 지한을 다시 만났다.\n지한은 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지\n않았다. \"아직 늦지 않았습니다.\" \"살아 있는 아이를 찾게 된다면 반드시\n치료할 사람이 필요합니다. 저도 함께 가겠습니다.\"",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "오두막 앞 좁은 산길, 수풀 너머 굶주린 짐승의 그림자와 검은 천 추격자의 실루엣, 아이를 등 뒤로 보호하는 긴박한 방어 구도",
-      "nextNodeId": "node.ch1.episode3_1.004",
-      "choices": []
-    },
-    {
-      "nodeId": "node.ch1.episode3_1.004",
-      "nodeType": "battle_entry",
-      "locationId": "location.abandoned_hut_front",
-      "speakerId": "character.seojin",
-      "speakerNameKo": "서진",
-      "titleKo": "오두막 방어",
-      "textKo": "다친 아이를 데리고 당장 도망칠 수는 없다. 서진은 오두막 앞 길목에 서고, 지한은 아이 곁을 지키며 뒤를 맡는다.",
-      "mainImageRequired": true,
-      "imageDirection": "오두막 앞 전투 직전의 좁은 산길, 서진이 길목을 막아서고 지한이 다친 아이를 보호하는 장면, 굶주린 짐승과 검은 천 추격자가 다가오는 긴장감",
+      "imageDirection": "Act1 Chapter1 story popup image for '숲속의 승려' / 'node.act1.chapter01.episode03_1.jihan_hut'. Scene: 숲 깊은 곳의 낡은 오두막 앞에는 피 묻은 천과 급히 만든 부목이 놓여 있었다. 그곳에서 서진은 다친 아이를 돌보고 있는 지한을 다시 만났다. 지한은 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지 않았다. \"아직 늦지 않았습니다.\" \"살아 있는 아이를 찾게 된다면 반드시 치료할 사람이 필요합니다. 저도 함께 가겠습니다.\". 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [
         {
-          "choiceId": "choice.ch1.episode3_1.defend_jihan_and_child",
+          "choiceId": "choice.act1.chapter01.episode03_1.jihan_hut.accept_jihan_join",
+          "choiceName": "accept_jihan_join",
+          "legacyChoiceId": "episode.act1.chapter01.03_1.choice.accept_jihan_join.1",
+          "labelKo": "함께 가주십시오. 살아 있는 아이들을 구해야 합니다.",
+          "textKo": "함께 가주십시오. 살아 있는 아이들을 구해야 합니다.",
+          "resultKo": "선택한 방향에 따라\n다음 장면으로 이어진다.",
+          "opens": [
+            "companion_join",
+            "battle_setup"
+          ],
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode03_1.accept_jihan_join.clear",
+              "amount": 100
+            }
+          ],
+          "nextNodeId": "node.act1.chapter01.episode03_1.jihan_join"
+        }
+      ],
+      "nextNodeId": "node.act1.chapter01.episode03_1.jihan_join"
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode03_1.jihan_join",
+      "popupName": "jihan_join",
+      "eventId": "node.act1.chapter01.episode03_1.jihan_join",
+      "popupOrder": 3,
+      "sourceNarrationId": "narration.act1.chapter01.episode03_1.jihan_join",
+      "sourceTextKo": "지한이 파티에 합류했다.\n\n서진은 이제 아이들을 살려낼 손과 함께 움직이게 되었다.\n\n그 순간 오두막 뒤편의 수풀에서 거친 숨소리가 들려왔다.\n\n피 냄새를 맡은 짐승들과, 그 뒤를 따라온 검은 천의 추격자들이 좁은 산길을 막아섰다. 다친 아이를 데리고는 도망칠 수도 없었다.\n\n짐승들은 굶주린 들개와 산늑대가 뒤섞인 무리였다. 갈비뼈가 드러날 만큼 말랐고, 털은 군데군데 빠져 피부가 얼룩처럼 드러나 있었다. 목에는 낡은 노끈과 붉은 천 조각이 묶여 있었고, 몇 마리의 귀에는 인두로 찍은 듯한 검은 표식이 남아 있었다.\n\n그 뒤의 추격자들은 검은 천을 머리부터 어깨까지 두르고 있었다. 천 위에는 마른 진흙이 발려 있어 나무껍질처럼 갈라졌고, 얼굴 부분에는 눈만 겨우 보이는 좁은 틈이 나 있었다. 긴 장대를 든 자의 등에는 짐승 우리를 묶는 데 쓰는 쇠고리가 매달려 있었고, 손도끼를 든 자들은 팔에 산귀 부적을 감아 상처를 가리고 있었다.\n\n지한은 아이를 뒤로 물리고 약상자를 내려놓았다.\n\n\"제가 아이를 지키겠습니다. 길을 열어주십시오.\"\n\n서진은 검을 뽑아 들었다.",
+      "bodyKo": "지한이 파티에 합류했다. 서진은 이제 아이들을 살려낼 손과 함께 움직이게\n되었다. 그 순간 오두막 뒤편의 수풀에서 거친 숨소리가 들려왔다. 서진은\n검을 뽑아 들었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '숲속의 승려' / 'node.act1.chapter01.episode03_1.jihan_join'. Scene: 지한이 파티에 합류했다. 서진은 이제 아이들을 살려낼 손과 함께 움직이게 되었다. 그 순간 오두막 뒤편의 수풀에서 거친 숨소리가 들려왔다. 서진은 검을 뽑아 들었다.. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode03_1.jihan_join.defend_jihan_and_child",
+          "choiceName": "defend_jihan_and_child",
+          "legacyChoiceId": "episode.act1.chapter01.03_1.choice.defend_jihan_and_child.1",
+          "labelKo": "지한과 아이를 지키며 추격자들을 막아낸다.",
           "textKo": "지한과 아이를 지키며 추격자들을 막아낸다.",
-          "labelKo": "지한과 아이를 지킨다",
-          "resultKo": "서진은 오두막 앞 좁은 길목에서 굶주린 짐승과 검은 천 추격자들을 막아내기 위해 전투에 들어간다.",
-          "visibleConditions": [],
+          "resultKo": "전투 준비를 마치고\n다가오는 적의 압박에 맞선다.",
+          "opens": [
+            "battle"
+          ],
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -122,11 +133,38 @@
               "battleGroup": "act1/chapter01",
               "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+            },
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode03_1.defend_jihan_and_child.clear",
+              "amount": 100
             }
           ],
-          "completesEvent": true
+          "nextNodeId": "node.act1.chapter01.episode03_1.hut_pursuers"
         }
-      ]
+      ],
+      "nextNodeId": "node.act1.chapter01.episode03_1.hut_pursuers"
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode03_1.hut_pursuers",
+      "popupName": "hut_pursuers",
+      "eventId": "node.act1.chapter01.episode03_1.hut_pursuers",
+      "popupOrder": 4,
+      "sourceNarrationId": "narration.act1.chapter01.episode03_1.hut_pursuers",
+      "sourceTextKo": "서진은 오두막 앞에 서서 몰려드는 적들을 맞았다.\n\n오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.",
+      "bodyKo": "서진은 오두막 앞에 서서 몰려드는 적들을 맞았다. 오두막 앞에 모인 적들은\n사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등\n위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은\n검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍\n마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에\n작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을\n몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지\n못하게 버텨야 했다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '숲속의 승려' / 'node.act1.chapter01.episode03_1.hut_pursuers'. Scene: 서진은 오두막 앞에 서서 몰려드는 적들을 맞았다. 오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": []
     }
-  ]
+  ],
+  "battleRef": {
+    "optionalBattleId": "battle.act1.chapter01.03_1.defend_hut",
+    "optionalBattleGroup": "act1/chapter01",
+    "optionalBattleJsonFile": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+    "optionalBattleSOPath": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+  }
 }

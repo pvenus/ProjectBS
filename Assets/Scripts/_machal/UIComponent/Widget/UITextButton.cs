@@ -65,7 +65,7 @@ public class UITextButton : UIComponent
             fgRt.anchorMax = Vector2.one;
             fgRt.sizeDelta = Vector2.zero;
             
-            fgGo.AddComponent<UIAutoImage>();
+            fgGo.AddComponent<Image>();
         }
 
         // 3. Setup Bind_Text child

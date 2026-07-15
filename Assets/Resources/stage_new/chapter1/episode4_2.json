@@ -1,80 +1,83 @@
 {
   "stageNodeId": "stage.ch1.episode4_2",
-  "roundNodeType": "RequiredSubEvent",
-  "actId": "act.01",
+  "roundNodeType": "Event",
   "chapterId": "chapter1",
-  "planningChapterId": "chapter.01.01",
-  "actGroupId": "cheongun_sangui_act1",
   "episodeId": "episode4_2",
-  "planningEpisodeId": "episode.act1.chapter01.04_2",
-  "episodeNumber": 4,
-  "titleKo": "끊어진 발자국",
-  "mainCharacterId": "character.seojin",
-  "themeKo": "유진과 지워진 흔적 조사",
-  "summaryKo": "서진과 유진은 지워진 발자국을 추적하며 산귀 소문 뒤에 사람의 손길이 있음을 확인한다.",
-  "startNodeId": "node.ch1.episode4_2.001",
+  "episodeNumber": 4.2,
   "isRequired": true,
   "hiddenByDefault": false,
   "useFixedDepth": true,
   "fixedDepth": 5,
   "fixedColumn": 1,
-  "tags": ["story", "act1", "chapter1", "episode4_2", "investigation", "no_battle"],
-  "sourceRefs": {
-    "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
-    "episodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
-    "storyContextFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
-    "episodeCompositionFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
-    "optionalEpisodeScriptFile": null
-  },
-  "planningStatus": {
-    "textSource": "episodePlanningFile.synopsis",
-    "needsFormalScriptReview": true,
-    "battleNeed": "not_required",
-    "rewardDirection": "gold_episode_clear"
-  },
+  "titleKo": "끊어진 발자국",
+  "planningEpisodeId": "episode.act1.chapter01.04_2",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "investigation",
+  "summaryKo": "유진과 함께 지워진 발자국을 추적하던 서진이, 산귀 소문 뒤에 사람의 손길이 있음을 확인하는 조사 에피소드.",
+  "battleNeed": "not_required",
+  "startNodeId": "node.act1.chapter01.episode04_2.erased_tracks",
+  "tags": [
+    "act1",
+    "chapter01",
+    "chapter1",
+    "episode4_2",
+    "episode.act1.chapter01.04_2",
+    "semantic_popup_id"
+  ],
   "nodes": [
     {
-      "nodeId": "node.ch1.episode4_2.001",
-      "nodeType": "narration",
-      "locationId": "location.forest_mid_slope",
-      "speakerId": "character.yujin",
-      "speakerNameKo": "유진",
-      "titleKo": "끊어진 발자국",
-      "textKo": "유진이 합류한 뒤, 서진 일행은 숲 중턱까지 사람 발자국과 수레 자국을 따라간다. 흔적은 갑자기 끊긴 듯 보이지만, 유진은 그것이 지워진 것이라고 판단한다.",
-      "bodyKo": "유진이 합류한 뒤, 서진 일행은 숲 중턱까지 사람 발자국과 수레 자국을 따라간다. 흔적은 갑자기 끊긴 듯 보이지만, 유진은 그것이 지워진 것이라고 판단한다.",
+      "nodeId": "node.act1.chapter01.episode04_2.erased_tracks",
+      "popupName": "erased_tracks",
+      "eventId": "node.act1.chapter01.episode04_2.erased_tracks",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_2.erased_tracks",
+      "sourceTextKo": "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.\n\n근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
+      "bodyKo": "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라\n움직였다. 흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만\n흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니\n짧게 숨을 내쉬었다. \"여기서 사라진 게 아니야. 지운 거야.\" 이 일은\n단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는\n과정이었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "숲 중턱 흙길, 갑자기 끊긴 발자국과 수레 자국, 무릎을 꿇고 흙을 살피는 유진",
-      "nextNodeId": "node.ch1.episode4_2.002",
-      "choices": []
-    },
-    {
-      "nodeId": "node.ch1.episode4_2.002",
-      "nodeType": "choice",
-      "locationId": "location.erased_trail",
-      "speakerId": "character.seojin",
-      "speakerNameKo": "서진",
-      "titleKo": "소문 뒤의 손길",
-      "textKo": "낡은 화살, 숲빛 망토 조각, 검푸른 염료와 산귀 나무패가 모습을 드러낸다. 이 일은 단순한 괴담이 아니라, 누군가 산귀의 흔적처럼 꾸민 사건이다.",
-      "bodyKo": "낡은 화살, 숲빛 망토 조각, 검푸른 염료와 산귀 나무패가 모습을 드러낸다. 이 일은 단순한 괴담이 아니라, 누군가 산귀의 흔적처럼 꾸민 사건이다.",
-      "mainImageRequired": true,
-      "imageDirection": "나무에 박힌 낡은 화살, 숲색 망토 조각과 산귀 나무패, 흙 위의 지워진 흔적을 읽는 장면",
+      "imageDirection": "Act1 Chapter1 story popup image for '끊어진 발자국' / 'node.act1.chapter01.episode04_2.erased_tracks'. Scene: 유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다. 흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다. \"여기서 사라진 게 아니야. 지운 거야.\" 이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [
         {
-          "choiceId": "choice.ch1.episode4_2.confirm_erased_trail",
+          "choiceId": "choice.act1.chapter01.episode04_2.erased_tracks.inspect_erased_trace_with_yujin",
+          "choiceName": "inspect_erased_trace_with_yujin",
+          "legacyChoiceId": "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
+          "labelKo": "유진과 함께 지워진 흔적을 확인한다.",
           "textKo": "유진과 함께 지워진 흔적을 확인한다.",
-          "labelKo": "지워진 흔적을 확인한다",
-          "resultKo": "서진과 유진은 남은 흔적이 묻히기 전에 그 길이 어디로 이어지는지 확인한다.",
-          "visibleConditions": [],
+          "resultKo": "선택한 방향에 따라\n다음 장면으로 이어진다.",
+          "opens": [
+            "investigation",
+            "human_conspiracy_reveal"
+          ],
           "rewards": [
             {
               "rewardType": "Gold",
-              "rewardId": "reward.act1.chapter01.04_2.clear",
+              "rewardId": "reward.act1.chapter01.episode04_2.inspect_erased_trace_with_yujin.clear",
               "amount": 50
             }
           ],
-          "completesEvent": true
+          "nextNodeId": "node.act1.chapter01.episode04_2.scout_disguise_evidence"
         }
-      ]
+      ],
+      "nextNodeId": "node.act1.chapter01.episode04_2.scout_disguise_evidence"
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+      "popupName": "scout_disguise_evidence",
+      "eventId": "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_2.scout_disguise_evidence",
+      "sourceTextKo": "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
+      "bodyKo": "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을\n조심스럽게 살폈다. 숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을\n검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가\n사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과\n유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지\n확인해야 했다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "generated",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '끊어진 발자국' / 'node.act1.chapter01.episode04_2.scout_disguise_evidence'. Scene: 서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다. 숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": []
     }
   ]
 }
