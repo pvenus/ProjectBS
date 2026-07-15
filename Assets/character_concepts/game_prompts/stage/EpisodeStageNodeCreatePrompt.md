@@ -16,6 +16,7 @@ Episode planning 또는 정식 스크립트 데이터를 기준으로 `RoundNode
 - Assets/character_concepts/game_prompt_guide/stage/RoundNodeSO.md
 - Assets/character_concepts/game_prompt_guide/stage/PopupEventSO.md
 - Assets/character_concepts/game_prompt_guide/story/EpisodePlanningCreateGuide.md
+- Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
 
 Input:
 - projectRoot: {project_root}
@@ -61,8 +62,10 @@ Input:
 22. 전투 선택지가 필요한 경우 optionalBattleId, optionalBattleGroup, optionalBattleJsonFile, optionalBattleSOPath가 모두 채워져 있는지 확인한다.
 23. 전투 선택지가 필요한데 battle 입력이 불완전하면 JSON을 만들지 않고 `incomplete_battle_ref`로 실패 처리한다.
 24. 전투 선택지가 필요한 경우 battle 전체 내용을 JSON에 복사하지 말고 battleId, battleJsonRef, battleSORef 같은 id/ref만 연결한다.
-25. 보상은 현재 Gold 중심으로 작성하고, rewardId나 reward payload는 PopupEventSO.md의 지원 구조에 맞춘다.
-26. outputStageNodeJsonFile에 Stage Node JSON을 저장한다.
+25. 보상 변환 전에 planning의 rewardOwner와 rewardTrigger를 먼저 판정한다. rewardType이 gold라는 이유만으로 popup `Gold` payload를 만들지 않는다.
+26. `rewardOwner: battle` 또는 `gold_battle_reward`/`normal_battle_clear`/전투 클리어 문맥은 battle-owned로 처리한다. 선택지에는 전투 진입용 `SpecialBattle`/`BossBattle`과 battleId ref만 둘 수 있고, 전투 클리어 Gold는 `choices[].rewards[]`에 넣지 않는다.
+27. `rewardOwner: popup`이 명시되고 trigger가 choice_confirm/episode_clear/chapter_clear로 확정된 경우에만 PopupEventSO.md 형식의 `Gold` payload를 만든다. 소유권이 없거나 단서가 충돌하면 `ambiguous_reward_owner`로 실패한다.
+28. outputStageNodeJsonFile에 Stage Node JSON을 저장한다.
 
 Output:
 - Stage Node JSON 경로: `outputStageNodeJsonFile`
@@ -76,7 +79,8 @@ Output:
 - 신규/유지된 popup id와 이미지 파일명 목록
 - 보존한 manual_override 목록
 - battle ref 연결 목록
-- reward 연결 목록
+- popup 지급 reward payload 목록
+- battle reward handoff 목록
 - 수동 변환에서 생성될 RoundNodeSO 예상 경로: `Assets/Resources/stage_new/nodes/{stageNodeId}.asset`
 - 수동 변환에서 생성될 PopupEventSO 예상 경로 목록: `Assets/Resources/stage_new/popup_events/{nodeId}.asset`
 - 검증 결과
@@ -101,6 +105,9 @@ Output:
   - unstable_popup_id
   - manual_override_conflict
   - unresolved_battle_ref
+  - ambiguous_reward_owner
+  - invalid_reward_owner
+  - battle_reward_mapped_to_popup
   - invalid_json
 - 실패 원인
 - 생성하지 않은 산출물
@@ -128,6 +135,9 @@ Output:
 - 재생성 시 기존 nodeId, choiceId, 이미지 파일명, `manual_override` 문구가 유지되어야 한다.
 - `manual_override`가 9줄 또는 줄당 40자를 초과하면 자동 변경하지 않고 `manual_override_conflict`로 실패해야 한다.
 - battle ref는 별도 BattleSO 입력 JSON 또는 BattleSO asset을 id/path로만 참조해야 한다.
+- Popup `Gold` reward는 planning에 `rewardOwner: popup` 근거가 있어야 한다.
+- battle-owned gold intent는 `PopupEventRewardType.Gold`로 출력되면 안 된다.
+- `SpecialBattle`/`BossBattle`은 battleId를 참조하는 전투 진입 action이며 전투 클리어 Gold 지급이 아니다.
 - CharacterSO, BattleSO, Sprite object reference를 JSON에 직접 넣지 않아야 한다.
 - main image 파일은 이 단계에서 생성하지 않고 `{eventId}.main.png` 규칙으로 후속 생성 가능해야 한다.
 

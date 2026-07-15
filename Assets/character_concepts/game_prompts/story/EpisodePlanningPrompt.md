@@ -45,8 +45,11 @@ Input:
 9. 선형 연결과 분기 연결은 planning `popupId`를 사용하는 `nextPopupId`로 작성하고 마지막 popup은 null로 둔다. 배열 위치나 숫자 종료값 0을 사용하지 않는다.
 10. 각 popupDefinition에 popupType, sourceNarrationIds, imagePolicy와 필요한 imageDirection을 기록한다. imagePolicy는 generate/reuse/none 중 하나다. reuse이면 기존 영구 popupId를 `imageSourcePopupId`로 명시한다.
 11. 선택지는 의미 기반 `choiceName`을 부여하고 `choiceId`를 `choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}`으로 생성한다.
-12. 기존 planning JSON을 갱신할 때 기존 popupName, popupId, choiceId를 보존한다. 기존 순번형 ID는 레거시 영구 ID로 유지하고 신규 데이터에만 의미 기반 규칙을 적용한다.
-13. Stage 표시본이 9줄×40자를 넘을 것으로 예상되어 popup 분할이 필요하면 이 단계에서 각 분할 popup에 별도 의미 기반 이름과 이미지 정책을 지정한다.
+12. 모든 신규 보상에는 지급 주체 `rewardOwner`(battle/popup)와 지급 시점 `rewardTrigger`를 명시한다. `rewardType: gold`만 보고 지급 위치를 결정하지 않는다.
+13. `gold_battle_reward`, `normal_battle_clear`, 전투 클리어 보상 문구는 `rewardOwner: battle`, `rewardTrigger: battle_clear`로 기록한다. 이 보상은 후속 Stage popup Gold payload가 아니라 battle reward pipeline handoff 대상이다.
+14. 팝업에서 즉시 지급하는 보상만 `rewardOwner: popup`으로 기록한다. 소유권 근거가 충돌하거나 불명확하면 임의 해석하지 않고 `ambiguous_reward_owner`로 실패한다.
+15. 기존 planning JSON을 갱신할 때 기존 popupName, popupId, choiceId를 보존한다. 기존 순번형 ID는 레거시 영구 ID로 유지하고 신규 데이터에만 의미 기반 규칙을 적용한다.
+16. Stage 표시본이 9줄×40자를 넘을 것으로 예상되어 popup 분할이 필요하면 이 단계에서 각 분할 popup에 별도 의미 기반 이름과 이미지 정책을 지정한다.
 
 Output:
 - 생성/수정한 JSON 경로
@@ -55,6 +58,7 @@ Output:
 - monster direction 요약
 - battle direction 요약
 - reward direction 요약
+- rewardOwner / rewardTrigger 및 지급 파이프라인 요약
 - 다음 단계에서 필요한 작업
 - sourceNarrationId 목록
 - popupName / popupId / popupOrder 목록
@@ -77,6 +81,9 @@ Output:
   - duplicate_choice_id
   - legacy_id_renumbered
   - missing_image_source_popup_id
+  - ambiguous_reward_owner
+  - invalid_reward_owner
+  - invalid_reward_trigger
   - insufficient_story_basis
   - invalid_json
 - 실패 원인
@@ -97,6 +104,8 @@ Output:
 - partyAssumption은 원문 근거가 있어야 한다.
 - battle에는 정확한 spawner type, spawnSequenceId, spawn count가 없어야 한다.
 - reward는 현재 gold 기준만 사용한다.
+- 신규 reward에는 rewardOwner와 rewardTrigger가 있어야 한다.
+- battle-owned reward를 popup-owned reward로 기록하면 안 된다.
 
 주의:
 - 이 단계는 시놉시스 수준의 1차 기획 JSON 생성 단계다.

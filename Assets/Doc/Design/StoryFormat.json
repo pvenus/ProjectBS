@@ -1,6 +1,6 @@
 {
   "formatId": "design.format.episode_story",
-  "version": 5,
+  "version": 6,
   "purposeKo": "원본 지문과 영구 팝업 이름을 기획 단계에서 보존하고 동일한 popupId를 Stage, 문자열, 이미지, PopupEventSO에 사용한다.",
   "identityRules": {
     "popupNamePattern": "^[a-z][a-z0-9_]*$",
@@ -55,7 +55,27 @@
       "labelKo"
     ],
     "indexRuleKo": "선택지 배열 인덱스를 choiceId에 사용하지 않는다.",
-    "battleRuleKo": "전투 결과는 rewardId에 안정적인 battleId를 명시한다."
+    "battleRuleKo": "SpecialBattle/BossBattle은 rewardId에 안정적인 battleId를 명시하는 전투 진입 action이며 전투 클리어 골드 지급이 아니다."
+  },
+  "rewardOwnership": {
+    "required": [
+      "rewardOwner",
+      "rewardTrigger"
+    ],
+    "ownerValues": [
+      "battle",
+      "popup"
+    ],
+    "triggerValues": [
+      "battle_clear",
+      "choice_confirm",
+      "episode_clear",
+      "chapter_clear"
+    ],
+    "typeRuleKo": "rewardType은 보상 내용이며 지급 주체를 뜻하지 않는다. gold만 보고 popup 지급을 추론하지 않는다.",
+    "battleRuleKo": "rewardOwner가 battle이거나 gold_battle_reward intent이면 popup Gold를 만들지 않고 battle reward pipeline으로 handoff한다.",
+    "popupRuleKo": "Popup Gold는 rewardOwner가 popup이고 popup 실행 trigger가 명시된 경우에만 생성한다.",
+    "ambiguityRuleKo": "소유권 단서가 없거나 충돌하면 ambiguous_reward_owner로 실패한다."
   },
   "example": {
     "popupName": "village_arrival",

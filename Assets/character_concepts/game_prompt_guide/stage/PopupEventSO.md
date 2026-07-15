@@ -264,14 +264,14 @@ NextBattleDefense
 
 Current story planning default:
 
-- Use `Gold` for ordinary rewards.
+- Use `Gold` only for explicitly popup-owned payouts.
 - Use `UnlockRoute` for route branching.
 - Use `SpecialBattle` or `BossBattle` only when the battle branch has produced
   or planned the referenced battle.
 
-## Battle Rewards
+## Battle Entry Actions Versus Battle Rewards
 
-Battle rewards connect by stable battle id:
+Popup battle-entry actions connect by stable battle id:
 
 ```json
 {
@@ -282,6 +282,17 @@ Battle rewards connect by stable battle id:
 
 `PopupEventBuilder` resolves `rewardId` first, then finds a generated `BattleSO`
 whose `battleId` matches that value.
+
+Despite being represented by `PopupEventRewardData`, `SpecialBattle` and
+`BossBattle` are transition actions. They start a battle; they are not the
+battle-clear gold payout.
+
+- Planning `rewardOwner: battle` or `gold_battle_reward` must not create a
+  `Gold` entry in popup `rewards[]`.
+- Planning `rewardOwner: popup` may create `Gold` only when its trigger is
+  explicitly executed by the popup flow.
+- Never decide ownership from `rewardType: gold` alone.
+- Missing or conflicting ownership must fail before building assets.
 
 The concrete battle definition must live in a separate BattleSO input JSON,
 for example `Assets/Resources/battle/{battle_group}/{battle_id}.json`. Do not
@@ -316,6 +327,8 @@ Before build:
 - every `conditionType` parses as `PopupEventChoiceConditionType`.
 - every `rewardType` parses as `PopupEventRewardType`.
 - gold rewards use `Gold`, not lowercase `gold`.
+- popup Gold rewards have explicit `rewardOwner: popup` provenance.
+- battle-owned gold intent is absent from popup `rewards[]`.
 
 After build:
 

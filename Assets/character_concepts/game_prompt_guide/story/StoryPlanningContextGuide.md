@@ -167,8 +167,10 @@ Recommended fields:
         "opens": [
           "battle"
         ],
+        "rewardOwner": "battle",
+        "rewardTrigger": "battle_clear",
         "rewardDirection": [
-          "gold_clear_reward"
+          "gold_battle_reward"
         ]
       }
     ]
@@ -272,6 +274,12 @@ Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
 
 At this stage, use only `gold` as the concrete reward type and keep the reason
 or scale at planning level.
+
+Also declare execution ownership. `rewardType: gold` does not imply a popup
+payout. Use `rewardOwner: battle` with `rewardTrigger: battle_clear` for battle
+clear rewards, and use `rewardOwner: popup` only when the popup flow explicitly
+performs the payout. Legacy `gold_battle_reward` is always battle-owned. If
+ownership cannot be resolved, stop instead of defaulting to popup Gold.
 
 Do not invent item, equipment, skill, or difficulty reward tables until the
 reward guide is expanded.
@@ -458,7 +466,9 @@ It may contain:
   "battle": {},
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "rewardType": "gold"
+    "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear"
   },
   "handoff": {},
   "constraints": []
@@ -478,6 +488,9 @@ It may contain:
 - `story.scriptSynopsis` is synopsis-level, not final script prose.
 - Choices explain what they open or change.
 - `reward` is present when a choice resolves or starts a battle.
+- Every new reward declares `rewardOwner` and `rewardTrigger`.
+- Battle-clear reward intent is battle-owned and never defaults to popup Gold.
+- Missing or conflicting reward ownership is reported instead of guessed.
 - `battle` is present only when the episode needs battle.
 - `battle` does not contain exact spawn timing, spawn count, or final spawner type.
 - `monster` gives family, role, and difficulty direction only.

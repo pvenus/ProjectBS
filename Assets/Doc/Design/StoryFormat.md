@@ -1,7 +1,7 @@
 # 에피소드 스토리 입력 포맷
 
 - formatId: `design.format.episode_story`
-- version: `5`
+- version: `6`
 
 ## 목적
 
@@ -97,6 +97,8 @@ choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers
 | `rewards` | 선택으로 발생하는 결과 |
 | `rewardType` | 결과 종류 |
 | `rewardId` | 명시적인 안정적 대상 ID |
+| `rewardOwner` | 실제 지급 시스템. `battle` 또는 `popup` |
+| `rewardTrigger` | 지급 시점. `battle_clear`, `choice_confirm`, `episode_clear`, `chapter_clear` |
 
 ## 입력 예시
 
@@ -144,6 +146,11 @@ choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers
           "labelKo": "마을 사람들을 구한다",
           "resultKo": "서진은 검은 천의 무리 사이로 뛰어들었다.",
           "nextPopupId": "node.act1.chapter01.episode01.rescue_start",
+          "rewardOwner": "battle",
+          "rewardTrigger": "battle_clear",
+          "rewardIntent": [
+            "gold_battle_reward"
+          ],
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -168,5 +175,7 @@ choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers
 7. 9줄×40자 제한 때문에 분할할 팝업도 기획 단계에서 각각 이름을 받는다.
 8. 이름 없는 자동 팝업이나 배열 인덱스 기반 ID를 만들지 않는다.
 9. `reuse` 이미지 정책은 기존 `imageSourcePopupId`를 명시하고 원본 PNG를 변경 없이 새 popupId 경로로 복사한다.
-10. 전투 결과는 `rewardId`에 안정적인 `battleId`를 명시한다.
-11. 기존 순번형 ID와 연결 자산은 자동 변경하지 않는다.
+10. 보상 종류와 지급 주체를 분리한다. `rewardType: gold`만으로 popup 지급을 추론하지 않는다.
+11. `rewardOwner: battle` 또는 `gold_battle_reward`는 popup `Gold` payload로 만들지 않는다. 팝업의 `SpecialBattle`/`BossBattle`은 battleId를 참조하는 전투 진입 action일 뿐 전투 클리어 보상이 아니다.
+12. popup `Gold`는 `rewardOwner: popup`과 명시적인 popup 실행 trigger가 있을 때만 작성한다. 소유권이 불명확하면 실패한다.
+13. 기존 순번형 ID와 연결 자산은 자동 변경하지 않는다.

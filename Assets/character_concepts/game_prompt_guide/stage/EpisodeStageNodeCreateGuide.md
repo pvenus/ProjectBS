@@ -34,8 +34,11 @@ Battle-related branches can run in parallel:
 Episode Battle Plan JSON
   -> BattleSO Input JSON
   -> BattleSO Asset
-  -> PopupEvent reward payload or battle reward reference
+  -> PopupEvent SpecialBattle/BossBattle entry action
 ```
+
+Battle-clear reward intent remains owned by the battle reward pipeline. It is
+not converted into a popup `Gold` payload.
 
 ## Existing Builder
 
@@ -444,8 +447,39 @@ HasItem
 
 `rewards[]` maps to `PopupEventRewardData`.
 
-Current story planning should use gold only unless a specific downstream system
-already requires another reward.
+Current story planning may use gold as the reward content, but reward content
+must not be confused with reward execution ownership. Read `rewardOwner` and
+`rewardTrigger` before creating any popup reward payload.
+
+| Planning ownership | Stage behavior |
+|---|---|
+| `rewardOwner: popup` | May emit a concrete `Gold` entry in `choices[].rewards[]` when the trigger is explicitly popup-executed. |
+| `rewardOwner: battle` | Must not emit popup `Gold`. Hand the intent to the battle reward pipeline. The popup may emit only `SpecialBattle`/`BossBattle` to enter the battle. |
+
+Never infer popup ownership from `rewardType: gold`. For legacy input,
+`gold_battle_reward`, `normal_battle_clear`, a battle-clear reason, or a choice
+opening a battle is battle-owned. If ownership evidence conflicts or remains
+unclear, fail with `ambiguous_reward_owner`.
+
+Regression example for legacy Episode 1 planning:
+
+```text
+rewardType: gold
+rewardIntent: gold_battle_reward
+rewardScaleHint: normal_battle_clear
+choice opens: battle
+```
+
+Required interpretation:
+
+```text
+rewardOwner: battle
+popup rewards: SpecialBattle/BossBattle battle-entry action only
+popup Gold: forbidden
+battle reward handoff: gold_battle_reward
+```
+
+The word `gold` never overrides the battle-clear ownership evidence.
 
 Simple gold reward:
 
@@ -466,7 +500,7 @@ Route unlock reward:
 }
 ```
 
-Battle reward:
+Battle entry action (not battle-clear payout):
 
 ```json
 {
@@ -475,8 +509,10 @@ Battle reward:
 }
 ```
 
-Battle rewards must reference a generated BattleSO by id. The concrete battle
-definition belongs in a separate BattleSO input JSON, for example
+This `SpecialBattle` entry starts the referenced battle. It does not grant the
+battle's gold reward. Battle-owned gold is omitted from popup `rewards[]` and is
+handed to the battle reward pipeline. The concrete battle definition belongs in
+a separate BattleSO input JSON, for example
 `Assets/Resources/battle/{battle_group}/{battle_id}.json`. Stage node JSON must
 not duplicate full battle payloads.
 
@@ -559,7 +595,10 @@ Before building SO assets:
 - Every `conditionType` parses as `PopupEventChoiceConditionType`.
 - Every `rewardType` parses as `PopupEventRewardType`.
 - Gold rewards use `Gold`, not lowercase `gold`.
-- Battle rewards reference a generated or planned battle id.
+- Every popup Gold reward has explicit popup ownership provenance.
+- Battle-owned reward intent never becomes popup Gold.
+- `SpecialBattle`/`BossBattle` is a battle-entry action and references a generated or planned battle id.
+- Missing or conflicting ownership fails as `ambiguous_reward_owner`.
 
 After building SO assets:
 

@@ -329,6 +329,8 @@ Recommended shape:
         "opens": [
           "battle"
         ],
+        "rewardOwner": "battle",
+        "rewardTrigger": "battle_clear",
         "rewardDirection": [
           "gold_battle_reward"
         ]
@@ -535,11 +537,29 @@ Recommended shape:
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
     "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear",
     "rewardReason": "Reward the player for clearing the village rescue battle.",
-    "rewardScaleHint": "normal_battle_clear"
+    "rewardScaleHint": "normal_battle_clear",
+    "rewardIntent": [
+      "gold_battle_reward"
+    ]
   }
 }
 ```
+
+`rewardType` describes the currency or item, while `rewardOwner` determines the
+execution system. Never map `rewardType: gold` directly to a popup reward.
+
+- `rewardOwner: battle` + `rewardTrigger: battle_clear`: hand off to the battle
+  reward pipeline; Stage popup `Gold` is forbidden.
+- `rewardOwner: popup`: a later Stage step may create a popup reward only when
+  the trigger is explicitly `choice_confirm`, `episode_clear`, or
+  `chapter_clear` and the planning intent says that the popup performs payout.
+- Legacy `gold_battle_reward`, `normal_battle_clear`, or a reward reason tied to
+  clearing a battle is classified as battle-owned even if `rewardOwner` is
+  absent. Conflicting or unclear evidence must fail as
+  `ambiguous_reward_owner` rather than defaulting to popup Gold.
 
 Do not create item, material, skill, or difficulty-scaled rewards until
 `RewardPlanningGuide.md` defines them.
@@ -604,7 +624,9 @@ Use refs only. Do not copy full downstream data.
   "battle": {},
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "rewardType": "gold"
+    "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear"
   },
   "handoff": {},
   "constraints": []
@@ -702,10 +724,13 @@ Before finishing:
 12. Validate `battle` gives only shape, mood, and difficulty direction.
 13. Validate reward direction uses `RewardPlanningGuide.md`.
 14. Validate current reward type is only `gold`.
-15. Validate episode battle monster pool refs, when present, are pre-monster-creation planning files.
-16. Validate episode battle plan refs, when present, select an existing reusable spawner.
-17. If no reusable spawner matches, validate that no episode battle plan JSON was created and that the final response reports spawner creation is required.
-18. Validate no final runtime asset data is embedded.
+15. Validate every new reward declares `rewardOwner` and `rewardTrigger`.
+16. Validate battle-clear intent is battle-owned and cannot become popup Gold.
+17. Validate ambiguous or conflicting ownership stops instead of being guessed.
+18. Validate episode battle monster pool refs, when present, are pre-monster-creation planning files.
+19. Validate episode battle plan refs, when present, select an existing reusable spawner.
+20. If no reusable spawner matches, validate that no episode battle plan JSON was created and that the final response reports spawner creation is required.
+21. Validate no final runtime asset data is embedded.
 
 ## Final Response
 

@@ -1,7 +1,7 @@
 # 에피소드 스토리 입력 포맷 - 비 JSON 설명
 
 - formatId: `design.format.episode_story`
-- version: `5`
+- version: `6`
 
 ## 작성 대상
 
@@ -57,6 +57,17 @@ event_003
 - `resultKo`: 선택 직후 결과 지문
 
 선택지 배열 번호는 ID가 아니다.
+
+## 보상 소유권
+
+`rewardType`은 무엇을 지급하는지만 뜻한다. 실제 지급 위치는 반드시
+`rewardOwner`와 `rewardTrigger`로 판단한다.
+
+- `rewardOwner: battle`, `rewardTrigger: battle_clear`: 전투 승리 파이프라인이 지급한다. 팝업 `Gold`로 만들지 않는다.
+- `rewardOwner: popup`: 팝업 흐름이 실제 지급하는 경우에만 `Gold` payload를 만든다.
+- `gold_battle_reward`, `normal_battle_clear`, 전투 클리어 보상 문구는 기존 데이터에서도 battle-owned로 해석한다.
+- `SpecialBattle`/`BossBattle`은 전투 진입 action이며 전투 클리어 골드 보상이 아니다.
+- 소유권 단서가 충돌하거나 없으면 추측하지 않고 실패한다.
 
 ## 이미지 정책
 
