@@ -1,4 +1,4 @@
-{
+﻿{
   "formatId": "design.format.episode_story",
   "version": 6,
   "purposeKo": "원본 지문과 영구 팝업 이름을 기획 단계에서 보존하고 동일한 popupId를 Stage, 문자열, 이미지, PopupEventSO에 사용한다.",
@@ -46,7 +46,7 @@
       "none"
     ],
     "reuseRuleKo": "reuse이면 imageSourcePopupId를 명시하고 승인된 원본 PNG를 변경 없이 새 {popupId}.main.png 경로로 복사한다.",
-    "layoutRuleKo": "9줄×40자 분할이 필요하면 기획 단계에서 각 팝업에 별도 의미 기반 이름을 지정한다."
+    "layoutRuleKo": "평문은 자동 개행을 허용하고, 40자는 의도적 수동 개행의 권장 폭으로만 사용한다. UI 높이 때문에 분할이 필요하면 기획 단계에서 각 팝업에 별도 의미 기반 이름을 지정한다."
   },
   "choiceDefinition": {
     "required": [
