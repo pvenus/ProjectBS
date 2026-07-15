@@ -33,7 +33,12 @@ Input:
   - Assets/Doc/Story/Characters.md
 
 작업:
-1. episodeFile 원문을 읽고 시놉시스 수준으로 요약한다. 동시에 원문 지문을 의미 단위 block으로 나누되 `originalTextKo`는 축약·윤문·UI 개행 없이 그대로 보존하고 각 block에 영구 `sourceNarrationId`를 부여한다.
+1. episodeFile 원문을 읽고 `story.scriptSynopsis`를 만든다.
+   - `episodeSummary`는 에피소드 맨윗줄의 Summary 내용을 우선 사용해 짧게 정리한다.
+   - `sceneBeats`는 원문 스토리의 대부분의 사건, 단서, 감정 변화, 선택 전후 흐름을 보존한다.
+   - `sceneBeats`에서 원문 내용을 과도하게 압축하지 않는다. 불필요하게 길게 늘어진 문장, 반복 표현, 장식적인 수식만 짧게 정리한다.
+   - 각 beat는 후속 정식 스크립트 생성자가 원문 흐름을 복원할 수 있을 정도로 구체적으로 작성한다.
+   동시에 원문 지문을 의미 단위 block으로 나누되 `originalTextKo`는 축약·윤문·UI 개행 없이 그대로 보존하고 각 block에 영구 `sourceNarrationId`를 부여한다.
 2. 원문에 있는 플레이어/파티 기준을 확인한다. 근거가 없으면 임의로
    2인/3인 파티를 넣지 않는다.
 3. common/story/monster/battle/reward/handoff 카테고리로 episode JSON을 만들고 `story.sourceNarration`과 `story.popupDefinitions`를 포함한다.
@@ -87,6 +92,9 @@ Output:
 - JSON 문법이 유효해야 한다.
 - sourceEpisodeFile, sourceChapterFile이 존재해야 한다.
 - 시놉시스가 정식 스크립트 수준의 대사/지문으로 확장되지 않아야 한다.
+- `episodeSummary`는 에피소드 맨윗줄 Summary를 우선 반영해야 한다.
+- `sceneBeats`는 원문 사건 흐름의 대부분을 보존해야 하며, 핵심 사건/단서/감정 변화/선택 전후 흐름을 누락하지 않아야 한다.
+- `sceneBeats`는 과도한 요약 목록이 아니라 원문 기반의 구체적 beat 목록이어야 한다.
 - sourceNarration.blocks[].originalTextKo는 episodeFile 원문과 동일해야 한다.
 - 신규 popupName은 에피소드 안에서 고유한 의미 기반 snake_case여야 한다.
 - 신규 popupId는 popupName 기반 공식 생성식과 정확히 일치해야 한다.
