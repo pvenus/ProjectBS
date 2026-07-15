@@ -1,193 +1,276 @@
-{
-  "documentId": "episode_planning.act1.chapter01.04_1",
-  "documentType": "episodePlanning",
-  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
-  "common": {
-    "episodeId": "episode.act1.chapter01.04_1",
-    "inputEpisodeId": "episode.04-1",
-    "actId": "act.01",
-    "chapterId": "chapter.01.01",
-    "actGroupId": "cheongun_sangui_act1",
-    "title": "? ?? ??",
-    "episodeRole": "investigation",
-    "secondaryRoles": [
-      "travel",
-      "stealth"
-    ],
-    "source": {
-      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
-      "sourceChapterFile": "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
-      "storyReferenceFiles": [
-        "Assets/Doc/Story/00_Background.md",
-        "Assets/Doc/Story/Act01/01_Overall_Story.md",
-        "Assets/Doc/Story/Act01/Act_01_Background.md",
-        "Assets/Doc/Story/Characters.md"
-      ],
-      "promptReferenceFile": "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
-      "sampleStageNodeFile": "Assets/Resources/stage_new/chapter1/episode1.json"
-    },
-    "stageNamingHint": {
-      "sampleChapterId": "chapter1",
-      "suggestedStageChapterId": "chapter1",
-      "suggestedStageEpisodeId": "episode4_1",
-      "suggestedStageNodeId": "stage.ch1.episode4_1"
-    }
-  },
-  "story": {
-    "scriptSynopsis": {
-      "episodeSummary": "??? ??? ? ?? ???? ?? ??? ??? ??? ????, ??? ??? ? ??? ?? ??? ???? ??? ??? ??? ????.",
-      "sceneBeats": [
-        "??? ??? ? ?? ??? ?? ? ??? ?? ??? ????.",
-        "??? ??, ??? ??, ?? ???? ???? ??? ??? ????.",
-        "??? ?? ??? ???? ???? ?? ?? ???? ????.",
-        "? ??? ?? ???? ?? ??? ???? ??? ????.",
-        "???? ?? ?? ??, ?? ?? ??? ?? ?? ??? ?? ?? ? ???.",
-        "??? ??? ??? ??? ?? ??? ?? ? ?? ??? ????."
-      ],
-      "emotionalTone": [
-        "quiet_tension",
-        "medical_hope",
-        "stealth",
-        "forest_dread"
-      ],
-      "sceneFunction": "???? ?? ?? ???? ??? ??? ?? ??? ???? ??/?? ?????.",
-      "mustShow": [
-        "? ?? ??",
-        "?? ??",
-        "??? ??",
-        "??? ??",
-        "?? ???",
-        "???? ??",
-        "?? ? ??",
-        "?? ??",
-        "?? ?? ?",
-        "?? ?? ???"
-      ],
-      "mustHide": [
-        "sangui_true_form",
-        "spirit_boss",
-        "final_abduction_truth",
-        "sister_case_resolution"
-      ],
-      "locationDirection": [
-        "bloody_mountain_path",
-        "forest_slope"
-      ],
-      "scriptHandoffHint": "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
-    },
-    "choiceDirections": [
-      {
-        "choiceId": "episode.act1.chapter01.04_1.choice.follow_bloody_trace_with_jihan.1",
-        "sourceChoiceText": "??? ?? ? ?? ??? ????.",
-        "choiceIntent": "??? ??? ??? ?? ? ??? ??? ??? ????.",
-        "outcomeDirection": "??? ??? ?? ??? ???? ?? ? ?? ?? ???? ??? ????.",
-        "opens": [
-          "investigation",
-          "stealth_travel"
-        ],
-        "rewardDirection": [
-          "gold_episode_clear"
-        ]
-      }
-    ]
-  },
-  "monster": {
-    "monsterFamily": "coerced_starving_beast_trace",
-    "difficultyIntent": "none_in_episode",
-    "recommendedTier": "none",
-    "roleDirections": [
-      "environmental_threat",
-      "offscreen_coerced_beast_clue"
-    ],
-    "visualDirection": [
-      "starved_wolf",
-      "wild_dog",
-      "red_cloth",
-      "rope_mark",
-      "white_blind_eye",
-      "sangui_charm"
-    ],
-    "reusePreference": "direction_only_reuse_existing_if_later_pool_matches",
-    "creationPolicy": "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
-    "forbiddenTypes": [
-      "direct_battle",
-      "elite",
-      "boss",
-      "spirit",
-      "sangui_true_form"
-    ],
-    "revealPolicy": "??? ?? ?? ???? ???? ?? ??? ?? ?? ????? ???.",
-    "planningNotes": [
-      "?? NPC, ??, ??, ??? ??? ??? ??? ???."
-    ]
-  },
-  "battle": {
-    "battleNeed": "not_required",
-    "battleMood": "stealth_investigation",
-    "battleShape": "avoid_beast_pack",
-    "difficultyIntent": "none",
-    "partyAssumption": "seojin_with_jihan_investigation_no_battle",
-    "partyAssumptionBasis": "??? ?? ?? ? ??? ??? ??? ????, ??? ???? ?? ?? ??? ????. ?? ?? ??? ??.",
-    "paceIntent": "slow_careful_tracking",
-    "monsterPressure": [],
-    "spaceDirection": [
-      "narrow_slope",
-      "brush",
-      "bloody_trace"
-    ],
-    "avoid": [
-      "precise_spawner_selection",
-      "precise_spawn_sequence",
-      "precise_spawn_quantity",
-      "runtime_battle_asset_payload",
-      "unbased_party_size",
-      "boss_reveal_without_source",
-      "spirit_reveal"
-    ],
-    "battleStoryContextHint": "??? ?? ?? ??????? ?? ?? ?? ??? ???? ??."
-  },
-  "reward": {
-    "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "rewardType": "gold",
-    "rewardReason": "? ?? ??? ???? ?? ?? ???? ???? ?? ??? ?? ????.",
-    "rewardScaleHint": "normal_episode_clear",
-    "rewardIntent": [
-      "gold_episode_clear"
-    ],
-    "rewards": [
-      {
-        "rewardType": "gold",
-        "amount": 50
-      }
-    ]
-  },
-  "handoff": {
-    "formalScriptNeedsPersona": true,
-    "monsterPlanningNeeded": false,
-    "battleStoryContextNeeded": false,
-    "rewardPlanningNeeded": true,
-    "battleMonsterPoolRef": null,
-    "battlePlanRef": null,
-    "battlePlanStatus": "not_created_no_battle_need",
-    "monsterContextRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
-    "monsterCompositionRef": "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
-    "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "roundNodeInputHint": {
-      "stageChapterId": "chapter1",
-      "stageEpisodeId": "episode4_1",
-      "suggestedStageNodeId": "stage.ch1.episode4_1",
-      "sourceEpisodePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json"
-    }
-  },
-  "constraints": [
-    "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
-    "?? ?? ?? ?? ??? ???? ???.",
-    "??? ??? ?? ?? ??? ???? ???.",
-    "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
-    "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
-    "?? ??? gold ??? ????."
-  ],
-  "notes": [
-    "Generated for episode.04-1 from Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md."
-  ]
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.04_1",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.04_1",
+                   "inputEpisodeId":  "episode.04-1",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "피 묻은 산길",
+                   "episodeRole":  "investigation",
+                   "secondaryRoles":  [
+                                          "travel",
+                                          "stealth"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode4_1",
+                                           "suggestedStageNodeId":  "stage.ch1.episode4_1"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "지한과 함께 피 묻은 산길을 살피며, 실종된 아이들이 아직 살아 있을 가능성과 산속의 이상한 흔적을 확인하는 조사 에피소드.",
+                                         "sceneBeats":  [
+                                                            "??? ??? ? ?? ??? ?? ? ??? ?? ??? ????.",
+                                                            "??? ??, ??? ??, ?? ???? ???? ??? ??? ????.",
+                                                            "??? ?? ??? ???? ???? ?? ?? ???? ????.",
+                                                            "? ??? ?? ???? ?? ??? ???? ??? ????.",
+                                                            "???? ?? ?? ??, ?? ?? ??? ?? ?? ??? ?? ?? ? ???.",
+                                                            "??? ??? ??? ??? ?? ??? ?? ? ?? ??? ????."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "quiet_tension",
+                                                               "medical_hope",
+                                                               "stealth",
+                                                               "forest_dread"
+                                                           ],
+                                         "sceneFunction":  "???? ?? ?? ???? ??? ??? ?? ??? ???? ??/?? ?????.",
+                                         "mustShow":  [
+                                                          "? ?? ??",
+                                                          "?? ??",
+                                                          "??? ??",
+                                                          "??? ??",
+                                                          "?? ???",
+                                                          "???? ??",
+                                                          "?? ? ??",
+                                                          "?? ??",
+                                                          "?? ?? ?",
+                                                          "?? ?? ???"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "bloody_mountain_path",
+                                                                   "forest_slope"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.04_1.choice.follow_bloody_trace_with_jihan.1",
+                                               "sourceChoiceText":  "지한과 함께 피 묻은 흔적을 따라간다.",
+                                               "choiceIntent":  "??? ??? ??? ?? ? ??? ??? ??? ????.",
+                                               "outcomeDirection":  "??? ??? ?? ??? ???? ?? ? ?? ?? ???? ??? ????.",
+                                               "opens":  [
+                                                             "investigation",
+                                                             "stealth_travel"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ],
+                                               "choiceName":  "follow_bloody_trace_with_jihan",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode04_1.bloody_path_clues.follow_bloody_trace_with_jihan",
+                                               "sourcePopupId":  "node.act1.chapter01.episode04_1.bloody_path_clues",
+                                               "legacyChoiceId":  "episode.act1.chapter01.04_1.choice.follow_bloody_trace_with_jihan.1"
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_1.bloody_path_clues",
+                                                             "popupName":  "bloody_path_clues",
+                                                             "originalTextKo":  "지한이 합류한 뒤, 서진 일행은 아이가 남긴 붉은 천의 흔적을 따라 산길로 들어섰다.\n\n길가에는 짓밟힌 약초와 찢어진 옷감, 급히 끌려간 듯한 작은 발자국이 흩어져 있었다. 지한은 그중 하나를 집어 들고 눈을 가늘게 떴다.\n\n\"아이 옷감입니다. 오래되지 않았습니다.\"\n\n말이 끝나기도 전에 숲 아래쪽에서 굶주린 짐승들의 울음소리가 번졌다. 피 냄새를 맡은 것들이 가까이 있는 듯했다.\n\n나무 사이로 모습을 드러낸 것은 산늑대와 멧개의 무리였다. 털은 군데군데 빠져 있었고, 등에는 마른 진흙과 붉은 천 조각이 엉겨 붙어 있었다. 목덜미에는 오래된 밧줄 자국이 패여 있었으며, 몇 마리는 이빨 사이에 작은 쇠고리 같은 것이 끼워져 있었다. 배는 굶주림으로 바짝 들어갔지만 목둘레만은 노끈과 천 조각 때문에 부풀어 보여, 누군가 억지로 몰고 다니던 짐승처럼 보였다.\n\n무리 뒤쪽의 큰 늑대는 다른 짐승들과 달리 한쪽 눈이 희게 흐려져 있었다. 귀 끝에는 붉은 실이 꿰여 있었고, 목에는 산귀 부적을 접어 만든 목걸이가 걸려 있었다. 짐승의 눈빛이라기에는 지나치게 사람의 명령에 익숙해 보이는 침착함이 있었다.\n\n지한은 숨을 낮추고 부상자의 흔적이 이어진 길을 가리켰다.\n\n\"소리를 내지 않는 편이 좋겠습니다. 이쪽으로 돌아가면 피가 마른 곳을 밟지 않고 지나갈 수 있습니다.\"\n\n서진은 고개를 끄덕이고 검집을 손으로 눌러 소리가 나지 않게 했다.\n\n지금 필요한 것은 짐승을 자극하는 일이 아니었다. 아이의 흔적을 잃지 않으면서, 산속에 누가 이런 표식을 남겼는지 확인하는 일이었다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode04_1.bloody_path_clues"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_1.coerced_beast_pack",
+                                                             "popupName":  "coerced_beast_pack",
+                                                             "originalTextKo":  "서진은 지한이 아이의 흔적을 살필 수 있도록 주변을 경계했다.\n\n산길은 좁고 비탈졌다. 말라붙은 털, 붉은 천, 희게 흐린 눈이 낮은 수풀 사이에서 계속 흔들렸다. 서진과 지한은 노끈과 부적으로 목이 감긴 짐승 무리를 피해, 짓밟힌 풀잎과 피 묻은 천이 이어지는 방향을 조심스럽게 따라갔다.",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode04_1.coerced_beast_pack"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "bloody_path_clues",
+                                               "popupId":  "node.act1.chapter01.episode04_1.bloody_path_clues",
+                                               "eventId":  "node.act1.chapter01.episode04_1.bloody_path_clues",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_1.bloody_path_clues",
+                                               "originalTextKo":  "지한이 합류한 뒤, 서진 일행은 아이가 남긴 붉은 천의 흔적을 따라 산길로 들어섰다.\n\n길가에는 짓밟힌 약초와 찢어진 옷감, 급히 끌려간 듯한 작은 발자국이 흩어져 있었다. 지한은 그중 하나를 집어 들고 눈을 가늘게 떴다.\n\n\"아이 옷감입니다. 오래되지 않았습니다.\"\n\n말이 끝나기도 전에 숲 아래쪽에서 굶주린 짐승들의 울음소리가 번졌다. 피 냄새를 맡은 것들이 가까이 있는 듯했다.\n\n나무 사이로 모습을 드러낸 것은 산늑대와 멧개의 무리였다. 털은 군데군데 빠져 있었고, 등에는 마른 진흙과 붉은 천 조각이 엉겨 붙어 있었다. 목덜미에는 오래된 밧줄 자국이 패여 있었으며, 몇 마리는 이빨 사이에 작은 쇠고리 같은 것이 끼워져 있었다. 배는 굶주림으로 바짝 들어갔지만 목둘레만은 노끈과 천 조각 때문에 부풀어 보여, 누군가 억지로 몰고 다니던 짐승처럼 보였다.\n\n무리 뒤쪽의 큰 늑대는 다른 짐승들과 달리 한쪽 눈이 희게 흐려져 있었다. 귀 끝에는 붉은 실이 꿰여 있었고, 목에는 산귀 부적을 접어 만든 목걸이가 걸려 있었다. 짐승의 눈빛이라기에는 지나치게 사람의 명령에 익숙해 보이는 침착함이 있었다.\n\n지한은 숨을 낮추고 부상자의 흔적이 이어진 길을 가리켰다.\n\n\"소리를 내지 않는 편이 좋겠습니다. 이쪽으로 돌아가면 피가 마른 곳을 밟지 않고 지나갈 수 있습니다.\"\n\n서진은 고개를 끄덕이고 검집을 손으로 눌러 소리가 나지 않게 했다.\n\n지금 필요한 것은 짐승을 자극하는 일이 아니었다. 아이의 흔적을 잃지 않으면서, 산속에 누가 이런 표식을 남겼는지 확인하는 일이었다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode04_1.coerced_beast_pack",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "follow_bloody_trace_with_jihan",
+                                                                   "choiceId":  "choice.act1.chapter01.episode04_1.bloody_path_clues.follow_bloody_trace_with_jihan",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.04_1.choice.follow_bloody_trace_with_jihan.1",
+                                                                   "sourceChoiceText":  "지한과 함께 피 묻은 흔적을 따라간다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ]
+                                                               }
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "coerced_beast_pack",
+                                               "popupId":  "node.act1.chapter01.episode04_1.coerced_beast_pack",
+                                               "eventId":  "node.act1.chapter01.episode04_1.coerced_beast_pack",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_1.coerced_beast_pack",
+                                               "originalTextKo":  "서진은 지한이 아이의 흔적을 살필 수 있도록 주변을 경계했다.\n\n산길은 좁고 비탈졌다. 말라붙은 털, 붉은 천, 희게 흐린 눈이 낮은 수풀 사이에서 계속 흔들렸다. 서진과 지한은 노끈과 부적으로 목이 감긴 짐승 무리를 피해, 짓밟힌 풀잎과 피 묻은 천이 이어지는 방향을 조심스럽게 따라갔다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+
+                                                           ]
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "coerced_starving_beast_trace",
+                    "difficultyIntent":  "none_in_episode",
+                    "recommendedTier":  "none",
+                    "roleDirections":  [
+                                           "environmental_threat",
+                                           "offscreen_coerced_beast_clue"
+                                       ],
+                    "visualDirection":  [
+                                            "starved_wolf",
+                                            "wild_dog",
+                                            "red_cloth",
+                                            "rope_mark",
+                                            "white_blind_eye",
+                                            "sangui_charm"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "direct_battle",
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "??? ?? ?? ???? ???? ?? ??? ?? ?? ????? ???.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "not_required",
+                   "battleMood":  "stealth_investigation",
+                   "battleShape":  "avoid_beast_pack",
+                   "difficultyIntent":  "none",
+                   "partyAssumption":  "seojin_with_jihan_investigation_no_battle",
+                   "partyAssumptionBasis":  "??? ?? ?? ? ??? ??? ??? ????, ??? ???? ?? ?? ??? ????. ?? ?? ??? ??.",
+                   "paceIntent":  "slow_careful_tracking",
+                   "monsterPressure":  [
+
+                                       ],
+                   "spaceDirection":  [
+                                          "narrow_slope",
+                                          "brush",
+                                          "bloody_trace"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "??? ?? ?? ??????? ?? ?? ?? ??? ???? ??."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "? ?? ??? ???? ?? ?? ???? ???? ?? ??? ?? ????.",
+                   "rewardScaleHint":  "normal_episode_clear",
+                   "rewardIntent":  [
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  50
+                                   }
+                               ]
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  false,
+                    "battleStoryContextNeeded":  false,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  null,
+                    "battlePlanRef":  null,
+                    "battlePlanStatus":  "not_created_no_battle_need",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode4_1",
+                                               "suggestedStageNodeId":  "stage.ch1.episode4_1",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json",
+                                               "planningPopupPolicyRef":  "story.popupDefinitions"
+                                           }
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.04-1 from Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md."
+              ]
 }
