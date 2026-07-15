@@ -1,4 +1,4 @@
-# Episode Stage Node Create Guide
+﻿# Episode Stage Node Create Guide
 
 ## Purpose
 
@@ -297,39 +297,46 @@ Use `textLayoutProfile: stage_popup_v1` for the current popup display rules.
 
 The profile applies independently to every player-facing popup body:
 
-- Maximum lines: `9`.
-- Maximum width per line: `40` displayed characters.
-- The newline character itself is not included in the width count.
-- Spaces and visible punctuation are included in the width count.
+- Maximum displayed body height: plan for roughly `9` rendered lines.
+- `40` displayed characters is a soft authoring guide for intentional manual
+  line breaks, not a hard limit for every stored text line.
+- Plain prose should usually be written as one continuous sentence or paragraph
+  and let the runtime text box wrap it automatically.
+- Insert explicit `\n` only when the break is part of the intended reading beat,
+  emphasis, list rhythm, or visual composition.
+- The newline character itself is not included in width estimates.
+- Spaces and visible punctuation are included when estimating a manual line.
 - Count Unicode text elements (grapheme clusters), not UTF-8 bytes or UTF-16
   code units. A visible composed character counts as one character; spaces and
   punctuation each count as one, and `\n` counts only as a line boundary.
-- Apply the same body budget to `textKo`, `bodyKo`, and `choices[].resultKo`.
-- `choices[].labelKo` is rendered in a separate button area and is not included
-  in the nine-line body budget. Keep it concise and apply the same word-boundary
-  wrapping principles if a line break is necessary.
+- Apply the same display intent to `textKo`, `bodyKo`, and
+  `choices[].resultKo`.
+- `choices[].labelKo` is rendered in a separate button area. Keep it concise;
+  add a manual break only when the label itself needs a deliberate beat.
 
 Line wrapping rules:
 
-1. Prefer natural sentence, clause, Korean eojeol, and word boundaries.
-2. Prefer a slightly shorter balanced line over filling all 40 characters when
-   that produces more natural reading rhythm.
-3. Insert explicit `\n` only after determining balanced semantic line breaks.
-4. Do not split a Korean eojeol, English word, number, proper noun, or punctuation
-   group in the middle merely to reach 40 characters.
-5. If a sentence cannot fit cleanly, first rewrite only the display projection
+1. Do not hard-wrap every line at 40 characters.
+2. For normal narration, prefer long stored lines and rely on automatic UI wrap.
+3. Use manual line breaks sparingly at natural sentence, clause, Korean eojeol,
+   and word boundaries when emphasis or readability improves.
+4. When an intentional manual line is used, aim around 40 displayed characters
+   or shorter, but do not force exact 40-character rows.
+5. Do not split a Korean eojeol, English word, number, proper noun, or punctuation
+   group in the middle merely to satisfy a count.
+6. If a sentence cannot fit cleanly, first rewrite only the display projection
    without changing its meaning. Preserve the unmodified wording in
    `sourceTextKo`.
-6. If the complete display text still exceeds 9 lines, split it into multiple
-   popup nodes at a sentence or paragraph boundary. Do not truncate the text.
-7. Do not use ellipses as a substitute for omitted source content unless the
+7. If the complete display text is expected to exceed the popup height after UI
+   wrapping, split it into multiple popup nodes at a sentence or paragraph
+   boundary. Do not truncate the text.
+8. Do not use ellipses as a substitute for omitted source content unless the
    ellipsis is an intentional part of the narration.
-8. After wrapping, validate every produced line and the total line count.
+9. Validate deliberate manual breaks for readability, not mechanical uniformity.
 
-Avoid character-count-only hard wrapping. Automatic wrapping that cuts a word or
-eojeol in the middle is a validation failure even when the result technically
-fits within 40 characters.
-
+Avoid character-count-only hard wrapping. A popup where every line is cut to a
+similar width reads mechanically and should be revised into natural prose lines
+with only intentional manual breaks.
 ## Stable Popup And Image Identity
 
 New popup identity must not depend on array position or a sequential index such
@@ -384,7 +391,7 @@ Rules:
   supported runtime presentation.
 - Never rename existing approved image files merely because a new popup was
   inserted before them.
-- If the 9-line/40-character profile requires another popup but planning has no
+- If the display text is expected to exceed the popup height after natural auto-wrap and planning has no
   unused named popup definition for that segment, stop with
   `missing_popup_definition`. Return to episode planning to assign `popupName`,
   `popupId`, source mapping, popup type, order, and image policy. Do not generate
@@ -554,7 +561,7 @@ NextBattleDefense
 - Never use popup array indexes or sequential numbering for newly issued ids.
   Preserve existing legacy ids as permanent compatibility ids.
 - Preserve canonical narration separately from its popup display projection.
-- Apply `stage_popup_v1`: at most 9 lines and at most 40 displayed characters
+- Apply `stage_popup_v1`: plan for about 9 rendered lines; do not hard-wrap every stored line at 40 characters
   per body line.
 - Wrap at sentence, clause, word, or Korean eojeol boundaries. Do not hard-wrap
   through a word or truncate source content.
@@ -584,7 +591,7 @@ Before building SO assets:
 - Every `nextNodeId` exists in `nodes[]` unless intentionally external.
 - Every derived popup keeps its `sourceNarrationId` and source text provenance.
 - Every `textKo`, `bodyKo`, and `resultKo` has at most 9 lines.
-- Every body/result line has at most 40 displayed characters.
+- Body/result text may use long auto-wrapped prose lines; any deliberate manual line break should be readable and usually around 40 displayed characters or shorter.
 - No manual or automatic line break cuts a word or Korean eojeol in the middle.
 - Text exceeding the profile is split at a semantic boundary and is never
   silently truncated.

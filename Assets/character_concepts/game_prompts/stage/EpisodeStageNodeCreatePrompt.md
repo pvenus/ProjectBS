@@ -1,4 +1,4 @@
-# Episode Stage Node Create Prompt
+﻿# Episode Stage Node Create Prompt
 
 Episode planning 또는 정식 스크립트 데이터를 기준으로 `RoundNodeSO`와
 `PopupEventSO` 변환용 Stage Node JSON을 생성하는 복사용 프롬프트입니다.
@@ -46,8 +46,8 @@ Input:
 6. optionalEpisodeScriptFile이 없으면 episodePlanningFile의 시놉시스 수준에서 과도하게 대사를 확장하지 않고 짧은 popup chain을 만든다.
 7. 각 원본 지문은 planning의 `sourceNarrationId`를 사용하고, 완전한 `originalTextKo`를 Stage JSON의 `sourceTextKo`에 보존한다.
 8. 실제 팝업 표시본만 `textKo` 또는 `bodyKo`에 작성하고 `textLayoutProfile: stage_popup_v1`을 기록한다.
-9. 표시 지문은 팝업 하나당 최대 9줄, 줄당 최대 40개의 표시 문자로 구성한다. 표시 문자는 UTF-8 byte나 UTF-16 code unit가 아니라 Unicode text element(grapheme cluster) 기준으로 센다. 조합된 하나의 표시 문자는 1자, 공백과 표시 문장부호는 각각 1자로 계산하고 개행 문자는 줄 경계로만 계산한다.
-10. 줄바꿈은 문장, 절, 단어, 한국어 어절 경계를 우선한다. 정확히 40자를 채우기보다 읽기 좋은 균형을 우선하고 단어·어절·고유명사·숫자를 중간에서 자르지 않는다.
+9. 표시 지문은 팝업 하나당 대략 9줄 안에 보이도록 계획하되, 저장 문자열을 무조건 40자마다 자르지 않는다. 평문 지문은 한 문장/문단을 한 줄로 길게 두고 UI 자동 개행에 맡기는 것을 우선한다. 40자는 의도적 수동 개행을 넣을 때의 권장 폭이다. 표시 문자 계산이 필요하면 UTF-8 byte나 UTF-16 code unit가 아니라 Unicode text element(grapheme cluster) 기준으로 센다.
+10. 수동 줄바꿈은 강조, 호흡, 시선 유도, 목록감이 필요할 때만 넣는다. 줄바꿈 위치는 문장, 절, 단어, 한국어 어절 경계를 우선하며 정확히 40자를 채우려 하지 않는다. 단어·어절·고유명사·숫자를 중간에서 자르지 않는다.
 11. 의미를 유지한 표시용 문장 정리만으로 9줄 안에 들어오지 않으면 planning의 별도 popupDefinition을 사용해 문장 또는 문단 경계에서 여러 popup node로 분리한다. 사용할 이름 있는 popupDefinition이 없으면 `missing_popup_definition`으로 실패하며 원문을 생략하거나 말줄임표로 대체하지 않는다.
 12. optionalExistingStageNodeJsonFile이 있으면 기존 `nodeId`, `choiceId`, 이미지 파일 연결, `manual_override` 문구를 먼저 읽고 보존한다. `manual_override`가 stage_popup_v1을 초과하면 자동 수정·줄바꿈·분할·절단하지 않고 `manual_override_conflict`로 실패 처리하며 대상 id, 실제 줄 수, 가장 긴 줄의 표시 문자 수를 보고한다.
 13. 새 popup event는 planning의 `popupName`, `popupId`, `popupOrder`, popupType, sourceNarrationIds, imagePolicy를 읽고 `nodes[].nodeId`에 planning `popupId`를 그대로 복사한다. Stage 단계에서 다른 id를 재계산하거나 이름 없는 popup을 만들지 않는다.
@@ -127,13 +127,13 @@ Output:
 - nextNodeId가 있으면 nodes[] 안의 실제 nodeId를 가리켜야 한다.
 - 원본 지문은 `sourceTextKo`에 완전하게 보존되고 표시용 `textKo/bodyKo`와 구분되어야 한다.
 - 원본에서 파생된 모든 popup node는 `sourceNarrationId`를 유지해야 한다.
-- 모든 `textKo`, `bodyKo`, `choices[].resultKo`는 각각 최대 9줄이어야 한다.
-- 각 표시 줄은 Unicode text element 기준으로 공백과 표시 문장부호를 포함해 최대 40자여야 한다.
+- 모든 `textKo`, `bodyKo`, `choices[].resultKo`는 UI 렌더링 기준으로 대략 9줄 안에 들어오도록 계획해야 한다.
+- 저장 문자열의 각 줄을 무조건 40자 이하로 자르지 않는다. 평문은 긴 한 줄로 두어 자동 개행을 허용하고, 의도적으로 넣은 수동 줄만 Unicode text element 기준 약 40자 안팎을 권장한다.
 - 단어, 한국어 어절, 고유명사, 숫자 중간에 강제 개행이 없어야 한다.
 - 9줄을 초과하는 내용은 문장 또는 문단 경계에서 별도 popup node로 분리되고 원문이 누락되지 않아야 한다.
 - 분할된 모든 신규 popup node는 planning에 미리 정의된 고유 popupName/popupId와 imagePolicy를 가져야 한다.
 - 재생성 시 기존 nodeId, choiceId, 이미지 파일명, `manual_override` 문구가 유지되어야 한다.
-- `manual_override`가 9줄 또는 줄당 40자를 초과하면 자동 변경하지 않고 `manual_override_conflict`로 실패해야 한다.
+- `manual_override`가 UI 렌더링상 팝업 높이를 넘거나 의도와 다른 수동 개행을 포함하면 자동 변경하지 않고 `manual_override_conflict`로 실패해야 한다.
 - battle ref는 별도 BattleSO 입력 JSON 또는 BattleSO asset을 id/path로만 참조해야 한다.
 - Popup `Gold` reward는 planning에 `rewardOwner: popup` 근거가 있어야 한다.
 - battle-owned gold intent는 `PopupEventRewardType.Gold`로 출력되면 안 된다.

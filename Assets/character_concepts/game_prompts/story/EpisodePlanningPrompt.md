@@ -1,4 +1,4 @@
-# Episode Planning Prompt
+﻿# Episode Planning Prompt
 
 Use this prompt when converting episode prose into synopsis-level planning JSON.
 
@@ -54,7 +54,7 @@ Input:
 13. `gold_battle_reward`, `normal_battle_clear`, 전투 클리어 보상 문구는 `rewardOwner: battle`, `rewardTrigger: battle_clear`로 기록한다. 이 보상은 후속 Stage popup Gold payload가 아니라 battle reward pipeline handoff 대상이다.
 14. 팝업에서 즉시 지급하는 보상만 `rewardOwner: popup`으로 기록한다. 소유권 근거가 충돌하거나 불명확하면 임의 해석하지 않고 `ambiguous_reward_owner`로 실패한다.
 15. 기존 planning JSON을 갱신할 때 기존 popupName, popupId, choiceId를 보존한다. 기존 순번형 ID는 레거시 영구 ID로 유지하고 신규 데이터에만 의미 기반 규칙을 적용한다.
-16. Stage 표시본이 9줄×40자를 넘을 것으로 예상되어 popup 분할이 필요하면 이 단계에서 각 분할 popup에 별도 의미 기반 이름과 이미지 정책을 지정한다.
+16. Stage 표시본이 UI 높이를 넘을 것으로 예상되어 popup 분할이 필요하면 이 단계에서 각 분할 popup에 별도 의미 기반 이름과 이미지 정책을 지정한다. 40자는 표시문 수동 개행의 권장 폭일 뿐 원문이나 평문 표시본을 무조건 자르는 기준이 아니다.
 
 Output:
 - 생성/수정한 JSON 경로
