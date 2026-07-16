@@ -123,7 +123,7 @@
           "legacyChoiceId": "episode.act1.chapter01.03_2.choice.subdue_training_ground_bandits.1",
           "labelKo": "유진과 함께 수련장의 산적들을 제압한다.",
           "textKo": "유진과 함께 수련장의 산적들을 제압한다.",
-          "resultKo": "전투 준비를 마치고 다가오는 적의 압박에 맞선다.",
+          "resultKo": "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다.\n\n싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
           "opens": [
             "battle"
           ],
@@ -137,26 +137,10 @@
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset"
             }
           ],
-          "nextNodeId": "node.act1.chapter01.episode03_2.training_ground_watchers"
+          "nextNodeId": null
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode03_2.training_ground_watchers"
-    },
-    {
-      "nodeId": "node.act1.chapter01.episode03_2.training_ground_watchers",
-      "popupName": "training_ground_watchers",
-      "eventId": "node.act1.chapter01.episode03_2.training_ground_watchers",
-      "popupOrder": 4,
-      "sourceNarrationId": "narration.act1.chapter01.episode03_2.training_ground_watchers",
-      "sourceTextKo": "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다.\n\n싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
-      "bodyKo": "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다.\n\n싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
-      "textLayoutProfile": "stage_popup_v1",
-      "textEditState": "generated",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다.",
-      "imagePolicy": "generate",
-      "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 궁수' / 'node.act1.chapter01.episode03_2.training_ground_watchers'. Scene: 서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다. / 싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": []
+      "nextNodeId": null
     }
   ],
   "battleRef": {

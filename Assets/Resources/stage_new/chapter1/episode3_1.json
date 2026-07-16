@@ -124,7 +124,7 @@
           "legacyChoiceId": "episode.act1.chapter01.03_1.choice.defend_jihan_and_child.1",
           "labelKo": "지한과 아이를 지키며 추격자들을 막아낸다.",
           "textKo": "지한과 아이를 지키며 추격자들을 막아낸다.",
-          "resultKo": "전투 준비를 마치고 다가오는 적의 압박에 맞선다.",
+          "resultKo": "서진은 오두막 앞에 서서 몰려드는 적들을 맞았다.\n\n오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.",
           "opens": [
             "battle"
           ],
@@ -138,26 +138,10 @@
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
             }
           ],
-          "nextNodeId": "node.act1.chapter01.episode03_1.hut_pursuers"
+          "nextNodeId": null
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode03_1.hut_pursuers"
-    },
-    {
-      "nodeId": "node.act1.chapter01.episode03_1.hut_pursuers",
-      "popupName": "hut_pursuers",
-      "eventId": "node.act1.chapter01.episode03_1.hut_pursuers",
-      "popupOrder": 4,
-      "sourceNarrationId": "narration.act1.chapter01.episode03_1.hut_pursuers",
-      "sourceTextKo": "서진은 오두막 앞에 서서 몰려드는 적들을 맞았다.\n\n오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.",
-      "bodyKo": "서진은 오두막 앞에 서서 몰려드는 적들을 맞았다.\n\n오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.",
-      "textLayoutProfile": "stage_popup_v1",
-      "textEditState": "generated",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다.",
-      "imagePolicy": "generate",
-      "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲속의 승려' / 'node.act1.chapter01.episode03_1.hut_pursuers'. Scene: 서진은 오두막 앞에 서서 몰려드는 적들을 맞았다. / 오두막 앞에 모인 적들은 사람과 짐승이 한 무리처럼 뒤섞인 모습이었다. 낮게 웅크린 들개들의 등 위로는 갈비뼈가 빗살처럼 솟아 있었고, 그 뒤에 선 추격자들은 진흙이 굳은 검은 두건 때문에 얼굴 윤곽조차 뚜렷하지 않았다. 긴 장대를 든 자는 비쩍 마른 팔에 짐승 이빨 팔찌를 여러 겹 차고 있었고, 손도끼를 든 둘은 허리에 작은 뼈 장식과 붉은 노끈을 매달고 있었다. 서진은 아이에게 향하는 길목을 몸으로 막고, 진흙 두건과 뼈 장식을 단 추격자들이 오두막 안을 들여다보지 못하게 버텨야 했다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": []
+      "nextNodeId": null
     }
   ],
   "battleRef": {

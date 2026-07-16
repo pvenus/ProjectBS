@@ -82,7 +82,7 @@
           "legacyChoiceId": "episode.act1.chapter01.01.choice.rescue_villagers.1",
           "labelKo": "마을 사람들을 구한다.",
           "textKo": "마을 사람들을 구한다.",
-          "resultKo": "전투 준비를 마치고 다가오는 적의 압박에 맞선다.",
+          "resultKo": "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
           "opens": [
             "battle"
           ],
@@ -96,26 +96,10 @@
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.asset"
             }
           ],
-          "nextNodeId": "node.act1.chapter01.episode01.village_attack"
+          "nextNodeId": null
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode01.village_attack"
-    },
-    {
-      "nodeId": "node.act1.chapter01.episode01.village_attack",
-      "popupName": "village_attack",
-      "eventId": "node.act1.chapter01.episode01.village_attack",
-      "popupOrder": 4,
-      "sourceNarrationId": "narration.act1.chapter01.episode01.village_attack",
-      "sourceTextKo": "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
-      "bodyKo": "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
-      "textLayoutProfile": "stage_popup_v1",
-      "textEditState": "generated",
-      "displayDirective": "선택 이후 전투 돌입 페이지다. 첫 문장은 행동의 박자를 살리고, 사슬을 끄는 적의 묘사는 자동 개행으로 이어간다.",
-      "imagePolicy": "generate",
-      "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '청운촌의 습격' / 'node.act1.chapter01.episode01.village_attack'. Scene: 서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다. / 가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.. Direction: 선택 이후 전투 돌입 페이지다. 첫 문장은 행동의 박자를 살리고, 사슬을 끄는 적의 묘사는 자동 개행으로 이어간다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": []
+      "nextNodeId": null
     }
   ],
   "battleRef": {
