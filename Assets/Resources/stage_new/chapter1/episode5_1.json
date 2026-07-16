@@ -86,7 +86,7 @@
           "legacyChoiceId": "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
           "labelKo": "지한, 유진과 함께 포위망을 돌파한다.",
           "textKo": "지한, 유진과 함께 포위망을 돌파한다.",
-          "resultKo": "전투 준비를 마치고 다가오는 적의 압박에 맞선다.",
+          "resultKo": "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
           "opens": [
             "battle"
           ],
@@ -100,26 +100,10 @@
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
             }
           ],
-          "nextNodeId": "node.act1.chapter01.episode05_1.encirclement_appears"
+          "nextNodeId": null
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode05_1.encirclement_appears"
-    },
-    {
-      "nodeId": "node.act1.chapter01.episode05_1.encirclement_appears",
-      "popupName": "encirclement_appears",
-      "eventId": "node.act1.chapter01.episode05_1.encirclement_appears",
-      "popupOrder": 3,
-      "sourceNarrationId": "narration.act1.chapter01.episode05_1.encirclement_appears",
-      "sourceTextKo": "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
-      "bodyKo": "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
-      "textLayoutProfile": "stage_popup_v1",
-      "textEditState": "generated",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다.",
-      "imagePolicy": "generate",
-      "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '낡은 수련장' / 'node.act1.chapter01.episode05_1.encirclement_appears'. Scene: 서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다. / 낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": []
+      "nextNodeId": null
     }
   ],
   "battleRef": {

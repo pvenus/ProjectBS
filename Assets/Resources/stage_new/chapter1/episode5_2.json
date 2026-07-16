@@ -86,7 +86,7 @@
           "legacyChoiceId": "episode.act1.chapter01.05_2.choice.break_hut_encirclement.1",
           "labelKo": "오두막을 에워싼 산적들을 돌파한다.",
           "textKo": "오두막을 에워싼 산적들을 돌파한다.",
-          "resultKo": "전투 준비를 마치고 다가오는 적의 압박에 맞선다.",
+          "resultKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다.\n\n오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.",
           "opens": [
             "battle"
           ],
@@ -100,26 +100,10 @@
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
             }
           ],
-          "nextNodeId": "node.act1.chapter01.episode05_2.capture_raiders_return"
+          "nextNodeId": null
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode05_2.capture_raiders_return"
-    },
-    {
-      "nodeId": "node.act1.chapter01.episode05_2.capture_raiders_return",
-      "popupName": "capture_raiders_return",
-      "eventId": "node.act1.chapter01.episode05_2.capture_raiders_return",
-      "popupOrder": 3,
-      "sourceNarrationId": "narration.act1.chapter01.episode05_2.capture_raiders_return",
-      "sourceTextKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다.\n\n오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.",
-      "bodyKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다.\n\n오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.",
-      "textLayoutProfile": "stage_popup_v1",
-      "textEditState": "generated",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다.",
-      "imagePolicy": "generate",
-      "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.capture_raiders_return'. Scene: 서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다. / 오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": []
+      "nextNodeId": null
     }
   ],
   "battleRef": {
