@@ -1,4 +1,4 @@
-# 에피소드 스토리 입력 포맷
+﻿# 에피소드 스토리 입력 포맷
 
 - formatId: `design.format.episode_story`
 - version: `6`
@@ -172,7 +172,7 @@ choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers
 4. Stage 변환은 신규 `nodeId`에 `popupId`를 그대로 복사해야 한다.
 5. `nextPopupId`는 대상 `popupId`를 사용하고 마지막이면 `null`로 둔다. Stage 변환은 이를 `nextNodeId`로 복사한다.
 6. `popupOrder` 변경으로 ID를 바꾸지 않는다.
-7. 9줄×40자 제한 때문에 분할할 팝업도 기획 단계에서 각각 이름을 받는다.
+7. 평문 지문은 40자마다 강제 개행하지 않고 자동 개행을 허용한다. 강조나 호흡이 필요한 곳만 의도적으로 수동 개행하며, UI 높이 때문에 분할할 팝업은 기획 단계에서 각각 이름을 받는다.
 8. 이름 없는 자동 팝업이나 배열 인덱스 기반 ID를 만들지 않는다.
 9. `reuse` 이미지 정책은 기존 `imageSourcePopupId`를 명시하고 원본 PNG를 변경 없이 새 popupId 경로로 복사한다.
 10. 보상 종류와 지급 주체를 분리한다. `rewardType: gold`만으로 popup 지급을 추론하지 않는다.

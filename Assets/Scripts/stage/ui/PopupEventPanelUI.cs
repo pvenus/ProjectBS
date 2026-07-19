@@ -217,7 +217,7 @@ namespace Stage.UI
                 {
                     string label = choice.Label;
 
-                    buttonText.text = ShouldUseNextLabel(choice, label)
+                    buttonText.text = ShouldUseNextLabelFallback(choice, label)
                         ? "다음"
                         : label;
                 }
@@ -461,15 +461,9 @@ namespace Stage.UI
             return false;
         }
 
-        private static bool ShouldUseNextLabel(PopupEventChoice choice, string label)
+        private static bool ShouldUseNextLabelFallback(PopupEventChoice choice, string label)
         {
             if (choice == null || string.IsNullOrWhiteSpace(label))
-            {
-                return true;
-            }
-
-            if (!string.IsNullOrWhiteSpace(choice.choiceId)
-                && choice.choiceId.EndsWith(".next"))
             {
                 return true;
             }
