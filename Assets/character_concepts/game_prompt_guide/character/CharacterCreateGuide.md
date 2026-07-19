@@ -1,4 +1,4 @@
-# Character Create Guide
+﻿# Character Create Guide
 
 ## Purpose
 
@@ -370,7 +370,7 @@ Assets/character_concepts/game_prompt_guide/skill/so_guide/BaseVisualSO.md
 1. Read skill intent from the planning JSON.
 2. Convert each planned skill into one EquipmentSkillSO JSON input.
 3. Use required child object IDs derived from `equipmentId`.
-4. Include optional profiles only when the skill actually uses them.
+4. Include optional profiles only when the skill actually uses them, but always include `baseVisual` for every skill JSON.
 5. Do not generate upgrade tables for normal NPC skills unless explicitly required.
 
 ### ID Rule
@@ -429,7 +429,7 @@ Assets/Resources/skill/character/generated/skill.character.mist_lingering_child.
 - Child IDs are derived from `equipmentId`.
 - Required `baseProfile` and `cast` data exist.
 - `cast.range` is `>= 0.4`.
-- Optional profiles are omitted when unused.
+- Optional profiles are omitted when unused, except `baseVisual` which is always written.
 - JSON is valid before committing.
 
 ---
@@ -513,3 +513,4 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 - No direct SO asset was created when the guide required JSON input.
 - All generated JSON files are valid JSON.
 - Git status is reviewed before commit.
+

@@ -83,11 +83,38 @@ One episode may have secondary roles, but it should have one primary role.
 Story text should be converted into a synopsis-level handoff for later formal
 script generation.
 
+The episode planning file may additionally preserve verbatim source narration
+and permanent popup definitions. These are provenance and identity contracts,
+not permission to author final runtime prose here.
+
 Recommended fields:
 
 ```json
 {
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+      "blocks": [
+        {
+          "sourceNarrationId": "narration.act1.chapter01.01.village_arrival",
+          "sourceOrder": 100,
+          "originalTextKo": "청운촌에 가까워질수록 공기는 무겁고 메말랐다."
+        }
+      ]
+    },
+    "popupDefinitions": [
+      {
+        "popupName": "village_arrival",
+        "popupNameKo": "청운촌 도착",
+        "popupId": "node.act1.chapter01.episode01.village_arrival",
+        "popupOrder": 100,
+        "popupType": "narration",
+        "sourceNarrationIds": [
+          "narration.act1.chapter01.01.village_arrival"
+        ],
+        "imagePolicy": "generate"
+      }
+    ],
     "scriptSynopsis": {
       "episodeSummary": "Seojin reaches Cheongun Village and enters the first rescue battle.",
       "sceneBeats": [
@@ -117,8 +144,9 @@ Recommended fields:
 }
 ```
 
-Use concise planning statements. Do not copy long story prose and do not write
-the final script here.
+Use concise planning statements in `scriptSynopsis`. Verbatim prose belongs only
+in `sourceNarration.blocks[].originalTextKo`; do not rewrite final script prose
+in this step.
 
 ## Choice And Result Planning
 
@@ -131,14 +159,18 @@ Recommended fields:
   "story": {
     "choiceDirections": [
       {
-        "choiceId": "stage.node.choice.1",
+        "popupName": "black_cloth_attack",
+        "choiceName": "rescue_villagers",
+        "choiceId": "choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers",
         "choiceIntent": "Protect villagers from the raiders.",
         "outcomeDirection": "Seojin enters combat to hold the raiders away from civilians.",
         "opens": [
           "battle"
         ],
+        "rewardOwner": "battle",
+        "rewardTrigger": "battle_clear",
         "rewardDirection": [
-          "gold_clear_reward"
+          "gold_battle_reward"
         ]
       }
     ]
@@ -243,6 +275,12 @@ Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md
 At this stage, use only `gold` as the concrete reward type and keep the reason
 or scale at planning level.
 
+Also declare execution ownership. `rewardType: gold` does not imply a popup
+payout. Use `rewardOwner: battle` with `rewardTrigger: battle_clear` for battle
+clear rewards, and use `rewardOwner: popup` only when the popup flow explicitly
+performs the payout. Legacy `gold_battle_reward` is always battle-owned. If
+ownership cannot be resolved, stop instead of defaulting to popup Gold.
+
 Do not invent item, equipment, skill, or difficulty reward tables until the
 reward guide is expanded.
 
@@ -334,7 +372,7 @@ Episode JSON should use large planning categories:
 | Category | Owns |
 |---|---|
 | `common` | Episode identity, role, and source refs. |
-| `story` | Script synopsis, scene beats, choice directions, tone, must-show/must-hide story direction. |
+| `story` | Source narration, permanent popup identity, script synopsis, choice directions, tone, and must-show/must-hide direction. |
 | `monster` | Monster family, role direction, difficulty direction, visual direction, reuse/creation policy. |
 | `battle` | Battle need, mood, shape, difficulty direction, pace direction, pressure, and avoid rules. |
 | `reward` | Reward direction, current reward type, reward reason, reward guide ref. |
@@ -410,6 +448,11 @@ It may contain:
     }
   },
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+      "blocks": []
+    },
+    "popupDefinitions": [],
     "scriptSynopsis": {
       "episodeSummary": "",
       "sceneBeats": [],
@@ -423,7 +466,9 @@ It may contain:
   "battle": {},
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "rewardType": "gold"
+    "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear"
   },
   "handoff": {},
   "constraints": []
@@ -433,10 +478,19 @@ It may contain:
 ## Validation Checklist
 
 - The source episode file is preserved.
+- Source narration blocks preserve verbatim `originalTextKo` and stable
+  `sourceNarrationId` values.
+- Every new popup has an immutable semantic `popupName`, derived `popupId`, and
+  separate mutable `popupOrder`.
+- New popup/choice identity never depends on array position or numeric sequence.
+- Existing sequential popup/choice ids remain unchanged as legacy ids.
 - The episode role is clear.
 - `story.scriptSynopsis` is synopsis-level, not final script prose.
 - Choices explain what they open or change.
 - `reward` is present when a choice resolves or starts a battle.
+- Every new reward declares `rewardOwner` and `rewardTrigger`.
+- Battle-clear reward intent is battle-owned and never defaults to popup Gold.
+- Missing or conflicting reward ownership is reported instead of guessed.
 - `battle` is present only when the episode needs battle.
 - `battle` does not contain exact spawn timing, spawn count, or final spawner type.
 - `monster` gives family, role, and difficulty direction only.

@@ -1,0 +1,356 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.05_1",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.05_1",
+                   "inputEpisodeId":  "episode.05-1",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "낡은 수련장",
+                   "episodeRole":  "companion_join",
+                   "secondaryRoles":  [
+                                          "breakthrough",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode5_1",
+                                           "suggestedStageNodeId":  "stage.ch1.episode5_1"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "지한을 먼저 동료로 맞이한 서진 일행이 낡은 수련장에서 궁수 유진을 만나고, 산귀 소문과 산적의 흔적이 같은 산길로 이어짐을 확인하는 에피소드.",
+                                         "sceneBeats":  [
+                                                            "??? ? ?? ??? ?? ???? ? ??? ?? ???.",
+                                                            "??? ??? ?? ?? ?? ???? ????.",
+                                                            "??? ??? ??? ?? ? ??? ? ? ?? ? ???, ?? ??? ?? ??? ?? ??? ???? ???.",
+                                                            "??? ??? ??? ??? ??? ??? ?? ??? ???.",
+                                                            "? ??? ????? ?? ??? ?? ??? ???? ??? ??? ??? ???.",
+                                                            "?? ??? ?? ???? ????? ?? ???? ???? ??? ????."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "party_convergence",
+                                                               "urgent_breakout",
+                                                               "surrounded",
+                                                               "rising_threat"
+                                                           ],
+                                         "sceneFunction":  "?? ??? ???? ??? ?????, ? ?? ??? ?? ??? ??? ??? ?? ??? ??.",
+                                         "mustShow":  [
+                                                          "?? ???",
+                                                          "?? ??",
+                                                          "?? ? ??",
+                                                          "?? ? ??",
+                                                          "?? ?? ??",
+                                                          "?? ? ??",
+                                                          "?? ?? ?????? ??? ??",
+                                                          "?? ?? ??"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "old_training_ground",
+                                                                   "surrounded_clearing"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
+                                               "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+                                               "choiceIntent":  "??? ?? ???? ??? ??? ?? ??? ?????.",
+                                               "outcomeDirection":  "??? ???? ?? ??? ?? ??? ??? ? ?? ??.",
+                                               "opens":  [
+                                                             "companion_join",
+                                                             "battle_setup"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ],
+                                               "choiceName":  "accept_yujin_join",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.training_ground_arrival.accept_yujin_join",
+                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
+                                               "rewardOwner":  "popup",
+                                               "rewardTrigger":  "episode_clear"
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+                                               "sourceChoiceText":  "지한, 유진과 함께 포위망을 돌파한다.",
+                                               "choiceIntent":  "? ??? ??? ??? ??? ???? ?? ?? ??? ??? ?? ?????.",
+                                               "outcomeDirection":  "?? ??? ??? ??? ?? ???? ???? ??? ????.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ],
+                                               "choiceName":  "break_training_ground_encirclement",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.yujin_join.break_training_ground_encirclement",
+                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+                                               "rewardOwner":  "battle",
+                                               "rewardTrigger":  "battle_clear"
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.training_ground_arrival",
+                                                             "popupName":  "training_ground_arrival",
+                                                             "originalTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode05_1.training_ground_arrival"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.yujin_join",
+                                                             "popupName":  "yujin_join",
+                                                             "originalTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode05_1.yujin_join"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.encirclement_appears",
+                                                             "popupName":  "encirclement_appears",
+                                                             "originalTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode05_1.encirclement_appears"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "training_ground_arrival",
+                                               "popupId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "eventId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "originalTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "accept_yujin_join",
+                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.training_ground_arrival.accept_yujin_join",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
+                                                                   "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               }
+                                                           ],
+                                               "displayTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
+                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                           },
+                                           {
+                                               "popupName":  "yujin_join",
+                                               "popupId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "eventId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.yujin_join",
+                                               "originalTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode05_1.encirclement_appears",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "break_training_ground_encirclement",
+                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.yujin_join.break_training_ground_encirclement",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+                                                                   "sourceChoiceText":  "지한, 유진과 함께 포위망을 돌파한다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_battle_reward"
+                                                                                       ],
+                                                                   "rewardOwner":  "battle",
+                                                                   "rewardTrigger":  "battle_clear"
+                                                               }
+                                                           ],
+                                               "displayTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
+                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                           },
+                                           {
+                                               "popupName":  "encirclement_appears",
+                                               "popupId":  "node.act1.chapter01.episode05_1.encirclement_appears",
+                                               "eventId":  "node.act1.chapter01.episode05_1.encirclement_appears",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.encirclement_appears",
+                                               "originalTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+
+                                                           ],
+                                               "displayTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
+                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "training_ground_encirclement_raiders",
+                    "difficultyIntent":  "early_normal",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "shield_frontliner",
+                                           "bandit_archer",
+                                           "fast_beast_melee",
+                                           "leader_like_pressure"
+                                       ],
+                    "visualDirection":  [
+                                            "sangui_eye_shield",
+                                            "mismatched_leather",
+                                            "short_arrow",
+                                            "red_cloth_dog",
+                                            "black_outerwear",
+                                            "scale_armor",
+                                            "beast_claw_charm"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form",
+                                           "heavy_magic"
+                                       ],
+                    "revealPolicy":  "?????? ??? ?? ??? ???? ??? ?? ??? ?? ???.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "surrounded_breakout",
+                   "battleShape":  "multi_side_pressure_break_one_side",
+                   "difficultyIntent":  "early_normal",
+                   "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                   "partyAssumptionBasis":  "??? ??? ??? ???? ? ??? ????? ?? ????, ???? ??/??? ?? ????? ????.",
+                   "paceIntent":  "urgent_breakout",
+                   "monsterPressure":  [
+                                           "shield_frontliner",
+                                           "bandit_archer",
+                                           "fast_beast_melee",
+                                           "leader_like_pressure"
+                                       ],
+                   "spaceDirection":  [
+                                          "training_ground_center",
+                                          "three_side_encirclement",
+                                          "broken_exit"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "?? ??? ??? ??? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  100
+                                   }
+                               ],
+                   "rewardOwner":  "battle",
+                   "rewardTrigger":  "battle_clear"
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode5_1",
+                                               "suggestedStageNodeId":  "stage.ch1.episode5_1",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                               "planningPopupPolicyRef":  "story.popupDefinitions"
+                                           },
+                    "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                    "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.05-1 from Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md."
+              ]
+}

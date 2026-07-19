@@ -110,4 +110,27 @@ namespace Stage
         NextBattleMoveSpeed = 5100,
         NextBattleDefense = 5200,
     }
+
+    /// <summary>
+    /// 필수 노드 연결 종류 (routeKey 기반 연결 규칙)
+    ///
+    /// RouteNode     : 특정 routeKey에 속한 일반 경로 노드. routeKey가 정확히 같을 때만 연결된다.
+    /// RouteHubNode  : 특정 routeKey 계열 내부의 하위 경로들을 모으는 허브.
+    ///                 상대 노드의 routeKey가 허브의 routeKey 계열에 속하면 연결된다.
+    ///                 예) routeKey="1"인 RouteHubNode는 "1", "1.0", "1.1", "1.0.0" 과 연결 가능.
+    /// GlobalHubNode : 모든 routeKey와 연결 가능한 전역 허브.
+    /// </summary>
+    public enum StageNodeKind
+    {
+        RouteNode = 0,
+        RouteHubNode,
+        GlobalHubNode
+    }
+
+    public enum StageMapGenerationMode
+    {
+        RouteKeyRandomRules = 0,
+        LegacySegmentRules = 1,
+        FixedOnly = 2
+    }
 }

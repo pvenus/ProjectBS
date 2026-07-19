@@ -3,11 +3,12 @@
 Use this prompt when downloading PixelLab animation images, preserving the character `animations` folder, evaluating animation images, and copying converted PNGs into Unity resources.
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 입력을 기준으로 CharacterAnimationDownloadGuide.md 및 EvaluationAnimationGuide.md를 먼저 읽고, 해당 가이드의 절차와 실패 규칙을 그대로 따라 PixelLab 애니메이션 다운로드, 평가, 변환 복사를 진행해줘.
 
-입력:
+Input:
+- projectRoot: {project_root}
 - PixelLabExportRoot = {PixelLab_export_저장_루트_절대경로}
 - targetCharacterFolder = {PixelLabExportRoot_아래_대상_캐릭터_폴더_절대경로}
 
@@ -15,10 +16,8 @@ Use this prompt when downloading PixelLab animation images, preserving the chara
 - Assets/character_concepts/game_prompt_guide/character/CharacterAnimationDownloadGuide.md
 - Assets/character_concepts/game_prompt_guide/character/EvaluationAnimationGuide.md
 - Assets/character_concepts/game_prompt_guide/character/CharacterGenerateImage.md
-- Assets/character_concepts/game_prompts/character/CharacterGenerateImagePrompt.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
-핵심 실행 지시:
+작업:
 1. targetCharacterFolder를 기준으로 characterName, grade, 이미지 생성에 사용한 PixelLab Prompt, 이미지 생성 평가 결과를 찾는다.
 2. {targetCharacterFolder}/animations가 이미 있고 새 교체 요청이 아니면 기존 animations를 사용한다.
 3. animations가 없거나 새 교체가 필요한 경우, https://www.pixellab.ai/create-character 페이지에서 이미지 생성에 사용한 PixelLab Prompt와 태그로 기존 PixelLab 캐릭터를 검색해 연다.
@@ -27,7 +26,7 @@ Use this prompt when downloading PixelLab animation images, preserving the chara
 6. EvaluationAnimationGuide.md 기준으로 {targetCharacterFolder}/animations를 평가하고, 평가 결과는 {targetCharacterFolder}/evaluation_animation_result.txt에 저장한다.
 7. 평가 Pass / Fail과 관계없이 가이드에 따라 converted 생성과 Unity 리소스 복사를 계속한다. 단, 폴더 구조 hard fail은 예외로 즉시 중단한다.
 
-출력 형식:
+Output:
 - Character:
 - Grade:
 - Target Character Folder:

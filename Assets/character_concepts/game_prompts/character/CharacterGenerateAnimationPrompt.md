@@ -6,7 +6,7 @@ PixelLab에 이미 생성된 캐릭터를 찾아 Move, Attack, Idle 애니메이
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 아래 참조 가이드를 기준으로 기존 PixelLab 캐릭터를 검색하고,
 Move, Attack, Idle 애니메이션 생성만 진행해줘.
@@ -15,9 +15,9 @@ Move, Attack, Idle 애니메이션 생성만 진행해줘.
 - Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/character/CharacterGenerateAnimation.md
 - Assets/character_concepts/game_prompt_guide/character/CharacterGenerateImage.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - characterFolderPath: {캐릭터_기획_JSON_폴더_절대경로}
 - PixelLabExportRoot: {PixelLab_export_저장_루트_절대경로}
 

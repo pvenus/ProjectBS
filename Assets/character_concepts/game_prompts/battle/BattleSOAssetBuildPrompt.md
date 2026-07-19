@@ -8,7 +8,7 @@ not redesign the battle.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 BattleSO.md, BattleCreateGuide.md 기준으로 BattleSO 입력 JSON을 Unity
 BattleSO asset으로 변환해줘.
@@ -17,9 +17,9 @@ BattleSO asset으로 변환해줘.
 - Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
 - Assets/character_concepts/game_prompt_guide/battle/BattleCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/spawner/SpawnSO.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}

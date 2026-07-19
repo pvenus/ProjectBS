@@ -73,7 +73,7 @@ Name each image by event id:
 Example:
 
 ```text
-Assets/Resources/stage_new/popup_png/node.ch1.episode1.001.main.png
+Assets/Resources/stage_new/popup_png/node.act1.chapter01.episode01.village_arrival.main.png
 ```
 
 `PopupEventBuilder` looks up the Sprite by `{eventId}.main` and assigns it to
@@ -92,13 +92,15 @@ Computed/localized properties:
 
 ```json
 {
-  "nodeId": "node.act1.chapter01.episode01.001",
+  "popupName": "village_arrival",
+  "popupId": "node.act1.chapter01.episode01.village_arrival",
+  "nodeId": "node.act1.chapter01.episode01.village_arrival",
   "nodeType": "narration",
   "locationId": "location.cheongun_village_entrance",
   "speakerId": "character.seojin",
   "speakerNameKo": "서진",
   "textKo": "Popup body source text.",
-  "nextNodeId": "node.act1.chapter01.episode01.002",
+  "nextNodeId": "node.act1.chapter01.episode01.black_cloth_attack",
   "choices": []
 }
 ```
@@ -107,6 +109,8 @@ Mapping:
 
 | JSON field | PopupEventSO / builder behavior |
 |---|---|
+| `popupName` | Planning identity slug used to validate `popupId`; metadata only. |
+| `popupId` | Planning-generated permanent id; must equal `nodeId` for new content. |
 | `nodeId` | `PopupEventSO.eventId` |
 | `nodeType` | Optional compatibility field if target asset supports it. |
 | `locationId` | Optional compatibility field if target asset supports it. |
@@ -137,11 +141,11 @@ Choice JSON:
 
 ```json
 {
-  "choiceId": "choice.act1.chapter01.episode01.accept",
+  "choiceId": "choice.act1.chapter01.episode01.rescue_choice.accept",
   "textKo": "마을 사람들을 구한다.",
   "labelKo": "마을 사람들을 구한다.",
   "resultKo": "서진은 검은 천의 무리 사이로 뛰어들었다.",
-  "nextNodeId": "node.act1.chapter01.episode01.002",
+  "nextNodeId": "node.act1.chapter01.episode01.rescue_start",
   "visibleConditions": [],
   "rewards": []
 }
@@ -260,14 +264,14 @@ NextBattleDefense
 
 Current story planning default:
 
-- Use `Gold` for ordinary rewards.
+- Use `Gold` only for explicitly popup-owned payouts.
 - Use `UnlockRoute` for route branching.
 - Use `SpecialBattle` or `BossBattle` only when the battle branch has produced
   or planned the referenced battle.
 
-## Battle Rewards
+## Battle Entry Actions Versus Battle Rewards
 
-Battle rewards connect by stable battle id:
+Popup battle-entry actions connect by stable battle id:
 
 ```json
 {
@@ -279,6 +283,17 @@ Battle rewards connect by stable battle id:
 `PopupEventBuilder` resolves `rewardId` first, then finds a generated `BattleSO`
 whose `battleId` matches that value.
 
+Despite being represented by `PopupEventRewardData`, `SpecialBattle` and
+`BossBattle` are transition actions. They start a battle; they are not the
+battle-clear gold payout.
+
+- Planning `rewardOwner: battle` or `gold_battle_reward` must not create a
+  `Gold` entry in popup `rewards[]`.
+- Planning `rewardOwner: popup` may create `Gold` only when its trigger is
+  explicitly executed by the popup flow.
+- Never decide ownership from `rewardType: gold` alone.
+- Missing or conflicting ownership must fail before building assets.
+
 The concrete battle definition must live in a separate BattleSO input JSON,
 for example `Assets/Resources/battle/{battle_group}/{battle_id}.json`. Do not
 duplicate full BattleSO JSON inside popup JSON.
@@ -286,6 +301,11 @@ duplicate full BattleSO JSON inside popup JSON.
 ## Authoring Rules
 
 - `eventId` must be stable and unique.
+- New popup identity originates in episode planning: `popupName` is immutable,
+  `popupId` follows the official semantic formula, and Stage `nodeId` copies
+  `popupId` exactly.
+- Do not generate new event identity from array position or a numeric sequence.
+- Preserve existing sequential ids as permanent legacy ids.
 - `choiceId` must be stable and unique enough for localization.
 - Use `nextNodeId` for popup chains.
 - Do not store final text in SO fields directly.
@@ -300,11 +320,15 @@ Before build:
 
 - root `startNodeId` exists in `nodes[]`.
 - every popup `nodeId` is unique.
+- every new popup `nodeId` equals its planning `popupId`, whose suffix equals
+  `popupName`.
 - every choice `choiceId` is unique within the stage JSON.
 - every local `nextNodeId` exists in `nodes[]`.
 - every `conditionType` parses as `PopupEventChoiceConditionType`.
 - every `rewardType` parses as `PopupEventRewardType`.
 - gold rewards use `Gold`, not lowercase `gold`.
+- popup Gold rewards have explicit `rewardOwner: popup` provenance.
+- battle-owned gold intent is absent from popup `rewards[]`.
 
 After build:
 

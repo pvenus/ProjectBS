@@ -1,49 +1,53 @@
-{
-  "equipmentId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe",
-  "baseProfile": {
-    "baseProfileId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 0.6,
-    "projectileLifetime": 0.25,
-    "projectileSpawn": {
-      "spawnOffset": 0.6,
-      "interval": 0
-    }
-  },
-  "cast": {
-    "castId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.cast",
-    "targetingType": "AutoTargetDirection",
-    "cooldown": 1,
-    "castTime": 0,
-    "range": 0.7,
-    "skipAttackAnimation": false
-  },
-  "move": {
-    "moveId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.move",
-    "moveType": "Linear",
-    "applyDirectionRotation": true,
-    "rotationOffset": 0,
-    "config": {
-      "speed": 0
-    }
-  },
-  "hits": [
-    {
-      "hitId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.hit",
-      "maxHitCount": 1,
-      "ignoreSameRoot": true,
-      "useRepeatInterval": false,
-      "repeatInterval": 0,
-      "hitStartTime": 0,
-      "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Party",
-      "damage": {
-        "baseDamage": 1,
-        "attackPercentDamage": 0.14
-      }
-    }
-  ]
+﻿{
+    "equipmentId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  0.6,
+                        "projectileLifetime":  0.25,
+                        "projectileSpawn":  {
+                                                "spawnOffset":  0.6,
+                                                "interval":  0
+                                            }
+                    },
+    "cast":  {
+                 "castId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.cast",
+                 "targetingType":  "AutoTargetDirection",
+                 "cooldown":  1,
+                 "castTime":  0,
+                 "range":  0.7,
+                 "skipAttackAnimation":  false
+             },
+    "move":  {
+                 "moveId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.move",
+                 "moveType":  "Linear",
+                 "applyDirectionRotation":  true,
+                 "rotationOffset":  0,
+                 "config":  {
+                                "speed":  0
+                            }
+             },
+    "hits":  [
+                 {
+                     "hitId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.hit",
+                     "maxHitCount":  1,
+                     "ignoreSameRoot":  true,
+                     "useRepeatInterval":  false,
+                     "repeatInterval":  0,
+                     "hitStartTime":  0,
+                     "deactivateAfterFirstHit":  false,
+                     "targetLayerMask":  "Party",
+                     "damage":  {
+                                    "baseDamage":  1,
+                                    "attackPercentDamage":  0.14
+                                }
+                 }
+             ],
+    "baseVisual":  {
+                       "visualId":  "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

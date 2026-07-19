@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage.RoundNodeSO
   nodeId: stage.ch1.episode6
   nodeType: 5
-  popupEvent: {fileID: 11400000, guid: 030b864e0ed1547a0a48d887f2660bbe, type: 2}
+  popupEvent: {fileID: 11400000, guid: ba3ab57e822404fc29739b06f1501d6c, type: 2}
   isRequired: 1
   hiddenByDefault: 0
-  tags: []
+  tags:
+  - act1
+  - chapter01
+  - chapter1
+  - episode6
+  - episode.act1.chapter01.06
+  - semantic_popup_id
   appearanceConditions: []

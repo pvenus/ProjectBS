@@ -1,0 +1,303 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.04_2",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.04_2",
+                   "inputEpisodeId":  "episode.04-2",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "끊어진 발자국",
+                   "episodeRole":  "investigation",
+                   "secondaryRoles":  [
+                                          "travel",
+                                          "reveal_clue"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+                                  "sourceChapterFile":  "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "Assets/Doc/Story/00_Background.md",
+                                                              "Assets/Doc/Story/Act01/01_Overall_Story.md",
+                                                              "Assets/Doc/Story/Act01/Act_01_Background.md",
+                                                              "Assets/Doc/Story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode4_2",
+                                           "suggestedStageNodeId":  "stage.ch1.episode4_2"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "유진과 함께 지워진 발자국을 추적하던 서진이, 산귀 소문 뒤에 사람의 손길이 있음을 확인하는 조사 에피소드.",
+                                         "sceneBeats":  [
+                                                            "?? ?? ? ?? ??? ? ?? ?? ?? ???? ?? ??? ????.",
+                                                            "??? ? ???? ?? ? ???? ??? ??? ?? ???? ????.",
+                                                            "?? ?? ?? ??? ?? ?? ??? ?? ??? ???? ????.",
+                                                            "??? ?? ??, ??? ??, ?? ? ??, ?? ???? ????.",
+                                                            "?? ?? ?? ? ?? ??? ??? ??? ?? ???? ???? ????.",
+                                                            "??? ??? ?? ??? ??? ?? ?? ??? ????? ???? ??."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "analytic",
+                                                               "quiet_suspicion",
+                                                               "tracker_focus",
+                                                               "human_conspiracy"
+                                                           ],
+                                         "sceneFunction":  "?? ?? ?? ??? ??? ??? ??? ?? ?? ?????.",
+                                         "mustShow":  [
+                                                          "?? ???",
+                                                          "?? ??",
+                                                          "?? ?? ?? ??",
+                                                          "??? ?? ??",
+                                                          "??? ??",
+                                                          "?? ? ??",
+                                                          "?? ???",
+                                                          "?? ? ?",
+                                                          "?? ? ?? ??? ??"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "forest_mid_slope",
+                                                                   "erased_trail"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
+                                               "sourceChoiceText":  "유진과 함께 지워진 흔적을 확인한다.",
+                                               "choiceIntent":  "??? ?? ?? ?? ?? ? ??? ??? ?? ?? ???.",
+                                               "outcomeDirection":  "??? ??? ?? ???? ?? ??? ??? ???? ?? ?? ????.",
+                                               "opens":  [
+                                                             "investigation",
+                                                             "human_conspiracy_reveal"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ],
+                                               "choiceName":  "inspect_erased_trace_with_yujin",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode04_2.erased_track_method.inspect_erased_trace_with_yujin",
+                                               "sourcePopupId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "legacyChoiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
+                                               "rewardOwner":  "popup",
+                                               "rewardTrigger":  "episode_clear"
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
+                                                             "popupName":  "erased_tracks",
+                                                             "originalTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.\n\n근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode04_2.erased_tracks",
+                                                                                     "node.act1.chapter01.episode04_2.erased_track_method"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                                             "popupName":  "scout_disguise_evidence",
+                                                             "originalTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode04_2.scout_disguise_evidence"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "erased_tracks",
+                                               "popupId":  "node.act1.chapter01.episode04_2.erased_tracks",
+                                               "eventId":  "node.act1.chapter01.episode04_2.erased_tracks",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
+                                               "originalTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.",
+                                               "displayTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.",
+                                               "displayDirective":  "숲길 추적과 유진의 첫 판단을 한 페이지로 묶는다. 지워진 흔적이라는 발견이 페이지의 핵심 반전이다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "erased_track_method",
+                                               "popupId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "eventId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
+                                               "originalTextKo":  "근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
+                                               "displayTextKo":  "근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
+                                               "displayDirective":  "정찰대의 위장 방식과 사람의 손길을 확인하는 페이지다. 증거 나열은 자동 개행에 맡기고 마지막 판단 뒤 선택지를 붙인다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "inspect_erased_trace_with_yujin",
+                                                                   "choiceId":  "choice.act1.chapter01.episode04_2.erased_track_method.inspect_erased_trace_with_yujin",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
+                                                                   "sourceChoiceText":  "유진과 함께 지워진 흔적을 확인한다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               }
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "scout_disguise_evidence",
+                                               "popupId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                               "eventId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                               "originalTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+
+                                                           ],
+                                               "displayTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
+                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "human_scout_trace_disguised_as_sangui",
+                    "difficultyIntent":  "none_in_episode",
+                    "recommendedTier":  "none",
+                    "roleDirections":  [
+                                           "scout_trace",
+                                           "trail_erasure_specialist",
+                                           "offscreen_watcher"
+                                       ],
+                    "visualDirection":  [
+                                            "leaf_cloak",
+                                            "dark_blue_dye",
+                                            "short_spear_mark",
+                                            "flat_sangui_wood_tag",
+                                            "brush_hair",
+                                            "fake_beast_track_board"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "direct_battle",
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "?? ??? ??? ??? ??? ?? ???? ??? ??.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "not_required",
+                   "battleMood":  "forensic_tracking",
+                   "battleShape":  "none",
+                   "difficultyIntent":  "none",
+                   "partyAssumption":  "seojin_with_yujin_investigation_no_battle",
+                   "partyAssumptionBasis":  "??? ??? ??? ??? ???? ??? ???? ?? ???? ??? ?? ??? ??.",
+                   "paceIntent":  "slow_trace_reading",
+                   "monsterPressure":  [
+
+                                       ],
+                   "spaceDirection":  [
+                                          "forest_mid_slope",
+                                          "erased_path"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "??? ?? ?? ??????? ?? ?? ?? ??? ???? ??."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "??? ?? ??? ???? ?? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "normal_episode_clear",
+                   "rewardIntent":  [
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  50
+                                   }
+                               ],
+                   "rewardOwner":  "popup",
+                   "rewardTrigger":  "episode_clear"
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  false,
+                    "battleStoryContextNeeded":  false,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  null,
+                    "battlePlanRef":  null,
+                    "battlePlanStatus":  "not_created_no_battle_need",
+                    "monsterContextRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "Assets/Doc/Character/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode4_2",
+                                               "suggestedStageNodeId":  "stage.ch1.episode4_2",
+                                               "sourceEpisodePlanningFile":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
+                                               "planningPopupPolicyRef":  "story.popupDefinitions"
+                                           }
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.04-2 from Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md."
+              ]
+}

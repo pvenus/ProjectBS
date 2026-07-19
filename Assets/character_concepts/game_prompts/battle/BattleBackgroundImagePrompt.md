@@ -6,7 +6,7 @@ Use this prompt after an episode battle plan exists and includes
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 BattleCreateGuide.md, BattleSO.md, EpisodeBattlePlanGuide.md 기준으로
 배틀 기획에서 배경 이미지를 생성해줘.
@@ -15,19 +15,20 @@ BattleCreateGuide.md, BattleSO.md, EpisodeBattlePlanGuide.md 기준으로
 - Assets/character_concepts/game_prompt_guide/battle/BattleCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/battle/BattleSO.md
 - Assets/character_concepts/game_prompt_guide/battle/EpisodeBattlePlanGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - chapterId: {chapter_id}
 - actGroupId: {act_group_id}
+- chapterGroup: {chapter_group}
 - episodeId: {episode_id}
 - battleId: {battle_id}
 - battleGroup: {battle_group}
-- episodeBattlePlanFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_plan.chapter_XX.json
+- episodeBattlePlanFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_battle_plan.{chapter_group}.json
 - episodePlanningFile: Assets/Doc/StoryPlanning/{act_group_id}/episode.{episode_id}.json
 - storyContextFile: Assets/Doc/StoryPlanning/{act_group_id}/story_context.{act_group_id}.json
-- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.chapter_XX.json
+- episodeCompositionFile: Assets/Doc/StoryPlanning/{act_group_id}/episode_composition.{chapter_group}.json
 - outputImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
 
 작업:

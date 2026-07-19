@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897374d37d5b749a5923405ad58ad77e, type: 3}
+  m_Name: battle.act1.chapter01.05_2.hut_escape
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
+  battleId: battle.act1.chapter01.05_2.hut_escape
+  battleName: Hut Escape
+  backgroundSprite: {fileID: 21300000, guid: f25847f10bb7483d9e3b63d7a0e9ae31, type: 3}
+  spawnSequence: {fileID: 11400000, guid: 4a55d03db579047d99a436a9a02c32c6, type: 2}
+  spawnUnitBindings:
+  - unitKey: spawn.swarm.fodder.melee
+    role: 1
+    character: {fileID: 11400000, guid: b06feb8af2a524a628dc968742a2c8c3, type: 2}
+  - unitKey: spawn.swarm.fast.melee
+    role: 1
+    character: {fileID: 11400000, guid: d114319da11ec4738b623453d5693aae, type: 2}
+  - unitKey: spawn.swarm.pressure.ranged
+    role: 2
+    character: {fileID: 11400000, guid: 0534239fa797b416bbae97356301dc4b, type: 2}
+  - unitKey: spawn.swarm.light.blocker
+    role: 3
+    character: {fileID: 11400000, guid: 3d88159d26dac417586afe0099738a2a, type: 2}
+  timedPropPlacements: []
+  victoryRule: 1
+  survivalTimeSeconds: 0
+  rewardExperience: 35
+  relicDropPool: {fileID: 0}
+  normalRelicDropChance: 0
+  bossRelicDropChance: 0

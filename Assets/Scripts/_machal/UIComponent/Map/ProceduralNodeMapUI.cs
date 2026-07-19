@@ -6,6 +6,14 @@ using Stage.UI; // RoundNodeButton 사용
 
 namespace UIFramework.Map
 {
+    public enum MapScrollDirection
+    {
+        Auto,
+        Vertical,
+        Horizontal,
+        Both
+    }
+
     public class ProceduralNodeMapUI : MonoBehaviour
     {
         [Header("References")]
@@ -13,6 +21,12 @@ namespace UIFramework.Map
         public RectTransform contentRoot;
         [Tooltip("비워두면 contentRoot를 사용합니다. 노드 뒤에 길을 그리기 위해 분리하는 것을 권장합니다.")]
         public RectTransform pathRoot;
+        [Tooltip("Content를 소유하는 ScrollRect 컴포넌트입니다. 지정하지 않을 시 contentRoot의 상위에서 자동으로 탐색합니다.")]
+        [SerializeField] private UnityEngine.UI.ScrollRect targetScrollRect;
+
+        [Header("Scroll Settings")]
+        [Tooltip("스크롤 크기를 제어할 방향을 선택합니다. Auto의 경우 ScrollRect의 설정을 자동으로 분석합니다.")]
+        public MapScrollDirection scrollDirectionOption = MapScrollDirection.Auto;
         
         [Header("Prefabs")]
         [Tooltip("실제 게임의 RoundNodeButton 프리팹을 할당하세요.")]
@@ -37,6 +51,20 @@ namespace UIFramework.Map
         public bool useFixedSeed = false;
         public int randomSeed = 0;
 
+        [Header("Grid Layout Settings")]
+        public bool useGridLayout = true;
+        public MapGridSettings gridSettings = new MapGridSettings
+        {
+            gridPlacementMode = GridPlacementMode.Advanced,
+            gridColumnCount = 5,
+            gridCellSize = new Vector2(150, 180),
+            gridOrigin = Vector2.zero,
+            centerRoutesInGrid = true,
+            applyRandomOffsetInCell = true,
+            randomOffsetRange = new Vector2(15, 15),
+            growUpwards = true
+        };
+
         [Header("Options")]
         [SerializeField] private bool rebuildOnEnable = true;
 
@@ -50,6 +78,10 @@ namespace UIFramework.Map
         {
             if (stageManager == null) stageManager = StageManager.Instance;
             if (pathRoot == null) pathRoot = contentRoot;
+            if (targetScrollRect == null && contentRoot != null)
+            {
+                targetScrollRect = contentRoot.GetComponentInParent<UnityEngine.UI.ScrollRect>();
+            }
         }
 
         private void OnEnable()
@@ -102,11 +134,17 @@ namespace UIFramework.Map
                 return;
             }
 
+            // 런타임 방어 및 디버그용 검증 로그 추가
+            gridSettings.gridColumnCount = Mathf.Max(1, gridSettings.gridColumnCount);
+            gridSettings.gridCellSize.x = Mathf.Max(10f, gridSettings.gridCellSize.x);
+            gridSettings.gridCellSize.y = Mathf.Max(10f, gridSettings.gridCellSize.y);
+            Debug.Log($"[ProceduralNodeMapUI] Build 시작 - useGridLayout: {useGridLayout}, Mode: {gridSettings.gridPlacementMode}, gridColumnCount: {gridSettings.gridColumnCount}, gridCellSize: {gridSettings.gridCellSize}, CenterRoutes: {gridSettings.centerRoutesInGrid}, RandomOffset: {gridSettings.applyRandomOffsetInCell}");
+
             if (pathRoot == null) pathRoot = contentRoot;
 
             System.Random rng = useFixedSeed ? new System.Random(randomSeed) : new System.Random();
 
-            // 1. 노드들의 UI 좌표 계산 (가운데 정렬 + 랜덤 오프셋 적용)
+            // 1. 노드들의 UI 좌표 계산 (그리드 또는 레거시)
             CalculateNodePositions(graph, rng);
 
             // 2. 길(Path Segments) 생성 (노드보다 먼저/뒤에 그려지도록)
@@ -124,6 +162,18 @@ namespace UIFramework.Map
         private void CalculateNodePositions(StageGraph graph, System.Random rng)
         {
             nodeUIPositions.Clear();
+
+            if (useGridLayout)
+            {
+                nodeUIPositions = MapGridPositionResolver.CalculateGridNodePositions(graph, gridSettings, rng);
+                return;
+            }
+
+            CalculateLegacyNodePositions(graph, rng);
+        }
+
+        private void CalculateLegacyNodePositions(StageGraph graph, System.Random rng)
+        {
             List<int> depths = graph.GetDepths();
             
             foreach (int depth in depths)
@@ -156,6 +206,47 @@ namespace UIFramework.Map
         private void UpdateLayoutAndContentSize()
         {
             if (spawnedButtons.Count == 0) return;
+
+            // 스크롤 방향 감지 및 이에 따른 피벗과 정렬 적용
+            bool isHorizontalScroll = false;
+            bool isVerticalScroll = true; // 디폴트는 세로
+
+            if (scrollDirectionOption == MapScrollDirection.Auto)
+            {
+                if (targetScrollRect != null)
+                {
+                    if (targetScrollRect.horizontal && !targetScrollRect.vertical)
+                    {
+                        isHorizontalScroll = true;
+                        isVerticalScroll = false;
+                    }
+                    else if (!targetScrollRect.horizontal && targetScrollRect.vertical)
+                    {
+                        isHorizontalScroll = false;
+                        isVerticalScroll = true;
+                    }
+                    else
+                    {
+                        isHorizontalScroll = true;
+                        isVerticalScroll = true;
+                    }
+                }
+            }
+            else if (scrollDirectionOption == MapScrollDirection.Vertical)
+            {
+                isHorizontalScroll = false;
+                isVerticalScroll = true;
+            }
+            else if (scrollDirectionOption == MapScrollDirection.Horizontal)
+            {
+                isHorizontalScroll = true;
+                isVerticalScroll = false;
+            }
+            else if (scrollDirectionOption == MapScrollDirection.Both)
+            {
+                isHorizontalScroll = true;
+                isVerticalScroll = true;
+            }
 
             // 1. 실제로 생성된 노드들의 로컬 anchoredPosition 기준 바운딩 박스 계산
             float minX = float.MaxValue;
@@ -198,27 +289,113 @@ namespace UIFramework.Map
                     if (pathFitter != null) pathFitter.enabled = false;
                 }
 
-                // NodeRoot와 PathRoot를 Stretch 구조로 밀착
-                ResetRootRectTransform(contentRoot);
-                if (pathRoot != null && pathRoot != contentRoot)
+                // Viewport 크기 쿼리
+                RectTransform viewport = null;
+                if (targetScrollRect != null)
                 {
-                    ResetRootRectTransform(pathRoot);
+                    viewport = targetScrollRect.viewport;
+                }
+                if (viewport == null)
+                {
+                    viewport = scrollContent.parent as RectTransform;
                 }
 
-                // 최하단 기준 배치 및 위쪽 확장 방식 (Pivot을 하단 중앙 0.5, 0 으로 설정)
-                scrollContent.anchorMin = new Vector2(0.5f, 0f);
-                scrollContent.anchorMax = new Vector2(0.5f, 0f);
-                scrollContent.pivot = new Vector2(0.5f, 0f);
+                float viewportWidth = 0f;
+                float viewportHeight = 0f;
+                if (viewport != null)
+                {
+                    viewportWidth = viewport.rect.width;
+                    viewportHeight = viewport.rect.height;
+                }
+                else
+                {
+                    viewportWidth = scrollContent.sizeDelta.x;
+                    viewportHeight = scrollContent.sizeDelta.y;
+                }
 
-                scrollContent.sizeDelta = new Vector2(mapWidth, mapHeight);
-                // anchoredPosition.y = 0 이면 하단(시작 지점)이 화면에 보임
-                scrollContent.anchoredPosition = Vector2.zero;
+                Vector2 rootPivot;
+                Vector2 targetSize = scrollContent.sizeDelta;
+
+                if (isHorizontalScroll && !isVerticalScroll)
+                {
+                    rootPivot = new Vector2(0f, 0.5f);
+                    targetSize.x = mapWidth;
+                    targetSize.y = viewportHeight; // 제어되지 않는 축(세로)은 Viewport 높이에 맞춤
+                }
+                else if (isVerticalScroll && !isHorizontalScroll)
+                {
+                    rootPivot = new Vector2(0.5f, 0f);
+                    targetSize.y = mapHeight;
+                    targetSize.x = viewportWidth; // 제어되지 않는 축(가로)은 Viewport 너비에 맞춤
+                }
+                else
+                {
+                    rootPivot = new Vector2(0.5f, 0f);
+                    targetSize = new Vector2(mapWidth, mapHeight);
+                }
+
+                // NodeRoot와 PathRoot를 Stretch 구조로 밀착
+                ResetRootRectTransform(contentRoot, rootPivot);
+                if (pathRoot != null && pathRoot != contentRoot)
+                {
+                    ResetRootRectTransform(pathRoot, rootPivot);
+                }
+
+                // 스크롤 컨텐트 설정 적용
+                if (isHorizontalScroll && !isVerticalScroll)
+                {
+                    // 좌측 중앙 정렬 및 가로 확장
+                    scrollContent.anchorMin = new Vector2(0f, 0.5f);
+                    scrollContent.anchorMax = new Vector2(0f, 0.5f);
+                    scrollContent.pivot = new Vector2(0f, 0.5f);
+                    scrollContent.sizeDelta = targetSize;
+                    scrollContent.anchoredPosition = new Vector2(0f, scrollContent.anchoredPosition.y);
+                }
+                else if (isVerticalScroll && !isHorizontalScroll)
+                {
+                    // 하단 중앙 정렬 및 세로 확장
+                    scrollContent.anchorMin = new Vector2(0.5f, 0f);
+                    scrollContent.anchorMax = new Vector2(0.5f, 0f);
+                    scrollContent.pivot = new Vector2(0.5f, 0f);
+                    scrollContent.sizeDelta = targetSize;
+                    scrollContent.anchoredPosition = new Vector2(scrollContent.anchoredPosition.x, 0f);
+                }
+                else
+                {
+                    // 기본 하단 중앙 정렬 및 양방향 확장
+                    scrollContent.anchorMin = new Vector2(0.5f, 0f);
+                    scrollContent.anchorMax = new Vector2(0.5f, 0f);
+                    scrollContent.pivot = new Vector2(0.5f, 0f);
+                    scrollContent.sizeDelta = targetSize;
+                    scrollContent.anchoredPosition = Vector2.zero;
+                }
             }
 
             // 2. 모든 자식 오브젝트(노드 버튼 및 패스 세그먼트)의 좌표를 보정된 크기에 맞춰 일괄 시프트
-            // 가로는 중앙 정렬, 세로는 최하단(y=0) 기준 위쪽 방향 정렬
-            float offsetX = -(minX + maxX) * 0.5f;
-            float offsetY = -minY + paddingY;
+            float offsetX = 0f;
+            float offsetY = 0f;
+
+            bool isHorizontalOnly = isHorizontalScroll && !isVerticalScroll;
+            bool isVerticalOnly = isVerticalScroll && !isHorizontalScroll;
+
+            if (isHorizontalOnly)
+            {
+                // 가로는 좌측 기준(paddingX만큼 오프셋), 세로는 중앙 정렬
+                offsetX = -minX + paddingX;
+                offsetY = -(minY + maxY) * 0.5f;
+            }
+            else if (isVerticalOnly)
+            {
+                // 가로는 중앙 정렬, 세로는 하단 기준(paddingY만큼 오프셋)
+                offsetX = -(minX + maxX) * 0.5f;
+                offsetY = -minY + paddingY;
+            }
+            else
+            {
+                // 기존 기본값
+                offsetX = -(minX + maxX) * 0.5f;
+                offsetY = -minY + paddingY;
+            }
 
             // 노드 버튼 시프트
             foreach (var button in spawnedButtons)
@@ -251,11 +428,11 @@ namespace UIFramework.Map
             }
         }
 
-        private void ResetRootRectTransform(RectTransform rect)
+        private void ResetRootRectTransform(RectTransform rect, Vector2 pivot)
         {
             rect.anchorMin = Vector2.zero;
             rect.anchorMax = Vector2.one;
-            rect.pivot = new Vector2(0.5f, 0f);
+            rect.pivot = pivot;
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             rect.anchoredPosition = Vector2.zero;

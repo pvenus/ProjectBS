@@ -6,7 +6,7 @@ partially planned NPC group.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 CharacterDesignCreateGuide.md, NpcPoolJsonCreateGuide.md 기준으로
 NPC/몬스터 풀 인덱스 JSON을 생성 또는 갱신해줘.
@@ -15,12 +15,13 @@ NPC/몬스터 풀 인덱스 JSON을 생성 또는 갱신해줘.
 - Assets/character_concepts/game_prompt_guide/character/CharacterDesignCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/character/NpcPoolJsonCreateGuide.md
 - Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md
-- Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 
 Input:
+- projectRoot: {project_root}
 - actId: {act_id}
 - groupId: {group_id}
 - chapterRange: {chapter_range}
+- monsterCompositionGroup: {monster_composition_group}
 - storyReferenceFiles:
   - Assets/Doc/Story/00_Background.md
   - Assets/Doc/Story/Act01/01_Overall_Story.md
@@ -32,7 +33,7 @@ Input:
 1. npcPlanningRoot 아래의 NPC 기획 JSON을 읽는다.
 2. 각 NPC의 characterId, 역할, 난이도, 스토리 용도, 공개 타이밍을 정리한다.
 3. monster_context.{groupId}.json을 생성 또는 갱신한다.
-4. monster_composition.chapter_XX_YY.json을 생성 또는 갱신한다.
+4. monster_composition.{monster_composition_group}.json을 생성 또는 갱신한다.
 5. 에피소드 초반에 쓰면 안 되는 elite/boss/spirit/true reveal 후보는 분리한다.
 6. 부족한 역할은 새로 만들어졌다고 가정하지 말고 missingRoles에 기록한다.
 

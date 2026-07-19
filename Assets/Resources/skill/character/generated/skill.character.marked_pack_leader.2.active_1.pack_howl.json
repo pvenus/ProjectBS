@@ -1,37 +1,41 @@
-{
-  "equipmentId": "skill.character.marked_pack_leader.2.active_1.pack_howl",
-  "baseProfile": {
-    "baseProfileId": "skill.character.marked_pack_leader.2.active_1.pack_howl.profile",
-    "skillType": "Active",
-    "skillComponentType": "Projectile",
-    "projectileCount": 1,
-    "projectileScale": 1,
-    "projectileColliderRadius": 3,
-    "projectileLifetime": 0.25
-  },
-  "cast": {
-    "castId": "skill.character.marked_pack_leader.2.active_1.pack_howl.cast",
-    "targetingType": "Self",
-    "cooldown": 6,
-    "castTime": 0,
-    "range": 0.4,
-    "skipAttackAnimation": false,
-    "selfEffects": [
-      {
-        "effect": {
-          "effectId": "effect.skill.character.marked_pack_leader.2.active_1.pack_howl.pack_speed_pressure",
-          "effectType": "StatModifier",
-          "config": {
-            "targetStat": "MoveSpeedPercent",
-            "modifierType": "Percent",
-            "value": 20
-          }
-        },
-        "lifetimeType": "CombatTimed",
-        "categoryType": "Buff",
-        "duration": 4,
-        "maxApplyCount": 1
-      }
-    ]
-  }
+﻿{
+    "equipmentId":  "skill.character.marked_pack_leader.2.active_1.pack_howl",
+    "baseProfile":  {
+                        "baseProfileId":  "skill.character.marked_pack_leader.2.active_1.pack_howl.profile",
+                        "skillType":  "Active",
+                        "skillComponentType":  "Projectile",
+                        "projectileCount":  1,
+                        "projectileScale":  1,
+                        "projectileColliderRadius":  3,
+                        "projectileLifetime":  0.25
+                    },
+    "cast":  {
+                 "castId":  "skill.character.marked_pack_leader.2.active_1.pack_howl.cast",
+                 "targetingType":  "Self",
+                 "cooldown":  6,
+                 "castTime":  0,
+                 "range":  0.4,
+                 "skipAttackAnimation":  false,
+                 "selfEffects":  [
+                                     {
+                                         "effect":  {
+                                                        "effectId":  "effect.skill.character.marked_pack_leader.2.active_1.pack_howl.pack_speed_pressure",
+                                                        "effectType":  "StatModifier",
+                                                        "config":  {
+                                                                       "targetStat":  "MoveSpeedPercent",
+                                                                       "modifierType":  "Percent",
+                                                                       "value":  20
+                                                                   }
+                                                    },
+                                         "lifetimeType":  "CombatTimed",
+                                         "categoryType":  "Buff",
+                                         "duration":  4,
+                                         "maxApplyCount":  1
+                                     }
+                                 ]
+             },
+    "baseVisual":  {
+                       "visualId":  "skill.character.marked_pack_leader.2.active_1.pack_howl.visual",
+                       "projectileVisualType":  "Default"
+                   }
 }

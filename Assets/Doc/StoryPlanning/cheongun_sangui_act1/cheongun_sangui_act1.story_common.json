@@ -12,7 +12,15 @@
     "Assets/Doc/Story/Act01/01_Overall_Story.md",
     "Assets/Doc/Story/Act01/Act_01_Background.md",
     "Assets/Doc/Story/Characters.md",
-    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md"
+    "Assets/Doc/Story/Act01/Chapter01/Chapter_01.md",
+    "Assets/Doc/Story/Act01/Chapter01/02_episode2.md",
+    "Assets/Doc/Story/Act01/Chapter01/03-1_episode3-1.md",
+    "Assets/Doc/Story/Act01/Chapter01/03-2_episode3-2.md",
+    "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+    "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+    "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+    "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
+    "Assets/Doc/Story/Act01/Chapter01/06_episode6.md"
   ],
   "sourceGuides": [
     "Assets/Doc/Design/EpisodeFormat.md",
@@ -21,7 +29,10 @@
     "Assets/character_concepts/game_prompt_guide/story/EpisodePlanningCreateGuide.md",
     "Assets/character_concepts/game_prompt_guide/story/StoryPlanningContextGuide.md",
     "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md"
+    "Assets/character_concepts/game_prompt_guide/battle/BattleStoryContextGuide.md",
+    "Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md",
+    "Assets/character_concepts/game_prompts/story/EpisodePlanningPrompt.md",
+    "Assets/Resources/stage_new/chapter1/episode1.json"
   ],
   "worldUse": [
     "가뭄으로 말라가는 청운촌과 산길을 중심으로 한다.",
@@ -30,7 +41,15 @@
   ],
   "storyUse": [
     "Chapter 01은 서진의 개인적 동기, 청운촌의 위기, 아이 실종 사건의 출발점을 제시한다.",
-    "에피소드 1은 마을 습격을 통해 플레이어가 즉시 보호 전투에 들어가게 하는 도입부다."
+    "에피소드 1은 마을 습격을 통해 플레이어가 즉시 보호 전투에 들어가게 하는 도입부다.",
+    "에피소드 2는 청운촌 아이 실종 단서를 조사하고 지한/유진의 관점을 통해 숲 추적으로 전환한다.",
+    "에피소드 3-1은 붉은 천 인형 흔적을 따라 숲속 오두막으로 들어가 지한을 동료로 합류시키고, 다친 아이 보호 전투로 전환한다.",
+    "???? 3-2? ?? ??? ??? ?? ??? ???.",
+    "???? 4-1? ??? ? ?? ??? ???? ?? ??? ????.",
+    "???? 4-2? ??? ??? ???? ??? ??? ?? ??? ????.",
+    "???? 5-1? ?? ??? ???? ?? ??? ??? ??? ??? ???.",
+    "???? 5-2? ?? ??? ???? ?? ??? ??? ?? ??? ???.",
+    "???? 6? ? ??? ?? ?? ??? Chapter 01 ?? ?? ??? ???."
   ],
   "episodeRules": {
     "planningShape": [
@@ -44,8 +63,8 @@
     "prosePolicy": "Episode prose is converted into synopsis-level story direction before formal script, battle, reward, NPC, or spawner generation.",
     "monsterPolicy": "Episode planning gives monster family, role, and difficulty direction only; concrete NPC stats and skills are created later.",
     "battleMonsterPoolPolicy": "Episode battle monster pool files define desired monster slots before monster creation. Existing monster refs are candidates only and must not be treated as required prerequisites.",
-    "battlePlanPolicy": "Episode battle plan files are created only after a reusable spawner is selected. If no reusable spawner matches monster pool, spawn count balance, party assumption, and forbidden pressures, battle plan generation fails and must report that spawner creation is required.",
-    "battlePolicy": "Episode planning gives battle mood, shape, and difficulty direction only; exact spawner, timing, count, and BattleSO fields are created later.",
+    "battlePlanPolicy": "Episode battle plan files are created only after a reusable spawner is selected. If no reusable spawner matches monster pool, spawn quantity balance, party assumption, and forbidden pressures, battle plan generation fails and must report that spawner creation is required.",
+    "battlePolicy": "Episode planning gives battle mood, shape, and difficulty direction only; exact spawner, timing, count, and runtime battle asset fields are created later.",
     "rewardPolicy": "Current episode planning uses gold reward direction only.",
     "resultPolicy": "Battle result text should stop at battle entry.",
     "revealPolicy": "Do not reveal the true Sangui identity in early Chapter 01 planning."
@@ -62,6 +81,8 @@
   },
   "notes": [
     "테스트 변환은 Episode 01만 포함한다.",
-    "Generated planning folders should contain JSON data artifacts only."
+    "Generated planning folders should contain JSON data artifacts only.",
+    "Episode 02 planning was added as an investigation episode with no immediate battle need.",
+    "Episode 3-1 planning was added as a companion-join and protection battle entry episode."
   ]
 }

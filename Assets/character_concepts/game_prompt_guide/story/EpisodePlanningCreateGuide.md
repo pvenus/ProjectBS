@@ -214,7 +214,7 @@ Category meaning:
 | Category | Owns |
 |---|---|
 | `common` | Episode identity, role, source refs, and shared local metadata. |
-| `story` | Script synopsis, scene beats, choice directions, tone, must-show/must-hide story direction. |
+| `story` | Source narration provenance, permanent popup definitions, script synopsis, choice directions, tone, and must-show/must-hide direction. |
 | `monster` | Monster family, role direction, difficulty direction, visual direction, reuse/creation policy. |
 | `battle` | Battle need, mood, shape, difficulty direction, pace direction, pressure, and avoid rules. |
 | `reward` | Reward direction, current reward type, reward reason, reward guide ref. |
@@ -260,11 +260,40 @@ For example:
 
 It should remain synopsis-level. Do not write the final script here.
 
+Preserving verbatim input prose and assigning popup identity are exceptions to
+the synopsis-only rule. They preserve provenance and stable downstream identity;
+they do not authorize rewriting final script prose in this step.
+
 Recommended shape:
 
 ```json
 {
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+      "blocks": [
+        {
+          "sourceNarrationId": "narration.act1.chapter01.01.village_arrival",
+          "sourceOrder": 100,
+          "originalTextKo": "청운촌에 가까워질수록 공기는 무겁고 메말랐다."
+        }
+      ]
+    },
+    "popupDefinitions": [
+      {
+        "popupName": "village_arrival",
+        "popupNameKo": "청운촌 도착",
+        "popupId": "node.act1.chapter01.episode01.village_arrival",
+        "popupOrder": 100,
+        "popupType": "narration",
+        "sourceNarrationIds": [
+          "narration.act1.chapter01.01.village_arrival"
+        ],
+        "nextPopupId": "node.act1.chapter01.episode01.black_cloth_attack",
+        "imagePolicy": "generate",
+        "imageDirection": "가뭄으로 메마른 청운촌에 도착하는 장면"
+      }
+    ],
     "scriptSynopsis": {
       "episodeSummary": "Seojin reaches Cheongun Village and enters the first rescue battle.",
       "sceneBeats": [
@@ -291,12 +320,17 @@ Recommended shape:
     },
     "choiceDirections": [
       {
-        "choiceId": "episode.act1.chapter01.01.choice.rescue_villagers.1",
+        "popupName": "black_cloth_attack",
+        "choiceName": "rescue_villagers",
+        "choiceId": "choice.act1.chapter01.episode01.black_cloth_attack.rescue_villagers",
+        "nextPopupId": "node.act1.chapter01.episode01.rescue_start",
         "choiceIntent": "Protect villagers immediately.",
         "outcomeDirection": "Battle begins as Seojin steps between villagers and raiders.",
         "opens": [
           "battle"
         ],
+        "rewardOwner": "battle",
+        "rewardTrigger": "battle_clear",
         "rewardDirection": [
           "gold_battle_reward"
         ]
@@ -306,10 +340,48 @@ Recommended shape:
 }
 ```
 
-Use this field instead of detailed node plans unless node-level runtime
-conversion is explicitly requested.
+Use `popupDefinitions` to lock identity, order, source mapping, popup
+classification, and image policy. Do not put runtime object references or final
+`PopupEventSO` payloads in this planning layer.
 
-Do not decide final battle IDs or runtime node IDs here unless explicitly asked.
+### Popup Identity Rules
+
+Every planned popup must receive a permanent machine name before Stage Node JSON
+generation.
+
+```text
+popupName: lowercase semantic snake_case, unique inside the episode
+popupId: node.{act_key}.{chapter_key}.{episode_key}.{popupName}
+popupOrder: mutable ordering value; never part of identity
+```
+
+Rules:
+
+- `popupName` is an immutable identity slug. Use `popupNameKo` for a mutable
+  review label.
+- Do not issue names such as `popup_1`, `scene_2`, `event_003`, or any name based
+  only on array position.
+- When layout requires several popups, give each one a semantic name in planning,
+  such as `village_arrival_context` and `village_arrival_warning`.
+- Once downstream JSON, localization, images, evaluation, or assets exist, do not
+  rename `popupName` or `popupId`.
+- Deleted names and ids are reserved and must not be reused for different
+  content.
+- `popupOrder` may change without changing identity.
+- `nextPopupId` connects permanent popup identities and is copied to Stage
+  `nextNodeId`; use `null` for a terminal planning popup.
+- `imagePolicy` must be one of `generate`, `reuse`, or `none`.
+- `reuse` requires `imageSourcePopupId`. The image pipeline copies the approved
+  source PNG without visual modification to the new `{popupId}.main.png` path so
+  the current per-event builder can resolve it.
+- A choice uses a semantic `choiceName`; derive `choiceId` as
+  `choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}`.
+- Existing sequential popup and choice ids are permanent legacy ids. Preserve
+  them; apply semantic naming only to newly planned content.
+
+Do not decide final battle IDs or Unity object paths here. The planning
+`popupId` and `choiceId` are required permanent content identities and are
+copied into the Stage runtime-reference fields by the next pipeline step.
 
 ### monster
 
@@ -465,11 +537,29 @@ Recommended shape:
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
     "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear",
     "rewardReason": "Reward the player for clearing the village rescue battle.",
-    "rewardScaleHint": "normal_battle_clear"
+    "rewardScaleHint": "normal_battle_clear",
+    "rewardIntent": [
+      "gold_battle_reward"
+    ]
   }
 }
 ```
+
+`rewardType` describes the currency or item, while `rewardOwner` determines the
+execution system. Never map `rewardType: gold` directly to a popup reward.
+
+- `rewardOwner: battle` + `rewardTrigger: battle_clear`: hand off to the battle
+  reward pipeline; Stage popup `Gold` is forbidden.
+- `rewardOwner: popup`: a later Stage step may create a popup reward only when
+  the trigger is explicitly `choice_confirm`, `episode_clear`, or
+  `chapter_clear` and the planning intent says that the popup performs payout.
+- Legacy `gold_battle_reward`, `normal_battle_clear`, or a reward reason tied to
+  clearing a battle is classified as battle-owned even if `rewardOwner` is
+  absent. Conflicting or unclear evidence must fail as
+  `ambiguous_reward_owner` rather than defaulting to popup Gold.
 
 Do not create item, material, skill, or difficulty-scaled rewards until
 `RewardPlanningGuide.md` defines them.
@@ -516,6 +606,11 @@ Use refs only. Do not copy full downstream data.
     }
   },
   "story": {
+    "sourceNarration": {
+      "sourceEpisodeFile": "",
+      "blocks": []
+    },
+    "popupDefinitions": [],
     "scriptSynopsis": {
       "episodeSummary": "",
       "sceneBeats": [],
@@ -529,7 +624,9 @@ Use refs only. Do not copy full downstream data.
   "battle": {},
   "reward": {
     "rewardPolicyRef": "Assets/character_concepts/game_prompt_guide/story/RewardPlanningGuide.md",
-    "rewardType": "gold"
+    "rewardType": "gold",
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear"
   },
   "handoff": {},
   "constraints": []
@@ -614,14 +711,26 @@ Before finishing:
 3. Validate every `episodePlanningRef` exists.
 4. Validate every `sourceEpisodeFile` exists.
 5. Validate `scriptSynopsis` is synopsis-level and not final script prose.
-6. Validate `monster` gives only family, role, and difficulty direction.
-7. Validate `battle` gives only shape, mood, and difficulty direction.
-8. Validate reward direction uses `RewardPlanningGuide.md`.
-9. Validate current reward type is only `gold`.
-10. Validate episode battle monster pool refs, when present, are pre-monster-creation planning files.
-11. Validate episode battle plan refs, when present, select an existing reusable spawner.
-12. If no reusable spawner matches, validate that no episode battle plan JSON was created and that the final response reports spawner creation is required.
-13. Validate no final runtime asset data is embedded.
+6. Validate every source narration block preserves `originalTextKo` verbatim and
+   has a unique permanent `sourceNarrationId`.
+7. Validate every new popup has unique `popupName`, derived `popupId`, mutable
+   `popupOrder`, source mapping, popup type, and image policy.
+8. Validate every new `popupName` and `choiceName` is semantic snake_case and is
+   not an array index or sequential placeholder.
+9. Validate `popupId` exactly equals
+   `node.{act_key}.{chapter_key}.{episode_key}.{popupName}`.
+10. Validate existing legacy popup/choice ids are preserved without renumbering.
+11. Validate `monster` gives only family, role, and difficulty direction.
+12. Validate `battle` gives only shape, mood, and difficulty direction.
+13. Validate reward direction uses `RewardPlanningGuide.md`.
+14. Validate current reward type is only `gold`.
+15. Validate every new reward declares `rewardOwner` and `rewardTrigger`.
+16. Validate battle-clear intent is battle-owned and cannot become popup Gold.
+17. Validate ambiguous or conflicting ownership stops instead of being guessed.
+18. Validate episode battle monster pool refs, when present, are pre-monster-creation planning files.
+19. Validate episode battle plan refs, when present, select an existing reusable spawner.
+20. If no reusable spawner matches, validate that no episode battle plan JSON was created and that the final response reports spawner creation is required.
+21. Validate no final runtime asset data is embedded.
 
 ## Final Response
 

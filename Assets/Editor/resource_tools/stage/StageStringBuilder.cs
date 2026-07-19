@@ -75,6 +75,7 @@ namespace ResourceTools.Stage
             public string nodeId;
             public string textKo;
             public string bodyKo;
+            public string nextNodeId;
             public List<StageStringChoiceJson> choices;
         }
 
@@ -281,6 +282,12 @@ namespace ResourceTools.Stage
                 }
 
                 AddEntry(entries, node.nodeId, "body", FirstNonEmpty(node.bodyKo, node.textKo));
+
+                if ((node.choices == null || node.choices.Count == 0)
+                    && !string.IsNullOrWhiteSpace(node.nextNodeId))
+                {
+                    AddEntry(entries, $"{node.nodeId}.next", "label", "다음");
+                }
 
                 if (node.choices == null)
                 {

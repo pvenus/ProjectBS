@@ -1,118 +1,934 @@
-{
-  "battlePlanId": "episode_battle_plan.chapter_01.cheongun_sangui_act1",
-  "documentType": "episodeBattlePlan",
-  "actId": "act.01",
-  "chapterId": "chapter.01.01",
-  "commonDataRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
-  "storyContextRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
-  "episodeCompositionRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
-  "episodeBattleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-  "sourcePlanningRefs": [
-    "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json"
-  ],
-  "globalRules": {
-    "preBattleSOStage": true,
-    "requiresExistingSpawnerSelection": true,
-    "doNotCreateSpawnerHere": true,
-    "doNotBindFinalCharacterSOHere": false,
-    "existingMonsterRefsAreCandidatesOnlyUntilBattleBinding": true
-  },
-  "episodeBattlePlans": [
-    {
-      "episodeId": "episode.act1.chapter01.01",
-      "episodeTitle": "청운촌의 습격",
-      "episodePlanningRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
-      "battleMonsterPoolRef": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
-      "battleId": "battle.act1.chapter01.01.rescue_villagers",
-      "battleStoryContextRef": "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
-      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
-      "planningStatus": "ready",
-      "battleDirection": {
-        "battleNeed": "required",
-        "modeIntent": "Elimination",
-        "victoryRule": "ClearAllEnemies",
-        "battleLengthSec": 90,
-        "battleMood": "urgent_rescue",
-        "battleShape": "front_pressure_with_light_flank",
-        "difficultyIntent": "very_easy_intro",
-        "partyAssumption": "solo_story_intro",
-        "paceIntent": "short_readable_swarm",
-        "mustAvoid": [
-          "heavy_surround",
-          "backline_artillery",
-          "elite_pressure",
-          "boss_reveal",
-          "spirit_reveal",
-          "altar_objective"
-        ]
-      },
-      "spawnerSelection": {
-        "status": "selected",
-        "spawnerType": "elimination_90s_swarm",
-        "difficulty": "very_easy",
-        "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
-        "sequenceId": "seq.elimination_90s_swarm.very_easy",
-        "sequenceAssetPath": "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.very_easy.asset",
-        "targetPartySize": 1,
-        "targetSpawnCount": 28,
-        "spawnWindowSec": 60,
-        "clearWindowSec": 30,
-        "selectionReason": "스토리 원문이 서진 1인 도입 전투이고, very_easy 스포너가 1인/근접 중심/원거리 없음 조건을 만족한다.",
-        "requiredSlots": [
-          {
-            "unitKey": "spawn.swarm.fodder.melee",
-            "role": "Melee",
-            "purpose": "검은 천 무리의 기본 전열",
-            "bindingStrategy": "exact"
-          },
-          {
-            "unitKey": "spawn.swarm.fast.melee",
-            "role": "Melee",
-            "purpose": "사슬을 끄는 제어형 근접 압박",
-            "bindingStrategy": "exact"
-          }
-        ],
-        "excludedOptionalSlots": [
-          {
-            "poolSlotKey": "episode.pool.black_cloth.light_blocker",
-            "role": "Tank",
-            "reason": "선택된 very_easy 스포너에는 Tank 슬롯이 없고, 해당 풀 슬롯은 optional이므로 제외한다."
-          }
-        ]
-      },
-      "monsterPoolSelection": {
-        "selectedBindings": [
-          {
-            "poolSlotKey": "episode.pool.black_cloth.basic_melee",
-            "spawnUnitKey": "spawn.swarm.fodder.melee",
-            "spawnRole": "Melee",
-            "characterId": "character.black_cloth_raider.1",
-            "bindingReason": "마을을 습격하는 검은 천 인간 적의 기본 전열에 가장 적합하다."
-          },
-          {
-            "poolSlotKey": "episode.pool.black_cloth.light_control",
-            "spawnUnitKey": "spawn.swarm.fast.melee",
-            "spawnRole": "Melee",
-            "characterId": "character.chain_dragger_raider.1",
-            "bindingReason": "사슬을 끄는 키 큰 사내 묘사와 light control 근접 압박을 담당한다."
-          }
-        ],
-        "excludedCandidates": [
-          "character.mountain_path_archer.1",
-          "character.cage_guard_bandit.2",
-          "character.red_doll_hexer.2",
-          "character.sangui_abandoned_child.3"
-        ]
-      },
-      "battleSOReadiness": {
-        "canCreateBattleSO": true,
-        "spawnSequenceResolution": "spawnSequenceId",
-        "spawnUnitBindingsCoverRequiredSlots": true,
-        "notes": [
-          "모든 필수 spawnUnitKey는 exact binding으로 해석 가능하다.",
-          "선택된 스포너에는 Ranged, Elite, Boss, Support 슬롯이 없다."
-        ]
-      }
-    }
-  ]
+﻿{
+    "battlePlanId":  "episode_battle_plan.chapter_01.cheongun_sangui_act1",
+    "documentType":  "episodeBattlePlan",
+    "actId":  "act.01",
+    "chapterId":  "chapter.01.01",
+    "commonDataRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "storyContextRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "episodeCompositionRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_composition.chapter_01.json",
+    "episodeBattleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+    "sourcePlanningRefs":  [
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                               "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.06.json"
+                           ],
+    "globalRules":  {
+                        "preBattleSOStage":  true,
+                        "requiresExistingSpawnerSelection":  true,
+                        "doNotCreateSpawnerHere":  true,
+                        "doNotBindFinalCharacterSOHere":  false,
+                        "existingMonsterRefsAreCandidatesOnlyUntilBattleBinding":  true
+                    },
+    "episodeBattlePlans":  [
+                               {
+                                   "episodeId":  "episode.act1.chapter01.01",
+                                   "episodeTitle":  "泥?슫珥뚯쓽 ?듦꺽",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.01.rescue_villagers",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "urgent_rescue",
+                                                           "battleShape":  "front_pressure_with_light_flank",
+                                                           "difficultyIntent":  "very_easy_intro",
+                                                           "partyAssumption":  "solo_story_intro",
+                                                           "paceIntent":  "short_readable_swarm",
+                                                           "mustAvoid":  [
+                                                                             "heavy_surround",
+                                                                             "backline_artillery",
+                                                                             "elite_pressure",
+                                                                             "boss_reveal",
+                                                                             "spirit_reveal",
+                                                                             "altar_objective"
+                                                                         ]
+                                                       },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "very_easy",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.very_easy",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.very_easy.asset",
+                                                            "targetPartySize":  1,
+                                                            "targetSpawnCount":  28,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "?ㅽ넗由??먮Ц???쒖쭊 1???꾩엯 ?꾪닾?닿퀬, very_easy ?ㅽ룷?덇? 1??洹쇱젒 以묒떖/?먭굅由??놁쓬 議곌굔??留뚯”?쒕떎.",
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "寃? 泥?臾대━??湲곕낯 ?꾩뿴",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "?ъ뒳???꾨뒗 ?쒖뼱??洹쇱젒 ?뺣컯",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+                                                                                          {
+                                                                                              "poolSlotKey":  "episode.pool.black_cloth.light_blocker",
+                                                                                              "role":  "Tank",
+                                                                                              "reason":  "?좏깮??very_easy ?ㅽ룷?덉뿉??Tank ?щ’???녾퀬, ?대떦 ? ?щ’? optional?대?濡??쒖쇅?쒕떎."
+                                                                                          }
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.black_cloth.basic_melee",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.black_cloth_raider.1",
+                                                                                             "bindingReason":  "留덉쓣???듦꺽?섎뒗 寃? 泥??멸컙 ?곸쓽 湲곕낯 ?꾩뿴??媛???곹빀?섎떎."
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.black_cloth.light_control",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.chain_dragger_raider.1",
+                                                                                             "bindingReason":  "?ъ뒳???꾨뒗 ?????щ궡 臾섏궗? light control 洹쇱젒 ?뺣컯???대떦?쒕떎."
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+                                                                                           "character.mountain_path_archer.1",
+                                                                                           "character.cage_guard_bandit.2",
+                                                                                           "character.red_doll_hexer.2",
+                                                                                           "character.sangui_abandoned_child.3"
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "notes":  [
+                                                                           "紐⑤뱺 ?꾩닔 spawnUnitKey??exact binding?쇰줈 ?댁꽍 媛?ν븯??",
+                                                                           "?좏깮???ㅽ룷?덉뿉??Ranged, Elite, Boss, Support ?щ’???녿떎."
+                                                                       ]
+                                                         }
+                               },
+                               {
+                                   "episodeId":  "episode.act1.chapter01.03_1",
+                                   "episodeTitle":  "숲속의 승려",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                   "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                   "optionalBattleGroup":  "act1/chapter01",
+                                   "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                   "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                   "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "protect_injured_child",
+                                                           "battleShape":  "narrow_path_defense_with_mixed_beast_and_pursuer_pressure",
+                                                           "difficultyIntent":  "very_easy_support_companion",
+                                                           "partyAssumption":  "seojin_primary_combat_with_jihan_support_companion",
+                                                           "partyAssumptionBasis":  "원문에 지한이 파티에 합류하고 아이를 지키겠다고 하지만, 지한을 완전한 전투원 수치로 확정하지 않는다. 따라서 1인 전투 기반 very_easy 스포너에 지한 지원 동행 연출만 반영한다.",
+                                                           "paceIntent":  "short_urgent_defense",
+                                                           "spaceDirection":  [
+                                                                                  "abandoned_hut_front",
+                                                                                  "narrow_mountain_path",
+                                                                                  "child_protection_line",
+                                                                                  "front_chokepoint"
+                                                                              ],
+                                                           "mustAvoid":  [
+                                                                             "three_member_party_assumption",
+                                                                             "ranged_artillery",
+                                                                             "heavy_surround",
+                                                                             "elite_pressure",
+                                                                             "boss_reveal",
+                                                                             "spirit_reveal",
+                                                                             "sangui_true_form",
+                                                                             "altar_objective"
+                                                                         ]
+                                                       },
+                                   "backgroundImageDirection":  {
+                                                                    "status":  "needed_not_generated",
+                                                                    "assetMode":  "single_sprite",
+                                                                    "targetFileName":  "battle.act1.chapter01.03_1.defend_hut.background.png",
+                                                                    "targetResourcePath":  "Assets/Resources/battle/battle_png/battle.act1.chapter01.03_1.defend_hut.background.png",
+                                                                    "style":  "pixel_game_background",
+                                                                    "aspectRatio":  "16:9",
+                                                                    "targetResolution":  "2560x1440",
+                                                                    "camera":  "slightly_elevated_isometric_readable_combat_view",
+                                                                    "environment":  "old mountain trail in front of a small abandoned hut, narrow forest path, dry grass, broken branches, muted dusk-green forest, clear central combat lane",
+                                                                    "combatReadability":  "Keep the center and lower-middle lane open for player and enemy silhouettes; avoid large foreground blockers and dense dark bushes over the combat area.",
+                                                                    "mood":  [
+                                                                                 "urgent_rescue",
+                                                                                 "forest_unease",
+                                                                                 "protective_defense",
+                                                                                 "narrow_path_pressure"
+                                                                             ],
+                                                                    "mustInclude":  [
+                                                                                        "abandoned hut front",
+                                                                                        "narrow mountain path",
+                                                                                        "small traces of red cloth",
+                                                                                        "dry forest undergrowth",
+                                                                                        "safe readable combat lane"
+                                                                                    ],
+                                                                    "mustAvoid":  [
+                                                                                      "characters",
+                                                                                      "monsters",
+                                                                                      "UI",
+                                                                                      "text",
+                                                                                      "logos",
+                                                                                      "sangui_true_form",
+                                                                                      "spirit_boss",
+                                                                                      "large foreground obstruction",
+                                                                                      "spawn markers"
+                                                                                  ],
+                                                                    "promptSeed":  "A readable pixel-game battle background at an abandoned hut front on a narrow mountain path, tense rescue-defense mood, dry forest, small red cloth traces, no characters or monsters."
+                                                                },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "very_easy",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.very_easy",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.very_easy.asset",
+                                                            "targetPartySize":  1,
+                                                            "targetSpawnCount":  28,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "현재 재사용 가능한 스포너 중 very_easy elimination_90s_swarm만 Ranged/Elite/Boss/Spirit 슬롯 없이 Melee-only 압박을 제공한다. Episode 3-1은 지한 지원 동행이 있지만 완전한 2~3인 전투 수치를 확정하지 않으므로, 서진 주 전투 기반의 짧은 방어전으로 선택한다.",
+                                                            "rejectedCandidates":  [
+                                                                                       {
+                                                                                           "spawnerType":  "elimination_90s_swarm",
+                                                                                           "difficulty":  "easy",
+                                                                                           "reason":  "Ranged 슬롯과 light blocker가 포함되어 있으나 Episode 3-1은 ranged_artillery를 피하고 현재 필수 풀 바인딩은 Melee 중심이다."
+                                                                                       },
+                                                                                       {
+                                                                                           "spawnerType":  "elimination_90s_swarm",
+                                                                                           "difficulty":  "normal",
+                                                                                           "reason":  "3인 기준, Ranged/Tank 압박이 커서 지한을 완전 전투원으로 확정하지 않는 조건과 맞지 않는다."
+                                                                                       },
+                                                                                       {
+                                                                                           "spawnerType":  "elimination_90s_swarm",
+                                                                                           "difficulty":  "hard",
+                                                                                           "reason":  "Episode 3-1의 early_easy_to_normal 보호 전투보다 강하다."
+                                                                                       },
+                                                                                       {
+                                                                                           "spawnerType":  "elimination_90s_swarm",
+                                                                                           "difficulty":  "very_hard",
+                                                                                           "reason":  "Elite 슬롯과 고압박 구성이 포함되어 금지 조건과 충돌한다."
+                                                                                       }
+                                                                                   ],
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "black cloth pursuer baseline pressure at the hut path",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "fast starving beast pressure entering the narrow path",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+                                                                                          {
+                                                                                              "poolSlotKey":  "episode.pool.black_cloth_pursuer.reach_blocker",
+                                                                                              "role":  "Tank",
+                                                                                              "reason":  "선택된 very_easy 스포너가 Tank 슬롯을 요구하지 않는다. 좁은 길목 차단 이미지는 배경/상황 연출과 후속 custom spawner 후보로 남긴다."
+                                                                                          },
+                                                                                          {
+                                                                                              "poolSlotKey":  "episode.pool.black_cloth_pursuer.talisman_flavor",
+                                                                                              "role":  "Support",
+                                                                                              "reason":  "선택된 very_easy 스포너가 Support 슬롯을 요구하지 않으며, 의식 풍미는 산귀 진실 공개를 앞당기지 않도록 제외한다."
+                                                                                          }
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.black_cloth_pursuer.basic_melee",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.black_cloth_raider.1",
+                                                                                             "bindingReason":  "오두막 앞 길목을 압박하는 검은 천 기본 추격자 역할에 맞고 런타임 character JSON/asset 흔적이 확인된다."
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.forest_beast.fast_melee",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.starving_mountain_wolf.1",
+                                                                                             "bindingReason":  "굶주린 산늑대/들개형 빠른 근접 압박에 맞고 런타임 character JSON/asset 흔적이 확인된다."
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+                                                                                           "character.bone_axe_pursuer.1",
+                                                                                           "character.mud_hood_polehooker.1",
+                                                                                           "character.ritual_bell_handler.2",
+                                                                                           "character.red_doll_hexer.2",
+                                                                                           "character.mountain_path_archer.1",
+                                                                                           "character.marked_pack_leader.2",
+                                                                                           "character.sangui_abandoned_child.3"
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "characterRuntimeCandidatesChecked":  true,
+                                                             "notes":  [
+                                                                           "모든 selected spawner requiredSlots는 exact binding으로 커버된다.",
+                                                                           "선택 스포너의 SpawnSequenceSO asset이 Generated/Sequences 아래 존재한다.",
+                                                                           "선택 characterId 두 개는 Assets/Resources/character/json 아래 JSON/asset 흔적이 확인된다.",
+                                                                           "Unity BattleSO asset은 생성하지 않았고 expectedBattleSOPath만 연결한다."
+                                                                       ]
+                                                         }
+                               },
+                               {
+                                   "episodeId":  "episode.act1.chapter01.03_2",
+                                   "episodeTitle":  "Training Ground Ambush",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                                   "optionalBattleId":  "battle.act1.chapter01.03_2.training_ground_ambush",
+                                   "optionalBattleGroup":  "act1/chapter01",
+                                   "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                   "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                                   "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.asset",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_2.training_ground_ambush.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "ambush_at_training_ground",
+                                                           "battleShape":  "front_guard_with_archer_cover",
+                                                           "difficultyIntent":  "early_easy_to_normal",
+                                                           "partyAssumption":  "seojin_frontline_with_yujin_archer_companion",
+                                                           "paceIntent":  "short_breakout",
+                                                           "spaceDirection":  [
+                                                                                  "old_training_ground",
+                                                                                  "low_wall",
+                                                                                  "wood_shadow"
+                                                                              ],
+                                                           "mustAvoid":  [
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form"
+                                                                         ]
+                                                       },
+                                   "backgroundImageDirection":  {
+                                                                    "status":  "needed_not_generated",
+                                                                    "assetMode":  "single_sprite",
+                                                                    "targetFileName":  "battle.act1.chapter01.03_2.training_ground_ambush.background.png",
+                                                                    "targetResourcePath":  "Assets/Resources/battle/battle_png/battle.act1.chapter01.03_2.training_ground_ambush.background.png",
+                                                                    "style":  "pixel_game_background",
+                                                                    "aspectRatio":  "16:9",
+                                                                    "targetResolution":  "2560x1440",
+                                                                    "camera":  "slightly_elevated_isometric_readable_combat_view",
+                                                                    "environment":  "old forest training ground with low wooden walls and soot-dark cover, readable central lane",
+                                                                    "combatReadability":  "Keep a clear central combat lane and avoid large foreground blockers.",
+                                                                    "mood":  [
+                                                                                 "ambush_at_training_ground",
+                                                                                 "short_breakout"
+                                                                             ],
+                                                                    "mustInclude":  [
+                                                                                        "old training ground",
+                                                                                        "low wall",
+                                                                                        "wood shadow",
+                                                                                        "readable ambush lane"
+                                                                                    ],
+                                                                    "mustAvoid":  [
+                                                                                      "boss",
+                                                                                      "spirit",
+                                                                                      "sangui_true_form",
+                                                                                      "characters",
+                                                                                      "monsters",
+                                                                                      "UI",
+                                                                                      "text",
+                                                                                      "logos",
+                                                                                      "spawn markers"
+                                                                                  ],
+                                                                    "promptSeed":  "Readable pixel-game battle background for Training Ground Ambush: old forest training ground with low wooden walls and soot-dark cover, readable central lane. No characters, monsters, UI, text, or spawn markers."
+                                                                },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "easy",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.easy",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.easy.asset",
+                                                            "targetPartySize":  2,
+                                                            "targetSpawnCount":  80,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "Existing easy elimination_90s_swarm covers the selected role slots for front_guard_with_archer_cover.",
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "main melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "fast melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.pressure.ranged",
+                                                                                      "role":  "Ranged",
+                                                                                      "purpose":  "ranged pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.light.blocker",
+                                                                                      "role":  "Tank",
+                                                                                      "purpose":  "light blocker pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.03_2.watcher_melee",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.black_cloth_raider.1",
+                                                                                             "bindingReason":  "front watcher melee pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.03_2.short_blade_flanker",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.training_ground_skirmisher.1",
+                                                                                             "bindingReason":  "fast short-blade flank pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.03_2.bandit_archer",
+                                                                                             "spawnUnitKey":  "spawn.swarm.pressure.ranged",
+                                                                                             "spawnRole":  "Ranged",
+                                                                                             "characterId":  "character.mountain_path_archer.1",
+                                                                                             "bindingReason":  "archer cover pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.03_2.front_guard_blocker",
+                                                                                             "spawnUnitKey":  "spawn.swarm.light.blocker",
+                                                                                             "spawnRole":  "Tank",
+                                                                                             "characterId":  "character.door_shield_barricader.1",
+                                                                                             "bindingReason":  "front guard blocker pressure"
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "notes":  [
+                                                                           "Required spawnUnitKey values are covered by exact bindings.",
+                                                                           "Unity BattleSO asset was not generated; expectedBattleSOPath is linked only."
+                                                                       ]
+                                                         }
+                               },
+                               {
+                                   "episodeId":  "episode.act1.chapter01.05_1",
+                                   "episodeTitle":  "Training Ground Breakout",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                   "optionalBattleId":  "battle.act1.chapter01.05_1.training_ground_breakout",
+                                   "optionalBattleGroup":  "act1/chapter01",
+                                   "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                   "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                   "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "surrounded_breakout",
+                                                           "battleShape":  "multi_side_pressure_break_one_side",
+                                                           "difficultyIntent":  "early_normal",
+                                                           "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                                                           "paceIntent":  "urgent_breakout",
+                                                           "spaceDirection":  [
+                                                                                  "training_ground_center",
+                                                                                  "three_side_encirclement",
+                                                                                  "broken_exit"
+                                                                              ],
+                                                           "mustAvoid":  [
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form",
+                                                                             "heavy_magic"
+                                                                         ]
+                                                       },
+                                   "backgroundImageDirection":  {
+                                                                    "status":  "needed_not_generated",
+                                                                    "assetMode":  "single_sprite",
+                                                                    "targetFileName":  "battle.act1.chapter01.05_1.training_ground_breakout.background.png",
+                                                                    "targetResourcePath":  "Assets/Resources/battle/battle_png/battle.act1.chapter01.05_1.training_ground_breakout.background.png",
+                                                                    "style":  "pixel_game_background",
+                                                                    "aspectRatio":  "16:9",
+                                                                    "targetResolution":  "2560x1440",
+                                                                    "camera":  "slightly_elevated_isometric_readable_combat_view",
+                                                                    "environment":  "surrounded old training ground clearing with broken exit route and readable breakout lane",
+                                                                    "combatReadability":  "Keep a clear central combat lane and avoid large foreground blockers.",
+                                                                    "mood":  [
+                                                                                 "surrounded_breakout",
+                                                                                 "urgent_breakout"
+                                                                             ],
+                                                                    "mustInclude":  [
+                                                                                        "surrounded clearing",
+                                                                                        "broken exit",
+                                                                                        "low wall",
+                                                                                        "readable breakout lane"
+                                                                                    ],
+                                                                    "mustAvoid":  [
+                                                                                      "boss",
+                                                                                      "spirit",
+                                                                                      "sangui_true_form",
+                                                                                      "heavy_magic",
+                                                                                      "characters",
+                                                                                      "monsters",
+                                                                                      "UI",
+                                                                                      "text",
+                                                                                      "logos",
+                                                                                      "spawn markers"
+                                                                                  ],
+                                                                    "promptSeed":  "Readable pixel-game battle background for Training Ground Breakout: surrounded old training ground clearing with broken exit route and readable breakout lane. No characters, monsters, UI, text, or spawn markers."
+                                                                },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "normal",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.normal",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.normal.asset",
+                                                            "targetPartySize":  3,
+                                                            "targetSpawnCount":  80,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "Existing normal elimination_90s_swarm covers the selected role slots for multi_side_pressure_break_one_side.",
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "main melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "fast melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.pressure.ranged",
+                                                                                      "role":  "Ranged",
+                                                                                      "purpose":  "ranged pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.light.blocker",
+                                                                                      "role":  "Tank",
+                                                                                      "purpose":  "light blocker pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_1.basic_encirclement_raider",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.black_cloth_raider.1",
+                                                                                             "bindingReason":  "basic encirclement melee pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_1.fast_beast_melee",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.starving_mountain_wolf.1",
+                                                                                             "bindingReason":  "fast beast pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_1.bandit_archer",
+                                                                                             "spawnUnitKey":  "spawn.swarm.pressure.ranged",
+                                                                                             "spawnRole":  "Ranged",
+                                                                                             "characterId":  "character.mountain_path_archer.1",
+                                                                                             "bindingReason":  "encirclement archer pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_1.shield_frontliner",
+                                                                                             "spawnUnitKey":  "spawn.swarm.light.blocker",
+                                                                                             "spawnRole":  "Tank",
+                                                                                             "characterId":  "character.door_shield_barricader.1",
+                                                                                             "bindingReason":  "shield frontliner blocker"
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "notes":  [
+                                                                           "Required spawnUnitKey values are covered by exact bindings.",
+                                                                           "Unity BattleSO asset was not generated; expectedBattleSOPath is linked only."
+                                                                       ]
+                                                         }
+                               },
+                               {
+                                   "episodeId":  "episode.act1.chapter01.05_2",
+                                   "episodeTitle":  "Hut Escape",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.05_2.hut_escape",
+                                   "optionalBattleId":  "battle.act1.chapter01.05_2.hut_escape",
+                                   "optionalBattleGroup":  "act1/chapter01",
+                                   "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                   "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                                   "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "protect_child_escape",
+                                                           "battleShape":  "hut_door_breakthrough",
+                                                           "difficultyIntent":  "early_normal",
+                                                           "partyAssumption":  "seojin_yujin_primary_combat_with_jihan_child_support",
+                                                           "paceIntent":  "urgent_escape",
+                                                           "spaceDirection":  [
+                                                                                  "hut_door",
+                                                                                  "window_sides",
+                                                                                  "single_escape_route"
+                                                                              ],
+                                                           "mustAvoid":  [
+                                                                             "fire_attack_on_hut",
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form"
+                                                                         ]
+                                                       },
+                                   "backgroundImageDirection":  {
+                                                                    "status":  "needed_not_generated",
+                                                                    "assetMode":  "single_sprite",
+                                                                    "targetFileName":  "battle.act1.chapter01.05_2.hut_escape.background.png",
+                                                                    "targetResourcePath":  "Assets/Resources/battle/battle_png/battle.act1.chapter01.05_2.hut_escape.background.png",
+                                                                    "style":  "pixel_game_background",
+                                                                    "aspectRatio":  "16:9",
+                                                                    "targetResolution":  "2560x1440",
+                                                                    "camera":  "slightly_elevated_isometric_readable_combat_view",
+                                                                    "environment":  "forest hut doorway with side windows and one narrow escape route, urgent child rescue mood",
+                                                                    "combatReadability":  "Keep a clear central combat lane and avoid large foreground blockers.",
+                                                                    "mood":  [
+                                                                                 "protect_child_escape",
+                                                                                 "urgent_escape"
+                                                                             ],
+                                                                    "mustInclude":  [
+                                                                                        "hut door",
+                                                                                        "side windows",
+                                                                                        "single escape route",
+                                                                                        "readable central lane"
+                                                                                    ],
+                                                                    "mustAvoid":  [
+                                                                                      "fire_attack_on_hut",
+                                                                                      "boss",
+                                                                                      "spirit",
+                                                                                      "sangui_true_form",
+                                                                                      "characters",
+                                                                                      "monsters",
+                                                                                      "UI",
+                                                                                      "text",
+                                                                                      "logos",
+                                                                                      "spawn markers"
+                                                                                  ],
+                                                                    "promptSeed":  "Readable pixel-game battle background for Hut Escape: forest hut doorway with side windows and one narrow escape route, urgent child rescue mood. No characters, monsters, UI, text, or spawn markers."
+                                                                },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "easy",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.easy",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.easy.asset",
+                                                            "targetPartySize":  2,
+                                                            "targetSpawnCount":  80,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "Existing easy elimination_90s_swarm covers the selected role slots for hut_door_breakthrough.",
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "main melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "fast melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.pressure.ranged",
+                                                                                      "role":  "Ranged",
+                                                                                      "purpose":  "ranged pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.light.blocker",
+                                                                                      "role":  "Tank",
+                                                                                      "purpose":  "light blocker pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_2.basic_masked_raider",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.black_cloth_raider.1",
+                                                                                             "bindingReason":  "basic masked raider pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_2.hook_pole_control",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.mud_hood_polehooker.1",
+                                                                                             "bindingReason":  "hook pole control pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_2.net_capture_control",
+                                                                                             "spawnUnitKey":  "spawn.swarm.pressure.ranged",
+                                                                                             "spawnRole":  "Ranged",
+                                                                                             "characterId":  "character.child_snatcher_netman.1",
+                                                                                             "bindingReason":  "net capture pressure from side windows, not artillery"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.05_2.door_blocker_tank",
+                                                                                             "spawnUnitKey":  "spawn.swarm.light.blocker",
+                                                                                             "spawnRole":  "Tank",
+                                                                                             "characterId":  "character.hut_blocker_guard.2",
+                                                                                             "bindingReason":  "hut door blocker pressure"
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "notes":  [
+                                                                           "Required spawnUnitKey values are covered by exact bindings.",
+                                                                           "Unity BattleSO asset was not generated; expectedBattleSOPath is linked only."
+                                                                       ]
+                                                         }
+                               },
+                               {
+                                   "episodeId":  "episode.act1.chapter01.06",
+                                   "episodeTitle":  "Bandit Fort Assault",
+                                   "episodePlanningRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                                   "battleMonsterPoolRef":  "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                                   "battleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                   "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                   "optionalBattleGroup":  "act1/chapter01",
+                                   "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                   "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                   "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                   "battleStoryContextRef":  "Assets/Doc/Battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.story_context.json",
+                                   "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                   "planningStatus":  "ready",
+                                   "battleDirection":  {
+                                                           "battleNeed":  "required",
+                                                           "modeIntent":  "Elimination",
+                                                           "victoryRule":  "ClearAllEnemies",
+                                                           "battleLengthSec":  90,
+                                                           "battleMood":  "bandit_fort_assault",
+                                                           "battleShape":  "layered_fort_breakthrough",
+                                                           "difficultyIntent":  "chapter_climax_normal",
+                                                           "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                                                           "paceIntent":  "escalating_assault",
+                                                           "spaceDirection":  [
+                                                                                  "fort_gate",
+                                                                                  "watchtower",
+                                                                                  "inner_yard",
+                                                                                  "cage_area",
+                                                                                  "old_altar"
+                                                                              ],
+                                                           "mustAvoid":  [
+                                                                             "final_boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form"
+                                                                         ]
+                                                       },
+                                   "backgroundImageDirection":  {
+                                                                    "status":  "needed_not_generated",
+                                                                    "assetMode":  "single_sprite",
+                                                                    "targetFileName":  "battle.act1.chapter01.06.bandit_fort_assault.background.png",
+                                                                    "targetResourcePath":  "Assets/Resources/battle/battle_png/battle.act1.chapter01.06.bandit_fort_assault.background.png",
+                                                                    "style":  "pixel_game_background",
+                                                                    "aspectRatio":  "16:9",
+                                                                    "targetResolution":  "2560x1440",
+                                                                    "camera":  "slightly_elevated_isometric_readable_combat_view",
+                                                                    "environment":  "bandit fort gate and inner yard with watchtower, cages, old altar far in background, readable assault lane",
+                                                                    "combatReadability":  "Keep a clear central combat lane and avoid large foreground blockers.",
+                                                                    "mood":  [
+                                                                                 "bandit_fort_assault",
+                                                                                 "escalating_assault"
+                                                                             ],
+                                                                    "mustInclude":  [
+                                                                                        "fort gate",
+                                                                                        "watchtower",
+                                                                                        "inner yard",
+                                                                                        "cage area",
+                                                                                        "readable assault lane"
+                                                                                    ],
+                                                                    "mustAvoid":  [
+                                                                                      "final_boss",
+                                                                                      "spirit",
+                                                                                      "sangui_true_form",
+                                                                                      "characters",
+                                                                                      "monsters",
+                                                                                      "UI",
+                                                                                      "text",
+                                                                                      "logos",
+                                                                                      "spawn markers"
+                                                                                  ],
+                                                                    "promptSeed":  "Readable pixel-game battle background for Bandit Fort Assault: bandit fort gate and inner yard with watchtower, cages, old altar far in background, readable assault lane. No characters, monsters, UI, text, or spawn markers."
+                                                                },
+                                   "spawnerSelection":  {
+                                                            "status":  "selected",
+                                                            "spawnerType":  "elimination_90s_swarm",
+                                                            "difficulty":  "normal",
+                                                            "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                                                            "sequenceId":  "seq.elimination_90s_swarm.normal",
+                                                            "sequenceAssetPath":  "Assets/Resources/battle/spawner/Generated/Sequences/seq.elimination_90s_swarm.normal.asset",
+                                                            "targetPartySize":  3,
+                                                            "targetSpawnCount":  80,
+                                                            "spawnWindowSec":  60,
+                                                            "clearWindowSec":  30,
+                                                            "selectionReason":  "Existing normal elimination_90s_swarm covers the selected role slots for layered_fort_breakthrough.",
+                                                            "requiredSlots":  [
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fodder.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "main melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.fast.melee",
+                                                                                      "role":  "Melee",
+                                                                                      "purpose":  "fast melee pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.pressure.ranged",
+                                                                                      "role":  "Ranged",
+                                                                                      "purpose":  "ranged pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  },
+                                                                                  {
+                                                                                      "unitKey":  "spawn.swarm.light.blocker",
+                                                                                      "role":  "Tank",
+                                                                                      "purpose":  "light blocker pressure",
+                                                                                      "bindingStrategy":  "exact"
+                                                                                  }
+                                                                              ],
+                                                            "excludedOptionalSlots":  [
+
+                                                                                      ]
+                                                        },
+                                   "monsterPoolSelection":  {
+                                                                "selectedBindings":  [
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.06.shield_spearman",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fodder.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.mountain_fort_spearman.1",
+                                                                                             "bindingReason":  "fort spear front line pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.06.axe_bruiser",
+                                                                                             "spawnUnitKey":  "spawn.swarm.fast.melee",
+                                                                                             "spawnRole":  "Melee",
+                                                                                             "characterId":  "character.bone_axe_pursuer.1",
+                                                                                             "bindingReason":  "axe bruiser pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.06.watchtower_archer",
+                                                                                             "spawnUnitKey":  "spawn.swarm.pressure.ranged",
+                                                                                             "spawnRole":  "Ranged",
+                                                                                             "characterId":  "character.watchtower_marksman.1",
+                                                                                             "bindingReason":  "watchtower ranged pressure"
+                                                                                         },
+                                                                                         {
+                                                                                             "poolSlotKey":  "episode.pool.06.shield_spearman",
+                                                                                             "spawnUnitKey":  "spawn.swarm.light.blocker",
+                                                                                             "spawnRole":  "Tank",
+                                                                                             "characterId":  "character.mountain_fort_spearman.1",
+                                                                                             "bindingReason":  "shield spear blocker pressure"
+                                                                                         }
+                                                                                     ],
+                                                                "excludedCandidates":  [
+
+                                                                                       ]
+                                                            },
+                                   "battleSOReadiness":  {
+                                                             "canCreateBattleSO":  true,
+                                                             "spawnSequenceResolution":  "spawnSequenceId",
+                                                             "spawnUnitBindingsCoverRequiredSlots":  true,
+                                                             "notes":  [
+                                                                           "Required spawnUnitKey values are covered by exact bindings.",
+                                                                           "Unity BattleSO asset was not generated; expectedBattleSOPath is linked only."
+                                                                       ]
+                                                         }
+                               }
+                           ]
 }

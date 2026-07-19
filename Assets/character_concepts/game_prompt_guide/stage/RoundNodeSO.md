@@ -119,7 +119,7 @@ met.
 {
   "stageNodeId": "stage.act1.chapter01.episode01",
   "roundNodeType": "Event",
-  "startNodeId": "node.act1.chapter01.episode01.001",
+  "startNodeId": "node.act1.chapter01.episode01.village_arrival",
   "isRequired": true,
   "hiddenByDefault": false,
   "tags": ["story", "act1", "chapter01"]
@@ -149,6 +149,9 @@ Mapping:
 - Use `popupEvent` for popup-driven story/event content.
 - Do not put `CharacterSO`, `BattleSO`, or Sprite references directly in JSON.
 - Use ids in JSON and let editor builders resolve references.
+- For new episode popup chains, `startNodeId` must be the first planning
+  `popupDefinitions[].popupId`, copied into the corresponding Stage `nodeId`.
+- Existing indexed start ids remain valid immutable legacy references.
 
 ## Validation
 
