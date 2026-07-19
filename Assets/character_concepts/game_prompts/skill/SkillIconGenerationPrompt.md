@@ -1,16 +1,18 @@
 # Skill Icon Generation Prompt
 
-스킬 JSON과 기존 프로젝트 아이콘을 기준으로 PixelLab에서 정적 스킬 아이콘 하나를 생성하고 검증하는 실행 프롬프트입니다.
+스킬 JSON을 기준으로 PixelLab에서 80×80 정적 스킬 아이콘의 주 실루엣을 생성하고, 필요한 효과와 정확한 개수 요소를 분리 처리한 뒤 기존 템플릿으로 최종 규격을 보정하는 실행 프롬프트입니다.
 
 ## Prompt
 
 ```text
 작업 폴더 = {project_root}
 
-아래 가이드를 기준으로 지정한 스킬의 80×80 정적 아이콘을 PixelLab Simple Creator의 `Create UI elements` 메뉴에서 프롬프트만으로 생성하고 프로젝트 경로에 저장해줘.
+아래 가이드를 기준으로 지정한 스킬의 80×80 정적 아이콘을 생성해줘. 주 피사체 방향은 기존 실루엣 Init Image로 제어하고, 의미 효과·정확한 개수 요소·프레임 보정을 서로 다른 단계로 처리해줘.
 
 참조 가이드:
 - Assets/character_concepts/game_prompt_guide/skill/SkillIconGenerationGuide.md
+- Assets/character_concepts/game_prompt_guide/skill/SkillIconDownloadGuide.md
+- Assets/character_concepts/game_prompt_guide/skill/SkillIconEvaluationGuide.md
 - Assets/character_concepts/game_prompt_guide/skill/so_guide/SkillJsonGuide.md
 - Assets/character_concepts/game_prompt_guide/skill/so_guide/EquipmentSkillSO.md
 - Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md
@@ -19,73 +21,88 @@ Input:
 - projectRoot: {project_root}
 - skillSourcePath: {스킬_JSON_절대경로}
 - equipmentId: {skill.character.character_name.grade.slot.skill_name}
+- evaluationRoot: /Users/pvenus/Documents/PixelLab/skill/icon
 - pixelLabCreatorUrl: https://www.pixellab.ai/create?tool=create_ui_basic
-- pixelLabTool: Create UI elements
-- referenceMode: prompt_only
+- primaryTool: Create UI elements
+- semanticEffectTool: Edit image
+- referenceMode: silhouette_init
+- silhouetteFamily: {auto | horizontal_projectile | descending_projectile | diagonal_melee | centered_radial_active | centered_passive_emblem}
+- silhouetteInitImagePath: {auto | 현재 PC에 이미 존재하는 80×80 구조 참조 이미지 절대경로}
+- frameTemplatePath: {현재 PC에 이미 존재하는 승인된 80×80 프레임·배경 템플릿 절대경로}
 - inheritedIconPath: {auto | 하위 등급 아이콘 절대경로 | null}
 - outputIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
-- generationMode: pixelLabSimpleCreatorUi
 - finalIconSize: 80x80
-- contentSafeMarginRatio: 0.10
-- maxRegenerationCount: 1
+- primaryDisplaySize: 40-52px
+- maxPrimaryGenerationCount: 2
+- maxSemanticEditCount: 1
+
+사전 확인:
+1. 현재 PC에서 projectRoot, evaluationRoot, outputIconPath가 기존 문서·기록의 경로 체계와 일치하는지 확인한다.
+2. 다른 PC에서 전달된 절대 경로를 사용하지 않는다.
+3. 템플릿 또는 실루엣용 새 폴더 구조를 임의로 만들지 않는다.
+4. frameTemplatePath가 존재하고 정확히 80×80 RGBA인지 확인한다. 없으면 생성하지 말고 `missing_frame_template`로 중단한다.
+5. silhouetteInitImagePath가 auto이면 기존 파일 중 분류에 맞는 80×80 구조 참조를 찾는다. 없으면 임의 이미지나 기존 완성 아이콘으로 대체하지 말고 `missing_silhouette_init_image`로 중단한다.
 
 작업:
-1. skillSourcePath가 존재하고 유효한 JSON인지 확인한다.
-2. JSON의 equipmentId가 입력 equipmentId와 정확히 일치하는지 확인한다.
-3. equipmentId를 `.` 기준으로 파싱하여 domain, characterName, grade, slot, skillName을 확정한다.
-4. grade가 1~3인지 확인하고, slot이 source design과 runtime에서 허용되는 값인지 확인한다.
-5. skill JSON에서 skillType, targetingType, castMove, componentType, moveType, damage, buff, debuff, effect를 읽는다.
-6. SkillIconGenerationGuide.md의 우선순위에 따라 slotFamily, visualFamily, primarySymbol, secondaryEffect, composition, elementFamily, roleFamily, paletteFamily, intensity를 결정한다.
-7. `Assets/Resources/skill/icon/skill`의 기존 아이콘을 스타일 참조 또는 Init Image로 자동 선택하지 않는다. 이번 생성의 스타일 기준은 SkillIconGenerationGuide.md의 Prompt-First Style Contract뿐이다.
-8. inheritedIconPath가 auto이고 같은 이름의 하위 등급 아이콘이 존재하면 화면으로 분석하여 primarySymbol, 방향, 기본 팔레트만 텍스트 프롬프트에 반영한다. 하위 등급 파일도 Init Image로 업로드하지 않는다. 없으면 null로 기록한다.
-9. PixelLab의 Init Image는 비워 두며 gallery, clipboard, local upload에서 어떤 이미지도 첨부하지 않는다.
-10. 계승 스킬이면 하위 등급 아이콘의 primarySymbol, 방향, 기본 팔레트를 유지하고 현재 등급에 맞는 효과만 강화한다.
-11. 가이드의 Prompt Construction과 Prompt-First Style Contract 순서에 맞춰 `Description` 입력란에 넣을 하나의 영어 프롬프트를 작성한다. 별도의 `style_description`은 만들지 않는다.
-12. `pixelLabCreatorUrl`을 열고 현재 URL이 `tool=create_ui_basic`인지, 선택된 도구명이 `Create UI elements`인지 확인한다. 다른 도구로 자동 전환되었다면 Change 메뉴에서 `Create UI elements`를 다시 선택한다.
-13. `Description`에는 생성한 영어 프롬프트 하나만 입력한다.
-14. `Transparent background`를 끄고, Init Image는 비워 둔다.
-15. Width와 Height를 각각 정확히 80px로 설정한다. 128, 256, 320 등 다른 크기로 생성한 뒤 잘라내거나 축소하는 방식은 사용하지 않는다.
-16. Generate를 한 번 실행한다. `Create UI elements`는 실행당 단일 이미지를 생성하므로 각 실행 결과를 하나의 후보로 기록한다.
-17. 완료된 후보를 임시 평가 폴더에 수정 없이 다운로드하고 실제 파일 크기를 확인한다.
-18. 후보가 정확히 80×80 RGBA가 아니면 자르기, 리사이즈, 캔버스 확장으로 보정하지 말고 기술 실패로 기록한다.
-19. 후보에서 외부 프레임 2px, 주 피사체 외곽선 2px, 내부선 1px, 사방 8px 이상의 내용 안전 여백을 확인하고 80×80과 32×32에서 Candidate Scoring으로 평가한다.
-20. 치명적 실패가 없고 85점 이상인 후보 중 최고 점수를 선택한다.
-21. 합격 후보가 없으면 실패 원인에 맞게 description을 수정하고 maxRegenerationCount 범위에서만 재생성한다.
-22. 합격한 80×80 후보를 outputIconPath에 `{equipmentId}.icon.png` 이름으로 저장한다.
-23. 프로젝트의 기존 스킬 아이콘 import 설정과 맞는 `.png.meta`를 생성 또는 갱신한다.
-24. PNG 디코딩, 80×80 크기, RGBA, 리소스 키, Unity import 설정을 검증한다.
-25. 최종 아이콘이 다른 스킬 아이콘과 바이트가 동일하면 명시적 재사용 승인 없이 완료 처리하지 않는다.
-26. 최종 선택 후보, generation record, candidate score 요약은 보존하고, 최종 파일과 기록을 확인한 뒤 중복 다운로드, 실패 후보, 중간 파일만 정리한다.
+1. skillSourcePath와 equipmentId를 검증하고 grade, slot, skillName을 확정한다.
+2. 스킬 JSON에서 targeting, castMove, componentType, moveType, damage, buff, debuff, effect를 읽는다.
+3. slotFamily, primarySymbol, direction, composition, mandatorySemanticEffect, exactCountElements, prohibitedObjects, gradeIntensity, palette를 분류한다.
+4. 방향과 구도에 따라 silhouetteFamily를 하나만 선택한다.
+5. 하위 등급 아이콘은 계승 정체성을 분석하는 용도로만 읽는다. 스타일 레퍼런스나 Init Image로 사용하지 않는다.
+6. 가이드의 Five-Sentence Prompt Contract에 따라 주 피사체 생성용 영어 Description을 최대 5개 핵심 문장으로 작성한다.
+7. 생성 Description에서 프레임, 카드, 패널, 배경 테두리, 픽셀 좌표, 정확한 작은 효과 개수는 제거한다.
+8. 부분 물체는 의미 명칭보다 시각 형상을 먼저 기술한다. 예: `wolf jaw` 대신 `two disconnected dark-gray crescent jaw strips`.
+9. `pixelLabCreatorUrl`을 열고 non-Pro `Create UI elements`가 선택됐는지 확인한다.
+10. Width와 Height를 각각 80px로 설정하고 Transparent background를 켠다.
+11. silhouetteInitImagePath를 Init Image로 넣고 초기 strength는 방향·덩어리 유도를 위한 300-400 범위로 설정한다. UI에 strength가 없으면 실제 노출 설정을 기록한다.
+12. 주 피사체는 40-52px 크기, 의미 있는 선은 최소 4px, 요소 간 간격은 최소 4-6px가 되도록 생성한다.
+13. 첫 결과가 방향, 부분 물체, 큰 실루엣을 지키는지 먼저 검사한다. 치명적으로 틀리면 같은 prompt_only 문구를 늘리지 않는다.
+14. 방향 실패는 silhouette Init Image를 교체하거나 strength를 조정하고, 부분 물체 실패는 fragment mask 또는 더 직접적인 시각 형상 Init Image를 사용한다.
+15. 큰 arc, field, trail처럼 의미를 전달하는 효과가 필요한 경우에만 PixelLab `Edit image`로 1회 보강한다. 편집 지시는 `add`, `remove`, `change`, `replace` 중 하나로 시작하는 짧은 문장으로 작성한다.
+16. 정확한 개수가 필요한 sparks, chips, threads, chevrons는 생성 또는 Edit image에 맡기지 않는다.
+17. 정확한 개수 요소는 결정적 픽셀 오버레이로 추가한다. 각 요소는 최종 80×80 기준 최소 4×4px, 상호 간격 최소 4px를 지킨다.
+18. arcs와 rings는 최종 기준 3-4px 두께를 확보한다.
+19. frameTemplatePath의 기존 80×80 템플릿을 기준으로 flat charcoal/deep-brown 내부 배경을 적용한다.
+20. 주 피사체와 효과를 중앙 64×64 영역 안에 합성하고 safe-area 밖의 생성 콘텐츠를 제거한다.
+21. 최종 rows/columns 0, 1, 78, 79는 frameTemplatePath의 값으로 덮어써 exact outer 2px frame을 보장한다.
+22. 19-21은 resize/crop이 아니라 deterministic frame/background/safe-area normalization으로 기록한다.
+23. 최종 80×80 이미지를 nearest-neighbor 방식으로 32×32 미리보기하여 primarySymbol과 의미 효과가 살아 있는지 확인한다.
+24. 최종 PNG와 생성·편집·오버레이·정규화 기록을 evaluationRoot의 기존 equipmentId 보존 구조에 저장한다.
+25. SkillIconEvaluationGuide.md로 평가하고 치명적 실패가 없으며 85점 이상인 경우에만 outputIconPath로 복사한다.
+26. Unity PNG는 보존된 최종 source와 바이트 및 SHA-256이 같아야 하며 `.meta`는 기존 import 정책을 따른다.
+
+실패 라우팅:
+- direction_failure: silhouette Init Image 교체 또는 strength 조정
+- partial_object_failure: fragment mask/reference 또는 시각 형상 문구 교체
+- exact_count_failure: deterministic overlay로 처리
+- semantic_effect_failure: Edit image의 짧은 add/remove/change/replace 지시 사용
+- frame_background_failure: frameTemplatePath 기반 deterministic normalization 재실행
+- safe_margin_failure: 합성 위치·크기 조정 후 safe-area 밖 콘텐츠 제거
+- small_size_failure: primary 40-52px, 선 4px 이상, 간격 4-6px 이상으로 재구성
 
 Output:
 - Skill ID
 - Source JSON
 - Output Icon Path
-- Grade
-- Slot
-- Classification
-- Reference Mode
-- Inherited Icon Reference
-- PixelLab Creator URL
-- PixelLab Tool
-- PixelLab Description
-- Requested Width / Height
-- Actual Downloaded Width / Height
-- Content Safe Margin
-- Transparent Background
-- Init Image
-- Candidate Count
-- Candidate Scores
-- Selected Candidate
+- Grade / Slot / Classification
+- Silhouette Family
+- Silhouette Init Image Path
+- Init Image Strength
+- Frame Template Path
+- Five-Sentence Primary Description
+- Semantic Edit Instruction / Result
+- Exact-Count Overlay Manifest
+- Requested / Downloaded Size
+- Primary Display Size
+- Safe-Area Normalization
+- Frame Normalization
+- 32×32 Preview Result
 - Generation Record Path
 - Candidate Score Summary Path
-- Regeneration Performed
-- PNG Validation
-- Unity Meta Status
 - Final Score
 - Pass / Conditional Pass / Fail
+- Unity Meta Status
 - Failure Reasons
-- Cleanup Status
 
 실패 시 Output:
 - status: failed
@@ -95,45 +112,31 @@ Output:
   - equipment_id_mismatch
   - invalid_grade
   - unsupported_slot
-  - missing_style_reference
+  - missing_frame_template
+  - invalid_frame_template
+  - missing_silhouette_init_image
+  - invalid_silhouette_init_image
   - pixellab_unavailable
   - pixellab_authentication_failed
   - insufficient_pixellab_credits
   - wrong_pixellab_tool
-  - invalid_ui_settings
   - generation_timeout
   - no_passing_candidate
+  - normalization_failed
   - output_write_failed
   - unity_import_pending
-- 생성하지 않은 파일
 - 실패 원인
-- 부족한 입력 또는 인증 상태
-- 마지막 PixelLab 결과 식별 정보
-- 마지막으로 사용한 description
+- 사용한 기존 경로
+- 생성하지 않은 파일 또는 폴더
+- 마지막 Description 또는 Edit instruction
 - 다음에 필요한 작업
 
-검증:
-- 최종 PNG 경로는 `Assets/Resources/skill/icon/skill/{equipmentId}.icon.png`와 정확히 일치해야 한다.
-- 최종 PNG는 80×80 RGBA 이미지여야 한다.
-- 아이콘은 32×32 표시에서도 primarySymbol이 식별 가능해야 한다.
-- 기본 공격, 액티브, 패시브의 슬롯 시각 규칙을 따라야 한다.
-- Grade 1~3의 효과 밀도와 강조 수준이 가이드에 맞아야 한다.
-- 계승 스킬은 하위 등급의 primarySymbol과 방향성을 유지해야 한다.
-- 텍스트, 문자, 숫자, 로고, 실사 표현, 부드러운 벡터 표현, 애니메이션 격자가 없어야 한다.
-- 배경과 테두리가 SkillIconGenerationGuide.md의 Prompt-First Style Contract와 일치해야 한다.
-- 기존 아이콘 폴더의 이미지를 스타일 참조 또는 Init Image로 사용하면 안 된다.
-- 최종 80×80 기준 외부 프레임은 2px, 주 피사체 외곽선은 2px, 내부선은 1px을 기본 계약으로 사용해야 한다.
-- 프레임을 제외한 주 피사체와 효과는 사방 8px 안전 영역을 침범하지 않아야 한다.
-- PixelLab `Create UI elements`에서 Width와 Height를 직접 80px로 설정해야 하며 결과를 잘라내거나 리사이즈해서 맞추면 안 된다.
-- PixelLab 후보 평가 점수는 85점 이상이고 치명적 실패가 없어야 한다.
-- 최종 아이콘과 `.png.meta`가 존재하고 예상 리소스 키로 해석 가능해야 한다.
-
 주의:
-- 생성은 반드시 PixelLab Simple Creator의 `Create UI elements` 메뉴에서만 수행한다.
-- `Create from style reference (Pro)`, `Create UI elements (Pro)`, `Create M-XL image` 및 API 생성 엔드포인트로 대체하지 않는다.
-- 이 프롬프트는 정적 아이콘 전용이며 스킬 VFX, 애니메이션 시트, 캐릭터 스프라이트를 생성하지 않는다.
-- gameplay JSON이나 스킬 밸런스를 아이콘에 맞춰 수정하지 않는다.
-- source JSON에 없는 slot, element, effect를 임의로 만들지 않는다.
-- 실패 시 placeholder 아이콘을 생성하지 않는다.
-- 기존 합격 아이콘을 덮어쓸 때는 명시적인 교체 승인이 있어야 한다.
+- 다른 PC의 절대 경로를 복사하지 않는다.
+- 프레임·배경·안전 여백·정확한 개수 요소를 생성 모델에 맡기지 않는다.
+- 기존 완성 아이콘을 스타일 레퍼런스로 사용하지 않는다.
+- 프레임, 카드, 패널 문구를 생성 Description에 넣지 않는다.
+- 좌표와 금지문을 반복해 긴 Attempt 2를 만들지 않는다.
+- placeholder 템플릿이나 임시 실루엣을 만들어 통과 처리하지 않는다.
+- gameplay JSON이나 스킬 밸런스를 수정하지 않는다.
 ```

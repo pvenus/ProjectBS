@@ -6,8 +6,10 @@ This guide defines the post-generation workflow for a static PixelLab skill icon
 
 ```text
 identify result
-→ download candidates
-→ select and preserve source
+→ download primary candidate
+→ preserve optional semantic edit
+→ preserve deterministic overlay and normalized candidate
+→ select and preserve final source
 → evaluate preserved source
 → copy passing source to Unity
 → verify checksum and import metadata
@@ -28,6 +30,9 @@ skillSourcePath
 equipmentId
 pixelLabResult
 evaluationRoot
+silhouetteInitImagePath
+frameTemplatePath
+normalizationRecord
 ```
 
 Default evaluation root:
@@ -75,8 +80,10 @@ Preserve the selected source and evaluation evidence outside the Unity project:
   source/
     {equipmentId}.icon.png
   candidates/
-    candidate_00.png
-    candidate_01.png
+    candidate_00.primary.png
+    candidate_00.edited.png
+    candidate_00.normalized.png
+    candidate_00.preview32.png
   evaluation/
     evaluation_result.txt
   generation_record.txt
@@ -86,7 +93,8 @@ Preserve the selected source and evaluation evidence outside the Unity project:
 Rules:
 
 - `source/{equipmentId}.icon.png` is the immutable selected source.
-- `candidates` contains evidence needed to explain selection or failure.
+- `candidates` contains the primary, optional edited, normalized, and 32 x 32
+  preview evidence using the existing folder. Do not add a new intermediate folder.
 - `evaluation_result.txt` follows `SkillIconEvaluationGuide.md`.
 - `generation_record.txt` records PixelLab inputs and provenance.
 - `candidate_scores.txt` records every candidate score and selection reason.
@@ -114,24 +122,26 @@ SHA-256 after copy.
 
 1. Read `skillSourcePath` and confirm its `equipmentId`.
 2. Confirm that `pixelLabResult` belongs to the same skill and generation request.
-3. Confirm that the result was generated at
+3. Confirm that the primary result was generated at
    `https://www.pixellab.ai/create?tool=create_ui_basic` with the non-Pro
    `Create UI elements` tool.
-4. Record the result page or gallery item, exact Description, Transparent background
-   setting, empty Init Image, requested Width and Height, optional Seed, and attempt
-   number.
+4. Record the result page or gallery item, five-sentence Description, Transparent
+   background setting, silhouette Init Image path and strength, requested Width and
+   Height, optional Seed, and attempt number.
 5. Download the one image returned by each completed run to a temporary folder
    without resizing or recompressing it.
-6. Reject thumbnails, previews, unrelated downloads, HTML placeholders, and broken
+6. When a semantic edit exists, record the `Edit image` result and its one-sentence
+   add/remove/change/replace instruction separately.
+7. Reject thumbnails, previews, unrelated downloads, HTML placeholders, and broken
    files.
-7. Do not classify candidates only by browser-generated filenames.
+8. Do not classify candidates only by browser-generated filenames.
 
 Do not download a gallery contact sheet, preview thumbnail, or a result created by
 another PixelLab tool.
 
 ## 7. Technical Validation Before Preservation
 
-Every candidate must pass:
+Every downloaded primary and edited candidate must pass:
 
 - PNG decoding succeeds.
 - Width is exactly 80 pixels.
@@ -139,9 +149,18 @@ Every candidate must pass:
 - Color mode is RGBA.
 - The file contains one static icon.
 - The image is not an animation sheet or multi-panel grid.
-- The icon has an opaque or intentionally complete icon background.
-- The border is not cropped or broken.
+- A primary candidate may use transparency because background and frame are applied
+  during deterministic normalization.
 - There is no text, watermark, or PixelLab UI artifact.
+
+Every normalized candidate must additionally pass:
+
+- Existing `frameTemplatePath` is recorded and is 80 x 80 RGBA.
+- The interior uses the approved flat charcoal/deep-brown template background.
+- Generated content remains inside the central 64 x 64 safe area.
+- Rows and columns 0, 1, 78, and 79 exactly match the frame template.
+- The exact-count overlay matches its manifest.
+- The nearest-neighbor 32 x 32 preview is present.
 
 Technical hard fail:
 
@@ -156,7 +175,8 @@ Unity copy.
 
 ## 8. Candidate Selection and Preservation
 
-1. Evaluate every technically valid candidate with `SkillIconEvaluationGuide.md`.
+1. Evaluate every technically valid normalized candidate with
+   `SkillIconEvaluationGuide.md`. Do not score the raw primary as the final asset.
 2. Record all candidate scores in `candidate_scores.txt`.
 3. Select the highest-scoring candidate that has no fatal failure and scores at
    least 85.
@@ -166,8 +186,8 @@ Unity copy.
 {evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
 ```
 
-5. Do not resize, crop, recolor, quantize, recompress, or otherwise modify the
-   selected file during preservation.
+5. Do not modify the selected normalized file after it is preserved as source.
+   Deterministic overlay and normalization must occur before source preservation.
 6. Record the selected candidate index and SHA-256.
 
 If no candidate passes, preserve the candidate evidence and evaluation result, do
@@ -187,24 +207,32 @@ Required fields:
 Skill ID:
 Source JSON:
 PixelLab Creator URL:
-PixelLab Tool:
+Primary Tool:
 PixelLab Result Page or Gallery Item:
-Description:
-Reference Mode: prompt_only
+Primary Description:
+Reference Mode: silhouette_init
+Silhouette Family:
+Silhouette Init Image Path:
+Init Image Strength:
+Semantic Edit Tool / Instruction / Result:
+Frame Template Path:
+Exact-Count Overlay Manifest:
 Transparent Background:
-Init Image:
 Seed: value or not_exposed
 Requested Width / Height:
 Downloaded Width / Height:
 Attempt Count:
+Normalization Record:
+32x32 Preview Path / Result:
 Selected Candidate:
 Selected Source Path:
 Selected SHA-256:
 Download Date:
 ```
 
-The record must show `tool=create_ui_basic`, `Create UI elements`, Transparent
-background Off, Init Image Empty, and requested 80 x 80.
+The record must show `tool=create_ui_basic`, `Create UI elements`, an existing
+silhouette Init Image, requested 80 x 80, any semantic edit, exact-count overlay,
+existing frame template, deterministic normalization, and 32 x 32 preview result.
 
 ## 10. Evaluation Result
 
@@ -329,6 +357,10 @@ replacement history is recorded.
 
 - [ ] PixelLab result matches `equipmentId`.
 - [ ] Every candidate was downloaded and technically validated.
+- [ ] Existing silhouette and frame template paths were recorded.
+- [ ] Exact-count overlay and normalization records were preserved.
+- [ ] The normalized candidate, not the raw primary, was evaluated.
+- [ ] The 32 x 32 nearest-neighbor preview was checked.
 - [ ] Every valid candidate was scored.
 - [ ] Selected candidate scored at least 85 with no fatal failure.
 - [ ] Selected source is preserved outside Unity.
@@ -349,6 +381,10 @@ failureType:
   - missing_download
   - invalid_png
   - invalid_icon_size
+  - missing_frame_template
+  - missing_silhouette_init_image
+  - overlay_failed
+  - normalization_failed
   - invalid_equipment_id
   - no_passing_candidate
   - evaluation_write_failed
