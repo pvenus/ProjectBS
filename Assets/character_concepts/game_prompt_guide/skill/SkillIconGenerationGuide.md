@@ -32,37 +32,38 @@ Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md
 Official PixelLab references:
 
 ```text
-https://www.pixellab.ai/docs/tools/consistent-style
-https://www.pixellab.ai/docs/options/init-image
-https://www.pixellab.ai/docs/options/color
-https://api.pixellab.ai/v2/docs
+https://www.pixellab.ai/docs/tools/create-ui-elements
+https://www.pixellab.ai/docs/options/general
+https://www.pixellab.ai/create?tool=create_ui_basic
 ```
 
 ## 3. Mandatory Tool and Generation Path
 
 Use PixelLab only.
 
-The standard automated path is:
+The standard generation path is the PixelLab Simple Creator UI:
 
 ```text
-PixelLab API v2
-POST /v2/generate-with-style-v2
+https://www.pixellab.ai/create?tool=create_ui_basic
+Tool: Create UI elements
 ```
 
-Use `Generate with style (Pro)` because the project already contains approved
-skill icons that can define pixel size, outline, shading, palette behavior, and
-icon composition.
+This tool generates one pixel-art UI component per run from a text description and
+supports explicit width, height, background transparency, and optional Init Image.
+For skill icons, use the description and size controls only. Keep Init Image empty.
 
-Do not use these as the primary icon generator:
+Do not substitute these tools:
 
-- `Generate UI (Pro)`: use only to design a shared icon frame or UI slot.
-- `Create image Pixflux`: use only when approved style references are unavailable.
-- `Image to pixel art`: use only to convert an already approved non-pixel draft.
-- `Animate with text`: this creates animation assets, not static icons.
+- `Create UI elements (Pro)`
+- `Create from style reference (Pro)`
+- `Create M-XL image`
+- PixelLab API style-reference generation endpoints
+- `Image to pixel art`
+- animation tools
 
 If PixelLab is unavailable, authentication fails, credits are insufficient, or
-the required style references do not exist, stop and report the blocker. Do not
-substitute another image generator.
+the Simple Creator UI cannot select `Create UI elements`, stop and report the
+blocker. Do not substitute another image generator or PixelLab tool.
 
 ## 4. Source of Truth
 
@@ -116,8 +117,10 @@ Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
 | Color mode | RGBA |
 | Background | Opaque icon background |
 | Composition | One centered primary symbol |
-| Border | Compact dark square border |
-| Outline | Crisp dark 1-3 pixel outline |
+| Outer frame | Continuous dark 2-pixel square frame |
+| Subject outline | Crisp dark 2-pixel outer silhouette |
+| Internal line | 1 pixel |
+| Content safe margin | Primary symbol and effects stay at least 8 pixels from each canvas edge |
 | Palette | Limited, high-contrast palette |
 | Text | Not allowed |
 | Animation | Not allowed |
@@ -125,15 +128,17 @@ Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
 The icon must remain readable when shown at 32 x 32 pixels. Prefer a strong
 silhouette over fine detail.
 
-## 6. Project Style Standard
+## 6. Prompt-First Style Contract
 
 Use this common style description for every generation:
 
 ```text
 compact square dark-fantasy tactical RPG skill icon, crisp handcrafted pixel art,
-strong readable central silhouette, dark one-to-three-pixel outline, limited muted
-palette with one bright accent color, high contrast at small UI size, subtle square
-border, one primary symbol and no more than two secondary effects
+strong readable central silhouette, continuous dark two-pixel square frame, dark
+two-pixel primary silhouette outline, one-pixel internal details, limited muted
+palette with one bright accent color, opaque charcoal and deep-brown background,
+at least eight pixels of clear content margin on every side, high contrast at small
+UI size, one primary symbol and no more than two secondary effects
 ```
 
 Required exclusions:
@@ -385,8 +390,8 @@ last.
 | Heal or light | Teal, gold, warm white |
 
 Keep the icon to a limited palette. If the generated result contains too many
-near-duplicate colors, use PixelLab `Reduce Colors` and preserve the dominant
-outline, background, base color, and accent color.
+near-duplicate colors, revise the palette clause and regenerate with `Create UI
+elements`. Do not correct the result with `Reduce Colors` or another editing tool.
 
 Recommended final range:
 
@@ -394,96 +399,57 @@ Recommended final range:
 12-24 colors
 ```
 
-This is a project style target, not a PixelLab API requirement.
+This is a project style target, not a PixelLab UI restriction.
 
-## 11. Style Reference Selection
+## 11. Prompt-First Reference Policy
 
-Use one to four approved reference icons from:
+The text prompt is the only project-style authority.
 
-```text
-Assets/Resources/skill/icon/skill
-```
+- Do not search `Assets/Resources/skill/icon/skill` for style references.
+- Do not upload an existing icon through Init Image, gallery, clipboard, or file.
+- Do not use `Create from style reference (Pro)`.
+- Existing icons may be inspected only to identify a lower-grade inherited skill's
+  primary symbol, orientation, and base palette.
+- Translate inherited identity into text; do not transmit the image to PixelLab.
+- Judge project style against Sections 5, 6, 7, 8, and 10 of this guide, not
+  against whichever existing icon happens to look similar.
 
-References must have compatible pixel density, border thickness, shading, and
-composition. Do not use four near-identical duplicate files as four references.
+This prevents inconsistent legacy borders, padding, rendering density, and outline
+width from propagating into new icons.
 
-Select by slot:
+## 12. PixelLab Simple Creator UI
 
-### Basic Attack Reference Set
-
-- One approved weapon icon.
-- One approved projectile icon when the target skill is ranged.
-- One simple action icon.
-- One shared project-style anchor.
-
-### Active Reference Set
-
-- One action silhouette icon.
-- One impact or elemental icon.
-- One icon matching the target composition.
-- One icon matching the target grade intensity.
-
-### Passive Reference Set
-
-- One centered aura icon.
-- One shield, armor, rune, or emblem icon.
-- One role-matching icon.
-- One shared project-style anchor.
-
-Record the exact reference file paths for reproducibility.
-
-## 12. PixelLab Request
-
-Standard API request:
+Open:
 
 ```text
-POST https://api.pixellab.ai/v2/generate-with-style-v2
-Authorization: Bearer {PIXELLAB_API_TOKEN}
-Content-Type: application/json
+https://www.pixellab.ai/create?tool=create_ui_basic
 ```
 
-Request body shape:
+The site may initially switch to another recently used tool. Confirm both:
 
-```json
-{
-  "description": "{generated_english_description}",
-  "image_size": {
-    "width": 80,
-    "height": 80
-  },
-  "style_images": [
-    {
-      "image": {
-        "base64": "data:image/png;base64,..."
-      },
-      "width": 80,
-      "height": 80
-    }
-  ],
-  "style_description": "compact square dark-fantasy tactical RPG skill icon, crisp handcrafted pixel art, strong dark outline, limited muted palette, high contrast, subtle square border",
-  "no_background": false,
-  "seed": 42
-}
+```text
+URL query: tool=create_ui_basic
+Selected tool: Create UI elements
 ```
 
-Do not store or print the PixelLab API token in a prompt, report, source file, or
-generation record.
+If either is wrong, use `Change` and select the non-Pro `Create UI elements` entry.
 
-PixelLab v2 accepts the request asynchronously. Record the returned
-`background_job_id`, poll the background job every 5-10 seconds, and continue only
-when its status is `completed`.
+Required settings:
 
-Handle failures explicitly:
+| UI Field | Required Value |
+|---|---|
+| Description | One English prompt built by Section 13 |
+| Transparent background | Off |
+| Init Image | Empty |
+| Width | 80 px |
+| Height | 80 px |
 
-| Status | Meaning | Required Behavior |
-|---:|---|---|
-| 401 | Invalid token | Stop and request authentication repair |
-| 402 | Insufficient credits | Stop and report required credits |
-| 422 | Invalid request | Report invalid fields and do not retry unchanged |
-| 429 | Concurrency limit | Wait and retry with bounded backoff |
+PixelLab documentation states that this tool creates one image per run. Treat every
+run as one candidate. Do not request a multi-icon grid in one description.
 
-An 80 x 80 style generation normally returns multiple candidates. Evaluate every
-returned candidate and select one; do not automatically accept the first image.
+The requested and downloaded dimensions must both be 80 x 80. If the downloaded
+file has another size, reject it. Do not crop, resize, pad, or resample it into
+compliance.
 
 ## 13. Prompt Construction
 
@@ -495,10 +461,11 @@ asset type
 → primary symbol
 → action or effect
 → composition
+→ safe area and scale
 → background
 → palette
 → grade intensity
-→ pixel-art style
+→ frame, outline, and pixel-art style
 → exclusions
 ```
 
@@ -508,10 +475,14 @@ Template:
 A compact square pixel-art tactical RPG {slot_family} skill icon. {Primary symbol}
 performing or representing {skill intent}. {Composition and secondary effect}.
 {Background description}. {Palette description}. Grade {grade} visual intensity:
-{grade rule}. Crisp handcrafted pixels, dark one-to-three-pixel outline, limited
-palette, strong silhouette, high contrast and readable at 32 by 32 pixels, subtle
-square border. No text, no letters, no numbers, no logo, no photorealism, no smooth
-vector art, no detailed scenery, no unrelated objects, no animation sheet.
+{grade rule}. Keep the primary symbol and all effects inside the central 64 by 64
+pixel safe area, leaving at least 8 pixels of clear spacing from every canvas edge.
+Crisp handcrafted pixels, continuous dark two-pixel square frame, dark two-pixel
+primary silhouette outline, one-pixel internal details, limited palette, strong
+silhouette, high contrast and readable at 32 by 32 pixels. Opaque background. No
+transparent background, no cropped object, no edge-touching glow, no text, no
+letters, no numbers, no logo, no photorealism, no smooth vector art, no detailed
+scenery, no unrelated objects, no animation sheet.
 ```
 
 Example:
@@ -521,40 +492,27 @@ A compact square pixel-art tactical RPG active skill icon. A black armored offic
 charging forward with a lowered shoulder, strong horizontal speed lines and a small
 gold impact flare. Forward diagonal composition on a parchment beige background.
 Muted sand, black, dark brown and gold palette. Grade 2 visual intensity: one clear
-secondary trail and stronger highlights while keeping a simple silhouette. Crisp
-handcrafted pixels, dark one-to-three-pixel outline, limited palette, strong
-silhouette, high contrast and readable at 32 by 32 pixels, subtle square border.
-No text, no letters, no numbers, no logo, no photorealism, no smooth vector art,
-no detailed scenery, no unrelated objects, no animation sheet.
+secondary trail and stronger highlights while keeping a simple silhouette. Keep
+the officer and all effects inside the central 64 by 64 pixel safe area with at
+least 8 pixels of clear spacing from every edge. Crisp handcrafted pixels,
+continuous dark two-pixel square frame, dark two-pixel primary silhouette outline,
+one-pixel internal details, limited palette, strong silhouette, high contrast and
+readable at 32 by 32 pixels. Opaque background. No transparent background, no
+cropped object, no edge-touching glow, no text, no letters, no numbers, no logo,
+no photorealism, no smooth vector art, no detailed scenery, no unrelated objects,
+no animation sheet.
 ```
 
-## 14. Seed Strategy
+## 14. Candidate Attempt Strategy
 
-Use deterministic seeds when generation is automated.
+The Simple Creator UI may not expose every advanced option in every account or UI
+version. Do not switch tools to obtain a seed control.
 
-Recommended derivation:
-
-```text
-baseSeed = stable positive hash of characterName
-
-slotOffset:
-basic_attack = 100
-active_1    = 200
-active_2    = 300
-active_3    = 400
-passive_1   = 500
-passive_2   = 600
-
-gradeOffset:
-grade_1 = 1
-grade_2 = 2
-grade_3 = 3
-
-seed = baseSeed + slotOffset + gradeOffset
-```
-
-Store the final numeric seed in the generation record. A seed improves
-reproducibility but does not replace lower-grade init images for inherited skills.
+- Record the attempt number and exact Description for every run.
+- If Seed is visible, record its value; otherwise record `not_exposed`.
+- Revise only the failed prompt clause on regeneration.
+- Generate one icon per run and never ask for a grid or multiple alternatives in a
+  single image.
 
 ## 15. Generation Workflow
 
@@ -563,21 +521,24 @@ reproducibility but does not replace lower-grade init images for inherited skill
 3. Confirm that the slot is allowed by the source design and runtime.
 4. Extract targeting, movement, damage, effects, element, and role.
 5. Build the normalized classification record.
-6. Search for approved style references and remove byte-identical duplicates.
-7. If the skill is inherited, add the accepted lower-grade icon as a reference.
-8. Build the English PixelLab description.
-9. Derive and record the deterministic seed.
-10. Submit `generate-with-style-v2` with an 80 x 80 canvas and
-    `no_background: false`.
-11. Poll the background job until completion or timeout.
-12. Download every candidate to a temporary evaluation folder.
-13. Validate dimensions, format, border, composition, palette, and readability.
-14. Compare candidates and select the best passing result.
-15. If every candidate fails, revise the prompt once and regenerate.
+6. Inspect a lower-grade inherited icon only when identity continuity is required;
+   translate the result into text and do not upload it.
+7. Build one English Description from the prompt-first contract.
+8. Open `https://www.pixellab.ai/create?tool=create_ui_basic`.
+9. Confirm the selected tool is non-Pro `Create UI elements`.
+10. Enter the Description, turn Transparent background off, and leave Init Image
+    empty.
+11. Set Width and Height to exactly 80 px and generate once.
+12. Download the single result to a temporary evaluation folder without editing.
+13. Validate 80 x 80 RGBA, border, safe margin, outline, composition, palette, and
+    readability.
+14. If the candidate fails, revise only the relevant prompt clause and regenerate
+    within the allowed attempt count.
+15. Compare all attempted candidates and select the best passing result.
 16. Save the selected icon as `{equipmentId}.icon.png`.
 17. Configure or refresh the Unity `.png.meta` file according to the project's
     sprite import rules.
-18. Record the generation inputs, references, seed, selected candidate, and
+18. Record the generation inputs, UI settings, attempts, selected candidate, and
     validation result.
 19. Delete temporary candidates only after the final icon and record are verified.
 
@@ -600,15 +561,19 @@ reproducibility but does not replace lower-grade init images for inherited skill
 - The slot is visually recognizable as basic, active, or passive.
 - The grade intensity matches Grade 1, 2, or 3 without breaking family identity.
 - The element and role colors match source data.
-- The border and background match the approved project icon family.
+- The border and background match the prompt-first project style contract.
+- The outer frame is continuously 2 pixels thick.
+- The primary silhouette uses a 2-pixel outer outline and 1-pixel internal details.
+- The primary symbol and effects remain inside the central 64 x 64 safe area.
 - Pixels remain crisp with no unintended smoothing.
 - There is no text, letter, number, logo, or animation grid.
 - There is no detailed scenery or unrelated object.
 
-### 16.3 Reference and Identity Validation
+### 16.3 Prompt Contract and Identity Validation
 
-- Reference paths are recorded.
-- Byte-identical duplicate references are not counted as separate style examples.
+- No style reference or Init Image was used.
+- The recorded Description contains the common frame, outline, safe-area, palette,
+  and exclusion clauses.
 - An inherited skill preserves its lower-grade primary symbol and orientation.
 - Different skills do not receive byte-identical final icons unless explicit reuse
   is approved.
@@ -657,16 +622,17 @@ Output Path:
 Grade:
 Slot:
 Classification:
-Style Reference Paths:
+Reference Mode:
 Inherited Icon Reference:
-PixelLab Endpoint:
+PixelLab Creator URL:
+PixelLab Tool:
 Description:
-Style Description:
-Canvas:
-No Background:
-Seed:
-Background Job ID:
-Candidate Count:
+Transparent Background:
+Init Image:
+Requested Width / Height:
+Downloaded Width / Height:
+Seed: value or not_exposed
+Attempt Count:
 Selected Candidate:
 Regeneration Performed:
 Validation Score:
@@ -674,8 +640,6 @@ Result:
 Failure Reasons:
 Notes:
 ```
-
-Never record the API token.
 
 ## 19. Failure Output
 
@@ -687,13 +651,13 @@ failureType:
 - missing_skill_json
 - invalid_equipment_id
 - unsupported_slot
-- missing_style_reference
 - pixellab_unavailable
 - pixellab_authentication_failed
 - insufficient_pixellab_credits
-- invalid_pixellab_request
-- pixellab_concurrency_limit
+- wrong_pixellab_tool
+- invalid_ui_settings
 - generation_timeout
+- invalid_downloaded_size
 - no_passing_candidate
 - output_write_failed
 - unity_import_pending
@@ -702,7 +666,7 @@ failedSkillId:
 failedOutputPath:
 failureReason:
 missingInput:
-lastPixelLabJobId:
+lastPixelLabResult:
 nextRequiredAction:
 ```
 
@@ -715,7 +679,8 @@ Do not create a placeholder icon as a failure artifact.
 - Do not replace PixelLab with another image tool.
 - Do not alter skill balance or gameplay JSON to fit an image.
 - Do not invent a new slot, element, or effect.
-- Do not expose the PixelLab API token.
+- Do not upload an existing project icon as Init Image or a style reference.
+- Do not crop or resize a generated result to force 80 x 80 compliance.
 - Do not overwrite an accepted icon without preserving or explicitly approving the
   replacement workflow.
 - Do not report Unity import completion unless the PNG and `.meta` are present and

@@ -8,8 +8,8 @@ This guide defines how to evaluate static pixel-art skill icons generated for:
 Assets/Resources/skill/icon/skill
 ```
 
-Evaluation verifies file correctness, skill meaning, project style, slot and grade
-distinction, small-size readability, reference consistency, and Unity readiness.
+Evaluation verifies file correctness, skill meaning, the prompt-first style contract,
+slot and grade distinction, small-size readability, and Unity readiness.
 
 This guide evaluates static UI icons only. Do not use it to evaluate animated skill
 VFX, character sprites, sprite sheets, or UI panels.
@@ -35,12 +35,12 @@ Required:
 skillSourcePath
 equipmentId
 iconPath
+generationRecordPath
 ```
 
 Optional:
 
 ```text
-styleReferencePaths
 lowerGradeIconPath
 siblingIconPaths
 unityMetaPath
@@ -48,7 +48,8 @@ unityMetaPath
 
 Definitions:
 
-- `styleReferencePaths`: approved icons used or intended as style anchors.
+- `generationRecordPath`: records the `Create UI elements` settings and exact
+  Description used to create the icon.
 - `lowerGradeIconPath`: the accepted lower-grade icon for an inherited skill.
 - `siblingIconPaths`: icons displayed in the same character loadout or skill set.
 - `unityMetaPath`: normally `{iconPath}.meta`.
@@ -178,6 +179,9 @@ Any fatal failure produces `Fail` regardless of score.
 - Detailed scenery or unrelated objects obscure the skill symbol.
 - The icon lacks the required background or usable border.
 - The icon is visibly broken, cropped, or contains generation artifacts.
+- The outer frame is missing, broken, or unusably inconsistent.
+- The primary symbol or its effects touch the frame or canvas edge and appear
+  cropped. Smaller deviations inside the 8-pixel safety margin are scored instead.
 
 ### 8.4 Grade Family Failures
 
@@ -253,7 +257,8 @@ Score only after fatal failures are checked.
 
 ### 11.2 Project Style Match: 20
 
-- 18-20: Pixel density, outline, shading, border, and visual tone match references.
+- 18-20: Pixel density, 2-pixel subject outline, 1-pixel internal lines, shading,
+  continuous 2-pixel frame, and visual tone match the prompt-first contract.
 - 14-17: Mostly consistent with small deviations.
 - 8-13: Noticeably different but still usable after correction.
 - 0-7: Belongs to a different visual language.
@@ -281,9 +286,12 @@ Score only after fatal failures are checked.
 
 ### 11.6 Composition and Border Quality: 10
 
-- 9-10: One dominant symbol, controlled effects, stable background and border.
-- 7-8: Good composition with small spacing or border inconsistencies.
-- 4-6: Crowded, underfilled, or visibly inconsistent.
+- 9-10: One dominant symbol, at least 8 pixels of content safety margin, continuous
+  2-pixel frame, controlled effects, and stable background.
+- 7-8: Good composition with 6-7 pixels of minimum content margin or a small frame
+  inconsistency.
+- 4-6: Crowded, underfilled, only 3-5 pixels of minimum content margin, or visibly
+  inconsistent.
 - 0-3: Broken layout, crop, or unusable border.
 
 Total:
@@ -370,7 +378,7 @@ Slot:
 Expected Classification:
 Canvas / Mode:
 SHA-256:
-Style Reference Paths:
+Generation Record Path:
 Lower Grade Icon:
 Sibling Icons:
 
@@ -380,6 +388,7 @@ Fatal Failure Check:
 - Pixel-art project style: Pass / Fail / Insufficient Evidence
 - Text, logo, or animation grid absent: Pass / Fail
 - Background and border usable: Pass / Fail
+- Prompt-first style contract: Pass / Fail / Insufficient Evidence
 - Grade family identity: Pass / Fail / Not Evaluated
 - Unapproved duplicate absent: Pass / Fail / Not Evaluated
 
@@ -428,7 +437,7 @@ failureType:
 - missing_icon
 - invalid_png
 - unsupported_slot
-- missing_required_reference
+- missing_generation_record
 - insufficient_evidence
 - evaluation_write_failed
 
@@ -444,6 +453,8 @@ nextRequiredAction:
 - [ ] Source JSON and equipment ID match.
 - [ ] Icon path and filename match the contract.
 - [ ] PNG is 80 x 80 RGBA.
+- [ ] PixelLab tool was `Create UI elements` with no style reference or Init Image.
+- [ ] Outer frame, subject outline, internal lines, and 8-pixel safety margin were checked.
 - [ ] Fatal failures were checked before scoring.
 - [ ] Icon was inspected at 80 x 80 and 32 x 32.
 - [ ] Skill intent, slot, grade, palette, composition, and style were scored.

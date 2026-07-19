@@ -38,9 +38,8 @@ Default evaluation root:
 
 `pixelLabResult` may be one of:
 
-- A completed PixelLab v2 `background_job_id` accessible through authenticated API.
-- An opened PixelLab result page.
-- A local download folder containing the completed candidate images and generation record.
+- An opened `create_ui_basic` result page or gallery item.
+- A local download folder containing the completed per-attempt images and generation record.
 
 If the result cannot be tied to `equipmentId`, stop before preservation or Unity copy.
 
@@ -115,17 +114,20 @@ SHA-256 after copy.
 
 1. Read `skillSourcePath` and confirm its `equipmentId`.
 2. Confirm that `pixelLabResult` belongs to the same skill and generation request.
-3. Record the PixelLab endpoint, background job ID or result page, seed, description,
-   `style_description`, style reference paths, canvas size, and candidate count.
-4. Download every completed candidate to a temporary folder.
-5. If PixelLab returns an archive or grid, extract individual candidate PNG files
-   without resizing or recompressing them.
+3. Confirm that the result was generated at
+   `https://www.pixellab.ai/create?tool=create_ui_basic` with the non-Pro
+   `Create UI elements` tool.
+4. Record the result page or gallery item, exact Description, Transparent background
+   setting, empty Init Image, requested Width and Height, optional Seed, and attempt
+   number.
+5. Download the one image returned by each completed run to a temporary folder
+   without resizing or recompressing it.
 6. Reject thumbnails, previews, unrelated downloads, HTML placeholders, and broken
    files.
 7. Do not classify candidates only by browser-generated filenames.
 
-PixelLab authentication secrets must never be written to the generation record,
-evaluation output, terminal output, or project files.
+Do not download a gallery contact sheet, preview thumbnail, or a result created by
+another PixelLab tool.
 
 ## 7. Technical Validation Before Preservation
 
@@ -144,7 +146,8 @@ Every candidate must pass:
 Technical hard fail:
 
 - No valid candidate exists.
-- Candidate dimensions cannot be reconciled with 80 x 80.
+- Candidate dimensions are not exactly 80 x 80. Do not crop or resize to reconcile
+  the dimensions.
 - The candidate is corrupt, incomplete, or not a PNG.
 - The result belongs to another skill.
 
@@ -183,22 +186,25 @@ Required fields:
 ```text
 Skill ID:
 Source JSON:
-PixelLab Endpoint:
-PixelLab Background Job ID or Result Page:
+PixelLab Creator URL:
+PixelLab Tool:
+PixelLab Result Page or Gallery Item:
 Description:
-Style Description:
-Style Reference Paths:
-Seed:
-Canvas:
-No Background:
-Candidate Count:
+Reference Mode: prompt_only
+Transparent Background:
+Init Image:
+Seed: value or not_exposed
+Requested Width / Height:
+Downloaded Width / Height:
+Attempt Count:
 Selected Candidate:
 Selected Source Path:
 Selected SHA-256:
 Download Date:
 ```
 
-Never record the PixelLab API token.
+The record must show `tool=create_ui_basic`, `Create UI elements`, Transparent
+background Off, Init Image Empty, and requested 80 x 80.
 
 ## 10. Evaluation Result
 

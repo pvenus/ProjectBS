@@ -20,9 +20,9 @@ Input:
 - projectRoot: {project_root}
 - skillSourcePath: {스킬_JSON_절대경로}
 - equipmentId: {skill.character.character_name.grade.slot.skill_name}
-- pixelLabResult: {background_job_id | PixelLab 결과 페이지 | 로컬 다운로드 폴더 절대경로}
+- pixelLabResult: {PixelLab create_ui_basic 결과 페이지 또는 gallery item | 로컬 다운로드 폴더 절대경로}
 - evaluationRoot: /Users/pvenus/Documents/PixelLab/skill/icon
-- styleReferencePaths: {auto | 쉼표로 구분한 승인 아이콘 절대경로 목록}
+- generationRecordPath: {기존 생성 기록 절대경로 | null}
 - lowerGradeIconPath: {auto | 하위 등급 아이콘 절대경로 | null}
 - siblingIconPaths: {auto | 같은 로드아웃 아이콘 절대경로 목록 | null}
 - unityIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
@@ -33,15 +33,15 @@ Input:
 2. JSON의 equipmentId가 입력 equipmentId와 정확히 일치하는지 확인한다.
 3. equipmentId를 `.` 기준으로 파싱하여 domain, characterName, grade, slot, skillName을 확정한다.
 4. pixelLabResult가 대상 equipmentId의 완료된 PixelLab 생성 결과인지 확인한다.
-5. PixelLab 인증값은 환경 변수 또는 secret 설정에서만 읽고 Input, Output, 로그, 기록 파일에 노출하지 않는다.
-6. 모든 후보 PNG를 임시 폴더에 다운로드하고 archive 또는 grid이면 후보별 PNG로 분리한다.
+5. 결과가 `https://www.pixellab.ai/create?tool=create_ui_basic`의 non-Pro `Create UI elements`에서 생성됐는지 확인한다.
+6. 실행별 단일 후보 PNG를 임시 폴더에 다운로드한다. gallery contact sheet, preview thumbnail, archive 또는 grid는 후보로 사용하지 않는다.
 7. 각 후보의 PNG 디코딩, 80×80 크기, RGBA, 단일 정적 아이콘 여부, 배경, 테두리, 텍스트·워터마크 부재를 확인한다.
 8. 기술 검증을 통과한 모든 후보를 SkillIconEvaluationGuide.md 기준으로 평가한다.
 9. 각 후보 점수와 실패 사유를 `{evaluationRoot}/{equipmentId}/candidate_scores.txt`에 저장한다.
 10. 치명적 실패가 없고 85점 이상인 후보 중 최고 점수를 선택한다.
 11. 합격 후보가 없으면 후보 증거와 평가 결과를 보존하고 Unity 복사 없이 실패 처리한다.
 12. 선택 후보를 수정하지 않고 `{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png`에 복사한다.
-13. PixelLab endpoint, job/page, description, style_description, 참조 경로, seed, 후보 수, 선택 후보, SHA-256을 `{evaluationRoot}/{equipmentId}/generation_record.txt`에 저장한다.
+13. PixelLab Creator URL, 도구명, 결과 페이지 또는 gallery item, Description, `prompt_only`, Transparent background Off, Init Image Empty, 요청·다운로드 크기, seed 노출 여부, 시도 횟수, 선택 후보, SHA-256을 `{evaluationRoot}/{equipmentId}/generation_record.txt`에 저장한다.
 14. 보존된 source를 80×80과 nearest-neighbor 32×32에서 다시 확인하고 SkillIconEvaluationGuide.md 형식으로 최종 평가한다.
 15. 최종 평가를 `{evaluationRoot}/{equipmentId}/evaluation/evaluation_result.txt`에 저장한다.
 16. 최종 평가가 Pass가 아니면 Unity 복사를 수행하지 않는다. Conditional Pass는 명시적 승인 전까지 중단한다.
@@ -116,7 +116,7 @@ Output:
 - 최종 PNG는 80×80 RGBA 단일 아이콘이어야 한다.
 - `.png.meta`는 Sprite Single과 프로젝트 import 정책을 따라야 하며 고유 GUID를 사용해야 한다.
 - 명시적 승인 없이 기존 합격 아이콘을 덮어쓰지 않아야 한다.
-- PixelLab API token이 어떤 출력이나 기록에도 포함되지 않아야 한다.
+- 생성 기록은 `tool=create_ui_basic`, `Create UI elements`, prompt_only, Width 80px, Height 80px 설정을 증명해야 한다.
 - 평가 증거는 임시 파일 정리 후에도 남아 있어야 한다.
 
 주의:
