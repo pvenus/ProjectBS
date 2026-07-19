@@ -1,13 +1,13 @@
 # Skill Icon Download and Evaluation Prompt
 
-PixelLab에서 생성한 정적 스킬 아이콘 후보를 평가 폴더에 보존하고, 평가를 통과한 파일만 Unity 경로에 복사하여 ID·체크섬·import 상태를 검증하는 실행 프롬프트입니다.
+PixelLab 주 피사체와 선택적 편집 결과를 기존 평가 폴더에 보존하고, 정확한 개수 오버레이와 프레임 정규화를 거친 최종 파일만 평가·Unity 복사하는 실행 프롬프트입니다.
 
 ## Prompt
 
 ```text
 작업 폴더 = {project_root}
 
-아래 가이드를 기준으로 PixelLab 정적 스킬 아이콘 결과를 다운로드하고, 별도 평가 폴더에 보존·평가한 뒤 통과한 파일만 Unity 경로에 복사해줘.
+현재 PC의 기존 경로 체계를 확인한 뒤 아래 가이드에 따라 아이콘 생성 단계별 증거를 보존하고, 정규화된 최종 source가 평가를 통과할 때만 Unity 경로에 복사해줘.
 
 참조 가이드:
 - Assets/character_concepts/game_prompt_guide/skill/SkillIconGenerationGuide.md
@@ -20,66 +20,58 @@ Input:
 - projectRoot: {project_root}
 - skillSourcePath: {스킬_JSON_절대경로}
 - equipmentId: {skill.character.character_name.grade.slot.skill_name}
-- pixelLabResult: {background_job_id | PixelLab 결과 페이지 | 로컬 다운로드 폴더 절대경로}
+- pixelLabPrimaryResult: {create_ui_basic 결과 페이지 또는 로컬 다운로드 파일}
+- pixelLabSemanticEditResult: {Edit image 결과 페이지 또는 로컬 파일 | null}
 - evaluationRoot: /Users/pvenus/Documents/PixelLab/skill/icon
-- styleReferencePaths: {auto | 쉼표로 구분한 승인 아이콘 절대경로 목록}
+- silhouetteInitImagePath: {현재 PC에 존재하는 80×80 구조 참조 절대경로}
+- frameTemplatePath: {현재 PC에 존재하는 승인된 80×80 프레임·배경 템플릿 절대경로}
+- exactCountOverlayManifest: {요소 종류·개수·크기·색상·위치 기록 | null}
+- normalizationRecord: {safe-area·background·frame 적용 기록}
 - lowerGradeIconPath: {auto | 하위 등급 아이콘 절대경로 | null}
 - siblingIconPaths: {auto | 같은 로드아웃 아이콘 절대경로 목록 | null}
 - unityIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
 - allowReplaceExistingIcon: false
 
 작업:
-1. skillSourcePath가 존재하고 유효한 JSON인지 확인한다.
-2. JSON의 equipmentId가 입력 equipmentId와 정확히 일치하는지 확인한다.
-3. equipmentId를 `.` 기준으로 파싱하여 domain, characterName, grade, slot, skillName을 확정한다.
-4. pixelLabResult가 대상 equipmentId의 완료된 PixelLab 생성 결과인지 확인한다.
-5. PixelLab 인증값은 환경 변수 또는 secret 설정에서만 읽고 Input, Output, 로그, 기록 파일에 노출하지 않는다.
-6. 모든 후보 PNG를 임시 폴더에 다운로드하고 archive 또는 grid이면 후보별 PNG로 분리한다.
-7. 각 후보의 PNG 디코딩, 80×80 크기, RGBA, 단일 정적 아이콘 여부, 배경, 테두리, 텍스트·워터마크 부재를 확인한다.
-8. 기술 검증을 통과한 모든 후보를 SkillIconEvaluationGuide.md 기준으로 평가한다.
-9. 각 후보 점수와 실패 사유를 `{evaluationRoot}/{equipmentId}/candidate_scores.txt`에 저장한다.
-10. 치명적 실패가 없고 85점 이상인 후보 중 최고 점수를 선택한다.
-11. 합격 후보가 없으면 후보 증거와 평가 결과를 보존하고 Unity 복사 없이 실패 처리한다.
-12. 선택 후보를 수정하지 않고 `{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png`에 복사한다.
-13. PixelLab endpoint, job/page, description, style_description, 참조 경로, seed, 후보 수, 선택 후보, SHA-256을 `{evaluationRoot}/{equipmentId}/generation_record.txt`에 저장한다.
-14. 보존된 source를 80×80과 nearest-neighbor 32×32에서 다시 확인하고 SkillIconEvaluationGuide.md 형식으로 최종 평가한다.
-15. 최종 평가를 `{evaluationRoot}/{equipmentId}/evaluation/evaluation_result.txt`에 저장한다.
-16. 최종 평가가 Pass가 아니면 Unity 복사를 수행하지 않는다. Conditional Pass는 명시적 승인 전까지 중단한다.
-17. allowReplaceExistingIcon이 false이고 unityIconPath에 기존 파일이 있으면 덮어쓰지 않고 승인 필요 상태로 중단한다.
-18. Pass이고 교체 조건이 충족되면 보존된 source를 unityIconPath에 복사한다.
-19. 보존 source와 Unity PNG의 SHA-256이 정확히 일치하는지 확인한다.
-20. Unity filename이 전체 `{equipmentId}.icon.png` 규칙과 정확히 일치하는지 확인한다.
-21. 같은 경로에 `{equipmentId}.icon.png.meta`를 생성 또는 갱신하고 기존 승인 아이콘의 import 정책을 따른다.
-22. Unity import는 Sprite (2D and UI), Sprite Mode Single, Point, no mipmap, alpha transparency, 기본 platform compression None으로 설정한다.
-23. 다른 아이콘의 GUID를 재사용하지 않고, EquipmentSkillSO 또는 runtime이 예상 icon resource key를 해석할 수 있는지 확인한다.
-24. 올바른 Unity Editor에서 reimport를 확인할 수 없으면 `meta configured / Unity reimport pending`으로 보고한다.
-25. 평가 폴더의 source, generation_record.txt, candidate_scores.txt, evaluation_result.txt와 필요한 후보 증거는 유지한다.
-26. 보존, 평가, Unity 복사, 체크섬, meta 처리가 완료된 뒤 archive, 임시 추출 폴더, 중복 다운로드, 무관한 preview만 삭제한다.
+1. 현재 PC에서 projectRoot, evaluationRoot, unityIconPath가 기존 문서·파일의 경로 체계와 일치하는지 확인한다.
+2. 다른 PC에서 전달된 절대 경로를 사용하거나 새 보존 폴더 규칙을 만들지 않는다.
+3. skillSourcePath와 equipmentId를 검증한다.
+4. silhouetteInitImagePath와 frameTemplatePath가 실제로 존재하며 80×80인지 확인한다. 없으면 placeholder를 만들지 않고 중단한다.
+5. primary 결과가 non-Pro `Create UI elements`, 80×80, Transparent background On, silhouette Init Image 사용으로 생성됐는지 확인한다.
+6. primary를 기존 `{evaluationRoot}/{equipmentId}/candidates` 폴더에 `candidate_XX.primary.png`로 보존한다.
+7. semantic edit가 있으면 `Edit image`와 한 문장 add/remove/change/replace 지시를 확인하고 `candidate_XX.edited.png`로 보존한다.
+8. exactCountOverlayManifest에 따라 sparks, chips, threads, chevrons를 결정적으로 추가한다. 각 요소는 최소 4×4px, 간격은 최소 4px이다.
+9. frameTemplatePath를 적용하고 생성 콘텐츠를 중앙 64×64 영역으로 제한한다.
+10. rows/columns 0, 1, 78, 79를 템플릿 픽셀로 복원해 exact outer 2px frame을 만든다.
+11. 8-10의 결과를 `candidate_XX.normalized.png`로 보존한다. 이 단계는 resize/crop이 아니라 deterministic overlay/normalization으로 기록한다.
+12. normalized 결과를 nearest-neighbor 32×32로 표시한 증거를 `candidate_XX.preview32.png`로 기존 candidates 폴더에 보존한다.
+13. primary 40-52px, 의미 선 4px 이상, 요소 간격 4-6px, particles 4×4px 이상, arcs/rings 3-4px를 검사한다.
+14. raw primary가 아니라 normalized 후보를 SkillIconEvaluationGuide.md 기준으로 평가한다.
+15. 모든 단계의 SHA-256, five-sentence Description, Init Image, strength, edit instruction, overlay manifest, normalization 기록과 점수를 generation_record.txt와 candidate_scores.txt에 저장한다.
+16. 치명적 실패가 없고 85점 이상인 normalized 후보만 `{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png`에 보존한다.
+17. source 보존 이후에는 리사이즈, 크롭, 색상 변경, 재압축을 수행하지 않는다.
+18. 최종 평가를 기존 `{evaluationRoot}/{equipmentId}/evaluation/evaluation_result.txt`에 저장한다.
+19. Pass이고 교체 조건이 충족된 경우에만 source를 unityIconPath로 복사한다.
+20. 보존 source와 Unity PNG의 SHA-256이 정확히 같은지 확인하고 `.meta`를 기존 import 정책으로 처리한다.
+21. Unity Editor reimport를 확인할 수 없으면 `meta configured / Unity reimport pending`으로 보고한다.
+22. 기존 candidates, source, evaluation, generation_record.txt, candidate_scores.txt 구조를 유지하고 새 중간 폴더를 만들지 않는다.
 
 Output:
-- Skill ID
-- Source JSON
-- PixelLab Result
-- Candidate Download Paths
-- Candidate Count
+- Skill ID / Source JSON
+- Primary / Edited / Normalized / Preview32 Paths
+- Silhouette Init Image Path / Strength
+- Frame Template Path
+- Exact-Count Overlay Manifest
+- Normalization Record
 - Candidate Technical Validation
 - Candidate Scores Path
-- Selected Candidate
-- Preserved Source Path
-- Generation Record Path
-- Evaluation Result / Result Path
-- Evaluation Score
+- Preserved Source Path / SHA-256
+- Evaluation Result / Score
 - Pass / Conditional Pass / Fail
-- Preserved Source SHA-256
-- Unity Icon Path
-- Unity Icon SHA-256
+- Unity Icon / Meta Path
 - Checksum Match
-- Unity Meta Path
 - Unity Import Status
-- Resolved Icon Resource Key
-- Replacement Status
 - Cleanup Status
-- Missing Items
 
 실패 시 Output:
 - status: failed
@@ -91,6 +83,11 @@ Output:
   - missing_download
   - invalid_png
   - invalid_icon_size
+  - missing_frame_template
+  - missing_silhouette_init_image
+  - semantic_edit_failed
+  - overlay_failed
+  - normalization_failed
   - no_passing_candidate
   - evaluation_write_failed
   - existing_icon_requires_approval
@@ -98,32 +95,14 @@ Output:
   - checksum_mismatch
   - unity_meta_failed
   - unity_import_pending
-  - unresolved_icon_resource_key
 - 실패 원인
-- 보존한 파일
-- 평가 결과 경로
-- 생성하지 않거나 복사하지 않은 Unity 파일
-- cleanup 상태
+- 보존한 증거
+- 생성하지 않은 파일 또는 폴더
 - 다음에 필요한 작업
 
-검증:
-- 평가 source는 `{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png`에 존재해야 한다.
-- 평가 결과는 `{evaluationRoot}/{equipmentId}/evaluation/evaluation_result.txt`에 존재해야 한다.
-- Unity filename은 전체 `{equipmentId}.icon.png`를 사용해야 한다.
-- Unity 경로는 `Assets/Resources/skill/icon/skill/{equipmentId}.icon.png`와 정확히 일치해야 한다.
-- 최종 평가가 Pass일 때만 Unity 복사가 수행되어야 한다.
-- 보존 source와 Unity PNG는 바이트가 동일하고 SHA-256이 일치해야 한다.
-- 최종 PNG는 80×80 RGBA 단일 아이콘이어야 한다.
-- `.png.meta`는 Sprite Single과 프로젝트 import 정책을 따라야 하며 고유 GUID를 사용해야 한다.
-- 명시적 승인 없이 기존 합격 아이콘을 덮어쓰지 않아야 한다.
-- PixelLab API token이 어떤 출력이나 기록에도 포함되지 않아야 한다.
-- 평가 증거는 임시 파일 정리 후에도 남아 있어야 한다.
-
 주의:
-- 이 프롬프트는 다운로드, 보존, 평가, Unity 복사를 하나의 후처리 작업으로 수행한다.
-- PixelLab 이미지 생성 또는 재생성은 수행하지 않는다.
-- 평가 폴더를 Unity 폴더로 대체하지 않는다.
-- 후보, contact sheet, archive를 Unity 경로에 직접 복사하지 않는다.
-- Conditional Pass 또는 Fail 아이콘을 Unity에 복사하지 않는다.
-- PNG 복사만으로 Unity 반영 완료로 보고하지 않는다.
+- PixelLab 생성·재생성은 이 프롬프트에서 수행하지 않는다.
+- raw primary나 edited 후보를 Unity에 직접 복사하지 않는다.
+- 다른 PC의 경로나 임의의 새 템플릿 폴더를 사용하지 않는다.
+- 실패한 아이콘을 정규화만으로 Pass 처리하지 않는다.
 ```

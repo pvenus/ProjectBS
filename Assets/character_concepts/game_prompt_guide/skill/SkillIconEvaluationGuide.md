@@ -8,8 +8,9 @@ This guide defines how to evaluate static pixel-art skill icons generated for:
 Assets/Resources/skill/icon/skill
 ```
 
-Evaluation verifies file correctness, skill meaning, project style, slot and grade
-distinction, small-size readability, reference consistency, and Unity readiness.
+Evaluation verifies file correctness, skill meaning, the hybrid generation contract,
+structural direction, deterministic normalization, small-size readability, and
+Unity readiness.
 
 This guide evaluates static UI icons only. Do not use it to evaluate animated skill
 VFX, character sprites, sprite sheets, or UI panels.
@@ -34,13 +35,15 @@ Required:
 ```text
 skillSourcePath
 equipmentId
+evaluationRoot
 iconPath
+generationRecordPath
+intendedUnityIconPath
 ```
 
 Optional:
 
 ```text
-styleReferencePaths
 lowerGradeIconPath
 siblingIconPaths
 unityMetaPath
@@ -48,7 +51,11 @@ unityMetaPath
 
 Definitions:
 
-- `styleReferencePaths`: approved icons used or intended as style anchors.
+- `generationRecordPath`: records the five-sentence Description, silhouette Init
+  Image, optional semantic edit, exact-count overlay, frame template, normalization,
+  and 32 x 32 preview evidence.
+- `intendedUnityIconPath`: the Unity destination used only after the preserved source
+  passes evaluation.
 - `lowerGradeIconPath`: the accepted lower-grade icon for an inherited skill.
 - `siblingIconPaths`: icons displayed in the same character loadout or skill set.
 - `unityMetaPath`: normally `{iconPath}.meta`.
@@ -85,7 +92,13 @@ Confirm:
 - JSON `equipmentId` exactly matches the requested `equipmentId`.
 - Grade is 1, 2, or 3.
 - Slot is supported by the source design and runtime.
-- `iconPath` is exactly:
+- Before Unity copy, `iconPath` is exactly the preserved final source:
+
+```text
+{evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
+```
+
+- `intendedUnityIconPath` is exactly:
 
 ```text
 Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
@@ -161,6 +174,9 @@ Any fatal failure produces `Fail` regardless of score.
 - Canvas is not 80 x 80.
 - Not a single static icon.
 - Wrong `equipmentId`, grade, or slot.
+- Generation record does not identify an existing 80 x 80 silhouette Init Image
+  and frame/background template from the current PC.
+- Final rows or columns 0, 1, 78, or 79 do not match the recorded frame template.
 
 ### 8.2 Meaning Failures
 
@@ -168,6 +184,8 @@ Any fatal failure produces `Fail` regardless of score.
 - Basic, active, or passive identity is materially wrong.
 - An element, effect, weapon, or role absent from source data dominates the icon.
 - The primary symbol cannot be identified at 32 x 32.
+- A horizontal, descending, diagonal, radial, or centered composition materially
+  contradicts the source classification and selected silhouette family.
 - Different skills use byte-identical icons without explicit reuse approval.
 
 ### 8.3 Style Failures
@@ -178,6 +196,12 @@ Any fatal failure produces `Fail` regardless of score.
 - Detailed scenery or unrelated objects obscure the skill symbol.
 - The icon lacks the required background or usable border.
 - The icon is visibly broken, cropped, or contains generation artifacts.
+- The outer frame is missing, broken, or unusably inconsistent.
+- The primary symbol or its effects touch the frame or canvas edge and appear
+  cropped. Smaller deviations inside the 8-pixel safety margin are scored instead.
+- An exact-count element differs from the recorded overlay manifest.
+- A required meaningful feature is only 1-2 pixels in the 80 x 80 source and
+  disappears in the 32 x 32 preview.
 
 ### 8.4 Grade Family Failures
 
@@ -194,7 +218,8 @@ Expected:
 
 - Repeated attack source is immediately readable.
 - One weapon, claw, projectile, or compact impact dominates.
-- Directional or diagonal composition is preferred.
+- Direction must match source behavior and the recorded silhouette family; diagonal
+  composition is not a universal default.
 - Effect density remains low.
 - Full-character detail is avoided unless necessary.
 
@@ -253,15 +278,17 @@ Score only after fatal failures are checked.
 
 ### 11.2 Project Style Match: 20
 
-- 18-20: Pixel density, outline, shading, border, and visual tone match references.
+- 18-20: Pixel density, subject outline, thick semantic features, shading, fixed
+  frame/background template, and visual tone match the hybrid contract.
 - 14-17: Mostly consistent with small deviations.
 - 8-13: Noticeably different but still usable after correction.
 - 0-7: Belongs to a different visual language.
 
 ### 11.3 Small-Size Silhouette: 20
 
-- 18-20: Primary symbol remains clear at 32 x 32.
-- 14-17: Readable with minor detail loss.
+- 18-20: A 40-52 pixel primary symbol, 4-pixel meaningful lines, and separated
+  effects remain clear at 32 x 32.
+- 14-17: Readable with minor detail loss that does not remove skill meaning.
 - 8-13: Meaning becomes ambiguous at 32 x 32.
 - 0-7: Primary symbol collapses or becomes noise.
 
@@ -281,9 +308,13 @@ Score only after fatal failures are checked.
 
 ### 11.6 Composition and Border Quality: 10
 
-- 9-10: One dominant symbol, controlled effects, stable background and border.
-- 7-8: Good composition with small spacing or border inconsistencies.
-- 4-6: Crowded, underfilled, or visibly inconsistent.
+- 9-10: One dominant symbol, at least 8 pixels of content safety margin, continuous
+  exact template frame, controlled effects, correct overlay counts, and stable
+  background.
+- 7-8: Good composition with 6-7 pixels of minimum content margin or a small frame
+  inconsistency.
+- 4-6: Crowded, underfilled, only 3-5 pixels of minimum content margin, or visibly
+  inconsistent.
 - 0-3: Broken layout, crop, or unusable border.
 
 Total:
@@ -339,8 +370,16 @@ Required correction
 Regeneration required: yes or no
 ```
 
-When regeneration is required, propose changes to the English PixelLab description.
-Keep proposed changes minimal and targeted.
+Choose the correction method before proposing text. Keep any text change minimal.
+
+```text
+direction failure → silhouette Init Image or strength
+partial-object reconstruction → fragment mask/reference and visual-shape wording
+missing broad effect → one Edit image instruction
+wrong exact count → deterministic overlay
+frame/background/safe-area failure → deterministic normalization
+32x32 loss → enlarge, thicken, or separate meaningful features
+```
 
 Examples:
 
@@ -348,10 +387,11 @@ Examples:
 Replace "detailed battlefield scene" with "one centered weapon symbol on a simple
 opaque icon background".
 
-Add "readable at 32 by 32 pixels, one primary symbol, no unrelated objects".
+Replace "wolf jaw" with "two disconnected dark-gray crescent jaw strips" and keep
+the existing fragment silhouette Init Image.
 
-Reduce Grade 1 effect wording from "explosive radiant aura" to "one small controlled
-highlight".
+Move "exactly three sparks" out of the generation prompt and into the overlay
+manifest.
 ```
 
 ## 15. Evaluation Output
@@ -364,13 +404,20 @@ Skill Icon Evaluation
 Skill ID:
 Source JSON:
 Icon Path:
+Intended Unity Icon Path:
 Unity Meta Path:
 Grade:
 Slot:
 Expected Classification:
 Canvas / Mode:
 SHA-256:
-Style Reference Paths:
+Generation Record Path:
+Silhouette Family / Init Image:
+Frame Template Path:
+Semantic Edit Evidence:
+Exact-Count Overlay Manifest:
+Normalization Record:
+32x32 Preview Path:
 Lower Grade Icon:
 Sibling Icons:
 
@@ -380,6 +427,11 @@ Fatal Failure Check:
 - Pixel-art project style: Pass / Fail / Insufficient Evidence
 - Text, logo, or animation grid absent: Pass / Fail
 - Background and border usable: Pass / Fail
+- Hybrid pipeline contract: Pass / Fail / Insufficient Evidence
+- Direction and fragment structure: Pass / Fail
+- Exact-count overlay: Pass / Fail / Not Applicable
+- Frame/background normalization: Pass / Fail
+- 32x32 survival contract: Pass / Fail
 - Grade family identity: Pass / Fail / Not Evaluated
 - Unapproved duplicate absent: Pass / Fail / Not Evaluated
 
@@ -428,7 +480,10 @@ failureType:
 - missing_icon
 - invalid_png
 - unsupported_slot
-- missing_required_reference
+- missing_generation_record
+- missing_frame_template
+- missing_silhouette_init_image
+- missing_normalization_record
 - insufficient_evidence
 - evaluation_write_failed
 
@@ -444,6 +499,11 @@ nextRequiredAction:
 - [ ] Source JSON and equipment ID match.
 - [ ] Icon path and filename match the contract.
 - [ ] PNG is 80 x 80 RGBA.
+- [ ] PixelLab primary used the recorded structural silhouette Init Image.
+- [ ] Existing frame template and deterministic normalization were verified.
+- [ ] Exact-count overlay matches its manifest.
+- [ ] Primary size, meaningful line thickness, spacing, particles, and arcs/rings were checked.
+- [ ] The nearest-neighbor 32 x 32 preview was inspected.
 - [ ] Fatal failures were checked before scoring.
 - [ ] Icon was inspected at 80 x 80 and 32 x 32.
 - [ ] Skill intent, slot, grade, palette, composition, and style were scored.

@@ -75,6 +75,7 @@ namespace ResourceTools.Stage
             public string nodeId;
             public string textKo;
             public string bodyKo;
+            public string nextNodeId;
             public List<StageStringChoiceJson> choices;
         }
 
