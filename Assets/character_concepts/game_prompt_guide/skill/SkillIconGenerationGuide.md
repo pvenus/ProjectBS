@@ -32,33 +32,32 @@ Assets/character_concepts/game_prompt_guide/skill/design/SkillDegineGuide.md
 Official PixelLab references:
 
 ```text
-https://www.pixellab.ai/docs/tools/create-ui-elements
-https://www.pixellab.ai/docs/options/init-image
+https://www.pixellab.ai/docs/tools/create-ui-elements-pro
 https://www.pixellab.ai/docs/tools/edit-image
 https://www.pixellab.ai/docs/options/general
-https://www.pixellab.ai/create?tool=create_ui_basic
+https://www.pixellab.ai/create?tool=create_ui_pro
 ```
 
 ## 3. Mandatory Tool and Generation Path
 
 Use PixelLab only.
 
-The standard generation path is hybrid and staged:
+The standard generation path is prompt-first and staged:
 
 ```text
-existing 80x80 silhouette Init Image
-→ PixelLab Create UI elements: primary symbol
+concise core-outline prompt
+→ PixelLab Create UI elements (Pro) without Concept Image: 16 primary variations
 → PixelLab Edit image: optional large semantic effect
 → deterministic exact-count pixel overlay
 → existing 80x80 frame/background template normalization
 → nearest-neighbor 32x32 preview
 ```
 
-Use `Create UI elements` for the primary symbol and its required silhouette Init
-Image. Use `Edit image` only for a large semantic arc, field, or trail that cannot
-be communicated by the primary symbol. PixelLab documentation supports Init Image
-for structure guidance and recommends action verbs such as `add`, `remove`,
-`change`, or `replace` for image editing.
+Use `Create UI elements (Pro)` with a concise Description and no Concept Image or
+style reference. At 80 x 80, the Pro tool produces a 4 x 4 grid of 16 variations
+and costs 25 generations per run. Use `Edit image` only when the selected primary is correct but its one simple
+semantic arc, field, or trail is missing. PixelLab recommends action verbs such as
+`add`, `remove`, `change`, or `replace` for image editing.
 
 Generated artwork must come from PixelLab. Exact-count overlays and final
 frame/background/safe-area normalization are deterministic pixel operations, not a
@@ -66,7 +65,7 @@ substitute image generator.
 
 Do not substitute these tools:
 
-- `Create UI elements (Pro)`
+- `Create UI elements`
 - `Create from style reference (Pro)`
 - `Create M-XL image`
 - PixelLab API style-reference generation endpoints
@@ -74,7 +73,7 @@ Do not substitute these tools:
 - animation tools
 
 If PixelLab is unavailable, authentication fails, credits are insufficient, or
-the required existing frame or silhouette input cannot be found on the current PC,
+the required existing frame template cannot be found on the current PC,
 stop and report the blocker. Do not copy another PC's absolute path, create a new
 folder convention, or substitute another image generator.
 
@@ -283,8 +282,8 @@ For inherited skills:
 
 1. Inspect the accepted lower-grade icon for identity only.
 2. Keep the same primary symbol and orientation in the classification record.
-3. Use the matching structural silhouette Init Image, not the completed lower-grade
-   icon, for PixelLab generation.
+3. Convert the inherited symbol and direction into the concise outline Description;
+   do not upload the completed lower-grade icon.
 4. Add only the grade-appropriate enhancement.
 5. Reject the result if the skill is no longer recognizable as the same family.
 
@@ -313,11 +312,10 @@ Create one normalized classification record before writing the PixelLab prompt:
   "gradeTier": "grade_3",
   "slotFamily": "active",
   "visualFamily": "movement_attack",
-  "primarySymbol": "charging_armored_warrior_silhouette",
-  "secondaryEffect": "speed_lines_and_gold_impact_sparks",
+  "coreOutline": "one bold forward-pointing armored wedge",
   "composition": "forward_diagonal",
-  "silhouetteFamily": "diagonal_melee",
-  "mandatorySemanticEffect": "one broad impact arc",
+  "compositionProfile": "diagonal_melee",
+  "simpleSkillEffect": "one broad gold impact arc",
   "exactCountElements": ["three gold impact sparks"],
   "prohibitedObjects": ["full battlefield", "text banner"],
   "elementFamily": "physical",
@@ -430,12 +428,13 @@ Recommended final range:
 
 This is a project style target, not a PixelLab UI restriction.
 
-## 11. Structural Reference Policy
+## 11. No Image Reference Policy
 
-The text contract defines meaning and style; an existing silhouette Init Image
-defines only composition and direction.
+The concise text prompt defines the primary outline, composition, direction, one
+simple skill effect, and optional contextual background. Do not use a Concept
+Image, gallery image, clipboard image, or style reference for primary generation.
 
-Required silhouette families:
+Supported composition profiles:
 
 ```text
 horizontal_projectile
@@ -447,33 +446,36 @@ centered_passive_emblem
 
 Rules:
 
-- Resolve template and silhouette paths from files already present on the current
-  PC and from existing generation records.
+- Resolve the frame template path from files already present on the current PC and
+  from existing generation records.
 - Never reuse an absolute path copied from another PC.
 - Do not invent a new template directory when a required file is missing.
-- A silhouette Init Image must be 80 x 80 and contain only structural guidance;
-  do not use an inconsistent completed icon as the structural reference.
-- Existing completed icons may be inspected for inherited identity but not uploaded
-  as style or Init Image references.
-- Stop with `missing_frame_template` or `missing_silhouette_init_image` when the
-  required existing input cannot be found.
+- Existing completed icons may be inspected for inherited identity, but translate
+  that identity into concise shape language instead of uploading the image.
+- The existing 80 x 80 frame template is used only after generation for deterministic
+  background, border, and safe-area normalization.
+- Stop with `missing_frame_template` when the required existing template cannot be
+  found.
 
 ## 12. PixelLab Primary and Edit Stages
 
 Primary generation:
 
 ```text
-URL: https://www.pixellab.ai/create?tool=create_ui_basic
-Tool: Create UI elements
-Width / Height: 80 / 80
-Transparent background: On
-Init Image: selected structural silhouette
-Init Image strength: 300-400 initially
+URL: https://www.pixellab.ai/create?tool=create_ui_pro
+Tool: Create UI elements (Pro)
+Custom size: 80 / 80
+Expected output: 4 x 4 grid, 16 independent 80 x 80 variations
+Transparent background: On for flat mode; Off for contextual mode
+Concept Image / gallery / clipboard / style reference: Empty
+Color palette: concise project palette
+Description: follow Section 13
 ```
 
-PixelLab documents Init Image as a way to guide shape and color. Use 300-400 for
-rough directional structure; use 400-600 only when a stronger shape lock is needed.
-Do not increase strength blindly when the chosen silhouette family is wrong.
+An 80 x 80 Pro run costs 25 generations. Start with one run, apply cheap static
+and semantic rejection checks to all 16 variations, and advance at most the best
+three candidates. Request another Pro run only when every variation has the same
+fatal core-outline, direction, or meaning failure.
 
 Optional semantic edit:
 
@@ -487,17 +489,29 @@ Output size: 80 x 80
 Use image edit only for a broad arc, field, ring, or trail that contributes to skill
 meaning. Do not use it to enforce exact counts or repair the fixed frame.
 
-## 13. Five-Sentence Prompt Contract
+## 13. Concise Outline Prompt Contract
 
-The primary Description has at most five short sentences or blocks:
+The primary Description has four short core sentences or blocks. One short
+background sentence may be inserted before the final sentence only for
+`backgroundMode=contextual`:
 
 ```text
-1. Primary silhouette: visual shape before semantic name.
-2. Direction and composition: one explicit orientation matching the Init Image.
-3. Mandatory semantic effect: only a large effect the model should create.
-4. Prohibited objects: a short list of the most likely reconstruction errors.
-5. Grade and style: grade intensity, palette, pixel art, and 32x32 readability.
+1. Core outline: the large visible shape, described before its semantic name.
+2. Direction and composition: one explicit axis or centered arrangement.
+3. Simple skill effect: only one broad effect that explains the action.
+Optional background: 1-2 low-contrast elements that explain gameplay.
+4. Compact exclusions and grade/style: 3-6 likely errors, palette, and readability.
 ```
+
+For `backgroundMode=flat`, omit the optional background sentence and enable Transparent
+background. Deterministic normalization supplies the approved flat charcoal or
+deep-brown interior. Do not prompt for empty scenery, gradients, fog, terrain, or
+decoration merely to fill space.
+
+Use `backgroundMode=contextual` only when the setting communicates a location,
+area boundary, travel direction, impact surface, or source of the skill. Disable
+Transparent background and describe no more than two sparse, low-contrast elements.
+The background must remain visually subordinate to the core outline.
 
 Do not include frame, card, panel, background-border, pixel-coordinate, safe-margin,
 or exact-count micro-effect instructions. Do not repeat a long negative list.
@@ -512,12 +526,21 @@ Prefer: two disconnected dark-gray crescent jaw strips with four large pale fang
 Example:
 
 ```text
-Two disconnected dark-gray crescent jaw strips with four large pale fangs form the
-primary silhouette. They close horizontally from left and right at the center.
-Add one broad dark-crimson bite arc behind the strips. No full wolf head, eyes,
-ears, body, character, altar, card, or badge. Grade 2 dark-fantasy pixel art with a
-40-52 pixel primary shape, thick readable features, muted charcoal, bone-white and
-crimson palette, readable at 32 by 32 pixels.
+Two disconnected dark-gray crescent jaw strips with four large pale fangs form one
+bold core outline. They close horizontally from left and right at the center. Add
+one broad dark-crimson bite arc behind them. No full wolf, person, altar, card, or
+badge; Grade 2 dark-fantasy pixel art in charcoal, bone-white, and crimson with
+thick features readable at 32 by 32 pixels.
+```
+
+Contextual background example:
+
+```text
+A broad chipped iron spearhead forms one bold horizontal outline. It drives from
+left to right. Add one thick crimson impact arc at its point. Behind it, show one
+low-contrast broken shield edge and a narrow dust band. No person, battlefield,
+banner, card, or badge; Grade 2 pixel art in iron-gray, crimson, and charcoal with
+thick features readable at 32 by 32 pixels.
 ```
 
 ## 14. Retry Routing
@@ -527,11 +550,12 @@ Description.
 
 | Failure | Required next method |
 |---|---|
-| Wrong direction | Change silhouette family or Init Image strength |
-| Whole creature/person reconstructed | Use a fragment mask/reference and visual-shape wording |
+| Wrong direction | Replace the direction sentence with one explicit axis phrase and use a new seed |
+| Whole creature/person reconstructed | Replace the semantic noun with visual-shape wording |
 | Missing exact-count particles | Add deterministic overlay |
 | Missing broad semantic arc/field/trail | Use one PixelLab Edit image instruction |
 | Missing frame or wrong background | Re-run deterministic template normalization |
+| Contextual background dominates | Shorten it to 1-2 low-contrast elements or switch to flat mode |
 | 32x32 information loss | Enlarge primary, thicken lines, and increase spacing |
 
 Exact-count overlay manifest:
@@ -558,8 +582,10 @@ Normalization record:
 ```text
 Frame Template Path:
 Frame Template SHA-256:
-Interior Background Source: frame template
-Safe Rect: x=8..71, y=8..71
+Background Mode: flat | contextual
+Interior Background Source: frame template | generated contextual background
+Foreground Safe Rect: x=8..71, y=8..71
+Contextual Background Rect: x=2..77, y=2..77 | not_applicable
 Removed Outside-Safe-Area Pixels:
 Restored Frame Rows: 0, 1, 78, 79
 Restored Frame Columns: 0, 1, 78, 79
@@ -570,32 +596,37 @@ Normalized Candidate SHA-256:
 
 1. Read the target skill JSON and validate `equipmentId`, grade, slot, and output
    path.
-2. Resolve the current PC's existing evaluation root, Unity destination,
-   `frameTemplatePath`, and `silhouetteInitImagePath` without creating a new path
-   convention.
-3. Build the normalized semantic classification, including `silhouetteFamily`,
-   `mandatorySemanticEffect`, `exactCountElements`, and `prohibitedObjects`.
-4. Write the five-sentence primary Description.
-5. Generate an 80 x 80 transparent primary with `Create UI elements` and the
-   selected silhouette Init Image.
-6. Reject a wrong direction or reconstructed whole object before evaluating small
-   effects.
-7. If needed, apply one `Edit image` operation for a broad semantic effect.
-8. Add exact-count sparks, chips, threads, or chevrons with a deterministic pixel
+2. Resolve the current PC's existing evaluation root, Unity destination, and
+   `frameTemplatePath` without creating a new path convention.
+3. Build the normalized semantic classification, including `compositionProfile`,
+   `coreOutline`, `simpleSkillEffect`, `backgroundRequirement`, `backgroundMode`,
+   `backgroundDescription`, `exactCountElements`, and `prohibitedObjects`.
+4. Write four concise core sentences. Add one background sentence only for
+   `contextual` mode.
+5. Open `Create UI elements (Pro)`, set Custom size to 80 x 80, leave Concept Image
+   empty, and enter the project palette in Color palette.
+6. Set Transparent background On for `flat` or Off for `contextual`, then perform
+   one Pro run and preserve all 16 individual 80 x 80 variations.
+7. Apply static and semantic rejection to all variations. Advance no more than the
+   best three; do not evaluate a combined contact sheet as an icon.
+8. Reject a wrong direction, reconstructed whole object, or dominant unrelated
+   background before evaluating small effects.
+9. If needed, apply one `Edit image` operation for a broad semantic effect.
+10. Add exact-count sparks, chips, threads, or chevrons with a deterministic pixel
    overlay. Each item must be at least 4 x 4 pixels.
-9. Composite the artwork into the central 64 x 64 area of the existing 80 x 80
-   frame/background template.
-10. Remove generated content outside the safe area and restore template pixels on
-    rows and columns 0, 1, 78, and 79.
-11. Record Steps 8-10 as deterministic overlay and normalization, not as resize or
+11. In `flat` mode, use the template interior background. In `contextual` mode,
+    preserve the generated low-contrast background inside x=2..77 and y=2..77.
+12. Keep the primary and effects inside the central 64 x 64 foreground safe area,
+    then restore template pixels on rows and columns 0, 1, 78, and 79.
+13. Record Steps 10-12 as deterministic overlay and normalization, not as resize or
     crop.
-12. Produce a nearest-neighbor 32 x 32 preview. Confirm 40-52 pixel primary size,
+14. Produce a nearest-neighbor 32 x 32 preview. Confirm 40-52 pixel primary size,
     meaningful lines at least 4 pixels thick, 4-6 pixel element spacing, 4 x 4
     minimum particles, and 3-4 pixel arcs or rings in the 80 x 80 source.
-13. Evaluate the normalized final source, not the raw PixelLab output.
-14. Preserve intermediate evidence within the existing candidate layout and save
+15. Evaluate the normalized final source, not the raw PixelLab output.
+16. Preserve intermediate evidence within the existing candidate layout and save
     the final source under the existing evaluation layout.
-15. Copy only a passing final source to the existing Unity path and verify checksum
+17. Copy only a passing final source to the existing Unity path and verify checksum
     and `.meta` import settings.
 
 ## 16. Validation
@@ -617,7 +648,8 @@ Normalized Candidate SHA-256:
 - The slot is visually recognizable as basic, active, or passive.
 - The grade intensity matches Grade 1, 2, or 3 without breaking family identity.
 - The element and role colors match source data.
-- The border and background match the existing approved template.
+- The border matches the existing approved template. The interior follows the
+  recorded `flat` or `contextual` background mode.
 - The outer frame is continuously 2 pixels thick.
 - The primary silhouette uses a 2-pixel outer outline. One-pixel internal details
   are allowed only when they do not carry skill meaning.
@@ -630,12 +662,18 @@ Normalized Candidate SHA-256:
 - Pixels remain crisp with no unintended smoothing.
 - There is no text, letter, number, logo, or animation grid.
 - There is no detailed scenery or unrelated object.
+- A contextual background uses at most two sparse low-contrast elements and never
+  competes with the primary. Flat mode contains no generated scene.
 
 ### 16.3 Pipeline and Identity Validation
 
-- The selected structural silhouette Init Image and existing frame template paths
-  are recorded and exist on the current PC.
-- The primary Description follows the five-sentence contract and does not delegate
+- The existing frame template path is recorded and exists on the current PC.
+- The primary generation record confirms `Create UI elements (Pro)`, Custom size
+  80 x 80, and an empty Concept Image input.
+- All 16 Pro variations are preserved or explicitly accounted for, and no contact
+  sheet is treated as a single candidate.
+- The primary Description follows the four core sentence contract plus at most one
+  contextual background sentence and does not delegate
   frame, exact-count, or safe-area enforcement to PixelLab.
 - Semantic edits, exact-count overlays, and deterministic normalization are recorded
   as separate stages.
@@ -688,14 +726,22 @@ Output Path:
 Grade:
 Slot:
 Classification:
-Reference Mode: silhouette_init
+Reference Mode: none
 Inherited Icon Reference:
-Silhouette Family:
-Silhouette Init Image Path:
-Init Image Strength:
+Composition Profile:
+Background Requirement:
+Background Mode: flat | contextual
+Background Description: omitted | value
+Core Outline Sentence:
+Direction Sentence:
+Simple Skill Effect Sentence:
+Compact Exclusion / Grade Sentence:
 Frame Template Path:
 PixelLab Creator URL:
 Primary Tool:
+Pro Grid / Variation Count: 4x4 / 16
+Concept Image: empty
+Color Palette:
 Primary Description:
 Semantic Effect Tool / Instruction:
 Exact-Count Overlay Manifest:
@@ -726,8 +772,6 @@ failureType:
 - unsupported_slot
 - missing_frame_template
 - invalid_frame_template
-- missing_silhouette_init_image
-- invalid_silhouette_init_image
 - pixellab_unavailable
 - pixellab_authentication_failed
 - insufficient_pixellab_credits
@@ -759,14 +803,12 @@ Do not create a placeholder icon as a failure artifact.
 - Do not replace PixelLab with another image tool.
 - Do not alter skill balance or gameplay JSON to fit an image.
 - Do not invent a new slot, element, or effect.
-- Do not upload a completed project icon as a style or Init Image reference.
-- Use only a structural silhouette as Init Image.
+- Do not use a Concept Image, gallery image, clipboard image, or style reference.
 - Do not resize or crop a generated result to force direction, frame, or count
   compliance.
 - Deterministic frame/background/safe-area normalization and exact-count overlay are
   required post-generation operations, not prohibited edits.
-- Do not create a new template or silhouette folder when an existing required input
-  cannot be found.
+- Do not create a new template folder when an existing required input cannot be found.
 - Do not overwrite an accepted icon without preserving or explicitly approving the
   replacement workflow.
 - Do not report Unity import completion unless the PNG and `.meta` are present and

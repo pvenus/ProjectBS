@@ -8,7 +8,7 @@ This guide defines how to evaluate static pixel-art skill icons generated for:
 Assets/Resources/skill/icon/skill
 ```
 
-Evaluation verifies file correctness, skill meaning, the hybrid generation contract,
+Evaluation verifies file correctness, skill meaning, the concise outline prompt contract,
 structural direction, deterministic normalization, small-size readability, and
 Unity readiness.
 
@@ -51,9 +51,10 @@ unityMetaPath
 
 Definitions:
 
-- `generationRecordPath`: records the five-sentence Description, silhouette Init
-  Image, optional semantic edit, exact-count overlay, frame template, normalization,
-  and 32 x 32 preview evidence.
+- `generationRecordPath`: records `Create UI elements (Pro)`, all 16 variations,
+  four core Description sentences, optional contextual background sentence,
+  `referenceMode=none`, composition profile, background mode, optional semantic
+  edit, exact-count overlay, frame template, normalization, and 32 x 32 preview.
 - `intendedUnityIconPath`: the Unity destination used only after the preserved source
   passes evaluation.
 - `lowerGradeIconPath`: the accepted lower-grade icon for an inherited skill.
@@ -174,8 +175,8 @@ Any fatal failure produces `Fail` regardless of score.
 - Canvas is not 80 x 80.
 - Not a single static icon.
 - Wrong `equipmentId`, grade, or slot.
-- Generation record does not identify an existing 80 x 80 silhouette Init Image
-  and frame/background template from the current PC.
+- Generation record does not confirm `create_ui_pro`, Custom size 80 x 80, empty
+  Concept Image, all 16 accounted variations, or an existing 80 x 80 frame template.
 - Final rows or columns 0, 1, 78, or 79 do not match the recorded frame template.
 
 ### 8.2 Meaning Failures
@@ -185,7 +186,7 @@ Any fatal failure produces `Fail` regardless of score.
 - An element, effect, weapon, or role absent from source data dominates the icon.
 - The primary symbol cannot be identified at 32 x 32.
 - A horizontal, descending, diagonal, radial, or centered composition materially
-  contradicts the source classification and selected silhouette family.
+  contradicts the source classification and recorded composition profile.
 - Different skills use byte-identical icons without explicit reuse approval.
 
 ### 8.3 Style Failures
@@ -194,6 +195,9 @@ Any fatal failure produces `Fail` regardless of score.
 - Unintended smoothing, vector edges, or photorealistic rendering dominates.
 - Text, letters, numbers, logo, watermark, or animation grid is present.
 - Detailed scenery or unrelated objects obscure the skill symbol.
+- A contextual background contains more than two competing elements, contradicts
+  its recorded description, or has equal/higher contrast than the primary symbol.
+- Flat mode contains generated scenery instead of the approved solid interior.
 - The icon lacks the required background or usable border.
 - The icon is visibly broken, cropped, or contains generation artifacts.
 - The outer frame is missing, broken, or unusably inconsistent.
@@ -218,7 +222,7 @@ Expected:
 
 - Repeated attack source is immediately readable.
 - One weapon, claw, projectile, or compact impact dominates.
-- Direction must match source behavior and the recorded silhouette family; diagonal
+- Direction must match source behavior and the recorded composition profile; diagonal
   composition is not a universal default.
 - Effect density remains low.
 - Full-character detail is avoided unless necessary.
@@ -279,7 +283,7 @@ Score only after fatal failures are checked.
 ### 11.2 Project Style Match: 20
 
 - 18-20: Pixel density, subject outline, thick semantic features, shading, fixed
-  frame/background template, and visual tone match the hybrid contract.
+  frame, recorded background mode, and visual tone match the concise outline contract.
 - 14-17: Mostly consistent with small deviations.
 - 8-13: Noticeably different but still usable after correction.
 - 0-7: Belongs to a different visual language.
@@ -373,11 +377,12 @@ Regeneration required: yes or no
 Choose the correction method before proposing text. Keep any text change minimal.
 
 ```text
-direction failure → silhouette Init Image or strength
-partial-object reconstruction → fragment mask/reference and visual-shape wording
+direction failure → replace only the direction sentence with an explicit axis phrase
+partial-object reconstruction → replace semantic naming with visual-shape wording
 missing broad effect → one Edit image instruction
 wrong exact count → deterministic overlay
 frame/background/safe-area failure → deterministic normalization
+unnecessary or dominant background → switch to flat, or reduce contextual background to 1-2 low-contrast elements
 32x32 loss → enlarge, thicken, or separate meaningful features
 ```
 
@@ -387,8 +392,8 @@ Examples:
 Replace "detailed battlefield scene" with "one centered weapon symbol on a simple
 opaque icon background".
 
-Replace "wolf jaw" with "two disconnected dark-gray crescent jaw strips" and keep
-the existing fragment silhouette Init Image.
+Replace "wolf jaw" with "two disconnected dark-gray crescent jaw strips" without
+adding an image reference or a longer negative list.
 
 Move "exactly three sparks" out of the generation prompt and into the overlay
 manifest.
@@ -412,7 +417,11 @@ Expected Classification:
 Canvas / Mode:
 SHA-256:
 Generation Record Path:
-Silhouette Family / Init Image:
+Reference Mode / Composition Profile:
+Background Mode / Description / Contrast Result:
+Pro Grid / 16 Variation Evidence:
+Core Outline / Direction / Simple Effect / Compact Exclusion·Grade Sentences:
+Optional Contextual Background Sentence:
 Frame Template Path:
 Semantic Edit Evidence:
 Exact-Count Overlay Manifest:
@@ -427,7 +436,7 @@ Fatal Failure Check:
 - Pixel-art project style: Pass / Fail / Insufficient Evidence
 - Text, logo, or animation grid absent: Pass / Fail
 - Background and border usable: Pass / Fail
-- Hybrid pipeline contract: Pass / Fail / Insufficient Evidence
+- Concise prompt pipeline contract: Pass / Fail / Insufficient Evidence
 - Direction and fragment structure: Pass / Fail
 - Exact-count overlay: Pass / Fail / Not Applicable
 - Frame/background normalization: Pass / Fail
@@ -482,7 +491,6 @@ failureType:
 - unsupported_slot
 - missing_generation_record
 - missing_frame_template
-- missing_silhouette_init_image
 - missing_normalization_record
 - insufficient_evidence
 - evaluation_write_failed
@@ -499,7 +507,9 @@ nextRequiredAction:
 - [ ] Source JSON and equipment ID match.
 - [ ] Icon path and filename match the contract.
 - [ ] PNG is 80 x 80 RGBA.
-- [ ] PixelLab primary used the recorded structural silhouette Init Image.
+- [ ] PixelLab primary used `Create UI elements (Pro)`, Custom size 80 x 80, and no Concept Image.
+- [ ] All 16 variations were preserved or have explicit rejection evidence.
+- [ ] Background mode, prompt description, contrast, transparency, and normalization agree.
 - [ ] Existing frame template and deterministic normalization were verified.
 - [ ] Exact-count overlay matches its manifest.
 - [ ] Primary size, meaningful line thickness, spacing, particles, and arcs/rings were checked.

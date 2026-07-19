@@ -33,21 +33,21 @@ Input:
 작업:
 1. 현재 PC의 projectRoot와 입력 경로가 기존 기록의 경로 체계를 따르는지 확인한다. 다른 PC 절대 경로가 기록에 남아 있으면 Pass 처리하지 않는다.
 2. skillSourcePath, equipmentId, 보존 source iconPath와 80×80 RGBA 단일 PNG 계약을 확인한다.
-3. generationRecordPath에서 silhouetteFamily, silhouetteInitImagePath, Init Image strength, frameTemplatePath, primary Description, semantic edit, exact-count overlay, normalization, preview32 증거를 읽는다.
-4. silhouetteInitImagePath와 frameTemplatePath가 현재 PC에 실제로 존재하고 80×80인지 확인한다.
+3. generationRecordPath에서 Create UI elements (Pro), 4×4/16개 변형, referenceMode, compositionProfile, backgroundMode, 선택적 backgroundDescription, core outline·direction·simple effect·compact exclusion/grade 문장, frameTemplatePath, semantic edit, exact-count overlay, normalization, preview32 증거를 읽는다.
+4. `create_ui_pro`, Custom size 80×80, Concept Image 비어 있음, 16개 변형 보존 또는 제외 사유를 확인한다. frameTemplatePath는 현재 PC에 실제로 존재하고 80×80이어야 한다.
 5. source JSON으로 예상 direction, composition, primary fragment shape, mandatorySemanticEffect, exactCountElements를 다시 분류한다.
-6. 실제 아이콘 방향이 silhouetteFamily 및 source와 일치하는지 평가한다. 무기나 화살이 근거 없이 좌하단→우상단으로 수렴하면 Fail 사유로 기록한다.
+6. 실제 아이콘 방향이 compositionProfile 및 source와 일치하는지 평가한다. 무기나 화살이 근거 없이 좌하단→우상단으로 수렴하면 Fail 사유로 기록한다.
 7. 부분 물체가 완전한 머리, 인물, 제단, 생물로 복원되지 않았는지 확인한다.
 8. exactCountElements가 overlay manifest와 정확히 일치하는지 확인한다.
 9. rows/columns 0, 1, 78, 79가 frameTemplatePath와 픽셀 단위로 일치하는지 확인한다.
-10. 내부 배경과 중앙 64×64 safe area를 확인하고 생성 콘텐츠가 외부로 침범하지 않는지 검사한다.
+10. `flat`은 승인된 단색 템플릿 배경인지 확인한다. `contextual`은 기록된 배경 요소 1-2개만 x=2..77, y=2..77 안에 존재하고 핵심보다 대비가 낮은지 확인한다. primary와 효과는 중앙 64×64 영역을 벗어나면 안 된다.
 11. primary가 약 40-52px인지, 의미 선이 4px 이상인지, 요소 간격이 4-6px인지 검사한다.
 12. sparks/chips는 각 4×4px 이상인지, arcs/rings는 3-4px 두께인지 검사한다.
 13. preview32Path를 확인하여 primarySymbol, 방향, 필수 의미 효과가 모두 남는지 평가한다.
-14. Five-Sentence Prompt Contract 준수 여부를 확인한다. frame/card/panel/좌표/exact count를 생성 프롬프트에 반복 위임했으면 감점한다.
+14. Concise Outline Prompt Contract의 핵심 4문장과 contextual일 때만 허용되는 배경 1문장을 확인한다. frame/card/panel/좌표/exact count를 반복 위임했거나 불필요한 장면 묘사를 누적했으면 감점한다.
 15. 하위 등급과 sibling 비교, SHA-256 중복 검사를 수행한다.
 16. 치명적 실패를 먼저 판정한 뒤 6개 항목을 100점 만점으로 채점한다.
-17. 실패마다 다음 수정 방법 중 하나를 지정한다: silhouette_init, fragment_reference, semantic_edit, exact_count_overlay, deterministic_normalization, small_size_recompose.
+17. 실패마다 다음 수정 방법 중 하나를 지정한다: core_outline_rewrite, direction_sentence_replace, shape_only_rewrite, semantic_edit, exact_count_overlay, deterministic_normalization, small_size_recompose.
 18. 같은 prompt_only 문구를 길게 늘리는 수정을 제안하지 않는다.
 19. 85점 이상이고 치명적 실패와 필수 증거 부족이 없을 때만 Pass 처리한다.
 20. evaluationOutputPath가 report_only가 아니면 평가 리포트만 저장한다.
@@ -57,7 +57,10 @@ Output:
 - Skill ID / Source JSON / Preserved Icon Path / Intended Unity Icon Path
 - Canvas / SHA-256
 - Generation Record Path
-- Silhouette Family / Init Image / Strength
+- Reference Mode / Composition Profile
+- Background Mode / Description / Contrast Result
+- Pro Grid / 16 Variation Evidence
+- Core Outline / Direction / Simple Skill Effect / Compact Exclusion·Grade Sentences
 - Frame Template Path
 - Semantic Edit Evidence
 - Exact-Count Overlay Manifest
@@ -89,7 +92,6 @@ Output:
   - unsupported_slot
   - missing_generation_record
   - missing_frame_template
-  - missing_silhouette_init_image
   - missing_normalization_record
   - missing_preview32
   - insufficient_evidence
