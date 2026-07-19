@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.chapter01.episode03_1.jihan_join
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.chapter01.episode03_1.jihan_join
+  mainImage: {fileID: 21300000, guid: af5f6e0d702ee4f53bc799b74b8eca4c, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.chapter01.episode03_1.jihan_join.defend_jihan_and_child
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 3000
+      rewardId: battle.act1.chapter01.03_1.defend_hut
+      targetId: 
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: 16e629f4066074ad7abd394d10cc67a8, type: 2}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 0}

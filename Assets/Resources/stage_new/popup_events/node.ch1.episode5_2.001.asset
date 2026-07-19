@@ -16,9 +16,16 @@ MonoBehaviour:
   mainImage: {fileID: 21300000, guid: 6504e47c1b9c476594abe307a9a20138, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: node.ch1.episode5_2.001.next
+  - choiceId: choice.ch1.episode5_2.recruit_jihan
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 0
+      rewardId: character.jihan
+      targetId: 
+      value: 0
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: 8bf779b2d828641918611564267777a5, type: 2}
+    nextEvent: {fileID: 0}

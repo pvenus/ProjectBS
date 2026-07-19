@@ -16,9 +16,16 @@ MonoBehaviour:
   mainImage: {fileID: 21300000, guid: b37023ed9a154b0695f5d4b8200c2eb4, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: node.ch1.episode4_1.001.next
+  - choiceId: choice.ch1.episode4_1.protect_jihan
     requirements: []
     visibleConditions: []
-    rewards: []
+    rewards:
+    - rewardType: 0
+      rewardId: battle.ch1.episode4_1.protect_physician
+      targetId: 
+      value: 0
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
     completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: 6f61fdbe151ea4b26813f333d483e24b, type: 2}
+    nextEvent: {fileID: 0}
