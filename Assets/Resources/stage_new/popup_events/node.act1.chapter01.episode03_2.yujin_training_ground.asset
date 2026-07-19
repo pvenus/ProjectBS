@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.chapter01.episode03_2.yujin_training_ground
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.chapter01.episode03_2.yujin_training_ground
+  mainImage: {fileID: 21300000, guid: f13cc7ac9f8034600ada01412d75d34b, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.chapter01.episode03_2.yujin_training_ground.accept_yujin_join
+    requirements: []
+    visibleConditions: []
+    rewards:
+    - rewardType: 100
+      rewardId: reward.act1.chapter01.episode03_2.accept_yujin_join.clear
+      targetId: 
+      value: 100
+      godType: 0
+      targetData: {fileID: 0}
+      tag: 
+    completesEvent: 1
+    nextEvent: {fileID: 11400000, guid: 30aed44d52aad44df80c14eb2346018d, type: 2}
