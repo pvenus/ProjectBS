@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.nine_heavens_thunderfall_formation",
+  "skill": {
+    "skillId": "skill.strategic.nine_heavens_thunderfall_formation",
+    "nameKo": "구천멸뢰진",
+    "linkedItem": {
+      "itemId": "item.strategic.nine_heavens_thunderfall_formation",
+      "grade": "Basic",
+      "gaugeCost": 100
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "연속 포격",
+      "secondary": "광역 피해"
+    },
+    "conceptKo": "구천의 낙뢰가 진법 안을 연속으로 타격한다.",
+    "intendedUseKo": "넓은 지정 지역에 다수의 낙뢰를 집중시켜 최고 비용에 맞는 광역 피해를 준다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 7m 안에 적용한다.",
+    "effectsKo": [
+      "공격 1회마다 적에게 240 피해를 주며 최대 20회 발생한다."
+    ],
+    "executionKo": "총 20회에 걸쳐 0.1초 간격으로 발생한다.",
+    "presentationKo": "7m 전체 위험 범위와 개별 2m 낙뢰 지점을 구분한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 100
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

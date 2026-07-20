@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.frost_spirit_formation",
+  "skill": {
+    "skillId": "skill.strategic.frost_spirit_formation",
+    "nameKo": "빙령진",
+    "linkedItem": {
+      "itemId": "item.strategic.frost_spirit_formation",
+      "grade": "Basic",
+      "gaugeCost": 30
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "범위 약화",
+      "secondary": null
+    },
+    "conceptKo": "빙령의 진이 적의 발을 얼려 이동을 둔화한다.",
+    "intendedUseKo": "적 밀집 지역의 이동을 크게 늦춰 진형을 유지한다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 6m 안에 적용한다.",
+    "effectsKo": [
+      "범위 안의 적 이동속도를 60% 감소시키며 6초 동안 유지한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "6m 냉기 영역과 둔화된 적의 상태가 구분되어야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 30
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

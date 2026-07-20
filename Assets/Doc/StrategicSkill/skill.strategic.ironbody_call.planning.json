@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.ironbody_call",
+  "skill": {
+    "skillId": "skill.strategic.ironbody_call",
+    "nameKo": "철신호",
+    "linkedItem": {
+      "itemId": "item.strategic.ironbody_call",
+      "grade": "Basic",
+      "gaugeCost": 20
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "아군 강화",
+      "secondary": null
+    },
+    "conceptKo": "철신의 호령이 아군의 몸을 단단하게 만든다.",
+    "intendedUseKo": "피해가 집중되는 구간에 모든 아군의 방어력을 잠시 높인다.",
+    "targetingKo": "사용 즉시 모든 아군에게 적용한다.",
+    "effectsKo": [
+      "모든 아군의 방어력을 20 높이며 5초 동안 유지한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "전 아군에게 방어 강화 표식과 지속시간을 표시한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 20
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

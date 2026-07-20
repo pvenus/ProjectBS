@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.golden_chain_formation",
+  "skill": {
+    "skillId": "skill.strategic.golden_chain_formation",
+    "nameKo": "금쇄진",
+    "linkedItem": {
+      "itemId": "item.strategic.golden_chain_formation",
+      "grade": "Basic",
+      "gaugeCost": 85
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "행동 제어",
+      "secondary": null
+    },
+    "conceptKo": "금빛 쇠사슬 진법이 주변 적을 묶어 움직임을 멈춘다.",
+    "intendedUseKo": "넓은 적 밀집 지역을 장시간 정지시켜 전투 흐름을 바꾼다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 8m 안에 적용한다.",
+    "effectsKo": [
+      "범위 안의 적을 3초 동안 기절시킨다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "8m 진법과 3초 기절 상태를 강하게 표현한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 85
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

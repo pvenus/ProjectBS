@@ -405,10 +405,10 @@ skill.npc.{character_name}.{grade}.{slot}.{skill_name}
 
 Save skill JSON files under the skill JSON resource path used by the generator.
 
-Recommended path:
+Canonical path:
 
 ```text
-Assets/Resources/skill/character/generated
+Assets/Resources/skill/json
 ```
 
 File name should match the skill ID:
@@ -420,7 +420,7 @@ File name should match the skill ID:
 Example:
 
 ```text
-Assets/Resources/skill/character/generated/skill.character.mist_lingering_child.1.basic_attack.cold_scratch.json
+Assets/Resources/skill/json/skill.character.mist_lingering_child.1.basic_attack.cold_scratch.json
 ```
 
 ### Validation
@@ -513,4 +513,3 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 - No direct SO asset was created when the guide required JSON input.
 - All generated JSON files are valid JSON.
 - Git status is reviewed before commit.
-

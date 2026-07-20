@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_reverse_planning_redirect",
+  "documentId": "planning.strategic_skill.legacy_catalog.v1",
+  "deprecated": true,
+  "reason": "Authoritative planning is split into one JSON per strategic skill.",
+  "replacementIndex": "Assets/Doc/StrategicSkill/strategic_skill.planning.index.json",
+  "planningPathPattern": "Assets/Doc/StrategicSkill/{skillId}.planning.json",
+  "skillCount": 20,
+  "statusSummary": {
+    "review_ready": 9,
+    "needs_decision": 9,
+    "blocked": 2
+  }
+}

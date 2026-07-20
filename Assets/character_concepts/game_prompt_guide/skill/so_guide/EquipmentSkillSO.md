@@ -32,6 +32,18 @@ Defines one complete skill by composing multiple smaller SO definitions.
 
 EquipmentSkillSO is the top-level skill authoring object. It does not duplicate the schemas of its child SOs.
 
+## JSON Storage
+
+Store every EquipmentSkillSO source JSON directly under the canonical root:
+
+```text
+Assets/Resources/skill/json/{equipmentId}.json
+```
+
+Character, NPC, boss, and strategic-item-linked skills share this root. Use the
+complete `equipmentId` as the filename; do not create a type-specific generated
+subfolder for new skill JSON.
+
 ## Fields
 
 | Name | Type | Required | Description |
@@ -180,4 +192,3 @@ baseVisual    : Required
 - Spawn Skill : `SpawnSkillSO.md`
 - Upgrade Table : `EquipmentUpgradeTableSO.md`
 - Visual : `BaseVisualSO.md`
-

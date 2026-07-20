@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.gale_step",
+  "skill": {
+    "skillId": "skill.strategic.gale_step",
+    "nameKo": "질풍보",
+    "linkedItem": {
+      "itemId": "item.strategic.gale_step",
+      "grade": "Basic",
+      "gaugeCost": 15
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "아군 강화",
+      "secondary": null
+    },
+    "conceptKo": "질풍의 기운이 아군의 발걸음을 가볍게 한다.",
+    "intendedUseKo": "모든 아군의 재배치와 추격 속도를 잠시 높인다.",
+    "targetingKo": "사용 즉시 모든 아군에게 적용한다.",
+    "effectsKo": [
+      "모든 아군의 이동속도를 20% 높이며 4초 동안 유지한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "모든 아군에게 동일한 바람 가속 표식을 보여준다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 15
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

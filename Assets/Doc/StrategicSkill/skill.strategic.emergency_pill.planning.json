@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.emergency_pill",
+  "skill": {
+    "skillId": "skill.strategic.emergency_pill",
+    "nameKo": "응급 단약",
+    "linkedItem": {
+      "itemId": "item.strategic.emergency_pill",
+      "grade": "Basic",
+      "gaugeCost": 10
+    },
+    "reviewStatus": "blocked",
+    "tacticalRoleKo": {
+      "primary": "회복",
+      "secondary": null
+    },
+    "conceptKo": "전장 의료용 단약이 위급한 아군에게 즉시 전달된다.",
+    "intendedUseKo": "현재 체력이 가장 낮은 아군 한 명을 즉시 회복한다.",
+    "targetingKo": "사용 시 현재 체력이 가장 낮은 아군 1명을 자동 선택한다.",
+    "effectsKo": [
+      "현재 체력이 가장 낮은 아군 1명의 체력을 30 회복한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "자동 선정된 대상과 30 회복을 명확히 표시한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 10
+    },
+    "openQuestionsKo": [
+      "게임플레이 설명 추가",
+      "현재 체력이 가장 낮은 아군 자동 선택과 위치 지정 회복 중 하나를 확정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

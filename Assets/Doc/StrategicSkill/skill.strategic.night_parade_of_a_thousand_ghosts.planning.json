@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.night_parade_of_a_thousand_ghosts",
+  "skill": {
+    "skillId": "skill.strategic.night_parade_of_a_thousand_ghosts",
+    "nameKo": "만귀야행",
+    "linkedItem": {
+      "itemId": "item.strategic.night_parade_of_a_thousand_ghosts",
+      "grade": "Basic",
+      "gaugeCost": 90
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "연속 포격",
+      "secondary": "집중 피해"
+    },
+    "conceptKo": "스무 귀신이 밤길을 가르며 적을 추격한다.",
+    "intendedUseKo": "다수의 귀신 투사체를 연속 소환해 주변 적을 추적 공격한다.",
+    "targetingKo": "플레이어가 지정한 위치 주변의 적에게 적용한다.",
+    "effectsKo": [
+      "공격 1회마다 적에게 110 피해를 주며 최대 20회 발생한다."
+    ],
+    "executionKo": "귀신 20개를 0.5초 간격으로 불러내 적을 추적하게 한다.",
+    "presentationKo": "개별 귀신과 소환 간격, 추적 방향을 과밀하지 않게 보여준다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 90
+    },
+    "openQuestionsKo": [
+      "최대 총 피해와 타깃 분배 규칙 승인"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

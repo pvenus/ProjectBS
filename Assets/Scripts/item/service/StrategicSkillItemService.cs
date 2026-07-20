@@ -11,6 +11,12 @@ namespace Item.Service
     {
         private readonly EquipmentSkillResolver skillResolver = new();
         private readonly StrategicSkillCostManager costManager = StrategicSkillCostManager.Instance;
+        private readonly Dictionary<string, EquipmentSkillSO> skillResources =
+            new(StringComparer.Ordinal);
+        private readonly HashSet<string> duplicateSkillResourceIds =
+            new(StringComparer.Ordinal);
+
+        private bool skillResourcesLoaded;
 
         private readonly List<StrategicSkillItemSO> ownedItems = new();
 
@@ -157,19 +163,22 @@ namespace Item.Service
                 return false;
             }
 
-            if (strategicSkillItem.skillSo == null)
+            EquipmentSkillSO skillSo = ResolveSkillResource(
+                strategicSkillItem.skillId,
+                logContext);
+
+            if (skillSo == null)
             {
-                Debug.LogWarning($"[StrategicSkillItemService] SkillSO is null. item={strategicSkillItem.DisplayName}", logContext);
                 return false;
             }
 
             EquipmentSkillInstanceData instanceData = new EquipmentSkillInstanceData
             {
-                equipmentId = strategicSkillItem.skillSo.EquipmentId,
+                equipmentId = skillSo.EquipmentId,
             };
 
             runtimeData = skillResolver.Resolve(
-                strategicSkillItem.skillSo,
+                skillSo,
                 instanceData);
 
             if (runtimeData == null)
@@ -184,6 +193,75 @@ namespace Item.Service
             }
 
             return true;
+        }
+
+        private EquipmentSkillSO ResolveSkillResource(
+            string skillId,
+            UnityEngine.Object logContext)
+        {
+            if (string.IsNullOrWhiteSpace(skillId))
+            {
+                Debug.LogWarning(
+                    "[StrategicSkillItemService] skillId is empty.",
+                    logContext);
+                return null;
+            }
+
+            EnsureSkillResourcesLoaded(logContext);
+
+            if (duplicateSkillResourceIds.Contains(skillId))
+            {
+                Debug.LogWarning(
+                    $"[StrategicSkillItemService] Cannot resolve duplicate EquipmentSkillSO ID. " +
+                    $"skillId={skillId}",
+                    logContext);
+                return null;
+            }
+
+            if (skillResources.TryGetValue(skillId, out EquipmentSkillSO skillSo))
+            {
+                return skillSo;
+            }
+
+            Debug.LogWarning(
+                $"[StrategicSkillItemService] EquipmentSkillSO not found in Resources. skillId={skillId}",
+                logContext);
+            return null;
+        }
+
+        private void EnsureSkillResourcesLoaded(UnityEngine.Object logContext)
+        {
+            if (skillResourcesLoaded)
+            {
+                return;
+            }
+
+            skillResourcesLoaded = true;
+            EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
+
+            for (int i = 0; i < skills.Length; i++)
+            {
+                EquipmentSkillSO skill = skills[i];
+                if (skill == null || string.IsNullOrWhiteSpace(skill.EquipmentId))
+                {
+                    continue;
+                }
+
+                if (duplicateSkillResourceIds.Contains(skill.EquipmentId))
+                {
+                    continue;
+                }
+
+                if (!skillResources.TryAdd(skill.EquipmentId, skill))
+                {
+                    skillResources.Remove(skill.EquipmentId);
+                    duplicateSkillResourceIds.Add(skill.EquipmentId);
+                    Debug.LogWarning(
+                        $"[StrategicSkillItemService] Duplicate EquipmentSkillSO ID in Resources. " +
+                        $"skillId={skill.EquipmentId}",
+                        logContext);
+                }
+            }
         }
 
         public void Clear()
