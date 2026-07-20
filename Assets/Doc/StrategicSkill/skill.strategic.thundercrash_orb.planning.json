@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.thundercrash_orb",
+  "skill": {
+    "skillId": "skill.strategic.thundercrash_orb",
+    "nameKo": "진천뢰",
+    "linkedItem": {
+      "itemId": "item.strategic.thundercrash_orb",
+      "grade": "Advanced",
+      "gaugeCost": 20
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "광역 피해",
+      "secondary": "행동 제어"
+    },
+    "conceptKo": "봉인된 쇠구슬이 폭발해 번개 충격과 기절을 일으킨다.",
+    "intendedUseKo": "지정 지역에 번개 피해와 짧은 기절을 함께 준다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 5m 안에 적용한다.",
+    "effectsKo": [
+      "적에게 140 피해를 준다.",
+      "범위 안의 적을 1초 동안 기절시킨다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "5m 번개 폭발과 1초 기절을 동시에 식별할 수 있어야 한다.",
+    "balanceContext": {
+      "itemGrade": "Advanced",
+      "gaugeCost": 20
+    },
+    "openQuestionsKo": [
+      "게임플레이 설명 승인",
+      "단발 피해인지 반복 피해인지 확정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

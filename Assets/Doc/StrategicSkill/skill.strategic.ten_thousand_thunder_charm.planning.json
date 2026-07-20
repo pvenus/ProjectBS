@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.ten_thousand_thunder_charm",
+  "skill": {
+    "skillId": "skill.strategic.ten_thousand_thunder_charm",
+    "nameKo": "만뢰부적",
+    "linkedItem": {
+      "itemId": "item.strategic.ten_thousand_thunder_charm",
+      "grade": "Basic",
+      "gaugeCost": 60
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "연속 포격",
+      "secondary": "광역 피해"
+    },
+    "conceptKo": "고대 부적이 여덟 갈래 벼락을 연속으로 불러낸다.",
+    "intendedUseKo": "좁은 지정 지역에 여러 낙뢰를 빠르게 떨어뜨린다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 3m 안에 적용한다.",
+    "effectsKo": [
+      "공격 1회마다 적에게 120 피해를 주며 최대 8회 발생한다."
+    ],
+    "executionKo": "총 8회에 걸쳐 0.2초 간격으로 발생한다.",
+    "presentationKo": "좁은 낙뢰 분포와 0.2초 연속 타격을 읽을 수 있어야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 60
+    },
+    "openQuestionsKo": [
+      "수치형 설명 승인",
+      "표시명 통일 여부 결정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

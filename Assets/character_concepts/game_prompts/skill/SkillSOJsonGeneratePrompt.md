@@ -9,9 +9,9 @@ Use this prompt when generating character skill JSON for ProjectBS Skill SO inpu
 
 Input:
 - projectRoot: {project_root}
-- characterPlanningJson = {캐릭터별_기획_JSON_절대경로}
-- commonDataJson = {공용_데이터_JSON_절대경로_또는_null}
-- outputRoot = Assets/Resources/skill/character/generated
+- characterPlanningJson = {projectRoot_기준_캐릭터별_기획_JSON_상대경로}
+- commonDataJson = {projectRoot_기준_공용_데이터_JSON_상대경로_또는_null}
+- outputRoot = Assets/Resources/skill/json
 
 참조 가이드:
 - Assets/character_concepts/game_prompt_guide/character/CharacterCreateGuide.md
@@ -39,7 +39,7 @@ Input:
 9. 필요한 optional profile만 작성하고, 필요 없는 hits, move, spawnSkill, upgradeTable, baseVisual은 생략한다.
 10. child SO id는 equipmentId를 기준으로 SkillJsonGuide.md의 ID Derivation 규칙에 따라 생성한다.
 11. JSON에는 localization string, Unity SO asset, `.meta` 파일을 생성하지 않는다.
-12. 결과 JSON은 outputRoot 아래에 저장한다.
+12. 결과 JSON은 공용 스킬 SO JSON 루트인 outputRoot 아래에 `{equipmentId}.json` 파일명으로 저장한다.
 13. hits에서 maxHitCount가 1보다 크면 deactivateAfterFirstHit는 반드시 false로 작성한다.
 14. deactivateAfterFirstHit가 true이면 maxHitCount는 반드시 1로 작성한다.
 
@@ -73,6 +73,7 @@ Output:
 
 검증:
 - 결과 JSON 문법이 유효해야 한다.
+- 모든 스킬 SO JSON은 종류와 무관하게 `Assets/Resources/skill/json` 바로 아래에 저장해야 한다.
 - equipmentId는 skill.character.{character_name}.{grade}.{slot}.{skill_name} 형식을 따라야 한다.
 - slot은 SkillJsonGuide.md의 mapping과 맞아야 한다.
 - cast.range는 최소 0.4 이상이어야 한다.

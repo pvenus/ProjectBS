@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.demon_lure_incense",
+  "skill": {
+    "skillId": "skill.strategic.demon_lure_incense",
+    "nameKo": "요귀향",
+    "linkedItem": {
+      "itemId": "item.strategic.demon_lure_incense",
+      "grade": "Basic",
+      "gaugeCost": 40
+    },
+    "reviewStatus": "blocked",
+    "tacticalRoleKo": {
+      "primary": "행동 제어",
+      "secondary": "위치 제어"
+    },
+    "conceptKo": "향 연기가 요귀를 홀려 향로 쪽으로 끌어들인다.",
+    "intendedUseKo": "향로를 설치해 범위 내 적을 6초간 지정 위치로 유인한다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 6m 안에 적용한다.",
+    "effectsKo": [
+      "범위 안의 적을 지정 위치로 유인하며 6초 동안 유지한다."
+    ],
+    "executionKo": "지정 위치에 지속 영역을 만든다.",
+    "presentationKo": "향로 위치, 유효 반경, 적의 유인 상태가 지속시간 동안 보여야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 40
+    },
+    "openQuestionsKo": [
+      "유인된 적이 지정 위치로 이동만 하는지, 해당 위치를 공격 대상으로 삼는지도 확정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.heavenfall_thunder",
+  "skill": {
+    "skillId": "skill.strategic.heavenfall_thunder",
+    "nameKo": "천뢰낙",
+    "linkedItem": {
+      "itemId": "item.strategic.heavenfall_thunder",
+      "grade": "Basic",
+      "gaugeCost": 80
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "광역 피해",
+      "secondary": null
+    },
+    "conceptKo": "하늘에서 거대한 천뢰가 떨어져 넓은 지역을 휩쓴다.",
+    "intendedUseKo": "넓은 지정 지역에 강력한 번개 피해를 준다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 10m 안에 적용한다.",
+    "effectsKo": [
+      "적에게 750 피해를 준다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "10m 위험 영역과 대형 낙뢰 타격을 사전에 읽을 수 있어야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 80
+    },
+    "openQuestionsKo": [
+      "최종 피해 설명 승인",
+      "단발 750 피해 또는 0.25초 반복 피해 확정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

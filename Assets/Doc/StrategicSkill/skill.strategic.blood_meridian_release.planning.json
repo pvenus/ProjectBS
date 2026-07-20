@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.blood_meridian_release",
+  "skill": {
+    "skillId": "skill.strategic.blood_meridian_release",
+    "nameKo": "혈맥 개방",
+    "linkedItem": {
+      "itemId": "item.strategic.blood_meridian_release",
+      "grade": "Basic",
+      "gaugeCost": 20
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "전술 보조",
+      "secondary": "아군 강화"
+    },
+    "conceptKo": "혈맥을 강제로 열어 생명력을 전투 속도로 전환한다.",
+    "intendedUseKo": "아군 체력을 대가로 전체 재사용 대기시간을 즉시 단축한다.",
+    "targetingKo": "사용 즉시 모든 아군에게 적용한다.",
+    "effectsKo": [
+      "모든 아군의 현재 체력을 10% 소모한다.",
+      "모든 아군의 재사용 대기시간을 20% 감소시킨다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "체력 소모가 먼저, 재사용 대기시간 감소가 다음에 발생함을 명확히 보여준다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 20
+    },
+    "openQuestionsKo": [
+      "현재 HP 기준 비용인지 최대 HP 기준 감소인지 확정"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

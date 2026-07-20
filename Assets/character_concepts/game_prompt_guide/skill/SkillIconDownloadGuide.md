@@ -30,8 +30,9 @@ skillSourcePath
 equipmentId
 pixelLabResult
 evaluationRoot
-silhouetteInitImagePath
 frameTemplatePath
+backgroundMode
+backgroundDescription
 normalizationRecord
 ```
 
@@ -43,7 +44,7 @@ Default evaluation root:
 
 `pixelLabResult` may be one of:
 
-- An opened `create_ui_basic` result page or gallery item.
+- An opened `create_ui_pro` result page containing the 16 variations or gallery items.
 - A local download folder containing the completed per-attempt images and generation record.
 
 If the result cannot be tied to `equipmentId`, stop before preservation or Unity copy.
@@ -81,6 +82,8 @@ Preserve the selected source and evaluation evidence outside the Unity project:
     {equipmentId}.icon.png
   candidates/
     candidate_00.primary.png
+    ...
+    candidate_15.primary.png
     candidate_00.edited.png
     candidate_00.normalized.png
     candidate_00.preview32.png
@@ -123,18 +126,20 @@ SHA-256 after copy.
 1. Read `skillSourcePath` and confirm its `equipmentId`.
 2. Confirm that `pixelLabResult` belongs to the same skill and generation request.
 3. Confirm that the primary result was generated at
-   `https://www.pixellab.ai/create?tool=create_ui_basic` with the non-Pro
-   `Create UI elements` tool.
-4. Record the result page or gallery item, five-sentence Description, Transparent
-   background setting, silhouette Init Image path and strength, requested Width and
-   Height, optional Seed, and attempt number.
-5. Download the one image returned by each completed run to a temporary folder
-   without resizing or recompressing it.
-6. When a semantic edit exists, record the `Edit image` result and its one-sentence
+   `https://www.pixellab.ai/create?tool=create_ui_pro` with
+   `Create UI elements (Pro)` and Custom size 80 x 80.
+4. Record the result page or gallery items, four core Description sentences,
+   optional contextual background sentence, background mode, Transparent background
+   setting, empty Concept Image, Color palette, optional Seed, and attempt number.
+5. Download all 16 individual 80 x 80 variations from the 4 x 4 Pro result without
+   resizing or recompressing them. Do not treat a combined grid as one candidate.
+6. Apply cheap technical and semantic rejection checks to all 16 variations and
+   advance at most the best three candidates.
+7. When a semantic edit exists, record the `Edit image` result and its one-sentence
    add/remove/change/replace instruction separately.
-7. Reject thumbnails, previews, unrelated downloads, HTML placeholders, and broken
+8. Reject thumbnails, previews, unrelated downloads, HTML placeholders, and broken
    files.
-8. Do not classify candidates only by browser-generated filenames.
+9. Do not classify candidates only by browser-generated filenames.
 
 Do not download a gallery contact sheet, preview thumbnail, or a result created by
 another PixelLab tool.
@@ -149,15 +154,16 @@ Every downloaded primary and edited candidate must pass:
 - Color mode is RGBA.
 - The file contains one static icon.
 - The image is not an animation sheet or multi-panel grid.
-- A primary candidate may use transparency because background and frame are applied
-  during deterministic normalization.
+- A `flat` primary uses transparency because the background and frame are applied
+  during deterministic normalization. A `contextual` primary is opaque.
 - There is no text, watermark, or PixelLab UI artifact.
 
 Every normalized candidate must additionally pass:
 
 - Existing `frameTemplatePath` is recorded and is 80 x 80 RGBA.
-- The interior uses the approved flat charcoal/deep-brown template background.
-- Generated content remains inside the central 64 x 64 safe area.
+- `flat` uses the approved charcoal/deep-brown template interior. `contextual`
+  preserves only the recorded low-contrast background inside x=2..77 and y=2..77.
+- The primary and effects remain inside the central 64 x 64 foreground safe area.
 - Rows and columns 0, 1, 78, and 79 exactly match the frame template.
 - The exact-count overlay matches its manifest.
 - The nearest-neighbor 32 x 32 preview is present.
@@ -210,10 +216,16 @@ PixelLab Creator URL:
 Primary Tool:
 PixelLab Result Page or Gallery Item:
 Primary Description:
-Reference Mode: silhouette_init
-Silhouette Family:
-Silhouette Init Image Path:
-Init Image Strength:
+Reference Mode: none
+Composition Profile:
+Background Requirement:
+Background Mode: flat | contextual
+Background Description: omitted | value
+Core Outline Sentence:
+Direction Sentence:
+Simple Skill Effect Sentence:
+Compact Exclusion / Grade Sentence:
+Optional Contextual Background Sentence:
 Semantic Edit Tool / Instruction / Result:
 Frame Template Path:
 Exact-Count Overlay Manifest:
@@ -230,8 +242,9 @@ Selected SHA-256:
 Download Date:
 ```
 
-The record must show `tool=create_ui_basic`, `Create UI elements`, an existing
-silhouette Init Image, requested 80 x 80, any semantic edit, exact-count overlay,
+The record must show `tool=create_ui_pro`, `Create UI elements (Pro)`, Custom size
+80 x 80, a 4 x 4 result with 16 accounted variations, empty Concept Image,
+background mode and transparency choice, any semantic edit, exact-count overlay,
 existing frame template, deterministic normalization, and 32 x 32 preview result.
 
 ## 10. Evaluation Result
@@ -357,7 +370,9 @@ replacement history is recorded.
 
 - [ ] PixelLab result matches `equipmentId`.
 - [ ] Every candidate was downloaded and technically validated.
-- [ ] Existing silhouette and frame template paths were recorded.
+- [ ] Empty Concept Image and the existing frame template path were recorded.
+- [ ] All 16 Pro variations were accounted for and at most three advanced.
+- [ ] Background mode, description, transparency, and normalization agree.
 - [ ] Exact-count overlay and normalization records were preserved.
 - [ ] The normalized candidate, not the raw primary, was evaluated.
 - [ ] The 32 x 32 nearest-neighbor preview was checked.
@@ -382,7 +397,6 @@ failureType:
   - invalid_png
   - invalid_icon_size
   - missing_frame_template
-  - missing_silhouette_init_image
   - overlay_failed
   - normalization_failed
   - invalid_equipment_id

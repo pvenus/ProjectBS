@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.blackwind_bomb",
+  "skill": {
+    "skillId": "skill.strategic.blackwind_bomb",
+    "nameKo": "흑풍탄",
+    "linkedItem": {
+      "itemId": "item.strategic.blackwind_bomb",
+      "grade": "Basic",
+      "gaugeCost": 30
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "광역 피해",
+      "secondary": "위치 제어"
+    },
+    "conceptKo": "검은 돌풍이 폭발하며 적을 밀쳐낸다.",
+    "intendedUseKo": "밀집한 적에게 피해를 주고 바깥으로 밀어 진형을 흐트러뜨린다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 6m 안에 적용한다.",
+    "effectsKo": [
+      "적에게 240 피해를 준다.",
+      "적을 지정 위치의 바깥 방향으로 밀어낸다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "짙은 바람 폭발과 바깥 방향의 밀침을 즉시 식별할 수 있어야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 30
+    },
+    "openQuestionsKo": [
+      "240 피해와 밀쳐내기 효과를 최종 기획으로 승인할지 검토"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

@@ -32,4 +32,17 @@ Stage node and popup event JSON prompts are under:
 Assets/character_concepts/game_prompts/stage
 ```
 
+Strategic item JSON generation:
+
+```text
+Assets/character_concepts/game_prompts/item/StrategicItemSOJsonGeneratePrompt.md
+```
+
+Standalone strategic skill JSON generation:
+
+```text
+Assets/character_concepts/game_prompts/skill/StrategicSkillSOJsonGeneratePrompt.md
+Assets/character_concepts/game_prompts/skill/StrategicSkillReversePlanningPrompt.md
+```
+
 Do not put reference guides in this folder.

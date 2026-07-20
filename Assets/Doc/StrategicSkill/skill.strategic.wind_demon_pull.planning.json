@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.wind_demon_pull",
+  "skill": {
+    "skillId": "skill.strategic.wind_demon_pull",
+    "nameKo": "풍마인",
+    "linkedItem": {
+      "itemId": "item.strategic.wind_demon_pull",
+      "grade": "Basic",
+      "gaugeCost": 75
+    },
+    "reviewStatus": "needs_decision",
+    "tacticalRoleKo": {
+      "primary": "위치 제어",
+      "secondary": "행동 제어"
+    },
+    "conceptKo": "풍마의 인력이 적을 중심으로 끌어모아 붙잡는다.",
+    "intendedUseKo": "넓은 범위의 적을 지정 위치로 모은 뒤 움직임을 봉쇄한다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 8m 안에 적용한다.",
+    "effectsKo": [
+      "범위 안의 적을 지정 위치로 끌어당긴다.",
+      "범위 안의 적을 2초 동안 속박한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "중심 흡인 방향과 이후 2초 속박을 순서대로 보여준다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 75
+    },
+    "openQuestionsKo": [
+      "적을 먼저 끌어당긴 뒤 2초간 속박하는 순서를 최종 승인"
+    ],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

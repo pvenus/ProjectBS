@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design",
+  "documentId": "design.skill.strategic.crushing_war_cry",
+  "skill": {
+    "skillId": "skill.strategic.crushing_war_cry",
+    "nameKo": "파쇄격령",
+    "linkedItem": {
+      "itemId": "item.strategic.crushing_war_cry",
+      "grade": "Basic",
+      "gaugeCost": 50
+    },
+    "reviewStatus": "review_ready",
+    "tacticalRoleKo": {
+      "primary": "아군 강화",
+      "secondary": null
+    },
+    "conceptKo": "전장을 울리는 격령으로 아군의 타격을 강화한다.",
+    "intendedUseKo": "화력을 집중할 시점에 모든 아군 공격력을 강화한다.",
+    "targetingKo": "사용 즉시 모든 아군에게 적용한다.",
+    "effectsKo": [
+      "모든 아군의 공격력을 40 높이며 8초 동안 유지한다."
+    ],
+    "executionKo": "사용 즉시 한 번 적용한다.",
+    "presentationKo": "전 아군에게 동일한 공격 강화 표식이 보여야 한다.",
+    "balanceContext": {
+      "itemGrade": "Basic",
+      "gaugeCost": 50
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+  }
+}

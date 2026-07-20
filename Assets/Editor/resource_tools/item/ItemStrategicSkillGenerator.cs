@@ -10,7 +10,7 @@ namespace ResourceTools
 {
     public static class ItemStrategicSkillGenerator
     {
-        [MenuItem("Assets/Item/Strategic Skill Generator", false, 2000)]
+        [MenuItem("Assets/Item/Strategic Item Generator", false, 2000)]
         public static void Generate()
         {
             UnityEngine.Object selected = Selection.activeObject;
@@ -52,18 +52,19 @@ namespace ResourceTools
                 return;
             }
 
-            EquipmentSkillSO skillSO = null;
-            if (data.skill != null)
+            if (string.IsNullOrWhiteSpace(data.skillId))
             {
-                skillSO = Skill.EquipmentSkillJsonGenerator.CreateOrUpdateSkill(
-                    data.skill,
-                    folderPath);
+                Debug.LogError(
+                    $"[ItemStrategicSkillGenerator] skillId is required. item={data.strategicSkillItemId}");
+                return;
             }
 
-            StrategicSkillItemSO itemSO = CreateOrUpdateItemSO(
-                data,
-                skillSO,
-                folderPath);
+            if (!TryFindUniqueSkillById(data.skillId))
+            {
+                return;
+            }
+
+            StrategicSkillItemSO itemSO = CreateOrUpdateItemSO(data, folderPath);
 
             ItemStringBuilder.BuildResult stringBuildResult =
                 ItemStringBuilder.BuildFromJsonPath(jsonPath);
@@ -85,7 +86,6 @@ namespace ResourceTools
 
         private static StrategicSkillItemSO CreateOrUpdateItemSO(
             StrategicSkillItemJson data,
-            EquipmentSkillSO skillSO,
             string folderPath)
         {
             string assetPath = $"{folderPath}/{data.strategicSkillItemId}.asset";
@@ -105,9 +105,6 @@ namespace ResourceTools
             SetField(itemSO, "reusable", data.reusable);
             SetField(itemSO, "defaultPrice", data.defaultPrice);
             SetField(itemSO, "skillId", data.skillId);
-            SetField(itemSO, "skillSO", skillSO);
-            SetField(itemSO, "skillSo", skillSO);
-            SetField(itemSO, "skill", skillSO);
             SetField(itemSO, "icon", FindSprite(data.icon));
             SetField(itemSO, "iconName", data.icon);
             SetField(itemSO, "grade", data.grade);
@@ -119,6 +116,39 @@ namespace ResourceTools
                     : data.tags.ToArray());
 
             return itemSO;
+        }
+
+        private static bool TryFindUniqueSkillById(string skillId)
+        {
+            EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
+            EquipmentSkillSO resolved = null;
+
+            for (int i = 0; i < skills.Length; i++)
+            {
+                EquipmentSkillSO skill = skills[i];
+                if (skill != null && skill.EquipmentId == skillId)
+                {
+                    if (resolved != null)
+                    {
+                        Debug.LogError(
+                            $"[ItemStrategicSkillGenerator] Duplicate EquipmentSkillSO ID in Resources. " +
+                            $"skillId={skillId}");
+                        return false;
+                    }
+
+                    resolved = skill;
+                }
+            }
+
+            if (resolved != null)
+            {
+                return true;
+            }
+
+            Debug.LogError(
+                $"[ItemStrategicSkillGenerator] EquipmentSkillSO not found in Resources. " +
+                $"Generate the skill separately before the item. skillId={skillId}");
+            return false;
         }
 
         private static Sprite FindSprite(string spriteName)
@@ -208,8 +238,6 @@ namespace ResourceTools
             public int defaultPrice;
 
             public List<string> tags = new();
-
-            public Skill.EquipmentSkillJsonGenerator.EquipmentSkillJson skill;
         }
     }
 }
