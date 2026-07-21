@@ -51,6 +51,22 @@ Higher-priority evidence overrides lower-priority evidence. When evidence
 conflicts, do not silently choose one. Record a plain-language question and set
 the review status to `needs_decision` or `blocked`.
 
+Before authoring, maintain an internal evidence matrix with the following
+columns. The matrix is reported by the task but is not copied into the
+player-facing planning JSON.
+
+| Column | Rule |
+|---|---|
+| `sourcePath` | Exact project-relative file path |
+| `evidenceType` | `approved_design`, `runtime`, `generated_so`, `item_description`, `legacy_json`, or `flavor` |
+| `priority` | Integer 1-6 matching the order above |
+| `observedFactKo` | Player-facing fact without implementation field names |
+| `conflictGroup` | Shared non-empty key when two facts disagree; otherwise null |
+
+When a conflict changes target, amount, unit, count, interval, duration, effect
+order, or supported behavior, `openQuestionsKo` must state both gameplay
+interpretations. A generic request to review or add a description is invalid.
+
 ## 4. Planning Boundary
 
 The planning document contains only player-facing design intent:
@@ -111,6 +127,57 @@ translated into plain design language before being written.
   }
 }
 ```
+
+### 5.1 Field Types and Identity
+
+| Field | Type | Constraint |
+|---|---|---|
+| `schemaVersion` | string | Exactly `1.0.0` |
+| `documentType` | string | Exactly `strategic_skill_design` |
+| `documentId` | string | Exactly `design.{skillId}` |
+| `skill` | object | Exactly one object |
+| `skill.skillId` | string | `^skill\.strategic\.[a-z0-9]+(?:_[a-z0-9]+)*$` |
+| `skill.nameKo` | non-empty string | Stable Korean display name |
+| `skill.linkedItem.itemId` | string | `^item\.strategic\.[a-z0-9]+(?:_[a-z0-9]+)*$` |
+| `skill.linkedItem.grade` | string | `Basic` or `Advanced` |
+| `skill.linkedItem.gaugeCost` | integer | 0-100; 0 requires approval |
+| `skill.reviewStatus` | string | `review_ready`, `needs_decision`, or `blocked` |
+| `skill.tacticalRoleKo` | object | One primary and zero or one secondary |
+| `conceptKo` through `presentationKo` | non-empty string | Complete Korean sentence |
+| `effectsKo` | string array | At least one ordered effect sentence |
+| `balanceContext` | object | Must mirror linked item grade and gauge cost |
+| `openQuestionsKo` | string array | Empty only when no decision remains |
+| `sourceNoteKo` | non-empty string | Origin summary; must not claim approval that does not exist |
+
+Unknown top-level or `skill` fields are not authored under schema `1.0.0`.
+Additional structured fields require a schema-version change.
+
+### 5.2 Planning Index Schema
+
+```json
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "strategic_skill_design_index",
+  "documentId": "design.strategic_skill.index",
+  "planningRoot": "Assets/Doc/StrategicSkill",
+  "skillCount": 1,
+  "skills": [
+    {
+      "skillId": "skill.strategic.example",
+      "nameKo": "예시 전략술",
+      "reviewStatus": "review_ready",
+      "linkedItemId": "item.strategic.example",
+      "planningPath": "Assets/Doc/StrategicSkill/skill.strategic.example.planning.json"
+    }
+  ]
+}
+```
+
+- `skillCount` must equal both the number of `skills` entries and the number of
+  authoritative individual planning files in scope.
+- `skills` is sorted by `skillId` and contains each ID and path exactly once.
+- Every index value must exactly match its individual planning file.
+- The deprecated redirect is not counted as an individual planning file.
 
 ## 6. Required Fields
 
@@ -176,8 +243,35 @@ Write effects as short Korean design sentences:
 - Include target, amount, unit, duration, and count only when meaningful.
 - State current HP versus maximum HP explicitly.
 - State per-hit versus total damage in ordinary language.
+- Use `%` for a ratio and `%p` for a percentage-point stat change.
+- A repeated effect states amount per occurrence, count, interval, and total
+  amount when total amount is deterministic.
+- If an area is inferred by combining spawn distribution and per-hit area, do
+  not publish the sum as an approved radius unless an approved design or this
+  guide explicitly defines that composition. Leave a gameplay choice instead.
 - Do not decide projectile profiles, collider radii, hit budgets, effect config,
   or SO IDs here.
+
+## 9.1 Mechanics Completeness
+
+Review every applicable row before setting `review_ready`.
+
+| Topic | Required planning fact |
+|---|---|
+| Activation | How the player initiates the strategic skill |
+| Target selection | Selected point, automatic target, all allies, or other approved rule |
+| Application area | Visible area or explicit global/all-party scope |
+| Effect order | Ordered effects when order changes gameplay |
+| Numeric basis | Per-hit, per-second, current-HP, maximum-HP, flat, ratio, or percentage-point basis |
+| Repetition | Count and interval, or explicit instant single application |
+| Duration | Duration for every non-instant effect |
+| Stacking/reapplication | No stacking, refresh, replace, independent stacking, or unresolved choice |
+| Use restriction | Cooldown when one exists; otherwise state that gauge is the only authored restriction |
+| Termination | Instant completion, duration expiry, area expiry, combat end, or another approved condition |
+
+Facts that do not apply are internally marked `not_applicable`. Missing facts
+that affect behavior must become a specific open question. They must not be
+silently filled with common defaults.
 
 ## 10. Open Questions
 
@@ -194,13 +288,38 @@ Good:
 Do not mention builder field names, legacy enums, serialized values, or code
 changes in `openQuestionsKo`.
 
+Each question must do at least one of the following:
+
+- present two or more mutually exclusive gameplay choices;
+- request approval of an exact target, amount, unit, count, interval, duration,
+  stacking rule, termination condition, or display name.
+
+Invalid:
+
+```text
+게임플레이 설명 추가
+수치형 설명 승인
+최종 검토 필요
+```
+
 ## 11. Review Status
 
 - `review_ready`: the reverse-planned design is complete enough for human review
   and later SO JSON conversion.
 - `needs_decision`: one or more gameplay choices remain unresolved.
-- `blocked`: the intended effect has no current supported runtime representation
-  or core numeric inputs are absent.
+- `blocked`: the intended effect has no current supported runtime representation,
+  its required JSON-to-SO builder path is absent, or core numeric inputs are
+  absent. Distinguish these causes in the report; a builder gap must not be
+  described as missing runtime behavior.
+
+Additional gates:
+
+- `review_ready` requires an empty `openQuestionsKo` and every applicable
+  mechanics-completeness topic to be resolved.
+- `needs_decision` requires at least one valid gameplay choice or exact approval
+  request in `openQuestionsKo`.
+- `blocked` requires an open question that identifies the unsupported behavior
+  or missing core input in player-facing terms.
 
 High gauge cost or an existing SO does not automatically mean `ready`.
 
@@ -219,3 +338,20 @@ High gauge cost or an existing SO does not automatically mean `ready`.
 - Item-owned cost and grade are context only and are not emitted into skill JSON.
 - The planning task creates no item JSON, skill JSON, Unity asset, image,
   localization, animation, or prefab.
+
+## 13. Naming, Localization, Tags, and Paths
+
+- `nameKo` is the approved Korean display name. If item and embedded skill names
+  differ, keep the selected name only after `openQuestionsKo` resolves the two
+  explicit candidates.
+- Schema `1.0.0` does not author localization keys. The later skill workflow uses
+  `{skillId}.name` and `{skillId}.desc`; it must not assume that `conceptKo` is
+  automatically the final description.
+- Schema `1.0.0` does not contain skill tags. Item tags remain item-owned. A
+  future planning tag taxonomy requires a schema-version change and a controlled
+  lowercase vocabulary.
+- Every path written in the index or task report is project-relative, uses `/`,
+  and starts with `Assets/`.
+- The planning task may create the Unity `.meta` paired with a new planning JSON
+  when required by the project. It creates no `.meta` for files it did not
+  create and never reuses an existing GUID.

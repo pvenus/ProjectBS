@@ -56,6 +56,7 @@ namespace Effect
         ChanceOnHealCooldownReduce = 700,
         AttackBleed = 800,
         ChanceOnHitSkill = 900,
+        Taunt = 1000,
     }
 
     public enum CooldownReduceType

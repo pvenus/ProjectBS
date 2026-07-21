@@ -219,9 +219,7 @@ namespace Effect
                         sourceCharacter);
 
                 case TauntEffectConfig tauntConfig:
-                    if (targetCharacter == null
-                        || sourceTransform == null
-                        || effectEntrySo == null)
+                    if (effectEntrySo == null)
                     {
                         return null;
                     }

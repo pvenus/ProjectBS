@@ -16,7 +16,9 @@ The `EffectSO` is defined as a ScriptableObject asset representing a single game
 }
 ```
 
-> `effectType` must be one of the values defined in the `EffectType` enum.
+> `effectType` must be one of the values defined in the `EffectType` enum and
+> supported by the active `EffectAssetBuilder`. The presence of an
+> `EffectConfig` or runtime class alone does not make a JSON effect buildable.
 
 > **Note:** The format of the `config` field varies depending on the effect type. Each effect type defines its own configuration schema.
 
@@ -45,8 +47,10 @@ This document describes how to author Effect JSON assets for gameplay effects, i
 | ChanceOnHealCooldownReduce | Reduces cooldown when receiving healing. |
 | AttackBleed | Applies a bleed effect after attacking. |
 | ChanceOnHitSkill | Triggers another skill when hitting a target. |
+| Taunt | Forces the affected character to target the hit source for the entry duration. |
 
-> `TauntEffectConfig` exists in code, but `Taunt` is not currently exposed by the `EffectType` enum. Do not author Taunt EffectSO JSON until the enum supports it.
+`Taunt` uses an empty config object. Its duration is application metadata and
+belongs on the containing EffectEntry.
 
 ## JSON Authoring
 
@@ -61,6 +65,22 @@ The contents of the `config` object depend on the selected effect type. Each eff
 ## Effect Types
 
 Each effect type supports a different set of configuration fields in the `config` object. Use only the documented fields for each effect type.
+
+### Taunt
+
+Forces the affected character to use the hit source as its target for the
+duration supplied by the EffectEntry.
+
+```json
+{
+  "effectId": "effect.skill.strategic.demon_lure_incense.taunt",
+  "effectType": "Taunt",
+  "config": {}
+}
+```
+
+Taunt has no effect-owned numeric fields. Use `categoryType: Debuff`,
+`lifetimeType: Instant`, and a positive EffectEntry `duration`.
 
 ### Stat Modifier
 

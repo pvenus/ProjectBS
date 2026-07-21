@@ -107,6 +107,12 @@ namespace ResourceTools.Effect
             public float chancePercent;
             public float attackRatioPercent;
         }
+
+        [Serializable]
+        public class TauntEffectJson : EffectJson
+        {
+        }
+
         public static EffectSO CreateOrUpdate(
             string effectJson,
             string outputFolder)
@@ -185,6 +191,8 @@ namespace ResourceTools.Effect
                     return JsonUtility.FromJson<ChanceOnHealCooldownReduceEffectJson>(json);
                 case EffectType.AttackBleed:
                     return JsonUtility.FromJson<AttackBleedEffectJson>(json);
+                case EffectType.Taunt:
+                    return JsonUtility.FromJson<TauntEffectJson>(json);
                 default:
                     return JsonUtility.FromJson<EffectJson>(json);
             }
@@ -553,6 +561,9 @@ namespace ResourceTools.Effect
                 case EffectType.AttackBleed:
                     return data is AttackBleedEffectJson;
 
+                case EffectType.Taunt:
+                    return data is TauntEffectJson;
+
                 default:
                     Debug.LogError(
                         $"[EffectAssetBuilder] Validation failed. Unsupported effectType={data.effectType}, effectId={data.effectId}");
@@ -591,6 +602,9 @@ namespace ResourceTools.Effect
 
                 case EffectType.AttackBleed:
                     return CreateAttackBleedConfig(data as AttackBleedEffectJson);
+
+                case EffectType.Taunt:
+                    return CreateTauntConfig(data as TauntEffectJson);
 
                 default:
                     return null;
@@ -732,6 +746,18 @@ namespace ResourceTools.Effect
             config.ApplyEditorData(
                 data.chancePercent,
                 data.attackRatioPercent);
+
+            return config;
+        }
+
+        private static TauntEffectConfig CreateTauntConfig(
+            TauntEffectJson data)
+        {
+            if (data == null)
+                return null;
+
+            var config = new TauntEffectConfig();
+            config.ApplyEditorData();
 
             return config;
         }
