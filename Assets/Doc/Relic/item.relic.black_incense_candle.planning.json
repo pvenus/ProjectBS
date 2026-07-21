@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_item_design",
+  "documentId": "design.item.relic.black_incense_candle",
+  "relic": {
+    "relicId": "item.relic.black_incense_candle",
+    "nameKo": "검은 향초",
+    "reviewStatus": "needs_decision",
+    "rarityKo": "일반",
+    "designRoleKo": {
+      "primary": "위험 보상",
+      "secondary": "공격 강화"
+    },
+    "conceptKo": "검은 향이 상처 입은 자의 투지를 끌어올린다.",
+    "intendedUseKo": "체력을 낮게 유지하며 공격력을 높이는 위험 보상형 빌드에서 사용한다.",
+    "equipBehaviorKo": "장착되어 있는 동안 잃은 체력 비율에 따라 효과량이 달라진다.",
+    "triggerKo": "장착한 캐릭터의 잃은 체력 비율이 변할 때 공격력 증가량도 함께 변한다.",
+    "targetKo": "이 유물을 장착한 캐릭터에게 적용한다.",
+    "effectsKo": [
+      "잃은 체력 1%마다 공격력이 0.2% 증가한다."
+    ],
+    "synergyKo": [
+      "낮은 체력에서 추가 이득을 얻거나 생존을 보완하는 효과와 조합한다."
+    ],
+    "tradeoffKo": "높은 공격력 증가를 얻으려면 낮은 체력으로 전투하는 위험을 감수해야 한다.",
+    "presentationKo": "체력이 낮아질수록 향의 연기와 어두운 기운이 강해져 효과 증가를 알아볼 수 있어야 한다.",
+    "balanceContext": {
+      "rarityTierKo": "일반",
+      "equipSlotContextKo": "동시에 최대 3개의 유물을 장착하는 환경에서 위험 대비 공격 이득을 비교한다."
+    },
+    "openQuestionsKo": [
+      "최대 체력 10% 증가 효과를 이 유물의 최종 기획에 포함할지 확정한다."
+    ],
+    "sourceNoteKo": "기존 유물 자료와 현지화 설명을 비교해 역기획한 초안"
+  }
+}

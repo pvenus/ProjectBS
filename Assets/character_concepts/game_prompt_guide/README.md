@@ -34,6 +34,7 @@ Relic item authoring guides:
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemSO.md
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemRulesGuide.md
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemJsonGuide.md
+Assets/character_concepts/game_prompt_guide/item/relic/RelicItemPlanningGuide.md
 ```
 
 Standalone strategic skill authoring guides:
