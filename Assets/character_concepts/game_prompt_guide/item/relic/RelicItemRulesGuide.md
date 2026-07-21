@@ -70,6 +70,17 @@ If the design requires an unsupported event, target filter, stacking rule, or
 effect type, stop with `unsupported_relic_behavior`. Do not approximate it with a
 different supported effect.
 
+Current runtime limitations:
+
+- Relic equip effects require an explicit owner character at runtime. Workflows
+  must not assume that a relic applies to the whole party or every character.
+- Produced on-hit debuffs with an independent duration are not represented by
+  `ChanceOnHitStatModifier`; without a supported mapping/spec they must remain
+  `needs_decision` or `unsupported_relic_behavior`.
+- Range-gated relics require an approved data-driven range field before SO JSON
+  generation. Do not choose between conflicting document/localization/runtime
+  values.
+
 For `StatModifier`, use current builder fields `statType`, `modifierType`, and
 `value`. For `ChanceOnHitStatModifier`, use `statType`, `valueType`, and `value`.
 Do not use the older `targetStat` alias in new relic JSON.

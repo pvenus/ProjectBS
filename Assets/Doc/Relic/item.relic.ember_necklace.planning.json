@@ -5,7 +5,7 @@
   "relic": {
     "relicId": "item.relic.ember_necklace",
     "nameKo": "불씨 목걸이",
-    "reviewStatus": "review_ready",
+    "reviewStatus": "needs_decision",
     "rarityKo": "일반",
     "designRoleKo": {
       "primary": "상태 이상",
@@ -29,7 +29,9 @@
       "rarityTierKo": "일반",
       "equipSlotContextKo": "동시에 최대 3개의 유물을 장착하는 환경에서 공격 약화의 평균 유지 시간을 비교한다."
     },
-    "openQuestionsKo": [],
+    "openQuestionsKo": [
+      "Current runtime does not support a produced on-hit debuff with its own approved 3 second duration from this planning document; add supported mapping/spec or revise gameplay before marking review_ready."
+    ],
     "sourceNoteKo": "기존 유물 자료와 현지화 설명을 바탕으로 역기획한 초안"
   }
 }

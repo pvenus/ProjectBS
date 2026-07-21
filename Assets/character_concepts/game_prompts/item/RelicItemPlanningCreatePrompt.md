@@ -57,6 +57,13 @@ Output:
 - Result: Pass / Fail
 - Notes:
 
+Planning Boundary:
+- Do not request or emit implementation mapping fields in this planning step.
+- Do not emit effectType, config, lifetimeType, categoryType, duration,
+  maxApplyCount, EffectSO, EffectEntrySO, asset paths, GUIDs, or builder names.
+- If the concept is not enough for SO conversion, record gameplay questions in
+  openQuestionsKo and keep the output as planning only.
+
 검증:
 - schemaVersion은 1.0.0이고 documentType은 relic_item_design이어야 한다.
 - 파일명과 relic.relicId는 `item.relic.{relicSlug}`를 기준으로 일치해야 한다.

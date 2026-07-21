@@ -5,7 +5,7 @@
   "relic": {
     "relicId": "item.relic.old_war_horn",
     "nameKo": "낡은 뿔피리",
-    "reviewStatus": "review_ready",
+    "reviewStatus": "needs_decision",
     "rarityKo": "일반",
     "designRoleKo": {
       "primary": "기동 강화",
@@ -28,7 +28,9 @@
       "rarityTierKo": "일반",
       "equipSlotContextKo": "동시에 최대 3개의 유물을 장착하는 환경에서 정예 전투에 한정된 기동 이득을 비교한다."
     },
-    "openQuestionsKo": [],
+    "openQuestionsKo": [
+      "Runtime currently has no approved data-driven range for this relic; resolve the 8m planning/localization value versus the observed 3m runtime value before implementation."
+    ],
     "sourceNoteKo": "기존 유물 자료와 현지화 설명을 바탕으로 역기획한 초안"
   }
 }

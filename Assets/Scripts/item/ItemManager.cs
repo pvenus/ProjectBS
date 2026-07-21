@@ -113,14 +113,62 @@ namespace Item
 
         public bool AddRelic(RelicSO relic)
         {
-            return relicService != null
-                && relicService.Add(relic);
+            return AddRelic(relic, null);
+        }
+
+        public bool AddRelic(
+            RelicSO relic,
+            CharacterManager ownerCharacter)
+        {
+            if (relic == null || relicService == null)
+            {
+                return false;
+            }
+
+            bool added =
+                relicService.Add(relic);
+
+            if (!added)
+            {
+                return false;
+            }
+
+            RelicRuntimeData runtimeData =
+                ResolveRelicRuntimeData();
+
+            if (!runtimeData.HasRelic(relic))
+            {
+                runtimeData.AddRelic(relic);
+            }
+
+            RelicEntry entry =
+                runtimeData.FindRelic(relic);
+
+            entry?.SetOwner(ownerCharacter);
+
+            if (entry != null
+                && entry.isEquipped
+                && ownerCharacter != null)
+            {
+                ApplyRelicEffects(relic);
+            }
+
+            return true;
         }
 
         public bool RemoveRelic(RelicSO relic)
         {
-            return relicService != null
+            bool removed =
+                relicService != null
                 && relicService.Remove(relic);
+
+            if (removed)
+            {
+                ResolveRelicRuntimeData()
+                    .RemoveRelic(relic);
+            }
+
+            return removed;
         }
 
         public bool HasRelic(RelicSO relic)
@@ -132,8 +180,34 @@ namespace Item
 
         public bool EquipRelic(RelicSO relic)
         {
-            return relicService != null
-                && relicService.Equip(relic);
+            return EquipRelic(relic, null);
+        }
+
+        public bool EquipRelic(
+            RelicSO relic,
+            CharacterManager ownerCharacter)
+        {
+            if (relicService == null
+                || !relicService.Equip(relic))
+            {
+                return false;
+            }
+
+            RelicEntry entry =
+                ResolveRelicRuntimeData()
+                    .FindRelic(relic);
+
+            entry?.SetOwner(ownerCharacter);
+
+            if (ownerCharacter == null && logDebug)
+            {
+                Debug.LogWarning(
+                    $"[ItemManager] Relic equipped without owner. Runtime effects are blocked until an owner is supplied. relic={relic.relicId}",
+                    this);
+            }
+
+            ApplyRelicEffects(relic);
+            return true;
         }
 
         public bool UnequipRelic(RelicSO relic)
@@ -142,7 +216,7 @@ namespace Item
                 && relicService.Unequip(relic);
         }
 
-        private void ApplyEffectToCharacters(
+        private void ApplyEffectToOwner(
             EffectEntrySO effectEntry,
             RelicEntry relicEntry)
         {
@@ -151,68 +225,43 @@ namespace Item
                 return;
             }
 
-            EffectManager[] effectManagers =
-                FindObjectsByType<EffectManager>(
-                    FindObjectsSortMode.None);
+            CharacterManager ownerCharacter =
+                relicEntry.ownerCharacter;
 
-            for (int i = 0;
-                 i < effectManagers.Length;
-                 i++)
+            if (ownerCharacter == null)
             {
-                EffectManager effectManager =
-                    effectManagers[i];
-
-                if (effectManager == null)
-                {
-                    continue;
-                }
-
-                CharacterManager targetCharacterManager =
-                    ResolveCharacterManager(effectManager);
-
-                EffectEntryRuntime runtimeEntry =
-                    EffectResolveHelper.CreateRuntimeEntry(
-                        effectEntry,
-                        targetCharacterManager);
-
-                if (runtimeEntry?.RuntimeData == null)
-                {
-                    continue;
-                }
-
-                bool applied =
-                    EffectApplyHelper.ApplyEffect(
-                        effectManager,
-                        runtimeEntry);
+                Debug.LogWarning(
+                    $"[ItemManager] Relic effect skipped because no owner is recorded. relic={relicEntry.relic?.relicId}, effect={effectEntry.EffectSO.EffectId}",
+                    this);
+                return;
             }
-        }
 
-        private void RemoveRuntimeEffectFromCharacters(
-            Effect.EffectRuntimeData runtimeEffect)
-        {
-            if (runtimeEffect == null)
+            EffectManager effectManager =
+                ResolveEffectManager(ownerCharacter);
+
+            if (effectManager == null)
+            {
+                Debug.LogWarning(
+                    $"[ItemManager] Relic owner has no EffectManager. relic={relicEntry.relic?.relicId}, owner={ownerCharacter.name}",
+                    ownerCharacter);
+                return;
+            }
+
+            EffectEntryRuntime runtimeEntry =
+                EffectResolveHelper.CreateRuntimeEntry(
+                    effectEntry,
+                    ownerCharacter,
+                    ownerCharacter,
+                    ownerCharacter.transform);
+
+            if (runtimeEntry?.RuntimeData == null)
             {
                 return;
             }
 
-            EffectManager[] effectManagers =
-                FindObjectsByType<EffectManager>(
-                    FindObjectsSortMode.None);
-
-            for (int i = 0;
-                 i < effectManagers.Length;
-                 i++)
-            {
-                EffectManager effectManager =
-                    effectManagers[i];
-
-                if (effectManager == null)
-                {
-                    continue;
-                }
-
-                effectManager.RemoveEffect(runtimeEffect);
-            }
+            EffectApplyHelper.ApplyEffect(
+                effectManager,
+                runtimeEntry);
         }
 
         private CharacterManager ResolveCharacterManager(
@@ -269,6 +318,33 @@ namespace Item
             return gameObject.GetComponentInChildren<CharacterManager>();
         }
 
+        private EffectManager ResolveEffectManager(
+            CharacterManager characterManager)
+        {
+            if (characterManager == null)
+            {
+                return null;
+            }
+
+            EffectManager effectManager =
+                characterManager.GetComponent<EffectManager>();
+
+            if (effectManager != null)
+            {
+                return effectManager;
+            }
+
+            effectManager =
+                characterManager.GetComponentInChildren<EffectManager>();
+
+            if (effectManager != null)
+            {
+                return effectManager;
+            }
+
+            return characterManager.GetComponentInParent<EffectManager>();
+        }
+
         private bool ShouldApplyRelicEffectOnEquip(
             RelicEffectApplyType applyType)
         {
@@ -302,7 +378,7 @@ namespace Item
                 {
                     continue;
                 }
-                ApplyEffectToCharacters(effectEntry, entry);
+                ApplyEffectToOwner(effectEntry, entry);
             }
         }
 
@@ -328,42 +404,39 @@ namespace Item
                 {
                     continue;
                 }
-                RemoveRelicEffectFromCharacters(effectEntry);
+                RemoveRelicEffectFromOwner(effectEntry, entry);
             }
         }
 
-        private void RemoveRelicEffectFromCharacters(
-            EffectEntrySO effectEntry)
+        private void RemoveRelicEffectFromOwner(
+            EffectEntrySO effectEntry,
+            RelicEntry relicEntry)
         {
-            if (effectEntry == null || effectEntry.EffectSO == null)
+            if (effectEntry == null
+                || effectEntry.EffectSO == null
+                || relicEntry == null
+                || relicEntry.ownerCharacter == null)
             {
                 return;
             }
 
-            EffectManager[] effectManagers =
-                FindObjectsByType<EffectManager>(
-                    FindObjectsSortMode.None);
+            EffectManager effectManager =
+                ResolveEffectManager(relicEntry.ownerCharacter);
 
-            for (int i = 0; i < effectManagers.Length; i++)
+            if (effectManager == null)
             {
-                EffectManager effectManager =
-                    effectManagers[i];
-
-                if (effectManager == null)
-                {
-                    continue;
-                }
-
-                CharacterManager targetCharacterManager =
-                    ResolveCharacterManager(effectManager);
-
-                EffectEntryRuntime runtimeEntry =
-                    EffectResolveHelper.CreateRuntimeEntry(
-                        effectEntry,
-                        targetCharacterManager);
-
-                RemoveRuntimeEffectFromCharacters(runtimeEntry?.RuntimeData);
+                return;
             }
+
+            EffectEntryRuntime runtimeEntry =
+                EffectResolveHelper.CreateRuntimeEntry(
+                    effectEntry,
+                    relicEntry.ownerCharacter,
+                    relicEntry.ownerCharacter,
+                    relicEntry.ownerCharacter.transform);
+
+            effectManager.RemoveEffectsBySource(
+                runtimeEntry?.RuntimeData?.RuntimeId);
         }
 
         private void HandleRelicAdded(RelicSO relic)

@@ -539,6 +539,14 @@ namespace Effect
                     chanceOnHitStatModifierEffect.OnHit(
                         request,
                         result);
+                    continue;
+                }
+
+                if (runtimeData is AttackBleedEffectRuntime attackBleedEffect)
+                {
+                    attackBleedEffect.OnHit(
+                        request,
+                        result);
                 }
             }
         }

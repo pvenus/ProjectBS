@@ -185,3 +185,23 @@ Good:
   `review_ready`.
 - Planning generation creates no RelicSO JSON, Effect JSON, Unity asset,
   localization, icon, pool, shop product, or reward data.
+
+## 11. Implementation Mapping Boundary
+
+Planning remains pure design input. It must not require or contain the EffectSO
+construction fields used by the normalized RelicSO JSON builder.
+
+The conversion step requires a separate approved implementation mapping/spec
+that references the planning file without copying builder fields back into it.
+That spec must provide:
+
+- `iconSpriteName`, `themeColor`, `category`, `subCategory`, `hidden`, and
+  `developerOnly`;
+- one semantic effect slug per gameplay behavior;
+- the supported current `EffectType` and exact config fields;
+- `lifetimeType`, `categoryType`, `duration`, and `maxApplyCount`;
+- traceability back to the exact `effectsKo` sentence or open gameplay decision.
+
+If no approved mapping/spec exists, or if the mapping asks for runtime behavior
+that current Effect types cannot reproduce, SO JSON conversion must stop with a
+clear failure instead of approximating the behavior.

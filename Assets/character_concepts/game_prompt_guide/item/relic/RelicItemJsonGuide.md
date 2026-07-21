@@ -26,11 +26,14 @@ subCategory
 hidden
 developerOnly
 approvedEffectDesigns[]
+approvedImplementationMapping
 allowOverwrite
 ```
 
-Every approved effect design must include its semantic slug, type, exact config,
-lifetime, category, duration, and maximum application count.
+Every approved effect design must be traceable to planning. Every implementation
+mapping entry must include its semantic slug, supported Effect type, exact
+config, lifetime, category, duration, and maximum application count. Planning
+alone is insufficient input for SO JSON conversion.
 
 ## 3. Canonical Schema
 
@@ -107,6 +110,10 @@ numeric-only canonical effect identity
 9. Verify icon, color range, rarity, category, and visibility flags.
 10. Write exactly one JSON file and no other output.
 
+If the approved implementation mapping/spec is missing, incomplete, or requests
+runtime-unsupported behavior, stop with `missing_implementation_mapping` or
+`unsupported_relic_behavior`. Do not infer EffectSO config from planning prose.
+
 ## 6. Validation Matrix
 
 | Check | Pass condition |
@@ -144,6 +151,7 @@ invalid_effect_value
 invalid_rarity
 missing_icon_sprite
 invalid_theme_color
+missing_implementation_mapping
 description_effect_mismatch
 existing_relic_requires_approval
 output_write_failed

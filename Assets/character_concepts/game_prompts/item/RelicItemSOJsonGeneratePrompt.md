@@ -111,3 +111,23 @@ Output:
 - 현재 런타임에서 확인되지 않은 owner/party/enemy target 규칙을 설명만 보고 임의 구현하지 않는다.
 - JSON 생성 성공과 Unity RelicSO/EffectSO/EffectEntrySO asset 생성은 별도 단계다.
 ```
+
+## Required Implementation Mapping Gate
+
+Relic SO JSON generation requires both an approved planning document and a
+separate approved implementation mapping/spec. Planning prose alone is not
+sufficient input.
+
+The mapping/spec must include:
+
+- `iconSpriteName`, `themeColor`, `category`, `subCategory`, `hidden`,
+  `developerOnly`;
+- one semantic effect slug per gameplay behavior;
+- supported `effectType` and exact current config fields;
+- `lifetimeType`, `categoryType`, `duration`, `maxApplyCount`;
+- traceability to the planning effect sentence or approved decision.
+
+If the mapping/spec is missing, stop with `missing_implementation_mapping`.
+If it requests unsupported runtime behavior, stop with
+`unsupported_relic_behavior`. Do not infer target filters, range, duration,
+stacking, or EffectSO config from planning prose alone.
