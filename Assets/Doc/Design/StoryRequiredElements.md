@@ -11,13 +11,28 @@
 
 Episode를 만들 때 작성 규칙은 항상 `Assets/Doc/Design/StoryWritingRules.md`를 참조한다.
 
+Chapter 스토리 경로는 입력받지 않는다. 대신 `생성할 Act 번호`와 `생성할 Chapter 번호`를 두 자리 숫자로 맞춰 다음 형식으로 자동 조합하고, Episode를 만들 때 해당 경로의 스토리 파일을 반드시 참조한다.
+
+```text
+Assets/Doc/Story/Act{Act번호}/Chapter{Chapter번호}
+```
+
+예시:
+
+```text
+생성할 Act 번호: 1
+생성할 Chapter 번호: 1
+자동 Chapter 스토리 경로: Assets/Doc/Story/Act01/Chapter01
+```
+
+자동 조합한 Chapter 폴더 안의 `Chapter_XX.md`를 Chapter 원본 스토리로 사용한다.
+
 ## 필수 요소
 
 새 스토리를 만들 때는 아래 항목을 먼저 정한다.
 
 - 생성할 Act 번호
 - 생성할 Chapter 번호
-- 해당 Chapter 스토리 파일 경로
 - 해당 Chapter의 Episode 수
 - 분기가 있는 Episode
 - 분기의 수
@@ -31,7 +46,6 @@ Episode를 만들 때 작성 규칙은 항상 `Assets/Doc/Design/StoryWritingRul
 ```text
 생성할 Act 번호:
 생성할 Chapter 번호:
-Chapter 스토리 경로:
 
 Episode 수:
 분기 있는 Episode:
