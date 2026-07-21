@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_implementation_mapping",
+  "documentId": "mapping.item.relic.blunt_gear",
+  "relicId": "item.relic.blunt_gear",
+  "planningPath": "Assets/Doc/Relic/item.relic.blunt_gear.planning.json",
+  "reviewStatus": "approved",
+  "runtimeSupportStatus": "blocked_runtime_mapping",
+  "runtimeBlocker": "Current KnockbackEffectConfig uses force/velocity, not guaranteed final displacement. Requires OnHitKnockback with data-driven finalDistanceMeters=0.4.",
+  "legacyIcon": true,
+  "iconSpriteName": "relic-icon-04_0",
+  "iconGuid": "d5d4f8c3e6ab64b00a2992f2a2038fd4",
+  "iconFileId": 469897177,
+  "themeColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+  },
+  "rarity": "Common",
+  "category": "control",
+  "subCategory": "on_hit_knockback",
+  "hidden": false,
+  "developerOnly": false,
+  "traceability": {
+    "sourceOfTruth": "approved planning",
+    "planningReviewStatus": "review_ready",
+    "legacyAssetUse": "icon/GUID/value comparison only"
+  },
+  "effects": [
+    {
+      "semanticEffectSlug": "knockback_on_hit",
+      "planningTrace": "effectsKo[0]",
+      "supportedEffectType": null,
+      "proposedEffectType": "OnHitKnockback",
+      "config": {
+        "chancePercent": 100,
+        "finalDistanceMeters": 0.4,
+        "direction": "away_from_hit_source"
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Debuff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "targetRule": "approved planning target",
+      "triggerRule": "approved planning trigger",
+      "stacking": "not_applicable",
+      "reapply": "not_applicable",
+      "termination": "removed when relic unequips"
+    }
+  ]
+}

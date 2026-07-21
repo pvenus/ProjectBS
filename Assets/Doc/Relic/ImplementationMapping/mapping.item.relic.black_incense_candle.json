@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_implementation_mapping",
+  "documentId": "mapping.item.relic.black_incense_candle",
+  "relicId": "item.relic.black_incense_candle",
+  "planningPath": "Assets/Doc/Relic/item.relic.black_incense_candle.planning.json",
+  "reviewStatus": "approved",
+  "runtimeSupportStatus": "supported_current",
+  "runtimeBlocker": null,
+  "legacyIcon": true,
+  "iconSpriteName": "pixellab-Please-create-icons-using-trad-1780144343432_1",
+  "iconGuid": "31046a0b9e42e4d4db6e1cd8b6605965",
+  "iconFileId": 2022711067700164600,
+  "themeColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+  },
+  "rarity": "Common",
+  "category": "offense",
+  "subCategory": "missing_hp_scaling",
+  "hidden": false,
+  "developerOnly": false,
+  "traceability": {
+    "sourceOfTruth": "approved planning",
+    "planningReviewStatus": "review_ready",
+    "legacyAssetUse": "icon/GUID/value comparison only"
+  },
+  "effects": [
+    {
+      "semanticEffectSlug": "missing_hp_attack_up",
+      "planningTrace": "effectsKo[0]",
+      "supportedEffectType": "StatModifier",
+      "proposedEffectType": null,
+      "config": {
+        "statType": "MissingHpAttackPercent",
+        "modifierType": "Flat",
+        "value": 0.2
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "targetRule": "approved planning target",
+      "triggerRule": "approved planning trigger",
+      "stacking": "not_applicable",
+      "reapply": "not_applicable",
+      "termination": "removed when relic unequips"
+    }
+  ]
+}

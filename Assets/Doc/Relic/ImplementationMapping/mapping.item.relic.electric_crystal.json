@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_implementation_mapping",
+  "documentId": "mapping.item.relic.electric_crystal",
+  "relicId": "item.relic.electric_crystal",
+  "planningPath": "Assets/Doc/Relic/item.relic.electric_crystal.planning.json",
+  "reviewStatus": "approved",
+  "runtimeSupportStatus": "blocked_runtime_mapping",
+  "runtimeBlocker": "Requires owner-source-filtered dynamic target timed stun with non-stack refresh.",
+  "legacyIcon": true,
+  "iconSpriteName": "relic-icon-03_3",
+  "iconGuid": "a104fee9048b142dda8e4476aa30fc74",
+  "iconFileId": 314302092,
+  "themeColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+  },
+  "rarity": "Common",
+  "category": "control",
+  "subCategory": "on_hit_stun",
+  "hidden": false,
+  "developerOnly": false,
+  "traceability": {
+    "sourceOfTruth": "approved planning",
+    "planningReviewStatus": "review_ready",
+    "legacyAssetUse": "icon/GUID/value comparison only"
+  },
+  "effects": [
+    {
+      "semanticEffectSlug": "stun_on_hit",
+      "planningTrace": "effectsKo[0]",
+      "supportedEffectType": null,
+      "proposedEffectType": "OnHitTimedStatModifier",
+      "config": {
+        "chancePercent": 8,
+        "statType": "StunDuration",
+        "modifierType": "Flat",
+        "value": 0.5,
+        "stacking": "none",
+        "reapply": "refresh_duration"
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Debuff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "targetRule": "approved planning target",
+      "triggerRule": "approved planning trigger",
+      "stacking": "none",
+      "reapply": "refresh_duration",
+      "termination": "produced status expires after 0.5s; relic unequip only stops new triggers"
+    }
+  ]
+}

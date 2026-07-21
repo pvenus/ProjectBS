@@ -12,7 +12,21 @@ The JSON owns item fields and current nested Effect Entry definitions. JSON
 authoring does not create Unity `.asset`, `.meta`, localization, image, pool,
 shop product, or reward data.
 
-## 2. Required Inputs
+## 2. Implementation Mapping Location
+
+Approved Relic implementation mapping/spec files live at:
+
+```text
+Assets/Doc/Relic/ImplementationMapping/mapping.item.relic.{relic_slug}.json
+Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json
+```
+
+A mapping with `runtimeSupportStatus=blocked_runtime_mapping` is approved design
+traceability, not permission to generate normalized Relic JSON. Normalized JSON
+may be authored only when the mapping has a current supported Effect type and
+exact builder-compatible config.
+
+## 3. Required Inputs
 
 ```text
 relicSlug
@@ -35,7 +49,7 @@ mapping entry must include its semantic slug, supported Effect type, exact
 config, lifetime, category, duration, and maximum application count. Planning
 alone is insufficient input for SO JSON conversion.
 
-## 3. Canonical Schema
+## 4. Canonical Schema
 
 ```json
 {
@@ -82,7 +96,7 @@ alone is insufficient input for SO JSON conversion.
 builder must use them for string generation rather than serialize them as fields
 on `RelicSO`.
 
-## 4. Forbidden Fields
+## 5. Forbidden Fields
 
 ```text
 effects
@@ -97,7 +111,7 @@ direct EffectSO asset path or GUID
 numeric-only canonical effect identity
 ```
 
-## 5. Generation Procedure
+## 6. Generation Procedure
 
 1. Read the approved item design and extract exact item and effect facts.
 2. Inventory current item JSON IDs and legacy relic IDs.
@@ -111,16 +125,16 @@ numeric-only canonical effect identity
 10. Write exactly one JSON file and no other output.
 
 If the approved implementation mapping/spec is missing, stop with
-`missing_implementation_mapping`. If it is incomplete, malformed, or untraceable
-to planning, stop with `invalid_implementation_mapping`. If it requests
-runtime-unsupported behavior, stop with `unsupported_relic_behavior`. Do not
-infer EffectSO config from planning prose.
+`missing_implementation_mapping`. If it is incomplete, malformed, untraceable
+to planning, or marked `blocked_runtime_mapping`, stop with
+`invalid_implementation_mapping` or `unsupported_relic_behavior` as appropriate.
+Do not infer EffectSO config from planning prose.
 For Relic SO generation, `ChanceOnHitStatModifier` and `AttackBleed` are
 currently runtime-unsupported because they require dynamic hit-target state,
 duration, stacking, and removal semantics that the Relic owner listener does not
 safely provide.
 
-## 6. Validation Matrix
+## 7. Validation Matrix
 
 | Check | Pass condition |
 |---|---|
@@ -138,7 +152,7 @@ safely provide.
 | Color | Every RGBA component in `0..1` |
 | Boundary | No asset, meta, localization, image, pool, shop, or reward output |
 
-## 7. Failure Types
+## 8. Failure Types
 
 ```text
 missing_relic_design

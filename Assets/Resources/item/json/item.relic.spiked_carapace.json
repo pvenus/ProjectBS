@@ -1,0 +1,38 @@
+{
+  "relicId": "item.relic.spiked_carapace",
+  "nameKo": "뾰족한 갑각",
+  "descriptionKo": "받은 피해의 15%를 공격자에게 반사 피해로 되돌려준다.",
+  "icon": "relic-icon-05_0",
+  "themeColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+  },
+  "rarity": "Common",
+  "effectEntries": [
+    {
+      "entryId": "effect.item.relic.spiked_carapace.reflect_damage.entry",
+      "effect": {
+        "effectId": "effect.item.relic.spiked_carapace.reflect_damage",
+        "effectType": "StatModifier",
+        "effectName": "뾰족한 갑각 reflect_damage",
+        "config": {
+          "statType": "ReflectDamagePercent",
+          "modifierType": "Flat",
+          "value": 15
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ],
+  "category": "counter",
+  "subCategory": "reflect_damage",
+  "hidden": false,
+  "developerOnly": false
+}

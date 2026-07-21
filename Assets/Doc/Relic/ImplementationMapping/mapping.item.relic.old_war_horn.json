@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_implementation_mapping",
+  "documentId": "mapping.item.relic.old_war_horn",
+  "relicId": "item.relic.old_war_horn",
+  "planningPath": "Assets/Doc/Relic/item.relic.old_war_horn.planning.json",
+  "reviewStatus": "approved",
+  "runtimeSupportStatus": "blocked_runtime_mapping",
+  "runtimeBlocker": "Current elite proximity runtime is hardcoded to 3m. Requires data-driven radiusMeters=8.",
+  "legacyIcon": true,
+  "iconSpriteName": "relic-icon-09_3",
+  "iconGuid": "4c02897e154e945108a8efff5d3afd00",
+  "iconFileId": 1188560019,
+  "themeColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+  },
+  "rarity": "Common",
+  "category": "mobility",
+  "subCategory": "elite_proximity",
+  "hidden": false,
+  "developerOnly": false,
+  "traceability": {
+    "sourceOfTruth": "approved planning",
+    "planningReviewStatus": "review_ready",
+    "legacyAssetUse": "icon/GUID/value comparison only"
+  },
+  "effects": [
+    {
+      "semanticEffectSlug": "elite_proximity_move_speed_up",
+      "planningTrace": "effectsKo[0]",
+      "supportedEffectType": null,
+      "proposedEffectType": "EliteProximityStatModifier",
+      "config": {
+        "radiusMeters": 8,
+        "statType": "MoveSpeedPercent",
+        "modifierType": "Flat",
+        "value": 12
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "targetRule": "approved planning target",
+      "triggerRule": "approved planning trigger",
+      "stacking": "not_applicable",
+      "reapply": "not_applicable",
+      "termination": "removed when relic unequips"
+    }
+  ]
+}
