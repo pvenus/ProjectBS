@@ -12,6 +12,15 @@ namespace ResourceTools.Item
 {
     public static class RelicItemAssetBuilder
     {
+        private const string ProductionRelicRoot =
+            "Assets/Resources/shop/relic";
+
+        private const string NormalizedRelicJsonRoot =
+            "Assets/Resources/item/json";
+
+        private const string MigrationReportPath =
+            "Assets/Doc/Relic/relic.production_migration_report.json";
+
         [Serializable]
         public class RelicItemJson
         {
@@ -104,6 +113,212 @@ namespace ResourceTools.Item
             AssetDatabase.SaveAssets();
 
             return relic;
+        }
+
+        public static void MigrateProductionRelicsFromJsonBatch()
+        {
+            string[] jsonPaths =
+                Directory.GetFiles(
+                    NormalizedRelicJsonRoot,
+                    "item.relic.*.json",
+                    SearchOption.TopDirectoryOnly);
+
+            Array.Sort(
+                jsonPaths,
+                StringComparer.Ordinal);
+
+            if (jsonPaths.Length != 10)
+            {
+                throw new InvalidOperationException(
+                    $"[RelicItemAssetBuilder] Expected 10 normalized relic JSON files, found {jsonPaths.Length}.");
+            }
+
+            Dictionary<string, RelicSO> relicsById =
+                LoadProductionRelicsById();
+
+            List<string> migratedRelicPaths = new();
+            List<string> generatedEffectAssets = new();
+
+            foreach (string jsonPath in jsonPaths)
+            {
+                string relicJson =
+                    File.ReadAllText(jsonPath);
+
+                RelicItemJson data =
+                    JsonUtility.FromJson<RelicItemJson>(relicJson);
+
+                if (data == null
+                    || string.IsNullOrWhiteSpace(data.relicId))
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Invalid relic JSON. path={jsonPath}");
+                }
+
+                if (!relicsById.TryGetValue(data.relicId, out RelicSO relic)
+                    || relic == null)
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Production RelicSO not found. relicId={data.relicId}");
+                }
+
+                string relicAssetPath =
+                    AssetDatabase.GetAssetPath(relic);
+
+                string relicFolder =
+                    Path.GetDirectoryName(relicAssetPath)
+                        ?.Replace("\\", "/");
+
+                if (string.IsNullOrWhiteSpace(relicFolder))
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Could not resolve relic folder. relicId={data.relicId}");
+                }
+
+                List<string> effectEntryJsons =
+                    ExtractObjectArray(
+                        relicJson,
+                        "effectEntries");
+
+                if (!Validate(data, effectEntryJsons))
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Validation failed. relicId={data.relicId}");
+                }
+
+                List<EffectEntrySO> entryAssets = new();
+
+                foreach (string effectEntryJson in effectEntryJsons)
+                {
+                    EffectEntrySO entry =
+                        EffectEntryAssetBuilder.CreateOrUpdate(
+                            effectEntryJson,
+                            relicFolder);
+
+                    if (entry == null)
+                    {
+                        throw new InvalidOperationException(
+                            $"[RelicItemAssetBuilder] Failed to build effect entry. relicId={data.relicId}");
+                    }
+
+                    entryAssets.Add(entry);
+                    generatedEffectAssets.Add(
+                        AssetDatabase.GetAssetPath(entry));
+
+                    if (entry.EffectSO != null)
+                    {
+                        generatedEffectAssets.Add(
+                            AssetDatabase.GetAssetPath(entry.EffectSO));
+                    }
+                }
+
+                Apply(
+                    relic,
+                    data,
+                    entryAssets);
+
+                EditorUtility.SetDirty(relic);
+                migratedRelicPaths.Add(relicAssetPath);
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ForceReserializeAssets(
+                migratedRelicPaths,
+                ForceReserializeAssetsOptions.ReserializeAssets);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            ValidateMigratedProductionRelics();
+
+            Debug.Log(
+                $"[RelicItemAssetBuilder] Migrated production relics. relicCount={migratedRelicPaths.Count}, generatedEffectAssetRefs={generatedEffectAssets.Count}");
+        }
+
+        public static void ValidateMigratedProductionRelics()
+        {
+            Dictionary<string, RelicSO> relicsById =
+                LoadProductionRelicsById();
+
+            string[] jsonPaths =
+                Directory.GetFiles(
+                    NormalizedRelicJsonRoot,
+                    "item.relic.*.json",
+                    SearchOption.TopDirectoryOnly);
+
+            if (jsonPaths.Length != 10)
+            {
+                throw new InvalidOperationException(
+                    $"[RelicItemAssetBuilder] Expected 10 normalized relic JSON files, found {jsonPaths.Length}.");
+            }
+
+            foreach (string jsonPath in jsonPaths)
+            {
+                RelicItemJson data =
+                    JsonUtility.FromJson<RelicItemJson>(
+                        File.ReadAllText(jsonPath));
+
+                if (data == null
+                    || string.IsNullOrWhiteSpace(data.relicId)
+                    || !relicsById.TryGetValue(data.relicId, out RelicSO relic)
+                    || relic == null)
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Missing migrated relic. path={jsonPath}");
+                }
+
+                if (relic.effectEntries == null
+                    || relic.effectEntries.Count == 0)
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Migrated relic has no effect entries. relicId={data.relicId}");
+                }
+
+                foreach (EffectEntrySO entry in relic.effectEntries)
+                {
+                    if (entry == null || entry.EffectSO == null)
+                    {
+                        throw new InvalidOperationException(
+                            $"[RelicItemAssetBuilder] Migrated relic has broken effect entry. relicId={data.relicId}");
+                    }
+                }
+            }
+
+            Debug.Log("[RelicItemAssetBuilder] Production relic validation passed.");
+        }
+
+        private static Dictionary<string, RelicSO> LoadProductionRelicsById()
+        {
+            Dictionary<string, RelicSO> result = new();
+
+            string[] guids =
+                AssetDatabase.FindAssets(
+                    "t:RelicSO",
+                    new[] { ProductionRelicRoot });
+
+            foreach (string guid in guids)
+            {
+                string path =
+                    AssetDatabase.GUIDToAssetPath(guid);
+
+                RelicSO relic =
+                    AssetDatabase.LoadAssetAtPath<RelicSO>(path);
+
+                if (relic == null
+                    || string.IsNullOrWhiteSpace(relic.relicId))
+                {
+                    continue;
+                }
+
+                if (!relic.relicId.StartsWith(
+                        "item.relic.",
+                        StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                result[relic.relicId] = relic;
+            }
+
+            return result;
         }
 
         private static void Apply(

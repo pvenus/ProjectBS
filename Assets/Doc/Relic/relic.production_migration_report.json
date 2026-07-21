@@ -1,27 +1,33 @@
 {
-    "schemaVersion":  "1.0.0",
-    "documentType":  "relic_production_migration_report",
-    "branch":  "pvenus_agent_item",
-    "sourceOfTruth":  "Assets/Doc/Relic approved planning documents",
-    "mapping":  "Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json",
-    "normalizedJsonGenerated":  [
-                                    "Assets/Resources/item/json/item.relic.black_incense_candle.json",
-                                    "Assets/Resources/item/json/item.relic.red_feather.json",
-                                    "Assets/Resources/item/json/item.relic.spiked_carapace.json"
-                                ],
-    "normalizedJsonBlocked":  [
-                                  "item.relic.blunt_gear: requires exact finalDistanceMeters knockback runtime, not current force API",
-                                  "item.relic.electric_crystal: requires dynamic target non-stack timed stun refresh",
-                                  "item.relic.ember_necklace: requires dynamic target non-stack timed stat debuff refresh",
-                                  "item.relic.frozen_nail: requires dynamic target non-stack timed stat debuff refresh",
-                                  "item.relic.golden_fang: requires owner on-kill gold reward effect",
-                                  "item.relic.old_war_horn: requires data-driven elite proximity radius 8m",
-                                  "item.relic.toxic_pouch: requires poison DoT runtime distinct from AttackBleed"
-                              ],
-    "unityEditorStatus":  "not_available_in_current_environment",
-    "assetMigrationStatus":  "pending_unity_editor",
-    "assetMigrationReason":  "Unity Editor execution/import validation is required to update production RelicSO assets in-place without breaking GUID, ShopProduct, or Pool references. YAML hand-editing is intentionally not performed.",
-    "productionRelicAssetEditPerformed":  false,
-    "shopProductPoolReferenceRisk":  "not_touched",
-    "downstreamStatus":  "blocked_until_runtime_and_unity_migration"
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_production_migration_report",
+  "branch": "pvenus_agent_item",
+  "sourceOfTruth": "Assets/Doc/Relic approved planning documents",
+  "mapping": "Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json",
+  "runtimeSupportStatus": "supported_current",
+  "runtimeSupportCount": "10/10",
+  "normalizedJsonGenerated": [
+    "Assets/Resources/item/json/item.relic.black_incense_candle.json",
+    "Assets/Resources/item/json/item.relic.blunt_gear.json",
+    "Assets/Resources/item/json/item.relic.electric_crystal.json",
+    "Assets/Resources/item/json/item.relic.ember_necklace.json",
+    "Assets/Resources/item/json/item.relic.frozen_nail.json",
+    "Assets/Resources/item/json/item.relic.golden_fang.json",
+    "Assets/Resources/item/json/item.relic.old_war_horn.json",
+    "Assets/Resources/item/json/item.relic.red_feather.json",
+    "Assets/Resources/item/json/item.relic.spiked_carapace.json",
+    "Assets/Resources/item/json/item.relic.toxic_pouch.json"
+  ],
+  "normalizedJsonBlocked": [],
+  "unityEditorPath": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.10f1\\Editor\\Unity.exe",
+  "unityEditorStatus": "installed_but_batchmode_blocked_by_license",
+  "unityCompileStatus": "not_run_license_blocked",
+  "unityCompileLog": "C:\\Users\\parkv\\Documents\\Codex\\relic_unity_compile_1.log",
+  "assetMigrationBeforeStatus": "production RelicSO assets still use legacy serialized data until Unity migration can run",
+  "assetMigrationStatus": "pending_unity_license_activation",
+  "assetMigrationAfterStatus": "not_run_license_blocked",
+  "assetMigrationReason": "Unity 6000.0.10f1 is installed, but batchmode exited before project import with: No valid Unity Editor license found. Please activate your license. Production RelicSO YAML assets were not edited by hand.",
+  "productionRelicAssetEditPerformed": false,
+  "shopProductPoolReferenceRisk": "not_touched",
+  "downstreamStatus": "blocked_until_unity_license_allows_batchmode_migration"
 }
