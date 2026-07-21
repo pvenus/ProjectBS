@@ -1,55 +1,51 @@
 {
-  "schemaVersion": "1.0.0",
-  "documentType": "relic_implementation_mapping",
-  "documentId": "mapping.item.relic.toxic_pouch",
-  "relicId": "item.relic.toxic_pouch",
-  "planningPath": "Assets/Doc/Relic/item.relic.toxic_pouch.planning.json",
-  "reviewStatus": "approved",
-  "runtimeSupportStatus": "blocked_runtime_mapping",
-  "runtimeBlocker": "Requires owner-source-filtered dynamic target poison DoT with source attack snapshot, 1s tick, non-stack refresh.",
-  "legacyIcon": true,
-  "iconSpriteName": "relic-icon-02_1",
-  "iconGuid": "80cff4135025e44ae9724baa969718f4",
-  "iconFileId": 1565407233,
-  "themeColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1
-  },
-  "rarity": "Common",
-  "category": "debuff",
-  "subCategory": "on_hit_poison_dot",
-  "hidden": false,
-  "developerOnly": false,
-  "traceability": {
-    "sourceOfTruth": "approved planning",
-    "planningReviewStatus": "review_ready",
-    "legacyAssetUse": "icon/GUID/value comparison only"
-  },
-  "effects": [
-    {
-      "semanticEffectSlug": "poison_dot_on_hit",
-      "planningTrace": "effectsKo[0..3]",
-      "supportedEffectType": null,
-      "proposedEffectType": "OnHitPoisonDot",
-      "config": {
-        "chancePercent": 15,
-        "sourceAttackRatioPercentPerSecond": 8,
-        "tickInterval": 1,
-        "duration": 3,
-        "stacking": "none",
-        "reapply": "refresh_duration"
-      },
-      "lifetimeType": "Manual",
-      "categoryType": "Debuff",
-      "duration": 0,
-      "maxApplyCount": 1,
-      "targetRule": "approved planning target",
-      "triggerRule": "approved planning trigger",
-      "stacking": "none",
-      "reapply": "refresh_duration",
-      "termination": "produced status expires after 3s; relic unequip only stops new triggers"
-    }
-  ]
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.toxic_pouch",
+    "relicId":  "item.relic.toxic_pouch",
+    "planningPath":  "Assets/Doc/Relic/item.relic.toxic_pouch.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "relic-icon-02_1",
+    "iconGuid":  "80cff4135025e44ae9724baa969718f4",
+    "iconFileId":  1565407233,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "debuff",
+    "subCategory":  "on_hit_poison_dot",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "poison_on_hit",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "OnHitPoisonDot",
+                        "config":  {
+                                       "chancePercent":  15,
+                                       "attackRatioPercentPerTick":  8,
+                                       "tickIntervalSeconds":  1,
+                                       "durationSeconds":  3
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "non_stack",
+                        "reapply":  "refresh duration to 3 seconds with new source attack snapshot",
+                        "termination":  "target state expires by duration; unequip only stops new triggers"
+                    }
+                ]
 }

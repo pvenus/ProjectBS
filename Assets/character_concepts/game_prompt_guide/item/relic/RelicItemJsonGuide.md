@@ -129,10 +129,11 @@ If the approved implementation mapping/spec is missing, stop with
 to planning, or marked `blocked_runtime_mapping`, stop with
 `invalid_implementation_mapping` or `unsupported_relic_behavior` as appropriate.
 Do not infer EffectSO config from planning prose.
-For Relic SO generation, `ChanceOnHitStatModifier` and `AttackBleed` are
-currently runtime-unsupported because they require dynamic hit-target state,
-duration, stacking, and removal semantics that the Relic owner listener does not
-safely provide.
+For Relic SO generation, do not use legacy `ChanceOnHitStatModifier` or
+`AttackBleed` as approximations. Use the Relic-safe current effect types
+`OnHitKnockbackDistance`, `OnHitTimedStatModifier`, and `OnHitPoisonDot` when
+the approved mapping requires owner-source hit filtering and dynamic hit-target
+state.
 
 ## 7. Validation Matrix
 

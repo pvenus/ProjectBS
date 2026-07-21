@@ -1,0 +1,57 @@
+{
+    "relicId":  "item.relic.old_war_horn",
+    "nameKo":  "낡은 뿔피리",
+    "descriptionKo":  "정예 몬스터의 8m 안에 있는 동안 이동속도가 12% 증가한다.",
+    "icon":  "relic-icon-09_3",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.old_war_horn.elite_proximity_move_speed.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.old_war_horn.elite_proximity_move_speed",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.old_war_horn.elite_proximity_move_speed",
+                                             "config":  {
+                                                            "statType":  "EliteApproachMoveSpeedPercent",
+                                                            "modifierType":  "Flat",
+                                                            "value":  12
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          },
+                          {
+                              "entryId":  "effect.item.relic.old_war_horn.elite_proximity_radius.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.old_war_horn.elite_proximity_radius",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.old_war_horn.elite_proximity_radius",
+                                             "config":  {
+                                                            "statType":  "EliteApproachRadius",
+                                                            "modifierType":  "Flat",
+                                                            "value":  8
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "mobility",
+    "subCategory":  "elite_proximity_move_speed",
+    "hidden":  false,
+    "developerOnly":  false
+}

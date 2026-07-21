@@ -1,0 +1,38 @@
+{
+    "relicId":  "item.relic.blunt_gear",
+    "nameKo":  "무딘 톱니",
+    "descriptionKo":  "공격에 적중한 적을 공격 지점 바깥 방향으로 최종 0.4m 밀어낸다.",
+    "icon":  "relic-icon-04_0",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.blunt_gear.knockback_on_hit.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.blunt_gear.knockback_on_hit",
+                                             "effectType":  "OnHitKnockbackDistance",
+                                             "effectName":  "item.relic.blunt_gear.knockback_on_hit",
+                                             "config":  {
+                                                            "chancePercent":  100,
+                                                            "distanceMeters":  0.4,
+                                                            "directionType":  "PushAwayFromSource"
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "control",
+    "subCategory":  "on_hit_knockback",
+    "hidden":  false,
+    "developerOnly":  false
+}

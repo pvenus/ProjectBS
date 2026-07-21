@@ -259,6 +259,20 @@ namespace Effect
                     continue;
                 }
 
+                EffectRuntimeData tickingEffect =
+                    FindEffect(lifetimeData.runtimeId);
+
+                if (tickingEffect is TargetPoisonDotEffectRuntime poisonDotEffect)
+                {
+                    poisonDotEffect.Tick(deltaTime);
+
+                    if (!poisonDotEffect.IsActive)
+                    {
+                        expiredEffects.Add(poisonDotEffect);
+                        continue;
+                    }
+                }
+
                 lifetimeData.remainingTime -= deltaTime;
 
                 if (lifetimeData.remainingTime > 0f)
@@ -267,7 +281,7 @@ namespace Effect
                 }
 
                 EffectRuntimeData effect =
-                    FindEffect(lifetimeData.runtimeId);
+                    tickingEffect;
 
                 if (effect != null)
                 {
@@ -545,6 +559,30 @@ namespace Effect
                 if (runtimeData is AttackBleedEffectRuntime attackBleedEffect)
                 {
                     attackBleedEffect.OnHit(
+                        request,
+                        result);
+                    continue;
+                }
+
+                if (runtimeData is OnHitKnockbackDistanceEffectRuntime onHitKnockbackDistanceEffect)
+                {
+                    onHitKnockbackDistanceEffect.OnHit(
+                        request,
+                        result);
+                    continue;
+                }
+
+                if (runtimeData is OnHitTimedStatModifierEffectRuntime onHitTimedStatModifierEffect)
+                {
+                    onHitTimedStatModifierEffect.OnHit(
+                        request,
+                        result);
+                    continue;
+                }
+
+                if (runtimeData is OnHitPoisonDotEffectRuntime onHitPoisonDotEffect)
+                {
+                    onHitPoisonDotEffect.OnHit(
                         request,
                         result);
                 }

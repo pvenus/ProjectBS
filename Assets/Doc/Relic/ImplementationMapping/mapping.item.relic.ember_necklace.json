@@ -1,55 +1,52 @@
 {
-  "schemaVersion": "1.0.0",
-  "documentType": "relic_implementation_mapping",
-  "documentId": "mapping.item.relic.ember_necklace",
-  "relicId": "item.relic.ember_necklace",
-  "planningPath": "Assets/Doc/Relic/item.relic.ember_necklace.planning.json",
-  "reviewStatus": "approved",
-  "runtimeSupportStatus": "blocked_runtime_mapping",
-  "runtimeBlocker": "Requires owner-source-filtered dynamic target timed stat debuff with non-stack refresh.",
-  "legacyIcon": true,
-  "iconSpriteName": "relic-icon-07_2",
-  "iconGuid": "34924f68d1a62445fba44bc7cfab243d",
-  "iconFileId": 108391534,
-  "themeColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1
-  },
-  "rarity": "Common",
-  "category": "debuff",
-  "subCategory": "on_hit_attack_down",
-  "hidden": false,
-  "developerOnly": false,
-  "traceability": {
-    "sourceOfTruth": "approved planning",
-    "planningReviewStatus": "review_ready",
-    "legacyAssetUse": "icon/GUID/value comparison only"
-  },
-  "effects": [
-    {
-      "semanticEffectSlug": "attack_down_on_hit",
-      "planningTrace": "effectsKo[0..3]",
-      "supportedEffectType": null,
-      "proposedEffectType": "OnHitTimedStatModifier",
-      "config": {
-        "chancePercent": 10,
-        "statType": "AttackPercent",
-        "modifierType": "Flat",
-        "value": -15,
-        "stacking": "none",
-        "reapply": "refresh_duration"
-      },
-      "lifetimeType": "Manual",
-      "categoryType": "Debuff",
-      "duration": 0,
-      "maxApplyCount": 1,
-      "targetRule": "approved planning target",
-      "triggerRule": "approved planning trigger",
-      "stacking": "none",
-      "reapply": "refresh_duration",
-      "termination": "produced status expires after 3s; relic unequip only stops new triggers"
-    }
-  ]
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.ember_necklace",
+    "relicId":  "item.relic.ember_necklace",
+    "planningPath":  "Assets/Doc/Relic/item.relic.ember_necklace.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "relic-icon-07_2",
+    "iconGuid":  "34924f68d1a62445fba44bc7cfab243d",
+    "iconFileId":  108391534,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "debuff",
+    "subCategory":  "on_hit_attack_down",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "attack_down_on_hit",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "OnHitTimedStatModifier",
+                        "config":  {
+                                       "chancePercent":  10,
+                                       "statType":  "AttackPercent",
+                                       "modifierType":  "Flat",
+                                       "value":  -15,
+                                       "durationSeconds":  3
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "non_stack",
+                        "reapply":  "refresh duration to 3 seconds without stacking value",
+                        "termination":  "target state expires by duration; unequip only stops new triggers"
+                    }
+                ]
 }

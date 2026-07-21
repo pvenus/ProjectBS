@@ -1,38 +1,38 @@
 {
-  "relicId": "item.relic.black_incense_candle",
-  "nameKo": "검은 향초",
-  "descriptionKo": "잃은 체력 1%마다 공격력이 0.2% 증가한다.",
-  "icon": "pixellab-Please-create-icons-using-trad-1780144343432_1",
-  "themeColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1
-  },
-  "rarity": "Common",
-  "effectEntries": [
-    {
-      "entryId": "effect.item.relic.black_incense_candle.missing_hp_attack_up.entry",
-      "effect": {
-        "effectId": "effect.item.relic.black_incense_candle.missing_hp_attack_up",
-        "effectType": "StatModifier",
-        "effectName": "검은 향초 missing_hp_attack_up",
-        "config": {
-          "statType": "MissingHpAttackPercent",
-          "modifierType": "Flat",
-          "value": 0.2
-        }
-      },
-      "lifetimeType": "Manual",
-      "categoryType": "Buff",
-      "duration": 0,
-      "maxApplyCount": 1,
-      "hasValueOverride": false,
-      "valueOverride": 0
-    }
-  ],
-  "category": "offense",
-  "subCategory": "missing_hp_scaling",
-  "hidden": false,
-  "developerOnly": false
+    "relicId":  "item.relic.black_incense_candle",
+    "nameKo":  "검은 향초",
+    "descriptionKo":  "잃은 체력 1%마다 공격력이 0.2% 증가한다.",
+    "icon":  "pixellab-Please-create-icons-using-trad-1780144343432_1",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.black_incense_candle.missing_hp_attack_up.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.black_incense_candle.missing_hp_attack_up",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.black_incense_candle.missing_hp_attack_up",
+                                             "config":  {
+                                                            "statType":  "MissingHpAttackPercent",
+                                                            "modifierType":  "Flat",
+                                                            "value":  0.2
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "offense",
+    "subCategory":  "missing_hp_scaling",
+    "hidden":  false,
+    "developerOnly":  false
 }

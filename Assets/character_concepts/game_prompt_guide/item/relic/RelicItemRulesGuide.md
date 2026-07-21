@@ -59,11 +59,12 @@ Use only current `EffectType` values:
 | Persistent stat change | `StatModifier` |
 | Immediate recovery | `Heal` |
 | Push or pull | `Knockback` |
+| Owner hit knocks the hit target by exact distance | `OnHitKnockbackDistance` |
 | Cooldown reduction | `CooldownReduce` |
-| Stat change after an attack hit | Unsupported for Relic SO generation until per-hit target state is modeled |
+| Timed stat change after an attack hit | `OnHitTimedStatModifier` |
 | Stat change after healing | `ChanceOnHealStatModifier` |
 | Cooldown reduction after healing | `ChanceOnHealCooldownReduce` |
-| Bleed after attacking | Unsupported for Relic SO generation until per-hit target state is modeled |
+| Poison damage over time after attacking | `OnHitPoisonDot` |
 | Trigger an existing skill after a hit | `ChanceOnHitSkill` |
 
 If an approved implementation mapping requires an unsupported event, target
@@ -75,24 +76,21 @@ Current runtime limitations:
 
 - Relic equip effects require an explicit owner character at runtime. Workflows
   must not assume that a relic applies to the whole party or every character.
-- `ChanceOnHitStatModifier` and `AttackBleed` currently keep a single fixed
-  target/applied-value state in runtime. Relic equip installs a listener on the
-  owner, but the hit target must be resolved dynamically from the attack event;
-  therefore these effect types are blocked for Relic SO generation until safe
-  per-target duration, stacking, and removal semantics are implemented.
-- Produced on-hit debuffs with an independent duration are not represented by
-  the current Relic trigger runtime. Approved gameplay planning may still be
-  `review_ready`; SO JSON generation must stop with `unsupported_relic_behavior`
-  until a supported mapping/spec and runtime path exist.
-- Range-gated relics require an approved data-driven range field before SO JSON
-  generation. Do not choose between conflicting document/localization/runtime
-  values during implementation mapping; use the approved planning value when it
-  exists.
+- For Relic on-hit target state, use `OnHitKnockbackDistance`,
+  `OnHitTimedStatModifier`, and `OnHitPoisonDot`. They install a listener on the
+  relic owner, filter hits by that owner as the source, and resolve the hit
+  target dynamically from the damage event.
+- `ChanceOnHitStatModifier` and `AttackBleed` are legacy/current general effect
+  types but must not be used for new Relic SO JSON. They do not express the
+  approved Relic per-target refresh and poison contracts.
+- Range-gated relics must use an approved data-driven range field. For elite
+  proximity move speed, author both `EliteApproachMoveSpeedPercent` and
+  `EliteApproachRadius` stat modifiers.
 
 For `StatModifier`, use current builder fields `statType`, `modifierType`, and
 `value`. Do not use the older `targetStat` alias in new relic JSON. Do not map
-Relic behavior to `ChanceOnHitStatModifier` or `AttackBleed` until their dynamic
-hit-target runtime support exists.
+Relic behavior to `ChanceOnHitStatModifier` or `AttackBleed`; use the Relic-safe
+on-hit types above.
 
 ## 5. Lifetime Rules
 

@@ -1,27 +1,27 @@
 {
-  "schemaVersion": "1.0.0",
-  "documentType": "relic_production_migration_report",
-  "branch": "pvenus_agent_item",
-  "sourceOfTruth": "Assets/Doc/Relic approved planning documents",
-  "mapping": "Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json",
-  "normalizedJsonGenerated": [
-    "Assets/Resources/item/json/item.relic.black_incense_candle.json",
-    "Assets/Resources/item/json/item.relic.red_feather.json",
-    "Assets/Resources/item/json/item.relic.spiked_carapace.json"
-  ],
-  "normalizedJsonBlocked": [
-    "item.relic.blunt_gear: requires exact finalDistanceMeters knockback runtime, not current force API",
-    "item.relic.electric_crystal: requires dynamic target non-stack timed stun refresh",
-    "item.relic.ember_necklace: requires dynamic target non-stack timed stat debuff refresh",
-    "item.relic.frozen_nail: requires dynamic target non-stack timed stat debuff refresh",
-    "item.relic.golden_fang: requires owner on-kill gold reward effect",
-    "item.relic.old_war_horn: requires data-driven elite proximity radius 8m",
-    "item.relic.toxic_pouch: requires poison DoT runtime distinct from AttackBleed"
-  ],
-  "unityEditorStatus": "not_available_in_current_environment",
-  "assetMigrationStatus": "pending",
-  "assetMigrationReason": "Unity Editor execution/import validation is required to update production RelicSO assets in-place without breaking GUID, ShopProduct, or Pool references. YAML hand-editing is intentionally not performed.",
-  "productionRelicAssetEditPerformed": false,
-  "shopProductPoolReferenceRisk": "not_touched",
-  "downstreamStatus": "blocked_until_runtime_and_unity_migration"
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_production_migration_report",
+    "branch":  "pvenus_agent_item",
+    "sourceOfTruth":  "Assets/Doc/Relic approved planning documents",
+    "mapping":  "Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json",
+    "normalizedJsonGenerated":  [
+                                    "Assets/Resources/item/json/item.relic.black_incense_candle.json",
+                                    "Assets/Resources/item/json/item.relic.red_feather.json",
+                                    "Assets/Resources/item/json/item.relic.spiked_carapace.json"
+                                ],
+    "normalizedJsonBlocked":  [
+                                  "item.relic.blunt_gear: requires exact finalDistanceMeters knockback runtime, not current force API",
+                                  "item.relic.electric_crystal: requires dynamic target non-stack timed stun refresh",
+                                  "item.relic.ember_necklace: requires dynamic target non-stack timed stat debuff refresh",
+                                  "item.relic.frozen_nail: requires dynamic target non-stack timed stat debuff refresh",
+                                  "item.relic.golden_fang: requires owner on-kill gold reward effect",
+                                  "item.relic.old_war_horn: requires data-driven elite proximity radius 8m",
+                                  "item.relic.toxic_pouch: requires poison DoT runtime distinct from AttackBleed"
+                              ],
+    "unityEditorStatus":  "not_available_in_current_environment",
+    "assetMigrationStatus":  "pending_unity_editor",
+    "assetMigrationReason":  "Unity Editor execution/import validation is required to update production RelicSO assets in-place without breaking GUID, ShopProduct, or Pool references. YAML hand-editing is intentionally not performed.",
+    "productionRelicAssetEditPerformed":  false,
+    "shopProductPoolReferenceRisk":  "not_touched",
+    "downstreamStatus":  "blocked_until_runtime_and_unity_migration"
 }

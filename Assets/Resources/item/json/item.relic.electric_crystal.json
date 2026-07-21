@@ -1,0 +1,40 @@
+{
+    "relicId":  "item.relic.electric_crystal",
+    "nameKo":  "전기 수정",
+    "descriptionKo":  "대상에게 감전 상태를 부여해 0.5초 동안 행동할 수 없게 한다.",
+    "icon":  "relic-icon-03_3",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.electric_crystal.stun_on_hit.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.electric_crystal.stun_on_hit",
+                                             "effectType":  "OnHitTimedStatModifier",
+                                             "effectName":  "item.relic.electric_crystal.stun_on_hit",
+                                             "config":  {
+                                                            "chancePercent":  8,
+                                                            "statType":  "StunDuration",
+                                                            "modifierType":  "Flat",
+                                                            "value":  0.5,
+                                                            "durationSeconds":  0.5
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "control",
+    "subCategory":  "on_hit_stun",
+    "hidden":  false,
+    "developerOnly":  false
+}

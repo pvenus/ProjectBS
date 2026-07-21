@@ -87,9 +87,10 @@ application count. Effect-specific fields belong only inside `effect.config`.
 - A persistent equipped stat or trigger effect normally uses `Manual` with
   `duration=0`.
 - On-hit behavior is expressed only by a trigger effect type currently supported
-  by the Relic runtime. `ChanceOnHitSkill` is owner-source filtered; `ChanceOnHitStatModifier`
-  and `AttackBleed` are blocked for Relic generation until dynamic hit-target
-  state, stacking, duration, and removal are modeled.
+  by the Relic runtime. `ChanceOnHitSkill`, `OnHitKnockbackDistance`,
+  `OnHitTimedStatModifier`, and `OnHitPoisonDot` are owner-source filtered.
+  Do not use legacy `ChanceOnHitStatModifier` or `AttackBleed` for new Relic
+  generation.
 - Current `RelicSO.effectEntries` has no per-entry target selector. Do not claim
   owner-only, party-only, or enemy-only targeting unless runtime support is
   verified for that effect.

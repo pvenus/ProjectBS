@@ -57,6 +57,9 @@ namespace Effect
         AttackBleed = 800,
         ChanceOnHitSkill = 900,
         Taunt = 1000,
+        OnHitKnockbackDistance = 1100,
+        OnHitTimedStatModifier = 1200,
+        OnHitPoisonDot = 1300,
     }
 
     public enum CooldownReduceType

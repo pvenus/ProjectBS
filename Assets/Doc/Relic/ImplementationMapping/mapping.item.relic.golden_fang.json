@@ -1,51 +1,69 @@
 {
-  "schemaVersion": "1.0.0",
-  "documentType": "relic_implementation_mapping",
-  "documentId": "mapping.item.relic.golden_fang",
-  "relicId": "item.relic.golden_fang",
-  "planningPath": "Assets/Doc/Relic/item.relic.golden_fang.planning.json",
-  "reviewStatus": "approved",
-  "runtimeSupportStatus": "blocked_runtime_mapping",
-  "runtimeBlocker": "Requires owner kill event reward effect. Current EffectType has no on-kill gold reward trigger.",
-  "legacyIcon": true,
-  "iconSpriteName": "relic-icon-06_2",
-  "iconGuid": "e9ee2c65a287542e1ba0c719c8a894a4",
-  "iconFileId": -546808616,
-  "themeColor": {
-    "r": 1,
-    "g": 1,
-    "b": 1,
-    "a": 1
-  },
-  "rarity": "Common",
-  "category": "economy",
-  "subCategory": "on_kill_gold",
-  "hidden": false,
-  "developerOnly": false,
-  "traceability": {
-    "sourceOfTruth": "approved planning",
-    "planningReviewStatus": "review_ready",
-    "legacyAssetUse": "icon/GUID/value comparison only"
-  },
-  "effects": [
-    {
-      "semanticEffectSlug": "bonus_gold_on_kill",
-      "planningTrace": "effectsKo[0]",
-      "supportedEffectType": null,
-      "proposedEffectType": "OnKillGoldBonus",
-      "config": {
-        "chancePercent": 6,
-        "bonusGoldBasePercent": 100
-      },
-      "lifetimeType": "Manual",
-      "categoryType": "Buff",
-      "duration": 0,
-      "maxApplyCount": 1,
-      "targetRule": "approved planning target",
-      "triggerRule": "approved planning trigger",
-      "stacking": "not_applicable",
-      "reapply": "not_applicable",
-      "termination": "removed when relic unequips"
-    }
-  ]
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.golden_fang",
+    "relicId":  "item.relic.golden_fang",
+    "planningPath":  "Assets/Doc/Relic/item.relic.golden_fang.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "relic-icon-06_2",
+    "iconGuid":  "e9ee2c65a287542e1ba0c719c8a894a4",
+    "iconFileId":  -546808616,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "economy",
+    "subCategory":  "on_kill_gold",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "bonus_gold_drop_chance",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "StatModifier",
+                        "config":  {
+                                       "statType":  "BonusGoldDropChance",
+                                       "modifierType":  "Flat",
+                                       "value":  6
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "not_applicable",
+                        "reapply":  "continuous",
+                        "termination":  "removed when relic unequips"
+                    },
+                    {
+                        "semanticEffectSlug":  "bonus_gold_drop_percent",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "StatModifier",
+                        "config":  {
+                                       "statType":  "BonusGoldDropPercent",
+                                       "modifierType":  "Flat",
+                                       "value":  100
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "not_applicable",
+                        "reapply":  "continuous",
+                        "termination":  "removed when relic unequips"
+                    }
+                ]
 }

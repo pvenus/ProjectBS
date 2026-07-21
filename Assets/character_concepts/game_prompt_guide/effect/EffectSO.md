@@ -48,6 +48,9 @@ This document describes how to author Effect JSON assets for gameplay effects, i
 | AttackBleed | Applies a bleed effect after attacking. |
 | ChanceOnHitSkill | Triggers another skill when hitting a target. |
 | Taunt | Forces the affected character to target the hit source for the entry duration. |
+| OnHitKnockbackDistance | Relic-safe owner hit listener that moves the hit target by a configured final distance. |
+| OnHitTimedStatModifier | Relic-safe owner hit listener that applies target-specific non-stacking timed stat state. |
+| OnHitPoisonDot | Relic-safe owner hit listener that applies target-specific poison damage over time. |
 
 `Taunt` uses an empty config object. Its duration is application metadata and
 belongs on the containing EffectEntry.
@@ -379,6 +382,88 @@ Applies a bleed effect to the target after an attack.
 - `chancePercent` should be between 0 and 100.
 - `chancePercent` must be greater than 0 to trigger.
 - `attackRatioPercent` must be greater than or equal to 0.
+
+### On Hit Knockback Distance
+
+Relic-safe owner hit listener. When the relic owner hits a target, the hit
+target is moved away from the owner by an exact configured distance, clipped by
+Rigidbody2D collision casts.
+
+```json
+{
+  "effectId": "effect.item.relic.blunt_gear.knockback_on_hit",
+  "effectType": "OnHitKnockbackDistance",
+  "config": {
+    "chancePercent": 100,
+    "distanceMeters": 0.4,
+    "directionType": "PushAwayFromSource"
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| chancePercent | number | Required | Percent chance to trigger on owner hit. Uses 0-100 scale. |
+| distanceMeters | number | Required | Final displacement distance in meters before collision clipping. |
+| directionType | KnockbackDirectionType | Required | Use `PushAwayFromSource` for approved Relic knockback away from owner. |
+
+### On Hit Timed Stat Modifier
+
+Relic-safe owner hit listener. It filters by source owner, resolves the hit
+target dynamically, and applies one target-specific timed state keyed by effect,
+source owner, and target. Reapplication refreshes duration without stacking.
+
+```json
+{
+  "effectId": "effect.item.relic.ember_necklace.attack_down_on_hit",
+  "effectType": "OnHitTimedStatModifier",
+  "config": {
+    "chancePercent": 10,
+    "statType": "AttackPercent",
+    "modifierType": "Flat",
+    "value": -15,
+    "durationSeconds": 3
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| chancePercent | number | Required | Percent chance to trigger on owner hit. Uses 0-100 scale. |
+| statType | StatType | Required | Target stat to modify. |
+| modifierType | StatModifierType | Required | `Flat`, `Percent`, or `Multiply`. |
+| value | number | Required | Modifier value, or duration value for duration stats. |
+| durationSeconds | number | Required | Produced target state duration. |
+
+For `StunDuration` and `RootDuration`, the runtime refreshes the duration stat
+to at least `value` and does not subtract it on removal, so the existing status
+tick service remains the single countdown owner.
+
+### On Hit Poison Dot
+
+Relic-safe owner hit listener. It snapshots the owner's attack when poison is
+applied, ticks once per configured interval, and refreshes one target-specific
+poison state without stacking.
+
+```json
+{
+  "effectId": "effect.item.relic.toxic_pouch.poison_on_hit",
+  "effectType": "OnHitPoisonDot",
+  "config": {
+    "chancePercent": 15,
+    "attackRatioPercentPerTick": 8,
+    "tickIntervalSeconds": 1,
+    "durationSeconds": 3
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| chancePercent | number | Required | Percent chance to trigger on owner hit. Uses 0-100 scale. |
+| attackRatioPercentPerTick | number | Required | Percent of owner attack snapshot dealt each tick. |
+| tickIntervalSeconds | number | Required | Tick interval. |
+| durationSeconds | number | Required | Produced target poison duration. |
 
 ## Validation Rules
 

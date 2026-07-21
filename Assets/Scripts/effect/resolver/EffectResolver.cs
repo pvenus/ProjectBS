@@ -232,6 +232,39 @@ namespace Effect
                         sourceTransform,
                         effectEntrySo.Duration);
 
+                case OnHitKnockbackDistanceEffectConfig onHitKnockbackDistanceConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitKnockbackDistanceEffectRuntime(
+                        effectSo,
+                        onHitKnockbackDistanceConfig,
+                        sourceCharacter);
+
+                case OnHitTimedStatModifierEffectConfig onHitTimedStatModifierConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitTimedStatModifierEffectRuntime(
+                        effectSo,
+                        onHitTimedStatModifierConfig,
+                        sourceCharacter);
+
+                case OnHitPoisonDotEffectConfig onHitPoisonDotConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitPoisonDotEffectRuntime(
+                        effectSo,
+                        onHitPoisonDotConfig,
+                        sourceCharacter);
+
                 default:
                     return null;
             }
