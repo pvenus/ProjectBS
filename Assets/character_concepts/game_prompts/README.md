@@ -45,4 +45,10 @@ Assets/character_concepts/game_prompts/item/StrategicSkillSOJsonGeneratePrompt.m
 Assets/character_concepts/game_prompts/item/StrategicSkillReversePlanningPrompt.md
 ```
 
+Relic item JSON generation:
+
+```text
+Assets/character_concepts/game_prompts/item/RelicItemSOJsonGeneratePrompt.md
+```
+
 Do not put reference guides in this folder.

@@ -28,6 +28,14 @@ Assets/character_concepts/game_prompt_guide/item/strategic/StrategicItemRulesGui
 Assets/character_concepts/game_prompt_guide/item/strategic/StrategicItemJsonGuide.md
 ```
 
+Relic item authoring guides:
+
+```text
+Assets/character_concepts/game_prompt_guide/item/relic/RelicItemSO.md
+Assets/character_concepts/game_prompt_guide/item/relic/RelicItemRulesGuide.md
+Assets/character_concepts/game_prompt_guide/item/relic/RelicItemJsonGuide.md
+```
+
 Standalone strategic skill authoring guides:
 
 ```text
