@@ -113,6 +113,10 @@ numeric-only canonical effect identity
 If the approved implementation mapping/spec is missing, incomplete, or requests
 runtime-unsupported behavior, stop with `missing_implementation_mapping` or
 `unsupported_relic_behavior`. Do not infer EffectSO config from planning prose.
+For Relic SO generation, `ChanceOnHitStatModifier` and `AttackBleed` are
+currently runtime-unsupported because they require dynamic hit-target state,
+duration, stacking, and removal semantics that the Relic owner listener does not
+safely provide.
 
 ## 6. Validation Matrix
 

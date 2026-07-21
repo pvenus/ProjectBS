@@ -60,10 +60,10 @@ Use only current `EffectType` values:
 | Immediate recovery | `Heal` |
 | Push or pull | `Knockback` |
 | Cooldown reduction | `CooldownReduce` |
-| Stat change after an attack hit | `ChanceOnHitStatModifier` |
+| Stat change after an attack hit | Unsupported for Relic SO generation until per-hit target state is modeled |
 | Stat change after healing | `ChanceOnHealStatModifier` |
 | Cooldown reduction after healing | `ChanceOnHealCooldownReduce` |
-| Bleed after attacking | `AttackBleed` |
+| Bleed after attacking | Unsupported for Relic SO generation until per-hit target state is modeled |
 | Trigger an existing skill after a hit | `ChanceOnHitSkill` |
 
 If the design requires an unsupported event, target filter, stacking rule, or
@@ -74,16 +74,22 @@ Current runtime limitations:
 
 - Relic equip effects require an explicit owner character at runtime. Workflows
   must not assume that a relic applies to the whole party or every character.
+- `ChanceOnHitStatModifier` and `AttackBleed` currently keep a single fixed
+  target/applied-value state in runtime. Relic equip installs a listener on the
+  owner, but the hit target must be resolved dynamically from the attack event;
+  therefore these effect types are blocked for Relic SO generation until safe
+  per-target duration, stacking, and removal semantics are implemented.
 - Produced on-hit debuffs with an independent duration are not represented by
-  `ChanceOnHitStatModifier`; without a supported mapping/spec they must remain
-  `needs_decision` or `unsupported_relic_behavior`.
+  the current Relic trigger runtime; without a supported mapping/spec they must
+  remain `needs_decision` or `unsupported_relic_behavior`.
 - Range-gated relics require an approved data-driven range field before SO JSON
   generation. Do not choose between conflicting document/localization/runtime
   values.
 
 For `StatModifier`, use current builder fields `statType`, `modifierType`, and
-`value`. For `ChanceOnHitStatModifier`, use `statType`, `valueType`, and `value`.
-Do not use the older `targetStat` alias in new relic JSON.
+`value`. Do not use the older `targetStat` alias in new relic JSON. Do not map
+Relic behavior to `ChanceOnHitStatModifier` or `AttackBleed` until their dynamic
+hit-target runtime support exists.
 
 ## 5. Lifetime Rules
 

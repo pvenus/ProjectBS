@@ -182,7 +182,8 @@ namespace Effect
                     return new ChanceOnHitStatModifierEffectRuntime(
                         effectSo,
                         chanceOnHitStatModifierConfig,
-                        targetCharacter);
+                        targetCharacter,
+                        sourceCharacter);
 
                 case ChanceOnHealStatModifierEffectConfig chanceOnHealStatModifierConfig:
                     if (targetCharacter == null)

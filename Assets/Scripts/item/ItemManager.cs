@@ -247,6 +247,14 @@ namespace Item
                 return;
             }
 
+            if (IsUnsupportedRelicTriggerEffect(effectEntry))
+            {
+                Debug.LogWarning(
+                    $"[ItemManager] Relic effect skipped because this trigger type is not safe for owner-listener dynamic targets. relic={relicEntry.relic?.relicId}, effect={effectEntry.EffectSO.EffectId}, config={effectEntry.EffectSO.Config?.GetType().Name}",
+                    ownerCharacter);
+                return;
+            }
+
             EffectEntryRuntime runtimeEntry =
                 EffectResolveHelper.CreateRuntimeEntry(
                     effectEntry,
@@ -262,6 +270,16 @@ namespace Item
             EffectApplyHelper.ApplyEffect(
                 effectManager,
                 runtimeEntry);
+        }
+
+        private bool IsUnsupportedRelicTriggerEffect(
+            EffectEntrySO effectEntry)
+        {
+            EffectConfig config =
+                effectEntry?.EffectSO?.Config;
+
+            return config is ChanceOnHitStatModifierEffectConfig
+                || config is AttackBleedEffectConfig;
         }
 
         private CharacterManager ResolveCharacterManager(

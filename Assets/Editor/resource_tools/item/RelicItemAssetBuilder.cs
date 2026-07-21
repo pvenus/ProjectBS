@@ -163,6 +163,19 @@ namespace ResourceTools.Item
                 return false;
             }
 
+            if (SpriteHelper.FindSpriteByName(data.icon) == null)
+            {
+                Debug.LogError($"[RelicItemAssetBuilder] icon Sprite could not be resolved. relicId={data.relicId}, icon={data.icon}");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(data.category)
+                || string.IsNullOrWhiteSpace(data.subCategory))
+            {
+                Debug.LogError($"[RelicItemAssetBuilder] category and subCategory are required. relicId={data.relicId}");
+                return false;
+            }
+
             if (!IsValidColor(data.themeColor))
             {
                 Debug.LogError($"[RelicItemAssetBuilder] themeColor must be 0..1. relicId={data.relicId}");
