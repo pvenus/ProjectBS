@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "relic_item_design",
+  "documentId": "design.item.relic.frozen_nail",
+  "relic": {
+    "relicId": "item.relic.frozen_nail",
+    "nameKo": "얼어붙은 못",
+    "reviewStatus": "review_ready",
+    "rarityKo": "일반",
+    "designRoleKo": {
+      "primary": "상태 이상",
+      "secondary": "위치 제어"
+    },
+    "conceptKo": "얼어붙은 못의 냉기가 공격을 타고 퍼져 적의 발을 느리게 만든다.",
+    "intendedUseKo": "빠르게 접근하거나 이탈하는 적의 이동을 늦춰 전투 거리를 유지할 때 사용한다.",
+    "equipBehaviorKo": "장착되어 있는 동안 공격에 냉기 발생 가능성이 추가된다.",
+    "triggerKo": "장착한 캐릭터의 공격이 적에게 적중할 때 12% 확률로 발동한다.",
+    "targetKo": "공격에 적중한 적에게 적용한다.",
+    "effectsKo": [
+      "대상에게 냉기 상태를 부여한다.",
+      "냉기 상태인 대상은 이동속도가 15% 감소하며 2초 동안 유지된다."
+    ],
+    "synergyKo": [
+      "원거리 공격이나 지속적인 공격으로 적과 거리를 유지하는 빌드와 조합한다."
+    ],
+    "tradeoffKo": "이동속도만 약화하며 지속시간이 2초로 짧다.",
+    "presentationKo": "대상의 발밑에 서리와 냉기 흔적이 남아 이동속도 감소를 식별할 수 있어야 한다.",
+    "balanceContext": {
+      "rarityTierKo": "일반",
+      "equipSlotContextKo": "동시에 최대 3개의 유물을 장착하는 환경에서 감속의 발동률과 지속시간을 비교한다."
+    },
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 유물 자료와 현지화 설명을 바탕으로 역기획한 초안"
+  }
+}

@@ -9,7 +9,7 @@ The `EffectSO` is defined as a ScriptableObject asset representing a single game
   "effectId": "effect.stat.attack_up",
   "effectType": "StatModifier",
   "config": {
-    "targetStat": "Attack",
+    "statType": "Attack",
     "modifierType": "Flat",
     "value": 20
   }
@@ -93,7 +93,7 @@ Modifies a target's stat by a flat amount or a percentage. Commonly used for buf
   "effectId": "effect.attack_up",
   "effectType": "StatModifier",
   "config": {
-    "targetStat": "Attack",
+    "statType": "Attack",
     "modifierType": "Percent",
     "value": 20
   }
@@ -102,11 +102,15 @@ Modifies a target's stat by a flat amount or a percentage. Commonly used for buf
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| targetStat | StatType | Required | The stat to modify. See [StatEnum.md](../character/StatEnum.md). |
+| statType | StatType | Required | The stat to modify. See [StatEnum.md](../character/StatEnum.md). |
 | modifierType | StatModifierType | Required | `Flat`, `Percent`, or `Multiply`. |
 | value | number | Required | Amount to add as flat value or percentage. A value of 0 has no effect. |
 
 **Notes:**
+
+- Use `statType`, which is the current `EffectAssetBuilder` field.
+- Do not author the obsolete `targetStat` alias; unknown fields are ignored by
+  the current builder.
 
 - Only include one stat per effect.
 - Use positive values for buffs and negative values for debuffs.

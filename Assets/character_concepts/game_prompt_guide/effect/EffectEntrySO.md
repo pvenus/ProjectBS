@@ -19,7 +19,9 @@ runtime behavior.
   "lifetimeType": "CombatTimed",
   "categoryType": "Buff",
   "duration": 5,
-  "maxApplyCount": 1
+  "maxApplyCount": 1,
+  "hasValueOverride": false,
+  "valueOverride": 0
 }
 ```
 
@@ -46,6 +48,8 @@ For example, the same `EffectSO` can be reused with different entries:
 | categoryType | EffectCategoryType | Effect category used for grouping and UI. | Required |
 | duration | float | Duration value. Must be 0 or greater. | Required |
 | maxApplyCount | int | Maximum number of times this entry can apply. Must be greater than 0. | Required |
+| hasValueOverride | bool | Whether this entry overrides the Effect's primary value. | Optional; defaults to `false` |
+| valueOverride | float | Override value used only when `hasValueOverride` is `true`. | Conditional |
 
 `effect` is required.
 
@@ -54,6 +58,9 @@ For example, the same `EffectSO` can be reused with different entries:
 - `effect` contains a complete `EffectSO` JSON object.
 - The full schema is documented in `EffectSO.md`.
 - `EffectEntrySO` only adds application metadata such as lifetime, category, duration, and maxApplyCount.
+- `hasValueOverride` and `valueOverride` are optional current builder fields.
+  Keep `hasValueOverride=false` and `valueOverride=0` when no approved override
+  is required.
 
 
 The entry itself does not define effect-specific parameters such as stat type, heal amount, knockback force, or bleed ratio. Those values belong to `EffectSO`.
@@ -199,6 +206,8 @@ lifetimeType            : Required enum.
 categoryType            : Required enum.
 duration                : Must be >= 0.
 maxApplyCount           : Must be > 0.
+hasValueOverride        : Optional; defaults to false.
+valueOverride           : Used only when hasValueOverride is true.
 Timed duration          : Should be > 0.
 Instant duration        : Usually 0; Taunt requires a positive duration.
 Manual duration         : Usually 0.
