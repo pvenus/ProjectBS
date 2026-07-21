@@ -204,4 +204,5 @@ That spec must provide:
 
 If no approved mapping/spec exists, or if the mapping asks for runtime behavior
 that current Effect types cannot reproduce, SO JSON conversion must stop with a
-clear failure instead of approximating the behavior.
+clear failure instead of approximating the behavior. This failure does not change
+the planning review status when the gameplay decision itself is complete.

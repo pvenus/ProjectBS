@@ -61,8 +61,9 @@ Planning Boundary:
 - Do not request or emit implementation mapping fields in this planning step.
 - Do not emit effectType, config, lifetimeType, categoryType, duration,
   maxApplyCount, EffectSO, EffectEntrySO, asset paths, GUIDs, or builder names.
-- If the concept is not enough for SO conversion, record gameplay questions in
-  openQuestionsKo and keep the output as planning only.
+- If gameplay choices are unresolved, record those questions in openQuestionsKo
+  and keep the output as planning only. Do not use runtime or SO mapping support
+  gaps as planning open questions once the gameplay decision is approved.
 
 검증:
 - schemaVersion은 1.0.0이고 documentType은 relic_item_design이어야 한다.
@@ -70,7 +71,8 @@ Planning Boundary:
 - 역기획 문서와 동일한 필드 및 상세도를 가져야 한다.
 - effectsKo는 일반 기획 언어로 완전한 효과와 단위를 설명해야 한다.
 - SO/Effect JSON 필드, runtime enum, asset reference, builder 명칭이 없어야 한다.
-- 불확실한 값이 임의로 확정되거나 review_ready로 표시되지 않아야 한다.
+- 불확실한 gameplay 값이 임의로 확정되거나 review_ready로 표시되지 않아야 한다.
+- runtime 또는 SO mapping 미지원만으로 승인 완료된 기획을 needs_decision으로 낮추지 않는다.
 - index의 planningPath와 실제 파일이 일치해야 한다.
 
 실패 시 Output:

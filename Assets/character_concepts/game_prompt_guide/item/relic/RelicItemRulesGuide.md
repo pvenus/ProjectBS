@@ -66,9 +66,10 @@ Use only current `EffectType` values:
 | Bleed after attacking | Unsupported for Relic SO generation until per-hit target state is modeled |
 | Trigger an existing skill after a hit | `ChanceOnHitSkill` |
 
-If the design requires an unsupported event, target filter, stacking rule, or
-effect type, stop with `unsupported_relic_behavior`. Do not approximate it with a
-different supported effect.
+If an approved implementation mapping requires an unsupported event, target
+filter, stacking rule, or effect type, stop SO JSON generation with
+`unsupported_relic_behavior`. Do not approximate it with a different supported
+effect.
 
 Current runtime limitations:
 
@@ -80,11 +81,13 @@ Current runtime limitations:
   therefore these effect types are blocked for Relic SO generation until safe
   per-target duration, stacking, and removal semantics are implemented.
 - Produced on-hit debuffs with an independent duration are not represented by
-  the current Relic trigger runtime; without a supported mapping/spec they must
-  remain `needs_decision` or `unsupported_relic_behavior`.
+  the current Relic trigger runtime. Approved gameplay planning may still be
+  `review_ready`; SO JSON generation must stop with `unsupported_relic_behavior`
+  until a supported mapping/spec and runtime path exist.
 - Range-gated relics require an approved data-driven range field before SO JSON
   generation. Do not choose between conflicting document/localization/runtime
-  values.
+  values during implementation mapping; use the approved planning value when it
+  exists.
 
 For `StatModifier`, use current builder fields `statType`, `modifierType`, and
 `value`. Do not use the older `targetStat` alias in new relic JSON. Do not map
