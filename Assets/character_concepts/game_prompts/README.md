@@ -51,6 +51,7 @@ Relic item JSON generation:
 Assets/character_concepts/game_prompts/item/RelicItemSOJsonGeneratePrompt.md
 Assets/character_concepts/game_prompts/item/RelicItemPlanningCreatePrompt.md
 Assets/character_concepts/game_prompts/item/RelicItemReversePlanningPrompt.md
+Assets/character_concepts/game_prompts/item/ItemIconGenerationPrompt.md
 ```
 
 Do not put reference guides in this folder.

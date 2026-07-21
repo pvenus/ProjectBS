@@ -31,6 +31,7 @@ Assets/character_concepts/game_prompt_guide/item/strategic/StrategicItemJsonGuid
 Relic item authoring guides:
 
 ```text
+Assets/character_concepts/game_prompt_guide/item/ItemIconGenerationGuide.md
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemSO.md
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemRulesGuide.md
 Assets/character_concepts/game_prompt_guide/item/relic/RelicItemJsonGuide.md
