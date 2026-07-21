@@ -10,26 +10,24 @@
       "grade": "Basic",
       "gaugeCost": 10
     },
-    "reviewStatus": "needs_decision",
+    "reviewStatus": "review_ready",
     "tacticalRoleKo": {
       "primary": "행동 제어",
       "secondary": null
     },
     "conceptKo": "부적이 강한 섬광을 터뜨려 주변 적을 멈춘다.",
-    "intendedUseKo": "작은 범위의 적을 짧게 기절시켜 즉시 대응 시간을 번다.",
-    "targetingKo": "플레이어가 지정한 위치의 반경 4m 안에 적용한다.",
+    "intendedUseKo": "지정 위치에서 효과가 먼저 닿은 적 한 명을 짧게 기절시켜 즉시 대응 시간을 번다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 4m 안에서 효과가 먼저 닿은 적 1명에게 적용한다.",
     "effectsKo": [
-      "범위 안의 적을 1초 동안 기절시킨다."
+      "선택된 적 1명을 1초 동안 기절시킨다."
     ],
-    "executionKo": "사용 즉시 한 번 적용한다.",
-    "presentationKo": "4m 섬광 반경과 1초 기절 상태를 즉시 읽을 수 있어야 한다.",
+    "executionKo": "전투 중 전략 게이지 10을 소비해 지정 위치에 사용하며 게이지 외 별도 재사용 대기시간은 없다. 사용 즉시 적 1명에게 한 번 적용한다. 같은 적에게 다시 적용하면 남은 기절 시간에 1초를 더하며, 기절 시간이 0이 되면 종료된다.",
+    "presentationKo": "4m 탐색 반경, 실제로 선택된 적 1명, 1초 기절 상태를 즉시 읽을 수 있어야 한다.",
     "balanceContext": {
       "itemGrade": "Basic",
       "gaugeCost": 10
     },
-    "openQuestionsKo": [
-      "범위 전체 적용 또는 단일 대상 기절 중 하나를 확정"
-    ],
+    "openQuestionsKo": [],
     "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
   }
 }

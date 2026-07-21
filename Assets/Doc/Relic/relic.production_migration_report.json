@@ -6,6 +6,14 @@
   "mapping": "Assets/Doc/Relic/ImplementationMapping/relic_implementation_mapping.index.json",
   "runtimeSupportStatus": "supported_current",
   "runtimeSupportCount": "10/10",
+  "normalizedJsonValidation": "10/10 passed after updating 5 descriptionKo fields to include approved trigger chances",
+  "normalizedJsonResult": {
+    "created": 0,
+    "updated": 5,
+    "noOp": 5,
+    "failed": 0
+  },
+  "mappingMetadataValidation": "10/10 passed after correcting mapping.item.relic.black_incense_candle.json iconFileId to the actual Sprite meta fileId 2022711067700164581",
   "normalizedJsonGenerated": [
     "Assets/Resources/item/json/item.relic.black_incense_candle.json",
     "Assets/Resources/item/json/item.relic.blunt_gear.json",
@@ -19,14 +27,18 @@
     "Assets/Resources/item/json/item.relic.toxic_pouch.json"
   ],
   "normalizedJsonBlocked": [],
-  "unityEditorPath": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.10f1\\Editor\\Unity.exe",
-  "unityEditorStatus": "installed_but_batchmode_blocked_by_license",
+  "unityProjectVersion": "6000.3.10f1",
+  "unityEditorPath": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.10f1\\Editor\\Unity.exe",
+  "unityEditorStatus": "required_project_version_not_installed",
+  "otherInstalledEditorPath": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.10f1\\Editor\\Unity.exe",
+  "unityLicenseStatus": "no_valid_license_artifact_found_read_only_preflight",
   "unityCompileStatus": "not_run_license_blocked",
-  "unityCompileLog": "C:\\Users\\parkv\\Documents\\Codex\\relic_unity_compile_1.log",
+  "unityCompileLog": null,
   "assetMigrationBeforeStatus": "production RelicSO assets still use legacy serialized data until Unity migration can run",
-  "assetMigrationStatus": "pending_unity_license_activation",
+  "assetMigrationStatus": "ASSET_MIGRATION_BLOCKED_LICENSE",
   "assetMigrationAfterStatus": "not_run_license_blocked",
-  "assetMigrationReason": "Unity 6000.0.10f1 is installed, but batchmode exited before project import with: No valid Unity Editor license found. Please activate your license. Production RelicSO YAML assets were not edited by hand.",
+  "assetMigrationReason": "Read-only preflight found no Unity license artifact, so batchmode was not repeated. The exact project editor 6000.3.10f1 is also not installed; only 6000.0.10f1 was found. Production RelicSO YAML assets were not edited by hand.",
+  "migrationExecuteMethod": "ResourceTools.Item.RelicItemAssetBuilder.MigrateProductionRelicsFromJsonBatch",
   "productionRelicAssetEditPerformed": false,
   "shopProductPoolReferenceRisk": "not_touched",
   "downstreamStatus": "blocked_until_unity_license_allows_batchmode_migration"

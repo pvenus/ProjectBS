@@ -10,27 +10,24 @@
       "grade": "Basic",
       "gaugeCost": 10
     },
-    "reviewStatus": "blocked",
+    "reviewStatus": "review_ready",
     "tacticalRoleKo": {
       "primary": "회복",
-      "secondary": null
+      "secondary": "범위 지원"
     },
-    "conceptKo": "전장 의료용 단약이 위급한 아군에게 즉시 전달된다.",
-    "intendedUseKo": "현재 체력이 가장 낮은 아군 한 명을 즉시 회복한다.",
-    "targetingKo": "사용 시 현재 체력이 가장 낮은 아군 1명을 자동 선택한다.",
+    "conceptKo": "전장 의원의 단약을 지정한 위치에 퍼뜨려 주변 아군을 응급 치료한다.",
+    "intendedUseKo": "여러 아군이 함께 피해를 입었을 때 아군이 모인 위치를 지정해 즉시 회복시킨다.",
+    "targetingKo": "플레이어가 지정한 위치의 반경 1m 안에 있는 모든 아군에게 적용한다.",
     "effectsKo": [
-      "현재 체력이 가장 낮은 아군 1명의 체력을 30 회복한다."
+      "범위 안의 모든 아군이 각각 체력 30을 즉시 회복한다."
     ],
-    "executionKo": "사용 즉시 한 번 적용한다.",
-    "presentationKo": "자동 선정된 대상과 30 회복을 명확히 표시한다.",
+    "executionKo": "전투 중 전략 게이지 10을 소비해 지정 위치에 사용하며 게이지 외 별도 재사용 대기시간은 없다. 사용 즉시 범위 안의 모든 아군에게 회복을 한 번 적용하고 곧바로 종료한다.",
+    "presentationKo": "지정 위치의 작은 회복 범위와 범위 안 모든 아군에게 발생하는 회복 표시가 명확히 보이게 한다.",
     "balanceContext": {
       "itemGrade": "Basic",
       "gaugeCost": 10
     },
-    "openQuestionsKo": [
-      "게임플레이 설명 추가",
-      "현재 체력이 가장 낮은 아군 자동 선택과 위치 지정 회복 중 하나를 확정"
-    ],
-    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 응급 단약의 반경 1m와 체력 30 회복을 바탕으로, 승인된 기획에 따라 대상을 범위 안의 모든 아군으로 확정한 역기획 문서"
   }
 }

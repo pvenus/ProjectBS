@@ -1,0 +1,97 @@
+{
+  "equipmentId": "skill.strategic.wind_demon_pull",
+  "skillName": "풍마인",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.wind_demon_pull.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 8.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.wind_demon_pull.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.wind_demon_pull.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.wind_demon_pull.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "entryId": "effect.skill.strategic.wind_demon_pull.pull.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.wind_demon_pull.pull",
+            "effectType": "Knockback",
+            "effectName": "effect.skill.strategic.wind_demon_pull.pull",
+            "config": {
+              "force": 10,
+              "directionType": "PullToSource",
+              "normalizeDirection": true,
+              "fallbackToProjectileDirection": true
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        },
+        {
+          "entryId": "effect.skill.strategic.wind_demon_pull.root.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.wind_demon_pull.root",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.wind_demon_pull.root",
+            "config": {
+              "statType": "RootDuration",
+              "modifierType": "Flat",
+              "value": 2
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.wind_demon_pull.visual",
+    "projectileVisualType": "Default"
+  }
+}
