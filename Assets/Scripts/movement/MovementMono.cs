@@ -77,6 +77,55 @@ public class MovementMono : MonoBehaviour
             knockbackController.ApplyKnockback(direction.normalized * Mathf.Max(0f, force));
     }
 
+    public bool ApplyDisplacement(Vector2 direction, float distance)
+    {
+        if (targetRigidbody == null
+            || direction.sqrMagnitude <= 0.0001f
+            || distance <= 0f)
+        {
+            return false;
+        }
+
+        Vector2 normalized = direction.normalized;
+        float safeDistance = Mathf.Max(0f, distance);
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            useTriggers = false,
+            useLayerMask = false
+        };
+
+        RaycastHit2D[] hits = new RaycastHit2D[8];
+        int hitCount = targetRigidbody.Cast(
+            normalized,
+            filter,
+            hits,
+            safeDistance);
+
+        float resolvedDistance = safeDistance;
+        for (int i = 0; i < hitCount; i++)
+        {
+            if (hits[i].collider == null)
+            {
+                continue;
+            }
+
+            resolvedDistance =
+                Mathf.Min(
+                    resolvedDistance,
+                    Mathf.Max(0f, hits[i].distance - 0.01f));
+        }
+
+        if (resolvedDistance <= 0f)
+        {
+            return false;
+        }
+
+        StopAllMotion();
+        targetRigidbody.MovePosition(
+            targetRigidbody.position + normalized * resolvedDistance);
+        return true;
+    }
+
     public bool CanMove()
     {
         return characterManager == null || characterManager.CanMove;

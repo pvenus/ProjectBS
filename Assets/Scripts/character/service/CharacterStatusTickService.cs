@@ -229,12 +229,21 @@ namespace Character.Service
                 characterManager.GetStatValue(
                     StatType.EliteApproachMoveSpeedPercent);
 
+            float radius =
+                characterManager.GetStatValue(
+                    StatType.EliteApproachRadius);
+
+            if (radius <= 0f)
+            {
+                radius = 3f;
+            }
+
             float currentBonus =
                 appliedEliteApproachMoveSpeedBonus;
 
             bool hasEliteNearby = IsEliteNearby(
                 characterManager,
-                3f);
+                radius);
 
             float targetBonus =
                 hasEliteNearby

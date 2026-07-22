@@ -2,6 +2,10 @@
 
 ## Structure
 
+`categoryType: Debuff` classifies a harmful or control entry. It does not select
+an effect behavior by itself; the embedded effect type still determines the
+runtime behavior.
+
 `EffectEntrySO` defines how an `EffectSO` is applied.
 
 `EffectSO` describes **what the effect is**, while `EffectEntrySO` describes **how that effect is applied in a specific context**.
@@ -75,7 +79,7 @@ This document only describes the application metadata added by `EffectEntrySO`.
 
 | Value | Description |
 |-------|-------------|
-| Instant | Applies immediately and does not remain active. |
+| Instant | Applies immediately and is not retained by EffectManager. The applied gameplay state may own a duration, as Taunt does. |
 | Manual | Remains active until explicitly removed. |
 | Timed | Remains active for `duration`. |
 | CombatTimed | Remains active for `duration` during combat. |
@@ -205,7 +209,7 @@ maxApplyCount           : Must be > 0.
 hasValueOverride        : Optional; defaults to false.
 valueOverride           : Used only when hasValueOverride is true.
 Timed duration          : Should be > 0.
-Instant duration        : Usually 0.
+Instant duration        : Usually 0; Taunt requires a positive duration.
 Manual duration         : Usually 0.
 ```
 
@@ -234,6 +238,7 @@ Unlimited apply count is not supported. Use a sufficiently large value if repeat
 - Keep entry JSON focused on application rules.
 - Use `effect` to embed the complete `EffectSO` JSON defined in [`EffectSO.md`](./EffectSO.md).
 - Prefer `Instant` for immediate effects such as heal or one-time cooldown reduction.
+- Use `Instant`, `Debuff`, and a positive duration for Taunt; do not put its duration inside the effect config.
 - Prefer `CombatTimed` for temporary combat buffs or debuffs.
 - Prefer `Manual` for bless, relic, equipment, or persistent effects.
 - Do not use negative duration values.

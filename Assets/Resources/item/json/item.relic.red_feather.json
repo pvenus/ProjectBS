@@ -1,0 +1,38 @@
+{
+    "relicId":  "item.relic.red_feather",
+    "nameKo":  "붉은 깃털",
+    "descriptionKo":  "공격속도가 8% 증가한다.",
+    "icon":  "relic-icon-04_1",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.red_feather.attack_speed_up.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.red_feather.attack_speed_up",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.red_feather.attack_speed_up",
+                                             "config":  {
+                                                            "statType":  "AttackSpeedPercent",
+                                                            "modifierType":  "Flat",
+                                                            "value":  8
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "offense",
+    "subCategory":  "attack_speed",
+    "hidden":  false,
+    "developerOnly":  false
+}

@@ -36,6 +36,7 @@ namespace Stat
         EliteDamagePercent = 1270,
 
         EliteApproachMoveSpeedPercent = 1275,
+        EliteApproachRadius = 1277,
 
         LowHpAttackBonus = 1280,
 

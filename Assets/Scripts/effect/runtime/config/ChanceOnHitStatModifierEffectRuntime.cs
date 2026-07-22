@@ -11,6 +11,8 @@ namespace Effect
 
         private readonly CharacterManager targetCharacter;
 
+        private readonly CharacterManager sourceCharacter;
+
         private bool isApplied;
 
         private float appliedValue;
@@ -18,11 +20,13 @@ namespace Effect
         public ChanceOnHitStatModifierEffectRuntime(
             EffectSO effectSO,
             ChanceOnHitStatModifierEffectConfig config,
-            CharacterManager targetCharacter)
+            CharacterManager targetCharacter,
+            CharacterManager sourceCharacter = null)
         {
             this.effectSO = effectSO;
             this.config = config;
             this.targetCharacter = targetCharacter;
+            this.sourceCharacter = sourceCharacter;
 
             RuntimeId =
                 $"ChanceOnHitStatModifier_{effectSO.EffectId}_{GetTargetRuntimeId()}";
@@ -58,6 +62,17 @@ namespace Effect
                 || config == null
                 || targetCharacter == null
                 || request == null)
+            {
+                return;
+            }
+
+            if (request.attacker == null || request.target == null)
+            {
+                return;
+            }
+
+            if (sourceCharacter != null
+                && request.attacker.GetComponent<CharacterManager>() != sourceCharacter)
             {
                 return;
             }

@@ -37,6 +37,8 @@ targetingKo
 effectsKo
 executionKo
 presentationKo
+mechanicsCompleteness = pass
+evidenceConflictCount = 0
 ```
 
 Do not infer missing balance numbers from a name or flavor text.
@@ -44,6 +46,21 @@ When a reverse-planned entry is used, do not generate standalone skill JSON from
 `needs_decision` or `blocked` status. Translate the plain-language design through
 this guide and the detailed SO guides; do not require SO field names inside the
 planning document.
+
+Before conversion, confirm that the approved planning text resolves every
+applicable topic below:
+
+```text
+activation and use restriction
+target selection and target distribution
+application area
+ordered effects
+per-hit/per-second/total numeric basis
+count and interval
+duration
+stacking and reapplication
+termination
+```
 
 ## 3. Output and Overwrite Rules
 
@@ -124,6 +141,11 @@ Optional multi-projectile fields:
 
 Do not use legacy `LowestHpAlly`.
 
+`cooldown: 0` is the strategic default only when the approved planning states
+that the linked item gauge is the sole use restriction. Do not overwrite an
+explicit approved cooldown with 0. A non-zero strategic cooldown requires
+verified activation-service support.
+
 ### 5.3 Move
 
 Immediate point-centered area:
@@ -188,6 +210,15 @@ Use `Rain` only for supported falling-object or bombardment behavior.
 
 Omit damage for pure heal, buff, debuff, control, or displacement.
 
+The planning-to-damage mapping is exact:
+
+- "회당 N 피해" maps N to one occurrence's damage, not the total.
+- "총 N 피해" must first be divided only when count and equal distribution are
+  explicitly approved.
+- A percentage-point stat change (`%p`) is not damage scaling.
+- Do not derive attack scaling, critical behavior, or defense ignore from grade,
+  gauge cost, name, or visual concept.
+
 ## 7. Effect Entry Schema
 
 Use the current nested `config` form.
@@ -237,9 +268,42 @@ Timed party buff:
 }
 ```
 
-Do not use `valueType` for current `StatModifier`. Do not generate `Taunt`.
+Do not use `valueType` for current `StatModifier`.
 `ChanceOnHitStatModifier` is a different config and does use `valueType`; follow
 the exact per-effect field table in `StrategicSkillRulesGuide.md`.
+
+Taunt debuff:
+
+```json
+{
+  "entryId": "effect.skill.strategic.{slug}.taunt.entry",
+  "effect": {
+    "effectId": "effect.skill.strategic.{slug}.taunt",
+    "effectType": "Taunt",
+    "effectName": "{name_ko} 도발",
+    "config": {}
+  },
+  "lifetimeType": "Instant",
+  "categoryType": "Debuff",
+  "duration": 6,
+  "maxApplyCount": 1
+}
+```
+
+Taunt duration belongs on the EffectEntry, not inside `effect.config`. Taunt is
+resolved before collision and bound to the character hit and the current
+projectile transform immediately before application. Use `Instant` with a
+positive duration; forced-target state owns the expiry and a later application
+replaces the target and restarts the duration.
+
+For strategic-skill generation, the current field table in
+`StrategicSkillRulesGuide.md` is normative when a shared `EffectSO.md` example
+uses a historical name. Fail with `conflicting_design_input` if the guide table
+and current builder no longer agree.
+
+Planning stacking language must be validated against the selected EffectSO and
+EffectEntry runtime behavior. `maxApplyCount` must not be used as a substitute
+for an unimplemented stacking policy.
 
 ## 8. Generation Procedure
 
@@ -266,6 +330,9 @@ the exact per-effect field table in `StrategicSkillRulesGuide.md`.
 | Targeting | `Position` under current service |
 | Hit count | No count/deactivation contradiction |
 | Effects | Current enum, config, polarity, lifetime, duration |
+| Evidence | No unresolved evidence conflict |
+| Mechanics | Target distribution, numeric basis, repetition, stacking, use restriction, and termination resolved |
+| Planning status | Exactly `review_ready` with no open question |
 | Boundary | No item JSON, asset, meta, CSV, image, animation, or prefab created |
 
 ## 10. Failure Types

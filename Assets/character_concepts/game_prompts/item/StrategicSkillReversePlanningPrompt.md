@@ -1,7 +1,7 @@
 # Strategic Skill Reverse Planning Prompt
 
-기존 전략 아이템의 embedded skill과 생성된 스킬 리소스를 분석해 전략
-스킬 기획 문서를 역기획할 때 사용합니다.
+기존 전략 아이템의 embedded skill과 생성된 스킬 리소스를 분석해 역기획하거나,
+승인된 신규 설계 입력을 동일한 전략 스킬 기획 형식으로 문서화할 때 사용합니다.
 
 ## Prompt
 
@@ -12,6 +12,7 @@
 
 Input:
 - projectRoot: {project_root}
+- planningMode: {reverse_existing | new_design}
 - legacyStrategicItemRoot: Assets/Resources/shop/strategic/so
 - generatedSkillResourceRoots:
   - Assets/Resources/skill/json
@@ -22,6 +23,31 @@ Input:
 - outputPlanningRoot: Assets/Doc/StrategicSkill
 - outputPlanningIndexPath: Assets/Doc/StrategicSkill/strategic_skill.planning.index.json
 - outputPlanningPathPattern: Assets/Doc/StrategicSkill/{skillId}.planning.json
+- approvedDesignInput: {
+    sourceDesignPath: {null | path},
+    skillSlug: {null | lowercase_snake_case},
+    skillNameKo: {null | string},
+    linkedItemId: {null | item.strategic.*},
+    itemGrade: {null | Basic | Advanced},
+    gaugeCost: {null | 0..100},
+    primaryIntent: {null | string},
+    secondaryIntent: {null | string},
+    activationKo: {null | string},
+    targetingKo: {null | string},
+    effectsKo: {[] | string[]},
+    executionKo: {null | string},
+    stackingKo: {null | string},
+    cooldownKo: {null | string},
+    terminationKo: {null | string},
+    presentationKo: {null | string}
+  }
+
+입력 모드 규칙:
+- reverse_existing은 기존 item.json, embedded skill, 생성 SO, 현재 런타임을 근거 우선순위에 따라 비교한다.
+- new_design은 approvedDesignInput 또는 sourceDesignPath의 승인된 설계만 사용한다. 이름이나 콘셉트만으로 피해, 범위, 지속시간, 횟수, 비용을 추정하지 않는다.
+- new_design에서 대상, 효과 수치, 실행 방식, 중첩, 종료 조건처럼 구현과 밸런스에 필요한 핵심 입력이 빠지면 review_ready로 만들지 않는다.
+- generatedSkillResourceRoots 중 일부가 없더라도 하나 이상의 유효한 근거 root와 대상 item이 있으면 계속한다. 모든 근거 root가 없을 때만 missing_source_root로 실패한다.
+- 존재하지 않는 선택 root는 Issue Summary에 기록하되 그 자체로 전체 실패 처리하지 않는다.
 
 참조 가이드:
 - Assets/character_concepts/game_prompt_guide/skill/strategic/StrategicSkillPlanningGuide.md
@@ -48,6 +74,14 @@ Input:
 15. 모든 개별 파일의 skillId, 이름, 상태, 경로를 outputPlanningIndexPath에 기록한다.
 16. allowOverwrite=false이고 대상 개별 파일 또는 index가 존재하면 해당 파일을 수정하지 않는다.
 17. 기획 JSON과 Unity 필수 meta만 저장한다. item.json, 독립 skill JSON, SO, 이미지, localization, animation, prefab은 생성하거나 수정하지 않는다.
+18. 각 스킬마다 읽은 source 파일 경로, 채택한 플레이어 체감 사실, 서로 충돌한 사실을 내부 evidence matrix로 작성한 뒤 기획 문장을 만든다.
+19. evidence matrix에는 sourcePath, evidenceType, priority, observedFactKo, conflictGroup을 기록한다. 이는 검증 보고에 출력하되 개별 planning JSON에는 구현 필드명을 복사하지 않는다.
+20. 구현과 설명이 충돌하면 상위 근거를 자동 채택하지 말고 양쪽 게임플레이 해석을 openQuestionsKo의 구체적인 선택지로 기록한다.
+21. 아래 메커니즘 완결성 항목을 모두 점검한다: 발동 방식, 대상 선택, 적용 범위, 효과 순서, 회당/총합 수치, 횟수/간격, 지속시간, 중첩/재적용, 쿨다운 또는 게이지 외 사용 제한, 종료 조건.
+22. 해당하지 않는 항목은 "해당 없음"으로 내부 검증하고, 필요한데 근거가 없으면 needs_decision 또는 blocked로 분류한다.
+23. openQuestionsKo는 승인 대상 수치 또는 서로 배타적인 게임플레이 선택지를 완전한 문장으로 작성한다. "설명 추가", "수치 승인", "검토 필요"만 적는 포괄 문장은 금지한다.
+24. 범위가 여러 런타임 값의 합성으로만 계산되는 경우 계산 관례가 가이드에 명시되어 있지 않으면 확정값으로 쓰지 말고 선택지로 남긴다.
+25. item 이름과 embedded skill 이름이 다르면 어느 이름을 최종 표시명으로 사용할지 openQuestionsKo에 두 이름을 모두 제시한다.
 
 Output:
 - Scope:
@@ -58,6 +92,10 @@ Output:
 - Needs Decision Count:
 - Blocked Count:
 - Issue Summary:
+- Missing Optional Source Roots:
+- Evidence Matrix Summary:
+- Evidence Conflict Count:
+- Mechanics Completeness: Pass / Fail
 - Output Planning Root:
 - Output Planning Index:
 - Generated Planning Files:
@@ -82,6 +120,14 @@ Output:
 - 각 파일은 단일 skill 객체만 포함해야 한다.
 - 파일명은 `{skillId}.planning.json`이어야 한다.
 - index의 skillCount와 개별 파일 수가 같아야 한다.
+- documentId는 `design.{skillId}`와 정확히 같아야 한다.
+- linkedItem.grade와 balanceContext.itemGrade, linkedItem.gaugeCost와 balanceContext.gaugeCost는 각각 같아야 한다.
+- review_ready는 openQuestionsKo가 비어 있고 메커니즘 완결성 항목에 미확정 사항이 없어야 한다.
+- needs_decision은 openQuestionsKo에 최소 하나의 구체적인 수치 승인안 또는 배타적 게임플레이 선택지가 있어야 한다.
+- blocked는 지원되지 않는 핵심 동작 또는 누락된 핵심 수치와 직접 연결된 openQuestionsKo를 가져야 한다.
+- 효과 문장의 백분율은 `%`, 백분율 포인트 변화는 `%p`로 구분하고, 현재 체력과 최대 체력 기준을 명시해야 한다.
+- 반복 효과는 회당 수치, 횟수, 간격, 총합 또는 총합 산정 가능 여부를 밝혀야 한다.
+- 지속 효과는 지속시간, 중첩/재적용 방식, 종료 조건을 확정하거나 openQuestionsKo에 남겨야 한다.
 
 실패 시 Output:
 - status: failed

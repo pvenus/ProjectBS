@@ -1,0 +1,40 @@
+{
+    "relicId":  "item.relic.frozen_nail",
+    "nameKo":  "얼어붙은 못",
+    "descriptionKo":  "공격 적중 시 12% 확률로 대상에게 냉기 상태를 부여한다. 냉기 상태인 대상은 이동속도가 15% 감소하며 2초 동안 유지된다. 냉기는 중첩되지 않으며, 재발동하면 수치가 누적되지 않고 지속시간만 2초로 갱신된다. 냉기 감속 효과는 2초가 지나면 종료된다.",
+    "icon":  "relic-icon-01_0",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.frozen_nail.move_speed_down_on_hit.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.frozen_nail.move_speed_down_on_hit",
+                                             "effectType":  "OnHitTimedStatModifier",
+                                             "effectName":  "item.relic.frozen_nail.move_speed_down_on_hit",
+                                             "config":  {
+                                                            "chancePercent":  12,
+                                                            "statType":  "MoveSpeedPercent",
+                                                            "modifierType":  "Flat",
+                                                            "value":  -15,
+                                                            "durationSeconds":  2
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "debuff",
+    "subCategory":  "on_hit_move_speed_down",
+    "hidden":  false,
+    "developerOnly":  false
+}

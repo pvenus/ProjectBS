@@ -1,0 +1,57 @@
+{
+    "relicId":  "item.relic.golden_fang",
+    "nameKo":  "금빛 이빨",
+    "descriptionKo":  "장착한 캐릭터가 적을 처치할 때 6% 확률로 발동하며, 해당 적의 기본 골드 획득량과 같은 양의 추가 골드를 얻는다.",
+    "icon":  "relic-icon-06_2",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.golden_fang.bonus_gold_drop_chance.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.golden_fang.bonus_gold_drop_chance",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.golden_fang.bonus_gold_drop_chance",
+                                             "config":  {
+                                                            "statType":  "BonusGoldDropChance",
+                                                            "modifierType":  "Flat",
+                                                            "value":  6
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          },
+                          {
+                              "entryId":  "effect.item.relic.golden_fang.bonus_gold_drop_percent.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.golden_fang.bonus_gold_drop_percent",
+                                             "effectType":  "StatModifier",
+                                             "effectName":  "item.relic.golden_fang.bonus_gold_drop_percent",
+                                             "config":  {
+                                                            "statType":  "BonusGoldDropPercent",
+                                                            "modifierType":  "Flat",
+                                                            "value":  100
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "economy",
+    "subCategory":  "on_kill_gold",
+    "hidden":  false,
+    "developerOnly":  false
+}

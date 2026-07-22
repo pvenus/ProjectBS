@@ -1,0 +1,96 @@
+{
+  "equipmentId": "skill.strategic.blood_meridian_release",
+  "skillName": "혈맥 개방",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.blood_meridian_release.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 999.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Buff",
+      "targetType": "Ally",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.blood_meridian_release.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.blood_meridian_release.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.blood_meridian_release.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "buffEffects": [
+        {
+          "entryId": "effect.skill.strategic.blood_meridian_release.hp_cost.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.blood_meridian_release.hp_cost",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.blood_meridian_release.hp_cost",
+            "config": {
+              "statType": "Hp",
+              "modifierType": "Percent",
+              "value": -0.1
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        },
+        {
+          "entryId": "effect.skill.strategic.blood_meridian_release.cooldown_reduce.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.blood_meridian_release.cooldown_reduce",
+            "effectType": "CooldownReduce",
+            "effectName": "effect.skill.strategic.blood_meridian_release.cooldown_reduce",
+            "config": {
+              "reduceType": "Percent",
+              "reducePercent": 0.2,
+              "reduceSeconds": 0
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.blood_meridian_release.visual",
+    "projectileVisualType": "Default"
+  }
+}

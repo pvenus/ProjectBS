@@ -10,26 +10,24 @@
       "grade": "Basic",
       "gaugeCost": 55
     },
-    "reviewStatus": "needs_decision",
+    "reviewStatus": "review_ready",
     "tacticalRoleKo": {
       "primary": "회복",
       "secondary": "아군 강화"
     },
-    "conceptKo": "태을의 치유진이 전 아군의 생명력을 서서히 회복한다.",
-    "intendedUseKo": "모든 아군에게 6초 동안 지속 체력 재생을 제공한다.",
-    "targetingKo": "사용 즉시 모든 아군에게 적용한다.",
+    "conceptKo": "태을의 치유진이 모든 아군의 생명력을 서서히 회복시킨다.",
+    "intendedUseKo": "모든 아군에게 6초 동안 지속적인 최대 체력 비례 회복을 제공한다.",
+    "targetingKo": "사용 즉시 전장의 모든 아군에게 적용한다.",
     "effectsKo": [
-      "모든 아군이 6초 동안 매초 최대 체력의 0.8333%를 회복한다."
+      "모든 아군이 6초 동안 매초 최대 체력의 0.8333%를 회복하며, 6회 기준 산술 총회복량은 최대 체력의 4.9998%이다."
     ],
-    "executionKo": "사용 즉시 한 번 적용한다.",
-    "presentationKo": "6초 지속 치유와 초당 회복 발생을 표시한다.",
+    "executionKo": "전투 중 전략 게이지 55를 소비해 사용하며 게이지 외 별도 재사용 대기시간은 없다. 사용 즉시 모든 아군에게 6초 지속 회복을 한 번 적용한다. 동일 효과는 중첩되지 않고 다시 사용하면 기존 효과를 교체해 6초를 처음부터 계산하며, 여섯 번째 회복이 적용되면 종료한다.",
+    "presentationKo": "6초의 지속 치유와 매초 회복 발생을 모든 아군에게 알아볼 수 있게 표시한다.",
     "balanceContext": {
       "itemGrade": "Basic",
       "gaugeCost": 55
     },
-    "openQuestionsKo": [
-      "매초 최대 체력의 0.8333%씩 6초간, 총 약 5% 회복하는 기획으로 확정할지 검토"
-    ],
-    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 설명의 초당 최대 체력 0.8333% 회복을 승인 기준으로 확정했으며, 초당 5%로 동작하는 현재 수치는 후속 변환에서 교정해야 하는 역기획 문서"
   }
 }

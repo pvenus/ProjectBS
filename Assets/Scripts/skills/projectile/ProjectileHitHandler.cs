@@ -557,15 +557,18 @@ public class ProjectileHitHandler : MonoBehaviour
 
         ApplyEffects(
             effectManager,
+            targetCharacter,
             runtimeData.hit.buffEffects);
 
         ApplyEffects(
             effectManager,
+            targetCharacter,
             runtimeData.hit.debuffEffects);
     }
 
     private void ApplyEffects(
         EffectManager effectManager,
+        CharacterManager targetCharacter,
         EffectEntryRuntime[] effects)
     {
         if (effectManager == null
@@ -581,6 +584,13 @@ public class ProjectileHitHandler : MonoBehaviour
                 || effectEntry.RuntimeData == null)
             {
                 continue;
+            }
+
+            if (effectEntry.RuntimeData is TauntEffectRuntime tauntEffect)
+            {
+                tauntEffect.BindHitTarget(
+                    targetCharacter,
+                    transform);
             }
 
             EffectApplyHelper.ApplyEffect(

@@ -10,7 +10,7 @@
       "grade": "Basic",
       "gaugeCost": 80
     },
-    "reviewStatus": "needs_decision",
+    "reviewStatus": "review_ready",
     "tacticalRoleKo": {
       "primary": "광역 피해",
       "secondary": null
@@ -21,16 +21,13 @@
     "effectsKo": [
       "적에게 750 피해를 준다."
     ],
-    "executionKo": "사용 즉시 한 번 적용한다.",
+    "executionKo": "전투 중 전략 게이지 80을 소비해 지정 위치에 사용하며 게이지 외 별도 재사용 대기시간은 없다. 사용 즉시 범위 안의 모든 적에게 750 피해를 한 번 주고 즉시 종료된다.",
     "presentationKo": "10m 위험 영역과 대형 낙뢰 타격을 사전에 읽을 수 있어야 한다.",
     "balanceContext": {
       "itemGrade": "Basic",
       "gaugeCost": 80
     },
-    "openQuestionsKo": [
-      "최종 피해 설명 승인",
-      "단발 750 피해 또는 0.25초 반복 피해 확정"
-    ],
+    "openQuestionsKo": [],
     "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
   }
 }
