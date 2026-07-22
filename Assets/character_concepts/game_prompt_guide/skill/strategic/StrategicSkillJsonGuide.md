@@ -111,6 +111,11 @@ Do not add item-owned fields, an outer `skill` wrapper, legacy `slotName`, or
 
 `projectileColliderRadius` must match the authored area.
 
+`projectileLifetime` must be at least `0.3` seconds even for an instant skill so
+its animation and visual presentation have a guaranteed display window. This
+technical lifetime does not change an instant effect's `lifetimeType` or
+`duration`.
+
 Optional multi-projectile fields:
 
 ```json
