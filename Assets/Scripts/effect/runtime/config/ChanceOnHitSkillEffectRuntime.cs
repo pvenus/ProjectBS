@@ -82,6 +82,11 @@ namespace Effect
                 return;
             }
 
+            if (sourceCharacter != null && attacker != sourceCharacter)
+            {
+                return;
+            }
+
             if (config.RequireCriticalHit && !isCritical)
             {
                 return;

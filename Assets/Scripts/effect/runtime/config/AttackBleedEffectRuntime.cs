@@ -15,6 +15,8 @@ namespace Effect
 
         private float appliedBleedDamagePerSecond;
 
+        private bool isApplied;
+
         public AttackBleedEffectRuntime(
             EffectSO effectSO,
             AttackBleedEffectConfig config,
@@ -47,6 +49,31 @@ namespace Effect
                 || targetCharacter == null
                 || sourceCharacter == null)
             {
+                IsActive = false;
+                return;
+            }
+
+            IsActive = true;
+        }
+
+        public void OnHit(
+            CharacterDamageRequest request,
+            CharacterDamageResult result)
+        {
+            if (effectSO == null
+                || config == null
+                || targetCharacter == null
+                || sourceCharacter == null
+                || request == null
+                || request.attacker == null
+                || request.target == null)
+            {
+                return;
+            }
+
+            if (request.attacker.GetComponent<CharacterManager>() != sourceCharacter
+                || request.target.GetComponent<CharacterManager>() != targetCharacter)
+            {
                 return;
             }
 
@@ -74,9 +101,18 @@ namespace Effect
                 return;
             }
 
+            if (isApplied)
+            {
+                targetCharacter.AddStat(
+                    StatType.BleedDamagePerSecond,
+                    -appliedBleedDamagePerSecond);
+            }
+
             targetCharacter.AddStat(
                 StatType.BleedDamagePerSecond,
                 appliedBleedDamagePerSecond);
+
+            isApplied = true;
         }
 
         public override void OnRemove()
@@ -91,6 +127,7 @@ namespace Effect
                 -appliedBleedDamagePerSecond);
 
             appliedBleedDamagePerSecond = 0f;
+            isApplied = false;
         }
     }
 }

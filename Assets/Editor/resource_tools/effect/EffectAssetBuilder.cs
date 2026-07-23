@@ -107,6 +107,39 @@ namespace ResourceTools.Effect
             public float chancePercent;
             public float attackRatioPercent;
         }
+
+        [Serializable]
+        public class TauntEffectJson : EffectJson
+        {
+        }
+
+        [Serializable]
+        public class OnHitKnockbackDistanceEffectJson : EffectJson
+        {
+            public float chancePercent;
+            public float distanceMeters;
+            public string directionType;
+        }
+
+        [Serializable]
+        public class OnHitTimedStatModifierEffectJson : EffectJson
+        {
+            public float chancePercent;
+            public string statType;
+            public string modifierType;
+            public float value;
+            public float durationSeconds;
+        }
+
+        [Serializable]
+        public class OnHitPoisonDotEffectJson : EffectJson
+        {
+            public float chancePercent;
+            public float attackRatioPercentPerTick;
+            public float tickIntervalSeconds;
+            public float durationSeconds;
+        }
+
         public static EffectSO CreateOrUpdate(
             string effectJson,
             string outputFolder)
@@ -185,6 +218,14 @@ namespace ResourceTools.Effect
                     return JsonUtility.FromJson<ChanceOnHealCooldownReduceEffectJson>(json);
                 case EffectType.AttackBleed:
                     return JsonUtility.FromJson<AttackBleedEffectJson>(json);
+                case EffectType.Taunt:
+                    return JsonUtility.FromJson<TauntEffectJson>(json);
+                case EffectType.OnHitKnockbackDistance:
+                    return JsonUtility.FromJson<OnHitKnockbackDistanceEffectJson>(json);
+                case EffectType.OnHitTimedStatModifier:
+                    return JsonUtility.FromJson<OnHitTimedStatModifierEffectJson>(json);
+                case EffectType.OnHitPoisonDot:
+                    return JsonUtility.FromJson<OnHitPoisonDotEffectJson>(json);
                 default:
                     return JsonUtility.FromJson<EffectJson>(json);
             }
@@ -553,6 +594,40 @@ namespace ResourceTools.Effect
                 case EffectType.AttackBleed:
                     return data is AttackBleedEffectJson;
 
+                case EffectType.Taunt:
+                    return data is TauntEffectJson;
+
+                case EffectType.OnHitKnockbackDistance:
+                {
+                    OnHitKnockbackDistanceEffectJson json =
+                        data as OnHitKnockbackDistanceEffectJson;
+
+                    return json != null
+                        && json.distanceMeters > 0f
+                        && !string.IsNullOrWhiteSpace(json.directionType);
+                }
+
+                case EffectType.OnHitTimedStatModifier:
+                {
+                    OnHitTimedStatModifierEffectJson json =
+                        data as OnHitTimedStatModifierEffectJson;
+
+                    return json != null
+                        && json.durationSeconds > 0f
+                        && !string.IsNullOrWhiteSpace(json.statType)
+                        && !string.IsNullOrWhiteSpace(json.modifierType);
+                }
+
+                case EffectType.OnHitPoisonDot:
+                {
+                    OnHitPoisonDotEffectJson json =
+                        data as OnHitPoisonDotEffectJson;
+
+                    return json != null
+                        && json.durationSeconds > 0f
+                        && json.tickIntervalSeconds > 0f;
+                }
+
                 default:
                     Debug.LogError(
                         $"[EffectAssetBuilder] Validation failed. Unsupported effectType={data.effectType}, effectId={data.effectId}");
@@ -591,6 +666,18 @@ namespace ResourceTools.Effect
 
                 case EffectType.AttackBleed:
                     return CreateAttackBleedConfig(data as AttackBleedEffectJson);
+
+                case EffectType.Taunt:
+                    return CreateTauntConfig(data as TauntEffectJson);
+
+                case EffectType.OnHitKnockbackDistance:
+                    return CreateOnHitKnockbackDistanceConfig(data as OnHitKnockbackDistanceEffectJson);
+
+                case EffectType.OnHitTimedStatModifier:
+                    return CreateOnHitTimedStatModifierConfig(data as OnHitTimedStatModifierEffectJson);
+
+                case EffectType.OnHitPoisonDot:
+                    return CreateOnHitPoisonDotConfig(data as OnHitPoisonDotEffectJson);
 
                 default:
                     return null;
@@ -733,6 +820,65 @@ namespace ResourceTools.Effect
                 data.chancePercent,
                 data.attackRatioPercent);
 
+            return config;
+        }
+
+        private static TauntEffectConfig CreateTauntConfig(
+            TauntEffectJson data)
+        {
+            if (data == null)
+                return null;
+
+            var config = new TauntEffectConfig();
+            config.ApplyEditorData();
+
+            return config;
+        }
+
+        private static OnHitKnockbackDistanceEffectConfig CreateOnHitKnockbackDistanceConfig(
+            OnHitKnockbackDistanceEffectJson data)
+        {
+            if (data == null)
+                return null;
+
+            var config = new OnHitKnockbackDistanceEffectConfig();
+            config.ApplyEditorData(
+                data.chancePercent,
+                data.distanceMeters,
+                ParseEnum(
+                    data.directionType,
+                    KnockbackDirectionType.PushAwayFromSource));
+            return config;
+        }
+
+        private static OnHitTimedStatModifierEffectConfig CreateOnHitTimedStatModifierConfig(
+            OnHitTimedStatModifierEffectJson data)
+        {
+            if (data == null)
+                return null;
+
+            var config = new OnHitTimedStatModifierEffectConfig();
+            config.ApplyEditorData(
+                data.chancePercent,
+                ParseEnum(data.statType, StatType.None),
+                ParseEnum(data.modifierType, StatModifierType.Flat),
+                data.value,
+                data.durationSeconds);
+            return config;
+        }
+
+        private static OnHitPoisonDotEffectConfig CreateOnHitPoisonDotConfig(
+            OnHitPoisonDotEffectJson data)
+        {
+            if (data == null)
+                return null;
+
+            var config = new OnHitPoisonDotEffectConfig();
+            config.ApplyEditorData(
+                data.chancePercent,
+                data.attackRatioPercentPerTick,
+                data.tickIntervalSeconds,
+                data.durationSeconds);
             return config;
         }
 

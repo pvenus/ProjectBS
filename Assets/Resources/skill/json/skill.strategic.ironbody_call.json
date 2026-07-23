@@ -1,0 +1,77 @@
+{
+  "equipmentId": "skill.strategic.ironbody_call",
+  "skillName": "철신호",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.ironbody_call.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 999.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Buff",
+      "targetType": "Ally",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.ironbody_call.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.ironbody_call.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.ironbody_call.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "buffEffects": [
+        {
+          "entryId": "effect.skill.strategic.ironbody_call.defense_up.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.ironbody_call.defense_up",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.ironbody_call.defense_up",
+            "config": {
+              "statType": "Defense",
+              "modifierType": "Flat",
+              "value": 20
+            }
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 5,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.ironbody_call.visual",
+    "projectileVisualType": "Default"
+  }
+}

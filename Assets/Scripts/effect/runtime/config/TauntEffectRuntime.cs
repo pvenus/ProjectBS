@@ -8,8 +8,8 @@ namespace Effect
     {
         private readonly EffectSO effectSO;
         private readonly TauntEffectConfig config;
-        private readonly CharacterManager targetCharacter;
-        private readonly Transform tauntTarget;
+        private CharacterManager targetCharacter;
+        private Transform tauntTarget;
 
         private CharacterStateManager stateManager;
         private bool applied;
@@ -28,9 +28,17 @@ namespace Effect
             this.tauntTarget = tauntTarget;
 
 
-            RuntimeId =
-                $"Taunt_{GetEffectId()}_{GetTargetRuntimeId()}_{GetTargetId()}";
             applySecond = duration;
+            RefreshRuntimeId();
+        }
+
+        public void BindHitTarget(
+            CharacterManager character,
+            Transform source)
+        {
+            targetCharacter = character;
+            tauntTarget = source;
+            RefreshRuntimeId();
         }
 
         public override void OnApply()
@@ -115,6 +123,12 @@ namespace Effect
             return tauntTarget != null
                 ? tauntTarget.GetInstanceID().ToString()
                 : "NoTauntTarget";
+        }
+
+        private void RefreshRuntimeId()
+        {
+            RuntimeId =
+                $"Taunt_{GetEffectId()}_{GetTargetRuntimeId()}_{GetTargetId()}";
         }
     }
 }

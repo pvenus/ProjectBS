@@ -1,0 +1,77 @@
+{
+  "equipmentId": "skill.strategic.frost_spirit_formation",
+  "skillName": "빙령진",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.frost_spirit_formation.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 6.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.frost_spirit_formation.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.frost_spirit_formation.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.frost_spirit_formation.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "entryId": "effect.skill.strategic.frost_spirit_formation.move_speed_down.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.frost_spirit_formation.move_speed_down",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.frost_spirit_formation.move_speed_down",
+            "config": {
+              "statType": "MoveSpeedPercent",
+              "modifierType": "Flat",
+              "value": -60
+            }
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 6,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.frost_spirit_formation.visual",
+    "projectileVisualType": "Default"
+  }
+}

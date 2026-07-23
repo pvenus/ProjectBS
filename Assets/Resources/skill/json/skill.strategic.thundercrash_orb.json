@@ -1,0 +1,86 @@
+{
+  "equipmentId": "skill.strategic.thundercrash_orb",
+  "skillName": "진천뢰",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.thundercrash_orb.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 5.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.thundercrash_orb.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.thundercrash_orb.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.thundercrash_orb.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageId": "skill.strategic.thundercrash_orb.damage",
+        "skillId": "skill.strategic.thundercrash_orb",
+        "damageType": "Normal",
+        "baseDamage": 140.0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "entryId": "effect.skill.strategic.thundercrash_orb.stun.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.thundercrash_orb.stun",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.thundercrash_orb.stun",
+            "config": {
+              "statType": "StunDuration",
+              "modifierType": "Flat",
+              "value": 1
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.thundercrash_orb.visual",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,0 +1,50 @@
+{
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.spiked_carapace",
+    "relicId":  "item.relic.spiked_carapace",
+    "planningPath":  "Assets/Doc/Relic/item.relic.spiked_carapace.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "relic-icon-05_0",
+    "iconGuid":  "cf47270357dbb4d99a8b2d8825baf347",
+    "iconFileId":  1379673581,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "defense",
+    "subCategory":  "reflect_damage",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "reflect_damage",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "StatModifier",
+                        "config":  {
+                                       "statType":  "ReflectDamagePercent",
+                                       "modifierType":  "Flat",
+                                       "value":  15
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "not_applicable",
+                        "reapply":  "continuous",
+                        "termination":  "removed when relic unequips"
+                    }
+                ]
+}

@@ -194,6 +194,10 @@ namespace ResourceTools.Skill
             string[] buffEffects = ParseJsonObjectArray(json.buffEffects);
             string[] debuffEffects = ParseJsonObjectArray(json.debuffEffects);
             HitSplitJson split = ParseObject<HitSplitJson>(json.split);
+            SerializedProperty effectsProperty =
+                serializedObject.FindProperty("effects");
+            SerializedProperty splitProperty =
+                serializedObject.FindProperty("split");
 
             SetDamageProfile(serializedObject, damage);
             SetString(serializedObject, "hitId", json.hitId);
@@ -207,11 +211,29 @@ namespace ResourceTools.Skill
             SetBool(serializedObject, "deactivateAfterFirstHit", json.deactivateAfterFirstHit);
             SetLayerMask(serializedObject, "targetLayerMask", ToLayerMask(json.targetLayerMask));
             SetString(serializedObject, "targetLayerName", json.targetLayerMask);
-            SetHitEffectEntries(serializedObject, "buffEffects", CreateHitEffectEntries(buffEffects, outputFolder));
-            SetHitEffectEntries(serializedObject, "debuffEffects", CreateHitEffectEntries(debuffEffects, outputFolder));
-            SetBool(serializedObject, "useSplitMultiHitDamage", split != null && split.useSplitMultiHitDamage);
-            SetInt(serializedObject, "splitHitCount", split != null ? split.splitHitCount : 0);
-            SetFloat(serializedObject, "splitHitInterval", split != null ? split.splitHitInterval : 0f);
+            SetHitEffectEntries(
+                effectsProperty,
+                "buffEffects",
+                CreateHitEffectEntries(buffEffects, outputFolder));
+            SetHitEffectEntries(
+                effectsProperty,
+                "debuffEffects",
+                CreateHitEffectEntries(debuffEffects, outputFolder));
+            if (split != null)
+            {
+                SetRelativeBool(
+                    splitProperty,
+                    "useSplitMultiHitDamage",
+                    split.useSplitMultiHitDamage);
+                SetRelativeInt(
+                    splitProperty,
+                    "splitHitCount",
+                    split.splitHitCount);
+                SetRelativeFloat(
+                    splitProperty,
+                    "splitHitInterval",
+                    split.splitHitInterval);
+            }
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
@@ -277,10 +299,32 @@ namespace ResourceTools.Skill
             string propertyName,
             float value)
         {
+            if (parent == null)
+            {
+                return;
+            }
+
             SerializedProperty property = parent.FindPropertyRelative(propertyName);
             if (property != null)
             {
                 property.floatValue = value;
+            }
+        }
+
+        private static void SetRelativeInt(
+            SerializedProperty parent,
+            string propertyName,
+            int value)
+        {
+            if (parent == null)
+            {
+                return;
+            }
+
+            SerializedProperty property = parent.FindPropertyRelative(propertyName);
+            if (property != null)
+            {
+                property.intValue = value;
             }
         }
 
@@ -289,6 +333,11 @@ namespace ResourceTools.Skill
             string propertyName,
             bool value)
         {
+            if (parent == null)
+            {
+                return;
+            }
+
             SerializedProperty property = parent.FindPropertyRelative(propertyName);
             if (property != null)
             {
@@ -425,11 +474,18 @@ namespace ResourceTools.Skill
         }
 
         private static void SetHitEffectEntries(
-            SerializedObject serializedObject,
+            SerializedProperty parent,
             string propertyName,
             EffectEntrySO[] values)
         {
-            SerializedProperty property = serializedObject.FindProperty(propertyName);
+            if (parent == null)
+            {
+                Debug.LogWarning(
+                    $"[SkillHitAssetBuilder] Serialized effect profile not found: {propertyName}");
+                return;
+            }
+
+            SerializedProperty property = parent.FindPropertyRelative(propertyName);
 
             if (property == null)
             {

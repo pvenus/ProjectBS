@@ -1,0 +1,80 @@
+{
+  "equipmentId": "skill.strategic.night_parade_of_a_thousand_ghosts",
+  "skillName": "만귀야행",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.night_parade_of_a_thousand_ghosts.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 20,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.0,
+    "projectileLifetime": 1.5,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    },
+    "projectile": {
+      "arrangement": "Circle",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 2.0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0.5
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.night_parade_of_a_thousand_ghosts.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.night_parade_of_a_thousand_ghosts.move",
+    "moveType": "Homing",
+    "applyDirectionRotation": true,
+    "rotationOffset": -90.0,
+    "config": {
+      "speed": 5,
+      "turnSpeed": 300
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.night_parade_of_a_thousand_ghosts.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageId": "skill.strategic.night_parade_of_a_thousand_ghosts.damage",
+        "skillId": "skill.strategic.night_parade_of_a_thousand_ghosts",
+        "damageType": "Normal",
+        "baseDamage": 110.0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual",
+    "projectileVisualType": "Default"
+  }
+}

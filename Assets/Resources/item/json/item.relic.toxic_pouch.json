@@ -1,0 +1,39 @@
+{
+    "relicId":  "item.relic.toxic_pouch",
+    "nameKo":  "독성 주머니",
+    "descriptionKo":  "공격 적중 시 15% 확률로 대상에게 중독 상태를 부여한다. 중독된 대상은 3초 동안 매초 장착 캐릭터 공격력의 8%에 해당하는 피해를 받는다. 중독은 중첩되지 않으며, 재발동하면 초당 피해 수치가 누적되지 않고 지속시간만 3초로 갱신된다. 중독 지속 피해는 3초가 지나면 종료된다.",
+    "icon":  "relic-icon-02_1",
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "effectEntries":  [
+                          {
+                              "entryId":  "effect.item.relic.toxic_pouch.poison_on_hit.entry",
+                              "effect":  {
+                                             "effectId":  "effect.item.relic.toxic_pouch.poison_on_hit",
+                                             "effectType":  "OnHitPoisonDot",
+                                             "effectName":  "item.relic.toxic_pouch.poison_on_hit",
+                                             "config":  {
+                                                            "chancePercent":  15,
+                                                            "attackRatioPercentPerTick":  8,
+                                                            "tickIntervalSeconds":  1,
+                                                            "durationSeconds":  3
+                                                        }
+                                         },
+                              "lifetimeType":  "Manual",
+                              "categoryType":  "Buff",
+                              "duration":  0,
+                              "maxApplyCount":  1,
+                              "hasValueOverride":  false,
+                              "valueOverride":  0
+                          }
+                      ],
+    "category":  "debuff",
+    "subCategory":  "on_hit_poison_dot",
+    "hidden":  false,
+    "developerOnly":  false
+}

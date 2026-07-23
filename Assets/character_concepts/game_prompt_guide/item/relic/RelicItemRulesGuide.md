@@ -59,20 +59,38 @@ Use only current `EffectType` values:
 | Persistent stat change | `StatModifier` |
 | Immediate recovery | `Heal` |
 | Push or pull | `Knockback` |
+| Owner hit knocks the hit target by exact distance | `OnHitKnockbackDistance` |
 | Cooldown reduction | `CooldownReduce` |
-| Stat change after an attack hit | `ChanceOnHitStatModifier` |
+| Timed stat change after an attack hit | `OnHitTimedStatModifier` |
 | Stat change after healing | `ChanceOnHealStatModifier` |
 | Cooldown reduction after healing | `ChanceOnHealCooldownReduce` |
-| Bleed after attacking | `AttackBleed` |
+| Poison damage over time after attacking | `OnHitPoisonDot` |
 | Trigger an existing skill after a hit | `ChanceOnHitSkill` |
 
-If the design requires an unsupported event, target filter, stacking rule, or
-effect type, stop with `unsupported_relic_behavior`. Do not approximate it with a
-different supported effect.
+If an approved implementation mapping requires an unsupported event, target
+filter, stacking rule, or effect type, stop SO JSON generation with
+`unsupported_relic_behavior`. Do not approximate it with a different supported
+effect.
+
+Current runtime limitations:
+
+- Relic equip effects require an explicit owner character at runtime. Workflows
+  must not assume that a relic applies to the whole party or every character.
+- For Relic on-hit target state, use `OnHitKnockbackDistance`,
+  `OnHitTimedStatModifier`, and `OnHitPoisonDot`. They install a listener on the
+  relic owner, filter hits by that owner as the source, and resolve the hit
+  target dynamically from the damage event.
+- `ChanceOnHitStatModifier` and `AttackBleed` are legacy/current general effect
+  types but must not be used for new Relic SO JSON. They do not express the
+  approved Relic per-target refresh and poison contracts.
+- Range-gated relics must use an approved data-driven range field. For elite
+  proximity move speed, author both `EliteApproachMoveSpeedPercent` and
+  `EliteApproachRadius` stat modifiers.
 
 For `StatModifier`, use current builder fields `statType`, `modifierType`, and
-`value`. For `ChanceOnHitStatModifier`, use `statType`, `valueType`, and `value`.
-Do not use the older `targetStat` alias in new relic JSON.
+`value`. Do not use the older `targetStat` alias in new relic JSON. Do not map
+Relic behavior to `ChanceOnHitStatModifier` or `AttackBleed`; use the Relic-safe
+on-hit types above.
 
 ## 5. Lifetime Rules
 

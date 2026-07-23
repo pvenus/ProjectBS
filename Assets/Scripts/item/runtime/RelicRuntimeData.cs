@@ -92,5 +92,24 @@ namespace Item
         public long acquiredAt;
 
         public bool isEquipped = true;
+
+        [NonSerialized]
+        public Character.CharacterManager ownerCharacter;
+
+        [NonSerialized]
+        public string ownerRuntimeId;
+
+        public bool HasOwner =>
+            ownerCharacter != null
+            || !string.IsNullOrWhiteSpace(ownerRuntimeId);
+
+        public void SetOwner(
+            Character.CharacterManager owner)
+        {
+            ownerCharacter = owner;
+            ownerRuntimeId = owner != null
+                ? owner.GetInstanceID().ToString()
+                : null;
+        }
     }
 }

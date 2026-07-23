@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a976b41e687441cad798047c5f5afc, type: 3}
+  m_Name: effect.skill.strategic.flash_charm.stun
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
+  effectId: effect.skill.strategic.flash_charm.stun
+  icon: {fileID: 0}
+  config:
+    rid: 4316573187410493597
+  references:
+    version: 2
+    RefIds:
+    - rid: 4316573187410493597
+      type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
+      data:
+        targetStat: 1345
+        modifierType: 0
+        value: 1

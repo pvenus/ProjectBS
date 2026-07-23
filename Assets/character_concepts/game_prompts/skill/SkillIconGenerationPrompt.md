@@ -29,6 +29,7 @@ Input:
 - referenceMode: none
 - compositionProfile: {auto | horizontal_projectile | descending_projectile | diagonal_melee | centered_radial_active | centered_passive_emblem}
 - backgroundMode: {auto | contextual | flat}
+- internalBackgroundPolicy: skill_matched_low_contrast
 - frameTemplatePath: {현재 PC에 이미 존재하는 승인된 80×80 프레임·배경 템플릿 절대경로}
 - inheritedIconPath: {auto | 하위 등급 아이콘 절대경로 | null}
 - outputIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
@@ -48,32 +49,33 @@ Input:
 2. 스킬 JSON에서 targeting, castMove, componentType, moveType, damage, buff, debuff, effect를 읽는다.
 3. primaryOutline, direction, compositionProfile, oneSimpleEffect, backgroundRequirement, backgroundMode, backgroundDescription, exactCountElements, likelyWrongObjects, gradeIntensity, palette를 분류한다.
 4. 하위 등급 아이콘은 계승 정체성을 분석하는 용도로만 읽고 PixelLab에 업로드하지 않는다.
-5. 가이드의 Concise Outline Prompt Contract에 따라 영어 Description을 4개 짧은 핵심 문장으로 작성한다. `backgroundMode=contextual`일 때만 짧은 배경 문장 하나를 추가할 수 있다.
+5. 가이드의 Concise Outline Prompt Contract에 따라 영어 Description을 4개 짧은 핵심 문장으로 작성하고, 스킬과 어울리는 내부 배경 문장 하나를 추가한다.
 6. 첫 문장은 가장 중요한 시각 형상과 굵은 아웃라인만 기술한다. 의미 명칭보다 실제 보이는 형상을 먼저 쓴다.
 7. 둘째 문장은 방향과 구도를 하나의 축으로 단정적으로 기술한다.
 8. 셋째 문장은 스킬을 식별하는 크고 단순한 효과 하나만 기술한다. 작은 입자나 정확한 개수는 쓰지 않는다.
-9. `backgroundMode=contextual`은 배경이 스킬의 위치·영역·진행 방향·발동 원인을 설명해야만 선택한다. 이때 낮은 대비의 배경 요소 1-2개만 한 문장으로 묘사한다.
-10. 배경이 스킬 식별에 필요하지 않으면 `backgroundMode=flat`으로 지정하고 장면 묘사는 생략한다. 최종 단색 배경은 템플릿 정규화로 처리한다.
-11. 마지막 핵심 문장은 가장 가능성이 높은 오인 대상 3-6개와 grade/palette/pixel-art 가독성만 짧게 쓴다.
-12. frame, card, panel, background border, safe-area 좌표, exact-count 요소는 생성 Description에서 제거한다.
-13. PixelLab `Create UI elements (Pro)`를 열고 Custom size를 80×80으로 설정한다.
-14. `backgroundMode=contextual`이면 Transparent background를 Off, `flat`이면 On으로 설정한다.
-15. Concept image는 비워 두고 Color palette에는 분류된 핵심 색상만 간결하게 입력한다.
-16. Pro가 한 번에 반환하는 4×4, 총 16개 80×80 변형을 각각 독립 후보로 보존한다. 합쳐진 그리드를 아이콘 후보로 사용하지 않는다.
-17. primary 40-52px, 의미 선 최소 4px, 요소 간격 최소 4-6px를 목표로 생성한다.
-18. 16개 변형에 정적·의미 검사를 먼저 적용하고 상위 3개까지만 편집·오버레이·정규화 대상으로 진행한다.
-19. 첫 실행이 실패하면 문장을 추가하지 말고 실패한 한 문장을 더 짧고 직접적인 문장으로 교체한다. Pro 재실행은 16개 변형이 모두 핵심 구조에 실패했을 때만 요청한다.
-20. 방향 실패 시 direction 문장을 `left to right`, `top to bottom`, `upper left to lower right`, `centered radial`, `centered symmetrical` 중 하나로 교체하고 새 seed로 재생성한다.
-21. 부분 물체가 완전한 생물·인물로 복원되면 의미 명칭을 제거하고 시각 형상만 남긴다. 예: `wolf jaw` 대신 `two disconnected dark-gray crescent jaw strips`.
-22. oneSimpleEffect가 빠졌지만 primary는 올바를 때만 `Edit image`로 한 번 보강한다. 지시는 `add`, `remove`, `change`, `replace` 중 하나로 시작하는 한 문장만 사용한다.
-23. exactCountElements는 생성·편집 프롬프트에 맡기지 않고 결정적 픽셀 오버레이로 추가한다. 각 요소는 최소 4×4px, 간격 최소 4px이다.
-24. arcs/rings는 최종 80×80 기준 3-4px 두께로 유지한다.
-25. `flat`이면 frameTemplatePath의 flat charcoal/deep-brown 내부 배경을 적용한다. `contextual`이면 생성된 저대비 배경을 내부 영역에 보존하되 핵심 아웃라인보다 대비가 높아지지 않게 한다.
-26. 두 모드 모두 primary와 효과를 중앙 64×64 영역으로 제한하고 rows/columns 0, 1, 78, 79를 템플릿 픽셀로 덮어쓴다. contextual 배경만 프레임 안쪽 전체에 존재할 수 있다.
-27. 25-26은 resize/crop이 아니라 deterministic frame/background/safe-area normalization으로 기록한다.
-28. 최종 80×80 이미지를 nearest-neighbor 32×32로 확인하여 primaryOutline, direction, oneSimpleEffect가 살아 있는지 검사한다.
-29. 생성·편집·오버레이·정규화 기록을 evaluationRoot의 기존 equipmentId 구조에 보존한다.
-30. normalized source가 85점 이상 Pass일 때만 outputIconPath와 `.meta`를 반영한다.
+9. 스킬 JSON의 element, targeting, castMove, moveType, damage, buff, debuff, effect를 근거로 스킬의 속성·위치·영역·진행 방향·발동 원인 중 가장 중요한 맥락 하나를 선택하고, 그 맥락과 어울리는 낮은 대비의 내부 배경 요소 1-2개를 한 문장으로 묘사한다.
+10. 내부 배경은 프레임 안쪽을 채우는 단순한 환경 표면, 색면, 흐림, 균열, 바닥 문양 또는 저대비 에너지 흔적으로 구성한다. 핵심 아웃라인과 oneSimpleEffect보다 명도·채도·디테일 대비를 낮게 유지하고, 캐릭터·생물·무기·건물·문자·추가 스킬 효과를 배경에 넣지 않는다.
+11. `backgroundMode=auto`는 기본적으로 `contextual`로 확정한다. 스킬 JSON에서 배경 맥락을 신뢰성 있게 도출할 수 없을 때만 `flat`을 사용하며, 이 경우에도 grade와 palette에 어울리는 저대비 색상 그라데이션 또는 미세한 재질감의 내부 배경을 지정한다.
+12. 마지막 핵심 문장은 가장 가능성이 높은 오인 대상 3-6개와 grade/palette/pixel-art 가독성만 짧게 쓴다.
+13. frame, card, panel, background border, safe-area 좌표, exact-count 요소는 생성 Description에서 제거한다.
+14. PixelLab `Create UI elements (Pro)`를 열고 Custom size를 80×80으로 설정한다.
+15. 내부 배경을 생성하기 위해 Transparent background를 Off로 설정한다.
+16. Concept image는 비워 두고 Color palette에는 primary, oneSimpleEffect, 내부 배경에 사용할 핵심 색상을 역할별로 간결하게 입력한다.
+17. Pro가 한 번에 반환하는 4×4, 총 16개 80×80 변형을 각각 독립 후보로 보존한다. 합쳐진 그리드를 아이콘 후보로 사용하지 않는다.
+18. primary 40-52px, 의미 선 최소 4px, 요소 간격 최소 4-6px를 목표로 생성한다.
+19. 16개 변형에 정적·의미 검사를 먼저 적용하고 상위 3개까지만 편집·오버레이·정규화 대상으로 진행한다.
+20. 첫 실행이 실패하면 문장을 추가하지 말고 실패한 한 문장을 더 짧고 직접적인 문장으로 교체한다. Pro 재실행은 16개 변형이 모두 핵심 구조에 실패했을 때만 요청한다.
+21. 방향 실패 시 direction 문장을 `left to right`, `top to bottom`, `upper left to lower right`, `centered radial`, `centered symmetrical` 중 하나로 교체하고 새 seed로 재생성한다.
+22. 부분 물체가 완전한 생물·인물로 복원되면 의미 명칭을 제거하고 시각 형상만 남긴다. 예: `wolf jaw` 대신 `two disconnected dark-gray crescent jaw strips`.
+23. oneSimpleEffect가 빠졌지만 primary는 올바를 때만 `Edit image`로 한 번 보강한다. 지시는 `add`, `remove`, `change`, `replace` 중 하나로 시작하는 한 문장만 사용한다.
+24. exactCountElements는 생성·편집 프롬프트에 맡기지 않고 결정적 픽셀 오버레이로 추가한다. 각 요소는 최소 4×4px, 간격 최소 4px이다.
+25. arcs/rings는 최종 80×80 기준 3-4px 두께로 유지한다.
+26. `flat`이면 생성된 저대비 색상·재질 내부 배경을 frameTemplatePath의 내부 영역에 맞춰 보존한다. `contextual`이면 생성된 스킬 연관 저대비 배경을 내부 영역에 보존하되 핵심 아웃라인보다 대비가 높아지지 않게 한다.
+27. 두 모드 모두 primary와 효과를 중앙 64×64 영역으로 제한하고 rows/columns 0, 1, 78, 79를 템플릿 픽셀로 덮어쓴다. 내부 배경만 프레임 안쪽 전체에 존재할 수 있다.
+28. 26-27은 resize/crop이 아니라 deterministic frame/background/safe-area normalization으로 기록한다.
+29. 최종 80×80 이미지를 nearest-neighbor 32×32로 확인하여 primaryOutline, direction, oneSimpleEffect가 살아 있는지 검사한다.
+30. 생성·편집·오버레이·정규화 기록을 evaluationRoot의 기존 equipmentId 구조에 보존한다.
+31. normalized source가 85점 이상 Pass일 때만 outputIconPath와 `.meta`를 반영한다.
 
 실패 라우팅:
 - direction_failure: direction 문장 교체 + 새 seed

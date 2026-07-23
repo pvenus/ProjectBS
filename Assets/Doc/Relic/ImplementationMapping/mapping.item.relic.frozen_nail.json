@@ -1,0 +1,52 @@
+{
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.frozen_nail",
+    "relicId":  "item.relic.frozen_nail",
+    "planningPath":  "Assets/Doc/Relic/item.relic.frozen_nail.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "relic-icon-01_0",
+    "iconGuid":  "a67f719d0725b46a99609a53e5539721",
+    "iconFileId":  1957419258,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "debuff",
+    "subCategory":  "on_hit_move_speed_down",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "move_speed_down_on_hit",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "OnHitTimedStatModifier",
+                        "config":  {
+                                       "chancePercent":  12,
+                                       "statType":  "MoveSpeedPercent",
+                                       "modifierType":  "Flat",
+                                       "value":  -15,
+                                       "durationSeconds":  2
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "non_stack",
+                        "reapply":  "refresh duration to 2 seconds without stacking value",
+                        "termination":  "target state expires by duration; unequip only stops new triggers"
+                    }
+                ]
+}

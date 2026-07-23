@@ -1,0 +1,80 @@
+{
+  "equipmentId": "skill.strategic.emergency_pill",
+  "skillName": "응급 단약",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.emergency_pill.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.0,
+    "projectileLifetime": 0.3,
+    "brainMeta": {
+      "category": "Heal",
+      "targetType": "Ally",
+      "tacticalNeed": "AllySupport",
+      "basePriority": 100.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.emergency_pill.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.emergency_pill.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.emergency_pill.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "buffEffects": [
+        {
+          "entryId": "effect.skill.strategic.emergency_pill.heal.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.emergency_pill.heal",
+            "effectType": "Heal",
+            "effectName": "effect.skill.strategic.emergency_pill.heal",
+            "config": {
+              "useMaxHpPercent": false,
+              "maxHpPercent": 0,
+              "flatHealAmount": 30,
+              "useAttackScaling": false,
+              "attackPercentHeal": 0,
+              "clampToMaxHp": true
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.emergency_pill.visual",
+    "projectileVisualType": "Default"
+  }
+}

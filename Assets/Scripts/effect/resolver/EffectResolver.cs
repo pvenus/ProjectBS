@@ -126,11 +126,6 @@ namespace Effect
                         targetCharacter);
 
                 case HealEffectConfig healConfig:
-                    if (targetCharacter == null)
-                    {
-                        return null;
-                    }
-
                     return new HealEffectRuntime(
                         effectSo,
                         healConfig,
@@ -182,7 +177,8 @@ namespace Effect
                     return new ChanceOnHitStatModifierEffectRuntime(
                         effectSo,
                         chanceOnHitStatModifierConfig,
-                        targetCharacter);
+                        targetCharacter,
+                        sourceCharacter);
 
                 case ChanceOnHealStatModifierEffectConfig chanceOnHealStatModifierConfig:
                     if (targetCharacter == null)
@@ -219,9 +215,7 @@ namespace Effect
                         sourceCharacter);
 
                 case TauntEffectConfig tauntConfig:
-                    if (targetCharacter == null
-                        || sourceTransform == null
-                        || effectEntrySo == null)
+                    if (effectEntrySo == null)
                     {
                         return null;
                     }
@@ -232,6 +226,39 @@ namespace Effect
                         targetCharacter,
                         sourceTransform,
                         effectEntrySo.Duration);
+
+                case OnHitKnockbackDistanceEffectConfig onHitKnockbackDistanceConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitKnockbackDistanceEffectRuntime(
+                        effectSo,
+                        onHitKnockbackDistanceConfig,
+                        sourceCharacter);
+
+                case OnHitTimedStatModifierEffectConfig onHitTimedStatModifierConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitTimedStatModifierEffectRuntime(
+                        effectSo,
+                        onHitTimedStatModifierConfig,
+                        sourceCharacter);
+
+                case OnHitPoisonDotEffectConfig onHitPoisonDotConfig:
+                    if (sourceCharacter == null)
+                    {
+                        return null;
+                    }
+
+                    return new OnHitPoisonDotEffectRuntime(
+                        effectSo,
+                        onHitPoisonDotConfig,
+                        sourceCharacter);
 
                 default:
                     return null;

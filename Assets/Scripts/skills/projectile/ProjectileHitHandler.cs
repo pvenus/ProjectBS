@@ -35,6 +35,7 @@ public class ProjectileHitHandler : MonoBehaviour
     private bool initialHitCollectionCompleted;
     private bool hasAppliedDamage;
     private int currentHitCount;
+    private readonly EffectResolver effectResolver = new();
 
     public bool IsInitialized => initialized;
     public bool ConsumeOnHit => consumeOnHit;
@@ -438,11 +439,11 @@ public class ProjectileHitHandler : MonoBehaviour
         bool hasDamage = runtimeData.hit != null
             && runtimeData.hit.damageProfile != null;
         bool hasBuffEffects = runtimeData.hit != null
-            && runtimeData.hit.buffEffects != null
-            && runtimeData.hit.buffEffects.Length > 0;
+            && runtimeData.hit.buffEffectEntries != null
+            && runtimeData.hit.buffEffectEntries.Length > 0;
         bool hasDebuffEffects = runtimeData.hit != null
-            && runtimeData.hit.debuffEffects != null
-            && runtimeData.hit.debuffEffects.Length > 0;
+            && runtimeData.hit.debuffEffectEntries != null
+            && runtimeData.hit.debuffEffectEntries.Length > 0;
 
         if (!hasDamage && !hasBuffEffects && !hasDebuffEffects)
         {
@@ -555,22 +556,41 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
-        ApplyEffects(
+        ResolveAndApplyEffects(
             effectManager,
-            runtimeData.hit.buffEffects);
+            targetCharacter,
+            runtimeData.hit.buffEffectEntries,
+            EffectCategoryType.Buff);
 
-        ApplyEffects(
+        ResolveAndApplyEffects(
             effectManager,
-            runtimeData.hit.debuffEffects);
+            targetCharacter,
+            runtimeData.hit.debuffEffectEntries,
+            EffectCategoryType.Debuff);
     }
 
-    private void ApplyEffects(
+    private void ResolveAndApplyEffects(
         EffectManager effectManager,
-        EffectEntryRuntime[] effects)
+        CharacterManager targetCharacter,
+        EffectEntrySO[] effectEntries,
+        EffectCategoryType defaultCategoryType)
     {
         if (effectManager == null
-            || effects == null
-            || effects.Length == 0)
+            || targetCharacter == null
+            || effectEntries == null
+            || effectEntries.Length == 0)
+        {
+            return;
+        }
+
+        EffectEntryRuntime[] effects = effectResolver.ResolveEntries(
+            effectEntries,
+            runtimeData != null ? runtimeData.owner : null,
+            targetCharacter.gameObject,
+            defaultCategoryType,
+            runtimeData?.hit?.effectUpgradeModifiers);
+
+        if (effects == null || effects.Length == 0)
         {
             return;
         }
@@ -581,6 +601,13 @@ public class ProjectileHitHandler : MonoBehaviour
                 || effectEntry.RuntimeData == null)
             {
                 continue;
+            }
+
+            if (effectEntry.RuntimeData is TauntEffectRuntime tauntEffect)
+            {
+                tauntEffect.BindHitTarget(
+                    targetCharacter,
+                    transform);
             }
 
             EffectApplyHelper.ApplyEffect(

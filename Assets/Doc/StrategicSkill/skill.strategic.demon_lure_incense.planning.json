@@ -10,26 +10,24 @@
       "grade": "Basic",
       "gaugeCost": 40
     },
-    "reviewStatus": "blocked",
+    "reviewStatus": "review_ready",
     "tacticalRoleKo": {
       "primary": "행동 제어",
       "secondary": "위치 제어"
     },
-    "conceptKo": "향 연기가 요귀를 홀려 향로 쪽으로 끌어들인다.",
-    "intendedUseKo": "향로를 설치해 범위 내 적을 6초간 지정 위치로 유인한다.",
-    "targetingKo": "플레이어가 지정한 위치의 반경 6m 안에 적용한다.",
+    "conceptKo": "요사스러운 향을 피워 주변 적의 주의를 향로에 빼앗는다.",
+    "intendedUseKo": "향로를 설치해 주변 적들을 6초 동안 지정 위치로 유인하고 아군에게서 공격을 돌린다.",
+    "targetingKo": "플레이어가 지정한 위치에 향로를 설치하고 반경 6m 안의 모든 적에게 적용한다.",
     "effectsKo": [
-      "범위 안의 적을 지정 위치로 유인하며 6초 동안 유지한다."
+      "범위 안의 모든 적을 6초 동안 도발해 향로를 공격 대상으로 삼고 향로 위치로 유인한다."
     ],
-    "executionKo": "지정 위치에 지속 영역을 만든다.",
-    "presentationKo": "향로 위치, 유효 반경, 적의 유인 상태가 지속시간 동안 보여야 한다.",
+    "executionKo": "전투 중 전략 게이지 40을 소비해 지정 위치에 사용하며 게이지 외 별도 재사용 대기시간은 없다. 향로와 도발은 6초 동안 유지된 뒤 종료한다. 도발은 중첩되지 않으며 같은 적에게 새 요귀향이 적용되면 공격 대상을 새 향로로 교체하고 지속시간을 6초부터 다시 계산한다.",
+    "presentationKo": "향로 위치와 반경 6m의 유효 범위, 도발된 적이 향로로 향하는 상태가 6초 동안 명확히 보이게 한다.",
     "balanceContext": {
       "itemGrade": "Basic",
       "gaugeCost": 40
     },
-    "openQuestionsKo": [
-      "유인된 적이 지정 위치로 이동만 하는지, 해당 위치를 공격 대상으로 삼는지도 확정"
-    ],
-    "sourceNoteKo": "기존 전략 스킬 구현을 바탕으로 역기획한 초안"
+    "openQuestionsKo": [],
+    "sourceNoteKo": "기존 아이템 설명, 6초 지속 데이터, 반경 6m 범위와 도발 효과 및 강제 표적 런타임을 대조하고 현재 JSON→SO 도발 생성 경로까지 확인한 역기획 문서"
   }
 }
