@@ -1,4 +1,5 @@
 using Skills.Dto;
+using System.Collections.Generic;
 using Effect;
 using Skill;
 using UnityEngine;
@@ -22,8 +23,9 @@ public class SkillProjectileHitDto
 
     public EquipmentSkillSO spawnSkill;
 
-    public EffectEntryRuntime[] buffEffects;
-    public EffectEntryRuntime[] debuffEffects;
+    public EffectEntrySO[] buffEffectEntries;
+    public EffectEntrySO[] debuffEffectEntries;
+    public List<EffectUpgradeModifierData> effectUpgradeModifiers;
 
     public int splitHitCount = 1;
     public float splitHitInterval;

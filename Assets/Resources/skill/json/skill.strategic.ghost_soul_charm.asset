@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.ghost_soul_charm
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.ghost_soul_charm
+  icon: {fileID: 21300000, guid: f2643c4da16f499f9d53f348ead9dd18, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 171fc6dee5a4d4e1ab0a95a4cb3efe02, type: 2}
+  castSo: {fileID: 11400000, guid: f6763daee007a4727b1757c654cb259a, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 8231084e0c3f44a01b7df6094f40a24e, type: 2}
+  moveSo: {fileID: 11400000, guid: f9453c09313704557a1306e5ccf8d959, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 718f4686d68774f418cd09a5a0dd7dc3, type: 2}

@@ -6,7 +6,6 @@ using Skills.Dto.Move;
 using Skills.Move.Config;
 using Skill;
 using Effect;
-using Effect.Helper;
 /// <summary>
 /// 장비 스킬 런타임 조립용 최상위 Resolver.
 /// 세부 계산은 Rune / Upgrade / Stat / Reflection helper에 위임한다.
@@ -16,7 +15,6 @@ public class EquipmentSkillResolver
     private readonly EquipmentRuneResolver runeResolver = new EquipmentRuneResolver();
     private readonly EquipmentUpgradeResolver upgradeResolver = new EquipmentUpgradeResolver();
     private readonly EquipmentStatResolver statResolver = new EquipmentStatResolver();
-    private readonly EffectResolver effectResolver = new EffectResolver();
 
     public EquipmentSkillRuntimeData Resolve(EquipmentSkillSO equipmentSo, EquipmentSkillInstanceData instanceData)
     {
@@ -129,9 +127,7 @@ public class EquipmentSkillResolver
         ResolvedHitRuntimeData[] hitRuntimes =
             CreateHitRuntimeDatas(
                 runtime,
-                resolvedStatModifiers,
-                owner,
-                target);
+                resolvedStatModifiers);
 
         if (hitRuntimes == null || hitRuntimes.Length == 0)
         {
@@ -354,8 +350,6 @@ public class EquipmentSkillResolver
     private SkillProjectileHitDto CreateHitDto(
         SkillHitSO hitSo,
         SkillDamageProfileDto resolvedDamageProfile,
-        GameObject owner,
-        GameObject target,
         int resolvedMaxHitCount,
         IReadOnlyList<EffectUpgradeModifierData> effectUpgradeModifiers = null)
     {
@@ -375,18 +369,11 @@ public class EquipmentSkillResolver
             targetLayerMask = hitSo.TargetLayerMask,
             damageProfile = resolvedDamageProfile,
             spawnSkill = hitSo.SpawnSkill,
-            buffEffects = effectResolver.ResolveEntries(
-                hitSo.BuffEffects,
-                owner,
-                target,
-                EffectCategoryType.Buff,
-                effectUpgradeModifiers),
-            debuffEffects = effectResolver.ResolveEntries(
-                hitSo.DebuffEffects,
-                owner,
-                target,
-                EffectCategoryType.Debuff,
-                effectUpgradeModifiers),
+            buffEffectEntries = hitSo.BuffEffects,
+            debuffEffectEntries = hitSo.DebuffEffects,
+            effectUpgradeModifiers = effectUpgradeModifiers != null
+                ? new List<EffectUpgradeModifierData>(effectUpgradeModifiers)
+                : null,
             splitHitCount = Mathf.Max(1, hitSo.SplitHitCount),
             splitHitInterval = Mathf.Max(0f, hitSo.SplitHitInterval),
         };
@@ -401,9 +388,7 @@ public class EquipmentSkillResolver
 
     private ResolvedHitRuntimeData[] CreateHitRuntimeDatas(
         EquipmentSkillRuntimeData runtime,
-        List<SkillStatModifierData> resolvedStatModifiers,
-        GameObject owner,
-        GameObject target)
+        List<SkillStatModifierData> resolvedStatModifiers)
     {
         EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
         SkillHitSO[] hitSos = equipmentSo != null
@@ -446,10 +431,8 @@ public class EquipmentSkillResolver
             SkillProjectileHitDto hitDto = CreateHitDto(
                 hitSo,
                 damageProfile,
-                owner,
-                target,
                 resolvedMaxHitCount,
-                null);
+                runtime.upgradeRuntimeData?.effectModifiers);
 
             if (hitDto != null)
             {

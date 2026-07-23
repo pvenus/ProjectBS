@@ -59,6 +59,66 @@ namespace ResourceTools.Skill
             GenerateFromJsonPath(jsonPath);
         }
 
+        [MenuItem("Assets/Skill/Generate All EquipmentSkillSO From Folder", false, 2001)]
+        public static void GenerateAllFromSelectedFolder()
+        {
+            string folderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (string.IsNullOrWhiteSpace(folderPath) ||
+                !AssetDatabase.IsValidFolder(folderPath))
+            {
+                Debug.LogError(
+                    "[EquipmentSkillJsonGenerator] Select a folder in the Project window first.");
+                return;
+            }
+
+            string[] jsonPaths = Directory.GetFiles(
+                folderPath,
+                "*.json",
+                SearchOption.TopDirectoryOnly);
+            Array.Sort(jsonPaths, StringComparer.Ordinal);
+
+            if (jsonPaths.Length == 0)
+            {
+                Debug.LogWarning(
+                    $"[EquipmentSkillJsonGenerator] No json files found in folder: {folderPath}");
+                return;
+            }
+
+            int generatedCount = 0;
+            int failedCount = 0;
+
+            for (int i = 0; i < jsonPaths.Length; i++)
+            {
+                string jsonPath = jsonPaths[i].Replace("\\", "/");
+
+                try
+                {
+                    if (GenerateFromJsonPath(jsonPath) != null)
+                    {
+                        generatedCount++;
+                    }
+                    else
+                    {
+                        failedCount++;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    failedCount++;
+                    Debug.LogError(
+                        $"[EquipmentSkillJsonGenerator] Failed to generate skill. " +
+                        $"path={jsonPath}\n{exception}");
+                }
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            Debug.Log(
+                $"[EquipmentSkillJsonGenerator] Folder generation completed. " +
+                $"folder={folderPath}, generated={generatedCount}, failed={failedCount}");
+        }
+
         public static EquipmentSkillSO GenerateFromJsonPath(string jsonPath)
         {
             if (string.IsNullOrEmpty(jsonPath) || !jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
@@ -436,6 +496,14 @@ namespace ResourceTools.Skill
         {
             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
             return !string.IsNullOrEmpty(path) && path.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
+        }
+
+        [MenuItem("Assets/Skill/Generate All EquipmentSkillSO From Folder", true)]
+        private static bool ValidateGenerateAllFromSelectedFolder()
+        {
+            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            return !string.IsNullOrWhiteSpace(path) &&
+                   AssetDatabase.IsValidFolder(path);
         }
 
         private static Sprite FindSpriteById(string iconId)

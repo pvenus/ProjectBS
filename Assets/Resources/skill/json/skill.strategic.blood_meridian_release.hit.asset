@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
+  m_Name: skill.strategic.blood_meridian_release.hit
+  m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  hitId: skill.strategic.blood_meridian_release.hit
+  maxHitCount: 999
+  ignoreSameRoot: 0
+  useRepeatInterval: 0
+  repeatInterval: 0
+  hitStartTime: 0
+  deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  damage:
+    damageType: 0
+    baseDamage: 0
+    firstHitBaseDamage: 0
+    attackPercentDamage: 0
+    canCritical: 0
+    ignoreDefense: 0
+  skillSpawn:
+    spawnSkill: {fileID: 0}
+  effects:
+    buffEffects:
+    - {fileID: 11400000, guid: 5fd44902dc7f44b8cb75ee74c48d6c2b, type: 2}
+    - {fileID: 11400000, guid: 3e33f9690c47e4c72a0c65c5221e20f4, type: 2}
+    debuffEffects: []
+  split:
+    useSplitMultiHitDamage: 0
+    splitHitCount: 4
+    splitHitInterval: 0.1
