@@ -8,7 +8,7 @@
                    "actId":  "act.01",
                    "chapterId":  "chapter.01.01",
                    "actGroupId":  "cheongun_sangui_act1",
-                   "title":  "끊어진 발자국",
+                   "title":  "상처가 가리킨 서쪽 길",
                    "episodeRole":  "investigation",
                    "secondaryRoles":  [
                                           "travel",
@@ -35,14 +35,12 @@
                },
     "story":  {
                   "scriptSynopsis":  {
-                                         "episodeSummary":  "유진과 함께 지워진 발자국을 추적하던 서진이, 산귀 소문 뒤에 사람의 손길이 있음을 확인하는 조사 에피소드.",
+                                         "episodeSummary":  "유진과 합류한 서진이 폐수련장의 납치 도구를 추적하고, 숲속 오두막에서 다친 아이를 치료하던 승려 지한을 만나 아이의 증언과 붉은 실 단서를 확보하는 동료 조우·조사 에피소드.",
                                          "sceneBeats":  [
-                                                            "?? ?? ? ?? ??? ? ?? ?? ?? ???? ?? ??? ????.",
-                                                            "??? ? ???? ?? ? ???? ??? ??? ?? ???? ????.",
-                                                            "?? ?? ?? ??? ?? ?? ??? ?? ??? ???? ????.",
-                                                            "??? ?? ??, ??? ??, ?? ? ??, ?? ???? ????.",
-                                                            "?? ?? ?? ? ?? ??? ??? ??? ?? ???? ???? ????.",
-                                                            "??? ??? ?? ??? ??? ?? ?? ??? ????? ???? ??."
+                                                            "유진과 서진은 폐수련장의 빈 우리에서 마른 피와 서쪽 약초꾼 길의 붕대 조각을 발견한다.",
+                                                            "서쪽 숲 오두막에서 지한이 다친 아이를 치료하고 있다.",
+                                                            "아이의 증언과 쇠고리 상처는 산귀가 아니라 사람의 납치를 드러낸다.",
+                                                            "세 사람은 북쪽 산길로 단서를 잇는다."
                                                         ],
                                          "emotionalTone":  [
                                                                "analytic",
@@ -77,7 +75,7 @@
                   "choiceDirections":  [
                                            {
                                                "choiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
-                                               "sourceChoiceText":  "유진과 함께 지워진 흔적을 확인한다.",
+                                               "sourceChoiceText":  "지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.",
                                                "choiceIntent":  "??? ?? ?? ?? ?? ? ??? ??? ?? ?? ???.",
                                                "outcomeDirection":  "??? ??? ?? ???? ?? ??? ??? ???? ?? ?? ????.",
                                                "opens":  [
@@ -88,11 +86,12 @@
                                                                        "gold_episode_clear"
                                                                    ],
                                                "choiceName":  "inspect_erased_trace_with_yujin",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode04_2.erased_track_method.inspect_erased_trace_with_yujin",
-                                               "sourcePopupId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode04_2.jihan_testimony.inspect_erased_trace_with_yujin",
+                                               "sourcePopupId":  "node.act1.chapter01.episode04_2.jihan_testimony",
                                                "legacyChoiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
                                                "rewardOwner":  "popup",
-                                               "rewardTrigger":  "episode_clear"
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            }
                                        ],
                   "sourceNarration":  {
@@ -101,63 +100,62 @@
                                           "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
                                           "blocks":  [
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
-                                                             "popupName":  "erased_tracks",
-                                                             "originalTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.\n\n근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.cage_to_west_path",
+                                                             "popupName":  "cage_to_west_path",
+                                                             "originalTextKo":  "수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다.\n\n마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.",
                                                              "sourceParagraphOrder":  1,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode04_2.erased_tracks",
-                                                                                     "node.act1.chapter01.episode04_2.erased_track_method"
+                                                                                     "node.act1.chapter01.episode04_2.cage_to_west_path"
                                                                                  ]
                                                          },
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.scout_disguise_evidence",
-                                                             "popupName":  "scout_disguise_evidence",
-                                                             "originalTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode04_2.jihan_testimony",
+                                                             "popupName":  "jihan_testimony",
+                                                             "originalTextKo":  "아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다.\n\n서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.\n\n지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.",
                                                              "sourceParagraphOrder":  2,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode04_2.scout_disguise_evidence"
+                                                                                     "node.act1.chapter01.episode04_2.jihan_testimony"
                                                                                  ]
                                                          }
                                                      ]
                                       },
                   "popupDefinitions":  [
                                            {
-                                               "popupName":  "erased_tracks",
-                                               "popupId":  "node.act1.chapter01.episode04_2.erased_tracks",
-                                               "eventId":  "node.act1.chapter01.episode04_2.erased_tracks",
+                                               "popupName":  "cage_to_west_path",
+                                               "popupId":  "node.act1.chapter01.episode04_2.cage_to_west_path",
+                                               "eventId":  "node.act1.chapter01.episode04_2.cage_to_west_path",
                                                "popupOrder":  1,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
-                                               "originalTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다.\n\n흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다.\n\n\"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.",
-                                               "displayTextKo":  "유진이 합류한 뒤, 서진 일행은 숲 입구 너머로 이어진 발자국을 따라 움직였다. 흙길에는 사람 발자국과 수레 자국이 함께 남아 있었다. 하지만 흔적은 숲 중턱에서 갑자기 끊겨 있었다. 유진은 무릎을 꿇고 흙을 쓸어보더니 짧게 숨을 내쉬었다. \"여기서 사라진 게 아니야. 지운 거야.\"\n\n유진은 근처 나무에 박힌 낡은 화살을 발견했다. 깃은 젖어 축 처져 있었고, 화살촉에는 피가 아니라 검은 진흙이 말라붙어 있었다. 산귀의 저주가 아니라, 누군가 이 길목을 지켜보고 있었다는 흔적이었다.",
-                                               "displayDirective":  "한 페이지 안에서 장면 정보를 충분히 담되, 성격이 바뀌는 지점만 문단으로 나눈다. 40자 하드 래핑은 하지 않고 UI 자동 개행에 맡긴다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.cage_to_west_path",
+                                               "originalTextKo":  "수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다.\n\n마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.",
+                                               "displayTextKo":  "수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다.\n\n마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.",
+                                               "displayDirective":  "폐수련장의 빈 우리와 서쪽 오두막에서 지한을 만나는 흐름을 한 페이지에 묶는다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "nextPopupId":  "node.act1.chapter01.episode04_2.jihan_testimony",
                                                "choices":  [
 
                                                            ]
                                            },
                                            {
-                                               "popupName":  "erased_track_method",
-                                               "popupId":  "node.act1.chapter01.episode04_2.erased_track_method",
-                                               "eventId":  "node.act1.chapter01.episode04_2.erased_track_method",
+                                               "popupName":  "jihan_testimony",
+                                               "popupId":  "node.act1.chapter01.episode04_2.jihan_testimony",
+                                               "eventId":  "node.act1.chapter01.episode04_2.jihan_testimony",
                                                "popupOrder":  2,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.erased_tracks",
-                                               "originalTextKo":  "근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다.\n\n유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다.\n\n유진은 활시위를 느슨하게 잡은 채 주변을 살폈다.\n\n\"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\"\n\n서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
-                                               "displayTextKo":  "근처에는 정찰대가 머문 흔적이 남아 있었다. 나무 위에는 잎사귀를 엮은 망토 조각이 걸려 있었고, 바위 뒤에는 검푸른 염료가 묻은 천 조각이 떨어져 있었다. 그 옆에는 짧은 창을 세워두며 눌린 흙자국과, 산귀의 얼굴을 흉내 낸 납작한 나무패가 반쯤 묻혀 있었다. 유진은 나무패를 집어 들고 표면을 엄지로 문질렀다. 숲의 색을 흉내 내기 위해 진흙과 풀즙을 바른 흔적, 발자국을 지울 때 쓰는 작은 솔의 털, 짐승 발 모양으로 깎은 나무판의 찍힌 자국이 주변에 흩어져 있었다. 흔적을 감추는 일을 오래 해온 자들이 지나간 자리였다. 유진은 활시위를 느슨하게 잡은 채 주변을 살폈다. \"싸운 흔적이 아니야. 누군가 길을 지우고, 다른 흔적을 덧씌운 거야.\" 서진은 몸을 낮추고 흙 위의 자국을 내려다보았다.\n\n이 일은 단순한 추격전이 아니었다. 소문 뒤에 숨은 사람의 손길을 확인하는 과정이었다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.jihan_testimony",
+                                               "originalTextKo":  "아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다.\n\n서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.\n\n지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.",
+                                               "displayTextKo":  "아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다. 서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.\n\n지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.",
+                                               "displayDirective":  "아이의 증언, 쇠고리 상처, 북쪽 수레 자국 연결을 한 페이지에 담는다. 선택지는 지한 합류 결정 뒤에 둔다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
+                                               "nextPopupId":  null,
                                                "choices":  [
                                                                {
                                                                    "choiceName":  "inspect_erased_trace_with_yujin",
-                                                                   "choiceId":  "choice.act1.chapter01.episode04_2.erased_track_method.inspect_erased_trace_with_yujin",
+                                                                   "choiceId":  "choice.act1.chapter01.episode04_2.jihan_testimony.inspect_erased_trace_with_yujin",
                                                                    "legacyChoiceId":  "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
-                                                                   "sourceChoiceText":  "유진과 함께 지워진 흔적을 확인한다.",
+                                                                   "sourceChoiceText":  "지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.",
                                                                    "rewardDirection":  [
                                                                                            "gold_episode_clear"
                                                                                        ],
@@ -165,23 +163,6 @@
                                                                    "rewardTrigger":  "episode_clear"
                                                                }
                                                            ]
-                                           },
-                                           {
-                                               "popupName":  "scout_disguise_evidence",
-                                               "popupId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
-                                               "eventId":  "node.act1.chapter01.episode04_2.scout_disguise_evidence",
-                                               "popupOrder":  3,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode04_2.scout_disguise_evidence",
-                                               "originalTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다.\n\n숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다. 누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  null,
-                                               "choices":  [
-
-                                                           ],
-                                               "displayTextKo":  "서진은 유진이 지워진 길을 다시 읽어낼 수 있도록 주변의 풀과 흙을 조심스럽게 살폈다. 숲과 같은 색으로 칠한 망토 조각, 눈 밑을 물들였을 검푸른 염료, 가슴에 매달았을 산귀 나무패가 하나씩 모습을 드러냈다.\n\n누군가 사람의 흔적을 지우고 산귀의 흔적처럼 보이게 꾸민 것이 분명했다. 서진과 유진은 남은 흔적이 바람과 발자국에 묻히기 전에, 그 길이 어디로 이어지는지 확인해야 했다.",
-                                               "displayDirective":  "한 페이지 안에서 장면 정보를 충분히 담되, 성격이 바뀌는 지점만 문단으로 나눈다. 40자 하드 래핑은 하지 않고 UI 자동 개행에 맡긴다."
                                            }
                                        ],
                   "popupIdentityPolicy":  {

@@ -8,7 +8,7 @@
                    "actId":  "act.01",
                    "chapterId":  "chapter.01.01",
                    "actGroupId":  "cheongun_sangui_act1",
-                   "title":  "숲길의 궁수",
+                   "title":  "지워진 바퀴의 끝",
                    "episodeRole":  "companion_join",
                    "secondaryRoles":  [
                                           "ambush",
@@ -35,14 +35,12 @@
                },
     "story":  {
                   "scriptSynopsis":  {
-                                         "episodeSummary":  "지워진 발자국과 수레 자국을 따라 숲으로 들어간 서진이, 산길을 읽는 궁수 유진과 동행하게 되는 에피소드.",
+                                         "episodeSummary":  "서진이 궁수 유진과 함께 지워진 수레 자국을 복원해 폐수련장에서 산귀 흔적을 조작하는 현장을 확인하고, 감시자들의 포위망을 뚫는 전투 에피소드.",
                                          "sceneBeats":  [
-                                                            "??? ??? ?? ???? ?? ??? ??? ??? ?? ????? ????? ????.",
-                                                            "??? ?? ? ??? ?? ??? ??? ???? ?? ???? ?? ???? ??? ???.",
-                                                            "?? ??? ?? ????? ??? ??? ??? ??? ?? ?? ??? ???.",
-                                                            "??? ???? ??? ??? ?? ???, ?? ????? ?????? ??.",
-                                                            "??? ??? ??? ? ???? ???? ???? ?? ? ??? ?? ?? ???.",
-                                                            "??? ??? ??? ??? ? ?? ?? ???? ???? ???? ??? ????."
+                                                            "유진은 고사리, 나무껍질의 기름, 마른 흙을 읽어 동쪽 폐수련장으로 이어지는 수레 자국을 복원한다.",
+                                                            "수련장에는 빈 우리, 푸른 실밥, 짐승 발 모양 덧찍기, 붉은 천 인형 제작 흔적이 남아 있다.",
+                                                            "감시자들이 지붕과 담장 뒤에서 포위하고 유진은 빈 우리를 드러낸다.",
+                                                            "서진과 유진은 폐수련장의 감시자들을 돌파한다."
                                                         ],
                                          "emotionalTone":  [
                                                                "forest_tracking",
@@ -79,7 +77,7 @@
                   "choiceDirections":  [
                                            {
                                                "choiceId":  "episode.act1.chapter01.03_2.choice.track_erased_traces.1",
-                                               "sourceChoiceText":  "지워진 흔적을 더 깊이 추적한다.",
+                                               "sourceChoiceText":  "지워진 수레 자국을 복원한다.",
                                                "choiceIntent":  "??? ??? ??? ?? ?? ????? ????.",
                                                "outcomeDirection":  "??? ??? ????? ???? ???? ?? ???? ????.",
                                                "opens":  [
@@ -89,15 +87,16 @@
                                                                        "gold_episode_clear"
                                                                    ],
                                                "choiceName":  "track_erased_traces",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.erased_forest_trail.track_erased_traces",
-                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.erased_forest_trail",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.oil_wheel_trace.track_erased_traces",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.oil_wheel_trace",
                                                "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.track_erased_traces.1",
                                                "rewardOwner":  "popup",
-                                               "rewardTrigger":  "episode_clear"
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            },
                                            {
                                                "choiceId":  "episode.act1.chapter01.03_2.choice.accept_yujin_join.1",
-                                               "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+                                               "sourceChoiceText":  "유진과 함께 조작된 산귀 흔적을 확인한다.",
                                                "choiceIntent":  "?? ??? ?? ??? ??? ?????.",
                                                "outcomeDirection":  "??? ??? ???? ??? ?? ?? ???.",
                                                "opens":  [
@@ -108,15 +107,16 @@
                                                                        "gold_episode_clear"
                                                                    ],
                                                "choiceName":  "accept_yujin_join",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.yujin_training_ground.accept_yujin_join",
-                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.yujin_training_ground",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.oil_wheel_trace.accept_yujin_join",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.oil_wheel_trace",
                                                "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.accept_yujin_join.1",
                                                "rewardOwner":  "popup",
-                                               "rewardTrigger":  "episode_clear"
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            },
                                            {
                                                "choiceId":  "episode.act1.chapter01.03_2.choice.subdue_training_ground_bandits.1",
-                                               "sourceChoiceText":  "유진과 함께 수련장의 산적들을 제압한다.",
+                                               "sourceChoiceText":  "유진과 함께 폐수련장의 감시자들을 돌파한다.",
                                                "choiceIntent":  "??? ??? ??? ? ??? ??? ??? ?? ?? ???? ??.",
                                                "outcomeDirection":  "??? ??? ???? ???? ??? ????.",
                                                "opens":  [
@@ -126,11 +126,12 @@
                                                                        "gold_battle_reward"
                                                                    ],
                                                "choiceName":  "subdue_training_ground_bandits",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.yujin_join.subdue_training_ground_bandits",
-                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.yujin_join",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_2.break_training_ground.subdue_training_ground_bandits",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_2.break_training_ground",
                                                "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.subdue_training_ground_bandits.1",
                                                "rewardOwner":  "battle",
-                                               "rewardTrigger":  "battle_clear"
+                                               "rewardTrigger":  "battle_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            }
                                        ],
                   "sourceNarration":  {
@@ -139,141 +140,116 @@
                                           "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
                                           "blocks":  [
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_2.erased_forest_trail",
-                                                             "popupName":  "erased_forest_trail",
-                                                             "originalTextKo":  "유진이 가리킨 흔적은 숲 입구 너머에서도 이어졌다.\n\n사람 발자국과 수레 자국은 오래된 산길을 따라 깊어지다가, 어느 순간부터 의도적으로 흩어져 있었다. 나뭇가지는 부러졌고, 흙은 덮였으며, 발자국의 방향은 여러 갈래로 속여져 있었다.\n\n길가에 떨어진 낡은 천 조각을 본 서진은 자신도 모르게 걸음을 멈췄다. 오래전 청운촌 근처 산길에서 놓쳤던 작은 손이 떠올랐다.\n\n서진은 이 일이 단순한 산적질이 아니라는 것을 느꼈다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_2.oil_wheel_trace",
+                                                             "popupName":  "oil_wheel_trace",
+                                                             "originalTextKo":  "유진은 흙 위의 발자국보다 꺾인 고사리와 나무껍질에 묻은 기름을 읽었다. 누군가는 수레 자국 위에 마른 흙을 뿌렸지만, 바퀴 축에서 떨어진 검은 기름까지 지우지는 못했다. 흔적은 동쪽 비탈의 낡은 수련장으로 이어졌다.\n\n담장이 무너진 수련장 안에는 빈 곡식 자루와 아이 키만 한 나무 우리가 놓여 있었다. 유진은 썩은 기둥에서 아이 옷의 푸른 실밥을 떼어냈다. 바닥에는 사람 발자국 위로 짐승 발 모양을 덧찍은 흔적이 있었고, 한쪽 화로에서는 갓 만든 붉은 천 인형이 연기를 내고 있었다.\n\n서진은 유진과 함께 수련장에 조작된 산귀 흔적을 확인한다.",
                                                              "sourceParagraphOrder":  1,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode03_2.erased_forest_trail"
-                                                                                 ]
-                                                         },
-                                                         {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_2.yujin_training_ground",
-                                                             "popupName":  "yujin_training_ground",
-                                                             "originalTextKo":  "숲속 공터에는 낡은 수련장의 흔적이 남아 있었다.\n\n그곳에서 서진은 홀로 주변을 경계하던 궁수 유진과 마주했다. 그녀의 옷자락에는 마른 피가 묻어 있었고, 발치에는 쓰러진 산적의 흔적이 남아 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 활시위를 늦추지 않은 채 말했다.\n\n\"혼자서는 더 깊이 들어갈 수 없었습니다. 같은 목적이라면, 저도 함께하겠습니다.\"",
-                                                             "sourceParagraphOrder":  2,
-                                                             "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode03_2.yujin_training_ground"
-                                                                                 ]
-                                                         },
-                                                         {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_2.yujin_join",
-                                                             "popupName":  "yujin_join",
-                                                             "originalTextKo":  "유진이 파티에 합류했다.\n\n서진은 이제 산길을 읽는 눈과 함께 움직이게 되었다.\n\n그때 숲 가장자리에서 마른 나뭇가지가 부러지는 소리가 났다.\n\n수련장을 감시하던 산적들이 모습을 드러냈다. 그들은 유진이 쥐고 있던 붉은 천 조각을 보자마자 활을 겨누었다.\n\n그들은 낡은 수련장의 목재를 잘라 만든 팔 보호대를 차고 있었다. 팔 보호대에는 오래된 문파의 문양을 칼로 긁어 지운 흔적이 남아 있었고, 얼굴에는 검댕을 발라 나무 그림자 속에 숨어 있었다. 활을 든 자들은 짧게 자른 머리에 붉은 끈을 묶었고, 칼을 든 자들은 부러진 목검 조각을 허리에 장식처럼 꽂고 있었다.\n\n가까이 드러난 산적들의 옷은 제각각이었지만, 모두 무릎 아래를 천으로 단단히 감아 숲길을 오래 걷는 차림이었다. 손가락에는 활시위에 쓸린 굳은살이 두껍게 박혀 있었고, 목에는 산귀 가면을 작게 깎은 장식이 걸려 있었다. 유진이 쥔 붉은 천 조각을 알아보자 그들의 표정이 먼저 굳었다.\n\n유진은 서진의 옆으로 한 걸음 물러서며 시위를 당겼다.\n\n\"흔적을 찾는 건 나중이야. 먼저 이 길을 조용하게 만들어야겠어.\"\n\n서진은 고개를 끄덕이고 검을 뽑았다.",
-                                                             "sourceParagraphOrder":  3,
-                                                             "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode03_2.yujin_join"
+                                                                                     "node.act1.chapter01.episode03_2.oil_wheel_trace"
                                                                                  ]
                                                          },
                                                          {
                                                              "sourceNarrationId":  "narration.act1.chapter01.episode03_2.training_ground_watchers",
                                                              "popupName":  "training_ground_watchers",
-                                                             "originalTextKo":  "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다.\n\n싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
-                                                             "sourceParagraphOrder":  4,
+                                                             "originalTextKo":  "유진이 짐승 발 모양의 나무틀을 들어 올리자 지붕 위에서 활시위가 당겨지는 소리가 났다. 썩은 기둥 뒤와 무너진 담 너머에서 감시자들이 모습을 드러냈다.\n\n그들은 낡은 수련복 조각을 가죽옷에 덧대고, 얼굴 전체에 검댕을 발라 눈의 흰자만 도드라졌다. 팔에는 부러진 목검을 잘라 만든 보호대를 찼고, 목에는 작은 산귀 가면을 걸었다. 궁수들은 짧은 각궁과 뼈촉 화살을 들고 처마 위에 엎드렸으며, 칼잡이들은 폭이 넓은 연습용 방패 뒤로 몸을 낮춰 퇴로를 막았다.\n\n유진은 가장 높은 기둥에 올라 활을 겨누었다. 그녀의 첫 화살이 수레 옆 밧줄을 끊자, 납치에 쓰인 빈 우리가 모습을 드러냈다.",
+                                                             "sourceParagraphOrder":  2,
                                                              "derivedPopupIds":  [
                                                                                      "node.act1.chapter01.episode03_2.training_ground_watchers"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_2.break_training_ground",
+                                                             "popupName":  "break_training_ground",
+                                                             "originalTextKo":  "[전투] 낡은 수련장의 감시자\n\n서진은 유진과 함께 폐수련장의 감시자들을 돌파한다.\n\n서진은 낮은 방패벽으로 파고들었고, 유진은 지붕의 궁수들이 시위를 놓지 못하도록 차례로 화살을 날렸다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode03_2.break_training_ground"
                                                                                  ]
                                                          }
                                                      ]
                                       },
                   "popupDefinitions":  [
                                            {
-                                               "popupName":  "erased_forest_trail",
-                                               "popupId":  "node.act1.chapter01.episode03_2.erased_forest_trail",
-                                               "eventId":  "node.act1.chapter01.episode03_2.erased_forest_trail",
+                                               "popupName":  "oil_wheel_trace",
+                                               "popupId":  "node.act1.chapter01.episode03_2.oil_wheel_trace",
+                                               "eventId":  "node.act1.chapter01.episode03_2.oil_wheel_trace",
                                                "popupOrder":  1,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.erased_forest_trail",
-                                               "originalTextKo":  "유진이 가리킨 흔적은 숲 입구 너머에서도 이어졌다.\n\n사람 발자국과 수레 자국은 오래된 산길을 따라 깊어지다가, 어느 순간부터 의도적으로 흩어져 있었다. 나뭇가지는 부러졌고, 흙은 덮였으며, 발자국의 방향은 여러 갈래로 속여져 있었다.\n\n길가에 떨어진 낡은 천 조각을 본 서진은 자신도 모르게 걸음을 멈췄다. 오래전 청운촌 근처 산길에서 놓쳤던 작은 손이 떠올랐다.\n\n서진은 이 일이 단순한 산적질이 아니라는 것을 느꼈다.",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode03_2.yujin_training_ground",
-                                               "choices":  [
-                                                               {
-                                                                   "choiceName":  "track_erased_traces",
-                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.erased_forest_trail.track_erased_traces",
-                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.track_erased_traces.1",
-                                                                   "sourceChoiceText":  "지워진 흔적을 더 깊이 추적한다.",
-                                                                   "rewardDirection":  [
-                                                                                           "gold_episode_clear"
-                                                                                       ],
-                                                                   "rewardOwner":  "popup",
-                                                                   "rewardTrigger":  "episode_clear"
-                                                               }
-                                                           ],
-                                               "displayTextKo":  "유진이 가리킨 흔적은 숲 입구 너머에서도 이어졌다. 사람 발자국과 수레 자국은 오래된 산길을 따라 깊어지다가, 어느 순간부터 의도적으로 흩어져 있었다. 나뭇가지는 부러졌고, 흙은 덮였으며, 발자국의 방향은 여러 갈래로 속여져 있었다. 길가에 떨어진 낡은 천 조각을 본 서진은 자신도 모르게 걸음을 멈췄다.\n\n오래전 청운촌 근처 산길에서 놓쳤던 작은 손이 떠올랐다. 서진은 이 일이 단순한 산적질이 아니라는 것을 느꼈다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다."
-                                           },
-                                           {
-                                               "popupName":  "yujin_training_ground",
-                                               "popupId":  "node.act1.chapter01.episode03_2.yujin_training_ground",
-                                               "eventId":  "node.act1.chapter01.episode03_2.yujin_training_ground",
-                                               "popupOrder":  2,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.yujin_training_ground",
-                                               "originalTextKo":  "숲속 공터에는 낡은 수련장의 흔적이 남아 있었다.\n\n그곳에서 서진은 홀로 주변을 경계하던 궁수 유진과 마주했다. 그녀의 옷자락에는 마른 피가 묻어 있었고, 발치에는 쓰러진 산적의 흔적이 남아 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 활시위를 늦추지 않은 채 말했다.\n\n\"혼자서는 더 깊이 들어갈 수 없었습니다. 같은 목적이라면, 저도 함께하겠습니다.\"",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode03_2.yujin_join",
-                                               "choices":  [
-                                                               {
-                                                                   "choiceName":  "accept_yujin_join",
-                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.yujin_training_ground.accept_yujin_join",
-                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.accept_yujin_join.1",
-                                                                   "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
-                                                                   "rewardDirection":  [
-                                                                                           "gold_episode_clear"
-                                                                                       ],
-                                                                   "rewardOwner":  "popup",
-                                                                   "rewardTrigger":  "episode_clear"
-                                                               }
-                                                           ],
-                                               "displayTextKo":  "숲속 공터에는 낡은 수련장의 흔적이 남아 있었다. 그곳에서 서진은 홀로 주변을 경계하던 궁수 유진과 마주했다. 그녀의 옷자락에는 마른 피가 묻어 있었고, 발치에는 쓰러진 산적의 흔적이 남아 있었다. \"아이들을 데려간 자들을 쫓고 있었습니다.\" 유진은 활시위를 늦추지 않은 채 말했다.\n\n\"혼자서는 더 깊이 들어갈 수 없었습니다. 같은 목적이라면, 저도 함께하겠습니다.\"",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다."
-                                           },
-                                           {
-                                               "popupName":  "yujin_join",
-                                               "popupId":  "node.act1.chapter01.episode03_2.yujin_join",
-                                               "eventId":  "node.act1.chapter01.episode03_2.yujin_join",
-                                               "popupOrder":  3,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.yujin_join",
-                                               "originalTextKo":  "유진이 파티에 합류했다.\n\n서진은 이제 산길을 읽는 눈과 함께 움직이게 되었다.\n\n그때 숲 가장자리에서 마른 나뭇가지가 부러지는 소리가 났다.\n\n수련장을 감시하던 산적들이 모습을 드러냈다. 그들은 유진이 쥐고 있던 붉은 천 조각을 보자마자 활을 겨누었다.\n\n그들은 낡은 수련장의 목재를 잘라 만든 팔 보호대를 차고 있었다. 팔 보호대에는 오래된 문파의 문양을 칼로 긁어 지운 흔적이 남아 있었고, 얼굴에는 검댕을 발라 나무 그림자 속에 숨어 있었다. 활을 든 자들은 짧게 자른 머리에 붉은 끈을 묶었고, 칼을 든 자들은 부러진 목검 조각을 허리에 장식처럼 꽂고 있었다.\n\n가까이 드러난 산적들의 옷은 제각각이었지만, 모두 무릎 아래를 천으로 단단히 감아 숲길을 오래 걷는 차림이었다. 손가락에는 활시위에 쓸린 굳은살이 두껍게 박혀 있었고, 목에는 산귀 가면을 작게 깎은 장식이 걸려 있었다. 유진이 쥔 붉은 천 조각을 알아보자 그들의 표정이 먼저 굳었다.\n\n유진은 서진의 옆으로 한 걸음 물러서며 시위를 당겼다.\n\n\"흔적을 찾는 건 나중이야. 먼저 이 길을 조용하게 만들어야겠어.\"\n\n서진은 고개를 끄덕이고 검을 뽑았다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.oil_wheel_trace",
+                                               "originalTextKo":  "유진은 흙 위의 발자국보다 꺾인 고사리와 나무껍질에 묻은 기름을 읽었다. 누군가는 수레 자국 위에 마른 흙을 뿌렸지만, 바퀴 축에서 떨어진 검은 기름까지 지우지는 못했다. 흔적은 동쪽 비탈의 낡은 수련장으로 이어졌다.\n\n담장이 무너진 수련장 안에는 빈 곡식 자루와 아이 키만 한 나무 우리가 놓여 있었다. 유진은 썩은 기둥에서 아이 옷의 푸른 실밥을 떼어냈다. 바닥에는 사람 발자국 위로 짐승 발 모양을 덧찍은 흔적이 있었고, 한쪽 화로에서는 갓 만든 붉은 천 인형이 연기를 내고 있었다.\n\n서진은 유진과 함께 수련장에 조작된 산귀 흔적을 확인한다.",
+                                               "displayTextKo":  "유진은 흙 위의 발자국보다 꺾인 고사리와 나무껍질에 묻은 기름을 읽었다. 누군가는 수레 자국 위에 마른 흙을 뿌렸지만, 바퀴 축에서 떨어진 검은 기름까지 지우지는 못했다. 흔적은 동쪽 비탈의 낡은 수련장으로 이어졌다. 담장이 무너진 수련장 안에는 빈 곡식 자루와 아이 키만 한 나무 우리가 놓여 있었다. 유진은 썩은 기둥에서 아이 옷의 푸른 실밥을 떼어냈다. 바닥에는 사람 발자국 위로 짐승 발 모양을 덧찍은 흔적이 있었고, 한쪽 화로에서는 갓 만든 붉은 천 인형이 연기를 내고 있었다.\n\n서진은 유진과 함께 수련장에 조작된 산귀 흔적을 확인한다.",
+                                               "displayDirective":  "유진이 지워진 수레 자국을 복원하고 폐수련장의 조작 흔적을 확인하는 페이지다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
                                                "nextPopupId":  "node.act1.chapter01.episode03_2.training_ground_watchers",
                                                "choices":  [
                                                                {
+                                                                   "choiceName":  "track_erased_traces",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.oil_wheel_trace.track_erased_traces",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.track_erased_traces.1",
+                                                                   "sourceChoiceText":  "지워진 수레 자국을 복원한다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               },
+                                                               {
+                                                                   "choiceName":  "accept_yujin_join",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.oil_wheel_trace.accept_yujin_join",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.accept_yujin_join.1",
+                                                                   "sourceChoiceText":  "유진과 함께 조작된 산귀 흔적을 확인한다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               }
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "training_ground_watchers",
+                                               "popupId":  "node.act1.chapter01.episode03_2.training_ground_watchers",
+                                               "eventId":  "node.act1.chapter01.episode03_2.training_ground_watchers",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.training_ground_watchers",
+                                               "originalTextKo":  "유진이 짐승 발 모양의 나무틀을 들어 올리자 지붕 위에서 활시위가 당겨지는 소리가 났다. 썩은 기둥 뒤와 무너진 담 너머에서 감시자들이 모습을 드러냈다.\n\n그들은 낡은 수련복 조각을 가죽옷에 덧대고, 얼굴 전체에 검댕을 발라 눈의 흰자만 도드라졌다. 팔에는 부러진 목검을 잘라 만든 보호대를 찼고, 목에는 작은 산귀 가면을 걸었다. 궁수들은 짧은 각궁과 뼈촉 화살을 들고 처마 위에 엎드렸으며, 칼잡이들은 폭이 넓은 연습용 방패 뒤로 몸을 낮춰 퇴로를 막았다.\n\n유진은 가장 높은 기둥에 올라 활을 겨누었다. 그녀의 첫 화살이 수레 옆 밧줄을 끊자, 납치에 쓰인 빈 우리가 모습을 드러냈다.",
+                                               "displayTextKo":  "유진이 짐승 발 모양의 나무틀을 들어 올리자 지붕 위에서 활시위가 당겨지는 소리가 났다. 썩은 기둥 뒤와 무너진 담 너머에서 감시자들이 모습을 드러냈다. 그들은 낡은 수련복 조각을 가죽옷에 덧대고, 얼굴 전체에 검댕을 발라 눈의 흰자만 도드라졌다. 팔에는 부러진 목검을 잘라 만든 보호대를 찼고, 목에는 작은 산귀 가면을 걸었다. 궁수들은 짧은 각궁과 뼈촉 화살을 들고 처마 위에 엎드렸으며, 칼잡이들은 폭이 넓은 연습용 방패 뒤로 몸을 낮춰 퇴로를 막았다.\n\n유진은 가장 높은 기둥에 올라 활을 겨누었다. 그녀의 첫 화살이 수레 옆 밧줄을 끊자, 납치에 쓰인 빈 우리가 모습을 드러냈다.",
+                                               "displayDirective":  "감시자 등장, 장비 묘사, 유진의 첫 화살을 한 페이지에 묶어 전투 직전 압박을 만든다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode03_2.break_training_ground",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "break_training_ground",
+                                               "popupId":  "node.act1.chapter01.episode03_2.break_training_ground",
+                                               "eventId":  "node.act1.chapter01.episode03_2.break_training_ground",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.break_training_ground",
+                                               "originalTextKo":  "[전투] 낡은 수련장의 감시자\n\n서진은 유진과 함께 폐수련장의 감시자들을 돌파한다.\n\n서진은 낮은 방패벽으로 파고들었고, 유진은 지붕의 궁수들이 시위를 놓지 못하도록 차례로 화살을 날렸다.",
+                                               "displayTextKo":  "[전투] 낡은 수련장의 감시자 서진은 유진과 함께 폐수련장의 감시자들을 돌파한다.\n\n서진은 낮은 방패벽으로 파고들었고, 유진은 지붕의 궁수들이 시위를 놓지 못하도록 차례로 화살을 날렸다.",
+                                               "displayDirective":  "전투명과 돌파 목표, 서진과 유진의 역할을 한 페이지에 정리한다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+                                                               {
                                                                    "choiceName":  "subdue_training_ground_bandits",
-                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.yujin_join.subdue_training_ground_bandits",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_2.break_training_ground.subdue_training_ground_bandits",
                                                                    "legacyChoiceId":  "episode.act1.chapter01.03_2.choice.subdue_training_ground_bandits.1",
-                                                                   "sourceChoiceText":  "유진과 함께 수련장의 산적들을 제압한다.",
+                                                                   "sourceChoiceText":  "유진과 함께 폐수련장의 감시자들을 돌파한다.",
                                                                    "rewardDirection":  [
                                                                                            "gold_battle_reward"
                                                                                        ],
                                                                    "rewardOwner":  "battle",
                                                                    "rewardTrigger":  "battle_clear"
                                                                }
-                                                           ],
-                                               "displayTextKo":  "유진이 파티에 합류했다. 서진은 이제 산길을 읽는 눈과 함께 움직이게 되었다. 그때 숲 가장자리에서 마른 나뭇가지가 부러지는 소리가 났다. 수련장을 감시하던 산적들이 모습을 드러냈다. 그들은 유진이 쥐고 있던 붉은 천 조각을 보자마자 활을 겨누었다. 그들은 낡은 수련장의 목재를 잘라 만든 팔 보호대를 차고 있었다. 팔 보호대에는 오래된 문파의 문양을 칼로 긁어 지운 흔적이 남아 있었고, 얼굴에는 검댕을 발라 나무 그림자 속에 숨어 있었다. 활을 든 자들은 짧게 자른 머리에 붉은 끈을 묶었고, 칼을 든 자들은 부러진 목검 조각을 허리에 장식처럼 꽂고 있었다. 가까이 드러난 산적들의 옷은 제각각이었지만, 모두 무릎 아래를 천으로 단단히 감아 숲길을 오래 걷는 차림이었다. 손가락에는 활시위에 쓸린 굳은살이 두껍게 박혀 있었고, 목에는 산귀 가면을 작게 깎은 장식이 걸려 있었다. 유진이 쥔 붉은 천 조각을 알아보자 그들의 표정이 먼저 굳었다. 유진은 서진의 옆으로 한 걸음 물러서며 시위를 당겼다. \"흔적을 찾는 건 나중이야.\n\n먼저 이 길을 조용하게 만들어야겠어.\" 서진은 고개를 끄덕이고 검을 뽑았다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다."
-                                           },
-                                           {
-                                               "popupName":  "training_ground_watchers",
-                                               "popupId":  "node.act1.chapter01.episode03_2.training_ground_watchers",
-                                               "eventId":  "node.act1.chapter01.episode03_2.training_ground_watchers",
-                                               "popupOrder":  4,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_2.training_ground_watchers",
-                                               "originalTextKo":  "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다.\n\n싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다. 낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  null,
-                                               "choices":  [
-
-                                                           ],
-                                               "displayTextKo":  "서진은 유진이 시야를 확보할 수 있도록 앞을 막아서며 산적들에게 달려들었다. 싸움이 벌어지자 검댕을 바른 얼굴들이 나무 그림자 사이에서 나타났다 사라졌다. 낮은 담장 뒤의 궁수들은 어깨가 좁고 몸이 가벼웠으며, 짧은 칼을 든 자들은 팔뚝이 굵고 걸음이 낮았다.\n\n낡은 수련복 조각을 덧댄 윗옷, 산적의 가죽띠, 목에 걸린 산귀 가면 장식이 한데 섞인 모습은 이들이 단순한 도적이 아니라 오래된 장소를 임시 은신처로 삼은 감시자라는 인상을 주었다. 서진과 유진은 그들의 포위망을 깨고 수련장을 빠져나가야 했다.",
-                                               "displayDirective":  "한 페이지 안에서 장면 정보를 충분히 담되, 성격이 바뀌는 지점만 문단으로 나눈다. 40자 하드 래핑은 하지 않고 UI 자동 개행에 맡긴다."
+                                                           ]
                                            }
                                        ],
                   "popupIdentityPolicy":  {

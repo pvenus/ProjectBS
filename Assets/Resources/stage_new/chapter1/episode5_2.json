@@ -10,14 +10,14 @@
   "fixedDepth": 8,
   "fixedColumn": 1,
   "titleKo": "숲길의 의원",
-  "planningEpisodeId": "episode.act1.chapter01.05_2",
+  "planningEpisodeId": "episode_planning.act1.chapter01.05_2",
   "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
   "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/05-2_episode5-2.md",
   "mainCharacterId": "character.seojin",
   "themeKo": "companion_join",
   "summaryKo": "유진을 먼저 동료로 맞이한 서진 일행이 숲속 오두막에서 승려 지한을 만나고, 살아 있는 아이의 가능성을 붙잡는 에피소드.",
   "battleNeed": "required",
-  "startNodeId": "node.act1.chapter01.episode05_2.forest_hut_arrival",
+  "startNodeId": "node.act1.chapter01.episode05_2.wheel_oil_and_arrow",
   "tags": [
     "act1",
     "chapter01",
@@ -28,85 +28,100 @@
   ],
   "nodes": [
     {
-      "nodeId": "node.act1.chapter01.episode05_2.forest_hut_arrival",
-      "popupName": "forest_hut_arrival",
-      "eventId": "node.act1.chapter01.episode05_2.forest_hut_arrival",
+      "nodeId": "node.act1.chapter01.episode05_2.wheel_oil_and_arrow",
+      "popupName": "wheel_oil_and_arrow",
+      "eventId": "node.act1.chapter01.episode05_2.wheel_oil_and_arrow",
       "popupOrder": 1,
-      "sourceNarrationId": "narration.act1.chapter01.episode05_2.forest_hut_arrival",
-      "sourceTextKo": "정찰대를 돌파한 뒤에도 유진은 발걸음을 멈추지 않았다.\n\n그녀는 흙 위에 남은 얕은 자국과 꺾인 풀잎을 따라 숲 안쪽으로 방향을 틀었다. 서진은 유진의 판단을 믿고 뒤를 따랐다.\n\n얼마 지나지 않아 나무 사이로 낡은 오두막이 모습을 드러냈다. 문 앞에는 급히 씻어낸 피 묻은 천과 부러진 나뭇가지로 만든 간이 부목이 놓여 있었다.\n\n안쪽에서는 낮은 목소리로 아이를 달래는 소리가 들려왔다.\n\n그곳에는 젊은 승려 지한이 있었다. 그는 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지 않았다.\n\n\"살아 있는 아이가 있습니다. 하지만 오래 버티지는 못합니다.\"\n\n유진은 활을 낮추고 주변을 살폈다.\n\n\"쫓는 길은 내가 찾을 수 있어. 하지만 다친 아이를 살릴 사람은 필요해.\"\n\n서진은 지한을 바라보았다.\n\n아이들을 구하기 위해서는 흔적을 읽는 눈만으로는 부족했다. 살려낼 손이 필요했다.",
-      "bodyKo": "정찰대를 돌파한 뒤에도 유진은 발걸음을 멈추지 않았다. 그녀는 흙 위에 남은 얕은 자국과 꺾인 풀잎을 따라 숲 안쪽으로 방향을 틀었다. 서진은 유진의 판단을 믿고 뒤를 따랐다. 얼마 지나지 않아 나무 사이로 낡은 오두막이 모습을 드러냈다. 문 앞에는 급히 씻어낸 피 묻은 천과 부러진 나뭇가지로 만든 간이 부목이 놓여 있었다. 안쪽에서는 낮은 목소리로 아이를 달래는 소리가 들려왔다. 그곳에는 젊은 승려 지한이 있었다. 그는 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지 않았다. \"살아 있는 아이가 있습니다. 하지만 오래 버티지는 못합니다.\" 유진은 활을 낮추고 주변을 살폈다. \"쫓는 길은 내가 찾을 수 있어. 하지만 다친 아이를 살릴 사람은 필요해.\" 서진은 지한을 바라보았다.\n\n아이들을 구하기 위해서는 흔적을 읽는 눈만으로는 부족했다. 살려낼 손이 필요했다.",
+      "sourceNarrationId": "narration.act1.chapter01.episode05_2.wheel_oil_and_arrow",
+      "sourceTextKo": "유진은 북쪽 산길의 돌 표면에서 바퀴 쇠테가 긁고 간 가느다란 선을 찾아냈다. 흙 위의 자국은 지워졌지만 바위에 밴 검은 기름은 산등성이까지 이어졌다. 지한은 길가의 짓밟힌 지혈초와 피 묻은 붕대를 살펴, 끌려간 아이 중 하나가 다쳤으나 아직 걸을 수 있었을 것이라고 말했다.\n\n급경사 아래에는 부러진 화살 하나가 꽂혀 있었다. 유진이 실종 전 아이들에게 활쏘기를 가르칠 때 쓰던 무딘 연습 화살이었다. 화살은 우연히 떨어진 것이 아니라, 깃이 북쪽을 향하도록 돌틈에 끼워져 있었다. 붙잡힌 아이가 추적자를 위해 남긴 표시였다.",
+      "bodyKo": "유진은 북쪽 산길의 돌 표면에서 바퀴 쇠테가 긁고 간 가느다란 선을 찾아냈다. 흙 위의 자국은 지워졌지만 바위에 밴 검은 기름은 산등성이까지 이어졌다. 지한은 길가의 짓밟힌 지혈초와 피 묻은 붕대를 살펴, 끌려간 아이 중 하나가 다쳤으나 아직 걸을 수 있었을 것이라고 말했다.\n\n급경사 아래에는 부러진 화살 하나가 꽂혀 있었다. 유진이 실종 전 아이들에게 활쏘기를 가르칠 때 쓰던 무딘 연습 화살이었다. 화살은 우연히 떨어진 것이 아니라, 깃이 북쪽을 향하도록 돌틈에 끼워져 있었다. 붙잡힌 아이가 추적자를 위해 남긴 표시였다.",
       "textLayoutProfile": "stage_popup_v1",
       "textEditState": "planning_display_draft",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다.",
+      "displayDirective": "유진 중심의 수레 기름과 부러진 화살 단서를 한 페이지에 담는다.",
       "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.forest_hut_arrival'. Scene: 정찰대를 돌파한 뒤에도 유진은 발걸음을 멈추지 않았다. 그녀는 흙 위에 남은 얕은 자국과 꺾인 풀잎을 따라 숲 안쪽으로 방향을 틀었다. 서진은 유진의 판단을 믿고 뒤를 따랐다. 얼마 지나지 않아 나무 사이로 낡은 오두막이 모습을 드러냈다. 문 앞에는 급히 씻어낸 피 묻은 천과 부러진 나뭇가지로 만든 간이 부목이 놓여 있었다. 안쪽에서는 낮은 목소리로 아이를 달래는 소리가 들려왔다. 그곳에는 젊은 승려 지한이 있었다. 그는 지친 얼굴이었지만, 아이의 숨을 살피는 손만큼은 조금도 흔들리지 않았다. \"살아 있는 아이가 있습니다. 하지만 오래 버티지는 못합니다.\" 유진은 활을 낮추고 주변을 살폈다. \"쫓는 길은 내가 찾을 수 있어. 하지만 다친 아이를 살릴 사람은 필요해.\" 서진은 지한을 바라보았다. / 아이들을 구하기 위해서는 흔적을 읽는 눈만으로는 부족했다. 살려낼 손이 필요했다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.wheel_oil_and_arrow'. Scene: 유진은 북쪽 산길의 돌 표면에서 바퀴 쇠테가 긁고 간 가느다란 선을 찾아냈다. 흙 위의 자국은 지워졌지만 바위에 밴 검은 기름은 산등성이까지 이어졌다. 지한은 길가의 짓밟힌 지혈초와 피 묻은 붕대를 살펴, 끌려간 아이 중 하나가 다쳤으나 아직 걸을 수 있었을 것이라고 말했다. / 급경사 아래에는 부러진 화살 하나가 꽂혀 있었다. 유진이 실종 전 아이들에게 활쏘기를 가르칠 때 쓰던 무딘 연습 화살이었다. 화살은 우연히 떨어진 것이 아니라, 깃이 북쪽을 향하도록 돌틈에 끼워져 있었다. 붙잡힌 아이가 추적자를 위해 남긴 표시였다.. Direction: 유진 중심의 수레 기름과 부러진 화살 단서를 한 페이지에 담는다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [
         {
-          "choiceId": "choice.act1.chapter01.episode05_2.forest_hut_arrival.accept_jihan_join",
-          "choiceName": "accept_jihan_join",
+          "choiceId": "choice.act1.chapter01.episode05_2.wheel_oil_and_arrow.accept_jihan_join",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_2.wheel_oil_and_arrow.accept_jihan_join",
           "legacyChoiceId": "episode.act1.chapter01.05_2.choice.accept_jihan_join.1",
-          "labelKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
-          "textKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
+          "choiceName": "accept_jihan_join",
+          "sourcePopupId": "node.act1.chapter01.episode05_2.wheel_oil_and_arrow",
+          "labelKo": "수레 자국과 조작된 짐승 발자국을 중심으로 북쪽 산길을 추적한다.",
+          "textKo": "수레 자국과 조작된 짐승 발자국을 중심으로 북쪽 산길을 추적한다.",
           "resultKo": "선택한 방향에 따라 다음 장면으로 이어진다.",
           "opens": [
             "companion_join",
             "battle_setup"
           ],
+          "rewardOwner": "popup",
+          "rewardTrigger": "episode_clear",
+          "rewardDirection": [
+            "gold_episode_clear"
+          ],
+          "nextNodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
           "rewards": [
             {
               "rewardType": "Gold",
               "rewardId": "reward.act1.chapter01.episode05_2.accept_jihan_join.clear",
               "amount": 100
             }
-          ],
-          "nextNodeId": "node.act1.chapter01.episode05_2.jihan_join"
+          ]
         }
       ],
-      "nextNodeId": "node.act1.chapter01.episode05_2.jihan_join"
+      "nextNodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal"
     },
     {
-      "nodeId": "node.act1.chapter01.episode05_2.jihan_join",
-      "popupName": "jihan_join",
-      "eventId": "node.act1.chapter01.episode05_2.jihan_join",
+      "nodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
+      "popupName": "trained_beasts_signal",
+      "eventId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
       "popupOrder": 2,
-      "sourceNarrationId": "narration.act1.chapter01.episode05_2.jihan_join",
-      "sourceTextKo": "지한이 파티에 합류했다.\n\n서진과 유진은 아이들을 살려낼 손까지 얻게 되었다.\n\n그때 오두막 밖에서 낮은 휘파람 소리가 들렸다.\n\n아이를 놓친 자들이 돌아온 것이었다. 검은 천을 두른 산적들은 문 앞을 에워싸고, 안쪽의 숨소리를 확인하듯 천천히 다가왔다.\n\n그들은 오두막을 불태우지 않았다. 안에 있는 아이를 다시 데려가려는 듯, 창문과 문틈을 먼저 살폈다. 얼굴을 가린 검은 천에는 손바닥만 한 흰 점이 찍혀 있었고, 옷깃 안쪽에는 아이들의 장난감에서 뜯어낸 듯한 색실이 매달려 있었다. 한 명은 끝에 갈고리가 달린 장대를 들고 있었고, 다른 자들은 짧은 칼과 접은 그물을 허리에 찬 채 벽 양쪽으로 흩어졌다.\n\n문 앞의 산적은 두꺼운 천 갑옷을 입고 있었다. 천 갑옷은 여러 겹의 낡은 옷을 꿰매 만든 것이었고, 가슴팍에는 붉은 손자국 같은 문양이 번져 있었다. 뒤쪽의 자들은 대나무 관과 그물을 들고 있었는데, 사냥꾼이라기보다 사람을 생포하는 일에 익숙한 포획꾼처럼 보였다.\n\n유진은 창문 틈으로 밖을 살피며 활을 들었다.\n\n\"도망칠 길은 하나뿐이야. 하지만 열어야 지나갈 수 있어.\"\n\n지한은 아이를 감싸 안고 서진을 바라보았다.\n\n서진은 대답 대신 검을 뽑았다.",
-      "bodyKo": "지한이 파티에 합류했다. 서진과 유진은 아이들을 살려낼 손까지 얻게 되었다. 그때 오두막 밖에서 낮은 휘파람 소리가 들렸다. 아이를 놓친 자들이 돌아온 것이었다. 검은 천을 두른 산적들은 문 앞을 에워싸고, 안쪽의 숨소리를 확인하듯 천천히 다가왔다. 그들은 오두막을 불태우지 않았다. 안에 있는 아이를 다시 데려가려는 듯, 창문과 문틈을 먼저 살폈다. 얼굴을 가린 검은 천에는 손바닥만 한 흰 점이 찍혀 있었고, 옷깃 안쪽에는 아이들의 장난감에서 뜯어낸 듯한 색실이 매달려 있었다. 한 명은 끝에 갈고리가 달린 장대를 들고 있었고, 다른 자들은 짧은 칼과 접은 그물을 허리에 찬 채 벽 양쪽으로 흩어졌다. 문 앞의 산적은 두꺼운 천 갑옷을 입고 있었다. 천 갑옷은 여러 겹의 낡은 옷을 꿰매 만든 것이었고, 가슴팍에는 붉은 손자국 같은 문양이 번져 있었다. 뒤쪽의 자들은 대나무 관과 그물을 들고 있었는데, 사냥꾼이라기보다 사람을 생포하는 일에 익숙한 포획꾼처럼 보였다. 유진은 창문 틈으로 밖을 살피며 활을 들었다. \"도망칠 길은 하나뿐이야. 하지만 열어야 지나갈 수 있어.\"\n\n지한은 아이를 감싸 안고 서진을 바라보았다. 서진은 대답 대신 검을 뽑았다.",
+      "sourceNarrationId": "narration.act1.chapter01.episode05_2.trained_beasts_signal",
+      "sourceTextKo": "유진이 화살을 뽑는 순간 숲속에서 노끈 끌리는 소리가 이어졌다. 산늑대와 멧개들이 낮은 자세로 원을 좁혔다. 빠진 털 아래로 채찍 자국이 겹겹이 남았고, 이빨 사이에는 먹이를 물지 못하게 한 작은 쇠고리가 끼워져 있었다. 우두머리 늑대의 한쪽 귀에는 붉은 실이 꿰여 있었으며, 목의 산귀 부적 뒷면에는 수련장 나무틀과 같은 칼자국이 새겨져 있었다.\n\n짐승 뒤편 나무에는 사람 손으로 묶은 신호줄이 산채 방향으로 이어졌다. 이 무리를 놓치면 납치범에게 추적 사실이 알려질 터였다.",
+      "bodyKo": "유진이 화살을 뽑는 순간 숲속에서 노끈 끌리는 소리가 이어졌다. 산늑대와 멧개들이 낮은 자세로 원을 좁혔다. 빠진 털 아래로 채찍 자국이 겹겹이 남았고, 이빨 사이에는 먹이를 물지 못하게 한 작은 쇠고리가 끼워져 있었다. 우두머리 늑대의 한쪽 귀에는 붉은 실이 꿰여 있었으며, 목의 산귀 부적 뒷면에는 수련장 나무틀과 같은 칼자국이 새겨져 있었다.\n\n짐승 뒤편 나무에는 사람 손으로 묶은 신호줄이 산채 방향으로 이어졌다. 이 무리를 놓치면 납치범에게 추적 사실이 알려질 터였다.",
       "textLayoutProfile": "stage_popup_v1",
       "textEditState": "planning_display_draft",
-      "displayDirective": "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다.",
+      "displayDirective": "조련된 짐승과 산채 신호줄을 한 페이지에 묶어 전투 필요성을 만든다.",
       "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.jihan_join'. Scene: 지한이 파티에 합류했다. 서진과 유진은 아이들을 살려낼 손까지 얻게 되었다. 그때 오두막 밖에서 낮은 휘파람 소리가 들렸다. 아이를 놓친 자들이 돌아온 것이었다. 검은 천을 두른 산적들은 문 앞을 에워싸고, 안쪽의 숨소리를 확인하듯 천천히 다가왔다. 그들은 오두막을 불태우지 않았다. 안에 있는 아이를 다시 데려가려는 듯, 창문과 문틈을 먼저 살폈다. 얼굴을 가린 검은 천에는 손바닥만 한 흰 점이 찍혀 있었고, 옷깃 안쪽에는 아이들의 장난감에서 뜯어낸 듯한 색실이 매달려 있었다. 한 명은 끝에 갈고리가 달린 장대를 들고 있었고, 다른 자들은 짧은 칼과 접은 그물을 허리에 찬 채 벽 양쪽으로 흩어졌다. 문 앞의 산적은 두꺼운 천 갑옷을 입고 있었다. 천 갑옷은 여러 겹의 낡은 옷을 꿰매 만든 것이었고, 가슴팍에는 붉은 손자국 같은 문양이 번져 있었다. 뒤쪽의 자들은 대나무 관과 그물을 들고 있었는데, 사냥꾼이라기보다 사람을 생포하는 일에 익숙한 포획꾼처럼 보였다. 유진은 창문 틈으로 밖을 살피며 활을 들었다. \"도망칠 길은 하나뿐이야. 하지만 열어야 지나갈 수 있어.\" / 지한은 아이를 감싸 안고 서진을 바라보았다. 서진은 대답 대신 검을 뽑았다.. Direction: 한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 마지막 문단은 선택 직전 판단/결심이 보이도록 분리한다. 선택지는 이 표시 호흡 뒤에 배치한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.trained_beasts_signal'. Scene: 유진이 화살을 뽑는 순간 숲속에서 노끈 끌리는 소리가 이어졌다. 산늑대와 멧개들이 낮은 자세로 원을 좁혔다. 빠진 털 아래로 채찍 자국이 겹겹이 남았고, 이빨 사이에는 먹이를 물지 못하게 한 작은 쇠고리가 끼워져 있었다. 우두머리 늑대의 한쪽 귀에는 붉은 실이 꿰여 있었으며, 목의 산귀 부적 뒷면에는 수련장 나무틀과 같은 칼자국이 새겨져 있었다. / 짐승 뒤편 나무에는 사람 손으로 묶은 신호줄이 산채 방향으로 이어졌다. 이 무리를 놓치면 납치범에게 추적 사실이 알려질 터였다.. Direction: 조련된 짐승과 산채 신호줄을 한 페이지에 묶어 전투 필요성을 만든다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [],
-      "nextNodeId": "node.act1.chapter01.episode05_2.capture_raiders_return"
+      "nextNodeId": "node.act1.chapter01.episode05_2.cut_signal_line"
     },
     {
-      "nodeId": "node.act1.chapter01.episode05_2.capture_raiders_return",
-      "popupName": "capture_raiders_return",
-      "eventId": "node.act1.chapter01.episode05_2.capture_raiders_return",
+      "nodeId": "node.act1.chapter01.episode05_2.cut_signal_line",
+      "popupName": "cut_signal_line",
+      "eventId": "node.act1.chapter01.episode05_2.cut_signal_line",
       "popupOrder": 3,
-      "sourceNarrationId": "narration.act1.chapter01.episode05_2.capture_raiders_return",
-      "sourceTextKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다.\n\n오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.",
-      "bodyKo": "서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다. 오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다.\n\n그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.",
+      "sourceNarrationId": "narration.act1.chapter01.episode05_2.cut_signal_line",
+      "sourceTextKo": "[전투] 피 묻은 산길의 짐승 무리\n\n서진과 지한은 유진의 화살길을 열어 조련된 짐승 무리를 신속히 돌파한다.\n\n서진과 지한이 좁은 길을 지키는 동안 유진은 짐승의 목줄과 산채 신호줄을 차례로 겨눴다. 첫 화살이 붉은 줄을 끊으며 싸움이 시작되었다.",
+      "bodyKo": "[전투] 피 묻은 산길의 짐승 무리 서진과 지한은 유진의 화살길을 열어 조련된 짐승 무리를 신속히 돌파한다.\n\n서진과 지한이 좁은 길을 지키는 동안 유진은 짐승의 목줄과 산채 신호줄을 차례로 겨눴다. 첫 화살이 붉은 줄을 끊으며 싸움이 시작되었다.",
       "textLayoutProfile": "stage_popup_v1",
       "textEditState": "planning_display_draft",
-      "displayDirective": "한 페이지 안에서 장면 정보를 충분히 담되, 성격이 바뀌는 지점만 문단으로 나눈다. 40자 하드 래핑은 하지 않고 UI 자동 개행에 맡긴다.",
+      "displayDirective": "전투명과 신속 돌파 목표, 유진의 신호줄 절단을 한 페이지에 정리한다.",
       "imagePolicy": "generate",
       "mainImageRequired": true,
-      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.capture_raiders_return'. Scene: 서진과 유진은 지한이 아이를 데리고 빠져나갈 수 있도록 문 앞의 적들을 막아섰다. 오두막 밖에는 흰 점이 찍힌 검은 복면과 붉은 손자국 문양이 어른거렸다. 문 앞의 거구는 목이 짧고 어깨가 넓어 입구를 거의 가렸고, 그물잡이들은 반대로 몸이 가늘고 손가락이 길었다. / 그들의 허리에는 색이 바랜 아이 장난감 조각과 접은 천 주머니가 주렁주렁 달려 있었다. 아이를 빼앗으러 온 자들의 차림은 산적보다 포획꾼에 가까웠고, 서진과 유진은 지한이 아이를 안고 빠져나갈 수 있도록 그 낯선 사냥꾼들의 포위를 뚫어야 했다.. Direction: 한 페이지 안에서 장면 정보를 충분히 담되, 성격이 바뀌는 지점만 문단으로 나눈다. 40자 하드 래핑은 하지 않고 UI 자동 개행에 맡긴다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.cut_signal_line'. Scene: [전투] 피 묻은 산길의 짐승 무리 서진과 지한은 유진의 화살길을 열어 조련된 짐승 무리를 신속히 돌파한다. / 서진과 지한이 좁은 길을 지키는 동안 유진은 짐승의 목줄과 산채 신호줄을 차례로 겨눴다. 첫 화살이 붉은 줄을 끊으며 싸움이 시작되었다.. Direction: 전투명과 신속 돌파 목표, 유진의 신호줄 절단을 한 페이지에 정리한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
       "choices": [
         {
-          "choiceId": "choice.act1.chapter01.episode05_2.jihan_join.break_hut_encirclement",
-          "choiceName": "break_hut_encirclement",
+          "choiceId": "choice.act1.chapter01.episode05_2.cut_signal_line.break_hut_encirclement",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_2.cut_signal_line.break_hut_encirclement",
           "legacyChoiceId": "episode.act1.chapter01.05_2.choice.break_hut_encirclement.1",
-          "labelKo": "오두막을 에워싼 산적들을 돌파한다.",
-          "textKo": "오두막을 에워싼 산적들을 돌파한다.",
+          "choiceName": "break_hut_encirclement",
+          "sourcePopupId": "node.act1.chapter01.episode05_2.cut_signal_line",
+          "labelKo": "유진의 화살길을 열어 조련된 짐승 무리를 신속히 돌파한다.",
+          "textKo": "유진의 화살길을 열어 조련된 짐승 무리를 신속히 돌파한다.",
           "resultKo": "전투 준비를 마치고 눈앞의 위협에 맞선다.",
           "opens": [
             "battle"
           ],
+          "rewardOwner": "battle",
+          "rewardTrigger": "battle_clear",
+          "rewardDirection": [
+            "gold_battle_reward"
+          ],
+          "nextNodeId": null,
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -116,8 +131,7 @@
               "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
               "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
             }
-          ],
-          "nextNodeId": null
+          ]
         }
       ],
       "nextNodeId": null
@@ -132,7 +146,9 @@
   "battleRewardHandoff": [
     {
       "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
-      "sourceChoiceId": "choice.act1.chapter01.episode05_2.jihan_join.break_hut_encirclement",
+      "sourcePopupId": "node.act1.chapter01.episode05_2.cut_signal_line",
+      "sourceChoiceId": "choice.act1.chapter01.episode05_2.cut_signal_line.break_hut_encirclement",
+      "semanticChoiceId": "choice.act1.chapter01.episode05_2.cut_signal_line.break_hut_encirclement",
       "legacyChoiceId": "episode.act1.chapter01.05_2.choice.break_hut_encirclement.1",
       "rewardOwner": "battle",
       "rewardTrigger": "battle_clear",
@@ -146,8 +162,10 @@
       ],
       "rewardScaleHint": "normal_battle_clear",
       "battleId": "battle.act1.chapter01.05_2.hut_escape",
+      "battleGroup": "act1/chapter01",
       "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.json",
-      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset"
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_2.hut_escape.asset",
+      "postBattleNextPopupId": null
     }
   ]
 }
