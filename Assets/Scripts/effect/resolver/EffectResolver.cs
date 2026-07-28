@@ -126,11 +126,6 @@ namespace Effect
                         targetCharacter);
 
                 case HealEffectConfig healConfig:
-                    if (targetCharacter == null)
-                    {
-                        return null;
-                    }
-
                     return new HealEffectRuntime(
                         effectSo,
                         healConfig,

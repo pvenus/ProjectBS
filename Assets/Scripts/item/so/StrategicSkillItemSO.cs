@@ -1,5 +1,6 @@
 using UnityEngine;
 using String;
+using Skill;
 namespace Item
 {
     [CreateAssetMenu(
@@ -41,8 +42,8 @@ namespace Item
         public bool reusable = true;
 
         [Header("Skill")]
-        [Tooltip("아이템 사용 시 Resources에서 조회해 실행할 EquipmentSkillSO ID")]
-        public string skillId;
+        [Tooltip("아이템 사용 시 실행할 전략 스킬 SO")]
+        public EquipmentSkillSO skillSo;
 
         [Header("Shop")]
         [Tooltip("상점 또는 보상 풀에서 사용할 기본 가격")]

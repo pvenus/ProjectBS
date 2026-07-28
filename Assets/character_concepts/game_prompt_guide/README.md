@@ -10,6 +10,7 @@ Prompt authoring and review guides:
 ```text
 Assets/character_concepts/game_prompt_guide/prompt/PromptAuthoringGuide.md
 Assets/character_concepts/game_prompt_guide/prompt/PromptEvaluationGuide.md
+Assets/character_concepts/game_prompt_guide/prompt/EvaluationSlackCanvasFormGuide.md
 ```
 
 Copy-ready user prompts belong in:
@@ -44,4 +45,13 @@ Standalone strategic skill authoring guides:
 Assets/character_concepts/game_prompt_guide/skill/strategic/StrategicSkillRulesGuide.md
 Assets/character_concepts/game_prompt_guide/skill/strategic/StrategicSkillJsonGuide.md
 Assets/character_concepts/game_prompt_guide/skill/strategic/StrategicSkillPlanningGuide.md
+```
+
+Evaluation and Slack Canvas recording guides:
+
+```text
+Assets/character_concepts/game_prompt_guide/stage/PopupEventMainImageEvaluationGuide.md
+Assets/character_concepts/game_prompt_guide/stage/PopupEventMainImageEvaluationSlackCanvasGuide.md
+Assets/character_concepts/game_prompt_guide/skill/SkillIconEvaluationSlackCanvasGuide.md
+Assets/character_concepts/game_prompt_guide/item/ItemIconEvaluationSlackCanvasGuide.md
 ```

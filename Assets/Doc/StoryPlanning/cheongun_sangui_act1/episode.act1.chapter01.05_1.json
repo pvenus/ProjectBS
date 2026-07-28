@@ -8,7 +8,7 @@
                    "actId":  "act.01",
                    "chapterId":  "chapter.01.01",
                    "actGroupId":  "cheongun_sangui_act1",
-                   "title":  "낡은 수련장",
+                   "title":  "피 묻은 약초와 붉은 목줄",
                    "episodeRole":  "companion_join",
                    "secondaryRoles":  [
                                           "breakthrough",
@@ -35,14 +35,12 @@
                },
     "story":  {
                   "scriptSynopsis":  {
-                                         "episodeSummary":  "지한을 먼저 동료로 맞이한 서진 일행이 낡은 수련장에서 궁수 유진을 만나고, 산귀 소문과 산적의 흔적이 같은 산길로 이어짐을 확인하는 에피소드.",
+                                         "episodeSummary":  "지한을 먼저 만난 세 사람이 아이의 상처와 약초 흔적을 중심으로 북쪽 산길을 추적하고, 조종당한 짐승 무리에게서 납치된 아이들의 이동로를 지키는 전투 에피소드.",
                                          "sceneBeats":  [
-                                                            "??? ? ?? ??? ?? ???? ? ??? ?? ???.",
-                                                            "??? ??? ?? ?? ?? ???? ????.",
-                                                            "??? ??? ??? ?? ? ??? ? ? ?? ? ???, ?? ??? ?? ??? ?? ??? ???? ???.",
-                                                            "??? ??? ??? ??? ??? ??? ?? ??? ???.",
-                                                            "? ??? ????? ?? ??? ?? ??? ???? ??? ??? ??? ???.",
-                                                            "?? ??? ?? ???? ????? ?? ???? ???? ??? ????."
+                                                            "지한은 북쪽 산길에서 지혈초와 장화 자국을 통해 다친 아이의 이동을 추적한다.",
+                                                            "아이 이름이 새겨진 놋방울이 발견되어 살아 있는 아이 단서를 강화한다.",
+                                                            "붉은 목줄 짐승들은 흔적을 지우도록 길들여진 존재로 드러난다.",
+                                                            "서진과 유진은 지한이 단서를 지키도록 짐승 무리를 막아낸다."
                                                         ],
                                          "emotionalTone":  [
                                                                "party_convergence",
@@ -76,7 +74,7 @@
                   "choiceDirections":  [
                                            {
                                                "choiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
-                                               "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+                                               "sourceChoiceText":  "아이의 상처와 약초 흔적을 중심으로 북쪽 산길을 추적한다.",
                                                "choiceIntent":  "??? ?? ???? ??? ??? ?? ??? ?????.",
                                                "outcomeDirection":  "??? ???? ?? ??? ?? ??? ??? ? ?? ??.",
                                                "opens":  [
@@ -87,15 +85,16 @@
                                                                        "gold_episode_clear"
                                                                    ],
                                                "choiceName":  "accept_yujin_join",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.training_ground_arrival.accept_yujin_join",
-                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.bloodied_herbs.accept_yujin_join",
+                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.bloodied_herbs",
                                                "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
                                                "rewardOwner":  "popup",
-                                               "rewardTrigger":  "episode_clear"
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            },
                                            {
                                                "choiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
-                                               "sourceChoiceText":  "지한, 유진과 함께 포위망을 돌파한다.",
+                                               "sourceChoiceText":  "지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.",
                                                "choiceIntent":  "? ??? ??? ??? ??? ???? ?? ?? ??? ??? ?? ?????.",
                                                "outcomeDirection":  "?? ??? ??? ??? ?? ???? ???? ??? ????.",
                                                "opens":  [
@@ -105,11 +104,12 @@
                                                                        "gold_battle_reward"
                                                                    ],
                                                "choiceName":  "break_training_ground_encirclement",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.yujin_join.break_training_ground_encirclement",
-                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
+                                               "sourcePopupId":  "node.act1.chapter01.episode05_1.defend_bloodied_trail",
                                                "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
                                                "rewardOwner":  "battle",
-                                               "rewardTrigger":  "battle_clear"
+                                               "rewardTrigger":  "battle_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            }
                                        ],
                   "sourceNarration":  {
@@ -118,105 +118,105 @@
                                           "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
                                           "blocks":  [
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.training_ground_arrival",
-                                                             "popupName":  "training_ground_arrival",
-                                                             "originalTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.bloodied_herbs",
+                                                             "popupName":  "bloodied_herbs",
+                                                             "originalTextKo":  "북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다.\n\n길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.",
                                                              "sourceParagraphOrder":  1,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode05_1.training_ground_arrival"
+                                                                                     "node.act1.chapter01.episode05_1.bloodied_herbs"
                                                                                  ]
                                                          },
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.yujin_join",
-                                                             "popupName":  "yujin_join",
-                                                             "originalTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.red_collar_beasts",
+                                                             "popupName":  "red_collar_beasts",
+                                                             "originalTextKo":  "그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다.\n\n짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.",
                                                              "sourceParagraphOrder":  2,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode05_1.yujin_join"
+                                                                                     "node.act1.chapter01.episode05_1.red_collar_beasts"
                                                                                  ]
                                                          },
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.encirclement_appears",
-                                                             "popupName":  "encirclement_appears",
-                                                             "originalTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode05_1.defend_bloodied_trail",
+                                                             "popupName":  "defend_bloodied_trail",
+                                                             "originalTextKo":  "[전투] 피 묻은 산길의 짐승 무리\n\n서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.\n\n서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.",
                                                              "sourceParagraphOrder":  3,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode05_1.encirclement_appears"
+                                                                                     "node.act1.chapter01.episode05_1.defend_bloodied_trail"
                                                                                  ]
                                                          }
                                                      ]
                                       },
                   "popupDefinitions":  [
                                            {
-                                               "popupName":  "training_ground_arrival",
-                                               "popupId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
-                                               "eventId":  "node.act1.chapter01.episode05_1.training_ground_arrival",
+                                               "popupName":  "bloodied_herbs",
+                                               "popupId":  "node.act1.chapter01.episode05_1.bloodied_herbs",
+                                               "eventId":  "node.act1.chapter01.episode05_1.bloodied_herbs",
                                                "popupOrder":  1,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.training_ground_arrival",
-                                               "originalTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.bloodied_herbs",
+                                               "originalTextKo":  "북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다.\n\n길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.",
+                                               "displayTextKo":  "북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다.\n\n길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.",
+                                               "displayDirective":  "지한 중심의 약초와 방울 단서를 한 페이지에 담아 아이 생존 단서의 감정을 살린다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "nextPopupId":  "node.act1.chapter01.episode05_1.red_collar_beasts",
                                                "choices":  [
                                                                {
                                                                    "choiceName":  "accept_yujin_join",
-                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.training_ground_arrival.accept_yujin_join",
+                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.bloodied_herbs.accept_yujin_join",
                                                                    "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
-                                                                   "sourceChoiceText":  "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+                                                                   "sourceChoiceText":  "아이의 상처와 약초 흔적을 중심으로 북쪽 산길을 추적한다.",
                                                                    "rewardDirection":  [
                                                                                            "gold_episode_clear"
                                                                                        ],
                                                                    "rewardOwner":  "popup",
                                                                    "rewardTrigger":  "episode_clear"
                                                                }
-                                                           ],
-                                               "displayTextKo":  "피 묻은 산길을 돌파한 뒤에도 지한은 쉽게 걸음을 늦추지 않았다.\n\n그는 짓밟힌 풀잎과 낡은 천 조각을 살피며 아이들이 지나간 방향을 좇았다. 서진은 지한의 판단을 따라 숲속 더 깊은 곳으로 들어섰다.\n\n얼마 지나지 않아 나무 사이로 오래된 수련장이 모습을 드러냈다. 기둥은 썩어 있었고, 부러진 목검들이 흙바닥에 반쯤 묻혀 있었다.\n\n그곳 한가운데에서 궁수 유진이 홀로 서 있었다. 그녀의 발치에는 쓰러진 산적의 흔적이 남아 있었고, 손에는 붉은 천 조각이 쥐어져 있었다.\n\n\"아이들을 데려간 자들을 쫓고 있었습니다.\"\n\n유진은 서진과 지한을 번갈아 바라보았다.\n\n\"하지만 혼자서는 더 깊이 들어갈 수 없었습니다. 산귀 소문도, 산적의 흔적도 같은 곳을 향하고 있어요.\"\n\n지한은 낮은 목소리로 말했다.\n\n\"다친 아이가 있다면 시간이 없습니다.\"\n\n서진은 유진을 향해 손을 내밀었다. 목적이 같다면, 이제 따로 움직일 이유는 없었다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                                           ]
                                            },
                                            {
-                                               "popupName":  "yujin_join",
-                                               "popupId":  "node.act1.chapter01.episode05_1.yujin_join",
-                                               "eventId":  "node.act1.chapter01.episode05_1.yujin_join",
+                                               "popupName":  "red_collar_beasts",
+                                               "popupId":  "node.act1.chapter01.episode05_1.red_collar_beasts",
+                                               "eventId":  "node.act1.chapter01.episode05_1.red_collar_beasts",
                                                "popupOrder":  2,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.yujin_join",
-                                               "originalTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.red_collar_beasts",
+                                               "originalTextKo":  "그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다.\n\n짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.",
+                                               "displayTextKo":  "그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다.\n\n짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.",
+                                               "displayDirective":  "붉은 목줄 짐승들이 아이 흔적을 지우도록 길들여졌다는 정보를 한 페이지에 모은다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode05_1.encirclement_appears",
+                                               "nextPopupId":  "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "defend_bloodied_trail",
+                                               "popupId":  "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+                                               "eventId":  "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.defend_bloodied_trail",
+                                               "originalTextKo":  "[전투] 피 묻은 산길의 짐승 무리\n\n서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.\n\n서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.",
+                                               "displayTextKo":  "[전투] 피 묻은 산길의 짐승 무리 서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.\n\n서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.",
+                                               "displayDirective":  "전투명과 보호 목표, 각 동료 역할을 한 페이지에 정리한다. 선택지는 battle handoff다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
                                                "choices":  [
                                                                {
                                                                    "choiceName":  "break_training_ground_encirclement",
-                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.yujin_join.break_training_ground_encirclement",
+                                                                   "choiceId":  "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
                                                                    "legacyChoiceId":  "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
-                                                                   "sourceChoiceText":  "지한, 유진과 함께 포위망을 돌파한다.",
+                                                                   "sourceChoiceText":  "지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.",
                                                                    "rewardDirection":  [
                                                                                            "gold_battle_reward"
                                                                                        ],
                                                                    "rewardOwner":  "battle",
                                                                    "rewardTrigger":  "battle_clear"
                                                                }
-                                                           ],
-                                               "displayTextKo":  "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.\n\n그러나 세 사람이 움직이려는 순간, 수련장 바깥을 둘러싼 풀숲이 일제히 흔들렸다.\n\n유진을 쫓아온 산적들이 퇴로를 막고 있었다. 그들 뒤편에서는 굶주린 짐승들의 울음소리까지 섞여 들렸다. 오래 머물수록 아이들의 흔적은 더 멀어질 터였다.\n\n산적들은 세 방향으로 수련장을 에워쌌다. 앞줄의 방패병들은 둥근 나무방패에 산귀의 눈처럼 보이는 흰 원을 그려 넣었고, 어깨에는 서로 맞지 않는 가죽 조각을 덕지덕지 덧대고 있었다. 뒤쪽의 궁수들은 썩은 기둥 사이에 몸을 숨긴 채 짧은 화살을 재고 있었고, 가장자리에서는 목줄이 풀린 멧개들이 붉은 천 조각을 목에 단 채 낮게 기어왔다.\n\n유진을 알아본 산적 하나는 다른 이들보다 복장이 정돈되어 있었다. 검은 겉옷 위에 낡은 비늘 갑옷을 걸치고, 목에는 붉은 실로 묶은 짐승 발톱 세 개를 달고 있었다. 수련장에 모인 무리의 우두머리처럼 보이는 그는 유진이 들고 있던 붉은 천 조각에서 눈을 떼지 않았다.\n\n지한은 다친 팔을 감싼 천을 고쳐 묶었고, 유진은 남은 화살을 세었다.\n\n\"길을 뚫어야 합니다.\"\n\n서진은 두 사람을 돌아본 뒤 검을 뽑았다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
-                                           },
-                                           {
-                                               "popupName":  "encirclement_appears",
-                                               "popupId":  "node.act1.chapter01.episode05_1.encirclement_appears",
-                                               "eventId":  "node.act1.chapter01.episode05_1.encirclement_appears",
-                                               "popupOrder":  3,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode05_1.encirclement_appears",
-                                               "originalTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  null,
-                                               "choices":  [
-
-                                                           ],
-                                               "displayTextKo":  "서진 일행은 낡은 수련장을 빠져나가기 위해 산적들과 맞섰다.\n\n낡은 수련복 조각, 산귀 눈이 그려진 방패, 붉은 천을 맨 멧개들이 한꺼번에 수련장을 채웠다. 방패병들은 턱까지 천을 끌어올려 표정을 숨겼고, 궁수들은 말라붙은 입술 사이로 숨을 죽인 채 기둥 뒤에 붙어 있었다. 우두머리의 비늘 갑옷만이 흐린 빛을 받아 검게 번들거렸다. 서진 일행은 흰 눈 문양의 방패와 붉은 목줄의 멧개들 사이를 한쪽부터 찢어 열어, 아이들의 흔적이 이어진 길로 빠져나가야 했다.",
-                                               "displayDirective":  "한 페이지를 최대한 효율적으로 사용한다. 평문은 자동 개행에 맡기고, 장면 전환·감정 전환·선택 직전 결심만 문단 호흡으로 강조한다."
+                                                           ]
                                            }
                                        ],
                   "popupIdentityPolicy":  {

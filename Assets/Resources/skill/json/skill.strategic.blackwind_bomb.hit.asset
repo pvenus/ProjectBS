@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
+  m_Name: skill.strategic.blackwind_bomb.hit
+  m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  hitId: skill.strategic.blackwind_bomb.hit
+  maxHitCount: 999
+  ignoreSameRoot: 0
+  useRepeatInterval: 0
+  repeatInterval: 0
+  hitStartTime: 0
+  deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  damage:
+    damageType: 0
+    baseDamage: 240
+    firstHitBaseDamage: 0
+    attackPercentDamage: 0
+    canCritical: 0
+    ignoreDefense: 0
+  skillSpawn:
+    spawnSkill: {fileID: 0}
+  effects:
+    buffEffects: []
+    debuffEffects:
+    - {fileID: 11400000, guid: 79842102ce1ed49b1bffccee9e88c7e1, type: 2}
+  split:
+    useSplitMultiHitDamage: 0
+    splitHitCount: 4
+    splitHitInterval: 0.1

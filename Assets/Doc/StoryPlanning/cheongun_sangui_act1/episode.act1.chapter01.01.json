@@ -6,7 +6,7 @@
                    "episodeId":  "episode.act1.chapter01.01",
                    "actId":  "act.01",
                    "chapterId":  "chapter.01.01",
-                   "title":  "청운촌의 습격",
+                   "title":  "메마른 마을의 검은 천",
                    "episodeRole":  "intro",
                    "secondaryRoles":  [
                                           "rescue",
@@ -19,13 +19,12 @@
                },
     "story":  {
                   "scriptSynopsis":  {
-                                         "episodeSummary":  "어린 시절 청운촌 근처 산길에서 여동생의 손을 놓친 기억을 안고 떠도는 서진이 아이 실종 소문을 따라 청운촌에 도착하고, 마을을 습격한 검은 천의 무리와 맞서며 사건에 뛰어드는 도입 에피소드.",
+                                         "episodeSummary":  "군졸 출신 서진이 아이 셋이 사라진 청운촌에 도착해 검은 천의 무리로부터 주민들을 지키고, 산귀 소문과 납치 사건에 개입하는 도입 전투 에피소드.",
                                          "sceneBeats":  [
-                                                            "서진은 아이 실종과 산귀 소문을 듣고 청운촌으로 향한다.",
-                                                            "청운촌은 가뭄과 불안으로 말라 있고, 서진의 과거 후회가 사건과 연결된다.",
-                                                            "마을 광장에서는 검은 천을 두른 무리가 주민들을 몰아붙이고 있다.",
-                                                            "습격자들은 산적처럼 보이지만 붉은 천 인형과 산귀 장식으로 의식적인 위협처럼 보인다.",
-                                                            "서진은 질문보다 구조가 먼저라고 판단하고 주민을 지키기 위해 전투에 들어간다."
+                                                            "서진은 긴 가뭄과 아이 셋 실종 소문을 듣고 청운촌에 들어선다.",
+                                                            "검은 천 무리가 주민들을 우물가로 몰아붙이고 산귀 표식을 앞세운다.",
+                                                            "전투 직전 수레 자국 단서가 드러나 산귀 소문 뒤의 사람 손길을 암시한다.",
+                                                            "서진은 주민을 지키기 위해 광장 한가운데로 돌진한다."
                                                         ],
                                          "emotionalTone":  [
                                                                "tense",
@@ -62,7 +61,7 @@
                   "choiceDirections":  [
                                            {
                                                "choiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
-                                               "sourceChoiceText":  "마을 사람들을 구한다.",
+                                               "sourceChoiceText":  "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
                                                "choiceIntent":  "주민을 보호하기 위해 즉시 개입한다.",
                                                "outcomeDirection":  "서진이 검은 천 무리 사이로 뛰어들며 전투가 시작된다.",
                                                "opens":  [
@@ -77,10 +76,10 @@
                                                              "전투 결과는 여기서 쓰지 않고 전투 진입 방향만 보존한다."
                                                          ],
                                                "choiceName":  "rescue_villagers",
-                                               "semanticChoiceId":  "choice.act1.chapter01.episode01.raider_weapons.rescue_villagers",
-                                               "sourcePopupId":  "node.act1.chapter01.episode01.raider_weapons",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+                                               "sourcePopupId":  "node.act1.chapter01.episode01.rescue_charge",
                                                "legacyChoiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
-                                               "displayDirective":  "선택지는 무기 묘사와 구조 결심이 끝난 뒤 배치한다. popup은 전투 진입만 담당하고 보상은 battle_clear handoff로 유지한다."
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
                                            }
                                        ],
                   "sourceNarration":  {
@@ -89,104 +88,94 @@
                                           "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
                                           "blocks":  [
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.rumor_arrival",
-                                                             "popupName":  "rumor_arrival",
-                                                             "originalTextKo":  "서진이 청운촌의 이름을 들은 것은 산 아래 객잔에서였다.\n\n가뭄에 시달리는 산촌에서 아이들이 사라지고, 밤마다 산에 사는 귀신이 아이들을 부른다는 소문이었다. 누군가는 산적의 짓이라 했고, 누군가는 산귀의 저주라 했다.\n\n서진은 그런 소문을 그냥 지나치지 못했다. 어린 시절, 그는 가뭄을 피해 가족과 산길을 떠돌다 청운촌 근처에서 여동생의 손을 놓쳤다. 그날 이후 아이가 사라졌다는 말은 늘 같은 후회로 돌아왔다.\n\n청운촌에 가까워질수록 공기는 무겁고 메말랐다. 논은 갈라져 있었고, 길가의 수레는 쓰러져 있었으며, 마을 쪽에서는 사람들의 비명과 짐승 같은 울음소리가 뒤섞여 들려왔다.\n\n광장에는 검은 천을 두른 무리들이 주민들을 몰아붙이고 있었다.\n\n그들은 얼굴 아래쪽을 검은 천으로 가리고, 이마에는 흰 재를 문지른 듯한 얼룩을 남기고 있었다. 옷차림은 제각각이었다. 누군가는 찢어진 농민복 위에 가죽 조각을 덧대 입었고, 누군가는 낡은 승복 같은 천을 어깨에 걸쳤다. 다만 허리춤에 붉은 천 인형을 부적처럼 매달고 있다는 점만은 같았다.\n\n무기는 손에 잡히는 대로 주워 든 것처럼 보였다. 짧은 곡도는 이가 빠져 있었고, 녹슨 도끼에는 말라붙은 흙이 끼어 있었다. 방패 대신 뜯어낸 문짝을 든 자의 팔에는 낡은 붕대가 겹겹이 감겨 있었고, 쇠사슬을 든 자의 손목에는 방울과 짐승 이빨이 꿰인 끈이 흔들렸다. 산적이라기에는 지나치게 의식적인 치장이었다.\n\n사정을 물을 시간은 없었다.\n\n지금 필요한 것은 질문이 아니라, 살아 있는 사람들을 지키는 일이었다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.village_arrival",
+                                                             "popupName":  "village_arrival",
+                                                             "originalTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
                                                              "sourceParagraphOrder":  1,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode01.rumor_arrival",
-                                                                                     "node.act1.chapter01.episode01.black_cloth_raiders",
-                                                                                     "node.act1.chapter01.episode01.raider_weapons"
+                                                                                     "node.act1.chapter01.episode01.village_arrival"
                                                                                  ]
                                                          },
                                                          {
-                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.village_attack",
-                                                             "popupName":  "village_attack",
-                                                             "originalTextKo":  "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.black_cloth_raid",
+                                                             "popupName":  "black_cloth_raid",
+                                                             "originalTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다.\n\n[전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
                                                              "sourceParagraphOrder":  2,
                                                              "derivedPopupIds":  [
-                                                                                     "node.act1.chapter01.episode01.village_attack"
+                                                                                     "node.act1.chapter01.episode01.black_cloth_raid"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.rescue_charge",
+                                                             "popupName":  "rescue_charge",
+                                                             "originalTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode01.rescue_charge"
                                                                                  ]
                                                          }
                                                      ]
                                       },
                   "popupDefinitions":  [
                                            {
-                                               "popupName":  "rumor_arrival",
-                                               "popupId":  "node.act1.chapter01.episode01.rumor_arrival",
-                                               "eventId":  "node.act1.chapter01.episode01.rumor_arrival",
+                                               "popupName":  "village_arrival",
+                                               "popupId":  "node.act1.chapter01.episode01.village_arrival",
+                                               "eventId":  "node.act1.chapter01.episode01.village_arrival",
                                                "popupOrder":  1,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.rumor_arrival",
-                                               "originalTextKo":  "서진이 청운촌의 이름을 들은 것은 산 아래 객잔에서였다.\n\n가뭄에 시달리는 산촌에서 아이들이 사라지고, 밤마다 산에 사는 귀신이 아이들을 부른다는 소문이었다. 누군가는 산적의 짓이라 했고, 누군가는 산귀의 저주라 했다.\n\n서진은 그런 소문을 그냥 지나치지 못했다. 어린 시절, 그는 가뭄을 피해 가족과 산길을 떠돌다 청운촌 근처에서 여동생의 손을 놓쳤다. 그날 이후 아이가 사라졌다는 말은 늘 같은 후회로 돌아왔다.",
-                                               "displayTextKo":  "서진이 청운촌의 이름을 들은 것은 산 아래 객잔에서였다.\n\n가뭄에 시달리는 산촌에서 아이들이 사라지고, 밤마다 산에 사는 귀신이 아이들을 부른다는 소문이었다. 누군가는 산적의 짓이라 했고, 누군가는 산귀의 저주라 했다.\n\n서진은 그런 소문을 그냥 지나치지 못했다. 어린 시절, 그는 가뭄을 피해 가족과 산길을 떠돌다 청운촌 근처에서 여동생의 손을 놓쳤다. 그날 이후 아이가 사라졌다는 말은 늘 같은 후회로 돌아왔다.",
-                                               "displayDirective":  "소문 도입과 서진의 개인적 후회를 한 페이지에서 함께 보여준다. 첫 문단은 도착 계기, 마지막 문단은 감정 후크로 읽히게 한다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.village_arrival",
+                                               "originalTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+                                               "displayTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+                                               "displayDirective":  "가뭄 든 청운촌 도착과 서진의 과거 후회를 한 페이지에 묶어 도입 몰입을 만든다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode01.black_cloth_raiders",
+                                               "nextPopupId":  "node.act1.chapter01.episode01.black_cloth_raid",
                                                "choices":  [
 
                                                            ]
                                            },
                                            {
-                                               "popupName":  "black_cloth_raiders",
-                                               "popupId":  "node.act1.chapter01.episode01.black_cloth_raiders",
-                                               "eventId":  "node.act1.chapter01.episode01.black_cloth_raiders",
+                                               "popupName":  "black_cloth_raid",
+                                               "popupId":  "node.act1.chapter01.episode01.black_cloth_raid",
+                                               "eventId":  "node.act1.chapter01.episode01.black_cloth_raid",
                                                "popupOrder":  2,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.rumor_arrival",
-                                               "originalTextKo":  "청운촌에 가까워질수록 공기는 무겁고 메말랐다. 논은 갈라져 있었고, 길가의 수레는 쓰러져 있었으며, 마을 쪽에서는 사람들의 비명과 짐승 같은 울음소리가 뒤섞여 들려왔다.\n\n광장에는 검은 천을 두른 무리들이 주민들을 몰아붙이고 있었다.\n\n그들은 얼굴 아래쪽을 검은 천으로 가리고, 이마에는 흰 재를 문지른 듯한 얼룩을 남기고 있었다. 옷차림은 제각각이었다. 누군가는 찢어진 농민복 위에 가죽 조각을 덧대 입었고, 누군가는 낡은 승복 같은 천을 어깨에 걸쳤다. 다만 허리춤에 붉은 천 인형을 부적처럼 매달고 있다는 점만은 같았다.",
-                                               "displayTextKo":  "청운촌에 가까워질수록 공기는 무겁고 메말랐다. 논은 갈라져 있었고, 길가의 수레는 쓰러져 있었으며, 마을 쪽에서는 사람들의 비명과 짐승 같은 울음소리가 뒤섞여 들려왔다.\n\n광장에는 검은 천을 두른 무리들이 주민들을 몰아붙이고 있었다.\n\n그들은 얼굴 아래쪽을 검은 천으로 가리고, 이마에는 흰 재를 문지른 듯한 얼룩을 남기고 있었다. 옷차림은 제각각이었다. 누군가는 찢어진 농민복 위에 가죽 조각을 덧대 입었고, 누군가는 낡은 승복 같은 천을 어깨에 걸쳤다. 다만 허리춤에 붉은 천 인형을 부적처럼 매달고 있다는 점만은 같았다.",
-                                               "displayDirective":  "마을 접근에서 광장 위협, 습격자의 첫인상까지 한 장면으로 묶는다. 광장 등장과 붉은 천 인형 단서는 문단 호흡으로 강조한다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.black_cloth_raid",
+                                               "originalTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다.\n\n[전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+                                               "displayTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다. [전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+                                               "displayDirective":  "광장 습격, 전투 표식, 수레 자국 단서를 한 화면에 담는다. [전투] 표기는 전투 진입 맥락으로 보존한다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode01.raider_weapons",
+                                               "nextPopupId":  "node.act1.chapter01.episode01.rescue_charge",
                                                "choices":  [
 
                                                            ]
                                            },
                                            {
-                                               "popupName":  "raider_weapons",
-                                               "popupId":  "node.act1.chapter01.episode01.raider_weapons",
-                                               "eventId":  "node.act1.chapter01.episode01.raider_weapons",
+                                               "popupName":  "rescue_charge",
+                                               "popupId":  "node.act1.chapter01.episode01.rescue_charge",
+                                               "eventId":  "node.act1.chapter01.episode01.rescue_charge",
                                                "popupOrder":  3,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.rumor_arrival",
-                                               "originalTextKo":  "무기는 손에 잡히는 대로 주워 든 것처럼 보였다. 짧은 곡도는 이가 빠져 있었고, 녹슨 도끼에는 말라붙은 흙이 끼어 있었다. 방패 대신 뜯어낸 문짝을 든 자의 팔에는 낡은 붕대가 겹겹이 감겨 있었고, 쇠사슬을 든 자의 손목에는 방울과 짐승 이빨이 꿰인 끈이 흔들렸다. 산적이라기에는 지나치게 의식적인 치장이었다.\n\n사정을 물을 시간은 없었다.\n\n지금 필요한 것은 질문이 아니라, 살아 있는 사람들을 지키는 일이었다.",
-                                               "displayTextKo":  "무기는 손에 잡히는 대로 주워 든 것처럼 보였다. 짧은 곡도는 이가 빠져 있었고, 녹슨 도끼에는 말라붙은 흙이 끼어 있었다. 방패 대신 뜯어낸 문짝을 든 자의 팔에는 낡은 붕대가 겹겹이 감겨 있었고, 쇠사슬을 든 자의 손목에는 방울과 짐승 이빨이 꿰인 끈이 흔들렸다. 산적이라기에는 지나치게 의식적인 치장이었다.\n\n사정을 물을 시간은 없었다.\n\n지금 필요한 것은 질문이 아니라, 살아 있는 사람들을 지키는 일이었다.",
-                                               "displayDirective":  "무기 묘사와 구조 결심을 한 페이지에 배치한다. 마지막 결심 문장은 선택 직전의 시선 고정점으로 쓰며, 선택지는 이 팝업에 붙인다.",
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.rescue_charge",
+                                               "originalTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                               "displayTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                               "displayDirective":  "주민 보호 결심과 돌진을 선택 직전/직후 흐름으로 묶는다. 선택지는 이 popup에 둔다.",
                                                "textLayoutProfile":  "stage_popup_v1",
                                                "textEditState":  "planning_display_draft",
                                                "imagePolicy":  "generate",
-                                               "nextPopupId":  "node.act1.chapter01.episode01.village_attack",
+                                               "nextPopupId":  null,
                                                "choices":  [
                                                                {
                                                                    "choiceName":  "rescue_villagers",
-                                                                   "choiceId":  "choice.act1.chapter01.episode01.raider_weapons.rescue_villagers",
+                                                                   "choiceId":  "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
                                                                    "legacyChoiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
-                                                                   "sourceChoiceText":  "마을 사람들을 구한다.",
+                                                                   "sourceChoiceText":  "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
                                                                    "rewardDirection":  [
                                                                                            "gold_battle_reward"
                                                                                        ],
                                                                    "rewardOwner":  "battle",
                                                                    "rewardTrigger":  "battle_clear"
                                                                }
-                                                           ]
-                                           },
-                                           {
-                                               "popupName":  "village_attack",
-                                               "popupId":  "node.act1.chapter01.episode01.village_attack",
-                                               "eventId":  "node.act1.chapter01.episode01.village_attack",
-                                               "popupOrder":  4,
-                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.village_attack",
-                                               "originalTextKo":  "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
-                                               "displayTextKo":  "서진은 오래 묻어 둔 후회를 삼키고, 검은 천의 무리 사이로 뛰어들었다.\n\n가장 먼저 다가온 것은 사슬을 끄는 키 큰 사내였다. 검은 천 사이로 드러난 눈가는 피로 갈라져 있었고, 목에는 산귀의 얼굴을 거칠게 깎은 나무패가 걸려 있었다. 서진은 주민들을 등 뒤에 두고, 그 기괴한 차림의 무리 사이로 길을 열어야 했다.",
-                                               "displayDirective":  "선택 이후 전투 돌입 페이지다. 첫 문장은 행동의 박자를 살리고, 사슬을 끄는 적의 묘사는 자동 개행으로 이어간다.",
-                                               "textLayoutProfile":  "stage_popup_v1",
-                                               "textEditState":  "planning_display_draft",
-                                               "imagePolicy":  "generate",
-                                               "nextPopupId":  null,
-                                               "choices":  [
-
                                                            ]
                                            }
                                        ],

@@ -26,6 +26,16 @@ Prompt evaluation copy-ready prompts are under:
 Assets/character_concepts/game_prompts/prompt
 ```
 
+Evaluation and Slack Canvas recording:
+
+```text
+Assets/character_concepts/game_prompts/prompt/EvaluationSlackCanvasFormPrompt.md
+Assets/character_concepts/game_prompts/stage/PopupEventMainImageEvaluationPrompt.md
+Assets/character_concepts/game_prompts/stage/PopupEventMainImageEvaluationSlackCanvasPrompt.md
+Assets/character_concepts/game_prompts/skill/SkillIconEvaluationSlackCanvasPrompt.md
+Assets/character_concepts/game_prompts/item/ItemIconEvaluationSlackCanvasPrompt.md
+```
+
 Stage node and popup event JSON prompts are under:
 
 ```text

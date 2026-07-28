@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.golden_chain_formation
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.golden_chain_formation
+  icon: {fileID: 21300000, guid: 44d66908505e42388934d3118ac2c226, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 084d02c1344ae47c4a6c4f1817665704, type: 2}
+  castSo: {fileID: 11400000, guid: 3b14076da3e5142ec88ddeab0d601587, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 11547779f832d4b5a8f18da0081f3d94, type: 2}
+  moveSo: {fileID: 11400000, guid: 24f3cb33c6d434610b6d87ff4291e50b, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: fdf0335ac3a5245029c528479d5c35ec, type: 2}

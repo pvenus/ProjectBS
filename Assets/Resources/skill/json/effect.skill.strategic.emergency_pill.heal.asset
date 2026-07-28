@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a976b41e687441cad798047c5f5afc, type: 3}
+  m_Name: effect.skill.strategic.emergency_pill.heal
+  m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
+  effectId: effect.skill.strategic.emergency_pill.heal
+  icon: {fileID: 0}
+  config:
+    rid: 4316573187410493595
+  references:
+    version: 2
+    RefIds:
+    - rid: 4316573187410493595
+      type: {class: HealEffectConfig, ns: Effect, asm: Assembly-CSharp}
+      data:
+        useMaxHpPercent: 0
+        maxHpPercent: 0
+        flatHealAmount: 30
+        useAttackScaling: 0
+        attackPercentHeal: 0
+        clampToMaxHp: 1

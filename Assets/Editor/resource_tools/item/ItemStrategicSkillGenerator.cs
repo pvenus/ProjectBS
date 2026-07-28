@@ -32,7 +32,83 @@ namespace ResourceTools
             AssetDatabase.Refresh();
         }
 
-        public static void GenerateFromJsonPath(string jsonPath)
+        [MenuItem("Assets/Item/Generate All Strategic Item SO From Folder", false, 2001)]
+        public static void GenerateAllFromSelectedFolder()
+        {
+            string folderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (string.IsNullOrWhiteSpace(folderPath) ||
+                !AssetDatabase.IsValidFolder(folderPath))
+            {
+                Debug.LogError(
+                    "[ItemStrategicSkillGenerator] Select a folder in the Project window first.");
+                return;
+            }
+
+            string[] jsonPaths = Directory.GetFiles(
+                folderPath,
+                "*.json",
+                SearchOption.TopDirectoryOnly);
+            Array.Sort(jsonPaths, StringComparer.Ordinal);
+
+            int generatedCount = 0;
+            int failedCount = 0;
+            int skippedCount = 0;
+
+            for (int i = 0; i < jsonPaths.Length; i++)
+            {
+                string jsonPath = jsonPaths[i].Replace("\\", "/");
+                try
+                {
+                    string json = File.ReadAllText(jsonPath);
+                    StrategicSkillItemJson data =
+                        JsonUtility.FromJson<StrategicSkillItemJson>(json);
+
+                    if (data == null ||
+                        string.IsNullOrWhiteSpace(data.strategicSkillItemId) ||
+                        !data.strategicSkillItemId.StartsWith(
+                            "item.strategic.",
+                            StringComparison.Ordinal))
+                    {
+                        skippedCount++;
+                        continue;
+                    }
+
+                    if (GenerateFromJsonPath(jsonPath))
+                    {
+                        generatedCount++;
+                    }
+                    else
+                    {
+                        failedCount++;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    failedCount++;
+                    Debug.LogError(
+                        $"[ItemStrategicSkillGenerator] Failed to generate item. " +
+                        $"path={jsonPath}\n{exception}");
+                }
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            Debug.Log(
+                $"[ItemStrategicSkillGenerator] Folder generation completed. " +
+                $"folder={folderPath}, generated={generatedCount}, " +
+                $"failed={failedCount}, skipped={skippedCount}");
+        }
+
+        [MenuItem("Assets/Item/Generate All Strategic Item SO From Folder", true)]
+        private static bool ValidateGenerateAllFromSelectedFolder()
+        {
+            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            return !string.IsNullOrWhiteSpace(path) &&
+                   AssetDatabase.IsValidFolder(path);
+        }
+
+        public static bool GenerateFromJsonPath(string jsonPath)
         {
             string json = File.ReadAllText(jsonPath);
             StrategicSkillItemJson data = JsonUtility.FromJson<StrategicSkillItemJson>(json);
@@ -40,7 +116,7 @@ namespace ResourceTools
             if (data == null)
             {
                 Debug.LogError($"[ItemStrategicSkillGenerator] Failed to parse json. path={jsonPath}");
-                return;
+                return false;
             }
 
             Debug.Log($"[ItemStrategicSkillGenerator] Parsed: {data.strategicSkillItemId}");
@@ -49,22 +125,25 @@ namespace ResourceTools
             if (string.IsNullOrWhiteSpace(folderPath))
             {
                 Debug.LogError("[ItemStrategicSkillGenerator] Invalid folder path.");
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(data.skillId))
             {
                 Debug.LogError(
                     $"[ItemStrategicSkillGenerator] skillId is required. item={data.strategicSkillItemId}");
-                return;
+                return false;
             }
 
-            if (!TryFindUniqueSkillById(data.skillId))
+            if (!TryFindUniqueSkillById(data.skillId, out EquipmentSkillSO skillSo))
             {
-                return;
+                return false;
             }
 
-            StrategicSkillItemSO itemSO = CreateOrUpdateItemSO(data, folderPath);
+            StrategicSkillItemSO itemSO = CreateOrUpdateItemSO(
+                data,
+                folderPath,
+                skillSo);
 
             ItemStringBuilder.BuildResult stringBuildResult =
                 ItemStringBuilder.BuildFromJsonPath(jsonPath);
@@ -82,11 +161,13 @@ namespace ResourceTools
             EditorUtility.SetDirty(itemSO);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+            return true;
         }
 
         private static StrategicSkillItemSO CreateOrUpdateItemSO(
             StrategicSkillItemJson data,
-            string folderPath)
+            string folderPath,
+            EquipmentSkillSO skillSo)
         {
             string assetPath = $"{folderPath}/{data.strategicSkillItemId}.asset";
 
@@ -104,7 +185,7 @@ namespace ResourceTools
             SetField(itemSO, "gaugeCost", data.gaugeCost);
             SetField(itemSO, "reusable", data.reusable);
             SetField(itemSO, "defaultPrice", data.defaultPrice);
-            SetField(itemSO, "skillId", data.skillId);
+            SetField(itemSO, "skillSo", skillSo);
             SetField(itemSO, "icon", FindSprite(data.icon));
             SetField(itemSO, "iconName", data.icon);
             SetField(itemSO, "grade", data.grade);
@@ -118,10 +199,12 @@ namespace ResourceTools
             return itemSO;
         }
 
-        private static bool TryFindUniqueSkillById(string skillId)
+        private static bool TryFindUniqueSkillById(
+            string skillId,
+            out EquipmentSkillSO resolved)
         {
             EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
-            EquipmentSkillSO resolved = null;
+            resolved = null;
 
             for (int i = 0; i < skills.Length; i++)
             {

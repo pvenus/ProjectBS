@@ -40,6 +40,7 @@ public class ProjectileVisual : MonoBehaviour
     [SerializeField] private bool initialized;
     [SerializeField] private bool isClipPlaying;
     [SerializeField] private bool deactivateAfterClipFinished;
+    [SerializeField] private float currentClipPlaybackSpeed = 1f;
 
     private ProjectileEntity owner;
     private ProjectileRuntimeData runtimeData;
@@ -282,13 +283,14 @@ public class ProjectileVisual : MonoBehaviour
         clipPlayable.SetApplyFootIK(false);
         clipPlayable.SetApplyPlayableIK(false);
         clipPlayable.SetTime(0d);
-        clipPlayable.SetSpeed(1d);
+        currentClipPlaybackSpeed = ResolveClipPlaybackSpeed(clip);
+        clipPlayable.SetSpeed(currentClipPlaybackSpeed);
 
         AnimationPlayableOutput output = AnimationPlayableOutput.Create(playableGraph, "ProjectileVisualOutput", animator);
         output.SetSourcePlayable(clipPlayable);
 
         currentClip = clip;
-        currentClipDuration = clip.length;
+        currentClipDuration = clip.length / currentClipPlaybackSpeed;
         deactivateAfterClipFinished = deactivateWhenFinished;
         isClipPlaying = true;
 
@@ -493,9 +495,10 @@ public class ProjectileVisual : MonoBehaviour
         AnimationClipPlayable playable = AnimationClipPlayable.Create(graph, clip);
         playable.SetApplyFootIK(false);
         playable.SetApplyPlayableIK(false);
-        playable.SetDuration(clip.length);
+        float playbackSpeed = ResolveClipPlaybackSpeed(clip);
+        playable.SetDuration(clip.length / playbackSpeed);
         playable.SetTime(0d);
-        playable.SetSpeed(1d);
+        playable.SetSpeed(playbackSpeed);
 
         AnimationPlayableOutput output = AnimationPlayableOutput.Create(
             graph,
@@ -582,10 +585,29 @@ public class ProjectileVisual : MonoBehaviour
         AnimationClip rainClip = ResolveAnimationClip(SkillAnimationClipType.ProjectileLoop);
         if (rainClip != null && rainClip.length > 0f)
         {
-            return rainClip.length;
+            return rainClip.length / ResolveClipPlaybackSpeed(rainClip);
         }
 
         return Mathf.Max(0.01f, rainDuration);
+    }
+
+    private float ResolveClipPlaybackSpeed(AnimationClip clip)
+    {
+        if (clip == null || clip.length <= 0f)
+        {
+            return 1f;
+        }
+
+        float availableLifetime = runtimeData != null
+            ? runtimeData.lifetime
+            : 0f;
+
+        if (availableLifetime <= 0f || clip.length <= availableLifetime)
+        {
+            return 1f;
+        }
+
+        return clip.length / Mathf.Max(0.01f, availableLifetime);
     }
 
     private void StopRainRoutine()
