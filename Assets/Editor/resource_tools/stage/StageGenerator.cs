@@ -12,7 +12,6 @@ namespace ResourceTools.Stage
     ///
     /// Responsibilities:
     /// - Select a single json file or a folder containing json files.
-    /// - Stage definition json(requiredSubEvents) creates StageDefinitionSO and calls act node builders.
     /// - Act json(nodes/startNodeId) creates RoundNodeSO/PopupEventSO assets.
     /// - Stage string CSV can be generated from act json files.
     /// </summary>
@@ -20,13 +19,11 @@ namespace ResourceTools.Stage
     {
         private const string WindowTitle = "Stage JSON Generator";
         private const string DefaultJsonFolder = "Assets/Resources/stage_new";
-        private const string DefaultStageDefinitionOutputFolder = "Assets/Resources/stage_new/definitions";
         private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
         private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
         private const string DefaultStageStringCsvPath = "Assets/Resources/string/stage_string.csv";
 
         [SerializeField] private string jsonPath = DefaultJsonFolder;
-        [SerializeField] private string stageDefinitionOutputFolder = DefaultStageDefinitionOutputFolder;
         [SerializeField] private string stageNodeOutputFolder = DefaultStageNodeOutputFolder;
         [SerializeField] private string popupEventOutputFolder = DefaultPopupEventOutputFolder;
         [SerializeField] private string stageStringCsvPath = DefaultStageStringCsvPath;
@@ -53,13 +50,6 @@ namespace ResourceTools.Stage
                 Debug.LogWarning("[StageGenerator] Select a stage json file or folder first.");
                 return;
             }
-
-            GenerateStageDefinitionsFromPath(
-                selectedPath,
-                DefaultStageDefinitionOutputFolder,
-                DefaultStageNodeOutputFolder,
-                DefaultPopupEventOutputFolder,
-                true);
 
             GenerateFromPath(
                 selectedPath,
@@ -148,42 +138,6 @@ namespace ResourceTools.Stage
             return results;
         }
 
-        public static IReadOnlyList<string> GenerateStageDefinitionsFromPath(
-            string inputPath,
-            string stageDefinitionOutputFolder = DefaultStageDefinitionOutputFolder,
-            string stageNodeOutputFolder = DefaultStageNodeOutputFolder,
-            string popupEventOutputFolder = DefaultPopupEventOutputFolder,
-            bool includeSubFolders = true)
-        {
-            var jsonFiles = CollectJsonFiles(inputPath, includeSubFolders)
-                .Where(IsStageDefinitionJson)
-                .ToList();
-            var results = new List<string>();
-
-            foreach (var file in jsonFiles)
-            {
-                try
-                {
-                    var definition = StageDefinitionBuilder.BuildFromJsonPath(
-                        file,
-                        stageDefinitionOutputFolder,
-                        stageNodeOutputFolder,
-                        popupEventOutputFolder);
-
-                    if (definition != null)
-                    {
-                        results.Add(file);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"[StageGenerator] Failed to generate StageDefinitionSO: {file}\n{e}");
-                }
-            }
-
-            return results;
-        }
-
         public static IReadOnlyList<string> CollectJsonFiles(string inputPath, bool includeSubFolders)
         {
             var result = new List<string>();
@@ -240,7 +194,7 @@ namespace ResourceTools.Stage
             {
                 var text = File.ReadAllText(path);
                 return text.Contains("\"nodes\"", StringComparison.Ordinal)
-                    || text.Contains("\"requiredSubEvents\"", StringComparison.Ordinal);
+                    && text.Contains("\"startNodeId\"", StringComparison.Ordinal);
             }
             catch
             {
@@ -267,24 +221,6 @@ namespace ResourceTools.Stage
             }
         }
 
-        private static bool IsStageDefinitionJson(string path)
-        {
-            if (!IsStageStoryJson(path))
-            {
-                return false;
-            }
-
-            try
-            {
-                var text = File.ReadAllText(path);
-                return text.Contains("\"requiredSubEvents\"", StringComparison.Ordinal);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         private void OnGUI()
         {
             EditorGUILayout.LabelField("Stage JSON Generator", EditorStyles.boldLabel);
@@ -295,13 +231,6 @@ namespace ResourceTools.Stage
                 path: ref jsonPath,
                 openPanelTitle: "Select Stage JSON File or Folder",
                 allowFile: true,
-                allowFolder: true);
-
-            DrawPathField(
-                label: "Stage Definition Output",
-                path: ref stageDefinitionOutputFolder,
-                openPanelTitle: "Select Stage Definition Output Folder",
-                allowFile: false,
                 allowFolder: true);
 
             DrawPathField(
@@ -370,15 +299,6 @@ namespace ResourceTools.Stage
 
             AddLog($"Found {files.Count} json file(s).");
 
-            var definitionResults = GenerateStageDefinitionsFromPath(
-                jsonPath,
-                stageDefinitionOutputFolder,
-                stageNodeOutputFolder,
-                popupEventOutputFolder,
-                includeSubFolders);
-
-            AddLog($"Generated {definitionResults.Count} stage definition asset(s).");
-
             var results = GenerateFromPath(
                 jsonPath,
                 stageNodeOutputFolder,
@@ -408,12 +328,11 @@ namespace ResourceTools.Stage
         private void DrawPreview()
         {
             var files = CollectJsonFiles(jsonPath, includeSubFolders);
-            var definitionCount = files.Count(IsStageDefinitionJson);
             var actCount = files.Count(IsActJson);
 
             EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
-                $"JSON files to generate: {files.Count}  |  Stage Definitions: {definitionCount}  |  Act Nodes: {actCount}",
+                $"JSON files to generate: {files.Count}  |  Act Nodes: {actCount}",
                 MessageType.Info);
 
             if (files.Count == 0)
@@ -424,8 +343,7 @@ namespace ResourceTools.Stage
             var previewCount = Mathf.Min(files.Count, 8);
             for (var i = 0; i < previewCount; i++)
             {
-                var type = IsStageDefinitionJson(files[i]) ? "Definition" : "Act";
-                EditorGUILayout.LabelField($"[{type}] {files[i]}");
+                EditorGUILayout.LabelField($"[Act] {files[i]}");
             }
 
             if (files.Count > previewCount)

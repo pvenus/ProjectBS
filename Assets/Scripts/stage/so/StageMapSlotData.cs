@@ -73,6 +73,23 @@ namespace Stage
     }
 
     /// <summary>
+    /// ApplyRandomSectionPlacements 실행 결과 1건.
+    /// slotId → 배정된 RoundNodeSO 매핑을 인스펙터에서 확인하기 위한 직렬화 구조체.
+    /// </summary>
+    [Serializable]
+    public class SvgPlacementResultEntry
+    {
+        [Tooltip("배정이 속한 Random Section ID")]
+        public string sectionId;
+
+        [Tooltip("배정 대상 슬롯 ID")]
+        public string slotId;
+
+        [Tooltip("StagePlacementRuleSO가 배정한 RoundNodeSO. null이면 배정 실패.")]
+        public RoundNodeSO assignedNode;
+    }
+
+    /// <summary>
     /// Story 슬롯과 다음 Story 슬롯 사이에 위치한 Random 슬롯들의 묶음.
     /// 각 섹션은 독립적인 PlacementRule을 가지며, 랜덤 노드 배치를 결정한다.
     /// </summary>
@@ -92,6 +109,6 @@ namespace Stage
         public List<string> targetSlotIds = new();
 
         [Tooltip("이 구간에 적용할 랜덤 노드 배치 규칙 ScriptableObject")]
-        public StageRandomPlacementRuleSO placementRule;
+        public StagePlacementRuleSO placementRule;
     }
 }

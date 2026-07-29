@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Common.SO;
 using UnityEngine;
 using Stage; // 실제 게임의 StageGraph, RoundNode 등을 사용
-using Stage.UI; // RoundNodeButton 사용
 
-namespace UIFramework.Map
+namespace Stage.UI
 {
     public enum MapScrollDirection
     {
@@ -45,7 +45,10 @@ namespace UIFramework.Map
         
         [Header("Path Visuals")]
         public float pathSegmentSpacing = 25f;
-        public float pathSegmentRotationNoise = 15f;
+        [Tooltip("경로 진행 횡방향(X축) 위치 무작위 오프셋 노이즈 크기")]
+        public float pathSegmentPositionNoiseX = 4f;
+        [Tooltip("노드 중심으로부터 세그먼트를 그리지 않을 제외 반경 (노드 시각 범위)")]
+        public float nodeExclusionRadius = 30f;
         
         [Header("Randomization")]
         public bool useFixedSeed = false;
@@ -138,75 +141,61 @@ namespace UIFramework.Map
             gridSettings.gridColumnCount = Mathf.Max(1, gridSettings.gridColumnCount);
             gridSettings.gridCellSize.x = Mathf.Max(10f, gridSettings.gridCellSize.x);
             gridSettings.gridCellSize.y = Mathf.Max(10f, gridSettings.gridCellSize.y);
+
+            // SVG SlotMap은 routeKey를 사용하지 않으므로 Simple 배치 방식으로 강제 전환
+            if (gridSettings.gridPlacementMode == GridPlacementMode.Advanced)
+            {
+                Debug.Log("[ProceduralNodeMapUI] SVG SlotMap 전용 구조에서는 Simple grid placement를 사용합니다.");
+                gridSettings.gridPlacementMode = GridPlacementMode.Simple;
+            }
+
             Debug.Log($"[ProceduralNodeMapUI] Build 시작 - useGridLayout: {useGridLayout}, Mode: {gridSettings.gridPlacementMode}, gridColumnCount: {gridSettings.gridColumnCount}, gridCellSize: {gridSettings.gridCellSize}, CenterRoutes: {gridSettings.centerRoutesInGrid}, RandomOffset: {gridSettings.applyRandomOffsetInCell}");
 
             if (pathRoot == null) pathRoot = contentRoot;
 
             System.Random rng = useFixedSeed ? new System.Random(randomSeed) : new System.Random();
 
-            // 1. 노드들의 UI 좌표 계산 (그리드 또는 레거시)
-            CalculateNodePositions(graph, rng);
+            // 1. 노드들의 UI 좌표 계산 (Resolver 위임)
+            var layoutResolver = new StageMapGridLayoutResolver();
+            nodeUIPositions = layoutResolver.ResolveAllPositions(
+                graph,
+                useGridLayout,
+                gridSettings,
+                horizontalSpacing,
+                verticalSpacing,
+                startPosition,
+                growUpwards,
+                randomOffsetX,
+                randomOffsetY,
+                useFixedSeed,
+                randomSeed);
 
-            // 2. 길(Path Segments) 생성 (노드보다 먼저/뒤에 그려지도록)
-            CreatePathViews(graph, rng);
+            // 2 & 3. 뷰 생성 (Generator 위임)
+            var uiGenerator = new StageNodeMapUIGenerator(
+                contentRoot,
+                pathRoot,
+                nodeButtonPrefab,
+                pathSegmentPrefab,
+                pathSegmentSpacing,
+                pathSegmentPositionNoiseX,
+                nodeExclusionRadius);
 
-            // 3. 실제 노드(버튼) 생성
-            CreateNodeViews(graph);
+            uiGenerator.BuildFromStageGraph(
+                graph,
+                nodeUIPositions,
+                rng,
+                spawnedButtons,
+                buttonMap,
+                spawnedPathViews);
 
             // 4. 전부 배치한 다음 위젯의 사이즈와 정렬 갱신
             UpdateLayoutAndContentSize();
 
             RefreshAll();
         }
-        
-        private void CalculateNodePositions(StageGraph graph, System.Random rng)
-        {
-            nodeUIPositions.Clear();
-
-            if (useGridLayout)
-            {
-                nodeUIPositions = MapGridPositionResolver.CalculateGridNodePositions(graph, gridSettings, rng);
-                return;
-            }
-
-            CalculateLegacyNodePositions(graph, rng);
-        }
-
-        private void CalculateLegacyNodePositions(StageGraph graph, System.Random rng)
-        {
-            List<int> depths = graph.GetDepths();
-            
-            foreach (int depth in depths)
-            {
-                List<RoundNode> nodes = graph.GetNodesByDepth(depth);
-                if (nodes.Count == 0) continue;
-
-                // 해당 깊이의 노드들을 가운데 정렬하기 위한 시작 x 좌표
-                float totalWidth = (nodes.Count - 1) * horizontalSpacing;
-                float startX = startPosition.x - totalWidth * 0.5f;
-                
-                // 방향에 따라 y 좌표 계산
-                float ySign = growUpwards ? 1f : -1f;
-                float y = startPosition.y + (depth * verticalSpacing * ySign);
-                
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    RoundNode node = nodes[i];
-                    float x = startX + i * horizontalSpacing;
-                    
-                    // 자연스러운 배치를 위한 랜덤 오프셋 적용
-                    float ox = (float)(rng.NextDouble() * 2 - 1) * randomOffsetX;
-                    float oy = (float)(rng.NextDouble() * 2 - 1) * randomOffsetY;
-                    
-                    nodeUIPositions[node.nodeId] = new Vector2(x + ox, y + oy);
-                }
-            }
-        }
 
         private void UpdateLayoutAndContentSize()
         {
-            if (spawnedButtons.Count == 0) return;
-
             // 스크롤 방향 감지 및 이에 따른 피벗과 정렬 적용
             bool isHorizontalScroll = false;
             bool isVerticalScroll = true; // 디폴트는 세로
@@ -439,70 +428,6 @@ namespace UIFramework.Map
             rect.sizeDelta = Vector2.zero;
         }
 
-        private void CreatePathViews(StageGraph graph, System.Random rng)
-        {
-            if (pathSegmentPrefab == null || pathRoot == null) return;
-
-            foreach (var node in graph.nodes)
-            {
-                if (!nodeUIPositions.TryGetValue(node.nodeId, out Vector2 start)) continue;
-
-                // 다음 노드들과의 연결선 그리기
-                List<RoundNode> nextNodes = graph.GetNextNodes(node);
-                foreach (var nextNode in nextNodes)
-                {
-                    if (!nodeUIPositions.TryGetValue(nextNode.nodeId, out Vector2 end)) continue;
-
-                    float distance = Vector2.Distance(start, end);
-                    int segmentCount = Mathf.FloorToInt(distance / pathSegmentSpacing);
-                    
-                    Vector2 dir = (end - start).normalized;
-                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-                    for (int i = 1; i < segmentCount; i++) // 시작점과 끝점 제외
-                    {
-                        float t = (float)i / segmentCount;
-                        Vector2 pos = Vector2.Lerp(start, end, t);
-                        
-                        GameObject segment = Instantiate(pathSegmentPrefab, pathRoot);
-                        RectTransform rect = segment.GetComponent<RectTransform>();
-                        rect.anchorMin = new Vector2(0.5f, 0f);
-                        rect.anchorMax = new Vector2(0.5f, 0f);
-                        rect.pivot = new Vector2(0.5f, 0.5f);
-                        rect.anchoredPosition = pos;
-                        
-                        // 방향에 맞게 회전 + 무작위 오차
-                        float noise = (float)(rng.NextDouble() * 2 - 1) * pathSegmentRotationNoise;
-                        rect.localRotation = Quaternion.Euler(0, 0, angle + noise);
-                        
-                        spawnedPathViews.Add(segment);
-                    }
-                }
-            }
-        }
-
-        private void CreateNodeViews(StageGraph graph)
-        {
-            foreach (var node in graph.nodes)
-            {
-                if (!nodeUIPositions.TryGetValue(node.nodeId, out Vector2 pos)) continue;
-
-                RoundNodeButton button = Instantiate(nodeButtonPrefab, contentRoot);
-                RectTransform rectTransform = button.GetComponent<RectTransform>();
-                if (rectTransform != null)
-                {
-                    rectTransform.anchorMin = new Vector2(0.5f, 0f);
-                    rectTransform.anchorMax = new Vector2(0.5f, 0f);
-                    rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                    rectTransform.anchoredPosition = pos;
-                }
-
-                button.Initialize(node);
-                spawnedButtons.Add(button);
-                buttonMap[node.nodeId] = button;
-            }
-        }
-
         public void RefreshAll()
         {
             foreach (RoundNodeButton button in spawnedButtons)
@@ -513,18 +438,16 @@ namespace UIFramework.Map
 
         public void Clear()
         {
-            foreach (RoundNodeButton button in spawnedButtons)
-            {
-                if (button != null) Destroy(button.gameObject);
-            }
-            foreach (GameObject path in spawnedPathViews)
-            {
-                if (path != null) Destroy(path);
-            }
+            var uiGenerator = new StageNodeMapUIGenerator(
+                contentRoot,
+                pathRoot,
+                nodeButtonPrefab,
+                pathSegmentPrefab,
+                pathSegmentSpacing,
+                pathSegmentPositionNoiseX,
+                nodeExclusionRadius);
 
-            spawnedButtons.Clear();
-            spawnedPathViews.Clear();
-            buttonMap.Clear();
+            uiGenerator.Clear(spawnedButtons, spawnedPathViews, buttonMap);
             nodeUIPositions.Clear();
         }
 

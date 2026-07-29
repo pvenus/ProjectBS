@@ -14,279 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage.StageDefinitionSO
   stageId: stage.chapter1
   stageName: Chapter 1 - Cheongun Village
-  generationMode: 0
-  segmentRules:
-  - fromDepth: 2
-    fromColumn: 0
-    toDepth: 5
-    toColumn: 0
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 1
-    maxLayerCount: 1
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 826fdcdf7fea14a4b88b7c84e2d19e9c, type: 2}
-      required: 1
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 10
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 20
-    - pool: {fileID: 11400000, guid: ab7ac272b200f49cd86388d8be54bc34, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 25
-  - fromDepth: 2
-    fromColumn: 1
-    toDepth: 5
-    toColumn: 1
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-  - fromDepth: 5
-    fromColumn: 0
-    toDepth: 8
-    toColumn: 0
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-  - fromDepth: 5
-    fromColumn: 1
-    toDepth: 8
-    toColumn: 1
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-  - fromDepth: 8
-    fromColumn: 0
-    toDepth: 11
-    toColumn: 0
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-  - fromDepth: 8
-    fromColumn: 1
-    toDepth: 11
-    toColumn: 1
-    minTotalWeight: 90
-    maxTotalWeight: 110
-    minLayerCount: 2
-    maxLayerCount: 2
-    minLayerWeight: 20
-    maxLayerWeight: 60
-    minNodesPerLayer: 2
-    maxNodesPerLayer: 3
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-  randomRouteRules:
-  - startDepth: 2
-    endDepth: 5
-    minBranchesPerRoute: 1
-    maxBranchesPerRoute: 2
-    pools:
-    - pool: {fileID: 11400000, guid: 826fdcdf7fea14a4b88b7c84e2d19e9c, type: 2}
-      required: 1
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 10
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 20
-    - pool: {fileID: 11400000, guid: ab7ac272b200f49cd86388d8be54bc34, type: 2}
-      required: 0
-      maxAppearCount: 0
-      priority: 25
-    minTotalWeight: 0
-    maxTotalWeight: 0
-  - startDepth: 5
-    endDepth: 8
-    minBranchesPerRoute: 1
-    maxBranchesPerRoute: 2
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    minTotalWeight: 0
-    maxTotalWeight: 0
-  - startDepth: 8
-    endDepth: 11
-    minBranchesPerRoute: 1
-    maxBranchesPerRoute: 2
-    pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
-      required: 0
-      maxAppearCount: 1
-      priority: 0
-    minTotalWeight: 0
-    maxTotalWeight: 0
-  requiredSubEvents:
-  - node: {fileID: 11400000, guid: a012d555d311f4806ae3a1f34f7f2f63, type: 2}
-    depth: 0
-    column: 0
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: d0a65c235d1eb4fa98ffa3b657e99173, type: 2}
-    depth: 1
-    column: 0
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: 4a991cc98b4264e4f90f9f83dad2756d, type: 2}
-    depth: 2
-    column: 0
-    hiddenByDefault: 1
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: e2ee4efd757c0433e98911c86e7c27ca, type: 2}
-    depth: 2
-    column: 1
-    hiddenByDefault: 1
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: 15de93ccaa28e40a681202ffa7b21da9, type: 2}
-    depth: 5
-    column: 0
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: ca2827c8951424694bd631834f6ab6c2, type: 2}
-    depth: 5
-    column: 1
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: 7fa15d45cdd604a1da6f176a3031d724, type: 2}
-    depth: 8
-    column: 0
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: 75f4fbfe8203645909e85e0ab6c7bfdc, type: 2}
-    depth: 8
-    column: 1
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
-  - node: {fileID: 11400000, guid: 7d093e66bd01a4c218c730444e4f1a52, type: 2}
-    depth: 11
-    column: 0
-    hiddenByDefault: 0
-    routeKey: 
-    kind: 0
   svgMapSlots:
   - slotId: ep_1
     role: 0
@@ -617,14 +344,16 @@ MonoBehaviour:
     orderInDepth: 0
     label: Episode 5-1
     subLabel: "\uB0A1\uC740 \uC218\uB828\uC7A5"
-    connections: []
+    connections:
+    - toSlotId: slot_430_250
   - slotId: ep_5_2
     role: 0
     depth: 13
     orderInDepth: 1
     label: Episode 5-2
     subLabel: "\uC232\uAE38\uC758 \uC758\uC6D0"
-    connections: []
+    connections:
+    - toSlotId: slot_1370_250
   - slotId: slot_430_250
     role: 1
     depth: 14
@@ -714,7 +443,117 @@ MonoBehaviour:
     label: Episode 6
     subLabel: "\uC0B0\uCC44\uC758 \uD1A0\uBC8C"
     connections: []
-  svgStorySlotBindings: []
-  svgRandomSections: []
+  svgStorySlotBindings:
+  - slotId: ep_1
+    expectedNodeId: stage.ch1.episode1
+    node: {fileID: 11400000, guid: a012d555d311f4806ae3a1f34f7f2f63, type: 2}
+  - slotId: ep_2
+    expectedNodeId: stage.ch1.episode2
+    node: {fileID: 11400000, guid: d0a65c235d1eb4fa98ffa3b657e99173, type: 2}
+  - slotId: ep_3_1
+    expectedNodeId: stage.ch1.episode3_1
+    node: {fileID: 11400000, guid: 4a991cc98b4264e4f90f9f83dad2756d, type: 2}
+  - slotId: ep_3_2
+    expectedNodeId: stage.ch1.episode3_2
+    node: {fileID: 11400000, guid: e2ee4efd757c0433e98911c86e7c27ca, type: 2}
+  - slotId: ep_4_1
+    expectedNodeId: stage.ch1.episode4_1
+    node: {fileID: 11400000, guid: 15de93ccaa28e40a681202ffa7b21da9, type: 2}
+  - slotId: ep_4_2
+    expectedNodeId: stage.ch1.episode4_2
+    node: {fileID: 11400000, guid: ca2827c8951424694bd631834f6ab6c2, type: 2}
+  - slotId: ep_5_1
+    expectedNodeId: stage.ch1.episode5_1
+    node: {fileID: 11400000, guid: 7fa15d45cdd604a1da6f176a3031d724, type: 2}
+  - slotId: ep_5_2
+    expectedNodeId: stage.ch1.episode5_2
+    node: {fileID: 11400000, guid: 75f4fbfe8203645909e85e0ab6c7bfdc, type: 2}
+  - slotId: ep_6
+    expectedNodeId: stage.ch1.episode6
+    node: {fileID: 11400000, guid: 7d093e66bd01a4c218c730444e4f1a52, type: 2}
+  svgRandomSections:
+  - sectionId: sec_ep_2_to_ep_3_1
+    fromStorySlotId: ep_2
+    toStorySlotId: ep_3_1
+    targetSlotIds:
+    - slot_430_2085
+    - slot_285_1950
+    - slot_575_1950
+    - slot_285_1815
+    - slot_465_1815
+    - slot_615_1815
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_2_to_ep_3_2
+    fromStorySlotId: ep_2
+    toStorySlotId: ep_3_2
+    targetSlotIds:
+    - slot_1370_2085
+    - slot_1370_1950
+    - slot_1255_1815
+    - slot_1485_1815
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_3_1_to_ep_4_1
+    fromStorySlotId: ep_3_1
+    toStorySlotId: ep_4_1
+    targetSlotIds:
+    - slot_430_1465
+    - slot_265_1330
+    - slot_430_1330
+    - slot_595_1330
+    - slot_375_1195
+    - slot_485_1195
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_3_2_to_ep_4_2
+    fromStorySlotId: ep_3_2
+    toStorySlotId: ep_4_2
+    targetSlotIds:
+    - slot_1370_1465
+    - slot_1235_1330
+    - slot_1505_1330
+    - slot_1170_1195
+    - slot_1370_1195
+    - slot_1570_1195
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_4_1_to_ep_5_1
+    fromStorySlotId: ep_4_1
+    toStorySlotId: ep_5_1
+    targetSlotIds:
+    - slot_430_855
+    - slot_315_720
+    - slot_545_720
+    - slot_365_585
+    - slot_450_585
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_4_2_to_ep_5_2
+    fromStorySlotId: ep_4_2
+    toStorySlotId: ep_5_2
+    targetSlotIds:
+    - slot_1370_855
+    - slot_1210_720
+    - slot_1370_720
+    - slot_1530_720
+    - slot_1300_585
+    - slot_1440_585
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_5_1_to_ep_6
+    fromStorySlotId: ep_5_1
+    toStorySlotId: ep_6
+    targetSlotIds:
+    - slot_430_250
+    - slot_315_115
+    - slot_545_115
+    - slot_360_neg15
+    - slot_440_neg15
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_5_2_to_ep_6
+    fromStorySlotId: ep_5_2
+    toStorySlotId: ep_6
+    targetSlotIds:
+    - slot_1370_250
+    - slot_1255_115
+    - slot_1485_115
+    - slot_1360_neg15
+    - slot_1440_neg15
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
   useFixedSeed: 0
   seed: 1

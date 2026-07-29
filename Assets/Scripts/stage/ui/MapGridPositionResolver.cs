@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Stage;
 
-namespace UIFramework.Map
+namespace Stage.UI
 {
     public enum GridPlacementMode
     {
