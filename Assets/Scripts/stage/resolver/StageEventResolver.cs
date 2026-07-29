@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using Stage;
 
 namespace Stage
 {
@@ -192,19 +191,8 @@ namespace Stage
 
             target.nodeType = source.nodeType;
             target.popupEvent = source.popupEvent;
-            target.icon = ResolveNodeIcon(target.nodeType);
-
+            target.resolvedIconType = source.GetResolvedIconType();
             target.resolved = true;
-        }
-
-        private Sprite ResolveNodeIcon(RoundNodeType nodeType)
-        {
-            if (LibraryManager.Instance == null)
-            {
-                return null;
-            }
-
-            return LibraryManager.Instance.GetNodeTypeIcon(nodeType);
         }
     }
 }

@@ -19,7 +19,8 @@ public class EventPopupView : UIView
     [AutoBind] [SerializeField] private Transform choiceContainer;
     [SerializeField] private UITextButton choiceButtonPrefab;
 
-    public event Action<int> OnChoiceClicked;
+    public event Action<string> OnChoiceSelected;
+    public event Action OnChoiceConfirmed;
 
     private readonly List<UITextButton> spawnedButtons = new();
 
@@ -55,18 +56,24 @@ public class EventPopupView : UIView
         {
             for (int i = 0; i < data.Choices.Count; i++)
             {
-                int index = i;
                 var choice = data.Choices[i];
                 UITextButton btn = Instantiate(choiceButtonPrefab, choiceContainer);
-                btn.Bind(choice.Text, () => OnChoiceSelectedInternal(choice, index));
+                btn.Bind(
+                    choice.Text,
+                    () => OnChoiceSelectedInternal(choice));
                 btn.gameObject.SetActive(true);
                 spawnedButtons.Add(btn);
             }
         }
     }
 
-    private void OnChoiceSelectedInternal(EventChoiceViewData choice, int index)
+    private void OnChoiceSelectedInternal(EventChoiceViewData choice)
     {
+        // 콜백에서 다음 Popup이 동기적으로 열릴 수 있으므로
+        // 현재 선택지 정리는 Manager 호출보다 먼저 끝낸다.
+        ClearChoices();
+        OnChoiceSelected?.Invoke(choice.Id);
+
         if (choice.HasResult)
         {
             // 뷰 내부적으로 결과 화면으로 즉시 전환
@@ -75,22 +82,20 @@ public class EventPopupView : UIView
                 bodyText.text = choice.ResultText;
             }
 
-            // 기존 선택지 버튼 클리어
-            ClearChoices();
-
             // "확인" 버튼을 한 개 추가하여, 이것을 누를 때 비로소 매니저로 이벤트를 최종 발행함
             if (choiceButtonPrefab != null && choiceContainer != null)
             {
                 UITextButton btn = Instantiate(choiceButtonPrefab, choiceContainer);
-                btn.Bind("확인", () => OnChoiceClicked?.Invoke(index));
+                btn.Bind(
+                    "확인",
+                    () => OnChoiceConfirmed?.Invoke());
                 btn.gameObject.SetActive(true);
                 spawnedButtons.Add(btn);
             }
         }
         else
         {
-            // 결과창이 필요 없는 선택지는 즉시 매니저로 이벤트 발행
-            OnChoiceClicked?.Invoke(index);
+            OnChoiceConfirmed?.Invoke();
         }
     }
 
@@ -123,7 +128,8 @@ public class EventPopupView : UIView
 
     public override void ClearCallbacks()
     {
-        OnChoiceClicked = null;
+        OnChoiceSelected = null;
+        OnChoiceConfirmed = null;
     }
 
     private void ClearChoices()

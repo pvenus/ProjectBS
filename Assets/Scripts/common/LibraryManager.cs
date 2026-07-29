@@ -23,22 +23,29 @@ namespace Common
         public RewardVisualLibrarySO RewardVisualLibrary =>
             rewardVisualLibrary;
 
-        public Sprite GetNodeTypeIcon(RoundNodeType nodeType)
+        public Sprite GetNodeIcon(NodeIconType iconType)
         {
             if (nodeTypeIconLibrary == null)
             {
                 return null;
             }
 
-            Sprite icon = nodeTypeIconLibrary.GetIcon(nodeType);
+            Sprite icon = nodeTypeIconLibrary.GetIcon(iconType);
 
             if (icon == null && logDebug)
             {
                 Debug.LogWarning(
-                    $"[LibraryManager] NodeType icon not found. nodeType={nodeType}");
+                    $"[LibraryManager] NodeIconType icon not found. iconType={iconType}");
             }
 
             return icon;
+        }
+
+        public GameObject GetNodePrefab(NodeIconType iconType)
+        {
+            return nodeTypeIconLibrary != null
+                ? nodeTypeIconLibrary.GetPrefab(iconType)
+                : null;
         }
 
         private void Awake()

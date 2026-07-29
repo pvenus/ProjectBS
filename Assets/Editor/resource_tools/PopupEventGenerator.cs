@@ -243,11 +243,11 @@ public static class PopupEventGenerator
             PopupEventChoice choice = new()
             {
                 choiceId = choiceData.choiceId,
-                rewards = BuildRewards(choiceData, baseFolder)
+                rewards = BuildRewards(choiceData, baseFolder),
+                executionConfig =
+                    BuildExecutionConfig(choiceData, baseFolder)
             };
 
-            SetFieldOrProperty(choice, "nextEvent", FindPopupEvent(choiceData.nextEventId, baseFolder));
-            SetFieldOrProperty(choice, "completesEvent", choiceData.completesEvent);
             SetFieldOrProperty(choice, "weight", choiceData.weight);
             SetFieldOrProperty(choice, "tag", choiceData.tag);
 
@@ -255,6 +255,24 @@ public static class PopupEventGenerator
         }
 
         return choices;
+    }
+
+    private static ChoiceExecutionConfig BuildExecutionConfig(
+        PopupEventChoiceJsonData choiceData,
+        string baseFolder)
+    {
+        if (string.IsNullOrWhiteSpace(choiceData.nextEventId))
+        {
+            return ChoiceExecutionDataFactory.CreateConfig(
+                ChoiceExecutionType.CompleteEvent);
+        }
+
+        ChoiceExecutionConfig config =
+            ChoiceExecutionDataFactory.CreateConfig(
+                ChoiceExecutionType.NextEvent);
+        ((NextEventExecutionData)config.data).nextEvent =
+            FindPopupEvent(choiceData.nextEventId, baseFolder);
+        return config;
     }
 
     private static List<PopupEventRewardData> BuildRewards(
@@ -641,7 +659,6 @@ public static class PopupEventGenerator
     {
         public string choiceId;
         public string nextEventId;
-        public bool completesEvent = true;
         public int weight = 1;
         public string tag;
         public List<PopupEventRewardJsonData> rewards = new();

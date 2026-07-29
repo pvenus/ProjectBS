@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode3_2",
   "roundNodeType": "PopupEvent",
   "chapterId": "chapter1",
@@ -22,7 +22,13 @@
         {
           "choiceId": "choice.ch1.episode3_2.follow_deeper_trace",
           "labelKo": "지워진 흔적을 더 깊이 추적한다.",
-          "nextNodeId": "node.ch1.episode3_2.002"
+          "textKo": "지워진 흔적을 더 깊이 추적한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.ch1.episode3_2.002"
+            }
+          }
         }
       ]
     },
@@ -35,6 +41,9 @@
           "choiceId": "choice.ch1.episode3_2.recruit_yujin",
           "labelKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
           "resultKo": "유진이 파티에 합류했다.\n\n서진은 이제 산길을 읽는 눈과 함께 움직이게 되었다.",
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "party_candidate",
@@ -46,3 +55,4 @@
     }
   ]
 }
+

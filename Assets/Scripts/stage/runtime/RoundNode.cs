@@ -60,7 +60,7 @@ namespace Stage
         public PopupEventSO popupEvent;
 
         [Header("Visual")]
-        public Sprite icon;
+        public NodeIconType resolvedIconType;
 
         [Header("Graph")]
         public List<string> nextNodeIds = new();

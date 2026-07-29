@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Character;
 using Stage;
 using UIFramework.Data;
@@ -34,32 +33,14 @@ public static class EventPopupViewDataBuilder
                 bool hasResultText = !string.IsNullOrWhiteSpace(result)
                     && !string.Equals(result, choice.choiceId + ".result");
 
-                string rewardText = string.Empty;
-                if (choice.rewards != null && choice.rewards.Count > 0)
-                {
-                    List<string> rewardStrings = new List<string>();
-                    foreach (var reward in choice.rewards)
-                    {
-                        string formatted = GetRewardText(reward);
-                        if (!string.IsNullOrEmpty(formatted))
-                        {
-                            rewardStrings.Add(formatted);
-                        }
-                    }
-                    if (rewardStrings.Count > 0)
-                    {
-                        rewardText = "\n\n<b>[획득 보상]</b>\n" + string.Join("\n", rewardStrings);
-                    }
-                }
-
-                bool hasResultOrRewards = hasResultText || (choice.rewards != null && choice.rewards.Count > 0);
-
                 resultList.Add(new EventChoiceViewData
                 {
                     Id = choice.choiceId,
                     Text = choice.Label,
-                    ResultText = (hasResultText ? result : "보상을 획득했습니다.") + rewardText,
-                    HasResult = hasResultOrRewards
+                    ResultText = hasResultText
+                        ? result
+                        : string.Empty,
+                    HasResult = hasResultText
                 });
             }
         }
@@ -209,35 +190,5 @@ public static class EventPopupViewDataBuilder
     {
         if (string.IsNullOrWhiteSpace(targetId)) return false;
         return false;
-    }
-
-    private static string GetRewardText(PopupEventRewardData reward)
-    {
-        if (reward == null) return string.Empty;
-
-        switch (reward.rewardType)
-        {
-            case PopupEventRewardType.Gold:
-                return $"골드 +{reward.value}";
-            case PopupEventRewardType.Hp:
-                return $"체력 +{reward.value}";
-            case PopupEventRewardType.HpPercent:
-                return $"체력 +{reward.value}%";
-            case PopupEventRewardType.Reputation:
-                return $"명성 {(reward.value >= 0 ? "+" + reward.value : reward.value.ToString())}";
-            case PopupEventRewardType.Faith:
-                return $"신앙 {(reward.value >= 0 ? "+" + reward.value : reward.value.ToString())}";
-            case PopupEventRewardType.Relic:
-            case PopupEventRewardType.RelicPool:
-                return $"유물 획득: {(reward.targetData != null ? reward.targetData.name : reward.rewardId)}";
-            case PopupEventRewardType.StrategicSkillItem:
-            case PopupEventRewardType.StrategicSkillItemPool:
-                return $"아이템 획득: {(reward.targetData != null ? reward.targetData.name : reward.rewardId)}";
-            case PopupEventRewardType.Blessing:
-            case PopupEventRewardType.BlessingPool:
-                return $"축복 획득: {(reward.targetData != null ? reward.targetData.name : reward.rewardId)}";
-            default:
-                return !string.IsNullOrEmpty(reward.rewardId) ? $"보상 획득: {reward.rewardId}" : string.Empty;
-        }
     }
 }

@@ -7,6 +7,8 @@ using Item;
 using Session.SO;
 using Character;
 using Party;
+using Battle;
+using System;
 
 namespace Session
 {
@@ -86,6 +88,28 @@ namespace Session
                     return;
                 }
 
+                if (!BattleSession.IsBattleActive)
+                {
+                    Debug.LogWarning(
+                        "[GameSession][Debug] Cannot complete battle. "
+                        + "No battle is active.");
+                    return;
+                }
+
+                if (BattleSession.BattleRuntime == null)
+                {
+                    Debug.LogError(
+                        "[GameSession][Debug] Cannot complete battle. "
+                        + "BattleRuntime is null.");
+                    return;
+                }
+
+                BattleSession.BattleRuntime.isCompleted = true;
+                Debug.Log(
+                    "[GameSession][Debug] Battle marked complete "
+                    + "before returning to StageScene. "
+                    + $"battleId={BattleSession.BattleId}, "
+                    + $"stageNodeId={BattleSession.PendingStageNodeId}.");
                 BattleSession.EndBattle();
             }
 
@@ -161,6 +185,46 @@ namespace Session
         {
             StageSession ??= new StageSession();
             BattleSession ??= new BattleSession();
+        }
+
+        public bool TryBeginStageBattle(
+            BattleSO battleSO,
+            string stageNodeId,
+            Action beforeSceneLoad = null)
+        {
+            Initialize();
+
+            if (battleSO == null)
+            {
+                Debug.LogError(
+                    "[GameSession] Cannot begin stage battle. "
+                    + "BattleSO is null.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(stageNodeId))
+            {
+                Debug.LogError(
+                    "[GameSession] Cannot begin stage battle. "
+                    + "stageNodeId is empty.");
+                return false;
+            }
+
+            if (BattleSession.TryGetCompletedStageNodeId(out string pendingId))
+            {
+                Debug.LogError(
+                    "[GameSession] Cannot begin stage battle while "
+                    + "a previous completion is pending. "
+                    + $"pendingNodeId={pendingId}.");
+                return false;
+            }
+
+            return BattleSession.BeginBattle(
+                battleSO,
+                battleSceneName,
+                SceneManager.GetActiveScene().name,
+                stageNodeId,
+                beforeSceneLoad);
         }
     }
 }

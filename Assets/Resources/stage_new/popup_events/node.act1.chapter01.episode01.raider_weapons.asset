@@ -19,13 +19,19 @@ MonoBehaviour:
   - choiceId: choice.act1.chapter01.episode01.raider_weapons.rescue_villagers
     requirements: []
     visibleConditions: []
-    rewards:
-    - rewardType: 3000
-      rewardId: battle.act1.chapter01.01.rescue_villagers
-      targetId: 
-      value: 0
-      godType: 0
-      targetData: {fileID: 11400000, guid: 88a924ee1e7474689b6adbdfbec66edd, type: 2}
-      tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    rewards: []
+    executionConfig:
+      rid: 5535069685187608757
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187608757
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5535069685187608758
+    - rid: 5535069685187608758
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 88a924ee1e7474689b6adbdfbec66edd, type: 2}

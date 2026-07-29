@@ -8,6 +8,9 @@ using UnityEngine;
 
 using Battle;
 using Character;
+using Shop;
+using Shrine;
+using Stage;
 
 namespace ResourceTools.Stage
 {
@@ -18,8 +21,8 @@ namespace ResourceTools.Stage
     ///     PopupEventBuilder.BuildFromJsonPath(jsonPath, outputFolder);
     ///
     /// Runtime SO rule:
-    /// - JSON keeps nodeId / nextNodeId.
-    /// - Generated SO keeps only PopupEventSO references for nextEvent.
+    /// - JSON keeps nodeId / choice execution config (nextPopupId).
+    /// - Generated SO keeps flow only in ChoiceExecutionConfig.
     /// - Text is not stored in SO. eventId / choiceId are used as StringManager keys.
     /// </summary>
     public static class PopupEventBuilder
@@ -62,7 +65,6 @@ namespace ResourceTools.Stage
             public string speakerId;
             public string speakerNameKo;
             public string textKo;
-            public string nextNodeId;
             public List<PopupEventChoiceJson> choices;
         }
 
@@ -72,9 +74,52 @@ namespace ResourceTools.Stage
             public string choiceId;
             public string textKo;
             public string valueTag;
-            public string nextNodeId;
+            public ChoiceExecutionConfigJson executionConfig;
             public List<PopupEventChoiceConditionJson> visibleConditions;
             public List<PopupEventRewardJson> rewards;
+        }
+
+        [Serializable]
+        private sealed class ChoiceExecutionConfigJson
+        {
+            public string type;
+            public NextEventExecutionJson nextEvent;
+            public BattleExecutionJson battle;
+            public ShopExecutionJson shop;
+            public ShrineExecutionJson shrine;
+            public CompleteEventExecutionJson completeEvent;
+        }
+
+        [Serializable]
+        private sealed class NextEventExecutionJson
+        {
+            public string nextPopupId;
+        }
+
+        [Serializable]
+        private sealed class BattleExecutionJson
+        {
+            public string battleId;
+        }
+
+        [Serializable]
+        private sealed class ShopExecutionJson
+        {
+            public string shopType;
+            public List<string> poolIds;
+            public int itemCount;
+        }
+
+        [Serializable]
+        private sealed class ShrineExecutionJson
+        {
+            public string configId;
+            public string godId;
+        }
+
+        [Serializable]
+        private sealed class CompleteEventExecutionJson
+        {
         }
 
         [Serializable]
@@ -122,70 +167,56 @@ namespace ResourceTools.Stage
                 outputFolder = DefaultOutputFolder;
             }
 
-            EnsureFolder(outputFolder);
+            EnsureFolderExists(outputFolder);
 
-            var jsonText = File.ReadAllText(jsonPath);
-            var root = JsonUtility.FromJson<PopupEventJsonRoot>(jsonText);
+            string jsonText = File.ReadAllText(jsonPath);
+            if (string.IsNullOrWhiteSpace(jsonText))
+            {
+                result.warnings.Add($"Json file is empty: {jsonPath}");
+                return result;
+            }
+
+            PopupEventJsonRoot root = JsonUtility.FromJson<PopupEventJsonRoot>(jsonText);
             if (root == null || root.nodes == null || root.nodes.Count == 0)
             {
-                throw new InvalidDataException($"Popup event json has no nodes: {jsonPath}");
+                result.warnings.Add($"No nodes found in json: {jsonPath}");
+                return result;
             }
 
-            var popupEventType = FindTypeByName("PopupEventSO");
-            if (popupEventType == null)
+            Type eventType = FindType("Stage.PopupEventSO") ?? FindType("PopupEventSO");
+            if (eventType == null)
             {
-                throw new InvalidOperationException("Could not find type PopupEventSO. Check assembly / namespace.");
+                throw new InvalidOperationException("Could not find PopupEventSO type in loaded assemblies.");
             }
 
-            if (!typeof(ScriptableObject).IsAssignableFrom(popupEventType))
+            foreach (var node in root.nodes)
             {
-                throw new InvalidOperationException("PopupEventSO must inherit ScriptableObject.");
-            }
-
-            var validNodes = root.nodes
-                .Where(n => !string.IsNullOrWhiteSpace(n.nodeId))
-                .GroupBy(n => n.nodeId)
-                .Select(g => g.First())
-                .ToList();
-
-            if (validNodes.Count != root.nodes.Count)
-            {
-                result.warnings.Add("Some nodes had empty or duplicated nodeId and were ignored.");
-            }
-
-            // 1) Create or update node assets first.
-            foreach (var node in validNodes)
-            {
-                var assetPath = GetNodeAssetPath(outputFolder, node.nodeId);
-                var asset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(assetPath);
-                var created = false;
-
-                if (asset == null)
+                if (node == null || string.IsNullOrWhiteSpace(node.nodeId))
                 {
-                    asset = ScriptableObject.CreateInstance(popupEventType);
-                    AssetDatabase.CreateAsset(asset, assetPath);
-                    created = true;
+                    continue;
                 }
 
-                SetMemberValue(asset, "eventId", node.nodeId);
-                SetMemberValue(asset, "id", node.nodeId);
-                SetMemberValue(asset, "popupEventId", node.nodeId);
+                string assetPath = $"{outputFolder}/{node.nodeId}.asset";
+                ScriptableObject eventAsset = AssetDatabase.LoadAssetAtPath(assetPath, eventType) as ScriptableObject;
 
-                // Optional compatibility fields. Missing fields are ignored.
-                SetMemberValue(asset, "nodeType", node.nodeType);
-                SetMemberValue(asset, "locationId", node.locationId);
-
-                Sprite mainImage = FindMainImageByEventId(node.nodeId);
-                SetMemberValue(asset, "mainImage", mainImage);
-                if (mainImage == null)
+                bool isNew = false;
+                if (eventAsset == null)
                 {
-                    result.warnings.Add($"Popup main image not found. eventId={node.nodeId}, expected={node.nodeId}{MainImageSuffix}");
+                    eventAsset = ScriptableObject.CreateInstance(eventType);
+                    AssetDatabase.CreateAsset(eventAsset, assetPath);
+                    isNew = true;
                 }
 
-                EditorUtility.SetDirty(asset);
-                result.eventsById[node.nodeId] = asset;
+                SetMemberValue(eventAsset, "eventId", node.nodeId);
+                SetMemberValue(eventAsset, "id", node.nodeId);
 
-                if (created)
+                TryAssignMainImageSprite(eventAsset, node.nodeId);
+
+                EditorUtility.SetDirty(eventAsset);
+
+                result.eventsById[node.nodeId] = eventAsset;
+
+                if (isNew)
                 {
                     result.createdAssetPaths.Add(assetPath);
                 }
@@ -195,9 +226,13 @@ namespace ResourceTools.Stage
                 }
             }
 
-            // 2) Connect choices and nextEvent references.
-            foreach (var node in validNodes)
+            foreach (var node in root.nodes)
             {
+                if (node == null || string.IsNullOrWhiteSpace(node.nodeId))
+                {
+                    continue;
+                }
+
                 if (!result.eventsById.TryGetValue(node.nodeId, out var asset) || asset == null)
                 {
                     continue;
@@ -250,15 +285,6 @@ namespace ResourceTools.Stage
             {
                 jsonChoices.AddRange(node.choices.Where(c => !string.IsNullOrWhiteSpace(c.choiceId)));
             }
-            else if (!string.IsNullOrWhiteSpace(node.nextNodeId))
-            {
-                // Choice-less next is still represented as a single generated choice.
-                jsonChoices.Add(new PopupEventChoiceJson
-                {
-                    choiceId = $"{node.nodeId}.next",
-                    nextNodeId = node.nextNodeId
-                });
-            }
 
             var choiceObjects = jsonChoices.Select(choiceJson =>
             {
@@ -280,16 +306,22 @@ namespace ResourceTools.Stage
                     node.nodeId,
                     choiceJson.choiceId);
 
-                var nextEvent = ResolveNextEvent(choiceJson.nextNodeId, result, node.nodeId, choiceJson.choiceId);
-                SetMemberValue(choice, "nextEvent", nextEvent);
+                ChoiceExecutionConfig executionConfig =
+                    BuildChoiceExecutionConfig(
+                        choiceJson,
+                        result,
+                        node.nodeId);
+                SetMemberValue(
+                    choice,
+                    "executionConfig",
+                    executionConfig);
 
-                var completesEventSet = SetMemberValue(choice, "completesEvent", true);
-                if (!completesEventSet)
-                {
-                    SetMemberValue(choice, "isCompleteEvent", true);
-                }
-
-                TrySetRewards(choice, choiceJson.rewards, result, node.nodeId, choiceJson.choiceId);
+                TrySetRewards(
+                    choice,
+                    choiceJson.rewards,
+                    result,
+                    node.nodeId,
+                    choiceJson.choiceId);
 
                 return choice;
             }).Where(c => c != null).ToList();
@@ -305,14 +337,353 @@ namespace ResourceTools.Stage
                 return array;
             }
 
-            var listType = typeof(List<>).MakeGenericType(choiceType);
-            var list = (System.Collections.IList)Activator.CreateInstance(listType);
-            foreach (var choice in choiceObjects)
+            Type listType = typeof(List<>).MakeGenericType(choiceType);
+            System.Collections.IList list = (System.Collections.IList)Activator.CreateInstance(listType);
+            foreach (var item in choiceObjects)
             {
-                list.Add(choice);
+                list.Add(item);
             }
 
             return list;
+        }
+
+        private static ChoiceExecutionConfig BuildChoiceExecutionConfig(
+            PopupEventChoiceJson choiceJson,
+            BuildResult result,
+            string nodeId)
+        {
+            string choiceId = choiceJson?.choiceId;
+            ChoiceExecutionConfigJson configJson = choiceJson?.executionConfig;
+            if (configJson == null || string.IsNullOrWhiteSpace(configJson.type))
+            {
+                throw CreateChoiceImportException(
+                    "EXECUTION_TYPE_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "Choice executionConfig.type is required.");
+            }
+
+            if (!Enum.TryParse(configJson.type, true, out ChoiceExecutionType executionType))
+            {
+                throw CreateChoiceImportException(
+                    "INVALID_EXECUTION_TYPE",
+                    nodeId,
+                    choiceId,
+                    $"Unsupported ChoiceExecutionType: '{configJson.type}'");
+            }
+
+            ValidateExecutionConfigPayload(
+                configJson,
+                executionType,
+                nodeId,
+                choiceId);
+
+            ChoiceExecutionData executionData = executionType switch
+            {
+                ChoiceExecutionType.NextEvent =>
+                    BuildNextEventExecutionData(
+                        configJson.nextEvent,
+                        result,
+                        nodeId,
+                        choiceId),
+                ChoiceExecutionType.Battle =>
+                    BuildBattleExecutionData(
+                        configJson.battle,
+                        result,
+                        nodeId,
+                        choiceId),
+                ChoiceExecutionType.Shop =>
+                    BuildShopExecutionData(
+                        configJson.shop,
+                        nodeId,
+                        choiceId),
+                ChoiceExecutionType.Shrine =>
+                    BuildShrineExecutionData(
+                        configJson.shrine,
+                        result,
+                        nodeId,
+                        choiceId),
+                ChoiceExecutionType.CompleteEvent =>
+                    BuildCompleteEventExecutionData(),
+                _ => throw CreateChoiceImportException(
+                    "UNSUPPORTED_EXECUTION_TYPE",
+                    nodeId,
+                    choiceId,
+                    $"Unhandled ChoiceExecutionType: '{executionType}'")
+            };
+
+            var config = ChoiceExecutionDataFactory.CreateConfig(executionType);
+            config.data = executionData;
+            return config;
+        }
+
+        private static void ValidateExecutionConfigPayload(
+            ChoiceExecutionConfigJson json,
+            ChoiceExecutionType executionType,
+            string nodeId,
+            string choiceId)
+        {
+            bool hasNextEventPayload =
+                !string.IsNullOrWhiteSpace(
+                    json.nextEvent?.nextPopupId);
+            bool hasBattlePayload =
+                !string.IsNullOrWhiteSpace(
+                    json.battle?.battleId);
+            bool hasShopPayload =
+                !string.IsNullOrWhiteSpace(
+                    json.shop?.shopType)
+                || json.shop?.poolIds?.Count > 0
+                || json.shop?.itemCount != 0;
+            bool hasShrinePayload =
+                !string.IsNullOrWhiteSpace(
+                    json.shrine?.configId)
+                || !string.IsNullOrWhiteSpace(
+                    json.shrine?.godId);
+
+            bool payloadMatches = executionType switch
+            {
+                ChoiceExecutionType.NextEvent =>
+                    !hasBattlePayload
+                    && !hasShopPayload
+                    && !hasShrinePayload,
+                ChoiceExecutionType.Battle =>
+                    !hasNextEventPayload
+                    && !hasShopPayload
+                    && !hasShrinePayload,
+                ChoiceExecutionType.Shop =>
+                    !hasNextEventPayload
+                    && !hasBattlePayload
+                    && !hasShrinePayload,
+                ChoiceExecutionType.Shrine =>
+                    !hasNextEventPayload
+                    && !hasBattlePayload
+                    && !hasShopPayload,
+                ChoiceExecutionType.CompleteEvent =>
+                    !hasNextEventPayload
+                    && !hasBattlePayload
+                    && !hasShopPayload
+                    && !hasShrinePayload,
+                _ => false
+            };
+
+            if (!payloadMatches)
+            {
+                throw CreateChoiceImportException(
+                    "EXECUTION_PAYLOAD_MISMATCH",
+                    nodeId,
+                    choiceId,
+                    $"{executionType} has a missing or conflicting payload.");
+            }
+        }
+
+        private static ChoiceExecutionData BuildNextEventExecutionData(
+            NextEventExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            var data = new NextEventExecutionData();
+            PopulateNextEvent(
+                data,
+                json,
+                result,
+                nodeId,
+                choiceId);
+            return data;
+        }
+
+        private static void PopulateNextEvent(
+            NextEventExecutionData data,
+            NextEventExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            if (string.IsNullOrWhiteSpace(json?.nextPopupId))
+            {
+                throw CreateChoiceImportException(
+                    "NEXT_EVENT_ID_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "nextEvent.nextPopupId is required.");
+            }
+
+            ScriptableObject nextEvent = ResolveNextEvent(
+                json.nextPopupId,
+                result,
+                nodeId,
+                choiceId);
+
+            if (nextEvent is not PopupEventSO popupEvent)
+            {
+                throw CreateChoiceImportException(
+                    "NEXT_EVENT_NOT_FOUND",
+                    nodeId,
+                    choiceId,
+                    $"PopupEventSO '{json.nextPopupId}' was not found.");
+            }
+
+            data.nextEvent = popupEvent;
+        }
+
+        private static ChoiceExecutionData BuildBattleExecutionData(
+            BattleExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            var data = new BattleExecutionData();
+            PopulateBattle(
+                data,
+                json,
+                result,
+                nodeId,
+                choiceId);
+            return data;
+        }
+
+        private static void PopulateBattle(
+            BattleExecutionData data,
+            BattleExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            if (string.IsNullOrWhiteSpace(json?.battleId))
+            {
+                throw CreateChoiceImportException(
+                    "BATTLE_ID_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "battle.battleId is required.");
+            }
+
+            ScriptableObject battleAsset = ResolveBattleData(
+                json.battleId,
+                result,
+                nodeId,
+                choiceId);
+            if (battleAsset is BattleSO battleSO)
+            {
+                data.battle = battleSO;
+            }
+        }
+
+        private static ChoiceExecutionData BuildShopExecutionData(
+            ShopExecutionJson json,
+            string nodeId,
+            string choiceId)
+        {
+            var data = new ShopExecutionData();
+            PopulateShop(
+                data,
+                json,
+                nodeId,
+                choiceId);
+            return data;
+        }
+
+        private static void PopulateShop(
+            ShopExecutionData data,
+            ShopExecutionJson json,
+            string nodeId,
+            string choiceId)
+        {
+            if (json == null || string.IsNullOrWhiteSpace(json.shopType))
+            {
+                throw CreateChoiceImportException(
+                    "SHOP_TYPE_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "shop.shopType is required.");
+            }
+
+            if (!Enum.TryParse(json.shopType, true, out ShopType shopType))
+            {
+                throw CreateChoiceImportException(
+                    "INVALID_SHOP_TYPE",
+                    nodeId,
+                    choiceId,
+                    $"Unsupported ShopType: '{json.shopType}'");
+            }
+
+            data.shopType = shopType;
+            data.itemCount = json.itemCount;
+        }
+
+        private static ChoiceExecutionData BuildShrineExecutionData(
+            ShrineExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            var data = new ShrineExecutionData();
+            PopulateShrine(
+                data,
+                json,
+                result,
+                nodeId,
+                choiceId);
+            return data;
+        }
+
+        private static void PopulateShrine(
+            ShrineExecutionData data,
+            ShrineExecutionJson json,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
+        {
+            string configId = json?.configId;
+            if (string.IsNullOrWhiteSpace(configId))
+            {
+                configId = json?.godId;
+            }
+
+            if (string.IsNullOrWhiteSpace(configId))
+            {
+                throw CreateChoiceImportException(
+                    "SHRINE_CONFIG_ID_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "shrine.configId or shrine.godId is required.");
+            }
+
+            ScriptableObject shrineConfigAsset = ResolveShrineConfig(
+                configId,
+                result,
+                nodeId,
+                choiceId);
+            if (shrineConfigAsset is ShrineConfigSO shrineConfigSO)
+            {
+                data.config = shrineConfigSO;
+            }
+            else if (shrineConfigAsset is ShrineGodSO shrineGodSO)
+            {
+                data.god = shrineGodSO;
+            }
+        }
+
+        private static ChoiceExecutionData BuildCompleteEventExecutionData()
+        {
+            return new CompleteEventExecutionData();
+        }
+
+        private static Exception CreateChoiceImportException(
+            string errorCode,
+            string nodeId,
+            string choiceId,
+            string message)
+        {
+            string formattedNodeId = string.IsNullOrWhiteSpace(nodeId)
+                ? "<unknown>"
+                : nodeId;
+            string formattedChoiceId = string.IsNullOrWhiteSpace(choiceId)
+                ? "<none>"
+                : choiceId;
+
+            return new InvalidOperationException(
+                $"[{errorCode}] Node: {formattedNodeId}, Choice: {formattedChoiceId} - {message}");
         }
 
         private static void TrySetVisibleConditions(
@@ -328,13 +699,13 @@ namespace ResourceTools.Stage
                 return;
             }
 
-            Type conditionsMemberType = GetMemberType(choice.GetType(), "visibleConditions");
+            var conditionsMemberType = GetMemberType(choice.GetType(), "visibleConditions");
             if (conditionsMemberType == null)
             {
                 return;
             }
 
-            Type conditionType = GetListElementType(conditionsMemberType);
+            var conditionType = GetListElementType(conditionsMemberType);
             if (conditionType == null)
             {
                 result.warnings.Add($"visibleConditions field is not a supported List<T> or array type. node={nodeId}, choice={choiceId}");
@@ -384,20 +755,19 @@ namespace ResourceTools.Stage
             SetMemberValue(choice, "visibleConditions", finalConditions);
         }
 
-
-        private static ScriptableObject ResolveNextEvent(string nextNodeId, BuildResult result, string nodeId, string choiceId)
+        private static ScriptableObject ResolveNextEvent(string nextPopupId, BuildResult result, string nodeId, string choiceId)
         {
-            if (string.IsNullOrWhiteSpace(nextNodeId))
+            if (string.IsNullOrWhiteSpace(nextPopupId))
             {
                 return null;
             }
 
-            if (result.eventsById.TryGetValue(nextNodeId, out var nextEvent))
+            if (result.eventsById.TryGetValue(nextPopupId, out var nextEvent))
             {
                 return nextEvent;
             }
 
-            result.warnings.Add($"Missing next node. node={nodeId}, choice={choiceId}, nextNodeId={nextNodeId}");
+            result.warnings.Add($"Missing next popup event. node={nodeId}, choice={choiceId}, nextPopupId={nextPopupId}");
             return null;
         }
 
@@ -448,32 +818,27 @@ namespace ResourceTools.Stage
                 return reward;
             }).Where(r => r != null).ToList();
 
-            object finalRewards;
             if (rewardsMemberType.IsArray)
             {
-                var array = Array.CreateInstance(rewardType, rewardObjects.Count);
-                for (var i = 0; i < rewardObjects.Count; i++)
+                Array array = Array.CreateInstance(rewardType, rewardObjects.Count);
+                for (int i = 0; i < rewardObjects.Count; i++)
                 {
                     array.SetValue(rewardObjects[i], i);
                 }
 
-                finalRewards = array;
+                SetMemberValue(choice, "rewards", array);
+                return;
             }
-            else
+
+            Type listType = typeof(List<>).MakeGenericType(rewardType);
+            System.Collections.IList list = (System.Collections.IList)Activator.CreateInstance(listType);
+            foreach (object reward in rewardObjects)
             {
-                var listType = typeof(List<>).MakeGenericType(rewardType);
-                var list = (System.Collections.IList)Activator.CreateInstance(listType);
-                foreach (var reward in rewardObjects)
-                {
-                    list.Add(reward);
-                }
-
-                finalRewards = list;
+                list.Add(reward);
             }
 
-            SetMemberValue(choice, "rewards", finalRewards);
+            SetMemberValue(choice, "rewards", list);
         }
-
 
         private static ScriptableObject BuildRewardTargetData(
             PopupEventRewardJson rewardJson,
@@ -481,239 +846,182 @@ namespace ResourceTools.Stage
             string nodeId,
             string choiceId)
         {
-            if (rewardJson == null)
+            if (rewardJson == null || string.IsNullOrWhiteSpace(rewardJson.rewardType))
             {
                 return null;
             }
 
-            if (IsJobChangeReward(rewardJson.rewardType))
+            string rewardType = rewardJson.rewardType.Trim();
+            string targetId = rewardJson.targetId;
+            if (string.IsNullOrWhiteSpace(targetId))
             {
-                CharacterSO characterSO = FindCharacterSOByCharacterId(rewardJson.rewardId);
-                if (characterSO != null)
-                {
-                    return characterSO;
-                }
-
-                result.warnings.Add(
-                    $"CharacterSO not found for job reward. rewardId={rewardJson.rewardId}, node={nodeId}, choice={choiceId}");
-
-                return null;
+                targetId = rewardJson.rewardId;
             }
 
-            if (IsUnlockRouteReward(rewardJson.rewardType))
+            if (string.IsNullOrWhiteSpace(targetId))
             {
                 return null;
             }
 
-            if (IsBattleReward(rewardJson.rewardType))
+            if (rewardType.Equals("battle", StringComparison.OrdinalIgnoreCase) ||
+                rewardType.Equals("SpecialBattle", StringComparison.OrdinalIgnoreCase))
             {
-                BattleSO battleSO = FindBattleSOByBattleId(ResolveRewardTargetId(rewardJson));
-                if (battleSO != null)
-                {
-                    return battleSO;
-                }
+                return ResolveBattleData(targetId, result, nodeId, choiceId);
+            }
 
-                result.warnings.Add(
-                    $"BattleSO not found for battle reward. rewardId={rewardJson.rewardId}, targetId={rewardJson.targetId}, node={nodeId}, choice={choiceId}");
+            if (rewardType.Equals("party_candidate", StringComparison.OrdinalIgnoreCase) ||
+                rewardType.Equals("partyMember", StringComparison.OrdinalIgnoreCase) ||
+                rewardType.Equals("Character", StringComparison.OrdinalIgnoreCase))
+            {
+                return ResolveCharacterData(targetId, result, nodeId, choiceId);
+            }
+
+            if (rewardType.Equals("shrine_config", StringComparison.OrdinalIgnoreCase) ||
+                rewardType.Equals("shrine", StringComparison.OrdinalIgnoreCase))
+            {
+                return ResolveShrineConfig(targetId, result, nodeId, choiceId);
             }
 
             return null;
         }
 
-        private static bool IsJobChangeReward(string rewardType)
+        private static ScriptableObject ResolveBattleData(
+            string battleId,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
         {
-            return string.Equals(rewardType, "FirstJobChange", StringComparison.OrdinalIgnoreCase)
-                   || string.Equals(rewardType, "SecondJobChange", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static bool IsUnlockRouteReward(string rewardType)
-        {
-            return string.Equals(rewardType, "UnlockRoute", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static bool IsBattleReward(string rewardType)
-        {
-            return string.Equals(rewardType, "SpecialBattle", StringComparison.OrdinalIgnoreCase)
-                   || string.Equals(rewardType, "BossBattle", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static string ResolveRewardTargetId(PopupEventRewardJson rewardJson)
-        {
-            if (!string.IsNullOrWhiteSpace(rewardJson.rewardId))
-            {
-                return rewardJson.rewardId;
-            }
-
-            return rewardJson.targetId;
-        }
-
-        private static CharacterSO FindCharacterSOByCharacterId(string characterId)
-        {
-            if (string.IsNullOrWhiteSpace(characterId))
+            Type battleDataType = FindType("Battle.BattleDataSO") ?? FindType("BattleDataSO");
+            if (battleDataType == null)
             {
                 return null;
             }
 
-            CharacterSO[] characterSOs = Resources.LoadAll<CharacterSO>("character");
-            foreach (CharacterSO characterSO in characterSOs)
-            {
-                if (characterSO != null && characterSO.CharacterId == characterId)
-                {
-                    return characterSO;
-                }
-            }
-
-            return null;
-        }
-
-        private static BattleSO FindBattleSOByBattleId(string battleId)
-        {
-            if (string.IsNullOrWhiteSpace(battleId))
-            {
-                return null;
-            }
-
-            BattleSO[] battleSOs = Resources.LoadAll<BattleSO>("battle");
-            foreach (BattleSO battleSO in battleSOs)
-            {
-                if (battleSO != null && string.Equals(battleSO.BattleId, battleId, StringComparison.Ordinal))
-                {
-                    return battleSO;
-                }
-            }
-
-            return null;
-        }
-
-        private static Sprite FindMainImageByEventId(string eventId)
-        {
-            if (string.IsNullOrWhiteSpace(eventId))
-            {
-                return null;
-            }
-
-            string expectedName = eventId + MainImageSuffix;
-            string[] searchFolders = AssetDatabase.IsValidFolder(DefaultMainImageFolder)
-                ? new[] { DefaultMainImageFolder }
-                : null;
-
-            string[] guids = searchFolders != null
-                ? AssetDatabase.FindAssets("t:Sprite", searchFolders)
-                : AssetDatabase.FindAssets("t:Sprite");
-
+            string[] guids = AssetDatabase.FindAssets($"t:{battleDataType.Name}");
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (sprite != null && string.Equals(sprite.name, expectedName, StringComparison.Ordinal))
-                {
-                    return sprite;
-                }
-            }
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                string fileName = Path.GetFileNameWithoutExtension(path);
-                if (!string.Equals(fileName, expectedName, StringComparison.Ordinal))
+                var asset = AssetDatabase.LoadAssetAtPath(path, battleDataType) as ScriptableObject;
+                if (asset == null)
                 {
                     continue;
                 }
 
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (sprite != null)
+                string assetBattleId = GetMemberValue<string>(asset, "battleId")
+                                     ?? GetMemberValue<string>(asset, "id")
+                                     ?? asset.name;
+                if (string.Equals(assetBattleId, battleId, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(asset.name, battleId, StringComparison.OrdinalIgnoreCase))
                 {
-                    return sprite;
+                    return asset;
                 }
             }
 
+            result.warnings.Add($"Missing battle asset. node={nodeId}, choice={choiceId}, battleId={battleId}");
             return null;
         }
 
-        private static object CreateChoiceInstance(Type type)
+        private static ScriptableObject ResolveCharacterData(
+            string characterId,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
         {
-            try
-            {
-                return Activator.CreateInstance(type);
-            }
-            catch
+            Type characterDataType = FindType("Character.CharacterDataSO") ?? FindType("CharacterDataSO");
+            if (characterDataType == null)
             {
                 return null;
             }
-        }
 
-        private static Type FindTypeByName(string typeName)
-        {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            string[] guids = AssetDatabase.FindAssets($"t:{characterDataType.Name}");
+            foreach (string guid in guids)
             {
-                Type found;
-                try
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var asset = AssetDatabase.LoadAssetAtPath(path, characterDataType) as ScriptableObject;
+                if (asset == null)
                 {
-                    found = assembly.GetTypes().FirstOrDefault(t => t.Name == typeName || t.FullName == typeName);
-                }
-                catch (ReflectionTypeLoadException e)
-                {
-                    found = e.Types?.FirstOrDefault(t => t != null && (t.Name == typeName || t.FullName == typeName));
+                    continue;
                 }
 
-                if (found != null)
+                string assetCharId = GetMemberValue<string>(asset, "characterId")
+                                   ?? GetMemberValue<string>(asset, "id")
+                                   ?? asset.name;
+                if (string.Equals(assetCharId, characterId, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(asset.name, characterId, StringComparison.OrdinalIgnoreCase))
                 {
-                    return found;
+                    return asset;
                 }
             }
 
+            result.warnings.Add($"Missing character asset. node={nodeId}, choice={choiceId}, characterId={characterId}");
             return null;
         }
 
-        private static bool SetMemberValue(object target, string memberName, object value)
+        private static ScriptableObject ResolveShrineConfig(
+            string configId,
+            BuildResult result,
+            string nodeId,
+            string choiceId)
         {
-            if (target == null || string.IsNullOrWhiteSpace(memberName))
+            Type shrineConfigType = FindType("Shrine.ShrineConfigSO") ?? FindType("ShrineConfigSO");
+            if (shrineConfigType == null)
             {
-                return false;
+                return null;
             }
 
-            var type = target.GetType();
-            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-            var field = type.GetField(memberName, flags);
-            if (field != null)
+            string[] guids = AssetDatabase.FindAssets($"t:{shrineConfigType.Name}");
+            foreach (string guid in guids)
             {
-                if (TryConvertValue(value, field.FieldType, out var converted))
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var asset = AssetDatabase.LoadAssetAtPath(path, shrineConfigType) as ScriptableObject;
+                if (asset == null)
                 {
-                    field.SetValue(target, converted);
-                    return true;
+                    continue;
+                }
+
+                string assetConfigId = GetMemberValue<string>(asset, "configId")
+                                     ?? GetMemberValue<string>(asset, "id")
+                                     ?? asset.name;
+                if (string.Equals(assetConfigId, configId, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(asset.name, configId, StringComparison.OrdinalIgnoreCase))
+                {
+                    return asset;
                 }
             }
 
-            var property = type.GetProperty(memberName, flags);
-            if (property != null && property.CanWrite)
-            {
-                if (TryConvertValue(value, property.PropertyType, out var converted))
-                {
-                    property.SetValue(target, converted);
-                    return true;
-                }
-            }
-
-            return false;
+            result.warnings.Add($"Missing shrine config asset. node={nodeId}, choice={choiceId}, configId={configId}");
+            return null;
         }
 
-        private static Type GetMemberType(Type ownerType, string memberName)
+        private static void TryAssignMainImageSprite(ScriptableObject eventAsset, string nodeId)
         {
-            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-            var field = ownerType.GetField(memberName, flags);
-            if (field != null)
+            var mainImageMemberType = GetMemberType(eventAsset.GetType(), "mainImage");
+            if (mainImageMemberType == null || !typeof(Sprite).IsAssignableFrom(mainImageMemberType))
             {
-                return field.FieldType;
+                return;
             }
 
-            var property = ownerType.GetProperty(memberName, flags);
-            if (property != null)
+            string imagePath = $"{DefaultMainImageFolder}/{nodeId}{MainImageSuffix}.png";
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(imagePath);
+            if (sprite != null)
             {
-                return property.PropertyType;
+                SetMemberValue(eventAsset, "mainImage", sprite);
+            }
+        }
+
+        private static object CreateChoiceInstance(Type choiceType)
+        {
+            if (choiceType == null)
+            {
+                return null;
             }
 
-            return null;
+            if (typeof(ScriptableObject).IsAssignableFrom(choiceType))
+            {
+                return ScriptableObject.CreateInstance(choiceType);
+            }
+
+            return Activator.CreateInstance(choiceType);
         }
 
         private static Type GetListElementType(Type type)
@@ -733,77 +1041,148 @@ namespace ResourceTools.Stage
                 return type.GetGenericArguments()[0];
             }
 
+            foreach (Type iface in type.GetInterfaces())
+            {
+                if (iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+                    return iface.GetGenericArguments()[0];
+                }
+            }
+
             return null;
         }
 
-        private static bool TryConvertValue(object value, Type targetType, out object converted)
+        private static MemberInfo GetMemberInfo(Type type, string name)
         {
-            converted = null;
+            if (type == null || string.IsNullOrWhiteSpace(name))
+            {
+                return null;
+            }
 
-            if (targetType == null)
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase;
+            FieldInfo field = type.GetField(name, flags);
+            if (field != null)
+            {
+                return field;
+            }
+
+            PropertyInfo prop = type.GetProperty(name, flags);
+            if (prop != null && prop.CanWrite)
+            {
+                return prop;
+            }
+
+            return null;
+        }
+
+        private static Type GetMemberType(Type type, string name)
+        {
+            MemberInfo member = GetMemberInfo(type, name);
+            if (member is FieldInfo field)
+            {
+                return field.FieldType;
+            }
+
+            if (member is PropertyInfo prop)
+            {
+                return prop.PropertyType;
+            }
+
+            return null;
+        }
+
+        private static bool SetMemberValue(object target, string name, object value)
+        {
+            if (target == null || string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
 
+            MemberInfo member = GetMemberInfo(target.GetType(), name);
+            if (member is FieldInfo field)
+            {
+                field.SetValue(target, ConvertValue(value, field.FieldType));
+                return true;
+            }
+
+            if (member is PropertyInfo prop && prop.CanWrite)
+            {
+                prop.SetValue(target, ConvertValue(value, prop.PropertyType));
+                return true;
+            }
+
+            return false;
+        }
+
+        private static T GetMemberValue<T>(object target, string name)
+        {
+            if (target == null || string.IsNullOrWhiteSpace(name))
+            {
+                return default;
+            }
+
+            MemberInfo member = GetMemberInfo(target.GetType(), name);
+            if (member is FieldInfo field)
+            {
+                object raw = field.GetValue(target);
+                return raw is T typed ? typed : default;
+            }
+
+            if (member is PropertyInfo prop && prop.CanRead)
+            {
+                object raw = prop.GetValue(target);
+                return raw is T typed ? typed : default;
+            }
+
+            return default;
+        }
+
+        private static object ConvertValue(object value, Type targetType)
+        {
             if (value == null)
             {
-                if (!targetType.IsValueType || Nullable.GetUnderlyingType(targetType) != null)
+                return null;
+            }
+
+            Type valueType = value.GetType();
+            if (targetType.IsAssignableFrom(valueType))
+            {
+                return value;
+            }
+
+            if (targetType.IsEnum && value is string strEnum)
+            {
+                return Enum.Parse(targetType, strEnum, true);
+            }
+
+            return Convert.ChangeType(value, targetType);
+        }
+
+        private static Type FindType(string typeName)
+        {
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Type type = assembly.GetType(typeName);
+                if (type != null)
                 {
-                    converted = null;
-                    return true;
+                    return type;
                 }
-
-                return false;
             }
 
-            if (targetType.IsInstanceOfType(value))
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                converted = value;
-                return true;
+                Type type = assembly.GetTypes().FirstOrDefault(t => t.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase));
+                if (type != null)
+                {
+                    return type;
+                }
             }
 
-            if (targetType.IsEnum && value is string enumText)
-            {
-                return Enum.TryParse(targetType, enumText, true, out converted);
-            }
-
-            try
-            {
-                converted = Convert.ChangeType(value, targetType);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return null;
         }
 
-        private static string GetNodeAssetPath(string outputFolder, string nodeId)
+        private static void EnsureFolderExists(string folderPath)
         {
-            var safeFileName = SanitizeFileName(nodeId) + ".asset";
-            return CombineAssetPath(outputFolder, safeFileName);
-        }
-
-        private static string SanitizeFileName(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return "popup_event";
-            }
-
-            var invalidChars = Path.GetInvalidFileNameChars();
-            var chars = value.Select(ch => invalidChars.Contains(ch) ? '_' : ch).ToArray();
-            return new string(chars).Replace(':', '_').Replace('/', '_').Replace('\\', '_');
-        }
-
-        private static string CombineAssetPath(string folder, string fileName)
-        {
-            return (folder.TrimEnd('/', '\\') + "/" + fileName).Replace('\\', '/');
-        }
-
-        private static void EnsureFolder(string folderPath)
-        {
-            folderPath = folderPath.Replace('\\', '/').TrimEnd('/');
             if (AssetDatabase.IsValidFolder(folderPath))
             {
                 return;

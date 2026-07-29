@@ -226,11 +226,35 @@ namespace Stage
 
         public void CompleteCurrentNode()
         {
+            TryCompleteCurrentNode(currentNodeId);
+        }
+
+        public bool TryCompleteCurrentNode(
+            string expectedNodeId)
+        {
             RoundNode currentNode = CurrentNode;
             if (currentNode == null)
             {
                 Debug.LogWarning("[StageGraph] CompleteCurrentNode failed. Current node is missing.");
-                return;
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(expectedNodeId)
+                || !string.Equals(
+                    currentNode.nodeId,
+                    expectedNodeId,
+                    StringComparison.Ordinal))
+            {
+                Debug.LogWarning(
+                    "[StageGraph] CompleteCurrentNode rejected. "
+                    + $"expected={expectedNodeId}, "
+                    + $"current={currentNode.nodeId}.");
+                return false;
+            }
+
+            if (currentNode.IsCompleted)
+            {
+                return true;
             }
 
             currentNode.SetCleared();
@@ -240,11 +264,12 @@ namespace Stage
             if (currentNode.IsBossNode)
             {
                 progressState = StageProgressState.Completed;
-                return;
+                return true;
             }
 
             LockAvailableNodesAtDepth(currentNode.depth);
             UnlockNextNodes(currentNode);
+            return true;
         }
 
         public void FailStage()

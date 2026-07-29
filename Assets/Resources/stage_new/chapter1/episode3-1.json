@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode3_1",
   "roundNodeType": "PopupEvent",
   "chapterId": "chapter1",
@@ -22,7 +22,13 @@
         {
           "choiceId": "choice.ch1.episode3_1.follow_physician_clue",
           "labelKo": "붉은 천 인형의 흔적을 따라간다.",
-          "nextNodeId": "node.ch1.episode3_1.002"
+          "textKo": "붉은 천 인형의 흔적을 따라간다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.ch1.episode3_1.002"
+            }
+          }
         }
       ]
     },
@@ -35,6 +41,9 @@
           "choiceId": "choice.ch1.episode3_1.recruit_jihan",
           "labelKo": "함께 가주십시오. 살아 있는 아이들을 구해야 합니다.",
           "resultKo": "지한이 파티에 합류했다.\n\n서진은 이제 아이들을 살려낼 손과 함께 움직이게 되었다.",
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "party_candidate",
@@ -46,3 +55,4 @@
     }
   ]
 }
+

@@ -547,7 +547,7 @@ namespace Stage
                 roundNodeSO = source,
                 popupEvent = source.popupEvent,
                 isRequired = source.isRequired,
-                icon = LibraryManager.Instance.GetNodeTypeIcon(source.nodeType)
+                resolvedIconType = source.GetResolvedIconType()
             };
 
             return node;

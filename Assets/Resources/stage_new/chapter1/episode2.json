@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode2",
   "roundNodeType": "Event",
   "chapterId": "chapter1",
@@ -59,7 +59,12 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode02.yujin_wheel_trace",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode02.yujin_wheel_trace"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -86,7 +91,12 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode02.yujin_wheel_trace",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode02.yujin_wheel_trace"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -95,8 +105,7 @@
             }
           ]
         }
-      ],
-      "nextNodeId": "node.act1.chapter01.episode02.yujin_wheel_trace"
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode02.yujin_wheel_trace",
@@ -112,8 +121,22 @@
       "imagePolicy": "generate",
       "mainImageRequired": true,
       "imageDirection": "Act1 Chapter1 story popup image for '엇갈린 단서' / 'node.act1.chapter01.episode02.yujin_wheel_trace'. Scene: 한편 숲 입구를 살피던 궁수 유진은 사람 발자국과 좁은 수레바퀴 자국을 찾아냈다. 흔적은 중간에서 끊긴 듯 보였지만, 주변 풀잎이 같은 방향으로 눕고 마른 흙만 새로 덮여 있었다. 유진은 누군가 산귀의 소문을 이용하려 흔적을 지웠다고 판단했다. 짧은 활을 등에 걸친 그녀는 산속의 바람과 새소리를 번갈아 들으며 동쪽 폐수련장으로 이어지는 길을 가리켰다.. Direction: 유진의 수레바퀴 단서와 산귀 조작 판단을 한 페이지에서 보여준다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": [],
-      "nextNodeId": "node.act1.chapter01.episode02.choose_first_trace"
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode02.yujin_wheel_trace.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode02.yujin_wheel_trace.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode02.yujin_wheel_trace",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode02.choose_first_trace"
+            }
+          }
+        }
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode02.choose_first_trace",
@@ -148,7 +171,9 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -175,7 +200,9 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -185,7 +212,8 @@
           ]
         }
       ],
-      "nextNodeId": null
+      "nextPopupId": null
     }
   ]
 }
+

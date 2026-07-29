@@ -44,13 +44,12 @@ namespace Stage
         [Header("Rewards")]
         public List<PopupEventRewardData> rewards = new();
 
-        [Header("Flow")]
-        public bool completesEvent = true;
+        [Header("Execution")]
+        [Tooltip("Choice 확정 후 수행할 흐름. 기존 에셋은 마이그레이션 전까지 null일 수 있다.")]
+        [SerializeReference]
+        public ChoiceExecutionConfig executionConfig;
 
-        [Tooltip("다음으로 이어질 Popup 이벤트 (선택 시 체이닝)")]
-        public PopupEventSO nextEvent;
 
-        public bool HasNextEvent => nextEvent != null;
     }
 
     [Serializable]

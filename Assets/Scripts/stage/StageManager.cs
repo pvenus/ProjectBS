@@ -74,6 +74,8 @@ namespace Stage
             {
                 GenerateStage(stageDefinition);
             }
+
+            ApplyPendingBattleNodeCompletion();
         }
 
         public void SetStageDefinition(StageDefinitionSO definition)
@@ -141,25 +143,83 @@ namespace Stage
 
         public void CompleteCurrentNode()
         {
+            TryCompleteCurrentNode(
+                runtimeData?.currentGraph?.CurrentNode?.nodeId);
+        }
+
+        public bool TryCompleteCurrentNode(
+            string expectedNodeId)
+        {
             if (runtimeData.currentGraph == null)
             {
                 Debug.LogWarning("[StageRuntime] CompleteCurrentNode failed. Current graph is null.");
-                return;
+                return false;
             }
 
             RoundNode completedNode = runtimeData.currentGraph.CurrentNode;
             if (completedNode == null)
             {
                 Debug.LogWarning("[StageRuntime] CompleteCurrentNode failed. Current node is null.");
-                return;
+                return false;
             }
 
-            runtimeData.currentGraph.CompleteCurrentNode();
+            bool wasCompleted = completedNode.IsCompleted;
+            if (!runtimeData.currentGraph.TryCompleteCurrentNode(
+                    expectedNodeId))
+            {
+                return false;
+            }
 
             runtimeData.currentNode = runtimeData.currentGraph.CurrentNode;
 
-            OnNodeCompleted?.Invoke(completedNode);
-            OnStageProgressChanged?.Invoke(runtimeData.currentGraph.progressState);
+            if (!wasCompleted)
+            {
+                OnNodeCompleted?.Invoke(completedNode);
+                OnStageProgressChanged?.Invoke(
+                    runtimeData.currentGraph.progressState);
+            }
+
+            return true;
+        }
+
+        private void ApplyPendingBattleNodeCompletion()
+        {
+            GameSession gameSession = GameSession.Instance;
+            BattleSession battleSession =
+                gameSession?.BattleSession;
+
+            if (battleSession == null
+                || !battleSession.TryGetCompletedStageNodeId(
+                    out string completedNodeId))
+            {
+                return;
+            }
+
+            if (!gameSession.StageSession.TryApplyCompletedBattleNode(
+                    battleSession,
+                    out RoundNode completedNode,
+                    out bool newlyCompleted,
+                    out string error))
+            {
+                Debug.LogError(
+                    "[StageRuntime] Battle completion could not be applied. "
+                    + $"expectedNodeId={completedNodeId}, "
+                    + $"error={error}");
+                return;
+            }
+
+            runtimeData = gameSession.StageSession.RuntimeData;
+
+            if (newlyCompleted)
+            {
+                OnNodeCompleted?.Invoke(completedNode);
+                OnStageProgressChanged?.Invoke(
+                    runtimeData.currentGraph.progressState);
+            }
+
+            Debug.Log(
+                "[StageRuntime] Battle completion applied. "
+                + $"nodeId={completedNodeId}.");
         }
 
         public void FailStage()

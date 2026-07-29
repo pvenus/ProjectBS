@@ -19,7 +19,11 @@
         {
           "choiceId": "choice.ch1.episode5_2.recruit_jihan",
           "labelKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
+          "textKo": "함께 가주십시오. 살아있는 아이들을 구해야 합니다.",
           "resultKo": "지한이 파티에 합류했다.\n\n서진과 유진은 아이들을 살려낼 손까지 얻게 되었다.",
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "party_candidate",

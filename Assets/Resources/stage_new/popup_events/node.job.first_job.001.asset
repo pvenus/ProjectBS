@@ -32,8 +32,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 11400000, guid: 827ef7fae44ea41d091bed7983094820, type: 2}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608885
   - choiceId: choice.job.first.archer_archmaster
     requirements: []
     visibleConditions:
@@ -50,8 +50,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608886
   - choiceId: choice.job.first.scholar_strategist
     requirements: []
     visibleConditions:
@@ -68,8 +68,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608887
   - choiceId: choice.job.first.physician_royal_physician
     requirements: []
     visibleConditions:
@@ -86,8 +86,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608888
   - choiceId: choice.job.first.monk_vajra_monk
     requirements: []
     visibleConditions:
@@ -104,11 +104,68 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608889
   - choiceId: choice.job.first.skip
     requirements: []
     visibleConditions: []
     rewards: []
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    executionConfig:
+      rid: 5535069685187608890
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187608885
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608891
+    - rid: 5535069685187608886
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608892
+    - rid: 5535069685187608887
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608893
+    - rid: 5535069685187608888
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608894
+    - rid: 5535069685187608889
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608895
+    - rid: 5535069685187608890
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5535069685187608896
+    - rid: 5535069685187608891
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5535069685187608892
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5535069685187608893
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5535069685187608894
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5535069685187608895
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5535069685187608896
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
