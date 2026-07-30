@@ -27,8 +27,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: cc818fb7761be4b54a2a8b2f6ba16d72, type: 2}
+    executionConfig:
+      rid: 5535069685187609151
   - choiceId: stage.story.easy.002.choice.eat
     requirements: []
     visibleConditions: []
@@ -40,8 +40,8 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: 53fd7c80f1b2a427cb3bdee17d5c7a48, type: 2}
+    executionConfig:
+      rid: 5535069685187609152
   - choiceId: stage.story.easy.002.choice.crate
     requirements: []
     visibleConditions: []
@@ -53,5 +53,38 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: 26bc045171d7f4249a766ad12ab23c7f, type: 2}
+    executionConfig:
+      rid: 5535069685187609153
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187609151
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5535069685187609154
+    - rid: 5535069685187609152
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5535069685187609155
+    - rid: 5535069685187609153
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5535069685187609156
+    - rid: 5535069685187609154
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: cc818fb7761be4b54a2a8b2f6ba16d72, type: 2}
+    - rid: 5535069685187609155
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 53fd7c80f1b2a427cb3bdee17d5c7a48, type: 2}
+    - rid: 5535069685187609156
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 26bc045171d7f4249a766ad12ab23c7f, type: 2}

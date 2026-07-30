@@ -1,24 +1,28 @@
+using Common;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Stage.UI
 {
     /// <summary>
-    /// 스테이지 맵에서 개별 노드를 표현하는 버튼
+    /// 스테이지 맵에서 개별 노드를 표현하고 입력 상태를 제어하는 컴포넌트.
+    /// 시각적 연출(Hover, Click, Disabled/Normal 톤)은 UINodeSlot 컴포넌트에 위임합니다.
     /// </summary>
-    public class RoundNodeButton : MonoBehaviour
+    public class RoundNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
     {
-        [Header("UI")]
-        [SerializeField] private Button button;
-        [SerializeField] private Image iconImage;
-        [SerializeField] private Image backgroundImage;
+        [Header("UI References")]
+        [SerializeField] private Transform iconContainer;
         [SerializeField] private GameObject selectedMark;
         [SerializeField] private GameObject clearedMark;
         [SerializeField] private CanvasGroup canvasGroup;
 
         private RoundNode node;
+        private GameObject spawnedVisualObject;
+        private UINodeSlot spawnedVisualSlot;
+        private NodeIconType currentVisualType = NodeIconType.None;
 
         public RoundNode Node => node;
+        public UINodeSlot VisualSlot => spawnedVisualSlot;
 
         public void Initialize(RoundNode nodeData)
         {
@@ -29,19 +33,8 @@ namespace Stage.UI
                 canvasGroup = GetComponent<CanvasGroup>();
             }
 
-            if (iconImage != null)
-            {
-                iconImage.sprite = node.icon;
-                iconImage.enabled = node.icon != null;
-            }
-
+            UpdateIconAndVisual();
             Refresh();
-
-            if (button != null)
-            {
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(OnClick);
-            }
         }
 
         public void Refresh()
@@ -59,11 +52,6 @@ namespace Stage.UI
                 return;
             }
 
-            if (button != null)
-            {
-                button.interactable = node.IsAvailable;
-            }
-
             if (selectedMark != null)
             {
                 selectedMark.SetActive(node.isSelected);
@@ -74,13 +62,96 @@ namespace Stage.UI
                 clearedMark.SetActive(node.IsCompleted);
             }
 
-            if (iconImage != null)
+            UpdateIconAndVisual();
+
+            if (spawnedVisualSlot != null)
             {
-                iconImage.sprite = node.icon;
-                iconImage.enabled = node.icon != null;
+                spawnedVisualSlot.SetNodeData(node);
+            }
+        }
+
+        private void UpdateIconAndVisual()
+        {
+            if (node == null)
+            {
+                return;
             }
 
-            UpdateBackgroundColor();
+            if (LibraryManager.Instance == null)
+            {
+                Debug.LogWarning($"[RoundNodeButton] LibraryManager.Instance is null. NodeId={node.nodeId}");
+                return;
+            }
+
+            NodeIconType iconType = node.resolvedIconType;
+            GameObject visualPrefab = LibraryManager.Instance.GetNodePrefab(iconType);
+
+            UpdateVisualPrefab(visualPrefab, iconType);
+        }
+
+        private void UpdateVisualPrefab(GameObject prefab, NodeIconType iconType)
+        {
+            if (currentVisualType == iconType && spawnedVisualObject != null)
+            {
+                return;
+            }
+
+            if (spawnedVisualObject != null)
+            {
+                Destroy(spawnedVisualObject);
+                spawnedVisualObject = null;
+                spawnedVisualSlot = null;
+            }
+
+            currentVisualType = iconType;
+
+            if (prefab != null)
+            {
+                Transform parentTransform = iconContainer != null ? iconContainer : transform;
+
+                spawnedVisualObject = Instantiate(prefab, parentTransform, false);
+
+                if (spawnedVisualObject != null)
+                {
+                    spawnedVisualObject.transform.localPosition = Vector3.zero;
+                    spawnedVisualObject.transform.localScale = Vector3.one;
+                    spawnedVisualObject.transform.localRotation = Quaternion.identity;
+
+                    if (spawnedVisualObject.transform is RectTransform rect)
+                    {
+                        rect.anchoredPosition = Vector2.zero;
+                        rect.localScale = Vector3.one;
+                    }
+
+                    spawnedVisualSlot = spawnedVisualObject.GetComponent<UINodeSlot>()
+                        ?? spawnedVisualObject.GetComponentInChildren<UINodeSlot>();
+
+                    if (spawnedVisualSlot == null)
+                    {
+                        if (iconType == NodeIconType.Shrine)
+                        {
+                            spawnedVisualSlot = spawnedVisualObject.AddComponent<UINodeSlot_Shrine>();
+                        }
+                        else
+                        {
+                            spawnedVisualSlot = spawnedVisualObject.AddComponent<UINodeSlot>();
+                        }
+                    }
+
+                    if (spawnedVisualSlot != null && node != null)
+                    {
+                        spawnedVisualSlot.SetNodeData(node);
+                    }
+                }
+            }
+            else
+            {
+                spawnedVisualSlot = GetComponent<UINodeSlot>() ?? GetComponentInChildren<UINodeSlot>();
+                if (spawnedVisualSlot != null && node != null)
+                {
+                    spawnedVisualSlot.SetNodeData(node);
+                }
+            }
         }
 
         private bool IsNodeVisible()
@@ -98,21 +169,6 @@ namespace Stage.UI
                 return;
             }
 
-            if (button != null)
-            {
-                button.interactable = visible && node != null && node.IsAvailable;
-            }
-
-            if (iconImage != null)
-            {
-                iconImage.enabled = visible && node != null && node.icon != null;
-            }
-
-            if (backgroundImage != null)
-            {
-                backgroundImage.enabled = visible;
-            }
-
             if (selectedMark != null)
             {
                 selectedMark.SetActive(visible && node != null && node.isSelected);
@@ -124,46 +180,50 @@ namespace Stage.UI
             }
         }
 
-        private void UpdateBackgroundColor()
+        #region Pointer & Interaction Events
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            if (backgroundImage == null || node == null)
-            {
-                return;
-            }
+            if (node == null || !node.IsAvailable || node.IsCompleted) return;
 
-            Color color = Color.white;
+            if (spawnedVisualSlot != null)
+            {
+                spawnedVisualSlot.OnPointerEnter();
+            }
+        }
 
-            if (node.IsCompleted)
-            {
-                color = new Color(0.5f, 0.5f, 0.5f); // 회색
-            }
-            else if (node.IsAvailable)
-            {
-                color = new Color(1f, 1f, 1f); // 흰색
-            }
-            else
-            {
-                color = new Color(0.2f, 0.2f, 0.2f); // 어두운색
-            }
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (node == null) return;
 
-            if (node.IsBossNode)
+            if (spawnedVisualSlot != null)
             {
-                color = new Color(0.8f, 0.2f, 0.2f); // 보스 강조
+                spawnedVisualSlot.OnPointerExit();
             }
+        }
 
-            backgroundImage.color = color;
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (node == null || !node.IsAvailable || node.IsCompleted) return;
+
+            if (spawnedVisualSlot != null)
+            {
+                spawnedVisualSlot.OnPointerClick();
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnClick();
         }
 
         private void OnClick()
         {
-            if (node == null)
-            {
-                return;
-            }
+            if (node == null) return;
+            if (!node.CanExecute()) return;
 
-            if (!node.CanExecute())
+            if (spawnedVisualSlot != null)
             {
-                return;
+                spawnedVisualSlot.OnPointerClick();
             }
 
             if (StageManager.Instance != null)
@@ -171,5 +231,6 @@ namespace Stage.UI
                 StageManager.Instance.SelectNode(node.nodeId);
             }
         }
+        #endregion
     }
 }

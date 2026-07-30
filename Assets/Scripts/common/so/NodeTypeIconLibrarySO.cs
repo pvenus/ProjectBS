@@ -11,23 +11,33 @@ namespace Common.SO
     public class NodeTypeIconLibrarySO : ScriptableObject
     {
         [Serializable]
-        public class NodeTypeIconEntry
+        public class NodeIconEntry
         {
-            public RoundNodeType nodeType;
+            public NodeIconType iconType;
             public Sprite icon;
+
+            [Tooltip("RoundNodeButton 하위에 생성할 단순 이미지/비주얼 표현용 프리팹. null이면 생성 안 함.")]
+            public GameObject prefab;
         }
 
         [SerializeField]
-        private List<NodeTypeIconEntry> icons = new();
+        private List<NodeIconEntry> entries = new();
 
-        public IReadOnlyList<NodeTypeIconEntry> Icons => icons;
+        public IReadOnlyList<NodeIconEntry> Entries => entries;
 
-        public Sprite GetIcon(RoundNodeType nodeType)
+        public NodeIconEntry GetEntry(NodeIconType iconType)
         {
-            NodeTypeIconEntry entry = icons.Find(x =>
-                x != null && x.nodeType == nodeType);
+            return entries.Find(e => e != null && e.iconType == iconType);
+        }
 
-            return entry?.icon;
+        public Sprite GetIcon(NodeIconType iconType)
+        {
+            return GetEntry(iconType)?.icon;
+        }
+
+        public GameObject GetPrefab(NodeIconType iconType)
+        {
+            return GetEntry(iconType)?.prefab;
         }
     }
 }

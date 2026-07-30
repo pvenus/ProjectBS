@@ -19,7 +19,14 @@
         {
           "choiceId": "choice.ch1.episode4_1.protect_jihan",
           "labelKo": "지한을 지키며 산길을 돌파한다.",
+          "textKo": "지한을 지키며 산길을 돌파한다.",
           "resultKo": "서진은 지한이 아이의 흔적을 살필 수 있도록 앞을 막아섰다.",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.ch1.episode4_1.protect_physician"
+            }
+          },
           "rewards": [
             {
               "rewardType": "battle",

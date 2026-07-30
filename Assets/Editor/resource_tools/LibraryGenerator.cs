@@ -152,7 +152,7 @@ public static class LibraryGenerator
             AssetDatabase.CreateAsset(library, assetPath);
         }
 
-        List<NodeTypeIconLibrarySO.NodeTypeIconEntry> entries = new();
+        List<NodeTypeIconLibrarySO.NodeIconEntry> entries = new();
 
         if (data.nodeTypeIcons != null)
         {
@@ -165,11 +165,11 @@ public static class LibraryGenerator
                     continue;
                 }
 
-                entries.Add(new NodeTypeIconLibrarySO.NodeTypeIconEntry
+                entries.Add(new NodeTypeIconLibrarySO.NodeIconEntry
                 {
-                    nodeType = ParseEnum(
+                    iconType = ParseEnum(
                         item.nodeType,
-                        RoundNodeType.None),
+                        Stage.NodeIconType.None),
                     icon = FindSprite(item.icon)
                 });
             }
@@ -177,7 +177,7 @@ public static class LibraryGenerator
 
         SetSerializedList(
             library,
-            "icons",
+            "entries",
             entries);
 
         EditorUtility.SetDirty(library);

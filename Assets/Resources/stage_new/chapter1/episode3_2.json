@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode3_2",
   "roundNodeType": "Event",
   "chapterId": "chapter1",
@@ -59,7 +59,13 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode03_2.training_ground_watchers",
+          "nextPopupId": "node.act1.chapter01.episode03_2.training_ground_watchers",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode03_2.training_ground_watchers"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -86,7 +92,13 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode03_2.training_ground_watchers",
+          "nextPopupId": "node.act1.chapter01.episode03_2.training_ground_watchers",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode03_2.training_ground_watchers"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -95,8 +107,7 @@
             }
           ]
         }
-      ],
-      "nextNodeId": "node.act1.chapter01.episode03_2.training_ground_watchers"
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode03_2.training_ground_watchers",
@@ -112,8 +123,22 @@
       "imagePolicy": "generate",
       "mainImageRequired": true,
       "imageDirection": "Act1 Chapter1 story popup image for '숲길의 궁수' / 'node.act1.chapter01.episode03_2.training_ground_watchers'. Scene: 유진이 짐승 발 모양의 나무틀을 들어 올리자 지붕 위에서 활시위가 당겨지는 소리가 났다. 썩은 기둥 뒤와 무너진 담 너머에서 감시자들이 모습을 드러냈다. 그들은 낡은 수련복 조각을 가죽옷에 덧대고, 얼굴 전체에 검댕을 발라 눈의 흰자만 도드라졌다. 팔에는 부러진 목검을 잘라 만든 보호대를 찼고, 목에는 작은 산귀 가면을 걸었다. 궁수들은 짧은 각궁과 뼈촉 화살을 들고 처마 위에 엎드렸으며, 칼잡이들은 폭이 넓은 연습용 방패 뒤로 몸을 낮춰 퇴로를 막았다. / 유진은 가장 높은 기둥에 올라 활을 겨누었다. 그녀의 첫 화살이 수레 옆 밧줄을 끊자, 납치에 쓰인 빈 우리가 모습을 드러냈다.. Direction: 감시자 등장, 장비 묘사, 유진의 첫 화살을 한 페이지에 묶어 전투 직전 압박을 만든다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": [],
-      "nextNodeId": "node.act1.chapter01.episode03_2.break_training_ground"
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode03_2.training_ground_watchers.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode03_2.training_ground_watchers.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode03_2.training_ground_watchers",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode03_2.break_training_ground"
+            }
+          }
+        }
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode03_2.break_training_ground",
@@ -147,7 +172,13 @@
           "rewardDirection": [
             "gold_battle_reward"
           ],
-          "nextNodeId": null,
+          "nextPopupId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.chapter01.03_2.break_training_ground"
+            }
+          },
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -160,7 +191,7 @@
           ]
         }
       ],
-      "nextNodeId": null
+      "nextPopupId": null
     }
   ],
   "battleRef": {
@@ -195,3 +226,4 @@
     }
   ]
 }
+

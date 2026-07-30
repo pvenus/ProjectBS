@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using Item;
 using Bless;
 using Stat;
-using Session;
-using Battle;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Character;
 using Party;
 
@@ -72,8 +69,6 @@ namespace Stage
             Register(new RevealHiddenNodeRewardHandler());
             Register(new UnlockRouteRewardHandler());
 
-            Register(new BattleRewardHandler(PopupEventRewardType.SpecialBattle));
-            Register(new BattleRewardHandler(PopupEventRewardType.BossBattle));
         }
 
         private void Register(IEventRewardHandler handler)
@@ -461,43 +456,4 @@ namespace Stage
         }
     }
 
-    public sealed class BattleRewardHandler : EventRewardHandlerBase
-    {
-        public override PopupEventRewardType RewardType { get; }
-
-        public BattleRewardHandler(PopupEventRewardType rewardType)
-        {
-            RewardType = rewardType;
-        }
-
-        public override void Execute(PopupEventRewardData reward, EventRewardContext context)
-        {   
-            if (!TryGetTarget(reward, out BattleSO battleSO))
-            {
-                return;
-            }
-
-            GameSession gameSession = GameSession.Instance;
-            if (gameSession == null)
-            {
-                Debug.LogWarning("[EventRewardExecutor] GameSession is null.");
-                return;
-            }
-
-            if (gameSession.BattleSession == null)
-            {
-                Debug.LogWarning("[EventRewardExecutor] BattleSession is null.");
-                return;
-            }
-
-            string currentSceneName = SceneManager.GetActiveScene().name;
-
-            gameSession.BattleSession.BeginBattle(
-                battleSO,
-                "BattleScene",
-                currentSceneName);
-
-            Debug.Log($"[EventRewardExecutor] Battle reward started. type={RewardType} battle={battleSO.name}");
-        }
-    }
 }

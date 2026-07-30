@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Session;
 
@@ -18,6 +19,14 @@ namespace Stage
 
         [Header("Runtime")]
         [SerializeField] private StageRuntimeData runtimeData;
+
+        // SVG SlotMap 배치 결과 (StagePlacementRuleSO에 의해 배정된 slotId → RoundNodeSO)
+        [Header("SVG Slot Placement Result")]
+        [Tooltip("ApplyRandomSectionPlacements 실행 결과. StagePlacementRuleSO가 각 슬롯에 배정한 RoundNodeSO 목록.")]
+        [SerializeField] private List<SvgPlacementResultEntry> _svgPlacementResult = new();
+
+        /// <summary>인스펙터 및 외부에서 읽기 전용으로 접근하는 SVG 슬롯 배치 결과.</summary>
+        public IReadOnlyList<SvgPlacementResultEntry> SvgPlacementResult => _svgPlacementResult;
 
         public StageDefinitionSO StageDefinition => stageDefinition;
         public StageRuntimeData RuntimeData => runtimeData;
@@ -70,10 +79,19 @@ namespace Stage
         private void Start()
         {
             InitializeRuntime();
-            if (stageDefinition != null && runtimeData.currentGraph.nodes.Count == 0)
+            if (runtimeData == null)
+            {
+                return;
+            }
+
+            if (stageDefinition != null
+                && (runtimeData.currentGraph == null
+                    || runtimeData.currentGraph.nodes.Count == 0))
             {
                 GenerateStage(stageDefinition);
             }
+
+            ApplyPendingBattleNodeCompletion();
         }
 
         public void SetStageDefinition(StageDefinitionSO definition)
@@ -114,6 +132,34 @@ namespace Stage
                 return null;
             }
 
+            // ── SVG SlotMap: Random Section 배치 실행 ───────────────────────────
+            // svgRandomSections가 존재하는 경우에만 실행. 기존 routeKey 흐름과 무관.
+            _svgPlacementResult.Clear();
+            if (stageDefinition.svgRandomSections != null
+                && stageDefinition.svgRandomSections.Count > 0)
+            {
+                // 그래프 생성에 실제로 사용된 동일한 배정 결과를 노출한다.
+                // 비고정 시드에서도 StageManager가 랜덤 배정을 다시 실행하지 않는다.
+                foreach (var section in stageDefinition.svgRandomSections)
+                {
+                    if (section == null || section.targetSlotIds == null) continue;
+                    foreach (var slotId in section.targetSlotIds)
+                    {
+                        generator.LastAssignments.TryGetValue(slotId, out RoundNodeSO node);
+                        _svgPlacementResult.Add(new SvgPlacementResultEntry
+                        {
+                            sectionId    = section.sectionId,
+                            slotId       = slotId,
+                            assignedNode = node
+                        });
+                    }
+                }
+
+                int assigned = _svgPlacementResult.Count(e => e.assignedNode != null);
+                Debug.Log($"[StageManager] SVG Slot Placement: {assigned}/{_svgPlacementResult.Count} 슬롯 배정 완료.");
+            }
+            // ────────────────────────────────────────────────────────────────────
+
             OnStageGenerated?.Invoke(runtimeData.currentGraph);
             OnStageProgressChanged?.Invoke(runtimeData.currentGraph.progressState);
 
@@ -141,25 +187,83 @@ namespace Stage
 
         public void CompleteCurrentNode()
         {
+            TryCompleteCurrentNode(
+                runtimeData?.currentGraph?.CurrentNode?.nodeId);
+        }
+
+        public bool TryCompleteCurrentNode(
+            string expectedNodeId)
+        {
             if (runtimeData.currentGraph == null)
             {
                 Debug.LogWarning("[StageRuntime] CompleteCurrentNode failed. Current graph is null.");
-                return;
+                return false;
             }
 
             RoundNode completedNode = runtimeData.currentGraph.CurrentNode;
             if (completedNode == null)
             {
                 Debug.LogWarning("[StageRuntime] CompleteCurrentNode failed. Current node is null.");
-                return;
+                return false;
             }
 
-            runtimeData.currentGraph.CompleteCurrentNode();
+            bool wasCompleted = completedNode.IsCompleted;
+            if (!runtimeData.currentGraph.TryCompleteCurrentNode(
+                    expectedNodeId))
+            {
+                return false;
+            }
 
             runtimeData.currentNode = runtimeData.currentGraph.CurrentNode;
 
-            OnNodeCompleted?.Invoke(completedNode);
-            OnStageProgressChanged?.Invoke(runtimeData.currentGraph.progressState);
+            if (!wasCompleted)
+            {
+                OnNodeCompleted?.Invoke(completedNode);
+                OnStageProgressChanged?.Invoke(
+                    runtimeData.currentGraph.progressState);
+            }
+
+            return true;
+        }
+
+        private void ApplyPendingBattleNodeCompletion()
+        {
+            GameSession gameSession = GameSession.Instance;
+            BattleSession battleSession =
+                gameSession?.BattleSession;
+
+            if (battleSession == null
+                || !battleSession.TryGetCompletedStageNodeId(
+                    out string completedNodeId))
+            {
+                return;
+            }
+
+            if (!gameSession.StageSession.TryApplyCompletedBattleNode(
+                    battleSession,
+                    out RoundNode completedNode,
+                    out bool newlyCompleted,
+                    out string error))
+            {
+                Debug.LogError(
+                    "[StageRuntime] Battle completion could not be applied. "
+                    + $"expectedNodeId={completedNodeId}, "
+                    + $"error={error}");
+                return;
+            }
+
+            runtimeData = gameSession.StageSession.RuntimeData;
+
+            if (newlyCompleted)
+            {
+                OnNodeCompleted?.Invoke(completedNode);
+                OnStageProgressChanged?.Invoke(
+                    runtimeData.currentGraph.progressState);
+            }
+
+            Debug.Log(
+                "[StageRuntime] Battle completion applied. "
+                + $"nodeId={completedNodeId}.");
         }
 
         public void FailStage()

@@ -19,7 +19,11 @@
         {
           "choiceId": "choice.ch1.episode5_1.recruit_yujin",
           "labelKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
+          "textKo": "함께 가주십시오. 아이들의 흔적을 놓칠 수 없습니다.",
           "resultKo": "유진이 파티에 합류했다.\n\n서진과 지한은 산길을 읽는 눈까지 얻게 되었다.",
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
           "rewards": [
             {
               "rewardType": "party_candidate",

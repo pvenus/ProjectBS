@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode5_1",
   "roundNodeType": "Event",
   "chapterId": "chapter1",
@@ -60,7 +60,13 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+          "nextPopupId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_1.red_collar_beasts"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -69,8 +75,7 @@
             }
           ]
         }
-      ],
-      "nextNodeId": "node.act1.chapter01.episode05_1.red_collar_beasts"
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode05_1.red_collar_beasts",
@@ -86,8 +91,22 @@
       "imagePolicy": "generate",
       "mainImageRequired": true,
       "imageDirection": "Act1 Chapter1 story popup image for '낡은 수련장' / 'node.act1.chapter01.episode05_1.red_collar_beasts'. Scene: 그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다. / 짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.. Direction: 붉은 목줄 짐승들이 아이 흔적을 지우도록 길들여졌다는 정보를 한 페이지에 모은다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": [],
-      "nextNodeId": "node.act1.chapter01.episode05_1.defend_bloodied_trail"
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode05_1.red_collar_beasts.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_1.red_collar_beasts.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_1.defend_bloodied_trail"
+            }
+          }
+        }
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode05_1.defend_bloodied_trail",
@@ -121,7 +140,13 @@
           "rewardDirection": [
             "gold_battle_reward"
           ],
-          "nextNodeId": null,
+          "nextPopupId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.chapter01.05_1.training_ground_breakout"
+            }
+          },
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -134,7 +159,7 @@
           ]
         }
       ],
-      "nextNodeId": null
+      "nextPopupId": null
     }
   ],
   "battleRef": {
@@ -169,3 +194,4 @@
     }
   ]
 }
+

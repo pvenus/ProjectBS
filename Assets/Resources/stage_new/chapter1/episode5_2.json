@@ -1,4 +1,4 @@
-{
+﻿{
   "stageNodeId": "stage.ch1.episode5_2",
   "roundNodeType": "Event",
   "chapterId": "chapter1",
@@ -60,7 +60,13 @@
           "rewardDirection": [
             "gold_episode_clear"
           ],
-          "nextNodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
+          "nextPopupId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_2.trained_beasts_signal"
+            }
+          },
           "rewards": [
             {
               "rewardType": "Gold",
@@ -69,8 +75,7 @@
             }
           ]
         }
-      ],
-      "nextNodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal"
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
@@ -86,8 +91,22 @@
       "imagePolicy": "generate",
       "mainImageRequired": true,
       "imageDirection": "Act1 Chapter1 story popup image for '숲길의 의원' / 'node.act1.chapter01.episode05_2.trained_beasts_signal'. Scene: 유진이 화살을 뽑는 순간 숲속에서 노끈 끌리는 소리가 이어졌다. 산늑대와 멧개들이 낮은 자세로 원을 좁혔다. 빠진 털 아래로 채찍 자국이 겹겹이 남았고, 이빨 사이에는 먹이를 물지 못하게 한 작은 쇠고리가 끼워져 있었다. 우두머리 늑대의 한쪽 귀에는 붉은 실이 꿰여 있었으며, 목의 산귀 부적 뒷면에는 수련장 나무틀과 같은 칼자국이 새겨져 있었다. / 짐승 뒤편 나무에는 사람 손으로 묶은 신호줄이 산채 방향으로 이어졌다. 이 무리를 놓치면 납치범에게 추적 사실이 알려질 터였다.. Direction: 조련된 짐승과 산채 신호줄을 한 페이지에 묶어 전투 필요성을 만든다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
-      "choices": [],
-      "nextNodeId": "node.act1.chapter01.episode05_2.cut_signal_line"
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode05_2.trained_beasts_signal.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_2.trained_beasts_signal.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode05_2.trained_beasts_signal",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_2.cut_signal_line"
+            }
+          }
+        }
+      ]
     },
     {
       "nodeId": "node.act1.chapter01.episode05_2.cut_signal_line",
@@ -121,7 +140,13 @@
           "rewardDirection": [
             "gold_battle_reward"
           ],
-          "nextNodeId": null,
+          "nextPopupId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.chapter01.05_2.hut_escape"
+            }
+          },
           "rewards": [
             {
               "rewardType": "SpecialBattle",
@@ -134,7 +159,7 @@
           ]
         }
       ],
-      "nextNodeId": null
+      "nextPopupId": null
     }
   ],
   "battleRef": {
@@ -169,3 +194,4 @@
     }
   ]
 }
+

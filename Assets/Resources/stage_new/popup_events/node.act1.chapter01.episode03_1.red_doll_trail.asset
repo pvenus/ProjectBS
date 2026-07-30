@@ -27,5 +27,18 @@ MonoBehaviour:
       godType: 0
       targetData: {fileID: 0}
       tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: ecfbb282ea7da4b23b4cfa48f1fb820b, type: 2}
+    executionConfig:
+      rid: 5535069685187608791
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187608791
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5535069685187608792
+    - rid: 5535069685187608792
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: ecfbb282ea7da4b23b4cfa48f1fb820b, type: 2}

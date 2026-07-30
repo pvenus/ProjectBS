@@ -142,6 +142,13 @@ namespace ResourceTools.Stage
                 result.warnings.Add($"PopupEventBuilder did not return a PopupEventSO start event. startNodeId={root.startNodeId}");
             }
 
+            if (!asset.overrideIconType)
+            {
+                asset.iconType = startEvent != null
+                    ? ChoiceExecutionIconResolver.ResolveIconType(startEvent, NodeIconType.Story)
+                    : NodeIconType.Story;
+            }
+
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

@@ -47,6 +47,48 @@ namespace Stage
         [Header("Type")]
         public RoundNodeType nodeType = RoundNodeType.None;
 
+        [Header("Icon")]
+        [Tooltip(
+            "true일 때만 iconType 값을 직접 사용한다.\n" +
+            "false(기본값)이면 popupEvent의 Choice Execution Config를 분석해\n" +
+            "아이콘 타입을 자동으로 결정한다.")]
+        public bool overrideIconType = false;
+
+        [Tooltip(
+            "overrideIconType이 true일 때만 이 값이 적용된다.\n" +
+            "overrideIconType이 false이면 popupEvent 분석 결과가 우선한다.")]
+        public NodeIconType iconType = NodeIconType.None;
+
+        /// <summary>
+        /// 이 RoundNodeSO의 실제 NodeIconType을 반환한다.
+        /// overrideIconType == true이고 iconType != None이면 iconType을 반환한다.
+        /// 그 외에는 popupEvent의 Choice Execution Config를 분석해 자동으로 결정한다.
+        /// popupEvent가 없거나 분석에 실패하면 iconType을 fallback으로 사용한다.
+        /// </summary>
+        public NodeIconType GetResolvedIconType()
+        {
+            if (overrideIconType && iconType != NodeIconType.None)
+            {
+                return iconType;
+            }
+
+            if (popupEvent != null)
+            {
+                NodeIconType autoResolved =
+                    ChoiceExecutionIconResolver.ResolveIconType(
+                        popupEvent,
+                        fallback: NodeIconType.None);
+
+                if (autoResolved != NodeIconType.None)
+                {
+                    return autoResolved;
+                }
+            }
+
+            // fallback: 인스펙터에 지정된 iconType 또는 None
+            return iconType;
+        }
+
         [Header("Execute Payload")]
 
         [Tooltip("Popup 이벤트 실행 시 사용할 ScriptableObject (eventId 대신 직접 참조 가능)")]

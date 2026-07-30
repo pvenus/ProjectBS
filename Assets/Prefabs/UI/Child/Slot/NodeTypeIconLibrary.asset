@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0af6188de6d40d5b77a21dc314fc5c, type: 3}
+  m_Name: NodeTypeIconLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::Common.SO.NodeTypeIconLibrarySO
+  entries:
+  - iconType: 100
+    icon: {fileID: 852928365244996250, guid: bebabd6bb1ee4084ab39401b0d6f7a62, type: 3}
+    prefab: {fileID: 8316379572943579354, guid: e51acd42fe9c8c145b91c67a248e49f2, type: 3}
+  - iconType: 200
+    icon: {fileID: 2609851761605400732, guid: cced778f2bf60124883b7339ad0e28d4, type: 3}
+    prefab: {fileID: 8316379572943579354, guid: 63ccd705eeabaf645be6ab8ba1c3c9f6, type: 3}
+  - iconType: 300
+    icon: {fileID: 852928365244996250, guid: bebabd6bb1ee4084ab39401b0d6f7a62, type: 3}
+    prefab: {fileID: 8316379572943579354, guid: 63ccd705eeabaf645be6ab8ba1c3c9f6, type: 3}
+  - iconType: 400
+    icon: {fileID: -6327332987835646064, guid: 3501234fd9fde6e4ab51cc6d21997c10, type: 3}
+    prefab: {fileID: 8316379572943579354, guid: 82f92d90abcda2845a1a0d99060e37b8, type: 3}

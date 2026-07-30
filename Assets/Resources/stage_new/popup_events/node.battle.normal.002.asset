@@ -19,13 +19,19 @@ MonoBehaviour:
   - choiceId: choice.battle.normal.002.protect_guard
     requirements: []
     visibleConditions: []
-    rewards:
-    - rewardType: 3000
-      rewardId: 
-      targetId: 
-      value: 0
-      godType: 0
-      targetData: {fileID: 0}
-      tag: 
-    completesEvent: 1
-    nextEvent: {fileID: 0}
+    rewards: []
+    executionConfig:
+      rid: 5535069685187608753
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187608753
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5535069685187608754
+    - rid: 5535069685187608754
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 198e5fb6a317f43808a1aaf62f36fd79, type: 2}

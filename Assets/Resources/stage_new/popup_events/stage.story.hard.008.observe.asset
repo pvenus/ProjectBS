@@ -20,5 +20,18 @@ MonoBehaviour:
     requirements: []
     visibleConditions: []
     rewards: []
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: d12cc79c0f7ec430b9c55ab7e89e8abb, type: 2}
+    executionConfig:
+      rid: 5535069685187609157
+  references:
+    version: 2
+    RefIds:
+    - rid: 5535069685187609157
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5535069685187609158
+    - rid: 5535069685187609158
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: d12cc79c0f7ec430b9c55ab7e89e8abb, type: 2}

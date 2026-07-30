@@ -99,12 +99,9 @@ namespace Stage
         FirstJobChange = 2400,
         SecondJobChange = 2450,
 
-        SpecialBattle = 3000,
-        BossBattle = 3100,
 
         UnlockRoute = 4000,
         RevealHiddenNode = 4050,
-        NextEvent = 4100,
 
         NextBattleAttackSpeed = 5000,
         NextBattleMoveSpeed = 5100,
@@ -127,10 +124,4 @@ namespace Stage
         GlobalHubNode
     }
 
-    public enum StageMapGenerationMode
-    {
-        RouteKeyRandomRules = 0,
-        LegacySegmentRules = 1,
-        FixedOnly = 2
-    }
 }
