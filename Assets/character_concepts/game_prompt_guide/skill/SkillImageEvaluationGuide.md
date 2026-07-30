@@ -6,6 +6,18 @@ This guide evaluates character-independent skill VFX sprite animations generated
 
 Evaluation must inspect the reference image, the sprite sheet, every individual frame, and the played animation.
 
+Use the target skill JSON and generation record as the source of truth for the
+effect's activation moment, direction, range, element, damage, buff, debuff,
+summon, and other gameplay intent. Reuse the design principles from
+`SkillIconGenerationPrompt.md` only where they apply to character-independent VFX:
+one dominant readable effect family, a visible activation moment, connected
+secondary motion, one skill-linked Korean traditional motif when required, a
+controlled palette, and a clear visual hierarchy.
+
+Do not import the icon prompt's opaque full-bleed background contract into this
+guide. Production skill VFX remain isolated on an alpha-transparent canvas with no
+scene, floor, card, frame, or internal background painting.
+
 ## 2. Fatal Failure Conditions
 
 Any item below immediately produces **Fail**, regardless of total score:
@@ -18,30 +30,38 @@ Any item below immediately produces **Fail**, regardless of total score:
 - The animation contains severe object replacement, duplicated effects, or unrelated imagery.
 - Text, watermark, UI frame, scenery, or unintended floor texture appears.
 - The exported file cannot be separated into usable animation frames.
+- The effect communicates a different skill, direction, range, impact type, buff,
+  debuff, or summon behavior from the source data.
+- A static weapon, equipment item, inventory object, badge, logo, or icon replaces
+  the requested active VFX.
+- The primary effect and its required impact, trail, aura, or secondary motion read
+  as unrelated detached objects.
+- A dominant Japanese, Chinese, Western, or generic foreign motif replaces the
+  required Korean traditional style.
 
 ## 3. Scored Evaluation
 
 Total: **100 points**. Passing score: **85 points or higher**, with no fatal failure.
 
-### 3.1 Transparency and Isolation — 15 points
+### 3.1 Transparency and Isolation — 10 points
 
-- 15: Clean alpha background; no unwanted shadow, floor, scene, halo box, or residue.
-- 10: Minor removable alpha noise that does not affect readability.
-- 5: Noticeable residue or unintended environmental pixels.
+- 10: Clean alpha background; no unwanted shadow, floor, scene, halo box, or residue.
+- 7: Minor removable alpha noise that does not affect readability.
+- 3: Noticeable residue or unintended environmental pixels.
 - 0: Opaque background or fatal isolation failure.
 
-### 3.2 Safe Margin and No Cropping — 20 points
+### 3.2 Safe Margin and No Cropping — 15 points
 
-- 20: Every frame stays fully within the canvas with at least 12.5% practical margin.
-- 15: Fully contained, but one or more frames have a narrow margin.
-- 8: Effect approaches an edge and is risky for runtime use.
+- 15: Every frame stays fully within the canvas with at least 12.5% practical margin.
+- 11: Fully contained, but one or more frames have a narrow margin.
+- 5: Effect approaches an edge and is risky for runtime use.
 - 0: Any pixel touches an edge or is cropped; fatal failure.
 
-### 3.3 Frame-to-Frame Consistency — 15 points
+### 3.3 Frame-to-Frame Consistency — 10 points
 
-- 15: Shape, palette, pixel scale, lighting, and detail remain coherent.
-- 10: Small flicker or detail variation without identity loss.
-- 5: Noticeable morphing, palette shift, or unstable pixel density.
+- 10: Shape, palette, pixel scale, lighting, and detail remain coherent.
+- 7: Small flicker or detail variation without identity loss.
+- 3: Noticeable morphing, palette shift, or unstable pixel density.
 - 0: Severe replacement, duplication, or unrelated frames.
 
 ### 3.4 Motion Readability — 15 points
@@ -51,12 +71,15 @@ Total: **100 points**. Passing score: **85 points or higher**, with no fatal fai
 - 5: Motion exists but gameplay meaning is ambiguous.
 - 0: Frames do not form a meaningful action.
 
-### 3.5 Center and Spatial Stability — 10 points
+### 3.5 Direction, Center, and Spatial Stability — 10 points
 
-- 10: Local motion is centered and stable; runtime can position it reliably.
-- 7: Minor center drift that can be corrected by pivot settings.
-- 3: Significant unintended drift or jitter.
-- 0: Effect travels across or exits the canvas.
+- 10: The source-driven axis is immediately readable and local motion stays stable
+  around a reliable runtime pivot.
+- 7: Direction is correct with minor center drift that can be corrected by pivot
+  settings.
+- 3: Direction is ambiguous, or significant unintended drift or jitter appears.
+- 0: Direction contradicts the source, or the effect travels across or exits the
+  canvas when runtime should control that movement.
 
 ### 3.6 Gameplay Silhouette — 10 points
 
@@ -65,14 +88,32 @@ Total: **100 points**. Passing score: **85 points or higher**, with no fatal fai
 - 3: Important details collapse or blend together.
 - 0: Effect is unreadable at gameplay scale.
 
-### 3.7 Skill Intent and Theme — 10 points
+### 3.7 Skill Intent and Effect Connection — 15 points
 
-- 10: Motion, shape, palette, and intensity clearly match the skill data.
-- 7: General element matches, but utility or impact is under-expressed.
-- 3: Weak thematic relationship.
+- 15: Activation, motion, shape, range, element, intensity, and connected impact,
+  trail, aura, or secondary motion clearly match the skill data.
+- 11: General intent and connection are correct, but utility, impact, or range is
+  under-expressed.
+- 5: Broad element matches, but activation or effect connection is ambiguous.
 - 0: Contradicts the intended skill.
 
-### 3.8 Loop or Ending Quality — 5 points
+### 3.8 Korean Traditional Style, Palette, and Hierarchy — 10 points
+
+- 10: One skill-linked Korean traditional motif or motion language is readable,
+  palette roles are controlled, and hierarchy stays `primary effect > connected
+  secondary motion > traditional accent` in every important frame.
+- 7: Style and palette are generally correct with minor loss of motif clarity or
+  hierarchy during motion.
+- 3: Generic East Asian decoration, excess colors, or competing secondary effects
+  weaken the project style.
+- 0: A foreign motif dominates, the palette communicates the wrong element or role,
+  or the traditional accent overwhelms the skill effect.
+
+If the source and generation record explicitly mark the traditional motif as not
+applicable, evaluate palette and hierarchy only and record the motif check as
+`Not Applicable`; do not grant or deduct points for an invented motif.
+
+### 3.9 Loop or Ending Quality — 5 points
 
 - 5: Loop joins cleanly, or one-shot ending dissipates clearly.
 - 3: Small pop or timing discontinuity.
@@ -80,6 +121,23 @@ Total: **100 points**. Passing score: **85 points or higher**, with no fatal fai
 - 0: Playback mode is unusable.
 
 ## 4. Technical Checks
+
+Before scoring, extract or reconstruct from the skill JSON and generation record:
+
+```text
+activationMoment
+primaryEffectShape
+directionOrCompositionAxis
+connectedSecondaryMotion
+koreanTraditionalMotif or not_applicable
+elementAndRolePalette
+likelyWrongObjects
+expectedLoopOrEnding
+```
+
+If these fields cannot be supported by the source or generation evidence, mark the
+affected check `Insufficient Evidence`; do not invent an element, motif, direction,
+or effect merely to complete the score.
 
 For every frame verify:
 
@@ -91,12 +149,31 @@ For every frame verify:
 - No unexpected color-background matte.
 - No unintended character or world element.
 - Consistent pixel scale and palette.
+- One dominant effect family remains identifiable; secondary sparks, trails, rings,
+  smoke, or afterimages are source-supported and visibly connected.
+- The frame does not resemble a static weapon, inventory item, icon, badge, logo,
+  card, or UI glyph.
+- Korean traditional accents, when required, remain simplified and subordinate to
+  the effect rather than becoming a separate decorative object.
+- No Japanese shrine or torii, oni, kamon, Chinese coin or dragon emblem, Western
+  heraldry, or other unintended foreign motif appears.
 
 For the complete animation verify:
 
 - Frame order is correct.
 - Frame count matches the requested setting or PixelLab's documented output format.
 - The primary impact frame is visually identifiable.
+- The anticipation, activation point, travel or expansion axis, impact or utility
+  moment, and dissipation agree with the source data and generation record.
+- Direction is recorded as one explicit source-driven axis or a centered local
+  composition; it is not inferred from a generic diagonal default.
+- Required impact, aura, debuff pulse, summon signal, or trail begins at the primary
+  effect's center, outline, contact point, or motion path instead of floating as an
+  unrelated object.
+- Visual hierarchy remains stable through the key frames: primary effect first,
+  connected secondary motion second, Korean traditional accent third.
+- Palette roles remain stable: primary effect, brighter semantic accent, restrained
+  traditional accent, and transparent background.
 - The skill does not encode world-space travel unnecessarily.
 - Loop or one-shot behavior matches the skill design.
 
@@ -147,15 +224,30 @@ Fatal Failure Check:
 - Consistent canvas and alignment: Pass / Fail
 - No unrelated content: Pass / Fail
 - Usable frame output: Pass / Fail
+- Source-driven skill intent and direction: Pass / Fail / Insufficient Evidence
+- Active VFX rather than static item or icon: Pass / Fail
+- Primary and secondary effect connection: Pass / Fail / Not Applicable
+- Korean traditional style and no foreign motif: Pass / Fail / Not Applicable
+
+Design Evidence:
+- Activation Moment:
+- Primary Effect Shape:
+- Direction or Composition Axis:
+- Connected Secondary Motion:
+- Korean Traditional Motif:
+- Element and Role Palette:
+- Likely Wrong Objects:
+- Expected Loop or Ending:
 
 Scores:
-- Transparency and Isolation: /15
-- Safe Margin and No Cropping: /20
-- Frame-to-Frame Consistency: /15
+- Transparency and Isolation: /10
+- Safe Margin and No Cropping: /15
+- Frame-to-Frame Consistency: /10
 - Motion Readability: /15
-- Center and Spatial Stability: /10
+- Direction, Center, and Spatial Stability: /10
 - Gameplay Silhouette: /10
-- Skill Intent and Theme: /10
+- Skill Intent and Effect Connection: /15
+- Korean Traditional Style, Palette, and Hierarchy: /10
 - Loop or Ending Quality: /5
 - Total: /100
 
