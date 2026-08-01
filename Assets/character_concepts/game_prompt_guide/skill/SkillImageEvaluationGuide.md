@@ -257,3 +257,33 @@ Required Corrections:
 Regeneration Prompt Changes:
 Notes:
 ```
+
+## 7. Existing Result Migration and Playback Evidence
+
+An existing completed evaluation may be normalized into:
+
+```text
+C:\github\design_evaluation\skill_animation\{skillId}
+```
+
+only with `format_existing` semantics.
+
+- Do not re-score or change the existing result, category scores, findings, or
+  required actions.
+- Stage exact copies of the preserved reference and animation sheets and record
+  SHA-256 equality with the Unity production files.
+- Derive individual PNG frames in left-to-right, top-to-bottom row-major order.
+- Preserve a contact sheet and a playback GIF for motion review.
+- Record usable frame count, frame order, nominal FPS, encoded GIF frame delays,
+  loop mode, contact-sheet SHA-256, and GIF SHA-256.
+- GIF is not a production artifact and must not be used to judge source alpha,
+  edge contact, transparent corners, cropping, or pixel fidelity.
+- All fatal alpha/crop checks remain based on the original PNG sheets and
+  individual PNG frames.
+- A playback GIF may loop for review when the legacy loop mode is unavailable,
+  but the normalized record must state that the review loop is not evidence of
+  the runtime loop mode.
+- Keep Unity `.meta` configuration, Editor reimport, sliced sub-assets, clip
+  generation, and runtime binding as separate evidence fields.
+- Failed, blocked, or never-generated assets are not migrated as completed
+  records.

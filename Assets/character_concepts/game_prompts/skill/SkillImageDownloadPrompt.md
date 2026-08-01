@@ -74,3 +74,33 @@ Output:
 - Missing Items
 - Pass / Fail
 ```
+
+## Existing Evaluation Migration Addendum
+
+For an approved migration of existing completed skill animations, use:
+
+```text
+workflowMode: format_existing
+evaluationRoot: C:\github\design_evaluation\skill_animation
+```
+
+Additional required behavior:
+
+1. Do not call PixelLab or generate a new reference or animation.
+2. Do not re-score, crop, resize, interpolate, normalize, semantically edit, or
+   overwrite the production files.
+3. Copy the exact preserved reference and animation PNGs into
+   `{evaluationRoot}\{skillId}\source\` and verify preserved/staged/project
+   SHA-256 equality.
+4. Preserve the existing evaluation result, score, findings, and required
+   actions.
+5. Export row-major individual PNG frames, an exact-sheet contact image, and a
+   playback GIF into `evaluation\evidence`.
+6. Record usable frame count/order, nominal FPS, encoded frame delay, loop
+   mode, GIF SHA-256, and Unity meta/binding status.
+7. Treat the GIF as review evidence only. Alpha, edge, corner, and crop
+   decisions must use the original PNG sheets and individual PNG frames.
+8. Save `evaluation_result.json`, `evaluation_report.md`, and
+   `evaluation_canvas.md` without modifying any Unity project asset.
+9. Exclude failed, blocked, and ungenerated assets instead of creating
+   placeholders.

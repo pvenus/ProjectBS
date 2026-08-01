@@ -1,4 +1,4 @@
-# Character Animation Download Guide
+﻿# Character Animation Download Guide
 
 ## Purpose
 
@@ -258,8 +258,8 @@ If either folder is missing, duplicate the corresponding south-facing images bef
 
 The duplicated images should then be renamed using the appropriate `CharacterAnimationClipType` enum:
 
-- `north-east` → `MoveUpRight`, `IdleUpRight`, `AttackUpRight`, `DeathUpRight`
-- `north-west` → `MoveUpLeft`, `IdleUpLeft`, `AttackUpLeft`, `DeathUpLeft`
+- `north-east` ??`MoveUpRight`, `IdleUpRight`, `AttackUpRight`, `DeathUpRight`
+- `north-west` ??`MoveUpLeft`, `IdleUpLeft`, `AttackUpLeft`, `DeathUpLeft`
 
 The duplicated files should be treated exactly the same as normal downloaded images.
 
@@ -334,6 +334,48 @@ character.{characterName}.{grade}.{animation_enum}.clip
 ```
 
 ---
+
+
+## Canvas Animation GIF Evidence
+
+When downloaded character animations are later prepared for Slack Canvas review,
+create GIF evidence from the preserved PNG frames instead of modifying source
+animation files.
+
+Recommended evaluation workspace after rebasing PixelLab output:
+
+```text
+C:\github\design_evaluation\character\{characterName}_{grade}
+```
+
+Canvas-ready GIF evidence should be written under:
+
+```text
+<evaluationCharacterFolder>/evidence/animation_gif_by_type/
+  {characterName}_{grade}_idle_all_directions.gif
+  {characterName}_{grade}_move_all_directions.gif
+  {characterName}_{grade}_attack_all_directions.gif
+<evaluationRoot>/character_animation_gif_by_type_manifest.json
+```
+
+GIF construction rules:
+
+- Create separate GIFs for `idle`, `move`, and `attack`.
+- Each GIF must show all ProjectBS directions in one view:
+  `DownRight`, `DownLeft`, `UpRight`, `UpLeft`.
+- Use `converted/` PNG frames as the source for the Canvas GIFs so missing
+  north-facing directions are represented by the same duplicated copies that
+  Unity receives.
+- Do not modify or rename files in `animations/` or `converted/` while creating
+  GIF evidence.
+- The GIFs are review/playback evidence only. Folder-structure validation,
+  direction handling, naming validation, and Unity-copy validation still come
+  from PNG frames and `evaluation_animation_result.txt`.
+- If GIF creation fails, do not treat the animation download/conversion itself
+  as failed. Report the GIF evidence failure separately for Canvas publication.
+
+For each character, a complete Canvas evidence package should include one static
+rotation/contact preview and the three animation GIFs above.
 
 ## Cleanup
 

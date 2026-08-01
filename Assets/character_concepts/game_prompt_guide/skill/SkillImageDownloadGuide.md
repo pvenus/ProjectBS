@@ -211,6 +211,51 @@ Record the exact asset paths, requested and observed frame counts, grid, fatal c
 
 Quality Fail does not delete evidence. Preserve the failed files and evaluation result until a replacement is accepted. A technical hard fail prevents Unity copy.
 
+### 9.1 Existing Evaluation Migration
+
+When an already completed production animation is migrated into the shared
+evaluation workspace, use `format_existing` semantics. Migration does not
+authorize generation, re-scoring, image correction, or a production overwrite.
+
+The canonical migration workspace is:
+
+```text
+C:\github\design_evaluation\skill_animation\{skillId}\
+  input\evaluation_input.json
+  input\evaluation_prompt.md
+  source\{skillId}.animation_ref.png
+  source\{skillId}.animation.png
+  evaluation\evaluation_result.json
+  evaluation\evaluation_report.md
+  evaluation\evaluation_canvas.md
+  evaluation\evidence\frame_00.png
+  evaluation\evidence\contact_sheet.png
+  evaluation\evidence\playback.gif
+  evaluation\evidence\technical_validation.json
+```
+
+Migration rules:
+
+- Copy the exact preserved reference and animation PNG bytes; never move the
+  preserved files or the Unity production files.
+- Verify preserved, staged, and Unity destination SHA-256 values before
+  recording copy verification.
+- Preserve the existing result, scores, findings, and required actions without
+  re-scoring.
+- Slice row-major PNG frames from the exact animation sheet. Record source cell
+  index, frame order, usable frame count, and per-frame SHA-256.
+- Keep `contact_sheet.png` as review evidence derived from the exact animation
+  sheet.
+- Create `playback.gif` only as review evidence. Record nominal FPS, encoded
+  frame delays, loop mode, and GIF SHA-256.
+- Judge alpha, edge, corner, and crop status from the original PNG sheets and
+  individual PNG frames, never from GIF quantization or GIF playback.
+- Record Unity `.meta`, Editor reimport, clip, and runtime binding as separate
+  states. A configured `.meta` does not prove Editor reimport or runtime
+  binding.
+- Exclude failed, blocked, or never-generated assets from completed migration
+  and initial Slack publication.
+
 ## 10. Cleanup
 
 After preservation, Unity copy, checksum verification, and evaluation result creation:
