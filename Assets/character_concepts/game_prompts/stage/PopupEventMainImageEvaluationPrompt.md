@@ -1,87 +1,77 @@
 # Popup Event Main Image Evaluation Prompt
 
-프로젝트 반영 전 로컬에 보존된 스토리 팝업 메인 이미지 하나를 읽기
-전용으로 평가할 때 사용합니다.
-
 ## Prompt
 
 ```text
-작업 폴더 = {project_root}
-
-로컬 평가 source에 보존된 스토리 팝업 메인 이미지 하나를 평가해줘. 프로젝트 popup_png 목적지는 향후 Pass 승격 경로로만 기록하고 이미지 복사는 하지 마.
+스토리 팝업 메인 이미지 한 장을 읽기 전용으로 평가해줘.
+이미지 생성·수정·이름 변경·프로젝트 복사·Unity import·Git 작업은 하지 마.
 
 Input:
-- projectRoot: {project_root}
 - eventId: {stable_event_id}
-- popupId: {stable_popup_id}
-- popupName: {popup_name}
-- imagePolicy: {generate | reuse | none}
-- evaluationRoot: {현재_PC의_기존_팝업_이미지_평가_루트}
-- stagingArtifactPath: {evaluationRoot}/{eventId}/source/{eventId}.main.png
-- evaluationWorkspacePath: {evaluationRoot}/{eventId}
+- evaluationInputPath: {evaluation_input_json_path}
+- stagingArtifactPath: {evaluation_root}/{eventId}/source/{eventId}.main.png
 - projectTargetPath: Assets/Resources/stage_new/popup_png/{eventId}.main.png
-- stageNodeJsonFile: {stage_node_json_path}
-- episodePlanningFile: {episode_planning_path}
-- optionalStoryContextFile: {path | null}
-- optionalEpisodeScriptFile: {path | null}
-- optionalCharacterReferencePaths: [{path}]
-- optionalLocationReferencePaths: [{path}]
-- optionalSiblingPopupImagePaths: [{path}]
-- optionalStyleReferenceImagePaths: [{path}]
-- optionalReuseSourcePath: {path | null}
-- optionalReuseSourceHash: {hash | null}
-- optionalStagingHash: {hash | null}
-- outputEvaluationReportPath: {evaluationWorkspacePath}/evaluation/evaluation_report.md
+- outputEvaluationResultPath: {evaluation_root}/{eventId}/evaluation/evaluation_result.json
+- outputEvaluationReportPath: {evaluation_root}/{eventId}/evaluation/evaluation_report.md
 
-참조 가이드:
-- Assets/character_concepts/game_prompt_guide/stage/PopupEventMainImageEvaluationGuide.md
-- Assets/character_concepts/game_prompt_guide/stage/PopupEventMainImageCreateGuide.md
-- Assets/character_concepts/game_prompt_guide/stage/StoryImageVisualGuide.md
-- Assets/character_concepts/game_prompt_guide/stage/StoryImageElementGuide.md
-- Assets/character_concepts/game_prompt_guide/stage/PopupEventSO.md
-- Assets/character_concepts/game_prompt_guide/stage/EpisodeStageNodeCreateGuide.md
+먼저 PopupEventMainImageEvaluationGuide.md를 읽는다.
+evaluationInputPath에서 Stage, planning popupDefinition, 원본 에피소드 근거를 확인한다.
 
-작업:
-1. PopupEventMainImageEvaluationGuide.md를 먼저 읽는다.
-2. stagingArtifactPath와 projectTargetPath가 같은 파일이면 process violation으로 중단한다.
-3. imagePolicy=none이면 이미지 점수를 만들지 않고 SKIPPED로 기록한다.
-4. stage node와 episode planning에서 eventId, popupId, popupName, imagePolicy 및 planned moment를 확인한다.
-5. stagingArtifactPath의 이미지만 읽기 전용으로 검사한다.
-6. optional evidence는 존재할 때만 사용하고, 없으면 관련 항목을 Not Evaluated로 기록한다.
-7. reuse이면 승인된 reuse intent와 제공된 source/staging hash 동일성을 확인한다.
-8. fatal failure를 먼저 확인한 뒤 20/15/15/10/15/10/5/5/5 항목을 평가한다.
-9. confirmed evidence와 inference를 분리하고 Critical/Major/Minor/Suggestion finding을 작성한다.
-10. required action과 optional improvement를 분리하고 재평가 trigger를 제시한다.
-11. outputEvaluationReportPath에 평가 리포트 하나만 저장한다.
-12. 이미지 생성·편집·이름 변경·프로젝트 복사·Unity import·promotion·source 문서 수정·Git 작업을 수행하지 않는다.
+평가 절차:
+1. **staged PNG를 열기 전에** Planning `originalTextKo` /
+   `displayTextKo` / `displayDirective`와 Stage `bodyKo` /
+   `displayDirective`만 읽는다.
+2. 아래 `planningBrief`를 먼저 결과 파일에 저장하고 고정한다.
+   - `planningSummaryKo`: 기획 핵심 2~3문장
+   - `primaryMoment`
+   - `mustShow`: 최대 3개
+   - `supportingHints`: 최대 3개
+   - `mustNotShow`
+   - `planningDirectiveCoverage.included/excluded`
+3. planningBrief 저장 뒤 staged PNG를 처음 열고 실제 관찰과 비교한다.
+4. 이미지에 잘 보이는 내용에 맞춰 primaryMoment나 mustShow를 사후
+   축소·교체하지 않는다.
+5. Asset / Clean Image / Event Identity / Safety 네 게이트를 확인한다.
+6. 게이트 판정이 가능한 경우 네 항목만 점수화한다.
+   - Story Moment: 40
+   - Identity & World: 25
+   - Composition: 20
+   - Style & Continuity: 15
+7. 결과를 pass / needs_revision / needs_human_review / fail 중 하나로 판정한다.
+8. 한 줄 요약, 필수 수정 최대 3개, 선택 개선을 작성한다.
+9. scoreNote마다 이미지에서 실제 보인 것, 기획상 필요한 것, 차이를
+   구체적으로 한 문장에 기록한다. 공통 템플릿 문장만 사용하지 않는다.
 
-Output:
-- Event / Popup Identity:
-- Staging / Workspace / Project Target Paths:
-- Evidence Reviewed:
-- Result / Overall Score / Hard Fail:
-- Nine Category Scores:
-- Findings by Severity:
-- Required Actions:
-- Optional Improvements:
-- Re-evaluation Plan:
-- Evaluation Report Path:
-- Modified Files:
+중요 원칙:
+- 원문 전체를 이미지 한 장에 모두 넣도록 요구하지 않는다.
+- 서로 다른 시간·장소의 장면을 합치지 않는다.
+- Planning displayDirective가 한 페이지에 묶도록 명시한 핵심 장면은
+  임의로 제외하지 않는다. 요구 자체가 한 이미지로 과도하면
+  `needs_human_review`로 기록한다.
+- 이름 있는 인물도 현재 핵심 순간에 필수적이지 않으면 생략 가능하다.
+- 캐릭터나 스타일 레퍼런스가 없으면 추측으로 불일치를 확정하지 않는다.
+- 레퍼런스가 없으면 근거 없이 Style & Continuity 고정 고득점을 주지 않는다.
+- Battle 선택지는 전투 진입 분위기만 본다.
+- Gold 보상과 reward handoff는 이미지에 표현하지 않는다.
+- validator 통과는 schema·점수 계약 검증일 뿐 시각 품질 PASS가 아니다.
+- PASS라도 필요한 선택 개선은 `optionalImprovements`에 기록할 수 있다.
 
-검증:
-- staging source와 project target이 분리되어야 한다.
-- category 합계는 overall score와 같아야 한다.
-- PASS는 90점 이상, fatal failure 없음, Major/Critical 없음이어야 한다.
-- CONDITIONAL_PASS는 80-89점, fatal failure 없음, Minor/Suggestion만 허용한다.
-- FAIL은 80점 미만, fatal failure 또는 Major/Critical이 있는 경우다.
-- imagePolicy=none은 SKIPPED다.
-- 평가 리포트 외 파일은 수정하지 않아야 한다.
+PASS:
+- 네 게이트 통과
+- 총점 85 이상
+- Story Moment 32 이상
+- Identity & World 18 이상
 
-실패 시 Output:
-- status: failed
-- failureType: {missing_staging_image | unreadable_image | missing_stage_node_json | missing_episode_planning_file | popup_event_not_found | popup_definition_not_found | event_id_mismatch | invalid_image_policy | missing_reuse_source | checksum_mismatch | insufficient_story_context | insufficient_visual_context | staging_target_path_collision | report_write_failed}
-- failureReason:
-- unevaluatedItems:
-- requiredAdditionalInput:
-- unchangedArtifacts:
+Output report:
+- Event
+- Status
+- Score
+- Summary
+- Gate Checks 4개
+- Scores 4개
+- Required Fixes 최대 3개
+- Optional Improvements
+- Re-evaluation Trigger
+
+`passForUnityCopy=true`는 검증된 pass에만 설정한다.
 ```

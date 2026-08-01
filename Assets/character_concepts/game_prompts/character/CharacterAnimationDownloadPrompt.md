@@ -77,3 +77,58 @@ Output:
 - 다운로드와 Export는 반드시 PixelLab에서 수행한다.
 - source animations 파일은 삭제하거나 이름 변경하지 않는다.
 ```
+
+## Canvas GIF Evidence Addendum
+
+When the downloaded character animations will be published to Slack Canvas,
+prepare GIF evidence after the folder-structure check, evaluation, conversion,
+and Unity copy steps have completed.
+
+Additional inputs:
+
+```text
+DesignEvaluationRoot = C:\github\design_evaluation
+EvaluationCharacterFolder = {DesignEvaluationRoot}/character/{characterName}_{grade}
+```
+
+Additional work:
+
+1. Copy or mirror the completed character export folder into
+   `DesignEvaluationRoot/character/{characterName}_{grade}` before Canvas
+   publication.
+2. Preserve `metadata.json`, `evaluation_result.txt`,
+   `evaluation_animation_result.txt`, `animations/`, and `converted/` in the
+   evaluation folder.
+3. Generate animation GIF evidence under:
+
+```text
+{EvaluationCharacterFolder}/evidence/animation_gif_by_type/
+  {characterName}_{grade}_idle_all_directions.gif
+  {characterName}_{grade}_move_all_directions.gif
+  {characterName}_{grade}_attack_all_directions.gif
+```
+
+4. Each GIF must show every ProjectBS direction for that animation:
+   `DownRight`, `DownLeft`, `UpRight`, `UpLeft`.
+5. Generate or update:
+
+```text
+{DesignEvaluationRoot}/character/character_animation_gif_by_type_manifest.json
+```
+
+6. Do not edit source `animations/`, source PixelLab files, Unity files, or
+   converted PNGs when creating Canvas GIF evidence.
+7. Treat GIF generation as Canvas evidence preparation. It must not override the
+   animation evaluation result or trigger re-scoring.
+
+Additional output fields:
+
+```text
+- Design Evaluation Folder:
+- Animation GIF Evidence Folder:
+- Idle GIF:
+- Move GIF:
+- Attack GIF:
+- Animation GIF Manifest:
+- GIF Evidence Result:
+```

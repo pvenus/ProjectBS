@@ -1,4 +1,4 @@
-# Evaluation Slack Canvas Form Guide
+﻿# Evaluation Slack Canvas Form Guide
 
 ## 1. Purpose
 
@@ -392,6 +392,187 @@ report_only
   draft and report that posting was not performed.
 - Never post to an arbitrary Canvas when the target is missing.
 
+### 9.1 Self-Contained Evidence
+
+Use `canvasEvidenceMode=self_contained` when the Canvas must be understandable
+without access to the current PC or repository checkout.
+
+For every evaluated artifact:
+
+1. Process exactly one artifact at a time. Do not load an entire image batch or
+   all evaluation reports into memory at once.
+2. Upload the actual evaluated media file to Slack and obtain a workspace-
+   accessible Slack file reference.
+3. Share the uploaded file to the explicit evidence conversation when required
+   for workspace access.
+4. Embed the Slack file reference directly in the Canvas. A local filesystem
+   path is provenance metadata only and is not acceptable as the primary
+   evidence link.
+5. Include the original planning or source content verbatim. Do not summarize,
+   rewrite, or truncate this source block.
+6. Include the player-facing/display content separately so readers can compare
+   the source intent with the displayed text.
+7. Include a concise evaluation summary that preserves the source result,
+   score, Hard Fail, highest severity, confirmed findings, and required actions.
+8. Keep the project-relative target path and external evaluation path in
+   metadata for traceability, but do not require readers to open either path to
+   understand the record.
+
+Recommended per-artifact Canvas block:
+
+```md
+### {artifactName} ??{result}
+
+![{artifactName}]({slack_file_reference})
+
+**Original Planning Content**
+
+{verbatim_source_content}
+
+**Display Content**
+
+{display_content}
+
+| Evaluation Field | Value |
+|---|---|
+| Result | `{result}` |
+| Score | `{score}` |
+| Highest Severity | `{severity}` |
+| Finding | `{finding_or_None}` |
+| Required Action | `{required_action_or_None}` |
+```
+
+The image syntax must be a top-level standalone Canvas element. Slack file
+references must point to files uploaded into the same workspace; `file://`
+links and local absolute paths must never be used as Canvas image sources.
+
+If upload authorization, a Slack upload tool, a shareable destination, or an
+upload result is missing, stop the self-contained publication with
+`slack_evidence_upload_not_available` or `slack_evidence_upload_failed`.
+Do not silently fall back to a local link.
+
+### 9.2 Skill Animation Evidence
+
+For `artifactType=skill_animation`, the canonical evaluation workspace is:
+
+```text
+C:\github\design_evaluation\skill_animation\{artifactId}
+```
+
+The local record must distinguish:
+
+- exact staged reference PNG;
+- exact staged animation sheet PNG;
+- row-major individual PNG frames;
+- contact sheet;
+- playback GIF;
+- technical validation;
+- preserved existing evaluation;
+- Unity meta, Editor reimport, clip, and runtime binding status.
+
+Self-contained Slack publication must upload the playback GIF plus either the
+reference PNG or contact sheet as Slack-hosted media. The GIF is a motion-review
+aid only. Result, fatal checks, and crop/alpha claims must come from the source
+PNG and individual PNG-frame evidence.
+
+Each animation record must preserve:
+
+```text
+source reference SHA-256
+source animation SHA-256
+usable frame count and row-major order
+nominal FPS and encoded frame delay
+loopMode
+playback GIF SHA-256
+reference/contact-sheet evidence
+existing evaluation result and score
+Unity meta/reimport/clip/binding remaining steps
+```
+
+Do not expose local absolute paths in the published Canvas body. Use Slack-hosted
+media and project-relative identifiers for the reader-facing record. Local
+paths remain evaluator-only provenance.
+
+For a dedicated animation Canvas:
+
+- upsert by `artifactType=skill_animation` plus exact `artifactId`;
+- keep exactly the 11 common sections in order;
+- process one artifact at a time;
+- do not post one channel message per artifact;
+- maintain one representative Canvas link message;
+- exclude failed, blocked, and ungenerated artifacts from the initial completed
+  publication scope.
+
+
+### 9.3 Character Evaluation Animation GIF Evidence
+
+For `artifactType=character_evaluation`, the canonical evaluation workspace may
+be rebased from PixelLab export storage into:
+
+```text
+C:\github\design_evaluation\character\{characterName}_{grade}
+```
+
+Published Canvas records must use project-relative identifiers such as:
+
+```text
+design_evaluation/character/{characterName}_{grade}/...
+```
+
+Do not expose `C:\github`, `C:\Users`, or any other local absolute path in the
+reader-facing Canvas body.
+
+When character animation evidence is available, self-contained Slack publication
+must include animation GIF evidence in addition to the static rotation/contact
+preview. The preferred evidence set per character is:
+
+1. one static rotation/contact preview image;
+2. one `Idle` all-directions GIF;
+3. one `Move` all-directions GIF;
+4. one `Attack` all-directions GIF.
+
+The GIFs should be prepared under the evaluation workspace:
+
+```text
+evidence/animation_gif_by_type/{characterName}_{grade}_idle_all_directions.gif
+evidence/animation_gif_by_type/{characterName}_{grade}_move_all_directions.gif
+evidence/animation_gif_by_type/{characterName}_{grade}_attack_all_directions.gif
+character_animation_gif_by_type_manifest.json
+```
+
+Each animation GIF must show all available ProjectBS directions for that
+animation. For the current character animation pipeline this means four columns:
+
+```text
+DownRight, DownLeft, UpRight, UpLeft
+```
+
+The GIF is a review and playback aid. The preserved evaluation result, scores,
+folder-structure pass/fail, direction handling, file naming, and Unity-copy
+integrity must still come from the saved evaluation files and PNG frame evidence:
+
+```text
+metadata.json
+evaluation_result.txt
+evaluation_animation_result.txt
+animations/
+converted/
+```
+
+Rules:
+
+- Preserve the existing image and animation evaluation results; do not re-score.
+- Generate GIFs only from preserved PNG frames in the evaluation workspace.
+- Do not modify `animations/`, `converted/`, Unity project assets, or PixelLab
+  source files while preparing Canvas evidence.
+- Upload GIFs as Slack-hosted media and embed them in the Canvas.
+- Do not post one channel message per character or per GIF.
+- Maintain a single representative Canvas link message after verification.
+- Upsert character records by exact `artifactType=character_evaluation` plus
+  `canonicalCharacterId=character.{characterName}.{grade}`.
+- For a completed batch, validate the expected media count. With 22 characters,
+  the minimum media set is 22 static previews plus 66 animation GIFs.
+
 ## 10. Validation
 
 - All required common fields exist and are non-empty.
@@ -411,6 +592,13 @@ report_only
   copied.
 - Secrets, tokens, credentials, and unrelated private links are excluded.
 - Markdown tables remain structurally valid.
+- In `self_contained` mode, every image artifact has a Slack-hosted embedded
+  image, verbatim source content, separate display content, and preserved
+  evaluation summary.
+- A reader with Canvas access can understand the intent, rendered artifact,
+  decision, and required follow-up without opening a local path.
+- Batch publication processes artifacts sequentially and does not aggregate
+  image bytes or full result documents in memory.
 
 ## 11. Failure Types
 
@@ -429,6 +617,9 @@ invalid_local_draft_mode
 invalid_canvas_target
 slack_write_not_available
 slack_write_not_authorized
+slack_evidence_upload_not_available
+slack_evidence_upload_failed
+missing_self_contained_evidence
 artifact_section_not_found
 unsupported_canvas_update_mode
 output_write_failed
