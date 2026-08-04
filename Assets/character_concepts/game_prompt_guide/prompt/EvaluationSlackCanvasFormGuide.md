@@ -5,29 +5,33 @@
 This guide defines the domain-neutral Slack Canvas record used to preserve a
 completed evaluation result.
 
+This guide is the single source of truth for record fields, field meanings,
+reader-facing layout, archival sections, and content validation. Task states,
+tool-call order, write authorization, failure routing, and completion reporting
+belong to `EvaluationSlackCanvasFormPrompt.md`.
+
 It supports images, icons, animations, documents, JSON, and future artifact
 types. Domain guides may add fields and score categories, but they must not
 rename, remove, reorder, or reinterpret the common fields and sections.
-
-This workflow records an evaluation. It does not:
-
-- perform or revise the source evaluation;
-- generate, edit, or regenerate an artifact;
-- copy an artifact into the project;
-- change evaluation scores, findings, severity, or result;
-- perform Git work.
 
 ## 2. Form Version
 
 ```text
 formVersion = evaluation_canvas_form_v1
 versionFolder = v1
+readerFacingLayoutVersion = artifact_design_table_v2_compact
 ```
 
 The version is stable. Create a new major version when a required field or
 section is removed or renamed, an enum changes meaning, or promotion semantics
 change. Adding an artifact type or optional domain field does not require a new
 version.
+
+`readerFacingLayoutVersion` is a presentation contract layered on top of the
+stable archival form. Existing `artifact_design_table_v1` records remain valid
+as legacy layouts. New records and format migrations use
+`artifact_design_table_v2_compact` unless a domain guide explicitly defines a
+newer compatible reader-facing layout.
 
 ## 3. Local Draft Path
 
@@ -45,23 +49,8 @@ Rules:
 - Do not combine multiple form versions in one version folder.
 - The draft path is project-root-relative even when evaluated evidence is
   preserved outside the project.
-- `localDraftMode=save` writes the draft to this path.
-- `localDraftMode=report_only` returns Canvas-ready Markdown without writing a
-  local draft; in this mode the canonical future draft path may still be
-  reported as `Not Saved`.
 
-## 4. Staging, Evaluation, and Promotion Model
-
-The required operating sequence is:
-
-```text
-generated or external artifact
--> local staging copy
--> read-only evaluation using preserved evidence
--> approved artifact only
--> project copy
--> copy/hash/import verification
-```
+## 4. Artifact and Path Semantics
 
 The three path fields are different responsibilities:
 
@@ -122,7 +111,43 @@ Definitions:
 - `promotionStatus`: the artifact's state in the local-to-project promotion
   workflow, not the evaluation result.
 
-Missing required fields are not inferred. Stop with `missing_required_field`.
+A record with a missing required field is invalid. Required content must never
+be inferred.
+
+### 5.1 Required Planning and Design Evidence
+
+Every new self-contained visual record must also contain the following
+reader-facing evidence. These fields describe why the artifact was designed,
+not how the Slack publication was executed.
+
+| Field | Required content | Source/derived rule |
+|---|---|---|
+| `artifactUsage` | Player-facing use, placement, and expected display size | Source fact |
+| `planningSource` | Stable planning document identifier and project-relative path | Source fact |
+| `planningOriginalContent` | Relevant planning text verbatim | Source fact; never rewritten |
+| `displayContent` | Actual player-facing name, description, dialogue, or body text | Source fact; conditional when display text exists |
+| `planningCoreInterpretation` | Main subject, action, physical clue, and spatial relation extracted from the source | Derived; label as interpretation |
+| `designConcept` | Visual identity, mood, shape, material, palette, and style | Approved design definition |
+| `promptCoreGoals` | One to three priorities that the image must communicate first | Derived design intent |
+| `requiredVisualElements` | Three to five independently observable must-show elements | Verification contract |
+| `hardConstraints` | Prohibited content and technical hard gates | Verification contract |
+| `generationPromptOriginal` | Exact final prompt submitted to the generation tool | Source fact; never summarized as the original |
+
+Rules:
+
+- `planningOriginalContent`, `displayContent`, and
+  `generationPromptOriginal` are separate source blocks even when their text is
+  identical.
+- If `displayContent` is identical to the planning source, write
+  `Same as Planning Original Content` and identify the display source. Do not
+  silently duplicate or merge the provenance.
+- `planningCoreInterpretation` must not delete an important person, action,
+  physical clue, time, or spatial relationship merely because the current
+  image omitted it.
+- A required visual element must be observable. Avoid abstract-only entries
+  such as `good mood`, `high quality`, or `matches the story`.
+- A record without the required planning or design evidence is incomplete and
+  must not be presented as a complete design record.
 
 ## 6. Result and Promotion Contract
 
@@ -170,9 +195,120 @@ Additional rules:
   such as an approved `SKIPPED` image policy.
 - Formatting a Canvas record does not itself authorize or perform promotion.
 
+### 6.4 Reader-Facing Artifact Table
+
+Each visual artifact uses one compact integrated table as its complete
+reader-facing record. The target is approximately one Canvas page per artifact;
+only a long verbatim planning source or generation prompt may extend it.
+
+Conceptual visual target:
+
+```text
+[ exact media continues ] [ Planning Original Context ]
+[ exact media continues ] [ Planning & Design          ]
+
+[ Evaluation & Action   ] [ Prompt & Required Expression ]
+[ Provenance & Change   ] [ Prompt content continues     ]
+```
+
+This diagram describes information hierarchy, not a promise that Slack tables
+support `rowspan`, vertical merge, or arbitrary cell geometry. Never fake the
+shape with empty cells or claim a merge that the active Slack UI/API cannot
+create and preserve.
+
+Supported production fallback:
+
+| Left | Right |
+|---|---|
+| **Visual & Decision** — exact Slack-hosted media, result, score, one-line summary | **Planning Original Context** — one contiguous source block |
+| **Planning & Design** — interpretation and approved/derived design definition | **Prompt & Required Expression** — goals, must-show elements, constraints, exact prompt or unavailable reason |
+| **Evaluation & Action** — score summary, findings, required/optional action | **Provenance & Change** — source identity, completeness, review and change note |
+
+The eleven archival semantics remain present through the category mapping in
+Section 7; they are not rendered as eleven long standalone sections in this
+layout.
+
+#### 6.4.1 Layout Rules
+
+- Preserve the media's original aspect ratio. Use the media-bearing left cell
+  for approximately 40–50 percent of the table width when the Canvas UI permits
+  stable resizing.
+- A standard rectangular two-column table is the supported production layout.
+  Native table merge/rowspan is not a required capability and must not be
+  inferred from the conceptual visual target.
+- Native Canvas Columns are experimental. Use them only after a one-artifact
+  pilot preserves every text block and the image through autosave, reload, and
+  connector reread. If a new top-level text block alone does not survive
+  reload, do not attempt Columns on that Canvas.
+- Preserve meaningful category boundaries. Do not collapse all categories into
+  one long content cell.
+- Every category cell must contain both its bold category label and its actual
+  content. Never create a row or cell containing only a category title such as
+  `Prompt & Required Expression` or `Provenance & Change`.
+- The full-width title row is allowed only when it also contains result, score,
+  and the one-line decision summary; a name-only title row is invalid.
+- Use the supported fallback cells shown above when merge is unavailable. Do
+  not convert the whole Canvas to a visually clever structure that has not
+  passed one-artifact persistence validation.
+- Target four to five visible content rows. Equal cell sizes are not required.
+- Do not show literal `<br>` text to readers or paste escaped markup as content.
+  Use real Canvas paragraph breaks inside each category cell. The Slack read API
+  may serialize native paragraph boundaries as `<br>` markup; that serialization
+  is acceptable only when the Canvas UI renders real breaks and no literal tag
+  is visible to readers.
+- Keep `planningOriginalContent` as one contiguous verbatim block. Never render
+  it as `Planning Original 1`, `Planning Original 2`, `Planning Original 3`, or
+  other numbered fragments.
+- Group the three to five required visual elements into one compact list inside
+  Prompt & Required Expression. Do not create one table row per element.
+- Put score categories on one compact line or list unless an individual score
+  requires an explanatory finding.
+- Hide non-actionable hashes, absolute evaluator paths, empty optional fields,
+  and repeated identifiers from the reader-facing table. Preserve audit data in
+  the stable source record rather than repeating it visually.
+- Reader-facing content uses project-relative identifiers only. Local absolute
+  paths and hashes belong in provenance metadata, not the primary table.
+- The exact prompt belongs in the Prompt & Required Expression group. If it is
+  unavailable, show one explicit provenance sentence instead of an empty or
+  reconstructed prompt.
+
+#### 6.4.2 Capability and Persistence Gates
+
+Before migrating an existing Canvas layout:
+
+1. preserve the current canonical record as a backup;
+2. choose one writer for the artifact: Canvas connector or Slack UI;
+3. create the smallest new block required by the candidate layout;
+4. wait for autosave, reload the Canvas, and verify the block still exists;
+5. for media, verify a real rendered image object, natural dimensions, and the
+   original aspect ratio; a serialized Slack file reference alone is
+   insufficient;
+6. reread the canonical section and verify result, score, categories, media,
+   and duplicate count;
+7. remove the backup only after all gates pass and deletion is authorized.
+
+Stop the migration and retain the supported table when any gate fails. Remove
+only temporary content, record any unreferenced Slack file ID, and do not move
+to the next artifact.
+
+#### 6.4.3 Information Priority
+
+The table is intentionally layered:
+
+1. large readable image and one-line decision summary;
+2. one combined Planning & Design category with verbatim source and clearly
+   labeled interpretation;
+3. one combined Evaluation & Action category containing only decision-relevant
+   scores, findings, and follow-up;
+4. one combined Prompt & Required Expression category;
+5. one compact Provenance & Change category.
+
+Do not duplicate the same text in multiple cells or add a second archival block
+below the table. The compact table is the reader-facing record.
+
 ## 7. Required Canvas Sections
 
-Use these section names and this exact order:
+The following eleven names define stable archival semantics:
 
 1. `Record Metadata`
 2. `Result Summary`
@@ -186,8 +322,22 @@ Use these section names and this exact order:
 10. `Re-evaluation Plan`
 11. `Change Log`
 
-A domain guide may add rows inside these sections. It must not replace a section
-with a domain-specific name.
+A domain guide may add fields inside these semantics. It must not remove or
+reinterpret them.
+
+For `artifact_design_table_v2_compact`, map the eleven semantics into four
+reader-facing category groups instead of rendering eleven separate headings:
+
+| Compact category | Preserved archival semantics |
+|---|---|
+| Overview | Record Metadata; Result Summary; Target Artifact |
+| Planning & Design | Evidence Package; Domain-Specific Notes |
+| Evaluation & Action | Score Breakdown; Findings; Required Actions; Optional Improvements |
+| Provenance & Change | Re-evaluation Plan; Change Log |
+
+The detailed templates below define field meaning and audit completeness only.
+They are not additional reader-facing tables required below the compact artifact
+table.
 
 ### 7.1 Record Metadata
 
@@ -204,7 +354,6 @@ with a domain-specific name.
 | Evaluation Report Source | `{evaluationReportSource}` |
 | Review Date | `{YYYY-MM-DD}` |
 | Reviewer | `{reviewer}` |
-| Canvas Update Mode | `{draft_only/append/replace_artifact_section}` |
 ```
 
 ### 7.2 Result Summary
@@ -362,94 +511,51 @@ skip
 needs_decision
 ```
 
-Canvas update mode:
-
-```text
-draft_only
-append
-replace_artifact_section
-```
-
-Local draft mode:
-
-```text
-save
-report_only
-```
-
-## 9. Slack Canvas Update Rules
-
-- `draft_only` is the default. Save or return Markdown and do not call Slack
-  tools.
-- `localDraftMode=save` writes the canonical local draft.
-- `localDraftMode=report_only` returns Markdown only and must not create or
-  modify a local draft file.
-- `append` creates a new artifact record only when the user explicitly
-  authorizes a Slack write and the target Canvas is unambiguous.
-- `replace_artifact_section` replaces only the record matching both
-  `artifactType` and `artifactId`.
-- If a Slack tool is unavailable or writing is not authorized, keep the local
-  draft and report that posting was not performed.
-- Never post to an arbitrary Canvas when the target is missing.
+## 9. Published Evidence Content Rules
 
 ### 9.1 Self-Contained Evidence
 
 Use `canvasEvidenceMode=self_contained` when the Canvas must be understandable
 without access to the current PC or repository checkout.
 
-For every evaluated artifact:
+Every evaluated artifact record must:
 
-1. Process exactly one artifact at a time. Do not load an entire image batch or
-   all evaluation reports into memory at once.
-2. Upload the actual evaluated media file to Slack and obtain a workspace-
-   accessible Slack file reference.
-3. Share the uploaded file to the explicit evidence conversation when required
-   for workspace access.
-4. Embed the Slack file reference directly in the Canvas. A local filesystem
-   path is provenance metadata only and is not acceptable as the primary
-   evidence link.
-5. Include the original planning or source content verbatim. Do not summarize,
-   rewrite, or truncate this source block.
-6. Include the player-facing/display content separately so readers can compare
-   the source intent with the displayed text.
-7. Include a concise evaluation summary that preserves the source result,
-   score, Hard Fail, highest severity, confirmed findings, and required actions.
-8. Keep the project-relative target path and external evaluation path in
-   metadata for traceability, but do not require readers to open either path to
-   understand the record.
+1. show the exact reviewed media through a workspace-accessible Slack file
+   reference in the integrated artifact table;
+2. treat local filesystem paths as provenance metadata only, never as the
+   reader's primary evidence link;
+3. include the original planning or source content verbatim without summary,
+   rewrite, or truncation;
+4. include player-facing/display content separately so readers can compare the
+   source intent with the displayed text;
+5. include a concise evaluation summary that preserves the source result,
+   score, Hard Fail, highest severity, confirmed findings, and required actions;
+6. retain project-relative target identifiers and provenance metadata without
+   requiring the reader to open a local path.
 
 Recommended per-artifact Canvas block:
 
 ```md
-### {artifactName} ??{result}
-
-![{artifactName}]({slack_file_reference})
-
-**Original Planning Content**
-
-{verbatim_source_content}
-
-**Display Content**
-
-{display_content}
-
-| Evaluation Field | Value |
+| Left | Right |
 |---|---|
-| Result | `{result}` |
-| Score | `{score}` |
-| Highest Severity | `{severity}` |
-| Finding | `{finding_or_None}` |
-| Required Action | `{required_action_or_None}` |
+| **Visual & Decision** — {Slack-hosted media once, result, score, one-line summary} | **Planning Original Context** — {one contiguous planning source block} |
+| **Planning & Design** — {interpretation and design content} | **Prompt & Required Expression** — {goals, required elements, constraints, exact prompt or unavailable reason} |
+| **Evaluation & Action** — {scores, findings, actions, re-evaluation trigger} | **Provenance & Change** — {source identity, completeness, review and change note} |
 ```
 
-The image syntax must be a top-level standalone Canvas element. Slack file
-references must point to files uploaded into the same workspace; `file://`
-links and local absolute paths must never be used as Canvas image sources.
+Each category cell is a Canvas-native multi-paragraph cell, not a string
+containing escaped newline characters. A category label is always followed by
+its content in the same cell.
 
-If upload authorization, a Slack upload tool, a shareable destination, or an
-upload result is missing, stop the self-contained publication with
-`slack_evidence_upload_not_available` or `slack_evidence_upload_failed`.
-Do not silently fall back to a local link.
+The final Canvas must contain the Slack-hosted media in the intended supported
+table cell. Transitional placeholders are invalid final content. Do not leave
+both a standalone full-width image and a duplicate table image. A file ID in
+connector output does not satisfy this rule when the reloaded UI shows a blank
+or zero-height image object.
+
+Slack file references must point to files uploaded into the same workspace;
+`file://` links and local absolute paths must never be used as Canvas image
+sources.
 
 ### 9.2 Skill Animation Evidence
 
@@ -470,7 +576,7 @@ The local record must distinguish:
 - preserved existing evaluation;
 - Unity meta, Editor reimport, clip, and runtime binding status.
 
-Self-contained Slack publication must upload the playback GIF plus either the
+A self-contained animation record must contain the playback GIF plus either the
 reference PNG or contact sheet as Slack-hosted media. The GIF is a motion-review
 aid only. Result, fatal checks, and crop/alpha claims must come from the source
 PNG and individual PNG-frame evidence.
@@ -492,17 +598,6 @@ Unity meta/reimport/clip/binding remaining steps
 Do not expose local absolute paths in the published Canvas body. Use Slack-hosted
 media and project-relative identifiers for the reader-facing record. Local
 paths remain evaluator-only provenance.
-
-For a dedicated animation Canvas:
-
-- upsert by `artifactType=skill_animation` plus exact `artifactId`;
-- keep exactly the 11 common sections in order;
-- process one artifact at a time;
-- do not post one channel message per artifact;
-- maintain one representative Canvas link message;
-- exclude failed, blocked, and ungenerated artifacts from the initial completed
-  publication scope.
-
 
 ### 9.3 Character Evaluation Animation GIF Evidence
 
@@ -559,25 +654,46 @@ animations/
 converted/
 ```
 
-Rules:
-
-- Preserve the existing image and animation evaluation results; do not re-score.
-- Generate GIFs only from preserved PNG frames in the evaluation workspace.
-- Do not modify `animations/`, `converted/`, Unity project assets, or PixelLab
-  source files while preparing Canvas evidence.
-- Upload GIFs as Slack-hosted media and embed them in the Canvas.
-- Do not post one channel message per character or per GIF.
-- Maintain a single representative Canvas link message after verification.
-- Upsert character records by exact `artifactType=character_evaluation` plus
-  `canonicalCharacterId=character.{characterName}.{grade}`.
-- For a completed batch, validate the expected media count. With 22 characters,
-  the minimum media set is 22 static previews plus 66 animation GIFs.
+The record must preserve the existing image and animation evaluation result,
+identify the canonical character as
+`character.{characterName}.{grade}`, and contain the Slack-hosted static preview
+plus the three required animation GIFs. With 22 characters, the minimum
+published evidence set is 22 static previews plus 66 animation GIFs.
 
 ## 10. Validation
 
 - All required common fields exist and are non-empty.
+- New self-contained visual records and format migrations declare
+  `readerFacingLayoutVersion=artifact_design_table_v2_compact`.
+- The integrated artifact table contains the actual Slack-hosted media in its
+  single media cell, target/use information, one contiguous verbatim planning
+  block, separate display provenance, planning core interpretation, design
+  concept, compact prompt goals/required elements/hard constraints, evaluation
+  summary, and the verbatim generation prompt or explicit unavailable reason.
+- Source facts and derived interpretation are visibly separated.
+- Required visual elements remain individually reviewable inside one compact
+  list rather than separate table rows.
+- The artifact uses one table with four to five meaningful visible content rows,
+  separate category cells, no title-only category cells, and no second archival
+  table block.
+- A structural migration passes a one-artifact persistence pilot before batch
+  expansion. Native Columns are not used when top-level blocks, column text, or
+  image objects disappear after reload.
+- The writer mode is fixed per artifact. Connector and UI writes are not mixed
+  on the same transient layout.
+- Completion includes autosave wait, UI reload, real image rendering with
+  natural dimensions and preserved aspect ratio, and connector reread.
+- The previous canonical record remains available until the replacement passes
+  every persistence gate; temporary failure is rolled back before processing
+  another artifact.
+- The record does not collapse all category content into one long cell.
+- No numbered `Planning Original 1/2/3` fragments exist.
+- No image placeholder, reader-visible literal `<br>` text, duplicate full-width
+  image, or reader-facing local absolute path remains. API serialization of
+  native paragraph breaks is not a reader-visible literal-tag failure.
 - The form version matches the `v1` draft folder.
-- The 11 required sections exist once and in order.
+- All eleven archival semantics map exactly once into the four compact category
+  groups; eleven standalone headings are not required for v2 compact records.
 - Result, score, severity, and findings match the evaluation report.
 - Every score is within the domain category maximum and totals match when the
   report is scored.
@@ -597,30 +713,3 @@ Rules:
   evaluation summary.
 - A reader with Canvas access can understand the intent, rendered artifact,
   decision, and required follow-up without opening a local path.
-- Batch publication processes artifacts sequentially and does not aggregate
-  image bytes or full result documents in memory.
-
-## 11. Failure Types
-
-```text
-missing_evaluation_report
-missing_required_field
-missing_form_guide
-invalid_form_version
-invalid_result
-invalid_promotion_status
-promotion_result_conflict
-promotion_verification_missing
-staging_target_path_collision
-invalid_draft_path
-invalid_local_draft_mode
-invalid_canvas_target
-slack_write_not_available
-slack_write_not_authorized
-slack_evidence_upload_not_available
-slack_evidence_upload_failed
-missing_self_contained_evidence
-artifact_section_not_found
-unsupported_canvas_update_mode
-output_write_failed
-```
