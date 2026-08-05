@@ -1,5 +1,17 @@
 # Strategic Item SO JSON Generate Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 사용 시 연결된 스킬이 실행되는 전략 아이템의 정규화된 `item.json`을 생성할 때 사용합니다. 아이템이 최상위 개념이고 스킬은 아이템의 실행 데이터입니다. 이 프롬프트는 Unity SO asset을 생성하지 않습니다.
 
 ## Prompt

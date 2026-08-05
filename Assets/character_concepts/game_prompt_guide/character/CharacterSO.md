@@ -2,6 +2,18 @@
 
 # CharacterSO Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 # Purpose
 
 Generate a character JSON used as the input for CharacterSO generation.

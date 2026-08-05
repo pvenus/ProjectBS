@@ -1,5 +1,17 @@
 # Item Icon Generation Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 승인된 아이템 기획을 기준으로 PixelLab UI Pro에서 동일 아이템의 후보 네
 개를 생성하고, 통과한 128x128 단일 아이콘만 보존 및 Unity에 반영할 때
 사용합니다. 현재 지원 프로필은 `relic`입니다.

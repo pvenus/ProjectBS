@@ -1,5 +1,17 @@
 # Skill Icon Download and Evaluation Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 PixelLab 주 피사체와 선택적 편집 결과를 기존 평가 폴더에 보존하고, 정확한 개수 오버레이와 프레임 정규화를 거친 최종 파일만 평가·Unity 복사하는 실행 프롬프트입니다.
 
 ## Prompt

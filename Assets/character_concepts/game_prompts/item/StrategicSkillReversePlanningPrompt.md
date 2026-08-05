@@ -1,5 +1,17 @@
 # Strategic Skill Reverse Planning Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 기존 전략 아이템의 embedded skill과 생성된 스킬 리소스를 분석해 역기획하거나,
 승인된 신규 설계 입력을 동일한 전략 스킬 기획 형식으로 문서화할 때 사용합니다.
 

@@ -1,5 +1,17 @@
 # Skill Icon Evaluation Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 정규화된 정적 스킬 아이콘을 의미·방향·부분 물체 구조·정확한 개수·32×32 생존성·Unity 준비 상태 기준으로 평가하는 실행 프롬프트입니다.
 
 ## Prompt

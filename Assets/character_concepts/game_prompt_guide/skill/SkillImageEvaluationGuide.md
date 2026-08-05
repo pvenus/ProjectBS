@@ -1,5 +1,17 @@
 # Skill Image Animation Evaluation Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 ## 1. Purpose
 
 This guide evaluates character-independent skill VFX sprite animations generated in PixelLab.
@@ -36,8 +48,8 @@ Any item below immediately produces **Fail**, regardless of total score:
   the requested active VFX.
 - The primary effect and its required impact, trail, aura, or secondary motion read
   as unrelated detached objects.
-- A dominant Japanese, Chinese, Western, or generic foreign motif replaces the
-  required Korean traditional style.
+- Any identifiable Japanese, Chinese, Western, or other foreign cultural motif
+  appears, regardless of its visual dominance.
 
 ## 3. Scored Evaluation
 
@@ -106,12 +118,13 @@ Total: **100 points**. Passing score: **85 points or higher**, with no fatal fai
   hierarchy during motion.
 - 3: Generic East Asian decoration, excess colors, or competing secondary effects
   weaken the project style.
-- 0: A foreign motif dominates, the palette communicates the wrong element or role,
-  or the traditional accent overwhelms the skill effect.
+- 0: Any identifiable foreign cultural motif appears, the palette communicates the
+  wrong element or role, or the traditional accent overwhelms the skill effect.
 
-If the source and generation record explicitly mark the traditional motif as not
-applicable, evaluate palette and hierarchy only and record the motif check as
-`Not Applicable`; do not grant or deduct points for an invented motif.
+A literal traditional motif may be recorded as Not Applicable only when forcing
+one would misrepresent the skill. Korean identity remains mandatory through
+master-compliant color, line, material, motion, or formative language and can
+never be Not Applicable. Do not invent an unverified traditional motif.
 
 ### 3.9 Loop or Ending Quality — 5 points
 
@@ -129,7 +142,7 @@ activationMoment
 primaryEffectShape
 directionOrCompositionAxis
 connectedSecondaryMotion
-koreanTraditionalMotif or not_applicable
+koreanTraditionalMotif or literal_motif_not_applicable; Korean identity remains required
 elementAndRolePalette
 likelyWrongObjects
 expectedLoopOrEnding
@@ -227,7 +240,7 @@ Fatal Failure Check:
 - Source-driven skill intent and direction: Pass / Fail / Insufficient Evidence
 - Active VFX rather than static item or icon: Pass / Fail
 - Primary and secondary effect connection: Pass / Fail / Not Applicable
-- Korean traditional style and no foreign motif: Pass / Fail / Not Applicable
+- Korean traditional identity and no foreign motif: Pass / Fail (literal motif may be Not Applicable)
 
 Design Evidence:
 - Activation Moment:

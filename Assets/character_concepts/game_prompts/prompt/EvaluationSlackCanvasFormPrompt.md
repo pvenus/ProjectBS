@@ -1,5 +1,17 @@
 # Evaluation Slack Canvas Form Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 완료된 평가 리포트를 도메인 중립적인 Slack Canvas 평가 기록으로 변환할
 때 사용합니다. 이 프롬프트는 평가, 수정, 승격 복사, Git 작업을 수행하지
 않습니다.

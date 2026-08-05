@@ -1,5 +1,17 @@
 # Skill Icon Generation Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 스킬 JSON을 기준으로 핵심 실루엣과 한 가지 효과만 간결하게 강조하여 80×80 정적 스킬 아이콘을 생성하고, 기존 템플릿으로 최종 규격을 보정하는 실행 프롬프트입니다.
 
 ## Prompt
@@ -61,8 +73,8 @@ Input:
 5. `representationMode=auto`이면 스킬을 수행하는 도구와 발동 동작이 시각적으로 중요한 경우 `activated_tool`, 추상 효과·버프·디버프·패시브이거나 도구가 정적인 장비 아이콘으로 오인될 가능성이 높은 경우 `symbolic_emblem`으로 확정한다.
 6. `activated_tool`은 도구가 휘두르기·발사·충돌·공명·연소·개방·회전·소환 중 하나의 명확한 발동 상태에 있는 순간을 그린다. 도구를 수직으로 세워 놓거나 카탈로그 제품처럼 고립시킨 정적인 외형은 금지한다.
 7. `symbolic_emblem`은 스킬의 방향·범위·속성·효과를 하나의 굵은 기하 실루엣으로 합친 문양으로 만든다. 실제 장비 문장, 로고, 배지, 문자 또는 UI 버튼처럼 보이지 않게 한다.
-8. 한국 전통 디자인은 스킬 의미와 직접 연결되는 주 모티프 하나만 선택한다. 허용 예시는 단청의 구름·연꽃·덩굴 곡선, 삼태극 회전, 조선 창호 격자, 귀면와의 곡선, 무속 오방색 띠, 전통 매듭의 흐름이며 80×80에서 작은 장식이 되지 않도록 굵고 단순하게 변형한다.
-9. 전통 재질과 색상은 한지, 옻칠 목재, 묵선, 낡은 청동, 단청 안료 중 스킬에 맞는 1-2개만 사용한다. 오방색은 전부 나열하지 않고 grade와 element에 맞는 2-4색으로 제한한다.
+8. 마스터 컨셉에 부합하면서 스킬 의미와 직접 연결되는 한국 전통 주 모티프 하나를 선택하고, 80×80에서 읽히도록 굵고 단순하게 변형한다. 문화적 적합성과 타 문화 금지는 마스터 문서를 단일 기준으로 판정한다.
+9. 마스터 컨셉에 따라 검증된 전통 재질 1-2개와 역할이 분명한 전통 색채 조합 2-4색만 선택한다.
 10. 가이드의 Concise Outline Prompt Contract에 따라 영어 Description을 필수 5문장으로 작성한다. 순서는 `발동 형상 또는 스킬 문양`, `방향과 구도`, `연결된 내부 이펙트`, `스킬 맞춤 내부 배경`, `배제 대상과 grade/palette/한국 전통 pixel-art 스타일`이다.
 11. 첫 문장은 의미 명칭보다 실제 보이는 발동 형상 또는 굵은 문양을 먼저 쓴다. `activated_tool`이면 도구와 동작을 하나의 실루엣으로, `symbolic_emblem`이면 스킬 작용과 전통 모티프를 하나의 문양으로 기술한다.
 12. 둘째 문장은 방향과 구도를 하나의 축으로 단정적으로 기술한다.
@@ -71,7 +83,7 @@ Input:
 15. 내부 이펙트는 primaryOutline의 뒤쪽·둘레·진행 경로 중 의미에 맞는 한 위치에 배치하고 아이콘 프레임 안쪽에서 끝나게 한다. primaryOutline보다 명도 또는 채도는 높일 수 있지만 핵심 형상을 가리거나 별도의 물체처럼 보이게 하지 않는다.
 16. 넷째 문장은 반드시 `A full-bleed {backgroundBaseColor} {traditionalMaterial} background depicts {backgroundSceneAction} through {환경 표면 또는 대기 형태 1개} and {한국 전통 모티프 1개}, filling the entire icon canvas edge to edge including all four corners; no solid-color-only, white, transparent, blank, or unpainted area remains.` 형식을 사용한다. `{backgroundBaseColor}`에는 `dark`, `charcoal`, `deep`, `muted`처럼 중저명도임을 나타내는 수식어를 포함하고, `depicts` 뒤에는 반드시 눈에 보이는 장면 동사를 사용한다.
 17. 내부 배경은 프레임 안쪽 전체를 채우는 하나의 연속된 바탕면 위에 스킬의 작용을 보여 주는 저대비 그림으로 구성한다. 예시는 베기 진행 방향을 따르는 바닥 흠집과 단청 구름 흐름, 충격점에서 번지는 옻칠 균열과 창호 격자 그림자, 냉기 경로를 따라 서리는 한지 결, 화염 뒤로 그을리는 단청 안료, 독기가 스며드는 바닥 문양처럼 스킬 효과와 환경의 반응이 함께 보이는 장면이다. 단일 균일 색면, 단순 그라데이션만 있는 면, 문양 뒤에만 붙은 국소 색면, 흰색 기본 캔버스, 투명 영역, 미도색 여백은 내부 배경으로 인정하지 않는다. 배경 그림은 네 모서리와 상·하·좌·우 가장자리까지 이어지되 핵심 아웃라인과 내부 이펙트보다 명도·채도·디테일 대비를 낮게 유지한다.
-18. 다섯째 문장은 정적인 도구, 인벤토리 아이템, 문자, 로고, 서양 문장, 일본 신사·도리이·오니·가몬, 중국 동전·용 문양 등 오인 대상을 3-6개 이내로 배제하고 grade/palette/한국 전통 pixel-art 가독성을 짧게 지정한다.
+18. 다섯째 문장은 정적인 도구, 인벤토리 아이템, 문자, 로고와 마스터 컨셉이 금지하는 타 문화 요소 등 오인 대상을 3-6개 이내로 배제하고 grade/palette/한국 전통 pixel-art 가독성을 짧게 지정한다.
 19. 시각 계층은 `activatedToolOrEmblem > oneSimpleEffect > koreanTraditionalAccent > internalBackground` 순서로 고정한다. 전통 모티프는 스킬을 설명해야 하며 별도 장식 테두리처럼 주제를 압도하면 안 된다.
 20. `backgroundMode=auto`는 스킬의 장소·대상·환경 반응을 신뢰성 있게 도출할 수 있으면 `contextual`, 그렇지 않으면 스킬의 속성·방향·범위·타격 결과를 추상적인 배경 장면으로 나타내는 `symbolic_effect_scene`으로 확정한다. 단색만 사용하는 `flat` 모드는 허용하지 않으며 두 허용 모드 모두 full-bleed와 스킬 연관 그림 조건의 예외가 아니다.
 21. frame, card, panel, background border, safe-area 좌표, exact-count 요소는 생성 Description에서 제거한다. 단, 넷째 문장의 `full-bleed`, `depicts`, `entire icon canvas`, `edge to edge`, `all four corners`, `no solid-color-only, white, transparent, blank, or unpainted area` 조건은 삭제하거나 완화하지 않는다.
@@ -179,7 +191,7 @@ Output:
 - 추상 스킬·버프·디버프·패시브는 장비를 억지로 넣지 말고 스킬 작용과 한국 전통 모티프를 결합한 문양으로 표현한다.
 - 한국 전통 디자인은 스킬과 연결된 주 모티프 하나만 사용하고, 여러 전통 요소를 장식 목록처럼 나열하지 않는다.
 - 한글·한자·부적 글자·문장·로고를 읽을 수 있는 텍스트로 생성하지 않는다.
-- 한국 전통 스타일을 일반 동아시아풍으로 대체하지 않고 일본·중국·서양의 대표 상징을 혼입하지 않는다.
+- 마스터 컨셉의 타 문화 혼합 금지를 하드 게이트로 적용한다.
 - 핵심 아웃라인보다 캐릭터·배경·장식이 강조되는 문장을 쓰지 않는다.
 - 내부 배경의 대비를 낮추라는 지시를 배경을 생략하거나 문양 뒤의 작은 패치만 그리라는 의미로 해석하지 않는다.
 - 내부 배경의 바탕색만 지정하고 작업을 끝내지 않는다. 스킬 효과가 환경에 남기는 흔적이나 흐름을 한국 전통 모티프와 결합한 저대비 그림이 반드시 보여야 한다.

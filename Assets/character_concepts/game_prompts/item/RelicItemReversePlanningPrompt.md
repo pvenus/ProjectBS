@@ -1,5 +1,17 @@
 # Relic Item Reverse Planning Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 기존 RelicSO, Effect asset, 현지화 문구를 분석해 구현 구조와 분리된 개별
 유물 기획 문서를 역기획할 때 사용합니다.
 

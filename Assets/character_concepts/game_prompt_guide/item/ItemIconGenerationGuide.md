@@ -1,5 +1,17 @@
 # Item Icon Generation Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 ## 1. Purpose
 
 This guide defines how to generate one static item icon with PixelLab and turn
@@ -73,16 +85,17 @@ exceptions are not rules for new icons.
 - Front or restrained three-quarter presentation; necklaces and circular relics
   are nearly symmetrical, while blades, feathers, horns, and nails use a natural
   object axis.
-- Dark-fantasy antique materials: aged gold, bronze, dark iron, carved wood,
-  leather, bone, crystal, wax, cloth, and enamel.
+- Joseon-era Korean traditional dark-fantasy materials selected under the master
+  concept: lacquered wood, iron, brass, bronze, hanji, hemp, silk, ceramic, bone,
+  and other historically verified Korean materials appropriate to the item.
 - A dark near-black colored outline separates the item from any inventory UI.
 - Hand-placed pixel clusters, stepped curves, hard material highlights, and
   controlled selective detail rather than smooth vector edges.
-- A dark or muted material base with one dominant saturated accent family.
-  Gold/bronze trim and small cyan, blue, red, violet, or toxic-green highlights
-  are common.
-- Ornament follows the object's construction: engraved bands, knots, runes,
-  facets, seams, tassels, studs, or carved motifs.
+- Color relationships must derive from verified Korean traditional color culture;
+  use a dark or muted material base with one restrained role-based accent family.
+- Ornament must follow the object construction and use only master-compliant,
+  historically grounded Korean patterns, knots, seams, tassels, fittings, or
+  carved motifs. Generic runes and foreign cultural symbols are not allowed.
 - A small semantic cue may surround the object, such as smoke, frost, sparks,
   electricity, or a glow. The cue remains subordinate to the physical relic.
 - No text, rarity badge, border, inventory slot, card, scene, character, hand, or
@@ -123,10 +136,12 @@ Assets/Doc/Relic/item.relic.{relic_slug}.planning.json
 
 Evidence priority:
 
-1. Approved item planning `presentationKo`, concept, role, and gameplay effect.
-2. Approved item JSON fields and player-facing name/description.
-3. Verified existing runtime behavior.
-4. Legacy RelicSO and icon evidence.
+1. DisignMasterConcept_rule.md period, cultural, aesthetic, and prohibition rules.
+2. Approved item planning presentationKo, concept, role, and gameplay effect.
+3. Approved item JSON fields and player-facing name/description.
+4. Verified existing runtime behavior.
+5. Legacy RelicSO and icon evidence that passes the master concept rules. Legacy
+   evidence that does not pass may inform only technical scale and composition.
 
 Do not invent a visual mechanic from an unclear legacy icon. If gameplay sources
 conflict, the icon brief must use only the stable physical concept and report the
@@ -176,7 +191,7 @@ The PixelLab Description must contain five short English sentences or lines:
 1. `Primary object`: visible physical silhouette, orientation, and main parts.
 2. `Material`: construction material and one or two readable ornaments.
 3. `Effect cue`: zero or one small cue derived from approved gameplay intent.
-4. `Style`: dark-fantasy handcrafted pixel-art rendering and palette hierarchy.
+4. Style: master-compliant Joseon-era Korean traditional dark-fantasy handcrafted pixel-art rendering and palette hierarchy.
 5. `Composition/exclusions`: one isolated item, transparent background, no
    competing objects or UI.
 
@@ -199,9 +214,10 @@ of a usable item icon.
 ### 6.1 Common style phrase
 
 ```text
-handcrafted dark-fantasy pixel-art inventory icon, crisp stepped edges, continuous
-dark colored outline, clustered shading, aged materials, one saturated accent,
-high readability at small size
+master-compliant Joseon-era Korean traditional dark-fantasy pixel-art inventory
+icon, crisp stepped edges, continuous dark colored outline, clustered shading,
+historically grounded Korean materials and ornament, restrained traditional color
+harmony, high readability at small size
 ```
 
 ### 6.2 Common exclusions

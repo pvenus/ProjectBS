@@ -1,5 +1,17 @@
 # Popup Event Main Image Evaluation Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 ## 1. 목적
 
 스토리 팝업 메인 이미지 한 장을 빠르고 일관되게 판정한다.

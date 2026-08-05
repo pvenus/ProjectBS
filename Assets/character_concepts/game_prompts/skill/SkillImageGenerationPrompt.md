@@ -1,5 +1,17 @@
 # Skill Image Animation Generation Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 PixelLab에서 캐릭터와 독립된 스킬 이펙트 기준 이미지와 애니메이션을 생성하는 실행 프롬프트입니다.
 
 ## Prompt

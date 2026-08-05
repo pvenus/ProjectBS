@@ -1,5 +1,17 @@
 # Story Image Element Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 ## Purpose
 
 Define what story images should be built from.
@@ -11,10 +23,10 @@ rendering style. Use `StoryImageVisualGuide.md` for those.
 
 ## Historical Period
 
-- Infer the period from story context instead of applying a generic Joseon-style
-  surface treatment.
-- Use historically grounded Korean period details when the story context points
-  there.
+- Fix every story image in the Joseon period required by the master concept.
+- Infer only the historically grounded Joseon-era phase, region, social class,
+  occupation, and local living conditions from story context. Story context must
+  not move the setting to another historical or fictional period.
 - Let era cues appear through practical objects, construction methods,
   clothing, tools, road conditions, lighting sources, and social behavior.
 - Do not add famous historical icons unless the story specifically requires
@@ -37,7 +49,9 @@ rendering style. Use `StoryImageVisualGuide.md` for those.
   doors, rough fences, storage sheds, gates, shrine structures, or roadside
   shelters when appropriate.
 - Keep buildings practical, weathered, and integrated with the terrain.
-- Avoid ornamental fantasy architecture unless the story explicitly calls for a
+- A supernatural place must still derive from verified Joseon-era Korean
+  architecture and Korean folklore, mythology, or folk-belief context. Do not use
+  generic fantasy or foreign architecture even when the story requests a
   supernatural place.
 
 ## Settlement

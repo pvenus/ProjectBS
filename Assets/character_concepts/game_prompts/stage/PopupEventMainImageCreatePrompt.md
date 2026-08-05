@@ -1,4 +1,16 @@
-﻿# Popup Event Main Image Create Prompt
+# Popup Event Main Image Create Prompt
+
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
 Stage Node JSON의 특정 popup event를 기준으로 `PopupEventSO.mainImage`
 매핑용 메인 이미지를 생성하는 복사용 프롬프트입니다.

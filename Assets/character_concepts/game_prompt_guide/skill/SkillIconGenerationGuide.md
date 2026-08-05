@@ -1,5 +1,17 @@
 # Skill Icon Generation Guide
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 ## 1. Purpose
 
 This guide defines how to generate static pixel-art skill icons with PixelLab.
@@ -588,12 +600,10 @@ through a floor pattern, or spirit wind bending a lattice shadow. A uniform colo
 simple gradient, local patch behind the emblem, default white canvas, transparent
 area, or unpainted margin is not a background.
 
-Choose only one primary Korean traditional motif that directly explains the skill,
-such as a simplified dancheong cloud, lotus or vine curve, samtaegeuk rotation,
-Joseon lattice, gwimyeon roof-tile curve, obangsaek ribbon, or maedeup flow. Use
-only one or two matching traditional materials such as hanji, lacquered wood, ink
-line, aged bronze, or dancheong pigment. Do not replace Korean design with generic
-East Asian, Japanese, Chinese, or Western iconography.
+Apply the master concept Korean traditional design language to the skill meaning.
+Choose one readable primary motif and one or two verified matching materials; this
+guide controls their icon-scale simplification and hierarchy, while the master
+concept exclusively controls cultural eligibility and foreign-element prohibition.
 
 Visual hierarchy is fixed:
 
@@ -988,8 +998,8 @@ Do not create a placeholder icon as a failure artifact.
 - Do not present a skill tool as a static upright object, material, equipment piece,
   or inventory item. Show its activation or switch to a symbolic emblem.
 - Do not separate the one simple effect from its tool contact point or emblem axis.
-- Do not use more than one Korean traditional primary motif or replace it with
-  generic East Asian, Japanese, Chinese, or Western iconography.
+- Use no more than one primary traditional motif. Apply the master concept
+  foreign-element prohibition as a hard gate.
 - Do not select or normalize a candidate that failed the near-white, dominant-color,
   four-corner, edge-continuity, or skill-linked-background hard gate.
 - Do not resize or crop a generated result to force direction, frame, or count

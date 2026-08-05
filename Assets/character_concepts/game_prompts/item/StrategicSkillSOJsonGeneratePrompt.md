@@ -1,5 +1,17 @@
 # Strategic Skill SO JSON Generate Prompt
 
+
+## Master Concept Reference
+
+Before using this document, read and apply:
+
+Assets/character_concepts/game_prompt_guide/DisignMasterConcept_rule.md
+
+This master concept is mandatory and takes precedence over this document, task
+inputs, story context, legacy assets, and external references. This document may
+add domain-specific constraints, but it must not relax, override, or create an
+exception to the master concept period, cultural, aesthetic, or prohibition rules.
+
 전략 아이템 사용 시 실행할 스킬을 독립 JSON으로 생성할 때 사용합니다.
 아이템 JSON이나 아이템 SO는 생성하지 않습니다.
 
