@@ -19,7 +19,7 @@ rename, remove, reorder, or reinterpret the common fields and sections.
 ```text
 formVersion = evaluation_canvas_form_v1
 versionFolder = v1
-readerFacingLayoutVersion = artifact_design_sections_v3_single_column
+readerFacingLayoutVersion = artifact_design_columns_v4_paragraphs
 ```
 
 The version is stable. Create a new major version when a required field or
@@ -28,12 +28,13 @@ change. Adding an artifact type or optional domain field does not require a new
 version.
 
 `readerFacingLayoutVersion` is a presentation contract layered on top of the
-stable archival form. Existing `artifact_design_table_v1` and
-`artifact_design_table_v2_compact` records remain valid historical layouts.
-New records and format migrations use
-`artifact_design_sections_v3_single_column` unless a domain guide explicitly
-defines a newer compatible reader-facing layout. V3 intentionally avoids both
-Markdown tables and Canvas native column/layout blocks.
+stable archival form. Existing `artifact_design_table_v1`,
+`artifact_design_table_v2_compact`, and
+`artifact_design_sections_v3_single_column` records remain valid historical
+layouts. New records and format migrations use
+`artifact_design_columns_v4_paragraphs` unless a domain guide explicitly
+defines a newer compatible reader-facing layout. V4 keeps the useful two-column
+information hierarchy while avoiding Markdown tables and cell-based grids.
 
 ## 3. Local Draft Path
 
@@ -199,32 +200,31 @@ Additional rules:
 
 ### 6.4 Reader-Facing Artifact Flow
 
-Each visual artifact uses one continuous single-column sequence as its complete
-reader-facing record. The target is approximately one Canvas page per artifact;
-only a long verbatim planning source or generation prompt may extend it.
+Each visual artifact uses one full-width decision heading followed by two
+Canvas-native two-column layouts. The target is approximately one Canvas page
+per artifact; only a long verbatim planning source or generation prompt may
+extend it.
 
-Use this exact top-level order:
+Use this exact information hierarchy:
 
 ```text
 ## {artifactName} · {result} · {score}
 {one-line decision summary}
 
-{exact Slack-hosted media exactly once}
+[ Upper native two-column layout ]
+Left:  {exact Slack-hosted media exactly once}
+Right: Planning Original Context
+       {one contiguous planning source block and separate display provenance}
+       Planning & Design
+       {usage, interpretation, approved common contract, and derived concept}
 
-### Planning Original Context
-{one contiguous planning source block and separate display provenance}
-
-### Planning & Design
-{usage, planning interpretation, approved common contract, and clearly labeled derived design concept}
-
-### Prompt & Required Expression
-{core goals, must-show elements, hard constraints, and exact prompt or explicit unavailable reason}
-
-### Evaluation & Action
-{score summary, findings, required/optional actions, and re-evaluation trigger}
-
-### Provenance & Change
-{source identity, completeness, review metadata, promotion state, and change note}
+[ Lower native two-column layout ]
+Left:  Evaluation & Action
+       {score summary, findings, actions, and re-evaluation trigger}
+       Provenance & Change
+       {source identity, completeness, review metadata, and change note}
+Right: Prompt & Required Expression
+       {goals, must-show elements, constraints, and prompt or unavailable reason}
 ```
 
 The eleven archival semantics remain present through the category mapping in
@@ -232,16 +232,17 @@ Section 7; they are not rendered as eleven long standalone sections.
 
 #### 6.4.1 Flow Rules
 
-- Do not use Markdown tables for an artifact reader-facing record.
-- Do not use Canvas native `layout` or `column` blocks. V3 is a single vertical
-  sequence of headings, paragraphs, lists, and top-level media.
+- Do not use Markdown tables or cell-based grids for an artifact reader-facing
+  record.
+- Use exactly two Canvas-native `layout` blocks with two `column` blocks each.
+  The columns express document hierarchy; they are not table cells.
 - Preserve the media's original aspect ratio and place the exact Slack-hosted
-  media once, immediately after the artifact decision summary.
+  media once in the upper-left column.
 - Preserve meaningful category boundaries. Do not collapse all categories into
   one long paragraph or one generic section.
-- Every category heading must be followed immediately by actual content. A
-  heading-only section such as `Prompt & Required Expression` or
-  `Provenance & Change` is invalid.
+- Every category heading inside a column must be followed immediately by actual
+  paragraphs or a compact list. A heading-only block such as
+  `Prompt & Required Expression` or `Provenance & Change` is invalid.
 - The artifact heading must include result, score, and the one-line decision
   summary nearby; a name-only heading is invalid.
 - Do not show literal `<br>` text to readers or paste escaped markup as content.
@@ -270,7 +271,7 @@ Before migrating an existing Canvas record:
 
 1. preserve the current canonical record as a backup;
 2. choose one writer for the artifact: Canvas connector or Slack UI;
-3. create one complete single-column artifact record as the pilot;
+3. create one complete two-layout/four-column paragraph artifact as the pilot;
 4. wait for autosave, reload the Canvas, and verify the block still exists;
 5. for media, verify a real rendered image object, natural dimensions, and the
    original aspect ratio; a serialized Slack file reference alone is
@@ -285,17 +286,17 @@ and do not move to the next artifact.
 
 #### 6.4.3 Information Priority
 
-The flow is intentionally ordered:
+The flow is intentionally grouped:
 
 1. large readable image and one-line decision summary;
-2. Planning Original Context as one continuous source block;
-3. Planning & Design and Prompt & Required Expression as separate sections;
-4. Evaluation & Action containing only decision-relevant scores, findings, and
-   follow-up;
-5. a compact Provenance & Change section.
+2. the upper-right column stacks Planning Original Context and Planning & Design;
+3. the lower-right column contains Prompt & Required Expression;
+4. the lower-left column stacks Evaluation & Action and Provenance & Change;
+5. category content remains paragraph-based rather than cell-based.
 
 Do not duplicate the same text in multiple sections or add a second archival
-record below the flow. The single-column sequence is the reader-facing record.
+record below the flow. The two-layout paragraph-column sequence is the
+reader-facing record.
 
 ## 7. Required Canvas Sections
 
@@ -316,7 +317,7 @@ The following eleven names define stable archival semantics:
 A domain guide may add fields inside these semantics. It must not remove or
 reinterpret them.
 
-For `artifact_design_sections_v3_single_column`, map the eleven semantics into
+For `artifact_design_columns_v4_paragraphs`, map the eleven semantics into
 five reader-facing category groups instead of rendering eleven separate
 headings:
 
@@ -329,7 +330,7 @@ headings:
 | Provenance & Change | Record Metadata; Change Log; promotion and copy-verification provenance |
 
 The detailed templates below define field meaning and audit completeness only.
-They are not additional reader-facing tables required below the single-column
+They are not additional reader-facing tables required below the paragraph-column
 artifact flow.
 
 ### 7.1 Record Metadata
@@ -514,8 +515,7 @@ without access to the current PC or repository checkout.
 Every evaluated artifact record must:
 
 1. show the exact reviewed media through a workspace-accessible Slack file
-   reference as a standalone top-level media block immediately after the
-   artifact decision summary;
+   reference in the upper-left media column;
 2. treat local filesystem paths as provenance metadata only, never as the
    reader's primary evidence link;
 3. include the original planning or source content verbatim without summary,
@@ -533,26 +533,36 @@ Required per-artifact Canvas block:
 ## {artifactName} · {result} · {score}
 {one-line decision summary}
 
+::: {.layout}
+::: {.column}
 {Slack-hosted media exactly once}
-
+:::
+::: {.column}
 ### Planning Original Context
 {one contiguous planning source block}
 
 ### Planning & Design
 {interpretation and design content}
+:::
+:::
 
-### Prompt & Required Expression
-{goals, required elements, constraints, exact prompt or unavailable reason}
-
+::: {.layout}
+::: {.column}
 ### Evaluation & Action
 {scores, findings, actions, re-evaluation trigger}
 
 ### Provenance & Change
 {source identity, completeness, review and change note}
+:::
+::: {.column}
+### Prompt & Required Expression
+{goals, required elements, constraints, exact prompt or unavailable reason}
+:::
+:::
 ```
 
 Each category is a Canvas-native heading followed by paragraphs or a compact
-list, not a string containing escaped newline characters.
+list inside its column, not a string containing escaped newline characters.
 
 The final Canvas must contain the Slack-hosted media exactly once. Transitional
 placeholders and duplicate image blocks are invalid final content. Under
@@ -672,8 +682,8 @@ published evidence set is 22 static previews plus 66 animation GIFs.
 
 - All required common fields exist and are non-empty.
 - New self-contained visual records and format migrations declare
-  `readerFacingLayoutVersion=artifact_design_sections_v3_single_column`.
-- The single-column artifact flow contains the exact Slack-hosted media once,
+  `readerFacingLayoutVersion=artifact_design_columns_v4_paragraphs`.
+- The paragraph-column artifact flow contains the exact Slack-hosted media once,
   target/use information, one contiguous verbatim planning block, separate
   display provenance, planning core interpretation, design concept, compact
   prompt goals/required elements/hard constraints, evaluation summary, and the
@@ -681,13 +691,14 @@ published evidence set is 22 static previews plus 66 animation GIFs.
 - Source facts and derived interpretation are visibly separated.
 - Required visual elements remain individually reviewable inside one compact
   list rather than separate sections.
-- The artifact has exactly one ordered single-column record with five category
-  headings, actual content under each heading, and no second archival record.
-- The artifact reader-facing record contains no Markdown table, Canvas native
-  layout block, or Canvas column block.
+- The artifact has one full-width decision heading, two native layout blocks,
+  four native column blocks, five category headings, and actual content under
+  every category heading.
+- The artifact reader-facing record contains no Markdown table or cell-based
+  grid.
 - A structural migration passes a one-artifact persistence pilot before batch
-  expansion. The pilot must confirm the ordered top-level blocks and must not
-  introduce native Columns or layout blocks.
+  expansion. The pilot must confirm both layout blocks, all four columns, exact
+  media placement, category content, and immutable evaluation data.
 - The writer mode is fixed per artifact. Connector and UI writes are not mixed
   on the same transient layout.
 - Completion always includes connector reread. `ui_only` additionally requires
@@ -696,14 +707,15 @@ published evidence set is 22 static previews plus 66 animation GIFs.
 - The previous canonical record remains available until the replacement passes
   every persistence gate; temporary failure is rolled back before processing
   another artifact.
-- The record does not collapse all category content into one long section.
+- The record does not collapse all category content into one long column or
+  section.
 - No numbered `Planning Original 1/2/3` fragments exist.
 - No image placeholder, reader-visible literal `<br>` text, duplicate full-width
   image, or reader-facing local absolute path remains. API serialization of
   native paragraph breaks is not a reader-visible literal-tag failure.
 - The form version matches the `v1` draft folder.
 - All eleven archival semantics map exactly once into the five reader-facing
-  categories; eleven standalone headings are not required for v3 records.
+  categories; eleven standalone headings are not required for v4 records.
 - Result, score, severity, and findings match the evaluation report.
 - Every score is within the domain category maximum and totals match when the
   report is scored.
@@ -717,7 +729,8 @@ published evidence set is 22 static previews plus 66 animation GIFs.
 - Current-PC external paths are preserved accurately; other-PC paths are not
   copied.
 - Secrets, tokens, credentials, and unrelated private links are excluded.
-- No reader-facing artifact table or native multi-column layout is present.
+- No reader-facing Markdown table or cell grid is present; the required two
+  native paragraph layouts and four columns are present.
 - In `self_contained` mode, every image artifact has a Slack-hosted embedded
   image, verbatim source content, separate display content, and preserved
   evaluation summary.
