@@ -1,0 +1,368 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.06",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.06",
+                   "inputEpisodeId":  "episode.06",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "산귀 가면 뒤의 산채",
+                   "episodeRole":  "breakthrough",
+                   "secondaryRoles":  [
+                                          "assault",
+                                          "chapter_climax",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/06_episode6.md",
+                                  "sourceChapterFile":  "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "AgentDocs/planning-data/story/00_Background.md",
+                                                              "AgentDocs/planning-data/story/Act01/01_Overall_Story.md",
+                                                              "AgentDocs/planning-data/story/Act01/Act_01_Background.md",
+                                                              "AgentDocs/planning-data/story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "AgentDocs/task-prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode6",
+                                           "suggestedStageNodeId":  "stage.ch1.episode6"
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "서진, 지한, 유진이 산채 앞에 함께 모여 납치된 아이들을 구하고 산귀 소문을 조작한 산적을 제압하지만, 오래된 제단과 서진의 과거로 이어지는 단서를 발견하는 결말 에피소드.",
+                                         "sceneBeats":  [
+                                                            "서진, 지한, 유진은 모든 단서가 북쪽 산채로 이어짐을 확인하고 살아 있는 아이들을 발견한다.",
+                                                            "산채 병력과 산귀 가면 두목은 산귀 소문을 조작해 아이들을 제물로 삼으려 한다.",
+                                                            "세 사람은 아이들과 증거를 지키며 산채 입구와 제단을 돌파한다.",
+                                                            "아이들은 돌아오지만 오래된 제단과 서진의 머리끈 단서가 더 깊은 진실을 남긴다."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "chapter_climax",
+                                                               "organized_threat",
+                                                               "personal_dread",
+                                                               "assault_urgency"
+                                                           ],
+                                         "sceneFunction":  "Chapter 01? ?? ?? ????, ??? ??? ? ??? ??? ??? ?? ????.",
+                                         "mustShow":  [
+                                                          "?? ??",
+                                                          "?? ???",
+                                                          "?? ? ??",
+                                                          "? ??? ??",
+                                                          "?? ?? ?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "?? ??",
+                                                          "??? ????",
+                                                          "?? ???",
+                                                          "??? ??? ??",
+                                                          "? ?? ???"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "bandit_fort",
+                                                                   "watchtower",
+                                                                   "inner_yard",
+                                                                   "old_altar"
+                                                               ],
+                                         "scriptHandoffHint":  "?? ????? ? ????? ???? ?? ????, ? ??? ???? ????."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.06.choice.attack_bandit_fort.1",
+                                               "sourceChoiceText":  "아이들과 산채의 증거를 지키며 산귀 가면의 무리를 제압한다.",
+                                               "choiceIntent":  "??, ??, ??? ???? ??? ?? ??? ??? ??? ????.",
+                                               "outcomeDirection":  "?? ??? ???? ??? ?? ??? ??? ?? ?? ??? ????.",
+                                               "opens":  [
+                                                             "battle",
+                                                             "chapter_transition"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward",
+                                                                       "gold_chapter_clear"
+                                                                   ],
+                                               "choiceName":  "attack_bandit_fort",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode06.sangui_mask_leader.attack_bandit_fort",
+                                               "sourcePopupId":  "node.act1.chapter01.episode06.sangui_mask_leader",
+                                               "legacyChoiceId":  "episode.act1.chapter01.06.choice.attack_bandit_fort.1",
+                                               "rewardOwner":  "battle",
+                                               "rewardTrigger":  "battle_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/06_episode6.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode06.fort_convergence",
+                                                             "popupName":  "fort_convergence",
+                                                             "originalTextKo":  "피 묻은 약초와 지워진 수레 자국, 부러진 연습 화살은 모두 북쪽 산등성이의 목책 앞에서 만났다. 서진과 지한, 유진은 서로 다른 순서로 얻은 단서를 맞추어 검은 천의 무리가 아이들을 산채로 데려왔고, 짐승과 가짜 발자국으로 산귀의 소문을 만들었다는 사실을 확인했다.\n\n산채 아래 우리에서는 실종된 아이 둘이 서로를 끌어안고 있었다. 다른 아이 하나는 제단 쪽 창고로 옮겨진 상태였다. 지한은 아이들의 기침 소리를 듣고 아직 모두 살아 있다고 판단했고, 유진은 목책 위 활잡이들의 시선을 피해 들어갈 길을 표시했다. 서진은 오래전 여동생을 놓친 산길과 닮은 풍경 앞에서 이번에는 누구도 두고 가지 않겠다고 다짐했다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode06.fort_convergence"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode06.sangui_mask_leader",
+                                                             "popupName":  "sangui_mask_leader",
+                                                             "originalTextKo":  "목책 위의 활잡이들은 눈가에 검은 먹을 길게 칠하고, 아이 옷 조각을 화살 깃 아래 매달고 있었다. 문 앞의 창병들은 흰 산 문양을 그린 가죽 견갑과 짐승 가죽 정강이받이를 맞춰 찼다. 마당의 도끼잡이는 머리를 밀고 화상 자국 위에 산귀 문양을 덧그렸으며, 허리에는 아이 손바닥만 한 붉은 천 인형을 줄줄이 달았다.\n\n높은 제단 앞에는 산귀 가면을 쓴 두목이 서 있었다. 그는 다른 자들보다 몸집이 컸고, 검은 털가죽 옷 위에 붉은 실을 엮은 흉갑을 걸쳤다. 나무 가면의 입은 아이가 우는 모양으로 비뚤게 벌어져 있었고, 손에는 방울 달린 장도와 우리 열쇠가 함께 들려 있었다. 그는 산귀가 아이들을 요구했다고 외치며 창고에 불을 붙이려 했다.\n\n[전투] 산채 입구와 제단 돌파\n\n세 사람은 아이들과 산채의 증거를 지키며 산귀 가면의 무리를 제압한다.\n\n서진은 불길과 창고 사이로 뛰어들었고, 지한은 우리 앞에서 아이들을 감쌌다. 유진의 화살이 두목의 열쇠 꾸러미를 제단 기둥에 박는 순간, 산채의 마지막 싸움이 시작되었다.",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode06.sangui_mask_leader"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode06.children_return",
+                                                             "popupName":  "children_return",
+                                                             "originalTextKo":  "검은 천의 무리가 쓰러지자 세 아이는 산채 밖으로 나왔다. 지한은 다친 아이들의 상처를 씻었고, 유진은 산채의 수레와 나무 발자국 틀을 마을 사람들이 볼 수 있도록 챙겼다. 아이들은 청운촌으로 돌아가 가족의 품에 안겼지만, 주민들은 산적의 거짓 흔적에는 분노하면서도 제단에서 나온 물건 앞에서는 입을 다물었다. 촌장 최만석은 산적의 짓이 모두 밝혀졌다며 사건을 끝내려 했다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode06.children_return"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode06.old_altar_truth",
+                                                             "popupName":  "old_altar_truth",
+                                                             "originalTextKo":  "그러나 산채 깊은 곳의 제단은 산적들이 급히 만든 것이 아니었다. 말라붙은 흙 아래에는 이름이 긁혀 지워진 위패 조각과 아이의 낡은 신발, 색이 바랜 머리끈이 놓여 있었다. 제단의 돌에는 붉은 천 인형과 같은 산 모양이 오래전부터 파여 있었다. 지한은 산적들이 이 장소의 공포를 이용했을 뿐, 제단 자체는 훨씬 오래되었다고 말했다.\n\n서진은 색 바랜 머리끈을 집어 들었다. 여동생이 쓰던 것과 같은 매듭이었지만, 그것이 정말 그녀의 것인지는 알 수 없었다. 유진은 산채 장비 일부에 청운촌 밖 관청과 거래한 흔적이 있다며, 이 무리가 한 마을에서 끝나지 않을 수 있다고 경고했다.\n\n그날 밤 마을 외곽에서 산바람이 불었다. 머리끈 끝의 붉은 실이 산 쪽을 향해 흔들리자, 멀리서 아이가 서진의 이름을 부르는 듯한 목소리가 들렸다. 청운촌의 아이들은 돌아왔지만, 산귀라는 이름 아래 감춰진 더 오래된 기억과 서진이 잃어버린 과거는 아직 산속에 남아 있었다.",
+                                                             "sourceParagraphOrder":  4,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode06.old_altar_truth"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "fort_convergence",
+                                               "popupId":  "node.act1.chapter01.episode06.fort_convergence",
+                                               "eventId":  "node.act1.chapter01.episode06.fort_convergence",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode06.fort_convergence",
+                                               "originalTextKo":  "피 묻은 약초와 지워진 수레 자국, 부러진 연습 화살은 모두 북쪽 산등성이의 목책 앞에서 만났다. 서진과 지한, 유진은 서로 다른 순서로 얻은 단서를 맞추어 검은 천의 무리가 아이들을 산채로 데려왔고, 짐승과 가짜 발자국으로 산귀의 소문을 만들었다는 사실을 확인했다.\n\n산채 아래 우리에서는 실종된 아이 둘이 서로를 끌어안고 있었다. 다른 아이 하나는 제단 쪽 창고로 옮겨진 상태였다. 지한은 아이들의 기침 소리를 듣고 아직 모두 살아 있다고 판단했고, 유진은 목책 위 활잡이들의 시선을 피해 들어갈 길을 표시했다. 서진은 오래전 여동생을 놓친 산길과 닮은 풍경 앞에서 이번에는 누구도 두고 가지 않겠다고 다짐했다.",
+                                               "displayTextKo":  "피 묻은 약초와 지워진 수레 자국, 부러진 연습 화살은 모두 북쪽 산등성이의 목책 앞에서 만났다. 서진과 지한, 유진은 서로 다른 순서로 얻은 단서를 맞추어 검은 천의 무리가 아이들을 산채로 데려왔고, 짐승과 가짜 발자국으로 산귀의 소문을 만들었다는 사실을 확인했다.\n\n산채 아래 우리에서는 실종된 아이 둘이 서로를 끌어안고 있었다. 다른 아이 하나는 제단 쪽 창고로 옮겨진 상태였다. 지한은 아이들의 기침 소리를 듣고 아직 모두 살아 있다고 판단했고, 유진은 목책 위 활잡이들의 시선을 피해 들어갈 길을 표시했다. 서진은 오래전 여동생을 놓친 산길과 닮은 풍경 앞에서 이번에는 누구도 두고 가지 않겠다고 다짐했다.",
+                                               "displayDirective":  "모든 단서가 산채로 모이고 아이들이 살아 있음을 확인하는 최종 진입 페이지다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode06.sangui_mask_leader",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "sangui_mask_leader",
+                                               "popupId":  "node.act1.chapter01.episode06.sangui_mask_leader",
+                                               "eventId":  "node.act1.chapter01.episode06.sangui_mask_leader",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode06.sangui_mask_leader",
+                                               "originalTextKo":  "목책 위의 활잡이들은 눈가에 검은 먹을 길게 칠하고, 아이 옷 조각을 화살 깃 아래 매달고 있었다. 문 앞의 창병들은 흰 산 문양을 그린 가죽 견갑과 짐승 가죽 정강이받이를 맞춰 찼다. 마당의 도끼잡이는 머리를 밀고 화상 자국 위에 산귀 문양을 덧그렸으며, 허리에는 아이 손바닥만 한 붉은 천 인형을 줄줄이 달았다.\n\n높은 제단 앞에는 산귀 가면을 쓴 두목이 서 있었다. 그는 다른 자들보다 몸집이 컸고, 검은 털가죽 옷 위에 붉은 실을 엮은 흉갑을 걸쳤다. 나무 가면의 입은 아이가 우는 모양으로 비뚤게 벌어져 있었고, 손에는 방울 달린 장도와 우리 열쇠가 함께 들려 있었다. 그는 산귀가 아이들을 요구했다고 외치며 창고에 불을 붙이려 했다.\n\n[전투] 산채 입구와 제단 돌파\n\n세 사람은 아이들과 산채의 증거를 지키며 산귀 가면의 무리를 제압한다.\n\n서진은 불길과 창고 사이로 뛰어들었고, 지한은 우리 앞에서 아이들을 감쌌다. 유진의 화살이 두목의 열쇠 꾸러미를 제단 기둥에 박는 순간, 산채의 마지막 싸움이 시작되었다.",
+                                               "displayTextKo":  "목책 위의 활잡이들은 눈가에 검은 먹을 길게 칠하고, 아이 옷 조각을 화살 깃 아래 매달고 있었다. 문 앞의 창병들은 흰 산 문양을 그린 가죽 견갑과 짐승 가죽 정강이받이를 맞춰 찼다. 마당의 도끼잡이는 머리를 밀고 화상 자국 위에 산귀 문양을 덧그렸으며, 허리에는 아이 손바닥만 한 붉은 천 인형을 줄줄이 달았다. 높은 제단 앞에는 산귀 가면을 쓴 두목이 서 있었다. 그는 다른 자들보다 몸집이 컸고, 검은 털가죽 옷 위에 붉은 실을 엮은 흉갑을 걸쳤다. 나무 가면의 입은 아이가 우는 모양으로 비뚤게 벌어져 있었고, 손에는 방울 달린 장도와 우리 열쇠가 함께 들려 있었다. 그는 산귀가 아이들을 요구했다고 외치며 창고에 불을 붙이려 했다. [전투] 산채 입구와 제단 돌파 세 사람은 아이들과 산채의 증거를 지키며 산귀 가면의 무리를 제압한다.\n\n서진은 불길과 창고 사이로 뛰어들었고, 지한은 우리 앞에서 아이들을 감쌌다. 유진의 화살이 두목의 열쇠 꾸러미를 제단 기둥에 박는 순간, 산채의 마지막 싸움이 시작되었다.",
+                                               "displayDirective":  "산채 병력, 산귀 가면 두목, 전투 목표와 전투 시작을 한 페이지에 담는다. 선택지는 전투 돌입 handoff다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode06.children_return",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "attack_bandit_fort",
+                                                                   "choiceId":  "choice.act1.chapter01.episode06.sangui_mask_leader.attack_bandit_fort",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.06.choice.attack_bandit_fort.1",
+                                                                   "sourceChoiceText":  "아이들과 산채의 증거를 지키며 산귀 가면의 무리를 제압한다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_battle_reward",
+                                                                                           "gold_chapter_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "battle",
+                                                                   "rewardTrigger":  "battle_clear"
+                                                               }
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "children_return",
+                                               "popupId":  "node.act1.chapter01.episode06.children_return",
+                                               "eventId":  "node.act1.chapter01.episode06.children_return",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode06.children_return",
+                                               "originalTextKo":  "검은 천의 무리가 쓰러지자 세 아이는 산채 밖으로 나왔다. 지한은 다친 아이들의 상처를 씻었고, 유진은 산채의 수레와 나무 발자국 틀을 마을 사람들이 볼 수 있도록 챙겼다. 아이들은 청운촌으로 돌아가 가족의 품에 안겼지만, 주민들은 산적의 거짓 흔적에는 분노하면서도 제단에서 나온 물건 앞에서는 입을 다물었다. 촌장 최만석은 산적의 짓이 모두 밝혀졌다며 사건을 끝내려 했다.",
+                                               "displayTextKo":  "검은 천의 무리가 쓰러지자 세 아이는 산채 밖으로 나왔다. 지한은 다친 아이들의 상처를 씻었고, 유진은 산채의 수레와 나무 발자국 틀을 마을 사람들이 볼 수 있도록 챙겼다. 아이들은 청운촌으로 돌아가 가족의 품에 안겼지만, 주민들은 산적의 거짓 흔적에는 분노하면서도 제단에서 나온 물건 앞에서는 입을 다물었다. 촌장 최만석은 산적의 짓이 모두 밝혀졌다며 사건을 끝내려 했다.",
+                                               "displayDirective":  "아이들이 돌아오지만 마을과 촌장이 사건을 닫으려 하는 여운을 한 페이지로 둔다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode06.old_altar_truth",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "old_altar_truth",
+                                               "popupId":  "node.act1.chapter01.episode06.old_altar_truth",
+                                               "eventId":  "node.act1.chapter01.episode06.old_altar_truth",
+                                               "popupOrder":  4,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode06.old_altar_truth",
+                                               "originalTextKo":  "그러나 산채 깊은 곳의 제단은 산적들이 급히 만든 것이 아니었다. 말라붙은 흙 아래에는 이름이 긁혀 지워진 위패 조각과 아이의 낡은 신발, 색이 바랜 머리끈이 놓여 있었다. 제단의 돌에는 붉은 천 인형과 같은 산 모양이 오래전부터 파여 있었다. 지한은 산적들이 이 장소의 공포를 이용했을 뿐, 제단 자체는 훨씬 오래되었다고 말했다.\n\n서진은 색 바랜 머리끈을 집어 들었다. 여동생이 쓰던 것과 같은 매듭이었지만, 그것이 정말 그녀의 것인지는 알 수 없었다. 유진은 산채 장비 일부에 청운촌 밖 관청과 거래한 흔적이 있다며, 이 무리가 한 마을에서 끝나지 않을 수 있다고 경고했다.\n\n그날 밤 마을 외곽에서 산바람이 불었다. 머리끈 끝의 붉은 실이 산 쪽을 향해 흔들리자, 멀리서 아이가 서진의 이름을 부르는 듯한 목소리가 들렸다. 청운촌의 아이들은 돌아왔지만, 산귀라는 이름 아래 감춰진 더 오래된 기억과 서진이 잃어버린 과거는 아직 산속에 남아 있었다.",
+                                               "displayTextKo":  "그러나 산채 깊은 곳의 제단은 산적들이 급히 만든 것이 아니었다. 말라붙은 흙 아래에는 이름이 긁혀 지워진 위패 조각과 아이의 낡은 신발, 색이 바랜 머리끈이 놓여 있었다. 제단의 돌에는 붉은 천 인형과 같은 산 모양이 오래전부터 파여 있었다. 지한은 산적들이 이 장소의 공포를 이용했을 뿐, 제단 자체는 훨씬 오래되었다고 말했다. 서진은 색 바랜 머리끈을 집어 들었다. 여동생이 쓰던 것과 같은 매듭이었지만, 그것이 정말 그녀의 것인지는 알 수 없었다. 유진은 산채 장비 일부에 청운촌 밖 관청과 거래한 흔적이 있다며, 이 무리가 한 마을에서 끝나지 않을 수 있다고 경고했다.\n\n그날 밤 마을 외곽에서 산바람이 불었다. 머리끈 끝의 붉은 실이 산 쪽을 향해 흔들리자, 멀리서 아이가 서진의 이름을 부르는 듯한 목소리가 들렸다. 청운촌의 아이들은 돌아왔지만, 산귀라는 이름 아래 감춰진 더 오래된 기억과 서진이 잃어버린 과거는 아직 산속에 남아 있었다.",
+                                               "displayDirective":  "오래된 제단, 머리끈, 관청 흔적, 산바람의 목소리까지 챕터 후크로 묶는다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+
+                                                           ]
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "organized_sangui_raider_fort",
+                    "difficultyIntent":  "chapter_climax_normal",
+                    "recommendedTier":  "normal_to_veteran_direction",
+                    "roleDirections":  [
+                                           "watchtower_archer",
+                                           "shield_spearman",
+                                           "axe_bruiser",
+                                           "ritual_support",
+                                           "caged_beast_pressure"
+                                       ],
+                    "visualDirection":  [
+                                            "black_mask",
+                                            "white_mountain_shoulder",
+                                            "red_thread",
+                                            "beast_teeth",
+                                            "studded_shield",
+                                            "chain_axe",
+                                            "burn_scar_sangui_mark",
+                                            "bell_ritual_tablet",
+                                            "child_cloth_strips"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "?? ??? ?? ???? ????. ? ????? ?? ??? ??? ???? ???.",
+                    "forbiddenTypes":  [
+                                           "final_boss",
+                                           "spirit",
+                                           "sangui_true_form"
+                                       ],
+                    "revealPolicy":  "??? ??? ??? ??? ?? ??? ???? ?? ??? ?? ???? ???.",
+                    "planningNotes":  [
+                                          "?? NPC, ??, ??, ??? ??? ??? ??? ???."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "bandit_fort_assault",
+                   "battleShape":  "layered_fort_breakthrough",
+                   "difficultyIntent":  "chapter_climax_normal",
+                   "partyAssumption":  "three_member_story_party_seojin_jihan_yujin",
+                   "partyAssumptionBasis":  "??? ??, ??, ??? ?? ??? ?? ????? ????.",
+                   "paceIntent":  "escalating_assault",
+                   "monsterPressure":  [
+                                           "watchtower_archer",
+                                           "shield_spearman",
+                                           "axe_bruiser",
+                                           "ritual_support",
+                                           "caged_beast_pressure"
+                                       ],
+                   "spaceDirection":  [
+                                          "fort_gate",
+                                          "watchtower",
+                                          "inner_yard",
+                                          "cage_area",
+                                          "old_altar"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "unbased_party_size",
+                                 "boss_reveal_without_source",
+                                 "spirit_reveal"
+                             ],
+                   "battleStoryContextHint":  "?? BattleStoryContext ???? ?? ???? ????."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "Chapter 01 ?? ??? ?? ?? ?? ?? ????.",
+                   "rewardScaleHint":  "important_chapter_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_chapter_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  200
+                                   }
+                               ],
+                   "rewardOwner":  "battle",
+                   "rewardTrigger":  "battle_clear"
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md",
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode6",
+                                               "suggestedStageNodeId":  "stage.ch1.episode6",
+                                               "sourceEpisodePlanningFile":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                                               "planningPopupPolicyRef":  "story.popupDefinitions"
+                                           },
+                    "battleStoryContextRef":  "AgentDocs/planning-data/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                    "optionalBattleId":  "battle.act1.chapter01.06.bandit_fort_assault",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.06.bandit_fort_assault.asset"
+                },
+    "constraints":  [
+                        "? ??? ???? ??? 1? ?? JSON?? ?? ????? ???.",
+                        "?? ?? ?? ?? ??? ???? ???.",
+                        "??? ??? ?? ?? ??? ???? ???.",
+                        "??? ??? ??, ?? ??, ?? ??, ?? ??? ?? ???, ??? ??? ?? ???? ??? ???.",
+                        "???? ?? ????? ???? ??, ??? ?? ? ???? ????.",
+                        "?? ??? gold ??? ????."
+                    ],
+    "notes":  [
+                  "Generated for episode.06 from AgentDocs/planning-data/story/Act01/Chapter01/06_episode6.md."
+              ]
+}

@@ -1,0 +1,415 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.03_1",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.03_1",
+                   "inputEpisodeId":  "episode.03-1",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "actGroupId":  "cheongun_sangui_act1",
+                   "title":  "붉은 인형 아래의 숨결",
+                   "episodeRole":  "companion_join",
+                   "secondaryRoles":  [
+                                          "rescue",
+                                          "ambush",
+                                          "defense",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/03-1_episode3-1.md",
+                                  "sourceChapterFile":  "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+                                  "storyReferenceFiles":  [
+                                                              "AgentDocs/planning-data/story/00_Background.md",
+                                                              "AgentDocs/planning-data/story/Act01/01_Overall_Story.md",
+                                                              "AgentDocs/planning-data/story/Act01/Act_01_Background.md",
+                                                              "AgentDocs/planning-data/story/Characters.md"
+                                                          ],
+                                  "promptReferenceFile":  "AgentDocs/task-prompts/story/EpisodePlanningPrompt.md",
+                                  "sampleStageNodeFile":  "Assets/Resources/stage_new/chapter1/episode1.json"
+                              },
+                   "stageNamingHint":  {
+                                           "sampleChapterId":  "chapter1",
+                                           "suggestedStageChapterId":  "chapter1",
+                                           "suggestedStageEpisodeId":  "episode3_1",
+                                           "suggestedStageNodeId":  "stage.ch1.episode3_1",
+                                           "note":  "Stage sample uses chapter1/episode1/stage.ch1.episode1. Planning keeps act/chapter hierarchy in episode.act1.chapter01.03_1."
+                                       }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "서진이 승려 지한과 함께 아이의 그림을 따라 숲속 오두막에서 다친 아이를 발견하고, 치료를 돕는 지한을 지키며 추격자와 짐승에 맞서는 전투 에피소드.",
+                                         "sceneBeats":  [
+                                                            "서진은 지한과 함께 붉은 실과 인형이 남은 서쪽 약초꾼 길을 조사한다.",
+                                                            "오두막에서 다친 여자아이와 치료 중인 지한을 발견하고 북쪽 산등성이 증언을 듣는다.",
+                                                            "검은 천 추격자와 붉은 천을 맨 짐승들이 오두막을 포위한다.",
+                                                            "서진은 지한과 아이를 지키며 좁은 문간에서 전투에 들어간다."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "forest_unease",
+                                                               "personal_memory",
+                                                               "urgent_rescue",
+                                                               "companion_trust",
+                                                               "narrow_path_pressure"
+                                                           ],
+                                         "sceneFunction":  "지한의 치료자 역할과 합류 이유를 보여준 뒤, 다친 아이를 보호해야 하는 좁은 산길 방어 전투로 연결한다.",
+                                         "mustShow":  [
+                                                          "붉은 천 인형의 흔적",
+                                                          "오래된 산길",
+                                                          "희미한 작은 발자국",
+                                                          "낡은 천 조각",
+                                                          "피 묻은 천",
+                                                          "급히 만든 부목",
+                                                          "다친 아이를 돌보는 지한",
+                                                          "약상자",
+                                                          "굶주린 들개와 산늑대",
+                                                          "붉은 천 조각이 묶인 짐승",
+                                                          "검은 표식",
+                                                          "검은 천 추격자",
+                                                          "긴 장대와 쇠고리",
+                                                          "손도끼와 산귀 부적",
+                                                          "오두막 앞 좁은 산길"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "deep_forest_path",
+                                                                   "old_mountain_trail",
+                                                                   "abandoned_hut_front",
+                                                                   "narrow_path_chokepoint"
+                                                               ],
+                                         "scriptHandoffHint":  "정식 스크립트는 지한의 합류와 아이 보호 동기를 살리되, 이 JSON은 최종 대사/전투 지문이 아닌 시놉시스 수준으로 유지한다."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_1.choice.follow_red_doll_trace.1",
+                                               "sourceChoiceText":  "붉은 인형 아래의 흔적을 따라간다.",
+                                               "choiceIntent":  "붉은 천 인형과 아이의 마지막 말이 이어지는 숲 안쪽 단서를 추적한다.",
+                                               "outcomeDirection":  "서진은 숲속 오래된 산길에서 일부러 감춰진 아이의 흔적을 확인한다.",
+                                               "opens":  [
+                                                             "forest_investigation",
+                                                             "companion_encounter"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ],
+                                               "choiceName":  "follow_red_doll_trace",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_1.red_doll_tree.follow_red_doll_trace",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_1.red_doll_tree",
+                                               "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.follow_red_doll_trace.1",
+                                               "rewardOwner":  "popup",
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_1.choice.accept_jihan_join.1",
+                                               "sourceChoiceText":  "지한의 치료를 돕고 아이의 증언을 듣는다.",
+                                               "choiceIntent":  "다친 아이와 앞으로 발견될 아이들을 치료할 지한의 동행을 받아들인다.",
+                                               "outcomeDirection":  "지한이 파티에 합류하고, 서진은 아이들을 살려낼 손과 함께 움직이게 된다.",
+                                               "opens":  [
+                                                             "companion_join",
+                                                             "battle_setup"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_episode_clear"
+                                                                   ],
+                                               "choiceName":  "accept_jihan_join",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_1.red_doll_tree.accept_jihan_join",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_1.red_doll_tree",
+                                               "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.accept_jihan_join.1",
+                                               "rewardOwner":  "popup",
+                                               "rewardTrigger":  "episode_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
+                                           },
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.03_1.choice.defend_jihan_and_child.1",
+                                               "sourceChoiceText":  "지한과 다친 아이를 지키며 검은 천의 추격자들을 막아낸다.",
+                                               "choiceIntent":  "다친 아이를 데리고 도망칠 수 없는 상황에서 오두막 앞 길목을 지킨다.",
+                                               "outcomeDirection":  "서진은 오두막 앞에 서서 짐승과 검은 천 추격자들이 아이에게 접근하지 못하게 막으며 전투에 들어간다.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ],
+                                               "choiceName":  "defend_jihan_and_child",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode03_1.defend_hut.defend_jihan_and_child",
+                                               "sourcePopupId":  "node.act1.chapter01.episode03_1.defend_hut",
+                                               "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.defend_jihan_and_child.1",
+                                               "rewardOwner":  "battle",
+                                               "rewardTrigger":  "battle_clear",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/03-1_episode3-1.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_1.red_doll_tree",
+                                                             "popupName":  "red_doll_tree",
+                                                             "originalTextKo":  "서쪽 약초꾼 길은 가시덤불에 덮여 있었지만, 낮은 가지마다 붉은 실이 한 올씩 걸려 있었다. 길 끝의 마른 느티나무에는 아이 그림과 같은 천 인형이 매달려 있었다. 인형 아래의 작은 발자국은 피 묻은 약초 잎과 함께 비탈 아래 오두막으로 이어졌다.\n\n무너진 오두막 안에서는 지한이 다친 여자아이의 발목에 부목을 대고 있었다. 삿갓을 벗은 그의 머리에는 오래된 계인 흉터가 희미했고, 잿빛 장삼의 소매에는 약초즙과 아이의 피가 묻어 있었다. 지한은 아이가 산속에서 도망쳐 나왔으며, 다른 아이들은 검은 천을 쓴 자들이 더 깊은 곳으로 끌고 갔다고 전했다.\n\n서진은 지한의 치료를 도우며 아이가 본 납치범의 이동로를 듣는다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode03_1.red_doll_tree"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_1.hut_pursuit",
+                                                             "popupName":  "hut_pursuit",
+                                                             "originalTextKo":  "서진이 물을 건네자 아이는 떨리는 손으로 북쪽 산등성이를 가리켰다. 그 순간 오두막 밖에서 짧은 휘파람과 짐승 발톱이 흙을 긁는 소리가 겹쳐 들렸다.\n\n굶주린 들개와 산늑대들이 낮게 몸을 숙인 채 숲을 메웠다. 털은 군데군데 빠지고 갈비뼈가 드러났으며, 목덜미에는 오래된 밧줄 자국과 새로 묶은 붉은 천이 남아 있었다. 뒤따른 추격자들은 진흙으로 굳은 두건 아래 눈만 드러내고, 긴 장대와 손도끼, 짐승 우리에 쓰는 쇠고리를 들었다. 그들의 소매에는 광장에서 본 것과 같은 흰 재 얼룩이 찍혀 있었다.\n\n지한은 약상자를 닫고 아이 앞을 가로막았다. 그는 싸움보다 치료가 먼저라며 서진에게 오두막 입구를 맡겼다.\n\n[전투] 숲속 오두막의 추격자",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode03_1.hut_pursuit"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode03_1.defend_hut",
+                                                             "popupName":  "defend_hut",
+                                                             "originalTextKo":  "서진은 지한과 다친 아이를 지키며 검은 천의 추격자들을 막아낸다.\n\n서진은 좁은 문간을 등지고 검을 세웠다. 지한이 아이를 안쪽으로 옮기는 동안 붉은 천을 맨 짐승들과 쇠고리를 든 추격자들이 한꺼번에 달려들었다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode03_1.defend_hut"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "red_doll_tree",
+                                               "popupId":  "node.act1.chapter01.episode03_1.red_doll_tree",
+                                               "eventId":  "node.act1.chapter01.episode03_1.red_doll_tree",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_1.red_doll_tree",
+                                               "originalTextKo":  "서쪽 약초꾼 길은 가시덤불에 덮여 있었지만, 낮은 가지마다 붉은 실이 한 올씩 걸려 있었다. 길 끝의 마른 느티나무에는 아이 그림과 같은 천 인형이 매달려 있었다. 인형 아래의 작은 발자국은 피 묻은 약초 잎과 함께 비탈 아래 오두막으로 이어졌다.\n\n무너진 오두막 안에서는 지한이 다친 여자아이의 발목에 부목을 대고 있었다. 삿갓을 벗은 그의 머리에는 오래된 계인 흉터가 희미했고, 잿빛 장삼의 소매에는 약초즙과 아이의 피가 묻어 있었다. 지한은 아이가 산속에서 도망쳐 나왔으며, 다른 아이들은 검은 천을 쓴 자들이 더 깊은 곳으로 끌고 갔다고 전했다.\n\n서진은 지한의 치료를 도우며 아이가 본 납치범의 이동로를 듣는다.",
+                                               "displayTextKo":  "서쪽 약초꾼 길은 가시덤불에 덮여 있었지만, 낮은 가지마다 붉은 실이 한 올씩 걸려 있었다. 길 끝의 마른 느티나무에는 아이 그림과 같은 천 인형이 매달려 있었다. 인형 아래의 작은 발자국은 피 묻은 약초 잎과 함께 비탈 아래 오두막으로 이어졌다. 무너진 오두막 안에서는 지한이 다친 여자아이의 발목에 부목을 대고 있었다. 삿갓을 벗은 그의 머리에는 오래된 계인 흉터가 희미했고, 잿빛 장삼의 소매에는 약초즙과 아이의 피가 묻어 있었다. 지한은 아이가 산속에서 도망쳐 나왔으며, 다른 아이들은 검은 천을 쓴 자들이 더 깊은 곳으로 끌고 갔다고 전했다.\n\n서진은 지한의 치료를 도우며 아이가 본 납치범의 이동로를 듣는다.",
+                                               "displayDirective":  "서쪽 약초꾼 길, 붉은 인형, 다친 아이 발견과 지한의 증언을 한 페이지로 묶는다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode03_1.hut_pursuit",
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "follow_red_doll_trace",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_1.red_doll_tree.follow_red_doll_trace",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.follow_red_doll_trace.1",
+                                                                   "sourceChoiceText":  "붉은 인형 아래의 흔적을 따라간다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               },
+                                                               {
+                                                                   "choiceName":  "accept_jihan_join",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_1.red_doll_tree.accept_jihan_join",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.accept_jihan_join.1",
+                                                                   "sourceChoiceText":  "지한의 치료를 돕고 아이의 증언을 듣는다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_episode_clear"
+                                                                                       ],
+                                                                   "rewardOwner":  "popup",
+                                                                   "rewardTrigger":  "episode_clear"
+                                                               }
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "hut_pursuit",
+                                               "popupId":  "node.act1.chapter01.episode03_1.hut_pursuit",
+                                               "eventId":  "node.act1.chapter01.episode03_1.hut_pursuit",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_1.hut_pursuit",
+                                               "originalTextKo":  "서진이 물을 건네자 아이는 떨리는 손으로 북쪽 산등성이를 가리켰다. 그 순간 오두막 밖에서 짧은 휘파람과 짐승 발톱이 흙을 긁는 소리가 겹쳐 들렸다.\n\n굶주린 들개와 산늑대들이 낮게 몸을 숙인 채 숲을 메웠다. 털은 군데군데 빠지고 갈비뼈가 드러났으며, 목덜미에는 오래된 밧줄 자국과 새로 묶은 붉은 천이 남아 있었다. 뒤따른 추격자들은 진흙으로 굳은 두건 아래 눈만 드러내고, 긴 장대와 손도끼, 짐승 우리에 쓰는 쇠고리를 들었다. 그들의 소매에는 광장에서 본 것과 같은 흰 재 얼룩이 찍혀 있었다.\n\n지한은 약상자를 닫고 아이 앞을 가로막았다. 그는 싸움보다 치료가 먼저라며 서진에게 오두막 입구를 맡겼다.\n\n[전투] 숲속 오두막의 추격자",
+                                               "displayTextKo":  "서진이 물을 건네자 아이는 떨리는 손으로 북쪽 산등성이를 가리켰다. 그 순간 오두막 밖에서 짧은 휘파람과 짐승 발톱이 흙을 긁는 소리가 겹쳐 들렸다. 굶주린 들개와 산늑대들이 낮게 몸을 숙인 채 숲을 메웠다. 털은 군데군데 빠지고 갈비뼈가 드러났으며, 목덜미에는 오래된 밧줄 자국과 새로 묶은 붉은 천이 남아 있었다. 뒤따른 추격자들은 진흙으로 굳은 두건 아래 눈만 드러내고, 긴 장대와 손도끼, 짐승 우리에 쓰는 쇠고리를 들었다. 그들의 소매에는 광장에서 본 것과 같은 흰 재 얼룩이 찍혀 있었다.\n\n지한은 약상자를 닫고 아이 앞을 가로막았다. 그는 싸움보다 치료가 먼저라며 서진에게 오두막 입구를 맡겼다. [전투] 숲속 오두막의 추격자",
+                                               "displayDirective":  "아이의 북쪽 증언 직후 추격자와 짐승 압박이 닥치는 장면을 한 페이지에 담는다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode03_1.defend_hut",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "defend_hut",
+                                               "popupId":  "node.act1.chapter01.episode03_1.defend_hut",
+                                               "eventId":  "node.act1.chapter01.episode03_1.defend_hut",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode03_1.defend_hut",
+                                               "originalTextKo":  "서진은 지한과 다친 아이를 지키며 검은 천의 추격자들을 막아낸다.\n\n서진은 좁은 문간을 등지고 검을 세웠다. 지한이 아이를 안쪽으로 옮기는 동안 붉은 천을 맨 짐승들과 쇠고리를 든 추격자들이 한꺼번에 달려들었다.",
+                                               "displayTextKo":  "서진은 지한과 다친 아이를 지키며 검은 천의 추격자들을 막아낸다.\n\n서진은 좁은 문간을 등지고 검을 세웠다. 지한이 아이를 안쪽으로 옮기는 동안 붉은 천을 맨 짐승들과 쇠고리를 든 추격자들이 한꺼번에 달려들었다.",
+                                               "displayDirective":  "전투명, 보호 목표, 전투 돌입을 한 페이지에 정리한다. 선택지는 전투 진입 handoff다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "defend_jihan_and_child",
+                                                                   "choiceId":  "choice.act1.chapter01.episode03_1.defend_hut.defend_jihan_and_child",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.03_1.choice.defend_jihan_and_child.1",
+                                                                   "sourceChoiceText":  "지한과 다친 아이를 지키며 검은 천의 추격자들을 막아낸다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_battle_reward"
+                                                                                       ],
+                                                                   "rewardOwner":  "battle",
+                                                                   "rewardTrigger":  "battle_clear"
+                                                               }
+                                                           ]
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "forest_pursuers_and_starving_beasts",
+                    "difficultyIntent":  "early_easy_to_normal",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "fast_beast_melee",
+                                           "black_cloth_basic_melee",
+                                           "reach_blocker",
+                                           "light_pursuer_pressure"
+                                       ],
+                    "visualDirection":  [
+                                            "starved_wild_dog",
+                                            "mountain_wolf",
+                                            "exposed_ribs",
+                                            "missing_fur",
+                                            "old_rope_mark",
+                                            "red_cloth_tie",
+                                            "black_brand_mark",
+                                            "black_cloth_hood",
+                                            "dry_mud_cracked_cloth",
+                                            "long_pole",
+                                            "iron_ring",
+                                            "hand_axe",
+                                            "sangui_talisman"
+                                        ],
+                    "reusePreference":  "direction_only_reuse_existing_if_later_pool_matches",
+                    "creationPolicy":  "후속 몬스터 기획 단계에서 굶주린 짐승형과 검은 천 추격자형 역할을 검토한다. 이 단계에서는 기존 몬스터 존재를 전제하지 않는다.",
+                    "forbiddenTypes":  [
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui_true_form",
+                                           "ranged_artillery"
+                                       ],
+                    "revealPolicy":  "산귀의 실체가 아니라 굶주린 짐승과 산귀 부적을 두른 인간 추격자로 보이게 한다.",
+                    "planningNotes":  [
+                                          "짐승과 인간 추격자가 한 무리처럼 섞인 압박을 준다.",
+                                          "다친 아이 보호 상황이 중심이므로 적은 오두막 안을 들여다보거나 길목을 막는 방향이어야 한다.",
+                                          "구체 NPC, 스탯, 스킬, 런타임 캐릭터 자산은 만들지 않는다."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "protect_injured_child",
+                   "battleShape":  "narrow_path_defense_with_mixed_beast_and_pursuer_pressure",
+                   "difficultyIntent":  "early_easy_to_normal",
+                   "partyAssumption":  "seojin_primary_combat_with_jihan_support_companion",
+                   "partyAssumptionBasis":  "원문에 지한이 파티에 합류했다고 명시되고, 전투 직전 지한은 아이를 지키겠다고 한다. 따라서 지한 동행/지원은 근거가 있지만, 지한을 완전한 전투원 수치로 확정하거나 3인 파티를 가정하지 않는다.",
+                   "paceIntent":  "short_urgent_defense",
+                   "monsterPressure":  [
+                                           "fast_beast_melee",
+                                           "basic_melee_pursuer",
+                                           "reach_blocker"
+                                       ],
+                   "spaceDirection":  [
+                                          "hut_front",
+                                          "narrow_mountain_path",
+                                          "child_protection_line",
+                                          "front_chokepoint"
+                                      ],
+                   "avoid":  [
+                                 "precise_spawner_selection",
+                                 "precise_spawn_sequence",
+                                 "precise_spawn_quantity",
+                                 "runtime_battle_asset_payload",
+                                 "three_member_party_assumption",
+                                 "boss_reveal",
+                                 "spirit_reveal",
+                                 "heavy_surround"
+                             ],
+                   "battleStoryContextHint":  "후속 BattleStoryContext 단계에서 오두막 앞 좁은 길목, 다친 아이 보호, 짐승/추격자 혼합 압박을 전투 맥락으로 변환한다."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "지한 합류와 다친 아이 보호 전투를 클리어한 보상 방향이다.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward",
+                                        "gold_episode_clear"
+                                    ],
+                   "rewards":  [
+                                   {
+                                       "rewardType":  "gold",
+                                       "amount":  100
+                                   }
+                               ],
+                   "rewardOwner":  "battle",
+                   "rewardTrigger":  "battle_clear"
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "monsterContextRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md",
+                    "downstreamThreads":  {
+                                              "monsterPlanningThread":  "codex://threads/019f42bb-f345-7032-aed3-7472b19d18c5",
+                                              "roundNodeJsonThread":  "codex://threads/019f42d7-fdc4-7d93-bd47-605c30903e3f"
+                                          },
+                    "roundNodeInputHint":  {
+                                               "stageChapterId":  "chapter1",
+                                               "stageEpisodeId":  "episode3_1",
+                                               "suggestedStageNodeId":  "stage.ch1.episode3_1",
+                                               "sourceEpisodePlanningFile":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                                               "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                                               "optionalBattleGroup":  "act1/chapter01",
+                                               "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                                               "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                               "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                                               "planningPopupPolicyRef":  "story.popupDefinitions"
+                                           },
+                    "battleStoryContextRef":  "AgentDocs/planning-data/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                    "optionalBattleId":  "battle.act1.chapter01.03_1.defend_hut",
+                    "optionalBattleGroup":  "act1/chapter01",
+                    "optionalBattleJsonFile":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.json",
+                    "optionalBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset",
+                    "expectedBattleSOPath":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.03_1.defend_hut.asset"
+                },
+    "constraints":  [
+                        "이 문서는 시놉시스 수준의 1차 기획 JSON이며 정식 스크립트가 아니다.",
+                        "지한 합류는 원문 근거가 있으나 지한을 완전한 전투원 수치로 확정하지 않는다.",
+                        "산귀의 실체와 최종 납치 진실을 드러내지 않는다.",
+                        "정확한 스포너 종류, 스폰 순서, 스폰 수량, 전투 런타임 자산 데이터, 캐릭터 런타임 자산 데이터를 만들지 않는다.",
+                        "몬스터가 이미 존재한다고 전제하지 않고, 몬스터 생성 전 방향성만 기록한다.",
+                        "현재 보상은 gold 기준만 사용한다."
+                    ],
+    "notes":  [
+                  "Episode 3-1 planning generated from 03-1_episode3-1.md.",
+                  "Battle monster pool direction is updated for later monster planning, but battle plan/runtime battle data is not created."
+              ]
+}

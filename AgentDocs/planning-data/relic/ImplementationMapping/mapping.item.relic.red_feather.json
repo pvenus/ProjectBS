@@ -1,0 +1,50 @@
+{
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.red_feather",
+    "relicId":  "item.relic.red_feather",
+    "planningPath":  "AgentDocs/planning-data/relic/item.relic.red_feather.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "item.relic.red_feather.icon",
+    "iconGuid":  "c6315475478e4487b77a7a87288a6225",
+    "iconFileId":  21300000,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "offense",
+    "subCategory":  "attack_speed",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "attack_speed_up",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "StatModifier",
+                        "config":  {
+                                       "statType":  "AttackSpeedPercent",
+                                       "modifierType":  "Flat",
+                                       "value":  8
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "not_applicable",
+                        "reapply":  "continuous",
+                        "termination":  "removed when relic unequips"
+                    }
+                ]
+}

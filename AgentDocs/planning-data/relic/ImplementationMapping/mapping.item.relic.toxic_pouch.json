@@ -1,0 +1,51 @@
+{
+    "schemaVersion":  "1.0.0",
+    "documentType":  "relic_implementation_mapping",
+    "documentId":  "mapping.item.relic.toxic_pouch",
+    "relicId":  "item.relic.toxic_pouch",
+    "planningPath":  "AgentDocs/planning-data/relic/item.relic.toxic_pouch.planning.json",
+    "reviewStatus":  "approved",
+    "runtimeSupportStatus":  "supported_current",
+    "legacyIcon":  true,
+    "iconSpriteName":  "item.relic.toxic_pouch.icon",
+    "iconGuid":  "e87aa5f35e844e63b49d078e4a7b4bb7",
+    "iconFileId":  21300000,
+    "themeColor":  {
+                       "r":  1,
+                       "g":  1,
+                       "b":  1,
+                       "a":  1
+                   },
+    "rarity":  "Common",
+    "category":  "debuff",
+    "subCategory":  "on_hit_poison_dot",
+    "hidden":  false,
+    "developerOnly":  false,
+    "traceability":  {
+                         "sourceOfTruth":  "approved planning",
+                         "planningReviewStatus":  "review_ready",
+                         "legacyAssetUse":  "icon/GUID/value comparison only"
+                     },
+    "effects":  [
+                    {
+                        "semanticEffectSlug":  "poison_on_hit",
+                        "planningTrace":  "effectsKo[0]",
+                        "supportedEffectType":  "OnHitPoisonDot",
+                        "config":  {
+                                       "chancePercent":  15,
+                                       "attackRatioPercentPerTick":  8,
+                                       "tickIntervalSeconds":  1,
+                                       "durationSeconds":  3
+                                   },
+                        "lifetimeType":  "Manual",
+                        "categoryType":  "Buff",
+                        "duration":  0,
+                        "maxApplyCount":  1,
+                        "targetRule":  "approved planning target",
+                        "triggerRule":  "approved planning trigger",
+                        "stacking":  "non_stack",
+                        "reapply":  "refresh duration to 3 seconds with new source attack snapshot",
+                        "termination":  "target state expires by duration; unequip only stops new triggers"
+                    }
+                ]
+}

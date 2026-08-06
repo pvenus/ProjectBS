@@ -1,0 +1,290 @@
+﻿{
+    "documentId":  "episode_planning.act1.chapter01.01",
+    "documentType":  "episodePlanning",
+    "commonDataRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "common":  {
+                   "episodeId":  "episode.act1.chapter01.01",
+                   "actId":  "act.01",
+                   "chapterId":  "chapter.01.01",
+                   "title":  "메마른 마을의 검은 천",
+                   "episodeRole":  "intro",
+                   "secondaryRoles":  [
+                                          "rescue",
+                                          "battle_entry"
+                                      ],
+                   "source":  {
+                                  "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/01_episode1.md",
+                                  "sourceChapterFile":  "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md"
+                              }
+               },
+    "story":  {
+                  "scriptSynopsis":  {
+                                         "episodeSummary":  "군졸 출신 서진이 아이 셋이 사라진 청운촌에 도착해 검은 천의 무리로부터 주민들을 지키고, 산귀 소문과 납치 사건에 개입하는 도입 전투 에피소드.",
+                                         "sceneBeats":  [
+                                                            "서진은 긴 가뭄과 아이 셋 실종 소문을 듣고 청운촌에 들어선다.",
+                                                            "검은 천 무리가 주민들을 우물가로 몰아붙이고 산귀 표식을 앞세운다.",
+                                                            "전투 직전 수레 자국 단서가 드러나 산귀 소문 뒤의 사람 손길을 암시한다.",
+                                                            "서진은 주민을 지키기 위해 광장 한가운데로 돌진한다."
+                                                        ],
+                                         "emotionalTone":  [
+                                                               "tense",
+                                                               "dry_village",
+                                                               "urgent",
+                                                               "uneasy",
+                                                               "personal_regret"
+                                                           ],
+                                         "mustShow":  [
+                                                          "갈라진 논",
+                                                          "쓰러진 수레",
+                                                          "주민들의 비명",
+                                                          "검은 천",
+                                                          "흰 재 얼룩",
+                                                          "붉은 천 인형",
+                                                          "녹슨 도끼",
+                                                          "뜯어낸 문짝 방패",
+                                                          "쇠사슬과 방울",
+                                                          "산귀 나무패"
+                                                      ],
+                                         "mustHide":  [
+                                                          "sangui_true_form",
+                                                          "spirit_boss",
+                                                          "final_abduction_truth",
+                                                          "sister_case_resolution"
+                                                      ],
+                                         "locationDirection":  [
+                                                                   "village_edge",
+                                                                   "village_square",
+                                                                   "drought_stricken_settlement"
+                                                               ],
+                                         "scriptHandoffHint":  "정식 스크립트는 서진의 페르소나와 이 시놉시스를 함께 사용해 다시 작성한다."
+                                     },
+                  "choiceDirections":  [
+                                           {
+                                               "choiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
+                                               "sourceChoiceText":  "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
+                                               "choiceIntent":  "주민을 보호하기 위해 즉시 개입한다.",
+                                               "outcomeDirection":  "서진이 검은 천 무리 사이로 뛰어들며 전투가 시작된다.",
+                                               "opens":  [
+                                                             "battle"
+                                                         ],
+                                               "rewardDirection":  [
+                                                                       "gold_battle_reward"
+                                                                   ],
+                                               "rewardOwner":  "battle",
+                                               "rewardTrigger":  "battle_clear",
+                                               "notes":  [
+                                                             "전투 결과는 여기서 쓰지 않고 전투 진입 방향만 보존한다."
+                                                         ],
+                                               "choiceName":  "rescue_villagers",
+                                               "semanticChoiceId":  "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+                                               "sourcePopupId":  "node.act1.chapter01.episode01.rescue_charge",
+                                               "legacyChoiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
+                                               "displayDirective":  "선택지는 최신 원문에서 행동 결정이 끝나는 popup에 배치한다. battle reward는 popup Gold가 아니라 handoff 규칙을 따른다."
+                                           }
+                                       ],
+                  "sourceNarration":  {
+                                          "policyVersion":  "planning_semantic_popup_v1",
+                                          "sourceEpisodeFile":  "AgentDocs/planning-data/story/Act01/Chapter01/01_episode1.md",
+                                          "originalTextKoPolicy":  "preserve_verbatim_markdown_blocks",
+                                          "blocks":  [
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.village_arrival",
+                                                             "popupName":  "village_arrival",
+                                                             "originalTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+                                                             "sourceParagraphOrder":  1,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode01.village_arrival"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.black_cloth_raid",
+                                                             "popupName":  "black_cloth_raid",
+                                                             "originalTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다.\n\n[전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+                                                             "sourceParagraphOrder":  2,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode01.black_cloth_raid"
+                                                                                 ]
+                                                         },
+                                                         {
+                                                             "sourceNarrationId":  "narration.act1.chapter01.episode01.rescue_charge",
+                                                             "popupName":  "rescue_charge",
+                                                             "originalTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                                             "sourceParagraphOrder":  3,
+                                                             "derivedPopupIds":  [
+                                                                                     "node.act1.chapter01.episode01.rescue_charge"
+                                                                                 ]
+                                                         }
+                                                     ]
+                                      },
+                  "popupDefinitions":  [
+                                           {
+                                               "popupName":  "village_arrival",
+                                               "popupId":  "node.act1.chapter01.episode01.village_arrival",
+                                               "eventId":  "node.act1.chapter01.episode01.village_arrival",
+                                               "popupOrder":  1,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.village_arrival",
+                                               "originalTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+                                               "displayTextKo":  "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+                                               "displayDirective":  "가뭄 든 청운촌 도착과 서진의 과거 후회를 한 페이지에 묶어 도입 몰입을 만든다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode01.black_cloth_raid",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "black_cloth_raid",
+                                               "popupId":  "node.act1.chapter01.episode01.black_cloth_raid",
+                                               "eventId":  "node.act1.chapter01.episode01.black_cloth_raid",
+                                               "popupOrder":  2,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.black_cloth_raid",
+                                               "originalTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다.\n\n[전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+                                               "displayTextKo":  "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다. [전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+                                               "displayDirective":  "광장 습격, 전투 표식, 수레 자국 단서를 한 화면에 담는다. [전투] 표기는 전투 진입 맥락으로 보존한다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  "node.act1.chapter01.episode01.rescue_charge",
+                                               "choices":  [
+
+                                                           ]
+                                           },
+                                           {
+                                               "popupName":  "rescue_charge",
+                                               "popupId":  "node.act1.chapter01.episode01.rescue_charge",
+                                               "eventId":  "node.act1.chapter01.episode01.rescue_charge",
+                                               "popupOrder":  3,
+                                               "sourceNarrationId":  "narration.act1.chapter01.episode01.rescue_charge",
+                                               "originalTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                               "displayTextKo":  "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+                                               "displayDirective":  "주민 보호 결심과 돌진을 선택 직전/직후 흐름으로 묶는다. 선택지는 이 popup에 둔다.",
+                                               "textLayoutProfile":  "stage_popup_v1",
+                                               "textEditState":  "planning_display_draft",
+                                               "imagePolicy":  "generate",
+                                               "nextPopupId":  null,
+                                               "choices":  [
+                                                               {
+                                                                   "choiceName":  "rescue_villagers",
+                                                                   "choiceId":  "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+                                                                   "legacyChoiceId":  "episode.act1.chapter01.01.choice.rescue_villagers.1",
+                                                                   "sourceChoiceText":  "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
+                                                                   "rewardDirection":  [
+                                                                                           "gold_battle_reward"
+                                                                                       ],
+                                                                   "rewardOwner":  "battle",
+                                                                   "rewardTrigger":  "battle_clear"
+                                                               }
+                                                           ]
+                                           }
+                                       ],
+                  "popupIdentityPolicy":  {
+                                              "popupIdFormat":  "node.{act_key}.{chapter_key}.{episode_key}.{popupName}",
+                                              "choiceIdFormat":  "choice.{act_key}.{chapter_key}.{episode_key}.{popupName}.{choiceName}",
+                                              "popupOrderMutable":  true,
+                                              "popupNameAndPopupIdPermanent":  true,
+                                              "nextPopupIdFeedsStageNextNodeId":  true,
+                                              "missingPopupDefinitionFailure":  "missing_popup_definition",
+                                              "legacySequentialIdsRemainPermanent":  true,
+                                              "eventIdEqualsPopupId":  true,
+                                              "imageFilenameFormat":  "{eventId}.main.png"
+                                          }
+              },
+    "monster":  {
+                    "monsterFamily":  "black_cloth_raiders",
+                    "difficultyIntent":  "early_easy",
+                    "recommendedTier":  "normal",
+                    "roleDirections":  [
+                                           "basic_melee",
+                                           "light_control_melee"
+                                       ],
+                    "visualDirection":  [
+                                            "black_cloth",
+                                            "white_ash_mark",
+                                            "red_cloth_doll",
+                                            "improvised_weapon",
+                                            "sangui_wooden_charm",
+                                            "chain",
+                                            "bell",
+                                            "beast_teeth"
+                                        ],
+                    "reusePreference":  "reuse_existing_if_possible",
+                    "creationPolicy":  "기존 검은 천 습격자 계열과 사슬 제어형 역할로 커버할 수 있으면 재사용하고, 역할이 부족할 때만 변형 몬스터를 만든다.",
+                    "forbiddenTypes":  [
+                                           "elite",
+                                           "boss",
+                                           "spirit",
+                                           "sangui"
+                                       ],
+                    "revealPolicy":  "산귀의 실체가 아니라 산귀 소문을 걸친 인간 위협처럼 보이게 한다.",
+                    "planningNotes":  [
+                                          "기본 근접병이 주 압박을 담당한다.",
+                                          "사슬을 끄는 습격자는 기억점이 되는 light control 방향으로만 사용한다.",
+                                          "이 단계에서는 구체 NPC, 스탯, 스킬, CharacterSO를 확정하지 않는다."
+                                      ]
+                },
+    "battle":  {
+                   "battleNeed":  "required",
+                   "battleMood":  "urgent_rescue",
+                   "battleShape":  "front_pressure_with_light_flank",
+                   "difficultyIntent":  "easy_intro",
+                   "partyAssumption":  "solo_story_intro",
+                   "paceIntent":  "short_readable_swarm",
+                   "monsterPressure":  [
+                                           "basic_melee",
+                                           "light_control"
+                                       ],
+                   "spaceDirection":  [
+                                          "front",
+                                          "light_flank"
+                                      ],
+                   "avoid":  [
+                                 "heavy_surround",
+                                 "elite_pressure",
+                                 "boss_reveal",
+                                 "spirit_reveal",
+                                 "altar_objective",
+                                 "backline_artillery"
+                             ],
+                   "battleStoryContextHint":  "이후 BattleStoryContext 단계에서 90초 섬멸/스포너/승리 조건을 구체화한다."
+               },
+    "reward":  {
+                   "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md",
+                   "rewardType":  "gold",
+                   "rewardReason":  "주민 보호 전투를 클리어한 보상 방향이다.",
+                   "rewardScaleHint":  "normal_battle_clear",
+                   "rewardIntent":  [
+                                        "gold_battle_reward"
+                                    ],
+                   "rewardOwner":  "battle",
+                   "rewardTrigger":  "battle_clear"
+               },
+    "handoff":  {
+                    "formalScriptNeedsPersona":  true,
+                    "monsterPlanningNeeded":  true,
+                    "battleStoryContextNeeded":  true,
+                    "rewardPlanningNeeded":  true,
+                    "battleMonsterPoolRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_monster_pool.chapter_01.json",
+                    "battlePlanRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode_battle_plan.chapter_01.json",
+                    "battlePlanStatus":  "created",
+                    "battleStoryContextCandidateId":  "battle_story_context.act1.chapter01.01.rescue_villagers",
+                    "battleStoryContextRefHint":  "AgentDocs/planning-data/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.story_context.json",
+                    "battleJsonRef":  "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+                    "monsterContextRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_context.cheongun_sangui_act1.json",
+                    "monsterCompositionRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/monster_composition.chapter_01_05.json",
+                    "rewardPolicyRef":  "AgentDocs/planning-guides/story/RewardPlanningGuide.md"
+                },
+    "constraints":  [
+                        "산귀의 실체를 직접 전투 대상으로 드러내지 않는다.",
+                        "주민 보호 상황을 전투 목적의 중심으로 유지한다.",
+                        "초반 도입 전투이므로 엘리트, 보스, 원혼 압박은 금지한다.",
+                        "전투 결과 문장은 전투 진입까지만 다룬다.",
+                        "이 문서는 정식 스크립트, BattleStoryContext, NPC 기획의 방향성만 제공한다."
+                    ],
+    "notes":  [
+                  "새 카테고리 구조로 재정리한 Episode 01 planning JSON.",
+                  "구체 NPC 확정은 NPC planning 단계에서 수행한다.",
+                  "정확한 스폰 시간, 스폰 수, 스포너 타입은 BattleStoryContext 이후 단계에서 결정한다."
+              ]
+}

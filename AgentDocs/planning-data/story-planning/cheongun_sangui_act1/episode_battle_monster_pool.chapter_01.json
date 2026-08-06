@@ -1,0 +1,858 @@
+﻿{
+    "poolPlanId":  "episode_battle_monster_pool.chapter_01.cheongun_sangui_act1",
+    "documentType":  "episodeBattleMonsterPoolPlan",
+    "actId":  "act.01",
+    "chapterId":  "chapter.01.01",
+    "commonDataRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/cheongun_sangui_act1.story_common.json",
+    "storyContextRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/story_context.cheongun_sangui_act1.json",
+    "sourceStoryRefs":  [
+                            "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/01_episode1.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/03-1_episode3-1.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/03-2_episode3-2.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/05-1_episode5-1.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/05-2_episode5-2.md",
+                            "AgentDocs/planning-data/story/Act01/Chapter01/06_episode6.md"
+                        ],
+    "sourcePlanningRefs":  [
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                               "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.06.json"
+                           ],
+    "globalRules":  {
+                        "preMonsterCreationStage":  true,
+                        "doNotAssumeExistingMonsters":  true,
+                        "existingMonsterRefsAreCandidatesOnly":  true,
+                        "doNotCreateStatsOrSkills":  true,
+                        "doNotCreateUnityObjectRefs":  true,
+                        "useForBattleMonsterPoolSelection":  true
+                    },
+    "episodePools":  [
+                         {
+                             "episodeId":  "episode.act1.chapter01.01",
+                             "episodeTitle":  "Cheongun Village Rescue",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Cheongun Village Rescue.",
+                             "storyBasis":  {
+                                                "summary":  "Village rescue intro battle against black cloth raiders.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "black_cloth_raiders",
+                                                   "difficultyIntent":  "early_easy",
+                                                   "battleDifficultyIntent":  "early_easy",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "basic_melee"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "light_control_melee"
+                                                                         ],
+                                                   "optionalPressure":  [
+                                                                            "light_blocker",
+                                                                            "fast_beast_flavor"
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "elite",
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form",
+                                                                             "heavy_surround",
+                                                                             "backline_artillery"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.black_cloth.basic_melee",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_easy",
+                                                      "countWeight":  "high",
+                                                      "storyReason":  "Basic black-cloth melee raider for the village rescue introduction.",
+                                                      "visualRequirements":  [
+                                                                                 "black_cloth",
+                                                                                 "red_cloth_doll",
+                                                                                 "improvised_weapon"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    [
+                                                                                        {
+                                                                                            "candidateUse":  "reference_only",
+                                                                                            "characterId":  "character.black_cloth_raider.1",
+                                                                                            "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+                                                                                            "fitReason":  "Basic human melee raider candidate."
+                                                                                        }
+                                                                                    ],
+                                                                                    "Slot"
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         },
+                         {
+                             "episodeId":  "episode.act1.chapter01.03_1",
+                             "episodeTitle":  "Hut Path Defense",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.03_1.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Hut Path Defense.",
+                             "storyBasis":  {
+                                                "summary":  "Protect the injured child and Jihan at the hut path.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "forest_pursuers_and_starving_beasts",
+                                                   "difficultyIntent":  "early_easy_to_normal",
+                                                   "battleDifficultyIntent":  "early_easy_to_normal",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "fast_beast_melee",
+                                                                           "black_cloth_basic_melee"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "reach_blocker",
+                                                                             "light_pursuer_pressure"
+                                                                         ],
+                                                   "optionalPressure":  [
+                                                                            "talisman_flavor"
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "elite",
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form",
+                                                                             "heavy_surround",
+                                                                             "backline_artillery"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.forest_beast.fast_melee",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_easy_to_normal",
+                                                      "countWeight":  "medium_high",
+                                                      "storyReason":  "Fast starving beast pressure at the hut path.",
+                                                      "visualRequirements":  [
+                                                                                 "starved_wild_dog",
+                                                                                 "mountain_wolf",
+                                                                                 "red_cloth_tie"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    [
+                                                                                        {
+                                                                                            "candidateUse":  "reference_only",
+                                                                                            "characterId":  "character.starving_mountain_wolf.1",
+                                                                                            "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+                                                                                            "fitReason":  "Fast beast melee candidate."
+                                                                                        }
+                                                                                    ],
+                                                                                    "Slot"
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         },
+                         {
+                             "episodeId":  "episode.act1.chapter01.03_2",
+                             "episodeTitle":  "Training Ground Ambush",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.03_2.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Training Ground Ambush.",
+                             "storyBasis":  {
+                                                "summary":  "Yujin joins and the party breaks a training ground ambush.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "training_ground_bandit_watchers",
+                                                   "difficultyIntent":  "early_easy_to_normal",
+                                                   "battleDifficultyIntent":  "early_easy_to_normal",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "bandit_archer",
+                                                                           "short_blade_flanker"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "watcher_melee"
+                                                                         ],
+                                                   "optionalPressure":  [
+                                                                            "front_guard_blocker"
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "elite",
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.03_2.bandit_archer",
+                                                      "slotRole":  "Ranged",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_easy_to_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Bandit archer cover at the old training ground.",
+                                                      "visualRequirements":  [
+                                                                                 "short_bow",
+                                                                                 "soot_camouflage",
+                                                                                 "red_head_tie"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.mountain_path_archer.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json",
+                                                                                        "fitReason":  "Human ranged bandit candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.03_2.short_blade_flanker",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_easy_to_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Short-blade flanker from cover.",
+                                                      "visualRequirements":  [
+                                                                                 "short_blade",
+                                                                                 "soot_camouflage"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.training_ground_skirmisher.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+                                                                                        "fitReason":  "Training ground skirmisher candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.03_2.watcher_melee",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "early_easy_to_normal",
+                                                      "countWeight":  "low_medium",
+                                                      "storyReason":  "Watcher melee guard pressure.",
+                                                      "visualRequirements":  [
+                                                                                 "black_cloth",
+                                                                                 "sangui_mask_charm"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.black_cloth_raider.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+                                                                                        "fitReason":  "Basic melee watcher candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.03_2.front_guard_blocker",
+                                                      "slotRole":  "Tank",
+                                                      "need":  "optional",
+                                                      "difficultyIntent":  "early_easy_to_normal",
+                                                      "countWeight":  "low",
+                                                      "storyReason":  "Optional front guard blocker for selected spawner slot.",
+                                                      "visualRequirements":  [
+                                                                                 "front_guard",
+                                                                                 "improvised_shield"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.door_shield_barricader.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.door_shield_barricader.1.json",
+                                                                                        "fitReason":  "Front blocker review candidate."
+                                                                                    }
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         },
+                         {
+                             "episodeId":  "episode.act1.chapter01.05_1",
+                             "episodeTitle":  "Training Ground Breakout",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Training Ground Breakout.",
+                             "storyBasis":  {
+                                                "summary":  "Three-member story party breaks out of a training ground encirclement.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "training_ground_encirclement_raiders",
+                                                   "difficultyIntent":  "early_normal",
+                                                   "battleDifficultyIntent":  "early_normal",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "shield_frontliner",
+                                                                           "bandit_archer"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "fast_beast_melee",
+                                                                             "basic_encirclement_raider"
+                                                                         ],
+                                                   "optionalPressure":  [
+                                                                            "leader_like_pressure"
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form",
+                                                                             "heavy_magic"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.05_1.shield_frontliner",
+                                                      "slotRole":  "Tank",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Shield frontliner holding the encirclement.",
+                                                      "visualRequirements":  [
+                                                                                 "sangui_eye_shield",
+                                                                                 "front_block"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.door_shield_barricader.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.door_shield_barricader.1.json",
+                                                                                        "fitReason":  "Shield/front blocker candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_1.bandit_archer",
+                                                      "slotRole":  "Ranged",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Bandit archer pressure around the breakout route.",
+                                                      "visualRequirements":  [
+                                                                                 "short_arrow",
+                                                                                 "black_outerwear"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.mountain_path_archer.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json",
+                                                                                        "fitReason":  "Bandit archer candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_1.fast_beast_melee",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Fast beast pressure during the breakout.",
+                                                      "visualRequirements":  [
+                                                                                 "red_cloth_dog",
+                                                                                 "fast_pressure"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.starving_mountain_wolf.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+                                                                                        "fitReason":  "Fast beast melee candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_1.basic_encirclement_raider",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Basic raider filling the encirclement.",
+                                                      "visualRequirements":  [
+                                                                                 "black_outerwear",
+                                                                                 "short_blade"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.black_cloth_raider.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+                                                                                        "fitReason":  "Basic encirclement raider candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_1.leader_like_pressure",
+                                                      "slotRole":  "Elite",
+                                                      "need":  "optional_flavor",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "very_low",
+                                                      "storyReason":  "Leader-like pressure kept as flavor only.",
+                                                      "visualRequirements":  [
+                                                                                 "scale_armor",
+                                                                                 "beast_claw_charm"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.training_ground_captain.2",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_captain.2.json",
+                                                                                        "fitReason":  "Leader-like candidate, not required binding."
+                                                                                    }
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         },
+                         {
+                             "episodeId":  "episode.act1.chapter01.05_2",
+                             "episodeTitle":  "Hut Escape",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.05_2.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Hut Escape.",
+                             "storyBasis":  {
+                                                "summary":  "Protect the child escape from hut capture raiders.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "child_capture_raiders",
+                                                   "difficultyIntent":  "early_normal",
+                                                   "battleDifficultyIntent":  "early_normal",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "door_blocker_tank",
+                                                                           "net_capture_control"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "hook_pole_control",
+                                                                             "basic_masked_raider"
+                                                                         ],
+                                                   "optionalPressure":  [
+
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form",
+                                                                             "fire_attack_on_hut"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.05_2.door_blocker_tank",
+                                                      "slotRole":  "Tank",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Door blocker preventing the child escape.",
+                                                      "visualRequirements":  [
+                                                                                 "white_dot_black_mask",
+                                                                                 "door_block",
+                                                                                 "patched_cloth_armor"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.hut_blocker_guard.2",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.hut_blocker_guard.2.json",
+                                                                                        "fitReason":  "Hut door blocker candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_2.net_capture_control",
+                                                      "slotRole":  "Ranged",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Net capture pressure from side windows, not artillery.",
+                                                      "visualRequirements":  [
+                                                                                 "folded_net",
+                                                                                 "bamboo_tube",
+                                                                                 "window_side"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.child_snatcher_netman.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json",
+                                                                                        "fitReason":  "Net captor objective pressure candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_2.hook_pole_control",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Hook pole control cutting off the escape line.",
+                                                      "visualRequirements":  [
+                                                                                 "hooked_pole",
+                                                                                 "short_blade",
+                                                                                 "control"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.mud_hood_polehooker.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mud_hood_polehooker.1.json",
+                                                                                        "fitReason":  "Hook pole control candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.05_2.basic_masked_raider",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "early_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Basic masked raider filling the escape route.",
+                                                      "visualRequirements":  [
+                                                                                 "white_dot_black_mask",
+                                                                                 "short_blade"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.black_cloth_raider.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+                                                                                        "fitReason":  "Basic masked raider candidate."
+                                                                                    }
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         },
+                         {
+                             "episodeId":  "episode.act1.chapter01.06",
+                             "episodeTitle":  "Bandit Fort Assault",
+                             "episodePlanningRef":  "AgentDocs/planning-data/story-planning/cheongun_sangui_act1/episode.act1.chapter01.06.json",
+                             "battleNeed":  "required",
+                             "poolPurpose":  "Battle monster pool direction for Bandit Fort Assault.",
+                             "storyBasis":  {
+                                                "summary":  "Chapter 01 fort assault without revealing the final boss or Sangui true form.",
+                                                "mustShow":  [
+
+                                                             ],
+                                                "mustHide":  [
+                                                                 "sangui_true_form",
+                                                                 "spirit_boss",
+                                                                 "final_abduction_truth"
+                                                             ]
+                                            },
+                             "poolDirection":  {
+                                                   "monsterFamily":  "organized_sangui_raider_fort",
+                                                   "difficultyIntent":  "chapter_climax_normal",
+                                                   "battleDifficultyIntent":  "chapter_climax_normal",
+                                                   "recommendedTierRange":  [
+                                                                                "normal"
+                                                                            ],
+                                                   "primaryPressure":  [
+                                                                           "watchtower_archer",
+                                                                           "shield_spearman"
+                                                                       ],
+                                                   "secondaryPressure":  [
+                                                                             "axe_bruiser"
+                                                                         ],
+                                                   "optionalPressure":  [
+                                                                            "ritual_support",
+                                                                            "caged_beast_pressure"
+                                                                        ],
+                                                   "forbiddenPressure":  [
+                                                                             "final_boss",
+                                                                             "spirit",
+                                                                             "sangui_true_form"
+                                                                         ]
+                                               },
+                             "desiredSlots":  [
+                                                  {
+                                                      "slotKey":  "episode.pool.06.watchtower_archer",
+                                                      "slotRole":  "Ranged",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "chapter_climax_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Watchtower archer pressure at the fort assault.",
+                                                      "visualRequirements":  [
+                                                                                 "watchtower",
+                                                                                 "black_mask",
+                                                                                 "short_arrow"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.watchtower_marksman.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.watchtower_marksman.1.json",
+                                                                                        "fitReason":  "Watchtower ranged candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.06.shield_spearman",
+                                                      "slotRole":  "Tank",
+                                                      "need":  "primary",
+                                                      "difficultyIntent":  "chapter_climax_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Shield and spear front line at the gate.",
+                                                      "visualRequirements":  [
+                                                                                 "studded_shield",
+                                                                                 "spear",
+                                                                                 "white_mountain_shoulder"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.mountain_fort_spearman.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_fort_spearman.1.json",
+                                                                                        "fitReason":  "Fort defender spear candidate."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.06.axe_bruiser",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "secondary",
+                                                      "difficultyIntent":  "chapter_climax_normal",
+                                                      "countWeight":  "medium",
+                                                      "storyReason":  "Axe bruiser pressure in the inner yard.",
+                                                      "visualRequirements":  [
+                                                                                 "chain_axe",
+                                                                                 "beast_teeth"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.bone_axe_pursuer.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.bone_axe_pursuer.1.json",
+                                                                                        "fitReason":  "Axe melee candidate."
+                                                                                    },
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.chain_axe_enforcer.2",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.chain_axe_enforcer.2.json",
+                                                                                        "fitReason":  "Stronger chain axe candidate for review only."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.06.ritual_support",
+                                                      "slotRole":  "Support",
+                                                      "need":  "optional_flavor",
+                                                      "difficultyIntent":  "chapter_climax_normal",
+                                                      "countWeight":  "very_low",
+                                                      "storyReason":  "Ritual support flavor, not required binding.",
+                                                      "visualRequirements":  [
+                                                                                 "bell_ritual_tablet",
+                                                                                 "red_thread"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.ritual_bell_handler.2",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.ritual_bell_handler.2.json",
+                                                                                        "fitReason":  "Ritual support candidate, optional only."
+                                                                                    }
+                                                                                ]
+                                                  },
+                                                  {
+                                                      "slotKey":  "episode.pool.06.caged_beast_pressure",
+                                                      "slotRole":  "Melee",
+                                                      "need":  "optional",
+                                                      "difficultyIntent":  "chapter_climax_normal",
+                                                      "countWeight":  "low",
+                                                      "storyReason":  "Caged beast pressure near the fort cages.",
+                                                      "visualRequirements":  [
+                                                                                 "cage_area",
+                                                                                 "beast_teeth"
+                                                                             ],
+                                                      "existingCandidateRefs":  [
+                                                                                    {
+                                                                                        "candidateUse":  "reference_only",
+                                                                                        "characterId":  "character.starving_mountain_wolf.1",
+                                                                                        "planningRef":  "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+                                                                                        "fitReason":  "Caged beast review candidate."
+                                                                                    }
+                                                                                ]
+                                                  }
+                                              ],
+                             "avoidExistingCandidatesForThisEpisode":  [
+                                                                           {
+                                                                               "avoidTag":  "spirit_or_final_reveal",
+                                                                               "reason":  "Do not reveal the Sangui true form, spirit boss, or final abduction truth in this battle."
+                                                                           },
+                                                                           {
+                                                                               "avoidTag":  "boss_without_source",
+                                                                               "reason":  "Do not escalate to boss pressure unless the episode explicitly requires it."
+                                                                           }
+                                                                       ],
+                             "battlePoolReadiness":  {
+                                                         "requiredDirectionsCoveredByExistingCandidates":  true,
+                                                         "coverageSummary":  "Primary and secondary directions are covered by reference_only planning candidates. Existing monsters are review candidates only, not mandatory prerequisites.",
+                                                         "missingDirections":  [
+
+                                                                               ]
+                                                     },
+                             "notes":  [
+                                           "Pre-monster-creation battle pool planning only.",
+                                           "All existingCandidateRefs are reference_only.",
+                                           "No Unity object references, stats, skills, or runtime asset payloads are created here."
+                                       ]
+                         }
+                     ]
+}
