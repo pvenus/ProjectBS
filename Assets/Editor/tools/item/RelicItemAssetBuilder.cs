@@ -19,7 +19,7 @@ namespace ResourceTools.Item
             "Assets/Resources/item/json";
 
         private const string MigrationReportPath =
-            "Assets/Doc/Relic/relic.production_migration_report.json";
+            "AgentDocs/planning-data/relic/relic.production_migration_report.json";
 
         [Serializable]
         public class RelicItemJson
