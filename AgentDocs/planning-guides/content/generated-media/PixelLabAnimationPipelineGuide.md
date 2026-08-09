@@ -11,12 +11,18 @@ logic, targeting, collision, or runtime movement.
 
 ## 2. Required References
 
+Prompt authoring requires both the immutable `routingRecordFile` and its
+`planningHandoffFile`. It validates and consumes the router-selected row; it
+does not rerun route selection. New authoring writes only
+`generated_media_prompt_v2`; prompt v1 remains read-only compatibility.
+
 ```text
 AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -33,8 +39,10 @@ unregistered pair by similarity.
 
 Priority is ContentFolderStructureGuide for storage, PixelLabPipelineGuide for
 stage ownership, the authoring profile registry for exact route pairs, planning
-handoff for approved sequence/runtime meaning, this guide for provider/adapter
-specialization, then legacy evidence. Conflict blocks with
+handoff for approved sequence/runtime meaning,
+GeneratedMediaVisualPromptAuthoringGuide for common and animation visual
+normalization, this guide for provider/adapter specialization, then legacy
+evidence. Conflict blocks with
 `reference_contract_conflict`.
 
 ## 3. Required Input

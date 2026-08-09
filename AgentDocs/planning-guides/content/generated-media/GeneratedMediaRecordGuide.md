@@ -15,6 +15,7 @@ AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md
 AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 ```
 
 ContentFolderStructureGuide owns storage boundaries. The planning handoff owns
@@ -23,6 +24,9 @@ owns authoring separation; GeneratedImageGenerationPipelineGuide owns the
 generation-only boundary. This guide owns new record serialization and IDs.
 Provider/type guides may add supported fields but cannot change these
 identities. Conflict returns `record_authority_conflict`.
+GeneratedMediaVisualPromptAuthoringGuide owns visual normalization behavior.
+This guide alone owns the complete persisted `visualBrief` schema, field order,
+required/optional classification, serialization, and hash payload.
 
 ## 3. Canonical Serialization, Storage, and IDs
 
@@ -47,6 +51,7 @@ planningHashPayload:
   assetType:
   domainType:
   contentId:
+  contentUsage:
   planningSnapshotHash:
   sourcePlanningFiles: sorted by path, then role, then sha256 ascending
 
@@ -80,26 +85,76 @@ AgentDocs/planning-data/generated-media-generation/v1/{assetType}/{contentId}/{g
 AgentDocs/planning-data/generated-media-generation/v1/{assetType}/{contentId}/generation_index.json
 ```
 
+The path segment and index family `v1` are `directoryVersion=v1`; they
+identify the stable storage layout and do not identify the JSON record schema.
+New files in that directory use
+`recordSchemaVersion=generated_media_prompt_v2`. A v1 directory/index may
+therefore point to both read-only compatibility v1 records and new v2 records.
+
 Each index is `generated_media_prompt_index_v1` or
 `generated_media_generation_index_v1` and contains a deterministic array sorted
 by `createdAt`, then record ID. Each entry records request/asset/domain/content
 identity, optional legacyArtifactType, status, hashes, timestamp, and exact
 project-relative record file path. Prompt entries also record the `.prompt.md`
-path. Duplicate IDs or differing bytes at an existing path are collisions.
+path. A v2 prompt entry additionally records `visualBriefId`,
+`visualBriefSha256`, `visualPromptGuideVersion`, `registryRowId`, and exact
+profile ID/version. Duplicate IDs or differing bytes at an existing path are
+collisions.
 
-## 4. generated_media_prompt_v1
+## 4. generated_media_prompt_v2
 
 ```yaml
-schemaVersion: generated_media_prompt_v1
+schemaVersion: generated_media_prompt_v2
 promptRecordId:
 requestId:
 assetType:
 domainType:
 legacyArtifactType: optional
 contentId:
+contentUsage:
 planningHandoffPath:
+routingRecordFile:
+routingRecordId:
+routingRecordSha256:
 planningSnapshotHash:
 sourcePlanningFiles: []
+registryVersion:
+selectedRegistryRowId:
+selectedPipeline:
+selectedAuthoringPrompt:
+appliedProfile:
+normalizedRequest:
+visualPromptGuideVersion:
+visualBrief:
+  schemaVersion: generated_media_visual_brief_v1
+  visualBriefId:
+  guideContractVersion:
+  requestId:
+  assetType:
+  domainType:
+  contentId:
+  contentUsage:
+  planningSnapshotHash:
+  registryVersion:
+  registryRowId:
+  profileId:
+  profileVersion:
+  planningOriginalRef:
+  primarySubjectOrSilhouette:
+  visualHierarchy:
+  composition:
+  paletteAndMaterial:
+  backgroundPolicy:
+  requiredVisualStatements: []
+  prohibitedVisualStatements: []
+  supportingElements: []
+  likelyWrongObjects: []
+  artifactSpecificBrief:
+  visualEvidenceMap: []
+  providerTranslationContract:
+  status: normalized
+  validation:
+visualBriefSha256:
 provider: pixellab | imagegen
 providerTool:
 providerPromptProfile:
@@ -125,6 +180,26 @@ revisionReason: optional
 createdAt:
 validation:
 ```
+
+The YAML declaration above is the canonical field order for
+`generated_media_prompt_v2` and its embedded `visualBrief`. Every shown field
+is required except fields explicitly marked `optional`. Unknown fields are
+rejected. Hashing still sorts object keys under Section 3; declared field order
+is used for schema parity checks and human-readable rendering.
+
+The canonical `visualBrief` hash payload is the complete `visualBrief` object
+in the exact schema above, including `contentUsage`, `status`, and
+`validation`. Compute
+`visualBriefSha256=SHA256(canonical_json(visualBrief))`. No other guide may
+add, omit, rename, reorder, or change requiredness of embedded brief fields.
+
+`visualBrief` is the only persisted provider-neutral authoring intermediate. It
+is embedded in the immutable prompt JSON and rendered in the prompt Markdown as
+a clearly labeled non-copy-ready audit section. It has no separate mutable path
+or index. Recompute `visualBriefId` by
+`GeneratedMediaVisualPromptAuthoringGuide.md`, then compute
+`visualBriefSha256=SHA256(canonical_json(visualBrief))`. A mismatch, missing
+evidence map, or non-`normalized` status blocks the prompt record.
 
 Exactly one provider payload branch is populated. For PixelLab, sort by unique
 contiguous `fieldOrder` starting at zero and hash canonical JSON of the ordered
@@ -191,7 +266,7 @@ hashes, evaluation readiness, and package identity belong to a later task.
 ## 6. State and Ownership
 
 ```text
-prompt authoring task -> generated_media_prompt_v1
+prompt authoring task -> generated_media_prompt_v2
 provider generation task -> generated_media_generation_v1
 preservation/package task -> generated_media_preservation_v1 + generated_media_evaluation_package_v1
 evaluation task -> evaluation result
@@ -208,6 +283,20 @@ Legacy `generated_image_prompt_v1` and `generated_image_generation_v1` remain
 read-only compatibility inputs. New version `generated_media_generation_v1`
 replaces only provider execution and its result-reference handoff; it does not
 replace later download/evaluation tasks with generation behavior.
+
+`generated_media_prompt_v1` also remains an immutable read-only compatibility
+input. It predates the required embedded visual brief. New prompt-authoring
+tasks write `generated_media_prompt_v2`; they never add visual fields to or
+overwrite a v1 record. A generation task may consume an existing v1 record only
+under its original validated contract and unchanged planning/profile hashes.
+Re-authoring creates a new v2 record with a new promptRecordId and explicit
+`priorPromptRecordId`; no in-place schema upgrade is allowed.
+
+`directoryVersion=v1` and `recordSchemaVersion` are independent version
+axes. The former changes only when the path/index layout changes; the latter
+changes when record fields or semantics change. Migration from prompt v1 to
+prompt v2 creates a new v2 record and index entry in the existing v1 directory,
+links `priorPromptRecordId`, and leaves the v1 bytes untouched.
 
 ```text
 legacyArtifactType -> explicit assetType/domainType mapping
@@ -226,12 +315,17 @@ planning_snapshot_hash_mismatch
 provider_prompt_profile_mismatch
 provider_payload_branch_conflict
 provider_prompt_hash_mismatch
+visual_brief_identity_mismatch
+visual_brief_hash_mismatch
+visual_evidence_map_incomplete
+visual_brief_schema_parity_failed
 prompt_markdown_mismatch
 prompt_record_collision
 prompt_record_write_failed
 generation_record_collision
 generation_record_write_failed
 legacy_record_migration_blocked
+prompt_schema_version_unsupported
 record_authority_conflict
 invalid_utc_id_timestamp
 canonical_payload_invalid
@@ -248,6 +342,10 @@ index_entry_invalid
 - reject every unknown field and block on every missing required field before
   calculating an ID, writing a record, or updating an index;
 - verify prompt, submitted payload, settings, attempts, and refs agree;
+- verify visual guide/profile versions, visualBriefId, visualBriefSha256,
+  evidence coverage, and provider translation contract agree;
+- verify the embedded brief has exact field-name, declared-order,
+  required/optional, and unknown-field parity with Section 4;
 - verify every PixelLab field order, fenced body, textOriginal, and body hash;
 - verify provider is stored as canonical lowercase;
 - verify index schema, sort order, exact record path, and record hash;
@@ -265,6 +363,7 @@ keeps the prior index unchanged, and does not write a partial ready record.
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md

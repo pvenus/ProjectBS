@@ -12,8 +12,13 @@ registryVersion: generated_media_authoring_profile_registry_v1
 `GeneratedMediaRequestRoutingGuide.md` owns routing procedure. This registry
 owns the exact supported `assetType + domainType + profileId + profileVersion`
 pairs, their selected pipeline/prompt, and technical prompt profile. Provider
+authoring consumes and validates the immutable router-selected row through
+`routingRecordFile`; it never independently reselects a row.
 pipeline guides own the behavior behind registered rows. External planning owns
 all visual meaning and specifications.
+`GeneratedMediaVisualPromptAuthoringGuide.md` owns common visual normalization;
+this registry owns the exact profile authority that may add artifact/domain
+rendering constraints to each row.
 
 The current router is pinned to
 `generated_media_authoring_profile_registry_v1`. A caller cannot select,
@@ -57,6 +62,26 @@ The skill-icon row's `skill_icon` routing profile does not replace the external
 composition profile; composition remains an immutable design fact inside
 `iconSpecification`.
 
+### 3.1 Registered Visual Profile Authorities
+
+The mapping below documents the exact already-active visual evidence for each
+registry row. It does not make legacy execution steps authoritative.
+
+| registryRowId | artifact contract | registered visual profile authority |
+| --- | --- | --- |
+| `character_main_v1` | `character_main_image` | `AgentDocs/planning-guides/character/CharacterGenerateImage.md` provider/profile sections |
+| `character_animation_v1` | `character_animation` | `AgentDocs/planning-guides/character/CharacterGenerateAnimation.md` provider/profile sections |
+| `skill_icon_v1` | `icon` | `AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md` visual profile sections |
+| `relic_icon_v1` | `icon` | `AgentDocs/planning-guides/item/ItemIconGenerationGuide.md` visual profile sections |
+| `skill_animation_v1` | `general_animation` | `AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md` visual profile sections |
+| `stage_popup_v1` | `imagegen_image` | `AgentDocs/planning-guides/stage/StoryImageVisualGuide.md`, `AgentDocs/planning-guides/stage/StoryImageElementGuide.md`, and the visual sections of `AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md` |
+| `battle_background_v1` | `imagegen_image` | background visual sections of `AgentDocs/planning-guides/battle/BattleCreateGuide.md` |
+
+Apply these only after Master Concept, approved planning, and the common visual
+authoring guide. A legacy profile statement that invents missing request meaning
+or conflicts with an upper authority is inactive and returns
+`material_visual_contract_conflict`; it is not an exception.
+
 ## 4. Exact Match Contract
 
 Match all four key fields. Character rows assign their fixed profile before
@@ -81,10 +106,12 @@ Adding a pair requires one reviewed change set that:
 1. adds one non-overlapping exact row;
 2. updates the owning provider pipeline guide/profile behavior;
 3. defines the matching planning specification and provider settings contract;
-4. provides a preservation adapter and evaluation structure/profile adapter;
-5. updates compatibility mapping only when a legacy caller exists;
-6. updates this registry version and README index/reference impact;
-7. passes guide and prompt evaluation before Git handoff.
+4. defines an exact visual profile authority compatible with
+   GeneratedMediaVisualPromptAuthoringGuide.md;
+5. provides a preservation adapter and evaluation structure/profile adapter;
+6. updates compatibility mapping only when a legacy caller exists;
+7. updates this registry version and README index/reference impact;
+8. passes guide and prompt evaluation before Git handoff.
 
 Add a row/profile, not a copied domain task prompt. A changed profile contract
 requires a new `profileVersion`. Any row addition/removal or route target change
@@ -122,6 +149,8 @@ registry_migration_ambiguous
 - every key tuple is unique;
 - every selected prompt and pipeline guide exists;
 - every row has one preservation/evaluation adapter path through its pipeline;
+- every row has one exact artifact contract and registered visual profile
+  authority;
 - providerPromptProfile agrees with the selected pipeline;
 - unknown domains and profiles do not match;
 - registry changes never modify existing immutable routing records.
@@ -131,6 +160,7 @@ registry_migration_ambiguous
 ```text
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md

@@ -17,10 +17,10 @@
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v1_path}
-- promptRecordId: {generated_media_prompt_v1_record_id}
+- promptRecordId: {generated_media_prompt_v2_or_validated_legacy_v1_record_id}
 
 작업:
-1. assetType=imagegen_image, domainType/imageProfile, planning snapshot과 scene prompt hash를 검증한다.
+1. prompt schema를 확인한다. 신규 v2이면 visualBriefId/hash/evidence coverage까지 검증하고, 기존 v1이면 GeneratedMediaRecordGuide.md의 read-only compatibility gate를 충족해야 한다. assetType=imagegen_image, domainType/imageProfile, planning snapshot과 scene prompt hash를 검증한다.
 2. scene 누락, unsupported profile 또는 stale prompt이면 provider를 호출하지 않는다.
 3. 저장된 scenePromptOriginal 하나를 바꾸지 않고 정확한 settings로 ImageGen에 제출한다.
 4. settings, cost evidence, attempts와 모든 provider result refs를 generation record에 기록한다.
@@ -37,7 +37,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: invalid_planning_handoff | missing_scene_specification | unsupported_image_profile | prompt_record_missing | prompt_record_stale | provider_prompt_hash_mismatch | provider_unavailable | provider_operation_failed | ambiguous_provider_result | generation_record_write_failed
+- failureType: invalid_planning_handoff | missing_scene_specification | unsupported_image_profile | prompt_record_missing | prompt_schema_version_unsupported | prompt_record_stale | provider_prompt_hash_mismatch | visual_brief_identity_mismatch | visual_brief_hash_mismatch | visual_evidence_map_incomplete | provider_unavailable | provider_operation_failed | ambiguous_provider_result | generation_record_write_failed
 - Provider 호출·비용 여부 / 보존된 provider refs / Required Next Action
 
 검증:

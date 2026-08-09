@@ -73,6 +73,14 @@ AgentDocs/planning-data/generated-media-prompts/v1/{assetType}/{contentId}/{prom
 AgentDocs/planning-data/generated-media-prompts/v1/{assetType}/{contentId}/{promptRecordId}.prompt.md
 ```
 
+New authoring writes `generated_media_prompt_v2`. Existing validated
+`generated_media_prompt_v1` records remain read-only compatibility inputs under
+GeneratedMediaRecordGuide.md and are never upgraded in place.
+
+Every new authoring run requires the immutable `routingRecordFile` and matching
+`planningHandoffFile`, validates the selected registry row and identities, and
+does not perform registry selection independently.
+
 New generation records:
 
 ```text

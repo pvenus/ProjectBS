@@ -325,6 +325,7 @@ contains no invented prompt fields:
 authoringHandoff:
   selectedAuthoringPrompt:
   promptInput:
+    routingRecordFile:
     planningHandoffFile:
     runType: character_main_image | character_animation  # Character only
     animationRequestId: exact ID                          # animation unit only
@@ -332,12 +333,21 @@ authoringHandoff:
     normalized field: exact planning handoff JSON pointer(s)
 ```
 
-Icon, general-animation, and ImageGen authoring prompts receive only
-`planningHandoffFile` as their required prompt input; they resolve the mapped
-fields from that immutable file. Character main also receives `runType`.
+Every authoring prompt receives both `routingRecordFile` and
+`planningHandoffFile` as required inputs. Icon, general-animation, and
+ImageGen resolve mapped fields from the immutable planning handoff. Character
+main also receives `runType`.
 Character animation creates one handoff unit with `runType` and
 `animationRequestId` for each exact request. Revision inputs remain absent
 unless a separate revision request supplies them.
+
+The authoring task verifies `routingRecordId`, `registryVersion`,
+`selectedRegistryRowId`, `selectedPipeline`, `selectedAuthoringPrompt`,
+`appliedProfile`, `normalizedRequest`, and `planningSnapshotHash` from the
+routing record. Its request/content identity and planning hash must match the
+named planning handoff. It validates the router-selected row against the pinned
+registry and must not run registry selection again. Missing, stale, mismatched,
+or ambiguous routing evidence blocks authoring.
 
 For `character_animation`, `normalizedRequest.authoringUnits` contains one item
 for each supplied `animationRequestId` in source order. Each unit selects the
@@ -458,6 +468,10 @@ Successful output:
 ```yaml
 status: routed
 routingRecordId:
+routingRecordFile:
+routingRecordSha256:
+registryVersion:
+selectedRegistryRowId:
 selectedPipeline:
 selectedAuthoringPrompt:
 assetType:

@@ -19,7 +19,7 @@
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v1_path}
-- promptRecordId: {generated_media_prompt_v1_record_id}
+- promptRecordId: {generated_media_prompt_v2_or_validated_read_only_legacy_v1_record_id}
 - generationRecordId: {generated_media_generation_v1_record_id}
 - generationRecordSha256: {canonical_generation_record_sha256}
 

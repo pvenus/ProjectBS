@@ -18,10 +18,10 @@
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v1_path}
-- promptRecordId: {generated_media_prompt_v1_record_id}
+- promptRecordId: {generated_media_prompt_v2_or_validated_legacy_v1_record_id}
 
 작업:
-1. assetType=general_animation과 sequence/loop/frame/runtime/reference 계약 및 prompt hash를 검증한다.
+1. prompt schema를 확인한다. 신규 v2이면 visualBriefId/hash/evidence coverage까지 검증하고, 기존 v1이면 GeneratedMediaRecordGuide.md의 read-only compatibility gate를 충족해야 한다. assetType=general_animation과 sequence/loop/frame/runtime/reference 계약 및 prompt hash를 검증한다.
 2. 누락이나 stale prompt이면 provider를 호출하지 않는다.
 3. 저장된 reference_image_description으로 reference 결과를 생성하고 refs/settings/attempt를 기록한다.
 4. 저장된 animation_action과 지정 tool/settings로 animation sheet 결과를 생성한다.
@@ -37,7 +37,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_sequence_specification | missing_runtime_boundary | prompt_record_missing | prompt_record_stale | pixellab_unavailable | reference_generation_failed | animation_generation_failed | provider_result_missing | generation_record_write_failed
+- failureType: missing_sequence_specification | missing_runtime_boundary | prompt_record_missing | prompt_schema_version_unsupported | prompt_record_stale | visual_brief_identity_mismatch | visual_brief_hash_mismatch | visual_evidence_map_incomplete | pixellab_unavailable | reference_generation_failed | animation_generation_failed | provider_result_missing | generation_record_write_failed
 - Provider 호출·비용 여부 / 보존된 provider refs / Required Next Action
 
 검증:

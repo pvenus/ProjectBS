@@ -51,6 +51,7 @@ Current generated-media request routing and provider pipelines:
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -64,6 +65,12 @@ AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
 The current provider structure is `PixelLab -> Character/Icon/Animation` and
 `ImageGen`. New integrations use `assetType + domainType`; the earlier
 `artifactType` remains a compatibility alias only.
+
+All four authoring pipelines require the router's immutable record path plus
+the matching planning handoff path. New prompt records use
+`generated_media_prompt_v2`; `generated_media_prompt_v1` is read-only
+compatibility. Storage `directoryVersion=v1` is independent of prompt record
+schema version.
 
 Legacy generated-media migration:
 

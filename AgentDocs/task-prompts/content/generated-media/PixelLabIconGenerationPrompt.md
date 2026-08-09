@@ -18,10 +18,10 @@
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v1_path}
-- promptRecordId: {generated_media_prompt_v1_record_id}
+- promptRecordId: {generated_media_prompt_v2_or_validated_legacy_v1_record_id}
 
 작업:
-1. assetType=icon, domainType, iconProfile, planning snapshot과 prompt payload/hash를 검증한다.
+1. prompt schema를 확인한다. 신규 v2이면 visualBriefId/hash/evidence coverage까지 검증하고, 기존 v1이면 GeneratedMediaRecordGuide.md의 read-only compatibility gate를 충족해야 한다. assetType=icon, domainType, iconProfile, planning snapshot과 prompt payload/hash를 검증한다.
 2. requiredElements/prohibitedElements 누락이나 stale prompt이면 provider를 호출하지 않는다.
 3. 저장된 field text/settings를 Create UI elements (Pro)에 그대로 제출한다.
 4. cost evidence, attempts와 모든 variation result refs를 generation record에 기록한다.
@@ -38,7 +38,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: invalid_planning_handoff | prompt_record_missing | prompt_record_stale | provider_prompt_hash_mismatch | pixellab_unavailable | provider_operation_failed | provider_variations_missing | ambiguous_provider_result | generation_record_write_failed
+- failureType: invalid_planning_handoff | prompt_record_missing | prompt_schema_version_unsupported | prompt_record_stale | provider_prompt_hash_mismatch | visual_brief_identity_mismatch | visual_brief_hash_mismatch | visual_evidence_map_incomplete | pixellab_unavailable | provider_operation_failed | provider_variations_missing | ambiguous_provider_result | generation_record_write_failed
 - Provider 호출·비용 여부 / 보존된 provider refs / Required Next Action
 
 검증:

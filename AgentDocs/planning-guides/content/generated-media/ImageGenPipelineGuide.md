@@ -9,12 +9,18 @@ selected by `domainType`; they do not get new execution prompts.
 
 ## 2. Required References
 
+Prompt authoring requires both the immutable `routingRecordFile` and its
+`planningHandoffFile`. It validates and consumes the router-selected row; it
+does not rerun route selection. New authoring writes only
+`generated_media_prompt_v2`; prompt v1 remains read-only compatibility.
+
 ```text
 AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -32,9 +38,10 @@ unregistered pair by similarity.
 
 Priority is ContentFolderStructureGuide for storage, the planning handoff for
 approved scene meaning, the authoring profile registry for exact route pairs,
-GeneratedImageGenerationPipelineGuide for the generation-only boundary, this
-guide for ImageGen specialization, then legacy stage/battle evidence. Conflict
-blocks with `reference_contract_conflict`.
+GeneratedMediaVisualPromptAuthoringGuide for common and ImageGen visual
+normalization, GeneratedImageGenerationPipelineGuide for the generation-only
+boundary, this guide for ImageGen specialization, then legacy stage/battle
+profile evidence. Conflict blocks with `reference_contract_conflict`.
 
 ## 3. Required Input
 

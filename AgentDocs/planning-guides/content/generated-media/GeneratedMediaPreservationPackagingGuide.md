@@ -31,7 +31,7 @@ returns `reference_contract_conflict`; do not choose broader behavior.
 
 ```yaml
 planningHandoffFile: project-relative generated_media_planning_handoff_v1
-promptRecordId: generated_media_prompt_v1 identity
+promptRecordId: generated_media_prompt_v2 identity or validated read-only generated_media_prompt_v1 compatibility identity
 generationRecordId: generated_media_generation_v1 identity
 generationRecordSha256: SHA-256 of canonical generated_media_generation_v1 record
 provider: canonical lowercase pixellab | imagegen
