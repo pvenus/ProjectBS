@@ -1,5 +1,9 @@
 # Skill Animation Provider Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md`.
+
 캐릭터 독립형 스킬 애니메이션의 PixelLab provider 생성 단계만 실행합니다.
 
 ## Prompt

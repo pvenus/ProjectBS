@@ -1,5 +1,9 @@
 # Popup Event Main Image Provider Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md`.
+
 스토리 팝업 메인 이미지의 ImageGen provider 생성 단계만 실행합니다.
 
 ## Prompt

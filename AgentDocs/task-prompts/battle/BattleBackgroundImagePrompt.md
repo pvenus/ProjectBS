@@ -1,5 +1,9 @@
 # Battle Background Provider Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md`.
+
 전투 배경의 provider 생성 단계만 실행하는 copy-ready 프롬프트입니다.
 프롬프트 작성, 다운로드, 평가, 프로젝트 승격과 Unity 작업은 수행하지 않습니다.
 

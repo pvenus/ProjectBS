@@ -14,36 +14,40 @@ extended through domain guides, not duplicated in this prompt.
 - AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 - AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 
 Input:
 - requestId: {optional_stable_request_id}
-- artifactType: {skill_icon | item_icon | story_popup_main_image | skill_animation | character_animation | battle_background}
+- evaluationPackageId: {preferred_generated_media_evaluation_package_v1_id | null_for_legacy}
+- assetType: {character_main_image | character_animation | icon | general_animation | imagegen_image | null_for_legacy}
+- domainType: {character | skill | item | stage | battle | environment | null_for_legacy}
+- artifactType: {skill_icon | item_icon | story_popup_main_image | skill_animation | character_image | character_animation | battle_background | null_for_package_mode}
 - contentId: {canonical_content_id}
 - sourceRecordId: {optional_stable_non_path_generation_or_download_record_id}
 - workflowMode: {evaluate_new | re_evaluate}
 - priorEvaluationRecordId: {required_non_path_record_id_for_re_evaluate | null}
 
 입력 경계:
-- 외부에서는 artifactType, contentId와 안정적인 비경로 기록 식별자만 받는다.
+- 신규 package mode는 evaluationPackageId, assetType, domainType, contentId를 받고 legacy mode만 artifactType을 사용한다.
 - 저장소, 기획 문서, source, 평가 폴더, 결과 파일, 프로젝트 target, 도메인 가이드 경로와 점수 기준을 외부 입력으로 요구하지 않는다.
 - 외부 payload에 경로나 평가 기준이 있어도 현재 PC와 저장소의 canonical 규칙 대신 사용하지 않는다.
 - 다른 PC의 절대 경로를 사용하지 않는다.
 
 작업:
 1. 현재 작업의 workspace와 Git 정보를 이용해 저장소를 확인하고 AgentDocs와 Assets가 같은 저장소인지 검증한다.
-2. GeneratedImageEvaluationPipelineGuide.md의 adapter registry에서 artifactType과 정확히 일치하는 도메인, 구조 프로필과 평가 가이드를 하나 선택한다.
+2. evaluationPackageId가 있으면 GeneratedMediaEvaluationPackageGuide.md를 읽고 sealed package의 assetType+domainType으로 adapter를 선택한다. 없으면 legacy artifactType으로 선택한다. 두 identity mode가 충돌하면 중단한다.
 3. adapter가 없거나 blocked 또는 필수 계약이 불완전하면 공통 점수로 대신 평가하지 말고 중단한다.
-4. sourceRecordId가 있으면 artifactType/contentId와 일치하는지 확인한다. 없으면 현재 PC의 기존 도메인 평가 체계에서 동일 대상의 다운로드·보존 완료 기록과 source가 하나로 확정될 때만 선택한다.
+4. package mode이면 manifest와 모든 member hash, planning/prompt/generation identity, structureProfile, readiness를 검증한다. legacy mode에서 sourceRecordId가 있으면 artifactType/contentId와 일치하는지 확인한다. source는 하나로 확정될 때만 선택한다.
 5. 평가할 source가 candidate, preview, thumbnail, contact sheet 또는 프로젝트 파일이 아니라 다운로드 후 보존된 원본인지 확인하고 SHA-256을 기록한다.
-6. 단일 이미지 또는 이미지 세트 manifest를 구조 프로필에 맞춰 만든다. 세트는 멤버 역할, 순서, 파일 수, 개별 hash와 manifestHash를 기록한다.
+6. 단일 이미지 또는 이미지 세트 manifest를 구조 프로필에 맞춰 확인한다. package mode는 sealed manifestPayloadHash를 재검증하고 legacy mode만 canonical member manifestHash를 만든다. 세트는 멤버 역할, 순서, 파일 수와 개별 hash를 기록한다.
 7. canonical 기획·콘텐츠 데이터와 generation/download 기록에서 artifactUsage, planningSource, planningOriginalContent, displayContent, planningCoreInterpretation, designConcept, promptCoreGoals, requiredVisualElements, hardConstraints, generationPromptOriginal을 수집한다.
 8. 원본 기획 내용과 생성 프롬프트를 재작성하지 않는다. 필수 증거가 없으면 이미지에 맞춰 추측하지 말고 insufficient_evidence로 중단한다.
 9. 도메인 가이드가 사전 brief 고정을 요구하면 이미지를 열기 전에 evaluation brief를 만들고 생성 시간과 hash를 기록한 다음 visualInspectionStartedAt을 기록한다.
-10. artifactType, contentId, UTC 평가 시각과 source 또는 manifest hash prefix로 evaluationRecordId를 만들고, 해당 불변 record 폴더의 input/evaluation_input.json을 저장한 뒤 공통 입력 계약과 artifact identity를 검증한다.
+10. package mode는 request_type_key={assetType}.{domainType}, legacy mode만 request_type_key=artifactType으로 확정한다. request_type_key, contentId, UTC 평가 시각과 source 또는 manifest hash prefix로 evaluationRecordId를 만들고, 해당 불변 record 폴더의 input/evaluation_input.json을 저장한 뒤 공통 입력 계약과 artifact identity를 검증한다. 파일명에서 key를 추론하지 않는다.
 11. 공통 게이트를 먼저 실행한다: identity, provenance/hash, 파일 무결성, staging/project 경로 분리, 기획·디자인 증거 완전성, 금지 텍스트·UI·로고·워터마크, 마스터 컨셉 hard constraint, 증거 충분성.
 12. single_image이면 도메인 크기·비율·alpha·crop·display-size 규칙과 하나의 원본 이미지를 평가한다.
-13. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. GIF는 움직임 판단에만 사용하고 alpha·crop·픽셀 품질 판정에는 사용하지 않는다.
+13. ordered_rotation_set이면 정확한 8방향 순서와 identity 일관성을 평가한다. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. GIF는 움직임 판단에만 사용하고 alpha·crop·픽셀 품질 판정에는 사용하지 않는다.
 14. 이미지 세트의 한 멤버라도 치명적 실패가 있으면 평균 점수로 가리지 말고 전체 세트를 Fail 처리한다.
 15. 구조 게이트가 끝난 뒤에만 도메인 평가 가이드의 fatal gate를 실행하고, fatal failure가 없을 때만 도메인 점수를 계산한다.
 16. 도메인 점수 카테고리 이름, 배점, threshold와 category minimum을 그대로 사용한다. 다른 콘텐츠 rubric으로 이름을 바꾸거나 배점을 재분배하지 않는다.
@@ -61,7 +65,7 @@ Input:
 
 Output:
 - Request ID
-- Artifact Type / Evaluation Domain / Content ID
+- Evaluation Package ID / Asset Type / Domain Type / Legacy Artifact Type / Content ID
 - Routed Structure Profile / Domain Evaluation Guide
 - Evaluation Record ID
 - Resolved Evaluation Workspace
@@ -92,7 +96,8 @@ Output:
 
 검증:
 - 외부 입력에 로컬 source, 평가 폴더, project target 또는 점수 규칙이 없어야 한다.
-- artifactType은 ready adapter 하나와 정확히 일치해야 한다.
+- package mode의 assetType+domainType 또는 legacy artifactType 중 하나가 ready adapter와 정확히 일치해야 한다.
+- package mode evaluationRecordId에 artifactType을 사용하지 않고 legacy mode에 assetType.domainType을 사용하지 않아야 한다.
 - source identity와 현재 SHA-256이 generation/download 기록과 일치해야 한다.
 - planningOriginalContent와 generationPromptOriginal은 원문 그대로 보존되어야 한다.
 - 공통·구조·도메인 fatal gate가 점수보다 먼저 실행되어야 한다.

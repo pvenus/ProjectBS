@@ -1,5 +1,11 @@
 # Generated Image Prompt Authoring Guide
 
+> Migration status: compatibility authority for legacy `artifactType` and
+> `generated_image_prompt_v1` only. New callers use
+> `AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md`,
+> `AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md`,
+> and the routed provider child guide.
+
 ## Master Concept Reference
 
 Before using this document, read and apply:

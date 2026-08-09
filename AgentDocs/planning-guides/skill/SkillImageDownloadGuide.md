@@ -1,5 +1,11 @@
 # Skill Image Animation Download Guide
 
+> Deprecated execution contract. Retained as sheet preservation/extraction
+> evidence. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md`
+> using the adapter declared by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

@@ -1,5 +1,9 @@
 # Item Icon Generation Guide
 
+> Deprecated execution contract. Retained as item icon profile and temporary
+> evaluation evidence. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

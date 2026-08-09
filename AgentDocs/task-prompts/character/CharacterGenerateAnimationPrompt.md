@@ -1,5 +1,9 @@
 # Character Animation Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md`.
+
 
 PixelLab에 이미 생성된 캐릭터를 찾아 Move, Attack, Idle 애니메이션을
 생성하는 프롬프트입니다. 다운로드와 평가는 별도 프롬프트에서 수행합니다.

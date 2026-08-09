@@ -1,5 +1,9 @@
 # Skill Image Animation Generation Guide
 
+> Deprecated execution contract. Retained as general animation profile
+> evidence. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

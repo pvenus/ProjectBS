@@ -70,6 +70,8 @@ Place copy-ready prompts by domain:
 ```text
 AgentDocs/task-prompts/battle
 AgentDocs/task-prompts/character
+AgentDocs/task-prompts/content
+AgentDocs/task-prompts/content/generated-media
 AgentDocs/task-prompts/skill
 AgentDocs/task-prompts/spawner
 AgentDocs/task-prompts/stage

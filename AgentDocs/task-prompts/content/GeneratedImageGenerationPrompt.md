@@ -1,5 +1,8 @@
 # Generated Image Generation Prompt
 
+> Compatibility entry for legacy `artifactType`. New work uses the provider
+> generation entries under `AgentDocs/task-prompts/content/generated-media`.
+
 Use this prompt to request one generated visual artifact from a dedicated
 generation task. The execution task selects PixelLab or ImageGen and the exact
 content-domain guide internally. It returns a generation record for a separate

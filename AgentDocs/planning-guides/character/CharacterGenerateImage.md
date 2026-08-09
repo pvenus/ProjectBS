@@ -1,5 +1,9 @@
 # Character Image Generation Guide
 
+> Deprecated execution contract. Retained as PixelLab character profile
+> evidence. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

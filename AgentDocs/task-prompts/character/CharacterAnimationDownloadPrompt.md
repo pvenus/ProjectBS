@@ -1,5 +1,8 @@
 # Character Animation Download and Preservation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md`.
+
 완료된 PixelLab 캐릭터 애니메이션을 현재 PC의 기존 평가 workspace에
 다운로드하고 원본을 보존하는 단계만 실행합니다.
 

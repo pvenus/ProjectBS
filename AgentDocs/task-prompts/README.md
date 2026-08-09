@@ -44,6 +44,39 @@ AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
 AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 ```
 
+Current generated-media prompt authoring and execution:
+
+```text
+AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
+```
+
+Legacy execution prompt migration:
+
+| Existing prompt | Status | replacedBy |
+| --- | --- | --- |
+| AgentDocs/task-prompts/content/GeneratedImagePromptAuthoringPrompt.md | compatibility entry for legacy artifactType | provider-specific generated-media PromptAuthoringPrompt entries |
+| AgentDocs/task-prompts/content/GeneratedImageGenerationPrompt.md | compatibility entry for legacy artifactType | provider-specific GenerationPrompt, then GeneratedMediaPreservationPackagingPrompt.md |
+| AgentDocs/task-prompts/character/CharacterGenerateImagePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md |
+| AgentDocs/task-prompts/character/CharacterGenerateAnimationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md |
+| AgentDocs/task-prompts/character/CharacterAnimationDownloadPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md |
+| AgentDocs/task-prompts/skill/SkillIconGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md |
+| AgentDocs/task-prompts/item/ItemIconGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md |
+| AgentDocs/task-prompts/skill/SkillImageGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md |
+| AgentDocs/task-prompts/skill/SkillImageDownloadPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md |
+| AgentDocs/task-prompts/stage/PopupEventMainImageCreatePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md |
+| AgentDocs/task-prompts/battle/BattleBackgroundImagePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md |
+
+Do not copy a legacy skill/item/stage/battle execution prompt for a new domain.
+Use `domainType` and an approved profile with the current provider prompt.
+
 Evaluation and Slack Canvas recording:
 
 ```text

@@ -1,5 +1,9 @@
 # Character Image Provider Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md`.
+
 PixelLab 캐릭터 이미지의 provider 생성 단계만 실행합니다.
 
 ## Prompt

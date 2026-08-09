@@ -1,5 +1,10 @@
 # Battle Create Guide
 
+> Migration note: only this guide's background-image generation execution is
+> deprecated. It is replaced by
+> `AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md`;
+> non-image battle planning contracts remain authoritative here.
+
 
 ## Master Concept Reference
 

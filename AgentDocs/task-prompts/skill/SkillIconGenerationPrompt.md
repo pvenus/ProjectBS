@@ -1,5 +1,9 @@
 # Skill Icon Provider Generation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md`
+> and `AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md`.
+
 스킬 아이콘의 PixelLab provider 생성 단계만 실행합니다.
 
 ## Prompt

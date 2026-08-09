@@ -1,5 +1,8 @@
 # Generated Image Prompt Authoring Prompt
 
+> Compatibility entry for legacy `artifactType`. New work uses the provider
+> prompt-authoring entries under `AgentDocs/task-prompts/content/generated-media`.
+
 Use this prompt to create and save one provider-ready image-generation prompt
 package. The output is consumed by the separate generation execution task.
 This task does not operate PixelLab or ImageGen.

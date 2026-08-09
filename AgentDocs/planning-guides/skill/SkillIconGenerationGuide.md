@@ -1,5 +1,9 @@
 # Skill Icon Generation Guide
 
+> Deprecated execution contract. Retained as skill icon profile evidence.
+> Replaced by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

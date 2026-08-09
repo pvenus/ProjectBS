@@ -45,6 +45,43 @@ AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
 ```
 
+Current generated-media provider pipelines:
+
+```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
+```
+
+The current provider structure is `PixelLab -> Character/Icon/Animation` and
+`ImageGen`. New integrations use `assetType + domainType`; the earlier
+`artifactType` remains a compatibility alias only.
+
+Legacy generated-media migration:
+
+| Existing guide | Status | replacedBy / new role |
+| --- | --- | --- |
+| AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md | compatibility envelope for generated_image_prompt_v1 | generated-media planning handoff plus provider child prompt-authoring contracts |
+| AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md | authoritative generation-only boundary and compatibility router | PixelLabPipelineGuide.md or ImageGenPipelineGuide.md for provider execution, then GeneratedMediaPreservationPackagingGuide.md |
+| AgentDocs/planning-guides/character/CharacterGenerateImage.md | deprecated execution contract; retained as provider/profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md |
+| AgentDocs/planning-guides/character/CharacterGenerateAnimation.md | deprecated execution contract; retained as provider/profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md |
+| AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md | deprecated execution contract; retained as export evidence | AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md + PixelLabCharacterPipelineGuide.md adapter |
+| AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md | deprecated execution contract; retained as skill icon profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md |
+| AgentDocs/planning-guides/item/ItemIconGenerationGuide.md | deprecated execution contract; retained as item icon profile/evaluation evidence | AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md |
+| AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | deprecated execution contract; retained as animation profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md |
+| AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md | deprecated execution contract; retained as sheet extraction evidence | AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md + PixelLabAnimationPipelineGuide.md adapter |
+| AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md image execution | deprecated execution contract; retained as stage profile evidence | AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md |
+| AgentDocs/planning-guides/battle/BattleCreateGuide.md background-image execution | deprecated execution contract; retained as battle profile evidence | AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md |
+
+Do not delete legacy guides until their profile and evaluation contracts have
+dedicated replacements and all callers have migrated.
+
 Strategic item authoring guides:
 
 ```text

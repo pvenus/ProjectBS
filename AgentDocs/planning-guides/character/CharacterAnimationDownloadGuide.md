@@ -1,5 +1,11 @@
 # Character Animation Download Guide
 
+> Deprecated execution contract. Retained as character export/extraction
+> evidence. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md`
+> using the adapter declared by
+> `AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

@@ -83,13 +83,17 @@ The evaluation task must not:
 ## 4. External Request Contract
 
 One request evaluates one logical artifact or one domain-defined artifact set.
-External callers provide generalized identity only.
+New generated-media callers provide a sealed evaluation package identity;
+legacy callers may provide the earlier artifact identity contract.
 
 ### 4.1 Allowed input
 
 ~~~text
 requestId: optional stable request id
-artifactType: required supported artifact type
+evaluationPackageId: preferred stable generated_media_evaluation_package_v1 ID
+assetType: required with package mode
+domainType: required with package mode
+artifactType: legacy compatibility identity
 contentId: required canonical content id
 sourceRecordId: optional stable non-path generation/download record id
 workflowMode: evaluate_new | re_evaluate
@@ -122,18 +126,25 @@ paths and rules internally. Never reuse an absolute path from another PC.
 
 ## 5. Artifact Adapter Registry
 
-| artifactType | Domain | Structure profile | Primary domain evaluation adapter | Readiness |
+| Request identity | Domain | Structure profile | Primary domain evaluation adapter | Readiness |
 | --- | --- | --- | --- | --- |
 | skill_icon | skill | single_image | AgentDocs/planning-guides/skill/SkillIconEvaluationGuide.md | ready |
 | item_icon | item | single_image | AgentDocs/planning-guides/item/ItemIconGenerationGuide.md evaluation sections | ready, temporary adapter |
 | story_popup_main_image | stage | single_image | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md | ready |
 | skill_animation | skill | paired_sheet_animation | AgentDocs/planning-guides/skill/SkillImageEvaluationGuide.md | ready |
 | character_animation | character | ordered_frame_set | AgentDocs/planning-guides/character/EvaluationAnimationGuide.md | ready with all required subsection thresholds |
+| character_main_image or legacy character_image | character | ordered_rotation_set | AgentDocs/planning-guides/character/CharacterGenerateImage.md evaluation criteria | ready, temporary adapter |
+| icon + domainType=skill | skill | single_image | AgentDocs/planning-guides/skill/SkillIconEvaluationGuide.md | ready |
+| icon + domainType=item | item | single_image | AgentDocs/planning-guides/item/ItemIconGenerationGuide.md evaluation sections | ready, temporary adapter |
+| general_animation + domainType=skill | skill | paired_sheet_animation | AgentDocs/planning-guides/skill/SkillImageEvaluationGuide.md | ready |
+| imagegen_image + domainType=stage | stage | single_image | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md | ready |
+| imagegen_image + domainType=battle | battle | single_image | dedicated adapter not yet defined | blocked |
 | battle_background | battle | single_image | dedicated adapter not yet defined | blocked |
 
 Rules:
 
-1. artifactType must match one row exactly.
+1. New package mode routes by `assetType + domainType`; legacy mode routes by
+   artifactType. Exactly one identity mode is authoritative.
 2. Readiness=blocked returns missing_domain_evaluation_adapter.
 3. Do not use a generic visual-quality score as a substitute.
 4. Item icon uses the named generation guide only for its existing evaluation
@@ -153,11 +164,17 @@ that AgentDocs and Assets belong to the same repository.
 
 Resolve the current PC's local evaluation root in this order:
 
-1. sourceRecordId matching artifactType and contentId;
-2. an existing same-artifact generation/download record in the current task;
-3. the established domain evaluation root and the single latest unambiguous
+1. evaluationPackageId whose sealed manifest identity and hashes validate;
+2. sourceRecordId matching the routed identity and contentId;
+3. an existing same-artifact generation/download record in the current task;
+4. the established domain evaluation root and the single latest unambiguous
    preserved source for the requested identity;
-4. repository or task-local configuration recorded for the current PC.
+5. repository or task-local configuration recorded for the current PC.
+
+For package mode, read
+`AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md`.
+The package manifest supplies source membership and ordering but never supplies
+an evaluation verdict.
 
 Do not invent an absolute root. If no root can be established, stop with
 local_evaluation_root_not_configured.
@@ -239,9 +256,10 @@ mediaType
 width and height
 ~~~
 
-Set profiles also declare stable member order and a manifestHash calculated
-from the canonical ordered member records. Preserve each member hash even when
-a manifestHash exists.
+Set profiles declare stable member order. Package mode uses the sealed
+`manifestPayloadHash` from GeneratedMediaEvaluationPackageGuide.md; legacy mode
+uses `manifestHash` calculated from canonical ordered member records. Preserve
+each member hash in either mode.
 
 ### 8.2 single_image
 
@@ -275,7 +293,21 @@ The playback aid proves motion readability only. Alpha, crop, edge, pixel
 fidelity, and source integrity are judged from original PNGs and decoded PNG
 frames.
 
-### 8.4 ordered_frame_set
+### 8.4 ordered_rotation_set
+
+Use for an exact ordered character rotation export.
+
+Required checks:
+
+- exactly eight members ordered north, north_east, east, south_east, south,
+  south_west, west, north_west;
+- one unique member per direction with no preview/thumbnail substitution;
+- consistent identity, equipment, palette, canvas, scale and center;
+- per-member source hash and one package `manifestPayloadHash` or legacy
+  ordered `manifestHash`;
+- any missing, duplicate, reordered or identity-drift member fails the set.
+
+### 8.5 ordered_frame_set
 
 Use for an ordered group of individual animation frames.
 
@@ -289,7 +321,7 @@ Required checks:
 - per-frame technical gates and cross-frame semantic gates;
 - contact sheet and playback evidence.
 
-### 8.5 Set decision rule
+### 8.6 Set decision rule
 
 An image set is one atomic evaluation unit.
 
@@ -297,7 +329,8 @@ An image set is one atomic evaluation unit.
 - never hide a bad member through average scoring;
 - member findings identify memberId or frame range;
 - artifact-level and playback-level findings remain distinct;
-- a set result applies to the exact manifestHash;
+- a set result applies to the exact package `manifestPayloadHash` or legacy
+  `manifestHash`;
 - replacing one member invalidates the set result and requires re-evaluation.
 
 ## 9. Evaluation Execution Order
@@ -414,8 +447,11 @@ Create a stable record ID before writing evaluation output:
 
 ~~~text
 evaluationRecordId =
-eval.{artifactType}.{contentId}.{UTC_YYYYMMDDTHHMMSSZ}.{source_or_manifest_hash_prefix_12}
+eval.{request_type_key}.{contentId}.{UTC_YYYYMMDDTHHMMSSZ}.{source_or_manifest_hash_prefix_12}
 ~~~
+
+`request_type_key` is `{assetType}.{domainType}` in package mode and the exact
+legacy artifactType in compatibility mode.
 
 The record ID identifies one decision over one exact source hash or set
 manifestHash. If the ID already exists with different bytes or facts, stop with
@@ -436,6 +472,10 @@ recordMetadata:
   evaluationRecordId
   formVersion
   evaluationDomain
+  evaluationPackageId
+  assetType
+  domainType
+  legacyArtifactType
   artifactType
   artifactId
   artifactName
@@ -462,7 +502,7 @@ targetArtifact:
   projectTargetPath
   promotionStatus
   resourceKey
-  stagingHash or manifestHash
+  stagingHash or manifestPayloadHash or legacy manifestHash
   projectHash
   copyVerification
   dimensionsOrDuration
@@ -493,6 +533,10 @@ reEvaluationPlan
 changeLog
 validation
 ~~~
+
+In package mode, `artifactType` is the registered legacyArtifactType when one
+exists; otherwise it is the exact assetType for Canvas compatibility. Never
+derive it from a filename. `assetType` and `domainType` remain authoritative.
 
 The following Canvas archival semantics map directly and must all be
 representable:
@@ -606,6 +650,8 @@ Media presentation profiles:
   sheet, as required by the common Canvas animation evidence rule;
 - ordered_frame_set: one playback GIF plus a contact sheet or representative
   source frame;
+- ordered_rotation_set: one ordered eight-direction contact sheet plus one
+  representative original rotation;
 - diagnostic previews remain evidence and are not presented as the primary
   evaluated artifact.
 
@@ -643,7 +689,7 @@ A new or revised domain evaluation guide must declare:
 
 ~~~text
 adapterId
-artifactType
+assetType and domainType, or legacyArtifactType for compatibility
 evaluationDomain
 structureProfile
 canonicalContentSourceRule
@@ -665,7 +711,8 @@ reEvaluationRule
 
 Adapter validation:
 
-1. artifactType is unique in the registry.
+1. The `assetType + domainType` key or legacyArtifactType is unique in the
+   registry.
 2. The structure profile exists.
 3. Required source facts can be resolved without external absolute paths.
 4. Fatal gates are distinguishable from scored deductions.
@@ -680,6 +727,10 @@ Adapter validation:
 
 ~~~text
 invalid_evaluation_request
+evaluation_package_not_found
+evaluation_package_not_sealed
+evaluation_package_hash_mismatch
+evaluation_identity_mode_conflict
 unsupported_artifact_type
 missing_domain_evaluation_adapter
 incomplete_domain_evaluation_adapter
@@ -730,4 +781,5 @@ preceding or following pipeline step as recovery.
 
 ~~~text
 AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 ~~~

@@ -1,5 +1,15 @@
 # Generated Image Generation Pipeline Guide
 
+> Migration status: compatibility router for legacy `artifactType`. New
+> callers use
+> `AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md`
+> or `AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md`.
+> Their `generated_media_generation_v1` stage replaces provider execution and
+> result-reference handoff only. Download/export/extraction/package sealing is
+> owned by
+> `AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md`.
+> The generation-only/later-download boundary in this guide remains mandatory.
+
 ## Master Concept Reference
 
 Before using this document, read and apply:
@@ -55,6 +65,11 @@ Authority:
 
 Do not merge conflicting provider or visual rules by judgment. Stop with
 generation_contract_conflict and name both sources.
+
+For generated-media v1, this guide remains authoritative for the generation
+boundary; provider child guides specialize tool inputs only. The common
+preservation guide begins after a successful immutable result-reference
+handoff. Neither child guide may broaden generation to download or packaging.
 
 ## 3. Task Roles and Thread Ownership
 

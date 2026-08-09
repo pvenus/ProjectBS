@@ -1,5 +1,9 @@
 # Popup Event Main Image Create Guide
 
+> Deprecated image-generation execution contract. Retained as the stage image
+> profile. Replaced by
+> `AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md`.
+
 
 ## Master Concept Reference
 

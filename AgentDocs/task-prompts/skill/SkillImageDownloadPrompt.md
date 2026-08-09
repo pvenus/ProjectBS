@@ -1,5 +1,8 @@
 # Skill Animation Download and Preservation Prompt
 
+> Deprecated compatibility entry. Replaced by
+> `AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md`.
+
 완료된 PixelLab 스킬 애니메이션 결과를 다운로드하고 평가용 원본으로
 보존하는 단계만 실행합니다.
 
