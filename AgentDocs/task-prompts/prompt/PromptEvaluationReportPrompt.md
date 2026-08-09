@@ -1,17 +1,6 @@
 # Prompt Evaluation Report Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 프롬프트를 평가한 뒤 점수 통과 항목과 미달 항목을 분리해서 보고할 때
 사용하는 복사용 평가 프롬프트입니다.
 

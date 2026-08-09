@@ -1,17 +1,6 @@
 # Relic Item Planning Create Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 신규 유물 아이디어를 역기획 문서와 동일한 상세도와 스키마의 독립 기획
 문서로 작성할 때 사용합니다. SO JSON이나 Unity asset은 생성하지 않습니다.
 

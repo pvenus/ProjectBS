@@ -1,17 +1,6 @@
 # Character Animation Generation Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 PixelLab에 이미 생성된 캐릭터를 찾아 Move, Attack, Idle 애니메이션을
 생성하는 프롬프트입니다. 다운로드와 평가는 별도 프롬프트에서 수행합니다.
 

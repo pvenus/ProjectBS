@@ -1,17 +1,6 @@
 # Act Character Planning Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 Act 단위 스토리를 기획 JSON으로 1차 가공하고, 이후 캐릭터/NPC/몬스터
 생성 단계에서 참조할 수 있는 캐릭터 기획 산출물을 만드는 프롬프트입니다.
 

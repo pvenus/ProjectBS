@@ -1,17 +1,6 @@
 # Battle Generation Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 Legacy battle-context 기반 입력을 새 전투 생성 파이프라인에 맞게 점검하거나
 마이그레이션할 때 사용하는 호환 프롬프트입니다.
 

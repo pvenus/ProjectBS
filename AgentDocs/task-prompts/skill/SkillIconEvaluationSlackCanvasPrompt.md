@@ -1,17 +1,6 @@
 # Skill Icon Evaluation Slack Canvas Prompt
 
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
 스킬 아이콘을 기존 정식 평가 계약으로 평가한 뒤, 결과를 손실 없이
 Slack Canvas 형식으로 변환하는 실행 프롬프트입니다. 이미 완료된 평가를
 Canvas로만 변환하는 모드도 지원합니다.

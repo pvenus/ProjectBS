@@ -1,13 +1,5 @@
 # Content Folder Create Prompt
 
-## Master Concept Reference
-
-Before using this prompt, read and apply:
-
-```text
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-```
-
 Use this prompt to create or complete the `json`/`so` structure and required
 generated-image folders for one content domain. It does not generate content
 files or migrate existing runtime data.
