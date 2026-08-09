@@ -17,6 +17,7 @@ AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -28,9 +29,14 @@ AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md
 The three character guides are legacy provider behavior references only. This
 guide replaces their execution ownership.
 
+Supported character asset/domain/profile pairs are closed by
+`generated_media_authoring_profile_registry_v1`. This guide does not accept an
+unregistered character domain or alternate technical profile.
+
 Priority is ContentFolderStructureGuide for storage, PixelLabPipelineGuide for
-stage ownership, planning handoff for approved meaning, this guide for
-character provider/adapter specialization, then legacy guides as evidence.
+stage ownership, the authoring profile registry for exact route pairs, planning
+handoff for approved meaning, this guide for character provider/adapter
+specialization, then legacy guides as evidence.
 Conflict blocks with `reference_contract_conflict`; never merge behaviors.
 
 ## 3. Two Independent Runs

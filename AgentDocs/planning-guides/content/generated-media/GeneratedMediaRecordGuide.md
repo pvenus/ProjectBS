@@ -262,6 +262,8 @@ keeps the prior index unchanged, and does not write a partial ready record.
 ## 9. Related Guides
 
 ```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md

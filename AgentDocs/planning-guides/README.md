@@ -45,9 +45,11 @@ AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
 ```
 
-Current generated-media provider pipelines:
+Current generated-media request routing and provider pipelines:
 
 ```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md

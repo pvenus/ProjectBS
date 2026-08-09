@@ -16,6 +16,7 @@ AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -26,10 +27,15 @@ AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md
 Legacy skill guides are provider/profile references only. `domainType` and an
 approved animation profile replace skill-specific execution prompts.
 
+Exact supported domain/animationProfile pairs are owned only by
+`generated_media_authoring_profile_registry_v1`. This guide must not accept an
+unregistered pair by similarity.
+
 Priority is ContentFolderStructureGuide for storage, PixelLabPipelineGuide for
-stage ownership, planning handoff for approved sequence/runtime meaning, this
-guide for provider/adapter specialization, then legacy evidence. Conflict
-blocks with `reference_contract_conflict`.
+stage ownership, the authoring profile registry for exact route pairs, planning
+handoff for approved sequence/runtime meaning, this guide for provider/adapter
+specialization, then legacy evidence. Conflict blocks with
+`reference_contract_conflict`.
 
 ## 3. Required Input
 

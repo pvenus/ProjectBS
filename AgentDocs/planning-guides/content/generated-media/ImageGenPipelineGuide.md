@@ -14,6 +14,7 @@ AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -25,10 +26,15 @@ AgentDocs/planning-guides/battle/BattleCreateGuide.md
 Stage/battle guides supply temporary profile rules. External planning owns the
 scene, subjects, location and depicted moment.
 
+Exact supported domain/imageProfile pairs are owned only by
+`generated_media_authoring_profile_registry_v1`. This guide must not accept an
+unregistered pair by similarity.
+
 Priority is ContentFolderStructureGuide for storage, the planning handoff for
-approved scene meaning, GeneratedImageGenerationPipelineGuide for the
-generation-only boundary, this guide for ImageGen specialization, then legacy
-stage/battle evidence. Conflict blocks with `reference_contract_conflict`.
+approved scene meaning, the authoring profile registry for exact route pairs,
+GeneratedImageGenerationPipelineGuide for the generation-only boundary, this
+guide for ImageGen specialization, then legacy stage/battle evidence. Conflict
+blocks with `reference_contract_conflict`.
 
 ## 3. Required Input
 
@@ -106,8 +112,8 @@ evaluation_package_failed
 ## 8. Migration
 
 ```text
-domainType=stage  + approved story popup profile -> legacy story_popup_main_image
-domainType=battle + approved battle background profile -> legacy battle_background
+domainType=stage  + story_popup_main_image@1.0.0 -> legacy story_popup_main_image
+domainType=battle + battle_background@1.0.0 -> legacy battle_background
 ```
 
 Other domains require a registered imageProfile and evaluation adapter. Do not

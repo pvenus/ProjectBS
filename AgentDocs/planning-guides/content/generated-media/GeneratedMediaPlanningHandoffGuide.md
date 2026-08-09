@@ -58,6 +58,80 @@ projectTarget:
 `sourcePlanningFiles` and `planningSnapshot` are both required. A mutable source
 path without a snapshot/hash is insufficient.
 
+### 3.1 Canonical raw input
+
+The fields above plus the flattened type-specific fields in Section 4 are the
+authoritative raw `generated_media_planning_handoff_v1` shape. In particular:
+
+```text
+assetType is canonical
+contentUsage is canonical
+sourcePlanningFiles[].revision is optional per source
+type-specific fields are flattened as written in Section 4
+```
+
+Do not require normalized routing names such as `outputUsage`,
+`planningRevision`, or specification containers from canonical raw input.
+
+### 3.2 Allowed compatibility envelope
+
+Legacy callers may use `generated_media_planning_handoff_compat_v1` with only
+these aliases in addition to unchanged common identity/source/snapshot fields:
+
+| Compatibility field | Canonical raw target |
+| --- | --- |
+| `artifactType` | `assetType`, using the exact mapping owned by GeneratedMediaRequestRoutingGuide.md |
+| `outputUsage` | `contentUsage` |
+| top-level `planningRevision` | routing-only compatibility evidence; it never rewrites source entries |
+| `characterSpecification` | the exact character fields in Sections 4.1 or 4.2 |
+| `iconSpecification` | icon fields in Section 4.3; `iconProfile` remains explicit |
+| `animationSpecification` | general-animation fields in Section 4.4 |
+| `imageSpecification` | image fields in Section 4.5; `imageProfile` remains explicit |
+
+Compatibility processing order is mandatory:
+
+```text
+rawInput capture
+-> detect canonical or compatibility schemaVersion
+-> resolve allowed aliases/containers
+-> reject alias/canonical conflicts
+-> compatibilityNormalizedInput containing canonicalHandoff + compatibilityEvidence
+-> required-field validation
+-> unknown-field rejection
+-> source/snapshot validation
+-> routing normalization
+```
+
+If alias and canonical fields coexist, their canonical JSON values must be
+identical; otherwise return `compatibility_alias_conflict`. If one raw asset
+token produces more than one canonical asset candidate, return
+`ambiguous_asset_type`. An unregistered legacy asset alias returns
+`unsupported_asset_type`. Top-level `planningRevision` is removed from `canonicalHandoff` and
+preserved under `compatibilityEvidence`; it never populates or rewrites
+`sourcePlanningFiles`. It is usable only when covered by the immutable snapshot
+and declared to apply to every source. Multiple source revisions cannot be
+collapsed; mixed, partial, or conflicting revision evidence blocks with
+`planning_revision_conflict`.
+
+No other alias or container is permitted. Compatibility normalization does not
+create planning facts and does not change the canonical raw schema.
+For clarity, a compatibility specification container and its corresponding
+flattened canonical fields are an alias/canonical pair: unequal mapped values
+return `compatibility_alias_conflict` during this normalization stage.
+
+Compatibility asset failure selection is deterministic:
+
+| Priority | Condition | failureType |
+| --- | --- | --- |
+| 1 | alias and canonical asset fields normalize to unequal values | `compatibility_alias_conflict` |
+| 2 | one raw asset token yields multiple canonical asset candidates | `ambiguous_asset_type` |
+| 3 | a legacy asset alias is not in the allowed mapping | `unsupported_asset_type` |
+
+Use the first matching row. `conflicting_routing_evidence` is not an alias
+normalization failure; it is reserved by the router for incompatible complete
+route tuples from independent authoritative non-alias evidence or duplicate
+exact registry rows.
+
 ## 4. Type-specific Contracts
 
 ### 4.1 character_main_image
@@ -91,7 +165,9 @@ fixed Attack/Idle/Move list or derive action descriptions from combat lore.
 ### 4.3 icon
 
 ```yaml
-iconProfile: approved profile ID and version
+iconProfile:
+  profileId: exact registered ID
+  profileVersion: exact registered MAJOR.MINOR.PATCH
 subjectIdentity: approved central symbol/object
 semanticEffect: approved visible meaning
 exactCountElements: explicit counts when applicable
@@ -105,6 +181,9 @@ execution prompts are prohibited.
 ### 4.4 general_animation
 
 ```yaml
+animationProfile:
+  profileId: exact registered ID
+  profileVersion: exact registered MAJOR.MINOR.PATCH
 animationSubject: approved character-independent VFX/object subject
 sequenceStages: non-empty ordered visual stages
 loopMode: loop | one_shot | hold_last
@@ -118,7 +197,9 @@ referenceImageContract: required source/reference identity and hash
 ### 4.5 imagegen_image
 
 ```yaml
-imageProfile: approved stage, battle, or registered domain profile ID/version
+imageProfile:
+  profileId: exact registered ID
+  profileVersion: exact registered MAJOR.MINOR.PATCH
 depictedMoment: exact planned moment
 subjects: approved visible subjects and relationships
 environment: approved location and environmental facts
@@ -145,6 +226,7 @@ missing_appearance_specification
 missing_animation_requests
 invalid_animation_request
 missing_sequence_specification
+missing_animation_profile
 missing_runtime_boundary
 missing_icon_profile
 missing_scene_specification
@@ -152,6 +234,12 @@ unsupported_asset_type
 unsupported_domain_type
 unsupported_profile
 planning_authority_conflict
+invalid_compatibility_envelope
+compatibility_alias_conflict
+planning_revision_conflict
+missing_asset_type
+ambiguous_asset_type
+conflicting_routing_evidence
 ```
 
 An explicitly empty `prohibitedElements` list is not valid unless the owning
@@ -176,6 +264,8 @@ planning handoff.
 ## 8. Related Guides
 
 ```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md

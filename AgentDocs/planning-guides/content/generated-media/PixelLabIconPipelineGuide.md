@@ -14,6 +14,7 @@ AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
@@ -24,10 +25,15 @@ AgentDocs/planning-guides/item/ItemIconGenerationGuide.md
 The skill/item guides are temporary profile evidence. This guide owns the new
 execution pipeline; domain evaluation rubrics remain separate.
 
+Exact supported domain/iconProfile pairs are owned only by
+`generated_media_authoring_profile_registry_v1`. This guide must not accept an
+unregistered pair by similarity.
+
 Priority is ContentFolderStructureGuide for storage, PixelLabPipelineGuide for
-stage ownership, planning handoff for approved meaning, this guide for icon
-provider/adapter specialization, then legacy profile evidence. Conflict blocks
-with `reference_contract_conflict`.
+stage ownership, the authoring profile registry for exact route pairs, planning
+handoff for approved meaning, this guide for icon provider/adapter
+specialization, then legacy profile evidence. Conflict blocks with
+`reference_contract_conflict`.
 
 ## 3. Required Input
 

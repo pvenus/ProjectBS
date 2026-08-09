@@ -44,9 +44,10 @@ AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
 AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 ```
 
-Current generated-media prompt authoring and execution:
+Current generated-media request routing, prompt authoring, and execution:
 
 ```text
+AgentDocs/task-prompts/content/generated-media/GeneratedMediaRequestRoutingPrompt.md
 AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md
 AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md
