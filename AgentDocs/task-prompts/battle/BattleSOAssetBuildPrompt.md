@@ -26,6 +26,7 @@ BattleSO.md, BattleCreateGuide.md 기준으로 BattleSO 입력 JSON을 Unity
 BattleSO asset으로 변환해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/battle/data-structures/BattleSO.md
 - AgentDocs/planning-guides/battle/BattleCreateGuide.md
 - AgentDocs/planning-guides/spawner/data-structures/SpawnSO.md
@@ -40,7 +41,7 @@ Input:
 - battleGroup: {battle_group}
 - battleJsonFile: Assets/Resources/battle/{battle_group}/{battle_id}.json
 - expectedBattleSOPath: Assets/Resources/battle/{battle_group}/{battle_id}.asset
-- backgroundImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
+- backgroundImagePath: Assets/ImagesGenerated/Battle/background/{battle_id}.background.png
 
 작업:
 1. battleJsonFile의 JSON 문법을 확인한다.

@@ -39,7 +39,7 @@ Input:
 - stagingArtifactPath: {evaluationRoot}/{itemId}/source/{itemId}.icon.png
 - iconPath: {evaluationRoot}/{itemId}/source/{itemId}.icon.png
 - evaluationWorkspacePath: {evaluationRoot}/{itemId}
-- projectTargetPath: Assets/Resources/item/icon/{itemId}.icon.png
+- projectTargetPath: Assets/ImagesGenerated/Item/icon/{itemId}.icon.png
 - generationRecordPath: {evaluationRoot}/{itemId}/evaluation/generation_record.txt
 - candidateScoresPath: {evaluationRoot}/{itemId}/evaluation/candidate_scores.txt
 - selectedCandidatePath: {evaluationRoot}/{itemId}/candidates/{selected_candidate_filename}
@@ -62,6 +62,7 @@ Input:
 - outputLocalCanvasDraftPath: {AgentDocs/planning-data/evaluation/slack_canvas/v1/item/item_icon/{itemId}.canvas.md | null}
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 - AgentDocs/planning-guides/item/ItemIconEvaluationSlackCanvasGuide.md
 - AgentDocs/planning-guides/item/ItemIconGenerationGuide.md
@@ -96,7 +97,7 @@ Output:
 검증:
 - evaluationDomain=item, artifactType=item_icon, artifactId=itemId여야 한다.
 - staging/icon 경로는 `{evaluationRoot}/{itemId}/source/{itemId}.icon.png`여야 한다.
-- projectTargetPath는 `Assets/Resources/item/icon/{itemId}.icon.png`여야 한다.
+- projectTargetPath는 `Assets/ImagesGenerated/Item/icon/{itemId}.icon.png`여야 한다.
 - 점수표와 합계는 cited evaluation rubric과 같아야 한다.
 - raw 2x2 sheet와 legacy atlas는 최종 아이콘으로 기록하지 않아야 한다.
 - staging/project target은 동일하면 안 된다.

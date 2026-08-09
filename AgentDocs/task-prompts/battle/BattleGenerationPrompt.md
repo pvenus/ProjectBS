@@ -32,6 +32,7 @@ Legacy battle-context 기반 입력을 새 전투 생성 파이프라인에 맞�
 BattleStoryContext JSON과 BattleSO 입력 JSON을 생성해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/battle/BattleStoryContextGuide.md
 - AgentDocs/planning-guides/battle/BattleCreateGuide.md
 - AgentDocs/planning-guides/battle/data-structures/BattleSO.md
@@ -53,7 +54,7 @@ Input:
 - battleContextFile: AgentDocs/planning-data/battle/{battle_context_file}.json
 - monsterContextFile: AgentDocs/planning-data/character/act-plans/{act_group_id}/monster_context.{act_group_id}.json
 - monsterCompositionFile: AgentDocs/planning-data/character/act-plans/{act_group_id}/monster_composition.{monster_composition_group}.json
-- backgroundImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
+- backgroundImagePath: Assets/ImagesGenerated/Battle/background/{battle_id}.background.png
 - outputBattleStoryContextFile: AgentDocs/planning-data/battle/{battle_group}/{battle_id}.story_context.json
 - outputBattleJsonFile: Assets/Resources/battle/{battle_group}/{battle_id}.json
 - spawnerSearchRoots:
@@ -62,9 +63,9 @@ Input:
   - Assets/Scripts/battle_spawn/Resource/Jsons
 - storyReferenceFiles:
   - AgentDocs/planning-data/story/00_Background.md
-  - AgentDocs/planning-data/story/01_Overall_Story.md
-  - AgentDocs/planning-data/story/Act_XX_Background.md
-  - AgentDocs/planning-data/story/Chapter_XX.md
+  - AgentDocs/planning-data/story/Act{actNumber}/01_Overall_Story.md
+  - AgentDocs/planning-data/story/Act{actNumber}/Act_{actNumber}_Background.md
+  - AgentDocs/planning-data/story/Act{actNumber}/Chapter{chapterNumber}/Chapter_{chapterNumber}.md
 
 작업:
 1. battleContextFile을 읽고 전투 목적, 공간 태그, 리듬 태그, 난이도, 핵심 위협, 금지 조건을 요약한다.

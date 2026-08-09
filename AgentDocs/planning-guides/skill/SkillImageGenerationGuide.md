@@ -12,6 +12,32 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** generate a PixelLab skill-effect reference and animation, then return provider references and a generation record.
+- **Inputs:** approved skill identity/data and a resolved provider prompt.
+- **Preconditions:** eligibility and runtime-responsibility checks pass; the prompt is approved.
+- **Handoff:** provider result references, generation settings, and a request for the separate download/preservation stage.
+- **Mutation boundary:** no download, local preservation, rubric evaluation, project copy, Unity import/meta work, or Git work.
+
+The skill data controls gameplay meaning, the master concept controls visual
+prohibitions, and this guide controls only provider generation. Conflicts stop
+execution with `generation_authority_conflict`.
+
 ## 1. Purpose
 
 This guide defines how to create character-independent pixel-art skill VFX animations in PixelLab.
@@ -144,19 +170,23 @@ In **Animate with text (New)**:
 - State that the result must not travel, crop, or touch an edge.
 - State whether the animation is looping or one-shot.
 
-### Step 5: Preview and Evaluate
+### Step 5: Provider Preview Check
 
 - Play the animation in PixelLab.
 - Review every sprite-sheet frame, not only the animated preview.
-- Apply `SkillImageEvaluationGuide.md`.
-- Regenerate if a fatal failure is present or the total score is below the passing score.
+- Reject only an obviously broken provider result, such as a missing animation
+  or an unreadable/cropped preview. Do not assign evaluation scores or a verdict.
 
-### Step 6: Download, Preserve, Copy, and Evaluate
+### Step 6: Legacy Post-generation Appendix (Non-executable)
+
+This section describes the former combined workflow and is retained only for
+historical interpretation. Current execution stops after Step 5, writes the
+generation record, and hands off to a separate download/preservation task.
 
 After a result is accepted, follow `SkillImageDownloadGuide.md` for the complete post-generation workflow.
 
 - Download the selected reference and final animation as separate deliverables.
-- Preserve them under `/Users/pvenus/Documents/PixelLab/skill` before Unity copy.
+- Preserve them under the current PC's resolved `{evaluationRoot}` before Unity copy.
 - Copy them to `animation_ref_png` and `animation_png` using the full skill ID filenames.
 - Derive the slice grid from actual sheet dimensions; do not assume a fixed grid.
 - Save `generation_record.txt` and `evaluation/evaluation_result.txt`.
@@ -234,6 +264,7 @@ Loop Mode:
 Remove Background:
 PixelLab Page:
 Generation Status:
-Evaluation Status:
+Provider Result References:
+Download Handoff Status:
 Notes:
 ```

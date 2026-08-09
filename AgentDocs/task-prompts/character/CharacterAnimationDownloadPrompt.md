@@ -1,146 +1,50 @@
-# Character Animation Download And Evaluation Prompt
+# Character Animation Download and Preservation Prompt
 
+완료된 PixelLab 캐릭터 애니메이션을 현재 PC의 기존 평가 workspace에
+다운로드하고 원본을 보존하는 단계만 실행합니다.
 
-## Master Concept Reference
-
-Before using this document, read and apply:
-
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
-Use this prompt when downloading PixelLab animation images, preserving the character `animations` folder, evaluating animation images, and copying converted PNGs into Unity resources.
+## Prompt
 
 ```text
-작업 폴더 = {project_root}
-
-아래 입력을 기준으로 CharacterAnimationDownloadGuide.md 및 EvaluationAnimationGuide.md를 먼저 읽고, 해당 가이드의 절차와 실패 규칙을 그대로 따라 PixelLab 애니메이션 다운로드, 평가, 변환 복사를 진행해줘.
-
-Input:
-- projectRoot: {project_root}
-- PixelLabExportRoot = {PixelLab_export_저장_루트_절대경로}
-- targetCharacterFolder = {PixelLabExportRoot_아래_대상_캐릭터_폴더_절대경로}
+현재 ProjectBS 저장소와 기존 로컬 평가 workspace를 확인하고 캐릭터 애니메이션 provider 결과의 download/preserve 단계만 실행해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md
-- AgentDocs/planning-guides/character/EvaluationAnimationGuide.md
-- AgentDocs/planning-guides/character/CharacterGenerateImage.md
+
+Input:
+- requestId: {optional_stable_request_id}
+- characterId: {canonical_character_id}
+- generationRecordId: {generated_image_generation_v1_record_id}
+- generationRecordPath: {accessible_generation_record_path_or_stable_reference}
+- evaluationRoot: {current_pc_character_animation_evaluation_root}
+- replacePreservedSource: {false | true_with_explicit_approval}
 
 작업:
-1. targetCharacterFolder를 기준으로 characterName, grade, 이미지 생성에 사용한 PixelLab Prompt, 이미지 생성 평가 결과를 찾는다.
-2. {targetCharacterFolder}/animations가 이미 있고 새 교체 요청이 아니면 기존 animations를 사용한다.
-3. animations가 없거나 새 교체가 필요한 경우, https://www.pixellab.ai/create-character 페이지에서 이미지 생성에 사용한 PixelLab Prompt와 태그로 기존 PixelLab 캐릭터를 검색해 연다.
-4. PixelLab Export 후에는 압축 해제 결과에서 animations 폴더만 targetCharacterFolder로 이동/교체한다.
-5. CharacterAnimationDownloadGuide.md의 Required Folder Structure Hard Fail 조건을 통과하지 못하면 즉시 실패 처리하고 평가/변환/Unity 복사를 진행하지 않는다.
-6. EvaluationAnimationGuide.md 기준으로 {targetCharacterFolder}/animations를 평가하고, 평가 결과는 {targetCharacterFolder}/evaluation_animation_result.txt에 저장한다.
-7. 평가 Pass / Fail과 관계없이 가이드에 따라 converted 생성과 Unity 리소스 복사를 계속한다. 단, 폴더 구조 hard fail은 예외로 즉시 중단한다.
+1. generation record의 artifactType=character_animation, characterId, provider result refs와 expected output roles를 검증한다.
+2. 현재 PC에서 evaluationRoot를 확인하고 다른 PC의 기록 경로를 재사용하지 않는다.
+3. 정확한 PixelLab result에서 source animation files를 다운로드한다.
+4. CharacterAnimationDownloadGuide.md의 current download adapter에 따라 원본 구조와 이름을 변경하지 않고 preserved source에 저장한다.
+5. source file hash, provider result ref, download time, expected/observed file manifest와 download record를 작성한다.
+6. GIF evidence, converted 파일, 평가 점수, 프로젝트 복사와 Unity `.meta`를 생성하지 않는다.
 
 Output:
-- Character:
-- Grade:
-- Target Character Folder:
-- Image Generation Prompt:
-- PixelLab Lookup Result:
-- PixelLab Page:
-- Download Performed:
-- Replacement Performed:
-- Animations Folder:
-- Folder Structure Check:
-- Hard Fail:
-- Direction Check:
-- Missing Direction Handling:
-- Evaluation File:
-- Evaluation Result:
-- Converted Folder:
-- Unity Resource Folder:
-- Final File Count:
-- Pass / Fail:
-- Failure Reason:
-- Cleanup:
-- Notes:
+- Character ID / Generation Record ID
+- Provider Result References
+- Preserved Source Root / File Manifest / SHA-256
+- Download Record ID / Path / SHA-256
+- Download Status
+- Evaluation Handoff
 
 실패 시 Output:
-- status: failed
-- failureType:
-  - missing_target_character_folder
-  - missing_image_generation_prompt
-  - pixellab_character_not_found
-  - pixellab_export_failed
-  - animation_folder_hard_fail
-  - unity_copy_failed
-- 실패 원인
-- Hard Fail 여부
-- 보존한 원본 폴더
-- 재시도에 필요한 입력
+- status: blocked | failed
+- failureType: generation_record_not_found | provider_result_not_found | invalid_animation_folder | existing_source_requires_approval | download_failed | checksum_failed | download_record_write_failed
+- 보존한 기존 source
+- 생성하지 않은 후속 결과
+- Required Next Action
 
 검증:
-- targetCharacterFolder가 존재해야 한다.
-- 기존 animations 폴더는 새 교체 요청이 없으면 보존해야 한다.
-- Required Folder Structure Hard Fail이면 평가/변환/Unity 복사를 진행하지 않아야 한다.
-- evaluation_animation_result.txt가 생성되어야 한다.
-- converted 폴더와 Unity Resource Folder의 최종 파일 수를 보고해야 한다.
-
-주의:
-- 세부 정책과 판단 기준은 프롬프트가 아니라 CharacterAnimationDownloadGuide.md를 원본으로 따른다.
-- PixelLab Page URL은 입력으로 직접 받지 않는다.
-- 다운로드와 Export는 반드시 PixelLab에서 수행한다.
-- source animations 파일은 삭제하거나 이름 변경하지 않는다.
-```
-
-## Canvas GIF Evidence Addendum
-
-When the downloaded character animations will be published to Slack Canvas,
-prepare GIF evidence after the folder-structure check, evaluation, conversion,
-and Unity copy steps have completed.
-
-Additional inputs:
-
-```text
-DesignEvaluationRoot = C:\github\design_evaluation
-EvaluationCharacterFolder = {DesignEvaluationRoot}/character/{characterName}_{grade}
-```
-
-Additional work:
-
-1. Copy or mirror the completed character export folder into
-   `DesignEvaluationRoot/character/{characterName}_{grade}` before Canvas
-   publication.
-2. Preserve `metadata.json`, `evaluation_result.txt`,
-   `evaluation_animation_result.txt`, `animations/`, and `converted/` in the
-   evaluation folder.
-3. Generate animation GIF evidence under:
-
-```text
-{EvaluationCharacterFolder}/evidence/animation_gif_by_type/
-  {characterName}_{grade}_idle_all_directions.gif
-  {characterName}_{grade}_move_all_directions.gif
-  {characterName}_{grade}_attack_all_directions.gif
-```
-
-4. Each GIF must show every ProjectBS direction for that animation:
-   `DownRight`, `DownLeft`, `UpRight`, `UpLeft`.
-5. Generate or update:
-
-```text
-{DesignEvaluationRoot}/character/character_animation_gif_by_type_manifest.json
-```
-
-6. Do not edit source `animations/`, source PixelLab files, Unity files, or
-   converted PNGs when creating Canvas GIF evidence.
-7. Treat GIF generation as Canvas evidence preparation. It must not override the
-   animation evaluation result or trigger re-scoring.
-
-Additional output fields:
-
-```text
-- Design Evaluation Folder:
-- Animation GIF Evidence Folder:
-- Idle GIF:
-- Move GIF:
-- Attack GIF:
-- Animation GIF Manifest:
-- GIF Evidence Result:
+- provider result와 generation record identity가 일치해야 한다.
+- preserved source는 evaluation workspace 아래에 있어야 한다.
+- 평가·변환·프로젝트 승격·Unity·Slack·Git 작업을 수행하지 않아야 한다.
 ```

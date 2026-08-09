@@ -23,6 +23,7 @@ BattleStoryContextGuide.md, BattleCreateGuide.md, BattleSO.md 기준으로
 BattleStoryContext JSON과 BattleSO 입력 JSON을 생성해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/battle/BattleStoryContextGuide.md
 - AgentDocs/planning-guides/battle/BattleCreateGuide.md
 - AgentDocs/planning-guides/battle/data-structures/BattleSO.md
@@ -47,7 +48,7 @@ Input:
 - monsterContextFile: AgentDocs/planning-data/character/act-plans/{act_group_id}/monster_context.{act_group_id}.json
 - monsterCompositionFile: AgentDocs/planning-data/character/act-plans/{act_group_id}/monster_composition.{monster_composition_group}.json
 - selectedSpawnerJson: {selected_spawner_json_path}
-- backgroundImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
+- backgroundImagePath: Assets/ImagesGenerated/Battle/background/{battle_id}.background.png
 - outputBattleStoryContextFile: AgentDocs/planning-data/battle/{battle_group}/{battle_id}.story_context.json
 - outputBattleJsonFile: Assets/Resources/battle/{battle_group}/{battle_id}.json
 
@@ -93,7 +94,7 @@ Output:
 - 모든 spawnUnitKey가 exact binding 또는 role fallback으로 해석 가능해야 한다.
 - 모든 spawnUnitBindings.characterId가 CharacterSO로 해석 가능해야 한다.
 - victoryRule 값이 유효해야 한다.
-- backgroundSprite가 존재해야 한다. 생략 시 `{battleId}.background` 이름으로 `Assets/Resources/battle/battle_png/` 아래 Sprite를 찾을 수 있어야 한다.
+- backgroundSprite가 존재해야 한다. 생략 시 `{battleId}.background` 이름으로 `Assets/ImagesGenerated/Battle/background/` 아래 Sprite를 찾을 수 있어야 한다.
 - 배경 이미지는 기본적으로 한 장짜리 16:9 Sprite여야 하며, 레이어 분리는 명시 요청이 있을 때만 한다.
 - spawner JSON에는 characterId, CharacterSO, 몬스터 이름이 직접 들어가지 않아야 한다.
 

@@ -43,7 +43,7 @@ Short usage note.
 ## Prompt
 
 ```text
-작업 폴더 = /Users/pvenus/ProjectBS
+작업 폴더 = {project_root}
 
 {GuideA}.md, {GuideB}.md 기준으로 {task}를 진행해줘.
 
@@ -76,7 +76,7 @@ AgentDocs/task-prompts/stage
 AgentDocs/task-prompts/story
 ```
 
-Do not place prompts under `game_prompt_guide`.
+Do not place prompts under `AgentDocs/planning-guides`.
 
 ## File Naming
 
@@ -194,6 +194,17 @@ Do not list another prompt as a guide unless the task is explicitly explaining
 workflow order. If a prompt depends on another prompt's output, list that output
 file as an input instead.
 
+Every prompt that generates, downloads, evaluates, promotes, or consumes a
+generated image must include this exact required reference inside its copy-ready
+`참조 가이드` block:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+Generated project image outputs must use `Assets/ImagesGenerated`; do not add a
+new generated-image output under `Assets/Resources`.
+
 ## Task Step Rules
 
 Task steps should be imperative and ordered.
@@ -267,6 +278,9 @@ State hard boundaries directly in the prompt:
 - Battle generation must not invent monsters outside the selected monster pool.
 - PixelLab prompts must not substitute another image tool when PixelLab is the
   required source.
+- Generated-image prompts must reference
+  `AgentDocs/planning-guides/content/ContentFolderStructureGuide.md` and must not
+  write final generated images under `Assets/Resources`.
 
 ## Failure Behavior
 
@@ -301,3 +315,5 @@ Before saving a new prompt, confirm:
 - It does not ask the agent to read broad folders.
 - It does not cross manual build boundaries accidentally.
 - It uses current project path conventions.
+- Every generated-image workflow references the content folder guide and uses
+  `Assets/ImagesGenerated/{ContentDomain}/{imageArtifactType}`.

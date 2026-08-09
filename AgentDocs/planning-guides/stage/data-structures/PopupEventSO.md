@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 `PopupEventSO` is the runtime popup event asset used by stage nodes.
@@ -73,8 +86,13 @@ Each `PopupEventSO` can have a main image.
 Image files should be stored under:
 
 ```text
-Assets/Resources/stage_new/popup_png
+Assets/ImagesGenerated/Stage/popup_main
 ```
+
+This is the required target contract. If `StagePopupEventBuilder` still uses
+`Assets/Resources/stage_new/popup_png`, image generation may complete but
+PopupEventSO building is blocked until the builder path is migrated. Do not keep
+a duplicate canonical PNG in both roots.
 
 Name each image by event id:
 
@@ -85,7 +103,7 @@ Name each image by event id:
 Example:
 
 ```text
-Assets/Resources/stage_new/popup_png/node.act1.chapter01.episode01.village_arrival.main.png
+Assets/ImagesGenerated/Stage/popup_main/node.act1.chapter01.episode01.village_arrival.main.png
 ```
 
 `PopupEventBuilder` looks up the Sprite by `{eventId}.main` and assigns it to

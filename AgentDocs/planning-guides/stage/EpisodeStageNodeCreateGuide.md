@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 Create runtime stage authoring JSON from episode planning or finalized episode
@@ -76,19 +89,19 @@ Default output folders:
 ```text
 RoundNodeSO: Assets/Resources/stage_new/nodes
 PopupEventSO: Assets/Resources/stage_new/popup_events
-Popup main images: Assets/Resources/stage_new/popup_png
+Popup main images: Assets/ImagesGenerated/Stage/popup_main
 ```
 
 Popup main image naming:
 
 ```text
-Assets/Resources/stage_new/popup_png/{eventId}.main.png
+Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png
 ```
 
 For example:
 
 ```text
-Assets/Resources/stage_new/popup_png/node.act1.chapter01.episode01.village_arrival.main.png
+Assets/ImagesGenerated/Stage/popup_main/node.act1.chapter01.episode01.village_arrival.main.png
 ```
 
 `PopupEventBuilder` resolves this image by `PopupEventSO.eventId`, not by

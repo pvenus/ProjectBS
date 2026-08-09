@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. 목적
 
 스토리 팝업 메인 이미지 한 장을 빠르고 일관되게 판정한다.
@@ -19,6 +32,19 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 각 팝업이 전달해야 하는 **한 개의 핵심 순간**을 기준으로 평가한다.
 
 평가는 읽기 전용이다. 이미지 생성·수정·복사·Unity 반영·Git 작업을 수행하지 않는다.
+
+```text
+Guide Type: evaluation
+Domain: stage
+Artifact Type: story_popup_main_image
+Primary Consumer: GeneratedImageEvaluationPipelineGuide.md
+```
+
+Planning/Stage 원본은 사건 의미와 표시 지시, preserved source와
+generation/download record는 평가 bytes와 provenance, 이 가이드는 시각
+게이트·점수·판정, 공통 평가 파이프라인은 불변 결과와 handoff를 소유한다.
+같은 관심사의 근거가 충돌하면 추정하지 말고
+`conflicting_source_evidence`로 중단한다.
 
 ## 2. 평가 입력 요약
 
@@ -212,3 +238,36 @@ insufficient_visual_context
 conflicting_source_evidence
 report_write_failed
 ```
+
+## 10. Severity
+
+```text
+Critical: 필수 게이트 실패, 다른 이벤트, 금지 요소, 안전 위반 또는 권위 충돌
+Major: pass를 막거나 재생성이 필요한 핵심 순간·인물·구도·스타일 결함
+Minor: pass를 독립적으로 막지 않는 국소 수정 가능 결함
+Suggestion: 판정에 영향 없는 선택적 개선
+```
+
+각 finding은 severity, 실제 관찰, 기획 요구, 차이, 영향과 수정안을 가진다.
+필수 게이트 실패는 항상 Critical이며 점수보다 우선한다.
+
+## 11. N/A와 점수 계산
+
+- 완료된 시각 평가에서는 네 점수 항목을 모두 적용하며 최대 합계는 100이다.
+- 필수 항목을 판단할 레퍼런스가 없으면 해당 항목을 N/A로 빼고 pass를
+  계산하지 않는다. `needs_human_review`와
+  `insufficient_visual_context`를 사용한다.
+- 비채점 참고 증거만 N/A를 사용할 수 있다.
+- `not_evaluated`와 `needs_human_review`에서는 totalScore를 생략할 수 있지만
+  계산 가능한 일부 점수로 pass를 주장할 수 없다.
+
+## 12. 재평가와 Handoff
+
+- 이전 결과와 artifact hash를 보존하고 새 source/hash를 연결한다.
+- 네 필수 게이트를 모두 다시 검사한다.
+- 이미지, planning brief, display directive 또는 reference가 바뀌면 관련
+  점수 항목을 다시 평가한다.
+- unchanged-byte와 동일 planning brief가 증명된 항목만 근거 링크와 함께
+  유지할 수 있다.
+- 검증된 pass만 `passForProjectCopy=true`로 별도 promotion task에 넘긴다.
+- 평가 중 프로젝트 파일, Unity `.meta`, Slack 또는 Git 상태를 수정하지 않는다.

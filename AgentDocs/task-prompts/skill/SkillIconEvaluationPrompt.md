@@ -22,6 +22,7 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 아래 가이드를 기준으로 최종 normalized 스킬 아이콘을 평가해줘. 평가 중 이미지, JSON, `.meta` 파일을 생성하거나 수정하지 마.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/skill/SkillIconEvaluationGuide.md
 - AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md
 - AgentDocs/planning-guides/skill/data-structures/SkillJsonGuide.md
@@ -30,11 +31,11 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 
 Input:
 - projectRoot: {project_root}
-- evaluationRoot: /Users/pvenus/Documents/PixelLab/skill/icon
+- evaluationRoot: {current_pc_skill_icon_evaluation_root}
 - skillSourcePath: {스킬_JSON_절대경로}
 - equipmentId: {skill.character.character_name.grade.slot.skill_name}
 - iconPath: {evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
-- intendedUnityIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+- intendedUnityIconPath: Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 - generationRecordPath: {아이콘 생성 기록 절대경로}
 - preview32Path: {nearest-neighbor 32×32 미리보기 절대경로}
 - lowerGradeIconPath: {auto | 하위 등급 아이콘 절대경로 | null}
@@ -112,6 +113,13 @@ Output:
 - 실패 원인
 - 부족한 입력
 - 다음에 필요한 작업
+
+검증:
+- normalized final source만 평가 대상으로 사용해야 한다.
+- 치명적 실패 또는 필수 증거 누락이 있으면 Pass 처리하지 않아야 한다.
+- 6개 채점 항목의 합계가 Total과 일치해야 한다.
+- 평가 중 이미지 생성·편집·정규화 또는 Unity 복사를 수행하지 않아야 한다.
+- evaluationOutputPath가 report_only이면 파일을 생성하지 않아야 한다.
 
 주의:
 - 평가는 normalized final source를 대상으로 한다.

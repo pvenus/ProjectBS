@@ -12,20 +12,46 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** resolve a popup-specific visual direction, generate the image at the selected provider, and return provider references plus a generation record.
+- **Inputs:** resolved popup identity, planning context, `imagePolicy`, and approved provider prompt.
+- **Preconditions:** `eventId == popupId` for new content and all cited source files are readable.
+- **Handoff:** provider result references, generation parameters, future target identity, and a separate download/preservation request.
+- **Mutation boundary:** do not download, evaluate, copy or save to the project target, import to Unity, create metadata, run a builder, or perform Git work.
+
+Planning data controls popup identity and story meaning, the story image guides
+control visual composition, and this guide controls provider generation only.
+Any conflict stops execution with `generation_authority_conflict`.
+
 ## Purpose
 
 Create one main illustration for each popup event that needs a visual.
 
-The output image is not stored in `PopupEventSO` JSON. It is saved as a Sprite
-asset under a deterministic path, and the editor builder maps it to
-`PopupEventSO.mainImage` by event id.
+The provider result is not stored in `PopupEventSO` JSON. Project storage and
+builder mapping occur only after separate download, immutable evaluation, and
+PASS-only promotion stages.
 
-## Output Path
+## Future Project Target Identity (Informational Only)
 
-Store popup main images here:
+After PASS-only promotion, a separate promotion task stores popup main images here:
 
 ```text
-Assets/Resources/stage_new/popup_png
+Assets/ImagesGenerated/Stage/popup_main
 ```
 
 Use this file name:
@@ -37,7 +63,7 @@ Use this file name:
 Example:
 
 ```text
-Assets/Resources/stage_new/popup_png/node.act1.chapter01.episode01.village_arrival.main.png
+Assets/ImagesGenerated/Stage/popup_main/node.act1.chapter01.episode01.village_arrival.main.png
 ```
 
 The imported Sprite name should be:
@@ -78,7 +104,7 @@ characterReferenceFiles:
 locationReferenceFiles:
   - AgentDocs/planning-data/location/...
 styleReferenceImages:
-  - Assets/Resources/stage_new/popup_png/reference/...
+  - AgentDocs/reference-assets/stage/popup_main/...
 ```
 
 ## Image Direction
@@ -90,9 +116,8 @@ suffix must equal `popupName`. Read `imagePolicy` from the matched planning popu
 definition:
 
 - `generate`: create a distinct `{popupId}.main.png`.
-- `reuse`: require `imageSourcePopupId`, then copy its approved PNG byte-for-byte
-  to `{popupId}.main.png`. This preserves the current builder's per-event lookup
-  without regenerating the visual.
+- `reuse`: require `imageSourcePopupId`, return `reuse_requested`, and hand off
+  the approved source identity. Do not copy a file in this generation stage.
 - `none`: do not generate an image.
 
 Do not invent an event id in the image step.
@@ -153,7 +178,7 @@ lighting, and composition details to the reusable guide direction. Do not weaken
 the focus, historical grounding, character handling, or no-modern-object
 requirements defined in those guides.
 
-## Output Contract
+## Generation Handoff Contract
 
 Return:
 
@@ -162,28 +187,34 @@ eventId
 popupName
 popupId
 imagePolicy
-imagePath or null when imagePolicy is none
-spriteName
+futureProjectTargetPath or null when imagePolicy is none
+futureSpriteName
 sourceStageNodeJsonFile
 sourcePopupSummary
-validationResult
+providerResultRefs
+generationRecord
+downloadHandoff
 ```
 
 Policy-specific fields:
 
 - `generate`: return `visualPrompt` and `imageResolution`.
-- `reuse`: do not write a new visual prompt; return `sourceImagePath`,
-  `outputImagePath`, `sourceSha256`, and `copiedSha256`.
+- `reuse`: do not write a new visual prompt or copy a file; return
+  `imageSourcePopupId` and `reuse_requested: true`.
 - `none`: return `skipped: true` and `skipReason: image_policy_none`; no image
   path, prompt, or resolution is required.
 
-For `generate` or `reuse`, the final `imagePath` must be:
+For `generate` or `reuse`, the future project target identity is:
 
 ```text
-Assets/Resources/stage_new/popup_png/{eventId}.main.png
+Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png
 ```
 
-## Builder Mapping
+## Legacy Builder Mapping Appendix (Non-executable)
+
+This section and Validation below describe downstream consumers only. They must
+not be executed by the generation task. Builder checks belong after immutable
+evaluation and PASS-only promotion.
 
 `PopupEventBuilder` uses:
 
@@ -191,11 +222,16 @@ Assets/Resources/stage_new/popup_png/{eventId}.main.png
 eventId -> {eventId}.main -> PopupEventSO.mainImage
 ```
 
-It searches under:
+The required target search root is:
 
 ```text
-Assets/Resources/stage_new/popup_png
+Assets/ImagesGenerated/Stage/popup_main
 ```
+
+Before running the builder, inspect `StagePopupEventBuilder`'s configured main
+image folder. If it still points to `Assets/Resources/stage_new/popup_png`, stop
+with `builder_path_migration_required`. Do not duplicate the generated image into
+the legacy Resources path as a workaround.
 
 This mapping is per popup event. Do not use `stageNodeId` for popup main image
 names.
@@ -205,7 +241,7 @@ names.
 Before finishing, verify:
 
 - For `generate` or `reuse`, the file exists at
-  `Assets/Resources/stage_new/popup_png/{eventId}.main.png`.
+  `Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png`.
 - For `reuse`, source and destination PNG SHA-256 values match.
 - For `none`, no image output is required and the result is reported as skipped.
 - For new content, `eventId == popupId` and `popupId` matches the planning
@@ -218,3 +254,5 @@ Before finishing, verify:
   to make it match; validate identity and checksum only.
 - The Sprite import name can become `{eventId}.main`.
 - `PopupEventBuilder` can find the image by event id after Unity imports it.
+- The builder target root is `Assets/ImagesGenerated/Stage/popup_main`; otherwise
+  the builder step is blocked as `builder_path_migration_required`.

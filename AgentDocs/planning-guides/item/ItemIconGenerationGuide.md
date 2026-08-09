@@ -12,10 +12,36 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** generate PixelLab item-icon alternatives and return provider references and a generation record.
+- **Inputs:** approved item planning, identity, concise description, palette, and provider settings.
+- **Preconditions:** the item concept and cultural constraints are resolved and the correct PixelLab tool is available.
+- **Handoff:** provider result references and a separate download/preservation request.
+- **Mutation boundary:** no extraction/download, scoring, immutable evaluation, project copy, Unity import/meta work, or Git work.
+
+The master concept controls cultural/visual constraints, approved item planning
+controls identity and meaning, and this guide controls provider generation only.
+Stop with `generation_authority_conflict` if these sources disagree.
+
 ## 1. Purpose
 
-This guide defines how to generate one static item icon with PixelLab and turn
-the selected result into a stable Unity Sprite.
+This guide defines how to generate one static item icon with PixelLab and hand
+the provider result to the separate download/preservation stage.
 
 The first supported visual profile is `relic`. Relics are items that own gameplay
 effects; the icon represents the physical item and its fantasy, not an EffectSO,
@@ -25,9 +51,8 @@ skill VFX, character portrait, inventory slot, or UI card.
 approved item planning
 -> concise item-icon brief
 -> PixelLab Create UI elements (Pro)
--> split the 2x2 result into four candidates
--> evaluate and preserve one candidate
--> copy the passing 128x128 Sprite to Unity
+-> provider result references and generation record
+-> separate download/preservation handoff
 ```
 
 Use the skill icon workflow as an operational reference, but do not copy its
@@ -153,7 +178,7 @@ Canonical relic identity:
 itemId = item.relic.{lowercase_snake_case_slug}
 spriteName = {itemId}.icon
 filename = {itemId}.icon.png
-outputPath = Assets/Resources/item/icon/{itemId}.icon.png
+outputPath = Assets/ImagesGenerated/Item/icon/{itemId}.icon.png
 ```
 
 Do not overwrite or append cells to `Assets/Resources/shop/relic/relic-icon-*.png`.
@@ -267,7 +292,14 @@ does not match the current relic library and requires explicit art-direction
 approval. Colored aura pixels attached to the item are an effect cue, not a
 background.
 
-## 9. Candidate Extraction and Preservation
+## 9. Legacy Post-generation Appendix (Non-executable)
+
+Sections 9 through 11 document the former combined workflow only. Current
+execution ends after PixelLab generation and returns provider references plus a
+generation record. Extraction, evaluation, and PASS-only promotion are separate
+tasks and must not be performed from this guide.
+
+### Candidate Extraction and Preservation (Legacy)
 
 One 128x128 Pro run yields one 256x256 2x2 sheet. Preserve the raw result, then
 extract cells without scaling, filtering, redrawing, or recompression:
@@ -300,7 +332,7 @@ Recommended preservation layout:
 The evaluation folder is authoritative evidence. Copy the passing preserved
 source into Unity; do not use the Unity folder as the only source archive.
 
-## 10. Selection and Retry Rules
+### Selection and Retry Rules (Legacy)
 
 Reject a candidate before scoring when it has any of these failures:
 
@@ -335,18 +367,18 @@ new seed. Maximum two PixelLab runs per item unless the user approves more.
 - extra objects or scenery -> simplify `Composition/exclusions`;
 - broad style failure -> rewrite `Style`; do not upload a legacy sheet.
 
-## 11. Unity Handoff
+### Unity Handoff (Legacy)
 
 Only after Pass:
 
 1. Preserve the selected 128x128 RGBA candidate as
    `{evaluationRoot}/{itemId}/source/{itemId}.icon.png`.
 2. Confirm the source is transparent and its SHA-256 is recorded.
-3. If `Assets/Resources/item/icon` does not yet exist, create exactly that
+3. If `Assets/ImagesGenerated/Item/icon` does not yet exist, create exactly that
    canonical directory after the candidate passes and let the approved Unity
    import workflow create its folder `.meta`.
 4. Copy it byte-for-byte to
-   `Assets/Resources/item/icon/{itemId}.icon.png`.
+   `Assets/ImagesGenerated/Item/icon/{itemId}.icon.png`.
 5. Ensure Unity imports it as one Sprite with pivot centered, mipmaps off,
    alpha transparency enabled, and no atlas slicing.
 6. Ensure the Sprite name is exactly `{itemId}.icon`, matching Relic JSON `icon`.
@@ -378,14 +410,12 @@ Color Palette:
 Seed: value | not_exposed
 Attempt Count:
 Raw Sheet Path / Size:
-Candidate Extraction Manifest:
-Candidate Scores:
-64x64 Preview Result:
-Selected Candidate / SHA-256:
-Preserved Source Path:
-Unity Output Path / Sprite Name:
-Unity Meta Status:
-Result: Pass | Fail
+Provider Result References:
+Provider Variation Count:
+Provisional Provider Selection: value | omitted
+Future Project Target / Sprite Name:
+Download Handoff Status:
+Generation Status: completed | blocked | failed
 ```
 
 ## 13. Failure Types
@@ -402,10 +432,6 @@ insufficient_pixellab_credits
 wrong_pixellab_tool
 generation_timeout
 invalid_result_sheet
-candidate_extraction_failed
-no_passing_candidate
-preservation_failed
-output_write_failed
-sprite_name_mismatch
-unity_import_pending
+provider_result_missing
+generation_record_write_failed
 ```

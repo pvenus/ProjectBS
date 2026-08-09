@@ -12,6 +12,32 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** generate named character animations in PixelLab and return provider-side result references and a generation record.
+- **Inputs:** an approved PixelLab character identity and the required animation set.
+- **Preconditions:** the source character is uniquely resolved and its approved design is unchanged.
+- **Handoff:** provider animation references, settings, names, and a separate download/preservation request.
+- **Mutation boundary:** do not download, extract, evaluate, promote, write Unity assets or metadata, or perform Git work.
+
+The master concept controls visual constraints, the approved character result
+controls identity, and this guide controls provider generation. Stop with
+`generation_authority_conflict` when these sources disagree.
+
 ## Generate Character Animation
 
 ### Mandatory Tool
@@ -77,7 +103,11 @@ If multiple PixelLab characters match the search query, prefer the character who
 - After generating the character's movement, attack, and idle animations, edit the names of the generated animations in the **Animations** tab to **Move**, **Attack**, and **Idle**, respectively.
 - The movement animation may be generated from PixelLab's **MOVEMENT / Walking / Walk** preset, but the final animation name must be **Move**, not **Walk**.
 
-### 6. Download
+### 6. Legacy Download Appendix (Non-executable)
+
+This and the following evaluation section document the old combined workflow
+only. Current execution stops after Step 5 and routes the provider result to the
+separate download/preservation stage.
 
 On the image page, use the `Export` button to download the character animation images.
 
@@ -105,7 +135,7 @@ north-west/
 - Store all exported files in the created folder.
 - Perform the evaluation using the PNG images in the `animations` folder.
 
-### 7. Animation Evaluation
+### 7. Legacy Animation Evaluation Appendix (Non-executable)
 
 - Evaluation begins once the animation generation process is complete.
 - The images from the generated character's 8-directional preview serve as the reference.

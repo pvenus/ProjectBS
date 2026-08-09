@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 Generate a Battle JSON file used as the input for `BattleSO` generation.
@@ -119,7 +132,7 @@ seq.{encounter_group}.{purpose}
 | battleName | string | No | Display/debug name. |
 | victoryRule | enum string | Yes | `KillBoss`, `ClearAllEnemies`, or `SurviveTime`. |
 | survivalTimeSeconds | number | Yes | Must be `0` or greater. Used by `SurviveTime`. |
-| backgroundSprite | string | No | Sprite asset lookup key. If omitted, builder tries `{battleId}.background`. Store generated battle background PNGs under `Assets/Resources/battle/battle_png/{battleId}.background.png`. |
+| backgroundSprite | string | No | Sprite asset lookup key. If omitted, builder tries `{battleId}.background`. Store generated battle background PNGs under `Assets/ImagesGenerated/Battle/background/{battleId}.background.png`. |
 | spawnerSelection | object | No | Authoring/debug metadata describing which spawner type and difficulty were selected. |
 | spawnSequenceId | string | Yes if path empty | Main `SpawnSequenceSO` lookup key. |
 | spawnSequencePath | string | Yes if id empty | Asset path or path relative to the battle JSON folder. |
@@ -394,7 +407,7 @@ composed background image by default.
 Recommended path and name:
 
 ```text
-Assets/Resources/battle/battle_png/{battleId}.background.png
+Assets/ImagesGenerated/Battle/background/{battleId}.background.png
 ```
 
 Recommended JSON value:
@@ -416,7 +429,7 @@ Generation guidelines:
 
 Validation:
 
-- PNG exists under `Assets/Resources/battle/battle_png/`.
+- PNG exists under `Assets/ImagesGenerated/Battle/background/`.
 - PNG `.meta` imports as a Sprite.
 - `backgroundSprite` resolves by exact sprite/file name.
 - Built BattleSO stores the resolved Sprite reference.

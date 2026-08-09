@@ -59,6 +59,7 @@ Input:
 - requiredVisualElements: [{독립적으로_확인_가능한_필수_표현_요소_3_5개}]
 - hardConstraints: [{금지_요소_및_기술적_Hard_Gate}]
 - generationPromptOriginal: {생성_도구에_실제_입력한_최종_프롬프트_원문}
+- normalizedEvaluationResultSource: {generated_image_evaluation_v1_JSON_경로_또는_안정적인_참조 | null}
 - evaluationReportSource: {완료된_평가_리포트_파일_또는_안정적인_참조}
 - inlineEvaluationReport: {인라인_평가_리포트 | null}
 - primaryEvaluationGuide: {평가_가이드_상대경로}
@@ -90,6 +91,8 @@ Input:
 - outputLocalCanvasDraftPath: {AgentDocs/planning-data/evaluation/slack_canvas/v1/{evaluationDomain}/{artifactType}/{artifactId}.canvas.md | null}
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+- AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 - {domainSlackCanvasGuide | 생략 가능}
 
@@ -127,7 +130,7 @@ Input:
 5. domainSlackCanvasGuide가 있으면 공통 계약을 제거하거나 이름을 바꾸지 않는 추가 규칙으로만 적용한다.
 6. 각 artifact의 canonical ID, 실제 media, planningSource, planningOriginalContent, displayContent, designConcept, generationPromptOriginal, immutable evaluation source가 서로 같은 대상을 가리키는지 확인한다.
 7. 공통 Guide가 요구하는 기획·디자인·프롬프트·평가 근거가 모두 제공되었는지 검사한다. 누락 필드를 생성하거나 추정하지 않는다.
-8. evaluationReportSource에서 완료된 결과를 읽고 결과·점수·Hard Fail·severity·findings·actions를 불변 값으로 잠근다. inlineEvaluationReport는 source 내용을 전달할 수 있지만 source 식별자를 대체하지 않는다.
+8. normalizedEvaluationResultSource가 generated_image_evaluation_v1이면 이를 불변 source of truth로 사용해 결과·도메인 점수 카테고리·Hard Fail·severity·findings·actions·기획/디자인 근거·source hash를 잠근다. evaluationReportSource와 불일치하면 재채점하거나 보정하지 말고 evaluation_contract_conflict로 중단한다. normalized source가 없는 legacy 기록만 evaluationReportSource를 직접 사용한다. inlineEvaluationReport는 source 내용을 전달할 수 있지만 source 식별자를 대체하지 않는다.
 9. stagingArtifactPath, evaluationWorkspacePath, projectTargetPath의 역할과 promotionStatus의 결과 호환성 및 검증 근거를 확인한다. 충돌이나 모순이 있으면 게시 전에 중단한다.
 10. localDraftMode=save이면 지정된 canonical draft 경로에 draft 하나만 저장한다. report_only이면 로컬 파일을 생성하거나 수정하지 않는다.
 11. canvasUpdateMode=draft_only이면 Slack 도구를 호출하지 않는다. append 또는 replace_artifact_section은 쓰기 승인과 명확한 target이 있을 때만 수행한다.
@@ -218,13 +221,14 @@ When `artifactType=skill_animation` and the source evaluation already exists:
 ```text
 workflowMode: format_existing
 evaluationWorkspacePath:
-  C:\github\design_evaluation\skill_animation\{artifactId}
+  {evaluationRoot}/{artifactId}
 canvasEvidenceMode: self_contained
 ```
 
 Required inputs:
 
 ```text
+evaluationRoot
 stagingReferencePath
 stagingAnimationPath
 referenceSha256
@@ -265,7 +269,7 @@ publishing directly from PixelLab export storage:
 ```text
 workflowMode: format_existing
 evaluationWorkspacePath:
-  C:\github\design_evaluation\character\{characterName}_{grade}
+  {evaluationRoot}/{characterName}_{grade}
 canvasEvidenceMode: self_contained
 canonicalCharacterId:
   character.{characterName}.{grade}
@@ -274,6 +278,7 @@ canonicalCharacterId:
 Required local inputs:
 
 ```text
+evaluationRoot
 metadata.json
 evaluation_result.txt
 evaluation_animation_result.txt

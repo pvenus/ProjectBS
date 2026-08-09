@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 Create a concrete battle plan from episode planning, monster pool planning, and
@@ -116,7 +129,7 @@ Recommended defaults:
 
 - `assetMode`: `single_sprite`
 - `targetFileName`: `{battleId}.background.png`
-- `targetResourcePath`: `Assets/Resources/battle/battle_png/{battleId}.background.png`
+- `targetResourcePath`: `Assets/ImagesGenerated/Battle/background/{battleId}.background.png`
 - `style`: `pixel_game_background`
 - `aspectRatio`: `16:9`
 - `targetResolution`: `2560x1440`

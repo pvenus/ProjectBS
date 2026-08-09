@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. Purpose
 
 This guide extends `EvaluationSlackCanvasFormGuide.md` for a completed story
@@ -49,7 +62,7 @@ evaluationWorkspacePath =
 {evaluationRoot}/{eventId}
 
 projectTargetPath =
-Assets/Resources/stage_new/popup_png/{eventId}.main.png
+Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png
 
 localCanvasDraftPath =
 AgentDocs/planning-data/evaluation/slack_canvas/v1/stage/story_popup_main_image/{eventId}.canvas.md
@@ -84,7 +97,18 @@ invent narrative facts.
 
 ## 5. Score Breakdown Mapping
 
-Copy these categories and maximums exactly from
+For generated_image_evaluation_v1, copy category IDs, names, maximums, scores,
+status, evidence, result, and pass criteria exactly from evaluation_result.json.
+PopupEventMainImageEvaluationGuide.md as captured by that result is the scoring
+authority. This Canvas guide must not apply a separate hardcoded rubric.
+
+The static mapping below is legacy-only. Use it only when formatting a
+completed legacy report that explicitly contains that exact rubric. Do not use
+it for a new evaluation and do not combine it with a current normalized result.
+A category or threshold conflict is evaluation_contract_conflict and blocks
+Canvas formatting.
+
+The following historical mapping was previously associated with
 `PopupEventMainImageEvaluationGuide.md`:
 
 | Category | Max |
@@ -172,7 +196,8 @@ Do not convert a story contradiction into an optional improvement.
 - Fixed domain, artifact type, and artifact ID are correct.
 - `imagePath == stagingArtifactPath` for `generate` and `reuse`.
 - Staging and project target are distinct.
-- The nine category scores total the report score.
+- The normalized result's domain category scores and maximums match the report
+  and total correctly when a numeric total is used.
 - Fatal conditions and Critical/Major findings remain visible.
 - `imagePolicy=none` maps to `SKIPPED/not_applicable`.
 - Promotion status follows the common result matrix.

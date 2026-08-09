@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. Purpose
 
 This guide evaluates character-independent skill VFX sprite animations generated in PixelLab.
@@ -29,6 +42,20 @@ controlled palette, and a clear visual hierarchy.
 Do not import the icon prompt's opaque full-bleed background contract into this
 guide. Production skill VFX remain isolated on an alpha-transparent canvas with no
 scene, floor, card, frame, or internal background painting.
+
+```text
+Guide Type: evaluation
+Domain: skill
+Artifact Type: skill_animation
+Primary Consumer: GeneratedImageEvaluationPipelineGuide.md
+```
+
+Skill JSON/planning owns gameplay identity; generation/download records own
+provider provenance and evaluated bytes; this guide owns visual gates, score,
+severity, and verdict; the common evaluation pipeline owns immutable result and
+handoff; Unity/runtime contracts own slicing, clips, and bindings. Missing or
+conflicting authority stops with `evaluation_contract_conflict` or
+`insufficient_evidence`; it is not resolved by inference.
 
 ## 2. Fatal Failure Conditions
 
@@ -276,7 +303,7 @@ Notes:
 An existing completed evaluation may be normalized into:
 
 ```text
-C:\github\design_evaluation\skill_animation\{skillId}
+{evaluationRoot}/{skillId}
 ```
 
 only with `format_existing` semantics.
@@ -300,3 +327,54 @@ only with `format_existing` semantics.
   generation, and runtime binding as separate evidence fields.
 - Failed, blocked, or never-generated assets are not migrated as completed
   records.
+
+## 8. Severity Model
+
+```text
+Critical: any Fatal Failure Condition, wrong skill identity, unusable frame structure, or material authority conflict
+Major: issue that prevents Pass or requires regeneration/material frame correction
+Minor: localized correctable defect that does not independently prevent Pass
+Suggestion: optional polish with no verdict impact
+```
+
+Every finding records severity, affected frame(s), observable evidence, gameplay
+impact, and required correction. Fatal failures are always Critical. Severity
+does not replace the category score.
+
+## 9. N/A and Score Calculation
+
+- The nine scored categories have fixed maximums totaling 100 and are not N/A
+  for a completed evaluation.
+- A secondary-effect or literal Korean-motif subcheck may be N/A only when
+  canonical skill/design evidence proves it is not required; its scored category
+  still evaluates the applicable primary effect, palette, hierarchy, and intent.
+- Unity meta, reimport, clip, and binding evidence may be N/A because it is
+  non-scored readiness evidence.
+- If a scored category cannot be observed, return `not_evaluated` with
+  `insufficient_evidence`; do not calculate a passing total.
+
+## 10. Re-evaluation Contract
+
+- Preserve the prior immutable result and identify the new artifact/hash.
+- Re-run every Fatal Failure Condition.
+- Re-score every category affected by changed frames, order, timing, palette,
+  direction, structure, or skill meaning.
+- Carry forward an unaffected category only when its source bytes and relevant
+  evidence are unchanged and linked explicitly.
+- Conditional Pass and Fail require a new complete verdict before promotion.
+
+## 11. Evaluation Handoff and Failures
+
+Only Pass may set `passForProjectCopy=true` and hand off to the separate
+promotion task. Evaluation must not create or modify project PNGs, `.meta`,
+clips, Slack records, or Git state.
+
+```text
+missing_skill_source
+missing_generation_record
+missing_download_record
+invalid_animation_sheet
+insufficient_evidence
+evaluation_contract_conflict
+evaluation_result_write_failed
+```

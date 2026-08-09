@@ -12,6 +12,32 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** generate PixelLab skill-icon alternatives and return provider references plus a generation record.
+- **Inputs:** approved skill JSON/identity, semantic classification, concise provider description, and PixelLab settings.
+- **Preconditions:** authority sources agree, the required tool is available, and the prompt contract is complete.
+- **Handoff:** provider result references, settings/provenance, and a separate download/preservation request.
+- **Mutation boundary:** no download, pixel overlay/normalization, rubric evaluation, project copy, Unity metadata/import, or Git work.
+
+Skill data controls gameplay meaning, the master concept controls cultural and
+visual prohibitions, and this guide controls provider generation only. Stop with
+`generation_authority_conflict` rather than guessing when they conflict.
+
 ## 1. Purpose
 
 This guide defines how to generate static pixel-art skill icons with PixelLab.
@@ -22,7 +48,7 @@ size. It is not a skill VFX animation, character sprite, or UI panel.
 Use this guide for icons stored under:
 
 ```text
-Assets/Resources/skill/icon/skill
+Assets/ImagesGenerated/Skill/icon
 ```
 
 Do not apply the transparent-background and character-independence rules from
@@ -130,7 +156,7 @@ The output filename must be:
 The output path must be:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 ```
 
 ## 5. Standard Asset Specification
@@ -710,7 +736,15 @@ Restored Frame Columns: 0, 1, 78, 79
 Normalized Candidate SHA-256:
 ```
 
-## 15. Staged Generation Workflow
+## 15. Legacy Combined Post-generation Appendix (Non-executable)
+
+Sections 15 through 17 describe the former combined workflow and are retained
+only to interpret existing records. Current execution ends after provider
+generation and returns all provider references plus the generation record.
+Download, deterministic processing, immutable evaluation, and PASS-only
+promotion must run as separate stages.
+
+### Staged Generation Workflow (Legacy)
 
 1. Read the target skill JSON and validate `equipmentId`, grade, slot, and output
    path.
@@ -767,9 +801,9 @@ Normalized Candidate SHA-256:
 18. Copy only a passing final source to the existing Unity path and verify checksum
    and `.meta` import settings.
 
-## 16. Validation
+### Validation (Legacy)
 
-### 16.1 File Validation
+#### 16.1 File Validation
 
 - The output file exists at the exact required path.
 - The filename is the full `equipmentId` plus `.icon.png`.
@@ -778,7 +812,7 @@ Normalized Candidate SHA-256:
 - The image uses RGBA color mode.
 - The Unity `.png.meta` file exists or is created by the approved import workflow.
 
-### 16.2 Visual Validation
+#### 16.2 Visual Validation
 
 - The icon is readable at 80 x 80 and 32 x 32 pixels.
 - One activated tool or symbolic emblem dominates the composition.
@@ -813,7 +847,7 @@ Normalized Candidate SHA-256:
 - There is no flat color-only fill, simple gradient-only fill, white default
   canvas, transparent gap, unpainted margin, local color patch, or unrelated object.
 
-### 16.3 Pipeline and Identity Validation
+#### 16.3 Pipeline and Identity Validation
 
 - The existing frame template path is recorded and exists on the current PC.
 - The primary generation record confirms `Create UI elements (Pro)`, Custom size
@@ -838,7 +872,7 @@ Normalized Candidate SHA-256:
   is approved.
 - The icon is distinguishable from other skills visible in the same loadout.
 
-## 17. Candidate Scoring
+### Candidate Scoring (Legacy)
 
 Score every candidate out of 100:
 
@@ -921,23 +955,15 @@ Pro Grid / Variation Count: 4x4 / 16
 Concept Image: empty
 Color Palette:
 Primary Description:
-Semantic Effect Tool / Instruction:
-Exact-Count Overlay Manifest:
 Transparent Background:
 Requested Width / Height:
-Downloaded Width / Height:
 Seed: value or not_exposed
 Attempt Count:
-Candidate Background Gate Results:
-Near-White Blank Ratio:
-Dominant Background RGB Ratio:
-Four-Corner / Edge Continuity:
-Normalization Record:
-32x32 Preview Result:
-Selected Candidate:
 Regeneration Performed:
-Validation Score:
-Result:
+Provider Result References:
+Provider Variation Count:
+Generation Status:
+Download Handoff Status:
 Failure Reasons:
 Notes:
 ```
@@ -960,7 +986,6 @@ failureType:
 - wrong_pixellab_tool
 - invalid_ui_settings
 - generation_timeout
-- invalid_downloaded_size
 - representation_failure
 - inert_tool_failure
 - disconnected_effect_failure
@@ -968,15 +993,11 @@ failureType:
 - foreign_motif_failure
 - blank_canvas_failure
 - solid_background_failure
-- semantic_edit_failed
-- overlay_failed
-- normalization_failed
-- no_passing_candidate
-- output_write_failed
-- unity_import_pending
+- provider_result_missing
+- generation_record_write_failed
 
 failedSkillId:
-failedOutputPath:
+futureProjectTarget:
 failureReason:
 missingInput:
 lastPixelLabResult:

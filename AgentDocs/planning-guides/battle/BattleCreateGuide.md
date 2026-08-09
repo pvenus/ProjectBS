@@ -12,6 +12,32 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Guide Contract
+
+- **Guide type:** battle-data workflow guide with a prompt-authoring handoff for background images.
+- **Responsibility:** author and validate Battle data; for a background, resolve only the approved visual brief and future asset identity.
+- **Inputs/preconditions:** approved battle plan, monster pool, spawner contract, and readable required references.
+- **Handoff:** Battle JSON plus a `battle_background` prompt-authoring request. Provider generation is owned by `BattleBackgroundImagePrompt.md`.
+- **Mutation boundary:** this guide does not generate, download, evaluate, promote, import, or create Unity image metadata.
+
+Battle planning controls narrative intent, the BattleSO schema controls data
+shape, and the generated-image common guides control image stage boundaries. If
+these authorities conflict, stop with `battle_authority_conflict` and escalate
+the exact fields; do not infer a resolution.
+
 This guide defines how to create BattleSO data from story context, monster pool
 data, and reusable spawn variations.
 
@@ -64,7 +90,7 @@ them to spawn slots.
 5. Record the selected spawner type, difficulty, source file, and selection reason in battle JSON.
 6. Read the selected spawner's required `spawnUnitKey` and `spawnRole` slots.
 7. Map monsters to those slots through BattleSO `spawnUnitBindings`.
-8. Create or confirm the BattleSO background image from battle planning.
+8. Create or confirm the background-image brief and handoff identity from battle planning.
 9. Create or update BattleSO.
 10. Validate that the spawn sequence can resolve every required slot.
 
@@ -112,7 +138,7 @@ Example concept:
 The exact runtime asset field is a CharacterSO reference. JSON authoring may use
 `characterId` only as an editor/build-time lookup key.
 
-## Background Image Generation
+## Background Image Prompt-Authoring Handoff
 
 Battle background image generation is driven by battle planning data.
 
@@ -126,10 +152,10 @@ Use the selected battle plan's `backgroundImageDirection` together with:
 - forbidden conditions
 - required gameplay readability
 
-Default output:
+Future PASS-only promotion target (informational):
 
 ```text
-Assets/Resources/battle/battle_png/{battleId}.background.png
+Assets/ImagesGenerated/Battle/background/{battleId}.background.png
 ```
 
 The BattleSO input JSON should store:
@@ -154,17 +180,10 @@ Image generation requirements:
 - Do not include spawn markers or literal encounter diagrams.
 - Do not split floor/background/parallax layers unless the user explicitly asks.
 
-The generated PNG must be imported as a Sprite and saved with a stable `.meta`
-file.
-
-For pixel-game backgrounds, prefer point filtering in the texture importer.
-
-Validation:
-
-- The PNG exists at `Assets/Resources/battle/battle_png/{battleId}.background.png`.
-- The image has a 16:9 layout and expected target resolution.
-- The `.meta` imports it as `textureType: Sprite`.
-- The BattleSO asset references the same Sprite GUID after build.
+Return the visual brief, provider prompt request, `battleId`, and future target
+identity to the generation task. Do not require a PNG, `.meta`, Sprite GUID, or
+builder result at this stage. Those checks belong to later download,
+immutable-evaluation, and PASS-only promotion tasks.
 
 ## Battle-Spawner Connection Metadata
 

@@ -38,10 +38,13 @@ Input:
 - passScore: 90
 - categoryPassScore: 90
 - itemPassScore: 90
+- maxMajorFindings: 0
 - hardFailRules:
   - Critical finding이 있으면 점수와 무관하게 미달 처리
-  - promptFile 위치가 game_prompts 밖이면 미달 처리
-  - copy-ready prompt가 game_prompt_guide 아래에 있으면 미달 처리
+  - promptFile이 AgentDocs/task-prompts 밖이면 invalid_prompt_location
+  - copy-ready prompt가 AgentDocs/planning-guides 아래에 있으면 copy_ready_prompt_inside_planning_guides
+  - 구 prompt/guide root를 active contract로 사용하면 stale_legacy_prompt_or_guide_root
+  - 생성·다운로드·평가·승격·Unity·Git 단계를 한 실행 책임으로 결합하면 pipeline_stage_boundary_violation
 
 작업:
 1. PromptEvaluationGuide.md를 먼저 읽고 평가 항목, 카테고리, severity, pass/fail 기준을 확인한다.
@@ -60,7 +63,7 @@ Input:
 14. itemPassScore 이상인 item은 `점수 통과 항목`으로 분리한다.
 15. itemPassScore 미만인 item은 `점수 미달 항목`으로 분리한다.
 16. categoryPassScore 미만인 category는 `카테고리 미달`로 분리한다.
-17. passScore 이상이고 hardFailRules에 걸리지 않으면 종합 통과로 판단한다.
+17. overall/category/item threshold를 모두 만족하고 Major finding 수가 maxMajorFindings 이하이며 hardFailRules에 걸리지 않을 때만 종합 통과로 판단한다.
 18. 미달 항목은 수정 우선순위를 Critical, Major, Minor, Suggestion 순서로 정리한다.
 19. 대상 프롬프트를 자동 수정하지 않는다. 필요한 수정 방향만 제안한다.
 
@@ -72,6 +75,8 @@ Output:
 - Rating
 - Overall Pass / Fail
 - Hard Fail 여부
+- Hard Fail Rules Triggered
+- Major Finding Count / Allowed
 
 점수 통과 항목:
 - Category:
@@ -140,6 +145,7 @@ Findings:
 - 통과 항목과 미달 항목은 같은 item을 중복 포함하지 않아야 한다.
 - 미달 항목이 없으면 `점수 미달 항목: 없음`으로 표시해야 한다.
 - hardFailRules에 걸리면 overall score가 높아도 Overall Pass / Fail은 Fail이어야 한다.
+- Major finding 수가 maxMajorFindings를 초과하면 Fail이어야 한다.
 
 주의:
 - 대상 프롬프트의 실제 작업을 실행하지 않는다.

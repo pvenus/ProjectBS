@@ -210,6 +210,20 @@ Additional rules:
   such as an approved `SKIPPED` image policy.
 - Formatting a Canvas record does not itself authorize or perform promotion.
 
+For generated-image records with schemaVersion
+generated_image_evaluation_v1, apply promotionPolicy=pass_only_v1:
+
+- only PASS may become approved_for_promotion or promoted;
+- CONDITIONAL_PASS remains not_promoted or blocked and requires correction plus
+  re-evaluation rather than an approval-only promotion;
+- passForProjectCopy must be true before approval for project copy;
+- existing historical CONDITIONAL_PASS promotions remain valid records but do
+  not define policy for new generated-image records.
+
+The generated-image evaluation_result.json is the immutable source for result,
+domain category names, maximums, scores, findings, and actions. Canvas
+formatting validates and presents these facts; it does not re-score them.
+
 ### 6.4 Reader-Facing Artifact Flow
 
 Each visual artifact uses one full-width decision heading followed by two
@@ -589,11 +603,15 @@ sources.
 
 ### 9.2 Skill Animation Evidence
 
-For `artifactType=skill_animation`, the canonical evaluation workspace is:
+For `artifactType=skill_animation`, resolve the workspace under the current
+PC's established evaluation root:
 
 ```text
-C:\github\design_evaluation\skill_animation\{artifactId}
+{evaluationRoot}/{artifactId}
 ```
+
+The domain extension or evaluation handoff must supply `evaluationRoot`; the
+common Canvas guide does not invent or persist a machine-specific root.
 
 The local record must distinguish:
 
@@ -631,12 +649,14 @@ paths remain evaluator-only provenance.
 
 ### 9.3 Character Evaluation Animation GIF Evidence
 
-For `artifactType=character_evaluation`, the canonical evaluation workspace may
-be rebased from PixelLab export storage into:
+For `artifactType=character_evaluation`, the evaluation workspace may be
+rebased from PixelLab export storage beneath the current-PC root:
 
 ```text
-C:\github\design_evaluation\character\{characterName}_{grade}
+{evaluationRoot}/{characterName}_{grade}
 ```
+
+The character evaluation handoff must supply the resolved `evaluationRoot`.
 
 Published Canvas records must use project-relative identifiers such as:
 

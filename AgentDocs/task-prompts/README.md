@@ -38,6 +38,23 @@ Prompt evaluation copy-ready prompts are under:
 AgentDocs/task-prompts/prompt
 ```
 
+Prompt and guide evaluation reports:
+
+```text
+AgentDocs/task-prompts/prompt/PromptEvaluationReportPrompt.md
+AgentDocs/task-prompts/prompt/GuideEvaluationReportPrompt.md
+```
+
+Content folder creation:
+
+```text
+AgentDocs/task-prompts/content/ContentFolderCreatePrompt.md
+AgentDocs/task-prompts/content/GeneratedImagePromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/GeneratedImageGenerationPrompt.md
+AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
+AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
+```
+
 Evaluation and Slack Canvas recording:
 
 ```text

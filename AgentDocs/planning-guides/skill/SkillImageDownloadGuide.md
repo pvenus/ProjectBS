@@ -1,4 +1,4 @@
-# Skill Image Animation Download and Evaluation Guide
+# Skill Image Animation Download Guide
 
 
 ## Master Concept Reference
@@ -12,9 +12,36 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** download/preservation workflow guide.
+- **Responsibility:** download the PixelLab reference and animation deliverables, validate source integrity, and preserve immutable evaluation inputs.
+- **Inputs:** generation record, provider result references, full `skillId`, and resolved `{evaluationRoot}`.
+- **Preconditions:** the result is eligible, uniquely identified, and both deliverables are available.
+- **Handoff:** preserved reference/animation files, checksums, download record, and a separate evaluation request.
+- **Mutation boundary:** no scoring/verdict, project copy, slicing, Unity clip/meta work, cleanup of required evidence, or Git work.
+
+The generation record controls provenance, this guide controls download and
+preservation, and `SkillImageEvaluationGuide.md` controls the later verdict.
+Conflicts stop with `download_authority_conflict`.
+
 ## 1. Purpose
 
-This guide defines the complete post-generation workflow for a PixelLab skill VFX reference image and animation: download, preserve, rename, copy, slice, evaluate, and clean temporary files.
+This guide defines the download/preservation workflow for a PixelLab skill VFX
+reference image and animation.
 
 Use this guide after `SkillImageGenerationGuide.md`. Generation remains a two-stage process:
 
@@ -28,18 +55,24 @@ Do not run this workflow for a melee basic attack (`.basic_attack.` with `cast.r
 ## 2. Required Inputs and Paths
 
 ```text
-projectRoot = /Users/pvenus/ProjectBS
-evaluationRoot = /Users/pvenus/Documents/PixelLab/skill
+projectRoot = {current_project_root}
+evaluationRoot = {current_pc_skill_animation_evaluation_root}
 skillId = full equipment skill id
 skillSlug = short filesystem-safe descriptive name
 ```
 
-Unity destinations:
+Future PASS-only promotion targets (informational):
 
 ```text
-Assets/Resources/skill/animation_ref_png/{skillId}.animation_ref.png
-Assets/Resources/skill/animation_png/{skillId}.animation.png
+Assets/ImagesGenerated/Skill/animation_reference/{skillId}.animation_ref.png
+Assets/ImagesGenerated/Skill/animation/{skillId}.animation.png
 ```
+
+This is the required target contract. Before running the builder, inspect its
+configured sprite folder. If `SkillBaseVisualAssetBuilder` still points to
+`Assets/Resources/skill/animation_png`, stop with
+`builder_path_migration_required`. Do not duplicate the passing animation into
+the legacy Resources path as a workaround.
 
 Preserved evaluation folder:
 
@@ -120,23 +153,35 @@ Reference SHA-256:
 Animation SHA-256:
 ```
 
-## 6. Copy to Unity
+## 6. Legacy Evaluation, Promotion, and Unity Appendix (Non-executable)
+
+This section and all following Unity, clip, evaluation, cleanup, completion, and
+failure-output sections describe the former combined workflow. Current execution
+stops after Section 5 and hands immutable evidence to a separate evaluation task.
+
+### Copy to Unity (Legacy)
+
+Do not execute this section before completing the evaluation in Section 9.
+Only `Pass` with no fatal failure may be promoted to
+`Assets/ImagesGenerated`. `Conditional Pass`, `Fail`, and
+`insufficient_evidence` remain in the evaluation workspace and must not be
+copied to the project image path.
 
 Copy the preserved evaluation files to:
 
 ```text
 reference/{skillId}.animation_ref.png
-  -> Assets/Resources/skill/animation_ref_png/{skillId}.animation_ref.png
+  -> Assets/ImagesGenerated/Skill/animation_reference/{skillId}.animation_ref.png
 
 animation/{skillId}.animation.png
-  -> Assets/Resources/skill/animation_png/{skillId}.animation.png
+  -> Assets/ImagesGenerated/Skill/animation/{skillId}.animation.png
 ```
 
 After copy, confirm that source and destination SHA-256 values match.
 
-Never copy a reference sheet into `animation_png`, or an animation sheet into `animation_ref_png`.
+Never copy a reference sheet into `animation`, or an animation sheet into `animation_reference`.
 
-## 7. Unity Import and Slice Rules
+### Unity Import and Slice Rules (Legacy)
 
 PNG 복사만으로 Unity 반영이 완료된 것으로 간주하지 않는다. PNG를 Unity 대상 경로에 복사한 직후 반드시 해당 PNG의 `.meta`를 생성하거나 갱신하고, 실제 시트 크기와 셀 크기에 맞는 Sprite Multiple 슬라이스를 구성해야 한다.
 
@@ -174,12 +219,12 @@ Reference sheet:
 
 Do not assume a fixed 3×3 animation grid. Derive columns and rows from the actual sheet and frame cell size. For example, a 384×384 sheet with 128×128 cells is 3×3 and contains 9 cells.
 
-## 8. Animation Clip Verification
+### Animation Clip Verification (Legacy)
 
 `SkillBaseVisualAssetBuilder` resolves:
 
 ```text
-Assets/Resources/skill/animation_png/{skillId}.animation.png
+Assets/ImagesGenerated/Skill/animation/{skillId}.animation.png
 ```
 
 and recreates:
@@ -201,7 +246,7 @@ The current builder creates a looping `ProjectileLoop` clip. A one-shot or Hit a
 
 `SkillBaseVisualAssetBuilder`는 PNG 복사 직후의 슬라이스 처리보다 나중에 실행한다. Sprite sub-asset이 실제로 임포트되지 않은 상태에서는 빌더를 실행하거나 clip 생성 성공으로 보고하지 않는다.
 
-## 9. Evaluation
+### Evaluation (Legacy)
 
 Evaluate the preserved files under `{evaluationRoot}/{skillSlug}` using `SkillImageEvaluationGuide.md`.
 
@@ -221,7 +266,9 @@ Save the result to:
 
 Record the exact asset paths, requested and observed frame counts, grid, fatal checks, category scores, final result, and required corrections. Do not mark Pass when individual frames or alpha/edge checks cannot be inspected; use `insufficient_evidence`.
 
-Quality Fail does not delete evidence. Preserve the failed files and evaluation result until a replacement is accepted. A technical hard fail prevents Unity copy.
+Quality Fail does not delete evidence. Preserve the failed files and evaluation
+result until a replacement is accepted. Any result other than `Pass`, as well as
+a technical hard fail, prevents project image copy.
 
 ### 9.1 Existing Evaluation Migration
 
@@ -229,10 +276,10 @@ When an already completed production animation is migrated into the shared
 evaluation workspace, use `format_existing` semantics. Migration does not
 authorize generation, re-scoring, image correction, or a production overwrite.
 
-The canonical migration workspace is:
+The migration workspace is resolved beneath the established evaluation root:
 
 ```text
-C:\github\design_evaluation\skill_animation\{skillId}\
+{evaluationRoot}/{skillId}/
   input\evaluation_input.json
   input\evaluation_prompt.md
   source\{skillId}.animation_ref.png
@@ -268,7 +315,7 @@ Migration rules:
 - Exclude failed, blocked, or never-generated assets from completed migration
   and initial Slack publication.
 
-## 10. Cleanup
+### Cleanup (Legacy)
 
 After preservation, Unity copy, checksum verification, and evaluation result creation:
 
@@ -279,7 +326,7 @@ After preservation, Unity copy, checksum verification, and evaluation result cre
 - Keep Unity PNG and `.meta` files.
 - Do not delete a previous passing evaluation when replacing an asset; archive it or record replacement history first.
 
-## 11. Completion Checklist
+### Completion Checklist (Legacy)
 
 - [ ] Correct PixelLab skill result identified.
 - [ ] Reference and animation downloaded separately.
@@ -288,19 +335,22 @@ After preservation, Unity copy, checksum verification, and evaluation result cre
 - [ ] Sheet size, cell size, columns, rows, and observed frame count recorded.
 - [ ] Evaluation folder contains reference and animation copies.
 - [ ] Unity filenames use the full `skillId`.
-- [ ] Reference copied only to `animation_ref_png`.
-- [ ] Animation copied only to `animation_png`.
+- [ ] Reference copied only to `animation_reference`.
+- [ ] Animation copied only to `animation`.
 - [ ] Unity meta uses Sprite Multiple and correct grid for the animation.
 - [ ] Unity 대상 PNG마다 같은 경로에 `.png.meta`가 존재한다.
 - [ ] `.meta`의 rect 수가 usable frame/variation 수와 일치한다.
 - [ ] Sprite names and numeric frame order are correct.
 - [ ] 올바른 Unity Editor에서 reimport 후 실제 Sprite sub-asset 수를 확인했거나, 실행 불가 시 `Unity reimport pending`으로 명시했다.
 - [ ] Generated clip frame count and `ProjectileLoop` registration verified.
+- [ ] Builder sprite folder uses `Assets/ImagesGenerated/Skill/animation`, or
+      build execution is blocked as `builder_path_migration_required`.
 - [ ] `evaluation_result.txt` saved using the evaluation guide.
+- [ ] Evaluation result is `Pass` before project image copy.
 - [ ] Source/destination checksums match.
 - [ ] ZIP and temporary extraction files deleted.
 
-## 12. Failure Output
+### Failure Output (Legacy)
 
 ```text
 status: failed
@@ -316,6 +366,7 @@ failureType:
   - unity_copy_failed
   - unity_slice_failed
   - clip_generation_failed
+  - builder_path_migration_required
   - insufficient_evidence
 failureReason:
 preservedFiles:

@@ -12,26 +12,50 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** download/preservation workflow guide.
+- **Responsibility:** resolve provider results, download candidates without semantic modification, preserve evidence, and emit a download record plus evaluation handoff.
+- **Inputs:** generation record, provider result references, full `equipmentId`, and current-PC `{evaluationRoot}`.
+- **Preconditions:** provenance is traceable to the requested skill and the preservation root is outside the project target.
+- **Handoff:** immutable downloaded evidence, checksums, download record, and evaluation request.
+- **Mutation boundary:** no rubric scoring/verdict, PASS decision, project copy, Unity import/meta work, regeneration, or Git work.
+
+The generation record controls provenance, this guide controls download and
+preservation, and `SkillIconEvaluationGuide.md` controls the later verdict. Stop
+with `download_authority_conflict` when identities or records disagree.
+
 ## 1. Purpose
 
-This guide defines the post-generation workflow for a static PixelLab skill icon:
+This guide defines the download/preservation stage for a static PixelLab skill icon:
 
 ```text
 identify result
 → download primary candidate
 → preserve optional semantic edit
 → preserve deterministic overlay and normalized candidate
-→ select and preserve final source
-→ evaluate preserved source
-→ copy passing source to Unity
-→ verify checksum and import metadata
-→ clean temporary files
+→ preserve downloaded evidence
+→ write checksums and download record
+→ hand off to immutable evaluation
 ```
 
 Use this guide after `SkillIconGenerationGuide.md`. Use
 `SkillIconEvaluationGuide.md` for the quality decision.
 
-Generation, download/evaluation, and Unity copy are separate responsibilities.
+Generation, download, evaluation, and Unity copy are separate responsibilities.
 This guide does not generate or regenerate an icon.
 
 ## 2. Required Inputs
@@ -48,10 +72,10 @@ backgroundDescription
 normalizationRecord
 ```
 
-Default evaluation root:
+Resolve the established evaluation root on the current PC:
 
 ```text
-/Users/pvenus/Documents/PixelLab/skill/icon
+evaluationRoot = {current_pc_skill_icon_evaluation_root}
 ```
 
 `pixelLabResult` may be one of:
@@ -116,18 +140,18 @@ Rules:
 
 Do not use the Unity project folder as the only preservation location.
 
-## 5. Unity Destination
+## 5. Future Project Target (Informational Only)
 
-Copy the passing preserved source to:
+A separate PASS-only promotion task may later copy the approved source to:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 ```
 
 Required `.meta` path:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png.meta
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png.meta
 ```
 
 The preserved source and Unity destination must be byte-identical. Confirm with
@@ -191,25 +215,24 @@ Technical hard fail:
 A technical hard fail prevents preservation as the selected source and prevents
 Unity copy.
 
-## 8. Candidate Selection and Preservation
+## 8. Candidate Preservation
 
-1. Evaluate every technically valid normalized candidate with
-   `SkillIconEvaluationGuide.md`. Do not score the raw primary as the final asset.
-2. Record all candidate scores in `candidate_scores.txt`.
-3. Select the highest-scoring candidate that has no fatal failure and scores at
-   least 85.
-4. Copy, rather than move, the selected candidate to:
+1. Preserve every technically valid downloaded candidate as immutable evidence.
+2. Do not assign rubric scores or select a passing source in this stage.
+3. When the generation record identifies a provisional candidate, preserve that
+   identity without treating it as an evaluation verdict.
+4. Copy, rather than move, the provisional candidate to:
 
 ```text
 {evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
 ```
 
-5. Do not modify the selected normalized file after it is preserved as source.
+5. Do not modify the provisional normalized file after it is preserved as source.
    Deterministic overlay and normalization must occur before source preservation.
 6. Record the selected candidate index and SHA-256.
 
-If no candidate passes, preserve the candidate evidence and evaluation result, do
-not create a selected source, and do not copy anything to Unity.
+If no valid candidate can be preserved, retain available evidence and report a
+download failure. Do not copy anything to the project.
 
 ## 9. Generation Record
 
@@ -259,7 +282,13 @@ The record must show `tool=create_ui_pro`, `Create UI elements (Pro)`, Custom si
 background mode and transparency choice, any semantic edit, exact-count overlay,
 existing frame template, deterministic normalization, and 32 x 32 preview result.
 
-## 10. Evaluation Result
+## 10. Legacy Evaluation and Promotion Appendix (Non-executable)
+
+Sections 10 through 16 are retained to interpret historical artifacts. Current
+execution stops after Section 9 and emits an immutable evaluation handoff. It
+must not score, promote, import, or clean evidence required by downstream tasks.
+
+### Evaluation Result (Legacy)
 
 Evaluate the preserved selected source using `SkillIconEvaluationGuide.md` and save:
 
@@ -286,7 +315,7 @@ before Unity copy. `Fail` never proceeds to Unity copy.
 
 Quality failure does not delete evaluation evidence.
 
-## 11. Copy to Unity
+### Copy to Unity (Legacy)
 
 After the preserved source receives `Pass`:
 
@@ -294,7 +323,7 @@ After the preserved source receives `Pass`:
 2. Confirm the destination is exactly:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 ```
 
 3. If an accepted Unity icon already exists, stop unless replacement is explicitly
@@ -307,7 +336,7 @@ Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
 Do not copy a failed candidate, a contact sheet, or `candidate_XX.png` directly into
 Unity.
 
-## 12. Unity Import Rules
+### Unity Import Rules (Legacy)
 
 The static icon is one sprite, not a multi-sprite sheet.
 
@@ -325,7 +354,7 @@ Required import settings:
 Create or update:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png.meta
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png.meta
 ```
 
 Match the existing approved skill icon `.meta` format and resource import policy.
@@ -339,7 +368,7 @@ meta configured / Unity reimport pending
 
 Do not report import completion without editor evidence.
 
-## 13. Resource and ID Validation
+### Resource and ID Validation (Legacy)
 
 Confirm:
 
@@ -354,7 +383,7 @@ Confirm:
 If the current runtime expects an icon asset name rather than a path, record the
 exact resolved key. Do not invent a new naming convention in this workflow.
 
-## 14. Cleanup
+### Cleanup (Legacy)
 
 Cleanup only after preservation, evaluation result save, Unity copy, checksum
 verification, and meta configuration are complete.
@@ -378,7 +407,7 @@ Keep:
 Do not delete failed evaluation evidence until a replacement is accepted and the
 replacement history is recorded.
 
-## 15. Completion Checklist
+### Completion Checklist (Legacy)
 
 - [ ] PixelLab result matches `equipmentId`.
 - [ ] Every candidate was downloaded and technically validated.
@@ -393,13 +422,13 @@ replacement history is recorded.
 - [ ] Selected source is preserved outside Unity.
 - [ ] Evaluation result is saved under the evaluation folder.
 - [ ] Preserved and Unity filenames use the full `equipmentId`.
-- [ ] Unity destination is under `Assets/Resources/skill/icon/skill`.
+- [ ] Unity destination is under `Assets/ImagesGenerated/Skill/icon`.
 - [ ] Preserved and Unity SHA-256 values match.
 - [ ] Unity `.meta` uses Sprite Single and a unique GUID.
 - [ ] Runtime icon key resolves correctly or pending status is explicit.
 - [ ] Temporary files were cleaned without deleting evidence.
 
-## 16. Failure Output
+### Failure Output (Legacy)
 
 ```text
 status: failed

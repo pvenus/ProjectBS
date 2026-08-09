@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. Purpose
 
 This guide joins two strictly separated phases:
@@ -37,7 +50,6 @@ Read and apply these references in order:
 
 ```text
 AgentDocs/planning-guides/skill/SkillIconEvaluationGuide.md
-AgentDocs/planning-guides/skill/SkillIconEvaluationSlackCanvasGuide.md
 AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md
 AgentDocs/planning-guides/skill/data-structures/SkillJsonGuide.md
@@ -58,14 +70,14 @@ The evaluator must resolve every path on the current PC before reading evidence.
 Do not reuse a recorded home directory, user name, temporary visualization
 folder, or project checkout path from another agent PC.
 
-The canonical evaluation root for this workflow is:
+Resolve the established evaluation root on the current PC:
 
 ```text
-C:\github\design_evaluation\skill_icon
+evaluationRoot = {current_pc_skill_icon_evaluation_root}
 ```
 
 The project root is supplied or discovered independently. A valid project root
-must contain the referenced `Assets` tree. The fixed evaluation root must not be
+must contain the referenced `Assets` tree. The resolved evaluation root must not be
 silently relocated into the Unity project.
 
 If a supplied absolute path belongs to another PC:
@@ -80,15 +92,15 @@ If a supplied absolute path belongs to another PC:
 Use one workspace per full `equipmentId`:
 
 ```text
-C:\github\design_evaluation\skill_icon\
+{evaluationRoot}/
   README.md
-  {equipmentId}\
-    source\
+  {equipmentId}/
+    source/
       {equipmentId}.icon.png
-    input\
+    input/
       evaluation_input.json
-    evaluation\
-      evidence\
+    evaluation/
+      evidence/
         preview32.png
       evaluation_result.json
       evaluation_report.md
@@ -99,25 +111,25 @@ Required resolved paths:
 
 ```text
 evaluationRoot =
-C:\github\design_evaluation\skill_icon
+{current_pc_skill_icon_evaluation_root}
 
 evaluationWorkspacePath =
-{evaluationRoot}\{equipmentId}
+{evaluationRoot}/{equipmentId}
 
 stagingArtifactPath =
-{evaluationWorkspacePath}\source\{equipmentId}.icon.png
+{evaluationWorkspacePath}/source/{equipmentId}.icon.png
 
 evaluationResultPath =
-{evaluationWorkspacePath}\evaluation\evaluation_result.json
+{evaluationWorkspacePath}/evaluation/evaluation_result.json
 
 evaluationReportPath =
-{evaluationWorkspacePath}\evaluation\evaluation_report.md
+{evaluationWorkspacePath}/evaluation/evaluation_report.md
 
 localCanvasDraftPath =
-{evaluationWorkspacePath}\evaluation\evaluation_canvas.md
+{evaluationWorkspacePath}/evaluation/evaluation_canvas.md
 
 projectTargetPath =
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 ```
 
 `iconPath` is a domain alias for `stagingArtifactPath`. The staging source is the
@@ -420,7 +432,8 @@ must retain different responsibilities even after promotion.
 ## 13. Validation Checklist
 
 - [ ] All paths were resolved on the current PC.
-- [ ] `evaluationRoot` is `C:\github\design_evaluation\skill_icon`.
+- [ ] `evaluationRoot` is the existing skill-icon evaluation root resolved on
+      the current PC.
 - [ ] `iconPath == stagingArtifactPath`.
 - [ ] Staging and project target are distinct.
 - [ ] Source JSON, equipment ID, preserved filename, and SHA-256 agree.

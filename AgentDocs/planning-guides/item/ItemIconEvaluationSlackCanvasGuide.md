@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. Purpose
 
 This guide extends `EvaluationSlackCanvasFormGuide.md` for a completed item icon
@@ -53,7 +66,7 @@ evaluationWorkspacePath =
 {evaluationRoot}/{itemId}
 
 projectTargetPath =
-Assets/Resources/item/icon/{itemId}.icon.png
+Assets/ImagesGenerated/Item/icon/{itemId}.icon.png
 
 localCanvasDraftPath =
 AgentDocs/planning-data/evaluation/slack_canvas/v1/item/item_icon/{itemId}.canvas.md

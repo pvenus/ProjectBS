@@ -26,6 +26,7 @@ Canvas로만 변환하는 모드도 지원합니다.
 점수·fatal failure·finding·수정 방법·promotion 상태를 다시 해석하거나 완화하지 마.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/skill/SkillIconEvaluationGuide.md
 - AgentDocs/planning-guides/skill/SkillIconEvaluationSlackCanvasGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
@@ -37,11 +38,11 @@ Canvas로만 변환하는 모드도 지원합니다.
 Input:
 - projectRoot: {현재_PC에서_확인한_ProjectBS-agent_루트}
 - workflowMode: {evaluate_and_format | format_existing}
-- evaluationRoot: C:\github\design_evaluation\skill_icon
+- evaluationRoot: {current_pc_skill_icon_evaluation_root}
 - equipmentId: {skill.domain.character.grade.slot.skill_name}
 - artifactName: {skill_display_name}
 - skillSourcePath: {현재_PC의_스킬_JSON_절대경로}
-- stagingArtifactPath: C:\github\design_evaluation\skill_icon\{equipmentId}\source\{equipmentId}.icon.png
+- stagingArtifactPath: {evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
 - generationRecordPath: {현재_PC의_생성_기록_절대경로}
 - preview32Path: {현재_PC의_nearest-neighbor_32x32_미리보기_절대경로}
 - frameTemplatePath: {현재_PC의_80x80_프레임_템플릿_절대경로 | null}
@@ -49,7 +50,7 @@ Input:
 - exactCountOverlayManifest: {manifest_경로_또는_값 | null}
 - lowerGradeIconPath: {auto | 현재_PC의_절대경로 | null}
 - siblingIconPaths: {auto | 현재_PC의_절대경로_목록 | null}
-- intendedUnityIconPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+- intendedUnityIconPath: Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 - evaluationReportSource: {format_existing일_때_완료_리포트_경로_또는_안정적_참조 | null}
 - promotionStatus: {not_promoted | approved_for_promotion | promoted | blocked}
 - promotionApprovalSource: {명시적_승인_근거 | null}
@@ -67,16 +68,16 @@ Input:
 - localDraftMode: {save | report_only}
 
 고정 결과 경로:
-- evaluationWorkspacePath: C:\github\design_evaluation\skill_icon\{equipmentId}
-- evaluationReportPath: {evaluationWorkspacePath}\evaluation\evaluation_report.md
-- evaluationResultPath: {evaluationWorkspacePath}\evaluation\evaluation_result.json
-- outputLocalCanvasDraftPath: {evaluationWorkspacePath}\evaluation\evaluation_canvas.md
-- projectTargetPath: Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+- evaluationWorkspacePath: {evaluationRoot}/{equipmentId}
+- evaluationReportPath: {evaluationWorkspacePath}/evaluation/evaluation_report.md
+- evaluationResultPath: {evaluationWorkspacePath}/evaluation/evaluation_result.json
+- outputLocalCanvasDraftPath: {evaluationWorkspacePath}/evaluation/evaluation_canvas.md
+- projectTargetPath: Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 
 작업:
 1. projectRoot, evaluationRoot와 모든 절대 경로를 현재 PC에서 다시 확인한다.
    다른 PC의 사용자명·홈 디렉터리·임시 visualizations 경로를 재사용하거나 추정하지 않는다.
-2. evaluationRoot는 `C:\github\design_evaluation\skill_icon`이어야 한다.
+2. evaluationRoot는 현재 PC에서 확인한 기존 스킬 아이콘 평가 루트여야 한다.
    stagingArtifactPath는 그 아래의 정확한 preserved source여야 하며 projectTargetPath와
    같은 파일로 해석되면 즉시 blocked 처리한다.
 3. `workflowMode=evaluate_and_format`이면 SkillIconEvaluationGuide.md의 전체 계약으로

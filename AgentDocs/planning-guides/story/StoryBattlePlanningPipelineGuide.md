@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 This guide splits story-to-battle generation into independent steps.
@@ -35,9 +48,9 @@ Reference guides, schemas, SO notes, policies, and workflow docs live under:
 AgentDocs/planning-guides
 ```
 
-When a task says to run a prompt, open the matching file under
-`game_prompts`. When a prompt says to read a guide, open the referenced file
-under `game_prompt_guide`.
+When a task says to run a prompt, open the exact matching file under
+`AgentDocs/task-prompts`. When a prompt says to read a guide, open the exact
+referenced file under `AgentDocs/planning-guides`.
 
 When creating or evaluating prompts, use:
 
@@ -109,7 +122,7 @@ episodeBattlePlanFile: AgentDocs/planning-data/story-planning/{act_group_id}/epi
 Common battle output paths:
 
 ```text
-backgroundImagePath: Assets/Resources/battle/battle_png/{battle_id}.background.png
+backgroundImagePath: Assets/ImagesGenerated/Battle/background/{battle_id}.background.png
 outputBattleStoryContextFile: AgentDocs/planning-data/battle/{battle_group}/{battle_id}.story_context.json
 outputBattleJsonFile: Assets/Resources/battle/{battle_group}/{battle_id}.json
 expectedBattleSOPath: Assets/Resources/battle/{battle_group}/{battle_id}.asset
@@ -261,7 +274,7 @@ AgentDocs/planning-data/story-planning/{act_group_id}/episode_battle_plan.chapte
 Creates:
 
 ```text
-Assets/Resources/battle/battle_png/{battleId}.background.png
+Assets/ImagesGenerated/Battle/background/{battleId}.background.png
 ```
 
 This step creates one composed 16:9 battle background Sprite by default.

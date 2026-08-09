@@ -12,12 +12,25 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## 1. Purpose
 
 This guide defines how to evaluate static pixel-art skill icons generated for:
 
 ```text
-Assets/Resources/skill/icon/skill
+Assets/ImagesGenerated/Skill/icon
 ```
 
 Evaluation verifies file correctness, skill meaning, the concise outline prompt contract,
@@ -114,7 +127,7 @@ Confirm:
 - `intendedUnityIconPath` is exactly:
 
 ```text
-Assets/Resources/skill/icon/skill/{equipmentId}.icon.png
+Assets/ImagesGenerated/Skill/icon/{equipmentId}.icon.png
 ```
 
 Extract the same semantic fields used during generation:
@@ -485,8 +498,9 @@ Evaluate the preserved source at:
 {evaluationRoot}/{equipmentId}/source/{equipmentId}.icon.png
 ```
 
-Only a `Pass` result may proceed automatically to Unity copy. `Conditional Pass`
-requires explicit approval, and `Fail` must not be copied to Unity.
+Only a `Pass` result may set `passForProjectCopy=true`. `Conditional Pass`
+requires correction and re-evaluation; approval alone cannot promote it. `Fail`
+must not be copied to the project.
 
 ## 16. Failure Output
 
@@ -533,3 +547,31 @@ nextRequiredAction:
 - [ ] Sibling distinction and duplicate hashes were checked when evidence exists.
 - [ ] Every deduction includes evidence and a correction.
 - [ ] Evaluation did not modify or regenerate any asset.
+
+## 18. Severity and Re-evaluation Contract
+
+```text
+Critical: any Fatal Failure Condition, wrong skill identity, unusable path/file contract, or material authority conflict
+Major: issue that prevents Pass or requires regeneration, semantic edit, overlay, or structural recomposition
+Minor: localized correctable defect that does not independently prevent Pass
+Suggestion: optional polish with no verdict impact
+```
+
+Every finding records severity, evidence, impact, and one correction method from
+Section 14. Fatal failures are always Critical and override the numeric score.
+
+N/A rules:
+
+- the six scored categories are fixed and never N/A for a completed evaluation;
+- exact-count overlay may be N/A only when the source contract requires no
+  exact-count element;
+- grade-family or sibling checks may be `not_evaluated` only when those assets
+  do not exist; they cannot be reported as Pass;
+- missing evidence for a scored item produces `insufficient_evidence`, not a
+  reduced denominator.
+
+Re-evaluation preserves the prior immutable result, links the replacement hash,
+re-runs every fatal gate, and re-scores each category affected by prompt,
+semantic edit, overlay, normalization, frame, background, or source changes.
+Only a new complete Pass may set `passForProjectCopy=true`; evaluation itself
+does not copy or modify project assets.

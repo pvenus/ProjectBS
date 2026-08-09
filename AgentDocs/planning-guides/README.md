@@ -22,6 +22,8 @@ Prompt authoring and review guides:
 ```text
 AgentDocs/planning-guides/prompt/PromptAuthoringGuide.md
 AgentDocs/planning-guides/prompt/PromptEvaluationGuide.md
+AgentDocs/planning-guides/prompt/GuideAuthoringGuide.md
+AgentDocs/planning-guides/prompt/GuideEvaluationGuide.md
 AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 ```
 
@@ -32,6 +34,16 @@ AgentDocs/task-prompts
 ```
 
 Do not put copy-ready prompts in this folder.
+
+Content storage and folder structure:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md
+AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
+AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+```
 
 Strategic item authoring guides:
 

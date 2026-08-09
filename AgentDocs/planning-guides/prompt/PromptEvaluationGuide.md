@@ -59,8 +59,8 @@ knownFailureCase
    form a complete contract.
 6. Check whether the prompt accidentally performs another pipeline step.
 7. Check whether the prompt follows current folder separation:
-   - prompts under `game_prompts`
-   - guides under `game_prompt_guide`
+   - prompts under `AgentDocs/task-prompts`
+   - guides under `AgentDocs/planning-guides`
 8. Report issues by severity.
 
 ## Scoring
@@ -83,13 +83,26 @@ average of all category scores.
 | Execution Safety | Safety | The prompt avoids destructive, broad, or unintended work. |
 | User Readiness | Copy Readiness | A user can copy the prompt block and fill placeholders easily. |
 
-Recommended rating:
+Canonical thresholds:
 
 ```text
-90-100: Excellent
-80-89: Good
-70-79: Needs revision
-0-69: Rewrite recommended
+passScore: 90
+categoryPassScore: 90
+itemPassScore: 90
+maxMajorFindings: 0
+```
+
+These thresholds are authoritative. A report prompt may repeat them but must
+not lower or redefine them.
+
+Rating:
+
+```text
+95-100: Excellent
+90-94.99: Ready
+80-89.99: Needs revision
+70-79.99: Major revision
+0-69.99: Rewrite recommended
 ```
 
 ## Severity
@@ -110,6 +123,9 @@ Critical:
 - Prompt embeds data that must be referenced by id.
 - Prompt can silently create failure artifacts.
 - Prompt omits a required dependency gate.
+- Prompt combines provider generation, download/preservation, immutable
+  evaluation, PASS-only promotion, Unity work, or Git publication under one
+  execution owner.
 
 Major:
 
@@ -144,7 +160,7 @@ Pass when:
 Fail when:
 
 - guide and prompt files share the same domain folder again
-- a prompt path is referenced through `game_prompt_guide/...Prompt.md`
+- a prompt is referenced or stored under `AgentDocs/planning-guides`
 
 ### 2. Task Boundary
 
@@ -171,6 +187,14 @@ Check for:
 ### 4. Guide References
 
 Prompt should reference exact guide files.
+
+For any image generation, download, evaluation, promotion, or generated-image
+consumer prompt, fail the reference check unless the copy-ready prompt block
+explicitly includes:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
 
 Fail examples:
 
@@ -235,6 +259,9 @@ Check for current ProjectBS boundaries:
 - BattleSO JSON owns `spawnUnitBindings`.
 - Stage popup image uses `{eventId}.main.png`.
 - Battle background image uses `{battleId}.background.png`.
+- Generated project images are under
+  `Assets/ImagesGenerated/{ContentDomain}/{imageArtifactType}`.
+- No generated-image output path is under `Assets/Resources`.
 - Manual Unity build prompts are separate from authoring prompts.
 
 ## Evaluation Output Format
@@ -290,11 +317,27 @@ Pass / Fail:
 
 A prompt passes when:
 
-- overall score is 80 or higher
+- overall score is 90 or higher
+- every category score is 90 or higher
+- every item score is 90 or higher
 - no Critical findings exist
-- no more than two Major findings exist
+- no Major findings exist
 - the prompt location is correct
 - the prompt can be copied and executed with filled inputs
+
+Hard Fail takes precedence over every numeric score. Hard Fail conditions are:
+
+```text
+invalid_prompt_location
+copy_ready_prompt_inside_planning_guides
+stale_legacy_prompt_or_guide_root
+pipeline_stage_boundary_violation
+unsafe_or_unbounded_mutation
+Critical finding
+```
+
+Minor and Suggestion findings do not automatically fail an otherwise passing
+prompt, but their affected item must still honestly meet itemPassScore.
 
 If a prompt fails, do not rewrite it silently. Report the issues and propose the
 minimal set of edits needed.

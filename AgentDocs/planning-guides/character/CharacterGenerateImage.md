@@ -12,6 +12,33 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** provider-generation workflow guide.
+- **Responsibility:** create a PixelLab character result and return provider-side result references plus a generation record.
+- **Inputs:** approved character identity, design concept, grade, size, and the resolved generation prompt.
+- **Preconditions:** the master concept and prompt-authoring contract are readable; the target character is unambiguous.
+- **Handoff:** `providerResultRefs`, `generationRecord`, and a request for the separate download/preservation stage.
+- **Mutation boundary:** this guide must not download files, evaluate candidates, write project assets, create Unity metadata, or perform Git work.
+
+Authority is concern-specific: the master concept controls visual prohibitions,
+the approved character plan controls identity, and this guide controls only the
+PixelLab generation operation. If those authorities conflict, stop and report
+`generation_authority_conflict`; do not choose one silently.
+
 ## Generate Character Image
 
 ### Mandatory Tool
@@ -78,7 +105,13 @@ The PixelLab image prompt must include the following elements:
 - Enter the character name.
 - Enter the character grade.
 
-### 8. Image Evaluation
+### 8. Legacy Download and Evaluation Appendix (Non-executable)
+
+The following historical procedure is retained only to explain old artifacts.
+It is not part of this guide's executable workflow. A current task must stop
+after Step 7 and hand off its provider references and generation record to a
+separate download/preservation task, followed by immutable evaluation and
+PASS-only promotion.
 - Click **Export** and download the generated images.
 - Save the downloaded files under the configured PixelLab export root.
 - Create a folder using the format `<PixelLabExportRoot>/<CharacterName>_<Grade>`.

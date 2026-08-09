@@ -12,6 +12,19 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
 ## Purpose
 
 This document defines the full character creation pipeline.
@@ -56,8 +69,8 @@ Input may be provided as:
 actId: act.01
 chapterIds: [chapter.01.01, chapter.01.02]
 chapterFiles:
-  - AgentDocs/planning-data/story/Chapter_01.md
-  - AgentDocs/planning-data/story/Chapter_02.md
+  - AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md
+  - AgentDocs/planning-data/story/Act01/Chapter02/Chapter_02.md
 ```
 
 If only a Chapter file is provided, resolve the Act using:
@@ -65,10 +78,10 @@ If only a Chapter file is provided, resolve the Act using:
 ```text
 AgentDocs/planning-guides/story/StoryStructureGuide.md
 AgentDocs/planning-data/story/00_Background.md
-AgentDocs/planning-data/story/01_Overall_Story.md
-AgentDocs/planning-data/story/Act_01_Background.md
+AgentDocs/planning-data/story/Act{actNumber}/01_Overall_Story.md
+AgentDocs/planning-data/story/Act{actNumber}/Act_{actNumber}_Background.md
 AgentDocs/planning-data/story/Characters.md
-AgentDocs/planning-data/story/Chapter_XX.md
+AgentDocs/planning-data/story/Act{actNumber}/Chapter{chapterNumber}/Chapter_{chapterNumber}.md
 ```
 
 Use Act context for shared world, race, faction, tone, and reuse data.
@@ -339,7 +352,7 @@ character.mist_lingering_child.1.IdleDownRight.frame_000.png
 Copy renamed PNG files to:
 
 ```text
-Assets/Resources/character/animation_png
+Assets/ImagesGenerated/Character/animation
 ```
 
 The generator later creates animation clips under:
@@ -350,7 +363,7 @@ Assets/Resources/character/animation_clip
 
 ### Validation
 
-- PNG files exist in `Assets/Resources/character/animation_png`.
+- PNG files exist in `Assets/ImagesGenerated/Character/animation`.
 - File names match `character.{characterName}.{grade}.{animation_enum}.frame_000.png`.
 - `animation_enum` exactly matches `CharacterAnimationClipType`.
 - `characterName` and `grade` match the character JSON ID.
@@ -518,7 +531,7 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 - Planning JSON exists in `AgentDocs/planning-data/character/act-plans`.
 - PixelLab image export exists under `<PixelLabExportRoot>`.
 - PixelLab animations are generated and named `Walk`, `Attack`, and `Idle`.
-- Animation PNGs exist in `Assets/Resources/character/animation_png`.
+- Animation PNGs exist in `Assets/ImagesGenerated/Character/animation`.
 - Skill JSON files exist and use `skill.character`.
 - Character JSON exists and uses `character`.
 - `Player`, `Npc`, and `Boss` are used only as `characterType` values.

@@ -24,6 +24,7 @@ PixelLab에 이미 생성된 캐릭터를 찾아 Move, Attack, Idle 애니메이
 Move, Attack, Idle 애니메이션 생성만 진행해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/character/CharacterCreateGuide.md
 - AgentDocs/planning-guides/character/CharacterGenerateAnimation.md
 - AgentDocs/planning-guides/character/CharacterGenerateImage.md

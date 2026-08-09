@@ -39,7 +39,7 @@ Input:
 - stagingArtifactPath: {evaluationRoot}/{eventId}/source/{eventId}.main.png
 - imagePath: {evaluationRoot}/{eventId}/source/{eventId}.main.png
 - evaluationWorkspacePath: {evaluationRoot}/{eventId}
-- projectTargetPath: Assets/Resources/stage_new/popup_png/{eventId}.main.png
+- projectTargetPath: Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png
 - stageNodeJsonFile: {stage_node_json_path}
 - episodePlanningFile: {episode_planning_path}
 - optionalStoryContextFile: {path | null}
@@ -63,13 +63,14 @@ Input:
 - outputLocalCanvasDraftPath: {AgentDocs/planning-data/evaluation/slack_canvas/v1/stage/story_popup_main_image/{eventId}.canvas.md | null}
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 - AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationSlackCanvasGuide.md
 - AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md
 
 작업:
 1. 공통 가이드와 스토리 팝업 확장 가이드를 순서대로 읽는다.
-2. evaluationReportSource에서 결과, 총점, fatal failure, severity, nine category score, findings, required corrections, optional improvements, 재평가 계획을 그대로 추출한다.
+2. generated_image_evaluation_v1의 evaluation_result.json이 있으면 이를 불변 평가 source로 사용하고 결과, 총점, 도메인 category ID·이름·배점·점수, fatal failure, severity, findings, required corrections, optional improvements, 재평가 계획을 그대로 추출한다. legacy report만 있으면 실제 report와 인용된 평가 가이드의 항목만 보존하며 별도 고정 rubric을 적용하지 않는다.
 3. eventId, popupId, popupName, imagePolicy가 stage node 및 planning evidence와 일치하는지 기록 수준에서 확인한다. 새 평가 판단은 하지 않는다.
 4. generate/reuse이면 imagePath와 stagingArtifactPath가 같은 local preserved source인지 확인한다. none이면 두 artifact path를 Not Applicable로 바꾸고 SKIPPED/not_applicable만 허용한다.
 5. stagingArtifactPath, evaluationWorkspacePath, projectTargetPath를 공통 Target Artifact에 각각 기록한다.
@@ -97,7 +98,7 @@ Output:
 검증:
 - evaluationDomain=stage, artifactType=story_popup_main_image, artifactId=eventId여야 한다.
 - generate/reuse의 staging/image 경로는 `{evaluationRoot}/{eventId}/source/{eventId}.main.png`여야 한다.
-- projectTargetPath는 `Assets/Resources/stage_new/popup_png/{eventId}.main.png`여야 한다.
+- projectTargetPath는 `Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png`여야 한다.
 - 점수 항목과 합계는 원본 평가 리포트와 같아야 한다.
 - none은 SKIPPED/not_applicable이어야 한다.
 - staging/project target은 동일하면 안 된다.

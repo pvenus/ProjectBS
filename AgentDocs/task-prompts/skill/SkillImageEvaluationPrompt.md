@@ -23,6 +23,7 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 생성 또는 수정은 하지 말고 평가만 수행해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md
 - AgentDocs/planning-guides/skill/SkillImageEvaluationGuide.md
 
@@ -33,8 +34,8 @@ Input:
 - assetPathOrPixelLabPage: {로컬 PNG/GIF/스프라이트 시트 경로 또는 열린 PixelLab 결과 페이지}
 - referenceAssetPath: {기준 이미지 경로 또는 null}
 - animationAssetPath: {애니메이션 시트 경로 또는 null}
-- unityReferencePath: {Unity animation_ref_png 경로 또는 null}
-- unityAnimationPath: {Unity animation_png 경로 또는 null}
+- unityReferencePath: Assets/ImagesGenerated/Skill/animation_reference/{skillId}.animation_ref.png 또는 null
+- unityAnimationPath: Assets/ImagesGenerated/Skill/animation/{skillId}.animation.png 또는 null
 - expectedCanvasSize: {예상 캔버스 크기}
 - expectedFrameCount: {예상 프레임 수}
 - expectedLoopMode: {loop | one_shot}
@@ -73,7 +74,7 @@ Input:
 - Conditional Pass: 75~84, 치명적 실패 없음, 재생성 없이 수정 가능
 - Fail: 75 미만 또는 치명적 실패 존재
 
-Output 형식:
+Output:
 Skill Image Animation Evaluation
 
 Skill:
@@ -115,6 +116,27 @@ Failure Reasons:
 Required Corrections:
 Regeneration Prompt Changes:
 Notes:
+
+실패 시 Output:
+- status: failed
+- failureType:
+  - missing_skill_source
+  - skill_not_found
+  - missing_animation_asset
+  - invalid_animation_sheet
+  - insufficient_evidence
+  - evaluation_contract_conflict
+- 평가하지 못한 항목
+- 실패 원인
+- 부족한 입력 또는 증거
+- 다음에 필요한 작업
+
+검증:
+- Fatal Failure Conditions를 점수 계산보다 먼저 적용해야 한다.
+- 8개 항목 점수의 합계가 Total과 일치해야 한다.
+- 확인할 수 없는 프레임이나 Unity 상태를 추정으로 통과시키지 않아야 한다.
+- 평가 중 PixelLab 생성, 이미지 수정 또는 프로젝트 복사를 수행하지 않아야 한다.
+- 결과와 수정 제안은 관찰한 프레임 근거를 포함해야 한다.
 
 주의:
 - 평가만 수행하고 PixelLab 생성 버튼을 누르지 않는다.

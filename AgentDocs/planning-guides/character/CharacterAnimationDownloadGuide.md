@@ -12,36 +12,49 @@ inputs, story context, legacy assets, and external references. This document may
 add domain-specific constraints, but it must not relax, override, or create an
 exception to the master concept period, cultural, aesthetic, or prohibition rules.
 
+## Generated Image Storage Reference
+
+Before generating, downloading, evaluating, promoting, or resolving a generated
+image, read and apply:
+
+```text
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
+```
+
+This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
+precedence over legacy generated-image output paths under `Assets/Resources`.
+Existing reference-only assets may remain in their documented legacy locations.
+
+## Current Executable Contract
+
+- **Guide type:** download/preservation workflow guide.
+- **Responsibility:** export the resolved PixelLab animation, validate its source structure, and preserve immutable source evidence plus a download record.
+- **Inputs:** generation record/provider identity, `PixelLabExportRoot`, and `targetCharacterFolder`.
+- **Preconditions:** the Git owner confirmed readiness and the provider character identity is uniquely resolved.
+- **Handoff:** preserved `animations/`, provenance/checksums, download status, and a separate evaluation request.
+- **Mutation boundary:** no rubric evaluation, converted project-ready assets, project promotion, Unity metadata/import work, or Git publication.
+
+The generation record controls provider identity, this guide controls export and
+preservation, and `EvaluationAnimationGuide.md` controls the later verdict. Stop
+with `download_authority_conflict` on any identity or source conflict.
+
 ## Purpose
 
-This document describes the standard workflow for downloading character animation images, renaming them to match ProjectBS file naming rules, and copying them into the Unity resource path.
+This document describes the standard workflow for downloading character
+animation images and preserving their immutable source structure for evaluation.
 
-The workflow covers the story agent branch flow: update Git state, download images, rename files, copy resources, clean temporary files, commit, merge, and deploy.
+Repository synchronization and Git publication are separate owner tasks. This
+guide starts only after the Git owner confirms a safe, current worktree and ends
+with a validated artifact handoff.
 
 ---
 
-## Git Update
+## Repository Readiness Gate
 
-Before starting, update the project repository.
-
-Standard flow:
-
-1. Pull the latest `main` branch.
-2. Switch to the working branch, `story`.
-3. Merge `main` into `story`.
-4. Resolve conflicts before starting the asset work.
-
-Example:
-
-```bash
-cd <ProjectRoot>
-
-git checkout main
-git pull origin main
-
-git checkout story
-git merge main
-```
+Before starting, require confirmation from the Git owner that the designated
+working branch contains the latest approved base and that no conflict or dirty
+worktree blocker prevents this scoped operation. This guide does not run pull,
+checkout, merge, reset, stash, commit, push, or deployment commands.
 
 ---
 
@@ -57,8 +70,8 @@ The task requires the following inputs.
 Example:
 
 ```text
-PixelLabExportRoot = /Users/pvenus/ProjectBS/PixelLabExports
-targetCharacterFolder = /Users/pvenus/ProjectBS/PixelLabExports/seojin_1
+PixelLabExportRoot = {current_pc_pixellab_export_root}
+targetCharacterFolder = {PixelLabExportRoot}/{characterName}_{grade}
 ```
 
 ---
@@ -141,11 +154,12 @@ Recommended preserved export structure:
 
 `animations/` is the preserved PixelLab source result and is used for evaluation.
 
-`converted/` is the renamed copy used before copying into Unity resources.
+`converted/` is a legacy downstream artifact and is not created by the current
+download/preservation stage.
 
 ## Required Folder Structure Hard Fail
 
-Before evaluation, renaming, conversion, or Unity resource copy, validate the character `animations` folder structure.
+Before evaluation, renaming, conversion, or project image promotion, validate the character `animations` folder structure.
 
 Immediately mark the work as failed and stop processing if any required structure is incomplete.
 
@@ -164,7 +178,7 @@ When a hard fail occurs:
 
 - Do not run animation evaluation.
 - Do not create converted files.
-- Do not copy files into Unity resources.
+- Do not copy files into `Assets/ImagesGenerated`.
 - Preserve any existing character `animations` folder when a new export failed validation.
 - Save the failure reason to `evaluation_animation_result.txt` if the character export folder is available.
 - Report the failure as a folder structure failure in the final summary.
@@ -184,9 +198,17 @@ Before using the `Export` button, confirm that every generated animation contain
 
 ---
 
-## Animation Evaluation
+## Legacy Evaluation and Promotion Appendix (Non-executable)
 
-Evaluate the character animation source folder before renaming/copying images into Unity resources.
+This section and all following conversion, promotion, Canvas, cleanup, and Git
+handoff sections are historical reference only. Current execution stops after
+source preservation and structure validation, then hands off to immutable
+evaluation. No downstream mutation may be performed from this guide.
+
+### Animation Evaluation (Legacy)
+
+Evaluate the character animation source folder before promoting images into
+`Assets/ImagesGenerated`.
 
 Use the preserved source files:
 
@@ -219,17 +241,19 @@ Save the evaluation result here:
 <targetCharacterFolder>/evaluation_animation_result.txt
 ```
 
-Evaluation does not block conversion.
+Evaluation does not block creation of `converted/` evaluation copies.
 
-Regardless of Pass / Fail, continue the conversion and copy process so the generated resources can be reviewed in Unity. If evaluation fails, record the failure reason in `evaluation_animation_result.txt` and report it in the final summary.
-
-This non-blocking rule applies only to animation quality evaluation failures. Folder structure hard failures must stop the workflow before evaluation and conversion.
+Only `Pass` may proceed from `converted/` to
+`Assets/ImagesGenerated/Character/animation`. `Fail` must preserve the source,
+converted evidence, and failure report, but must not copy or overwrite any
+project image. Folder-structure hard failures still stop the workflow before
+evaluation and conversion.
 
 Do not delete the source animation images used for evaluation.
 
 ---
 
-## Animation Enum Mapping
+### Animation Enum Mapping (Legacy)
 
 Map source direction folders to the ProjectBS `CharacterAnimationClipType` enum names.
 
@@ -277,7 +301,7 @@ The duplicated files should be treated exactly the same as normal downloaded ima
 
 ---
 
-## File Naming Rules
+### File Naming Rules (Legacy)
 
 Copy each source PNG from the preserved `animations/` folder into the character export folder's `converted/` folder, then rename the copied file using this format:
 
@@ -317,12 +341,13 @@ Important rules:
 
 ---
 
-## Copy to Unity Resource Path
+### Promote to Unity Generated-Image Path (Legacy)
 
-After creating renamed files in `converted/`, copy all converted PNG files to this folder:
+After the animation evaluation returns `Pass`, copy all converted PNG files to
+this folder:
 
 ```text
-Assets/Resources/character/animation_png
+Assets/ImagesGenerated/Character/animation
 ```
 
 The Unity generator searches this path using the following pattern:
@@ -330,6 +355,13 @@ The Unity generator searches this path using the following pattern:
 ```text
 character.{characterName}.{grade}.{animation_enum}*
 ```
+
+Before running the generator, inspect its configured sprite folder. If
+`CharacterJsonGenerator` still points to
+`Assets/Resources/character/animation_png`, stop with
+`builder_path_migration_required`. Do not duplicate the passing PNGs back into
+`Assets/Resources` as a workaround. The builder must be migrated to
+`Assets/ImagesGenerated/Character/animation` in a separate implementation task.
 
 The generator sorts the matched sprites in ascending order and creates an AnimationClip.
 
@@ -348,16 +380,16 @@ character.{characterName}.{grade}.{animation_enum}.clip
 ---
 
 
-## Canvas Animation GIF Evidence
+### Canvas Animation GIF Evidence (Legacy)
 
 When downloaded character animations are later prepared for Slack Canvas review,
 create GIF evidence from the preserved PNG frames instead of modifying source
 animation files.
 
-Recommended evaluation workspace after rebasing PixelLab output:
+Evaluation workspace after rebasing PixelLab output:
 
 ```text
-C:\github\design_evaluation\character\{characterName}_{grade}
+{DesignEvaluationRoot}/character/{characterName}_{grade}
 ```
 
 Canvas-ready GIF evidence should be written under:
@@ -389,7 +421,7 @@ GIF construction rules:
 For each character, a complete Canvas evidence package should include one static
 rotation/contact preview and the three animation GIFs above.
 
-## Cleanup
+### Cleanup (Legacy)
 
 After copying the final PNG files, remove only temporary working files that are outside the character export folder.
 
@@ -405,17 +437,17 @@ Do not delete:
 - `<targetCharacterFolder>/converted`
 - `<targetCharacterFolder>/evaluation_animation_result.txt`
 
-The Unity resource folder should contain the final copied PNG files:
+The Unity generated-image folder should contain only passing copied PNG files:
 
 ```text
-Assets/Resources/character/animation_png
+Assets/ImagesGenerated/Character/animation
 ```
 
 The PixelLab export folder should retain the source `animations/` folder, converted copies, and evaluation result.
 
 ---
 
-## Validation Checklist
+### Validation Checklist (Legacy)
 
 Before running the Unity character generator, check the following:
 
@@ -425,64 +457,34 @@ Before running the Unity character generator, check the following:
 - Are source animation files preserved for evaluation?
 - Does `evaluation_animation_result.txt` exist under the character export folder?
 - Does the evaluation result include Pass / Fail and failure reason if failed?
-- Are the PNG files copied into `animation_png`?
+- If evaluation passed, are the PNG files copied into `Assets/ImagesGenerated/Character/animation`?
+- If evaluation failed, was project image copy correctly skipped?
 - Are renamed PNG files also preserved under `<targetCharacterFolder>/converted`?
 - Do file names follow `character.{characterName}.{grade}.{animation_enum}.frame_000.png`?
 - Does `animation_enum` exactly match `CharacterAnimationClipType`?
 - Are any frames missing for each animation direction?
 - Does `characterName` match the `characterId` in CharacterSO?
+- Does the character generator resolve
+  `Assets/ImagesGenerated/Character/animation`, or was the build correctly
+  blocked as `builder_path_migration_required`?
 
 ---
 
-## Git Commit
+### Git Handoff (Legacy)
 
-After completing the work, commit with a standard message.
-
-Example:
-
-```bash
-git status
-git add .
-git commit -m "Add character animation resources for seojin"
-```
-
-Commit message format:
-
-```text
-Add character animation resources for {characterName}
-```
-
-For updates:
-
-```text
-Update character animation resources for {characterName}
-```
+After validation, report the changed project-relative files, preserved evidence,
+evaluation result, checksums, Unity readiness, and any blocker. A separate Git
+owner decides whether and how to stage, commit, merge, push, or deploy. Do not
+request Git publication before the required evaluation has passed.
 
 ---
 
-## Merge to Main and Deploy
-
-After validation on the working branch, merge into `main` and deploy.
-
-Standard flow:
-
-```bash
-git checkout main
-git pull origin main
-git merge story
-git push origin main
-```
-
-If deployment is handled by a separate script or CI pipeline, follow the project standard deployment process.
-
----
-
-## Summary
+### Summary (Legacy)
 
 Overall workflow:
 
 ```text
-Update Git state
+Confirm repository readiness with the Git owner
 -> Use existing <targetCharacterFolder>/animations if present and no new export is required
 -> If animations is missing or replacement is required, Export from PixelLab into a temporary folder
 -> Move only the extracted animations folder into <targetCharacterFolder>/animations
@@ -491,9 +493,7 @@ Update Git state
 -> Evaluate source animations using EvaluationAnimationGuide.md
 -> Save evaluation_animation_result.txt under the character export folder
 -> Copy and rename files into <targetCharacterFolder>/converted
--> Copy converted files to Assets/Resources/character/animation_png
+-> Copy converted files to Assets/ImagesGenerated/Character/animation
 -> Remove only temporary files outside the character export folder
--> Git commit
--> Merge to main
--> Deploy
+-> Return validation and artifact handoff to the separate Git owner
 ```
