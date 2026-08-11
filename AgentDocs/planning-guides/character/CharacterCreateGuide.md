@@ -31,14 +31,17 @@ This document defines the full character creation pipeline.
 
 Use this guide as the orchestration document when creating a character from planning data through runtime JSON inputs.
 
-Pipeline:
+Current pipeline:
 
 ```text
 Act / Chapter story input
-  -> Character planning
-  -> Image generation
-  -> Animation generation
-  -> Animation extraction
+  -> canonical character_planning_v2
+  -> generated_media_planning_handoff_v1 when planning is ready
+  -> Generated Media router
+  -> PixelLab character prompt authoring
+  -> PixelLab character generation
+  -> preservation / packaging
+  -> separate evaluation
   -> Skill JSON generation
   -> Character JSON generation
 ```
@@ -56,6 +59,10 @@ Act / Chapter story input
 - Character-owned skill IDs must use `skill.character`, not `skill.npc`.
 - Planning files should separate playable characters from NPC and Boss combat pool files.
 - Boss uses `characterType: "Boss"` but belongs to the enemy combat pool folder unless the task explicitly needs a separate boss folder.
+- `CharacterPlanningDataGuide.md` is the single per-character planning schema
+  authority. Legacy planning is read-only until an explicit reviewed migration.
+- Generated Media stages never infer missing character appearance or action
+  design from combat/story shorthand.
 
 ---
 
@@ -111,10 +118,10 @@ Create the planning JSON that defines the character concept, role, stat intent, 
 ```text
 AgentDocs/planning-guides/character/ActCharacterPlanningStartGuide.md
 AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
 AgentDocs/planning-guides/character/CharacterStatGuide.md
 AgentDocs/planning-guides/skill/design/SkillDegineGuide.md
 AgentDocs/planning-guides/skill/design/SkillBalanceGuide.md
-Assets/Doc
 ```
 
 ### Main Work
@@ -208,165 +215,128 @@ AgentDocs/planning-data/character/act-plans/{groupId}/
 
 ---
 
-## Step 2. Image Generation
+## Step 2. Character Main-image Planning Handoff
 
 ### Purpose
 
-Generate the character concept image in PixelLab using the planning JSON as the source.
+Create an immutable Generated Media planning handoff only when canonical
+character planning is approved and visually complete.
 
 ### Reference Files
 
 ```text
-AgentDocs/planning-guides/character/CharacterGenerateImage.md
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 ```
 
 ### Main Work
 
-1. Open PixelLab:
-
-```text
-https://www.pixellab.ai/create-character
-```
-
-2. Use **Create from text**.
-3. Select the correct PixelLab character type.
-4. Use the required generation settings:
-
-```text
-Generation Mode: Pro
-Camera View: High Top-Down
-Detail: Highly detailed
-Outline: Black outline
-```
-
-5. Write the prompt from the character planning JSON.
-6. Generate the character in PixelLab.
-7. Add the character name and grade as tags.
-8. Export the generated image files.
+1. Verify `schemaVersion=character_planning_v2`, `planningStatus=approved`,
+   `generatedMediaPlanning.characterMainImage.readiness=ready`, and an empty
+   `missingDesignInputs`.
+2. Hash the completed planning source after writing it. Do not write a
+   self-referential hash into the planning file.
+3. Map approved identity, structured appearance, observable requirements,
+   prohibitions, and identity locks into a separate
+   `generated_media_planning_handoff_v1`.
+4. Expand `generated_media_exact_8_way_v1` into the exact technical direction
+   order without adding character meaning or appearance.
+5. If any planning fact or provenance is missing, return
+   `character_planning_not_media_ready`; do not create the handoff.
 
 ### Output
 
-Save PixelLab exports under the configured PixelLab export root:
-
-```text
-<PixelLabExportRoot>/<CharacterName>_<Grade>
-```
+One separate immutable character-main-image planning handoff, or a typed
+blocker with `missingDesignInputs`.
 
 ### Validation
 
-- Image is generated in PixelLab only.
-- Rotation validation score is at least `90 / 100`.
-- Prompt accuracy score is at least `80 / 100`.
-- Style compatibility score is at least `70 / 100`.
-- Evaluation result is saved as `evaluation_result.txt`.
+- Every handoff visual fact maps to approved character planning evidence.
+- Required/prohibited statements are independently observable.
+- The exact eight-way contract adds only technical view structure.
+- No provider prompt, provider result, evaluation, or project asset is created.
 
 ---
 
-## Step 3. Animation Generation
+## Step 3. Generated Media Router, Authoring, and Generation
 
 ### Purpose
 
-Generate Walk, Attack, and Idle animations for the selected PixelLab character before downloading animation frames.
+Run the current Generated Media tasks as separate owners after a valid handoff
+exists. This orchestration guide does not execute or merge their work.
 
 ### Reference Files
 
 ```text
-AgentDocs/planning-guides/character/CharacterGenerateAnimation.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
+AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
+AgentDocs/task-prompts/content/generated-media/GeneratedMediaRequestRoutingPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md
 ```
 
 ### Main Work
 
-1. Open PixelLab:
-
-```text
-https://www.pixellab.ai/create-character
-```
-
-2. Open the generated character.
-3. Click **+ Add Animation**.
-4. In Character Preview, select **South-East** direction.
-5. Generate the required animations:
-   - Walk animation from the **MOVEMENT / Walking / Walk** option.
-   - Attack animation using **CUSTOM / Custom Animation V3**.
-   - Idle animation using **CUSTOM / Custom Animation V3**.
-6. Use `8 Frames` for Attack animation.
-7. Use `6 Frames` for Idle animation.
-8. Enable **Keep first frame (idle pose)** for custom animations.
-9. Rename generated animations to:
-   - `Walk`
-   - `Attack`
-   - `Idle`
+1. Route the immutable planning handoff through the closed registry.
+2. Author a provider prompt from the routing record and exact planning handoff.
+3. Run provider generation in the separate generation task.
+4. Do not infer missing design, repair planning, or create a fixed
+   Attack/Idle/Move list.
+5. Character animation is a separate handoff and includes only externally
+   approved `animationRequests`.
 
 ### Output
 
-The selected PixelLab character has generated animations ready for export.
+Immutable routing, prompt, and generation records owned by their current
+Generated Media guides.
 
 ### Validation
 
-- Animation generation is performed in PixelLab only.
-- Walk animation score is at least `90 / 100`.
-- Attack animation score is at least `90 / 100`.
-- Frame-to-frame movement score is at least `80 / 100`.
-- Weapon review score is at least `80 / 100`.
-- Animation names are exactly `Walk`, `Attack`, and `Idle`.
-- The character appearance, equipment, and weapon remain consistent with the generated image.
+- Router selects exactly one registered row.
+- Prompt authoring preserves visual evidence and adds no planning facts.
+- Generation consumes the immutable prompt without rewriting it.
+- Evaluation is not performed by routing, authoring, or generation.
 
 ---
 
-## Step 4. Animation Extraction
+## Step 4. Preservation, Packaging, and Evaluation Handoff
 
 ### Purpose
 
-Download the character animation export, rename animation PNGs, and copy them into the Unity resource path used by the CharacterSO generator.
+Preserve provider originals and extract ordered rotations/frames in the
+separate packaging task, then hand a normalized package to evaluation.
 
 ### Reference Files
 
 ```text
-AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
 ```
 
 ### Main Work
 
-1. Export animation images from the PixelLab character page.
-2. Extract the downloaded archive.
-3. Map PixelLab animation folders to `CharacterAnimationClipType`.
-4. Duplicate missing north-facing directions if required by the guide.
-5. Rename every PNG using the ProjectBS naming rule.
-6. Copy the renamed PNG files into the Unity resource folder.
-7. Clean temporary downloaded and extracted files.
-
-### Naming Rule
-
-```text
-character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
-```
-
-Example:
-
-```text
-character.mist_lingering_child.1.IdleDownRight.frame_000.png
-```
+1. Preserve the original provider media and hashes.
+2. Extract main-image rotations into `ordered_rotation_set` or requested
+   animation frames into `ordered_frame_set` according to the registered
+   adapter.
+3. Package planning, prompt, generation, originals, extracted members,
+   manifests, and hashes using the common evaluation package contract.
+4. Send the package to a separate evaluation task.
+5. Project promotion and Unity import remain later, independently authorized
+   tasks.
 
 ### Output
 
-Copy renamed PNG files to:
-
-```text
-Assets/ImagesGenerated/Character/animation
-```
-
-The generator later creates animation clips under:
-
-```text
-Assets/Resources/character/animation_clip
-```
+A normalized Generated Media evaluation package and evaluation request handoff.
 
 ### Validation
 
-- PNG files exist in `Assets/ImagesGenerated/Character/animation`.
-- File names match `character.{characterName}.{grade}.{animation_enum}.frame_000.png`.
-- `animation_enum` exactly matches `CharacterAnimationClipType`.
-- `characterName` and `grade` match the character JSON ID.
+- Main-image packages have eight unique ordered rotations.
+- Animation packages contain only requested animation IDs and ordered frames.
+- Staging source and informational project target are distinct.
+- No evaluation verdict or project promotion is claimed by packaging.
 
 ---
 
@@ -528,13 +498,19 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 
 ## Final Validation Checklist
 
-- Planning JSON exists in `AgentDocs/planning-data/character/act-plans`.
-- PixelLab image export exists under `<PixelLabExportRoot>`.
-- PixelLab animations are generated and named `Walk`, `Attack`, and `Idle`.
-- Animation PNGs exist in `Assets/ImagesGenerated/Character/animation`.
+- New planning JSON validates as `character_planning_v2`; legacy planning was
+  not silently overwritten.
+- Missing appearance/provenance produces `missingDesignInputs` and no Generated
+  Media handoff.
+- An approved main-image request has a separate immutable planning handoff with
+  verified source hash/snapshot and exact eight-way technical contract.
+- Router, prompt authoring, generation, preservation/packaging, and evaluation
+  remain separate owners.
+- Character animation contains only externally approved animation requests; no
+  fixed Walk/Attack/Idle set is invented.
 - Skill JSON files exist and use `skill.character`.
 - Character JSON exists and uses `character`.
 - `Player`, `Npc`, and `Boss` are used only as `characterType` values.
 - No direct SO asset was created when the guide required JSON input.
 - All generated JSON files are valid JSON.
-- Git status is reviewed before commit.
+- Project promotion and Git remain separately authorized work.

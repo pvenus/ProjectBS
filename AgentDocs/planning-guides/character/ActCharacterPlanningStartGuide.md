@@ -38,12 +38,12 @@ Recommended input:
 
 ```json
 {
-  "actId": "act.02",
-  "actStoryFile": "AgentDocs/planning-data/story/Act_02_Background.md",
+  "actId": "act.01",
+  "actStoryFile": "AgentDocs/planning-data/story/Act01/Act_01_Background.md",
   "chapterFiles": [
-    "AgentDocs/planning-data/story/Chapter_06.md",
-    "AgentDocs/planning-data/story/Chapter_07.md",
-    "AgentDocs/planning-data/story/Chapter_08.md"
+    "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+    "AgentDocs/planning-data/story/Act01/Chapter02/Chapter_02.md",
+    "AgentDocs/planning-data/story/Act01/Chapter03/Chapter_03.md"
   ]
 }
 ```
@@ -68,6 +68,7 @@ Read these guides before generating output:
 AgentDocs/planning-guides/story/StoryStructureGuide.md
 AgentDocs/planning-guides/character/CharacterCreateGuide.md
 AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
 AgentDocs/planning-guides/battle/BattleStoryContextGuide.md
 ```
 
@@ -87,11 +88,10 @@ Required baseline:
 
 ```text
 AgentDocs/planning-data/story/00_Background.md
-AgentDocs/planning-data/story/01_Overall_Story.md
 AgentDocs/planning-data/story/Characters.md
 ```
 
-Then read the provided Act story file and Chapter files.
+Then read the provided Act-level overall/background file and Chapter files.
 
 Do not read `.meta` files as story content.
 
@@ -211,17 +211,17 @@ skill.character.{name}.{grade}.{slot}.{skill_name}
 
 ### 6. Create Character And Monster Planning JSON
 
-Each character planning JSON should contain only:
+Every new per-character JSON must use the single canonical contract:
 
 ```text
-commonDataRef
-identity
-appearance
-combat
-planningScore
-stats
-skills
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+schemaVersion=character_planning_v2
 ```
+
+The canonical top-level contract preserves `commonDataRef`, `identity`,
+`combat`, `planningScore`, `stats`, and `skills`, and adds provenance,
+structured appearance, Generated Media readiness, and typed
+`missingDesignInputs`. Do not substitute a local Act-specific schema.
 
 Required identity rules:
 
@@ -234,6 +234,19 @@ Required identity rules:
 Create new characters only when Act or Chapter battle needs require a missing role.
 
 Reuse existing character planning refs when the role, story use, and tone fit.
+
+An existing file without `schemaVersion=character_planning_v2` is legacy
+read-only input. Classify it according to CharacterPlanningDataGuide.md. Do not
+silently migrate or overwrite it, and do not treat a short legacy appearance
+object as sufficient for image generation.
+
+Character visual decisions must be grounded in exact story/planning evidence.
+Do not derive gender presentation or biological sex, body, face, hair, costume,
+equipment, weapon detail, handedness, palette/material, identifying features,
+pose policy, target display size, detail density, required elements, or
+prohibited elements from a name, personality, combat role, skill, grade, or
+tag. Missing evidence creates typed `missingDesignInputs` and blocks a
+`character_main_image` handoff.
 
 ### 7. Create Monster Context JSON
 
@@ -306,7 +319,7 @@ Use `primaryMonsters` and `secondaryMonsters` as refs to character planning file
 
 Do not embed full character planning data.
 
-### 8. Validate
+### 9. Validate
 
 Before finishing:
 
@@ -317,6 +330,18 @@ Before finishing:
 5. Validate Npc and Boss files are under `AgentDocs/planning-data/character/act-plans/{act_group_id}/npc`.
 6. Validate runtime domain remains `character`.
 7. Validate no guide docs or README files were created inside generated output folders.
+8. Validate every new per-character file is `character_planning_v2` and has no
+   unknown fields.
+9. Validate structured appearance and every observable required/prohibited
+   statement have exact provenance.
+10. Validate `missingDesignInputs`, `planningStatus`, and Generated Media
+    readiness agree.
+11. Validate legacy files were not overwritten without explicit reviewed
+    migration approval.
+12. Validate planning JSON contains no self-referential file or snapshot hash.
+13. Create a separate `generated_media_planning_handoff_v1` only for an
+    approved/ready character when explicitly requested; otherwise report the
+    blocker without generating provider prompt or media.
 
 ## Final Response
 
@@ -331,5 +356,7 @@ Report:
 - Player count
 - NPC and Boss count
 - Validation result
+- Canonical schema version and legacy classifications
+- Character main-image readiness and handoff paths or blockers
 
 Do not paste full JSON in the final response unless explicitly requested.

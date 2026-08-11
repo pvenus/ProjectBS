@@ -18,6 +18,15 @@ Generate character planning JSON before creating images, stats, skills, and runt
 
 The generated planning JSON will be used as the source for all later generation steps.
 
+The single per-character schema authority is:
+
+```text
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+```
+
+This guide supplies workflow and design-source rules only. It must not define a
+second loose character JSON shape.
+
 For Act-level generation from Act and Chapter story input, start with:
 
 ```text
@@ -95,20 +104,29 @@ The index files should keep only refs, role slots, chapter use, and composition 
 
 Do not duplicate full identity, appearance, stats, or skills in the index files.
 
-### Allowed References
+### Required And Allowed References
 
-Only the following documents may be referenced.
+Read these exact authorities first:
 
 ```text
-Assets/Doc
+AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+AgentDocs/planning-guides/story/StoryStructureGuide.md
+AgentDocs/planning-data/story/Characters.md
 AgentDocs/planning-guides/character/CharacterStatGuide.md
 AgentDocs/planning-guides/skill/design/SkillDegineGuide.md
 AgentDocs/planning-guides/skill/design/SkillBalanceGuide.md
 ```
 
-Do **NOT** inspect or search any other folders or files.
+Use only the exact Act, Chapter, common planning, and story files supplied by
+the task or resolved through StoryStructureGuide.md. Record every file actually
+used in `sourceStoryRefs` or `sourcePlanningRefs` and map each character fact to
+an exact source section/pointer.
 
-If required information is missing, leave a short note inside the JSON instead of searching outside the allowed scope.
+Do not search broad folders such as `Assets/Doc`. Do not inspect runtime,
+resource, image, or implementation folders to invent planning facts. If an
+allowed source does not establish a required design fact, write a typed
+`missingDesignInputs` blocker; do not leave an ambiguous note or infer a value.
 
 ### Player / NPC
 
@@ -179,13 +197,15 @@ Recommended input shape:
   "actId": "act.01",
   "chapterIds": ["chapter.01.01", "chapter.01.02"],
   "chapterFiles": [
-    "AgentDocs/planning-data/story/Chapter_01.md",
-    "AgentDocs/planning-data/story/Chapter_02.md"
+    "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+    "AgentDocs/planning-data/story/Act01/Chapter02/Chapter_02.md"
   ]
 }
 ```
 
-If the user provides only a Chapter file, infer the Act from `StoryStructureGuide.md` and the available story docs.
+If the user provides only a Chapter file, resolve the Act only through
+`StoryStructureGuide.md` and exact registered story references. If more than one
+Act is possible, stop with an ambiguous-source blocker rather than infer one.
 
 Use Act context for shared data:
 
@@ -209,16 +229,9 @@ Use Chapter context for concrete generation:
 
 ### 2. Review World Setting
 
-Reference:
-
-```text
-Assets/Doc
-```
-
-- Review the world setting.
-- Review the story.
-- Identify the character's purpose.
-- Determine where the character appears.
+Use the exact approved story and planning references recorded in provenance.
+Review the character's established world use, story purpose, and appearances.
+Do not turn broad setting tone into unsupported per-character appearance.
 
 ---
 
@@ -345,19 +358,33 @@ NPC
 
 ---
 
-## JSON Direction
+## Canonical JSON Contract
 
-The planning JSON should generally contain:
+New per-character planning must conform exactly to:
 
 ```text
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+schemaVersion=character_planning_v2
+```
+
+The canonical planning contains:
+
+```text
+schemaVersion
+documentId
+documentType
+planningStatus
+commonDataRef
 identity
+provenance
 appearance
 combat
 planningScore
-storyUse
-reuse
 stats
 skills
+generatedMediaPlanning
+missingDesignInputs
+notes
 ```
 
 ### Split JSON Structure
@@ -368,7 +395,9 @@ Prefer this split when the group has shared race, faction, story context, or gui
 
 The common data JSON contains shared information used by every character in the group.
 
-Recommended fields:
+The common-data contract remains a separate group-level planning artifact. The
+following established fields explain split-file ownership and are not a second
+per-character schema:
 
 ```text
 documentId
@@ -401,22 +430,28 @@ AgentDocs/planning-data/character/act-plans/sangui_spirit/sangui_spirit.common.j
 
 Each character data JSON contains only one character's planning data.
 
-Recommended fields:
+Canonical per-character fields are not optional recommendations. Use the exact
+schema guide, including:
 
 ```text
 documentId
 documentType
+schemaVersion
+planningStatus
 commonDataRef
 identity
+provenance
 appearance
 combat
 planningScore
 stats
 skills
+generatedMediaPlanning
+missingDesignInputs
 notes
 ```
 
-Recommended `documentType`:
+Required `documentType`:
 
 ```text
 characterPlanning
@@ -523,14 +558,10 @@ Keep shared information in the common data JSON and keep character-specific iden
 
 If a character intentionally overrides common data, write only the override in the character JSON and leave a short note explaining why.
 
-The exact schema does not need to match existing files perfectly.
-
-The generated JSON should be:
-
-- Easy to read
-- Easy to review
-- Easy to convert into runtime data
-- Consistent with existing planning JSON documents
+Existing files that do not match `character_planning_v2` are legacy read-only
+inputs. Classify and migrate only through the versioned strategy in
+CharacterPlanningDataGuide.md. Do not weaken the canonical schema to resemble a
+legacy example.
 
 ---
 
@@ -545,4 +576,6 @@ Do not inspect:
 - Skill implementations
 - Stat implementations
 
-Only use the documents listed in **Allowed References**.
+Only use the exact authorities and task-supplied sources declared above.
+Generated Media prompt authoring may begin only from a separate approved
+handoff; it cannot fill a missing character design.

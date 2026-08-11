@@ -43,7 +43,7 @@ sourcePlanningFiles:
   - path: exact project-relative source path
     role: identity | design | motion | scene | runtime
     sha256: exact source hash
-    revision: optional source revision
+    revision: optional stable non-empty revision supplied by that source's authority
 planningSnapshot:
   capturedAt: UTC timestamp
   snapshotHash: SHA-256 of normalized source entries and approved facts
@@ -72,6 +72,12 @@ type-specific fields are flattened as written in Section 4
 
 Do not require normalized routing names such as `outputUsage`,
 `planningRevision`, or specification containers from canonical raw input.
+
+`revision` is provenance metadata, not content identity. Copy it unchanged only
+when the source-owning planning system supplies a stable non-empty string. If
+that authority supplies no revision, omit the key; do not synthesize it from a
+timestamp, Git state, SHA-256, or mutable planning content. `sha256` and
+`planningSnapshot.snapshotHash` remain required whether revision exists or not.
 
 ### 3.2 Allowed compatibility envelope
 
@@ -136,14 +142,32 @@ exact registry rows.
 
 ### 4.1 character_main_image
 
+For character planning produced by ProjectBS, the upstream schema authority is:
+
+```text
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+```
+
 ```yaml
-characterIdentity: approved identity and provider lookup keys
-appearanceSpecification: body, costume, equipment, palette, required features
+characterIdentity: approved canonical identity and identity-consistency locks
+appearanceSpecification: approved structured genderPresentation, body/face/hair, costume,
+  equipment, weapon, handedness, palette/material, identifying features,
+  pose policy, and intendedDisplay including targetDisplaySize and detailDensity
 rotationContract:
   orderedDirections: [north, north_east, east, south_east, south, south_west, west, north_west]
   exactCount: 8
   identityConsistencyRequired: true
 ```
+
+The planning owner supplies every character meaning and appearance fact. The
+handoff producer may expand `generated_media_exact_8_way_v1` into the exact
+technical rotation structure above, but it cannot add body, face, hair,
+costume, equipment, weapon detail, handedness, color, material, feature, pose,
+gender presentation, biological sex, or display size/detail-density meaning.
+Provider canvas/export resolution is a technical profile concern and cannot
+replace the planning-owned target display contract. A canonical planning file with `missingDesignInputs`, a
+non-approved status, or non-ready main-image state returns
+`character_planning_not_media_ready` before handoff creation.
 
 ### 4.2 character_animation
 
@@ -223,6 +247,8 @@ missing_required_elements
 missing_prohibited_elements
 missing_character_identity
 missing_appearance_specification
+character_planning_not_media_ready
+character_planning_handoff_collision
 missing_animation_requests
 invalid_animation_request
 missing_sequence_specification

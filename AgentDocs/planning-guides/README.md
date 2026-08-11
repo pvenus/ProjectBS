@@ -91,6 +91,19 @@ Legacy generated-media migration:
 Do not delete legacy guides until their profile and evaluation contracts have
 dedicated replacements and all callers have migrated.
 
+Character planning authority:
+
+```text
+AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md
+AgentDocs/planning-guides/character/ActCharacterPlanningStartGuide.md
+AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
+AgentDocs/planning-guides/character/CharacterCreateGuide.md
+```
+
+`CharacterPlanningDataGuide.md` is the single per-character schema authority
+for new Player/Npc/Boss planning. Legacy character planning is read-only until
+an explicit reviewed migration.
+
 Strategic item authoring guides:
 
 ```text

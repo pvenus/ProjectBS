@@ -78,6 +78,16 @@ Legacy execution prompt migration:
 Do not copy a legacy skill/item/stage/battle execution prompt for a new domain.
 Use `domainType` and an approved profile with the current provider prompt.
 
+Character planning:
+
+```text
+AgentDocs/task-prompts/character/ActCharacterPlanningPrompts.md
+```
+
+This prompt writes `character_planning_v2` for new Player/Npc/Boss planning and
+may create a separate character-main-image planning handoff only when design
+readiness is complete.
+
 Evaluation and Slack Canvas recording:
 
 ```text

@@ -321,14 +321,17 @@ Owns: provider-neutral organization of an approved character identity and
 appearance for a main image and exact eight-way identity-consistent rotation
 contract.
 
-Does not own: character identity, body, face, costume, equipment, weapon,
-palette, status, pose meaning, cultural detail, or rotation invention.
+Does not own: character identity, gender presentation, biological sex, body,
+face, costume, equipment, weapon, palette, status, pose meaning, target display
+size, detail density, cultural detail, or rotation invention.
 
 Required planning fields:
 
 ```text
 characterIdentity
-appearanceSpecification
+appearanceSpecification containing approved genderPresentation, body/face/hair, costume,
+  equipment, weapon, handedness, palette/material, identifying features,
+  pose policy, and intendedDisplay with targetDisplaySize and detailDensity
 rotationContract.orderedDirections
 rotationContract.exactCount=8
 rotationContract.identityConsistencyRequired=true
@@ -337,17 +340,27 @@ contentUsage
 exact registered character profile
 ```
 
+When the upstream source is ProjectBS canonical character planning, it must
+validate against
+`AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md`.
+`planningStatus=approved`, main-image readiness, empty `missingDesignInputs`,
+and per-fact provenance are mandatory. Prompt authoring cannot repair a legacy
+or blocked planning file.
+
 Visual priority and composition:
 
 - preserve the full approved identity through one readable body silhouette;
-- keep face, body proportions, costume, equipment, handedness, and palette
+- keep gender presentation, face, body proportions, costume, equipment, handedness, and palette
   consistent across every direction;
 - rotation directions are technical views of one identity, not eight design
   variations;
 - apply transparent/background and camera treatment only from the registered
   profile or explicit planning;
-- do not infer a hero pose, combat pose, social class, faction ornament, or
-  weapon detail from the character name.
+- do not infer biological sex, gender presentation, a hero pose, combat pose,
+  social class, faction ornament, weapon detail, target size, or detail density
+  from the character name or other semantic metadata;
+- use the planning-owned target display size/detail density for readability;
+  provider canvas/export dimensions remain profile-owned technical settings.
 
 Provider handoff: one `pixellab_character_prompt_v1` field payload plus exact
 settings intent and an `ordered_rotation_set` expectation. The authoring task
@@ -356,6 +369,8 @@ does not generate or inspect the eight outputs.
 Validation:
 
 - all appearance statements map to character planning evidence;
+- no appearance statement originates only from name, personality, combat lore,
+  skill, role, grade, or tag;
 - exactly eight approved ordered directions exist;
 - no direction changes identity, equipment, handedness, or palette;
 - provider text does not claim generation/evaluation completion.
