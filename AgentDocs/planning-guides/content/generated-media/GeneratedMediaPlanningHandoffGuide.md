@@ -42,7 +42,7 @@ contentUsage: player-facing use of the generated media
 sourcePlanningFiles:
   - path: exact project-relative source path
     role: identity | design | motion | scene | runtime
-    sha256: exact source hash
+    sha256: exact canonical source-content hash
     revision: optional stable non-empty revision supplied by that source's authority
 planningSnapshot:
   capturedAt: UTC timestamp
@@ -57,6 +57,14 @@ projectTarget:
 
 `sourcePlanningFiles` and `planningSnapshot` are both required. A mutable source
 path without a snapshot/hash is insufficient.
+
+For a JSON source, `sourcePlanningFiles[].sha256` is SHA-256 of the same
+canonical JSON serialization defined in Section 3.1, not of checkout bytes.
+This makes the source identity independent of UTF-8 BOM, insignificant
+whitespace, and Git LF/CRLF conversion. For a registered non-JSON source, the
+domain handoff contract must define its canonical byte representation; absent
+that definition, the source is invalid rather than hashed as platform-local
+bytes.
 
 ### 3.1 Canonical planning snapshot payload
 

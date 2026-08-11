@@ -41,6 +41,7 @@ const planningRelativePath = planningRelativePathInput.replaceAll("\\", "/");
 const planningPath = path.resolve(projectRoot, ...planningRelativePath.split("/"));
 const planningBytes = fs.readFileSync(planningPath);
 const planning = JSON.parse(planningBytes.toString("utf8").replace(/^\uFEFF/, ""));
+const planningCanonicalBytes = Buffer.from(canonicalJson(planning), "utf8");
 
 if (planning.schemaVersion !== "character_planning_v2") {
   fail("planning must use character_planning_v2");
@@ -77,7 +78,7 @@ const sourcePlanningFiles = [
   {
     path: planningRelativePath,
     role: "design",
-    sha256: sha256(planningBytes),
+    sha256: sha256(planningCanonicalBytes),
   },
 ];
 const characterIdentity = {
