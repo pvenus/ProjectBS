@@ -105,6 +105,16 @@ not read combat/skill lore to invent Attack, Idle, or Move descriptions.
 ## 5. Provider Generation Contract
 
 - use the exact PixelLab Create Character workflow;
+- if the supported browser-control helper fails before PixelLab is contacted,
+  perform one supported session reset/reconnect and retry from the same
+  immutable prompt record before declaring provider unavailability;
+- classify repository record-write failures independently from browser-control
+  failures. A browser helper error is not evidence that routing or prompt
+  records are unwritable, and a record-write error is not evidence that
+  PixelLab is unavailable;
+- after reconnecting, re-resolve the exact provider character/result identity
+  from the account gallery and never resubmit merely because the control
+  session was reset;
 - record provider character ID, tool/page, settings, seed when exposed, cost,
   attempts and result refs;
 - stop after a generation record and preservation handoff;
