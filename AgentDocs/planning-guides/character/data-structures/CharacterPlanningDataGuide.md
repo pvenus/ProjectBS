@@ -122,6 +122,37 @@ provenance:
 Every appearance fact and observable requirement cites at least one evidence
 entry. A source path alone does not authorize unstated detail.
 
+### 3.2.1 Planning-owner visual design decisions
+
+When story and existing planning establish the character but intentionally leave
+visual details for the character-planning stage, an explicitly authorized
+character planning owner may create a separate durable decision source at:
+
+```text
+AgentDocs/planning-data/character/design-decisions/v1/{characterId}.visual-design.json
+```
+
+The decision source uses `schemaVersion=character_visual_design_decision_v1`
+and records `decisionId`, `characterId`, `decisionStatus`, approval scope and
+authority, constraint refs, and a `designFacts` object keyed by the same stable
+fact IDs used by canonical character planning. Each design fact contains its
+canonical `fieldPath` and exact approved `value`.
+
+This record distinguishes a new planning-owner decision from a story fact.
+General world, occupation, personality, or Master Concept references may
+constrain the decision, but they are not represented as if they directly state
+the selected color, body, face, garment, equipment, handedness, pose, or display
+contract. Canonical `factEvidence.sourceRefs` points to the exact
+`/designFacts/{factId}/value` JSON pointer, while the decision record separately
+lists the story and Master Concept constraints used during authoring.
+
+Permission to draft a design candidate is not final approval of its exact
+values. `decisionStatus=approved`, canonical `planningStatus=approved`, and
+main-image `readiness=ready` are valid only when the planning owner explicitly
+authorizes the concrete decision set and the approval scope is durably recorded.
+The record is planning evidence, not a provider prompt, media fixture, routing
+record, or substitute for the canonical character file.
+
 Do not store this mutable planning file's own SHA-256, a snapshot hash that
 includes itself, or a self-referential revision inside the planning JSON. The
 later handoff producer hashes the completed approved file and stores it under

@@ -46,6 +46,7 @@ Input:
 4. 기존 commonDataRef, identity, combat, planningScore, stats, skills의 의미와 runtime domain 규칙을 보존한다.
 5. appearance의 genderPresentation, body/face/hair, costume, equipment, weapon, handedness, palette/material, identifyingFeatures, posePolicy, intendedDisplay.targetDisplaySize/detailDensity를 story/planning 근거로만 확정한다. genderPresentation은 관찰 가능한 시각 표현이며 biological sex를 뜻하지 않는다.
 6. 각 appearance fact에 factId와 exact source path/section 또는 JSON pointer를 연결한다.
+6-1. story가 의도적으로 시각 세부를 기획 단계에 맡기고 사용자가 이번 작업의 캐릭터 기획 소유자에게 구체 디자인 작성과 exact 값 승인을 명시한 경우, CharacterPlanningDataGuide.md의 `character_visual_design_decision_v1` 외부 결정 원본을 먼저 작성한다. 일반 story/가이드가 새 색·얼굴·복식·손잡이·표시 크기를 직접 말했다고 표시하지 말고 canonical factEvidence를 해당 결정 원본의 exact `/designFacts/{factId}/value`에 연결한다.
 7. requiredElements와 prohibitedElements를 독립 관찰 가능한 문장으로 planning에서 확정하고 evidenceFactIds를 연결한다.
 8. 이름, 성격, combat lore, skill, role, grade, tag에서 성별 표현·biological sex·색·소재·얼굴·복식·무기 세부·포즈·표시 크기·세부 밀도·금지 요소를 추론하지 않는다.
 9. 근거가 부족한 모든 필드는 missingDesignInputs에 typed failureType, requiredDecision, checked source, blocked handoff를 기록하고 planningStatus/readiness를 blocked로 둔다.
@@ -85,6 +86,7 @@ Output:
 - commonDataRef, identity, combat, planningScore, stats, skills가 기존 권위와 일치해야 한다.
 - approved planning의 필수 appearance field, genderPresentation provenance, targetDisplaySize/detailDensity, required/prohibited statements가 완전해야 한다.
 - 모든 observable statement는 evidenceFactIds로 exact source에 추적되어야 한다.
+- 작업자가 새로 선택한 시각 값은 승인된 `character_visual_design_decision_v1` exact pointer에 추적되고, story fact와 planning-owner decision이 구분되어야 한다.
 - missingDesignInputs가 있으면 planningStatus=approved 또는 readiness=ready가 될 수 없다.
 - legacy 파일은 명시적 migration 승인 없이 덮어쓰지 않아야 한다.
 - planning JSON에 자신의 hash나 자신을 포함하는 snapshot hash가 없어야 한다.

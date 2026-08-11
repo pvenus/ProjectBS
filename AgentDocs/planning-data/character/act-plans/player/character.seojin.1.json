@@ -1,102 +1,580 @@
-﻿{
-    "documentId":  "character_planning.character.seojin.1",
-    "documentType":  "characterPlanning",
-    "commonDataRef":  "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
-    "identity":  {
-                     "characterId":  "character.seojin.1",
-                     "characterType":  "Player",
-                     "runtimeDomain":  "character",
-                     "name":  "서진",
-                     "grade":  1,
-                     "tierId":  "player_grade1",
-                     "role":  "frontline_swordsman",
-                     "tags":  [
-                                  "human",
-                                  "melee",
-                                  "rescuer"
-                              ]
-                 },
-    "appearance":  {
-                       "silhouette":  "낡은 군졸 갑옷과 여행 망토를 걸친 떠돌이 무사",
-                       "weapon":  "검",
-                       "visualKeywords":  [
-                                              "worn_armor",
-                                              "plain_sword",
-                                              "dusty_travel_cloak"
-                                          ]
-                   },
-    "combat":  {
-                   "roleIntent":  "아이 구출을 우선하는 균형형 전열",
-                   "preferredRange":  "melee",
-                   "partyFunction":  [
-                                         "front_basic",
-                                         "protect_ally",
-                                         "interrupt"
-                                     ]
-               },
-    "planningScore":  {
-                          "overall":  130,
-                          "health":  120,
-                          "attack":  130,
-                          "defense":  115,
-                          "speed":  100,
-                          "range":  60,
-                          "support":  70
-                      },
-    "stats":  {
-                  "grade":  1,
-                  "totalScore":  130,
-                  "growthType":  "standard",
-                  "primaryTag":  "human",
-                  "statBias":  [
-                                   "attack",
-                                   "max_hp",
-                                   "steady_defense"
-                               ]
-              },
-    "skills":  [
-                   {
-                       "skillId":  "skill.character.seojin.1.basic_attack.field_sword_cut",
-                       "slot":  "basic_attack",
-                       "name":  "전장 베기",
-                       "category":  "Basic",
-                       "intent":  "전방 단일 적을 안정적으로 베어 전열을 유지한다.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  10,
-                                       "attackPercentDamage":  100,
-                                       "cooldown":  3,
-                                       "castRange":  0.5,
-                                       "hitRange":  0.6,
-                                       "hitCount":  1,
-                                       "targetScore":  100,
-                                       "utility":  [
-
-                                                   ]
-                                   }
-                   },
-                   {
-                       "skillId":  "skill.character.seojin.1.passive.child_rescue_oath",
-                       "slot":  "passive",
-                       "name":  "아이를 구하겠다는 맹세",
-                       "category":  "Passive",
-                       "intent":  "구출 대상 주변에서 방어 의지가 올라가는 성향.",
-                       "balance":  {
-                                       "expectedAttack":  20,
-                                       "baseDamage":  0,
-                                       "attackPercentDamage":  0,
-                                       "cooldown":  0,
-                                       "castRange":  0.4,
-                                       "hitRange":  0.4,
-                                       "hitCount":  1,
-                                       "targetScore":  80,
-                                       "utility":  [
-                                                       "near_objective_damage_reduction_small"
-                                                   ]
-                                   }
-                   }
-               ],
-    "notes":  [
-
-              ]
+{
+  "schemaVersion": "character_planning_v2",
+  "documentId": "character_planning.character.seojin.1",
+  "documentType": "characterPlanning",
+  "planningStatus": "approved",
+  "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+  "identity": {
+    "characterId": "character.seojin.1",
+    "characterType": "Player",
+    "runtimeDomain": "character",
+    "name": "서진",
+    "grade": 1,
+    "tierId": "player_grade1",
+    "role": "frontline_swordsman",
+    "tags": [
+      "human",
+      "melee",
+      "rescuer"
+    ]
+  },
+  "provenance": {
+    "sourceStoryRefs": [
+      "AgentDocs/planning-data/story/00_Background.md",
+      "AgentDocs/planning-data/story/Act01/01_Overall_Story.md",
+      "AgentDocs/planning-data/story/Act01/Act_01_Background.md",
+      "AgentDocs/planning-data/story/Characters.md",
+      "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md"
+    ],
+    "sourcePlanningRefs": [
+      "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+      "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+      "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+      "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md"
+    ],
+    "factEvidence": [
+      {
+       "factId": "seojin.appearance.gender_presentation.v1",
+       "fieldPath": "/appearance/genderPresentation",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.gender_presentation.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "인물별 설명 > 서진"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.body.v1",
+       "fieldPath": "/appearance/body",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.body.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "인물별 설명 > 서진"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+            "sourcePointerOrSection": "Chapter 1. 청운촌의 의뢰 > [전투] 청운촌 광장 습격"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.face.v1",
+       "fieldPath": "/appearance/face",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.face.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "인물별 설명 > 서진"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.hair.v1",
+       "fieldPath": "/appearance/hair",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.hair.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 1. 시대적 배경"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.costume.v1",
+       "fieldPath": "/appearance/costume",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.costume.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "캐릭터 이름 / 직업 매칭 표 > 서진 행"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.equipment.v1",
+       "fieldPath": "/appearance/equipment",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.equipment.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/00_Background.md",
+            "sourcePointerOrSection": "시대적 배경"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.weapon.v1",
+       "fieldPath": "/appearance/weapon",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.weapon.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "캐릭터 이름 / 직업 매칭 표 > 서진 행"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.handedness.v1",
+       "fieldPath": "/appearance/handedness",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.handedness.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+            "sourcePointerOrSection": "Chapter 1. 청운촌의 의뢰 > [전투] 청운촌 광장 습격"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.palette.v1",
+       "fieldPath": "/appearance/palette",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.palette.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 3. 전통 색채"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md",
+            "sourcePointerOrSection": "Chapter 1. 청운촌의 의뢰"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.materials.v1",
+       "fieldPath": "/appearance/materials",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.materials.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.identifying_features.v1",
+       "fieldPath": "/appearance/identifyingFeatures",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.identifying_features.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "캐릭터 이름 / 직업 매칭 표 > 서진 행"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.pose_policy.v1",
+       "fieldPath": "/appearance/posePolicy",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.pose_policy.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md",
+            "sourcePointerOrSection": "3.3 Structured appearance > posePolicy"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.appearance.intended_display.v1",
+       "fieldPath": "/appearance/intendedDisplay",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.intended_display.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md",
+            "sourcePointerOrSection": "3.3 Structured appearance > intendedDisplay"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.requirement.core_silhouette.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/requiredElements/0",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.requirement.core_silhouette.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "캐릭터 이름 / 직업 매칭 표 > 서진 행"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "디자인 원칙 > 4. 전통 복식과 장비"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.requirement.weapon.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/requiredElements/1",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.requirement.weapon.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "캐릭터 이름 / 직업 매칭 표 > 서진 행"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.requirement.travel_wear.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/requiredElements/2",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.requirement.travel_wear.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "인물별 설명 > 서진"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/00_Background.md",
+            "sourcePointerOrSection": "시대적 배경"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.prohibition.foreign_design.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/0",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.prohibition.foreign_design.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+            "sourcePointerOrSection": "금지 규칙 > 1. 타 문화 혼합 금지"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.prohibition.luxury_hero.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/1",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.prohibition.luxury_hero.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/story/Characters.md",
+            "sourcePointerOrSection": "인물별 설명 > 서진"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.prohibition.supernatural_body.v1",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/2",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "sourcePointerOrSection": "/designFacts/seojin.prohibition.supernatural_body.v1/value"
+          },
+          {
+            "path": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+            "sourcePointerOrSection": "/race/0"
+          }
+        ]
+      }
+    ]
+  },
+  "appearance": {
+    "genderPresentation": {
+      "description": "성인 남성으로 읽히는 시각 표현. 생물학적 성별을 단정하지 않으며 장식보다 실용성을 앞세운 군졸 출신 무사의 인상이다."
+    },
+    "body": {
+      "description": "성인으로 보이는 보통 키의 단단한 체형이며, 장거리 이동과 반복된 근접전을 견딘 듯 어깨와 팔에 군졸식 훈련의 힘이 남아 있다. 과장된 거구나 영웅적 신체 비례는 사용하지 않는다."
+    },
+    "face": {
+      "description": "햇볕과 먼지에 거칠어진 갸름한 얼굴, 곧은 눈썹, 피로가 남아 있지만 아이를 마주할 때 경계가 누그러지는 단정한 눈매로 표현한다. 수염은 턱과 입가에 짧고 성기게 남은 정도다."
+    },
+    "hair": {
+      "description": "검은 머리를 조선시대 성인 남성의 상투 형태로 낮고 단단하게 묶고, 이동 중 흐트러진 짧은 잔머리만 관자와 목덜미에 남긴다. 화려한 관모나 이국적인 장식은 사용하지 않는다."
+    },
+    "costume": {
+      "description": "빛바랜 남색 군졸용 포와 바지를 기본층으로 입고, 몸통에는 여러 차례 수선한 낡은 철제 미늘 갑옷을 걸친다. 그 위에는 먼지 묻은 회갈색 포형 여행 겉옷을 어깨에서 느슨하게 여며 이동자의 실루엣을 만든다. 옷과 갑옷은 오래 사용한 마모와 덧댄 흔적이 보이되 판타지식 중갑이나 타 문화 장식은 배제한다."
+    },
+    "equipment": [
+      {
+        "description": "허리 뒤쪽에 작은 무명 주머니와 접어 묶은 삼베 보자기를 달아 최소한의 여행 물품만 휴대한다."
+      }
+    ],
+    "weapon": {
+      "present": true,
+      "description": "장식 없는 조선식 환도 한 자루. 짙은 나무 칼집과 닳은 가죽 손잡이끈, 사용 흔적이 남은 철제 외날 칼날로 구성하며 과장된 크기나 초자연적 발광은 없다."
+    },
+    "handedness": "right",
+    "palette": [
+      {
+        "colorDescription": "빛바랜 남색",
+        "appliesTo": "군졸용 포와 바지"
+      },
+      {
+        "colorDescription": "먼지 섞인 회갈색",
+        "appliesTo": "포형 여행 겉옷과 삼베 보자기"
+      },
+      {
+        "colorDescription": "검게 산화된 무쇠색",
+        "appliesTo": "미늘 갑옷과 환도 칼날의 금속부"
+      },
+      {
+        "colorDescription": "짙은 자연 목재색",
+        "appliesTo": "환도 칼집과 손잡이"
+      }
+    ],
+    "materials": [
+      {
+        "materialDescription": "거칠고 빛바랜 무명",
+        "appliesTo": "군졸용 포와 허리 주머니"
+      },
+      {
+        "materialDescription": "먼지와 주름이 밴 삼베",
+        "appliesTo": "포형 여행 겉옷과 보자기"
+      },
+      {
+        "materialDescription": "표면이 닳고 검게 산화된 철",
+        "appliesTo": "미늘 갑옷과 환도 칼날"
+      },
+      {
+        "materialDescription": "옻칠이 벗겨진 나무와 닳은 가죽끈",
+        "appliesTo": "환도 칼집과 손잡이"
+      }
+    ],
+    "identifyingFeatures": [
+      "회갈색 포형 여행 겉옷 사이로 빛바랜 남색 군졸복과 수선된 반신 미늘 갑옷이 함께 드러나는 겹실루엣",
+      "장식 없이 닳은 짙은 나무 칼집의 조선식 환도",
+      "낮고 단단한 상투와 햇볕·먼지에 거칠어진 얼굴"
+    ],
+    "posePolicy": {
+      "mode": "neutral_provider_pose"
+    },
+    "intendedDisplay": {
+      "assetType": "character_main_image",
+      "outputUsage": "인게임 전투에서 서진의 전신 방향별 캐릭터 본체와 캐릭터 선택 화면의 전신 미리보기",
+      "targetDisplaySize": {
+        "unit": "px",
+        "minimumPixelSize": {
+          "width": 64,
+          "height": 96
+        },
+        "targetPixelSize": {
+          "width": 96,
+          "height": 144
+        },
+        "consumerViewportOrReference": "인게임 전투 카메라에서 캐릭터 전신 높이 약 96~144px로 표시되는 플레이어 캐릭터 본체"
+      },
+      "detailDensity": {
+        "level": "medium",
+        "description": "96px 전신 높이에서도 남색 군졸복, 회갈색 겉옷, 수선된 미늘 갑옷, 환도 실루엣이 구분되어야 한다. 얼굴의 미세 주름이나 갑옷의 개별 장식은 식별 필수 요소로 만들지 않는다."
+      },
+      "providerCanvasPolicy": "profile_owned_technical_canvas",
+      "framingPolicy": "profile_owned_technical_framing",
+      "backgroundPolicy": "transparent"
+    }
+  },
+  "combat": {
+    "roleIntent": "아이 구출을 우선하는 균형형 전열",
+    "preferredRange": "melee",
+    "partyFunction": [
+      "front_basic",
+      "protect_ally",
+      "interrupt"
+    ]
+  },
+  "planningScore": {
+    "overall": 130,
+    "health": 120,
+    "attack": 130,
+    "defense": 115,
+    "speed": 100,
+    "range": 60,
+    "support": 70
+  },
+  "stats": {
+    "grade": 1,
+    "totalScore": 130,
+    "growthType": "standard",
+    "primaryTag": "human",
+    "statBias": [
+      "attack",
+      "max_hp",
+      "steady_defense"
+    ]
+  },
+  "skills": [
+    {
+      "skillId": "skill.character.seojin.1.basic_attack.field_sword_cut",
+      "slot": "basic_attack",
+      "name": "전장 베기",
+      "category": "Basic",
+      "intent": "전방 단일 적을 안정적으로 베어 전열을 유지한다.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 10,
+        "attackPercentDamage": 100,
+        "cooldown": 3,
+        "castRange": 0.5,
+        "hitRange": 0.6,
+        "hitCount": 1,
+        "targetScore": 100,
+        "utility": []
+      }
+    },
+    {
+      "skillId": "skill.character.seojin.1.passive.child_rescue_oath",
+      "slot": "passive",
+      "name": "아이를 구하겠다는 맹세",
+      "category": "Passive",
+      "intent": "구출 대상 주변에서 방어 의지가 올라가는 성향.",
+      "balance": {
+        "expectedAttack": 20,
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "cooldown": 0,
+        "castRange": 0.4,
+        "hitRange": 0.4,
+        "hitCount": 1,
+        "targetScore": 80,
+        "utility": [
+          "near_objective_damage_reduction_small"
+        ]
+      }
+    }
+  ],
+  "generatedMediaPlanning": {
+    "characterMainImage": {
+      "readiness": "ready",
+      "requiredElements": [
+        {
+          "factId": "seojin.requirement.core_silhouette.v1",
+          "statement": "빛바랜 남색 군졸복, 수선된 반신 미늘 갑옷, 회갈색 포형 여행 겉옷이 한 전신 실루엣에서 함께 보여야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.palette.v1",
+            "seojin.appearance.materials.v1"
+          ]
+        },
+        {
+          "factId": "seojin.requirement.weapon.v1",
+          "statement": "오른손으로 뽑아 쓰는 장식 없는 조선식 환도와 짙은 나무 칼집이 모든 방향에서 동일하게 유지되어야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.weapon.v1",
+            "seojin.appearance.handedness.v1"
+          ]
+        },
+        {
+          "factId": "seojin.requirement.travel_wear.v1",
+          "statement": "옷과 장비에는 오래 이동하고 싸운 인물로 읽히는 먼지, 마모, 덧댄 수선 흔적이 보여야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.materials.v1"
+          ]
+        }
+      ],
+      "prohibitedElements": [
+        {
+          "factId": "seojin.prohibition.foreign_design.v1",
+          "statement": "한국 이외 문화권의 갑옷, 검, 문양, 장식 또는 복식 실루엣을 포함하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.weapon.v1"
+          ]
+        },
+        {
+          "factId": "seojin.prohibition.luxury_hero.v1",
+          "statement": "새것처럼 빛나는 장수 갑옷, 왕실급 장식, 화려한 영웅 망토로 표현하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.palette.v1"
+          ]
+        },
+        {
+          "factId": "seojin.prohibition.supernatural_body.v1",
+          "statement": "뿔, 발광 눈, 괴이한 피부색, 비인간형 팔다리 등 초자연적 신체 특징을 추가하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.body.v1",
+            "seojin.appearance.face.v1"
+          ]
+        }
+      ],
+      "identityConsistencyLocks": [
+        "/appearance/genderPresentation",
+        "/appearance/body",
+        "/appearance/face",
+        "/appearance/hair",
+        "/appearance/costume",
+        "/appearance/equipment",
+        "/appearance/weapon",
+        "/appearance/handedness",
+        "/appearance/palette",
+        "/appearance/materials",
+        "/appearance/identifyingFeatures"
+      ],
+      "rotationPolicy": "generated_media_exact_8_way_v1"
+    }
+  },
+  "missingDesignInputs": [],
+  "notes": [
+    "2026-08-12 기획 소유자의 이번 작업 한정 승인에 따라 legacy_incomplete 파일을 character_planning_v2로 마이그레이션하고 시각 디자인 결정을 완성했다.",
+    "기존 commonDataRef, identity, combat, planningScore, stats, skills 값은 변경하지 않았다."
+  ]
 }

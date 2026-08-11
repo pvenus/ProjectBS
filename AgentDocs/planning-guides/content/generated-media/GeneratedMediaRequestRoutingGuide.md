@@ -57,7 +57,7 @@ requestId: stable request identity
 assetType: canonical supported enum
 domainType: canonical domain enum
 contentId: canonical content identity
-sourcePlanningFiles: non-empty exact paths, roles, hashes, revisions
+sourcePlanningFiles: non-empty exact paths, roles, hashes, optional revisions
 planningSnapshot:
   capturedAt: UTC timestamp
   snapshotHash: immutable SHA-256
@@ -81,9 +81,12 @@ Routing then derives `planningRevision` and `outputUsage` only by these rules:
 - a compatibility top-level `planningRevision` is read only from
   `compatibilityEvidence`, must be snapshot-covered, and must apply identically
   to every source without rewriting source entries;
-- otherwise, every canonical `sourcePlanningFiles` entry must contain the same
-  non-empty `revision`, which becomes normalized `planningRevision`;
-- missing, mixed, or unhashed revision evidence blocks.
+- otherwise, when every canonical `sourcePlanningFiles` entry contains the same
+  non-empty `revision`, it becomes normalized `planningRevision`;
+- when every source entry omits `revision`, omit normalized
+  `planningRevision`; SHA-256 and the immutable snapshot remain sufficient;
+- partial revision coverage or unequal revisions blocks. A missing revision by
+  itself is not a failure because revision is optional in the canonical handoff.
 
 An unhashed side input cannot supply either value.
 
@@ -279,7 +282,7 @@ domainType:
 legacyArtifactType: optional
 contentId:
 sourcePlanningFiles:
-planningRevision:
+planningRevision: optional; omitted when every source omits revision
 planningSnapshotHash:
 requiredElements:
 prohibitedElements:
@@ -371,7 +374,7 @@ routingHashPayload:
   assetType:
   domainType:
   contentId:
-  planningRevision:
+  planningRevision: optional; omitted when every source omits revision
   planningSnapshotHash:
   appliedProfile:
   selectedPipeline:
@@ -428,7 +431,7 @@ legacyArtifactType: optional
 contentId:
 planningHandoffFile:
 sourcePlanningFiles:
-planningRevision:
+planningRevision: optional; omitted when every source omits revision
 planningSnapshotHash:
 appliedProfile:
 selectedRegistryRowId:
@@ -515,7 +518,6 @@ invalid_domain_profile
 conflicting_routing_evidence
 unreadable_source_planning
 planning_snapshot_mismatch
-missing_planning_revision
 missing_output_usage
 unsupported_domain_type
 routing_record_collision
