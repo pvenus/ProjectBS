@@ -98,7 +98,10 @@ snapshotHash = SHA256(canonical_json(snapshotPayload))
 
 `planningSnapshot.capturedAt` is audit metadata and is deliberately excluded
 from the hash. A producer writes it once as an ISO-8601 UTC timestamp and reuses
-the complete existing handoff bytes for an identical request and snapshot.
+the complete existing handoff file for an identical request and snapshot.
+Identity and collision checks compare canonical JSON, so checkout-only BOM,
+formatting, or LF/CRLF differences neither rewrite the file nor create a false
+collision. A canonical value difference remains a hard collision.
 
 The repository reference producer for approved `character_main_image` planning
 is:

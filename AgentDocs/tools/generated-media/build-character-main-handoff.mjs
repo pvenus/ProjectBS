@@ -152,7 +152,14 @@ const outputRelativePath = outputRelativePathInput.replaceAll("\\", "/");
 const outputPath = path.resolve(projectRoot, ...outputRelativePath.split("/"));
 if (fs.existsSync(outputPath)) {
   const existingBytes = fs.readFileSync(outputPath);
-  if (!existingBytes.equals(outputBytes)) {
+  let existingCanonical;
+  try {
+    const existing = JSON.parse(existingBytes.toString("utf8").replace(/^\uFEFF/, ""));
+    existingCanonical = canonicalJson(existing);
+  } catch {
+    fail(`character_planning_handoff_collision: ${outputRelativePath}`);
+  }
+  if (existingCanonical !== canonicalJson(handoff)) {
     fail(`character_planning_handoff_collision: ${outputRelativePath}`);
   }
   process.stdout.write(`reused_identical ${outputRelativePath}\n`);
