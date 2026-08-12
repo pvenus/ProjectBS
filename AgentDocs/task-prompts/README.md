@@ -48,32 +48,34 @@ Current generated-media request routing, prompt authoring, and execution:
 
 ```text
 AgentDocs/task-prompts/content/generated-media/GeneratedMediaRequestRoutingPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md
-AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImagePromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImageGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenIconPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenIconGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenAnimationPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenAnimationGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
 ```
 
-Legacy execution prompt migration:
+PixelLab and the earlier generic ImageGen prompts in this folder are read-only
+legacy audit entries governed by GeneratedMediaLegacyV1CompatibilityGuide.md.
+They cannot reproduce or execute work and must not be selected for a new request.
+
+Legacy prompt migration:
 
 | Existing prompt | Status | replacedBy |
 | --- | --- | --- |
 | AgentDocs/task-prompts/content/GeneratedImagePromptAuthoringPrompt.md | compatibility entry for legacy artifactType | provider-specific generated-media PromptAuthoringPrompt entries |
 | AgentDocs/task-prompts/content/GeneratedImageGenerationPrompt.md | compatibility entry for legacy artifactType | provider-specific GenerationPrompt, then GeneratedMediaPreservationPackagingPrompt.md |
-| AgentDocs/task-prompts/character/CharacterGenerateImagePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md |
-| AgentDocs/task-prompts/character/CharacterGenerateAnimationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md |
+| AgentDocs/task-prompts/character/CharacterGenerateImagePrompt.md | deprecated compatibility entry | ImageGenCharacterImagePromptAuthoringPrompt.md + ImageGenCharacterImageGenerationPrompt.md |
+| AgentDocs/task-prompts/character/CharacterGenerateAnimationPrompt.md | deprecated compatibility entry | ImageGenAnimationPromptAuthoringPrompt.md + ImageGenAnimationGenerationPrompt.md |
 | AgentDocs/task-prompts/character/CharacterAnimationDownloadPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md |
-| AgentDocs/task-prompts/skill/SkillIconGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md |
-| AgentDocs/task-prompts/item/ItemIconGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabIconPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabIconGenerationPrompt.md |
-| AgentDocs/task-prompts/skill/SkillImageGenerationPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md |
+| AgentDocs/task-prompts/skill/SkillIconGenerationPrompt.md | deprecated compatibility entry | ImageGenIconPromptAuthoringPrompt.md + ImageGenIconGenerationPrompt.md with skill profile v2 |
+| AgentDocs/task-prompts/item/ItemIconGenerationPrompt.md | deprecated compatibility entry | ImageGenIconPromptAuthoringPrompt.md + ImageGenIconGenerationPrompt.md with item profile v2 |
+| AgentDocs/task-prompts/skill/SkillImageGenerationPrompt.md | deprecated compatibility entry | ImageGenAnimationPromptAuthoringPrompt.md + ImageGenAnimationGenerationPrompt.md |
 | AgentDocs/task-prompts/skill/SkillImageDownloadPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md |
-| AgentDocs/task-prompts/stage/PopupEventMainImageCreatePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md |
-| AgentDocs/task-prompts/battle/BattleBackgroundImagePrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md + AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md |
+| AgentDocs/task-prompts/stage/PopupEventMainImageCreatePrompt.md | legacy v1 only | no current v2 row; requires reviewed registry extension |
+| AgentDocs/task-prompts/battle/BattleBackgroundImagePrompt.md | legacy v1 only | no current v2 row; requires reviewed registry extension |
 
 Do not copy a legacy skill/item/stage/battle execution prompt for a new domain.
 Use `domainType` and an approved profile with the current provider prompt.

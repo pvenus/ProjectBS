@@ -13,23 +13,24 @@
 - AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
 - AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 
 Input:
-- planningHandoffFile: {project_relative_generated_media_planning_handoff_v1_path}
-- promptRecordId: {generated_media_prompt_v2_or_validated_read_only_legacy_v1_record_id}
-- generationRecordId: {generated_media_generation_v1_record_id}
+- planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
+- promptRecordId: {generated_media_prompt_v3_record_id}
+- generationRecordId: {generated_media_generation_v2_record_id}
 - generationRecordSha256: {canonical_generation_record_sha256}
 
 작업:
 1. repository와 현재 PC의 evaluation staging root를 내부적으로 확인한다.
 2. planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 검증한다.
-3. GeneratedMediaPreservationPackagingGuide.md의 registry에서 canonical provider, assetType, requestedAdapterId, expectedStructureProfile이 모두 일치하는 row 하나를 확정하고 그 row에 등록된 child pipeline guide를 내부적으로 읽는다. 일치 row가 0개 또는 복수이면 중단하며 임의 guide를 선택하지 않는다.
+3. provider=imagegen과 current v2 adapter registry에서 assetType, requestedAdapterId, expectedStructureProfile이 모두 일치하는 row 하나를 확정한다. PixelLab/v1 row는 신규 입력으로 선택하지 않는다.
 4. canonical preservationHashPayload/ID를 계산한다. 동일 payload 재실행은 기존 record를 resume/reuse하고 동일 ID의 다른 payload는 중단한다.
 5. `.assembling/{requestId}/{preservationRecordId}.{attemptId}` 임시 경로에서만 provisional ref를 바꾸지 않고 원본을 download/export한다.
-6. adapter가 요구하는 경우에만 lossless extraction을 실행하고 모든 파일 SHA-256을 기록한다.
+6. character/icon은 승인된 단일 이미지 계약만 적용한다. animation은 coherent master를 보존하고 fixed cell로 분리한 뒤 승인된 투명/outline/chroma/anchor 정책을 적용해 완성 GIF를 먼저 저장하고, 그 GIF를 다시 열어 PNG frames를 추출한다. frame별 crop/scale/recenter를 금지하고 모든 파일 SHA-256을 기록한다.
 7. closed profile extension schema와 member order/count/relations를 검증한다. 누락/unknown field를 추론하거나 수리하지 않는다.
 8. manifestPayload/hash/packageId 계산 후 `{evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/`로 안전하게 finalize한다. 기존 동일 package는 byte/hash 검증 후 재사용하며 overwrite하지 않는다.
 9. evaluator adapter까지 유효하면 evaluation_handoff_ready, 아니면 sealed blocked package와 blocker를 기록한다.
@@ -44,13 +45,14 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_generation_record | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | extraction_failed | structure_contract_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
+- failureType: missing_planning_handoff_v2 | missing_routing_v2 | missing_prompt_v3 | missing_generation_v2 | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | unsupported_provider | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | extraction_failed | fixed_cell_contract_mismatch | scale_lock_violation | anchor_mapping_mismatch | vertical_motion_policy_violation | chroma_key_scope_violation | gif_first_sequence_violation | frame_order_mismatch | member_hash_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
 - 완료 state / 보존된 파일과 hash / 재시도 가능 지점 / Required Next Action
 
 검증:
 - provider 생성 호출과 prompt 변경이 없어야 한다.
 - 외부 placeholder 없이 registry가 child guide 하나를 결정해야 한다.
 - adapter/profile schema와 모든 hash/package identity가 재계산되어야 한다.
+- animation은 scalar animationRequestId, final frame count, fixed cell, scale lock, anchor-only drift correction과 GIF-first extraction을 만족해야 한다.
 - preservation record 경로와 canonical package 경로가 guide 공식과 일치해야 한다.
 - staging/project target이 분리되어야 한다.
 - 평가 및 이후 단계가 실행되지 않아야 한다.

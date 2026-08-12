@@ -1,144 +1,72 @@
-# ImageGen Generated Image Pipeline Guide
+# ImageGen Generated Media Pipeline Guide
 
-## 1. Purpose and Scope
+## Purpose
 
-Guide Type: workflow/pipeline. This guide owns domain-neutral ImageGen scene
-prompt conversion and provider generation. Original preservation/package
-sealing is a separate task. Stage and battle differences are profiles
-selected by `domainType`; they do not get new execution prompts.
-
-## 2. Required References
-
-Prompt authoring requires both the immutable `routingRecordFile` and its
-`planningHandoffFile`. It validates and consumes the router-selected row; it
-does not rerun route selection. New authoring writes only
-`generated_media_prompt_v2`; prompt v1 remains read-only compatibility.
+Guide Type: provider-level workflow index. New Generated Media requests use
+ImageGen only and route to exactly one execution role:
 
 ```text
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+character_single_image -> ImageGenCharacterImagePipelineGuide.md
+icon_single_image      -> ImageGenIconPipelineGuide.md
+animation              -> ImageGenAnimationPipelineGuide.md
+```
+
+This guide does not route by semantic similarity and does not combine stage
+ownership. Routing is owned by GeneratedMediaRequestRoutingGuide.md and the v2
+registry. Provider prompt authoring and generation are separate tasks;
+preservation/packaging and evaluation/promotion remain later tasks.
+
+## Required Contract
+
+```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
-AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md
-AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md
-AgentDocs/planning-guides/battle/BattleCreateGuide.md
 ```
 
-Stage/battle guides supply temporary profile rules. External planning owns the
-scene, subjects, location and depicted moment.
+Every current prompt/generation record uses `provider=imagegen`. PixelLab
+fallback is prohibited. Legacy v1 ImageGen stage/battle and PixelLab records
+remain readable only under their original immutable contracts.
 
-Exact supported domain/imageProfile pairs are owned only by
-`generated_media_authoring_profile_registry_v1`. This guide must not accept an
-unregistered pair by similarity.
+## Role Registry
 
-Priority is ContentFolderStructureGuide for storage, the planning handoff for
-approved scene meaning, the authoring profile registry for exact route pairs,
-GeneratedMediaVisualPromptAuthoringGuide for common and ImageGen visual
-normalization, GeneratedImageGenerationPipelineGuide for the generation-only
-boundary, this guide for ImageGen specialization, then legacy stage/battle
-profile evidence. Conflict blocks with `reference_contract_conflict`.
+| Current role | Authoring guide | Generation result | Preservation profile |
+| --- | --- | --- | --- |
+| character single image | `ImageGenCharacterImagePipelineGuide.md` | one provider-result set for one approved viewpoint | `character_single_image_v2` |
+| icon single image | `ImageGenIconPipelineGuide.md` | one provider-result set for one icon | `icon_single_image_v2` |
+| animation | `ImageGenAnimationPipelineGuide.md` | one coherent master for one animationRequestId | `animation_gif_frame_set_v2` |
 
-## 3. Required Input
+Generation records settings, attempts, and refs only. It cannot download,
+extract, save GIF/PNG, package, evaluate, or promote.
 
-```text
-assetType=imagegen_image
-domainType and imageProfile
-contentId
-sourcePlanningFiles and immutable snapshot
-depictedMoment
-subjects and relationships
-environment and backgroundPolicy
-composition and camera
-aspectRatio
-requiredElements and prohibitedElements (both non-empty)
-```
+All three generation roles use `providerTool=imagegen` through
+`providerInterface=configured_imagegen_capability`. Before an external call,
+they require approval matching prompt/settings scope, validate `maxCost` and
+`maxAttempts`, and check a deterministic idempotency key. An identical complete
+result is reused without a new call; an active duplicate blocks. Attempts and
+avoided calls record `costEvidence` so billing decisions are auditable.
 
-Do not reconstruct a scene from a generic story summary. Missing scene facts or
-unsupported profile blocks before prompt authoring.
+## Failure and Validation
 
-## 4. Prompt Authoring
+Use the typed blockers and readiness conditions in
+GeneratedMediaImageGenOnlyContractGuide.md. A current route fails when provider
+is not ImageGen, a role is not one of the three rows, or any required type
+contract is missing. Animation additionally fails unless exactly one scalar
+animationRequestId is present.
 
-Use `imagegen_composed_scene_prompt_v1`. Build one cohesive copy-ready prompt
-from auditable sections in this order:
+The shared external-call blockers are
+`missing_provider_execution_approval`, `provider_cost_not_approved`,
+`retry_limit_exceeded`, and `duplicate_provider_call_risk`. Failure output must
+include providerCalled, costEvidence, requiredDecision and safeToRetry.
 
-1. exact subject, action and depicted moment;
-2. composition, camera, scale and spatial relationships;
-3. approved environment and background policy;
-4. approved art direction, material, palette and lighting;
-5. concise prohibited elements and clean-image requirements.
-
-Do not use PixelLab field fragments, local paths, evaluator language, score,
-project target, or invented narrative detail.
-
-## 5. Provider Generation
-
-- verify the prompt record and unchanged planning snapshot;
-- submit exactly one saved `scenePromptOriginal` to ImageGen;
-- record settings, attempts and every provider result reference;
-- record `imagegen_original_media_v1` and `single_image` in the preservation
-  handoff, then stop;
-- do not download, hash, or package.
-
-## 6. Preservation Adapter
-
-The separate common preservation/package task must:
-
-- preserve the selected original returned media without resize, crop,
-  recompression, retouching or filename-based inference;
-- record selection as provisional and not evaluated;
-- create one `single_image` common evaluation package.
-
-ImageGen failure never falls back to PixelLab.
-
-## 7. Output and Failure
-
-Generation outputs provider refs and preservation handoff. Preservation outputs
-the sealed single-image package. Each task has independent retry and failure.
+## Related Prompts
 
 ```text
-missing_image_profile
-unsupported_image_profile
-missing_scene_specification
-missing_required_elements
-missing_prohibited_elements
-prompt_record_stale
-provider_unavailable
-provider_operation_failed
-ambiguous_provider_result
-original_media_download_failed
-source_hash_mismatch
-evaluation_adapter_missing
-evaluation_package_failed
-```
-
-## 8. Migration
-
-```text
-domainType=stage  + story_popup_main_image@1.0.0 -> legacy story_popup_main_image
-domainType=battle + battle_background@1.0.0 -> legacy battle_background
-```
-
-Other domains require a registered imageProfile and evaluation adapter. Do not
-copy the execution prompt.
-
-## 9. Validation and Boundary
-
-- every prompt statement maps to the immutable planning handoff;
-- prompt and generation tasks are separate;
-- generation has no downloaded file or package identity;
-- preservation has exactly one original primary member;
-- staging and project target differ;
-- no evaluation, promotion, Slack, Unity, Git, or deployment occurred.
-
-## 10. Task Prompts
-
-```text
-AgentDocs/task-prompts/content/generated-media/ImageGenPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/ImageGenGenerationPrompt.md
-AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImagePromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImageGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenIconPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenIconGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenAnimationPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenAnimationGenerationPrompt.md
 ```
