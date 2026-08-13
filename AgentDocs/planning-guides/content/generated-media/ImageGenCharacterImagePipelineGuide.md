@@ -32,6 +32,11 @@ pose, framing, canvas, target display size, safe area, background/no-shadow,
 outline, and pelvis/root plus ground-contact anchor. Authoring writes one
 `generated_media_prompt_v3`; generation submits it unchanged and writes one
 `generated_media_generation_v2` with `structureProfile=character_single_image_v2`.
+For this type, GeneratedMediaRecordGuide.md::Prompt v3 closes the prompt hash
+payload, record and nested members, raw Markdown body, prompt index, atomic
+publication, and detached `generated_media_generation_handoff_v2`. Generation
+accepts that handoff only after recomputing its JSON/Markdown/index raw hashes
+and exact projections; it never repairs or normalizes authoring artifacts.
 
 Eight-way, rotations, direction arrays, and `ordered_rotation_set` are invalid
 for a current request. Missing fields return the exact typed blocker owned by
@@ -58,7 +63,8 @@ completed result, blocks an identical active call, and records `costEvidence`.
 
 ## Input, Output, State, and Validation
 
-One valid v2 route/handoff becomes one prompt v3 record. One ready prompt
+One valid v2 route/handoff becomes one prompt v3 record, one raw copy-ready
+Markdown file, one exact index entry, and one detached generation handoff. One ready prompt
 becomes one generation v2 record plus preservation handoff. State is
 `routed -> authored -> generated -> preservation_pending`; a blocker writes no
 ready record. Validate the exact route, snapshot, profile, evidence and hashes,

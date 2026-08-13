@@ -13,11 +13,15 @@ current generated_media_prompt_v3 캐릭터 단일 이미지 record 하나를 �
 
 Input:
 - planningHandoffFile: {generated_media_planning_handoff_v2_path}
-- promptRecordId: {generated_media_prompt_v3_id}
+- generationHandoff: {exact_generated_media_generation_handoff_v2_from_authoring}
 - providerExecutionApproval: exact generated_media_provider_execution_approval_v1 from the execution-role-presented scope hash and envelope
 
 작업:
-1. provider=imagegen, assetType=character_single_image, snapshot, identity lock, single-image/background/outline/anchor readiness와 prompt hash를 검증한다.
+1. closed generationHandoff의 promptRecordId와 JSON/Markdown/index path/hash를 exact
+   bytes에서 다시 계산하고 closed index entry, prompt payload projection, provider=imagegen,
+   assetType=character_single_image, snapshot, identity lock,
+   single-image/background/outline/anchor readiness를 검증한다. CRLF/LF를 정규화하거나
+   handoff의 caller summary를 신뢰하지 않는다.
 2. 실행 역할이 closed scope payload/hash를 직접 계산해 사용자에게 한도와 함께 제시한 뒤 받은 closed approval을 재검증한다. configured_imagegen_capability의 tagged estimate/actual cost, 누적 logical attempts와 projection은 contract 6.1-6.2를 그대로 따른다.
 3. deterministic idempotencyKey로 완료 결과는 재사용하고 active 동일 호출은 차단한 뒤 exact prompt/settings를 한 번의 논리 실행 단위로 제출한다.
 4. attempts/result refs와 호출·비호출 costEvidence를 generated_media_generation_v2에 기록하고 character_single_image_v2 preservation handoff를 반환한다.
