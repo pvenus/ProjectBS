@@ -8,6 +8,40 @@ function canonicalize(value) {
     `${JSON.stringify(key)}:${canonicalize(value[key])}`).join(",")}}`;
 }
 
+function sha256(bytes) {
+  return crypto.createHash("sha256").update(bytes).digest("hex");
+}
+
+function resolveJsonPointer(value, pointer) {
+  if (pointer === "") return value;
+  if (!pointer.startsWith("/")) throw new Error("planning_snapshot_mismatch");
+  return pointer.slice(1).split("/").reduce((current, token) => {
+    const key = token.replace(/~1/g, "/").replace(/~0/g, "~");
+    if (current === null || typeof current !== "object" || !Object.hasOwn(current, key)) {
+      throw new Error("planning_snapshot_mismatch");
+    }
+    return current[key];
+  }, value);
+}
+
+function validateSnapshotSources(sourcePlanningFiles, approvedFacts, exactSourceBytes) {
+  const sourceByPath = new Map();
+  for (const source of sourcePlanningFiles) {
+    const bytes = exactSourceBytes.get(source.path);
+    if (!bytes || sha256(bytes) !== source.sha256) {
+      throw new Error("planning_snapshot_mismatch");
+    }
+    sourceByPath.set(source.path, JSON.parse(new TextDecoder("utf-8", {fatal: true}).decode(bytes)));
+  }
+  for (const fact of approvedFacts) {
+    const source = sourceByPath.get(fact.sourcePath);
+    if (source === undefined ||
+        canonicalize(resolveJsonPointer(source, fact.sourcePointer)) !== canonicalize(fact.value)) {
+      throw new Error("planning_snapshot_mismatch");
+    }
+  }
+}
+
 function validateCapture(capture, expectedIdentity, sourcePlanningFiles, readablePaths) {
   if (!capture) throw new Error("missing_planning_capture_inputs");
   if (capture.contentId !== expectedIdentity.contentId ||
@@ -123,6 +157,69 @@ assert.equal(retryHandoff.planningSnapshot.capturedAt, capture.capturedAt);
 assert.equal(retryHandoff.planningSnapshot.snapshotHash, crypto.createHash("sha256")
   .update(Buffer.from(orderedPayloadCanonical, "utf8"))
   .digest("hex"));
+
+const canonicalSourcePath = orderedSources[0].path;
+const decisionSourcePath = orderedSources[1].path;
+const canonicalSourceBytes = Buffer.from(
+  '{"identity":{"characterId":"character.example.1"}}\n', "utf8",
+);
+const decisionSourceBytes = Buffer.from(
+  '{"designFacts":{"a/b":{"~key":"escaped"},"costume":{"value":{"color":"blue"}}}}\n', "utf8",
+);
+const exactSources = [
+  {...orderedSources[0], sha256: sha256(canonicalSourceBytes)},
+  {...orderedSources[1], sha256: sha256(decisionSourceBytes)},
+];
+const exactFacts = [
+  payload.approvedFacts[0],
+  {
+    factId: "example.costume",
+    sourcePath: decisionSourcePath,
+    sourcePointer: "/designFacts/costume/value",
+    value: {color: "blue"},
+  },
+  {
+    factId: "example.escaped_pointer",
+    sourcePath: decisionSourcePath,
+    sourcePointer: "/designFacts/a~1b/~0key",
+    value: "escaped",
+  },
+];
+const exactSourceBytes = new Map([
+  [canonicalSourcePath, canonicalSourceBytes],
+  [decisionSourcePath, decisionSourceBytes],
+]);
+
+validateSnapshotSources(exactSources, exactFacts, exactSourceBytes);
+assert.throws(
+  () => validateSnapshotSources(exactSources, exactFacts, new Map([
+    [canonicalSourcePath, Buffer.from(canonicalSourceBytes.toString("utf8").replace(/\n$/, "\r\n"), "utf8")],
+    [decisionSourcePath, decisionSourceBytes],
+  ])),
+  /planning_snapshot_mismatch/,
+);
+assert.throws(
+  () => validateSnapshotSources(exactSources, [
+    {...exactFacts[0], value: "character.other.1"},
+    exactFacts[1],
+  ], exactSourceBytes),
+  /planning_snapshot_mismatch/,
+);
+assert.throws(
+  () => validateSnapshotSources(exactSources, [
+    {...exactFacts[0], sourcePointer: "/identity/missing"},
+    exactFacts[1],
+  ], exactSourceBytes),
+  /planning_snapshot_mismatch/,
+);
+
+const canonicalHandoffBytes = Buffer.from(`${canonicalize(retryHandoff)}\n`, "utf8");
+assert.equal(canonicalHandoffBytes.at(-1), 0x0a);
+assert.equal(canonicalHandoffBytes.at(-2) === 0x0d, false);
+assert.notEqual(
+  sha256(canonicalHandoffBytes),
+  sha256(Buffer.from(`${canonicalize(retryHandoff)}\r\n`, "utf8")),
+);
 
 assert.throws(
   () => validateCapture(null, {
