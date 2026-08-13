@@ -38,8 +38,9 @@ subset, merge requests, extract frames, or package output.
 The profile discriminator fixes the anchor: character animation uses
 `pelvis_root_ground_axis`; skill animation uses `effect_origin`. Generation
 uses only `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. It requires scope-matching
-external-call approval, enforces `maxCost` and `maxAttempts`, and checks an
+`providerInterface=configured_imagegen_capability`. The execution role computes
+and presents the contract 6.1 scope hash. Generation validates its closed
+approval, tagged cost, cumulative attempts, projection, and checks an
 animationRequestId-bearing idempotency key before billing. Identical completed
 work is reused, active duplicate work blocks, and every decision records
 `costEvidence`.
@@ -54,9 +55,9 @@ fixed-cell/scale/anchor policies, ImageGen provider, and
 `animation_gif_frame_set_v2`. Retry cannot change the motion contract. No
 extraction, evaluation, promotion, or Git work occurs.
 
-Generation blockers additionally include
-`missing_provider_execution_approval`, `provider_cost_not_approved`,
-`retry_limit_exceeded`, and `duplicate_provider_call_risk`. Blocked output
+Generation blockers additionally include the exact contract 6.1-6.2 approval,
+scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
+Blocked output
 includes the exact animationRequestId, providerCalled=false, costEvidence,
 requiredDecision and safeToRetry; success includes record ID/hash, attempts,
 refs, costEvidence, idempotencyKey, preservation handoff and nextStep.

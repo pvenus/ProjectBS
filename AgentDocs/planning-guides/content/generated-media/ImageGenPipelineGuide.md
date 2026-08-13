@@ -45,8 +45,9 @@ extract, save GIF/PNG, package, evaluate, or promote.
 
 All four generation roles use `providerTool=imagegen` through
 `providerInterface=configured_imagegen_capability`. Before an external call,
-they require approval matching prompt/settings scope, validate `maxCost` and
-`maxAttempts`, and check a deterministic idempotency key. An identical complete
+the execution role computes and presents the closed scope hash, then validates
+the user's closed approval, tagged cost policy, cumulative logical attempts,
+and deterministic idempotency key exactly as contract sections 6.1-6.2 require. An identical complete
 result is reused without a new call; an active duplicate blocks. Attempts and
 avoided calls record `costEvidence` so billing decisions are auditable.
 
@@ -59,8 +60,11 @@ contract is missing. Animation additionally fails unless exactly one scalar
 animationRequestId is present.
 
 The shared external-call blockers are
-`missing_provider_execution_approval`, `provider_cost_not_approved`,
-`retry_limit_exceeded`, and `duplicate_provider_call_risk`. Failure output must
+`missing_provider_execution_approval`, `invalid_provider_execution_approval`,
+`provider_execution_scope_mismatch`, `provider_cost_unit_mismatch`,
+`provider_cost_estimate_unavailable`, `provider_cost_limit_exceeded`,
+`provider_actual_cost_unavailable`, `retry_limit_exceeded`, and
+`duplicate_provider_call_risk`. Failure output must
 include providerCalled, costEvidence, requiredDecision and safeToRetry.
 
 ## Related Prompts

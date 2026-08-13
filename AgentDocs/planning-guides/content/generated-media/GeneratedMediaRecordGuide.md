@@ -352,18 +352,34 @@ costEvidence, result refs and preservation handoff only.
 
 ```text
 generationHashPayload includes prompt ID/hash, immutable request/snapshot,
-provider=imagegen, settings hash, approvalScopeHash, and optional animation ID.
+provider=imagegen, provider execution scopeHash, providerExecutionApprovalSha256,
+and optional animation ID. The approval envelope hash binds maxAttempts,
+maxCost and estimateUnavailablePolicy even though those limits do not alter the
+execution scopeHash.
 generationRecordId=gmgen2.{assetType}.{contentId}.{optionalAnimationRequestId}.{hash[0:20]}
 ```
+
+The exact closed scope payload, approval, cost union, logical-attempt rules,
+idempotency-key formula, actual-cost handling, generation-index entry, and
+`approvalCostProjection` are defined only in sections 6.1-6.2 of
+GeneratedMediaImageGenOnlyContractGuide.md. Recompute every hash; do not trust a
+caller-provided scope or approval hash. Record/index JSON uses the canonical and
+file-byte rules at the start of this guide.
 
 Before an external call, look up the deterministic ID and active attempt:
 
 - identical completed result -> reuse without billing;
 - identical active attempt -> block `duplicate_provider_call_risk`;
-- changed prompt/settings/approval -> new identity or collision, never append as
-  an equivalent retry;
+- changed prompt/settings/asset identity -> new scope and fresh approval, never
+  append as an equivalent retry;
+- changed limits for the same scope -> new approval SHA/generation identity,
+  while consumed attempt numbering remains cumulative for that scope;
+- a submit-boundary crossing consumes the attempt even on provider failure or
+  ambiguous outcome; no-call validation and completed reuse do not;
 - attempts cannot exceed approved `maxAttempts`;
-- every attempt records costEvidence, including unavailable/not_charged.
+- every call or avoided call records closed `costEvidence`, including
+  unavailable/no-charge, and its hash is projected byte-identically to the
+  record, generation index entry, and preservation handoff.
 
 ## Preservation v2 and State Flow
 
@@ -397,7 +413,12 @@ prompt_markdown_mismatch
 provider_value_invalid
 unsupported_record_schema
 missing_provider_execution_approval
-provider_cost_not_approved
+invalid_provider_execution_approval
+provider_execution_scope_mismatch
+provider_cost_unit_mismatch
+provider_cost_estimate_unavailable
+provider_cost_limit_exceeded
+provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 ```
