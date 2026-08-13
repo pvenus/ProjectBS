@@ -37,8 +37,9 @@ the current contract. Generation stops at provider refs and hands off to
 preservation.
 
 The only provider interface is `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. Generation requires a
-scope-matching external-call approval with `maxCost` and `maxAttempts`. It
+`providerInterface=configured_imagegen_capability`. The execution role computes
+and presents the contract 6.1 scope hash; generation then requires its closed
+approval and enforces tagged `maxCost`, cumulative `maxAttempts`, and projection equality. It
 checks the deterministic idempotency key before billing, reuses an identical
 completed result, blocks an identical active call, and records `costEvidence`.
 
@@ -52,9 +53,9 @@ one approved viewpoint, ImageGen provider, and
 `character_single_image_v2`. No planning, packaging, evaluation, promotion, or
 Git work occurs.
 
-Generation blockers additionally include
-`missing_provider_execution_approval`, `provider_cost_not_approved`,
-`retry_limit_exceeded`, and `duplicate_provider_call_risk`. A blocked output
+Generation blockers additionally include the exact contract 6.1-6.2 approval,
+scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
+A blocked output
 returns status, failureType, missingFields, providerCalled=false,
 costEvidence, requiredDecision, and safeToRetry. A successful output returns
 the generation record ID/hash, attempts, result refs, costEvidence,

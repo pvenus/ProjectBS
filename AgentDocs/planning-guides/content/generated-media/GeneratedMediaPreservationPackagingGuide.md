@@ -37,12 +37,17 @@ planningSnapshotHash:
 requestedAdapterId:
 expectedStructureProfile:
 providerResultRefs: non-empty exact generation refs
+approvalCostProjection: exact projection from generation record and index
 projectTarget: optional informational_only
 ```
 
 Every identity/hash/provider/profile must agree. Generation status must be
-`generated`. Missing/foreign paths, project/staging overlap, unsupported
-provider, or incomplete readiness block before download.
+`generated`. The generation record, generation index entry, and
+`preservationHandoff.approvalCostProjection` must be JCS-byte-identical and its
+`costEvidenceSha256` must recompute from the generation record before any
+provider result is accessed. `actualCostStatus=unavailable` is not preservation
+ready. Missing/foreign paths, project/staging overlap, unsupported provider, or
+incomplete readiness block before download.
 
 ## Current Adapter Registry
 
@@ -101,6 +106,7 @@ provider: imagegen
 adapterId:
 structureProfile:
 providerResultRefs: []
+approvalCostProjection:
 ```
 
 ```text
@@ -132,6 +138,7 @@ provider: imagegen
 adapterId:
 structureProfile:
 providerResultRefs: []
+approvalCostProjection:
 originalMembers: []
 derivedMembers: []
 memberHashes: []
@@ -190,6 +197,8 @@ evaluation request. It never returns an evaluation verdict.
 
 - input versions are handoff/routing v2, prompt v3, generation/preservation v2;
 - provider is ImageGen and one current adapter row matches;
+- approval/cost projection equals the generation record, generation index and
+  preservation handoff, and actual cost evidence is preservation-ready;
 - animation unit has exactly one ID and correct profile anchor;
 - GIF-first sequence and structure profile/member schema agree;
 - staging source differs from project target;
