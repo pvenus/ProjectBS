@@ -290,9 +290,16 @@ AgentDocs/planning-data/generated-media-preservation/v2/{assetType}/{contentId}/
 For animation, record identity also includes `animationRequestId` and its path
 adds `/{animationRequestId}/` after `{contentId}`. IDs are deterministic hashes
 of immutable request/content/source/snapshot identity, exact registry row,
-profile version, and type specification. Same ID plus identical bytes is
-idempotent reuse. Same ID plus different bytes is a collision. No v1 record or
-index is edited.
+profile version, complete type specification, normalized request, selected
+prompts/structure profile, authoring handoff and optional accepted supersession.
+GeneratedMediaRecordGuide.md is the exact authority for the closed
+`routingHashPayload`, RFC 8785/JCS bytes, full SHA-256, `gmroute2` ID with a
+20-lowercase-hex prefix, canonical record path, closed
+`generated_media_routing_index_v2`, byte-identical reuse, collision handling,
+record-before-index atomic publication and recoverable orphan-record policy.
+Same validated payload reuses the existing bytes; an occupied ID with different
+bytes is a collision. Supersession appends and never mutates an older entry. No
+v1 record or index is edited.
 
 `generated_media_prompt_v3` has exactly one ImageGen prompt payload.
 `generated_media_generation_v2` stores the exact prompt hash, settings,

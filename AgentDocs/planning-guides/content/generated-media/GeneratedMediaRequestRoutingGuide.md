@@ -86,9 +86,11 @@ Icon mapping never receives those scene fields.
 ```yaml
 schemaVersion: generated_media_routing_v2
 routingRecordId:
+routingPayloadSha256:
 routerVersion: generated_media_router_v2
 registryVersion: generated_media_authoring_profile_registry_v2
 registryRowId:
+profileKey:
 requestId:
 assetType:
 domainType:
@@ -99,6 +101,7 @@ planningSnapshotHash:
 sourcePlanningFiles: []
 requiredElements: []
 prohibitedElements: []
+typeSpecification:
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:
@@ -107,11 +110,14 @@ provider: imagegen
 structureProfile:
 routingReason:
 authoringHandoff:
+supersedesRoutingRecordId: conditionally present
 createdAt:
 validation:
 ```
 
-Unknown/missing fields are rejected. Canonical paths:
+`animationRequestId` and `supersedesRoutingRecordId` are conditionally present,
+never `null`; all other listed members are required. Unknown/missing fields are
+rejected. Canonical paths:
 
 ```text
 non-animation:
@@ -121,11 +127,34 @@ animation:
 AgentDocs/planning-data/generated-media-routing/v2/animation/{contentId}/{animationRequestId}/{routingRecordId}.json
 ```
 
-The deterministic hash payload excludes ID/timestamps and includes immutable
-identity, snapshot/source hashes, exact type specification, registry row,
-provider, structure profile, and optional animationRequestId. Same payload and
-bytes reuses the record. Same ID with different bytes returns
-`routing_record_collision`. Blocked input writes no record/index.
+GeneratedMediaRecordGuide.md exclusively defines the closed
+`routingHashPayload`, JCS bytes, full SHA-256, exact `gmroute2` formulas and
+20-hex-character prefix, record/index paths, and the closed
+`generated_media_routing_index_v2` key/value schema. The router must implement
+that contract without adding or dropping a field.
+
+Record identity includes immutable request/content/source/snapshot identity,
+the complete selected type specification, normalized one-unit request, exact
+registry row/pipeline/prompts, provider, structure profile, authoring handoff,
+routing reason, optional animationRequestId, and optional accepted
+supersedesRoutingRecordId. It excludes only derived ID/hash fields,
+the copied planning timestamp and deterministic validation observations.
+
+Before writing, validate the entire existing record/index pair. Byte-identical
+existing state is reused without changing timestamps or bytes. A valid orphan
+record may receive its missing exact index entry. Divergent record bytes or an
+80-bit prefix collision returns `routing_record_collision`; a divergent or
+dangling index returns `routing_index_write_failed`. Supersession appends a new
+immutable record and entry and never changes the old pair.
+
+Publish the immutable record first with same-directory atomic no-clobber, reread
+and hash it, then atomically replace the complete index. If record publication
+fails, the index stays unchanged. If index publication fails after record
+success, preserve the valid record as the only recoverable partial artifact,
+return its path/hash with `routing_index_write_failed` and `safeToRetry=true`,
+and attach the entry on retry without rewriting the record. All other blocked
+inputs write no record, index, placeholder, failure artifact, or downstream
+handoff.
 
 ## State, Failure, and Output
 
@@ -149,8 +178,8 @@ routing_record_write_failed
 routing_index_write_failed
 ```
 
-Success returns `status=routed`, record ID/path/hash, selected row/pipeline/
-prompts, provider, structure profile, normalized request, snapshot hash, reason,
+Success returns `status=routed`, record ID/path/hash, selected row/profile/
+pipeline/prompts, provider, structure profile, normalized request, snapshot hash, reason,
 authoring handoff, and `nextStep=authoring`. Failure returns `status=blocked`,
 failureType, missing/conflicting fields, candidate rows, required decision and
 safeToRetry.
@@ -161,5 +190,10 @@ safeToRetry.
 - no current character contract contains eight-way/rotation output;
 - every animation unit contains exactly one animationRequestId;
 - version/path/schema are routing v2 and directory v2;
+- payload hash/ID use the full SHA-256 and exact 20-character prefix contract;
+- routing index is `generated_media_routing_index_v2` and every entry exactly
+  projects a present canonical record;
+- identical retries preserve exact record/index bytes, while any divergent
+  occupied identity fails closed;
 - authoring handoff fields exactly match selected prompt inputs;
 - no downstream stage executes.

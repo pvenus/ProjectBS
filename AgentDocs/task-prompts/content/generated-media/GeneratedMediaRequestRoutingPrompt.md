@@ -25,14 +25,18 @@ Input:
 5. character는 character single-image 계약, icon은 skill/item icon 전용 visual-center/safe-area/small-size 계약, background는 stage/battle/environment scene/composition/viewpoint/depth/playable-area/canvas/target/safe-area/consistency-lock/scene-anchor 계약을 검증한다. icon/background 양쪽 증거가 있으면 추정하지 않고 차단한다.
 6. animation은 planning handoff의 animationRequests를 source order로 읽어 animationRequestId별 독립 unit으로 분리한다. 각 normalizedRequest/routing record에는 선택된 animationRequest 객체 하나와 scalar ID 한 건만 포함한다. reference/hash, final frame count/timing/order/loop/key poses, fixed cell, scale lock, vertical motion, background/noShadow/outline/anchor/masterFirst를 그대로 보존하며 병합하거나 동작을 추가하지 않는다.
 7. exact row의 selectedPipeline/selectedAuthoringPrompt와 field-level handoff를 기록한다.
-8. generated_media_routing_v2를 v2 canonical path에 결정적 ID로 기록한다. animation path/ID에는 animationRequestId가 포함된다. 동일 payload는 재사용하고 다른 bytes는 collision이다.
-9. v1 registry/PixelLab row를 평가하거나 v1 record/index를 수정하지 않는다.
-10. authoring/provider/download/packaging/evaluation/promotion/Slack/Unity/Git을 수행하지 않는다.
+8. GeneratedMediaRecordGuide.md의 closed routingHashPayload를 정확히 투영하고 JCS canonical JSON의 전체 SHA-256을 계산한다. ID는 비 animation `gmroute2.{assetType}.{contentId}.{hash[0:20]}`, animation `gmroute2.animation.{contentId}.{animationRequestId}.{hash[0:20]}`로 만들며 20자는 정확히 lowercase hex 20자다.
+9. canonical v2 record path와 같은 directory의 `routing_index.json`을 사용한다. index는 `generated_media_routing_index_v2` closed schema이고 `entries`는 routingRecordId를 key로 하며 value는 record identity/path/full payload hash/exact file hash의 정확한 projection이어야 한다.
+10. 쓰기 전에 existing record/index 전체를 검증한다. exact pair는 bytes를 바꾸지 않고 재사용하고, valid record만 남은 partial success는 record를 재작성하지 않고 index entry만 복구한다. dangling/divergent index는 `routing_index_write_failed`, divergent record bytes나 hash-prefix collision은 `routing_record_collision`로 아무것도 덮어쓰지 않는다.
+11. 새 record를 same-directory atomic no-clobber로 먼저 기록하고 reread/hash한 뒤 index를 atomic replace한다. record 성공 후 index 실패만 valid orphan record를 보존하고 `safeToRetry=true`로 path/hash를 반환한다. 그 밖의 blocked 요청은 record/index/failure placeholder/downstream handoff를 생성하지 않는다.
+12. supersedesRoutingRecordId는 같은 scope의 유효한 v2 record일 때만 새 payload/record/index entry에 포함한다. 기존 record/index는 수정·삭제하지 않는다.
+13. v1 registry/PixelLab row를 평가하거나 v1 record/index를 수정하지 않는다.
+14. authoring/provider/download/packaging/evaluation/promotion/Slack/Unity/Git을 수행하지 않는다.
 
 Output:
 - status: routed
-- routingRecordId / path / hash
-- registryVersion / selectedRegistryRowId
+- routingRecordId / path / routingPayloadSha256 / recordSha256 / indexPath
+- registryVersion / selectedRegistryRowId / profileKey
 - selectedPipeline / selectedAuthoringPrompt
 - assetType / domainType / contentId / optional animationRequestId
 - normalizedRequest / planningSnapshotHash / routingReason
@@ -49,6 +53,10 @@ Output:
 - icon/background ambiguity는 fail-closed여야 한다.
 - character route에 8-way/ordered_rotation_set이 없어야 한다.
 - animation routing record 하나당 animationRequestId가 정확히 한 건이어야 한다.
+- 같은 입력 재시도는 기존 record/index의 exact bytes를 보존해야 한다.
+- payload field 하나가 바뀌면 full hash와 routingRecordId가 바뀌어야 한다.
+- occupied ID의 divergent bytes와 dangling/divergent index는 overwrite 없이 차단해야 한다.
+- record가 index보다 먼저 publish되어야 하며 index 실패 후 retry는 orphan record를 재사용해야 한다.
 - blocked 요청은 record/index를 변경하지 않아야 한다.
 - authoring 이후 단계를 실행하지 않아야 한다.
 ```
