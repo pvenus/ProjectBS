@@ -38,6 +38,52 @@ rows accept only `skill|item`; background rows accept only
 `stage|battle|environment`. Evidence compatible with both image roles blocks
 as `ambiguous_image_role`; no similarity fallback is allowed.
 
+### Character expression profile
+
+The two character rows additionally resolve this exact reusable expression
+profile; it does not replace either row's routing `profileKey`:
+
+```text
+expressionProfileKey=projectbs_character_restrained_ink_line@1.0.0
+expressionProfilePayloadHash=bda082ffe297c29cdc6b933a6c219ae67b11ae38bc784c198e4603c1741199cf
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Canonical Character Expression Profile
+appliesTo=character_single_image_v2,character_animation_v2
+```
+
+The canonical authority above is the sole owner of the closed payload, lock
+order, canonicalization, and hash algorithm. This registry is only a closed
+key/hash projection and must not duplicate or redefine lock statements. Approved
+planning continues to own gender/age presentation, face, hair, costume,
+equipment, weapon, palette, materials, pose and motion. Character prompt
+records must persist the exact expression profile key, payload, and payload hash.
+Character animation inherits all three byte-for-byte from its immutable approved
+reference prompt record. A different requested expression requires a reviewed registry/profile
+version and explicit planning approval; no caller alias or silent override is
+allowed.
+
+The registry validates the closed projection without owning its values:
+
+```yaml
+expressionProfilePayload:
+  expressionProfileKey: exact registered key
+  negativeStyleLock:
+    - constraintId: required string
+      statement: required string
+      authorityRef: required project-relative-path::section string
+  positiveStyleLock:
+    - constraintId: required string
+      statement: required string
+      authorityRef: required project-relative-path::section string
+```
+
+The payload has exactly those three top-level members, and every lock item has
+exactly those three members. Arrays preserve the canonical authority's displayed
+order; object members use RFC 8785 JCS ordering for hashing. A character image
+record must store the canonical payload and registered hash. Its character
+animation descendant must copy both unchanged from the hash-verified immutable
+reference record; resolving the same key again and constructing a fresh payload
+is not inheritance.
+
 ## Extension and Validation
 
 Adding a domain requires approved planning schema/profile, new non-overlapping
@@ -45,8 +91,9 @@ registry version, preservation/evaluation adapters, guide/prompt evaluation,
 then router activation. Add a row/profile, never a copied domain prompt.
 
 Validate unique keys, ImageGen-only provider, existing prompt paths, exact
-structure profile, type-specific anchor discriminator, and failure/readiness
-parity. Current registry changes never reinterpret an immutable record.
+structure profile, type-specific anchor discriminator, exact character
+expression profile/lock hash, and failure/readiness parity. Current registry
+changes never reinterpret an immutable record.
 
 ## Related Guides
 

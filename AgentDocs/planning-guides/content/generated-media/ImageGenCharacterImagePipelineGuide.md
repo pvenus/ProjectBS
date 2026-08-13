@@ -15,6 +15,8 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyCont
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
+AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 ```
 
 Master Concept and approved planning own identity/design. The current contract
@@ -36,9 +38,21 @@ for a current request. Missing fields return the exact typed blocker owned by
 the current contract. Generation stops at provider refs and hands off to
 preservation.
 
+Authoring also requires the active ProjectBS character ink-line style profile.
+It resolves the canonical payload from the visual guide, recomputes its RFC
+8785 JCS canonical JSON UTF-8 SHA-256, persists its exact key/payload/hash, and
+produces separate non-empty positive and negative style locks. It maps every
+lock to authority evidence, and includes both verbatim in the copy-ready
+ImageGen prompt. The pipeline rejects photographic/photorealistic/cinematic
+portrait, realistic pores, lens/DOF/bokeh, volumetric portrait light,
+painterly/PBR 3D render, and western-fantasy realism. `stylized` alone is not a
+valid style contract. A planning/profile conflict blocks rather than silently
+restyling the approved design.
+
 The only provider interface is `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. Generation requires a
-scope-matching external-call approval with `maxCost` and `maxAttempts`. It
+`providerInterface=configured_imagegen_capability`. The execution role computes
+and presents the contract 6.1 scope hash; generation then requires its closed
+approval and enforces tagged `maxCost`, cumulative `maxAttempts`, and projection equality. It
 checks the deterministic idempotency key before billing, reuses an identical
 completed result, blocks an identical active call, and records `costEvidence`.
 
@@ -48,13 +62,14 @@ One valid v2 route/handoff becomes one prompt v3 record. One ready prompt
 becomes one generation v2 record plus preservation handoff. State is
 `routed -> authored -> generated -> preservation_pending`; a blocker writes no
 ready record. Validate the exact route, snapshot, profile, evidence and hashes,
-one approved viewpoint, ImageGen provider, and
-`character_single_image_v2`. No planning, packaging, evaluation, promotion, or
+one approved viewpoint, ImageGen provider, `character_single_image_v2`, and
+positive/negative style-lock presence, evidence coverage and exact prompt
+inclusion. No planning, packaging, evaluation, promotion, or
 Git work occurs.
 
-Generation blockers additionally include
-`missing_provider_execution_approval`, `provider_cost_not_approved`,
-`retry_limit_exceeded`, and `duplicate_provider_call_risk`. A blocked output
+Generation blockers additionally include the exact contract 6.1-6.2 approval,
+scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
+A blocked output
 returns status, failureType, missingFields, providerCalled=false,
 costEvidence, requiredDecision, and safeToRetry. A successful output returns
 the generation record ID/hash, attempts, result refs, costEvidence,

@@ -57,9 +57,10 @@ provider.
 
 Generation submits the stored prompt/settings unchanged through
 `providerTool=imagegen` and
-`providerInterface=configured_imagegen_capability`. Before any external call it
-requires approval whose scope matches prompt/settings, verifies `maxCost` and
-`maxAttempts`, and checks the deterministic idempotency key. Identical completed
+`providerInterface=configured_imagegen_capability`. Before any external call the
+execution role computes and presents the contract 6.1 scope hash; generation
+validates its closed approval, tagged cost, cumulative attempts, projection,
+and deterministic idempotency key. Identical completed
 work is reused without billing; an active duplicate blocks. Every attempted or
 avoided call records `costEvidence`. Generation stops at provider refs and a
 background preservation handoff.
@@ -88,7 +89,12 @@ missing_background_safe_area
 missing_background_consistency_lock
 unsupported_background_domain
 missing_provider_execution_approval
-provider_cost_not_approved
+invalid_provider_execution_approval
+provider_execution_scope_mismatch
+provider_cost_unit_mismatch
+provider_cost_estimate_unavailable
+provider_cost_limit_exceeded
+provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 ```

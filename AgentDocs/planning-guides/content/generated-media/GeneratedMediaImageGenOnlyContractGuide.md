@@ -199,6 +199,10 @@ animationRequests:
       identity:
       path:
       sha256:
+    referencePromptRecordPath: required for character; prohibited for skill_effect
+    referencePromptRecordSha256: required for character; prohibited for skill_effect
+    expressionProfileKey: required for character; prohibited for skill_effect
+    expressionProfilePayloadHash: required for character; prohibited for skill_effect
     finalFrameCount: approved positive integer
     timing: ordered final timing or approved uniform FPS
     frameOrder: exact ordered indices
@@ -224,6 +228,20 @@ animationRequests:
     masterFirst: true
     extractionMode: fixed_cell_only
 ```
+
+For `animationSubjectType=character`, the four flat reference/profile fields
+above are mandatory. `referencePromptRecordPath` identifies an immutable
+`generated_media_prompt_v3` character single-image record;
+`referencePromptRecordSha256` is the lowercase SHA-256 of its exact file bytes.
+The record must contain the canonical `expressionProfilePayload`, and its key
+and recomputed payload hash must equal both handoff fields. For
+`animationSubjectType=skill_effect`, all four fields are prohibited and absent.
+
+Section 8.3 is the sole token authority for reference/profile authoring
+failures. Character animation applies all reference and expression-profile
+tokens there; character single-image authoring applies only its expression-
+profile tokens; skill animation applies only
+`unexpected_character_style_reference`. Do not create a 3.4-local alias.
 
 The router emits one independent normalized `animationRequest` object and
 record per source-order `animationRequestId` before authoring. Authoring and
@@ -290,9 +308,16 @@ AgentDocs/planning-data/generated-media-preservation/v2/{assetType}/{contentId}/
 For animation, record identity also includes `animationRequestId` and its path
 adds `/{animationRequestId}/` after `{contentId}`. IDs are deterministic hashes
 of immutable request/content/source/snapshot identity, exact registry row,
-profile version, and type specification. Same ID plus identical bytes is
-idempotent reuse. Same ID plus different bytes is a collision. No v1 record or
-index is edited.
+profile version, complete type specification, normalized request, selected
+prompts/structure profile, authoring handoff and optional accepted supersession.
+GeneratedMediaRecordGuide.md is the exact authority for the closed
+`routingHashPayload`, RFC 8785/JCS bytes, full SHA-256, `gmroute2` ID with a
+20-lowercase-hex prefix, canonical record path, closed
+`generated_media_routing_index_v2`, byte-identical reuse, collision handling,
+record-before-index atomic publication and recoverable orphan-record policy.
+Same validated payload reuses the existing bytes; an occupied ID with different
+bytes is a collision. Supersession appends and never mutates an older entry. No
+v1 record or index is edited.
 
 `generated_media_prompt_v3` has exactly one ImageGen prompt payload.
 `generated_media_generation_v2` stores the exact prompt hash, settings,
@@ -342,16 +367,14 @@ generated_media_generation_v2:
   providerSettings:
   providerTool: imagegen
   providerInterface: configured_imagegen_capability
+  providerExecutionScopeHashPayload:
   providerExecutionApproval:
-    approvedBy:
-    approvedAt:
-    scopeHash:
-    maxAttempts:
-    maxCost:
+  providerExecutionApprovalSha256:
   idempotencyKey:
   attempts: []
   costEvidence: []
   providerResultRefs: []
+  approvalCostProjection:
   preservationHandoff:
   generationStatus: generated | blocked | failed
   createdAt:
@@ -360,6 +383,258 @@ generated_media_generation_v2:
 
 Unknown fields are rejected. Animation records without one scalar
 animationRequestId, or non-animation records containing it, are invalid.
+
+### 6.1 Closed provider execution approval contract
+
+This subsection is the sole current authority for approving an external
+ImageGen call. A natural-language user approval is evidence of intent, not the
+contract object and not a request for the user to calculate a hash. The
+execution role MUST validate the prompt record and files, resolve the exact
+provider settings, construct the scope payload below, calculate its hash, and
+show the user the canonical scope identity plus proposed attempt/cost limits.
+The user approves that presented hash and envelope. The execution role then
+records who approved it and when in the closed object. It MUST NOT accept a
+user-supplied hash that it has not independently recomputed.
+
+`providerExecutionScopeHashPayload` is a closed object with exactly these
+members. `animationRequestId` is conditionally present, never `null`; it is
+required only for animation and forbidden otherwise. `providerSettings` is the
+exact closed JSON object submitted to the configured capability, after defaults
+are resolved. No display text, user approval wording, limits, estimates,
+timestamps, attempts, provider results, or filesystem absolute paths occur in
+this payload.
+
+```yaml
+schemaVersion: generated_media_provider_execution_scope_hash_payload_v1
+requestId:
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
+contentId:
+animationRequestId?: required only for animation; forbidden otherwise
+planningSnapshotHash: verified 64-lowercase-hex SHA-256
+registryRowId:
+structureProfile:
+promptRecordId:
+promptRecordSha256: SHA-256 of exact prompt record file bytes, including its final LF
+promptFileSha256: SHA-256 of exact copy-ready prompt file bytes, including its final LF
+providerPromptPayloadHash: verified hash stored by generated_media_prompt_v3
+provider: imagegen
+providerTool: imagegen
+providerInterface: configured_imagegen_capability
+providerSettings: exact closed provider request settings object
+providerSettingsSha256: SHA-256 of canonicalJson(providerSettings)
+```
+
+The request, asset/domain/content identity, optional animation identity,
+snapshot, selected registry/profile, prompt record identity and exact bytes,
+copy-ready prompt bytes, provider payload, provider/tool/interface, and exact
+settings are all approval bindings. Changing any bound value requires a new
+scope payload and approval. `promptRecordSha256` and `promptFileSha256` are file
+hashes and therefore include the one required trailing LF; the payload and
+settings hashes do not. Calculate exactly:
+
+```text
+providerSettingsSha256 = lowercase_hex(SHA256(canonicalJson(providerSettings)))
+scopeHash = lowercase_hex(SHA256(canonicalJson(providerExecutionScopeHashPayload)))
+```
+
+`canonicalJson` is RFC 8785 JCS encoded as UTF-8 without BOM and without a
+trailing LF. The JSON file containing a record is JCS bytes followed by exactly
+one `0A` byte. Hash comparison is exact-byte comparison; line-ending
+normalization or semantic JSON equality cannot repair a file-hash mismatch.
+
+`providerExecutionApproval` is a closed object with exactly these eight
+members; unknown, missing, `null`, or differently typed members reject:
+
+```yaml
+schemaVersion: generated_media_provider_execution_approval_v1
+approvedBy: non-empty stable user/account identifier
+approvedAt: RFC 3339 timestamp with explicit offset
+scopeHash: recomputed 64-lowercase-hex value above
+maxAttempts: JSON integer from 1 through 2147483647
+maxCost: closed CostLimit value below
+estimateUnavailablePolicy: block | allow_upper_bound
+approvalEvidence: non-empty immutable message/thread reference, not approval prose copied into the scope
+```
+
+`providerExecutionApprovalSha256` is
+`lowercase_hex(SHA256(canonicalJson(providerExecutionApproval)))`; limits are in
+this approval-envelope hash but are deliberately excluded from `scopeHash`.
+Renewing limits for identical execution inputs preserves `scopeHash` and creates
+a different approval SHA. A generation identity includes both hashes. A changed
+scope cannot reuse or renew the old approval.
+
+`CostLimit` is one of the following exact tagged unions. Decimal amounts are
+JSON strings matching `^(0|[1-9][0-9]*)\\.[0-9]{6}$`; they have exactly six
+fractional digits, no sign, exponent, commas, leading zero, or alternate
+normalization. Comparison converts the string to integer millionths. Values may
+be compared only when the tag and all unit identity members match exactly.
+`currency` is an uppercase ISO 4217 alpha code. Provider and unit identifiers
+are exact lowercase registered values.
+
+```json
+{"kind":"no_charge"}
+{"amount":"0.250000","currency":"USD","kind":"iso_currency"}
+{"amount":"2.000000","creditUnit":"image_credit","kind":"provider_credit","provider":"imagegen"}
+{"amount":"1.000000","kind":"provider_unit","provider":"imagegen","unit":"image"}
+```
+
+For every logical attempt, `configured_imagegen_capability` returns one closed
+preflight estimate: `{"status":"no_charge"}`,
+`{"status":"exact","cost":CostLimit}`, `{"status":"upper_bound","cost":CostLimit}`,
+or `{"status":"unavailable"}`. `no_charge` is approved by any valid limit and
+records no charge. `exact` and `upper_bound` require identical units and an
+amount not greater than `maxCost`; `maxCost.kind=no_charge` rejects either.
+`unavailable` blocks as `provider_cost_estimate_unavailable` unless policy is
+`allow_upper_bound` and `maxCost` is not `no_charge`; in that case the whole
+`maxCost` is the approved per-attempt upper bound. The total authorization is
+therefore at most `maxAttempts` times the per-attempt limit, but multiplication
+is derived and never serialized as a decimal JSON number.
+
+Actual cost evidence is one of `no_charge`, `exact` with a comparable
+`CostLimit`, or `unavailable`, and includes an immutable provider evidence
+reference. An exact actual amount above the per-attempt limit records the
+incurred amount and fails `provider_cost_limit_exceeded`; it is never hidden or
+clamped. When actual cost is unavailable after a call, record `unavailable` and
+the approved upper bound reserved for that attempt. The result cannot advance
+to preservation until cost evidence is reconciled; return
+`provider_actual_cost_unavailable`, `providerCalled=true`, and
+`safeToRetry=false`. This rule preserves the provider result/ref and never
+authorizes a duplicate call merely to obtain cost data.
+
+The exact tagged JSON shapes are:
+
+```json
+{"status":"no_charge"}
+{"cost":{"amount":"0.100000","currency":"USD","kind":"iso_currency"},"status":"exact"}
+{"cost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"status":"upper_bound"}
+{"status":"unavailable"}
+```
+
+`upper_bound` is valid only for an estimate; actual cost permits only
+`no_charge`, `exact`, or `unavailable`. Unknown fields reject in every tagged
+value.
+
+`maxAttempts` is the maximum count of logical provider attempts for one
+`scopeHash`, accumulated across every renewal. Attempt numbers start at 1 and
+are contiguous. Crossing the submit boundary sets `providerCalled=true` and
+consumes that logical attempt even when the provider rejects, fails, times out,
+or returns an ambiguous outcome. Preflight validation/cost blocks, an active
+duplicate block, and reuse of an identical completed result consume zero
+attempts. An ambiguous submission is retried only with the same attempt number
+and idempotency key until resolved; it is not a new logical attempt. A new
+logical retry uses the next number only after the prior attempt is terminal.
+
+```text
+idempotencyKey = gmexec1.{scopeHash}.a{decimalAttemptNumber}
+```
+
+An approval renewal never resets consumed attempts. Raising `maxAttempts` can
+authorize the next contiguous attempt; lowering it cannot invalidate evidence
+already recorded but blocks new calls when consumed attempts are at or above
+the new limit. Changing prompt bytes, payload, settings, provider identity, or
+asset/domain/content identity changes `scopeHash`, requires fresh approval, and
+cannot be treated as an idempotent retry.
+
+Approval validation uses only these failure types and retry meanings:
+
+| failureType | providerCalled | safeToRetry |
+| --- | --- | --- |
+| `missing_provider_execution_approval` | false | false until the computed scope/envelope is approved |
+| `invalid_provider_execution_approval` | false | false until a closed valid approval replaces it |
+| `provider_execution_scope_mismatch` | false | false; recompute/present the changed scope and obtain fresh approval |
+| `provider_cost_unit_mismatch` | false | false until estimate and approval use the same tagged unit |
+| `provider_cost_estimate_unavailable` | false | false until estimate exists or a renewed approval allows its upper bound |
+| `provider_cost_limit_exceeded` | false for preflight; true for actual overage | false until renewed approval for a future attempt; never retry the over-limit completed call |
+| `provider_actual_cost_unavailable` | true | false until billing evidence is reconciled; never call again for evidence |
+| `retry_limit_exceeded` | false | false until same-scope renewal raises the cumulative limit |
+| `duplicate_provider_call_risk` | false | false until the active attempt resolves; then reuse or evaluate the next attempt |
+| `provider_operation_failed` | true only after submit | true only when the prior attempt is terminal, no active duplicate remains, cost evidence is complete, and another attempt is approved |
+
+`safeToRetry` is the truth at return time, not a promise that a later approval
+will be granted. Validation failures create no provider call. A failure after
+submit preserves its consumed-attempt, operation, result, and cost evidence.
+
+### 6.2 Approval and cost projection
+
+`costEvidence` is an ordered append-only array. Each entry is a closed object
+containing `scopeHash`, `attemptNumber` (or `0` for a no-call event),
+`providerCalled`, `event` (`preflight_blocked`, `submitted`, `terminal`, or
+`completed_reuse`), `estimate`, `actualCost`, `approvedUpperBound`,
+`providerOperationRef` (required after a provider supplies one),
+`evidenceRef`, and `recordedAt`. Conditional values are absent, never `null`.
+Every submitted attempt has one terminal entry before preservation handoff.
+`estimate` and `approvedUpperBound` are required for a submitted entry;
+`actualCost`, `providerOperationRef`, and provider `evidenceRef` are required on
+its terminal entry, except that a provider that created no operation omits only
+`providerOperationRef`. A preflight block requires `estimate` and
+`evidenceRef`, and forbids actual/provider-operation members. Completed reuse
+requires the reused generation record as `evidenceRef` and forbids all cost and
+operation members. `recordedAt` is an evidence timestamp and is excluded from
+scope and approval identity, never synthesized into provider billing evidence.
+
+Calculate `costEvidenceSha256` over `canonicalJson(costEvidence)`. The closed
+`approvalCostProjection` contains exactly:
+
+```yaml
+scopeHash:
+providerExecutionApprovalSha256:
+maxAttempts:
+maxCost:
+estimateUnavailablePolicy:
+attemptsConsumed:
+costEvidenceSha256:
+actualCostStatus: no_charge | exact | unavailable
+actualCostTotal?: required only for exact; one CostLimit in the approval unit
+```
+
+The projection in the generation record, its generation index entry, and the
+closed `preservationHandoff.approvalCostProjection` MUST be JCS-byte-identical.
+The handoff also contains exactly the generation identity/hash, provider,
+provider result refs, structure profile, and that projection; it contains no
+media bytes or evaluation result. Preservation re-hashes the generation record
+and rejects a projection mismatch before accessing provider results.
+
+The generation index is a closed
+`generated_media_generation_index_v2` object with top-level
+`schemaVersion`, `assetType`, `contentId`, optional conditional
+`animationRequestId`, and `entries`. Each entry key is the exact
+`generationRecordId`; its closed value contains `generationRecordId`,
+`recordSchemaVersion`, `recordPath`, `recordSha256`, `requestId`, `assetType`,
+`domainType`, `contentId`, optional conditional `animationRequestId`,
+`planningSnapshotHash`, `promptRecordId`, `promptRecordSha256`, `scopeHash`,
+`providerExecutionApprovalSha256`, `generationStatus`, and
+`approvalCostProjection`. Unknown members reject. Record, index, and handoff
+projections are equality gates, not independently summarized values.
+To enforce cumulative `maxAttempts`, the execution role validates every index
+entry/record with the same `scopeHash` and counts the union of submitted
+logical attempt numbers across approvals. A renewal cannot hide attempts in an
+older generation identity.
+
+### 6.3 Canonical fixed vector
+
+The executable vector is
+`tests/test_generated_media_provider_execution_approval_contract.mjs`. Its
+canonical scope JSON is exactly this single UTF-8 line with no trailing LF:
+
+```json
+{"assetType":"character_single_image","contentId":"seojin","domainType":"character","planningSnapshotHash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","promptFileSha256":"3313e882e877653bc059fa85bfea8299940f88360673b1ba39d111106c2803c9","promptRecordId":"gmprompt3.character_single_image.character.seojin.1.e12ee2ebe2787f10e8a5","promptRecordSha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerPromptPayloadHash":"6f855d4140bc32db400af207899c1ab3a981d4b9df17d3313fe594d05698809d","providerSettings":{"background":"opaque","format":"png","quality":"high","size":"1024x1024"},"providerSettingsSha256":"a1e5fb882b29876db5770023e913b6e62056ac1395a30765136132460be5ce4c","providerTool":"imagegen","registryRowId":"character_single_image_v2","requestId":"gmreq.character.seojin.1","schemaVersion":"generated_media_provider_execution_scope_hash_payload_v1","structureProfile":"character_single_image_v2"}
+```
+
+Its fixed `scopeHash` is
+`be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb`.
+The canonical approval JSON is:
+
+```json
+{"approvalEvidence":"codex-thread:019ffabb-97f6-7af3-abaa-f70747dc125f/message:approval-1","approvedAt":"2026-08-13T12:00:00+09:00","approvedBy":"user:contract-reviewer","estimateUnavailablePolicy":"block","maxAttempts":2,"maxCost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"schemaVersion":"generated_media_provider_execution_approval_v1","scopeHash":"be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb"}
+```
+
+Its fixed approval SHA-256 is
+`4d974e3c0abc88354f32b49d42f9c03c228c30d686f27eac6f93c1ff663f28fd`.
+The vector proves same-scope stability; prompt record/file/payload, settings and
+content-identity sensitivity; limit renewal without scope-hash change;
+free/no-charge, unknown-estimate, unit/amount exceed and attempt-exceed rules;
+submitted-failure consumption; and record/index/handoff projection equality.
 
 ## 7. Preservation and Structure Profiles
 
@@ -408,6 +683,12 @@ planning_snapshot_mismatch
 missing_identity_consistency_lock
 missing_required_elements
 missing_prohibited_elements
+missing_positive_style_lock
+missing_negative_style_lock
+style_lock_evidence_incomplete
+provider_prompt_style_lock_missing
+character_style_profile_conflict
+character_animation_style_lock_mismatch
 missing_single_image_viewpoint
 missing_single_image_pose
 missing_framing_contract
@@ -451,7 +732,12 @@ missing_master_first_contract
 oversampling_not_allowed
 unsupported_provider
 missing_provider_execution_approval
-provider_cost_not_approved
+invalid_provider_execution_approval
+provider_execution_scope_mismatch
+provider_cost_unit_mismatch
+provider_cost_estimate_unavailable
+provider_cost_limit_exceeded
+provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 prompt_record_missing
@@ -476,6 +762,14 @@ routing_index_write_failed
 ### 8.3 Authoring and Record Extension
 
 ```text
+missing_reference_prompt_record
+reference_prompt_record_hash_mismatch
+missing_expression_profile_payload
+missing_expression_profile_key
+missing_expression_profile_payload_hash
+expression_profile_key_mismatch
+expression_profile_payload_hash_mismatch
+unexpected_character_style_reference
 unknown_record_field
 missing_record_field
 record_identity_mismatch
@@ -489,11 +783,35 @@ provider_value_invalid
 unsupported_record_schema
 ```
 
+The first eight tokens above are authoring-readiness failures with these exact
+boundaries:
+
+| token | stage and applicability | deterministic meaning |
+| --- | --- | --- |
+| `missing_reference_prompt_record` | character animation authoring only | required immutable character single-image prompt record path/file is absent or unreadable |
+| `reference_prompt_record_hash_mismatch` | character animation authoring only | SHA-256 of exact reference prompt-record file bytes differs from `referencePromptRecordSha256` |
+| `missing_expression_profile_payload` | character single-image or character animation authoring | required closed canonical payload is absent from the record being authored or inherited |
+| `missing_expression_profile_key` | character single-image or character animation authoring | required `expressionProfileKey` is absent |
+| `missing_expression_profile_payload_hash` | character single-image or character animation authoring | required `expressionProfilePayloadHash` is absent |
+| `expression_profile_key_mismatch` | character single-image or character animation authoring | record, handoff, registry, or inherited reference key differs from the exact registered key |
+| `expression_profile_payload_hash_mismatch` | character single-image or character animation authoring | recomputed canonical payload hash differs from the record, handoff, registry, or inherited reference hash |
+| `unexpected_character_style_reference` | skill animation authoring only | any character reference-prompt/profile field or payload is present where all are prohibited |
+
+These tokens stop before a ready prompt record is written. They are not router,
+generation, preservation, or evaluation tokens. Character animation never uses
+the skill-only token, and skill animation never uses the seven character-only
+tokens.
+
 ### 8.4 Generation Extension
 
 ```text
 missing_provider_execution_approval
-provider_cost_not_approved
+invalid_provider_execution_approval
+provider_execution_scope_mismatch
+provider_cost_unit_mismatch
+provider_cost_estimate_unavailable
+provider_cost_limit_exceeded
+provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 provider_operation_failed
@@ -586,10 +904,12 @@ legacy_current_identity_conflict
 Readiness is true only when every common and type-specific field exists, hashes
 verify, exactly one current registry row matches, provider is ImageGen, and the
 provider interface is `configured_imagegen_capability`. Before every external
-call, approval scope must match the prompt/settings hash, estimated cost must
-fit `maxCost`, attempts must remain below `maxAttempts`, and the deterministic
-idempotency key must have no active duplicate. An identical completed result is
-reused without billing; every attempted or avoided call records `costEvidence`.
+call, the approval object and recomputed scope must pass sections 6.1-6.2, the
+estimate must satisfy its tagged-unit comparison rule, consumed attempts must
+remain below `maxAttempts`, and the deterministic idempotency key must have no
+active duplicate. An identical completed result is reused without billing;
+every attempted or avoided call records `costEvidence` and the three projection
+copies must be JCS-byte-identical.
 The stage input record must also be valid. Blockers are identical across schema, router,
 authoring prompt, generation prompt, and packaging adapter.
 

@@ -42,9 +42,9 @@ stage/battle/environment domain returns `unsupported_icon_domain`; evidence
 that could match icon and background returns `ambiguous_image_role`.
 
 The only provider interface is `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. Generation requires an
-approval whose scope matches prompt/settings, enforces `maxCost` and
-`maxAttempts`, checks the deterministic idempotency key before billing, and
+`providerInterface=configured_imagegen_capability`. The execution role computes
+and presents the contract 6.1 scope hash. Generation requires its closed
+approval, enforces tagged cost and cumulative attempt rules, checks the deterministic idempotency key before billing, and
 records `costEvidence`. Completed identical work is reused; an active duplicate
 blocks.
 
@@ -57,9 +57,9 @@ row, ImageGen provider, identity/visual-center, display/safe area,
 background/outline, and `icon_single_image_v2`. No provider fallback,
 packaging, evaluation, promotion, or Git work occurs.
 
-Generation blockers additionally include
-`missing_provider_execution_approval`, `provider_cost_not_approved`,
-`retry_limit_exceeded`, and `duplicate_provider_call_risk`. Blocked output
+Generation blockers additionally include the exact contract 6.1-6.2 approval,
+scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
+Blocked output
 includes providerCalled=false, costEvidence, requiredDecision and safeToRetry;
 success includes record ID/hash, attempts, refs, costEvidence, idempotencyKey,
 preservation handoff and nextStep.

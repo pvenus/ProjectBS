@@ -230,6 +230,25 @@ Requiredness rules:
 - a profile-owned technical policy may choose only presentation mechanics. It
   cannot choose costume, identity, semantic pose, location, or cultural detail.
 
+### 3.3.1 Character fact and expression-profile boundary
+
+This schema owns character facts only. The sole normative ProjectBS character
+expression-profile authority is
+`GeneratedMediaVisualPromptAuthoringGuide.md::Canonical Character Expression Profile`;
+`CharacterDesignCreateGuide.md` only supplies the planning workflow. Do not copy reusable style
+sentences into appearance fields as if they were character identity.
+
+- approved planning owns gender/age presentation, face, hair, costume,
+  equipment, weapon, palette, material, pose and identifying features;
+- authoring may convert those approved facts into observable sentences but may
+  not add youth, attractiveness, modern/westernized beauty, minor-coded or
+  sexualized presentation, facial hair, fatigue, age, or gravitas;
+- the reusable expression layer must supply separate positive and negative
+  style locks with profile ID/version and evidence coverage;
+- a conflict between an approved character fact and the active expression
+  profile returns `character_style_profile_conflict` and requires an explicit
+  planning/profile revision. Downstream stages never silently restyle planning.
+
 ### 3.4 Generated Media planning readiness
 
 ```yaml

@@ -18,6 +18,27 @@ Generate character planning JSON before creating images, stats, skills, and runt
 
 The generated planning JSON will be used as the source for all later generation steps.
 
+### Project Character Visual Direction
+
+This planning workflow owns character facts, not reusable rendering rules. It
+must not invent or infer age, gender presentation, ethnicity, face, hair,
+costume, equipment, weapon, handedness, palette, material, pose, attractiveness,
+facial hair, fatigue, aging, gravitas, sexualization, or modernized appearance.
+
+The sole normative expression-profile authority is:
+
+```text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Canonical Character Expression Profile
+expressionProfileKey=projectbs_character_restrained_ink_line@1.0.0
+```
+
+This guide does not copy, shorten, or reinterpret that profile's positive or
+negative locks. Downstream authoring resolves the exact registered key and hash.
+
+If approved planning conflicts with the active ProjectBS style profile, return
+`character_style_profile_conflict`. Require an explicit planning/style-profile
+revision; do not silently restyle either authority.
+
 The single per-character schema authority is:
 
 ```text
