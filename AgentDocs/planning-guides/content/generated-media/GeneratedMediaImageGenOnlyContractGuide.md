@@ -199,6 +199,10 @@ animationRequests:
       identity:
       path:
       sha256:
+    referencePromptRecordPath: required for character; prohibited for skill_effect
+    referencePromptRecordSha256: required for character; prohibited for skill_effect
+    expressionProfileKey: required for character; prohibited for skill_effect
+    expressionProfilePayloadHash: required for character; prohibited for skill_effect
     finalFrameCount: approved positive integer
     timing: ordered final timing or approved uniform FPS
     frameOrder: exact ordered indices
@@ -224,6 +228,20 @@ animationRequests:
     masterFirst: true
     extractionMode: fixed_cell_only
 ```
+
+For `animationSubjectType=character`, the four flat reference/profile fields
+above are mandatory. `referencePromptRecordPath` identifies an immutable
+`generated_media_prompt_v3` character single-image record;
+`referencePromptRecordSha256` is the lowercase SHA-256 of its exact file bytes.
+The record must contain the canonical `expressionProfilePayload`, and its key
+and recomputed payload hash must equal both handoff fields. For
+`animationSubjectType=skill_effect`, all four fields are prohibited and absent.
+
+Section 8.3 is the sole token authority for reference/profile authoring
+failures. Character animation applies all reference and expression-profile
+tokens there; character single-image authoring applies only its expression-
+profile tokens; skill animation applies only
+`unexpected_character_style_reference`. Do not create a 3.4-local alias.
 
 The router emits one independent normalized `animationRequest` object and
 record per source-order `animationRequestId` before authoring. Authoring and
@@ -665,6 +683,12 @@ planning_snapshot_mismatch
 missing_identity_consistency_lock
 missing_required_elements
 missing_prohibited_elements
+missing_positive_style_lock
+missing_negative_style_lock
+style_lock_evidence_incomplete
+provider_prompt_style_lock_missing
+character_style_profile_conflict
+character_animation_style_lock_mismatch
 missing_single_image_viewpoint
 missing_single_image_pose
 missing_framing_contract
@@ -738,6 +762,14 @@ routing_index_write_failed
 ### 8.3 Authoring and Record Extension
 
 ```text
+missing_reference_prompt_record
+reference_prompt_record_hash_mismatch
+missing_expression_profile_payload
+missing_expression_profile_key
+missing_expression_profile_payload_hash
+expression_profile_key_mismatch
+expression_profile_payload_hash_mismatch
+unexpected_character_style_reference
 unknown_record_field
 missing_record_field
 record_identity_mismatch
@@ -750,6 +782,25 @@ prompt_record_stale
 provider_value_invalid
 unsupported_record_schema
 ```
+
+The first eight tokens above are authoring-readiness failures with these exact
+boundaries:
+
+| token | stage and applicability | deterministic meaning |
+| --- | --- | --- |
+| `missing_reference_prompt_record` | character animation authoring only | required immutable character single-image prompt record path/file is absent or unreadable |
+| `reference_prompt_record_hash_mismatch` | character animation authoring only | SHA-256 of exact reference prompt-record file bytes differs from `referencePromptRecordSha256` |
+| `missing_expression_profile_payload` | character single-image or character animation authoring | required closed canonical payload is absent from the record being authored or inherited |
+| `missing_expression_profile_key` | character single-image or character animation authoring | required `expressionProfileKey` is absent |
+| `missing_expression_profile_payload_hash` | character single-image or character animation authoring | required `expressionProfilePayloadHash` is absent |
+| `expression_profile_key_mismatch` | character single-image or character animation authoring | record, handoff, registry, or inherited reference key differs from the exact registered key |
+| `expression_profile_payload_hash_mismatch` | character single-image or character animation authoring | recomputed canonical payload hash differs from the record, handoff, registry, or inherited reference hash |
+| `unexpected_character_style_reference` | skill animation authoring only | any character reference-prompt/profile field or payload is present where all are prohibited |
+
+These tokens stop before a ready prompt record is written. They are not router,
+generation, preservation, or evaluation tokens. Character animation never uses
+the skill-only token, and skill animation never uses the seven character-only
+tokens.
 
 ### 8.4 Generation Extension
 
