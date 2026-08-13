@@ -5,9 +5,9 @@
   "decisionStatus": "approved",
   "approval": {
     "authorityRole": "character_planning_owner",
-    "scope": "canonical_character_planning_revision_and_main_character_ink_line_concept",
+    "scope": "canonical_character_planning_revision_current_character_single_image_contract_and_main_character_ink_line_concept",
     "approvedAt": "2026-08-14T00:12:44.5271017+09:00",
-    "approvalContext": "2026-08-14 KST 사용자가 현재 v5 시험 결과에서 확인된 서진의 캐릭터 디자인 완성도를 canonical 기획에 반영하고, 선 중심의 한국 전통 미감에 기반한 이미지를 메인 캐릭터 표현 컨셉으로 연결하도록 승인했다. 캐릭터 고유 외형 사실은 이 결정에 기록하고, 재사용 가능한 먹선·붓선 표현 규칙은 canonical expression profile 권위에서만 관리한다."
+    "approvalContext": "2026-08-14 KST 사용자가 현재 v5 시험 결과에서 확인된 서진의 캐릭터 디자인 완성도를 canonical 기획에 반영하고, 선 중심의 한국 전통 미감에 기반한 이미지를 메인 캐릭터 표현 컨셉으로 연결하도록 승인했다. 캐릭터 고유 외형 사실은 이 결정에 기록하고, 재사용 가능한 먹선·붓선 표현 규칙은 canonical expression profile 권위에서만 관리한다. 이어진 current character_single_image 실행 승인에서 단일 viewpoint, 중립 전신 포즈와 프레이밍, 1024x1536 canvas, 96x144 target display, safe area, 투명 최종 배경, 제거 가능한 단색 생성 배경, no-shadow, 3px 외곽선, pelvis/root 및 ground-contact anchor를 캐릭터 기획 owner가 확정하도록 승인했다."
   },
   "constraintRefs": [
     {
@@ -93,6 +93,238 @@
           "seojin.appearance.face.v3",
           "seojin.appearance.hair.v3"
         ]
+      }
+    },
+    "seojin.prohibition.supernatural_body.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/2",
+      "value": {
+        "factId": "seojin.prohibition.supernatural_body.v1",
+        "statement": "뿔, 발광 눈, 괴이한 피부색, 비인간형 팔다리 등 초자연적 신체 특징을 추가하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.body.v3",
+          "seojin.appearance.face.v3"
+        ]
+      }
+    },
+    "seojin.appearance.pose_policy.single_image.v1": {
+      "fieldPath": "/appearance/posePolicy",
+      "value": {
+        "mode": "exact",
+        "description": "Neutral grounded standing pose with balanced weight and relaxed arms; the Joseon hwando remains fully sheathed and readable; no attack or action pose."
+      }
+    },
+    "seojin.appearance.intended_display.single_image.v1": {
+      "fieldPath": "/appearance/intendedDisplay",
+      "value": {
+        "assetType": "character_single_image",
+        "outputUsage": "인게임 전투와 캐릭터 선택 화면에서 서진의 정체성과 복식 층을 읽는 단일 전신 캐릭터 이미지",
+        "targetDisplaySize": {
+          "unit": "px",
+          "minimumPixelSize": {
+            "width": 64,
+            "height": 96
+          },
+          "targetPixelSize": {
+            "width": 96,
+            "height": 144
+          },
+          "consumerViewportOrReference": "인게임 전투 카메라와 캐릭터 선택 화면에서 전신 높이 96~144px로 표시되는 단일 캐릭터 이미지"
+        },
+        "detailDensity": {
+          "level": "medium",
+          "description": "96px 전신 높이에서도 남색 군졸복, 회갈색 겉옷, 수선된 미늘 갑옷, 칼집에 든 환도 실루엣이 구분되어야 한다. 얼굴의 미세 주름이나 갑옷의 개별 장식은 식별 필수 요소로 만들지 않는다."
+        },
+        "providerCanvasPolicy": "profile_owned_technical_canvas",
+        "framingPolicy": "centered full-body head-to-toe with clear space around silhouette; no crop",
+        "backgroundPolicy": "transparent"
+      }
+    },
+    "seojin.single_image.requirement.core_silhouette.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/0",
+      "value": {
+        "factId": "seojin.single_image.requirement.core_silhouette.v1",
+        "statement": "빛바랜 남색 군졸복, 수선된 반신 미늘 갑옷, 회갈색 포형 여행 겉옷이 한 전신 실루엣에서 함께 보여야 한다.",
+        "evidenceFactIds": [
+          "seojin.appearance.costume.v1",
+          "seojin.appearance.palette.v1",
+          "seojin.appearance.materials.v1"
+        ]
+      }
+    },
+    "seojin.single_image.requirement.sheathed_weapon.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/1",
+      "value": {
+        "factId": "seojin.single_image.requirement.sheathed_weapon.v1",
+        "statement": "장식 없는 조선식 환도와 짙은 나무 칼집이 허리에서 완전히 칼집에 든 상태로 선명하게 보여야 한다.",
+        "evidenceFactIds": [
+          "seojin.appearance.weapon.v1",
+          "seojin.appearance.pose_policy.single_image.v1"
+        ]
+      }
+    },
+    "seojin.single_image.requirement.travel_wear.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/2",
+      "value": {
+        "factId": "seojin.single_image.requirement.travel_wear.v1",
+        "statement": "옷과 장비에는 오래 이동하고 싸운 인물로 읽히는 먼지, 마모, 덧댄 수선 흔적이 보여야 한다.",
+        "evidenceFactIds": [
+          "seojin.appearance.costume.v1",
+          "seojin.appearance.materials.v1"
+        ]
+      }
+    },
+    "seojin.single_image.requirement.youthful_face.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/3",
+      "value": {
+        "factId": "seojin.single_image.requirement.youthful_face.v1",
+        "statement": "20대 중후반의 젊은 성인 한국 남성으로 읽히는 단정하고 매력적인 얼굴, 깨끗한 턱선, 곧은 눈썹과 또렷한 눈매가 일관되어야 한다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3",
+          "seojin.appearance.identifying_features.v3"
+        ]
+      }
+    },
+    "seojin.single_image.prohibition.foreign_design.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/0",
+      "value": {
+        "factId": "seojin.single_image.prohibition.foreign_design.v1",
+        "statement": "한국 이외 문화권의 갑옷, 검, 문양, 장식 또는 복식 실루엣을 포함하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.costume.v1",
+          "seojin.appearance.weapon.v1"
+        ]
+      }
+    },
+    "seojin.single_image.prohibition.luxury_hero.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/1",
+      "value": {
+        "factId": "seojin.single_image.prohibition.luxury_hero.v1",
+        "statement": "새것처럼 빛나는 장수 갑옷, 왕실급 장식, 화려한 영웅 망토로 표현하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.costume.v1",
+          "seojin.appearance.palette.v1"
+        ]
+      }
+    },
+    "seojin.single_image.prohibition.supernatural_body.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/2",
+      "value": {
+        "factId": "seojin.single_image.prohibition.supernatural_body.v1",
+        "statement": "뿔, 발광 눈, 괴이한 피부색, 비인간형 팔다리 등 초자연적 신체 특징을 추가하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.body.v3",
+          "seojin.appearance.face.v3"
+        ]
+      }
+    },
+    "seojin.single_image.prohibition.mature_weathered_face.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/3",
+      "value": {
+        "factId": "seojin.single_image.prohibition.mature_weathered_face.v1",
+        "statement": "중년 또는 노년으로 읽히는 깊은 주름, 짙은 수염, 처진 얼굴선, 과도한 피로와 거친 노숙 인상을 포함하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3"
+        ]
+      }
+    },
+    "seojin.single_image.prohibition.modern_westernized_beauty.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/4",
+      "value": {
+        "factId": "seojin.single_image.prohibition.modern_westernized_beauty.v1",
+        "statement": "현대 아이돌 스타일, 서양화된 얼굴 비례, 미성년 표현, 성적 대상화 또는 화려한 미용 장식을 추가하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3",
+          "seojin.appearance.hair.v3"
+        ]
+      }
+    },
+    "seojin.single_image.identity_consistency_lock.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/identityConsistencyLock",
+      "value": {
+        "identityId": "character.seojin.1",
+        "referenceFacts": [
+          {
+            "sourcePointer": "/appearance/genderPresentation",
+            "evidenceFactIds": ["seojin.appearance.gender_presentation.v3"]
+          },
+          {
+            "sourcePointer": "/appearance/body",
+            "evidenceFactIds": ["seojin.appearance.body.v3"]
+          },
+          {
+            "sourcePointer": "/appearance/face",
+            "evidenceFactIds": ["seojin.appearance.face.v3"]
+          },
+          {
+            "sourcePointer": "/appearance/hair",
+            "evidenceFactIds": ["seojin.appearance.hair.v3"]
+          },
+          {
+            "sourcePointer": "/appearance/costume",
+            "evidenceFactIds": ["seojin.appearance.costume.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/equipment",
+            "evidenceFactIds": ["seojin.appearance.equipment.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/weapon",
+            "evidenceFactIds": ["seojin.appearance.weapon.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/handedness",
+            "evidenceFactIds": ["seojin.appearance.handedness.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/palette",
+            "evidenceFactIds": ["seojin.appearance.palette.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/materials",
+            "evidenceFactIds": ["seojin.appearance.materials.v1"]
+          },
+          {
+            "sourcePointer": "/appearance/identifyingFeatures",
+            "evidenceFactIds": ["seojin.appearance.identifying_features.v3"]
+          }
+        ]
+      }
+    },
+    "seojin.single_image.specification.v1": {
+      "fieldPath": "/generatedMediaPlanning/characterSingleImage/singleImageSpecification",
+      "value": {
+        "viewpoint": "front three-quarter design view, face and costume layers readable",
+        "pose": "neutral grounded standing pose; weight balanced; arms relaxed; Joseon hwando remains sheathed and readable; no attack/action pose",
+        "framing": "centered full-body head-to-toe with clear space around silhouette; no crop",
+        "canvas": {
+          "width": 1024,
+          "height": 1536
+        },
+        "targetDisplaySize": {
+          "width": 96,
+          "height": 144
+        },
+        "safeArea": "left 96 px, right 96 px, top 96 px, bottom 128 px; the complete subject must remain inside all four insets",
+        "finalBackgroundPolicy": "transparent",
+        "generationBackground": {
+          "mode": "removable_solid",
+          "color": "#F2EFE6"
+        },
+        "noShadow": true,
+        "outline": {
+          "enabled": true,
+          "color": "#1F1A17",
+          "exactThicknessPx": 3,
+          "placement": "outside_silhouette"
+        },
+        "anchor": {
+          "type": "pelvis_root_ground_axis",
+          "pelvisOrRootPoint": "normalized canvas point (0.5,0.55)",
+          "groundContactAxis": "horizontal normalized line from (0.25,0.92) to (0.75,0.92)"
+        }
       }
     }
   }

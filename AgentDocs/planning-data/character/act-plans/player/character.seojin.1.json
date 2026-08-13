@@ -219,12 +219,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.pose_policy.v1",
+       "factId": "seojin.appearance.pose_policy.single_image.v1",
        "fieldPath": "/appearance/posePolicy",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.pose_policy.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.pose_policy.single_image.v1/value"
           },
           {
             "path": "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md",
@@ -233,12 +233,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.intended_display.v1",
+       "factId": "seojin.appearance.intended_display.single_image.v1",
        "fieldPath": "/appearance/intendedDisplay",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.intended_display.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.intended_display.single_image.v1/value"
           },
           {
             "path": "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md",
@@ -329,7 +329,7 @@
        "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/2",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
             "sourcePointerOrSection": "/designFacts/seojin.prohibition.supernatural_body.v1/value"
           },
           {
@@ -365,6 +365,116 @@
           {
             "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
             "sourcePointerOrSection": "/designFacts/seojin.prohibition.modern_westernized_beauty.v3/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.requirement.core_silhouette.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/0",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.requirement.core_silhouette.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.requirement.sheathed_weapon.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/1",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.requirement.sheathed_weapon.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.requirement.travel_wear.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/2",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.requirement.travel_wear.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.requirement.youthful_face.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/requiredElements/3",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.requirement.youthful_face.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.prohibition.foreign_design.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/0",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.prohibition.foreign_design.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.prohibition.luxury_hero.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/1",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.prohibition.luxury_hero.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.prohibition.supernatural_body.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/2",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.prohibition.supernatural_body.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.prohibition.mature_weathered_face.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/3",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.prohibition.mature_weathered_face.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.prohibition.modern_westernized_beauty.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/prohibitedElements/4",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.prohibition.modern_westernized_beauty.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.identity_consistency_lock.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/identityConsistencyLock",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.identity_consistency_lock.v1/value"
+          }
+        ]
+      },
+      {
+        "factId": "seojin.single_image.specification.v1",
+        "fieldPath": "/generatedMediaPlanning/characterSingleImage/singleImageSpecification",
+        "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.single_image.specification.v1/value"
           }
         ]
       }
@@ -438,11 +548,12 @@
       "낮고 단정한 검은 상투, 깨끗한 턱선, 곧은 눈썹과 또렷하고 차분한 눈매로 식별되는 젊은 한국 남성의 얼굴"
     ],
     "posePolicy": {
-      "mode": "neutral_provider_pose"
+      "mode": "exact",
+      "description": "Neutral grounded standing pose with balanced weight and relaxed arms; the Joseon hwando remains fully sheathed and readable; no attack or action pose."
     },
     "intendedDisplay": {
-      "assetType": "character_main_image",
-      "outputUsage": "인게임 전투에서 서진의 전신 방향별 캐릭터 본체와 캐릭터 선택 화면의 전신 미리보기",
+      "assetType": "character_single_image",
+      "outputUsage": "인게임 전투와 캐릭터 선택 화면에서 서진의 정체성과 복식 층을 읽는 단일 전신 캐릭터 이미지",
       "targetDisplaySize": {
         "unit": "px",
         "minimumPixelSize": {
@@ -453,14 +564,14 @@
           "width": 96,
           "height": 144
         },
-        "consumerViewportOrReference": "인게임 전투 카메라에서 캐릭터 전신 높이 약 96~144px로 표시되는 플레이어 캐릭터 본체"
+        "consumerViewportOrReference": "인게임 전투 카메라와 캐릭터 선택 화면에서 전신 높이 96~144px로 표시되는 단일 캐릭터 이미지"
       },
       "detailDensity": {
         "level": "medium",
-        "description": "96px 전신 높이에서도 남색 군졸복, 회갈색 겉옷, 수선된 미늘 갑옷, 환도 실루엣이 구분되어야 한다. 얼굴의 미세 주름이나 갑옷의 개별 장식은 식별 필수 요소로 만들지 않는다."
+        "description": "96px 전신 높이에서도 남색 군졸복, 회갈색 겉옷, 수선된 미늘 갑옷, 칼집에 든 환도 실루엣이 구분되어야 한다. 얼굴의 미세 주름이나 갑옷의 개별 장식은 식별 필수 요소로 만들지 않는다."
       },
       "providerCanvasPolicy": "profile_owned_technical_canvas",
-      "framingPolicy": "profile_owned_technical_framing",
+      "framingPolicy": "centered full-body head-to-toe with clear space around silhouette; no crop",
       "backgroundPolicy": "transparent"
     }
   },
@@ -534,6 +645,190 @@
     }
   ],
   "generatedMediaPlanning": {
+    "characterSingleImage": {
+      "readiness": "ready",
+      "requiredElements": [
+        {
+          "factId": "seojin.single_image.requirement.core_silhouette.v1",
+          "statement": "빛바랜 남색 군졸복, 수선된 반신 미늘 갑옷, 회갈색 포형 여행 겉옷이 한 전신 실루엣에서 함께 보여야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.palette.v1",
+            "seojin.appearance.materials.v1"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.requirement.sheathed_weapon.v1",
+          "statement": "장식 없는 조선식 환도와 짙은 나무 칼집이 허리에서 완전히 칼집에 든 상태로 선명하게 보여야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.weapon.v1",
+            "seojin.appearance.pose_policy.single_image.v1"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.requirement.travel_wear.v1",
+          "statement": "옷과 장비에는 오래 이동하고 싸운 인물로 읽히는 먼지, 마모, 덧댄 수선 흔적이 보여야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.materials.v1"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.requirement.youthful_face.v1",
+          "statement": "20대 중후반의 젊은 성인 한국 남성으로 읽히는 단정하고 매력적인 얼굴, 깨끗한 턱선, 곧은 눈썹과 또렷한 눈매가 일관되어야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3",
+            "seojin.appearance.identifying_features.v3"
+          ]
+        }
+      ],
+      "prohibitedElements": [
+        {
+          "factId": "seojin.single_image.prohibition.foreign_design.v1",
+          "statement": "한국 이외 문화권의 갑옷, 검, 문양, 장식 또는 복식 실루엣을 포함하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.weapon.v1"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.prohibition.luxury_hero.v1",
+          "statement": "새것처럼 빛나는 장수 갑옷, 왕실급 장식, 화려한 영웅 망토로 표현하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.costume.v1",
+            "seojin.appearance.palette.v1"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.prohibition.supernatural_body.v1",
+          "statement": "뿔, 발광 눈, 괴이한 피부색, 비인간형 팔다리 등 초자연적 신체 특징을 추가하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.body.v3",
+            "seojin.appearance.face.v3"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.prohibition.mature_weathered_face.v1",
+          "statement": "중년 또는 노년으로 읽히는 깊은 주름, 짙은 수염, 처진 얼굴선, 과도한 피로와 거친 노숙 인상을 포함하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3"
+          ]
+        },
+        {
+          "factId": "seojin.single_image.prohibition.modern_westernized_beauty.v1",
+          "statement": "현대 아이돌 스타일, 서양화된 얼굴 비례, 미성년 표현, 성적 대상화 또는 화려한 미용 장식을 추가하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3",
+            "seojin.appearance.hair.v3"
+          ]
+        }
+      ],
+      "identityConsistencyLock": {
+        "identityId": "character.seojin.1",
+        "referenceFacts": [
+          {
+            "sourcePointer": "/appearance/genderPresentation",
+            "evidenceFactIds": [
+              "seojin.appearance.gender_presentation.v3"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/body",
+            "evidenceFactIds": [
+              "seojin.appearance.body.v3"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/face",
+            "evidenceFactIds": [
+              "seojin.appearance.face.v3"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/hair",
+            "evidenceFactIds": [
+              "seojin.appearance.hair.v3"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/costume",
+            "evidenceFactIds": [
+              "seojin.appearance.costume.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/equipment",
+            "evidenceFactIds": [
+              "seojin.appearance.equipment.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/weapon",
+            "evidenceFactIds": [
+              "seojin.appearance.weapon.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/handedness",
+            "evidenceFactIds": [
+              "seojin.appearance.handedness.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/palette",
+            "evidenceFactIds": [
+              "seojin.appearance.palette.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/materials",
+            "evidenceFactIds": [
+              "seojin.appearance.materials.v1"
+            ]
+          },
+          {
+            "sourcePointer": "/appearance/identifyingFeatures",
+            "evidenceFactIds": [
+              "seojin.appearance.identifying_features.v3"
+            ]
+          }
+        ]
+      },
+      "singleImageSpecification": {
+        "viewpoint": "front three-quarter design view, face and costume layers readable",
+        "pose": "neutral grounded standing pose; weight balanced; arms relaxed; Joseon hwando remains sheathed and readable; no attack/action pose",
+        "framing": "centered full-body head-to-toe with clear space around silhouette; no crop",
+        "canvas": {
+          "width": 1024,
+          "height": 1536
+        },
+        "targetDisplaySize": {
+          "width": 96,
+          "height": 144
+        },
+        "safeArea": "left 96 px, right 96 px, top 96 px, bottom 128 px; the complete subject must remain inside all four insets",
+        "finalBackgroundPolicy": "transparent",
+        "generationBackground": {
+          "mode": "removable_solid",
+          "color": "#F2EFE6"
+        },
+        "noShadow": true,
+        "outline": {
+          "enabled": true,
+          "color": "#1F1A17",
+          "exactThicknessPx": 3,
+          "placement": "outside_silhouette"
+        },
+        "anchor": {
+          "type": "pelvis_root_ground_axis",
+          "pelvisOrRootPoint": "normalized canvas point (0.5,0.55)",
+          "groundContactAxis": "horizontal normalized line from (0.25,0.92) to (0.75,0.92)"
+        }
+      }
+    },
     "characterMainImage": {
       "readiness": "ready",
       "requiredElements": [
@@ -636,6 +931,7 @@
     "2026-08-12 기획 소유자의 이번 작업 한정 승인에 따라 legacy_incomplete 파일을 character_planning_v2로 마이그레이션하고 시각 디자인 결정을 완성했다.",
     "기존 commonDataRef, identity, combat, planningScore, stats, skills 값은 변경하지 않았다.",
     "2026-08-14 기획 소유자의 승인에 따라 v5 시험 결과에서 확인된 20대 중후반의 젊고 단정한 한국 남성 얼굴·체형·상투 식별 기준을 visual-design.v3 근거로 canonical appearance와 required/prohibited 요소에 반영했다.",
+    "2026-08-14 current character_single_image 승인에 따라 단일 viewpoint의 완전한 characterSingleImage 계약을 추가했으며, 기존 characterMainImage exact-8-way 계약은 read-only legacy evidence로 그대로 격리했다.",
     "메인 캐릭터의 재사용 가능한 선 중심 한국 전통 표현 규칙은 appearance 사실에 복사하지 않고 projectbs_character_restrained_ink_line@1.0.0 프로필에서만 관리하며, GeneratedMediaVisualPromptAuthoringGuide.md의 Canonical Character Expression Profile을 따른다."
   ]
 }
