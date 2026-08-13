@@ -1,86 +1,14 @@
-# PixelLab Character Pipeline Guide
+# PixelLab Character Legacy Audit Guide
 
-## 1. Purpose and Scope
-
-Guide Type: workflow/pipeline. This guide owns PixelLab character main-image
-and requested character-animation prompt conversion and provider execution. It
-also declares character-specific adapters used later by the common
-preservation/package task; it does not run them during generation.
-
-It does not design character identity or appearance, derive actions, evaluate
-results, promote assets, build Unity data, perform Git, or deploy.
-
-## 2. Required References
-
-Prompt authoring requires both the immutable `routingRecordFile` and its
-`planningHandoffFile`. It validates and consumes the router-selected row; it
-does not rerun route selection. New authoring writes only
-`generated_media_prompt_v2`; prompt v1 remains read-only compatibility.
+## Mandatory Authority
 
 ```text
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
-AgentDocs/planning-guides/character/CharacterGenerateImage.md
-AgentDocs/planning-guides/character/CharacterGenerateAnimation.md
-AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```
 
-The three character guides are legacy provider behavior references only. This
-guide replaces their execution ownership.
-
-Supported character asset/domain/profile pairs are closed by
-`generated_media_authoring_profile_registry_v1`. This guide does not accept an
-unregistered character domain or alternate technical profile.
-
-Priority is ContentFolderStructureGuide for storage, PixelLabPipelineGuide for
-stage ownership, the authoring profile registry for exact route pairs, planning
-handoff for approved meaning, GeneratedMediaVisualPromptAuthoringGuide for
-evidence-preserving visual normalization, this guide for character
-provider/adapter specialization, then legacy guides as profile evidence.
-Conflict blocks with `reference_contract_conflict`; never merge behaviors.
-
-## 3. Two Independent Runs
-
-### 3.1 Main character run
-
-```text
-character_main_image planning handoff
--> character prompt authoring record
--> PixelLab main character generation
--> generation record and provider-ref handoff; stop
--> ordered eight-way export and extraction
--> ordered_rotation_set evaluation package
--> evaluation request handoff
--> stop
-```
-
-Exactly eight ordered directions are required. A preview grid is not an export.
-Preserve the provider original and each extracted rotation with hashes.
-
-### 3.2 Character animation run
-
-```text
-character_animation planning handoff
--> verify approved PixelLab character identity
--> one prompt record per animationRequest
--> execute only requested action
--> generation record and provider-ref handoff; stop
--> character animation export and frame extraction
--> ordered_frame_set evaluation package
--> evaluation request handoff
--> stop
-```
-
-Do not assume main-image PASS inside this task. When planning policy requires an
-approved main image, `approvedCharacterPackageId` is mandatory external
-evidence. The evaluator remains a separate task.
+This retained filename only audits immutable historical PixelLab character
+records, stored eight-direction members, animation members and hashes. The
+direction/profile names are observed evidence, not generation instructions.
 
 ## 4. Prompt Authoring Contract
 
@@ -105,16 +33,6 @@ not read combat/skill lore to invent Attack, Idle, or Move descriptions.
 ## 5. Provider Generation Contract
 
 - use the exact PixelLab Create Character workflow;
-- if the supported browser-control helper fails before PixelLab is contacted,
-  perform one supported session reset/reconnect and retry from the same
-  immutable prompt record before declaring provider unavailability;
-- classify repository record-write failures independently from browser-control
-  failures. A browser helper error is not evidence that routing or prompt
-  records are unwritable, and a record-write error is not evidence that
-  PixelLab is unavailable;
-- after reconnecting, re-resolve the exact provider character/result identity
-  from the account gallery and never resubmit merely because the control
-  session was reset;
 - record provider character ID, tool/page, settings, seed when exposed, cost,
   attempts and result refs;
 - stop after a generation record and preservation handoff;

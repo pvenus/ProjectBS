@@ -1,19 +1,12 @@
-# PixelLab Character Generation Prompt
-
-검증된 prompt record를 PixelLab에 제출하고 provider 결과 참조를 기록합니다.
-다운로드·export·추출·패키징·평가는 수행하지 않습니다.
+# PixelLab Character Generation Legacy Audit Prompt
 
 ## Prompt
 
 ```text
-현재 ProjectBS 저장소에서 PixelLab 캐릭터 provider 생성 요청 하나만 실행해줘.
+이미 존재하는 PixelLab character generation evidence만 읽기 전용으로 감사해줘. 생성은 수행하지 마.
 
-참조 가이드:
-- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-- AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
-- AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
-- AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
-- AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
+필수 참조:
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 - AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
 
 Input:
@@ -27,8 +20,6 @@ Input:
 2. main은 eight-way 계약을, animation은 지정된 한 animationRequest와 character provider identity를 검증한다.
 3. stale/mismatch/누락이면 provider를 호출하지 않고 blocker를 반환한다.
 4. 저장된 provider field text를 바꾸지 않고 정확한 PixelLab Character tool/settings에 제출한다.
-4-1. PixelLab 접속 전 지원되는 browser-control helper 초기화가 실패하면 Browser 스킬의 공식 session reset/reconnect를 한 번 수행하고 동일 prompt record로 재시도한다. reset 뒤에는 provider gallery에서 동일 result identity를 먼저 조회하며, control session이 끊겼다는 이유만으로 재생성하지 않는다.
-4-2. routing/prompt/generation record 쓰기 실패와 provider-control 실패를 독립 판정한다. 한쪽 오류를 다른 쪽의 실패 근거로 사용하지 않는다.
 5. animationRequests에 있는 해당 요청만 실행하며 Attack/Idle/Move 고정 세트를 만들지 않는다.
 6. settings, cost evidence, attempts와 모든 provider result refs를 generated_media_generation_v1에 기록한다.
 7. deterministic provider-operation rule이 있으면 provisional ref만 기록하고 평가하지 않는다.

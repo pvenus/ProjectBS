@@ -199,6 +199,10 @@ namespace StageEditor
                 battle.battle != null
                 && battle.battle.BattleId == BattleId,
                 "Battle fixture reference was not resolved.");
+            Ensure(
+                choices[ChoiceExecutionType.Battle].rewards == null
+                || choices[ChoiceExecutionType.Battle].rewards.Count == 0,
+                "Legacy battle-entry reward was not removed.");
 
             ShopExecutionData shop =
                 (ShopExecutionData)choices[
@@ -402,7 +406,9 @@ namespace StageEditor
                    + "{\"choiceId\":\"choice.battle\","
                    + "\"executionConfig\":{\"type\":\"Battle\","
                    + "\"battle\":{\"battleId\":\""
-                   + BattleId + "\"}}},"
+                   + BattleId + "\"}},"
+                   + "\"rewards\":[{\"rewardType\":\"SpecialBattle\","
+                   + "\"rewardId\":\"" + BattleId + "\"}]},"
                    + "{\"choiceId\":\"choice.shop\","
                    + "\"executionConfig\":{\"type\":\"Shop\","
                    + "\"shop\":{\"shopType\":\"Rare\","

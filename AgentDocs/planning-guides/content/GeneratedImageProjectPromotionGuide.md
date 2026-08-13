@@ -25,9 +25,12 @@ Always read:
 ~~~text
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 ~~~
 
-Then resolve and read the exact domain download/evaluation guides in Section 5.
+For current package mode, the generated-media guides are mandatory. Then
+resolve and read the exact domain download/evaluation guides in Section 5.
 The completed evaluation package remains the authority for the result. This
 task verifies that package but does not score the image again.
 
@@ -40,7 +43,10 @@ The caller supplies generalized identity and approval facts only.
 
 ~~~text
 requestId: optional stable request id
-artifactType: required supported generalized type
+evaluationPackageId: preferred current package identity
+assetType: required for package mode
+domainType: required for package mode
+artifactType: required only for legacy mode
 contentId: required canonical content id
 evaluationRecordId: optional stable non-path evaluation record id
 replaceExisting: optional boolean, default false
@@ -50,6 +56,17 @@ replacementApprovalRef: required non-path approval reference when replacing
 evaluationRecordId is only a lookup discriminator. It does not prove Pass.
 When omitted, the task may use the single latest unambiguous completed record
 for the same artifactType and contentId.
+
+Exactly one identity mode is authoritative:
+
+~~~text
+current package mode: evaluationPackageId + assetType + domainType + contentId
+legacy mode: artifactType + contentId
+~~~
+
+Mixing modes returns promotion_identity_mode_conflict. Current
+`background_single_image` never aliases legacy `battle_background` or
+`imagegen_image`.
 
 ### 3.2 Fields the caller must not need
 
@@ -110,6 +127,9 @@ whether the artifact is a single file or set.
 | character_animation | Character | evaluated renamed frame set | Assets/ImagesGenerated/Character/animation | AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md and EvaluationAnimationGuide.md |
 | battle_background | Battle | one PNG | Assets/ImagesGenerated/Battle/background/{contentId}.background.png | AgentDocs/planning-guides/battle/BattleCreateGuide.md and the evaluation guide named by the report |
 | story_popup_main_image | Stage | one PNG | Assets/ImagesGenerated/Stage/popup_main/{contentId}.main.png | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md |
+| background_single_image + domainType=battle | Battle | one PNG, current package v2 | Assets/ImagesGenerated/Battle/background/{contentId}.background.png | AgentDocs/planning-guides/battle/BattleCreateGuide.md and AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md |
+| background_single_image + domainType=stage | Stage | one PNG, current package v2 | domain target resolver extension required | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md; block until a Stage background storage guide owns a canonical target |
+| background_single_image + domainType=environment | Environment | one PNG, current package v2 | domain target resolver extension required | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md; block until an Environment background storage guide owns a canonical target |
 
 Routing rules:
 
@@ -121,6 +141,16 @@ Routing rules:
    exact domain guide.
 6. A conflicting domain path blocks promotion with
    domain_storage_contract_conflict.
+7. Current background rows require the exact evaluationPackageId,
+   evaluationRecordId, `background_single_image_v2`, domainType and registered
+   background adapter identity through copy verification.
+8. Icon/background rows are never exchanged by media type or filename.
+9. Stage/environment background rows return
+   background_promotion_target_contract_missing until an exact domain guide
+   and ContentFolderStructureGuide contract define their canonical target. Do
+   not invent a folder.
+10. The legacy battle_background row remains artifactType-based compatibility;
+    the current battle row is package mode and does not reuse legacy identity.
 
 ## 6. Repository and Evaluation Package Resolution
 
@@ -134,7 +164,8 @@ same repository.
 
 Resolve the current PC's evaluation workspace in this order:
 
-1. exact evaluationRecordId for the requested artifactType and contentId;
+1. exact evaluationRecordId for the requested package identity and contentId,
+   or for the requested legacy artifactType and contentId;
 2. an existing same-artifact record referenced in the current task;
 3. the single latest completed record under the established domain evaluation
    root for the current PC;
@@ -142,7 +173,21 @@ Resolve the current PC's evaluation workspace in this order:
 
 Do not invent a local root or ask the caller to provide an absolute path.
 
-The selected package must contain or reliably link:
+The selected package must contain or reliably link the fields for its identity
+mode. Current package mode preserves the exact evaluationPackageId,
+assetType, domainType, contentId, structureProfile, evaluationRecordId, and
+immutable hashes. Legacy mode preserves artifactType and contentId and must not
+invent current package fields.
+
+~~~text
+current package mode: evaluationPackageId, assetType, domainType, contentId,
+                      structureProfile, evaluationRecordId
+legacy mode: artifactType, contentId, evaluationRecordId
+common: generated_image_evaluation_v1 structured result, completed report,
+        evaluated source manifest, member SHA-256, completion identity
+~~~
+
+The selected package must also contain or reliably link:
 
 ~~~text
 artifactType and contentId
@@ -288,6 +333,13 @@ evaluation_source_not_found
 evaluation_hash_missing
 evaluation_source_hash_mismatch
 artifact_identity_mismatch
+promotion_identity_mode_conflict
+evaluation_package_not_found
+evaluation_package_hash_mismatch
+background_structure_profile_mismatch
+background_promotion_adapter_mismatch
+background_promotion_target_contract_missing
+legacy_current_identity_conflict
 artifact_set_incomplete
 domain_storage_contract_conflict
 existing_project_artifact_requires_approval
@@ -308,6 +360,9 @@ generation, download, correction, or evaluation as recovery.
 - [ ] Input contains generalized identity and approval facts only.
 - [ ] No source, evaluation, or project path was required from the caller.
 - [ ] One exact artifact route was resolved internally.
+- [ ] Package mode preserved evaluationPackageId, assetType, domainType,
+      evaluationRecordId and structureProfile through promotion.
+- [ ] Icon/background and legacy/current identities were not exchanged.
 - [ ] A completed local evaluation package was found unambiguously.
 - [ ] Result is exactly Pass and tied to current source hashes.
 - [ ] Artifact identity and single-file or set membership match.

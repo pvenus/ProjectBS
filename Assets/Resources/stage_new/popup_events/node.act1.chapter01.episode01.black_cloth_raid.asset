@@ -16,9 +16,22 @@ MonoBehaviour:
   mainImage: {fileID: -3348295605585070447, guid: 5c9371485c7024a4b879b4955cd30c67, type: 3}
   icon: {fileID: 0}
   choices:
-  - choiceId: node.act1.chapter01.episode01.black_cloth_raid.next
+  - choiceId: choice.act1.chapter01.episode01.black_cloth_raid.next
     requirements: []
     visibleConditions: []
     rewards: []
-    completesEvent: 1
-    nextEvent: {fileID: 11400000, guid: 5ee0651f8f9144b2a92013ca908a745f, type: 2}
+    executionConfig:
+      rid: 257718110278910227
+  references:
+    version: 2
+    RefIds:
+    - rid: 257718110278910227
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 257718110278910228
+    - rid: 257718110278910228
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 5ee0651f8f9144b2a92013ca908a745f, type: 2}

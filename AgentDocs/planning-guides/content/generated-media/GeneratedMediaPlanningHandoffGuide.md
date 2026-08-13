@@ -1,15 +1,10 @@
 # Generated Media Planning Handoff Guide
 
-## 1. Purpose
+## Purpose and Authority
 
-Guide Type: schema/data-structure. This guide defines the immutable external
-planning handoff consumed by PixelLab and ImageGen prompt-authoring tasks.
-Generation tasks translate approved facts into provider prompts; they never
-invent identity, visual requirements, motion, sequence, or scene design.
-
-## 2. Authority and Scope
-
-Required authorities:
+Guide Type: current schema/data-structure. This guide defines
+`generated_media_planning_handoff_v2`, the only planning handoff eligible for a
+new Generated Media request.
 
 ```text
 AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
@@ -42,7 +37,7 @@ contentUsage: player-facing use of the generated media
 sourcePlanningFiles:
   - path: exact project-relative source path
     role: identity | design | motion | scene | runtime
-    sha256: exact canonical source-content hash
+    sha256: exact source hash
     revision: optional stable non-empty revision supplied by that source's authority
 planningSnapshot:
   capturedAt: UTC timestamp
@@ -58,76 +53,7 @@ projectTarget:
 `sourcePlanningFiles` and `planningSnapshot` are both required. A mutable source
 path without a snapshot/hash is insufficient.
 
-For a JSON source, `sourcePlanningFiles[].sha256` is SHA-256 of the same
-canonical JSON serialization defined in Section 3.1, not of checkout bytes.
-This makes the source identity independent of UTF-8 BOM, insignificant
-whitespace, and Git LF/CRLF conversion. For a registered non-JSON source, the
-domain handoff contract must define its canonical byte representation; absent
-that definition, the source is invalid rather than hashed as platform-local
-bytes.
-
-### 3.1 Canonical planning snapshot payload
-
-Every producer and consumer computes `planningSnapshot.snapshotHash` from this
-closed payload and no other representation:
-
-```yaml
-schemaVersion: generated_media_planning_snapshot_payload_v1
-requestId: exact handoff requestId
-assetType: exact canonical handoff assetType
-domainType: exact canonical handoff domainType
-contentId: exact canonical handoff contentId
-contentUsage: exact canonical handoff contentUsage
-sourcePlanningFiles: exact handoff entries sorted by path, then role, then sha256
-approvedFacts: exact planningSnapshot.approvedFacts value
-```
-
-For each source entry, the allowed keys are `path`, `role`, `sha256`, and the
-optional `revision`. Preserve `revision` unchanged when present and omit it when
-the source authority supplied none. Normalize project-relative path separators
-to `/` before sorting. Duplicate `(path, role)` entries are invalid.
-
-Serialize the payload using the canonical JSON rules in
-`GeneratedMediaRecordGuide.md`: UTF-8 without BOM, recursively sorted object
-keys, semantic array order preserved except the source-entry sort above, no
-insignificant whitespace, and no final newline. Then compute:
-
-```text
-snapshotHash = SHA256(canonical_json(snapshotPayload))
-```
-
-`planningSnapshot.capturedAt` is audit metadata and is deliberately excluded
-from the hash. A producer writes it once as an ISO-8601 UTC timestamp and reuses
-the complete existing handoff file for an identical request and snapshot.
-Identity and collision checks compare canonical JSON, so checkout-only BOM,
-formatting, or LF/CRLF differences neither rewrite the file nor create a false
-collision. A canonical value difference remains a hard collision.
-
-The repository reference producer for approved `character_main_image` planning
-is:
-
-```text
-AgentDocs/tools/generated-media/build-character-main-handoff.mjs
-```
-
-It writes the handoff JSON to stdout so the owning planning task can perform
-collision checks before creating the canonical file.
-
-For `character_main_image`, `approvedFacts` has this exact closed shape:
-
-```yaml
-characterIdentity: exact top-level characterIdentity value
-appearanceSpecification: exact top-level appearanceSpecification value
-requiredElements: exact top-level requiredElements value
-prohibitedElements: exact top-level prohibitedElements value
-rotationPolicy: generated_media_exact_8_way_v1
-```
-
-Unknown approved-fact keys are invalid. The top-level `rotationContract` is the
-technical expansion of `rotationPolicy`; it is not added to approved facts as a
-new planning decision.
-
-### 3.2 Canonical raw input
+### 3.1 Canonical raw input
 
 The fields above plus the flattened type-specific fields in Section 4 are the
 authoritative raw `generated_media_planning_handoff_v1` shape. In particular:
@@ -148,7 +74,7 @@ that authority supplies no revision, omit the key; do not synthesize it from a
 timestamp, Git state, SHA-256, or mutable planning content. `sha256` and
 `planningSnapshot.snapshotHash` remain required whether revision exists or not.
 
-### 3.3 Allowed compatibility envelope
+### 3.2 Allowed compatibility envelope
 
 Legacy callers may use `generated_media_planning_handoff_compat_v1` with only
 these aliases in addition to unchanged common identity/source/snapshot fields:
@@ -218,9 +144,7 @@ AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.m
 ```
 
 ```yaml
-characterIdentity:
-  identity: exact approved canonical identity object
-  identityConsistencyLocks: exact approved appearance field paths
+characterIdentity: approved canonical identity and identity-consistency locks
 appearanceSpecification: approved structured genderPresentation, body/face/hair, costume,
   equipment, weapon, handedness, palette/material, identifying features,
   pose policy, and intendedDisplay including targetDisplaySize and detailDensity
@@ -362,9 +286,5 @@ planning handoff.
 
 ```text
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```

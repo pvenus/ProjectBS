@@ -1,23 +1,17 @@
 # Generated Media Request Routing Prompt
 
-외부 Generated Media 기획 handoff 하나를 검증하고 정확히 하나의 provider
-prompt-authoring pipeline으로 라우팅하는 단일 진입점 프롬프트입니다.
-
 ## Prompt
 
 ```text
-현재 ProjectBS 저장소에서 외부 Generated Media 기획 handoff 하나를 검증·정규화하고 정확히 하나의 provider prompt-authoring pipeline으로 route해줘. provider prompt를 작성하거나 선택한 prompt를 실행하지 마.
+현재 ProjectBS 저장소에서 generated_media_planning_handoff_v2 하나를 검증하고 current ImageGen authoring role로 route해줘. provider prompt와 media를 생성하지 마.
 
 참조 가이드:
 - AgentDocs/planning-guides/prompt/PromptAuthoringGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
-- AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
-- AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
-- AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md
-- AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md
-- AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
 
 Input:
 - planningHandoffFile: {project_relative_canonical_or_compat_generated_media_planning_handoff_path}
@@ -33,13 +27,13 @@ canonical raw handoff 필수 내용:
 
 허용 compatibility input:
 - schemaVersion=generated_media_planning_handoff_compat_v1일 때만 artifactType, outputUsage, top-level planningRevision과 허용 specification container를 사용할 수 있다.
-- alias/container 허용 목록과 canonical target은 GeneratedMediaPlanningHandoffGuide.md Section 3.3만 따른다.
+- alias/container 허용 목록과 canonical target은 GeneratedMediaPlanningHandoffGuide.md Section 3.2만 따른다.
 
 작업:
 1. 현재 workspace에서 planningHandoffFile을 읽어 변경하지 않은 rawInput으로 캡처하고 canonical 또는 허용 compatibility schemaVersion인지 확인한다.
 2. compatibility schema이면 alias/container를 canonical raw target으로 먼저 해석한다. alias와 canonical 값 불일치 및 specification container와 대응 flattened canonical field의 불일치는 모두 compatibility_alias_conflict, 복수 canonical asset 후보는 ambiguous_asset_type, 미등록 legacy asset alias는 unsupported_asset_type으로 단일 판정한다. 이 판정은 compatibility normalization 단계에서 수행한다. canonicalHandoff와 별도 compatibilityEvidence를 가진 compatibilityNormalizedInput을 만들고 top-level planningRevision으로 source entry를 수정하지 않는다. 그 다음 required-field validation과 unknown-field rejection을 순서대로 수행한다. canonical raw input에 normalized field를 요구하지 않는다.
 3. 모든 sourcePlanningFiles를 읽어 path, SHA-256, optional revision을 검증한다. planning producer의 canonical snapshot contract로 snapshotHash를 검증하고 GeneratedMediaRecordGuide.md 규칙으로 planning_hash를 재계산한다. 검증 가능한 snapshot contract가 없으면 중단한다.
-4. canonical contentUsage를 normalized outputUsage로 매핑한다. 모든 source revision이 존재하고 동일하면 normalized planningRevision으로 계산하고, 모든 source에서 revision이 생략됐으면 normalized planningRevision도 생략한다. mixed/partial/conflicting revision만 차단한다. compatibility top-level revision은 snapshot-covered이고 모든 source에 동일 적용될 때만 허용한다.
+4. canonical contentUsage를 normalized outputUsage로 매핑한다. 모든 source revision이 동일하면 normalized planningRevision으로 계산하고, missing/mixed/partial revision은 차단한다. compatibility top-level revision은 snapshot-covered이고 모든 source에 동일 적용될 때만 허용한다.
 5. canonical requestId, assetType, domainType, contentId, contentUsage, requiredElements, prohibitedElements와 assetType별 flattened type fields의 존재·비모호성을 검증한 뒤 normalized specification container를 조립한다.
 6. 누락된 required/prohibited 요소, character identity·외형·동작, icon 의미·상징, animation sequence·loop·frame·runtime boundary, ImageGen 장면·구도·카메라를 추론하거나 보충하지 않는다.
 7. GeneratedMediaRequestRoutingGuide.md의 alias 규칙만 적용해 assetType/domainType/profile을 canonical enum/profile로 정규화한다. 파일명, 설명 유사도 또는 provider 가용성으로 route하지 않는다.
@@ -56,25 +50,16 @@ canonical raw handoff 필수 내용:
 
 Output:
 - status: routed
-- routingRecordId / Record Path / SHA-256
-- Router Version / Profile Registry Version / Selected Registry Row ID
-- Raw Input Schema / SHA-256 / Compatibility Applied
-- Compatibility-Normalized Input Hash
-- selectedPipeline
-- selectedAuthoringPrompt
-- assetType / domainType / contentId
-- normalizedRequest
-- appliedProfile
-- sourcePlanningFiles
-- planningSnapshotHash
-- routingReason
-- Authoring Handoff
-- Idempotency Result: created | reused_identical
+- routingRecordId / path / hash
+- registryVersion / selectedRegistryRowId
+- selectedPipeline / selectedAuthoringPrompt
+- assetType / domainType / contentId / optional animationRequestId
+- normalizedRequest / planningSnapshotHash / routingReason
 - nextStep: authoring
 
 실패 시 Output:
 - status: blocked
-- failureType: missing_planning_handoff | invalid_planning_handoff | invalid_compatibility_envelope | compatibility_alias_conflict | planning_revision_conflict | missing_asset_type | ambiguous_asset_type | missing_required_elements | missing_prohibited_elements | missing_type_specification | unsupported_asset_type | invalid_domain_profile | conflicting_routing_evidence | unreadable_source_planning | planning_snapshot_mismatch | missing_output_usage | unsupported_domain_type | routing_record_collision | routing_record_write_failed | routing_index_write_failed
+- failureType: missing_planning_handoff | invalid_planning_handoff | invalid_compatibility_envelope | compatibility_alias_conflict | planning_revision_conflict | missing_asset_type | ambiguous_asset_type | missing_required_elements | missing_prohibited_elements | missing_type_specification | unsupported_asset_type | invalid_domain_profile | conflicting_routing_evidence | unreadable_source_planning | planning_snapshot_mismatch | missing_planning_revision | missing_output_usage | unsupported_domain_type | routing_record_collision | routing_record_write_failed | routing_index_write_failed
 - missingFields
 - conflictingFields
 - candidatePipelines

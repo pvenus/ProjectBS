@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Item;
-using Common;
-using Common.SO;
 using Character;
 
 namespace Stage.UI
@@ -35,10 +32,6 @@ namespace Stage.UI
         [SerializeField] private TMP_Text resultText;
         [SerializeField] private Button confirmButton;
         [SerializeField] private TMP_Text confirmButtonText;
-
-        [Header("Rewards")]
-        [SerializeField] private List<Image> rewardIcons = new();
-        [SerializeField] private List<TMP_Text> rewardTexts = new();
 
         [Header("Options")]
         [SerializeField] private bool hideOnAwake = true;
@@ -116,8 +109,6 @@ namespace Stage.UI
                 resultText.gameObject.SetActive(false);
             }
 
-            ClearRewardViews();
-
             if (confirmButton != null)
             {
                 confirmButton.gameObject.SetActive(false);
@@ -151,8 +142,6 @@ namespace Stage.UI
             currentNode = null;
 
             ClearChoiceButtons();
-            ClearRewardViews();
-
             if (resultText != null)
             {
                 resultText.text = string.Empty;
@@ -549,11 +538,7 @@ namespace Stage.UI
             bool hasResult = !string.IsNullOrWhiteSpace(result)
                 && !string.Equals(result, (choice != null ? choice.choiceId : string.Empty) + ".result");
 
-            bool hasRewards = choice != null
-                && choice.rewards != null
-                && choice.rewards.Count > 0;
-
-            if (!hasResult && !hasRewards)
+            if (!hasResult)
             {
                 HandleConfirmButtonClicked();
                 return;
@@ -573,7 +558,6 @@ namespace Stage.UI
                 }
             }
 
-            RefreshRewardViews(choice);
             ClearChoiceButtons();
 
             if (confirmButton != null)
@@ -591,139 +575,6 @@ namespace Stage.UI
         private void HandlePopupEventClosed(PopupEventSO popupEvent, RoundNode node)
         {
             Hide();
-        }
-
-        private void RefreshRewardViews(PopupEventChoice choice)
-        {
-            ClearRewardViews();
-
-            if (choice == null
-                || choice.rewards == null
-                || choice.rewards.Count == 0)
-            {
-                return;
-            }
-
-            int count = Mathf.Min(rewardIcons.Count, choice.rewards.Count);
-
-            for (int i = 0; i < count; i++)
-            {
-                PopupEventRewardData reward = choice.rewards[i];
-                Image icon = rewardIcons[i];
-                TMP_Text text = i < rewardTexts.Count
-                    ? rewardTexts[i]
-                    : null;
-
-                if (icon != null)
-                {
-                    icon.gameObject.SetActive(true);
-                    icon.sprite = GetRewardIcon(reward);
-                    icon.enabled = icon.sprite != null;
-                }
-
-                if (text != null)
-                {
-                    text.gameObject.SetActive(true);
-                    text.text = GetRewardText(reward);
-                }
-            }
-        }
-
-        private void ClearRewardViews()
-        {
-            foreach (Image icon in rewardIcons)
-            {
-                if (icon == null)
-                {
-                    continue;
-                }
-
-                icon.sprite = null;
-                icon.enabled = false;
-                icon.gameObject.SetActive(false);
-            }
-
-            foreach (TMP_Text text in rewardTexts)
-            {
-                if (text == null)
-                {
-                    continue;
-                }
-
-                text.text = string.Empty;
-                text.gameObject.SetActive(false);
-            }
-        }
-
-        private Sprite GetRewardIcon(PopupEventRewardData reward)
-        {
-            if (reward == null)
-            {
-                return null;
-            }
-
-            Sprite runtimeIcon = GetRuntimeRewardIcon(reward);
-            if (runtimeIcon != null)
-            {
-                return runtimeIcon;
-            }
-
-            if (LibraryManager.Instance == null)
-            {
-                return null;
-            }
-
-            RewardVisualLibrarySO.RewardVisualEntry visual =
-                LibraryManager.Instance.GetRewardVisual(reward.rewardType);
-
-            return visual != null
-                ? visual.icon
-                : null;
-        }
-
-        private Sprite GetRuntimeRewardIcon(PopupEventRewardData reward)
-        {
-            switch (reward.targetData)
-            {
-                case RelicSO relic:
-                    return relic.icon;
-
-                case StrategicSkillItemSO strategicSkillItem:
-                    return strategicSkillItem.icon;
-
-                case AIFunctionSO function:
-                    return function.icon;
-            }
-
-            return null;
-        }
-
-        private string GetRewardText(PopupEventRewardData reward)
-        {
-            if (reward == null)
-            {
-                return string.Empty;
-            }
-
-            switch (reward.rewardType)
-            {
-                case PopupEventRewardType.Gold:
-                    return "+" + reward.value;
-
-                case PopupEventRewardType.Hp:
-                    return "+" + reward.value;
-
-                case PopupEventRewardType.HpPercent:
-                    return "+" + reward.value + "%";
-
-                case PopupEventRewardType.Reputation:
-                case PopupEventRewardType.Faith:
-                    return reward.value >= 0
-                        ? "+" + reward.value
-                        : reward.value.ToString();
-            }
-
-            return string.Empty;
         }
 
         private void HandleConfirmButtonClicked()

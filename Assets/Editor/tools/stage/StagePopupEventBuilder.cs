@@ -558,15 +558,9 @@ namespace ResourceTools.Stage
                     "battle.battleId is required.");
             }
 
-            ScriptableObject battleAsset = ResolveBattleData(
-                json.battleId,
-                result,
-                nodeId,
-                choiceId);
-            if (battleAsset is BattleSO battleSO)
-            {
-                data.battle = battleSO;
-            }
+            data.battle =
+                StageChoiceExecutionAssetResolver.ResolveBattle(
+                    json.battleId);
         }
 
         private static ChoiceExecutionData BuildShopExecutionData(
@@ -609,6 +603,9 @@ namespace ResourceTools.Stage
 
             data.shopType = shopType;
             data.itemCount = json.itemCount;
+            data.pools =
+                StageChoiceExecutionAssetResolver.ResolveShopPools(
+                    json.poolIds);
         }
 
         private static ChoiceExecutionData BuildShrineExecutionData(
@@ -634,34 +631,30 @@ namespace ResourceTools.Stage
             string nodeId,
             string choiceId)
         {
-            string configId = json?.configId;
-            if (string.IsNullOrWhiteSpace(configId))
-            {
-                configId = json?.godId;
-            }
-
-            if (string.IsNullOrWhiteSpace(configId))
+            if (string.IsNullOrWhiteSpace(json?.configId))
             {
                 throw CreateChoiceImportException(
                     "SHRINE_CONFIG_ID_REQUIRED",
                     nodeId,
                     choiceId,
-                    "shrine.configId or shrine.godId is required.");
+                    "shrine.configId is required.");
             }
 
-            ScriptableObject shrineConfigAsset = ResolveShrineConfig(
-                configId,
-                result,
-                nodeId,
-                choiceId);
-            if (shrineConfigAsset is ShrineConfigSO shrineConfigSO)
+            if (string.IsNullOrWhiteSpace(json.godId))
             {
-                data.config = shrineConfigSO;
+                throw CreateChoiceImportException(
+                    "SHRINE_GOD_ID_REQUIRED",
+                    nodeId,
+                    choiceId,
+                    "shrine.godId is required.");
             }
-            else if (shrineConfigAsset is ShrineGodSO shrineGodSO)
-            {
-                data.god = shrineGodSO;
-            }
+
+            data.config =
+                StageChoiceExecutionAssetResolver.ResolveShrineConfig(
+                    json.configId);
+            data.god =
+                StageChoiceExecutionAssetResolver.ResolveShrineGod(
+                    json.godId);
         }
 
         private static ChoiceExecutionData BuildCompleteEventExecutionData()
@@ -773,7 +766,21 @@ namespace ResourceTools.Stage
 
         private static void TrySetRewards(object choice, List<PopupEventRewardJson> rewards, BuildResult result, string nodeId, string choiceId)
         {
-            if (rewards == null || rewards.Count == 0)
+            List<PopupEventRewardJson> payoutRewards = rewards?
+                .Where(reward =>
+                    !IsLegacyExecutionRewardType(reward?.rewardType))
+                .ToList();
+
+            int ignoredExecutionRewardCount =
+                (rewards?.Count ?? 0) - (payoutRewards?.Count ?? 0);
+            if (ignoredExecutionRewardCount > 0)
+            {
+                result.warnings.Add(
+                    $"Ignored {ignoredExecutionRewardCount} legacy execution reward(s). "
+                    + $"ChoiceExecutionConfig owns the transition. node={nodeId}, choice={choiceId}");
+            }
+
+            if (payoutRewards == null || payoutRewards.Count == 0)
             {
                 SetMemberValue(choice, "rewards", null);
                 return;
@@ -792,7 +799,7 @@ namespace ResourceTools.Stage
                 return;
             }
 
-            var rewardObjects = rewards.Select((rewardJson, rewardIndex) =>
+            var rewardObjects = payoutRewards.Select((rewardJson, rewardIndex) =>
             {
                 var reward = CreateChoiceInstance(rewardType);
                 if (reward == null)
@@ -838,6 +845,21 @@ namespace ResourceTools.Stage
             }
 
             SetMemberValue(choice, "rewards", list);
+        }
+
+        private static bool IsLegacyExecutionRewardType(
+            string rewardType)
+        {
+            return rewardType != null
+                && (rewardType.Equals(
+                        "SpecialBattle",
+                        StringComparison.OrdinalIgnoreCase)
+                    || rewardType.Equals(
+                        "BossBattle",
+                        StringComparison.OrdinalIgnoreCase)
+                    || rewardType.Equals(
+                        "NextEvent",
+                        StringComparison.OrdinalIgnoreCase));
         }
 
         private static ScriptableObject BuildRewardTargetData(

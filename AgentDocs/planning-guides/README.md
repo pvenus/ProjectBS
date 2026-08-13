@@ -49,44 +49,53 @@ Current generated-media request routing and provider pipelines:
 
 ```text
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenIconPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenBackgroundPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenAnimationPipelineGuide.md
 ```
 
-The current provider structure is `PixelLab -> Character/Icon/Animation` and
-`ImageGen`. New integrations use `assetType + domainType`; the earlier
-`artifactType` remains a compatibility alias only.
+Current `background_single_image_v2` continues through these shared downstream
+entries without becoming a legacy background identity:
 
-All four authoring pipelines require the router's immutable record path plus
-the matching planning handoff path. New prompt records use
-`generated_media_prompt_v2`; `generated_media_prompt_v1` is read-only
-compatibility. Storage `directoryVersion=v1` is independent of prompt record
-schema version.
+```text
+AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+```
+
+The current v2 provider structure is ImageGen-only with exactly four roles:
+character single image, icon single image, background single image, and one
+character/skill animationRequestId. PixelLab
+guides and v1 rows are deprecated read-only legacy audit contracts.
+
+Current authoring uses planning handoff v2, registry/router v2,
+generated_media_prompt_v3, generated_media_generation_v2, and v2 storage.
+Legacy v1/v2 prompt and v1 generation records remain immutable.
 
 Legacy generated-media migration:
 
 | Existing guide | Status | replacedBy / new role |
 | --- | --- | --- |
 | AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md | compatibility envelope for generated_image_prompt_v1 | generated-media planning handoff plus provider child prompt-authoring contracts |
-| AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md | authoritative generation-only boundary and compatibility router | PixelLabPipelineGuide.md or ImageGenPipelineGuide.md for provider execution, then GeneratedMediaPreservationPackagingGuide.md |
-| AgentDocs/planning-guides/character/CharacterGenerateImage.md | deprecated execution contract; retained as provider/profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md |
-| AgentDocs/planning-guides/character/CharacterGenerateAnimation.md | deprecated execution contract; retained as provider/profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md |
-| AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md | deprecated execution contract; retained as export evidence | AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md + PixelLabCharacterPipelineGuide.md adapter |
-| AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md | deprecated execution contract; retained as skill icon profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md |
-| AgentDocs/planning-guides/item/ItemIconGenerationGuide.md | deprecated execution contract; retained as item icon profile/evaluation evidence | AgentDocs/planning-guides/content/generated-media/PixelLabIconPipelineGuide.md |
-| AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | deprecated execution contract; retained as animation profile evidence | AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md |
-| AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md | deprecated execution contract; retained as sheet extraction evidence | AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md + PixelLabAnimationPipelineGuide.md adapter |
-| AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md image execution | deprecated execution contract; retained as stage profile evidence | AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md |
-| AgentDocs/planning-guides/battle/BattleCreateGuide.md background-image execution | deprecated execution contract; retained as battle profile evidence | AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md |
+| AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md | legacy generation-only compatibility boundary | GeneratedMediaImageGenOnlyContractGuide.md and the four current ImageGen role guides |
+| AgentDocs/planning-guides/character/CharacterGenerateImage.md | deprecated legacy evidence | ImageGenCharacterImagePipelineGuide.md for new single-view requests |
+| AgentDocs/planning-guides/character/CharacterGenerateAnimation.md | deprecated legacy evidence | ImageGenAnimationPipelineGuide.md for one animationRequestId |
+| AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
+| AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md | deprecated legacy profile evidence | ImageGenIconPipelineGuide.md with skill profile v2 |
+| AgentDocs/planning-guides/item/ItemIconGenerationGuide.md | deprecated legacy profile evidence | ImageGenIconPipelineGuide.md with item profile v2 |
+| AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | deprecated legacy profile evidence | ImageGenAnimationPipelineGuide.md with one animationRequestId |
+| AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
+| AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md image execution | deprecated historical evidence | ImageGenBackgroundPipelineGuide.md after a new v2 stage background handoff |
+| AgentDocs/planning-guides/battle/BattleCreateGuide.md background-image execution | deprecated historical evidence | ImageGenBackgroundPipelineGuide.md after a new v2 battle background handoff |
 
 Do not delete legacy guides until their profile and evaluation contracts have
 dedicated replacements and all callers have migrated.

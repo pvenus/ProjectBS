@@ -1,42 +1,37 @@
-# Generated Media Evaluation Package Guide
+# Generated Media Current Evaluation Package Guide
 
-## 1. Purpose
+## Purpose and Boundary
 
-Guide Type: schema/data-structure. This guide normalizes preserved PixelLab and
-ImageGen outputs for a separate evaluation task. Packaging describes immutable
-media; it does not generate, score, repair, approve, promote, or publish.
+Guide Type: current v2 schema/data-structure authority. It converts a validated
+`generated_media_preservation_v2` record into an immutable evaluation package.
+It does not generate, transform, score, approve, promote, publish, or call a
+provider. Legacy v1 packages and profiles are read only under
+`AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md`.
 
-## 2. Authority and Boundary
+## Authority
 
 ```text
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
-AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 ```
 
-ContentFolderStructureGuide owns staging/project separation. The preservation
-guide owns byte acquisition and extraction. This guide owns package identity,
-canonical hashing, profiles, sealing, and evaluation handoff. Evaluation guides
-own scores and verdicts.
+Current input is ImageGen-only and must form this exact chain:
 
-## 3. Staging and Immutable Layout
+```text
+planning_handoff_v2 -> routing_v2 -> prompt_v3 -> generation_v2
+-> preservation_v2 -> evaluation_package_v2
+```
 
-Resolve `{evaluationStagingRoot}` from current-PC configuration. Never accept a
-foreign absolute root. The staging source must not equal or sit below the
-project target.
+## Layout and Identity
 
-Assemble on the same filesystem in a non-canonical temporary path:
+Resolve `{evaluationStagingRoot}` from current-PC configuration. A foreign
+absolute root blocks. Staging must differ from and not sit below projectTarget.
 
 ```text
 {evaluationStagingRoot}/.assembling/{requestId}/{preservationRecordId}.{attemptId}/
-```
-
-This path is never an evaluation source. After payload validation and package
-ID calculation, the immutable final layout is:
-
-```text
 {evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/
   planning/
   prompt/
@@ -48,15 +43,11 @@ ID calculation, the immutable final layout is:
   evaluation-request.json
 ```
 
-Every copied file has SHA-256. Source bytes are immutable after preservation.
-Evaluator previews belong in evaluation evidence, not this package.
-
-## 4. Non-circular Identity and Hashing
-
-`manifest.json` is an envelope around `manifestPayload`.
+Animation inserts `{animationRequestId}` after `{contentId}`. The temporary
+directory is never an evaluation source. Every member has a lowercase SHA-256.
 
 ```yaml
-schemaVersion: generated_media_evaluation_package_v1
+schemaVersion: generated_media_evaluation_package_v2
 packageId:
 manifestPayloadHash:
 manifestPayload: {}
@@ -65,61 +56,37 @@ evaluationReadiness: ready | blocked
 evaluationBlockers: []
 ```
 
-Canonical hash input is only `manifestPayload`. Exclude `packageId`,
-`manifestPayloadHash`, `sealedAt`, readiness/blockers, absolute roots, and any
-signature/hash derived from this payload. Canonicalization is UTF-8 JSON with
-object keys sorted lexicographically, array order preserved, no insignificant
-whitespace, LF string newlines, and no BOM.
+Canonical JSON is UTF-8 without BOM, lexicographically sorted object keys,
+preserved array order, no insignificant whitespace and LF strings. Hash only
+`manifestPayload`; exclude envelope fields, absolute roots and derived hashes.
 
 ```text
-manifestPayloadHash = SHA256(canonical_json(manifestPayload))
-packageId = evalpkg.{assetType}.{contentId}.{requestId}.{manifestPayloadHash[0:12]}
+manifestPayloadHash=SHA256(canonical_json(manifestPayload))
+packageId=evalpkg2.{assetType}.{contentId}.{optionalAnimationRequestId}.{manifestPayloadHash[0:16]}
 ```
 
-Deterministic verification:
+The final directory is atomically renamed after schema and member verification.
+An identical existing package is reused; differing bytes at the same identity
+block `package_collision`. Sealed packages are immutable.
 
-1. validate payload schema and profile extension;
-2. canonicalize the payload exactly once;
-3. recompute `manifestPayloadHash`;
-4. recompute `packageId` from payload identity and hash prefix;
-5. compare both envelope values;
-6. verify member hashes; then write `sealedAt` and readiness.
-
-Finalize only after all steps pass. On the same filesystem, flush files when
-supported and atomically rename the complete temporary directory to
-`{packageId}`. If direct atomic rename is unavailable, copy to a sibling
-`.finalizing-{packageId}`, reverify every byte/hash, then rename it. Never expose
-a partial canonical package directory.
-
-Never overwrite an existing canonical path. If its packageId,
-manifestPayloadHash, member hashes, and bytes all match, reuse it idempotently
-and discard the temporary assembly. Any mismatch is `package_collision`. A
-different payload produces a different packageId and final path. Temporary
-data may remain as blocked evidence but is never called sealed.
-
-Never overwrite a sealed package. Changed stable payload facts create a new
-hash and package ID. Changing only readiness/blockers or seal time does not
-change the payload hash; after sealing, even envelope changes require a new
-seal record rather than mutation.
-
-## 5. manifestPayload Contract
+## manifestPayload v2
 
 ```yaml
 requestId:
-assetType:
-domainType:
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
 contentId:
-legacyArtifactType: optional compatibility alias
+animationRequestId: exactly one scalar for animation; absent otherwise
 planningSnapshotHash:
+routingRecordId:
 promptRecordId:
-providerPromptOriginalHash:
+promptRecordSha256:
 generationRecordId:
+generationRecordSha256:
 preservationRecordId:
-provider:
-providerResultRefs: []
-providerSettings:
-generationAttempts: []
-structureProfile:
+preservationPayloadHash:
+provider: imagegen
+structureProfile: character_single_image_v2 | icon_single_image_v2 | background_single_image_v2 | animation_gif_frame_set_v2
 profileExtension: {}
 members:
   - memberId:
@@ -136,164 +103,162 @@ projectTarget:
   status: informational_only
 ```
 
-`provider-prompt.txt` is byte-equal to the submitted prompt after LF
-normalization. All relative paths resolve within the package.
-Provider comparison uses ASCII lowercase and the stored value must be canonical
-`pixellab` or `imagegen`; any other value blocks sealing.
+Unknown or missing fields fail. Relative paths must remain inside the package.
+The copied planning snapshot, copy-ready provider prompt, generation record,
+preservation record, original media and extracted members must hash-match their
+authoritative records.
 
-## 6. Profile Extension Schemas
+## Closed Current Structure Profiles
 
-Schemas are closed: unknown fields fail with `unknown_profile_field`; missing
-required fields block sealing. Optional fields may be omitted. `null` is valid
-only where explicitly stated. Profile member `order` is unique and contiguous
-from zero.
+### character_single_image_v2
 
-### 6.1 ordered_rotation_set
+Exactly one approved-view primary image. Require identityConsistencyLock,
+viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, final background,
+generation-background removal evidence, noShadow, outline, and
+`pelvis_root_ground_axis` with pelvis/root point and ground-contact axis.
 
-Required `profileExtension`:
+### icon_single_image_v2
 
-```yaml
-directionOrder: [north, north_east, east, south_east, south, south_west, west, north_west]
-expectedCount: 8
-identityConsistencyRequired: true
-```
+Exactly one primary icon. Require identityConsistencyLock, exact icon profile,
+framing, canvas, targetDisplaySize, safeArea, final/generation background,
+noShadow, outline, and `visual_center` point.
 
-Exactly eight members are required. Each member `profileData` requires
-`direction` and `rotationIndex`; rotationIndex equals member order and direction
-equals the corresponding directionOrder entry. No duplicates or extras.
+### background_single_image_v2
 
-### 6.2 ordered_frame_set
+Exactly one preserved original background image. Require exact registered
+background profile, scene contract, composition/viewpoint, horizon and ordered
+depth layers, playable/readability area, subject inclusions/exclusions,
+canvas/aspect, target display, safe area, final background policy,
+content/scene consistency lock and `scene_composition_anchor`. Reject icon
+visual-center, icon outline/silhouette and small-size icon-readability fields.
 
-Required `profileExtension`:
+The evaluation request keeps background `artifactType`, `evaluationDomain`,
+structureProfile and promotion target identity distinct from an icon even when
+both source members are one PNG.
 
-```yaml
-animationRequestId:
-animationType: attack | idle | move
-directionOrder: non-empty ordered directions
-loopMode: loop | one_shot | hold_last
-timingMode: per_frame_ms | uniform_fps
-uniformFps: required positive integer only for uniform_fps
-expectedFrameCountByDirection: {}
-```
+For this profile, set `artifactType=background_single_image`, preserve the
+registered `domainType` as evaluationDomain, and carry projectTarget only as
+the approved informational promotion destination. The later evaluator and
+promotion task must route by this identity tuple and never by `.png` shape.
 
-Each frame member requires `animationRequestId`, `animationType`, `direction`,
-`frameIndex`, `frameOrder`, and `timingMs`. For `uniform_fps`, do not round one
-frame duration repeatedly. For zero-based global frame order `n`, compute
-`boundaryMs(n)=round_half_up(n * 1000 / uniformFps)` using exact rational
-arithmetic, then `timingMs(n)=boundaryMs(n+1)-boundaryMs(n)`. This distributes
-remainder milliseconds deterministically and bounds cumulative error below
-one millisecond. Reject zero/negative durations, non-integer FPS, floating-point
-shortcut results, or a timing array that differs from this calculation. For
-`per_frame_ms`, every supplied timingMs is a positive integer. Frames sort by directionOrder then ascending
-frameIndex; frameOrder is global contiguous order. Missing directions, count
-mismatch, duplicate frame index, unsupported animationType, or timing mismatch
-blocks. Optional `sourceExportMemberId` links to a preserved export.
+### animation_gif_frame_set_v2
 
-### 6.3 single_image
+Require exactly one animationRequestId, hashed reference image, approved final
+frame count/timing/order/loop/key poses, fixed cell, scale lock, intentional
+vertical-motion policy, background/noShadow/outline and `masterFirst=true`.
+Character profile requires `pelvis_root_ground_axis`; skill profile requires
+`effect_origin`.
 
-Required `profileExtension`:
+Members must include the coherent master, the completed GIF, and contiguous PNG
+frames extracted by reopening that GIF. PNG count and order equal the approved
+final frame count. Per-frame crop, scale, silhouette-center, changed cell size,
+or unapproved vertical-motion removal blocks readiness.
+
+## evaluation-request.json
 
 ```yaml
-primaryMemberId:
-selectedProviderResultRef:
-selectionStatus: provisional_not_evaluated
-originalMediaRole: icon_original | imagegen_original
-```
-
-Exactly one primary source member is allowed and its ID/ref must match the
-preservation record. Optional `providerMimeType` may be omitted, not guessed.
-Preview, thumbnail, or unselected variants cannot be primary members.
-
-### 6.4 paired_sheet_animation
-
-Required `profileExtension`:
-
-```yaml
-referenceMemberId:
-sheetMemberId:
-rows:
-columns:
-cellWidth:
-cellHeight:
-usableFrameCount:
-frameOrder: row_major
-loopMode: loop | one_shot | hold_last
-timingMs: positive integer or ordered positive-integer array
-frameMemberIds: ordered list
-```
-
-Rows, columns, cell dimensions, and usable count are positive integers;
-usableFrameCount cannot exceed rows times columns. Reference/sheet IDs resolve
-to distinct source members. `frameMemberIds` length equals usableFrameCount and
-each extracted frame requires `frameIndex`, `row`, `column`,
-`sourceSheetMemberId`, and matching cell dimensions. Order is row-major; extra
-cells are declared unused, not silently extracted.
-
-## 7. evaluation-request.json
-
-```yaml
+schemaVersion: generated_media_evaluation_request_v2
 requestId:
-evaluationPackageId:
+packageId:
 assetType:
 domainType:
 contentId:
-legacyArtifactType: optional
+animationRequestId: required only for animation
 structureProfile:
-sourceManifestPath: manifest.json
-sourceOrManifestHash: manifestPayloadHash
-planningSnapshotHash:
-promptHash:
-evaluationAdapterId:
-evaluationAdapterStatus: ready | missing | unsupported
-projectTargetPath: optional informational only
-nextTask: evaluation
+manifestPath:
+manifestPayloadHash:
+evaluationDomain:
+artifactType:
+stagingArtifactPath:
+evaluationWorkspacePath:
+projectTargetPath:
+promotionStatus: not_promoted
 ```
 
-Readiness is `ready` only when files, hashes, profile order, planning/prompt/
-generation/preservation identities, and evaluator adapter validate. Otherwise
-seal as blocked only when preserved evidence is internally consistent.
+`stagingArtifactPath` and `projectTargetPath` must differ. This handoff requests
+a separate evaluation; it contains no score or verdict.
 
-## 8. Compatibility
+## Current Background Evaluation Adapter
 
-New records use `assetType + domainType`; legacy adapters may receive only the
-explicit `legacyArtifactType` mapping:
+This section is the ready package-mode evaluation adapter for
+`background_single_image + stage|battle|environment`. It never applies to
+legacy `imagegen_image` or `battle_background`.
 
-| assetType | domainType | legacyArtifactType |
-| --- | --- | --- |
-| character_main_image | character | character_image |
-| character_animation | character | character_animation |
-| icon | skill | skill_icon |
-| icon | item | item_icon |
-| general_animation | skill | skill_animation |
-| imagegen_image | stage | story_popup_main_image |
-| imagegen_image | battle | battle_background |
+Fatal gates run first: sealed package/hash identity, exact background profile,
+`background_single_image_v2`, complete scene metadata, planning evidence,
+scene anchor, and no icon-adapter fields. Any missing or swapped contract is
+FAIL or blocked according to evidence availability.
 
-Unknown mapping blocks; never infer from filenames.
+Score 100 points:
 
-## 9. Failure and Validation
+| criterionId | Category | Max | Minimum for PASS |
+| --- | --- | ---: | ---: |
+| `bg.planning_fidelity` | Planning and required/prohibited element fidelity | 20 | 18 |
+| `bg.composition_viewpoint` | Scene composition, viewpoint and framing | 20 | 18 |
+| `bg.depth_playable_area` | Horizon, depth layers and playable/readability area | 20 | 18 |
+| `bg.canvas_target_safety` | Canvas, aspect, target display and safe-area fitness | 20 | 18 |
+| `bg.policy_subject_consistency` | Background policy, subject contract and scene consistency | 20 | 18 |
+
+PASS requires total >= 90, every category minimum, no fatal gate and no
+Critical finding. Stage/battle/environment use the same stable criterion IDs;
+their registered profile and planning evidence provide domain facts without
+creating copied execution or evaluation prompts.
+
+## State, Failure and Validation
 
 ```text
-evaluation_staging_root_not_configured
-staging_project_path_violation
-record_identity_mismatch
-preserved_source_missing
-member_hash_mismatch
-manifest_payload_hash_mismatch
-package_identity_mismatch
-unknown_profile_field
-missing_profile_field
-structure_profile_mismatch
-manifest_order_invalid
-evaluation_adapter_missing
-unsupported_legacy_artifact_mapping
-package_collision
-package_finalize_failed
-package_seal_failed
+preservation_ready -> assembling -> validated -> sealed -> evaluation_requested
 ```
 
-- recompute member hashes, canonical payload hash, and package identity;
-- validate the exact closed profile schema;
-- verify staging/project separation and all record identities;
-- return package ID/path, manifestPayloadHash, readiness/blockers, and request;
-- do not generate, download, evaluate, promote, write Slack, modify Unity,
-  perform Git, or deploy.
+```text
+missing_preservation_v2
+invalid_current_version_chain
+unsupported_provider
+ambiguous_image_role
+missing_background_scene_contract
+missing_background_composition
+missing_background_viewpoint
+missing_background_horizon
+missing_background_depth_layer_contract
+missing_background_playable_area
+missing_background_subject_contract
+missing_background_canvas_contract
+missing_background_aspect_ratio
+missing_background_target_display
+missing_background_safe_area
+missing_background_consistency_lock
+unsupported_icon_domain
+unsupported_background_domain
+missing_animation_request_id
+multiple_animation_requests_not_allowed
+structure_profile_mismatch
+animation_anchor_profile_mismatch
+gif_first_evidence_missing
+frame_count_mismatch
+member_hash_mismatch
+package_path_violation
+staging_target_path_collision
+package_collision
+unknown_package_field
+missing_package_field
+```
+
+Validate current version-chain parity, `provider=imagegen`, one closed profile,
+profile-specific anchor, member count/order/hash, GIF-first provenance,
+non-circular identity, atomic sealing and staging/project separation. A blocked
+output contains status, failureType, missingFields, invalidMembers,
+requiredDecision and safeToRetry. A success contains package ID/path/hash,
+ordered members, structureProfile, evaluation-request path and nextStep.
+
+## Downstream Entries
+
+```text
+AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
+AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
+```
+
+Evaluation consumes the exact package identity. Promotion consumes the exact
+package plus immutable evaluation record only after PASS; neither stage may
+reinterpret a legacy identity as current background v2.
