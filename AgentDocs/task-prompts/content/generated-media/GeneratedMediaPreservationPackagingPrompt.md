@@ -30,7 +30,7 @@ Input:
 3. provider=imagegen과 current v2 adapter registry에서 assetType, requestedAdapterId, expectedStructureProfile이 모두 일치하는 row 하나를 확정한다. PixelLab/v1 row는 신규 입력으로 선택하지 않는다.
 4. canonical preservationHashPayload/ID를 계산한다. 동일 payload 재실행은 기존 record를 resume/reuse하고 동일 ID의 다른 payload는 중단한다.
 5. `.assembling/{requestId}/{preservationRecordId}.{attemptId}` 임시 경로에서만 provisional ref를 바꾸지 않고 원본을 download/export한다.
-6. character/icon은 승인된 단일 이미지 계약만 적용한다. animation은 coherent master를 보존하고 fixed cell로 분리한 뒤 승인된 투명/outline/chroma/anchor 정책을 적용해 완성 GIF를 먼저 저장하고, 그 GIF를 다시 열어 PNG frames를 추출한다. frame별 crop/scale/recenter를 금지하고 모든 파일 SHA-256을 기록한다.
+6. character/icon/background는 각각 별도 registered adapter로 원본 단일 이미지를 보존한다. icon과 background가 같은 PNG 형태여도 adapter/profile/evaluation identity를 교환하지 않는다. animation은 coherent master를 보존하고 fixed cell로 분리한 뒤 승인된 투명/outline/chroma/anchor 정책을 적용해 완성 GIF를 먼저 저장하고, 그 GIF를 다시 열어 PNG frames를 추출한다. frame별 crop/scale/recenter를 금지하고 모든 파일 SHA-256을 기록한다.
 7. closed profile extension schema와 member order/count/relations를 검증한다. 누락/unknown field를 추론하거나 수리하지 않는다.
 8. manifestPayload/hash/packageId 계산 후 `{evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/`로 안전하게 finalize한다. 기존 동일 package는 byte/hash 검증 후 재사용하며 overwrite하지 않는다.
 9. evaluator adapter까지 유효하면 evaluation_handoff_ready, 아니면 sealed blocked package와 blocker를 기록한다.

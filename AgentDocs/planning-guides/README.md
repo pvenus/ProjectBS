@@ -60,11 +60,21 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackag
 AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenIconPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenBackgroundPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenAnimationPipelineGuide.md
 ```
 
-The current v2 provider structure is ImageGen-only with exactly three roles:
-character single image, icon single image, and one animationRequestId. PixelLab
+Current `background_single_image_v2` continues through these shared downstream
+entries without becoming a legacy background identity:
+
+```text
+AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+```
+
+The current v2 provider structure is ImageGen-only with exactly four roles:
+character single image, icon single image, background single image, and one
+character/skill animationRequestId. PixelLab
 guides and v1 rows are deprecated read-only legacy audit contracts.
 
 Current authoring uses planning handoff v2, registry/router v2,
@@ -76,7 +86,7 @@ Legacy generated-media migration:
 | Existing guide | Status | replacedBy / new role |
 | --- | --- | --- |
 | AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md | compatibility envelope for generated_image_prompt_v1 | generated-media planning handoff plus provider child prompt-authoring contracts |
-| AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md | legacy generation-only compatibility boundary | GeneratedMediaImageGenOnlyContractGuide.md and the three current ImageGen role guides |
+| AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md | legacy generation-only compatibility boundary | GeneratedMediaImageGenOnlyContractGuide.md and the four current ImageGen role guides |
 | AgentDocs/planning-guides/character/CharacterGenerateImage.md | deprecated legacy evidence | ImageGenCharacterImagePipelineGuide.md for new single-view requests |
 | AgentDocs/planning-guides/character/CharacterGenerateAnimation.md | deprecated legacy evidence | ImageGenAnimationPipelineGuide.md for one animationRequestId |
 | AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
@@ -84,8 +94,8 @@ Legacy generated-media migration:
 | AgentDocs/planning-guides/item/ItemIconGenerationGuide.md | deprecated legacy profile evidence | ImageGenIconPipelineGuide.md with item profile v2 |
 | AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | deprecated legacy profile evidence | ImageGenAnimationPipelineGuide.md with one animationRequestId |
 | AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
-| AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md image execution | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
-| AgentDocs/planning-guides/battle/BattleCreateGuide.md background-image execution | deprecated historical evidence | GeneratedMediaLegacyV1CompatibilityGuide.md read-only audit |
+| AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md image execution | deprecated historical evidence | ImageGenBackgroundPipelineGuide.md after a new v2 stage background handoff |
+| AgentDocs/planning-guides/battle/BattleCreateGuide.md background-image execution | deprecated historical evidence | ImageGenBackgroundPipelineGuide.md after a new v2 battle background handoff |
 
 Do not delete legacy guides until their profile and evaluation contracts have
 dedicated replacements and all callers have migrated.

@@ -104,8 +104,10 @@ duplicate_provider_call_risk
 ```
 
 Validate schema/path/version parity, exact one-animation ID rules, provider
-ImageGen, profile/anchor mapping, prompt/settings/approval hashes, attempt/cost
-provenance and stage separation.
+ImageGen, four-role asset/profile/anchor mapping, prompt/settings/approval
+hashes, attempt/cost provenance and stage separation. Icon and background
+records remain distinct through registryRowId, structureProfile, adapter and
+evaluation identity even when their original media type is the same.
 
 ## Related Guides
 

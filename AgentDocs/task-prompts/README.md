@@ -52,9 +52,19 @@ AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImagePromptAutho
 AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImageGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenIconPromptAuthoringPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenIconGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenBackgroundPromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenBackgroundGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenAnimationPromptAuthoringPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenAnimationGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
+```
+
+Current background evaluation and promotion use the shared package-mode entry
+prompts:
+
+```text
+AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
+AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 ```
 
 PixelLab and the earlier generic ImageGen prompts in this folder are read-only
@@ -74,8 +84,8 @@ Legacy prompt migration:
 | AgentDocs/task-prompts/item/ItemIconGenerationPrompt.md | deprecated compatibility entry | ImageGenIconPromptAuthoringPrompt.md + ImageGenIconGenerationPrompt.md with item profile v2 |
 | AgentDocs/task-prompts/skill/SkillImageGenerationPrompt.md | deprecated compatibility entry | ImageGenAnimationPromptAuthoringPrompt.md + ImageGenAnimationGenerationPrompt.md |
 | AgentDocs/task-prompts/skill/SkillImageDownloadPrompt.md | deprecated compatibility entry | AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md |
-| AgentDocs/task-prompts/stage/PopupEventMainImageCreatePrompt.md | legacy v1 only | no current v2 row; requires reviewed registry extension |
-| AgentDocs/task-prompts/battle/BattleBackgroundImagePrompt.md | legacy v1 only | no current v2 row; requires reviewed registry extension |
+| AgentDocs/task-prompts/stage/PopupEventMainImageCreatePrompt.md | legacy v1 only | ImageGenBackgroundPromptAuthoringPrompt.md + ImageGenBackgroundGenerationPrompt.md with an approved stage background v2 handoff |
+| AgentDocs/task-prompts/battle/BattleBackgroundImagePrompt.md | legacy v1 only | ImageGenBackgroundPromptAuthoringPrompt.md + ImageGenBackgroundGenerationPrompt.md with an approved battle background v2 handoff |
 
 Do not copy a legacy skill/item/stage/battle execution prompt for a new domain.
 Use `domainType` and an approved profile with the current provider prompt.

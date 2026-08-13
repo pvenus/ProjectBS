@@ -90,7 +90,7 @@ legacy callers may provide the earlier artifact identity contract.
 
 ~~~text
 requestId: optional stable request id
-evaluationPackageId: preferred stable generated_media_evaluation_package_v1 ID
+evaluationPackageId: preferred stable generated_media_evaluation_package_v2 ID
 assetType: required with package mode
 domainType: required with package mode
 artifactType: legacy compatibility identity
@@ -140,6 +140,9 @@ paths and rules internally. Never reuse an absolute path from another PC.
 | imagegen_image + domainType=stage | stage | single_image | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md | ready |
 | imagegen_image + domainType=battle | battle | single_image | dedicated adapter not yet defined | blocked |
 | battle_background | battle | single_image | dedicated adapter not yet defined | blocked |
+| background_single_image + domainType=stage | stage | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
+| background_single_image + domainType=battle | battle | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
+| background_single_image + domainType=environment | environment | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
 
 Rules:
 
@@ -156,6 +159,12 @@ Rules:
    authority. A Slack adapter with different categories or thresholds is a
    formatting contract conflict and must not change the evaluation.
 7. Add a content type only through the adapter declaration in Section 14.
+8. The three current background rows are package mode only. They require a
+   sealed v2 package and never alias legacy `imagegen_image` or
+   `battle_background`.
+9. Icon and background adapters are not interchangeable even when both contain
+   one PNG. A structure/profile/domain mismatch returns
+   background_adapter_identity_mismatch before scoring.
 
 ## 6. Workspace and Source Resolution
 
@@ -273,6 +282,30 @@ Required checks:
 - no crop or edge violation under the domain rule;
 - intended display-size preview when required;
 - one primary Slack media role for later Canvas formatting.
+
+### 8.2.1 background_single_image_v2
+
+Use only for current package-mode `background_single_image` with
+`domainType=stage|battle|environment`. In addition to single_image checks,
+verify the sealed package contains the exact registered background profile and:
+
+~~~text
+scene contract
+composition and viewpoint
+horizon and ordered depth layers
+playable/readability area
+subject inclusions and exclusions
+canvas and aspect ratio
+target display and safe area
+final background policy
+content/scene consistency lock
+scene_composition_anchor
+~~~
+
+Missing metadata blocks evaluation; it is not reconstructed from pixels. Icon
+visual-center, transparent-icon, outline/silhouette and small-size icon rules
+are invalid here. The inverse is also true: a current icon adapter must reject
+background scene metadata.
 
 ### 8.3 paired_sheet_animation
 
@@ -755,6 +788,9 @@ evaluation_record_collision
 result_report_mismatch
 score_validation_failed
 canvas_required_field_missing
+background_adapter_identity_mismatch
+legacy_current_identity_conflict
+missing_background_evaluation_contract
 ~~~
 
 Failure preserves the source and existing records unchanged. Do not invoke a

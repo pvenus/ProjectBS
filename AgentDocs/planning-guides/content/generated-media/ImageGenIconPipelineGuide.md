@@ -4,6 +4,8 @@
 
 This current v2 pipeline owns domain-neutral ImageGen icon prompt authoring and
 generation. Skill/item differences come only from exact registry profiles.
+It never accepts or produces stage, battle, environment, story-scene or
+background media.
 
 ## Authority and Scope
 
@@ -31,6 +33,13 @@ Authoring writes one `generated_media_prompt_v3`; generation writes one
 
 Do not decide icon symbolism or copy skill/item prompts. Missing fields use the
 current typed blockers. Generation stops at provider refs.
+
+Icon readiness requires a visual-center anchor, transparent or profile-approved
+simple background, safe area and target small-size readability. Scene
+composition, camera/viewpoint for an environment, horizon, depth layers,
+playable/readability area and scene-consistency locks are forbidden. A
+stage/battle/environment domain returns `unsupported_icon_domain`; evidence
+that could match icon and background returns `ambiguous_image_role`.
 
 The only provider interface is `providerTool=imagegen` through
 `providerInterface=configured_imagegen_capability`. Generation requires an

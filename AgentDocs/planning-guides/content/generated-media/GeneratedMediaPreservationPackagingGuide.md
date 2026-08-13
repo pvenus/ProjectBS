@@ -29,8 +29,8 @@ promptRecordId: generated_media_prompt_v3
 generationRecordId: generated_media_generation_v2
 generationRecordSha256:
 provider: imagegen
-assetType: character_single_image | icon_single_image | animation
-domainType: character | skill | item
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
 contentId:
 animationRequestId: required only for animation
 planningSnapshotHash:
@@ -50,11 +50,16 @@ provider, or incomplete readiness block before download.
 | --- | --- | --- | --- |
 | character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; apply approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
 | icon_single_image/skill or item | imagegen_icon_single_image_v2 | icon_single_image_v2 | preserve original; apply approved background/no-shadow/outline without crop/scale; record visual center |
+| background_single_image/stage, battle or environment | imagegen_background_single_image_v2 | background_single_image_v2 | preserve original scene bytes; retain scene composition, viewpoint, depth/playable-area, target/safe-area, consistency lock and scene anchor metadata without icon transforms |
 | animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | coherent master; pelvis/root anchor; GIF-first fixed-cell extraction |
 | animation/skill | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | coherent master; effect-origin anchor; GIF-first fixed-cell extraction |
 
 Exactly one row must match provider+asset+domain+adapter+structure. No filename
 or judgment fallback is allowed.
+
+Icon and background adapters remain distinct even when both preserve one PNG.
+Neither their profile identity, adapter ID, manifest extension nor evaluation
+route is interchangeable.
 
 ## Animation Packaging Sequence
 

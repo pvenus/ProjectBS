@@ -28,8 +28,8 @@ schemaVersion: generated_media_visual_brief_v2
 visualBriefId:
 guideContractVersion: generated_media_visual_prompt_authoring_v2
 requestId:
-assetType: character_single_image | icon_single_image | animation
-domainType: character | skill | item
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
 contentId:
 animationRequestId: required only for animation
 planningSnapshotHash:
@@ -92,8 +92,31 @@ framing, canvas/display/safe area, background/no-shadow, exact outline and
 visual-center anchor. Supporting effects cannot compete with the symbol. Do not
 invent icon meaning or create skill/item-specific prompts.
 
+This section owns only `domainType=skill|item`. It rejects stage, battle,
+environment, story-scene, landscape, horizon, depth-layer, playable-area and
+camera-scene responsibilities. Transparent or approved simple background,
+clear silhouette/outline, visual-center balance and target small-size
+readability are icon-only profile concerns.
+
 Provider handoff: `imagegen_icon_single_image_prompt_v2`, prompt v3, structure
 `icon_single_image_v2`.
+
+## Background Single Image
+
+Require an exact stage/battle/environment background profile plus approved
+scene contract, composition, viewpoint, horizon, ordered depth layers,
+playable/readability area, subject inclusions/exclusions, canvas/aspect, target
+display, safe area, final background policy, content/scene consistency lock and
+`scene_composition_anchor`.
+
+The provider-neutral brief preserves scene framing and spatial hierarchy. It
+must not invent scene, era, culture, weather, lighting, landmark, camera or
+subjects. It must not apply transparent-icon defaults, icon visual center,
+outline/silhouette scoring or small-icon readability. Missing background facts
+return the exact background typed blocker before authoring.
+
+Provider handoff: `imagegen_background_single_image_prompt_v2`, prompt v3,
+structure `background_single_image_v2`.
 
 ## Animation
 

@@ -30,17 +30,25 @@ source files, hashes, snapshot, request/content identity, required/prohibited
 elements, and type specification. Canonical enum values are:
 
 ```text
-assetType: character_single_image | icon_single_image | animation
-domainType: character | skill | item
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
 provider: imagegen
 ```
 
 Profile keys are exact registry values. Do not route by filename, prose,
 similarity, provider availability, or legacy alias.
 
+Role selection is fail-closed. An icon requires `assetType=icon_single_image`,
+`domainType=skill|item`, iconProfile and icon single-image specification. A
+background requires `assetType=background_single_image`,
+`domainType=stage|battle|environment`, backgroundProfile and the complete
+backgroundSpecification. If supplied evidence declares, conflicts with, or can
+match both contracts, return `ambiguous_image_role`; do not choose by filename,
+content prose or visual similarity.
+
 ## Deterministic Fan-out
 
-- character/icon input creates exactly one routing unit;
+- character/icon/background input creates exactly one routing unit;
 - animation input reads `animationRequests` in source order;
 - every unique animationRequestId creates a separate unit;
 - each unit contains one scalar animationRequestId and one normalized
@@ -62,9 +70,16 @@ Anchor mapping is deterministic:
 ```text
 character_single_image -> pelvis_root_ground_axis
 icon_single_image      -> visual_center
+background_single_image -> scene_composition_anchor
 animation/character    -> pelvis_root_ground_axis
 animation/skill        -> effect_origin
 ```
+
+Background field mapping copies sceneContract, composition, viewpoint,
+horizon, ordered depthLayers, playableOrReadabilityArea,
+subjectInclusions/subjectExclusions, canvas/aspectRatio, targetDisplay,
+safeArea, finalBackgroundPolicy, consistencyLock and anchor without defaults.
+Icon mapping never receives those scene fields.
 
 ## Routing Record v2
 
@@ -124,6 +139,9 @@ GeneratedMediaImageGenOnlyContractGuide.md. The router extension is:
 
 ```text
 duplicate_animation_request_id
+ambiguous_image_role
+unsupported_icon_domain
+unsupported_background_domain
 unsupported_current_route
 conflicting_routing_evidence
 routing_record_collision

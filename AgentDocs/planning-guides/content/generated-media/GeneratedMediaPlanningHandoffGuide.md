@@ -41,6 +41,13 @@ and approved facts according to GeneratedMediaRecordGuide.md.
   and pelvis/root plus ground-contact anchor.
 - `icon_single_image`: identityConsistencyLock, exact iconProfile, and complete
   singleImageSpecification with visual-center anchor.
+- `background_single_image`: exact backgroundProfile and complete
+  backgroundSpecification with scene contract, composition, viewpoint,
+  horizon, ordered depth layers, playable/readability area, subject
+  inclusions/exclusions, canvas/aspect, target display, safe area, final
+  background policy, content/scene consistency lock, and
+  scene_composition_anchor. Icon-only identity/silhouette/outline rules do not
+  satisfy this contract.
 - `animation`: non-empty `animationRequests`. Every entry has a unique
   animationRequestId and the complete reference/final-frame/timing/order/loop/
   key-pose/fixed-cell/scale/vertical-motion/background/outline/anchor/master-

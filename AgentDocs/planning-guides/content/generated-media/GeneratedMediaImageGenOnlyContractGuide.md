@@ -23,6 +23,7 @@ execution roles are:
 ```text
 character_single_image
 icon_single_image
+background_single_image
 animation
 ```
 
@@ -67,8 +68,8 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackag
 ```yaml
 schemaVersion: generated_media_planning_handoff_v2
 requestId:
-assetType: character_single_image | icon_single_image | animation
-domainType: character | skill | item
+assetType: character_single_image | icon_single_image | background_single_image | animation
+domainType: character | skill | item | stage | battle | environment
 contentId:
 contentUsage:
 sourcePlanningFiles:
@@ -150,7 +151,40 @@ singleImageSpecification:
 
 Skill/item differences are registered profiles, not copied execution prompts.
 
-### 3.3 animation
+### 3.3 background_single_image
+
+```yaml
+backgroundProfile: {profileId:, profileVersion:}
+backgroundSpecification:
+  sceneContract:
+  composition:
+  viewpoint:
+  horizon:
+  depthLayers: non-empty ordered list
+  playableOrReadabilityArea:
+  subjectInclusions: explicit list or signed none
+  subjectExclusions: explicit list or signed none
+  canvas: {width:, height:}
+  aspectRatio:
+  targetDisplay:
+  safeArea:
+  finalBackgroundPolicy:
+  consistencyLock:
+    contentIdentity:
+    sceneFacts: non-empty
+  anchor:
+    type: scene_composition_anchor
+    framingRegion:
+    focalDepth:
+```
+
+The profile may register `stage`, `battle`, or `environment`; it never changes
+the execution role. Planning owns scene, era, culture, weather, lighting,
+landmarks, camera and inclusion/exclusion decisions. Missing facts block. Icon
+visual-center, transparent-icon, silhouette/outline and small-size readability
+rules are invalid for this type.
+
+### 3.4 animation
 
 One planning handoff may contain multiple approved requests. The router splits
 them deterministically. Every routing, authoring, prompt, generation,
@@ -230,6 +264,9 @@ match. Zero or multiple rows block.
 | `character_single_image_v2` | `character_single_image` | `character` | `character_single_image@2.0.0` | `ImageGenCharacterImagePromptAuthoringPrompt.md` | `ImageGenCharacterImageGenerationPrompt.md` | `character_single_image_v2` |
 | `skill_icon_single_image_v2` | `icon_single_image` | `skill` | `skill_icon@2.0.0` | `ImageGenIconPromptAuthoringPrompt.md` | `ImageGenIconGenerationPrompt.md` | `icon_single_image_v2` |
 | `item_icon_single_image_v2` | `icon_single_image` | `item` | `relic@2.0.0` | `ImageGenIconPromptAuthoringPrompt.md` | `ImageGenIconGenerationPrompt.md` | `icon_single_image_v2` |
+| `stage_background_single_image_v2` | `background_single_image` | `stage` | `stage_background@2.0.0` | `ImageGenBackgroundPromptAuthoringPrompt.md` | `ImageGenBackgroundGenerationPrompt.md` | `background_single_image_v2` |
+| `battle_background_single_image_v2` | `background_single_image` | `battle` | `battle_background@2.0.0` | `ImageGenBackgroundPromptAuthoringPrompt.md` | `ImageGenBackgroundGenerationPrompt.md` | `background_single_image_v2` |
+| `environment_background_single_image_v2` | `background_single_image` | `environment` | `environment_background@2.0.0` | `ImageGenBackgroundPromptAuthoringPrompt.md` | `ImageGenBackgroundGenerationPrompt.md` | `background_single_image_v2` |
 | `character_animation_v2` | `animation` | `character` | `character_animation@2.0.0` | `ImageGenAnimationPromptAuthoringPrompt.md` | `ImageGenAnimationGenerationPrompt.md` | `animation_gif_frame_set_v2` |
 | `skill_animation_v2` | `animation` | `skill` | `skill_animation@2.0.0` | `ImageGenAnimationPromptAuthoringPrompt.md` | `ImageGenAnimationGenerationPrompt.md` | `animation_gif_frame_set_v2` |
 
@@ -337,6 +374,12 @@ icon_single_image_v2:
   one approved icon output
   identity lock, canvas, safe area, background, outline, and visual-center metadata
 
+background_single_image_v2:
+  one preserved original scene image
+  exact registered background profile and scene-consistency lock
+  composition/viewpoint/horizon/depth layers/playable area/canvas/target/safe-area metadata
+  scene_composition_anchor metadata; no icon visual-center or icon readability contract
+
 animation_gif_frame_set_v2:
   coherent master source
   completed GIF
@@ -377,6 +420,21 @@ missing_no_shadow_policy
 missing_outline_policy
 invalid_outline_contract
 missing_anchor_contract
+ambiguous_image_role
+missing_background_scene_contract
+missing_background_composition
+missing_background_viewpoint
+missing_background_horizon
+missing_background_depth_layer_contract
+missing_background_playable_area
+missing_background_subject_contract
+missing_background_canvas_contract
+missing_background_aspect_ratio
+missing_background_target_display
+missing_background_safe_area
+missing_background_consistency_lock
+unsupported_icon_domain
+unsupported_background_domain
 missing_animation_request_id
 multiple_animation_requests_not_allowed
 missing_reference_image
@@ -482,6 +540,21 @@ evaluation_adapter_missing
 ```text
 missing_preservation_v2
 invalid_current_version_chain
+ambiguous_image_role
+missing_background_scene_contract
+missing_background_composition
+missing_background_viewpoint
+missing_background_horizon
+missing_background_depth_layer_contract
+missing_background_playable_area
+missing_background_subject_contract
+missing_background_canvas_contract
+missing_background_aspect_ratio
+missing_background_target_display
+missing_background_safe_area
+missing_background_consistency_lock
+unsupported_icon_domain
+unsupported_background_domain
 missing_animation_request_id
 multiple_animation_requests_not_allowed
 structure_profile_mismatch
@@ -494,6 +567,20 @@ staging_target_path_collision
 package_collision
 unknown_package_field
 missing_package_field
+```
+
+### 8.7 Downstream Evaluation and Promotion Extension
+
+```text
+background_adapter_identity_mismatch
+missing_background_evaluation_contract
+promotion_identity_mode_conflict
+evaluation_package_not_found
+evaluation_package_hash_mismatch
+background_structure_profile_mismatch
+background_promotion_adapter_mismatch
+background_promotion_target_contract_missing
+legacy_current_identity_conflict
 ```
 
 Readiness is true only when every common and type-specific field exists, hashes
@@ -522,6 +609,10 @@ authoring prompt, generation prompt, and packaging adapter.
 
 - current registry has no PixelLab row;
 - current character path contains no eight-way or rotation-set requirement;
+- current registry exposes exactly four execution roles and no PixelLab row;
+- icon and background routes have distinct domains, prompts, adapters,
+  structure profiles and evaluation identities;
+- ambiguous icon/background evidence returns `ambiguous_image_role`;
 - one animation unit has exactly one `animationRequestId`;
 - schema examples, registry rows, prompt inputs, failure types, and readiness
   use the same names;
@@ -536,5 +627,10 @@ authoring prompt, generation prompt, and packaging adapter.
 AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenIconPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenBackgroundPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenAnimationPipelineGuide.md
+AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
+AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
+AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 ```
