@@ -86,6 +86,11 @@ prohibitedElements: non-empty observable list or signed no_prohibitions
 projectTarget: optional informational_only
 ```
 
+`GeneratedMediaPlanningHandoffGuide.md::Closed Planning Snapshot v2` is the
+sole authority for the closed `approvedFacts` item schema, source binding/order,
+exact hash payload, RFC 8785 JCS UTF-8 bytes, `capturedAt` exclusion and stable
+retry timestamp. This summary must not construct an alternate snapshot.
+
 Missing facts are never inferred. Each type adds exactly one specification.
 
 ### 3.1 character_single_image
@@ -679,6 +684,12 @@ Prompts/guides must not invent aliases. Legacy audit tokens, including
 
 ```text
 missing_planning_handoff
+missing_planning_capture_inputs
+invalid_planning_capture_timestamp
+missing_source_planning_path
+duplicate_source_planning_path
+unresolved_source_planning_path
+planning_capture_identity_mismatch
 planning_snapshot_mismatch
 missing_identity_consistency_lock
 missing_required_elements

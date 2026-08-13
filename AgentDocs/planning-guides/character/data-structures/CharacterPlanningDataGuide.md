@@ -10,7 +10,7 @@ Authority order:
 ```text
 AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 -> approved character planning under this schema
--> generated_media_planning_handoff_v1
+-> generated_media_planning_handoff_v2
 -> GeneratedMediaVisualPromptAuthoringGuide.md
 -> provider generation
 ```
@@ -163,7 +163,7 @@ appearance:
     mode: exact | neutral_provider_pose | profile_owned_technical_pose
     description: required for exact; omitted otherwise
   intendedDisplay:
-    assetType: character_main_image
+    assetType: character_single_image
     outputUsage: non-empty player-facing use
     targetDisplaySize:
       unit: px
@@ -182,7 +182,7 @@ Requiredness rules:
 
 - `genderPresentation`, `body`, `face`, `hair`, `costume`, `weapon`, `handedness`, `palette`,
   `materials`, `identifyingFeatures`, `posePolicy`, and `intendedDisplay` are
-  required for `character_main_image` readiness;
+  required for `character_single_image` readiness;
 - `equipment` may be empty only when planning explicitly establishes that the
   character has no non-weapon equipment;
 - `weapon.present=false` requires `handedness=none` unless another approved
@@ -222,7 +222,7 @@ sentences into appearance fields as if they were character identity.
 
 ```yaml
 generatedMediaPlanning:
-  characterMainImage:
+  characterSingleImage:
     readiness: ready | blocked | not_requested
     requiredElements:
       - factId: stable requirement ID
@@ -232,9 +232,30 @@ generatedMediaPlanning:
       - factId: stable prohibition ID
         statement: independently observable exclusion sentence
         evidenceFactIds: [factId]
-    identityConsistencyLocks:
-      - exact appearance field path that may not drift across views
-    rotationPolicy: generated_media_exact_8_way_v1
+    identityConsistencyLock:
+      identityId: exact identity.characterId
+      referenceFacts:
+        - sourcePointer: exact resolvable JSON pointer in this planning file
+          evidenceFactIds: non-empty ordered fact IDs
+    singleImageSpecification:
+      viewpoint: one approved viewpoint
+      pose: one approved pose
+      framing: approved framing
+      canvas: {width: integer >= 1, height: integer >= 1}
+      targetDisplaySize: {width: integer >= 1, height: integer >= 1}
+      safeArea: complete approved safe-area contract
+      finalBackgroundPolicy: complete approved final policy
+      generationBackground: {mode: removable_solid, color: approved color}
+      noShadow: true | false
+      outline:
+        enabled: true | false
+        color: required only when enabled=true; forbidden when enabled=false
+        exactThicknessPx: required positive integer only when enabled=true; forbidden when enabled=false
+        placement: outside_silhouette
+      anchor:
+        type: pelvis_root_ground_axis
+        pelvisOrRootPoint: approved point
+        groundContactAxis: approved ground-contact axis
 ```
 
 `requiredElements` and `prohibitedElements` are planning decisions. They cannot
@@ -242,8 +263,16 @@ be produced downstream from a name, personality, combat lore, skill, role tag,
 or likely visual convention. An explicitly empty prohibited list is invalid
 unless planning records a source-evidenced `no_prohibitions` decision.
 
-The rotation policy means that the Generated Media handoff may expand the
-technical contract to exactly:
+`characterSingleImage` is the only current planning source for
+`assetType=character_single_image`, `domainType=character`. It describes one
+approved image and must not contain `rotationPolicy`, `directions`, a direction
+array, a rotation count, animation/variant requests, PixelLab identity, or
+`ordered_rotation_set`.
+
+Existing `generatedMediaPlanning.characterMainImage` data with
+`rotationPolicy=generated_media_exact_8_way_v1` is a legacy v1 contract. It
+remains immutable/read-only evidence and is owned only by the legacy profile
+with this exact direction order:
 
 ```text
 [north, north_east, east, south_east, south, south_west, west, north_west]
@@ -251,9 +280,11 @@ exactCount=8
 identityConsistencyRequired=true
 ```
 
-That expansion adds no character meaning. Every identity, appearance,
-equipment, handedness, palette, and identifying-feature lock comes from the
-approved planning file.
+That legacy expansion adds no character meaning. It is not eligible for a new
+v2 handoff and must never be collapsed, upgraded, or copied into
+`characterSingleImage`. A current request requires an independently approved
+current contract. Legacy rotation fields in the current contract return
+`legacy_record_not_current_request` and produce no handoff.
 
 ### 3.5 Missing design inputs
 
@@ -271,7 +302,7 @@ missingDesignInputs:
     requiredDecision: decision the planning owner must supply
     sourceRefsChecked: []
     blocks:
-      - character_main_image_handoff
+      - character_single_image_handoff
 ```
 
 `planningStatus=approved` and `readiness=ready` require an empty
@@ -280,53 +311,65 @@ plausible design.
 
 ## 4. Generated Media Handoff Production
 
-Write a separate `generated_media_planning_handoff_v1` only after the canonical
+Write a separate `generated_media_planning_handoff_v2` only after the canonical
 planning file is approved and ready. Do not embed the handoff, source hash, or
 snapshot hash back into the mutable planning file.
 
 Character-planning producer storage:
 
 ```text
-AgentDocs/planning-data/character/generated-media-handoffs/v1/{contentId}/{requestId}.character_main_image.json
+AgentDocs/planning-data/character/generated-media-handoffs/v2/{contentId}/{requestId}.character_single_image.json
 ```
 
 `contentId` must equal `identity.characterId`. `requestId` must be stable,
-project-safe, and supplied by the caller. The same request and planning snapshot
-must reproduce canonically equal handoff bytes. Existing different bytes at the
-same path are `character_planning_handoff_collision`; never overwrite them.
+project-safe, and supplied by the caller. The caller/planning orchestration also
+supplies the exact request-bound `planningCaptureInputs` owned by
+`GeneratedMediaPlanningHandoffGuide.md::Closed planning capture input`.
+Character authoring validates and copies it without choosing timestamps or
+source order. The same request, capture input, and planning snapshot must
+reproduce canonically equal handoff bytes. Existing different bytes at the same
+path return central `record_collision`; never overwrite them.
 
 Mapping:
 
 | Handoff field | Character planning source |
 | --- | --- |
-| `assetType` | constant `character_main_image` after readiness approval |
+| `schemaVersion` | constant `generated_media_planning_handoff_v2` |
+| `requestId` | exact stable caller-supplied request ID |
+| `assetType` | constant `character_single_image` after readiness approval |
 | `domainType` | constant `character` |
 | `contentId` | `identity.characterId` |
-| `contentName` | `identity.name` |
 | `contentUsage` | `appearance.intendedDisplay.outputUsage` |
-| `characterIdentity` | approved `identity` plus identity locks only |
-| `appearanceSpecification` | approved structured `appearance`, including gender presentation and target display/detail-density contract |
+| `identityConsistencyLock` | exact current lock; each sourcePointer and evidenceFactId must resolve |
+| `singleImageSpecification` | exact complete current specification, with no defaults or downstream completion |
 | `requiredElements` | ordered `.statement` values |
 | `prohibitedElements` | ordered `.statement` values |
-| `rotationContract` | technical expansion of `rotationPolicy` |
 
-After the planning file is complete, calculate its SHA-256 and include its
-project-relative path, role, and hash in `sourcePlanningFiles`. `revision` is
+After every source is complete, hash its exact UTF-8 bytes and include its
+project-relative path, role, and lowercase SHA-256 in ordered
+`sourcePlanningFiles`. Include the canonical planning file and every separate
+decision file whose facts or technical values are projected. `revision` is
 optional per source: include it only when that source's owning system supplies
 a stable non-empty revision string, unchanged from the authority. Never invent
 one from a timestamp, Git state, file hash, or this planning file. When no
 authoritative revision exists, omit the key; the SHA-256 and immutable snapshot
-remain mandatory. Build `planningSnapshot` according to
-GeneratedMediaPlanningHandoffGuide.md. Snapshot/hash identity belongs to the
-separate immutable handoff.
+remain mandatory. Every approved fact must carry a resolvable source path plus
+an RFC 6901 JSON pointer. Build the immutable snapshot/hash using only
+`GeneratedMediaPlanningHandoffGuide.md::Closed Planning Snapshot v2`; do not
+redefine its approvedFacts or hash payload. Apply GeneratedMediaRecordGuide.md
+for shared JCS/file-byte rules. Re-read
+and re-hash sources immediately before publication. Missing provenance,
+unresolved pointers, changed bytes, hash/snapshot mismatch, or incomplete type
+specification writes no partial handoff.
 
 If any required mapping is absent, return `character_planning_not_media_ready`
-and do not write a handoff.
+and the applicable current failure token from
+GeneratedMediaImageGenOnlyContractGuide.md section 8.1; do not write a handoff.
 
 Other contract-level failures are `missing_character_identity`,
 `invalid_character_type`, `invalid_character_planning_schema`,
-`missing_design_provenance`, `planning_snapshot_hash_mismatch`, and
-`character_planning_handoff_collision`. A failure never authorizes partial
+`missing_design_provenance`, `planning_snapshot_mismatch`, and the central
+`record_collision`. A failure never authorizes partial
 handoff output or replacement of an existing different artifact.
 
 ## 5. Legacy Read and Migration
@@ -359,21 +402,18 @@ The file
 `AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json`
 is an analysis example, not a schema template.
 
-Available facts include its existing identity/runtime domain, commonDataRef,
-combat intent, planning score, stats, skills, and the limited legacy silhouette,
-weapon category, and visual keywords. Its common file supplies group/story
-references but does not prove per-field visual decisions.
+Its current bytes contain approved appearance/provenance facts and a legacy
+`generatedMediaPlanning.characterMainImage.rotationPolicy` contract. Those
+bytes are evidence, not a current schema example. They do not contain the
+independently approved `characterSingleImage.identityConsistencyLock` and
+complete `singleImageSpecification` required by the v2 handoff.
 
-Planner decisions still required include gender presentation, structured body, face, hair, costume,
-equipment decision, exact weapon appearance, handedness, palette/material,
-identifying features, pose policy, target display size/detail density and the rest of the intended display contract, observable
-required/prohibited elements, and per-fact provenance.
-
-Downstream tasks are forbidden to infer those decisions from the name `서진`,
-frontline role, rescue motive, sword skill, tags, grade, or broad silhouette.
-The current file is therefore `legacy_incomplete` and blocked for
-`character_main_image` handoff until planning supplies approved facts. This
-guide does not modify that source JSON.
+Downstream tasks are forbidden to derive those missing technical/planning
+decisions from the name `서진`, its appearance facts, a previous provider
+result, or the legacy direction contract. The current file is therefore blocked
+for a new `character_single_image` handoff until the separate character-planning
+migration owner approves and writes the current fields. This guide and the
+handoff producer do not modify that planning JSON or its design-decision JSON.
 
 ## 7. Validation
 
@@ -384,9 +424,14 @@ guide does not modify that source JSON.
   detail-density decision is empty for an approved document;
 - `missingDesignInputs` and planning/readiness states agree;
 - Player/Npc/Boss use only `runtimeDomain=character`;
-- the 8-way contract contains the exact ordered directions and adds no design;
+- current `characterSingleImage` contains one viewpoint and no legacy rotation,
+  direction, animation, variant, PixelLab, or ordered-rotation-set field;
+- legacy exact 8-way data remains isolated and cannot produce a current handoff;
+- outline conditional presence is exact: disabled forbids color/thickness;
+- every identity reference pointer and evidence fact resolves;
 - planning JSON contains no self-referential hash;
-- handoff source hashes are calculated only after planning completion;
+- handoff source hashes and the immutable JCS snapshot are recalculated and
+  verified only after all sources are complete;
 - legacy files are not silently overwritten or marked media-ready;
 - no downstream prompt/provider step is authorized to fill missing design.
 
@@ -399,5 +444,7 @@ AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
 AgentDocs/planning-guides/character/CharacterCreateGuide.md
 AgentDocs/planning-guides/character/CharacterStatGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 ```

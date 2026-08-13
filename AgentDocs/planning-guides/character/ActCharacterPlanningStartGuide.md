@@ -245,8 +245,17 @@ Do not derive gender presentation or biological sex, body, face, hair, costume,
 equipment, weapon detail, handedness, palette/material, identifying features,
 pose policy, target display size, detail density, required elements, or
 prohibited elements from a name, personality, combat role, skill, grade, or
-tag. Missing evidence creates typed `missingDesignInputs` and blocks a
-`character_main_image` handoff.
+tag. Missing evidence creates typed `missingDesignInputs` and blocks a current
+`character_single_image` handoff. Legacy 8-way character-main-image planning is
+read-only and never satisfies this current contract.
+
+When a current handoff is requested, the caller or Act planning orchestration
+owner must supply the request-bound `planningCaptureInputs` defined by
+`GeneratedMediaPlanningHandoffGuide.md::Closed planning capture input`. It owns
+the approved `contentId`, `requestId`, stable explicit-offset `capturedAt`, and
+ordered `sourcePlanningPaths`. The character authoring task only validates and
+copies them; it must not choose source order, generate a timestamp, or repair an
+identity mismatch.
 
 ### 7. Create Monster Context JSON
 
@@ -339,9 +348,12 @@ Before finishing:
 11. Validate legacy files were not overwritten without explicit reviewed
     migration approval.
 12. Validate planning JSON contains no self-referential file or snapshot hash.
-13. Create a separate `generated_media_planning_handoff_v1` only for an
-    approved/ready character when explicitly requested; otherwise report the
-    blocker without generating provider prompt or media.
+13. Create a separate `generated_media_planning_handoff_v2` only for an
+    approved/ready `character_single_image` request with complete
+    identityConsistencyLock and singleImageSpecification when explicitly
+    requested. Reject legacy rotation/direction/ordered-rotation-set data;
+    otherwise report the exact blocker without generating provider prompt or
+    media.
 
 ## Final Response
 
