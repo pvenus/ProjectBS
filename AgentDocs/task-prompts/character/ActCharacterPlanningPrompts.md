@@ -18,6 +18,8 @@ handoff를 작성하는 복사용 프롬프트입니다.
 - AgentDocs/planning-guides/skill/design/SkillDegineGuide.md
 - AgentDocs/planning-guides/skill/design/SkillBalanceGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 
 Input:
 - projectRoot: {project_root}
@@ -31,10 +33,16 @@ Input:
 - globalCharacterFile: AgentDocs/planning-data/story/Characters.md
 - existingPlanningFiles:
   - {optional_project_relative_character_planning_file}
-- createCharacterMainImageHandoffs: {true | false}
+- createCharacterSingleImageHandoffs: {true | false}
 - handoffRequestIds:
   - contentId: {character_id}
     requestId: {stable_request_id}
+- planningCaptureInputs:
+  - contentId: {character_id}
+    requestId: {stable_request_id}
+    capturedAt: {planning_authority_approved_rfc3339_timestamp_with_explicit_numeric_offset}
+    sourcePlanningPaths:
+      - {ordered_project_relative_planning_or_decision_json_path}
 - sourceRevisionInputs:
   - path: {optional_exact_source_path}
     revision: {optional_stable_revision_from_source_authority}
@@ -50,30 +58,32 @@ Input:
 7. requiredElements와 prohibitedElements를 독립 관찰 가능한 문장으로 planning에서 확정하고 evidenceFactIds를 연결한다.
 8. 이름, 성격, combat lore, skill, role, grade, tag에서 성별 표현·biological sex·색·소재·얼굴·복식·무기 세부·포즈·표시 크기·세부 밀도·금지 요소를 추론하지 않는다.
 9. 근거가 부족한 모든 필드는 missingDesignInputs에 typed failureType, requiredDecision, checked source, blocked handoff를 기록하고 planningStatus/readiness를 blocked로 둔다.
-10. character_main_image 요청이 있으면 planning의 identityConsistencyLocks와 rotationPolicy=generated_media_exact_8_way_v1을 기록한다. 캐릭터 의미나 외형을 8방향 기술 계약에서 추가하지 않는다.
-11. createCharacterMainImageHandoffs=true인 각 대상에 대해 planningStatus=approved, readiness=ready, missingDesignInputs=[]인지 검증한다.
-12. 준비된 대상만 별도 generated_media_planning_handoff_v1을 작성한다. 완성된 planning 파일의 project-relative path/hash를 sourcePlanningFiles에 넣고 immutable planningSnapshot을 계산한다. revision은 sourceRevisionInputs에서 해당 source authority가 제공한 안정적인 값이 있을 때만 그대로 넣고, 없으면 키를 생략한다. planning JSON 내부에는 자기 hash/revision을 쓰지 않는다.
-13. handoff의 characterIdentity, appearanceSpecification, requiredElements, prohibitedElements를 canonical planning에서 field-level 매핑하고 exact 8-way rotationContract는 가이드의 기술 구조만 확장한다.
-14. 준비되지 않은 대상은 handoff를 만들지 않고 character_planning_not_media_ready 및 missingDesignInputs를 반환한다.
-15. Player planning은 player root, Npc/Boss는 {actGroupId}/npc root에 저장하고 common/index refs를 검증한다.
-16. 이 작업에서 provider prompt, 이미지·애니메이션, 라우팅 record, 평가, Unity asset, Git 작업을 생성하거나 실행하지 않는다.
+10. current character single-image 요청이면 generatedMediaPlanning.characterSingleImage에 identityConsistencyLock과 완전한 singleImageSpecification을 planning 근거로 확정한다. assetType=character_single_image, domainType=character이며 한 viewpoint만 허용한다. 8-way/rotation/directions/ordered_rotation_set, animation/variant, PixelLab/legacy identity를 current 계약에 넣지 않는다.
+11. singleImageSpecification은 viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, finalBackgroundPolicy, generationBackground{mode=removable_solid,color}, noShadow, outline, anchor를 모두 포함한다. outline.enabled=false이면 color와 exactThicknessPx를 생략한다. enabled=true이면 둘을 필수로 쓰고 placement=outside_silhouette로 고정한다. anchor는 type=pelvis_root_ground_axis와 pelvisOrRootPoint/groundContactAxis를 모두 요구한다.
+12. createCharacterSingleImageHandoffs=true인 각 대상에 대해 planningStatus=approved, characterSingleImage.readiness=ready, missingDesignInputs=[]인지 검증한다. 기존 characterMainImage.rotationPolicy=generated_media_exact_8_way_v1만 있는 대상은 legacy_record_not_current_request로 차단하고 current 필드를 자동 생성·변환하지 않는다. 구 입력명 createCharacterMainImageHandoffs는 current prompt에서 지원하지 않는 read-only legacy 이름이다.
+13. 준비된 대상만 별도 generated_media_planning_handoff_v2를 작성한다. caller/planning orchestration이 승인해 제공한 request별 planningCaptureInputs를 `Closed planning capture input` 계약으로 검증한다. authoring agent는 capturedAt을 만들거나 현재 시각을 사용하거나 sourcePlanningPaths를 선택·추가·제거·중복 제거·재정렬하지 않는다. capture contentId/requestId는 handoff identity와 exact equality여야 하며 ordered sourcePlanningPaths 각 항목은 같은 index의 sourcePlanningFiles.path에 정확히 한 번 대응해야 한다.
+14. canonical planning과 사용한 design decision 파일 전체의 exact project-relative path/role/UTF-8 byte SHA-256를 capture 순서 그대로 sourcePlanningFiles에 넣고, planningSnapshot은 GeneratedMediaPlanningHandoffGuide.md의 `Closed Planning Snapshot v2`를 그대로 적용한다. approvedFacts schema/hash payload를 이 prompt에서 재정의하지 않는다. publication 직전에 모든 source bytes/hash를 다시 검증한다. revision은 source authority의 안정적 값을 그대로 받았을 때만 포함한다.
+15. handoff에는 identityConsistencyLock, singleImageSpecification, ordered requiredElements/prohibitedElements만 exact field-level 매핑한다. 누락 capture/provenance, invalid capturedAt, 해석 불가·중복 source path/JSON pointer, identity/source order/hash/snapshot 불일치, incomplete technical specification은 fail closed하며 부분 handoff를 쓰지 않는다.
+16. 준비되지 않은 대상은 handoff를 만들지 않고 character_planning_not_media_ready, current contract의 정확한 failureType 및 missingDesignInputs를 반환한다.
+17. Player planning은 player root, Npc/Boss는 {actGroupId}/npc root에 저장하고 common/index refs를 검증한다.
+18. 이 작업에서 provider prompt, 이미지·애니메이션, 라우팅 record, 평가, Unity asset, Git 작업을 생성하거나 실행하지 않는다. 기존 immutable handoff/record와 canonical planning/design-decision 파일은 별도 승인된 migration 역할 없이 수정하지 않는다.
 
 Output:
 - canonicalSchemaVersion: character_planning_v2
 - 생성한 common planning JSON 경로
 - 생성한 character planning JSON 경로 및 characterType
 - 보존한 legacy planning JSON 경로와 legacy classification
-- planningStatus / characterMainImage readiness
+- planningStatus / characterSingleImage readiness
 - missingDesignInputs
 - 확정한 genderPresentation 및 intendedDisplay.targetDisplaySize/detailDensity
-- 생성한 character_main_image planning handoff 경로 또는 생성하지 않은 이유
+- 생성한 character_single_image planning handoff v2 경로 또는 생성하지 않은 이유
 - sourceStoryRefs / sourcePlanningRefs
-- Generated Media handoff sourcePlanningFiles / planningSnapshotHash
+- Generated Media handoff planningCaptureInputs 적용값 / sourcePlanningFiles / planningSnapshotHash
 - 검증 결과
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_story_file | invalid_act_group_id | insufficient_story_basis | invalid_json | missing_character_identity | invalid_character_type | invalid_character_planning_schema | missing_design_provenance | missing_gender_presentation | missing_body_design | missing_face_design | missing_hair_design | missing_costume_design | missing_equipment_decision | missing_weapon_design | missing_handedness_decision | missing_palette_design | missing_material_design | missing_identifying_features | missing_pose_policy | missing_display_contract | missing_target_display_size | missing_detail_density | missing_required_elements | missing_prohibited_elements | character_planning_not_media_ready | legacy_character_planning_conflict | planning_snapshot_hash_mismatch | character_planning_handoff_collision
+- failureType: missing_story_file | invalid_act_group_id | insufficient_story_basis | invalid_json | missing_character_identity | invalid_character_type | invalid_character_planning_schema | missing_design_provenance | missing_gender_presentation | missing_body_design | missing_face_design | missing_hair_design | missing_costume_design | missing_equipment_decision | missing_weapon_design | missing_handedness_decision | missing_palette_design | missing_material_design | missing_identifying_features | missing_pose_policy | missing_display_contract | missing_target_display_size | missing_detail_density | missing_required_elements | missing_prohibited_elements | missing_planning_capture_inputs | invalid_planning_capture_timestamp | missing_source_planning_path | duplicate_source_planning_path | unresolved_source_planning_path | planning_capture_identity_mismatch | missing_identity_consistency_lock | missing_single_image_viewpoint | missing_single_image_pose | missing_framing_contract | missing_canvas_contract | missing_safe_area | missing_background_policy | missing_generation_background | missing_no_shadow_policy | missing_outline_policy | invalid_outline_contract | missing_anchor_contract | character_planning_not_media_ready | legacy_record_not_current_request | legacy_character_planning_conflict | planning_snapshot_mismatch | record_collision
 - affectedCharacterIds
 - missingDesignInputs
 - filesNotCreatedOrModified
@@ -92,7 +102,11 @@ Output:
 - planning JSON에 자신의 hash나 자신을 포함하는 snapshot hash가 없어야 한다.
 - sourcePlanningFiles.revision은 authority 입력이 있을 때만 동일한 값으로 존재하고, 없으면 생략되어야 한다.
 - handoff는 approved/ready 대상에만 별도 파일로 존재하고 planning 파일 완료 후 계산한 hash를 사용해야 한다.
-- rotationContract는 exact 8-way 기술 구조만 추가하고 appearance/identity를 발명하지 않아야 한다.
+- current handoff는 assetType=character_single_image/domainType=character이고 identityConsistencyLock과 complete singleImageSpecification만 가져야 한다.
+- current handoff에 rotationPolicy, directions, ordered_rotation_set, animation/variant 또는 PixelLab/legacy 필드가 없어야 한다.
+- outline.enabled=false이면 color/exactThicknessPx가 없어야 하며 enabled=true이면 둘 다 유효해야 한다.
+- 모든 sourcePlanningFiles hash, approvedFact pointer, planningSnapshotHash가 exact source bytes와 일치해야 한다.
+- planningCaptureInputs의 contentId/requestId/capturedAt/sourcePlanningPaths가 authority 입력과 byte-equal하고, sourcePlanningPaths와 sourcePlanningFiles.path가 같은 순서로 일대일 대응해야 한다.
 - 후속 단계가 이름·성격·combat lore로 시각 디자인을 보충하도록 지시하지 않아야 한다.
 - 실제 provider 실행, 평가, project promotion, Unity 또는 Git 변경이 없어야 한다.
 ```

@@ -36,10 +36,10 @@ Current pipeline:
 ```text
 Act / Chapter story input
   -> canonical character_planning_v2
-  -> generated_media_planning_handoff_v1 when planning is ready
+  -> generated_media_planning_handoff_v2 when current single-image planning is ready
   -> Generated Media router
-  -> PixelLab character prompt authoring
-  -> PixelLab character generation
+  -> ImageGen character single-image prompt authoring
+  -> ImageGen character single-image generation
   -> preservation / packaging
   -> separate evaluation
   -> Skill JSON generation
@@ -151,17 +151,17 @@ AgentDocs/planning-data/character/act-plans/{groupId}
 Single-file example:
 
 ```text
-AgentDocs/planning-data/character/act-plans/sangui_spirit_npc_group.json
+AgentDocs/planning-data/character/act-plans/{groupId}_npc_group.json
 ```
 
 Split-file example:
 
 ```text
-AgentDocs/planning-data/character/act-plans/player/sangui_spirit.player_common.json
+AgentDocs/planning-data/character/act-plans/player/{groupId}.player_common.json
 AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json
-AgentDocs/planning-data/character/act-plans/sangui_spirit/sangui_spirit.common.json
-AgentDocs/planning-data/character/act-plans/sangui_spirit/npc/character.mist_lingering_child.1.json
-AgentDocs/planning-data/character/act-plans/sangui_spirit/npc/character.red_doll_carrier.1.json
+AgentDocs/planning-data/character/act-plans/{groupId}/{groupId}.common.json
+AgentDocs/planning-data/character/act-plans/{groupId}/npc/character.{npc_name}.{grade}.json
+AgentDocs/planning-data/character/act-plans/{groupId}/npc/character.{boss_name}.{grade}.json
 ```
 
 Use player common data JSON for player-side shared race, faction, world, story, reuse, and source guide data.
@@ -176,7 +176,7 @@ Example:
 
 ```json
 {
-  "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/sangui_spirit.player_common.json"
+  "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/{groupId}.player_common.json"
 }
 ```
 
@@ -215,7 +215,7 @@ AgentDocs/planning-data/character/act-plans/{groupId}/
 
 ---
 
-## Step 2. Character Main-image Planning Handoff
+## Step 2. Character Single-image Planning Handoff
 
 ### Purpose
 
@@ -233,15 +233,17 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuth
 ### Main Work
 
 1. Verify `schemaVersion=character_planning_v2`, `planningStatus=approved`,
-   `generatedMediaPlanning.characterMainImage.readiness=ready`, and an empty
+   `generatedMediaPlanning.characterSingleImage.readiness=ready`, and an empty
    `missingDesignInputs`.
 2. Hash the completed planning source after writing it. Do not write a
    self-referential hash into the planning file.
-3. Map approved identity, structured appearance, observable requirements,
-   prohibitions, and identity locks into a separate
-   `generated_media_planning_handoff_v1`.
-4. Expand `generated_media_exact_8_way_v1` into the exact technical direction
-   order without adding character meaning or appearance.
+3. Map approved observable requirements, prohibitions,
+   identityConsistencyLock, and complete singleImageSpecification into a
+   separate `generated_media_planning_handoff_v2` with
+   `assetType=character_single_image` and `domainType=character`.
+4. Reject rotationPolicy, direction arrays, eight-way/ordered_rotation_set,
+   animation/variant, PixelLab, and other legacy fields. Do not convert a
+   legacy contract into the current single-image contract.
 5. If any planning fact or provenance is missing, return
    `character_planning_not_media_ready`; do not create the handoff.
 
@@ -254,7 +256,9 @@ blocker with `missingDesignInputs`.
 
 - Every handoff visual fact maps to approved character planning evidence.
 - Required/prohibited statements are independently observable.
-- The exact eight-way contract adds only technical view structure.
+- The current handoff contains one approved viewpoint and complete
+  identityConsistencyLock/singleImageSpecification with no legacy rotation
+  fields.
 - No provider prompt, provider result, evaluation, or project asset is created.
 
 ---
@@ -270,10 +274,10 @@ exists. This orchestration guide does not execute or merge their work.
 
 ```text
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
-AgentDocs/planning-guides/content/generated-media/PixelLabCharacterPipelineGuide.md
+AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 AgentDocs/task-prompts/content/generated-media/GeneratedMediaRequestRoutingPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabCharacterPromptAuthoringPrompt.md
-AgentDocs/task-prompts/content/generated-media/PixelLabCharacterGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImagePromptAuthoringPrompt.md
+AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImageGenerationPrompt.md
 ```
 
 ### Main Work
@@ -304,8 +308,9 @@ Generated Media guides.
 
 ### Purpose
 
-Preserve provider originals and extract ordered rotations/frames in the
-separate packaging task, then hand a normalized package to evaluation.
+Preserve provider originals for the single image in the separate packaging
+task, then hand a normalized package to evaluation. Character animations use a
+separate `assetType=animation` request and may extract ordered frames.
 
 ### Reference Files
 
@@ -318,9 +323,8 @@ AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagi
 ### Main Work
 
 1. Preserve the original provider media and hashes.
-2. Extract main-image rotations into `ordered_rotation_set` or requested
-   animation frames into `ordered_frame_set` according to the registered
-   adapter.
+2. Preserve the character single image as `single_image`. Only a separately
+   approved animation request may extract `ordered_frame_set` members.
 3. Package planning, prompt, generation, originals, extracted members,
    manifests, and hashes using the common evaluation package contract.
 4. Send the package to a separate evaluation task.
@@ -333,7 +337,8 @@ A normalized Generated Media evaluation package and evaluation request handoff.
 
 ### Validation
 
-- Main-image packages have eight unique ordered rotations.
+- Current character-main-image packages contain exactly one `single_image` and
+  no direction/rotation member.
 - Animation packages contain only requested animation IDs and ordered frames.
 - Staging source and informational project target are distinct.
 - No evaluation verdict or project promotion is claimed by packaging.
@@ -503,7 +508,8 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 - Missing appearance/provenance produces `missingDesignInputs` and no Generated
   Media handoff.
 - An approved main-image request has a separate immutable planning handoff with
-  verified source hash/snapshot and exact eight-way technical contract.
+  verified source hash/snapshot and a complete one-view
+  identityConsistencyLock/singleImageSpecification contract.
 - Router, prompt authoring, generation, preservation/packaging, and evaluation
   remain separate owners.
 - Character animation contains only externally approved animation requests; no

@@ -29,17 +29,20 @@
     "sourcePlanningRefs": [
       "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
       "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+      "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
       "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
-      "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md"
+      "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md",
+      "AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md",
+      "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md"
     ],
     "factEvidence": [
       {
-       "factId": "seojin.appearance.gender_presentation.v1",
+       "factId": "seojin.appearance.gender_presentation.v3",
        "fieldPath": "/appearance/genderPresentation",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.gender_presentation.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.gender_presentation.v3/value"
           },
           {
             "path": "AgentDocs/planning-data/story/Characters.md",
@@ -48,12 +51,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.body.v1",
+       "factId": "seojin.appearance.body.v3",
        "fieldPath": "/appearance/body",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.body.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.body.v3/value"
           },
           {
             "path": "AgentDocs/planning-data/story/Characters.md",
@@ -66,12 +69,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.face.v1",
+       "factId": "seojin.appearance.face.v3",
        "fieldPath": "/appearance/face",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.face.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.face.v3/value"
           },
           {
             "path": "AgentDocs/planning-data/story/Characters.md",
@@ -80,12 +83,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.hair.v1",
+       "factId": "seojin.appearance.hair.v3",
        "fieldPath": "/appearance/hair",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.hair.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.hair.v3/value"
           },
           {
             "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
@@ -198,12 +201,12 @@
         ]
       },
       {
-       "factId": "seojin.appearance.identifying_features.v1",
+       "factId": "seojin.appearance.identifying_features.v3",
        "fieldPath": "/appearance/identifyingFeatures",
        "sourceRefs": [
           {
-            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
-            "sourcePointerOrSection": "/designFacts/seojin.appearance.identifying_features.v1/value"
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.appearance.identifying_features.v3/value"
           },
           {
             "path": "AgentDocs/planning-data/story/Characters.md",
@@ -334,21 +337,51 @@
             "sourcePointerOrSection": "/race/0"
           }
         ]
+      },
+      {
+       "factId": "seojin.requirement.youthful_face.v3",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/requiredElements/3",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.requirement.youthful_face.v3/value"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.prohibition.mature_weathered_face.v3",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/3",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.prohibition.mature_weathered_face.v3/value"
+          }
+        ]
+      },
+      {
+       "factId": "seojin.prohibition.modern_westernized_beauty.v3",
+       "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/4",
+       "sourceRefs": [
+          {
+            "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.v3.json",
+            "sourcePointerOrSection": "/designFacts/seojin.prohibition.modern_westernized_beauty.v3/value"
+          }
+        ]
       }
     ]
   },
   "appearance": {
     "genderPresentation": {
-      "description": "성인 남성으로 읽히는 시각 표현. 생물학적 성별을 단정하지 않으며 장식보다 실용성을 앞세운 군졸 출신 무사의 인상이다."
+      "description": "20대 중후반의 젊은 성인 한국 남성으로 명확히 읽히는 시각 표현. 미성년처럼 보이지 않으며 군졸 출신 떠돌이 검사의 실용적이고 절제된 인상을 유지한다."
     },
     "body": {
-      "description": "성인으로 보이는 보통 키의 단단한 체형이며, 장거리 이동과 반복된 근접전을 견딘 듯 어깨와 팔에 군졸식 훈련의 힘이 남아 있다. 과장된 거구나 영웅적 신체 비례는 사용하지 않는다."
+      "description": "20대 중후반의 젊은 성인으로 보이는 보통 키의 균형 잡힌 단단한 체형. 민첩한 전열 검사로 읽히는 탄탄한 어깨와 팔을 가지되 과장된 거구, 노쇠한 체형, 영웅적 신체 비례는 사용하지 않는다."
     },
     "face": {
-      "description": "햇볕과 먼지에 거칠어진 갸름한 얼굴, 곧은 눈썹, 피로가 남아 있지만 아이를 마주할 때 경계가 누그러지는 단정한 눈매로 표현한다. 수염은 턱과 입가에 짧고 성기게 남은 정도다."
+      "description": "젊고 단정하며 매력적인 한국 남성의 얼굴. 균형 잡힌 갸름한 얼굴형, 깨끗하고 선명한 턱선, 곧은 눈썹, 또렷하고 차분한 눈매를 갖는다. 피부에는 햇볕과 여행의 흔적을 아주 옅게 남기되 깊은 주름, 짙은 피로, 거친 노숙 인상은 피한다. 얼굴은 깨끗하게 면도한 상태로 표현한다."
     },
     "hair": {
-      "description": "검은 머리를 조선시대 성인 남성의 상투 형태로 낮고 단단하게 묶고, 이동 중 흐트러진 짧은 잔머리만 관자와 목덜미에 남긴다. 화려한 관모나 이국적인 장식은 사용하지 않는다."
+      "description": "윤기 있는 검은 머리를 조선시대 젊은 성인 남성의 낮고 단단한 상투로 단정하게 묶는다. 관자와 목덜미의 잔머리는 최소화하며 현대식 헤어스타일, 화려한 관모, 이국적인 장식은 사용하지 않는다."
     },
     "costume": {
       "description": "빛바랜 남색 군졸용 포와 바지를 기본층으로 입고, 몸통에는 여러 차례 수선한 낡은 철제 미늘 갑옷을 걸친다. 그 위에는 먼지 묻은 회갈색 포형 여행 겉옷을 어깨에서 느슨하게 여며 이동자의 실루엣을 만든다. 옷과 갑옷은 오래 사용한 마모와 덧댄 흔적이 보이되 판타지식 중갑이나 타 문화 장식은 배제한다."
@@ -402,7 +435,7 @@
     "identifyingFeatures": [
       "회갈색 포형 여행 겉옷 사이로 빛바랜 남색 군졸복과 수선된 반신 미늘 갑옷이 함께 드러나는 겹실루엣",
       "장식 없이 닳은 짙은 나무 칼집의 조선식 환도",
-      "낮고 단단한 상투와 햇볕·먼지에 거칠어진 얼굴"
+      "낮고 단정한 검은 상투, 깨끗한 턱선, 곧은 눈썹과 또렷하고 차분한 눈매로 식별되는 젊은 한국 남성의 얼굴"
     ],
     "posePolicy": {
       "mode": "neutral_provider_pose"
@@ -528,6 +561,15 @@
             "seojin.appearance.costume.v1",
             "seojin.appearance.materials.v1"
           ]
+        },
+        {
+          "factId": "seojin.requirement.youthful_face.v3",
+          "statement": "20대 중후반의 젊은 성인 한국 남성으로 읽히는 단정하고 매력적인 얼굴, 깨끗한 턱선, 곧은 눈썹과 또렷한 눈매가 일관되어야 한다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3",
+            "seojin.appearance.identifying_features.v3"
+          ]
         }
       ],
       "prohibitedElements": [
@@ -551,8 +593,25 @@
           "factId": "seojin.prohibition.supernatural_body.v1",
           "statement": "뿔, 발광 눈, 괴이한 피부색, 비인간형 팔다리 등 초자연적 신체 특징을 추가하지 않는다.",
           "evidenceFactIds": [
-            "seojin.appearance.body.v1",
-            "seojin.appearance.face.v1"
+            "seojin.appearance.body.v3",
+            "seojin.appearance.face.v3"
+          ]
+        },
+        {
+          "factId": "seojin.prohibition.mature_weathered_face.v3",
+          "statement": "중년 또는 노년으로 읽히는 깊은 주름, 짙은 수염, 처진 얼굴선, 과도한 피로와 거친 노숙 인상을 포함하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3"
+          ]
+        },
+        {
+          "factId": "seojin.prohibition.modern_westernized_beauty.v3",
+          "statement": "현대 아이돌 스타일, 서양화된 얼굴 비례, 미성년 표현, 성적 대상화 또는 화려한 미용 장식을 추가하지 않는다.",
+          "evidenceFactIds": [
+            "seojin.appearance.gender_presentation.v3",
+            "seojin.appearance.face.v3",
+            "seojin.appearance.hair.v3"
           ]
         }
       ],
@@ -575,6 +634,8 @@
   "missingDesignInputs": [],
   "notes": [
     "2026-08-12 기획 소유자의 이번 작업 한정 승인에 따라 legacy_incomplete 파일을 character_planning_v2로 마이그레이션하고 시각 디자인 결정을 완성했다.",
-    "기존 commonDataRef, identity, combat, planningScore, stats, skills 값은 변경하지 않았다."
+    "기존 commonDataRef, identity, combat, planningScore, stats, skills 값은 변경하지 않았다.",
+    "2026-08-14 기획 소유자의 승인에 따라 v5 시험 결과에서 확인된 20대 중후반의 젊고 단정한 한국 남성 얼굴·체형·상투 식별 기준을 visual-design.v3 근거로 canonical appearance와 required/prohibited 요소에 반영했다.",
+    "메인 캐릭터의 재사용 가능한 선 중심 한국 전통 표현 규칙은 appearance 사실에 복사하지 않고 projectbs_character_restrained_ink_line@1.0.0 프로필에서만 관리하며, GeneratedMediaVisualPromptAuthoringGuide.md의 Canonical Character Expression Profile을 따른다."
   ]
 }
