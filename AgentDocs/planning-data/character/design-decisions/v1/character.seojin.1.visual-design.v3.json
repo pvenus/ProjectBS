@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "character_visual_design_decision_v1",
+  "decisionId": "character_visual_design_decision.character.seojin.1.v3",
+  "characterId": "character.seojin.1",
+  "decisionStatus": "approved",
+  "approval": {
+    "authorityRole": "character_planning_owner",
+    "scope": "canonical_character_planning_revision_and_main_character_ink_line_concept",
+    "approvedAt": "2026-08-14T00:12:44.5271017+09:00",
+    "approvalContext": "2026-08-14 KST 사용자가 현재 v5 시험 결과에서 확인된 서진의 캐릭터 디자인 완성도를 canonical 기획에 반영하고, 선 중심의 한국 전통 미감에 기반한 이미지를 메인 캐릭터 표현 컨셉으로 연결하도록 승인했다. 캐릭터 고유 외형 사실은 이 결정에 기록하고, 재사용 가능한 먹선·붓선 표현 규칙은 canonical expression profile 권위에서만 관리한다."
+  },
+  "constraintRefs": [
+    {
+      "path": "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.1.visual-design.json",
+      "section": "선행 canonical 디자인 v1 전체"
+    },
+    {
+      "path": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+      "section": "디자인 원칙 > 1. 시대적 배경, 4. 전통 복식과 장비, 5. 전통 예술과 조형, 10. 기본 시각 표현 경계"
+    },
+    {
+      "path": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md",
+      "section": "Canonical Character Expression Profile"
+    },
+    {
+      "path": "AgentDocs/planning-data/story/Characters.md",
+      "section": "인물별 설명 > 서진"
+    }
+  ],
+  "designFacts": {
+    "seojin.appearance.gender_presentation.v3": {
+      "fieldPath": "/appearance/genderPresentation",
+      "value": {
+        "description": "20대 중후반의 젊은 성인 한국 남성으로 명확히 읽히는 시각 표현. 미성년처럼 보이지 않으며 군졸 출신 떠돌이 검사의 실용적이고 절제된 인상을 유지한다."
+      }
+    },
+    "seojin.appearance.body.v3": {
+      "fieldPath": "/appearance/body",
+      "value": {
+        "description": "20대 중후반의 젊은 성인으로 보이는 보통 키의 균형 잡힌 단단한 체형. 민첩한 전열 검사로 읽히는 탄탄한 어깨와 팔을 가지되 과장된 거구, 노쇠한 체형, 영웅적 신체 비례는 사용하지 않는다."
+      }
+    },
+    "seojin.appearance.face.v3": {
+      "fieldPath": "/appearance/face",
+      "value": {
+        "description": "젊고 단정하며 매력적인 한국 남성의 얼굴. 균형 잡힌 갸름한 얼굴형, 깨끗하고 선명한 턱선, 곧은 눈썹, 또렷하고 차분한 눈매를 갖는다. 피부에는 햇볕과 여행의 흔적을 아주 옅게 남기되 깊은 주름, 짙은 피로, 거친 노숙 인상은 피한다. 얼굴은 깨끗하게 면도한 상태로 표현한다."
+      }
+    },
+    "seojin.appearance.hair.v3": {
+      "fieldPath": "/appearance/hair",
+      "value": {
+        "description": "윤기 있는 검은 머리를 조선시대 젊은 성인 남성의 낮고 단단한 상투로 단정하게 묶는다. 관자와 목덜미의 잔머리는 최소화하며 현대식 헤어스타일, 화려한 관모, 이국적인 장식은 사용하지 않는다."
+      }
+    },
+    "seojin.appearance.identifying_features.v3": {
+      "fieldPath": "/appearance/identifyingFeatures",
+      "value": [
+        "회갈색 포형 여행 겉옷 사이로 빛바랜 남색 군졸복과 수선된 반신 미늘 갑옷이 함께 드러나는 겹실루엣",
+        "장식 없이 닳은 짙은 나무 칼집의 조선식 환도",
+        "낮고 단정한 검은 상투, 깨끗한 턱선, 곧은 눈썹과 또렷하고 차분한 눈매로 식별되는 젊은 한국 남성의 얼굴"
+      ]
+    },
+    "seojin.requirement.youthful_face.v3": {
+      "fieldPath": "/generatedMediaPlanning/characterMainImage/requiredElements/3",
+      "value": {
+        "factId": "seojin.requirement.youthful_face.v3",
+        "statement": "20대 중후반의 젊은 성인 한국 남성으로 읽히는 단정하고 매력적인 얼굴, 깨끗한 턱선, 곧은 눈썹과 또렷한 눈매가 일관되어야 한다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3",
+          "seojin.appearance.identifying_features.v3"
+        ]
+      }
+    },
+    "seojin.prohibition.mature_weathered_face.v3": {
+      "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/3",
+      "value": {
+        "factId": "seojin.prohibition.mature_weathered_face.v3",
+        "statement": "중년 또는 노년으로 읽히는 깊은 주름, 짙은 수염, 처진 얼굴선, 과도한 피로와 거친 노숙 인상을 포함하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3"
+        ]
+      }
+    },
+    "seojin.prohibition.modern_westernized_beauty.v3": {
+      "fieldPath": "/generatedMediaPlanning/characterMainImage/prohibitedElements/4",
+      "value": {
+        "factId": "seojin.prohibition.modern_westernized_beauty.v3",
+        "statement": "현대 아이돌 스타일, 서양화된 얼굴 비례, 미성년 표현, 성적 대상화 또는 화려한 미용 장식을 추가하지 않는다.",
+        "evidenceFactIds": [
+          "seojin.appearance.gender_presentation.v3",
+          "seojin.appearance.face.v3",
+          "seojin.appearance.hair.v3"
+        ]
+      }
+    }
+  }
+}
