@@ -60,10 +60,108 @@ status: normalized
 validation:
 ```
 
-The deterministic ID/hash includes every field except the ID itself and
-validation-computed hash. Visual evidence entries contain constraintId,
-statement path, exact planning source path/JSON pointer/hash, authority role,
-and transformation type. Missing evidence blocks.
+The displayed top-level member set is closed. For
+`assetType=character_single_image`, every nested value is also closed as
+follows; no field is nullable and no additional member is allowed:
+
+```yaml
+planningOriginalRef:
+  planningHandoffPath:
+  routingRecordId:
+  routingRecordPath:
+  routingRecordSha256:
+  routingPayloadSha256:
+expressionProfilePayload: exact closed Canonical Character Expression Profile payload below
+primarySubjectOrSilhouette: non-empty provider-neutral string
+visualHierarchy: non-empty provider-neutral string
+composition: non-empty provider-neutral string
+paletteAndMaterial: non-empty provider-neutral string
+backgroundPolicy: non-empty provider-neutral string
+outlinePolicy: non-empty provider-neutral string
+anchorPolicy: non-empty provider-neutral string
+requiredVisualStatements:
+  - constraintId:
+    statement:
+prohibitedVisualStatements:
+  - constraintId:
+    statement:
+supportingElements:
+  - constraintId:
+    statement:
+likelyWrongObjects:
+  - constraintId:
+    statement:
+artifactSpecificBrief:
+  identityConsistencyLock:
+    identityId:
+    referenceFacts: non-empty ordered array
+  singleImageSpecification:
+    viewpoint:
+    pose:
+    framing:
+    canvas: {width: positive JSON integer, height: positive JSON integer}
+    targetDisplaySize: {width: positive JSON integer, height: positive JSON integer}
+    safeArea:
+    finalBackgroundPolicy:
+    generationBackground: {mode: removable_solid, color: exact planning value}
+    noShadow: boolean
+    outline:
+      enabled: boolean
+      color?: required only when enabled; forbidden otherwise
+      exactThicknessPx?: required positive JSON integer only when enabled; forbidden otherwise
+      placement?: outside_silhouette only when enabled; forbidden otherwise
+    anchor:
+      type: pelvis_root_ground_axis
+      pelvisOrRootPoint:
+      groundContactAxis:
+visualEvidenceMap:
+  - constraintId:
+    statementPath: RFC 6901 pointer into this brief
+    sourcePath:
+    sourcePointer: RFC 6901 pointer into the exact source, or exact authority section selector
+    sourceSha256:
+    authorityRole: planning | master_concept | expression_profile
+    transformationType: direct_copy | provider_neutral_normalization | profile_lock
+providerTranslationContract:
+  schemaVersion: imagegen_character_single_image_prompt_v2
+  provider: imagegen
+  promptAssemblyOrder:
+    - planning_facts
+    - negative_style_lock
+    - positive_style_lock
+  settingsSeparated: true
+positiveStyleLock: exact ordered array copied from expressionProfilePayload.positiveStyleLock
+negativeStyleLock: exact ordered array copied from expressionProfilePayload.negativeStyleLock
+validation:
+  status: valid
+  sourceEvidence: complete
+  identityConsistency: valid
+  expressionProfile: valid
+  characterSingleImage: valid
+  providerTranslation: valid
+```
+
+The `generated_media_visual_brief_v2` record has exactly the top-level members
+shown in the first schema block. `animationRequestId` is absent for a character
+single image. All statement items have exactly `constraintId` and `statement`.
+Every evidence item has exactly the seven displayed members. The lock-item
+shape is exactly the three-member shape below. `planningOriginalRef` binds the
+verified immutable route; it is not free-form prose.
+
+For deterministic identity, project every top-level member except
+`visualBriefId` and `validation`, change only `schemaVersion` to
+`generated_media_visual_brief_hash_payload_v2`, and calculate:
+
+```text
+visualBriefPayloadSha256 = lowercase_hex(SHA256(canonicalJson(projected payload)))
+visualBriefId = gmbrief2.character_single_image.{contentId}.{visualBriefPayloadSha256[0:20]}
+```
+
+`visualBriefPayloadSha256` is a derived validation result and is not a record
+member. The enclosing prompt calculates `visualBriefSha256` over
+`canonicalJson(the complete validated visualBrief record)`, including its ID
+and closed validation object. Visual evidence entries preserve source order and
+contain exact planning/authority identity. Missing evidence blocks.
 
 Keep `planningOriginal`, normalized brief, provider prompt payload, and
 provider settings as distinct immutable layers. Do not rewrite planning text to

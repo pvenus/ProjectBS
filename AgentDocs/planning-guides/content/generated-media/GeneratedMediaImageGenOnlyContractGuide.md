@@ -333,25 +333,37 @@ payload branch.
 generated_media_prompt_v3:
   schemaVersion: generated_media_prompt_v3
   promptRecordId:
+  promptPayloadSha256:
   requestId:
-  assetType:
-  domainType:
+  assetType: character_single_image
+  domainType: character
   contentId:
-  animationRequestId: required only for animation
+  planningHandoffPath:
+  routingRecordId:
+  routingRecordPath:
+  routingRecordSha256:
+  routingPayloadSha256:
   planningSnapshotHash:
   sourcePlanningFiles: []
   registryVersion: generated_media_authoring_profile_registry_v2
-  registryRowId:
+  registryRowId: character_single_image_v2
+  profileKey: character_single_image@2.0.0
   provider: imagegen
-  structureProfile:
+  structureProfile: character_single_image_v2
   visualBrief:
   visualBriefSha256:
+  expressionProfileKey:
+  expressionProfilePayload:
+  expressionProfilePayloadHash:
   scenePromptOriginal:
   providerPromptPayloadHash:
   providerSettingsIntent:
+  providerSettingsIntentSha256:
   requiredElements: []
   prohibitedElements: []
-  status: ready_for_generation | blocked
+  promptMarkdownPath:
+  promptMarkdownSha256:
+  status: ready_for_generation
   createdAt:
   validation:
 
@@ -386,8 +398,21 @@ generated_media_generation_v2:
   validation:
 ```
 
-Unknown fields are rejected. Animation records without one scalar
-animationRequestId, or non-animation records containing it, are invalid.
+The prompt schema displayed here is the closed current
+`character_single_image` producer projection. GeneratedMediaRecordGuide.md::Prompt
+v3 is the sole authority for its exact top-level/nested member sets,
+`generated_media_prompt_hash_payload_v3`, JCS/SHA-256 projection, deterministic
+ID/paths, raw Markdown bytes, `generated_media_prompt_index_v3`, detached
+`generated_media_generation_handoff_v2`, CAS/no-clobber publication,
+idempotent `reused_identical`, collision/orphan handling, and failure
+atomicity. Unknown fields are rejected. A blocked result is returned as a task
+result and is never serialized as a `generated_media_prompt_v3` record.
+
+Other asset types retain their type-specific readiness rules but cannot infer,
+copy, or widen this character record projection. A producer that cannot resolve
+an exact closed schema for its own type returns `unsupported_record_schema`.
+Animation records without one scalar animationRequestId, or non-animation
+records containing it, are invalid.
 
 ### 6.1 Closed provider execution approval contract
 
@@ -792,6 +817,10 @@ prompt_record_missing
 prompt_record_stale
 provider_value_invalid
 unsupported_record_schema
+prompt_record_write_failed
+prompt_markdown_write_failed
+prompt_index_write_failed
+prompt_publish_rollback_failed
 ```
 
 The first eight tokens above are authoring-readiness failures with these exact
@@ -812,6 +841,21 @@ These tokens stop before a ready prompt record is written. They are not router,
 generation, preservation, or evaluation tokens. Character animation never uses
 the skill-only token, and skill animation never uses the seven character-only
 tokens.
+
+For character prompt publication, the remaining 8.3 record tokens and retry
+meanings are exact:
+
+| failureType | write outcome | safeToRetry |
+| --- | --- | --- |
+| `unknown_record_field`, `missing_record_field`, `record_identity_mismatch`, `record_hash_mismatch`, `prompt_markdown_mismatch`, `provider_value_invalid`, `unsupported_record_schema` | no new workflow artifact | `false`; correct the named input/schema/bytes first |
+| `record_collision`, `index_entry_invalid`, `prompt_record_missing`, `prompt_record_stale` | preserve existing evidence; no overwrite or handoff | `false`; separate remediation or fresh identity is required |
+| `prompt_record_write_failed`, `prompt_markdown_write_failed`, `prompt_index_write_failed` | every file created by this attempt was exact-byte rolled back; prior index unchanged | `true` |
+| `prompt_publish_rollback_failed` | no handoff; potentially partial evidence preserved for remediation | `false` |
+
+`safeToRetry` is the truth for an unchanged immediate retry. Corrected input or
+separate remediation may change that truth. `reused_identical` is a successful
+authoring status, not a failure type; it performs no overwrite and returns a
+fresh detached handoff over the currently verified index bytes.
 
 ### 8.4 Generation Extension
 
