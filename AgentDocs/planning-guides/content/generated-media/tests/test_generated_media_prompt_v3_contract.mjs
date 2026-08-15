@@ -97,9 +97,18 @@ function validateVisualBrief(brief) {
     "planningHandoffPath", "routingRecordId", "routingRecordPath",
     "routingRecordSha256", "routingPayloadSha256",
   ]);
-  assertClosedKeys(brief.expressionProfilePayload, [
-    "expressionProfileKey", "negativeStyleLock", "positiveStyleLock",
-  ]);
+  const expressionKey = brief.expressionProfilePayload.expressionProfileKey;
+  if (!["projectbs_character_restrained_ink_line@1.0.0",
+    "projectbs_character_animation_ready_minimal_ink_line@1.0.0"].includes(expressionKey)) {
+    throw new Error("expression_profile_key_mismatch");
+  }
+  const profileKeys = expressionKey ===
+    "projectbs_character_animation_ready_minimal_ink_line@1.0.0"
+    ? ["expressionProfileKey", "proportionProjection", "detailDensityBudget",
+      "colorValueBudget", "authoringProjectionContract", "negativeStyleLock",
+      "positiveStyleLock"]
+    : ["expressionProfileKey", "negativeStyleLock", "positiveStyleLock"];
+  assertClosedKeys(brief.expressionProfilePayload, profileKeys);
   for (const lock of [...brief.expressionProfilePayload.negativeStyleLock,
     ...brief.expressionProfilePayload.positiveStyleLock,
     ...brief.negativeStyleLock, ...brief.positiveStyleLock]) {

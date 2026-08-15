@@ -116,6 +116,11 @@ Exactly one approved-view primary image. Require identityConsistencyLock,
 viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, final background,
 generation-background removal evidence, noShadow, outline, and
 `pelvis_root_ground_axis` with pelvis/root point and ground-contact axis.
+Also preserve the exact prompt-record expression profile key, payload, payload
+hash, provider prose, and profile/planning evidence map. For
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, package readiness
+requires the closed proportion, detail-density, color/value, and authoring-
+projection members; it never reconstructs them from pixels.
 
 ### icon_single_image_v2
 
@@ -148,6 +153,13 @@ frame count/timing/order/loop/key poses, fixed cell, scale lock, intentional
 vertical-motion policy, background/noShadow/outline and `masterFirst=true`.
 Character profile requires `pelvis_root_ground_axis`; skill profile requires
 `effect_origin`.
+
+A character animation whose immutable reference prompt selected
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0` inherits the same
+three independent evaluation fatal gates. Apply proportion, detail-density,
+and color/value checks to every frame and to cross-frame consistency; any one
+failing frame fails the set and cannot be hidden by average scoring. Skill
+animation does not use these character-profile gates.
 
 Members must include the coherent master, the completed GIF, and contiguous PNG
 frames extracted by reopening that GIF. PNG count and order equal the approved
@@ -204,6 +216,46 @@ Critical finding. Stage/battle/environment use the same stable criterion IDs;
 their registered profile and planning evidence provide domain facts without
 creating copied execution or evaluation prompts.
 
+## Current Character Single-Image Evaluation Adapter
+
+This package-mode adapter applies to
+`character_single_image + character + character_single_image_v2`. It validates
+the sealed package, exact prompt/profile identity, approved planning evidence,
+one-view structure, and Master Concept before visual scoring.
+
+For `projectbs_character_animation_ready_minimal_ink_line@1.0.0`, three fatal
+semantic gates run independently before score acceptance:
+
+- `character_evaluation_proportion_gate_failed`: observed full-body anatomy is
+  greater than 4.25 heads, falls outside the approved 3.75-4.25-head or 24-27%
+  head-height projection, or presents naturalistic seven-to-eight-head/heroic
+  tall anatomy;
+- `character_evaluation_detail_density_gate_failed`: observed treatment uses
+  dense realistic detail, individual armor scales/rivets, dense folds,
+  hatching, microtexture, modeled skin/material shading, or loses sparse
+  contour/frame-reproducibility;
+- `character_evaluation_color_value_gate_failed`: observed treatment uses
+  gradients, cinematic/physical lighting, realistic material rendering,
+  nonminimal value masses, or more than two accent hues.
+
+Each gate is observable and independent; one failure is fatal and cannot be
+averaged away. Unmeasurable proportion or missing profile/planning evidence is
+`insufficient_evidence`, not a guessed visual pass.
+
+Score 100 points only after fatal gates pass:
+
+| criterionId | Category | Max | Minimum for PASS |
+| --- | --- | ---: | ---: |
+| `char.planning_identity` | Approved identity and required/prohibited fidelity | 20 | 18 |
+| `char.proportion_silhouette` | Approved proportion, compact limbs, and silhouette readability | 20 | 18 |
+| `char.line_detail_budget` | Sparse line vocabulary and animation-safe detail budget | 20 | 18 |
+| `char.color_value_budget` | Minimal flat values and subdued accent-hue budget | 20 | 18 |
+| `char.single_image_contract` | Viewpoint, pose, framing, canvas, background, outline, and anchor | 20 | 18 |
+
+PASS requires total >= 90, every category minimum, no fatal gate, and no
+Critical finding. The adapter never edits the source or relaxes a failed
+profile gate.
+
 ## State, Failure and Validation
 
 ```text
@@ -229,6 +281,9 @@ missing_background_safe_area
 missing_background_consistency_lock
 unsupported_icon_domain
 unsupported_background_domain
+character_evaluation_proportion_gate_failed
+character_evaluation_detail_density_gate_failed
+character_evaluation_color_value_gate_failed
 missing_animation_request_id
 multiple_animation_requests_not_allowed
 structure_profile_mismatch

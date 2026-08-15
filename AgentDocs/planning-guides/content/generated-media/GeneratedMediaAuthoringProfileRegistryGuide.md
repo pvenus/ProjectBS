@@ -38,10 +38,12 @@ rows accept only `skill|item`; background rows accept only
 `stage|battle|environment`. Evidence compatible with both image roles blocks
 as `ambiguous_image_role`; no similarity fallback is allowed.
 
-### Character expression profile
+### Character expression profiles
 
-The two character rows additionally resolve this exact reusable expression
-profile; it does not replace either row's routing `profileKey`:
+The two character rows additionally resolve one registered reusable expression
+profile; it does not replace either row's routing `profileKey`. Existing
+planning without an explicit expression-profile selection continues to resolve
+the immutable legacy-compatible profile:
 
 ```text
 expressionProfileKey=projectbs_character_restrained_ink_line@1.0.0
@@ -49,6 +51,26 @@ expressionProfilePayloadHash=bda082ffe297c29cdc6b933a6c219ae67b11ae38bc784c198e4
 canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Canonical Character Expression Profile
 appliesTo=character_single_image_v2,character_animation_v2
 ```
+
+The following new immutable profile is available only when an approved planning
+fact explicitly selects its exact key for a new character single-image request:
+
+```text
+expressionProfileKey=projectbs_character_animation_ready_minimal_ink_line@1.0.0
+expressionProfilePayloadHash=de3339457f05c3dfd6fb6f854c102079c5c14f54d908a474cca093943afc7e06
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile
+appliesTo=character_single_image_v2,character_animation_v2
+selection=explicit_approved_planning_fact_required
+```
+
+Character single-image selection is closed: no approved selection resolves the
+legacy-compatible key, one exact approved selection of the new key resolves the
+new profile, and any unknown, multiple, or conflicting selection blocks as
+`character_style_profile_conflict`. Character animation does not independently
+select a profile; it inherits the exact key, payload, and hash from its
+hash-verified immutable reference prompt record. This preserves every old
+prompt record byte-for-byte and prevents a registry revision from reinterpreting
+its identity.
 
 The canonical authority above is the sole owner of the closed payload, lock
 order, canonicalization, and hash algorithm. This registry is only a closed
@@ -61,7 +83,10 @@ reference prompt record. A different requested expression requires a reviewed re
 version and explicit planning approval; no caller alias or silent override is
 allowed.
 
-The registry validates the closed projection without owning its values:
+The registry validates the closed discriminated projection without owning its
+values. The legacy-compatible payload has exactly the original three members.
+The animation-ready payload additionally requires the four exact members shown
+below:
 
 ```yaml
 expressionProfilePayload:
@@ -74,15 +99,18 @@ expressionProfilePayload:
     - constraintId: required string
       statement: required string
       authorityRef: required project-relative-path::section string
+  proportionProjection: required only for animation-ready profile; exact closed canonical value
+  detailDensityBudget: required only for animation-ready profile; exact closed canonical value
+  colorValueBudget: required only for animation-ready profile; exact closed canonical value
+  authoringProjectionContract: required only for animation-ready profile; exact closed canonical value
 ```
 
-The payload has exactly those three top-level members, and every lock item has
-exactly those three members. Arrays preserve the canonical authority's displayed
-order; object members use RFC 8785 JCS ordering for hashing. A character image
-record must store the canonical payload and registered hash. Its character
-animation descendant must copy both unchanged from the hash-verified immutable
-reference record; resolving the same key again and constructing a fresh payload
-is not inheritance.
+Every lock item has exactly the three displayed members. Arrays preserve the
+canonical authority's displayed order; object members use RFC 8785 JCS ordering
+for hashing. A character image record must store the selected canonical payload
+and registered hash. Its character animation descendant must copy both unchanged
+from the hash-verified immutable reference record; resolving the same key again
+and constructing a fresh payload is not inheritance.
 
 ## Extension and Validation
 

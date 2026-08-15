@@ -368,7 +368,7 @@ provider: imagegen
 structureProfile: character_single_image_v2
 visualBrief: exact closed generated_media_visual_brief_v2 value
 visualBriefSha256:
-expressionProfileKey: projectbs_character_restrained_ink_line@1.0.0
+expressionProfileKey: exact registered character expression profile key
 expressionProfilePayload: exact closed payload from GeneratedMediaVisualPromptAuthoringGuide.md
 expressionProfilePayloadHash:
 scenePromptOriginal:
@@ -407,8 +407,12 @@ conditionally present `revision`; `canvas` has exactly `width` and `height`;
 exactly the nine displayed members. `visualBrief` must first pass the closed
 `generated_media_visual_brief_v2` character-single-image contract in
 GeneratedMediaVisualPromptAuthoringGuide.md. The prompt record copies that
-entire value byte-semantically. The expression-profile payload has exactly the
-three top-level members and exact lock-item schemas owned by that same guide.
+entire value byte-semantically. The expression-profile payload uses the exact
+key-discriminated closed shape owned by that same guide. The legacy-compatible
+profile has exactly its original three top-level members; the animation-ready
+profile additionally has the exact proportion, detail-density, color/value,
+and authoring-projection members. Existing records are validated against the
+shape selected by their stored key and are never required to gain new members.
 
 `providerSettingsIntent` is not a provider request and cannot contain quality,
 model, seed, attempt, cost, or tool fields. Generation resolves its separately

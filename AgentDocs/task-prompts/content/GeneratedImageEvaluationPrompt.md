@@ -46,8 +46,8 @@ Input:
 9. 도메인 가이드가 사전 brief 고정을 요구하면 이미지를 열기 전에 evaluation brief를 만들고 생성 시간과 hash를 기록한 다음 visualInspectionStartedAt을 기록한다.
 10. package mode는 request_type_key={assetType}.{domainType}, legacy mode만 request_type_key=artifactType으로 확정한다. request_type_key, contentId, UTC 평가 시각과 source 또는 manifest hash prefix로 evaluationRecordId를 만들고, 해당 불변 record 폴더의 input/evaluation_input.json을 저장한 뒤 공통 입력 계약과 artifact identity를 검증한다. 파일명에서 key를 추론하지 않는다.
 11. 공통 게이트를 먼저 실행한다: identity, provenance/hash, 파일 무결성, staging/project 경로 분리, 기획·디자인 증거 완전성, 금지 텍스트·UI·로고·워터마크, 마스터 컨셉 hard constraint, 증거 충분성.
-12. single_image이면 도메인 크기·비율·alpha·crop·display-size 규칙과 하나의 원본 이미지를 평가한다. background_single_image_v2이면 추가로 scene composition/viewpoint/horizon/depth/playable-area/subject/canvas/aspect/target/safe-area/background-policy/consistency-lock/scene-anchor metadata와 원본의 일치를 평가하고 icon adapter 규칙을 적용하지 않는다.
-13. ordered_rotation_set이면 정확한 8방향 순서와 identity 일관성을 평가한다. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. GIF는 움직임 판단에만 사용하고 alpha·crop·픽셀 품질 판정에는 사용하지 않는다.
+12. single_image이면 도메인 크기·비율·alpha·crop·display-size 규칙과 하나의 원본 이미지를 평가한다. background_single_image_v2이면 추가로 scene composition/viewpoint/horizon/depth/playable-area/subject/canvas/aspect/target/safe-area/background-policy/consistency-lock/scene-anchor metadata와 원본의 일치를 평가하고 icon adapter 규칙을 적용하지 않는다. character_single_image_v2이면 exact expression profile payload/hash와 planning/profile evidence를 먼저 검증한다. animation-ready minimal profile은 점수 전에 비례(4.25 heads 초과, 24-27% 범위 밖, 7-8등신/영웅적 장신), detail density(비늘·리벳·조밀한 주름·해칭·microtexture·modeled shading), color/value(gradient·cinematic/physical lighting·realistic material·2개 초과 accent hue) fatal gate를 서로 독립적으로 실행하고 하나라도 실패하면 exact character_evaluation_*_gate_failed token으로 acceptance를 차단한다.
+13. ordered_rotation_set이면 정확한 8방향 순서와 identity 일관성을 평가한다. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. animation-ready minimal profile을 상속한 character animation은 12번의 세 semantic gate를 모든 frame과 cross-frame consistency에 적용하고 한 frame의 실패도 전체 set 실패로 처리한다. GIF는 움직임 판단에만 사용하고 alpha·crop·픽셀 품질 판정에는 사용하지 않는다.
 14. 이미지 세트의 한 멤버라도 치명적 실패가 있으면 평균 점수로 가리지 말고 전체 세트를 Fail 처리한다.
 15. 구조 게이트가 끝난 뒤에만 도메인 평가 가이드의 fatal gate를 실행하고, fatal failure가 없을 때만 도메인 점수를 계산한다.
 16. 도메인 점수 카테고리 이름, 배점, threshold와 category minimum을 그대로 사용한다. 다른 콘텐츠 rubric으로 이름을 바꾸거나 배점을 재분배하지 않는다.
@@ -86,7 +86,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed | not_evaluated
-- failureType: background_adapter_identity_mismatch | legacy_current_identity_conflict | missing_background_evaluation_contract | missing_domain_evaluation_adapter | insufficient_evidence | 기존 evaluation failure token
+- failureType: background_adapter_identity_mismatch | legacy_current_identity_conflict | missing_background_evaluation_contract | character_evaluation_proportion_gate_failed | character_evaluation_detail_density_gate_failed | character_evaluation_color_value_gate_failed | missing_domain_evaluation_adapter | insufficient_evidence | 기존 evaluation failure token
 - 실패한 단계와 근거
 - 선택하지 않은 source 또는 모호한 후보
 - 누락되거나 충돌한 canonical 증거

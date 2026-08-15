@@ -187,11 +187,18 @@ is the sole normative owner of the reusable provider-neutral expression
 profile. Other guides and the registry may reference its key and hash but must
 not reproduce or alter its lock statements.
 
-The closed `expressionProfilePayload` schema has exactly these top-level keys:
-`expressionProfileKey`, `negativeStyleLock`, and `positiveStyleLock`. Each lock
-array item has exactly `constraintId`, `statement`, and `authorityRef`; extra or
-missing members block. `authorityRef` uses `{project-relative path}::{exact
-section heading}`. The following payload is canonical for
+The expression profile is a closed discriminated union keyed by
+`expressionProfileKey`. The legacy-compatible
+`projectbs_character_restrained_ink_line@1.0.0` payload has exactly
+`expressionProfileKey`, `negativeStyleLock`, and `positiveStyleLock`. The
+animation-ready profile below has those three members plus exactly
+`proportionProjection`, `detailDensityBudget`, `colorValueBudget`, and
+`authoringProjectionContract`. A member from one shape is not optional in the
+other shape. Each lock-array item has exactly `constraintId`, `statement`, and
+`authorityRef`; extra or missing members block. `authorityRef` uses
+`{project-relative path}::{exact section heading}`.
+
+The following payload remains canonical and immutable for
 `projectbs_character_restrained_ink_line@1.0.0`:
 
 ```json
@@ -227,6 +234,99 @@ strings, emit no insignificant whitespace and encode as UTF-8 without BOM.
 ```text
 bda082ffe297c29cdc6b933a6c219ae67b11ae38bc784c198e4603c1741199cf
 ```
+
+### Animation-ready minimal ink-line profile
+
+The following payload is canonical and immutable for
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`:
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_animation_ready_minimal_ink_line@1.0.0",
+  "proportionProjection": {
+    "fullBodyHeadCount": {"minimum": 3.75, "maximum": 4.25},
+    "headToFullHeightPercent": {"minimum": 24, "maximum": 27},
+    "limbPolicy": "shortened_simplified",
+    "rejectAboveHeadCount": 4.25,
+    "rejectNaturalisticAdultHeadCountRange": {"minimum": 7, "maximum": 8}
+  },
+  "detailDensityBudget": {
+    "level": "animation_safe_low_detail",
+    "silhouettePriority": "first",
+    "contourPolicy": "omit_or_break_non_identity_contours",
+    "identityStrokeGroups": ["face", "garment", "armor", "weapon"],
+    "identityEncoding": "few_high_signal_strokes_per_group",
+    "flatValueMasses": "minimal",
+    "frameToFrameReproducibility": "required",
+    "forbidden": ["individual_armor_scales", "individual_rivets", "dense_folds", "hatching", "skin_microtexture", "material_microtexture", "modeled_skin_shading", "modeled_material_shading"]
+  },
+  "colorValueBudget": {
+    "accentHueCount": {"minimum": 1, "maximum": 2},
+    "accentHuePolicy": "subdued_only",
+    "valueMassPolicy": "minimal_flat_only",
+    "gradients": "prohibited",
+    "modeledShading": "prohibited",
+    "cinematicOrPhysicalLighting": "prohibited",
+    "realisticMaterialRendering": "prohibited"
+  },
+  "authoringProjectionContract": {
+    "planningSelection": "explicit_approved_fact_required",
+    "planningValuePolicy": "exact_or_narrower_within_profile_bounds",
+    "requiredProjectionIds": ["full_body_head_count", "head_to_full_height_percent", "shortened_simplified_limbs", "animation_safe_detail_density", "minimal_flat_value_masses", "subdued_accent_hue_count"],
+    "evidencePolicy": "each_projection_and_lock_requires_exact_approved_fact_or_profile_authority_evidence",
+    "promptInclusion": "verbatim_profile_locks_and_exact_planning_bound_values_required",
+    "conflictPolicy": "block_before_prompt_publication"
+  },
+  "negativeStyleLock": [
+    {"constraintId": "char_anim_min_negative_over_4_25_heads", "statement": "Do not exceed 4.25 heads in full-body height; reject naturalistic seven-to-eight-head adult anatomy and heroic tall proportions.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_long_naturalistic_limbs", "statement": "No long naturalistic adult limbs; keep limbs shortened and simplified within the approved proportion projection.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_armor_microdetail", "statement": "No individually rendered armor scales or rivets.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_dense_folds_hatching", "statement": "No dense garment folds, dense contour filling, or hatching.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_microtexture_shading", "statement": "No skin or material microtexture, modeled skin shading, modeled material shading, stains, or fine surface texture.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_gradient_lighting", "statement": "No gradients, cinematic lighting, volumetric lighting, or physically modeled lighting.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_negative_realistic_rendering", "statement": "No photographic, photorealistic, painterly 3D, PBR, glossy game-cinematic, western-realism, or realistic material rendering.", "authorityRef": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md::10. 기본 시각 표현 경계"},
+    {"constraintId": "char_anim_min_negative_excess_color", "statement": "No more than two accent hues and no saturated multicolor or nonminimal value treatment.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"}
+  ],
+  "positiveStyleLock": [
+    {"constraintId": "char_anim_min_positive_exact_proportion", "statement": "Use a full-body proportion of 3.75 to 4.25 heads, with the head occupying 24 to 27 percent of full height.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_short_limbs", "statement": "Use shortened simplified limbs and compact non-heroic anatomy.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_sparse_contour", "statement": "Use an animation-safe sparse line vocabulary, silhouette-first hierarchy, and broken or omitted nonessential contours.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_high_signal_identity", "statement": "Represent face, garment, armor, and weapon identity with only a few high-signal strokes per group.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_flat_color_value", "statement": "Use minimal flat value masses and only one or two subdued accent hues.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_negative_space", "statement": "Preserve open negative space and a contour density reproducible frame to frame.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Animation-ready minimal ink-line profile"},
+    {"constraintId": "char_anim_min_positive_east_asian_ink_line", "statement": "Use restrained East Asian ink-line character treatment consistent with the ProjectBS Korean traditional-art boundary.", "authorityRef": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md::5. 전통 예술과 조형"}
+  ]
+}
+```
+
+Its exact RFC 8785 JCS canonical JSON UTF-8 SHA-256 is exactly:
+
+```text
+de3339457f05c3dfd6fb6f854c102079c5c14f54d908a474cca093943afc7e06
+```
+
+The registry projection and executable contract vector must match this value;
+a missing or divergent value is `expression_profile_payload_hash_mismatch` and
+blocks activation.
+
+Profile constants are the numeric ranges, budgets, policies, projection IDs,
+and lock text in the payload. Planning-bound values are the character-specific
+approved facts that select this exact profile and satisfy every required
+projection. Authoring may accept an exact range or a narrower range inside the
+profile bounds, but it may not pick a value, widen a range, or synthesize an
+approval. Each projected planning value must appear in an independently
+observable required/prohibited statement and in `visualEvidenceMap` with its
+exact planning fact path/pointer. Each profile lock separately maps to
+`authorityRole=expression_profile`. Missing selection, range, budget, color
+limit, or evidence blocks before prompt publication.
+
+The style-only raster used to approve these constants is not a canonical
+record member. A temporary absolute path is neither durable provenance nor an
+allowed `styleReference` member in any current closed schema. Provider-side
+reference use requires a separately approved durable project-relative copy,
+exact SHA-256, purpose `style_only`, and forbidden semantic transfer of person,
+pose, action, clothes, and identity under a future reviewed schema revision.
+Until then, only the approved profile constants above enter canonical identity.
 
 Do not shorten this contract to `stylized`. The copy-ready provider prompt must
 contain both locks as direct text. Every lock maps to the Master Concept or the
@@ -343,6 +443,20 @@ reference/profile fields. Typed blockers are
 `expression_profile_payload_hash_mismatch`,
 `unexpected_character_style_reference`, and
 `character_animation_style_lock_mismatch`.
+
+For `projectbs_character_animation_ready_minimal_ink_line@1.0.0`, authoring
+also requires the closed proportion/detail/color/projection members, explicit
+approved planning selection, compatible planning-bound values, complete
+projection evidence, and verbatim inclusion of every lock plus exact bound
+values in provider prose. Use `missing_character_proportion_projection`,
+`character_proportion_out_of_range`,
+`missing_animation_safe_detail_budget`,
+`missing_character_color_value_budget`, or
+`character_profile_evidence_omission` as applicable. Generation repeats the
+semantic check against immutable prompt bytes before submit and uses
+`character_generation_proportion_gate_failed`,
+`character_generation_detail_density_gate_failed`, or
+`character_generation_color_value_gate_failed`; it never repairs prompt prose.
 
 ## Related Guides
 
