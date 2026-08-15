@@ -33,8 +33,11 @@ function exactProfileFromGuide(guide) {
 const testDir = dirname(fileURLToPath(import.meta.url));
 const guidePath = join(testDir, "..", "GeneratedMediaVisualPromptAuthoringGuide.md");
 const registryPath = join(testDir, "..", "GeneratedMediaAuthoringProfileRegistryGuide.md");
-const guide = readFileSync(guidePath, "utf8");
-const registry = readFileSync(registryPath, "utf8");
+const planningGuidePath = join(testDir, "..", "..", "..", "character", "data-structures",
+  "CharacterPlanningDataGuide.md");
+const guide = readFileSync(guidePath, "utf8").replace(/\r\n/g, "\n");
+const registry = readFileSync(registryPath, "utf8").replace(/\r\n/g, "\n");
+const planningGuide = readFileSync(planningGuidePath, "utf8").replace(/\r\n/g, "\n");
 const profile = exactProfileFromGuide(guide);
 const profileHash = hashObject(profile);
 
@@ -81,6 +84,22 @@ profile.negativeStyleLock.length + profile.positiveStyleLock.length);
 assert.match(registry, new RegExp(`expressionProfilePayloadHash=${profileHash}`));
 const fence = String.fromCharCode(96).repeat(3);
 assert.ok(guide.includes(`exactly:\n\n${fence}text\n${profileHash}\n${fence}`));
+assert.match(planningGuide,
+  /expressionProfileKey: optional exact registered character expression-profile key/);
+assert.match(planningGuide,
+  /must be projected unchanged into the handoff snapshot `approvedFacts`/);
+
+function resolvePlanningSelection(selection) {
+  if (selection === undefined) return "projectbs_character_restrained_ink_line@1.0.0";
+  if (selection === profile.expressionProfileKey) return selection;
+  throw new Error("character_style_profile_conflict");
+}
+
+assert.equal(resolvePlanningSelection(undefined),
+  "projectbs_character_restrained_ink_line@1.0.0");
+assert.equal(resolvePlanningSelection(profile.expressionProfileKey), profile.expressionProfileKey);
+assert.throws(() => resolvePlanningSelection("unknown@1.0.0"),
+  /character_style_profile_conflict/);
 
 function authoringProjection(overrides = {}) {
   const projectionIds = profile.authoringProjectionContract.requiredProjectionIds;

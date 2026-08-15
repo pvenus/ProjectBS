@@ -224,6 +224,7 @@ sentences into appearance fields as if they were character identity.
 generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
+    expressionProfileKey: optional exact registered character expression-profile key
     requiredElements:
       - factId: stable requirement ID
         statement: independently observable visual sentence
@@ -262,6 +263,14 @@ generatedMediaPlanning:
 be produced downstream from a name, personality, combat lore, skill, role tag,
 or likely visual convention. An explicitly empty prohibited list is invalid
 unless planning records a source-evidenced `no_prohibitions` decision.
+
+`expressionProfileKey` is optional for backward compatibility. When absent,
+the registry applies its immutable legacy-compatible character profile. When
+present, it is an explicit approved planning fact: the value must be one exact
+registered key, must have `factEvidence` to an approved planning decision, and
+must be projected unchanged into the handoff snapshot `approvedFacts`. Unknown
+or conflicting selection returns `character_style_profile_conflict`; no
+downstream stage may add, alias, or repair this value.
 
 `characterSingleImage` is the only current planning source for
 `assetType=character_single_image`, `domainType=character`. It describes one
