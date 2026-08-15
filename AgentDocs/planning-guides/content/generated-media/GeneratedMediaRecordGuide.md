@@ -683,6 +683,9 @@ file-byte rules at the start of this guide.
 
 Before an external call, look up the deterministic ID and active attempt:
 
+- require the closed non-submit capability response, bind its descriptor and
+  defaults-resolved settings into scope, and preserve its immutable evidence
+  reference in cost evidence;
 - identical completed result -> reuse without billing;
 - identical active attempt -> block `duplicate_provider_call_risk`;
 - changed prompt/settings/asset identity -> new scope and fresh approval, never
@@ -734,6 +737,9 @@ unsupported_record_schema
 missing_provider_execution_approval
 invalid_provider_execution_approval
 provider_execution_scope_mismatch
+provider_capability_descriptor_unavailable
+provider_capability_preflight_invalid
+provider_capability_drift
 provider_cost_unit_mismatch
 provider_cost_estimate_unavailable
 provider_cost_limit_exceeded

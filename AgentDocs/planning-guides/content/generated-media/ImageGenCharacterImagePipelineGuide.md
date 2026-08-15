@@ -55,9 +55,14 @@ valid style contract. A planning/profile conflict blocks rather than silently
 restyling the approved design.
 
 The only provider interface is `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. The execution role computes
-and presents the contract 6.1 scope hash; generation then requires its closed
-approval and enforces tagged `maxCost`, cumulative `maxAttempts`, and projection equality. It
+`providerInterface=configured_imagegen_capability`. Its contract 6.1 non-submit
+preflight must expose immutable capability/settings/cost descriptor versions,
+defaults-resolved exact closed settings, a tagged estimate, their canonical
+hashes, and an immutable evidence reference without crossing the submit
+boundary. The execution role binds the descriptor and settings into the scope,
+computes and presents that scope hash, then requires its closed approval and
+enforces pre-submit drift detection, tagged `maxCost`, cumulative `maxAttempts`,
+and projection equality. It
 checks the deterministic idempotency key before billing, reuses an identical
 completed result, blocks an identical active call, and records `costEvidence`.
 
