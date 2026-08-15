@@ -56,6 +56,7 @@ AgentDocs/task-prompts/content/generated-media/ImageGenBackgroundPromptAuthoring
 AgentDocs/task-prompts/content/generated-media/ImageGenBackgroundGenerationPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenAnimationPromptAuthoringPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenAnimationGenerationPrompt.md
+AgentDocs/task-prompts/content/generated-media/GeneratedMediaCharacterExpressionEvaluationPrompt.md
 AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md
 ```
 

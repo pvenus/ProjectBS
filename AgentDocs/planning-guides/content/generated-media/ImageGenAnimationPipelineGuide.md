@@ -57,7 +57,9 @@ work is reused, active duplicate work blocks, and every decision records
 `costEvidence`.
 
 Character animation inherits the approved reference/main-image identity and
-the exact ProjectBS ink-line positive/negative style-lock payload. Across every
+the exact discriminated expression payload. The two lock-array profiles inherit
+their positive/negative locks; the sparse profile inherits its exact eight
+policy members and uses empty compatibility lock arrays. Across every
 frame it preserves line hierarchy, simplification level, controlled stroke
 variation, face landmarks, costume layers, equipment and weapon structure.
 Pose may change only through approved motion. Missing data uses
@@ -68,6 +70,35 @@ from the current contract. `character_animation_style_lock_mismatch` remains an
 aggregate consistency failure only after those exact checks pass. Skill
 animation does not inherit the character style contract.
 
+If the inherited key is
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, the inherited
+payload includes its four closed proportion/detail/color/projection members.
+Authoring preserves them byte-for-byte and projects their frame-reproducibility
+locks into the coherent-master prompt. Generation repeats the three
+`character_generation_*_gate_failed` semantic checks before capability access
+or submit; it rejects greater-than-4.25-head/naturalistic anatomy, dense
+realistic detail, or nonminimal color/value treatment and never repairs the
+reference prompt.
+
+If the inherited key is
+`projectbs_character_sparse_ink_pastel_motion@1.0.0`, authoring inherits the
+same exact eight-member payload/hash while keeping request and structure
+identity independent. Every frame projects 35-50 percent omission, 3-6 palette
+accents, registered motion-line cues, and stable identity/action anchors.
+Attack frames additionally project 3-5 faded-indigo sword/torso motion marks
+and gray-brown shoulder/hem inertia. Generation rejects static repetition,
+missing line/pigment motion cues, closed/filled treatment, or anchor drift with
+the exact sparse generation tokens before provider access.
+Sparse missing/mismatch/evidence/provider-projection failures use only the four
+sparse authoring tokens; no `missing_*_style_lock` token applies.
+
+An exact current-user approval may instead select
+`hosted_builtin_preview_v1` for exactly one scalar animationRequestId. This
+isolated lane permits one submit and zero retries and ends at a non-evaluated,
+non-promotable preview record; it cannot enter extraction, preservation, or
+promotion. Promotable animation remains on the unchanged descriptor/approval/
+cost generation-v2 contract.
+
 ## Input, Output, State, and Validation
 
 One scalar animationRequestId route/handoff becomes one prompt v3 record. One
@@ -76,8 +107,9 @@ handoff. State is `routed -> authored -> generated -> preservation_pending`.
 Validate the exact ID/reference, final count/timing/order/loop/key poses,
 fixed-cell/scale/anchor policies, ImageGen provider, and
 `animation_gif_frame_set_v2`. Character units also validate exact reference
-prompt-record bytes, expression key/payload/hash, direct positive/negative prompt inclusion and
-evidence coverage. Retry cannot change the motion contract. No
+prompt-record bytes, expression key/payload/hash, and the selected union branch:
+direct lock inclusion/evidence for lock-array profiles or complete eight-member
+sparse projection/evidence with empty lock arrays. Retry cannot change the motion contract. No
 extraction, evaluation, promotion, or Git work occurs.
 
 Generation blockers additionally include the exact contract 6.1-6.2 approval,

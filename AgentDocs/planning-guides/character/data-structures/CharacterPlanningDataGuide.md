@@ -244,7 +244,13 @@ sentences into appearance fields as if they were character identity.
   not add youth, attractiveness, modern/westernized beauty, minor-coded or
   sexualized presentation, facial hair, fatigue, age, or gravitas;
 - the reusable expression layer must supply separate positive and negative
-  style locks with profile ID/version and evidence coverage;
+  style locks or the exact closed profile-specific policy projection with
+  profile ID/version and evidence coverage;
+- planning may select only an exact registered `expressionProfileKey` and its
+  reviewed payload hash as an approved pointer. The current sparse-ink option is
+  `projectbs_character_sparse_ink_pastel_motion@1.0.0` with hash
+  `b5ce18d11e249598ad6da13d59340cf7cede3d2896259dcc5e02dbbf98e80443`;
+  actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit
   planning/profile revision. Downstream stages never silently restyle planning.
@@ -255,6 +261,7 @@ sentences into appearance fields as if they were character identity.
 generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
+    expressionProfileKey: optional exact registered character expression-profile key
     requiredElements:
       - factId: stable requirement ID
         statement: independently observable visual sentence
@@ -293,6 +300,14 @@ generatedMediaPlanning:
 be produced downstream from a name, personality, combat lore, skill, role tag,
 or likely visual convention. An explicitly empty prohibited list is invalid
 unless planning records a source-evidenced `no_prohibitions` decision.
+
+`expressionProfileKey` is optional for backward compatibility. When absent,
+the registry applies its immutable legacy-compatible character profile. When
+present, it is an explicit approved planning fact: the value must be one exact
+registered key, must have `factEvidence` to an approved planning decision, and
+must be projected unchanged into the handoff snapshot `approvedFacts`. Unknown
+or conflicting selection returns `character_style_profile_conflict`; no
+downstream stage may add, alias, or repair this value.
 
 `characterSingleImage` is the only current planning source for
 `assetType=character_single_image`, `domainType=character`. It describes one

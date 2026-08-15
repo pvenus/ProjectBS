@@ -298,6 +298,16 @@ All prompt paths are relative to
 `provider=imagegen`. Adding a domain requires a reviewed registry/profile row;
 it does not create a domain execution prompt.
 
+Character routing `profileKey` and expression-profile selection are distinct.
+For a new character single image, the registry default preserves
+`projectbs_character_restrained_ink_line@1.0.0`; the new
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0` is selected only
+by one exact approved planning fact. Unknown, absent-as-new, multiple, or
+conflicting selections are never inferred. Character animation inherits the
+exact selection from its immutable reference prompt record. The selected
+expression payload and hash remain part of prompt identity, so no existing
+record is reinterpreted.
+
 ## 6. Record and Storage Contract
 
 Current record paths use directory version v2 and never share the legacy v1
@@ -333,25 +343,37 @@ payload branch.
 generated_media_prompt_v3:
   schemaVersion: generated_media_prompt_v3
   promptRecordId:
+  promptPayloadSha256:
   requestId:
-  assetType:
-  domainType:
+  assetType: character_single_image
+  domainType: character
   contentId:
-  animationRequestId: required only for animation
+  planningHandoffPath:
+  routingRecordId:
+  routingRecordPath:
+  routingRecordSha256:
+  routingPayloadSha256:
   planningSnapshotHash:
   sourcePlanningFiles: []
   registryVersion: generated_media_authoring_profile_registry_v2
-  registryRowId:
+  registryRowId: character_single_image_v2
+  profileKey: character_single_image@2.0.0
   provider: imagegen
-  structureProfile:
+  structureProfile: character_single_image_v2
   visualBrief:
   visualBriefSha256:
+  expressionProfileKey:
+  expressionProfilePayload:
+  expressionProfilePayloadHash:
   scenePromptOriginal:
   providerPromptPayloadHash:
   providerSettingsIntent:
+  providerSettingsIntentSha256:
   requiredElements: []
   prohibitedElements: []
-  status: ready_for_generation | blocked
+  promptMarkdownPath:
+  promptMarkdownSha256:
+  status: ready_for_generation
   createdAt:
   validation:
 
@@ -386,8 +408,21 @@ generated_media_generation_v2:
   validation:
 ```
 
-Unknown fields are rejected. Animation records without one scalar
-animationRequestId, or non-animation records containing it, are invalid.
+The prompt schema displayed here is the closed current
+`character_single_image` producer projection. GeneratedMediaRecordGuide.md::Prompt
+v3 is the sole authority for its exact top-level/nested member sets,
+`generated_media_prompt_hash_payload_v3`, JCS/SHA-256 projection, deterministic
+ID/paths, raw Markdown bytes, `generated_media_prompt_index_v3`, detached
+`generated_media_generation_handoff_v2`, CAS/no-clobber publication,
+idempotent `reused_identical`, collision/orphan handling, and failure
+atomicity. Unknown fields are rejected. A blocked result is returned as a task
+result and is never serialized as a `generated_media_prompt_v3` record.
+
+Other asset types retain their type-specific readiness rules but cannot infer,
+copy, or widen this character record projection. A producer that cannot resolve
+an exact closed schema for its own type returns `unsupported_record_schema`.
+Animation records without one scalar animationRequestId, or non-animation
+records containing it, are invalid.
 
 ### 6.1 Closed provider execution approval contract
 
@@ -400,6 +435,61 @@ show the user the canonical scope identity plus proposed attempt/cost limits.
 The user approves that presented hash and envelope. The execution role then
 records who approved it and when in the closed object. It MUST NOT accept a
 user-supplied hash that it has not independently recomputed.
+
+Settings resolution and estimation use a read-only operation on
+`configured_imagegen_capability`. It accepts the validated
+`providerSettingsIntent` and returns the defaults-resolved settings and estimate
+without crossing the provider submit boundary, allocating a provider operation,
+uploading prompt media, reserving capacity, or incurring cost. Its response is
+requested with this closed object:
+
+```yaml
+schemaVersion: generated_media_imagegen_capability_preflight_request_v1
+mode: non_submit
+provider: imagegen
+providerTool: imagegen
+providerInterface: configured_imagegen_capability
+assetType: character_single_image | icon_single_image | background_single_image | animation
+providerSettingsIntent: exact verified value from the prompt record
+providerSettingsIntentSha256: recomputed SHA-256 of canonicalJson(providerSettingsIntent)
+```
+
+Unknown, missing, `null`, or differently typed request members reject as
+`provider_capability_preflight_invalid` before the capability is accessed. The
+capability returns the following closed object;
+unknown, missing, `null`, or differently typed
+members reject as `provider_capability_preflight_invalid`:
+
+```yaml
+schemaVersion: generated_media_imagegen_capability_preflight_v1
+mode: non_submit
+submitBoundaryCrossed: false
+capabilityDescriptor:
+  schemaVersion: generated_media_imagegen_capability_descriptor_v1
+  provider: imagegen
+  providerTool: imagegen
+  providerInterface: configured_imagegen_capability
+  capabilityVersion: non-empty immutable deployed-capability version
+  settingsDescriptorVersion: non-empty immutable defaults/schema version
+  costDescriptorVersion: non-empty immutable pricing/estimation version
+capabilityDescriptorSha256: SHA-256 of canonicalJson(capabilityDescriptor)
+providerSettings: defaults-resolved exact closed provider request settings object
+providerSettingsSha256: SHA-256 of canonicalJson(providerSettings)
+estimate: one closed tagged estimate below
+evidenceRef: non-empty immutable reference to the complete preflight evidence
+```
+
+The operation returns one response or no response; it never silently omits
+defaults or substitutes display settings. Missing capability support returns
+`provider_capability_descriptor_unavailable`. `evidenceRef` must resolve to
+immutable evidence containing the complete response and descriptor versions;
+a mutable log URL, prose summary, guessed price, or synthesized zero-cost value
+is invalid. `providerSettings` and both hashes are computed by the capability,
+then independently canonicalized and recomputed by the execution role.
+The repository fixed vector validates the closed transport and hashing rules;
+it does not declare production ImageGen defaults or prices. The external owner
+must maintain descriptor-versioned golden mappings from every supported intent
+to its exact settings and estimate response.
 
 `providerExecutionScopeHashPayload` is a closed object with exactly these
 members. `animationRequestId` is conditionally present, never `null`; it is
@@ -426,14 +516,17 @@ providerPromptPayloadHash: verified hash stored by generated_media_prompt_v3
 provider: imagegen
 providerTool: imagegen
 providerInterface: configured_imagegen_capability
+capabilityDescriptor: exact closed descriptor returned by the non-submit preflight
+capabilityDescriptorSha256: SHA-256 of canonicalJson(capabilityDescriptor)
 providerSettings: exact closed provider request settings object
 providerSettingsSha256: SHA-256 of canonicalJson(providerSettings)
 ```
 
 The request, asset/domain/content identity, optional animation identity,
 snapshot, selected registry/profile, prompt record identity and exact bytes,
-copy-ready prompt bytes, provider payload, provider/tool/interface, and exact
-settings are all approval bindings. Changing any bound value requires a new
+copy-ready prompt bytes, provider payload, provider/tool/interface,
+capability/settings/cost descriptor versions, and exact settings are all
+approval bindings. Changing any bound value requires a new
 scope payload and approval. `promptRecordSha256` and `promptFileSha256` are file
 hashes and therefore include the one required trailing LF; the payload and
 settings hashes do not. Calculate exactly:
@@ -520,6 +613,17 @@ The exact tagged JSON shapes are:
 `no_charge`, `exact`, or `unavailable`. Unknown fields reject in every tagged
 value.
 
+Immediately before submit, generation obtains a fresh non-submit preflight and
+revalidates its closed schema, descriptor hash, settings hash, and estimate.
+If the descriptor or settings hash differs from the approved scope, it returns
+`provider_capability_drift`, `providerCalled=false`, and `safeToRetry=false`;
+the changed scope must be recomputed, presented, and freshly approved. A changed
+estimate with unchanged descriptor/settings is rechecked against the approved
+tagged limit and either proceeds or returns the existing cost blocker. The
+fresh immutable `evidenceRef` is recorded in `costEvidence`; it is evidence, not
+a scope member. No drift path may fall back to guessed settings, a cached price,
+`unavailable`, or `no_charge`.
+
 `maxAttempts` is the maximum count of logical provider attempts for one
 `scopeHash`, accumulated across every renewal. Attempt numbers start at 1 and
 are contiguous. Crossing the submit boundary sets `providerCalled=true` and
@@ -548,6 +652,9 @@ Approval validation uses only these failure types and retry meanings:
 | `missing_provider_execution_approval` | false | false until the computed scope/envelope is approved |
 | `invalid_provider_execution_approval` | false | false until a closed valid approval replaces it |
 | `provider_execution_scope_mismatch` | false | false; recompute/present the changed scope and obtain fresh approval |
+| `provider_capability_descriptor_unavailable` | false | false until the configured capability exposes the closed non-submit descriptor response |
+| `provider_capability_preflight_invalid` | false | false until the capability returns a closed hash-valid non-submit response and immutable evidence reference |
+| `provider_capability_drift` | false | false; recompute/present the changed descriptor/settings scope and obtain fresh approval |
 | `provider_cost_unit_mismatch` | false | false until estimate and approval use the same tagged unit |
 | `provider_cost_estimate_unavailable` | false | false until estimate exists or a renewed approval allows its upper bound |
 | `provider_cost_limit_exceeded` | false for preflight; true for actual overage | false until renewed approval for a future attempt; never retry the over-limit completed call |
@@ -559,6 +666,119 @@ Approval validation uses only these failure types and retry meanings:
 `safeToRetry` is the truth at return time, not a promise that a later approval
 will be granted. Validation failures create no provider call. A failure after
 submit preserves its consumed-attempt, operation, result, and cost evidence.
+
+#### 6.1.1 Hosted built-in preview execution v1
+
+`hosted_builtin_preview_v1` is a separate, closed, preview-only execution mode
+for the callable built-in ImageGen surface that exposes submit but exposes no
+non-submit capability descriptor, defaults-resolved settings descriptor, cost
+estimate, or immutable provider evidence reference. Absence is recorded as
+absence; no descriptor/version/default/price/evidenceRef is synthesized.
+
+This mode does not weaken `generated_media_generation_v2`. A promotable call
+continues to require the complete section 6.1 descriptor, approval and cost
+contract. A preview result is never a generation-v2 result and cannot enter
+preservation, evaluation-package construction, Unity, or promotion.
+
+One authenticated current user message authorizes exactly one work unit:
+
+```text
+character_single_image -> exactly one image
+animation -> exactly one scalar animationRequestId
+```
+
+The message must identify the exact request/content/prompt scope and explicitly
+ask for that one output. A general request, older approval, batch wording,
+multiple animation IDs, or inferred consent is invalid. The closed approval is:
+
+```yaml
+schemaVersion: generated_media_hosted_preview_approval_v1
+executionMode: hosted_builtin_preview_v1
+approvedBy: authenticated current user identity
+approvedAt: RFC 3339 timestamp with offset
+approvalEvidence: immutable current message/thread reference
+previewScopeHash: recomputed 64-lowercase-hex
+workUnitType: exact_single_image | exact_animation_request
+animationRequestId: required only for exact_animation_request; forbidden otherwise
+submitCountMaximum: 1
+retryCountMaximum: 0
+promotionPolicy: not_promotable
+```
+
+The execution role computes `previewScopeHash` over a closed payload containing
+the exact request/asset/domain/content identity, conditional animationRequestId,
+planning snapshot hash, prompt record/file/payload hashes, reference roles and
+hashes, provider=`imagegen`, providerTool=`built-in_imagegen`,
+executionMode=`hosted_builtin_preview_v1`, and `settingsSealSha256`. The
+settings seal contains exactly the authored canvas/background/output intent and
+the options actually exposed on the callable tool invocation. An option not
+exposed by the tool is absent, never `null`, guessed, or defaulted:
+
+```yaml
+schemaVersion: generated_media_hosted_preview_settings_seal_v1
+providerSettingsIntent: exact verified authoring value
+providerSettingsIntentSha256: recomputed canonical hash
+exposedOptions: exact closed options actually exposed by the callable tool
+exposedOptionsSha256: recomputed canonical hash
+capabilityDescriptorStatus: unavailable_on_callable_surface
+settingsDescriptorStatus: unavailable_on_callable_surface
+costEstimate: {status: unavailable}
+```
+
+Before submit, re-read and hash the request, prompt JSON/Markdown, prompt
+payload, settings intent, references and exact single work-unit identity. Any
+drift blocks. Check that no preview record exists and no active submission is
+associated with the same scope. `submitCountMaximum=1` and
+`retryCountMaximum=0` are constants: failure, timeout or ambiguity does not
+authorize another call. Additional output or retry requires a new exact scope
+and a new current user approval.
+
+After the one submit, save only observable returned media to:
+
+```text
+output/generated-media-preview/v1/{assetType}/{contentId}/{workUnitId}/original.{ext}
+```
+
+`workUnitId` is `single_image` or the exact animationRequestId. A provider
+absolute/transient path may be audit text only and never canonical identity.
+The preview record stores the relative output path/hash, tool mode,
+submitCount=1, retryCount=0, `costKnown=false`, and these literal states:
+
+```text
+preview_only=true
+not_promotable=true
+not_evaluated=true
+capabilityEvidenceStatus=unavailable_on_callable_surface
+settingsEvidenceStatus=exposed_options_only
+costEvidenceStatus=unavailable_on_callable_surface
+```
+
+The canonical record/path/index contract is owned by
+GeneratedMediaRecordGuide.md::Hosted Preview v1. Attempting to use this record
+or media as preservation, canonical generation, evaluation-package, Unity, or
+promotion input fails at that entry boundary. The descriptor blocker is not a
+preview precondition; it remains mandatory at the promotable
+generation/preservation boundary.
+
+Preview uses only these additional central failure tokens:
+
+| failureType | meaning |
+| --- | --- |
+| `missing_hosted_preview_approval` | no current exact authenticated approval |
+| `invalid_hosted_preview_approval` | approval shape, work unit, limits or evidence is invalid |
+| `hosted_preview_scope_mismatch` | approval hash does not equal recomputed current scope |
+| `hosted_preview_unknown_setting` | execution would require an unexposed or invented setting/default |
+| `hosted_preview_prompt_drift` | prompt record/file/payload changed before submit |
+| `hosted_preview_reference_drift` | reference role/path/hash changed before submit |
+| `hosted_preview_submit_limit_exceeded` | one submit was already consumed |
+| `hosted_preview_retry_forbidden` | retry was requested after any submit outcome |
+| `hosted_preview_output_missing` | submit returned no observable media |
+| `hosted_preview_output_hash_mismatch` | saved observable bytes do not match the record hash |
+| `hosted_preview_preservation_forbidden` | preview entered preservation or evaluation packaging |
+| `hosted_preview_promotion_forbidden` | preview entered canonical generation, Unity or promotion |
+
+All preview blockers preserve truthful submitCount, `costKnown=false`, and the
+unavailable evidence statuses.
 
 ### 6.2 Approval and cost projection
 
@@ -623,20 +843,20 @@ The executable vector is
 canonical scope JSON is exactly this single UTF-8 line with no trailing LF:
 
 ```json
-{"assetType":"character_single_image","contentId":"seojin","domainType":"character","planningSnapshotHash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","promptFileSha256":"3313e882e877653bc059fa85bfea8299940f88360673b1ba39d111106c2803c9","promptRecordId":"gmprompt3.character_single_image.character.seojin.1.e12ee2ebe2787f10e8a5","promptRecordSha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerPromptPayloadHash":"6f855d4140bc32db400af207899c1ab3a981d4b9df17d3313fe594d05698809d","providerSettings":{"background":"opaque","format":"png","quality":"high","size":"1024x1024"},"providerSettingsSha256":"a1e5fb882b29876db5770023e913b6e62056ac1395a30765136132460be5ce4c","providerTool":"imagegen","registryRowId":"character_single_image_v2","requestId":"gmreq.character.seojin.1","schemaVersion":"generated_media_provider_execution_scope_hash_payload_v1","structureProfile":"character_single_image_v2"}
+{"assetType":"character_single_image","capabilityDescriptor":{"capabilityVersion":"imagegen-capability@2026-08-15.1","costDescriptorVersion":"imagegen-cost@2026-08-15.1","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerTool":"imagegen","schemaVersion":"generated_media_imagegen_capability_descriptor_v1","settingsDescriptorVersion":"imagegen-settings@2026-08-15.1"},"capabilityDescriptorSha256":"56feefadf3800a8adac17ba017285665d5ddaf6083a2edb3311d61dd04b136b4","contentId":"seojin","domainType":"character","planningSnapshotHash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","promptFileSha256":"3313e882e877653bc059fa85bfea8299940f88360673b1ba39d111106c2803c9","promptRecordId":"gmprompt3.character_single_image.character.seojin.1.e12ee2ebe2787f10e8a5","promptRecordSha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerPromptPayloadHash":"6f855d4140bc32db400af207899c1ab3a981d4b9df17d3313fe594d05698809d","providerSettings":{"background":"opaque","format":"png","quality":"high","size":"1024x1024"},"providerSettingsSha256":"a1e5fb882b29876db5770023e913b6e62056ac1395a30765136132460be5ce4c","providerTool":"imagegen","registryRowId":"character_single_image_v2","requestId":"gmreq.character.seojin.1","schemaVersion":"generated_media_provider_execution_scope_hash_payload_v1","structureProfile":"character_single_image_v2"}
 ```
 
 Its fixed `scopeHash` is
-`be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb`.
+`b6ff09a80553191de47b5ad746bd8960f4559da78887670ab667c07da25dcf1b`.
 The canonical approval JSON is:
 
 ```json
-{"approvalEvidence":"codex-thread:019ffabb-97f6-7af3-abaa-f70747dc125f/message:approval-1","approvedAt":"2026-08-13T12:00:00+09:00","approvedBy":"user:contract-reviewer","estimateUnavailablePolicy":"block","maxAttempts":2,"maxCost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"schemaVersion":"generated_media_provider_execution_approval_v1","scopeHash":"be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb"}
+{"approvalEvidence":"codex-thread:019ffabb-97f6-7af3-abaa-f70747dc125f/message:approval-1","approvedAt":"2026-08-13T12:00:00+09:00","approvedBy":"user:contract-reviewer","estimateUnavailablePolicy":"block","maxAttempts":2,"maxCost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"schemaVersion":"generated_media_provider_execution_approval_v1","scopeHash":"b6ff09a80553191de47b5ad746bd8960f4559da78887670ab667c07da25dcf1b"}
 ```
 
 Its fixed approval SHA-256 is
-`4d974e3c0abc88354f32b49d42f9c03c228c30d686f27eac6f93c1ff663f28fd`.
-The vector proves same-scope stability; prompt record/file/payload, settings and
+`a68e67b54ca19eaa266b9ecfa7f534764885994daa331ea0263de6bc4531b339`.
+The vector proves same-scope stability; prompt record/file/payload, descriptor/settings and
 content-identity sensitivity; limit renewal without scope-hash change;
 free/no-charge, unknown-estimate, unit/amount exceed and attempt-exceed rules;
 submitted-failure consumption; and record/index/handoff projection equality.
@@ -698,8 +918,20 @@ missing_positive_style_lock
 missing_negative_style_lock
 style_lock_evidence_incomplete
 provider_prompt_style_lock_missing
+missing_sparse_profile_projection
+sparse_profile_projection_mismatch
+sparse_profile_evidence_incomplete
+provider_prompt_sparse_projection_missing
 character_style_profile_conflict
 character_animation_style_lock_mismatch
+missing_character_proportion_projection
+character_proportion_out_of_range
+missing_animation_safe_detail_budget
+missing_character_color_value_budget
+character_profile_evidence_omission
+character_generation_proportion_gate_failed
+character_generation_detail_density_gate_failed
+character_generation_color_value_gate_failed
 missing_single_image_viewpoint
 missing_single_image_pose
 missing_framing_contract
@@ -745,6 +977,9 @@ unsupported_provider
 missing_provider_execution_approval
 invalid_provider_execution_approval
 provider_execution_scope_mismatch
+provider_capability_descriptor_unavailable
+provider_capability_preflight_invalid
+provider_capability_drift
 provider_cost_unit_mismatch
 provider_cost_estimate_unavailable
 provider_cost_limit_exceeded
@@ -792,7 +1027,40 @@ prompt_record_missing
 prompt_record_stale
 provider_value_invalid
 unsupported_record_schema
+prompt_record_write_failed
+prompt_markdown_write_failed
+prompt_index_write_failed
+prompt_publish_rollback_failed
 ```
+
+The five animation-ready authoring tokens have these exact meanings:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_character_proportion_projection` | selected animation-ready profile lacks either the approved full-body head-count range, head-to-height percentage, or shortened-limb projection |
+| `character_proportion_out_of_range` | an approved or authored bound exceeds 3.75-4.25 heads, exceeds the 24-27 percent head-height interval, or permits naturalistic seven-to-eight-head or heroic tall anatomy |
+| `missing_animation_safe_detail_budget` | the approved projection does not close sparse line density, contour omission, high-signal identity groups, and frame reproducibility |
+| `missing_character_color_value_budget` | the approved projection does not close minimal flat values and one-to-two subdued accent hues |
+| `character_profile_evidence_omission` | a required projection or profile lock lacks its exact planning/profile evidence or is omitted from provider prose |
+
+These tokens apply only after the exact animation-ready key was selected. The
+legacy-compatible profile remains governed by its immutable original shape and
+locks.
+
+The four sparse-profile authoring tokens apply only to
+`projectbs_character_sparse_ink_pastel_motion@1.0.0`:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_sparse_profile_projection` | one or more of the exact eight policy members is absent from the authored or inherited projection |
+| `sparse_profile_projection_mismatch` | any projected member, nested value, type, array order, payload key, or payload hash differs from the registered canonical payload |
+| `sparse_profile_evidence_incomplete` | one or more of the eight policy members lacks exact profile/planning evidence coverage |
+| `provider_prompt_sparse_projection_missing` | the copy-ready provider prompt omits or weakens any applicable main/animation projection from the eight policy members |
+
+The lock-array tokens `missing_positive_style_lock`,
+`missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
+`provider_prompt_style_lock_missing` apply only to the two registered
+lock-array profiles. They MUST NOT be returned for the sparse profile.
 
 The first eight tokens above are authoring-readiness failures with these exact
 boundaries:
@@ -813,12 +1081,30 @@ generation, preservation, or evaluation tokens. Character animation never uses
 the skill-only token, and skill animation never uses the seven character-only
 tokens.
 
+For character prompt publication, the remaining 8.3 record tokens and retry
+meanings are exact:
+
+| failureType | write outcome | safeToRetry |
+| --- | --- | --- |
+| `unknown_record_field`, `missing_record_field`, `record_identity_mismatch`, `record_hash_mismatch`, `prompt_markdown_mismatch`, `provider_value_invalid`, `unsupported_record_schema` | no new workflow artifact | `false`; correct the named input/schema/bytes first |
+| `record_collision`, `index_entry_invalid`, `prompt_record_missing`, `prompt_record_stale` | preserve existing evidence; no overwrite or handoff | `false`; separate remediation or fresh identity is required |
+| `prompt_record_write_failed`, `prompt_markdown_write_failed`, `prompt_index_write_failed` | every file created by this attempt was exact-byte rolled back; prior index unchanged | `true` |
+| `prompt_publish_rollback_failed` | no handoff; potentially partial evidence preserved for remediation | `false` |
+
+`safeToRetry` is the truth for an unchanged immediate retry. Corrected input or
+separate remediation may change that truth. `reused_identical` is a successful
+authoring status, not a failure type; it performs no overwrite and returns a
+fresh detached handoff over the currently verified index bytes.
+
 ### 8.4 Generation Extension
 
 ```text
 missing_provider_execution_approval
 invalid_provider_execution_approval
 provider_execution_scope_mismatch
+provider_capability_descriptor_unavailable
+provider_capability_preflight_invalid
+provider_capability_drift
 provider_cost_unit_mismatch
 provider_cost_estimate_unavailable
 provider_cost_limit_exceeded
@@ -826,7 +1112,83 @@ provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 provider_operation_failed
+character_generation_proportion_gate_failed
+character_generation_detail_density_gate_failed
+character_generation_color_value_gate_failed
+character_generation_sparse_contour_gate_failed
+character_generation_sparse_omission_budget_gate_failed
+character_generation_sparse_pigment_budget_gate_failed
+character_generation_sparse_motion_gate_failed
+character_generation_identity_anchor_gate_failed
+missing_hosted_preview_approval
+invalid_hosted_preview_approval
+hosted_preview_scope_mismatch
+hosted_preview_unknown_setting
+hosted_preview_prompt_drift
+hosted_preview_reference_drift
+hosted_preview_submit_limit_exceeded
+hosted_preview_retry_forbidden
+hosted_preview_output_missing
+hosted_preview_output_hash_mismatch
+hosted_preview_preservation_forbidden
+hosted_preview_promotion_forbidden
 ```
+
+After a prompt record is immutable and before any submit boundary, character
+generation repeats three semantic gates over the exact profile payload,
+evidence map, and `scenePromptOriginal`. It rejects any wording that allows
+more than 4.25 heads or naturalistic seven-to-eight-head anatomy as
+`character_generation_proportion_gate_failed`; dense realistic detail,
+microtexture, modeled shading, scales/rivets, dense folds, or hatching as
+`character_generation_detail_density_gate_failed`; and gradients, cinematic or
+physical lighting, realistic material rendering, nonminimal value masses, or
+more than two accent hues as
+`character_generation_color_value_gate_failed`. These are no-call blockers;
+generation does not rewrite the prompt or substitute a profile.
+
+For `projectbs_character_sparse_ink_pastel_motion@1.0.0`, generation also
+checks the exact main-versus-animation projection before capability access.
+Closed coloring-book contours or a fully inked silhouette fail
+`character_generation_sparse_contour_gate_failed`; opaque/cel fill,
+off-palette hue, a main-image pigment area above 18 percent, a main accent count
+outside 4-7, or an animation-frame accent count outside 3-6 fail
+`character_generation_sparse_pigment_budget_gate_failed`. Main omission
+outside 35-45 percent or per-approved-animation-frame omission outside 35-50
+percent fails `character_generation_sparse_omission_budget_gate_failed`. An animation lacking the
+registered line/pigment motion cues or repeating static action frames fails
+`character_generation_sparse_motion_gate_failed`; and gaze, topknot,
+hand/sword grip, support foot, or action-joint drift fails
+`character_generation_identity_anchor_gate_failed`. These observable semantic
+checks do not claim an unavailable computer-vision measurement.
+
+The `character_generation_*` sparse tokens are owned only by generation
+pre-submit validation.
+
+#### 8.4.1 Character Expression Evaluation Extension
+
+```text
+missing_character_expression_evaluation_package
+character_evaluation_profile_mismatch
+character_evaluation_frame_count_mismatch
+character_evaluation_evidence_insufficient
+character_evaluation_proportion_gate_failed
+character_evaluation_sparse_contour_gate_failed
+character_evaluation_sparse_omission_budget_gate_failed
+character_evaluation_sparse_pigment_budget_gate_failed
+character_evaluation_sparse_motion_gate_failed
+character_evaluation_identity_anchor_gate_failed
+```
+
+The first four tokens respectively mean that the required sealed package is
+absent/unreadable, the exact profile key/payload/hash does not match, ordered
+animation members do not equal the positive approved `finalFrameCount`, or an
+observable gate lacks sufficient reproducible evidence. These tokens and the
+gate tokens are owned only by read-only evaluation. The gate tokens use the same numeric boundaries:
+main omission 35-45, main accents 4-7, main pigment area at most 18;
+per-approved-animation-frame omission 35-50 and accents 3-6. Contour,
+palette/fill, motion, and identity-anchor conditions are otherwise identical.
+Neither stage may return the other stage's prefix, and six frames is only a
+golden test fixture rather than an operational count.
 
 ### 8.5 Preservation Extension
 
@@ -903,6 +1265,9 @@ missing_package_field
 ```text
 background_adapter_identity_mismatch
 missing_background_evaluation_contract
+character_evaluation_proportion_gate_failed
+character_evaluation_detail_density_gate_failed
+character_evaluation_color_value_gate_failed
 promotion_identity_mode_conflict
 evaluation_package_not_found
 evaluation_package_hash_mismatch
@@ -915,7 +1280,8 @@ legacy_current_identity_conflict
 Readiness is true only when every common and type-specific field exists, hashes
 verify, exactly one current registry row matches, provider is ImageGen, and the
 provider interface is `configured_imagegen_capability`. Before every external
-call, the approval object and recomputed scope must pass sections 6.1-6.2, the
+call, a fresh closed non-submit capability response, the approval object, and
+the recomputed scope must pass sections 6.1-6.2, the
 estimate must satisfy its tagged-unit comparison rule, consumed attempts must
 remain below `maxAttempts`, and the deterministic idempotency key must have no
 active duplicate. An identical completed result is reused without billing;
