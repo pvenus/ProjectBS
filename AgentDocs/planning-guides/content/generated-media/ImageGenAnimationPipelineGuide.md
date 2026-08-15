@@ -68,6 +68,16 @@ from the current contract. `character_animation_style_lock_mismatch` remains an
 aggregate consistency failure only after those exact checks pass. Skill
 animation does not inherit the character style contract.
 
+If the inherited key is
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, the inherited
+payload includes its four closed proportion/detail/color/projection members.
+Authoring preserves them byte-for-byte and projects their frame-reproducibility
+locks into the coherent-master prompt. Generation repeats the three
+`character_generation_*_gate_failed` semantic checks before capability access
+or submit; it rejects greater-than-4.25-head/naturalistic anatomy, dense
+realistic detail, or nonminimal color/value treatment and never repairs the
+reference prompt.
+
 ## Input, Output, State, and Validation
 
 One scalar animationRequestId route/handoff becomes one prompt v3 record. One

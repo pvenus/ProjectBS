@@ -298,6 +298,16 @@ All prompt paths are relative to
 `provider=imagegen`. Adding a domain requires a reviewed registry/profile row;
 it does not create a domain execution prompt.
 
+Character routing `profileKey` and expression-profile selection are distinct.
+For a new character single image, the registry default preserves
+`projectbs_character_restrained_ink_line@1.0.0`; the new
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0` is selected only
+by one exact approved planning fact. Unknown, absent-as-new, multiple, or
+conflicting selections are never inferred. Character animation inherits the
+exact selection from its immutable reference prompt record. The selected
+expression payload and hash remain part of prompt identity, so no existing
+record is reinterpreted.
+
 ## 6. Record and Storage Contract
 
 Current record paths use directory version v2 and never share the legacy v1
@@ -797,6 +807,14 @@ style_lock_evidence_incomplete
 provider_prompt_style_lock_missing
 character_style_profile_conflict
 character_animation_style_lock_mismatch
+missing_character_proportion_projection
+character_proportion_out_of_range
+missing_animation_safe_detail_budget
+missing_character_color_value_budget
+character_profile_evidence_omission
+character_generation_proportion_gate_failed
+character_generation_detail_density_gate_failed
+character_generation_color_value_gate_failed
 missing_single_image_viewpoint
 missing_single_image_pose
 missing_framing_contract
@@ -898,6 +916,20 @@ prompt_index_write_failed
 prompt_publish_rollback_failed
 ```
 
+The five animation-ready authoring tokens have these exact meanings:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_character_proportion_projection` | selected animation-ready profile lacks either the approved full-body head-count range, head-to-height percentage, or shortened-limb projection |
+| `character_proportion_out_of_range` | an approved or authored bound exceeds 3.75-4.25 heads, exceeds the 24-27 percent head-height interval, or permits naturalistic seven-to-eight-head or heroic tall anatomy |
+| `missing_animation_safe_detail_budget` | the approved projection does not close sparse line density, contour omission, high-signal identity groups, and frame reproducibility |
+| `missing_character_color_value_budget` | the approved projection does not close minimal flat values and one-to-two subdued accent hues |
+| `character_profile_evidence_omission` | a required projection or profile lock lacks its exact planning/profile evidence or is omitted from provider prose |
+
+These tokens apply only after the exact animation-ready key was selected. The
+legacy-compatible profile remains governed by its immutable original shape and
+locks.
+
 The first eight tokens above are authoring-readiness failures with these exact
 boundaries:
 
@@ -948,7 +980,22 @@ provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 provider_operation_failed
+character_generation_proportion_gate_failed
+character_generation_detail_density_gate_failed
+character_generation_color_value_gate_failed
 ```
+
+After a prompt record is immutable and before any submit boundary, character
+generation repeats three semantic gates over the exact profile payload,
+evidence map, and `scenePromptOriginal`. It rejects any wording that allows
+more than 4.25 heads or naturalistic seven-to-eight-head anatomy as
+`character_generation_proportion_gate_failed`; dense realistic detail,
+microtexture, modeled shading, scales/rivets, dense folds, or hatching as
+`character_generation_detail_density_gate_failed`; and gradients, cinematic or
+physical lighting, realistic material rendering, nonminimal value masses, or
+more than two accent hues as
+`character_generation_color_value_gate_failed`. These are no-call blockers;
+generation does not rewrite the prompt or substitute a profile.
 
 ### 8.5 Preservation Extension
 
@@ -1025,6 +1072,9 @@ missing_package_field
 ```text
 background_adapter_identity_mismatch
 missing_background_evaluation_contract
+character_evaluation_proportion_gate_failed
+character_evaluation_detail_density_gate_failed
+character_evaluation_color_value_gate_failed
 promotion_identity_mode_conflict
 evaluation_package_not_found
 evaluation_package_hash_mismatch

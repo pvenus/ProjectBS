@@ -143,6 +143,7 @@ paths and rules internally. Never reuse an absolute path from another PC.
 | background_single_image + domainType=stage | stage | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
 | background_single_image + domainType=battle | battle | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
 | background_single_image + domainType=environment | environment | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
+| character_single_image + domainType=character | character | character_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current character single-image adapter | ready |
 
 Rules:
 
@@ -165,6 +166,10 @@ Rules:
 9. Icon and background adapters are not interchangeable even when both contain
    one PNG. A structure/profile/domain mismatch returns
    background_adapter_identity_mismatch before scoring.
+10. The current character single-image adapter verifies the exact expression
+    profile payload/hash from the sealed package. For the animation-ready
+    minimal profile, proportion, detail-density, and color/value fatal gates
+    run independently before any score can be accepted.
 
 ## 6. Workspace and Source Resolution
 
@@ -307,6 +312,23 @@ visual-center, transparent-icon, outline/silhouette and small-size icon rules
 are invalid here. The inverse is also true: a current icon adapter must reject
 background scene metadata.
 
+### 8.2.2 character_single_image_v2
+
+Use only for current package-mode `character_single_image + character`.
+Require the exact identity lock, one viewpoint/pose/framing, canvas/target/safe
+area, background/no-shadow/outline, pelvis-root/ground-axis anchor, and exact
+expression profile key/payload/hash plus planning/profile evidence.
+
+When the selected key is
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, run three
+independent fatal semantic gates before scoring: proportion rejects more than
+4.25 heads, outside-24-27-percent head height, seven-to-eight-head naturalism,
+or heroic tall anatomy; detail rejects dense realistic detail, scales/rivets,
+dense folds, hatching, microtexture, or modeled shading; color/value rejects
+gradients, cinematic/physical lighting, realistic materials, nonminimal value
+masses, or more than two accent hues. Missing measurement/evidence blocks as
+insufficient evidence. A failure is not converted into a score deduction.
+
 ### 8.3 paired_sheet_animation
 
 Use when a reference image and animation sheet form one evaluated artifact.
@@ -353,6 +375,12 @@ Required checks:
 - valid action progression, direction, key pose, ending, and loop behavior;
 - per-frame technical gates and cross-frame semantic gates;
 - contact sheet and playback evidence.
+
+For character animation inheriting
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, the cross-frame
+semantic gates include the same closed proportion, detail-density, and
+color/value fatal checks as `character_single_image_v2`. Apply them to every
+frame; one failing member fails the set. Skill animation omits these gates.
 
 ### 8.6 Set decision rule
 
@@ -791,6 +819,9 @@ canvas_required_field_missing
 background_adapter_identity_mismatch
 legacy_current_identity_conflict
 missing_background_evaluation_contract
+character_evaluation_proportion_gate_failed
+character_evaluation_detail_density_gate_failed
+character_evaluation_color_value_gate_failed
 ~~~
 
 Failure preserves the source and existing records unchanged. Do not invoke a

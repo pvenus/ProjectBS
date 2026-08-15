@@ -54,6 +54,24 @@ painterly/PBR 3D render, and western-fantasy realism. `stylized` alone is not a
 valid style contract. A planning/profile conflict blocks rather than silently
 restyling the approved design.
 
+When approved planning explicitly selects
+`projectbs_character_animation_ready_minimal_ink_line@1.0.0`, authoring also
+validates the closed proportion projection, animation-safe detail budget,
+color/value budget, and mandatory authoring projection. The planning-bound
+head-count and head-height values must be exact or narrower inside 3.75-4.25
+heads and 24-27 percent, limbs must be shortened/simplified, and every required
+projection must have exact planning evidence. Prompt prose must include all
+profile locks and bound values without allowing dense material prose to
+override simplification. Missing/out-of-range/budget/evidence failures use the
+exact current contract tokens and write no prompt record.
+
+Generation performs a separate no-submit semantic preflight over the immutable
+prompt record. Any allowance for greater-than-4.25-head or naturalistic
+seven-to-eight-head anatomy, dense realistic detail, or nonminimal color/value
+treatment uses the three `character_generation_*_gate_failed` tokens. A failed
+gate has `providerCalled=false`, `submitCount=0`, and `cost=0`; generation may
+not repair or reinterpret the prompt.
+
 The only provider interface is `providerTool=imagegen` through
 `providerInterface=configured_imagegen_capability`. Its contract 6.1 non-submit
 preflight must expose immutable capability/settings/cost descriptor versions,
