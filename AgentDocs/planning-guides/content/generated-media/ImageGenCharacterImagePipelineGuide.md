@@ -91,6 +91,18 @@ those five semantic groups before any capability or submit boundary. Missing
 evidence or prompt prose cannot be repaired downstream. This profile is
 single-image-only and cannot be inherited by character animation.
 
+When planning instead selects
+`projectbs_character_bold_outline_compressed_detail@2.0.0`, authoring validates
+the same inherited anatomy/outline/face/color groups plus exact total/internal/
+fold maxima no greater than 64/56/5, optional ochre site classes restricted to
+small utility-pouch or travel-accessory anchors, and one closed `inkHalo`
+branch. Disabled authorizes no dark background. Enabled requires exact
+dark-neutral color, opacity 0.08-0.35, coverage 1-45 percent, centered soft
+extent, monotonic fade to edge alpha zero, and no scene, opaque background, or
+shadow semantics. Generation and evaluation independently gate these fields;
+neither infers them from accepted imagery. The successor remains
+single-image-only.
+
 Generation performs a separate no-submit semantic preflight over the immutable
 prompt record. Any allowance for greater-than-4.25-head or naturalistic
 seven-to-eight-head anatomy, dense realistic detail, or nonminimal color/value

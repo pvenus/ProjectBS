@@ -418,6 +418,14 @@ shape with proportion, outline hierarchy, facial simplification, compressed
 detail, color signature, ink treatment, and authoring projection members. It is
 valid only when its stored key selects that exact registered payload; no
 existing record is required or allowed to gain those members.
+`projectbs_character_bold_outline_compressed_detail@2.0.0` is another exact
+closed lock-array shape. Its immutable successor payload and seven ordered
+positive plus seven ordered negative locks add exact planning-bound
+64/56/5-or-narrower mark budgets, conditional ochre anchor site classes, and
+the exact disabled or enabled ink-halo union. A v1 record is never upgraded,
+and a v2 record never borrows v1 locks or defaults. `scenePromptOriginal`,
+`visualEvidenceMap`, and provider payload independently preserve every
+successor binding and lock.
 
 `providerSettingsIntent` is not a provider request and cannot contain quality,
 model, seed, attempt, cost, or tool fields. Generation resolves its separately

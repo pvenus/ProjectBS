@@ -315,6 +315,13 @@ proportion, outside/internal outline hierarchy, facial mark budget, compressed
 detail budget, and character-specific color signature. It is not a fallback
 and is not animation-inheritable.
 
+The registered `projectbs_character_bold_outline_compressed_detail@2.0.0`
+successor is likewise explicit and single-image-only. It preserves v1 anatomy,
+outline, face, and color bounds while closing total/internal/fold mark ceilings
+of 64/56/5, optional ochre only on approved small utility-pouch or
+travel-accessory sites, and an explicit disabled-or-enabled translucent ink
+halo union. It does not reinterpret v1 or standing provider approval.
+
 ## 6. Record and Storage Contract
 
 Current record paths use directory version v2 and never share the legacy v1
@@ -1031,6 +1038,14 @@ missing_character_color_signature
 character_color_signature_invalid
 bold_outline_profile_evidence_omission
 provider_prompt_bold_outline_projection_missing
+missing_bold_outline_v2_detail_budget_projection
+bold_outline_v2_detail_budget_out_of_range
+missing_bold_outline_v2_color_anchor_projection
+bold_outline_v2_color_anchor_out_of_range
+missing_bold_outline_v2_halo_selection
+bold_outline_v2_halo_projection_invalid
+bold_outline_v2_profile_evidence_omission
+provider_prompt_bold_outline_v2_projection_missing
 character_generation_proportion_gate_failed
 character_generation_detail_density_gate_failed
 character_generation_color_value_gate_failed
@@ -1180,9 +1195,23 @@ The bold-outline authoring tokens apply only to
 These checks are closed-field checks. Free-form prompt wording never repairs a
 missing approved planning binding.
 
+The successor-only authoring tokens apply only to
+`projectbs_character_bold_outline_compressed_detail@2.0.0`:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_bold_outline_v2_detail_budget_projection` | exact counting unit or any total/internal/fold maximum is absent |
+| `bold_outline_v2_detail_budget_out_of_range` | total exceeds 64, internal exceeds 56 or total, folds exceed 5 per garment region, or hatching, microtexture, modeled/realistic material rendering, dense folds, scales, or rivets are allowed |
+| `missing_bold_outline_v2_color_anchor_projection` | a required hue, anchor, limit, or neutral is absent, or a secondary hue omits elements or site classes |
+| `bold_outline_v2_color_anchor_out_of_range` | ochre uses a site outside `small_utility_pouch` or `small_travel_accessory`, coverage/masses exceed 35/4, or arbitrary/full-garment fill or hierarchy override is allowed |
+| `missing_bold_outline_v2_halo_selection` | no exact `enabled` discriminant is approved |
+| `bold_outline_v2_halo_projection_invalid` | disabled has extra members or authorizes dark background; enabled omits an exact member, exceeds opacity 0.35 or coverage 45, does not fade monotonically to edge alpha zero, or permits a scene, opaque background, shadow substitute, or directional cast shadow |
+| `bold_outline_v2_profile_evidence_omission` | a successor binding, constant, budget, halo member, or lock lacks exact evidence |
+| `provider_prompt_bold_outline_v2_projection_missing` | provider prose omits or weakens any exact successor budget, anchor, halo member, or ordered lock |
+
 The lock-array tokens `missing_positive_style_lock`,
 `missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
-`provider_prompt_style_lock_missing` apply only to the three registered
+`provider_prompt_style_lock_missing` apply only to the four registered
 lock-array profiles, including bold-outline compressed-detail. They MUST NOT be
 returned for the sparse profile.
 
@@ -1249,6 +1278,9 @@ character_generation_bold_outline_hierarchy_gate_failed
 character_generation_bold_outline_facial_mark_budget_gate_failed
 character_generation_bold_outline_detail_budget_gate_failed
 character_generation_bold_outline_color_signature_gate_failed
+character_generation_bold_outline_v2_detail_budget_gate_failed
+character_generation_bold_outline_v2_color_anchor_gate_failed
+character_generation_bold_outline_v2_halo_gate_failed
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
 missing_hosted_preview_auto_approval_policy
@@ -1317,6 +1349,18 @@ overriding line hierarchy fails
 before capability access and return `providerCalled=false`, `submitCount=0`,
 and `cost=0`.
 
+For `projectbs_character_bold_outline_compressed_detail@2.0.0`, generation
+reuses the inherited proportion, hierarchy, and facial gates and adds three
+pre-submit gates. More than 64 total visible marks, 56 internal marks, or 5
+secondary folds in any garment region, or any closed forbidden detail, fails
+`character_generation_bold_outline_v2_detail_budget_gate_failed`. Unapproved
+ochre sites, arbitrary/full-garment color, or coverage/mass drift fails
+`character_generation_bold_outline_v2_color_anchor_gate_failed`. A nonclosed
+disabled branch, or an enabled halo outside opacity 0.08-0.35 or coverage 1-45,
+without centered monotonic fade to edge alpha zero, or permitting scene,
+opaque-background, or shadow semantics fails
+`character_generation_bold_outline_v2_halo_gate_failed`. All are no-call gates.
+
 #### 8.4.1 Character Expression Evaluation Extension
 
 ```text
@@ -1335,6 +1379,9 @@ character_evaluation_bold_outline_hierarchy_gate_failed
 character_evaluation_bold_outline_facial_mark_budget_gate_failed
 character_evaluation_bold_outline_detail_budget_gate_failed
 character_evaluation_bold_outline_color_signature_gate_failed
+character_evaluation_bold_outline_v2_detail_budget_gate_failed
+character_evaluation_bold_outline_v2_color_anchor_gate_failed
+character_evaluation_bold_outline_v2_halo_gate_failed
 ```
 
 The first four tokens respectively mean that the required sealed package is
@@ -1355,6 +1402,14 @@ fatal and cannot be offset by score. If reproducible evidence cannot establish
 head ratio, line thickness hierarchy, facial mark count, detail density, or
 color coverage/masses/anchors, evaluation returns
 `character_evaluation_evidence_insufficient` instead of guessing.
+
+For the v2 successor, evaluation reuses inherited proportion, hierarchy, and
+facial tokens and independently applies the three exact
+`character_evaluation_bold_outline_v2_*_gate_failed` tokens to the 64/56/5
+detail ceilings, approved ochre sites and 35/4 color bounds, and closed halo
+union. An opaque, scenic, noncentered, directional-shadow, or nonfading dark
+treatment is fatal. If any mark, coverage, opacity, edge, or anchor measurement
+is not reproducible, it returns `character_evaluation_evidence_insufficient`.
 
 ### 8.5 Preservation Extension
 

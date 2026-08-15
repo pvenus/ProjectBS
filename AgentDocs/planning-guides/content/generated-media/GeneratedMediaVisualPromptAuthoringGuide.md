@@ -197,7 +197,7 @@ exactly its discriminator, `proportionProjection`, `outlineHierarchy`,
 `facialSimplificationBudget`, `compressedDetailBudget`,
 `colorSignatureContract`, `inkTreatment`, `authoringProjectionContract`, and
 the two lock arrays displayed in its canonical payload. A member from one shape
-is not optional in another shape. Each lock-array item in the three lock-array profiles has exactly
+is not optional in another shape. Each lock-array item in the four lock-array profiles has exactly
 `constraintId`, `statement`, and `authorityRef`; extra or missing members block. `authorityRef` uses
 `{project-relative path}::{exact section heading}`.
 
@@ -563,6 +563,170 @@ reviewed future task publishes exact bytes at a durable project-relative path
 under a closed style-reference schema. Mutable `output/` paths and unavailable
 files never enter profile, prompt, routing, generation, or evaluation identity.
 
+### Bold-outline accepted-result alignment profile
+
+The following payload is canonical and immutable for
+`projectbs_character_bold_outline_compressed_detail@2.0.0`. It is a successor,
+not an amendment or alias of `@1.0.0`. It preserves the compact anatomy,
+outline hierarchy, simplified face, bounded identity color, and Korean/Joseon
+expression boundary while closing a moderately relaxed visible-mark budget and
+an optional silhouette-support ink halo. It applies only to
+`character_single_image_v2` after exact approved planning selection.
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_bold_outline_compressed_detail@2.0.0",
+  "proportionProjection": {
+    "fullBodyHeadCount": {"minimum": 4, "maximum": 5, "target": 4.5},
+    "headToFullHeightPercent": {"minimum": 20, "maximum": 25},
+    "limbPolicy": "shortened_compressed",
+    "rejectNaturalisticAdultHeadCountRange": {"minimum": 6.5, "maximum": 8},
+    "rejectLongLimbs": true,
+    "rejectHeroicTallAnatomy": true
+  },
+  "outlineHierarchy": {
+    "placement": "outside_silhouette",
+    "externalOutlineTone": "bold_dark_neutral",
+    "sourceCanvas": {"width": 1024, "height": 1536},
+    "targetDisplaySize": {"width": 96, "height": 144},
+    "externalOutlineSourcePx": {"minimum": 16, "maximum": 22},
+    "sourceToTargetScale": "source_px_times_3_divided_by_32",
+    "externalOutlineTargetPx": {"minimum": 1.5, "maximum": 2.0625},
+    "minimumExternalToInternalThicknessRatio": 2,
+    "internalLinePolicy": "materially_thinner_sparse_nonuniform",
+    "silhouetteContinuity": "required"
+  },
+  "facialSimplificationBudget": {
+    "countingUnit": "one_continuous_visible_mark_between_pen_lifts_or_intentional_breaks",
+    "maximumTotalMarks": 9,
+    "componentMaximums": {"browsAndEyes": 4, "nose": 1, "mouth": 1, "jawAndFaceShape": 3},
+    "allowedComponents": ["brows", "eyes", "minimal_nose_mark", "mouth_line", "jaw_and_face_shape"],
+    "forbidden": ["realistic_facial_modeling", "facial_hatching", "skin_shading", "facial_microtexture"]
+  },
+  "compressedDetailBudget": {
+    "priority": "identity_points_before_surface_detail",
+    "visibleMarkCountingUnit": "one_continuous_visible_dark_line_segment_between_pen_lifts_or_intentional_breaks",
+    "totalVisibleMarkScope": "external_outline_segments_plus_internal_line_marks_excluding_color_mass_edges_and_halo",
+    "internalMarkScope": "visible_line_marks_wholly_inside_external_silhouette_including_face_hair_garment_armor_equipment_weapon_and_folds",
+    "maximumTotalVisibleMarks": 64,
+    "maximumInternalLineMarks": 56,
+    "maximumSecondaryFoldMarksPerGarmentRegion": 5,
+    "internalMarksMustNotExceedTotalVisibleMarks": true,
+    "identityGroups": ["face", "hair_or_headwear", "garment_silhouette", "armor_silhouette", "weapon"],
+    "surfaceDetailPolicy": "omit_unless_identity_critical_and_planning_approved",
+    "forbidden": ["dense_folds", "dense_armor_scale_enumeration", "dense_rivet_enumeration", "microtexture", "hatching", "modeled_shading", "realistic_material_rendering"]
+  },
+  "colorSignatureContract": {
+    "planningBinding": "required_character_specific",
+    "primaryHue": "required_exact_planning_value",
+    "secondaryHue": "optional_exact_planning_value",
+    "primaryAnchorElements": "required_non_empty_unique_ordered_planning_list",
+    "secondaryAnchorElements": "required_non_empty_unique_ordered_planning_list_only_when_secondary_hue_present",
+    "allowedSecondaryOchreAnchorSiteClasses": ["small_utility_pouch", "small_travel_accessory"],
+    "secondaryOchrePolicy": "optional_only_when_exact_planning_hue_elements_and_allowed_site_classes_are_bound",
+    "maximumCharacterCoveragePercent": {"minimum": 1, "maximum": 35},
+    "maximumColorMasses": {"minimum": 1, "maximum": 4},
+    "neutralOutlineColor": "required_exact_planning_value",
+    "neutralWeaponColor": "required_exact_planning_value",
+    "fullGarmentFill": "prohibited",
+    "lineHierarchyOverride": "prohibited"
+  },
+  "inkHaloContract": {
+    "planningSelection": "explicit_enabled_or_disabled_required",
+    "disabledBranch": {"closedMembers": ["enabled"], "darkBackgroundAuthorization": "none"},
+    "enabledBranch": {
+      "treatment": "dark_neutral_translucent_silhouette_support_halo",
+      "centerPolicy": "character_silhouette_center",
+      "maximumOpacity": {"minimum": 0.08, "maximum": 0.35},
+      "maximumCanvasCoveragePercent": {"minimum": 1, "maximum": 45},
+      "extentPolicy": "single_centered_soft_halo_behind_silhouette",
+      "edgeFalloff": "soft_monotonic_to_zero_alpha",
+      "edgeAlpha": 0,
+      "sceneDepiction": "prohibited",
+      "opaqueBackground": "prohibited",
+      "shadowSubstitute": "prohibited",
+      "directionalCastShadow": "prohibited",
+      "providerGenerationBackgroundRelation": "independent_from_removable_pale_generation_background"
+    }
+  },
+  "inkTreatment": {
+    "styleBoundary": "restrained_east_asian_ink_animation_drawing",
+    "allowedAccentMethods": ["limited_flat_mass", "limited_dry_brush", "limited_watercolor"],
+    "accentPriority": "subordinate_to_bold_silhouette_and_identity_lines",
+    "silhouetteErosion": "prohibited",
+    "photorealistic3dPbrWesternRealism": "prohibited"
+  },
+  "authoringProjectionContract": {
+    "planningSelection": "explicit_approved_fact_required",
+    "planningValuePolicy": "exact_values_required_within_profile_bounds",
+    "requiredPlanningBindings": ["fullBodyHeadCount", "externalOutlineSourcePx", "internalLineSourcePx", "facialMarkBudget", "detailMarkBudget", "primaryHue", "primaryAnchorElements", "maximumCharacterCoveragePercent", "maximumColorMasses", "neutralOutlineColor", "neutralWeaponColor", "inkHalo"],
+    "conditionalPlanningBindings": ["secondaryHue_requires_secondaryAnchorElements_and_secondaryAnchorSiteClasses", "inkHalo_enabled_requires_exact_closed_enabled_branch"],
+    "evidencePolicy": "every_binding_budget_halo_member_and_lock_requires_exact_planning_or_profile_authority_evidence",
+    "promptInclusion": "verbatim_locks_and_exact_planning_bound_values_required",
+    "conflictPolicy": "block_before_prompt_publication"
+  },
+  "negativeStyleLock": [
+    {"constraintId": "char_bold_v2_negative_naturalistic_tall_anatomy", "statement": "No naturalistic six-and-a-half-to-eight-head anatomy, long limbs, or heroic tall proportions.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_uncontrolled_surface_detail", "statement": "No hatching, microtexture, modeled shading, realistic material rendering, dense folds, or dense enumeration of armor scales or rivets; do not exceed the approved visible, internal, or fold-mark budgets.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_weak_or_uniform_outline", "statement": "No weak, uniform, or internal-line-equal silhouette outline and no accent or halo treatment that erases the outside contour.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_realistic_face", "statement": "No realistic facial modeling, facial hatching, skin shading, facial microtexture, or marks beyond the approved facial budget.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_unanchored_color", "statement": "No unanchored accent color, arbitrary or full-garment fill, excessive coverage, excessive color masses, or secondary ochre outside approved small utility or travel-accessory anchors.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_scenic_opaque_halo", "statement": "No depicted scene, environment, opaque dark background, photographic or cinematic backdrop, directional cast shadow, or shadow-substitute halo.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_negative_realistic_rendering", "statement": "No photographic, photorealistic, painterly 3D, PBR, glossy cinematic, or western-realism rendering.", "authorityRef": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md::10. 기본 시각 표현 경계"}
+  ],
+  "positiveStyleLock": [
+    {"constraintId": "char_bold_v2_positive_compact_proportion", "statement": "Use a compact full-body proportion from four to five heads, centered near four-and-a-half heads, with shortened compressed limbs.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_outline_hierarchy", "statement": "Use a bold dark outside-silhouette outline at the exact approved source thickness, at least twice the exact internal-line thickness; keep internal lines materially thinner, sparse, and nonuniform.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_bounded_detail", "statement": "Prioritize identity points while allowing only the approved maximum total visible marks, internal line marks, and secondary fold marks per garment region.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_simplified_face", "statement": "Represent the face only with high-signal brows and eyes, one minimal nose mark, one mouth line, and approved jaw or face-shape marks within the closed budget.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_color_signature", "statement": "Apply approved identity hues only to their exact anchors; optional ochre may accent approved small utility pouch or travel-accessory anchors within coverage and color-mass limits.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_optional_ink_halo", "statement": "When explicitly enabled, use one centered dark-neutral translucent silhouette-support halo that fades softly to zero alpha without depicting a scene or acting as a shadow.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile"},
+    {"constraintId": "char_bold_v2_positive_restrained_ink_animation", "statement": "Use a restrained East Asian ink and animation-drawing treatment with limited flat, dry-brush, or watercolor accents subordinate to the bold silhouette.", "authorityRef": "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md::5. 전통 예술과 조형"}
+  ]
+}
+```
+
+Canonicalization is RFC 8785 JCS over the exact UTF-8 payload. The registered
+SHA-256 is
+`5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3` and must
+match the registry before activation.
+
+Profile constants are the anatomy and outline ranges, face budget, exact
+64/56/5 visible/internal/fold mark ceilings and counting scopes, allowed ochre
+anchor-site classes, coverage/mass bounds, halo bounds and behavior, ink
+treatment, locks, and forbidden values. Planning explicitly selects `@2.0.0`
+and binds all required fields. `detailMarkBudget` repeats the exact counting
+unit and planning maxima no greater than 64/56/5, with internal marks no greater
+than total marks. Character color fields retain the v1 bindings; when a
+secondary ochre hue is present, planning additionally binds non-empty exact
+`secondaryAnchorSiteClasses` drawn only from `small_utility_pouch` and
+`small_travel_accessory`.
+
+Planning also binds a closed `inkHalo` union. Disabled is exactly
+`{enabled:false}` and authorizes no dark background. Enabled includes exactly
+`enabled:true`, one exact dark-neutral `color`, `maximumOpacity` from 0.08
+through 0.35, `maximumCanvasCoveragePercent` from 1 through 45,
+`centerPolicy=character_silhouette_center`,
+`extentPolicy=single_centered_soft_halo_behind_silhouette`,
+`edgeFalloff=soft_monotonic_to_zero_alpha`, `edgeAlpha=0`, and true
+`noScene`, `noOpaqueBackground`, `noShadowSubstitute`, and
+`noDirectionalCastShadow`. It is independent from the removable pale provider
+generation background. Authoring cannot infer any enabled value from raster
+evidence.
+
+The accepted PNG at the reported mutable generation worktree path was verified
+for contract review only: SHA-256
+`a8b8aa6b5334cdc062380f9a7a553c99e2eb0c841d5bc2cc4416c577a84b71a2`,
+1024x1536 ARGB, with compact anatomy, bold silhouette, bounded internal marks,
+small ochre utility accents, and a centered dark-neutral treatment fading to
+transparent edges. A deterministic four-pixel sampling pass observed zero-alpha
+corners, nonzero-alpha coverage about 36.5 percent, and a nonzero-alpha bounding
+box from `(52,40)` through `(840,1488)`; these are review observations, not
+profile constants or inferred planning values. The absolute path and pixels are noncanonical and are not
+members of this payload, a prompt, or any record identity. Canonical use still
+requires a reviewed durable project-relative reference schema; otherwise only
+explicit planning facts may bind the successor.
+
 ## Character Single Image
 
 Require identityConsistencyLock, one viewpoint, pose, framing, canvas, target
@@ -591,6 +755,14 @@ limits, and neutral outline/weapon colors. Surface-detail prose cannot weaken
 the compressed-detail budget. Missing planning bindings, a value outside the
 closed ranges, missing evidence, or omitted provider prose blocks before prompt
 publication.
+
+For `projectbs_character_bold_outline_compressed_detail@2.0.0`, the cohesive
+prompt also contains the exact 64/56/5-or-narrower detail projection,
+conditional ochre anchor-site classes, and every member of the selected closed
+halo branch. Enabled halo prose remains a centered translucent support
+treatment distinct from the removable provider background; disabled prose
+does not authorize any dark background. Every successor value and all seven
+positive plus seven negative locks have independent evidence coverage.
 
 ## Icon Single Image
 
@@ -716,6 +888,13 @@ and evaluation independently apply the five corresponding no-submit/fatal
 gates for proportion, outline hierarchy, facial marks, compressed detail, and
 color signature. A prompt sentence never substitutes for a missing closed
 planning value or evidence pointer.
+
+For `projectbs_character_bold_outline_compressed_detail@2.0.0`, authoring adds
+the exact v2 detail/color-anchor/halo blockers. Generation and evaluation reuse
+the inherited proportion, hierarchy, and facial gates and independently apply
+the v2 detail, color-anchor, and halo gates. Insufficient reproducible
+evaluation evidence is `character_evaluation_evidence_insufficient`, not an
+inferred pass.
 
 ## Related Guides
 
