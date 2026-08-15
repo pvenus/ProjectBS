@@ -680,7 +680,14 @@ continues to require the complete section 6.1 descriptor, approval and cost
 contract. A preview result is never a generation-v2 result and cannot enter
 preservation, evaluation-package construction, Unity, or promotion.
 
-One authenticated current user message authorizes exactly one work unit:
+Hosted preview authorization has two closed branches. Manual exact-scope
+approval remains valid. A standing automatic policy may instead authorize the
+execution role to derive one exact-scope attestation after all prompt,
+reference, and settings-seal hashes are final. Neither branch authorizes a
+batch, retry, promotion, preservation, or evaluation.
+
+One authenticated current user message may manually authorize exactly one work
+unit:
 
 ```text
 character_single_image -> exactly one image
@@ -725,13 +732,85 @@ settingsDescriptorStatus: unavailable_on_callable_surface
 costEstimate: {status: unavailable}
 ```
 
+##### 6.1.1.1 Standing automatic preview approval policy v1
+
+`generated_media_hosted_preview_auto_approval_policy_v1` is an immutable,
+authenticated user policy. It is not a precomputed approval for an unknown
+scope. It permits the execution role to create a detached exact-scope
+attestation only when the final recomputed scope satisfies every closed policy
+predicate. The authenticated source is bound without requiring an unavailable
+hosted-platform account ID: the current task supplies its stable thread ID and
+the SHA-256 of the exact UTF-8 user instruction bytes. The app authentication
+context establishes that those bytes are a current-user instruction; copied
+prose, an assistant message, or a thread summary is invalid.
+
+```yaml
+schemaVersion: generated_media_hosted_preview_auto_approval_policy_v1
+policyId: gmpreviewpolicy1.{policyPayloadSha256[0:20]}
+policyPayloadSha256: SHA-256 of JCS({schemaVersion, authorizationSource, policyScope, lifetime})
+authorizationSource:
+  type: authenticated_thread_user_instruction
+  threadId: stable non-empty current task ID
+  instructionSha256: SHA-256 of exact UTF-8 current-user instruction bytes
+policyScope:
+  provider: imagegen
+  executionMode: hosted_builtin_preview_v1
+  assetTypes: non-empty unique ordered subset of current asset types
+  domainTypes: non-empty unique ordered subset of current domain types
+  contentIds: non-empty unique ordered exact content IDs
+  workUnitTypes: non-empty unique ordered subset of exact_single_image | exact_animation_request
+  referencePolicy: prompt_bound_only
+  submitCountMaximumPerScope: 1
+  retryCountMaximumPerScope: 0
+  costPolicy: allow_unavailable_preview_only
+  promotionPolicy: not_promotable
+  preservationPolicy: not_preservable
+  evaluationPolicy: not_evaluated
+lifetime: until_revoked
+```
+
+Unknown, missing, `null`, differently typed, duplicate, wildcard, empty, or
+out-of-registry members reject as `invalid_hosted_preview_auto_approval_policy`.
+`contentIds`, asset/domain/work-unit membership are exact; `*`, regex, prefix,
+and inferred expansion are forbidden. Policy issuance itself crosses no
+provider boundary and creates no submit, upload, allocation, reservation, or
+cost. Revocation is fail-closed: a revoked policy hash cannot attest a new
+scope. Existing consumed submits remain consumed.
+
+After the final `previewScopeHash` is independently recomputed, the execution
+role may derive exactly this detached object:
+
+```yaml
+schemaVersion: generated_media_hosted_preview_auto_approval_attestation_v1
+executionMode: hosted_builtin_preview_v1
+policyId: exact policy ID
+policyPayloadSha256: exact recomputed policy payload hash
+authorizationSourceSha256: SHA-256 of JCS(policy.authorizationSource)
+previewScopeHash: exact recomputed current scope hash
+workUnitType: exact_single_image | exact_animation_request
+animationRequestId: required only for exact_animation_request; forbidden otherwise
+submitCountMaximum: 1
+retryCountMaximum: 0
+promotionPolicy: not_promotable
+```
+
+The attestation is valid only if the policy is not revoked; the scope asset,
+domain, content and work-unit type are exact policy members; all references are
+already hash-bound by the prompt and scope; and submit/retry state is still
+zero. `hostedPreviewApprovalSha256` hashes the selected manual approval or this
+automatic attestation. No additional user message is required after a valid
+standing policy is supplied. Prompt, reference, settings-seal, request, or
+identity drift invalidates the attestation and forces a fresh scope
+derivation; it never reuses the old scope hash.
+
 Before submit, re-read and hash the request, prompt JSON/Markdown, prompt
 payload, settings intent, references and exact single work-unit identity. Any
 drift blocks. Check that no preview record exists and no active submission is
 associated with the same scope. `submitCountMaximum=1` and
 `retryCountMaximum=0` are constants: failure, timeout or ambiguity does not
-authorize another call. Additional output or retry requires a new exact scope
-and a new current user approval.
+authorize another call. Additional output or retry requires a new exact scope.
+The new scope requires either a new manual current-user approval or a fresh
+automatic attestation from a still-valid matching standing policy.
 
 After the one submit, save only observable returned media to:
 
@@ -766,6 +845,10 @@ Preview uses only these additional central failure tokens:
 | --- | --- |
 | `missing_hosted_preview_approval` | no current exact authenticated approval |
 | `invalid_hosted_preview_approval` | approval shape, work unit, limits or evidence is invalid |
+| `missing_hosted_preview_auto_approval_policy` | automatic approval was selected without an authenticated closed policy |
+| `invalid_hosted_preview_auto_approval_policy` | policy shape, identity, hash, predicates or authenticated source is invalid |
+| `hosted_preview_auto_approval_policy_mismatch` | final scope is outside the policy's exact asset/domain/content/work-unit predicates |
+| `hosted_preview_auto_approval_policy_revoked` | policy hash is revoked and cannot attest a new scope |
 | `hosted_preview_scope_mismatch` | approval hash does not equal recomputed current scope |
 | `hosted_preview_unknown_setting` | execution would require an unexposed or invented setting/default |
 | `hosted_preview_prompt_drift` | prompt record/file/payload changed before submit |
@@ -1122,6 +1205,10 @@ character_generation_sparse_motion_gate_failed
 character_generation_identity_anchor_gate_failed
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
+missing_hosted_preview_auto_approval_policy
+invalid_hosted_preview_auto_approval_policy
+hosted_preview_auto_approval_policy_mismatch
+hosted_preview_auto_approval_policy_revoked
 hosted_preview_scope_mismatch
 hosted_preview_unknown_setting
 hosted_preview_prompt_drift

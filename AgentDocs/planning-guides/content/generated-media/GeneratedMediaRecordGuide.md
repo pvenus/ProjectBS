@@ -737,8 +737,10 @@ providerPromptPayloadHash:
 referenceBindings:
 executionMode: hosted_builtin_preview_v1
 previewScopeHash:
-hostedPreviewApproval:
+hostedPreviewApproval: one exact manual approval or automatic approval attestation
 hostedPreviewApprovalSha256:
+hostedPreviewAutoApprovalPolicy?: required only for automatic attestation; forbidden for manual approval
+hostedPreviewAutoApprovalPolicySha256?: required only for automatic attestation; forbidden for manual approval
 settingsSeal:
 settingsSealSha256:
 provider: imagegen
@@ -765,8 +767,12 @@ validation:
   outputHash: valid
 ```
 
-`hostedPreviewApproval` and `settingsSeal` use exactly the closed schemas in
-GeneratedMediaImageGenOnlyContractGuide.md section 6.1.1. The record contains
+`hostedPreviewApproval`, optional `hostedPreviewAutoApprovalPolicy`, and
+`settingsSeal` use exactly the closed schemas in
+GeneratedMediaImageGenOnlyContractGuide.md section 6.1.1. Manual records omit
+both policy members. Automatic records require both, recompute the policy and
+authorization-source hashes, and bind the selected attestation to the final
+`previewScopeHash`. The record contains
 no descriptor, descriptor version, provider evidenceRef, guessed default,
 price, preservation handoff, evaluation result, or promotion state.
 
@@ -840,6 +846,10 @@ retry_limit_exceeded
 duplicate_provider_call_risk
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
+missing_hosted_preview_auto_approval_policy
+invalid_hosted_preview_auto_approval_policy
+hosted_preview_auto_approval_policy_mismatch
+hosted_preview_auto_approval_policy_revoked
 hosted_preview_scope_mismatch
 hosted_preview_unknown_setting
 hosted_preview_prompt_drift
