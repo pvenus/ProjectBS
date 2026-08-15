@@ -1,0 +1,66 @@
+Create exactly one natural front three-quarter view, one approved viewpoint only full-body character image of character.seojin.1, neutral but ready-to-move full-body stance; right hand lightly at the sheathed hwando grip on the left hip, centered full-body head-to-toe with generous clear space; no crop.
+Composition: canvas 1024x1536; target display 96x144; safe area left 96 px, right 96 px, top 96 px, bottom 128 px; the complete subject must remain inside all four insets; transparent final background prepared from removable solid #F2EFE6; no shadow; no added outline; pelvis/root normalized canvas point (0.5,0.55); ground-contact axis horizontal normalized line from (0.25,0.92) to (0.75,0.92).
+Approved identity facts:
+- 20대 중후반의 젊은 성인 한국 남성으로 명확히 읽히는 시각 표현. 미성년처럼 보이지 않으며 군졸 출신 떠돌이 검사의 실용적이고 절제된 인상을 유지한다.
+- 전신 3.75–4.25 heads, 머리 높이 24–27%의 약 4등신 비례를 사용한다. 팔다리는 짧고 단순하며 자연주의적 7–8등신, 긴 팔다리, 영웅적 장신 비례를 사용하지 않는다.
+- 젊은 성인 한국 남성의 얼굴은 깨끗한 턱선, 곧은 눈썹, 또렷하고 차분한 시선만 소수의 high-signal 선으로 남긴다. 얼굴 외곽과 내부 경계를 완전히 닫지 않고 피부 면을 흰색·검은색 또는 불투명 색으로 채우지 않는다.
+- 검은 머리를 낮고 단정한 조선식 상투로 묶는다. 상투는 가장 어두운 정체성 선 중 하나로 읽히되 머리 전체를 검은 면으로 채우거나 모든 외곽선을 닫지 않는다.
+- 빛바랜 군졸복, 회갈색 여행 겉옷, 수선된 반신 갑옷을 복잡한 층이나 완전한 색면이 아니라 식별 포인트로 단순화한다. 모든 팔다리·옷·실루엣의 양쪽 선을 닫지 않고 보조 복식선은 옅은 회색의 끊긴 선 또는 의도적 생략으로 처리한다.
+- 작은 여행 주머니 하나만 낮은 우선순위의 끊긴 선으로 암시하며, 매듭·봉제·표면 질감의 조밀한 세부는 식별 요건으로 만들지 않는다.
+- 오른손잡이용 장식 없는 조선식 환도 한 자루를 왼쪽 허리에 완전히 칼집에 든 상태로 둔다. 손잡이는 주요 identity anchor로 읽히고 칼집과 손잡이 외곽은 완전히 닫힌 불투명 실루엣이 아니다.
+- right
+- 목깃, 허리, 환도 손잡이 중 선택된 local marks: 빛바랜 indigo/navy 계열의 반투명하고 고르지 않은 제한 안료; 한쪽 어깨 갑옷과 한쪽 옷자락 중 선택된 local marks: dusty ochre/gray-brown 계열의 반투명하고 고르지 않은 제한 안료
+- 군졸복, 허리, 환도 손잡이의 제한된 local marks: 바탕과 내부 여백이 보이는 translucent uneven watercolor bleed 또는 briefly dragged brush mark; 한쪽 어깨 갑옷, 여행 겉옷, 한쪽 옷자락의 제한된 local marks: 바탕과 내부 여백이 보이는 soft pastel rub 또는 짧은 dragged brush mark
+- 젊은 성인 한국 남성의 얼굴과 차분한 시선; 낮고 단정한 조선식 상투; 한쪽 어깨에서 단순한 모양으로 읽히는 수선 반신 갑옷; 왼쪽 허리의 칼집에 든 장식 없는 조선식 환도 손잡이
+Required planning constraints:
+- 전신은 3.75–4.25 heads이고 머리 높이는 24–27%이며 팔다리는 짧고 단순해야 한다.
+- 빠르게 그린 동양 애니메이션 원화와 수묵 스케치처럼 예상 외곽·내부 경계의 35–45%를 의도적으로 생략하고, 모든 팔다리·옷·실루엣의 양쪽 선을 닫지 않아야 한다.
+- 선은 가변 압력, 마른 붓 끊김, taper와 occasional doubled searching stroke를 사용하고 보조 복식선은 옅은 회색의 끊긴 선 또는 완전 생략이어야 한다.
+- 가장 어두운 선은 얼굴 시선, 상투, 오른손과 환도 손잡이 접점, 한쪽 어깨선, 지지발과 주요 관절에만 집중해야 한다.
+- 캐릭터 내부의 바탕과 여백이 주된 면적을 차지하고 피부·머리·복식·갑옷 어느 영역도 균일하거나 불투명하게 완전 채워지지 않아야 한다.
+- faded indigo/navy와 dusty ochre/gray-brown 정확히 두 accent hue 계열만 4–7개의 local marks로 사용하고 전체 pigment coverage는 캐릭터 면적의 18% 이하여야 한다.
+- 제한 안료는 목깃, 한쪽 어깨 갑옷, 허리, 한쪽 옷자락과 환도 손잡이를 우선하며 translucent uneven watercolor bleed, soft pastel rub 또는 briefly dragged brush mark로 적용하고 약간의 선 밖 번짐과 mark 내부 여백을 허용해야 한다.
+- 젊은 성인 한국 남성의 얼굴, 낮은 조선식 상투, 한쪽 어깨 갑옷 모양과 왼쪽 허리의 환도 손잡이가 identity anchors로 선명해야 한다.
+- 빛바랜 군졸복, 회갈색 여행 겉옷과 수선된 반신 갑옷은 복잡한 층이 아닌 식별 포인트로 보이고, 오른손잡이용 장식 없는 조선식 환도는 왼쪽 허리에 완전히 칼집에 들어 있어야 한다.
+- 자연스러운 front three-quarter의 중립이지만 즉시 움직일 수 있는 전신 자세를 한 viewpoint로만 사용하고 머리부터 발끝까지 crop 없이 보여야 한다.
+Sparse ink pastel profile projection:
+- For this main image, intentionally omit 35–45 percent of expected contour and internal-boundary length, using the closed authoring projection and observable evaluator checklist.
+- Let line describe identity and action; reserve the darkest marks for gaze, topknot, hand-to-sword-grip contact, support foot, and action joints; keep secondary costume lines pale gray, broken, or omitted; prohibit uniform line weight.
+- Keep internal negative space open; prohibit closed coloring-book contours and a fully inked silhouette.
+- Keep main-image pigment at no more than 18 percent of character area and use exactly 4–7 local pigment accents.
+- Use only faded indigo/navy and dusty ochre/gray-brown, subordinate to line identity and action; prohibit every off-palette hue.
+- Apply pigment only as loose watercolor bloom, soft pastel rub, or short dragged brush stroke; slight excursions outside lines are allowed, internal negative space remains open, and solid opaque cel fill or black/white coloring-book fill is prohibited.
+- In this single main image, preserve gesture readability without animation-frame effects; do not introduce animation frames, attack effects, sword arcs, smears, or repeated action frames.
+- Keep gaze, topknot, hand-to-sword-grip contact, support foot, and action joints stable and readable; use 3.75–4.25-head proportions with short simple limbs and prohibit naturalistic seven-to-eight-head anatomy.
+Prohibited planning constraints:
+- 닫힌 coloring-book contour를 사용하지 않는다.
+- fully inked silhouette를 사용하지 않는다.
+- uniform line weight를 사용하지 않는다.
+- solid black fill을 사용하지 않는다.
+- solid white fill을 사용하지 않는다.
+- opaque color block을 사용하지 않는다.
+- cel paint를 사용하지 않는다.
+- clean vector finish를 사용하지 않는다.
+- dense facial detail을 사용하지 않는다.
+- dense costume detail을 사용하지 않는다.
+- 갑옷의 개별 scale을 렌더링하지 않는다.
+- 갑옷이나 장비의 개별 rivet을 렌더링하지 않는다.
+- dense folds를 사용하지 않는다.
+- hatching을 사용하지 않는다.
+- modeled shading을 사용하지 않는다.
+- gradients를 사용하지 않는다.
+- realistic materials 렌더링을 사용하지 않는다.
+- photorealism을 사용하지 않는다.
+- 3D 렌더링을 사용하지 않는다.
+- PBR 렌더링을 사용하지 않는다.
+- 7–8등신 비례를 사용하지 않는다.
+- 긴 팔다리를 사용하지 않는다.
+- 영웅적 장신 비례를 사용하지 않는다.
+- pixel art를 사용하지 않는다.
+- nearest-neighbor 표현을 사용하지 않는다.
+- 8-way 출력을 만들지 않는다.
+- rotation 또는 다방향 출력을 만들지 않는다.
+- animation 출력을 만들지 않는다.
+- variant 또는 대체 시안을 만들지 않는다.
+- 삭제된 trial v2–v5 이미지를 복구하거나 참조하지 않는다.
+- legacy prompt의 문장이나 구조를 차용하지 않는다.
