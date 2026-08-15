@@ -413,13 +413,19 @@ profile has exactly its original three top-level members; the animation-ready
 profile additionally has the exact proportion, detail-density, color/value,
 and authoring-projection members. Existing records are validated against the
 shape selected by their stored key and are never required to gain new members.
+`projectbs_character_bold_outline_compressed_detail@1.0.0` is a separate closed lock-array
+shape with proportion, outline hierarchy, facial simplification, compressed
+detail, color signature, ink treatment, and authoring projection members. It is
+valid only when its stored key selects that exact registered payload; no
+existing record is required or allowed to gain those members.
 
 `providerSettingsIntent` is not a provider request and cannot contain quality,
 model, seed, attempt, cost, or tool fields. Generation resolves its separately
 approved closed provider settings. `scenePromptOriginal` is a non-empty Unicode
 string with LF internal line endings, no CR code point, no BOM, and no terminal
-LF. It contains the complete positive and negative style-lock statements in
-their normative array order.
+LF. For any lock-array profile it contains the complete positive and negative
+style-lock statements in their normative array order. For the sparse profile it
+contains the complete eight-member policy projection instead.
 
 Calculate the three nested hashes before constructing the prompt hash payload:
 

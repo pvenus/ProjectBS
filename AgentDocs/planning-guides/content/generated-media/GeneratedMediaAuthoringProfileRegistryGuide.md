@@ -75,6 +75,18 @@ appliesTo=character_single_image_v2,character_animation_v2
 selection=explicit_approved_planning_fact_required
 ```
 
+The following bold-outline compressed-detail profile is available only for a
+new character single-image request whose approved planning selects the exact
+key and supplies every closed character-specific projection binding:
+
+```text
+expressionProfileKey=projectbs_character_bold_outline_compressed_detail@1.0.0
+expressionProfilePayloadHash=dc5db9990f26dd1ed0ebc25c6c2b46a10b68cb4ca3248e69f7c27b28e1568b33
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline compressed-detail character profile
+appliesTo=character_single_image_v2
+selection=explicit_approved_planning_fact_and_projection_required
+```
+
 Character single-image selection is closed: no approved selection resolves the
 legacy-compatible key, one exact approved selection of a registered nondefault
 key resolves that exact profile, and any unknown, multiple, or conflicting selection blocks as
@@ -83,6 +95,12 @@ select a profile; it inherits the exact key, payload, and hash from its
 hash-verified immutable reference prompt record. This preserves every old
 prompt record byte-for-byte and prevents a registry revision from reinterpreting
 its identity.
+
+Inheritance is also scope-checked. A character-animation request may inherit
+only a profile whose `appliesTo` includes `character_animation_v2`. The
+bold-outline compressed-detail profile is intentionally single-image-only; an
+animation reference prompt carrying it blocks as `character_style_profile_conflict`
+until a separately reviewed animation-capable version exists.
 
 The canonical authority above is the sole owner of the closed payload, lock
 order, canonicalization, and hash algorithm. This registry is only a closed
@@ -102,7 +120,12 @@ below. The sparse-ink payload instead has exactly `expressionProfileKey` plus
 `contourOmissionBudget`, `lineHierarchy`, `negativeSpacePolicy`,
 `pigmentBudget`, `accentPalette`, `pigmentApplication`, `motionLinePolicy`, and
 `identityAnchors`, using the exact closed value and hash owned by the visual
-guide; it has no positive/negative lock arrays.
+guide; it has no positive/negative lock arrays. The bold-outline payload has
+exactly `expressionProfileKey`, `proportionProjection`, `outlineHierarchy`,
+`facialSimplificationBudget`, `compressedDetailBudget`,
+`colorSignatureContract`, `inkTreatment`, `authoringProjectionContract`,
+`negativeStyleLock`, and `positiveStyleLock` with the exact canonical value and
+hash owned by the visual guide.
 
 ```yaml
 expressionProfilePayload:

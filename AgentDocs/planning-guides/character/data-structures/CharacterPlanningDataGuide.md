@@ -219,6 +219,9 @@ sentences into appearance fields as if they were character identity.
   reviewed payload hash as an approved pointer. The current sparse-ink option is
   `projectbs_character_sparse_ink_pastel_motion@1.0.0` with hash
   `b5ce18d11e249598ad6da13d59340cf7cede3d2896259dcc5e02dbbf98e80443`;
+  the single-image-only bold-outline option is
+  `projectbs_character_bold_outline_compressed_detail@1.0.0` with hash
+  `dc5db9990f26dd1ed0ebc25c6c2b46a10b68cb4ca3248e69f7c27b28e1568b33`;
   actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit
@@ -231,6 +234,22 @@ generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
     expressionProfileKey: optional exact registered character expression-profile key
+    expressionProfileProjection: # required only for projectbs_character_bold_outline_compressed_detail@1.0.0; forbidden otherwise
+      fullBodyHeadCount: JSON number from 4 through 5
+      externalOutlineSourcePx: JSON integer from 16 through 22 for the approved 1024x1536 source canvas
+      internalLineSourcePx: positive JSON number; externalOutlineSourcePx / internalLineSourcePx >= 2
+      facialMarkBudget:
+        countingUnit: one_continuous_visible_mark_between_pen_lifts_or_intentional_breaks
+        maximumTotalMarks: JSON integer from 1 through 9
+        componentMaximums: {browsAndEyes: integer 0..4, nose: integer 0..1, mouth: integer 0..1, jawAndFaceShape: integer 0..3}
+      primaryHue: non-empty exact character-specific hue
+      secondaryHue: optional non-empty exact character-specific hue
+      primaryAnchorElements: non-empty unique ordered exact element/site IDs
+      secondaryAnchorElements: required non-empty unique ordered exact element/site IDs only when secondaryHue is present; forbidden otherwise
+      maximumCharacterCoveragePercent: JSON integer from 1 through 35
+      maximumColorMasses: JSON integer from 1 through 4
+      neutralOutlineColor: non-empty exact neutral color
+      neutralWeaponColor: non-empty exact neutral color
     requiredElements:
       - factId: stable requirement ID
         statement: independently observable visual sentence
@@ -277,6 +296,17 @@ registered key, must have `factEvidence` to an approved planning decision, and
 must be projected unchanged into the handoff snapshot `approvedFacts`. Unknown
 or conflicting selection returns `character_style_profile_conflict`; no
 downstream stage may add, alias, or repair this value.
+
+For `projectbs_character_bold_outline_compressed_detail@1.0.0`, the displayed
+`expressionProfileProjection` member set is closed and every scalar/list/object
+must be captured as exact approved facts. The target outline equivalent is
+derived only as `externalOutlineSourcePx * 3 / 32`; planning does not store a
+second independently rounded target thickness. Component facial maxima sum to
+no more than `maximumTotalMarks`. Primary and secondary anchors must identify
+where their corresponding hue appears; a hue without anchors, anchors without
+a hue, duplicate anchors, full-garment fill, or a coverage/mass value outside
+the profile bounds blocks before handoff publication. The profile constants are
+not character identity facts and are referenced separately by profile key/hash.
 
 `characterSingleImage` is the only current planning source for
 `assetType=character_single_image`, `domainType=character`. It describes one

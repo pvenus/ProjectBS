@@ -79,6 +79,18 @@ requires complete eight-member projection and evidence coverage. Missing or
 mismatched sparse projection uses only the four sparse authoring tokens and
 never a `missing_*_style_lock` token.
 
+When planning selects
+`projectbs_character_bold_outline_compressed_detail@1.0.0`, authoring requires
+the exact closed planning projection in addition to the canonical payload and
+locks. Planning binds 4.0-5.0 heads; outside-silhouette thickness 16-22 px on
+1024x1536; a positive internal thickness with outside/internal ratio at least
+2; the closed facial mark total/component maxima; primary and conditional
+secondary hue anchor sites; coverage at most 35 percent; at most four color
+masses; and neutral outline/weapon colors. Generation independently checks
+those five semantic groups before any capability or submit boundary. Missing
+evidence or prompt prose cannot be repaired downstream. This profile is
+single-image-only and cannot be inherited by character animation.
+
 Generation performs a separate no-submit semantic preflight over the immutable
 prompt record. Any allowance for greater-than-4.25-head or naturalistic
 seven-to-eight-head anatomy, dense realistic detail, or nonminimal color/value
@@ -118,8 +130,9 @@ becomes one generation v2 record plus preservation handoff. State is
 `routed -> authored -> generated -> preservation_pending`; a blocker writes no
 ready record. Validate the exact route, snapshot, profile, evidence and hashes,
 one approved viewpoint, ImageGen provider, `character_single_image_v2`, and
-the selected union branch: non-empty lock-array coverage for either lock-array
-profile, or exact eight-member projection/evidence coverage with empty lock
+the selected union branch: non-empty lock-array coverage for any registered
+lock-array profile, including the complete bold-outline projection, or exact
+eight-member projection/evidence coverage with empty lock
 arrays for sparse. No planning, packaging, evaluation, promotion, or
 Git work occurs.
 
