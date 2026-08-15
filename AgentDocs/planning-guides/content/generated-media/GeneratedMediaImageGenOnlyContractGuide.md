@@ -667,6 +667,119 @@ Approval validation uses only these failure types and retry meanings:
 will be granted. Validation failures create no provider call. A failure after
 submit preserves its consumed-attempt, operation, result, and cost evidence.
 
+#### 6.1.1 Hosted built-in preview execution v1
+
+`hosted_builtin_preview_v1` is a separate, closed, preview-only execution mode
+for the callable built-in ImageGen surface that exposes submit but exposes no
+non-submit capability descriptor, defaults-resolved settings descriptor, cost
+estimate, or immutable provider evidence reference. Absence is recorded as
+absence; no descriptor/version/default/price/evidenceRef is synthesized.
+
+This mode does not weaken `generated_media_generation_v2`. A promotable call
+continues to require the complete section 6.1 descriptor, approval and cost
+contract. A preview result is never a generation-v2 result and cannot enter
+preservation, evaluation-package construction, Unity, or promotion.
+
+One authenticated current user message authorizes exactly one work unit:
+
+```text
+character_single_image -> exactly one image
+animation -> exactly one scalar animationRequestId
+```
+
+The message must identify the exact request/content/prompt scope and explicitly
+ask for that one output. A general request, older approval, batch wording,
+multiple animation IDs, or inferred consent is invalid. The closed approval is:
+
+```yaml
+schemaVersion: generated_media_hosted_preview_approval_v1
+executionMode: hosted_builtin_preview_v1
+approvedBy: authenticated current user identity
+approvedAt: RFC 3339 timestamp with offset
+approvalEvidence: immutable current message/thread reference
+previewScopeHash: recomputed 64-lowercase-hex
+workUnitType: exact_single_image | exact_animation_request
+animationRequestId: required only for exact_animation_request; forbidden otherwise
+submitCountMaximum: 1
+retryCountMaximum: 0
+promotionPolicy: not_promotable
+```
+
+The execution role computes `previewScopeHash` over a closed payload containing
+the exact request/asset/domain/content identity, conditional animationRequestId,
+planning snapshot hash, prompt record/file/payload hashes, reference roles and
+hashes, provider=`imagegen`, providerTool=`built-in_imagegen`,
+executionMode=`hosted_builtin_preview_v1`, and `settingsSealSha256`. The
+settings seal contains exactly the authored canvas/background/output intent and
+the options actually exposed on the callable tool invocation. An option not
+exposed by the tool is absent, never `null`, guessed, or defaulted:
+
+```yaml
+schemaVersion: generated_media_hosted_preview_settings_seal_v1
+providerSettingsIntent: exact verified authoring value
+providerSettingsIntentSha256: recomputed canonical hash
+exposedOptions: exact closed options actually exposed by the callable tool
+exposedOptionsSha256: recomputed canonical hash
+capabilityDescriptorStatus: unavailable_on_callable_surface
+settingsDescriptorStatus: unavailable_on_callable_surface
+costEstimate: {status: unavailable}
+```
+
+Before submit, re-read and hash the request, prompt JSON/Markdown, prompt
+payload, settings intent, references and exact single work-unit identity. Any
+drift blocks. Check that no preview record exists and no active submission is
+associated with the same scope. `submitCountMaximum=1` and
+`retryCountMaximum=0` are constants: failure, timeout or ambiguity does not
+authorize another call. Additional output or retry requires a new exact scope
+and a new current user approval.
+
+After the one submit, save only observable returned media to:
+
+```text
+output/generated-media-preview/v1/{assetType}/{contentId}/{workUnitId}/original.{ext}
+```
+
+`workUnitId` is `single_image` or the exact animationRequestId. A provider
+absolute/transient path may be audit text only and never canonical identity.
+The preview record stores the relative output path/hash, tool mode,
+submitCount=1, retryCount=0, `costKnown=false`, and these literal states:
+
+```text
+preview_only=true
+not_promotable=true
+not_evaluated=true
+capabilityEvidenceStatus=unavailable_on_callable_surface
+settingsEvidenceStatus=exposed_options_only
+costEvidenceStatus=unavailable_on_callable_surface
+```
+
+The canonical record/path/index contract is owned by
+GeneratedMediaRecordGuide.md::Hosted Preview v1. Attempting to use this record
+or media as preservation, canonical generation, evaluation-package, Unity, or
+promotion input fails at that entry boundary. The descriptor blocker is not a
+preview precondition; it remains mandatory at the promotable
+generation/preservation boundary.
+
+Preview uses only these additional central failure tokens:
+
+| failureType | meaning |
+| --- | --- |
+| `missing_hosted_preview_approval` | no current exact authenticated approval |
+| `invalid_hosted_preview_approval` | approval shape, work unit, limits or evidence is invalid |
+| `hosted_preview_scope_mismatch` | approval hash does not equal recomputed current scope |
+| `hosted_preview_unknown_setting` | execution would require an unexposed or invented setting/default |
+| `hosted_preview_prompt_drift` | prompt record/file/payload changed before submit |
+| `hosted_preview_reference_drift` | reference role/path/hash changed before submit |
+| `hosted_preview_submit_limit_exceeded` | one submit was already consumed |
+| `hosted_preview_retry_forbidden` | retry was requested after any submit outcome |
+| `hosted_preview_output_missing` | submit returned no observable media |
+| `hosted_preview_output_hash_mismatch` | saved observable bytes do not match the record hash |
+| `hosted_preview_preservation_forbidden` | preview entered preservation or evaluation packaging |
+| `hosted_preview_promotion_forbidden` | preview entered canonical generation, Unity or promotion |
+
+All preview blockers preserve truthful submitCount, `costKnown=false`, and the
+unavailable evidence statuses.
+
 ### 6.2 Approval and cost projection
 
 `costEvidence` is an ordered append-only array. Each entry is a closed object
@@ -805,6 +918,10 @@ missing_positive_style_lock
 missing_negative_style_lock
 style_lock_evidence_incomplete
 provider_prompt_style_lock_missing
+missing_sparse_profile_projection
+sparse_profile_projection_mismatch
+sparse_profile_evidence_incomplete
+provider_prompt_sparse_projection_missing
 character_style_profile_conflict
 character_animation_style_lock_mismatch
 missing_character_proportion_projection
@@ -930,6 +1047,21 @@ These tokens apply only after the exact animation-ready key was selected. The
 legacy-compatible profile remains governed by its immutable original shape and
 locks.
 
+The four sparse-profile authoring tokens apply only to
+`projectbs_character_sparse_ink_pastel_motion@1.0.0`:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_sparse_profile_projection` | one or more of the exact eight policy members is absent from the authored or inherited projection |
+| `sparse_profile_projection_mismatch` | any projected member, nested value, type, array order, payload key, or payload hash differs from the registered canonical payload |
+| `sparse_profile_evidence_incomplete` | one or more of the eight policy members lacks exact profile/planning evidence coverage |
+| `provider_prompt_sparse_projection_missing` | the copy-ready provider prompt omits or weakens any applicable main/animation projection from the eight policy members |
+
+The lock-array tokens `missing_positive_style_lock`,
+`missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
+`provider_prompt_style_lock_missing` apply only to the two registered
+lock-array profiles. They MUST NOT be returned for the sparse profile.
+
 The first eight tokens above are authoring-readiness failures with these exact
 boundaries:
 
@@ -983,6 +1115,23 @@ provider_operation_failed
 character_generation_proportion_gate_failed
 character_generation_detail_density_gate_failed
 character_generation_color_value_gate_failed
+character_generation_sparse_contour_gate_failed
+character_generation_sparse_omission_budget_gate_failed
+character_generation_sparse_pigment_budget_gate_failed
+character_generation_sparse_motion_gate_failed
+character_generation_identity_anchor_gate_failed
+missing_hosted_preview_approval
+invalid_hosted_preview_approval
+hosted_preview_scope_mismatch
+hosted_preview_unknown_setting
+hosted_preview_prompt_drift
+hosted_preview_reference_drift
+hosted_preview_submit_limit_exceeded
+hosted_preview_retry_forbidden
+hosted_preview_output_missing
+hosted_preview_output_hash_mismatch
+hosted_preview_preservation_forbidden
+hosted_preview_promotion_forbidden
 ```
 
 After a prompt record is immutable and before any submit boundary, character
@@ -996,6 +1145,50 @@ physical lighting, realistic material rendering, nonminimal value masses, or
 more than two accent hues as
 `character_generation_color_value_gate_failed`. These are no-call blockers;
 generation does not rewrite the prompt or substitute a profile.
+
+For `projectbs_character_sparse_ink_pastel_motion@1.0.0`, generation also
+checks the exact main-versus-animation projection before capability access.
+Closed coloring-book contours or a fully inked silhouette fail
+`character_generation_sparse_contour_gate_failed`; opaque/cel fill,
+off-palette hue, a main-image pigment area above 18 percent, a main accent count
+outside 4-7, or an animation-frame accent count outside 3-6 fail
+`character_generation_sparse_pigment_budget_gate_failed`. Main omission
+outside 35-45 percent or per-approved-animation-frame omission outside 35-50
+percent fails `character_generation_sparse_omission_budget_gate_failed`. An animation lacking the
+registered line/pigment motion cues or repeating static action frames fails
+`character_generation_sparse_motion_gate_failed`; and gaze, topknot,
+hand/sword grip, support foot, or action-joint drift fails
+`character_generation_identity_anchor_gate_failed`. These observable semantic
+checks do not claim an unavailable computer-vision measurement.
+
+The `character_generation_*` sparse tokens are owned only by generation
+pre-submit validation.
+
+#### 8.4.1 Character Expression Evaluation Extension
+
+```text
+missing_character_expression_evaluation_package
+character_evaluation_profile_mismatch
+character_evaluation_frame_count_mismatch
+character_evaluation_evidence_insufficient
+character_evaluation_proportion_gate_failed
+character_evaluation_sparse_contour_gate_failed
+character_evaluation_sparse_omission_budget_gate_failed
+character_evaluation_sparse_pigment_budget_gate_failed
+character_evaluation_sparse_motion_gate_failed
+character_evaluation_identity_anchor_gate_failed
+```
+
+The first four tokens respectively mean that the required sealed package is
+absent/unreadable, the exact profile key/payload/hash does not match, ordered
+animation members do not equal the positive approved `finalFrameCount`, or an
+observable gate lacks sufficient reproducible evidence. These tokens and the
+gate tokens are owned only by read-only evaluation. The gate tokens use the same numeric boundaries:
+main omission 35-45, main accents 4-7, main pigment area at most 18;
+per-approved-animation-frame omission 35-50 and accents 3-6. Contour,
+palette/fill, motion, and identity-anchor conditions are otherwise identical.
+Neither stage may return the other stage's prefix, and six frames is only a
+golden test fixture rather than an operational count.
 
 ### 8.5 Preservation Extension
 

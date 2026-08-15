@@ -24,9 +24,9 @@ Input:
 1. registryVersion=v2, provider=imagegen, assetType=character_single_image, exact registry row와 snapshot/hash를 검증한다.
 2. viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, background, generationBackground, noShadow, outline, pelvis/root와 ground-contact anchor를 모두 검증한다.
 3. 승인 기획을 provider-neutral visual brief로 정규화하고 모든 문장을 evidence/constraint에 연결한다. 캐릭터 사실과 ProjectBS 캐릭터 표현 profile을 분리하고 누락된 외형·시점·색·배경을 만들지 않는다.
-4. GeneratedMediaVisualPromptAuthoringGuide의 canonical expressionProfilePayload를 exact 사용하고 RFC 8785 JCS canonical JSON UTF-8 bytes의 SHA-256을 다시 계산해 등록된 expressionProfilePayloadHash와 비교한다. positiveStyleLock과 negativeStyleLock의 각 constraintId/statement/authorityRef 및 배열 순서를 보존하고 모든 항목의 evidence를 기록한다. `stylized` 한 단어로 대체하지 않는다.
+4. GeneratedMediaVisualPromptAuthoringGuide의 canonical expressionProfilePayload를 exact 사용하고 RFC 8785 JCS canonical JSON UTF-8 bytes의 SHA-256을 다시 계산해 등록된 expressionProfilePayloadHash와 비교한다. 기존 두 lock-array profile이면 non-empty positiveStyleLock/negativeStyleLock의 배열 순서와 evidence를 보존한다. sparse-ink profile이면 두 compatibility lock array를 empty로 유지하고 정확히 여덟 policy member를 닫힌 형태로 검증해 각 budget/policy를 evidence에 연결한다. sparse에는 missing_*_style_lock을 적용하지 않는다. `stylized` 한 단어로 대체하지 않는다.
 5. animation-ready minimal profile은 exact approved planning fact가 정확한 key를 선택했을 때만 사용한다. closed proportionProjection/detailDensityBudget/colorValueBudget/authoringProjectionContract를 검증하고, planning-bound 비례가 3.75-4.25 heads 및 head 24-27% 안의 exact 또는 더 좁은 범위인지, 짧고 단순화된 팔다리·animation-safe low detail·최소 flat value masses·차분한 accent hue 1-2개가 모두 독립 observable statement와 exact evidence로 투영됐는지 확인한다. 누락, 범위 초과, budget 누락, evidence 누락은 current contract의 exact typed blocker로 중단한다.
-6. 한 승인 시점의 cohesive ImageGen prompt 하나에 positive/negative style lock 원문과 planning-bound exact 값을 모두 직접 포함하고 settings intent를 분리한다. photographic/photorealistic/cinematic portrait, realistic skin pores, lens/DOF/bokeh, volumetric portrait light, painterly/PBR 3D render, western-fantasy realism, 7-8등신/영웅적 장신, 개별 비늘·리벳, 조밀한 주름·해칭, microtexture, modeled shading, gradient, 사실적 재질 또는 2개를 넘는 accent hue를 허용하는 표현을 넣지 않는다. 8-way, rotation, ordered_rotation_set을 넣지 않는다.
+6. 한 승인 시점의 cohesive ImageGen prompt 하나에 선택 profile의 complete provider projection과 planning-bound exact 값을 직접 포함하고 settings intent를 분리한다. sparse-ink profile은 main omission 35-45%, pigment area <=18%, 4-7 accents, exact two-color palette, loose bloom/rub/dragged stroke, no-fill/negative-space gate, darkest identity anchors와 3.75-4.25 heads/short limbs를 포함한다. photographic/3D/PBR, closed coloring-book/vector/cel fill, fully inked silhouette, uniform line, dense hatching/modeled shading, off-palette hue와 7-8등신을 허용하지 않는다. 8-way, rotation, ordered_rotation_set을 넣지 않는다.
 7. 승인 기획과 style profile이 material conflict이면 몰래 변환하지 않고 character_style_profile_conflict로 중단한다.
 8. GeneratedMediaRecordGuide.md::Prompt v3의 closed
    generated_media_prompt_hash_payload_v3를 source record에서 exact projection하고
@@ -46,20 +46,20 @@ Output:
 - promptRecordId / promptPayloadSha256 / prompt record path/raw SHA-256
 - prompt Markdown path/raw SHA-256 / prompt index path/raw SHA-256
 - complete generated_media_generation_handoff_v2 / generationHandoffSha256
-- identity / registry row / expressionProfileKey / expressionProfilePayload / expressionProfilePayloadHash / visual brief evidence coverage / positiveStyleLock coverage / negativeStyleLock coverage
+- identity / registry row / expressionProfileKey / expressionProfilePayload / expressionProfilePayloadHash / visual brief evidence coverage / profile projection coverage
 - provider=imagegen / structureProfile=character_single_image_v2
 - nextStep: generation
 
 실패 시 Output:
 - status: blocked
-- failureType: GeneratedMediaImageGenOnlyContractGuide.md 8.1 및 8.3의 character single-image authoring 적용 token 중 정확히 하나. expression-profile에는 payload/key/hash missing 또는 mismatch token만 적용하며 reference-record/skill token과 alias를 사용하지 않는다. record publication에는 exact record/hash/index/Markdown/write/rollback token만 사용한다.
+- failureType: GeneratedMediaImageGenOnlyContractGuide.md 8.1 및 8.3의 character single-image authoring 적용 token 중 정확히 하나. 두 lock-array profile만 lock token을 사용하고 sparse는 four sparse projection token만 사용한다. expression-profile identity에는 payload/key/hash missing 또는 mismatch token만 적용하며 reference-record/skill token과 alias를 사용하지 않는다. record publication에는 exact record/hash/index/Markdown/write/rollback token만 사용한다.
 - missingFields / requiredDecision / safeToRetry
 
 검증:
 - provider는 imagegen 하나여야 한다.
 - 캐릭터 신규 계약에 8-way/rotation set이 없어야 한다.
 - planning, brief, provider prompt, settings가 분리되어야 한다.
-- copy-ready prompt에 positive/negative style lock 원문이 모두 있고 각 항목 evidence coverage가 완전해야 한다.
+- copy-ready prompt에 선택 profile의 complete projection이 있고 각 항목 evidence coverage가 완전해야 한다.
 - animation-ready minimal profile이면 numeric/detail/color/value projection과 planning/profile evidence coverage가 완전하고 dense material prose가 simplification lock을 약화하지 않아야 한다.
 - JSON은 canonicalJson+LF, Markdown은 scenePromptOriginal UTF-8 bytes+LF이며 CRLF/BOM/추가 terminal LF가 없어야 한다.
 - prompt record/index/handoff projection과 모든 ID/path/hash가 exact 재계산되어야 한다.

@@ -703,6 +703,94 @@ Before an external call, look up the deterministic ID and active attempt:
   unavailable/no-charge, and its hash is projected byte-identically to the
   record, generation index entry, and preservation handoff.
 
+### Hosted Preview v1
+
+Hosted preview is not `generated_media_generation_v2`. Its canonical record and
+index are isolated from promotable generation:
+
+```text
+AgentDocs/planning-data/generated-media-hosted-preview/v1/{assetType}/{contentId}/{workUnitId}/
+  {previewRecordId}.json
+  preview_index.json
+output/generated-media-preview/v1/{assetType}/{contentId}/{workUnitId}/original.{ext}
+```
+
+The closed record is `generated_media_hosted_preview_record_v1`. Its exact
+member set is below. `animationRequestId` is required only for an animation
+work unit and forbidden otherwise. `referenceBindings` is an ordered array of
+closed `{role, projectRelativePath, sha256}` objects; absolute/transient paths
+are forbidden.
+
+```yaml
+schemaVersion: generated_media_hosted_preview_record_v1
+previewRecordId:
+requestId:
+assetType:
+domainType:
+contentId:
+animationRequestId?:
+planningSnapshotHash:
+promptRecordId:
+promptRecordSha256:
+promptFileSha256:
+providerPromptPayloadHash:
+referenceBindings:
+executionMode: hosted_builtin_preview_v1
+previewScopeHash:
+hostedPreviewApproval:
+hostedPreviewApprovalSha256:
+settingsSeal:
+settingsSealSha256:
+provider: imagegen
+providerTool: built-in_imagegen
+toolMode: exact observed callable mode
+submitCount: 1
+retryCount: 0
+costKnown: false
+capabilityEvidenceStatus: unavailable_on_callable_surface
+settingsEvidenceStatus: exposed_options_only
+costEvidenceStatus: unavailable_on_callable_surface
+previewOnly: true
+notPromotable: true
+notEvaluated: true
+observableOutputPath: canonical project-relative preview path
+observableOutputSha256: 64-lowercase-hex
+createdAt: exact observed RFC 3339 timestamp with offset
+validation:
+  status: valid
+  approval: valid
+  scope: valid
+  promptAndReferences: valid
+  submitLimit: valid
+  outputHash: valid
+```
+
+`hostedPreviewApproval` and `settingsSeal` use exactly the closed schemas in
+GeneratedMediaImageGenOnlyContractGuide.md section 6.1.1. The record contains
+no descriptor, descriptor version, provider evidenceRef, guessed default,
+price, preservation handoff, evaluation result, or promotion state.
+
+```text
+previewPayloadSha256 = SHA-256(JCS(record excluding previewRecordId, validation))
+previewRecordId = gmpreview1.{assetType}.{contentId}.{workUnitId}.{hash[0:20]}
+```
+
+The closed index contains exactly `schemaVersion`
+(`generated_media_hosted_preview_index_v1`), `assetType`, `contentId`,
+`workUnitId`, and an `entries` object keyed by previewRecordId. Each entry
+contains exactly `previewRecordId`, `recordPath`, `recordSha256`,
+`previewPayloadSha256`, `previewScopeHash`, `requestId`, `assetType`,
+`domainType`, `contentId`, conditional `animationRequestId`,
+`observableOutputPath`, and `observableOutputSha256`.
+
+The index is closed to this schema and exact record path/raw SHA. Identical
+scope and output bytes reuse identical record bytes. Same ID with different
+bytes is `record_collision`; an occupied scope with any consumed submit is
+`hosted_preview_submit_limit_exceeded`, not a new record. Record-before-index,
+CAS, raw UTF-8/LF and failure-atomicity rules match current records. Neither the
+record nor its media path satisfies any generation-v2 or preservation-v2 input
+schema.
+
 ## Preservation v2 and State Flow
 
 Preservation schema/path/identity is owned by
@@ -750,6 +838,18 @@ provider_cost_limit_exceeded
 provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
+missing_hosted_preview_approval
+invalid_hosted_preview_approval
+hosted_preview_scope_mismatch
+hosted_preview_unknown_setting
+hosted_preview_prompt_drift
+hosted_preview_reference_drift
+hosted_preview_submit_limit_exceeded
+hosted_preview_retry_forbidden
+hosted_preview_output_missing
+hosted_preview_output_hash_mismatch
+hosted_preview_preservation_forbidden
+hosted_preview_promotion_forbidden
 ```
 
 Validate schema/path/version parity, exact one-animation ID rules, provider

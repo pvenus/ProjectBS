@@ -213,7 +213,13 @@ sentences into appearance fields as if they were character identity.
   not add youth, attractiveness, modern/westernized beauty, minor-coded or
   sexualized presentation, facial hair, fatigue, age, or gravitas;
 - the reusable expression layer must supply separate positive and negative
-  style locks with profile ID/version and evidence coverage;
+  style locks or the exact closed profile-specific policy projection with
+  profile ID/version and evidence coverage;
+- planning may select only an exact registered `expressionProfileKey` and its
+  reviewed payload hash as an approved pointer. The current sparse-ink option is
+  `projectbs_character_sparse_ink_pastel_motion@1.0.0` with hash
+  `b5ce18d11e249598ad6da13d59340cf7cede3d2896259dcc5e02dbbf98e80443`;
+  actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit
   planning/profile revision. Downstream stages never silently restyle planning.

@@ -458,5 +458,96 @@ assert.notEqual(canonicalJson(divergentHandoff.approvalCostProjection), canonica
 // These one-line values are the concrete canonical JSON examples used by the fixed vector.
 assert.equal(scopeCanonical, canonicalJson(scopeFixture()));
 assert.equal(canonicalJson(JSON.parse(scopeCanonical)), scopeCanonical);
+
+// Hosted built-in preview v1 is deliberately isolated from promotable v1
+// approval. It records unavailable evidence rather than fabricating it.
+function hostedPreviewFixture(workUnitType = "exact_single_image") {
+  const animation = workUnitType === "exact_animation_request";
+  const settingsSeal = {
+    schemaVersion: "generated_media_hosted_preview_settings_seal_v1",
+    providerSettingsIntent: structuredClone(providerSettingsIntent),
+    providerSettingsIntentSha256: hashObject(providerSettingsIntent),
+    exposedOptions: { outputFormat: "png" },
+    exposedOptionsSha256: hashObject({ outputFormat: "png" }),
+    capabilityDescriptorStatus: "unavailable_on_callable_surface",
+    settingsDescriptorStatus: "unavailable_on_callable_surface",
+    costEstimate: { status: "unavailable" },
+  };
+  const scopePayload = {
+    schemaVersion: "generated_media_hosted_preview_scope_hash_payload_v1",
+    requestId: "gmreq.character.seojin.preview.1",
+    assetType: animation ? "animation" : "character_single_image",
+    domainType: "character",
+    contentId: "seojin",
+    ...(animation ? { animationRequestId: "attack_01" } : {}),
+    planningSnapshotHash: "a".repeat(64),
+    promptRecordId: "gmprompt3.preview",
+    promptRecordSha256: "b".repeat(64),
+    promptFileSha256: "c".repeat(64),
+    providerPromptPayloadHash: "d".repeat(64),
+    referenceBindings: [{ role: "character_reference", projectRelativePath:
+      "output/generated-media-preview/references/seojin.png", sha256: "e".repeat(64) }],
+    provider: "imagegen",
+    providerTool: "built-in_imagegen",
+    executionMode: "hosted_builtin_preview_v1",
+    settingsSealSha256: hashObject(settingsSeal),
+  };
+  const previewScopeHash = hashObject(scopePayload);
+  const approval = {
+    schemaVersion: "generated_media_hosted_preview_approval_v1",
+    executionMode: "hosted_builtin_preview_v1",
+    approvedBy: "user:contract-reviewer",
+    approvedAt: "2026-08-15T10:00:00+09:00",
+    approvalEvidence: "codex-thread:current/message:exact-preview-approval",
+    previewScopeHash,
+    workUnitType,
+    ...(animation ? { animationRequestId: "attack_01" } : {}),
+    submitCountMaximum: 1,
+    retryCountMaximum: 0,
+    promotionPolicy: "not_promotable",
+  };
+  return { settingsSeal, scopePayload, previewScopeHash, approval };
+}
+
+function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, approval },
+  state = { submitCount: 0, retryCount: 0 }) {
+  assertClosedKeys(settingsSeal, ["schemaVersion", "providerSettingsIntent",
+    "providerSettingsIntentSha256", "exposedOptions", "exposedOptionsSha256",
+    "capabilityDescriptorStatus", "settingsDescriptorStatus", "costEstimate"]);
+  assert.equal(settingsSeal.costEstimate.status, "unavailable");
+  assert.equal(settingsSeal.capabilityDescriptorStatus, "unavailable_on_callable_surface");
+  assert.equal(settingsSeal.settingsDescriptorStatus, "unavailable_on_callable_surface");
+  for (const forbidden of ["capabilityDescriptor", "capabilityVersion", "evidenceRef", "cost"])
+    assert.equal(Object.hasOwn(settingsSeal, forbidden), false);
+  if (hashObject(scopePayload) !== previewScopeHash
+    || approval.previewScopeHash !== previewScopeHash) throw new Error("hosted_preview_scope_mismatch");
+  if (approval.submitCountMaximum !== 1 || approval.retryCountMaximum !== 0
+    || approval.promotionPolicy !== "not_promotable") throw new Error("invalid_hosted_preview_approval");
+  if (state.submitCount >= 1) throw new Error("hosted_preview_submit_limit_exceeded");
+  if (state.retryCount > 0) throw new Error("hosted_preview_retry_forbidden");
+  return true;
+}
+
+const singlePreview = hostedPreviewFixture();
+const animationPreview = hostedPreviewFixture("exact_animation_request");
+assert.equal(validateHostedPreview(singlePreview), true);
+assert.equal(validateHostedPreview(animationPreview), true);
+assert.equal(animationPreview.approval.animationRequestId, "attack_01");
+assert.throws(() => validateHostedPreview({ ...singlePreview,
+  previewScopeHash: "0".repeat(64) }), /hosted_preview_scope_mismatch/);
+const promptDrift = structuredClone(singlePreview);
+promptDrift.scopePayload.promptFileSha256 = "f".repeat(64);
+assert.throws(() => validateHostedPreview(promptDrift), /hosted_preview_scope_mismatch/);
+const referenceDrift = structuredClone(singlePreview);
+referenceDrift.scopePayload.referenceBindings[0].sha256 = "f".repeat(64);
+assert.throws(() => validateHostedPreview(referenceDrift), /hosted_preview_scope_mismatch/);
+assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 1, retryCount: 0 }),
+  /hosted_preview_submit_limit_exceeded/);
+assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 0, retryCount: 1 }),
+  /hosted_preview_retry_forbidden/);
+const invalidPreview = structuredClone(singlePreview);
+invalidPreview.approval.submitCountMaximum = 2;
+assert.throws(() => validateHostedPreview(invalidPreview), /invalid_hosted_preview_approval/);
+
 console.log({ fixedScopeHash, fixedApprovalHash: hashObject(approval), scopeCanonical });
 console.log("generated media provider execution approval v1 contract vectors: PASS");

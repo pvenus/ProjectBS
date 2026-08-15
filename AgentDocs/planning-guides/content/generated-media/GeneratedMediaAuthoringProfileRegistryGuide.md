@@ -63,9 +63,21 @@ appliesTo=character_single_image_v2,character_animation_v2
 selection=explicit_approved_planning_fact_required
 ```
 
+The following new sparse-ink/pastel-motion profile is also available only by
+one exact approved planning pointer. It is shared byte-for-byte by a character
+main image and its character-animation descendants:
+
+```text
+expressionProfileKey=projectbs_character_sparse_ink_pastel_motion@1.0.0
+expressionProfilePayloadHash=b5ce18d11e249598ad6da13d59340cf7cede3d2896259dcc5e02dbbf98e80443
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Sparse ink pastel motion profile
+appliesTo=character_single_image_v2,character_animation_v2
+selection=explicit_approved_planning_fact_required
+```
+
 Character single-image selection is closed: no approved selection resolves the
-legacy-compatible key, one exact approved selection of the new key resolves the
-new profile, and any unknown, multiple, or conflicting selection blocks as
+legacy-compatible key, one exact approved selection of a registered nondefault
+key resolves that exact profile, and any unknown, multiple, or conflicting selection blocks as
 `character_style_profile_conflict`. Character animation does not independently
 select a profile; it inherits the exact key, payload, and hash from its
 hash-verified immutable reference prompt record. This preserves every old
@@ -86,7 +98,11 @@ allowed.
 The registry validates the closed discriminated projection without owning its
 values. The legacy-compatible payload has exactly the original three members.
 The animation-ready payload additionally requires the four exact members shown
-below:
+below. The sparse-ink payload instead has exactly `expressionProfileKey` plus
+`contourOmissionBudget`, `lineHierarchy`, `negativeSpacePolicy`,
+`pigmentBudget`, `accentPalette`, `pigmentApplication`, `motionLinePolicy`, and
+`identityAnchors`, using the exact closed value and hash owned by the visual
+guide; it has no positive/negative lock arrays.
 
 ```yaml
 expressionProfilePayload:

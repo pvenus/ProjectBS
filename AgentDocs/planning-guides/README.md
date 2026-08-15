@@ -57,6 +57,7 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuth
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaCharacterExpressionEvaluationGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/ImageGenIconPipelineGuide.md

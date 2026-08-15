@@ -43,10 +43,13 @@ for a current request. Missing fields return the exact typed blocker owned by
 the current contract. Generation stops at provider refs and hands off to
 preservation.
 
-Authoring also requires the active ProjectBS character ink-line style profile.
-It resolves the canonical payload from the visual guide, recomputes its RFC
-8785 JCS canonical JSON UTF-8 SHA-256, persists its exact key/payload/hash, and
-produces separate non-empty positive and negative style locks. It maps every
+Authoring also requires the exact approved ProjectBS character expression
+profile as a closed discriminated union. Only the restrained and animation-
+ready profiles require non-empty positive/negative lock arrays.
+For either of those two legacy lock-array profiles, authoring resolves the
+canonical payload from the visual guide, recomputes its RFC 8785 JCS canonical
+JSON UTF-8 SHA-256, persists its exact key/payload/hash, and produces separate
+non-empty positive and negative style locks. It maps every
 lock to authority evidence, and includes both verbatim in the copy-ready
 ImageGen prompt. The pipeline rejects photographic/photorealistic/cinematic
 portrait, realistic pores, lens/DOF/bokeh, volumetric portrait light,
@@ -64,6 +67,17 @@ projection must have exact planning evidence. Prompt prose must include all
 profile locks and bound values without allowing dense material prose to
 override simplification. Missing/out-of-range/budget/evidence failures use the
 exact current contract tokens and write no prompt record.
+
+When planning selects `projectbs_character_sparse_ink_pastel_motion@1.0.0`,
+authoring projects its exact eight-member payload and hash. The main image uses
+35-45 percent contour/internal-boundary omission, no closed fill, no more than
+18 percent pigmented area, 4-7 accents, the exact two-family faded palette,
+3.75-4.25 heads, and stable identity anchors. Generation applies the sparse
+contour, pigment, and identity-anchor gates before any provider access.
+Its visual-brief lock arrays are empty compatibility members; authoring instead
+requires complete eight-member projection and evidence coverage. Missing or
+mismatched sparse projection uses only the four sparse authoring tokens and
+never a `missing_*_style_lock` token.
 
 Generation performs a separate no-submit semantic preflight over the immutable
 prompt record. Any allowance for greater-than-4.25-head or naturalistic
@@ -84,6 +98,14 @@ and projection equality. It
 checks the deterministic idempotency key before billing, reuses an identical
 completed result, blocks an identical active call, and records `costEvidence`.
 
+Alternatively, an exact current-user approval may select the isolated
+`hosted_builtin_preview_v1` lane from contract section 6.1.1. It permits one
+built-in ImageGen submit and zero retries for this single image, records
+unavailable descriptor/settings/cost evidence truthfully, and ends at a
+non-evaluated, non-promotable preview record. It never returns a generation-v2
+or preservation handoff. Any promotable run continues to require the complete
+descriptor, approval, cost, generation-v2, and preservation contracts.
+
 ## Input, Output, State, and Validation
 
 One valid v2 route/handoff becomes one prompt v3 record, one raw copy-ready
@@ -92,8 +114,9 @@ becomes one generation v2 record plus preservation handoff. State is
 `routed -> authored -> generated -> preservation_pending`; a blocker writes no
 ready record. Validate the exact route, snapshot, profile, evidence and hashes,
 one approved viewpoint, ImageGen provider, `character_single_image_v2`, and
-positive/negative style-lock presence, evidence coverage and exact prompt
-inclusion. No planning, packaging, evaluation, promotion, or
+the selected union branch: non-empty lock-array coverage for either lock-array
+profile, or exact eight-member projection/evidence coverage with empty lock
+arrays for sparse. No planning, packaging, evaluation, promotion, or
 Git work occurs.
 
 Generation blockers additionally include the exact contract 6.1-6.2 approval,

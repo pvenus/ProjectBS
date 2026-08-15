@@ -54,8 +54,8 @@ likelyWrongObjects: []
 artifactSpecificBrief:
 visualEvidenceMap: []
 providerTranslationContract:
-positiveStyleLock: []
-negativeStyleLock: []
+positiveStyleLock: [] # non-empty only for either lock-array profile; empty for sparse
+negativeStyleLock: [] # non-empty only for either lock-array profile; empty for sparse
 status: normalized
 validation:
 ```
@@ -121,17 +121,14 @@ visualEvidenceMap:
     sourcePointer: RFC 6901 pointer into the exact source, or exact authority section selector
     sourceSha256:
     authorityRole: planning | master_concept | expression_profile
-    transformationType: direct_copy | provider_neutral_normalization | profile_lock
+    transformationType: direct_copy | provider_neutral_normalization | profile_lock | profile_policy_projection
 providerTranslationContract:
   schemaVersion: imagegen_character_single_image_prompt_v2
   provider: imagegen
-  promptAssemblyOrder:
-    - planning_facts
-    - negative_style_lock
-    - positive_style_lock
+  promptAssemblyOrder: lock-array profile -> [planning_facts, negative_style_lock, positive_style_lock]; sparse profile -> [planning_facts, sparse_profile_policy_projection]
   settingsSeparated: true
-positiveStyleLock: exact ordered array copied from expressionProfilePayload.positiveStyleLock
-negativeStyleLock: exact ordered array copied from expressionProfilePayload.negativeStyleLock
+positiveStyleLock: lock-array profile -> exact non-empty ordered array; sparse profile -> exact empty array
+negativeStyleLock: lock-array profile -> exact non-empty ordered array; sparse profile -> exact empty array
 validation:
   status: valid
   sourceEvidence: complete
@@ -193,9 +190,11 @@ The expression profile is a closed discriminated union keyed by
 `expressionProfileKey`, `negativeStyleLock`, and `positiveStyleLock`. The
 animation-ready profile below has those three members plus exactly
 `proportionProjection`, `detailDensityBudget`, `colorValueBudget`, and
-`authoringProjectionContract`. A member from one shape is not optional in the
-other shape. Each lock-array item has exactly `constraintId`, `statement`, and
-`authorityRef`; extra or missing members block. `authorityRef` uses
+`authoringProjectionContract`. The sparse-ink profile below has exactly its
+discriminator plus the eight budget/policy members displayed in its canonical
+payload; it has no lock arrays. A member from one shape is not optional in the
+other shape. Each lock-array item in the first two profiles has exactly
+`constraintId`, `statement`, and `authorityRef`; extra or missing members block. `authorityRef` uses
 `{project-relative path}::{exact section heading}`.
 
 The following payload remains canonical and immutable for
@@ -339,6 +338,97 @@ photographic capture or 3D rendering. A material planning/profile conflict
 returns `character_style_profile_conflict`; authoring writes no prompt record
 and requests an explicit planning/profile revision.
 
+### Sparse ink pastel motion profile
+
+The following payload is canonical and immutable for
+`projectbs_character_sparse_ink_pastel_motion@1.0.0`. It is a new profile and
+does not alter the bytes, meaning, fallback, or hash of either existing 1.0.0
+profile.
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_sparse_ink_pastel_motion@1.0.0",
+  "contourOmissionBudget": {
+    "unit": "percent_of_expected_contour_and_internal_boundary_length",
+    "main": {"minimum": 35, "maximum": 45},
+    "animationFrame": {"minimum": 35, "maximum": 50},
+    "measurementPolicy": "closed_authoring_projection_plus_observable_evaluator_checklist"
+  },
+  "lineHierarchy": {
+    "darkestIdentityActionAnchors": ["gaze", "topknot", "hand_sword_grip", "support_foot", "action_joints"],
+    "secondaryCostumeLinePolicy": "pale_gray_broken_or_omitted",
+    "primaryPolicy": "line_describes_identity_and_action",
+    "uniformLineWeight": "prohibited"
+  },
+  "negativeSpacePolicy": {
+    "internalNegativeSpace": "required",
+    "closedColoringBookContours": "prohibited",
+    "fullyInkedSilhouette": "prohibited"
+  },
+  "pigmentBudget": {
+    "areaUnit": "percent_of_character_area",
+    "mainMaximumPigmentedArea": 18,
+    "mainAccentCount": {"minimum": 4, "maximum": 7},
+    "animationFrameAccentCount": {"minimum": 3, "maximum": 6},
+    "animationFrameAreaPolicy": "no_numeric_claim_use_no_fill_gate"
+  },
+  "accentPalette": {
+    "allowed": ["faded_indigo_navy", "dusty_ochre_gray_brown"],
+    "offPaletteHue": "prohibited",
+    "colorRole": "subordinate_to_line_identity_and_action"
+  },
+  "pigmentApplication": {
+    "allowedMethods": ["loose_watercolor_bloom", "soft_pastel_rub", "short_dragged_brush_stroke"],
+    "outsideLineExcursion": "slight_allowed",
+    "internalNegativeSpace": "required",
+    "solidOpaqueCelFill": "prohibited",
+    "blackWhiteClosedColoringBookFill": "prohibited"
+  },
+  "motionLinePolicy": {
+    "mainProjection": "gesture_readability_without_animation_frame_effects",
+    "animationCues": ["gesture_searching_overlaps", "taper_break", "robe_sleeve_lag", "sword_arc", "overshoot_smear"],
+    "attackIndigoSupport": "three_to_five_marks_support_sword_and_torso_rotation",
+    "attackGrayBrownSupport": "supports_shoulder_and_hem_inertia",
+    "activeFrameDetailPolicy": "face_and_costume_detail_may_reduce_without_identity_anchor_loss",
+    "staticRepeatedActionFrames": "prohibited"
+  },
+  "identityAnchors": {
+    "required": ["gaze", "topknot", "hand_sword_grip", "support_foot", "action_joints"],
+    "stability": "required_across_all_animation_frames",
+    "proportion": {"fullBodyHeadCount": {"minimum": 3.75, "maximum": 4.25}, "limbPolicy": "short_simple"},
+    "naturalisticSevenToEightHeads": "prohibited"
+  }
+}
+```
+
+Canonicalization is RFC 8785 JCS over exact UTF-8 bytes. The exact payload
+SHA-256 is:
+
+```text
+b5ce18d11e249598ad6da13d59340cf7cede3d2896259dcc5e02dbbf98e80443
+```
+
+The eight policy members are closed and have the exact types shown. Percent
+and count ranges are inclusive JSON integers. Array order is normative.
+`animationFrameAreaPolicy` deliberately forbids a fabricated numeric computer-
+vision threshold: animation uses the closed no-fill gate plus observable
+accent-count and palette checks. Main authoring projects the main omission,
+area, accent-count, no-fill and proportion gates. Character animation inherits
+the same complete payload and hash, then projects the animation-frame omission,
+accent-count, motion cues and anchor stability without changing profile bytes.
+The main and animation request, structureProfile and record identities remain
+independent.
+
+Provider prose must express intentional contour gaps, short/simple limbs,
+limited faded indigo/navy and dusty ochre/gray-brown pigment, loose bloom/rub/
+dragged strokes, internal negative space and the applicable motion cues. It
+must reject closed coloring-book contours, fully inked silhouettes, uniform
+lines, solid/opaque/cel fill, clean vector rendering, dense hatching, modeled
+shading, realistic materials, photo/3D/PBR and seven-to-eight-head anatomy.
+Temporary absolute evidence paths are audit-only. Canonical style-reference
+use first requires a durable project-relative copy, exact hash and reviewed
+styleReference schema; this task creates none.
+
 ## Character Single Image
 
 Require identityConsistencyLock, one viewpoint, pose, framing, canvas, target
@@ -349,8 +439,11 @@ Do not add directions, rotations, alternate views or camera facts.
 Provider handoff: `imagegen_character_single_image_prompt_v2`, prompt v3,
 structure `character_single_image_v2`.
 
-The cohesive prompt contains the complete positive and negative style locks,
-not merely their IDs. Evidence coverage reports both groups independently. An
+For either existing lock-array profile, the cohesive prompt contains the
+complete positive and negative style locks, not merely their IDs. For the
+sparse-ink profile, it instead contains the complete projection of all eight
+closed policy members. Evidence coverage reports the applicable groups or
+policy members independently. An
 approved age, face, facial-hair, fatigue, or attractiveness statement may be
 rendered only from that character's evidence; no default youth,
 modern/westernized beauty, minor-coded appearance, sexualization, beard,
@@ -430,10 +523,11 @@ Validate schema parity, visualBriefId/hash, evidence coverage, registry/profile,
 anchor discriminator, one provider payload, and no planning invention. Current
 provider is ImageGen only.
 
-Character validation additionally requires non-empty `positiveStyleLock` and
-`negativeStyleLock`, direct inclusion of both in `scenePromptOriginal`, separate
-evidence coverage for every lock statement, and reference/main-image style-lock
-equality for character animation. Skill animation must omit all four character
+Character validation requires either the two non-empty lock arrays for an
+existing lock-array profile or all eight exact policy members for the sparse-
+ink profile. It requires direct inclusion of the complete applicable
+projection in `scenePromptOriginal`, separate evidence coverage, and exact
+reference/main-image payload/hash equality for character animation. Skill animation must omit all four character
 reference/profile fields. Typed blockers are
 `missing_positive_style_lock`, `missing_negative_style_lock`,
 `style_lock_evidence_incomplete`, `provider_prompt_style_lock_missing`,
@@ -443,6 +537,12 @@ reference/profile fields. Typed blockers are
 `expression_profile_payload_hash_mismatch`,
 `unexpected_character_style_reference`, and
 `character_animation_style_lock_mismatch`.
+
+For the sparse profile, use only `missing_sparse_profile_projection`,
+`sparse_profile_projection_mismatch`, `sparse_profile_evidence_incomplete`, or
+`provider_prompt_sparse_projection_missing` for projection readiness. The two
+top-level lock arrays remain exact empty arrays for visual-brief schema
+compatibility and MUST NOT trigger any `missing_*_style_lock` token.
 
 For `projectbs_character_animation_ready_minimal_ink_line@1.0.0`, authoring
 also requires the closed proportion/detail/color/projection members, explicit
@@ -457,6 +557,12 @@ semantic check against immutable prompt bytes before submit and uses
 `character_generation_proportion_gate_failed`,
 `character_generation_detail_density_gate_failed`, or
 `character_generation_color_value_gate_failed`; it never repairs prompt prose.
+
+For `projectbs_character_sparse_ink_pastel_motion@1.0.0`, generation and
+evaluation apply the exact sparse contour, pigment, motion, and identity-anchor
+failure tokens defined by the current ImageGen-only contract and the character
+expression evaluation guide. They use observable evidence and never fabricate
+computer-vision measurements.
 
 ## Related Guides
 

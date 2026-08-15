@@ -99,18 +99,26 @@ function validateVisualBrief(brief) {
   ]);
   const expressionKey = brief.expressionProfilePayload.expressionProfileKey;
   if (!["projectbs_character_restrained_ink_line@1.0.0",
-    "projectbs_character_animation_ready_minimal_ink_line@1.0.0"].includes(expressionKey)) {
+    "projectbs_character_animation_ready_minimal_ink_line@1.0.0",
+    "projectbs_character_sparse_ink_pastel_motion@1.0.0"].includes(expressionKey)) {
     throw new Error("expression_profile_key_mismatch");
   }
-  const profileKeys = expressionKey ===
-    "projectbs_character_animation_ready_minimal_ink_line@1.0.0"
+  const sparse = expressionKey === "projectbs_character_sparse_ink_pastel_motion@1.0.0";
+  const profileKeys = sparse
+    ? ["expressionProfileKey", "contourOmissionBudget", "lineHierarchy",
+      "negativeSpacePolicy", "pigmentBudget", "accentPalette", "pigmentApplication",
+      "motionLinePolicy", "identityAnchors"]
+    : expressionKey === "projectbs_character_animation_ready_minimal_ink_line@1.0.0"
     ? ["expressionProfileKey", "proportionProjection", "detailDensityBudget",
       "colorValueBudget", "authoringProjectionContract", "negativeStyleLock",
       "positiveStyleLock"]
     : ["expressionProfileKey", "negativeStyleLock", "positiveStyleLock"];
   assertClosedKeys(brief.expressionProfilePayload, profileKeys);
-  for (const lock of [...brief.expressionProfilePayload.negativeStyleLock,
-    ...brief.expressionProfilePayload.positiveStyleLock,
+  if (sparse && (brief.negativeStyleLock.length !== 0 || brief.positiveStyleLock.length !== 0))
+    throw new Error("sparse_profile_projection_mismatch");
+  const payloadLocks = sparse ? [] : [...brief.expressionProfilePayload.negativeStyleLock,
+    ...brief.expressionProfilePayload.positiveStyleLock];
+  for (const lock of [...payloadLocks,
     ...brief.negativeStyleLock, ...brief.positiveStyleLock]) {
     assertClosedKeys(lock, ["constraintId", "statement", "authorityRef"]);
   }
