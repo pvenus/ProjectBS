@@ -426,6 +426,61 @@ The user approves that presented hash and envelope. The execution role then
 records who approved it and when in the closed object. It MUST NOT accept a
 user-supplied hash that it has not independently recomputed.
 
+Settings resolution and estimation use a read-only operation on
+`configured_imagegen_capability`. It accepts the validated
+`providerSettingsIntent` and returns the defaults-resolved settings and estimate
+without crossing the provider submit boundary, allocating a provider operation,
+uploading prompt media, reserving capacity, or incurring cost. Its response is
+requested with this closed object:
+
+```yaml
+schemaVersion: generated_media_imagegen_capability_preflight_request_v1
+mode: non_submit
+provider: imagegen
+providerTool: imagegen
+providerInterface: configured_imagegen_capability
+assetType: character_single_image | icon_single_image | background_single_image | animation
+providerSettingsIntent: exact verified value from the prompt record
+providerSettingsIntentSha256: recomputed SHA-256 of canonicalJson(providerSettingsIntent)
+```
+
+Unknown, missing, `null`, or differently typed request members reject as
+`provider_capability_preflight_invalid` before the capability is accessed. The
+capability returns the following closed object;
+unknown, missing, `null`, or differently typed
+members reject as `provider_capability_preflight_invalid`:
+
+```yaml
+schemaVersion: generated_media_imagegen_capability_preflight_v1
+mode: non_submit
+submitBoundaryCrossed: false
+capabilityDescriptor:
+  schemaVersion: generated_media_imagegen_capability_descriptor_v1
+  provider: imagegen
+  providerTool: imagegen
+  providerInterface: configured_imagegen_capability
+  capabilityVersion: non-empty immutable deployed-capability version
+  settingsDescriptorVersion: non-empty immutable defaults/schema version
+  costDescriptorVersion: non-empty immutable pricing/estimation version
+capabilityDescriptorSha256: SHA-256 of canonicalJson(capabilityDescriptor)
+providerSettings: defaults-resolved exact closed provider request settings object
+providerSettingsSha256: SHA-256 of canonicalJson(providerSettings)
+estimate: one closed tagged estimate below
+evidenceRef: non-empty immutable reference to the complete preflight evidence
+```
+
+The operation returns one response or no response; it never silently omits
+defaults or substitutes display settings. Missing capability support returns
+`provider_capability_descriptor_unavailable`. `evidenceRef` must resolve to
+immutable evidence containing the complete response and descriptor versions;
+a mutable log URL, prose summary, guessed price, or synthesized zero-cost value
+is invalid. `providerSettings` and both hashes are computed by the capability,
+then independently canonicalized and recomputed by the execution role.
+The repository fixed vector validates the closed transport and hashing rules;
+it does not declare production ImageGen defaults or prices. The external owner
+must maintain descriptor-versioned golden mappings from every supported intent
+to its exact settings and estimate response.
+
 `providerExecutionScopeHashPayload` is a closed object with exactly these
 members. `animationRequestId` is conditionally present, never `null`; it is
 required only for animation and forbidden otherwise. `providerSettings` is the
@@ -451,14 +506,17 @@ providerPromptPayloadHash: verified hash stored by generated_media_prompt_v3
 provider: imagegen
 providerTool: imagegen
 providerInterface: configured_imagegen_capability
+capabilityDescriptor: exact closed descriptor returned by the non-submit preflight
+capabilityDescriptorSha256: SHA-256 of canonicalJson(capabilityDescriptor)
 providerSettings: exact closed provider request settings object
 providerSettingsSha256: SHA-256 of canonicalJson(providerSettings)
 ```
 
 The request, asset/domain/content identity, optional animation identity,
 snapshot, selected registry/profile, prompt record identity and exact bytes,
-copy-ready prompt bytes, provider payload, provider/tool/interface, and exact
-settings are all approval bindings. Changing any bound value requires a new
+copy-ready prompt bytes, provider payload, provider/tool/interface,
+capability/settings/cost descriptor versions, and exact settings are all
+approval bindings. Changing any bound value requires a new
 scope payload and approval. `promptRecordSha256` and `promptFileSha256` are file
 hashes and therefore include the one required trailing LF; the payload and
 settings hashes do not. Calculate exactly:
@@ -545,6 +603,17 @@ The exact tagged JSON shapes are:
 `no_charge`, `exact`, or `unavailable`. Unknown fields reject in every tagged
 value.
 
+Immediately before submit, generation obtains a fresh non-submit preflight and
+revalidates its closed schema, descriptor hash, settings hash, and estimate.
+If the descriptor or settings hash differs from the approved scope, it returns
+`provider_capability_drift`, `providerCalled=false`, and `safeToRetry=false`;
+the changed scope must be recomputed, presented, and freshly approved. A changed
+estimate with unchanged descriptor/settings is rechecked against the approved
+tagged limit and either proceeds or returns the existing cost blocker. The
+fresh immutable `evidenceRef` is recorded in `costEvidence`; it is evidence, not
+a scope member. No drift path may fall back to guessed settings, a cached price,
+`unavailable`, or `no_charge`.
+
 `maxAttempts` is the maximum count of logical provider attempts for one
 `scopeHash`, accumulated across every renewal. Attempt numbers start at 1 and
 are contiguous. Crossing the submit boundary sets `providerCalled=true` and
@@ -573,6 +642,9 @@ Approval validation uses only these failure types and retry meanings:
 | `missing_provider_execution_approval` | false | false until the computed scope/envelope is approved |
 | `invalid_provider_execution_approval` | false | false until a closed valid approval replaces it |
 | `provider_execution_scope_mismatch` | false | false; recompute/present the changed scope and obtain fresh approval |
+| `provider_capability_descriptor_unavailable` | false | false until the configured capability exposes the closed non-submit descriptor response |
+| `provider_capability_preflight_invalid` | false | false until the capability returns a closed hash-valid non-submit response and immutable evidence reference |
+| `provider_capability_drift` | false | false; recompute/present the changed descriptor/settings scope and obtain fresh approval |
 | `provider_cost_unit_mismatch` | false | false until estimate and approval use the same tagged unit |
 | `provider_cost_estimate_unavailable` | false | false until estimate exists or a renewed approval allows its upper bound |
 | `provider_cost_limit_exceeded` | false for preflight; true for actual overage | false until renewed approval for a future attempt; never retry the over-limit completed call |
@@ -648,20 +720,20 @@ The executable vector is
 canonical scope JSON is exactly this single UTF-8 line with no trailing LF:
 
 ```json
-{"assetType":"character_single_image","contentId":"seojin","domainType":"character","planningSnapshotHash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","promptFileSha256":"3313e882e877653bc059fa85bfea8299940f88360673b1ba39d111106c2803c9","promptRecordId":"gmprompt3.character_single_image.character.seojin.1.e12ee2ebe2787f10e8a5","promptRecordSha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerPromptPayloadHash":"6f855d4140bc32db400af207899c1ab3a981d4b9df17d3313fe594d05698809d","providerSettings":{"background":"opaque","format":"png","quality":"high","size":"1024x1024"},"providerSettingsSha256":"a1e5fb882b29876db5770023e913b6e62056ac1395a30765136132460be5ce4c","providerTool":"imagegen","registryRowId":"character_single_image_v2","requestId":"gmreq.character.seojin.1","schemaVersion":"generated_media_provider_execution_scope_hash_payload_v1","structureProfile":"character_single_image_v2"}
+{"assetType":"character_single_image","capabilityDescriptor":{"capabilityVersion":"imagegen-capability@2026-08-15.1","costDescriptorVersion":"imagegen-cost@2026-08-15.1","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerTool":"imagegen","schemaVersion":"generated_media_imagegen_capability_descriptor_v1","settingsDescriptorVersion":"imagegen-settings@2026-08-15.1"},"capabilityDescriptorSha256":"56feefadf3800a8adac17ba017285665d5ddaf6083a2edb3311d61dd04b136b4","contentId":"seojin","domainType":"character","planningSnapshotHash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","promptFileSha256":"3313e882e877653bc059fa85bfea8299940f88360673b1ba39d111106c2803c9","promptRecordId":"gmprompt3.character_single_image.character.seojin.1.e12ee2ebe2787f10e8a5","promptRecordSha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","provider":"imagegen","providerInterface":"configured_imagegen_capability","providerPromptPayloadHash":"6f855d4140bc32db400af207899c1ab3a981d4b9df17d3313fe594d05698809d","providerSettings":{"background":"opaque","format":"png","quality":"high","size":"1024x1024"},"providerSettingsSha256":"a1e5fb882b29876db5770023e913b6e62056ac1395a30765136132460be5ce4c","providerTool":"imagegen","registryRowId":"character_single_image_v2","requestId":"gmreq.character.seojin.1","schemaVersion":"generated_media_provider_execution_scope_hash_payload_v1","structureProfile":"character_single_image_v2"}
 ```
 
 Its fixed `scopeHash` is
-`be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb`.
+`b6ff09a80553191de47b5ad746bd8960f4559da78887670ab667c07da25dcf1b`.
 The canonical approval JSON is:
 
 ```json
-{"approvalEvidence":"codex-thread:019ffabb-97f6-7af3-abaa-f70747dc125f/message:approval-1","approvedAt":"2026-08-13T12:00:00+09:00","approvedBy":"user:contract-reviewer","estimateUnavailablePolicy":"block","maxAttempts":2,"maxCost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"schemaVersion":"generated_media_provider_execution_approval_v1","scopeHash":"be78667b021ad8a15e3b02cb00198249304092d723f20f5a90c3b969a09d01bb"}
+{"approvalEvidence":"codex-thread:019ffabb-97f6-7af3-abaa-f70747dc125f/message:approval-1","approvedAt":"2026-08-13T12:00:00+09:00","approvedBy":"user:contract-reviewer","estimateUnavailablePolicy":"block","maxAttempts":2,"maxCost":{"amount":"0.250000","currency":"USD","kind":"iso_currency"},"schemaVersion":"generated_media_provider_execution_approval_v1","scopeHash":"b6ff09a80553191de47b5ad746bd8960f4559da78887670ab667c07da25dcf1b"}
 ```
 
 Its fixed approval SHA-256 is
-`4d974e3c0abc88354f32b49d42f9c03c228c30d686f27eac6f93c1ff663f28fd`.
-The vector proves same-scope stability; prompt record/file/payload, settings and
+`a68e67b54ca19eaa266b9ecfa7f534764885994daa331ea0263de6bc4531b339`.
+The vector proves same-scope stability; prompt record/file/payload, descriptor/settings and
 content-identity sensitivity; limit renewal without scope-hash change;
 free/no-charge, unknown-estimate, unit/amount exceed and attempt-exceed rules;
 submitted-failure consumption; and record/index/handoff projection equality.
@@ -770,6 +842,9 @@ unsupported_provider
 missing_provider_execution_approval
 invalid_provider_execution_approval
 provider_execution_scope_mismatch
+provider_capability_descriptor_unavailable
+provider_capability_preflight_invalid
+provider_capability_drift
 provider_cost_unit_mismatch
 provider_cost_estimate_unavailable
 provider_cost_limit_exceeded
@@ -863,6 +938,9 @@ fresh detached handoff over the currently verified index bytes.
 missing_provider_execution_approval
 invalid_provider_execution_approval
 provider_execution_scope_mismatch
+provider_capability_descriptor_unavailable
+provider_capability_preflight_invalid
+provider_capability_drift
 provider_cost_unit_mismatch
 provider_cost_estimate_unavailable
 provider_cost_limit_exceeded
@@ -959,7 +1037,8 @@ legacy_current_identity_conflict
 Readiness is true only when every common and type-specific field exists, hashes
 verify, exactly one current registry row matches, provider is ImageGen, and the
 provider interface is `configured_imagegen_capability`. Before every external
-call, the approval object and recomputed scope must pass sections 6.1-6.2, the
+call, a fresh closed non-submit capability response, the approval object, and
+the recomputed scope must pass sections 6.1-6.2, the
 estimate must satisfy its tagged-unit comparison rule, consumed attempts must
 remain below `maxAttempts`, and the deterministic idempotency key must have no
 active duplicate. An identical completed result is reused without billing;
