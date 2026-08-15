@@ -308,6 +308,13 @@ exact selection from its immutable reference prompt record. The selected
 expression payload and hash remain part of prompt identity, so no existing
 record is reinterpreted.
 
+The registered `projectbs_character_bold_outline_compressed_detail@1.0.0`
+profile is selected only by one exact approved planning fact and applies only
+to `character_single_image_v2`. Its closed planning projection binds compact
+proportion, outside/internal outline hierarchy, facial mark budget, compressed
+detail budget, and character-specific color signature. It is not a fallback
+and is not animation-inheritable.
+
 ## 6. Record and Storage Contract
 
 Current record paths use directory version v2 and never share the legacy v1
@@ -1012,6 +1019,18 @@ character_proportion_out_of_range
 missing_animation_safe_detail_budget
 missing_character_color_value_budget
 character_profile_evidence_omission
+missing_bold_outline_proportion_projection
+bold_outline_proportion_out_of_range
+missing_bold_outline_hierarchy_projection
+bold_outline_hierarchy_out_of_range
+missing_bold_outline_facial_mark_budget
+bold_outline_facial_mark_budget_exceeded
+missing_bold_outline_compressed_detail_budget
+bold_outline_detail_budget_conflict
+missing_character_color_signature
+character_color_signature_invalid
+bold_outline_profile_evidence_omission
+provider_prompt_bold_outline_projection_missing
 character_generation_proportion_gate_failed
 character_generation_detail_density_gate_failed
 character_generation_color_value_gate_failed
@@ -1140,10 +1159,32 @@ The four sparse-profile authoring tokens apply only to
 | `sparse_profile_evidence_incomplete` | one or more of the eight policy members lacks exact profile/planning evidence coverage |
 | `provider_prompt_sparse_projection_missing` | the copy-ready provider prompt omits or weakens any applicable main/animation projection from the eight policy members |
 
+The bold-outline authoring tokens apply only to
+`projectbs_character_bold_outline_compressed_detail@1.0.0`:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_bold_outline_proportion_projection` | approved planning lacks exact `fullBodyHeadCount` |
+| `bold_outline_proportion_out_of_range` | head count is outside 4.0-5.0, does not project a 20-25 percent head-height equivalent, or permits 6.5-8 heads, long limbs, or heroic tall anatomy |
+| `missing_bold_outline_hierarchy_projection` | approved planning lacks exact outside and internal source-pixel thickness values |
+| `bold_outline_hierarchy_out_of_range` | outside thickness is outside 16-22 px on 1024x1536, placement is not outside-silhouette, outside/internal ratio is below 2, or internal lines are not sparse/materially thinner |
+| `missing_bold_outline_facial_mark_budget` | the exact counting unit, total maximum, or component maxima are absent |
+| `bold_outline_facial_mark_budget_exceeded` | total exceeds 9, a component exceeds 4/1/1/3, component maxima exceed the total, or realistic facial modeling is permitted |
+| `missing_bold_outline_compressed_detail_budget` | the identity-first groups, fold limit, surface-detail policy, or forbidden set is absent |
+| `bold_outline_detail_budget_conflict` | dense folds, more than three secondary fold marks per garment region, individual scales/rivets, microtexture, hatching, modeled shading, or realistic material rendering is allowed |
+| `missing_character_color_signature` | any required primary hue/anchors, coverage/mass limits, or neutral outline/weapon color is absent, or a secondary hue/anchor pair is only partially present |
+| `character_color_signature_invalid` | anchors are empty/duplicate/unbound, coverage is outside 1-35 percent, masses outside 1-4, full-garment fill is allowed, or color overrides line hierarchy |
+| `bold_outline_profile_evidence_omission` | a planning binding, profile constant, or lock lacks exact planning/profile evidence coverage |
+| `provider_prompt_bold_outline_projection_missing` | provider prose omits or weakens any lock, exact planning-bound value, budget, anchor, neutral color, or bold-silhouette priority |
+
+These checks are closed-field checks. Free-form prompt wording never repairs a
+missing approved planning binding.
+
 The lock-array tokens `missing_positive_style_lock`,
 `missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
-`provider_prompt_style_lock_missing` apply only to the two registered
-lock-array profiles. They MUST NOT be returned for the sparse profile.
+`provider_prompt_style_lock_missing` apply only to the three registered
+lock-array profiles, including bold-outline compressed-detail. They MUST NOT be
+returned for the sparse profile.
 
 The first eight tokens above are authoring-readiness failures with these exact
 boundaries:
@@ -1203,6 +1244,11 @@ character_generation_sparse_omission_budget_gate_failed
 character_generation_sparse_pigment_budget_gate_failed
 character_generation_sparse_motion_gate_failed
 character_generation_identity_anchor_gate_failed
+character_generation_bold_outline_proportion_gate_failed
+character_generation_bold_outline_hierarchy_gate_failed
+character_generation_bold_outline_facial_mark_budget_gate_failed
+character_generation_bold_outline_detail_budget_gate_failed
+character_generation_bold_outline_color_signature_gate_failed
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
 missing_hosted_preview_auto_approval_policy
@@ -1221,9 +1267,9 @@ hosted_preview_preservation_forbidden
 hosted_preview_promotion_forbidden
 ```
 
-After a prompt record is immutable and before any submit boundary, character
-generation repeats three semantic gates over the exact profile payload,
-evidence map, and `scenePromptOriginal`. It rejects any wording that allows
+After an animation-ready minimal prompt record is immutable and before any
+submit boundary, character generation repeats three semantic gates over the
+exact profile payload, evidence map, and `scenePromptOriginal`. It rejects any wording that allows
 more than 4.25 heads or naturalistic seven-to-eight-head anatomy as
 `character_generation_proportion_gate_failed`; dense realistic detail,
 microtexture, modeled shading, scales/rivets, dense folds, or hatching as
@@ -1251,6 +1297,26 @@ checks do not claim an unavailable computer-vision measurement.
 The `character_generation_*` sparse tokens are owned only by generation
 pre-submit validation.
 
+For `projectbs_character_bold_outline_compressed_detail@1.0.0`, generation
+performs five independent no-submit gates over the exact payload, closed
+planning projection, evidence map, and provider prompt. Head count outside
+4.0-5.0 or permission for 6.5-8 heads/long limbs/heroic anatomy fails
+`character_generation_bold_outline_proportion_gate_failed`. Outside outline
+outside 16-22 source px, non-outside placement, outside/internal ratio below 2,
+or weak/equal internal hierarchy fails
+`character_generation_bold_outline_hierarchy_gate_failed`. A total above 9,
+component maxima above 4/1/1/3, or realistic facial modeling fails
+`character_generation_bold_outline_facial_mark_budget_gate_failed`. Dense
+folds, individual scales/rivets, microtexture, hatching, modeled shading, or
+realistic materials fails
+`character_generation_bold_outline_detail_budget_gate_failed`. Missing or
+unbound primary/secondary hue anchors, coverage above 35 percent, more than four
+color masses, invalid neutral outline/weapon colors, full-garment fill, or color
+overriding line hierarchy fails
+`character_generation_bold_outline_color_signature_gate_failed`. All five stop
+before capability access and return `providerCalled=false`, `submitCount=0`,
+and `cost=0`.
+
 #### 8.4.1 Character Expression Evaluation Extension
 
 ```text
@@ -1264,6 +1330,11 @@ character_evaluation_sparse_omission_budget_gate_failed
 character_evaluation_sparse_pigment_budget_gate_failed
 character_evaluation_sparse_motion_gate_failed
 character_evaluation_identity_anchor_gate_failed
+character_evaluation_bold_outline_proportion_gate_failed
+character_evaluation_bold_outline_hierarchy_gate_failed
+character_evaluation_bold_outline_facial_mark_budget_gate_failed
+character_evaluation_bold_outline_detail_budget_gate_failed
+character_evaluation_bold_outline_color_signature_gate_failed
 ```
 
 The first four tokens respectively mean that the required sealed package is
@@ -1276,6 +1347,14 @@ per-approved-animation-frame omission 35-50 and accents 3-6. Contour,
 palette/fill, motion, and identity-anchor conditions are otherwise identical.
 Neither stage may return the other stage's prefix, and six frames is only a
 golden test fixture rather than an operational count.
+
+For the bold-outline profile, evaluation independently measures or observes the
+same five closed groups and uses only the five
+`character_evaluation_bold_outline_*_gate_failed` tokens. A failed group is
+fatal and cannot be offset by score. If reproducible evidence cannot establish
+head ratio, line thickness hierarchy, facial mark count, detail density, or
+color coverage/masses/anchors, evaluation returns
+`character_evaluation_evidence_insufficient` instead of guessing.
 
 ### 8.5 Preservation Extension
 
