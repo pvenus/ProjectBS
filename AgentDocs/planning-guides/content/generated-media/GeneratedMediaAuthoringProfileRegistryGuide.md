@@ -87,6 +87,17 @@ appliesTo=character_single_image_v2
 selection=explicit_approved_planning_fact_and_projection_required
 ```
 
+The accepted-result-aligned successor is a separate major version. It does not
+change the preceding key, payload, hash, locks, or any record that stores them:
+
+```text
+expressionProfileKey=projectbs_character_bold_outline_compressed_detail@2.0.0
+expressionProfilePayloadHash=5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline accepted-result alignment profile
+appliesTo=character_single_image_v2
+selection=explicit_approved_planning_fact_and_successor_projection_required
+```
+
 Character single-image selection is closed: no approved selection resolves the
 legacy-compatible key, one exact approved selection of a registered nondefault
 key resolves that exact profile, and any unknown, multiple, or conflicting selection blocks as
@@ -97,8 +108,8 @@ prompt record byte-for-byte and prevents a registry revision from reinterpreting
 its identity.
 
 Inheritance is also scope-checked. A character-animation request may inherit
-only a profile whose `appliesTo` includes `character_animation_v2`. The
-bold-outline compressed-detail profile is intentionally single-image-only; an
+only a profile whose `appliesTo` includes `character_animation_v2`. Both
+bold-outline compressed-detail versions are intentionally single-image-only; an
 animation reference prompt carrying it blocks as `character_style_profile_conflict`
 until a separately reviewed animation-capable version exists.
 

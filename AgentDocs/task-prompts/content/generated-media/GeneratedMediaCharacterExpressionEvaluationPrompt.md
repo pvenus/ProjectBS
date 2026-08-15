@@ -12,7 +12,7 @@
 
 Input:
 - evaluationPackagePath: {project_relative_path}
-- expressionProfileKey: projectbs_character_sparse_ink_pastel_motion@1.0.0 | projectbs_character_bold_outline_compressed_detail@1.0.0
+- expressionProfileKey: projectbs_character_sparse_ink_pastel_motion@1.0.0 | projectbs_character_bold_outline_compressed_detail@1.0.0 | projectbs_character_bold_outline_compressed_detail@2.0.0
 - expressionProfilePayloadHash: {exact_registered_hash}
 - artifactType: character_main_image | character_animation
 - animationRequestId / finalFrameCount: character_animation에서 package의 exact approved 값; main에서는 omit
@@ -22,6 +22,7 @@ Input:
 2. profile key/payload/hash가 registry 및 media의 prompt evidence와 exact 일치하지 않으면 채점 전에 blocked로 종료한다.
 3. GeneratedMediaCharacterExpressionEvaluationGuide의 pre-score fatal gate를 순서대로 적용한다.
 4. main image는 비례, omission, no-fill, pigment area/accent count, palette와 identity anchor를 확인한다.
+4a. bold-outline v2는 공통 비례/outline/face와 total/internal/fold 64/56/5, exact ochre anchor sites 및 35/4 color limits, closed halo branch를 독립 측정한다. opaque/scenic/noncentered/nonfading/directional-shadow halo는 fatal이고 재현 가능한 측정이 없으면 `character_evaluation_evidence_insufficient`로 중단한다.
 4a. bold-outline main image는 4.0-5.0 heads, exact authored outside/internal thickness와 ratio >=2, closed facial mark total/component budget, compressed-detail forbidden set, hue anchor/coverage/mass limits 및 neutral outline/weapon colors를 독립 검증한다. profile이 single-image-only이므로 animation 입력이면 profile mismatch로 차단한다.
 5. character animation은 ordered member count가 package/animationRequest의 positive approved finalFrameCount와 exact 일치하는지 확인하고, 임의의 유효한 frame count 전체에 각 frame budget, line/pigment motion cue, action 변화와 identity anchor 안정성을 적용한다. six-frame은 테스트 fixture일 뿐 runtime 조건이 아니다.
 6. 불안정한 pixel 측정을 정확한 수치로 가장하지 않는다. 관찰 불충분이면 evidence blocker를 반환한다.

@@ -222,6 +222,10 @@ sentences into appearance fields as if they were character identity.
   the single-image-only bold-outline option is
   `projectbs_character_bold_outline_compressed_detail@1.0.0` with hash
   `dc5db9990f26dd1ed0ebc25c6c2b46a10b68cb4ca3248e69f7c27b28e1568b33`;
+  its accepted-result-aligned successor is
+  `projectbs_character_bold_outline_compressed_detail@2.0.0` with hash
+  `5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3`; the successor is a distinct explicit selection and never
+  reinterprets v1;
   actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit
@@ -234,7 +238,7 @@ generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
     expressionProfileKey: optional exact registered character expression-profile key
-    expressionProfileProjection: # required only for projectbs_character_bold_outline_compressed_detail@1.0.0; forbidden otherwise
+    expressionProfileProjection: # required only for projectbs_character_bold_outline_compressed_detail@1.0.0; v2 uses the successor extension below; forbidden otherwise
       fullBodyHeadCount: JSON number from 4 through 5
       externalOutlineSourcePx: JSON integer from 16 through 22 for the approved 1024x1536 source canvas
       internalLineSourcePx: positive JSON number; externalOutlineSourcePx / internalLineSourcePx >= 2
@@ -246,10 +250,30 @@ generatedMediaPlanning:
       secondaryHue: optional non-empty exact character-specific hue
       primaryAnchorElements: non-empty unique ordered exact element/site IDs
       secondaryAnchorElements: required non-empty unique ordered exact element/site IDs only when secondaryHue is present; forbidden otherwise
+      secondaryAnchorSiteClasses: # v2 only; required with secondaryHue and forbidden without it
+        - small_utility_pouch | small_travel_accessory
       maximumCharacterCoveragePercent: JSON integer from 1 through 35
       maximumColorMasses: JSON integer from 1 through 4
       neutralOutlineColor: non-empty exact neutral color
       neutralWeaponColor: non-empty exact neutral color
+      detailMarkBudget: # v2 only; required exact closed object
+        countingUnit: one_continuous_visible_dark_line_segment_between_pen_lifts_or_intentional_breaks
+        maximumTotalVisibleMarks: JSON integer from 1 through 64
+        maximumInternalLineMarks: JSON integer from 0 through 56 and no greater than maximumTotalVisibleMarks
+        maximumSecondaryFoldMarksPerGarmentRegion: JSON integer from 0 through 5
+      inkHalo: # v2 only; exact discriminated union; disabled is exactly {enabled:false}
+        enabled: false | true
+        color: enabled-only non-empty exact dark-neutral color
+        maximumOpacity: enabled-only JSON number from 0.08 through 0.35
+        maximumCanvasCoveragePercent: enabled-only JSON number from 1 through 45
+        centerPolicy: enabled-only character_silhouette_center
+        extentPolicy: enabled-only single_centered_soft_halo_behind_silhouette
+        edgeFalloff: enabled-only soft_monotonic_to_zero_alpha
+        edgeAlpha: enabled-only exact JSON number 0
+        noScene: enabled-only true
+        noOpaqueBackground: enabled-only true
+        noShadowSubstitute: enabled-only true
+        noDirectionalCastShadow: enabled-only true
     requiredElements:
       - factId: stable requirement ID
         statement: independently observable visual sentence
@@ -307,6 +331,19 @@ where their corresponding hue appears; a hue without anchors, anchors without
 a hue, duplicate anchors, full-garment fill, or a coverage/mass value outside
 the profile bounds blocks before handoff publication. The profile constants are
 not character identity facts and are referenced separately by profile key/hash.
+
+For `projectbs_character_bold_outline_compressed_detail@2.0.0`, the v1 members
+remain required and the member set additionally closes `detailMarkBudget`,
+conditional `secondaryAnchorSiteClasses`, and `inkHalo`. Planning binds exact
+mark maxima no greater than 64 total, 56 internal, and 5 secondary folds per
+garment region. Optional ochre is legal only when its exact elements and site
+classes are bound to `small_utility_pouch` or `small_travel_accessory`.
+`inkHalo` is either exactly `{enabled:false}` or the enabled closed branch with
+dark-neutral color, opacity 0.08-0.35, canvas coverage 1-45 percent,
+`character_silhouette_center`, one centered soft extent, monotonic fade to
+alpha zero, and true no-scene, no-opaque-background, no-shadow-substitute, and
+no-directional-cast-shadow assertions. None of these values may be inferred
+from raster evidence or prompt prose.
 
 `characterSingleImage` is the only current planning source for
 `assetType=character_single_image`, `domainType=character`. It describes one
