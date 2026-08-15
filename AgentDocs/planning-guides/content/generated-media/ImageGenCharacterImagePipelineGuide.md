@@ -98,13 +98,17 @@ and projection equality. It
 checks the deterministic idempotency key before billing, reuses an identical
 completed result, blocks an identical active call, and records `costEvidence`.
 
-Alternatively, an exact current-user approval may select the isolated
+Alternatively, an exact current-user approval or a valid authenticated standing
+automatic preview policy may select the isolated
 `hosted_builtin_preview_v1` lane from contract section 6.1.1. It permits one
 built-in ImageGen submit and zero retries for this single image, records
 unavailable descriptor/settings/cost evidence truthfully, and ends at a
 non-evaluated, non-promotable preview record. It never returns a generation-v2
 or preservation handoff. Any promotable run continues to require the complete
 descriptor, approval, cost, generation-v2, and preservation contracts.
+The automatic branch derives its exact-scope attestation only after final
+prompt/reference/settings hashes pass. It cannot widen content scope, approve a
+second submit, or replace app-authenticated current-user instruction evidence.
 
 ## Input, Output, State, and Validation
 

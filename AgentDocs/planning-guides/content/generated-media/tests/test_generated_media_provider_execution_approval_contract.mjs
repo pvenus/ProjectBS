@@ -528,6 +528,105 @@ function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, a
   return true;
 }
 
+function hostedPreviewAutoPolicyFixture() {
+  const authorizationSource = {
+    type: "authenticated_thread_user_instruction",
+    threadId: "019ffbc8-31b1-7652-8f1f-6d7958c2e15d",
+    instructionSha256: "1".repeat(64),
+  };
+  const policyScope = {
+    provider: "imagegen",
+    executionMode: "hosted_builtin_preview_v1",
+    assetTypes: ["character_single_image"],
+    domainTypes: ["character"],
+    contentIds: ["seojin"],
+    workUnitTypes: ["exact_single_image"],
+    referencePolicy: "prompt_bound_only",
+    submitCountMaximumPerScope: 1,
+    retryCountMaximumPerScope: 0,
+    costPolicy: "allow_unavailable_preview_only",
+    promotionPolicy: "not_promotable",
+    preservationPolicy: "not_preservable",
+    evaluationPolicy: "not_evaluated",
+  };
+  const payload = {
+    schemaVersion: "generated_media_hosted_preview_auto_approval_policy_v1",
+    authorizationSource,
+    policyScope,
+    lifetime: "until_revoked",
+  };
+  const policyPayloadSha256 = hashObject(payload);
+  return {
+    policyId: `gmpreviewpolicy1.${policyPayloadSha256.slice(0, 20)}`,
+    policyPayloadSha256,
+    ...payload,
+  };
+}
+
+function validateHostedPreviewAutoPolicy(policy) {
+  assertClosedKeys(policy, ["schemaVersion", "policyId", "policyPayloadSha256",
+    "authorizationSource", "policyScope", "lifetime"]);
+  assertClosedKeys(policy.authorizationSource, ["type", "threadId", "instructionSha256"]);
+  assertClosedKeys(policy.policyScope, ["provider", "executionMode", "assetTypes",
+    "domainTypes", "contentIds", "workUnitTypes", "referencePolicy",
+    "submitCountMaximumPerScope", "retryCountMaximumPerScope", "costPolicy",
+    "promotionPolicy", "preservationPolicy", "evaluationPolicy"]);
+  const payload = { schemaVersion: policy.schemaVersion,
+    authorizationSource: policy.authorizationSource, policyScope: policy.policyScope,
+    lifetime: policy.lifetime };
+  assert.equal(hashObject(payload), policy.policyPayloadSha256);
+  assert.equal(policy.policyId, `gmpreviewpolicy1.${policy.policyPayloadSha256.slice(0, 20)}`);
+  assert.equal(policy.authorizationSource.type, "authenticated_thread_user_instruction");
+  assert.ok(policy.authorizationSource.threadId.length > 0);
+  assert.match(policy.authorizationSource.instructionSha256, /^[0-9a-f]{64}$/);
+  assert.equal(policy.policyScope.provider, "imagegen");
+  assert.equal(policy.policyScope.executionMode, "hosted_builtin_preview_v1");
+  for (const key of ["assetTypes", "domainTypes", "contentIds", "workUnitTypes"]) {
+    assert.ok(Array.isArray(policy.policyScope[key]) && policy.policyScope[key].length > 0);
+    assert.equal(new Set(policy.policyScope[key]).size, policy.policyScope[key].length);
+    assert.equal(policy.policyScope[key].some((value) => value.includes("*")), false);
+  }
+  assert.equal(policy.policyScope.assetTypes.every((value) => ["character_single_image",
+    "icon_single_image", "background_single_image", "animation"].includes(value)), true);
+  assert.equal(policy.policyScope.domainTypes.every((value) => ["character", "skill", "item",
+    "stage", "battle", "environment"].includes(value)), true);
+  assert.equal(policy.policyScope.workUnitTypes.every((value) => ["exact_single_image",
+    "exact_animation_request"].includes(value)), true);
+  assert.equal(policy.policyScope.submitCountMaximumPerScope, 1);
+  assert.equal(policy.policyScope.retryCountMaximumPerScope, 0);
+  assert.equal(policy.policyScope.referencePolicy, "prompt_bound_only");
+  assert.equal(policy.policyScope.costPolicy, "allow_unavailable_preview_only");
+  assert.equal(policy.policyScope.promotionPolicy, "not_promotable");
+  assert.equal(policy.policyScope.preservationPolicy, "not_preservable");
+  assert.equal(policy.policyScope.evaluationPolicy, "not_evaluated");
+  assert.equal(policy.lifetime, "until_revoked");
+  return true;
+}
+
+function attestHostedPreview(scope, workUnitType, policy, revoked = false) {
+  validateHostedPreviewAutoPolicy(policy);
+  if (revoked) throw new Error("hosted_preview_auto_approval_policy_revoked");
+  const p = policy.policyScope;
+  if (!p.assetTypes.includes(scope.scopePayload.assetType)
+    || !p.domainTypes.includes(scope.scopePayload.domainType)
+    || !p.contentIds.includes(scope.scopePayload.contentId)
+    || !p.workUnitTypes.includes(workUnitType)) {
+    throw new Error("hosted_preview_auto_approval_policy_mismatch");
+  }
+  return {
+    schemaVersion: "generated_media_hosted_preview_auto_approval_attestation_v1",
+    executionMode: "hosted_builtin_preview_v1",
+    policyId: policy.policyId,
+    policyPayloadSha256: policy.policyPayloadSha256,
+    authorizationSourceSha256: hashObject(policy.authorizationSource),
+    previewScopeHash: scope.previewScopeHash,
+    workUnitType,
+    submitCountMaximum: 1,
+    retryCountMaximum: 0,
+    promotionPolicy: "not_promotable",
+  };
+}
+
 const singlePreview = hostedPreviewFixture();
 const animationPreview = hostedPreviewFixture("exact_animation_request");
 assert.equal(validateHostedPreview(singlePreview), true);
@@ -548,6 +647,32 @@ assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 0, retry
 const invalidPreview = structuredClone(singlePreview);
 invalidPreview.approval.submitCountMaximum = 2;
 assert.throws(() => validateHostedPreview(invalidPreview), /invalid_hosted_preview_approval/);
+
+const autoPolicy = hostedPreviewAutoPolicyFixture();
+assert.equal(validateHostedPreviewAutoPolicy(autoPolicy), true);
+const autoAttestation = attestHostedPreview(singlePreview, "exact_single_image", autoPolicy);
+assert.equal(autoAttestation.previewScopeHash, singlePreview.previewScopeHash);
+assert.equal(autoAttestation.authorizationSourceSha256, hashObject(autoPolicy.authorizationSource));
+assert.equal(autoAttestation.submitCountMaximum, 1);
+assert.equal(autoAttestation.retryCountMaximum, 0);
+assert.equal(validateHostedPreview({ ...singlePreview, approval: autoAttestation }), true);
+const unknownAutoPolicy = structuredClone(autoPolicy);
+unknownAutoPolicy.unknown = true;
+assert.throws(() => validateHostedPreviewAutoPolicy(unknownAutoPolicy), /unknown key/);
+const wildcardAutoPolicy = hostedPreviewAutoPolicyFixture();
+wildcardAutoPolicy.policyScope.contentIds = ["*"];
+wildcardAutoPolicy.policyPayloadSha256 = hashObject({
+  schemaVersion: wildcardAutoPolicy.schemaVersion,
+  authorizationSource: wildcardAutoPolicy.authorizationSource,
+  policyScope: wildcardAutoPolicy.policyScope,
+  lifetime: wildcardAutoPolicy.lifetime,
+});
+wildcardAutoPolicy.policyId = `gmpreviewpolicy1.${wildcardAutoPolicy.policyPayloadSha256.slice(0, 20)}`;
+assert.throws(() => validateHostedPreviewAutoPolicy(wildcardAutoPolicy));
+assert.throws(() => attestHostedPreview(animationPreview, "exact_animation_request", autoPolicy),
+  /hosted_preview_auto_approval_policy_mismatch/);
+assert.throws(() => attestHostedPreview(singlePreview, "exact_single_image", autoPolicy, true),
+  /hosted_preview_auto_approval_policy_revoked/);
 
 console.log({ fixedScopeHash, fixedApprovalHash: hashObject(approval), scopeCanonical });
 console.log("generated media provider execution approval v1 contract vectors: PASS");
