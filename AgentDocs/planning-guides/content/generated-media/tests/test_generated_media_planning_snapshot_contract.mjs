@@ -53,7 +53,7 @@ function validateOpenInkPlanningProjection(projection, requestedFidelity) {
     "schemaVersion",
     "styleReferenceFidelity",
   ];
-  assert.deepEqual(Object.keys(projection).sort(), expectedKeys);
+  assert.deepEqual(Object.keys(projection).sort(), expectedKeys.sort());
   assert.deepEqual(Object.keys(projection.negativeSpaceMinimumPercent).sort(),
     ["figureInterior", "fullCanvas"]);
   assert.deepEqual(Object.keys(projection.paletteRoleAnchors).sort(),
@@ -61,9 +61,13 @@ function validateOpenInkPlanningProjection(projection, requestedFidelity) {
   assert.deepEqual(Object.keys(projection.generationBackground).sort(), ["color", "mode"]);
   assert.deepEqual(Object.keys(projection.backgroundExclusions).sort(),
     ["halo", "scene", "shadow", "vignette"]);
-  assert.deepEqual(Object.keys(projection.styleReferenceFidelity).sort(),
-    ["auditOnlySha256", "mode", "providerReferenceAuthorized"]);
-  if (projection.schemaVersion !== "character_open_ink_wash_planning_projection_v1" ||
+  const fidelityKeys = ["auditOnlySha256", "mode", "providerReferenceAuthorized"];
+  if (projection.schemaVersion === "character_open_ink_wash_planning_projection_v2") {
+    fidelityKeys.push("binding");
+  }
+  assert.deepEqual(Object.keys(projection.styleReferenceFidelity).sort(), fidelityKeys.sort());
+  if (!["character_open_ink_wash_planning_projection_v1",
+        "character_open_ink_wash_planning_projection_v2"].includes(projection.schemaVersion) ||
       projection.fullBodyHeadCount !== 4.25 ||
       projection.contourOmissionTargetPercent !== 45 ||
       projection.negativeSpaceMinimumPercent.figureInterior < 70 ||
@@ -79,13 +83,26 @@ function validateOpenInkPlanningProjection(projection, requestedFidelity) {
     }
   }
   const fidelity = projection.styleReferenceFidelity;
-  if (fidelity.mode !== "semantic_text_projection_only" ||
+  if (projection.schemaVersion === "character_open_ink_wash_planning_projection_v1" &&
+      (fidelity.mode !== "semantic_text_projection_only" ||
       fidelity.auditOnlySha256 !==
         "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf" ||
-      fidelity.providerReferenceAuthorized !== false) {
+      fidelity.providerReferenceAuthorized !== false)) {
     throw new Error("open_ink_wash_profile_projection_mismatch");
   }
-  if (requestedFidelity === "selected_raster_match") {
+  if (projection.schemaVersion === "character_open_ink_wash_planning_projection_v2") {
+    const expectedBindingKeys = ["projectRelativePath", "reviewRecordId", "reviewRecordPath",
+      "reviewRecordSha256", "role", "sha256"];
+    if (fidelity.mode !== "durable_style_only_binding" ||
+        fidelity.providerReferenceAuthorized !== true ||
+        canonicalize(Object.keys(fidelity.binding).sort()) !==
+          canonicalize(expectedBindingKeys.sort()) ||
+        fidelity.binding.role !== "style_only") {
+      throw new Error("open_ink_wash_profile_projection_mismatch");
+    }
+  }
+  if (projection.schemaVersion === "character_open_ink_wash_planning_projection_v1" &&
+      requestedFidelity === "selected_raster_match") {
     throw new Error("character_style_profile_conflict");
   }
 }
@@ -328,6 +345,52 @@ assert.throws(
   }, "semantic_direction_only"),
   /open_ink_wash_profile_projection_mismatch/,
 );
+
+const durableStyleBinding = {
+  role: "style_only",
+  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
+  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
+  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
+  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
+};
+const openInkPlanningProjectionV2 = {
+  ...structuredClone(openInkPlanningProjection),
+  schemaVersion: "character_open_ink_wash_planning_projection_v2",
+  styleReferenceFidelity: {
+    mode: "durable_style_only_binding",
+    auditOnlySha256: durableStyleBinding.sha256,
+    providerReferenceAuthorized: true,
+    binding: durableStyleBinding,
+  },
+};
+validateOpenInkPlanningProjection(openInkPlanningProjectionV2, "selected_raster_match");
+assert.throws(() => validateOpenInkPlanningProjection({
+  ...openInkPlanningProjectionV2,
+  styleReferenceFidelity: { ...openInkPlanningProjectionV2.styleReferenceFidelity,
+    binding: { role: "style_only", projectRelativePath: durableStyleBinding.projectRelativePath,
+      sha256: durableStyleBinding.sha256 } },
+}, "selected_raster_match"), /open_ink_wash_profile_projection_mismatch/);
+
+const durableProjectionDecisionPath =
+  "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.open-ink-durable-projection.example.json";
+const durableProjectionBytes = Buffer.from(canonicalize({
+  openInkWashPlanningProjection: openInkPlanningProjectionV2,
+  styleReferenceBindings: [durableStyleBinding],
+}) + "\n", "utf8");
+const durableProjectionSource = { path: durableProjectionDecisionPath,
+  role: "character_visual_design_decision_current", sha256: sha256(durableProjectionBytes) };
+const durableBindingFacts = Object.entries(durableStyleBinding).map(([key, value]) => ({
+  factId: `example.open_ink.style_binding.${key}`,
+  sourcePath: durableProjectionDecisionPath,
+  sourcePointer: `/styleReferenceBindings/0/${key}`,
+  value,
+}));
+validateSnapshotSources([durableProjectionSource], durableBindingFacts,
+  new Map([[durableProjectionDecisionPath, durableProjectionBytes]]));
+assert.throws(() => validateSnapshotSources([durableProjectionSource], durableBindingFacts.map((fact) =>
+  fact.factId.endsWith("reviewRecordSha256") ? { ...fact, value: "0".repeat(64) } : fact),
+new Map([[durableProjectionDecisionPath, durableProjectionBytes]])), /planning_snapshot_mismatch/);
 
 const projectionDecisionPath =
   "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.open-ink-projection.example.json";

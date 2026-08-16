@@ -308,6 +308,44 @@ mark the request ready, invent a path, or weaken the requested fidelity. This
 rule does not retroactively rewrite or invalidate an immutable handoff already
 published on the selected authoritative baseline.
 
+For a new decision that uses the published reviewed raster, use the additive
+projection schema below. The v1 projection above remains valid and unchanged
+for semantic-text-only decisions.
+
+```yaml
+openInkWashPlanningProjection:
+  schemaVersion: character_open_ink_wash_planning_projection_v2
+  fullBodyHeadCount: exact JSON number 4.25
+  contourOmissionTargetPercent: exact JSON number 45
+  negativeSpaceMinimumPercent: {figureInterior: 70..100, fullCanvas: 70..100}
+  paletteRoleAnchors:
+    primaryCool: non-empty unique ordered exact labels
+    secondaryEarth: non-empty unique ordered exact labels
+    smallWarmAccent: non-empty unique ordered exact labels
+  generationBackground: {mode: removable_solid, color: exact warm-ivory value}
+  backgroundExclusions: {halo: true, vignette: true, scene: true, shadow: true}
+  styleReferenceFidelity:
+    mode: durable_style_only_binding
+    providerReferenceAuthorized: true
+    binding:
+      role: style_only
+      projectRelativePath: exact durable asset path
+      sha256: exact raw asset SHA-256
+      reviewRecordId: exact gmstyleref1 ID
+      reviewRecordPath: exact durable review-record path
+      reviewRecordSha256: exact raw review-record SHA-256
+```
+
+The v2 projection is allowed only for exact open ink-wash v1 or v2 profile
+selection after every asset/review/index check in
+GeneratedMediaStyleReferenceBindingGuide.md passes. The binding is style
+evidence, never part of `identityConsistencyLock`, required character elements,
+or equipment facts. Capture its six leaves separately in `approvedFacts`, then
+copy the same closed object as the handoff's single `styleReferenceBindings`
+entry. Any difference is `planning_snapshot_mismatch`; any identity, pose,
+action, clothing, equipment, or edit-target role is
+`style_reference_semantic_transfer_forbidden`.
+
 ### 3.4 Generated Media planning readiness
 
 An attack-animation may approve the composed
@@ -324,15 +362,17 @@ generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
     expressionProfileKey: optional exact registered character expression-profile key
-    openInkWashPlanningProjection: # required only for projectbs_character_open_ink_wash_dynamic_contour@1.0.0 decisions created after its planning-projection contract publication; forbidden otherwise
-      schemaVersion: character_open_ink_wash_planning_projection_v1
+    openInkWashPlanningProjection: # required only for an exact open-ink-wash v1/v2 selection after the applicable projection publication; forbidden otherwise
+      schemaVersion: character_open_ink_wash_planning_projection_v1 | character_open_ink_wash_planning_projection_v2
       fullBodyHeadCount: exact JSON number 4.25
       contourOmissionTargetPercent: exact JSON number 45
       negativeSpaceMinimumPercent: {figureInterior: JSON number 70..100, fullCanvas: JSON number 70..100}
       paletteRoleAnchors: {primaryCool: [unique labels], secondaryEarth: [unique labels], smallWarmAccent: [unique labels]}
       generationBackground: {mode: removable_solid, color: approved warm-ivory color}
       backgroundExclusions: {halo: true, vignette: true, scene: true, shadow: true}
-      styleReferenceFidelity: {mode: semantic_text_projection_only, auditOnlySha256: exact accepted SHA-256, providerReferenceAuthorized: false}
+      styleReferenceFidelity: v1 semantic_text_projection_only branch above | v2 durable_style_only_binding branch above
+    styleReferenceBindings: # optional only with projection v2; exactly one entry; forbidden otherwise
+      - {role: style_only, projectRelativePath:, sha256:, reviewRecordId:, reviewRecordPath:, reviewRecordSha256:}
     expressionProfileProjection: # required only for projectbs_character_bold_outline_compressed_detail@1.0.0; v2 uses the successor extension below; forbidden otherwise
       fullBodyHeadCount: JSON number from 4 through 5
       externalOutlineSourcePx: JSON integer from 16 through 22 for the approved 1024x1536 source canvas

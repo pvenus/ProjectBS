@@ -24,6 +24,7 @@ AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 ```
 
 Require a valid evaluation package, immutable planning snapshot/hash, exact
@@ -35,6 +36,15 @@ Use `missing_character_expression_evaluation_package`,
 `character_evaluation_profile_mismatch`,
 `character_evaluation_frame_count_mismatch`, or
 `character_evaluation_evidence_insufficient` for these pre-gate failures.
+
+If the prompt/evaluation lineage contains `role=style_only`, the evaluator
+rehashes the exact six-member binding, durable asset, immutable review record,
+and review index before inspecting the media. The reference is usable only for
+the review record's allowed style/composition observations. It is never
+identity truth, a person/pose/action/clothing/equipment source, or an edit
+target. Missing or divergent binding evidence uses the shared
+`style_reference_*` blocker from the ImageGen-only contract before scoring;
+semantic transfer is the fatal reference-role failure below.
 
 ## Pre-score Fatal Gates
 
@@ -68,7 +78,7 @@ budgets.
 | `character_evaluation_open_ink_wash_pigment_negative_space_gate_failed` | broad rough watercolor/pastel, controlled bleed/misalignment, separate three-role palette, or either 70-percent achromatic/unpainted floor is absent; or cel fill/decorative small splashes appear |
 | `character_evaluation_open_ink_wash_background_gate_failed` | generation/final evidence shows a non-removable non-warm-ivory generation background, halo, vignette, scene, or shadow |
 | `character_evaluation_open_ink_wash_identity_equipment_gate_failed` | approved young-adult Korean/Joseon identity, costume, equipment, weapon, handedness, or identifying anchors drift or disappear |
-| `character_evaluation_open_ink_wash_reference_role_gate_failed` | audit-only accepted SHA was used as canonical identity, provider reference binding, person/pose/action/clothing/equipment source, or edit target without closed durable project-relative style-only publication |
+| `character_evaluation_open_ink_wash_reference_role_gate_failed` | the accepted raster was used as canonical identity, person/pose/action/clothing/equipment source, or edit target; or provider binding occurred without an exact approved durable project-relative `style_only` review binding |
 | `character_evaluation_open_ink_wash_v2_surface_detail_gate_failed` | v2 output shows a realistically modeled face, individually rendered armor plates/scales/rivets/lacing/fasteners, garment microfolds, microtexture, modeled light, or realistic material rendering |
 
 The evaluator uses the authored profile projection and an observable checklist.
@@ -160,7 +170,9 @@ package/report contract.
 - Open ink-wash main pass: 4.25-head young adult, 45-percent open contour,
   complete mok-seon phases, broad bleeding pigment, separate palette roles, both
   70-percent negative-space floors, warm-ivory removable background, no scenic
-  treatment, stable identity/equipment, and audit-only reference role.
+  treatment, stable identity/equipment, and either semantic-only audit evidence
+  or an exact approved durable `style_only` binding whose prohibited semantic
+  transfers remain absent.
 - Open ink-wash main fail: separately exercise child coding, omission 34/56,
   uniform vector contour, missing stroke phase, clean cel fill, decorative
   splashes, collapsed palette roles, either negative-space floor below 70,

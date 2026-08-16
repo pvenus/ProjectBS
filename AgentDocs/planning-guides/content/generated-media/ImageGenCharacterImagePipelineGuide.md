@@ -17,6 +17,7 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 ```
 
 Master Concept and approved planning own identity/design. The current contract
@@ -119,6 +120,14 @@ accepted-image SHA is audit-only: absent a reviewed durable project-relative
 style-only publication, no reference path/binding is created and the image is
 never identity or edit target. This profile is single-image-only.
 
+A new handoff may carry exactly one reviewed durable style-only binding. The
+pipeline rehashes its asset, review record, and index at authoring and again at
+generation; copies the exact six-member binding into visual brief, prompt
+record, and execution scope; and never copies its subject semantics into prompt
+prose or identity/equipment evidence. The provider must expose a distinct style
+reference role. A generic/identity image input, missing role control, incomplete
+binding, or hash/profile drift blocks without provider access.
+
 When a new planning revision instead selects
 `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, authoring uses the
 exact nineteen-member successor payload and 9+9 locks without changing v1. It
@@ -176,10 +185,13 @@ lock-array profile, including the complete bold-outline projection, or exact
 eight-member projection/evidence coverage with empty lock
 arrays for sparse. The open ink-wash v1 lock-array branch additionally requires
 all eleven exact policy members and prohibits animation inheritance or an
-audit-only reference binding. The v2 open ink-wash branch instead requires all
+unreviewed/incomplete reference binding. The v2 open ink-wash branch instead requires all
 nineteen members, 9+9 locks, the seven ordered post-output gates, and the
 response-only compact receipt. No planning, packaging, scoring evaluation,
 promotion, or Git work occurs.
+When present, the reviewed style-only binding must be identical across
+planning, routing, visual brief, prompt record, and generation scope, and must
+remain absent from `scenePromptOriginal` subject description.
 
 Generation blockers additionally include the exact contract 6.1-6.2 approval,
 scope, cost, attempt, duplicate-call, and provider-operation failure tokens.

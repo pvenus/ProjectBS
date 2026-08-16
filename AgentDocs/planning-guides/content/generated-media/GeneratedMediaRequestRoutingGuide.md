@@ -65,6 +65,12 @@ profile key. The authoring handoff includes the routing record path, planning
 handoff path, exact type specification, evidence pointers, and for animation
 the single animationRequestId/object.
 
+For character single-image, the router validates an optional durable
+`styleReferenceBindings` entry against the review asset/record/index and copies
+the exact six-member object into both `typeSpecification` and
+`authoringHandoff`. It does not copy media bytes, change `role=style_only`, or
+project reference-subject semantics into required/prohibited elements.
+
 For a character attack-animation whose immutable reference prompt carries
 `projectbs_character_bold_outline_compressed_detail@2.0.0`, direct inheritance
 is illegal. The router may instead select
@@ -152,6 +158,12 @@ registry row/pipeline/prompts, provider, structure profile, authoring handoff,
 routing reason, optional animationRequestId, and optional accepted
 supersedesRoutingRecordId. It excludes only derived ID/hash fields,
 the copied planning timestamp and deterministic validation observations.
+
+Any durable style-only binding inside the type specification and authoring
+handoff is hash-significant. Missing review bytes, a three-member style entry,
+profile mismatch, absolute path, or person/identity/pose/action/clothing/
+equipment/edit-target role blocks before routing publication with the exact
+central style-reference token.
 
 Before writing, validate the entire existing record/index pair. Byte-identical
 existing state is reused without changing timestamps or bytes. A valid orphan
@@ -421,6 +433,8 @@ candidate rows, required decision and safeToRetry.
 - identical retries preserve exact record/index bytes, while any divergent
   occupied identity fails closed;
 - authoring handoff fields exactly match selected prompt inputs;
+- optional character styleReferenceBindings exactly match the planning
+  projection and GeneratedMediaStyleReferenceBindingGuide review bytes;
 - the detached success receipt is closed, hash-bound, and contains none of the
   persisted bulk authoring fields or style-lock arrays;
 - identical authority anchors/scope reproduce one bundle and receipt, while

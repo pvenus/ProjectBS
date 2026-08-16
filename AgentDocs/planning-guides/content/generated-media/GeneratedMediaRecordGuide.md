@@ -327,6 +327,16 @@ and the record hash, return `routing_index_write_failed`, and set
 Blocked validation and collision cases create no record, index, placeholder,
 failure JSON, or downstream handoff.
 
+## Durable style-reference review v1
+
+GeneratedMediaStyleReferenceBindingGuide.md exclusively owns the closed
+`generated_media_style_reference_review_v1` record, `gmstyleref1` identity,
+asset path, raw review-record hash, and closed review index. These are immutable
+Generated Media review artifacts, not character planning decisions, prompt
+records, previews, evaluation results, or promoted images. They use the same
+JCS, canonical JSON plus LF, record-before-index, no-clobber, CAS, and
+failure-atomicity rules as the records below.
+
 ## Prompt v3
 
 This section is the schema and byte authority for the current
@@ -339,8 +349,9 @@ unclosed type returns `unsupported_record_schema` and writes nothing.
 ### Closed character prompt record and nested values
 
 The closed `generated_media_prompt_v3` top-level member set is exactly the
-following. No member is nullable. `revision` in a source item is the only
-optional nested member.
+following. No member is nullable. `referenceBindings` is the only optional
+top-level member and is allowed only for the reviewed character style-only
+case. `revision` in a source item is the only optional source-item member.
 
 ```yaml
 schemaVersion: generated_media_prompt_v3
@@ -384,6 +395,7 @@ providerSettingsIntent:
 providerSettingsIntentSha256:
 requiredElements: non-empty ordered array copied from the routing record
 prohibitedElements: non-empty ordered array or exact signed no_prohibitions value copied from the routing record
+referenceBindings: conditional exact style-only array from the visual brief; absent otherwise
 promptMarkdownPath:
 promptMarkdownSha256:
 status: ready_for_generation
@@ -447,6 +459,13 @@ the visual guide. It adds closed proportion measurement, surface-detail,
 uniform-background, provider-output conformance, and compact-receipt
 contracts. A v1 prompt record remains v1 and is never upgraded or interpreted
 through this successor.
+
+For either open ink-wash key, an external reviewed style-only binding may be
+present without changing the profile payload. `referenceBindings`, when
+present, contains exactly one six-member object owned by
+GeneratedMediaStyleReferenceBindingGuide.md. It is byte-identical to the
+visual brief and planning/routing projection, hash-significant in prompt
+identity, absent from `scenePromptOriginal`, and never identity or edit evidence.
 
 The animation-only
 `projectbs_character_bold_outline_attack_motion_flow@1.0.0` never changes this
@@ -512,6 +531,7 @@ providerSettingsIntent:
 providerSettingsIntentSha256:
 requiredElements:
 prohibitedElements:
+referenceBindings: conditional exact style-only array; omit when absent
 promptMarkdownSha256:
 ```
 
@@ -522,6 +542,9 @@ wall-clock time, index state, generation handoff, provider execution/approval,
 attempt, cost, result, packaging, evaluation, and promotion data. The Markdown
 path is excluded because it is derived from the ID; its raw byte hash remains
 included and binds the body without creating an ID/path cycle.
+Conditional `referenceBindings` is included when present and omitted when
+absent; this preserves every existing prompt identity while making a new
+durable binding hash-significant.
 
 ```text
 promptPayloadSha256 = lowercase_hex(SHA256(canonicalJson(promptHashPayload)))
@@ -762,9 +785,12 @@ output/generated-media-preview/v1/{assetType}/{contentId}/{workUnitId}/original.
 
 The closed record is `generated_media_hosted_preview_record_v1`. Its exact
 member set is below. `animationRequestId` is required only for an animation
-work unit and forbidden otherwise. `referenceBindings` is an ordered array of
-closed `{role, projectRelativePath, sha256}` objects; absolute/transient paths
-are forbidden.
+work unit and forbidden otherwise. `referenceBindings` is a role-discriminated
+ordered array. Existing non-style roles remain closed
+`{role, projectRelativePath, sha256}` objects. `role=style_only` instead requires
+exactly `{role, projectRelativePath, sha256, reviewRecordId, reviewRecordPath,
+reviewRecordSha256}` under GeneratedMediaStyleReferenceBindingGuide.md. A
+three-member style entry and every absolute/transient path are forbidden.
 
 ```yaml
 schemaVersion: generated_media_hosted_preview_record_v1
@@ -966,6 +992,7 @@ evaluation identity even when their original media type is the same.
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```

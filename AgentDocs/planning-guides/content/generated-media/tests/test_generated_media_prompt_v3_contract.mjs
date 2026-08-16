@@ -50,6 +50,7 @@ const recordKeys = [
   "promptMarkdownPath", "promptMarkdownSha256", "status", "createdAt",
   "validation",
 ];
+const recordOptionalKeys = ["referenceBindings"];
 
 const payloadKeys = recordKeys.filter((key) => ![
   "promptRecordId", "promptPayloadSha256", "promptMarkdownPath", "status",
@@ -90,9 +91,29 @@ const visualBriefKeys = [
   "negativeStyleLock", "status", "validation",
 ];
 
+const durableStyleBinding = {
+  role: "style_only",
+  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
+  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
+  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
+  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
+};
+
+function validateReferenceBindings(bindings) {
+  if (!Array.isArray(bindings) || bindings.length !== 1) {
+    throw new Error("style_reference_binding_incomplete");
+  }
+  assertClosedKeys(bindings[0], ["role", "projectRelativePath", "sha256", "reviewRecordId",
+    "reviewRecordPath", "reviewRecordSha256"]);
+  if (bindings[0].role !== "style_only") throw new Error("style_reference_role_invalid");
+  return true;
+}
+
 function validateVisualBrief(brief) {
-  assertClosedKeys(brief, visualBriefKeys, ["animationRequestId"]);
+  assertClosedKeys(brief, visualBriefKeys, ["animationRequestId", "referenceBindings"]);
   if (Object.hasOwn(brief, "animationRequestId")) throw new Error("unknown_record_field:animationRequestId");
+  if (Object.hasOwn(brief, "referenceBindings")) validateReferenceBindings(brief.referenceBindings);
   assertClosedKeys(brief.planningOriginalRef, [
     "planningHandoffPath", "routingRecordId", "routingRecordPath",
     "routingRecordSha256", "routingPayloadSha256",
@@ -311,9 +332,13 @@ function validateProviderFacingSalience(scenePromptOriginal, {
 }
 
 function projectPromptPayload(record) {
-  assertClosedKeys(record, recordKeys);
+  assertClosedKeys(record, recordKeys, recordOptionalKeys);
   const payload = {};
   for (const key of payloadKeys) payload[key] = structuredClone(record[key]);
+  if (Object.hasOwn(record, "referenceBindings")) {
+    validateReferenceBindings(record.referenceBindings);
+    payload.referenceBindings = structuredClone(record.referenceBindings);
+  }
   payload.schemaVersion = "generated_media_prompt_hash_payload_v3";
   return payload;
 }
@@ -423,8 +448,15 @@ function buildArtifacts() {
 }
 
 function validateArtifacts(a) {
-  assertClosedKeys(a.record, recordKeys);
+  assertClosedKeys(a.record, recordKeys, recordOptionalKeys);
   validateVisualBrief(a.record.visualBrief);
+  if (Object.hasOwn(a.record, "referenceBindings")) {
+    validateReferenceBindings(a.record.referenceBindings);
+    if (canonicalJson(a.record.referenceBindings) !==
+        canonicalJson(a.record.visualBrief.referenceBindings)) {
+      throw new Error("style_reference_binding_scope_mismatch");
+    }
+  }
   if (hashObject(projectPromptPayload(a.record)) !== a.record.promptPayloadSha256 ||
       promptId(projectPromptPayload(a.record)) !== a.record.promptRecordId) {
     throw new Error("record_identity_mismatch");
@@ -495,6 +527,31 @@ assert.equal(validateProviderFacingSalience(a.record.scenePromptOriginal, {
   negativeStyleLock: a.record.negativeStyleLock ?? a.record.visualBrief.negativeStyleLock,
   positiveStyleLock: a.record.positiveStyleLock ?? a.record.visualBrief.positiveStyleLock,
 }), true);
+
+const durable = structuredClone(a);
+durable.markdown = Buffer.from(a.markdown);
+durable.record.referenceBindings = [structuredClone(durableStyleBinding)];
+durable.record.visualBrief.referenceBindings = [structuredClone(durableStyleBinding)];
+durable.record.visualBriefSha256 = hashObject(durable.record.visualBrief);
+durable.record.promptPayloadSha256 = hashObject(projectPromptPayload(durable.record));
+durable.record.promptRecordId = promptId(projectPromptPayload(durable.record));
+durable.recordBytes = jsonFileBytes(durable.record);
+durable.entry.recordSha256 = sha256(durable.recordBytes);
+durable.entry.promptRecordId = durable.record.promptRecordId;
+durable.entry.promptPayloadSha256 = durable.record.promptPayloadSha256;
+durable.entry.visualBriefSha256 = durable.record.visualBriefSha256;
+durable.index.entries = { [durable.record.promptRecordId]: durable.entry };
+durable.indexBytes = jsonFileBytes(durable.index);
+durable.handoff.promptRecordId = durable.record.promptRecordId;
+durable.handoff.promptPayloadSha256 = durable.record.promptPayloadSha256;
+durable.handoff.promptRecordSha256 = sha256(durable.recordBytes);
+durable.handoff.visualBriefSha256 = durable.record.visualBriefSha256;
+durable.handoff.promptIndexSha256 = sha256(durable.indexBytes);
+assert.equal(validateArtifacts(durable), true);
+const incompleteDurable = structuredClone(durable);
+incompleteDurable.record.referenceBindings = [{ role: "style_only",
+  projectRelativePath: durableStyleBinding.projectRelativePath, sha256: durableStyleBinding.sha256 }];
+assert.throws(() => validateArtifacts(incompleteDurable), /missing_record_field:reviewRecordId/);
 
 const v9RegressionLocks = {
   negativeStyleLock: [

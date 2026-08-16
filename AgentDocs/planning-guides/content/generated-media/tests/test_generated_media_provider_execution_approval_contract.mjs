@@ -521,6 +521,22 @@ function validateHostedPreviewCallableSurface(settingsSeal) {
   return true;
 }
 
+function validateHostedStyleReference(settingsSeal, referenceBindings) {
+  for (const binding of referenceBindings ?? []) {
+    if (binding.role !== "style_only") continue;
+    const required = ["role", "projectRelativePath", "sha256", "reviewRecordId",
+      "reviewRecordPath", "reviewRecordSha256"];
+    if (Object.keys(binding).length !== required.length ||
+        required.some((key) => !Object.hasOwn(binding, key))) {
+      throw new Error("style_reference_binding_incomplete");
+    }
+    if (settingsSeal.styleReferenceRoleStatus !== "supported_distinct_style_only") {
+      throw new Error("hosted_preview_unknown_setting");
+    }
+  }
+  return true;
+}
+
 function validateHostedPreviewPromptStageSemantics(settingsSeal, scenePromptOriginal) {
   const removableSolid = settingsSeal.providerSettingsIntent.generationBackground?.mode
     === "removable_solid";
@@ -537,7 +553,8 @@ function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, a
   state = { submitCount: 0, retryCount: 0 }) {
   assertClosedKeys(settingsSeal, ["schemaVersion", "providerSettingsIntent",
     "providerSettingsIntentSha256", "exposedOptions", "exposedOptionsSha256",
-    "capabilityDescriptorStatus", "settingsDescriptorStatus", "costEstimate"]);
+    "capabilityDescriptorStatus", "settingsDescriptorStatus", "costEstimate"],
+    ["styleReferenceRoleStatus"]);
   assert.equal(settingsSeal.costEstimate.status, "unavailable");
   assert.equal(settingsSeal.capabilityDescriptorStatus, "unavailable_on_callable_surface");
   assert.equal(settingsSeal.settingsDescriptorStatus, "unavailable_on_callable_surface");
@@ -547,6 +564,7 @@ function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, a
   for (const forbidden of ["capabilityDescriptor", "capabilityVersion", "evidenceRef", "cost"])
     assert.equal(Object.hasOwn(settingsSeal, forbidden), false);
   validateHostedPreviewCallableSurface(settingsSeal);
+  validateHostedStyleReference(settingsSeal, scopePayload.referenceBindings);
   validateHostedPreviewPromptStageSemantics(settingsSeal, scenePromptOriginal);
   if (hashObject(scopePayload) !== previewScopeHash
     || approval.previewScopeHash !== previewScopeHash) throw new Error("hosted_preview_scope_mismatch");
@@ -669,6 +687,32 @@ assert.throws(() => validateHostedPreview(promptDrift), /hosted_preview_scope_mi
 const referenceDrift = structuredClone(singlePreview);
 referenceDrift.scopePayload.referenceBindings[0].sha256 = "f".repeat(64);
 assert.throws(() => validateHostedPreview(referenceDrift), /hosted_preview_scope_mismatch/);
+const durableStylePreview = structuredClone(singlePreview);
+durableStylePreview.scopePayload.referenceBindings = [{
+  role: "style_only",
+  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
+  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
+  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
+  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
+}];
+durableStylePreview.settingsSeal.styleReferenceRoleStatus = "supported_distinct_style_only";
+durableStylePreview.scopePayload.settingsSealSha256 = hashObject(durableStylePreview.settingsSeal);
+durableStylePreview.previewScopeHash = hashObject(durableStylePreview.scopePayload);
+durableStylePreview.approval.previewScopeHash = durableStylePreview.previewScopeHash;
+assert.equal(validateHostedPreview(durableStylePreview), true);
+const incompleteStylePreview = structuredClone(durableStylePreview);
+delete incompleteStylePreview.scopePayload.referenceBindings[0].reviewRecordSha256;
+incompleteStylePreview.previewScopeHash = hashObject(incompleteStylePreview.scopePayload);
+incompleteStylePreview.approval.previewScopeHash = incompleteStylePreview.previewScopeHash;
+assert.throws(() => validateHostedPreview(incompleteStylePreview),
+  /style_reference_binding_incomplete/);
+const unsupportedStylePreview = structuredClone(durableStylePreview);
+delete unsupportedStylePreview.settingsSeal.styleReferenceRoleStatus;
+unsupportedStylePreview.scopePayload.settingsSealSha256 = hashObject(unsupportedStylePreview.settingsSeal);
+unsupportedStylePreview.previewScopeHash = hashObject(unsupportedStylePreview.scopePayload);
+unsupportedStylePreview.approval.previewScopeHash = unsupportedStylePreview.previewScopeHash;
+assert.throws(() => validateHostedPreview(unsupportedStylePreview), /hosted_preview_unknown_setting/);
 assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 1, retryCount: 0 }),
   /hosted_preview_submit_limit_exceeded/);
 assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 0, retryCount: 1 }),

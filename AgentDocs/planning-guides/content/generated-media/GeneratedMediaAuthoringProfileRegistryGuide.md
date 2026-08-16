@@ -187,6 +187,10 @@ The open ink-wash payload has exactly `expressionProfileKey`, `applicability`,
 `negativeStyleLock`, and `positiveStyleLock`. It is single-image-only; its
 audit-only accepted SHA has no canonical path/reference binding until exact
 bytes are separately reviewed and published at a durable project-relative path.
+The reviewed publication now resolves only through
+GeneratedMediaStyleReferenceBindingGuide.md and its exact six-member
+`role=style_only` binding. This external record does not change this registry
+row or either open ink-wash payload hash.
 The open ink-wash v2 successor has exactly `expressionProfileKey`,
 `predecessorBinding`, `applicability`, `proportionAndAgeContract`,
 `proportionMeasurementContract`, `contourOmissionBudget`, `mokSeonContract`,

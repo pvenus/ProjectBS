@@ -27,6 +27,8 @@ sourcePlanningFiles with exact path/role/sha256 and optional authority revision
 planningSnapshot capturedAt/snapshotHash/approvedFacts
 non-empty requiredElements and prohibitedElements or signed no_prohibitions
 optional informational-only projectTarget
+optional character-single-image-only styleReferenceBindings under the closed
+GeneratedMediaStyleReferenceBindingGuide.md contract
 ```
 
 Unknown fields are rejected after schema selection. All paths are
@@ -209,7 +211,13 @@ hash is illustrative and does not waive real source-byte verification.
 - `character_single_image`: identityConsistencyLock plus complete
   singleImageSpecification with viewpoint, pose, framing, canvas,
   targetDisplaySize, safeArea, final/generation background, noShadow, outline,
-  and pelvis/root plus ground-contact anchor.
+  and pelvis/root plus ground-contact anchor. It may additionally contain
+  exactly one `styleReferenceBindings` entry only when an approved
+  `character_open_ink_wash_planning_projection_v2` durable branch supplies the
+  same six leaf facts. The entry has exactly `role=style_only`,
+  `projectRelativePath`, `sha256`, `reviewRecordId`, `reviewRecordPath`, and
+  `reviewRecordSha256`; it is forbidden for semantic-text-only planning and all
+  other types.
 - `icon_single_image`: identityConsistencyLock, exact iconProfile, and complete
   singleImageSpecification with visual-center anchor.
 - `background_single_image`: exact backgroundProfile and complete
@@ -232,8 +240,10 @@ out in source order. Every downstream handoff and record contains exactly one.
 
 Use the typed blockers in GeneratedMediaImageGenOnlyContractGuide.md without
 renaming. Readiness requires every source hash/snapshot and applicable type
-field to validate. `status=ready_for_routing` is forbidden when any blocker is
-present.
+field to validate. A style-only binding additionally requires the exact durable
+asset/review/index bytes and selected profile binding; it does not satisfy any
+identity or equipment fact. `status=ready_for_routing` is forbidden when any
+blocker is present.
 
 ## Boundary and Related Guides
 
@@ -242,6 +252,7 @@ promote, or perform Git work.
 
 ```text
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md

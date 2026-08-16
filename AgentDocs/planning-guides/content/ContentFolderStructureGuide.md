@@ -367,6 +367,18 @@ AgentDocs/task-prompts/content/ContentFolderCreatePrompt.md
 
 Do not create Unity `.meta` files under `AgentDocs`.
 
+Reviewed Generated Media reference evidence is not a promoted/generated Unity
+image. Its only current durable layout is owned by
+GeneratedMediaStyleReferenceBindingGuide.md:
+
+```text
+AgentDocs/reference-assets/generated-media/style-only/{assetType}/{styleReferenceId}/{assetSha256}.{ext}
+AgentDocs/planning-data/style-reference-reviews/v1/{assetType}/{styleReferenceId}/
+```
+
+These bytes stay outside `Assets/ImagesGenerated`, receive no `.meta`, and may
+not be used through a temporary absolute/worktree path.
+
 ## 12. Validation Checklist
 
 - [ ] The domain name is singular PascalCase and has clear SO ownership.
@@ -385,6 +397,8 @@ Do not create Unity `.meta` files under `AgentDocs`.
 - [ ] No existing `Assets/Resources` data was silently moved or duplicated.
 - [ ] Runtime and builder migration is handled separately when required.
 - [ ] No `.meta` file was added under `AgentDocs`.
+- [ ] Any durable style-only reference uses the hash filename and reviewed
+      project-relative record/index contract rather than a generated-image path.
 - [ ] Every related image workflow document explicitly references this guide.
 
 ## 13. Related Prompt

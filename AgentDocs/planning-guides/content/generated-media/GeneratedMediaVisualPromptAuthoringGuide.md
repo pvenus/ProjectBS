@@ -52,6 +52,7 @@ prohibitedVisualStatements: []
 supportingElements: []
 likelyWrongObjects: []
 artifactSpecificBrief:
+referenceBindings: [] # optional only for a reviewed durable character style-only binding
 visualEvidenceMap: []
 providerTranslationContract:
 positiveStyleLock: [] # non-empty only for a registered lock-array profile; empty for sparse
@@ -114,6 +115,13 @@ artifactSpecificBrief:
       type: pelvis_root_ground_axis
       pelvisOrRootPoint:
       groundContactAxis:
+referenceBindings: # optional; exactly one when present
+  - role: style_only
+    projectRelativePath:
+    sha256:
+    reviewRecordId:
+    reviewRecordPath:
+    reviewRecordSha256:
 visualEvidenceMap:
   - constraintId:
     statementPath: RFC 6901 pointer into this brief
@@ -139,8 +147,10 @@ validation:
 ```
 
 The `generated_media_visual_brief_v2` record has exactly the top-level members
-shown in the first schema block. `animationRequestId` is absent for a character
-single image. All statement items have exactly `constraintId` and `statement`.
+shown in the first schema block, with `referenceBindings` conditionally present
+only for a reviewed durable character style-only binding and otherwise absent.
+`animationRequestId` is absent for a character single image. All statement
+items have exactly `constraintId` and `statement`.
 Every evidence item has exactly the seven displayed members. The lock-item
 shape is exactly the three-member shape below. `planningOriginalRef` binds the
 verified immutable route; it is not free-form prose.
@@ -548,15 +558,16 @@ SHA-256 is `37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd` an
 before activation. All numeric ranges are inclusive; array order is normative.
 The eleven policy members, two ordered lock arrays, and key are closed.
 
-The exact accepted-image SHA identifies audit-only style/composition evidence;
-it does not identify canonical character bytes or authorize a provider reference.
-No durable project-relative copy is available in this authority snapshot, so no
-path is fabricated and no image is published by this profile task. A future
-reviewed publication may bind the same exact bytes only through a closed
-project-relative reference record with purpose `style_only`; it must continue to
-forbid person, pose, action, clothing, equipment, identity, and edit-target
-transfer. Until then, authoring projects the closed profile semantics from this
-payload and keeps `referenceBindings` empty for this audit evidence.
+The exact accepted-image SHA identifies style/composition evidence; it does not
+identify canonical character bytes. The separately published asset and closed
+review record in GeneratedMediaStyleReferenceBindingGuide.md may authorize one
+six-member `role=style_only` binding after all raw hashes and the selected
+profile key/hash pass. It continues to forbid person, pose, action, clothing,
+equipment, identity, and edit-target transfer. Without that complete binding,
+authoring keeps `referenceBindings` absent and never invents a path;
+`referenceBindings` stays empty for this audit evidence. A separately reviewed
+durable style-only binding is the additive branch defined below and does not
+change this profile payload rule.
 
 Planning owns the exact Seojin identity/equipment facts and binds them through
 the character planning projection; the profile owns only reusable expression
@@ -1159,9 +1170,16 @@ percent contour omission targeted at 45, tactile pressure-variable mok-seon,
 broad bleeding/misaligned watercolor-pastel masses, the three separate palette
 roles, at least 70 percent achromatic/unpainted space in both scopes, and the
 warm-ivory removable-solid/no-halo/no-scene/no-shadow background contract. The
-audit-only accepted-reference SHA is evidence metadata, not a provider
-reference binding; without a reviewed durable project-relative copy, no path
-may be invented or placed in `referenceBindings`.
+accepted-reference SHA becomes a provider style reference only through the
+exact reviewed durable six-member binding. Authoring verifies its record/index,
+keeps it out of identity/equipment evidence and provider prose, and copies it
+unchanged into `referenceBindings`; incomplete or unreviewed input creates no
+binding.
+
+The same external binding is valid for open ink-wash v2 because its review
+record lists the exact v2 key/hash. This does not change either profile payload.
+The provider-facing reference role is `style_only`; authoring must not describe
+the reference person's face, pose, action, clothes, or equipment.
 
 ### Provider-facing salience and deduplication gate
 
@@ -1426,5 +1444,6 @@ AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```

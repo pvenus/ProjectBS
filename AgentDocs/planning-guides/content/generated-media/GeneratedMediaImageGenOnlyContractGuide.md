@@ -57,6 +57,7 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffG
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 ```
@@ -84,6 +85,7 @@ planningSnapshot:
 requiredElements: non-empty observable list
 prohibitedElements: non-empty observable list or signed no_prohibitions
 projectTarget: optional informational_only
+styleReferenceBindings: optional only for character_single_image under section 3.1
 ```
 
 `GeneratedMediaPlanningHandoffGuide.md::Closed Planning Snapshot v2` is the
@@ -120,10 +122,21 @@ singleImageSpecification:
     type: pelvis_root_ground_axis
     pelvisOrRootPoint:
     groundContactAxis:
+styleReferenceBindings: # optional; exactly one only with reviewed durable planning projection v2
+  - role: style_only
+    projectRelativePath:
+    sha256:
+    reviewRecordId:
+    reviewRecordPath:
+    reviewRecordSha256:
 ```
 
 One approved viewpoint produces one image. No direction list, rotation count,
 eight-way expansion, or `ordered_rotation_set` is allowed.
+The binding is governed by GeneratedMediaStyleReferenceBindingGuide.md. It is
+not an identity reference, required character element, pose/equipment source,
+or edit target. Three-member style bindings and absolute/transient paths are
+invalid.
 
 ### 3.2 icon_single_image
 
@@ -743,6 +756,15 @@ settings seal contains exactly the authored canvas/background/output intent and
 the options actually exposed on the callable tool invocation. An option not
 exposed by the tool is absent, never `null`, guessed, or defaulted:
 
+For a `role=style_only` reference, generation first rehashes the durable asset,
+review record, and review index; verifies purpose/status/profile scope and every
+prohibited transfer; and binds the full six-member object into preview scope.
+The callable provider surface must expose an independently selectable style-
+reference role. A generic image or identity reference input is not equivalent;
+when role separation is unavailable, generation stops before submit with the
+applicable existing capability/unknown-setting blocker. The prompt never
+describes the depicted reference subject.
+
 ```yaml
 schemaVersion: generated_media_hosted_preview_settings_seal_v1
 providerSettingsIntent: exact verified authoring value
@@ -1068,6 +1090,17 @@ open_ink_wash_profile_projection_mismatch
 open_ink_wash_profile_evidence_incomplete
 provider_prompt_open_ink_wash_projection_missing
 open_ink_wash_reference_role_invalid
+missing_style_reference_review_record
+style_reference_review_record_hash_mismatch
+style_reference_review_payload_mismatch
+style_reference_asset_missing
+style_reference_asset_hash_mismatch
+style_reference_record_collision
+style_reference_index_invalid
+style_reference_binding_incomplete
+style_reference_binding_scope_mismatch
+style_reference_role_invalid
+style_reference_semantic_transfer_forbidden
 character_style_profile_conflict
 character_animation_style_lock_mismatch
 missing_character_proportion_projection
@@ -1191,6 +1224,16 @@ missing_expression_profile_payload_hash
 expression_profile_key_mismatch
 expression_profile_payload_hash_mismatch
 unexpected_character_style_reference
+missing_style_reference_review_record
+style_reference_review_record_hash_mismatch
+style_reference_review_payload_mismatch
+style_reference_asset_missing
+style_reference_asset_hash_mismatch
+style_reference_index_invalid
+style_reference_binding_incomplete
+style_reference_binding_scope_mismatch
+style_reference_role_invalid
+style_reference_semantic_transfer_forbidden
 unknown_record_field
 missing_record_field
 record_identity_mismatch
@@ -1241,7 +1284,7 @@ The five open ink-wash authoring tokens apply only to
 | `open_ink_wash_profile_projection_mismatch` | any member, nested value, type, array order, key, or recomputed payload hash differs from the canonical payload |
 | `open_ink_wash_profile_evidence_incomplete` | a policy member, lock, or required character-specific planning binding lacks exact authority evidence |
 | `provider_prompt_open_ink_wash_projection_missing` | provider prose omits or weakens any exact profile member, planning-bound anchor, or ordered lock |
-| `open_ink_wash_reference_role_invalid` | the audit-only accepted SHA is given an absolute/transient path, provider reference binding, identity/person/pose/action/clothing/equipment role, or edit-target role before a reviewed durable project-relative style-only publication exists |
+| `open_ink_wash_reference_role_invalid` | the accepted SHA is bound through anything other than the complete reviewed six-member style-only binding, or is used for identity/person/pose/action/clothing/equipment/edit-target semantics |
 
 The v1 meanings above are immutable. The output-conformance successor
 `projectbs_character_open_ink_wash_dynamic_contour@2.0.0` uses these distinct
@@ -1253,10 +1296,30 @@ authoring tokens:
 | `open_ink_wash_v2_profile_projection_mismatch` | any successor member, nested value, type, array order, key, predecessor binding, or recomputed payload hash differs from the canonical v2 payload |
 | `open_ink_wash_v2_profile_evidence_incomplete` | a successor policy member, lock, gate, or character-specific planning binding lacks exact authority evidence |
 | `provider_prompt_open_ink_wash_v2_projection_missing` | provider prose omits or weakens any successor constraint, including the measurement, surface-detail, uniform-background, or output-conformance constraint |
-| `open_ink_wash_v2_reference_role_invalid` | the audit-only accepted SHA is given an absolute/transient path, provider reference binding, identity/person/pose/action/clothing/equipment role, or edit-target role before reviewed durable project-relative style-only publication exists |
+| `open_ink_wash_v2_reference_role_invalid` | the accepted SHA is bound through anything other than the complete reviewed six-member style-only binding, or is used for identity/person/pose/action/clothing/equipment/edit-target semantics |
 
 These tokens do not reinterpret v1. A new planning revision must select the v2
 key and exact v2 payload hash before authoring may use them.
+
+The durable style-reference tokens are shared, closed stage blockers:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_style_reference_review_record` | a durable style binding names no readable canonical review record |
+| `style_reference_review_record_hash_mismatch` | raw canonical review-record bytes differ from the binding or index hash |
+| `style_reference_review_payload_mismatch` | review JCS payload, deterministic ID, asset identity, purpose, status, transfer boundary, or selected profile binding differs |
+| `style_reference_asset_missing` | canonical project-relative reviewed asset is absent |
+| `style_reference_asset_hash_mismatch` | reviewed asset raw bytes, PNG signature, length, or dimensions differ from the record |
+| `style_reference_record_collision` | an occupied review ID or asset identity has divergent immutable bytes |
+| `style_reference_index_invalid` | review index is absent, dangling, divergent, or not the exact closed projection |
+| `style_reference_binding_incomplete` | a style-only consumer entry does not have exactly the six required members |
+| `style_reference_binding_scope_mismatch` | asset type, style family, or selected profile key/hash is outside the approved review record |
+| `style_reference_role_invalid` | role is not exactly `style_only`, path is noncanonical/absolute/transient, or a style binding is represented as an identity/edit reference |
+| `style_reference_semantic_transfer_forbidden` | any consumer derives person, identity, pose, action, clothing, equipment, or edit-target semantics from the raster |
+
+Planning validates before handoff publication, routing before route publication,
+authoring before prompt publication, and generation again before capability or
+submit access. A later stage never repairs or republishes review artifacts.
 
 The bold-outline authoring tokens apply only to
 `projectbs_character_bold_outline_compressed_detail@1.0.0`:

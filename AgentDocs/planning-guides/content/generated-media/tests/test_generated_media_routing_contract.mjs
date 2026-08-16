@@ -152,6 +152,26 @@ function sha256Canonical(value) {
   return createHash("sha256").update(canonicalJson(value), "utf8").digest("hex");
 }
 
+function validateAndProjectStyleBinding(payload) {
+  const bindings = payload.styleReferenceBindings;
+  if (!Array.isArray(bindings) || bindings.length !== 1) {
+    throw new Error("style_reference_binding_incomplete");
+  }
+  const keys = ["role", "projectRelativePath", "sha256", "reviewRecordId",
+    "reviewRecordPath", "reviewRecordSha256"];
+  if (Object.keys(bindings[0]).length !== keys.length ||
+      keys.some((key) => !Object.hasOwn(bindings[0], key))) {
+    throw new Error("style_reference_binding_incomplete");
+  }
+  if (bindings[0].role !== "style_only") throw new Error("style_reference_role_invalid");
+  for (const consumer of [payload.normalizedRequest, payload.authoringHandoff]) {
+    if (canonicalJson(consumer.styleReferenceBindings) !== canonicalJson(bindings)) {
+      throw new Error("style_reference_binding_scope_mismatch");
+    }
+  }
+  return true;
+}
+
 function authorityBundle(anchorSha = "1".repeat(64)) {
   const payload = {
     schemaVersion: "generated_media_authority_bundle_hash_payload_v1",
@@ -391,6 +411,29 @@ const retryBytes = requireByteIdenticalReuse(
   routingId(retryPayload), recordBytes(retryPayload), routingId(firstPayload), firstBytes,
 );
 assert.strictEqual(retryBytes, firstBytes);
+
+const durablePayload = fixture();
+durablePayload.styleReferenceBindings = [{
+  role: "style_only",
+  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
+  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
+  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
+  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
+}];
+durablePayload.normalizedRequest.styleReferenceBindings =
+  structuredClone(durablePayload.styleReferenceBindings);
+durablePayload.authoringHandoff.styleReferenceBindings =
+  structuredClone(durablePayload.styleReferenceBindings);
+assert.equal(validateAndProjectStyleBinding(durablePayload), true);
+const droppedBinding = structuredClone(durablePayload);
+delete droppedBinding.authoringHandoff.styleReferenceBindings;
+assert.throws(() => validateAndProjectStyleBinding(droppedBinding),
+  /style_reference_binding_scope_mismatch/);
+const incompleteBinding = structuredClone(durablePayload);
+delete incompleteBinding.styleReferenceBindings[0].reviewRecordSha256;
+assert.throws(() => validateAndProjectStyleBinding(incompleteBinding),
+  /style_reference_binding_incomplete/);
 
 const changed = structuredClone(firstPayload);
 changed.requiredElements.push("visible hands");
