@@ -422,21 +422,44 @@ Character-planning producer storage:
 AgentDocs/planning-data/character/generated-media-handoffs/v2/{contentId}/{requestId}.character_single_image.json
 ```
 
-`contentId` must equal `identity.characterId`. `requestId` must be stable,
-project-safe, and supplied by the caller. The caller/planning orchestration also
-supplies the exact request-bound `planningCaptureInputs` owned by
-`GeneratedMediaPlanningHandoffGuide.md::Closed planning capture input`.
-Character authoring validates and copies it without choosing timestamps or
-source order. The same request, capture input, and planning snapshot must
-reproduce canonically equal handoff bytes. Existing different bytes at the same
-path return central `record_collision`; never overwrite them.
+`contentId` must equal `identity.characterId`. The planning producer derives
+`requestId`, `capturedAt`, and ordered sources under
+`GeneratedMediaPlanningHandoffGuide.md::Deterministic producer-owned planning
+capture`; no caller approval object exists. The same immutable current decision,
+source bytes, and approved facts reproduce canonically equal handoff bytes.
+Existing different bytes at the same path return central `record_collision`;
+never overwrite them.
+
+Existing immutable v2 handoffs on the selected authoritative baseline retain
+their historical request identity and are not reprojected. Only newly produced
+handoffs use the `gmplan2.` derivation; a new legacy-form record is forbidden.
+
+For an intentional approved revision, the character-planning producer also
+owns collision-free decision identity. Scan the existing character visual-
+decision filenames, treat the unversioned historical file as revision 1, and
+select exactly one greater than the greatest existing numeric `.vN` suffix.
+The new identity and path are:
+
+```text
+decisionId=character_visual_design_decision.{characterId}.v{N}
+AgentDocs/planning-data/character/design-decisions/v1/{characterId}.visual-design.v{N}.json
+```
+
+Publish the decision first with atomic no-clobber. Stamp
+`approval.approvedAt` once as the decision producer's current RFC 3339 time with
+an explicit numeric offset. If another writer occupies the proposed revision,
+re-read the directory and select the next numeric revision before any canonical
+planning write. A retry reuses an identical existing decision and never
+refreshes its timestamp. The canonical planning then appends that exact path to
+`provenance.sourcePlanningRefs`; handoff capture derives source order from that
+array and derives `requestId` from the completed snapshot hash.
 
 Mapping:
 
 | Handoff field | Character planning source |
 | --- | --- |
 | `schemaVersion` | constant `generated_media_planning_handoff_v2` |
-| `requestId` | exact stable caller-supplied request ID |
+| `requestId` | exact `gmplan2.{assetType}.{contentId}.{snapshotHash[0:20]}` derivation |
 | `assetType` | constant `character_single_image` after readiness approval |
 | `domainType` | constant `character` |
 | `contentId` | `identity.characterId` |

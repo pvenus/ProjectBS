@@ -1009,12 +1009,10 @@ Prompts/guides must not invent aliases. Legacy audit tokens, including
 
 ```text
 missing_planning_handoff
-missing_planning_capture_inputs
-invalid_planning_capture_timestamp
 missing_source_planning_path
-duplicate_source_planning_path
 unresolved_source_planning_path
-planning_capture_identity_mismatch
+missing_capture_authority_timestamp
+invalid_capture_authority_timestamp
 planning_snapshot_mismatch
 missing_identity_consistency_lock
 missing_required_elements

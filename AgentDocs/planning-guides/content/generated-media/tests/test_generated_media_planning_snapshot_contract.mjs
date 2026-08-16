@@ -42,30 +42,39 @@ function validateSnapshotSources(sourcePlanningFiles, approvedFacts, exactSource
   }
 }
 
-function validateCapture(capture, expectedIdentity, sourcePlanningFiles, readablePaths) {
-  if (!capture) throw new Error("missing_planning_capture_inputs");
-  if (capture.contentId !== expectedIdentity.contentId ||
-      capture.requestId !== expectedIdentity.requestId) {
-    throw new Error("planning_capture_identity_mismatch");
-  }
-  const explicitOffset = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?[+-](?:[01]\d|2[0-3]):[0-5]\d$/;
-  if (!explicitOffset.test(capture.capturedAt) || Number.isNaN(Date.parse(capture.capturedAt))) {
-    throw new Error("invalid_planning_capture_timestamp");
-  }
-  if (!Array.isArray(capture.sourcePlanningPaths) || capture.sourcePlanningPaths.length === 0 ||
-      capture.sourcePlanningPaths.some((path) => typeof path !== "string" || path.length === 0)) {
-    throw new Error("missing_source_planning_path");
-  }
-  if (new Set(capture.sourcePlanningPaths).size !== capture.sourcePlanningPaths.length) {
-    throw new Error("duplicate_source_planning_path");
-  }
-  if (capture.sourcePlanningPaths.some((path) => !readablePaths.has(path))) {
+function deriveCapture({ assetType, contentId, canonicalPath, canonicalPlanning,
+  decisionDocuments, sourcePlanningFiles, snapshotHash, readablePaths }) {
+  const decisionPrefix = "AgentDocs/planning-data/character/design-decisions/";
+  const decisionPaths = canonicalPlanning.provenance.sourcePlanningRefs.filter((path) =>
+    path.startsWith(decisionPrefix) && path.endsWith(".json"));
+  const sourcePlanningPaths = [canonicalPath, ...new Set(decisionPaths)];
+  if (sourcePlanningPaths.length < 2) throw new Error("missing_source_planning_path");
+  if (sourcePlanningPaths.some((path) => !readablePaths.has(path))) {
     throw new Error("unresolved_source_planning_path");
   }
-  if (capture.sourcePlanningPaths.length !== sourcePlanningFiles.length ||
-      capture.sourcePlanningPaths.some((path, index) => path !== sourcePlanningFiles[index].path)) {
+  if (sourcePlanningPaths.length !== sourcePlanningFiles.length ||
+      sourcePlanningPaths.some((path, index) => path !== sourcePlanningFiles[index].path)) {
     throw new Error("planning_snapshot_mismatch");
   }
+  const currentDecision = decisionDocuments.get(sourcePlanningPaths.at(-1));
+  const capturedAt = currentDecision?.approval?.approvedAt;
+  if (capturedAt === undefined) throw new Error("missing_capture_authority_timestamp");
+  const explicitOffset = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?[+-](?:[01]\d|2[0-3]):[0-5]\d$/;
+  if (!explicitOffset.test(capturedAt) || Number.isNaN(Date.parse(capturedAt))) {
+    throw new Error("invalid_capture_authority_timestamp");
+  }
+  return {
+    contentId,
+    requestId: `gmplan2.${assetType}.${contentId}.${snapshotHash.slice(0, 20)}`,
+    capturedAt,
+    sourcePlanningPaths,
+  };
+}
+
+function classifyCaptureIdentity(requestId, recordPath, authoritativeBaselinePaths) {
+  if (requestId.startsWith("gmplan2.")) return "derived_current";
+  if (authoritativeBaselinePaths.has(recordPath)) return "legacy_read_only";
+  throw new Error("planning_snapshot_mismatch");
 }
 
 const payload = {
@@ -93,28 +102,51 @@ assert.equal(Object.hasOwn(payload, "capturedAt"), false);
 
 const secondSource = {
   path: "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.visual-design.json",
-  role: "character_visual_design_decision",
+  role: "character_visual_design_decision_current",
   sha256: "b".repeat(64),
 };
 const orderedSources = [...payload.sourcePlanningFiles, secondSource];
-const capture = {
-  contentId: "character.example.1",
-  requestId: "gmreq.character.example.1",
-  capturedAt: "2026-08-14T09:30:00+09:00",
-  sourcePlanningPaths: orderedSources.map(({ path }) => path),
+const canonicalPlanning = {
+  provenance: {
+    sourcePlanningRefs: [
+      "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+      secondSource.path,
+      secondSource.path,
+    ],
+  },
 };
-const readablePaths = new Set(capture.sourcePlanningPaths);
-
-validateCapture(capture, {
-  contentId: "character.example.1",
-  requestId: "gmreq.character.example.1",
-}, orderedSources, readablePaths);
+const decisionDocuments = new Map([[secondSource.path, {
+  approval: { approvedAt: "2026-08-14T09:30:00+09:00" },
+}]]);
+const readablePaths = new Set(orderedSources.map(({ path }) => path));
 
 const orderedPayload = {...payload, sourcePlanningFiles: orderedSources};
 const orderedPayloadCanonical = canonicalize(orderedPayload);
 const orderedPayloadHash = crypto.createHash("sha256")
   .update(Buffer.from(orderedPayloadCanonical, "utf8"))
   .digest("hex");
+const captureArgs = {
+  assetType: "character_single_image",
+  contentId: "character.example.1",
+  canonicalPath: payload.sourcePlanningFiles[0].path,
+  canonicalPlanning,
+  decisionDocuments,
+  sourcePlanningFiles: orderedSources,
+  snapshotHash: orderedPayloadHash,
+  readablePaths,
+};
+const capture = deriveCapture(captureArgs);
+assert.equal(capture.requestId,
+  `gmplan2.character_single_image.character.example.1.${orderedPayloadHash.slice(0, 20)}`);
+assert.deepEqual(capture.sourcePlanningPaths, orderedSources.map(({ path }) => path));
+assert.equal(classifyCaptureIdentity(capture.requestId, "new.json", new Set()),
+  "derived_current");
+assert.equal(classifyCaptureIdentity("legacy.request.1", "published.json",
+  new Set(["published.json"])), "legacy_read_only");
+assert.throws(
+  () => classifyCaptureIdentity("legacy.request.2", "new-legacy.json", new Set()),
+  /planning_snapshot_mismatch/,
+);
 const reversedSources = [...orderedSources].reverse();
 const reversedPayload = {...payload, sourcePlanningFiles: reversedSources};
 assert.notEqual(orderedPayloadCanonical, canonicalize(reversedPayload));
@@ -123,22 +155,16 @@ assert.notEqual(
   crypto.createHash("sha256").update(Buffer.from(canonicalize(reversedPayload), "utf8")).digest("hex"),
 );
 assert.throws(
-  () => validateCapture(capture, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, reversedSources, readablePaths),
+  () => deriveCapture({...captureArgs, sourcePlanningFiles: reversedSources}),
   /planning_snapshot_mismatch/,
 );
 
-function buildHandoff(captureInput, sources) {
-  validateCapture(captureInput, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, sources, readablePaths);
+function buildHandoff(args) {
+  const captureInput = deriveCapture(args);
   return {
     requestId: captureInput.requestId,
     contentId: captureInput.contentId,
-    sourcePlanningFiles: sources,
+    sourcePlanningFiles: args.sourcePlanningFiles,
     planningSnapshot: {
       capturedAt: captureInput.capturedAt,
       snapshotHash: orderedPayloadHash,
@@ -147,13 +173,14 @@ function buildHandoff(captureInput, sources) {
   };
 }
 
-const retryHandoff = buildHandoff(capture, orderedSources);
-const repeatedRetryHandoff = buildHandoff(structuredClone(capture), structuredClone(orderedSources));
+const retryHandoff = buildHandoff(captureArgs);
+const repeatedRetryHandoff = buildHandoff(structuredClone(captureArgs));
 assert.deepEqual(
   Buffer.from(canonicalize(retryHandoff), "utf8"),
   Buffer.from(canonicalize(repeatedRetryHandoff), "utf8"),
 );
-assert.equal(retryHandoff.planningSnapshot.capturedAt, capture.capturedAt);
+assert.equal(retryHandoff.planningSnapshot.capturedAt,
+  decisionDocuments.get(secondSource.path).approval.approvedAt);
 assert.equal(retryHandoff.planningSnapshot.snapshotHash, crypto.createHash("sha256")
   .update(Buffer.from(orderedPayloadCanonical, "utf8"))
   .digest("hex"));
@@ -253,46 +280,30 @@ assert.notEqual(
 );
 
 assert.throws(
-  () => validateCapture(null, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
-  /missing_planning_capture_inputs/,
+  () => deriveCapture({...captureArgs, decisionDocuments: new Map([[secondSource.path, {}]])}),
+  /missing_capture_authority_timestamp/,
 );
 
 assert.throws(
-  () => validateCapture({...capture, capturedAt: "2026-08-14T00:30:00Z"}, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
-  /invalid_planning_capture_timestamp/,
+  () => deriveCapture({...captureArgs, decisionDocuments: new Map([[secondSource.path, {
+    approval: {approvedAt: "2026-08-14T00:30:00Z"},
+  }]])}),
+  /invalid_capture_authority_timestamp/,
 );
+assert.deepEqual(deriveCapture(captureArgs).sourcePlanningPaths,
+  [payload.sourcePlanningFiles[0].path, secondSource.path],
+  "duplicate provenance refs are deterministically collapsed at first occurrence");
 assert.throws(
-  () => validateCapture({...capture, sourcePlanningPaths: [orderedSources[0].path, orderedSources[0].path]}, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
-  /duplicate_source_planning_path/,
-);
-assert.throws(
-  () => validateCapture({...capture, contentId: "character.other.1"}, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
-  /planning_capture_identity_mismatch/,
-);
-assert.throws(
-  () => validateCapture({...capture, sourcePlanningPaths: []}, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
+  () => deriveCapture({...captureArgs, canonicalPlanning: {
+    provenance: {sourcePlanningRefs: []},
+  }, sourcePlanningFiles: [orderedSources[0]]}),
   /missing_source_planning_path/,
 );
 assert.throws(
-  () => validateCapture({...capture, sourcePlanningPaths: [orderedSources[0].path, "AgentDocs/planning-data/missing.json"]}, {
-    contentId: "character.example.1",
-    requestId: "gmreq.character.example.1",
-  }, orderedSources, readablePaths),
+  () => deriveCapture({...captureArgs, canonicalPlanning: {provenance: {
+    sourcePlanningRefs: ["AgentDocs/planning-data/character/design-decisions/v1/missing.json"],
+  }}}),
   /unresolved_source_planning_path/,
 );
+assert.equal(Object.hasOwn(capture, "callerApproval"), false);
 console.log("generated media planning snapshot v2 contract vector: PASS");

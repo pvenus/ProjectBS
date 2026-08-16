@@ -39,40 +39,61 @@ This section is the sole current authority for planning-snapshot structure and
 identity. Producers and domain guides reference it; they must not redefine a
 different `approvedFacts` or hash payload schema.
 
-### Closed planning capture input
+### Deterministic producer-owned planning capture
 
-The caller or planning-orchestration owner supplies exactly one capture input
-for each requested handoff. The authoring agent validates and copies it; it
-must not create a timestamp, choose sources, sort paths, or repair identity.
+There is no caller-owned `planningCaptureInputs` approval object. After the
+planning producer has written and validated one immutable current decision, it
+derives capture identity from repository facts without asking a caller to pick
+an ID, timestamp, or source order.
 
-```yaml
-planningCaptureInputs:
-  - contentId: exact intended handoff contentId
-    requestId: exact intended handoff requestId
-    capturedAt: RFC 3339 timestamp with explicit numeric UTC offset (+HH:MM or -HH:MM)
-    sourcePlanningPaths: non-empty ordered array of unique project-relative source paths
+The derivation order is exact:
+
+1. Resolve `contentId` and `assetType` from the approved canonical planning.
+2. Build the domain-owned ordered `sourcePlanningFiles` projection. For current
+   character planning this is the canonical character planning path first,
+   followed by each project-relative character design-decision JSON appearing
+   in `provenance.sourcePlanningRefs`, preserving first-occurrence array order.
+   Repeated byte-identical paths are ignored after their first occurrence.
+3. The final design-decision entry is the current capture authority. Its
+   `/approval/approvedAt` value MUST be an RFC 3339 timestamp with an explicit
+   numeric offset. Copy it unchanged as `planningSnapshot.capturedAt`.
+4. Build and validate `approvedFacts`, then calculate `snapshotHash` under the
+   exact payload below.
+5. Derive the stable request identity exactly as:
+
+```text
+requestId = gmplan2.{assetType}.{contentId}.{snapshotHash[0:20]}
 ```
 
-Unknown members are forbidden. `Z`, local time without an offset, filesystem
-mtime, Git time, and producer current time are invalid `capturedAt` values.
-`contentId` and `requestId` must be byte-equal to the handoff identity. Each
-`sourcePlanningPaths` entry must be readable and must correspond exactly once,
-at the same array index, to `sourcePlanningFiles[].path`. No path may be added,
-omitted, deduplicated, or reordered by the producer.
+The producer never uses a wall-clock value while constructing the handoff.
+The decision producer may stamp `approval.approvedAt` once when it creates the
+new no-clobber decision; retries reuse those immutable decision bytes. A retry
+over the same sources and facts therefore derives the same timestamp,
+snapshot, request ID, path, and handoff bytes.
 
 The current failure meanings are closed:
 
-- absent capture object: `missing_planning_capture_inputs`;
-- missing or nonconforming explicit-offset timestamp:
-  `invalid_planning_capture_timestamp`;
-- missing/empty path member: `missing_source_planning_path`;
-- duplicate path bytes: `duplicate_source_planning_path`;
-- unreadable or non-project-relative path: `unresolved_source_planning_path`;
-- contentId/requestId disagreement: `planning_capture_identity_mismatch`;
-- source order or path-to-sourcePlanningFiles projection disagreement after
-  validation: `planning_snapshot_mismatch`.
+- no eligible canonical/decision source: `missing_source_planning_path`;
+- unreadable, invalid, or non-project-relative derived source:
+  `unresolved_source_planning_path`;
+- missing current-decision approval timestamp:
+  `missing_capture_authority_timestamp`;
+- nonconforming current-decision approval timestamp:
+  `invalid_capture_authority_timestamp`;
+- source projection, request derivation, pointer/value, or stored/recomputed
+  snapshot disagreement: `planning_snapshot_mismatch`.
 
-Any failure writes no handoff or partial capture artifact.
+Any failure writes no handoff or partial capture artifact. Caller-supplied
+capture IDs, timestamps, source arrays, or overrides are unknown input and are
+ignored as non-authoritative prose; they never replace this derivation.
+
+This rule applies to new handoffs produced after its authoritative publication.
+Already-published immutable v2 handoffs keep their stored legacy capture
+identity and remain read-only historical evidence; do not rewrite them or
+retroactively require the `gmplan2.` request form. A producer MUST NOT create a
+new legacy-form handoff after publication. Validators distinguish these cases
+by repository existence on the selected authoritative baseline, never by a
+caller-provided compatibility flag.
 
 ### Exact source and fact schema
 
@@ -139,15 +160,16 @@ The handoff stores:
 
 ```yaml
 planningSnapshot:
-  capturedAt: exact RFC 3339 timestamp supplied by the approved planning authority
+  capturedAt: exact RFC 3339 timestamp copied from the current immutable decision authority
   snapshotHash: exact 64-lowercase-hex hash calculated above
   approvedFacts: exact same sorted array used by the hash payload
 ```
 
-`capturedAt` is provenance only and is excluded from `snapshotHash`. It must be
-copied unchanged from the approved planning capture/decision; a producer must
-not use its current clock. A retry for the same source bytes and approved facts
-must reuse the same `capturedAt` and produce byte-identical handoff content.
+`capturedAt` is provenance only and is excluded from `snapshotHash`. It is
+copied unchanged from the current immutable decision's `/approval/approvedAt`;
+the handoff producer never uses its current clock. A retry for the same source
+bytes and approved facts reuses the same decision timestamp and produces
+byte-identical handoff content.
 
 ### Deterministic vector
 

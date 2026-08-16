@@ -249,13 +249,12 @@ tag. Missing evidence creates typed `missingDesignInputs` and blocks a current
 `character_single_image` handoff. Legacy 8-way character-main-image planning is
 read-only and never satisfies this current contract.
 
-When a current handoff is requested, the caller or Act planning orchestration
-owner must supply the request-bound `planningCaptureInputs` defined by
-`GeneratedMediaPlanningHandoffGuide.md::Closed planning capture input`. It owns
-the approved `contentId`, `requestId`, stable explicit-offset `capturedAt`, and
-ordered `sourcePlanningPaths`. The character authoring task only validates and
-copies them; it must not choose source order, generate a timestamp, or repair an
-identity mismatch.
+When a current handoff is requested, the character-planning producer applies
+`GeneratedMediaPlanningHandoffGuide.md::Deterministic producer-owned planning
+capture`. It derives the stable request ID from the completed snapshot hash,
+copies `capturedAt` from the immutable current decision, and derives source
+order from canonical planning provenance. No caller-owned capture approval or
+manual source-order handoff exists.
 
 ### 7. Create Monster Context JSON
 
