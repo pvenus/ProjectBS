@@ -21,10 +21,20 @@ const hash = "1c828ef73b1de41453197f0d2fef80eebb069e42767d3f017ccb8dab0b947c8c";
 const baseKey = "projectbs_character_bold_outline_compressed_detail@2.0.0";
 const baseHash = "5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3";
 const marker = "### Bold-outline attack motion-flow successor profile";
-const section = visual.slice(visual.indexOf(marker));
-const start = section.indexOf("{");
-const end = section.indexOf("\n}\n", start) + 2;
-const profile = JSON.parse(section.slice(start, end));
+
+function parseProfile(source) {
+  const normalized = source.replace(/\r\n/g, "\n");
+  const section = normalized.slice(normalized.indexOf(marker));
+  const start = section.indexOf("{");
+  const end = section.indexOf("\n}\n", start) + 2;
+  return JSON.parse(section.slice(start, end));
+}
+
+const visualLf = visual.replace(/\r\n/g, "\n");
+const visualCrlf = visualLf.replace(/\n/g, "\r\n");
+const profile = parseProfile(visual);
+const profileLf = parseProfile(visualLf);
+const profileCrlf = parseProfile(visualCrlf);
 
 function canonicalJson(value) {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
@@ -37,8 +47,10 @@ assert.deepEqual(Object.keys(profile), [
   "motionFlowContract", "frameContinuityContract", "authoringProjectionContract",
   "negativeAnimationLock", "positiveAnimationLock"
 ]);
+assert.deepEqual(profileCrlf, profileLf);
 assert.equal(profile.expressionProfileKey, key);
-assert.equal(crypto.createHash("sha256").update(canonicalJson(profile)).digest("hex"), hash);
+assert.equal(crypto.createHash("sha256").update(canonicalJson(profileLf)).digest("hex"), hash);
+assert.equal(crypto.createHash("sha256").update(canonicalJson(profileCrlf)).digest("hex"), hash);
 assert.equal(profile.baseProfileBinding.expressionProfileKey, baseKey);
 assert.equal(profile.baseProfileBinding.expressionProfilePayloadHash, baseHash);
 assert.equal(profile.baseProfileBinding.requiredExternalOutlineSourcePx, 18);
