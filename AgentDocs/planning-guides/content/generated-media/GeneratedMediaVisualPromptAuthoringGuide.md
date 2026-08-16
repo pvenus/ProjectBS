@@ -727,6 +727,100 @@ members of this payload, a prompt, or any record identity. Canonical use still
 requires a reviewed durable project-relative reference schema; otherwise only
 explicit planning facts may bind the successor.
 
+### Bold-outline attack motion-flow successor profile
+
+The following payload is canonical and immutable for
+`projectbs_character_bold_outline_attack_motion_flow@1.0.0`. It is an
+animation-only composed successor of
+`projectbs_character_bold_outline_compressed_detail@2.0.0`; it does not amend,
+alias, rehash, or become selectable for any character single-image request.
+The immutable reference prompt record continues to own the complete v2 payload
+and character-specific projection. The successor becomes eligible only after
+the reference bytes, v2 payload/hash, and exact 18px/8px, 64/56/5, color-anchor,
+and bounded-halo projection have passed.
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_bold_outline_attack_motion_flow@1.0.0",
+  "baseProfileBinding": {
+    "expressionProfileKey": "projectbs_character_bold_outline_compressed_detail@2.0.0",
+    "expressionProfilePayloadHash": "5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3",
+    "inheritancePolicy": "hash_verified_reference_payload_and_projection_byte_preserving",
+    "requiredExternalOutlineSourcePx": 18,
+    "requiredInternalLineSourcePx": 8,
+    "requiredMaximumTotalVisibleMarks": 64,
+    "requiredMaximumInternalLineMarks": 56,
+    "requiredMaximumSecondaryFoldMarksPerGarmentRegion": 5,
+    "colorAnchorPolicy": "inherit_exact_reference_projection",
+    "inkHaloPolicy": "inherit_exact_closed_reference_projection"
+  },
+  "animationApplicability": {
+    "structureProfile": "animation_gif_frame_set_v2",
+    "domainType": "character",
+    "motionClass": "attack",
+    "oneDownstreamUnit": "exactly_one_scalar_animationRequestId",
+    "singleImageSelection": "prohibited"
+  },
+  "motionFlowContract": {
+    "fadedIndigoSwordTorsoBrushFlow": {
+      "direction": "exact_approved_motion_direction",
+      "markCountPerActiveFrame": {"minimum": 3, "maximum": 5},
+      "placement": ["sword_arc", "torso_rotation"],
+      "opacityProgression": "directional_fade_along_approved_trajectory"
+    },
+    "grayBrownInertia": {
+      "placement": ["shoulder", "hem"],
+      "timing": "lag_then_settle_from_approved_key_pose_order",
+      "role": "secondary_inertia_not_identity_replacement"
+    },
+    "darkNeutralInkTrajectory": {
+      "placement": ["sword_path", "torso_action_axis"],
+      "role": "bounded_action_trajectory_subordinate_to_identity_outline",
+      "arbitrarySpeedLines": "prohibited",
+      "magicVfx": "prohibited"
+    }
+  },
+  "frameContinuityContract": {
+    "poseEvolution": "ordered_key_poses_must_change_and_flow_without_static_repetition",
+    "fixedCellScaleAnchor": "inherit_exact_animation_request_contract",
+    "identityAnchorLocks": ["gaze", "face_shape", "topknot", "hand_sword_grip", "support_foot", "action_joints"],
+    "equipmentAnchorLocks": ["costume_layers", "shoulder_armor", "travel_robe_hem", "hwando_structure", "hwando_hand_and_side"],
+    "identityEquipmentDrift": "prohibited"
+  },
+  "authoringProjectionContract": {
+    "selection": "exact_registered_successor_plus_exact_v2_reference_required",
+    "requiredApprovedMotionBindings": ["motionDirection", "swordArc", "torsoRotation", "shoulderInertia", "hemInertia", "darkNeutralInkTrajectory", "keyPoseOrder", "frameContinuityAnchors"],
+    "evidencePolicy": "every_motion_binding_lock_and_inherited_projection_requires_exact_planning_profile_or_reference_record_evidence",
+    "promptInclusion": "exact_inherited_base_locks_plus_verbatim_motion_locks_and_bound_values_required",
+    "conflictPolicy": "block_before_prompt_publication_or_provider_capability_access"
+  },
+  "negativeAnimationLock": [
+    {"constraintId": "char_bold_motion_negative_static_pose_repetition", "statement": "No static pose repetition or duplicated action frame presented as motion.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_negative_generic_clean_vector_sheet", "statement": "No generic clean-vector sprite sheet, uniform vector stroke treatment, or identity-neutral template motion.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_negative_arbitrary_speed_lines_vfx", "statement": "No arbitrary speed lines, decorative motion streaks, aura, magic trail, or magic VFX beyond the approved bounded ink trajectories.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_negative_identity_equipment_drift", "statement": "No drift in face, gaze, topknot, proportions, costume layers, shoulder armor, travel-robe hem, hand-to-sword grip, weapon structure, weapon side, support foot, or action joints.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"}
+  ],
+  "positiveAnimationLock": [
+    {"constraintId": "char_bold_motion_positive_base_identity", "statement": "Preserve the hash-verified bold-outline v2 identity, compact proportion, exact 18px-to-8px hierarchy, 64/56/5 detail ceilings, color anchors, and bounded halo in every frame.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_positive_indigo_flow", "statement": "Use three to five directional faded-indigo brush marks along the approved sword arc and torso rotation in each active attack frame.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_positive_gray_brown_inertia", "statement": "Use subordinate gray-brown shoulder and hem lag then settlement according to the approved key-pose order.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"},
+    {"constraintId": "char_bold_motion_positive_ink_trajectory_continuity", "statement": "Use bounded dark-neutral ink trajectory on the sword path and torso action axis while preserving fixed-cell continuity and every identity and equipment anchor.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile"}
+  ]
+}
+```
+
+Canonicalization is RFC 8785 JCS over the exact UTF-8 payload. The registered
+SHA-256 is `1c828ef73b1de41453197f0d2fef80eebb069e42767d3f017ccb8dab0b947c8c` and must match the registry before
+activation. Array order is normative and every object is closed.
+
+The successor is selected only by the character-animation router from one
+hash-verified bold v2 reference prompt record plus all eight exact approved
+motion bindings. It is never selected by character-single-image authoring and
+does not alter that record's key, payload, hash, provider prose, or output.
+Router, authoring, generation pre-submit, and evaluation each revalidate the
+base binding and motion projection independently; no stage may infer motion
+direction, add speed lines or VFX, or repair identity/equipment drift.
+
 ## Character Single Image
 
 Require identityConsistencyLock, one viewpoint, pose, framing, canvas, target
@@ -826,6 +920,12 @@ variation, face landmarks, costume layers, equipment and weapon structure.
 Motion may change pose and approved cloth movement but may not reinterpret the
 character or drift toward photographic/3D rendering between frames.
 
+The sole composed exception is the bold-outline attack motion-flow successor.
+It preserves the exact reference v2 key/payload/hash as its base binding and
+stores the separate successor key/payload/hash; it never changes or rehashes
+the reference. All eight planning-owned motion bindings are required before
+the successor payload can be projected.
+
 ## Failure, State, and Validation
 
 Use the exact common/type blockers in GeneratedMediaImageGenOnlyContractGuide.md,
@@ -852,6 +952,12 @@ reference/profile fields. Typed blockers are
 `expression_profile_payload_hash_mismatch`,
 `unexpected_character_style_reference`, and
 `character_animation_style_lock_mismatch`.
+
+For the composed motion-flow successor, equality means exact base/reference
+equality plus exact successor registry equality, not equality between the two
+different keys. Validate the base first, then the successor and its ordered
+animation locks, using only the motion-flow router/authoring/generation/evaluation
+tokens owned by the central contract.
 
 For the sparse profile, use only `missing_sparse_profile_projection`,
 `sparse_profile_projection_mismatch`, `sparse_profile_evidence_incomplete`, or

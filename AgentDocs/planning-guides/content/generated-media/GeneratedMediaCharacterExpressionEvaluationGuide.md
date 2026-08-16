@@ -6,7 +6,9 @@ This evaluation guide applies when a character main image declares
 `projectbs_character_sparse_ink_pastel_motion@1.0.0` or
 `projectbs_character_bold_outline_compressed_detail@1.0.0` or
 `projectbs_character_bold_outline_compressed_detail@2.0.0`, and to character
-animation only for the sparse profile because the bold profile is single-image-only. It evaluates preserved
+animation for the sparse profile or the separately registered
+`projectbs_character_bold_outline_attack_motion_flow@1.0.0` composed successor;
+the two base bold profiles remain single-image-only. It evaluates preserved
 staging media read-only after generation; it does not generate, edit, preserve,
 promote, copy to Unity, or perform Git work.
 
@@ -56,6 +58,9 @@ budgets.
 | `character_evaluation_bold_outline_v2_detail_budget_gate_failed` | v2 total visible marks exceed 64, internal marks exceed 56 or total, folds exceed 5 in a garment region, or hatching, microtexture, modeled/realistic materials, dense folds/scales/rivets appear |
 | `character_evaluation_bold_outline_v2_color_anchor_gate_failed` | v2 ochre appears outside approved small utility-pouch/travel-accessory sites, or color coverage/masses/full-fill/hierarchy exceed the closed contract |
 | `character_evaluation_bold_outline_v2_halo_gate_failed` | disabled authorizes a dark background, or enabled halo exceeds opacity 0.35/coverage 45, is opaque/scenic/noncentered/nonfading, has nonzero edge alpha, or acts as a shadow/directional cast shadow |
+| `character_evaluation_bold_outline_motion_flow_gate_failed` | missing/wrong-direction faded-indigo sword/torso 3-5 brush flow, missing gray-brown shoulder/hem inertia, missing bounded dark-neutral trajectory, static repetition, generic clean-vector sheet, arbitrary speed lines, or magic VFX |
+| `character_evaluation_bold_outline_motion_continuity_gate_failed` | key-pose order does not evolve continuously or fixed cell/scale/root anchor continuity breaks |
+| `character_evaluation_bold_outline_motion_identity_equipment_gate_failed` | any successor identity or equipment anchor drifts across frames |
 
 The evaluator uses the authored profile projection and an observable checklist.
 It may use a reproducible pixel-area measurement when available, but must record

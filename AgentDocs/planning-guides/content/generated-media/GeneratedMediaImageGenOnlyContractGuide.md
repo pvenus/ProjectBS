@@ -208,6 +208,8 @@ animationRequests:
     referencePromptRecordSha256: required for character; prohibited for skill_effect
     expressionProfileKey: required for character; prohibited for skill_effect
     expressionProfilePayloadHash: required for character; prohibited for skill_effect
+    successorExpressionProfileKey: required only for registered composed animation successor
+    successorExpressionProfilePayloadHash: required only with successorExpressionProfileKey
     finalFrameCount: approved positive integer
     timing: ordered final timing or approved uniform FPS
     frameOrder: exact ordered indices
@@ -241,6 +243,12 @@ above are mandatory. `referencePromptRecordPath` identifies an immutable
 The record must contain the canonical `expressionProfilePayload`, and its key
 and recomputed payload hash must equal both handoff fields. For
 `animationSubjectType=skill_effect`, all four fields are prohibited and absent.
+
+The two successor fields are a closed jointly-present pair. They are permitted
+only for the registered bold-outline attack motion-flow successor. In that
+branch the four original fields remain the exact immutable bold v2 reference;
+the successor pair identifies the separately hashed animation-only payload.
+All other branches must omit both fields.
 
 Section 8.3 is the sole token authority for reference/profile authoring
 failures. Character animation applies all reference and expression-profile
@@ -1046,9 +1054,18 @@ missing_bold_outline_v2_halo_selection
 bold_outline_v2_halo_projection_invalid
 bold_outline_v2_profile_evidence_omission
 provider_prompt_bold_outline_v2_projection_missing
+bold_outline_motion_successor_reference_mismatch
+bold_outline_motion_flow_not_attack
+missing_bold_outline_motion_flow_planning_bindings
+bold_outline_motion_flow_base_projection_mismatch
+bold_outline_motion_flow_evidence_omission
+provider_prompt_bold_outline_motion_flow_projection_missing
 character_generation_proportion_gate_failed
 character_generation_detail_density_gate_failed
 character_generation_color_value_gate_failed
+character_generation_bold_outline_motion_flow_gate_failed
+character_generation_bold_outline_motion_continuity_gate_failed
+character_generation_bold_outline_motion_identity_equipment_gate_failed
 missing_single_image_viewpoint
 missing_single_image_pose
 missing_framing_contract
@@ -1209,6 +1226,19 @@ The successor-only authoring tokens apply only to
 | `bold_outline_v2_profile_evidence_omission` | a successor binding, constant, budget, halo member, or lock lacks exact evidence |
 | `provider_prompt_bold_outline_v2_projection_missing` | provider prose omits or weakens any exact successor budget, anchor, halo member, or ordered lock |
 
+The composed motion-flow successor adds three router tokens and three authoring
+tokens. Router uses `bold_outline_motion_successor_reference_mismatch` for any
+nonexact bold v2 reference/base projection,
+`bold_outline_motion_flow_not_attack` for a non-attack motion class, and
+`missing_bold_outline_motion_flow_planning_bindings` when any of the eight
+approved motion facts is absent. Authoring uses
+`bold_outline_motion_flow_base_projection_mismatch`,
+`bold_outline_motion_flow_evidence_omission`, and
+`provider_prompt_bold_outline_motion_flow_projection_missing` respectively for
+base 18/8 or 64/56/5/color/halo disagreement, missing exact motion/lock evidence,
+and omitted or weakened provider prose. All six stop before publication or
+capability access.
+
 The lock-array tokens `missing_positive_style_lock`,
 `missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
 `provider_prompt_style_lock_missing` apply only to the four registered
@@ -1361,6 +1391,19 @@ without centered monotonic fade to edge alpha zero, or permitting scene,
 opaque-background, or shadow semantics fails
 `character_generation_bold_outline_v2_halo_gate_failed`. All are no-call gates.
 
+For `projectbs_character_bold_outline_attack_motion_flow@1.0.0`, generation
+first reruns every inherited bold v2 gate against the immutable base. It then
+fails missing or incorrect indigo 3-5 sword/torso flow, gray-brown shoulder/hem
+inertia, bounded dark-neutral trajectory, static repetition, generic clean-
+vector output, arbitrary speed lines, or magic VFX as
+`character_generation_bold_outline_motion_flow_gate_failed`; frame-order,
+fixed-cell, scale, or root-anchor discontinuity as
+`character_generation_bold_outline_motion_continuity_gate_failed`; and any
+identity/equipment anchor drift as
+`character_generation_bold_outline_motion_identity_equipment_gate_failed`.
+These are pre-submit gates with `providerCalled=false`, `submitCount=0`, and
+`cost=0`.
+
 #### 8.4.1 Character Expression Evaluation Extension
 
 ```text
@@ -1382,6 +1425,9 @@ character_evaluation_bold_outline_color_signature_gate_failed
 character_evaluation_bold_outline_v2_detail_budget_gate_failed
 character_evaluation_bold_outline_v2_color_anchor_gate_failed
 character_evaluation_bold_outline_v2_halo_gate_failed
+character_evaluation_bold_outline_motion_flow_gate_failed
+character_evaluation_bold_outline_motion_continuity_gate_failed
+character_evaluation_bold_outline_motion_identity_equipment_gate_failed
 ```
 
 The first four tokens respectively mean that the required sealed package is
@@ -1410,6 +1456,11 @@ detail ceilings, approved ochre sites and 35/4 color bounds, and closed halo
 union. An opaque, scenic, noncentered, directional-shadow, or nonfading dark
 treatment is fatal. If any mark, coverage, opacity, edge, or anchor measurement
 is not reproducible, it returns `character_evaluation_evidence_insufficient`.
+
+The animation-only successor first requires exact base-profile evidence, then
+uses the three `character_evaluation_bold_outline_motion_*_gate_failed` tokens
+for motion-flow/VFX, continuity, and identity/equipment-anchor failures. Each is
+fatal and no numeric score can offset it.
 
 ### 8.5 Preservation Extension
 
