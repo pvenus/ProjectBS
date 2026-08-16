@@ -169,6 +169,216 @@ and attach the entry on retry without rewriting the record. All other blocked
 inputs write no record, index, placeholder, failure artifact, or downstream
 handoff.
 
+## Detached Compact Routing Receipt
+
+After the record and index have been reread and verified, return one detached
+`generated_media_routing_receipt_v1`. It is control-plane metadata, is never a
+record or index member, is not persisted, and does not change routing v2
+identity. Its closed schema is:
+
+```yaml
+schemaVersion: generated_media_routing_receipt_v1
+status: routed
+reuseStatus: created | reused_identical
+validatedAuthorityRevision: exact Git revision whose blobs were validated
+routingRecordId:
+routingRecordPath:
+routingPayloadSha256:
+routingRecordSha256:
+indexPath:
+indexSha256:
+authorityBundleId:
+authorityBundleSha256:
+stageDeltaEnvelopeId:
+stageDeltaEnvelopeSha256:
+pipelineReceiptChainId:
+pipelineReceiptChainSha256:
+authoringHandoffPointer: /authoringHandoff
+publicationState: local_unpublished | authoritative_git_blob
+nextStep: git_publication | authoring
+providerCalled: false
+```
+
+`local_unpublished` always has `nextStep=git_publication`; it must not trigger
+authoring. `authoritative_git_blob` is allowed only after the exact record and
+index hashes resolve at the reported authority revision and has
+`nextStep=authoring`. The receipt never contains `normalizedRequest`,
+`sourcePlanningFiles`, `requiredElements`, `prohibitedElements`,
+`typeSpecification`, expression-profile payloads, or style-lock arrays. Those
+values remain complete in the immutable routing record and its
+`/authoringHandoff`; the consumer reads that exact Git blob after publication.
+
+This receipt reduces repeated task-message payload but is not a validation
+waiver. It cannot authorize a consumer to trust mutable checkout bytes, skip
+the exact routing-record/index hash check, or reinterpret an old v2 record.
+
+## Cross-stage Authority Bundle Receipt
+
+Control-plane consumers exchange one response-only, non-persisted
+`generated_media_authority_bundle_receipt_v1`. Construct its hash payload with
+exactly these members:
+
+```yaml
+schemaVersion: generated_media_authority_bundle_hash_payload_v1
+authoritativeMainSha: exact fetched origin/main Git object ID
+requestedStageScope: non-empty ordered subset of planning | routing | authoring | generation | preservation | evaluation_package | preview_terminal
+immutableArtifactAnchors:
+  - role: stable lowercase_snake_case
+    path: exact project-relative path
+    sha256: exact Git-blob or immutable raw-file SHA-256
+contractAuthorityAnchors: same closed item schema
+profileAuthorityAnchors: same closed item schema
+```
+
+Within each anchor array, sort by UTF-8 path bytes and then role bytes. Duplicate
+path/role pairs, unknown members, absolute paths, checkout-only roots and
+mutable aliases are invalid. A contract or profile array may be empty only when
+the requested stage scope requires no authority of that class; emptiness is
+hash-significant and the validator never invents an anchor. Calculate:
+
+```text
+authorityBundleSha256 = SHA256(JCS(authorityBundleHashPayload))
+authorityBundleId = gmauthbundle1.{authorityBundleSha256[0:20]}
+```
+
+The closed receipt contains the same five payload members with
+`schemaVersion=generated_media_authority_bundle_receipt_v1`, plus exactly
+`authorityBundleId` and `authorityBundleSha256`. It contains no timestamp,
+thread ID, host path, status prose or mutable checkout metadata. Identical main
+SHA, requested scope and anchor sets therefore produce byte-identical receipts.
+Any missing receipt, main drift, scope change, path/hash/role change, added or
+removed anchor, invalid receipt hash, or unavailable anchored blob requires a
+full validation pass and a new bundle identity. A bundle never waives current
+record/index or provider-boundary checks.
+
+## Cross-stage Delta Envelope
+
+After one stage has a valid bundle and newly verified artifacts, construct one
+response-only `generated_media_stage_delta_envelope_v1`. Its exact hash payload
+is:
+
+```yaml
+schemaVersion: generated_media_stage_delta_hash_payload_v1
+authorityBundleId:
+authorityBundleSha256:
+fromStage: planning | routing | authoring | generation | preservation | evaluation_package
+toStage: routing | authoring | generation | preservation | evaluation_package | preview_terminal | terminal
+unitIdentity:
+  requestId:
+  assetType:
+  domainType:
+  contentId:
+  animationRequestId?: required only for animation
+newArtifacts:
+  - role:
+    path:
+    sha256:
+priorValidationReceiptRefs:
+  - stage:
+    receiptId:
+    receiptSha256:
+priorPipelineReceiptChain?: absent only for the first envelope
+  pipelineReceiptChainId:
+  pipelineReceiptChainSha256:
+publicationState: local_unpublished | authoritative_git_blob
+nextStep: git_publication | routing | authoring | generation | preservation | evaluation_package | preview_terminal | terminal
+providerState:
+  state: not_called | called | completed | failed
+  providerCalled: boolean
+  submitCount: non-negative integer
+relayPolicy: child_final_once_parent_next_role_once
+observerPolicy: compact_terminal_receipt_only
+```
+
+Sort `newArtifacts` by role then path; keep validation receipts in pipeline
+order. Hash and identify it exactly as:
+
+```text
+stageDeltaEnvelopeSha256 = SHA256(JCS(stageDeltaHashPayload))
+stageDeltaEnvelopeId = gmdelta1.{fromStage}.{toStage}.{stageDeltaEnvelopeSha256[0:20]}
+```
+
+The closed envelope replaces the payload schemaVersion with
+`generated_media_stage_delta_envelope_v1` and adds only the ID and full hash.
+The permitted transitions are planning->routing, routing->authoring,
+authoring->generation, generation->preservation,
+generation->preview_terminal, preservation->evaluation_package and
+evaluation_package->terminal. `local_unpublished` always requires
+`nextStep=git_publication`; `authoritative_git_blob` requires `nextStep` to
+equal `toStage`. A publication change creates a new envelope identity.
+`providerState=not_called` requires `providerCalled=false` and `submitCount=0`;
+the other states require `providerCalled=true` and `submitCount>=1`.
+
+The envelope recursively forbids `normalizedRequest`, `sourcePlanningFiles`,
+`requiredElements`, `prohibitedElements`, `typeSpecification`,
+`planningSnapshot.approvedFacts`, expression-profile payloads, style-lock
+arrays, scene/provider prompt bodies, nested authoring/generation/preservation
+handoffs, media bytes, and full record/index objects. Consumers read these from
+the anchored Git blobs. A forbidden field, invalid transition, invalid
+publication pair, bad prior receipt or hash mismatch emits no success envelope
+and changes no immutable artifact.
+
+## Relay, Status, and Pipeline Receipt Chain
+
+One child sends exactly one final delta envelope to its parent. After validating
+it, the parent relays that exact envelope exactly once to the next execution
+role. The parent does not broadcast the full envelope to requester, planning
+owner, Git owner or observers. Each observer receives at most one terminal
+`generated_media_compact_status_v1` for the stage.
+
+The compact status hash payload contains exactly
+`schemaVersion=generated_media_compact_status_hash_payload_v1`,
+`pipelineReceiptChainId`, `pipelineReceiptChainSha256`, `stage`, `state`,
+`stageReceiptId`, `stageReceiptSha256`, `publicationState`, and the same closed
+`providerState`. Its ID/hash use `gmstatus1.{stage}.{hash[0:20]}` and full
+SHA-256 over JCS. The receipt replaces schemaVersion with
+`generated_media_compact_status_v1` and adds the ID/full hash. Emit only on a
+new canonical state hash or once for terminal state. An unchanged status,
+including repeated `providerCalled=false`, is rejected as a duplicate and is
+not relayed or commented again. Commentary outside this object is limited to a
+short blocking action required from the user.
+
+Pipeline lineage is the response-only deterministic
+`generated_media_pipeline_receipt_chain_v1`, never a mutable state record. Its
+hash payload contains exactly:
+
+```yaml
+schemaVersion: generated_media_pipeline_receipt_chain_hash_payload_v1
+authorityBundleId:
+authorityBundleSha256:
+unitIdentity: exact closed unit object above
+stageEnvelopeRefs:
+  - stageDeltaEnvelopeId:
+    stageDeltaEnvelopeSha256:
+```
+
+Envelope refs preserve pipeline order and IDs are unique. Calculate full JCS
+SHA-256 and `pipelineReceiptChainId=gmpipechain1.{hash[0:20]}`; the receipt
+replaces schemaVersion and adds ID/full hash. Each stage returns a new value
+with one ref appended; it never updates an older value. No orchestration path,
+file, index, lock, latest pointer or CAS operation exists. Lineage is therefore
+hash-linked without creating another mutable publication surface, collision
+target or index race. Immutable stage records/indexes remain the only persisted
+workflow evidence.
+
+## Validation Receipt Reuse Matrix
+
+| Boundary or check | May reuse an exact receipt | Mandatory fresh work |
+| --- | --- | --- |
+| authority main and anchored source/profile/contract blobs | yes, only with byte-identical bundle ID/hash and unchanged requested scope | fetch and full validation on missing/invalid receipt, main/scope/anchor drift or unavailable blob |
+| planning RFC 6901 facts and JCS snapshot | yes when the exact planning handoff/blob and bundle are unchanged | full resolution when planning handoff/hash or planning contract anchor changes |
+| registry row and expression-profile schema/hash | yes when exact registry/profile authority anchors and selected artifact are unchanged | full match/projection on any key, hash, scope or authority change |
+| stage input record/handoff raw hash and exact projection | no waiver | always verify at every consumer boundary |
+| new record/index identity, no-clobber and CAS preimage | no | always verify for every mutation/publication attempt |
+| authoritative publication state | no | always resolve reported record/index hashes at the reported Git revision before next role |
+| provider approval, capability, settings, cost, attempt limit and idempotency | no | always rerun immediately before every provider submit boundary |
+| new media bytes, preservation and evaluation evidence | no | always verify for each new output or downstream mutation |
+
+Receipt reuse suppresses only unchanged exact-source/profile/schema work. It
+never suppresses a mutation, freshness, consumer artifact, provider or media
+boundary. Drift or a missing receipt always fails closed into the full
+validation path.
+
 ## State, Failure, and Output
 
 ```text
@@ -191,11 +401,13 @@ routing_record_write_failed
 routing_index_write_failed
 ```
 
-Success returns `status=routed`, record ID/path/hash, selected row/profile/
-pipeline/prompts, provider, structure profile, normalized request, snapshot hash, reason,
-authoring handoff, and `nextStep=authoring`. Failure returns `status=blocked`,
-failureType, missing/conflicting fields, candidate rows, required decision and
-safeToRetry.
+Success returns only the detached compact receipt above. Complete selected
+row/profile/pipeline/prompt, normalized request, snapshot, reason and authoring
+handoff remain in the exact record; they are not echoed into the task message.
+The routing receipt binds the exact authority bundle, stage delta and pipeline
+chain IDs/hashes rather than competing with them.
+Failure returns `status=blocked`, failureType, missing/conflicting fields,
+candidate rows, required decision and safeToRetry.
 
 ## Validation
 
@@ -209,4 +421,11 @@ safeToRetry.
 - identical retries preserve exact record/index bytes, while any divergent
   occupied identity fails closed;
 - authoring handoff fields exactly match selected prompt inputs;
+- the detached success receipt is closed, hash-bound, and contains none of the
+  persisted bulk authoring fields or style-lock arrays;
+- identical authority anchors/scope reproduce one bundle and receipt, while
+  one anchor change forces a new hash and full validation;
+- stage transitions/publication pairs are closed and duplicate relay/status
+  hashes are rejected;
+- the pipeline chain has no persisted orchestration record/index/path;
 - no downstream stage executes.

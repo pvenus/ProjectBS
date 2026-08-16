@@ -565,6 +565,184 @@ attempted animation inheritance, or conflict blocks before prompt publication.
 Provider prose must independently preserve every profile member and all fourteen
 ordered locks; it may not collapse this contract to `ink wash` or `stylized`.
 
+### Open ink-wash output-conformance successor profile
+
+The following payload is canonical and immutable for
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0`. It is a separate
+single-image-only successor, not an amendment or alias of `@1.0.0`. It retains
+the v1 visual boundary while adding executable output measurement, closed
+surface-detail rejection, mandatory post-submit conformance classification, and
+a compact hash-bound receipt. Existing v1 planning, prompts, previews, key,
+payload, hash, and meaning remain unchanged.
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+  "predecessorBinding": {
+    "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@1.0.0",
+    "expressionProfilePayloadHash": "37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd",
+    "mutationPolicy": "predecessor_bytes_and_meaning_unchanged"
+  },
+  "applicability": {
+    "structureProfiles": ["character_single_image_v2"],
+    "characterAnimationInheritance": "prohibited",
+    "selection": "explicit_approved_planning_fact_and_complete_successor_projection_required"
+  },
+  "proportionAndAgeContract": {
+    "fullBodyHeadCount": {"minimum": 4, "maximum": 5, "target": 4.25},
+    "presentation": "young_adult",
+    "minorOrChildCoding": "prohibited",
+    "limbPolicy": "compact_but_adult"
+  },
+  "proportionMeasurementContract": {
+    "headHeight": "top_of_cranial_mass_excluding_topknot_to_bottom_of_chin",
+    "fullBodyHeight": "top_of_cranial_mass_excluding_topknot_to_lowest_weight_bearing_sole",
+    "headCountFormula": "fullBodyHeight_divided_by_headHeight",
+    "observableAcceptance": {"minimum": 4, "maximum": 5},
+    "targetIntent": 4.25,
+    "uncertainMeasurement": "evidence_insufficient"
+  },
+  "contourOmissionBudget": {
+    "unit": "percent_of_expected_silhouette_and_internal_boundary_length",
+    "minimum": 35,
+    "maximum": 55,
+    "target": 45,
+    "closedStickerSilhouette": "prohibited",
+    "measurementPolicy": "closed_authoring_projection_plus_observable_output_triage"
+  },
+  "mokSeonContract": {
+    "lineQuality": "pressure_variable_tactile_mok_seon",
+    "requiredStrokePhases": ["brush_start", "directional_drag", "dry_end"],
+    "directionalWeight": "required",
+    "uniformOutlineWeight": "prohibited",
+    "vectorCleanContour": "prohibited"
+  },
+  "pigmentApplicationContract": {
+    "media": ["rough_watercolor", "rough_pastel"],
+    "applicationScale": "broad_masses_not_decorative_small_splashes",
+    "controlledBleedBeyondOutline": "required",
+    "controlledMisalignmentBeyondOutline": "required",
+    "cleanCelFill": "prohibited",
+    "decorativeSmallSplashes": "prohibited"
+  },
+  "paletteRoleContract": {
+    "roles": [
+      {"role": "primary_cool", "colorFamily": "faded_blue_gray_or_indigo"},
+      {"role": "secondary_earth", "colorFamily": "dusty_gray_brown"},
+      {"role": "small_warm_accent", "colorFamily": "muted_ochre", "scale": "small_only"}
+    ],
+    "roleSeparation": "required",
+    "offRoleSubstitution": "prohibited"
+  },
+  "negativeSpaceContract": {
+    "minimumAchromaticOrUnpaintedPercent": 70,
+    "scopes": ["figure_interior", "full_canvas"],
+    "figureInteriorPolicy": "open_unpainted_space_required",
+    "canvasPolicy": "warm_ivory_background_counts_as_achromatic_unpainted_space"
+  },
+  "surfaceDetailContract": {
+    "priority": "identity_silhouette_before_surface_detail",
+    "face": "high_signal_mok_seon_without_realistic_modeling_skin_shading_or_microtexture",
+    "armor": "one_broad_dusty_gray_brown_mass_with_broken_identity_edges",
+    "individualArmorPlateEnumeration": "prohibited",
+    "rivetsLacingAndFastenerEnumeration": "prohibited",
+    "garmentMicrofoldEnumeration": "prohibited",
+    "materialMicrotexture": "prohibited",
+    "modeledLightingAndRealisticMaterialRendering": "prohibited"
+  },
+  "backgroundContract": {
+    "generationBackground": {"mode": "removable_solid", "color": "#F2EFE6"},
+    "finalBackgroundPolicy": "transparent_or_planning_approved_after_background_removal",
+    "allowedVisibleField": "uniform_warm_ivory_only",
+    "halo": "prohibited",
+    "vignette": "prohibited",
+    "radialGradient": "prohibited",
+    "darkBackdrop": "prohibited",
+    "scene": "prohibited",
+    "shadow": "prohibited"
+  },
+  "identityAnchorContract": {
+    "planningBinding": "required_exact_character_specific",
+    "requiredAnchorGroups": ["young_adult_korean_identity", "joseon_hair_and_costume", "approved_equipment", "approved_weapon", "handedness", "identifying_features"],
+    "styleReferenceIdentityTransfer": "prohibited",
+    "identityOrEquipmentOmission": "prohibited"
+  },
+  "acceptedStyleReferenceContract": {
+    "sha256": "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+    "status": "audit_only_unbound_without_durable_project_relative_copy",
+    "allowedPurpose": "style_and_composition_audit_evidence_only",
+    "canonicalReferenceBinding": "prohibited_until_reviewed_durable_project_relative_copy_and_closed_reference_binding",
+    "forbiddenTransfer": ["person_identity", "canonical_character_identity", "pose", "action", "clothing", "equipment", "edit_target"]
+  },
+  "providerOutputConformanceContract": {
+    "timing": "after_observable_output_before_preview_complete_or_final_status",
+    "gateOrder": ["proportion_age", "contour_mok_seon", "surface_detail", "pigment_palette_negative_space", "background", "identity_equipment", "reference_role"],
+    "gateResultEnum": ["pass", "fail", "evidence_insufficient"],
+    "allPassStatus": "preview_conformant_no_downstream",
+    "anyFailStatus": "preview_profile_nonconformant",
+    "insufficientStatus": "preview_profile_conformance_blocked",
+    "nonPassNextStep": "stop_no_retry_not_final",
+    "submitAccounting": "preserve_observed_providerCalled_submitCount_retryCount_and_output_hash",
+    "automaticRetry": "prohibited",
+    "scoringOrPromotion": "prohibited"
+  },
+  "compactConformanceReceiptContract": {
+    "schemaVersion": "generated_media_profile_conformance_receipt_v1",
+    "requiredIdentityFields": ["requestId", "planningSnapshotHash", "promptRecordId", "promptRecordSha256", "expressionProfileKey", "expressionProfilePayloadHash", "observableOutputSha256"],
+    "requiredStateFields": ["profileConformanceStatus", "failureType", "gateResults", "providerCalled", "submitCount", "retryCount", "nextStep"],
+    "gateResultShape": ["gateId", "result"],
+    "hashPolicy": "RFC8785_JCS_SHA256_over_closed_receipt_hash_payload",
+    "messagePolicy": "send_receipt_once_then_reference_receipt_hash_instead_of_retransmitting_authority_payload",
+    "authorityPolicy": "receipt_reusable_for_status_and_handoff_but_not_a_substitute_for_fresh_Git_blob_validation_before_mutation"
+  },
+  "authoringProjectionContract": {
+    "planningSelection": "explicit_approved_fact_required",
+    "requiredPlanningBindings": ["fullBodyHeadCount", "youngAdultPresentation", "identityConsistencyLock", "singleImageSpecification", "paletteRoleAnchors", "generationBackground"],
+    "requiredProfileProjectionMembers": ["proportionAndAgeContract", "proportionMeasurementContract", "contourOmissionBudget", "mokSeonContract", "pigmentApplicationContract", "paletteRoleContract", "negativeSpaceContract", "surfaceDetailContract", "backgroundContract", "identityAnchorContract", "acceptedStyleReferenceContract", "providerOutputConformanceContract", "compactConformanceReceiptContract"],
+    "evidencePolicy": "every_binding_profile_member_and_lock_requires_exact_planning_or_profile_authority_evidence",
+    "promptInclusion": "verbatim_locks_and_complete_policy_projection_required",
+    "conflictPolicy": "block_before_prompt_publication"
+  },
+  "negativeStyleLock": [
+    {"constraintId": "char_open_wash_v2_negative_child_or_naturalistic_tall", "statement": "No child or minor coding and no body outside the observable four-to-five-head young-adult range measured from cranial mass to chin and cranial mass to weight-bearing sole.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_sticker_vector_contour", "statement": "No sticker-clean closed silhouette, uniform outline weight, vector-clean contour, or clean coloring-book boundary.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_surface_overdetail", "statement": "No realistic face, skin shading, material microtexture, garment microfold enumeration, individual armor plates, rivets, lacing, fasteners, modeled lighting, or realistic armor rendering.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_clean_fill_splashes", "statement": "No clean cel fill, opaque full-region fill, or decorative small splashes standing in for broad rough pigment masses.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_palette_role_collapse", "statement": "Do not merge, swap, or replace the faded blue-gray or indigo, dusty gray-brown, and small muted-ochre palette roles.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_painted_space_excess", "statement": "Do not reduce achromatic or unpainted negative space below seventy percent in either the figure interior or full canvas.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_halo_scene_shadow", "statement": "No halo, vignette, radial gradient, dark backdrop, scene, environment, cast shadow, contact shadow, or shadow substitute; show only uniform warm ivory outside the figure.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_reference_identity_transfer", "statement": "Do not use the audit-only style reference as canonical identity, person, pose, action, clothing, equipment, edit target, or provider reference binding.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_negative_nonconformant_final", "statement": "Do not label a returned image conformant, complete, final, ready, or retryable when any ordered output gate fails or lacks sufficient evidence.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"}
+  ],
+  "positiveStyleLock": [
+    {"constraintId": "char_open_wash_v2_positive_young_adult_compact", "statement": "Use a clearly young-adult compact figure accepted only within the observable four-to-five-head range and targeted at four-and-a-quarter heads.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_open_dynamic_contour", "statement": "Omit thirty-five to fifty-five percent of expected silhouette and internal boundaries, targeting forty-five percent, while preserving readable identity anchors.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_tactile_mok_seon", "statement": "Use pressure-variable tactile mok-seon with observable brush start, directional drag, dry end, and directional weight.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_simplified_surface", "statement": "Render face, garments, and one-shoulder armor as high-signal open ink and broad pigment masses; armor is one broad dusty-gray-brown mass with broken identity edges, not enumerated construction detail.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_broad_bleeding_pigment", "statement": "Use broad rough watercolor and pastel masses with controlled bleed and controlled misalignment beyond the contour.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_separate_palette_roles", "statement": "Keep faded blue-gray or indigo, dusty gray-brown, and a small muted-ochre accent in separate approved character-specific roles.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_negative_space", "statement": "Keep at least seventy percent of both the figure interior and full canvas achromatic or unpainted negative space.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_identity_on_ivory", "statement": "Preserve approved young-adult Korean and Joseon identity and equipment on uniform removable warm ivory with no halo, vignette, radial gradient, dark backdrop, scene, or shadow.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"},
+    {"constraintId": "char_open_wash_v2_positive_output_triage", "statement": "After one returned image, classify every ordered output gate and emit one compact hash-bound receipt; any fail or insufficient evidence stops without retry and without final or complete labeling.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile"}
+  ]
+}
+```
+
+Canonicalization is RFC 8785 JCS over the exact UTF-8 payload. The registered
+SHA-256 is `b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5`. Object member order is not
+hash-significant; array order and all displayed values are normative. The v2
+payload is self-contained and must not be reconstructed by patching v1 at run
+time.
+
+The post-output check is a bounded conformance triage, not scoring, promotion,
+preservation, retry authorization, or the separate evaluation role. It uses the
+already returned observable image exactly once. A failed or insufficient gate
+preserves truthful consumed-submit/output evidence but changes the response from
+`preview_complete_no_downstream` to the closed non-pass status and
+`stop_no_retry_not_final`. The compact receipt carries hashes and seven scalar
+gate results; it replaces repeated authority prose in control-plane messages but
+never replaces a fresh Git-blob validation before mutation.
+
 ### Bold-outline compressed-detail character profile
 
 The following payload is canonical and immutable for
@@ -985,6 +1163,71 @@ audit-only accepted-reference SHA is evidence metadata, not a provider
 reference binding; without a reviewed durable project-relative copy, no path
 may be invented or placed in `referenceBindings`.
 
+### Provider-facing salience and deduplication gate
+
+`scenePromptOriginal` is executable art direction, not an evidence transcript.
+The visual brief and evidence map preserve complete planning/profile
+provenance; the provider prompt MUST NOT repeat those records as bookkeeping
+blocks. For every `character_single_image` lock-array profile, assemble the
+provider prompt as one concise priority ladder while retaining the normative
+negative-lock order followed by the normative positive-lock order:
+
+1. lead with one compact hard-output block containing the planning-bound body
+   proportion, silhouette/contour treatment, and generation-background result;
+2. describe identity, pose, costume, equipment, and weapon anchors once, with
+   identity-critical shape before material or surface language;
+3. describe line, pigment, palette-role, and negative-space execution once;
+4. include every negative lock statement exactly once in normative order and
+   every positive lock statement exactly once in normative order;
+5. end with one short measurable gestalt check. It may restate a planning-bound
+   number or short prohibition once, but MUST NOT copy a lock statement or a
+   prior paragraph again.
+
+The provider prompt MUST NOT contain record IDs, routing IDs, hashes, absolute
+or project-relative evidence paths, authority labels, provider/workflow labels,
+or headings such as `APPROVED REQUIRED STATEMENTS`, `APPROVED PROHIBITED
+STATEMENTS`, or `ORDERED ... LOCKS`. Those values remain in the closed record,
+visual brief, evidence map, and validation output. Use one provider language;
+retain an untranslated Korean/Joseon term only when it is an approved identity
+anchor, not as a bilingual duplicate of the same instruction.
+
+When `generationBackground.mode=removable_solid`, provider prose describes only
+the submitted generation canvas: one uniform edge-to-edge approved solid color
+with no luminance falloff, dark corners, radial gradient, halo, vignette,
+scene, or shadow when those are prohibited. Do not mention the later
+transparent-final or background-removal operation in `scenePromptOriginal`;
+that belongs to preservation/packaging and remains in the brief and settings.
+
+Equipment identity does not authorize surface topology. When planning/profile
+prohibits armor scales, rivets, microtexture, dense folds, or modeled material,
+describe the approved armor as a simplified interrupted identity mass and state
+that repeated plates/scales/rivets are absent. Do not repeat detailed equipment
+nouns in multiple sections or add realistic material adjectives merely to
+preserve identity.
+
+Before publication, normalize line endings and verify all of the following:
+
+- each exact lock statement occurs once and only once;
+- no raw hash, path, record/workflow label, or evidence heading entered provider
+  prose;
+- a removable-solid prompt contains no `transparent final` or background-
+  removal instruction;
+- each primary measurable concept occurs no more than twice: once in its hard
+  instruction or exact lock, and optionally once in the final gestalt check;
+- each approved identity/equipment fact is projected once outside the exact
+  lock arrays and cannot weaken its applicable simplification prohibitions.
+
+Any violation is `provider_value_invalid`. This is a provider-payload assembly
+failure; it does not mutate the selected immutable expression profile or any
+planning fact.
+For `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, the cohesive
+prompt contains all nineteen closed members and both ordered nine-item lock
+arrays. It states the cranial-mass-to-chin/full-body measurement, broad sparse
+face/armor/garment treatment, uniform `#F2EFE6` field, and all seven ordered
+output gates as executable statements. The prompt cannot call a nonconformant
+return complete or final. This successor is selected only by a new exact
+planning pointer; v1 records remain governed by the preceding paragraph.
+
 For `projectbs_character_bold_outline_compressed_detail@1.0.0`, the cohesive
 prompt contains every lock plus the exact planning-bound head count, external
 and internal source-pixel thicknesses, calculated thickness ratio, facial mark
@@ -1097,7 +1340,7 @@ reference/profile fields. Typed blockers are
 `unexpected_character_style_reference`, and
 `character_animation_style_lock_mismatch`.
 
-The open ink-wash profile additionally requires all eleven exact policy
+The open ink-wash v1 profile additionally requires all eleven exact policy
 members, both ordered lock arrays, exact planning-bound identity/equipment
 anchors, and direct provider-prose coverage. It is single-image-only and cannot
 be inherited by animation. Use only the central `open_ink_wash_*` authoring,
@@ -1105,6 +1348,12 @@ generation, and evaluation tokens for its profile-specific gates. A missing
 durable reference path is not a blocker because the accepted image is
 audit-only; any attempt to bind an absolute/transient path or use the image for
 identity/editing is `open_ink_wash_reference_role_invalid`.
+
+The v2 successor instead requires all nineteen exact members, ordered 9+9
+locks, and the distinct `open_ink_wash_v2_*` authoring tokens. Generation uses
+the added pre-submit surface-detail blocker and, after a returned preview, the
+seven `character_preview_open_ink_wash_v2_*` conformance tokens. A compact
+receipt is response-only and has no record/index/CAS projection.
 
 For the composed motion-flow successor, equality means exact base/reference
 equality plus exact successor registry equality, not equality between the two
@@ -1162,6 +1411,13 @@ reference role. Generation is no-submit on any failure. Evaluation uses
 reproducible observable evidence and returns
 `character_evaluation_evidence_insufficient` instead of guessing exact
 percentages or stroke phases.
+
+For `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, the same
+pre-submit semantic checks add the closed surface-detail gate. Returned preview
+pixels must then pass the seven ordered output gates before the response may be
+`preview_conformant_no_downstream`; fail or insufficient evidence returns
+`stop_no_retry_not_final` without retry or downstream action. Formal evaluation
+remains separate and independently validates media evidence.
 
 ## Related Guides
 

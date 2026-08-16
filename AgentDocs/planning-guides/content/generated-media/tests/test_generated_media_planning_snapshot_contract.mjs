@@ -42,6 +42,54 @@ function validateSnapshotSources(sourcePlanningFiles, approvedFacts, exactSource
   }
 }
 
+function validateOpenInkPlanningProjection(projection, requestedFidelity) {
+  const expectedKeys = [
+    "backgroundExclusions",
+    "contourOmissionTargetPercent",
+    "fullBodyHeadCount",
+    "generationBackground",
+    "negativeSpaceMinimumPercent",
+    "paletteRoleAnchors",
+    "schemaVersion",
+    "styleReferenceFidelity",
+  ];
+  assert.deepEqual(Object.keys(projection).sort(), expectedKeys);
+  assert.deepEqual(Object.keys(projection.negativeSpaceMinimumPercent).sort(),
+    ["figureInterior", "fullCanvas"]);
+  assert.deepEqual(Object.keys(projection.paletteRoleAnchors).sort(),
+    ["primaryCool", "secondaryEarth", "smallWarmAccent"]);
+  assert.deepEqual(Object.keys(projection.generationBackground).sort(), ["color", "mode"]);
+  assert.deepEqual(Object.keys(projection.backgroundExclusions).sort(),
+    ["halo", "scene", "shadow", "vignette"]);
+  assert.deepEqual(Object.keys(projection.styleReferenceFidelity).sort(),
+    ["auditOnlySha256", "mode", "providerReferenceAuthorized"]);
+  if (projection.schemaVersion !== "character_open_ink_wash_planning_projection_v1" ||
+      projection.fullBodyHeadCount !== 4.25 ||
+      projection.contourOmissionTargetPercent !== 45 ||
+      projection.negativeSpaceMinimumPercent.figureInterior < 70 ||
+      projection.negativeSpaceMinimumPercent.fullCanvas < 70 ||
+      projection.generationBackground.mode !== "removable_solid" ||
+      !Object.values(projection.backgroundExclusions).every((value) => value === true)) {
+    throw new Error("open_ink_wash_profile_projection_mismatch");
+  }
+  for (const anchors of Object.values(projection.paletteRoleAnchors)) {
+    if (!Array.isArray(anchors) || anchors.length === 0 ||
+        new Set(anchors).size !== anchors.length) {
+      throw new Error("open_ink_wash_profile_projection_mismatch");
+    }
+  }
+  const fidelity = projection.styleReferenceFidelity;
+  if (fidelity.mode !== "semantic_text_projection_only" ||
+      fidelity.auditOnlySha256 !==
+        "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf" ||
+      fidelity.providerReferenceAuthorized !== false) {
+    throw new Error("open_ink_wash_profile_projection_mismatch");
+  }
+  if (requestedFidelity === "selected_raster_match") {
+    throw new Error("character_style_profile_conflict");
+  }
+}
+
 function deriveCapture({ assetType, contentId, canonicalPath, canonicalPlanning,
   decisionDocuments, sourcePlanningFiles, snapshotHash, readablePaths }) {
   const decisionPrefix = "AgentDocs/planning-data/character/design-decisions/";
@@ -249,6 +297,98 @@ assert.throws(() => validateSnapshotSources(openInkSources,
   [{...openInkFacts[0], value: "projectbs_character_sparse_ink_pastel_motion@1.0.0"},
     openInkFacts[1]], new Map([[openInkDecisionPath, openInkDecisionBytes]])),
 /planning_snapshot_mismatch/);
+
+const openInkPlanningProjection = {
+  schemaVersion: "character_open_ink_wash_planning_projection_v1",
+  fullBodyHeadCount: 4.25,
+  contourOmissionTargetPercent: 45,
+  negativeSpaceMinimumPercent: {figureInterior: 70, fullCanvas: 70},
+  paletteRoleAnchors: {
+    primaryCool: ["robe_collar", "waist_sash", "hwando_hilt"],
+    secondaryEarth: ["travel_overcoat", "one_shoulder_armor", "travel_accessory"],
+    smallWarmAccent: ["utility_pouch", "selected_repair_point"],
+  },
+  generationBackground: {mode: "removable_solid", color: "#F2EFE6"},
+  backgroundExclusions: {halo: true, vignette: true, scene: true, shadow: true},
+  styleReferenceFidelity: {
+    mode: "semantic_text_projection_only",
+    auditOnlySha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+    providerReferenceAuthorized: false,
+  },
+};
+validateOpenInkPlanningProjection(openInkPlanningProjection, "semantic_direction_only");
+assert.throws(
+  () => validateOpenInkPlanningProjection(openInkPlanningProjection, "selected_raster_match"),
+  /character_style_profile_conflict/,
+);
+assert.throws(
+  () => validateOpenInkPlanningProjection({
+    ...openInkPlanningProjection,
+    negativeSpaceMinimumPercent: {figureInterior: 70, fullCanvas: 69},
+  }, "semantic_direction_only"),
+  /open_ink_wash_profile_projection_mismatch/,
+);
+
+const projectionDecisionPath =
+  "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.open-ink-projection.example.json";
+const projectionDecisionBytes = Buffer.from(canonicalize({
+  openInkWashPlanningProjection: openInkPlanningProjection,
+}) + "\n", "utf8");
+const projectionSource = {
+  path: projectionDecisionPath,
+  role: "character_visual_design_decision_current",
+  sha256: sha256(projectionDecisionBytes),
+};
+const projectionLeafFacts = [
+  ["example.open_ink.projection_schema", "/openInkWashPlanningProjection/schemaVersion", "character_open_ink_wash_planning_projection_v1"],
+  ["example.open_ink.full_body_heads", "/openInkWashPlanningProjection/fullBodyHeadCount", 4.25],
+  ["example.open_ink.contour_target", "/openInkWashPlanningProjection/contourOmissionTargetPercent", 45],
+  ["example.open_ink.figure_negative_space", "/openInkWashPlanningProjection/negativeSpaceMinimumPercent/figureInterior", 70],
+  ["example.open_ink.canvas_negative_space", "/openInkWashPlanningProjection/negativeSpaceMinimumPercent/fullCanvas", 70],
+  ["example.open_ink.primary_anchors", "/openInkWashPlanningProjection/paletteRoleAnchors/primaryCool", ["robe_collar", "waist_sash", "hwando_hilt"]],
+  ["example.open_ink.secondary_anchors", "/openInkWashPlanningProjection/paletteRoleAnchors/secondaryEarth", ["travel_overcoat", "one_shoulder_armor", "travel_accessory"]],
+  ["example.open_ink.accent_anchors", "/openInkWashPlanningProjection/paletteRoleAnchors/smallWarmAccent", ["utility_pouch", "selected_repair_point"]],
+  ["example.open_ink.background_mode", "/openInkWashPlanningProjection/generationBackground/mode", "removable_solid"],
+  ["example.open_ink.background_color", "/openInkWashPlanningProjection/generationBackground/color", "#F2EFE6"],
+  ["example.open_ink.no_halo", "/openInkWashPlanningProjection/backgroundExclusions/halo", true],
+  ["example.open_ink.no_vignette", "/openInkWashPlanningProjection/backgroundExclusions/vignette", true],
+  ["example.open_ink.no_scene", "/openInkWashPlanningProjection/backgroundExclusions/scene", true],
+  ["example.open_ink.no_shadow", "/openInkWashPlanningProjection/backgroundExclusions/shadow", true],
+  ["example.open_ink.reference_mode", "/openInkWashPlanningProjection/styleReferenceFidelity/mode", "semantic_text_projection_only"],
+  ["example.open_ink.reference_sha", "/openInkWashPlanningProjection/styleReferenceFidelity/auditOnlySha256", "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf"],
+  ["example.open_ink.reference_authorized", "/openInkWashPlanningProjection/styleReferenceFidelity/providerReferenceAuthorized", false],
+].map(([factId, sourcePointer, value]) => ({
+  factId,
+  sourcePath: projectionDecisionPath,
+  sourcePointer,
+  value,
+}));
+validateSnapshotSources([projectionSource], projectionLeafFacts,
+  new Map([[projectionDecisionPath, projectionDecisionBytes]]));
+assert.throws(() => validateSnapshotSources([projectionSource], projectionLeafFacts.map((fact) =>
+  fact.factId === "example.open_ink.no_halo" ? {...fact, value: false} : fact),
+new Map([[projectionDecisionPath, projectionDecisionBytes]])), /planning_snapshot_mismatch/);
+const openInkV2ProfileKey = "projectbs_character_open_ink_wash_dynamic_contour@2.0.0";
+const openInkV2ProfileHash = "b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5";
+const openInkV2DecisionPath =
+  "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.open-ink-wash-v2.json";
+const openInkV2DecisionBytes = Buffer.from(canonicalize({
+  expressionProfileKey: openInkV2ProfileKey,
+  expressionProfilePayloadHash: openInkV2ProfileHash,
+}) + "\n", "utf8");
+const openInkV2Sources = [{ path: openInkV2DecisionPath,
+  role: "character_expression_profile_selection", sha256: sha256(openInkV2DecisionBytes) }];
+const openInkV2Facts = [{ factId: "example.expression_profile_key",
+  sourcePath: openInkV2DecisionPath, sourcePointer: "/expressionProfileKey",
+  value: openInkV2ProfileKey }, { factId: "example.expression_profile_hash",
+  sourcePath: openInkV2DecisionPath, sourcePointer: "/expressionProfilePayloadHash",
+  value: openInkV2ProfileHash }];
+validateSnapshotSources(openInkV2Sources, openInkV2Facts,
+  new Map([[openInkV2DecisionPath, openInkV2DecisionBytes]]));
+assert.throws(() => validateSnapshotSources(openInkV2Sources,
+  [{ ...openInkV2Facts[0], value: openInkProfileKey }, openInkV2Facts[1]],
+  new Map([[openInkV2DecisionPath, openInkV2DecisionBytes]])), /planning_snapshot_mismatch/,
+"v1 cannot silently replace an approved v2 planning pointer");
 assert.throws(
   () => validateSnapshotSources(exactSources, exactFacts, new Map([
     [canonicalSourcePath, Buffer.from(canonicalSourceBytes.toString("utf8").replace(/\n$/, "\r\n"), "utf8")],

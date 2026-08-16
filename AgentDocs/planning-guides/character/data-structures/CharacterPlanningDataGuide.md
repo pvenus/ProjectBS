@@ -236,10 +236,77 @@ sentences into appearance fields as if they were character identity.
   removable background, no halo/scene/shadow, and complete character-specific
   identity/equipment bindings. The accepted style-reference SHA is audit-only
   and is never a planning identity fact or edit target;
+  its separate output-conformance successor is
+  `projectbs_character_open_ink_wash_dynamic_contour@2.0.0` with hash
+  `b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5`.
+  Planning selects v2 only as a new exact pointer; it does not upgrade v1
+  records. V2 additionally requires the exact cranial-mass/chin/sole proportion
+  measurement definition, simplified surface-detail boundary, uniform warm-
+  ivory/no-radial-background rule, and mandatory post-output conformance receipt;
   actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit
   planning/profile revision. Downstream stages never silently restyle planning.
+
+#### Open ink-wash planning-owned projection
+
+For a new decision created after this projection contract is published, an
+explicit selection of
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0` also requires this
+closed member under `generatedMediaPlanning.characterSingleImage`:
+
+```yaml
+openInkWashPlanningProjection:
+  schemaVersion: character_open_ink_wash_planning_projection_v1
+  fullBodyHeadCount: exact JSON number 4.25
+  contourOmissionTargetPercent: exact JSON number 45
+  negativeSpaceMinimumPercent:
+    figureInterior: exact JSON number from 70 through 100
+    fullCanvas: exact JSON number from 70 through 100
+  paletteRoleAnchors:
+    primaryCool: non-empty unique ordered exact character element/site labels
+    secondaryEarth: non-empty unique ordered exact character element/site labels
+    smallWarmAccent: non-empty unique ordered exact character element/site labels
+  generationBackground:
+    mode: removable_solid
+    color: exact approved warm-ivory color
+  backgroundExclusions:
+    halo: true
+    vignette: true
+    scene: true
+    shadow: true
+  styleReferenceFidelity:
+    mode: semantic_text_projection_only
+    auditOnlySha256: b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf
+    providerReferenceAuthorized: false
+```
+
+Unknown members are rejected. The projection stores planning-owned exact
+targets and character-specific anchors; the immutable expression-profile
+payload continues to own the reusable ranges, mok-seon phases, pigment policy,
+and style locks. The selected full-body target is `4.25`, the selected contour
+target is `45`, and both negative-space floors are `70` for the current
+approved direction. The generation-background value must equal
+`singleImageSpecification.generationBackground`, and every exclusion must
+agree with `prohibitedElements` and `singleImageSpecification.noShadow`.
+
+Every scalar and each complete anchor array in this object is captured as its
+own `approvedFacts` entry using a leaf JSON pointer. A whole prose description,
+the whole projection object, or a combined required/prohibited sentence does
+not replace these leaf facts. This makes the numeric and background gates
+machine-comparable without asking downstream roles to parse Korean or English
+prose.
+
+`semantic_text_projection_only` records a material fidelity limitation: the
+accepted raster may inform planning review, but its bytes are not available to
+the provider and no visual/composition match to that raster is promised. If
+the user requires the generated image to match or closely follow the selected
+raster rather than only its reviewed textual semantics, the planning is
+`blocked` with `character_style_profile_conflict` until a separate reviewed
+durable project-relative style-only reference contract is published. Do not
+mark the request ready, invent a path, or weaken the requested fidelity. This
+rule does not retroactively rewrite or invalidate an immutable handoff already
+published on the selected authoritative baseline.
 
 ### 3.4 Generated Media planning readiness
 
@@ -257,6 +324,15 @@ generatedMediaPlanning:
   characterSingleImage:
     readiness: ready | blocked | not_requested
     expressionProfileKey: optional exact registered character expression-profile key
+    openInkWashPlanningProjection: # required only for projectbs_character_open_ink_wash_dynamic_contour@1.0.0 decisions created after its planning-projection contract publication; forbidden otherwise
+      schemaVersion: character_open_ink_wash_planning_projection_v1
+      fullBodyHeadCount: exact JSON number 4.25
+      contourOmissionTargetPercent: exact JSON number 45
+      negativeSpaceMinimumPercent: {figureInterior: JSON number 70..100, fullCanvas: JSON number 70..100}
+      paletteRoleAnchors: {primaryCool: [unique labels], secondaryEarth: [unique labels], smallWarmAccent: [unique labels]}
+      generationBackground: {mode: removable_solid, color: approved warm-ivory color}
+      backgroundExclusions: {halo: true, vignette: true, scene: true, shadow: true}
+      styleReferenceFidelity: {mode: semantic_text_projection_only, auditOnlySha256: exact accepted SHA-256, providerReferenceAuthorized: false}
     expressionProfileProjection: # required only for projectbs_character_bold_outline_compressed_detail@1.0.0; v2 uses the successor extension below; forbidden otherwise
       fullBodyHeadCount: JSON number from 4 through 5
       externalOutlineSourcePx: JSON integer from 16 through 22 for the approved 1024x1536 source canvas
@@ -339,6 +415,16 @@ registered key, must have `factEvidence` to an approved planning decision, and
 must be projected unchanged into the handoff snapshot `approvedFacts`. Unknown
 or conflicting selection returns `character_style_profile_conflict`; no
 downstream stage may add, alias, or repair this value.
+
+For the open ink-wash key, readiness additionally requires the exact
+`openInkWashPlanningProjection` above and leaf-level approved-fact capture.
+Missing or mismatched projection returns
+`missing_open_ink_wash_profile_projection` or
+`open_ink_wash_profile_projection_mismatch`; missing leaf evidence returns
+`open_ink_wash_profile_evidence_incomplete`. A selected-raster fidelity request
+combined with `semantic_text_projection_only` returns
+`character_style_profile_conflict`. These are no-handoff outcomes and do not
+authorize a provider reference or a new visual decision.
 
 For `projectbs_character_bold_outline_compressed_detail@1.0.0`, the displayed
 `expressionProfileProjection` member set is closed and every scalar/list/object

@@ -119,6 +119,19 @@ accepted-image SHA is audit-only: absent a reviewed durable project-relative
 style-only publication, no reference path/binding is created and the image is
 never identity or edit target. This profile is single-image-only.
 
+When a new planning revision instead selects
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, authoring uses the
+exact nineteen-member successor payload and 9+9 locks without changing v1. It
+additionally binds a closed full-body head-count measurement method, a sparse
+surface-detail ceiling that forbids modeled faces and individually rendered
+armor/garment micro-detail, a spatially uniform `#F2EFE6` background with no
+radial or edge darkening, and the seven-gate provider-output conformance order.
+Generation rejects weakened provider prose before submit. After a one-shot
+preview returns, it performs only the closed non-scoring observable triage and
+returns one compact conformance receipt. A failed or insufficient gate is
+`stop_no_retry_not_final`; it does not authorize a retry, edit, evaluation,
+preservation, promotion, or second provider call.
+
 Generation performs a separate no-submit semantic preflight over the immutable
 prompt record. Any allowance for greater-than-4.25-head or naturalistic
 seven-to-eight-head anatomy, dense realistic detail, or nonminimal color/value
@@ -161,10 +174,12 @@ one approved viewpoint, ImageGen provider, `character_single_image_v2`, and
 the selected union branch: non-empty lock-array coverage for any registered
 lock-array profile, including the complete bold-outline projection, or exact
 eight-member projection/evidence coverage with empty lock
-arrays for sparse. The open ink-wash lock-array branch additionally requires
+arrays for sparse. The open ink-wash v1 lock-array branch additionally requires
 all eleven exact policy members and prohibits animation inheritance or an
-audit-only reference binding. No planning, packaging, evaluation, promotion, or
-Git work occurs.
+audit-only reference binding. The v2 open ink-wash branch instead requires all
+nineteen members, 9+9 locks, the seven ordered post-output gates, and the
+response-only compact receipt. No planning, packaging, scoring evaluation,
+promotion, or Git work occurs.
 
 Generation blockers additionally include the exact contract 6.1-6.2 approval,
 scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
@@ -172,7 +187,12 @@ A blocked output
 returns status, failureType, missingFields, providerCalled=false,
 costEvidence, requiredDecision, and safeToRetry. A successful output returns
 the generation record ID/hash, attempts, result refs, costEvidence,
-idempotencyKey, preservation handoff, and nextStep.
+idempotencyKey, preservation handoff, and nextStep. For a hosted preview
+selected with open ink-wash v2, the terminal generation response instead
+returns the compact `generated_media_profile_conformance_receipt_v1`. Only
+seven passes may say `preview_conformant_no_downstream`; a fail or insufficient
+result must say `stop_no_retry_not_final` and must not be described as completed
+or final.
 
 ## Task Prompts
 

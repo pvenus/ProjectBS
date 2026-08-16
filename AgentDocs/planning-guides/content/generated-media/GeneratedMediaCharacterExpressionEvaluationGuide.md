@@ -6,7 +6,8 @@ This evaluation guide applies when a character main image declares
 `projectbs_character_sparse_ink_pastel_motion@1.0.0` or
 `projectbs_character_bold_outline_compressed_detail@1.0.0` or
 `projectbs_character_bold_outline_compressed_detail@2.0.0` or
-`projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, and to character
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0` or
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, and to character
 animation for the sparse profile or the separately registered
 `projectbs_character_bold_outline_attack_motion_flow@1.0.0` composed successor;
 the two base bold profiles remain single-image-only. It evaluates preserved
@@ -68,6 +69,7 @@ budgets.
 | `character_evaluation_open_ink_wash_background_gate_failed` | generation/final evidence shows a non-removable non-warm-ivory generation background, halo, vignette, scene, or shadow |
 | `character_evaluation_open_ink_wash_identity_equipment_gate_failed` | approved young-adult Korean/Joseon identity, costume, equipment, weapon, handedness, or identifying anchors drift or disappear |
 | `character_evaluation_open_ink_wash_reference_role_gate_failed` | audit-only accepted SHA was used as canonical identity, provider reference binding, person/pose/action/clothing/equipment source, or edit target without closed durable project-relative style-only publication |
+| `character_evaluation_open_ink_wash_v2_surface_detail_gate_failed` | v2 output shows a realistically modeled face, individually rendered armor plates/scales/rivets/lacing/fasteners, garment microfolds, microtexture, modeled light, or realistic material rendering |
 
 The evaluator uses the authored profile projection and an observable checklist.
 It may use a reproducible pixel-area measurement when available, but must record
@@ -76,7 +78,11 @@ invent computer-vision precision: clearly visible opaque/cel fill is fatal;
 uncertain area is a blocker requiring reviewed evidence, not a guessed pass.
 For v2, the same rule applies to visible/internal/fold counts, ochre anchor-site
 class, halo opacity/coverage/center/falloff/edge alpha, and scene/shadow status.
-Insufficient reproducible evidence returns
+For open ink-wash v2, the same rule applies to the full-body head-count method,
+surface-detail categories, spatial background uniformity, and every result in
+the prior compact conformance receipt. The receipt may focus review but cannot
+replace evaluation-package/media evidence or turn a preview into an evaluation
+input. Insufficient reproducible evidence returns
 `character_evaluation_evidence_insufficient`, never a guessed acceptance.
 
 ## Observable Checklist
@@ -117,6 +123,12 @@ scene, or shadow. Confirm all planning-bound Korean/Joseon identity/equipment
 anchors and audit-only reference role. Unreproducible percentages or stroke
 phases block as evidence insufficient rather than passing by impression.
 
+For the v2 successor, additionally confirm that the face, armor, and garments
+remain broad and sparse rather than individually modeled, and that the full
+canvas is uniform `#F2EFE6` without radial gradient or edge darkening. Apply
+the v2 surface-detail fatal token independently from the existing background
+and proportion gates.
+
 ## Result Contract
 
 Return `PASS`, `FAIL`, or `BLOCKED`, the exact profile key/hash, artifact and
@@ -153,6 +165,11 @@ package/report contract.
   uniform vector contour, missing stroke phase, clean cel fill, decorative
   splashes, collapsed palette roles, either negative-space floor below 70,
   halo/vignette/scene/shadow, identity/equipment drift, and reference-role misuse.
+- Open ink-wash v2 main fail: additionally exercise 7-head anatomy, a realistic
+  modeled face, individual armor plates/rivets/lacing, garment microfolds,
+  microtexture/modeled light, radial dark halo, edge vignette, and insufficient
+  measurement evidence. The compact preview receipt never substitutes for the
+  evaluation package.
 
 The six-frame count belongs only to these golden fixtures. Operational
 evaluation accepts any positive approved `finalFrameCount` and requires the

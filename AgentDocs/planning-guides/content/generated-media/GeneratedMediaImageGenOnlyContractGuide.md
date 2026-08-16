@@ -754,6 +754,28 @@ settingsDescriptorStatus: unavailable_on_callable_surface
 costEstimate: {status: unavailable}
 ```
 
+`exposedOptions` is a control-coverage claim, not a list of desired values.
+Before approval or submit, every provider-time member of
+`providerSettingsIntent` (`canvas`, `generationBackground`, and `outputFormat`
+for the current character record) MUST have an exact same-value control on the
+callable surface and an exact projection in `exposedOptions`. Prompt prose is
+not a substitute for a missing callable control. If any provider-time member
+is absent, differently shaped, or only assumed from a hosted default, return
+`hosted_preview_unknown_setting`, `providerCalled=false`, and `submitCount=0`.
+This makes an empty or partial `exposedOptions` object truthful but non-
+submittable for an exact-settings request.
+
+Preview owns no background removal or other downstream transformation. If the
+immutable provider prompt simultaneously asks for a removable solid generation
+background and a transparent final/background-removed result, or otherwise
+depends on a preservation-stage transformation, return
+`hosted_preview_prompt_stage_semantics_conflict` before submit. Generation does
+not repair the prompt or choose one side. A prompt that merely forbids halo,
+vignette, scene, or shadow still expresses intent only; the six open-ink-wash
+semantic gates prove instruction conformance, not provider-output conformance.
+With zero retries and no evaluation, they cannot predict or certify that the
+returned pixels will follow those instructions.
+
 ##### 6.1.1.1 Standing automatic preview approval policy v1
 
 `generated_media_hosted_preview_auto_approval_policy_v1` is an immutable,
@@ -825,10 +847,25 @@ standing policy is supplied. Prompt, reference, settings-seal, request, or
 identity drift invalidates the attestation and forces a fresh scope
 derivation; it never reuses the old scope hash.
 
-Before submit, re-read and hash the request, prompt JSON/Markdown, prompt
-payload, settings intent, references and exact single work-unit identity. Any
-drift blocks. Check that no preview record exists and no active submission is
-associated with the same scope. `submitCountMaximum=1` and
+The first complete validation pass may derive one in-memory, task-local
+`generated_media_generation_preflight_receipt_v1`. It binds the authoritative
+commit, request/work-unit identity, prompt JSON/Markdown/payload hashes,
+provider-settings-intent and settings-seal hashes, reference-bindings hash,
+expression-profile payload hash, semantic-gate result, and observed
+submit/retry state. The receipt is never persisted, handed to another task, or
+used after authority/input changes.
+
+Immediately before submit, re-read only the receipt's exact drift anchors and
+the current preview/active-attempt state. Matching anchors reuse the receipt's
+already completed closed-schema/profile/semantic validation instead of
+re-reading guides or re-emitting full payloads. Prompt, reference, settings,
+identity, authority, or attempt drift invalidates the receipt and applies the
+existing exact blocker or requires one fresh complete validation pass; it does
+not authorize submit. A task MUST NOT run the same full semantic validation
+again merely to produce a second transcript.
+
+Check that no preview record exists and no active submission is associated
+with the same scope. `submitCountMaximum=1` and
 `retryCountMaximum=0` are constants: failure, timeout or ambiguity does not
 authorize another call. Additional output or retry requires a new exact scope.
 The new scope requires either a new manual current-user approval or a fresh
@@ -873,6 +910,7 @@ Preview uses only these additional central failure tokens:
 | `hosted_preview_auto_approval_policy_revoked` | policy hash is revoked and cannot attest a new scope |
 | `hosted_preview_scope_mismatch` | approval hash does not equal recomputed current scope |
 | `hosted_preview_unknown_setting` | execution would require an unexposed or invented setting/default |
+| `hosted_preview_prompt_stage_semantics_conflict` | immutable prompt requires both provider-time solid background and preview-forbidden downstream removal/transparent-final semantics |
 | `hosted_preview_prompt_drift` | prompt record/file/payload changed before submit |
 | `hosted_preview_reference_drift` | reference role/path/hash changed before submit |
 | `hosted_preview_submit_limit_exceeded` | one submit was already consumed |
@@ -1205,6 +1243,21 @@ The five open ink-wash authoring tokens apply only to
 | `provider_prompt_open_ink_wash_projection_missing` | provider prose omits or weakens any exact profile member, planning-bound anchor, or ordered lock |
 | `open_ink_wash_reference_role_invalid` | the audit-only accepted SHA is given an absolute/transient path, provider reference binding, identity/person/pose/action/clothing/equipment role, or edit-target role before a reviewed durable project-relative style-only publication exists |
 
+The v1 meanings above are immutable. The output-conformance successor
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0` uses these distinct
+authoring tokens:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_open_ink_wash_v2_profile_projection` | one or more of the exact nineteen successor members, either ordered 9-item lock array, or the closed gate order is absent |
+| `open_ink_wash_v2_profile_projection_mismatch` | any successor member, nested value, type, array order, key, predecessor binding, or recomputed payload hash differs from the canonical v2 payload |
+| `open_ink_wash_v2_profile_evidence_incomplete` | a successor policy member, lock, gate, or character-specific planning binding lacks exact authority evidence |
+| `provider_prompt_open_ink_wash_v2_projection_missing` | provider prose omits or weakens any successor constraint, including the measurement, surface-detail, uniform-background, or output-conformance constraint |
+| `open_ink_wash_v2_reference_role_invalid` | the audit-only accepted SHA is given an absolute/transient path, provider reference binding, identity/person/pose/action/clothing/equipment role, or edit-target role before reviewed durable project-relative style-only publication exists |
+
+These tokens do not reinterpret v1. A new planning revision must select the v2
+key and exact v2 payload hash before authoring may use them.
+
 The bold-outline authoring tokens apply only to
 `projectbs_character_bold_outline_compressed_detail@1.0.0`:
 
@@ -1255,7 +1308,7 @@ capability access.
 
 The lock-array tokens `missing_positive_style_lock`,
 `missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
-`provider_prompt_style_lock_missing` apply only to the five registered
+`provider_prompt_style_lock_missing` apply only to the six registered
 lock-array profiles, including bold-outline compressed-detail and open ink-wash.
 They MUST NOT be
 returned for the sparse profile.
@@ -1332,6 +1385,15 @@ character_generation_open_ink_wash_pigment_negative_space_gate_failed
 character_generation_open_ink_wash_background_gate_failed
 character_generation_open_ink_wash_identity_equipment_gate_failed
 character_generation_open_ink_wash_reference_role_gate_failed
+character_generation_open_ink_wash_v2_surface_detail_gate_failed
+character_preview_open_ink_wash_v2_proportion_age_nonconformant
+character_preview_open_ink_wash_v2_contour_mok_seon_nonconformant
+character_preview_open_ink_wash_v2_surface_detail_nonconformant
+character_preview_open_ink_wash_v2_pigment_negative_space_nonconformant
+character_preview_open_ink_wash_v2_background_nonconformant
+character_preview_open_ink_wash_v2_identity_equipment_nonconformant
+character_preview_open_ink_wash_v2_reference_role_nonconformant
+character_preview_open_ink_wash_v2_evidence_insufficient
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
 missing_hosted_preview_auto_approval_policy
@@ -1340,6 +1402,7 @@ hosted_preview_auto_approval_policy_mismatch
 hosted_preview_auto_approval_policy_revoked
 hosted_preview_scope_mismatch
 hosted_preview_unknown_setting
+hosted_preview_prompt_stage_semantics_conflict
 hosted_preview_prompt_drift
 hosted_preview_reference_drift
 hosted_preview_submit_limit_exceeded
@@ -1446,6 +1509,39 @@ durable publication fails
 `character_generation_open_ink_wash_reference_role_gate_failed`. All return
 `providerCalled=false`, `submitCount=0`, and `cost=0` without repairing prose.
 
+For `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, generation keeps
+all six v1-equivalent pre-submit gates and additionally rejects provider prose
+that permits a realistically modeled face, individually rendered armor plates,
+scales, rivets, lacing, fasteners, garment microfolds, microtexture, modeled
+light, or realistic material rendering as
+`character_generation_open_ink_wash_v2_surface_detail_gate_failed`. This is a
+no-call blocker. Passing every pre-submit gate is only permission to submit; it
+is not evidence that returned pixels conform.
+
+After exactly one hosted-preview submit returns observable output, the v2
+branch performs the closed, non-scoring profile-conformance triage in this
+order: `proportion_age`, `contour_mok_seon`, `surface_detail`,
+`pigment_palette_negative_space`, `background`, `identity_equipment`, then
+`reference_role`. A visible violation returns the corresponding
+`character_preview_open_ink_wash_v2_*_nonconformant` token and
+`profileConformanceStatus=preview_profile_nonconformant`. In particular, a
+figure outside 4-5 heads or not centered on the 4.25 target fails proportion;
+realistically modeled facial or equipment micro-detail fails surface detail;
+and any radial gradient, dark backdrop, halo, vignette, scene, or shadow fails
+background. Evidence that cannot support a gate returns
+`character_preview_open_ink_wash_v2_evidence_insufficient` and
+`profileConformanceStatus=preview_profile_conformance_blocked`.
+
+Only seven explicit passes return
+`profileConformanceStatus=preview_conformant_no_downstream`. Every other result
+has `nextStep=stop_no_retry_not_final`. The output remains a one-submit preview:
+the triage does not call a provider, retry, edit, score, evaluate, preserve, or
+promote it, and it never labels a nonpass output complete or final. Generation
+returns the compact `generated_media_profile_conformance_receipt_v1` defined in
+GeneratedMediaRecordGuide.md; later control-plane messages reference its hash
+instead of retransmitting the full authority payload. A compact receipt never
+replaces fresh Git-blob verification before a mutation boundary.
+
 #### 8.4.1 Character Expression Evaluation Extension
 
 ```text
@@ -1476,6 +1572,7 @@ character_evaluation_open_ink_wash_pigment_negative_space_gate_failed
 character_evaluation_open_ink_wash_background_gate_failed
 character_evaluation_open_ink_wash_identity_equipment_gate_failed
 character_evaluation_open_ink_wash_reference_role_gate_failed
+character_evaluation_open_ink_wash_v2_surface_detail_gate_failed
 ```
 
 The first four tokens respectively mean that the required sealed package is
@@ -1516,6 +1613,13 @@ groups. A failed group is fatal. Percentages, stroke phases, palette roles,
 background status, identity/equipment stability, and reference role require
 reproducible observable evidence; otherwise return
 `character_evaluation_evidence_insufficient`, never an inferred pass.
+
+For the open ink-wash v2 successor, evaluation reuses those six profile gates
+and independently applies
+`character_evaluation_open_ink_wash_v2_surface_detail_gate_failed` to realistic
+face modeling, enumerated armor/fastener/garment detail, microtexture, modeled
+light, or realistic material rendering. Its compact preview receipt is not an
+evaluation package and cannot supply a guessed pass.
 
 ### 8.5 Preservation Extension
 

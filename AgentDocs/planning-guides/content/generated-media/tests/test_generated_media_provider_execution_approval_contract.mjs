@@ -467,8 +467,8 @@ function hostedPreviewFixture(workUnitType = "exact_single_image") {
     schemaVersion: "generated_media_hosted_preview_settings_seal_v1",
     providerSettingsIntent: structuredClone(providerSettingsIntent),
     providerSettingsIntentSha256: hashObject(providerSettingsIntent),
-    exposedOptions: { outputFormat: "png" },
-    exposedOptionsSha256: hashObject({ outputFormat: "png" }),
+    exposedOptions: structuredClone(providerSettingsIntent),
+    exposedOptionsSha256: hashObject(providerSettingsIntent),
     capabilityDescriptorStatus: "unavailable_on_callable_surface",
     settingsDescriptorStatus: "unavailable_on_callable_surface",
     costEstimate: { status: "unavailable" },
@@ -506,10 +506,34 @@ function hostedPreviewFixture(workUnitType = "exact_single_image") {
     retryCountMaximum: 0,
     promotionPolicy: "not_promotable",
   };
-  return { settingsSeal, scopePayload, previewScopeHash, approval };
+  const scenePromptOriginal = "Generate one image on the exact removable solid warm-ivory background. No halo, vignette, scene, or shadow.";
+  return { settingsSeal, scopePayload, previewScopeHash, approval, scenePromptOriginal };
 }
 
-function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, approval },
+function validateHostedPreviewCallableSurface(settingsSeal) {
+  for (const key of Object.keys(settingsSeal.providerSettingsIntent)) {
+    if (!Object.hasOwn(settingsSeal.exposedOptions, key)
+      || canonicalJson(settingsSeal.exposedOptions[key])
+        !== canonicalJson(settingsSeal.providerSettingsIntent[key])) {
+      throw new Error("hosted_preview_unknown_setting");
+    }
+  }
+  return true;
+}
+
+function validateHostedPreviewPromptStageSemantics(settingsSeal, scenePromptOriginal) {
+  const removableSolid = settingsSeal.providerSettingsIntent.generationBackground?.mode
+    === "removable_solid";
+  const requestsDownstreamRemoval = /transparent final|background[- ]remov/i
+    .test(scenePromptOriginal);
+  if (removableSolid && requestsDownstreamRemoval) {
+    throw new Error("hosted_preview_prompt_stage_semantics_conflict");
+  }
+  return true;
+}
+
+function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, approval,
+  scenePromptOriginal },
   state = { submitCount: 0, retryCount: 0 }) {
   assertClosedKeys(settingsSeal, ["schemaVersion", "providerSettingsIntent",
     "providerSettingsIntentSha256", "exposedOptions", "exposedOptionsSha256",
@@ -517,8 +541,13 @@ function validateHostedPreview({ settingsSeal, scopePayload, previewScopeHash, a
   assert.equal(settingsSeal.costEstimate.status, "unavailable");
   assert.equal(settingsSeal.capabilityDescriptorStatus, "unavailable_on_callable_surface");
   assert.equal(settingsSeal.settingsDescriptorStatus, "unavailable_on_callable_surface");
+  assert.equal(hashObject(settingsSeal.providerSettingsIntent),
+    settingsSeal.providerSettingsIntentSha256);
+  assert.equal(hashObject(settingsSeal.exposedOptions), settingsSeal.exposedOptionsSha256);
   for (const forbidden of ["capabilityDescriptor", "capabilityVersion", "evidenceRef", "cost"])
     assert.equal(Object.hasOwn(settingsSeal, forbidden), false);
+  validateHostedPreviewCallableSurface(settingsSeal);
+  validateHostedPreviewPromptStageSemantics(settingsSeal, scenePromptOriginal);
   if (hashObject(scopePayload) !== previewScopeHash
     || approval.previewScopeHash !== previewScopeHash) throw new Error("hosted_preview_scope_mismatch");
   if (approval.submitCountMaximum !== 1 || approval.retryCountMaximum !== 0
@@ -647,6 +676,74 @@ assert.throws(() => validateHostedPreview(singlePreview, { submitCount: 0, retry
 const invalidPreview = structuredClone(singlePreview);
 invalidPreview.approval.submitCountMaximum = 2;
 assert.throws(() => validateHostedPreview(invalidPreview), /invalid_hosted_preview_approval/);
+const partialCallableSurface = structuredClone(singlePreview);
+partialCallableSurface.settingsSeal.exposedOptions = { outputFormat: "png" };
+partialCallableSurface.settingsSeal.exposedOptionsSha256 =
+  hashObject(partialCallableSurface.settingsSeal.exposedOptions);
+partialCallableSurface.scopePayload.settingsSealSha256 =
+  hashObject(partialCallableSurface.settingsSeal);
+partialCallableSurface.previewScopeHash = hashObject(partialCallableSurface.scopePayload);
+partialCallableSurface.approval.previewScopeHash = partialCallableSurface.previewScopeHash;
+assert.throws(() => validateHostedPreview(partialCallableSurface),
+  /hosted_preview_unknown_setting/);
+const stageConflict = structuredClone(singlePreview);
+stageConflict.scenePromptOriginal = "Generate against a removable solid warm-ivory background for a transparent final background after background removal.";
+assert.throws(() => validateHostedPreview(stageConflict),
+  /hosted_preview_prompt_stage_semantics_conflict/);
+
+function hostedPreviewPreflightReceiptFixture(scope = singlePreview) {
+  return {
+    schemaVersion: "generated_media_generation_preflight_receipt_v1",
+    authorityCommit: "a".repeat(40),
+    requestId: scope.scopePayload.requestId,
+    promptRecordSha256: scope.scopePayload.promptRecordSha256,
+    promptFileSha256: scope.scopePayload.promptFileSha256,
+    providerPromptPayloadHash: scope.scopePayload.providerPromptPayloadHash,
+    settingsSealSha256: scope.scopePayload.settingsSealSha256,
+    referenceBindingsSha256: hashObject(scope.scopePayload.referenceBindings),
+    expressionProfilePayloadHash: "e".repeat(64),
+    semanticGateStatus: "valid",
+    submitCount: 0,
+    retryCount: 0,
+  };
+}
+
+function submitAdjacentReceiptCheck(receipt, current) {
+  assertClosedKeys(receipt, ["schemaVersion", "authorityCommit", "requestId",
+    "promptRecordSha256", "promptFileSha256", "providerPromptPayloadHash",
+    "settingsSealSha256", "referenceBindingsSha256", "expressionProfilePayloadHash",
+    "semanticGateStatus", "submitCount", "retryCount"]);
+  if (receipt.authorityCommit !== current.authorityCommit
+    || receipt.requestId !== current.requestId
+    || receipt.settingsSealSha256 !== current.settingsSealSha256
+    || receipt.expressionProfilePayloadHash !== current.expressionProfilePayloadHash) {
+    return "fresh_full_validation_required";
+  }
+  if (receipt.promptRecordSha256 !== current.promptRecordSha256
+    || receipt.promptFileSha256 !== current.promptFileSha256
+    || receipt.providerPromptPayloadHash !== current.providerPromptPayloadHash) {
+    throw new Error("hosted_preview_prompt_drift");
+  }
+  if (receipt.referenceBindingsSha256 !== current.referenceBindingsSha256) {
+    throw new Error("hosted_preview_reference_drift");
+  }
+  if (current.submitCount >= 1) throw new Error("hosted_preview_submit_limit_exceeded");
+  if (current.retryCount > 0) throw new Error("hosted_preview_retry_forbidden");
+  return "reused_preflight_receipt";
+}
+
+const receipt = hostedPreviewPreflightReceiptFixture();
+assert.equal(submitAdjacentReceiptCheck(receipt, structuredClone(receipt)),
+  "reused_preflight_receipt");
+assert.equal(submitAdjacentReceiptCheck(receipt,
+  { ...structuredClone(receipt), authorityCommit: "b".repeat(40) }),
+  "fresh_full_validation_required");
+assert.throws(() => submitAdjacentReceiptCheck(receipt,
+  { ...structuredClone(receipt), promptFileSha256: "f".repeat(64) }),
+  /hosted_preview_prompt_drift/);
+assert.throws(() => submitAdjacentReceiptCheck(receipt,
+  { ...structuredClone(receipt), referenceBindingsSha256: "f".repeat(64) }),
+  /hosted_preview_reference_drift/);
 
 const autoPolicy = hostedPreviewAutoPolicyFixture();
 assert.equal(validateHostedPreviewAutoPolicy(autoPolicy), true);

@@ -439,6 +439,15 @@ metadata: without a reviewed durable project-relative style-only publication,
 it creates no `referenceBindings` entry, path, identity source, or edit target.
 This profile cannot be inherited by an animation record.
 
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0` is a distinct
+single-image-only successor with exact payload hash
+`b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5`.
+It has the exact nineteen-member closed shape and ordered 9+9 locks owned by
+the visual guide. It adds closed proportion measurement, surface-detail,
+uniform-background, provider-output conformance, and compact-receipt
+contracts. A v1 prompt record remains v1 and is never upgraded or interpreted
+through this successor.
+
 The animation-only
 `projectbs_character_bold_outline_attack_motion_flow@1.0.0` never changes this
 single-image record. Its animation prompt record preserves the exact reference
@@ -832,6 +841,53 @@ bytes is `record_collision`; an occupied scope with any consumed submit is
 CAS, raw UTF-8/LF and failure-atomicity rules match current records. Neither the
 record nor its media path satisfies any generation-v2 or preservation-v2 input
 schema.
+
+### Compact profile-conformance receipt
+
+The v2 open ink-wash post-output triage returns one response-only receipt. It
+is not a planning, routing, prompt, preview, preservation, evaluation, or
+promotion record and creates no file, index row, or CAS projection.
+
+The receipt has exactly these members and no others:
+
+```yaml
+schemaVersion: generated_media_profile_conformance_receipt_v1
+requestId:
+planningSnapshotHash:
+promptRecordId:
+promptRecordSha256:
+expressionProfileKey: projectbs_character_open_ink_wash_dynamic_contour@2.0.0
+expressionProfilePayloadHash: b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5
+observableOutputSha256:
+profileConformanceStatus: preview_conformant_no_downstream | preview_profile_nonconformant | preview_profile_conformance_blocked
+failureType: none | character_preview_open_ink_wash_v2_proportion_age_nonconformant | character_preview_open_ink_wash_v2_contour_mok_seon_nonconformant | character_preview_open_ink_wash_v2_surface_detail_nonconformant | character_preview_open_ink_wash_v2_pigment_negative_space_nonconformant | character_preview_open_ink_wash_v2_background_nonconformant | character_preview_open_ink_wash_v2_identity_equipment_nonconformant | character_preview_open_ink_wash_v2_reference_role_nonconformant | character_preview_open_ink_wash_v2_evidence_insufficient
+gateResults:
+  - gateId: proportion_age | contour_mok_seon | surface_detail | pigment_palette_negative_space | background | identity_equipment | reference_role
+    result: pass | fail | evidence_insufficient
+providerCalled:
+submitCount:
+retryCount:
+nextStep: no_downstream | stop_no_retry_not_final
+receiptPayloadSha256:
+```
+
+`gateResults` contains exactly seven entries in the displayed order. All pass
+requires `failureType=none`, `preview_conformant_no_downstream`, and
+`nextStep=no_downstream`. The first fail in order supplies the matching
+nonconformant failure token. With no fail, the first insufficient result
+supplies the evidence-insufficient token. Either nonpass requires
+`stop_no_retry_not_final`. `providerCalled` preserves the historical submit
+fact and post-output triage does not increment `submitCount` or `retryCount`.
+
+`receiptPayloadSha256` is lowercase SHA-256 of RFC 8785 JCS canonical UTF-8
+bytes for the exact receipt excluding only `receiptPayloadSha256`. After the
+full receipt is returned once, subsequent status or consolidation messages use
+only `schemaVersion`, `requestId`, `observableOutputSha256`,
+`profileConformanceStatus`, `failureType`, and `receiptPayloadSha256`. They do
+not resend profile payloads, prompt prose, source-planning arrays, routing
+fields, or registry rows. The recipient may reuse this receipt for reporting,
+but any later mutation boundary must still perform the authority checks owned
+by that boundary.
 
 ## Preservation v2 and State Flow
 

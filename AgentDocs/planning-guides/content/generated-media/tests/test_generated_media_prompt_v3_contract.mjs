@@ -101,11 +101,13 @@ function validateVisualBrief(brief) {
   if (!["projectbs_character_restrained_ink_line@1.0.0",
     "projectbs_character_animation_ready_minimal_ink_line@1.0.0",
     "projectbs_character_sparse_ink_pastel_motion@1.0.0",
-    "projectbs_character_open_ink_wash_dynamic_contour@1.0.0"].includes(expressionKey)) {
+    "projectbs_character_open_ink_wash_dynamic_contour@1.0.0",
+    "projectbs_character_open_ink_wash_dynamic_contour@2.0.0"].includes(expressionKey)) {
     throw new Error("expression_profile_key_mismatch");
   }
   const sparse = expressionKey === "projectbs_character_sparse_ink_pastel_motion@1.0.0";
   const openInk = expressionKey === "projectbs_character_open_ink_wash_dynamic_contour@1.0.0";
+  const openInkV2 = expressionKey === "projectbs_character_open_ink_wash_dynamic_contour@2.0.0";
   const profileKeys = sparse
     ? ["expressionProfileKey", "contourOmissionBudget", "lineHierarchy",
       "negativeSpacePolicy", "pigmentBudget", "accentPalette", "pigmentApplication",
@@ -115,6 +117,14 @@ function validateVisualBrief(brief) {
       "contourOmissionBudget", "mokSeonContract", "pigmentApplicationContract",
       "paletteRoleContract", "negativeSpaceContract", "backgroundContract",
       "identityAnchorContract", "acceptedStyleReferenceContract",
+      "authoringProjectionContract", "negativeStyleLock", "positiveStyleLock"]
+    : openInkV2
+    ? ["expressionProfileKey", "predecessorBinding", "applicability",
+      "proportionAndAgeContract", "proportionMeasurementContract",
+      "contourOmissionBudget", "mokSeonContract", "pigmentApplicationContract",
+      "paletteRoleContract", "negativeSpaceContract", "surfaceDetailContract",
+      "backgroundContract", "identityAnchorContract", "acceptedStyleReferenceContract",
+      "providerOutputConformanceContract", "compactConformanceReceiptContract",
       "authoringProjectionContract", "negativeStyleLock", "positiveStyleLock"]
     : expressionKey === "projectbs_character_animation_ready_minimal_ink_line@1.0.0"
     ? ["expressionProfileKey", "proportionProjection", "detailDensityBudget",
@@ -261,6 +271,43 @@ function markdownBytes(scenePromptOriginal) {
     throw new Error("prompt_markdown_mismatch");
   }
   return Buffer.from(`${scenePromptOriginal}\n`, "utf8");
+}
+
+function exactOccurrenceCount(text, needle) {
+  return text.split(needle).length - 1;
+}
+
+function validateProviderFacingSalience(scenePromptOriginal, {
+  negativeStyleLock, positiveStyleLock, removableSolid = false,
+  primaryConcepts = [],
+}) {
+  for (const { statement } of [...negativeStyleLock, ...positiveStyleLock]) {
+    if (exactOccurrenceCount(scenePromptOriginal, statement) !== 1) {
+      throw new Error("provider_value_invalid:lock_statement_occurrence");
+    }
+  }
+  const forbiddenMetadata = [
+    /\b(?:prompt|routing)RecordId\b/i,
+    /\bSHA-?256\b/i,
+    /\b[0-9a-f]{64}\b/i,
+    /APPROVED (?:REQUIRED|PROHIBITED) STATEMENTS/i,
+    /ORDERED (?:NEGATIVE|POSITIVE) STYLE LOCKS/i,
+    /\bImageGen\b/i,
+    /\bcharacter_single_image\b/i,
+    /(?:^|\n)(?:IDENTITY AND EQUIPMENT|POSE, FRAMING, AND TECHNICAL INTENT|FINAL MEASURABLE CHECKS)(?:\n|$)/i,
+  ];
+  if (forbiddenMetadata.some((pattern) => pattern.test(scenePromptOriginal))) {
+    throw new Error("provider_value_invalid:provider_metadata_leak");
+  }
+  if (removableSolid && /transparent final|background removal|remove the background/i.test(scenePromptOriginal)) {
+    throw new Error("provider_value_invalid:background_stage_mixed");
+  }
+  for (const concept of primaryConcepts) {
+    if (exactOccurrenceCount(scenePromptOriginal.toLowerCase(), concept.toLowerCase()) > 2) {
+      throw new Error("provider_value_invalid:primary_concept_repeated");
+    }
+  }
+  return true;
 }
 
 function projectPromptPayload(record) {
@@ -444,6 +491,54 @@ assert.equal(a.recordBytes.at(-2) === 0x0d, false);
 assert.equal(a.markdown.at(-1), 0x0a);
 assert.equal(a.markdown.at(-2) === 0x0d, false);
 assert.equal(hashObject(a.handoff), hashObject(structuredClone(a.handoff)));
+assert.equal(validateProviderFacingSalience(a.record.scenePromptOriginal, {
+  negativeStyleLock: a.record.negativeStyleLock ?? a.record.visualBrief.negativeStyleLock,
+  positiveStyleLock: a.record.positiveStyleLock ?? a.record.visualBrief.positiveStyleLock,
+}), true);
+
+const v9RegressionLocks = {
+  negativeStyleLock: [
+    { statement: "No halo, vignette, scene, environment, cast shadow, contact shadow, or shadow-substitute treatment." },
+  ],
+  positiveStyleLock: [
+    { statement: "Use a clearly young-adult compact figure in the approved four-to-five-head range, targeted at four-and-a-quarter heads, without child coding." },
+  ],
+};
+const conciseOpenInkPrompt = [
+  "One young-adult compact Seojin at exactly 4.25-head full-body height, with open broken pressure-variable mok-seon, on one uniform edge-to-edge warm-ivory #F2EFE6 solid canvas; no radial falloff or dark corners.",
+  "Preserve the approved Korean and Joseon face, low sangtu, simplified interrupted one-shoulder armor mass, fully sheathed left-waist hwando, and right hand on the hilt; no repeated armor plates, scales, rivets, microtexture, or modeled material.",
+  v9RegressionLocks.negativeStyleLock[0].statement,
+  v9RegressionLocks.positiveStyleLock[0].statement,
+  "Final gestalt: compact 4.25-head adult, open mok-seon, broad sparse pigment, uniform warm ivory, no halo.",
+].join("\n");
+assert.equal(validateProviderFacingSalience(conciseOpenInkPrompt, {
+  ...v9RegressionLocks,
+  removableSolid: true,
+  primaryConcepts: ["4.25-head"],
+}), true);
+
+const legacyV9LikePrompt = [
+  "NONNEGOTIABLE VISUAL HIERARCHY",
+  "Create exactly one ImageGen character_single_image.",
+  "Generate against a removable solid warm-ivory background for a transparent final background.",
+  "APPROVED REQUIRED STATEMENTS",
+  "audit-only style reference SHA-256 b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  "ORDERED NEGATIVE STYLE LOCKS",
+  v9RegressionLocks.negativeStyleLock[0].statement,
+  "ORDERED POSITIVE STYLE LOCKS",
+  v9RegressionLocks.positiveStyleLock[0].statement,
+  "FINAL MEASURABLE CHECKS",
+].join("\n");
+assert.throws(() => validateProviderFacingSalience(legacyV9LikePrompt, {
+  ...v9RegressionLocks,
+  removableSolid: true,
+}), /provider_value_invalid/);
+
+const duplicatedLockPrompt = `${conciseOpenInkPrompt}\n${v9RegressionLocks.negativeStyleLock[0].statement}`;
+assert.throws(() => validateProviderFacingSalience(duplicatedLockPrompt, {
+  ...v9RegressionLocks,
+  removableSolid: true,
+}), /provider_value_invalid:lock_statement_occurrence/);
 
 const unknown = structuredClone(a.record);
 unknown.extra = true;

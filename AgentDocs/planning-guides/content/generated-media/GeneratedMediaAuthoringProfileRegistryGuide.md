@@ -87,6 +87,19 @@ appliesTo=character_single_image_v2
 selection=explicit_approved_planning_fact_and_complete_projection_required
 ```
 
+The output-conformance successor is a distinct major version. It does not
+change or reinterpret v1 planning, prompt, preview, payload, hash, or locks:
+
+```text
+expressionProfileKey=projectbs_character_open_ink_wash_dynamic_contour@2.0.0
+expressionProfilePayloadHash=b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash output-conformance successor profile
+appliesTo=character_single_image_v2
+predecessorExpressionProfileKey=projectbs_character_open_ink_wash_dynamic_contour@1.0.0
+predecessorExpressionProfilePayloadHash=37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd
+selection=explicit_approved_planning_fact_and_complete_successor_projection_required
+```
+
 The following bold-outline compressed-detail profile is available only for a
 new character single-image request whose approved planning selects the exact
 key and supplies every closed character-specific projection binding:
@@ -174,6 +187,15 @@ The open ink-wash payload has exactly `expressionProfileKey`, `applicability`,
 `negativeStyleLock`, and `positiveStyleLock`. It is single-image-only; its
 audit-only accepted SHA has no canonical path/reference binding until exact
 bytes are separately reviewed and published at a durable project-relative path.
+The open ink-wash v2 successor has exactly `expressionProfileKey`,
+`predecessorBinding`, `applicability`, `proportionAndAgeContract`,
+`proportionMeasurementContract`, `contourOmissionBudget`, `mokSeonContract`,
+`pigmentApplicationContract`, `paletteRoleContract`, `negativeSpaceContract`,
+`surfaceDetailContract`, `backgroundContract`, `identityAnchorContract`,
+`acceptedStyleReferenceContract`, `providerOutputConformanceContract`,
+`compactConformanceReceiptContract`, `authoringProjectionContract`,
+`negativeStyleLock`, and `positiveStyleLock`. It is self-contained and must not
+be constructed by mutating or merging the v1 payload at run time.
 The animation-only motion-flow successor has exactly `expressionProfileKey`,
 `baseProfileBinding`, `animationApplicability`, `motionFlowContract`,
 `frameContinuityContract`, `authoringProjectionContract`,

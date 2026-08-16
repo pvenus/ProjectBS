@@ -33,15 +33,30 @@ Input:
 12. supersedesRoutingRecordId는 같은 scope의 유효한 v2 record일 때만 새 payload/record/index entry에 포함한다. 기존 record/index는 수정·삭제하지 않는다.
 13. v1 registry/PixelLab row를 평가하거나 v1 record/index를 수정하지 않는다.
 14. authoring/provider/download/packaging/evaluation/promotion/Slack/Unity/Git을 수행하지 않는다.
+15. 성공 응답은 record/index bytes와 분리된 `generated_media_routing_receipt_v1` 한 건만 반환한다. record에 이미 저장된 normalizedRequest/sourcePlanningFiles/requiredElements/prohibitedElements/typeSpecification/profile locks를 control-plane 메시지에 다시 펼치지 않는다.
+16. `generated_media_authority_bundle_receipt_v1`을 routing guide의 closed projection/JCS/hash/ID 규칙으로 계산한다. authoritative main SHA, requested stage scope, exact immutable artifact anchors, contract authority anchors, profile authority anchors 중 하나라도 바뀌거나 receipt가 없으면 full validation이며, 모두 같을 때만 unchanged validation을 재사용한다.
+17. `generated_media_stage_delta_envelope_v1`에는 authority bundle ID/hash, fromStage/toStage, unitIdentity, 이번 stage의 새 artifact path/hash, prior validation receipt refs, publicationState/nextStep, providerState, prior pipeline chain ref만 포함한다. Git blob에서 읽을 수 있는 bulk fields와 nested handoff body를 다시 넣지 않는다.
+18. child는 final stage delta envelope 한 건만 parent에 보낸다. parent는 동일 envelope를 다음 역할에 정확히 한 번 relay하고 requester/owner/Git 역할에는 full payload를 broadcast하지 않는다. 다른 observer에는 compact terminal status receipt 한 건만 보낸다.
+19. routing guide의 validation receipt reuse matrix를 적용한다. mutation/CAS, authority freshness drift, stage artifact raw hash/projection, provider approval/capability/settings/cost/attempt 경계는 항상 재검증한다. exact unchanged authority/source/profile/schema receipt만 재사용할 수 있다.
+20. commentary/status는 `generated_media_compact_status_v1` closed schema로 state change 또는 terminal에서만 한 번 emit한다. 동일 status/provider state/hash 재전송은 금지한다.
+21. orchestration lineage는 response-only `generated_media_pipeline_receipt_chain_v1`의 append-only value로 전달한다. mutable orchestration record/index/path를 생성하지 않는다.
+22. authority bundle, stage delta, routing receipt, pipeline chain, compact status 중 하나라도 schema/hash/transition/publication/relay 규칙에 어긋나면 success handoff를 emit하지 않고 기존 routing record/index를 수정하지 않는다.
 
 Output:
+- schemaVersion: generated_media_routing_receipt_v1
 - status: routed
-- routingRecordId / path / routingPayloadSha256 / recordSha256 / indexPath
-- registryVersion / selectedRegistryRowId / profileKey
-- selectedPipeline / selectedAuthoringPrompt
-- assetType / domainType / contentId / optional animationRequestId
-- normalizedRequest / planningSnapshotHash / routingReason
-- nextStep: authoring
+- reuseStatus: created | reused_identical
+- validatedAuthorityRevision
+- routingRecordId / routingRecordPath / routingPayloadSha256 / routingRecordSha256
+- indexPath / indexSha256
+- authorityBundleId / authorityBundleSha256
+- stageDeltaEnvelopeId / stageDeltaEnvelopeSha256
+- pipelineReceiptChainId / pipelineReceiptChainSha256
+- authoringHandoffPointer: /authoringHandoff
+- publicationState: local_unpublished | authoritative_git_blob
+- nextStep: git_publication | authoring
+- providerCalled: false
+- 응답에 normalizedRequest/sourcePlanningFiles/requiredElements/prohibitedElements/typeSpecification/expressionProfilePayload/style lock 배열을 포함하지 않는다. authoring은 authoritative Git publication 뒤 exact routing record와 `/authoringHandoff`를 읽는다.
 
 실패 시 Output:
 - status: blocked
@@ -58,6 +73,10 @@ Output:
 - payload field 하나가 바뀌면 full hash와 routingRecordId가 바뀌어야 한다.
 - occupied ID의 divergent bytes와 dangling/divergent index는 overwrite 없이 차단해야 한다.
 - record가 index보다 먼저 publish되어야 하며 index 실패 후 retry는 orphan record를 재사용해야 한다.
+- success control-plane receipt가 closed compact schema이고 persisted record payload를 되풀이하지 않아야 한다.
+- same authority anchors/scope는 same bundle/chain identity이고 anchor 하나가 바뀌면 새 identity와 full validation이어야 한다.
+- invalid stage/publication pair, forbidden bulk field, duplicate relay/status를 fail-closed로 거부해야 한다.
+- pipeline orchestration record/index/path가 생성되지 않아야 한다.
 - blocked 요청은 record/index를 변경하지 않아야 한다.
 - authoring 이후 단계를 실행하지 않아야 한다.
 ```
