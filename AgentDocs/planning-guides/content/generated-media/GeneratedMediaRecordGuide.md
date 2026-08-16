@@ -427,6 +427,16 @@ and a v2 record never borrows v1 locks or defaults. `scenePromptOriginal`,
 `visualEvidenceMap`, and provider payload independently preserve every
 successor binding and lock.
 
+The animation-only
+`projectbs_character_bold_outline_attack_motion_flow@1.0.0` never changes this
+single-image record. Its animation prompt record preserves the exact reference
+record path/file hash, the base v2 key/payload hash, the separately registered
+successor key/payload/hash, all eight approved motion bindings, and the complete
+ordered positive/negative animation locks. These values participate in the
+animation prompt payload identity. Omitting the base or successor half,
+flattening them into one rehashed v2 payload, or changing the scalar
+`animationRequestId` is `record_identity_mismatch`.
+
 `providerSettingsIntent` is not a provider request and cannot contain quality,
 model, seed, attempt, cost, or tool fields. Generation resolves its separately
 approved closed provider settings. `scenePromptOriginal` is a non-empty Unicode

@@ -233,6 +233,15 @@ sentences into appearance fields as if they were character identity.
 
 ### 3.4 Generated Media planning readiness
 
+An attack-animation may approve the composed
+`projectbs_character_bold_outline_attack_motion_flow@1.0.0` successor only as
+eight planning-owned facts: `motionDirection`, `swordArc`, `torsoRotation`,
+`shoulderInertia`, `hemInertia`, `darkNeutralInkTrajectory`, `keyPoseOrder`, and
+`frameContinuityAnchors`. They belong to one exact `animationRequestId` and do
+not alter `generatedMediaPlanning.characterSingleImage`, its v8 meaning, or any
+immutable prompt record. Missing or conflicting facts are not inferred by the
+router or authoring stage.
+
 ```yaml
 generatedMediaPlanning:
   characterSingleImage:

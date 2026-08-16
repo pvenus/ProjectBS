@@ -65,6 +65,19 @@ profile key. The authoring handoff includes the routing record path, planning
 handoff path, exact type specification, evidence pointers, and for animation
 the single animationRequestId/object.
 
+For a character attack-animation whose immutable reference prompt carries
+`projectbs_character_bold_outline_compressed_detail@2.0.0`, direct inheritance
+is illegal. The router may instead select
+`projectbs_character_bold_outline_attack_motion_flow@1.0.0` only when the
+reference bytes/hash and v2 payload/hash pass, its projection is exactly
+18px/8px and no greater than 64/56/5 with unchanged color anchors and closed
+halo, and approved planning supplies all eight successor motion bindings. A
+non-attack unit returns `bold_outline_motion_flow_not_attack`; a missing motion
+binding returns `missing_bold_outline_motion_flow_planning_bindings`; any base
+key/hash/projection disagreement returns
+`bold_outline_motion_successor_reference_mismatch`. These are no-route gates:
+they publish no routing record and do not create or merge an animation unit.
+
 Anchor mapping is deterministic:
 
 ```text

@@ -92,6 +92,17 @@ the exact sparse generation tokens before provider access.
 Sparse missing/mismatch/evidence/provider-projection failures use only the four
 sparse authoring tokens; no `missing_*_style_lock` token applies.
 
+For `projectbs_character_bold_outline_attack_motion_flow@1.0.0`, the reference
+record remains bold v2 and immutable. Authoring verifies its exact bytes,
+5702307b... base payload hash, 18px/8px projection, 64/56/5 ceilings, exact color
+anchors, and closed halo before composing the separately registered successor.
+It then requires all eight approved attack-motion bindings and projects
+directional faded-indigo sword/torso brush flow, gray-brown shoulder/hem
+inertia, bounded dark-neutral trajectory, ordered continuity, and identity plus
+equipment anchor locks. Static repetition, generic clean-vector sheets,
+arbitrary speed lines, magic VFX, or drift are fatal at authoring, generation
+pre-submit, and evaluation. No failure may access the provider capability.
+
 An exact current-user approval may instead select
 `hosted_builtin_preview_v1` for exactly one scalar animationRequestId. This
 isolated lane permits one submit and zero retries and ends at a non-evaluated,

@@ -98,20 +98,35 @@ appliesTo=character_single_image_v2
 selection=explicit_approved_planning_fact_and_successor_projection_required
 ```
 
+The animation-only motion-flow successor composes, but never rewrites, one
+hash-verified bold v2 reference prompt record:
+
+```text
+expressionProfileKey=projectbs_character_bold_outline_attack_motion_flow@1.0.0
+expressionProfilePayloadHash=1c828ef73b1de41453197f0d2fef80eebb069e42767d3f017ccb8dab0b947c8c
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Bold-outline attack motion-flow successor profile
+appliesTo=character_animation_v2
+baseExpressionProfileKey=projectbs_character_bold_outline_compressed_detail@2.0.0
+baseExpressionProfilePayloadHash=5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3
+selection=exact_v2_reference_plus_exact_approved_attack_motion_bindings_required
+```
+
 Character single-image selection is closed: no approved selection resolves the
 legacy-compatible key, one exact approved selection of a registered nondefault
 key resolves that exact profile, and any unknown, multiple, or conflicting selection blocks as
-`character_style_profile_conflict`. Character animation does not independently
-select a profile; it inherits the exact key, payload, and hash from its
-hash-verified immutable reference prompt record. This preserves every old
-prompt record byte-for-byte and prevents a registry revision from reinterpreting
-its identity.
+`character_style_profile_conflict`. Character animation normally inherits the
+exact key, payload, and hash from its hash-verified immutable reference prompt
+record. The sole exception is the registered animation-only composed successor,
+which stores a new payload/hash while binding the unchanged v2 reference
+key/hash. This preserves every old prompt record byte-for-byte and prevents a
+registry revision from reinterpreting its identity.
 
 Inheritance is also scope-checked. A character-animation request may inherit
 only a profile whose `appliesTo` includes `character_animation_v2`. Both
-bold-outline compressed-detail versions are intentionally single-image-only; an
-animation reference prompt carrying it blocks as `character_style_profile_conflict`
-until a separately reviewed animation-capable version exists.
+bold-outline compressed-detail versions remain intentionally single-image-only;
+a direct animation inheritance attempt blocks as
+`character_style_profile_conflict`. The only reviewed exception is composition
+of the exact v2 reference into the registered motion-flow successor above.
 
 The canonical authority above is the sole owner of the closed payload, lock
 order, canonicalization, and hash algorithm. This registry is only a closed
@@ -119,10 +134,12 @@ key/hash projection and must not duplicate or redefine lock statements. Approved
 planning continues to own gender/age presentation, face, hair, costume,
 equipment, weapon, palette, materials, pose and motion. Character prompt
 records must persist the exact expression profile key, payload, and payload hash.
-Character animation inherits all three byte-for-byte from its immutable approved
-reference prompt record. A different requested expression requires a reviewed registry/profile
-version and explicit planning approval; no caller alias or silent override is
-allowed.
+Character animation normally inherits all three byte-for-byte from its immutable
+approved reference prompt record. The composed successor instead preserves
+those three as its immutable base and adds its own exact key/payload/hash; it
+never substitutes or rewrites the base. A different requested expression
+requires a reviewed registry/profile version and explicit planning approval; no
+caller alias or silent override is allowed.
 
 The registry validates the closed discriminated projection without owning its
 values. The legacy-compatible payload has exactly the original three members.
@@ -137,6 +154,12 @@ exactly `expressionProfileKey`, `proportionProjection`, `outlineHierarchy`,
 `colorSignatureContract`, `inkTreatment`, `authoringProjectionContract`,
 `negativeStyleLock`, and `positiveStyleLock` with the exact canonical value and
 hash owned by the visual guide.
+The animation-only motion-flow successor has exactly `expressionProfileKey`,
+`baseProfileBinding`, `animationApplicability`, `motionFlowContract`,
+`frameContinuityContract`, `authoringProjectionContract`,
+`negativeAnimationLock`, and `positiveAnimationLock`. Its base key/hash are
+fixed to bold v2; the two animation lock arrays are non-empty and order is
+normative.
 
 ```yaml
 expressionProfilePayload:
