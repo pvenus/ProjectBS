@@ -191,6 +191,37 @@ const exactSourceBytes = new Map([
 ]);
 
 validateSnapshotSources(exactSources, exactFacts, exactSourceBytes);
+
+const openInkProfileKey = "projectbs_character_open_ink_wash_dynamic_contour@1.0.0";
+const openInkProfileHash = "37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd";
+const openInkDecisionPath =
+  "AgentDocs/planning-data/character/design-decisions/v1/character.example.1.open-ink-wash.json";
+const openInkDecisionBytes = Buffer.from(canonicalize({
+  expressionProfileKey: openInkProfileKey,
+  expressionProfilePayloadHash: openInkProfileHash,
+}) + "\n", "utf8");
+const openInkSources = [{
+  path: openInkDecisionPath,
+  role: "character_expression_profile_selection",
+  sha256: sha256(openInkDecisionBytes),
+}];
+const openInkFacts = [{
+  factId: "example.expression_profile_key",
+  sourcePath: openInkDecisionPath,
+  sourcePointer: "/expressionProfileKey",
+  value: openInkProfileKey,
+}, {
+  factId: "example.expression_profile_hash",
+  sourcePath: openInkDecisionPath,
+  sourcePointer: "/expressionProfilePayloadHash",
+  value: openInkProfileHash,
+}];
+validateSnapshotSources(openInkSources, openInkFacts,
+  new Map([[openInkDecisionPath, openInkDecisionBytes]]));
+assert.throws(() => validateSnapshotSources(openInkSources,
+  [{...openInkFacts[0], value: "projectbs_character_sparse_ink_pastel_motion@1.0.0"},
+    openInkFacts[1]], new Map([[openInkDecisionPath, openInkDecisionBytes]])),
+/planning_snapshot_mismatch/);
 assert.throws(
   () => validateSnapshotSources(exactSources, exactFacts, new Map([
     [canonicalSourcePath, Buffer.from(canonicalSourceBytes.toString("utf8").replace(/\n$/, "\r\n"), "utf8")],

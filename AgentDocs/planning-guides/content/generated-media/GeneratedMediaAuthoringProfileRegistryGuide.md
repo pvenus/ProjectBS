@@ -75,6 +75,18 @@ appliesTo=character_single_image_v2,character_animation_v2
 selection=explicit_approved_planning_fact_required
 ```
 
+The following open ink-wash dynamic-contour profile is a separate additive
+single-image-only selection. It neither inherits from nor changes any existing
+profile:
+
+```text
+expressionProfileKey=projectbs_character_open_ink_wash_dynamic_contour@1.0.0
+expressionProfilePayloadHash=37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile
+appliesTo=character_single_image_v2
+selection=explicit_approved_planning_fact_and_complete_projection_required
+```
+
 The following bold-outline compressed-detail profile is available only for a
 new character single-image request whose approved planning selects the exact
 key and supplies every closed character-specific projection binding:
@@ -154,6 +166,14 @@ exactly `expressionProfileKey`, `proportionProjection`, `outlineHierarchy`,
 `colorSignatureContract`, `inkTreatment`, `authoringProjectionContract`,
 `negativeStyleLock`, and `positiveStyleLock` with the exact canonical value and
 hash owned by the visual guide.
+The open ink-wash payload has exactly `expressionProfileKey`, `applicability`,
+`proportionAndAgeContract`, `contourOmissionBudget`, `mokSeonContract`,
+`pigmentApplicationContract`, `paletteRoleContract`, `negativeSpaceContract`,
+`backgroundContract`, `identityAnchorContract`,
+`acceptedStyleReferenceContract`, `authoringProjectionContract`,
+`negativeStyleLock`, and `positiveStyleLock`. It is single-image-only; its
+audit-only accepted SHA has no canonical path/reference binding until exact
+bytes are separately reviewed and published at a durable project-relative path.
 The animation-only motion-flow successor has exactly `expressionProfileKey`,
 `baseProfileBinding`, `animationApplicability`, `motionFlowContract`,
 `frameContinuityContract`, `authoringProjectionContract`,

@@ -100,14 +100,22 @@ function validateVisualBrief(brief) {
   const expressionKey = brief.expressionProfilePayload.expressionProfileKey;
   if (!["projectbs_character_restrained_ink_line@1.0.0",
     "projectbs_character_animation_ready_minimal_ink_line@1.0.0",
-    "projectbs_character_sparse_ink_pastel_motion@1.0.0"].includes(expressionKey)) {
+    "projectbs_character_sparse_ink_pastel_motion@1.0.0",
+    "projectbs_character_open_ink_wash_dynamic_contour@1.0.0"].includes(expressionKey)) {
     throw new Error("expression_profile_key_mismatch");
   }
   const sparse = expressionKey === "projectbs_character_sparse_ink_pastel_motion@1.0.0";
+  const openInk = expressionKey === "projectbs_character_open_ink_wash_dynamic_contour@1.0.0";
   const profileKeys = sparse
     ? ["expressionProfileKey", "contourOmissionBudget", "lineHierarchy",
       "negativeSpacePolicy", "pigmentBudget", "accentPalette", "pigmentApplication",
       "motionLinePolicy", "identityAnchors"]
+    : openInk
+    ? ["expressionProfileKey", "applicability", "proportionAndAgeContract",
+      "contourOmissionBudget", "mokSeonContract", "pigmentApplicationContract",
+      "paletteRoleContract", "negativeSpaceContract", "backgroundContract",
+      "identityAnchorContract", "acceptedStyleReferenceContract",
+      "authoringProjectionContract", "negativeStyleLock", "positiveStyleLock"]
     : expressionKey === "projectbs_character_animation_ready_minimal_ink_line@1.0.0"
     ? ["expressionProfileKey", "proportionProjection", "detailDensityBudget",
       "colorValueBudget", "authoringProjectionContract", "negativeStyleLock",

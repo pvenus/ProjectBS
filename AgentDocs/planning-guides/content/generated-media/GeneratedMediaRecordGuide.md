@@ -427,6 +427,18 @@ and a v2 record never borrows v1 locks or defaults. `scenePromptOriginal`,
 `visualEvidenceMap`, and provider payload independently preserve every
 successor binding and lock.
 
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0` is a separate
+single-image-only closed lock-array shape with exactly the eleven policy
+members and two ordered seven-item lock arrays owned by the visual guide. A
+record stores its exact key, complete payload, and
+`37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd` hash.
+`scenePromptOriginal`, `visualEvidenceMap`, and provider payload independently
+preserve all profile members, locks, and planning-bound Korean/Joseon
+identity/equipment anchors. The payload's accepted-image SHA is audit-only
+metadata: without a reviewed durable project-relative style-only publication,
+it creates no `referenceBindings` entry, path, identity source, or edit target.
+This profile cannot be inherited by an animation record.
+
 The animation-only
 `projectbs_character_bold_outline_attack_motion_flow@1.0.0` never changes this
 single-image record. Its animation prompt record preserves the exact reference

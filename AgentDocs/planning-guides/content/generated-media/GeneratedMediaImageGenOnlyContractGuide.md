@@ -1027,6 +1027,11 @@ missing_sparse_profile_projection
 sparse_profile_projection_mismatch
 sparse_profile_evidence_incomplete
 provider_prompt_sparse_projection_missing
+missing_open_ink_wash_profile_projection
+open_ink_wash_profile_projection_mismatch
+open_ink_wash_profile_evidence_incomplete
+provider_prompt_open_ink_wash_projection_missing
+open_ink_wash_reference_role_invalid
 character_style_profile_conflict
 character_animation_style_lock_mismatch
 missing_character_proportion_projection
@@ -1191,6 +1196,17 @@ The four sparse-profile authoring tokens apply only to
 | `sparse_profile_evidence_incomplete` | one or more of the eight policy members lacks exact profile/planning evidence coverage |
 | `provider_prompt_sparse_projection_missing` | the copy-ready provider prompt omits or weakens any applicable main/animation projection from the eight policy members |
 
+The five open ink-wash authoring tokens apply only to
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0`:
+
+| token | deterministic meaning |
+| --- | --- |
+| `missing_open_ink_wash_profile_projection` | one or more of the exact eleven policy members or either ordered lock array is absent |
+| `open_ink_wash_profile_projection_mismatch` | any member, nested value, type, array order, key, or recomputed payload hash differs from the canonical payload |
+| `open_ink_wash_profile_evidence_incomplete` | a policy member, lock, or required character-specific planning binding lacks exact authority evidence |
+| `provider_prompt_open_ink_wash_projection_missing` | provider prose omits or weakens any exact profile member, planning-bound anchor, or ordered lock |
+| `open_ink_wash_reference_role_invalid` | the audit-only accepted SHA is given an absolute/transient path, provider reference binding, identity/person/pose/action/clothing/equipment role, or edit-target role before a reviewed durable project-relative style-only publication exists |
+
 The bold-outline authoring tokens apply only to
 `projectbs_character_bold_outline_compressed_detail@1.0.0`:
 
@@ -1241,8 +1257,9 @@ capability access.
 
 The lock-array tokens `missing_positive_style_lock`,
 `missing_negative_style_lock`, `style_lock_evidence_incomplete`, and
-`provider_prompt_style_lock_missing` apply only to the four registered
-lock-array profiles, including bold-outline compressed-detail. They MUST NOT be
+`provider_prompt_style_lock_missing` apply only to the five registered
+lock-array profiles, including bold-outline compressed-detail and open ink-wash.
+They MUST NOT be
 returned for the sparse profile.
 
 The first eight tokens above are authoring-readiness failures with these exact
@@ -1311,6 +1328,12 @@ character_generation_bold_outline_color_signature_gate_failed
 character_generation_bold_outline_v2_detail_budget_gate_failed
 character_generation_bold_outline_v2_color_anchor_gate_failed
 character_generation_bold_outline_v2_halo_gate_failed
+character_generation_open_ink_wash_proportion_age_gate_failed
+character_generation_open_ink_wash_contour_mok_seon_gate_failed
+character_generation_open_ink_wash_pigment_negative_space_gate_failed
+character_generation_open_ink_wash_background_gate_failed
+character_generation_open_ink_wash_identity_equipment_gate_failed
+character_generation_open_ink_wash_reference_role_gate_failed
 missing_hosted_preview_approval
 invalid_hosted_preview_approval
 missing_hosted_preview_auto_approval_policy
@@ -1404,6 +1427,27 @@ identity/equipment anchor drift as
 These are pre-submit gates with `providerCalled=false`, `submitCount=0`, and
 `cost=0`.
 
+For `projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, generation
+performs six independent no-submit gates over immutable prompt bytes. A figure
+outside 4-5 heads, not targeted at 4.25, or child/minor-coded fails
+`character_generation_open_ink_wash_proportion_age_gate_failed`. Omission
+outside 35-55 or missing target-45 intent, pressure variation, brush start,
+directional drag, dry end, or directional weight—or a sticker/uniform/vector
+contour—fails `character_generation_open_ink_wash_contour_mok_seon_gate_failed`.
+Missing broad rough watercolor/pastel masses, controlled bleed/misalignment,
+separate three-role palette, or either 70-percent negative-space floor, or any
+cel fill/decorative small splashes, fails
+`character_generation_open_ink_wash_pigment_negative_space_gate_failed`.
+Anything other than removable warm-ivory solid generation background, or any
+halo/vignette/scene/shadow, fails
+`character_generation_open_ink_wash_background_gate_failed`. Korean/Joseon,
+age, costume, equipment, weapon, handedness, or identifying-anchor drift fails
+`character_generation_open_ink_wash_identity_equipment_gate_failed`. Treating
+the audit SHA as a provider binding, identity/edit target, or path before closed
+durable publication fails
+`character_generation_open_ink_wash_reference_role_gate_failed`. All return
+`providerCalled=false`, `submitCount=0`, and `cost=0` without repairing prose.
+
 #### 8.4.1 Character Expression Evaluation Extension
 
 ```text
@@ -1428,6 +1472,12 @@ character_evaluation_bold_outline_v2_halo_gate_failed
 character_evaluation_bold_outline_motion_flow_gate_failed
 character_evaluation_bold_outline_motion_continuity_gate_failed
 character_evaluation_bold_outline_motion_identity_equipment_gate_failed
+character_evaluation_open_ink_wash_proportion_age_gate_failed
+character_evaluation_open_ink_wash_contour_mok_seon_gate_failed
+character_evaluation_open_ink_wash_pigment_negative_space_gate_failed
+character_evaluation_open_ink_wash_background_gate_failed
+character_evaluation_open_ink_wash_identity_equipment_gate_failed
+character_evaluation_open_ink_wash_reference_role_gate_failed
 ```
 
 The first four tokens respectively mean that the required sealed package is
@@ -1461,6 +1511,13 @@ The animation-only successor first requires exact base-profile evidence, then
 uses the three `character_evaluation_bold_outline_motion_*_gate_failed` tokens
 for motion-flow/VFX, continuity, and identity/equipment-anchor failures. Each is
 fatal and no numeric score can offset it.
+
+For the open ink-wash profile, evaluation applies the six corresponding
+`character_evaluation_open_ink_wash_*_gate_failed` tokens to the same closed
+groups. A failed group is fatal. Percentages, stroke phases, palette roles,
+background status, identity/equipment stability, and reference role require
+reproducible observable evidence; otherwise return
+`character_evaluation_evidence_insufficient`, never an inferred pass.
 
 ### 8.5 Preservation Extension
 

@@ -103,6 +103,22 @@ shadow semantics. Generation and evaluation independently gate these fields;
 neither infers them from accepted imagery. The successor remains
 single-image-only.
 
+When planning selects
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, authoring validates
+the exact eleven-member policy projection and both ordered lock arrays. Planning
+must bind a 4-5-head young adult targeted at 4.25, never child-coded; 35-55
+percent open contour targeted at 45; pressure-variable tactile mok-seon with
+brush-start/directional-drag/dry-end phases and directional weight; broad rough
+watercolor/pastel with controlled bleed and misalignment outside the line;
+separate faded-blue-gray-or-indigo, dusty-gray-brown, and small-muted-ochre
+roles; at least 70 percent achromatic/unpainted space in both figure interior
+and canvas; removable warm-ivory solid background; and no halo, vignette, scene,
+or shadow. Exact Korean/Joseon identity, costume, equipment, weapon, handedness,
+and identifying anchors remain planning-owned and must be preserved. The exact
+accepted-image SHA is audit-only: absent a reviewed durable project-relative
+style-only publication, no reference path/binding is created and the image is
+never identity or edit target. This profile is single-image-only.
+
 Generation performs a separate no-submit semantic preflight over the immutable
 prompt record. Any allowance for greater-than-4.25-head or naturalistic
 seven-to-eight-head anatomy, dense realistic detail, or nonminimal color/value
@@ -145,7 +161,9 @@ one approved viewpoint, ImageGen provider, `character_single_image_v2`, and
 the selected union branch: non-empty lock-array coverage for any registered
 lock-array profile, including the complete bold-outline projection, or exact
 eight-member projection/evidence coverage with empty lock
-arrays for sparse. No planning, packaging, evaluation, promotion, or
+arrays for sparse. The open ink-wash lock-array branch additionally requires
+all eleven exact policy members and prohibits animation inheritance or an
+audit-only reference binding. No planning, packaging, evaluation, promotion, or
 Git work occurs.
 
 Generation blockers additionally include the exact contract 6.1-6.2 approval,

@@ -5,7 +5,8 @@
 This evaluation guide applies when a character main image declares
 `projectbs_character_sparse_ink_pastel_motion@1.0.0` or
 `projectbs_character_bold_outline_compressed_detail@1.0.0` or
-`projectbs_character_bold_outline_compressed_detail@2.0.0`, and to character
+`projectbs_character_bold_outline_compressed_detail@2.0.0` or
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, and to character
 animation for the sparse profile or the separately registered
 `projectbs_character_bold_outline_attack_motion_flow@1.0.0` composed successor;
 the two base bold profiles remain single-image-only. It evaluates preserved
@@ -61,6 +62,12 @@ budgets.
 | `character_evaluation_bold_outline_motion_flow_gate_failed` | missing/wrong-direction faded-indigo sword/torso 3-5 brush flow, missing gray-brown shoulder/hem inertia, missing bounded dark-neutral trajectory, static repetition, generic clean-vector sheet, arbitrary speed lines, or magic VFX |
 | `character_evaluation_bold_outline_motion_continuity_gate_failed` | key-pose order does not evolve continuously or fixed cell/scale/root anchor continuity breaks |
 | `character_evaluation_bold_outline_motion_identity_equipment_gate_failed` | any successor identity or equipment anchor drifts across frames |
+| `character_evaluation_open_ink_wash_proportion_age_gate_failed` | full body is outside 4-5 heads, does not preserve the 4.25 target, or reads as child/minor rather than young adult |
+| `character_evaluation_open_ink_wash_contour_mok_seon_gate_failed` | omission is outside 35-55 percent or lacks target-45 intent; contour is sticker-clean/uniform/vector-clean; or brush start, directional drag, dry end, pressure variation, or directional weight is absent |
+| `character_evaluation_open_ink_wash_pigment_negative_space_gate_failed` | broad rough watercolor/pastel, controlled bleed/misalignment, separate three-role palette, or either 70-percent achromatic/unpainted floor is absent; or cel fill/decorative small splashes appear |
+| `character_evaluation_open_ink_wash_background_gate_failed` | generation/final evidence shows a non-removable non-warm-ivory generation background, halo, vignette, scene, or shadow |
+| `character_evaluation_open_ink_wash_identity_equipment_gate_failed` | approved young-adult Korean/Joseon identity, costume, equipment, weapon, handedness, or identifying anchors drift or disappear |
+| `character_evaluation_open_ink_wash_reference_role_gate_failed` | audit-only accepted SHA was used as canonical identity, provider reference binding, person/pose/action/clothing/equipment source, or edit target without closed durable project-relative style-only publication |
 
 The evaluator uses the authored profile projection and an observable checklist.
 It may use a reproducible pixel-area measurement when available, but must record
@@ -99,6 +106,17 @@ If the preserved media scale cannot support reproducible thickness comparison,
 or coverage/mark evidence is ambiguous, return the evidence blocker rather than
 approximating a pass.
 
+For an open ink-wash main image, confirm 4-5 heads targeted at 4.25 and clearly
+young-adult presentation; 35-55 percent open contour targeted at 45; observable
+pressure-variable mok-seon with brush-start, directional-drag, and dry-end
+phases; broad rough bleeding/misaligned watercolor-pastel masses; separate
+faded-blue-gray-or-indigo, dusty-gray-brown, and small-muted-ochre roles; at
+least 70 percent achromatic/unpainted space in both figure interior and full
+canvas; removable warm-ivory generation background; and no halo, vignette,
+scene, or shadow. Confirm all planning-bound Korean/Joseon identity/equipment
+anchors and audit-only reference role. Unreproducible percentages or stroke
+phases block as evidence insufficient rather than passing by impression.
+
 ## Result Contract
 
 Return `PASS`, `FAIL`, or `BLOCKED`, the exact profile key/hash, artifact and
@@ -127,6 +145,14 @@ package/report contract.
 - Bold-outline main fail: separately exercise 6.5-head anatomy, outside/internal
   ratio below 2, tenth facial mark, dense scales/folds, unanchored secondary
   hue, coverage above 35 percent, and a fifth color mass.
+- Open ink-wash main pass: 4.25-head young adult, 45-percent open contour,
+  complete mok-seon phases, broad bleeding pigment, separate palette roles, both
+  70-percent negative-space floors, warm-ivory removable background, no scenic
+  treatment, stable identity/equipment, and audit-only reference role.
+- Open ink-wash main fail: separately exercise child coding, omission 34/56,
+  uniform vector contour, missing stroke phase, clean cel fill, decorative
+  splashes, collapsed palette roles, either negative-space floor below 70,
+  halo/vignette/scene/shadow, identity/equipment drift, and reference-role misuse.
 
 The six-frame count belongs only to these golden fixtures. Operational
 evaluation accepts any positive approved `finalFrameCount` and requires the

@@ -433,6 +433,138 @@ Temporary absolute evidence paths are audit-only. Canonical style-reference
 use first requires a durable project-relative copy, exact hash and reviewed
 styleReference schema; this task creates none.
 
+### Open ink-wash dynamic-contour character profile
+
+The following payload is canonical and immutable for
+`projectbs_character_open_ink_wash_dynamic_contour@1.0.0`. It is an additive
+`character_single_image_v2`-only profile. It does not amend, alias, inherit, or
+reinterpret any existing sparse-ink, bold-outline, or animation-successor
+profile.
+
+```json
+{
+  "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@1.0.0",
+  "applicability": {
+    "structureProfiles": ["character_single_image_v2"],
+    "characterAnimationInheritance": "prohibited",
+    "selection": "explicit_approved_planning_fact_and_complete_projection_required"
+  },
+  "proportionAndAgeContract": {
+    "fullBodyHeadCount": {"minimum": 4, "maximum": 5, "target": 4.25},
+    "presentation": "young_adult",
+    "minorOrChildCoding": "prohibited",
+    "limbPolicy": "compact_but_adult"
+  },
+  "contourOmissionBudget": {
+    "unit": "percent_of_expected_silhouette_and_internal_boundary_length",
+    "minimum": 35,
+    "maximum": 55,
+    "target": 45,
+    "closedStickerSilhouette": "prohibited",
+    "measurementPolicy": "closed_authoring_projection_plus_observable_evaluator_checklist"
+  },
+  "mokSeonContract": {
+    "lineQuality": "pressure_variable_tactile_mok_seon",
+    "requiredStrokePhases": ["brush_start", "directional_drag", "dry_end"],
+    "directionalWeight": "required",
+    "uniformOutlineWeight": "prohibited",
+    "vectorCleanContour": "prohibited"
+  },
+  "pigmentApplicationContract": {
+    "media": ["rough_watercolor", "rough_pastel"],
+    "applicationScale": "broad_masses_not_decorative_small_splashes",
+    "controlledBleedBeyondOutline": "required",
+    "controlledMisalignmentBeyondOutline": "required",
+    "cleanCelFill": "prohibited",
+    "decorativeSmallSplashes": "prohibited"
+  },
+  "paletteRoleContract": {
+    "roles": [
+      {"role": "primary_cool", "colorFamily": "faded_blue_gray_or_indigo"},
+      {"role": "secondary_earth", "colorFamily": "dusty_gray_brown"},
+      {"role": "small_warm_accent", "colorFamily": "muted_ochre", "scale": "small_only"}
+    ],
+    "roleSeparation": "required",
+    "offRoleSubstitution": "prohibited"
+  },
+  "negativeSpaceContract": {
+    "minimumAchromaticOrUnpaintedPercent": 70,
+    "scopes": ["figure_interior", "full_canvas"],
+    "figureInteriorPolicy": "open_unpainted_space_required",
+    "canvasPolicy": "warm_ivory_background_counts_as_achromatic_unpainted_space"
+  },
+  "backgroundContract": {
+    "generationBackground": {"mode": "removable_solid", "colorFamily": "warm_ivory"},
+    "finalBackgroundPolicy": "transparent_or_planning_approved_after_background_removal",
+    "halo": "prohibited",
+    "vignette": "prohibited",
+    "scene": "prohibited",
+    "shadow": "prohibited"
+  },
+  "identityAnchorContract": {
+    "planningBinding": "required_exact_character_specific",
+    "requiredAnchorGroups": ["young_adult_korean_identity", "joseon_hair_and_costume", "approved_equipment", "approved_weapon", "handedness", "identifying_features"],
+    "styleReferenceIdentityTransfer": "prohibited",
+    "identityOrEquipmentOmission": "prohibited"
+  },
+  "acceptedStyleReferenceContract": {
+    "sha256": "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+    "status": "audit_only_unbound_without_durable_project_relative_copy",
+    "allowedPurpose": "style_and_composition_audit_evidence_only",
+    "canonicalReferenceBinding": "prohibited_until_reviewed_durable_project_relative_copy_and_closed_reference_binding",
+    "forbiddenTransfer": ["person_identity", "canonical_character_identity", "pose", "action", "clothing", "equipment", "edit_target"]
+  },
+  "authoringProjectionContract": {
+    "planningSelection": "explicit_approved_fact_required",
+    "requiredPlanningBindings": ["fullBodyHeadCount", "youngAdultPresentation", "identityConsistencyLock", "singleImageSpecification", "paletteRoleAnchors", "generationBackground"],
+    "requiredProfileProjectionMembers": ["proportionAndAgeContract", "contourOmissionBudget", "mokSeonContract", "pigmentApplicationContract", "paletteRoleContract", "negativeSpaceContract", "backgroundContract", "identityAnchorContract", "acceptedStyleReferenceContract"],
+    "evidencePolicy": "every_binding_profile_member_and_lock_requires_exact_planning_or_profile_authority_evidence",
+    "promptInclusion": "verbatim_locks_and_complete_policy_projection_required",
+    "conflictPolicy": "block_before_prompt_publication"
+  },
+  "negativeStyleLock": [
+    {"constraintId": "char_open_wash_negative_child_or_naturalistic_tall", "statement": "Do not depict a child, minor-coded figure, or naturalistic tall heroic anatomy outside the approved four-to-five-head young-adult range.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_sticker_vector_contour", "statement": "No sticker-clean closed silhouette, uniform outline weight, vector-clean contour, or clean coloring-book boundary.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_clean_fill_splashes", "statement": "No clean cel fill, opaque full-region fill, or decorative small splashes standing in for broad rough pigment masses.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_palette_role_collapse", "statement": "Do not merge, swap, or replace the faded blue-gray or indigo, dusty gray-brown, and small muted-ochre palette roles.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_painted_space_excess", "statement": "Do not reduce achromatic or unpainted negative space below seventy percent in either the figure interior or full canvas.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_halo_scene_shadow", "statement": "No halo, vignette, scene, environment, cast shadow, contact shadow, or shadow-substitute treatment.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_negative_reference_identity_transfer", "statement": "Do not use the audit-only style reference as canonical identity, person, pose, action, clothing, equipment, edit target, or provider reference binding.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"}
+  ],
+  "positiveStyleLock": [
+    {"constraintId": "char_open_wash_positive_young_adult_compact", "statement": "Use a clearly young-adult compact figure in the approved four-to-five-head range, targeted at four-and-a-quarter heads, without child coding.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_open_dynamic_contour", "statement": "Omit thirty-five to fifty-five percent of expected silhouette and internal boundaries, targeting forty-five percent, while preserving readable identity anchors.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_tactile_mok_seon", "statement": "Use pressure-variable tactile mok-seon with observable brush start, directional drag, dry end, and directional weight.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_broad_bleeding_pigment", "statement": "Use broad rough watercolor and pastel masses with controlled bleed and controlled misalignment beyond the contour.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_separate_palette_roles", "statement": "Keep faded blue-gray or indigo, dusty gray-brown, and a small muted-ochre accent in separate approved character-specific roles.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_negative_space", "statement": "Keep at least seventy percent of both the figure interior and full canvas achromatic or unpainted negative space.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"},
+    {"constraintId": "char_open_wash_positive_identity_on_ivory", "statement": "Preserve the approved young-adult Korean and Joseon identity, costume, equipment, weapon, and handedness anchors on a removable warm-ivory solid generation background with no halo, scene, or shadow.", "authorityRef": "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md::Open ink-wash dynamic-contour character profile"}
+  ]
+}
+```
+
+Canonicalization is RFC 8785 JCS over the exact UTF-8 payload. The registered
+SHA-256 is `37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd` and must match the registry
+before activation. All numeric ranges are inclusive; array order is normative.
+The eleven policy members, two ordered lock arrays, and key are closed.
+
+The exact accepted-image SHA identifies audit-only style/composition evidence;
+it does not identify canonical character bytes or authorize a provider reference.
+No durable project-relative copy is available in this authority snapshot, so no
+path is fabricated and no image is published by this profile task. A future
+reviewed publication may bind the same exact bytes only through a closed
+project-relative reference record with purpose `style_only`; it must continue to
+forbid person, pose, action, clothing, equipment, identity, and edit-target
+transfer. Until then, authoring projects the closed profile semantics from this
+payload and keeps `referenceBindings` empty for this audit evidence.
+
+Planning owns the exact Seojin identity/equipment facts and binds them through
+the character planning projection; the profile owns only reusable expression
+semantics. A missing member, missing planning binding, wrong reference role,
+attempted animation inheritance, or conflict blocks before prompt publication.
+Provider prose must independently preserve every profile member and all fourteen
+ordered locks; it may not collapse this contract to `ink wash` or `stylized`.
+
 ### Bold-outline compressed-detail character profile
 
 The following payload is canonical and immutable for
@@ -841,6 +973,18 @@ rendered only from that character's evidence; no default youth,
 modern/westernized beauty, minor-coded appearance, sexualization, beard,
 fatigue, aging, or gravitas is added.
 
+For `projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, the cohesive
+prompt contains all eleven closed policy members, both ordered seven-item lock
+arrays, and the exact planning-bound Seojin identity/equipment anchors. It
+projects 4-5 heads targeted at 4.25, young-adult/no-child presentation, 35-55
+percent contour omission targeted at 45, tactile pressure-variable mok-seon,
+broad bleeding/misaligned watercolor-pastel masses, the three separate palette
+roles, at least 70 percent achromatic/unpainted space in both scopes, and the
+warm-ivory removable-solid/no-halo/no-scene/no-shadow background contract. The
+audit-only accepted-reference SHA is evidence metadata, not a provider
+reference binding; without a reviewed durable project-relative copy, no path
+may be invented or placed in `referenceBindings`.
+
 For `projectbs_character_bold_outline_compressed_detail@1.0.0`, the cohesive
 prompt contains every lock plus the exact planning-bound head count, external
 and internal source-pixel thicknesses, calculated thickness ratio, facial mark
@@ -953,6 +1097,15 @@ reference/profile fields. Typed blockers are
 `unexpected_character_style_reference`, and
 `character_animation_style_lock_mismatch`.
 
+The open ink-wash profile additionally requires all eleven exact policy
+members, both ordered lock arrays, exact planning-bound identity/equipment
+anchors, and direct provider-prose coverage. It is single-image-only and cannot
+be inherited by animation. Use only the central `open_ink_wash_*` authoring,
+generation, and evaluation tokens for its profile-specific gates. A missing
+durable reference path is not a blocker because the accepted image is
+audit-only; any attempt to bind an absolute/transient path or use the image for
+identity/editing is `open_ink_wash_reference_role_invalid`.
+
 For the composed motion-flow successor, equality means exact base/reference
 equality plus exact successor registry equality, not equality between the two
 different keys. Validate the base first, then the successor and its ordered
@@ -1001,6 +1154,14 @@ the inherited proportion, hierarchy, and facial gates and independently apply
 the v2 detail, color-anchor, and halo gates. Insufficient reproducible
 evaluation evidence is `character_evaluation_evidence_insufficient`, not an
 inferred pass.
+
+For `projectbs_character_open_ink_wash_dynamic_contour@1.0.0`, authoring,
+generation, and evaluation independently gate proportion/age, open contour and
+mok-seon, pigment/palette/negative space, background, identity/equipment, and
+reference role. Generation is no-submit on any failure. Evaluation uses
+reproducible observable evidence and returns
+`character_evaluation_evidence_insufficient` instead of guessing exact
+percentages or stroke phases.
 
 ## Related Guides
 

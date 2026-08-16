@@ -226,6 +226,16 @@ sentences into appearance fields as if they were character identity.
   `projectbs_character_bold_outline_compressed_detail@2.0.0` with hash
   `5702307bebf466b8e6190b5d881bd57f38373746f02084fdcf5e348e7fc88db3`; the successor is a distinct explicit selection and never
   reinterprets v1;
+  the additive single-image-only open ink-wash option is
+  `projectbs_character_open_ink_wash_dynamic_contour@1.0.0` with hash
+  `37ba4df4af5f8fa4b45708bd18bebbec537ad58a74ab8d00f722c7c4744817dd`.
+  Planning may select it only with exact 4-5-head/4.25-target young-adult facts,
+  35-55/45-target open contour, tactile mok-seon, broad bleeding pigment,
+  separate blue-gray-or-indigo/gray-brown/small-muted-ochre roles, at least 70
+  percent achromatic or unpainted figure-interior and canvas space, warm-ivory
+  removable background, no halo/scene/shadow, and complete character-specific
+  identity/equipment bindings. The accepted style-reference SHA is audit-only
+  and is never a planning identity fact or edit target;
   actual planning/handoff revision remains the planning owner's work;
 - a conflict between an approved character fact and the active expression
   profile returns `character_style_profile_conflict` and requires an explicit

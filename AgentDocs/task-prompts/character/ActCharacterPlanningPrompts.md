@@ -20,6 +20,7 @@ handoff를 작성하는 복사용 프롬프트입니다.
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 
 Input:
 - projectRoot: {project_root}
@@ -46,6 +47,10 @@ Input:
 - sourceRevisionInputs:
   - path: {optional_exact_source_path}
     revision: {optional_stable_revision_from_source_authority}
+- characterExpressionProfileSelections:
+  - contentId: {character_id}
+    expressionProfileKey: {optional_exact_registered_key}
+    expressionProfilePayloadHash: {optional_exact_registered_hash}
 
 작업:
 1. 모든 입력 파일과 직접 참조 가이드를 읽고 sourceStoryRefs와 sourcePlanningRefs를 확정한다.
@@ -60,6 +65,7 @@ Input:
 10. current character single-image 요청이면 generatedMediaPlanning.characterSingleImage에 identityConsistencyLock과 완전한 singleImageSpecification을 planning 근거로 확정한다. assetType=character_single_image, domainType=character이며 한 viewpoint만 허용한다. 8-way/rotation/directions/ordered_rotation_set, animation/variant, PixelLab/legacy identity를 current 계약에 넣지 않는다.
 11. singleImageSpecification은 viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, finalBackgroundPolicy, generationBackground{mode=removable_solid,color}, noShadow, outline, anchor를 모두 포함한다. outline.enabled=false이면 color와 exactThicknessPx를 생략한다. enabled=true이면 둘을 필수로 쓰고 placement=outside_silhouette로 고정한다. anchor는 type=pelvis_root_ground_axis와 pelvisOrRootPoint/groundContactAxis를 모두 요구한다.
 12. createCharacterSingleImageHandoffs=true인 각 대상에 대해 planningStatus=approved, characterSingleImage.readiness=ready, missingDesignInputs=[]인지 검증한다. 기존 characterMainImage.rotationPolicy=generated_media_exact_8_way_v1만 있는 대상은 legacy_record_not_current_request로 차단하고 current 필드를 자동 생성·변환하지 않는다. 구 입력명 createCharacterMainImageHandoffs는 current prompt에서 지원하지 않는 read-only legacy 이름이다.
+12a. expression profile을 선택하면 registry의 exact key/hash를 승인된 planning pointer로만 기록한다. `projectbs_character_open_ink_wash_dynamic_contour@1.0.0` 선택은 4-5 heads/target 4.25, young adult/no child, 35-55 omission/target 45, pressure-variable mok-seon phases, broad watercolor/pastel bleed와 outline 밖 controlled misalignment, 분리된 세 palette role, figure interior와 canvas 각각 achromatic/unpainted >=70%, removable warm-ivory solid, no halo/vignette/scene/shadow, exact Korean/Joseon identity/equipment anchor facts가 모두 있을 때만 허용한다. audit-only style-reference SHA를 identity, edit target 또는 임시/절대 path binding으로 기록하지 않는다. 하나라도 충돌하면 `character_style_profile_conflict`로 차단하고 profile 의미를 planning에 맞춰 변형하지 않는다.
 13. 준비된 대상만 별도 generated_media_planning_handoff_v2를 작성한다. caller/planning orchestration이 승인해 제공한 request별 planningCaptureInputs를 `Closed planning capture input` 계약으로 검증한다. authoring agent는 capturedAt을 만들거나 현재 시각을 사용하거나 sourcePlanningPaths를 선택·추가·제거·중복 제거·재정렬하지 않는다. capture contentId/requestId는 handoff identity와 exact equality여야 하며 ordered sourcePlanningPaths 각 항목은 같은 index의 sourcePlanningFiles.path에 정확히 한 번 대응해야 한다.
 14. canonical planning과 사용한 design decision 파일 전체의 exact project-relative path/role/UTF-8 byte SHA-256를 capture 순서 그대로 sourcePlanningFiles에 넣고, planningSnapshot은 GeneratedMediaPlanningHandoffGuide.md의 `Closed Planning Snapshot v2`를 그대로 적용한다. approvedFacts schema/hash payload를 이 prompt에서 재정의하지 않는다. publication 직전에 모든 source bytes/hash를 다시 검증한다. revision은 source authority의 안정적 값을 그대로 받았을 때만 포함한다.
 15. handoff에는 identityConsistencyLock, singleImageSpecification, ordered requiredElements/prohibitedElements만 exact field-level 매핑한다. 누락 capture/provenance, invalid capturedAt, 해석 불가·중복 source path/JSON pointer, identity/source order/hash/snapshot 불일치, incomplete technical specification은 fail closed하며 부분 handoff를 쓰지 않는다.
@@ -78,11 +84,12 @@ Output:
 - 생성한 character_single_image planning handoff v2 경로 또는 생성하지 않은 이유
 - sourceStoryRefs / sourcePlanningRefs
 - Generated Media handoff planningCaptureInputs 적용값 / sourcePlanningFiles / planningSnapshotHash
+- selected expressionProfileKey / expressionProfilePayloadHash 또는 selection 없음
 - 검증 결과
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_story_file | invalid_act_group_id | insufficient_story_basis | invalid_json | missing_character_identity | invalid_character_type | invalid_character_planning_schema | missing_design_provenance | missing_gender_presentation | missing_body_design | missing_face_design | missing_hair_design | missing_costume_design | missing_equipment_decision | missing_weapon_design | missing_handedness_decision | missing_palette_design | missing_material_design | missing_identifying_features | missing_pose_policy | missing_display_contract | missing_target_display_size | missing_detail_density | missing_required_elements | missing_prohibited_elements | missing_planning_capture_inputs | invalid_planning_capture_timestamp | missing_source_planning_path | duplicate_source_planning_path | unresolved_source_planning_path | planning_capture_identity_mismatch | missing_identity_consistency_lock | missing_single_image_viewpoint | missing_single_image_pose | missing_framing_contract | missing_canvas_contract | missing_safe_area | missing_background_policy | missing_generation_background | missing_no_shadow_policy | missing_outline_policy | invalid_outline_contract | missing_anchor_contract | character_planning_not_media_ready | legacy_record_not_current_request | legacy_character_planning_conflict | planning_snapshot_mismatch | record_collision
+- failureType: missing_story_file | invalid_act_group_id | insufficient_story_basis | invalid_json | missing_character_identity | invalid_character_type | invalid_character_planning_schema | missing_design_provenance | missing_gender_presentation | missing_body_design | missing_face_design | missing_hair_design | missing_costume_design | missing_equipment_decision | missing_weapon_design | missing_handedness_decision | missing_palette_design | missing_material_design | missing_identifying_features | missing_pose_policy | missing_display_contract | missing_target_display_size | missing_detail_density | missing_required_elements | missing_prohibited_elements | missing_planning_capture_inputs | invalid_planning_capture_timestamp | missing_source_planning_path | duplicate_source_planning_path | unresolved_source_planning_path | planning_capture_identity_mismatch | missing_identity_consistency_lock | missing_single_image_viewpoint | missing_single_image_pose | missing_framing_contract | missing_canvas_contract | missing_safe_area | missing_background_policy | missing_generation_background | missing_no_shadow_policy | missing_outline_policy | invalid_outline_contract | missing_anchor_contract | character_style_profile_conflict | character_planning_not_media_ready | legacy_record_not_current_request | legacy_character_planning_conflict | planning_snapshot_mismatch | record_collision
 - affectedCharacterIds
 - missingDesignInputs
 - filesNotCreatedOrModified
@@ -105,6 +112,7 @@ Output:
 - outline.enabled=false이면 color/exactThicknessPx가 없어야 하며 enabled=true이면 둘 다 유효해야 한다.
 - 모든 sourcePlanningFiles hash, approvedFact pointer, planningSnapshotHash가 exact source bytes와 일치해야 한다.
 - planningCaptureInputs의 contentId/requestId/capturedAt/sourcePlanningPaths가 authority 입력과 byte-equal하고, sourcePlanningPaths와 sourcePlanningFiles.path가 같은 순서로 일대일 대응해야 한다.
+- expression profile selection은 registry exact key/hash이며 open ink-wash 선택은 모든 closed planning binding과 충돌하지 않아야 한다.
 - 후속 단계가 이름·성격·combat lore로 시각 디자인을 보충하도록 지시하지 않아야 한다.
 - 실제 provider 실행, 평가, project promotion, Unity 또는 Git 변경이 없어야 한다.
 ```
