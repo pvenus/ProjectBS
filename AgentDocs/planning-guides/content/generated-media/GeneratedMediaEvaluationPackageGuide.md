@@ -43,7 +43,7 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
 {evaluationStagingRoot}/.assembling/{requestId}/{preservationRecordId}.{attemptId}/
 {evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/
   planning/
-  prompt/
+  prompt/ # strict or recovered-prompt accepted branch only
   generation/ # strict branch only
   accepted-capture/ # accepted-result branch only: record.json + capture-receipt.json
   preservation/
@@ -56,8 +56,9 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
 Animation inserts `{animationRequestId}` after `{contentId}`. The temporary
 directory is never an evaluation source. Every member has a lowercase SHA-256.
 Exactly one of `generation/` or `accepted-capture/` exists. In the accepted
-branch, `prompt/` contains the exact recovered provider-prompt bytes whose raw
-hash equals the capture prompt evidence; it is not a prompt record.
+animation branch, `prompt/` contains the exact recovered provider-prompt bytes
+whose raw hash equals the capture prompt evidence; it is not a prompt record.
+It is absent for an unavailable-prompt `character_single_image` capture.
 
 ```yaml
 schemaVersion: generated_media_evaluation_package_v2
@@ -121,13 +122,26 @@ projectTarget:
   status: informational_only
 ```
 
-The accepted-result `acceptedPromptEvidence` object has exactly these members:
+The accepted-result animation `acceptedPromptEvidence` object has exactly these members:
 
 ```yaml
 source: accepted_result_capture
 providerPromptPayloadHash: exact capture promptEvidence.providerPromptPayloadHash
 promptFileSha256: exact capture promptEvidence.fileSha256
 ```
+
+For `character_single_image` when the accepted capture has no historical prompt
+evidence, the object instead contains exactly:
+
+```yaml
+source: accepted_result_capture
+status: unavailable_observed
+claim: not_claimed
+```
+
+No prompt path, hash, prompt record, or reconstructed prose is allowed. The two
+closed shapes are mutually exclusive and the manifest preserves the capture's
+truth without inventing prompt identity.
 
 The four accepted-result fields and `acceptedPromptEvidence` are jointly
 required and all four strict prompt/generation fields are forbidden. The strict
@@ -139,20 +153,28 @@ The accepted capture record path/raw hash must match its canonical index. The
 receipt must be the closed `generated_media_accepted_result_capture_receipt_v1`
 for that exact record/path/hash, have a valid recomputed `receiptPayloadSha256`,
 authorize preservation/evaluation, forbid promotion, and retain truthful
-no-call capture action plus historical one-submit/zero-retry evidence.
+no-call capture action. Animation retains historical one-submit/zero-retry;
+`character_single_image` may retain the exact `unavailable_observed` historical
+counts from its capture.
 
 Unknown or missing fields fail. Relative paths must remain inside the package.
 In the strict branch, the copied planning snapshot, copy-ready provider prompt,
 generation record, preservation record, original media and extracted members
 must hash-match their authoritative records. In the accepted-result branch,
-the copied planning snapshot, recovered provider prompt, accepted capture
-record, capture receipt, preservation record, original media and extracted
-members must hash-match the accepted capture and preservation identities.
+the copied planning snapshot, conditional recovered provider prompt, accepted
+capture record, capture receipt, preservation record, original media and
+extracted members must hash-match the accepted capture and preservation
+identities. The unavailable-prompt shape requires no prompt copy.
 
-Accepted-result `members` include exactly one `accepted_provider_prompt`, one
-`accepted_capture_record`, one `accepted_capture_receipt`, and the structure-
-profile media members. There is no `generation_record` member or `generation/`
-directory. These evidence roles do not become prompt/generation records.
+Accepted-result animation `members` include exactly one
+`accepted_provider_prompt`, one `accepted_capture_record`, one
+`accepted_capture_receipt`, and the structure-profile media members.
+`character_single_image` with unavailable prompt evidence omits the
+`accepted_provider_prompt` member and includes exactly one captured PNG source
+member with role `accepted_project_candidate_png` plus the record and receipt.
+There is no `generation_record` member or
+`generation/` directory. These evidence roles do not become prompt/generation
+records.
 
 ## Closed Current Structure Profiles
 

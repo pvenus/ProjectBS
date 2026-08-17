@@ -1143,8 +1143,8 @@ passed, and does not change `hosted_builtin_preview_v1`,
 animation source mode. The capture producer only verifies and seals already
 existing evidence.
 
-The mode is eligible only when all of the following are available and mutually
-consistent:
+For `assetType=animation`, the mode remains eligible only when all of the
+following are available and mutually consistent:
 
 - one authenticated acceptance message naming the exact accepted artifact;
 - exact task and provider tool-call identity proving the historical submit and
@@ -1154,6 +1154,19 @@ consistent:
   SHA-256;
 - the immutable request, animation, routing and planning snapshot identities;
 - no existing record with the derived ID except byte-identical reuse.
+
+For `assetType=character_single_image`, the additive still-image branch instead
+requires one authenticated acceptance naming one exact PNG SHA-256, one
+raw-byte-verifiable PNG source, and its no-clobber project-relative canonical
+capture target. Historical execution, prompt, settings, capability, and cost
+evidence may each be `unavailable_observed` with `claim=not_claimed`; they are
+never invented and no historical submit, retry, provider, or pre-submit PASS is
+inferred. The accepted bytes acquire only the distinct
+`accepted_project_candidate` capture role. A prior
+`visual_reference_only_not_identity_or_edit_target` role is not promoted or
+reinterpreted, and the capture grants no identity or edit-target authority.
+The branch has exactly one PNG result member and forbids every animation
+master/GIF/frame member.
 
 Capture performs no provider/capability/cost call. For the capture action,
 `providerCalled=false`, `submitCount=0`, and `retryCount=0`; historical one-call
@@ -1182,6 +1195,7 @@ accepted_capture_false_attestation
 accepted_capture_record_collision
 accepted_capture_index_cas_failed
 accepted_capture_promotion_forbidden
+accepted_capture_canonical_target_collision
 ```
 
 ### 6.2 Approval and cost projection

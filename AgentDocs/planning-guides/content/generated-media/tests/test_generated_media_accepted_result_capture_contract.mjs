@@ -30,9 +30,9 @@ function canonicalJson(value) {
 const hashObject = (value) => createHash("sha256")
   .update(Buffer.from(canonicalJson(value), "utf8")).digest("hex");
 
-const recordKeys = ["schemaVersion", "captureRecordId",
+const commonRecordKeys = ["schemaVersion", "captureRecordId",
   "capturePayloadSha256", "requestId", "assetType", "domainType",
-  "contentId", "animationRequestId", "planningSnapshotHash",
+  "contentId", "planningSnapshotHash",
   "routingRecordId", "routingRecordSha256", "sourceExecutionEvidence",
   "userAcceptance", "promptEvidence", "settingsEvidence",
   "referenceEvidence", "resultEvidence", "capabilityEvidenceStatus",
@@ -48,17 +48,31 @@ function payloadOf(record) {
 }
 
 function validateRecord(record) {
-  assert.deepEqual(Object.keys(record).sort(), [...recordKeys].sort());
+  const expectedKeys = record.assetType === "animation"
+    ? [...commonRecordKeys, "animationRequestId"] : commonRecordKeys;
+  assert.deepEqual(Object.keys(record).sort(), [...expectedKeys].sort());
   assert.equal(record.schemaVersion,
     "generated_media_accepted_result_capture_v1");
-  if (record.sourceExecutionEvidence.historicalSubmitCount !== 1
-      || record.sourceExecutionEvidence.historicalRetryCount !== 0
-      || !record.sourceExecutionEvidence.taskId
-      || !record.sourceExecutionEvidence.toolCallId)
-    throw new Error("accepted_capture_execution_evidence_missing");
+  if (record.assetType === "animation") {
+    if (record.sourceExecutionEvidence.historicalSubmitCount !== 1
+        || record.sourceExecutionEvidence.historicalRetryCount !== 0
+        || !record.sourceExecutionEvidence.taskId
+        || !record.sourceExecutionEvidence.toolCallId)
+      throw new Error("accepted_capture_execution_evidence_missing");
+  } else if (record.assetType === "character_single_image") {
+    assert.deepEqual(record.sourceExecutionEvidence,
+      { status: "unavailable_observed", claim: "not_claimed" });
+    assert.deepEqual(record.promptEvidence,
+      { status: "unavailable_observed", claim: "not_claimed" });
+    assert.deepEqual(record.settingsEvidence,
+      { status: "unavailable_observed", claim: "not_claimed" });
+  } else throw new Error("accepted_capture_identity_mismatch");
+  const acceptedSha = record.assetType === "animation"
+    ? record.resultEvidence.completedGif?.sha256
+    : record.resultEvidence.acceptedImage?.sha256;
   if (record.userAcceptance.authorityType !== "authenticated_user_acceptance"
       || record.userAcceptance.acceptedArtifactSha256
-        !== record.resultEvidence.completedGif.sha256
+        !== acceptedSha
       || record.createdAt !== record.userAcceptance.acceptedAt)
     throw new Error("accepted_capture_acceptance_missing");
   if (record.capabilityEvidenceStatus !== "unavailable_observed"
@@ -74,17 +88,39 @@ function validateRecord(record) {
     promotionPrerequisites:
       "strict_evaluation_pass_and_explicit_project_mapping",
   });
-  const { frames, completedGif, providerMaster } = record.resultEvidence;
-  if (!["image", "animated_gif"].includes(providerMaster.mediaType)
-      || frames.length === 0
-      || frames.length !== completedGif.frameCount
-      || frames.some((frame, index) => frame.frameIndex !== index)
-      || record.referenceEvidence.length === 0)
-    throw new Error("accepted_capture_incomplete_member_set");
+  if (record.assetType === "animation") {
+    const { frames, completedGif, providerMaster } = record.resultEvidence;
+    assert.deepEqual(Object.keys(record.resultEvidence).sort(),
+      ["completedGif", "frames", "providerMaster"]);
+    if (!["image", "animated_gif"].includes(providerMaster.mediaType)
+        || frames.length === 0
+        || frames.length !== completedGif.frameCount
+        || frames.some((frame, index) => frame.frameIndex !== index)
+        || record.referenceEvidence.length === 0)
+      throw new Error("accepted_capture_incomplete_member_set");
+  } else {
+    assert.deepEqual(Object.keys(record.resultEvidence), ["acceptedImage"]);
+    const image = record.resultEvidence.acceptedImage;
+    assert.deepEqual(Object.keys(image).sort(), ["byteLength",
+      "canonicalCapturePath", "captureRole", "editTargetAuthority",
+      "identityAuthority", "mediaType", "priorEvidenceRole", "sha256",
+      "sourcePath"].sort());
+    if (image.mediaType !== "image/png" || image.byteLength <= 0
+        || image.captureRole !== "accepted_project_candidate"
+        || image.priorEvidenceRole
+          !== "visual_reference_only_not_identity_or_edit_target"
+        || image.identityAuthority !== false
+        || image.editTargetAuthority !== false
+        || image.canonicalCapturePath !==
+          `AgentDocs/planning-data/generated-media-accepted-result-capture/v1/character_single_image/${record.contentId}/media/${image.sha256}.png`)
+      throw new Error("accepted_capture_incomplete_member_set");
+  }
   const payloadHash = hashObject(payloadOf(record));
   assert.equal(record.capturePayloadSha256, payloadHash);
-  assert.equal(record.captureRecordId,
-    `gmaccept1.animation.${record.contentId}.${record.animationRequestId}.${payloadHash.slice(0, 20)}`);
+  const expectedId = record.assetType === "animation"
+    ? `gmaccept1.animation.${record.contentId}.${record.animationRequestId}.${payloadHash.slice(0, 20)}`
+    : `gmaccept1.character_single_image.${record.contentId}.${payloadHash.slice(0, 20)}`;
+  assert.equal(record.captureRecordId, expectedId);
   return true;
 }
 
@@ -163,6 +199,64 @@ function makeRecord() {
   return record;
 }
 
+function makeStillRecord() {
+  const sha256 =
+    "0fbc5702a04683e2fe483ba230d10f92d31ea88984330c7314f14590313815b0";
+  const record = {
+    schemaVersion: "generated_media_accepted_result_capture_v1",
+    captureRecordId: "pending", capturePayloadSha256: "pending",
+    requestId:
+      "gmplan2.character_single_image.character.seojin.1.e5537d6487d06b88f452",
+    assetType: "character_single_image", domainType: "character",
+    contentId: "character.seojin.1",
+    planningSnapshotHash: "e5537d6487d06b88f452".padEnd(64, "0"),
+    routingRecordId: "gmroute2.character_single_image.character.seojin.1.vector",
+    routingRecordSha256: "a".repeat(64),
+    sourceExecutionEvidence:
+      { status: "unavailable_observed", claim: "not_claimed" },
+    userAcceptance: {
+      authorityType: "authenticated_user_acceptance",
+      acceptanceMessageId: "exact-authenticated-still-acceptance-message-id",
+      acceptedAt: "2026-08-18T12:00:00+09:00",
+      acceptedArtifactSha256: sha256,
+    },
+    promptEvidence: { status: "unavailable_observed", claim: "not_claimed" },
+    settingsEvidence: { status: "unavailable_observed", claim: "not_claimed" },
+    referenceEvidence: [{
+      role: "visual_reference_only_not_identity_or_edit_target",
+      path: "C:/Users/parkv/.codex/worktrees/5d67/ProjectBS-agent/output/attack-animation-reference/seojin-approved-fast-preview.png",
+      sha256,
+    }],
+    resultEvidence: { acceptedImage: {
+      sourcePath: "C:/Users/parkv/.codex/worktrees/5d67/ProjectBS-agent/output/attack-animation-reference/seojin-approved-fast-preview.png",
+      sha256, byteLength: 1762609, mediaType: "image/png",
+      canonicalCapturePath:
+        `AgentDocs/planning-data/generated-media-accepted-result-capture/v1/character_single_image/character.seojin.1/media/${sha256}.png`,
+      priorEvidenceRole: "visual_reference_only_not_identity_or_edit_target",
+      captureRole: "accepted_project_candidate", identityAuthority: false,
+      editTargetAuthority: false,
+    } },
+    capabilityEvidenceStatus: "unavailable_observed",
+    costEvidenceStatus: "unavailable_observed",
+    preSubmitGateAttestation: "not_claimed_post_result_capture",
+    captureAction: { providerCalled: false, submitCount: 0, retryCount: 0 },
+    downstreamAuthorization: {
+      preservationAuthorized: true, evaluationAuthorized: true,
+      promotionAuthorized: false,
+      promotionPrerequisites:
+        "strict_evaluation_pass_and_explicit_project_mapping",
+    },
+    createdAt: "2026-08-18T12:00:00+09:00",
+    validation: { status: "valid", acceptance: "valid",
+      executionEvidence: "valid", identities: "valid", rawHashes: "valid",
+      memberClosure: "valid" },
+  };
+  record.capturePayloadSha256 = hashObject(payloadOf(record));
+  record.captureRecordId =
+    `gmaccept1.character_single_image.${record.contentId}.${record.capturePayloadSha256.slice(0, 20)}`;
+  return record;
+}
+
 for (const surface of [contract, recordGuide, preservation, capturePrompt,
   preservationPrompt]) {
   assert.match(surface, /generated_media_accepted_result_capture_v1/);
@@ -183,6 +277,9 @@ assert.match(preservation, /provider returned one coherent six-cell master\s+IMA
 const valid = makeRecord();
 assert.equal(validateRecord(valid), true);
 assert.equal(validateRecord(structuredClone(valid)), true); // idempotent projection
+const still = makeStillRecord();
+assert.equal(validateRecord(still), true);
+assert.equal(validateRecord(structuredClone(still)), true); // idempotent projection
 assert.throws(() => validateRecord({ ...valid,
   capabilityEvidenceStatus: "supported" }), /accepted_capture_false_attestation/);
 assert.throws(() => validateRecord({ ...valid,
@@ -198,8 +295,32 @@ assert.throws(() => validateRecord({ ...valid, resultEvidence: {
   /accepted_capture_incomplete_member_set/);
 assert.throws(() => validateRecord({ ...valid, downstreamAuthorization: {
   ...valid.downstreamAuthorization, promotionAuthorized: true } }));
+assert.throws(() => validateRecord({ ...still, resultEvidence: {
+  ...still.resultEvidence, completedGif: valid.resultEvidence.completedGif } }),
+  /Expected values to be strictly deep-equal|accepted_capture_incomplete_member_set/);
+assert.throws(() => validateRecord({ ...still, resultEvidence: {
+  acceptedImage: { ...still.resultEvidence.acceptedImage,
+    captureRole: "identity_reference" } } }),
+  /accepted_capture_incomplete_member_set/);
+assert.throws(() => validateRecord({ ...still, promptEvidence: {
+  status: "supported", claim: "passed" } }));
+assert.throws(() => validateRecord({ ...still, resultEvidence: {
+  acceptedImage: { ...still.resultEvidence.acceptedImage,
+    canonicalCapturePath: "C:/temporary/output.png" } } }),
+  /accepted_capture_incomplete_member_set/);
+
+for (const surface of [contract, recordGuide, preservation, capturePrompt,
+  preservationPrompt]) {
+  assert.match(surface, /accepted_project_candidate/);
+  assert.match(surface, /visual_reference_only_not_identity_or_edit_target/);
+}
+for (const token of ["accepted_capture_canonical_target_collision",
+  "accepted_capture_incomplete_member_set"]) {
+  assert.match(contract + recordGuide + capturePrompt, new RegExp(token));
+}
 
 console.log({ schemaVersion: valid.schemaVersion,
-  captureRecordId: valid.captureRecordId, testsProviderCalled: false,
+  animationCaptureRecordId: valid.captureRecordId,
+  stillCaptureRecordId: still.captureRecordId, testsProviderCalled: false,
   testsSubmitCount: 0 });
 console.log("generated media accepted result capture contract vectors: PASS");

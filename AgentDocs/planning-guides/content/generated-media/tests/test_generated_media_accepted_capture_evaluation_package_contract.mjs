@@ -30,7 +30,7 @@ const hashObject = (value) => createHash("sha256")
   .update(Buffer.from(canonicalJson(value), "utf8")).digest("hex");
 
 const commonKeys = ["requestId", "assetType", "domainType", "contentId",
-  "animationRequestId", "planningSnapshotHash", "routingRecordId",
+  "planningSnapshotHash", "routingRecordId",
   "preservationRecordId", "preservationPayloadHash", "provider",
   "structureProfile", "profileExtension", "members", "projectTarget"];
 const strictKeys = ["promptRecordId", "promptRecordSha256",
@@ -65,20 +65,31 @@ function validateManifest(payload) {
   const branchKeys = hasAccepted ? acceptedKeys : strictKeys;
   if (branchKeys.some((key) => !Object.hasOwn(payload, key)))
     throw new Error("evaluation_package_input_branch_incomplete");
-  const allowed = new Set([...commonKeys, ...branchKeys]);
+  const allowed = new Set([...commonKeys, ...branchKeys,
+    ...(payload.assetType === "animation" ? ["animationRequestId"] : [])]);
   if (keys.some((key) => !allowed.has(key)))
     throw new Error("evaluation_package_unknown_branch_field");
   if (hasAccepted) {
-    assert.deepEqual(payload.acceptedPromptEvidence, {
-      source: "accepted_result_capture",
-      providerPromptPayloadHash:
-        "278b55136cfba5ea0977f7db37c893452aca6b494592c311c3569f02ee0eb658",
-      promptFileSha256:
-        "ad91da8019c4ed46134500bea15654f04d8f341f4056b1186f5825e9bac3ffb8",
-    });
     const roles = payload.members.map((member) => member.role);
-    for (const role of ["accepted_provider_prompt", "accepted_capture_record",
-      "accepted_capture_receipt"]) assert.equal(roles.filter((x) => x === role).length, 1);
+    if (payload.assetType === "animation") {
+      assert.deepEqual(payload.acceptedPromptEvidence, {
+        source: "accepted_result_capture",
+        providerPromptPayloadHash:
+          "278b55136cfba5ea0977f7db37c893452aca6b494592c311c3569f02ee0eb658",
+        promptFileSha256:
+          "ad91da8019c4ed46134500bea15654f04d8f341f4056b1186f5825e9bac3ffb8",
+      });
+      assert.equal(roles.filter((x) => x === "accepted_provider_prompt").length, 1);
+    } else {
+      assert.deepEqual(payload.acceptedPromptEvidence, {
+        source: "accepted_result_capture", status: "unavailable_observed",
+        claim: "not_claimed",
+      });
+      assert.equal(roles.includes("accepted_provider_prompt"), false);
+      assert.equal(roles.filter((x) => x === "accepted_project_candidate_png").length, 1);
+    }
+    for (const role of ["accepted_capture_record", "accepted_capture_receipt"])
+      assert.equal(roles.filter((x) => x === role).length, 1);
     assert.equal(roles.includes("generation_record"), false);
   }
   return hashObject(payload);
@@ -136,6 +147,35 @@ const strict = { ...common,
   generationRecordId: "gmgen2.strict", generationRecordSha256: "4".repeat(64),
   members: [member("generation-record", "generation_record", "4".repeat(64))] };
 
+const acceptedStill = {
+  requestId:
+    "gmplan2.character_single_image.character.seojin.1.e5537d6487d06b88f452",
+  assetType: "character_single_image", domainType: "character",
+  contentId: "character.seojin.1",
+  planningSnapshotHash: "e5537d6487d06b88f452".padEnd(64, "0"),
+  routingRecordId: "gmroute2.character_single_image.character.seojin.1.vector",
+  preservationRecordId: "gmpreserve2.character_single_image.contract-vector",
+  preservationPayloadHash: "5".repeat(64), provider: "imagegen",
+  structureProfile: "character_single_image_v2", profileExtension: {},
+  projectTarget: { status: "informational_only" },
+  acceptedPromptEvidence: { source: "accepted_result_capture",
+    status: "unavailable_observed", claim: "not_claimed" },
+  acceptedResultCaptureRecordId:
+    "gmaccept1.character_single_image.character.seojin.1.vector",
+  acceptedResultCaptureRecordPath:
+    "AgentDocs/planning-data/generated-media-accepted-result-capture/v1/character_single_image/character.seojin.1/gmaccept1.character_single_image.character.seojin.1.vector.json",
+  acceptedResultCaptureRecordSha256: "6".repeat(64),
+  acceptedResultCaptureReceiptSha256: "7".repeat(64),
+  members: [
+    member("capture-record", "accepted_capture_record", "6".repeat(64)),
+    member("capture-receipt", "accepted_capture_receipt", "7".repeat(64)),
+    { ...member("accepted-image", "accepted_project_candidate_png",
+      "0fbc5702a04683e2fe483ba230d10f92d31ea88984330c7314f14590313815b0"),
+      relativePath: "source/accepted.png", mediaType: "image/png", width: 1,
+      height: 1, order: 1 },
+  ],
+};
+
 const acceptedPreservationInput = {
   requestId: accepted.requestId, routingRecordId: accepted.routingRecordId,
   acceptedPromptEvidence: accepted.acceptedPromptEvidence,
@@ -154,6 +194,7 @@ const strictPreservationInput = {
 };
 
 assert.match(validateManifest(accepted), /^[0-9a-f]{64}$/);
+assert.match(validateManifest(acceptedStill), /^[0-9a-f]{64}$/);
 assert.match(validateManifest(strict), /^[0-9a-f]{64}$/);
 assert.equal(validatePreservationInput(acceptedPreservationInput), true);
 assert.equal(validatePreservationInput(strictPreservationInput), true);
@@ -172,6 +213,12 @@ delete partial.acceptedResultCaptureReceiptSha256;
 assert.throws(() => validateManifest(partial), /evaluation_package_input_branch_incomplete/);
 assert.throws(() => validateManifest({ ...accepted, inventedPromptRecordId: "fake" }),
   /evaluation_package_unknown_branch_field/);
+assert.throws(() => validateManifest({ ...acceptedStill,
+  animationRequestId: "forbidden-for-still" }),
+  /evaluation_package_unknown_branch_field/);
+assert.throws(() => validateManifest({ ...acceptedStill,
+  members: [...acceptedStill.members,
+    member("provider-prompt", "accepted_provider_prompt", "8".repeat(64))] }));
 
 for (const surface of [preservation, evaluationPackage, preservationPrompt,
   evaluationPrompt, expressionPrompt]) {
@@ -195,6 +242,7 @@ for (const token of ["preservation_input_branch_conflict",
 }
 
 console.log({ acceptedManifestPayloadHash: validateManifest(accepted),
+  acceptedStillManifestPayloadHash: validateManifest(acceptedStill),
   strictManifestPayloadHash: validateManifest(strict), providerCalled: false,
   submitCount: 0 });
 console.log("accepted capture evaluation-package branch vectors: PASS");

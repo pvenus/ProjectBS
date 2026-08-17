@@ -985,9 +985,10 @@ AgentDocs/planning-data/generated-media-accepted-result-capture/v1/animation/{co
 ```
 
 The record has exactly these members. `animationRequestId` is required only for
-animation and forbidden otherwise. Every `path` is the exact observed source
-path; it may be absolute because it is evidence location, never canonical
-identity or a project target. All hashes bind raw file bytes.
+animation and forbidden otherwise. Except for the conditional
+`resultEvidence.acceptedImage.canonicalCapturePath`, every `path` is the exact
+observed source path; it may be absolute because it is evidence location, never
+canonical identity or a project target. All hashes bind raw file bytes.
 
 ```yaml
 schemaVersion: generated_media_accepted_result_capture_v1
@@ -1001,7 +1002,7 @@ animationRequestId?:
 planningSnapshotHash:
 routingRecordId:
 routingRecordSha256:
-sourceExecutionEvidence:
+sourceExecutionEvidence: exact conditional object below
   taskId:
   toolCallId:
   provider: imagegen
@@ -1014,18 +1015,18 @@ userAcceptance:
   acceptanceMessageId:
   acceptedAt: RFC 3339 timestamp with offset
   acceptedArtifactSha256:
-promptEvidence:
+promptEvidence: exact conditional object below
   path:
   fileSha256:
   providerPromptPayloadHash:
-settingsEvidence:
+settingsEvidence: exact conditional object below
   path:
   fileSha256:
 referenceEvidence:
   - role:
     path:
     sha256:
-resultEvidence:
+resultEvidence: exact conditional object below
   providerMaster:
     path:
     sha256:
@@ -1062,14 +1063,57 @@ validation:
   memberClosure: valid
 ```
 
-`referenceEvidence` is a non-empty ordered array and preserves each submitted
-role/path/hash exactly; it grants no new identity or edit-target semantics.
-`frames` is ordered by unique zero-based `frameIndex`, has exactly the observed
-GIF timeline count, and each member is extracted from the captured completed
-GIF. For coherent-master-to-GIF v2 the master mediaType is `image`, the GIF is
+For `assetType=animation`, the shown source-execution, prompt, settings and
+result objects remain required without any member change. `referenceEvidence`
+is a non-empty ordered array and preserves each submitted role/path/hash
+exactly; it grants no new identity or edit-target semantics. `frames` is ordered
+by unique zero-based `frameIndex`, has exactly the observed GIF timeline count,
+and each member is extracted from the captured completed GIF. For
+coherent-master-to-GIF v2 the master mediaType is `image`, the GIF is
 generation-role-built, and the six frame entries match the reopened timeline.
 For existing provider-native GIF evidence the master mediaType is
 `animated_gif`; that mode remains separate and unchanged.
+
+For `assetType=character_single_image`, `sourceExecutionEvidence`,
+`promptEvidence`, `settingsEvidence`, and `resultEvidence` instead have exactly
+these closed shapes. This is an additive conditional branch; animation records
+and their payload hashes do not change.
+
+```yaml
+sourceExecutionEvidence:
+  status: unavailable_observed
+  claim: not_claimed
+promptEvidence:
+  status: unavailable_observed
+  claim: not_claimed
+settingsEvidence:
+  status: unavailable_observed
+  claim: not_claimed
+resultEvidence:
+  acceptedImage:
+    sourcePath: exact observed PNG path
+    sha256: exact raw source and canonical-target SHA-256
+    byteLength: positive integer raw byte length
+    mediaType: image/png
+    canonicalCapturePath: AgentDocs/planning-data/generated-media-accepted-result-capture/v1/character_single_image/{contentId}/media/{sha256}.png
+    priorEvidenceRole: visual_reference_only_not_identity_or_edit_target
+    captureRole: accepted_project_candidate
+    identityAuthority: false
+    editTargetAuthority: false
+```
+
+The accepted image is the only media member in this branch. Its source must be
+a PNG and `userAcceptance.acceptedArtifactSha256` must equal its `sha256`.
+Authenticated acceptance creates the distinct `accepted_project_candidate`
+capture role for those exact bytes; it does not upgrade or reinterpret the
+prior visual-reference role and grants no person/identity/edit-target authority.
+The producer copies the source bytes unchanged and no-clobber to the exact
+project-relative `canonicalCapturePath`, then re-hashes that target. An existing
+byte-identical target is reused; a different or non-PNG occupant is
+`accepted_capture_canonical_target_collision`. Animation forbids
+`acceptedImage`; `character_single_image` forbids `providerMaster`,
+`completedGif`, and `frames`. Any mixed or partial member set is
+`accepted_capture_incomplete_member_set`.
 
 ```text
 capturePayloadSha256 = SHA-256(JCS(record excluding captureRecordId, capturePayloadSha256, validation))
@@ -1081,8 +1125,11 @@ The closed index contains exactly `schemaVersion`
 conditional `animationRequestId`, and `entries`. Each entry is keyed by
 `captureRecordId` and contains exactly `captureRecordId`, `recordPath`,
 `recordSha256`, `capturePayloadSha256`, `requestId`, conditional
-`animationRequestId`, `sourceGenerationTaskId`, `providerMasterSha256`,
-`completedGifSha256`, and `acceptedArtifactSha256`.
+`animationRequestId`, and `acceptedArtifactSha256`. Animation entries also
+contain exactly `sourceGenerationTaskId`, `providerMasterSha256`, and
+`completedGifSha256`. `character_single_image` entries instead contain exactly
+`acceptedImageSha256` and `canonicalCapturePath`. The two conditional
+projections are mutually exclusive.
 
 Write the record first, then CAS-append the index. An identical payload, record
 bytes and index projection returns the original bytes as `reused_identical`.
@@ -1102,14 +1149,16 @@ captureRecordPath?: required unless blocked
 captureRecordSha256?: required unless blocked
 capturePayloadSha256?: required unless blocked
 captureIndexSha256?: required unless blocked
-sourceGenerationTaskId:
-providerMasterSha256:
-completedGifSha256:
+sourceGenerationTaskId?: animation only
+providerMasterSha256?: animation only
+completedGifSha256?: animation only
+acceptedImageSha256?: character_single_image only
+canonicalCapturePath?: character_single_image only
 providerCalled: false
 submitCount: 0
 retryCount: 0
-historicalSubmitCount: 1
-historicalRetryCount: 0
+historicalSubmitCount: 1 for animation | unavailable_observed for character_single_image
+historicalRetryCount: 0 for animation | unavailable_observed for character_single_image
 capabilityEvidenceStatus: unavailable_observed
 costEvidenceStatus: unavailable_observed
 preSubmitGateAttestation: not_claimed_post_result_capture

@@ -58,9 +58,9 @@ every field owned by the other branch. Mixed, partial, or unknown branch fields
 fail before payload identity calculation.
 
 When no authoritative `generated_media_prompt_v3` exists, the accepted-result
-branch MUST NOT invent one. It projects exactly this closed prompt identity from
-the verified capture record and requires byte equality with the recovered
-prompt file:
+branch MUST NOT invent one. Animation projects the existing closed recovered
+prompt identity below and requires byte equality with the recovered prompt
+file:
 
 ```yaml
 acceptedPromptEvidence:
@@ -69,10 +69,18 @@ acceptedPromptEvidence:
   promptFileSha256: exact capture promptEvidence.fileSha256
 ```
 
+For a `character_single_image` capture whose historical prompt is unavailable,
+`acceptedPromptEvidence` instead has exactly `source=accepted_result_capture`,
+`status=unavailable_observed`, and `claim=not_claimed`. It contains no hash,
+path, prompt-record identity, or reconstructed prose. The two prompt-evidence
+shapes are mutually exclusive.
+
 The capture receipt must be a valid `captured` or `reused_identical` receipt,
-name the same capture record/path/raw SHA and request/animation identity, retain
-`providerCalled=false`, capture submit/retry zero, historical submit one/retry
-zero, and authorize preservation/evaluation but not promotion. Its
+name the same capture record/path/raw SHA and request/conditional animation
+identity, retain `providerCalled=false` and capture submit/retry zero, and
+authorize preservation/evaluation but not promotion. Animation retains
+historical submit one/retry zero; `character_single_image` may retain the exact
+`unavailable_observed` historical counts from its capture. Its
 `receiptPayloadSha256` is recomputed from the closed receipt before use.
 
 Every identity/hash/provider/profile must agree. In the strict branch,
@@ -84,11 +92,18 @@ provider result is accessed. `actualCostStatus=unavailable` is not preservation
 ready. Missing/foreign paths, project/staging overlap, unsupported provider, or
 incomplete readiness block before download.
 
-For the accepted-result branch, verify the capture record and index raw hashes,
-authenticated acceptance, source task/tool-call identity, all prompt/settings/
-reference/master/GIF/frame raw hashes, historical one-submit/zero-retry facts,
-and the exact literals `unavailable_observed` and
-`not_claimed_post_result_capture`. This branch does not require or synthesize a
+For the accepted-result animation branch, verify the capture record and index
+raw hashes, authenticated acceptance, source task/tool-call identity, all
+prompt/settings/reference/master/GIF/frame raw hashes, historical
+one-submit/zero-retry facts, and the exact literals `unavailable_observed` and
+`not_claimed_post_result_capture`. For `character_single_image`, verify exactly
+one PNG canonical capture member, source/target raw hash and byte identity,
+authenticated acceptance of that SHA, the distinct `accepted_project_candidate`
+role and explicit absence of identity/edit-target authority. The prior
+`visual_reference_only_not_identity_or_edit_target` role remains unchanged.
+Historical
+execution/prompt/settings/count values may only be the capture's closed
+`unavailable_observed`/`not_claimed` shape. This branch does not require or synthesize a
 generation-v2 cost projection. It is preservation/evaluation-authorized only;
 promotion remains forbidden until a later strict evaluation `PASS` and explicit
 project mapping.
@@ -305,4 +320,6 @@ evaluation request. It never returns an evaluation verdict.
 - staging source differs from project target;
 - accepted-result capture input preserves unavailable capability/cost truth,
   never asserts past gate success, and cannot authorize promotion;
+- accepted-result `character_single_image` preserves exactly one canonical PNG
+  whose bytes equal the capture source and rejects any animation/still mixture;
 - no provider/evaluation/promotion/Git stage executes.
