@@ -29,6 +29,9 @@ Input:
 9. setup 실패는 worktree_metadata_permission_denied | task_registry_collision | helper_setup_refresh_failed | tool_approval_required 중 정확히 하나로 반환한다. 실패가 cleanup, 추가 fetch 또는 replacement task를 승인하지 않는다.
 10. state change와 terminal에서만 compact status 한 건을 반환한다. full authority bundle, planning payload, unchanged inventory와 동일 status를 재전송하지 않는다.
 11. provider 호출, media 생성/수정, planning/routing/prompt/record/index 작성, preservation/evaluation/promotion/Unity를 수행하지 않는다.
+12. sealed preservation package의 평가가 끝난 뒤에만 GeneratedMediaRequestRoutingGuide의 terminal project-promotion dispatch를 판정한다. `generated_image_evaluation_v1 + evaluationStatus=completed + result=PASS + passForProjectCopy=true + promotionStatus=not_promoted`와 exact current package registry row가 모두 맞을 때만 persistent official task `01a01094-7d22-7a51-b92e-bf6154769017`에 정확히 한 번 dispatch한다.
+13. relay는 requestId,evaluationPackageId,assetType,domainType,contentId,evaluationRecordId,replaceExisting,replacementApprovalRef 여덟 member만 갖는다. source/target 절대·상대 경로, full bundle/manifest, prompt/provider payload, media와 unknown/nested member를 넣지 않는다. exact relay JCS hash를 response-only active/completed key로 확인하되 key를 relay에 추가하거나 저장소 record/index/path를 만들지 않는다.
+14. preview/notEvaluated/incomplete/non-PASS/Conditional Pass/Fail/missing package/false 또는 missing passForProjectCopy/not_promoted 이외 promotionStatus는 dispatch하지 않는다. promotion child final은 promoted | blocked | not_promoted | copy_failed 중 하나로 terminal 처리하고 routing/generation/preservation/evaluation로 되돌리지 않는다.
 
 Output:
 - status: ready | queued | blocked
@@ -42,4 +45,6 @@ Output:
 - cleanupPerformed: false (이 prompt는 cleanup을 실행하지 않음)
 - nextRole / compactStatusHash
 - providerCalled=false / submitCount=0
+- promotionTerminalStatus: promoted | blocked | not_promoted | copy_failed (final-stage를 판정한 경우)
+- projectPromotionDispatchPerformed: false | true
 ```

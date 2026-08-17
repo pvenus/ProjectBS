@@ -42,20 +42,20 @@ The caller supplies generalized identity and approval facts only.
 ### 3.1 Allowed fields
 
 ~~~text
-requestId: optional stable request id
+requestId: required stable request id for current package mode; optional legacy
 evaluationPackageId: preferred current package identity
 assetType: required for package mode
 domainType: required for package mode
 artifactType: required only for legacy mode
 contentId: required canonical content id
-evaluationRecordId: optional stable non-path evaluation record id
+evaluationRecordId: required stable non-path record id for current package mode; optional legacy
 replaceExisting: optional boolean, default false
 replacementApprovalRef: required non-path approval reference when replacing
 ~~~
 
-evaluationRecordId is only a lookup discriminator. It does not prove Pass.
-When omitted, the task may use the single latest unambiguous completed record
-for the same artifactType and contentId.
+evaluationRecordId is only a lookup discriminator. It does not prove Pass. It
+may be omitted only in legacy mode, where the task may use the single latest
+unambiguous completed record for the same artifactType and contentId.
 
 Exactly one identity mode is authoritative:
 
@@ -127,6 +127,8 @@ whether the artifact is a single file or set.
 | character_animation | Character | evaluated renamed frame set | Assets/ImagesGenerated/Character/animation | AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md and EvaluationAnimationGuide.md |
 | battle_background | Battle | one PNG | Assets/ImagesGenerated/Battle/background/{contentId}.background.png | AgentDocs/planning-guides/battle/BattleCreateGuide.md and the evaluation guide named by the report |
 | story_popup_main_image | Stage | one PNG | Assets/ImagesGenerated/Stage/popup_main/{contentId}.main.png | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md |
+| character_single_image + domainType=character | Character | one PNG, current package v2 | Assets/ImagesGenerated/Character/portrait/{contentId}.portrait.png | AgentDocs/planning-guides/content/ContentFolderStructureGuide.md and AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md |
+| animation + domainType=character | Character | evaluated ordered PNG frame set, current package v2 | Assets/ImagesGenerated/Character/animation | AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md, AgentDocs/planning-guides/character/EvaluationAnimationGuide.md, and AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md |
 | background_single_image + domainType=battle | Battle | one PNG, current package v2 | Assets/ImagesGenerated/Battle/background/{contentId}.background.png | AgentDocs/planning-guides/battle/BattleCreateGuide.md and AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md |
 | background_single_image + domainType=stage | Stage | one PNG, current package v2 | domain target resolver extension required | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md; block until a Stage background storage guide owns a canonical target |
 | background_single_image + domainType=environment | Environment | one PNG, current package v2 | domain target resolver extension required | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md; block until an Environment background storage guide owns a canonical target |
@@ -151,6 +153,14 @@ Routing rules:
    not invent a folder.
 10. The legacy battle_background row remains artifactType-based compatibility;
     the current battle row is package mode and does not reuse legacy identity.
+11. The current character single-image row requires exact
+    `character_single_image_v2`; the current character animation row requires
+    exact `animation_gif_frame_set_v2`. Both require evaluationPackageId,
+    evaluationRecordId, assetType, domainType and contentId through copy
+    verification. A mismatch returns `artifact_identity_mismatch`.
+12. The current `animation + character` package row never aliases the legacy
+    artifactType-based `character_animation` row, even when evaluated frame
+    bytes or canonical target folders coincide.
 
 ## 6. Repository and Evaluation Package Resolution
 
@@ -297,7 +307,8 @@ No state may skip pass_verified or copy_verified.
 
 ~~~text
 requestId
-artifactType
+evaluationPackageId, assetType, domainType, structureProfile (package mode)
+artifactType (legacy mode only)
 contentId
 status
 evaluationRecordId

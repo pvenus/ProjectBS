@@ -529,6 +529,69 @@ hash-linked without creating another mutable publication surface, collision
 target or index race. Immutable stage records/indexes remain the only persisted
 workflow evidence.
 
+## Terminal Evaluation-to-Project-Promotion Dispatch v1
+
+This response-only orchestration rule does not change routing v2 records,
+indexes, stage-delta schemas, evaluation artifacts, or promotion records. After
+one sealed preservation package has been evaluated, the coordinator may dispatch
+the existing persistent project-promotion role exactly once:
+
+```text
+officialThreadId: 01a01094-7d22-7a51-b92e-bf6154769017
+title: [Generated Media] 프로젝트 승격 및 Unity 복사
+prompt: AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
+guide: AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
+```
+
+Dispatch is eligible only when every predicate is exact and current:
+
+```text
+preservation package: present, sealed, hash-bound generated_media_evaluation_package_v2
+evaluation schema: generated_image_evaluation_v1
+evaluationStatus: completed
+result: PASS
+passForProjectCopy: true
+promotionStatus: not_promoted
+package route: one exact current package-mode promotion registry row
+```
+
+A preview, `notEvaluated`, incomplete evaluation, non-`PASS`, `Conditional
+Pass`, `Fail`, false/missing `passForProjectCopy`, missing preservation package,
+or any promotion status other than `not_promoted` MUST NOT dispatch. There is no
+promotion before evaluation completion.
+
+The relay is a closed object with exactly these eight members and no others:
+
+```yaml
+requestId:
+evaluationPackageId:
+assetType:
+domainType:
+contentId:
+evaluationRecordId:
+replaceExisting: false | true
+replacementApprovalRef: null | non-path approval reference
+```
+
+All six identity strings are non-empty and must match the sealed package and
+completed evaluation result. `replacementApprovalRef` is `null` when
+`replaceExisting=false` and a non-empty, non-path reference when true. Absolute
+or relative source/target paths, full authority bundles, manifests, prompt or
+provider payloads, media bytes, and unknown/nested fields are forbidden.
+
+For exactly-once behavior, compute an internal response-only dispatch key as
+`SHA256(JCS(the exact eight-member relay))` and inspect the persistent official
+task history before calling it. An identical active or completed relay reuses
+that terminal result and MUST NOT call the role again. The key is not added to
+the relay and creates no repository record, index, or path.
+
+The promotion child returns one final result and the coordinator relays it once.
+Its terminal status is exactly `promoted`, `blocked`, `not_promoted`, or
+`copy_failed`. Every result is terminal: no route returns to routing, generation,
+preservation, or evaluation. Missing/invalid upstream evidence terminates as
+`blocked` or `not_promoted` without dispatch; only the promotion role can return
+`promoted` or `copy_failed` after an eligible dispatch.
+
 ## Validation Receipt Reuse Matrix
 
 | Boundary or check | May reuse an exact receipt | Mandatory fresh work |
