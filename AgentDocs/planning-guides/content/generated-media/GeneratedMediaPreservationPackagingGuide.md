@@ -94,22 +94,31 @@ a sprite sheet, a video, or independently generated frames. If the generation
 ref is not an original playable animated GIF, return
 `provider_animated_gif_source_mismatch` without synthesizing a replacement.
 
-When the generation handoff conditionally includes
-`generated_media_attack_gif_final_validation_receipt_v1`, preservation verifies
-its closed member set and the original GIF hash/dimensions/frame count before
-opening media. It then confirms the reopened timeline preserves the generation
-role's shared clean left/right margin width basis, fixed pelvis center, fixed
-ground baseline, identical scale/timing/global palette, fully opaque
-background, and no clipping or neighboring-cell edge fragments. Required
-`pelvisDriftMaxPx` and `baselineDriftMaxPx` are both exactly zero.
+The historical `generated_media_attack_gif_final_validation_receipt_v1` does
+not authorize accepted-result packaging because it incorrectly treats the
+provider result as a final GIF. Existing `provider_native_animated_gif`
+preservation above remains separate and unchanged.
 
-Preservation does not derive a new width basis, crop/recenter frames, remove
-neighboring fragments, repair palette/background, or convert a failed receipt
-to valid. Anchor/baseline disagreement is `anchor_mapping_mismatch`, scale
-disagreement is `scale_lock_violation`, and timing/palette/background/clipping/
-fragment disagreement is `gif_timeline_contract_mismatch`. The accepted-result
-guidance provenance remains detached future-role guidance and is not copied
-into preservation records or evaluation packages.
+When the generation handoff conditionally includes
+`generated_media_attack_coherent_master_to_gif_validation_receipt_v2`,
+preservation verifies that the provider returned one coherent six-cell master
+IMAGE, not a GIF. It verifies `providerDidReturnGif=false`, the provider master
+image hash, exactly six cells, completed GIF hash, exact six PNG hashes,
+dimensions/frame count, close/reopen state, and reopened-GIF extraction state
+all match before copying any member. The generation role, not preservation,
+owns master segmentation, GIF construction, GIF close/reopen, PNG extraction,
+and any deterministic final-packaging normalization.
+
+Preservation confirms the completed GIF and extracted PNGs retain the same
+shared clean left/right margin width basis, fixed pelvis center, fixed ground
+baseline, identical scale/timing/global palette, fully opaque background, no
+clipping, and no neighboring-cell edge fragments. It does not translate,
+remove fragments, derive a width basis, or repair the package. Anchor/baseline
+disagreement is `anchor_mapping_mismatch`, scale disagreement is
+`scale_lock_violation`, and timeline/palette/background/clipping/fragment or
+GIF/PNG member disagreement is `gif_timeline_contract_mismatch`. Accepted
+evidence provenance is not copied into preservation records or evaluation
+packages.
 
 ## Preservation Record v2
 

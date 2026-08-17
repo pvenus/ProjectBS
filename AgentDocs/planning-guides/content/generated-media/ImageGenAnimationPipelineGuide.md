@@ -122,50 +122,75 @@ cost generation-v2 contract and additionally requires the animated-GIF
 capability attestation above. A hosted still-image preview never satisfies the
 provider-native GIF source contract.
 
-### Accepted-result attack GIF final guidance
+### Accepted-result coherent-master-to-GIF guidance
 
-An explicitly supplied `accepted_result_attack_gif_guidance_v1` is optional
-future guidance for the same character attack-animation role. It is not a
-planning fact, routing decision, prompt-record amendment, generation record,
-or preservation/evaluation authority, and it never reinterprets an immutable
-artifact. The accepted result path is not canonical; only its caller-verified
-raw SHA-256 and observed dimensions/frame count may appear in the detached
-guidance handoff.
+The published `accepted_result_attack_gif_guidance_v1` is read-only historical
+contract evidence and MUST NOT authorize an accepted-result execution: it
+incorrectly described the provider output as a final GIF. The existing
+`provider_native_animated_gif` mode above remains separate and unchanged.
 
-The generation role remains GIF-first and owns the final provider-native GIF.
-It projects the compact guidance before its one provider submit and validates
-the returned GIF before preservation handoff. Across the exact final timeline:
+Future use of the accepted workflow requires the distinct optional
+`accepted_result_attack_coherent_master_to_gif_guidance_v2`. It is guidance for
+the same character attack-animation role only, not a planning fact, routing
+decision, prompt-record amendment, generation record, or preservation/
+evaluation authority. The accepted completed GIF remains evidence-only:
+SHA-256 `8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621`,
+`640x512`, six frames. Its path is not canonical and is never transferred.
 
-- the pelvis center and ground baseline are fixed at their approved integer
-  coordinates; maximum pelvis drift and baseline drift are both `0px`;
-- the longest clean left/right margin observed across legitimate subject
-  motion defines one shared width basis for every frame; per-frame crop,
-  scale, or recenter remains forbidden;
-- neighboring-cell or adjacent-frame edge fragments are excluded from the
-  provider result, never treated as subject bounds, and never repaired by
-  preservation;
-- scale, frame timing, global palette, and fully opaque background are
-  identical across all frames; and
-- the shared canvas has no subject or effect clipping.
+This accepted mode has
+`animationSourceMode=generation_role_coherent_six_cell_master_to_gif` and
+`extractionMode=generation_completed_gif_timeline_exact`. The provider returns
+one coherent six-cell master IMAGE and did not return a GIF. The same official
+generation role owns this exact order:
 
-The detached handoff contains exactly `schemaVersion`, `animationRequestId`,
-`acceptedResultSha256`, `width`, `height`, `frameCount`, `pelvisCenter`,
-`groundBaselineY`, `sharedWidthBasisPolicy`, `scalePolicy`, `timingPolicy`,
-`palettePolicy`, and `backgroundPolicy`. Its schemaVersion is
-`accepted_result_attack_gif_guidance_v1`; `acceptedResultSha256` is guidance
-provenance only. Unknown, missing, or inferred members invalidate this optional
-extension without changing upstream records.
+```text
+receive and hash one coherent six-cell master image
+-> validate exactly six ordered cells and one coherent action
+-> construct the completed GIF first in approved order/timing/palette/background
+-> close the completed GIF
+-> reopen that completed GIF
+-> extract exactly six ordered PNG frames from the reopened GIF timeline
+-> apply only approved deterministic final-packaging normalization
+-> validate GIF and six PNG members as one package
+```
+
+Transient cell decoding needed to encode the GIF is not a published frame set.
+No PNG frame is a final member until extracted from the reopened completed GIF.
+If final packaging translates pixels or removes a verified fragment, it applies
+the same deterministic change to the GIF timeline, closes/reopens the changed
+GIF, and re-extracts all six PNGs so the GIF remains first and authoritative.
+
+Final packaging may translate frames only by the measured integer delta needed
+to hold the approved pelvis center and ground baseline. It may remove only a
+connected edge component proven to originate in a neighboring master cell; it
+must not erase the subject, weapon, motion effect, or legitimate clipping.
+The longest clean left/right margin across legitimate action defines one shared
+width basis. Final validation requires pelvis drift `0px`, baseline drift
+`0px`, identical scale/timing/global palette/fully opaque background, no
+clipping, and no neighboring-cell edge fragments.
+
+The detached guidance contains exactly `schemaVersion`, `animationRequestId`,
+`acceptedResultEvidenceSha256`, `acceptedResultWidth`,
+`acceptedResultHeight`, `acceptedResultFrameCount`, `animationSourceMode`,
+`extractionMode`, `providerMasterLayout`, `pelvisCenter`, `groundBaselineY`,
+`sharedWidthBasisPolicy`, `scalePolicy`, `timingPolicy`, `palettePolicy`, and
+`backgroundPolicy`. Unknown, missing, inferred, or provider-native-GIF values
+are invalid. `acceptedResultEvidenceSha256` is guidance provenance only.
 
 Generation returns one compact
-`generated_media_attack_gif_final_validation_receipt_v1` containing exactly
-`schemaVersion`, `animationRequestId`, `originalAnimatedGifSha256`, `width`,
-`height`, `frameCount`, `sharedWidthBasis`, `pelvisDriftMaxPx`,
-`baselineDriftMaxPx`, `scaleUniform`, `timingUniform`, `globalPaletteUniform`,
-`backgroundFullyOpaque`, `clippingDetected`, `neighboringFragmentsDetected`,
-and `status`. `status=valid` requires both drift values to equal zero, all four
-uniform/opaque booleans true, both detected booleans false, and exact guidance
-dimensions/frame count. The receipt is a generation-to-preservation compact
-validation projection, not a media evaluation verdict.
+`generated_media_attack_coherent_master_to_gif_validation_receipt_v2` with
+exactly `schemaVersion`, `animationRequestId`, `providerDidReturnGif`,
+`providerMasterImageSha256`, `providerMasterCellCount`, `completedGifSha256`,
+`width`, `height`, `frameCount`, `extractedPngFrameSha256s`,
+`sharedWidthBasis`, `pelvisDriftMaxPx`, `baselineDriftMaxPx`, `scaleUniform`,
+`timingUniform`, `globalPaletteUniform`, `backgroundFullyOpaque`,
+`clippingDetected`, `neighboringFragmentsDetected`, `gifClosedAndReopened`,
+`pngsExtractedFromReopenedGif`, and `status`. `status=valid` requires
+`providerDidReturnGif=false`, six master cells, six PNG hashes, both workflow
+booleans true, both drift values zero, all four uniform/opaque booleans true,
+both detected booleans false, and exact evidence dimensions/frame count. A GIF
+returned by the provider in this accepted mode is `invalid_animation_source_mode`.
+The receipt is not a media evaluation verdict and is not persisted upstream.
 
 ## Input, Output, State, and Validation
 

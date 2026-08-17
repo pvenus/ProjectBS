@@ -59,32 +59,50 @@ assert.match(generationPrompt, /정확히 한 번 제출하고 retry=0/);
 
 for (const surface of [pipeline, generationPrompt, preservation,
   preservationPrompt]) {
-  assert.match(surface, /generated_media_attack_gif_final_validation_receipt_v1/);
-  assert.match(surface, /pelvis/i);
-  assert.match(surface, /baseline/i);
-  assert.match(surface, /shared[^\n]*width basis/i);
-  assert.match(surface, /neighboring/i);
-  assert.match(surface, /global palette/i);
-  assert.match(surface, /fully opaque\s+background/i);
-  assert.match(surface, /no[^\n]*clipping/i);
+  assert.match(surface,
+    /generated_media_attack_coherent_master_to_gif_validation_receipt_v2/);
+  assert.match(surface, /six-cell master\s+IMAGE/i);
+  assert.match(surface, /providerDidReturnGif=false/);
+  assert.match(surface, /close[^\n]*reopen/i);
+  assert.match(surface, /six PNG/i);
 }
 
-const receiptKeys = ["schemaVersion", "animationRequestId",
-  "originalAnimatedGifSha256", "width", "height", "frameCount",
-  "sharedWidthBasis", "pelvisDriftMaxPx", "baselineDriftMaxPx",
-  "scaleUniform", "timingUniform", "globalPaletteUniform",
-  "backgroundFullyOpaque", "clippingDetected",
-  "neighboringFragmentsDetected", "status"];
+// The provider-native mode remains present, while the accepted v2 section
+// explicitly denies that the provider returned a GIF.
+assert.match(pipeline, /provider_native_animated_gif/);
+const acceptedSection = pipeline.split(
+  "### Accepted-result coherent-master-to-GIF guidance")[1]
+  .split("## Input, Output, State, and Validation")[0];
+assert.match(acceptedSection,
+  /provider returns\s+one coherent six-cell master IMAGE and did not return a GIF/i);
+assert.match(acceptedSection,
+  /animationSourceMode=generation_role_coherent_six_cell_master_to_gif/);
+assert.match(acceptedSection,
+  /extractionMode=generation_completed_gif_timeline_exact/);
 
-function validateAcceptedAttackReceipt(receipt, expected) {
+const receiptKeys = ["schemaVersion", "animationRequestId",
+  "providerDidReturnGif", "providerMasterImageSha256",
+  "providerMasterCellCount", "completedGifSha256", "width", "height",
+  "frameCount", "extractedPngFrameSha256s", "sharedWidthBasis",
+  "pelvisDriftMaxPx", "baselineDriftMaxPx", "scaleUniform",
+  "timingUniform", "globalPaletteUniform", "backgroundFullyOpaque",
+  "clippingDetected", "neighboringFragmentsDetected",
+  "gifClosedAndReopened", "pngsExtractedFromReopenedGif", "status"];
+
+function validateCoherentMasterReceipt(receipt, expected) {
   assert.deepEqual(Object.keys(receipt).sort(), [...receiptKeys].sort());
   assert.equal(receipt.schemaVersion,
-    "generated_media_attack_gif_final_validation_receipt_v1");
-  assert.equal(receipt.originalAnimatedGifSha256, expected.sha256);
+    "generated_media_attack_coherent_master_to_gif_validation_receipt_v2");
+  if (receipt.providerDidReturnGif !== false)
+    throw new Error("invalid_animation_source_mode");
   assert.equal(receipt.width, expected.width);
   assert.equal(receipt.height, expected.height);
   assert.equal(receipt.frameCount, expected.frameCount);
-  const valid = receipt.pelvisDriftMaxPx === 0
+  const valid = receipt.providerMasterCellCount === 6
+    && receipt.extractedPngFrameSha256s.length === 6
+    && receipt.gifClosedAndReopened === true
+    && receipt.pngsExtractedFromReopenedGif === true
+    && receipt.pelvisDriftMaxPx === 0
     && receipt.baselineDriftMaxPx === 0
     && receipt.scaleUniform === true
     && receipt.timingUniform === true
@@ -97,24 +115,36 @@ function validateAcceptedAttackReceipt(receipt, expected) {
 }
 
 const accepted = {
-  schemaVersion: "generated_media_attack_gif_final_validation_receipt_v1",
+  schemaVersion:
+    "generated_media_attack_coherent_master_to_gif_validation_receipt_v2",
   animationRequestId: "character.seojin.1.attack.draw_slash.one_shot.v14",
-  originalAnimatedGifSha256: "8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621",
+  providerDidReturnGif: false,
+  providerMasterImageSha256: "1".repeat(64),
+  providerMasterCellCount: 6,
+  completedGifSha256:
+    "8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621",
   width: 640, height: 512, frameCount: 6,
+  extractedPngFrameSha256s: Array.from({ length: 6 }, (_, i) =>
+    i.toString(16).repeat(64)),
   sharedWidthBasis: "longest_clean_left_right_margin",
   pelvisDriftMaxPx: 0, baselineDriftMaxPx: 0,
   scaleUniform: true, timingUniform: true, globalPaletteUniform: true,
   backgroundFullyOpaque: true, clippingDetected: false,
-  neighboringFragmentsDetected: false, status: "valid",
+  neighboringFragmentsDetected: false, gifClosedAndReopened: true,
+  pngsExtractedFromReopenedGif: true, status: "valid",
 };
-const expected = { sha256: accepted.originalAnimatedGifSha256,
-  width: 640, height: 512, frameCount: 6 };
-assert.equal(validateAcceptedAttackReceipt(accepted, expected), true);
-for (const drift of [{ pelvisDriftMaxPx: 1 }, { baselineDriftMaxPx: 1 },
+const expected = { width: 640, height: 512, frameCount: 6 };
+assert.equal(validateCoherentMasterReceipt(accepted, expected), true);
+assert.throws(() => validateCoherentMasterReceipt({ ...accepted,
+  providerDidReturnGif: true }, expected), /invalid_animation_source_mode/);
+for (const failure of [{ providerMasterCellCount: 5 },
+  { extractedPngFrameSha256s: accepted.extractedPngFrameSha256s.slice(0, 5) },
+  { gifClosedAndReopened: false }, { pngsExtractedFromReopenedGif: false },
+  { pelvisDriftMaxPx: 1 }, { baselineDriftMaxPx: 1 },
   { clippingDetected: true }, { neighboringFragmentsDetected: true },
   { scaleUniform: false }, { timingUniform: false },
   { globalPaletteUniform: false }, { backgroundFullyOpaque: false }]) {
-  assert.equal(validateAcceptedAttackReceipt({ ...accepted, ...drift,
+  assert.equal(validateCoherentMasterReceipt({ ...accepted, ...failure,
     status: "blocked" }, expected), false);
 }
 
