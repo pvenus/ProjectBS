@@ -38,10 +38,10 @@ Input:
 1. 현재 작업의 workspace와 Git 정보를 이용해 저장소를 확인하고 AgentDocs와 Assets가 같은 저장소인지 검증한다.
 2. evaluationPackageId가 있으면 GeneratedMediaEvaluationPackageGuide.md를 읽고 sealed v2 package의 assetType+domainType으로 adapter를 선택한다. 없으면 legacy artifactType으로 선택한다. package mode의 background_single_image와 legacy imagegen_image/battle_background를 교환하거나 두 identity mode를 함께 사용하면 중단한다.
 3. adapter가 없거나 blocked 또는 필수 계약이 불완전하면 공통 점수로 대신 평가하지 말고 중단한다.
-4. package mode이면 manifest와 모든 member hash, planning/prompt/generation identity, structureProfile, readiness를 검증한다. legacy mode에서 sourceRecordId가 있으면 artifactType/contentId와 일치하는지 확인한다. source는 하나로 확정될 때만 선택한다.
+4. package mode이면 manifest와 모든 member hash, structureProfile, readiness 및 정확히 한 provenance branch를 검증한다. strict branch는 기존 planning/prompt/generation identity를 그대로 요구한다. accepted-result branch는 prompt/generation record를 요구하거나 만들지 않고 acceptedResultCaptureRecordId/path/raw SHA, capture receipt/JCS hash, closed acceptedPromptEvidence(providerPromptPayloadHash+promptFileSha256), preservation identity를 검증한다. 두 branch의 혼합·부분·unknown field 또는 generation/와 accepted-capture/의 동시 존재는 채점 전에 차단한다. legacy mode에서 sourceRecordId가 있으면 artifactType/contentId와 일치하는지 확인한다. source는 하나로 확정될 때만 선택한다.
 5. 평가할 source가 candidate, preview, thumbnail, contact sheet 또는 프로젝트 파일이 아니라 다운로드 후 보존된 원본인지 확인하고 SHA-256을 기록한다.
 6. 단일 이미지 또는 이미지 세트 manifest를 구조 프로필에 맞춰 확인한다. package mode는 sealed manifestPayloadHash를 재검증하고 legacy mode만 canonical member manifestHash를 만든다. 세트는 멤버 역할, 순서, 파일 수와 개별 hash를 기록한다.
-7. canonical 기획·콘텐츠 데이터와 generation/download 기록에서 artifactUsage, planningSource, planningOriginalContent, displayContent, planningCoreInterpretation, designConcept, promptCoreGoals, requiredVisualElements, hardConstraints, generationPromptOriginal을 수집한다.
+7. canonical 기획·콘텐츠 데이터와 선택된 strict generation 기록 또는 accepted capture/preservation 증거에서 artifactUsage, planningSource, planningOriginalContent, displayContent, planningCoreInterpretation, designConcept, promptCoreGoals, requiredVisualElements, hardConstraints, generationPromptOriginal을 수집한다. accepted-result의 generationPromptOriginal은 capture에 hash-bound된 recovered prompt exact bytes이며 fake prompt record identity를 부여하지 않는다.
 8. 원본 기획 내용과 생성 프롬프트를 재작성하지 않는다. 필수 증거가 없으면 이미지에 맞춰 추측하지 말고 insufficient_evidence로 중단한다.
 9. 도메인 가이드가 사전 brief 고정을 요구하면 이미지를 열기 전에 evaluation brief를 만들고 생성 시간과 hash를 기록한 다음 visualInspectionStartedAt을 기록한다.
 10. package mode는 request_type_key={assetType}.{domainType}, legacy mode만 request_type_key=artifactType으로 확정한다. request_type_key, contentId, UTC 평가 시각과 source 또는 manifest hash prefix로 evaluationRecordId를 만들고, 해당 불변 record 폴더의 input/evaluation_input.json을 저장한 뒤 공통 입력 계약과 artifact identity를 검증한다. 파일명에서 key를 추론하지 않는다.
@@ -86,7 +86,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed | not_evaluated
-- failureType: background_adapter_identity_mismatch | legacy_current_identity_conflict | missing_background_evaluation_contract | character_evaluation_proportion_gate_failed | character_evaluation_detail_density_gate_failed | character_evaluation_color_value_gate_failed | missing_domain_evaluation_adapter | insufficient_evidence | 기존 evaluation failure token
+- failureType: evaluation_package_input_branch_conflict | evaluation_package_input_branch_incomplete | evaluation_package_unknown_branch_field | evaluation_package_accepted_capture_missing | evaluation_package_accepted_capture_hash_mismatch | evaluation_package_accepted_capture_receipt_mismatch | evaluation_package_accepted_prompt_evidence_mismatch | background_adapter_identity_mismatch | legacy_current_identity_conflict | missing_background_evaluation_contract | character_evaluation_proportion_gate_failed | character_evaluation_detail_density_gate_failed | character_evaluation_color_value_gate_failed | missing_domain_evaluation_adapter | insufficient_evidence | 기존 evaluation failure token
 - 실패한 단계와 근거
 - 선택하지 않은 source 또는 모호한 후보
 - 누락되거나 충돌한 canonical 증거
@@ -101,6 +101,7 @@ Output:
 - legacy imagegen_image/battle_background와 current background_single_image identity가 혼합되지 않아야 한다.
 - package mode evaluationRecordId에 artifactType을 사용하지 않고 legacy mode에 assetType.domainType을 사용하지 않아야 한다.
 - source identity와 현재 SHA-256이 generation/download 기록과 일치해야 한다.
+- package provenance는 strict generation 또는 accepted-result capture 중 정확히 하나이며 accepted branch는 fake prompt/generation record 없이 recovered prompt hash와 capture receipt를 검증해야 한다.
 - planningOriginalContent와 generationPromptOriginal은 원문 그대로 보존되어야 한다.
 - 공통·구조·도메인 fatal gate가 점수보다 먼저 실행되어야 한다.
 - 점수 카테고리와 최대값은 도메인 가이드와 정확히 같아야 한다.

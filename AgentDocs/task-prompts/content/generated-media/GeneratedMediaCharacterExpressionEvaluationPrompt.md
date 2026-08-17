@@ -19,8 +19,8 @@ Input:
 - animationRequestId / finalFrameCount: character_animation에서 package의 exact approved 값; main에서는 omit
 
 작업:
-1. evaluation package, planning snapshot, prompt/profile record와 모든 media hash를 read-only로 재검증한다.
-2. profile key/payload/hash가 registry 및 media의 prompt evidence와 exact 일치하지 않으면 채점 전에 blocked로 종료한다.
+1. evaluation package, planning snapshot, 선택된 provenance branch와 모든 media hash를 read-only로 재검증한다. strict branch는 기존 prompt/profile/generation record를 사용한다. accepted-result branch는 accepted capture record/path/raw SHA, receipt/JCS hash와 closed acceptedPromptEvidence를 사용하며 fake prompt/generation record를 요구하거나 만들지 않는다.
+2. strict branch의 profile key/payload/hash 또는 accepted-result branch의 planning/routing profile identity와 recovered providerPromptPayloadHash/promptFileSha256가 package evidence와 exact 일치하지 않으면 채점 전에 blocked로 종료한다. mixed/partial/unknown branch fields는 `evaluation_package_input_branch_conflict`, `evaluation_package_input_branch_incomplete`, 또는 `evaluation_package_unknown_branch_field`로 차단한다.
 3. GeneratedMediaCharacterExpressionEvaluationGuide의 pre-score fatal gate를 순서대로 적용한다.
 4. main image는 비례, omission, no-fill, pigment area/accent count, palette와 identity anchor를 확인한다.
 4a. bold-outline v2는 공통 비례/outline/face와 total/internal/fold 64/56/5, exact ochre anchor sites 및 35/4 color limits, closed halo branch를 독립 측정한다. opaque/scenic/noncentered/nonfading/directional-shadow halo는 fatal이고 재현 가능한 측정이 없으면 `character_evaluation_evidence_insufficient`로 중단한다.

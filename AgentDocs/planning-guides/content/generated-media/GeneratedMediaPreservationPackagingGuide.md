@@ -26,11 +26,15 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackag
 ```yaml
 planningHandoffFile: generated_media_planning_handoff_v2
 routingRecordId: generated_media_routing_v2
-promptRecordId: generated_media_prompt_v3
+promptRecordId: generated_media_prompt_v3; strict branch only
 generationRecordId: generated_media_generation_v2; required only for strict branch
 generationRecordSha256: required only for strict branch
 acceptedResultCaptureRecordId: generated_media_accepted_result_capture_v1; mutually exclusive with generationRecordId
+acceptedResultCaptureRecordPath: exact canonical project-relative capture record path
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
+acceptedResultCaptureReceipt: exact generated_media_accepted_result_capture_receipt_v1; accepted-result branch only
+acceptedResultCaptureReceiptSha256: exact receipt.receiptPayloadSha256; accepted-result branch only
+acceptedPromptEvidence: accepted-result branch only; exact projection defined below
 provider: imagegen
 assetType: character_single_image | icon_single_image | background_single_image | animation
 domainType: character | skill | item | stage | battle | environment
@@ -45,10 +49,31 @@ projectTarget: optional informational_only
 ```
 
 Exactly one input branch is present. The strict branch uses
-`generationRecordId`, `generationRecordSha256`, `providerResultRefs`, and
-`approvalCostProjection`; the accepted-result branch uses only
-`acceptedResultCaptureRecordId` and `acceptedResultCaptureRecordSha256` for its
-source envelope and forbids those four strict-only fields.
+`promptRecordId`, `generationRecordId`, `generationRecordSha256`,
+`providerResultRefs`, and `approvalCostProjection`; the accepted-result branch
+uses `acceptedResultCaptureRecordId`, `acceptedResultCaptureRecordPath`,
+`acceptedResultCaptureRecordSha256`, the
+exact capture receipt/hash, and `acceptedPromptEvidence`. Each branch forbids
+every field owned by the other branch. Mixed, partial, or unknown branch fields
+fail before payload identity calculation.
+
+When no authoritative `generated_media_prompt_v3` exists, the accepted-result
+branch MUST NOT invent one. It projects exactly this closed prompt identity from
+the verified capture record and requires byte equality with the recovered
+prompt file:
+
+```yaml
+acceptedPromptEvidence:
+  source: accepted_result_capture
+  providerPromptPayloadHash: exact capture promptEvidence.providerPromptPayloadHash
+  promptFileSha256: exact capture promptEvidence.fileSha256
+```
+
+The capture receipt must be a valid `captured` or `reused_identical` receipt,
+name the same capture record/path/raw SHA and request/animation identity, retain
+`providerCalled=false`, capture submit/retry zero, historical submit one/retry
+zero, and authorize preservation/evaluation but not promotion. Its
+`receiptPayloadSha256` is recomputed from the closed receipt before use.
 
 Every identity/hash/provider/profile must agree. In the strict branch,
 generation status must be
@@ -153,11 +178,14 @@ contentId:
 animationRequestId: required only for animation
 planningSnapshotHash:
 routingRecordId:
-promptRecordId:
+promptRecordId: strict branch only
+acceptedPromptEvidence: accepted-result branch only; mutually exclusive with promptRecordId
 generationRecordId: strict branch only
 generationRecordSha256: strict branch only
 acceptedResultCaptureRecordId: mutually exclusive alternative
+acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
+acceptedResultCaptureReceiptSha256: accepted-result branch only
 provider: imagegen
 adapterId:
 structureProfile:
@@ -187,11 +215,14 @@ contentId:
 animationRequestId: required only for animation
 planningSnapshotHash:
 routingRecordId:
-promptRecordId:
+promptRecordId: strict branch only
+acceptedPromptEvidence: accepted-result branch only; mutually exclusive with promptRecordId
 generationRecordId: strict branch only
 generationRecordSha256: strict branch only
 acceptedResultCaptureRecordId: mutually exclusive alternative
+acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
+acceptedResultCaptureReceiptSha256: accepted-result branch only
 provider: imagegen
 adapterId:
 structureProfile:
@@ -232,6 +263,11 @@ missing_generation_v2
 missing_accepted_result_capture_v1
 accepted_result_capture_hash_mismatch
 accepted_result_capture_not_authorized
+accepted_result_capture_receipt_mismatch
+accepted_result_prompt_evidence_mismatch
+preservation_input_branch_conflict
+preservation_input_branch_incomplete
+preservation_input_unknown_field
 generation_record_hash_mismatch
 unsupported_provider
 provider_result_ref_missing

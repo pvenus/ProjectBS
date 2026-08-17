@@ -18,12 +18,21 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 ```
 
-Current input is ImageGen-only and must form this exact chain:
+Current input is ImageGen-only and must form exactly one of these chains:
 
 ```text
+strict branch (unchanged):
 planning_handoff_v2 -> routing_v2 -> prompt_v3 -> generation_v2
 -> preservation_v2 -> evaluation_package_v2
+
+accepted-result branch:
+planning_handoff_v2 -> routing_v2 -> accepted_result_capture_v1
+-> preservation_v2 -> evaluation_package_v2
 ```
+
+The accepted-result branch exists only for a validated preservation record that
+binds an immutable accepted-result capture. It does not create or require a fake
+`generated_media_prompt_v3` or `generated_media_generation_v2` record.
 
 ## Layout and Identity
 
@@ -35,7 +44,8 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
 {evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/
   planning/
   prompt/
-  generation/
+  generation/ # strict branch only
+  accepted-capture/ # accepted-result branch only: record.json + capture-receipt.json
   preservation/
   source/
   extracted/
@@ -45,6 +55,9 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
 
 Animation inserts `{animationRequestId}` after `{contentId}`. The temporary
 directory is never an evaluation source. Every member has a lowercase SHA-256.
+Exactly one of `generation/` or `accepted-capture/` exists. In the accepted
+branch, `prompt/` contains the exact recovered provider-prompt bytes whose raw
+hash equals the capture prompt evidence; it is not a prompt record.
 
 ```yaml
 schemaVersion: generated_media_evaluation_package_v2
@@ -79,10 +92,15 @@ contentId:
 animationRequestId: exactly one scalar for animation; absent otherwise
 planningSnapshotHash:
 routingRecordId:
-promptRecordId:
-promptRecordSha256:
-generationRecordId:
-generationRecordSha256:
+promptRecordId: strict branch only
+promptRecordSha256: strict branch only
+generationRecordId: strict branch only
+generationRecordSha256: strict branch only
+acceptedPromptEvidence: accepted-result branch only; exact closed projection below
+acceptedResultCaptureRecordId: accepted-result branch only
+acceptedResultCaptureRecordPath: accepted-result branch only; exact project-relative record path
+acceptedResultCaptureRecordSha256: accepted-result branch only; exact raw Git-blob SHA-256
+acceptedResultCaptureReceiptSha256: accepted-result branch only; exact receipt.receiptPayloadSha256
 preservationRecordId:
 preservationPayloadHash:
 provider: imagegen
@@ -103,10 +121,38 @@ projectTarget:
   status: informational_only
 ```
 
+The accepted-result `acceptedPromptEvidence` object has exactly these members:
+
+```yaml
+source: accepted_result_capture
+providerPromptPayloadHash: exact capture promptEvidence.providerPromptPayloadHash
+promptFileSha256: exact capture promptEvidence.fileSha256
+```
+
+The four accepted-result fields and `acceptedPromptEvidence` are jointly
+required and all four strict prompt/generation fields are forbidden. The strict
+branch requires its existing four fields and forbids every accepted-result
+field. Mixed, partial, or unknown branch fields fail before
+`manifestPayloadHash` calculation.
+
+The accepted capture record path/raw hash must match its canonical index. The
+receipt must be the closed `generated_media_accepted_result_capture_receipt_v1`
+for that exact record/path/hash, have a valid recomputed `receiptPayloadSha256`,
+authorize preservation/evaluation, forbid promotion, and retain truthful
+no-call capture action plus historical one-submit/zero-retry evidence.
+
 Unknown or missing fields fail. Relative paths must remain inside the package.
-The copied planning snapshot, copy-ready provider prompt, generation record,
-preservation record, original media and extracted members must hash-match their
-authoritative records.
+In the strict branch, the copied planning snapshot, copy-ready provider prompt,
+generation record, preservation record, original media and extracted members
+must hash-match their authoritative records. In the accepted-result branch,
+the copied planning snapshot, recovered provider prompt, accepted capture
+record, capture receipt, preservation record, original media and extracted
+members must hash-match the accepted capture and preservation identities.
+
+Accepted-result `members` include exactly one `accepted_provider_prompt`, one
+`accepted_capture_record`, one `accepted_capture_receipt`, and the structure-
+profile media members. There is no `generation_record` member or `generation/`
+directory. These evidence roles do not become prompt/generation records.
 
 ## Closed Current Structure Profiles
 
@@ -296,9 +342,16 @@ staging_target_path_collision
 package_collision
 unknown_package_field
 missing_package_field
+evaluation_package_input_branch_conflict
+evaluation_package_input_branch_incomplete
+evaluation_package_unknown_branch_field
+evaluation_package_accepted_capture_missing
+evaluation_package_accepted_capture_hash_mismatch
+evaluation_package_accepted_capture_receipt_mismatch
+evaluation_package_accepted_prompt_evidence_mismatch
 ```
 
-Validate current version-chain parity, `provider=imagegen`, one closed profile,
+Validate exactly one current version-chain branch, `provider=imagegen`, one closed profile,
 profile-specific anchor, member count/order/hash, GIF-first provenance,
 non-circular identity, atomic sealing and staging/project separation. A blocked
 output contains status, failureType, missingFields, invalidMembers,

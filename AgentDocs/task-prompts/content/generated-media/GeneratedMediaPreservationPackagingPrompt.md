@@ -20,15 +20,20 @@
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
-- promptRecordId: {generated_media_prompt_v3_record_id}
+- promptRecordId: {generated_media_prompt_v3_record_id_or_omit_for_accepted_result}
 - generationRecordId: {generated_media_generation_v2_record_id}
 - generationRecordSha256: {canonical_generation_record_sha256}
 - acceptedResultCaptureRecordId: {generated_media_accepted_result_capture_v1_record_id_or_omit}; generationRecordId와 상호 배타적
+- acceptedResultCaptureRecordPath: {exact_canonical_project_relative_capture_record_path_or_omit}
 - acceptedResultCaptureRecordSha256: {canonical_capture_record_sha256_or_omit}
+- acceptedResultCaptureReceipt: {exact_generated_media_accepted_result_capture_receipt_v1_or_omit}
+- acceptedResultCaptureReceiptSha256: {exact_receiptPayloadSha256_or_omit}
+- acceptedPromptEvidence: {source=accepted_result_capture, providerPromptPayloadHash, promptFileSha256}_or_omit
 
 작업:
 1. repository와 현재 PC의 evaluation staging root를 내부적으로 확인한다.
-2. 정확히 한 input branch를 검증한다. strict branch는 planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 검증한다. accepted-result branch는 capture record/index raw hash, authenticated acceptance, source task/tool-call identity, prompt/settings/reference/master/GIF/frame hash, historical submit=1/retry=0, capability/cost=`unavailable_observed`, preSubmitGateAttestation=`not_claimed_post_result_capture`를 검증하며 generation-v2 gate/cost PASS를 추론하지 않는다.
+2. 정확히 한 input branch를 검증한다. strict branch는 기존 그대로 planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 요구한다. accepted-result branch는 promptRecordId/generation fields를 금지하고 capture record/index raw hash, exact capture receipt/JCS hash, authenticated acceptance, source task/tool-call identity, prompt/settings/reference/master/GIF/frame hash, historical submit=1/retry=0, capability/cost=`unavailable_observed`, preSubmitGateAttestation=`not_claimed_post_result_capture`를 검증한다. mixed/partial/unknown branch field는 즉시 차단한다.
+2a. accepted-result에 authoritative `generated_media_prompt_v3`가 없으면 fake prompt record를 만들거나 요구하지 않는다. capture의 exact `providerPromptPayloadHash`와 recovered prompt raw file SHA를 closed `acceptedPromptEvidence`로 투영하고 실제 recovered bytes와 일치시키며, generation-v2 gate/cost PASS를 추론하지 않는다.
 3. provider=imagegen과 current v2 adapter registry에서 assetType, requestedAdapterId, expectedStructureProfile이 모두 일치하는 row 하나를 확정한다. PixelLab/v1 row는 신규 입력으로 선택하지 않는다.
 4. canonical preservationHashPayload/ID를 계산한다. 동일 payload 재실행은 기존 record를 resume/reuse하고 동일 ID의 다른 payload는 중단한다.
 5. `.assembling/{requestId}/{preservationRecordId}.{attemptId}` 임시 경로에서만 provisional ref를 바꾸지 않고 원본을 download/export한다.
@@ -49,7 +54,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_planning_handoff_v2 | missing_routing_v2 | missing_prompt_v3 | missing_generation_v2 | missing_accepted_result_capture_v1 | accepted_result_capture_hash_mismatch | accepted_result_capture_not_authorized | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | unsupported_provider | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | provider_animated_gif_source_mismatch | gif_timeline_contract_mismatch | extraction_failed | fixed_cell_contract_mismatch | scale_lock_violation | anchor_mapping_mismatch | vertical_motion_policy_violation | chroma_key_scope_violation | gif_first_sequence_violation | frame_order_mismatch | member_hash_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
+- failureType: missing_planning_handoff_v2 | missing_routing_v2 | missing_prompt_v3 | missing_generation_v2 | missing_accepted_result_capture_v1 | accepted_result_capture_hash_mismatch | accepted_result_capture_not_authorized | accepted_result_capture_receipt_mismatch | accepted_result_prompt_evidence_mismatch | preservation_input_branch_conflict | preservation_input_branch_incomplete | preservation_input_unknown_field | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | unsupported_provider | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | provider_animated_gif_source_mismatch | gif_timeline_contract_mismatch | extraction_failed | fixed_cell_contract_mismatch | scale_lock_violation | anchor_mapping_mismatch | vertical_motion_policy_violation | chroma_key_scope_violation | gif_first_sequence_violation | frame_order_mismatch | member_hash_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
 - 완료 state / 보존된 파일과 hash / 재시도 가능 지점 / Required Next Action
 
 검증:
