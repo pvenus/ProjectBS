@@ -144,6 +144,7 @@ paths and rules internally. Never reuse an absolute path from another PC.
 | background_single_image + domainType=battle | battle | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
 | background_single_image + domainType=environment | environment | background_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current background adapter | ready |
 | character_single_image + domainType=character | character | character_single_image_v2 | AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md current character single-image adapter | ready |
+| animation + domainType=character | character | animation_gif_frame_set_v2 | AgentDocs/planning-guides/character/EvaluationAnimationGuide.md current package-mode adapter | ready |
 
 Rules:
 
@@ -170,6 +171,12 @@ Rules:
     profile payload/hash from the sealed package. For the animation-ready
     minimal profile, proportion, detail-density, and color/value fatal gates
     run independently before any score can be accepted.
+11. The current character animation row requires the exact sealed package
+    identity `animation + character + animation_gif_frame_set_v2`. It uses the
+    current package-mode declaration in `EvaluationAnimationGuide.md` without
+    setting or inferring legacy `artifactType=character_animation`. Mixed,
+    partial, or legacy/current identity returns `legacy_current_identity_conflict`
+    before media inspection or scoring.
 
 ## 6. Workspace and Source Resolution
 
@@ -381,6 +388,29 @@ For character animation inheriting
 semantic gates include the same closed proportion, detail-density, and
 color/value fatal checks as `character_single_image_v2`. Apply them to every
 frame; one failing member fails the set. Skill animation omits these gates.
+
+### 8.5.1 animation_gif_frame_set_v2
+
+Use only for current package-mode `animation + domainType=character`. First
+verify the sealed `generated_media_evaluation_package_v2`, exact package ID and
+manifest hash, one animationRequestId, `animation_gif_frame_set_v2`, and the
+same request/content/planning/profile identity carried by preservation. Then
+apply `ordered_frame_set` plus the current package-mode character animation
+adapter declared by `EvaluationAnimationGuide.md`.
+
+Required media evidence is the package's coherent master image, completed GIF,
+and contiguous PNG frames extracted from the reopened GIF timeline, with exact
+member hashes, frame count/order/timing/loop/key-pose evidence, reference image,
+pelvis/root/ground-axis anchor, and planning/profile facts. The GIF is motion
+evidence; decoded PNG frames remain the authority for crop, edge, alpha, pixel,
+identity, equipment, and per-frame technical findings. Strict-generation and
+accepted-result package branches remain distinct and valid; the adapter never
+requires a fake prompt, generation, or download record for an accepted-result
+branch.
+
+Do not rename this identity to legacy `character_animation`, substitute an
+`ordered_frame_set` legacy manifest, or reconstruct missing package members.
+Any mixed identity blocks before scoring.
 
 ### 8.6 Set decision rule
 

@@ -20,7 +20,7 @@ extended through domain guides, not duplicated in this prompt.
 Input:
 - requestId: {optional_stable_request_id}
 - evaluationPackageId: {preferred_generated_media_evaluation_package_v2_id | null_for_legacy}
-- assetType: {character_main_image | character_animation | icon | general_animation | imagegen_image | background_single_image | null_for_legacy}
+- assetType: {character_single_image | animation | character_main_image | character_animation | icon | general_animation | imagegen_image | background_single_image | null_for_legacy}
 - domainType: {character | skill | item | stage | battle | environment | null_for_legacy}
 - artifactType: {skill_icon | item_icon | story_popup_main_image | skill_animation | character_image | character_animation | battle_background | null_for_package_mode}
 - contentId: {canonical_content_id}
@@ -36,7 +36,7 @@ Input:
 
 작업:
 1. 현재 작업의 workspace와 Git 정보를 이용해 저장소를 확인하고 AgentDocs와 Assets가 같은 저장소인지 검증한다.
-2. evaluationPackageId가 있으면 GeneratedMediaEvaluationPackageGuide.md를 읽고 sealed v2 package의 assetType+domainType으로 adapter를 선택한다. 없으면 legacy artifactType으로 선택한다. package mode의 background_single_image와 legacy imagegen_image/battle_background를 교환하거나 두 identity mode를 함께 사용하면 중단한다.
+2. evaluationPackageId가 있으면 GeneratedMediaEvaluationPackageGuide.md를 읽고 sealed v2 package의 assetType+domainType으로 adapter를 선택한다. 없으면 legacy artifactType으로 선택한다. package mode의 background_single_image와 legacy imagegen_image/battle_background, 또는 current animation+character와 legacy character_animation을 교환하거나 두 identity mode를 함께 사용하면 중단한다.
 3. adapter가 없거나 blocked 또는 필수 계약이 불완전하면 공통 점수로 대신 평가하지 말고 중단한다.
 4. package mode이면 manifest와 모든 member hash, structureProfile, readiness 및 정확히 한 provenance branch를 검증한다. strict branch는 기존 planning/prompt/generation identity를 그대로 요구한다. accepted-result branch는 prompt/generation record를 요구하거나 만들지 않고 acceptedResultCaptureRecordId/path/raw SHA, capture receipt/JCS hash, closed acceptedPromptEvidence(providerPromptPayloadHash+promptFileSha256), preservation identity를 검증한다. 두 branch의 혼합·부분·unknown field 또는 generation/와 accepted-capture/의 동시 존재는 채점 전에 차단한다. legacy mode에서 sourceRecordId가 있으면 artifactType/contentId와 일치하는지 확인한다. source는 하나로 확정될 때만 선택한다.
 5. 평가할 source가 candidate, preview, thumbnail, contact sheet 또는 프로젝트 파일이 아니라 다운로드 후 보존된 원본인지 확인하고 SHA-256을 기록한다.
@@ -47,7 +47,7 @@ Input:
 10. package mode는 request_type_key={assetType}.{domainType}, legacy mode만 request_type_key=artifactType으로 확정한다. request_type_key, contentId, UTC 평가 시각과 source 또는 manifest hash prefix로 evaluationRecordId를 만들고, 해당 불변 record 폴더의 input/evaluation_input.json을 저장한 뒤 공통 입력 계약과 artifact identity를 검증한다. 파일명에서 key를 추론하지 않는다.
 11. 공통 게이트를 먼저 실행한다: identity, provenance/hash, 파일 무결성, staging/project 경로 분리, 기획·디자인 증거 완전성, 금지 텍스트·UI·로고·워터마크, 마스터 컨셉 hard constraint, 증거 충분성.
 12. single_image이면 도메인 크기·비율·alpha·crop·display-size 규칙과 하나의 원본 이미지를 평가한다. background_single_image_v2이면 추가로 scene composition/viewpoint/horizon/depth/playable-area/subject/canvas/aspect/target/safe-area/background-policy/consistency-lock/scene-anchor metadata와 원본의 일치를 평가하고 icon adapter 규칙을 적용하지 않는다. character_single_image_v2이면 exact expression profile payload/hash와 planning/profile evidence를 먼저 검증한다. animation-ready minimal profile은 점수 전에 비례(4.25 heads 초과, 24-27% 범위 밖, 7-8등신/영웅적 장신), detail density(비늘·리벳·조밀한 주름·해칭·microtexture·modeled shading), color/value(gradient·cinematic/physical lighting·realistic material·2개 초과 accent hue) fatal gate를 서로 독립적으로 실행하고 하나라도 실패하면 exact character_evaluation_*_gate_failed token으로 acceptance를 차단한다.
-13. ordered_rotation_set이면 정확한 8방향 순서와 identity 일관성을 평가한다. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. animation-ready minimal profile을 상속한 character animation은 12번의 세 semantic gate를 모든 frame과 cross-frame consistency에 적용하고 한 frame의 실패도 전체 set 실패로 처리한다. GIF는 움직임 판단에만 사용하고 alpha·crop·픽셀 품질 판정에는 사용하지 않는다.
+13. ordered_rotation_set이면 정확한 8방향 순서와 identity 일관성을 평가한다. paired_sheet_animation 또는 ordered_frame_set이면 원본 PNG, 개별 프레임, 순서, count, 중심축, 일관성, contact sheet와 playback evidence를 평가한다. current `animation+domainType=character+animation_gif_frame_set_v2`는 sealed package identity를 유지한 채 EvaluationAnimationGuide의 current package-mode adapter를 적용하고 legacy character_animation을 설정·추론하지 않는다. coherent master, completed GIF, reopened-timeline contiguous PNG frames, reference/hash/order/timing/loop/key pose/anchor를 검증하며 GIF는 움직임 판단에만, PNG frames는 alpha·crop·edge·픽셀·per-frame 판단에 사용한다. accepted-result branch에는 fake prompt/generation/download record를 요구하지 않는다. animation-ready minimal profile을 상속한 character animation은 12번의 세 semantic gate를 모든 frame과 cross-frame consistency에 적용하고 한 frame의 실패도 전체 set 실패로 처리한다.
 14. 이미지 세트의 한 멤버라도 치명적 실패가 있으면 평균 점수로 가리지 말고 전체 세트를 Fail 처리한다.
 15. 구조 게이트가 끝난 뒤에만 도메인 평가 가이드의 fatal gate를 실행하고, fatal failure가 없을 때만 도메인 점수를 계산한다.
 16. 도메인 점수 카테고리 이름, 배점, threshold와 category minimum을 그대로 사용한다. 다른 콘텐츠 rubric으로 이름을 바꾸거나 배점을 재분배하지 않는다.
@@ -100,6 +100,8 @@ Output:
 - background_single_image는 stage/battle/environment ready row 중 하나와 정확히 일치하고 icon adapter와 교환되지 않아야 한다.
 - legacy imagegen_image/battle_background와 current background_single_image identity가 혼합되지 않아야 한다.
 - package mode evaluationRecordId에 artifactType을 사용하지 않고 legacy mode에 assetType.domainType을 사용하지 않아야 한다.
+- current animation+character는 animation_gif_frame_set_v2와 package/member identity를 보존하고 legacy character_animation과 혼합하지 않아야 한다.
+- existing character_single_image+character+character_single_image_v2 route는 그대로 ready여야 한다.
 - source identity와 현재 SHA-256이 generation/download 기록과 일치해야 한다.
 - package provenance는 strict generation 또는 accepted-result capture 중 정확히 하나이며 accepted branch는 fake prompt/generation record 없이 recovered prompt hash와 capture receipt를 검증해야 한다.
 - planningOriginalContent와 generationPromptOriginal은 원문 그대로 보존되어야 한다.

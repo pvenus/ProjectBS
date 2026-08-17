@@ -36,6 +36,46 @@ Authority by concern:
 If identity, frame order, direction mapping, or runtime evidence conflicts, stop
 with `evaluation_contract_conflict`; do not choose a convenient source.
 
+### 2.1 Current package-mode adapter declaration
+
+This declaration is additive and does not change the legacy
+`artifactType=character_animation` route above.
+
+```text
+adapterId: character_animation_gif_frame_set_v2
+assetType: animation
+domainType: character
+evaluationDomain: character
+structureProfile: animation_gif_frame_set_v2
+canonicalContentSourceRule: exact contentId and animationRequestId from the sealed package
+artifactUsageRule: exact planned character animation action
+planningEvidenceRule: exact package-bound planning/profile evidence; no pixel inference
+stagingSourceRule: sealed generated_media_evaluation_package_v2 members only
+projectTargetRule: informational promotion target only; never evaluation input
+requiredEvidence: coherent master, completed GIF, reopened-timeline contiguous PNG frames, reference, hashes, order, timing, loop, key poses, anchor
+domainFatalGates: package/identity/structure gates plus Section 4 and applicable profile fatal gates
+scoreCategories: anim.frame_continuity_body_integrity=30; anim.identity_equipment_weapon=25; anim.direction_spatial_stability=20; anim.action_readability=15; anim.timing_loop_ending=10
+passThreshold: totalScore >= 90 with no fatal gate and all planned action/direction evidence inspected
+categoryMinimums: none beyond valid 0..maximum scores; do not invent minima
+domainNativeResults: Pass | Conditional Pass | Fail | not_evaluated
+resultNormalization: Pass->PASS; Conditional Pass->CONDITIONAL_PASS; Fail->FAIL; not_evaluated->not_evaluated
+domainSpecificNotes fields: animationRequestId, observedAction, observedDirections, frameRanges, anchorObservations
+mediaEvidenceRule: GIF for motion only; reopened-timeline PNG frames for technical and per-frame findings
+reEvaluationRule: Section 10 with exact unchanged package/member-hash evidence
+```
+
+The current adapter preserves `assetType=animation`, `domainType=character`,
+`structureProfile=animation_gif_frame_set_v2`, evaluationPackageId, requestId,
+contentId, animationRequestId, and member hashes through the immutable result.
+It MUST NOT emit or infer legacy `artifactType=character_animation`.
+
+For the current package branch, the sealed strict-generation or accepted-result
+capture/preservation chain replaces the legacy Section 3 `generationRecord` and
+`downloadRecord` inputs. An accepted-result package never requires a fake
+prompt, generation, or download record. The package-bound reference and planned
+action/direction evidence replace `referenceRotationPath` and other legacy path
+inputs; missing package evidence remains `insufficient_evidence`.
+
 ## 3. Inputs and Preconditions
 
 Required:
