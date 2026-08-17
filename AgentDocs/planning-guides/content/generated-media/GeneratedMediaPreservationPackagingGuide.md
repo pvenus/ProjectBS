@@ -94,6 +94,23 @@ a sprite sheet, a video, or independently generated frames. If the generation
 ref is not an original playable animated GIF, return
 `provider_animated_gif_source_mismatch` without synthesizing a replacement.
 
+When the generation handoff conditionally includes
+`generated_media_attack_gif_final_validation_receipt_v1`, preservation verifies
+its closed member set and the original GIF hash/dimensions/frame count before
+opening media. It then confirms the reopened timeline preserves the generation
+role's shared clean left/right margin width basis, fixed pelvis center, fixed
+ground baseline, identical scale/timing/global palette, fully opaque
+background, and no clipping or neighboring-cell edge fragments. Required
+`pelvisDriftMaxPx` and `baselineDriftMaxPx` are both exactly zero.
+
+Preservation does not derive a new width basis, crop/recenter frames, remove
+neighboring fragments, repair palette/background, or convert a failed receipt
+to valid. Anchor/baseline disagreement is `anchor_mapping_mismatch`, scale
+disagreement is `scale_lock_violation`, and timing/palette/background/clipping/
+fragment disagreement is `gif_timeline_contract_mismatch`. The accepted-result
+guidance provenance remains detached future-role guidance and is not copied
+into preservation records or evaluation packages.
+
 ## Preservation Record v2
 
 Hash payload:

@@ -122,6 +122,51 @@ cost generation-v2 contract and additionally requires the animated-GIF
 capability attestation above. A hosted still-image preview never satisfies the
 provider-native GIF source contract.
 
+### Accepted-result attack GIF final guidance
+
+An explicitly supplied `accepted_result_attack_gif_guidance_v1` is optional
+future guidance for the same character attack-animation role. It is not a
+planning fact, routing decision, prompt-record amendment, generation record,
+or preservation/evaluation authority, and it never reinterprets an immutable
+artifact. The accepted result path is not canonical; only its caller-verified
+raw SHA-256 and observed dimensions/frame count may appear in the detached
+guidance handoff.
+
+The generation role remains GIF-first and owns the final provider-native GIF.
+It projects the compact guidance before its one provider submit and validates
+the returned GIF before preservation handoff. Across the exact final timeline:
+
+- the pelvis center and ground baseline are fixed at their approved integer
+  coordinates; maximum pelvis drift and baseline drift are both `0px`;
+- the longest clean left/right margin observed across legitimate subject
+  motion defines one shared width basis for every frame; per-frame crop,
+  scale, or recenter remains forbidden;
+- neighboring-cell or adjacent-frame edge fragments are excluded from the
+  provider result, never treated as subject bounds, and never repaired by
+  preservation;
+- scale, frame timing, global palette, and fully opaque background are
+  identical across all frames; and
+- the shared canvas has no subject or effect clipping.
+
+The detached handoff contains exactly `schemaVersion`, `animationRequestId`,
+`acceptedResultSha256`, `width`, `height`, `frameCount`, `pelvisCenter`,
+`groundBaselineY`, `sharedWidthBasisPolicy`, `scalePolicy`, `timingPolicy`,
+`palettePolicy`, and `backgroundPolicy`. Its schemaVersion is
+`accepted_result_attack_gif_guidance_v1`; `acceptedResultSha256` is guidance
+provenance only. Unknown, missing, or inferred members invalidate this optional
+extension without changing upstream records.
+
+Generation returns one compact
+`generated_media_attack_gif_final_validation_receipt_v1` containing exactly
+`schemaVersion`, `animationRequestId`, `originalAnimatedGifSha256`, `width`,
+`height`, `frameCount`, `sharedWidthBasis`, `pelvisDriftMaxPx`,
+`baselineDriftMaxPx`, `scaleUniform`, `timingUniform`, `globalPaletteUniform`,
+`backgroundFullyOpaque`, `clippingDetected`, `neighboringFragmentsDetected`,
+and `status`. `status=valid` requires both drift values to equal zero, all four
+uniform/opaque booleans true, both detected booleans false, and exact guidance
+dimensions/frame count. The receipt is a generation-to-preservation compact
+validation projection, not a media evaluation verdict.
+
 ## Input, Output, State, and Validation
 
 One scalar animationRequestId route/handoff becomes one prompt v3 record. One

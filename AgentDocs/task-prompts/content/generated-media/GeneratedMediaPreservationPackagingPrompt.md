@@ -35,6 +35,7 @@ Input:
 8. manifestPayload/hash/packageId 계산 후 `{evaluationStagingRoot}/{assetType}/{contentId}/{requestId}/{packageId}/`로 안전하게 finalize한다. 기존 동일 package는 byte/hash 검증 후 재사용하며 overwrite하지 않는다.
 9. evaluator adapter까지 유효하면 evaluation_handoff_ready, 아니면 sealed blocked package와 blocker를 기록한다.
 10. provider 생성/재시도, prompt 수정, 평가, 승격, Slack, Unity, Git, merge, 배포를 수행하지 않는다.
+11. animation preservation handoff에 `generated_media_attack_gif_final_validation_receipt_v1`가 있으면 closed projection과 original GIF hash/dimensions/frameCount를 먼저 검증한다. reopened timeline에서 shared clean left/right margin width basis, fixed pelvis center/ground baseline, identical scale/timing/global palette/fully opaque background, no clipping/no neighboring-cell edge fragments를 재확인한다. pelvis drift와 baseline drift는 각각 exact 0px여야 한다. 실패 output을 crop/recenter/scale/palette/background/fragment 제거로 수리하지 않고 기존 anchor_mapping_mismatch, scale_lock_violation 또는 gif_timeline_contract_mismatch로 차단한다. accepted-result path/bytes/full guidance는 preservation record나 evaluation package에 복사하지 않는다.
 
 Output:
 - Request / Asset / Domain / Content
@@ -53,6 +54,7 @@ Output:
 - 외부 placeholder 없이 registry가 child guide 하나를 결정해야 한다.
 - adapter/profile schema와 모든 hash/package identity가 재계산되어야 한다.
 - 신규 animation은 scalar animationRequestId, provider_native_animated_gif, final frame count/timing/loop, scale lock, anchor-only drift correction과 exact GIF-timeline extraction을 만족해야 한다.
+- accepted-result attack guidance가 있으면 generation compact receipt와 reopened GIF 모두 pelvis/baseline drift=0px, shared width basis, uniform scale/timing/global palette, fully opaque background, no clipping/no neighboring fragments를 만족해야 한다.
 - preservation record 경로와 canonical package 경로가 guide 공식과 일치해야 한다.
 - staging/project target이 분리되어야 한다.
 - 평가 및 이후 단계가 실행되지 않아야 한다.

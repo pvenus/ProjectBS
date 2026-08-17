@@ -18,6 +18,7 @@ Input:
 - executionMode: promotable_generation_v2 | hosted_builtin_preview_v1
 - providerExecutionApproval: required only for promotable_generation_v2
 - hostedPreviewApproval: required only for hosted_builtin_preview_v1; exact current authenticated approval for this animationRequestId
+- acceptedResultAttackGifGuidance: optional closed accepted_result_attack_gif_guidance_v1 for future same character attack-animation role guidance only
 
 작업:
 1. scalar animationRequestId 일치와 모든 animation readiness blocker를 검증한다.
@@ -30,12 +31,15 @@ Input:
 6. promotable mode만 animationRequestId-bearing idempotencyKey, generated_media_generation_v2, costEvidence, exact original animated-GIF provider ref/hash와 animation_gif_frame_set_v2 preservation handoff를 사용한다. Generation은 provider 원본 GIF를 변환하지 않는다.
 7. oversampling, 복수 요청 병합, 임의 동작 추가, fixed-cell split, frame 생성/선택/보간, transparency/outline/chroma 처리와 frame 보정을 수행하지 않는다.
 8. 평가, promotion, Slack, Unity, Git을 수행하지 않는다.
+9. acceptedResultAttackGifGuidance가 있으면 immutable planning/routing/prompt/record를 바꾸지 않고 generation-role-owned GIF-first projection으로만 사용한다. provider prompt에는 fixed pelvis center/ground baseline, longest clean left/right margin을 모든 frame의 shared width basis로 사용, neighboring-cell edge fragment 제외, identical scale/timing/global palette/fully opaque background, no clipping을 직접 요구한다. 반환 GIF에서 pelvis drift=0px, baseline drift=0px, no clipping, no neighboring fragments와 exact dimensions/frameCount를 검증한다. 실패하면 기존 anchor_mapping_mismatch, scale_lock_violation 또는 gif_timeline_contract_mismatch 중 정확한 token으로 차단하고 보정·재시도하지 않는다.
+10. 성공 시 closed `generated_media_attack_gif_final_validation_receipt_v1` 한 건만 preservation handoff에 compact projection한다. accepted result의 path/bytes나 full guidance payload를 relay하지 않고 acceptedResultSha256도 immutable record authority로 승격하지 않는다.
 
 Output:
 - status / executionMode / animationRequestId / generationRecordId 또는 previewRecordId / submitCount / refs / costKnown
 - animationSourceMode=provider_native_animated_gif / extractionMode=gif_timeline_exact
 - provider / providerInterface=configured_animated_gif_capability / originalAnimatedGifRef / structureProfile=animation_gif_frame_set_v2
 - nextStep: preservation_packaging | preview_complete_no_downstream
+- accepted-result attack guidance 사용 시 generated_media_attack_gif_final_validation_receipt_v1
 
 실패 시 Output:
 - status: blocked | failed
@@ -45,6 +49,7 @@ Output:
 검증:
 - 정확히 한 animationRequestId와 최종 frame count를 사용해야 한다.
 - provider result는 최종 frame count/order/timing/loop를 가진 playable animated GIF 하나여야 한다.
+- accepted-result attack guidance receipt는 pelvisDriftMaxPx=0, baselineDriftMaxPx=0, scaleUniform/timingUniform/globalPaletteUniform/backgroundFullyOpaque=true, clippingDetected/neighboringFragmentsDetected=false여야 한다.
 - generation record에 extraction/package/evaluation 결과가 없어야 한다.
 - preview record는 exact one animationRequestId, preview_only/not_promotable/not_evaluated이며 preservation/evaluation/promotion 입력이 없어야 한다.
 ```
