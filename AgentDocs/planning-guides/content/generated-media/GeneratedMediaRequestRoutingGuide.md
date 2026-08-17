@@ -143,6 +143,108 @@ edit, regeneration, or Unity work. An explicit later user adoption is a new
 strict-workflow request and cannot reuse the fast-preview receipt as a strict
 input artifact.
 
+## Repository Setup and Authority Orchestration v1
+
+Repository setup is owned by one control-plane coordinator, not by planning,
+routing, authoring, generation, preservation, or evaluation roles. This section
+creates no planning/routing/prompt/generation/preservation/evaluation record and
+does not change any provider or artifact contract.
+
+### Repository-scoped setup mutex
+
+For one canonical repository identity, at most one setup mutation may be active.
+The mutex covers `worktree add`, `worktree remove`, `worktree prune`, and every
+fetch that mutates remote-tracking/FETCH_HEAD state. Its deterministic key is:
+
+```text
+repositorySetupMutexKey=gmsetup1.{SHA256(UTF8(canonical origin remote URL))[0:20]}
+```
+
+Acquire the mutex before the first covered command and release it after success
+or terminal failure. Read-only Git blob/object/status operations do not require
+the mutex. Another setup request queues; it never runs a competing helper or
+deletes a worktree to obtain the lock.
+
+### One authority fetch and closed receipt
+
+The coordinator performs exactly one successful `fetch origin main --prune`
+per pipeline run while holding the mutex. It then resolves the fetched commit
+and emits this response-only closed receipt:
+
+```yaml
+schemaVersion: generated_media_pipeline_authority_receipt_v1
+repo: canonical origin remote URL
+originMain: exact 40-lowercase-hex fetched commit
+fetchedAt: exact observed RFC 3339 timestamp with offset
+authorityReceiptSha256: lowercase SHA-256
+```
+
+`authorityReceiptSha256` is SHA-256 of RFC 8785 JCS UTF-8 bytes for the first
+four members, excluding only itself. A pipeline run has exactly one receipt.
+Downstream read-only roles validate its hash/repo/commit, detach or read the
+exact `originMain` commit, and MUST NOT fetch again. A missing/invalid receipt,
+repo mismatch, or unavailable commit blocks read-only reuse; it does not cause
+each child to fetch independently.
+
+Receipt reuse never weakens existing boundaries. A role that will mutate a
+record/index or repository, publish Git state, or cross a provider boundary
+must still perform every fresh check required by that boundary and acquire the
+setup mutex for any covered repository command. The authority receipt is not a
+provider capability, approval, cost, idempotency, publication, or CAS receipt.
+
+### Persistent serial worktrees and task lifecycle
+
+Prefer four persistent, serial role worktrees per repository:
+
+```text
+planning
+routing_authoring
+generation
+preservation_evaluation
+```
+
+Reuse the matching clean role worktree at the exact detached authority commit;
+do not create a worktree per micro-stage. A queued client task ID is not an
+official task. The coordinator waits until it obtains one distinct
+`officialThreadId` and does not create a replacement while the queued/setup
+state is pending. One bounded setup retry is permitted only after the original
+state is positively confirmed `abandoned` or `failed`; the retry must receive a
+new distinct officialThreadId before execution.
+
+A failed `client-new-thread` setup that never receives an `officialThreadId` is
+not addressable by `set_thread_archived` and may remain as an orphan UI card.
+The coordinator MUST NOT create more client cards to retry it. Continue through
+the persistent role worktree and the same official task when one exists; orphan
+card cleanup is Codex app/platform responsibility, never repository worktree or
+file deletion.
+
+Evaluation of a sealed, hash-bound package runs in the configured evaluation
+workspace outside the source Git worktree. It verifies package bytes/hashes and
+MUST NOT fetch the source repository. The `preservation_evaluation` worktree may
+prepare or validate the immutable package handoff, but visual evaluation reads
+the sealed external package only.
+
+No setup failure authorizes automatic cleanup. Archived, dirty, detached,
+partially configured, or unpublished worktrees are inventory-only until exact
+cleanup targets receive explicit user authorization. Setup reports one compact
+status on state change and one terminal status; it never retransmits authority
+bundles, planning payloads, or unchanged inventory.
+
+Setup failures use exactly these tokens:
+
+```text
+worktree_metadata_permission_denied
+task_registry_collision
+helper_setup_refresh_failed
+tool_approval_required
+```
+
+Permission/metadata denial uses the first token; duplicate client/official task
+mapping uses the second; a helper that cannot refresh setup after the single
+eligible retry uses the third; a blocked command requiring explicit tool/user
+approval uses the fourth. None implies safe deletion, a second fetch, or a
+replacement task.
+
 ## Routing Record v2
 
 ```yaml
@@ -431,7 +533,7 @@ workflow evidence.
 
 | Boundary or check | May reuse an exact receipt | Mandatory fresh work |
 | --- | --- | --- |
-| authority main and anchored source/profile/contract blobs | yes, only with byte-identical bundle ID/hash and unchanged requested scope | fetch and full validation on missing/invalid receipt, main/scope/anchor drift or unavailable blob |
+| authority main and anchored source/profile/contract blobs | read-only roles reuse the exact pipeline authority receipt, detached commit and byte-identical bundle ID/hash | coordinator fetches once per pipeline run; mutation/publication/provider boundaries retain their existing fresh checks; invalid receipt blocks rather than child refetch |
 | planning RFC 6901 facts and JCS snapshot | yes when the exact planning handoff/blob and bundle are unchanged | full resolution when planning handoff/hash or planning contract anchor changes |
 | registry row and expression-profile schema/hash | yes when exact registry/profile authority anchors and selected artifact are unchanged | full match/projection on any key, hash, scope or authority change |
 | stage input record/handoff raw hash and exact projection | no waiver | always verify at every consumer boundary |

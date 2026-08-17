@@ -18,6 +18,7 @@ Input:
 - supersedesRoutingRecordId: {optional_v2_record_id}
 - executionMode: route_only_v2 | hosted_builtin_fast_preview_v1 (optional; default route_only_v2)
 - fastPreviewPointer: {required only for hosted_builtin_fast_preview_v1}
+- pipelineAuthorityReceipt: {exact generated_media_pipeline_authority_receipt_v1 from coordinator}
 
 작업:
 0. executionMode가 `route_only_v2`이면 기존 1-22를 그대로 수행한다. `hosted_builtin_fast_preview_v1`이면 기존 routing record/authoring publication 작업 1-22를 실행하지 않고 0a-0h만 수행한다. 다른 값은 차단한다.
@@ -29,6 +30,7 @@ Input:
 0f. provider return 후 output path/raw hash/byte length/MIME/dimensions와 exposed provider result ref만 관찰하고 즉시 한 번 시각 확인한다. retry/edit 없이 preview intent 차이를 concise summary와 ordered intentWarnings로 같은 terminal receipt의 `visualEvaluation`에 기록한다. 이는 strict evaluation package가 아니다.
 0g. terminal receipt는 `previewOnly=true`, `notPromotable=true`, `notPreserved=true`, `strictEvaluationPerformed=false`이며 preservation/evaluation package/promotion/Unity를 호출하지 않는다. 사용자 채택은 별도 strict workflow 요청이다.
 0h. child final 한 건을 받고 parent relay 한 건만 수행한다. observer에 full receipt/payload를 broadcast하지 않는다.
+0i. coordinator의 pipelineAuthorityReceipt repo/originMain/fetchedAt/hash를 검증하고 exact originMain commit만 읽는다. read-only child는 fetch하지 않는다. routing record/index mutation은 기존 raw blob, no-clobber, CAS 검사를 그대로 fresh 수행하되 setup fetch/worktree mutation은 coordinator의 repository mutex 밖에서 실행하지 않는다.
 1. request/content/source/snapshot identity와 모든 source hash를 검증한다.
 2. requiredElements/prohibitedElements와 assetType별 specification을 검증하고 누락값을 추정하지 않는다.
 3. assetType/domainType/profile을 canonical lowercase enum으로 검증한다. 현재 assetType은 character_single_image, icon_single_image, background_single_image, animation뿐이다.
@@ -53,6 +55,8 @@ Input:
 20. commentary/status는 `generated_media_compact_status_v1` closed schema로 state change 또는 terminal에서만 한 번 emit한다. 동일 status/provider state/hash 재전송은 금지한다.
 21. orchestration lineage는 response-only `generated_media_pipeline_receipt_chain_v1`의 append-only value로 전달한다. mutable orchestration record/index/path를 생성하지 않는다.
 22. authority bundle, stage delta, routing receipt, pipeline chain, compact status 중 하나라도 schema/hash/transition/publication/relay 규칙에 어긋나면 success handoff를 emit하지 않고 기존 routing record/index를 수정하지 않는다.
+23. task setup은 GeneratedMediaRequestRoutingGuide의 repository setup coordinator가 소유한다. queued client ID를 officialThreadId로 간주하거나 pending 중 replacement를 만들지 않는다. setup failure token은 `worktree_metadata_permission_denied`, `task_registry_collision`, `helper_setup_refresh_failed`, `tool_approval_required` 중 하나이며 자동 worktree 삭제를 수행하지 않는다.
+24. persistent serial role worktree를 재사용하고 micro-stage별 새 worktree를 요구하지 않는다. sealed package 평가는 source Git worktree 밖에서 수행하며 evaluation role은 source repo를 fetch하지 않는다.
 
 Output:
 - fast-preview이면 `generated_media_fast_preview_terminal_receipt_v1` 한 건만 반환한다. providerCalled/submitCount/historicalSubmitCount/retryCount/costKnown을 사실대로 쓰고 unavailable cost를 0으로 쓰지 않는다. blocked pre-submit은 위 세 hard blocker 중 하나만, submit 후 실패는 `fast_preview_submit_failed_no_retry`만 사용한다.
@@ -95,6 +99,8 @@ Output:
 - same authority anchors/scope는 same bundle/chain identity이고 anchor 하나가 바뀌면 새 identity와 full validation이어야 한다.
 - invalid stage/publication pair, forbidden bulk field, duplicate relay/status를 fail-closed로 거부해야 한다.
 - pipeline orchestration record/index/path가 생성되지 않아야 한다.
+- pipeline run당 coordinator authority fetch/receipt는 한 건이고 read-only child fetch는 0건이어야 한다.
+- queued task replacement, 동시 setup mutation, 자동 worktree cleanup이 없어야 한다.
 - blocked 요청은 record/index를 변경하지 않아야 한다.
 - authoring 이후 단계를 실행하지 않아야 한다.
 ```
