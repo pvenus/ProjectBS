@@ -1181,13 +1181,90 @@ record lists the exact v2 key/hash. This does not change either profile payload.
 The provider-facing reference role is `style_only`; authoring must not describe
 the reference person's face, pose, action, clothes, or equipment.
 
+### Deterministic open ink-wash v2 authoring projection
+
+For a new `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`
+`character_single_image` publication, prose choice is not an authoring degree
+of freedom. The producer reads every hash-significant authority input from the
+freshly fetched commit's raw Git blob, verifies strict UTF-8, no BOM, LF-only
+bytes and the recorded raw SHA-256, and only then parses JSON. A CRLF checkout
+copy is never normalized into authority and never participates in identity.
+
+The validated routing `/authoringHandoff` is the sole planning projection. Its
+`requiredElements` has exactly these ten source-order slots: proportion and
+age; simplified identity surface and shoulder-armor mass; contour omission;
+mok-seon execution; pigment execution; palette roles; negative space;
+generation background; Korean/Joseon identity and equipment; then viewpoint,
+pose, framing, and no-shadow composition.
+
+Its `prohibitedElements` has exactly these fourteen source-order slots:
+child/tall anatomy, clean contour, surface over-detail, clean fill/splashes,
+palette-role collapse, negative-space shortfall, halo/background/scene/shadow,
+style-reference semantic transfer, nonconformant-final labeling, non-Korean
+identity substitution, photographic/3D rendering, multi-view output,
+animation/variant output, and failed-preview/trial reuse. A missing, additional,
+reordered, or semantically mismatched slot is `provider_value_invalid`; the
+producer does not repair it with prose.
+
+The visual brief projection is exact:
+
+- `requiredVisualStatements` and `prohibitedVisualStatements` copy the two
+  arrays in source order. Constraint IDs are respectively
+  `routing_required_01` through `_10` and `routing_prohibited_01` through
+  `_14`.
+- `primarySubjectOrSilhouette`, `visualHierarchy`, `composition`,
+  `backgroundPolicy`, and `outlinePolicy` copy required slots 1, 2, 10, 8,
+  and 3. `paletteAndMaterial` is the LF join of required slots 4 through 7.
+  `anchorPolicy` is `canonicalJson(singleImageSpecification.anchor)` with no
+  surrounding whitespace.
+- `supportingElements` and `likelyWrongObjects` are exact empty arrays.
+  `artifactSpecificBrief` is the byte-semantic copy of routing
+  `typeSpecification`; `referenceBindings`, when present, is the exact
+  top-level six-member routing binding.
+- `planningOriginalRef`, registry/profile identity, the complete profile,
+  locks, fixed validation values, and the four-member
+  `providerTranslationContract` are copied exactly as their closed schemas
+  require. The latter has the exact scalar
+  `promptAssemblyOrder=planning_facts,negative_style_lock,positive_style_lock`.
+
+`visualEvidenceMap` order is identity-bearing: ten required entries, fourteen
+prohibited entries, the seven derived summary fields in the order displayed
+above, every leaf of `artifactSpecificBrief` by ascending RFC 6901 pointer, the
+seventeen non-lock profile members by lexicographically sorted member name, nine
+negative locks, nine positive locks, then the six style-binding members in
+`role`, `projectRelativePath`, `sha256`, `reviewRecordId`, `reviewRecordPath`,
+`reviewRecordSha256` order. Routing-derived entries cite the routing record
+path/raw SHA and exact `/authoringHandoff` pointer. Profile entries cite this
+guide's raw Git-blob SHA and exact successor-profile section/pointer. IDs are
+the fixed slot ID where one exists; otherwise they are
+`authoring_evidence_` plus the first twenty hex characters of SHA-256 over the
+UTF-8 bytes of `statementPath + "|" + sourcePointer`. Arrays retain source
+order; object/leaf traversal uses lexicographically sorted RFC 6901 pointers.
+
+The provider text for this profile is exactly 28 non-empty lines joined by one
+LF with no leading/trailing whitespace and no terminal LF: the ten exact
+`requiredElements`, the nine exact negative-lock statements, then the nine
+exact positive-lock statements. It contains no heading, blank line, summary,
+gestalt sentence, prohibited/audit/receipt transcript, binding metadata, or
+author-written synonym. The Markdown layer alone appends its one terminal LF.
+Two producers over the same raw Git blobs therefore must produce identical
+visual brief, provider text, prompt payload/record, Markdown, index-after, and
+generation handoff bytes and identities. Any difference before publication is
+`record_identity_mismatch`; both candidates remain non-authoritative and no
+artifact is written.
+
+This rule applies only to new records selected by the exact v2 key. Published
+prompt records and indexes are legacy read-only evidence and are never
+reprojected, normalized, renamed, or rewritten under this clarification.
+
 ### Provider-facing salience and deduplication gate
 
 `scenePromptOriginal` is executable art direction, not an evidence transcript.
 The visual brief and evidence map preserve complete planning/profile
 provenance; the provider prompt MUST NOT repeat those records as bookkeeping
-blocks. For every `character_single_image` lock-array profile, assemble the
-provider prompt as one concise priority ladder while retaining the normative
+blocks. Except for the exact open ink-wash v2 projection above, for every
+`character_single_image` lock-array profile, assemble the provider prompt as
+one concise priority ladder while retaining the normative
 negative-lock order followed by the normative positive-lock order:
 
 1. lead with one compact hard-output block containing the planning-bound body
@@ -1238,13 +1315,13 @@ Before publication, normalize line endings and verify all of the following:
 Any violation is `provider_value_invalid`. This is a provider-payload assembly
 failure; it does not mutate the selected immutable expression profile or any
 planning fact.
-For `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, the cohesive
-prompt contains all nineteen closed members and both ordered nine-item lock
-arrays. It states the cranial-mass-to-chin/full-body measurement, broad sparse
-face/armor/garment treatment, uniform `#F2EFE6` field, and all seven ordered
-output gates as executable statements. The prompt cannot call a nonconformant
-return complete or final. This successor is selected only by a new exact
-planning pointer; v1 records remain governed by the preceding paragraph.
+For `projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, all nineteen
+closed members, both ordered nine-item lock arrays, and the seven output gates
+remain complete in the visual brief and evidence map. Provider prose uses only
+the exact 28-line executable projection above; compact-receipt, review,
+workflow, and post-output classification language never enters it. This
+successor is selected only by a new exact planning pointer; v1 and all
+published prompt records remain governed by their stored bytes.
 
 For `projectbs_character_bold_outline_compressed_detail@1.0.0`, the cohesive
 prompt contains every lock plus the exact planning-bound head count, external

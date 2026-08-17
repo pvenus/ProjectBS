@@ -526,6 +526,24 @@ LF. For any lock-array profile it contains the complete positive and negative
 style-lock statements in their normative array order. For the sparse profile it
 contains the complete eight-member policy projection instead.
 
+For a new prompt selected by
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0`, the complete
+`visualBrief`, `visualEvidenceMap`, and `scenePromptOriginal` are first derived
+by the closed raw-Git-blob projection in
+GeneratedMediaVisualPromptAuthoringGuide.md::Deterministic open ink-wash v2
+authoring projection. In particular, the prompt text is the exact 28-line
+`requiredElements`/negative-lock/positive-lock projection; alternate wording,
+summary text, headings, blank lines, translated duplicates, reordered evidence,
+or checkout-derived CRLF input is not byte-semantically equivalent. A producer
+must calculate every downstream hash and ID only after this projection. Two
+different in-memory results for the same verified authority bundle are
+`record_identity_mismatch` before any write; neither result is authority.
+
+This deterministic producer rule is prospective. Existing published prompt
+records/index entries remain valid under their stored schema and exact bytes;
+they are never rewritten merely because their historical prose predates this
+projection rule.
+
 Calculate the three nested hashes before constructing the prompt hash payload:
 
 ```text
