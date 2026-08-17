@@ -246,8 +246,12 @@ animationRequests:
       point:
       groundContactAxis: required for pelvis_root_ground_axis
     masterFirst: true
-    extractionMode: fixed_cell_only
+    animationSourceMode: provider_native_animated_gif
+    extractionMode: gif_timeline_exact
 ```
+
+For `provider_native_animated_gif`, `fixedCellCanvas` is the exact full canvas
+of every GIF timeline frame; it is not a multi-cell grid or sheet geometry.
 
 For `animationSubjectType=character`, the four flat reference/profile fields
 above are mandatory. `referencePromptRecordPath` identifies an immutable
@@ -274,18 +278,28 @@ record per source-order `animationRequestId` before authoring. Authoring and
 generation reject arrays in the normalized unit, merged requests, and added
 motions.
 
-## 4. Animation Master and Extraction Contract
+## 4. Provider-Native Animated GIF Source and Extraction Contract
 
-The approved final frame count is used from the first generation attempt.
-Oversampling followed by frame selection is prohibited.
+New animation writes use `animationSourceMode=provider_native_animated_gif`
+and `extractionMode=gif_timeline_exact`. The provider must return one playable
+animated GIF whose timeline already contains the approved final frame count,
+order, timing, loop policy, camera, scale, anchor, and background. A still
+image, contact sheet, sprite sheet, collage, video, or independently generated
+frame set is not an animation source and cannot be converted into a current
+animation record.
+
+The approved final frame count is used in the single provider generation
+attempt. Oversampling followed by frame selection is prohibited.
 
 ```text
-one coherent master result
--> fixed-cell split only
--> apply approved transparent-background and outline policy
--> save completed GIF first
--> reopen that GIF
--> extract ordered PNG frames
+one provider-native animated GIF result
+-> preserve the exact original GIF bytes and hash
+-> close and reopen that GIF
+-> validate frame count/order/timing/loop and full-canvas disposal
+-> apply only the approved whole-timeline background/outline policy
+-> save the normalized completed GIF
+-> close and reopen the normalized GIF
+-> extract the exact ordered PNG frames from its timeline
 ```
 
 - per-frame crop, rescale, silhouette recenter, or canvas change is forbidden;
@@ -297,6 +311,20 @@ one coherent master result
   the approved conversion tolerance;
 - key residue removal, transparent output, white 2px outside outline, or any
   other exact value comes from approved input/profile and is never global.
+
+Generation must use
+`providerInterface=configured_animated_gif_capability` and perform a non-submit
+capability check for animated GIF output,
+timeline timing control, loop control, exact dimensions, and the required
+reference roles. If any member is unavailable, return
+`animated_provider_capability_unavailable` with `providerCalled=false` and
+`submitCount=0`. Prompt prose, a still-image ImageGen call, a sprite sheet, or
+post-generation frame synthesis cannot substitute for missing capability.
+
+Existing immutable animation records using `extractionMode=fixed_cell_only`
+remain readable historical v2 evidence. They are never rewritten or silently
+reinterpreted as provider-native GIF sources. New animation writes with that
+legacy extraction mode are forbidden.
 
 ## 5. Closed Current Registry
 
@@ -1340,6 +1368,10 @@ missing_fixed_cell_contract
 missing_scale_lock
 missing_vertical_motion_policy
 missing_master_first_contract
+missing_animation_source_mode
+invalid_animation_source_mode
+missing_animation_extraction_mode
+invalid_animation_extraction_mode
 oversampling_not_allowed
 unsupported_provider
 missing_provider_execution_approval
@@ -1588,6 +1620,8 @@ provider_actual_cost_unavailable
 retry_limit_exceeded
 duplicate_provider_call_risk
 provider_operation_failed
+animated_provider_capability_unavailable
+provider_animated_gif_source_mismatch
 character_generation_proportion_gate_failed
 character_generation_detail_density_gate_failed
 character_generation_color_value_gate_failed
@@ -1870,6 +1904,8 @@ original_download_failed
 provider_export_failed
 source_not_original
 source_hash_mismatch
+provider_animated_gif_source_mismatch
+gif_timeline_contract_mismatch
 extraction_failed
 fixed_cell_contract_mismatch
 scale_lock_violation

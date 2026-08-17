@@ -56,8 +56,8 @@ incomplete readiness block before download.
 | character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; apply approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
 | icon_single_image/skill or item | imagegen_icon_single_image_v2 | icon_single_image_v2 | preserve original; apply approved background/no-shadow/outline without crop/scale; record visual center |
 | background_single_image/stage, battle or environment | imagegen_background_single_image_v2 | background_single_image_v2 | preserve original scene bytes; retain scene composition, viewpoint, depth/playable-area, target/safe-area, consistency lock and scene anchor metadata without icon transforms |
-| animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | coherent master; pelvis/root anchor; GIF-first fixed-cell extraction |
-| animation/skill | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | coherent master; effect-origin anchor; GIF-first fixed-cell extraction |
+| animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; pelvis/root anchor; exact timeline extraction |
+| animation/skill | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; effect-origin anchor; exact timeline extraction |
 
 Exactly one row must match provider+asset+domain+adapter+structure. No filename
 or judgment fallback is allowed.
@@ -68,23 +68,31 @@ route is interchangeable.
 
 ## Animation Packaging Sequence
 
+This sequence applies to new records with
+`animationSourceMode=provider_native_animated_gif`. Historical fixed-cell
+records remain read-only under their recorded contract.
+
 ```text
-preserve coherent master original
--> verify generated final frame count (no oversampling/selection)
--> split only by approved fixed cell
--> preserve scale lock and approved vertical motion
--> correct drift only by declared profile anchor translation
--> remove only declared solid generation-background color
--> apply approved transparent output and outside-silhouette outline
--> save completed GIF
--> close and reopen that GIF
--> extract ordered PNG frames from reopened GIF
+preserve exact provider-native animated GIF original and hash
+-> close and reopen the original GIF
+-> verify playable timeline, final frame count, order, timing, loop and full-canvas disposal
+-> preserve scale lock and approved vertical motion across the timeline
+-> correct drift only by declared profile anchor translation, when approved
+-> remove only declared solid generation-background color across all frames
+-> apply approved transparent output and outside-silhouette outline consistently
+-> save normalized completed GIF
+-> close and reopen the normalized GIF
+-> extract ordered PNG frames from that reopened GIF timeline
 -> hash every source/derived member
 ```
 
 Per-frame crop, scale, silhouette recenter, canvas change, internal color or
 luminance modification is forbidden. Exact outline/background/key-residue
 values come from approved input/profile and are never global defaults.
+Preservation never constructs an animation from still images, a contact sheet,
+a sprite sheet, a video, or independently generated frames. If the generation
+ref is not an original playable animated GIF, return
+`provider_animated_gif_source_mismatch` without synthesizing a replacement.
 
 ## Preservation Record v2
 
@@ -175,6 +183,8 @@ generation_record_hash_mismatch
 unsupported_provider
 provider_result_ref_missing
 source_hash_mismatch
+provider_animated_gif_source_mismatch
+gif_timeline_contract_mismatch
 fixed_cell_contract_mismatch
 scale_lock_violation
 anchor_mapping_mismatch
@@ -200,6 +210,7 @@ evaluation request. It never returns an evaluation verdict.
 - approval/cost projection equals the generation record, generation index and
   preservation handoff, and actual cost evidence is preservation-ready;
 - animation unit has exactly one ID and correct profile anchor;
-- GIF-first sequence and structure profile/member schema agree;
+- provider-native GIF-first sequence, exact timeline and structure
+  profile/member schema agree;
 - staging source differs from project target;
 - no provider/evaluation/promotion/Git stage executes.

@@ -58,6 +58,10 @@ content prose or visual similarity.
 - every unique animationRequestId creates a separate unit;
 - each unit contains one scalar animationRequestId and one normalized
   `animationRequest` object;
+- every new animation unit preserves
+  `animationSourceMode=provider_native_animated_gif` and
+  `extractionMode=gif_timeline_exact`; legacy fixed-cell sources are read-only
+  and cannot create a new route;
 - duplicate IDs, merged objects, arrays downstream, or added actions block;
 - all units retain the same immutable common request/content/source/snapshot
   identity and record their source JSON pointer.

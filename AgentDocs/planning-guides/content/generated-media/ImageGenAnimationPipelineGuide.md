@@ -3,8 +3,9 @@
 ## Purpose
 
 This current v2 pipeline owns prompt authoring and ImageGen generation for one
-character or skill animation request. Preservation creates the GIF and frames;
-evaluation is separate.
+character or skill animation request. Generation creates one provider-native
+animated GIF; preservation verifies that GIF and extracts its frames.
+Evaluation is separate.
 
 ## Authority and Scope
 
@@ -40,16 +41,25 @@ payload without editing, reordering, translating, or summarizing any lock. A
 skill request must omit all four fields; their presence returns
 `unexpected_character_style_reference`.
 
-Authoring writes one `generated_media_prompt_v3`. Generation produces one
-coherent master result at the final approved frame count and writes one
+Authoring writes one `generated_media_prompt_v3`. For every new animation,
+authoring requires `animationSourceMode=provider_native_animated_gif` and
+`extractionMode=gif_timeline_exact`. Generation produces one playable animated
+GIF at the final approved frame count and writes one
 `generated_media_generation_v2` with
-`structureProfile=animation_gif_frame_set_v2`. It cannot oversample, choose a
-subset, merge requests, extract frames, or package output.
+`structureProfile=animation_gif_frame_set_v2`. A still image, contact sheet,
+sprite sheet, collage, video, or independently generated frame set is a fatal
+source mismatch. Generation cannot oversample, choose a subset, merge
+requests, extract frames, or package output.
 
 The profile discriminator fixes the anchor: character animation uses
 `pelvis_root_ground_axis`; skill animation uses `effect_origin`. Generation
-uses only `providerTool=imagegen` through
-`providerInterface=configured_imagegen_capability`. The execution role computes
+uses the registered animation provider through
+`providerInterface=configured_animated_gif_capability`. The execution role
+first requires a zero-submit attestation for playable GIF output, exact
+dimensions, final frame count, timing, loop, full-canvas disposal, and required
+reference roles. Missing support returns
+`animated_provider_capability_unavailable` with
+`providerCalled=false` and `submitCount=0` before upload or submit. The role computes
 and presents the contract 6.1 scope hash. Generation validates its closed
 approval, tagged cost, cumulative attempts, projection, and checks an
 animationRequestId-bearing idempotency key before billing. Identical completed
@@ -74,7 +84,7 @@ If the inherited key is
 `projectbs_character_animation_ready_minimal_ink_line@1.0.0`, the inherited
 payload includes its four closed proportion/detail/color/projection members.
 Authoring preserves them byte-for-byte and projects their frame-reproducibility
-locks into the coherent-master prompt. Generation repeats the three
+locks into the animated-timeline prompt. Generation repeats the three
 `character_generation_*_gate_failed` semantic checks before capability access
 or submit; it rejects greater-than-4.25-head/naturalistic anatomy, dense
 realistic detail, or nonminimal color/value treatment and never repairs the
@@ -108,22 +118,26 @@ An exact current-user approval may instead select
 isolated lane permits one submit and zero retries and ends at a non-evaluated,
 non-promotable preview record; it cannot enter extraction, preservation, or
 promotion. Promotable animation remains on the unchanged descriptor/approval/
-cost generation-v2 contract.
+cost generation-v2 contract and additionally requires the animated-GIF
+capability attestation above. A hosted still-image preview never satisfies the
+provider-native GIF source contract.
 
 ## Input, Output, State, and Validation
 
 One scalar animationRequestId route/handoff becomes one prompt v3 record. One
-ready prompt becomes one coherent-master generation v2 record plus preservation
-handoff. State is `routed -> authored -> generated -> preservation_pending`.
+ready prompt becomes one provider-native animated-GIF generation v2 record plus
+preservation handoff. State is
+`routed -> authored -> generated -> preservation_pending`.
 Validate the exact ID/reference, final count/timing/order/loop/key poses,
-fixed-cell/scale/anchor policies, ImageGen provider, and
+GIF-timeline/scale/anchor policies, the registered animation provider, and
 `animation_gif_frame_set_v2`. Character units also validate exact reference
 prompt-record bytes, expression key/payload/hash, and the selected union branch:
 direct lock inclusion/evidence for lock-array profiles or complete eight-member
 sparse projection/evidence with empty lock arrays. Retry cannot change the motion contract. No
 extraction, evaluation, promotion, or Git work occurs.
 
-Generation blockers additionally include the exact contract 6.1-6.2 approval,
+Generation blockers additionally include
+`animated_provider_capability_unavailable` and the exact contract 6.1-6.2 approval,
 scope, cost, attempt, duplicate-call, and provider-operation failure tokens.
 Blocked output
 includes the exact animationRequestId, providerCalled=false, costEvidence,

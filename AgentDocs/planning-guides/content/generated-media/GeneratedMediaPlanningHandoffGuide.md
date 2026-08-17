@@ -239,8 +239,13 @@ hash is illustrative and does not waive real source-byte verification.
 - `animation`: non-empty `animationRequests`. Every entry has a unique
   animationRequestId and the complete reference/final-frame/timing/order/loop/
   key-pose/fixed-cell/scale/vertical-motion/background/outline/anchor/master-
-  first contract. Character entries use pelvis/root plus ground-contact axis;
-  skill entries use effect origin.
+  first contract. Every new entry also fixes
+  `animationSourceMode=provider_native_animated_gif` and
+  `extractionMode=gif_timeline_exact`; still/contact-sheet/sprite-sheet/video
+  sources and independently generated frame sets are prohibited. Character
+  entries use pelvis/root plus ground-contact axis; skill entries use effect
+  origin. Existing immutable `fixed_cell_only` handoffs remain historical
+  read-only evidence and cannot authorize a new generation.
 
 The handoff may carry multiple animationRequests. The router alone fans them
 out in source order. Every downstream handoff and record contains exactly one.
