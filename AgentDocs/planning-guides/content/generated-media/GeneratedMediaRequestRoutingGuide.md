@@ -7,6 +7,11 @@ planning handoff and creates one or more independent ImageGen authoring units.
 It never authors prompts, calls providers, packages, evaluates, promotes, or
 performs Git work.
 
+The only additive exception is explicit
+`executionMode=hosted_builtin_fast_preview_v1`, defined below. That mode owns a
+bounded prompt/reference projection, one official generation-role call, and one
+post-output visual preview observation without changing normal routing v2.
+
 Legacy v1 routing is physically separated in
 `GeneratedMediaLegacyV1CompatibilityGuide.md` and is not a current fallback.
 
@@ -101,6 +106,38 @@ horizon, ordered depthLayers, playableOrReadabilityArea,
 subjectInclusions/subjectExclusions, canvas/aspectRatio, targetDisplay,
 safeArea, finalBackgroundPolicy, consistencyLock and anchor without defaults.
 Icon mapping never receives those scene fields.
+
+## Hosted Fast Preview Orchestration
+
+When authenticated user authority explicitly selects
+`hosted_builtin_fast_preview_v1`, the routing role does not publish or rewrite a
+routing record. It accepts only the compact pointer defined in the ImageGen-only
+contract and resolves the existing authoritative planning/prompt/reference
+anchors when available. It prepares executable prompt text and one reviewed
+reference image in memory, calls the official generation role once, performs
+one immediate visual preview observation, and returns one terminal receipt.
+
+The three and only three pre-submit blocker classes are duplicate provider or
+charge risk for the deterministic idempotency key, authority/safety violation,
+and complete absence of executable prompt or reviewed reference input. Schema
+or guide conflicts, lack of pre-preview Git publication, incomplete full-suite
+validation, missing capability/cost attestation, and unavailable exact provider
+options become `backlogWarnings`; they never authorize invented values and do
+not block this mode.
+
+The orchestration uses `submitCountMaximum=1`, `retryCountMaximum=0`, and one
+child final followed by one parent relay. It sends only main SHA, request ID,
+prompt record ID/hash, reference path/hash, idempotency key, and sealed callable
+inputs to the generation child. It never retransmits full authority, planning,
+routing, authoring, profile, or prompt payloads. The generation result is
+observed and visually summarized in the same closed terminal receipt with
+`previewOnly=true`, `notPromotable=true`, `notPreserved=true`, and
+`strictEvaluationPerformed=false`. No observer receives the full relay.
+
+This exception performs no strict evaluation package, preservation, promotion,
+edit, regeneration, or Unity work. An explicit later user adoption is a new
+strict-workflow request and cannot reuse the fast-preview receipt as a strict
+input artifact.
 
 ## Routing Record v2
 

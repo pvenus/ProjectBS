@@ -945,6 +945,165 @@ Preview uses only these additional central failure tokens:
 All preview blockers preserve truthful submitCount, `costKnown=false`, and the
 unavailable evidence statuses.
 
+#### 6.1.2 Hosted built-in fast preview orchestration v1
+
+`hosted_builtin_fast_preview_v1` is an additive, non-promotable execution mode
+for measuring one official preview from an already-authoritative ImageGen
+single-image unit. It does not change `hosted_builtin_preview_v1` or
+`promotable_generation_v2`; their publication, schema, capability, settings,
+cost, preservation, evaluation-package, and promotion gates remain exact.
+
+The routing role owns one bounded orchestration in this mode: resolve the
+compact authority pointers, prepare the callable prompt/reference projection,
+invoke the official generation role once, visually inspect the returned image,
+and return one terminal receipt. It MUST NOT rewrite or republish planning,
+routing, authoring, or prompt records when an authoritative planning request
+and prompt record already exist. It MUST NOT create a replacement prompt
+record merely to append provider-option prose.
+
+Before provider submit, exactly three blocker classes are allowed:
+
+1. `fast_preview_duplicate_submit_risk`: the deterministic idempotency key is
+   active, completed, ambiguous, or otherwise cannot prove that no provider
+   call or charge has occurred;
+2. `fast_preview_authority_or_safety_violation`: authenticated execution
+   authority is missing/invalid, the requested provider/tool/role is outside
+   the approved ImageGen single-image scope, the reference attempts identity,
+   edit-target, person, pose, action, clothing, or equipment transfer, or a
+   safety policy forbids execution; and
+3. `fast_preview_callable_input_absent`: no executable non-empty prompt text
+   or no readable reviewed durable reference image is available.
+
+All other pre-submit discrepancies are non-blocking `backlogWarnings`. This
+includes contract/schema projection disagreement, missing pre-preview Git
+publication, incomplete full-suite validation, unavailable capability or cost
+attestation, and unavailable exact canvas/background/output-format/structured
+style-only callable controls. A warning MUST NOT be relabeled as one of the
+three blockers. Conversely, the three blockers MUST NOT be waived by this
+mode.
+
+The compact input pointer is closed to exactly:
+
+```yaml
+schemaVersion: generated_media_fast_preview_pointer_v1
+authoritativeMainSha: 40-lowercase-hex Git commit
+requestId: exact existing planning request ID
+promptRecordId: exact existing prompt record ID
+promptRecordSha256: exact raw Git-blob hash
+referencePath: exact reviewed durable project-relative asset path
+referenceSha256: exact raw asset hash
+idempotencyKey: gmfastpreview1.{20-lowercase-hex}
+```
+
+The pointer contains no planning payload, routing/authoring handoff body,
+prompt prose, profile payload, or media bytes. The consumer resolves available
+authoritative records from these anchors. A record/schema conflict discovered
+during resolution is a warning when executable prompt text and the reviewed
+reference remain unambiguous; it is a hard blocker only when it causes one of
+the three conditions above.
+
+The idempotency payload contains exactly `schemaVersion`,
+`authoritativeMainSha`, `requestId`, `promptRecordId`, `promptRecordSha256`,
+`referencePath`, and `referenceSha256`. Its schemaVersion is
+`generated_media_fast_preview_idempotency_payload_v1`, and:
+
+```text
+idempotencyPayloadSha256 = SHA-256(JCS(idempotencyPayload))
+idempotencyKey = gmfastpreview1.{idempotencyPayloadSha256[0:20]}
+```
+
+Before crossing the provider boundary, the orchestrator checks active and
+completed receipts for this exact key. `absent` is the only submit-eligible
+state. `active`, `completed`, `ambiguous`, dangling, or divergent evidence is
+`fast_preview_duplicate_submit_risk`. A completed result may be returned as a
+no-call reuse receipt, but it never authorizes another submit. Provider timeout,
+failure, or uncertain return consumes the single submit.
+
+Callable input is exactly non-empty prompt text plus one reviewed reference
+image. Desired canvas, removable solid background, output format, and
+style-only semantics may be preserved in prompt prose. When an option is not
+exposed by the callable surface, the orchestrator records its name in
+`unavailableCallableControls` and later compares the output against the intent;
+it does not block and does not claim provider enforcement. Capability endpoint,
+cost descriptor, exact canvas control, exact background control, exact output
+format control, and structured style-only parameter are never synthesized.
+
+The provider boundary permits `submitCountMaximum=1` and
+`retryCountMaximum=0`. The routing orchestrator calls the official generation
+role with the exact compact pointer and sealed callable prompt/reference only.
+Generation returns the observed output path, raw SHA-256, byte length, MIME,
+pixel dimensions, exposed provider result reference if any, and truthful
+provider/submit/retry/cost-known state. It performs no retry, edit,
+preservation, evaluation package, promotion, or Unity work.
+
+Immediately after a successful return, the routing orchestrator performs one
+visual preview inspection and includes it in the same terminal receipt. This is
+not the strict evaluation-package contract. The closed observation is:
+
+```yaml
+visualEvaluation:
+  scope: preview_visual_observation_only
+  status: observed | unavailable
+  summary: non-empty concise observation, or exact reason when unavailable
+  intentWarnings: ordered unique short warning tokens
+  adoptedByUser: false
+  strictEvaluationPerformed: false
+```
+
+An observed defect never triggers retry. Only a later explicit user adoption
+may start a new strict preservation/evaluation/promotion workflow; the preview
+receipt itself cannot satisfy any of those input schemas.
+
+The terminal receipt is closed to exactly these members, with optional members
+present only where stated:
+
+```yaml
+schemaVersion: generated_media_fast_preview_terminal_receipt_v1
+state: preview_complete | completed_reuse | blocked | submit_failed_no_retry
+authoritativeMainSha:
+requestId:
+promptRecordId:
+promptRecordSha256:
+referencePath:
+referenceSha256:
+idempotencyKey:
+providerCalled: boolean for this orchestration
+submitCount: 0 | 1 for this orchestration
+historicalSubmitCount: 0 | 1
+retryCount: 0
+costKnown: boolean
+cost?: provider-observed value only when costKnown=true
+previewOnly: true
+notPromotable: true
+notPreserved: true
+strictEvaluationPerformed: false
+unavailableCallableControls: ordered unique strings
+backlogWarnings: ordered unique strings
+outputObservation?: required for preview_complete or completed_reuse
+visualEvaluation?: required for preview_complete or completed_reuse
+failureType?: one exact blocker/failure token
+nextStep: terminal | await_user_adoption
+```
+
+`outputObservation` contains exactly `path`, `sha256`, `byteLength`,
+`mimeType`, `width`, `height`, and optional `providerResultRef`. Numeric cost is
+forbidden when `costKnown=false`; unavailable cost is not zero. A blocked
+receipt has `providerCalled=false`, `submitCount=0`, and one of the three hard
+blocker tokens. A submit failure has `providerCalled=true`, `submitCount=1`,
+`retryCount=0`, `failureType=fast_preview_submit_failed_no_retry`, and never
+re-enters preflight. A successful new preview has exactly one submit and one
+visual observation. One child final and one parent relay are the complete
+control-plane path; observers receive no full relay.
+
+This mode adds only these failure tokens:
+
+```text
+fast_preview_duplicate_submit_risk
+fast_preview_authority_or_safety_violation
+fast_preview_callable_input_absent
+fast_preview_submit_failed_no_retry
+```
+
 ### 6.2 Approval and cost projection
 
 `costEvidence` is an ordered append-only array. Each entry is a closed object
@@ -1477,6 +1636,10 @@ hosted_preview_output_missing
 hosted_preview_output_hash_mismatch
 hosted_preview_preservation_forbidden
 hosted_preview_promotion_forbidden
+fast_preview_duplicate_submit_risk
+fast_preview_authority_or_safety_violation
+fast_preview_callable_input_absent
+fast_preview_submit_failed_no_retry
 ```
 
 After an animation-ready minimal prompt record is immutable and before any

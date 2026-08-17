@@ -927,6 +927,40 @@ CAS, raw UTF-8/LF and failure-atomicity rules match current records. Neither the
 record nor its media path satisfies any generation-v2 or preservation-v2 input
 schema.
 
+### Hosted fast preview terminal receipt v1
+
+`hosted_builtin_fast_preview_v1` persists no planning, routing, authoring,
+prompt, preservation, evaluation-package, or promotion record. Its only
+workflow evidence is the detached
+`generated_media_fast_preview_terminal_receipt_v1` defined by
+GeneratedMediaImageGenOnlyContractGuide.md plus the observed preview file.
+
+When a new preview succeeds, the canonical non-promotable output path is:
+
+```text
+output/generated-media-fast-preview/v1/{assetType}/{contentId}/{idempotencyKey}/original.{observedExtension}
+```
+
+The receipt's `outputObservation.path` is that project-relative path and its
+hash is over the exact raw bytes. The file and receipt are preview evidence
+only: `previewOnly=true`, `notPromotable=true`, `notPreserved=true`, and
+`strictEvaluationPerformed=false`. The inline `visualEvaluation` is a
+non-scoring preview observation, not a generated-media evaluation record.
+
+There is no fast-preview record index, latest pointer, prompt index mutation,
+or CAS projection. Idempotency is checked against active execution state and
+previous terminal receipts before submit. A matching completed receipt is
+returned unchanged as `completed_reuse`; ambiguous, divergent, dangling, or
+already-active evidence blocks as `fast_preview_duplicate_submit_risk`.
+Neither reuse nor warning resolution rewrites immutable upstream artifacts.
+
+Unavailable provider controls, contract/schema discrepancies, and missing
+capability/cost attestations are recorded only in the ordered terminal warning
+arrays. They are not provider-enforcement evidence and do not become canonical
+record fields elsewhere. A user-adopted preview must enter the existing strict
+workflow through a separate explicit request; this receipt cannot be promoted
+or preserved directly.
+
 ### Compact profile-conformance receipt
 
 The v2 open ink-wash post-output triage returns one response-only receipt. It
@@ -1037,6 +1071,10 @@ hosted_preview_output_missing
 hosted_preview_output_hash_mismatch
 hosted_preview_preservation_forbidden
 hosted_preview_promotion_forbidden
+fast_preview_duplicate_submit_risk
+fast_preview_authority_or_safety_violation
+fast_preview_callable_input_absent
+fast_preview_submit_failed_no_retry
 ```
 
 Validate schema/path/version parity, exact one-animation ID rules, provider

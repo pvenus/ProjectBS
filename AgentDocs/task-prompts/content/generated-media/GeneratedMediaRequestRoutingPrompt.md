@@ -3,7 +3,7 @@
 ## Prompt
 
 ```text
-현재 ProjectBS 저장소에서 generated_media_planning_handoff_v2 하나를 검증하고 current ImageGen authoring role로 route해줘. provider prompt와 media를 생성하지 마.
+현재 ProjectBS 저장소에서 기본적으로 generated_media_planning_handoff_v2 하나를 검증하고 current ImageGen authoring role로 route해줘. 단, authenticated user authority가 `executionMode=hosted_builtin_fast_preview_v1`을 명시하면 아래 fast-preview 예외만 수행한다.
 
 참조 가이드:
 - AgentDocs/planning-guides/prompt/PromptAuthoringGuide.md
@@ -16,8 +16,19 @@
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
 - supersedesRoutingRecordId: {optional_v2_record_id}
+- executionMode: route_only_v2 | hosted_builtin_fast_preview_v1 (optional; default route_only_v2)
+- fastPreviewPointer: {required only for hosted_builtin_fast_preview_v1}
 
 작업:
+0. executionMode가 `route_only_v2`이면 기존 1-22를 그대로 수행한다. `hosted_builtin_fast_preview_v1`이면 기존 routing record/authoring publication 작업 1-22를 실행하지 않고 0a-0h만 수행한다. 다른 값은 차단한다.
+0a. fastPreviewPointer가 main SHA, requestId, promptRecordId/SHA, reviewed reference path/SHA, deterministic idempotency key의 closed compact projection인지 확인한다. full planning/routing/authoring/profile/prompt payload를 메시지로 요구하거나 재전송하지 않는다.
+0b. submit 전 hard blocker는 같은 idempotency key의 provider/과금 중복 위험, authenticated authority 또는 safety 위반, executable prompt/reference의 완전 부재 세 종류뿐이다. 각각 `fast_preview_duplicate_submit_risk`, `fast_preview_authority_or_safety_violation`, `fast_preview_callable_input_absent`를 사용한다.
+0c. authoritative planning/prompt가 이미 있으면 재작성·재게시하지 않는다. schema/doc projection conflict, pre-preview Git publication 부재, full contract suite 미실행, capability/cost attestation 부재, exact canvas/background/outputFormat/structured style_only callable control 부재는 ordered `backlogWarnings`로 남기고 preview를 막지 않는다.
+0d. prompt text와 reviewed durable style reference 한 장을 in-memory callable input으로 준비한다. 노출되지 않은 provider option은 prompt prose best effort로 보존하고 `unavailableCallableControls`에 기록한다. provider enforcement/default/cost/capability evidence를 합성하지 않는다.
+0e. official generation role child를 정확히 한 번 호출한다. child에는 compact pointer와 sealed prompt/reference만 전달한다. provider submitCountMaximum=1, retryCountMaximum=0이며 active/completed/ambiguous same-key 상태에서는 새 submit을 금지한다.
+0f. provider return 후 output path/raw hash/byte length/MIME/dimensions와 exposed provider result ref만 관찰하고 즉시 한 번 시각 확인한다. retry/edit 없이 preview intent 차이를 concise summary와 ordered intentWarnings로 같은 terminal receipt의 `visualEvaluation`에 기록한다. 이는 strict evaluation package가 아니다.
+0g. terminal receipt는 `previewOnly=true`, `notPromotable=true`, `notPreserved=true`, `strictEvaluationPerformed=false`이며 preservation/evaluation package/promotion/Unity를 호출하지 않는다. 사용자 채택은 별도 strict workflow 요청이다.
+0h. child final 한 건을 받고 parent relay 한 건만 수행한다. observer에 full receipt/payload를 broadcast하지 않는다.
 1. request/content/source/snapshot identity와 모든 source hash를 검증한다.
 2. requiredElements/prohibitedElements와 assetType별 specification을 검증하고 누락값을 추정하지 않는다.
 3. assetType/domainType/profile을 canonical lowercase enum으로 검증한다. 현재 assetType은 character_single_image, icon_single_image, background_single_image, animation뿐이다.
@@ -44,6 +55,8 @@ Input:
 22. authority bundle, stage delta, routing receipt, pipeline chain, compact status 중 하나라도 schema/hash/transition/publication/relay 규칙에 어긋나면 success handoff를 emit하지 않고 기존 routing record/index를 수정하지 않는다.
 
 Output:
+- fast-preview이면 `generated_media_fast_preview_terminal_receipt_v1` 한 건만 반환한다. providerCalled/submitCount/historicalSubmitCount/retryCount/costKnown을 사실대로 쓰고 unavailable cost를 0으로 쓰지 않는다. blocked pre-submit은 위 세 hard blocker 중 하나만, submit 후 실패는 `fast_preview_submit_failed_no_retry`만 사용한다.
+- route_only_v2이면 아래 기존 routing receipt를 반환한다.
 - schemaVersion: generated_media_routing_receipt_v1
 - status: routed
 - reuseStatus: created | reused_identical
@@ -65,6 +78,9 @@ Output:
 - missingFields / conflictingFields / candidatePipelines / requiredDecision / safeToRetry
 
 검증:
+- fast-preview positive vector는 warning이 있어도 executable prompt/reference와 authority/idempotency가 유효하면 exactly one submit/zero retry 및 같은 receipt의 visualEvaluation으로 끝나야 한다.
+- fast-preview negative vector는 세 hard blocker만 submit 전에 멈추고 providerCalled=false/submitCount=0이어야 한다. completed/active/ambiguous key는 새 submit을 금지한다.
+- strict `hosted_builtin_preview_v1`, promotable generation, normal routing v2 의미와 기존 bytes/hash는 바뀌지 않아야 한다.
 - current route에 PixelLab이 없어야 한다.
 - current registry의 execution role은 character/icon/background/animation 네 종류여야 한다.
 - icon/background ambiguity는 fail-closed여야 한다.
