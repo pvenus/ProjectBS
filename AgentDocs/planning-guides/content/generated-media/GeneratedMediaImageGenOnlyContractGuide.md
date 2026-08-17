@@ -1132,6 +1132,58 @@ fast_preview_callable_input_absent
 fast_preview_submit_failed_no_retry
 ```
 
+#### 6.1.3 Accepted post-result capture v1
+
+`accepted_post_result_capture_v1` is an additive, no-provider recovery mode for
+an exact generated or fast-preview result that the authenticated user has
+explicitly accepted. It does not turn the historical execution into
+`generated_media_generation_v2`, does not assert that any pre-submit gate
+passed, and does not change `hosted_builtin_preview_v1`,
+`hosted_builtin_fast_preview_v1`, `promotable_generation_v2`, or either
+animation source mode. The capture producer only verifies and seals already
+existing evidence.
+
+The mode is eligible only when all of the following are available and mutually
+consistent:
+
+- one authenticated acceptance message naming the exact accepted artifact;
+- exact task and provider tool-call identity proving the historical submit and
+  retry counts;
+- raw-byte-verifiable prompt, settings, every submitted reference, provider
+  master/result, completed GIF, and every extracted frame, each with path and
+  SHA-256;
+- the immutable request, animation, routing and planning snapshot identities;
+- no existing record with the derived ID except byte-identical reuse.
+
+Capture performs no provider/capability/cost call. For the capture action,
+`providerCalled=false`, `submitCount=0`, and `retryCount=0`; historical one-call
+facts remain separately recorded. Capability and cost states are exactly
+`unavailable_observed`. They mean that the capture observed no attestation and
+MUST NOT be rewritten as `supported`, `passed`, `zero`, or a guessed amount.
+`preSubmitGateAttestation=not_claimed_post_result_capture` is mandatory.
+
+The closed record, index, receipt, path, JCS hash, idempotency and no-clobber
+contract is owned by GeneratedMediaRecordGuide.md::Accepted post-result capture
+v1. Its record schema is `generated_media_accepted_result_capture_v1`. A valid
+capture authorizes only preservation and strict evaluation-package
+construction. It never authorizes promotion. Project promotion continues to
+require a strict evaluation `PASS` plus explicit project mapping under the
+existing promotion contract.
+
+This mode adds only these failure tokens:
+
+```text
+accepted_capture_acceptance_missing
+accepted_capture_execution_evidence_missing
+accepted_capture_identity_mismatch
+accepted_capture_evidence_hash_mismatch
+accepted_capture_incomplete_member_set
+accepted_capture_false_attestation
+accepted_capture_record_collision
+accepted_capture_index_cas_failed
+accepted_capture_promotion_forbidden
+```
+
 ### 6.2 Approval and cost projection
 
 `costEvidence` is an ordered append-only array. Each entry is a closed object

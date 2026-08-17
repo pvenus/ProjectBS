@@ -22,7 +22,10 @@ newline. A JSON file's exact bytes are `canonicalJson(value)` followed by one
 LF byte (`0A`). A payload hash is SHA-256 over `canonicalJson(payload)`. A file
 hash is SHA-256 over the complete file bytes including the final LF. Hashes are
 64 lowercase hexadecimal characters. Paths are project-relative, use `/`, and
-never include another PC's root.
+never include another PC's root, except exact observed evidence-location `path`
+members in `generated_media_accepted_result_capture_v1`; those paths are
+hash-bound source locations and never record identity, project targets, or
+portable asset references.
 
 ## Current Paths and Indexes
 
@@ -958,8 +961,173 @@ Unavailable provider controls, contract/schema discrepancies, and missing
 capability/cost attestations are recorded only in the ordered terminal warning
 arrays. They are not provider-enforcement evidence and do not become canonical
 record fields elsewhere. A user-adopted preview must enter the existing strict
-workflow through a separate explicit request; this receipt cannot be promoted
-or preserved directly.
+workflow through a separate explicit request. The preview receipt alone cannot
+be promoted or preserved; an exact accepted post-result capture v1 record is
+the only additive bridge for already-existing accepted bytes.
+
+### Accepted post-result capture v1
+
+`generated_media_accepted_result_capture_v1` is an immutable evidence envelope,
+not a generation-v2 record and not a retroactive preflight attestation. The
+generation role owns its production in a distinct post-result capture task. It
+performs no provider, capability, cost, preservation, evaluation, promotion,
+Unity, planning, routing, or prompt mutation.
+
+Canonical paths are:
+
+```text
+non-animation:
+AgentDocs/planning-data/generated-media-accepted-result-capture/v1/{assetType}/{contentId}/{captureRecordId}.json
+AgentDocs/planning-data/generated-media-accepted-result-capture/v1/{assetType}/{contentId}/capture_index.json
+animation:
+AgentDocs/planning-data/generated-media-accepted-result-capture/v1/animation/{contentId}/{animationRequestId}/{captureRecordId}.json
+AgentDocs/planning-data/generated-media-accepted-result-capture/v1/animation/{contentId}/{animationRequestId}/capture_index.json
+```
+
+The record has exactly these members. `animationRequestId` is required only for
+animation and forbidden otherwise. Every `path` is the exact observed source
+path; it may be absolute because it is evidence location, never canonical
+identity or a project target. All hashes bind raw file bytes.
+
+```yaml
+schemaVersion: generated_media_accepted_result_capture_v1
+captureRecordId:
+capturePayloadSha256:
+requestId:
+assetType:
+domainType:
+contentId:
+animationRequestId?:
+planningSnapshotHash:
+routingRecordId:
+routingRecordSha256:
+sourceExecutionEvidence:
+  taskId:
+  toolCallId:
+  provider: imagegen
+  providerTool:
+  providerResultRef?: exact observed value only
+  historicalSubmitCount: 1
+  historicalRetryCount: 0
+userAcceptance:
+  authorityType: authenticated_user_acceptance
+  acceptanceMessageId:
+  acceptedAt: RFC 3339 timestamp with offset
+  acceptedArtifactSha256:
+promptEvidence:
+  path:
+  fileSha256:
+  providerPromptPayloadHash:
+settingsEvidence:
+  path:
+  fileSha256:
+referenceEvidence:
+  - role:
+    path:
+    sha256:
+resultEvidence:
+  providerMaster:
+    path:
+    sha256:
+    mediaType: image | animated_gif
+  completedGif:
+    path:
+    sha256:
+    width:
+    height:
+    frameCount:
+  frames:
+    - frameIndex:
+      path:
+      sha256:
+capabilityEvidenceStatus: unavailable_observed
+costEvidenceStatus: unavailable_observed
+preSubmitGateAttestation: not_claimed_post_result_capture
+captureAction:
+  providerCalled: false
+  submitCount: 0
+  retryCount: 0
+downstreamAuthorization:
+  preservationAuthorized: true
+  evaluationAuthorized: true
+  promotionAuthorized: false
+  promotionPrerequisites: strict_evaluation_pass_and_explicit_project_mapping
+createdAt: exact userAcceptance.acceptedAt copied byte-semantically
+validation:
+  status: valid
+  acceptance: valid
+  executionEvidence: valid
+  identities: valid
+  rawHashes: valid
+  memberClosure: valid
+```
+
+`referenceEvidence` is a non-empty ordered array and preserves each submitted
+role/path/hash exactly; it grants no new identity or edit-target semantics.
+`frames` is ordered by unique zero-based `frameIndex`, has exactly the observed
+GIF timeline count, and each member is extracted from the captured completed
+GIF. For coherent-master-to-GIF v2 the master mediaType is `image`, the GIF is
+generation-role-built, and the six frame entries match the reopened timeline.
+For existing provider-native GIF evidence the master mediaType is
+`animated_gif`; that mode remains separate and unchanged.
+
+```text
+capturePayloadSha256 = SHA-256(JCS(record excluding captureRecordId, capturePayloadSha256, validation))
+captureRecordId = gmaccept1.{assetType}.{contentId}.{optionalAnimationRequestId}.{capturePayloadSha256[0:20]}
+```
+
+The closed index contains exactly `schemaVersion`
+(`generated_media_accepted_result_capture_index_v1`), `assetType`, `contentId`,
+conditional `animationRequestId`, and `entries`. Each entry is keyed by
+`captureRecordId` and contains exactly `captureRecordId`, `recordPath`,
+`recordSha256`, `capturePayloadSha256`, `requestId`, conditional
+`animationRequestId`, `sourceGenerationTaskId`, `providerMasterSha256`,
+`completedGifSha256`, and `acceptedArtifactSha256`.
+
+Write the record first, then CAS-append the index. An identical payload, record
+bytes and index projection returns the original bytes as `reused_identical`.
+An occupied ID with different bytes is `accepted_capture_record_collision`;
+neither record nor index is overwritten. Raw UTF-8, RFC 8785 JCS, LF, one
+terminal LF, failure atomicity, and no-clobber rules match all current records.
+
+The detached terminal receipt has exactly these members:
+
+```yaml
+schemaVersion: generated_media_accepted_result_capture_receipt_v1
+state: captured | reused_identical | blocked
+requestId:
+animationRequestId?:
+captureRecordId?: required unless blocked
+captureRecordPath?: required unless blocked
+captureRecordSha256?: required unless blocked
+capturePayloadSha256?: required unless blocked
+captureIndexSha256?: required unless blocked
+sourceGenerationTaskId:
+providerMasterSha256:
+completedGifSha256:
+providerCalled: false
+submitCount: 0
+retryCount: 0
+historicalSubmitCount: 1
+historicalRetryCount: 0
+capabilityEvidenceStatus: unavailable_observed
+costEvidenceStatus: unavailable_observed
+preSubmitGateAttestation: not_claimed_post_result_capture
+preservationAuthorized: boolean
+evaluationAuthorized: boolean
+promotionAuthorized: false
+failureType?: required only when blocked
+nextStep: preservation | stop
+receiptPayloadSha256:
+```
+
+`receiptPayloadSha256` is SHA-256 of RFC 8785 JCS for the exact receipt excluding
+only itself. `captured` and `reused_identical` require both downstream booleans
+true and `nextStep=preservation`; `blocked` requires both false and
+`nextStep=stop`. No receipt may claim a provider call, a passed pre-submit gate,
+known capability/cost, evaluation verdict, project mapping, or promotion.
+Promotion remains forbidden until a strict evaluation `PASS` and explicit
+project mapping are both supplied to the existing promotion contract.
 
 ### Compact profile-conformance receipt
 

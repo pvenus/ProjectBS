@@ -3,7 +3,8 @@
 ## Purpose and Boundary
 
 Guide Type: current v2 preservation/packaging workflow and record schema. It
-starts from a generated ImageGen v2 record, preserves original media, performs
+starts from either a generated ImageGen v2 record or an exact accepted
+post-result capture v1 record, preserves original media, performs
 the registered deterministic adapter, and seals an evaluation package. It
 never calls a provider, changes prompts, evaluates, promotes, writes Slack,
 modifies Unity, or performs Git work.
@@ -26,8 +27,10 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackag
 planningHandoffFile: generated_media_planning_handoff_v2
 routingRecordId: generated_media_routing_v2
 promptRecordId: generated_media_prompt_v3
-generationRecordId: generated_media_generation_v2
-generationRecordSha256:
+generationRecordId: generated_media_generation_v2; required only for strict branch
+generationRecordSha256: required only for strict branch
+acceptedResultCaptureRecordId: generated_media_accepted_result_capture_v1; mutually exclusive with generationRecordId
+acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 provider: imagegen
 assetType: character_single_image | icon_single_image | background_single_image | animation
 domainType: character | skill | item | stage | battle | environment
@@ -36,18 +39,34 @@ animationRequestId: required only for animation
 planningSnapshotHash:
 requestedAdapterId:
 expectedStructureProfile:
-providerResultRefs: non-empty exact generation refs
-approvalCostProjection: exact projection from generation record and index
+providerResultRefs: non-empty exact generation refs; strict branch only
+approvalCostProjection: exact projection from generation record and index; strict branch only
 projectTarget: optional informational_only
 ```
 
-Every identity/hash/provider/profile must agree. Generation status must be
+Exactly one input branch is present. The strict branch uses
+`generationRecordId`, `generationRecordSha256`, `providerResultRefs`, and
+`approvalCostProjection`; the accepted-result branch uses only
+`acceptedResultCaptureRecordId` and `acceptedResultCaptureRecordSha256` for its
+source envelope and forbids those four strict-only fields.
+
+Every identity/hash/provider/profile must agree. In the strict branch,
+generation status must be
 `generated`. The generation record, generation index entry, and
 `preservationHandoff.approvalCostProjection` must be JCS-byte-identical and its
 `costEvidenceSha256` must recompute from the generation record before any
 provider result is accessed. `actualCostStatus=unavailable` is not preservation
 ready. Missing/foreign paths, project/staging overlap, unsupported provider, or
 incomplete readiness block before download.
+
+For the accepted-result branch, verify the capture record and index raw hashes,
+authenticated acceptance, source task/tool-call identity, all prompt/settings/
+reference/master/GIF/frame raw hashes, historical one-submit/zero-retry facts,
+and the exact literals `unavailable_observed` and
+`not_claimed_post_result_capture`. This branch does not require or synthesize a
+generation-v2 cost projection. It is preservation/evaluation-authorized only;
+promotion remains forbidden until a later strict evaluation `PASS` and explicit
+project mapping.
 
 ## Current Adapter Registry
 
@@ -116,9 +135,10 @@ clipping, and no neighboring-cell edge fragments. It does not translate,
 remove fragments, derive a width basis, or repair the package. Anchor/baseline
 disagreement is `anchor_mapping_mismatch`, scale disagreement is
 `scale_lock_violation`, and timeline/palette/background/clipping/fragment or
-GIF/PNG member disagreement is `gif_timeline_contract_mismatch`. Accepted
-evidence provenance is not copied into preservation records or evaluation
-packages.
+GIF/PNG member disagreement is `gif_timeline_contract_mismatch`. Preservation
+copies only the accepted capture record ID/raw SHA into its conditional input
+branch; observed source paths, evidence bytes, task/tool-call envelope and full
+guidance are not duplicated into preservation records or evaluation packages.
 
 ## Preservation Record v2
 
@@ -134,13 +154,15 @@ animationRequestId: required only for animation
 planningSnapshotHash:
 routingRecordId:
 promptRecordId:
-generationRecordId:
-generationRecordSha256:
+generationRecordId: strict branch only
+generationRecordSha256: strict branch only
+acceptedResultCaptureRecordId: mutually exclusive alternative
+acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 provider: imagegen
 adapterId:
 structureProfile:
-providerResultRefs: []
-approvalCostProjection:
+providerResultRefs: strict branch only
+approvalCostProjection: strict branch only
 ```
 
 ```text
@@ -166,13 +188,15 @@ animationRequestId: required only for animation
 planningSnapshotHash:
 routingRecordId:
 promptRecordId:
-generationRecordId:
-generationRecordSha256:
+generationRecordId: strict branch only
+generationRecordSha256: strict branch only
+acceptedResultCaptureRecordId: mutually exclusive alternative
+acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 provider: imagegen
 adapterId:
 structureProfile:
-providerResultRefs: []
-approvalCostProjection:
+providerResultRefs: strict branch only
+approvalCostProjection: strict branch only
 originalMembers: []
 derivedMembers: []
 memberHashes: []
@@ -205,6 +229,9 @@ missing_planning_handoff_v2
 missing_routing_v2
 missing_prompt_v3
 missing_generation_v2
+missing_accepted_result_capture_v1
+accepted_result_capture_hash_mismatch
+accepted_result_capture_not_authorized
 generation_record_hash_mismatch
 unsupported_provider
 provider_result_ref_missing
@@ -231,7 +258,8 @@ evaluation request. It never returns an evaluation verdict.
 
 ## Validation
 
-- input versions are handoff/routing v2, prompt v3, generation/preservation v2;
+- input versions are handoff/routing v2, prompt v3, preservation v2 and exactly
+  one of generation v2 or accepted-result capture v1;
 - provider is ImageGen and one current adapter row matches;
 - approval/cost projection equals the generation record, generation index and
   preservation handoff, and actual cost evidence is preservation-ready;
@@ -239,4 +267,6 @@ evaluation request. It never returns an evaluation verdict.
 - provider-native GIF-first sequence, exact timeline and structure
   profile/member schema agree;
 - staging source differs from project target;
+- accepted-result capture input preserves unavailable capability/cost truth,
+  never asserts past gate success, and cannot authorize promotion;
 - no provider/evaluation/promotion/Git stage executes.

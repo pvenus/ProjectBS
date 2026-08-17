@@ -23,10 +23,12 @@ Input:
 - promptRecordId: {generated_media_prompt_v3_record_id}
 - generationRecordId: {generated_media_generation_v2_record_id}
 - generationRecordSha256: {canonical_generation_record_sha256}
+- acceptedResultCaptureRecordId: {generated_media_accepted_result_capture_v1_record_id_or_omit}; generationRecordId와 상호 배타적
+- acceptedResultCaptureRecordSha256: {canonical_capture_record_sha256_or_omit}
 
 작업:
 1. repository와 현재 PC의 evaluation staging root를 내부적으로 확인한다.
-2. planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 검증한다.
+2. 정확히 한 input branch를 검증한다. strict branch는 planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 검증한다. accepted-result branch는 capture record/index raw hash, authenticated acceptance, source task/tool-call identity, prompt/settings/reference/master/GIF/frame hash, historical submit=1/retry=0, capability/cost=`unavailable_observed`, preSubmitGateAttestation=`not_claimed_post_result_capture`를 검증하며 generation-v2 gate/cost PASS를 추론하지 않는다.
 3. provider=imagegen과 current v2 adapter registry에서 assetType, requestedAdapterId, expectedStructureProfile이 모두 일치하는 row 하나를 확정한다. PixelLab/v1 row는 신규 입력으로 선택하지 않는다.
 4. canonical preservationHashPayload/ID를 계산한다. 동일 payload 재실행은 기존 record를 resume/reuse하고 동일 ID의 다른 payload는 중단한다.
 5. `.assembling/{requestId}/{preservationRecordId}.{attemptId}` 임시 경로에서만 provisional ref를 바꾸지 않고 원본을 download/export한다.
@@ -36,6 +38,7 @@ Input:
 9. evaluator adapter까지 유효하면 evaluation_handoff_ready, 아니면 sealed blocked package와 blocker를 기록한다.
 10. provider 생성/재시도, prompt 수정, 평가, 승격, Slack, Unity, Git, merge, 배포를 수행하지 않는다.
 11. `generated_media_attack_coherent_master_to_gif_validation_receipt_v2`가 있으면 providerDidReturnGif=false, provider master IMAGE hash, exact six cells, completed GIF hash, six PNG hashes, GIF close/reopen과 reopened-timeline extraction을 먼저 검증한다. SAME generation role이 master→GIF-first→reopen→six PNG와 deterministic pelvis/baseline translation 및 verified neighboring-cell fragment removal까지 소유하며 preservation은 이를 재실행하거나 수리하지 않는다. completed GIF/PNGs의 shared width basis, pelvis/baseline drift=0px, uniform scale/timing/global palette, fully opaque background, no clipping/no neighboring fragments를 재확인한다. accepted evidence path/bytes/full guidance는 record/package에 복사하지 않는다. historical v1 accepted receipt는 이 mode를 승인하지 않는다.
+12. accepted-result branch는 preservation/evaluation package만 승인한다. promotion은 수행하거나 승인하지 않으며 이후 strict evaluation PASS와 explicit project mapping이 별도로 필요하다.
 
 Output:
 - Request / Asset / Domain / Content
@@ -46,7 +49,7 @@ Output:
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: missing_planning_handoff_v2 | missing_routing_v2 | missing_prompt_v3 | missing_generation_v2 | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | unsupported_provider | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | provider_animated_gif_source_mismatch | gif_timeline_contract_mismatch | extraction_failed | fixed_cell_contract_mismatch | scale_lock_violation | anchor_mapping_mismatch | vertical_motion_policy_violation | chroma_key_scope_violation | gif_first_sequence_violation | frame_order_mismatch | member_hash_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
+- failureType: missing_planning_handoff_v2 | missing_routing_v2 | missing_prompt_v3 | missing_generation_v2 | missing_accepted_result_capture_v1 | accepted_result_capture_hash_mismatch | accepted_result_capture_not_authorized | generation_not_ready | generation_record_hash_mismatch | record_identity_mismatch | preservation_record_collision | unsupported_provider | provider_result_ref_missing | provider_result_unavailable_requires_generation_task | unsupported_preservation_adapter | evaluation_staging_root_not_configured | staging_project_path_violation | original_download_failed | provider_export_failed | source_not_original | source_hash_mismatch | provider_animated_gif_source_mismatch | gif_timeline_contract_mismatch | extraction_failed | fixed_cell_contract_mismatch | scale_lock_violation | anchor_mapping_mismatch | vertical_motion_policy_violation | chroma_key_scope_violation | gif_first_sequence_violation | frame_order_mismatch | member_hash_mismatch | manifest_validation_failed | package_finalize_failed | package_collision | package_seal_failed | evaluation_adapter_missing
 - 완료 state / 보존된 파일과 hash / 재시도 가능 지점 / Required Next Action
 
 검증:
