@@ -202,6 +202,13 @@ record's conditional `referenceBindings`, and keeps it out of
 `scenePromptOriginal`. Generation revalidates all hashes and provider role
 support before submit. Preview/generation scope hashes bind the complete object.
 
+For current routing v2, the one-element array is conditionally present at the
+top level of the routing hash payload/record, normalized request, and authoring
+handoff. It is forbidden inside the character `typeSpecification`. All four
+projections are byte-semantically equal and JCS/hash-significant. The routing
+index carries no binding body; its payload and record hashes bind it. Existing
+routing records created from planning without a binding remain valid unchanged.
+
 This external review record satisfies the existing `prohibited_until_reviewed_`
 condition in open ink-wash v1/v2 accepted-reference contracts. It does not
 change either expression-profile key, payload, payload hash, lock, or meaning.
@@ -218,6 +225,7 @@ style_reference_record_collision
 style_reference_index_invalid
 style_reference_binding_incomplete
 style_reference_binding_scope_mismatch
+style_reference_binding_projection_mismatch
 style_reference_role_invalid
 style_reference_semantic_transfer_forbidden
 ```

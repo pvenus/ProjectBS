@@ -1099,6 +1099,7 @@ style_reference_record_collision
 style_reference_index_invalid
 style_reference_binding_incomplete
 style_reference_binding_scope_mismatch
+style_reference_binding_projection_mismatch
 style_reference_role_invalid
 style_reference_semantic_transfer_forbidden
 character_style_profile_conflict
@@ -1232,6 +1233,7 @@ style_reference_asset_hash_mismatch
 style_reference_index_invalid
 style_reference_binding_incomplete
 style_reference_binding_scope_mismatch
+style_reference_binding_projection_mismatch
 style_reference_role_invalid
 style_reference_semantic_transfer_forbidden
 unknown_record_field
@@ -1314,6 +1316,7 @@ The durable style-reference tokens are shared, closed stage blockers:
 | `style_reference_index_invalid` | review index is absent, dangling, divergent, or not the exact closed projection |
 | `style_reference_binding_incomplete` | a style-only consumer entry does not have exactly the six required members |
 | `style_reference_binding_scope_mismatch` | asset type, style family, or selected profile key/hash is outside the approved review record |
+| `style_reference_binding_projection_mismatch` | routing does not place one byte-semantically equal binding array at all four required top-level projections, or nests it inside typeSpecification |
 | `style_reference_role_invalid` | role is not exactly `style_only`, path is noncanonical/absolute/transient, or a style binding is represented as an identity/edit reference |
 | `style_reference_semantic_transfer_forbidden` | any consumer derives person, identity, pose, action, clothing, equipment, or edit-target semantics from the raster |
 

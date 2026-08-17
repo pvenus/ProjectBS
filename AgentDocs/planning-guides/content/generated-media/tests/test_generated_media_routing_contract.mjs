@@ -123,7 +123,7 @@ function fixture() {
   return payload;
 }
 
-function recordBytes(payload) {
+function recordObject(payload) {
   const digest = payloadHash(payload);
   const id = routingId(payload);
   const record = structuredClone(payload);
@@ -138,7 +138,43 @@ function recordBytes(payload) {
     routingPayloadSha256: digest,
     indexPath: "AgentDocs/planning-data/generated-media-routing/v2/character_single_image/character.contract_vector/routing_index.json",
   });
-  return Buffer.from(`${canonicalJson(record)}\n`, "utf8");
+  return record;
+}
+
+function recordBytes(payload) {
+  return Buffer.from(`${canonicalJson(recordObject(payload))}\n`, "utf8");
+}
+
+const indexEntryKeys = ["routingRecordId", "recordSchemaVersion", "recordPath",
+  "recordSha256", "routingPayloadSha256", "requestId", "assetType", "domainType",
+  "contentId", "planningSnapshotHash", "registryVersion", "registryRowId", "profileKey"];
+
+function routingIndexEntry(payload) {
+  const record = recordObject(payload);
+  const bytes = recordBytes(payload);
+  return {
+    routingRecordId: record.routingRecordId,
+    recordSchemaVersion: "generated_media_routing_v2",
+    recordPath: record.authoringHandoff.routingRecordPath,
+    recordSha256: createHash("sha256").update(bytes).digest("hex"),
+    routingPayloadSha256: record.routingPayloadSha256,
+    requestId: record.requestId,
+    assetType: record.assetType,
+    domainType: record.domainType,
+    contentId: record.contentId,
+    planningSnapshotHash: record.planningSnapshotHash,
+    registryVersion: record.registryVersion,
+    registryRowId: record.registryRowId,
+    profileKey: record.profileKey,
+  };
+}
+
+function validateRoutingIndexEntry(entry, payload) {
+  assertClosedKeys(entry, indexEntryKeys);
+  if (canonicalJson(entry) !== canonicalJson(routingIndexEntry(payload))) {
+    throw new Error("routing_index_write_failed");
+  }
+  return true;
 }
 
 function requireByteIdenticalReuse(expectedId, expectedBytes, occupiedId, occupiedBytes) {
@@ -152,36 +188,200 @@ function sha256Canonical(value) {
   return createHash("sha256").update(canonicalJson(value), "utf8").digest("hex");
 }
 
-function validateAndProjectStyleBinding(payload) {
-  const bindings = payload.styleReferenceBindings;
+const styleBinding = {
+  role: "style_only",
+  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
+  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
+  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
+  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
+  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
+};
+const styleEvidence = {
+  assetPath: styleBinding.projectRelativePath,
+  assetSha256: styleBinding.sha256,
+  reviewRecordPath: styleBinding.reviewRecordPath,
+  reviewRecordSha256: styleBinding.reviewRecordSha256,
+  reviewIndexPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/review_index.json",
+  reviewIndexSha256: "cab2f952271d5c3abda46ec335ff178a4fdf570d2cb2c312208b6712ae0941f0",
+  observedAssetSha256: styleBinding.sha256,
+  observedReviewRecordSha256: styleBinding.reviewRecordSha256,
+  observedReviewIndexSha256: "cab2f952271d5c3abda46ec335ff178a4fdf570d2cb2c312208b6712ae0941f0",
+  reviewIndexEntry: {
+    assetPath: styleBinding.projectRelativePath,
+    assetSha256: styleBinding.sha256,
+    recordPath: styleBinding.reviewRecordPath,
+    recordSha256: styleBinding.reviewRecordSha256,
+    reviewRecordId: styleBinding.reviewRecordId,
+  },
+  selectedProfileKey: "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+  approvedProfileKeys: ["projectbs_character_open_ink_wash_dynamic_contour@1.0.0",
+    "projectbs_character_open_ink_wash_dynamic_contour@2.0.0"],
+  prohibitedSemanticTransfers: ["person", "person_identity", "canonical_character_identity",
+    "pose", "action", "clothing", "equipment", "edit_target"],
+};
+const bindingKeys = ["role", "projectRelativePath", "sha256", "reviewRecordId",
+  "reviewRecordPath", "reviewRecordSha256"];
+
+function assertClosedKeys(value, required, optional = []) {
+  const allowed = new Set([...required, ...optional]);
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) throw new Error(`unknown_record_field:${key}`);
+  }
+  for (const key of required) {
+    if (!Object.hasOwn(value, key)) throw new Error(`missing_record_field:${key}`);
+  }
+}
+
+function validateStyleBinding(bindings, evidence = styleEvidence) {
   if (!Array.isArray(bindings) || bindings.length !== 1) {
     throw new Error("style_reference_binding_incomplete");
   }
-  const keys = ["role", "projectRelativePath", "sha256", "reviewRecordId",
-    "reviewRecordPath", "reviewRecordSha256"];
-  if (Object.keys(bindings[0]).length !== keys.length ||
-      keys.some((key) => !Object.hasOwn(bindings[0], key))) {
-    throw new Error("style_reference_binding_incomplete");
-  }
-  if (bindings[0].role !== "style_only") throw new Error("style_reference_role_invalid");
-  for (const consumer of [payload.normalizedRequest, payload.authoringHandoff]) {
-    if (canonicalJson(consumer.styleReferenceBindings) !== canonicalJson(bindings)) {
-      throw new Error("style_reference_binding_scope_mismatch");
+  try {
+    assertClosedKeys(bindings[0], bindingKeys);
+  } catch (error) {
+    if (String(error.message).startsWith("missing_record_field:")) {
+      throw new Error("style_reference_binding_incomplete");
     }
+    throw error;
+  }
+  const binding = bindings[0];
+  if (binding.role !== "style_only") throw new Error("style_reference_role_invalid");
+  if (binding.projectRelativePath !== evidence.assetPath ||
+      binding.sha256 !== evidence.assetSha256 ||
+      binding.sha256 !== evidence.observedAssetSha256) {
+    throw new Error("style_reference_asset_hash_mismatch");
+  }
+  if (binding.reviewRecordPath !== evidence.reviewRecordPath ||
+      binding.reviewRecordSha256 !== evidence.reviewRecordSha256 ||
+      binding.reviewRecordSha256 !== evidence.observedReviewRecordSha256 ||
+      binding.reviewRecordId !== evidence.reviewIndexEntry.reviewRecordId) {
+    throw new Error("style_reference_review_record_hash_mismatch");
+  }
+  if (evidence.observedReviewIndexSha256 !== evidence.reviewIndexSha256) {
+    throw new Error("style_reference_index_invalid");
+  }
+  if (evidence.reviewIndexEntry.assetPath !== binding.projectRelativePath ||
+      evidence.reviewIndexEntry.assetSha256 !== binding.sha256 ||
+      evidence.reviewIndexEntry.recordPath !== binding.reviewRecordPath ||
+      evidence.reviewIndexEntry.recordSha256 !== binding.reviewRecordSha256) {
+    throw new Error("style_reference_index_invalid");
+  }
+  if (!evidence.approvedProfileKeys.includes(evidence.selectedProfileKey)) {
+    throw new Error("style_reference_binding_scope_mismatch");
+  }
+  const requiredProhibitions = ["person", "person_identity", "canonical_character_identity",
+    "pose", "action", "clothing", "equipment", "edit_target"];
+  if (!requiredProhibitions.every((value) => evidence.prohibitedSemanticTransfers.includes(value))) {
+    throw new Error("style_reference_semantic_transfer_forbidden");
   }
   return true;
 }
 
-function authorityBundle(anchorSha = "1".repeat(64)) {
+function projectStyleBinding(payload, bindings = [styleBinding]) {
+  payload.styleReferenceBindings = structuredClone(bindings);
+  payload.normalizedRequest.styleReferenceBindings = structuredClone(bindings);
+  payload.authoringHandoff.styleReferenceBindings = structuredClone(bindings);
+  return payload;
+}
+
+const routingPayloadRequiredKeys = ["schemaVersion", "routerVersion", "registryVersion",
+  "registryRowId", "profileKey", "requestId", "assetType", "domainType", "contentId",
+  "planningHandoffPath", "planningSnapshotHash", "sourcePlanningFiles", "requiredElements",
+  "prohibitedElements", "typeSpecification", "normalizedRequest", "selectedPipeline",
+  "selectedAuthoringPrompt", "selectedGenerationPrompt", "provider", "structureProfile",
+  "routingReason", "authoringHandoff"];
+const normalizedRequestRequiredKeys = ["requestId", "contentId", "assetType", "domainType",
+  "contentUsage", "planningSnapshotHash", "requiredElements", "prohibitedElements",
+  "typeSpecification"];
+const authoringHandoffRequiredKeys = ["planningHandoffPath", "requestId", "assetType",
+  "domainType", "contentId", "planningSnapshotHash", "sourcePlanningFiles",
+  "requiredElements", "prohibitedElements", "typeSpecification", "normalizedRequest",
+  "registryVersion", "registryRowId", "profileKey", "selectedPipeline",
+  "selectedAuthoringPrompt", "selectedGenerationPrompt", "provider", "structureProfile"];
+
+function validateRoutingPayloadSchema(payload) {
+  if (Object.hasOwn(payload.typeSpecification, "styleReferenceBindings")) {
+    throw new Error("style_reference_binding_projection_mismatch");
+  }
+  assertClosedKeys(payload, routingPayloadRequiredKeys,
+    ["animationRequestId", "styleReferenceBindings", "supersedesRoutingRecordId"]);
+  assertClosedKeys(payload.typeSpecification,
+    ["identityConsistencyLock", "singleImageSpecification"]);
+  assertClosedKeys(payload.normalizedRequest, normalizedRequestRequiredKeys,
+    ["animationRequestId", "styleReferenceBindings"]);
+  assertClosedKeys(payload.authoringHandoff, authoringHandoffRequiredKeys,
+    ["animationRequestId", "styleReferenceBindings"]);
+  if (Object.hasOwn(payload, "styleReferenceBindings")) validateStyleProjection(payload);
+  return true;
+}
+
+function validateStyleProjection(payload, evidence = styleEvidence) {
+  const projections = [payload.styleReferenceBindings,
+    payload.normalizedRequest.styleReferenceBindings,
+    payload.authoringHandoff.styleReferenceBindings];
+  const present = projections.map((value) => value !== undefined);
+  if (Object.hasOwn(payload.typeSpecification, "styleReferenceBindings") ||
+      present.some(Boolean) !== present.every(Boolean)) {
+    throw new Error("style_reference_binding_projection_mismatch");
+  }
+  if (!present.some(Boolean)) return "absent_valid";
+  validateStyleBinding(projections[0], evidence);
+  if (projections.slice(1).some((value) => canonicalJson(value) !== canonicalJson(projections[0]))) {
+    throw new Error("style_reference_binding_projection_mismatch");
+  }
+  return "present_valid";
+}
+
+function validateRecordStyleProjection(record, evidence = styleEvidence) {
+  const state = validateStyleProjection(record, evidence);
+  if (state === "present_valid" && canonicalJson(record.styleReferenceBindings) !==
+      canonicalJson(record.authoringHandoff.styleReferenceBindings)) {
+    throw new Error("style_reference_binding_projection_mismatch");
+  }
+  return state;
+}
+
+function validateRoutingRecordSchema(record) {
+  const required = [...routingPayloadRequiredKeys.filter((key) => key !== "schemaVersion"),
+    "schemaVersion", "routingRecordId", "routingPayloadSha256", "createdAt", "validation"];
+  assertClosedKeys(record, required,
+    ["animationRequestId", "styleReferenceBindings", "supersedesRoutingRecordId"]);
+  assertClosedKeys(record.typeSpecification,
+    ["identityConsistencyLock", "singleImageSpecification"]);
+  assertClosedKeys(record.normalizedRequest, normalizedRequestRequiredKeys,
+    ["animationRequestId", "styleReferenceBindings"]);
+  assertClosedKeys(record.authoringHandoff,
+    [...authoringHandoffRequiredKeys, "routingRecordId", "routingRecordPath",
+      "routingPayloadSha256", "indexPath"],
+    ["animationRequestId", "styleReferenceBindings"]);
+  validateRecordStyleProjection(record);
+  return true;
+}
+
+function authorityBundle(anchorSha = "1".repeat(64), durableEvidence) {
+  const immutableArtifactAnchors = [{
+    role: "planning_handoff",
+    path: "AgentDocs/planning-data/generated-media-planning/v2/character.contract_vector.json",
+    sha256: anchorSha,
+  }];
+  if (durableEvidence) immutableArtifactAnchors.push({
+    role: "style_reference_asset", path: durableEvidence.assetPath,
+    sha256: durableEvidence.assetSha256,
+  }, {
+    role: "style_reference_review_record", path: durableEvidence.reviewRecordPath,
+    sha256: durableEvidence.reviewRecordSha256,
+  }, {
+    role: "style_reference_review_index", path: durableEvidence.reviewIndexPath,
+    sha256: durableEvidence.reviewIndexSha256,
+  });
+  immutableArtifactAnchors.sort((left, right) =>
+    Buffer.from(left.path).compare(Buffer.from(right.path)) ||
+    Buffer.from(left.role).compare(Buffer.from(right.role)));
   const payload = {
     schemaVersion: "generated_media_authority_bundle_hash_payload_v1",
     authoritativeMainSha: "a".repeat(40),
     requestedStageScope: ["routing", "authoring"],
-    immutableArtifactAnchors: [{
-      role: "planning_handoff",
-      path: "AgentDocs/planning-data/generated-media-planning/v2/character.contract_vector.json",
-      sha256: anchorSha,
-    }],
+    immutableArtifactAnchors,
     contractAuthorityAnchors: [{
       role: "routing_contract",
       path: "AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md",
@@ -209,6 +409,10 @@ function canReuseAuthorityBundle(previous, current) {
 }
 
 function validateAuthorityBundle(receipt) {
+  assert.deepEqual(receipt.immutableArtifactAnchors,
+    [...receipt.immutableArtifactAnchors].sort((left, right) =>
+      Buffer.from(left.path).compare(Buffer.from(right.path)) ||
+      Buffer.from(left.role).compare(Buffer.from(right.role))));
   const payload = structuredClone(receipt);
   delete payload.authorityBundleId;
   delete payload.authorityBundleSha256;
@@ -405,6 +609,8 @@ function validateCompactReceipt(receipt) {
 
 const firstPayload = fixture();
 const retryPayload = fixture();
+assert.equal(validateRoutingPayloadSchema(firstPayload), true);
+assert.equal(validateRoutingRecordSchema(recordObject(firstPayload)), true);
 assert.equal(routingId(firstPayload), routingId(retryPayload));
 const firstBytes = recordBytes(firstPayload);
 const retryBytes = requireByteIdenticalReuse(
@@ -412,28 +618,78 @@ const retryBytes = requireByteIdenticalReuse(
 );
 assert.strictEqual(retryBytes, firstBytes);
 
-const durablePayload = fixture();
-durablePayload.styleReferenceBindings = [{
-  role: "style_only",
-  projectRelativePath: "AgentDocs/reference-assets/generated-media/style-only/character_single_image/open_ink_wash_dynamic_contour/b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf.png",
-  sha256: "b02550dd37f152346be7f9aa33884ae3cc790a5f956d496f420c23ecbdfd93cf",
-  reviewRecordId: "gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb",
-  reviewRecordPath: "AgentDocs/planning-data/style-reference-reviews/v1/character_single_image/open_ink_wash_dynamic_contour/gmstyleref1.character_single_image.open_ink_wash_dynamic_contour.d6dae45a8f8f6591b5cb.json",
-  reviewRecordSha256: "51630e6c2c4ec80caae9bf5c995f7673e2b8fddf83870c5a28452971fa2be4c2",
-}];
-durablePayload.normalizedRequest.styleReferenceBindings =
-  structuredClone(durablePayload.styleReferenceBindings);
-durablePayload.authoringHandoff.styleReferenceBindings =
-  structuredClone(durablePayload.styleReferenceBindings);
-assert.equal(validateAndProjectStyleBinding(durablePayload), true);
+assert.equal(validateStyleProjection(firstPayload), "absent_valid");
+assert.equal(Object.hasOwn(recordObject(firstPayload), "styleReferenceBindings"), false);
+assert.equal(validateRoutingIndexEntry(routingIndexEntry(firstPayload), firstPayload), true);
+
+const durablePayload = projectStyleBinding(fixture());
+assert.equal(validateRoutingPayloadSchema(durablePayload), true);
+assert.equal(validateStyleProjection(durablePayload), "present_valid");
+const durableRecord = recordObject(durablePayload);
+assert.equal(validateRoutingRecordSchema(durableRecord), true);
+assert.equal(validateRecordStyleProjection(durableRecord), "present_valid");
+assert.equal(Object.hasOwn(durablePayload.typeSpecification, "styleReferenceBindings"), false);
+assert.notEqual(payloadHash(durablePayload), payloadHash(firstPayload));
+assert.notEqual(routingId(durablePayload), routingId(firstPayload));
+const durableIndexEntry = routingIndexEntry(durablePayload);
+assert.equal(Object.hasOwn(durableIndexEntry, "styleReferenceBindings"), false);
+assert.equal(validateRoutingIndexEntry(durableIndexEntry, durablePayload), true);
+assert.throws(() => validateRoutingIndexEntry({ ...durableIndexEntry,
+  styleReferenceBindings: durablePayload.styleReferenceBindings }, durablePayload),
+/unknown_record_field:styleReferenceBindings/);
+
 const droppedBinding = structuredClone(durablePayload);
 delete droppedBinding.authoringHandoff.styleReferenceBindings;
-assert.throws(() => validateAndProjectStyleBinding(droppedBinding),
-  /style_reference_binding_scope_mismatch/);
+assert.throws(() => validateStyleProjection(droppedBinding),
+  /style_reference_binding_projection_mismatch/);
 const incompleteBinding = structuredClone(durablePayload);
-delete incompleteBinding.styleReferenceBindings[0].reviewRecordSha256;
-assert.throws(() => validateAndProjectStyleBinding(incompleteBinding),
+for (const projection of [incompleteBinding.styleReferenceBindings,
+  incompleteBinding.normalizedRequest.styleReferenceBindings,
+  incompleteBinding.authoringHandoff.styleReferenceBindings]) {
+  delete projection[0].reviewRecordSha256;
+}
+assert.throws(() => validateStyleProjection(incompleteBinding),
   /style_reference_binding_incomplete/);
+const unknownBinding = structuredClone(durablePayload);
+for (const projection of [unknownBinding.styleReferenceBindings,
+  unknownBinding.normalizedRequest.styleReferenceBindings,
+  unknownBinding.authoringHandoff.styleReferenceBindings]) projection[0].editTarget = true;
+assert.throws(() => validateStyleProjection(unknownBinding), /unknown_record_field:editTarget/);
+const unknownTopLevel = structuredClone(durablePayload);
+unknownTopLevel.styleReferenceBinding = unknownTopLevel.styleReferenceBindings;
+assert.throws(() => validateRoutingPayloadSchema(unknownTopLevel),
+  /unknown_record_field:styleReferenceBinding/);
+const nestedBinding = structuredClone(durablePayload);
+nestedBinding.typeSpecification.styleReferenceBindings =
+  structuredClone(nestedBinding.styleReferenceBindings);
+assert.throws(() => validateRoutingPayloadSchema(nestedBinding),
+  /style_reference_binding_projection_mismatch/);
+const unequalBinding = structuredClone(durablePayload);
+unequalBinding.authoringHandoff.styleReferenceBindings[0].reviewRecordId = "wrong";
+assert.throws(() => validateStyleProjection(unequalBinding),
+  /style_reference_binding_projection_mismatch/);
+assert.throws(() => validateStyleProjection(durablePayload,
+  { ...styleEvidence, observedAssetSha256: "0".repeat(64) }),
+/style_reference_asset_hash_mismatch/);
+assert.throws(() => validateStyleProjection(durablePayload,
+  { ...styleEvidence, observedReviewRecordSha256: "0".repeat(64) }),
+/style_reference_review_record_hash_mismatch/);
+assert.throws(() => validateStyleProjection(durablePayload,
+  { ...styleEvidence, observedReviewIndexSha256: "0".repeat(64) }),
+/style_reference_index_invalid/);
+for (const unauthorizedRole of ["identity_reference", "edit_reference", "provider_reference"]) {
+  const invalidRole = structuredClone(durablePayload);
+  for (const projection of [invalidRole.styleReferenceBindings,
+    invalidRole.normalizedRequest.styleReferenceBindings,
+    invalidRole.authoringHandoff.styleReferenceBindings]) projection[0].role = unauthorizedRole;
+  assert.throws(() => validateStyleProjection(invalidRole), /style_reference_role_invalid/);
+}
+assert.throws(() => validateStyleProjection(durablePayload,
+  { ...styleEvidence, selectedProfileKey: "unapproved@1.0.0" }),
+/style_reference_binding_scope_mismatch/);
+assert.throws(() => validateStyleProjection(durablePayload,
+  { ...styleEvidence, prohibitedSemanticTransfers: ["pose"] }),
+/style_reference_semantic_transfer_forbidden/);
 
 const changed = structuredClone(firstPayload);
 changed.requiredElements.push("visible hands");
@@ -456,6 +712,18 @@ validateAuthorityBundle(firstBundle);
 validateAuthorityBundle(retryBundle);
 assert.equal(canonicalJson(firstBundle), canonicalJson(retryBundle));
 assert.equal(canReuseAuthorityBundle(firstBundle, retryBundle), true);
+
+const durableBundle = authorityBundle("1".repeat(64), styleEvidence);
+validateAuthorityBundle(durableBundle);
+assert.deepEqual(durableBundle.immutableArtifactAnchors.map(({ role }) => role), [
+  "planning_handoff", "style_reference_review_record", "style_reference_review_index",
+  "style_reference_asset",
+]);
+assert.notEqual(durableBundle.authorityBundleSha256, firstBundle.authorityBundleSha256);
+const styleIndexDriftBundle = authorityBundle("1".repeat(64),
+  { ...styleEvidence, reviewIndexSha256: "0".repeat(64) });
+assert.notEqual(styleIndexDriftBundle.authorityBundleSha256,
+  durableBundle.authorityBundleSha256);
 
 const changedBundle = authorityBundle("9".repeat(64));
 validateAuthorityBundle(changedBundle);

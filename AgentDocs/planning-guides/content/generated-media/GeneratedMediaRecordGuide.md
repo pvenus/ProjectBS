@@ -67,6 +67,7 @@ typeSpecification: exactly one complete type value selected without renaming:
   icon_single_image: {identityConsistencyLock, iconProfile, singleImageSpecification}
   background_single_image: {backgroundProfile, backgroundSpecification}
   animation: {animationRequest} where animationRequest is the one source object selected by animationRequestId
+styleReferenceBindings?: character_single_image only; exact one-element reviewed style-only array defined below
 normalizedRequest: exact normalized single-unit request defined below
 selectedPipeline: exact registry value
 selectedAuthoringPrompt: exact project-relative registry path
@@ -91,12 +92,38 @@ top-level `routingRecordId`, `routingPayloadSha256`, `createdAt`, and
 `validation`, plus filesystem roots, file mtimes, router host/user data,
 provider state, cost, and every downstream-stage result.
 
+`styleReferenceBindings` is conditionally present only when the validated
+character planning handoff contains the reviewed durable binding. Its value is
+an array of exactly one closed six-member object:
+
+```yaml
+- role: style_only
+  projectRelativePath: exact reviewed asset path
+  sha256: exact raw asset SHA-256
+  reviewRecordId: exact gmstyleref1 ID
+  reviewRecordPath: exact project-relative review-record path
+  reviewRecordSha256: exact raw review-record SHA-256
+```
+
+The same array is copied byte-semantically into exactly four top-level
+locations: `routingHashPayload.styleReferenceBindings`,
+`routingHashPayload.normalizedRequest.styleReferenceBindings`,
+`routingHashPayload.authoringHandoff.styleReferenceBindings`, and the resulting
+`generated_media_routing_v2.styleReferenceBindings`. It is forbidden inside
+`typeSpecification`, `identityConsistencyLock`, or
+`singleImageSpecification`. When the planning handoff has no binding, all four
+members are absent rather than `null` or `[]`. Missing, extra, differently
+ordered, nested, or unequal projections are
+`style_reference_binding_projection_mismatch`.
+
 `normalizedRequest` is a closed object with
 `requestId`, `assetType`, `domainType`, `contentId`, `contentUsage`,
 `planningSnapshotHash`, `requiredElements`, `prohibitedElements`, and the same
 exact `typeSpecification` object as the payload. It additionally contains the
-same scalar `animationRequestId` only for animation. No source files, registry
-selection, routing references, timestamps, or downstream fields occur in it.
+same optional top-level `styleReferenceBindings` only for the reviewed
+character case and the same scalar `animationRequestId` only for animation. No
+source files, registry selection, routing references, timestamps, or downstream
+fields occur in it.
 
 `routingReason` is the closed object below, not free-form prose:
 
@@ -124,6 +151,7 @@ sourcePlanningFiles:
 requiredElements:
 prohibitedElements:
 typeSpecification:
+styleReferenceBindings?: same character-only conditional presence and exact array
 normalizedRequest:
 registryVersion:
 registryRowId:
@@ -191,6 +219,7 @@ sourcePlanningFiles:
 requiredElements:
 prohibitedElements:
 typeSpecification:
+styleReferenceBindings?: same character-only conditional presence and exact array
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:
@@ -222,6 +251,13 @@ stable copied planning fact, not router wall-clock time. The exact closed
 `validation` object above contains no timestamp, write outcome, host data, or
 new routing fact, so independently constructed records from the same input have
 the same bytes.
+
+This is an additive conditional projection within the existing current v2
+schema. Published `generated_media_routing_v2` records whose source planning
+handoff had no style binding remain valid and byte-identically reusable with
+the member absent. They and their index entries are never rewritten. A new
+planning handoff that contains the binding necessarily produces a different
+payload hash/record ID and cannot reuse an older record that omitted it.
 
 ### Closed routing index
 
@@ -267,6 +303,11 @@ entry identity fields, the referenced record, and the directory path must all
 agree. JCS orders the entry keys and every nested object key. Index file bytes
 are `canonicalJson(index) + LF`, and no timestamp, count, latest pointer,
 status, tombstone, or downstream field is allowed.
+
+The routing index schema is intentionally unchanged. It must not contain a
+`styleReferenceBindings` member. The entry's exact `routingPayloadSha256` and
+`recordSha256` bind the complete conditional projection; adding the array to an
+index entry is `unknown_record_field` and would invalidate existing indexes.
 
 ### Idempotency, collision, supersession, and writes
 

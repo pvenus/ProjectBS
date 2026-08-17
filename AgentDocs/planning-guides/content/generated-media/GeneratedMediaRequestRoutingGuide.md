@@ -67,9 +67,11 @@ the single animationRequestId/object.
 
 For character single-image, the router validates an optional durable
 `styleReferenceBindings` entry against the review asset/record/index and copies
-the exact six-member object into both `typeSpecification` and
-`authoringHandoff`. It does not copy media bytes, change `role=style_only`, or
-project reference-subject semantics into required/prohibited elements.
+the exact one-element array as a top-level member of the routing payload/record,
+`normalizedRequest`, and `authoringHandoff`. It is never nested inside
+`typeSpecification`, `identityConsistencyLock`, or `singleImageSpecification`.
+The router does not copy media bytes, change `role=style_only`, or project
+reference-subject semantics into required/prohibited elements.
 
 For a character attack-animation whose immutable reference prompt carries
 `projectbs_character_bold_outline_compressed_detail@2.0.0`, direct inheritance
@@ -121,6 +123,7 @@ sourcePlanningFiles: []
 requiredElements: []
 prohibitedElements: []
 typeSpecification:
+styleReferenceBindings: conditionally present only for reviewed character style-only binding
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:
@@ -159,11 +162,13 @@ routing reason, optional animationRequestId, and optional accepted
 supersedesRoutingRecordId. It excludes only derived ID/hash fields,
 the copied planning timestamp and deterministic validation observations.
 
-Any durable style-only binding inside the type specification and authoring
-handoff is hash-significant. Missing review bytes, a three-member style entry,
-profile mismatch, absolute path, or person/identity/pose/action/clothing/
-equipment/edit-target role blocks before routing publication with the exact
-central style-reference token.
+The durable style-only array in the four exact top-level projections is
+hash-significant. Nesting it inside the type specification, omitting one
+projection, or changing array/member order or value is
+`style_reference_binding_projection_mismatch`. Missing review bytes, a
+three-member style entry, profile mismatch, absolute path, or
+person/identity/pose/action/clothing/equipment/edit-target transfer blocks
+before routing publication with the exact central style-reference token.
 
 Before writing, validate the entire existing record/index pair. Byte-identical
 existing state is reused without changing timestamps or bytes. A valid orphan
@@ -262,6 +267,14 @@ Any missing receipt, main drift, scope change, path/hash/role change, added or
 removed anchor, invalid receipt hash, or unavailable anchored blob requires a
 full validation pass and a new bundle identity. A bundle never waives current
 record/index or provider-boundary checks.
+
+When `styleReferenceBindings` is present, `immutableArtifactAnchors` additionally
+contains the exact durable style asset, review record, and review index as
+separate `style_reference_asset`, `style_reference_review_record`, and
+`style_reference_review_index` anchors. Their paths/hashes come from the
+validated binding and review index, are sorted by the existing rule, and remain
+in the authority bundle only. The compact routing receipt links them through
+`authorityBundleId`/`authorityBundleSha256` without repeating the anchors.
 
 ## Cross-stage Delta Envelope
 
@@ -408,6 +421,7 @@ unsupported_icon_domain
 unsupported_background_domain
 unsupported_current_route
 conflicting_routing_evidence
+style_reference_binding_projection_mismatch
 routing_record_collision
 routing_record_write_failed
 routing_index_write_failed
@@ -434,7 +448,10 @@ candidate rows, required decision and safeToRetry.
   occupied identity fails closed;
 - authoring handoff fields exactly match selected prompt inputs;
 - optional character styleReferenceBindings exactly match the planning
-  projection and GeneratedMediaStyleReferenceBindingGuide review bytes;
+  projection and GeneratedMediaStyleReferenceBindingGuide review bytes in all
+  four top-level routing projections and are absent from typeSpecification;
+- routing index entries contain no style binding body and bind it only through
+  exact routingPayloadSha256/recordSha256;
 - the detached success receipt is closed, hash-bound, and contains none of the
   persisted bulk authoring fields or style-lock arrays;
 - identical authority anchors/scope reproduce one bundle and receipt, while
