@@ -114,6 +114,15 @@ Unknown members, duplicate paths, absolute paths, and invented revisions are
 invalid. Before snapshot construction, read every source as exact bytes and
 verify `sha256`. A JSON source must be valid UTF-8 JSON.
 
+When the capture authority is a published Git revision, `exact bytes` means
+the raw blob bytes at the pinned authoritative revision (`{revision}:{path}`).
+The producer MUST NOT hash a working-tree materialization, apply line-ending
+normalization, or fall back to checkout bytes. In particular, Windows CRLF
+projection cannot change a published source hash, snapshot hash, or derived
+request ID. An unavailable authoritative blob is
+`unresolved_source_planning_path`; disagreement with stored source identity is
+`planning_snapshot_mismatch`.
+
 `approvedFacts` is a non-empty array with this exact closed item schema:
 
 ```yaml

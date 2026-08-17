@@ -12,6 +12,14 @@ function sha256(bytes) {
   return crypto.createHash("sha256").update(bytes).digest("hex");
 }
 
+function selectPublishedSourceBytes(authoritativeGitBlobBytes, workingTreeBytes) {
+  if (!Buffer.isBuffer(authoritativeGitBlobBytes)) {
+    throw new Error("unresolved_source_planning_path");
+  }
+  void workingTreeBytes;
+  return authoritativeGitBlobBytes;
+}
+
 function resolveJsonPointer(value, pointer) {
   if (pointer === "") return value;
   if (!pointer.startsWith("/")) throw new Error("planning_snapshot_mismatch");
@@ -281,6 +289,34 @@ const exactSourceBytes = new Map([
   [canonicalSourcePath, canonicalSourceBytes],
   [decisionSourcePath, decisionSourceBytes],
 ]);
+
+const crlfWorkingTreeBytes = Buffer.from(
+  canonicalSourceBytes.toString("utf8").replace(/\n$/, "\r\n"), "utf8",
+);
+const selectedPublishedBytes = selectPublishedSourceBytes(
+  canonicalSourceBytes, crlfWorkingTreeBytes,
+);
+assert.ok(selectedPublishedBytes.equals(canonicalSourceBytes));
+assert.notEqual(sha256(selectedPublishedBytes), sha256(crlfWorkingTreeBytes));
+const publishedSourceVector = [{...exactSources[0], sha256: sha256(selectedPublishedBytes)}];
+validateSnapshotSources(publishedSourceVector, [payload.approvedFacts[0]],
+  new Map([[canonicalSourcePath, selectedPublishedBytes]]));
+const publishedSnapshotPayload = {
+  schemaVersion: "generated_media_planning_snapshot_hash_payload_v2",
+  sourcePlanningFiles: publishedSourceVector,
+  approvedFacts: [payload.approvedFacts[0]],
+};
+const checkoutSnapshotPayload = {
+  ...publishedSnapshotPayload,
+  sourcePlanningFiles: [{...publishedSourceVector[0], sha256: sha256(crlfWorkingTreeBytes)}],
+};
+assert.notEqual(
+  sha256(Buffer.from(canonicalize(publishedSnapshotPayload), "utf8")),
+  sha256(Buffer.from(canonicalize(checkoutSnapshotPayload), "utf8")),
+  "published snapshot identity must use authoritative Git-blob bytes, not CRLF checkout bytes",
+);
+assert.throws(() => selectPublishedSourceBytes(undefined, crlfWorkingTreeBytes),
+  /unresolved_source_planning_path/);
 
 validateSnapshotSources(exactSources, exactFacts, exactSourceBytes);
 
