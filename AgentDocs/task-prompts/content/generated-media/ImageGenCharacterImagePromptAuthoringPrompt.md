@@ -81,4 +81,5 @@ Output:
 - prompt record/index/handoff projection과 모든 ID/path/hash가 exact 재계산되어야 한다.
 - 실패 시 partial/orphan file이나 generation handoff를 새로 남기지 않아야 한다.
 - provider 및 후속 단계를 실행하지 않아야 한다.
+- planning이 `generated_media_transparent_foreground_selection_v1`을 선택했으면 exact `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` key/hash와 mainLock을 prompt record/handoff에 그대로 투영하고 outside-foreground alpha0, inside-only bounded partial alpha, safe margin/no clipping 및 matte/checkerboard/halo/vignette/floor/scene/cast-shadow/fringe 금지를 positive/negative lock에 포함한다. prompt prose만으로 conformance를 주장하지 않는다.
 ```

@@ -54,4 +54,5 @@ Output:
 - 입력은 ContentFolderStructureGuide의 staging/evaluation 경계를 따르고 이 prompt는 새 storage path나 project artifact를 만들지 않는다.
 - media 또는 upstream record를 수정하지 않는다.
 - open ink-wash v2 main의 bounded readability marks만으로 regeneration을 요구하지 않으며, attack animation을 이 정책 변경 때문에 재평가·재생성하지 않는다.
+- `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` package는 quality score 전에 payload hash/selection/receipt/member alpha evidence를 재검증한다. outside alpha0, inside-only partial alpha, no background/fringe, safe margin/no clipping과 animation exact root/baseline/scale/no-recenter/no-flicker/no-fragment가 모두 PASS해야 score한다. failure는 central `true_alpha_*` hard token이며 opaque branch 의미를 바꾸지 않는다.
 ```

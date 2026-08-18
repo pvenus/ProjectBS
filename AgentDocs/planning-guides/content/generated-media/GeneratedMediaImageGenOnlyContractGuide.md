@@ -2137,3 +2137,59 @@ AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
 AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
 AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 ```
+
+## 18. Transparent Foreground Output Projection v1
+
+This additive projection is selected only by an exact planning selection. It
+does not reinterpret `backgroundFullyOpaque`, provider-native GIF,
+coherent-master, corrective-normalization, or any existing record/package.
+
+```json
+{"animation":{"backgroundFlicker":false,"baselineDriftMaxPx":0,"completedAnimationFormat":"gif","dynamicPigmentExcludedFromAnchorMovement":true,"fixedGroundBaseline":true,"fixedPelvisWorldRootCoordinate":true,"fixedScale":true,"identicalCanvas":true,"independentSilhouetteRecentering":false,"neighboringFragments":false,"orderedFrameCount":6,"orderedTrueAlphaFrameFormat":"png","pelvisDriftMaxPx":0,"swordAndEffectsInsideSafeMargin":true},"appliesTo":[{"assetType":"character_single_image","structureProfile":"character_single_image_v2"},{"assetType":"animation","structureProfile":"animation_gif_frame_set_v2"}],"characterSingleImage":{"colorMode":"RGBA","fullFigureEquipmentPigmentInBounds":true,"primaryFormat":"png"},"common":{"boundedArtisticPartialAlpha":"inside_intended_character_equipment_pigment_silhouette_only","forbidden":["matte","checkerboard","halo","vignette","floor","scene","cast_shadow","residual_fringe"],"noClipping":true,"outsideIntendedForegroundAlpha":0,"safeMarginPx":"required_positive_integer"},"compatibility":{"backgroundFullyOpaque":"not_reinterpreted","existingBranches":"unchanged"},"gates":{"evaluation":"all_projection_failures_pre_score_hard_fail","generationAndPreservation":"alpha_mask_fringe_anchor_baseline_before_complete","promotion":"separate_completed_pass_and_passForProjectCopy_true_before_authenticated_replaceExisting"},"projectionKey":"generated_media_true_alpha_foreground@1.0.0","schemaVersion":"generated_media_transparent_foreground_output_projection_v1"}
+```
+
+The RFC 8785 JCS SHA-256 is
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`.
+The closed `generated_media_transparent_foreground_selection_v1` contains
+exactly `schemaVersion`, `projectionKey`, `projectionPayloadHash`, `assetType`,
+`safeMarginPx`, `noClipping`, and one conditional member: `mainLock` contains
+exactly `rgbaEvidenceRequired` and `fullFigureEquipmentPigmentInBounds`; or
+`animationLock` contains exactly `frameCount`, `canvasWidth`, `canvasHeight`,
+`pelvisWorldRootX`, `pelvisWorldRootY`, `groundBaselineY`, `scaleNumerator`,
+`scaleDenominator`, `independentSilhouetteRecentering`, and
+`dynamicPigmentExcludedFromAnchorMovement`. Integers are nonnegative except
+safe margin, canvas, scale numerator/denominator, and frame count are positive;
+frame count is exactly 6 here. The branches are mutually exclusive.
+
+The closed `generated_media_true_alpha_output_receipt_v1` contains common exact
+members `schemaVersion`, `projectionKey`, `projectionPayloadHash`,
+`selectionSha256`, `assetType`, `safeMarginPx`, `alphaMaskSha256`,
+`outsideForegroundAlphaMaximum` (0), `partialAlphaInsideIntendedSilhouette`,
+`matteDetected`, `checkerboardDetected`, `haloDetected`, `vignetteDetected`,
+`floorDetected`, `sceneDetected`, `castShadowDetected`, `residualFringeDetected`,
+`clippingDetected`, and `status`. Main adds exactly `width`, `height`,
+`rgbaPixelSha256`, and `fullFigureEquipmentPigmentInBounds`. Animation adds
+exactly `completedGifSha256`, six ordered `trueAlphaPngFrameSha256s`, six
+ordered `frameAlphaMaskSha256s`, `canvasWidth`, `canvasHeight`,
+`pelvisWorldRootX`, `pelvisWorldRootY`, `groundBaselineY`,
+`pelvisDriftMaxPx` (0), `baselineDriftMaxPx` (0), `scaleNumerator`,
+`scaleDenominator`, `independentSilhouetteRecentering` (false),
+`backgroundFlickerDetected` (false), `neighboringFragmentsDetected` (false),
+`swordAndEffectsInsideSafeMargin` (true), and
+`dynamicPigmentExcludedFromAnchorMovement` (true). The GIF uses one transparent
+index for outside-foreground alpha zero; bounded artistic partial alpha is
+preserved and measured in the ordered RGBA PNG frames, never invented in GIF.
+
+Generation and preservation validate the exact alpha mask, fringe/background
+absence, bounds, margin, and conditional anchor/baseline evidence before
+completion. Evaluation treats every receipt failure as pre-score hard fail.
+Typed failures are `true_alpha_projection_missing`,
+`true_alpha_projection_mismatch`, `true_alpha_branch_conflict`,
+`outside_foreground_alpha_nonzero`, `artistic_partial_alpha_outside_silhouette`,
+`true_alpha_residual_fringe_detected`, `true_alpha_background_artifact_detected`,
+`true_alpha_safe_margin_or_clipping_violation`,
+`true_alpha_animation_anchor_baseline_drift`,
+`true_alpha_animation_independent_recentering_detected`,
+`true_alpha_animation_background_flicker`,
+`true_alpha_animation_neighboring_fragment`, and
+`true_alpha_animation_dynamic_pigment_anchor_contamination`.

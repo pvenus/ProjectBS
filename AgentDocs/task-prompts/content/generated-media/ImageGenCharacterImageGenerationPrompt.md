@@ -59,4 +59,5 @@ Output:
 - generation record에는 provider provenance와 preservation handoff만 있어야 한다.
 - preview record에는 preview_only/not_promotable/not_evaluated와 unavailable evidence가 있고 preservation/evaluation/promotion 입력이 없어야 한다.
 - open-ink v2 preview는 seven-gate compact receipt가 있어야 하고 seven pass만 preview_conformant_no_downstream이며 fail/insufficient 결과는 complete/final wording, retry 또는 downstream을 허용하지 않아야 한다.
+- `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` 선택 시 provider 결과를 complete로 만들기 전에 `generated_media_true_alpha_output_receipt_v1`의 RGBA/mask/fringe/bounds evidence를 닫는다. outside intended foreground alpha는 모두 0, partial alpha는 intended character/equipment/pigment silhouette 내부만, full figure/equipment/pigment는 planning safe margin 안이어야 한다. matte/checkerboard/halo/vignette/floor/scene/cast shadow/fringe 또는 clipping은 typed hard blocker다.
 ```

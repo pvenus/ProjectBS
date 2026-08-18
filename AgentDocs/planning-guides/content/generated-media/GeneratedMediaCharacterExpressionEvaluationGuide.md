@@ -264,3 +264,17 @@ The six-frame count belongs only to these golden fixtures. Operational
 evaluation accepts any positive approved `finalFrameCount` and requires the
 ordered member count to equal it exactly. Contract tests must keep golden
 fixtures deterministic and must not claim to perform image recognition.
+
+## Transparent Foreground Pre-score Gate
+
+For either exact replacement type, a selected
+`generated_media_true_alpha_foreground@1.0.0` projection is a technical hard
+gate before all quality scoring. Rehash the selection, payload
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`,
+receipt, members and alpha masks. Any outside-foreground nonzero alpha,
+out-of-silhouette partial alpha, matte/checkerboard/halo/vignette/floor/scene/
+cast shadow/fringe, margin/clipping failure, or animation canvas/root/baseline/
+scale/recenter/flicker/fragment/sword-bounds/dynamic-pigment-anchor failure uses
+the central `true_alpha_*` token and fails before scoring. This technical gate
+does not alter the open-ink soft-quality scoring policy after it passes and does
+not reinterpret existing opaque animation evidence.

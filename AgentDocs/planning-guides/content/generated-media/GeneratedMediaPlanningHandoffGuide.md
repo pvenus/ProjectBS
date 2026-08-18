@@ -276,3 +276,14 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGu
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```
+
+## Transparent Foreground Projection
+
+When planning selected `generated_media_transparent_foreground_selection_v1`,
+the canonical snapshot and handoff project that object byte-for-byte with key
+`generated_media_true_alpha_foreground@1.0.0` and payload hash
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`.
+Routing and authoring may copy and hash it only; omission, unknown members,
+conditional-branch mixing, safe-margin drift, or animation coordinate/scale
+drift is `true_alpha_projection_mismatch`. It is forbidden when planning did
+not select it and never changes `backgroundFullyOpaque` semantics.

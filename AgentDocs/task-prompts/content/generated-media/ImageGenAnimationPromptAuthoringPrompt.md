@@ -53,4 +53,5 @@ Output:
 - character animation은 immutable reference prompt record의 file hash와 canonical expression payload hash를 재계산하고 exact 상속하며 선택 profile의 evidence coverage가 완전해야 한다.
 - skill animation에는 네 character reference/profile 입력과 출력이 없어야 한다.
 - generation과 extraction을 실행하지 않아야 한다.
+- true-alpha animation selection이 있으면 exact `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` key/hash와 `animationLock`을 byte-exact 투영하고 completed GIF+ordered six RGBA PNG frames, outside alpha0, inside-only partial alpha, exact canvas/pelvis-world-root/baseline/scale, no independent recenter/flicker/fragments, sword/effects safe margin, dynamic pigment anchor exclusion을 prompt locks에 넣는다. 기존 `backgroundFullyOpaque` branch와 혼합하지 않는다.
 ```

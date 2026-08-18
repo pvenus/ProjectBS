@@ -71,6 +71,7 @@ typeSpecification: exactly one complete type value selected without renaming:
   background_single_image: {backgroundProfile, backgroundSpecification}
   animation: {animationRequest} where animationRequest is the one source object selected by animationRequestId
 styleReferenceBindings?: character_single_image only; exact one-element reviewed style-only array defined below
+transparentForegroundSelection?: character_single_image or animation only when planning selected the exact closed v1 projection
 normalizedRequest: exact normalized single-unit request defined below
 selectedPipeline: exact registry value
 selectedAuthoringPrompt: exact project-relative registry path
@@ -119,12 +120,22 @@ members are absent rather than `null` or `[]`. Missing, extra, differently
 ordered, nested, or unequal projections are
 `style_reference_binding_projection_mismatch`.
 
+`transparentForegroundSelection`, when present, is the exact closed
+`generated_media_transparent_foreground_selection_v1` from planning. Copy it
+byte-semantically into routing hash payload, `normalizedRequest`,
+`authoringHandoff`, and the generated_media_routing_v2 record. It is forbidden
+inside `typeSpecification` and absent when unselected. Its key/hash are
+`generated_media_true_alpha_foreground@1.0.0` /
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`.
+Projection drift or branch mixing is `true_alpha_projection_mismatch`.
+
 `normalizedRequest` is a closed object with
 `requestId`, `assetType`, `domainType`, `contentId`, `contentUsage`,
 `planningSnapshotHash`, `requiredElements`, `prohibitedElements`, and the same
 exact `typeSpecification` object as the payload. It additionally contains the
 same optional top-level `styleReferenceBindings` only for the reviewed
-character case and the same scalar `animationRequestId` only for animation. No
+character case, the same optional top-level `transparentForegroundSelection`
+for a selected replacement, and the same scalar `animationRequestId` only for animation. No
 source files, registry selection, routing references, timestamps, or downstream
 fields occur in it.
 
@@ -155,6 +166,7 @@ requiredElements:
 prohibitedElements:
 typeSpecification:
 styleReferenceBindings?: same character-only conditional presence and exact array
+transparentForegroundSelection?: same conditional presence and exact object
 normalizedRequest:
 registryVersion:
 registryRowId:
@@ -223,6 +235,7 @@ requiredElements:
 prohibitedElements:
 typeSpecification:
 styleReferenceBindings?: same character-only conditional presence and exact array
+transparentForegroundSelection?: same conditional presence and exact object
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:

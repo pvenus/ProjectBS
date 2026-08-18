@@ -83,6 +83,15 @@ the exact one-element array as a top-level member of the routing payload/record,
 The router does not copy media bytes, change `role=style_only`, or project
 reference-subject semantics into required/prohibited elements.
 
+When planning selected `generated_media_transparent_foreground_selection_v1`,
+the router validates key/hash
+`generated_media_true_alpha_foreground@1.0.0` /
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`
+and copies the exact object into routing payload/record, `normalizedRequest`,
+and `authoringHandoff` as top-level `transparentForegroundSelection`. It is
+forbidden inside `typeSpecification` and absent when unselected. Mixed locks or
+field drift is `true_alpha_projection_mismatch`.
+
 For a character attack-animation whose immutable reference prompt carries
 `projectbs_character_bold_outline_compressed_detail@2.0.0`, direct inheritance
 is illegal. The router may instead select
@@ -272,6 +281,7 @@ requiredElements: []
 prohibitedElements: []
 typeSpecification:
 styleReferenceBindings: conditionally present only for reviewed character style-only binding
+transparentForegroundSelection: conditionally present only for exact selected true-alpha replacement projection
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:

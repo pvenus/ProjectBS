@@ -122,4 +122,5 @@ Output:
 - stagingArtifactPath와 projectTargetPath가 같으면 process violation으로 평가를 차단해야 한다.
 - 평가 중 source bytes와 프로젝트 파일을 수정하지 않아야 한다.
 - 이미지 생성, 다운로드, 프로젝트 복사, Slack 게시, Unity 작업, Git과 배포를 수행하지 않아야 한다.
+- true-alpha projection package는 score 전에 exact `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` selection/key/hash/receipt/member/mask를 검증한다. main은 one RGBA PNG, animation은 completed GIF+ordered six true-alpha PNG frames여야 한다. outside alpha0, inside-only partial alpha, forbidden background/fringe 없음, margin/no clipping 및 animation fixed canvas/pelvis-world-root/baseline/scale/no-recenter/no-flicker/no-fragment/sword-safe/dynamic-pigment-anchor-exclusion이 하나라도 실패하면 central `true_alpha_*` hard fail로 종료한다. 두 replacement package는 각각 PASS+passForProjectCopy=true여야 하며 한쪽 PASS를 다른 쪽 replaceExisting authority로 재사용하지 않는다.
 ~~~

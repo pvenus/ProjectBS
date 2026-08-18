@@ -900,3 +900,20 @@ fields, or record/index drift fail as `preservation_record_collision`,
   historical planning Git blobs even when later unrelated planning changed the
   current path; unreachable, missing, ambiguous, or reconstructed evidence fails;
 - no provider/evaluation/promotion/Git stage executes.
+
+## Transparent Foreground Preservation Branch v1
+
+When the immutable handoff selects
+`generated_media_true_alpha_foreground@1.0.0` with payload hash
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`,
+preservation requires the byte-identical selection and a valid closed
+`generated_media_true_alpha_output_receipt_v1` before originals/members or a
+package can become complete. Main preserves one RGBA PNG plus its alpha-mask,
+raw RGBA, bounds, margin, and fringe evidence. Animation preserves the completed
+transparent-index GIF plus six ordered true-alpha PNG frames and their alpha
+masks, identical canvas, fixed pelvis/world-root/baseline/scale and all zero-
+drift/no-recenter/no-flicker/no-clipping/no-fragment/safe-margin evidence.
+Dynamic pigment is excluded from anchor movement. Missing/mixed/unknown fields
+or any receipt failure uses the central `true_alpha_*` typed blocker and writes
+no sealed package. Existing opaque/coherent-master/provider-native branches,
+records, indexes, serializers, and hashes remain unchanged.

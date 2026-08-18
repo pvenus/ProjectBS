@@ -530,3 +530,22 @@ AgentDocs/task-prompts/content/GeneratedImageProjectPromotionPrompt.md
 Evaluation consumes the exact package identity. Promotion consumes the exact
 package plus immutable evaluation record only after PASS; neither stage may
 reinterpret a legacy identity as current background v2.
+
+## Transparent Foreground Evaluation Package v1
+
+An evaluation package that projects
+`generated_media_true_alpha_foreground@1.0.0` and hash
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`
+contains the exact planning selection, preservation projection and
+`generated_media_true_alpha_output_receipt_v1`. Main has one RGBA PNG;
+animation has one completed GIF plus exactly six ordered true-alpha PNG frames.
+Before scoring, rehash alpha masks and verify outside-foreground alpha 0,
+inside-only bounded partial alpha, no matte/checkerboard/halo/vignette/floor/
+scene/cast shadow/fringe, safe margin and no clipping. Animation additionally
+requires identical canvas, exact planning pelvis/world-root/baseline/scale,
+zero pelvis/baseline drift, no independent recentering/flicker/fragments,
+sword/effects in bounds, and dynamic pigment excluded from anchor movement.
+Every `true_alpha_*` failure is pre-score hard fail. Each replacement package
+independently requires completed `PASS` and `passForProjectCopy=true` before the
+authenticated replacement approval may set `replaceExisting=true`; one PASS
+never authorizes the other target. Existing packages remain immutable.

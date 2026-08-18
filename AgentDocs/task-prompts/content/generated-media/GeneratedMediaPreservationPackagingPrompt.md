@@ -80,4 +80,5 @@ Output:
 - preservation record 경로와 canonical package 경로가 guide 공식과 일치해야 한다.
 - staging/project target이 분리되어야 한다.
 - 평가 및 이후 단계가 실행되지 않아야 한다.
+- true-alpha selection이면 exact `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` key/hash/selection과 `generated_media_true_alpha_output_receipt_v1`을 재검증하고 main RGBA PNG 또는 completed GIF+ordered six true-alpha PNG frame branch 중 하나만 package한다. outside alpha0, inside-only partial alpha, no forbidden background/fringe, safe margin/no clipping과 animation anchor/baseline/scale/no-recenter/no-flicker/no-fragment evidence가 모두 valid하기 전 record/package/evaluation handoff complete를 금지한다. `backgroundFullyOpaque` 또는 다른 legacy branch와 혼합하지 않는다.
 ```

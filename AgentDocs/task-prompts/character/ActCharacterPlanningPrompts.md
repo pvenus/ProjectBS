@@ -113,4 +113,5 @@ Output:
 - durable style-only fidelity는 exact six-member binding과 review/index/asset raw hash가 모두 일치해야 하며 character identity/equipment approved fact를 대체할 수 없다.
 - 후속 단계가 이름·성격·combat lore로 시각 디자인을 보충하도록 지시하지 않아야 한다.
 - 실제 provider 실행, 평가, project promotion, Unity 또는 Git 변경이 없어야 한다.
+- fresh replacement가 true alpha를 요구하면 `generated_media_transparent_foreground_selection_v1`을 정확히 한 번 선택하고 key/hash `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`, positive safeMarginPx, noClipping=true를 기록한다. mainLock 또는 six-frame animationLock만 선택하며 animation은 exact canvas/pelvis-world-root/ground baseline/rational scale/no independent recenter/dynamic pigment anchor exclusion을 planning이 닫는다. downstream이 값을 추론하게 하지 않는다.
 ```

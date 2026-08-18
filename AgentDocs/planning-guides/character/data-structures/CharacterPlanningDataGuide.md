@@ -698,3 +698,17 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyCont
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md
 ```
+
+## Transparent Foreground Replacement Selection
+
+Planning may add exactly one
+`generated_media_transparent_foreground_selection_v1` only for a fresh
+`character_single_image` or six-frame `animation` replacement. It binds
+`generated_media_true_alpha_foreground@1.0.0` and payload hash
+`2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108`,
+a positive `safeMarginPx`, and `noClipping=true`. Main selects the closed
+`mainLock`; animation selects the mutually exclusive closed `animationLock`
+with exact canvas, pelvis/world-root coordinate, ground baseline, rational
+scale, frameCount=6, no independent recentering, and dynamic pigment excluded
+from anchor movement. No value may be inferred downstream. Existing opaque and
+legacy planning remains unchanged.
