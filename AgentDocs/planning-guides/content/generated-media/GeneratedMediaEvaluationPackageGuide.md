@@ -445,6 +445,20 @@ PASS requires total >= 90, every category minimum, no fatal gate, and no
 Critical finding. The adapter never edits the source or relaxes a failed
 profile gate.
 
+For exact profile
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0` on a
+`character_single_image` main image, the open-ink scoring overlay takes
+precedence over the preceding threshold/minimum sentence without changing the
+five 20-point categories. The maximum remains 100; `PASS` is total >=80 with no
+material identity/project-usability hard fail, and `FAIL` is total <80 or any
+such hard fail. There is no per-category fatal minimum and no
+`CONDITIONAL_PASS`. Soft line/brush/omission/detail/pigment/palette/negative-space,
+minor proportion, polish, impact/readability, and aesthetic differences produce
+transparent deductions and Major/Minor/Suggestion findings only. PASS alone
+sets `passForProjectCopy=true`. Package integrity, identity, required member,
+alpha/background usability, clipping, and other project-blocking gates remain
+hard. Other profiles and the animation adapter are unchanged.
+
 ## State, Failure and Validation
 
 ```text

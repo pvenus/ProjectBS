@@ -518,6 +518,14 @@ Normalization rules:
 - an intentional no-image policy maps to skipped/SKIPPED only when the domain
   guide approves it.
 
+The exact open-ink-wash v2 character main-image adapter declares a narrower
+binary completed-result overlay: 100 observable points, PASS at >=80 with no
+material identity/project-usability hard fail, otherwise FAIL. It never emits
+`CONDITIONAL_PASS` and has no per-category fatal minimum for soft-quality
+categories. Findings remain Major/Minor/Suggestion and expose every deduction.
+Only its PASS sets `passForProjectCopy=true`. This overlay does not change other
+adapters or technical integrity, identity, required-member, or usability gates.
+
 Project-copy eligibility:
 
 ~~~text

@@ -79,7 +79,7 @@ budgets.
 | `character_evaluation_open_ink_wash_background_gate_failed` | generation/final evidence shows a non-removable non-warm-ivory generation background, halo, vignette, scene, or shadow |
 | `character_evaluation_open_ink_wash_identity_equipment_gate_failed` | approved young-adult Korean/Joseon identity, costume, equipment, weapon, handedness, or identifying anchors drift or disappear |
 | `character_evaluation_open_ink_wash_reference_role_gate_failed` | the accepted raster was used as canonical identity, person/pose/action/clothing/equipment source, or edit target; or provider binding occurred without an exact approved durable project-relative `style_only` review binding |
-| `character_evaluation_open_ink_wash_v2_surface_detail_gate_failed` | v2 output shows a realistically modeled face, individually rendered armor plates/scales/rivets/lacing/fasteners, garment microfolds, microtexture, modeled light, or realistic material rendering |
+| `character_evaluation_open_ink_wash_v2_surface_detail_gate_failed` | v2 output materially diverges through a realistically modeled face; dense, individually enumerable armor plates/scales/rivets/lacing/fasteners; garment microfolds or microtexture; modeled light/material; or surface construction that conflicts with planning, identity, equipment, proportion, or silhouette. The bounded main-image readability variance below is not this fatal token. |
 
 The evaluator uses the authored profile projection and an observable checklist.
 It may use a reproducible pixel-area measurement when available, but must record
@@ -139,6 +139,54 @@ canvas is uniform `#F2EFE6` without radial gradient or edge darkening. Apply
 the v2 surface-detail fatal token independently from the existing background
 and proportion gates.
 
+For `character_main_image` only, classify minor expressive surface variance
+before applying that fatal token. It is PASS-compatible only when every item is
+true: marks are low-contrast relative to silhouette/identity strokes;
+low-density and visually subordinate; flat with no highlight, cast shadow,
+volume, gradient, or material response; contained inside one existing broad
+shoulder-armor mass or expressed as a limited set of bands inside the existing
+leg-wrap regions; not readable as an inventory of separate plates, scales,
+rivets, lacing, fasteners, or constructed layers; and they change no identity,
+equipment, proportion, silhouette, pose/action, background, or clipping state.
+The evaluator records `minor_expressive_surface_variance` as a bounded score
+deduction/finding or optional improvement with `regenerationRequired=false`.
+It does not create a required action and cannot by itself make the result FAIL.
+
+The tolerance is unavailable when marks tile or enumerate the shoulder mass,
+form repeated plate boundaries, introduce rivets/lacing/fasteners, model
+realistic armor or cloth construction, create dense leg wrapping, add
+microtexture/microfolds, use modeled lighting/material, or conflict with any
+planning/identity/equipment/proportion/silhouette gate. Those observations keep
+`character_evaluation_open_ink_wash_v2_surface_detail_gate_failed`. The rule
+does not apply to animation, other expression profiles, other adapters, or any
+other fatal gate. In particular it never excuses identity/equipment drift,
+wrong proportions, silhouette/action/background conflict, clipping, or a broad
+style-direction conflict.
+
+### Open ink-wash v2 hard-fail and soft-quality boundary
+
+For the exact open ink-wash v2 main-image branch, a pre-score hard fail is
+limited to a material identity or project-usability defect: wrong person or
+materially wrong gender presentation; materially wrong child/minor presentation
+for the required adult; major species/body/face/costume/weapon/equipment or
+handedness substitution/disappearance; semantically wrong action/direction;
+corrupt or undecodable media; missing required member; severe clipping; broken
+alpha/background; unstable canvas/anchor; extreme proportion, silhouette, or
+style divergence that reads as another design; or visible text, watermark, UI,
+or another project-blocking artifact. These defects override every score.
+
+Line finish, brush roughness, contour-omission degree, low-density stylized
+armor marks/scales, wrap bands, fold counts, pigment bleed/misalignment nuance,
+palette balance, negative-space nuance, modest surface-detail density, polish,
+impact/readability, aesthetic preference, and minor proportion deviation are
+soft quality observations whenever the same planned adult character remains
+recognizable and usable with stable identity/equipment/silhouette. They may
+reduce score and create Major, Minor, or Suggestion findings, but never trigger
+a fatal token by themselves. Thus the open-ink contour, pigment, background,
+proportion, and surface-detail fatal tokens apply only when their observation
+crosses the material identity/usability boundary above. Technical integrity,
+identity, required-member completeness, and project usability are not softened.
+
 An accepted corrective package may present a transparent final PNG produced by
 `border_exact_checkerboard_boundary_flood_v1`. Accept that final-background
 transition only after the package-level receipt proves exact RGB preservation,
@@ -162,8 +210,12 @@ background gates still apply to the normalized primary.
 
 Return `PASS`, `FAIL`, or `BLOCKED`, the exact profile key/hash, artifact and
 frame identities, every fatal gate result, evidence references, findings, and
-required actions. A fatal failure prevents scoring. A nonfatal result may use
-the common evaluation package score model, but no score overrides a fatal gate.
+required actions. The open ink-wash v2 main-image branch retains an observable
+100-point score: `PASS` requires total score >=80 and no hard fail; `FAIL`
+requires total score <80 or any hard fail. It has no soft-category fatal minimum
+and no `CONDITIONAL_PASS`; category evidence and deductions remain explicit.
+PASS alone sets `passForProjectCopy=true`. Other profiles keep their registered
+score models. No score overrides a hard fail.
 The evaluator never changes the media or declares it promotable. Input media
 and evidence remain at their ContentFolderStructureGuide-governed staging
 paths. This guide defines no new storage path and writes no project artifact;
@@ -196,11 +248,17 @@ package/report contract.
   uniform vector contour, missing stroke phase, clean cel fill, decorative
   splashes, collapsed palette roles, either negative-space floor below 70,
   halo/vignette/scene/shadow, identity/equipment drift, and reference-role misuse.
+- Open ink-wash v2 main PASS-compatible variance: low-contrast, low-density,
+  flat scale suggestions contained in one broad shoulder mass and limited flat
+  leg-wrap bands, with no enumeration, construction modeling, silhouette or
+  identity drift. Record only the bounded finding; do not require regeneration.
 - Open ink-wash v2 main fail: additionally exercise 7-head anatomy, a realistic
-  modeled face, individual armor plates/rivets/lacing, garment microfolds,
-  microtexture/modeled light, radial dark halo, edge vignette, and insufficient
-  measurement evidence. The compact preview receipt never substitutes for the
-  evaluation package.
+  modeled face, dense separately readable armor plates/scales/rivets/lacing,
+  realistic construction/material, garment microfolds, microtexture/modeled
+  light, radial dark halo, edge vignette, and insufficient measurement evidence.
+  Also prove that permitted minor marks cannot excuse equipment, silhouette,
+  action, background, clipping, or style-direction conflict. The compact
+  preview receipt never substitutes for the evaluation package.
 
 The six-frame count belongs only to these golden fixtures. Operational
 evaluation accepts any positive approved `finalFrameCount` and requires the
