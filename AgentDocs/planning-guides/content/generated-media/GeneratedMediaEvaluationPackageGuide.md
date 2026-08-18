@@ -16,6 +16,7 @@ AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 ```
 
 Current input is ImageGen-only and must form exactly one of these chains:

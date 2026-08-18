@@ -8,6 +8,7 @@
 참조 가이드:
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - repo: {canonical origin remote URL}
@@ -15,10 +16,12 @@ Input:
 - requestedRoleSequence: {planning, routing_authoring, generation, preservation_evaluation 중 필요한 순서}
 - existingTaskStates: {client task/officialThreadId/status compact inventory}
 - cleanupAuthorization: {absent by default; exact targets only when explicitly authorized}
+- noninteractiveExecutionPolicy: {exact generated_media_noninteractive_execution_policy_v1 derived from the authenticated request}
 
 작업:
 1. canonical repo의 `gmsetup1.{repo SHA-256 prefix}` repository setup mutex를 획득한다. worktree add/remove/prune/fetch mutation은 mutex 안에서 직렬로 한 건씩만 수행한다.
 2. pipeline run당 `fetch origin main --prune`를 정확히 한 번 실행하고 fetched origin/main을 exact 40-hex commit으로 확정한다.
+2a. exact authenticated request에서 closed noninteractive execution policy를 한 번 파생한다. routine in-scope action은 재승인을 묻지 않는다. host/platform approval이 필수이면 작업 전 exact commands/actions/roots 전체를 포함한 bundled request 한 건만 만들고, 승인 뒤 두 번째 prompt를 금지한다. bundle이 거부·누락·범위 불일치이면 `generated_media_bundled_platform_approval_unavailable` 한 건으로 terminal 종료한다.
 3. `{schemaVersion=generated_media_pipeline_authority_receipt_v1, repo, originMain, fetchedAt}`의 RFC 8785 JCS SHA-256을 authorityReceiptSha256으로 추가해 closed response-only receipt를 만든다.
 4. read-only downstream role에는 receipt와 exact detached commit만 전달하고 source repo fetch를 요청하지 않는다. record/index mutation, Git publication, provider submit 경계의 기존 fresh 검사는 생략하지 않는다.
 5. planning, routing_authoring, generation, preservation_evaluation의 persistent serial worktree를 우선 재사용한다. micro-stage마다 새 worktree를 만들지 않는다.
@@ -45,6 +48,8 @@ Output:
 - cleanupPerformed: false (이 prompt는 cleanup을 실행하지 않음)
 - nextRole / compactStatusHash
 - providerCalled=false / submitCount=0
+- approvalRequestsCount: 0 | 1
+- bundledApprovalUsed: false | true
 - promotionTerminalStatus: promoted | blocked | not_promoted | copy_failed (final-stage를 판정한 경우)
 - projectPromotionDispatchPerformed: false | true
 ```

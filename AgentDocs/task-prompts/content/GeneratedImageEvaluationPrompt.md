@@ -15,6 +15,7 @@ extended through domain guides, not duplicated in this prompt.
 - AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 - AgentDocs/planning-guides/prompt/EvaluationSlackCanvasFormGuide.md
 
 Input:
@@ -35,6 +36,7 @@ Input:
 - 다른 PC의 절대 경로를 사용하지 않는다.
 
 작업:
+0. sealed package와 exact noninteractive execution policy 범위의 read/hash/image-GIF inspection 및 completed evaluation record write는 재승인 없이 수행한다. source Git repository를 fetch하지 않고, immutable/no-clobber/PASS gate와 out-of-root/scope-expansion 차단을 유지한다.
 1. 현재 작업의 workspace와 Git 정보를 이용해 저장소를 확인하고 AgentDocs와 Assets가 같은 저장소인지 검증한다.
 2. evaluationPackageId가 있으면 GeneratedMediaEvaluationPackageGuide.md를 읽고 sealed v2 package의 assetType+domainType으로 adapter를 선택한다. 없으면 legacy artifactType으로 선택한다. package mode의 background_single_image와 legacy imagegen_image/battle_background, 또는 current animation+character와 legacy character_animation을 교환하거나 두 identity mode를 함께 사용하면 중단한다.
 3. adapter가 없거나 blocked 또는 필수 계약이 불완전하면 공통 점수로 대신 평가하지 말고 중단한다.

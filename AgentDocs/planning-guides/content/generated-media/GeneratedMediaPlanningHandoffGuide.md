@@ -15,6 +15,11 @@ guide owns serialization/readiness only. Missing values block; they are never
 inferred. Legacy v1 is owned only by
 `GeneratedMediaLegacyV1CompatibilityGuide.md`.
 
+Planning execution inherits
+`GeneratedMediaNoninteractiveExecutionPolicyGuide.md`. Routine in-scope reads,
+validation, and bounded immutable handoff writes do not request interactive
+approval again; new authority boundaries remain fail-closed.
+
 ## Common Closed Schema
 
 Use the exact common and type-specific schema in

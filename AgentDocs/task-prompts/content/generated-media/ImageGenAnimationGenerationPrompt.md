@@ -6,6 +6,7 @@
 current generated_media_prompt_v3 animation record 하나를 검증하고 정확히 한 animationRequestId의 provider-native playable animated GIF를 생성해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 - AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
@@ -21,6 +22,7 @@ Input:
 - acceptedResultAttackCoherentMasterGuidance: optional closed accepted_result_attack_coherent_master_to_gif_guidance_v2 for future same character attack-animation role guidance only
 
 작업:
+0. authenticated exact generation request와 noninteractive policy가 이미 승인한 submit/retry 범위에는 interactive approval을 다시 요구하지 않는다. 기존 provider approval/idempotency/capability/cost 검증은 그대로 수행하며 추가 submit·retry·cost, overwrite, elevation 또는 scope expansion은 차단한다.
 1. scalar animationRequestId 일치와 모든 animation readiness blocker를 검증한다.
 2. character animation이 animation-ready minimal profile을 상속하면 capability 접근 전에 exact payload/hash, evidence, prompt를 검사한다. 4.25 heads 초과/7-8등신·영웅적 장신 허용, dense realistic detail 허용, nonminimal color/value 허용은 각각 character_generation_proportion_gate_failed, character_generation_detail_density_gate_failed, character_generation_color_value_gate_failed로 차단하고 providerCalled=false/submitCount=0/cost=0을 반환한다. prompt를 수정하지 않는다.
    sparse-ink profile이면 same exact payload/hash와 approved finalFrameCount의 각 frame별 omission 35-50%, 3-6 accents, exact palette, line/pigment motion cues, identity/action anchor stability를 확인한다. omission 위반은 character_generation_sparse_omission_budget_gate_failed, accent 범위·filled/off-palette 위반은 character_generation_sparse_pigment_budget_gate_failed, closed contour, static repetition·motion cue 누락, anchor drift는 각각 중앙 8.4의 contour/motion/identity token으로 차단한다.

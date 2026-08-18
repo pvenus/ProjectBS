@@ -15,6 +15,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 - AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - routingRecordFile: {project_relative_generated_media_routing_v2_record}
@@ -22,6 +23,7 @@ Input:
 - required: request/content/source/snapshot identity, requiredElements, prohibitedElements, identityConsistencyLock, singleImageSpecification
 
 작업:
+0. exact noninteractive execution policy 범위의 read/hash/schema/test와 bounded prompt record/index write는 재승인 없이 수행한다. host-required bundled approval은 coordinator의 한 건만 재사용하고 새 권한 경계에서는 partial write 없이 차단한다.
 1. registryVersion=v2, provider=imagegen, assetType=character_single_image, exact registry row와 snapshot/hash를 검증한다.
 2. viewpoint, pose, framing, canvas, targetDisplaySize, safeArea, background, generationBackground, noShadow, outline, pelvis/root와 ground-contact anchor를 모두 검증한다.
 3. 승인 기획을 provider-neutral visual brief로 정규화하고 모든 문장을 evidence/constraint에 연결한다. 캐릭터 사실과 ProjectBS 캐릭터 표현 profile을 분리하고 누락된 외형·시점·색·배경을 만들지 않는다.

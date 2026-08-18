@@ -15,6 +15,7 @@ currentGenerationSchema: generated_media_generation_v2
 currentPreservationSchema: generated_media_preservation_v2
 currentEvaluationPackageSchema: generated_media_evaluation_package_v2
 currentProvider: imagegen
+currentExecutionAuthorityPolicy: generated_media_noninteractive_execution_policy_v1
 ```
 
 Every request created under this contract uses ImageGen. The only current
@@ -33,6 +34,10 @@ guide. `ordered_rotation_set`, eight-way character generation, legacy
 `imagegen_image`, and provider-specific v1 routes are not current routes.
 
 ## 2. Authority and Stage Separation
+
+All current stages inherit
+`GeneratedMediaNoninteractiveExecutionPolicyGuide.md`. This is execution-
+approval policy only; the schemas and stage boundaries below remain unchanged.
 
 ```text
 Master Concept

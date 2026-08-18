@@ -12,6 +12,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
@@ -19,6 +20,7 @@ Input:
 - executionMode: route_only_v2 | hosted_builtin_fast_preview_v1 (optional; default route_only_v2)
 - fastPreviewPointer: {required only for hosted_builtin_fast_preview_v1}
 - pipelineAuthorityReceipt: {exact generated_media_pipeline_authority_receipt_v1 from coordinator}
+- noninteractiveExecutionPolicy: {exact generated_media_noninteractive_execution_policy_v1}
 
 작업:
 0. executionMode가 `route_only_v2`이면 기존 1-22를 그대로 수행한다. `hosted_builtin_fast_preview_v1`이면 기존 routing record/authoring publication 작업 1-22를 실행하지 않고 0a-0h만 수행한다. 다른 값은 차단한다.
@@ -31,6 +33,7 @@ Input:
 0g. terminal receipt는 `previewOnly=true`, `notPromotable=true`, `notPreserved=true`, `strictEvaluationPerformed=false`이며 preservation/evaluation package/promotion/Unity를 호출하지 않는다. 사용자 채택은 별도 strict workflow 요청이다.
 0h. child final 한 건을 받고 parent relay 한 건만 수행한다. observer에 full receipt/payload를 broadcast하지 않는다.
 0i. coordinator의 pipelineAuthorityReceipt repo/originMain/fetchedAt/hash를 검증하고 exact originMain commit만 읽는다. read-only child는 fetch하지 않는다. routing record/index mutation은 기존 raw blob, no-clobber, CAS 검사를 그대로 fresh 수행하되 setup fetch/worktree mutation은 coordinator의 repository mutex 밖에서 실행하지 않는다.
+0j. exact policy 범위의 read/hash/schema/test와 bounded record/index write에는 interactive approval을 다시 요청하지 않는다. host-required bundle은 coordinator의 한 건만 재사용하며, overwrite/delete/extra submit·retry·cost/elevation/out-of-root/scope expansion은 해당 new-authority token으로 partial write 없이 차단한다.
 1. request/content/source/snapshot identity와 모든 source hash를 검증한다.
 2. requiredElements/prohibitedElements와 assetType별 specification을 검증하고 누락값을 추정하지 않는다.
 3. assetType/domainType/profile을 canonical lowercase enum으로 검증한다. 현재 assetType은 character_single_image, icon_single_image, background_single_image, animation뿐이다.

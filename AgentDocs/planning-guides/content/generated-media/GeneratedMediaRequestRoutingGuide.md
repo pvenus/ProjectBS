@@ -22,6 +22,7 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaPlanningHandoffG
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 ```
 
 Planning owns facts, registry v2 owns exact rows, this guide owns fan-out and
@@ -191,6 +192,10 @@ record/index or repository, publish Git state, or cross a provider boundary
 must still perform every fresh check required by that boundary and acquire the
 setup mutex for any covered repository command. The authority receipt is not a
 provider capability, approval, cost, idempotency, publication, or CAS receipt.
+Those fresh checks reuse the coordinator's exact authority anchor and do not
+perform a second authority fetch. Interactive platform approval follows
+`generated_media_noninteractive_execution_policy_v1`: zero routine prompts, or
+one precomputed bundled prompt when the host requires it.
 
 ### Persistent serial worktrees and task lifecycle
 
@@ -497,8 +502,11 @@ owner, Git owner or observers. Each observer receives at most one terminal
 The compact status hash payload contains exactly
 `schemaVersion=generated_media_compact_status_hash_payload_v1`,
 `pipelineReceiptChainId`, `pipelineReceiptChainSha256`, `stage`, `state`,
-`stageReceiptId`, `stageReceiptSha256`, `publicationState`, and the same closed
-`providerState`. Its ID/hash use `gmstatus1.{stage}.{hash[0:20]}` and full
+`stageReceiptId`, `stageReceiptSha256`, `publicationState`, the same closed
+`providerState`, `approvalRequestsCount`, and `bundledApprovalUsed`. The last
+two members obey GeneratedMediaNoninteractiveExecutionPolicyGuide.md and count
+only interactive platform approval requests. Its ID/hash use
+`gmstatus1.{stage}.{hash[0:20]}` and full
 SHA-256 over JCS. The receipt replaces schemaVersion with
 `generated_media_compact_status_v1` and adds the ID/full hash. Emit only on a
 new canonical state hash or once for terminal state. An unchanged status,

@@ -19,6 +19,7 @@ AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 ```
 
 ## Required Current Input

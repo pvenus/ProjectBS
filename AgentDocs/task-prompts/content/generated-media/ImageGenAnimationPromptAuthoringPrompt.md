@@ -6,6 +6,7 @@
 current v2 animation routing record 하나를 검증하고 정확히 한 animationRequestId의 ImageGen prompt record만 작성해줘.
 
 참조 가이드:
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 - AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
 - AgentDocs/planning-guides/prompt/PromptAuthoringGuide.md
 - AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
@@ -24,6 +25,7 @@ Input:
 - expressionProfilePayloadHash: {required_for_character_animation; omit_for_skill_animation}
 
 작업:
+0. exact noninteractive execution policy 범위의 read/hash/schema/test와 bounded prompt record/index write는 재승인 없이 수행한다. host-required bundled approval은 coordinator의 한 건만 재사용하고 새 권한 경계에서는 partial write 없이 차단한다.
 1. routing record의 normalized animationRequest가 객체 하나이고 ID가 입력과 동일한지 확인한다. planning handoff의 같은 ID 원본 항목과 exact 비교한다. normalized 배열/복수/병합은 차단한다.
 2. reference identity/path/hash, final frame count/timing/order/loop/key poses, fixed cell, scale lock, vertical motion, background/noShadow/outline, anchor, masterFirst를 검증한다. 신규 요청은 animationSourceMode=provider_native_animated_gif와 extractionMode=gif_timeline_exact가 모두 정확해야 한다. fixed_cell_only는 기존 immutable record의 read-only history에만 허용하고 신규 prompt를 쓰지 않는다.
 3. character animation이면 네 reference/profile 입력이 모두 있는지 확인한다. referencePromptRecordPath의 exact file bytes SHA-256을 다시 계산해 referencePromptRecordSha256과 비교하고, immutable generated_media_prompt_v3에서 expressionProfilePayload를 읽는다. Visual guide 규칙으로 canonicalize해 hash를 다시 계산한 뒤 record·handoff·registry의 expressionProfileKey/expressionProfilePayloadHash가 모두 정확히 같은지 비교한다. 검증된 payload를 수정·번역·재정렬·요약하지 않고 상속한다. 두 lock-array profile은 non-empty lock arrays를, sparse-ink key는 empty compatibility lock arrays와 여덟 closed policy member를 byte-for-byte 상속한다. sparse-ink의 approved finalFrameCount 각 frame마다 omission 35-50%, 3-6 accents, exact palette, motion cues, darkest identity/action anchor와 identity-anchor stability를 evidence에 연결하며 missing_*_style_lock을 적용하지 않는다.

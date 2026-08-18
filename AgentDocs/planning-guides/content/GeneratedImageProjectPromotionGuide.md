@@ -23,6 +23,7 @@ This task must not perform or silently continue any of them.
 Always read:
 
 ~~~text
+AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 AgentDocs/planning-guides/content/GeneratedImageEvaluationPipelineGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md

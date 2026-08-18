@@ -11,6 +11,7 @@ current generated_media_prompt_v3 캐릭터 단일 이미지 record 하나를 �
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 - AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - planningHandoffFile: {generated_media_planning_handoff_v2_path}
@@ -21,6 +22,7 @@ Input:
 - hostedPreviewAutoApprovalPolicy: optional standing automatic policy for hosted_builtin_preview_v1; exactly one of manual approval or policy is required
 
 작업:
+0. authenticated exact generation request와 noninteractive policy가 이미 승인한 submit/retry 범위에는 interactive approval을 다시 요구하지 않는다. final sealed scope의 기존 provider approval/idempotency/capability/cost 검증은 그대로 수행하며 추가 submit·retry·cost, overwrite, elevation 또는 scope expansion은 차단한다.
 1. authority commit을 pin하고 closed generationHandoff의 promptRecordId와 JSON/Markdown/index path/hash를 exact
    bytes에서 다시 계산하고 closed index entry, prompt payload projection, provider=imagegen,
    assetType=character_single_image, snapshot, identity lock,

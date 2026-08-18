@@ -15,6 +15,7 @@ into the Unity project. It does not generate, download, edit, or evaluate.
 - AgentDocs/planning-guides/content/GeneratedImageProjectPromotionGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - requestId: {required_stable_request_id_for_package_mode | optional_for_legacy}
@@ -34,6 +35,7 @@ Input:
 - 다른 PC의 절대 경로를 사용하지 않는다.
 
 작업 범위:
+0. exact noninteractive execution policy와 registered route가 승인한 absent canonical target copy는 재승인 없이 수행한다. existing target 교체는 replaceExisting=true와 exact replacementApprovalRef를 계속 요구하며, delete/elevation/out-of-root/scope expansion은 차단한다.
 1. 현재 작업 안에서 저장소, 로컬 평가 workspace, 평가 리포트, 보존 source, 프로젝트 target을 내부적으로 찾는다.
 2. GeneratedImageProjectPromotionGuide.md의 routing registry로 identity mode, 도메인 가이드, structureProfile, 단일 파일/파일 세트 구조와 canonical Assets/ImagesGenerated 목적지를 결정한다. current background와 legacy battle_background를 섞지 않는다.
 3. package mode는 evaluationPackageId, assetType, domainType, contentId, evaluationRecordId와 registry row의 exact structureProfile이 모두 일치하는 exact package/record만 사용한다. character_single_image+domainType=character는 character_single_image_v2, animation+domainType=character는 animation_gif_frame_set_v2, background_single_image는 등록된 background_single_image_v2 row만 허용한다. legacy mode는 artifactType/contentId 기준이며 current animation+domainType=character를 legacy character_animation으로 재해석하지 않는다. 두 mode가 섞이면 차단한다.

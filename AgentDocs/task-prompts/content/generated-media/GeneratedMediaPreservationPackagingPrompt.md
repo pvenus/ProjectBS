@@ -17,6 +17,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
@@ -31,6 +32,7 @@ Input:
 - acceptedPromptEvidence: animation={source=accepted_result_capture,providerPromptPayloadHash,promptFileSha256} | unavailable-prompt character_single_image={source=accepted_result_capture,status=unavailable_observed,claim=not_claimed}_or_omit
 
 작업:
+0. exact noninteractive execution policy 범위의 read/hash/inspection/schema/test, accepted-output preservation, bounded package write는 재승인 없이 수행한다. 기존 immutable/no-clobber/idempotency 검증은 유지하며 overwrite/delete/out-of-root/scope expansion은 새 권한 blocker로 중단한다.
 1. repository와 현재 PC의 evaluation staging root를 내부적으로 확인한다.
 2. 정확히 한 input branch를 검증한다. strict branch는 기존 그대로 planning/prompt/generation identity, canonical generationRecordSha256, generationStatus=generated와 provider refs를 요구한다. accepted-result animation branch는 기존 capture record/index/receipt, source task/tool-call, prompt/settings/reference/master/GIF/frame, historical submit=1/retry=0 closure를 그대로 요구한다. accepted-result character_single_image branch는 exact one canonical PNG와 source/target raw-byte equality, authenticated acceptance exact SHA, distinct `accepted_project_candidate` role, identity/edit-target authority=false를 요구하고 prior `visual_reference_only_not_identity_or_edit_target` role은 변경하지 않으며 historical execution/prompt/settings/count의 closed `unavailable_observed`/`not_claimed` shape를 허용한다. 두 분기 모두 preSubmitGateAttestation=`not_claimed_post_result_capture`를 요구한다. mixed/partial/unknown 또는 still/animation member 혼합은 즉시 차단한다.
 2a. accepted-result에 authoritative `generated_media_prompt_v3`가 없으면 fake prompt record를 만들거나 요구하지 않는다. animation은 capture의 exact `providerPromptPayloadHash`와 recovered prompt raw file SHA를 closed `acceptedPromptEvidence`로 투영하고 실제 recovered bytes와 일치시킨다. historical prompt가 unavailable인 character_single_image는 `source=accepted_result_capture,status=unavailable_observed,claim=not_claimed`만 투영하며 hash/path/prose를 만들지 않는다. 어느 분기도 generation-v2 gate/cost PASS를 추론하지 않는다.
