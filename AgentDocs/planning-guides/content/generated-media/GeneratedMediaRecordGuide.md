@@ -1178,6 +1178,25 @@ known capability/cost, evaluation verdict, project mapping, or promotion.
 Promotion remains forbidden until a strict evaluation `PASS` and explicit
 project mapping are both supplied to the existing promotion contract.
 
+### Canonical normalized preservation v2 records
+
+Normalized accepted-result outputs use the closed
+`generated_media_serialization_receipt_v1` and
+`generated_media_preservation_index_v2` in
+GeneratedMediaPreservationPackagingGuide. The record embeds the receipt and
+`generated_media_preservation_evaluation_handoff_v2`; the index projects their
+exact hashes and serializer identity. Canonical index paths end in
+`generated-media-preservation/v2/{assetType}/{contentId}/preservation_index.json`
+or, for animation,
+`generated-media-preservation/v2/animation/{contentId}/{animationRequestId}/preservation_index.json`.
+
+Write the immutable record first and CAS-append the exact index entry. Exact
+record/index bytes are `reused_identical`; occupied different bytes or drift are
+`preservation_index_collision`, `preservation_index_cas_mismatch`, or
+`preservation_record_index_mismatch`. Unknown serializer settings or bytes are
+`serializer_settings_mismatch` or `serializer_output_hash_mismatch`. Existing
+strict and legacy records/indexes remain byte-for-byte unchanged.
+
 ### Compact profile-conformance receipt
 
 The v2 open ink-wash post-output triage returns one response-only receipt. It

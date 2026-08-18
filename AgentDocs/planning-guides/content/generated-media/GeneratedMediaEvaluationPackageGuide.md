@@ -149,6 +149,17 @@ No prompt path, hash, prompt record, or reconstructed prose is allowed. The two
 closed shapes are mutually exclusive and the manifest preserves the capture's
 truth without inventing prompt identity.
 
+For a normalized accepted-result member, the preservation record also carries
+`generated_media_serialization_receipt_v1`. The package projects
+`serializerKey`, `serializerVersion`, `serializerSettingsSha256`, `outputSha256`
+and conditional `orderedDecodedFrameRgbaSha256s`, then reopens the exact member
+and verifies RGBA, dimensions, frame order, delays, and one-shot state. Its
+`generated_media_preservation_evaluation_handoff_v2` must hash to the current
+preservation index projection. Drift is `serializer_output_hash_mismatch`;
+missing/mixed receipt, handoff, or index identity is
+`evaluation_package_input_branch_incomplete`. Strict/legacy branches do not
+gain these members.
+
 For an accepted corrective `character_single_image`, the unavailable-prompt
 shape remains unchanged and the manifest additionally carries exactly this
 path-free projection from the preservation record:

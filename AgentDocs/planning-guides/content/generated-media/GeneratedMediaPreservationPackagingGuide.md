@@ -656,6 +656,7 @@ correctiveSingleImageInput: accepted corrective single-image sub-branch only
 singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
 gifBoundaryChromaNormalizationPlan: exact accepted GIF source-bound v2 sub-branch only
+serializerPlan: required for every normalized accepted-result output; closed canonical serializer projection below
 provider: imagegen
 adapterId:
 structureProfile:
@@ -701,6 +702,10 @@ gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
 gifTimingQuantizationReceipt: same sub-branch only after GIF reopen validation
 gifBoundaryChromaNormalizationPlan: exact accepted GIF source-bound v2 sub-branch only
 gifBoundaryChromaNormalizationReceipt: same sub-branch only after transform and reopen validation
+serializerPlan: required when hash payload carries serializerPlan
+serializationReceipt: required after canonical serialization; exact schema below
+evaluationHandoff: required only at evaluation_handoff_ready; exact schema below
+preservationIndexPath: canonical project-relative path below
 provider: imagegen
 adapterId:
 structureProfile:
@@ -784,6 +789,97 @@ package_seal_failed
 Success returns preservation record/path/hash, adapter/profile, original and
 derived members/hashes, package ID/path/hash, readiness/blockers and a separate
 evaluation request. It never returns an evaluation verdict.
+
+## Canonical normalized-output serialization v1
+
+Normalized accepted-result pixels and timeline evidence are not a file identity
+until this section's repository writer serializes them. The normative writer is
+`helpers/generated_media_canonical_serializers_v1.mjs`; callers must invoke it
+from raw normalized bytes and must not substitute another encoder.
+
+`generated_media_png_rgba8_store_v1` emits the PNG signature followed by exactly
+`IHDR`, one `IDAT`, and `IEND`: RGBA8/color type 6, filter byte 0 on every
+top-to-bottom scanline, no interlace, and no ancillary/metadata chunks. IDAT is
+zlib `0x7801` with RFC 1951 stored blocks of at most 65,535 bytes and Adler-32.
+Chunk lengths are big-endian and CRC-32 covers type+data. For 1024x1536 the
+settings hash is `fc309dc17cb484ad1d21868cd3ddf8e824960e28675416d7f97ca4cfd64b6476`.
+
+`generated_media_gif89a_indexed_v1` emits GIF89a with one 256-entry global
+palette and no local palette. Index 0 is transparent RGB `(240,236,228)`;
+opaque RGB triples are byte-lexicographically sorted into indices 1..N,
+including an opaque duplicate of that RGB when present, then zero-padded. Each
+full-canvas, non-interlaced frame has disposal 1, transparent index 0, and its
+exact delay. LZW minimum code size is 8; emit clear, at most 250 literal 9-bit
+codes, repeat, then end, LSB-first in 255-byte sub-blocks. No application,
+comment, plain-text, XMP, or NETSCAPE extension is permitted. The trailer
+follows the final frame. For 640x512, delays `[12,13,12,13,12,13]`, and the
+above transparent RGB, the settings hash is
+`cbddb830b28668fdeab81587afcf384614cd26adf690f2d299c998d62a90a4b0`.
+
+Settings use RFC 8785 JCS and SHA-256. The closed receipt is:
+
+```yaml
+schemaVersion: generated_media_serialization_receipt_v1
+serializerKey: generated_media_png_rgba8_store_v1 | generated_media_gif89a_indexed_v1
+serializerVersion: 1.0.0
+serializerSettings:
+serializerSettingsSha256:
+inputEvidenceSha256: normalized raw RGBA SHA for PNG | frameEvidence SHA for GIF
+outputSha256:
+width:
+height:
+frameCount: GIF only; forbidden for PNG
+orderedDecodedFrameRgbaSha256s: GIF only; forbidden for PNG
+reopenValidation:
+  status: valid
+  decodedWidth:
+  decodedHeight:
+  decodedFrameCount: GIF only; forbidden for PNG
+  decodedDelaysCentiseconds: GIF only; forbidden for PNG
+  loopExtensionPresent: false for GIF; forbidden for PNG
+status: valid
+```
+
+Reopen with the helper's independent parser and require exact RGBA, dimensions,
+frame order, delays, and one-shot state. Unknown settings, non-binary GIF alpha,
+output drift, or reopen drift is `canonical_serializer_unsupported`,
+`serializer_settings_mismatch`, `serializer_output_hash_mismatch`, or
+`serializer_reopen_validation_failed`.
+
+## Current preservation v2 record/index projection
+
+The record embeds the receipt above. `evaluationHandoff` contains exactly
+`schemaVersion=generated_media_preservation_evaluation_handoff_v2`, `requestId`,
+`assetType`, `domainType`, `contentId`, conditional `animationRequestId`,
+`preservationRecordId`, `preservationPayloadHash`, `sourceArtifactSha256`,
+`normalizationReceiptSha256`, `serializerKey`, `serializerVersion`,
+`serializerSettingsSha256`, `outputSha256`, conditional
+`orderedDecodedFrameRgbaSha256s`, `evaluationPackageId`,
+`evaluationPackageManifestSha256`, and `status=evaluation_handoff_ready`.
+
+Canonical index paths are:
+
+```text
+AgentDocs/planning-data/generated-media-preservation/v2/{assetType}/{contentId}/preservation_index.json
+AgentDocs/planning-data/generated-media-preservation/v2/animation/{contentId}/{animationRequestId}/preservation_index.json
+```
+
+The index contains exactly `schemaVersion=generated_media_preservation_index_v2`,
+`assetType`, `contentId`, conditional `animationRequestId`, and `entries`. Each
+entry contains exactly `preservationRecordId`, `recordSchemaVersion`,
+`recordPath`, `recordSha256`, `preservationPayloadHash`, `requestId`, `assetType`,
+`domainType`, `contentId`, conditional `animationRequestId`,
+`sourceArtifactSha256`, `normalizationReceiptSha256`, `serializerKey`,
+`serializerVersion`, `serializerSettingsSha256`, `outputSha256`, conditional
+`orderedDecodedFrameRgbaSha256s`, `evaluationPackageId`,
+`evaluationHandoffSha256`, and `state=evaluation_handoff_ready`.
+
+Write and hash the no-clobber record first, then CAS-append one sorted index
+entry. Exact existing record bytes plus exact entry return `reused_identical`
+without rewriting. Occupied different bytes, stale index, mixed conditional
+fields, or record/index drift fail as `preservation_record_collision`,
+`preservation_index_collision`, `preservation_index_cas_mismatch`, or
+`preservation_record_index_mismatch`.
 
 ## Validation
 
