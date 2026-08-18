@@ -157,11 +157,53 @@ generation-v2 cost projection. It is preservation/evaluation-authorized only;
 promotion remains forbidden until a later strict evaluation `PASS` and explicit
 project mapping.
 
+### Accepted corrective single-image input
+
+An accepted-result `character_single_image` may have one additive corrective
+sub-branch when an authenticated bounded pipeline used the published accepted
+capture as its only edit input and the official generation role returned one
+terminal corrective PNG without retry. It does not create a fake
+`generated_media_generation_v2`, prompt record, or second accepted capture.
+
+The preservation input includes the existing accepted capture record/receipt
+plus one closed `generated_media_corrective_single_image_input_v1`:
+
+```yaml
+schemaVersion: generated_media_corrective_single_image_input_v1
+authorityMain: exact 40-lowercase-hex pipeline authority commit
+requestId:
+contentId:
+acceptedResultCaptureRecordId:
+acceptedResultCaptureRecordSha256:
+acceptedReferenceSha256:
+basePromptRecordId:
+basePromptRecordSha256:
+correctivePromptSha256: SHA-256 of exact LF UTF-8 corrective prompt bytes
+executionAttemptId:
+sourceGenerationTaskId:
+outputPath: exact observed local PNG path; evidence only
+outputSha256: exact raw PNG SHA-256
+width:
+height:
+colorMode: RGB | RGBA
+providerCalled: true
+submitCount: 1
+retryCount: 0
+```
+
+All members are required and unknown members reject. The accepted capture,
+reference, base prompt, request/content, corrective prompt receipt, official
+task terminal receipt, attempt ID, output bytes/hash/dimensions/mode and
+one-submit/zero-retry facts must agree. The path is evidence, never canonical
+identity. Missing or mixed evidence remains `preservation_input_branch_incomplete`;
+drift is `corrective_single_image_evidence_mismatch`. This sub-branch performs
+no provider call and cannot be used by animation or any non-corrective output.
+
 ## Current Adapter Registry
 
 | assetType/domain | adapterId | structureProfile | exact responsibility |
 | --- | --- | --- | --- |
-| character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; apply approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
+| character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; conditionally apply the closed accepted-corrective boundary-connected checkerboard alpha normalization below; otherwise apply only approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
 | icon_single_image/skill or item | imagegen_icon_single_image_v2 | icon_single_image_v2 | preserve original; apply approved background/no-shadow/outline without crop/scale; record visual center |
 | background_single_image/stage, battle or environment | imagegen_background_single_image_v2 | background_single_image_v2 | preserve original scene bytes; retain scene composition, viewpoint, depth/playable-area, target/safe-area, consistency lock and scene anchor metadata without icon transforms |
 | animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; pelvis/root anchor; exact timeline extraction |
@@ -173,6 +215,89 @@ or judgment fallback is allowed.
 Icon and background adapters remain distinct even when both preserve one PNG.
 Neither their profile identity, adapter ID, manifest extension nor evaluation
 route is interchangeable.
+
+## Accepted-corrective checkerboard alpha normalization
+
+Only the accepted corrective single-image sub-branch may select
+`generated_media_border_checkerboard_alpha_v1`. The source must be an RGB PNG
+whose exact hash/dimensions/mode match the corrective input. The plan is a
+hash-significant conditional preservation member:
+
+```yaml
+schemaVersion: generated_media_border_checkerboard_alpha_plan_v1
+algorithmId: border_exact_checkerboard_boundary_flood_v1
+candidateDerivation: outer_border_exact_two_color_unique_checkerboard
+colorMatch: exact_rgb
+connectivity: 4
+transparentRgbPolicy: retain_source_rgb
+alphaForRemovedBackground: 0
+alphaForPreservedPixels: 255
+pngEncoderName:
+pngEncoderVersion:
+pngCompressionLevel: integer 0..9
+pngFilter: none
+pngBitDepth: 8
+pngColorType: rgba
+pngInterlace: false
+```
+
+The algorithm has no threshold, tolerance, blur, morphology, erosion, color
+distance, alpha feather, retouch, or semantic mask:
+
+1. Read only the outermost top/right/bottom/left border, in clockwise order.
+   It must contain exactly two distinct RGB triplets; sort them
+   lexicographically as the candidate colors.
+2. From border evidence only, enumerate checker tile size integers from 1
+   through `max(width,height)` and x/y phase integers from 0 through
+   `tileSizePx-1`. Keep only solutions whose exact alternating two-color
+   pattern matches every border pixel. Equivalent parameters may collapse only
+   when they produce the same
+   full-canvas expected mask. Zero or more than one distinct mask is
+   `checkerboard_background_pattern_unsupported`.
+3. A noncandidate border pixel or evidence that foreground/ink/wash/effect
+   reaches the outer border is `checkerboard_foreground_contact_ambiguous`.
+4. Seed every boundary pixel that exactly equals its expected checker color.
+   Traverse only 4-connected pixels that exactly equal the expected color at
+   their coordinate. Set alpha to zero only for that visited set.
+5. Preserve every unvisited pixel byte-for-byte in RGB, including enclosed
+   candidate-colored pixels and every nonmatching foreground pixel. Set their
+   alpha to 255. With `retain_source_rgb`, all output RGB bytes equal source RGB
+   at the same coordinate.
+6. Encode one RGBA PNG using the recorded exact encoder name/version,
+   compression level and filter. No crop, resize, palette conversion, color
+   correction, identity/style/detail edit, or cleanup is allowed.
+
+The record and package carry the closed
+`generated_media_border_checkerboard_alpha_receipt_v1`:
+
+```yaml
+schemaVersion: generated_media_border_checkerboard_alpha_receipt_v1
+plan: exact plan object
+beforeSha256:
+afterSha256:
+width:
+height:
+candidateColors: exactly two lexicographically ordered [r,g,b] arrays
+tileSizePx:
+phaseX:
+phaseY:
+removedPixelCount: positive integer
+enclosedCandidatePixelCountPreserved: non-negative integer
+nonmatchingPixelCountPreserved: positive integer
+rgbChangedPixelCount: 0
+foregroundBoundaryContactDetected: false
+dimensionsUnchanged: true
+alphaChannelPresent: true
+outerBoundaryBackgroundRemaining: false
+status: valid
+```
+
+Reopen the output and recompute every receipt value. The after hash is the
+derived primary evaluation member; the before PNG remains immutable source
+evidence. Any loss/change outside the exact visited background set, missing
+alpha, dimension drift, encoder/receipt mismatch, ink/wash/effect erosion, or
+arbitrary threshold fails `checkerboard_alpha_normalization_validation_failed`
+and publishes no record/package.
 
 ## Animation Packaging Sequence
 
@@ -229,6 +354,69 @@ copies only the accepted capture record ID/raw SHA into its conditional input
 branch; observed source paths, evidence bytes, task/tool-call envelope and full
 guidance are not duplicated into preservation records or evaluation packages.
 
+For exactly six frames with approved uniform `8/1` fps intent, GIF's
+centisecond delay unit cannot encode 125 ms. The coherent-master accepted mode
+therefore permits exactly one deterministic quantization and no other mixed
+timing: `[12,13,12,13,12,13]` centiseconds, equivalently
+`[120,130,120,130,120,130]` milliseconds. It preserves chronological order,
+has no zero-delay frame, totals 750 ms, and yields exact average 8 fps. This is
+the canonical GIF representation of that uniform intent, not timing drift.
+
+The hash-significant plan has exactly:
+
+```yaml
+schemaVersion: generated_media_gif_8fps_centisecond_quantization_plan_v1
+requestedFpsNumerator: 8
+requestedFpsDenominator: 1
+frameCount: 6
+frameDelayCentiseconds: [12, 13, 12, 13, 12, 13]
+frameDelayMilliseconds: [120, 130, 120, 130, 120, 130]
+totalDurationMilliseconds: 750
+playbackMode: one_shot
+loopExtensionPresent: false
+decodedPixelPolicy: unchanged_full_canvas_rgba
+```
+
+The conditional
+`generated_media_gif_8fps_centisecond_quantization_receipt_v1` contains exactly:
+
+```yaml
+schemaVersion: generated_media_gif_8fps_centisecond_quantization_receipt_v1
+requestedFpsNumerator: 8
+requestedFpsDenominator: 1
+frameCount: 6
+frameDelayCentiseconds: [12, 13, 12, 13, 12, 13]
+frameDelayMilliseconds: [120, 130, 120, 130, 120, 130]
+totalDurationMilliseconds: 750
+averageFpsNumerator: 8
+averageFpsDenominator: 1
+playbackMode: one_shot
+loopExtensionPresent: false
+beforeGifSha256:
+afterGifSha256:
+width:
+height:
+beforeFramePixelSha256s: exactly six ordered decoded full-canvas pixel hashes
+afterFramePixelSha256s: exact same ordered array
+gifClosedAndReopened: true
+status: valid
+```
+
+When this exact receipt is present, an existing `timingUniform=true` assertion
+means that the requested timeline intent is uniform `8/1` fps and is satisfied
+by the canonical alternating centisecond schedule above. It does not require
+all six stored GIF delay integers to be equal. Without this receipt, every
+existing literal uniform-timeline validation remains unchanged.
+
+The completed GIF has no NETSCAPE/application loop extension, is closed and
+reopened, and re-reports the exact schedule. Canvas, frame count, decoded frame
+pixels, global palette semantics, pelvis, baseline, clipping state, fragment
+state and chronological order remain unchanged. The before/after GIF byte hash
+may differ only because of timing/one-shot metadata. Any other frame count/FPS,
+schedule, total, zero delay, loop representation, arbitrary mixed timing, pixel
+or canvas change remains `gif_timeline_contract_mismatch`. Existing
+provider-native and other timing contracts are unchanged.
+
 ## Preservation Record v2
 
 Hash payload:
@@ -251,6 +439,9 @@ acceptedResultCaptureRecordId: mutually exclusive alternative
 acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
+correctiveSingleImageInput: accepted corrective single-image sub-branch only
+singleImageBackgroundNormalizationPlan: same sub-branch only
+gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
 provider: imagegen
 adapterId:
 structureProfile:
@@ -289,6 +480,11 @@ acceptedResultCaptureRecordId: mutually exclusive alternative
 acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
+correctiveSingleImageInput: accepted corrective single-image sub-branch only
+singleImageBackgroundNormalizationPlan: same sub-branch only
+singleImageBackgroundNormalizationReceipt: same sub-branch only after transform
+gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
+gifTimingQuantizationReceipt: same sub-branch only after GIF reopen validation
 provider: imagegen
 adapterId:
 structureProfile:
@@ -343,6 +539,10 @@ provider_result_ref_missing
 source_hash_mismatch
 provider_animated_gif_source_mismatch
 gif_timeline_contract_mismatch
+corrective_single_image_evidence_mismatch
+checkerboard_background_pattern_unsupported
+checkerboard_foreground_contact_ambiguous
+checkerboard_alpha_normalization_validation_failed
 fixed_cell_contract_mismatch
 scale_lock_violation
 anchor_mapping_mismatch

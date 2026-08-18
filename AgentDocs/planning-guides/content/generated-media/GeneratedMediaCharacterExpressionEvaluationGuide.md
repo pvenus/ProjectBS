@@ -139,6 +139,15 @@ canvas is uniform `#F2EFE6` without radial gradient or edge darkening. Apply
 the v2 surface-detail fatal token independently from the existing background
 and proportion gates.
 
+An accepted corrective package may present a transparent final PNG produced by
+`border_exact_checkerboard_boundary_flood_v1`. Accept that final-background
+transition only after the package-level receipt proves exact RGB preservation,
+boundary-only 4-connected removal, unchanged dimensions, real alpha, and no
+ambiguous foreground contact. The evaluator still applies every open-ink
+proportion, detail, contour, palette, negative-space, identity/equipment and
+background gate to the normalized primary pixels. A receipt never excuses
+foreground loss, halo/vignette residue, or surface-detail failure.
+
 ## Result Contract
 
 Return `PASS`, `FAIL`, or `BLOCKED`, the exact profile key/hash, artifact and

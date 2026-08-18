@@ -104,6 +104,9 @@ acceptedResultCaptureRecordId: accepted-result branch only
 acceptedResultCaptureRecordPath: accepted-result branch only; exact project-relative record path
 acceptedResultCaptureRecordSha256: accepted-result branch only; exact raw Git-blob SHA-256
 acceptedResultCaptureReceiptSha256: accepted-result branch only; exact receipt.receiptPayloadSha256
+correctiveOutputEvidence: accepted corrective character_single_image sub-branch only; closed path-free projection below
+singleImageBackgroundNormalizationReceipt: same sub-branch only
+gifTimingQuantizationReceipt: exact six-frame 8fps coherent-master sub-branch only
 preservationRecordId:
 preservationPayloadHash:
 provider: imagegen
@@ -144,6 +147,41 @@ claim: not_claimed
 No prompt path, hash, prompt record, or reconstructed prose is allowed. The two
 closed shapes are mutually exclusive and the manifest preserves the capture's
 truth without inventing prompt identity.
+
+For an accepted corrective `character_single_image`, the unavailable-prompt
+shape remains unchanged and the manifest additionally carries exactly this
+path-free projection from the preservation record:
+
+```yaml
+correctiveOutputEvidence:
+  schemaVersion: generated_media_corrective_single_image_evidence_v1
+  authorityMain:
+  acceptedResultCaptureRecordId:
+  acceptedResultCaptureRecordSha256:
+  acceptedReferenceSha256:
+  basePromptRecordId:
+  basePromptRecordSha256:
+  correctivePromptSha256:
+  executionAttemptId:
+  sourceGenerationTaskId:
+  outputSha256:
+  width:
+  height:
+  colorMode: RGB | RGBA
+  providerCalled: true
+  submitCount: 1
+  retryCount: 0
+```
+
+It also carries the exact closed
+`generated_media_border_checkerboard_alpha_receipt_v1` for
+`border_exact_checkerboard_boundary_flood_v1`. Absolute output paths,
+fake generation/prompt identities, added submits, and unknown fields are
+forbidden. The accepted capture binds the original edit input; corrective
+evidence binds the one returned PNG; the normalization receipt binds only the
+derived alpha PNG. Missing/partial/mixed evidence is
+`evaluation_package_input_branch_incomplete`; disagreement is
+`evaluation_package_corrective_evidence_mismatch`.
 
 The four accepted-result fields and `acceptedPromptEvidence` are jointly
 required and all four strict prompt/generation fields are forbidden. The strict
@@ -191,6 +229,16 @@ There is no `generation_record` member or
 `generation/` directory. These evidence roles do not become prompt/generation
 records.
 
+The corrective-normalization sub-branch replaces that one-media projection
+with exactly three ordered PNG roles: `accepted_edit_input_png` (the immutable
+capture input), `corrective_source_png` (the exact provider-returned RGB PNG),
+and `normalized_primary_png` (the deterministic RGBA result evaluated for
+promotion). The first two are evidence-only. Their hashes and dimensions must
+match the capture/corrective evidence; the third must match the normalization
+receipt after hash. It additionally includes one
+`background_normalization_receipt` JSON member. No other source/derived image,
+retouch mask, or alternate is allowed.
+
 ## Closed Current Structure Profiles
 
 ### character_single_image_v2
@@ -204,6 +252,15 @@ hash, provider prose, and profile/planning evidence map. For
 `projectbs_character_animation_ready_minimal_ink_line@1.0.0`, package readiness
 requires the closed proportion, detail-density, color/value, and authoring-
 projection members; it never reconstructs them from pixels.
+
+For the accepted corrective checkerboard sub-branch, the evaluator selects only
+`normalized_primary_png` as visual source. Before scoring it replays or
+independently verifies the exact boundary-connected mask from the source and
+receipt, requires unchanged dimensions and RGB (`rgbChangedPixelCount=0`), real
+alpha, preservation of enclosed/nonmatching pixels, and no ambiguous outer-
+boundary foreground contact. Failure is
+`evaluation_package_background_normalization_mismatch`; it never repairs or
+retouches the image.
 
 ### icon_single_image_v2
 
@@ -248,6 +305,16 @@ Members must include the coherent master, the completed GIF, and contiguous PNG
 frames extracted by reopening that GIF. PNG count and order equal the approved
 final frame count. Per-frame crop, scale, silhouette-center, changed cell size,
 or unapproved vertical-motion removal blocks readiness.
+
+When the approved intent is exactly six frames at uniform 8 fps, the manifest
+may include the exact
+`generated_media_gif_8fps_centisecond_quantization_receipt_v1`. The only valid
+delays are `[12,13,12,13,12,13]` centiseconds, total 750 ms, with no zero delay
+and no loop extension. Reopened decoded frame pixel hashes, canvas, count and
+order must be unchanged. Evaluation treats this as canonical exact-average
+8fps quantization, not mixed-timing drift. Any other frame count, FPS, schedule,
+loop metadata, total, or pixel/canvas change remains
+`gif_timeline_contract_mismatch`; other timing contracts are unchanged.
 
 ## evaluation-request.json
 
@@ -386,6 +453,8 @@ evaluation_package_accepted_capture_missing
 evaluation_package_accepted_capture_hash_mismatch
 evaluation_package_accepted_capture_receipt_mismatch
 evaluation_package_accepted_prompt_evidence_mismatch
+evaluation_package_corrective_evidence_mismatch
+evaluation_package_background_normalization_mismatch
 ```
 
 Validate exactly one current version-chain branch, `provider=imagegen`, one closed profile,

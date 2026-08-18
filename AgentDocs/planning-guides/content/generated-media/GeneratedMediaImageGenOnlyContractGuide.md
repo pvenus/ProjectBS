@@ -1957,6 +1957,15 @@ evaluation package and cannot supply a guessed pass.
 
 ### 8.5 Preservation Extension
 
+The accepted-result `character_single_image` corrective sub-branch is closed by
+GeneratedMediaPreservationPackagingGuide.md. It may bind the official one-
+submit/zero-retry corrective terminal receipt to the existing accepted capture
+without inventing generation-v2, then apply only
+`border_exact_checkerboard_boundary_flood_v1`. The exact six-frame uniform-8fps
+coherent-master GIF exception uses only `[12,13,12,13,12,13]` centiseconds,
+750ms total and no loop extension. Neither exception changes provider-native,
+strict generation, other timing, or promotion contracts.
+
 ```text
 missing_planning_handoff_v2
 missing_routing_v2
@@ -1977,6 +1986,10 @@ source_not_original
 source_hash_mismatch
 provider_animated_gif_source_mismatch
 gif_timeline_contract_mismatch
+corrective_single_image_evidence_mismatch
+checkerboard_background_pattern_unsupported
+checkerboard_foreground_contact_ambiguous
+checkerboard_alpha_normalization_validation_failed
 extraction_failed
 fixed_cell_contract_mismatch
 scale_lock_violation

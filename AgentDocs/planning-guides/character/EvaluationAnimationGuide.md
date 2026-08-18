@@ -76,6 +76,19 @@ prompt, generation, or download record. The package-bound reference and planned
 action/direction evidence replace `referenceRotationPath` and other legacy path
 inputs; missing package evidence remains `insufficient_evidence`.
 
+For an exact six-frame package whose approved timing intent is uniform 8 fps,
+GIF centisecond quantization is valid only with the sealed
+`generated_media_gif_8fps_centisecond_quantization_receipt_v1`. The ordered
+delay schedule must be `[12,13,12,13,12,13]` centiseconds (120/130 ms
+alternating), total 750 ms, no zero-delay frame, and no loop extension. Six
+frames over 750 ms is exact average 8 fps, so this schedule satisfies the
+uniform timing intent and is not penalized as arbitrary mixed timing. Reopened
+before/after decoded frame pixel hashes, 640x512 canvas, frame count/order,
+pelvis/baseline and clipping/fragment state must be unchanged. Every other
+mixed schedule, frame count/FPS, total, loop representation, or pixel/canvas
+change remains `gif_timeline_contract_mismatch`. Legacy and provider-native
+timing rules are unchanged.
+
 ## 3. Inputs and Preconditions
 
 Required:
