@@ -62,7 +62,9 @@ function validateManifest(payload) {
   const hasStrict = strictKeys.some((key) => Object.hasOwn(payload, key));
   const hasAccepted = acceptedKeys.some((key) => Object.hasOwn(payload, key));
   if (hasStrict && hasAccepted) throw new Error("evaluation_package_input_branch_conflict");
-  const branchKeys = hasAccepted ? acceptedKeys : strictKeys;
+  const branchKeys = hasAccepted
+    ? [...acceptedKeys, ...(payload.assetType === "character_single_image"
+      ? ["acceptedPlanningEvidence"] : [])] : strictKeys;
   if (branchKeys.some((key) => !Object.hasOwn(payload, key)))
     throw new Error("evaluation_package_input_branch_incomplete");
   const allowed = new Set([...commonKeys, ...branchKeys,
@@ -87,6 +89,21 @@ function validateManifest(payload) {
       });
       assert.equal(roles.includes("accepted_provider_prompt"), false);
       assert.equal(roles.filter((x) => x === "accepted_project_candidate_png").length, 1);
+      assert.deepEqual(payload.acceptedPlanningEvidence, {
+        source: "accepted_capture_handoff_lineage",
+        planningHandoffPath:
+          "AgentDocs/planning-data/character/generated-media-handoffs/v2/character.seojin.1/gmplan2.character_single_image.character.seojin.1.e5537d6487d06b88f452.character_single_image.json",
+        planningHandoffSha256: "9".repeat(64),
+        planningSnapshotHash: payload.planningSnapshotHash,
+        resolutionMode: "origin_main_reachable_git_blob_by_path_and_sha256",
+        sourcePlanningFiles: [{
+          path: "AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json",
+          role: "canonical_character_planning",
+          sha256:
+            "85ef114f2db0311f8c672af834b8d63644a5d656f6e639c8d6f2126b56a31b47",
+          gitBlobOid: "25a7962425fd63d874676d445cd222a28af4fc13",
+        }],
+      });
     }
     for (const role of ["accepted_capture_record", "accepted_capture_receipt"])
       assert.equal(roles.filter((x) => x === role).length, 1);
@@ -166,6 +183,21 @@ const acceptedStill = {
     "AgentDocs/planning-data/generated-media-accepted-result-capture/v1/character_single_image/character.seojin.1/gmaccept1.character_single_image.character.seojin.1.vector.json",
   acceptedResultCaptureRecordSha256: "6".repeat(64),
   acceptedResultCaptureReceiptSha256: "7".repeat(64),
+  acceptedPlanningEvidence: {
+    source: "accepted_capture_handoff_lineage",
+    planningHandoffPath:
+      "AgentDocs/planning-data/character/generated-media-handoffs/v2/character.seojin.1/gmplan2.character_single_image.character.seojin.1.e5537d6487d06b88f452.character_single_image.json",
+    planningHandoffSha256: "9".repeat(64),
+    planningSnapshotHash: "e5537d6487d06b88f452".padEnd(64, "0"),
+    resolutionMode: "origin_main_reachable_git_blob_by_path_and_sha256",
+    sourcePlanningFiles: [{
+      path: "AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json",
+      role: "canonical_character_planning",
+      sha256:
+        "85ef114f2db0311f8c672af834b8d63644a5d656f6e639c8d6f2126b56a31b47",
+      gitBlobOid: "25a7962425fd63d874676d445cd222a28af4fc13",
+    }],
+  },
   members: [
     member("capture-record", "accepted_capture_record", "6".repeat(64)),
     member("capture-receipt", "accepted_capture_receipt", "7".repeat(64)),
@@ -216,6 +248,13 @@ assert.throws(() => validateManifest({ ...accepted, inventedPromptRecordId: "fak
 assert.throws(() => validateManifest({ ...acceptedStill,
   animationRequestId: "forbidden-for-still" }),
   /evaluation_package_unknown_branch_field/);
+const missingPlanningEvidence = structuredClone(acceptedStill);
+delete missingPlanningEvidence.acceptedPlanningEvidence;
+assert.throws(() => validateManifest(missingPlanningEvidence),
+  /evaluation_package_input_branch_incomplete/);
+assert.throws(() => validateManifest({ ...accepted,
+  acceptedPlanningEvidence: acceptedStill.acceptedPlanningEvidence }),
+  /evaluation_package_unknown_branch_field/);
 assert.throws(() => validateManifest({ ...acceptedStill,
   members: [...acceptedStill.members,
     member("provider-prompt", "accepted_provider_prompt", "8".repeat(64))] }));
@@ -240,6 +279,99 @@ for (const token of ["preservation_input_branch_conflict",
   assert.match(preservation, new RegExp(token));
   assert.match(preservationPrompt, new RegExp(token));
 }
+
+function resolveAcceptedStillPlanning({ capture, routing, handoff,
+  reachableBlobs }) {
+  if (capture.requestId !== routing.requestId
+      || capture.routingRecordSha256 !== routing.rawSha256
+      || capture.planningSnapshotHash !== routing.planningSnapshotHash
+      || routing.planningHandoffPath !== handoff.path
+      || handoff.requestId !== capture.requestId
+      || handoff.planningSnapshotHash !== capture.planningSnapshotHash)
+    throw new Error("accepted_result_planning_lineage_mismatch");
+  const sourcePlanningFiles = handoff.sourcePlanningFiles.map((entry) => {
+    const matches = reachableBlobs.filter((blob) => blob.reachableFromOriginMain
+      && blob.path === entry.path && blob.sha256 === entry.sha256);
+    const distinct = [...new Set(matches.map((blob) => blob.gitBlobOid))];
+    if (distinct.length === 0)
+      throw new Error("accepted_result_historical_planning_unresolvable");
+    if (distinct.length !== 1)
+      throw new Error("accepted_result_historical_planning_ambiguous");
+    return { ...entry, gitBlobOid: distinct[0] };
+  });
+  return {
+    source: "accepted_capture_handoff_lineage",
+    planningHandoffPath: handoff.path,
+    planningHandoffSha256: handoff.sha256,
+    planningSnapshotHash: handoff.planningSnapshotHash,
+    resolutionMode: "origin_main_reachable_git_blob_by_path_and_sha256",
+    sourcePlanningFiles,
+  };
+}
+
+const historicalPath =
+  "AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json";
+const historicalSha =
+  "85ef114f2db0311f8c672af834b8d63644a5d656f6e639c8d6f2126b56a31b47";
+const currentLaterSha =
+  "73c97d17cce2c691c58928ede2f1b433d15ce0e39c30ac53819ac35084b5669e";
+const lineageInput = {
+  capture: { requestId: acceptedStill.requestId,
+    planningSnapshotHash: acceptedStill.planningSnapshotHash,
+    routingRecordSha256: "a".repeat(64) },
+  routing: { requestId: acceptedStill.requestId,
+    rawSha256: "a".repeat(64),
+    planningSnapshotHash: acceptedStill.planningSnapshotHash,
+    planningHandoffPath:
+      acceptedStill.acceptedPlanningEvidence.planningHandoffPath },
+  handoff: { path: acceptedStill.acceptedPlanningEvidence.planningHandoffPath,
+    sha256: "9".repeat(64), requestId: acceptedStill.requestId,
+    planningSnapshotHash: acceptedStill.planningSnapshotHash,
+    sourcePlanningFiles: [{ path: historicalPath,
+      role: "canonical_character_planning", sha256: historicalSha }] },
+  reachableBlobs: [
+    { path: historicalPath, sha256: currentLaterSha,
+      gitBlobOid: "current-later-blob", reachableFromOriginMain: true },
+    { path: historicalPath, sha256: historicalSha,
+      gitBlobOid: "25a7962425fd63d874676d445cd222a28af4fc13",
+      reachableFromOriginMain: true },
+    { path: historicalPath, sha256: historicalSha,
+      gitBlobOid: "local-only-must-not-resolve", reachableFromOriginMain: false },
+  ],
+};
+assert.deepEqual(resolveAcceptedStillPlanning(lineageInput),
+  acceptedStill.acceptedPlanningEvidence); // current drift is non-blocking
+assert.throws(() => resolveAcceptedStillPlanning({ ...lineageInput,
+  reachableBlobs: lineageInput.reachableBlobs.filter((x) =>
+    x.sha256 !== historicalSha || !x.reachableFromOriginMain) }),
+  /accepted_result_historical_planning_unresolvable/);
+assert.throws(() => resolveAcceptedStillPlanning({ ...lineageInput,
+  capture: { ...lineageInput.capture, planningSnapshotHash: "0".repeat(64) } }),
+  /accepted_result_planning_lineage_mismatch/);
+assert.throws(() => resolveAcceptedStillPlanning({ ...lineageInput,
+  routing: { ...lineageInput.routing, rawSha256: "b".repeat(64) } }),
+  /accepted_result_planning_lineage_mismatch/);
+assert.throws(() => resolveAcceptedStillPlanning({ ...lineageInput,
+  reachableBlobs: [...lineageInput.reachableBlobs,
+    { path: historicalPath, sha256: historicalSha,
+      gitBlobOid: "distinct-collision-blob", reachableFromOriginMain: true }] }),
+  /accepted_result_historical_planning_ambiguous/);
+
+for (const token of ["accepted_result_planning_lineage_mismatch",
+  "accepted_result_historical_planning_unresolvable",
+  "accepted_result_historical_planning_ambiguous"]) {
+  assert.match(preservation, new RegExp(token));
+  assert.match(preservationPrompt, new RegExp(token));
+}
+
+const validateStrictPlanning = (currentRawSha256, expectedRawSha256) => {
+  if (currentRawSha256 !== expectedRawSha256)
+    throw new Error("planning_snapshot_mismatch");
+  return true;
+};
+assert.throws(() => validateStrictPlanning(currentLaterSha, historicalSha),
+  /planning_snapshot_mismatch/); // strict generation behavior is unchanged
+assert.equal(validateStrictPlanning(historicalSha, historicalSha), true);
 
 console.log({ acceptedManifestPayloadHash: validateManifest(accepted),
   acceptedStillManifestPayloadHash: validateManifest(acceptedStill),

@@ -98,6 +98,7 @@ promptRecordSha256: strict branch only
 generationRecordId: strict branch only
 generationRecordSha256: strict branch only
 acceptedPromptEvidence: accepted-result branch only; exact closed projection below
+acceptedPlanningEvidence: required only for accepted-result character_single_image; exact preservation projection
 acceptedResultCaptureRecordId: accepted-result branch only
 acceptedResultCaptureRecordPath: accepted-result branch only; exact project-relative record path
 acceptedResultCaptureRecordSha256: accepted-result branch only; exact raw Git-blob SHA-256
@@ -149,6 +150,16 @@ branch requires its existing four fields and forbids every accepted-result
 field. Mixed, partial, or unknown branch fields fail before
 `manifestPayloadHash` calculation.
 
+For accepted-result `character_single_image`, the manifest additionally copies
+the exact closed `acceptedPlanningEvidence` from the sealed preservation record.
+Its handoff path/raw SHA, snapshot hash, resolution mode, and ordered
+path/role/SHA/Git-blob projections must match the packaged `planning/` bytes.
+The evaluator re-hashes those packaged bytes; it does not compare them to a
+later current checkout. This field is forbidden in the strict and accepted
+animation branches. Missing, mixed, reconstructed, local-only, or unreachable
+planning evidence is `evaluation_package_input_branch_incomplete` or
+`accepted_result_planning_lineage_mismatch` before scoring.
+
 The accepted capture record path/raw hash must match its canonical index. The
 receipt must be the closed `generated_media_accepted_result_capture_receipt_v1`
 for that exact record/path/hash, have a valid recomputed `receiptPayloadSha256`,
@@ -165,6 +176,9 @@ the copied planning snapshot, conditional recovered provider prompt, accepted
 capture record, capture receipt, preservation record, original media and
 extracted members must hash-match the accepted capture and preservation
 identities. The unavailable-prompt shape requires no prompt copy.
+For accepted-result `character_single_image`, `planning/` contains the exact
+historical Git blobs named by `acceptedPlanningEvidence`, not later revisions at
+the same project-relative paths.
 
 Accepted-result animation `members` include exactly one
 `accepted_provider_prompt`, one `accepted_capture_record`, one

@@ -75,6 +75,54 @@ For a `character_single_image` capture whose historical prompt is unavailable,
 path, prompt-record identity, or reconstructed prose. The two prompt-evidence
 shapes are mutually exclusive.
 
+### Accepted still historical planning resolution
+
+An accepted-result `character_single_image` does not require a mutable current
+planning source file to remain byte-identical to the snapshot that the capture
+already binds. The producer derives this closed `acceptedPlanningEvidence`
+object; callers do not supply or repair it:
+
+```yaml
+source: accepted_capture_handoff_lineage
+planningHandoffPath: exact path from the hash-verified routing authoringHandoff
+planningHandoffSha256: raw SHA-256 of the resolved immutable handoff blob
+planningSnapshotHash: exact capture/routing/handoff value
+resolutionMode: origin_main_reachable_git_blob_by_path_and_sha256
+sourcePlanningFiles:
+  - path: exact handoff sourcePlanningFiles order and path
+    role: exact handoff role
+    sha256: exact handoff raw-byte SHA-256
+    gitBlobOid: exact Git blob object ID containing those bytes
+```
+
+Resolution is deterministic and read-only:
+
+1. Re-hash the capture record/index/receipt, then resolve the canonical routing
+   record by its capture-bound ID/path/raw SHA. It must be reachable from the
+   freshly fetched `origin/main` history.
+2. From that routing record only, take `planningHandoffPath`, `requestId`,
+   `planningSnapshotHash`, and ordered `sourcePlanningFiles`. Resolve exactly one
+   distinct canonical handoff blob at that path from commits reachable from
+   fetched `origin/main`; its closed schema and snapshot projection must match.
+3. For each ordered source entry, accept the current Git blob when its raw
+   SHA-256 matches. Otherwise search only commits reachable from fetched
+   `origin/main` at that same path and select the one distinct Git blob whose raw
+   SHA-256 equals the handoff value. Repeated commits naming the same blob are
+   one resolution.
+4. Materialize those exact blob bytes into `planning/` and hash them again.
+   Never substitute the current checkout, an unreachable/local-only commit,
+   another path, a semantically similar document, or reconstructed content.
+
+A later current-file revision is expected lineage drift, not
+`planning_snapshot_mismatch`, and is excluded from preservation identity. If
+the capture/routing/handoff chain disagrees, return
+`accepted_result_planning_lineage_mismatch`. If no exact reachable blob exists,
+return `accepted_result_historical_planning_unresolvable`; if more than one
+distinct blob satisfies a supposedly single identity, return
+`accepted_result_historical_planning_ambiguous`. No preservation member is
+written in any failure case. Strict generation and accepted animation
+resolution remain unchanged.
+
 The capture receipt must be a valid `captured` or `reused_identical` receipt,
 name the same capture record/path/raw SHA and request/conditional animation
 identity, retain `providerCalled=false` and capture submit/retry zero, and
@@ -195,6 +243,7 @@ planningSnapshotHash:
 routingRecordId:
 promptRecordId: strict branch only
 acceptedPromptEvidence: accepted-result branch only; mutually exclusive with promptRecordId
+acceptedPlanningEvidence: required only for accepted-result character_single_image; forbidden for strict and animation
 generationRecordId: strict branch only
 generationRecordSha256: strict branch only
 acceptedResultCaptureRecordId: mutually exclusive alternative
@@ -232,6 +281,7 @@ planningSnapshotHash:
 routingRecordId:
 promptRecordId: strict branch only
 acceptedPromptEvidence: accepted-result branch only; mutually exclusive with promptRecordId
+acceptedPlanningEvidence: required only for accepted-result character_single_image; forbidden for strict and animation
 generationRecordId: strict branch only
 generationRecordSha256: strict branch only
 acceptedResultCaptureRecordId: mutually exclusive alternative
@@ -283,6 +333,9 @@ accepted_result_prompt_evidence_mismatch
 preservation_input_branch_conflict
 preservation_input_branch_incomplete
 preservation_input_unknown_field
+accepted_result_planning_lineage_mismatch
+accepted_result_historical_planning_unresolvable
+accepted_result_historical_planning_ambiguous
 generation_record_hash_mismatch
 unsupported_provider
 provider_result_ref_missing
@@ -322,4 +375,7 @@ evaluation request. It never returns an evaluation verdict.
   never asserts past gate success, and cannot authorize promotion;
 - accepted-result `character_single_image` preserves exactly one canonical PNG
   whose bytes equal the capture source and rejects any animation/still mixture;
+- accepted-result `character_single_image` packages the exact capture-bound
+  historical planning Git blobs even when later unrelated planning changed the
+  current path; unreachable, missing, ambiguous, or reconstructed evidence fails;
 - no provider/evaluation/promotion/Git stage executes.
