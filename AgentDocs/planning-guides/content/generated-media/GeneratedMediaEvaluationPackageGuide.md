@@ -105,8 +105,9 @@ acceptedResultCaptureRecordPath: accepted-result branch only; exact project-rela
 acceptedResultCaptureRecordSha256: accepted-result branch only; exact raw Git-blob SHA-256
 acceptedResultCaptureReceiptSha256: accepted-result branch only; exact receipt.receiptPayloadSha256
 correctiveOutputEvidence: accepted corrective character_single_image sub-branch only; closed path-free projection below
-singleImageBackgroundNormalizationReceipt: same sub-branch only
+singleImageBackgroundNormalizationReceipt: same sub-branch only; exact closed v1 or source-bound v2 receipt
 gifTimingQuantizationReceipt: exact six-frame 8fps coherent-master sub-branch only
+gifBoundaryChromaNormalizationReceipt: exact accepted GIF source-bound v2 sub-branch only
 preservationRecordId:
 preservationPayloadHash:
 provider: imagegen
@@ -182,6 +183,18 @@ evidence binds the one returned PNG; the normalization receipt binds only the
 derived alpha PNG. Missing/partial/mixed evidence is
 `evaluation_package_input_branch_incomplete`; disagreement is
 `evaluation_package_corrective_evidence_mismatch`.
+
+For corrective source SHA
+`4498817999fb28323eb85f62afefcc33027341640b1a7ce990a3609b32eaeb7e`,
+the package may instead carry the exact
+`generated_media_border_palette_checkerboard_alpha_receipt_v2`. It must bind
+`plan.algorithmId=border_frozen_palette_boundary_flood_v2` and
+the 64-entry frozen palette and its SHA, 5,116-pixel ordered boundary sequence
+and histogram hashes, exact four corners, registered covariance signature,
+4-connected mask hash, protected noncandidate RGB hash/bbox, and normalized
+row-major RGBA pixel hash from the published plan. The v1 and v2 receipt shapes
+are mutually exclusive. Unknown, mixed, source-drifted, or reconstructed
+evidence is `evaluation_package_background_normalization_mismatch`.
 
 The four accepted-result fields and `acceptedPromptEvidence` are jointly
 required and all four strict prompt/generation fields are forbidden. The strict
@@ -315,6 +328,21 @@ order must be unchanged. Evaluation treats this as canonical exact-average
 8fps quantization, not mixed-timing drift. Any other frame count, FPS, schedule,
 loop metadata, total, or pixel/canvas change remains
 `gif_timeline_contract_mismatch`; other timing contracts are unchanged.
+
+For accepted GIF SHA
+`8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621`,
+the package may carry the exact
+`generated_media_gif_observed_boundary_chroma_receipt_v2`. Every frame must
+bind `plan.algorithmId=gif_exact_uniform_boundary_color_flood_v2` and
+show 2,300/2,300 outer-boundary pixels and all four corners at exact RGB
+`(240,236,228)`, then clear alpha only for boundary-connected exact matches.
+The evaluator verifies the published boundary sequence hashes, six ordered
+source/mask/normalized pixel evidence objects and their JCS hash, unchanged
+nonmatching pixels/canvas/order/pelvis/baseline/clipping/fragments, exact
+`[12,13,12,13,12,13]` centisecond timing, total 750 ms, one-shot/no-loop, and
+GIF close/reopen plus PNG extraction. It never substitutes `#F2EFE6`, derives
+a different color, or applies this receipt to another source. Drift is
+`evaluation_package_gif_boundary_normalization_mismatch`.
 
 ## evaluation-request.json
 
@@ -455,6 +483,7 @@ evaluation_package_accepted_capture_receipt_mismatch
 evaluation_package_accepted_prompt_evidence_mismatch
 evaluation_package_corrective_evidence_mismatch
 evaluation_package_background_normalization_mismatch
+evaluation_package_gif_boundary_normalization_mismatch
 ```
 
 Validate exactly one current version-chain branch, `provider=imagegen`, one closed profile,

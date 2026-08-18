@@ -1966,6 +1966,17 @@ coherent-master GIF exception uses only `[12,13,12,13,12,13]` centiseconds,
 750ms total and no loop extension. Neither exception changes provider-native,
 strict generation, other timing, or promotion contracts.
 
+Two source-bound v2 preservation exceptions are additionally closed by that
+guide. SHA `4498817999fb28323eb85f62afefcc33027341640b1a7ce990a3609b32eaeb7e`
+may use only `border_frozen_palette_boundary_flood_v2` with its exact registered
+64-color boundary fixture. Accepted GIF SHA
+`8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621`
+may use only `gif_exact_uniform_boundary_color_flood_v2`, whose observed color
+is exact `(240,236,228)` at 2,300/2,300 boundary pixels in every frame. Both
+clear only boundary-connected exact matches, preserve every nonmatching pixel,
+and fail on source/evidence drift. They do not alter v1, strict, provider-native
+or any other source contract.
+
 ```text
 missing_planning_handoff_v2
 missing_routing_v2
@@ -1990,12 +2001,20 @@ corrective_single_image_evidence_mismatch
 checkerboard_background_pattern_unsupported
 checkerboard_foreground_contact_ambiguous
 checkerboard_alpha_normalization_validation_failed
+border_palette_source_fixture_mismatch
+border_palette_checkerboard_coherence_failed
+border_palette_foreground_contact_detected
+border_palette_normalization_validation_failed
 extraction_failed
 fixed_cell_contract_mismatch
 scale_lock_violation
 anchor_mapping_mismatch
 vertical_motion_policy_violation
 chroma_key_scope_violation
+gif_observed_boundary_source_fixture_mismatch
+gif_observed_boundary_color_ambiguous
+gif_observed_boundary_corner_mismatch
+gif_observed_boundary_normalization_validation_failed
 gif_first_sequence_violation
 frame_order_mismatch
 member_hash_mismatch

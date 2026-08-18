@@ -89,6 +89,20 @@ mixed schedule, frame count/FPS, total, loop representation, or pixel/canvas
 change remains `gif_timeline_contract_mismatch`. Legacy and provider-native
 timing rules are unchanged.
 
+For accepted GIF SHA
+`8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621`,
+the sealed package may additionally contain
+`generated_media_gif_observed_boundary_chroma_receipt_v2`. Accept transparency
+only when all six frames have exact `(240,236,228)` at all 2,300 outer-boundary
+pixels and four corners, the receipt proves 4-connected exact-match removal
+only, and all nonmatching pixels plus geometry/order/pelvis/baseline/clipping/
+fragment state remain unchanged. The same receipt must retain the canonical
+`[12,13,12,13,12,13]` schedule, 750 ms total and one-shot/no-loop metadata.
+No `#F2EFE6` substitution, inferred color, threshold, or other source is valid.
+Receipt/source/mask/frame drift is
+`evaluation_package_gif_boundary_normalization_mismatch`; existing animation
+and provider-native rules are unchanged.
+
 ## 3. Inputs and Preconditions
 
 Required:

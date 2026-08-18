@@ -299,6 +299,129 @@ alpha, dimension drift, encoder/receipt mismatch, ink/wash/effect erosion, or
 arbitrary threshold fails `checkerboard_alpha_normalization_validation_failed`
 and publishes no record/package.
 
+### Evidence-bound border-palette normalization v2
+
+The v1 two-color algorithm remains unchanged. One additive v2 fixture is
+authorized only for source SHA-256
+`4498817999fb28323eb85f62afefcc33027341640b1a7ce990a3609b32eaeb7e`.
+No other source may select this fixture or derive a look-alike palette.
+
+The closed plan is `generated_media_border_palette_checkerboard_alpha_plan_v2`
+with `algorithmId=border_frozen_palette_boundary_flood_v2`. It contains exactly
+`schemaVersion`, `algorithmId`, `sourceSha256`, `width`, `height`, `colorMode`,
+`outerBoundaryPixelCount`, `candidatePalette`, `candidatePaletteCount`,
+`candidatePaletteSha256`, `outerBoundaryHistogramSha256`,
+`outerBoundarySequenceSha256`, `cornerRgbs`, `periodicCoherence`, `colorMatch`,
+`connectivity`, `transparentRgbPolicy`, `alphaForRemovedBackground`,
+`alphaForPreservedPixels`, `expectedRemovedPixelCount`,
+`expectedCandidatePixelCount`, `expectedCandidatePreservedPixelCount`,
+`expectedNoncandidatePixelCount`, `expectedNoncandidateRgbSha256`,
+`expectedProtectedNoncandidateBBox`, `expectedAlphaMaskSha256`,
+`expectedNormalizedRgbaPixelSha256`, `pngEncoderName`, `pngEncoderVersion`,
+`pngCompressionLevel`, `pngFilter`, `pngBitDepth`, `pngColorType`, and
+`pngInterlace`. The exact fixture values are:
+
+```yaml
+sourceSha256: 4498817999fb28323eb85f62afefcc33027341640b1a7ce990a3609b32eaeb7e
+width: 1024
+height: 1536
+colorMode: RGB
+outerBoundaryPixelCount: 5116
+candidatePaletteCount: 64
+candidatePaletteSha256: e1774764cecac66896a991a45d3722f8e495a1e25a02eefdf8868820a3e0e37f
+outerBoundaryHistogramSha256: 385c8ad653886c902c3710934d43fd40caba1ebfb89294fd00a585395f0193bc
+outerBoundarySequenceSha256: 1c5592f50cba7a68799cb8de2a14c1694e1478970f85af6efd71f7ed444af46c
+cornerRgbs: [[253,253,253],[254,253,253],[253,253,253],[251,251,251]]
+periodicCoherence:
+  rule: exact_rgb_sum_covariance_signature_v1
+  sides: [bottom, right]
+  lagMinimum: 2
+  lagMaximum: 64
+  uniqueNegativeCovarianceLag: 29
+  uniquePositiveCovarianceLag: 57
+  bottomNegativeScore: -95259545
+  bottomPositiveScore: 90985876
+  rightNegativeScore: -256257932
+  rightPositiveScore: 247076858
+  signatureSha256: 2388f74d059d4b5d019a011839912b64425bff8169bb2a77f8367e0fce4e9e92
+colorMatch: exact_rgb
+connectivity: 4
+transparentRgbPolicy: retain_source_rgb
+alphaForRemovedBackground: 0
+alphaForPreservedPixels: 255
+expectedRemovedPixelCount: 1178688
+expectedCandidatePixelCount: 1180163
+expectedCandidatePreservedPixelCount: 1475
+expectedNoncandidatePixelCount: 392701
+expectedNoncandidateRgbSha256: 6e54f9cbaf56be626bae822ae1865fcfc7c8bf8c11ef61403fc1560662fe99d6
+expectedProtectedNoncandidateBBox: [1,2,1023,1535]
+expectedAlphaMaskSha256: f72eca08c2210554ed0db80959ca70b8e793a0b2a88aa3378fb928948441aebb
+expectedNormalizedRgbaPixelSha256: 75a4a09ff279776eed3fe582a7f5cd22ebec2a0df636f0106fdf172255ace3ea
+```
+
+`candidatePalette` is the lexicographically sorted unique RGB set from all
+5,116 outer-boundary pixels. Its exact 64 values are:
+
+```json
+[[246,245,245],[246,246,245],[246,246,246],[246,246,247],[246,247,246],[246,247,247],[246,248,246],[246,248,247],[247,246,246],[247,246,247],[247,247,246],[247,247,247],[247,247,248],[247,248,246],[247,248,247],[247,248,248],[248,247,246],[248,247,247],[248,247,248],[248,248,246],[248,248,247],[248,248,248],[249,248,248],[249,249,248],[249,249,249],[249,249,250],[249,250,249],[250,249,249],[250,250,250],[251,250,250],[251,250,251],[251,251,250],[251,251,251],[252,251,252],[252,252,251],[252,252,252],[252,252,253],[252,253,252],[252,253,253],[253,252,252],[253,252,253],[253,253,252],[253,253,253],[253,253,254],[253,253,255],[253,254,253],[253,254,254],[253,254,255],[253,255,253],[253,255,255],[254,253,253],[254,253,254],[254,253,255],[254,254,253],[254,254,254],[254,254,255],[254,255,254],[254,255,255],[255,253,254],[255,253,255],[255,254,254],[255,254,255],[255,255,254],[255,255,255]]
+```
+
+Boundary order is top left-to-right, right top+1-to-bottom, bottom right-1-to-
+left, then left bottom-1-to-top+1; corners occur once. Palette SHA hashes the
+JCS array above. Histogram SHA hashes the JCS array of
+`[[r,g,b],count]` entries sorted by RGB. Boundary-sequence SHA hashes the raw
+ordered RGB bytes with no framing.
+
+For periodic coherence, project each exact RGB to integer `r+g+b`. For every
+lag 2..64 on the full bottom and right boundary sequences, compute
+`n*sum(a[i]*b[i])-sum(a)*sum(b)` with no floating point. The unique minimum and
+maximum lags, four extreme scores, and JCS SHA-256 of the two ordered score
+arrays must match the fixture. The hashed object is exactly
+`{"lagMin":2,"lagMax":64,"scores":{"bottom":[scores for lags 2..64],"right":[scores for lags 2..64]}}`
+under JCS key ordering. All four exact corners must match `cornerRgbs`
+and belong to the frozen palette. The exact source, boundary sequence,
+histogram, palette, corners, and periodic signature jointly attest that this
+registered boundary is reviewed generated checkerboard background only. Any
+drift or outer-border foreground/silhouette contact is fail-closed; it is never
+reclassified by tolerance or visual judgment.
+
+Seed all outer-boundary pixels whose exact RGB is in the frozen palette and
+4-connect only through pixels whose exact RGB is in that palette. Clear alpha
+only for this reachable set. Do not use tolerance, thresholds, erosion,
+dilation, interior seeds, manual masks, or semantic repair. Preserve every
+other RGB and alpha=255. Recompute the exact counts, protected noncandidate RGB
+hash/bbox, mask hash, dimensions, and normalized row-major RGBA pixel hash
+above before encoding. The encoder fields close the output PNG bytes; its raw
+file SHA-256 is recorded after encode and reopen.
+
+The noncandidate RGB hash concatenates row-major source RGB bytes only where
+the source RGB is outside the frozen palette. The bbox is
+`[minX,minY,maxXExclusive,maxYExclusive]` over that same protected set. The
+alpha-mask hash uses one row-major byte per pixel (`1`=cleared reachable pixel,
+`0`=preserved); normalized RGBA hash uses row-major `R,G,B,A` bytes.
+
+The closed
+`generated_media_border_palette_checkerboard_alpha_receipt_v2` contains exactly
+`schemaVersion`, `plan`, `beforeSha256`, `afterSha256`, `candidatePalette`,
+`candidatePaletteCount`, `candidatePaletteSha256`,
+`outerBoundaryHistogramSha256`, `outerBoundarySequenceSha256`, `cornerRgbs`,
+`periodicSignatureSha256`, `removedPixelCount`, `candidatePixelCount`,
+`candidatePreservedPixelCount`, `noncandidatePixelCount`,
+`noncandidateRgbSha256Before`, `noncandidateRgbSha256After`,
+`protectedNoncandidateBBoxBefore`, `protectedNoncandidateBBoxAfter`,
+`alphaMaskSha256`, `normalizedRgbaPixelSha256`, `dimensionsUnchanged`,
+`alphaChannelPresent`, `foregroundBoundaryContactDetected`, and `status`.
+Every value must equal the plan, both noncandidate hashes/bboxes must be equal,
+the booleans must be `true,true,false`, and status must be `valid`.
+
+Source/palette/sequence/corner drift is
+`border_palette_source_fixture_mismatch`; a nonperiodic signature is
+`border_palette_checkerboard_coherence_failed`; detected boundary foreground is
+`border_palette_foreground_contact_detected`; and any noncandidate, bbox, mask,
+RGBA, dimension, alpha, encoder, or receipt drift is
+`border_palette_normalization_validation_failed`. V1, strict generation, and
+all nonregistered sources remain unchanged.
+
 ## Animation Packaging Sequence
 
 This sequence applies to new records with
@@ -417,6 +540,96 @@ schedule, total, zero delay, loop representation, arbitrary mixed timing, pixel
 or canvas change remains `gif_timeline_contract_mismatch`. Existing
 provider-native and other timing contracts are unchanged.
 
+### Accepted GIF observed-boundary chroma normalization v2
+
+The v1 declared-color rule and provider-native modes remain unchanged. One
+additive accepted-source fixture is authorized only for GIF SHA-256
+`8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621`.
+Its closed `generated_media_gif_observed_boundary_chroma_plan_v2` contains
+exactly `schemaVersion`, `algorithmId`, `sourceSha256`, `width`, `height`,
+`frameCount`, `outerBoundaryPixelCountPerFrame`, `candidateDerivation`,
+`requiredBoundaryMatchNumerator`, `requiredBoundaryMatchDenominator`,
+`cornerPolicy`, `removableRgb`, `boundarySequenceSha256s`, `colorMatch`,
+`connectivity`, `transparentRgbPolicy`, `alphaForRemovedBackground`,
+`alphaForPreservedPixels`, `sourceDelayMilliseconds`,
+`targetDelayCentiseconds`, `targetDelayMilliseconds`,
+`targetTotalDurationMilliseconds`, `playbackMode`, `loopExtensionPresent`,
+`expectedFrameEvidenceSha256`, and `decodedPixelPolicy`.
+
+```yaml
+schemaVersion: generated_media_gif_observed_boundary_chroma_plan_v2
+algorithmId: gif_exact_uniform_boundary_color_flood_v2
+sourceSha256: 8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621
+width: 640
+height: 512
+frameCount: 6
+outerBoundaryPixelCountPerFrame: 2300
+candidateDerivation: exact_unique_dominant_full_outer_boundary_per_frame
+requiredBoundaryMatchNumerator: 2300
+requiredBoundaryMatchDenominator: 2300
+cornerPolicy: all_four_each_frame_exact_match
+removableRgb: [240,236,228]
+boundarySequenceSha256s: [952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a,952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a,952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a,952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a,952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a,952ce89392b26e09831f8c16c59094ae3a34278567dc12cf1944eb22d734e45a]
+colorMatch: exact_rgb
+connectivity: 4
+transparentRgbPolicy: retain_source_rgb
+alphaForRemovedBackground: 0
+alphaForPreservedPixels: 255
+sourceDelayMilliseconds: [180,100,70,50,70,170]
+targetDelayCentiseconds: [12,13,12,13,12,13]
+targetDelayMilliseconds: [120,130,120,130,120,130]
+targetTotalDurationMilliseconds: 750
+playbackMode: one_shot
+loopExtensionPresent: false
+expectedFrameEvidenceSha256: 529a84f985437991a112834bee35c8c19c44a271629974b93a7a8bdcf6a7ac49
+decodedPixelPolicy: preserve_all_nonmatching_rgb_and_geometry
+```
+
+For every reopened source frame, count all 2,300 outer-boundary pixels and
+their exact RGB histogram. The removable RGB is valid only when it is the
+single unique dominant value, all four corners equal it, and the exact required
+fraction is 2,300/2,300 in every frame. This fixture therefore binds observed
+RGB `(240,236,228)` and does not require or reinterpret `#F2EFE6`. Any other
+source, fraction, corner, boundary sequence, or color fails closed.
+
+Seed only exact `(240,236,228)` pixels on the outer boundary and 4-connect only
+through exact matches. Clear alpha only for that reachable set, retain source
+RGB under alpha, and preserve every nonmatching pixel, frame canvas, order,
+pelvis, baseline, clipping and fragment state. The canonical timing conversion
+is still exactly `[12,13,12,13,12,13]` centiseconds, total 750 ms, one-shot with
+no loop extension. Close/reopen the normalized GIF and extract the six PNGs
+from that timeline.
+
+The closed `generated_media_gif_observed_boundary_chroma_receipt_v2` contains
+exactly `schemaVersion`, `plan`, `beforeGifSha256`, `afterGifSha256`,
+`observedRemovableRgb`, `boundaryMatchNumerators`,
+`boundaryMatchDenominators`, `cornerMatchPerFrame`,
+`boundarySequenceSha256s`, `frameEvidence`, `frameEvidenceSha256`,
+`targetDelayCentiseconds`, `targetTotalDurationMilliseconds`, `playbackMode`,
+`loopExtensionPresent`, `gifClosedAndReopened`,
+`pngsExtractedFromReopenedGif`, `pelvisDriftMaxPx`, `baselineDriftMaxPx`,
+`clippingDetected`, `neighboringFragmentsDetected`, and `status`.
+`frameEvidence` is six ordered objects with exactly `frameIndex`,
+`sourceDelayMs`, `removedPixelCount`, `foregroundEvidenceBBox`,
+`sourceRgbSha256`, `alphaMaskSha256`, and `normalizedRgbaSha256`. Its JCS hash
+must equal the plan's expected frame evidence hash. Every nonmatching RGB and
+all geometry must be unchanged; both reopen/extraction booleans are true, both
+drifts are zero, both detection booleans are false, and status is `valid`.
+
+Each GIF boundary sequence uses the same clockwise ordering defined for PNG
+and hashes raw RGB bytes. Each `foregroundEvidenceBBox` uses
+`[minX,minY,maxXExclusive,maxYExclusive]` over pixels not equal to the observed
+removable RGB. Frame source/mask/normalized hashes use row-major RGB, one-byte
+mask, and RGBA bytes respectively. `frameEvidenceSha256` is the JCS SHA-256 of
+the ordered six-object array.
+
+Source drift is `gif_observed_boundary_source_fixture_mismatch`; a nonunique or
+insufficient boundary is `gif_observed_boundary_color_ambiguous`; corner drift
+is `gif_observed_boundary_corner_mismatch`; and any nonmatching pixel, mask,
+frame evidence, geometry, order, timing, loop, reopen or receipt drift is
+`gif_observed_boundary_normalization_validation_failed`. The existing
+`chroma_key_scope_violation` remains correct for every v1/declaration branch.
+
 ## Preservation Record v2
 
 Hash payload:
@@ -440,8 +653,9 @@ acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
-singleImageBackgroundNormalizationPlan: same sub-branch only
+singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
+gifBoundaryChromaNormalizationPlan: exact accepted GIF source-bound v2 sub-branch only
 provider: imagegen
 adapterId:
 structureProfile:
@@ -481,10 +695,12 @@ acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
-singleImageBackgroundNormalizationPlan: same sub-branch only
-singleImageBackgroundNormalizationReceipt: same sub-branch only after transform
+singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
+singleImageBackgroundNormalizationReceipt: same sub-branch only after transform; schema must match selected plan
 gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
 gifTimingQuantizationReceipt: same sub-branch only after GIF reopen validation
+gifBoundaryChromaNormalizationPlan: exact accepted GIF source-bound v2 sub-branch only
+gifBoundaryChromaNormalizationReceipt: same sub-branch only after transform and reopen validation
 provider: imagegen
 adapterId:
 structureProfile:
@@ -543,11 +759,19 @@ corrective_single_image_evidence_mismatch
 checkerboard_background_pattern_unsupported
 checkerboard_foreground_contact_ambiguous
 checkerboard_alpha_normalization_validation_failed
+border_palette_source_fixture_mismatch
+border_palette_checkerboard_coherence_failed
+border_palette_foreground_contact_detected
+border_palette_normalization_validation_failed
 fixed_cell_contract_mismatch
 scale_lock_violation
 anchor_mapping_mismatch
 vertical_motion_policy_violation
 chroma_key_scope_violation
+gif_observed_boundary_source_fixture_mismatch
+gif_observed_boundary_color_ambiguous
+gif_observed_boundary_corner_mismatch
+gif_observed_boundary_normalization_validation_failed
 gif_first_sequence_violation
 frame_order_mismatch
 member_hash_mismatch

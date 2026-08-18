@@ -148,6 +148,16 @@ proportion, detail, contour, palette, negative-space, identity/equipment and
 background gate to the normalized primary pixels. A receipt never excuses
 foreground loss, halo/vignette residue, or surface-detail failure.
 
+The same evaluation source may use
+`generated_media_border_palette_checkerboard_alpha_receipt_v2` only for exact
+source SHA `4498817999fb28323eb85f62afefcc33027341640b1a7ce990a3609b32eaeb7e`.
+Before scoring, verify the published 64-color palette/boundary/periodic fixture,
+exact 4-connected mask and normalized RGBA pixel hashes, equal protected
+noncandidate RGB hashes/bboxes, unchanged dimensions and no boundary foreground
+contact. This evidence-bound exception never authorizes thresholding, semantic
+masking, ink/wash erosion, or another source. All existing expression and
+background gates still apply to the normalized primary.
+
 ## Result Contract
 
 Return `PASS`, `FAIL`, or `BLOCKED`, the exact profile key/hash, artifact and
