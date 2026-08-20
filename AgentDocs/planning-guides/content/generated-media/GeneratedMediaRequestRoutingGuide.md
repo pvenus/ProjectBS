@@ -92,6 +92,25 @@ and `authoringHandoff` as top-level `transparentForegroundSelection`. It is
 forbidden inside `typeSpecification` and absent when unselected. Mixed locks or
 field drift is `true_alpha_projection_mismatch`.
 
+For `character_single_image`, the router additionally requires exact
+`generationBackground={mode:"transparent"}` and rejects a color member,
+removable-solid branch, or any required element mandating opaque/removable/
+warm-ivory output. The failures are `true_alpha_branch_conflict` and
+`transparent_prompt_required_element_conflict`. Routing never filters the
+immutable list; a corrected planning handoff receives a fresh routing identity.
+
+For an attack animation whose immutable reference prompt binds exact open-ink
+v2 key/hash, direct sparse-motion selection is `character_style_profile_conflict`.
+The router may select
+`projectbs_character_open_ink_wash_attack_motion@1.0.0` / hash
+`07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c`
+only when the reference record/hash and base payload/hash pass, all six approved
+motion bindings are exact, and the true-alpha key/hash/selection including
+six-frame root/baseline/scale gates is exact. Otherwise use
+`open_ink_attack_successor_reference_mismatch`,
+`open_ink_attack_motion_not_attack`, `missing_open_ink_attack_motion_bindings`,
+or `open_ink_attack_true_alpha_binding_mismatch` and publish no routing record.
+
 For a character attack-animation whose immutable reference prompt carries
 `projectbs_character_bold_outline_compressed_detail@2.0.0`, direct inheritance
 is illegal. The router may instead select

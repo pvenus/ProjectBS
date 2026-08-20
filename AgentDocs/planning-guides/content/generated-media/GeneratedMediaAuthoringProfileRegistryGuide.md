@@ -100,6 +100,21 @@ predecessorExpressionProfilePayloadHash=37ba4df4af5f8fa4b45708bd18bebbec537ad58a
 selection=explicit_approved_planning_fact_and_complete_successor_projection_required
 ```
 
+The animation-only open-ink attack successor composes the exact open-ink v2
+reference without changing that profile or the existing sparse-motion profile:
+
+```text
+expressionProfileKey=projectbs_character_open_ink_wash_attack_motion@1.0.0
+expressionProfilePayloadHash=07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaOpenInkWashAttackMotionSuccessorGuide.md::Canonical payload
+appliesTo=character_animation_v2
+baseExpressionProfileKey=projectbs_character_open_ink_wash_dynamic_contour@2.0.0
+baseExpressionProfilePayloadHash=b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5
+requiredTransparentForegroundProjectionKey=generated_media_true_alpha_foreground@1.0.0
+requiredTransparentForegroundProjectionPayloadHash=2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108
+selection=exact_open_ink_v2_reference_plus_approved_attack_motion_and_true_alpha_bindings_required
+```
+
 The following bold-outline compressed-detail profile is available only for a
 new character single-image request whose approved planning selects the exact
 key and supplies every closed character-specific projection binding:
@@ -141,17 +156,18 @@ legacy-compatible key, one exact approved selection of a registered nondefault
 key resolves that exact profile, and any unknown, multiple, or conflicting selection blocks as
 `character_style_profile_conflict`. Character animation normally inherits the
 exact key, payload, and hash from its hash-verified immutable reference prompt
-record. The sole exception is the registered animation-only composed successor,
-which stores a new payload/hash while binding the unchanged v2 reference
-key/hash. This preserves every old prompt record byte-for-byte and prevents a
-registry revision from reinterpreting its identity.
+record. The only exceptions are the exact registered animation-only composed
+successors, each of which stores a new payload/hash while binding its own
+unchanged v2 reference key/hash. This preserves every old prompt record
+byte-for-byte and prevents a registry revision from reinterpreting its identity.
 
 Inheritance is also scope-checked. A character-animation request may inherit
 only a profile whose `appliesTo` includes `character_animation_v2`. Both
 bold-outline compressed-detail versions remain intentionally single-image-only;
 a direct animation inheritance attempt blocks as
-`character_style_profile_conflict`. The only reviewed exception is composition
-of the exact v2 reference into the registered motion-flow successor above.
+`character_style_profile_conflict`. The reviewed exceptions are composition of
+the exact bold v2 reference into its registered motion-flow successor and the
+exact open-ink v2 reference into its registered open-ink attack successor.
 
 The canonical authority above is the sole owner of the closed payload, lock
 order, canonicalization, and hash algorithm. This registry is only a closed
@@ -160,9 +176,11 @@ planning continues to own gender/age presentation, face, hair, costume,
 equipment, weapon, palette, materials, pose and motion. Character prompt
 records must persist the exact expression profile key, payload, and payload hash.
 Character animation normally inherits all three byte-for-byte from its immutable
-approved reference prompt record. The composed successor instead preserves
-those three as its immutable base and adds its own exact key/payload/hash; it
-never substitutes or rewrites the base. A different requested expression
+approved reference prompt record. A registered composed successor instead
+preserves those three as its immutable base and adds its own exact
+key/payload/hash; it never substitutes or rewrites the base. The bold successor
+and open-ink successor are disjoint by exact base key/hash and their own closed
+eligibility rules. A different requested expression
 requires a reviewed registry/profile version and explicit planning approval; no
 caller alias or silent override is allowed.
 

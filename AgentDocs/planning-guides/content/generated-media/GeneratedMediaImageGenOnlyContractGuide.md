@@ -2193,3 +2193,25 @@ Typed failures are `true_alpha_projection_missing`,
 `true_alpha_animation_background_flicker`,
 `true_alpha_animation_neighboring_fragment`, and
 `true_alpha_animation_dynamic_pigment_anchor_contamination`.
+
+The additive animation-only
+`projectbs_character_open_ink_wash_attack_motion@1.0.0` / payload hash
+`07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c`
+composes the immutable open-ink v2 base with six approved attack-motion
+bindings and the exact true-alpha projection. Its closed payload authority is
+`GeneratedMediaOpenInkWashAttackMotionSuccessorGuide.md`. It never aliases the
+sparse-motion profile. Routing/authoring failures use the closed
+`open_ink_attack_*` tokens; generation/evaluation use the three closed style,
+motion-continuity and true-alpha tokens owned by their respective stages. The
+existing open-ink v2 and true-alpha payload hashes and all historical records
+remain unchanged.
+
+For a selected `character_single_image` true-alpha branch, Prompt v3 uses the
+closed extension in GeneratedMediaTransparentForegroundAuthoringGuide.md.
+`generationBackground` is exactly `{mode:"transparent"}` and the exact
+`transparentForegroundSelection` is hash-significant in visual brief, prompt record/hash payload,
+provider settings, index entry and detached handoff. A color-bearing or mixed
+branch is `true_alpha_branch_conflict`; a stale opaque/removable/warm-ivory
+required element is `transparent_prompt_required_element_conflict`. The
+existing removable-solid branch and every existing prompt identity remain
+unchanged.

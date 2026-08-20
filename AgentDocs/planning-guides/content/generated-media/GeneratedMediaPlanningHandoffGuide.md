@@ -287,3 +287,18 @@ Routing and authoring may copy and hash it only; omission, unknown members,
 conditional-branch mixing, safe-margin drift, or animation coordinate/scale
 drift is `true_alpha_projection_mismatch`. It is forbidden when planning did
 not select it and never changes `backgroundFullyOpaque` semantics.
+
+A `character_single_image` handoff with the selection uses exact
+`generationBackground={mode:"transparent"}` and contains no required element
+that mandates opaque/removable-solid/warm-ivory output. Both branch shapes or a
+stale background statement is `true_alpha_branch_conflict` or
+`transparent_prompt_required_element_conflict`; the immutable handoff is not
+repaired and requires a fresh planning revision.
+
+For an open-ink v2 attack animation, a fresh handoff stores the exact composed
+successor `projectbs_character_open_ink_wash_attack_motion@1.0.0` / hash
+`07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c`,
+the unchanged base key/hash, all six exact approved motion bindings, and the
+unchanged true-alpha selection. Sparse-motion is not a successor alias. Missing
+or drifted base, motion or true-alpha evidence blocks without rewriting the
+prior handoff.

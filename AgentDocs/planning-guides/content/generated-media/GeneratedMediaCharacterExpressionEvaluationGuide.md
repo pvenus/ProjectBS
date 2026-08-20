@@ -278,3 +278,14 @@ scale/recenter/flicker/fragment/sword-bounds/dynamic-pigment-anchor failure uses
 the central `true_alpha_*` token and fails before scoring. This technical gate
 does not alter the open-ink soft-quality scoring policy after it passes and does
 not reinterpret existing opaque animation evidence.
+
+For `projectbs_character_open_ink_wash_attack_motion@1.0.0` / hash
+`07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c`,
+evaluation first revalidates the exact open-ink v2 base and all its applicable
+identity/style gates, then ordered single-attack continuity, then the existing
+true-alpha pre-score gates. Failures are respectively
+`character_evaluation_open_ink_attack_style_gate_failed`,
+`character_evaluation_open_ink_attack_motion_continuity_gate_failed`, or
+`character_evaluation_open_ink_attack_true_alpha_gate_failed`. No score can
+offset these technical/material failures; sparse-motion evidence cannot satisfy
+the composed successor.

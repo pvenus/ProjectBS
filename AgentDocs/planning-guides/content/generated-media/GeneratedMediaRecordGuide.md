@@ -406,9 +406,10 @@ unclosed type returns `unsupported_record_schema` and writes nothing.
 ### Closed character prompt record and nested values
 
 The closed `generated_media_prompt_v3` top-level member set is exactly the
-following. No member is nullable. `referenceBindings` is the only optional
-top-level member and is allowed only for the reviewed character style-only
-case. `revision` in a source item is the only optional source-item member.
+following. No member is nullable. `referenceBindings` and
+`transparentForegroundSelection` are the only optional top-level members;
+each is allowed only for its reviewed closed character branch. `revision` in a
+source item is the only optional source-item member.
 
 ```yaml
 schemaVersion: generated_media_prompt_v3
@@ -446,13 +447,15 @@ providerSettingsIntent:
     width: positive JSON integer
     height: positive JSON integer
   generationBackground:
-    mode: removable_solid
-    color: exact planning value
+    removable-solid branch: exactly {mode: removable_solid, color: exact planning value}
+    transparent branch: exactly {mode: transparent}; color forbidden
   outputFormat: png
+  transparentForegroundSelection: conditional exact selection; required only in transparent branch
 providerSettingsIntentSha256:
 requiredElements: non-empty ordered array copied from the routing record
 prohibitedElements: non-empty ordered array or exact signed no_prohibitions value copied from the routing record
 referenceBindings: conditional exact style-only array from the visual brief; absent otherwise
+transparentForegroundSelection: conditional exact selection from routing and visual brief; absent otherwise
 promptMarkdownPath:
 promptMarkdownSha256:
 status: ready_for_generation
@@ -472,10 +475,12 @@ validation:
 Every object named above is closed at its owning schema. In particular,
 `sourcePlanningFiles` items have exactly `path`, `role`, `sha256`, and the
 conditionally present `revision`; `canvas` has exactly `width` and `height`;
-`generationBackground` has exactly `mode` and `color`; and `validation` has
-exactly the nine displayed members. `visualBrief` must first pass the closed
-`generated_media_visual_brief_v2` character-single-image contract in
-GeneratedMediaVisualPromptAuthoringGuide.md. The prompt record copies that
+`generationBackground` has exactly the members of its selected discriminated
+branch; and `validation` has exactly the nine displayed members. The legacy
+visual brief passes the closed `generated_media_visual_brief_v2` base contract
+in GeneratedMediaVisualPromptAuthoringGuide.md. A selected transparent brief
+additionally passes the closed extension in
+GeneratedMediaTransparentForegroundAuthoringGuide.md. The prompt record copies that
 entire value byte-semantically. The expression-profile payload uses the exact
 key-discriminated closed shape owned by that same guide. The legacy-compatible
 profile has exactly its original three top-level members; the animation-ready
@@ -607,6 +612,7 @@ providerSettingsIntentSha256:
 requiredElements:
 prohibitedElements:
 referenceBindings: conditional exact style-only array; omit when absent
+transparentForegroundSelection: conditional exact selection; omit when absent
 promptMarkdownSha256:
 ```
 
@@ -617,9 +623,19 @@ wall-clock time, index state, generation handoff, provider execution/approval,
 attempt, cost, result, packaging, evaluation, and promotion data. The Markdown
 path is excluded because it is derived from the ID; its raw byte hash remains
 included and binds the body without creating an ID/path cycle.
-Conditional `referenceBindings` is included when present and omitted when
-absent; this preserves every existing prompt identity while making a new
-durable binding hash-significant.
+Conditional `referenceBindings` and `transparentForegroundSelection` are each
+included when present and omitted when absent. Omission preserves every
+existing prompt identity; presence makes the reviewed branch hash-significant.
+For the transparent branch, a missing or unequal selection is
+`true_alpha_projection_missing` or `true_alpha_projection_mismatch`; a color,
+removable-solid value, or simultaneous legacy/transparent branch is
+`true_alpha_branch_conflict`; and an opaque, removable, or warm-ivory required
+element is `transparent_prompt_required_element_conflict`. Each failure is
+no-write and occurs before prompt identity or index mutation.
+The transparent provider text uses the exact two constraint-ID substitutions
+owned by GeneratedMediaTransparentForegroundAuthoringGuide.md; every other
+open-ink v2 lock remains verbatim and in order. This projection never changes
+the registered profile payload or its hash.
 
 ```text
 promptPayloadSha256 = lowercase_hex(SHA256(canonicalJson(promptHashPayload)))
@@ -689,6 +705,7 @@ entries:
     visualBriefSha256:
     providerPromptPayloadHash:
     providerSettingsIntentSha256:
+    transparentForegroundSelection: conditional exact selection; omit in legacy branch
     status: ready_for_generation
 ```
 
@@ -733,6 +750,7 @@ promptIndexSha256:
 visualBriefSha256:
 providerPromptPayloadHash:
 providerSettingsIntentSha256:
+transparentForegroundSelection: conditional exact selection; omit in legacy branch
 status: ready_for_generation
 ```
 

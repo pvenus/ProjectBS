@@ -54,4 +54,5 @@ Output:
 - skill animation에는 네 character reference/profile 입력과 출력이 없어야 한다.
 - generation과 extraction을 실행하지 않아야 한다.
 - true-alpha animation selection이 있으면 exact `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` key/hash와 `animationLock`을 byte-exact 투영하고 completed GIF+ordered six RGBA PNG frames, outside alpha0, inside-only partial alpha, exact canvas/pelvis-world-root/baseline/scale, no independent recenter/flicker/fragments, sword/effects safe margin, dynamic pigment anchor exclusion을 prompt locks에 넣는다. 기존 `backgroundFullyOpaque` branch와 혼합하지 않는다.
+- `projectbs_character_open_ink_wash_attack_motion@1.0.0` / `07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c` 선택 시 exact open-ink v2 reference key/hash와 complete base members/locks를 그대로 투영하고 six exact motion bindings 및 true-alpha selection을 별도 animation locks로 합성한다. base drift는 `open_ink_attack_base_projection_mismatch`, evidence 누락은 `open_ink_attack_evidence_omission`, provider projection 누락은 `provider_prompt_open_ink_attack_projection_missing`으로 prompt publication 전에 차단한다.
 ```

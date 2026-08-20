@@ -712,3 +712,23 @@ with exact canvas, pelvis/world-root coordinate, ground baseline, rational
 scale, frameCount=6, no independent recentering, and dynamic pigment excluded
 from anchor movement. No value may be inferred downstream. Existing opaque and
 legacy planning remains unchanged.
+
+For the `character_single_image` transparent branch, planning records
+`generationBackground` as exactly `{mode:"transparent"}` and omits every
+required element that requires an opaque/removable-solid/warm-ivory generation
+background. It retains all true-alpha, safe-margin, identity and style
+requirements. A published handoff containing both branches remains immutable
+and blocked; planning issues one fresh revision rather than filtering it in
+authoring.
+
+## Open Ink-Wash Attack Animation Successor
+
+A fresh attack animation referencing the exact
+`projectbs_character_open_ink_wash_dynamic_contour@2.0.0` prompt may select only
+`projectbs_character_open_ink_wash_attack_motion@1.0.0` / payload hash
+`07865d41a83bfebcebc62dcdc1a50590724f4344e2fe492a5f5996509ed2026c`.
+Planning must bind all six closed motion members (`motionDirection`, `swordArc`,
+`torsoRotation`, `keyPoseOrder`, `frameContinuityAnchors`, `dynamicPigment`) and
+the exact `generated_media_true_alpha_foreground@1.0.0` selection. It cannot
+select or alias sparse-motion for an open-ink v2 reference. The new handoff is a
+fresh immutable request; prior blocked handoffs remain unchanged.
