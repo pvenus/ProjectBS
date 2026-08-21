@@ -1203,6 +1203,30 @@ accepted_capture_promotion_forbidden
 accepted_capture_canonical_target_collision
 ```
 
+#### 6.1.4 Authenticated built-in opaque-chroma single-submit v1
+
+`builtin_imagegen_authenticated_single_submit_v1` is a separate additive
+generation mode for the exact registered
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` profile on
+`character_single_image_v2`. It is selected only when the executable surface is
+the built-in `image_gen.imagegen` call exposing exactly `prompt`,
+`referenced_image_paths`, and `num_last_images_to_include`, and no configured
+non-submit capability/settings/cost interface exists. Its closed callable,
+preflight, approval, idempotency, output-conformance, receipt, and failure-token
+contract is owned by
+`GeneratedMediaBuiltinImagegenAuthenticatedGenerationGuide.md`.
+
+This mode does not change or satisfy the descriptor contract of
+`promotable_generation_v2`, and does not change either hosted preview mode.
+Capability/settings/cost descriptors and provider enforcement of canvas,
+background, or format are recorded as unavailable, never invented. The exact
+1024x1536 PNG and opaque uniform `#00FF00` field remain immutable prompt intent
+and post-return hard gates. A conforming provider master proceeds only to the
+distinct `generated_media_chroma_uncomposite` role; a nonconforming return
+consumes the one submit and stops without retry. The execution-local preflight,
+approval, and receipt are detached and add no member to any published planning,
+routing, or prompt handoff.
+
 ### 6.2 Approval and cost projection
 
 `costEvidence` is an ordered append-only array. Each entry is a closed object

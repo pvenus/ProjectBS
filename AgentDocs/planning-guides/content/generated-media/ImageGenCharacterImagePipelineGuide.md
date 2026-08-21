@@ -172,6 +172,18 @@ The automatic branch derives its exact-scope attestation only after final
 prompt/reference/settings hashes pass. It cannot widen content scope, approve a
 second submit, or replace app-authenticated current-user instruction evidence.
 
+For the exact opaque-chroma successor only, an authenticated bounded request
+may instead select `builtin_imagegen_authenticated_single_submit_v1` under
+`GeneratedMediaBuiltinImagegenAuthenticatedGenerationGuide.md`. This mode uses
+the actual `image_gen.imagegen` callable projection and detached execution
+preflight/approval; it does not require or fabricate the unavailable configured
+capability, settings, or cost descriptors. It preserves the existing planning,
+routing, prompt record, and generation handoff bytes. Exactly one submit and
+zero retries are allowed after idempotency absence is proven. Canvas, PNG, and
+uniform `#00FF00` remain prompt-bound intent plus post-output hard gates, not a
+claim of provider-enforced callable controls. A conforming master ends at
+`generated_media_chroma_uncomposite`; a failed gate stops without retry.
+
 ## Input, Output, State, and Validation
 
 One valid v2 route/handoff becomes one prompt v3 record, one raw copy-ready

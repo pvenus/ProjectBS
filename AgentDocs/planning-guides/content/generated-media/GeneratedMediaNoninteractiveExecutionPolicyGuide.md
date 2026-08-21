@@ -150,6 +150,15 @@ provider-approval evidence. Compact status still omits full authority bundles.
 
 ## Required regression behavior
 
+For `builtin_imagegen_authenticated_single_submit_v1`, the authenticated exact
+opaque-chroma generation request is standing execution authority only after
+the generation role closes the scope and projects
+`generated_media_builtin_imagegen_authenticated_approval_v1`. This is a
+routine in-scope one-submit/zero-retry action and adds no interactive approval
+request. It does not authorize another submit, a retry, fabricated
+capability/settings/cost evidence, postprocess, preservation, evaluation,
+promotion, replacement, or scope expansion.
+
 - an eligible new-output run completes with zero interactive approvals;
 - a host-required run emits exactly one complete bundled approval and no
   second request after grant;

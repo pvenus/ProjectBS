@@ -1209,6 +1209,29 @@ known capability/cost, evaluation verdict, project mapping, or promotion.
 Promotion remains forbidden until a strict evaluation `PASS` and explicit
 project mapping are both supplied to the existing promotion contract.
 
+### Authenticated built-in opaque-chroma generation receipt v1
+
+`generated_media_builtin_imagegen_generation_receipt_v1` is the closed
+execution receipt owned by
+`GeneratedMediaBuiltinImagegenAuthenticatedGenerationGuide.md`. It is not a
+`generated_media_generation_v2` record and cannot enter preservation,
+evaluation, promotion, or any existing generation index. Its identity is the
+exact `executionScopeHash`, approval hash, `gmbuiltin1` idempotency key,
+callable/call-projection hashes, provider counters, unavailable evidence
+states, and conditional observed output hash/conformance. Unknown members,
+false descriptor/control/cost claims, or a generation-v2/preservation member
+are `unknown_record_field` or `builtin_imagegen_preflight_projection_mismatch`.
+Its executionMode is exactly `builtin_imagegen_authenticated_single_submit_v1`.
+
+The receipt is response-only until a conforming provider master exists. A
+`provider_master_complete` receipt is the only state that may be handed to the
+distinct `generated_media_chroma_uncomposite` role, which independently binds
+the returned master bytes under its own record contract. `completed_reuse`
+returns the byte-identical prior receipt and media without a provider call.
+Blocked, failed, and nonconformant states end with `stop_no_retry` and never
+create or mutate a planning, routing, prompt, generation-v2, preservation, or
+evaluation record/index.
+
 ### Canonical normalized preservation v2 records
 
 Normalized accepted-result outputs use the closed

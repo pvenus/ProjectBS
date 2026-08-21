@@ -12,14 +12,16 @@ current generated_media_prompt_v3 캐릭터 단일 이미지 record 하나를 �
 - AgentDocs/planning-guides/content/generated-media/ImageGenCharacterImagePipelineGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBindingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaBuiltinImagegenAuthenticatedGenerationGuide.md
 
 Input:
 - planningHandoffFile: {generated_media_planning_handoff_v2_path}
 - generationHandoff: {exact_generated_media_generation_handoff_v2_from_authoring}
-- executionMode: promotable_generation_v2 | hosted_builtin_preview_v1
+- executionMode: promotable_generation_v2 | hosted_builtin_preview_v1 | builtin_imagegen_authenticated_single_submit_v1
 - providerExecutionApproval: required only for promotable_generation_v2
 - hostedPreviewApproval: optional manual exact current authenticated single-image approval for hosted_builtin_preview_v1
 - hostedPreviewAutoApprovalPolicy: optional standing automatic policy for hosted_builtin_preview_v1; exactly one of manual approval or policy is required
+- builtinImagegenAuthenticatedApproval: required only for builtin_imagegen_authenticated_single_submit_v1
 
 작업:
 0. authenticated exact generation request와 noninteractive policy가 이미 승인한 submit/retry 범위에는 interactive approval을 다시 요구하지 않는다. final sealed scope의 기존 provider approval/idempotency/capability/cost 검증은 그대로 수행하며 추가 submit·retry·cost, overwrite, elevation 또는 scope expansion은 차단한다.
@@ -39,19 +41,20 @@ Input:
 2a. durable role=style_only binding이 있으면 exact six fields, asset/review/index raw hashes, purpose/status/profile scope와 prohibited transfer를 재검증하고 preview scope에 전체 object를 bind한다. callable surface가 distinct style-reference role을 제공하지 않거나 generic/identity image input만 제공하면 capability/unknown-setting blocker로 provider access 전에 중단한다. reference subject의 person/identity/pose/action/clothing/equipment를 prompt에 보충하지 않는다.
 3. promotable_generation_v2이면 기존 contract 6.1-6.2 descriptor/settings/cost/approval 계약을 변경 없이 수행한다. descriptor가 없으면 기존 blocker로 중단한다.
 4. hosted_builtin_preview_v1이면 contract 6.1.1의 manual exact-one-image approval 또는 authenticated standing automatic policy 중 정확히 하나를 검증한다. policy branch는 final settings seal과 request/content/prompt/reference hash를 먼저 확정하고 exact-scope attestation을 파생한다. 추가 사용자 메시지를 요구하지 않지만 policy 범위를 넓히거나 submitCount=1/retry=0을 변경하지 않는다. hidden default/descriptor/evidenceRef/cost를 만들지 않고 unavailable을 기록한다. `canvas`, `generationBackground`, `outputFormat` 각각이 callable surface의 exact same-value control로 노출되지 않으면 prompt text나 hosted default로 대신하지 않고 `hosted_preview_unknown_setting`으로 차단한다. removable solid generation background와 transparent-final/background-removal semantics를 동시에 요구하면 preview가 downstream 변환을 소유하지 않으므로 `hosted_preview_prompt_stage_semantics_conflict`로 차단한다.
+4a. `builtin_imagegen_authenticated_single_submit_v1`이면 opaque-chroma successor의 exact key/hash, `character_single_image_v2`, no-transparent-selection, 기존 handoff bytes를 먼저 검증한다. 실제 callable schema는 `image_gen.imagegen`의 `prompt`, `referenced_image_paths`, `num_last_images_to_include`만 허용하며 두 reference selector는 동시에 존재할 수 없다. 새 guide의 closed callProjection/preflight/executionScope/authenticatedApproval과 `gmbuiltin1.{scopeHash[0:20]}` active/completed 상태를 재계산한다. capability/settings/cost descriptor, evidenceRef, provider-enforced canvas/background/format control을 만들거나 주장하지 않고 각각 `unavailable_not_exposed`와 `prompt_bound_not_callable`로 기록한다. exact scope approval, idempotency absence, submitCount=0, retryCount=0이 모두 맞을 때만 stored provider prompt와 승인된 conditional reference selector를 actual callable에 정확히 한 번 전달한다. 반환 결과는 1024x1536 PNG, fully opaque, outside foreground exact uniform #00FF00 edge-to-edge, no foreground #00FF00 collision, no checkerboard/variation/halo/vignette/floor/scene/shadow/fragments를 관찰한다. 성공은 `generated_media_builtin_imagegen_generation_receipt_v1`의 `provider_master_complete`로 닫고 nextStep=`generated_media_chroma_uncomposite`만 허용한다. 실패/비적합/timeout도 submit을 소비하며 retry, provider recall, generation-stage alpha/uncomposite, preservation/evaluation/promotion을 금지한다.
 5. submit 직전에는 task-local preflight receipt의 authority/request/work-unit/prompt JSON·Markdown·payload/settings/reference hash와 current submit/retry state만 다시 읽는다. drift가 없으면 앞선 closed-schema/profile/six-gate 결과를 재사용하고 full guide·record·prompt를 다시 출력하거나 full semantic pass를 반복하지 않는다. drift가 있으면 receipt를 폐기하고 exact blocker를 반환하거나 fresh full pass 하나를 수행한다. preview는 built-in_imagegen으로 한 번만 제출하고 observable output을 preview 전용 상대 경로에 저장·hash하여 generated_media_hosted_preview_record_v1만 작성한다. preservation handoff를 만들지 않는다. open-ink v2 preview이면 저장된 observable output에 대해 proportion_age, contour_mok_seon, surface_detail, pigment_palette_negative_space, background, identity_equipment, reference_role 순서의 closed non-scoring triage를 수행하고 `generated_media_profile_conformance_receipt_v1`을 response로 한 번 반환한다. visible fail은 matching `character_preview_open_ink_wash_v2_*_nonconformant`, evidence 부족은 `character_preview_open_ink_wash_v2_evidence_insufficient`이다. pass가 아니면 status를 complete/final로 쓰지 않고 nextStep=stop_no_retry_not_final로 끝낸다. submitCount/retryCount를 늘리거나 retry/edit/evaluation/preservation/promotion을 실행하지 않는다.
-6. promotable mode만 deterministic idempotencyKey와 generated_media_generation_v2/costEvidence/character_single_image_v2 preservation handoff를 사용한다.
+6. promotable mode만 기존 deterministic idempotencyKey와 generated_media_generation_v2/costEvidence/character_single_image_v2 preservation handoff를 사용한다. authenticated built-in opaque-chroma mode는 별도 `gmbuiltin1` key/receipt만 사용하고 preservation handoff를 만들지 않는다.
 7. PixelLab fallback, download, 변환, packaging, evaluation, promotion, Slack, Unity, Git을 수행하지 않는다.
 
 Output:
-- status / executionMode / generationRecordId 또는 previewRecordId / submitCount / result refs / costKnown
+- status / executionMode / generationRecordId 또는 previewRecordId 또는 builtinGenerationReceipt / submitCount / result refs / costKnown
 - provider=imagegen / structureProfile=character_single_image_v2
 - authority SHA와 receipt reuse 여부, compact hash/decision summary; immutable full payload 재전송 금지
-- nextStep: preservation_packaging | preview_complete_no_downstream | no_downstream | stop_no_retry_not_final
+- nextStep: preservation_packaging | generated_media_chroma_uncomposite | preview_complete_no_downstream | no_downstream | stop_no_retry_not_final
 
 실패 시 Output:
 - status: blocked | failed
-- failureType: contract 8.1/8.4의 기존 generation token 또는 contract 6.1.1의 exact hosted-preview token 하나
+- failureType: contract 8.1/8.4의 기존 generation token, contract 6.1.1의 exact hosted-preview token, 또는 authenticated built-in guide의 exact token 하나
 - providerCalled / submitCount / costKnown / applicable evidence status / requiredDecision / safeToRetry
 
 검증:
@@ -62,4 +65,5 @@ Output:
 - `generated_media_true_alpha_foreground@1.0.0` / `2671524f7215ceb69218a0a951b17ffff6d9b3671a8c7fe7642b00ddabfab108` 선택 시 provider 결과를 complete로 만들기 전에 `generated_media_true_alpha_output_receipt_v1`의 RGBA/mask/fringe/bounds evidence를 닫는다. outside intended foreground alpha는 모두 0, partial alpha는 intended character/equipment/pigment silhouette 내부만, full figure/equipment/pigment는 planning safe margin 안이어야 한다. matte/checkerboard/halo/vignette/floor/scene/cast shadow/fringe 또는 clipping은 typed hard blocker다.
 - transparent prompt-v3 branch는 submit 전에 visualBrief/prompt record/hash payload/providerSettingsIntent/index entry/detached handoff의 exact `transparentForegroundSelection` 일치와 `generationBackground={mode:transparent}`를 재검증한다. color, removable-solid, stale opaque/warm-ivory prose 또는 branch 혼합은 `true_alpha_branch_conflict`나 `transparent_prompt_required_element_conflict`로 provider access 전에 차단한다.
 - opaque-chroma successor `projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / `b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`는 submit 전에 exact key/hash/base, one 1024x1536 PNG, `generationBackground={mode:removable_solid,color:#00FF00}`, no transparent selection과 2 substitution+5/4 lock projection을 검증한다. 반환 master는 fully opaque, background exact #00FF00 uniform edge-to-edge, no checkerboard/variation/halo/vignette/floor/scene/shadow/fragments, no foreground exact #00FF00인지 관찰한다. 실패는 `open_ink_chroma_provider_master_nonopaque`, `open_ink_chroma_provider_master_field_nonuniform`, `open_ink_chroma_provider_master_foreground_key_collision`, `open_ink_chroma_provider_master_forbidden_feature`로 종료하고 retry/postprocess를 하지 않는다. 성공도 master receipt까지만이며 later `generated_media_chroma_uncomposite` 외의 uncomposite 또는 generation-stage true alpha/preservation/evaluation/project-copy는 `open_ink_chroma_stage_boundary_violation`로 금지한다.
+- `builtin_imagegen_authenticated_single_submit_v1` 선택 시 actual callable schema JCS hash `708b75b05f820870ac165eadcf08d093568944a35d2793e0a7d117bf23646af1`과 closed call/preflight/scope/approval hash를 검증한다. unexposed capability/settings/cost/provider-control claim, selector 혼합, approval/scope drift, active/completed duplicate, submit>1 또는 retry>0은 submit 전에 해당 exact built-in token으로 차단한다. 이 분기는 기존 handoff에 새 field를 요구하지 않는다.
 ```
