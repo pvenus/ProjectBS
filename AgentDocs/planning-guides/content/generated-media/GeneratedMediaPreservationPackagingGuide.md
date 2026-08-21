@@ -1001,3 +1001,13 @@ It rehashes the exact indexed record/receipt, original RGB generation tuple,
 zero silhouette-edge prohibited dominance, and canonical output
 `ff512be1...6d327`; it never reruns the transform. Mixed/rejected lineage is
 `identity_source_bound_fit_preservation_evidence_mismatch` with no package.
+
+Animation opaque-chroma preservation accepts only a completed exact
+postprocess record/receipt under
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`.
+It rehashes generation record/master, split/cell/frame order, six RGBA PNGs,
+GIF/timeline/reopen evidence, root/baseline/scale/camera/centroid, alpha/fringe/
+fragment/mirror/duplicate/closure results and both authority selections. It
+never reruns postprocess or packages the opaque master as final media. Mixed
+provider-native/direct-alpha/coherent-master members fail closed.

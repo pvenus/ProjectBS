@@ -2279,3 +2279,15 @@ source-derived border/topology/mask evidence. Its owner, algorithm, record,
 receipt, no-clobber paths and hard alpha/fringe gates are closed by
 GeneratedMediaSourceBoundChromaRecoveryGuide.md. Every other nonuniform or
 near-green master remains ineligible; exact `#00FF00` is never claimed.
+
+For the registered animation successor
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`,
+`character_animation_v2` uses one provider RGB PNG master rather than a
+provider-native GIF. The master is exactly 1536x1024, 3x2, six 512x512 cells,
+with one connected uniform exact #00FF00 background and all profile forbidden
+features absent. The call is prompt plus exactly one registered evaluated MAIN
+identity/equipment reference. Grade1 motion lineage is never a callable
+reference. Submit maximum is one, retry maximum zero, and successful generation
+ends at `generated_media_animation_postprocess`; generation never splits,
+uncomposites, normalizes, encodes, preserves, evaluates, or promotes.

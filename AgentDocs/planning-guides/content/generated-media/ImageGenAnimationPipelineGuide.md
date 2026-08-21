@@ -214,6 +214,34 @@ includes the exact animationRequestId, providerCalled=false, costEvidence,
 requiredDecision and safeToRetry; success includes record ID/hash, attempts,
 refs, costEvidence, idempotencyKey, preservation handoff and nextStep.
 
+### Registered open-ink opaque-chroma 3x2 branch
+
+The additive profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`
+uses execution profile
+`projectbs_character_open_ink_animation_opaque_chroma_identity_anchored@1.0.0`.
+It is the sole current exception to the provider-native GIF requirement for a
+new promotable `character_animation_v2` request. Its exact source mode is
+`provider_opaque_chroma_3x2_master`; extraction mode is
+`postprocess_exact_cell_chroma_root_gif_v1`. All existing modes stay unchanged.
+
+Authoring projects the closed identity/equipment MAIN selection and
+topology-only Grade1 motion selection, then asks for one RGB opaque 1536x1024
+PNG containing six distinct ordered 512x512 cells in a 3x2 grid on one
+connected uniform #00FF00 carrier. The call contains stored prompt plus one
+MAIN `referenced_image_paths` entry; motion-lineage media is never referenced.
+Generation uses one submit, retry 0, observes every master gate, and stops at
+`generated_media_animation_postprocess`.
+
+That distinct role performs exact seam-aware row-major split, exact-key chroma
+uncomposite, root `(256,300)` and baseline `448` integer translation, fixed
+scale/camera/centroid, safe margin 48, six true-alpha PNGs and one reopened GIF
+at 150 ms x6, infinite loop, total 900 ms. Duplicate/repeated phases,
+whole-body mirror, frame 5-to-0 closure failure, drift, clipping, fringe, and
+fragments block. Generation performs none of those operations; project copy
+eligibility remains false until independent evaluation PASS.
+
 ## Task Prompts
 
 ```text

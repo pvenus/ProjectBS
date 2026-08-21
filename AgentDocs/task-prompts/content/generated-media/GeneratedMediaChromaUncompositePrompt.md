@@ -104,3 +104,15 @@ fixed-point edge cleanup, source-fringe-supported detached cleanup 외의 mask,
 crop, repaint, recolor, identity/equipment edit, provider call은 금지한다.
 Rejected `1b68b5a5...4bfbb` alpha는 입력이 아니며 expected canonical PNG는
 `ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327`이다.
+
+Animation opaque-chroma는 별도 owner
+`generated_media_animation_postprocess`로만 실행한다. Exact profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`
+generation record/master를 재해시한 뒤 3x2 seam validation, exact row-major
+512 split, exact #00FF00 connected carrier clear, root(256,300)/baseline448
+integer translation, fixed scale/camera/centroid, safeMargin48을 적용한다.
+Six ordered true-alpha PNG와 150msx6/infinite/900ms GIF를 만들고 close/reopen
+검증한다. Duplicate/repeated phase, whole-body mirror, frame5-to0 closure
+failure, clipping/fringe/fragment/drift는 record/index 없이 차단한다. Master,
+MAIN reference, Grade1 raster를 수정하거나 provider를 호출하지 않는다.

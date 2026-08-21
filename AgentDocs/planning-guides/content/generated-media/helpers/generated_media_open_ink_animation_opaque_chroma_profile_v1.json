@@ -1,0 +1,98 @@
+{
+  "animationIdentityAuthorityContract": {
+    "callProjection": {"members": ["prompt", "referenced_image_paths"], "referencedImageCount": 1},
+    "consumerProjection": "top_level_unchanged_through_planning_routing_normalized_request_authoring_handoff_prompt_record_generation_handoff_generation_record_and_postprocess_handoff",
+    "fixtureBindings": [
+      {
+        "byteLength": 6293540,
+        "contentId": "character.seojin.2",
+        "localPath": "C:/Users/parkv/Documents/Codex/2026-08-21/seojin-grade3-main-targeted-retry-postprocessing/outputs/g2-official-identity-anchored-fit-v1/seojin-g2-identity-anchored-source-bound-final.png",
+        "sha256": "ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327"
+      },
+      {
+        "byteLength": 6293540,
+        "contentId": "character.seojin.3",
+        "localPath": "C:/Users/parkv/Documents/Codex/2026-08-21/seojin-grade3-main-minimal-edit-postprocessing/outputs/official-g3-final-successor-postprocess/character.seojin.3.main.final-successor.true-alpha.png",
+        "sha256": "1af18044008dc72c749ade2232f61838aad1d037541f8a57cf439031a1714f2e"
+      }
+    ],
+    "pathPolicy": "registered_exact_local_absolute_path_read_only_existing_file_no_copy_no_rewrite",
+    "providerReceiptPolicy": "not_required_only_when_trusted_evaluated_main_evidence_is_exact_and_registered",
+    "referenceRole": "identity_equipment_orientation_authority_only",
+    "requiredSelectionMembers": ["schemaVersion", "contentId", "localPath", "pathPolicy", "sha256", "byteLength", "referenceRole", "trustedEvidencePolicyKey", "evaluationRecordId", "evaluationRecordSha256", "executionProfileKey", "executionProfilePayloadHash"],
+    "schemaVersion": "generated_media_animation_identity_equipment_authority_selection_v1",
+    "semanticTransferProhibited": ["edit_source", "edit_target", "motion_authority", "style_authority", "pose_authority", "framing_authority", "background_authority", "pixel_copy_authority"],
+    "trustedEvidencePolicyKey": "generated_media_trusted_local_evaluated_main_reference@1.0.0"
+  },
+  "animationMasterContract": {
+    "background": {"connectedComponentCount": 1, "fieldCoverage": "outside_intended_foreground_across_full_master", "foregroundExactKeyColor": "prohibited", "rgb": [0, 255, 0], "uniform": true},
+    "canvas": {"height": 1024, "width": 1536},
+    "cell": {"height": 512, "width": 512},
+    "cellCount": 6,
+    "cellOrder": "row_major_left_to_right_top_to_bottom",
+    "columns": 3,
+    "forbidden": ["provider_alpha", "checkerboard", "gradient", "texture", "lighting_variation", "halo", "vignette", "floor", "scene", "shadow", "neighboring_fragments"],
+    "grid": "exact_3x2",
+    "masterCount": 1,
+    "outputFormat": "png",
+    "pixelMode": "rgb_fully_opaque",
+    "rows": 2,
+    "seamCoordinates": {"horizontal": [512], "vertical": [512, 1024]}
+  },
+  "baseStyleBinding": {
+    "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+    "expressionProfilePayloadHash": "b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5",
+    "projection": "all_19_payload_members_9_negative_locks_9_positive_locks_byte_semantically_unchanged_except_background_output_carrier_successor",
+    "semanticLocks": ["open_broken_mok_seon", "pressure_variable_brush_start_drag_dry_end", "broad_rough_watercolor_pastel", "faded_blue_gray_indigo", "dusty_gray_brown", "small_muted_ochre", "at_least_70_percent_achromatic_or_unpainted_negative_space", "young_adult_4_to_5_heads", "korean_joseon_identity_equipment"]
+  },
+  "executionContract": {
+    "actualCallable": "image_gen.imagegen",
+    "actualCallableMembers": ["prompt", "referenced_image_paths"],
+    "executionMode": "builtin_imagegen_authenticated_animation_identity_anchored_single_submit_v1",
+    "idempotency": "gmanimidentity1_dot_first20_of_execution_scope_sha256",
+    "providerMasterOnly": true,
+    "providerPostprocess": "prohibited",
+    "retryCountMaximum": 0,
+    "submitCountMaximum": 1
+  },
+  "executionProfileKey": "projectbs_character_open_ink_animation_opaque_chroma_identity_anchored@1.0.0",
+  "expressionProfileKey": "projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0",
+  "motionLineageContract": {
+    "consumerProjection": "top_level_unchanged_through_planning_routing_normalized_request_authoring_handoff_prompt_record_and_generation_handoff",
+    "mediaPixelTransfer": "prohibited",
+    "providerReference": "prohibited",
+    "requiredSelectionMembers": ["schemaVersion", "sourceContentId", "sourceAnimationRequestId", "lineageRecordId", "lineageRecordPath", "lineageRecordSha256", "evaluationRecordId", "evaluationRecordSha256", "referenceRole", "providerReferenceAllowed", "pixelTransferAllowed"],
+    "schemaVersion": "generated_media_animation_motion_lineage_selection_v1",
+    "sourceGrade": 1,
+    "transferAuthority": ["planning_strings", "ordered_phase_names", "motion_topology", "direction", "loop_closure_intent"],
+    "referenceRole": "motion_topology_only"
+  },
+  "postprocessContract": {
+    "alpha": {"foregroundExactKeyCollision": "fail", "method": "clear_only_exact_rgb_0_255_0_after_full_master_connected_carrier_validation", "transparentRgb": [0, 0, 0]},
+    "frameContract": {"frameCount": 6, "frameHeight": 512, "frameWidth": 512, "safeMarginPx": 48},
+    "gif": {"durationTotalMs": 900, "frameCount": 6, "frameDelayMs": 150, "frameOrder": [0, 1, 2, 3, 4, 5], "loop": "infinite", "reopenValidation": true},
+    "motionIntegrity": {"closure": "frame5_to_frame0_required", "duplicateFrameHashes": "prohibited", "repeatedMotionPhases": "prohibited", "wholeBodyMirror": "prohibited"},
+    "normalization": {"baselineY": 448, "camera": "fixed", "centroid": "fixed_relative_to_registered_root", "independentSilhouetteRecentering": false, "root": {"x": 256, "y": 300}, "scale": "fixed", "translation": "integer_only_from_measured_root_and_baseline"},
+    "ownerRole": "generated_media_animation_postprocess",
+    "outputMembers": ["completedGif", "frame0Png", "frame1Png", "frame2Png", "frame3Png", "frame4Png", "frame5Png"],
+    "schemaVersion": "generated_media_animation_opaque_chroma_postprocess_selection_v1",
+    "split": {"cellOrigins": [[0, 0], [512, 0], [1024, 0], [0, 512], [512, 512], [1024, 512]], "method": "exact_cell_rectangle_after_seam_and_neighbor_fragment_validation", "neighborCellPixelTransfer": "prohibited", "seamAware": true}
+  },
+  "recordContract": {
+    "generationRecordSchemaVersion": "generated_media_animation_opaque_chroma_generation_record_v1",
+    "generationRecordRequiredMembers": ["schemaVersion", "state", "requestId", "animationRequestId", "expressionProfileKey", "expressionProfilePayloadHash", "executionProfileKey", "animationIdentityAuthoritySelection", "animationMotionLineageSelection", "executionScopeSha256", "idempotencyKey", "providerMasterSha256", "providerMasterObservation", "submitCount", "retryCount", "providerCalled", "nextStep", "projectCopyEligible"],
+    "indexPolicy": "record_first_then_sorted_cas_append_no_clobber",
+    "postprocessRecordSchemaVersion": "generated_media_animation_opaque_chroma_postprocess_record_v1",
+    "postprocessRecordRequiredMembers": ["schemaVersion", "state", "requestId", "animationRequestId", "generationRecordId", "generationRecordSha256", "providerMasterSha256", "expressionProfileKey", "expressionProfilePayloadHash", "splitEvidence", "orderedCellSha256s", "orderedFramePngSha256s", "completedGifSha256", "normalizationEvidence", "alphaEvidence", "timelineEvidence", "validationEvidence", "receiptSha256", "evaluationStatus", "projectCopyEligible"],
+    "postprocessReceiptSchemaVersion": "generated_media_animation_opaque_chroma_postprocess_receipt_v1",
+    "postprocessReceiptRequiredMembers": ["schemaVersion", "state", "animationRequestId", "generationRecordSha256", "providerMasterSha256", "expressionProfileKey", "expressionProfilePayloadHash", "splitEvidence", "orderedCellSha256s", "orderedFramePngSha256s", "completedGifSha256", "root", "baselineY", "rootDriftMaxPx", "baselineDriftMaxPx", "scaleFixed", "cameraFixed", "centroidFixed", "safeMarginPx", "transparentRgbZero", "prohibitedFringeCount", "fragmentCount", "duplicateFrameHashCount", "repeatedMotionPhaseCount", "wholeBodyMirrorDetected", "frame5To0ClosureValid", "gifClosedAndReopened", "timelineEvidence", "providerCalled", "submitCount", "retryCount", "evaluationStatus", "projectCopyEligible"],
+    "reusePolicy": "reused_identical_only_for_exact_unchanged_hash_payload"
+  },
+  "registryApplicability": {
+    "assetType": "animation",
+    "domainType": "character",
+    "projectCopyEligibleBeforeEvaluationPass": false,
+    "structureProfile": "character_animation_v2"
+  },
+  "schemaVersion": "generated_media_open_ink_animation_opaque_chroma_profile_v1"
+}

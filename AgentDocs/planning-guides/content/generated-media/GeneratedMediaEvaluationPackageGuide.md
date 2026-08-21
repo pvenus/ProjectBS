@@ -634,3 +634,14 @@ require the registered `[244,200,779,1335]` bbox, one alpha component,
 transparent RGB zero, zero opaque strong-green and zero green/cyan/magenta
 dominance at the partial silhouette edge. The accepted identity/equipment gates
 remain evaluation evidence; fit correction cannot reinterpret or replace them.
+
+Animation opaque-chroma evaluation eligibility begins only after the exact
+postprocess record/receipt for
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`.
+Before scoring, verify six distinct ordered true-alpha 512 PNGs, reopened GIF,
+150 ms x6/infinite/900 ms timeline, root `(256,300)`, baseline 448, drift 0,
+fixed camera/scale/centroid, safe margin 48, no clipping/fringe/fragments,
+duplicate/repeated phase or whole-body mirror, and frame 5-to-0 closure. Raster
+motion transfer is a hard failure. Project copy eligibility is false until
+completed PASS and `passForProjectCopy=true`.

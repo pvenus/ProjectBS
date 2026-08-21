@@ -1567,3 +1567,13 @@ sorted CAS append, no-clobber, and exact `reused_identical` are mandatory.
 Collision, missing immutable inputs, rejected-alpha input, or evidence drift is
 `identity_source_bound_fit_record_collision` or
 `identity_source_bound_fit_evidence_mismatch`; no partial record/index survives.
+
+Animation opaque chroma selects profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`.
+The exact closed members for its generation record, postprocess record and
+postprocess receipt are the three required-member arrays in the canonical
+profile. Unknown/missing members, mixed source mode, selection drift,
+master/member hash drift, or postprocess provider claims fail no-write. Write
+record first by `wx`, then sorted index by CAS/no-clobber; only exact unchanged
+hash payload is `reused_identical`.

@@ -323,3 +323,17 @@ portrait path/raw SHA and `identity_equipment_authority` role are hash-significa
 planning facts, while edit-source, style-only, pose/background, provider receipt,
 and rejected-lineage semantics are forbidden. Existing handoffs omit the member
 and remain byte-identical.
+
+The animation opaque-chroma branch adds exactly two top-level siblings:
+`animationIdentityAuthoritySelection` using
+`generated_media_animation_identity_equipment_authority_selection_v1` and
+`animationMotionLineageSelection` using
+`generated_media_animation_motion_lineage_selection_v1`. Their closed members,
+roles, fixture/evaluation hashes, and consumer projections are defined by
+GeneratedMediaOpenInkAnimationOpaqueChromaGuide.md and profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+payload
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`.
+Both objects are hash-significant and project unchanged; unknown, nested,
+partial, mixed-content, provider-reference motion lineage, or edit-source MAIN
+semantics are invalid. Existing handoffs omit both and remain unchanged.

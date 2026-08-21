@@ -300,3 +300,11 @@ authority, direct-alpha generation claim, or mixed lineage is
 `open_ink_chroma_stage_boundary_violation` before scoring. Once sealed, the
 existing open-ink identity/style gates apply to the final pixels; the carrier
 green is not character palette evidence.
+
+The animation opaque-chroma final branch is evaluated only after profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`
+postprocess evidence passes. Master/split/alpha/root/baseline/timeline/closure/
+duplicate/mirror gates are pre-score hard failures. Then evaluate unchanged
+open-ink identity/equipment/style and approved motion strings/topology; Grade1
+pixels are never comparison authority. Raw masters receive no score.

@@ -763,3 +763,17 @@ hash drift, role substitution, or unequal projections fail
 `identity_anchored_generation_projection_mismatch` with no record/index write.
 The route remains `imagegen_character_single_image`; this does not create a
 source-bound edit route or reuse the rejected Grade 2 lineage.
+
+For the animation opaque-chroma successor, routing requires exact profile
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`,
+`character_animation_v2`, and both closed top-level selections from
+GeneratedMediaOpenInkAnimationOpaqueChromaGuide.md. It projects them unchanged
+into routing hash payload/record, `normalizedRequest`, and `authoringHandoff`;
+they are forbidden inside `typeSpecification`. Identity fixture/path/hash,
+evaluation evidence, role, execution profile, or motion lineage drift blocks
+before record/index write. The route remains the current ImageGen animation row
+with `animationSourceMode=provider_opaque_chroma_3x2_master` and
+`extractionMode=postprocess_exact_cell_chroma_root_gif_v1`; no legacy identity,
+provider-native GIF, direct-alpha, sparse-motion, or coherent-master route is
+silently reused.

@@ -764,3 +764,18 @@ fact and copy the exact object top-level into the handoff. The rejected Grade 2
 source/postprocess lineage is forbidden as a reference or regeneration input.
 The existing opaque-chroma expression profile and later postprocess boundary
 remain unchanged.
+
+For a new Seojin Grade 2/3 `character_animation_v2` opaque-chroma request,
+planning may select
+`projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0` /
+`da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8`
+only with both top-level `animationIdentityAuthoritySelection` and
+`animationMotionLineageSelection` from
+GeneratedMediaOpenInkAnimationOpaqueChromaGuide.md. The former binds exactly
+one registered evaluated MAIN PNG as identity/equipment/orientation authority;
+the latter binds Grade 1 planning strings and motion topology only. MAIN pixels
+are not edit/motion/style/pose/background authority, and Grade 1 media pixels
+are never provider references or outputs. Planning closes one 1536x1024 opaque
+3x2 master, later exact split/chroma/root/GIF postprocess, six 512x512 frames,
+root `(256,300)`, baseline `448`, safe margin 48, fixed scale/camera/centroid,
+150 ms x6 infinite loop and frame 5-to-0 closure without performing them.

@@ -357,3 +357,24 @@ its helper is `helpers/generated_media_identity_anchored_source_bound_fit_v1.mjs
 Scope is only `character_single_image+character+character.seojin.2` and the
 exact source/receipt/scope/handoff tuple. It is not a successor alias for any
 earlier G2 or G3 source-bound row.
+
+The animation registry adds one independent row:
+
+```text
+structureProfile=character_animation_v2
+assetType=animation
+domainType=character
+expressionProfileKey=projectbs_character_open_ink_wash_animation_opaque_chroma_master@1.0.0
+executionProfileKey=projectbs_character_open_ink_animation_opaque_chroma_identity_anchored@1.0.0
+profilePayloadSha256=da38a4c91bbe3a808f09f1c24763cd3cece02518a2d1398f7294ce3eedb3f7c8
+animationSourceMode=provider_opaque_chroma_3x2_master
+extractionMode=postprocess_exact_cell_chroma_root_gif_v1
+provider=imagegen
+authoringPrompt=AgentDocs/task-prompts/content/generated-media/ImageGenAnimationPromptAuthoringPrompt.md
+generationPrompt=AgentDocs/task-prompts/content/generated-media/ImageGenAnimationGenerationPrompt.md
+postprocessOwner=generated_media_animation_postprocess
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/helpers/generated_media_open_ink_animation_opaque_chroma_profile_v1.json
+```
+
+This row is not an alias for single-image opaque chroma, sparse motion,
+open-ink attack direct alpha, provider-native GIF, or accepted coherent master.
