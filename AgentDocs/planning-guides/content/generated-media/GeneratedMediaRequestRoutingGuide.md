@@ -748,3 +748,18 @@ GeneratedMediaSourceBoundMainCompletionGuide.md. Any ad hoc or partial
 projection is `source_bound_edit_route_projection_mismatch`; source/profile/
 receipt drift is `source_bound_edit_binding_not_registered`. This route does
 not call the provider or create a normal authoring prompt record.
+
+### Identity-anchored Grade 2 execution projection
+
+For the exact registered Grade 2 branch, copy the planning handoff's
+`identityAnchoredGenerationSelection` byte-semantically into the routing hash
+payload/record, `normalizedRequest`, and `authoringHandoff`, all at top level.
+Validate its seven closed members, execution-profile key/hash, canonical
+project-relative portrait path/raw SHA, role, target tuple, and unchanged
+opaque-chroma profile before deriving routing identity. The member is forbidden
+inside `typeSpecification`, style references, or any other asset/content route.
+Absence when selected, presence when unselected, unknown/nested fields, path or
+hash drift, role substitution, or unequal projections fail
+`identity_anchored_generation_projection_mismatch` with no record/index write.
+The route remains `imagegen_character_single_image`; this does not create a
+source-bound edit route or reuse the rejected Grade 2 lineage.

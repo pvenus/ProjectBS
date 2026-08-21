@@ -34,6 +34,9 @@ non-empty requiredElements and prohibitedElements or signed no_prohibitions
 optional informational-only projectTarget
 optional character-single-image-only styleReferenceBindings under the closed
 GeneratedMediaStyleReferenceBindingGuide.md contract
+optional character-single-image-only identityAnchoredGenerationSelection under
+the exact registered Grade 2 contract in
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md
 ```
 
 Unknown fields are rejected after schema selection. All paths are
@@ -312,3 +315,11 @@ fully opaque removable `#00FF00`, and distinct later
 `transparentForegroundSelection`; a direct-alpha, warm-ivory, wrong-size, or
 mixed handoff is `open_ink_chroma_master_contract_mismatch` or
 `open_ink_chroma_direct_alpha_conflict` and is not repaired.
+
+The Grade 2 identity-anchored regeneration branch additionally requires the
+exact seven-member top-level `identityAnchoredGenerationSelection` registered by
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. Its project-relative
+portrait path/raw SHA and `identity_equipment_authority` role are hash-significant
+planning facts, while edit-source, style-only, pose/background, provider receipt,
+and rejected-lineage semantics are forbidden. Existing handoffs omit the member
+and remain byte-identical.

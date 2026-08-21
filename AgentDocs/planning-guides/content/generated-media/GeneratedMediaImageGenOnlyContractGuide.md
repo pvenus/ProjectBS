@@ -91,6 +91,7 @@ requiredElements: non-empty observable list
 prohibitedElements: non-empty observable list or signed no_prohibitions
 projectTarget: optional informational_only
 styleReferenceBindings: optional only for character_single_image under section 3.1
+identityAnchoredGenerationSelection: optional only for the registered Grade 2 branch under section 3.1
 ```
 
 `GeneratedMediaPlanningHandoffGuide.md::Closed Planning Snapshot v2` is the
@@ -134,6 +135,7 @@ styleReferenceBindings: # optional; exactly one only with reviewed durable plann
     reviewRecordId:
     reviewRecordPath:
     reviewRecordSha256:
+identityAnchoredGenerationSelection: # optional; exact seven-member object only for registered Grade 2 regeneration
 ```
 
 One approved viewpoint produces one image. No direction list, rotation count,
@@ -1226,6 +1228,22 @@ distinct `generated_media_chroma_uncomposite` role; a nonconforming return
 consumes the one submit and stops without retry. The execution-local preflight,
 approval, and receipt are detached and add no member to any published planning,
 routing, or prompt handoff.
+
+#### 6.1.5 Authenticated identity-anchored opaque-chroma single-submit v1
+
+`builtin_imagegen_authenticated_identity_anchored_single_submit_v1` is a
+disjoint additive branch owned by
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. It keeps the
+opaque-chroma expression profile and callable schema unchanged but requires the
+exact hash-significant `identityAnchoredGenerationSelection` from planning
+through generation. The actual call is exactly prompt plus one
+`referenced_image_paths` entry for the registered project identity/equipment
+authority. That reference is neither a style-only binding nor an edit source and
+requires no provider receipt. The branch has one fresh scope, submit maximum 1,
+retry maximum 0, no fabricated capability/settings/cost evidence, post-return
+identity/equipment and opaque-chroma hard gates, and a distinct later
+`generated_media_chroma_uncomposite` boundary. Existing built-in, preview,
+strict, and source-bound-edit modes are unchanged.
 
 ### 6.2 Approval and cost projection
 

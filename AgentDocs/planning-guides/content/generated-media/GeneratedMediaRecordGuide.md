@@ -72,6 +72,7 @@ typeSpecification: exactly one complete type value selected without renaming:
   animation: {animationRequest} where animationRequest is the one source object selected by animationRequestId
 styleReferenceBindings?: character_single_image only; exact one-element reviewed style-only array defined below
 transparentForegroundSelection?: character_single_image or animation only when planning selected the exact closed v1 projection
+identityAnchoredGenerationSelection?: character_single_image only for the registered Grade 2 identity-anchored branch
 normalizedRequest: exact normalized single-unit request defined below
 selectedPipeline: exact registry value
 selectedAuthoringPrompt: exact project-relative registry path
@@ -120,6 +121,18 @@ members are absent rather than `null` or `[]`. Missing, extra, differently
 ordered, nested, or unequal projections are
 `style_reference_binding_projection_mismatch`.
 
+`identityAnchoredGenerationSelection` is a separate optional top-level member
+allowed only for the registered Grade 2 identity-anchored regeneration branch.
+Its exact seven-member schema and values are owned by
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. When selected, it
+is copied byte-semantically into the planning handoff, routing hash payload and
+record, `normalizedRequest`, `authoringHandoff`, visual brief,
+`generated_media_prompt_v3`, prompt hash payload, prompt index entry, detached
+generation handoff, and generation preflight/scope. It is forbidden inside
+`typeSpecification`, `referenceBindings`, or provider prose. Existing records
+omit it and retain their exact identities. Missing, extra, nested, mixed-role,
+or unequal projections are `identity_anchored_generation_projection_mismatch`.
+
 `transparentForegroundSelection`, when present, is the exact closed
 `generated_media_transparent_foreground_selection_v1` from planning. Copy it
 byte-semantically into routing hash payload, `normalizedRequest`,
@@ -135,7 +148,9 @@ Projection drift or branch mixing is `true_alpha_projection_mismatch`.
 exact `typeSpecification` object as the payload. It additionally contains the
 same optional top-level `styleReferenceBindings` only for the reviewed
 character case, the same optional top-level `transparentForegroundSelection`
-for a selected replacement, and the same scalar `animationRequestId` only for animation. No
+for a selected replacement, the same optional top-level
+`identityAnchoredGenerationSelection` for the exact registered Grade 2 branch,
+and the same scalar `animationRequestId` only for animation. No
 source files, registry selection, routing references, timestamps, or downstream
 fields occur in it.
 
@@ -167,6 +182,7 @@ prohibitedElements:
 typeSpecification:
 styleReferenceBindings?: same character-only conditional presence and exact array
 transparentForegroundSelection?: same conditional presence and exact object
+identityAnchoredGenerationSelection?: same Grade 2 conditional presence and exact object
 normalizedRequest:
 registryVersion:
 registryRowId:
@@ -236,6 +252,7 @@ prohibitedElements:
 typeSpecification:
 styleReferenceBindings?: same character-only conditional presence and exact array
 transparentForegroundSelection?: same conditional presence and exact object
+identityAnchoredGenerationSelection?: same Grade 2 conditional presence and exact object
 normalizedRequest:
 selectedPipeline:
 selectedAuthoringPrompt:
@@ -436,8 +453,9 @@ unclosed type returns `unsupported_record_schema` and writes nothing.
 ### Closed character prompt record and nested values
 
 The closed `generated_media_prompt_v3` top-level member set is exactly the
-following. No member is nullable. `referenceBindings` and
-`transparentForegroundSelection` are the only optional top-level members;
+following. No member is nullable. `referenceBindings`,
+`transparentForegroundSelection`, and `identityAnchoredGenerationSelection`
+are the only optional top-level members;
 each is allowed only for its reviewed closed character branch. `revision` in a
 source item is the only optional source-item member.
 
@@ -486,6 +504,7 @@ requiredElements: non-empty ordered array copied from the routing record
 prohibitedElements: non-empty ordered array or exact signed no_prohibitions value copied from the routing record
 referenceBindings: conditional exact style-only array from the visual brief; absent otherwise
 transparentForegroundSelection: conditional exact selection from routing and visual brief; absent otherwise
+identityAnchoredGenerationSelection: conditional exact seven-member selection from routing and visual brief; absent otherwise
 promptMarkdownPath:
 promptMarkdownSha256:
 status: ready_for_generation
@@ -643,6 +662,7 @@ requiredElements:
 prohibitedElements:
 referenceBindings: conditional exact style-only array; omit when absent
 transparentForegroundSelection: conditional exact selection; omit when absent
+identityAnchoredGenerationSelection: conditional exact seven-member selection; omit when absent
 promptMarkdownSha256:
 ```
 
@@ -653,7 +673,8 @@ wall-clock time, index state, generation handoff, provider execution/approval,
 attempt, cost, result, packaging, evaluation, and promotion data. The Markdown
 path is excluded because it is derived from the ID; its raw byte hash remains
 included and binds the body without creating an ID/path cycle.
-Conditional `referenceBindings` and `transparentForegroundSelection` are each
+Conditional `referenceBindings`, `transparentForegroundSelection`, and
+`identityAnchoredGenerationSelection` are each
 included when present and omitted when absent. Omission preserves every
 existing prompt identity; presence makes the reviewed branch hash-significant.
 For the transparent branch, a missing or unequal selection is
@@ -736,6 +757,7 @@ entries:
     providerPromptPayloadHash:
     providerSettingsIntentSha256:
     transparentForegroundSelection: conditional exact selection; omit in legacy branch
+    identityAnchoredGenerationSelection: conditional exact selection; omit unless registered branch
     status: ready_for_generation
 ```
 
@@ -781,6 +803,7 @@ visualBriefSha256:
 providerPromptPayloadHash:
 providerSettingsIntentSha256:
 transparentForegroundSelection: conditional exact selection; omit in legacy branch
+identityAnchoredGenerationSelection: conditional exact selection; omit unless registered branch
 status: ready_for_generation
 ```
 
@@ -1261,6 +1284,14 @@ returns the byte-identical prior receipt and media without a provider call.
 Blocked, failed, and nonconformant states end with `stop_no_retry` and never
 create or mutate a planning, routing, prompt, generation-v2, preservation, or
 evaluation record/index.
+
+`generated_media_builtin_imagegen_identity_anchored_generation_receipt_v1` is
+the disjoint response-only receipt for
+`builtin_imagegen_authenticated_identity_anchored_single_submit_v1`. Its closed
+shape, selection/profile binding, identity/equipment conformance result,
+idempotency formula, and stage boundary are owned by
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. It cannot be
+substituted for the existing built-in receipt or `generated_media_generation_v2`.
 
 ### Source-bound chroma-uncomposite record v1
 

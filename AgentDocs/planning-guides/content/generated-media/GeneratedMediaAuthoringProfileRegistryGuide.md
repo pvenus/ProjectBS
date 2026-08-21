@@ -116,6 +116,22 @@ postprocessOwnerRole=generated_media_chroma_uncomposite
 selection=explicit_approved_planning_fact_and_complete_successor_projection_required
 ```
 
+The following registered execution profile composes that expression profile
+without modifying it. It is a target-specific execution authority, not an
+expression-profile successor and not a source-bound edit route:
+
+```text
+executionProfileKey=projectbs_character_open_ink_opaque_chroma_identity_anchored_regeneration@1.0.0
+executionProfilePayloadSha256=44d3bafcc720d39ac260fb2089798c16f9ec1f50d391165eea676dbc79cdc3ad
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/helpers/generated_media_identity_anchored_opaque_chroma_execution_profile_v1.json
+guideAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md
+appliesTo=character_single_image_v2+character+character.seojin.2
+expressionProfileKey=projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0
+expressionProfilePayloadHash=b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a
+executionMode=builtin_imagegen_authenticated_identity_anchored_single_submit_v1
+selection=exact reviewed identityAnchoredGenerationSelection required
+```
+
 The animation-only open-ink attack successor composes the exact open-ink v2
 reference without changing that profile or the existing sparse-motion profile:
 

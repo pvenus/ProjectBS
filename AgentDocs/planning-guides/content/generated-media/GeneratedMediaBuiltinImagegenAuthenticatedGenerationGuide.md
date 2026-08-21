@@ -223,3 +223,18 @@ handoff, execution-scope hash, prompt SHA and idempotency key before crossing
 the provider boundary. A route built from JCS prompt-array bytes, terminal-LF
 prompt bytes, wall-clock createdAt, inferred approval, or a partial index entry
 is `source_bound_edit_route_projection_mismatch`.
+
+## Identity-anchored regeneration exception
+
+`builtin_imagegen_authenticated_identity_anchored_single_submit_v1` is a
+separate non-edit execution mode registered only by
+`projectbs_character_open_ink_opaque_chroma_identity_anchored_regeneration@1.0.0`
+/ `44d3bafcc720d39ac260fb2089798c16f9ec1f50d391165eea676dbc79cdc3ad`.
+It uses the same actual callable schema but requires exact prompt plus one
+`referenced_image_paths` entry for the registered project identity/equipment
+authority. It never uses `num_last_images_to_include`, never requires a provider
+receipt for the reference, and never grants edit-source semantics. The closed
+selection, projection, scope/idempotency, identity gates, receipt, and later
+opaque-chroma postprocess boundary are normative in
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. Existing built-in
+and source-bound-edit modes are unchanged.

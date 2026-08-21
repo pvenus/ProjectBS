@@ -1,0 +1,86 @@
+{
+  "executionProfileKey": "projectbs_character_open_ink_opaque_chroma_identity_anchored_regeneration@1.0.0",
+  "schemaVersion": "generated_media_identity_anchored_execution_profile_v1",
+  "applicability": {
+    "assetType": "character_single_image",
+    "domainType": "character",
+    "targetContentId": "character.seojin.2",
+    "structureProfile": "character_single_image_v2",
+    "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+    "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a"
+  },
+  "identityReferenceBinding": {
+    "schemaVersion": "generated_media_identity_equipment_reference_binding_v1",
+    "role": "identity_equipment_authority",
+    "authorityContentId": "character.seojin.1",
+    "projectRelativePath": "Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+    "sha256": "ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf",
+    "allowedTransfer": [
+      "same_young_korean_male_face_identity",
+      "low_topknot_and_short_controlled_hair",
+      "compact_body_proportion",
+      "right_handed_sword_and_scabbard",
+      "recognizable_pouch_and_shoulder_equipment"
+    ],
+    "prohibitedTransfer": [
+      "edit_source_or_edit_target_semantics",
+      "provider_receipt_requirement_for_reference",
+      "source_pose_or_framing_copy",
+      "source_background_or_pixels_as_output_authority"
+    ]
+  },
+  "callableContract": {
+    "executionMode": "builtin_imagegen_authenticated_identity_anchored_single_submit_v1",
+    "provider": "imagegen",
+    "providerTool": "image_gen.imagegen",
+    "callProjectionMembers": ["prompt", "referenced_image_paths"],
+    "referenceSelector": "referenced_image_paths",
+    "referenceCount": 1,
+    "numLastImagesToInclude": "prohibited",
+    "submitCountMaximum": 1,
+    "retryCountMaximum": 0,
+    "scopeFreshness": "fresh_execution_scope_required",
+    "activeOrCompletedSameKey": "duplicate_provider_call_risk"
+  },
+  "identityAndDesignGates": {
+    "required": [
+      "same young Korean male face without aging or severe redesign",
+      "low topknot or short controlled hair with no long loose hair",
+      "compact full-body proportion and safe fit",
+      "right-handed sword and scabbard continuity",
+      "recognizable pouch and shoulder equipment continuity",
+      "restrained command-ready Joseon naval-officer evolution"
+    ],
+    "prohibited": [
+      "ronin or samurai identity",
+      "katana-forward or foreign or fantasy substitution",
+      "long loose hair",
+      "tattered mantle",
+      "wrapped forearms or wrapped boots",
+      "older sharper severe face redesign",
+      "literal Yi Sun-sin reproduction",
+      "missing or replaced pouch or shoulder equipment"
+    ],
+    "failureToken": "identity_anchored_generation_identity_equipment_gate_failed"
+  },
+  "providerMasterContractBinding": {
+    "inheritance": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0_byte_and_meaning_unchanged",
+    "output": "exactly_one_png_1024x1536_fully_opaque",
+    "background": "edge_to_edge_perfectly_uniform_rgb_00ff00_outside_foreground",
+    "fullFigureSafeFit": true,
+    "boundaryClean": true,
+    "providerTransparency": "prohibited",
+    "postprocessOwnerRole": "generated_media_chroma_uncomposite"
+  },
+  "rejectedLineage": {
+    "sourceSha256": "66dc1c94be2e38e9dc4d6ff15b4b6b0699353b9830d718ec16743dc4ff92acf9",
+    "postprocessOutputSha256": "1b68b5a50c2801a090f25d13f4b22bd7b8afc4e5c6a93b423ddf06abeaa4bfbb",
+    "disposition": "non_authoritative_non_reusable_no_reference_no_edit_source"
+  },
+  "stageBoundary": {
+    "generationMayUncomposite": false,
+    "generationMayPreserveEvaluatePromote": false,
+    "nextStepOnConformingMaster": "generated_media_chroma_uncomposite",
+    "projectCopyEligible": false
+  }
+}

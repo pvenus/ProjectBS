@@ -744,3 +744,23 @@ provider master, and later `generated_media_chroma_uncomposite` ownership.
 `transparentForegroundSelection` and direct-alpha required elements are
 forbidden. The final background policy may require true alpha only after that
 distinct later stage. Existing handoffs are never converted or overwritten.
+
+### Grade 2 identity-anchored opaque-chroma regeneration
+
+A fresh `character.seojin.2` MAIN revision may select the registered execution
+profile
+`projectbs_character_open_ink_opaque_chroma_identity_anchored_regeneration@1.0.0`
+/ `44d3bafcc720d39ac260fb2089798c16f9ec1f50d391165eea676dbc79cdc3ad`
+only with the exact seven-member top-level
+`identityAnchoredGenerationSelection` in
+GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. The reference is
+the exact project-relative Seojin Grade 1 portrait with raw SHA
+`ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf`
+and role `identity_equipment_authority`. It supplies only the registered face,
+hair, compact-proportion, handedness, pouch, and shoulder-equipment anchors; it
+is not style evidence, an edit source/target, pose/background authority, or a
+provider-receipt-bearing source. Capture every selection leaf as an approved
+fact and copy the exact object top-level into the handoff. The rejected Grade 2
+source/postprocess lineage is forbidden as a reference or regeneration input.
+The existing opaque-chroma expression profile and later postprocess boundary
+remain unchanged.
