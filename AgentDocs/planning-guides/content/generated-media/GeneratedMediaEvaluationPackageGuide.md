@@ -29,6 +29,10 @@ planning_handoff_v2 -> routing_v2 -> prompt_v3 -> generation_v2
 accepted-result branch:
 planning_handoff_v2 -> routing_v2 -> accepted_result_capture_v1
 -> preservation_v2 -> evaluation_package_v2
+
+source-bound chroma-recovery branch:
+planning_handoff_v2 -> routing_v2 -> immutable failed generation receipt + exact source
+-> source_bound_chroma_uncomposite_record_v1 -> preservation_v2 -> evaluation_package_v2
 ```
 
 The accepted-result branch exists only for a validated preservation record that
@@ -47,6 +51,7 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
   prompt/ # strict or recovered-prompt accepted branch only
   generation/ # strict branch only
   accepted-capture/ # accepted-result branch only: record.json + capture-receipt.json
+  source-chroma-recovery/ # source-bound branch only: generation receipt + profile + recovery record/receipt/evidence
   preservation/
   source/
   extracted/
@@ -56,7 +61,10 @@ absolute root blocks. Staging must differ from and not sit below projectTarget.
 
 Animation inserts `{animationRequestId}` after `{contentId}`. The temporary
 directory is never an evaluation source. Every member has a lowercase SHA-256.
-Exactly one of `generation/` or `accepted-capture/` exists. In the accepted
+Exactly one of `generation/`, `accepted-capture/`, or `source-chroma-recovery/`
+exists. The latter contains the immutable failed generation receipt, recovery
+profile, source-evidence projection, recovery record/receipt, and source/output
+hash identities; media remains under `source/`. In the accepted
 animation branch, `prompt/` contains the exact recovered provider-prompt bytes
 whose raw hash equals the capture prompt evidence; it is not a prompt record.
 It is absent for an unavailable-prompt `character_single_image` capture.
@@ -104,6 +112,13 @@ acceptedResultCaptureRecordId: accepted-result branch only
 acceptedResultCaptureRecordPath: accepted-result branch only; exact project-relative record path
 acceptedResultCaptureRecordSha256: accepted-result branch only; exact raw Git-blob SHA-256
 acceptedResultCaptureReceiptSha256: accepted-result branch only; exact receipt.receiptPayloadSha256
+sourceBoundChromaRecoveryRecordId: source-bound chroma branch only
+sourceBoundChromaRecoveryRecordPath: same branch only; exact project-relative path
+sourceBoundChromaRecoveryRecordSha256: same branch only; exact raw Git-blob SHA-256
+sourceBoundChromaRecoveryReceiptSha256: same branch only
+sourceBoundChromaRecoveryProfileKey: same branch only; exact registered key
+sourceBoundChromaRecoveryProfilePayloadHash: same branch only; exact registered payload hash
+sourceBoundChromaSourceSha256: same branch only; immutable provider master
 correctiveOutputEvidence: accepted corrective character_single_image sub-branch only; closed path-free projection below
 singleImageBackgroundNormalizationReceipt: same sub-branch only; exact closed v1 or source-bound v2 receipt
 gifTimingQuantizationReceipt: exact six-frame 8fps coherent-master sub-branch only
@@ -159,6 +174,19 @@ preservation index projection. Drift is `serializer_output_hash_mismatch`;
 missing/mixed receipt, handoff, or index identity is
 `evaluation_package_input_branch_incomplete`. Strict/legacy branches do not
 gain these members.
+
+For the source-bound chroma branch, the package must project the exact indexed
+`generated_media_source_bound_chroma_uncomposite_record_v1` and receipt under
+`projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0` /
+`b336aa015146b793cd6cb2a1adf4dde0c6fdcc178dfa51c516f77994d3ff4746`.
+It seals the immutable failed generation receipt/source SHA, recovery profile,
+source evidence and canonical RGBA output. It forbids prompt/generation-v2/cost
+substitution and any accepted-result member. Mixed/partial branches are
+`evaluation_package_input_branch_conflict` or
+`evaluation_package_input_branch_incomplete`; hash/profile/mask/output drift is
+`source_bound_chroma_recovery_evidence_mismatch`. Only after the sealed package
+passes all technical alpha/fringe/canvas/member gates may independent scoring
+begin.
 
 For an accepted corrective `character_single_image`, the unavailable-prompt
 shape remains unchanged and the manifest additionally carries exactly this
@@ -509,6 +537,7 @@ evaluation_package_accepted_prompt_evidence_mismatch
 evaluation_package_corrective_evidence_mismatch
 evaluation_package_background_normalization_mismatch
 evaluation_package_gif_boundary_normalization_mismatch
+source_bound_chroma_recovery_evidence_mismatch
 ```
 
 Validate exactly one current version-chain branch, `provider=imagegen`, one closed profile,

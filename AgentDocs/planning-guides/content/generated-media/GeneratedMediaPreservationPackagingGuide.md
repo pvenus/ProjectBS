@@ -36,6 +36,10 @@ acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceipt: exact generated_media_accepted_result_capture_receipt_v1; accepted-result branch only
 acceptedResultCaptureReceiptSha256: exact receipt.receiptPayloadSha256; accepted-result branch only
 acceptedPromptEvidence: accepted-result branch only; exact projection defined below
+sourceBoundChromaRecoveryRecordId: generated_media_source_bound_chroma_uncomposite_record_v1; mutually exclusive third branch
+sourceBoundChromaRecoveryRecordPath: exact canonical project-relative postprocess record path
+sourceBoundChromaRecoveryRecordSha256: required with sourceBoundChromaRecoveryRecordId
+sourceBoundChromaRecoveryReceiptSha256: exact receipt.receiptPayloadSha256
 provider: imagegen
 assetType: character_single_image | icon_single_image | background_single_image | animation
 domainType: character | skill | item | stage | battle | environment
@@ -54,9 +58,23 @@ Exactly one input branch is present. The strict branch uses
 `providerResultRefs`, and `approvalCostProjection`; the accepted-result branch
 uses `acceptedResultCaptureRecordId`, `acceptedResultCaptureRecordPath`,
 `acceptedResultCaptureRecordSha256`, the
-exact capture receipt/hash, and `acceptedPromptEvidence`. Each branch forbids
-every field owned by the other branch. Mixed, partial, or unknown branch fields
-fail before payload identity calculation.
+exact capture receipt/hash, and `acceptedPromptEvidence`. The source-bound
+chroma-recovery branch uses only its exact indexed recovery record/path/raw
+hash/receipt hash plus the common planning/routing identity. Each branch
+forbids every field owned by either other branch. Mixed, partial, or unknown
+branch fields fail before payload identity calculation.
+
+The source-bound branch rehashes the immutable provider master, immutable
+`output_nonconformant_no_retry` generation receipt, recovery profile, source
+evidence, recovery receipt, and canonical true-alpha PNG from the recovery
+record/index. The registered pair and output must match
+`projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0` /
+`b336aa015146b793cd6cb2a1adf4dde0c6fdcc178dfa51c516f77994d3ff4746`.
+It does not invent prompt/generation-v2/cost evidence and applies no second
+background transform. Recovery output is preserved byte-identically; the
+original provider master and failed generation receipt are sealed as lineage
+evidence. Any profile/source/receipt/mask/output/index drift is
+`source_bound_chroma_recovery_evidence_mismatch`.
 
 When no authoritative `generated_media_prompt_v3` exists, the accepted-result
 branch MUST NOT invent one. Animation projects the existing closed recovered
@@ -203,7 +221,7 @@ no provider call and cannot be used by animation or any non-corrective output.
 
 | assetType/domain | adapterId | structureProfile | exact responsibility |
 | --- | --- | --- | --- |
-| character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; conditionally apply the closed accepted-corrective boundary-connected checkerboard alpha normalization below; otherwise apply only approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
+| character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; conditionally apply the closed accepted-corrective boundary-connected checkerboard alpha normalization below; for an exact indexed source-bound chroma recovery preserve its already-canonical RGBA output byte-identically with no second transform; otherwise apply only approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
 | icon_single_image/skill or item | imagegen_icon_single_image_v2 | icon_single_image_v2 | preserve original; apply approved background/no-shadow/outline without crop/scale; record visual center |
 | background_single_image/stage, battle or environment | imagegen_background_single_image_v2 | background_single_image_v2 | preserve original scene bytes; retain scene composition, viewpoint, depth/playable-area, target/safe-area, consistency lock and scene anchor metadata without icon transforms |
 | animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; pelvis/root anchor; exact timeline extraction |
@@ -652,6 +670,10 @@ acceptedResultCaptureRecordId: mutually exclusive alternative
 acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
+sourceBoundChromaRecoveryRecordId: source-bound chroma branch only
+sourceBoundChromaRecoveryRecordPath: same branch only
+sourceBoundChromaRecoveryRecordSha256: same branch only
+sourceBoundChromaRecoveryReceiptSha256: same branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
 singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
@@ -695,6 +717,10 @@ acceptedResultCaptureRecordId: mutually exclusive alternative
 acceptedResultCaptureRecordPath: accepted-result branch only
 acceptedResultCaptureRecordSha256: required with acceptedResultCaptureRecordId
 acceptedResultCaptureReceiptSha256: accepted-result branch only
+sourceBoundChromaRecoveryRecordId: mutually exclusive third branch
+sourceBoundChromaRecoveryRecordPath: source-bound chroma branch only
+sourceBoundChromaRecoveryRecordSha256: same branch only
+sourceBoundChromaRecoveryReceiptSha256: same branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
 singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 singleImageBackgroundNormalizationReceipt: same sub-branch only after transform; schema must match selected plan
@@ -751,6 +777,7 @@ accepted_result_prompt_evidence_mismatch
 preservation_input_branch_conflict
 preservation_input_branch_incomplete
 preservation_input_unknown_field
+source_bound_chroma_recovery_evidence_mismatch
 accepted_result_planning_lineage_mismatch
 accepted_result_historical_planning_unresolvable
 accepted_result_historical_planning_ambiguous

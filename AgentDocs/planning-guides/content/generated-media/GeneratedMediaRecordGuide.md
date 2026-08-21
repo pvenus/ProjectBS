@@ -1232,6 +1232,29 @@ Blocked, failed, and nonconformant states end with `stop_no_retry` and never
 create or mutate a planning, routing, prompt, generation-v2, preservation, or
 evaluation record/index.
 
+### Source-bound chroma-uncomposite record v1
+
+The additive
+`generated_media_source_bound_chroma_uncomposite_record_v1` and
+`generated_media_source_bound_chroma_uncomposite_receipt_v1` are owned by
+`GeneratedMediaSourceBoundChromaRecoveryGuide.md`. They are eligible only for
+the exact registered source/immutable generation-receipt pairs in
+`projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0` /
+`b336aa015146b793cd6cb2a1adf4dde0c6fdcc178dfa51c516f77994d3ff4746`.
+They do not rewrite the generation receipt or create a generation-v2 record.
+
+Canonical record and index paths are respectively
+`AgentDocs/planning-data/generated-media-postprocess/v1/character_single_image/{contentId}/{recordId}.json`
+and
+`AgentDocs/planning-data/generated-media-postprocess/v1/character_single_image/{contentId}/postprocess_index.json`.
+The exact closed schemas, hash payload, ID derivation, entry projection,
+record-first sorted-CAS/no-clobber rule and `reused_identical` behavior are in
+that guide. Unknown/mixed members, unregistered source/receipt pairs, profile or
+mask drift, occupied-different output/record bytes, and stale index CAS fail
+closed. A complete indexed record authorizes preservation and later independent
+evaluation only; `evaluationStatus=not_evaluated` and
+`projectCopyEligible=false` remain mandatory at this stage.
+
 ### Canonical normalized preservation v2 records
 
 Normalized accepted-result outputs use the closed
@@ -1326,6 +1349,15 @@ record_identity_mismatch
 record_hash_mismatch
 record_collision
 index_entry_invalid
+source_chroma_profile_hash_mismatch
+source_chroma_binding_not_registered
+source_chroma_source_fixture_mismatch
+source_chroma_generation_receipt_mismatch
+source_chroma_calibration_evidence_mismatch
+source_chroma_output_validation_failed
+source_chroma_output_collision
+source_chroma_record_collision
+source_chroma_index_cas_mismatch
 prompt_markdown_mismatch
 prompt_record_write_failed
 prompt_markdown_write_failed

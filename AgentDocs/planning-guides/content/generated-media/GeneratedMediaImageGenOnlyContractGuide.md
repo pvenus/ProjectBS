@@ -2251,3 +2251,13 @@ variation, halo/vignette/floor/scene/shadow, neighboring fragments, or exact
 `#00FF00` foreground pixels are forbidden. Generation stops at the master
 receipt; chroma uncomposite/final alpha belongs only to distinct later role
 `generated_media_chroma_uncomposite` and project-copy eligibility remains false.
+
+The postprocess-only
+`projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0` /
+`b336aa015146b793cd6cb2a1adf4dde0c6fdcc178dfa51c516f77994d3ff4746`
+does not weaken that generation contract. It registers only two exact source
+SHA + immutable failed-generation-receipt SHA tuples and their complete
+source-derived border/topology/mask evidence. Its owner, algorithm, record,
+receipt, no-clobber paths and hard alpha/fringe gates are closed by
+GeneratedMediaSourceBoundChromaRecoveryGuide.md. Every other nonuniform or
+near-green master remains ineligible; exact `#00FF00` is never claimed.

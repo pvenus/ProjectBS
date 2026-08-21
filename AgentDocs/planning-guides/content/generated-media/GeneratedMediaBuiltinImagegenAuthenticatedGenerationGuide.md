@@ -189,3 +189,12 @@ record `providerCalled=false`, `submitCount=0`, `retryCount=0`,
 `costKnown=false`. Post-submit operation failure is
 `builtin_imagegen_submit_failed_no_retry`; output mismatch uses the existing
 opaque-chroma failure. Neither authorizes a new submit.
+
+An exact `output_nonconformant_no_retry` master remains terminal for generation.
+It may be consumed later only when its source SHA and this immutable generation
+receipt SHA are both explicitly registered by
+`projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0` /
+`b336aa015146b793cd6cb2a1adf4dde0c6fdcc178dfa51c516f77994d3ff4746`.
+That distinct postprocess exception does not change this receipt state, satisfy
+the exact `#00FF00` generation gate, reopen idempotency, or authorize provider
+recall/retry. Every unregistered nonconformant master remains stopped.

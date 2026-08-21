@@ -1,0 +1,146 @@
+{
+  "algorithmContract": {
+    "alphaPolicy": {
+      "carrierCore": "alpha_0",
+      "otherPixels": "alpha_255_rgb_byte_identical",
+      "positiveOneRing": "alpha_round_half_up_255_times_floor_minus_excess_over_floor"
+    },
+    "backgroundCalibration": "full_outer_perimeter_green_excess_minimum",
+    "candidatePredicate": "greenExcess_g_minus_max_r_b_greater_than_or_equal_to_source_floor",
+    "carrierTopology": "four_connected_full_outer_perimeter_component_plus_exact_registered_enclosed_component_mask",
+    "colorModel": "source_neighbor_green_screen_uncomposite_then_bounded_despill_v1",
+    "connectivity": 4,
+    "enclosedPocketPolicy": "include_only_when_exact_source_binding_component_count_total_size_digest_and_mask_digest_match",
+    "maskDigestEncoding": "sha256_of_row_major_one_byte_per_pixel_0_or_1",
+    "noManualOperations": [
+      "manual_mask",
+      "recolor",
+      "repaint",
+      "crop",
+      "resize",
+      "recenter",
+      "provider_recall",
+      "raw_source_mutation"
+    ],
+    "oneRingPolicy": "exactly_one_four_neighbor_ring_outside_combined_carrier_core_with_greenExcess_greater_than_0",
+    "serializerKey": "generated_media_png_rgba8_store_v1",
+    "serializerVersion": "1.0.0",
+    "uncompositeKey": "generated_media_border_calibrated_green_uncomposite_v1",
+    "uncompositeVersion": "1.0.0"
+  },
+  "applicability": {
+    "assetType": "character_single_image",
+    "domainType": "character",
+    "postprocessOwnerRole": "generated_media_chroma_uncomposite",
+    "selection": "exact_registered_source_and_generation_receipt_binding_only",
+    "structureProfile": "character_single_image_v2"
+  },
+  "generationProfileBinding": {
+    "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+    "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a",
+    "generationContractMeaning": "immutable_exact_00ff00_contract_not_relaxed_or_reinterpreted",
+    "generationReceipts": "immutable_consumed_nonconformant_source_evidence_not_reopened"
+  },
+  "outputContract": {
+    "alphaMax": 255,
+    "alphaMin": 0,
+    "canvas": {"height": 1536, "width": 1024},
+    "colorMode": "RGBA",
+    "cornersAlpha": 0,
+    "foregroundRetained": true,
+    "fringePolicy": "no_visible_green_excess_and_no_new_cyan_or_magenta_excess_in_transformed_one_ring",
+    "fullOuterBorderAlpha": 0,
+    "noCrop": true,
+    "nonTransformedPixels": "source_rgb_byte_identical_alpha_255",
+    "outputFormat": "png",
+    "partialAlpha": "one_ring_only",
+    "recompositionTolerancePerChannel": 1,
+    "transparentPixelsMinimum": 1
+  },
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_uncomposite@1.0.0",
+  "recordContract": {
+    "idempotency": "exact_source_profile_algorithm_settings_reused_identical",
+    "indexPolicy": "record_first_then_sorted_cas_append_no_clobber",
+    "recordSchemaVersion": "generated_media_source_bound_chroma_uncomposite_record_v1",
+    "receiptSchemaVersion": "generated_media_source_bound_chroma_uncomposite_receipt_v1"
+  },
+  "schemaVersion": "generated_media_source_bound_chroma_recovery_profile_v1",
+  "sourceBindings": [
+    {
+      "borderEvidence": {
+        "greenExcessMax": 242,
+        "greenExcessMedian": 238,
+        "greenExcessMin": 214,
+        "outerPerimeterAllGreenDominant": true,
+        "outerPerimeterPixelCount": 5116,
+        "sourceCalibratedFloor": 214
+      },
+      "byteLength": 1797468,
+      "contentId": "character.seojin.2",
+      "foregroundEvidence": {
+        "bbox": {"xMax": 802, "xMin": 49, "yMax": 1467, "yMin": 122},
+        "margins": {"bottom": 68, "left": 49, "right": 221, "top": 122}
+      },
+      "generationHandoffSha256": "dec4d883e306fa28da7fa780179858d1b6c93ff3311bb7f4398b84c0e1dbe31b",
+      "generationReceiptSha256": "d7e9cd9894d2989fd58caba75f0548963eebc510dd3085f9cbda03d0a0f1a74b",
+      "idempotencyKey": "gmbuiltin1.0fbe2019e9f594d9b231",
+      "image": {"colorMode": "RGB", "fullyOpaque": true, "height": 1536, "outputFormat": "png", "width": 1024},
+      "requestId": "gmplan2.character_single_image.character.seojin.2.b7476e702e9816e3c644",
+      "sourceSha256": "1222a43bf5cc41b3e1d6d261ae8be484746fdd130f85db21a382aec907c3abf2",
+      "topologyEvidence": {
+        "candidateMaskSha256": "fdac0f94f5512d747c25af0066251bdd7d0ced89f5df144c5cebbb2f1d6cf0ec",
+        "edgeCarrierMaskSha256": "f2589b380def89716fdff3b624ace710877e050c399f954b7cae5eb121cb7b35",
+        "edgeCarrierPixelCount": 1145787,
+        "edgeCarrierRatioPpm": 728472,
+        "enclosedCarrierComponentCount": 60,
+        "enclosedCarrierMaskSha256": "f520fd2aa20741f0a337e8f52ac80aad1eb83dcd2cecd9c452b6949f84caf51a",
+        "enclosedCarrierPixelCount": 2986,
+        "enclosedComponentSizesSha256": "cad02c9ac6618ef8e464898b681356e09bf9888f344fe24c42274e115c98e873",
+        "oneRingGreenExcessMax": 213,
+        "oneRingGreenExcessMedian": 179,
+        "oneRingGreenExcessMin": 42,
+        "oneRingGreenExcessP95": 211,
+        "oneRingMaskSha256": "265c013469a194fc5e15740367be3ae38a6c6cd3c71836b07966a416d79a9b84",
+        "oneRingPixelCount": 7276
+      }
+    },
+    {
+      "borderEvidence": {
+        "greenExcessMax": 245,
+        "greenExcessMedian": 241,
+        "greenExcessMin": 218,
+        "outerPerimeterAllGreenDominant": true,
+        "outerPerimeterPixelCount": 5116,
+        "sourceCalibratedFloor": 218
+      },
+      "byteLength": 2048348,
+      "contentId": "character.seojin.3",
+      "foregroundEvidence": {
+        "bbox": {"xMax": 961, "xMin": 31, "yMax": 1456, "yMin": 120},
+        "margins": {"bottom": 79, "left": 31, "right": 62, "top": 120}
+      },
+      "generationHandoffSha256": "cecafba09e19e5da61afd275f519a002ed41cf3cc037f4ae3d647ca21bc0c0d5",
+      "generationReceiptSha256": "3a70164373fb8b45debe5767ac316080f6c3fadddc4388bfc1ec79a3d323cb1d",
+      "idempotencyKey": "gmbuiltin1.966c1d711543aff0ec44",
+      "image": {"colorMode": "RGB", "fullyOpaque": true, "height": 1536, "outputFormat": "png", "width": 1024},
+      "requestId": "gmplan2.character_single_image.character.seojin.3.64ea99406c5cc50e6e3b",
+      "sourceSha256": "2e3333def860d13c0d1e3c955a32fa5e0e9875f55c6da101a3e39dd51f422973",
+      "topologyEvidence": {
+        "candidateMaskSha256": "e9533e58e959cdd855a0359d6cc234dcb9cf7f1710e72c5e7948751ddab8959a",
+        "edgeCarrierMaskSha256": "db082472c2d0f9a64c09adfbaed36956b854a44e7f78cd7aa6305ed0c268d1be",
+        "edgeCarrierPixelCount": 1055854,
+        "edgeCarrierRatioPpm": 671294,
+        "enclosedCarrierComponentCount": 51,
+        "enclosedCarrierMaskSha256": "27171e63c06a9cad780d6313676c106421c0eeaf6ec64f43de685caf5231df03",
+        "enclosedCarrierPixelCount": 2743,
+        "enclosedComponentSizesSha256": "4c70210e734da52956a4ed8926fac5cf49b1111a28e00388a3ff56446291018b",
+        "oneRingGreenExcessMax": 217,
+        "oneRingGreenExcessMedian": 177,
+        "oneRingGreenExcessMin": 8,
+        "oneRingGreenExcessP95": 215,
+        "oneRingMaskSha256": "f140883f723c808931c5c95e9f6b4c9ce70d41fc06022ae0c0001c1addd6dd1a",
+        "oneRingPixelCount": 10471
+      }
+    }
+  ]
+}
