@@ -1,0 +1,80 @@
+{
+  "algorithmContract": {
+    "fit": {
+      "algorithmKey": "generated_media_premultiplied_box_foreground_fit_v1",
+      "algorithmVersion": "1.0.0",
+      "canvas": {"height": 1536, "width": 1024},
+      "dimensionRounding": "target_width=704; scale=704/716=176/179; target_height=round_half_up(1092*176/179)=1074",
+      "placement": {"x": 160, "y": 231},
+      "resampling": "exact_integer_area_weights_premultiplied_rgba_round_half_up",
+      "scaleRational": {"denominator": 179, "numerator": 176},
+      "sourceForegroundBbox": {"xMax": 851, "xMin": 136, "yMax": 1330, "yMin": 239},
+      "targetForegroundBbox": {"xMax": 863, "xMin": 160, "yMax": 1304, "yMin": 231},
+      "targetSize": {"height": 1074, "width": 704}
+    },
+    "operationOrder": ["exact_edited_source_validation", "expanded_source_fringe_uncomposite_v2", "premultiplied_box_foreground_fit_v1", "target_residual_carrier_uncomposite_v2", "canonical_png_rgba8_serialization", "reopen_validation"],
+    "sourceFringe": {
+      "alphaModel": "source_floor_green_excess_round_half_up",
+      "backgroundModel": "nearest_registered_carrier_root_manhattan_bfs_seed_and_neighbor_index_order",
+      "candidatePredicate": "positive_green_excess_four_connected_to_registered_carrier",
+      "inverseComposite": "integer_rgb_inverse_against_registered_root_then_clamp8",
+      "maxGraphDistance": 31,
+      "nearestCarrierRootMapSha256": "dc8052c38bbcb67e442059400424ca5f3bb48d495cc65e6d04d91437047168bb",
+      "pixelCount": 14537,
+      "sourceFringeMaskSha256": "c9d9cf12f839cface042cf1bf78c80be5314a555864c0211d4bf60336dc8885c"
+    },
+    "targetResidual": {
+      "backgroundModel": "area_weighted_nearest_registered_carrier_root_rgb_round_half_up",
+      "fullNearestCarrierRootMapSha256": "2057e756fd8b2556574431423e7ea13787a1e89468673c660d437aa50422a442",
+      "inverseCompositeSearch": "largest_alpha_from_initial_down_to_1_with_rgb_in_range_green_excess_nonpositive_and_recomposition_error_max_1_else_clear",
+      "postResidualPartialAlphaPositiveGreenCount": 0,
+      "preResidualPartialAlphaPositiveGreenCount": 229,
+      "residualClearedPixelCount": 11,
+      "residualClearedTargetMaskSha256": "dcb6f4d2c72b83f9a0316c6b91e7b51b67ab0be81fabf7a73fe12d15823308ad",
+      "residualSolvedPixelCount": 218,
+      "residualTargetMaskSha256": "3a6000c738ef77845322c1e3c629452e37578ec43c6acc1b426f87509b9bb8df"
+    },
+    "transparentRgb": [0, 0, 0]
+  },
+  "applicability": {"assetType": "character_single_image", "contentId": "character.seojin.3", "domainType": "character", "postprocessOwnerRole": "generated_media_chroma_uncomposite", "selection": "exact_registered_edited_source_and_edit_execution_receipt_only", "structureProfile": "character_single_image_v2"},
+  "editProfileBinding": {"editProfileKey": "projectbs_character_open_ink_source_bound_single_edit@1.0.0", "editProfilePayloadSha256": "aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011", "editReceiptDisposition": "immutable_output_nonconformant_no_retry_evidence", "semanticEditEvidence": "exactly_one_brass_closure_identity_orientation_equipment_no_mirror_pass"},
+  "outputContract": {
+    "alphaMax": 255,
+    "alphaMin": 0,
+    "allowedForegroundBbox": {"xMax": 864, "xMin": 160, "yMax": 1376, "yMin": 128},
+    "canvas": {"height": 1536, "width": 1024},
+    "colorMode": "RGBA",
+    "cornersAndFullBorderAlpha": 0,
+    "foregroundBbox": {"xMax": 863, "xMin": 160, "yMax": 1304, "yMin": 231},
+    "foregroundDerivedOnlyFromRegisteredSource": true,
+    "fringePolicy": "zero_residual_carrier_contribution_under_exact_inverse_composite_model; modeled_foreground_hues_are_not_reclassified_as_carrier_fringe",
+    "modeledResidualGreenCyanMagentaFringeCount": 0,
+    "noClipping": true,
+    "noManualMaskCropRepaintOrIdentityEdit": true,
+    "outputFormat": "png",
+    "outputPngByteLength": 6293540,
+    "outputPngSha256": "190f6e937ec61ed59dd2c04a415b937ef5d5ba6f46d1f5d476a38b54de11563a",
+    "outputRgbaSha256": "b507921887a78ff002bf5949c11b372baebba1f453aff82257fb8b8542a550d8",
+    "partialAlphaPositiveGreenExcessCount": 0,
+    "protectedInformationPolicy": "pixels_outside_registered_carrier_and_positive_green_fringe_are_unchanged_before_exact_authorized_resampling; changed_partial_pixels_must_match_inverse_composite_model",
+    "serializerKey": "generated_media_png_rgba8_store_v1",
+    "serializerVersion": "1.0.0",
+    "transparentPixelRgb": [0, 0, 0]
+  },
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0",
+  "recordContract": {"idempotency": "exact_source_receipt_profile_algorithm_settings_reused_identical", "indexPolicy": "record_first_then_sorted_cas_append_no_clobber", "recordSchemaVersion": "generated_media_source_bound_chroma_fit_record_v2", "receiptSchemaVersion": "generated_media_source_bound_chroma_fit_receipt_v2"},
+  "schemaVersion": "generated_media_source_bound_chroma_fit_profile_v2",
+  "sourceBinding": {
+    "byteLength": 1642290,
+    "editExecutionHandoffSha256": "578b878fd6a20601d8a7dbf449d24cacb73569e96e0beab17e5a2f6caa9bd50a",
+    "editExecutionReceiptPathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-source-edits/v1/character_single_image/character.seojin.3/gmedit1.d2fc599b7d6ae1863442/edit-execution-receipt.json",
+    "editExecutionReceiptSha256": "df9921b80222ab4a3a59f5dd35753d48e8988d76e4ea7b81cf690a522a453cc3",
+    "editExecutionScopeHash": "d2fc599b7d6ae186344265438d70044a897019e571a9a25c78fde74da9b67a0f",
+    "idempotencyKey": "gmedit1.d2fc599b7d6ae1863442",
+    "requestId": "gmplan2.character_single_image.character.seojin.3.8031fe304c2588cfca50",
+    "routeId": "gmeditroute1.character_single_image.character.seojin.3.92a8f6f3d4dc6b030745",
+    "routeRecordSha256": "97b5aa353beae6f84e132001427e9ce9950c17c081df861174d7caa14c693329",
+    "sourcePathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-source-edits/v1/character_single_image/character.seojin.3/gmedit1.d2fc599b7d6ae1863442/provider-edit-master.png",
+    "sourceSha256": "7394278aac0553bd7f0967f84ec5654a61de438efde4626c439d3f64cead3e4a"
+  }
+}

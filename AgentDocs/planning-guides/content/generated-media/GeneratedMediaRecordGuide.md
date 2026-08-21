@@ -1486,6 +1486,16 @@ drift, or receipt drift fails before submit. Neither record schema is a prompt,
 generation-v2, preservation, evaluation, or promotion record, and neither
 rewrites historical records/indexes.
 
+The exact G2 fringe successor uses
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`
+with `generated_media_source_bound_chroma_fit_record_v2` and
+`generated_media_source_bound_chroma_fit_receipt_v2`. Identity additionally
+includes expanded source-fringe mask/root hashes, target residual/cleared mask
+hashes and counts, protected-information validation, transparent-RGB-zero and
+post-residual positive-green count zero. It never overwrites or completes the
+rejected v1 candidate.
+
 The G3 route projection itself is additionally registered as
 `projectbs_generated_media_source_bound_character_edit_route@1.0.0` /
 `77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
@@ -1494,3 +1504,10 @@ object, deterministic initial state/createdAt, LF-without-terminal-LF prompt
 bytes, nested route payload/record, detached execution handoff, index entry and
 record-first CAS formulas. A producer must use its pure projector; ad hoc flat
 records or either alternate prompt serialization are invalid.
+
+The v2 fit record/receipt schema also admits only the separately registered G3
+profile `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`.
+Its payload carries its own edited-source SHA, edit-receipt SHA, profile hash,
+704x1074 rational-fit settings, masks, serializer, and expected output hashes.
+Mixing any G2 identity is `source_chroma_fit_v2_binding_not_registered`.

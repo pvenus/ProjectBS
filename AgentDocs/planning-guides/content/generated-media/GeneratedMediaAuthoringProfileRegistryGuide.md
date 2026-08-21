@@ -307,3 +307,17 @@ The G3 post-generation row's only registered route projection contract is
 `77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
 It closes identity and transport for that exact profile/source/receipt only;
 it is not an expression profile and creates no alias for other rows.
+
+The exact G2 residual-carrier correction is an additive postprocess successor:
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`.
+It preserves the v1 fit profile/hash and geometry, selects only the same exact
+source/receipt plus rejected-v1 evidence, and authorizes no other content or
+general chroma relaxation.
+
+The distinct G3 edited-source postprocess binding is
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`.
+It selects only source `7394278aac0553bd7f0967f84ec5654a61de438efde4626c439d3f64cead3e4a`
+and edit receipt `df9921b80222ab4a3a59f5dd35753d48e8988d76e4ea7b81cf690a522a453cc3`;
+it is not an alias or shared fixture with G2.

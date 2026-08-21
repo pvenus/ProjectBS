@@ -90,6 +90,15 @@ fit settings, output RGBA, canonical PNG, record, receipt and index. It preserve
 the already-fitted output byte-identically and never repeats either transform.
 Mixed or drifted evidence is `source_bound_chroma_fit_evidence_mismatch`.
 
+The exact v2 fit successor is selected only by
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`.
+Preservation rehashes its record-v2/receipt-v2, source/receipt, expanded fringe
+and carrier-root evidence, target residual/cleared masks, output RGBA/PNG and
+post-positive-green-zero gate. It preserves the canonical output byte-identical
+and never reruns or repairs either v1 or v2 transform. Drift is
+`source_bound_chroma_fit_v2_evidence_mismatch`.
+
 When no authoritative `generated_media_prompt_v3` exists, the accepted-result
 branch MUST NOT invent one. Animation projects the existing closed recovered
 prompt identity below and requires byte equality with the recovered prompt
@@ -966,3 +975,10 @@ Dynamic pigment is excluded from anchor movement. Missing/mixed/unknown fields
 or any receipt failure uses the central `true_alpha_*` typed blocker and writes
 no sealed package. Existing opaque/coherent-master/provider-native branches,
 records, indexes, serializers, and hashes remain unchanged.
+
+The exact G3 edited-source fit selector is
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`.
+Preservation rehashes its distinct source/edit receipt, 176/179 rational fit,
+704x1074 output at x160/y231, masks, serializer and output identity without
+rerunning it. G2/G3 identity mixing fails no-write.

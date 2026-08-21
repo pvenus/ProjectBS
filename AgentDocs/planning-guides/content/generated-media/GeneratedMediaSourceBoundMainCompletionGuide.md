@@ -57,6 +57,57 @@ recordPath=AgentDocs/planning-data/generated-media-postprocess/v1/character_sing
 indexPath=AgentDocs/planning-data/generated-media-postprocess/v1/character_single_image/character.seojin.2/postprocess_index.json
 ```
 
+### G2 residual-carrier successor
+
+The rejected v1-fit candidate is retrospective evidence only: geometry,
+alpha-range, border and source immutability passed, but 6,543 partial-alpha
+pixels retained positive green excess and transparent-RGB/fringe gates failed.
+It is non-authoritative and may not be retried, repaired, or reused.
+
+The only successor is
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`,
+owned by `helpers/generated_media_source_bound_chroma_fit_profile_v2.json` and
+`helpers/generated_media_source_bound_chroma_fit_v2.mjs`. It remains bound to
+the same exact source/receipt and preserves the v1 integer safe-fit geometry.
+
+Before fit, v2 expands the source carrier fringe to the exact 19,197-pixel mask
+of positive-green pixels four-connected to the registered carrier. Its mask,
+nearest carrier roots, maximum graph distance 53, and full nearest-carrier map
+are hash-bound in the profile. Each changed source pixel is an inverse composite
+against its deterministic nearest carrier root; non-carrier/non-positive-green
+source RGB is unchanged before the authorized resampling.
+
+After fit, the exact area-weighted source composite and nearest-carrier model
+identify 457 remaining green-dominant partial-alpha target pixels. For each, the
+helper chooses the largest alpha not exceeding the initial alpha whose in-range
+inverse-composited RGB has nonpositive green excess and recomposes within one
+8-bit unit. Exactly 442 solve; the exact 15-pixel mask with no valid foreground
+solution is cleared to `[0,0,0,0]`. These masks are immutable evidence, not a
+manual mask. Expected remaining positive-green partial-alpha count is zero.
+Every alpha-zero pixel has RGB zero. A different mask/count/root/model/result
+fails closed; no threshold, channel clamp, arbitrary recolor, erosion, crop,
+repaint, identity edit, host resampler, or provider call is allowed.
+
+The successor is one no-clobber invocation under
+`generated_media_source_bound_chroma_fit_record_v2` /
+`generated_media_source_bound_chroma_fit_receipt_v2`. Its successful output is
+still only ready for preservation and independent evaluation.
+
+The separately reviewed G3 edited source is bound only by
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`.
+Its exact source/receipt are `7394278aac0553bd7f0967f84ec5654a61de438efde4626c439d3f64cead3e4a` /
+`df9921b80222ab4a3a59f5dd35753d48e8988d76e4ea7b81cf690a522a453cc3`;
+the G2 identity is never reused. From the inclusive 716x1092 bbox, one rational
+scale 704/716=176/179 yields width 704 and round-half-up height 1074. Placement
+x=160,y=231 closes bbox `[160,231,863,1304]`. Exact source fringe/root and
+target residual masks, output RGBA/PNG hashes, serializer, alpha-zero RGB, and
+inverse-composite residual carrier evidence are profile-bound. Model-conforming
+foreground hue is not residual carrier fringe; unmodeled carrier contribution
+must be zero. Manual mask, crop, non-uniform scale, repaint, identity edit, or
+provider call remains forbidden.
+
 ## G3: one authenticated source-bound edit
 
 The registered profile is
@@ -167,6 +218,8 @@ Hard failures include `source_bound_edit_binding_not_registered`,
 
 The existing exact-`#00FF00` generation profile and the existing source-bound
 uncomposite v1 profile/hashes remain unchanged. G2 does not authorize a provider
-call. G3 does not authorize local retouching or alpha recovery. Neither branch
-rewrites any existing artifact or grants preservation, evaluation, promotion,
-project copy, or Unity authority ahead of its stated next-stage gate.
+call. The G3 edit route itself does not authorize local retouching or alpha
+recovery; only the distinct exact G3 fit profile above authorizes its one
+no-clobber postprocess invocation. Neither branch rewrites an existing artifact
+or grants preservation, evaluation, promotion, project copy, or Unity authority
+ahead of its stated next-stage gate.

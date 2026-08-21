@@ -206,6 +206,16 @@ receipt, evidence, transform, bbox, RGBA, PNG, record or index drift is
 full-border transparency, registered bbox, no-clipping, no-fringe and
 no-neighbor-fragment gates pass.
 
+For the exact v2 fit successor, the package instead binds
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`
+and record-v2/receipt-v2. Before scoring, it requires exact source/receipt,
+expanded fringe/root masks, residual/cleared target masks, protected source
+information, unchanged fit geometry, alpha-zero RGB zero, full-border alpha
+zero and partial-alpha positive-green count zero. Any drift is
+`source_bound_chroma_fit_v2_evidence_mismatch`; the rejected v1 candidate is
+never package input.
+
 For an accepted corrective `character_single_image`, the unavailable-prompt
 shape remains unchanged and the manifest additionally carries exactly this
 path-free projection from the preservation record:
@@ -596,3 +606,10 @@ Every `true_alpha_*` failure is pre-score hard fail. Each replacement package
 independently requires completed `PASS` and `passForProjectCopy=true` before the
 authenticated replacement approval may set `replaceExisting=true`; one PASS
 never authorizes the other target. Existing packages remain immutable.
+
+The exact G3 edited-source fit branch binds
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`.
+Its source/edit receipt, 176/179 rational fit, 704x1074 output,
+`[160,231,863,1304]` bbox, model-bound zero residual carrier fringe,
+transparent RGB zero and canonical output hashes are pre-score hard gates.

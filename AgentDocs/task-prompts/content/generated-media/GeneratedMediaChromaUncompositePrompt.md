@@ -60,3 +60,24 @@ box fit, canonical serialization 순서만 실행한다. Provider 호출, manual
 host resampler, repaint, arbitrary crop/scale/recenter는 금지한다. Record-first,
 CAS/no-clobber, reused-identical 및 preservation-then-evaluation 경계는
 GeneratedMediaSourceBoundMainCompletionGuide.md를 따른다.
+
+## Exact G2 residual-carrier v2
+
+V1 fit candidate의 partial-alpha positive-green count가 6,543이면 그 candidate는
+rejected/non-authoritative로 유지하고 재실행·수리하지 않는다. 정확히
+`projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0` /
+`84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf`
+profile과 `generated_media_source_bound_chroma_fit_v2.mjs`만 사용한다.
+Registered expanded fringe/root evidence, inverse-composite model, unchanged
+integer fit, exact 457/442/15 target masks와 post-green=0을 모두 검증한다.
+Alpha0 RGB는 `[0,0,0]`이어야 한다. Exact mask/model 밖의 recolor/manual mask/
+crop/repaint/identity edit/provider call은 금지하고 record-v2를 no-clobber로
+한 번만 만든다.
+
+G3 edited source에는 별도
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0` /
+`f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086`
+만 사용한다. Exact source `7394278...3e4a`와 edit receipt `df9921...3cc3`,
+176/179 rational scale, round-half-up 1074 height, 704x1074, x160/y231,
+bbox `[160,231,863,1304]`, exact masks/output hashes가 모두 일치해야 one
+no-clobber invocation을 허용한다. G2 identity와 혼합하지 않는다.

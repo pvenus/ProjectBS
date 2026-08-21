@@ -1,0 +1,44 @@
+{
+  "algorithmContract": {
+    "fit": {
+      "algorithmKey": "generated_media_premultiplied_box_foreground_fit_v1",
+      "algorithmVersion": "1.0.0",
+      "canvas": {"height": 1536, "width": 1024},
+      "placement": {"x": 233, "y": 128},
+      "sourceForegroundBbox": {"xMax": 843, "xMin": 226, "yMax": 1472, "yMin": 90},
+      "targetForegroundBbox": {"xMax": 790, "xMin": 233, "yMax": 1376, "yMin": 128},
+      "targetSize": {"height": 1249, "width": 558}
+    },
+    "operationOrder": ["exact_source_validation", "expanded_source_fringe_uncomposite_v2", "premultiplied_box_foreground_fit_v1", "target_residual_carrier_uncomposite_v2", "canonical_png_rgba8_serialization", "reopen_validation"],
+    "sourceFringe": {
+      "alphaModel": "source_floor_green_excess_round_half_up",
+      "backgroundModel": "nearest_registered_carrier_root_manhattan_bfs_seed_and_neighbor_index_order",
+      "candidatePredicate": "positive_green_excess_four_connected_to_registered_carrier",
+      "inverseComposite": "integer_rgb_inverse_against_registered_root_then_clamp8",
+      "maxGraphDistance": 53,
+      "nearestCarrierRootMapSha256": "02b1266adefd0bca514ccd8efa4141ee02743ebffee683b5f3ae88eb0c5fca0b",
+      "pixelCount": 19197,
+      "sourceFringeMaskSha256": "c64677f64282b10fb4b9c91875b47b8c6d3443a7732a9c93cc5d3d61b9130c2f"
+    },
+    "targetResidual": {
+      "backgroundModel": "area_weighted_nearest_registered_carrier_root_rgb_round_half_up",
+      "fullNearestCarrierRootMapSha256": "9c59a2d175a3f676bed485e270286e73f07813f444c856eaf5cd1f9fdbe81fdf",
+      "inverseCompositeSearch": "largest_alpha_from_initial_down_to_1_with_rgb_in_range_green_excess_nonpositive_and_recomposition_error_max_1_else_clear",
+      "postResidualPartialAlphaPositiveGreenCount": 0,
+      "preResidualPartialAlphaPositiveGreenCount": 457,
+      "residualClearedPixelCount": 15,
+      "residualClearedTargetMaskSha256": "11438f1108dc1437c565e80f427e80bc8c7f3e105277b0519321bebd08d778b7",
+      "residualSolvedPixelCount": 442,
+      "residualTargetMaskSha256": "af95f4dc84665463d4337cff5f785a744fcc91a0f27e25b14edc5823e1413b25"
+    },
+    "transparentRgb": [0, 0, 0]
+  },
+  "applicability": {"assetType": "character_single_image", "contentId": "character.seojin.2", "domainType": "character", "postprocessOwnerRole": "generated_media_chroma_uncomposite", "selection": "exact_registered_source_receipt_and_rejected_v1_fit_evidence_only", "structureProfile": "character_single_image_v2"},
+  "outputContract": {"alphaMax": 255, "alphaMin": 0, "canvas": {"height": 1536, "width": 1024}, "cornersAndFullBorderAlpha": 0, "foregroundBbox": {"xMax": 790, "xMin": 233, "yMax": 1376, "yMin": 128}, "noClipping": true, "noManualMaskCropRepaintOrIdentityEdit": true, "partialAlphaPositiveGreenExcessCount": 0, "protectedInformationPolicy": "pixels_outside_registered_carrier_and_positive_green_fringe_are_unchanged_before_exact_authorized_resampling; changed_partial_pixels_must_match_inverse_composite_model", "transparentPixelRgb": [0, 0, 0]},
+  "predecessorBinding": {"meaningUnchanged": true, "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0", "profilePayloadSha256": "ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df"},
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0",
+  "recordContract": {"idempotency": "exact_source_receipt_profile_algorithm_settings_reused_identical", "indexPolicy": "record_first_then_sorted_cas_append_no_clobber", "recordSchemaVersion": "generated_media_source_bound_chroma_fit_record_v2", "receiptSchemaVersion": "generated_media_source_bound_chroma_fit_receipt_v2"},
+  "rejectedPredecessorCandidateEvidence": {"authorityRole": "rejected_non_authoritative_no_retry_no_reuse", "geometryAlphaRangeBorderSourceImmutability": "pass", "partialAlphaPositiveGreenPixelCount": 6543, "transparentRgbZeroAndFringeGate": "fail"},
+  "schemaVersion": "generated_media_source_bound_chroma_fit_profile_v2",
+  "sourceBinding": {"byteLength": 1814466, "generationHandoffSha256": "3b299fb5da9887f5a34750c97170b72947415bd0bd5231172225b71b053b233e", "generationReceiptPathEvidence": "C:/Users/parkv/.codex/worktrees/ebe6/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.2/gmbuiltin1.63b19457f3d6b6907dbc/generation-receipt.json", "generationReceiptSha256": "4e4457df58f31eff61adb1a93d8915e8a2fb0926e28cb9eb8358f2ce8b606526", "idempotencyKey": "gmbuiltin1.63b19457f3d6b6907dbc", "requestId": "gmplan2.character_single_image.character.seojin.2.2076674019773c8010eb", "sourcePathEvidence": "C:/Users/parkv/.codex/worktrees/ebe6/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.2/gmbuiltin1.63b19457f3d6b6907dbc/original.png", "sourceSha256": "66dc1c94be2e38e9dc4d6ff15b4b6b0699353b9830d718ec16743dc4ff92acf9"}
+}
