@@ -1,0 +1,66 @@
+{
+  "approvalEvidence": {
+    "approvedAction": "one_source_bound_character_edit_submit",
+    "approvedSourceSha256": "d435d0a6e5a7de4e7c50cd4e2552145eaa1eb8310d8874b37ed1e1a5a4c82c3d",
+    "authorityKind": "authenticated_user_request",
+    "authorityThreadId": "01a0235c-ba97-7330-ae2b-0e381a965afc",
+    "retryCountMaximum": 0,
+    "schemaVersion": "generated_media_source_bound_character_edit_approval_evidence_v1",
+    "submitCountMaximum": 1
+  },
+  "createdAtAuthority": {
+    "meaning": "authority_issued_deterministic_route_timestamp_not_filesystem_mtime",
+    "value": "2026-08-22T05:50:05+09:00"
+  },
+  "executionHandoffContract": {
+    "schemaVersion": "generated_media_source_bound_character_edit_execution_handoff_v1",
+    "sha256Rule": "sha256_jcs_utf8_without_terminal_lf"
+  },
+  "executionScopeContract": {
+    "idempotencyFormula": "gmedit1.{executionScopeHash[0:20]}",
+    "schemaVersion": "generated_media_source_bound_character_edit_execution_scope_v1",
+    "sha256Rule": "sha256_jcs_utf8_without_terminal_lf"
+  },
+  "indexContract": {
+    "casPolicy": "record_first_then_absent_or_exact_before_raw_sha_then_sorted_append_no_clobber",
+    "entrySchemaVersion": "generated_media_source_bound_character_edit_route_index_entry_v1",
+    "indexPath": "AgentDocs/planning-data/generated-media-source-edits/v1/character_single_image/character.seojin.3/source_edit_route_index.json",
+    "indexSchemaVersion": "generated_media_source_bound_character_edit_route_index_v1",
+    "payloadSchemaVersion": "generated_media_source_bound_character_edit_route_index_hash_payload_v1",
+    "sort": "routeId_unicode_code_point_ascending"
+  },
+  "initialState": "ready_for_generation",
+  "profileBinding": {
+    "profileKey": "projectbs_character_open_ink_source_bound_single_edit@1.0.0",
+    "profilePayloadSha256": "aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011"
+  },
+  "promptSerialization": {
+    "encoding": "utf8_no_bom",
+    "lineSeparator": "LF",
+    "providerPromptLinesJcsSha256": "0b932ce168ba6ad422ad678b575dcb0ac04b0f08a3494aa644cead3e3ed2044c",
+    "providerPromptSha256": "3a90b405e4303362dc912a19117f0501fa4b0575ee188aaf8a6f8353fb7d255d",
+    "rule": "ordered_six_lines_joined_by_single_lf_without_terminal_lf",
+    "terminalLf": false
+  },
+  "routeContractKey": "projectbs_generated_media_source_bound_character_edit_route@1.0.0",
+  "routeIdentityContract": {
+    "recordFileRule": "jcs_route_record_plus_one_terminal_lf",
+    "routeIdFormula": "gmeditroute1.character_single_image.character.seojin.3.{routePayloadSha256[0:20]}",
+    "routePathFormula": "AgentDocs/planning-data/generated-media-source-edits/v1/character_single_image/character.seojin.3/{routeId}.json",
+    "routePayloadSchemaVersion": "generated_media_source_bound_character_edit_route_hash_payload_v1",
+    "routeRecordSchemaVersion": "generated_media_source_bound_character_edit_route_v1",
+    "sha256Rule": "sha256_jcs_utf8_without_terminal_lf"
+  },
+  "schemaVersion": "generated_media_source_bound_character_edit_route_contract_v1",
+  "sourceBinding": {
+    "callableSchemaSha256": "708b75b05f820870ac165eadcf08d093568944a35d2793e0a7d117bf23646af1",
+    "contentId": "character.seojin.3",
+    "generationHandoffSha256": "70b2f53428f4a875020a2c6a38c2694df9bc1a78fddeed9dbf54cf1ce1756587",
+    "generationReceiptPathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.3/gmbuiltin1.b4dffeb1b53edb44f350/generation-receipt.json",
+    "generationReceiptSha256": "64457ef0c95045452745f167dbd42e024bf6c3d97cabb25dc65286c6b5cd6db5",
+    "requestId": "gmplan2.character_single_image.character.seojin.3.8031fe304c2588cfca50",
+    "sourcePathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.3/gmbuiltin1.b4dffeb1b53edb44f350/provider-master.png",
+    "sourceSha256": "d435d0a6e5a7de4e7c50cd4e2552145eaa1eb8310d8874b37ed1e1a5a4c82c3d"
+  },
+  "stateEnum": ["ready_for_generation", "active", "completed", "blocked"]
+}

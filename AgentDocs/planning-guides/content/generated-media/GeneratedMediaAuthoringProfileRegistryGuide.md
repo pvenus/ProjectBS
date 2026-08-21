@@ -301,3 +301,9 @@ for one no-provider deterministic uncomposite-and-fit tuple. G3 uses
 for one authenticated immutable-source edit with submit maximum one and retry
 maximum zero. These are not prompt-authoring expression profiles and cannot
 replace, merge with, or reinterpret an existing expression-profile row.
+
+The G3 post-generation row's only registered route projection contract is
+`projectbs_generated_media_source_bound_character_edit_route@1.0.0` /
+`77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
+It closes identity and transport for that exact profile/source/receipt only;
+it is not an expression profile and creates no alias for other rows.

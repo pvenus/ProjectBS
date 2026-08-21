@@ -214,3 +214,12 @@ configured settings, cost, or capability attestation is fabricated. Exact
 semantic/output gates, terminal tokens, and distinct later uncomposite boundary
 are normative in GeneratedMediaSourceBoundMainCompletionGuide.md. No other
 source, content, or edit instruction can select this exception.
+
+The only valid route projection is
+`projectbs_generated_media_source_bound_character_edit_route@1.0.0` /
+`77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
+Generation must reproject and match its route record, detached execution
+handoff, execution-scope hash, prompt SHA and idempotency key before crossing
+the provider boundary. A route built from JCS prompt-array bytes, terminal-LF
+prompt bytes, wall-clock createdAt, inferred approval, or a partial index entry
+is `source_bound_edit_route_projection_mismatch`.

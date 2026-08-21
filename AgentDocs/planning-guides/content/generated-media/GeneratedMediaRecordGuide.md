@@ -1485,3 +1485,12 @@ GeneratedMediaSourceBoundMainCompletionGuide.md. Missing, extra, mixed, source
 drift, or receipt drift fails before submit. Neither record schema is a prompt,
 generation-v2, preservation, evaluation, or promotion record, and neither
 rewrites historical records/indexes.
+
+The G3 route projection itself is additionally registered as
+`projectbs_generated_media_source_bound_character_edit_route@1.0.0` /
+`77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
+That contract exclusively owns the execution-scope payload, exact approval
+object, deterministic initial state/createdAt, LF-without-terminal-LF prompt
+bytes, nested route payload/record, detached execution handoff, index entry and
+record-first CAS formulas. A producer must use its pure projector; ad hoc flat
+records or either alternate prompt serialization are invalid.

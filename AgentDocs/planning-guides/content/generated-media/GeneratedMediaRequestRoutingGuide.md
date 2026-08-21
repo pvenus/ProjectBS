@@ -730,3 +730,21 @@ or an old handoff as `open_ink_chroma_direct_alpha_conflict`,
 `open_ink_chroma_successor_base_mismatch`. The route retains the distinct later
 `generated_media_chroma_uncomposite` boundary and never routes postprocess as
 part of generation.
+
+### Exact source-bound character edit route
+
+This post-generation corrective route is disjoint from `gmroute2` and is valid
+only for
+`projectbs_character_open_ink_source_bound_single_edit@1.0.0` /
+`aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011`
+plus route projection contract
+`projectbs_generated_media_source_bound_character_edit_route@1.0.0` /
+`77b4b9d4d9d5db7a2c2fb1cdb5ccb1812faffe535559fdb57400515f48e05359`.
+The router must invoke the registered pure projector with the current
+contract-containing main SHA. It must not invent approval, wall-clock
+`createdAt`, state, prompt bytes, execution scope, index entry, or handoff.
+Record-first/no-clobber and sorted index CAS use the exact formulas in
+GeneratedMediaSourceBoundMainCompletionGuide.md. Any ad hoc or partial
+projection is `source_bound_edit_route_projection_mismatch`; source/profile/
+receipt drift is `source_bound_edit_binding_not_registered`. This route does
+not call the provider or create a normal authoring prompt record.
