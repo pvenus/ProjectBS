@@ -119,6 +119,12 @@ sourceBoundChromaRecoveryReceiptSha256: same branch only
 sourceBoundChromaRecoveryProfileKey: same branch only; exact registered key
 sourceBoundChromaRecoveryProfilePayloadHash: same branch only; exact registered payload hash
 sourceBoundChromaSourceSha256: same branch only; immutable provider master
+sourceBoundChromaFitRecordId: source-bound chroma-fit branch only
+sourceBoundChromaFitRecordPath: same branch only; exact project-relative path
+sourceBoundChromaFitRecordSha256: same branch only; exact raw Git-blob SHA-256
+sourceBoundChromaFitReceiptSha256: same branch only
+sourceBoundChromaFitProfileKey: same branch only; exact registered key
+sourceBoundChromaFitProfilePayloadHash: same branch only; exact registered payload hash
 correctiveOutputEvidence: accepted corrective character_single_image sub-branch only; closed path-free projection below
 singleImageBackgroundNormalizationReceipt: same sub-branch only; exact closed v1 or source-bound v2 receipt
 gifTimingQuantizationReceipt: exact six-frame 8fps coherent-master sub-branch only
@@ -187,6 +193,18 @@ substitution and any accepted-result member. Mixed/partial branches are
 `source_bound_chroma_recovery_evidence_mismatch`. Only after the sealed package
 passes all technical alpha/fringe/canvas/member gates may independent scoring
 begin.
+
+For the disjoint source-bound chroma-fit branch, the package projects the exact
+indexed `generated_media_source_bound_chroma_fit_record_v1` and receipt under
+`projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0` /
+`ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df`.
+It seals both the v1 recovery evidence and the exact premultiplied integer-area
+fit settings/output hashes. The canonical output is not transformed again.
+Mixed/partial branch fields fail as package conflict/incomplete; any source,
+receipt, evidence, transform, bbox, RGBA, PNG, record or index drift is
+`source_bound_chroma_fit_evidence_mismatch`. Scoring begins only after alpha,
+full-border transparency, registered bbox, no-clipping, no-fringe and
+no-neighbor-fragment gates pass.
 
 For an accepted corrective `character_single_image`, the unavailable-prompt
 shape remains unchanged and the manifest additionally carries exactly this

@@ -1458,3 +1458,30 @@ constraint-ID substitutions, successor locks, and later
 are hash-significant in the visual brief and prompt payload. A mixed/direct-alpha
 record is `open_ink_chroma_direct_alpha_conflict`; unknown or drifted profile
 members are `open_ink_chroma_profile_projection_mismatch`.
+
+## Source-bound MAIN completion records
+
+The exact G2 successor uses
+`generated_media_source_bound_chroma_fit_record_v1` and
+`generated_media_source_bound_chroma_fit_receipt_v1`, selected only by
+`projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0` /
+`ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df`.
+The closed identity is the
+JCS projection of source SHA, generation-receipt SHA, profile key/hash, source
+evidence hash, recovered RGBA hash, algorithm-settings hash, output RGBA hash,
+output PNG hash, dimensions and foreground bbox. It is record-first, sorted CAS
+append, no-clobber; only exact byte equality is `reused_identical`.
+
+The exact G3 successor uses
+`generated_media_source_bound_character_edit_route_v1` with route ID prefix
+`gmeditroute1` and
+`generated_media_source_bound_character_edit_route_index_v1`, selected only by
+`projectbs_character_open_ink_source_bound_single_edit@1.0.0` /
+`aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011`.
+Its exact closed
+member list, ordering/JCS identity, one-reference callable projection,
+approval/idempotency counters, output contract and failure tokens are owned by
+GeneratedMediaSourceBoundMainCompletionGuide.md. Missing, extra, mixed, source
+drift, or receipt drift fails before submit. Neither record schema is a prompt,
+generation-v2, preservation, evaluation, or promotion record, and neither
+rewrites historical records/indexes.

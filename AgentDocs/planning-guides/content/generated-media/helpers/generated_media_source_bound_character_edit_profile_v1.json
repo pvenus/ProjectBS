@@ -1,0 +1,33 @@
+{
+  "applicability": {"assetType": "character_single_image", "contentId": "character.seojin.3", "domainType": "character", "selection": "exact_registered_source_receipt_and_authenticated_user_edit_authority_only", "structureProfile": "character_single_image_v2"},
+  "callableContract": {"callableSchemaSha256": "708b75b05f820870ac165eadcf08d093568944a35d2793e0a7d117bf23646af1", "provider": "imagegen", "providerTool": "image_gen.imagegen", "referenceMode": "referenced_image_paths", "referenceRole": "immutable_edit_source", "referencedImageCount": 1},
+  "editContract": {
+    "allowedChanges": ["remove_only_extra_screen_left_brass_closure_near_shoulder_armor", "retain_exactly_one_screen_right_upper_brass_closure_at_oxidized_red_sash_terminus", "reduce_and_recenter_complete_figure_into_closed_bbox_and_occupancy", "replace_background_with_exact_uniform_opaque_00ff00_carrier"],
+    "forbiddenChanges": ["face", "young_adult_korean_identity", "hair_or_topknot", "body_identity", "handedness", "sword", "scabbard", "equipment", "asymmetric_mantle", "oxidized_red_diagonal_sash", "screen_right_wind", "pose_direction", "whole_body_mirror", "style", "ink_or_pastel_detail", "crop", "additional_ornament", "manual_mask", "source_mutation"],
+    "providerPromptLines": [
+      "Edit only the provided immutable source image; do not generate a different character or redesign any retained element.",
+      "Preserve the same young-adult Korean male face, low topknot, body identity, handedness, sword, scabbard, equipment, asymmetric near-black navy mantle, oxidized-red diagonal sash, screen-right wind, pose direction, and open-ink wash style without mirroring.",
+      "Remove only the extra smaller brass closure on screen-left near the shoulder armor; retain exactly one brass closure, the screen-right upper closure at the upper terminus of the oxidized-red diagonal sash.",
+      "Reduce and recenter the complete uncropped figure so its foreground bounding box stays within x 160..864 and y 128..1376 on a 1024x1536 canvas, with width occupancy 52..58 percent and height occupancy 68..74 percent.",
+      "Return exactly one fully opaque RGB PNG at 1024x1536 with a perfectly uniform edge-to-edge RGB #00FF00 background outside the complete foreground and a clean non-green foreground boundary.",
+      "Do not add alpha, transparency, checkerboard, gradient, texture, lighting variation, halo, vignette, floor, scene, shadow, neighboring fragments, green/cyan/magenta fringe, text, watermark, or any other edit."
+    ],
+    "sourceObservation": {"observedBrassCircularClosures": 2, "requiredBrassClosures": 1, "retainedClosure": "screen_right_upper_at_oxidized_red_sash_terminus", "removedClosure": "smaller_screen_left_near_shoulder_armor"}
+  },
+  "executionContract": {"approvalMode": "authenticated_user_exact_bounded_edit", "costEvidenceStatus": "unavailable_not_exposed", "idempotency": "exact_route_scope_active_or_completed_blocks_submit", "providerCalledBeforeExecution": false, "retryCountMaximum": 0, "settingsEvidenceStatus": "unavailable_not_exposed", "submitCountMaximum": 1},
+  "outputContract": {"background": {"color": "#00FF00", "fullyOpaque": true, "mode": "removable_solid", "uniformity": "every_background_pixel_exact_rgb_0_255_0"}, "canvas": {"height": 1536, "width": 1024}, "foregroundBbox": {"xMax": 864, "xMin": 160, "yMax": 1376, "yMin": 128}, "foregroundBoundary": "non_green_no_green_cyan_magenta_fringe", "foregroundExactChromaRgb": "prohibited", "identityAndEquipment": "byte_source_visual_identity_semantically_unchanged_except_exact_allowed_changes", "neighboringFragments": "prohibited", "occupancyPercent": {"heightMax": 74, "heightMin": 68, "widthMax": 58, "widthMin": 52}, "outputCount": 1, "outputFormat": "png", "providerTransparency": "prohibited", "requiredBrassClosures": 1},
+  "postprocessBoundary": {"nextStepOnConformantOutput": "register_exact_edit_output_for_distinct_generated_media_chroma_uncomposite", "projectCopyEligible": false, "uncompositeInEditStage": false},
+  "profileKey": "projectbs_character_open_ink_source_bound_single_edit@1.0.0",
+  "routeContract": {"recordFirst": true, "routeSchemaVersion": "generated_media_source_bound_character_edit_route_v1", "routeIdPrefix": "gmeditroute1", "routeIndexSchemaVersion": "generated_media_source_bound_character_edit_route_index_v1", "writePolicy": "no_clobber_then_sorted_cas_append"},
+  "schemaVersion": "generated_media_source_bound_character_edit_profile_v1",
+  "sourceBinding": {
+    "generationHandoffSha256": "70b2f53428f4a875020a2c6a38c2694df9bc1a78fddeed9dbf54cf1ce1756587",
+    "generationReceiptPathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.3/gmbuiltin1.b4dffeb1b53edb44f350/generation-receipt.json",
+    "generationReceiptSha256": "64457ef0c95045452745f167dbd42e024bf6c3d97cabb25dc65286c6b5cd6db5",
+    "idempotencyKey": "gmbuiltin1.b4dffeb1b53edb44f350",
+    "requestId": "gmplan2.character_single_image.character.seojin.3.8031fe304c2588cfca50",
+    "sourceImage": {"colorMode": "RGB", "fullyOpaque": true, "height": 1536, "width": 1024},
+    "sourcePathEvidence": "C:/Users/parkv/.codex/worktrees/c668/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.3/gmbuiltin1.b4dffeb1b53edb44f350/provider-master.png",
+    "sourceSha256": "d435d0a6e5a7de4e7c50cd4e2552145eaa1eb8310d8874b37ed1e1a5a4c82c3d"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "algorithmContract": {
+    "fit": {
+      "algorithmKey": "generated_media_premultiplied_box_foreground_fit_v1",
+      "algorithmVersion": "1.0.0",
+      "canvas": {"height": 1536, "width": 1024},
+      "placement": {"x": 233, "y": 128},
+      "resampling": "exact_integer_area_weights_premultiplied_rgba_round_half_up",
+      "scaleRational": {"denominator": 1383, "numerator": 1249},
+      "sourceForegroundBbox": {"xMax": 843, "xMin": 226, "yMax": 1472, "yMin": 90},
+      "targetForegroundBbox": {"xMax": 790, "xMin": 233, "yMax": 1376, "yMin": 128},
+      "targetSize": {"height": 1249, "width": 558},
+      "transparentRgb": [0, 0, 0]
+    },
+    "operationOrder": ["exact_source_validation", "border_calibrated_green_uncomposite_v1", "premultiplied_box_foreground_fit_v1", "canonical_png_rgba8_serialization", "reopen_validation"],
+    "sourceUncomposite": {
+      "algorithmKey": "generated_media_border_calibrated_green_uncomposite_v1",
+      "algorithmVersion": "1.0.0",
+      "candidatePredicate": "greenExcess_g_minus_max_r_b_greater_than_or_equal_to_source_floor",
+      "connectivity": 4,
+      "enclosedPocketPolicy": "exact_registered_component_count_size_digest_and_mask",
+      "oneRingPolicy": "exact_positive_four_neighbor_ring_v1"
+    }
+  },
+  "applicability": {
+    "assetType": "character_single_image",
+    "contentId": "character.seojin.2",
+    "domainType": "character",
+    "postprocessOwnerRole": "generated_media_chroma_uncomposite",
+    "selection": "exact_registered_source_and_generation_receipt_only",
+    "structureProfile": "character_single_image_v2"
+  },
+  "generationProfileBinding": {
+    "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+    "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a",
+    "generationReceiptDisposition": "immutable_output_nonconformant_no_retry_evidence",
+    "generationSemanticsUnchanged": true
+  },
+  "outputContract": {
+    "alphaMax": 255,
+    "alphaMin": 0,
+    "allowedForegroundBbox": {"xMax": 864, "xMin": 160, "yMax": 1376, "yMin": 128},
+    "canvas": {"height": 1536, "width": 1024},
+    "colorMode": "RGBA",
+    "cornersAndFullBorderAlpha": 0,
+    "foregroundBbox": {"xMax": 790, "xMin": 233, "yMax": 1376, "yMin": 128},
+    "foregroundDerivedOnlyFromRegisteredSource": true,
+    "fringePolicy": "zero_positive_green_cyan_or_magenta_excess_on_partial_alpha_boundary",
+    "noClipping": true,
+    "noManualMaskOrSemanticEdit": true,
+    "noNeighboringFragments": true,
+    "outputFormat": "png",
+    "protectedPixelPolicy": "all_output_samples_equal_exact_registered_premultiplied_box_reduction_of_recovered_source",
+    "serializerKey": "generated_media_png_rgba8_store_v1",
+    "serializerVersion": "1.0.0"
+  },
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0",
+  "recordContract": {
+    "idempotency": "exact_source_receipt_profile_algorithm_settings_reused_identical",
+    "indexPolicy": "record_first_then_sorted_cas_append_no_clobber",
+    "recordSchemaVersion": "generated_media_source_bound_chroma_fit_record_v1",
+    "receiptSchemaVersion": "generated_media_source_bound_chroma_fit_receipt_v1"
+  },
+  "schemaVersion": "generated_media_source_bound_chroma_fit_profile_v1",
+  "sourceBinding": {
+    "borderEvidence": {"greenExcessMax": 226, "greenExcessMedian": 220, "greenExcessMin": 192, "outerPerimeterAllGreenDominant": true, "outerPerimeterPixelCount": 5116, "sourceCalibratedFloor": 192},
+    "byteLength": 1814466,
+    "contentId": "character.seojin.2",
+    "foregroundEvidence": {"bbox": {"xMax": 843, "xMin": 226, "yMax": 1472, "yMin": 90}, "margins": {"bottom": 63, "left": 226, "right": 180, "top": 90}},
+    "generationHandoffSha256": "3b299fb5da9887f5a34750c97170b72947415bd0bd5231172225b71b053b233e",
+    "generationReceiptPathEvidence": "C:/Users/parkv/.codex/worktrees/ebe6/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.2/gmbuiltin1.63b19457f3d6b6907dbc/generation-receipt.json",
+    "generationReceiptSha256": "4e4457df58f31eff61adb1a93d8915e8a2fb0926e28cb9eb8358f2ce8b606526",
+    "idempotencyKey": "gmbuiltin1.63b19457f3d6b6907dbc",
+    "image": {"colorMode": "RGB", "fullyOpaque": true, "height": 1536, "outputFormat": "png", "width": 1024},
+    "requestId": "gmplan2.character_single_image.character.seojin.2.2076674019773c8010eb",
+    "sourcePathEvidence": "C:/Users/parkv/.codex/worktrees/ebe6/ProjectBS-agent/output/generated-media-builtin-imagegen/v1/character_single_image/character.seojin.2/gmbuiltin1.63b19457f3d6b6907dbc/original.png",
+    "sourceSha256": "66dc1c94be2e38e9dc4d6ff15b4b6b0699353b9830d718ec16743dc4ff92acf9",
+    "topologyEvidence": {
+      "candidateMaskSha256": "a012fa957040850522454ec374f1f1a2254b1e6978351dc40bdfadbe53eab5e4",
+      "edgeCarrierMaskSha256": "2071feeca0ce8082513aa602fee084a922a4c829ec66d03bdc118fe476c5679d",
+      "edgeCarrierPixelCount": 1134197,
+      "edgeCarrierRatioPpm": 721103,
+      "enclosedCarrierComponentCount": 18,
+      "enclosedCarrierMaskSha256": "26811981af401b12787e90bea0545f55468fcf4c55ac67dd2b64cfed3f9eee0e",
+      "enclosedCarrierPixelCount": 2255,
+      "enclosedComponentSizesSha256": "6ea006ca352d3bd18f05934e1fdc58cb442ee97c77ba3db96a58018fb16aff27",
+      "oneRingGreenExcessMax": 191,
+      "oneRingGreenExcessMedian": 157,
+      "oneRingGreenExcessMin": 1,
+      "oneRingGreenExcessP95": 189,
+      "oneRingMaskSha256": "d3551c42c20f546ff777485d63bbef36244b2463833812a40adc4c89106a4763",
+      "oneRingPixelCount": 6683
+    }
+  }
+}

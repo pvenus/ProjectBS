@@ -40,6 +40,10 @@ sourceBoundChromaRecoveryRecordId: generated_media_source_bound_chroma_uncomposi
 sourceBoundChromaRecoveryRecordPath: exact canonical project-relative postprocess record path
 sourceBoundChromaRecoveryRecordSha256: required with sourceBoundChromaRecoveryRecordId
 sourceBoundChromaRecoveryReceiptSha256: exact receipt.receiptPayloadSha256
+sourceBoundChromaFitRecordId: generated_media_source_bound_chroma_fit_record_v1; mutually exclusive fourth branch
+sourceBoundChromaFitRecordPath: exact canonical project-relative postprocess record path
+sourceBoundChromaFitRecordSha256: required with sourceBoundChromaFitRecordId
+sourceBoundChromaFitReceiptSha256: exact generated_media_source_bound_chroma_fit_receipt_v1 payload SHA
 provider: imagegen
 assetType: character_single_image | icon_single_image | background_single_image | animation
 domainType: character | skill | item | stage | battle | environment
@@ -62,7 +66,9 @@ exact capture receipt/hash, and `acceptedPromptEvidence`. The source-bound
 chroma-recovery branch uses only its exact indexed recovery record/path/raw
 hash/receipt hash plus the common planning/routing identity. Each branch
 forbids every field owned by either other branch. Mixed, partial, or unknown
-branch fields fail before payload identity calculation.
+branch fields fail before payload identity calculation. The fourth exact-source
+fit branch uses only its indexed fit record/path/raw hash/receipt hash plus the
+common planning/routing identity and forbids the other three branch field sets.
 
 The source-bound branch rehashes the immutable provider master, immutable
 `output_nonconformant_no_retry` generation receipt, recovery profile, source
@@ -75,6 +81,14 @@ background transform. Recovery output is preserved byte-identically; the
 original provider master and failed generation receipt are sealed as lineage
 evidence. Any profile/source/receipt/mask/output/index drift is
 `source_bound_chroma_recovery_evidence_mismatch`.
+
+The fit branch requires
+`projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0` /
+`ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df`.
+It rehashes exact source, generation receipt, source evidence, recovered RGBA,
+fit settings, output RGBA, canonical PNG, record, receipt and index. It preserves
+the already-fitted output byte-identically and never repeats either transform.
+Mixed or drifted evidence is `source_bound_chroma_fit_evidence_mismatch`.
 
 When no authoritative `generated_media_prompt_v3` exists, the accepted-result
 branch MUST NOT invent one. Animation projects the existing closed recovered
@@ -674,6 +688,10 @@ sourceBoundChromaRecoveryRecordId: source-bound chroma branch only
 sourceBoundChromaRecoveryRecordPath: same branch only
 sourceBoundChromaRecoveryRecordSha256: same branch only
 sourceBoundChromaRecoveryReceiptSha256: same branch only
+sourceBoundChromaFitRecordId: source-bound chroma-fit branch only
+sourceBoundChromaFitRecordPath: same branch only
+sourceBoundChromaFitRecordSha256: same branch only
+sourceBoundChromaFitReceiptSha256: same branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
 singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 gifTimingQuantizationPlan: exact six-frame 8fps coherent-master sub-branch only
@@ -721,6 +739,10 @@ sourceBoundChromaRecoveryRecordId: mutually exclusive third branch
 sourceBoundChromaRecoveryRecordPath: source-bound chroma branch only
 sourceBoundChromaRecoveryRecordSha256: same branch only
 sourceBoundChromaRecoveryReceiptSha256: same branch only
+sourceBoundChromaFitRecordId: mutually exclusive fourth branch
+sourceBoundChromaFitRecordPath: source-bound chroma-fit branch only
+sourceBoundChromaFitRecordSha256: same branch only
+sourceBoundChromaFitReceiptSha256: same branch only
 correctiveSingleImageInput: accepted corrective single-image sub-branch only
 singleImageBackgroundNormalizationPlan: same sub-branch only; exactly one closed v1 or source-bound v2 plan
 singleImageBackgroundNormalizationReceipt: same sub-branch only after transform; schema must match selected plan

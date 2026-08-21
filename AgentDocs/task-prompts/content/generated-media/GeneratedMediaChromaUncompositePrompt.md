@@ -47,3 +47,16 @@ Output:
 
 실패 시 failureType은 Source-Bound Chroma Recovery Guide의 exact token 하나이며 source/output/record/index를 수리·덮어쓰기하거나 다른 threshold/provider call로 진행하지 않는다.
 ```
+
+## Exact G2 fit successor
+
+`projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0` /
+`ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df`
+이면 위 v1 profile/helper를 바꾸지 말고
+`helpers/generated_media_source_bound_chroma_fit_profile_v1.json`과
+`helpers/generated_media_source_bound_chroma_fit_v1.mjs`만 사용한다. Exact
+G2 source/receipt/evidence를 검증한 뒤 v1 recovery, registered premultiplied
+box fit, canonical serialization 순서만 실행한다. Provider 호출, manual mask,
+host resampler, repaint, arbitrary crop/scale/recenter는 금지한다. Record-first,
+CAS/no-clobber, reused-identical 및 preservation-then-evaluation 경계는
+GeneratedMediaSourceBoundMainCompletionGuide.md를 따른다.

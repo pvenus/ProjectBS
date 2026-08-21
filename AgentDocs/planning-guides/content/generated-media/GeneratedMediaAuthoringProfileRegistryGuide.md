@@ -288,3 +288,16 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyCont
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```
+
+## Exact source-bound MAIN completion rows
+
+GeneratedMediaSourceBoundMainCompletionGuide.md registers two disjoint
+post-generation rows. G2 uses
+`projectbs_character_open_ink_source_bound_green_carrier_fit@1.0.0` /
+`ca3102e7369da6513b4c4e462e68b373da618a2b1630a393d803d37136d812df`
+for one no-provider deterministic uncomposite-and-fit tuple. G3 uses
+`projectbs_character_open_ink_source_bound_single_edit@1.0.0` /
+`aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011`
+for one authenticated immutable-source edit with submit maximum one and retry
+maximum zero. These are not prompt-authoring expression profiles and cannot
+replace, merge with, or reinterpret an existing expression-profile row.

@@ -198,3 +198,19 @@ receipt SHA are both explicitly registered by
 That distinct postprocess exception does not change this receipt state, satisfy
 the exact `#00FF00` generation gate, reopen idempotency, or authorize provider
 recall/retry. Every unregistered nonconformant master remains stopped.
+
+## Exact source-bound edit exception
+
+`builtin_imagegen_authenticated_source_bound_edit_v1` is a disjoint corrective
+mode registered only by
+`projectbs_character_open_ink_source_bound_single_edit@1.0.0` /
+`aa65434f5fb9c22cb42db199c936ee414648b933f4b83c159065341f4e704011`.
+It consumes `generated_media_source_bound_character_edit_route_v1`, not a new
+planning/routing/prompt record. The actual callable schema remains unchanged:
+exact ordered prompt prose plus exactly one `referenced_image_paths` member
+containing the immutable registered source. Its authenticated scope permits one
+submit and zero retries; active/completed idempotency blocks duplicates. No
+configured settings, cost, or capability attestation is fabricated. Exact
+semantic/output gates, terminal tokens, and distinct later uncomposite boundary
+are normative in GeneratedMediaSourceBoundMainCompletionGuide.md. No other
+source, content, or edit instruction can select this exception.
