@@ -100,6 +100,22 @@ predecessorExpressionProfilePayloadHash=37ba4df4af5f8fa4b45708bd18bebbec537ad58a
 selection=explicit_approved_planning_fact_and_complete_successor_projection_required
 ```
 
+The opaque-chroma provider-master successor preserves the exact open-ink v2
+base key/hash and replaces only its generation-background projection. It is a
+new single-image profile, not a reinterpretation of v2 or a direct-alpha lane:
+
+```text
+expressionProfileKey=projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0
+expressionProfilePayloadHash=b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a
+canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/GeneratedMediaOpenInkWashOpaqueChromaSuccessorGuide.md::Canonical payload
+appliesTo=character_single_image_v2
+baseExpressionProfileKey=projectbs_character_open_ink_wash_dynamic_contour@2.0.0
+baseExpressionProfilePayloadHash=b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5
+providerMasterContract=generated_media_opaque_chroma_provider_master_v1
+postprocessOwnerRole=generated_media_chroma_uncomposite
+selection=explicit_approved_planning_fact_and_complete_successor_projection_required
+```
+
 The animation-only open-ink attack successor composes the exact open-ink v2
 reference without changing that profile or the existing sparse-motion profile:
 
@@ -183,6 +199,11 @@ and open-ink successor are disjoint by exact base key/hash and their own closed
 eligibility rules. A different requested expression
 requires a reviewed registry/profile version and explicit planning approval; no
 caller alias or silent override is allowed.
+
+The opaque-chroma successor is also disjoint: it is eligible only for
+`character_single_image_v2`, exact 1024x1536 PNG, and exact opaque removable
+`#00FF00`. It forbids `transparentForegroundSelection`; an old direct-alpha or
+warm-ivory handoff is never rewritten into this row.
 
 The registry validates the closed discriminated projection without owning its
 values. The legacy-compatible payload has exactly the original three members.

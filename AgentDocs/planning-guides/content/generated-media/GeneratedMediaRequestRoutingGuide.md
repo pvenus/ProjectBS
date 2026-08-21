@@ -703,3 +703,17 @@ candidate rows, required decision and safeToRetry.
   hashes are rejected;
 - the pipeline chain has no persisted orchestration record/index/path;
 - no downstream stage executes.
+
+### Open-ink opaque-chroma successor
+
+For `projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`,
+routing requires `character_single_image_v2`, exact open-ink v2 base binding,
+one 1024x1536 PNG, and
+`generationBackground={mode:"removable_solid",color:"#00FF00"}`. It rejects a
+`transparentForegroundSelection`, provider-alpha prose, non-green background,
+or an old handoff as `open_ink_chroma_direct_alpha_conflict`,
+`open_ink_chroma_master_contract_mismatch`, or
+`open_ink_chroma_successor_base_mismatch`. The route retains the distinct later
+`generated_media_chroma_uncomposite` boundary and never routes postprocess as
+part of generation.

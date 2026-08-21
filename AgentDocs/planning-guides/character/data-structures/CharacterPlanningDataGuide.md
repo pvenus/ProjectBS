@@ -732,3 +732,15 @@ Planning must bind all six closed motion members (`motionDirection`, `swordArc`,
 the exact `generated_media_true_alpha_foreground@1.0.0` selection. It cannot
 select or alias sparse-motion for an open-ink v2 reference. The new handoff is a
 fresh immutable request; prior blocked handoffs remain unchanged.
+
+## Open Ink-Wash Opaque Chroma MAIN Successor
+
+For a new opaque-chroma MAIN request, planning may select exact
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / payload hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`.
+It binds the unchanged open-ink v2 base key/hash, exact 1024x1536 canvas,
+`generationBackground={mode:"removable_solid",color:"#00FF00"}`, one opaque PNG
+provider master, and later `generated_media_chroma_uncomposite` ownership.
+`transparentForegroundSelection` and direct-alpha required elements are
+forbidden. The final background policy may require true alpha only after that
+distinct later stage. Existing handoffs are never converted or overwritten.

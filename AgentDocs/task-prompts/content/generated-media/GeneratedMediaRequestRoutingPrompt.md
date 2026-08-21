@@ -108,4 +108,5 @@ Output:
 - queued task replacement, 동시 setup mutation, 자동 worktree cleanup이 없어야 한다.
 - blocked 요청은 record/index를 변경하지 않아야 한다.
 - authoring 이후 단계를 실행하지 않아야 한다.
+- opaque-chroma MAIN successor는 exact `projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / `b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`, unchanged open-ink v2 base, character_single_image_v2, one 1024x1536 PNG와 exact opaque `#00FF00` removable-solid만 허용한다. `transparentForegroundSelection`, direct-alpha prose, warm-ivory 또는 다른 green은 `open_ink_chroma_direct_alpha_conflict` / `open_ink_chroma_master_contract_mismatch`로 no-write 차단하고 later `generated_media_chroma_uncomposite` 경계를 generation과 합치지 않는다.
 ```

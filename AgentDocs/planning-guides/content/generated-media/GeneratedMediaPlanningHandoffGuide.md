@@ -302,3 +302,13 @@ the unchanged base key/hash, all six exact approved motion bindings, and the
 unchanged true-alpha selection. Sparse-motion is not a successor alias. Missing
 or drifted base, motion or true-alpha evidence blocks without rewriting the
 prior handoff.
+
+An opaque-chroma MAIN handoff is a fresh immutable request selecting exact
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`.
+It preserves the base open-ink v2 key/hash and binds exactly one 1024x1536 PNG,
+fully opaque removable `#00FF00`, and distinct later
+`generated_media_chroma_uncomposite`. It omits
+`transparentForegroundSelection`; a direct-alpha, warm-ivory, wrong-size, or
+mixed handoff is `open_ink_chroma_master_contract_mismatch` or
+`open_ink_chroma_direct_alpha_conflict` and is not repaired.

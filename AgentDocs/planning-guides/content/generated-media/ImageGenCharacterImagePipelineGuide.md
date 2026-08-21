@@ -212,3 +212,12 @@ or final.
 AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImagePromptAuthoringPrompt.md
 AgentDocs/task-prompts/content/generated-media/ImageGenCharacterImageGenerationPrompt.md
 ```
+
+For registered `projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` /
+payload hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`,
+this pipeline ends generation with
+one hash-bound opaque 1024x1536 PNG provider master on exact uniform `#00FF00`.
+It does not create alpha or evaluate/preserve/promote the master. A distinct
+later `generated_media_chroma_uncomposite` role may consume the exact master
+only under its own closed algorithm and authority; provider recall is forbidden.

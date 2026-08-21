@@ -2215,3 +2215,15 @@ branch is `true_alpha_branch_conflict`; a stale opaque/removable/warm-ivory
 required element is `transparent_prompt_required_element_conflict`. The
 existing removable-solid branch and every existing prompt identity remain
 unchanged.
+
+The registered single-image successor
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / payload hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`
+is a separate removable-solid branch owned by
+GeneratedMediaOpenInkWashOpaqueChromaSuccessorGuide.md. It requires exactly one
+fully opaque 1024x1536 PNG with an edge-to-edge perfectly uniform `#00FF00`
+field outside the intended foreground. Provider transparency, checkerboard,
+variation, halo/vignette/floor/scene/shadow, neighboring fragments, or exact
+`#00FF00` foreground pixels are forbidden. Generation stops at the master
+receipt; chroma uncomposite/final alpha belongs only to distinct later role
+`generated_media_chroma_uncomposite` and project-copy eligibility remains false.

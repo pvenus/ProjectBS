@@ -1360,3 +1360,16 @@ AgentDocs/planning-guides/content/generated-media/GeneratedMediaStyleReferenceBi
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaPreservationPackagingGuide.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaLegacyV1CompatibilityGuide.md
 ```
+
+The Prompt v3 expression-profile discriminator also accepts the exact closed
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` / payload hash
+`b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a`
+payload in GeneratedMediaOpenInkWashOpaqueChromaSuccessorGuide.md. For that key
+the existing removable-solid record branch remains structurally unchanged but
+its values are fixed to 1024x1536 PNG and `#00FF00`; no
+`transparentForegroundSelection` is present. The profile payload, its two
+constraint-ID substitutions, successor locks, and later
+`generated_media_chroma_uncomposite` postprocess boundary
+are hash-significant in the visual brief and prompt payload. A mixed/direct-alpha
+record is `open_ink_chroma_direct_alpha_conflict`; unknown or drifted profile
+members are `open_ink_chroma_profile_projection_mismatch`.

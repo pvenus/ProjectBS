@@ -289,3 +289,14 @@ true-alpha pre-score gates. Failures are respectively
 `character_evaluation_open_ink_attack_true_alpha_gate_failed`. No score can
 offset these technical/material failures; sparse-motion evidence cannot satisfy
 the composed successor.
+
+The opaque-chroma provider master is never a final evaluation input. An
+evaluation package selecting
+`projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0` must bind the
+exact later true-alpha artifact and closed `generated_media_chroma_uncomposite`
+receipt while retaining
+the master hash and successor key/hash. A raw green master, missing postprocess
+authority, direct-alpha generation claim, or mixed lineage is
+`open_ink_chroma_stage_boundary_violation` before scoring. Once sealed, the
+existing open-ink identity/style gates apply to the final pixels; the carrier
+green is not character palette evidence.
