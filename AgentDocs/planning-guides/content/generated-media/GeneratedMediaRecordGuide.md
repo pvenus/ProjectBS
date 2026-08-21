@@ -1553,3 +1553,17 @@ The v3 payload includes exact original source/receipt, predecessor profile and
 rejected-output evidence, cleanup masks/counts, output identity and serializer.
 Record-first/no-clobber/CAS and `reused_identical` remain mandatory; rejected
 v2/v1 records are never rewritten or marked successful.
+
+The identity-anchored G2 successor uses
+`generated_media_identity_anchored_source_bound_fit_record_v1` and
+`generated_media_identity_anchored_source_bound_fit_receipt_v1`, selected only
+by `projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+/
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`.
+The record hash payload closes source/receipt/scope/handoff/profile, exact
+carrier/fringe/fit/cleanup evidence, serializer settings, RGBA/PNG identity,
+and `providerCalled=false,submitCount=0,retryCount=0`. Record-first, `wx`,
+sorted CAS append, no-clobber, and exact `reused_identical` are mandatory.
+Collision, missing immutable inputs, rejected-alpha input, or evidence drift is
+`identity_source_bound_fit_record_collision` or
+`identity_source_bound_fit_evidence_mismatch`; no partial record/index survives.

@@ -624,3 +624,13 @@ alpha components. Final G3 evaluation accepts only
 with zero green/cyan/magenta dominance on the exact registered partial
 silhouette-edge mask. Exact source, receipt, masks, output identity, fit and
 identity/equipment/one-closure gates are pre-score; predecessors remain FAIL.
+
+Identity-anchored G2 evaluation accepts only
+`projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+/
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`.
+Before scoring, rehash the source/receipt/scope/handoff and record/receipt,
+require the registered `[244,200,779,1335]` bbox, one alpha component,
+transparent RGB zero, zero opaque strong-green and zero green/cyan/magenta
+dominance at the partial silhouette edge. The accepted identity/equipment gates
+remain evaluation evidence; fit correction cannot reinterpret or replace them.

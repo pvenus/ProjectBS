@@ -254,3 +254,21 @@ orientation, equipment and exactly one closure remain unchanged. Expected PNG
 SHA is `1af18044008dc72c749ade2232f61838aad1d037541f8a57cf439031a1714f2e`.
 Neither successor accepts a rejected alpha PNG as input or permits provider
 recall, recursive editing, hue neutralization, repaint, crop, or manual mask.
+
+## Identity-anchored G2 exact source-bound fit
+
+`projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+has JCS payload SHA
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`.
+It is registered only for source `808594c5...84ede`, generation receipt
+`1fb9dfea...0977`, scope `042d1a21...ed12`, and handoff `2491e0e0...e993`.
+The helper derives carrier evidence from the original RGB, recovers the complete
+foreground, applies the single 1136/1309 uniform fit to 536x1136 at x244/y200,
+and uses exact source-supported inverse compositing. It iterates only partial
+silhouette-edge green/cyan/magenta candidates to a fixed point, resolves the
+registered 50 opaque positive-green candidates, and clears detached components
+only when every pixel has positive source-fringe support. Rejected prior alpha
+`1b68b5a5...4bfbb` is a forbidden input. Expected canonical PNG SHA is
+`ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327`.
+No provider call, manual mask, crop, repaint, recolor, identity/equipment edit,
+or recursive alpha repair is authorized.

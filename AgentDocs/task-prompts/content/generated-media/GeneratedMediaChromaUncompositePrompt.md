@@ -92,3 +92,15 @@ Final correction은 G2
 silhouette-edge inverse-composite mask만 적용한다. Rejected alpha PNG 입력,
 recursive edit, hue neutralization, repaint, crop, manual mask, provider call은
 금지한다. Record-v3/receipt-v3는 exactly one fresh no-clobber invocation이다.
+
+Identity-anchored G2는
+`projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+/
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`
+만 선택한다. Exact original RGB `808594c5...84ede`와 generation receipt
+`1fb9dfea...0977`를 재해시하고 helper v1을 exactly one fresh no-clobber로
+실행한다. Registered uniform fit, source-supported inverse composite,
+fixed-point edge cleanup, source-fringe-supported detached cleanup 외의 mask,
+crop, repaint, recolor, identity/equipment edit, provider call은 금지한다.
+Rejected `1b68b5a5...4bfbb` alpha는 입력이 아니며 expected canonical PNG는
+`ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327`이다.

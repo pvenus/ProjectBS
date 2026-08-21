@@ -991,3 +991,13 @@ or G3 `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0
 Preservation rehashes record-v3/receipt-v3, predecessor rejection, exact cleanup
 masks/counts and final output hash; it never reruns cleanup or packages either
 rejected predecessor. Mixed identity is `source_bound_chroma_fit_final_evidence_mismatch`.
+
+Identity-anchored G2 preservation additionally accepts only
+`projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+/
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`.
+It rehashes the exact indexed record/receipt, original RGB generation tuple,
+536x1136 placement evidence, carrier/fringe masks, single alpha component,
+zero silhouette-edge prohibited dominance, and canonical output
+`ff512be1...6d327`; it never reruns the transform. Mixed/rejected lineage is
+`identity_source_bound_fit_preservation_evidence_mismatch` with no package.

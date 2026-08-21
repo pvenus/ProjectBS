@@ -346,3 +346,14 @@ for the G2 opaque-carrier/isolation cleanup, and
 `40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`
 for the G3 exact partial silhouette-edge inverse-composite cleanup. Each row is
 source/receipt/predecessor-rejection bound and creates no cross-content alias.
+
+The exact identity-anchored G2 postprocess row is
+`projectbs_character_open_ink_identity_anchored_source_bound_green_carrier_fit@1.0.0`
+with payload SHA
+`1a669eed96cda8a2add59445cbf3c1e174fe359b1c03bf42ed707477d3cdc138`.
+Its canonical payload authority is
+`helpers/generated_media_identity_anchored_source_bound_fit_profile_v1.json`;
+its helper is `helpers/generated_media_identity_anchored_source_bound_fit_v1.mjs`.
+Scope is only `character_single_image+character+character.seojin.2` and the
+exact source/receipt/scope/handoff tuple. It is not a successor alias for any
+earlier G2 or G3 source-bound row.
