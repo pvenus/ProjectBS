@@ -256,6 +256,36 @@ validation:
   recordIdentity: valid
 ```
 
+### Exact legacy routing-record compatibility
+
+New `generated_media_routing_v2` records always require `createdAt` exactly as
+defined above. The only permitted omission is an exact entry in
+`GeneratedMediaRoutingLegacyCompatibilityRegistry.json`, read from the same
+authoritative Git revision as this guide. That registry is closed,
+JCS-canonical UTF-8 with one terminal LF, and is keyed by record schema,
+asset/content scope, canonical index path, exact routing-record ID/path/file
+SHA-256, and full routing-payload SHA-256. Its `decisionBaseMainSha` records the
+reviewed authority base; it is not a wildcard for other records made at that
+revision.
+
+For a registered record only, validation removes `createdAt` from the required
+top-level member set and requires it to be absent. Every other current closed
+schema, canonical-byte, payload re-projection, ID/path, record-file hash,
+validation-object, and exact index-entry projection check remains mandatory.
+The router never inserts, derives, normalizes, or rewrites `createdAt` in a
+legacy record. A record with any other missing/unknown member, a changed byte,
+an unregistered hash/path/ID, or a present but divergent `createdAt` fails the
+normal complete-scope validation.
+
+The registered `initialIndexSha256` is mandatory when the index contains
+exactly the registered legacy set. After a valid current-schema append, the
+index may also contain additional entries only when every additional record
+passes the full current schema including `createdAt`; the registered legacy
+records and their exact entries must still match byte-for-byte. This is not an
+index-schema exception, does not waive complete-scope validation, and cannot
+authorize deletion, replacement, synthesis, or normalization of any legacy
+byte.
+
 Every payload member except `authoringHandoff` is copied byte-semantically into
 the same-named record member. Bind the four derived routing references listed
 above into the record's `authoringHandoff` without changing any pre-binding

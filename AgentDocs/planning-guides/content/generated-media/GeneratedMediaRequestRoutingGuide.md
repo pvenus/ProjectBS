@@ -363,6 +363,19 @@ and attach the entry on retry without rewriting the record. All other blocked
 inputs write no record, index, placeholder, failure artifact, or downstream
 handoff.
 
+Complete-scope validation also reads
+`GeneratedMediaRoutingLegacyCompatibilityRegistry.json` from the same
+authoritative Git revision. An existing record that omits current-required
+`createdAt` is valid only when one exact registry entry matches its schema,
+scope, ID, path, raw file SHA-256, routing payload SHA-256, canonical index path,
+and exact index-entry projection. When the scope contains exactly that entry's
+registered legacy set, the raw index SHA-256 must also equal
+`initialIndexSha256`. Additional entries are accepted only as fully valid
+current-schema records, while every registered legacy record and entry remains
+byte-identical. The compatibility rule never applies to a new record and never
+synthesizes or rewrites `createdAt`; all non-registered missing/unknown fields
+and all other complete-scope failures retain their existing blockers.
+
 ## Detached Compact Routing Receipt
 
 After the record and index have been reread and verified, return one detached
