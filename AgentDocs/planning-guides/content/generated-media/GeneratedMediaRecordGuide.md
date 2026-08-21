@@ -1511,3 +1511,14 @@ profile `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0
 Its payload carries its own edited-source SHA, edit-receipt SHA, profile hash,
 704x1074 rational-fit settings, masks, serializer, and expected output hashes.
 Mixing any G2 identity is `source_chroma_fit_v2_binding_not_registered`.
+
+Final successors use `generated_media_source_bound_chroma_fit_record_v3` and
+`generated_media_source_bound_chroma_fit_receipt_v3`. G2 selects
+`projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`;
+G3 selects `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`.
+The v3 payload includes exact original source/receipt, predecessor profile and
+rejected-output evidence, cleanup masks/counts, output identity and serializer.
+Record-first/no-clobber/CAS and `reused_identical` remain mandatory; rejected
+v2/v1 records are never rewritten or marked successful.

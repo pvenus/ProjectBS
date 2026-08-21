@@ -982,3 +982,12 @@ The exact G3 edited-source fit selector is
 Preservation rehashes its distinct source/edit receipt, 176/179 rational fit,
 704x1074 output at x160/y231, masks, serializer and output identity without
 rerunning it. G2/G3 identity mixing fails no-write.
+
+Final eligible inputs are independently selected by G2
+`projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`
+or G3 `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`.
+Preservation rehashes record-v3/receipt-v3, predecessor rejection, exact cleanup
+masks/counts and final output hash; it never reruns cleanup or packages either
+rejected predecessor. Mixed identity is `source_bound_chroma_fit_final_evidence_mismatch`.

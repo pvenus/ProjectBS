@@ -321,3 +321,12 @@ The distinct G3 edited-source postprocess binding is
 It selects only source `7394278aac0553bd7f0967f84ec5654a61de438efde4626c439d3f64cead3e4a`
 and edit receipt `df9921b80222ab4a3a59f5dd35753d48e8988d76e4ea7b81cf690a522a453cc3`;
 it is not an alias or shared fixture with G2.
+
+Final exact postprocess successors are registered independently:
+`projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`
+for the G2 opaque-carrier/isolation cleanup, and
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`
+for the G3 exact partial silhouette-edge inverse-composite cleanup. Each row is
+source/receipt/predecessor-rejection bound and creates no cross-content alias.

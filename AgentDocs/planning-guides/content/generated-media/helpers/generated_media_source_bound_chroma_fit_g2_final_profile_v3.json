@@ -1,0 +1,54 @@
+{
+  "algorithmContract": {
+    "cleanupMode": "exact_opaque_carrier_components_and_isolated_alpha_components_v1",
+    "isolatedAlphaCleanup": {
+      "connectivity": 4,
+      "eligibleAreaExact": 1,
+      "eligibleComponentCount": 1,
+      "eligibleMaskSha256": "e8e51f535ccacb09ebba3d295214209e9f144c3bc2e320b9be020e7f9839e90d",
+      "eligiblePixel": {"x": 701, "y": 1126},
+      "rule": "clear_only_complete_alpha_greater_than_zero_four_connected_components_with_exact_area_1_after_predecessor_identity_validation"
+    },
+    "opaqueCarrierCleanup": {
+      "componentCount": 6,
+      "componentOrdering": "area_desc_then_yMin_then_xMin",
+      "components": [
+        {"area": 232, "bbox": {"xMax": 281, "xMin": 266, "yMax": 1029, "yMin": 997}},
+        {"area": 104, "bbox": {"xMax": 787, "xMin": 777, "yMax": 963, "yMin": 950}},
+        {"area": 53, "bbox": {"xMax": 579, "xMin": 573, "yMax": 572, "yMin": 562}},
+        {"area": 8, "bbox": {"xMax": 675, "xMin": 672, "yMax": 982, "yMin": 979}},
+        {"area": 2, "bbox": {"xMax": 692, "xMin": 691, "yMax": 957, "yMin": 957}},
+        {"area": 1, "bbox": {"xMax": 695, "xMin": 695, "yMax": 959, "yMin": 959}}
+      ],
+      "connectivity": 4,
+      "maskSha256": "24605b267a8de1f3a1b7bf4616a7586840ce3ebf1037d77f4d50a5c964213581",
+      "pixelCount": 400,
+      "predicate": "alpha_exact_255_and_g_minus_max_r_b_greater_than_or_equal_to_24_and_g_greater_than_or_equal_to_96",
+      "rule": "clear_only_pixels_in_the_exact_registered_predicate_mask_after_exact_component_signature_match"
+    },
+    "operationOrder": ["exact_source_and_receipt_validation", "reproduce_registered_v2_intermediate_in_memory", "validate_rejected_intermediate_identity", "validate_exact_opaque_carrier_component_mask", "clear_exact_opaque_carrier_mask", "validate_and_clear_exact_isolated_alpha_component_mask", "validate_output", "canonical_png_rgba8_serialization", "reopen_validation"]
+  },
+  "applicability": {"assetType": "character_single_image", "contentId": "character.seojin.2", "domainType": "character", "postprocessOwnerRole": "generated_media_chroma_uncomposite", "selection": "exact_registered_source_receipt_and_rejected_v2_evidence_only", "structureProfile": "character_single_image_v2"},
+  "outputContract": {
+    "alphaComponentAreasDescending": [358987, 49, 39, 6, 5, 3, 2],
+    "canvas": {"height": 1536, "width": 1024},
+    "foregroundBbox": {"xMax": 790, "xMin": 233, "yMax": 1376, "yMin": 128},
+    "isolatedOnePixelAlphaComponentCount": 0,
+    "noClipping": true,
+    "noManualMaskRepaintCropOrIdentityChange": true,
+    "opaqueStrongGreenPixelCount": 0,
+    "outputPngByteLength": 6293540,
+    "outputPngSha256": "1b68b5a50c2801a090f25d13f4b22bd7b8afc4e5c6a93b423ddf06abeaa4bfbb",
+    "outputRgbaSha256": "40d663f9e8a4d0e81b08f355401f958ac4b5419d35133676a2074b013a69d57c",
+    "preservationRule": "every_pixel_outside_the_two_exact_registered_cleanup_masks_is_byte_identical_to_the_reproduced_v2_intermediate",
+    "serializerKey": "generated_media_png_rgba8_store_v1",
+    "serializerVersion": "1.0.0",
+    "transparentPixelRgb": [0, 0, 0]
+  },
+  "predecessorBinding": {"meaningUnchanged": true, "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit@2.0.0", "profilePayloadSha256": "84db44afba6bce328a51f078f2147055846f282de71b2c56b9d7876264f9bccf"},
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0",
+  "recordContract": {"idempotency": "exact_source_receipt_predecessor_rejection_profile_algorithm_settings_reused_identical", "indexPolicy": "record_first_then_sorted_cas_append_no_clobber", "recordSchemaVersion": "generated_media_source_bound_chroma_fit_record_v3", "receiptSchemaVersion": "generated_media_source_bound_chroma_fit_receipt_v3"},
+  "rejectedPredecessorEvidence": {"authorityRole": "rejected_non_authoritative_no_retry_no_reuse", "helperReceiptSha256": "90650420f5523181cf9ee9e86abb775f6cb159187c611f5cd2c06ebc8c0691fe", "outputPngSha256": "21271703cc89dedd3b08afbc3df4c7803476a78918e3c4e8fcc49a04e635f095", "recordSha256": "2aa3cbcecf02007bb7baba68a7bee5b00777e94055973cae180e8b0b0ab13896", "validationFailureType": "source_bound_chroma_fit_v2_opaque_carrier_residual", "validationSha256": "3b1319607644881b14ca3a94e8bb3959fc97e9535d4158308a6f326c447ac276"},
+  "schemaVersion": "generated_media_source_bound_chroma_fit_profile_v3",
+  "sourceBinding": {"byteLength": 1814466, "generationReceiptSha256": "4e4457df58f31eff61adb1a93d8915e8a2fb0926e28cb9eb8358f2ce8b606526", "sourceSha256": "66dc1c94be2e38e9dc4d6ff15b4b6b0699353b9830d718ec16743dc4ff92acf9"}
+}

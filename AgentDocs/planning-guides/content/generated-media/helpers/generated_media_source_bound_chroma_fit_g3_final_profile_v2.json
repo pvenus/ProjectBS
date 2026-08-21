@@ -1,0 +1,43 @@
+{
+  "algorithmContract": {
+    "cleanupMode": "exact_partial_silhouette_edge_carrier_uncomposite_v1",
+    "edgeFringeCleanup": {
+      "alphaRange": {"maximum": 254, "minimum": 1},
+      "candidateCount": 5199,
+      "candidateCountByDominance": {"cyan": 628, "green": 0, "magenta": 4571},
+      "candidateMaskSha256": "eadaf5d07b6c97eeb40b395e776ff5855dd9275c5b9f653342ef12d4b832eac9",
+      "candidatePredicate": "partial_alpha_and_four_neighbor_distance_to_transparent_exact_1_and_positive_registered_source_fringe_area_weight_and_any_prohibited_dominance",
+      "clearedCount": 2911,
+      "clearedMaskSha256": "c9c4d767952b1b7905e3ab2226158854029489e5ac6eeb0a6814d4dedf926b5a",
+      "dominancePredicates": {"cyan": "min_g_b_greater_than_r", "green": "g_greater_than_max_r_b", "magenta": "min_r_b_greater_than_g"},
+      "inverseCompositeSearch": "alpha_1_through_254_sorted_by_absolute_distance_from_initial_then_ascending; first_in_range_rgb_with_all_dominance_false_and_recomposition_error_max_1_else_clear",
+      "postCleanupCandidateDominanceCount": {"cyan": 0, "green": 0, "magenta": 0},
+      "silhouetteEdgeConnectivity": 4,
+      "solvedCount": 2288,
+      "sourceSupportRule": "exact_integer_area_weight_overlap_with_registered_positive_green_source_fringe_mask_greater_than_zero"
+    },
+    "operationOrder": ["exact_edited_source_and_receipt_validation", "reproduce_registered_g3_v1_intermediate_in_memory", "validate_rejected_intermediate_identity", "derive_exact_partial_silhouette_edge_mask", "apply_model_bound_inverse_composite_search", "validate_zero_prohibited_edge_dominance", "validate_output", "canonical_png_rgba8_serialization", "reopen_validation"]
+  },
+  "applicability": {"assetType": "character_single_image", "contentId": "character.seojin.3", "domainType": "character", "postprocessOwnerRole": "generated_media_chroma_uncomposite", "selection": "exact_registered_edited_source_receipt_and_rejected_g3_v1_evidence_only", "structureProfile": "character_single_image_v2"},
+  "outputContract": {
+    "canvas": {"height": 1536, "width": 1024},
+    "fitGeometry": {"placement": {"x": 160, "y": 231}, "scaleRational": {"denominator": 179, "numerator": 176}, "targetSize": {"height": 1074, "width": 704}},
+    "foregroundBbox": {"xMax": 862, "xMin": 160, "yMax": 1304, "yMin": 231},
+    "identityOrientationEquipmentAndOneClosureUnchanged": true,
+    "noClipping": true,
+    "noHueNeutralizationManualMaskRepaintCropOrIdentityChange": true,
+    "outputPngByteLength": 6293540,
+    "outputPngSha256": "1af18044008dc72c749ade2232f61838aad1d037541f8a57cf439031a1714f2e",
+    "outputRgbaSha256": "3ca5b8be543a6e9eb39a7da1335490565ef6b6b73dbd7c01ed2a058e610a9a9a",
+    "preservationRule": "every_pixel_outside_the_exact_registered_partial_silhouette_edge_candidate_mask_is_byte_identical_to_the_reproduced_g3_v1_intermediate",
+    "serializerKey": "generated_media_png_rgba8_store_v1",
+    "serializerVersion": "1.0.0",
+    "transparentPixelRgb": [0, 0, 0]
+  },
+  "predecessorBinding": {"meaningUnchanged": true, "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@1.0.0", "profilePayloadSha256": "f1b9563f271334c5addbf780bec1bca886f540d1a804e93684f56774c516a086"},
+  "profileKey": "projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0",
+  "recordContract": {"idempotency": "exact_source_receipt_predecessor_rejection_profile_algorithm_settings_reused_identical", "indexPolicy": "record_first_then_sorted_cas_append_no_clobber", "recordSchemaVersion": "generated_media_source_bound_chroma_fit_record_v3", "receiptSchemaVersion": "generated_media_source_bound_chroma_fit_receipt_v3"},
+  "rejectedPredecessorEvidence": {"authorityRole": "rejected_non_authoritative_no_retry_no_reuse", "outputPngSha256": "190f6e937ec61ed59dd2c04a415b937ef5d5ba6f46d1f5d476a38b54de11563a", "outputRgbaSha256": "b507921887a78ff002bf5949c11b372baebba1f453aff82257fb8b8542a550d8", "recordSha256": "24db381c0f107dc7801c02b883881b8d5b01e4ac20afd7a218f0a2c2dce38ef5", "receiptSha256": "eab58cd487270005456bb53651fbf47e280c2800b9504460e57ea6ef779c8ac0", "validationFailureType": "source_bound_chroma_fit_g3_partial_edge_cyan_magenta_residual"},
+  "schemaVersion": "generated_media_source_bound_chroma_fit_profile_v3",
+  "sourceBinding": {"byteLength": 1642290, "editExecutionReceiptSha256": "df9921b80222ab4a3a59f5dd35753d48e8988d76e4ea7b81cf690a522a453cc3", "sourceSha256": "7394278aac0553bd7f0967f84ec5654a61de438efde4626c439d3f64cead3e4a"}
+}

@@ -81,3 +81,14 @@ G3 edited source에는 별도
 176/179 rational scale, round-half-up 1074 height, 704x1074, x160/y231,
 bbox `[160,231,863,1304]`, exact masks/output hashes가 모두 일치해야 one
 no-clobber invocation을 허용한다. G2 identity와 혼합하지 않는다.
+
+Final correction은 G2
+`projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`
+또는 G3 `projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`
+중 exact content binding 하나만 선택한다. 원본 RGB source/receipt에서 이전
+결과를 메모리 재현·검증한 뒤 G2 exact 400+1 mask 또는 G3 exact partial
+silhouette-edge inverse-composite mask만 적용한다. Rejected alpha PNG 입력,
+recursive edit, hue neutralization, repaint, crop, manual mask, provider call은
+금지한다. Record-v3/receipt-v3는 exactly one fresh no-clobber invocation이다.

@@ -223,3 +223,34 @@ recovery; only the distinct exact G3 fit profile above authorizes its one
 no-clobber postprocess invocation. Neither branch rewrites an existing artifact
 or grants preservation, evaluation, promotion, project copy, or Unity authority
 ahead of its stated next-stage gate.
+
+## Final source-bound fit successors
+
+G2 v2 output `21271703cc89dedd3b08afbc3df4c7803476a78918e3c4e8fcc49a04e635f095`
+and its record/receipt/validation are rejected evidence only. The sole successor
+is `projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`.
+It reproduces v2 in memory from the original G2 source/receipt, verifies that
+rejected identity, then clears only the exact registered 400-pixel opaque
+strong-green six-component mask and exact isolated one-pixel alpha-component
+mask. All pixels outside those two masks remain byte-identical to v2. Expected
+output SHA is `1b68b5a50c2801a090f25d13f4b22bd7b8afc4e5c6a93b423ddf06abeaa4bfbb`;
+bbox remains `[233,128,790,1376]`, opaque strong-green and one-pixel alpha
+component counts are zero, and transparent RGB remains zero.
+
+G3 v1 output `190f6e937ec61ed59dd2c04a415b937ef5d5ba6f46d1f5d476a38b54de11563a`
+is also rejected evidence only because it did not test cyan/magenta partial-edge
+dominance. The separate successor is
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`.
+It starts only from original edited RGB source `7394278...3e4a` and edit receipt
+`df9921...3cc3`, reproduces v1 in memory, and selects only partial-alpha pixels
+at exact four-neighbor distance one from transparency whose resampling support
+overlaps the registered source fringe. Exact green/cyan/magenta predicates,
+5,199-candidate mask, nearest-alpha inverse-composite search, 2,288 solved and
+2,911 cleared pixels are profile-bound. All three prohibited dominance counts
+are zero afterward. Pixels outside that mask, fit geometry, identity,
+orientation, equipment and exactly one closure remain unchanged. Expected PNG
+SHA is `1af18044008dc72c749ade2232f61838aad1d037541f8a57cf439031a1714f2e`.
+Neither successor accepts a rejected alpha PNG as input or permits provider
+recall, recursive editing, hue neutralization, repaint, crop, or manual mask.

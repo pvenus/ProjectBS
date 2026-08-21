@@ -613,3 +613,14 @@ The exact G3 edited-source fit branch binds
 Its source/edit receipt, 176/179 rational fit, 704x1074 output,
 `[160,231,863,1304]` bbox, model-bound zero residual carrier fringe,
 transparent RGB zero and canonical output hashes are pre-score hard gates.
+
+Final G2 evaluation accepts only
+`projectbs_character_open_ink_source_bound_green_carrier_fit@3.0.0` /
+`5188d2bd92fdf22dded70fe8e3ab60f1fee1aa79ac6072845883072d99a875c2`
+with zero opaque strong-green pixels and zero prohibited isolated one-pixel
+alpha components. Final G3 evaluation accepts only
+`projectbs_character_open_ink_source_bound_green_carrier_fit_g3_edit@2.0.0` /
+`40cf8dcfbdc9043d1cdadeca64ee34ef8a11566140aa1e0ac8cc0d3b5baae425`
+with zero green/cyan/magenta dominance on the exact registered partial
+silhouette-edge mask. Exact source, receipt, masks, output identity, fit and
+identity/equipment/one-closure gates are pre-score; predecessors remain FAIL.
