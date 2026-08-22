@@ -233,3 +233,13 @@ one hash-bound opaque 1024x1536 PNG provider master on exact uniform `#00FF00`.
 It does not create alpha or evaluate/preserve/promote the master. A distinct
 later `generated_media_chroma_uncomposite` role may consume the exact master
 only under its own closed algorithm and authority; provider recall is forbidden.
+
+The sequential-grade branch uses execution profile
+`projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`
+and selection schema
+`generated_media_sequential_grade_identity_authority_selection_v1`. Authoring
+and generation consume one exact evaluated prior-grade MAIN reference through
+`prompt + referenced_image_paths[1]`, enforce unchanged identity/equipment/
+proportion/orientation and only target-approved clothing/authority delta, then
+stop at the existing opaque-chroma postprocess boundary.

@@ -238,3 +238,14 @@ selection, projection, scope/idempotency, identity gates, receipt, and later
 opaque-chroma postprocess boundary are normative in
 GeneratedMediaIdentityAnchoredOpaqueChromaExecutionGuide.md. Existing built-in
 and source-bound-edit modes are unchanged.
+
+`builtin_imagegen_authenticated_sequential_grade_identity_single_submit_v1`
+is registered only by execution profile
+`projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`
+with selection schema
+`generated_media_sequential_grade_identity_authority_selection_v1`. It binds
+one trusted evaluated prior-grade MAIN, its completed-PASS evaluation and
+source-bound receipt, and uses exactly prompt plus one referenced image.
+GeneratedMediaSequentialGradeIdentityAuthorityGuide.md owns its closed scope,
+idempotency, identity gates, submit-one/retry-zero, receipt, and boundary.

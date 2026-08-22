@@ -378,3 +378,26 @@ canonicalPayloadAuthority=AgentDocs/planning-guides/content/generated-media/help
 
 This row is not an alias for single-image opaque chroma, sparse motion,
 open-ink attack direct alpha, provider-native GIF, or accepted coherent master.
+
+## Sequential next-grade identity-anchored opaque-chroma row
+
+```text
+registryRowId=character_single_image.character.open_ink_opaque_chroma_sequential_grade_identity.v1
+assetType=character_single_image
+domainType=character
+structureProfile=character_single_image_v2
+expressionProfileKey=projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0
+expressionProfilePayloadHash=b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a
+executionProfileKey=projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0
+executionProfilePayloadHash=73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04
+selectionSchema=generated_media_sequential_grade_identity_authority_selection_v1
+executionMode=builtin_imagegen_authenticated_sequential_grade_identity_single_submit_v1
+selectedPipeline=ImageGenCharacterImagePipelineGuide
+selectedAuthoringPrompt=ImageGenCharacterImagePromptAuthoringPrompt
+selectedGenerationPrompt=ImageGenCharacterImageGenerationPrompt
+```
+
+The canonical execution payload is
+`helpers/generated_media_sequential_grade_identity_execution_profile_v1.json`.
+This exact row is a sequential execution successor only; it does not alter or
+alias the expression profile or any existing registry row.

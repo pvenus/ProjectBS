@@ -337,3 +337,12 @@ payload
 Both objects are hash-significant and project unchanged; unknown, nested,
 partial, mixed-content, provider-reference motion lineage, or edit-source MAIN
 semantics are invalid. Existing handoffs omit both and remain unchanged.
+
+For sequential next-grade single-image identity, a fresh handoff conditionally
+adds exactly one top-level `sequentialIdentityAuthoritySelection` with schema
+`generated_media_sequential_grade_identity_authority_selection_v1`, execution
+profile `projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`.
+Its exact 19 members and evidence semantics are owned by
+GeneratedMediaSequentialGradeIdentityAuthorityGuide.md. It is hash-significant,
+omitted for every other branch, and never nested or synthesized from chat.

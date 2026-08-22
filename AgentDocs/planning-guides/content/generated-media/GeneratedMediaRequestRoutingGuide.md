@@ -813,3 +813,14 @@ with `animationSourceMode=provider_opaque_chroma_3x2_master` and
 `extractionMode=postprocess_exact_cell_chroma_root_gif_v1`; no legacy identity,
 provider-native GIF, direct-alpha, sparse-motion, or coherent-master route is
 silently reused.
+
+For a sequential next-grade MAIN route, match exactly
+`projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`
+and `generated_media_sequential_grade_identity_authority_selection_v1`.
+Validate all 19 closed members, immediate grade relation, registered fixture,
+completed-PASS evaluation and source-bound receipt raw hashes, and forbidden
+target media before write. Project the selection unchanged at routing record,
+hash payload, normalizedRequest, and authoringHandoff top level. Missing,
+nested, mixed, or unequal values fail the exact sequential-identity token with
+no record/index write.

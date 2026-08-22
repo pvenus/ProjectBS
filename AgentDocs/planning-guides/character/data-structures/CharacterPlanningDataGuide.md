@@ -779,3 +779,16 @@ are never provider references or outputs. Planning closes one 1536x1024 opaque
 3x2 master, later exact split/chroma/root/GIF postprocess, six 512x512 frames,
 root `(256,300)`, baseline `448`, safe margin 48, fixed scale/camera/centroid,
 150 ms x6 infinite loop and frame 5-to-0 closure without performing them.
+
+### Sequential prior-grade MAIN identity authority
+
+For a next-grade `character_single_image_v2`, planning may select execution
+profile `projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`
+with one top-level `generated_media_sequential_grade_identity_authority_selection_v1`.
+The exact prior-grade MAIN is role
+`identity_equipment_proportion_orientation_authority_only`; completed-PASS
+evaluation and source-bound receipt ID/path/SHA are required. It locks face,
+hairline/topknot, compact proportions, handedness, equipment, and orientation.
+Only target-planning next-grade clothing/authority facts may differ. It is not
+an edit/style/pose/background/pixel authority and requires no provider receipt.

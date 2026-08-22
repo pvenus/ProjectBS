@@ -1,0 +1,96 @@
+{
+  "applicability": {
+    "assetType": "character_single_image",
+    "domainType": "character",
+    "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+    "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a",
+    "gradeRelation": "target_grade_equals_authority_grade_plus_one",
+    "structureProfile": "character_single_image_v2"
+  },
+  "callableContract": {
+    "activeOrCompletedSameKey": "duplicate_provider_call_risk",
+    "callProjectionMembers": ["prompt", "referenced_image_paths"],
+    "executionMode": "builtin_imagegen_authenticated_sequential_grade_identity_single_submit_v1",
+    "numLastImagesToInclude": "prohibited",
+    "provider": "imagegen",
+    "providerTool": "image_gen.imagegen",
+    "referenceCount": 1,
+    "referenceSelector": "referenced_image_paths",
+    "retryCountMaximum": 0,
+    "scopeFreshness": "fresh_execution_scope_required",
+    "submitCountMaximum": 1
+  },
+  "evidencePolicy": {
+    "completedPassEvaluation": "required_exact_record_id_path_sha256_and_result_pass",
+    "providerReceiptForReference": "not_required_and_must_not_be_fabricated",
+    "sourceBoundReceipt": "required_exact_record_id_path_sha256",
+    "trustedEvidencePolicyKey": "generated_media_trusted_evaluated_prior_grade_main_reference@1.0.0"
+  },
+  "executionProfileKey": "projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0",
+  "fixtureBinding": {
+    "authorityContentId": "character.seojin.2",
+    "byteLength": 6293540,
+    "localPath": "C:/Users/parkv/Documents/Codex/2026-08-21/seojin-grade3-main-targeted-retry-postprocessing/outputs/g2-official-identity-anchored-fit-v1/seojin-g2-identity-anchored-source-bound-final.png",
+    "pathPolicy": "registered_exact_local_absolute_path_read_only_existing_file_no_copy_no_rewrite",
+    "sha256": "ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327",
+    "targetContentId": "character.seojin.3"
+  },
+  "identityLocks": {
+    "allowedDelta": [
+      "next_grade_clothing_facts_explicitly_approved_by_target_planning",
+      "next_grade_authority_facts_explicitly_approved_by_target_planning"
+    ],
+    "requiredUnchanged": [
+      "face_geometry",
+      "hairline",
+      "low_topknot_and_short_controlled_hair",
+      "compact_body_proportions",
+      "right_handed_sword_and_scabbard",
+      "recognizable_pouch_and_shoulder_equipment",
+      "body_and_equipment_orientation"
+    ],
+    "styleAuthority": "expression_profile_and_target_planning_only"
+  },
+  "providerMasterContractBinding": {
+    "background": "edge_to_edge_perfectly_uniform_rgb_00ff00_outside_foreground",
+    "boundaryClean": true,
+    "fullFigureSafeFit": true,
+    "inheritance": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0_byte_and_meaning_unchanged",
+    "output": "exactly_one_png_1024x1536_fully_opaque",
+    "postprocessOwnerRole": "generated_media_chroma_uncomposite",
+    "providerTransparency": "prohibited"
+  },
+  "referenceContract": {
+    "prohibitedTransfer": [
+      "edit_source",
+      "edit_target",
+      "style_authority",
+      "pose_authority",
+      "background_authority",
+      "pixel_copy_authority"
+    ],
+    "role": "identity_equipment_proportion_orientation_authority_only",
+    "selectionSchemaVersion": "generated_media_sequential_grade_identity_authority_selection_v1"
+  },
+  "rejectedTargetMedia": {
+    "sha256": ["1af18044008dc72c749ade2232f61838aad1d037541f8a57cf439031a1714f2e"],
+    "use": "non_authoritative_non_reusable_no_reference_no_edit_source_no_output"
+  },
+  "rejectionTokens": {
+    "agingOrFaceDrift": "sequential_identity_aging_or_face_drift",
+    "culturalDrift": "sequential_identity_cultural_drift",
+    "equipmentOrOrientationDrift": "sequential_identity_equipment_or_orientation_drift",
+    "evidenceMismatch": "sequential_identity_evidence_mismatch",
+    "priorRejectedTargetMedia": "sequential_identity_rejected_target_media_forbidden",
+    "projectionMismatch": "sequential_identity_projection_mismatch",
+    "proportionDrift": "sequential_identity_proportion_drift",
+    "referenceMismatch": "sequential_identity_reference_mismatch",
+    "styleDrift": "sequential_identity_style_drift"
+  },
+  "schemaVersion": "generated_media_sequential_grade_identity_execution_profile_v1",
+  "stageBoundary": {
+    "generationMayPostprocessPreserveEvaluatePromote": false,
+    "nextStepOnConformingMaster": "generated_media_chroma_uncomposite",
+    "projectCopyEligible": false
+  }
+}

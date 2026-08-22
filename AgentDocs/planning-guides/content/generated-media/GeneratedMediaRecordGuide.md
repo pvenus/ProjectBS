@@ -1577,3 +1577,18 @@ profile. Unknown/missing members, mixed source mode, selection drift,
 master/member hash drift, or postprocess provider claims fail no-write. Write
 record first by `wx`, then sorted index by CAS/no-clobber; only exact unchanged
 hash payload is `reused_identical`.
+
+## Sequential grade identity selection projection
+
+`sequentialIdentityAuthoritySelection` is a conditional top-level member only
+for execution profile
+`projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`.
+Its schema is `generated_media_sequential_grade_identity_authority_selection_v1`
+and its exact 19-member object is included unchanged in routing hash payload,
+routing record, normalized request, authoring handoff, prompt hash payload,
+prompt record/index identity, detached generation handoff, generation preflight,
+execution scope, and generation receipt. Omit it for every existing branch.
+Unknown/missing/nested/partial/mixed or unequal projections fail
+`sequential_identity_projection_mismatch` before record/index/provider work.
+Existing records and hashes without the member remain valid byte-for-byte.

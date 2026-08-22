@@ -2291,3 +2291,15 @@ identity/equipment reference. Grade1 motion lineage is never a callable
 reference. Submit maximum is one, retry maximum zero, and successful generation
 ends at `generated_media_animation_postprocess`; generation never splits,
 uncomposites, normalizes, encodes, preserves, evaluates, or promotes.
+
+### Sequential grade identity authority
+
+`projectbs_character_open_ink_opaque_chroma_sequential_grade_identity_anchored@1.0.0`
+/ `73a48f8c8013e3a79ac04e0c161075a14ce6b1194527c48585fd33edb009ea04`
+is the only registered generic next-grade single-image execution profile. Its
+conditional top-level selection schema is
+`generated_media_sequential_grade_identity_authority_selection_v1`. Apply the
+closed projection, evidence, identity-lock, one-reference call, submit-one/
+retry-zero, failure tokens, and postprocess boundary from
+GeneratedMediaSequentialGradeIdentityAuthorityGuide.md. Existing branches and
+the opaque-chroma expression profile remain unchanged.
