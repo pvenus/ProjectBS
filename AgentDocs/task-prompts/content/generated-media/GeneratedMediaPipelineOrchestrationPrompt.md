@@ -10,6 +10,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaDeterministicFastPathGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaMessageOnlyLocalIterationGuide.md
 
 Input:
 - repo: {canonical origin remote URL}
@@ -19,8 +20,10 @@ Input:
 - cleanupAuthorization: {absent by default; exact targets only when explicitly authorized}
 - noninteractiveExecutionPolicy: {exact generated_media_noninteractive_execution_policy_v1 derived from the authenticated request}
 - deterministicFastPathPolicy: generated_media_deterministic_fast_path_v1
+- localIterationPolicy: generated_media_message_only_local_iteration_v1 (optional; explicit local_unpublished iteration only)
 
 작업:
+0. `localIterationPolicy=generated_media_message_only_local_iteration_v1`이면 기존 1-20을 실행하지 않는다. requester의 self-contained planning message 한 건과 attachment 또는 exact existing path만 generation role에 한 번 전달하고, generation이 반환한 output image path만 chat evaluation에 한 번 전달한다. routing은 message forwarding only이며 planning/handoff/route/prompt/evaluation/receipt/manifest/package/index/snapshot/request/profile/lineage/JCS/metadata 파일을 만들지 않는다. Raw Git BLOB 검증, registry/schema/Git publication, full suite를 실행하지 않고 actual media output만 persist한다. 평가는 chat-only `PASS | FAIL` 한 건이며 record/package/publication/copy authority가 아니다. 종료 뒤 publication/preservation/promotion/project copy는 새 explicit authorization의 별도 workflow로 남긴다.
 1. canonical repo의 `gmsetup1.{repo SHA-256 prefix}` repository setup mutex를 획득한다. worktree add/remove/prune/fetch mutation은 mutex 안에서 직렬로 한 건씩만 수행한다.
 2. pipeline run당 `fetch origin main --prune`를 정확히 한 번 실행하고 fetched origin/main을 exact 40-hex commit으로 확정한다.
 2a. exact authenticated request에서 closed noninteractive execution policy를 한 번 파생한다. routine in-scope action은 재승인을 묻지 않는다. host/platform approval이 필수이면 작업 전 exact commands/actions/roots 전체를 포함한 bundled request 한 건만 만들고, 승인 뒤 두 번째 prompt를 금지한다. bundle이 거부·누락·범위 불일치이면 `generated_media_bundled_platform_approval_unavailable` 한 건으로 terminal 종료한다.
@@ -45,6 +48,7 @@ Input:
 20. terminal에서 authority/testing, orchestration wait, provider elapsed를 분리하고 exact observed 값만 `generated_media_fast_path_efficiency_receipt_v1`로 한 번 보고한다. token-heavy history/Base64/full-payload/unchanged-polling/unnecessary-full-suite가 관찰되면 closed warning만 추가하며 token 수를 추정하지 않는다.
 
 Output:
+- message-only local iteration이면 outputImagePath와 chatEvaluation: PASS | FAIL만 relay하고 artifact identity, receipt, package, publication 또는 promotion field를 만들지 않는다.
 - status: ready | queued | blocked
 - pipelineRunId
 - officialThreadIds: role별 distinct official ID 또는 pending
