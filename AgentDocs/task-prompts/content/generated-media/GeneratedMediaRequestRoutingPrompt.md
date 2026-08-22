@@ -37,9 +37,9 @@ Input:
 0h. child final 한 건을 받고 parent relay 한 건만 수행한다. observer에 full receipt/payload를 broadcast하지 않는다.
 0i. coordinator의 pipelineAuthorityReceipt repo/originMain/fetchedAt/hash를 검증하고 exact originMain commit만 읽는다. read-only child는 fetch하지 않는다. routing record/index mutation은 기존 raw blob, no-clobber, CAS 검사를 그대로 fresh 수행하되 setup fetch/worktree mutation은 coordinator의 repository mutex 밖에서 실행하지 않는다.
 0j. exact policy 범위의 read/hash/schema/test와 bounded record/index write에는 interactive approval을 다시 요청하지 않는다. host-required bundle은 coordinator의 한 건만 재사용하며, overwrite/delete/extra submit·retry·cost/elevation/out-of-root/scope expansion은 해당 new-authority token으로 partial write 없이 차단한다.
-0k. requester message가 inherited context 없이 generation instruction, attachment 또는 exact existing path, provider submit/retry bounds와 safety scope를 모두 포함하는 self-contained planning message인지 chat에서 확인한다. 이를 planning handoff, request, snapshot 또는 prompt record로 변환하지 않는다.
-0l. routing은 self-contained message와 attachment/path를 generation role에 한 번 전달하는 message forwarding only다. route/prompt/receipt/index/JCS/hash chain을 만들거나 raw Git BLOB, registry, schema, Git publication, full suite를 요구하지 않는다.
-0m. generation이 actual media output만 persist하고 output image path를 반환하면 그 path만 evaluator에 한 번 전달한다. evaluator는 chat-only `PASS | FAIL`만 반환하며 evaluation record/package/receipt를 만들지 않는다.
+0k. planning stage가 complete authoritative planning document를 정확히 한 개 유지하는지 확인한다. Requester가 그 문서에서 generation facts를 추출하되 planning file/path/identity/content는 routing/generation/evaluation에 transfer/reference/open/consume하지 않는다.
+0l. self-contained generation chat message는 inherited context 없이 identity locks, allowed deltas, prohibitions, output settings, submit limit, reference image attachment 또는 exact existing path를 모두 포함해야 한다. 이를 planning handoff, request, snapshot 또는 prompt record로 변환하지 않는다. Routing은 이 message만 generation role에 한 번 전달하는 message forwarding only이며 route/prompt/receipt/index/JCS/hash chain, raw Git BLOB, registry, schema, Git publication 또는 full suite를 요구하지 않는다.
+0m. generation이 actual media output만 persist하고 output image path(s)를 반환하면 그 path(s)와 explicit evaluation gates만 evaluator에 한 번 전달한다. Evaluator는 chat-only `PASS | FAIL`만 반환하며 evaluation record/package/receipt를 만들지 않는다.
 0n. chat evaluation 뒤 terminal 종료한다. local result는 `local_unpublished`이며 publication/preservation/promotion/project copy는 새 explicit authorization 없이는 호출하거나 암시하지 않는다.
 1. request/content/source/snapshot identity와 모든 source hash를 검증한다.
 2. requiredElements/prohibitedElements와 assetType별 specification을 검증하고 누락값을 추정하지 않는다.
@@ -77,7 +77,7 @@ Input:
 28. sibling shared preflight는 한 번 재사용하고 mutable target이 disjoint일 때만 독립 실행한다. terminal timing은 `generated_media_fast_path_efficiency_receipt_v1`에서 authority/testing, orchestration wait, provider로 분리하며 token-heavy operation은 closed warning으로만 보고한다.
 
 Output:
-- message-only local iteration이면 outputImagePath와 chatEvaluation: PASS | FAIL만 반환한다. routing/prompt/evaluation/receipt/package/index/publication identity는 반환하지 않는다.
+- message-only local iteration이면 outputImagePaths, explicitEvaluationGates와 chatEvaluation: PASS | FAIL만 반환한다. Planning document path/identity/content와 routing/prompt/evaluation/receipt/package/index/publication identity는 반환하지 않는다.
 - fast-preview이면 `generated_media_fast_preview_terminal_receipt_v1` 한 건만 반환한다. providerCalled/submitCount/historicalSubmitCount/retryCount/costKnown을 사실대로 쓰고 unavailable cost를 0으로 쓰지 않는다. blocked pre-submit은 위 세 hard blocker 중 하나만, submit 후 실패는 `fast_preview_submit_failed_no_retry`만 사용한다.
 - route_only_v2이면 아래 기존 routing receipt를 반환한다.
 - schemaVersion: generated_media_routing_receipt_v1

@@ -4,11 +4,14 @@
 
 `generated_media_message_only_local_iteration_v1` is the normative,
 forward-going override for an explicitly requested `local_unpublished` media
-iteration. The requester selects it in a self-contained message that includes
-all instructions, inputs, existing attachment or path references, provider
-limits, and safety constraints needed for that iteration. A role must not load
-thread history or infer inherited planning, routing, prompt, evaluation, or
-publication context.
+iteration. The planning stage retains exactly one complete authoritative
+planning document. The requester extracts the facts required for generation
+from that document and sends a self-contained generation chat message. No role
+may rely on inherited chat context.
+
+The planning document remains owned by the planning stage. It is never
+transferred, referenced, opened, or consumed by routing, generation, or
+evaluation. Those stages receive only their self-contained chat inputs.
 
 Selection of this policy does not alter or delete historical planning,
 routing, prompt, generation, preservation, evaluation, receipt, index, or
@@ -21,31 +24,39 @@ separately authorized publication process.
 
 The complete workflow is exactly:
 
-1. **Planning message** — the requester supplies one self-contained message.
-2. **Generation** — the generation role uses that message and any attached
-   image or exact existing media path, performs only the bounded generation
-   requested, persists the resulting media output, and returns its output
-   image path in chat.
-3. **Chat evaluation** — the evaluator opens the returned media from its
-   attachment or exact path and returns chat-only `PASS | FAIL`.
+1. **Planning message** — the planning stage retains exactly one complete
+   authoritative planning document. The requester extracts the required facts
+   and sends one self-contained generation chat message without attaching,
+   naming, linking, or quoting the planning file.
+2. **Generation** — the generation message contains all identity locks, allowed
+   deltas, prohibitions, output settings, submit limit, and the reference image
+   attachment or exact existing path. The generation role uses only that
+   message, persists the resulting media output, and returns its output image
+   path or paths in chat.
+3. **Chat evaluation** — the evaluator receives only the output image path or
+   paths plus explicit evaluation gates, opens the media, and returns chat-only
+   `PASS | FAIL`.
 
-Routing is message forwarding only. It forwards the self-contained requester
-message and attachment/path references without creating, normalizing,
+Routing is message forwarding only. It forwards the self-contained generation
+message and attachment/path references without opening or referencing the
+planning document and without creating, normalizing,
 projecting, hashing, indexing, or publishing a routing artifact or prompt
 artifact. It must not expand the flow with a planning, authoring, preservation,
 package, evaluation-record, or Git stage.
 
 ## 3. Artifact prohibition and media persistence
 
-During an iteration, do not create planning handoffs, routing records, prompt
-records, evaluation records, receipts, manifests, packages, indexes, snapshots,
-request records, profile projections, lineage chains, JCS payloads, or metadata
-sidecars. Do not require snapshot/request/profile/index/hash chains or raw Git
-BLOB validation. Do not perform registry/schema work, Git publication, or a
-full suite (`Generated Media` contract-suite) run.
+The one authoritative planning document is the only planning-stage file. Do
+not create any inter-stage planning handoff, routing record, prompt record,
+evaluation record, receipt, manifest, package, index, snapshot, request record,
+profile projection, lineage chain, JCS payload, or metadata sidecar. Do not
+require snapshot/request/profile/index/hash chains or raw Git BLOB validation.
+Do not perform registry/schema work, Git publication, or a full suite
+(`Generated Media` contract-suite) run.
 
-Only actual media outputs produced by generation are persisted. Input images
-are passed as attachments or exact existing paths. The generation response is
+Outside the planning stage's one authoritative document, only actual media
+outputs produced by generation are persisted. Input images are passed as
+attachments or exact existing paths. The generation response is
 the output image path plus only the minimum factual provider counters required
 by the requester; it is not a receipt artifact. The evaluation response is
 chat-only `PASS | FAIL`; it is not an evaluation record and does not confer
@@ -68,9 +79,13 @@ publishes, preserves, promotes, copies, or imports media.
 ## 5. Coordinator checklist
 
 1. Confirm the requester explicitly selected message-only local iteration.
-2. Use only the self-contained requester message and its attachments/paths.
-3. Forward the message once to generation; create no route or prompt artifact.
-4. Return the generated media path to chat.
-5. Forward that path once for chat-only `PASS | FAIL` evaluation.
-6. Stop after the evaluation message; persist only actual media outputs.
-7. Require separate authorization before any publication or project copy.
+2. Retain exactly one complete authoritative document inside planning.
+3. Extract all generation facts into one self-contained chat message; never
+   transfer, reference, open, or consume the planning file downstream.
+4. Include identity locks, allowed deltas, prohibitions, output settings,
+   submit limit, and one reference attachment/path in the generation message.
+5. Forward the message once to generation; create no route or prompt artifact.
+6. Return the generated media path or paths to chat.
+7. Forward only those paths and explicit gates for chat-only `PASS | FAIL`.
+8. Stop after evaluation; retain only the planning document and actual media.
+9. Require separate authorization before any publication or project copy.

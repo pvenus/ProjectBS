@@ -23,6 +23,14 @@ for (const surface of [guide, orchestration, routing]) {
   assert.match(surface, /chat-only [`]?PASS\s*\|\s*FAIL/i);
   assert.match(surface, /local_unpublished/);
   assert.match(surface, /separate|별도/);
+  assert.match(surface, /exactly one|정확히 한 개/i);
+  assert.match(surface, /authoritative planning document/i);
+  assert.match(surface, /identity locks/i);
+  assert.match(surface, /allowed deltas/i);
+  assert.match(surface, /prohibitions/i);
+  assert.match(surface, /output settings/i);
+  assert.match(surface, /submit limit/i);
+  assert.match(surface, /explicit (?:evaluation )?gates/i);
 }
 
 for (const forbiddenArtifact of ["planning handoff", "routing record", "prompt record",
@@ -31,15 +39,17 @@ for (const forbiddenArtifact of ["planning handoff", "routing record", "prompt r
   assert.match(guide, new RegExp(forbiddenArtifact.replaceAll(" ", "\\s+"), "i"));
 }
 
-assert.match(guide, /Only actual media outputs produced by generation are persisted/);
+assert.match(guide, /Outside the planning stage's one authoritative document, only actual media/);
 assert.match(guide, /does not alter or delete historical/i);
 assert.match(guide, /never silently[\s\S]*publishes, preserves, promotes, copies, or imports/);
+assert.match(guide, /never[\s\S]*transferred, referenced, opened, or consumed/);
+assert.match(guide, /one authoritative planning document is the only planning-stage file/i);
 assert.doesNotMatch(guide, /schemaVersion\s*:/);
 
 console.log({
   policyKey: "generated_media_message_only_local_iteration_v1",
   workflow: ["planning_message", "generation", "chat_evaluation"],
-  persistedArtifacts: ["actual_media_outputs"],
+  persistedArtifacts: ["one_authoritative_planning_document", "actual_media_outputs"],
   providerCalled: false,
 });
 console.log("generated media message-only local iteration text contract: PASS");
