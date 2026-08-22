@@ -1592,3 +1592,16 @@ execution scope, and generation receipt. Omit it for every existing branch.
 Unknown/missing/nested/partial/mixed or unequal projections fail
 `sequential_identity_projection_mismatch` before record/index/provider work.
 Existing records and hashes without the member remain valid byte-for-byte.
+
+## Trusted-local MAIN evaluation record v1
+
+Adapter `generated_media_trusted_local_main_evaluation_record_adapter@1.0.0` /
+`c76b11ee51f641da78b54048c670658628e379ce9f74f8b9cb878c1c9742953e`
+owns `generated_media_trusted_local_main_evaluation_record_v1`. Its payload,
+ID/path/JCS+LF serialization and index projection are exact in
+GeneratedMediaTrustedLocalMainEvaluationRecordGuide.md. Result is only
+`PASS | FAIL | unavailable`, `scorePolicy=not_scored`, and provider receipt is
+`not_required_not_claimed`. Record is written first atomically/no-clobber, then
+`generated_media_trusted_local_main_evaluation_index_v1` is sorted and appended
+only by exact CAS. `local_unpublished` is valid; chat-only evidence, hash drift,
+content mismatch, occupied divergent bytes, or index drift is no-write.

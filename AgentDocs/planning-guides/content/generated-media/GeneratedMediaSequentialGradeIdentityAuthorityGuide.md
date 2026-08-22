@@ -167,3 +167,16 @@ sequential_identity_rejected_target_media_forbidden
 Pre-submit failures have `providerCalled=false`, `submitCount=0`, and
 `retryCount=0`. Existing provider/capability/approval/idempotency and
 opaque-chroma failure tokens remain unchanged.
+
+### Compatible evaluation record materialization
+
+When the completed independent evaluation exists without a current record, the
+only registered no-score projector is
+`generated_media_trusted_local_main_evaluation_record_adapter@1.0.0` /
+`c76b11ee51f641da78b54048c670658628e379ce9f74f8b9cb878c1c9742953e`.
+Its output schema is `generated_media_trusted_local_main_evaluation_record_v1`
+with categorical `PASS | FAIL | unavailable` and `scorePolicy=not_scored`.
+Only a hash-valid `PASS` record whose media/profile/reference policy and
+source-bound receipt match the selection satisfies this guide. FAIL or
+unavailable remains immutable evidence but cannot authorize the sequential
+reference. No provider receipt is required or fabricated.

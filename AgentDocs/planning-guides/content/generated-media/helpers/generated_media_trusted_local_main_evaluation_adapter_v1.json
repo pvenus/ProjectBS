@@ -1,0 +1,48 @@
+{
+  "adapterKey": "generated_media_trusted_local_main_evaluation_record_adapter@1.0.0",
+  "applicability": {
+    "assetType": "character_single_image",
+    "domainType": "character",
+    "sourceMode": "trusted_local_main_independent_evaluation_evidence",
+    "structureProfile": "character_single_image_v2"
+  },
+  "evidenceContract": {
+    "decisionEnum": ["PASS", "FAIL", "unavailable"],
+    "evaluationEvidenceSchemaVersion": "generated_media_independent_evaluation_evidence_v1",
+    "numericScore": "prohibited",
+    "requiredFacts": "non_empty_ordered_closed_fact_array",
+    "sourceBoundContentShaPointers": ["/outputSha256", "/mediaSha256"],
+    "sourceBoundReceiptIdentity": "gmsourcereceipt1_dot_first20_of_raw_receipt_sha256"
+  },
+  "fixtureBinding": {
+    "contentId": "character.seojin.2",
+    "mediaByteLength": 6293540,
+    "mediaPath": "C:/Users/parkv/Documents/Codex/2026-08-21/seojin-grade3-main-targeted-retry-postprocessing/outputs/g2-official-identity-anchored-fit-v1/seojin-g2-identity-anchored-source-bound-final.png",
+    "mediaSha256": "ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327",
+    "sourceBoundContentShaPointer": "/outputSha256",
+    "sourceBoundReceiptId": "gmsourcereceipt1.27031cd5d53f04233091",
+    "sourceBoundReceiptPath": "C:/Users/parkv/Documents/Codex/2026-08-21/seojin-grade3-main-targeted-retry-postprocessing/outputs/g2-official-identity-anchored-fit-v1/seojin-g2-identity-anchored-source-bound-final.receipt.json",
+    "sourceBoundReceiptSha256": "27031cd5d53f04233091b5811665eb68ff940ba7c97c0bd106a5edd79e45ee7e"
+  },
+  "indexContract": {
+    "canonicalFileName": "evaluation_index.json",
+    "schemaVersion": "generated_media_trusted_local_main_evaluation_index_v1",
+    "writePolicy": "record_first_atomic_no_clobber_then_sorted_index_cas",
+    "reusePolicy": "reused_identical_only"
+  },
+  "producerRole": "generated_media_trusted_local_main_evaluation_record_projector",
+  "providerReceiptPolicy": "not_required_not_claimed_never_fabricated",
+  "recordContract": {
+    "canonicalDirectory": "AgentDocs/planning-data/generated-media-evaluations/v1/trusted_local_main/{contentId}",
+    "idFormula": "gmtrusteval1_dot_contentId_dot_first20_of_evaluation_payload_sha256",
+    "payloadSchemaVersion": "generated_media_trusted_local_main_evaluation_hash_payload_v1",
+    "recordSchemaVersion": "generated_media_trusted_local_main_evaluation_record_v1",
+    "serialization": "RFC8785_JCS_UTF8_one_LF_no_BOM",
+    "status": "completed"
+  },
+  "referencePolicyKeys": [
+    "generated_media_trusted_local_evaluated_main_reference@1.0.0",
+    "generated_media_trusted_evaluated_prior_grade_main_reference@1.0.0"
+  ],
+  "schemaVersion": "generated_media_trusted_local_main_evaluation_adapter_profile_v1"
+}

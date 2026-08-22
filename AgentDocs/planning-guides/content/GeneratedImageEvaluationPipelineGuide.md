@@ -888,3 +888,16 @@ preceding or following pipeline step as recovery.
 AgentDocs/task-prompts/content/GeneratedImageEvaluationPrompt.md
 AgentDocs/planning-guides/content/generated-media/GeneratedMediaEvaluationPackageGuide.md
 ~~~
+
+## Trusted-local MAIN record projection adapter
+
+For an already completed independent character MAIN evaluation that has exact
+hashed evidence but lacks a current record, route source mode
+`trusted_local_main_independent_evaluation_evidence` to
+`generated_media_trusted_local_main_evaluation_record_adapter@1.0.0` /
+`c76b11ee51f641da78b54048c670658628e379ce9f74f8b9cb878c1c9742953e`.
+The output is `generated_media_trusted_local_main_evaluation_record_v1` with
+result `PASS | FAIL | unavailable` and `scorePolicy=not_scored`. This adapter
+does not run evaluation or substitute a numeric score. It validates exact
+media/evidence/source-receipt content SHA equality and delegates pure record/
+index projection to GeneratedMediaTrustedLocalMainEvaluationRecordGuide.md.

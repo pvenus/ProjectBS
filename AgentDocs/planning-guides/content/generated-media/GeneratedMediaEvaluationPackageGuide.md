@@ -645,3 +645,22 @@ fixed camera/scale/centroid, safe margin 48, no clipping/fringe/fragments,
 duplicate/repeated phase or whole-body mirror, and frame 5-to-0 closure. Raster
 motion transfer is a hard failure. Project copy eligibility is false until
 completed PASS and `passForProjectCopy=true`.
+
+## Trusted-local MAIN evaluation record adapter
+
+`generated_media_trusted_local_main_evaluation_record_adapter@1.0.0` /
+`c76b11ee51f641da78b54048c670658628e379ce9f74f8b9cb878c1c9742953e`
+is a ready no-score adapter for
+`character_single_image + character + character_single_image_v2` when an
+immutable independent evaluation evidence file already exists but no current
+evaluation record exists. It projects, but never decides, the exact
+`PASS | FAIL | unavailable` evidence into
+`generated_media_trusted_local_main_evaluation_record_v1`.
+
+This branch does not require or synthesize a sealed evaluation package or a
+provider receipt. It requires exact media path/SHA/bytes, evidence task/path/raw
+SHA/decision/facts, source-bound receipt ID/path/raw SHA/content SHA, profile,
+and one supported trusted-reference policy. Chat-only or unhashed evidence is
+`trusted_local_evaluation_evidence_unavailable`. The pure projector, record/
+index identity, record-first/no-clobber/CAS rules, and local-unpublished state
+are owned by GeneratedMediaTrustedLocalMainEvaluationRecordGuide.md.
