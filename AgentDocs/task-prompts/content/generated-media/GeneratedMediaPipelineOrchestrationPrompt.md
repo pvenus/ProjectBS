@@ -9,6 +9,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRequestRoutingGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaImageGenOnlyContractGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaDeterministicFastPathGuide.md
 
 Input:
 - repo: {canonical origin remote URL}
@@ -17,6 +18,7 @@ Input:
 - existingTaskStates: {client task/officialThreadId/status compact inventory}
 - cleanupAuthorization: {absent by default; exact targets only when explicitly authorized}
 - noninteractiveExecutionPolicy: {exact generated_media_noninteractive_execution_policy_v1 derived from the authenticated request}
+- deterministicFastPathPolicy: generated_media_deterministic_fast_path_v1
 
 작업:
 1. canonical repo의 `gmsetup1.{repo SHA-256 prefix}` repository setup mutex를 획득한다. worktree add/remove/prune/fetch mutation은 mutex 안에서 직렬로 한 건씩만 수행한다.
@@ -35,6 +37,12 @@ Input:
 12. sealed preservation package의 평가가 끝난 뒤에만 GeneratedMediaRequestRoutingGuide의 terminal project-promotion dispatch를 판정한다. `generated_image_evaluation_v1 + evaluationStatus=completed + result=PASS + passForProjectCopy=true + promotionStatus=not_promoted`와 exact current package registry row가 모두 맞을 때만 persistent official task `01a01094-7d22-7a51-b92e-bf6154769017`에 정확히 한 번 dispatch한다.
 13. relay는 requestId,evaluationPackageId,assetType,domainType,contentId,evaluationRecordId,replaceExisting,replacementApprovalRef 여덟 member만 갖는다. source/target 절대·상대 경로, full bundle/manifest, prompt/provider payload, media와 unknown/nested member를 넣지 않는다. exact relay JCS hash를 response-only active/completed key로 확인하되 key를 relay에 추가하거나 저장소 record/index/path를 만들지 않는다.
 14. preview/notEvaluated/incomplete/non-PASS/Conditional Pass/Fail/missing package/false 또는 missing passForProjectCopy/not_promoted 이외 promotionStatus는 dispatch하지 않는다. promotion child final은 promoted | blocked | not_promoted | copy_failed 중 하나로 terminal 처리하고 routing/generation/preservation/evaluation로 되돌리지 않는다.
+15. `generated_media_deterministic_fast_path_v1`을 적용한다. 마지막 cursor 이후 incremental wait/status만 읽고 full task history, provider Base64, full authority/profile/prompt prose를 orchestration input으로 가져오지 않는다. unchanged status는 poll/comment/relay하지 않는다.
+16. 첫 artifact write 전에 `generated_media_fast_path_prerequisite_audit_v1`로 live authority, profile scope, route/structure, evaluation record, lineage record, trusted reference, destination/index CAS를 한 번에 검증한다. 하나라도 applicable fail이면 owning-stage token으로 no-write 종료한다.
+17. `identity_equipment` PASS이고 failure domain이 `geometry | carrier | fringe`의 non-empty subset이면 exact source/receipt/profile에 등록된 deterministic postprocess를 선택하고 fresh generation을 금지한다. `identity_equipment`와 `phase_timing` failure를 해당 domain으로 위장하지 않는다.
+18. terminal success 전에 required record/receipt/index/handoff 및 completed-PASS evaluation record를 실제 path/hash로 materialize·reopen한다. chat-only 결과를 terminal evidence로 취급하지 않는다.
+19. contract/schema/registry/helper/serializer/policy mutation에만 full Generated Media suite를 실행한다. unchanged immutable execution unit은 owning targeted regression과 필수 reopen/hash gate만 실행한다. 동일 authority/profile/route family의 G2/G3 shared preflight는 한 번 재사용하고 path/index/CAS/idempotency/worktree가 disjoint일 때만 downstream을 독립 실행한다.
+20. terminal에서 authority/testing, orchestration wait, provider elapsed를 분리하고 exact observed 값만 `generated_media_fast_path_efficiency_receipt_v1`로 한 번 보고한다. token-heavy history/Base64/full-payload/unchanged-polling/unnecessary-full-suite가 관찰되면 closed warning만 추가하며 token 수를 추정하지 않는다.
 
 Output:
 - status: ready | queued | blocked
@@ -52,4 +60,6 @@ Output:
 - bundledApprovalUsed: false | true
 - promotionTerminalStatus: promoted | blocked | not_promoted | copy_failed (final-stage를 판정한 경우)
 - projectPromotionDispatchPerformed: false | true
+- prerequisiteAuditId / prerequisiteAuditSha256
+- efficiencyReceipt: generated_media_fast_path_efficiency_receipt_v1 (terminal only)
 ```

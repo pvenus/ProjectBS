@@ -13,6 +13,7 @@
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaAuthoringProfileRegistryGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaRecordGuide.md
 - AgentDocs/planning-guides/content/generated-media/GeneratedMediaNoninteractiveExecutionPolicyGuide.md
+- AgentDocs/planning-guides/content/generated-media/GeneratedMediaDeterministicFastPathGuide.md
 
 Input:
 - planningHandoffFile: {project_relative_generated_media_planning_handoff_v2_path}
@@ -21,6 +22,7 @@ Input:
 - fastPreviewPointer: {required only for hosted_builtin_fast_preview_v1}
 - pipelineAuthorityReceipt: {exact generated_media_pipeline_authority_receipt_v1 from coordinator}
 - noninteractiveExecutionPolicy: {exact generated_media_noninteractive_execution_policy_v1}
+- deterministicFastPathPolicy: generated_media_deterministic_fast_path_v1
 
 작업:
 0. executionMode가 `route_only_v2`이면 기존 1-22를 그대로 수행한다. `hosted_builtin_fast_preview_v1`이면 기존 routing record/authoring publication 작업 1-22를 실행하지 않고 0a-0h만 수행한다. 다른 값은 차단한다.
@@ -64,6 +66,10 @@ Input:
 22. authority bundle, stage delta, routing receipt, pipeline chain, compact status 중 하나라도 schema/hash/transition/publication/relay 규칙에 어긋나면 success handoff를 emit하지 않고 기존 routing record/index를 수정하지 않는다.
 23. task setup은 GeneratedMediaRequestRoutingGuide의 repository setup coordinator가 소유한다. queued client ID를 officialThreadId로 간주하거나 pending 중 replacement를 만들지 않는다. setup failure token은 `worktree_metadata_permission_denied`, `task_registry_collision`, `helper_setup_refresh_failed`, `tool_approval_required` 중 하나이며 자동 worktree 삭제를 수행하지 않는다.
 24. persistent serial role worktree를 재사용하고 micro-stage별 새 worktree를 요구하지 않는다. sealed package 평가는 source Git worktree 밖에서 수행하며 evaluation role은 source repo를 fetch하지 않는다.
+25. first write 전에 `generated_media_fast_path_prerequisite_audit_v1`의 일곱 prerequisite를 atomic 검증한다. incremental cursor status와 registered key/hash/ID delta만 사용하고 full task history/provider Base64/unchanged polling은 금지한다.
+26. `identity_equipment` PASS + `geometry | carrier | fringe`-only FAIL은 exact registered source-bound deterministic postprocess route로 보내며 fresh generation을 요청하지 않는다. `phase_timing` 또는 identity failure를 이 경로로 보내지 않고, failure domain은 owning token을 대체하지 않는다.
+27. terminal record/receipt/index/handoff와 completed-PASS evaluation record가 path/hash로 materialize·reopen되지 않으면 terminal success를 relay하지 않는다. contract/schema/helper mutation만 full suite, unchanged immutable unit은 targeted regression만 실행한다.
+28. sibling shared preflight는 한 번 재사용하고 mutable target이 disjoint일 때만 독립 실행한다. terminal timing은 `generated_media_fast_path_efficiency_receipt_v1`에서 authority/testing, orchestration wait, provider로 분리하며 token-heavy operation은 closed warning으로만 보고한다.
 
 Output:
 - fast-preview이면 `generated_media_fast_preview_terminal_receipt_v1` 한 건만 반환한다. providerCalled/submitCount/historicalSubmitCount/retryCount/costKnown을 사실대로 쓰고 unavailable cost를 0으로 쓰지 않는다. blocked pre-submit은 위 세 hard blocker 중 하나만, submit 후 실패는 `fast_preview_submit_failed_no_retry`만 사용한다.

@@ -660,6 +660,42 @@ never suppresses a mutation, freshness, consumer artifact, provider or media
 boundary. Drift or a missing receipt always fails closed into the full
 validation path.
 
+## Deterministic Fast Path v1
+
+Routing and orchestration apply
+`generated_media_deterministic_fast_path_v1` from
+`GeneratedMediaDeterministicFastPathGuide.md`. Before the first artifact write,
+the coordinator must complete the closed
+`generated_media_fast_path_prerequisite_audit_v1` across live authority,
+profile scope, route/structure, evaluation record, lineage record, trusted
+reference, and destination/index CAS. The audit is atomic: any applicable
+failure produces no routing record, index mutation, or downstream success
+handoff.
+
+The fast path reuses the existing authority bundle, stage delta, compact status,
+pipeline receipt chain, no-clobber, CAS, and role boundaries. It permits only
+incremental cursor-based status observation and compact registered key/hash/ID
+deltas; full task history, provider Base64, repeated prose/payload, and unchanged
+poll/comment relays are prohibited.
+
+Failure evidence retains its owning token and is additionally classified by the
+closed `generated_media_failure_domain_v1` enum: `identity_equipment`,
+`geometry`, `carrier`, `fringe`, or `phase_timing`. Identity/equipment PASS with
+only geometry/carrier/fringe failures routes to an exact registered source-bound
+deterministic postprocess when available and never to fresh generation. Missing
+registration fails closed. Terminal success is invalid until all required
+records/receipts/index/handoffs and completed-PASS evaluation records exist and
+reopen at the reported hashes.
+
+Full Generated Media tests are mandatory for contract/schema/registry/helper/
+serializer/policy mutations. Unchanged immutable execution units run the owning
+targeted regression and required byte/media checks only. Shared sibling
+authority preflight is reused once; downstream units are independent only when
+all mutable targets and idempotency scopes are disjoint. Terminal telemetry uses
+`generated_media_fast_path_efficiency_receipt_v1` to separate provider elapsed
+time from authority/testing and orchestration wait time and to flag observed
+token-heavy operations without estimating tokens.
+
 ## State, Failure, and Output
 
 ```text
