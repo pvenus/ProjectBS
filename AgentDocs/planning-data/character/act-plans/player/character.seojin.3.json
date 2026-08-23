@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "character_planning_v2",
+  "documentId": "character_planning.character.seojin.3",
+  "documentType": "characterPlanning",
+  "planningStatus": "approved",
+  "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+  "identity": {
+    "characterId": "character.seojin.3",
+    "characterType": "Player",
+    "runtimeDomain": "character",
+    "name": "서진",
+    "grade": 3,
+    "tierId": "player_grade3",
+    "role": "frontline_swordsman",
+    "tags": ["human", "melee", "rescuer", "supreme_command"]
+  },
+  "provenance": {
+    "sourceStoryRefs": [
+      "AgentDocs/planning-data/story/Characters.md",
+      "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md"
+    ],
+    "sourcePlanningRefs": [
+      "AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json",
+      "AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json",
+      "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+      "AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md",
+      "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md"
+    ],
+    "factEvidence": [
+      {"factId":"seojin.3.appearance.gender.v1","fieldPath":"/appearance/genderPresentation","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/genderPresentation"}]},
+      {"factId":"seojin.3.appearance.body.v1","fieldPath":"/appearance/body","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/body"}]},
+      {"factId":"seojin.3.appearance.face.v1","fieldPath":"/appearance/face","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/face"}]},
+      {"factId":"seojin.3.appearance.hair.v1","fieldPath":"/appearance/hair","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/hair"}]},
+      {"factId":"seojin.3.appearance.costume.v1","fieldPath":"/appearance/costume","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance/costume"},{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]},
+      {"factId":"seojin.3.appearance.equipment.v1","fieldPath":"/appearance/equipment","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance/equipment"}]},
+      {"factId":"seojin.3.appearance.weapon.v1","fieldPath":"/appearance/weapon","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/weapon"}]},
+      {"factId":"seojin.3.appearance.handedness.v1","fieldPath":"/appearance/handedness","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/handedness"}]},
+      {"factId":"seojin.3.appearance.palette.v1","fieldPath":"/appearance/palette","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance/palette"}]},
+      {"factId":"seojin.3.appearance.materials.v1","fieldPath":"/appearance/materials","sourceRefs":[{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]},
+      {"factId":"seojin.3.appearance.identifying.v1","fieldPath":"/appearance/identifyingFeatures","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance/identifyingFeatures"},{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance/identifyingFeatures"}]},
+      {"factId":"seojin.3.appearance.display.v1","fieldPath":"/appearance/intendedDisplay","sourceRefs":[{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"MAIN 전신 이미지 기획"}]},
+      {"factId":"seojin.3.appearance.pose.v1","fieldPath":"/appearance/posePolicy","sourceRefs":[{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"MAIN 전신 pose와 framing"}]},
+      {"factId":"seojin.3.requirement.identity.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/requiredElements/0","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance"}]},
+      {"factId":"seojin.3.requirement.evolution.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/requiredElements/1","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance"},{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"등급별 단계적 시각 진화"}]},
+      {"factId":"seojin.3.requirement.signature.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/requiredElements/2","sourceRefs":[{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"색상과 전통 복식 디자인 원칙"}]},
+      {"factId":"seojin.3.prohibition.identity_drift.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/prohibitedElements/0","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.1.json","sourcePointerOrSection":"/appearance"}]},
+      {"factId":"seojin.3.prohibition.cultural_substitution.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/prohibitedElements/1","sourceRefs":[{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]},
+      {"factId":"seojin.3.prohibition.historical_replication.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/prohibitedElements/2","sourceRefs":[{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"역사적 모티프의 비직접 재현"}]},
+      {"factId":"seojin.3.prohibition.signature_drift.v1","fieldPath":"/generatedMediaPlanning/characterSingleImage/prohibitedElements/3","sourceRefs":[{"path":"AgentDocs/planning-data/character/act-plans/player/character.seojin.2.json","sourcePointerOrSection":"/appearance/equipment"}]}
+    ]
+  },
+  "appearance": {
+    "genderPresentation": {"description":"20대 중후반의 젊은 성인 한국 남성. Grade 1·2와 동일한 사람이며 폭풍을 겪은 지휘관의 침착함만 더해지고 중년·노년 또는 다른 인물로 바뀌지 않는다."},
+    "body": {"description":"Grade 1·2와 동일한 4.0–5.0등신 범위, 목표 4.25등신의 compact young-adult 체형. 넓어진 지휘 실루엣은 비대칭 망토와 복식 질량으로 만들고 해부·키·얼굴 비례는 재설계하지 않는다."},
+    "face": {"description":"Grade 1·2와 동일한 깨끗한 턱선, 곧은 눈썹, 차분한 눈매의 젊은 한국 남성 얼굴. 폭풍과 전장의 경험은 표정의 집중도로만 나타내고 수염·깊은 주름·노화·실존 인물 얼굴을 추가하지 않는다."},
+    "hair": {"description":"Grade 1·2와 동일한 검은 머리와 낮고 단정한 조선식 상투. 화면 오른쪽 바닷바람에 짧은 잔머리만 반응하며 긴 머리나 화려한 관모로 대체하지 않는다."},
+    "costume": {"description":"near-black navy의 비대칭 지휘 망토를 주 실루엣으로 하고 산화 적색 대각선 sash를 고정된 방향으로 교차시킨다. weathered cloth와 열린 먹선이 주재료이며 갑옷은 종속적이다."},
+    "equipment": [
+      {"description":"비대칭 near-black navy command mantle의 방향을 고정하고 화면 오른쪽 바닷바람에 rear wind tabs가 반응한다."},
+      {"description":"oxidized-red diagonal sash를 정확히 한 방향으로 유지하고 전신 좌우 반전으로 방향을 바꾸지 않는다."},
+      {"description":"aged-brass closure는 정확히 하나만 사용한다."},
+      {"description":"wave motif는 절제된 한두 개의 ink rhythm으로만 사용하고 거북선·국가 상징·실제 계급장으로 만들지 않는다."}
+    ],
+    "weapon": {"present":true,"description":"오른손잡이용 장식 없는 조선식 환도 한 자루를 왼쪽 허리에 완전히 칼집에 둔다. Grade 1·2의 칼·칼집 기하, 방향, 신체와의 관계를 그대로 유지한다."},
+    "handedness": "right",
+    "palette": [
+      {"appliesTo":"비대칭 지휘 망토와 복식의 지배적 넓은 질량","colorDescription":"deep near-black navy and ink"},
+      {"appliesTo":"고정된 대각선 sash의 bounded focal accent","colorDescription":"oxidized red"},
+      {"appliesTo":"정확히 하나의 command closure","colorDescription":"aged brass"}
+    ],
+    "materials": [
+      {"appliesTo":"망토·sash·저고리·바지의 주된 표면","materialDescription":"storm-weathered matte hemp and cotton cloth with broad broken ink edges"},
+      {"appliesTo":"환도·칼집·주머니·단일 closure","materialDescription":"subdued wood, leather and exactly one minimal aged-brass closure; no realistic gloss"}
+    ],
+    "identifyingFeatures": [
+      "Grade 1·2와 동일한 젊은 한국 남성 얼굴과 목표 4.25등신 compact 체형",
+      "낮고 단정한 조선식 상투",
+      "오른손잡이와 왼쪽 허리의 완전히 칼집에 든 환도",
+      "비대칭 near-black navy command mantle과 고정 방향의 oxidized-red diagonal sash",
+      "정확히 하나의 aged-brass closure",
+      "절제된 wave motif와 화면 오른쪽 바닷바람에 반응하는 rear wind tabs"
+    ],
+    "intendedDisplay": {
+      "assetType":"character_single_image",
+      "backgroundPolicy":"transparent_after_distinct_chroma_postprocess",
+      "detailDensity":{"level":"low","description":"storm-seasoned 지휘력은 비대칭 실루엣·강한 바닷바람·넓은 안료 mass로 읽히며 얼굴·갑주·복식의 미세 묘사는 Grade 1·2의 열린 먹선과 넓은 여백 수준을 넘지 않는다."},
+      "framingPolicy":"centered full-body head-to-toe with at least 48 px safe margin; no crop; complete sword, scabbard and rear wind tabs visible",
+      "outputUsage":"인게임 전투와 캐릭터 선택 화면의 서진 Grade 3 MAIN 전신 이미지",
+      "providerCanvasPolicy":"exact 1024x1536 opaque RGB removable-solid chroma carrier",
+      "targetDisplaySize":{"minimumPixelSize":{"width":64,"height":96},"targetPixelSize":{"width":96,"height":144},"unit":"px","consumerViewportOrReference":"인게임 전투 카메라와 캐릭터 선택 화면"}
+    },
+    "posePolicy": {"mode":"exact","description":"정면에 가까운 단일 3/4 전신 최고 지휘 자세. 오른손은 왼쪽 허리의 칼집에 든 환도 손잡이와 자연스럽게 관계하며, 얼굴·환도·칼집·비대칭 망토·대각선 sash 방향을 고정한 채 화면 오른쪽 강한 바닷바람에 rear wind tabs와 옷자락만 반응한다."}
+  },
+  "combat": {
+    "partyFunction": ["front_basic", "protect_ally", "interrupt"],
+    "preferredRange": "melee",
+    "roleIntent": "Grade 1·2의 아이 구출 우선 균형형 전열 역할을 유지하며 시각적으로만 폭풍을 견딘 최고 지휘 단계로 진화한다."
+  },
+  "planningScore": {"attack":130,"defense":115,"health":120,"overall":130,"range":60,"speed":100,"support":70},
+  "stats": {"grade":3,"growthType":"standard","primaryTag":"human","statBias":["attack","max_hp","steady_defense"],"totalScore":130},
+  "skills": [
+    {"skillId":"skill.character.seojin.3.basic_attack.field_sword_cut","slot":"basic_attack","name":"전장 베기","category":"Basic","intent":"전방 단일 적을 안정적으로 베어 전열을 유지한다.","balance":{"expectedAttack":20,"baseDamage":10,"attackPercentDamage":100,"cooldown":3,"castRange":0.5,"hitRange":0.6,"hitCount":1,"targetScore":100,"utility":[]}},
+    {"skillId":"skill.character.seojin.3.passive.child_rescue_oath","slot":"passive","name":"아이를 구하겠다는 맹세","category":"Passive","intent":"구출 대상 주변에서 방어 의지가 올라가는 성향.","balance":{"expectedAttack":20,"baseDamage":0,"attackPercentDamage":0,"cooldown":0,"castRange":0.4,"hitRange":0.4,"hitCount":1,"targetScore":80,"utility":["near_objective_damage_reduction_small"]}}
+  ],
+  "generatedMediaPlanning": {
+    "characterSingleImage": {
+      "readiness":"ready",
+      "expressionProfileKey":"projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+      "identityConsistencyLock":{"identityId":"character.seojin.3","referenceFacts":[
+        {"sourcePointer":"/appearance/genderPresentation","evidenceFactIds":["seojin.3.appearance.gender.v1"]},
+        {"sourcePointer":"/appearance/body","evidenceFactIds":["seojin.3.appearance.body.v1"]},
+        {"sourcePointer":"/appearance/face","evidenceFactIds":["seojin.3.appearance.face.v1"]},
+        {"sourcePointer":"/appearance/hair","evidenceFactIds":["seojin.3.appearance.hair.v1"]},
+        {"sourcePointer":"/appearance/costume","evidenceFactIds":["seojin.3.appearance.costume.v1"]},
+        {"sourcePointer":"/appearance/equipment","evidenceFactIds":["seojin.3.appearance.equipment.v1"]},
+        {"sourcePointer":"/appearance/weapon","evidenceFactIds":["seojin.3.appearance.weapon.v1"]},
+        {"sourcePointer":"/appearance/handedness","evidenceFactIds":["seojin.3.appearance.handedness.v1"]},
+        {"sourcePointer":"/appearance/palette","evidenceFactIds":["seojin.3.appearance.palette.v1"]},
+        {"sourcePointer":"/appearance/materials","evidenceFactIds":["seojin.3.appearance.materials.v1"]}
+      ]},
+      "requiredElements": [
+        {"factId":"seojin.3.requirement.identity.v1","statement":"Grade 1·2와 동일한 젊은 한국 남성 얼굴, compact 목표 4.25등신 체형, 낮은 상투, 오른손잡이와 왼쪽 허리 환도를 유지한다.","evidenceFactIds":["seojin.3.appearance.gender.v1","seojin.3.appearance.body.v1","seojin.3.appearance.face.v1","seojin.3.appearance.hair.v1","seojin.3.appearance.weapon.v1","seojin.3.appearance.handedness.v1"]},
+        {"factId":"seojin.3.requirement.evolution.v1","statement":"같은 인물이 폭풍을 견딘 최고 지휘 단계로 최종 진화한 넓지만 compact한 비대칭 실루엣과 화면 오른쪽 바닷바람 반응을 보여야 한다.","evidenceFactIds":["seojin.3.appearance.costume.v1","seojin.3.appearance.equipment.v1","seojin.3.appearance.pose.v1"]},
+        {"factId":"seojin.3.requirement.signature.v1","statement":"near-black navy 비대칭 망토, 고정 방향의 oxidized-red diagonal sash, 정확히 하나의 aged-brass closure, 절제된 wave motif와 rear wind tabs가 모두 보여야 한다.","evidenceFactIds":["seojin.3.appearance.costume.v1","seojin.3.appearance.equipment.v1","seojin.3.appearance.palette.v1","seojin.3.appearance.identifying.v1"]}
+      ],
+      "prohibitedElements": [
+        {"factId":"seojin.3.prohibition.identity_drift.v1","statement":"Grade 1·2의 얼굴·체형·상투·오른손잡이·환도·왼쪽 허리 칼집 관계를 변경하거나 전신을 좌우 반전하지 않는다.","evidenceFactIds":["seojin.3.appearance.face.v1","seojin.3.appearance.body.v1","seojin.3.appearance.hair.v1","seojin.3.appearance.weapon.v1","seojin.3.appearance.handedness.v1"]},
+        {"factId":"seojin.3.prohibition.cultural_substitution.v1","statement":"일본식·외국식·현대식 또는 과도한 판타지 갑옷·복식·무기·문양으로 대체하지 않는다.","evidenceFactIds":["seojin.3.appearance.costume.v1","seojin.3.appearance.weapon.v1"]},
+        {"factId":"seojin.3.prohibition.historical_replication.v1","statement":"이순신 또는 특정 실존 인물의 얼굴·유명 초상 자세·수염·실제 계급장·문양·거북선·역사 갑주를 직접 재현하지 않는다.","evidenceFactIds":["seojin.3.appearance.face.v1","seojin.3.appearance.costume.v1"]},
+        {"factId":"seojin.3.prohibition.signature_drift.v1","statement":"brass closure를 둘 이상 만들거나 비대칭 망토·대각선 sash·wave motif·rear wind tabs의 방향과 수량을 바꾸거나 일반 장식으로 대체하지 않는다.","evidenceFactIds":["seojin.3.appearance.equipment.v1","seojin.3.appearance.identifying.v1"]}
+      ],
+      "singleImageSpecification": {
+        "viewpoint":"natural front three-quarter view, one approved viewpoint only",
+        "pose":"storm-seasoned supreme-command standing pose with strong screen-right sea-wind response; face, sword, scabbard, asymmetric mantle and diagonal sash orientation fixed and non-mirrored",
+        "framing":"centered full-body head-to-toe with broad empty space; no crop; complete equipment and rear wind tabs visible",
+        "canvas":{"width":1024,"height":1536},
+        "targetDisplaySize":{"width":96,"height":144},
+        "safeArea":"minimum 48 px on every side; complete figure, equipment, rear wind tabs and controlled pigment remain inside the inset",
+        "finalBackgroundPolicy":"transparent_after_distinct_chroma_postprocess",
+        "generationBackground":{"mode":"removable_solid","color":"#00FF00"},
+        "noShadow":true,
+        "outline":{"enabled":false},
+        "anchor":{"type":"pelvis_root_ground_axis","pelvisOrRootPoint":"normalized canvas point (0.5,0.55)","groundContactAxis":"horizontal normalized line from (0.25,0.92) to (0.75,0.92)"}
+      }
+    }
+  },
+  "missingDesignInputs": [],
+  "notes": [
+    "2026-08-22 기존 Grade 1 canonical 기획, 프로젝트에 정리된 Grade 2 기획, 승인된 로컬 Grade 3 MAIN canonical-planning v3 및 visual-design v2의 시각 진화 사실을 프로젝트 정식 character_planning_v2 문서로 통합했다.",
+    "전투 역할·planningScore·스킬 수치는 별도 Grade 3 밸런스 변경 승인이 없어 Grade 1 의미와 수치를 계승하고 grade-specific skill identity만 사용한다.",
+    "Generated Media handoff·route·prompt·receipt·해시·평가 기록은 캐릭터 기획서에 포함하지 않는다."
+  ]
+}

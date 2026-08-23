@@ -56,8 +56,8 @@ incomplete readiness block before download.
 | character_single_image/character | imagegen_character_single_image_v2 | character_single_image_v2 | preserve original; apply approved removable background/no-shadow/outline without crop/scale; record pelvis/root and ground axis |
 | icon_single_image/skill or item | imagegen_icon_single_image_v2 | icon_single_image_v2 | preserve original; apply approved background/no-shadow/outline without crop/scale; record visual center |
 | background_single_image/stage, battle or environment | imagegen_background_single_image_v2 | background_single_image_v2 | preserve original scene bytes; retain scene composition, viewpoint, depth/playable-area, target/safe-area, consistency lock and scene anchor metadata without icon transforms |
-| animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; pelvis/root anchor; exact timeline extraction |
-| animation/skill | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF original; effect-origin anchor; exact timeline extraction |
+| animation/character | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF or generation-owned completed GIF original; pelvis/root anchor; exact reopened timeline extraction |
+| animation/skill | imagegen_animation_master_gif_frames_v2 | animation_gif_frame_set_v2 | provider-native animated GIF or generation-owned completed GIF original; effect-origin anchor; exact reopened timeline extraction |
 
 Exactly one row must match provider+asset+domain+adapter+structure. No filename
 or judgment fallback is allowed.
@@ -69,15 +69,20 @@ route is interchangeable.
 ## Animation Packaging Sequence
 
 This sequence applies to new records with
-`animationSourceMode=provider_native_animated_gif`. Historical fixed-cell
-records remain read-only under their recorded contract.
+`animationSourceMode=provider_native_animated_gif` or
+`animationSourceMode=generation_role_coherent_master_to_gif`. Historical
+fixed-cell records remain read-only under their recorded contract.
 
 ```text
-preserve exact provider-native animated GIF original and hash
--> close and reopen the original GIF
+preserve exact provider-native animated GIF original and hash, or preserve the
+generation-owned completed GIF original and hash made from one coherent
+six-cell master image for coherent-master mode
+-> close and reopen that original/completed GIF
 -> verify playable timeline, final frame count, order, timing, loop and full-canvas disposal
 -> preserve scale lock and approved vertical motion across the timeline
 -> correct drift only by declared profile anchor translation, when approved
+-> remove only verified neighboring-cell edge fragments when declared by the
+   generation compact receipt
 -> remove only declared solid generation-background color across all frames
 -> apply approved transparent output and outside-silhouette outline consistently
 -> save normalized completed GIF
@@ -90,17 +95,21 @@ Per-frame crop, scale, silhouette recenter, canvas change, internal color or
 luminance modification is forbidden. Exact outline/background/key-residue
 values come from approved input/profile and are never global defaults.
 Preservation never constructs an animation from still images, a contact sheet,
-a sprite sheet, a video, or independently generated frames. If the generation
-ref is not an original playable animated GIF, return
-`provider_animated_gif_source_mismatch` without synthesizing a replacement.
+a sprite sheet, a video, or independently generated frames. Coherent-master
+mode arrives only after the official generation role has already consumed one
+coherent six-cell master image, constructed the completed GIF, and reopened its
+timeline. If the generation ref is not a playable GIF valid for its declared
+source mode, return `provider_animated_gif_source_mismatch` without
+synthesizing a replacement.
 
 When the generation handoff conditionally includes
 `generated_media_attack_gif_final_validation_receipt_v1`, preservation verifies
-its closed member set and the original GIF hash/dimensions/frame count before
-opening media. It then confirms the reopened timeline preserves the generation
-role's shared clean left/right margin width basis, fixed pelvis center, fixed
-ground baseline, identical scale/timing/global palette, fully opaque
-background, and no clipping or neighboring-cell edge fragments. Required
+its closed member set, declared source mode, completed GIF hash/dimensions/frame
+count, and optional evidence-only accepted GIF hash before opening media. It
+then confirms the reopened timeline preserves the generation role's shared clean left/right margin width basis,
+fixed pelvis center, fixed ground baseline, identical scale/timing/global palette,
+fully opaque background, and no clipping or neighboring-cell edge fragments.
+Required
 `pelvisDriftMaxPx` and `baselineDriftMaxPx` are both exactly zero.
 
 Preservation does not derive a new width basis, crop/recenter frames, remove
@@ -227,7 +236,8 @@ evaluation request. It never returns an evaluation verdict.
 - approval/cost projection equals the generation record, generation index and
   preservation handoff, and actual cost evidence is preservation-ready;
 - animation unit has exactly one ID and correct profile anchor;
-- provider-native GIF-first sequence, exact timeline and structure
+- provider-native GIF or generation-owned coherent-master completed-GIF sequence,
+  exact reopened timeline and structure
   profile/member schema agree;
 - staging source differs from project target;
 - no provider/evaluation/promotion/Git stage executes.

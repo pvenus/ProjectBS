@@ -1,0 +1,81 @@
+{
+  "schema": "mainPostProcessingReceipt@1.0.0",
+  "role": "mainPostProcessing",
+  "result": "true_rgba_created",
+  "providerCalled": false,
+  "source": {
+    "path": "C:\\Users\\parkv\\.codex\\generated_images\\01a0225d-b300-7a11-9200-13f52bf739d6\\exec-72488d00-a6a0-4aee-8dc5-4de851a4583b.png",
+    "sha256": "c46724d40e19a1ebbf319109efc7af3afe287e398808cc309abcfbc9b678db0b",
+    "width": 1024,
+    "height": 1536,
+    "mode": "RGB"
+  },
+  "operation": {
+    "method": "source-calibrated edge-connected chroma alpha with algebraic foreground uncomposite",
+    "deterministic": true,
+    "geometryChanges": {
+      "crop": false,
+      "resize": false,
+      "recenter": false,
+      "repaint": false
+    },
+    "backgroundFit": {
+      "model": "per-channel total-degree-4 polynomial",
+      "strictGreenSamples": 1118664,
+      "fitSamples": 68660,
+      "fitResidualMedianRgbEuclidean": 1.154298,
+      "fitResidualP99RgbEuclidean": 3.326966
+    },
+    "alphaRecovery": {
+      "formula": "alpha=clip(1-(Cg-max(Cr,Cb))/(Bg-max(Br,Bb)),0,1)",
+      "connectivity": 8,
+      "candidateComponents": 1385,
+      "edgeConnectedComponentCount": 1,
+      "enclosedAccepted": [],
+      "enclosedRejectedCount": 1384,
+      "enclosedRejectedLargestArea": 172,
+      "certainBackgroundPixels": 1118664,
+      "transparentPixels": 1118664,
+      "partialAlphaPixels": 6593,
+      "opaquePixels": 447607
+    }
+  },
+  "validation": {
+    "outputMode": "RGBA",
+    "outputDimensions": [
+      1024,
+      1536
+    ],
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "cornersTransparent": true,
+    "maxPartialPixelGreenDominance": 0,
+    "opaqueGreenFleckCount": 0,
+    "compositesIncluded": [
+      "black",
+      "white",
+      "checkerboard",
+      "alpha"
+    ]
+  },
+  "artifacts": {
+    "rgbaPng": {
+      "filename": "character.seojin.1.grade3-main-minimal-edit.true-alpha.png",
+      "sha256": "e145c7e9fe88765ba454135878a6d22c22f5da7f132a26d1c403f868d03de149"
+    },
+    "compositeEvidencePng": {
+      "filename": "character.seojin.1.grade3-main-minimal-edit.composite-evidence.png",
+      "sha256": "493cec27a76dc3e09b03d1c7ac7be988a709e628a0bcd8dacbf62f6824b6e2c8"
+    }
+  },
+  "downstream": {
+    "evaluation": false,
+    "preservation": false,
+    "copy": false,
+    "git": false
+  }
+}

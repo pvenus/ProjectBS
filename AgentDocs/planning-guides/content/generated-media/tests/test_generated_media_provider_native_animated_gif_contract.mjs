@@ -54,12 +54,17 @@ for (const surface of [contract, pipeline, authoringPrompt, generationPrompt,
 assert.match(contract, /preserve the exact original GIF bytes and hash/);
 assert.match(contract, /fixedCellCanvas[\s\S]*not a multi-cell grid or sheet geometry/);
 assert.match(preservation, /preserve exact provider-native animated GIF original and hash/);
-assert.match(preservationPrompt, /playable animated GIF 원본과 hash를 먼저 보존/);
+assert.match(preservationPrompt, /provider가 직접 반환한 playable animated GIF 원본과 hash를 보존/);
+assert.match(preservationPrompt, /generation role이 먼저 만든 completed GIF 원본과 hash를 보존/);
 assert.match(generationPrompt, /정확히 한 번 제출하고 retry=0/);
 
 for (const surface of [pipeline, generationPrompt, preservation,
   preservationPrompt]) {
   assert.match(surface, /generated_media_attack_gif_final_validation_receipt_v1/);
+  assert.match(surface, /generation_role_coherent_master_to_gif/);
+  assert.match(surface, /six-cell master image/i);
+  assert.match(surface, /completed GIF/i);
+  assert.match(surface, /reopened timeline/i);
   assert.match(surface, /pelvis/i);
   assert.match(surface, /baseline/i);
   assert.match(surface, /shared[^\n]*width basis/i);
@@ -70,7 +75,8 @@ for (const surface of [pipeline, generationPrompt, preservation,
 }
 
 const receiptKeys = ["schemaVersion", "animationRequestId",
-  "originalAnimatedGifSha256", "width", "height", "frameCount",
+  "sourceMode", "providerMasterImageSha256", "completedGifSha256",
+  "acceptedEvidenceGifSha256", "width", "height", "frameCount",
   "sharedWidthBasis", "pelvisDriftMaxPx", "baselineDriftMaxPx",
   "scaleUniform", "timingUniform", "globalPaletteUniform",
   "backgroundFullyOpaque", "clippingDetected",
@@ -80,7 +86,9 @@ function validateAcceptedAttackReceipt(receipt, expected) {
   assert.deepEqual(Object.keys(receipt).sort(), [...receiptKeys].sort());
   assert.equal(receipt.schemaVersion,
     "generated_media_attack_gif_final_validation_receipt_v1");
-  assert.equal(receipt.originalAnimatedGifSha256, expected.sha256);
+  assert.equal(receipt.sourceMode, "generation_role_coherent_master_to_gif");
+  assert.equal(receipt.acceptedEvidenceGifSha256, expected.sha256);
+  assert.notEqual(receipt.completedGifSha256, receipt.acceptedEvidenceGifSha256);
   assert.equal(receipt.width, expected.width);
   assert.equal(receipt.height, expected.height);
   assert.equal(receipt.frameCount, expected.frameCount);
@@ -99,7 +107,10 @@ function validateAcceptedAttackReceipt(receipt, expected) {
 const accepted = {
   schemaVersion: "generated_media_attack_gif_final_validation_receipt_v1",
   animationRequestId: "character.seojin.1.attack.draw_slash.one_shot.v14",
-  originalAnimatedGifSha256: "8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621",
+  sourceMode: "generation_role_coherent_master_to_gif",
+  providerMasterImageSha256: "7c1f2f1f0c13b47cfb88f9187738c6b3fa61b790258aa6b35a24f33e4fa2bf42",
+  completedGifSha256: "9f3aa1f090c579934035c2b443363640af8de48f0e4d269d91d7bb5d6f8a61e2",
+  acceptedEvidenceGifSha256: "8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621",
   width: 640, height: 512, frameCount: 6,
   sharedWidthBasis: "longest_clean_left_right_margin",
   pelvisDriftMaxPx: 0, baselineDriftMaxPx: 0,
@@ -107,9 +118,12 @@ const accepted = {
   backgroundFullyOpaque: true, clippingDetected: false,
   neighboringFragmentsDetected: false, status: "valid",
 };
-const expected = { sha256: accepted.originalAnimatedGifSha256,
+const expected = { sha256: accepted.acceptedEvidenceGifSha256,
   width: 640, height: 512, frameCount: 6 };
 assert.equal(validateAcceptedAttackReceipt(accepted, expected), true);
+assert.match(pipeline, /acceptedEvidenceGifSha256[\s\S]*evidence only/);
+assert.match(generationPrompt, /provider는 coherent six-cell master image 하나만 반환/);
+assert.match(preservationPrompt, /provider result나 preservation source가 아니다/);
 for (const drift of [{ pelvisDriftMaxPx: 1 }, { baselineDriftMaxPx: 1 },
   { clippingDetected: true }, { neighboringFragmentsDetected: true },
   { scaleUniform: false }, { timingUniform: false },

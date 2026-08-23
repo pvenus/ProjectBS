@@ -1,0 +1,484 @@
+{
+  "schemaVersion": "grade2_attack_exact_fit_recovery_v1",
+  "status": "postprocessing_complete_evaluation_pending",
+  "providerCalled": false,
+  "sourcePath": "C:\\Users\\parkv\\.codex\\generated_images\\01a02227-c2bf-7361-a7b4-cc0247f172b2\\exec-8adeb537-c89c-4b21-a9b4-06cedfa3bb36.png",
+  "sourceSha256": "b39981de03263668c2e960c056a9349bcdd5ef6b6f0f954f218088ec4b6cc20d",
+  "sourceDimensions": [
+    1536,
+    1024
+  ],
+  "sourceMode": "RGB",
+  "conversionMode": "source_calibrated_edge_connected_chroma_uncomposite",
+  "converterInvocationCount": 1,
+  "chromaReceipts": [
+    {
+      "boundaryGreenExcessDominantMin": 172,
+      "boundaryGreenExcessDominantMax": 200,
+      "backgroundExcessFloor": 191,
+      "edgeConnectedPixelCount": 208535,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 201393,
+      "partialAlphaPixelCount": 7142,
+      "opaquePixelCount": 53609,
+      "cornerAlpha": [
+        25,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "boundaryGreenExcessDominantMin": 189,
+      "boundaryGreenExcessDominantMax": 196,
+      "backgroundExcessFloor": 191,
+      "edgeConnectedPixelCount": 208326,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 201361,
+      "partialAlphaPixelCount": 6965,
+      "opaquePixelCount": 53818,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "boundaryGreenExcessDominantMin": 181,
+      "boundaryGreenExcessDominantMax": 204,
+      "backgroundExcessFloor": 191,
+      "edgeConnectedPixelCount": 207118,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 197932,
+      "partialAlphaPixelCount": 9186,
+      "opaquePixelCount": 55026,
+      "cornerAlpha": [
+        0,
+        13,
+        0,
+        0
+      ]
+    },
+    {
+      "boundaryGreenExcessDominantMin": 107,
+      "boundaryGreenExcessDominantMax": 205,
+      "backgroundExcessFloor": 192,
+      "edgeConnectedPixelCount": 195448,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 166167,
+      "partialAlphaPixelCount": 29281,
+      "opaquePixelCount": 66696,
+      "cornerAlpha": [
+        0,
+        0,
+        21,
+        0
+      ]
+    },
+    {
+      "boundaryGreenExcessDominantMin": 108,
+      "boundaryGreenExcessDominantMax": 201,
+      "backgroundExcessFloor": 192,
+      "edgeConnectedPixelCount": 204396,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 187464,
+      "partialAlphaPixelCount": 16932,
+      "opaquePixelCount": 57748,
+      "cornerAlpha": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "boundaryGreenExcessDominantMin": 184,
+      "boundaryGreenExcessDominantMax": 205,
+      "backgroundExcessFloor": 191,
+      "edgeConnectedPixelCount": 208215,
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 202134,
+      "partialAlphaPixelCount": 6081,
+      "opaquePixelCount": 53929,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        9
+      ]
+    }
+  ],
+  "uniformScaleSidePixels": 452,
+  "uniformScale": 0.8828125,
+  "uniformScalePercent": 88.28125,
+  "scaleIsIdenticalAcrossFrames": true,
+  "scaleAboveMinimum85Percent": true,
+  "alignmentAuthorityFrame": 0,
+  "fitRequirement": "all alpha>0 foreground leaves at least one transparent seam pixel after alignment",
+  "frameRecords": [
+    {
+      "index": 0,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-0.png",
+      "sha256": "552827c76882aead93761c21beae575df11b0fa8a297408042dbd5d24b0a9424",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 213688,
+      "partialAlphaPixelCount": 8081,
+      "frame": 0,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        30,
+        30,
+        451,
+        482
+      ],
+      "transparentSeamPixels": [
+        30,
+        30,
+        61,
+        30
+      ],
+      "safe": true
+    },
+    {
+      "index": 1,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-1.png",
+      "sha256": "1bf4b68f34732fbb9827a0153169f28e6efc4b650473fa54e34136844009aac4",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 213354,
+      "partialAlphaPixelCount": 8451,
+      "frame": 1,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        41,
+        30,
+        468,
+        482
+      ],
+      "transparentSeamPixels": [
+        41,
+        30,
+        44,
+        30
+      ],
+      "safe": true
+    },
+    {
+      "index": 2,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-2.png",
+      "sha256": "057df2738e663b0d8e707abd595471e7505d23b64852a8ea764580e29427fca3",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 210563,
+      "partialAlphaPixelCount": 10614,
+      "frame": 2,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        36,
+        30,
+        482,
+        482
+      ],
+      "transparentSeamPixels": [
+        36,
+        30,
+        30,
+        30
+      ],
+      "safe": true
+    },
+    {
+      "index": 3,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-3.png",
+      "sha256": "df43c0366f681bf00e94e7675a62f5405f298d30b3b73f36ff9285fc2ba5b997",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 184724,
+      "partialAlphaPixelCount": 27215,
+      "frame": 3,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        30,
+        30,
+        482,
+        482
+      ],
+      "transparentSeamPixels": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "safe": true
+    },
+    {
+      "index": 4,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-4.png",
+      "sha256": "bf8caa0bab03507bb484cb4638957c532e780e9135bd14eddeebce0147511508",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 201776,
+      "partialAlphaPixelCount": 17202,
+      "frame": 4,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        30,
+        30,
+        482,
+        482
+      ],
+      "transparentSeamPixels": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "safe": true
+    },
+    {
+      "index": 5,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\frames\\frame-5.png",
+      "sha256": "cb727ebef57d8e3ea2d5f56fa0c30dc084cda70b0fba04ddcf4fcc28dd3d1792",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaMin": 0,
+      "alphaMax": 255,
+      "transparentPixelCount": 214232,
+      "partialAlphaPixelCount": 7337,
+      "frame": 5,
+      "preRoot": [
+        256,
+        481
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "postRoot": [
+        256,
+        481
+      ],
+      "alphaBoundingBoxExclusive": [
+        62,
+        30,
+        482,
+        482
+      ],
+      "transparentSeamPixels": [
+        62,
+        30,
+        30,
+        30
+      ],
+      "safe": true
+    }
+  ],
+  "rgbaMasterPath": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\seojin-grade2-attack-exact-fit-rgba-master.png",
+  "rgbaMasterSha256": "d3e885c5d7fc3b79670a0b262b82909c554293cba62f308cb8e264d655192d16",
+  "gifPath": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\seojin-grade2-attack-exact-fit-one-shot.gif",
+  "gifSha256": "eb3f3b32112023ec0267748259e43c67b10db4de1e13da12032368e78d33bab8",
+  "timingMs": [
+    120,
+    130,
+    120,
+    130,
+    120,
+    130
+  ],
+  "playback": "one_shot_no_loop_extension",
+  "gifReopen": {
+    "frameCount": 6,
+    "dimensions": [
+      512,
+      512
+    ],
+    "durationsMs": [
+      120,
+      130,
+      120,
+      130,
+      120,
+      130
+    ],
+    "loopExtensionPresent": false,
+    "loopValue": null,
+    "disposalMethods": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "valid": true
+  },
+  "reopenedFrameRecords": [
+    {
+      "index": 0,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-0.png",
+      "sha256": "915fd818cf0bdde01e755ae6deae9c5defb8c7572ddbe603e7a48bbd24e7e918",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "index": 1,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-1.png",
+      "sha256": "8001aa88e47ac20644dc9f5f75b9a35084f3c4ec4f71037b1b2f4d848f28ad80",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "index": 2,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-2.png",
+      "sha256": "dc874b4c159c659b5e45699e61511689f781f3cb0d27096a82ed68db191306c7",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "index": 3,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-3.png",
+      "sha256": "2e6a9068b76ca7b3ba67fb1fe2999282cec61fcaa7a079b246d47bc02f333321",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "index": 4,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-4.png",
+      "sha256": "53e29a353a0e6beb704e17541748f4b1afefbe87c4d681aa1119deae09f0b76e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "index": 5,
+      "path": "C:\\github\\ProjectBS-agent\\output\\prototype-grade2-attack-exact-fit-recovery\\reopened-frames\\frame-5.png",
+      "sha256": "7b1f76e0d9193aaa7c016080a5379f2b6baba3e81e4e5ee7a44ea1f397ed255e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    }
+  ],
+  "cleanup": {
+    "performed": false,
+    "reason": "no reproducibly identified disconnected neighboring-cell fragment removed"
+  },
+  "operationsForbiddenAndNotPerformed": [
+    "provider_call",
+    "crop",
+    "per_frame_scale",
+    "repaint",
+    "retouch",
+    "regeneration",
+    "evaluation",
+    "preservation",
+    "publication",
+    "project_copy"
+  ]
+}

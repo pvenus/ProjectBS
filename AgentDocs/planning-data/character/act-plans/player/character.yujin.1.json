@@ -17,14 +17,216 @@
                               ]
                  },
     "appearance":  {
-                       "silhouette":  "가벼운 산길 복장과 활통을 멘 냉정한 궁수",
-                       "weapon":  "활",
+                       "silhouette":  "약 4.5등신의 작고 민첩한 젊은 성인 한국인 여성 궁수. 짧은 한국식 각궁과 오른쪽 어깨 너머의 소박한 화살통이 즉시 읽히는 가벼운 Grade 1 산길 추적자 실루엣이며, 지휘관 갑주나 최종 등급 장비는 사용하지 않는다.",
+                       "genderPresentation":  {
+                                                  "description":  "20대의 젊은 성인 한국인 여성. 아동형으로 축소하거나 장신의 영웅적 체형으로 늘이지 않으며, 냉정하고 현실적인 추적자 인상을 유지한다."
+                                              },
+                       "body":  {
+                                    "description":  "약 4.5등신의 작고 민첩한 체형. 자연스러운 젊은 성인 해부를 단순화하되 머리, 손, 발을 과장하지 않는다."
+                                },
+                       "face":  {
+                                    "description":  "둥근 턱선, 곧은 눈매와 낮게 정돈된 눈썹, 차분하게 주변을 살피는 표정의 젊은 한국인 여성 얼굴. 세 등급 공통 신규 렌더링 기준에 따라 얼굴 내부는 양쪽 눈썹 2개, 단순한 눈선 2개, 짧게 끊긴 코선 1개, 입선 1개를 중심으로 최대 7개의 고신호 먹선만 사용한다. 홍채·동공 광택·속눈썹·쌍꺼풀·입술 채색·코와 볼의 입체 명암·피부 그라데이션·결·모공·잔주름을 생략하고 얼굴 면의 최소 85%를 미채색 여백으로 남긴다."
+                                },
+                       "hair":  {
+                                    "description":  "먹갈색의 짧고 단정한 머리를 뒤쪽 낮은 묶음으로 정리한다. 긴 풀어헤친 머리나 화려한 장신구는 사용하지 않는다."
+                                },
+                       "costume":  {
+                                       "description":  "조선계의 짧은 저고리, 활동성 있는 바지, 무릎 아래 길이의 가벼운 덧옷으로 구성된 산길 추적자 복장. 거친 삼베와 면직물의 무광 질감, 낮은 디테일 밀도, 이동에 필요한 단순한 겹침만 유지한다."
+                                   },
+                       "weapon":  {
+                                      "present":  true,
+                                      "description":  "왼손으로 잡고 오른손으로 시위를 당기는 오른손잡이용 짧은 한국식 각궁 한 자루. 일본식 장궁, 서양식 활, 판타지 활로 대체하지 않는다."
+                                  },
+                       "handedness":  "right",
+                       "equipment":  [
+                                           {
+                                               "description":  "오른쪽 어깨 너머에 소박한 화살통 하나를 멘다."
+                                           },
+                                           {
+                                               "description":  "왼쪽 허리에 작은 추적 도구 주머니 하나를 둔다."
+                                           },
+                                           {
+                                               "description":  "오른손에는 단순한 손 보호구를 착용한다."
+                                           }
+                                       ],
+                       "palette":  [
+                                       {
+                                           "appliesTo":  "짧은 저고리와 복식의 제한된 primary cool broad marks",
+                                           "colorDescription":  "빛바랜 청회색"
+                                       },
+                                       {
+                                           "appliesTo":  "바지, 가벼운 덧옷, 화살통의 제한된 secondary earth broad marks",
+                                           "colorDescription":  "먼지 낀 회갈색"
+                                       },
+                                       {
+                                           "appliesTo":  "왼쪽 허리의 작은 추적 도구 주머니에만 쓰는 small warm accent",
+                                           "colorDescription":  "탁한 황토색"
+                                       }
+                                   ],
+                       "materials":  [
+                                         {
+                                             "appliesTo":  "짧은 저고리, 활동성 있는 바지와 무릎 아래 가벼운 덧옷",
+                                             "materialDescription":  "거칠고 무광인 삼베와 면직물"
+                                         },
+                                         {
+                                             "appliesTo":  "짧은 한국식 각궁, 화살통, 왼쪽 허리 추적 도구 주머니와 오른손 보호구",
+                                             "materialDescription":  "낡았지만 정돈된 무광 나무와 가죽"
+                                         }
+                                     ],
+                       "identifyingFeatures":  [
+                                                   "약 4.5등신의 작고 민첩한 젊은 성인 한국인 여성 체형",
+                                                   "먹갈색의 짧은 머리와 낮은 묶음",
+                                                   "왼손의 짧은 한국식 각궁과 오른손잡이 방향",
+                                                   "오른쪽 어깨 너머 화살통과 왼쪽 허리 추적 도구 주머니"
+                                               ],
                        "visualKeywords":  [
-                                              "bow",
-                                              "tracker_cloak",
-                                              "lean_silhouette"
-                                          ]
+                                              "korean_female_archer",
+                                              "short_horn_bow",
+                                              "mountain_tracker",
+                                              "compact_agile_silhouette",
+                                              "open_ink_mokseon_pastel"
+                                          ],
+                       "posePolicy":  {
+                                          "mode":  "exact",
+                                          "description":  "정면에 가까운 한 방향의 3/4 전신 중립 자세. 왼손에 짧은 각궁을 편안히 들고 오른손은 자연스럽게 준비하며, 시선은 화면 오른쪽 앞을 향한다."
+                                      },
+                       "intendedDisplay":  {
+                                               "assetType":  "character_single_image",
+                                               "backgroundPolicy":  "transparent_after_distinct_chroma_postprocess",
+                                               "detailDensity":  {
+                                                                     "level":  "low",
+                                                                     "description":  "세 등급 공통 신규 렌더링 기준: 주요 외곽 먹선은 6–14px, 내부 먹선은 3–7px의 불규칙한 가변압이며 전체 외곽의 50%±5%를 의도적으로 끊거나 생략한다. 얼굴 내부는 최대 7개 선, 인물 내부는 55–65% 미채색·무채색 여백, 색 안료는 4–6개의 넓고 거친 수채·파스텔 mass만 허용한다. 모든 선에는 붓 시작, 방향성 끌림, 마른 끝이 보이며 안료 가장자리는 불균일하고 2–8px 정도 어긋날 수 있다. 부드러운 그라데이션, 입체 모델링, 미세 주름, clean vector, cel shading을 금지한다."
+                                                                 },
+                                               "framingPolicy":  "centered full-body head-to-toe with generous clear space; no crop; bow and quiver fully visible",
+                                               "outputUsage":  "인게임 전투와 캐릭터 선택 화면의 유진 Grade 1 MAIN 전신 이미지",
+                                               "providerCanvasPolicy":  "exact 1024x1536 opaque RGB removable-solid carrier",
+                                               "targetDisplaySize":  {
+                                                                         "minimumPixelSize":  {
+                                                                                                  "width":  64,
+                                                                                                  "height":  96
+                                                                                              },
+                                                                         "targetPixelSize":  {
+                                                                                                 "width":  96,
+                                                                                                 "height":  144
+                                                                                             },
+                                                                         "unit":  "px",
+                                                                         "consumerViewportOrReference":  "인게임 전투 카메라와 캐릭터 선택 화면"
+                                                                     }
+                                           }
                    },
+    "generatedMediaPlanning":  {
+                                   "characterSingleImage":  {
+                                                                  "readiness":  "ready",
+                                                                  "expressionProfileKey":  "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+                                                                  "identityConsistencyLock":  {
+                                                                                                    "identityId":  "character.yujin.1",
+                                                                                                    "referenceFacts":  [
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/genderPresentation",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.gender.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/body",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.body.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/face",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.face.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/hair",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.hair.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/costume",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.costume.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/weapon",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.weapon.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/equipment",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.equipment.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/handedness",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.handedness.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/palette",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.palette.v1"]
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "sourcePointer":  "/appearance/materials",
+                                                                                                                               "evidenceFactIds":  ["yujin.appearance.materials.v1"]
+                                                                                                                           }
+                                                                                                                       ]
+                                                                                                },
+                                                                  "requiredElements":  [
+                                                                                           {
+                                                                                               "factId":  "yujin.single_image.requirement.identity.v1",
+                                                                                               "statement":  "약 4.5등신의 작고 민첩한 20대 한국인 여성 추적자와 둥근 턱선, 곧은 눈매, 먹갈색의 짧은 머리와 낮은 묶음이 함께 읽히며 얼굴 내부는 Grade 2·3과 동일하게 최대 7개의 끊긴 고신호 먹선과 넓은 미채색 여백으로 단순화해야 한다.",
+                                                                                               "evidenceFactIds":  ["yujin.appearance.gender.v1", "yujin.appearance.body.v1", "yujin.appearance.face.v1", "yujin.appearance.hair.v1"]
+                                                                                           },
+                                                                                           {
+                                                                                               "factId":  "yujin.single_image.requirement.equipment.v1",
+                                                                                               "statement":  "왼손의 짧은 한국식 각궁, 오른손잡이 방향, 오른쪽 어깨 너머 화살통, 왼쪽 허리의 작은 추적 도구 주머니가 모두 보여야 한다.",
+                                                                                               "evidenceFactIds":  ["yujin.appearance.weapon.v1", "yujin.appearance.equipment.v1", "yujin.appearance.handedness.v1"]
+                                                                                           },
+                                                                                           {
+                                                                                               "factId":  "yujin.single_image.requirement.grade1.v1",
+                                                                                               "statement":  "조선계 짧은 저고리, 활동성 있는 바지, 무릎 아래 가벼운 덧옷으로 구성된 낮은 디테일의 Grade 1 산길 추적자 단계여야 한다.",
+                                                                                               "evidenceFactIds":  ["yujin.appearance.costume.v1"]
+                                                                                           }
+                                                                                       ],
+                                                                  "prohibitedElements":  [
+                                                                                             {
+                                                                                                 "factId":  "yujin.single_image.prohibition.cultural_substitution.v1",
+                                                                                                 "statement":  "일본식·외국식·현대식 또는 과도한 판타지 복식과 무기, 특정 실존 인물의 직접 재현을 포함하지 않는다.",
+                                                                                                 "evidenceFactIds":  ["yujin.appearance.costume.v1", "yujin.appearance.weapon.v1"]
+                                                                                             },
+                                                                                             {
+                                                                                                 "factId":  "yujin.single_image.prohibition.grade_overdesign.v1",
+                                                                                                 "statement":  "긴 풀어헤친 머리, 과도한 갑주, 지휘관 장식 또는 Grade 2/3 최종 장비를 추가하지 않는다.",
+                                                                                                 "evidenceFactIds":  ["yujin.appearance.hair.v1", "yujin.appearance.costume.v1"]
+                                                                                             },
+                                                                                             {
+                                                                                                 "factId":  "yujin.single_image.prohibition.output_artifacts.v1",
+                                                                                                 "statement":  "전신 잘림, 장비 누락·복제·좌우 변경, 이웃 이미지 조각, 장면·바닥·그림자·후광·비네트, 전경의 exact #00FF00을 포함하지 않는다. 홍채·동공 광택·속눈썹·쌍꺼풀·입술 채색·코와 볼의 입체 명암·피부 그라데이션·사실적 얼굴 모델링·매끈한 디지털 채색도 금지한다.",
+                                                                                                 "evidenceFactIds":  ["yujin.appearance.weapon.v1", "yujin.appearance.equipment.v1", "yujin.appearance.pose.v1"]
+                                                                                             }
+                                                                                         ],
+                                                                  "singleImageSpecification":  {
+                                                                                                   "viewpoint":  "natural near-front three-quarter view, one approved viewpoint only",
+                                                                                                   "pose":  "neutral full-body stance; left hand holds the short Korean horn bow; right hand remains naturally ready; gaze toward screen-right front",
+                                                                                                   "framing":  "centered full-body head-to-toe with generous clear space; no crop; bow and quiver fully visible",
+                                                                                                   "canvas":  {
+                                                                                                                  "width":  1024,
+                                                                                                                  "height":  1536
+                                                                                                              },
+                                                                                                   "targetDisplaySize":  {
+                                                                                                                             "width":  96,
+                                                                                                                             "height":  144
+                                                                                                                         },
+                                                                                                   "safeArea":  "left 96 px, right 96 px, top 96 px, bottom 128 px; head, feet, bow, and quiver must remain inside all four insets",
+                                                                                                   "finalBackgroundPolicy":  "transparent_after_distinct_chroma_postprocess",
+                                                                                                   "generationBackground":  {
+                                                                                                                                        "mode":  "removable_solid",
+                                                                                                                                        "color":  "#00FF00"
+                                                                                                                                    },
+                                                                                                   "noShadow":  true,
+                                                                                                   "outline":  {
+                                                                                                                   "enabled":  false
+                                                                                                               },
+                                                                                                   "anchor":  {
+                                                                                                                  "type":  "pelvis_root_ground_axis",
+                                                                                                                  "pelvisOrRootPoint":  "normalized canvas point (0.5,0.55)",
+                                                                                                                  "groundContactAxis":  "horizontal normalized line from (0.25,0.92) to (0.75,0.92)"
+                                                                                                              }
+                                                                                               }
+                                                              }
+                               },
     "combat":  {
                    "roleIntent":  "흔적을 읽고 후열에서 위협을 제거하는 원거리 딜러",
                    "preferredRange":  "ranged",
@@ -98,5 +300,110 @@
                ],
     "notes":  [
 
-              ]
+              ],
+    "provenance":  {
+                       "sourceStoryRefs":  [
+                                                "AgentDocs/planning-data/story/Characters.md",
+                                                "AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md"
+                                            ],
+                       "sourcePlanningRefs":  [
+                                                   "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+                                                   "AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md",
+                                                   "AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md",
+                                                   "AgentDocs/planning-guides/common/DisignMasterConcept_rule.md",
+                                                   "AgentDocs/planning-guides/character/data-structures/CharacterPlanningDataGuide.md"
+                                               ],
+                       "factEvidence":  [
+                                            {
+                                                "factId":  "yujin.appearance.gender.v1",
+                                                "fieldPath":  "/appearance/genderPresentation",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Act01/Chapter01/Chapter_01.md","sourcePointerOrSection":"유진 합류 및 그녀의 추적 판단"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.body.v1",
+                                                "fieldPath":  "/appearance/body",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"캐릭터 외형과 비례 기획"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.face.v1",
+                                                "fieldPath":  "/appearance/face",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"캐릭터 정체성 및 얼굴 기획"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.hair.v1",
+                                                "fieldPath":  "/appearance/hair",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"캐릭터 정체성 및 헤어 기획"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.costume.v1",
+                                                "fieldPath":  "/appearance/costume",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.weapon.v1",
+                                                "fieldPath":  "/appearance/weapon",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Characters.md","sourcePointerOrSection":"인물별 설명 > 유진 > 궁수"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.equipment.v1",
+                                                "fieldPath":  "/appearance/equipment",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Characters.md","sourcePointerOrSection":"인물별 설명 > 유진 > 궁수 / 추적자 역할"},{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.handedness.v1",
+                                                "fieldPath":  "/appearance/handedness",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"장비 방향 및 handedness 고정"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.palette.v1",
+                                                "fieldPath":  "/appearance/palette",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"색상과 전통 복식 디자인 원칙"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.materials.v1",
+                                                "fieldPath":  "/appearance/materials",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.appearance.pose.v1",
+                                                "fieldPath":  "/appearance/posePolicy",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"MAIN 전신 pose와 framing"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.expression_profile.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/expressionProfileKey",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md","sourcePointerOrSection":"character_single_image expression profile selection"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.requirement.identity.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/requiredElements/0",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Characters.md","sourcePointerOrSection":"인물별 설명 > 유진"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.requirement.equipment.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/requiredElements/1",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Characters.md","sourcePointerOrSection":"인물별 설명 > 유진 > 궁수 / 추적자"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.requirement.grade1.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/requiredElements/2",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-data/story/Characters.md","sourcePointerOrSection":"인물별 설명 > 유진"},{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"등급별 단계적 시각 진화"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.prohibition.cultural_substitution.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/prohibitedElements/0",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/common/DisignMasterConcept_rule.md","sourcePointerOrSection":"전통 복식과 장비"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.prohibition.grade_overdesign.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/prohibitedElements/1",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/character/CharacterDesignCreateGuide.md","sourcePointerOrSection":"등급별 단계적 시각 진화"}]
+                                            },
+                                            {
+                                                "factId":  "yujin.single_image.prohibition.output_artifacts.v1",
+                                                "fieldPath":  "/generatedMediaPlanning/characterSingleImage/prohibitedElements/2",
+                                                "sourceRefs":  [{"path":"AgentDocs/planning-guides/content/generated-media/GeneratedMediaVisualPromptAuthoringGuide.md","sourcePointerOrSection":"character_single_image framing, carrier background, and artifact exclusions"}]
+                                            }
+                                        ]
+                   }
 }

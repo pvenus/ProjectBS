@@ -3,9 +3,11 @@
 ## Purpose
 
 This current v2 pipeline owns prompt authoring and ImageGen generation for one
-character or skill animation request. Generation creates one provider-native
-animated GIF; preservation verifies that GIF and extracts its frames.
-Evaluation is separate.
+character or skill animation request. Generation creates either one
+provider-native animated GIF under the provider-native source mode or one
+generation-role-owned completed GIF from a coherent provider master image under
+the coherent-master source mode. Preservation verifies the completed GIF and
+extracts its frames. Evaluation is separate.
 
 ## Authority and Scope
 
@@ -41,15 +43,19 @@ payload without editing, reordering, translating, or summarizing any lock. A
 skill request must omit all four fields; their presence returns
 `unexpected_character_style_reference`.
 
-Authoring writes one `generated_media_prompt_v3`. For every new animation,
-authoring requires `animationSourceMode=provider_native_animated_gif` and
-`extractionMode=gif_timeline_exact`. Generation produces one playable animated
-GIF at the final approved frame count and writes one
-`generated_media_generation_v2` with
-`structureProfile=animation_gif_frame_set_v2`. A still image, contact sheet,
-sprite sheet, collage, video, or independently generated frame set is a fatal
-source mismatch. Generation cannot oversample, choose a subset, merge
-requests, extract frames, or package output.
+Authoring writes one `generated_media_prompt_v3`. For provider-native
+animation, authoring requires `animationSourceMode=provider_native_animated_gif`
+and `extractionMode=gif_timeline_exact`; the provider must return one playable
+animated GIF. For accepted coherent-master attack guidance, authoring instead
+uses `animationSourceMode=generation_role_coherent_master_to_gif` and
+`extractionMode=generation_role_reopened_gif_timeline_exact`; the provider must
+return one coherent six-cell master image, and the same official generation
+role constructs the completed GIF before any frame extraction. Generation writes
+one `generated_media_generation_v2` with
+`structureProfile=animation_gif_frame_set_v2`. Contact sheets, sprite sheets,
+collages, videos, unrelated stills, or independently generated frame sets are
+fatal source mismatches. Generation cannot oversample, choose a subset, merge
+requests, or package output.
 
 The profile discriminator fixes the anchor: character animation uses
 `pelvis_root_ground_axis`; skill animation uses `effect_origin`. Generation
@@ -132,9 +138,11 @@ artifact. The accepted result path is not canonical; only its caller-verified
 raw SHA-256 and observed dimensions/frame count may appear in the detached
 guidance handoff.
 
-The generation role remains GIF-first and owns the final provider-native GIF.
-It projects the compact guidance before its one provider submit and validates
-the returned GIF before preservation handoff. Across the exact final timeline:
+The accepted Seojin attack guidance selects the coherent-master source mode,
+not provider-native GIF output. The provider returns one coherent six-cell
+master image only. The same official generation role then builds the completed
+GIF first, closes and reopens that GIF, and extracts the six PNG frames from the
+reopened timeline before preservation handoff. Across the exact final timeline:
 
 - the pelvis center and ground baseline are fixed at their approved integer
   coordinates; maximum pelvis drift and baseline drift are both `0px`;
@@ -142,8 +150,9 @@ the returned GIF before preservation handoff. Across the exact final timeline:
   motion defines one shared width basis for every frame; per-frame crop,
   scale, or recenter remains forbidden;
 - neighboring-cell or adjacent-frame edge fragments are excluded from the
-  provider result, never treated as subject bounds, and never repaired by
-  preservation;
+  generation-owned completed GIF; final packaging may remove only verified
+  neighboring-cell edge fragments and may apply only deterministic
+  pelvis/baseline translation declared by the compact receipt;
 - scale, frame timing, global palette, and fully opaque background are
   identical across all frames; and
 - the shared canvas has no subject or effect clipping.
@@ -158,20 +167,29 @@ extension without changing upstream records.
 
 Generation returns one compact
 `generated_media_attack_gif_final_validation_receipt_v1` containing exactly
-`schemaVersion`, `animationRequestId`, `originalAnimatedGifSha256`, `width`,
-`height`, `frameCount`, `sharedWidthBasis`, `pelvisDriftMaxPx`,
-`baselineDriftMaxPx`, `scaleUniform`, `timingUniform`, `globalPaletteUniform`,
+`schemaVersion`, `animationRequestId`, `sourceMode`, `providerMasterImageSha256`,
+`completedGifSha256`, `acceptedEvidenceGifSha256`, `width`, `height`,
+`frameCount`, `sharedWidthBasis`, `pelvisDriftMaxPx`, `baselineDriftMaxPx`,
+`scaleUniform`, `timingUniform`, `globalPaletteUniform`,
 `backgroundFullyOpaque`, `clippingDetected`, `neighboringFragmentsDetected`,
-and `status`. `status=valid` requires both drift values to equal zero, all four
-uniform/opaque booleans true, both detected booleans false, and exact guidance
-dimensions/frame count. The receipt is a generation-to-preservation compact
-validation projection, not a media evaluation verdict.
+and `status`. `sourceMode` is
+`generation_role_coherent_master_to_gif` for the accepted Seojin guidance.
+`acceptedEvidenceGifSha256` may carry
+`8a924fdee81d01d8d8f94d742ec0755f7f7856718f16e60839affc6c9ee3e621` as
+evidence only; it is not a provider return, identity reference, preservation
+source, or media record. `status=valid` requires both drift values to equal
+zero, all four uniform/opaque booleans true, both detected booleans false, exact
+guidance dimensions/frame count, and a reopened completed GIF timeline. The
+receipt is a generation-to-preservation compact validation projection, not a
+media evaluation verdict.
 
 ## Input, Output, State, and Validation
 
 One scalar animationRequestId route/handoff becomes one prompt v3 record. One
-ready prompt becomes one provider-native animated-GIF generation v2 record plus
-preservation handoff. State is
+ready prompt becomes one animation generation v2 record plus preservation
+handoff. Provider-native GIF and coherent-master-to-GIF are separate source
+modes that both produce `animation_gif_frame_set_v2` only after their own exact
+source validation. State is
 `routed -> authored -> generated -> preservation_pending`.
 Validate the exact ID/reference, final count/timing/order/loop/key poses,
 GIF-timeline/scale/anchor policies, the registered animation provider, and
