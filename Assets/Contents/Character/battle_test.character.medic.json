@@ -1,0 +1,36 @@
+{
+  "characterId": "battle_test.character.medic",
+  "characterType": "Player",
+  "job": "PhysicianFirst",
+  "animationClips": [
+    { "clipType": "IdleUpRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.IdleUpRight.clip.anim" },
+    { "clipType": "IdleUpLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.IdleUpLeft.clip.anim" },
+    { "clipType": "IdleDownRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.IdleDownRight.clip.anim" },
+    { "clipType": "IdleDownLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.IdleDownLeft.clip.anim" },
+    { "clipType": "MoveUpRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.MoveUpRight.clip.anim" },
+    { "clipType": "MoveUpLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.MoveUpLeft.clip.anim" },
+    { "clipType": "MoveDownRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.MoveDownRight.clip.anim" },
+    { "clipType": "MoveDownLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.MoveDownLeft.clip.anim" },
+    { "clipType": "AttackUpRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.AttackUpRight.clip.anim" },
+    { "clipType": "AttackUpLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.AttackUpLeft.clip.anim" },
+    { "clipType": "AttackDownRight", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.AttackDownRight.clip.anim" },
+    { "clipType": "AttackDownLeft", "assetPath": "Assets/Resources/character/animation_clip/character.military_officer.1.AttackDownLeft.clip.anim" }
+  ],
+  "baseStats": [
+    { "statType": "MaxHp", "value": 190 },
+    { "statType": "Attack", "value": 24 },
+    { "statType": "Defense", "value": 12 },
+    { "statType": "MoveSpeed", "value": 3.0 },
+    { "statType": "AttackSpeed", "value": 1.0 },
+    { "statType": "CritChance", "value": 0.08 },
+    { "statType": "CritDamage", "value": 0.5 },
+    { "statType": "CooldownReduction", "value": 0.1 }
+  ],
+  "skills": [
+    { "slotKey": "basic_attack", "equipmentId": "battle_test.skill.basic_attack" },
+    { "slotKey": "active_1", "equipmentId": "battle_test.skill.guard_rush" },
+    { "slotKey": "active_2", "equipmentId": "battle_test.skill.volley" },
+    { "slotKey": "active_3", "equipmentId": "battle_test.skill.field_mend" },
+    { "slotKey": "passive_1", "equipmentId": "battle_test.skill.steady_training" }
+  ]
+}

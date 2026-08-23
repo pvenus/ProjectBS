@@ -75,14 +75,6 @@ namespace Party
 
         public void SpawnParty()
         {
-            bool isBattleScene =
-                SceneManager.GetActiveScene().name == BattleSceneName;
-
-            if (isBattleScene)
-            {
-                ClearSpawnedMembers();
-            }
-
             GameSession gameSession =
                 GameSession.Instance;
 
@@ -103,6 +95,17 @@ namespace Party
                     "[PartyManager] BattleSession not found.");
 
                 return;
+            }
+
+            string activeSceneName =
+                SceneManager.GetActiveScene().name;
+            bool isBattleScene = IsBattleSpawnContext(
+                activeSceneName,
+                battleSession);
+
+            if (isBattleScene)
+            {
+                ClearSpawnedMembers();
             }
 
             PartyRuntimeData runtimeData =
@@ -185,6 +188,21 @@ namespace Party
                         characterManager.RuntimeData;
                 }
             }
+        }
+
+        private static bool IsBattleSpawnContext(
+            string activeSceneName,
+            BattleSession battleSession)
+        {
+            if (activeSceneName == BattleSceneName)
+            {
+                return true;
+            }
+
+            return battleSession != null
+                && battleSession.IsBattleActive
+                && battleSession.BattleSO != null
+                && activeSceneName == battleSession.BattleSceneName;
         }
 
         private void InitializeExistingCharacters(

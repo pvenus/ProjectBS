@@ -1,0 +1,60 @@
+{
+  "strategicSkillItemId": "battle_test.strategic.recovery_field",
+  "gaugeCost": 50,
+  "reusable": true,
+  "defaultPrice": 240,
+  "tags": ["battle_test", "heal", "point"],
+  "skill": {
+    "equipmentId": "battle_test.strategic_skill.recovery_field",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "category": "Heal",
+    "targetType": "Point",
+    "tacticalNeed": "AllySupport",
+    "basePriority": 1.0,
+    "targetingType": "Position",
+    "cooldown": 0.0,
+    "castTime": 0.0,
+    "range": 30.0,
+    "skipAttackAnimation": true,
+    "projectileCount": 1,
+    "projectileScale": 2.4,
+    "projectileColliderRadius": 2.2,
+    "projectileLifetime": 0.5,
+    "projectileSpawnOffset": 0.0,
+    "projectileSpreadAngle": 0.0,
+    "moveType": "Linear",
+    "moveSpeed": 0.0,
+    "hit": {
+      "hitId": "battle_test.strategic_skill.recovery_field.hit",
+      "maxHitCount": 3,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "hitStartTime": 0.0,
+      "deactivateAfterFirstHit": false,
+      "targetLayer": "Party",
+      "damageType": "Normal",
+      "baseDamage": 0.0,
+      "attackPercentDamage": 0.0,
+      "canCritical": false,
+      "ignoreDefense": true,
+      "buffEffects": [
+        {
+          "effectId": "battle_test.effect.recovery_field.heal",
+          "effectType": "Heal",
+          "useMaxHpPercent": true,
+          "maxHpPercent": 0.25,
+          "flatHealAmount": 20.0,
+          "useAttackScaling": false,
+          "attackPercentHeal": 0.0,
+          "clampToMaxHp": true,
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0.0,
+          "maxApplyCount": 1
+        }
+      ]
+    }
+  }
+}
