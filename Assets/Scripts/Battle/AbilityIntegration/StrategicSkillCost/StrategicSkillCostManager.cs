@@ -9,6 +9,7 @@ namespace Battle
     /// 몬스터 처치, 시간 보너스, 골드 소모 등으로 게이지를 획득하고,
     /// 전략 스킬 사용 시 게이지를 차감한다.
     /// </summary>
+    [DefaultExecutionOrder(-100)]
     public class StrategicSkillCostManager : MonoBehaviour
     {
         public static StrategicSkillCostManager Instance { get; private set; }

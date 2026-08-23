@@ -1,0 +1,50 @@
+{
+  "equipmentId": "battle_test.skill.steady_training",
+  "skillType": "Passive",
+  "skillComponentType": "Projectile",
+  "category": "Buff",
+  "targetType": "Self",
+  "tacticalNeed": "Utility",
+  "basePriority": 0.1,
+  "targetingType": "Self",
+  "cooldown": 0.0,
+  "castTime": 0.0,
+  "range": 0.0,
+  "skipAttackAnimation": true,
+  "projectileCount": 1,
+  "projectileScale": 1.0,
+  "projectileColliderRadius": 0.1,
+  "projectileLifetime": 0.1,
+  "projectileSpawnOffset": 0.0,
+  "projectileSpreadAngle": 0.0,
+  "moveType": "None",
+  "moveSpeed": 0.0,
+  "selfEffects": [
+    {
+      "effectId": "battle_test.effect.steady_training.attack_up",
+      "effectType": "StatModifier",
+      "targetStat": "Attack",
+      "modifierType": "Percent",
+      "value": 0.1,
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": -1.0,
+      "maxApplyCount": 1
+    }
+  ],
+  "hit": {
+    "hitId": "battle_test.skill.steady_training.hit",
+    "maxHitCount": 1,
+    "ignoreSameRoot": false,
+    "useRepeatInterval": false,
+    "repeatInterval": 0.25,
+    "hitStartTime": 0.0,
+    "deactivateAfterFirstHit": true,
+    "targetLayer": "Party",
+    "damageType": "Normal",
+    "baseDamage": 0.0,
+    "attackPercentDamage": 0.0,
+    "canCritical": false,
+    "ignoreDefense": true
+  }
+}

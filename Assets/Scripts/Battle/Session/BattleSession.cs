@@ -43,23 +43,19 @@ namespace Session
                 return false;
             }
 
-            BattleSO = battleSO;
-
-            bool started = BeginBattle(
-                battleSO != null
-                    ? battleSO.BattleId
-                    : string.Empty,
-                battleSceneName,
-                returnSceneName,
-                stageNodeId,
-                beforeSceneLoad);
-
-            if (!started)
+            if (!TryPrepareBattleState(
+                    battleSO,
+                    battleSO.BattleId,
+                    battleSceneName,
+                    returnSceneName,
+                    stageNodeId))
             {
-                BattleSO = null;
+                return false;
             }
 
-            return started;
+            beforeSceneLoad?.Invoke();
+            SceneManager.LoadScene(LoadingSceneName);
+            return true;
         }
 
         public bool BeginBattle(
@@ -68,6 +64,49 @@ namespace Session
             string returnSceneName,
             string stageNodeId = null,
             Action beforeSceneLoad = null)
+        {
+            if (!TryPrepareBattleState(
+                    BattleSO,
+                    battleId,
+                    battleSceneName,
+                    returnSceneName,
+                    stageNodeId))
+            {
+                return false;
+            }
+
+            beforeSceneLoad?.Invoke();
+            SceneManager.LoadScene(LoadingSceneName);
+            return true;
+        }
+
+        public bool TryPrepareDirectBattle(
+            BattleSO battleSO,
+            string battleSceneName,
+            string returnSceneName,
+            string stageNodeId = null)
+        {
+            if (battleSO == null)
+            {
+                Debug.LogError(
+                    "[BattleSession] BattleSO is null.");
+                return false;
+            }
+
+            return TryPrepareBattleState(
+                battleSO,
+                battleSO.BattleId,
+                battleSceneName,
+                returnSceneName,
+                stageNodeId);
+        }
+
+        private bool TryPrepareBattleState(
+            BattleSO battleSO,
+            string battleId,
+            string battleSceneName,
+            string returnSceneName,
+            string stageNodeId)
         {
             if (IsBattleActive)
             {
@@ -80,7 +119,6 @@ namespace Session
             {
                 Debug.LogError(
                     "[BattleSession] BattleSceneName is empty.");
-
                 return false;
             }
 
@@ -92,14 +130,12 @@ namespace Session
             }
 
             IsBattleActive = true;
+            BattleSO = battleSO;
             BattleId = battleId;
             BattleSceneName = battleSceneName;
             ReturnSceneName = returnSceneName;
             PendingStageNodeId = stageNodeId;
             BattleRuntime = null;
-
-            beforeSceneLoad?.Invoke();
-            SceneManager.LoadScene(LoadingSceneName);
             return true;
         }
 

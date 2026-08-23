@@ -1,0 +1,51 @@
+main_key,sub_key,ko,en
+battle_test.character.vanguard,name,전투 시험 전위병,Battle Test Vanguard
+battle_test.character.vanguard,desc,높은 체력과 방어력으로 전열을 유지하는 시험용 전사입니다.,A durable test soldier for the front line.
+battle_test.character.ranger,name,전투 시험 유격수,Battle Test Ranger
+battle_test.character.ranger,desc,높은 공격력과 기동성으로 원거리 화력을 검증하는 시험용 궁수입니다.,A mobile test archer for ranged damage checks.
+battle_test.character.medic,name,전투 시험 의관,Battle Test Medic
+battle_test.character.medic,desc,회복과 재사용 대기시간 운용을 검증하는 시험용 의원입니다.,A test physician for healing and cooldown checks.
+battle_test.skill.basic_attack,name,시험용 기본 공격,Test Basic Attack
+battle_test.skill.basic_attack,desc,짧은 재사용 대기시간의 단일 투사체로 피해와 방어 약화를 적용합니다.,A quick projectile that deals damage and weakens defense.
+battle_test.skill.guard_rush,name,수호 돌진,Guard Rush
+battle_test.skill.guard_rush,desc,자신의 방어력을 높인 뒤 적에게 돌진해 피해와 둔화를 적용합니다.,Raises defense before damaging and slowing an enemy.
+battle_test.skill.volley,name,삼연 사격,Triple Volley
+battle_test.skill.volley,desc,세 갈래 투사체로 범위와 다중 발사 구성을 검증합니다.,Fires three projectiles to test spread behavior.
+battle_test.skill.field_mend,name,야전 치료,Field Mend
+battle_test.skill.field_mend,desc,지정 위치의 파티원을 즉시 회복합니다.,Heals party members at a selected point.
+battle_test.skill.steady_training,name,정진 훈련,Steady Training
+battle_test.skill.steady_training,desc,전투 초기화 시 공격력을 지속 증가시키는 패시브입니다.,A passive attack increase applied during initialization.
+battle_test.strategic.arrow_barrage,name,전략 화살 세례,Strategic Arrow Barrage
+battle_test.strategic.arrow_barrage,desc,게이지 20을 사용해 지정 위치의 적에게 폭발 피해를 줍니다.,Spends 20 gauge to damage enemies at a point.
+battle_test.strategic.iron_banner,name,철벽 군기,Iron Banner
+battle_test.strategic.iron_banner,desc,게이지 35를 사용해 지정 위치의 파티원 방어력을 높입니다.,Spends 35 gauge to fortify party members at a point.
+battle_test.strategic.recovery_field,name,회복 진영,Recovery Field
+battle_test.strategic.recovery_field,desc,게이지 50을 사용해 지정 위치의 파티원을 회복합니다.,Spends 50 gauge to heal party members at a point.
+battle_test.strategic.thunder_judgment,name,뇌정 심판,Thunder Judgment
+battle_test.strategic.thunder_judgment,desc,게이지 70을 사용해 지정 위치에 방어 무시 피해와 둔화를 적용합니다.,Spends 70 gauge for true damage and a slow at a point.
+battle_test.strategic_skill.arrow_barrage,name,화살 세례 실행,Arrow Barrage Execution
+battle_test.strategic_skill.arrow_barrage,desc,지정 위치에 폭발 판정을 생성하는 전략 스킬 실행 SO입니다.,Point-target execution skill for Arrow Barrage.
+battle_test.strategic_skill.iron_banner,name,철벽 군기 실행,Iron Banner Execution
+battle_test.strategic_skill.iron_banner,desc,지정 위치의 파티원에게 방어 증가를 적용하는 전략 스킬 실행 SO입니다.,Point-target execution skill for Iron Banner.
+battle_test.strategic_skill.recovery_field,name,회복 진영 실행,Recovery Field Execution
+battle_test.strategic_skill.recovery_field,desc,지정 위치의 파티원에게 회복을 적용하는 전략 스킬 실행 SO입니다.,Point-target execution skill for Recovery Field.
+battle_test.strategic_skill.thunder_judgment,name,뇌정 심판 실행,Thunder Judgment Execution
+battle_test.strategic_skill.thunder_judgment,desc,지정 위치에 방어 무시 피해와 둔화를 적용하는 전략 스킬 실행 SO입니다.,Point-target execution skill for Thunder Judgment.
+battle_test.effect.basic_attack.defense_break,name,기본 공격 방어 약화,Basic Attack Defense Break
+battle_test.effect.basic_attack.defense_break,desc,2초 동안 현재 방어력을 5퍼센트 낮춥니다.,Reduces current defense by 5 percent for 2 seconds.
+battle_test.effect.guard_rush.defense_up,name,수호 돌진 방어 강화,Guard Rush Defense Up
+battle_test.effect.guard_rush.defense_up,desc,3초 동안 방어력을 8 높입니다.,Adds 8 defense for 3 seconds.
+battle_test.effect.guard_rush.slow,name,수호 돌진 둔화,Guard Rush Slow
+battle_test.effect.guard_rush.slow,desc,2초 동안 현재 이동 속도를 20퍼센트 낮춥니다.,Reduces current move speed by 20 percent for 2 seconds.
+battle_test.effect.volley.exposed,name,삼연 사격 노출,Volley Exposed
+battle_test.effect.volley.exposed,desc,3초 동안 방어력을 3 낮춥니다.,Reduces defense by 3 for 3 seconds.
+battle_test.effect.field_mend.heal,name,야전 치료 회복,Field Mend Heal
+battle_test.effect.field_mend.heal,desc,최대 체력의 18퍼센트와 공격력 계수를 더해 회복합니다.,Heals from max HP and caster attack scaling.
+battle_test.effect.steady_training.attack_up,name,정진 훈련 공격 강화,Steady Training Attack Up
+battle_test.effect.steady_training.attack_up,desc,현재 공격력을 10퍼센트 지속 증가시킵니다.,Permanently raises current attack by 10 percent.
+battle_test.effect.iron_banner.defense_up,name,철벽 군기 방어 강화,Iron Banner Defense Up
+battle_test.effect.iron_banner.defense_up,desc,5초 동안 방어력을 10 높입니다.,Adds 10 defense for 5 seconds.
+battle_test.effect.recovery_field.heal,name,회복 진영 치유,Recovery Field Heal
+battle_test.effect.recovery_field.heal,desc,최대 체력의 25퍼센트와 고정 수치 20을 회복합니다.,Heals 25 percent max HP plus 20.
+battle_test.effect.thunder_judgment.slow,name,뇌정 심판 둔화,Thunder Judgment Slow
+battle_test.effect.thunder_judgment.slow,desc,4초 동안 현재 이동 속도를 35퍼센트 낮춥니다.,Reduces current move speed by 35 percent for 4 seconds.
