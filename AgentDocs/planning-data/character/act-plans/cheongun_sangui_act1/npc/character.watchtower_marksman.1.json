@@ -18,14 +18,18 @@
         ]
     },
     "appearance": {
-        "silhouette": "눈가에 검은 먹을 길게 칠하고 흰 산문양 견갑을 찬 망루 궁수",
-        "weapon": "짧은 활",
+        "silhouette": "양쪽 눈가에 검은 먹을 길게 칠한 마른 성인 한국인 망루 궁수. 왼손 짧은 한국식 활 한 자루, 오른쪽 어깨 너머 화살통 한 개, 왼쪽 어깨 흰 산문양 견갑 한 개가 읽힌다.",
+        "weapon": "왼손의 짧은 한국식 활 한 자루; 오른손으로 시위를 쓰는 방향",
+        "equipment": ["왼손: 짧은 한국식 활 1자루", "오른쪽 어깨 너머: 화살통 1개", "왼쪽 어깨: 흰 산문양 견갑 1개"],
+        "costume": "가벼운 조선계 무명옷과 짧은 덧옷. 망루 근무용 소박한 가죽 장비만 사용한다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 활은 왼손에 세워 낮게 들고, 오른쪽 화살통과 왼쪽 견갑이 모두 보인다.",
         "visualKeywords": [
             "watchtower",
             "black_eye_paint",
             "short_bow"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["마른 성인 한국인 망루 궁수", "왼손 짧은 한국식 활 1자루와 오른손잡이 방향", "오른쪽 어깨 화살통 1개·왼쪽 어깨 흰 산문양 견갑 1개·양쪽 눈가 먹칠"], "prohibitedElements": ["일본식 장궁·서양 장궁·중국식 갑주로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "반대 장비 방향·추가 활·추가 화살통·망루 배경"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
     "combat": {
         "roleIntent": "목책과 망루 위에서 고지대 원거리 압박을 담당한다.",
         "preferredRange": "ranged",

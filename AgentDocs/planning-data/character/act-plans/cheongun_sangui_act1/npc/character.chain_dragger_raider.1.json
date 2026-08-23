@@ -19,13 +19,27 @@
     },
     "appearance": {
         "silhouette": "검은 천 복면 아래 갈라진 눈가가 보이고, 한 손에는 쇠사슬을 끌며 목에는 산귀 나무패를 건 키 큰 습격자",
+        "body": "키가 크고 마른 성인 습격자 체형, 앞으로 숙이지 않은 읽기 쉬운 중립 균형.",
+        "face": "검은 천 복면 아래 갈라진 오른쪽 눈가만 드러나는 익명 얼굴; 실존 인물 재현 금지.",
+        "costume": "바랜 회흑색 작업복 한 벌과 검은 천 복면 하나.",
+        "equipment": "목 중앙에 산귀 문양 나무패 1개, 왼손에 느슨히 감긴 쇠사슬 1줄.",
         "weapon": "쇠사슬과 짧은 곡도",
+        "handedness": "왼손은 쇠사슬 1줄을 낮게 들고 오른손은 짧은 곡도 1자루를 아래로 든다.",
+        "palette": "먹검정, 바랜 회청색, 탁한 목재 갈색, 제한된 녹슨 쇠빛.",
+        "materials": "거친 열린 먹선과 낮은 밀도의 넓은 파스텔·수채 mass; 사슬 고리는 단순화한다.",
+        "identifyingFeatures": "갈라진 오른쪽 눈가, 목 중앙 나무패 정확히 1개, 왼손 사슬 1줄과 오른손 곡도 1자루.",
         "visualKeywords": [
             "black_cloth",
             "chain",
             "wooden_sangui_charm"
         ]
     },
+    "generatedMediaPlanning":{"characterSingleImage":{
+        "readiness":"ready","assetRole":"MAIN","expressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","identityConsistencyLock":{"identityId":"character.chain_dragger_raider.1","sourcePointers":["/appearance/body","/appearance/face","/appearance/costume","/appearance/equipment","/appearance/weapon","/appearance/handedness","/appearance/palette","/appearance/materials","/appearance/identifyingFeatures"]},
+        "requiredElements":["키 큰 마른 성인 습격자 전신의 near-front 3/4 중립 자세.","왼손 쇠사슬 정확히 1줄, 오른손 짧은 곡도 정확히 1자루.","목 중앙 산귀 나무패 1개와 갈라진 오른쪽 눈가.","거칠고 저밀도인 ProjectBS open ink/mok-seon과 넓은 pastel mass."],
+        "prohibitedElements":["타 문화권 복면·곡도·부적 치환","실존 역사 인물 재현","추가 사슬·곡도·나무패","scene/floor/shadow/halo/gradient/texture","alpha/transparent/checkerboard","foreground exact #00FF00"],
+        "singleImageSpecification":{"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},"executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    }},
     "combat": {
         "roleIntent": "초반 광장과 좁은 길목에서 플레이어의 진입을 늦추는 근접 제어 적",
         "preferredRange": "melee",

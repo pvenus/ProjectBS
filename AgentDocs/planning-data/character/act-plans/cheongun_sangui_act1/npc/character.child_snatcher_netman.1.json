@@ -19,13 +19,27 @@
     },
     "appearance": {
         "silhouette": "허리에 색이 바랜 아이 장난감 조각과 접은 그물을 단 마른 포획꾼",
+        "body": "긴 팔과 좁은 어깨의 마른 성인 포획꾼 체형.",
+        "face": "움푹한 볼과 경계하는 눈의 익명 성인 얼굴; 실존 인물의 얼굴이나 초상을 재현하지 않는다.",
+        "costume": "바랜 회갈색 작업복 한 벌과 오른쪽 어깨에서 왼쪽 허리로 가는 천 멜빵 1줄.",
+        "equipment": "등 오른쪽에 접어 묶은 투망 1개, 왼쪽 허리에 색 바랜 나무 장난감 조각 2개.",
         "weapon": "그물과 짧은 칼",
+        "handedness": "오른손에 짧은 칼 1자루를 아래로 들고 왼손은 비어 있다; 그물은 손이 아니라 등에 묶인다.",
+        "palette": "회갈색과 바랜 청회색, 탁한 황토색 밧줄, 장난감의 작은 탈색 적청색.",
+        "materials": "거친 열린 먹선과 저밀도 파스텔·수채 mass; 그물은 성긴 큰 격자만 표시한다.",
+        "identifyingFeatures": "등 오른쪽 접힌 투망 1개, 왼쪽 허리 장난감 조각 정확히 2개, 길고 마른 손가락.",
         "visualKeywords": [
             "folded_net",
             "toy_fragments",
             "thin_fingers"
         ]
     },
+    "generatedMediaPlanning":{"characterSingleImage":{
+        "readiness":"ready","assetRole":"MAIN","expressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","identityConsistencyLock":{"identityId":"character.child_snatcher_netman.1","sourcePointers":["/appearance/body","/appearance/face","/appearance/costume","/appearance/equipment","/appearance/weapon","/appearance/handedness","/appearance/palette","/appearance/materials","/appearance/identifyingFeatures"]},
+        "requiredElements":["마른 성인 포획꾼 전신의 near-front 3/4 중립 자세.","등 오른쪽에 접힌 투망 정확히 1개, 오른손 짧은 칼 1자루, 왼손은 비움.","왼쪽 허리에 나무 장난감 조각 정확히 2개.","거칠고 저밀도인 ProjectBS open ink/mok-seon과 넓은 pastel mass."],
+        "prohibitedElements":["타 문화권 사냥꾼·포획꾼 치환","실존 역사 인물 재현","아이 인물·포로·우리·추가 그물·칼·장난감","scene/floor/shadow/halo/gradient/texture","alpha/transparent/checkerboard","foreground exact #00FF00"],
+        "singleImageSpecification":{"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},"executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    }},
     "combat": {
         "roleIntent": "오두막 탈출전에서 탈출로를 늦추고 보호 목표를 압박하는 포획형 적",
         "preferredRange": "mid",

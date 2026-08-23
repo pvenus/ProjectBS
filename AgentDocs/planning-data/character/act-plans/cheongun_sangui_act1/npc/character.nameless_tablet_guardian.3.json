@@ -18,11 +18,23 @@
     },
     "appearance": {
         "silhouette": "이름이 긁혀 지워진 위패와 마른 흙으로 이루어진 수호령",
+        "visualIdentity": "마른 흙이 사람형으로 뭉친 크고 무거운 한국 산중 제의 수호령. 얼굴 대신 이름이 긁혀 지워진 목제 위패 하나가 상체 중심에 박혀 있으며 균열 난 흙팔과 뿌리 같은 다리로 제단 방어 역할을 읽힌다.",
+        "equipmentLock": "목제 위패는 상체 정중앙에 세로로 박힌 정확히 1개이며 읽을 수 있는 이름이나 글자는 없다. 별도 손무기, 갑옷, 뿔, 해골은 없다. screen-left 팔과 screen-right 팔은 각각 1개, 뿌리형 다리는 정확히 2개다.",
         "visualKeywords": [
             "spirit",
             "defense",
             "elite"
         ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.nameless_tablet_guardian.3", "usage": "MAIN", "publicationState": "local_unpublished"}, "readiness": "ready_for_generation", "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour", "color": "restrained low-density dry earth, faded wood, and ash pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body immovable guardian stance, arms lowered, both root-feet separated", "framing": "complete spirit silhouette with safe empty margins; no crop"},
+            "requiredElements": ["크고 무거운 마른 흙 사람형 수호령", "상체 정중앙의 이름이 긁혀 지워진 목제 위패 정확히 1개", "읽을 수 있는 이름이나 글자 없음", "균열 난 흙팔 정확히 2개", "분리되어 보이는 뿌리형 다리 정확히 2개"],
+            "prohibitedElements": ["위패 증식, 누락, 옆 이동 또는 읽을 수 있는 문자", "무기, 갑옷, 뿔, 해골 추가", "일본식 신사나 중국식 사당 수호상으로 치환", "실존 역사 인물 또는 실제 위패의 재현", "제단, 묘지, 바닥 흙더미 또는 유령 효과 장면"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        }
     },
     "combat": {
         "roleIntent": "후반 사당/제단에서 길을 막는 엘리트 방어 적",

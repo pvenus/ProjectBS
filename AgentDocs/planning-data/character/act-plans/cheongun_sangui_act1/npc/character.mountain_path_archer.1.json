@@ -18,10 +18,77 @@
     },
     "appearance": {
         "silhouette": "나무 뒤에서 활을 겨누는 산채 궁수, 검은 팔끈과 짧은 활",
+        "visualIdentity": "가볍고 민첩한 성인 한국인 산채 궁수. 짧은 활, 검은 팔끈, 소형 화살통만으로 매복형 원거리 적을 읽히며 나무나 풍경은 MAIN 실루엣에 포함하지 않는다.",
+        "equipmentLock": "짧은 활 정확히 1개를 screen-left 손에 들고 screen-right 손은 빈 시위 가까이에 둔다. 검은 팔끈은 screen-right 아래팔에 정확히 1개, 화살통은 screen-right 뒤허리에 정확히 1개이며 화살은 5개만 보인다. 근접 무기와 방패는 없다.",
         "visualKeywords": [
             "human",
             "bandit",
             "ranged"
+        ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.mountain_path_archer.1", "usage": "MAIN", "publicationState": "local_unpublished"}, "readiness": "ready_for_generation", "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour", "color": "restrained low-density muted forest and earth pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body ready stance, bow lowered and not firing, both feet and equipment visible", "framing": "centered full figure with safe empty margins; no crop"},
+            "requiredElements": ["성인 한국인 산채 궁수", "screen-left 손의 짧은 활 정확히 1개", "screen-right 아래팔의 검은 팔끈 정확히 1개", "screen-right 뒤허리의 화살통 정확히 1개와 보이는 화살 정확히 5개"],
+            "prohibitedElements": ["장비 좌우 반전 또는 수량 변경", "나무, 숲, 바위, 매복 장면", "장검, 방패, 장궁 추가", "타 문화권 궁수 복식으로 치환", "실존 역사 인물 재현", "발사 동작 또는 과장된 액션"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        },
+        "acceptedMainReference": {
+            "path": "C:/Users/parkv/.codex/generated_images/01a02dc2-cf1f-7f01-a3cf-be713c745a1b/exec-6fab5842-eaf2-414e-8c19-9095cb44f279.png",
+            "role": "identity_equipment_costume_sparse_open_ink_style_authority_only",
+            "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.mountain_path_archer.1.attack.hidden_arrow.one_shot.v1",
+                "action": "ATTACK",
+                "playback": {"frameCount": 8, "durationsMs": [150, 100, 85, 80, 60, 90, 120, 160], "loop": false},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": [
+                    "f0 grounded ranged ready: short bow in screen-left hand, exactly five arrows visible in screen-right rear-waist quiver",
+                    "f1 screen-right hand reaches to the five-arrow quiver while knees and pelvis set",
+                    "f2 exactly one existing arrow is drawn, leaving four in quiver; five total character-owned arrows remain visible",
+                    "f3 arrow nocks and torso counter-rotates; bow remains in screen-left hand",
+                    "f4 full draw and aim with grounded weight transfer; one nocked arrow plus four quiver arrows",
+                    "f5 release boundary: nocked arrow leaves the character sprite and becomes gameplay-projectile responsibility; no flying arrow or trail; four remain in quiver",
+                    "f6 empty-string recoil and controlled bow follow-through; no loose arrow",
+                    "f7 neutral ready-compatible recovery with four quiver arrows; canonical fifth arrow may restore only at gameplay state transition, never as an in-sequence pop"
+                ],
+                "motion": "one long-range hidden-arrow shot derived from the basic skill; connected feet, knees, pelvis, ribcage, shoulders and back load, not arm-only drawing",
+                "equipmentLocks": ["exactly one short bow remains in screen-left hand", "screen-right hand alone draws and releases", "exactly one black armband remains on screen-right forearm", "exactly one quiver remains at screen-right rear waist", "canonical inventory begins with exactly five arrows; only one existing arrow may transfer from quiver to nock and then to gameplay projectile ownership", "no sword, shield, longbow, duplicate arrow, bow-hand swap, or whole-body mirror"],
+                "styleEffects": "short body-attached broken black/charcoal dry-brush tension behind draw shoulder during f3-f5 and sparse muted forest/earth pastel pressure at planted feet; no visible projectile, projectile trail, magic, aura, detached effect, or cell crossing",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.mountain_path_archer.1.movement.scout_run.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 8, "durationsMs": [115, 100, 90, 105, 115, 100, 90, 105], "loop": true},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true, "maxCompressionPx": 8},
+                "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct up/extension", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct up/extension closing into f0"],
+                "motion": "agile screen-right scout run at movement scale 1.0 with compact stride, planted push-off, pelvis compression and ribcage counter-rotation; game root fixed, no camera pan",
+                "equipmentLocks": ["single short bow remains safely controlled in screen-left hand", "screen-right forearm retains one black armband", "single quiver remains at screen-right rear waist with exactly five secured arrows", "no loose or nocked arrow, hand swap, whole-body mirror, duplication, detachment, sword, shield, or longbow"],
+                "styleEffects": "restrained body-attached broken ink echoes behind feet, bow edge and clothing only; sparse grounded forest/earth pastel pressure; no attack trail, projectile, detached speed streak, floor cloud, magic, or neighboring-cell effect",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.mountain_path_archer.1.idle.ambush_ready.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 6, "durationsMs": [210, 180, 200, 210, 180, 200], "loop": true},
+                "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 grounded ambush-ready stance with bow lowered", "f1 shallow inhale and tiny shoulder rise", "f2 subtle weight shift through hips and knees", "f3 exhale as screen-right hand settles near but does not touch the string", "f4 brief screen-right path scan without aiming or drawing", "f5 clothing, bow and quiver settle cleanly into f0"],
+                "motion": "restrained living ranged idle with both feet planted, subtle breathing and alert gaze; not an attack wind-up, arrow handling, aiming, or walking-in-place",
+                "equipmentLocks": ["one short bow in screen-left hand", "one black armband on screen-right forearm", "one screen-right rear-waist quiver containing exactly five secured arrows", "no loose, held, nocked, or drawn arrow", "no mirror, hand swap, duplication, disappearance, detachment, sword, shield, or longbow"],
+                "styleEffects": "almost none; at most tiny body-attached broken settling marks that vanish by f5; no aura, projectile cue, persistent glow, floor effect, magic, or neighboring fragment",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
         ]
     },
     "combat": {

@@ -20,10 +20,79 @@
     "appearance": {
         "silhouette": "한쪽 눈이 희게 흐리고 귀 끝에 붉은 실이 꿰인 큰 산늑대",
         "weapon": "이빨과 발톱",
+        "visualIdentity": "크고 마른 근육질 산늑대. screen-left 눈의 흰 혼탁과 screen-right 귀 끝에 꿰인 짧은 붉은 실 한 가닥이 무리 우두머리 표식이며 야생 동물 체형을 유지한다.",
+        "equipmentLock": "별도 인공 무기는 없다. 붉은 실은 screen-right 귀 끝에 정확히 1가닥만 있고 목걸이, 갑옷, 안장, 뿔은 없다.",
         "visualKeywords": [
             "white_eye",
             "red_thread",
             "pack_leader"
+        ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.marked_pack_leader.2", "usage": "MAIN", "publicationState": "local_unpublished"},
+            "readiness": "ready_for_generation",
+            "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour", "color": "restrained low-density cold gray-brown pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral alert full-body quadruped stance, all four paws and tail visible", "framing": "centered complete animal silhouette with safe empty margins; no crop"},
+            "requiredElements": ["크고 마른 근육질 산늑대 체형", "screen-left 눈의 흰 혼탁", "screen-right 귀 끝의 짧은 붉은 실 정확히 1가닥", "이빨과 네 발의 발톱", "온전한 네 다리와 꼬리"],
+            "prohibitedElements": ["표식 좌우 반전 또는 붉은 실 증식", "인공 무기, 갑옷, 목걸이, 안장, 뿔", "개나 여우로의 종 치환", "타 문화권 신화 동물화", "실존 역사 인물 또는 문양 재현", "고밀도 털 렌더링"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        },
+        "acceptedMainReference": {
+            "path": "C:/Users/parkv/.codex/generated_images/01a02dbd-81f1-70d0-8349-01e4e173094d/exec-e64a5e17-72ea-44e0-8c2c-8cfd26b47958.png",
+            "role": "identity_anatomy_markings_sparse_open_ink_style_authority_only",
+            "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.marked_pack_leader.2.attack.leader_bite.one_shot.v1",
+                "action": "ATTACK",
+                "playback": {"frameCount": 8, "durationsMs": [120, 80, 60, 50, 60, 80, 110, 140], "loop": false},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": [
+                    "f0 low alert quadruped ready with all four paws readable",
+                    "f1 hindquarter compression and shoulder lowering",
+                    "f2 short grounded drive begins with head tracking screen-right",
+                    "f3 neck and torso extend into melee range while forepaws remain anatomically coherent",
+                    "f4 one fast decisive bite impact, jaws close once and tail balances the body",
+                    "f5 immediate release with no repeated bite",
+                    "f6 paws recover under the torso and head retracts",
+                    "f7 stable alert ready-compatible recovery"
+                ],
+                "motion": "single fast close-range leader bite derived from the basic skill; force connects hind legs, pelvis, spine, shoulders, neck and jaws; no leap across the cell and no repeated mauling",
+                "anatomyMarkLocks": ["exactly four legs and four paws in every frame", "exactly one tail", "cloudy white screen-left eye remains screen-left", "exactly one short red thread remains on screen-right ear", "teeth and claws are natural anatomy", "no artificial weapon, armor, collar, saddle, horn, duplicated limb, tail, eye mark, or thread"],
+                "styleEffects": "short body-attached broken black/charcoal dry-brush compression at shoulders and jaws during f3-f5 with sparse cold gray-brown pastel pressure; no blood spray, magic, aura, detached trail, clean vector swoosh, or cell crossing",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.marked_pack_leader.2.movement.fast_pursuit.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 8, "durationsMs": [85, 75, 65, 75, 85, 75, 65, 75], "loop": true},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true, "maxCompressionPx": 8},
+                "phases": ["f0 left-leading fore/hind contact pair", "f1 left-leading compression", "f2 extended passing with opposite limbs advancing", "f3 gathered airborne phase", "f4 right-leading fore/hind contact pair opposite f0", "f5 right-leading compression opposite f1", "f6 opposite extended passing", "f7 second distinct gathered airborne phase closing into f0"],
+                "motion": "fast screen-right elite wolf pursuit at movement scale 1.5 with coherent quadruped gait, flexing spine, planted push-off, shoulder/hip opposition and tail counterbalance; game root fixed, no camera pan",
+                "anatomyMarkLocks": ["four legs remain anatomically distinct and alternate correctly", "one tail counterbalances without duplication", "cloudy screen-left eye and one red thread on screen-right ear never swap", "no whole-body mirror, species drift, extra limb, collar, armor, saddle, horn, or artificial weapon"],
+                "styleEffects": "restrained body-attached broken ink echoes behind paws, spine and tail during extension only; sparse grounded cold gray-brown pastel pressure; no detached speed trail, floor cloud, attack arc, magic, or neighboring-cell effect",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.marked_pack_leader.2.idle.pack_alert.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 6, "durationsMs": [180, 150, 170, 180, 150, 170], "loop": true},
+                "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 four-paw alert stance", "f1 shallow ribcage inhale and ear attention", "f2 small weight shift through forepaws and shoulders", "f3 exhale with slight tail counter-settle", "f4 brief screen-right pack scan without howling or stepping", "f5 ear thread, fur masses and tail settle cleanly into f0"],
+                "motion": "living restrained pack-leader idle with all paws grounded, subtle breathing, gaze, ears and tail response; not a bite anticipation, howl activation, walk-in-place, or dramatic pose",
+                "anatomyMarkLocks": ["exactly four legs", "exactly one tail", "cloudy screen-left eye", "exactly one red thread on screen-right ear", "no mirror, mark swap, duplication, disappearance, species substitution, collar, armor, saddle, or horn"],
+                "styleEffects": "almost none; at most tiny body-attached broken settling marks that vanish by f5; no aura, howl wave, persistent glow, floor effect, magic, or neighboring fragment",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
         ]
     },
     "combat": {

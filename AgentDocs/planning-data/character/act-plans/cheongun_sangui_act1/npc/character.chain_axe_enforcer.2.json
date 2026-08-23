@@ -19,13 +19,27 @@
     },
     "appearance": {
         "silhouette": "팔의 화상 자국 위에 산귀 문양을 먹으로 덧그리고 쇠사슬을 감은 도끼잡이",
+        "body": "키가 크고 상체가 두꺼운 성인 집행자 체형, 느리고 묵직한 무게중심.",
+        "face": "짧게 깎은 머리와 굳은 익명 얼굴; 실존 역사 인물의 얼굴이나 초상을 재현하지 않는다.",
+        "costume": "여러 번 기운 먹갈색 작업복 한 벌과 왼쪽 어깨의 낡은 가죽 견갑 1장.",
+        "equipment": "오른쪽 팔뚝에 감긴 쇠사슬 1줄이 도끼 자루로 이어지며 별도 사슬이나 방패는 없다.",
         "weapon": "쇠사슬 감은 도끼",
+        "handedness": "오른손에 큰 외날 도끼 1자루를 세워 잡고 왼손은 자루 아래를 보조한다.",
+        "palette": "먹검정, 탁한 적갈색, 회갈색 가죽, 제한된 녹슨 쇠빛.",
+        "materials": "굵기 변화가 큰 열린 먹선, 낮은 밀도의 넓은 파스텔·수채 mass; 금속 세부 묘사 억제.",
+        "identifyingFeatures": "오른쪽 팔뚝 화상 자국 위 먹 산귀 문양 1개, 팔뚝에서 도끼로 이어지는 쇠사슬 정확히 1줄.",
         "visualKeywords": [
             "chain_axe",
             "burn_scar_tattoo",
             "yard_enforcer"
         ]
     },
+    "generatedMediaPlanning":{"characterSingleImage":{
+        "readiness":"ready","assetRole":"MAIN","expressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","identityConsistencyLock":{"identityId":"character.chain_axe_enforcer.2","sourcePointers":["/appearance/body","/appearance/face","/appearance/costume","/appearance/equipment","/appearance/weapon","/appearance/handedness","/appearance/palette","/appearance/materials","/appearance/identifyingFeatures"]},
+        "requiredElements":["큰 성인 집행자 전신의 near-front 3/4 중립 자세.","큰 외날 도끼 정확히 1자루를 오른손 주도·왼손 보조로 잡는다.","오른쪽 팔뚝에서 도끼 자루로 이어지는 쇠사슬 정확히 1줄과 화상 위 먹 문양 1개.","거칠고 저밀도인 ProjectBS open ink/mok-seon과 넓은 pastel mass."],
+        "prohibitedElements":["타 문화권 처형인·갑옷·도끼 치환","실존 역사 인물 재현","추가 도끼·사슬·방패","scene/floor/shadow/halo/gradient/texture","alpha/transparent/checkerboard","foreground exact #00FF00"],
+        "singleImageSpecification":{"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},"executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    }},
     "combat": {
         "roleIntent": "산채 마당에서 중간 엘리트로 전열을 흔드는 강한 근접 적",
         "preferredRange": "melee",

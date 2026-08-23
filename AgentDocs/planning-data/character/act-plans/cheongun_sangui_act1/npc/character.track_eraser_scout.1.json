@@ -18,14 +18,18 @@
         ]
     },
     "appearance": {
-        "silhouette": "숲색 망토와 검푸른 염료를 두르고 짐승 발 모양 나무판과 작은 솔을 든 정찰병",
-        "weapon": "짧은 창",
+        "silhouette": "숲색 짧은 망토와 검푸른 염료 자국을 두른 마른 성인 한국인 정찰병. 오른손 짧은 창 한 자루, 왼손 작은 솔 한 개, 오른쪽 허리의 짐승 발 모양 나무판 한 쌍이 읽힌다.",
+        "weapon": "오른손의 짧은 창 한 자루",
+        "equipment": ["오른손: 짧은 창 1자루", "왼손: 흔적 지우는 작은 솔 1개", "오른쪽 허리: 끈으로 묶은 짐승 발 모양 나무판 2개"],
+        "costume": "낡은 조선계 무명옷과 무릎 길이 숲색 망토. 검푸른 염료는 소량의 얼룩으로 제한한다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 오른손 창, 왼손 솔, 오른쪽 허리 나무판 한 쌍이 겹치지 않게 보인다.",
         "visualKeywords": [
             "forest_cloak",
             "trace_brush",
             "false_beast_track"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["성인 한국인 산채 정찰병", "오른손 짧은 창 1자루와 왼손 작은 솔 1개", "오른쪽 허리 짐승 발 모양 나무판 2개"], "prohibitedElements": ["닌자·사무라이·중국 무협 정찰병으로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "장창·총·추가 발판 또는 추가 솔"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
     "combat": {
         "roleIntent": "직접 화력보다 매복 전조와 교란을 담당하는 약한 정찰형 적",
         "preferredRange": "melee_extended",

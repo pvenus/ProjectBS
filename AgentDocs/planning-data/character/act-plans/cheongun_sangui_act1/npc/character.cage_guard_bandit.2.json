@@ -18,12 +18,29 @@
     },
     "appearance": {
         "silhouette": "아이들을 가둔 우리 앞을 막는 덩치 큰 산적, 방패와 몽둥이",
+        "body": "크고 두꺼운 몸통과 낮은 무게중심의 성인 산적 방어병.",
+        "face": "넓은 턱과 눌린 코의 익명 산적 얼굴, 실존 인물의 초상을 재현하지 않는다.",
+        "costume": "누빈 회갈색 천 갑옷 한 벌과 바랜 남색 바지, 왼쪽 어깨의 덧댄 가죽판 1장.",
+        "equipment": "왼팔에 둥근 낡은 목제 방패 1개; 허리 뒤 작은 열쇠고리에는 쇠 열쇠 2개.",
+        "weapon": "오른손의 굵고 짧은 나무 몽둥이 1개.",
+        "handedness": "왼팔 방패 1개, 오른손 몽둥이 1개를 낮게 들고 선다.",
+        "palette": "회갈색 누비천, 바랜 남색, 탁한 목재 갈색, 소량의 녹슨 회색.",
+        "materials": "거친 열린 먹선과 저밀도 파스텔·수채 mass; 나뭇결·금속 녹의 미세 텍스처 생략.",
+        "identifyingFeatures": "왼팔 둥근 목제 방패, 오른손 몽둥이, 허리 뒤 열쇠 정확히 2개.",
         "visualKeywords": [
             "human",
             "bandit",
             "defense"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {
+        "readiness":"ready","assetRole":"MAIN","expressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+        "identityConsistencyLock":{"identityId":"character.cage_guard_bandit.2","sourcePointers":["/appearance/body","/appearance/face","/appearance/costume","/appearance/equipment","/appearance/weapon","/appearance/handedness","/appearance/palette","/appearance/materials","/appearance/identifyingFeatures"]},
+        "requiredElements":["덩치 큰 성인 방어병 전신의 near-front 3/4 중립 자세.","왼팔 둥근 목제 방패 1개, 오른손 나무 몽둥이 1개.","허리 뒤 열쇠고리의 쇠 열쇠 정확히 2개.","거칠고 저밀도인 ProjectBS open ink/mok-seon과 넓은 pastel mass."],
+        "prohibitedElements":["타 문화권 갑옷·방패 치환","실존 역사 인물 재현","추가 무기·방패·열쇠","scene/floor/shadow/halo/gradient/texture","alpha/transparent/checkerboard","foreground exact #00FF00"],
+        "singleImageSpecification":{"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},
+        "executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    }},
     "combat": {
         "roleIntent": "목표물 보호/방해형 방어 적",
         "preferredRange": "melee",

@@ -20,11 +20,25 @@
     "appearance": {
         "silhouette": "여러 겹의 낡은 옷을 꿰맨 두꺼운 천 갑옷과 붉은 손자국 문양을 가진 거구",
         "weapon": "큰 몽둥이",
+        "visualIdentity": "넓고 둔중한 체격의 성인 한국인 산채 문지기. 여러 겹의 누비옷과 꿰맨 천 갑옷, 가슴 중앙의 붉은 손자국 하나로 좁은 출구를 몸으로 막는 방어형 적임을 즉시 읽힌다.",
+        "equipmentLock": "큰 나무 몽둥이 정확히 1개를 screen-right 손에 세워 쥔다. screen-left 손은 비워 둔다. 붉은 손자국은 가슴 중앙에 정확히 1개이며 방패, 검, 활, 투구는 없다.",
         "visualKeywords": [
             "padded_cloth_armor",
             "red_hand_mark",
             "door_blocker"
         ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.hut_blocker_guard.2", "usage": "MAIN", "publicationState": "local_unpublished"},
+            "readiness": "ready_for_generation",
+            "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour with broken dry-brush variation", "color": "restrained low-density pastel wash; preserve clear material separation"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body guard stance, head-to-toe, both feet and all equipment visible", "framing": "centered full figure with safe empty margins; no crop"},
+            "requiredElements": ["성인 한국인 산채 문지기의 넓고 둔중한 체격", "여러 겹의 낡은 누비옷과 꿰맨 두꺼운 천 갑옷", "가슴 중앙의 붉은 손자국 정확히 1개", "screen-right 손의 큰 나무 몽둥이 정확히 1개", "빈 screen-left 손"],
+            "prohibitedElements": ["장비 좌우 반전 또는 장비 수량 변경", "방패, 검, 활, 투구 추가", "타 문화권 복식이나 무기", "실존 역사 인물의 얼굴, 초상, 자세, 복식 재현", "과도하게 정교하거나 고밀도인 렌더링"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        }
     },
     "combat": {
         "roleIntent": "좁은 문과 탈출로를 막는 중형 방어 적",

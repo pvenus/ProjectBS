@@ -18,14 +18,18 @@
         ]
     },
     "appearance": {
-        "silhouette": "검은 겉옷 위 낡은 비늘 갑옷을 걸치고 붉은 실에 짐승 발톱 세 개를 단 우두머리",
-        "weapon": "장검",
+        "silhouette": "검은 겉옷 위에 낡은 비늘 갑옷을 걸친 다부진 성인 한국인 산채 우두머리. 오른손 장검 한 자루와 왼쪽 가슴에 붉은 실로 매단 짐승 발톱 세 개가 읽힌다.",
+        "weapon": "오른손의 장검 한 자루",
+        "equipment": ["오른손: 장검 1자루", "왼쪽 가슴: 붉은 실에 매단 짐승 발톱 3개", "몸통: 낡은 비늘 갑옷 1벌"],
+        "costume": "검은 조선계 겉옷과 낡고 불완전한 무광 비늘 갑옷. 왕실·정규군 장식은 없다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 장검은 아래로 낮춰 들고 왼쪽 가슴의 발톱 세 개를 가리지 않는다.",
         "visualKeywords": [
             "scale_armor",
             "red_thread_claws",
             "training_ground_leader"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["다부진 성인 한국인 산채 우두머리", "오른손 장검 1자루", "왼쪽 가슴 붉은 실의 짐승 발톱 정확히 3개와 낡은 비늘 갑옷"], "prohibitedElements": ["사무라이·중국 장군·서양 기사로 치환", "실존 장군·역사 인물의 얼굴이나 갑주 재현", "왕실 문양·정규군 갑주·추가 검이나 발톱"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
     "combat": {
         "roleIntent": "파티 완성 직후 등장하는 소형 리더. 포위망의 중심 압박을 담당한다.",
         "preferredRange": "melee",

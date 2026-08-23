@@ -18,12 +18,72 @@
         ]
     },
     "appearance": {
-        "silhouette": "긴 머리를 붉은 끈으로 묶고 아이 손바닥만 한 천 조각과 작은 방울 주술패를 흔드는 의식 담당",
-        "weapon": "방울 주술패",
+        "silhouette": "긴 머리를 붉은 끈으로 낮게 묶은 마른 성인 한국인 의식 담당. 오른손의 작은 방울 주술패 한 개와 왼쪽 허리의 아이 손바닥 크기 천 조각 세 장이 읽힌다.",
+        "weapon": "오른손에 쥔 작은 방울 주술패 한 개",
+        "equipment": ["오른손: 작은 방울 주술패 1개", "왼쪽 허리: 붉은 끈에 매단 아이 손바닥 크기 천 조각 3장"],
+        "costume": "해진 조선계 무명 저고리와 바지, 짧은 어두운 덧옷. 무광 천과 낡은 황동만 사용한다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 양발을 보이고 오른손 방울패와 왼쪽 허리 천 조각을 가리지 않는다.",
         "visualKeywords": [
             "ritual_bell",
             "red_hair_tie",
             "child_cloth_tags"
+        ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["성인 한국인 의식 지원 적", "오른손 방울 주술패 1개", "왼쪽 허리 천 조각 3장과 붉은 머리끈"], "prohibitedElements": ["일본 무녀·신토 장식·중국 도사 복식으로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "추가 방울·부적·무기"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}},
+        "acceptedMainReference": {
+            "path": "C:/Users/parkv/.codex/generated_images/01a02d99-79ef-7512-b4bb-1fdb29d1558d/exec-ac82a682-3277-491a-8c81-3bc8b4e20d85.png",
+            "role": "identity_equipment_costume_sparse_open_ink_style_authority_only",
+            "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.ritual_bell_handler.2.attack.bell_charm_throw.one_shot.v1",
+                "action": "ATTACK",
+                "playback": {"frameCount": 8, "durationsMs": [180, 110, 90, 80, 70, 100, 140, 180], "loop": false},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": [
+                    "f0 grounded ready: bell plaque remains in anatomical RIGHT hand; exactly three cloth tags remain tied at anatomical LEFT waist",
+                    "f1 selection: anatomical LEFT hand reaches to the three existing waist tags; lower body compresses without root drift",
+                    "f2 load: LEFT hand cleanly removes exactly one existing tag, leaving exactly two tied at the waist; torso counter-rotates while RIGHT-hand bell stays controlled",
+                    "f3 cast preparation: grounded hip-to-ribcage turn carries the selected tag screen-right; no duplicate tag or new equipment",
+                    "f4 release boundary: selected tag leaves the character sprite and becomes gameplay-projectile responsibility; show no flying charm, projectile trail, or loose duplicate; exactly two tags remain at waist",
+                    "f5 controlled bell-and-torso follow-through: RIGHT hand keeps the one bell plaque, feet readable, no second attack",
+                    "f6 recovery: weight returns over the root; no loose tag in either hand and exactly two remain attached",
+                    "f7 ready-transition end: calm compatible recovery with bell retained and no loose projectile; gameplay state may restore the canonical third waist tag only when returning to idle, never as an in-sequence pop"
+                ],
+                "styleEffects": "sparse body-attached broken black/navy dry-brush echoes and coarse muted-red/gray pastel accents only during f3-f5; no magic, aura, detached VFX, clean vector swoosh, or cell crossing",
+                "equipmentLocks": ["exactly one bell ritual plaque remains in anatomical RIGHT hand", "three canonical cloth tags begin at anatomical LEFT waist; only one selected tag may transition to projectile ownership", "one low red hair tie", "no added weapon, bell, tag, talisman, or cultural substitute"],
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.ritual_bell_handler.2.movement.running.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 8, "durationsMs": [140, 120, 110, 130, 140, 120, 110, 130], "loop": true},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct up/extension", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct up/extension flowing into f0"],
+                "motion": "slow practical screen-right ritual-support run consistent with movement scale 0.75; compact strides, grounded push-off, pelvis compression and ribcage counter-rotation; no martial sprint or sliding torso",
+                "equipmentLocks": ["exactly one bell plaque secured in anatomical RIGHT hand", "exactly three cloth tags secured at anatomical LEFT waist", "one red hair tie", "no hand swap, mirror, duplication, detachment, dragging, or new equipment"],
+                "styleEffects": "restrained body-attached broken ink echoes behind feet, coat and tags; no attack arc, charm projectile, magic, detached speed trail, floor cloud, or neighboring-cell effect",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.ritual_bell_handler.2.idle.ritual_ready.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 6, "durationsMs": [220, 180, 200, 220, 180, 200], "loop": true},
+                "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 neutral ritual-support ready", "f1 shallow inhale and tiny shoulder rise", "f2 weight settles toward support foot while bell remains quiet", "f3 exhale with minute coat and tag lag", "f4 attentive beast-agitation readiness without activating the skill", "f5 cloth and hair-tie settle cleanly into f0"],
+                "motion": "living but restrained support idle: subtle ribs, knees, gaze, bell-hand settling and delayed cloth-tag response; both feet planted; no attack anticipation or ritual activation",
+                "equipmentLocks": ["exactly one bell plaque in anatomical RIGHT hand", "exactly three cloth tags at anatomical LEFT waist", "one red hair tie", "no ringing duplication, loose tag, hand swap, mirror, detachment, or new equipment"],
+                "styleEffects": "almost none; at most tiny body-attached broken settling marks, absent by f5; no aura, magic, persistent glow, floor effect, or neighboring fragment",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
         ]
     },
     "combat": {

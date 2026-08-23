@@ -18,11 +18,37 @@
     },
     "appearance": {
         "silhouette": "찢어진 아이 옷감과 차가운 안개가 얽힌 작은 원혼",
+        "body": "성인이 아니라 죽은 아이의 기억으로 읽히는 왜소하고 가벼운 반투명 원혼 체형; 실제 역사 인물의 얼굴이나 초상을 재현하지 않는다.",
+        "face": "눈동자를 세밀하게 묘사하지 않은 흐릿한 어린 얼굴, 입가에는 한 줄의 차가운 숨 먹선만 남긴다.",
+        "costume": "조선 산촌 아이의 소박한 저고리와 짧은 바지에서 유래한 찢어진 옷감 한 벌; 특정 실존 인물이나 타 문화권 장례복으로 치환하지 않는다.",
+        "equipment": "장신구와 휴대 도구 없음(0개); 몸 둘레의 안개는 장비가 아니라 원혼 형상 일부다.",
+        "weapon": "손에 든 물리 무기 없음(0개); 차가운 속삭임은 입과 가슴 앞의 옅은 먹 번짐으로만 암시한다.",
+        "handedness": "양손 모두 비어 있고 몸 옆에 자연스럽게 내려둔다.",
+        "palette": "먹빛 회청색과 바랜 청록 한 덩어리, 아주 적은 탁한 보라; 발광 네온과 선명한 적색 금지.",
+        "materials": "거친 열린 먹선, 성긴 파스텔과 수채 번짐; 안개 가장자리는 낮은 밀도로 끊기되 배경과 구분된다.",
+        "identifyingFeatures": "찢어진 왼쪽 소매, 오른쪽 무릎 아래에서 끊기는 옷자락, 가슴 앞 한 줄의 차가운 숨 먹자국.",
         "visualKeywords": [
             "spirit",
             "ranged",
             "ambush"
         ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "readiness": "ready",
+            "assetRole": "MAIN",
+            "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+            "identityConsistencyLock": {"identityId": "character.abandoned_shrine_wraith.2", "sourcePointers": ["/appearance/body", "/appearance/face", "/appearance/costume", "/appearance/equipment", "/appearance/weapon", "/appearance/handedness", "/appearance/palette", "/appearance/materials", "/appearance/identifyingFeatures"]},
+            "requiredElements": [
+                "왜소한 아이 원혼 전신을 near-front 3/4 중립 자세로 머리부터 발끝까지 한 번만 보여준다.",
+                "양손은 비어 있어야 하며 물리 무기와 장신구는 각각 정확히 0개다.",
+                "찢어진 왼쪽 소매, 오른쪽 무릎 아래의 끊긴 옷자락, 가슴 앞 차가운 숨 먹자국을 유지한다.",
+                "ProjectBS식 거칠고 저밀도인 open ink/mok-seon과 소수의 넓은 pastel/watercolor mass를 사용한다."
+            ],
+            "prohibitedElements": ["타 문화권 유령·장례복 치환", "실존 역사 인물의 얼굴 또는 초상 재현", "추가 무기·장신구·소품", "장면·바닥·그림자·후광·그라디언트·텍스처", "alpha·투명 배경·checkerboard", "foreground 내부의 exact #00FF00"],
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "output": "one opaque RGB PNG master", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body pose", "framing": "head-to-toe, no crop, one character only", "generationBackground": {"mode": "removable_solid", "color": "#00FF00", "uniformity": "perfectly uniform edge-to-edge outside foreground"}, "finalBackgroundPolicy": "opaque_chroma_master", "noShadow": true, "noScene": true, "noFloor": true, "noHalo": true, "noGradient": true, "noTexture": true, "foregroundExactBackgroundColorForbidden": true},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        }
     },
     "combat": {
         "roleIntent": "사당 이후 등장하는 약한 원혼형 원거리/교란 적",

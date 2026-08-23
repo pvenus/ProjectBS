@@ -18,10 +18,84 @@
     },
     "appearance": {
         "silhouette": "검은 천으로 얼굴을 가린 산채 습격자, 규격화된 칼과 가죽 갑옷",
+        "body": "보통 키의 마른 성인 산적 체형, 민첩하지만 영웅적으로 과장하지 않는다.",
+        "face": "검은 천 복면이 코와 입을 가리고 두 눈만 보이는 익명 얼굴; 실존 인물의 초상을 재현하지 않는다.",
+        "costume": "빛바랜 먹갈색 산촌 작업복 한 벌 위에 낡은 가죽 흉갑 한 벌, 검은 천 복면 하나.",
+        "equipment": "왼쪽 허리에 작은 납작 가죽 주머니 1개, 등짐·방패·추가 장비 없음.",
+        "weapon": "오른손에 장식 없는 짧은 외날칼 1자루; 칼집은 왼쪽 허리에 1개.",
+        "handedness": "오른손이 칼 1자루를 아래로 들고 왼손은 비어 있다.",
+        "palette": "먹검정 복면, 탁한 갈색 가죽, 바랜 회청색 천, 작은 황토색 수선점.",
+        "materials": "거친 열린 먹선, 성긴 파스텔·수채 덩어리; 가죽과 천의 미세 질감은 생략한다.",
+        "identifyingFeatures": "눈 아래로 비스듬한 복면 주름 하나, 오른쪽 흉갑 가장자리의 밝은 수선 끈 두 땀.",
         "visualKeywords": [
             "human",
             "bandit",
             "melee"
+        ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "readiness": "ready", "assetRole": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+            "identityConsistencyLock": {"identityId": "character.black_cloth_raider.1", "sourcePointers": ["/appearance/body", "/appearance/face", "/appearance/costume", "/appearance/equipment", "/appearance/weapon", "/appearance/handedness", "/appearance/palette", "/appearance/materials", "/appearance/identifyingFeatures"]},
+            "requiredElements": ["성인 산적 전신을 near-front 3/4 중립 자세로 머리부터 발끝까지 한 번만 보여준다.", "오른손 짧은 외날칼 정확히 1자루, 왼쪽 허리 칼집 1개와 가죽 주머니 1개, 왼손은 비워 둔다.", "검은 천 복면 1개와 낡은 가죽 흉갑 1벌의 단순한 실루엣을 유지한다.", "ProjectBS식 거칠고 저밀도인 open ink/mok-seon과 소수의 넓은 pastel/watercolor mass를 사용한다."],
+            "prohibitedElements": ["타 문화권 갑옷·무기·복면 치환", "실존 역사 인물의 얼굴 또는 초상 재현", "추가 무기·방패·등짐", "장면·바닥·그림자·후광·그라디언트·텍스처", "alpha·투명 배경·checkerboard", "foreground 내부의 exact #00FF00"],
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "output": "one opaque RGB PNG master", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body pose", "framing": "head-to-toe, no crop, one character only", "generationBackground": {"mode": "removable_solid", "color": "#00FF00", "uniformity": "perfectly uniform edge-to-edge outside foreground"}, "finalBackgroundPolicy": "opaque_chroma_master", "noShadow": true, "noScene": true, "noFloor": true, "noHalo": true, "noGradient": true, "noTexture": true, "foregroundExactBackgroundColorForbidden": true},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        },
+        "acceptedMainReference": {
+            "path": "C:/Users/parkv/.codex/generated_images/01a02da3-4b7a-7c93-a3af-00bae62ea2e1/exec-8b5ee3eb-d577-4a2c-89a3-870faa363882.png",
+            "role": "identity_equipment_costume_sparse_open_ink_style_authority_only",
+            "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.black_cloth_raider.1.attack.black_knife_cut.one_shot.v1",
+                "action": "ATTACK",
+                "playback": {"frameCount": 8, "durationsMs": [150, 90, 70, 60, 70, 100, 130, 170], "loop": false},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": [
+                    "f0 low melee ready, RIGHT hand holds the single short blade downward, LEFT hand empty",
+                    "f1 compact knee compression and short forward foot set without root translation",
+                    "f2 pelvis and ribcage coil while the blade chambers close to the body, never behind the back",
+                    "f3 grounded unwind begins from hips through torso and shoulder",
+                    "f4 single decisive front-facing diagonal cut impact, full blade visible and support foot planted",
+                    "f5 bounded follow-through with no second swing",
+                    "f6 weight recovers over the fixed root and blade returns under control",
+                    "f7 neutral compatible ready end, LEFT hand still empty"
+                ],
+                "motion": "one readable close-range black-knife cut derived from the existing basic skill; connected full-body weight transfer, not arm-only flailing",
+                "equipmentLocks": ["exactly one undecorated short single-edged blade in anatomical RIGHT hand", "exactly one scabbard at anatomical LEFT waist", "exactly one small flat leather pouch at anatomical LEFT waist", "anatomical LEFT hand remains empty", "one black cloth mask and one leather breastplate", "no shield, pack, second weapon, thrown weapon, or equipment duplication"],
+                "styleEffects": "a short body-attached broken black/charcoal dry-brush accent follows the blade only at f3-f5; sparse muted blue-gray/ochre pastel pressure at the planted foot; no magic, aura, detached trail, clean vector swoosh, or cell crossing",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.black_cloth_raider.1.movement.running.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 8, "durationsMs": [110, 100, 90, 100, 110, 100, 90, 100], "loop": true},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct airborne/up extension", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct airborne/up extension closing into f0"],
+                "motion": "agile screen-right bandit run at normal movement scale 1.0 with true alternating contacts, compact forward lean, planted push-off, knee drive and ribcage counter-rotation; game root remains fixed",
+                "equipmentLocks": ["single short blade remains controlled in anatomical RIGHT hand and never swaps sides", "single scabbard and single pouch remain at anatomical LEFT waist", "LEFT hand remains free for balance", "mask and breastplate remain fixed", "no mirror, duplication, detachment, pack, or shield"],
+                "styleEffects": "restrained body-attached broken ink echoes behind feet and clothing at push-off only; no attack arc, detached speed trail, floor cloud, magic, or neighboring-cell effect",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.black_cloth_raider.1.idle.masked_ready.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 6, "durationsMs": [190, 170, 180, 190, 170, 180], "loop": true},
+                "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 low alert ready", "f1 shallow inhale with tiny shoulder rise", "f2 subtle weight shift through hips and knees", "f3 exhale while the blade hand settles", "f4 brief screen-right threat scan without turning away", "f5 mask cloth and clothing settle cleanly into f0"],
+                "motion": "restrained living melee idle with both feet planted, subtle breathing, gaze and blade-hand settling; not an attack wind-up or ceremonial pose",
+                "equipmentLocks": ["exactly one blade in anatomical RIGHT hand", "exactly one scabbard and one pouch at anatomical LEFT waist", "LEFT hand empty", "one mask and one leather breastplate", "no mirror, hand swap, duplication, detachment, shield, or pack"],
+                "styleEffects": "almost none; at most tiny body-attached broken settling marks that disappear by f5; no aura, persistent glow, floor mark, or neighboring fragment",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
         ]
     },
     "combat": {

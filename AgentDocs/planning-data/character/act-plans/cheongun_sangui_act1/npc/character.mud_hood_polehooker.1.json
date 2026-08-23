@@ -20,11 +20,23 @@
     "appearance": {
         "silhouette": "진흙이 굳은 검은 두건을 쓰고 등에는 짐승 우리 쇠고리를 단 장대꾼",
         "weapon": "긴 장대와 갈고리",
+        "visualIdentity": "구부정하고 팔다리가 긴 성인 한국인 산채 포획꾼. 굳은 진흙이 묻은 검은 두건, 긴 장대 끝 갈고리, 등에 맨 짐승 우리용 쇠고리로 사거리 제어 역할을 읽힌다.",
+        "equipmentLock": "긴 나무 장대 정확히 1개, 장대 끝 쇠갈고리 정확히 1개다. screen-right 손이 장대 아래쪽을 주도하고 screen-left 손이 중간을 보조한다. 짐승 우리용 쇠고리는 screen-left 등끈에 정확히 2개이며 검, 활, 방패는 없다.",
         "visualKeywords": [
             "mud_hood",
             "pole_hook",
             "captor"
         ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.mud_hood_polehooker.1", "usage": "MAIN", "publicationState": "local_unpublished"}, "readiness": "ready_for_generation", "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour with dry-brush breaks", "color": "restrained low-density mud-brown and soot-black pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body reach-control stance, pole held diagonally but entirely inside canvas", "framing": "head-to-toe plus complete hook and pole with safe empty margins; no crop"},
+            "requiredElements": ["성인 한국인 산채 포획꾼의 구부정하고 긴 체형", "굳은 진흙이 묻은 검은 두건", "screen-right 주손과 screen-left 보조손의 긴 나무 장대 정확히 1개", "장대 끝 쇠갈고리 정확히 1개", "screen-left 등끈의 쇠고리 정확히 2개"],
+            "prohibitedElements": ["장비 좌우 반전, 증식, 누락", "검, 활, 방패 또는 사슬낫 추가", "우리, 짐승, 포획 장면", "타 문화권 복식이나 무기로 치환", "실존 역사 인물 재현", "갈고리나 장대 crop"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        }
     },
     "combat": {
         "roleIntent": "아이 보호/탈출 전투에서 긴 사거리로 접근을 방해하는 포획형 적",

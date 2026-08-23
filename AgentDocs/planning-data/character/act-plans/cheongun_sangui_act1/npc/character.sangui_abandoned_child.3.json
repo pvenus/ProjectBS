@@ -17,13 +17,17 @@
         ]
     },
     "appearance": {
-        "silhouette": "흙과 피로 더럽혀진 아이 형상, 차가운 산안개와 붉은 제사 흔적을 두른 보스",
+        "silhouette": "흙과 마른 피로 더럽혀진 성별을 특정하지 않는 어린아이 형상의 산귀. 맨발과 짧게 찢긴 무명옷, 몸 주변에 붙어 흐르는 차가운 산안개 한 겹과 제한된 붉은 제사 흔적이 보스 정체성을 만든다.",
+        "equipment": ["손에 든 무기 없음", "목이나 허리에 장신구 없음", "몸 주변 산안개 1겹과 붉은 제사 흔적만 허용"],
+        "costume": "시대 불명의 판타지 드레스가 아닌 낡고 짧은 조선계 무명옷 한 벌. 흙과 마른 피는 낮은 밀도의 얼룩으로만 표현한다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 작은 맨발 두 개와 양손을 모두 보이며 공격 동작 없이 불안하게 선다.",
         "visualKeywords": [
             "spirit",
             "boss",
             "grudge"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["어린아이 형상의 비실존 산귀 보스", "맨발 두 개와 빈손 두 개", "산안개 한 겹과 제한된 붉은 제사 흔적"], "prohibitedElements": ["특정 실존 아동이나 역사 인물의 초상 재현", "일본 요괴·중국 강시·서양 유령으로 치환", "고어 절단·노골적 상처·추가 무기나 장신구"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to bare feet and all spirit marks visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
     "combat": {
         "roleIntent": "버려짐의 원한을 폭주시키는 Act 보스",
         "preferredRange": "melee",

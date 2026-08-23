@@ -18,13 +18,82 @@
     },
     "appearance": {
         "silhouette": "뜯어낸 문짝 방패 뒤로 몸을 숨기고 팔에 낡은 붕대를 감은 산적 방어병",
+        "body": "보통 키지만 두꺼운 몸통과 낮은 무게중심의 성인 방어병 체형.",
+        "face": "거친 수염 자국이 조금 남은 익명 산적 얼굴; 실존 인물의 얼굴이나 초상을 재현하지 않는다.",
+        "costume": "바랜 회청색 작업복 한 벌, 오른쪽 팔뚝의 낡은 붕대 한 묶음.",
+        "equipment": "왼팔에 세로로 든 뜯어낸 좁은 나무 문짝 방패 1개; 방패 바깥면에 흰 눈 모양 먹표식 1개.",
         "weapon": "문짝 방패와 몽둥이",
+        "handedness": "왼팔에 문짝 방패 1개, 오른손에 짧은 나무 몽둥이 1개를 낮게 든다.",
+        "palette": "탁한 목재 갈색, 바랜 회청색, 먹검정, 표식의 작은 탁한 회백색.",
+        "materials": "거친 열린 먹선과 저밀도 파스텔·수채 mass; 문짝 나뭇결과 못은 미세 묘사하지 않는다.",
+        "identifyingFeatures": "세로 문짝 방패의 흰 눈 표식 정확히 1개, 오른쪽 팔뚝 붕대, 짧은 몽둥이.",
         "visualKeywords": [
             "door_shield",
             "bandaged_arm",
             "white_eye_mark"
         ]
     },
+    "generatedMediaPlanning":{"characterSingleImage":{
+        "readiness":"ready","assetRole":"MAIN","expressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","identityConsistencyLock":{"identityId":"character.door_shield_barricader.1","sourcePointers":["/appearance/body","/appearance/face","/appearance/costume","/appearance/equipment","/appearance/weapon","/appearance/handedness","/appearance/palette","/appearance/materials","/appearance/identifyingFeatures"]},
+        "requiredElements":["낮은 무게중심의 성인 방어병 전신을 가리지 않는 near-front 3/4 중립 자세.","왼팔 세로 문짝 방패 정확히 1개, 오른손 짧은 나무 몽둥이 1개.","방패 바깥면 흰 눈 모양 표식 정확히 1개와 오른쪽 팔뚝 붕대.","거칠고 저밀도인 ProjectBS open ink/mok-seon과 넓은 pastel mass."],
+        "prohibitedElements":["타 문화권 갑옷·방패 치환","실존 역사 인물 재현","추가 방패·몽둥이·문짝 부품","scene/floor/shadow/halo/gradient/texture","alpha/transparent/checkerboard","foreground exact #00FF00"],
+        "singleImageSpecification":{"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},"executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    },
+    "acceptedMainReference": {
+        "path": "C:/Users/parkv/.codex/generated_images/01a02db8-ac01-71c3-9388-bb6bac0fe26e/exec-328fda84-562e-486a-b085-483edd628bf1.png",
+        "role": "identity_equipment_costume_sparse_open_ink_style_authority_only",
+        "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+    },
+    "animationRequests": [
+        {
+            "animationRequestId": "character.door_shield_barricader.1.attack.shield_bash.one_shot.v1",
+            "action": "ATTACK",
+            "playback": {"frameCount": 8, "durationsMs": [220, 160, 130, 100, 90, 140, 190, 240], "loop": false},
+            "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+            "phases": [
+                "f0 low barricade ready with vertical door shield on anatomical LEFT arm and club low in RIGHT hand",
+                "f1 deep grounded compression behind the shield",
+                "f2 short support-foot set and pelvis load without root translation",
+                "f3 torso drives the single door shield forward while the club remains controlled",
+                "f4 one heavy frontal shield-bash impact with minor knockback read",
+                "f5 brief forward hold, no second bash and no club strike",
+                "f6 shield retracts as knees absorb force",
+                "f7 stable barricade-ready recovery"
+            ],
+            "motion": "slow defensive melee shield bash derived from the existing skill; connected foot, knee, pelvis, torso and LEFT-shoulder drive, never an arm-only shove",
+            "equipmentLocks": ["exactly one narrow vertical reclaimed wooden door shield on anatomical LEFT arm", "exactly one white eye-shaped ink mark on the shield outer face", "exactly one short wooden club in anatomical RIGHT hand", "exactly one bandage bundle on anatomical RIGHT forearm", "no additional shield, club, door part, weapon, armor, or equipment duplication"],
+            "styleEffects": "short heavy broken black/brown dry-brush pressure attached to the shield edge at f3-f5 and sparse dusty gray-blue/ochre grounded pastel compression; no magic, aura, detached impact object, clean vector burst, or cell crossing",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        },
+        {
+            "animationRequestId": "character.door_shield_barricader.1.movement.barricade_advance.loop.v1",
+            "action": "MOVEMENT",
+            "playback": {"frameCount": 8, "durationsMs": [190, 170, 160, 180, 190, 170, 160, 180], "loop": true},
+            "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true, "maxCompressionPx": 8},
+            "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct guarded up phase", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct guarded up phase closing into f0"],
+            "motion": "very slow screen-right barricade advance at movement scale 0.5: short heavy steps, low center of gravity, planted push-off and stable shield coverage; game root fixed, no camera pan or shield-first sliding",
+            "equipmentLocks": ["single vertical door shield remains on anatomical LEFT arm with one eye mark outward", "single short club remains low in anatomical RIGHT hand", "one RIGHT-forearm bandage bundle", "no hand swap, whole-body mirror, duplication, detachment, extra door part, or new equipment"],
+            "styleEffects": "minimal body-attached broken ink pressure under planted steps and tiny shield/clothing lag; no attack burst, detached trail, floor cloud, magic, or neighboring-cell effect",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        },
+        {
+            "animationRequestId": "character.door_shield_barricader.1.idle.barricade_guard.loop.v1",
+            "action": "IDLE",
+            "playback": {"frameCount": 6, "durationsMs": [260, 220, 240, 260, 220, 240], "loop": true},
+            "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+            "phases": ["f0 low planted barricade guard", "f1 shallow inhale behind shield", "f2 small knee and hip weight settle without moving the root", "f3 exhale as club hand lowers a fraction", "f4 brief screen-right defensive focus while shield stays vertical", "f5 shield, sleeve and bandage settle cleanly into f0"],
+            "motion": "restrained living front-defender idle with both feet planted and continuous shield coverage; not an attack wind-up, walking-in-place, or ceremonial display",
+            "equipmentLocks": ["one vertical door shield on anatomical LEFT arm", "one white eye mark on shield face", "one club in anatomical RIGHT hand", "one RIGHT-forearm bandage bundle", "no mirror, hand swap, duplication, disappearance, detachment, or extra equipment"],
+            "styleEffects": "almost none; at most tiny body-attached broken settling marks that vanish by f5; no aura, glow, floor effect, magic, or neighboring fragment",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        }
+    ]},
     "combat": {
         "roleIntent": "주민 보호전과 수련장 포위전에서 전열을 막는 저등급 방어 적",
         "preferredRange": "melee",

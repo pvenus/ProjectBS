@@ -18,14 +18,18 @@
         ]
     },
     "appearance": {
-        "silhouette": "검댕을 얼굴에 바르고 낡은 수련복 조각과 목검 장식을 단 경량 산적",
-        "weapon": "짧은 칼",
+        "silhouette": "눈 아래에 검댕을 바른 가벼운 성인 한국인 산적. 오른손 짧은 칼 한 자루와 왼쪽 허리에 장식으로 묶은 부러진 목검 조각 한 개, 낡은 수련복 조각이 읽힌다.",
+        "weapon": "오른손의 짧은 칼 한 자루",
+        "equipment": ["오른손: 짧은 칼 1자루", "왼쪽 허리: 장식용 부러진 목검 조각 1개"],
+        "costume": "가벼운 조선계 무명옷 위에 낡은 수련복 조각을 덧댄 복장. 갑옷과 지휘관 장식은 없다.",
+        "posePolicy": "정면에 가까운 3/4 전신 중립 자세. 짧은 칼은 아래로 두고 왼쪽 허리 목검 조각과 양발을 보인다.",
         "visualKeywords": [
             "old_training_cloth",
             "charcoal_face",
             "short_blade"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["가벼운 성인 한국인 산채 매복병", "오른손 짧은 칼 1자루", "왼쪽 허리 부러진 목검 조각 1개와 눈 아래 검댕"], "prohibitedElements": ["닌자·사무라이·중국 무협 인물로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "완전한 목검·장검·쌍검·갑옷 추가"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
     "combat": {
         "roleIntent": "낡은 수련장 엄폐 사이를 빠르게 드나드는 경량 근접 매복병",
         "preferredRange": "melee",

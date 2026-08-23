@@ -18,11 +18,23 @@
     },
     "appearance": {
         "silhouette": "붉은 인형과 부적을 들고 산귀 흉내를 내는 산채 주술 담당",
+        "visualIdentity": "왜소하고 긴장한 성인 한국인 산채 주술 담당. 서툴게 만든 붉은 천 인형과 손글씨 부적을 도구로 삼아 산귀를 흉내 내지만 실제 산귀나 성직자로 보이지 않는 인간 적이다.",
+        "equipmentLock": "붉은 천 인형 정확히 1개를 screen-left 손에 들고, 부적 정확히 3장을 screen-right 손에 부채꼴로 쥔다. 허리의 작은 먹물 호리병은 screen-right에 정확히 1개다. 지팡이, 검, 방울, 가면은 없다.",
         "visualKeywords": [
             "human",
             "ritual",
             "support"
         ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.red_doll_hexer.2", "usage": "MAIN", "publicationState": "local_unpublished"}, "readiness": "ready_for_generation", "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour", "color": "restrained low-density faded red, soot, and paper pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body ritual-ready stance, hands separated so doll and three charms are countable", "framing": "centered head-to-toe with all handheld props visible and safe empty margins; no crop"},
+            "requiredElements": ["왜소한 성인 한국인 인간 산채 주술 담당", "screen-left 손의 서툴게 만든 붉은 천 인형 정확히 1개", "screen-right 손의 손글씨 부적 정확히 3장", "screen-right 허리의 작은 먹물 호리병 정확히 1개", "실제 산귀가 아닌 흉내라는 인상"],
+            "prohibitedElements": ["소품 좌우 반전, 증식, 누락", "지팡이, 검, 방울, 가면 추가", "실제 산귀, 무당, 승려 또는 타 문화권 주술사로 치환", "실존 인물이나 실제 종교 의식 재현", "마법진, 제단, 연기, 광휘, 공격 VFX 장면"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        }
     },
     "combat": {
         "roleIntent": "속도 저하와 공포 분위기로 전열을 흔드는 지원 적",

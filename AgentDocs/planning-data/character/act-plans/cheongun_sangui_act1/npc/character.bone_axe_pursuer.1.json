@@ -19,13 +19,84 @@
     },
     "appearance": {
         "silhouette": "손도끼와 뼈 장식을 매단 검은 천 추격자, 팔에는 산귀 부적을 감아 상처를 가린다",
+        "body": "넓은 어깨와 짧고 단단한 팔다리를 가진 성인 추격자 체형.",
+        "face": "검은 천이 코와 입을 가리고 거칠게 찌푸린 눈만 보이는 익명 얼굴; 실존 인물 재현 금지.",
+        "costume": "먹갈색 작업복 한 벌, 오른쪽 팔뚝의 낡은 붕대 한 묶음과 종이 산귀 부적 1장.",
+        "equipment": "왼쪽 허리끈에 작은 뼈 장식 3개를 한 묶음으로 매달고 다른 장비는 없다.",
         "weapon": "손도끼",
+        "handedness": "오른손에 손도끼 1자루를 아래로 들고 왼손은 비어 있다.",
+        "palette": "먹검정, 탁한 갈색, 뼈빛 회백색, 작은 바랜 적갈색 부적 자국.",
+        "materials": "거친 열린 먹선과 낮은 밀도의 넓은 파스텔·수채 덩어리; 뼈와 금속 미세 질감 생략.",
+        "identifyingFeatures": "왼쪽 허리의 뼈 장식 정확히 3개, 오른쪽 팔뚝 붕대 위 산귀 부적 1장.",
         "visualKeywords": [
             "bone_charm",
             "hand_axe",
             "pursuer"
         ]
     },
+    "generatedMediaPlanning": {"characterSingleImage": {
+        "readiness": "ready", "assetRole": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+        "identityConsistencyLock": {"identityId": "character.bone_axe_pursuer.1", "sourcePointers": ["/appearance/body", "/appearance/face", "/appearance/costume", "/appearance/equipment", "/appearance/weapon", "/appearance/handedness", "/appearance/palette", "/appearance/materials", "/appearance/identifyingFeatures"]},
+        "requiredElements": ["단단한 성인 추격자 전신의 near-front 3/4 중립 자세.", "오른손 손도끼 1자루, 왼손은 비움, 왼쪽 허리 뼈 장식 정확히 3개.", "오른쪽 팔뚝 붕대 한 묶음 위 산귀 부적 정확히 1장.", "거칠고 저밀도인 ProjectBS open ink/mok-seon과 소수의 넓은 pastel mass."],
+        "prohibitedElements": ["타 문화권 전사·주술 장식 치환", "실존 역사 인물 재현", "추가 도끼·뼈·부적·장비", "scene/floor/shadow/halo/gradient/texture", "alpha/transparent/checkerboard", "foreground exact #00FF00"],
+        "singleImageSpecification": {"canvas":{"width":1024,"height":1536},"output":"one opaque RGB PNG master","viewpoint":"near-front three-quarter","pose":"neutral readable full-body pose","framing":"head-to-toe, no crop, one character only","generationBackground":{"mode":"removable_solid","color":"#00FF00","uniformity":"perfectly uniform edge-to-edge outside foreground"},"finalBackgroundPolicy":"opaque_chroma_master","noShadow":true,"noScene":true,"noFloor":true,"noHalo":true,"noGradient":true,"noTexture":true,"foregroundExactBackgroundColorForbidden":true},
+        "executionPolicy":{"submitMax":1,"retryMax":0,"publicationState":"local_unpublished"}
+    },
+    "acceptedMainReference": {
+        "path": "C:/Users/parkv/.codex/generated_images/01a02da8-419c-74b1-b369-72c70440a5e6/exec-d3cce856-4107-4470-b770-7b975cfcaf91.png",
+        "role": "identity_equipment_costume_sparse_open_ink_style_authority_only",
+        "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+    },
+    "animationRequests": [
+        {
+            "animationRequestId": "character.bone_axe_pursuer.1.attack.rough_axe_chop.one_shot.v1",
+            "action": "ATTACK",
+            "playback": {"frameCount": 8, "durationsMs": [180, 130, 110, 90, 80, 120, 160, 200], "loop": false},
+            "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+            "phases": [
+                "f0 broad grounded ready, single hand axe low in anatomical RIGHT hand, LEFT hand empty",
+                "f1 deep knee and hip compression with support foot planted",
+                "f2 torso and pelvis coil while the axe rises close to the body",
+                "f3 deliberate weight transfer begins; shoulders remain compact and both feet readable",
+                "f4 one heavy downward-diagonal axe chop impact at melee range",
+                "f5 bounded low follow-through with no second strike",
+                "f6 hips and knees absorb force while the axe returns under control",
+                "f7 stable ready-compatible recovery"
+            ],
+            "motion": "slow high-force rough axe chop derived from the existing basic skill; power travels from planted feet through hips, ribcage, shoulder and RIGHT arm; never arm-only flailing",
+            "equipmentLocks": ["exactly one hand axe in anatomical RIGHT hand", "anatomical LEFT hand remains empty", "exactly three small bone ornaments bundled at anatomical LEFT waist", "exactly one paper sangui charm over one bandage bundle on anatomical RIGHT forearm", "one black cloth mask", "no additional axe, bone, charm, shield, pack, or equipment duplication"],
+            "styleEffects": "short heavy broken black/charcoal dry-brush impact attached to the axe path at f3-f5 and sparse dusty ochre/gray grounded pastel pressure; no magic, aura, detached trail, clean vector swoosh, screen-filling cloud, or cell crossing",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        },
+        {
+            "animationRequestId": "character.bone_axe_pursuer.1.movement.pursuit_run.loop.v1",
+            "action": "MOVEMENT",
+            "playback": {"frameCount": 8, "durationsMs": [150, 130, 120, 140, 150, 130, 120, 140], "loop": true},
+            "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true, "maxCompressionPx": 8},
+            "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct up/extension", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct up/extension closing into f0"],
+            "motion": "heavy screen-right pursuit run at slow movement scale 0.75: short forceful strides, planted push-off, broad shoulder mass, pelvis compression and ribcage counter-rotation; game root fixed, no camera travel",
+            "equipmentLocks": ["single axe stays controlled in anatomical RIGHT hand", "LEFT hand remains free", "three bone ornaments stay bundled at anatomical LEFT waist", "one charm and one bandage bundle stay on anatomical RIGHT forearm", "no mirror, hand swap, duplication, detachment, shield, or pack"],
+            "styleEffects": "restrained body-attached broken ink echoes behind planted foot, axe hand and bone bundle; sparse grounded pastel pressure only; no attack arc, detached speed trail, magic, floor cloud, or neighboring-cell effect",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        },
+        {
+            "animationRequestId": "character.bone_axe_pursuer.1.idle.bruiser_ready.loop.v1",
+            "action": "IDLE",
+            "playback": {"frameCount": 6, "durationsMs": [240, 200, 220, 240, 200, 220], "loop": true},
+            "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+            "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+            "phases": ["f0 broad low ready", "f1 shallow inhale with upper-back expansion", "f2 small grounded weight shift toward support foot", "f3 exhale as axe hand settles without swinging", "f4 brief screen-right pursuit focus with tiny knee set", "f5 bone bundle, mask cloth and sleeve settle cleanly into f0"],
+            "motion": "restrained living bruiser idle with planted feet, subtle breathing and weight settling; not an attack wind-up, ritual activation, or walking-in-place",
+            "equipmentLocks": ["exactly one axe in anatomical RIGHT hand", "LEFT hand empty", "exactly three bone ornaments at anatomical LEFT waist", "one charm over one bandage bundle on anatomical RIGHT forearm", "one mask", "no mirror, swap, duplication, disappearance, detachment, shield, or pack"],
+            "styleEffects": "almost none; at most tiny body-attached broken settling marks that vanish by f5; no aura, persistent glow, floor effect, or neighboring fragment",
+            "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+            "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+        }
+    ]},
     "combat": {
         "roleIntent": "오두막 방어전에서 일반 습격자보다 묵직하게 밀고 들어오는 근접 압박",
         "preferredRange": "melee",

@@ -20,10 +20,78 @@
     "appearance": {
         "silhouette": "흰 산문양 견갑과 완장을 맞춰 찬 산채 문 앞 창병",
         "weapon": "짧은 창",
+        "visualIdentity": "마른 보통 체격의 성인 한국인 산채 창병. 양쪽 어깨의 흰 산문양 천 견갑 한 쌍과 screen-left 위팔 완장 하나가 문 앞 대형 방어병의 통일 표식이다.",
+        "equipmentLock": "짧은 창 정확히 1개를 screen-right 손에 세워 쥐고 screen-left 손으로 자루를 보조한다. 흰 산문양 견갑은 좌우 정확히 2개, 완장은 screen-left 위팔 정확히 1개다. 방패, 검, 활은 없다.",
         "visualKeywords": [
             "white_mountain_pauldrons",
             "gate_guard",
             "short_spear"
+        ]
+    },
+    "generatedMediaPlanning": {
+        "characterSingleImage": {
+            "assetIdentity": {"assetType": "character_single_image", "contentId": "character.mountain_fort_spearman.1", "usage": "MAIN", "publicationState": "local_unpublished"},
+            "readiness": "ready_for_generation", "executionLimits": {"submitCountMaximum": 1, "retryCountMaximum": 0},
+            "style": {"profile": "ProjectBS rough low-density open-ink mok-seon pastel", "linework": "rough sparse near-black open ink contour", "color": "restrained low-density earth-tone pastel wash"},
+            "singleImageSpecification": {"canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "viewpoint": "near-front three-quarter", "pose": "neutral readable full-body formation-guard stance; spear upright; head, feet, and spear tip fully visible", "framing": "centered complete figure and weapon with safe empty margins; no crop"},
+            "requiredElements": ["성인 한국인 산채 창병", "흰 산문양 천 견갑 정확히 2개", "screen-left 위팔 완장 정확히 1개", "screen-right 주손과 screen-left 보조손으로 잡은 짧은 창 정확히 1개"],
+            "prohibitedElements": ["창 또는 표식 좌우 반전, 증식, 누락", "방패, 검, 활 추가", "서양, 일본, 중국 판타지 병사 치환", "실존 역사 인물의 초상이나 군복 재현", "고밀도 갑주 장식"],
+            "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
+        },
+        "acceptedMainReference": {
+            "path": "C:/Users/parkv/.codex/generated_images/01a02dbf-f7d6-7ee0-be73-3ef414338eef/exec-11e030ce-d931-48d5-9a3b-c342f3495ea2.png",
+            "role": "identity_equipment_markings_sparse_open_ink_style_authority_only",
+            "notAuthorityFor": ["animation pose", "timing", "background pixels", "edit target"]
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.mountain_fort_spearman.1.attack.gate_spear_thrust.one_shot.v1",
+                "action": "ATTACK",
+                "playback": {"frameCount": 8, "durationsMs": [180, 120, 90, 75, 70, 100, 140, 190], "loop": false},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": [
+                    "f0 grounded gate-guard ready with spear upright",
+                    "f1 short stance compression while both hands retain their fixed grip roles",
+                    "f2 spear lowers toward screen-right target line as pelvis and ribcage load",
+                    "f3 support foot plants and torso begins controlled forward drive",
+                    "f4 one decisive straight spear thrust at extended melee range, tip fully inside cell",
+                    "f5 brief extension hold with no second thrust",
+                    "f6 spear retracts along the same line as weight returns",
+                    "f7 upright formation-ready recovery"
+                ],
+                "motion": "single controlled gate-guard spear thrust derived from the basic skill; connected foot, pelvis, torso, shoulder and two-hand shaft control; no arm-only jab or repeated attack",
+                "equipmentLocks": ["exactly one short spear", "screen-right primary hand controls the spear and screen-left support hand remains on the shaft", "exactly two white mountain-mark cloth pauldrons, one per shoulder", "exactly one armband on screen-left upper arm", "no shield, sword, bow, second spear, duplicated marking, or whole-body mirror"],
+                "styleEffects": "short body-attached broken black/charcoal dry-brush compression along the spear line during f3-f5 with sparse earth-tone pastel pressure at planted foot; no projectile, magic, aura, detached trail, clean vector line, or cell crossing",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.mountain_fort_spearman.1.movement.formation_advance.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 8, "durationsMs": [150, 130, 120, 140, 150, 130, 120, 140], "loop": true},
+                "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true, "maxCompressionPx": 8},
+                "phases": ["f0 anatomical LEFT contact", "f1 LEFT compression", "f2 LEFT-to-RIGHT passing", "f3 distinct guarded up phase", "f4 anatomical RIGHT contact opposite f0", "f5 RIGHT compression opposite f1", "f6 RIGHT-to-LEFT passing opposite f2", "f7 distinct guarded up phase closing into f0"],
+                "motion": "slow screen-right formation advance at movement scale 0.75 with measured steps, planted push-off, pelvis compression and stable upright spear control; game root fixed, no camera pan, running sprint or sliding torso",
+                "equipmentLocks": ["single spear remains controlled by screen-right primary hand and screen-left support hand", "two marked pauldrons remain on both shoulders", "single armband remains on screen-left upper arm", "no grip swap, mirror, duplication, detachment, shield, sword, or bow"],
+                "styleEffects": "minimal body-attached broken ink echoes under planted steps and behind cloth edges; no attack streak, detached speed trail, floor cloud, magic, or neighboring-cell effect",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.mountain_fort_spearman.1.idle.formation_guard.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 6, "durationsMs": [230, 190, 210, 230, 190, 210], "loop": true},
+                "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [256, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 upright formation guard", "f1 shallow inhale with slight shoulder rise while spear remains vertical", "f2 small grounded weight shift through hips and knees", "f3 exhale as support hand settles along the shaft", "f4 brief screen-right gate scan without turning or attacking", "f5 pauldrons, armband and clothing settle cleanly into f0"],
+                "motion": "restrained living formation-defender idle with both feet planted and spear controlled; not an attack wind-up, march-in-place, ceremonial pose, or weapon flourish",
+                "equipmentLocks": ["one upright short spear with unchanged two-hand grip sides", "two white mountain pauldrons", "one screen-left upper-arm armband", "no mirror, hand swap, duplication, disappearance, detachment, shield, sword, or bow"],
+                "styleEffects": "almost none; at most tiny body-attached broken settling marks that vanish by f5; no aura, persistent glow, floor effect, magic, or neighboring fragment",
+                "output": {"format": "PNG", "colorMode": "RGB", "alpha": false, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
         ]
     },
     "combat": {
