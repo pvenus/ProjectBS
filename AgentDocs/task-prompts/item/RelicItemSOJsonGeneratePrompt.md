@@ -18,10 +18,11 @@ Input:
 - implementationMappingFile: {projectRoot 기준 승인된 implementation mapping/spec 경로 | null}
 - implementationMapping: {inline 승인된 implementation mapping/spec | null}
 - relicSlug: {lowercase_snake_case_slug}
-- relicJsonRoot: Assets/Resources/item/json
+- relicJsonRoot: Assets/Resources/relic/json
+- retainedSourceJsonRoot: Assets/Resources/item/json
 - legacyRelicRoot: Assets/Resources/shop/relic
 - allowOverwrite: false
-- outputJsonPath: Assets/Resources/item/json/item.relic.{relicSlug}.json
+- outputJsonPath: Assets/Resources/relic/json/item.relic.{relicSlug}.json
 
 Input contract:
 - Provide exactly one planning input: `relicDesignFile` or `relicDesign`.
@@ -50,7 +51,7 @@ Procedure:
 1. Read the approved planning input and extract only design facts: identity intent, nameKo, descriptionKo, rarity/design role, trigger intent, target intent, effect prose, values, units, chance, duration intent, synergy, tradeoff, and open questions.
 2. Read the approved implementation mapping/spec and extract presentation/classification/visibility fields, semantic effect slugs, supported EffectType/config fields, lifetime/category/duration/maxApplyCount, and traceability links.
 3. Validate that each mapping behavior traces to a planning effect sentence or approved decision without inventing missing gameplay choices.
-4. Inventory current item JSON IDs and legacy relic IDs.
+4. Inventory approved current Relic JSON IDs, retained source JSON IDs, and legacy relic IDs.
 5. Compare behavior with existing relics and reject accidental duplicates. Legacy assets are comparison sources only.
 6. Confirm `relicId=item.relic.{relicSlug}` and exact `{relicId}.json` output filename.
 7. Derive Effect/Entry IDs from relicId and the mapping-provided semantic effect slugs.
@@ -84,7 +85,7 @@ Output:
 - Notes:
 
 Validation:
-- outputJsonPath must be exactly `Assets/Resources/item/json/item.relic.{relicSlug}.json`.
+- outputJsonPath must be exactly `Assets/Resources/relic/json/item.relic.{relicSlug}.json`.
 - relicId must be `item.relic.{relicSlug}` and file name must be `{relicId}.json`.
 - rarity must be one of Common, Rare, Epic, Legendary.
 - effectEntries must contain at least one current entry and each entry must contain exactly one complete effect object.
@@ -129,7 +130,8 @@ Failure Output:
 
 Warnings:
 - Relics are items; do not create EquipmentSkill JSON.
+- `Assets/Resources/relic/json/` is the approved current Relic JSON and generated-asset root. Files under `Assets/Resources/item/json/` are retained source evidence and are not the output of this workflow.
 - Existing assets with legacy effects/applyType/numeric effect suffixes are not normalized JSON templates.
 - Report unverified owner/party/enemy targeting rules instead of implementing or approximating them.
-- JSON generation and Unity RelicSO/EffectSO/EffectEntrySO asset generation are separate steps.
+- JSON generation and Unity RelicSO/EffectSO/EffectEntrySO asset generation are separate steps. After JSON review, the user runs `Tools > ProjectBS > Items > Build Current Relics From JSON`, then `Tools > ProjectBS > Items > Validate Current Relics`.
 ```

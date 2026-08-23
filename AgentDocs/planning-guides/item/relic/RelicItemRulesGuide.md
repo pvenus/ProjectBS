@@ -135,12 +135,17 @@ Multiple effects are allowed only when the design explicitly describes each one.
 Do not split one semantic effect into multiple entries merely to imitate a legacy
 asset layout.
 
-## 7. Existing Data Interpretation
+## 7. Current and Legacy Data Interpretation
 
-The current relic folder contains ten legacy RelicSO assets using stat modifiers,
-knockback, chance-on-hit modifiers, and bleed. Most are `Common`; category fields
-are often empty. These observations are comparison evidence, not authoring
-defaults.
+The approved current Relic JSON and generated-asset root is
+`Assets/Resources/relic/json/`. Current JSON uses `effectEntries`, nested current
+Effect definitions, and semantic effect IDs. Unity asset generation and
+validation are user-run through `RelicItemAssetBuilder`.
+
+The legacy comparison folder `Assets/Resources/shop/relic/` contains ten old
+RelicSO assets using stat modifiers, knockback, chance-on-hit modifiers, and
+bleed. Most are `Common`; category fields are often empty. These observations
+are comparison evidence, not authoring defaults.
 
 - Empty category/subcategory values are legacy data gaps.
 - Reused or placeholder-like icons do not establish an icon reuse rule.
@@ -148,6 +153,8 @@ defaults.
   when authoring new relics.
 - Legacy serialized `effects` and `applyType` do not represent the current
   `RelicSO.effectEntries` contract.
+- Do not modify legacy assets or accept current generated assets and references
+  outside `Assets/Resources/relic/json/`.
 
 ## 8. Validation
 

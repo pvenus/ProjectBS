@@ -17,12 +17,18 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 Create one normalized RelicSO input JSON at:
 
 ```text
-Assets/Resources/item/json/item.relic.{relic_slug}.json
+Assets/Resources/relic/json/item.relic.{relic_slug}.json
 ```
 
-The JSON owns item fields and current nested Effect Entry definitions. JSON
-authoring does not create Unity `.asset`, `.meta`, localization, image, pool,
-shop product, or reward data.
+`Assets/Resources/relic/json/` is the approved current root for both Relic JSON
+and the generated current SO assets. The JSON owns item fields and current nested
+Effect Entry definitions. JSON authoring itself does not create Unity `.asset`,
+`.meta`, localization, image, pool, shop product, or reward data.
+
+Existing files under `Assets/Resources/item/json/` are retained source evidence,
+not the output root for current Relic authoring. Existing assets under
+`Assets/Resources/shop/relic/` remain legacy comparison data and must not be
+changed by the current workflow.
 
 ## 2. Implementation Mapping Location
 
@@ -147,11 +153,26 @@ For Relic SO generation, do not use legacy `ChanceOnHitStatModifier` or
 the approved mapping requires owner-source hit filtering and dynamic hit-target
 state.
 
-## 7. Validation Matrix
+## 7. Unity Asset Generation Boundary
+
+After the JSON files are reviewed, the user runs:
+
+```text
+Tools > ProjectBS > Items > Build Current Relics From JSON
+Tools > ProjectBS > Items > Validate Current Relics
+```
+
+`Assets/Editor/tools/item/RelicItemAssetBuilder.cs` creates or updates the
+current `RelicSO`, `EffectSO`, and `EffectEntrySO` assets beside the JSON files.
+The builder and validator reject current Relic assets or linked Effect assets
+outside `Assets/Resources/relic/json/`. They do not modify the legacy
+`Assets/Resources/shop/relic/` assets.
+
+## 8. Validation Matrix
 
 | Check | Pass condition |
 |---|---|
-| Output | `Assets/Resources/item/json/{relicId}.json` |
+| Output | `Assets/Resources/relic/json/{relicId}.json` |
 | Relic ID | `item.relic.{lowercase_snake_case}` |
 | File name | Exact `{relicId}.json` |
 | Effects | At least one current `effectEntries` object |
@@ -165,7 +186,7 @@ state.
 | Color | Every RGBA component in `0..1` |
 | Boundary | No asset, meta, localization, image, pool, shop, or reward output |
 
-## 8. Failure Types
+## 9. Failure Types
 
 ```text
 missing_relic_design

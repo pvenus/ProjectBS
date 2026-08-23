@@ -21,10 +21,25 @@ gameplay behavior, not a separate item or skill.
 Current implementation:
 
 ```text
-Assets/Scripts/item/so/RelicSO.cs
-Assets/Scripts/item/ItemManager.cs
-Assets/Scripts/effect/so/EffectEntrySO.cs
+Assets/Scripts/Collection/Relic/Definitions/RelicSO.cs
+Assets/Scripts/Collection/Relic/Services/RelicItemService.cs
+Assets/Scripts/Ability/Effects/Definitions/EffectSO.cs
+Assets/Scripts/Ability/Effects/Definitions/EffectEntrySO.cs
+Assets/Editor/tools/item/RelicItemAssetBuilder.cs
 ```
+
+Approved current authoring and generated-asset root:
+
+```text
+Assets/Resources/relic/json/
+```
+
+The current workflow keeps normalized Relic JSON and builder-generated
+`RelicSO`, `EffectSO`, and `EffectEntrySO` assets together under this root.
+`Assets/Resources/item/json/` retains earlier source JSON as evidence; it is not
+the current output root. Unity generation is user-run through
+`Tools > ProjectBS > Items > Build Current Relics From JSON`, followed by
+`Tools > ProjectBS > Items > Validate Current Relics`.
 
 ## 2. Current Structure
 
@@ -111,7 +126,7 @@ application count. Effect-specific fields belong only inside `effect.config`.
 
 ## 5. Legacy Boundary
 
-Existing assets under `Assets/Resources/shop/relic` are reverse-engineering and
+Existing assets under `Assets/Resources/shop/relic/` are reverse-engineering and
 comparison sources. Some serialize old fields such as:
 
 ```text
@@ -122,7 +137,9 @@ numeric effect suffixes such as .1 and .2
 ```
 
 Do not copy these fields into new JSON. New authoring uses `effectEntries`,
-current nested Effect JSON, and semantic effect slugs.
+current nested Effect JSON, and semantic effect slugs. The current builder and
+validator must not create current assets there or accept linked current assets
+outside `Assets/Resources/relic/json/`.
 
 ## 6. References
 

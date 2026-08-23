@@ -41,13 +41,13 @@ public static class AutoBindEditorUtility
                     field,
                     attribute);
 
-            Component component =
-                FindComponent(
+            UnityEngine.Object boundObject =
+                FindObject(
                     target.transform,
                     targetName,
                     field.FieldType);
 
-            if (component == null)
+            if (boundObject == null)
             {
                 continue;
             }
@@ -60,7 +60,7 @@ public static class AutoBindEditorUtility
                 continue;
             }
 
-            property.objectReferenceValue = component;
+            property.objectReferenceValue = boundObject;
         }
 
         serializedObject.ApplyModifiedPropertiesWithoutUndo();
@@ -117,10 +117,10 @@ public static class AutoBindEditorUtility
         return $"{prefix}_{objectName}";
     }
 
-    private static Component FindComponent(
+    private static UnityEngine.Object FindObject(
         Transform root,
         string objectName,
-        Type componentType)
+        Type objectType)
     {
         Transform[] children =
             root.GetComponentsInChildren<Transform>(true);
@@ -132,8 +132,17 @@ public static class AutoBindEditorUtility
                 continue;
             }
 
-            Component component =
-                child.GetComponent(componentType);
+            if (objectType == typeof(GameObject))
+            {
+                return child.gameObject;
+            }
+
+            if (!typeof(Component).IsAssignableFrom(objectType))
+            {
+                return null;
+            }
+
+            Component component = child.GetComponent(objectType);
 
             if (component != null)
             {

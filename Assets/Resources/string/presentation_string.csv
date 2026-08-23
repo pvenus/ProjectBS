@@ -1,0 +1,326 @@
+main_key,sub_key,ko,en
+Activation,name,발동 조건,Activation Conditions
+Delivery,name,발현 방식,Delivery
+Outcome,name,발현 효과,Outcomes
+SpecialEffect,name,특수 효과,Special Effects
+LinkedSkill,name,연계 스킬,Linked Skills
+cast,name,사용 정보,Cast
+baseProfile,name,기본 정보,Base Profile
+move,name,이동,Movement
+hits,name,적중,Hit
+spawnSkill,name,소환,Spawn
+StatModifier,name,능력치 변화,Stat Modifier
+Heal,name,회복,Heal
+CooldownChange,name,재사용 대기시간 변화,Cooldown Change
+Displacement,name,이동 효과,Displacement
+PeriodicDamage,name,지속 피해,Periodic Damage
+SkillInvoke,name,스킬 발동,Skill Invoke
+Control,name,제어,Control
+targetingType,name,대상 지정 방식,Targeting
+cooldown,name,재사용 대기시간,Cooldown
+castTime,name,시전 시간,Cast Time
+range,name,사거리,Range
+burst.count,name,연속 사용 횟수,Burst Count
+burst.interval,name,연속 사용 간격,Burst Interval
+castMove.moveType,name,시전 이동 방식,Cast Move Type
+castMove.distance,name,시전 이동 거리,Cast Move Distance
+castMove.duration,name,시전 이동 시간,Cast Move Duration
+projectileCount,name,투사체 수,Projectile Count
+projectileScale,name,투사체 배율,Projectile Scale
+projectileColliderRadius,name,효과 범위,Effect Range
+projectileLifetime,name,지속시간,Duration
+projectile.arrangement,name,배치 방식,Arrangement
+projectile.arrangementValue,name,배치 값,Arrangement Value
+projectile.spreadAngle,name,분산 각도,Spread Angle
+projectile.radius,name,배치 반경,Arrangement Radius
+projectileSpawn.spawnOffset,name,생성 거리,Spawn Offset
+projectileSpawn.interval,name,생성 간격,Spawn Interval
+moveType,name,이동 방식,Move Type
+config.speed,name,이동 속도,Speed
+config.turnSpeed,name,회전 속도,Turn Speed
+config.orbitRadius,name,회전 반경,Orbit Radius
+config.orbitAngularSpeed,name,회전 각속도,Orbit Angular Speed
+config.clockwise,name,회전 방향,Rotation Direction
+config.followOffset.x,name,추적 위치 X,Follow Offset X
+config.followOffset.y,name,추적 위치 Y,Follow Offset Y
+targetLayerMask,name,대상,Target
+damage.damageType,name,피해 유형,Damage Type
+damage.baseDamage,name,기본 피해,Base Damage
+damage.firstHitBaseDamage,name,첫 적중 피해,First Hit Damage
+damage.attackPercentDamage,name,공격력 계수,Attack Scaling
+damage.canCritical,name,치명타 가능,Can Critical
+damage.ignoreDefense,name,방어력 무시,Ignore Defense
+maxHitCount,name,최대 적중 수,Maximum Hit Count
+hitStartTime,name,적중 시작 시간,Hit Start Time
+repeatInterval,name,반복 간격,Repeat Interval
+split.hitCount,name,분할 적중 수,Split Hit Count
+split.hitInterval,name,분할 적중 간격,Split Hit Interval
+character,name,소환 캐릭터,Character
+spawnCount,name,소환 수,Spawn Count
+spawnInterval,name,소환 간격,Spawn Interval
+spawnLifeTime,name,소환 지속시간,Spawn Lifetime
+Activation.Trigger,name,발동 시점,Trigger
+Activation.chance,name,발동 확률,Chance
+Activation.chancePercent,name,발동 확률,Chance
+Activation.Target,name,발동 대상,Target
+Activation.RequiresCriticalHit,name,치명타 조건,Requires Critical Hit
+StatModifier.Stat,name,능력치,Stat
+StatModifier.Operation,name,연산 방식,Operation
+StatModifier.value,name,변화량,Value
+StatModifier.durationSeconds,name,지속시간,Duration
+Heal.maxHpPercent,name,최대 체력 비율,Maximum Health Ratio
+Heal.flatHealAmount,name,회복량,Heal Amount
+Heal.attackPercentHeal,name,공격력 계수,Attack Scaling
+Heal.ClampToMaximumHealth,name,최대 체력 제한,Clamp To Maximum Health
+CooldownChange.Kind,name,변경 방식,Change Type
+CooldownChange.reducePercent,name,감소 비율,Reduction Ratio
+CooldownChange.reduceSeconds,name,감소 시간,Reduction Time
+Displacement.Direction,name,이동 방향,Direction
+Displacement.force,name,효과 강도,Effect Magnitude
+Displacement.distanceMeters,name,효과 거리,Effect Distance
+PeriodicDamage.attackRatioPercent,name,공격력 계수,Attack Scaling
+PeriodicDamage.attackRatioPercentPerTick,name,틱당 공격력 계수,Attack Scaling Per Tick
+PeriodicDamage.RateUnit,name,적용 주기 기준,Rate Unit
+PeriodicDamage.tickIntervalSeconds,name,적용 간격,Interval
+PeriodicDamage.durationSeconds,name,지속시간,Duration
+SkillInvoke.Skill,name,발동 스킬,Invoked Skill
+SkillInvoke.Range,name,효과 범위,Effect Range
+Control.Kind,name,제어 유형,Control Type
+Control.value,name,지속시간,Duration
+Control.duration,name,지속시간,Duration
+categoryType,name,효과 분류,Effect Category
+lifetimeType,name,지속 방식,Lifetime Type
+duration,name,지속시간,Duration
+maxApplyCount,name,최대 적용 횟수,Maximum Apply Count
+status,name,해석 상태,Resolution Status
+Active,name,액티브,Active
+Passive,name,패시브,Passive
+Projectile,name,투사체,Projectile
+Attack,name,공격,Attack
+Buff,name,강화,Buff
+Debuff,name,약화,Debuff
+Enemy,name,적,Enemy
+Ally,name,아군,Ally
+Party,name,파티,Party
+AreaControl,name,지역 제어,Area Control
+AllySupport,name,아군 지원,Ally Support
+Position,name,위치 지정,Position
+Self,name,자신,Self
+AutoTarget,name,자동 대상,Auto Target
+AutoTargetDirection,name,자동 방향,Auto Target Direction
+Directional,name,방향 지정,Directional
+Warp,name,즉시 이동,Warp
+Linear,name,직선,Linear
+Homing,name,유도,Homing
+Orbit,name,회전,Orbit
+Hover,name,추적,Hover
+Normal,name,일반,Normal
+True,name,사용,Enabled
+False,name,미사용,Disabled
+Instant,name,즉시,Instant
+Timed,name,시간제,Timed
+CombatTimed,name,전투 시간제,Combat Timed
+OnHit,name,적중 시,On Hit
+OnHeal,name,회복 시,On Heal
+OnAttack,name,공격 시,On Attack
+AnyAlly,name,아군 누구나,Any Ally
+OtherAlly,name,다른 아군,Other Ally
+CriticalHit,name,치명타,Critical Hit
+Percent,name,비율,Percent
+Flat,name,고정값,Flat
+Multiply,name,배율,Multiply
+Reduce,name,감소,Reduce
+PerSecond,name,초당,Per Second
+PerTick,name,틱당,Per Tick
+PushAwayFromSource,name,밀어냄,Push Away From Source
+PullToSource,name,끌어당김,Pull To Source
+ProjectileDirection,name,투사체 방향,Projectile Direction
+CustomDirection,name,지정 방향,Custom Direction
+Taunt,name,도발,Taunt
+Stun,name,기절,Stun
+Root,name,속박,Root
+presentation.group.activation,name,발동 조건,Activation Conditions
+presentation.group.delivery,name,발현 방식,Delivery
+presentation.group.outcome,name,발현 효과,Outcomes
+presentation.group.special_effect,name,특수 효과,Special Effects
+presentation.group.linked_skill,name,연계 스킬,Linked Skills
+presentation.group.stat_modifier,name,능력치 변화,Stat Modifier
+presentation.group.heal,name,회복,Healing
+presentation.group.cooldown_change,name,재사용 대기시간 변화,Cooldown Change
+presentation.group.displacement,name,강제 이동,Displacement
+presentation.group.periodic_damage,name,지속 피해,Periodic Damage
+presentation.group.skill_invoke,name,연계 스킬,Linked Skill
+presentation.group.control,name,제어 효과,Control Effect
+presentation.group.bless_duration,name,축복 지속 조건,Blessing Duration
+presentation.group.bless_runtime,name,축복 상태,Blessing Status
+presentation.group.relic_runtime,name,유물 상태,Relic Status
+presentation.entry.targeting,name,대상 지정,Targeting
+presentation.entry.cooldown,name,재사용 대기시간,Cooldown
+presentation.entry.cast_time,name,시전 시간,Cast Time
+presentation.entry.range,name,사거리,Range
+presentation.entry.burst_count,name,연속 발동 횟수,Burst Count
+presentation.entry.burst_interval,name,연속 발동 간격,Burst Interval
+presentation.entry.cast_move_type,name,시전 이동,Cast Movement
+presentation.entry.cast_move_distance,name,이동 거리,Movement Distance
+presentation.entry.cast_move_duration,name,이동 시간,Movement Duration
+presentation.entry.projectile_count,name,투사체 수,Projectile Count
+presentation.entry.effect_range,name,효과 범위,Effect Range
+presentation.entry.duration,name,지속시간,Duration
+presentation.entry.projectile_arrangement,name,투사체 배치,Projectile Arrangement
+presentation.entry.spread_angle,name,분산 각도,Spread Angle
+presentation.entry.arrangement_radius,name,배치 반경,Arrangement Radius
+presentation.entry.projectile_spawn_interval,name,투사체 생성 간격,Projectile Spawn Interval
+presentation.entry.max_hit_count,name,최대 적중 수,Maximum Hit Count
+presentation.entry.repeat_interval,name,반복 간격,Repeat Interval
+presentation.entry.split_hit_count,name,분할 적중 수,Split Hit Count
+presentation.entry.split_hit_interval,name,분할 적중 간격,Split Hit Interval
+presentation.entry.damage_type,name,피해 유형,Damage Type
+presentation.entry.base_damage,name,기본 피해,Base Damage
+presentation.entry.first_hit_damage,name,첫 적중 피해,First Hit Damage
+presentation.entry.attack_scaling,name,공격력 계수,Attack Scaling
+presentation.entry.can_critical,name,치명타 가능,Can Critical
+presentation.entry.ignore_defense,name,방어력 무시,Ignore Defense
+presentation.entry.summoned_character,name,소환 캐릭터,Summoned Character
+presentation.entry.spawn_count,name,소환 수,Spawn Count
+presentation.entry.spawn_interval,name,소환 간격,Spawn Interval
+presentation.entry.spawn_lifetime,name,소환 지속시간,Spawn Lifetime
+presentation.entry.activation_trigger,name,발동 시점,Activation Trigger
+presentation.entry.activation_chance,name,발동 확률,Activation Chance
+presentation.entry.activation_target,name,발동 대상,Activation Target
+presentation.entry.critical_condition,name,치명타 조건,Critical Condition
+presentation.entry.stat,name,능력치,Stat
+presentation.entry.operation,name,변화 방식,Change Method
+presentation.entry.modifier_value,name,변화량,Modifier Value
+presentation.entry.max_health_ratio,name,최대 체력 비율,Maximum Health Ratio
+presentation.entry.heal_amount,name,회복량,Heal Amount
+presentation.entry.cooldown_change_type,name,변경 방식,Change Type
+presentation.entry.cooldown_reduction_ratio,name,감소 비율,Reduction Ratio
+presentation.entry.cooldown_reduction_time,name,감소 시간,Reduction Time
+presentation.entry.displacement_type,name,강제 이동 유형,Displacement Type
+presentation.entry.effect_magnitude,name,효과 강도,Effect Magnitude
+presentation.entry.effect_distance,name,효과 거리,Effect Distance
+presentation.entry.attack_scaling_per_tick,name,틱당 공격력 계수,Attack Scaling Per Tick
+presentation.entry.periodic_rate,name,적용 주기,Application Rate
+presentation.entry.interval,name,적용 간격,Interval
+presentation.entry.linked_skill,name,연계 스킬,Linked Skill
+presentation.entry.control_type,name,특수 효과 유형,Special Effect Type
+presentation.entry.max_apply_count,name,최대 적용 횟수,Maximum Applications
+presentation.entry.bless_duration_battles,name,지속 전투 수,Battle Duration
+presentation.entry.bless_level,name,축복 레벨,Blessing Level
+presentation.entry.remaining_battles,name,남은 전투 수,Remaining Battles
+presentation.format.damage_type,name,{0},{0}
+presentation.format.control_type,name,{0},{0}
+presentation.format.displacement_type,name,{0},{0}
+presentation.damage.Normal,name,일반 피해,Normal Damage
+presentation.damage.Explosion,name,폭발 피해,Explosion Damage
+presentation.damage.Dot,name,지속 피해,Damage over Time
+presentation.damage.True,name,고정 피해,True Damage
+presentation.control.Stun,name,기절,Stun
+presentation.control.Root,name,속박,Root
+presentation.control.Taunt,name,도발,Taunt
+presentation.displacement.PushAwayFromSource,name,밀쳐내기,Knockback
+presentation.displacement.PullToSource,name,끌어당기기,Pull
+presentation.displacement.ProjectileDirection,name,투사체 방향 이동,Projectile-direction Displacement
+presentation.displacement.CustomDirection,name,지정 방향 이동,Custom-direction Displacement
+presentation.targeting.Self,name,자신,Self
+presentation.targeting.AutoTarget,name,자동 대상,Auto Target
+presentation.targeting.AutoTargetDirection,name,자동 방향,Auto Direction
+presentation.targeting.Directional,name,방향 지정,Directional
+presentation.targeting.Position,name,위치 지정,Position
+presentation.trigger.OnHit,name,적중 시,On Hit
+presentation.trigger.OnHeal,name,회복 시,On Heal
+presentation.trigger.OnAttack,name,공격 시,On Attack
+presentation.target.AnyAlly,name,아군 누구나,Any Ally
+presentation.target.Self,name,자신,Self
+presentation.target.OtherAlly,name,다른 아군,Other Ally
+presentation.target.Party,name,파티,Party
+presentation.operation.Flat,name,고정값,Flat
+presentation.operation.Percent,name,비율,Percent
+presentation.operation.Multiply,name,배율,Multiply
+presentation.cooldown_change.Reduce,name,감소,Reduction
+presentation.cooldown_change.Increase,name,증가,Increase
+presentation.periodic_rate.PerSecond,name,초당,Per Second
+presentation.periodic_rate.PerTick,name,틱당,Per Tick
+presentation.boolean.True,name,적용,Yes
+presentation.boolean.False,name,미적용,No
+presentation.cast_move.DashForward,name,전방 돌진,Dash Forward
+presentation.cast_move.DashBackward,name,후방 이동,Dash Backward
+presentation.cast_move.MoveToTarget,name,대상에게 이동,Move to Target
+presentation.cast_move.MoveAwayFromTarget,name,대상에게서 이탈,Move Away from Target
+presentation.arrangement.Spread,name,분산,Spread
+presentation.arrangement.Line,name,일렬,Line
+presentation.arrangement.Circle,name,원형,Circle
+presentation.tag.Active,name,액티브,Active
+presentation.tag.Passive,name,패시브,Passive
+presentation.tag.Attack,name,공격,Attack
+presentation.tag.Support,name,지원,Support
+presentation.tag.Defense,name,방어,Defense
+presentation.tag.Heal,name,회복,Heal
+presentation.tag.Control,name,제어,Control
+presentation.tag.Buff,name,강화,Buff
+presentation.tag.Debuff,name,약화,Debuff
+presentation.tag.Utility,name,보조,Utility
+presentation.tag.Self,name,자신,Self
+presentation.tag.Ally,name,아군,Ally
+presentation.tag.Enemy,name,적,Enemy
+presentation.tag.Party,name,파티,Party
+presentation.tag.Point,name,지점,Point
+presentation.tag.Common,name,일반,Common
+presentation.tag.Rare,name,희귀,Rare
+presentation.tag.Epic,name,영웅,Epic
+presentation.tag.Legendary,name,전설,Legendary
+presentation.tag.Offense,name,공격,Offense
+presentation.tag.Economy,name,경제,Economy
+presentation.tag.Survival,name,생존,Survival
+presentation.tag.Special,name,특수,Special
+presentation.tag.Permanent,name,영구,Permanent
+presentation.tag.NextBattle,name,다음 전투,Next Battle
+presentation.tag.BattleCount,name,전투 횟수,Battle Count
+presentation.tag.Life,name,생명,Life
+presentation.tag.War,name,전쟁,War
+presentation.tag.Greed,name,탐욕,Greed
+presentation.tag.Dark,name,어둠,Dark
+presentation.stat.Attack,name,공격력,Attack
+presentation.stat.AttackPercent,name,공격력 비율,Attack Percentage
+presentation.stat.Defense,name,방어력,Defense
+presentation.stat.Hp,name,현재 체력,Current Health
+presentation.stat.HpRegenMaxHpPercent,name,최대 체력 비례 회복,Max-health Regeneration
+presentation.stat.LifeSteal,name,흡혈,Lifesteal
+presentation.stat.LowHpDefenseBonus,name,낮은 체력 방어 보너스,Low-health Defense Bonus
+presentation.stat.MissingHpFinalDamageAmplify,name,잃은 체력 비례 최종 피해,Missing-health Damage Amplification
+presentation.stat.MoveSpeedPercent,name,이동속도 비율,Movement Speed Percentage
+presentation.stat.RootDuration,name,속박 지속시간,Root Duration
+presentation.stat.StunDuration,name,기절 지속시간,Stun Duration
+presentation.stat.SurroundedAttackPercent,name,포위 시 공격력 비율,Surrounded Attack Percentage
+presentation.stat.SurroundedDamageReductionPercent,name,포위 시 피해 감소율,Surrounded Damage Reduction
+presentation.group.character_stats,name,캐릭터 능력치,Character Stats
+presentation.tag.Npc,name,NPC,NPC
+presentation.tag.Boss,name,보스,Boss
+presentation.tag.Player,name,플레이어,Player
+presentation.tag.SoldierBase,name,기본 병사,Base Soldier
+presentation.tag.ArcherBase,name,기본 궁수,Base Archer
+presentation.tag.ScholarBase,name,기본 학자,Base Scholar
+presentation.tag.MonkBase,name,기본 승려,Base Monk
+presentation.stat.MaxHp,name,최대 체력,Maximum Health
+presentation.stat.AttackSpeed,name,공격 속도,Attack Speed
+presentation.stat.CritChance,name,치명타 확률,Critical Chance
+presentation.stat.CritDamage,name,치명타 피해,Critical Damage
+presentation.stat.MoveSpeed,name,이동 속도,Movement Speed
+presentation.format.multiplier,name,{0}배,{0}x
+presentation.inventory.owned_effects,name,보유 효과,Owned Effects
+presentation.inventory.category.relic,name,유물,Relics
+presentation.inventory.category.general_bless,name,일반 축복,General Blesses
+presentation.inventory.category.faith_bless,name,신앙 축복,Faith Blesses
+presentation.faith.page_title,name,신앙 도감,Faith Encyclopedia
+presentation.faith.current_level_effects,name,현재 레벨 신앙 효과,Current Faith Effects
+presentation.faith.next_level_effects,name,다음 레벨 신앙 효과,Next-Level Faith Effects
+presentation.faith.next_level.none,name,최대 레벨입니다,Maximum Faith Level
+presentation.faith.effect_data.pending,name,신앙 효과 데이터 연결 대기,Faith effect data pending
+presentation.faith.empty,name,획득한 신앙이 없습니다,No acquired Faith
+presentation.faith.level_format,name,신앙 Lv.{0},Faith Lv.{0}
+presentation.faith.state.active,name,활성,Active
+presentation.faith.state.locked,name,고정,Locked
+presentation.faith.state.inactive,name,비활성,Inactive
+presentation.faith.change.strengthened,name,강화,Strengthened
+presentation.faith.change.newly_unlocked,name,신규 획득,Newly Acquired
+presentation.faith.change.unchanged,name,변경 없음,Unchanged

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Item;
 using UnityEngine;
 
 namespace UIFramework.Data
@@ -15,6 +16,9 @@ namespace UIFramework.Data
     [Serializable]
     public class RelicCollectionItemViewData
     {
+        [NonSerialized]
+        public RelicSO sourceRelic;
+
         public string relicId;
         public string displayName;
         public Sprite icon;

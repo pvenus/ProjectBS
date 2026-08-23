@@ -12,14 +12,8 @@ namespace ResourceTools.Item
 {
     public static class RelicItemAssetBuilder
     {
-        private const string ProductionRelicRoot =
-            "Assets/Resources/shop/relic";
-
-        private const string NormalizedRelicJsonRoot =
-            "Assets/Resources/item/json";
-
-        private const string MigrationReportPath =
-            "AgentDocs/planning-data/relic/relic.production_migration_report.json";
+        private const string CurrentRelicRoot =
+            "Assets/Resources/relic/json";
 
         [Serializable]
         public class RelicItemJson
@@ -115,11 +109,44 @@ namespace ResourceTools.Item
             return relic;
         }
 
-        public static void MigrateProductionRelicsFromJsonBatch()
+        [MenuItem(
+            "Tools/ProjectBS/Items/Build Current Relics From JSON",
+            false,
+            2100)]
+        private static void BuildCurrentRelicsFromJsonMenu()
+        {
+            bool confirmed = EditorUtility.DisplayDialog(
+                "Build Current Relics",
+                "This creates or updates the current RelicSO, EffectSO, and " +
+                "EffectEntrySO assets beside the 10 JSON files under " +
+                "Assets/Resources/relic/json.\n\n" +
+                "Existing assets under Assets/Resources/shop/relic are not changed.\n\n" +
+                "Continue?",
+                "Build",
+                "Cancel");
+
+            if (!confirmed)
+            {
+                return;
+            }
+
+            BuildCurrentRelicsFromJsonBatch();
+        }
+
+        [MenuItem(
+            "Tools/ProjectBS/Items/Validate Current Relics",
+            false,
+            2101)]
+        private static void ValidateCurrentRelicsMenu()
+        {
+            ValidateCurrentRelics();
+        }
+
+        public static void BuildCurrentRelicsFromJsonBatch()
         {
             string[] jsonPaths =
                 Directory.GetFiles(
-                    NormalizedRelicJsonRoot,
+                    CurrentRelicRoot,
                     "item.relic.*.json",
                     SearchOption.TopDirectoryOnly);
 
@@ -133,10 +160,7 @@ namespace ResourceTools.Item
                     $"[RelicItemAssetBuilder] Expected 10 normalized relic JSON files, found {jsonPaths.Length}.");
             }
 
-            Dictionary<string, RelicSO> relicsById =
-                LoadProductionRelicsById();
-
-            List<string> migratedRelicPaths = new();
+            List<string> generatedRelicPaths = new();
             List<string> generatedEffectAssets = new();
 
             foreach (string jsonPath in jsonPaths)
@@ -154,26 +178,6 @@ namespace ResourceTools.Item
                         $"[RelicItemAssetBuilder] Invalid relic JSON. path={jsonPath}");
                 }
 
-                if (!relicsById.TryGetValue(data.relicId, out RelicSO relic)
-                    || relic == null)
-                {
-                    throw new InvalidOperationException(
-                        $"[RelicItemAssetBuilder] Production RelicSO not found. relicId={data.relicId}");
-                }
-
-                string relicAssetPath =
-                    AssetDatabase.GetAssetPath(relic);
-
-                string relicFolder =
-                    Path.GetDirectoryName(relicAssetPath)
-                        ?.Replace("\\", "/");
-
-                if (string.IsNullOrWhiteSpace(relicFolder))
-                {
-                    throw new InvalidOperationException(
-                        $"[RelicItemAssetBuilder] Could not resolve relic folder. relicId={data.relicId}");
-                }
-
                 List<string> effectEntryJsons =
                     ExtractObjectArray(
                         relicJson,
@@ -185,22 +189,22 @@ namespace ResourceTools.Item
                         $"[RelicItemAssetBuilder] Validation failed. relicId={data.relicId}");
                 }
 
-                List<EffectEntrySO> entryAssets = new();
+                RelicSO relic = CreateOrUpdate(
+                    relicJson,
+                    CurrentRelicRoot,
+                    CurrentRelicRoot);
 
-                foreach (string effectEntryJson in effectEntryJsons)
+                if (relic == null)
                 {
-                    EffectEntrySO entry =
-                        EffectEntryAssetBuilder.CreateOrUpdate(
-                            effectEntryJson,
-                            relicFolder);
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Failed to build current RelicSO. relicId={data.relicId}");
+                }
 
-                    if (entry == null)
-                    {
-                        throw new InvalidOperationException(
-                            $"[RelicItemAssetBuilder] Failed to build effect entry. relicId={data.relicId}");
-                    }
+                generatedRelicPaths.Add(
+                    AssetDatabase.GetAssetPath(relic));
 
-                    entryAssets.Add(entry);
+                foreach (EffectEntrySO entry in relic.effectEntries)
+                {
                     generatedEffectAssets.Add(
                         AssetDatabase.GetAssetPath(entry));
 
@@ -210,37 +214,29 @@ namespace ResourceTools.Item
                             AssetDatabase.GetAssetPath(entry.EffectSO));
                     }
                 }
-
-                Apply(
-                    relic,
-                    data,
-                    entryAssets);
-
-                EditorUtility.SetDirty(relic);
-                migratedRelicPaths.Add(relicAssetPath);
             }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.ForceReserializeAssets(
-                migratedRelicPaths,
+                generatedRelicPaths,
                 ForceReserializeAssetsOptions.ReserializeAssets);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            ValidateMigratedProductionRelics();
+            ValidateCurrentRelics();
 
             Debug.Log(
-                $"[RelicItemAssetBuilder] Migrated production relics. relicCount={migratedRelicPaths.Count}, generatedEffectAssetRefs={generatedEffectAssets.Count}");
+                $"[RelicItemAssetBuilder] Built current relics. relicCount={generatedRelicPaths.Count}, effectAssetRefs={generatedEffectAssets.Count}, output={CurrentRelicRoot}");
         }
 
-        public static void ValidateMigratedProductionRelics()
+        public static void ValidateCurrentRelics()
         {
             Dictionary<string, RelicSO> relicsById =
-                LoadProductionRelicsById();
+                LoadCurrentRelicsById();
 
             string[] jsonPaths =
                 Directory.GetFiles(
-                    NormalizedRelicJsonRoot,
+                    CurrentRelicRoot,
                     "item.relic.*.json",
                     SearchOption.TopDirectoryOnly);
 
@@ -262,14 +258,31 @@ namespace ResourceTools.Item
                     || relic == null)
                 {
                     throw new InvalidOperationException(
-                        $"[RelicItemAssetBuilder] Missing migrated relic. path={jsonPath}");
+                        $"[RelicItemAssetBuilder] Missing current relic. path={jsonPath}");
                 }
 
-                if (relic.effectEntries == null
-                    || relic.effectEntries.Count == 0)
+                string expectedRelicPath =
+                    $"{CurrentRelicRoot}/{SanitizeFileName(data.relicId)}.asset";
+
+                if (!string.Equals(
+                        AssetDatabase.GetAssetPath(relic),
+                        expectedRelicPath,
+                        StringComparison.Ordinal))
                 {
                     throw new InvalidOperationException(
-                        $"[RelicItemAssetBuilder] Migrated relic has no effect entries. relicId={data.relicId}");
+                        $"[RelicItemAssetBuilder] Current RelicSO is outside the approved output path. relicId={data.relicId}");
+                }
+
+                List<string> effectEntryJsons =
+                    ExtractObjectArray(
+                        File.ReadAllText(jsonPath),
+                        "effectEntries");
+
+                if (relic.effectEntries == null
+                    || relic.effectEntries.Count != effectEntryJsons.Count)
+                {
+                    throw new InvalidOperationException(
+                        $"[RelicItemAssetBuilder] Current relic EffectEntry count does not match JSON. relicId={data.relicId}, json={effectEntryJsons.Count}, asset={relic.effectEntries?.Count ?? 0}");
                 }
 
                 foreach (EffectEntrySO entry in relic.effectEntries)
@@ -277,22 +290,33 @@ namespace ResourceTools.Item
                     if (entry == null || entry.EffectSO == null)
                     {
                         throw new InvalidOperationException(
-                            $"[RelicItemAssetBuilder] Migrated relic has broken effect entry. relicId={data.relicId}");
+                            $"[RelicItemAssetBuilder] Current relic has broken effect entry. relicId={data.relicId}");
+                    }
+
+                    string entryPath = AssetDatabase.GetAssetPath(entry);
+                    string effectPath = AssetDatabase.GetAssetPath(entry.EffectSO);
+
+                    if (!entryPath.StartsWith(CurrentRelicRoot + "/", StringComparison.Ordinal)
+                        || !effectPath.StartsWith(CurrentRelicRoot + "/", StringComparison.Ordinal))
+                    {
+                        throw new InvalidOperationException(
+                            $"[RelicItemAssetBuilder] Current relic references an Effect asset outside the approved output path. relicId={data.relicId}");
                     }
                 }
             }
 
-            Debug.Log("[RelicItemAssetBuilder] Production relic validation passed.");
+            Debug.Log(
+                $"[RelicItemAssetBuilder] Current relic validation passed. relicCount={jsonPaths.Length}, output={CurrentRelicRoot}");
         }
 
-        private static Dictionary<string, RelicSO> LoadProductionRelicsById()
+        private static Dictionary<string, RelicSO> LoadCurrentRelicsById()
         {
             Dictionary<string, RelicSO> result = new();
 
             string[] guids =
                 AssetDatabase.FindAssets(
                     "t:RelicSO",
-                    new[] { ProductionRelicRoot });
+                    new[] { CurrentRelicRoot });
 
             foreach (string guid in guids)
             {
