@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: effect.skill.strategic.emergency_pill.heal
   icon: {fileID: 0}
   config:
-    rid: 5601486723634692594
+    rid: 5601486723634692709
   references:
     version: 2
     RefIds:
-    - rid: 5601486723634692594
+    - rid: 5601486723634692709
       type: {class: HealEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         useMaxHpPercent: 0
