@@ -1,0 +1,62 @@
+{
+  "equipmentId": "skill.character.jihan.2.passive_1.blood_qi_circulation",
+  "slotName": "passive_1",
+  "skillName": "기혈 순환",
+  "iconName": "passive_1",
+  "baseProfile": {
+    "skillType": "Passive",
+    "attackArchetype": "None",
+    "category": "Support",
+    "baseProfileId": "skill.character.jihan.2.passive_1.blood_qi_circulation.profile",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1.0,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 1.0,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.jihan.2.passive_1.blood_qi_circulation.hit",
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.2.passive_1.blood_qi_circulation.effect.buff.1",
+            "effectType": "ChanceOnHealCooldownReduce",
+            "effectName": "기혈 순환 쿨타임 순환",
+            "chance": 1,
+            "triggerTargetType": "AnyAlly",
+            "reduceType": "FlatSeconds",
+            "reducePercent": 0,
+            "reduceSeconds": 1
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.jihan.2.passive_1.blood_qi_circulation.visual",
+    "projectileVisualType": "Default"
+  }
+}

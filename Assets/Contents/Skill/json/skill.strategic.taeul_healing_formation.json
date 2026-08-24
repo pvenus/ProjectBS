@@ -1,0 +1,77 @@
+{
+  "equipmentId": "skill.strategic.taeul_healing_formation",
+  "skillName": "태을 치유진",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.taeul_healing_formation.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 999.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Buff",
+      "targetType": "Ally",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.taeul_healing_formation.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.taeul_healing_formation.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.taeul_healing_formation.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "buffEffects": [
+        {
+          "entryId": "effect.skill.strategic.taeul_healing_formation.regen.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.taeul_healing_formation.regen",
+            "effectType": "StatModifier",
+            "effectName": "effect.skill.strategic.taeul_healing_formation.regen",
+            "config": {
+              "statType": "HpRegenMaxHpPercent",
+              "modifierType": "Flat",
+              "value": 0.8333
+            }
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 6,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.taeul_healing_formation.visual",
+    "projectileVisualType": "Default"
+  }
+}

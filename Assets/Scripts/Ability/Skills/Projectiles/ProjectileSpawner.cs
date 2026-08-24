@@ -17,6 +17,9 @@ public class ProjectileSpawner : MonoBehaviour
     private readonly EquipmentSkillResolver skillResolver = new();
 
     private ProjectileRuntimeData ownerRuntimeData;
+    private SpawnSkillSO activeSpawnSkill;
+    private int spawnedCount;
+    private float elapsed;
 
     public void Initialize(
         ProjectileEntity projectile,
@@ -24,30 +27,71 @@ public class ProjectileSpawner : MonoBehaviour
     {
         ownerProjectile = projectile;
         ownerRuntimeData = runtimeData;
+        StopIntervalSpawn();
+
+        SpawnSkillSO spawnSkill = ResolveSpawnSkill();
+        if (spawnSkill == null || spawnSkill.Skill == null)
+        {
+            return;
+        }
+
+        if (spawnSkill.Timing == SpawnSkillTiming.OnCast)
+        {
+            SpawnChildSkillOnce(spawnSkill);
+        }
+        else if (spawnSkill.Timing == SpawnSkillTiming.OnInterval)
+        {
+            StartIntervalSpawn(spawnSkill);
+        }
+    }
+
+    private void Update()
+    {
+        if (activeSpawnSkill == null)
+        {
+            return;
+        }
+
+        elapsed += Time.deltaTime;
+        if (elapsed < activeSpawnSkill.SpawnInterval)
+        {
+            return;
+        }
+
+        elapsed = 0f;
+        if (SpawnChildSkillOnce(activeSpawnSkill))
+        {
+            spawnedCount++;
+        }
+
+        if (spawnedCount >= activeSpawnSkill.SpawnCount)
+        {
+            StopIntervalSpawn();
+        }
     }
 
     public bool TrySpawnChildSkill(
         SpawnSkillTiming timing)
     {
-        if (timing != SpawnSkillTiming.OnHit)
+        SpawnSkillSO spawnSkill = ResolveSpawnSkill();
+        if (spawnSkill == null || spawnSkill.Timing != timing)
         {
             return false;
         }
 
-        return SpawnChildSkillOnce(
-            ResolveSpawnSkill());
+        return SpawnChildSkillOnce(spawnSkill);
     }
 
     private bool SpawnChildSkillOnce(
-        EquipmentSkillSO spawnSkill)
+        SpawnSkillSO spawnConfig)
     {
-        if (!CanSpawnChildSkill(spawnSkill))
+        if (!CanSpawnChildSkill(spawnConfig))
         {
             return false;
         }
 
         EquipmentSkillRuntimeData childRuntime = skillResolver.Resolve(
-            spawnSkill,
+            spawnConfig.Skill,
             null);
 
         if (childRuntime == null)
@@ -59,7 +103,7 @@ public class ProjectileSpawner : MonoBehaviour
             ? ownerProjectile.transform
             : transform;
 
-        Vector2 spawnPosition = spawnTransform.position;
+        Vector2 spawnPosition = ResolveSpawnPosition(spawnConfig.Position);
 
         Transform targetTransform = ownerRuntimeData.target != null
             ? ownerRuntimeData.target.transform
@@ -76,17 +120,61 @@ public class ProjectileSpawner : MonoBehaviour
     }
 
     private bool CanSpawnChildSkill(
-        EquipmentSkillSO spawnSkill)
+        SpawnSkillSO spawnSkill)
     {
         return ownerProjectile != null &&
                ownerRuntimeData != null &&
-               spawnSkill != null;
+               spawnSkill != null &&
+               spawnSkill.Skill != null;
     }
 
-    private EquipmentSkillSO ResolveSpawnSkill()
+    private SpawnSkillSO ResolveSpawnSkill()
     {
-        return ownerRuntimeData != null && ownerRuntimeData.hit != null
-            ? ownerRuntimeData.hit.spawnSkill
+        return ownerRuntimeData != null
+            ? ownerRuntimeData.spawnSkillSo
             : null;
+    }
+
+    private void StartIntervalSpawn(SpawnSkillSO spawnSkill)
+    {
+        activeSpawnSkill = spawnSkill;
+        spawnedCount = 0;
+        elapsed = 0f;
+
+        if (SpawnChildSkillOnce(spawnSkill))
+        {
+            spawnedCount = 1;
+        }
+
+        if (spawnedCount >= spawnSkill.SpawnCount)
+        {
+            StopIntervalSpawn();
+        }
+    }
+
+    private void StopIntervalSpawn()
+    {
+        activeSpawnSkill = null;
+        spawnedCount = 0;
+        elapsed = 0f;
+    }
+
+    private Vector2 ResolveSpawnPosition(SpawnSkillPosition position)
+    {
+        switch (position)
+        {
+            case SpawnSkillPosition.Caster:
+                return ownerRuntimeData.owner != null
+                    ? ownerRuntimeData.owner.transform.position
+                    : ownerRuntimeData.spawnPosition;
+            case SpawnSkillPosition.Target:
+                return ownerRuntimeData.target != null
+                    ? ownerRuntimeData.target.transform.position
+                    : transform.position;
+            case SpawnSkillPosition.HitPoint:
+            case SpawnSkillPosition.ProjectilePosition:
+            default:
+                return transform.position;
+        }
     }
 }

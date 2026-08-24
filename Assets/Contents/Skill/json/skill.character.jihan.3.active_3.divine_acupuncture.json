@@ -1,0 +1,155 @@
+{
+  "equipmentId": "skill.character.jihan.3.active_3.divine_acupuncture",
+  "slotName": "active_3",
+  "skillName": "신의 침술",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "projectile",
+    "projectileCount": 1,
+    "projectileScale": 1.5,
+    "projectileLifetime": 0.5,
+    "category": "Support",
+    "targetType": "Ally",
+    "tacticalNeed": "Buff",
+    "basePriority": 1.0,
+    "baseProfileId": "skill.character.jihan.3.active_3.divine_acupuncture.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.jihan.3.active_3.divine_acupuncture.cast",
+    "cooldown": 30,
+    "castTime": 0,
+    "range": 5,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.jihan.3.active_3.divine_acupuncture.move",
+    "moveType": "Warp",
+    "speed": 0,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0,
+    "config": {
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.jihan.3.active_3.divine_acupuncture.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.2,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.3.active_3.divine_acupuncture.effect.buff.1",
+            "effectType": "StatModifier",
+            "statType": "FinalDamageAmplify",
+            "modifierType": "Flat",
+            "value": 50,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 6,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.3.active_3.divine_acupuncture.effect.buff.2",
+            "effectType": "StatModifier",
+            "effectName": "신의 침술 부활",
+            "statType": "ResurrectionToken",
+            "modifierType": "Flat",
+            "value": 1,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 6,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.3.active_3.divine_acupuncture.effect.debuff.1",
+            "effectType": "StatModifier",
+            "effectName": "신의 침술 받는 피해 증가",
+            "statType": "Defense",
+            "modifierType": "Flat",
+            "value": -10,
+            "duration": 6
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 6,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.jihan.3.active_3.divine_acupuncture.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "acupuncture_needle_basic",
+    "animatorController": "acupuncture_needle_animator",
+    "idleClip": "acupuncture_needle_idle",
+    "castClip": "acupuncture_needle_cast",
+    "attackClip": "acupuncture_needle_attack",
+    "projectileLoopClip": "acupuncture_needle_active",
+    "hitClip": "acupuncture_needle_hit",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,3 +1,4 @@
+using Skill;
 using UnityEngine;
 
 /// <summary>
@@ -17,6 +18,7 @@ public class ProjectileEntity : MonoBehaviour
 
     [Header("Runtime State")]
     [SerializeField] private bool initialized;
+    [SerializeField] private bool waitingForVisualCompletion;
 
     private ProjectileRuntimeData runtimeData;
 
@@ -85,6 +87,7 @@ public class ProjectileEntity : MonoBehaviour
 
         runtimeData = data;
         initialized = true;
+        waitingForVisualCompletion = false;
 
         transform.position = data.spawnPosition;
 
@@ -121,6 +124,11 @@ public class ProjectileEntity : MonoBehaviour
     /// </summary>
     public void Despawn()
     {
+        if (initialized && spawner != null)
+        {
+            spawner.TrySpawnChildSkill(SpawnSkillTiming.OnProjectileEnd);
+        }
+
         initialized = false;
         runtimeData = null;
         if (visual != null)
@@ -128,6 +136,45 @@ public class ProjectileEntity : MonoBehaviour
             visual.OnDespawn();
         }
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 충돌/적용 횟수가 소진된 뒤 gameplay 충돌만 즉시 종료하고,
+    /// 현재 클립의 남은 한 cycle을 표시한 다음 객체를 제거한다.
+    /// </summary>
+    public void CompleteCollisionAndDespawnAfterVisual()
+    {
+        if (waitingForVisualCompletion)
+        {
+            return;
+        }
+
+        waitingForVisualCompletion = true;
+        initialized = false;
+
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+
+        // ProjectileLifetime의 즉시 Despawn이 남은 clip 재생을 자르지 않게 한다.
+        if (lifetime != null)
+        {
+            lifetime.enabled = false;
+        }
+
+        float remainingVisualTime = visual != null
+            ? visual.GetRemainingCurrentClipPlaybackTime()
+            : 0f;
+
+        if (remainingVisualTime <= 0f)
+        {
+            Despawn();
+            return;
+        }
+
+        Destroy(gameObject, remainingVisualTime);
     }
 
     public Vector2 GetDirection()

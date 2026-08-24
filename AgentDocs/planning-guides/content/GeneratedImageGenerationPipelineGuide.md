@@ -215,7 +215,7 @@ GeneratedImagePromptAuthoringPrompt.md.
 | --- | --- | --- | --- | --- | --- | --- |
 | skill_icon | skill | PixelLab | pixellab_fielded_pixel_prompt_v1 | single icon candidate from UI variation set | AgentDocs/planning-guides/skill/SkillIconGenerationGuide.md | ready |
 | item_icon | item | PixelLab | pixellab_fielded_pixel_prompt_v1 | single icon candidate from UI variation set | AgentDocs/planning-guides/item/ItemIconGenerationGuide.md | ready |
-| skill_animation | skill | PixelLab | pixellab_fielded_pixel_prompt_v1 | reference image plus animation sheet | AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | ready |
+| skill_animation | skill | ImageGen | imagegen_animation | provider-native animated GIF plus preserved ordered frame set | AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md | ready; current v2 adapter |
 | character_image | character | PixelLab | pixellab_fielded_pixel_prompt_v1 | character identity and configured rotations | AgentDocs/planning-guides/character/CharacterGenerateImage.md | ready for generation/download handoff only |
 | character_animation | character | PixelLab | pixellab_fielded_pixel_prompt_v1 | named Move, Attack, and Idle provider animations | AgentDocs/planning-guides/character/CharacterGenerateAnimation.md | ready |
 | story_popup_main_image | stage | ImageGen | imagegen_composed_scene_prompt_v1 | one 3:4 story illustration when policy=generate | AgentDocs/planning-guides/stage/PopupEventMainImageCreateGuide.md | ready |
@@ -252,8 +252,8 @@ https://www.pixellab.ai/docs/tools/create-character
 
 - Skill and item icons use Create UI elements (Pro) at the domain-documented
   create_ui_pro route.
-- Skill animation uses the reference-image and animation flow documented by
-  SkillImageGenerationGuide.md.
+- Skill animation is not a PixelLab route. It uses the ImageGen animation flow
+  documented by `ImageGenAnimationPipelineGuide.md` and the Skill adapter.
 - Character image and animation use the character creation workflow documented
   by the character guides.
 - Confirm the signed-in page and intended tool before spending credits.
@@ -279,6 +279,10 @@ missing, stop. Do not call ImageGen.
 ### 7.2 ImageGen
 
 ImageGen routes use the configured ImageGen capability.
+
+- Skill animation uses the registered `skill_animation@2.0.0` animated-GIF
+  profile. Preservation extracts the ordered frame set; generation does not
+  produce or promote a legacy sprite sheet.
 
 - Validate the saved final prompt against current canonical content and the
   exact domain visual guide.

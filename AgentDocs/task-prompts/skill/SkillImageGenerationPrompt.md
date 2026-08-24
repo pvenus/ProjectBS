@@ -1,54 +1,27 @@
-# Skill Animation Provider Generation Prompt
+# Skill Animation ImageGen Prompt
 
-> Deprecated compatibility entry. Replaced by
-> `AgentDocs/task-prompts/content/generated-media/PixelLabAnimationPromptAuthoringPrompt.md`
-> and `AgentDocs/task-prompts/content/generated-media/PixelLabAnimationGenerationPrompt.md`.
+`ImageGenAnimationPromptAuthoringPrompt.md`와 `ImageGenAnimationGenerationPrompt.md`를 Skill 도메인으로 실행한다.
 
-캐릭터 독립형 스킬 애니메이션의 PixelLab provider 생성 단계만 실행합니다.
+## Inputs
 
-## Prompt
+- skillId: {skillId}
+- animationRequestId: {animationRequestId}
+- approvedMotion: {motion_and_key_poses}
+- frameCount: {frameCount}
+- timingAndLoop: {timing_and_loop}
+- canvasAndOrigin: {canvas_size_and_effect_origin}
+- planningHandoffMessage: {self_contained_skill_planning_message}
+- referenceMediaAttachments: {optional_actual_images}
 
-```text
-현재 ProjectBS 저장소에서 스킬 애니메이션 하나의 provider generation 단계만 실행해줘.
+## Rules
 
-참조 가이드:
-- AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-- AgentDocs/planning-guides/content/GeneratedImageGenerationPipelineGuide.md
-- AgentDocs/planning-guides/content/GeneratedImagePromptAuthoringGuide.md
-- AgentDocs/planning-guides/skill/SkillImageGenerationGuide.md
+1. `artifactType=animation`, `domainType=skill`, `contentId=skillId`로 고정한다.
+2. provider는 ImageGen이며 registry의 `skill_animation@2.0.0` profile을 사용한다.
+3. anchor는 `effect_origin`이고 character reference/profile 필드는 넣지 않는다.
+4. provider-native animated GIF 생성까지만 수행한다.
+5. PixelLab, 단일 스프라이트 시트 또는 독립 프레임 생성으로 대체하지 않는다.
+6. planning/routing/prompt/generation record 파일을 입력으로 요구하거나 만들지 않는다.
+7. 결과 GIF와 프레임 이미지를 채팅에 직접 첨부하거나 렌더링한다. 다음 채팅에 파일 경로나 package를 핸드오프하지 않는다.
+8. Unity `.meta` 파일을 생성·수정·복사·삭제하지 않는다.
 
-Input:
-- requestId: {optional_stable_request_id}
-- skillId: {canonical_equipment_skill_id}
-- promptRecordId: {generated_image_prompt_v1_record_id}
-- contentSummary: {optional_skill_animation_meaning}
-
-작업:
-1. artifactType=skill_animation, contentId=skillId로 고정한다.
-2. eligibility와 current skill-animation adapter를 검증한다.
-3. prompt record의 PixelLab profile, reference description/action fields, contentSnapshotHash와 tool version을 검증한다.
-4. 검증된 fieldPrompts와 provider settings로 reference image와 animation provider operation을 실행한다.
-5. reference 및 animation result refs, settings, attempts와 generation record를 보존한다.
-6. provider 결과를 다운로드·평가·프로젝트 복사하지 않는다.
-
-Output:
-- Skill ID / Artifact Type
-- Prompt Record ID / Hash / Provider Prompt Profile
-- PixelLab Tool Version / Settings / Attempt Count
-- Reference and Animation Result References
-- Generation Record ID / Path / SHA-256
-- Generation Status
-- Download Handoff
-
-실패 시 Output:
-- status: blocked | failed
-- failureType: ineligible_skill_animation | prompt_record_not_found | prompt_record_stale | provider_prompt_profile_mismatch | pixellab_unavailable | provider_operation_failed | generation_record_write_failed
-- Provider 호출 및 credit 사용 여부
-- Required Next Action
-
-검증:
-- 지정 PixelLab animation tool과 saved field prompts만 사용해야 한다.
-- provider result refs와 generation record까지만 생성해야 한다.
-- 다운로드·평가·Assets/ImagesGenerated 복사·Unity·Git 작업을 수행하지 않아야 한다.
-```
+생성 이미지 자체, skillId, 프레임 순서·타이밍·루프의 짧은 요약 또는 채팅 blocker를 반환한다.

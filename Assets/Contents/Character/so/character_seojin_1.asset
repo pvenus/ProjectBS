@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_seojin_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.seojin.1
+  characterType: 0
+  job: 17
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: a717beef60b7149c8a0182f5f4b1c0bb, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: f42799b26b8bf486f87965fc0fed6f4d, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: a717beef60b7149c8a0182f5f4b1c0bb, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: f42799b26b8bf486f87965fc0fed6f4d, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 18b9453bf121746dfb068c75deb1613e, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 6796e478f3ac84787bca35e1f86106d8, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 18b9453bf121746dfb068c75deb1613e, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 6796e478f3ac84787bca35e1f86106d8, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 64b191fda95014ec78cc92b5e3fde7fa, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 403bb86c678894752a10b5256c60a918, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 64b191fda95014ec78cc92b5e3fde7fa, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 403bb86c678894752a10b5256c60a918, type: 2}
+  skills:
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: 5616bfac4b440418b839371b6e9d9c8c, type: 2}
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: f3a0adba2275e4ab19b8430845507e92, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: 5bfc1f5136c5b476e870192f2729bd1c, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 500
+  - statType: 1000
+    value: 1000
+  - statType: 1220
+    value: 2
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 1.5

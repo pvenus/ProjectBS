@@ -63,6 +63,35 @@ public class ProjectileVisual : MonoBehaviour
     public AnimationClip CurrentClip => currentClip;
     public bool IsClipPlaying => isClipPlaying;
 
+    public float GetRemainingCurrentClipPlaybackTime()
+    {
+        if (!isClipPlaying || currentClip == null || currentClip.length <= 0f ||
+            currentClipPlaybackSpeed <= 0f || !clipPlayable.IsValid())
+        {
+            return 0f;
+        }
+
+        double clipTime = clipPlayable.GetTime();
+        double remainingClipTime;
+
+        if (currentClip.isLooping)
+        {
+            double normalizedClipTime = clipTime % currentClip.length;
+            remainingClipTime = currentClip.length - normalizedClipTime;
+
+            if (remainingClipTime <= 0.0001d)
+            {
+                remainingClipTime = currentClip.length;
+            }
+        }
+        else
+        {
+            remainingClipTime = System.Math.Max(0d, currentClip.length - clipTime);
+        }
+
+        return (float)(remainingClipTime / currentClipPlaybackSpeed);
+    }
+
     private void Reset()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();

@@ -1,52 +1,20 @@
-# Skill Animation Download and Preservation Prompt
+# Skill Animation Preservation Prompt
 
-> Deprecated compatibility entry. Replaced by
-> `AgentDocs/task-prompts/content/generated-media/GeneratedMediaPreservationPackagingPrompt.md`.
+완료된 ImageGen animated GIF를 current preservation contract에 따라 보존하고 평가 패키지를 만든다.
 
-완료된 PixelLab 스킬 애니메이션 결과를 다운로드하고 평가용 원본으로
-보존하는 단계만 실행합니다.
+## Inputs
 
-## Prompt
+- skillId: {skillId}
+- animationRequestId: {animationRequestId}
+- handoffMessage: {self_contained_generation_result_message}
+- generatedMediaAttachments: {actual_gif_and_or_ordered_frames}
 
-```text
-현재 ProjectBS 저장소와 기존 로컬 평가 workspace를 확인하고 스킬 애니메이션 provider 결과의 download/preserve 단계만 실행해줘.
+## Rules
 
-참조 가이드:
-- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-- AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md
+1. 핸드오프 메시지만으로 `skillId`, 프레임 순서, 타이밍, 루프와 effect origin을 확인한다.
+2. 첨부된 실제 GIF/프레임만 사용한다. record/package/manifest/receipt 경로를 요구하지 않는다.
+3. 별도 import 승인이 없으면 `Assets`에 쓰지 않는다.
+4. import 승인 시 대상은 `Assets/ImagesGenerated/Skill/animation/{skillId}/frame-{number}.png`다.
+5. 단일 `{skillId}.animation.png`, `animation_reference`, `.meta` 파일은 만들거나 수정하지 않는다.
 
-Input:
-- requestId: {optional_stable_request_id}
-- skillId: {canonical_equipment_skill_id}
-- generationRecordId: {generated_image_generation_v1_record_id}
-- generationRecordPath: {accessible_generation_record_path_or_stable_reference}
-- evaluationRoot: {current_pc_skill_animation_evaluation_root}
-- replacePreservedSource: {false | true_with_explicit_approval}
-
-작업:
-1. generation record의 artifactType=skill_animation, skillId, reference/animation result refs와 expected roles를 검증한다.
-2. 현재 PC의 기존 evaluationRoot를 확인한다.
-3. provider 원본 reference PNG와 animation sheet를 각각 다운로드한다.
-4. `{evaluationRoot}/{skillId}/source/` 아래에서 서로 다른 안정 파일명으로 원본 bytes를 보존한다.
-5. 두 파일의 dimensions, sheet manifest, SHA-256, provider refs와 download record를 작성한다.
-6. frame 추출, GIF, 평가, Unity slice/meta/clip과 프로젝트 복사를 수행하지 않는다.
-
-Output:
-- Skill ID / Generation Record ID
-- Reference and Animation Provider Result References
-- Preserved Source Paths / Sheet Manifest / SHA-256
-- Download Record ID / Path / SHA-256
-- Download Status
-- Evaluation Handoff
-
-실패 시 Output:
-- status: blocked | failed
-- failureType: generation_record_not_found | provider_result_not_found | invalid_reference_image | invalid_animation_sheet | existing_source_requires_approval | download_failed | checksum_failed | download_record_write_failed
-- 보존한 기존 source
-- Required Next Action
-
-검증:
-- reference와 animation 원본을 서로 덮어쓰지 않아야 한다.
-- preview나 GIF를 source로 사용하지 않아야 한다.
-- 평가·프레임 가공·Assets/ImagesGenerated 복사·Unity·Slack·Git 작업을 수행하지 않아야 한다.
-```
+결과 이미지 자체와 프레임 수·순서의 짧은 확인 또는 채팅 blocker를 반환한다.

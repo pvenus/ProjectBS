@@ -7,6 +7,19 @@ character or skill animation request. Generation creates one provider-native
 animated GIF; preservation verifies that GIF and extracts its frames.
 Evaluation is separate.
 
+### Skill message-only override
+
+For `domainType=skill`, `GeneratedMediaMessageOnlyLocalIterationGuide.md` is the
+forward-going handoff authority. Planning sends a self-contained chat message;
+generation uses that message and any actual media attachments; generation then
+delivers the GIF/ordered frames themselves in chat. Planning handoff files,
+routing/prompt/generation records, receipts, manifests, packages, indexes,
+sidecars, and output-path-only relays are skipped between chats. The strict
+record clauses below remain applicable to other explicitly selected promotable
+artifact workflows, but are not prerequisites for the Skill message-only flow.
+No animation stage creates, modifies, copies, deletes, or validates Unity
+`.meta` files.
+
 ## Authority and Scope
 
 ```text

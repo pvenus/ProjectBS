@@ -1,0 +1,66 @@
+{
+  "equipmentId": "skill.strategic.heavenfall_thunder",
+  "skillName": "천뢰낙",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.heavenfall_thunder.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 10.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.heavenfall_thunder.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.heavenfall_thunder.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.heavenfall_thunder.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageId": "skill.strategic.heavenfall_thunder.damage",
+        "skillId": "skill.strategic.heavenfall_thunder",
+        "damageType": "Normal",
+        "baseDamage": 750.0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.heavenfall_thunder.visual",
+    "projectileVisualType": "Default"
+  }
+}

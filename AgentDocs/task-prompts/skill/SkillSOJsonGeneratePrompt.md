@@ -12,10 +12,11 @@ Input:
 - projectRoot: {project_root}
 - characterPlanningJson = {projectRoot_기준_캐릭터별_기획_JSON_상대경로}
 - commonDataJson = {projectRoot_기준_공용_데이터_JSON_상대경로_또는_null}
-- outputRoot = Assets/Resources/skill/json
+- outputRoot = Assets/Contents/Skill/json
 
 참조 가이드:
 - AgentDocs/planning-guides/character/CharacterCreateGuide.md
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/skill/design/SkillDegineGuide.md
 - AgentDocs/planning-guides/skill/design/SkillBalanceGuide.md
 - AgentDocs/planning-guides/skill/data-structures/SkillJsonGuide.md
@@ -37,7 +38,7 @@ Input:
 6. slot은 source design JSON의 skills slot을 기준으로 SkillJsonGuide.md의 slot mapping에 맞춘다.
 7. cast.range는 최소 0.4 이상으로 작성한다.
 8. normal NPC는 upgradeTable을 생성하지 않는다. 업그레이드가 명시적으로 필요한 경우에도 SkillJsonGuide.md의 Upgrade Table Scope를 먼저 따른다.
-9. 필요한 optional profile만 작성하고, 필요 없는 hits, move, spawnSkill, upgradeTable, baseVisual은 생략한다.
+9. 필요한 optional profile만 작성하고, 필요 없는 hits, move, spawnSkill, upgradeTable은 생략한다. `baseVisual`은 항상 작성한다.
 10. child SO id는 equipmentId를 기준으로 SkillJsonGuide.md의 ID Derivation 규칙에 따라 생성한다.
 11. JSON에는 localization string, Unity SO asset, `.meta` 파일을 생성하지 않는다.
 12. 결과 JSON은 공용 스킬 SO JSON 루트인 outputRoot 아래에 `{equipmentId}.json` 파일명으로 저장한다.
@@ -74,7 +75,8 @@ Output:
 
 검증:
 - 결과 JSON 문법이 유효해야 한다.
-- 모든 스킬 SO JSON은 종류와 무관하게 `Assets/Resources/skill/json` 바로 아래에 저장해야 한다.
+- 모든 스킬 SO JSON은 종류와 무관하게 `Assets/Contents/Skill/json` 바로 아래에 저장해야 한다.
+- `Assets/Contents/Skill/so`에는 JSON 작성 단계에서 파일을 직접 생성하지 않아야 한다.
 - equipmentId는 skill.character.{character_name}.{grade}.{slot}.{skill_name} 형식을 따라야 한다.
 - slot은 SkillJsonGuide.md의 mapping과 맞아야 한다.
 - cast.range는 최소 0.4 이상이어야 한다.
@@ -87,4 +89,5 @@ Output:
 - 캐릭터 기획 JSON의 skills에 없는 스킬을 임의로 추가하지 않는다.
 - normal NPC의 난이도 보정은 upgradeTable이 아니라 stats, grade, tierId, encounter composition 기준으로 해석한다.
 - Skill SO JSON 생성 외의 리소스 생성, Unity asset 생성, localization 생성은 수행하지 않는다.
+- `Assets/Resources/skill`의 레거시 JSON이나 SO를 복사·수정하지 않는다.
 ```

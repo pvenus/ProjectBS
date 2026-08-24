@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using Skill;
 using UnityEngine;
 using Character;
 using Effect;
@@ -413,16 +414,17 @@ public class ProjectileHitHandler : MonoBehaviour
             }
 
             currentHitCount++;
+            ownerEntity.Spawner?.TrySpawnChildSkill(SpawnSkillTiming.OnHit);
 
             if (HasReachedMaxHitCount())
             {
-                ownerEntity.Despawn();
+                ownerEntity.CompleteCollisionAndDespawnAfterVisual();
                 return;
             }
 
             if (consumeAfterHit)
             {
-                ownerEntity.Despawn();
+                ownerEntity.CompleteCollisionAndDespawnAfterVisual();
             }
 
             return;
@@ -465,6 +467,7 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         currentHitCount++;
+        ownerEntity.Spawner?.TrySpawnChildSkill(SpawnSkillTiming.OnHit);
 
         if (request != null)
         {
@@ -484,13 +487,13 @@ public class ProjectileHitHandler : MonoBehaviour
 
         if (HasReachedMaxHitCount())
         {
-            ownerEntity.Despawn();
+            ownerEntity.CompleteCollisionAndDespawnAfterVisual();
             return;
         }
 
         if (consumeAfterHit)
         {
-            ownerEntity.Despawn();
+            ownerEntity.CompleteCollisionAndDespawnAfterVisual();
         }
     }
 

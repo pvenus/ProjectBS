@@ -1,0 +1,73 @@
+{
+  "equipmentId": "skill.strategic.demon_lure_incense",
+  "skillName": "요귀향",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.demon_lure_incense.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 6,
+    "projectileLifetime": 6,
+    "brainMeta": {
+      "category": "Control",
+      "targetType": "Enemy",
+      "tacticalNeed": "AreaControl",
+      "basePriority": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.demon_lure_incense.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.demon_lure_incense.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.demon_lure_incense.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "entryId": "effect.skill.strategic.demon_lure_incense.taunt.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.demon_lure_incense.taunt",
+            "effectType": "Taunt",
+            "effectName": "effect.skill.strategic.demon_lure_incense.taunt",
+            "config": {}
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 6,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.demon_lure_incense.visual",
+    "projectileVisualType": "Default"
+  }
+}

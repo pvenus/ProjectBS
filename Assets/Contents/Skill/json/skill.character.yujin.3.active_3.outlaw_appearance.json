@@ -1,0 +1,71 @@
+{
+  "equipmentId": "skill.character.yujin.3.active_3.outlaw_appearance",
+  "slotName": "active_3",
+  "skillName": "skill.character.yujin.3.active_3.outlaw_appearance",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Ranged",
+    "effectType": "Spawn",
+    "category": "Support",
+    "targetType": "Self",
+    "tacticalNeed": "None",
+    "basePriority": 0,
+    "baseProfileId": "skill.character.yujin.3.active_3.outlaw_appearance.profile",
+    "skillType": "Active",
+    "skillComponentType": "Spawn",
+    "projectileCount": 1,
+    "projectileScale": 1.0,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 1.0,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.yujin.3.active_3.outlaw_appearance.cast",
+    "cooldown": 28,
+    "castTime": 0,
+    "range": 0,
+    "castType": "Instant",
+    "targetingType": "Self",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "spawnSkill": {
+    "spawnSkillId": "skill.character.yujin.3.outlaw_appearance.spawn",
+    "timing": "OnCast",
+    "position": "CasterAround",
+    "spawnCount": 3,
+    "spawnInterval": 0,
+    "duration": 8,
+    "characterSO": "character.yujin.3.clone"
+  },
+  "hits": [
+
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.yujin.3.active_3.outlaw_appearance.visual",
+    "archetype": "Ranged",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "smoke_spawn",
+    "animatorController": "arrow_animator",
+    "idleClip": "arrow_idle",
+    "castClip": "arrow_cast",
+    "attackClip": "arrow_attack",
+    "projectileLoopClip": "smoke_spawn",
+    "hitClip": "arrow_hit",
+    "projectileVisualType": "Default"
+  }
+}

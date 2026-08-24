@@ -115,6 +115,11 @@ This task must not:
 When evidence is incomplete, stale, ambiguous, or not Pass, stop without
 copying and return the work to the appropriate preceding task.
 
+Promotion copies only approved media files. Unity `.meta` files are never a
+handoff member or copy target and must not be created, edited, normalized,
+deleted, or replaced by this workflow; Unity retains ownership of importer
+metadata.
+
 ## 5. Internal Artifact Routing Registry
 
 The task derives ownership, evidence conventions, project folder, filename, and
@@ -124,7 +129,7 @@ whether the artifact is a single file or set.
 | --- | --- | --- | --- | --- |
 | skill_icon | Skill | one PNG | Assets/ImagesGenerated/Skill/icon/{contentId}.icon.png | AgentDocs/planning-guides/skill/SkillIconDownloadGuide.md and SkillIconEvaluationGuide.md |
 | item_icon | Item | one PNG | Assets/ImagesGenerated/Item/icon/{contentId}.icon.png | AgentDocs/planning-guides/item/ItemIconGenerationGuide.md |
-| skill_animation | Skill | domain-defined PNG set | Skill/animation_reference and Skill/animation | AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md and SkillImageEvaluationGuide.md |
+| skill_animation | Skill | evaluated ordered PNG frame set | Assets/ImagesGenerated/Skill/animation/{contentId}/frame-{number}.png | AgentDocs/planning-guides/skill/SkillImageDownloadGuide.md and SkillImageEvaluationGuide.md |
 | character_animation | Character | evaluated renamed frame set | Assets/ImagesGenerated/Character/animation | AgentDocs/planning-guides/character/CharacterAnimationDownloadGuide.md and EvaluationAnimationGuide.md |
 | battle_background | Battle | one PNG | Assets/ImagesGenerated/Battle/background/{contentId}.background.png | AgentDocs/planning-guides/battle/BattleCreateGuide.md and the evaluation guide named by the report |
 | story_popup_main_image | Stage | one PNG | Assets/ImagesGenerated/Stage/popup_main/{contentId}.main.png | AgentDocs/planning-guides/stage/PopupEventMainImageEvaluationGuide.md |
@@ -244,10 +249,10 @@ All gates must pass before the project folder is modified.
 - targets are derived internally and are under Assets/ImagesGenerated;
 - no destination is under Assets/Resources;
 - canonical filenames contain no attempt, approval, date, or provider suffix;
-- when a target or .meta exists, replaceExisting=true and a non-empty
+- when a media target exists, replaceExisting=true and a non-empty
   replacementApprovalRef are both required;
-- replacement preserves the existing .meta and GUID;
-- a new target never reuses another asset's .meta or GUID.
+- `.meta` existence, contents, GUID, and importer state are outside this task and
+  must not be read or used to make a promotion decision.
 
 Perform every preflight check before copying the first member of a set.
 
@@ -255,16 +260,16 @@ Perform every preflight check before copying the first member of a set.
 
 1. Build an immutable promotion manifest from the verified evaluation package.
 2. Derive every destination and check duplicate or colliding targets.
-3. Capture existing destination and .meta state without changing it.
+3. Inspect only the existing media destination; do not inspect `.meta` state.
 4. Create only the required canonical project folder when promotion is ready.
 5. Copy each evaluated source byte-for-byte. Do not resize, crop, recompress,
    alter pixels, or switch candidates.
-6. For approved replacement, leave the existing .meta and GUID unchanged.
-7. For a new asset, create/import metadata only through the approved Unity
-   domain workflow and verify GUID uniqueness.
-8. Apply documented Sprite/import/slicing settings without altering PNG bytes.
+6. For approved replacement, copy only media bytes and leave all `.meta` files untouched.
+7. For a new asset, do not create, copy, edit, or validate metadata; Unity may
+   manage it later outside this workflow.
+8. Do not apply importer or slicing settings in this workflow.
 9. Recompute destination SHA-256 and compare every member with its source.
-10. Verify the complete set, .meta, importer, and manifest before promoted.
+10. Verify only the complete media set and its expected ordering before promoted.
 
 If a multi-file copy fails partway, do not report partial success. Restore the
 pre-copy state when safely possible. Otherwise report every partial path and
@@ -379,7 +384,7 @@ generation, download, correction, or evaluation as recovery.
 - [ ] Result is exactly Pass and tied to current source hashes.
 - [ ] Artifact identity and single-file or set membership match.
 - [ ] Every project target is under Assets/ImagesGenerated.
-- [ ] Replacement permission and .meta preservation were checked.
+- [ ] Only media files were copied; `.meta` files were not inspected or touched.
 - [ ] Source and destination SHA-256 values match after copy.
 - [ ] Promotion and consumer readiness are reported separately.
 - [ ] No generation, download, scoring, Slack, Git, or deployment occurred.

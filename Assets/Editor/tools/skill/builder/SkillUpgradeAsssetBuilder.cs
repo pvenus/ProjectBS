@@ -56,7 +56,8 @@ namespace ResourceTools.Skill
 
         public static EquipmentUpgradeTableSO CreateOrUpdate(
             SkillUpgradeTableJson tableJson,
-            string sourceJsonPath = null)
+            string sourceJsonPath = null,
+            string outputFolder = null)
         {
             if (tableJson == null)
             {
@@ -67,7 +68,8 @@ namespace ResourceTools.Skill
             string assetPath = ResolveAssetPath(
                 tableJson,
                 tableId,
-                sourceJsonPath);
+                sourceJsonPath,
+                outputFolder);
 
             assetPath = NormalizeAssetPath(assetPath);
 
@@ -285,11 +287,17 @@ namespace ResourceTools.Skill
         private static string ResolveAssetPath(
             SkillUpgradeTableJson tableJson,
             string tableId,
-            string sourceJsonPath)
+            string sourceJsonPath,
+            string outputFolder)
         {
             if (!string.IsNullOrWhiteSpace(tableJson.assetPath))
             {
                 return tableJson.assetPath;
+            }
+
+            if (!string.IsNullOrWhiteSpace(outputFolder))
+            {
+                return NormalizeAssetPath($"{outputFolder}/{CreateSafeAssetFileName(tableId)}.asset");
             }
 
             if (!string.IsNullOrWhiteSpace(sourceJsonPath))

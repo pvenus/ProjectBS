@@ -19,7 +19,8 @@ namespace ResourceTools.Helper
             string assetPath,
             IReadOnlyList<Sprite> sprites,
             float frameRate = DefaultFrameRate,
-            bool loopTime = true)
+            bool loopTime = true,
+            bool flipX = false)
         {
             string normalizedPath = NormalizeAssetPath(assetPath);
 
@@ -52,12 +53,116 @@ namespace ResourceTools.Helper
                 return null;
             }
 
-            AnimationClip clip = CreateSpriteAnimationClip(validSprites, frameRate, loopTime);
+            AnimationClip clip = CreateSpriteAnimationClip(validSprites, frameRate, loopTime, flipX);
             clip.name = Path.GetFileNameWithoutExtension(normalizedPath);
             AssetDatabase.CreateAsset(clip, normalizedPath);
             EditorUtility.SetDirty(clip);
 
             return clip;
+        }
+
+        public static AnimationClip CreateOrUpdateSpriteAnimationClip(
+            string assetPath,
+            IReadOnlyList<Sprite> sprites,
+            float frameRate = DefaultFrameRate,
+            bool loopTime = true,
+            bool flipX = false)
+        {
+            string normalizedPath = NormalizeAssetPath(assetPath);
+
+            if (!IsValidAnimationClipPath(normalizedPath))
+            {
+                Debug.LogError($"[AnimationClipAssetHelper] Invalid AnimationClip asset path: {assetPath}");
+                return null;
+            }
+
+            Sprite[] validSprites = sprites?
+                .Where(sprite => sprite != null)
+                .ToArray() ?? Array.Empty<Sprite>();
+
+            if (validSprites.Length == 0 || frameRate <= 0f)
+            {
+                Debug.LogWarning($"[AnimationClipAssetHelper] Invalid sprite animation input: {normalizedPath}");
+                return null;
+            }
+
+            EnsureParentFolder(normalizedPath);
+
+            AnimationClip generatedClip = CreateSpriteAnimationClip(
+                validSprites,
+                frameRate,
+                loopTime,
+                flipX);
+            generatedClip.name = Path.GetFileNameWithoutExtension(normalizedPath);
+
+            AnimationClip existingClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(normalizedPath);
+
+            if (existingClip == null)
+            {
+                AssetDatabase.CreateAsset(generatedClip, normalizedPath);
+                EditorUtility.SetDirty(generatedClip);
+                return generatedClip;
+            }
+
+            EditorUtility.CopySerialized(generatedClip, existingClip);
+            existingClip.name = Path.GetFileNameWithoutExtension(normalizedPath);
+            EditorUtility.SetDirty(existingClip);
+            UnityEngine.Object.DestroyImmediate(generatedClip);
+            return existingClip;
+        }
+
+        public static AnimationClip CreateOrUpdateSpriteAnimationClipWithDurations(
+            string assetPath,
+            IReadOnlyList<Sprite> sprites,
+            IReadOnlyList<float> frameDurations,
+            float frameRate = DefaultFrameRate,
+            bool loopTime = true,
+            bool flipX = false)
+        {
+            string normalizedPath = NormalizeAssetPath(assetPath);
+
+            if (!IsValidAnimationClipPath(normalizedPath))
+            {
+                Debug.LogError($"[AnimationClipAssetHelper] Invalid AnimationClip asset path: {assetPath}");
+                return null;
+            }
+
+            Sprite[] validSprites = sprites?
+                .Where(sprite => sprite != null)
+                .ToArray() ?? Array.Empty<Sprite>();
+
+            if (validSprites.Length == 0 || frameRate <= 0f ||
+                frameDurations == null || frameDurations.Count != validSprites.Length ||
+                frameDurations.Any(duration => duration <= 0f))
+            {
+                Debug.LogWarning($"[AnimationClipAssetHelper] Invalid timed sprite animation input: {normalizedPath}");
+                return null;
+            }
+
+            EnsureParentFolder(normalizedPath);
+
+            AnimationClip generatedClip = CreateSpriteAnimationClip(
+                validSprites,
+                frameRate,
+                loopTime,
+                flipX,
+                frameDurations);
+            generatedClip.name = Path.GetFileNameWithoutExtension(normalizedPath);
+
+            AnimationClip existingClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(normalizedPath);
+
+            if (existingClip == null)
+            {
+                AssetDatabase.CreateAsset(generatedClip, normalizedPath);
+                EditorUtility.SetDirty(generatedClip);
+                return generatedClip;
+            }
+
+            EditorUtility.CopySerialized(generatedClip, existingClip);
+            existingClip.name = Path.GetFileNameWithoutExtension(normalizedPath);
+            EditorUtility.SetDirty(existingClip);
+            UnityEngine.Object.DestroyImmediate(generatedClip);
+            return existingClip;
         }
 
         public static bool DeleteAssetIfExists(string assetPath)
@@ -88,7 +193,9 @@ namespace ResourceTools.Helper
         private static AnimationClip CreateSpriteAnimationClip(
             IReadOnlyList<Sprite> sprites,
             float frameRate,
-            bool loopTime)
+            bool loopTime,
+            bool flipX,
+            IReadOnlyList<float> frameDurations = null)
         {
             AnimationClip clip = new AnimationClip
             {
@@ -104,16 +211,35 @@ namespace ResourceTools.Helper
 
             ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Count];
 
+            float keyframeTime = 0f;
+
             for (int i = 0; i < sprites.Count; i++)
             {
                 keyframes[i] = new ObjectReferenceKeyframe
                 {
-                    time = i / frameRate,
+                    time = keyframeTime,
                     value = sprites[i]
                 };
+
+                keyframeTime += frameDurations != null
+                    ? frameDurations[i]
+                    : 1f / frameRate;
             }
 
             AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, keyframes);
+
+            EditorCurveBinding flipBinding = EditorCurveBinding.FloatCurve(
+                string.Empty,
+                typeof(SpriteRenderer),
+                "m_FlipX");
+            float clipDuration = frameDurations != null
+                ? keyframeTime
+                : Mathf.Max((sprites.Count - 1) / frameRate, 1f / frameRate);
+            AnimationCurve flipCurve = AnimationCurve.Constant(
+                0f,
+                Mathf.Max(clipDuration, 1f / frameRate),
+                flipX ? 1f : 0f);
+            AnimationUtility.SetEditorCurve(clip, flipBinding, flipCurve);
 
             AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
             settings.loopTime = loopTime;

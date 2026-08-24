@@ -1,0 +1,162 @@
+{
+  "equipmentId": "skill.character.seojin.3.active_1.charge",
+  "slotName": "active_1",
+  "skillName": "skill.character.seojin.3.active_1.charge",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "projectile11",
+    "projectileCount": 1,
+    "projectileScale": 1.2,
+    "projectileLifetime": 0.3,
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "OffensivePressure",
+    "basePriority": 0.8,
+    "baseProfileId": "skill.character.seojin.3.active_1.charge.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.3.active_1.charge.cast",
+    "cooldown": 10,
+    "castTime": 0,
+    "range": 2,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "castMove": {
+      "moveType": "DashForward",
+      "distance": 2,
+      "duration": 0.25,
+      "stopOnWall": true,
+      "ignoreDuringStun": false
+    },
+    "selfEffects": [
+      {
+        "effect": {
+          "effectId": "skill.character.seojin.3.active_1.charge.effect.self.1",
+          "effectType": "StatModifier",
+          "effectName": "돌격 피해 감소",
+          "statType": "Defense",
+          "valueType": "Flat",
+          "value": 20,
+          "duration": 3
+        },
+        "lifetimeType": "Timed",
+        "categoryType": "Buff",
+        "duration": 3,
+        "maxApplyCount": 1
+      }
+    ],
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.3.active_1.charge.move",
+    "moveType": "Hover",
+    "speed": 0,
+    "duration": 0.3,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": 180,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0,
+    "config": {
+      "followOffset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.3.active_1.charge.hit",
+      "maxHitCount": 20,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.3,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.active_1.charge.damage",
+        "damageType": "Normal",
+        "baseDamage": 120,
+        "attackPercentDamage": 1.8,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.3.active_1.charge.effect.debuff.1",
+            "effectType": "Knockback",
+            "effectName": "돌격 넉백",
+            "force": 20,
+            "directionType": "PushAwayFromSource",
+            "normalizeDirection": true,
+            "fallbackToProjectileDirection": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.seojin.3.active_1.charge.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "slash_basic",
+    "animatorController": "slash_animator",
+    "idleClip": "slash_idle",
+    "castClip": "slash_cast",
+    "attackClip": "slash_attack",
+    "projectileLoopClip": "military_officer_rush",
+    "hitClip": "slash_hit",
+    "projectileVisualType": "Default"
+  }
+}

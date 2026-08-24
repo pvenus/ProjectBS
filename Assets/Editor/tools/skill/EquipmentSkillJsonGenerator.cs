@@ -10,6 +10,9 @@ namespace ResourceTools.Skill
 {
     public static class EquipmentSkillJsonGenerator
     {
+        private const string ContentJsonFolder = "Assets/Contents/Skill/json";
+        private const string ContentSoFolder = "Assets/Contents/Skill/so";
+
         // New JSON model (2024-06):
         [Serializable]
         public class EquipmentSkillJson
@@ -142,7 +145,7 @@ namespace ResourceTools.Skill
                 return null;
             }
 
-            string outputFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            string outputFolder = ResolveOutputFolder(jsonPath);
 
             if (string.IsNullOrEmpty(outputFolder))
             {
@@ -154,6 +157,14 @@ namespace ResourceTools.Skill
                 data,
                 outputFolder,
                 jsonPath);
+        }
+
+        private static string ResolveOutputFolder(string jsonPath)
+        {
+            string jsonFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            return string.Equals(jsonFolder, ContentJsonFolder, StringComparison.OrdinalIgnoreCase)
+                ? ContentSoFolder
+                : jsonFolder;
         }
 
         public static EquipmentSkillSO CreateOrUpdateSkill(
@@ -221,19 +232,28 @@ namespace ResourceTools.Skill
 
             // Support both spawnSkill and spawn for spawn skill JSON
             SpawnSkillJson resolvedSpawnSkill = spawnSkill ?? spawn;
+            string resolvedSpawnJson = spawnSkill != null ? data.spawnSkill : data.spawn;
+            string childSkillJson = ExtractJsonValue(resolvedSpawnJson, "skill");
+            EquipmentSkillJson childSkillData = ParseEquipmentSkillJson(childSkillJson);
+            EquipmentSkillSO childSkillSo = childSkillData != null &&
+                                             !string.IsNullOrWhiteSpace(childSkillData.equipmentId)
+                ? CreateOrUpdateSkill(childSkillData, outputFolder, sourceJsonPath)
+                : null;
 
             SpawnSkillSO spawnSkillSo =
                 SkillSpawnAssetBuilder.HasSpawnSkill(resolvedSpawnSkill)
                     ? SkillSpawnAssetBuilder.CreateOrUpdate(
                         resolvedSpawnSkill,
-                        outputFolder)
+                        outputFolder,
+                        childSkillSo)
                     : null;
 
             EquipmentUpgradeTableSO upgradeTableSo =
                 upgrade != null
                     ? SkillUpgradeAsssetBuilder.CreateOrUpdate(
                         upgrade,
-                        sourceJsonPath)
+                        sourceJsonPath,
+                        outputFolder)
                     : null;
 
             BaseVisualSO baseVisualSo =
@@ -571,6 +591,13 @@ namespace ResourceTools.Skill
                 return null;
             }
 
+            string baseVisual = ExtractJsonValue(json, "baseVisual");
+            if (string.IsNullOrWhiteSpace(baseVisual))
+            {
+                string visualSet = ExtractJsonValue(json, "visualSet");
+                baseVisual = ExtractJsonValue(visualSet, "baseVisual");
+            }
+
             EquipmentSkillJson data = new EquipmentSkillJson
             {
                 equipmentId = root.equipmentId,
@@ -582,7 +609,7 @@ namespace ResourceTools.Skill
                 spawnSkill = ExtractJsonValue(json, "spawnSkill"),
                 spawn = ExtractJsonValue(json, "spawn"),
                 upgrade = ExtractJsonValue(json, "upgradeTable"),
-                baseVisual = ExtractJsonValue(json, "baseVisual")
+                baseVisual = baseVisual
             };
 
             return data;
@@ -740,14 +767,13 @@ namespace ResourceTools.Skill
                 return null;
             }
 
-            string key = $"\"{propertyName}\"";
-            int keyIndex = json.IndexOf(key, StringComparison.Ordinal);
+            int keyIndex = FindTopLevelProperty(json, propertyName);
             if (keyIndex < 0)
             {
                 return null;
             }
 
-            int colonIndex = json.IndexOf(':', keyIndex + key.Length);
+            int colonIndex = json.IndexOf(':', keyIndex + propertyName.Length + 2);
             if (colonIndex < 0)
             {
                 return null;
@@ -776,6 +802,69 @@ namespace ResourceTools.Skill
             }
 
             return null;
+        }
+
+        private static int FindTopLevelProperty(string json, string propertyName)
+        {
+            int objectDepth = 0;
+            int arrayDepth = 0;
+            bool inString = false;
+            bool escape = false;
+
+            for (int i = 0; i < json.Length; i++)
+            {
+                char current = json[i];
+                if (escape)
+                {
+                    escape = false;
+                    continue;
+                }
+
+                if (current == '\\' && inString)
+                {
+                    escape = true;
+                    continue;
+                }
+
+                if (current == '"')
+                {
+                    if (!inString && objectDepth == 1 && arrayDepth == 0)
+                    {
+                        int endQuote = i + 1;
+                        while (endQuote < json.Length && json[endQuote] != '"')
+                        {
+                            if (json[endQuote] == '\\') endQuote++;
+                            endQuote++;
+                        }
+
+                        if (endQuote < json.Length &&
+                            string.Equals(
+                                json.Substring(i + 1, endQuote - i - 1),
+                                propertyName,
+                                StringComparison.Ordinal))
+                        {
+                            int afterKey = endQuote + 1;
+                            while (afterKey < json.Length && char.IsWhiteSpace(json[afterKey])) afterKey++;
+                            if (afterKey < json.Length && json[afterKey] == ':') return i;
+                        }
+                    }
+
+                    inString = !inString;
+                    continue;
+                }
+
+                if (inString) continue;
+
+                switch (current)
+                {
+                    case '{': objectDepth++; break;
+                    case '}': objectDepth--; break;
+                    case '[': arrayDepth++; break;
+                    case ']': arrayDepth--; break;
+                }
+            }
+
+            return -1;
         }
 
         private static string ExtractBalancedJson(

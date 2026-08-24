@@ -18,7 +18,7 @@ This guide defines normalized standalone JSON authoring for the skill executed b
 a strategic item, under:
 
 ```text
-Assets/Resources/skill/json/{skillId}.json
+Assets/Contents/Skill/json/{skillId}.json
 ```
 
 Embedded skills in existing shop item files are comparison data, not templates
@@ -77,14 +77,14 @@ termination
 ## 3. Output and Overwrite Rules
 
 ```text
-Assets/Resources/skill/json/skill.strategic.{skill_slug}.json
+Assets/Contents/Skill/json/skill.strategic.{skill_slug}.json
 ```
 
 - Create one standalone JSON for one authorized strategic skill.
 - Do not overwrite an existing file unless `allowOverwrite=true`.
 - The filename uses the complete `equipmentId`.
 - Do not write the skill JSON below a shop item folder.
-- `Assets/Resources/skill/json` is the canonical JSON root for every skill SO JSON,
+- `Assets/Contents/Skill/json` is the canonical JSON root for every skill SO JSON,
   including skills executed by strategic items.
 - JSON authoring creates no Unity asset or `.meta` file.
 

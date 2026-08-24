@@ -77,7 +77,7 @@ one lower `snake_case` folder describing the image artifact type:
 Assets/ImagesGenerated/{ContentDomain}/{imageArtifactType}/
 ```
 
-Default file path:
+Default static-image file path:
 
 ```text
 Assets/ImagesGenerated/{ContentDomain}/{imageArtifactType}/{contentId}.{imageRole}.png
@@ -87,7 +87,8 @@ Examples:
 
 ```text
 Assets/ImagesGenerated/Skill/icon/{skillId}.icon.png
-Assets/ImagesGenerated/Skill/animation/{skillId}.animation.png
+Assets/ImagesGenerated/Skill/animation/{skillId}/frame-0.png
+Assets/ImagesGenerated/Skill/animation/{skillId}/frame-1.png
 Assets/ImagesGenerated/Item/icon/{itemId}.icon.png
 Assets/ImagesGenerated/Battle/background/{battleId}.background.png
 Assets/ImagesGenerated/Stage/popup_main/{eventId}.main.png
@@ -96,6 +97,15 @@ Assets/ImagesGenerated/Character/portrait/{characterId}.portrait.png
 
 Create only the artifact-type folders required by actual generated images. Do
 not pre-create every example.
+
+Animation frame sets are content-unit folders, not single sprite-sheet files.
+Skill animation frames use `frame-{number}.png` (or compatible
+`frame_{number}.png`) directly below the full `{skillId}` folder. Generated
+Unity clips are stored separately at:
+
+```text
+Assets/AnimationClips/Skill/{visualId}.loop.anim
+```
 
 ## 3. Naming Rules
 

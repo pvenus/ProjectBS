@@ -1,0 +1,76 @@
+{
+  "equipmentId": "skill.character.seojin.2.passive_1.indomitable",
+  "slotName": "passive_1",
+  "skillName": "skill.character.seojin.2.passive_1.indomitable",
+  "iconName": "passive_1",
+  "baseProfile": {
+    "skillType": "Passive",
+    "attackArchetype": "None",
+    "category": "None",
+    "baseProfileId": "skill.character.seojin.2.passive_1.indomitable.profile",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1.0,
+    "projectileColliderRadius": 0.5,
+    "projectileLifetime": 1.0,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.2.passive_1.indomitable.hit",
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.2.passive_1.indomitable.effect.buff.1",
+            "effectType": "StatModifier",
+            "effectName": "불퇴전 공격 증가",
+            "statType": "SurroundedAttackPercent",
+            "valueType": "Flat",
+            "value": 20,
+            "duration": -1
+          },
+          "lifetimeType": "Manual",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.2.passive_1.indomitable.effect.buff.2",
+            "effectType": "StatModifier",
+            "effectName": "불퇴전 피해 감소",
+            "statType": "SurroundedDamageReductionPercent",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": -1
+          },
+          "lifetimeType": "Manual",
+          "categoryType": "Buff",
+          "duration": -1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.seojin.2.passive_1.indomitable.visual",
+    "projectileVisualType": "Default"
+  }
+}

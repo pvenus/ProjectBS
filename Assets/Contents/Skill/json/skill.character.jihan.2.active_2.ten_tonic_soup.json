@@ -1,0 +1,161 @@
+{
+  "equipmentId": "skill.character.jihan.2.active_2.ten_tonic_soup",
+  "slotName": "active_2",
+  "skillName": "십전대보탕",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "projectile",
+    "projectileCount": 1,
+    "projectileScale": 6,
+    "projectileLifetime": 0.5,
+    "category": "Support",
+    "targetType": "Ally",
+    "tacticalNeed": "Buff",
+    "basePriority": 0.85,
+    "baseProfileId": "skill.character.jihan.2.active_2.ten_tonic_soup.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.jihan.2.active_2.ten_tonic_soup.cast",
+    "cooldown": 22,
+    "castTime": 0,
+    "range": 999,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "canMoveWhileCasting": false,
+    "canCancelCasting": false,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.jihan.2.active_2.ten_tonic_soup.move",
+    "moveType": "Warp",
+    "speed": 0,
+    "duration": 0.5,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": true,
+    "radialPulseAmplitude": 0.25,
+    "radialPulseFrequency": 4,
+    "config": {
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.jihan.2.active_2.ten_tonic_soup.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0.5,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "skillId": "skill.character.jihan.2.active_2.ten_tonic_soup.damage"
+      },
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.2.active_2.ten_tonic_soup.effect.buff.1",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 공격속도 증가",
+            "statType": "AttackSpeedPercent",
+            "valueType": "Percent",
+            "value": 20,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.2.active_2.ten_tonic_soup.effect.buff.2",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 쿨타임 감소",
+            "statType": "CooldownReduction",
+            "valueType": "Flat",
+            "value": 25,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.2.active_2.ten_tonic_soup.effect.buff.3",
+            "effectType": "StatModifier",
+            "effectName": "십전대보탕 피해 감소",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": 8
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 8,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.jihan.2.active_2.ten_tonic_soup.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "buff_aura_basic",
+    "animatorController": "buff_aura_animator",
+    "idleClip": "buff_aura_idle",
+    "castClip": "buff_aura_cast",
+    "attackClip": "buff_aura_attack",
+    "projectileLoopClip": "buff_aura_active",
+    "hitClip": "buff_aura_hit",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "equipmentId": "skill.strategic.ten_thousand_thunder_charm",
+  "skillName": "만뢰부적",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.ten_thousand_thunder_charm.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 8,
+    "projectileScale": 1,
+    "projectileColliderRadius": 1.0,
+    "projectileLifetime": 0.3,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    },
+    "projectile": {
+      "arrangement": "Circle",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 2.0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0.2
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.ten_thousand_thunder_charm.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.ten_thousand_thunder_charm.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.ten_thousand_thunder_charm.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageId": "skill.strategic.ten_thousand_thunder_charm.damage",
+        "skillId": "skill.strategic.ten_thousand_thunder_charm",
+        "damageType": "Normal",
+        "baseDamage": 120.0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": []
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.ten_thousand_thunder_charm.visual",
+    "projectileVisualType": "Rain"
+  }
+}

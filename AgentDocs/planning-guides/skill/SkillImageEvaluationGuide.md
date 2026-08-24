@@ -27,9 +27,9 @@ Existing reference-only assets may remain in their documented legacy locations.
 
 ## 1. Purpose
 
-This guide evaluates character-independent skill VFX sprite animations generated in PixelLab.
+This guide evaluates character-independent skill VFX animations generated through the current ImageGen animated-GIF pipeline and preserved as an ordered PNG frame set.
 
-Evaluation must inspect the reference image, the sprite sheet, every individual frame, and the played animation.
+Evaluation must inspect the preserved provider-native GIF, every extracted frame in order, and the played animation.
 
 Use the target skill JSON and generation record as the source of truth for the
 effect's activation moment, direction, range, element, damage, buff, debuff,
@@ -201,7 +201,7 @@ For every frame verify:
 For the complete animation verify:
 
 - Frame order is correct.
-- Frame count matches the requested setting or PixelLab's documented output format.
+- Frame count matches the approved animation contract and the preserved GIF timeline.
 - The primary impact frame is visually identifiable.
 - The anticipation, activation point, travel or expansion axis, impact or utility
   moment, and dissipation agree with the source data and generation record.
@@ -217,13 +217,13 @@ For the complete animation verify:
 - The skill does not encode world-space travel unnecessarily.
 - Loop or one-shot behavior matches the skill design.
 
-When evaluating downloaded production candidates, also verify:
+When evaluating production candidates, also verify:
 
-- The reference and animation are stored as separate files.
-- The preserved evaluation PNG and Unity destination PNG have matching SHA-256 values.
-- Sheet width and height, frame cell size, columns, rows, and usable frame count are recorded.
-- Unity slice count and generated clip frame count match the usable frame count.
-- The evaluation uses the exact preserved file copied into Unity, not a preview or recompressed duplicate.
+- The preserved GIF and its extracted ordered PNG frames belong to one evaluation package.
+- Each promoted Unity frame has the same SHA-256 as its evaluated frame.
+- Canvas size, ordered frame count, timing, loop mode, and effect origin are recorded.
+- The generated clip frame count matches the promoted ordered frame count.
+- Project frames use `Assets/ImagesGenerated/Skill/animation/{skillId}/frame-{number}.png`.
 
 ## 5. Result Classification
 
@@ -240,22 +240,19 @@ Skill Image Animation Evaluation
 
 Skill:
 Source JSON:
-Asset Path or PixelLab Page:
-Reference Asset Path:
-Animation Asset Path:
-Unity Reference Path:
-Unity Animation Path:
+Evaluation Package, GIF, or Frame Path:
+Animated GIF Path:
+Ordered Frame Root:
+Unity Frame Root:
+Unity Clip Path:
 Canvas:
-Sheet Size:
-Frame Cell Size:
-Columns / Rows:
 Requested Frames:
 Observed Frames:
-Usable / Unity Sliced / Clip Frames:
+Usable / Promoted / Clip Frames:
 Loop Mode:
-Reference SHA-256:
-Animation SHA-256:
-Unity Copy Checksum Match: Pass / Fail / Not Applicable
+GIF SHA-256:
+Ordered Frame SHA-256 List:
+Unity Frame Checksum Match: Pass / Fail / Not Applicable
 
 Fatal Failure Check:
 - Transparent background: Pass / Fail
@@ -323,8 +320,8 @@ only with `format_existing` semantics.
 - A playback GIF may loop for review when the legacy loop mode is unavailable,
   but the normalized record must state that the review loop is not evidence of
   the runtime loop mode.
-- Keep Unity `.meta` configuration, Editor reimport, sliced sub-assets, clip
-  generation, and runtime binding as separate evidence fields.
+- Do not open, inspect, create, modify, copy, or delete Unity `.meta` files.
+  Editor reimport, clip generation, and runtime binding are outside image evaluation.
 - Failed, blocked, or never-generated assets are not migrated as completed
   records.
 
@@ -348,8 +345,8 @@ does not replace the category score.
 - A secondary-effect or literal Korean-motif subcheck may be N/A only when
   canonical skill/design evidence proves it is not required; its scored category
   still evaluates the applicable primary effect, palette, hierarchy, and intent.
-- Unity meta, reimport, clip, and binding evidence may be N/A because it is
-  non-scored readiness evidence.
+- Unity meta is excluded from the workflow. Reimport, clip, and binding evidence
+  may be N/A because it is non-scored readiness evidence.
 - If a scored category cannot be observed, return `not_evaluated` with
   `insufficient_evidence`; do not calculate a passing total.
 

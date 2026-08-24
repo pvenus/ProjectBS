@@ -12,10 +12,11 @@ Input:
 - projectRoot: {project_root}
 - characterPlanningJson = {캐릭터별_기획_JSON_절대경로}
 - commonDataJson = {공용_데이터_JSON_절대경로_또는_null}
-- outputRoot = Assets/Resources/character/json
+- outputRoot = Assets/Contents/Character/json
 
 참조 가이드:
 - AgentDocs/planning-guides/character/CharacterCreateGuide.md
+- AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 - AgentDocs/planning-guides/character/data-structures/CharacterSO.md
 - AgentDocs/planning-guides/character/CharacterStatGuide.md
 - AgentDocs/planning-guides/character/data-structures/StatEnum.md
@@ -28,7 +29,7 @@ Input:
 5. job은 CharacterSO.md의 CharacterJob enum 값 중 하나를 정확히 사용한다.
 6. baseStats는 StatEnum.md에 존재하는 statType만 사용한다.
 7. baseStats는 CharacterStatGuide.md의 밸런스 기준과 캐릭터 기획 JSON의 planningScore/stats 성향을 함께 반영한다.
-8. animationClips, skills, localization은 JSON에 직접 넣지 않는다.
+8. animationClips, skills, localization, animationOverrideSet, skillOverrideSet, prefabName은 JSON에 직접 넣지 않는다.
 9. CharacterSO asset, AnimationClip asset, Skill SO asset, localization string, `.meta` 파일은 생성하지 않는다.
 10. 결과 JSON은 outputRoot 아래에 {characterId}.json 파일명으로 저장한다.
 
@@ -65,11 +66,13 @@ Output:
 - characterType은 Player, Npc, Boss 중 하나여야 한다.
 - job은 CharacterSO.md의 enum 값이어야 한다.
 - baseStats의 statType은 StatEnum.md에 존재해야 한다.
-- animationClips, skills, localization은 출력 JSON에 직접 들어가지 않아야 한다.
+- animationClips, skills, localization, animationOverrideSet, skillOverrideSet, prefabName은 출력 JSON에 직접 들어가지 않아야 한다.
+- 결과 JSON은 `Assets/Contents/Character/json`에 있고 `Assets/Contents/Character/so`에는 아무 파일도 직접 생성하지 않아야 한다.
 
 주의:
 - 세부 schema와 판단 기준은 프롬프트가 아니라 참조 가이드를 원본으로 따른다.
 - Player/Npc/Boss는 characterType으로만 사용하고 characterId 도메인은 항상 character로 유지한다.
 - StatEnum.md에 없는 statType은 임의로 만들지 않는다.
 - CharacterSO 입력 JSON 생성 외의 리소스 생성은 수행하지 않는다.
+- `Assets/Resources/character`의 레거시 JSON이나 SO를 복사·수정하지 않는다.
 ```

@@ -1,274 +1,42 @@
-# Skill Image Animation Generation Guide
+# Skill Animation ImageGen Guide
 
-> Deprecated execution contract. Retained as general animation profile
-> evidence. Replaced by
-> `AgentDocs/planning-guides/content/generated-media/PixelLabAnimationPipelineGuide.md`.
+## Purpose
 
+스킬 애니메이션은 PixelLab 스프라이트 시트가 아니라 현재 ImageGen 애니메이션 파이프라인으로 생성한다. 생성·보존 계약은 `GeneratedMediaImageGenOnlyContractGuide.md`, `ImageGenAnimationPipelineGuide.md`, `GeneratedMediaPreservationPackagingGuide.md`를 따른다.
 
-## Master Concept Reference
+메인 캐릭터 샘플에서 확정한 컨셉, 관찰 결과와 별도 채팅용 핸드오프 템플릿은 `SkillAnimationImageGenSampleConceptGuide.md`를 따른다.
 
-Before using this document, read and apply:
+## Identity and generation
 
-AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
+- `artifactType=animation`, `domainType=skill`, `contentId={skillId}`
+- anchor는 `effect_origin`이며 캐릭터 reference/profile 필드는 사용하지 않는다.
+- 승인된 동작, 프레임 수, 순서, 타이밍, 루프, 캔버스 크기를 입력한다.
+- 스킬 VFX의 기본 정식 애니메이션은 시작·생성·타격·소멸 pose를 포함하지 않는 짧은 반복 loop다. 기본값은 동일한 effect origin과 footprint를 유지하는 4프레임이며 회전 위상, 이동 광점, 내부 광량과 작은 파티클만 순환시킨다.
+- 생성/등장과 종료/소멸 연출은 loop 프레임에 굽지 않고 런타임 또는 별도 clip/effect가 소유한다. loop의 모든 frame은 언제든 반복 가능한 지속 상태여야 하며 마지막 frame은 첫 frame으로 자연스럽게 연결돼야 한다.
+- loop 내부에서 형태 오차가 흔들림으로 읽히는 hero object를 프레임마다 다시 생성하지 않는다. 고정 field·ring·effect origin을 identity로 사용하고, 같은 완성 오브젝트의 재묘사보다 먹선 회전·광량 맥동·파티클 궤도 변화를 우선한다.
+- 단일 투사체의 반복 판독이 gameplay상 필수인 경우만 예외로 하며, 이때 투사체 identity·scale·baseline은 고정하고 실제 이동·복수 배치·발사 횟수는 런타임이 소유한다.
+- ImageGen provider-native animated GIF가 정식 원본이다. 정지 이미지, 컨택트 시트, 단일 스프라이트 시트, 독립 생성 프레임은 정식 원본이 아니다.
+- 스킬 기획은 필요한 내용을 완결적인 채팅 메시지로 넘긴다. 다음 채팅은 기획 파일, routing record, prompt record 또는 generation record를 열지 않아도 그 메시지만으로 생성할 수 있어야 한다.
+- 생성 결과는 GIF/프레임 이미지 자체를 채팅에 첨부하거나 렌더링해 전달한다. 채팅 사이에 record 경로, package 경로, manifest 또는 sidecar 파일을 전달하지 않는다.
+- 프로젝트 저장은 별도로 명시적으로 요청된 import 단계에서만 수행한다.
 
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
-## Generated Image Storage Reference
-
-Before generating, downloading, evaluating, promoting, or resolving a generated
-image, read and apply:
-
-```text
-AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
-```
-
-This storage guide is mandatory. Its `Assets/ImagesGenerated` contract takes
-precedence over legacy generated-image output paths under `Assets/Resources`.
-Existing reference-only assets may remain in their documented legacy locations.
-
-## Current Executable Contract
-
-- **Guide type:** provider-generation workflow guide.
-- **Responsibility:** generate a PixelLab skill-effect reference and animation, then return provider references and a generation record.
-- **Inputs:** approved skill identity/data and a resolved provider prompt.
-- **Preconditions:** eligibility and runtime-responsibility checks pass; the prompt is approved.
-- **Handoff:** provider result references, generation settings, and a request for the separate download/preservation stage.
-- **Mutation boundary:** no download, local preservation, rubric evaluation, project copy, Unity import/meta work, or Git work.
-
-The skill data controls gameplay meaning, the master concept controls visual
-prohibitions, and this guide controls only provider generation. Conflicts stop
-execution with `generation_authority_conflict`.
-
-## 1. Purpose
-
-This guide defines how to create character-independent pixel-art skill VFX animations in PixelLab.
-
-The generated asset represents only the skill effect. Character movement, projectile travel, targeting, collision, and world positioning are handled by the game runtime.
-
-## 2. Mandatory Tool
-
-- Use PixelLab Creator: `https://www.pixellab.ai/create`.
-- Use **Create image (Pro)** for the reference image.
-- Use **Animate with text (New)** for the animation.
-- Do not replace PixelLab with another image generation service.
-- If PixelLab is unavailable, stop and report the blocker.
-
-## 3. Asset Requirements
-
-### 3.0 Eligibility
-
-- Do not generate a separate skill VFX animation for melee basic attacks.
-- A skill is treated as a melee basic attack when its ID contains `.basic_attack.` and `cast.range <= 1.0`.
-- Melee basic attacks use only the character's basic attack animation.
-- Ranged basic attacks may use an independent projectile VFX animation.
-
-### 3.1 Character Independence
-
-The asset must not contain:
-
-- A character, body part, hand, face, creature, or caster silhouette.
-- A weapon unless the weapon itself is the projectile defined by the skill.
-- A scene, terrain, room, sky, decorative background, UI frame, text, or icon border.
-- A baked world-space travel path that should be controlled by the game runtime.
-
-### 3.2 Transparent Background
-
-- Enable **Remove background** in both image and animation generation.
-- The output must use an alpha-transparent background.
-- All four corners must be fully transparent.
-- Do not accept solid-color, checkerboard, scenery, floor-texture, or vignette backgrounds.
-- A ground seal or impact mark is allowed only when it is part of the skill effect.
-
-### 3.3 Canvas and Safe Area
-
-- Default canvas: **128×128**.
-- Default animation length: **8 frames**.
-- Use a square canvas unless the skill explicitly requires another ratio.
-- Keep the reference effect within **55%** of the canvas width and height.
-- Keep the largest animated state within **70%** of the canvas.
-- Maintain at least **12.5% transparent padding** on every side.
-- No opaque, translucent, glow, particle, smoke, or afterimage pixel may touch a canvas edge.
-- The complete effect must remain visible in every frame; cropping is a hard failure.
-
-### 3.4 Runtime Responsibility Boundary
-
-Generate only local VFX deformation and timing in PixelLab:
-
-- Rotation.
-- Pulsing.
-- Charging.
-- Short hovering.
-- Local expansion and contraction.
-- Fragment separation and convergence.
-- Impact flash.
-- Dissipation.
-
-Implement these movements in the game runtime instead:
-
-- Straight or curved travel across the battlefield.
-- Homing and target tracking.
-- Ballistic trajectory.
-- Spawn position and rotation.
-- Collision, damage area, and hit timing.
-- World-space scaling.
-
-Do not use action descriptions such as `flies across the screen`, `exits the frame`, or `fills the entire canvas`.
-
-## 4. Recommended Workflow
-
-### Step 1: Read Skill Data
-
-Identify:
-
-- Skill name and intent.
-- Projectile, airborne, ground-impact, area, beam, aura, or burst type.
-- Damage element and status effect.
-- Cast range, hit range, hit count, and duration.
-- Required color and visual identity.
-- Whether the animation loops or plays once.
-
-### Step 2: Define a Visual Sequence
-
-Describe the animation in three to five stages:
+## Canonical project input
 
 ```text
-spawn/idle → anticipation → primary motion → impact/release → fade/recovery
+Assets/ImagesGenerated/Skill/animation/{skillId}/
+  frame-0.png
+  frame-1.png
+  ...
 ```
 
-Keep the sequence readable at gameplay scale. One animation should communicate one main action.
+`frame-{number}.png` 또는 `frame_{number}.png` Sprite만 허용한다. 번호 순으로 정렬하며 파일은 `{skillId}` 폴더 바로 아래에 둔다. 하위 폴더는 읽지 않는다. `animation_reference`와 `{skillId}.animation.png` 단일 시트는 레거시 입력이다.
 
-### Step 3: Generate the Reference Image
-
-In **Create image (Pro)**:
-
-- Output size: `128×128`.
-- Remove background: enabled.
-- Generate four variations.
-- Describe a single isolated skill VFX sprite.
-- Explicitly specify maximum canvas occupancy and transparent padding.
-- Exclude characters, scenery, text, UI, and unwanted ground elements.
-
-Choose the variation with:
-
-- The clearest silhouette.
-- The largest safe margin.
-- The fewest stray particles.
-- Strong readability at small size.
-- A shape suitable for the intended motion.
-
-When PixelLab displays **Pick a Frame**, select one variation and use it as a single image.
-
-### Step 4: Animate the Reference Image
-
-In **Animate with text (New)**:
-
-- Reference image: selected single variation.
-- Frame count: `8` by default.
-- Remove background: enabled.
-- Use an English one-paragraph action description.
-- State that the effect is fixed at the canvas center.
-- State the maximum animated diameter.
-- State that the result must not travel, crop, or touch an edge.
-- State whether the animation is looping or one-shot.
-
-### Step 5: Provider Preview Check
-
-- Play the animation in PixelLab.
-- Review every sprite-sheet frame, not only the animated preview.
-- Reject only an obviously broken provider result, such as a missing animation
-  or an unreadable/cropped preview. Do not assign evaluation scores or a verdict.
-
-### Step 6: Legacy Post-generation Appendix (Non-executable)
-
-This section describes the former combined workflow and is retained only for
-historical interpretation. Current execution stops after Step 5, writes the
-generation record, and hands off to a separate download/preservation task.
-
-After a result is accepted, follow `SkillImageDownloadGuide.md` for the complete post-generation workflow.
-
-- Download the selected reference and final animation as separate deliverables.
-- Preserve them under the current PC's resolved `{evaluationRoot}` before Unity copy.
-- Copy them to `animation_ref_png` and `animation_png` using the full skill ID filenames.
-- Derive the slice grid from actual sheet dimensions; do not assume a fixed grid.
-- Save `generation_record.txt` and `evaluation/evaluation_result.txt`.
-- Delete ZIP and temporary extraction files only after preservation and verification succeed.
-
-## 5. Prompt Construction Rules
-
-### 5.1 Reference Image Description Order
-
-Use this order:
+## Generated clip
 
 ```text
-asset type → gameplay role → central shape → secondary elements → motion-ready silhouette
-→ palette → pixel-art style → exclusions → camera/view → safe-area constraints → transparency
+Assets/AnimationClips/Skill/{visualId}.loop.anim
 ```
 
-Required phrases:
+클립은 Skill SO 폴더가 아니라 Skill 콘텐츠 단위 클립 폴더에 생성한다. 재생성 시 기존 asset을 갱신해 GUID를 유지한다. 프레임 폴더 누락, 잘못된 이름, Sprite import 실패 또는 0프레임은 클립 생성 실패다.
 
-```text
-single character-independent 2D pixel art skill effect
-isolated game VFX sprite only
-entire effect centered and fully visible
-generous transparent padding on every side
-no pixel or glow touching canvas edges
-transparent background
-```
-
-### 5.2 Animation Action Order
-
-Use this order:
-
-```text
-initial state → anticipation → main action → impact/release → ending
-→ loop mode → center lock → maximum extent → exclusions → transparency
-```
-
-Required phrases:
-
-```text
-fixed center
-no movement across the canvas
-maximum effect diameter 70 percent of canvas
-all pixels and glow fully contained
-no edge contact
-no cropping
-no character
-transparent background
-```
-
-## 6. Recommended Presets
-
-| Effect Type | Canvas | Frames | Reference Occupancy | Animated Maximum | Mode |
-|---|---:|---:|---:|---:|---|
-| Small projectile loop | 64×64 | 8–12 | 40–50% | 65% | Loop |
-| Airborne projectile burst | 128×128 | 8 | 45–55% | 65% | One-shot |
-| Ground impact | 128×128 | 8 | 25–40% | 70% | One-shot |
-| Area seal/field | 128×128 | 8–12 | 25–35% | 70% | Loop or one-shot |
-| Large boss burst | 256×256 | 4–8 | 30–45% | 70% | One-shot |
-
-## 7. Output Record
-
-Record the following after generation:
-
-```text
-Skill:
-Source JSON:
-Effect Type:
-PixelLab Tool:
-Reference Prompt:
-Selected Variation:
-Animation Prompt:
-Canvas:
-Frame Count:
-Loop Mode:
-Remove Background:
-PixelLab Page:
-Generation Status:
-Provider Result References:
-Download Handoff Status:
-Notes:
-```
+Unity `.meta` 파일은 생성·수정·복사·삭제·정규화하지 않는다. 프레임 및 클립의 기존 `.meta`는 Unity 소유 정보로 그대로 둔다.

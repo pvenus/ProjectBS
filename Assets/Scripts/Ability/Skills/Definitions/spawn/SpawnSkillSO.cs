@@ -10,50 +10,61 @@ namespace Skill
     public class SpawnSkillSO : ScriptableObject
     {
         [Header("Common")]
+        [SerializeField] private SpawnSkillTiming timing;
+        [SerializeField] private SpawnSkillPosition position = SpawnSkillPosition.ProjectilePosition;
         [SerializeField] private int spawnCount = 1;
         [SerializeField] private float spawnInterval;
         [SerializeField] private float spawnLifeTime;
 
-        [Header("Character Spawn")]
-        [SerializeField] private SpawnCharacterProfile characterSpawn = new();
+        [Header("Spawn Config")]
+        [SerializeField] private SpawnConfig config = new();
 
+        public SpawnSkillTiming Timing => timing;
+        public SpawnSkillPosition Position => position;
         public int SpawnCount => Mathf.Max(1, spawnCount);
         public float SpawnInterval => Mathf.Max(0f, spawnInterval);
         public float SpawnLifeTime => Mathf.Max(0f, spawnLifeTime);
 
-        public CharacterSO CharacterSO => characterSpawn.CharacterSO;
+        public SpawnConfig Config => config;
+        public CharacterSO CharacterSO => config != null ? config.CharacterSO : null;
+        public EquipmentSkillSO Skill => config != null ? config.Skill : null;
 
 #if UNITY_EDITOR
         public void ApplyEditorData(
+            SpawnSkillTiming timing,
+            SpawnSkillPosition position,
             int spawnCount,
             float spawnInterval,
             float spawnLifeTime)
         {
+            this.timing = timing;
+            this.position = position;
             this.spawnCount = spawnCount;
             this.spawnInterval = spawnInterval;
             this.spawnLifeTime = spawnLifeTime;
         }
 
-        public void ApplyEditorCharacterSpawn(
-            CharacterSO characterSO)
+        public void ApplyEditorConfig(UnityEngine.Object spawnObject)
         {
-            characterSpawn.ApplyEditorData(characterSO);
+            config ??= new SpawnConfig();
+            config.ApplyEditorData(spawnObject);
         }
 #endif
     }
 
     [Serializable]
-    public class SpawnCharacterProfile
+    public class SpawnConfig
     {
-        [SerializeField] private CharacterSO characterSO;
+        [SerializeField] private UnityEngine.Object spawnObject;
 
-        public CharacterSO CharacterSO => characterSO;
+        public UnityEngine.Object SpawnObject => spawnObject;
+        public CharacterSO CharacterSO => spawnObject as CharacterSO;
+        public EquipmentSkillSO Skill => spawnObject as EquipmentSkillSO;
 
 #if UNITY_EDITOR
-        public void ApplyEditorData(
-            CharacterSO characterSO)
+        public void ApplyEditorData(UnityEngine.Object spawnObject)
         {
-            this.characterSO = characterSO;
+            this.spawnObject = spawnObject;
         }
 #endif
     }

@@ -49,12 +49,22 @@ EquipmentSkillSO is the top-level skill authoring object. It does not duplicate 
 Store every EquipmentSkillSO source JSON directly under the canonical root:
 
 ```text
-Assets/Resources/skill/json/{equipmentId}.json
+Assets/Contents/Skill/json/{equipmentId}.json
 ```
 
 Character, NPC, boss, and strategic-item-linked skills share this root. Use the
 complete `equipmentId` as the filename; do not create a type-specific generated
 subfolder for new skill JSON.
+
+Generated primary and supporting SO assets are written to:
+
+```text
+Assets/Contents/Skill/so
+```
+
+Because this output is flat, every child ID and asset name must derive from the
+complete `equipmentId`. Generic child IDs such as `basic_attack_cast` and
+`basic_attack_move` are prohibited.
 
 ## Fields
 

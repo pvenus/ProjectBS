@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Character;
 using Stat;
 using UnityEditor;
@@ -11,6 +12,9 @@ namespace ResourceTools.Character
 {
     public static class CharacterJsonGenerator
     {
+        private const string ContentJsonFolder = "Assets/Contents/Character/json";
+        private const string ContentSoFolder = "Assets/Contents/Character/so";
+
         [Serializable]
         private class CharacterJson
         {
@@ -100,13 +104,15 @@ namespace ResourceTools.Character
                 return null;
             }
 
-            string outputFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            string outputFolder = ResolveOutputFolder(jsonPath);
 
             if (string.IsNullOrEmpty(outputFolder))
             {
                 Debug.LogError("[CharacterJsonGenerator] Cannot resolve output folder from json path.");
                 return null;
             }
+
+            EnsureFolder(outputFolder);
 
             string assetName = GetSafeAssetName(data.characterId);
             string assetPath = $"{outputFolder}/{assetName}.asset";
@@ -153,6 +159,32 @@ namespace ResourceTools.Character
             AssetDatabase.Refresh();
 
             return characterSo;
+        }
+
+        private static string ResolveOutputFolder(string jsonPath)
+        {
+            string jsonFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            return string.Equals(jsonFolder, ContentJsonFolder, StringComparison.OrdinalIgnoreCase)
+                ? ContentSoFolder
+                : jsonFolder;
+        }
+
+        private static void EnsureFolder(string folderPath)
+        {
+            if (string.IsNullOrWhiteSpace(folderPath) || AssetDatabase.IsValidFolder(folderPath))
+            {
+                return;
+            }
+
+            string parentFolder = Path.GetDirectoryName(folderPath)?.Replace("\\", "/");
+            string folderName = Path.GetFileName(folderPath);
+
+            EnsureFolder(parentFolder);
+
+            if (!string.IsNullOrEmpty(parentFolder) && !string.IsNullOrEmpty(folderName))
+            {
+                AssetDatabase.CreateFolder(parentFolder, folderName);
+            }
         }
 
         [MenuItem("Assets/Character/Generate CharacterSO From Json", true)]
@@ -207,15 +239,27 @@ namespace ResourceTools.Character
                 return result;
             }
 
+            Dictionary<string, AnimationClip> clipsByAction = LoadAnimationClipsByAction(characterId);
+
+            if (clipsByAction.Count == 0)
+            {
+                Debug.Log($"[CharacterJsonGenerator] Generating missing animation clips for: {characterId}");
+                global::ResourceTools.CharacterClipBuilder.GenerateAll();
+                clipsByAction = LoadAnimationClipsByAction(characterId);
+            }
+
             Array clipTypes = Enum.GetValues(typeof(CharacterAnimationClipType));
 
             foreach (object value in clipTypes)
             {
                 CharacterAnimationClipType clipType = (CharacterAnimationClipType)value;
-                string clipName = $"{characterId}.{clipType}";
-                AnimationClip clip = CreateOrUpdateAnimationClipFromSprites(clipName);
+                string action = GetAnimationAction(clipType);
+                string direction = clipType.ToString().EndsWith("Left", StringComparison.Ordinal)
+                    ? "left"
+                    : "right";
+                string clipKey = $"{action}.{direction}";
 
-                if (clip == null)
+                if (string.IsNullOrEmpty(action) || !clipsByAction.TryGetValue(clipKey, out AnimationClip clip))
                 {
                     continue;
                 }
@@ -228,6 +272,88 @@ namespace ResourceTools.Character
             }
 
             return result;
+        }
+
+        private static Dictionary<string, AnimationClip> LoadAnimationClipsByAction(string characterId)
+        {
+            const string clipFolder = "Assets/AnimationClips/Character";
+            Dictionary<string, AnimationClip> result = new(StringComparer.OrdinalIgnoreCase);
+
+            if (!AssetDatabase.IsValidFolder(clipFolder))
+            {
+                Debug.LogWarning($"[CharacterJsonGenerator] Animation clip folder not found: {clipFolder}");
+                return result;
+            }
+
+            string[] guids = AssetDatabase.FindAssets($"{characterId} t:AnimationClip", new[] { clipFolder });
+
+            foreach (string path in guids
+                         .Select(AssetDatabase.GUIDToAssetPath)
+                         .Where(path => !string.IsNullOrEmpty(path))
+                         .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
+            {
+                AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
+
+                if (clip == null || !clip.name.StartsWith(characterId + ".", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                string action = GetAnimationAction(clip.name);
+                string direction = GetAnimationDirection(clip.name);
+                string clipKey = $"{action}.{direction}";
+
+                if (!string.IsNullOrEmpty(action) &&
+                    !string.IsNullOrEmpty(direction) &&
+                    !result.ContainsKey(clipKey))
+                {
+                    result.Add(clipKey, clip);
+                }
+            }
+
+            return result;
+        }
+
+        private static string GetAnimationAction(CharacterAnimationClipType clipType)
+        {
+            string name = clipType.ToString();
+
+            if (name.StartsWith("Idle", StringComparison.Ordinal)) return "idle";
+            if (name.StartsWith("Move", StringComparison.Ordinal)) return "movement";
+            if (name.StartsWith("Attack", StringComparison.Ordinal)) return "attack";
+            if (name.StartsWith("Death", StringComparison.Ordinal)) return "death";
+            return null;
+        }
+
+        private static string GetAnimationDirection(string clipName)
+        {
+            string normalizedName = clipName.Replace('-', '.').Replace('_', '.');
+            string[] parts = normalizedName.Split('.');
+
+            foreach (string part in parts)
+            {
+                if (part.Equals("left", StringComparison.OrdinalIgnoreCase)) return "left";
+                if (part.Equals("right", StringComparison.OrdinalIgnoreCase)) return "right";
+            }
+
+            return null;
+        }
+
+        private static string GetAnimationAction(string clipName)
+        {
+            string normalizedName = clipName.Replace('-', '.').Replace('_', '.');
+            string[] parts = normalizedName.Split('.');
+
+            foreach (string part in parts)
+            {
+                if (part.Equals("idle", StringComparison.OrdinalIgnoreCase)) return "idle";
+                if (part.Equals("move", StringComparison.OrdinalIgnoreCase) ||
+                    part.Equals("movement", StringComparison.OrdinalIgnoreCase)) return "movement";
+                if (part.Equals("attack", StringComparison.OrdinalIgnoreCase)) return "attack";
+                if (part.Equals("death", StringComparison.OrdinalIgnoreCase)) return "death";
+            }
+
+            return null;
         }
 
         private static List<CharacterSkillEntry> BuildSkills(string characterId)
@@ -327,129 +453,6 @@ namespace ResourceTools.Character
             });
         }
 
-
-        private static AnimationClip CreateOrUpdateAnimationClipFromSprites(string clipName)
-        {
-            const string spriteFolder = "Assets/Resources/character/animation_png";
-            const string clipFolder = "Assets/Resources/character/animation_clip";
-
-            List<Sprite> sprites = FindSpritesForClip(spriteFolder, clipName);
-
-            if (sprites.Count == 0)
-            {
-                return null;
-            }
-
-            EnsureFolder(clipFolder);
-
-            string clipPath = $"{clipFolder}/{clipName}.clip.anim";
-            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
-            AnimationClip generatedClip = CreateSpriteAnimationClip(sprites);
-
-            if (clip == null)
-            {
-                AssetDatabase.CreateAsset(generatedClip, clipPath);
-                return generatedClip;
-            }
-
-            EditorUtility.CopySerialized(generatedClip, clip);
-            EditorUtility.SetDirty(clip);
-            return clip;
-        }
-
-        private static List<Sprite> FindSpritesForClip(
-            string spriteFolder,
-            string clipName)
-        {
-            List<Sprite> result = new();
-
-            string[] guids = AssetDatabase.FindAssets(
-                $"{clipName} t:Sprite",
-                new[] { spriteFolder });
-
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-
-                if (sprite == null)
-                {
-                    continue;
-                }
-
-                if (!sprite.name.StartsWith(clipName, StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                result.Add(sprite);
-            }
-
-            result.Sort((left, right) =>
-                string.Compare(
-                    left != null ? left.name : string.Empty,
-                    right != null ? right.name : string.Empty,
-                    StringComparison.OrdinalIgnoreCase));
-
-            return result;
-        }
-
-        private static AnimationClip CreateSpriteAnimationClip(
-            List<Sprite> sprites)
-        {
-            AnimationClip clip = new AnimationClip
-            {
-                frameRate = 12f
-            };
-
-            EditorCurveBinding binding = new EditorCurveBinding
-            {
-                type = typeof(SpriteRenderer),
-                path = string.Empty,
-                propertyName = "m_Sprite"
-            };
-
-            ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Count];
-
-            for (int i = 0; i < sprites.Count; i++)
-            {
-                keyframes[i] = new ObjectReferenceKeyframe
-                {
-                    time = i / clip.frameRate,
-                    value = sprites[i]
-                };
-            }
-
-            AnimationUtility.SetObjectReferenceCurve(
-                clip,
-                binding,
-                keyframes);
-
-            return clip;
-        }
-
-        private static void EnsureFolder(string folderPath)
-        {
-            if (AssetDatabase.IsValidFolder(folderPath))
-            {
-                return;
-            }
-
-            string[] parts = folderPath.Split('/');
-            string current = parts[0];
-
-            for (int i = 1; i < parts.Length; i++)
-            {
-                string next = $"{current}/{parts[i]}";
-
-                if (!AssetDatabase.IsValidFolder(next))
-                {
-                    AssetDatabase.CreateFolder(current, parts[i]);
-                }
-
-                current = next;
-            }
-        }
 
         private static string GetSafeAssetName(string id)
         {

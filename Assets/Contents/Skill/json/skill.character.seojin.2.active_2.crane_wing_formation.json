@@ -1,0 +1,183 @@
+{
+  "equipmentId": "skill.character.seojin.2.active_2.crane_wing_formation",
+  "slotName": "active_2",
+  "skillName": "skill.character.seojin.2.active_2.crane_wing_formation",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "projectile",
+    "projectileCount": 1,
+    "projectileScale": 0.5,
+    "projectileLifetime": 5,
+    "projectileColliderRadius": 3,
+    "category": "Attack",
+    "targetType": "Point",
+    "tacticalNeed": "AreaControl",
+    "basePriority": 0.9,
+    "baseProfileId": "skill.character.seojin.2.active_2.crane_wing_formation.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.2.active_2.crane_wing_formation.cast",
+    "cooldown": 18,
+    "castTime": 0,
+    "range": 0,
+    "castType": "Instant",
+    "targetingType": "Self",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.2.active_2.crane_wing_formation.move",
+    "moveType": "Hover",
+    "speed": 0,
+    "duration": 5,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0,
+    "config": {
+      "followOffset": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.2.active_2.crane_wing_formation.hit.1",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": true,
+      "repeatInterval": 1,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 5,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.2.active_2.crane_wing_formation.damage.1",
+        "damageType": "Dot",
+        "baseDamage": 100,
+        "attackPercentDamage": 0.6,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.2.active_2.crane_wing_formation.effect.debuff_1.1",
+            "effectType": "StatModifier",
+            "effectName": "학익진 이동속도 감소",
+            "statType": "MoveSpeed",
+            "valueType": "Percent",
+            "value": -35,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Debuff",
+          "duration": 1.1,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    },
+    {
+      "hitId": "skill.character.seojin.2.active_2.crane_wing_formation.hit.2",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": true,
+      "repeatInterval": 1,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 5,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Player",
+      "damage": {
+        "skillId": "skill.character.seojin.2.active_2.crane_wing_formation.damage.2",
+        "damageType": "Normal",
+        "baseDamage": 0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.2.active_2.crane_wing_formation.effect.buff_2.1",
+            "effectType": "StatModifier",
+            "effectName": "학익진 방어 증가",
+            "statType": "Defense",
+            "valueType": "Flat",
+            "value": 10,
+            "duration": 1.1
+          },
+          "lifetimeType": "Timed",
+          "categoryType": "Buff",
+          "duration": 1.1,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.seojin.2.active_2.crane_wing_formation.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "formation_circle_basic",
+    "animatorController": "formation_animator",
+    "idleClip": "formation_idle",
+    "castClip": "formation_cast",
+    "attackClip": "formation_attack",
+    "projectileLoopClip": "military_officer_crane_wing_formation",
+    "hitClip": "formation_hit",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,270 +1,196 @@
-
-
 # CharacterSO Guide
 
+## Required References
 
-## Master Concept Reference
+Read and apply these first:
 
-Before using this document, read and apply:
-
+```text
 AgentDocs/planning-guides/common/DisignMasterConcept_rule.md
-
-This master concept is mandatory and takes precedence over this document, task
-inputs, story context, legacy assets, and external references. This document may
-add domain-specific constraints, but it must not relax, override, or create an
-exception to the master concept period, cultural, aesthetic, or prohibition rules.
-
-# Purpose
-
-Generate a character JSON used as the input for CharacterSO generation.
-
-The generated JSON defines the static character data required by the CharacterSO generator.
-
-The CharacterSO generator will later read this JSON and automatically generate CharacterSO assets, animation links, skills, and localization data.
-
----
-
-# Output
-
-Generate one character JSON file.
-
-Output directory:
-
-```text
-Assets/Resources/character/json
+AgentDocs/planning-guides/content/ContentFolderStructureGuide.md
 ```
 
-Output file name:
+The master concept governs character identity and design. The content folder
+guide governs JSON and generated SO storage.
+
+## Purpose
+
+Define the canonical JSON input and editor generation contract for
+`CharacterSO`. JSON is authored data; CharacterSO and referenced skill SOs are
+generated data and must not be hand-authored in a `json` folder.
+
+## Canonical Storage
 
 ```text
-{characterId}.json
+Assets/Contents/Character/json/{characterId}.json
+Assets/Contents/Character/so/{safeCharacterId}.asset
 ```
 
-Example:
+The generator replaces dots, slashes, and spaces with underscores in the asset
+filename:
 
 ```text
-character.seojin.1.json
+Assets/Contents/Character/json/character.seojin.1.json
+Assets/Contents/Character/so/character_seojin_1.asset
 ```
 
-# ID Domain
+Legacy data under `Assets/Resources` is migration input. Do not create new
+canonical character JSON there.
 
-CharacterSO input JSON always uses the `character` domain for `characterId`.
-
-`characterType` determines whether the character is a Player, Npc, or Boss. It must not change the `characterId` domain to `npc`.
-
-Examples:
-
-```text
-character.military_officer.1
-character.mist_lingering_child.1
-```
-
-# Input
-
-The generator requires a character JSON file.
-
-Example:
+## JSON Contract
 
 ```json
 {
-  "characterId": "character.military_officer.1",
-  "name": "서진 (전위병)",
+  "characterId": "character.seojin.1",
+  "name": "서진",
   "characterType": "Player",
   "job": "SoldierBase",
   "baseStats": [
-    {
-      "statType": "Attack",
-      "value": 10
-    },
-    {
-      "statType": "MaxHp",
-      "value": 100
-    },
-    {
-      "statType": "AttackSpeed",
-      "value": 1
-    },
-    {
-      "statType": "CritChance",
-      "value": 10
-    },
-    {
-      "statType": "CritDamage",
-      "value": 50
-    },
-    {
-      "statType": "MoveSpeed",
-      "value": 1
-    }
+    { "statType": "Attack", "value": 10 },
+    { "statType": "MaxHp", "value": 100 },
+    { "statType": "AttackSpeed", "value": 1 },
+    { "statType": "CritChance", "value": 10 },
+    { "statType": "CritDamage", "value": 50 },
+    { "statType": "MoveSpeed", "value": 1 }
   ]
 }
 ```
-# JSON Fields
 
-The generated JSON should contain the following fields.
+| Field | Required | Rule |
+|---|---|---|
+| `characterId` | Yes | `character.{character_name}.{grade}` |
+| `name` | Optional metadata | Korean display/planning name; localization remains separately owned |
+| `characterType` | Yes | `Player`, `Npc`, or `Boss` |
+| `job` | Yes | Exact `CharacterJob` enum name |
+| `baseStats` | Yes | Only supported `StatType` values |
 
-| Field | Required |
-|------|----------|
-| characterId | Yes |
-| characterType | Yes |
-| job | Yes |
-| baseStats | Yes |
-
-Animation clips, skills, and localization are generated automatically by the CharacterSO generator and should not be included in the character JSON.
-
-# CharacterType
-
-Supported values:
+Do not write these legacy or generated fields:
 
 ```text
-Player
-Npc
-Boss
+animationClips
+skills
+localization
+animationOverrideSet
+skillOverrideSet
+prefabName
 ```
 
----
+The current CharacterSO stores animation and skill entries directly. It does
+not consume legacy `AnimationOverrideSetSO` or `SkillPoolOverrideSO` data.
 
-# CharacterJob
+## ID and Enum Rules
 
-The `job` field must match one of the `CharacterJob` enum values.
+`characterId` always uses the `character` domain. `Player`, `Npc`, and `Boss`
+are only `characterType` values.
 
-Base jobs:
+Supported jobs are exact `CharacterJob` enum values:
 
 ```text
-SoldierBase
-ArcherBase
-ScholarBase
-PhysicianBase
-MonkBase
+SoldierBase, SoldierFirst, SoldierSecond, SoldierAltFirst, SoldierAltSecond
+ArcherBase, ArcherFirst, ArcherSecond, ArcherAltFirst, ArcherAltSecond
+ScholarBase, ScholarFirst, ScholarSecond, ScholarAltFirst, ScholarAltSecond
+PhysicianBase, PhysicianFirst, PhysicianSecond, PhysicianAltFirst, PhysicianAltSecond
+MonkBase, MonkFirst, MonkSecond, MonkAltFirst, MonkAltSecond
 ```
 
-Promotion jobs:
+## Animation Generation and Mapping
+
+Canonical source frames:
 
 ```text
-SoldierFirst
-SoldierSecond
-SoldierAltFirst
-SoldierAltSecond
-
-ArcherFirst
-ArcherSecond
-ArcherAltFirst
-ArcherAltSecond
-
-ScholarFirst
-ScholarSecond
-ScholarAltFirst
-ScholarAltSecond
-
-PhysicianFirst
-PhysicianSecond
-PhysicianAltFirst
-PhysicianAltSecond
-
-MonkFirst
-MonkSecond
-MonkAltFirst
-MonkAltSecond
+Assets/ImagesGenerated/Character/animation/
+  {characterId}/
+    {animationFolder}/
+      frame-0.png
+      frame-1.png
 ```
 
-The value is parsed directly using `Enum.Parse`, so it must exactly match the enum name.
-
----
-
----
-
-# Generated Data
-
-The generator populates the following fields.
-
-| Field | Source |
-|------|--------|
-| characterId | JSON |
-| characterType | JSON |
-| job | JSON |
-| baseStats | JSON |
-| animationClips | Auto Generated |
-| skills | Auto Generated |
-| localization | Auto Generated |
-
----
-
-# Animation Mapping
-
-Animation clips are generated automatically.
-
-The generator searches for sprites using the following naming convention:
+`animationFolder` must contain one supported action token:
 
 ```text
-character.{characterId}.{AnimationClipType}.*.png
+idle
+movement or move
+attack
+death
+```
+
+Only Sprite assets named `frame-{number}` or `frame_{number}` are used. Preview
+GIFs and unrelated files are excluded. Frames are sorted by numeric suffix.
+
+Generated clips are stored under:
+
+```text
+Assets/AnimationClips/Character
+```
+
+The source artwork faces right. For each action folder the builder creates:
+
+```text
+{characterId}.{animationName}.Right.anim  # flipX = false
+{characterId}.{animationName}.Left.anim   # flipX = true
+```
+
+Existing clips are updated in place so their Unity GUIDs remain stable.
+`CharacterJsonGenerator` searches by character ID, action, and side. If no
+matching clip exists, it runs `CharacterClipBuilder` automatically and searches
+again.
+
+Current source packages do not distinguish Up and Down, so corresponding
+Up/Down enum entries share the same side clip. Missing actions are omitted; the
+generator must not invent missing frames.
+
+## Skill Generation and Mapping
+
+Canonical skill roots:
+
+```text
+Assets/Contents/Skill/json/{equipmentId}.json
+Assets/Contents/Skill/so/{generatedAsset}.asset
+```
+
+For `character.seojin.1`, the generator searches skill JSON IDs beginning with:
+
+```text
+skill.character.seojin.1.
+```
+
+The complete contract is:
+
+```text
+skill.character.{character_name}.{grade}.{slot}.{skill_name}
 ```
 
 Example:
 
 ```text
-character.seojin.IdleDownRight.frame_000.png
-character.seojin.IdleDownRight.frame_001.png
+skill.character.seojin.1.active_1.charge
 ```
 
-Each `CharacterAnimationClipType` is converted into one `AnimationClip` and stored in the CharacterSO.
+The slot is the first segment following the complete character ID. Each matching
+JSON is passed to `EquipmentSkillJsonGenerator`; its primary and supporting SOs
+are created or updated in `Assets/Contents/Skill/so`, then assigned directly to
+`CharacterSO.skills`. Missing skill JSON produces no entry.
 
-No animation information is required in the JSON.
+Every child ID must derive from the full `equipmentId`. Generic IDs such as
+`basic_attack_cast` are prohibited because the flat SO folder would collide.
 
----
+## Editor Generation Procedure
 
-# Skill Mapping
+1. Validate character JSON and matching skill JSON files.
+2. Select one character JSON or the canonical Character `json` folder.
+3. Run the CharacterSO generation menu.
+4. Generate missing character clips automatically.
+5. Generate or update matching skill SOs under `Assets/Contents/Skill/so`.
+6. Generate or update CharacterSO under `Assets/Contents/Character/so`.
+7. Verify non-null animation and skill entries.
 
-Skills are generated automatically.
+## Validation
 
-The generator searches for skill JSON files matching:
-
-```text
-skill.character.{characterId}
-```
-
-Each matching JSON is converted into an `EquipmentSkillSO`.
-
-The resulting skills are automatically assigned to the CharacterSO.
-
-The slot key is extracted from the equipment id.
-
-Example:
-
-```text
-skill.character.seojin.basic_attack.normal
-```
-
-Extracted slot:
-
-```text
-basic_attack
-```
-
-No skill information is required in the character JSON.
-
----
-
-# Localization
-
-Character names are automatically exported to the string table.
-
-Main Key:
-
-```text
-character.{characterId}
-```
-
-Sub Key:
-
-```text
-name
-```
-
----
-
-Character Planning
-    ↓
-Generate Character JSON
-    ↓
-Save
-Assets/Resources/character/json/{characterId}.json
+- JSON exists only in the canonical `json` folder.
+- Generated assets exist only in the corresponding `so` folder.
+- JSON filename equals `{characterId}.json`.
+- No override-set or relative `skillJson` path is present.
+- Every skill ID begins with `skill.{characterId}.`.
+- Every supporting skill ID derives from its complete `equipmentId`.
+- Frames follow the nested folder and numeric `frame` filename contract.
+- Left clips use `flipX = true`; right clips use `flipX = false`.
+- Existing generated asset GUIDs are preserved on update.

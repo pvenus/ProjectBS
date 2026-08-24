@@ -408,7 +408,7 @@ Save skill JSON files under the skill JSON resource path used by the generator.
 Canonical path:
 
 ```text
-Assets/Resources/skill/json
+Assets/Contents/Skill/json
 ```
 
 File name should match the skill ID:
@@ -420,7 +420,7 @@ File name should match the skill ID:
 Example:
 
 ```text
-Assets/Resources/skill/json/skill.character.mist_lingering_child.1.basic_attack.cold_scratch.json
+Assets/Contents/Skill/json/skill.character.mist_lingering_child.1.basic_attack.cold_scratch.json
 ```
 
 ### Validation
@@ -474,7 +474,7 @@ character.mist_lingering_child.1
 Save the character JSON file to:
 
 ```text
-Assets/Resources/character/json
+Assets/Contents/Character/json
 ```
 
 File name:
@@ -486,7 +486,7 @@ File name:
 Example:
 
 ```text
-Assets/Resources/character/json/character.mist_lingering_child.1.json
+Assets/Contents/Character/json/character.mist_lingering_child.1.json
 ```
 
 ### Validation
@@ -497,7 +497,9 @@ Assets/Resources/character/json/character.mist_lingering_child.1.json
 - Every `baseStats[].statType` exists in `StatEnum`.
 - Animation data is not written into the character JSON.
 - Skill references are not written into the character JSON.
+- Legacy `animationOverrideSet`, `skillOverrideSet`, and `prefabName` fields are not written.
 - Skill JSON IDs match the CharacterSO skill search pattern.
+- Character and Skill SO assets are generated later under the corresponding `Assets/Contents/{Domain}/so` folder.
 
 ---
 

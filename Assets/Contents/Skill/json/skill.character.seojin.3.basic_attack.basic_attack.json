@@ -1,0 +1,101 @@
+{
+  "equipmentId": "skill.character.seojin.3.basic_attack.basic_attack",
+  "slotName": "basic",
+  "skillName": "기본 공격",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "melee_slash",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileLifetime": 0.2,
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0,
+    "baseProfileId": "skill.character.seojin.3.basic_attack.basic_attack.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0.5,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.3.basic_attack.basic_attack.cast",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 1.0,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.3.basic_attack.basic_attack.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "linear": {
+      "speed": 0
+    },
+    "config": {
+      "speed": 0
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.3.basic_attack.basic_attack.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0.25,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.basic_attack.basic_attack.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 100,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.seojin.3.basic_attack.basic_attack.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "melee_slash",
+    "projectileSprite": "slash_basic",
+    "animatorController": "slash_animator",
+    "idleClip": "slash_idle",
+    "castClip": "slash_cast",
+    "attackClip": "slash_attack",
+    "projectileLoopClip": "",
+    "hitClip": "slash_hit",
+    "projectileVisualType": "Default"
+  }
+}

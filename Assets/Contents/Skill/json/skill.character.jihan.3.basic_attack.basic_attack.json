@@ -1,0 +1,159 @@
+{
+  "equipmentId": "skill.character.jihan.3.basic_attack.basic_attack",
+  "slotName": "basic",
+  "skillName": "기파술",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Melee",
+    "projectilePrefabName": "skill.character.jihan.3.basic_attack.projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileLifetime": 0.3,
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0,
+    "baseProfileId": "skill.character.jihan.3.basic_attack.basic_attack.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.jihan.3.basic_attack.basic_attack.cast",
+    "cooldown": 3,
+    "castTime": 0,
+    "range": 0.5,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.jihan.3.basic_attack.basic_attack.move",
+    "moveType": "FixedArea",
+    "speed": 0,
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": false,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0,
+    "hoverFrequency": 0,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 0,
+    "orbitAngularSpeed": 0,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "maxProjectileCount": 1,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": true,
+    "radialPulseAmplitude": 0.2,
+    "radialPulseFrequency": 6,
+    "config": {
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.jihan.3.basic_attack.basic_attack.hit.1",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.jihan.3.basic_attack.basic_attack.damage.1",
+        "damageType": "Normal",
+        "baseDamage": 30,
+        "attackPercentDamage": 85,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    },
+    {
+      "hitId": "skill.character.jihan.3.basic_attack.basic_attack.hit.2",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Party",
+      "damage": {
+        "skillId": "skill.character.jihan.3.basic_attack.basic_attack.damage.2"
+      },
+      "buffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.jihan.3.basic_attack.basic_attack.effect.buff_2.1",
+            "effectType": "Heal",
+            "effectName": "기파술 회복",
+            "flatHealAmount": 8,
+            "useAttackScaling": true,
+            "attackPercentHeal": 0.2,
+            "clampToMaxHp": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Buff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.jihan.3.basic_attack.basic_attack.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "nova_basic",
+    "animatorController": "nova_animator",
+    "idleClip": "nova_idle",
+    "castClip": "nova_cast",
+    "attackClip": "nova_attack",
+    "projectileLoopClip": "nova_active",
+    "hitClip": "nova_hit",
+    "projectileVisualType": "Default"
+  }
+}

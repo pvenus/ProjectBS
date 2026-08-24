@@ -13,7 +13,8 @@ namespace ResourceTools
     public static class CharacterClipBuilder
     {
         private const float FrameRate = 12f;
-        private const string OutputFolderName = "_GeneratedClips";
+        private const string SourceFolderPath = "Assets/ImagesGenerated/Character/animation";
+        private const string OutputFolderPath = "Assets/AnimationClips/Character";
 
         private sealed class GeneratedClipInfo
         {
@@ -24,37 +25,18 @@ namespace ResourceTools
         [MenuItem("Assets/Character/Generate Animation Clips From Child Folders", true)]
         private static bool ValidateExecute()
         {
-            UnityEngine.Object selectedObject = Selection.activeObject;
-
-            if (selectedObject == null)
-            {
-                return false;
-            }
-
-            string path = AssetDatabase.GetAssetPath(selectedObject);
-            return AssetDatabase.IsValidFolder(path);
+            return AssetDatabase.IsValidFolder(SourceFolderPath);
         }
 
         [MenuItem("Assets/Character/Generate Animation Clips From Child Folders", false, 2001)]
         public static void Execute()
         {
-            UnityEngine.Object selectedObject = Selection.activeObject;
+            GenerateAll();
+        }
 
-            if (selectedObject == null)
-            {
-                Debug.LogWarning("[GenerateClips] Please select a folder.");
-                return;
-            }
-
-            string selectedPath = AssetDatabase.GetAssetPath(selectedObject);
-
-            if (string.IsNullOrEmpty(selectedPath) || !AssetDatabase.IsValidFolder(selectedPath))
-            {
-                Debug.LogWarning("[GenerateClips] Selected asset is not a folder.");
-                return;
-            }
-
-            GenerateFromFolderPath(selectedPath);
+        public static List<AnimationClip> GenerateAll()
+        {
+            return GenerateFromFolderPath(SourceFolderPath);
         }
 
         public static List<AnimationClip> GenerateFromFolderPath(string selectedPath)
@@ -65,11 +47,8 @@ namespace ResourceTools
                 return new List<AnimationClip>();
             }
 
-            string outputFolderPath = EnsureOutputFolder(selectedPath);
-            string[] targetFolders = GetFolderAndChildren(selectedPath)
-                .Where(path => path != outputFolderPath)
-                .Where(path => !path.StartsWith(outputFolderPath + "/"))
-                .ToArray();
+            string outputFolderPath = EnsureOutputFolder();
+            string[] targetFolders = GetFolderAndChildren(selectedPath);
 
             List<GeneratedClipInfo> generatedClips = new List<GeneratedClipInfo>();
             int skippedCount = 0;
@@ -84,26 +63,35 @@ namespace ResourceTools
                     continue;
                 }
 
-                string clipName = CreateClipName(selectedPath, folderPath);
-                string clipPath = $"{outputFolderPath}/{clipName}.anim";
-                AnimationClip clip = AnimationClipAssetHelper.RecreateSpriteAnimationClip(
-                    clipPath,
+                string baseClipName = CreateClipName(selectedPath, folderPath);
+                AnimationClip rightClip = CreateDirectionalClip(
+                    outputFolderPath,
+                    baseClipName,
+                    "Right",
                     sprites,
-                    FrameRate,
+                    false);
+                AnimationClip leftClip = CreateDirectionalClip(
+                    outputFolderPath,
+                    baseClipName,
+                    "Left",
+                    sprites,
                     true);
 
-                if (clip == null)
+                if (rightClip == null || leftClip == null)
                 {
-                    Debug.LogError($"[GenerateClips] Failed to recreate clip: {clipPath}");
+                    Debug.LogError($"[GenerateClips] Failed to recreate directional clips: {baseClipName}");
                     continue;
                 }
 
-                Debug.Log($"[GenerateClips] Deleted and recreated clip: {clipPath} / Frames: {sprites.Length}");
-
                 generatedClips.Add(new GeneratedClipInfo
                 {
-                    ClipName = clipName,
-                    Clip = clip
+                    ClipName = rightClip.name,
+                    Clip = rightClip
+                });
+                generatedClips.Add(new GeneratedClipInfo
+                {
+                    ClipName = leftClip.name,
+                    Clip = leftClip
                 });
             }
 
@@ -117,23 +105,33 @@ namespace ResourceTools
                 .ToList();
         }
 
+        private static AnimationClip CreateDirectionalClip(
+            string outputFolderPath,
+            string baseClipName,
+            string direction,
+            Sprite[] sprites,
+            bool flipX)
+        {
+            string clipName = $"{baseClipName}.{direction}";
+            string clipPath = $"{outputFolderPath}/{clipName}.anim";
+            AnimationClip clip = AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClip(
+                clipPath,
+                sprites,
+                FrameRate,
+                true,
+                flipX);
+
+            if (clip != null)
+            {
+                Debug.Log($"[GenerateClips] Recreated clip: {clipPath} / Frames: {sprites.Length} / FlipX: {flipX}");
+            }
+
+            return clip;
+        }
+
         public static List<AnimationClip> GenerateFromCharacterFolderPath(string characterFolderPath)
         {
-            if (string.IsNullOrEmpty(characterFolderPath) || !AssetDatabase.IsValidFolder(characterFolderPath))
-            {
-                Debug.LogWarning($"[GenerateClips] Invalid character folder path: {characterFolderPath}");
-                return new List<AnimationClip>();
-            }
-
-            string animationFolderPath = $"{characterFolderPath}/animation";
-
-            if (!AssetDatabase.IsValidFolder(animationFolderPath))
-            {
-                Debug.LogWarning($"[GenerateClips] Animation folder not found: {animationFolderPath}");
-                return new List<AnimationClip>();
-            }
-
-            return GenerateFromFolderPath(animationFolderPath);
+            return GenerateFromFolderPath(SourceFolderPath);
         }
 
         private static Sprite[] LoadSpritesInFolderOnly(string folderPath)
@@ -143,6 +141,7 @@ namespace ResourceTools
             return spriteGuids
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Where(path => Path.GetDirectoryName(path)?.Replace("\\", "/") == folderPath)
+                .Where(IsAnimationFrameFile)
                 .Distinct()
                 .OrderBy(GetNumericFileName)
                 .ThenBy(path => path)
@@ -151,10 +150,44 @@ namespace ResourceTools
                 .ToArray();
         }
 
+        private static bool IsAnimationFrameFile(string path)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(path);
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return false;
+            }
+
+            return HasNumericFrameSuffix(fileName, "frame-") ||
+                   HasNumericFrameSuffix(fileName, "frame_");
+        }
+
+        private static bool HasNumericFrameSuffix(string fileName, string prefix)
+        {
+            if (!fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            string frameNumber = fileName.Substring(prefix.Length);
+            return frameNumber.Length > 0 && frameNumber.All(char.IsDigit);
+        }
+
         private static int GetNumericFileName(string path)
         {
             string fileName = Path.GetFileNameWithoutExtension(path);
-            return int.TryParse(fileName, out int number) ? number : int.MaxValue;
+            int digitStart = fileName.Length;
+
+            while (digitStart > 0 && char.IsDigit(fileName[digitStart - 1]))
+            {
+                digitStart--;
+            }
+
+            return digitStart < fileName.Length &&
+                   int.TryParse(fileName.Substring(digitStart), out int number)
+                ? number
+                : int.MaxValue;
         }
 
         private static string CreateClipName(string rootPath, string folderPath)
@@ -166,20 +199,35 @@ namespace ResourceTools
                 relativePath = new DirectoryInfo(folderPath).Name;
             }
 
-            string clipName = relativePath.Replace("/", "_").Replace(" ", "_");
+            string[] pathParts = relativePath.Split('/');
+            string characterId = pathParts[0];
+            string animationName = pathParts[pathParts.Length - 1];
+            string clipName = animationName.StartsWith(characterId + ".", StringComparison.OrdinalIgnoreCase)
+                ? animationName
+                : $"{characterId}.{animationName}";
+
+            clipName = clipName.Replace("/", "_").Replace(" ", "_");
             return string.IsNullOrEmpty(clipName) ? "AnimationClip" : clipName;
         }
 
-        private static string EnsureOutputFolder(string selectedPath)
+        private static string EnsureOutputFolder()
         {
-            string outputFolderPath = $"{selectedPath}/{OutputFolderName}";
+            string[] folderParts = OutputFolderPath.Split('/');
+            string currentPath = folderParts[0];
 
-            if (!AssetDatabase.IsValidFolder(outputFolderPath))
+            for (int i = 1; i < folderParts.Length; i++)
             {
-                AssetDatabase.CreateFolder(selectedPath, OutputFolderName);
+                string nextPath = $"{currentPath}/{folderParts[i]}";
+
+                if (!AssetDatabase.IsValidFolder(nextPath))
+                {
+                    AssetDatabase.CreateFolder(currentPath, folderParts[i]);
+                }
+
+                currentPath = nextPath;
             }
 
-            return outputFolderPath;
+            return OutputFolderPath;
         }
 
         private static string[] GetFolderAndChildren(string rootPath)

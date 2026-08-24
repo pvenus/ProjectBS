@@ -15,6 +15,8 @@ namespace ResourceTools.Skill
         public float spawnInterval;
         public float spawnLifeTime;
         public string characterSO;
+        public string timing;
+        public string position;
     }
 
     public static class SkillSpawnAssetBuilder
@@ -37,7 +39,8 @@ namespace ResourceTools.Skill
 
         public static SpawnSkillSO CreateOrUpdate(
             SpawnSkillJson spawnJson,
-            string outputFolder)
+            string outputFolder,
+            EquipmentSkillSO childSkill = null)
         {
             if (spawnJson == null)
             {
@@ -63,7 +66,8 @@ namespace ResourceTools.Skill
 
             Apply(
                 spawnSkillSo,
-                spawnJson);
+                spawnJson,
+                childSkill);
 
             EditorUtility.SetDirty(spawnSkillSo);
             AssetDatabase.SaveAssetIfDirty(spawnSkillSo);
@@ -73,15 +77,24 @@ namespace ResourceTools.Skill
 
         private static void Apply(
             SpawnSkillSO spawnSkillSo,
-            SpawnSkillJson spawnJson)
+            SpawnSkillJson spawnJson,
+            EquipmentSkillSO childSkill)
         {
             spawnSkillSo.ApplyEditorData(
+                ParseEnum(spawnJson.timing, SpawnSkillTiming.None),
+                ParseEnum(spawnJson.position, SpawnSkillPosition.ProjectilePosition),
                 Mathf.Max(1, spawnJson.spawnCount),
                 Mathf.Max(0f, spawnJson.spawnInterval),
                 Mathf.Max(0f, spawnJson.spawnLifeTime));
 
-            spawnSkillSo.ApplyEditorCharacterSpawn(
-                FindCharacterSO(spawnJson.characterSO));
+            CharacterSO characterSo = FindCharacterSO(spawnJson.characterSO);
+            spawnSkillSo.ApplyEditorConfig(
+                childSkill != null ? childSkill : characterSo);
+        }
+
+        private static T ParseEnum<T>(string value, T fallback) where T : struct
+        {
+            return Enum.TryParse(value, true, out T result) ? result : fallback;
         }
 
         private static CharacterSO FindCharacterSO(

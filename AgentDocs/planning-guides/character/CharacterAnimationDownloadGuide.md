@@ -131,18 +131,22 @@ The character animation source folder should contain this structure:
 
 ```text
 <targetCharacterFolder>/animations/
-  idle/
-  move/
-  attack/
+  {idleAnimationName}/
+    frame-0.png
+  {movementAnimationName}/
+    frame-0.png
+  {attackAnimationName}/
+    frame-0.png
 ```
 
-Each animation type folder should contain directional folders:
+Each animation folder is one ordered, right-facing sequence. The folder name
+must contain the applicable action token:
 
 ```text
-south-east/
-south-west/
-north-east/
-north-west/
+idle
+movement or move
+attack
+death
 ```
 
 Recommended preserved export structure:
@@ -154,7 +158,7 @@ Recommended preserved export structure:
     move/
     attack/
   converted/
-    character.{characterName}.{grade}.{animation_enum}.{frame}.png
+    {animationFolder}/frame-{number}.png
   evaluation_animation_result.txt
 ```
 
@@ -172,13 +176,13 @@ Immediately mark the work as failed and stop processing if any required structur
 Hard fail conditions:
 
 - `<targetCharacterFolder>/animations/` is missing after the download-or-use-existing step.
-- Any required animation type folder is missing: `idle`, `move`, `attack`.
-- Any required source direction folder is missing for a required animation type: `south-east`, `south-west`.
-- A required source direction folder exists but contains no PNG frames.
-- `south-east` and `south-west` frame counts do not match for the same animation type.
-- Required source frames are incomplete, unreadable, or cannot be used for Missing Direction Rule duplication.
+- Any required action folder is missing: `idle`, `movement`/`move`, or `attack`.
+- A required action folder contains no numbered PNG frames.
+- Required source frames are incomplete, unreadable, inconsistently oriented,
+  or do not follow `frame-{number}` / `frame_{number}` naming.
 
-The `north-east` and `north-west` folders are not hard fail conditions by themselves when the matching south-facing source folders are complete. In that case, continue using the Missing Direction Rule.
+Separate left, north, or south direction folders are not required by the current
+builder. The approved source sequence must consistently face right.
 
 When a hard fail occurs:
 
@@ -189,27 +193,26 @@ When a hard fail occurs:
 - Save the failure reason to `evaluation_animation_result.txt` if the character export folder is available.
 - Report the failure as a folder structure failure in the final summary.
 
-## PixelLab South-West Mirroring
+## Source Facing Rule
 
-After generating each animation in PixelLab, duplicate the generated `south-east` direction to `south-west` with the PixelLab south-west mirror button before exporting.
+Export one consistent right-facing sequence for every animation. Do not create
+or promote mirrored left-facing PNG duplicates.
 
-Apply this rule immediately after each animation is generated:
+Unity creates directional clips from the approved sequence:
 
-- Source direction: `south-east`
-- Target direction: `south-west`
-- Required animation types: `Walk`, `Attack`, `Idle`, and any additional generated animation
-- Keep the animation name unchanged. Only add the mirrored direction frames.
+- Right clip: original frames with `flipX = false`
+- Left clip: original frames with `flipX = true`
+- Up and Down entries currently share the same side clip
 
-Before using the `Export` button, confirm that every generated animation contains both the original `south-east` direction and the mirrored `south-west` direction in PixelLab.
+Before export, confirm consistent facing, canvas, frame order, and character
+identity across the complete sequence.
 
 ---
 
-## Legacy Evaluation and Promotion Appendix (Non-executable)
+## Evaluation and Promotion
 
-This section and all following conversion, promotion, Canvas, cleanup, and Git
-handoff sections are historical reference only. Current execution stops after
-source preservation and structure validation, then hands off to immutable
-evaluation. No downstream mutation may be performed from this guide.
+Run evaluation before promotion. Preserve source and evaluation evidence while
+using the current nested project path and right-source/flip-left builder rule.
 
 ### Animation Evaluation (Legacy)
 
@@ -259,60 +262,35 @@ Do not delete the source animation images used for evaluation.
 
 ---
 
-### Animation Enum Mapping (Legacy)
+### Runtime Enum Mapping
 
-Map source direction folders to the ProjectBS `CharacterAnimationClipType` enum names.
+The source folder supplies an action, not a direction enum. The builder maps
+each action and generated side clip to CharacterSO enum entries:
 
-| Animation Type | Direction | Animation Enum |
-|----------------|-----------|----------------|
-| idle | south-east | IdleDownRight |
-| idle | south-west | IdleDownLeft |
-| idle | north-east | IdleUpRight |
-| idle | north-west | IdleUpLeft |
-| move | south-east | MoveDownRight |
-| move | south-west | MoveDownLeft |
-| move | north-east | MoveUpRight |
-| move | north-west | MoveUpLeft |
-| attack | south-east | AttackDownRight |
-| attack | south-west | AttackDownLeft |
-| attack | north-east | AttackUpRight |
-| attack | north-west | AttackUpLeft |
+| Source Action | Right Clip Entries | Left Clip Entries |
+|---|---|---|
+| idle | `IdleUpRight`, `IdleDownRight` | `IdleUpLeft`, `IdleDownLeft` |
+| movement or move | `MoveUpRight`, `MoveDownRight` | `MoveUpLeft`, `MoveDownLeft` |
+| attack | `AttackUpRight`, `AttackDownRight` | `AttackUpLeft`, `AttackDownLeft` |
+| death | `DeathUpRight`, `DeathDownRight` | `DeathUpLeft`, `DeathDownLeft` |
 
-If Death animations are downloaded separately, use the same direction mapping.
+An action absent from the approved source produces no entries for that action.
 
-| Animation Type | Direction | Animation Enum |
-|----------------|-----------|----------------|
-| death | south-east | DeathDownRight |
-| death | south-west | DeathDownLeft |
-| death | north-east | DeathUpRight |
-| death | north-west | DeathUpLeft |
+### Direction Handling
 
-### Missing Direction Rule
-
-Some exports may not include the `north-east` or `north-west` animation folders.
-
-If either folder is missing, duplicate the corresponding south-facing images before applying the file naming rules.
-
-| Missing Direction | Use Images From |
-|-------------------|-----------------|
-| north-east | south-east |
-| north-west | south-west |
-
-The duplicated images should then be renamed using the appropriate `CharacterAnimationClipType` enum:
-
-- `north-east` ??`MoveUpRight`, `IdleUpRight`, `AttackUpRight`, `DeathUpRight`
-- `north-west` ??`MoveUpLeft`, `IdleUpLeft`, `AttackUpLeft`, `DeathUpLeft`
-
-The duplicated files should be treated exactly the same as normal downloaded images.
+Do not duplicate frames for missing directions. Promote one right-facing source
+sequence. The Unity builder creates left clips with `flipX`; Up and Down entries
+share the applicable side clip until direction-specific source packages are
+introduced through a separate contract change.
 
 ---
 
-### File Naming Rules (Legacy)
+### File Naming Rules
 
-Copy each source PNG from the preserved `animations/` folder into the character export folder's `converted/` folder, then rename the copied file using this format:
+Preserve or normalize each ordered frame using this format:
 
 ```text
-character.{characterName}.{grade}.{animation_enum}.{original_frame_name}.png
+{animationFolder}/frame-{number}.png
 ```
 
 `original_frame_name` must be copied from the original file name without the file extension.
@@ -321,67 +299,79 @@ Examples:
 
 ```text
 Original file:
-animations/idle/south-east/frame_000.png
+animations/character.seojin.1.idle.loop.v1/frame_000.png
 
 Renamed file:
-character.seojin.1.IdleDownRight.frame_000.png
+character.seojin.1.idle.loop.v1/frame-0.png
 ```
 
 ```text
 Original file:
-animations/attack/north-west/frame_005.png
+animations/character.seojin.1.attack.one_shot.v1/frame_005.png
 
 Renamed file:
-character.seojin.1.AttackUpLeft.frame_005.png
+character.seojin.1.attack.one_shot.v1/frame-5.png
 ```
 
 Important rules:
 
 - `characterName` must match the character ID.
 - `grade` must match the character grade and must appear immediately after `characterName`.
-- `animation_enum` must exactly match a `CharacterAnimationClipType` enum name.
-- Preserve the original frame name, such as `frame_000` or `frame_001`.
+- `animationFolder` must contain a supported action token.
+- Normalize the frame suffix to a numeric value.
 - Keep the `.png` extension.
 - Do not rename or move the source PixelLab files inside `<targetCharacterFolder>/animations`.
-- Missing direction duplicates are created as renamed copies in `converted/`; do not modify the source `animations/` folder.
+- Do not create mirrored direction duplicates.
 
 ---
 
-### Promote to Unity Generated-Image Path (Legacy)
+### Promote to Unity Generated-Image Path
 
-After the animation evaluation returns `Pass`, copy all converted PNG files to
-this folder:
-
-```text
-Assets/ImagesGenerated/Character/animation
-```
-
-The Unity generator searches this path using the following pattern:
+After evaluation returns `Pass`, promote the ordered frame set into the
+canonical nested character animation structure:
 
 ```text
-character.{characterName}.{grade}.{animation_enum}*
+Assets/ImagesGenerated/Character/animation/
+  character.{characterName}.{grade}/
+    {animationFolder}/
+      frame-0.png
+      frame-1.png
 ```
 
-Before running the generator, inspect its configured sprite folder. If
-`CharacterJsonGenerator` still points to
-`Assets/Resources/character/animation_png`, stop with
-`builder_path_migration_required`. Do not duplicate the passing PNGs back into
-`Assets/Resources` as a workaround. The builder must be migrated to
-`Assets/ImagesGenerated/Character/animation` in a separate implementation task.
+`animationFolder` must be a stable source animation name containing one action
+token understood by the builder:
 
-The generator sorts the matched sprites in ascending order and creates an AnimationClip.
+```text
+idle
+movement or move
+attack
+death
+```
+
+Only `frame-{number}.png` and `frame_{number}.png` Sprite assets are consumed.
+Keep preview GIFs as evidence only; they are not animation frames. The builder
+sorts frames by numeric suffix.
+
+The promoted source faces right. Do not promote separate mirrored left-frame
+copies. `CharacterClipBuilder` creates one right clip with `flipX = false` and
+one left clip with `flipX = true` from the same approved frame sequence.
 
 Generated AnimationClips are saved here:
 
 ```text
-Assets/Resources/character/animation_clip
+Assets/AnimationClips/Character
 ```
 
-Generated AnimationClip file names use this format:
+Generated clip names use this format:
 
 ```text
-character.{characterName}.{grade}.{animation_enum}.clip
+character.{characterName}.{grade}.{animationName}.Right.anim
+character.{characterName}.{grade}.{animationName}.Left.anim
 ```
+
+Existing clips are updated in place to preserve GUIDs. CharacterSO generation
+automatically runs the clip builder when no matching clips exist, then resolves
+clips by character ID, action, and side.
 
 ---
 
@@ -453,26 +443,25 @@ The PixelLab export folder should retain the source `animations/` folder, conver
 
 ---
 
-### Validation Checklist (Legacy)
+### Validation Checklist
 
 Before running the Unity character generator, check the following:
 
-- Does each generated animation contain both `south-east` and PixelLab-mirrored `south-west` before export?
+- Is the approved source consistently right-facing?
 - Did the character `animations/` folder pass the Required Folder Structure Hard Fail check?
 - If a new export was required, was only the extracted `animations/` folder moved into the character folder?
 - Are source animation files preserved for evaluation?
 - Does `evaluation_animation_result.txt` exist under the character export folder?
 - Does the evaluation result include Pass / Fail and failure reason if failed?
-- If evaluation passed, are the PNG files copied into `Assets/ImagesGenerated/Character/animation`?
+- If evaluation passed, are PNG frames under `Assets/ImagesGenerated/Character/animation/{characterId}/{animationFolder}`?
 - If evaluation failed, was project image copy correctly skipped?
-- Are renamed PNG files also preserved under `<targetCharacterFolder>/converted`?
-- Do file names follow `character.{characterName}.{grade}.{animation_enum}.frame_000.png`?
-- Does `animation_enum` exactly match `CharacterAnimationClipType`?
-- Are any frames missing for each animation direction?
+- Are renamed/evaluated source files preserved under `<targetCharacterFolder>/converted`?
+- Do promoted frame names match `frame-{number}.png` or `frame_{number}.png`?
+- Does each `animationFolder` contain an `idle`, `movement`/`move`, `attack`, or `death` action token?
+- Were left clips generated through `flipX` rather than duplicated left-facing PNG files?
 - Does `characterName` match the `characterId` in CharacterSO?
-- Does the character generator resolve
-  `Assets/ImagesGenerated/Character/animation`, or was the build correctly
-  blocked as `builder_path_migration_required`?
+- Are generated clips present under `Assets/AnimationClips/Character`?
+- Does CharacterSO generation resolve non-null left/right animation entries?
 
 ---
 
@@ -499,7 +488,8 @@ Confirm repository readiness with the Git owner
 -> Evaluate source animations using EvaluationAnimationGuide.md
 -> Save evaluation_animation_result.txt under the character export folder
 -> Copy and rename files into <targetCharacterFolder>/converted
--> Copy converted files to Assets/ImagesGenerated/Character/animation
+-> Copy approved frames to Assets/ImagesGenerated/Character/animation/{characterId}/{animationFolder}
+-> Generate right and flipX-left clips under Assets/AnimationClips/Character
 -> Remove only temporary files outside the character export folder
 -> Return validation and artifact handoff to the separate Git owner
 ```

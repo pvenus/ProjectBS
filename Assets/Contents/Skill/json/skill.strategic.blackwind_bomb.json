@@ -1,0 +1,87 @@
+{
+  "equipmentId": "skill.strategic.blackwind_bomb",
+  "skillName": "흑풍탄",
+  "baseProfile": {
+    "baseProfileId": "skill.strategic.blackwind_bomb.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "projectileColliderRadius": 6.0,
+    "projectileLifetime": 0.4,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0.0
+    }
+  },
+  "cast": {
+    "castId": "skill.strategic.blackwind_bomb.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "cooldown": 0,
+    "range": 999,
+    "skipAttackAnimation": true
+  },
+  "move": {
+    "moveId": "skill.strategic.blackwind_bomb.move",
+    "moveType": "Warp",
+    "applyDirectionRotation": false,
+    "rotationOffset": 0.0
+  },
+  "hits": [
+    {
+      "hitId": "skill.strategic.blackwind_bomb.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": false,
+      "useRepeatInterval": false,
+      "repeatInterval": 0,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "hitDuration": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageId": "skill.strategic.blackwind_bomb.damage",
+        "skillId": "skill.strategic.blackwind_bomb",
+        "damageType": "Normal",
+        "baseDamage": 240.0,
+        "attackPercentDamage": 0,
+        "canCritical": false,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": [
+        {
+          "entryId": "effect.skill.strategic.blackwind_bomb.knockback.entry",
+          "effect": {
+            "effectId": "effect.skill.strategic.blackwind_bomb.knockback",
+            "effectType": "Knockback",
+            "effectName": "effect.skill.strategic.blackwind_bomb.knockback",
+            "config": {
+              "force": 5,
+              "directionType": "PushAwayFromSource",
+              "normalizeDirection": true,
+              "fallbackToProjectileDirection": true
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1,
+          "hasValueOverride": false,
+          "valueOverride": 0
+        }
+      ]
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.strategic.blackwind_bomb.visual",
+    "projectileVisualType": "Default"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "equipmentId": "skill.character.yujin.1.active_1.multi_shot",
+  "slotName": "active_1",
+  "skillName": "skill.character.yujin.1.active_1.multi_shot",
+  "iconName": "basic_attack",
+  "baseProfile": {
+    "attackArchetype": "Ranged",
+    "projectilePrefabName": "projectile",
+    "projectileCount": 5,
+    "projectileScale": 0.3,
+    "projectileLifetime": 1.2,
+    "category": "Attack",
+    "targetType": "Enemy",
+    "tacticalNeed": "None",
+    "basePriority": 0,
+    "baseProfileId": "skill.character.yujin.1.active_1.multi_shot.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.5,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 30,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0.5,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.yujin.1.active_1.multi_shot.cast",
+    "cooldown": 8,
+    "castTime": 0,
+    "range": 4,
+    "castType": "Instant",
+    "targetingType": "AutoTargetDirection",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.yujin.1.active_1.multi_shot.move",
+    "moveType": "Linear",
+    "arrivalThreshold": 0.01,
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "followOffsetX": 0,
+    "followOffsetY": 0,
+    "followLerpSpeed": 12,
+    "snapOnInitialize": true,
+    "useHoverMotion": false,
+    "hoverAmplitude": 0.15,
+    "hoverFrequency": 2.5,
+    "hoverAxisX": 0,
+    "hoverAxisY": 1,
+    "endWhenOwnerMissing": true,
+    "orbitRadius": 1.5,
+    "orbitAngularSpeed": 180,
+    "clockwise": false,
+    "spawnOrder": 0,
+    "resetPhaseWhenLayoutChanges": true,
+    "useRadialPulse": false,
+    "radialPulseAmplitude": 0,
+    "radialPulseFrequency": 0,
+    "config": {
+      "speed": 8
+    }
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.yujin.1.active_1.multi_shot.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "repeatInterval": 0.25,
+      "useHitWindow": false,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.yujin.1.active_1.multi_shot.damage",
+        "damageType": "Normal",
+        "baseDamage": 30,
+        "attackPercentDamage": 60,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+
+      ],
+      "useKnockback": false,
+      "knockbackForce": 0,
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.yujin.1.active_1.multi_shot.visual",
+    "archetype": "Ranged",
+    "projectilePrefab": "projectile",
+    "projectileSprite": "arrow_basic",
+    "animatorController": "arrow_animator",
+    "idleClip": "arrow_idle",
+    "castClip": "arrow_cast",
+    "attackClip": "arrow_attack",
+    "projectileLoopClip": "archer_multishot",
+    "hitClip": "arrow_hit",
+    "projectileVisualType": "Default"
+  }
+}
