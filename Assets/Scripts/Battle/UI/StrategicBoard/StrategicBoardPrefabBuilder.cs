@@ -13,6 +13,7 @@ namespace Battle.UI.StrategicBoard.Editor
         private const string GaugePath = OutputFolder + "/StrategicGauge.prefab";
         private const string SlotPath = OutputFolder + "/StrategicSkillSlot.prefab";
         private const string BoardPath = OutputFolder + "/StrategicBoard.prefab";
+        private const string TargetingGuidePath = OutputFolder + "/StrategicSkillTargetingGuide.prefab";
 
         [MenuItem("Tools/Battle/Build Strategic Board Prototype")]
         public static void Build()
@@ -153,6 +154,7 @@ namespace Battle.UI.StrategicBoard.Editor
         {
             GameObject root = CreateRect("StrategicBoard", null, new Vector2(1500f, 320f));
             StrategicBoardView boardView = root.AddComponent<StrategicBoardView>();
+            root.AddComponent<StrategicBoardPresenter>();
 
             Image frame = CreateImage("BoardFrame", root.transform, new Vector2(1500f, 320f),
                 new Color(0.25f, 0.17f, 0.085f, 1f), BuiltinSprite());
@@ -252,6 +254,22 @@ namespace Battle.UI.StrategicBoard.Editor
             binderObject.FindProperty("managerOverride").objectReferenceValue = null;
             binderObject.FindProperty("findManagerInScene").boolValue = true;
             binderObject.ApplyModifiedPropertiesWithoutUndo();
+
+            StrategicBoardPresenter presenter = root.GetComponent<StrategicBoardPresenter>();
+
+            if (presenter == null)
+            {
+                presenter = root.AddComponent<StrategicBoardPresenter>();
+            }
+
+            GameObject guidePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(TargetingGuidePath);
+            var presenterObject = new SerializedObject(presenter);
+            presenterObject.FindProperty("boardView").objectReferenceValue = boardView;
+            presenterObject.FindProperty("targetingGuidePrefab").objectReferenceValue =
+                guidePrefab != null
+                    ? guidePrefab.GetComponent<StrategicSkillTargetingGuideView>()
+                    : null;
+            presenterObject.ApplyModifiedPropertiesWithoutUndo();
         }
 
         private static void VerifySavedBoardReferences()
@@ -312,6 +330,20 @@ namespace Battle.UI.StrategicBoard.Editor
                 {
                     throw new System.InvalidOperationException(
                         "Saved gauge binder references are invalid.");
+                }
+
+                StrategicBoardPresenter presenter = root.GetComponent<StrategicBoardPresenter>();
+                GameObject guidePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(TargetingGuidePath);
+                var presenterObject = presenter != null ? new SerializedObject(presenter) : null;
+
+                if (presenterObject == null ||
+                    presenterObject.FindProperty("boardView").objectReferenceValue != boardView ||
+                    guidePrefab == null ||
+                    presenterObject.FindProperty("targetingGuidePrefab").objectReferenceValue !=
+                    guidePrefab.GetComponent<StrategicSkillTargetingGuideView>())
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved strategic board presenter references are invalid.");
                 }
             }
             finally

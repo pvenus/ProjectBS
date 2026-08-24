@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3691967853189672070}
   - component: {fileID: 3987364286717236762}
+  - component: {fileID: 3987364286717236799}
   m_Layer: 5
   m_Name: StrategicBoard
   m_TagString: Untagged
@@ -134,6 +135,27 @@ MonoBehaviour:
   - {fileID: 1825869106407692983}
   - {fileID: 4987253042791830191}
   - {fileID: 2672201056572411694}
+--- !u!114 &3987364286717236799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177007728130462530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e01b51b38fc2243b4e2b2e41e7b6ea, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.StrategicBoard.StrategicBoardPresenter
+  boardView: {fileID: 3987364286717236762}
+  worldCamera: {fileID: 0}
+  targetingGuidePrefab: {fileID: 6801432934598712345, guid: ecc3ea0adcd5415d9ea4b8607c0e303d, type: 3}
+  targetingGuideView: {fileID: 0}
+  targetingGuideParent: {fileID: 0}
+  enableTargetTint: 1
+  targetTint: {r: 1, g: 0.25, b: 0.25, a: 1}
+  useCalibratedDisplayRadiusForTargetDetection: 0
+  logDebug: 0
 --- !u!1 &7368219400668087637
 GameObject:
   m_ObjectHideFlags: 0

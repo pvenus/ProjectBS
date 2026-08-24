@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d87eea08b5a6c46f8ae0af70d1609603, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item.ItemManager
   relicRuntimeData:
     relics: []
@@ -211,28 +211,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 195c40af3ea0b4382aadaaa46d5c9272, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Session.GameSession
   StageSession:
     RuntimeData:
-      stageId:
+      stageId: 
       currentDepth: 0
       currentRound: 0
       stageSeed: 0
       currentGraph:
-        stageId:
-        stageName:
+        stageId: 
+        stageName: 
         progressState: 0
-        startNodeId:
-        currentNodeId:
-        bossNodeId:
+        startNodeId: 
+        currentNodeId: 
+        bossNodeId: 
         nodes: []
       currentNode:
-        nodeId:
-        templateNodeId:
+        nodeId: 
+        templateNodeId: 
         depth: 0
         indexInDepth: 0
-        routeKey:
+        routeKey: 
         kind: 0
         nodeType: 0
         state: 0
@@ -264,16 +264,16 @@ MonoBehaviour:
       gold: 0
   BattleSession:
     IsBattleActive: 0
-    BattleId:
-    BattleSceneName:
-    ReturnSceneName:
+    BattleId: 
+    BattleSceneName: 
+    ReturnSceneName: 
     LoadingSceneName: LoadingScene
     PartyRuntimeData:
       Members: []
     BattleSO: {fileID: 0}
     BattleRuntime:
-      battleId:
-      battleName:
+      battleId: 
+      battleName: 
       victoryRule: 0
       survivalTimeSeconds: 0
       rewardExperience: 0
@@ -286,8 +286,8 @@ MonoBehaviour:
       remainingEnemyCount: 0
       isCompleted: 0
       elapsedTime: 0
-    PendingStageNodeId:
-    CompletedStageNodeId:
+    PendingStageNodeId: 
+    CompletedStageNodeId: 
   startProfile: {fileID: 0}
   startProfileApplyDelayFrame: 1
   enableBattleSceneTest: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a47d39e052b14d78aa680ec1f5c329b4, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.Testing.BattleUiDataSetupTester
   characters: []
   strategicSkills: []
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc3bf84603b4947c0886bcb7e5dcd329, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.StrategicSkillCostManager
   config: {fileID: 11400000, guid: 73b25da05f490448eb76669a7c81864d, type: 2}
   runtimeData:
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.StandaloneInputModule
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 403, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_TextStyleHashCode
@@ -573,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 503, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 503, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -589,7 +589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 603, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 603, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -605,7 +605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 703, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 703, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -621,7 +621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 803, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 803, guid: a36a8a2fc5e0445eb9216f36f52493a5, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a647d5e85ea64d0bbb392e073d189372, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.BattleStatus.BattleProgressView
 --- !u!114 &628308758
 MonoBehaviour:
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c689f66700dc01f458cfda619a7d851a, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.BattleStatus.BattleProgressPresenter
   progressView: {fileID: 628308757}
   updateInterval: 0.1
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605f502bb7198478384bd73734100d3c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Currency.CurrencyManager
 --- !u!1 &1104292605
 GameObject:
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fc0e0227e41a42b1996d2cf0cd9dd6c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Party.PartyManager
   spawnRoot: {fileID: 0}
   spacing: 1.5
@@ -789,6 +789,7 @@ GameObject:
   - component: {fileID: 1248477540}
   - component: {fileID: 1248477539}
   - component: {fileID: 1248477538}
+  - component: {fileID: 1248477541}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -870,6 +871,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1248477541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248477537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1273127838
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +957,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db5c8d3a4311a4e84b28011d1386ebe0, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.Prop.BattlePropManager
 --- !u!1 &1290262894
 GameObject:
@@ -956,7 +1001,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c01a51aa191854a92ab2abc20d718cc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::String.StringManager
   resourcePath: string
   currentLanguage: 0
@@ -1008,7 +1053,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 862378badb2424a95a70de59c9f5467f, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleManager
 --- !u!1 &1450553036
 GameObject:
@@ -1087,16 +1132,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fc5e9982710be54abc0d5e2e8c26df8, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.Testing.BattleFeatureTestBootstrap
   battle: {fileID: 11400000, guid: 88a924ee1e7474689b6adbdfbec66edd, type: 2}
   partyMembers:
   - {fileID: 11400000, guid: 32303e95e7b77564abcf1f31aebf1e6d, type: 2}
   - {fileID: 11400000, guid: 3fe9f166dfa2ba24c98f24c183667374, type: 2}
   strategicSkills:
-  - {fileID: 11400000, guid: 6fc01049aa47c4531bf27c047d1da030, type: 2}
-  - {fileID: 11400000, guid: e9be437ba61f2364799972b49171cf6f, type: 2}
-  - {fileID: 11400000, guid: 29d1838ba601ac64390b8cc74574b7cd, type: 2}
+  - {fileID: 11400000, guid: ea6d15c9730f84fd7831ee0ff93978c3, type: 2}
+  - {fileID: 11400000, guid: cab618edeca974254a067067518b2711, type: 2}
+  - {fileID: 11400000, guid: 8c38ddeb8ee024381b36257e57181aa4, type: 2}
+  - {fileID: 11400000, guid: 2139a2403b901408089305f4c632e30e, type: 2}
   gameSession: {fileID: 360045545}
   battleManager: {fileID: 1309310122}
   partyManager: {fileID: 1104292607}
@@ -1228,7 +1274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4203, guid: 0c96a3df516284b8efc062ad4e859b13, type: 3}
       propertyPath: m_sharedMaterial
-      value:
+      value: 
       objectReference: {fileID: 6085311750349383646, guid: 1fb5b72d81d6a49008e089785147f817, type: 2}
     - target: {fileID: 4203, guid: 0c96a3df516284b8efc062ad4e859b13, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -1273,7 +1319,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a0123d7e6fb4c9dc508142d3eaf60bc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.PartyHud.PartyHudView
 --- !u!114 &1550730284
 MonoBehaviour:
@@ -1285,7 +1331,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4021ca85007615c4092fb24417033ef8, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.PartyHud.PartyHudPresenter
   hudView: {fileID: 1550730283}
   updateInterval: 0.05
@@ -1319,7 +1365,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
@@ -1336,7 +1382,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
@@ -1410,7 +1456,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
     m_Left: 0
@@ -1552,18 +1598,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5686598735163136707, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -240
-      objectReference: {fileID: 0}
-    - target: {fileID: 5686598735163136707, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -40
+      value: -260
       objectReference: {fileID: 0}
     - target: {fileID: 5686598735163136707, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5686598735163136707, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5869451366404689823, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
@@ -1582,18 +1620,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6393542328658964012, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_FillAmount
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393542328658964012, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_FillOrigin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393542328658964012, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6472668416015626007, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1609,10 +1635,6 @@ PrefabInstance:
     - target: {fileID: 6472668416015626007, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002074933988835458, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      propertyPath: m_Spacing
-      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8592791095626162779, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1633,47 +1655,24 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2177007728130462530, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1917633801}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
 --- !u!114 &1917633798 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3987364286717236762, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
   m_PrefabInstance: {fileID: 1917633797}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917633799}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42a9a0c408364f2fb497be4627d6a308, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.StrategicBoard.StrategicBoardView
---- !u!1 &1917633799 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2177007728130462530, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
-  m_PrefabInstance: {fileID: 1917633797}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1917633800 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3691967853189672070, guid: 5d91a4de91f4c7d4bb14a242523e1c90, type: 3}
   m_PrefabInstance: {fileID: 1917633797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1917633801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917633799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e01b51b38fc2243b4e2b2e41e7b6ea, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Battle.UI.StrategicBoard.StrategicBoardPresenter
-  boardView: {fileID: 1917633798}
-  worldCamera: {fileID: 0}
-  logDebug: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Battle;
+using Character;
 using Item;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,14 +20,34 @@ namespace Battle.UI.StrategicBoard
         [Header("Camera")]
         [SerializeField] private Camera worldCamera;
 
+        [Header("Targeting Guide")]
+        [SerializeField] private StrategicSkillTargetingGuideView targetingGuidePrefab;
+        [SerializeField] private StrategicSkillTargetingGuideView targetingGuideView;
+        [SerializeField] private Transform targetingGuideParent;
+
+        [Header("Target Tint Preview")]
+        [SerializeField] private bool enableTargetTint = true;
+        [SerializeField] private Color targetTint = new(1f, 0.25f, 0.25f, 1f);
+        [SerializeField] private bool useCalibratedDisplayRadiusForTargetDetection;
+
         [Header("Debug")]
         [SerializeField] private bool logDebug;
 
         private ItemManager subscribedItemManager;
         private StrategicSkillCostManager subscribedCostManager;
         private readonly List<StrategicSkillSlotView> boundSlots = new();
+        private StrategicSkillSlotView activeDragSlot;
+        private bool ownsTargetingGuideView;
+        private bool dragWarningIssued;
+        private bool targetTintWarningIssued;
+        private readonly List<Collider2D> targetOverlapResults = new(128);
+        private readonly HashSet<CharacterManager> detectedTargets = new();
+        private readonly List<CharacterManager> targetsToRestore = new();
+        private readonly Dictionary<CharacterManager, List<ShaderTintState>> highlightedTargets = new();
 
         public StrategicBoardView BoardView => boardView;
+        public int CurrentHighlightedTargetCount => highlightedTargets.Count;
+        public int CurrentTargetLayerMask { get; private set; }
 
         private void Awake()
         {
@@ -43,6 +64,17 @@ namespace Battle.UI.StrategicBoard
         private void OnDisable()
         {
             UnsubscribeEvents();
+            HideTargetingGuide();
+        }
+
+        private void OnDestroy()
+        {
+            ClearTargetTintPreview();
+
+            if (ownsTargetingGuideView && targetingGuideView != null)
+            {
+                Destroy(targetingGuideView.gameObject);
+            }
         }
 
         private void ResolveReferences()
@@ -130,6 +162,9 @@ namespace Battle.UI.StrategicBoard
                     if (slot != null)
                     {
                         slot.ExecutionRequested += HandleSlotExecutionRequested;
+                        slot.DragStarted += HandleSlotDragStarted;
+                        slot.Dragged += HandleSlotDragged;
+                        slot.DragEnded += HandleSlotDragEnded;
                         boundSlots.Add(slot);
                     }
                 }
@@ -158,6 +193,9 @@ namespace Battle.UI.StrategicBoard
                 if (slot != null)
                 {
                     slot.ExecutionRequested -= HandleSlotExecutionRequested;
+                    slot.DragStarted -= HandleSlotDragStarted;
+                    slot.Dragged -= HandleSlotDragged;
+                    slot.DragEnded -= HandleSlotDragEnded;
                 }
             }
             boundSlots.Clear();
@@ -174,10 +212,46 @@ namespace Battle.UI.StrategicBoard
                 subscribedCostManager.OnGaugeChanged -= HandleGaugeChanged;
                 subscribedCostManager = null;
             }
+
+            activeDragSlot = null;
+        }
+
+        private void HandleSlotDragStarted(
+            StrategicSkillSlotView slotView,
+            PointerEventData eventData)
+        {
+            activeDragSlot = slotView;
+            dragWarningIssued = false;
+            targetTintWarningIssued = false;
+            UpdateTargetingGuide(slotView, eventData, true);
+        }
+
+        private void HandleSlotDragged(
+            StrategicSkillSlotView slotView,
+            PointerEventData eventData)
+        {
+            if (slotView != activeDragSlot)
+            {
+                return;
+            }
+
+            UpdateTargetingGuide(slotView, eventData, false);
+        }
+
+        private void HandleSlotDragEnded(
+            StrategicSkillSlotView slotView,
+            PointerEventData eventData)
+        {
+            HideTargetingGuide();
+            activeDragSlot = null;
+            dragWarningIssued = false;
+            targetTintWarningIssued = false;
         }
 
         private void HandleSlotExecutionRequested(StrategicSkillSlotView slotView, Object payload, PointerEventData eventData)
         {
+            HideTargetingGuide();
+
             if (payload is not StrategicSkillItemSO strategicSkillItem)
             {
                 if (logDebug)
@@ -210,6 +284,346 @@ namespace Battle.UI.StrategicBoard
                 worldCamera,
                 logDebug,
                 this);
+        }
+
+        private void UpdateTargetingGuide(
+            StrategicSkillSlotView slotView,
+            PointerEventData eventData,
+            bool logCalibration)
+        {
+            if (slotView == null || eventData == null ||
+                slotView.ExecutionPayload is not StrategicSkillItemSO strategicSkillItem)
+            {
+                HideTargetingGuide();
+                WarnForCurrentDrag(
+                    "Cannot show the targeting guide because the slot payload is not a StrategicSkillItemSO.");
+                return;
+            }
+
+            if (strategicSkillItem.skillSo == null || strategicSkillItem.skillSo.BaseProfileSo == null)
+            {
+                HideTargetingGuide();
+                WarnForCurrentDrag(
+                    $"Cannot show the targeting guide for slot '{slotView.SlotId}' because skillSo or BaseProfileSo is missing.");
+                return;
+            }
+
+            if (worldCamera == null)
+            {
+                worldCamera = Camera.main;
+            }
+
+            if (worldCamera == null)
+            {
+                HideTargetingGuide();
+                WarnForCurrentDrag(
+                    "Cannot show the targeting guide because no world camera is available.");
+                return;
+            }
+
+            if (!EnsureTargetingGuideView())
+            {
+                HideTargetingGuide();
+                WarnForCurrentDrag(
+                    "Cannot show the targeting guide because no guide prefab or scene guide view is assigned.");
+                return;
+            }
+
+            Vector3 screenPoint = new Vector3(
+                eventData.position.x,
+                eventData.position.y,
+                Mathf.Abs(worldCamera.transform.position.z));
+            Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPoint);
+            float radius = strategicSkillItem.skillSo.BaseProfileSo.ProjectileColliderRadius;
+
+            if (!targetingGuideView.Show(worldPosition, radius))
+            {
+                HideTargetingGuide();
+                WarnForCurrentDrag(
+                    "Cannot show the targeting guide because its SpriteRenderer sprite is missing or has invalid bounds.");
+                return;
+            }
+
+            int targetLayerMask = BuildTargetLayerMask(strategicSkillItem);
+            float overlapRadius = useCalibratedDisplayRadiusForTargetDetection
+                ? targetingGuideView.DisplayRadius
+                : radius;
+            UpdateTargetTintPreview(worldPosition, overlapRadius, targetLayerMask);
+
+            if (logDebug && logCalibration)
+            {
+                Debug.Log(
+                    $"[StrategicBoardPresenter] Targeting guide item={strategicSkillItem.strategicSkillItemId}, " +
+                    $"gameplayRadius={targetingGuideView.GameplayRadius:0.###}, " +
+                    $"calibratedRadius={targetingGuideView.DisplayRadius:0.###}, " +
+                    $"worldDiameter={targetingGuideView.WorldDiameter:0.###}, " +
+                    $"overlapRadius={overlapRadius:0.###}, mask={targetLayerMask}, " +
+                    $"targetCount={CurrentHighlightedTargetCount}.",
+                    this);
+            }
+        }
+
+        private bool EnsureTargetingGuideView()
+        {
+            if (targetingGuideView != null)
+            {
+                return true;
+            }
+
+            if (targetingGuidePrefab == null)
+            {
+                return false;
+            }
+
+            targetingGuideView = Instantiate(targetingGuidePrefab, targetingGuideParent);
+            targetingGuideView.name = targetingGuidePrefab.name;
+            ownsTargetingGuideView = true;
+            targetingGuideView.Hide();
+            return true;
+        }
+
+        private void HideTargetingGuide()
+        {
+            if (targetingGuideView != null)
+            {
+                targetingGuideView.Hide();
+            }
+
+            ClearTargetTintPreview();
+        }
+
+        public void ConfigureTargetTintPreview(
+            bool enabled,
+            Color tint,
+            bool useCalibratedDisplayRadius)
+        {
+            enableTargetTint = enabled;
+            targetTint = tint;
+            useCalibratedDisplayRadiusForTargetDetection = useCalibratedDisplayRadius;
+
+            if (!enableTargetTint)
+            {
+                ClearTargetTintPreview();
+                return;
+            }
+
+            RefreshHighlightedTargetTint();
+        }
+
+        private int BuildTargetLayerMask(StrategicSkillItemSO strategicSkillItem)
+        {
+            int combinedMask = 0;
+            var hitSos = strategicSkillItem?.skillSo?.HitSos;
+
+            if (hitSos != null)
+            {
+                foreach (var hitSo in hitSos)
+                {
+                    if (hitSo != null)
+                    {
+                        combinedMask |= hitSo.TargetLayerMask.value;
+                    }
+                }
+            }
+
+            CurrentTargetLayerMask = combinedMask;
+            return combinedMask;
+        }
+
+        private void UpdateTargetTintPreview(
+            Vector3 worldPosition,
+            float overlapRadius,
+            int targetLayerMask)
+        {
+            if (!enableTargetTint)
+            {
+                ClearTargetTintPreview();
+                return;
+            }
+
+            if (targetLayerMask == 0 || overlapRadius <= 0f)
+            {
+                ClearTargetTintPreview();
+                WarnForTargetTint(
+                    targetLayerMask == 0
+                        ? "Cannot preview target tint because the skill has no valid HitSO target layer mask."
+                        : "Cannot preview target tint because the selected target radius is not positive.");
+                return;
+            }
+
+            detectedTargets.Clear();
+            targetOverlapResults.Clear();
+            ContactFilter2D contactFilter = new()
+            {
+                useLayerMask = true,
+                layerMask = targetLayerMask,
+                useTriggers = Physics2D.queriesHitTriggers
+            };
+            int hitCount = Physics2D.OverlapCircle(
+                worldPosition,
+                overlapRadius,
+                contactFilter,
+                targetOverlapResults);
+
+            for (int i = 0; i < hitCount; i++)
+            {
+                Collider2D hitCollider = targetOverlapResults[i];
+
+                if (hitCollider == null)
+                {
+                    continue;
+                }
+
+                CharacterManager characterManager = hitCollider.GetComponentInParent<CharacterManager>();
+                if (characterManager == null ||
+                    !characterManager.isActiveAndEnabled ||
+                    !characterManager.gameObject.activeInHierarchy ||
+                    (characterManager.RuntimeData != null && characterManager.RuntimeData.isDead))
+                {
+                    continue;
+                }
+
+                detectedTargets.Add(characterManager);
+            }
+
+            targetsToRestore.Clear();
+            foreach (CharacterManager highlightedTarget in highlightedTargets.Keys)
+            {
+                if (highlightedTarget == null || !detectedTargets.Contains(highlightedTarget))
+                {
+                    targetsToRestore.Add(highlightedTarget);
+                }
+            }
+
+            foreach (CharacterManager target in targetsToRestore)
+            {
+                RestoreTargetTint(target);
+            }
+
+            foreach (CharacterManager target in detectedTargets)
+            {
+                if (!highlightedTargets.ContainsKey(target))
+                {
+                    ApplyTargetTint(target);
+                }
+            }
+        }
+
+        private void ApplyTargetTint(CharacterManager target)
+        {
+            ShaderMono[] shaderMonos = target.GetComponentsInChildren<ShaderMono>(true);
+            List<ShaderTintState> tintStates = new(shaderMonos.Length);
+
+            foreach (ShaderMono shaderMono in shaderMonos)
+            {
+                if (shaderMono == null || !shaderMono.HasValidRenderer())
+                {
+                    continue;
+                }
+
+                tintStates.Add(new ShaderTintState(shaderMono, shaderMono.GetTint(Color.white)));
+                shaderMono.SetTint(targetTint);
+                shaderMono.ApplyIfDirty();
+            }
+
+            if (tintStates.Count > 0)
+            {
+                highlightedTargets.Add(target, tintStates);
+            }
+        }
+
+        private void RestoreTargetTint(CharacterManager target)
+        {
+            if (!highlightedTargets.TryGetValue(target, out List<ShaderTintState> tintStates))
+            {
+                return;
+            }
+
+            foreach (ShaderTintState tintState in tintStates)
+            {
+                if (tintState.ShaderMono == null || !tintState.ShaderMono.HasValidRenderer())
+                {
+                    continue;
+                }
+
+                tintState.ShaderMono.SetTint(tintState.OriginalTint);
+                tintState.ShaderMono.ApplyIfDirty();
+            }
+
+            highlightedTargets.Remove(target);
+        }
+
+        private void ClearTargetTintPreview()
+        {
+            foreach (List<ShaderTintState> tintStates in highlightedTargets.Values)
+            {
+                foreach (ShaderTintState tintState in tintStates)
+                {
+                    if (tintState.ShaderMono == null || !tintState.ShaderMono.HasValidRenderer())
+                    {
+                        continue;
+                    }
+
+                    tintState.ShaderMono.SetTint(tintState.OriginalTint);
+                    tintState.ShaderMono.ApplyIfDirty();
+                }
+            }
+
+            highlightedTargets.Clear();
+            detectedTargets.Clear();
+            targetsToRestore.Clear();
+            CurrentTargetLayerMask = 0;
+        }
+
+        private void RefreshHighlightedTargetTint()
+        {
+            foreach (List<ShaderTintState> tintStates in highlightedTargets.Values)
+            {
+                foreach (ShaderTintState tintState in tintStates)
+                {
+                    if (tintState.ShaderMono == null || !tintState.ShaderMono.HasValidRenderer())
+                    {
+                        continue;
+                    }
+
+                    tintState.ShaderMono.SetTint(targetTint);
+                    tintState.ShaderMono.ApplyIfDirty();
+                }
+            }
+        }
+
+        private void WarnForTargetTint(string message)
+        {
+            if (targetTintWarningIssued)
+            {
+                return;
+            }
+
+            targetTintWarningIssued = true;
+            Debug.LogWarning($"[StrategicBoardPresenter] {message}", this);
+        }
+
+        private readonly struct ShaderTintState
+        {
+            public ShaderTintState(ShaderMono shaderMono, Color originalTint)
+            {
+                ShaderMono = shaderMono;
+                OriginalTint = originalTint;
+            }
+
+            public ShaderMono ShaderMono { get; }
+            public Color OriginalTint { get; }
+        }
+
+        private void WarnForCurrentDrag(string message)
+        {
+            if (dragWarningIssued)
+            {
+                return;
+            }
+
+            dragWarningIssued = true;
+            Debug.LogWarning($"[StrategicBoardPresenter] {message}", this);
         }
 
         private void HandleGaugeChanged(int currentGauge, int maxGauge)
