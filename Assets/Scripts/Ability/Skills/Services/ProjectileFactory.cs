@@ -9,6 +9,13 @@ using Skills.Dto.Move;
 /// </summary>
 public class ProjectileFactory
 {
+    private const string ProjectilePrefabResourcePath =
+        "skills/prefab/ProjectileEntity";
+
+    private static ProjectileEntity projectilePrefab;
+    private static bool hasAttemptedPrefabLoad;
+    private static bool hasLoggedMissingPrefabWarning;
+
     /// <summary>
     /// 투사체 GameObject를 생성하고 런타임 데이터를 주입한다.
     /// </summary>
@@ -148,6 +155,24 @@ public class ProjectileFactory
         Quaternion rotation,
         Transform parent)
     {
+        ProjectileEntity prefab = ResolveProjectilePrefab();
+        if (prefab != null)
+        {
+            return Object.Instantiate(
+                prefab,
+                runtimeData.spawnPosition,
+                rotation,
+                parent);
+        }
+
+        if (!hasLoggedMissingPrefabWarning)
+        {
+            Debug.LogWarning(
+                $"ProjectileFactory could not load Resources/{ProjectilePrefabResourcePath}.prefab. " +
+                "Falling back to runtime GameObject creation.");
+            hasLoggedMissingPrefabWarning = true;
+        }
+
         GameObject projectileObject = new GameObject("ProjectileEntity");
 
         if (parent != null)
@@ -159,6 +184,18 @@ public class ProjectileFactory
         projectileObject.transform.rotation = rotation;
 
         return projectileObject.AddComponent<ProjectileEntity>();
+    }
+
+    private ProjectileEntity ResolveProjectilePrefab()
+    {
+        if (!hasAttemptedPrefabLoad)
+        {
+            projectilePrefab = Resources.Load<ProjectileEntity>(
+                ProjectilePrefabResourcePath);
+            hasAttemptedPrefabLoad = true;
+        }
+
+        return projectilePrefab;
     }
 
     private void ConfigureSpawnedProjectile(

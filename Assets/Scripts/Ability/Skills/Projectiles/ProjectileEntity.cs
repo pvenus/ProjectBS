@@ -15,6 +15,7 @@ public class ProjectileEntity : MonoBehaviour
     [SerializeField] private ProjectileLifetime lifetime;
     [SerializeField] private ProjectileVisual visual;
     [SerializeField] private ProjectileSpawner spawner;
+    [SerializeField] private Transform scaler;
 
     [Header("Runtime State")]
     [SerializeField] private bool initialized;
@@ -34,6 +35,7 @@ public class ProjectileEntity : MonoBehaviour
         lifetime = GetComponent<ProjectileLifetime>();
         visual = GetComponent<ProjectileVisual>();
         spawner = GetComponent<ProjectileSpawner>();
+        scaler = transform.Find("Scaler");
     }
 
     private void Awake()
@@ -90,6 +92,14 @@ public class ProjectileEntity : MonoBehaviour
         waitingForVisualCompletion = false;
 
         transform.position = data.spawnPosition;
+
+        if (scaler != null)
+        {
+            float radius = data.hit != null
+                ? Mathf.Max(0.01f, data.hit.projectileColliderRadius)
+                : 1f;
+            scaler.localScale = Vector3.one * radius;
+        }
 
         if (movement != null)
         {
