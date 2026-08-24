@@ -12,8 +12,11 @@ namespace ResourceTools.Item
 {
     public static class RelicItemAssetBuilder
     {
-        private const string CurrentRelicRoot =
-            "Assets/Resources/relic/json";
+        private const string CurrentRelicJsonRoot =
+            "Assets/Contents/Item/json";
+
+        private const string CurrentRelicSoRoot =
+            "Assets/Contents/Item/so";
 
         [Serializable]
         public class RelicItemJson
@@ -37,6 +40,114 @@ namespace ResourceTools.Item
             public float g = 1f;
             public float b = 1f;
             public float a = 1f;
+        }
+
+        [MenuItem("Assets/Item/Relic Item Generator", false, 1998)]
+        private static void GenerateSelectedRelic()
+        {
+            string jsonPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (!IsRelicJsonPath(jsonPath))
+            {
+                Debug.LogError(
+                    "[RelicItemAssetBuilder] Select an item.relic.*.json file.");
+                return;
+            }
+
+            GenerateFromJsonPath(jsonPath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        [MenuItem("Assets/Item/Relic Item Generator", true)]
+        private static bool ValidateGenerateSelectedRelic()
+        {
+            return IsRelicJsonPath(
+                AssetDatabase.GetAssetPath(Selection.activeObject));
+        }
+
+        [MenuItem(
+            "Assets/Item/Generate All Relic Item SO From Folder",
+            false,
+            1999)]
+        private static void GenerateAllRelicsFromSelectedFolder()
+        {
+            string folderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (string.IsNullOrWhiteSpace(folderPath) ||
+                !AssetDatabase.IsValidFolder(folderPath))
+            {
+                Debug.LogError(
+                    "[RelicItemAssetBuilder] Select a folder in the Project window first.");
+                return;
+            }
+
+            string[] jsonPaths = Directory.GetFiles(
+                folderPath,
+                "item.relic.*.json",
+                SearchOption.TopDirectoryOnly);
+            Array.Sort(jsonPaths, StringComparer.Ordinal);
+
+            int generatedCount = 0;
+            for (int i = 0; i < jsonPaths.Length; i++)
+            {
+                string jsonPath = jsonPaths[i].Replace("\\", "/");
+                if (GenerateFromJsonPath(jsonPath) != null)
+                {
+                    generatedCount++;
+                }
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log(
+                $"[RelicItemAssetBuilder] Folder generation completed. " +
+                $"folder={folderPath}, generated={generatedCount}, " +
+                $"output={CurrentRelicSoRoot}");
+        }
+
+        [MenuItem(
+            "Assets/Item/Generate All Relic Item SO From Folder",
+            true)]
+        private static bool ValidateGenerateAllRelicsFromSelectedFolder()
+        {
+            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+            return !string.IsNullOrWhiteSpace(path) &&
+                   AssetDatabase.IsValidFolder(path);
+        }
+
+        public static RelicSO GenerateFromJsonPath(string jsonPath)
+        {
+            if (!IsRelicJsonPath(jsonPath))
+            {
+                Debug.LogError(
+                    $"[RelicItemAssetBuilder] Invalid relic json path. path={jsonPath}");
+                return null;
+            }
+
+            RelicSO relic = CreateOrUpdate(
+                File.ReadAllText(jsonPath),
+                CurrentRelicSoRoot,
+                CurrentRelicSoRoot);
+
+            if (relic != null)
+            {
+                BuildItemStrings(jsonPath);
+            }
+
+            return relic;
+        }
+
+        private static bool IsRelicJsonPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path) ||
+                !path.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            string fileName = Path.GetFileName(path);
+            return fileName.StartsWith(
+                "item.relic.",
+                StringComparison.OrdinalIgnoreCase);
         }
 
         public static RelicSO CreateOrUpdate(
@@ -118,9 +229,9 @@ namespace ResourceTools.Item
             bool confirmed = EditorUtility.DisplayDialog(
                 "Build Current Relics",
                 "This creates or updates the current RelicSO, EffectSO, and " +
-                "EffectEntrySO assets beside the 10 JSON files under " +
-                "Assets/Resources/relic/json.\n\n" +
-                "Existing assets under Assets/Resources/shop/relic are not changed.\n\n" +
+                "EffectEntrySO assets under Assets/Contents/Item/so from " +
+                "the 10 JSON files under Assets/Contents/Item/json.\n\n" +
+                "JSON files are not modified.\n\n" +
                 "Continue?",
                 "Build",
                 "Cancel");
@@ -146,7 +257,7 @@ namespace ResourceTools.Item
         {
             string[] jsonPaths =
                 Directory.GetFiles(
-                    CurrentRelicRoot,
+                    CurrentRelicJsonRoot,
                     "item.relic.*.json",
                     SearchOption.TopDirectoryOnly);
 
@@ -191,8 +302,8 @@ namespace ResourceTools.Item
 
                 RelicSO relic = CreateOrUpdate(
                     relicJson,
-                    CurrentRelicRoot,
-                    CurrentRelicRoot);
+                    CurrentRelicSoRoot,
+                    CurrentRelicSoRoot);
 
                 if (relic == null)
                 {
@@ -202,6 +313,8 @@ namespace ResourceTools.Item
 
                 generatedRelicPaths.Add(
                     AssetDatabase.GetAssetPath(relic));
+
+                BuildItemStrings(jsonPath);
 
                 foreach (EffectEntrySO entry in relic.effectEntries)
                 {
@@ -226,7 +339,25 @@ namespace ResourceTools.Item
             ValidateCurrentRelics();
 
             Debug.Log(
-                $"[RelicItemAssetBuilder] Built current relics. relicCount={generatedRelicPaths.Count}, effectAssetRefs={generatedEffectAssets.Count}, output={CurrentRelicRoot}");
+                $"[RelicItemAssetBuilder] Built current relics. relicCount={generatedRelicPaths.Count}, effectAssetRefs={generatedEffectAssets.Count}, output={CurrentRelicSoRoot}");
+        }
+
+        private static void BuildItemStrings(string jsonPath)
+        {
+            ResourceTools.ItemStringBuilder.BuildResult result =
+                ResourceTools.ItemStringBuilder.BuildFromJsonPath(jsonPath);
+
+            foreach (string error in result.errors)
+            {
+                Debug.LogError(
+                    $"[RelicItemAssetBuilder] String build error: {error}");
+            }
+
+            foreach (string warning in result.warnings)
+            {
+                Debug.LogWarning(
+                    $"[RelicItemAssetBuilder] String build warning: {warning}");
+            }
         }
 
         public static void ValidateCurrentRelics()
@@ -236,7 +367,7 @@ namespace ResourceTools.Item
 
             string[] jsonPaths =
                 Directory.GetFiles(
-                    CurrentRelicRoot,
+                    CurrentRelicJsonRoot,
                     "item.relic.*.json",
                     SearchOption.TopDirectoryOnly);
 
@@ -262,7 +393,7 @@ namespace ResourceTools.Item
                 }
 
                 string expectedRelicPath =
-                    $"{CurrentRelicRoot}/{SanitizeFileName(data.relicId)}.asset";
+                    $"{CurrentRelicSoRoot}/{SanitizeFileName(data.relicId)}.asset";
 
                 if (!string.Equals(
                         AssetDatabase.GetAssetPath(relic),
@@ -296,8 +427,8 @@ namespace ResourceTools.Item
                     string entryPath = AssetDatabase.GetAssetPath(entry);
                     string effectPath = AssetDatabase.GetAssetPath(entry.EffectSO);
 
-                    if (!entryPath.StartsWith(CurrentRelicRoot + "/", StringComparison.Ordinal)
-                        || !effectPath.StartsWith(CurrentRelicRoot + "/", StringComparison.Ordinal))
+                    if (!entryPath.StartsWith(CurrentRelicSoRoot + "/", StringComparison.Ordinal)
+                        || !effectPath.StartsWith(CurrentRelicSoRoot + "/", StringComparison.Ordinal))
                     {
                         throw new InvalidOperationException(
                             $"[RelicItemAssetBuilder] Current relic references an Effect asset outside the approved output path. relicId={data.relicId}");
@@ -306,7 +437,7 @@ namespace ResourceTools.Item
             }
 
             Debug.Log(
-                $"[RelicItemAssetBuilder] Current relic validation passed. relicCount={jsonPaths.Length}, output={CurrentRelicRoot}");
+                $"[RelicItemAssetBuilder] Current relic validation passed. relicCount={jsonPaths.Length}, output={CurrentRelicSoRoot}");
         }
 
         private static Dictionary<string, RelicSO> LoadCurrentRelicsById()
@@ -316,7 +447,7 @@ namespace ResourceTools.Item
             string[] guids =
                 AssetDatabase.FindAssets(
                     "t:RelicSO",
-                    new[] { CurrentRelicRoot });
+                    new[] { CurrentRelicSoRoot });
 
             foreach (string guid in guids)
             {

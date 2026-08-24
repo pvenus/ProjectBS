@@ -29,14 +29,15 @@ namespace ResourceTools
             }
 
             string json = File.ReadAllText(fullJsonPath);
-            StrategicSkillItemStringJson data = JsonUtility.FromJson<StrategicSkillItemStringJson>(json);
-            if (data == null || string.IsNullOrWhiteSpace(data.strategicSkillItemId))
+            ItemStringJson data = JsonUtility.FromJson<ItemStringJson>(json);
+            string itemId = data?.ResolveItemId();
+            if (data == null || string.IsNullOrWhiteSpace(itemId))
             {
                 result.errors.Add($"Invalid item string json. path={jsonPath}");
                 return result;
             }
 
-            List<StringEntry> entries = ExtractEntries(data);
+            List<StringEntry> entries = ExtractEntries(data, itemId);
             if (entries.Count == 0)
             {
                 result.warnings.Add($"No item strings found. path={jsonPath}");
@@ -77,11 +78,13 @@ namespace ResourceTools
             return merged;
         }
 
-        private static List<StringEntry> ExtractEntries(StrategicSkillItemStringJson data)
+        private static List<StringEntry> ExtractEntries(
+            ItemStringJson data,
+            string itemId)
         {
             List<StringEntry> entries = new();
-            AddEntry(entries, data.strategicSkillItemId, "name", data.nameKo);
-            AddEntry(entries, data.strategicSkillItemId, "description", data.descriptionKo);
+            AddEntry(entries, itemId, "name", data.nameKo);
+            AddEntry(entries, itemId, "desc", data.descriptionKo);
             return entries;
         }
 
@@ -296,11 +299,19 @@ namespace ResourceTools
         }
 
         [Serializable]
-        private class StrategicSkillItemStringJson
+        private class ItemStringJson
         {
             public string strategicSkillItemId;
+            public string relicId;
             public string nameKo;
             public string descriptionKo;
+
+            public string ResolveItemId()
+            {
+                return !string.IsNullOrWhiteSpace(strategicSkillItemId)
+                    ? strategicSkillItemId
+                    : relicId;
+            }
         }
 
         private class StringEntry

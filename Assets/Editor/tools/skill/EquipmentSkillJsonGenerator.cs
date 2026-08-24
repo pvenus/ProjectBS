@@ -5,6 +5,7 @@ using System.IO;
 using Skill;
 using UnityEditor;
 using UnityEngine;
+using ResourceTools.Helper;
 
 namespace ResourceTools.Skill
 {
@@ -534,17 +535,10 @@ namespace ResourceTools.Skill
             }
 
             Debug.Log($"[EquipmentSkillJsonGenerator] Find icon sprite: {iconId}");
-            string[] guids = AssetDatabase.FindAssets($"{iconId} t:Sprite");
-
-            foreach (string guid in guids)
+            Sprite sprite = SpriteHelper.FindSpriteByName(iconId);
+            if (sprite != null)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-
-                if (sprite != null && sprite.name.Equals(iconId, StringComparison.OrdinalIgnoreCase))
-                {
-                    return sprite;
-                }
+                return sprite;
             }
 
             Debug.LogWarning($"[EquipmentSkillJsonGenerator] Icon sprite not found: {iconId}");

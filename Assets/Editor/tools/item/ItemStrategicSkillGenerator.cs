@@ -5,11 +5,18 @@ using UnityEditor;
 using UnityEngine;
 using Item;
 using Skill;
+using ResourceTools.Helper;
 
 namespace ResourceTools
 {
     public static class ItemStrategicSkillGenerator
     {
+        private const string ContentItemSoFolder =
+            "Assets/Contents/Item/so";
+
+        private const string ContentSkillSoFolder =
+            "Assets/Contents/Skill/so";
+
         [MenuItem("Assets/Item/Strategic Item Generator", false, 2000)]
         public static void Generate()
         {
@@ -121,13 +128,6 @@ namespace ResourceTools
 
             Debug.Log($"[ItemStrategicSkillGenerator] Parsed: {data.strategicSkillItemId}");
 
-            string folderPath = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
-            if (string.IsNullOrWhiteSpace(folderPath))
-            {
-                Debug.LogError("[ItemStrategicSkillGenerator] Invalid folder path.");
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(data.skillId))
             {
                 Debug.LogError(
@@ -142,8 +142,11 @@ namespace ResourceTools
 
             StrategicSkillItemSO itemSO = CreateOrUpdateItemSO(
                 data,
-                folderPath,
                 skillSo);
+            if (itemSO == null)
+            {
+                return false;
+            }
 
             ItemStringBuilder.BuildResult stringBuildResult =
                 ItemStringBuilder.BuildFromJsonPath(jsonPath);
@@ -166,10 +169,21 @@ namespace ResourceTools
 
         private static StrategicSkillItemSO CreateOrUpdateItemSO(
             StrategicSkillItemJson data,
-            string folderPath,
             EquipmentSkillSO skillSo)
         {
-            string assetPath = $"{folderPath}/{data.strategicSkillItemId}.asset";
+            string iconId = $"{data.skillId}.icon";
+            Sprite icon = SpriteHelper.FindSpriteByName(iconId);
+            if (icon == null)
+            {
+                Debug.LogError(
+                    $"[ItemStrategicSkillGenerator] Icon Sprite not found. " +
+                    $"itemId={data.strategicSkillItemId}, iconId={iconId}");
+                return null;
+            }
+
+            EnsureFolder(ContentItemSoFolder);
+            string assetPath =
+                $"{ContentItemSoFolder}/{data.strategicSkillItemId}.asset";
 
             StrategicSkillItemSO itemSO =
                 AssetDatabase.LoadAssetAtPath<StrategicSkillItemSO>(assetPath);
@@ -180,31 +194,100 @@ namespace ResourceTools
                 AssetDatabase.CreateAsset(itemSO, assetPath);
             }
 
-            SetField(itemSO, "strategicSkillItemId", data.strategicSkillItemId);
-            SetField(itemSO, "itemId", data.strategicSkillItemId);
-            SetField(itemSO, "gaugeCost", data.gaugeCost);
-            SetField(itemSO, "reusable", data.reusable);
-            SetField(itemSO, "defaultPrice", data.defaultPrice);
-            SetField(itemSO, "skillSo", skillSo);
-            SetField(itemSO, "icon", FindSprite(data.icon));
-            SetField(itemSO, "iconName", data.icon);
-            SetField(itemSO, "grade", data.grade);
-            SetField(
-                itemSO,
-                "tags",
-                data.tags == null
-                    ? Array.Empty<string>()
-                    : data.tags.ToArray());
+            itemSO.strategicSkillItemId = data.strategicSkillItemId;
+            itemSO.icon = icon;
+            itemSO.gaugeCost = data.gaugeCost;
+            itemSO.reusable = data.reusable;
+            itemSO.skillSo = skillSo;
+            itemSO.defaultPrice = data.defaultPrice;
+            itemSO.tags = data.tags == null
+                ? Array.Empty<string>()
+                : data.tags.ToArray();
 
             return itemSO;
+        }
+
+        private static void EnsureFolder(string folder)
+        {
+            if (AssetDatabase.IsValidFolder(folder))
+            {
+                return;
+            }
+
+            string parent = Path.GetDirectoryName(folder)?.Replace("\\", "/");
+            if (!string.IsNullOrEmpty(parent) &&
+                !AssetDatabase.IsValidFolder(parent))
+            {
+                EnsureFolder(parent);
+            }
+
+            AssetDatabase.CreateFolder(parent, Path.GetFileName(folder));
         }
 
         private static bool TryFindUniqueSkillById(
             string skillId,
             out EquipmentSkillSO resolved)
         {
-            EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
             resolved = null;
+
+            string[] contentGuids = AssetDatabase.FindAssets(
+                "t:EquipmentSkillSO",
+                new[] { ContentSkillSoFolder });
+
+            for (int i = 0; i < contentGuids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(contentGuids[i]);
+                EquipmentSkillSO skill =
+                    AssetDatabase.LoadAssetAtPath<EquipmentSkillSO>(path);
+
+                if (skill == null || skill.EquipmentId != skillId)
+                {
+                    continue;
+                }
+
+                if (resolved != null)
+                {
+                    Debug.LogError(
+                        $"[ItemStrategicSkillGenerator] Duplicate EquipmentSkillSO ID in content folder. " +
+                        $"skillId={skillId}, folder={ContentSkillSoFolder}");
+                    return false;
+                }
+
+                resolved = skill;
+            }
+
+            if (resolved != null)
+            {
+                return true;
+            }
+
+            string skillJsonPath =
+                $"Assets/Contents/Skill/json/{skillId}.json";
+            if (File.Exists(skillJsonPath))
+            {
+                Debug.Log(
+                    $"[ItemStrategicSkillGenerator] EquipmentSkillSO is missing; " +
+                    $"generating from json. skillId={skillId}, path={skillJsonPath}");
+
+                EquipmentSkillSO generated =
+                    ResourceTools.Skill.EquipmentSkillJsonGenerator
+                        .GenerateFromJsonPath(skillJsonPath);
+
+                if (generated != null && generated.EquipmentId == skillId)
+                {
+                    resolved = generated;
+                    return true;
+                }
+
+                Debug.LogWarning(
+                    $"[ItemStrategicSkillGenerator] Failed to auto-generate EquipmentSkillSO. " +
+                    $"skillId={skillId}, path={skillJsonPath}");
+            }
+
+            // Compatibility fallback for skills that have not migrated to
+            // Assets/Contents/Skill/so yet.
+            EquipmentSkillSO[] skills =
+                Resources.LoadAll<EquipmentSkillSO>(string.Empty);
 
             for (int i = 0; i < skills.Length; i++)
             {
@@ -229,77 +312,10 @@ namespace ResourceTools
             }
 
             Debug.LogError(
-                $"[ItemStrategicSkillGenerator] EquipmentSkillSO not found in Resources. " +
-                $"Generate the skill separately before the item. skillId={skillId}");
+                $"[ItemStrategicSkillGenerator] EquipmentSkillSO not found. " +
+                $"Content json was also unavailable or generation failed. " +
+                $"skillId={skillId}, expectedJson={skillJsonPath}");
             return false;
-        }
-
-        private static Sprite FindSprite(string spriteName)
-        {
-            if (string.IsNullOrWhiteSpace(spriteName))
-            {
-                return null;
-            }
-
-            string[] guids = AssetDatabase.FindAssets($"{spriteName} t:Sprite");
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-
-                Sprite directSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (directSprite != null && directSprite.name == spriteName)
-                {
-                    return directSprite;
-                }
-
-                UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
-                foreach (UnityEngine.Object asset in assets)
-                {
-                    if (asset is Sprite sprite && sprite.name == spriteName)
-                    {
-                        return sprite;
-                    }
-                }
-            }
-
-            string[] textureGuids = AssetDatabase.FindAssets(spriteName);
-            foreach (string guid in textureGuids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
-                foreach (UnityEngine.Object asset in assets)
-                {
-                    if (asset is Sprite sprite && sprite.name == spriteName)
-                    {
-                        return sprite;
-                    }
-                }
-            }
-
-            Debug.LogWarning($"[ItemStrategicSkillGenerator] Sprite not found. spriteName={spriteName}");
-            return null;
-        }
-
-        private static void SetField(
-            object target,
-            string fieldName,
-            object value)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            var field = target.GetType().GetField(
-                fieldName,
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.Public |
-                System.Reflection.BindingFlags.NonPublic);
-
-            if (field != null)
-            {
-                field.SetValue(target, value);
-            }
         }
 
         [Serializable]

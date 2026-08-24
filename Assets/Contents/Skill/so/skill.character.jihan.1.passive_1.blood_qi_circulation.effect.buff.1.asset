@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: skill.character.jihan.1.passive_1.blood_qi_circulation.effect.buff.1
   icon: {fileID: 0}
   config:
-    rid: 5601486723634692262
+    rid: 5601486723634692650
   references:
     version: 2
     RefIds:
-    - rid: 5601486723634692262
+    - rid: 5601486723634692650
       type: {class: ChanceOnHealCooldownReduceEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chance: 1
