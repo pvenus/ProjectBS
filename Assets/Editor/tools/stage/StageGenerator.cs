@@ -36,9 +36,7 @@ namespace ResourceTools.Stage
         [MenuItem("Assets/Stage/Stage JSON Generator", false, 2000)]
         public static void OpenWindow()
         {
-            var window = GetWindow<StageGenerator>(WindowTitle);
-            window.minSize = new Vector2(620f, 420f);
-            window.Show();
+            GenerateSelectedJsonMenu();
         }
 
         [MenuItem("Tools/Resource Tools/Stage/Generate Selected Stage JSON")]

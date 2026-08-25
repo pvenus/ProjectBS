@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.chapter01.episode06.children_return
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.chapter01.episode06.children_return
+  mainImage: {fileID: -5789567098418201261, guid: 955cb725a5a234bfa86f7c4101af2a7c, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.chapter01.episode06.children_return.next
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486723634693106
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486723634693106
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5601486723634693107
+    - rid: 5601486723634693107
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 0a04f52fbf9294464b77a34d0133877a, type: 2}

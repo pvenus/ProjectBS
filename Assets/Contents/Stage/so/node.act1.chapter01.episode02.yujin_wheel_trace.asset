@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.chapter01.episode02.yujin_wheel_trace
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.chapter01.episode02.yujin_wheel_trace
+  mainImage: {fileID: 2400979615462772286, guid: 6ebaaa852afb54d96ba08eda71eb2d77, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.chapter01.episode02.yujin_wheel_trace.next
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486723634693094
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486723634693094
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5601486723634693095
+    - rid: 5601486723634693095
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 1b4014da680b24724972a0355d0c655d, type: 2}

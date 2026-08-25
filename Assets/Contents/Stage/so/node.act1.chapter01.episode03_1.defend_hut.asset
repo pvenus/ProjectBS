@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.chapter01.episode03_1.defend_hut
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.chapter01.episode03_1.defend_hut
+  mainImage: {fileID: -4726485335162066732, guid: 5154fd02a1f6149e6831c373a401e938, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.chapter01.episode03_1.defend_hut.defend_jihan_and_child
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486723634693086
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486723634693086
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486723634693087
+    - rid: 5601486723634693087
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 16e629f4066074ad7abd394d10cc67a8, type: 2}
