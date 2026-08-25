@@ -13,6 +13,7 @@ namespace Battle.UI.PartyHud
         [Header("Identity")]
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image portraitImage;
+        [SerializeField] private Image portraitForegroundImage;
         [SerializeField] private TMP_Text nameText;
 
         [Header("Health")]
@@ -83,6 +84,17 @@ namespace Battle.UI.PartyHud
                 portraitImage.sprite = portrait;
                 portraitImage.enabled = portrait != null;
             }
+        }
+
+        public void SetPortraitForeground(Sprite foreground)
+        {
+            if (portraitForegroundImage == null)
+            {
+                return;
+            }
+
+            portraitForegroundImage.sprite = foreground;
+            portraitForegroundImage.enabled = foreground != null;
         }
 
         public void SetHealth(float currentHp, float maxHp)
@@ -170,7 +182,6 @@ namespace Battle.UI.PartyHud
             {
                 PartyHudSkillSlotView basicSlot = activeSkillSlots[0];
                 basicSlot.Render(basicAttack);
-                basicSlot.SetBasicAttack(true);
                 basicSlot.gameObject.SetActive(showBasicAttack && basicAttack != null);
             }
 
@@ -191,7 +202,6 @@ namespace Battle.UI.PartyHud
                 if (passiveSkill != null)
                 {
                     passiveSkillSlot.SetState(PartyHudSkillState.Passive);
-                    passiveSkillSlot.SetBasicAttack(false);
                 }
             }
         }

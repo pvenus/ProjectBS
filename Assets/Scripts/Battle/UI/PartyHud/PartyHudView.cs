@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,15 @@ namespace Battle.UI.PartyHud
     public sealed class PartyHudView : MonoBehaviour
     {
         public const int MaxPartyMemberCount = 4;
+        private const int PortraitForegroundPoolSize = 3;
 
         [Header("Layout")]
         [SerializeField] private RectTransform memberRoot;
         [SerializeField] private PartyHudMemberView memberPrefab;
+
+        [Header("Portrait Foregrounds")]
+        [SerializeField] private Sprite[] portraitForegroundPool =
+            new Sprite[PortraitForegroundPoolSize];
 
         [Header("Options")]
         [Tooltip("Keeps the basic-attack slot in the layout but allows it to be hidden without changing the data contract.")]
@@ -25,7 +31,13 @@ namespace Battle.UI.PartyHud
 
         private void Awake()
         {
+            EnsurePortraitForegroundPoolSize();
             EnsureMemberViews();
+        }
+
+        private void OnValidate()
+        {
+            EnsurePortraitForegroundPoolSize();
         }
 
         public void Render(PartyHudViewData viewData)
@@ -45,6 +57,10 @@ namespace Battle.UI.PartyHud
                         ? members[index]
                         : null;
 
+                memberViews[index].SetPortraitForeground(
+                    member != null
+                        ? GetPortraitForeground(index)
+                        : null);
                 memberViews[index].Render(member, showBasicAttack);
             }
 
@@ -98,6 +114,28 @@ namespace Battle.UI.PartyHud
                 memberView.name = $"PartyMember_{memberViews.Count + 1}";
                 memberView.gameObject.SetActive(false);
                 memberViews.Add(memberView);
+            }
+        }
+
+        private Sprite GetPortraitForeground(int displayIndex)
+        {
+            if (portraitForegroundPool == null
+                || portraitForegroundPool.Length != PortraitForegroundPoolSize)
+            {
+                return null;
+            }
+
+            return portraitForegroundPool[displayIndex % PortraitForegroundPoolSize];
+        }
+
+        private void EnsurePortraitForegroundPoolSize()
+        {
+            if (portraitForegroundPool == null
+                || portraitForegroundPool.Length != PortraitForegroundPoolSize)
+            {
+                Array.Resize(
+                    ref portraitForegroundPool,
+                    PortraitForegroundPoolSize);
             }
         }
     }

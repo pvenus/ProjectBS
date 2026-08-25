@@ -16,7 +16,6 @@ namespace Battle.UI.PartyHud
         [Header("Labels")]
         [SerializeField] private TMP_Text cooldownText;
         [SerializeField] private TMP_Text stateText;
-        [SerializeField] private GameObject basicAttackBadge;
 
         [Header("State Colors")]
         [SerializeField] private Color availableColor = new Color(0.24f, 0.78f, 0.42f, 0.9f);
@@ -48,7 +47,6 @@ namespace Battle.UI.PartyHud
             }
 
             SetIcon(data.Icon);
-            SetBasicAttack(data.IsBasicAttack);
             SetState(data.State);
             SetCooldown(
                 data.CooldownRemainingSeconds,
@@ -137,14 +135,6 @@ namespace Battle.UI.PartyHud
             if (state == PartyHudSkillState.Passive)
             {
                 SetCooldown(0f, 0f);
-            }
-        }
-
-        public void SetBasicAttack(bool isBasicAttack)
-        {
-            if (basicAttackBadge != null)
-            {
-                basicAttackBadge.SetActive(isBasicAttack);
             }
         }
 
