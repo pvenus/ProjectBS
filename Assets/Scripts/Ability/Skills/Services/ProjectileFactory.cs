@@ -4,13 +4,13 @@ using Skill;
 using Skills.Dto.Move;
 /// <summary>
 /// ProjectileEntity 생성 전용 팩토리.
-/// 프리팹 Instantiate 없이 GameObject를 코드에서 생성한다.
+/// Resources의 공용 ProjectileEntity 프리팹을 최초 1회 로드해 Instantiate한다.
 /// ProjectileEntity가 자신이 관장하는 컴포넌트를 Awake에서 보장한다.
 /// </summary>
 public class ProjectileFactory
 {
     private const string ProjectilePrefabResourcePath =
-        "skills/prefab/ProjectileEntity";
+        "skill/ProjectileEntity";
 
     private static ProjectileEntity projectilePrefab;
     private static bool hasAttemptedPrefabLoad;
