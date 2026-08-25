@@ -29,7 +29,50 @@
             "training_ground_leader"
         ]
     },
-    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["다부진 성인 한국인 산채 우두머리", "오른손 장검 1자루", "왼쪽 가슴 붉은 실의 짐승 발톱 정확히 3개와 낡은 비늘 갑옷"], "prohibitedElements": ["사무라이·중국 장군·서양 기사로 치환", "실존 장군·역사 인물의 얼굴이나 갑주 재현", "왕실 문양·정규군 갑주·추가 검이나 발톱"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
+    "generatedMediaPlanning": {
+        "characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["다부진 성인 한국인 산채 우두머리", "오른손 장검 1자루", "왼쪽 가슴 붉은 실의 짐승 발톱 정확히 3개와 낡은 비늘 갑옷"], "prohibitedElements": ["사무라이·중국 장군·서양 기사로 치환", "실존 장군·역사 인물의 얼굴이나 갑주 재현", "왕실 문양·정규군 갑주·추가 검이나 발톱"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}},
+        "animationRequests": [
+            {
+                "animationRequestId": "character.training_ground_captain.2.attack.captain_cut.one_shot",
+                "action": "ATTACK",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": false},
+                "layout": {"masterWidth": 3072, "masterHeight": 512, "columns": 4, "rows": 1, "cellWidth": 768, "cellHeight": 512, "order": "row-major"},
+                "geometry": {"root": [384, 300], "baselineY": 448, "safeMarginPx": 48, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 grounded compact guard/load", "f1 restrained torso and shoulder acceleration", "f2 exactly one compact mid-torso-height sword contact", "f3 controlled upright guard recovery"],
+                "motion": "one compact screen-right mid-height captain slash with fixed scale and no thrust, ground cut, or second strike",
+                "equipmentLocks": ["exactly one long sword", "exactly three animal claws tied with red thread at anatomical LEFT chest", "no sword or claw duplication, detachment, or count drift"],
+                "styleEffects": "none; no detached VFX, slash trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 4},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.training_ground_captain.2.movement.running.loop",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": true},
+                "layout": {"masterWidth": 1254, "masterHeight": 1254, "columns": 2, "rows": 2, "cellWidth": 627, "cellHeight": 627, "order": "row-major"},
+                "geometry": {"root": [313, 367], "baselineY": 549, "safeMarginPx": 59, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 anatomical RIGHT contact", "f1 RIGHT-support passing with LEFT knee forward", "f2 anatomical LEFT contact opposite f0", "f3 LEFT-support passing with RIGHT knee forward"],
+                "motion": "heavy grounded in-place screen-right captain run with exactly two contacts and two passing poses",
+                "equipmentLocks": ["exactly one long sword secured close to the body", "exactly three animal claws tied with red thread at anatomical LEFT chest", "no sword or claw duplication, detachment, or count drift"],
+                "styleEffects": "none; no detached VFX, trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.training_ground_captain.2.idle.ready.loop",
+                "action": "IDLE",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": true},
+                "layout": {"masterWidth": 1254, "masterHeight": 1254, "columns": 2, "rows": 2, "cellWidth": 627, "cellHeight": 627, "order": "row-major"},
+                "geometry": {"root": [313, 367], "baselineY": 549, "safeMarginPx": 59, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 neutral guard", "f1 tiny inhale peak", "f2 settle", "f3 near-start guard"],
+                "motion": "restrained upright captain idle with fixed feet and root",
+                "equipmentLocks": ["exactly one long sword", "exactly three animal claws tied with red thread at anatomical LEFT chest", "no sword or claw duplication, detachment, or count drift"],
+                "styleEffects": "none; no detached VFX, trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
+        ]
+    },
     "combat": {
         "roleIntent": "파티 완성 직후 등장하는 소형 리더. 포위망의 중심 압박을 담당한다.",
         "preferredRange": "melee",

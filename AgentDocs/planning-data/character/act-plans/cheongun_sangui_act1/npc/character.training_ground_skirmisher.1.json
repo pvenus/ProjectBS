@@ -29,7 +29,50 @@
             "short_blade"
         ]
     },
-    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["가벼운 성인 한국인 산채 매복병", "오른손 짧은 칼 1자루", "왼쪽 허리 부러진 목검 조각 1개와 눈 아래 검댕"], "prohibitedElements": ["닌자·사무라이·중국 무협 인물로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "완전한 목검·장검·쌍검·갑옷 추가"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
+    "generatedMediaPlanning": {
+        "characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["가벼운 성인 한국인 산채 매복병", "오른손 짧은 칼 1자루", "왼쪽 허리 부러진 목검 조각 1개와 눈 아래 검댕"], "prohibitedElements": ["닌자·사무라이·중국 무협 인물로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "완전한 목검·장검·쌍검·갑옷 추가"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}},
+        "animationRequests": [
+            {
+                "animationRequestId": "character.training_ground_skirmisher.1.attack.low_step_cut.one_shot",
+                "action": "ATTACK",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": false},
+                "layout": {"masterWidth": 1254, "masterHeight": 1254, "columns": 2, "rows": 2, "cellWidth": 627, "cellHeight": 627, "order": "row-major"},
+                "geometry": {"root": [313, 367], "baselineY": 549, "safeMarginPx": 59, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 grounded load", "f1 restrained acceleration", "f2 exactly one compact knife contact", "f3 controlled recovery"],
+                "motion": "one compact screen-right low-step knife cut with a fixed root and no second strike",
+                "equipmentLocks": ["exactly one short knife in anatomical RIGHT hand", "exactly one broken wooden practice-sword fragment at anatomical LEFT waist", "no weapon duplication, hand swap, detachment, or extra equipment"],
+                "styleEffects": "none; no detached VFX, trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.training_ground_skirmisher.1.movement.running.loop",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": true},
+                "layout": {"masterWidth": 1254, "masterHeight": 1254, "columns": 2, "rows": 2, "cellWidth": 627, "cellHeight": 627, "order": "row-major"},
+                "geometry": {"root": [313, 367], "baselineY": 549, "safeMarginPx": 59, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 anatomical RIGHT contact", "f1 RIGHT-support passing with LEFT knee forward", "f2 anatomical LEFT contact opposite f0", "f3 LEFT-support passing with RIGHT knee forward"],
+                "motion": "grounded in-place screen-right run with exactly two contacts and two passing poses",
+                "equipmentLocks": ["exactly one short knife remains in anatomical RIGHT hand", "exactly one broken wooden practice-sword fragment remains at anatomical LEFT waist", "no weapon duplication, hand swap, detachment, or extra equipment"],
+                "styleEffects": "none; no detached VFX, trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            },
+            {
+                "animationRequestId": "character.training_ground_skirmisher.1.idle.ready.loop",
+                "action": "IDLE",
+                "playback": {"frameCount": 4, "durationsMs": [250, 250, 250, 250], "loop": true},
+                "layout": {"masterWidth": 1254, "masterHeight": 1254, "columns": 2, "rows": 2, "cellWidth": 627, "cellHeight": 627, "order": "row-major"},
+                "geometry": {"root": [313, 367], "baselineY": 549, "safeMarginPx": 59, "fixedCameraScaleCentroid": true},
+                "phases": ["f0 neutral ready", "f1 tiny inhale peak", "f2 settle", "f3 near-start ready"],
+                "motion": "restrained living idle with fixed feet and root",
+                "equipmentLocks": ["exactly one short knife in anatomical RIGHT hand", "exactly one broken wooden practice-sword fragment at anatomical LEFT waist", "no weapon duplication, hand swap, detachment, or extra equipment"],
+                "styleEffects": "none; no detached VFX, trail, floor mark, shadow, or carrier remnant",
+                "output": {"format": "PNG", "colorMode": "RGBA", "alpha": true, "background": "transparent", "masterCount": 1},
+                "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
+            }
+        ]
+    },
     "combat": {
         "roleIntent": "낡은 수련장 엄폐 사이를 빠르게 드나드는 경량 근접 매복병",
         "preferredRange": "melee",

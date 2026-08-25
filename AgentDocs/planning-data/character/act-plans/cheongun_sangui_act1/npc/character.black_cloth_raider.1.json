@@ -49,7 +49,7 @@
         },
         "animationRequests": [
             {
-                "animationRequestId": "character.black_cloth_raider.1.attack.black_knife_cut.one_shot.v1",
+                "animationRequestId": "character.black_cloth_raider.1.attack.black_knife_cut.one_shot",
                 "action": "ATTACK",
                 "playback": {"frameCount": 8, "durationsMs": [150, 90, 70, 60, 70, 100, 130, 170], "loop": false},
                 "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
@@ -71,7 +71,7 @@
                 "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
             },
             {
-                "animationRequestId": "character.black_cloth_raider.1.movement.running.loop.v1",
+                "animationRequestId": "character.black_cloth_raider.1.movement.running.loop",
                 "action": "MOVEMENT",
                 "playback": {"frameCount": 8, "durationsMs": [110, 100, 90, 100, 110, 100, 90, 100], "loop": true},
                 "layout": {"masterWidth": 2048, "masterHeight": 1024, "columns": 4, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
@@ -84,7 +84,7 @@
                 "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}
             },
             {
-                "animationRequestId": "character.black_cloth_raider.1.idle.masked_ready.loop.v1",
+                "animationRequestId": "character.black_cloth_raider.1.idle.masked_ready.loop",
                 "action": "IDLE",
                 "playback": {"frameCount": 6, "durationsMs": [190, 170, 180, 190, 170, 180], "loop": true},
                 "layout": {"masterWidth": 1536, "masterHeight": 1024, "columns": 3, "rows": 2, "cellWidth": 512, "cellHeight": 512, "order": "row-major"},
