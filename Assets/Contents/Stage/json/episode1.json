@@ -1,0 +1,177 @@
+﻿{
+  "stageNodeId": "stage.ch1.episode1",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode1",
+  "episodeNumber": 1,
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 0,
+  "fixedColumn": 0,
+  "titleKo": "청운촌의 습격",
+  "planningEpisodeId": "episode_planning.act1.chapter01.01",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/01_episode1.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "intro",
+  "summaryKo": "어린 시절 청운촌 근처 산길에서 여동생의 손을 놓친 기억을 안고 떠도는 서진이 아이 실종 소문을 따라 청운촌에 도착하고, 마을을 습격한 검은 천의 무리와 맞서며 사건에 뛰어드는 도입 에피소드.",
+  "battleNeed": "required",
+  "startNodeId": "node.act1.chapter01.episode01.village_arrival",
+  "tags": [
+    "act1",
+    "chapter01",
+    "chapter1",
+    "episode1",
+    "episode.act1.chapter01.01",
+    "semantic_popup_id"
+  ],
+  "nodes": [
+    {
+      "nodeId": "node.act1.chapter01.episode01.village_arrival",
+      "popupName": "village_arrival",
+      "eventId": "node.act1.chapter01.episode01.village_arrival",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode01.village_arrival",
+      "sourceTextKo": "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+      "bodyKo": "긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "가뭄 든 청운촌 도착과 서진의 과거 후회를 한 페이지에 묶어 도입 몰입을 만든다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '청운촌의 습격' / 'node.act1.chapter01.episode01.village_arrival'. Scene: 긴 가뭄을 견디지 못한 논은 거북등처럼 갈라져 있었고, 청운촌 어귀의 버드나무는 잎을 반쯤 떨군 채 누렇게 말라 있었다. 우물 앞에는 빈 물동이가 줄지어 놓였지만, 바닥에서는 젖은 흙 냄새조차 올라오지 않았다. 서진은 산 아래 객잔에서 아이 셋이 한 달 사이 사라졌다는 말을 듣고 마을로 들어섰다. 오래전 이 근처에서 여동생의 손을 놓친 기억 때문에 그냥 지나칠 수 없었다.. Direction: 가뭄 든 청운촌 도착과 서진의 과거 후회를 한 페이지에 묶어 도입 몰입을 만든다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode01.village_arrival.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode01.village_arrival.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode01.village_arrival",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode01.black_cloth_raid"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode01.black_cloth_raid",
+      "popupName": "black_cloth_raid",
+      "eventId": "node.act1.chapter01.episode01.black_cloth_raid",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode01.black_cloth_raid",
+      "sourceTextKo": "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다.\n\n[전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+      "bodyKo": "광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다. [전투] 청운촌 광장 습격\n\n앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "광장 습격, 전투 표식, 수레 자국 단서를 한 화면에 담는다. [전투] 표기는 전투 진입 맥락으로 보존한다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '청운촌의 습격' / 'node.act1.chapter01.episode01.black_cloth_raid'. Scene: 광장 쪽에서 항아리 깨지는 소리와 비명이 터졌다. 검은 천을 두른 무리가 주민들을 우물가로 몰아붙이고 있었다. 그들은 마른 체구에 어깨가 솟아 있었고, 코와 입을 때 묻은 천으로 감춘 채 이마에 흰 재를 문질러 놓았다. 해진 겉옷의 허리마다 붉은 천 인형과 짐승 이빨이 흔들렸고, 목에는 산귀 얼굴을 거칠게 깎은 나무패가 걸려 있었다. [전투] 청운촌 광장 습격 / 앞줄의 사내들은 이가 빠진 곡도와 녹슨 도끼를 들고 문짝 방패로 주민들을 밀었다. 뒤쪽의 무리는 방울 달린 장대를 흔들며 산귀가 아이를 데려갔으니 제물을 내놓으라고 외쳤다. 그러나 그들이 짓밟은 흙에는 산에서 내려온 발자국이 아니라, 짐을 실은 수레가 마을 밖으로 빠져나간 자국이 선명했다.. Direction: 광장 습격, 전투 표식, 수레 자국 단서를 한 화면에 담는다. [전투] 표기는 전투 진입 맥락으로 보존한다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode01.black_cloth_raid.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode01.black_cloth_raid.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode01.black_cloth_raid",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode01.rescue_charge"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode01.rescue_charge",
+      "popupName": "rescue_charge",
+      "eventId": "node.act1.chapter01.episode01.rescue_charge",
+      "popupOrder": 3,
+      "sourceNarrationId": "narration.act1.chapter01.episode01.rescue_charge",
+      "sourceTextKo": "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+      "bodyKo": "서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.\n\n서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "주민 보호 결심과 돌진을 선택 직전/직후 흐름으로 묶는다. 선택지는 이 popup에 둔다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '청운촌의 습격' / 'node.act1.chapter01.episode01.rescue_charge'. Scene: 서진은 청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다. / 서진은 주민들을 마른 우물 뒤로 물리고 검을 뽑았다. 붉은 천 인형의 방울이 일제히 울리자, 그는 광장 한가운데를 막아선 무리에게 달려들었다.. Direction: 주민 보호 결심과 돌진을 선택 직전/직후 흐름으로 묶는다. 선택지는 이 popup에 둔다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+          "semanticChoiceId": "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+          "legacyChoiceId": "episode.act1.chapter01.01.choice.rescue_villagers.1",
+          "choiceName": "rescue_villagers",
+          "sourcePopupId": "node.act1.chapter01.episode01.rescue_charge",
+          "labelKo": "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
+          "textKo": "청운촌 주민들을 지키며 검은 천의 무리를 몰아낸다.",
+          "resultKo": "서진이 검은 천 무리 사이로 뛰어들며 전투가 시작된다.",
+          "opens": [
+            "battle"
+          ],
+          "rewardOwner": "battle",
+          "rewardTrigger": "battle_clear",
+          "rewardDirection": [
+            "gold_battle_reward"
+          ],
+          "nextPopupId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.chapter01.01.rescue_villagers"
+            }
+          },
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "rewardId": "battle.act1.chapter01.01.rescue_villagers",
+              "battleId": "battle.act1.chapter01.01.rescue_villagers",
+              "battleGroup": "act1/chapter01",
+              "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+              "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.asset"
+            }
+          ]
+        }
+      ],
+      "nextPopupId": null
+    }
+  ],
+  "battleRef": {
+    "optionalBattleId": "battle.act1.chapter01.01.rescue_villagers",
+    "optionalBattleGroup": "act1/chapter01",
+    "optionalBattleJsonFile": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+    "optionalBattleSOPath": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.asset"
+  },
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.01.json",
+      "sourcePopupId": "node.act1.chapter01.episode01.rescue_charge",
+      "sourceChoiceId": "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+      "semanticChoiceId": "choice.act1.chapter01.episode01.rescue_charge.rescue_villagers",
+      "legacyChoiceId": "episode.act1.chapter01.01.choice.rescue_villagers.1",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardType": "gold",
+      "rewardIntent": [
+        "gold_battle_reward"
+      ],
+      "rewardDirection": [
+        "gold_battle_reward"
+      ],
+      "rewardScaleHint": "normal_battle_clear",
+      "battleId": "battle.act1.chapter01.01.rescue_villagers",
+      "battleGroup": "act1/chapter01",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.json",
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.asset",
+      "postBattleNextPopupId": null
+    }
+  ]
+}
+

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.jihan.3.passive_1.blood_qi_circulation
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.jihan.3.passive_1.blood_qi_circulation
+  icon: {fileID: 0}
+  baseProfileSo: {fileID: 11400000, guid: 56c5eb246d4ee4e0d9871c0d0b52ee63, type: 2}
+  castSo: {fileID: 0}
+  hitSos:
+  - {fileID: 11400000, guid: ac234cc93d30645ee92c336d8c4fdb67, type: 2}
+  moveSo: {fileID: 0}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: f73d2543538f848eda04aa46d4871fd6, type: 2}

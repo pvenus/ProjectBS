@@ -14,7 +14,7 @@ namespace StageEditor
     {
         private const int MaxLoggedIssues = 100;
         private const string ActivePopupRoot =
-            "Assets/Resources/stage_new/popup_events/";
+            "Assets/Contents/Stage/so/";
 
         public sealed class ValidationSummary
         {

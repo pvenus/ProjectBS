@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch
+  icon: {fileID: 21300000, guid: 1805ebc2d67634a0e95c3799074eb27e, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 329caae66a9514b4fab257c5fd2b539a, type: 2}
+  castSo: {fileID: 11400000, guid: 389a0f021e0f042bfbed9c622a694942, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: b53f716c795f947d8992133b2764b64f, type: 2}
+  moveSo: {fileID: 11400000, guid: d25a9505717b0453a86f4fd24aef9d03, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 44c94e53d02214feb9db4dd385e97725, type: 2}

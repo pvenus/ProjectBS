@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_red_doll_hexer_2
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.red_doll_hexer.2
+  characterType: 1
+  job: 65
+  animationClips: []
+  skills:
+  - slotKey: active_1
+    skillSo: {fileID: 11400000, guid: c299fd866e27f4bc2b9ff6a278532f70, type: 2}
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 47445772df81b4028a5dbddcd2ae76e5, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 6
+  - statType: 1300
+    value: 13
+  - statType: 1000
+    value: 99
+  - statType: 1220
+    value: 0.75
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 0.75

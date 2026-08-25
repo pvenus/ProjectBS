@@ -11,6 +11,8 @@ namespace ResourceTools
     public static class BattleJsonGenerator
     {
         private const string MenuRoot = "Assets/Battle";
+        private const string ContentJsonFolder = "Assets/Contents/Battle/json";
+        private const string ContentSoFolder = "Assets/Contents/Battle/so";
 
         [MenuItem(MenuRoot + "/Generate BattleSO From Json", false, 2000)]
         public static void GenerateFromSelectedJson()
@@ -148,14 +150,12 @@ namespace ResourceTools
 
         public static BattleSO GenerateFromData(BattleJson data)
         {
-            string outputFolder = "Assets/Resources/generated/battle";
-
             if (!BattleJsonValidation.ValidateParsed(data, "GenerateFromData"))
             {
                 return null;
             }
 
-            return BattleSOAssetBuilder.CreateOrUpdate(data, outputFolder);
+            return BattleSOAssetBuilder.CreateOrUpdate(data, ContentSoFolder);
         }
 
         public static BattleSO GenerateFromJsonPath(string jsonPath)
@@ -188,7 +188,13 @@ namespace ResourceTools
                 return null;
             }
 
-            string outputFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            string jsonFolder = Path.GetDirectoryName(jsonPath)?.Replace("\\", "/");
+            string outputFolder = string.Equals(
+                jsonFolder,
+                ContentJsonFolder,
+                StringComparison.OrdinalIgnoreCase)
+                    ? ContentSoFolder
+                    : jsonFolder;
 
             if (string.IsNullOrEmpty(outputFolder))
             {

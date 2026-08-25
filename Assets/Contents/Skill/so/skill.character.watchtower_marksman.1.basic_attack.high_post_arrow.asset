@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.watchtower_marksman.1.basic_attack.high_post_arrow
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.watchtower_marksman.1.basic_attack.high_post_arrow
+  icon: {fileID: 21300000, guid: b226c573f2a1f42f6ad04892fced8ee7, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 650bd85ecf10f4185bbe206324f243e6, type: 2}
+  castSo: {fileID: 11400000, guid: b428a1fb9cc50422eb00a104b92a99c0, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 6161ac99875c44df0875bdd786cd121e, type: 2}
+  moveSo: {fileID: 11400000, guid: 70a71ff6292444a00bfdd11538a21c52, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 5431a46e913ce4937a1709569dcb4b3a, type: 2}

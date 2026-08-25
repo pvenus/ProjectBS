@@ -33,7 +33,8 @@ MonoBehaviour:
     spawnSkill: {fileID: 0}
   effects:
     buffEffects: []
-    debuffEffects: []
+    debuffEffects:
+    - {fileID: 11400000, guid: d569dfd87eb80475e8a9dfd350d97fed, type: 2}
   split:
     useSplitMultiHitDamage: 0
     splitHitCount: 4

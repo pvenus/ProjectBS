@@ -261,8 +261,7 @@ namespace ResourceTools.Skill
                 HasBaseVisual(baseVisual)
                     ? SkillBaseVisualAssetBuilder.CreateOrUpdate(
                         baseVisual,
-                        outputFolder,
-                        ShouldGenerateSkillAnimation(data.equipmentId, cast))
+                        outputFolder)
                     : null;
 
             if (skillSo == null)
@@ -305,22 +304,6 @@ namespace ResourceTools.Skill
         {
             return baseProfile != null &&
                    !string.IsNullOrWhiteSpace(baseProfile.baseProfileId);
-        }
-
-        private static bool ShouldGenerateSkillAnimation(
-            string equipmentId,
-            CastJson cast)
-        {
-            const float meleeBasicAttackMaxRange = 1f;
-
-            bool isBasicAttack = !string.IsNullOrWhiteSpace(equipmentId)
-                && equipmentId.IndexOf(
-                    ".basic_attack.",
-                    StringComparison.OrdinalIgnoreCase) >= 0;
-            bool isMeleeRange = cast != null
-                && cast.range <= meleeBasicAttackMaxRange;
-
-            return !isBasicAttack || !isMeleeRange;
         }
 
         private static bool HasCast(

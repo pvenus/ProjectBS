@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.hut_blocker_guard.2.basic_attack.doorway_slam
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.hut_blocker_guard.2.basic_attack.doorway_slam
+  icon: {fileID: 21300000, guid: b8c46b27f2e2545e7a8ee1cb122e33d5, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 852d4ac94cc544d559d074d96e1ad3e6, type: 2}
+  castSo: {fileID: 11400000, guid: e4f81b5795b114c88bb0905dba3c1fd0, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 84cb21acc15a5486082ce4e2967db0c7, type: 2}
+  moveSo: {fileID: 11400000, guid: 5c830bb50e06a42df89825bc0c4b6d81, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 76a99a9f5eac24b82b6673e70b1ac5b5, type: 2}

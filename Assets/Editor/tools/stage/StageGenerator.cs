@@ -18,9 +18,9 @@ namespace ResourceTools.Stage
     public sealed class StageGenerator : EditorWindow
     {
         private const string WindowTitle = "Stage JSON Generator";
-        private const string DefaultJsonFolder = "Assets/Resources/stage_new";
-        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
-        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
+        private const string DefaultJsonFolder = "Assets/Contents/Stage/json";
+        private const string DefaultStageNodeOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultPopupEventOutputFolder = "Assets/Contents/Stage/so";
         private const string DefaultStageStringCsvPath = "Assets/Resources/string/stage_string.csv";
 
         [SerializeField] private string jsonPath = DefaultJsonFolder;

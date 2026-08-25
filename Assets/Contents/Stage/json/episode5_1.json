@@ -1,0 +1,197 @@
+﻿{
+  "stageNodeId": "stage.ch1.episode5_1",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode5_1",
+  "episodeNumber": 5.1,
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 8,
+  "fixedColumn": 0,
+  "titleKo": "낡은 수련장",
+  "planningEpisodeId": "episode_planning.act1.chapter01.05_1",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/05-1_episode5-1.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "companion_join",
+  "summaryKo": "지한을 먼저 동료로 맞이한 서진 일행이 낡은 수련장에서 궁수 유진을 만나고, 산귀 소문과 산적의 흔적이 같은 산길로 이어짐을 확인하는 에피소드.",
+  "battleNeed": "required",
+  "startNodeId": "node.act1.chapter01.episode05_1.bloodied_herbs",
+  "tags": [
+    "act1",
+    "chapter01",
+    "chapter1",
+    "episode5_1",
+    "episode.act1.chapter01.05_1",
+    "semantic_popup_id"
+  ],
+  "nodes": [
+    {
+      "nodeId": "node.act1.chapter01.episode05_1.bloodied_herbs",
+      "popupName": "bloodied_herbs",
+      "eventId": "node.act1.chapter01.episode05_1.bloodied_herbs",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode05_1.bloodied_herbs",
+      "sourceTextKo": "북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다.\n\n길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.",
+      "bodyKo": "북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다.\n\n길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "지한 중심의 약초와 방울 단서를 한 페이지에 담아 아이 생존 단서의 감정을 살린다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '낡은 수련장' / 'node.act1.chapter01.episode05_1.bloodied_herbs'. Scene: 북쪽 산길에는 짓밟힌 지혈초가 드문드문 이어졌다. 지한은 누군가 다친 아이를 업고 가며 피를 막으려 잎을 뜯었다고 보았다. 그러나 약초 위에 찍힌 장화 자국은 일부러 짐승 발 모양으로 덮여 있었다. 유진은 비탈 위에서 수레가 무게를 이기지 못해 미끄러진 자국을 찾아냈다. / 길 중간의 바위틈에서는 찢어진 아이 옷감과 작은 놋방울이 나왔다. 지한이 방울을 닦자 안쪽에 아이 이름의 첫 글자가 새겨져 있었다. 그는 살아 있는 아이에게 돌려줘야 한다며 방울을 약상자에 넣었다.. Direction: 지한 중심의 약초와 방울 단서를 한 페이지에 담아 아이 생존 단서의 감정을 살린다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode05_1.bloodied_herbs.accept_yujin_join",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_1.bloodied_herbs.accept_yujin_join",
+          "legacyChoiceId": "episode.act1.chapter01.05_1.choice.accept_yujin_join.1",
+          "choiceName": "accept_yujin_join",
+          "sourcePopupId": "node.act1.chapter01.episode05_1.bloodied_herbs",
+          "labelKo": "아이의 상처와 약초 흔적을 중심으로 북쪽 산길을 추적한다.",
+          "textKo": "아이의 상처와 약초 흔적을 중심으로 북쪽 산길을 추적한다.",
+          "resultKo": "선택한 방향에 따라 다음 장면으로 이어진다.",
+          "opens": [
+            "companion_join",
+            "battle_setup"
+          ],
+          "rewardOwner": "popup",
+          "rewardTrigger": "episode_clear",
+          "rewardDirection": [
+            "gold_episode_clear"
+          ],
+          "nextPopupId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_1.red_collar_beasts"
+            }
+          },
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode05_1.accept_yujin_join.clear",
+              "amount": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+      "popupName": "red_collar_beasts",
+      "eventId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode05_1.red_collar_beasts",
+      "sourceTextKo": "그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다.\n\n짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.",
+      "bodyKo": "그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다.\n\n짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "붉은 목줄 짐승들이 아이 흔적을 지우도록 길들여졌다는 정보를 한 페이지에 모은다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '낡은 수련장' / 'node.act1.chapter01.episode05_1.red_collar_beasts'. Scene: 그때 산등성이 너머에서 낮은 으르렁거림이 길게 번졌다. 산늑대와 멧개들이 바위 사이를 메우며 나타났다. 털은 군데군데 벗겨지고 갈비뼈가 드러났으며, 목에는 붉은 천과 굵은 노끈이 살을 파고들 만큼 감겨 있었다. 우두머리 늑대는 한쪽 눈이 희게 흐렸고 귀 끝에 붉은 실이 꿰여 있었다. 목에 건 접힌 부적에서는 검은 천 무리가 쓰던 기름 냄새가 났다. / 짐승들은 먹이를 노리기보다 길가의 옷감과 방울을 물어뜯으려 했다. 누군가 아이들의 흔적을 지우도록 굶기고 길들인 사냥개들이었다.. Direction: 붉은 목줄 짐승들이 아이 흔적을 지우도록 길들여졌다는 정보를 한 페이지에 모은다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode05_1.red_collar_beasts.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_1.red_collar_beasts.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode05_1.red_collar_beasts",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode05_1.defend_bloodied_trail"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+      "popupName": "defend_bloodied_trail",
+      "eventId": "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+      "popupOrder": 3,
+      "sourceNarrationId": "narration.act1.chapter01.episode05_1.defend_bloodied_trail",
+      "sourceTextKo": "[전투] 피 묻은 산길의 짐승 무리\n\n서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.\n\n서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.",
+      "bodyKo": "[전투] 피 묻은 산길의 짐승 무리 서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.\n\n서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "전투명과 보호 목표, 각 동료 역할을 한 페이지에 정리한다. 선택지는 battle handoff다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '낡은 수련장' / 'node.act1.chapter01.episode05_1.defend_bloodied_trail'. Scene: [전투] 피 묻은 산길의 짐승 무리 서진과 유진은 지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다. / 서진이 좁은 산길 앞을 막고 유진이 붉은 목줄을 겨누었다. 지한은 약상자 속 방울을 감싸 쥔 채, 짐승들이 달려드는 틈에서 아이들의 다음 흔적을 찾았다.. Direction: 전투명과 보호 목표, 각 동료 역할을 한 페이지에 정리한다. 선택지는 battle handoff다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
+          "semanticChoiceId": "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
+          "legacyChoiceId": "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+          "choiceName": "break_training_ground_encirclement",
+          "sourcePopupId": "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+          "labelKo": "지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.",
+          "textKo": "지한이 아이의 방울과 상처 흔적을 지키도록 짐승 무리를 막아낸다.",
+          "resultKo": "전투 준비를 마치고 눈앞의 위협에 맞선다.",
+          "opens": [
+            "battle"
+          ],
+          "rewardOwner": "battle",
+          "rewardTrigger": "battle_clear",
+          "rewardDirection": [
+            "gold_battle_reward"
+          ],
+          "nextPopupId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.chapter01.05_1.training_ground_breakout"
+            }
+          },
+          "rewards": [
+            {
+              "rewardType": "SpecialBattle",
+              "rewardId": "battle.act1.chapter01.05_1.training_ground_breakout",
+              "battleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+              "battleGroup": "act1/chapter01",
+              "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+              "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+            }
+          ]
+        }
+      ],
+      "nextPopupId": null
+    }
+  ],
+  "battleRef": {
+    "optionalBattleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+    "optionalBattleGroup": "act1/chapter01",
+    "optionalBattleJsonFile": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+    "optionalBattleSOPath": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset"
+  },
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.05_1.json",
+      "sourcePopupId": "node.act1.chapter01.episode05_1.defend_bloodied_trail",
+      "sourceChoiceId": "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
+      "semanticChoiceId": "choice.act1.chapter01.episode05_1.defend_bloodied_trail.break_training_ground_encirclement",
+      "legacyChoiceId": "episode.act1.chapter01.05_1.choice.break_training_ground_encirclement.1",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardType": "gold",
+      "rewardIntent": [
+        "gold_battle_reward",
+        "gold_episode_clear"
+      ],
+      "rewardDirection": [
+        "gold_battle_reward"
+      ],
+      "rewardScaleHint": "normal_battle_clear",
+      "battleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+      "battleGroup": "act1/chapter01",
+      "battleJsonRef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.json",
+      "battleSORef": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.05_1.training_ground_breakout.asset",
+      "postBattleNextPopupId": null
+    }
+  ]
+}
+

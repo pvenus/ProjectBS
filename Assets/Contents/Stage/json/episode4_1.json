@@ -1,0 +1,109 @@
+﻿{
+  "stageNodeId": "stage.ch1.episode4_1",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode4_1",
+  "episodeNumber": 4.1,
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 5,
+  "fixedColumn": 0,
+  "titleKo": "피 묻은 산길",
+  "planningEpisodeId": "episode_planning.act1.chapter01.04_1",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_1.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-1_episode4-1.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "investigation",
+  "summaryKo": "지한과 함께 피 묻은 산길을 살피며, 실종된 아이들이 아직 살아 있을 가능성과 산속의 이상한 흔적을 확인하는 조사 에피소드.",
+  "battleNeed": "not_required",
+  "startNodeId": "node.act1.chapter01.episode04_1.oil_to_training_ground",
+  "tags": [
+    "act1",
+    "chapter01",
+    "chapter1",
+    "episode4_1",
+    "episode.act1.chapter01.04_1",
+    "semantic_popup_id"
+  ],
+  "nodes": [
+    {
+      "nodeId": "node.act1.chapter01.episode04_1.oil_to_training_ground",
+      "popupName": "oil_to_training_ground",
+      "eventId": "node.act1.chapter01.episode04_1.oil_to_training_ground",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_1.oil_to_training_ground",
+      "sourceTextKo": "추격자들을 물리친 뒤 지한은 다친 아이를 약초꾼의 들것에 눕혔다. 아이는 오두막 벽에 묻은 검은 기름을 가리키며, 자신을 실었던 수레에서도 같은 냄새가 났다고 말했다. 지한은 아이를 청운촌으로 돌려보낸 뒤 서진과 함께 기름 자국을 따라 동쪽 폐수련장으로 향했다.\n\n수련장에는 이미 짧은 싸움이 지나간 흔적이 남아 있었다. 부러진 화살들이 썩은 기둥에 정확히 박혀 있었고, 감시자 하나가 떨어뜨린 산귀 가면은 화살촉에 꿰인 채 땅에 고정되어 있었다. 무너진 담 위에서 궁수 유진이 두 사람을 겨누다가, 서진의 허리에 매달린 붉은 인형을 보고 활을 낮췄다.",
+      "bodyKo": "추격자들을 물리친 뒤 지한은 다친 아이를 약초꾼의 들것에 눕혔다. 아이는 오두막 벽에 묻은 검은 기름을 가리키며, 자신을 실었던 수레에서도 같은 냄새가 났다고 말했다. 지한은 아이를 청운촌으로 돌려보낸 뒤 서진과 함께 기름 자국을 따라 동쪽 폐수련장으로 향했다.\n\n수련장에는 이미 짧은 싸움이 지나간 흔적이 남아 있었다. 부러진 화살들이 썩은 기둥에 정확히 박혀 있었고, 감시자 하나가 떨어뜨린 산귀 가면은 화살촉에 꿰인 채 땅에 고정되어 있었다. 무너진 담 위에서 궁수 유진이 두 사람을 겨누다가, 서진의 허리에 매달린 붉은 인형을 보고 활을 낮췄다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "아이의 증언에서 폐수련장으로 이어지는 검은 기름 단서와 유진 조우를 한 페이지에 묶는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '피 묻은 산길' / 'node.act1.chapter01.episode04_1.oil_to_training_ground'. Scene: 추격자들을 물리친 뒤 지한은 다친 아이를 약초꾼의 들것에 눕혔다. 아이는 오두막 벽에 묻은 검은 기름을 가리키며, 자신을 실었던 수레에서도 같은 냄새가 났다고 말했다. 지한은 아이를 청운촌으로 돌려보낸 뒤 서진과 함께 기름 자국을 따라 동쪽 폐수련장으로 향했다. / 수련장에는 이미 짧은 싸움이 지나간 흔적이 남아 있었다. 부러진 화살들이 썩은 기둥에 정확히 박혀 있었고, 감시자 하나가 떨어뜨린 산귀 가면은 화살촉에 꿰인 채 땅에 고정되어 있었다. 무너진 담 위에서 궁수 유진이 두 사람을 겨누다가, 서진의 허리에 매달린 붉은 인형을 보고 활을 낮췄다.. Direction: 아이의 증언에서 폐수련장으로 이어지는 검은 기름 단서와 유진 조우를 한 페이지에 묶는다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode04_1.oil_to_training_ground.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode04_1.oil_to_training_ground.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode04_1.oil_to_training_ground",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode04_1.shared_north_trail"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode04_1.shared_north_trail",
+      "popupName": "shared_north_trail",
+      "eventId": "node.act1.chapter01.episode04_1.shared_north_trail",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_1.shared_north_trail",
+      "sourceTextKo": "유진은 이곳에서 아이를 실었던 수레와 짐승 발자국을 찍는 나무틀을 발견했다고 말했다. 그녀는 수레가 북쪽으로 빠져나갔지만 혼자 추격하면 아이들을 방패로 삼을 수 있어 때를 보고 있었다. 지한은 붙잡힌 감시자의 상처를 살피며, 그의 장화 밑창에 약초꾼 길의 붉은 진흙이 묻은 것을 확인했다. 두 갈래 흔적은 같은 무리가 만들었다.\n\n서진과 지한은 유진을 동료로 맞아 북쪽 수레길과 납치범의 흔적을 함께 추적한다.\n\n유진은 서진에게 짐승 발 모양 나무틀을 건네고 앞장섰다. 지한은 치료 도구를 다시 짊어졌고, 세 사람은 수레바퀴가 남긴 검은 기름 자국을 따라 북쪽 산길로 향했다.",
+      "bodyKo": "유진은 이곳에서 아이를 실었던 수레와 짐승 발자국을 찍는 나무틀을 발견했다고 말했다. 그녀는 수레가 북쪽으로 빠져나갔지만 혼자 추격하면 아이들을 방패로 삼을 수 있어 때를 보고 있었다. 지한은 붙잡힌 감시자의 상처를 살피며, 그의 장화 밑창에 약초꾼 길의 붉은 진흙이 묻은 것을 확인했다. 두 갈래 흔적은 같은 무리가 만들었다. 서진과 지한은 유진을 동료로 맞아 북쪽 수레길과 납치범의 흔적을 함께 추적한다.\n\n유진은 서진에게 짐승 발 모양 나무틀을 건네고 앞장섰다. 지한은 치료 도구를 다시 짊어졌고, 세 사람은 수레바퀴가 남긴 검은 기름 자국을 따라 북쪽 산길로 향했다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "유진의 수레 단서와 지한의 상처 단서가 같은 무리로 이어지는 장면이다. 선택지는 동료 합류 후 북쪽 추적 결정에 붙인다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '피 묻은 산길' / 'node.act1.chapter01.episode04_1.shared_north_trail'. Scene: 유진은 이곳에서 아이를 실었던 수레와 짐승 발자국을 찍는 나무틀을 발견했다고 말했다. 그녀는 수레가 북쪽으로 빠져나갔지만 혼자 추격하면 아이들을 방패로 삼을 수 있어 때를 보고 있었다. 지한은 붙잡힌 감시자의 상처를 살피며, 그의 장화 밑창에 약초꾼 길의 붉은 진흙이 묻은 것을 확인했다. 두 갈래 흔적은 같은 무리가 만들었다. 서진과 지한은 유진을 동료로 맞아 북쪽 수레길과 납치범의 흔적을 함께 추적한다. / 유진은 서진에게 짐승 발 모양 나무틀을 건네고 앞장섰다. 지한은 치료 도구를 다시 짊어졌고, 세 사람은 수레바퀴가 남긴 검은 기름 자국을 따라 북쪽 산길로 향했다.. Direction: 유진의 수레 단서와 지한의 상처 단서가 같은 무리로 이어지는 장면이다. 선택지는 동료 합류 후 북쪽 추적 결정에 붙인다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode04_1.shared_north_trail.follow_bloody_trace_with_jihan",
+          "semanticChoiceId": "choice.act1.chapter01.episode04_1.shared_north_trail.follow_bloody_trace_with_jihan",
+          "legacyChoiceId": "episode.act1.chapter01.04_1.choice.follow_bloody_trace_with_jihan.1",
+          "choiceName": "follow_bloody_trace_with_jihan",
+          "sourcePopupId": "node.act1.chapter01.episode04_1.shared_north_trail",
+          "labelKo": "유진을 동료로 맞아 북쪽 수레길과 납치범의 흔적을 함께 추적한다.",
+          "textKo": "유진을 동료로 맞아 북쪽 수레길과 납치범의 흔적을 함께 추적한다.",
+          "resultKo": "선택한 방향에 따라 다음 장면으로 이어진다.",
+          "opens": [
+            "investigation",
+            "stealth_travel"
+          ],
+          "rewardOwner": "popup",
+          "rewardTrigger": "episode_clear",
+          "rewardDirection": [
+            "gold_episode_clear"
+          ],
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode04_1.follow_bloody_trace_with_jihan.clear",
+              "amount": 50
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_black_cloth_raider_1
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.black_cloth_raider.1
+  characterType: 1
+  job: 17
+  animationClips: []
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 453d2fd05eab54442a78b4b16962f0d6, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 12
+  - statType: 1300
+    value: 14
+  - statType: 1000
+    value: 100
+  - statType: 1220
+    value: 1
+  - statType: 1240
+    value: 12
+  - statType: 1250
+    value: 55
+  - statType: 1235
+    value: 1

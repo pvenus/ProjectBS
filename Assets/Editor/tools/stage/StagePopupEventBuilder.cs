@@ -27,8 +27,8 @@ namespace ResourceTools.Stage
     /// </summary>
     public static class PopupEventBuilder
     {
-        private const string DefaultOutputFolder = "Assets/Resources/stage/popup_events";
-        private const string DefaultMainImageFolder = "Assets/Resources/stage_new/popup_png";
+        private const string DefaultOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultMainImageFolder = "Assets/ImagesGenerated/Stage/popup_main";
         private const string MainImageSuffix = ".main";
 
         public sealed class BuildResult

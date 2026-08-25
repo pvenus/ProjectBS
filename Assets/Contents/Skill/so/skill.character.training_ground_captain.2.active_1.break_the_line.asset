@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.training_ground_captain.2.active_1.break_the_line
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.training_ground_captain.2.active_1.break_the_line
+  icon: {fileID: 21300000, guid: c48e03148bc144c12a311833970ee86f, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: fc12ad7a53dd740b881d11a746019de6, type: 2}
+  castSo: {fileID: 11400000, guid: 738d0c581f3e74e18a5b3e08671f43dd, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 20b9f1bd540f64aa39f5e0273fe3a78f, type: 2}
+  moveSo: {fileID: 11400000, guid: 4adb94839085f4589b648821a4aa5216, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 86fff95f6452249cd9e0bf3d842a6852, type: 2}

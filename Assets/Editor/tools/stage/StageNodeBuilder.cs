@@ -23,8 +23,8 @@ namespace ResourceTools.Stage
     /// </summary>
     public static class StageNodeBuilder
     {
-        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
-        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
+        private const string DefaultStageNodeOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultPopupEventOutputFolder = "Assets/Contents/Stage/so";
 
         public sealed class BuildResult
         {

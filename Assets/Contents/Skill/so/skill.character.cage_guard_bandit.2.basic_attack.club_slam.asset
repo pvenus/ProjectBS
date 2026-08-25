@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.cage_guard_bandit.2.basic_attack.club_slam
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.cage_guard_bandit.2.basic_attack.club_slam
+  icon: {fileID: 21300000, guid: 70c89ed0adc904f3195873a5688484a2, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: f95fd6af4326a4a22a662febfb19db80, type: 2}
+  castSo: {fileID: 11400000, guid: d9547462c469947ef8a6f53900c1ba99, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 6851e1330b0224d78812cd815600d6a6, type: 2}
+  moveSo: {fileID: 11400000, guid: a523804c999394c93bbc0894e24053bf, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 802be8570efb549c481ee387e00984a3, type: 2}

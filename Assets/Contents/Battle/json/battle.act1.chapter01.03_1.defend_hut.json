@@ -1,0 +1,72 @@
+﻿{
+    "battleId":  "battle.act1.chapter01.03_1.defend_hut",
+    "battleName":  "Hut Path Defense",
+    "victoryRule":  "ClearAllEnemies",
+    "survivalTimeSeconds":  0,
+    "backgroundSprite":  "battle.act1.chapter01.03_1.defend_hut.background",
+    "spawnerSelection":  {
+                             "spawnerType":  "elimination_90s_swarm",
+                             "difficulty":  "very_easy",
+                             "sourceJsonPath":  "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+                             "sequenceId":  "seq.elimination_90s_swarm.very_easy",
+                             "targetPartySize":  1,
+                             "targetSpawnCount":  28,
+                             "spawnWindowSec":  60,
+                             "clearWindowSec":  30,
+                             "matchedTags":  {
+                                                 "intentTags":  [
+                                                                    "protect_injured_child",
+                                                                    "hut_path_defense",
+                                                                    "short_elimination"
+                                                                ],
+                                                 "spaceTags":  [
+                                                                   "narrow_path",
+                                                                   "front_chokepoint",
+                                                                   "hut_front"
+                                                               ],
+                                                 "rhythmTags":  [
+                                                                    "very_easy",
+                                                                    "staggered",
+                                                                    "readable_melee_pressure"
+                                                                ]
+                                             },
+                             "selectionReason":  "Use the existing very_easy 90-second elimination swarm because it is melee-only, avoids ranged/elite/boss/spirit pressure, and supports Seojin as the primary combatant while Jihan remains a support companion protecting the child.",
+                             "requiredSlots":  [
+                                                   {
+                                                       "unitKey":  "spawn.swarm.fodder.melee",
+                                                       "role":  "Melee",
+                                                       "purpose":  "black cloth pursuer baseline pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   },
+                                                   {
+                                                       "unitKey":  "spawn.swarm.fast.melee",
+                                                       "role":  "Melee",
+                                                       "purpose":  "fast starving beast pressure",
+                                                       "bindingStrategy":  "exact"
+                                                   }
+                                               ]
+                         },
+    "spawnSequenceId":  "seq.elimination_90s_swarm.very_easy",
+    "spawnSequencePath":  "",
+    "spawnUnitBindings":  [
+                              {
+                                  "unitKey":  "spawn.swarm.fodder.melee",
+                                  "role":  "Melee",
+                                  "characterId":  "character.black_cloth_raider.1"
+                              },
+                              {
+                                  "unitKey":  "spawn.swarm.fast.melee",
+                                  "role":  "Melee",
+                                  "characterId":  "character.starving_mountain_wolf.1"
+                              }
+                          ],
+    "rewardExperience":  20,
+    "normalRelicDropChance":  0,
+    "bossRelicDropChance":  0,
+    "timedPropPlacements":  [
+
+                            ],
+    "propDefinitions":  [
+
+                        ]
+}

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394a2807b67647f2ba10550e0d1a3d4, type: 3}
+  m_Name: character_cage_guard_bandit_2
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterSO
+  characterId: character.cage_guard_bandit.2
+  characterType: 1
+  job: 17
+  animationClips: []
+  skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: 57e272b98c6094f9ab904b283023462a, type: 2}
+  - slotKey: passive_1
+    skillSo: {fileID: 11400000, guid: d42c051408e4845e69696b25fcb5f418, type: 2}
+  baseStats:
+  - statType: 1200
+    value: 7
+  - statType: 1300
+    value: 40
+  - statType: 1000
+    value: 276
+  - statType: 1220
+    value: 0.5
+  - statType: 1240
+    value: 10
+  - statType: 1250
+    value: 50
+  - statType: 1235
+    value: 0.5

@@ -1,0 +1,109 @@
+﻿{
+  "stageNodeId": "stage.ch1.episode4_2",
+  "roundNodeType": "Event",
+  "chapterId": "chapter1",
+  "episodeId": "episode4_2",
+  "episodeNumber": 4.2,
+  "isRequired": true,
+  "hiddenByDefault": false,
+  "useFixedDepth": true,
+  "fixedDepth": 5,
+  "fixedColumn": 1,
+  "titleKo": "끊어진 발자국",
+  "planningEpisodeId": "episode_planning.act1.chapter01.04_2",
+  "sourcePlanningFile": "Assets/Doc/StoryPlanning/cheongun_sangui_act1/episode.act1.chapter01.04_2.json",
+  "sourceEpisodeFile": "Assets/Doc/Story/Act01/Chapter01/04-2_episode4-2.md",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "investigation",
+  "summaryKo": "유진과 함께 지워진 발자국을 추적하던 서진이, 산귀 소문 뒤에 사람의 손길이 있음을 확인하는 조사 에피소드.",
+  "battleNeed": "not_required",
+  "startNodeId": "node.act1.chapter01.episode04_2.cage_to_west_path",
+  "tags": [
+    "act1",
+    "chapter01",
+    "chapter1",
+    "episode4_2",
+    "episode.act1.chapter01.04_2",
+    "semantic_popup_id"
+  ],
+  "nodes": [
+    {
+      "nodeId": "node.act1.chapter01.episode04_2.cage_to_west_path",
+      "popupName": "cage_to_west_path",
+      "eventId": "node.act1.chapter01.episode04_2.cage_to_west_path",
+      "popupOrder": 1,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_2.cage_to_west_path",
+      "sourceTextKo": "수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다.\n\n마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.",
+      "bodyKo": "수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다.\n\n마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "폐수련장의 빈 우리와 서쪽 오두막에서 지한을 만나는 흐름을 한 페이지에 묶는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '끊어진 발자국' / 'node.act1.chapter01.episode04_2.cage_to_west_path'. Scene: 수련장의 감시자들이 흩어진 뒤 유진은 빈 우리 안쪽에서 마른 피와 으깬 약초를 발견했다. 작은 손이 붙잡고 버틴 듯 나무살에는 손톱자국이 남아 있었고, 바닥에 떨어진 붕대 조각은 서쪽 약초꾼 길에서 쓰는 천이었다. 두 사람은 아이가 우리에서 빠져나갔을 가능성을 따라 서쪽 숲으로 방향을 틀었다. / 마른 느티나무 아래에는 붉은 인형이 흔들렸지만, 그 밑의 발자국은 산으로 향하지 않고 비탈 아래 오두막으로 이어졌다. 안에서는 승려 지한이 다친 여자아이를 치료하고 있었다. 잿빛 장삼의 무릎은 진흙으로 젖었고, 펼쳐 둔 약상자에는 붕대와 부목이 가지런했다. 그는 낯선 발소리에 지팡이를 들었지만, 유진이 우리에서 찾은 푸른 실밥을 내밀자 경계를 풀었다.. Direction: 폐수련장의 빈 우리와 서쪽 오두막에서 지한을 만나는 흐름을 한 페이지에 묶는다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode04_2.cage_to_west_path.next",
+          "semanticChoiceId": "choice.act1.chapter01.episode04_2.cage_to_west_path.next",
+          "choiceName": "next",
+          "sourcePopupId": "node.act1.chapter01.episode04_2.cage_to_west_path",
+          "labelKo": "다음으로 진행한다.",
+          "textKo": "다음으로 진행한다.",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.chapter01.episode04_2.jihan_testimony"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "node.act1.chapter01.episode04_2.jihan_testimony",
+      "popupName": "jihan_testimony",
+      "eventId": "node.act1.chapter01.episode04_2.jihan_testimony",
+      "popupOrder": 2,
+      "sourceNarrationId": "narration.act1.chapter01.episode04_2.jihan_testimony",
+      "sourceTextKo": "아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다.\n\n서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.\n\n지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.",
+      "bodyKo": "아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다. 서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.\n\n지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.",
+      "textLayoutProfile": "stage_popup_v1",
+      "textEditState": "planning_display_draft",
+      "displayDirective": "아이의 증언, 쇠고리 상처, 북쪽 수레 자국 연결을 한 페이지에 담는다. 선택지는 지한 합류 결정 뒤에 둔다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "Act1 Chapter1 story popup image for '끊어진 발자국' / 'node.act1.chapter01.episode04_2.jihan_testimony'. Scene: 아이는 검은 천의 무리가 다른 아이들을 북쪽 산등성이로 데려갔다고 말했다. 지한은 아이의 발목에 남은 상처가 짐승의 발톱이 아니라 쇠고리에 긁힌 자국이라고 설명했다. 유진은 수련장에서 발견한 쇠고리와 상처의 폭이 같음을 확인했다. 산귀의 짓으로 보이게 만든 흔적 아래에 사람의 납치가 있었다. 서진과 유진은 지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다. / 지한은 아이를 약초꾼에게 맡기고 약상자를 짊어졌다. 세 사람은 붉은 인형의 매듭과 수레의 기름 자국이 함께 남은 북쪽 산길로 발을 옮겼다.. Direction: 아이의 증언, 쇠고리 상처, 북쪽 수레 자국 연결을 한 페이지에 담는다. 선택지는 지한 합류 결정 뒤에 둔다. 16:9, painterly Korean fantasy RPG, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.chapter01.episode04_2.jihan_testimony.inspect_erased_trace_with_yujin",
+          "semanticChoiceId": "choice.act1.chapter01.episode04_2.jihan_testimony.inspect_erased_trace_with_yujin",
+          "legacyChoiceId": "episode.act1.chapter01.04_2.choice.inspect_erased_trace_with_yujin.1",
+          "choiceName": "inspect_erased_trace_with_yujin",
+          "sourcePopupId": "node.act1.chapter01.episode04_2.jihan_testimony",
+          "labelKo": "지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.",
+          "textKo": "지한을 동료로 맞아 아이의 증언과 북쪽 수레 자국을 함께 잇는다.",
+          "resultKo": "선택한 방향에 따라 다음 장면으로 이어진다.",
+          "opens": [
+            "investigation",
+            "human_conspiracy_reveal"
+          ],
+          "rewardOwner": "popup",
+          "rewardTrigger": "episode_clear",
+          "rewardDirection": [
+            "gold_episode_clear"
+          ],
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [
+            {
+              "rewardType": "Gold",
+              "rewardId": "reward.act1.chapter01.episode04_2.inspect_erased_trace_with_yujin.clear",
+              "amount": 50
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
