@@ -1,38 +1,59 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 namespace Character.UI
 {
+    /// <summary>
+    /// Sprite-only View for the most recently used character skill.
+    /// The legacy class name is retained to preserve the existing prefab GUID.
+    /// </summary>
     public class CharacterSkillCooldownSlot : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer iconRenderer;
+        [Tooltip("Legacy cooldown text binding. Retained for prefab compatibility and always disabled at runtime.")]
         [SerializeField] private TextMeshPro remainText;
-        [SerializeField] private int textSortingOrderOffset = 1;
-        private float remainingSeconds;
+
+        [Header("Recent Skill Timing (Battle Time)")]
+        [Min(0f)]
+        [SerializeField] private float fadeInDuration = 0.12f;
+        [Min(0f)]
+        [SerializeField] private float holdDuration = 0.8f;
+        [Min(0f)]
+        [SerializeField] private float fadeOutDuration = 0.25f;
+
+        [Header("Recent Skill Scale")]
+        [Min(0f)]
+        [SerializeField] private float startScale = 0.85f;
+        [Min(0f)]
+        [SerializeField] private float emphasisScale = 1.08f;
+
+        [Header("Recent Skill Position")]
+        [SerializeField] private Vector3 headOffset =
+            new Vector3(0f, 2.2f, 0f);
+
+        private Coroutine animationRoutine;
+        private Color iconColor = Color.white;
 
         private void Awake()
         {
-            ApplySorting();
-        }
-
-        private void Update()
-        {
-            if (!gameObject.activeSelf)
+            if (iconRenderer != null)
             {
-                return;
-            }
-
-            if (remainingSeconds > 0f)
-            {
-                remainingSeconds -= Time.deltaTime;
+                iconColor = iconRenderer.color;
             }
 
             if (remainText != null)
             {
-                remainText.text = Mathf.Max(
-                    0,
-                    Mathf.CeilToInt(remainingSeconds)).ToString();
+                remainText.gameObject.SetActive(false);
             }
+
+            ApplyLayout();
+            Hide();
+        }
+
+        private void OnDestroy()
+        {
+            StopAnimation();
         }
 
         public void Bind(
@@ -41,55 +62,165 @@ namespace Character.UI
         {
             iconRenderer = icon;
             remainText = text;
-            ApplySorting();
-        }
-
-        public void Show(
-            Sprite icon,
-            float remainingSeconds)
-        {
-            gameObject.SetActive(true);
-
-            this.remainingSeconds = remainingSeconds;
 
             if (iconRenderer != null)
             {
-                iconRenderer.sprite = icon;
-                iconRenderer.enabled = icon != null;
+                iconColor = iconRenderer.color;
             }
 
             if (remainText != null)
             {
-                remainText.text = Mathf.CeilToInt(remainingSeconds).ToString();
+                remainText.gameObject.SetActive(false);
             }
 
-            ApplySorting();
+            ApplyLayout();
+            Hide();
+        }
+
+        public void ShowRecentSkill(Sprite icon)
+        {
+            StopAnimation();
+
+            if (icon == null || iconRenderer == null)
+            {
+                Hide();
+                return;
+            }
+
+            gameObject.SetActive(true);
+            ApplyLayout();
+            iconRenderer.sprite = icon;
+            iconRenderer.enabled = true;
+            SetAlpha(0f);
+            transform.localScale = Vector3.one * Mathf.Max(0f, startScale);
+            animationRoutine = StartCoroutine(PlayAnimation());
         }
 
         public void Hide()
         {
-            remainingSeconds = 0f;
+            StopAnimation();
+
+            if (iconRenderer != null)
+            {
+                iconRenderer.sprite = null;
+                iconRenderer.enabled = false;
+                SetAlpha(0f);
+            }
+
             gameObject.SetActive(false);
         }
 
-        private void ApplySorting()
+        private IEnumerator PlayAnimation()
         {
-            if (iconRenderer == null || remainText == null)
+            yield return Animate(
+                fadeInDuration,
+                0f,
+                1f,
+                startScale,
+                emphasisScale);
+
+            float settleDuration = Mathf.Min(fadeInDuration, holdDuration);
+            yield return Animate(
+                settleDuration,
+                1f,
+                1f,
+                emphasisScale,
+                1f);
+
+            float remainingHold = Mathf.Max(0f, holdDuration - settleDuration);
+            float elapsed = 0f;
+
+            while (elapsed < remainingHold)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            yield return Animate(
+                fadeOutDuration,
+                1f,
+                0f,
+                1f,
+                1f);
+
+            animationRoutine = null;
+            Hide();
+        }
+
+        private IEnumerator Animate(
+            float duration,
+            float fromAlpha,
+            float toAlpha,
+            float fromScale,
+            float toScale)
+        {
+            if (duration <= 0f)
+            {
+                SetVisual(toAlpha, toScale);
+                yield break;
+            }
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                float easedT = t * t * (3f - (2f * t));
+
+                SetVisual(
+                    Mathf.Lerp(fromAlpha, toAlpha, easedT),
+                    Mathf.Lerp(fromScale, toScale, easedT));
+
+                yield return null;
+            }
+
+            SetVisual(toAlpha, toScale);
+        }
+
+        private void SetVisual(float alpha, float scale)
+        {
+            SetAlpha(alpha);
+            transform.localScale = Vector3.one * Mathf.Max(0f, scale);
+        }
+
+        private void SetAlpha(float alpha)
+        {
+            if (iconRenderer == null)
             {
                 return;
             }
 
-            MeshRenderer textRenderer =
-                remainText.GetComponent<MeshRenderer>();
+            Color color = iconColor;
+            color.a *= Mathf.Clamp01(alpha);
+            iconRenderer.color = color;
+        }
 
-            if (textRenderer == null)
+        private void StopAnimation()
+        {
+            if (animationRoutine == null)
             {
                 return;
             }
 
-            textRenderer.sortingLayerID = iconRenderer.sortingLayerID;
-            textRenderer.sortingOrder =
-                iconRenderer.sortingOrder + textSortingOrderOffset;
+            StopCoroutine(animationRoutine);
+            animationRoutine = null;
+        }
+
+        private void ApplyLayout()
+        {
+            transform.localPosition = headOffset;
+        }
+
+        private void OnValidate()
+        {
+            fadeInDuration = Mathf.Max(0f, fadeInDuration);
+            holdDuration = Mathf.Max(0f, holdDuration);
+            fadeOutDuration = Mathf.Max(0f, fadeOutDuration);
+            startScale = Mathf.Max(0f, startScale);
+            emphasisScale = Mathf.Max(0f, emphasisScale);
+
+            ApplyLayout();
         }
     }
 }

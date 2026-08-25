@@ -31,6 +31,23 @@ namespace Character
         public CharacterSkillRuntimeData SkillRuntimeData => skillRuntimeData;
         public SkillPoolRuntimeData SkillPool => skillRuntimeData?.skillPool;
 
+        /// <summary>
+        /// Fired only after the shared skill-use path reports a successful use.
+        /// Selection, cooldown rejection, and failed execution do not raise it.
+        /// </summary>
+        public event Action<EquipmentSkillRuntimeData> SkillUseSucceeded;
+
+        internal void NotifySkillUseSucceeded(
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null)
+            {
+                return;
+            }
+
+            SkillUseSucceeded?.Invoke(runtime);
+        }
+
         public void SetSkillRuntimeData(CharacterSkillRuntimeData newSkillRuntimeData)
         {
             skillRuntimeData = newSkillRuntimeData ?? new CharacterSkillRuntimeData();

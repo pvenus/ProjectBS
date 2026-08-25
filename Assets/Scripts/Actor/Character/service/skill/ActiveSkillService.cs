@@ -354,7 +354,7 @@ namespace Character.Skill
             bool usePoint,
             Vector2 targetPoint)
         {
-            bool fired = false;
+            bool successNotified = false;
             int burstCount = ResolveBurstCount(runtime);
             float burstInterval = ResolveBurstInterval(runtime);
 
@@ -368,7 +368,11 @@ namespace Character.Skill
                     usePoint,
                     targetPoint);
 
-                fired = fired || burstFired;
+                if (burstFired && !successNotified)
+                {
+                    successNotified = true;
+                    skillManager.NotifySkillUseSucceeded(runtime);
+                }
 
                 if (burstIndex < burstCount - 1 && burstInterval > 0f)
                 {

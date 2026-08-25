@@ -1,12 +1,11 @@
-using Character.Runtime.Skill;
 using Skill;
 using UnityEngine;
 
 namespace Character.UI
 {
     /// <summary>
-    /// 캐릭터 머리 위 HP HUD와 같은 방식으로 활성 스킬 쿨타임을 표시한다.
-    /// 표시 항목은 스킬 아이콘과 남은 쿨타임 초 단위 텍스트만 사용한다.
+    /// 실제 스킬 사용 성공 이벤트를 머리 위 최근 스킬 View에 전달한다.
+    /// 레거시 프리팹/코드 연결을 보존하기 위해 기존 클래스명을 유지한다.
     /// </summary>
     public class CharacterSkillCooldownUI : MonoBehaviour
     {
@@ -28,8 +27,7 @@ namespace Character.UI
             }
 
             GameObject hudObject = new GameObject(
-                "CharacterSkillCooldownUI",
-                typeof(CharacterSkillCooldownUI));
+                "CharacterRecentSkillPresenter");
 
             Transform hudParent = parent != null
                 ? parent
@@ -38,13 +36,10 @@ namespace Character.UI
             hudObject.transform.SetParent(hudParent, false);
 
             CharacterSkillCooldownUI ui =
-                hudObject.GetComponent<CharacterSkillCooldownUI>();
+                hudObject.AddComponent<CharacterSkillCooldownUI>();
 
-            ui.skillManager =
+            ui.SkillManager =
                 target.GetComponent<CharacterSkillManager>();
-
-            hudObject.transform.localPosition =
-                new Vector3(0f, 2.2f, 0f);
 
             return ui;
         }
@@ -52,31 +47,51 @@ namespace Character.UI
         public CharacterSkillManager SkillManager
         {
             get => skillManager;
-            set => skillManager = value;
+            set
+            {
+                if (skillManager == value)
+                {
+                    return;
+                }
+
+                Unsubscribe();
+                skillManager = value;
+
+                if (isActiveAndEnabled)
+                {
+                    Subscribe();
+                }
+            }
         }
         [SerializeField] private CharacterSkillCooldownSlot slotPrefab;
+        [SerializeField] private CharacterSkillCooldownSlot recentSkillView;
         private const string SlotPrefabResourcePath =
             "ui/character/character_skill_cooldown_slot";
 
-        [Header("Auto Create Slot")]
-        [SerializeField] private int maxVisibleSlotCount = 4;
-        [SerializeField] private float slotSpacing = 1.0f;
-
-        private CharacterSkillCooldownSlot[] slots;
-        private readonly System.Collections.Generic.List<string> activeCooldownOrder =
-            new();
+        private bool isSubscribed;
 
         private void Awake()
         {
             ResolveReferences();
-            EnsureSlots();
+            EnsureView();
         }
 
-        private void LateUpdate()
+        private void OnEnable()
         {
             ResolveReferences();
-            EnsureSlots();
-            Refresh();
+            EnsureView();
+            Subscribe();
+        }
+
+        private void OnDisable()
+        {
+            Unsubscribe();
+            recentSkillView?.Hide();
+        }
+
+        private void OnDestroy()
+        {
+            Unsubscribe();
         }
 
         private void ResolveReferences()
@@ -94,200 +109,51 @@ namespace Character.UI
             }
         }
 
-        private void EnsureSlots()
+        private void EnsureView()
         {
-            if (transform == null)
+            if (recentSkillView != null || slotPrefab == null)
             {
                 return;
             }
 
-            if (slotPrefab == null)
-            {
-                return;
-            }
-
-            int slotCount = Mathf.Max(1, maxVisibleSlotCount);
-
-            if (slots != null && slots.Length == slotCount)
-            {
-                return;
-            }
-
-            ClearSlots();
-            slots = new CharacterSkillCooldownSlot[slotCount];
-
-            for (int i = 0; i < slotCount; i++)
-            {
-                slots[i] = CreateSlot(i);
-            }
+            recentSkillView = Instantiate(slotPrefab, transform);
+            recentSkillView.name = "RecentSkillView";
+            recentSkillView.Hide();
         }
 
-        private void ClearSlots()
+        private void Subscribe()
         {
-            if (slots == null)
+            if (isSubscribed || skillManager == null)
             {
                 return;
             }
 
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i] == null)
-                {
-                    continue;
-                }
-
-                Destroy(slots[i].gameObject);
-            }
-
-            slots = null;
+            skillManager.SkillUseSucceeded += HandleSkillUseSucceeded;
+            isSubscribed = true;
         }
 
-        private CharacterSkillCooldownSlot CreateSlot(int index)
+        private void Unsubscribe()
         {
-            CharacterSkillCooldownSlot slot;
-
-            if (slotPrefab != null)
-            {
-                slot = Instantiate(slotPrefab, transform);
-            }
-            else
-            {
-                return null;
-            }
-
-            slot.name = $"SkillCooldownSlot_{index}";
-
-            slot.transform.localPosition =
-                new Vector3(index * slotSpacing, 0f, 0f);
-            slot.transform.localScale = Vector3.one;
-
-            slot.Hide();
-            return slot;
-        }
-
-        private void Refresh()
-        {
-            if (slots == null || slots.Length == 0)
+            if (!isSubscribed)
             {
                 return;
             }
 
-            HideAllSlots();
-
-            if (skillManager == null || skillManager.SkillRuntimeData == null)
+            if (skillManager != null)
             {
-                return;
+                skillManager.SkillUseSucceeded -= HandleSkillUseSucceeded;
             }
 
-            CharacterSkillRuntimeData runtime = skillManager.SkillRuntimeData;
-
-            // Remove expired cooldowns from the FIFO order
-            for (int i = activeCooldownOrder.Count - 1; i >= 0; i--)
-            {
-                string orderedSkillId = activeCooldownOrder[i];
-
-                if (!runtime.cooldownEndTimes.TryGetValue(
-                        orderedSkillId,
-                        out float orderedCooldownEndTime) ||
-                    orderedCooldownEndTime <= Time.time)
-                {
-                    activeCooldownOrder.RemoveAt(i);
-                }
-            }
-
-            int visibleIndex = 0;
-
-            foreach (SkillPoolSlotData skillPoolSlotData in runtime.skillPool.Slots)
-            {
-                if (skillPoolSlotData?.SkillSo == null)
-                {
-                    continue;
-                }
-
-                string skillId = skillPoolSlotData.SkillSo.EquipmentId;
-                if (string.IsNullOrEmpty(skillId))
-                {
-                    continue;
-                }
-
-                if (!runtime.cooldownEndTimes.TryGetValue(
-                        skillId,
-                        out float cooldownEndTime))
-                {
-                    continue;
-                }
-
-                float remainingSeconds = cooldownEndTime - Time.time;
-
-                if (remainingSeconds <= 0f)
-                {
-                    continue;
-                }
-
-                if (!activeCooldownOrder.Contains(skillId))
-                {
-                    activeCooldownOrder.Add(skillId);
-                }
-
-                // FIFO ordering handled below.
-            }
-
-            foreach (string skillId in activeCooldownOrder)
-            {
-                if (visibleIndex >= slots.Length)
-                {
-                    break;
-                }
-
-                if (!runtime.cooldownEndTimes.TryGetValue(
-                        skillId,
-                        out float cooldownEndTime))
-                {
-                    continue;
-                }
-
-                float remainingSeconds = cooldownEndTime - Time.time;
-
-                if (remainingSeconds <= 0f)
-                {
-                    continue;
-                }
-
-                SkillPoolSlotData matchedSlot = null;
-
-                foreach (SkillPoolSlotData slotData in runtime.skillPool.Slots)
-                {
-                    if (slotData?.SkillSo?.EquipmentId == skillId)
-                    {
-                        matchedSlot = slotData;
-                        break;
-                    }
-                }
-
-                if (matchedSlot?.SkillSo == null)
-                {
-                    continue;
-                }
-
-                CharacterSkillCooldownSlot uiSlot = slots[visibleIndex];
-
-                if (uiSlot != null)
-                {
-                    uiSlot.Show(
-                        matchedSlot.SkillSo.Icon,
-                        remainingSeconds);
-                }
-
-                visibleIndex++;
-            }
+            isSubscribed = false;
         }
 
-        private void HideAllSlots()
+        private void HandleSkillUseSucceeded(
+            EquipmentSkillRuntimeData runtime)
         {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i]?.Hide();
-            }
+            EnsureView();
+
+            Sprite icon = runtime?.sourceEquipment?.Icon;
+            recentSkillView?.ShowRecentSkill(icon);
         }
     }
 }
