@@ -18,11 +18,19 @@ namespace Character.UI
                 return null;
             }
 
+            CharacterSkillManager manager =
+                target.GetComponent<CharacterSkillManager>()
+                ?? target.GetComponentInChildren<CharacterSkillManager>();
+
             CharacterSkillCooldownUI existing =
                 target.GetComponentInChildren<CharacterSkillCooldownUI>(true);
 
             if (existing != null)
             {
+                if (manager != null)
+                {
+                    existing.SkillManager = manager;
+                }
                 return existing;
             }
 
@@ -38,11 +46,11 @@ namespace Character.UI
             CharacterSkillCooldownUI ui =
                 hudObject.AddComponent<CharacterSkillCooldownUI>();
 
-            ui.SkillManager =
-                target.GetComponent<CharacterSkillManager>();
+            ui.SkillManager = manager;
 
             return ui;
         }
+
         [SerializeField] private CharacterSkillManager skillManager;
         public CharacterSkillManager SkillManager
         {
@@ -63,6 +71,7 @@ namespace Character.UI
                 }
             }
         }
+
         [SerializeField] private CharacterSkillCooldownSlot slotPrefab;
         [SerializeField] private CharacterSkillCooldownSlot recentSkillView;
         private const string SlotPrefabResourcePath =
@@ -98,7 +107,8 @@ namespace Character.UI
         {
             if (skillManager == null)
             {
-                skillManager = GetComponentInParent<CharacterSkillManager>();
+                skillManager = GetComponentInParent<CharacterSkillManager>()
+                    ?? GetComponent<CharacterSkillManager>();
             }
 
             if (slotPrefab == null)
@@ -150,10 +160,30 @@ namespace Character.UI
         private void HandleSkillUseSucceeded(
             EquipmentSkillRuntimeData runtime)
         {
+            if (IsBasicAttack(runtime))
+            {
+                return;
+            }
+
             EnsureView();
 
             Sprite icon = runtime?.sourceEquipment?.Icon;
             recentSkillView?.ShowRecentSkill(icon);
+        }
+
+        private bool IsBasicAttack(EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime == null || skillManager == null)
+            {
+                return false;
+            }
+
+            EquipmentSkillRuntimeData basicAttackRuntime =
+                skillManager.SkillPool?.GetRuntimeByKey(
+                    SkillPoolSlotKeys.BasicAttack);
+
+            return basicAttackRuntime != null
+                && ReferenceEquals(basicAttackRuntime, runtime);
         }
     }
 }

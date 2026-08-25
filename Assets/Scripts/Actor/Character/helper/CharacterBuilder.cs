@@ -265,10 +265,14 @@ namespace Character.Helper
             CharacterManager characterManager =
                 EnsureComponent<CharacterManager>(target);
 
-            CharacterBattleHudUI.EnsureFor(characterManager);
+            if (!IsPartyLayer(layerName))
+            {
+                CharacterBattleHudUI.EnsureFor(characterManager);
+            }
 
             if (IsPartyLayer(layerName))
             {
+                characterManager.SetShowDamagePopup(false);
                 CharacterSkillCooldownUI.EnsureFor(characterManager);
             }
         }

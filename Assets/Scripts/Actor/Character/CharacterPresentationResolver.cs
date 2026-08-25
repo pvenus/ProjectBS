@@ -80,7 +80,8 @@ namespace Character
             return new CharacterPresentationData(
                 new PresentationIdentityData(
                     character.CharacterId,
-                    StringManager.Instance != null ? character.DisplayName : character.name),
+                    StringManager.Instance != null ? character.DisplayName : character.name,
+                    character.Portrait),
                 character.CharacterType,
                 character.Job,
                 character.JobFamily,

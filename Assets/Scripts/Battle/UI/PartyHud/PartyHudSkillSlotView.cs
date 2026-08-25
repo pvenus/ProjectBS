@@ -17,11 +17,6 @@ namespace Battle.UI.PartyHud
         [SerializeField] private TMP_Text cooldownText;
         [SerializeField] private TMP_Text stateText;
 
-        [Header("State Colors")]
-        [SerializeField] private Color availableColor = new Color(0.24f, 0.78f, 0.42f, 0.9f);
-        [SerializeField] private Color unavailableColor = new Color(0.65f, 0.18f, 0.18f, 0.82f);
-        [SerializeField] private Color passiveColor = new Color(0.24f, 0.48f, 0.82f, 0.82f);
-
         public PartyHudSkillSlotData Data { get; private set; }
 
         private PartyHudSkillState currentState;
@@ -29,6 +24,7 @@ namespace Battle.UI.PartyHud
         private void Awake()
         {
             ConfigureCooldownFill();
+            HideStateOverlays();
         }
 
         private void OnValidate()
@@ -96,45 +92,24 @@ namespace Battle.UI.PartyHud
         public void SetState(PartyHudSkillState state)
         {
             currentState = state;
-
-            string label;
-            Color color;
-            bool showOverlay;
-
-            switch (state)
-            {
-                case PartyHudSkillState.Unavailable:
-                    label = "LOCKED";
-                    color = unavailableColor;
-                    showOverlay = true;
-                    break;
-                case PartyHudSkillState.Passive:
-                    label = "PASSIVE";
-                    color = passiveColor;
-                    showOverlay = true;
-                    break;
-                default:
-                    label = "READY";
-                    color = availableColor;
-                    showOverlay = false;
-                    break;
-            }
-
-            if (stateOverlayImage != null)
-            {
-                stateOverlayImage.gameObject.SetActive(showOverlay);
-                stateOverlayImage.color = color;
-            }
-
-            if (stateText != null)
-            {
-                stateText.text = label;
-                stateText.color = color;
-            }
+            HideStateOverlays();
 
             if (state == PartyHudSkillState.Passive)
             {
                 SetCooldown(0f, 0f);
+            }
+        }
+
+        private void HideStateOverlays()
+        {
+            if (stateOverlayImage != null && stateOverlayImage.gameObject.activeSelf)
+            {
+                stateOverlayImage.gameObject.SetActive(false);
+            }
+
+            if (stateText != null && stateText.gameObject.activeSelf)
+            {
+                stateText.gameObject.SetActive(false);
             }
         }
 

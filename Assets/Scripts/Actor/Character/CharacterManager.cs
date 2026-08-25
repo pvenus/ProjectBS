@@ -66,6 +66,11 @@ namespace Character
 
         public bool CanMove => CanMoveNow();
 
+        public void SetShowDamagePopup(bool show)
+        {
+            showDamagePopup = show;
+        }
+
         public bool CanMoveNow()
         {
             if (isDying)
@@ -209,6 +214,13 @@ namespace Character
             }
 
             skillManager.InitializeSkills(characterSO);
+
+            Character.UI.CharacterSkillCooldownUI recentSkillUI =
+                GetComponentInChildren<Character.UI.CharacterSkillCooldownUI>(true);
+            if (recentSkillUI != null)
+            {
+                recentSkillUI.SkillManager = skillManager;
+            }
         }
 
         public void Initialize(CharacterRuntimeData data)

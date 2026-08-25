@@ -241,8 +241,8 @@ namespace Battle.UI.StrategicBoard
         {
             int safeCurrentGauge = Mathf.Max(0, currentGauge);
             float fillAmount = cost <= 0
-                ? 1f
-                : Mathf.Clamp01(safeCurrentGauge / (float)cost);
+                ? 0f
+                : 1f - Mathf.Clamp01(safeCurrentGauge / (float)cost);
 
             if (insufficientFillImage != null)
             {
