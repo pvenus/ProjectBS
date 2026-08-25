@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
   battleId: battle.act1.chapter01.01.rescue_villagers
   battleName: Cheongun Village Rescue
-  backgroundSprite: {fileID: 21300000, guid: adb2c6ca0c7e43df8739cb057b437e51, type: 3}
+  backgroundSprite: {fileID: 2046497460453031854, guid: 9644925b60c2d4571920d1b941423974, type: 3}
   spawnSequence: {fileID: 11400000, guid: 3ebbf2a6d62434f56a90471e420c609b, type: 2}
   spawnUnitBindings:
   - unitKey: spawn.swarm.fodder.melee
     role: 1
-    character: {fileID: 11400000, guid: b06feb8af2a524a628dc968742a2c8c3, type: 2}
+    character: {fileID: 11400000, guid: a823cd3b8faf549709d2d0cf4abd0511, type: 2}
   - unitKey: spawn.swarm.fast.melee
     role: 1
-    character: {fileID: 11400000, guid: ff8968cb7dc264ec59b1c8a3653ae8d1, type: 2}
+    character: {fileID: 11400000, guid: bc047f61be4974052ba848602041dd74, type: 2}
   timedPropPlacements: []
   victoryRule: 1
   survivalTimeSeconds: 0

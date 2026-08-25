@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
   battleId: battle.act1.chapter01.06.bandit_fort_assault
   battleName: Bandit Fort Assault
-  backgroundSprite: {fileID: 21300000, guid: f53f91f05bcf4722b7aeb5abf8ed8091, type: 3}
+  backgroundSprite: {fileID: 1407564179072808655, guid: fa1720fe55a7345a99fdf31c214553a4, type: 3}
   spawnSequence: {fileID: 11400000, guid: ff045a121c745474aa68cd00eba3ec28, type: 2}
   spawnUnitBindings:
   - unitKey: spawn.swarm.fodder.melee
     role: 1
-    character: {fileID: 11400000, guid: 75f5aeee279b24d85b68b5ec9605096e, type: 2}
+    character: {fileID: 11400000, guid: 9221c8d79dfeb43dcbd57286541e54dc, type: 2}
   - unitKey: spawn.swarm.fast.melee
     role: 1
-    character: {fileID: 11400000, guid: a0dfeaf54c9044fcd89abd7f28aee4e2, type: 2}
+    character: {fileID: 11400000, guid: c2efc4312f29245b9abff1ac56440c41, type: 2}
   - unitKey: spawn.swarm.pressure.ranged
     role: 2
-    character: {fileID: 11400000, guid: d537d415baf2449f3b280086dedb5975, type: 2}
+    character: {fileID: 11400000, guid: 181512ed03e104335b6697049134ba59, type: 2}
   - unitKey: spawn.swarm.light.blocker
     role: 3
-    character: {fileID: 11400000, guid: 75f5aeee279b24d85b68b5ec9605096e, type: 2}
+    character: {fileID: 11400000, guid: 9221c8d79dfeb43dcbd57286541e54dc, type: 2}
   timedPropPlacements: []
   victoryRule: 1
   survivalTimeSeconds: 0

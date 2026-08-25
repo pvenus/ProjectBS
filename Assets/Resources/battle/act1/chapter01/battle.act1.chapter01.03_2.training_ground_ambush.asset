@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
   battleId: battle.act1.chapter01.03_2.training_ground_ambush
   battleName: Training Ground Ambush
-  backgroundSprite: {fileID: 0}
+  backgroundSprite: {fileID: -8445295745709863918, guid: 7fdcca5f31b3e4954b97ce5c0b306279, type: 3}
   spawnSequence: {fileID: 11400000, guid: 4a55d03db579047d99a436a9a02c32c6, type: 2}
   spawnUnitBindings:
   - unitKey: spawn.swarm.fodder.melee
     role: 1
-    character: {fileID: 11400000, guid: b06feb8af2a524a628dc968742a2c8c3, type: 2}
+    character: {fileID: 11400000, guid: a823cd3b8faf549709d2d0cf4abd0511, type: 2}
   - unitKey: spawn.swarm.fast.melee
     role: 1
-    character: {fileID: 11400000, guid: 8f29566f4b97644b28d95a056c42189c, type: 2}
+    character: {fileID: 11400000, guid: da2883463c1f74aa2b79fcc58acb6637, type: 2}
   - unitKey: spawn.swarm.pressure.ranged
     role: 2
-    character: {fileID: 11400000, guid: 2c9a1ed9f26704a41b5c39d0b72ba627, type: 2}
+    character: {fileID: 11400000, guid: 2f6a75de210ef4646bcd83ee8840b524, type: 2}
   - unitKey: spawn.swarm.light.blocker
     role: 3
-    character: {fileID: 11400000, guid: 4c38f2b7f15b24671a8cb36badc5f530, type: 2}
+    character: {fileID: 11400000, guid: 3b10a54768e7348a7bb0d9ab8a114f79, type: 2}
   timedPropPlacements: []
   victoryRule: 1
   survivalTimeSeconds: 0

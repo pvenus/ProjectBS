@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
   battleId: battle.act1.chapter01.05_1.training_ground_breakout
   battleName: Training Ground Breakout
-  backgroundSprite: {fileID: 21300000, guid: 43a6494f72034268b8fed76fd6669f44, type: 3}
+  backgroundSprite: {fileID: -1111607982170543438, guid: 9ad5d70f4282445758f57869994da84f, type: 3}
   spawnSequence: {fileID: 11400000, guid: ff045a121c745474aa68cd00eba3ec28, type: 2}
   spawnUnitBindings:
   - unitKey: spawn.swarm.fodder.melee
     role: 1
-    character: {fileID: 11400000, guid: b06feb8af2a524a628dc968742a2c8c3, type: 2}
+    character: {fileID: 11400000, guid: a823cd3b8faf549709d2d0cf4abd0511, type: 2}
   - unitKey: spawn.swarm.fast.melee
     role: 1
-    character: {fileID: 11400000, guid: 7e96d030d1f0048ee9e6166eedbb095d, type: 2}
+    character: {fileID: 11400000, guid: bcd4e548a1d8248d0a59aa37ff502b85, type: 2}
   - unitKey: spawn.swarm.pressure.ranged
     role: 2
-    character: {fileID: 11400000, guid: 2c9a1ed9f26704a41b5c39d0b72ba627, type: 2}
+    character: {fileID: 11400000, guid: 2f6a75de210ef4646bcd83ee8840b524, type: 2}
   - unitKey: spawn.swarm.light.blocker
     role: 3
-    character: {fileID: 11400000, guid: 4c38f2b7f15b24671a8cb36badc5f530, type: 2}
+    character: {fileID: 11400000, guid: 3b10a54768e7348a7bb0d9ab8a114f79, type: 2}
   timedPropPlacements: []
   victoryRule: 1
   survivalTimeSeconds: 0
