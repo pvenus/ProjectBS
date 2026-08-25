@@ -15,6 +15,7 @@ MonoBehaviour:
   characterId: character.yujin.3.clone
   characterType: 0
   job: 4132
+  scale: 0.3
   animationClips:
   - clipType: 0
     clip: {fileID: 7400000, guid: 5a3aa31c27bf24a7d8229f0fcaef31dc, type: 2}
@@ -53,7 +54,7 @@ MonoBehaviour:
   - statType: 1200
     value: 10
   - statType: 1000
-    value: 100
+    value: 1000
   - statType: 1220
     value: 1
   - statType: 1240

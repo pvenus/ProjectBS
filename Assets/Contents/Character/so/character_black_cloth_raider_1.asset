@@ -15,7 +15,32 @@ MonoBehaviour:
   characterId: character.black_cloth_raider.1
   characterType: 1
   job: 17
-  animationClips: []
+  scale: 0.2
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 4087603850421429bbf6db178f8e95c7, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: b0597682dae9a42639c20869582dc346, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 4087603850421429bbf6db178f8e95c7, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: b0597682dae9a42639c20869582dc346, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 28a5f5b3c6c1842b0bce58d4a2aa15de, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 98618d45f9c894777bbbdef026a35799, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 28a5f5b3c6c1842b0bce58d4a2aa15de, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 98618d45f9c894777bbbdef026a35799, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 5ee0081c738804b41ac00095c0224312, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 1689383345c8943989c773d75e2d38e8, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 5ee0081c738804b41ac00095c0224312, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 1689383345c8943989c773d75e2d38e8, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 453d2fd05eab54442a78b4b16962f0d6, type: 2}

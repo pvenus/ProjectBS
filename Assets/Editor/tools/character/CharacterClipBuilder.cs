@@ -63,7 +63,7 @@ namespace ResourceTools
                     continue;
                 }
 
-                string baseClipName = CreateClipName(selectedPath, folderPath);
+                string baseClipName = CreateClipName(SourceFolderPath, folderPath);
                 AnimationClip rightClip = CreateDirectionalClip(
                     outputFolderPath,
                     baseClipName,
@@ -131,7 +131,18 @@ namespace ResourceTools
 
         public static List<AnimationClip> GenerateFromCharacterFolderPath(string characterFolderPath)
         {
-            return GenerateFromFolderPath(SourceFolderPath);
+            if (string.IsNullOrWhiteSpace(characterFolderPath))
+            {
+                return new List<AnimationClip>();
+            }
+
+            string normalizedPath = characterFolderPath.Replace("\\", "/").TrimEnd('/');
+            if (!normalizedPath.StartsWith("Assets/", StringComparison.OrdinalIgnoreCase))
+            {
+                normalizedPath = $"{SourceFolderPath}/{normalizedPath}";
+            }
+
+            return GenerateFromFolderPath(normalizedPath);
         }
 
         private static Sprite[] LoadSpritesInFolderOnly(string folderPath)

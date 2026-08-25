@@ -90,6 +90,17 @@ namespace ResourceTools.Stage
                                  StringComparison.Ordinal))
                 .ToList();
 
+            List<T> contentMatches = matches
+                .Where(asset => AssetDatabase.GetAssetPath(asset).StartsWith(
+                    "Assets/Contents/",
+                    StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (contentMatches.Count > 0)
+            {
+                matches = contentMatches;
+            }
+
             if (matches.Count == 0)
             {
                 throw new InvalidDataException(

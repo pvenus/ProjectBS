@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486744641863680
+      rid: 5601486753410581016
   - choiceId: choice.act1.chapter01.episode03_1.red_doll_tree.accept_jihan_join
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486744641863681
+      rid: 5601486753410581017
   references:
     version: 2
     RefIds:
-    - rid: 5601486744641863680
+    - rid: 5601486753410581016
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486744641863682
-    - rid: 5601486744641863681
+          rid: 5601486753410581018
+    - rid: 5601486753410581017
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486744641863683
-    - rid: 5601486744641863682
+          rid: 5601486753410581019
+    - rid: 5601486753410581018
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 9c46eac12296d4a17a5011c054daea43, type: 2}
-    - rid: 5601486744641863683
+    - rid: 5601486753410581019
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 9c46eac12296d4a17a5011c054daea43, type: 2}

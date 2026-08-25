@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486723634693096
+      rid: 5601486753410580992
   - choiceId: choice.act1.chapter01.episode02.village_after_attack.ask_child_family
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486723634693097
+      rid: 5601486753410580993
   references:
     version: 2
     RefIds:
-    - rid: 5601486723634693096
+    - rid: 5601486753410580992
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486723634693098
-    - rid: 5601486723634693097
+          rid: 5601486753410580994
+    - rid: 5601486753410580993
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486723634693099
-    - rid: 5601486723634693098
+          rid: 5601486753410580995
+    - rid: 5601486753410580994
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}
-    - rid: 5601486723634693099
+    - rid: 5601486753410580995
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}

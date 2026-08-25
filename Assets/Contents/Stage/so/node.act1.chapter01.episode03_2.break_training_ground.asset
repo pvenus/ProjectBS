@@ -15,7 +15,23 @@ MonoBehaviour:
   eventId: node.act1.chapter01.episode03_2.break_training_ground
   mainImage: {fileID: 2489463381212218026, guid: f1ee9a900ff1e40e6b5111ab81c37a20, type: 3}
   icon: {fileID: 0}
-  choices: []
+  choices:
+  - choiceId: choice.act1.chapter01.episode03_2.break_training_ground.subdue_training_ground_bandits
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486753410580982
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5601486753410580982
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486753410580983
+    - rid: 5601486753410580983
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 211c5a97fcf9a4746ae97f240d6d5bb9, type: 2}

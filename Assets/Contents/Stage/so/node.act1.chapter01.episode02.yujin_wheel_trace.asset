@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486723634693094
+      rid: 5601486753410580980
   references:
     version: 2
     RefIds:
-    - rid: 5601486723634693094
+    - rid: 5601486753410580980
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486723634693095
-    - rid: 5601486723634693095
+          rid: 5601486753410580981
+    - rid: 5601486753410580981
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 1b4014da680b24724972a0355d0c655d, type: 2}

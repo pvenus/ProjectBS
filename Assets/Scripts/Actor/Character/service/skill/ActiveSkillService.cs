@@ -4,6 +4,7 @@ using Skill.Service.Helper;
 using UnityEngine;
 using Skill;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Character.Skill
 {
@@ -25,6 +26,9 @@ namespace Character.Skill
     /// </summary>
     public class ActiveSkillService
     {
+        private const float FailedSkillRetryDelay = 0.75f;
+        private readonly Dictionary<string, float> failedSkillRetryEndTimes = new();
+
         /// <summary>
         /// Selects an active skill that is ready to use.
         /// Passive skills are excluded from this selection flow.
@@ -56,6 +60,11 @@ namespace Character.Skill
 
                 string skillId = CharacterSkillHelper.GetSkillId(runtime);
 
+                if (IsTemporarilyBlockedAfterFailure(skillId))
+                {
+                    continue;
+                }
+
                 if (!IsCooldownReady(skillManager.SkillRuntimeData, skillId))
                 {
                     continue;
@@ -65,6 +74,46 @@ namespace Character.Skill
             }
 
             return null;
+        }
+
+        public void MarkExecutionFailed(EquipmentSkillRuntimeData runtime)
+        {
+            string skillId = CharacterSkillHelper.GetSkillId(runtime);
+            if (!string.IsNullOrEmpty(skillId))
+            {
+                failedSkillRetryEndTimes[skillId] = Time.time + FailedSkillRetryDelay;
+            }
+        }
+
+        public void ClearExecutionFailure(EquipmentSkillRuntimeData runtime)
+        {
+            string skillId = CharacterSkillHelper.GetSkillId(runtime);
+            if (!string.IsNullOrEmpty(skillId))
+            {
+                failedSkillRetryEndTimes.Remove(skillId);
+            }
+        }
+
+        public void ResetExecutionFailures()
+        {
+            failedSkillRetryEndTimes.Clear();
+        }
+
+        private bool IsTemporarilyBlockedAfterFailure(string skillId)
+        {
+            if (string.IsNullOrEmpty(skillId) ||
+                !failedSkillRetryEndTimes.TryGetValue(skillId, out float retryEndTime))
+            {
+                return false;
+            }
+
+            if (Time.time < retryEndTime)
+            {
+                return true;
+            }
+
+            failedSkillRetryEndTimes.Remove(skillId);
+            return false;
         }
         public EquipmentSkillRuntimeData SelectReadySkill(
             CharacterSkillManager skillManager)
@@ -100,13 +149,20 @@ namespace Character.Skill
 
             UseSkill(skillManager, runtime);
 
-            return StartSkillUseRoutine(
+            bool started = StartSkillUseRoutine(
                 skillManager,
                 runtime,
                 caster,
                 target,
                 false,
                 Vector2.zero);
+
+            if (started)
+            {
+                ClearExecutionFailure(runtime);
+            }
+
+            return started;
         }
         /// <summary>
         /// Marks a skill as actually used.

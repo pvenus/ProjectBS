@@ -53,6 +53,7 @@ namespace Character
         public void InitializeSkills(CharacterSO characterSO)
         {
             EnsureRuntimeData();
+            skillService.ResetExecutionFailures();
 
             SkillPoolRuntimeData skillPool = new SkillPoolRuntimeData();
 
@@ -149,6 +150,11 @@ namespace Character
         public EquipmentSkillRuntimeData SelectReadyActiveSkill()
         {
             return skillService.SelectActiveSkill(this);
+        }
+
+        public void MarkSkillExecutionFailed(EquipmentSkillRuntimeData runtime)
+        {
+            skillService.MarkExecutionFailed(runtime);
         }
 
         public EquipmentSkillRuntimeData GetRuntimeBySkill(EquipmentSkillSO skillSO)

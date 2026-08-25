@@ -43,6 +43,9 @@ namespace Character
 
         private CharacterExperienceService experienceService;
 
+        private bool characterScaleBaselineCaptured;
+        private Vector3 baseCharacterScale = Vector3.one;
+
 
         private bool isDying;
 
@@ -129,6 +132,8 @@ namespace Character
                 return;
             }
 
+            ApplyCharacterScale(characterSO);
+
             runtimeData.stats.Clear();
             runtimeData.finalStats.Clear();
 
@@ -210,6 +215,8 @@ namespace Character
 
             runtimeData = data;
 
+            ApplyCharacterScale(runtimeData?.characterSO);
+
             statService =
                 new CharacterStatService(runtimeData);
 
@@ -264,6 +271,23 @@ namespace Character
             EnsureComponent<ShaderControllerMono>();
             EnsureComponent<EffectManager>();
             EnsureComponent<MovementMono>();
+        }
+
+        private void ApplyCharacterScale(CharacterSO characterSO)
+        {
+            if (characterSO == null)
+            {
+                return;
+            }
+
+            if (!characterScaleBaselineCaptured)
+            {
+                baseCharacterScale = transform.localScale;
+                characterScaleBaselineCaptured = true;
+            }
+
+            float resolvedScale = characterSO.Scale;
+            transform.localScale = baseCharacterScale * resolvedScale;
         }
 
         private T EnsureComponent<T>()

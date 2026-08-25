@@ -1,6 +1,10 @@
 {
   "stageId": "stage.chapter1",
   "stageName": "Chapter 1 - Cheongun Village",
+  "chapterKey": "ch1",
+  "svgSourcePath": "AgentDocs/reference-assets/maps/chapter1_node_map.svg",
+  "defaultPlacementRule": "WeightedPoolPlacementRule",
+  "sectionPlacementRules": [],
   "useFixedSeed": false,
   "seed": 1,
   "requiredSubEvents": [

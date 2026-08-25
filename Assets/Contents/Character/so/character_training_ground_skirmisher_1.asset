@@ -15,7 +15,32 @@ MonoBehaviour:
   characterId: character.training_ground_skirmisher.1
   characterType: 1
   job: 17
-  animationClips: []
+  scale: 0.2
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 36f734ffd1d584c099b767514d3d2e3e, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 05acafeda319c4c67ac5bded47741537, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 36f734ffd1d584c099b767514d3d2e3e, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 05acafeda319c4c67ac5bded47741537, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 6eabcb866ab3c4aa1a4b01ceaec56b3a, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 72625f0cea17a468c8a4e4bcbde6893f, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 6eabcb866ab3c4aa1a4b01ceaec56b3a, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 72625f0cea17a468c8a4e4bcbde6893f, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: e3104a5f389b24794851fb9867e35736, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: c449dc69e073e45b1902ec0ec9b35a5b, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: e3104a5f389b24794851fb9867e35736, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: c449dc69e073e45b1902ec0ec9b35a5b, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 7dc877dd016af4a7197f243ca7b870ec, type: 2}

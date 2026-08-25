@@ -66,14 +66,18 @@ namespace ResourceTools.Stage
             bool includeSubFolders = true,
             bool generateStrings = true)
         {
-            var jsonFiles = CollectJsonFiles(inputPath, includeSubFolders)
+            var allJsonFiles = CollectJsonFiles(inputPath, includeSubFolders);
+            var jsonFiles = allJsonFiles
                 .Where(IsActJson)
+                .ToList();
+            var definitionJsonFiles = allJsonFiles
+                .Where(StageDefinitionJsonGenerator.IsStageDefinitionJson)
                 .ToList();
             var results = new List<StageNodeBuilder.BuildResult>();
 
-            if (jsonFiles.Count == 0)
+            if (jsonFiles.Count == 0 && definitionJsonFiles.Count == 0)
             {
-                Debug.LogWarning($"[StageGenerator] No act json files found: {inputPath}");
+                Debug.LogWarning($"[StageGenerator] No supported stage json files found: {inputPath}");
                 return results;
             }
 
@@ -133,6 +137,13 @@ namespace ResourceTools.Stage
                 AssetDatabase.Refresh();
             }
 
+            foreach (string definitionJsonFile in definitionJsonFiles)
+            {
+                StageDefinitionJsonGenerator.GenerateFromJsonPath(
+                    definitionJsonFile,
+                    stageNodeOutputFolder);
+            }
+
             return results;
         }
 
@@ -149,7 +160,7 @@ namespace ResourceTools.Stage
 
             if (File.Exists(inputPath))
             {
-                if (IsStageStoryJson(inputPath))
+                if (IsSupportedStageJson(inputPath))
                 {
                     result.Add(inputPath);
                 }
@@ -165,10 +176,16 @@ namespace ResourceTools.Stage
             var option = includeSubFolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             result.AddRange(Directory.GetFiles(inputPath, "*.json", option)
                 .Select(NormalizeAssetPath)
-                .Where(IsStageStoryJson)
+                .Where(IsSupportedStageJson)
                 .OrderBy(path => path, StringComparer.OrdinalIgnoreCase));
 
             return result;
+        }
+
+        private static bool IsSupportedStageJson(string path)
+        {
+            return IsStageStoryJson(path)
+                || StageDefinitionJsonGenerator.IsStageDefinitionJson(path);
         }
 
         private static bool IsStageStoryJson(string path)

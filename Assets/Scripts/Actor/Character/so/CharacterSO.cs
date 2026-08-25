@@ -31,6 +31,9 @@ namespace Character
         [SerializeField] private CharacterType characterType = CharacterType.Npc;
         [SerializeField] private CharacterJob job;
 
+        [Header("Presentation")]
+        [SerializeField, Min(0.01f)] private float scale = 0.2f;
+
 
         [Header("Animation Clips")]
         [SerializeField] private List<CharacterAnimationClipEntry> animationClips = new();
@@ -44,6 +47,7 @@ namespace Character
         public string CharacterId => characterId;
         public CharacterType CharacterType => characterType;
         public CharacterJob Job => job;
+        public float Scale => Mathf.Max(0.01f, scale);
         public IReadOnlyList<CharacterAnimationClipEntry> AnimationClips => animationClips;
         public IReadOnlyList<CharacterSkillEntry> Skills => skills;
         public IReadOnlyList<StatEntry> BaseStats => baseStats;
@@ -72,11 +76,13 @@ namespace Character
             CharacterJob job,
             List<CharacterAnimationClipEntry> animationClips,
             List<CharacterSkillEntry> skills,
-            List<StatEntry> baseStats)
+            List<StatEntry> baseStats,
+            float scale = 0.2f)
         {
             this.characterId = characterId;
             this.characterType = characterType;
             this.job = job;
+            this.scale = Mathf.Max(0.01f, scale);
             this.animationClips = animationClips ?? new List<CharacterAnimationClipEntry>();
             this.skills = skills ?? new List<CharacterSkillEntry>();
             this.baseStats = baseStats ?? new List<StatEntry>();

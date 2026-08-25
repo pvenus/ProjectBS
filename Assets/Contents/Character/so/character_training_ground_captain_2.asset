@@ -15,7 +15,32 @@ MonoBehaviour:
   characterId: character.training_ground_captain.2
   characterType: 1
   job: 17
-  animationClips: []
+  scale: 0.2
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 9af492274ced241709e705aeb8a595ce, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 04724129d89a4482a97ea7f3d06b4e80, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 9af492274ced241709e705aeb8a595ce, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 04724129d89a4482a97ea7f3d06b4e80, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: f033030883f55475c889f9e926093697, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 9de0536b1d0954a888251ccac673a21d, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: f033030883f55475c889f9e926093697, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 9de0536b1d0954a888251ccac673a21d, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: f679da4fa14b94fb08bafb4c40aa17fd, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 1cf2d780be94b4ce9b489eade451c99e, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: f679da4fa14b94fb08bafb4c40aa17fd, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 1cf2d780be94b4ce9b489eade451c99e, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 76ff841b11f1d4b7c864d2d929dba6ee, type: 2}

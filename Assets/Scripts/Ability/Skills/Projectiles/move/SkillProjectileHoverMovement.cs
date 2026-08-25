@@ -50,8 +50,22 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         if (_context.owner != null)
         {
             Vector2 ownerPosition = _context.owner.position;
-            Vector2 targetPosition = _context.targetTransform.position;
-            Vector2 direction = targetPosition - ownerPosition;
+            Vector2 direction;
+
+            if (_context.targetTransform != null)
+            {
+                Vector2 targetPosition = _context.targetTransform.position;
+                direction = targetPosition - ownerPosition;
+            }
+            else
+            {
+                direction = (Vector2)_context.projectileTransform.position - ownerPosition;
+
+                if (direction.sqrMagnitude <= Mathf.Epsilon)
+                {
+                    direction = _context.owner.right;
+                }
+            }
 
             _direction = direction.sqrMagnitude > Mathf.Epsilon
                 ? direction.normalized

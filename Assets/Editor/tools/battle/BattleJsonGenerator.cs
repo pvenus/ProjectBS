@@ -53,6 +53,42 @@ namespace ResourceTools
                 jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
         }
 
+        [MenuItem(MenuRoot + "/Generate BattleSO From Json Folder", false, 2001)]
+        public static void GenerateFromSelectedFolder()
+        {
+            string selectedPath = AssetDatabase.GetAssetPath(
+                Selection.activeObject);
+
+            if (string.IsNullOrEmpty(selectedPath) ||
+                !AssetDatabase.IsValidFolder(selectedPath))
+            {
+                Debug.LogWarning(
+                    "[BattleJsonGenerator] Select a folder that contains battle json files first.");
+                return;
+            }
+
+            IReadOnlyList<BattleSO> generated = GenerateFromPath(
+                selectedPath,
+                true);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            Debug.Log(
+                $"[BattleJsonGenerator] Folder generation completed. " +
+                $"Path={selectedPath}, BattleSO={generated.Count}");
+        }
+
+        [MenuItem(MenuRoot + "/Generate BattleSO From Json Folder", true)]
+        public static bool ValidateGenerateFromSelectedFolder()
+        {
+            string selectedPath = AssetDatabase.GetAssetPath(
+                Selection.activeObject);
+
+            return !string.IsNullOrEmpty(selectedPath) &&
+                AssetDatabase.IsValidFolder(selectedPath);
+        }
+
         public static IReadOnlyList<BattleSO> GenerateFromPath(
             string inputPath,
             bool includeSubFolders = true)

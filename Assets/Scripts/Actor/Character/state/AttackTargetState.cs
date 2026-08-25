@@ -35,6 +35,8 @@ namespace Character.Skill
 
             if (!executed)
             {
+                ResolveSkillManager(context)?.MarkSkillExecutionFailed(
+                    context.SelectedSkillRuntime);
                 ClearSelectedSkill(context);
                 ClearCurrentTarget(context);
                 IsFinished = true;
@@ -154,6 +156,12 @@ namespace Character.Skill
 
         private bool RequiresTarget(EquipmentSkillRuntimeData runtime)
         {
+            if (runtime?.sourceEquipment?.BaseProfileSo != null &&
+                runtime.sourceEquipment.BaseProfileSo.SkillComponentType == SkillComponentType.Spawn)
+            {
+                return false;
+            }
+
             SkillCastSO castSo = ResolveCastSo(runtime);
 
             if (castSo == null)

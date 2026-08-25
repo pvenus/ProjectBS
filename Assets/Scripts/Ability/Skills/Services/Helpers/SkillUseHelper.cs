@@ -202,33 +202,19 @@ namespace Skill.Service.Helper
                 count,
                 spawnRadius);
 
-            GameObject spawnedObject = Character.Helper.CharacterBuilder.CreateOrBuildPlayerObject(
-                null,
-                characterSo.name,
-                null,
+            GameObject sequenceObject = new GameObject(
+                $"CharacterSpawnSequence_{characterSo.name}");
+
+            CharacterSpawnSequence sequence =
+                sequenceObject.AddComponent<CharacterSpawnSequence>();
+
+            sequence.Initialize(
+                characterSo,
+                context.Runtime.sourceEquipment.BaseVisualSo,
                 spawnPosition,
                 context.Caster.rotation,
-                null,
-                true);
-
-            if (spawnedObject == null)
-            {
-                return false;
-            }
-
-            CharacterManager spawnedCharacter = ResolveCharacterManager(
-                spawnedObject);
-
-            InitializeSpawnedCharacter(
-                spawnedCharacter,
-                characterSo);
-
-            if (IsCharacterSpawn(spawnSkill) && spawnLifeTime > 0f)
-            {
-                Object.Destroy(
-                    spawnedObject,
-                    spawnLifeTime);
-            }
+                spawnLifeTime,
+                Mathf.Max(0.01f, context.Runtime.resolvedProjectileScale));
 
             return true;
         }
@@ -296,13 +282,6 @@ namespace Skill.Service.Helper
                 spawnSkill.SpawnLifeTime);
         }
 
-
-        private static bool IsCharacterSpawn(
-            SpawnSkillSO spawnSkill)
-        {
-            return ResolveSpawnCharacterSo(spawnSkill) != null;
-        }
-
         private static float ResolveSpawnRadius(
             SpawnSkillSO spawnSkill)
         {
@@ -330,19 +309,6 @@ namespace Skill.Service.Helper
 
             return origin + offset;
         }
-
-        private static void InitializeSpawnedCharacter(
-            CharacterManager spawnedCharacter,
-            CharacterSO characterSo)
-        {
-            if (spawnedCharacter == null || characterSo == null)
-            {
-                return;
-            }
-
-            spawnedCharacter.InitializeFromSO(characterSo);
-        }
-
 
         public static bool FireProjectiles(
             EquipmentSkillRuntimeData runtime,

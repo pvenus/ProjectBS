@@ -1,0 +1,559 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd08c4c0dfb1e41a786b347eddd48db5, type: 3}
+  m_Name: stage.chapter1
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.StageDefinitionSO
+  stageId: stage.chapter1
+  stageName: Chapter 1 - Cheongun Village
+  svgMapSlots:
+  - slotId: ep_1
+    role: 0
+    depth: 0
+    orderInDepth: 0
+    label: Episode 1
+    subLabel: "\uCCAD\uC6B4\uCD0C\uC758 \uC2B5\uACA9"
+    connections:
+    - toSlotId: ep_2
+  - slotId: ep_2
+    role: 0
+    depth: 1
+    orderInDepth: 0
+    label: Episode 2
+    subLabel: "\uC5C7\uAC08\uB9B0 \uB2E8\uC11C"
+    connections:
+    - toSlotId: slot_430_2085
+    - toSlotId: slot_1370_2085
+  - slotId: slot_430_2085
+    role: 1
+    depth: 2
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_285_1950
+    - toSlotId: slot_575_1950
+  - slotId: slot_1370_2085
+    role: 1
+    depth: 2
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1370_1950
+  - slotId: slot_285_1950
+    role: 1
+    depth: 3
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_285_1815
+  - slotId: slot_575_1950
+    role: 1
+    depth: 3
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_465_1815
+    - toSlotId: slot_615_1815
+  - slotId: slot_1370_1950
+    role: 1
+    depth: 3
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1255_1815
+    - toSlotId: slot_1485_1815
+  - slotId: slot_285_1815
+    role: 1
+    depth: 4
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_3_1
+  - slotId: slot_465_1815
+    role: 1
+    depth: 4
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_3_1
+  - slotId: slot_615_1815
+    role: 1
+    depth: 4
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_3_1
+  - slotId: slot_1255_1815
+    role: 1
+    depth: 4
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_3_2
+  - slotId: slot_1485_1815
+    role: 1
+    depth: 4
+    orderInDepth: 4
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_3_2
+  - slotId: ep_3_1
+    role: 0
+    depth: 5
+    orderInDepth: 0
+    label: Episode 3-1
+    subLabel: "\uC232\uC18D\uC758 \uC2B9\uB824"
+    connections:
+    - toSlotId: slot_430_1465
+  - slotId: ep_3_2
+    role: 0
+    depth: 5
+    orderInDepth: 1
+    label: Episode 3-2
+    subLabel: "\uC232\uAE38\uC758 \uAD81\uC218"
+    connections:
+    - toSlotId: slot_1370_1465
+  - slotId: slot_430_1465
+    role: 1
+    depth: 6
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_265_1330
+    - toSlotId: slot_430_1330
+    - toSlotId: slot_595_1330
+  - slotId: slot_265_1330
+    role: 1
+    depth: 7
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_375_1195
+  - slotId: slot_430_1330
+    role: 1
+    depth: 7
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_375_1195
+  - slotId: slot_595_1330
+    role: 1
+    depth: 7
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_485_1195
+  - slotId: slot_375_1195
+    role: 1
+    depth: 8
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_4_1
+  - slotId: slot_485_1195
+    role: 1
+    depth: 8
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_4_1
+  - slotId: slot_1370_1465
+    role: 1
+    depth: 6
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1235_1330
+    - toSlotId: slot_1505_1330
+  - slotId: slot_1235_1330
+    role: 1
+    depth: 7
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1170_1195
+    - toSlotId: slot_1370_1195
+  - slotId: slot_1505_1330
+    role: 1
+    depth: 7
+    orderInDepth: 4
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1570_1195
+  - slotId: slot_1170_1195
+    role: 1
+    depth: 8
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_4_2
+  - slotId: slot_1370_1195
+    role: 1
+    depth: 8
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_4_2
+  - slotId: slot_1570_1195
+    role: 1
+    depth: 8
+    orderInDepth: 4
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_4_2
+  - slotId: ep_4_1
+    role: 0
+    depth: 9
+    orderInDepth: 0
+    label: Episode 4-1
+    subLabel: "\uD53C \uBB3B\uC740 \uC0B0\uAE38"
+    connections:
+    - toSlotId: slot_430_855
+  - slotId: ep_4_2
+    role: 0
+    depth: 9
+    orderInDepth: 1
+    label: Episode 4-2
+    subLabel: "\uB04A\uC5B4\uC9C4 \uBC1C\uC790\uAD6D"
+    connections:
+    - toSlotId: slot_1370_855
+  - slotId: slot_430_855
+    role: 1
+    depth: 10
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_315_720
+    - toSlotId: slot_545_720
+  - slotId: slot_315_720
+    role: 1
+    depth: 11
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_365_585
+  - slotId: slot_545_720
+    role: 1
+    depth: 11
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_450_585
+  - slotId: slot_365_585
+    role: 1
+    depth: 12
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_5_1
+  - slotId: slot_450_585
+    role: 1
+    depth: 12
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_5_1
+  - slotId: slot_1370_855
+    role: 1
+    depth: 10
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1210_720
+    - toSlotId: slot_1370_720
+    - toSlotId: slot_1530_720
+  - slotId: slot_1210_720
+    role: 1
+    depth: 11
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1300_585
+  - slotId: slot_1370_720
+    role: 1
+    depth: 11
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1300_585
+  - slotId: slot_1530_720
+    role: 1
+    depth: 11
+    orderInDepth: 4
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1440_585
+  - slotId: slot_1300_585
+    role: 1
+    depth: 12
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_5_2
+  - slotId: slot_1440_585
+    role: 1
+    depth: 12
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_5_2
+  - slotId: ep_5_1
+    role: 0
+    depth: 13
+    orderInDepth: 0
+    label: Episode 5-1
+    subLabel: "\uB0A1\uC740 \uC218\uB828\uC7A5"
+    connections:
+    - toSlotId: slot_430_250
+  - slotId: ep_5_2
+    role: 0
+    depth: 13
+    orderInDepth: 1
+    label: Episode 5-2
+    subLabel: "\uC232\uAE38\uC758 \uC758\uC6D0"
+    connections:
+    - toSlotId: slot_1370_250
+  - slotId: slot_430_250
+    role: 1
+    depth: 14
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_315_115
+    - toSlotId: slot_545_115
+  - slotId: slot_1370_250
+    role: 1
+    depth: 14
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1255_115
+    - toSlotId: slot_1485_115
+  - slotId: slot_315_115
+    role: 1
+    depth: 15
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_360_neg15
+  - slotId: slot_545_115
+    role: 1
+    depth: 15
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_440_neg15
+  - slotId: slot_1255_115
+    role: 1
+    depth: 15
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1360_neg15
+  - slotId: slot_1485_115
+    role: 1
+    depth: 15
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: slot_1440_neg15
+  - slotId: slot_360_neg15
+    role: 1
+    depth: 16
+    orderInDepth: 0
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_6
+  - slotId: slot_440_neg15
+    role: 1
+    depth: 16
+    orderInDepth: 1
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_6
+  - slotId: slot_1360_neg15
+    role: 1
+    depth: 16
+    orderInDepth: 2
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_6
+  - slotId: slot_1440_neg15
+    role: 1
+    depth: 16
+    orderInDepth: 3
+    label: '?'
+    subLabel: 
+    connections:
+    - toSlotId: ep_6
+  - slotId: ep_6
+    role: 0
+    depth: 17
+    orderInDepth: 0
+    label: Episode 6
+    subLabel: "\uC0B0\uCC44\uC758 \uD1A0\uBC8C"
+    connections: []
+  svgStorySlotBindings:
+  - slotId: ep_1
+    expectedNodeId: stage.ch1.episode1
+    node: {fileID: 11400000, guid: 520d60e4d0a644a6fa17ca65d04bfd54, type: 2}
+  - slotId: ep_2
+    expectedNodeId: stage.ch1.episode2
+    node: {fileID: 11400000, guid: 5f8ca95b93d8b48c690f63c367eed9f9, type: 2}
+  - slotId: ep_3_1
+    expectedNodeId: stage.ch1.episode3_1
+    node: {fileID: 11400000, guid: 690f8b57745e44fe0b6b2bec42d495f9, type: 2}
+  - slotId: ep_3_2
+    expectedNodeId: stage.ch1.episode3_2
+    node: {fileID: 11400000, guid: fa4d730c96bad4f98b96bbd6eef28cdf, type: 2}
+  - slotId: ep_4_1
+    expectedNodeId: stage.ch1.episode4_1
+    node: {fileID: 11400000, guid: 93a11537131c4476bbcf6ad5cb3cefeb, type: 2}
+  - slotId: ep_4_2
+    expectedNodeId: stage.ch1.episode4_2
+    node: {fileID: 11400000, guid: 9e352c28f9ec7431685a5fc2b0235b3b, type: 2}
+  - slotId: ep_5_1
+    expectedNodeId: stage.ch1.episode5_1
+    node: {fileID: 11400000, guid: 55dee1adedf7d4fa8ab75506980c26e2, type: 2}
+  - slotId: ep_5_2
+    expectedNodeId: stage.ch1.episode5_2
+    node: {fileID: 11400000, guid: a4a6dd120e02c44aea036d2c8d030707, type: 2}
+  - slotId: ep_6
+    expectedNodeId: stage.ch1.episode6
+    node: {fileID: 11400000, guid: ca9c7652ed21d421c9800e49a26dc5eb, type: 2}
+  svgRandomSections:
+  - sectionId: sec_ep_2_to_ep_3_1
+    fromStorySlotId: ep_2
+    toStorySlotId: ep_3_1
+    targetSlotIds:
+    - slot_430_2085
+    - slot_285_1950
+    - slot_575_1950
+    - slot_285_1815
+    - slot_465_1815
+    - slot_615_1815
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_2_to_ep_3_2
+    fromStorySlotId: ep_2
+    toStorySlotId: ep_3_2
+    targetSlotIds:
+    - slot_1370_2085
+    - slot_1370_1950
+    - slot_1255_1815
+    - slot_1485_1815
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_3_1_to_ep_4_1
+    fromStorySlotId: ep_3_1
+    toStorySlotId: ep_4_1
+    targetSlotIds:
+    - slot_430_1465
+    - slot_265_1330
+    - slot_430_1330
+    - slot_595_1330
+    - slot_375_1195
+    - slot_485_1195
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_3_2_to_ep_4_2
+    fromStorySlotId: ep_3_2
+    toStorySlotId: ep_4_2
+    targetSlotIds:
+    - slot_1370_1465
+    - slot_1235_1330
+    - slot_1505_1330
+    - slot_1170_1195
+    - slot_1370_1195
+    - slot_1570_1195
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_4_1_to_ep_5_1
+    fromStorySlotId: ep_4_1
+    toStorySlotId: ep_5_1
+    targetSlotIds:
+    - slot_430_855
+    - slot_315_720
+    - slot_545_720
+    - slot_365_585
+    - slot_450_585
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_4_2_to_ep_5_2
+    fromStorySlotId: ep_4_2
+    toStorySlotId: ep_5_2
+    targetSlotIds:
+    - slot_1370_855
+    - slot_1210_720
+    - slot_1370_720
+    - slot_1530_720
+    - slot_1300_585
+    - slot_1440_585
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_5_1_to_ep_6
+    fromStorySlotId: ep_5_1
+    toStorySlotId: ep_6
+    targetSlotIds:
+    - slot_430_250
+    - slot_315_115
+    - slot_545_115
+    - slot_360_neg15
+    - slot_440_neg15
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  - sectionId: sec_ep_5_2_to_ep_6
+    fromStorySlotId: ep_5_2
+    toStorySlotId: ep_6
+    targetSlotIds:
+    - slot_1370_250
+    - slot_1255_115
+    - slot_1485_115
+    - slot_1360_neg15
+    - slot_1440_neg15
+    placementRule: {fileID: 11400000, guid: 90ef4f6016c18d342a0f6aaf00e394bd, type: 2}
+  useFixedSeed: 0
+  seed: 1

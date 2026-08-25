@@ -15,31 +15,32 @@ MonoBehaviour:
   characterId: character.seojin.1
   characterType: 0
   job: 17
+  scale: 0.3
   animationClips:
   - clipType: 0
-    clip: {fileID: 7400000, guid: a717beef60b7149c8a0182f5f4b1c0bb, type: 2}
+    clip: {fileID: 7400000, guid: b8530d0cf9a3743469ffe8524414f64a, type: 2}
   - clipType: 1
-    clip: {fileID: 7400000, guid: f42799b26b8bf486f87965fc0fed6f4d, type: 2}
+    clip: {fileID: 7400000, guid: e1ac327cb189d4580aeddb15d6672db4, type: 2}
   - clipType: 2
-    clip: {fileID: 7400000, guid: a717beef60b7149c8a0182f5f4b1c0bb, type: 2}
+    clip: {fileID: 7400000, guid: b8530d0cf9a3743469ffe8524414f64a, type: 2}
   - clipType: 3
-    clip: {fileID: 7400000, guid: f42799b26b8bf486f87965fc0fed6f4d, type: 2}
+    clip: {fileID: 7400000, guid: e1ac327cb189d4580aeddb15d6672db4, type: 2}
   - clipType: 4
-    clip: {fileID: 7400000, guid: 18b9453bf121746dfb068c75deb1613e, type: 2}
+    clip: {fileID: 7400000, guid: 1483f987904c94dc68c04da33d4cd982, type: 2}
   - clipType: 5
-    clip: {fileID: 7400000, guid: 6796e478f3ac84787bca35e1f86106d8, type: 2}
+    clip: {fileID: 7400000, guid: 717ac6a596e134879a20104fdfb805a5, type: 2}
   - clipType: 6
-    clip: {fileID: 7400000, guid: 18b9453bf121746dfb068c75deb1613e, type: 2}
+    clip: {fileID: 7400000, guid: 1483f987904c94dc68c04da33d4cd982, type: 2}
   - clipType: 7
-    clip: {fileID: 7400000, guid: 6796e478f3ac84787bca35e1f86106d8, type: 2}
+    clip: {fileID: 7400000, guid: 717ac6a596e134879a20104fdfb805a5, type: 2}
   - clipType: 8
-    clip: {fileID: 7400000, guid: 64b191fda95014ec78cc92b5e3fde7fa, type: 2}
+    clip: {fileID: 7400000, guid: 4e5b00921ccff4e17a41f5f5161157c5, type: 2}
   - clipType: 9
-    clip: {fileID: 7400000, guid: 403bb86c678894752a10b5256c60a918, type: 2}
+    clip: {fileID: 7400000, guid: c4aac6bf264ab45589be7462d13c7235, type: 2}
   - clipType: 10
-    clip: {fileID: 7400000, guid: 64b191fda95014ec78cc92b5e3fde7fa, type: 2}
+    clip: {fileID: 7400000, guid: 4e5b00921ccff4e17a41f5f5161157c5, type: 2}
   - clipType: 11
-    clip: {fileID: 7400000, guid: 403bb86c678894752a10b5256c60a918, type: 2}
+    clip: {fileID: 7400000, guid: c4aac6bf264ab45589be7462d13c7235, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 5616bfac4b440418b839371b6e9d9c8c, type: 2}
@@ -51,7 +52,7 @@ MonoBehaviour:
   - statType: 1200
     value: 500
   - statType: 1000
-    value: 1000
+    value: 500
   - statType: 1220
     value: 2
   - statType: 1240

@@ -22,6 +22,7 @@ namespace ResourceTools.Character
             public string name;
             public string characterType;
             public string job;
+            public float scale = 0.2f;
             public List<StatEntryJson> baseStats = new();
         }
 
@@ -142,7 +143,8 @@ namespace ResourceTools.Character
                 job,
                 BuildAnimationClips(data.characterId),
                 BuildSkills(data.characterId),
-                ConvertBaseStats(data.baseStats));
+                ConvertBaseStats(data.baseStats),
+                data.scale > 0f ? data.scale : 0.2f);
 
             if (isNewAsset)
             {
@@ -241,10 +243,12 @@ namespace ResourceTools.Character
 
             Dictionary<string, AnimationClip> clipsByAction = LoadAnimationClipsByAction(characterId);
 
-            if (clipsByAction.Count == 0)
+            if (!clipsByAction.ContainsKey("movement.left") ||
+                !clipsByAction.ContainsKey("movement.right"))
             {
                 Debug.Log($"[CharacterJsonGenerator] Generating missing animation clips for: {characterId}");
-                global::ResourceTools.CharacterClipBuilder.GenerateAll();
+                global::ResourceTools.CharacterClipBuilder
+                    .GenerateFromCharacterFolderPath(characterId);
                 clipsByAction = LoadAnimationClipsByAction(characterId);
             }
 
@@ -299,7 +303,7 @@ namespace ResourceTools.Character
                     continue;
                 }
 
-                string action = GetAnimationAction(clip.name);
+                string action = GetAnimationAction(clip.name, characterId);
                 string direction = GetAnimationDirection(clip.name);
                 string clipKey = $"{action}.{direction}";
 
@@ -330,8 +334,12 @@ namespace ResourceTools.Character
             string normalizedName = clipName.Replace('-', '.').Replace('_', '.');
             string[] parts = normalizedName.Split('.');
 
-            foreach (string part in parts)
+            // 생성 클립의 최종 접미사가 실제 출력 방향이다.
+            // 애니메이션 설명에 screen-right/right-forward 같은 단어가 포함될 수 있으므로
+            // 앞에서부터 검색하면 Left 클립도 Right로 잘못 분류된다.
+            for (int index = parts.Length - 1; index >= 0; index--)
             {
+                string part = parts[index];
                 if (part.Equals("left", StringComparison.OrdinalIgnoreCase)) return "left";
                 if (part.Equals("right", StringComparison.OrdinalIgnoreCase)) return "right";
             }
@@ -339,19 +347,33 @@ namespace ResourceTools.Character
             return null;
         }
 
-        private static string GetAnimationAction(string clipName)
+        private static string GetAnimationAction(
+            string clipName,
+            string characterId)
         {
-            string normalizedName = clipName.Replace('-', '.').Replace('_', '.');
-            string[] parts = normalizedName.Split('.');
-
-            foreach (string part in parts)
+            if (string.IsNullOrWhiteSpace(clipName) ||
+                string.IsNullOrWhiteSpace(characterId))
             {
-                if (part.Equals("idle", StringComparison.OrdinalIgnoreCase)) return "idle";
-                if (part.Equals("move", StringComparison.OrdinalIgnoreCase) ||
-                    part.Equals("movement", StringComparison.OrdinalIgnoreCase)) return "movement";
-                if (part.Equals("attack", StringComparison.OrdinalIgnoreCase)) return "attack";
-                if (part.Equals("death", StringComparison.OrdinalIgnoreCase)) return "death";
+                return null;
             }
+
+            string prefix = characterId + ".";
+            if (!clipName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            string actionPart = clipName.Substring(prefix.Length)
+                .Replace('-', '.')
+                .Replace('_', '.');
+            string action = actionPart.Split('.')[0];
+
+            if (action.Equals("idle", StringComparison.OrdinalIgnoreCase)) return "idle";
+            if (action.Equals("run", StringComparison.OrdinalIgnoreCase) ||
+                action.Equals("move", StringComparison.OrdinalIgnoreCase) ||
+                action.Equals("movement", StringComparison.OrdinalIgnoreCase)) return "movement";
+            if (action.Equals("attack", StringComparison.OrdinalIgnoreCase)) return "attack";
+            if (action.Equals("death", StringComparison.OrdinalIgnoreCase)) return "death";
 
             return null;
         }
