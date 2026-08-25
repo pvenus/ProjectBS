@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using Character.Helper;
+using Battle.Presentation;
 
 namespace Party
 {
@@ -17,6 +18,11 @@ namespace Party
         [SerializeField] private float spacing = 1.5f;
         [SerializeField] private float battleSpawnX = -8f;
         [SerializeField] private float battleSpawnYRange = 2f;
+
+        [Header("Player Aura Palette")]
+        [SerializeField] private Color playerAuraColorR = Color.red;
+        [SerializeField] private Color playerAuraColorG = Color.green;
+        [SerializeField] private Color playerAuraColorB = Color.blue;
 
         [Header("Battle Zone Anchor")]
         [SerializeField] private LayerMask battleZoneObstacleMask;
@@ -187,6 +193,8 @@ namespace Party
                     runtimeData.Members[i] =
                         characterManager.RuntimeData;
                 }
+
+                ApplyPlayerAuraColor(characterManager, i);
             }
         }
 
@@ -261,6 +269,8 @@ namespace Party
                     runtimeData.Members[i] =
                         characterManager.RuntimeData;
                 }
+
+                ApplyPlayerAuraColor(characterManager, i);
             }
         }
 
@@ -303,7 +313,10 @@ namespace Party
 
                 DestroyRuntimeObject(currentRuntime);
 
-                CharacterManager newCharacterManager = CreateRuntimeCharacterManager(targetCharacterSO);
+                CharacterManager newCharacterManager =
+                    CreateRuntimeCharacterManager(
+                        targetCharacterSO,
+                        i);
                 if (newCharacterManager == null)
                 {
                     return false;
@@ -336,7 +349,11 @@ namespace Party
                 return false;
             }
 
-            CharacterManager characterManager = CreateRuntimeCharacterManager(characterSO);
+            int newPartyIndex = runtimeData.Members.Count;
+            CharacterManager characterManager =
+                CreateRuntimeCharacterManager(
+                    characterSO,
+                    newPartyIndex);
             if (characterManager == null)
             {
                 return false;
@@ -393,7 +410,9 @@ namespace Party
             return runtimeData;
         }
 
-        private CharacterManager CreateRuntimeCharacterManager(CharacterSO characterSO)
+        private CharacterManager CreateRuntimeCharacterManager(
+            CharacterSO characterSO,
+            int partyIndex)
         {
             if (characterSO == null)
             {
@@ -416,8 +435,32 @@ namespace Party
                 runtimeObject.GetComponent<CharacterManager>();
 
             characterManager.InitializeFromSO(characterSO);
+            ApplyPlayerAuraColor(
+                characterManager,
+                partyIndex);
 
             return characterManager;
+        }
+
+        private void ApplyPlayerAuraColor(
+            CharacterManager characterManager,
+            int partyIndex)
+        {
+            BattleCharacterAuraInstaller.EnsureFor(
+                characterManager,
+                ResolvePlayerAuraColor(partyIndex));
+        }
+
+        private Color ResolvePlayerAuraColor(int partyIndex)
+        {
+            int paletteIndex = partyIndex % 3;
+
+            return paletteIndex switch
+            {
+                1 => playerAuraColorG,
+                2 => playerAuraColorB,
+                _ => playerAuraColorR
+            };
         }
 
         private void DestroyRuntimeObject(CharacterRuntimeData runtimeData)

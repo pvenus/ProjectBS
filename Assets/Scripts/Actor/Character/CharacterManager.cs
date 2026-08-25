@@ -5,6 +5,7 @@ using Party;
 using Character.Service;
 using Character.Skill;
 using Effect;
+using Battle.Presentation;
 
 namespace Character
 {
@@ -191,6 +192,7 @@ namespace Character
 
             // Removed old animation/skill override flow
             InitializeSkillManager(characterSO);
+            EnsureBattleCharacterAura();
 
             StartCoroutine(PlaySpawnRevealNextFrame());
         }
@@ -252,9 +254,20 @@ namespace Character
 
             // Removed old animation/skill override flow
             InitializeSkillManager(runtimeData?.characterSO);
+            EnsureBattleCharacterAura();
 
             StartCoroutine(PlaySpawnRevealNextFrame());
 
+        }
+
+        private void EnsureBattleCharacterAura()
+        {
+            if (runtimeData?.characterSO == null)
+            {
+                return;
+            }
+
+            BattleCharacterAuraInstaller.EnsureFor(this);
         }
 
         private System.Collections.IEnumerator PlaySpawnRevealNextFrame()
