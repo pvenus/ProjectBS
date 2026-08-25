@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.strategic.demon_lure_incense
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.strategic.demon_lure_incense
+  icon: {fileID: 21300000, guid: 5a5e2065be0ab43f38b97d7579faadb8, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 9f8df7ec5d63b41bd9dc4adf3f20ece7, type: 2}
+  castSo: {fileID: 11400000, guid: 3dc59eb74f7304a928c7fff8a6071974, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 192076770910d4da4bae0fbbd305ca82, type: 2}
+  moveSo: {fileID: 11400000, guid: 2bf9183d1139744feacbff5a801773e3, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 0}
+  baseVisualSo: {fileID: 11400000, guid: 26f6048217b2c47f09b02edb96dc82a5, type: 2}
