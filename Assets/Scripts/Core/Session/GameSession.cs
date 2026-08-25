@@ -185,6 +185,28 @@ namespace Session
                 }
             }
 
+            if (startProfile.StartPartyMembers != null && startProfile.StartPartyMembers.Count > 0)
+            {
+                BattleSession.PartyRuntimeData ??= new Party.PartyRuntimeData();
+                BattleSession.PartyRuntimeData.Members.Clear();
+
+                for (int i = 0; i < startProfile.StartPartyMembers.Count; i++)
+                {
+                    CharacterSO characterSO = startProfile.StartPartyMembers[i];
+                    if (characterSO == null)
+                    {
+                        continue;
+                    }
+
+                    CharacterRuntimeData member = new CharacterRuntimeData
+                    {
+                        characterSO = characterSO,
+                        isDead = false
+                    };
+                    BattleSession.PartyRuntimeData.Members.Add(member);
+                }
+            }
+
             startProfileApplied = true;
         }
 

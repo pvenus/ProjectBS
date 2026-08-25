@@ -932,8 +932,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.7897, y: -5.9}
-  m_SizeDelta: {x: -34.3028, y: -34.3024}
+  m_AnchoredPosition: {x: -0.7894592, y: -6.1000023}
+  m_SizeDelta: {x: -39.2696, y: -39.2691}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2598841997997908738
 MonoBehaviour:
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
-  m_ShowMaskGraphic: 0
+  m_ShowMaskGraphic: 1
 --- !u!222 &4740709485828040448
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1098,7 +1098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.876617, y: -48.123383}
+  m_AnchoredPosition: {x: 31.876984, y: -31.876984}
   m_SizeDelta: {x: 63.754, y: 63.754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3273524129676988908
@@ -1157,9 +1157,6 @@ MonoBehaviour:
   stateOverlayImage: {fileID: 0}
   cooldownText: {fileID: 0}
   stateText: {fileID: 0}
-  availableColor: {r: 0.24, g: 0.78, b: 0.42, a: 0.9}
-  unavailableColor: {r: 0.65, g: 0.18, b: 0.18, a: 0.82}
-  passiveColor: {r: 0.24, g: 0.48, b: 0.82, a: 0.82}
 --- !u!114 &3273524129676988907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,8 +1751,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 59.51, y: 37.4}
-  m_SizeDelta: {x: 161.54, y: 183.6571}
+  m_AnchoredPosition: {x: 58.72, y: 37.4}
+  m_SizeDelta: {x: 161.3128, y: 176.3688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5482661771789093569
 CanvasRenderer:
@@ -1785,7 +1782,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5063550676884631395, guid: 2775739aeac7a428292816ae6b1b8de7, type: 3}
+  m_Sprite: {fileID: -856459904099266698, guid: 9e07c2bbfd78b4cd4a253d8a2eb7076d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
