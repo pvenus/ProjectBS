@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.vital_training",
+  "groupId": "god.common",
+  "nameKo": "체력 단련",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/survival/[2] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/survival/[2] StatModifierEffectSO.asset",
+  "iconGuid": "cab4e977fbf6749bcaea262ab235bc12",
+  "iconFileId": 1722370060,
+  "category": "Survival",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.vital_training.entry",
+      "effect": {
+        "effectId": "effect.bless.vital_training",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.vital_training",
+        "description": "",
+        "config": {
+          "statType": "MaxHpPercent",
+          "modifierType": "Flat",
+          "value": 10
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

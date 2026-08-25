@@ -1,0 +1,51 @@
+{
+  "faithId": "faith.arcane",
+  "nameKo": "현천관",
+  "descriptionKo": "도술과 선인의 신전",
+  "godType": "None",
+  "shrineGodAssetPath": "",
+  "sourceReference": "EL-동양풍 신전 v2 - 진행중-210826-181657.pdf p.2-3",
+  "basicBlessing": {
+    "featureId": "faith.arcane.basic",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "nameKo": "선인의 묘수",
+    "levels": [
+      { "level": 1, "descriptionKo": "스킬 사용 시 3% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 2, "descriptionKo": "스킬 사용 시 4% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 3, "descriptionKo": "스킬 사용 시 5% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 4, "descriptionKo": "스킬 사용 시 6% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 5, "descriptionKo": "스킬 사용 시 7% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 6, "descriptionKo": "스킬 사용 시 8% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 7, "descriptionKo": "스킬 사용 시 9% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 8, "descriptionKo": "스킬 사용 시 10% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 9, "descriptionKo": "스킬 사용 시 11% 확률로 해당 스킬의 쿨타임 초기화" },
+      { "level": 10, "descriptionKo": "스킬 사용 시 12% 확률로 해당 스킬의 쿨타임 초기화" }
+    ]
+  },
+  "exclusiveJobChange": {
+    "featureId": "faith.arcane.job_change",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 0,
+    "faithLockRequirement": "Unspecified",
+    "transitions": [
+      { "fromJob": "ScholarBase", "toJob": "ScholarAltFirst", "fromNameKo": "유생", "toNameKo": "도사" },
+      { "fromJob": "ScholarAltFirst", "toJob": "ScholarAltSecond", "fromNameKo": "도사", "toNameKo": "전우치" }
+    ]
+  },
+  "exclusiveBless1": {
+    "featureId": "faith.arcane.exclusive_1",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 5,
+    "faithLockRequirement": "Required",
+    "nameKo": "5단계 추가 효과",
+    "descriptionKo": "공격력 30 증가"
+  },
+  "exclusiveBless2": {
+    "featureId": "faith.arcane.exclusive_2",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 8,
+    "faithLockRequirement": "Required",
+    "nameKo": "8단계 추가 효과",
+    "descriptionKo": "스킬 쿨타임 초기화 확률 +3% 추가 증가"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.minor_fortune",
+  "groupId": "god.common",
+  "nameKo": "작은 행운",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/utility/[2] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/utility/[2] StatModifierEffectSO.asset",
+  "iconGuid": "ca311b362e83148d7b084e03e817c328",
+  "iconFileId": -274536901,
+  "category": "Utility",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.minor_fortune.entry",
+      "effect": {
+        "effectId": "effect.bless.minor_fortune",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.minor_fortune",
+        "description": "",
+        "config": {
+          "statType": "GoldGain",
+          "modifierType": "Flat",
+          "value": 10
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

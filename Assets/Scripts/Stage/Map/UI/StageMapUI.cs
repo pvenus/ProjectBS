@@ -1,7 +1,6 @@
-
-
 using System.Collections.Generic;
 using System.Collections;
+using Common.SO;
 using UnityEngine;
 
 namespace Stage.UI
@@ -15,6 +14,7 @@ namespace Stage.UI
         [Header("References")]
         [SerializeField] private StageManager stageManager;
         [SerializeField] private RectTransform nodeRoot;
+        [SerializeField] private NodeTypeIconLibrarySO iconLibrary;
         [SerializeField] private RoundNodeButton nodeButtonPrefab;
 
         [Header("Layout")]

@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.thick_skin",
+  "groupId": "god.common",
+  "nameKo": "두꺼운 피부",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/survival/[1] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/survival/[1] StatModifierEffectSO.asset",
+  "iconGuid": "cab4e977fbf6749bcaea262ab235bc12",
+  "iconFileId": 3536749,
+  "category": "Survival",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.thick_skin.entry",
+      "effect": {
+        "effectId": "effect.bless.thick_skin",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.thick_skin",
+        "description": "",
+        "config": {
+          "statType": "Defense",
+          "modifierType": "Flat",
+          "value": 8
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

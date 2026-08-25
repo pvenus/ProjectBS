@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.rapid_growth",
+  "groupId": "god.common",
+  "nameKo": "빠른 성장",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/utility/[1] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/utility/[1] StatModifierEffectSO.asset",
+  "iconGuid": "21c03474a4a8d46e6aa938d434876c44",
+  "iconFileId": -1439432008,
+  "category": "Utility",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.rapid_growth.entry",
+      "effect": {
+        "effectId": "effect.bless.rapid_growth",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.rapid_growth",
+        "description": "",
+        "config": {
+          "statType": "ExpGain",
+          "modifierType": "Flat",
+          "value": 10
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

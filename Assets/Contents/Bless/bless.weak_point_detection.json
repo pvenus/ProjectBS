@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.weak_point_detection",
+  "groupId": "god.common",
+  "nameKo": "약점 포착",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/attack/[3] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/attack/[3] StatModifierEffectSO.asset",
+  "iconGuid": "21c03474a4a8d46e6aa938d434876c44",
+  "iconFileId": 678496109,
+  "category": "Offense",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.weak_point_detection.entry",
+      "effect": {
+        "effectId": "effect.bless.weak_point_detection",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.weak_point_detection",
+        "description": "",
+        "config": {
+          "statType": "CritChance",
+          "modifierType": "Flat",
+          "value": 5
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

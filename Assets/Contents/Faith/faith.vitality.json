@@ -1,0 +1,40 @@
+{
+  "faithId": "faith.vitality",
+  "nameKo": "약왕전",
+  "descriptionKo": "생명과 의술의 신전",
+  "godType": "Life",
+  "shrineGodAssetPath": "",
+  "sourceReference": "EL-동양풍 신전 v2 - 진행중-210826-181657.pdf p.5",
+  "basicBlessing": {
+    "featureId": "faith.vitality.basic",
+    "sourceStatus": "PendingSource",
+    "nameKo": "",
+    "levels": []
+  },
+  "exclusiveJobChange": {
+    "featureId": "faith.vitality.job_change",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 0,
+    "faithLockRequirement": "Unspecified",
+    "transitions": [
+      { "fromJob": "PhysicianBase", "toJob": "PhysicianAltFirst", "fromNameKo": "의관", "toNameKo": "신의관" },
+      { "fromJob": "PhysicianAltFirst", "toJob": "PhysicianAltSecond", "fromNameKo": "신의관", "toNameKo": "유의태" }
+    ]
+  },
+  "exclusiveBless1": {
+    "featureId": "faith.vitality.exclusive_1",
+    "sourceStatus": "PendingSource",
+    "unlockLevel": 5,
+    "faithLockRequirement": "Required",
+    "nameKo": "",
+    "descriptionKo": ""
+  },
+  "exclusiveBless2": {
+    "featureId": "faith.vitality.exclusive_2",
+    "sourceStatus": "PendingSource",
+    "unlockLevel": 8,
+    "faithLockRequirement": "Required",
+    "nameKo": "",
+    "descriptionKo": ""
+  }
+}

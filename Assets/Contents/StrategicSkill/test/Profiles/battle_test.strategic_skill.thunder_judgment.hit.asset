@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5550ec0d2648a8b86ff0ba5b405e9, type: 3}
+  m_Name: battle_test.strategic_skill.thunder_judgment.hit
+  m_EditorClassIdentifier: Assembly-CSharp::SkillHitSO
+  hitId: battle_test.strategic_skill.thunder_judgment.hit
+  maxHitCount: 16
+  ignoreSameRoot: 1
+  useRepeatInterval: 0
+  repeatInterval: 0.25
+  hitStartTime: 0
+  deactivateAfterFirstHit: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  damage:
+    damageType: 3
+    baseDamage: 80
+    firstHitBaseDamage: 80
+    attackPercentDamage: 0
+    canCritical: 0
+    ignoreDefense: 1
+  skillSpawn:
+    spawnSkill: {fileID: 0}
+  effects:
+    buffEffects: []
+    debuffEffects:
+    - {fileID: 11400000, guid: a64c394bb860dfd4580862c5595a87b4, type: 2}
+  split:
+    useSplitMultiHitDamage: 0
+    splitHitCount: 1
+    splitHitInterval: 0

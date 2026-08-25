@@ -1,0 +1,71 @@
+# Sprite Mapping SO - 사용 가이드
+
+본 가이드는 기존 JSON 텍스트 기반 매핑 파일 대신, ScriptableObject(SO)와 실제 Sprite 에셋 참조를 직접 매핑하는 **SpriteMappingSO** 기반 워크플로우의 최신 세팅 가이드입니다.
+
+---
+
+### 1. 이미지 폴더 준비 방법
+UI에 사용할 이미지(Sprite)들을 프로젝트 폴더 (예: `Assets/Images/UI`) 내에 정리합니다.
+- Single Sprite 모드로 설정된 이미지나, Multiple Sprite 모드로 잘린 이미지 모두 지원됩니다.
+- 한 폴더 하위에 여러 하위 폴더가 있어도 자동으로 검색(Generate)됩니다.
+
+### 2. UISpriteMappingProfileSO 생성 방법
+1. Project 창 빈 공간에서 우클릭 -> **Create** -> **UI** -> **Sprite Mapping Profile** 선택
+2. 생성된 SO 파일의 이름을 적절히 변경합니다 (예: `LobbyMainSpriteProfile.asset`).
+
+### 3. baseImageFolder 지정 방법
+1. 방금 생성한 SO 파일을 선택합니다.
+2. Inspector 창에서 `Base Image Folder` 필드에, 적용할 Sprite들이 모여있는 폴더(DefaultAsset)를 Project 창에서 드래그 앤 드롭하여 할당합니다.
+   (예: `Assets/Images/Lobby`)
+
+### 4. Generate / Refresh Mapping Profile 사용 방법
+**목적:** 대상 UI(프리팹/오브젝트) 하위의 모든 Image 컴포넌트를 스캔하고, 지정된 이미지 폴더 내의 Sprite 이름과 매칭되는 항목들을 SO에 자동 등록합니다.
+
+1. Hierarchy에 대상 UI(Root GameObject)를 띄워두거나 선택합니다.
+2. 상단 메뉴 **Tools** -> **UI** -> **Auto Sprite Applier (SO)** 를 실행합니다.
+3. 툴 창에서 `Mapping Profile` 필드에 방금 만든 SO 파일을 드래그합니다.
+4. "Draft Generator / Refresher" 섹션에서 생성 옵션(Include Unmatched Objects 등)을 확인합니다.
+5. **[Generate / Refresh Mapping Profile]** 버튼을 클릭합니다.
+6. SO 파일을 열어보면, UI의 Image 오브젝트 이름과 매칭되는 실제 Sprite가 `Entries` 리스트에 자동으로 할당된 것을 확인할 수 있습니다.
+
+### 5. Entry 확인 및 수동 수정 방법
+1. 생성된 `UISpriteMappingProfileSO`를 Inspector에서 확인합니다.
+2. `Entries` 리스트에서 각 항목을 열어봅니다.
+   - **Path**: 하이어라키 경로 (중복 오브젝트명 식별용)
+   - **ObjectName**: 매칭 대상 Image 오브젝트 이름
+   - **Sprite**: 적용할 실제 이미지 파일 (드래그 앤 드롭으로 수동 변경 가능)
+   - **Enabled**: 체크 해제 시 Apply 단계에서 이 항목을 무시합니다.
+3. 매칭되지 않거나 엉뚱한 이미지로 매칭된 경우 수동으로 수정하거나 새 Entry를 추가합니다.
+
+### 6. UI Prefab / Object 선택 후 Apply 하는 방법
+1. Hierarchy에서 적용할 UI GameObject를 선택하거나, Project 창에서 Prefab 애셋을 선택합니다.
+2. Auto Sprite Applier 창에서 **Target Mode**가 적절히 설정되었는지 확인합니다.
+   - Hierarchy 선택 시: `Selected Hierarchy Object`
+   - Prefab 선택 시: `Selected Prefab Assets`
+3. `Mapping Profile`에 SO가 할당되어 있는지 확인합니다.
+4. **[Apply]** 버튼을 누릅니다.
+5. 등록된 Entry를 기준으로 Image.sprite가 일괄 교체됩니다.
+
+### 7. Prefab Folder 일괄 적용 방법
+동일한 구조의 프리팹이 여러 개 있는 폴더에 한 번에 적용하려면:
+1. Project 창에서 대상 **폴더**들을 선택합니다.
+2. 툴 창에서 Target Mode를 **Selected Folders Recursive**로 변경합니다.
+3. **[Apply]** 버튼을 누르면 폴더 안의 모든 프리팹을 자동으로 로드하여 이미지를 적용하고 저장합니다.
+
+### 8. Dry Run / Validate 사용 방법
+- **[Dry Run]**:
+  실제로 프리팹/씬을 수정하지 않고, 콘솔 창에 어떤 이미지가 교체될지, 누락되거나 오류가 날 항목은 없는지 리포트만 출력합니다. (사전 점검용)
+- **[Validate Profile]**:
+  현재 SO의 무결성을 검사합니다. 매핑된 Sprite가 삭제되었거나 None인지, 중복 Path/ObjectName이 있는지, Base Image Folder 외부의 Sprite를 참조하고 있는지 등을 콘솔로 알려줍니다.
+
+### 9. Multiple Sprite 사용 시 주의사항
+- Multiple Sprite의 서브 이미지들도 모두 Generate 타겟으로 자동 수집됩니다.
+- 단, 파일 이름이 아니라 잘려진 **서브 Sprite의 이름**과 UI Image 오브젝트의 이름을 비교하여 매칭합니다.
+- 매핑 SO에는 단순 경로 문자열이 아닌 **Sprite 객체의 직접 참조(Reference)**가 저장되므로, Apply 시 파일 구분이 필요 없이 단일 객체처럼 안전하게 적용됩니다.
+
+### 10. 기존 JSON 방식에서 SO 방식으로 전환하는 방법
+1. 기존 JSON 파일을 기반으로 생성된 UI 프리팹을 하이어라키에 올려둡니다. (이미 정상적인 Sprite들이 할당된 상태)
+2. 새로운 `UISpriteMappingProfileSO`를 만들고 Base Folder를 지정합니다.
+3. 해당 프리팹을 선택하고 Auto Sprite Applier 창에서 **[Generate / Refresh Mapping Profile]**을 실행합니다.
+4. (선택) `Preserve Existing Entries` 또는 현재 적용된 Sprite 기준으로 스캔하도록 하면 자동으로 SO로 마이그레이션이 완료됩니다.
+5. 기존 JSON 파일은 삭제해도 무방합니다.

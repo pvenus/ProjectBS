@@ -61,7 +61,11 @@ namespace Shop
             OpenShop(defaultPools, itemCount, shopType);
         }
 
-        public void OpenShop(List<ShopItemPoolSO> pools, int generateCount, ShopType targetShopType = ShopType.Normal)
+        public void OpenShop(
+            List<ShopItemPoolSO> pools,
+            int generateCount,
+            ShopType targetShopType = ShopType.Normal,
+            int fallbackPrice = 0)
         {
             if (pools == null
                 || pools.Count == 0)
@@ -72,7 +76,11 @@ namespace Shop
 
             fixedRandom = useFixedSeed ? new System.Random(seed) : null;
 
-            currentShop = GenerateShop(pools, generateCount, targetShopType);
+            currentShop = GenerateShop(
+                pools,
+                generateCount,
+                targetShopType,
+                fallbackPrice);
             if (currentShop == null)
             {
                 Debug.LogWarning("[StageShopManager] OpenShop failed. Generated shop is null.");
@@ -141,7 +149,7 @@ namespace Shop
                 return false;
             }
 
-            if (!purchaseService.TryPurchase(product))
+            if (!purchaseService.TryPurchase(product, item.price))
             {
                 Debug.LogWarning(
                     $"[StageShopManager] Purchase service failed. product={product.DisplayName}");
@@ -151,7 +159,7 @@ namespace Shop
 
             item.MarkPurchased();
 
-            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={product.price}, remainingGold={CurrencyManager.Instance.Gold}");
+            Debug.Log($"[StageShopManager] Purchased: {item.DisplayName}, price={item.price}, remainingGold={CurrencyManager.Instance.Gold}");
 
             OnGoldChanged?.Invoke(CurrencyManager.Instance.Gold);
             OnItemPurchased?.Invoke(item);
@@ -208,7 +216,8 @@ namespace Shop
         private ShopRuntimeData GenerateShop(
             List<ShopItemPoolSO> pools,
             int generateCount,
-            ShopType targetShopType)
+            ShopType targetShopType,
+            int fallbackPrice)
         {
             List<ShopItemPoolSO> selectedPools =
                 pools
@@ -300,7 +309,7 @@ namespace Shop
                     ShopRuntimeItem runtimeItem =
                         new ShopRuntimeItem(
                             selectedProduct,
-                            selectedProduct.price,
+                            ResolvePrice(selectedProduct, fallbackPrice),
                             runtimeIndex,
                             pool.poolId);
 
@@ -323,6 +332,18 @@ namespace Shop
             }
 
             return shop;
+        }
+
+        private static int ResolvePrice(
+            ShopProductSO product,
+            int fallbackPrice)
+        {
+            if (product != null && product.price > 0)
+            {
+                return product.price;
+            }
+
+            return Mathf.Max(0, fallbackPrice);
         }
 
         private List<ShopProductSO> GetCandidates(

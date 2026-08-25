@@ -1,0 +1,83 @@
+====================================================================
+Lobby UI Test Scene - Setup Guide (최신 완전판)
+====================================================================
+
+이 문서는 프로젝트의 로비 관련 UI(상점, 신전, 전투 진입 등)를 
+독립된 환경에서 실제 게임과 동일한 인터페이스(Manager Proxy)를 통해 
+테스트하기 위한 환경 구성 가이드입니다. 
+
+문서가 업데이트될 때마다 이전 내용을 지우고 전체 구성 방법을 다시 작성합니다.
+
+--------------------------------------------------------------------
+1. 씬 생성 및 초기화
+--------------------------------------------------------------------
+1) 유니티 에디터 상단 메뉴에서 [Tools -> UI -> Create Lobby UI Test Scene]을 클릭합니다.
+2) 자동으로 "LobbyUITestScene"이 생성되고, Hierarchy에 테스트에 필요한
+   캔버스와 루트 오브젝트들이 모두 자동 세팅됩니다.
+   * 이미 씬이 있는 경우 [Tools -> UI -> Update Current Test Scene]을 
+     눌러 누락된 매니저(예: StringManager)만 추가할 수 있습니다.
+3) **매우 중요**: 생성된 씬을 반드시 파일로 저장(Ctrl + S)합니다. 
+   (저장하지 않고 Play 시 SerializedObjectNotCreatableException 발생)
+
+--------------------------------------------------------------------
+2. EventPopup 테스트 구성
+--------------------------------------------------------------------
+- 대상 게임 오브젝트: Hierarchy의 `LobbyUITestRunner` / `EventPopupTestScenario`
+- 컴포넌트 타입: `EventPopupTestScenario`
+- 인스펙터 설정:
+  1) [Event Popup Prefab] 슬롯
+     - 요구 타입: `EventPopupView`
+     - 에셋 경로: `Assets/Prefabs/UIPopup/UI_EventPopup.prefab`
+  2) Mock Event Data (shrineEventData, shopEventData 등)
+     - 코드 내부에 기본값이 하드코딩되어 있으므로 인스펙터에서 비워두어도 테스트 진입 시 자동으로 주입됩니다.
+
+--------------------------------------------------------------------
+3. 상점(Shop) 테스트 구성
+--------------------------------------------------------------------
+- 대상 게임 오브젝트: Hierarchy의 `LobbyUITestRunner` / `TestShopManager`
+- 컴포넌트 타입: `TestShopManager` (구현 인터페이스: `IShopManager`)
+- 인스펙터 설정:
+  1) [Shop Page Prefab] 슬롯
+     - 요구 타입: `ShopPage`
+     - 에셋 경로: `Assets/Prefabs/UIPopup/UI_ShopNormal.prefab`
+  2) [Mock Shop Pools] 슬롯
+     - 요구 타입: `ShopItemPoolSO`
+     - Relic Pool 슬롯: 실제 게임에서 사용하는 유물 풀 에셋 드래그 (예: Assets/Resources/shop/... 에셋)
+     - Consumable Pool 슬롯: 실제 소모품 풀 에셋 드래그
+     - Tactic Pool 슬롯: 실제 전술 풀 에셋 드래그
+  3) [Generation Settings] (Items Per Pool)
+     - 요구 타입: `int`
+     - 각 카테고리(유물/소모품/전술) 탭당 임의로 표시할 샘플 아이템 개수를 지정합니다. (기본값: 3)
+
+--------------------------------------------------------------------
+4. 기타 Placeholder 매니저 세팅 (Shrine, Battle, Event)
+--------------------------------------------------------------------
+- 대상 게임 오브젝트: `TestShrineManager`, `TestBattleManager`, `TestRandomEventManager`
+- 인스펙터 설정:
+  - 현재 실제 UI가 완성되지 않은 콘텐츠들이므로, 임시 UI(Placeholder)를 연결합니다.
+  - 추후 실제 UI 프리팹(예: UI_Shrine.prefab)이 만들어지면 각 컴포넌트의 프리팹 슬롯을 해당 타입으로 교체하게 됩니다.
+
+--------------------------------------------------------------------
+5. 상단 바 유물 리스트 (Top Relic List) 테스트 구성
+--------------------------------------------------------------------
+- 대상 게임 오브젝트: Hierarchy 내 빈 오브젝트 (예: `LobbyUITestRunner`)
+- 부착된 컴포넌트: `TestItemManager` (구현 인터페이스: `IRelicListProvider`)
+- 인스펙터 설정:
+  1) [Mock God Relics] 리스트
+     - 요구 타입: `RelicSO`
+     - 실제 게임 에셋 중 신유물(예: `relicId`에 `.god.`가 포함된 에셋) 드래그 (Assets/Resources/relic/god 등)
+  2) [Mock Common Relics] 리스트
+     - 요구 타입: `RelicSO`
+     - 실제 게임 에셋 중 공용유물 드래그
+- **테스트 방법**: Play 모드 진입 후 `TestItemManager` 컴포넌트의 기어 모양(또는 우클릭) 메뉴에서 `[Refresh List]`를 클릭하면 즉시 화면 상단 유물 목록이 갱신됩니다.
+
+--------------------------------------------------------------------
+6. 테스트 실행 및 결과 확인 방법
+--------------------------------------------------------------------
+1) 모든 프리팹과 데이터가 연결되었다면 에디터 상단 Play(▶) 버튼을 누릅니다.
+2) 화면 우측의 [Test Panel]에서 "Shop Event Popup" 버튼을 누릅니다.
+3) 화면 중앙에 Event Popup이 뜨면 "물건을 본다" 선택지를 누릅니다.
+4) UI 간 연결 (EventPopup -> IShopManager -> TestShopManager -> ShopPage)이 
+   정상적으로 이루어지며, 할당한 Pool 데이터 기반으로 생성된 상점 UI가 열립니다.
+5) 모든 동작(구매 클릭 등)은 콘솔 창(Console Log)과 화면 좌측 상단의 DebugLogPanel에
+   상세히 출력되어 내부 데이터 처리 과정과 기능 작동 여부를 직관적으로 검증할 수 있습니다.

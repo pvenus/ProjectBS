@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.crisis_response",
+  "groupId": "god.common",
+  "nameKo": "위기 대응",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/survival/[4] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/survival/[4] StatModifierEffectSO.asset",
+  "iconGuid": "cab4e977fbf6749bcaea262ab235bc12",
+  "iconFileId": 44848452,
+  "category": "Survival",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.crisis_response.entry",
+      "effect": {
+        "effectId": "effect.bless.crisis_response",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.crisis_response",
+        "description": "",
+        "config": {
+          "statType": "LowHpDefenseBonus",
+          "modifierType": "Flat",
+          "value": 15
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

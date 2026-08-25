@@ -1,0 +1,59 @@
+{
+  "faithId": "faith.combat",
+  "nameKo": "혈호전",
+  "descriptionKo": "전투와 투쟁의 신전",
+  "godType": "War",
+  "shrineGodAssetPath": "",
+  "sourceReference": "EL-동양풍 신전 v2 - 진행중-210826-181657.pdf p.1-2",
+  "basicBlessing": {
+    "featureId": "faith.combat.basic",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "nameKo": "전장의 본능",
+    "levels": [
+      { "level": 1, "descriptionKo": "적 100마리 처치 시 공격력 +1" },
+      { "level": 2, "descriptionKo": "적 100마리 처치 시 공격력 +1.5" },
+      { "level": 3, "descriptionKo": "적 100마리 처치 시 공격력 +2" },
+      { "level": 4, "descriptionKo": "적 100마리 처치 시 공격력 +2.5" },
+      { "level": 5, "descriptionKo": "적 100마리 처치 시 공격력 +3" },
+      { "level": 6, "descriptionKo": "적 100마리 처치 시 공격력 +3.5" },
+      { "level": 7, "descriptionKo": "적 100마리 처치 시 공격력 +4" },
+      { "level": 8, "descriptionKo": "적 100마리 처치 시 공격력 +5" },
+      { "level": 9, "descriptionKo": "적 100마리 처치 시 공격력 +5.5" },
+      { "level": 10, "descriptionKo": "적 100마리 처치 시 공격력 +6" }
+    ]
+  },
+  "exclusiveJobChange": {
+    "featureId": "faith.combat.job_change",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 0,
+    "faithLockRequirement": "Unspecified",
+    "transitions": [
+      { "fromJob": "SoldierBase", "toJob": "SoldierFirst", "fromNameKo": "군졸", "toNameKo": "장군" },
+      { "fromJob": "SoldierFirst", "toJob": "SoldierSecond", "fromNameKo": "장군", "toNameKo": "이순신" },
+      { "fromJob": "ArcherBase", "toJob": "ArcherFirst", "fromNameKo": "궁수", "toNameKo": "신궁" },
+      { "fromJob": "ArcherFirst", "toJob": "ArcherSecond", "fromNameKo": "신궁", "toNameKo": "주몽" },
+      { "fromJob": "ScholarBase", "toJob": "ScholarFirst", "fromNameKo": "유생", "toNameKo": "병법가" },
+      { "fromJob": "ScholarFirst", "toJob": "ScholarSecond", "fromNameKo": "병법가", "toNameKo": "강감찬" },
+      { "fromJob": "PhysicianBase", "toJob": "PhysicianFirst", "fromNameKo": "의관", "toNameKo": "전장의 의원" },
+      { "fromJob": "PhysicianFirst", "toJob": "PhysicianSecond", "fromNameKo": "전장의 의원", "toNameKo": "허준" },
+      { "fromJob": "MonkBase", "toJob": "MonkFirst", "fromNameKo": "승려", "toNameKo": "금강승" },
+      { "fromJob": "MonkFirst", "toJob": "MonkSecond", "fromNameKo": "금강승", "toNameKo": "김윤후" }
+    ]
+  },
+  "exclusiveBless1": {
+    "featureId": "faith.combat.exclusive_1",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 5,
+    "faithLockRequirement": "Required",
+    "nameKo": "5단계 추가 효과",
+    "descriptionKo": "공격력 30 증가"
+  },
+  "exclusiveBless2": {
+    "featureId": "faith.combat.exclusive_2",
+    "sourceStatus": "ConfirmedDescriptionOnly",
+    "unlockLevel": 8,
+    "faithLockRequirement": "Required",
+    "nameKo": "8단계 추가 효과",
+    "descriptionKo": "공격력 50 증가"
+  }
+}

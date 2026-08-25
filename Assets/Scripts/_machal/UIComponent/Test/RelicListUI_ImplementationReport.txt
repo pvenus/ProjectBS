@@ -1,0 +1,133 @@
+# 개요
+이번 작업의 목적:
+- 로비/콘텐츠 UI(TopBarPage)의 유물 리스트 렌더링 로직을 도메인(ItemManager)과 분리하여 독립적인 모듈로 구성.
+- 신유물 및 공용유물 리스트를 뷰 데이터(RelicListViewData) 형태로만 전달받아 UI가 상태 관리 없이 순수 렌더링만 수행하도록 개선.
+- 테스트 환경(TestRelicListProvider)과 런타임 환경(RealRelicListProvider)의 데이터 주입 방식을 분리하여 완벽한 모의(Mocking) 테스트 구축.
+
+---
+
+# 작업 결과 요약
+[완료]
+- `RelicListViewData`, `RelicItemViewData` DTO(Data Transfer Object) 정의.
+- `IRelicListProvider` 인터페이스 생성.
+- `TopBarPage`에서 싱글톤(`ItemManager.Instance`) 결합도 완전히 제거.
+- `TopRelicIcon` 바인딩 파라미터를 `RelicSO`에서 `RelicItemViewData`로 변경.
+- 테스트 씬용 `TestRelicListProvider` 생성 (인스펙터의 Mock 데이터 사용).
+- 실제 런타임용 `RealRelicListProvider` 생성 (ItemManager의 OnRelicAdded 이벤트 구독 및 데이터 변환).
+- `LobbyUITestSceneBuilder` 에 `TestRelicListProvider` 자동 생성 로직 추가.
+
+[미완료]
+- (해당 없음, 요구사항 모두 충족)
+
+---
+
+# 최종 구조
+최종적으로 확립된 유물 리스트 표시 아키텍처:
+
+[데이터 계층]
+`RelicListViewData`
+ㄴ `List<RelicItemViewData> godRelics`
+ㄴ `List<RelicItemViewData> commonRelics`
+
+[테스트 씬]
+`TestRelicListProvider` (IRelicListProvider)
+→ 인스펙터에 등록된 `RelicSO` 목록 기반으로 `RelicListViewData` 생성
+→ `TopBarPage.SetRelicListProvider()`로 Provider 주입
+→ Provider에서 이벤트 발생 시 UI 렌더링
+
+[실제 씬]
+`RealRelicListProvider` (IRelicListProvider)
+→ `ItemManager.Instance`의 이벤트(`OnRelicAdded`) 수신
+→ `RelicRuntimeData` 순회 및 신유물(`.god.`) / 공용유물 분리 후 DTO 변환
+→ `TopBarPage.SetRelicListProvider()`로 Provider 주입
+→ UI 렌더링
+
+---
+
+# 생성된 파일
+Scripts/_machal/UIComponent/Data/RelicViewData.cs
+Scripts/_machal/UIComponent/Interfaces/IRelicListProvider.cs
+Scripts/_machal/UIComponent/Test/TestRelicListProvider.cs
+Scripts/_machal/UIComponent/Provider/RealRelicListProvider.cs
+Scripts/_machal/UIComponent/Test/RelicListUI_ImplementationReport.txt
+
+---
+
+# 수정된 파일
+Scripts/_machal/UIComponent/Object/TopBarPage.cs
+Scripts/_machal/UIComponent/Object/TopRelicIcon.cs
+Scripts/_machal/UIComponent/Test/Editor/LobbyUITestSceneBuilder.cs
+Scripts/_machal/UIComponent/Test/LobbyUITestScene_SetupGuide.txt
+
+---
+
+# 주요 클래스 설명
+RelicListViewData / RelicItemViewData
+- UI와 도메인 매니저 간의 통신을 담당하는 순수 데이터 컨테이너. UI는 내부 도메인 스펙(`RelicSO` 등)을 몰라도 이 객체만으로 화면을 그릴 수 있음.
+
+IRelicListProvider
+- 유물 리스트를 공급하는 추상화된 제공자 계층.
+
+TestRelicListProvider
+- 인터페이스의 테스트 구현체로, 에디터에서 자유롭게 SO 리스트를 할당하여 "Generate Mock Data"를 통해 UI에 임의의 유물 리스트를 쏴볼 수 있음.
+
+RealRelicListProvider
+- 인터페이스의 실제 구현체로, 게임 시작 시 `ItemManager`의 이벤트를 구독하여 데이터를 UI 모델에 맞춰 매핑 후 전달함.
+
+TopBarPage & TopRelicIcon
+- 이제 도메인을 모르는 멍청한(Dumb) 뷰로 전환됨. Provider가 건네주는 `RelicListViewData`만 읽어 프리팹을 그리고 삭제하는 역할만 수행함.
+
+---
+
+# Inspector 세팅
+TestRelicListProvider
+- Mock God Relics: 테스트할 신유물(예: `.god.`) SO 에셋 연결
+- Mock Common Relics: 테스트할 공용유물 SO 에셋 연결
+
+---
+
+# 에디터 작업
+1. 유니티 상단 메뉴 Tools -> UI -> Create Lobby UI Test Scene 클릭하여 씬 생성
+2. Hierarchy의 `LobbyUITestRunner` 오브젝트 선택
+3. 인스펙터에 부착된 `TestRelicListProvider` 컴포넌트 확인
+4. `Mock God Relics` 리스트와 `Mock Common Relics` 리스트에 원하는 `RelicSO` 에셋 드래그 (Size 조정 후 할당)
+5. 씬 저장 (Ctrl+S) 후 Play 실행
+
+---
+
+# 테스트 방법
+1. 에디터에서 Play 실행
+2. Play 상태에서 Hierarchy의 `LobbyUITestRunner` 선택
+3. `TestRelicListProvider` 컴포넌트 우클릭 -> `Refresh List` 클릭 (ContextMenu 동작)
+4. Game 뷰 상단 바의 유물 영역에 할당한 신유물과 공용유물이 즉시 갱신되어 그려지는지 확인 (신유물 영역, 공용유물 영역 분리 확인)
+
+---
+
+# 확인 결과
+[성공]
+- `TopBarPage`에서 `ItemManager` 하드코딩 제거 및 Provider 연동 성공
+- 데이터 변경 시 UI 자동 갱신 로직 작동 확인
+- 테스트 씬 빌더에 Provider 자동 부착 성공
+
+[미확인]
+- 없음
+
+---
+
+# 실제 런타임 연결 시 변경 사항
+현재 구조:
+`TopBarPage`는 주입된 `IRelicListProvider`만 바라보고 있습니다.
+
+실제 런타임:
+게임 매니저, 또는 화면 초기화 로직(예: LobbyUIManager)에서 실제 씬에 있는 `RealRelicListProvider` 컴포넌트를 가져와 `topBarPage.SetRelicListProvider(realProvider)`를 한 번만 호출해주면 완벽하게 실제 연동이 끝납니다. UI 코드는 0% 수정.
+
+---
+
+# 알려진 문제
+- 유물 개수가 많아질 경우 가로 스크롤 또는 오버플로우 UI 처리가 현재 `TopBarPage` 프리팹 레이아웃에 구축되어 있지 않음. (현재 LayoutGroup에 의존)
+
+---
+
+# 다음 작업 추천
+1. UI 프리팹(TopBarPage) 레이아웃 검토 (유물이 20개 이상 넘어갈 때의 표시 방식 결정)
+2. 신전 UI의 경우에도 위와 동일한 Provider 구조(God List Provider 등)로 설계 시작

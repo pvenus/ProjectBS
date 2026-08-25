@@ -1,0 +1,147 @@
+# 개요
+이번 작업의 목적:
+- Lobby UI 로직을 도메인 로직과 완벽히 분리하고, 모듈식 테스트가 가능한 Sandbox 환경을 구축한다.
+- Static Action(이벤트 버스) 기반의 강결합 라우팅을 폐기하고, Manager Proxy 패턴 (IShopManager 등)을 도입하여 테스트/런타임 호환성을 극대화한다.
+- UI 에셋 인스턴스화, 텍스트 현지화(StringManager), 에디터 Play 모드 진입 시 발생하는 각종 버그 및 예외를 수정한다.
+
+---
+
+# 작업 결과 요약
+[완료]
+- `LobbyUITestRunner` 및 `LobbyTestFlowController` 기반의 라우팅 분리 구축
+- Manager 인터페이스 (`IShopManager`, `IShrineManager`, `IBattleManager` 등) 정의 및 테스트용 Mock 구현체 생성
+- `TestShopManager`에 `ShopItemPoolSO` 기반 자동 상품 생성 로직 반영
+- `EventPopupView` 초기화 버그 픽스 (인스턴스화 시 gameObject.SetActive 누락 수정)
+- 데이터 SO(`RelicSO`, `StrategicSkillItemSO`)에 테스트 환경 방어 코드 추가 (`StringManager`가 없을 때 ID 반환)
+- Play 진입 시 `SerializedObjectNotCreatableException` 방지를 위한 에디터 스크립트 작성
+- 수동 세팅을 명확히 명시한 `LobbyUITestScene_SetupGuide.txt` 가이드라인 완전판 작성 완료
+
+[미완료]
+- 실제 `ShopManager` 연동을 통한 재화 및 인벤토리 실처리 로직
+- 신전(Shrine), 보상(Reward), 전투(Battle) 등 타 콘텐츠의 실제 UI 제작 및 샌드박스 연결
+
+---
+
+# 최종 구조
+최종적으로 확립된 Manager Proxy 아키텍처:
+
+[테스트 씬]
+우측 Test 버튼 클릭
+→ EventPopupView 표시
+→ 선택지 클릭
+→ LobbyTestFlowController 수신
+→ IShopManager.OpenShop() 호출
+→ TestShopManager 실행 (Mock 데이터 조합)
+→ ShopPage (UI 렌더링)
+
+[실제 씬]
+Lobby Map Node 선택
+→ EventPopupView 표시
+→ 선택지 클릭
+→ LobbyMapController(또는 실제 라우터) 수신
+→ IShopManager.OpenShop() 호출
+→ ShopManager 실행 (실제 게임 상태 기반 데이터 조합)
+→ ShopPage (UI 렌더링)
+
+---
+
+# 생성된 파일
+Scripts/_machal/UIComponent/Test/TestManagers.cs
+Scripts/_machal/UIComponent/Test/Editor/PlayModeSelectionClearer.cs
+Scripts/_machal/UIComponent/Test/LobbyUITestScene_SetupGuide.txt
+Scripts/_machal/UIComponent/Test/LobbyUITestArchitecture_ImplementationReport.txt
+
+---
+
+# 수정된 파일
+Scripts/_machal/UIComponent/Test/LobbyTestFlowController.cs
+Scripts/_machal/UIComponent/Test/Scenarios/EventPopupTestScenario.cs
+Scripts/_machal/UIComponent/Test/Editor/LobbyUITestSceneBuilder.cs
+Scripts/_machal/UIComponent/EventPopup/EventPopupView.cs
+Scripts/_machal/UIComponent/Object/ShopItemCard.cs
+Scripts/item/so/RelicSO.cs
+Scripts/item/so/StrategicSkillItemSO.cs
+
+---
+
+# 주요 클래스 설명
+LobbyTestFlowController
+- 테스트 환경에서 `EventPopupChoiceData`의 ActionType에 따라 적절한 Manager 인터페이스의 메서드를 호출(라우팅)하는 역할
+
+TestShopManager
+- `IShopManager` 인터페이스의 테스트 전용 구현체. 지정된 `ShopItemPoolSO`에서 랜덤으로 아이템을 추출하여 상점 페이지에 Mock 런타임 데이터를 주입함.
+
+PlayModeSelectionClearer
+- 유니티 에디터 Play 모드 진입 시 Hierarchy 선택을 자동으로 해제하여, 인스펙터의 파괴된 객체 참조 에러(SerializedObjectNotCreatableException)를 원천 차단함.
+
+EventPopupView & ShopPage
+- 뷰(View) 계층. 어떠한 도메인 매니저도 직접 참조하지 않으며, 오로지 `Show(Data, Callback)` 형태로 데이터를 주입받아 화면에 그리고 클릭 시 콜백만 반환함.
+
+---
+
+# Inspector 세팅
+LobbyTestFlowController
+- Shop Manager 필드: `TestShopManager` 컴포넌트 연결
+- Shrine Manager 필드: `TestShrineManager` 컴포넌트 연결
+
+TestShopManager
+- Shop Page Prefab: `ShopPage` UI 프리팹 연결 (`UI_ShopNormal.prefab`)
+- Relic Pool 등: 실제 `ShopItemPoolSO` 자산 연결 (자동 아이템 생성을 위함)
+
+---
+
+# 에디터 작업
+처음부터 테스트 씬을 구성하는 절차:
+1. 유니티 상단 메뉴 Tools -> UI -> Create Lobby UI Test Scene 클릭 (씬 생성 및 CoreManagers 자동 추가됨)
+2. Hierarchy에서 `LobbyUITestRunner / EventPopupTestScenario` 선택
+3. Event Popup Prefab 슬롯에 `UI_EventPopup` 프리팹 할당
+4. Hierarchy에서 `LobbyUITestRunner / TestShopManager` 선택
+5. Shop Page Prefab 슬롯에 `UI_ShopNormal` 프리팹 할당
+6. Mock Shop Pools 슬롯들에 각각 알맞은 `ShopItemPoolSO` (유물, 전술, 소모품 풀) 할당
+7. 씬 저장 (Ctrl + S)
+
+---
+
+# 테스트 방법
+1. 유니티 Editor에서 씬 저장 후 Play(▶) 실행
+2. 화면 우측 Test Panel에서 'Shop Event Popup' 버튼 클릭
+3. 생성된 이벤트 팝업 UI에서 '물건을 본다' 버튼 클릭
+4. 콘솔 로그 출력과 함께 상점 UI가 열리고, 설정한 Pool 데이터 기반으로 상품이 카테고리별로 배치되어 있는지 확인
+5. 아이템의 Buy 버튼을 눌렀을 때 콘솔에 클릭 로그와 구매 처리 로직이 동작하는지 확인
+
+---
+
+# 확인 결과
+[성공]
+- Test Panel 버튼 -> 이벤트 팝업 정상 표시 (비활성 프리팹 활성화 버그 해결)
+- 팝업 선택지 클릭 -> FlowController 정상 라우팅 -> TestShopManager.OpenShop() 호출 성공
+- TestShopManager에 의한 상점 아이템 풀 기반 데이터 Mocking 및 UI 렌더링
+- 에디터 Play 모드 진입 시 크래시 미발생 확인
+- 아이템 이름 및 설명 표시 시 StringManager Null 예외 처리 정상 작동 확인 (임시 텍스트 노출)
+- ShopItemCard의 골드 부족 방어 처리 정상 작동 (테스트 환경 9999 골드 지급)
+
+[미확인]
+- 신전 UI 등 타 UI 렌더링 연동 (아직 타 UI 프리팹이 개발되지 않음)
+
+---
+
+# 실제 런타임 연결 시 변경 사항
+현재 구조:
+UI 내부 로직은 철저하게 `IShopManager` 등 인터페이스만 바라보고 있으며, `LobbyTestFlowController`가 `TestShopManager`를 주입해 동작함.
+
+실제 런타임:
+동일하게 UI 코드는 단 1줄도 수정할 필요가 없음. 실제 씬의 게임 컨트롤러(예: LobbyMapController)에서 `TestShopManager` 대신 실제 `ShopManager` 구현체를 UI로 주입(Inject)해주기만 하면 완벽히 실제 흐름으로 전환됨.
+
+---
+
+# 알려진 문제
+- 상점 아이템 구매 시 실제 재화(CurrencyManager) 차감 로직 미구현 (UI상에서 상태 변경 시각적 갱신만 처리됨)
+- 테스트 환경에서 StringManager가 Null일 때 번역본이 아닌 ID 텍스트가 그대로 노출됨 (테스트를 위한 의도된 동작이지만 다국어 레이아웃 검증은 한계가 있음)
+
+---
+
+# 다음 작업 추천
+1. 신전(Shrine) UI 컴포넌트 설계 및 프리팹 제작
+2. 제작된 신전 UI를 `TestShrineManager`에 연동하여 이벤트 팝업 -> 신전 진입 흐름 테스트
+3. 실제 `ShopManager` 구현 및 재화/인벤토리 차감 연동
+4. 전투 진입(Battle Start) 관련 프리팹 제작 및 Manager 연동

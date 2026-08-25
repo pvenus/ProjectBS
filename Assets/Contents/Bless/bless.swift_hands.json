@@ -1,0 +1,37 @@
+{
+  "blessingId": "bless.swift_hands",
+  "groupId": "god.common",
+  "nameKo": "빠른 손놀림",
+  "descriptionKo": "",
+  "sourceAssetPath": "Assets/Resources/bless/Common/attack/[2] Shrine Blessing SO.asset",
+  "sourceEffectAssetPath": "Assets/Resources/bless/Common/attack/[2] StatModifierEffectSO.asset",
+  "iconGuid": "21c03474a4a8d46e6aa938d434876c44",
+  "iconFileId": 1927308731,
+  "category": "Offense",
+  "godType": "None",
+  "durationType": "Permanent",
+  "durationBattleCount": -1,
+  "tags": [],
+  "effectEntries": [
+    {
+      "entryId": "effect.bless.swift_hands.entry",
+      "effect": {
+        "effectId": "effect.bless.swift_hands",
+        "effectType": "StatModifier",
+        "effectName": "effect.bless.swift_hands",
+        "description": "",
+        "config": {
+          "statType": "AttackSpeedPercent",
+          "modifierType": "Flat",
+          "value": 8
+        }
+      },
+      "lifetimeType": "Manual",
+      "categoryType": "Buff",
+      "duration": 0,
+      "maxApplyCount": 1,
+      "hasValueOverride": false,
+      "valueOverride": 0
+    }
+  ]
+}

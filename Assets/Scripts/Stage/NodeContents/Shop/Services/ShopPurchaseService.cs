@@ -24,18 +24,39 @@ namespace Shop
         public bool CanPurchase(
             ShopProductSO product)
         {
+            return CanPurchase(
+                product,
+                product != null ? product.price : 0);
+        }
+
+        public bool CanPurchase(
+            ShopProductSO product,
+            int price)
+        {
             if (product == null)
             {
                 return false;
             }
 
-            return CurrencyManager.Instance.CanSpendGold(product.price);
+            return CurrencyManager.Instance.CanSpendGold(
+                Mathf.Max(0, price));
         }
 
         public bool TryPurchase(
             ShopProductSO product)
         {
-            if (!CanPurchase(product))
+            return TryPurchase(
+                product,
+                product != null ? product.price : 0);
+        }
+
+        public bool TryPurchase(
+            ShopProductSO product,
+            int price)
+        {
+            int purchasePrice = Mathf.Max(0, price);
+
+            if (!CanPurchase(product, purchasePrice))
             {
                 return false;
             }
@@ -45,7 +66,7 @@ namespace Shop
                 return false;
             }
 
-            CurrencyManager.Instance.TrySpendGold(product.price);
+            CurrencyManager.Instance.TrySpendGold(purchasePrice);
 
             Debug.Log(
                 $"[ShopPurchaseService] Purchase success. product={product.DisplayName}, remainGold={CurrencyManager.Instance.Gold}");
