@@ -32,6 +32,7 @@ namespace Character
         [SerializeField] private CharacterJob job;
 
         [Header("Presentation")]
+        [SerializeField] private Sprite portrait;
         [SerializeField, Min(0.01f)] private float scale = 0.2f;
 
 
@@ -47,6 +48,7 @@ namespace Character
         public string CharacterId => characterId;
         public CharacterType CharacterType => characterType;
         public CharacterJob Job => job;
+        public Sprite Portrait => portrait;
         public float Scale => Mathf.Max(0.01f, scale);
         public IReadOnlyList<CharacterAnimationClipEntry> AnimationClips => animationClips;
         public IReadOnlyList<CharacterSkillEntry> Skills => skills;

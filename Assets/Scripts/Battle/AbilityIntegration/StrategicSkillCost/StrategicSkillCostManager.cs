@@ -21,12 +21,28 @@ namespace Battle
         private float passiveGainTimer;
         private int lastNotifiedGauge = -1;
         private int lastNotifiedMaxGauge = -1;
+        private float lastNotifiedPassiveGainPerSecond = float.NaN;
         private bool isCharacterDeathEventRegistered;
         public int CurrentGauge => runtimeData != null ? runtimeData.CurrentGauge : 0;
         public int MaxGauge => runtimeData != null ? runtimeData.MaxGauge : config != null ? config.maxGauge : 100;
         public float GaugeRate => runtimeData != null ? runtimeData.GaugeRate : 0f;
+        public float PassiveGainPerSecond
+        {
+            get
+            {
+                if (config == null || runtimeData == null ||
+                    !config.usePassiveGain || config.passiveGainInterval <= 0f ||
+                    runtimeData.IsGainBlocked)
+                {
+                    return 0f;
+                }
+
+                return runtimeData.GetPassiveGain() / config.passiveGainInterval;
+            }
+        }
 
         public event Action<int, int> OnGaugeChanged = delegate { };
+        public event Action<float> OnPassiveGainRateChanged = delegate { };
 
         private void Awake()
         {
@@ -39,6 +55,7 @@ namespace Battle
             Instance = this;
             runtimeData = new StrategicSkillCostRuntimeData(config);
             NotifyGaugeChanged();
+            NotifyPassiveGainRateChanged();
         }
         private void OnEnable()
         {
@@ -95,6 +112,7 @@ namespace Battle
             }
 
             NotifyGaugeChanged();
+            NotifyPassiveGainRateChanged();
         }
 #endif
 
@@ -184,6 +202,7 @@ namespace Battle
             {
                 runtimeData = new StrategicSkillCostRuntimeData(config);
                 NotifyGaugeChanged();
+                NotifyPassiveGainRateChanged();
                 return;
             }
 
@@ -212,6 +231,7 @@ namespace Battle
 
             runtimeData.SetGainMultiplier(multiplier);
             NotifyGaugeChangedIfNeeded();
+            NotifyPassiveGainRateChangedIfNeeded();
         }
 
         public void AddFlatGainBonus(int amount)
@@ -223,6 +243,7 @@ namespace Battle
 
             runtimeData.AddFlatGainBonus(amount);
             NotifyGaugeChangedIfNeeded();
+            NotifyPassiveGainRateChangedIfNeeded();
         }
 
         public void SetFlatGainBonus(int amount)
@@ -234,6 +255,7 @@ namespace Battle
 
             runtimeData.SetFlatGainBonus(amount);
             NotifyGaugeChangedIfNeeded();
+            NotifyPassiveGainRateChangedIfNeeded();
         }
 
         public void SetGainBlocked(bool isBlocked)
@@ -245,11 +267,13 @@ namespace Battle
 
             runtimeData.SetGainBlocked(isBlocked);
             NotifyGaugeChangedIfNeeded();
+            NotifyPassiveGainRateChangedIfNeeded();
         }
 
         public void ForceNotifyGaugeChanged()
         {
             NotifyGaugeChanged();
+            NotifyPassiveGainRateChanged();
         }
 
         private void NotifyGaugeChanged()
@@ -267,6 +291,26 @@ namespace Battle
             }
 
             NotifyGaugeChanged();
+        }
+
+        private void NotifyPassiveGainRateChanged()
+        {
+            float passiveGainPerSecond = PassiveGainPerSecond;
+            lastNotifiedPassiveGainPerSecond = passiveGainPerSecond;
+            OnPassiveGainRateChanged?.Invoke(passiveGainPerSecond);
+        }
+
+        private void NotifyPassiveGainRateChangedIfNeeded()
+        {
+            float passiveGainPerSecond = PassiveGainPerSecond;
+            if (Mathf.Approximately(
+                    lastNotifiedPassiveGainPerSecond,
+                    passiveGainPerSecond))
+            {
+                return;
+            }
+
+            NotifyPassiveGainRateChanged();
         }
     }
 }

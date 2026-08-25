@@ -52,7 +52,9 @@ namespace UI
             if (iconImage != null)
             {
                 iconImage.sprite = content.Identity?.Icon;
-                iconImage.enabled = iconImage.sprite != null;
+                bool hasIcon = iconImage.sprite != null;
+                iconImage.enabled = hasIcon;
+                iconImage.gameObject.SetActive(hasIcon);
             }
 
             SetOptionalText(descriptionText, content.Description);
@@ -129,6 +131,7 @@ namespace UI
             {
                 iconImage.sprite = null;
                 iconImage.enabled = false;
+                iconImage.gameObject.SetActive(false);
             }
             SetOptionalText(descriptionText, string.Empty);
             if (statusText != null)

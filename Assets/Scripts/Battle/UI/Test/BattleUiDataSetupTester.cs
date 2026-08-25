@@ -188,7 +188,9 @@ namespace Battle.UI.Testing
                 }
 
                 resolvedStrategicBoard.SetGauge(0, 0);
-                resolvedStrategicBoard.SetChargePerSecond(0f);
+                StrategicSkillCostManager costManager = StrategicSkillCostManager.Instance;
+                resolvedStrategicBoard.SetChargePerSecond(
+                    costManager != null ? costManager.PassiveGainPerSecond : 0f);
                 resolvedStrategicBoard.RefreshSlotResourceStates(0);
             }
 
@@ -541,7 +543,11 @@ namespace Battle.UI.Testing
                 ? Mathf.Clamp(currentGauge, 0, safeMaxGauge)
                 : 0;
             board.SetGauge(currentGauge, maxGauge);
-            board.SetChargePerSecond(chargePerSecond);
+            StrategicSkillCostManager costManager = StrategicSkillCostManager.Instance;
+            board.SetChargePerSecond(
+                costManager != null
+                    ? costManager.PassiveGainPerSecond
+                    : chargePerSecond);
             board.RefreshSlotResourceStates(safeCurrentGauge);
 
             return appliedCount;

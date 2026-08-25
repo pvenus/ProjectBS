@@ -1,16 +1,29 @@
 using Session;
+using Party;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Battle
 {
     public class BattleManager : MonoBehaviour
     {
+        private enum SkillUpgradeOpenResult
+        {
+            Opened,
+            AlreadyOpen,
+            NoCandidates,
+            MissingRequiredReference
+        }
+
         public static BattleManager Instance { get; private set; }
 
         private BattleSession battleSession;
         private bool isInitialPrefabSpawned;
         private bool isSpawnSequenceFinished;
         private bool isWaitingForBattleEndUpgrade;
+        private bool isDebugSkillUpgradeOpen;
+        private bool shouldEndBattleAfterCurrentUpgrade;
+        private BattleEndSkillUpgradePresenter battleEndSkillUpgradePresenter;
 
         public BattleSession BattleSession => battleSession;
 
@@ -39,6 +52,7 @@ namespace Battle
         private void OnDestroy()
         {
             UnsubscribeBattleSpawnManager();
+            battleEndSkillUpgradePresenter?.Dispose();
 
             if (Instance == this)
             {
@@ -341,46 +355,263 @@ namespace Battle
         {
             if (isWaitingForBattleEndUpgrade)
             {
+                if (isDebugSkillUpgradeOpen)
+                {
+                    shouldEndBattleAfterCurrentUpgrade = true;
+                    Debug.Log(
+                        "[BattleManager] Battle completed while the debug skill upgrade UI "
+                        + "was open. Battle will end after the current selection.",
+                        this);
+                }
+
                 return;
+            }
+
+            SkillUpgradeOpenResult result =
+                TryOpenSkillUpgrade(HandleBattleEndUpgradeCompleted);
+
+            switch (result)
+            {
+                case SkillUpgradeOpenResult.Opened:
+                case SkillUpgradeOpenResult.AlreadyOpen:
+                    return;
+                case SkillUpgradeOpenResult.NoCandidates:
+                    Debug.LogWarning(
+                        "[BattleManager] No skill upgrade candidates were available. "
+                        + "Ending battle without an upgrade.",
+                        this);
+                    EndBattle();
+                    return;
+                default:
+                    Debug.LogWarning(
+                        "[BattleManager] Skill upgrade UI was unavailable. "
+                        + "Ending battle without an upgrade.",
+                        this);
+                    EndBattle();
+                    return;
+            }
+        }
+
+        private SkillUpgradeOpenResult TryOpenSkillUpgrade(
+            System.Action completionCallback)
+        {
+            if (isWaitingForBattleEndUpgrade)
+            {
+                return SkillUpgradeOpenResult.AlreadyOpen;
+            }
+
+            if (TryOpenBattleEndUpgradeView(completionCallback))
+            {
+                return SkillUpgradeOpenResult.Opened;
             }
 
             UIEquipmentUpgradeMono upgradeUI =
-                FindObjectOfType<UIEquipmentUpgradeMono>(true);
-
+                ResolveOrInstantiateBattleEndUpgradeUi();
             if (upgradeUI == null)
             {
-                UIEquipmentUpgradeMono upgradePrefab =
-                    Resources.Load<UIEquipmentUpgradeMono>("skill/Upgrade UI");
+                return SkillUpgradeOpenResult.MissingRequiredReference;
+            }
 
-                if (upgradePrefab != null)
+            if (upgradeUI.IsOpen)
+            {
+                return SkillUpgradeOpenResult.AlreadyOpen;
+            }
+
+            bool completedBeforeOpenReturned = false;
+            bool openCallReturned = false;
+            System.Action guardedCompletion = () =>
+            {
+                if (!openCallReturned)
                 {
-                    upgradeUI = Instantiate(upgradePrefab);
+                    completedBeforeOpenReturned = true;
+                    return;
                 }
-            }
 
-            if (upgradeUI == null)
+                completionCallback?.Invoke();
+            };
+
+            isWaitingForBattleEndUpgrade = true;
+            bool opened = upgradeUI.OpenWithCompletion(guardedCompletion);
+            openCallReturned = true;
+            if (!opened)
             {
-                Debug.LogWarning(
-                    "[BattleManager] Skill upgrade UI not found. Ending battle without upgrade.");
+                isWaitingForBattleEndUpgrade = false;
 
-                EndBattle();
-                return;
+                return completedBeforeOpenReturned
+                    ? SkillUpgradeOpenResult.NoCandidates
+                    : SkillUpgradeOpenResult.MissingRequiredReference;
             }
+
+            return SkillUpgradeOpenResult.Opened;
+        }
+
+        private bool TryOpenBattleEndUpgradeView(
+            System.Action completionCallback)
+        {
+            PartyManager partyManager = PartyManager.Instance;
+            if (partyManager == null
+                || partyManager.Members == null
+                || partyManager.Members.Count == 0)
+            {
+                return false;
+            }
+
+            battleEndSkillUpgradePresenter ??=
+                new BattleEndSkillUpgradePresenter();
 
             isWaitingForBattleEndUpgrade = true;
             bool opened =
-                upgradeUI.OpenWithCompletion(HandleBattleEndUpgradeCompleted);
+                battleEndSkillUpgradePresenter.Open(
+                    partyManager.Members,
+                    completionCallback);
 
             if (!opened)
             {
                 isWaitingForBattleEndUpgrade = false;
             }
+
+            return opened;
+        }
+
+        private UIEquipmentUpgradeMono ResolveOrInstantiateBattleEndUpgradeUi()
+        {
+            UIEquipmentUpgradeMono upgradeUI =
+                FindObjectOfType<UIEquipmentUpgradeMono>(true);
+            if (upgradeUI != null)
+            {
+                return upgradeUI;
+            }
+
+            UIEquipmentUpgradeMono upgradePrefab =
+                Resources.Load<UIEquipmentUpgradeMono>("skill/Upgrade UI");
+
+            return upgradePrefab != null
+                ? InstantiateBattleEndUpgradeUi(upgradePrefab)
+                : null;
+        }
+
+        private UIEquipmentUpgradeMono InstantiateBattleEndUpgradeUi(
+            UIEquipmentUpgradeMono upgradePrefab)
+        {
+            Transform uiRoot = FindActiveSceneCanvasRoot();
+
+            if (uiRoot == null)
+            {
+                Debug.LogWarning(
+                    "[BattleManager] No active Canvas was found in the active scene. "
+                    + "The skill upgrade UI will be instantiated without a parent.",
+                    this);
+
+                return Instantiate(upgradePrefab);
+            }
+
+            UIEquipmentUpgradeMono upgradeUI =
+                Instantiate(upgradePrefab, uiRoot, false);
+            upgradeUI.transform.SetAsLastSibling();
+
+            Debug.Log(
+                $"[BattleManager] Skill upgrade UI instantiated under Canvas '{uiRoot.name}'.",
+                upgradeUI);
+
+            return upgradeUI;
+        }
+
+        private Transform FindActiveSceneCanvasRoot()
+        {
+            Scene activeScene = SceneManager.GetActiveScene();
+            Canvas[] canvases =
+                FindObjectsByType<Canvas>(
+                    FindObjectsInactive.Include,
+                    FindObjectsSortMode.None);
+            Canvas firstActiveCanvas = null;
+
+            for (int i = 0; i < canvases.Length; i++)
+            {
+                Canvas canvas = canvases[i];
+                if (canvas == null
+                    || !canvas.isActiveAndEnabled
+                    || canvas.gameObject.scene != activeScene)
+                {
+                    continue;
+                }
+
+                firstActiveCanvas ??= canvas;
+
+                if (canvas.rootCanvas == canvas)
+                {
+                    return canvas.transform;
+                }
+            }
+
+            return firstActiveCanvas != null
+                ? firstActiveCanvas.transform
+                : null;
         }
 
         private void HandleBattleEndUpgradeCompleted()
         {
             isWaitingForBattleEndUpgrade = false;
+            isDebugSkillUpgradeOpen = false;
+            shouldEndBattleAfterCurrentUpgrade = false;
             EndBattle();
+        }
+
+        public void OpenSkillUpgradeForDebug()
+        {
+            SkillUpgradeOpenResult result =
+                TryOpenSkillUpgrade(HandleDebugSkillUpgradeCompleted);
+
+            isDebugSkillUpgradeOpen =
+                result == SkillUpgradeOpenResult.Opened;
+
+            switch (result)
+            {
+                case SkillUpgradeOpenResult.Opened:
+                    Debug.Log(
+                        "[BattleManager][Debug] Skill upgrade UI opened. "
+                        + "Battle will continue after a selection.",
+                        this);
+                    break;
+                case SkillUpgradeOpenResult.AlreadyOpen:
+                    Debug.LogWarning(
+                        "[BattleManager][Debug] Skill upgrade UI is already open.",
+                        this);
+                    break;
+                case SkillUpgradeOpenResult.NoCandidates:
+                    Debug.LogWarning(
+                        "[BattleManager][Debug] No skill upgrade candidates were available. "
+                        + "Battle continues.",
+                        this);
+                    break;
+                default:
+                    Debug.LogWarning(
+                        "[BattleManager][Debug] Skill upgrade UI could not be opened. "
+                        + "Required popup or Resources references are unavailable. "
+                        + "Battle continues.",
+                        this);
+                    break;
+            }
+        }
+
+        private void HandleDebugSkillUpgradeCompleted()
+        {
+            isWaitingForBattleEndUpgrade = false;
+            isDebugSkillUpgradeOpen = false;
+
+            if (shouldEndBattleAfterCurrentUpgrade)
+            {
+                shouldEndBattleAfterCurrentUpgrade = false;
+                Debug.Log(
+                    "[BattleManager][Debug] Skill upgrade selected after battle completion. "
+                    + "Ending battle through the normal completion path.",
+                    this);
+                EndBattle();
+                return;
+            }
+
+            Debug.Log(
+                "[BattleManager][Debug] Skill upgrade selected. Battle continues.",
+                this);
         }
 
         public void EndBattle()

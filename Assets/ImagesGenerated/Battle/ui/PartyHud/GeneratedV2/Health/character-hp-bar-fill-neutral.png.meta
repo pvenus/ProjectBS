@@ -1,7 +1,34 @@
 fileFormatVersion: 2
-guid: 8eafb891686746abbc9a0e6bcd95ec89
+guid: 5f71f0984a3014e929ce3036fbb58dec
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2661695285516694713
+    second: character-hp-bar-fill-neutral_0
+  - first:
+      213: 5585502019534211943
+    second: character-hp-bar-fill-neutral_1
+  - first:
+      213: 5132194213803981011
+    second: character-hp-bar-fill-neutral_2
+  - first:
+      213: -2043952186516015927
+    second: character-hp-bar-fill-neutral_3
+  - first:
+      213: 3537389843170795463
+    second: character-hp-bar-fill-neutral_4
+  - first:
+      213: 750584290518321486
+    second: character-hp-bar-fill-neutral_5
+  - first:
+      213: -7125625396591958715
+    second: character-hp-bar-fill-neutral_6
+  - first:
+      213: 7352929452130302564
+    second: character-hp-bar-fill-neutral_7
+  - first:
+      213: 1405683004651849808
+    second: character-hp-bar-fill-neutral_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -42,8 +69,8 @@ TextureImporter:
     wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  compressionQuality: 100
-  spriteMode: 1
+  compressionQuality: 50
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,8 +99,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -85,8 +112,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -98,8 +125,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -111,8 +138,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -124,8 +151,8 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 100
+    textureCompression: 1
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
@@ -134,12 +161,34 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: character-hp-bar-fill-neutral_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 256
+        width: 2117
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b02767d32cf0bd0800000000000000
+      internalID: -2661695285516694713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: f163c5d5b567d544b8d136e81a163c88
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +197,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      character-hp-bar-fill-neutral_0: -2661695285516694713
+      character-hp-bar-fill-neutral_1: 5585502019534211943
+      character-hp-bar-fill-neutral_2: 5132194213803981011
+      character-hp-bar-fill-neutral_3: -2043952186516015927
+      character-hp-bar-fill-neutral_4: 3537389843170795463
+      character-hp-bar-fill-neutral_5: 750584290518321486
+      character-hp-bar-fill-neutral_6: -7125625396591958715
+      character-hp-bar-fill-neutral_7: 7352929452130302564
+      character-hp-bar-fill-neutral_8: 1405683004651849808
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

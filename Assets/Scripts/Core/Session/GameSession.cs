@@ -121,9 +121,16 @@ namespace Session
 
         private void OpenSkillUpgradeWindowForDebug()
         {
-            UIEquipmentUpgradeMono upgradeUI =
-                FindObjectOfType<UIEquipmentUpgradeMono>(true);
-            upgradeUI?.Open();
+            BattleManager battleManager = BattleManager.Instance;
+            if (battleManager == null)
+            {
+                Debug.LogWarning(
+                    "[GameSession][Debug] Cannot open skill upgrade UI. "
+                    + "BattleManager is not available.");
+                return;
+            }
+
+            battleManager.OpenSkillUpgradeForDebug();
         }
 
         private IReadOnlyList<CharacterRuntimeData> CollectPartyCharacterRuntimeDatas()
