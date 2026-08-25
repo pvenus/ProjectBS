@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 200
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.75}
+  m_Color: {r: 0.2, g: 0.043137256, b: 0.043137256, a: 0.75}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -421,7 +421,7 @@ MonoBehaviour:
   hpFillRenderer: {fileID: 2000000000000000003}
   shieldFill: {fileID: 3000000000000000002}
   shieldFillRenderer: {fileID: 3000000000000000003}
-  backgroundColor: {r: 1, g: 1, b: 1, a: 0.75}
+  backgroundColor: {r: 0.2, g: 0.043137256, b: 0.043137256, a: 0.75}
   shieldColor: {r: 0.45, g: 0.75, b: 1, a: 0.85}
   highHpColor: {r: 0.2, g: 1, b: 0.25, a: 1}
   midHpColor: {r: 1, g: 0.85, b: 0.1, a: 1}
