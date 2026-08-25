@@ -13,30 +13,42 @@ namespace Party.UI
         [Header("Root")]
         [SerializeField] private GameObject hudRoot;
 
+        [Header("Layout & Size")]
         [SerializeField] private Vector3 worldOffset = new(0f, 1.2f, 0f);
+
+        [Tooltip("체력바 게이지 크기 (X: 가로 길이, Y: 세로 두께)")]
+        [SerializeField] private Vector2 barSize = new(1.0f, 0.1f);
+
+        [Tooltip("배경 박스 여백 (게이지 크기 기준 추가 패딩)")]
+        [SerializeField] private Vector2 backgroundPadding = new(0.1f, 0.06f);
+
+        [Header("Sorting")]
+        [SerializeField] private string sortingLayerName = "Default";
+        [SerializeField] private int baseSortingOrder = 200;
 
         [Header("Hp Bar")]
         [SerializeField] private Transform hpFill;
         [SerializeField] private SpriteRenderer hpBackgroundRenderer;
-
         [SerializeField] private SpriteRenderer hpFillRenderer;
 
         [Header("Shield Bar")]
         [SerializeField] private Transform shieldFill;
-
         [SerializeField] private SpriteRenderer shieldFillRenderer;
 
+        [Header("Colors (Player/Allies)")]
+        [SerializeField] private Color backgroundColor = new(0f, 0f, 0f, 0.75f);
         [SerializeField] private Color shieldColor = new(0.45f, 0.75f, 1f, 0.85f);
-
         [SerializeField] private Color highHpColor = new(0.2f, 1f, 0.25f, 1f);
-
         [SerializeField] private Color midHpColor = new(1f, 0.85f, 0.1f, 1f);
-
         [SerializeField] private Color lowHpColor = new(1f, 0.2f, 0.15f, 1f);
+
+        [Header("Colors (Enemy)")]
+        [SerializeField] private bool useEnemyColor = true;
+        [SerializeField] private Color enemyHpColor = new(0.95f, 0.22f, 0.22f, 1f);
+        [SerializeField] private Color enemyLowHpColor = new(0.6f, 0.1f, 0.1f, 1f);
 
         [Header("Options")]
         [SerializeField] private bool hideWhenFullHp = true;
-
         [SerializeField] private bool hideWhenDead = true;
 
         private Vector3 initialFillScale = Vector3.one;
@@ -46,18 +58,8 @@ namespace Party.UI
         private void Awake()
         {
             EnsureVisuals();
-            if (hpFill != null)
-            {
-                initialFillScale = hpFill.localScale;
-            }
-
-            if (shieldFill != null)
-            {
-                initialShieldScale = shieldFill.localScale;
-            }
-
+            ApplyVisualSettings();
             ResolveTarget();
-
             Refresh(force: true);
         }
 
@@ -75,6 +77,9 @@ namespace Party.UI
             Refresh(force: true);
         }
 
+        private const string PrefabResourcePath = "character/hud/character_battle_hp_bar";
+        private static CharacterBattleHudUI cachedPrefab;
+
         public static CharacterBattleHudUI CreateFor(
             CharacterManager target,
             Transform parent = null)
@@ -84,19 +89,29 @@ namespace Party.UI
                 return null;
             }
 
-            GameObject hudObject = new("CharacterBattleHudUI");
+            if (cachedPrefab == null)
+            {
+                cachedPrefab = Resources.Load<CharacterBattleHudUI>(PrefabResourcePath);
+            }
 
-            Transform hudParent = parent != null
-                ? parent
-                : target.transform;
+            Transform hudParent = parent != null ? parent : target.transform;
+            CharacterBattleHudUI hud;
 
-            hudObject.transform.SetParent(hudParent, false);
-            hudObject.transform.localPosition = Vector3.zero;
-            hudObject.transform.localRotation = Quaternion.identity;
-            hudObject.transform.localScale = Vector3.one;
+            if (cachedPrefab != null)
+            {
+                hud = Instantiate(cachedPrefab, hudParent);
+                hud.name = "CharacterBattleHudUI";
+            }
+            else
+            {
+                GameObject hudObject = new("CharacterBattleHudUI");
+                hudObject.transform.SetParent(hudParent, false);
+                hud = hudObject.AddComponent<CharacterBattleHudUI>();
+            }
 
-            CharacterBattleHudUI hud =
-                hudObject.AddComponent<CharacterBattleHudUI>();
+            hud.transform.localPosition = Vector3.zero;
+            hud.transform.localRotation = Quaternion.identity;
+            hud.transform.localScale = Vector3.one;
 
             hud.Initialize(target);
             return hud;
@@ -208,9 +223,20 @@ namespace Party.UI
                 shieldFillRenderer.enabled = currentShield > 0f;
             }
 
-            transform.position =
-                characterManager.transform.position
-                + worldOffset;
+            if (characterManager != null)
+            {
+                transform.position = characterManager.transform.position + worldOffset;
+
+                Transform p = transform.parent;
+                if (p != null)
+                {
+                    Vector3 parentLossy = p.lossyScale;
+                    transform.localScale = new Vector3(
+                        Mathf.Approximately(parentLossy.x, 0f) ? 1f : 1f / Mathf.Abs(parentLossy.x),
+                        Mathf.Approximately(parentLossy.y, 0f) ? 1f : 1f / Mathf.Abs(parentLossy.y),
+                        Mathf.Approximately(parentLossy.z, 0f) ? 1f : 1f / Mathf.Abs(parentLossy.z));
+                }
+            }
 
             SetVisible(visible);
         }
@@ -261,90 +287,178 @@ namespace Party.UI
 
             if (hudRoot == null)
             {
-                GameObject rootObject =
-                    new("BattleHud_Root");
-
-                rootObject.transform.SetParent(transform, false);
-                rootObject.transform.localPosition = Vector3.zero;
-
-                hudRoot = rootObject;
+                Transform foundRoot = transform.Find("BattleHud_Root");
+                if (foundRoot != null)
+                {
+                    hudRoot = foundRoot.gameObject;
+                }
+                else
+                {
+                    GameObject rootObject = new("BattleHud_Root");
+                    rootObject.transform.SetParent(transform, false);
+                    rootObject.transform.localPosition = Vector3.zero;
+                    rootObject.transform.localRotation = Quaternion.identity;
+                    rootObject.transform.localScale = Vector3.one;
+                    hudRoot = rootObject;
+                }
             }
 
             if (hpBackgroundRenderer == null)
             {
-                GameObject backgroundObject =
-                    new("HpBar_Background");
+                Transform foundBg = hudRoot.transform.Find("HpBar_Background") ?? transform.Find("Triangle");
+                if (foundBg != null)
+                {
+                    hpBackgroundRenderer = foundBg.GetComponent<SpriteRenderer>();
+                    if (foundBg.parent != hudRoot.transform)
+                    {
+                        foundBg.SetParent(hudRoot.transform, false);
+                    }
+                }
+                else
+                {
+                    GameObject backgroundObject = new("HpBar_Background");
+                    backgroundObject.transform.SetParent(hudRoot.transform, false);
+                    backgroundObject.transform.localPosition = Vector3.zero;
+                    backgroundObject.transform.localScale = new Vector3(1.1f, 0.16f, 1f);
 
-                backgroundObject.transform.SetParent(hudRoot.transform, false);
-                backgroundObject.transform.localPosition = Vector3.zero;
-                backgroundObject.transform.localScale = new Vector3(1.1f, 0.16f, 1f);
-
-                hpBackgroundRenderer =
-                    backgroundObject.AddComponent<SpriteRenderer>();
-
-                hpBackgroundRenderer.sprite = sharedBarSprite;
-                hpBackgroundRenderer.color = new Color(0f, 0f, 0f, 0.75f);
-                hpBackgroundRenderer.sortingLayerName = "UI";
-                hpBackgroundRenderer.sortingOrder = 200;
+                    hpBackgroundRenderer = backgroundObject.AddComponent<SpriteRenderer>();
+                    hpBackgroundRenderer.sprite = sharedBarSprite;
+                    hpBackgroundRenderer.color = new Color(0f, 0f, 0f, 0.75f);
+                    hpBackgroundRenderer.sortingLayerName = sortingLayerName;
+                    hpBackgroundRenderer.sortingOrder = baseSortingOrder;
+                }
+            }
+            else if (hpBackgroundRenderer.transform.parent != hudRoot.transform && hpBackgroundRenderer.gameObject != hudRoot)
+            {
+                hpBackgroundRenderer.transform.SetParent(hudRoot.transform, false);
             }
 
             if (hpFill == null)
             {
-                GameObject fillObject =
-                    new("HpBar_Fill");
+                Transform foundFill = hudRoot.transform.Find("HpBar_Fill") ?? transform.Find("HpBar_Fill");
+                if (foundFill != null)
+                {
+                    hpFill = foundFill;
+                    if (hpFill.parent != hudRoot.transform)
+                    {
+                        hpFill.SetParent(hudRoot.transform, false);
+                    }
+                }
+                else
+                {
+                    GameObject fillObject = new("HpBar_Fill");
+                    fillObject.transform.SetParent(hudRoot.transform, false);
+                    fillObject.transform.localPosition = new Vector3(0f, 0f, -0.01f);
+                    fillObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
 
-                fillObject.transform.SetParent(hudRoot.transform, false);
-                fillObject.transform.localPosition = new Vector3(0f, 0f, -0.01f);
-                fillObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
-
-                hpFill = fillObject.transform;
+                    hpFill = fillObject.transform;
+                }
+            }
+            else if (hpFill.parent != hudRoot.transform)
+            {
+                hpFill.SetParent(hudRoot.transform, false);
             }
 
             if (shieldFill == null)
             {
-                GameObject shieldObject =
-                    new("ShieldBar_Fill");
+                Transform foundShield = hudRoot.transform.Find("ShieldBar_Fill") ?? transform.Find("Triangle (1)");
+                if (foundShield != null)
+                {
+                    shieldFill = foundShield;
+                    if (shieldFill.parent != hudRoot.transform)
+                    {
+                        shieldFill.SetParent(hudRoot.transform, false);
+                    }
+                }
+                else
+                {
+                    GameObject shieldObject = new("ShieldBar_Fill");
+                    shieldObject.transform.SetParent(hudRoot.transform, false);
+                    shieldObject.transform.localPosition = new Vector3(0f, 0.015f, -0.02f);
+                    shieldObject.transform.localScale = new Vector3(1f, 0.12f, 1f);
 
-                shieldObject.transform.SetParent(hudRoot.transform, false);
-                shieldObject.transform.localPosition = new Vector3(0f, 0.015f, -0.02f);
-                shieldObject.transform.localScale = new Vector3(1f, 0.12f, 1f);
-
-                shieldFill = shieldObject.transform;
+                    shieldFill = shieldObject.transform;
+                }
+            }
+            else if (shieldFill.parent != hudRoot.transform)
+            {
+                shieldFill.SetParent(hudRoot.transform, false);
             }
 
-            if (hpFillRenderer == null)
+            if (hpFillRenderer == null && hpFill != null)
             {
-                hpFillRenderer =
-                    hpFill.GetComponent<SpriteRenderer>();
-
-                if (hpFillRenderer == null)
+                hpFillRenderer = hpFill.GetComponent<SpriteRenderer>() ?? hpFill.gameObject.AddComponent<SpriteRenderer>();
+                if (hpFillRenderer.sprite == null)
                 {
-                    hpFillRenderer =
-                        hpFill.gameObject.AddComponent<SpriteRenderer>();
+                    hpFillRenderer.sprite = sharedBarSprite;
                 }
-
-                hpFillRenderer.sprite = sharedBarSprite;
-                hpFillRenderer.sortingLayerName = "UI";
-                hpFillRenderer.sortingOrder = 201;
+                hpFillRenderer.sortingLayerName = sortingLayerName;
+                hpFillRenderer.sortingOrder = baseSortingOrder + 1;
             }
 
-            if (shieldFillRenderer == null)
+            if (shieldFillRenderer == null && shieldFill != null)
             {
-                shieldFillRenderer =
-                    shieldFill.GetComponent<SpriteRenderer>();
-
-                if (shieldFillRenderer == null)
+                shieldFillRenderer = shieldFill.GetComponent<SpriteRenderer>() ?? shieldFill.gameObject.AddComponent<SpriteRenderer>();
+                if (shieldFillRenderer.sprite == null)
                 {
-                    shieldFillRenderer =
-                        shieldFill.gameObject.AddComponent<SpriteRenderer>();
+                    shieldFillRenderer.sprite = sharedBarSprite;
                 }
-
-                shieldFillRenderer.sprite = sharedBarSprite;
                 shieldFillRenderer.color = shieldColor;
-                shieldFillRenderer.sortingLayerName = "UI";
-                shieldFillRenderer.sortingOrder = 202;
+                shieldFillRenderer.sortingLayerName = sortingLayerName;
+                shieldFillRenderer.sortingOrder = baseSortingOrder + 2;
                 shieldFillRenderer.enabled = false;
             }
+        }
+
+        private void ApplyVisualSettings()
+        {
+            float fillWidth = Mathf.Max(0.01f, barSize.x);
+            float fillHeight = Mathf.Max(0.01f, barSize.y);
+            float bgWidth = fillWidth + Mathf.Max(0f, backgroundPadding.x);
+            float bgHeight = fillHeight + Mathf.Max(0f, backgroundPadding.y);
+
+            if (hpFill != null)
+            {
+                hpFill.localScale = new Vector3(fillWidth, fillHeight, 1f);
+                initialFillScale = hpFill.localScale;
+            }
+
+            if (shieldFill != null)
+            {
+                shieldFill.localScale = new Vector3(fillWidth, fillHeight * 1.2f, 1f);
+                initialShieldScale = shieldFill.localScale;
+            }
+
+            if (hpBackgroundRenderer != null)
+            {
+                hpBackgroundRenderer.transform.localScale = new Vector3(bgWidth, bgHeight, 1f);
+                hpBackgroundRenderer.color = backgroundColor;
+                hpBackgroundRenderer.sortingLayerName = sortingLayerName;
+                hpBackgroundRenderer.sortingOrder = baseSortingOrder;
+            }
+
+            if (hpFillRenderer != null)
+            {
+                hpFillRenderer.sortingLayerName = sortingLayerName;
+                hpFillRenderer.sortingOrder = baseSortingOrder + 1;
+            }
+
+            if (shieldFillRenderer != null)
+            {
+                shieldFillRenderer.sortingLayerName = sortingLayerName;
+                shieldFillRenderer.sortingOrder = baseSortingOrder + 2;
+            }
+        }
+
+        private void OnValidate()
+        {
+            barSize.x = Mathf.Max(0.01f, barSize.x);
+            barSize.y = Mathf.Max(0.01f, barSize.y);
+            backgroundPadding.x = Mathf.Max(0f, backgroundPadding.x);
+            backgroundPadding.y = Mathf.Max(0f, backgroundPadding.y);
+
+            ApplyVisualSettings();
+            Refresh(force: true);
         }
 
         private void SetVisible(bool visible)
@@ -364,6 +478,14 @@ namespace Party.UI
 
         private Color EvaluateHpColor(float ratio)
         {
+            if (useEnemyColor && IsEnemyTarget())
+            {
+                return Color.Lerp(
+                    enemyLowHpColor,
+                    enemyHpColor,
+                    Mathf.Clamp01(ratio));
+            }
+
             if (ratio <= 0.35f)
             {
                 return Color.Lerp(
@@ -376,6 +498,26 @@ namespace Party.UI
                 midHpColor,
                 highHpColor,
                 (ratio - 0.35f) / 0.65f);
+        }
+
+        private bool IsEnemyTarget()
+        {
+            if (characterManager == null)
+            {
+                return true;
+            }
+
+            int playerLayer = LayerMask.NameToLayer("Player");
+            int partyLayer = LayerMask.NameToLayer("Party");
+            int targetLayer = characterManager.gameObject.layer;
+
+            if ((playerLayer >= 0 && targetLayer == playerLayer) ||
+                (partyLayer >= 0 && targetLayer == partyLayer))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void ApplyLeftAnchoredFill(

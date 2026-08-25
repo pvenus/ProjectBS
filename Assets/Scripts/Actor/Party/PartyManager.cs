@@ -451,7 +451,7 @@ namespace Party
                 ResolvePlayerAuraColor(partyIndex));
         }
 
-        private Color ResolvePlayerAuraColor(int partyIndex)
+        public Color ResolvePlayerAuraColor(int partyIndex)
         {
             int paletteIndex = partyIndex % 3;
 
@@ -461,6 +461,25 @@ namespace Party
                 2 => playerAuraColorB,
                 _ => playerAuraColorR
             };
+        }
+
+        public int GetPartyMemberIndex(CharacterManager characterManager)
+        {
+            if (characterManager == null)
+            {
+                return -1;
+            }
+
+            for (int i = 0; i < runtimeMemberObjects.Count; i++)
+            {
+                if (runtimeMemberObjects[i] != null &&
+                    runtimeMemberObjects[i].GetComponent<CharacterManager>() == characterManager)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         private void DestroyRuntimeObject(CharacterRuntimeData runtimeData)

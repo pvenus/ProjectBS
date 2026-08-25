@@ -799,7 +799,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1095,8 +1095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Battle.Testing.BattleFeatureTestBootstrap
   battle: {fileID: 11400000, guid: 88a924ee1e7474689b6adbdfbec66edd, type: 2}
   partyMembers:
-  - {fileID: 11400000, guid: 870d511019c614b3693c32f1b02352e8, type: 2}
   - {fileID: 11400000, guid: 8eb53107a249848d5a4766a27f6152c3, type: 2}
+  - {fileID: 11400000, guid: 870d511019c614b3693c32f1b02352e8, type: 2}
+  - {fileID: 11400000, guid: 13a83453f1f03414babf3f5701140a94, type: 2}
   strategicSkills:
   - {fileID: 11400000, guid: ea6d15c9730f84fd7831ee0ff93978c3, type: 2}
   - {fileID: 11400000, guid: cab618edeca974254a067067518b2711, type: 2}

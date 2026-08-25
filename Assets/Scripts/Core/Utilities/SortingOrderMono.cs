@@ -14,7 +14,25 @@ namespace Util
         {
             if (spriteRenderers == null || spriteRenderers.Length == 0)
             {
-                spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+                var allRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+                var validRenderers = new System.Collections.Generic.List<SpriteRenderer>();
+
+                foreach (var sr in allRenderers)
+                {
+                    if (sr == null) continue;
+
+                    // HUD나 스킬 슬롯, 오라 등 독자적인 SortingOrder를 관리하는 자식 컴포넌트는 제외
+                    if (sr.GetComponentInParent<Character.UI.CharacterSkillCooldownSlot>() != null ||
+                        sr.GetComponentInParent<Party.UI.CharacterBattleHudUI>() != null ||
+                        sr.GetComponentInParent<Battle.Presentation.BattleCharacterAuraView>() != null)
+                    {
+                        continue;
+                    }
+
+                    validRenderers.Add(sr);
+                }
+
+                spriteRenderers = validRenderers.ToArray();
             }
 
             if (sortPivot == null)

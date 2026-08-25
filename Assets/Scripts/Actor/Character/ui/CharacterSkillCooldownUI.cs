@@ -75,7 +75,7 @@ namespace Character.UI
         [SerializeField] private CharacterSkillCooldownSlot slotPrefab;
         [SerializeField] private CharacterSkillCooldownSlot recentSkillView;
         private const string SlotPrefabResourcePath =
-            "ui/character/character_skill_cooldown_slot";
+            "character/hud/character_skill_cooldown_slot";
 
         private bool isSubscribed;
 
@@ -167,8 +167,48 @@ namespace Character.UI
 
             EnsureView();
 
-            Sprite icon = runtime?.sourceEquipment?.Icon;
-            recentSkillView?.ShowRecentSkill(icon);
+            if (recentSkillView != null)
+            {
+                Color characterColor = ResolveCharacterColor();
+                recentSkillView.SetFrameColor(characterColor);
+
+                Sprite icon = runtime?.sourceEquipment?.Icon;
+                recentSkillView.ShowRecentSkill(icon);
+            }
+        }
+
+        private Color ResolveCharacterColor()
+        {
+            var auraBinding = GetComponentInParent<Battle.Presentation.BattleCharacterAuraBinding>()
+                ?? GetComponent<Battle.Presentation.BattleCharacterAuraBinding>();
+
+            if (auraBinding != null && auraBinding.AuraView != null)
+            {
+                if (auraBinding.AuraView.FrontArcRenderer != null)
+                {
+                    Color c = auraBinding.AuraView.FrontArcRenderer.color;
+                    c.a = 1f;
+                    return c;
+                }
+
+                Color defaultC = auraBinding.AuraView.DefaultColor;
+                defaultC.a = 1f;
+                return defaultC;
+            }
+
+            CharacterManager cm = GetComponentInParent<CharacterManager>() ?? GetComponent<CharacterManager>();
+            if (cm != null && Party.PartyManager.Instance != null)
+            {
+                int index = Party.PartyManager.Instance.GetPartyMemberIndex(cm);
+                if (index >= 0)
+                {
+                    Color c = Party.PartyManager.Instance.ResolvePlayerAuraColor(index);
+                    c.a = 1f;
+                    return c;
+                }
+            }
+
+            return Color.white;
         }
 
         private bool IsBasicAttack(EquipmentSkillRuntimeData runtime)

@@ -13,8 +13,14 @@ namespace Character.UI
     {
         [Header("Visual Components")]
         [SerializeField] private SpriteRenderer iconRenderer;
+        [SerializeField] private SpriteRenderer frameRenderer;
+        [SerializeField] private SpriteRenderer bgRenderer;
         [Tooltip("Legacy cooldown text binding. Retained for prefab compatibility and always disabled at runtime.")]
         [SerializeField] private TextMeshPro remainText;
+
+        [Header("Color")]
+        [SerializeField] private Color frameColor = Color.white;
+        [SerializeField] private Color bgColor = Color.white;
 
         [Header("Sorting")]
         [SerializeField] private string sortingLayerName = "Default";
@@ -58,6 +64,8 @@ namespace Character.UI
 
         private Coroutine animationRoutine;
         private Color iconBaseColor = Color.white;
+        private Color frameBaseColor = Color.white;
+        private Color bgBaseColor = Color.white;
 
         private void Awake()
         {
@@ -68,6 +76,9 @@ namespace Character.UI
                 iconBaseColor = iconRenderer.color;
             }
 
+            frameBaseColor = frameColor;
+            bgBaseColor = bgColor;
+
             if (remainText != null)
             {
                 remainText.gameObject.SetActive(false);
@@ -75,6 +86,18 @@ namespace Character.UI
 
             ApplyLayout();
             Hide();
+        }
+
+        public void SetFrameColor(Color color)
+        {
+            frameColor = color;
+            frameBaseColor = color;
+            if (frameRenderer != null)
+            {
+                Color c = color;
+                c.a = frameRenderer.color.a;
+                frameRenderer.color = c;
+            }
         }
 
         private void OnDisable()
@@ -85,6 +108,11 @@ namespace Character.UI
         private void OnDestroy()
         {
             StopAnimation();
+        }
+
+        private void LateUpdate()
+        {
+            EnsureRendererSettings();
         }
 
         public void Bind(SpriteRenderer icon, TextMeshPro text)
@@ -131,6 +159,16 @@ namespace Character.UI
             iconRenderer.sprite = icon;
             iconRenderer.enabled = true;
 
+            if (frameRenderer != null)
+            {
+                frameRenderer.enabled = true;
+            }
+
+            if (bgRenderer != null)
+            {
+                bgRenderer.enabled = true;
+            }
+
             // 초기 상태: 알파 0, 시작 스케일
             SetVisual(0f, startScale);
 
@@ -145,9 +183,19 @@ namespace Character.UI
             {
                 iconRenderer.sprite = null;
                 iconRenderer.enabled = false;
-                SetAlpha(0f);
             }
 
+            if (frameRenderer != null)
+            {
+                frameRenderer.enabled = false;
+            }
+
+            if (bgRenderer != null)
+            {
+                bgRenderer.enabled = false;
+            }
+
+            SetAlpha(0f);
             gameObject.SetActive(false);
         }
 
@@ -265,14 +313,28 @@ namespace Character.UI
 
         private void SetAlpha(float alpha)
         {
-            if (iconRenderer == null)
+            float clampedAlpha = Mathf.Clamp01(alpha);
+
+            if (iconRenderer != null)
             {
-                return;
+                Color color = iconBaseColor;
+                color.a = iconBaseColor.a * clampedAlpha;
+                iconRenderer.color = color;
             }
 
-            Color color = iconBaseColor;
-            color.a = iconBaseColor.a * Mathf.Clamp01(alpha);
-            iconRenderer.color = color;
+            if (frameRenderer != null)
+            {
+                Color color = frameBaseColor;
+                color.a = frameBaseColor.a * clampedAlpha;
+                frameRenderer.color = color;
+            }
+
+            if (bgRenderer != null)
+            {
+                Color color = bgBaseColor;
+                color.a = bgBaseColor.a * clampedAlpha;
+                bgRenderer.color = color;
+            }
         }
 
         private void StopAnimation()
@@ -286,18 +348,67 @@ namespace Character.UI
 
         private void EnsureRendererSettings()
         {
-            if (iconRenderer == null)
+            Transform anchor = transform.Find("Anchor") ?? transform;
+
+            if (bgRenderer == null)
             {
-                iconRenderer = GetComponentInChildren<SpriteRenderer>(true);
+                Transform bgTransform = anchor.Find("Slot_Bg");
+                if (bgTransform != null)
+                {
+                    bgRenderer = bgTransform.GetComponent<SpriteRenderer>();
+                }
             }
 
+            if (iconRenderer == null)
+            {
+                Transform iconTransform = anchor.Find("Icon");
+                if (iconTransform != null)
+                {
+                    iconRenderer = iconTransform.GetComponent<SpriteRenderer>();
+                }
+                else
+                {
+                    iconRenderer = GetComponentInChildren<SpriteRenderer>(true);
+                }
+            }
+
+            if (frameRenderer == null)
+            {
+                Transform fgTransform = anchor.Find("Slot_Fg");
+                if (fgTransform != null)
+                {
+                    frameRenderer = fgTransform.GetComponent<SpriteRenderer>();
+                }
+            }
+
+            // 1. Slot_Bg (가장 뒤)
+            if (bgRenderer != null)
+            {
+                if (!string.IsNullOrEmpty(sortingLayerName))
+                {
+                    bgRenderer.sortingLayerName = sortingLayerName;
+                }
+                bgRenderer.sortingOrder = sortingOrder;
+            }
+
+            // 2. Icon (중간)
             if (iconRenderer != null)
             {
                 if (!string.IsNullOrEmpty(sortingLayerName))
                 {
                     iconRenderer.sortingLayerName = sortingLayerName;
                 }
-                iconRenderer.sortingOrder = sortingOrder;
+                iconRenderer.sortingOrder = sortingOrder + 1;
+            }
+
+            // 3. Slot_Fg (가장 앞)
+            if (frameRenderer != null)
+            {
+                if (!string.IsNullOrEmpty(sortingLayerName))
+                {
+                    frameRenderer.sortingLayerName = sortingLayerName;
+                }
+                frameRenderer.sortingOrder = sortingOrder + 2;
             }
         }
 
