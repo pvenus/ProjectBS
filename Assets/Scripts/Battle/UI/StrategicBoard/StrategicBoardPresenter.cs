@@ -63,6 +63,7 @@ namespace Battle.UI.StrategicBoard
 
         private void OnDisable()
         {
+            ClearInteractionSelection(activeDragSlot);
             UnsubscribeEvents();
             HideTargetingGuide();
         }
@@ -82,6 +83,11 @@ namespace Battle.UI.StrategicBoard
             if (boardView == null)
             {
                 boardView = GetComponent<StrategicBoardView>();
+            }
+
+            if (boardView != null)
+            {
+                boardView.EnsureSlotsReady();
             }
 
             if (worldCamera == null)
@@ -161,6 +167,8 @@ namespace Battle.UI.StrategicBoard
                 {
                     if (slot != null)
                     {
+                        slot.Selected += HandleSlotSelected;
+                        slot.HoverEntered += HandleSlotHoverEntered;
                         slot.ExecutionRequested += HandleSlotExecutionRequested;
                         slot.DragStarted += HandleSlotDragStarted;
                         slot.Dragged += HandleSlotDragged;
@@ -192,6 +200,8 @@ namespace Battle.UI.StrategicBoard
             {
                 if (slot != null)
                 {
+                    slot.Selected -= HandleSlotSelected;
+                    slot.HoverEntered -= HandleSlotHoverEntered;
                     slot.ExecutionRequested -= HandleSlotExecutionRequested;
                     slot.DragStarted -= HandleSlotDragStarted;
                     slot.Dragged -= HandleSlotDragged;
@@ -216,11 +226,43 @@ namespace Battle.UI.StrategicBoard
             activeDragSlot = null;
         }
 
+        private void HandleSlotSelected(
+            StrategicSkillSlotView selectedSlot,
+            PointerEventData eventData)
+        {
+            SelectOnly(selectedSlot);
+        }
+
+        private void SelectOnly(StrategicSkillSlotView selectedSlot)
+        {
+            foreach (StrategicSkillSlotView slot in boundSlots)
+            {
+                if (slot != null)
+                {
+                    slot.SetSelected(slot == selectedSlot);
+                }
+            }
+        }
+
+        private void HandleSlotHoverEntered(
+            StrategicSkillSlotView hoveredSlot,
+            PointerEventData eventData)
+        {
+            if (activeDragSlot != null && activeDragSlot != hoveredSlot)
+            {
+                hoveredSlot.SuppressHoverSelectionUntilExit();
+                return;
+            }
+
+            SelectOnly(null);
+        }
+
         private void HandleSlotDragStarted(
             StrategicSkillSlotView slotView,
             PointerEventData eventData)
         {
             activeDragSlot = slotView;
+            SelectOnly(slotView);
             dragWarningIssued = false;
             targetTintWarningIssued = false;
             UpdateTargetingGuide(slotView, eventData, true);
@@ -243,6 +285,7 @@ namespace Battle.UI.StrategicBoard
             PointerEventData eventData)
         {
             HideTargetingGuide();
+            ClearInteractionSelection(slotView);
             activeDragSlot = null;
             dragWarningIssued = false;
             targetTintWarningIssued = false;
@@ -250,40 +293,97 @@ namespace Battle.UI.StrategicBoard
 
         private void HandleSlotExecutionRequested(StrategicSkillSlotView slotView, Object payload, PointerEventData eventData)
         {
-            HideTargetingGuide();
+            bool succeeded = false;
 
-            if (payload is not StrategicSkillItemSO strategicSkillItem)
+            try
             {
+                HideTargetingGuide();
+
+                if (payload is not StrategicSkillItemSO strategicSkillItem)
+                {
+                    if (logDebug)
+                    {
+                        Debug.LogWarning(
+                            "[StrategicBoardPresenter] Execution failed: slot payload is not a StrategicSkillItemSO.",
+                            this);
+                    }
+
+                    return;
+                }
+
+                if (eventData == null)
+                {
+                    if (logDebug)
+                    {
+                        Debug.LogWarning(
+                            $"[StrategicBoardPresenter] Execution failed: PointerEventData is null. item={strategicSkillItem.strategicSkillItemId}",
+                            this);
+                    }
+
+                    return;
+                }
+
+                if (worldCamera == null)
+                {
+                    worldCamera = Camera.main;
+                }
+
+                if (worldCamera == null)
+                {
+                    Debug.LogWarning(
+                        $"[StrategicBoardPresenter] Execution failed: world camera is unavailable. item={strategicSkillItem.strategicSkillItemId}",
+                        this);
+                    return;
+                }
+
+                ItemManager itemManager = ItemManager.Instance;
+                if (itemManager == null)
+                {
+                    Debug.LogError(
+                        $"[StrategicBoardPresenter] Execution failed: ItemManager.Instance is null. item={strategicSkillItem.strategicSkillItemId}",
+                        this);
+                    return;
+                }
+
+                succeeded = itemManager.TryUseStrategicSkillItemFromScreenPosition(
+                    strategicSkillItem,
+                    eventData.position,
+                    worldCamera,
+                    logDebug,
+                    this);
+
                 if (logDebug)
                 {
-                    Debug.LogWarning("[StrategicBoardPresenter] ExecutionRequested received with invalid payload.", this);
+                    Debug.Log(
+                        $"[StrategicBoardPresenter] Execution {(succeeded ? "succeeded" : "failed")}. " +
+                        $"item={strategicSkillItem.strategicSkillItemId} screen={eventData.position}",
+                        this);
                 }
-                return;
             }
-
-            if (worldCamera == null)
+            finally
             {
-                worldCamera = Camera.main;
+                HideTargetingGuide();
+                ClearInteractionSelection(slotView);
+                activeDragSlot = null;
+                dragWarningIssued = false;
+                targetTintWarningIssued = false;
             }
+        }
 
-            ItemManager itemManager = ItemManager.Instance;
-            if (itemManager == null)
+        private void ClearInteractionSelection(StrategicSkillSlotView interactionSlot)
+        {
+            foreach (StrategicSkillSlotView slot in boundSlots)
             {
-                Debug.LogError("[StrategicBoardPresenter] ItemManager.Instance is null when trying to execute strategic skill.", this);
-                return;
+                if (slot != null)
+                {
+                    slot.SetSelected(false);
+                }
             }
 
-            if (logDebug)
+            if (interactionSlot != null)
             {
-                Debug.Log($"[StrategicBoardPresenter] Requesting execution for {strategicSkillItem.DisplayName} at screen pos {eventData.position}.", this);
+                interactionSlot.ClearSelectionAfterInteraction();
             }
-
-            itemManager.TryUseStrategicSkillItemFromScreenPosition(
-                strategicSkillItem,
-                eventData.position,
-                worldCamera,
-                logDebug,
-                this);
         }
 
         private void UpdateTargetingGuide(

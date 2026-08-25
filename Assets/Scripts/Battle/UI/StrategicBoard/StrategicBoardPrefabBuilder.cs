@@ -39,6 +39,8 @@ namespace Battle.UI.StrategicBoard.Editor
         [MenuItem("Tools/Battle/Repair Strategic Board References")]
         public static void RepairBoardReferences()
         {
+            RepairGaugePrefabSettings();
+            RepairSlotPrefabReferences();
             GameObject root = PrefabUtility.LoadPrefabContents(BoardPath);
 
             try
@@ -91,10 +93,11 @@ namespace Battle.UI.StrategicBoard.Editor
             {
                 { "gaugeView", view }
             });
-            SetFloat(binder, "chargePerSecond", 2f);
+            SetFloat(view, "increaseTweenDuration", 0.25f);
+            SetFloat(binder, "fallbackChargePerSecond", 0f);
 
             view.SetGauge(72, 100);
-            view.SetChargePerSecond(2f);
+            view.SetChargePerSecond(0f);
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, GaugePath);
             Object.DestroyImmediate(root);
             return prefab;
@@ -102,15 +105,24 @@ namespace Battle.UI.StrategicBoard.Editor
 
         private static GameObject BuildSlotPrefab()
         {
+            GameObject existingPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SlotPath);
+
+            if (existingPrefab != null)
+            {
+                RepairSlotPrefabReferences();
+                return AssetDatabase.LoadAssetAtPath<GameObject>(SlotPath);
+            }
+
             GameObject root = CreateRect("StrategicSkillSlot", null, new Vector2(184f, 246f));
             CanvasGroup canvasGroup = root.AddComponent<CanvasGroup>();
             StrategicSkillSlotView view = root.AddComponent<StrategicSkillSlotView>();
 
-            Image background = CreateImage("SlotBackground", root.transform, new Vector2(184f, 246f),
-                new Color(0.12f, 0.105f, 0.08f, 1f), BuiltinSprite());
-            Image icon = CreateImage("SkillIcon", root.transform, new Vector2(142f, 154f),
+            Image active = CreateImage("Active", root.transform, new Vector2(142f, 154f),
                 new Color(0.72f, 0.69f, 0.59f, 1f), BuiltinSprite());
-            SetAnchoredPosition(icon.rectTransform, new Vector2(0f, 23f));
+            SetAnchoredPosition(active.rectTransform, new Vector2(0f, 23f));
+
+            Image empty = CreateImage("Empty", root.transform, new Vector2(174f, 236f),
+                new Color(0.06f, 0.06f, 0.06f, 0.66f), BuiltinSprite());
 
             Image costPlate = CreateImage("CostPlate", root.transform, new Vector2(96f, 42f),
                 new Color(0.06f, 0.055f, 0.045f, 0.96f), BuiltinSprite());
@@ -118,28 +130,35 @@ namespace Battle.UI.StrategicBoard.Editor
             TMP_Text costText = CreateText("CostText", costPlate.transform, string.Empty, 27f,
                 new Vector2(90f, 38f), Vector2.zero);
 
-            Image selection = CreateImage("SelectionOverlay", root.transform, new Vector2(174f, 236f),
+            GameObject overlay = CreateRect("Overlay", root.transform, new Vector2(174f, 236f));
+            Image selection = CreateImage("Selection", overlay.transform, new Vector2(142f, 154f),
                 new Color(0.95f, 0.72f, 0.20f, 0.28f), BuiltinSprite());
-            Image insufficient = CreateImage("InsufficientResourceOverlay", root.transform,
+            Image insufficient = CreateImage("Insufficient", overlay.transform,
                 new Vector2(174f, 236f), new Color(0.55f, 0.04f, 0.03f, 0.48f), BuiltinSprite());
-            Image empty = CreateImage("EmptySlotOverlay", root.transform, new Vector2(174f, 236f),
-                new Color(0.06f, 0.06f, 0.06f, 0.66f), BuiltinSprite());
-            Image locked = CreateImage("LockOverlay", root.transform, new Vector2(174f, 236f),
+            Image fillMask = CreateImage("FillMask", insufficient.transform,
+                new Vector2(174f, 236f), Color.white, BuiltinSprite());
+            fillMask.type = Image.Type.Filled;
+            fillMask.fillMethod = Image.FillMethod.Vertical;
+            fillMask.fillOrigin = (int)Image.OriginVertical.Bottom;
+            fillMask.fillAmount = 1f;
+            Mask mask = fillMask.gameObject.AddComponent<Mask>();
+            mask.showMaskGraphic = false;
+            CreateImage("InsufficientTint", fillMask.transform, new Vector2(174f, 236f),
+                new Color(0.55f, 0.04f, 0.03f, 0.48f), BuiltinSprite());
+            Image locked = CreateImage("Lock", overlay.transform, new Vector2(174f, 236f),
                 new Color(0.015f, 0.015f, 0.015f, 0.82f), BuiltinSprite());
-
-            selection.enabled = false;
-            insufficient.enabled = false;
-            locked.enabled = false;
 
             SetObjectReferences(view, new Dictionary<string, Object>
             {
-                { "backgroundImage", background },
-                { "iconImage", icon },
-                { "costText", costText },
+                { "activeRoot", active.rectTransform },
+                { "iconImage", active },
+                { "emptyRoot", empty.gameObject },
+                { "selectionRoot", selection.gameObject },
                 { "selectionImage", selection },
-                { "insufficientResourceImage", insufficient },
-                { "emptySlotImage", empty },
-                { "lockImage", locked },
+                { "insufficientRoot", insufficient.gameObject },
+                { "insufficientFillImage", fillMask },
+                { "overlayLockRoot", locked.gameObject },
+                { "costText", costText },
                 { "canvasGroup", canvasGroup },
                 { "dragVisual", root.GetComponent<RectTransform>() }
             });
@@ -148,6 +167,232 @@ namespace Battle.UI.StrategicBoard.Editor
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, SlotPath);
             Object.DestroyImmediate(root);
             return prefab;
+        }
+
+        private static void RepairGaugePrefabSettings()
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(GaugePath);
+
+            try
+            {
+                StrategicGaugeView view = root.GetComponent<StrategicGaugeView>();
+                StrategicGaugeBinder binder = root.GetComponent<StrategicGaugeBinder>();
+
+                if (view == null || binder == null)
+                {
+                    throw new System.InvalidOperationException(
+                        "StrategicGaugeView or StrategicGaugeBinder is missing from the gauge prefab.");
+                }
+
+                var viewObject = new SerializedObject(view);
+                Image fillImage = viewObject.FindProperty("fillImage").objectReferenceValue as Image;
+
+                if (fillImage == null ||
+                    viewObject.FindProperty("currentMaxText").objectReferenceValue == null ||
+                    viewObject.FindProperty("chargePerSecondText").objectReferenceValue == null)
+                {
+                    throw new System.InvalidOperationException(
+                        "Strategic gauge Fill or TMP references are missing.");
+                }
+
+                fillImage.type = Image.Type.Filled;
+                fillImage.fillMethod = Image.FillMethod.Radial360;
+                fillImage.fillOrigin = (int)Image.Origin360.Top;
+                fillImage.fillClockwise = true;
+                viewObject.FindProperty("animateIncreases").boolValue = true;
+                viewObject.FindProperty("increaseTweenDuration").floatValue = 0.25f;
+                viewObject.ApplyModifiedPropertiesWithoutUndo();
+
+                var binderObject = new SerializedObject(binder);
+                binderObject.FindProperty("gaugeView").objectReferenceValue = view;
+                binderObject.FindProperty("fallbackChargePerSecond").floatValue = 0f;
+                binderObject.ApplyModifiedPropertiesWithoutUndo();
+
+                PrefabUtility.SaveAsPrefabAsset(root, GaugePath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+
+            AssetDatabase.SaveAssets();
+            VerifySavedGaugeSettings();
+        }
+
+        private static void VerifySavedGaugeSettings()
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(GaugePath);
+
+            try
+            {
+                StrategicGaugeView view = root.GetComponent<StrategicGaugeView>();
+                StrategicGaugeBinder binder = root.GetComponent<StrategicGaugeBinder>();
+
+                if (view == null || binder == null)
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved strategic gauge components are missing.");
+                }
+
+                var viewObject = new SerializedObject(view);
+                Image fillImage = viewObject.FindProperty("fillImage").objectReferenceValue as Image;
+                var binderObject = new SerializedObject(binder);
+
+                if (fillImage == null ||
+                    viewObject.FindProperty("currentMaxText").objectReferenceValue == null ||
+                    viewObject.FindProperty("chargePerSecondText").objectReferenceValue == null ||
+                    fillImage.type != Image.Type.Filled ||
+                    fillImage.fillMethod != Image.FillMethod.Radial360 ||
+                    !viewObject.FindProperty("animateIncreases").boolValue ||
+                    viewObject.FindProperty("increaseTweenDuration").floatValue < 0f ||
+                    binderObject.FindProperty("gaugeView").objectReferenceValue != view ||
+                    !Mathf.Approximately(
+                        binderObject.FindProperty("fallbackChargePerSecond").floatValue,
+                        0f))
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved strategic gauge fill, tween, or binder settings are invalid.");
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        private static void RepairSlotPrefabReferences()
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(SlotPath);
+
+            try
+            {
+                EnsureSlotReferences(root);
+                PrefabUtility.SaveAsPrefabAsset(root, SlotPath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+
+            AssetDatabase.SaveAssets();
+            VerifySavedSlotReferences();
+        }
+
+        private static void EnsureSlotReferences(GameObject root)
+        {
+            StrategicSkillSlotView view = root.GetComponent<StrategicSkillSlotView>();
+            Transform active = RequireChild(root.transform, "Active");
+            Transform empty = RequireChild(root.transform, "Empty");
+            Transform selection = RequireChild(root.transform, "Overlay/Selection");
+            Transform insufficient = RequireChild(root.transform, "Overlay/Insufficient");
+            Transform fillMask = RequireChild(root.transform, "Overlay/Insufficient/FillMask");
+            Transform overlayLock = RequireChild(root.transform, "Overlay/Lock");
+            Transform costText = RequireChild(root.transform, "CostPlate/CostText");
+
+            if (view == null)
+            {
+                throw new System.InvalidOperationException(
+                    "StrategicSkillSlotView is missing from the slot prefab root.");
+            }
+
+            Image activeImage = active.GetComponent<Image>();
+            Image selectionImage = selection.GetComponent<Image>();
+            Image fillImage = fillMask.GetComponent<Image>();
+            TMP_Text costLabel = costText.GetComponent<TMP_Text>();
+
+            if (activeImage == null || selectionImage == null ||
+                fillImage == null || costLabel == null)
+            {
+                throw new System.InvalidOperationException(
+                    "Strategic skill slot state images or cost label are missing.");
+            }
+
+            fillImage.type = Image.Type.Filled;
+            SetObjectReferences(view, new Dictionary<string, Object>
+            {
+                { "activeRoot", active as RectTransform },
+                { "iconImage", activeImage },
+                { "emptyRoot", empty.gameObject },
+                { "selectionRoot", selection.gameObject },
+                { "selectionImage", selectionImage },
+                { "insufficientRoot", insufficient.gameObject },
+                { "insufficientFillImage", fillImage },
+                { "overlayLockRoot", overlayLock.gameObject },
+                { "costText", costLabel },
+                { "canvasGroup", root.GetComponent<CanvasGroup>() },
+                { "dragVisual", root.GetComponent<RectTransform>() }
+            });
+        }
+
+        private static void VerifySavedSlotReferences()
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(SlotPath);
+
+            try
+            {
+                StrategicSkillSlotView view = root.GetComponent<StrategicSkillSlotView>();
+
+                if (view == null)
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved StrategicSkillSlotView is missing.");
+                }
+
+                var serializedView = new SerializedObject(view);
+                string[] requiredReferences =
+                {
+                    "activeRoot",
+                    "iconImage",
+                    "emptyRoot",
+                    "selectionRoot",
+                    "selectionImage",
+                    "insufficientRoot",
+                    "insufficientFillImage",
+                    "overlayLockRoot",
+                    "costText",
+                    "canvasGroup",
+                    "dragVisual"
+                };
+
+                foreach (string propertyName in requiredReferences)
+                {
+                    if (serializedView.FindProperty(propertyName).objectReferenceValue == null)
+                    {
+                        throw new System.InvalidOperationException(
+                            $"Saved slot reference '{propertyName}' is null.");
+                    }
+                }
+
+                Image icon = serializedView.FindProperty("iconImage").objectReferenceValue as Image;
+                Image selection = serializedView.FindProperty("selectionImage").objectReferenceValue as Image;
+                Image fill = serializedView.FindProperty("insufficientFillImage").objectReferenceValue as Image;
+                GameObject lockRoot = serializedView.FindProperty("overlayLockRoot").objectReferenceValue as GameObject;
+
+                if (icon == selection || fill == null || fill.type != Image.Type.Filled ||
+                    lockRoot == null || lockRoot.transform.parent == null ||
+                    lockRoot.transform.parent.name != "Overlay")
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved slot images, FillMask type, or Overlay/Lock hierarchy are invalid.");
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        private static Transform RequireChild(Transform root, string path)
+        {
+            Transform child = root.Find(path);
+
+            if (child == null)
+            {
+                throw new System.InvalidOperationException(
+                    $"Required strategic slot child '{path}' is missing.");
+            }
+
+            return child;
         }
 
         private static void BuildBoardPrefab(GameObject gaugePrefab, GameObject slotPrefab)
@@ -217,10 +462,10 @@ namespace Battle.UI.StrategicBoard.Editor
         {
             StrategicBoardView boardView = root.GetComponent<StrategicBoardView>();
 
-            if (boardView == null || boardView.SlotRoot == null)
+            if (boardView == null || boardView.GaugeView == null || boardView.SlotRoot == null)
             {
                 throw new System.InvalidOperationException(
-                    "StrategicBoardView or its slotRoot reference is missing.");
+                    "StrategicBoardView, gaugeView, or slotRoot reference is missing.");
             }
 
             var slots = new List<StrategicSkillSlotView>(
@@ -236,6 +481,7 @@ namespace Battle.UI.StrategicBoard.Editor
 
             for (int i = 0; i < slots.Count; i++)
             {
+                RevertSlotVisualStateOverrides(slots[i]);
                 slots[i].SetSlotId($"strategic-slot-{i + 1}");
             }
 
@@ -250,6 +496,7 @@ namespace Battle.UI.StrategicBoard.Editor
             }
 
             var binderObject = new SerializedObject(binder);
+            binderObject.FindProperty("gaugeView").objectReferenceValue = boardView.GaugeView;
             binderObject.FindProperty("boardView").objectReferenceValue = boardView;
             binderObject.FindProperty("managerOverride").objectReferenceValue = null;
             binderObject.FindProperty("findManagerInScene").boolValue = true;
@@ -263,13 +510,151 @@ namespace Battle.UI.StrategicBoard.Editor
             }
 
             GameObject guidePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(TargetingGuidePath);
+            if (guidePrefab == null)
+            {
+                throw new System.InvalidOperationException(
+                    "The strategic targeting guide prefab is missing.");
+            }
+
             var presenterObject = new SerializedObject(presenter);
             presenterObject.FindProperty("boardView").objectReferenceValue = boardView;
             presenterObject.FindProperty("targetingGuidePrefab").objectReferenceValue =
-                guidePrefab != null
-                    ? guidePrefab.GetComponent<StrategicSkillTargetingGuideView>()
-                    : null;
+                guidePrefab.GetComponent<StrategicSkillTargetingGuideView>();
             presenterObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void RevertSlotVisualStateOverrides(StrategicSkillSlotView slot)
+        {
+            Transform active = RequireChild(slot.transform, "Active");
+            Transform empty = RequireChild(slot.transform, "Empty");
+            Transform overlay = RequireChild(slot.transform, "Overlay");
+            var stateObjects = new HashSet<GameObject>();
+            var stateImages = new HashSet<Image>();
+
+            RevertStateTreeOverrides(active, stateObjects, stateImages);
+            RevertStateTreeOverrides(empty, stateObjects, stateImages);
+            RevertStateTreeOverrides(overlay, stateObjects, stateImages);
+            RemoveStaleStatePropertyModifications(slot, stateObjects, stateImages);
+        }
+
+        private static void RevertStateTreeOverrides(
+            Transform root,
+            HashSet<GameObject> stateObjects,
+            HashSet<Image> stateImages)
+        {
+            foreach (Transform child in root.GetComponentsInChildren<Transform>(true))
+            {
+                if (stateObjects.Add(child.gameObject))
+                {
+                    RevertPropertyOverride(child.gameObject, "m_IsActive");
+                }
+            }
+
+            foreach (Image image in root.GetComponentsInChildren<Image>(true))
+            {
+                if (stateImages.Add(image))
+                {
+                    RevertPropertyOverride(image, "m_Enabled");
+                }
+            }
+        }
+
+        private static void RevertPropertyOverride(Object target, string propertyPath)
+        {
+            var serializedObject = new SerializedObject(target);
+            SerializedProperty property = serializedObject.FindProperty(propertyPath);
+
+            if (property != null && property.prefabOverride)
+            {
+                PrefabUtility.RevertPropertyOverride(
+                    property,
+                    InteractionMode.AutomatedAction);
+            }
+        }
+
+        private static void RemoveStaleStatePropertyModifications(
+            StrategicSkillSlotView slot,
+            HashSet<GameObject> stateObjects,
+            HashSet<Image> stateImages)
+        {
+            GameObject instanceRoot = PrefabUtility.GetNearestPrefabInstanceRoot(slot.gameObject);
+
+            if (instanceRoot == null)
+            {
+                return;
+            }
+
+            PropertyModification[] modifications =
+                PrefabUtility.GetPropertyModifications(instanceRoot);
+
+            if (modifications == null || modifications.Length == 0)
+            {
+                return;
+            }
+
+            HashSet<Object> stateSourceTargets = GetStateSourceTargets(stateObjects, stateImages);
+            var filteredModifications = new List<PropertyModification>(modifications.Length);
+            bool removedAny = false;
+
+            foreach (PropertyModification modification in modifications)
+            {
+                if (IsStateVisualModification(modification, stateSourceTargets))
+                {
+                    removedAny = true;
+                    continue;
+                }
+
+                filteredModifications.Add(modification);
+            }
+
+            if (removedAny)
+            {
+                PrefabUtility.SetPropertyModifications(
+                    instanceRoot,
+                    filteredModifications.ToArray());
+            }
+        }
+
+        private static HashSet<Object> GetStateSourceTargets(
+            HashSet<GameObject> stateObjects,
+            HashSet<Image> stateImages)
+        {
+            var sourceTargets = new HashSet<Object>();
+
+            foreach (GameObject stateObject in stateObjects)
+            {
+                Object source = PrefabUtility.GetCorrespondingObjectFromSource(stateObject);
+                if (source != null)
+                {
+                    sourceTargets.Add(source);
+                }
+            }
+
+            foreach (Image stateImage in stateImages)
+            {
+                Object source = PrefabUtility.GetCorrespondingObjectFromSource(stateImage);
+                if (source != null)
+                {
+                    sourceTargets.Add(source);
+                }
+            }
+
+            return sourceTargets;
+        }
+
+        private static bool IsStateVisualModification(
+            PropertyModification modification,
+            HashSet<Object> stateSourceTargets)
+        {
+            bool isStateProperty = modification.propertyPath == "m_IsActive" ||
+                modification.propertyPath == "m_Enabled";
+
+            if (!isStateProperty)
+            {
+                return false;
+            }
+
+            return modification.target == null || stateSourceTargets.Contains(modification.target);
         }
 
         private static void VerifySavedBoardReferences()
@@ -283,6 +668,12 @@ namespace Battle.UI.StrategicBoard.Editor
                 if (boardView == null)
                 {
                     throw new System.InvalidOperationException("Saved StrategicBoardView is missing.");
+                }
+
+                if (boardView.GaugeView == null || boardView.SlotRoot == null)
+                {
+                    throw new System.InvalidOperationException(
+                        "Saved board gaugeView or slotRoot reference is missing.");
                 }
 
                 var boardObject = new SerializedObject(boardView);
@@ -313,7 +704,11 @@ namespace Battle.UI.StrategicBoard.Editor
                         throw new System.InvalidOperationException(
                             $"Saved slot {i + 1} has invalid or duplicate id '{slot.SlotId}'.");
                     }
+
+                    VerifyNoSlotVisualStateOverrides(slot);
                 }
+
+                VerifyGaugeFill(boardView.GaugeView);
 
                 StrategicGaugeBinder binder = root.GetComponentInChildren<StrategicGaugeBinder>(true);
 
@@ -324,7 +719,8 @@ namespace Battle.UI.StrategicBoard.Editor
 
                 var binderObject = new SerializedObject(binder);
 
-                if (binderObject.FindProperty("boardView").objectReferenceValue != boardView ||
+                if (binderObject.FindProperty("gaugeView").objectReferenceValue != boardView.GaugeView ||
+                    binderObject.FindProperty("boardView").objectReferenceValue != boardView ||
                     binderObject.FindProperty("managerOverride").objectReferenceValue != null ||
                     !binderObject.FindProperty("findManagerInScene").boolValue)
                 {
@@ -349,6 +745,85 @@ namespace Battle.UI.StrategicBoard.Editor
             finally
             {
                 PrefabUtility.UnloadPrefabContents(root);
+            }
+        }
+
+        private static void VerifyNoSlotVisualStateOverrides(StrategicSkillSlotView slot)
+        {
+            Transform[] stateRoots =
+            {
+                RequireChild(slot.transform, "Active"),
+                RequireChild(slot.transform, "Empty"),
+                RequireChild(slot.transform, "Overlay")
+            };
+
+            var stateObjects = new HashSet<GameObject>();
+            var stateImages = new HashSet<Image>();
+
+            foreach (Transform stateRoot in stateRoots)
+            {
+                foreach (Transform child in stateRoot.GetComponentsInChildren<Transform>(true))
+                {
+                    if (stateObjects.Add(child.gameObject) &&
+                        HasPropertyOverride(child.gameObject, "m_IsActive"))
+                    {
+                        throw new System.InvalidOperationException(
+                            $"Saved slot '{slot.SlotId}' retains an m_IsActive state override at '{child.name}'.");
+                    }
+                }
+
+                foreach (Image image in stateRoot.GetComponentsInChildren<Image>(true))
+                {
+                    if (stateImages.Add(image) && HasPropertyOverride(image, "m_Enabled"))
+                    {
+                        throw new System.InvalidOperationException(
+                            $"Saved slot '{slot.SlotId}' retains an Image.m_Enabled state override at '{image.name}'.");
+                    }
+                }
+            }
+
+            GameObject instanceRoot = PrefabUtility.GetNearestPrefabInstanceRoot(slot.gameObject);
+            if (instanceRoot == null)
+            {
+                throw new System.InvalidOperationException(
+                    $"Saved slot '{slot.SlotId}' is not a nested prefab instance.");
+            }
+
+            PropertyModification[] modifications =
+                PrefabUtility.GetPropertyModifications(instanceRoot);
+            HashSet<Object> stateSourceTargets = GetStateSourceTargets(stateObjects, stateImages);
+
+            if (modifications != null)
+            {
+                foreach (PropertyModification modification in modifications)
+                {
+                    if (IsStateVisualModification(modification, stateSourceTargets))
+                    {
+                        throw new System.InvalidOperationException(
+                            $"Saved slot '{slot.SlotId}' retains stale state visual property modifications.");
+                    }
+                }
+            }
+        }
+
+        private static bool HasPropertyOverride(Object target, string propertyPath)
+        {
+            var serializedObject = new SerializedObject(target);
+            SerializedProperty property = serializedObject.FindProperty(propertyPath);
+            return property != null && property.prefabOverride;
+        }
+
+        private static void VerifyGaugeFill(StrategicGaugeView gaugeView)
+        {
+            var gaugeObject = new SerializedObject(gaugeView);
+            Image fillImage = gaugeObject.FindProperty("fillImage").objectReferenceValue as Image;
+
+            if (fillImage == null ||
+                fillImage.type != Image.Type.Filled ||
+                fillImage.fillMethod != Image.FillMethod.Radial360)
+            {
+                throw new System.InvalidOperationException(
+                    "Saved strategic gauge fill is missing or is not Filled/Radial360.");
             }
         }
 

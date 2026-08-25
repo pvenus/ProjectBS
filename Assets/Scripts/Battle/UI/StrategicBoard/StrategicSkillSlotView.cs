@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,8 @@ namespace Battle.UI.StrategicBoard
     /// </summary>
     public sealed class StrategicSkillSlotView : MonoBehaviour,
         IPointerClickHandler,
+        IPointerEnterHandler,
+        IPointerExitHandler,
         IBeginDragHandler,
         IDragHandler,
         IEndDragHandler
@@ -28,30 +31,47 @@ namespace Battle.UI.StrategicBoard
         [Header("Identity")]
         [SerializeField] private string slotId;
 
-        [Header("Independent Visual Layers")]
-        [SerializeField] private Image backgroundImage;
+        [Header("Base State Roots")]
+        [SerializeField] private RectTransform activeRoot;
         [SerializeField] private Image iconImage;
-        [SerializeField] private TMP_Text costText;
+        [SerializeField] private GameObject emptyRoot;
+
+        [Header("Overlay State Roots")]
+        [SerializeField] private GameObject selectionRoot;
         [SerializeField] private Image selectionImage;
-        [SerializeField] private Image insufficientResourceImage;
-        [SerializeField] private Image emptySlotImage;
-        [SerializeField] private Image lockImage;
+        [SerializeField] private GameObject insufficientRoot;
+        [SerializeField] private Image insufficientFillImage;
+        [SerializeField] private GameObject overlayLockRoot;
+
+        [Header("Labels")]
+        [SerializeField] private TMP_Text costText;
 
         [Header("Interaction")]
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RectTransform dragVisual;
         [SerializeField, Range(0f, 1f)] private float draggingAlpha = 0.65f;
 
+        [Header("Ready Pulse")]
+        [SerializeField, Min(1f)] private float pulseScale = 1.12f;
+        [SerializeField, Min(0f)] private float scaleUpDuration = 0.12f;
+        [SerializeField, Min(0f)] private float scaleDownDuration = 0.16f;
+
         private RectTransform rectTransform;
         private Canvas rootCanvas;
         private Vector2 originalAnchoredPosition;
         private UnityEngine.Object executionPayload;
         private bool isSelected;
+        private bool isPointerInside;
+        private bool suppressHoverUntilExit;
         private bool isDragging;
+        private Vector3 activeBaseScale;
+        private bool activeBaseScaleCaptured;
+        private Coroutine readyPulseCoroutine;
         [SerializeField] private int cost;
         [SerializeField] private StrategicSkillSlotState state = StrategicSkillSlotState.Empty;
 
         public event Action<StrategicSkillSlotView, PointerEventData> Selected;
+        public event Action<StrategicSkillSlotView, PointerEventData> HoverEntered;
         public event Action<StrategicSkillSlotView, PointerEventData> DragStarted;
         public event Action<StrategicSkillSlotView, PointerEventData> Dragged;
         public event Action<StrategicSkillSlotView, PointerEventData> DragEnded;
@@ -61,8 +81,14 @@ namespace Battle.UI.StrategicBoard
         public int Cost => cost;
         public StrategicSkillSlotState State => state;
         public bool IsSelected => isSelected;
+        public bool IsPointerInside => isPointerInside;
+        public bool IsSelectionVisible => CanInteract &&
+            (isSelected || (isPointerInside && !suppressHoverUntilExit));
         public bool CanInteract => state == StrategicSkillSlotState.Ready;
         public UnityEngine.Object ExecutionPayload => executionPayload;
+        public float InsufficientFillAmount => insufficientFillImage != null
+            ? insufficientFillImage.fillAmount
+            : 0f;
 
         private void Awake()
         {
@@ -79,8 +105,34 @@ namespace Battle.UI.StrategicBoard
                 dragVisual = rectTransform;
             }
 
+            CaptureActiveBaseScale();
             RefreshVisuals();
         }
+
+        private void OnDisable()
+        {
+            ResetInteractionState();
+            CancelReadyPulseAndRestoreScale();
+        }
+
+        private void OnDestroy()
+        {
+            CancelReadyPulseAndRestoreScale();
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            pulseScale = Mathf.Max(1f, pulseScale);
+            scaleUpDuration = Mathf.Max(0f, scaleUpDuration);
+            scaleDownDuration = Mathf.Max(0f, scaleDownDuration);
+
+            if (insufficientFillImage != null)
+            {
+                insufficientFillImage.type = Image.Type.Filled;
+            }
+        }
+#endif
 
         public void SetSlotId(string value)
         {
@@ -98,14 +150,26 @@ namespace Battle.UI.StrategicBoard
                 iconImage.enabled = icon != null;
             }
 
+            if (selectionImage != null)
+            {
+                selectionImage.sprite = icon;
+                selectionImage.enabled = icon != null;
+            }
+
             if (costText != null)
             {
                 costText.text = cost.ToString();
             }
 
-            if (state == StrategicSkillSlotState.Empty)
+            if (state == StrategicSkillSlotState.Empty ||
+                state == StrategicSkillSlotState.Ready ||
+                state == StrategicSkillSlotState.InsufficientResource)
             {
                 SetState(StrategicSkillSlotState.Ready);
+            }
+            else
+            {
+                RefreshVisuals();
             }
         }
 
@@ -113,12 +177,18 @@ namespace Battle.UI.StrategicBoard
         {
             executionPayload = null;
             cost = 0;
-            isSelected = false;
+            ResetInteractionState();
 
             if (iconImage != null)
             {
                 iconImage.sprite = null;
                 iconImage.enabled = false;
+            }
+
+            if (selectionImage != null)
+            {
+                selectionImage.sprite = null;
+                selectionImage.enabled = false;
             }
 
             if (costText != null)
@@ -131,24 +201,26 @@ namespace Battle.UI.StrategicBoard
 
         public void SetState(StrategicSkillSlotState value)
         {
-            state = value;
-
-            if (!CanInteract)
-            {
-                SetSelected(false);
-            }
-
-            RefreshVisuals();
+            SetStateInternal(value);
         }
 
         public void SetSelected(bool selected)
         {
             isSelected = selected && CanInteract;
+            RefreshVisuals();
+        }
 
-            if (selectionImage != null)
-            {
-                selectionImage.enabled = isSelected;
-            }
+        public void ClearSelectionAfterInteraction()
+        {
+            isSelected = false;
+            suppressHoverUntilExit = isPointerInside;
+            RefreshVisuals();
+        }
+
+        public void SuppressHoverSelectionUntilExit()
+        {
+            suppressHoverUntilExit = isPointerInside;
+            RefreshVisuals();
         }
 
         public void SetResourceAvailable(bool available)
@@ -165,6 +237,40 @@ namespace Battle.UI.StrategicBoard
                 : StrategicSkillSlotState.InsufficientResource);
         }
 
+        public void SetResourceGauge(int currentGauge)
+        {
+            int safeCurrentGauge = Mathf.Max(0, currentGauge);
+            float fillAmount = cost <= 0
+                ? 1f
+                : Mathf.Clamp01(safeCurrentGauge / (float)cost);
+
+            if (insufficientFillImage != null)
+            {
+                insufficientFillImage.type = Image.Type.Filled;
+                insufficientFillImage.fillAmount = fillAmount;
+            }
+
+            if (state == StrategicSkillSlotState.Empty ||
+                state == StrategicSkillSlotState.Locked ||
+                state == StrategicSkillSlotState.Disabled)
+            {
+                RefreshVisuals();
+                return;
+            }
+
+            StrategicSkillSlotState previousState = state;
+            StrategicSkillSlotState nextState = safeCurrentGauge >= cost
+                ? StrategicSkillSlotState.Ready
+                : StrategicSkillSlotState.InsufficientResource;
+            SetStateInternal(nextState);
+
+            if (previousState == StrategicSkillSlotState.InsufficientResource &&
+                nextState == StrategicSkillSlotState.Ready)
+            {
+                PlayReadyPulse();
+            }
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!CanInteract || eventData.button != PointerEventData.InputButton.Left)
@@ -174,6 +280,24 @@ namespace Battle.UI.StrategicBoard
 
             SetSelected(true);
             Selected?.Invoke(this, eventData);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            isPointerInside = true;
+            RefreshVisuals();
+
+            if (CanInteract && !suppressHoverUntilExit)
+            {
+                HoverEntered?.Invoke(this, eventData);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            isPointerInside = false;
+            suppressHoverUntilExit = false;
+            RefreshVisuals();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -236,31 +360,22 @@ namespace Battle.UI.StrategicBoard
                 canvasGroup.blocksRaycasts = true;
             }
 
+            ClearSelectionAfterInteraction();
+
             DragEnded?.Invoke(this, eventData);
             ExecutionRequested?.Invoke(this, executionPayload, eventData);
         }
 
         private void RefreshVisuals()
         {
-            if (selectionImage != null)
-            {
-                selectionImage.enabled = isSelected && CanInteract;
-            }
-
-            if (insufficientResourceImage != null)
-            {
-                insufficientResourceImage.enabled = state == StrategicSkillSlotState.InsufficientResource;
-            }
-
-            if (emptySlotImage != null)
-            {
-                emptySlotImage.enabled = state == StrategicSkillSlotState.Empty;
-            }
-
-            if (lockImage != null)
-            {
-                lockImage.enabled = state == StrategicSkillSlotState.Locked;
-            }
+            bool hasContent = state != StrategicSkillSlotState.Empty;
+            SetRootActive(activeRoot != null ? activeRoot.gameObject : null, hasContent);
+            SetRootActive(emptyRoot, !hasContent);
+            SetRootActive(selectionRoot, IsSelectionVisible);
+            SetRootActive(
+                insufficientRoot,
+                state == StrategicSkillSlotState.InsufficientResource);
+            SetRootActive(overlayLockRoot, state == StrategicSkillSlotState.Locked);
 
             if (iconImage != null)
             {
@@ -272,6 +387,134 @@ namespace Battle.UI.StrategicBoard
                 canvasGroup.alpha = state == StrategicSkillSlotState.Disabled ? 0.45f : 1f;
                 canvasGroup.blocksRaycasts = CanInteract;
                 canvasGroup.interactable = CanInteract;
+            }
+        }
+
+        private void SetStateInternal(StrategicSkillSlotState value)
+        {
+            state = value;
+
+            if (!CanInteract)
+            {
+                isSelected = false;
+            }
+
+            if (state != StrategicSkillSlotState.Ready)
+            {
+                CancelReadyPulseAndRestoreScale();
+            }
+
+            RefreshVisuals();
+        }
+
+        private void ResetInteractionState()
+        {
+            bool wasDragging = isDragging;
+            isSelected = false;
+            isPointerInside = false;
+            suppressHoverUntilExit = false;
+            isDragging = false;
+
+            if (wasDragging && dragVisual != null)
+            {
+                dragVisual.anchoredPosition = originalAnchoredPosition;
+            }
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.blocksRaycasts = CanInteract;
+                canvasGroup.interactable = CanInteract;
+            }
+
+            RefreshVisuals();
+        }
+
+        private void PlayReadyPulse()
+        {
+            if (!isActiveAndEnabled || activeRoot == null)
+            {
+                return;
+            }
+
+            CaptureActiveBaseScale();
+            CancelReadyPulseAndRestoreScale();
+            readyPulseCoroutine = StartCoroutine(ReadyPulseRoutine());
+        }
+
+        private IEnumerator ReadyPulseRoutine()
+        {
+            Vector3 pulseTargetScale = new(
+                activeBaseScale.x * Mathf.Max(1f, pulseScale),
+                activeBaseScale.y * Mathf.Max(1f, pulseScale),
+                activeBaseScale.z);
+
+            yield return AnimateActiveScale(
+                activeBaseScale,
+                pulseTargetScale,
+                Mathf.Max(0f, scaleUpDuration));
+            yield return AnimateActiveScale(
+                pulseTargetScale,
+                activeBaseScale,
+                Mathf.Max(0f, scaleDownDuration));
+
+            activeRoot.localScale = activeBaseScale;
+            readyPulseCoroutine = null;
+        }
+
+        private IEnumerator AnimateActiveScale(Vector3 from, Vector3 to, float duration)
+        {
+            if (duration <= Mathf.Epsilon)
+            {
+                activeRoot.localScale = to;
+                yield break;
+            }
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                activeRoot.localScale = Vector3.Lerp(
+                    from,
+                    to,
+                    Mathf.Clamp01(elapsed / duration));
+                yield return null;
+            }
+
+            activeRoot.localScale = to;
+        }
+
+        private void CaptureActiveBaseScale()
+        {
+            if (activeRoot == null || activeBaseScaleCaptured)
+            {
+                return;
+            }
+
+            activeBaseScale = activeRoot.localScale;
+            activeBaseScaleCaptured = true;
+        }
+
+        private void CancelReadyPulseAndRestoreScale()
+        {
+            if (readyPulseCoroutine != null)
+            {
+                StopCoroutine(readyPulseCoroutine);
+                readyPulseCoroutine = null;
+            }
+
+            if (activeRoot != null && activeBaseScaleCaptured)
+            {
+                activeRoot.localScale = activeBaseScale;
+            }
+        }
+
+        private static void SetRootActive(GameObject root, bool active)
+        {
+            if (root != null && root.activeSelf != active)
+            {
+                root.SetActive(active);
             }
         }
     }

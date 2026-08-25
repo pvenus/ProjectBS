@@ -12,7 +12,7 @@ namespace Battle.UI.StrategicBoard
         [SerializeField] private StrategicBoardView boardView;
         [SerializeField] private StrategicSkillCostManager managerOverride;
         [SerializeField] private bool findManagerInScene = true;
-        [SerializeField] private float chargePerSecond;
+        [SerializeField] private float fallbackChargePerSecond;
 
         private StrategicSkillCostManager subscribedManager;
 
@@ -20,6 +20,11 @@ namespace Battle.UI.StrategicBoard
 
         private void OnEnable()
         {
+            if (boardView != null)
+            {
+                boardView.EnsureSlotsReady();
+            }
+
             TrySubscribe();
             ApplyChargePerSecond();
         }
@@ -29,6 +34,11 @@ namespace Battle.UI.StrategicBoard
             if (subscribedManager == null)
             {
                 TrySubscribe();
+
+                if (subscribedManager == null)
+                {
+                    ApplyChargePerSecond(null);
+                }
             }
         }
 
@@ -56,7 +66,7 @@ namespace Battle.UI.StrategicBoard
 
         public void SetChargePerSecond(float amount)
         {
-            chargePerSecond = amount;
+            fallbackChargePerSecond = amount;
             ApplyChargePerSecond();
         }
 
@@ -71,7 +81,8 @@ namespace Battle.UI.StrategicBoard
                 return;
             }
 
-            ApplyGauge(manager.CurrentGauge, manager.MaxGauge);
+            ApplyGauge(manager.CurrentGauge, manager.MaxGauge, false);
+            ApplyChargePerSecond(manager);
         }
 
         private StrategicSkillCostManager ResolveManager()
@@ -116,6 +127,7 @@ namespace Battle.UI.StrategicBoard
             Unsubscribe();
             subscribedManager = manager;
             subscribedManager.OnGaugeChanged += HandleGaugeChanged;
+            subscribedManager.OnPassiveGainRateChanged += HandlePassiveGainRateChanged;
             SynchronizeNow();
         }
 
@@ -127,19 +139,35 @@ namespace Battle.UI.StrategicBoard
             }
 
             subscribedManager.OnGaugeChanged -= HandleGaugeChanged;
+            subscribedManager.OnPassiveGainRateChanged -= HandlePassiveGainRateChanged;
             subscribedManager = null;
         }
 
         private void HandleGaugeChanged(int current, int max)
         {
-            ApplyGauge(current, max);
+            ApplyGauge(current, max, true);
         }
 
-        private void ApplyGauge(int current, int max)
+        private void HandlePassiveGainRateChanged(float passiveGainPerSecond)
         {
             if (gaugeView != null)
             {
-                gaugeView.SetGauge(current, max);
+                gaugeView.SetChargePerSecond(passiveGainPerSecond);
+            }
+        }
+
+        private void ApplyGauge(int current, int max, bool animate)
+        {
+            if (gaugeView != null)
+            {
+                if (animate)
+                {
+                    gaugeView.SetGaugeAnimated(current, max);
+                }
+                else
+                {
+                    gaugeView.SetGaugeImmediate(current, max);
+                }
             }
 
             if (boardView != null)
@@ -150,9 +178,18 @@ namespace Battle.UI.StrategicBoard
 
         private void ApplyChargePerSecond()
         {
+            ApplyChargePerSecond(
+                subscribedManager != null ? subscribedManager : ResolveManager());
+        }
+
+        private void ApplyChargePerSecond(StrategicSkillCostManager manager)
+        {
             if (gaugeView != null)
             {
-                gaugeView.SetChargePerSecond(chargePerSecond);
+                gaugeView.SetChargePerSecond(
+                    manager != null
+                        ? manager.PassiveGainPerSecond
+                        : fallbackChargePerSecond);
             }
         }
     }
