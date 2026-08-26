@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: effect.item.relic.electric_crystal.stun_on_hit
   icon: {fileID: 0}
   config:
-    rid: 5601486782127931507
+    rid: 5601486782127931988
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127931507
+    - rid: 5601486782127931988
       type: {class: OnHitTimedStatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chancePercent: 8

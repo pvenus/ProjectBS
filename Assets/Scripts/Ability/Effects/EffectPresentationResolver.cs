@@ -626,7 +626,7 @@ namespace Effect
                 return string.Empty;
             }
 
-            return PresentationLocalizedTextResolver.ResolveRequired(
+            return PresentationLocalizedTextResolver.ResolveOptional(
                 "desc",
                 effect.LocalizationMainKey);
         }

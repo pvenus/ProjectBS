@@ -275,21 +275,14 @@ namespace Party
         }
 
         public bool TryChangePartyMemberJob(
-            CharacterJob fromJob,
-            CharacterJob toJob)
+            string sourceCharacterId,
+            CharacterSO targetCharacterSO)
         {
             PartyRuntimeData runtimeData = GetPartyRuntimeData();
-            if (runtimeData == null)
+            if (runtimeData == null
+                || targetCharacterSO == null
+                || targetCharacterSO.CharacterType != CharacterType.Player)
             {
-                return false;
-            }
-
-            CharacterSO targetCharacterSO = FindPlayerCharacterSOByJob(toJob);
-            if (targetCharacterSO == null)
-            {
-                Debug.LogWarning(
-                    $"[PartyManager] Target job CharacterSO not found. toJob={toJob}");
-
                 return false;
             }
 
@@ -306,7 +299,10 @@ namespace Party
                     continue;
                 }
 
-                if (currentRuntime.characterSO.Job != fromJob)
+                if (!string.Equals(
+                        currentRuntime.characterSO.CharacterId,
+                        sourceCharacterId,
+                        System.StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
@@ -325,13 +321,13 @@ namespace Party
                 runtimeData.Members[i] = newCharacterManager.RuntimeData;
 
                 Debug.Log(
-                    $"[PartyManager] Party member job changed. from={fromJob}, to={toJob}");
+                    $"[PartyManager] Party member job changed. from={sourceCharacterId}, to={targetCharacterSO.CharacterId}");
 
                 return true;
             }
 
             Debug.LogWarning(
-                $"[PartyManager] Source job party member not found. fromJob={fromJob}");
+                $"[PartyManager] Source party member not found. characterId={sourceCharacterId}");
 
             return false;
         }
@@ -516,30 +512,6 @@ namespace Party
                 Destroy(manager.gameObject);
                 return;
             }
-        }
-
-        private CharacterSO FindPlayerCharacterSOByJob(CharacterJob job)
-        {
-            CharacterSO[] characterSOs = Resources.LoadAll<CharacterSO>("character");
-            foreach (CharacterSO characterSO in characterSOs)
-            {
-                if (characterSO == null)
-                {
-                    continue;
-                }
-
-                if (characterSO.CharacterType != CharacterType.Player)
-                {
-                    continue;
-                }
-
-                if (characterSO.Job == job)
-                {
-                    return characterSO;
-                }
-            }
-
-            return null;
         }
 
         private void ClearRuntimeMemberObjects()
