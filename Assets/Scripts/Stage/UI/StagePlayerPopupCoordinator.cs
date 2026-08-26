@@ -106,6 +106,12 @@ namespace Stage
             return true;
         }
 
+        /// <summary>Unity Button용 실제 파티 정보 팝업 호출 진입점.</summary>
+        public void OpenCharacterInfoFromButton()
+        {
+            OpenCharacterInfo();
+        }
+
         /// <summary>실제 보유 유물을 조회해 유물 정보 팝업을 연다.</summary>
         public bool OpenRelicInfo()
         {
@@ -131,6 +137,12 @@ namespace Stage
             }
 
             return true;
+        }
+
+        /// <summary>Unity Button용 실제 보유 유물 팝업 호출 진입점.</summary>
+        public void OpenRelicInfoFromButton()
+        {
+            OpenRelicInfo();
         }
 
         /// <summary>실제 유물/축복 인벤토리를 조회해 보유효과 팝업을 연다.</summary>

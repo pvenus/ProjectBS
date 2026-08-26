@@ -20,5 +20,10 @@ namespace Stage
         /// 스토리 분기 / CompleteEvent 로 마무리되는 일반 이벤트 노드.
         /// </summary>
         Story   = 400,
+
+        /// <summary>
+        /// 전직
+        /// </summary>
+        Up = 500
     }
 }

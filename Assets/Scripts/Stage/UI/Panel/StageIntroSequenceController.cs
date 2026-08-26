@@ -26,18 +26,10 @@ namespace Stage.UI
 		[Header("Start Click Fade Out")]
 		[FormerlySerializedAs("mapRevealDuration")]
 		[SerializeField, Min(0f)] private float introFadeOutDuration = 0.8f;
-		[SerializeField, Min(0f)] private float mapFadeInDuration = 0.8f;
-
-		[Header("Map Scale Reveal")]
-		[SerializeField, Min(0f)] private float mapScaleDuration = 0.8f;
-		[SerializeField, Range(0.5f, 1f)] private float mapInitialScale = 0.9f;
-		[SerializeField, Range(0f, 0.3f)] private float mapScaleOvershoot = 0.06f;
 
 		private static bool introCompletedThisPlaySession;
 
 		private CanvasGroup introGroup;
-		[SerializeField] private CanvasGroup mapGroup;
-		private Vector3 mapTargetScale = Vector3.one;
 		private Image blackOverlay;
 		private Button startAsNewButton;
 		private Button startAsSaveButton;
@@ -74,13 +66,6 @@ namespace Stage.UI
 		{
 			if (IsIntroAlreadyCompleted())
 			{
-				if (mapGroup != null)
-				{
-					mapGroup.alpha = 0f;
-					mapGroup.interactable = false;
-					mapGroup.blocksRaycasts = false;
-				}
-
 				gameObject.SetActive(false);
 				return;
 			}
@@ -109,7 +94,6 @@ namespace Stage.UI
 			SetStartButtonsInteractable(false);
 
 			blackOverlay = CreateBlackOverlay();
-			//ResolveAndHideMap();
 		}
 
 		private IEnumerator Start()
@@ -152,22 +136,7 @@ namespace Stage.UI
 			transitionStarted = true;
 			SetStartButtonsInteractable(false);
 			introGroup.interactable = false;
-			StartCoroutine(PlayMapReveal());
-		}
-
-		private void ResolveAndHideMap()
-		{
-			ProceduralNodeMapUI[] maps = FindObjectsByType<ProceduralNodeMapUI>(
-				FindObjectsInactive.Include,
-				FindObjectsSortMode.None);
-			if (maps.Length == 0 || maps[0] == null)
-			{
-				return;
-			}
-
-			mapGroup.alpha = 0f;
-			mapGroup.interactable = false;
-			mapGroup.blocksRaycasts = false;
+			StartCoroutine(PlayIntroFadeOut());
 		}
 
 		private IEnumerator PlayInitialFadeIn()
@@ -207,37 +176,21 @@ namespace Stage.UI
 			blackOverlay = null;
 		}
 
-		private IEnumerator PlayMapReveal()
+		private IEnumerator PlayIntroFadeOut()
 		{
-
-			float transitionDuration = Mathf.Max(
-				introFadeOutDuration,
-				Mathf.Max(mapFadeInDuration, mapScaleDuration));
-			if (transitionDuration <= 0f)
+			if (introFadeOutDuration <= 0f)
 			{
 				CompleteTransition();
 				yield break;
 			}
 
 			float elapsed = 0f;
-			Vector3 startScale = mapTargetScale * mapInitialScale;
-			while (elapsed < transitionDuration)
+			while (elapsed < introFadeOutDuration)
 			{
 				elapsed += Time.unscaledDeltaTime;
-				float introProgress = DurationProgress(
-					elapsed,
-					introFadeOutDuration);
-				float mapFadeProgress = DurationProgress(
-					elapsed,
-					mapFadeInDuration);
-				float mapScaleProgress = DurationProgress(
-					elapsed,
-					mapScaleDuration);
-				float scaleProgress = Smooth(mapScaleProgress)
-					+ Mathf.Sin(mapScaleProgress * Mathf.PI) * mapScaleOvershoot;
-
+				float introProgress = Mathf.Clamp01(
+					elapsed / introFadeOutDuration);
 				introGroup.alpha = 1f - Smooth(introProgress);
-				mapGroup.alpha = 1f - Smooth(mapFadeProgress);
 				yield return null;
 			}
 
@@ -246,13 +199,6 @@ namespace Stage.UI
 
 		private void CompleteTransition()
 		{
-			if (mapGroup != null)
-			{
-				mapGroup.alpha = 0f;
-				mapGroup.interactable = false;
-				mapGroup.blocksRaycasts = false;
-			}
-
 			if (introGroup != null)
 			{
 				introGroup.alpha = 0f;
@@ -276,13 +222,6 @@ namespace Stage.UI
 			{
 				Destroy(blackOverlay.gameObject);
 				blackOverlay = null;
-			}
-
-			if (mapGroup != null)
-			{
-				mapGroup.alpha = 0f;
-				mapGroup.interactable = false;
-				mapGroup.blocksRaycasts = false;
 			}
 
 			if (introGroup != null)
@@ -385,22 +324,6 @@ namespace Stage.UI
 			return image;
 		}
 
-		private static RectTransform FindCanvasChildRoot(Transform target)
-		{
-			Transform current = target;
-			while (current != null && current.parent != null)
-			{
-				if (current.parent.GetComponent<Canvas>() != null)
-				{
-					return current as RectTransform;
-				}
-
-				current = current.parent;
-			}
-
-			return target as RectTransform;
-		}
-
 		private static Transform FindDescendant(Transform root, string objectName)
 		{
 			if (root == null || string.IsNullOrWhiteSpace(objectName))
@@ -426,11 +349,5 @@ namespace Stage.UI
 			return value * value * (3f - 2f * value);
 		}
 
-		private static float DurationProgress(float elapsed, float duration)
-		{
-			return duration <= 0f
-				? 1f
-				: Mathf.Clamp01(elapsed / duration);
-		}
 	}
 }
