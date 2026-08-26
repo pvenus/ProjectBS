@@ -10,10 +10,11 @@ namespace ResourceTools.Stage
 {
     public static class StagePoolGennerator
     {
-        private const string DefaultJsonPath = "Assets/Resources/stage_new/stage_pool/job/job_event_pool.json";
-        private const string DefaultPoolOutputFolder = "Assets/Resources/stage_new/event_pools";
-        private const string DefaultStageNodeOutputFolder = "Assets/Resources/stage_new/nodes";
-        private const string DefaultPopupEventOutputFolder = "Assets/Resources/stage_new/popup_events";
+        private const string DefaultJsonPath = "Assets/Contents/Stage/json/job/job_event_pool.json";
+        private const string DefaultPoolOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultStageNodeOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultPopupEventOutputFolder = "Assets/Contents/Stage/so";
+        private const string DefaultStageStringCsvPath = "Assets/Resources/string/stage_string.csv";
 
         [MenuItem("Assets/Stage/Stage Pool Generator", false, 2001)]
         public static void GenerateSelectedJsonMenu()
@@ -36,6 +37,16 @@ namespace ResourceTools.Stage
         {
             GenerateFromJsonPath(
                 DefaultJsonPath,
+                DefaultPoolOutputFolder,
+                DefaultStageNodeOutputFolder,
+                DefaultPopupEventOutputFolder);
+        }
+
+        [MenuItem("Tools/Resource/Stage/Generate Second Job Event Pool")]
+        public static void GenerateSecondJobPoolMenu()
+        {
+            GenerateFromJsonPath(
+                "Assets/Contents/Stage/json/job/second_job_event_pool.json",
                 DefaultPoolOutputFolder,
                 DefaultStageNodeOutputFolder,
                 DefaultPopupEventOutputFolder);
@@ -121,8 +132,14 @@ namespace ResourceTools.Stage
 
             if (!string.IsNullOrWhiteSpace(entryJson.nodeJsonPath))
             {
+                string nodeJsonPath = NormalizeAssetPath(entryJson.nodeJsonPath);
+
+                StageStringBuilder.BuildFromJsonPath(
+                    nodeJsonPath,
+                    DefaultStageStringCsvPath);
+
                 StageNodeBuilder.BuildResult buildResult = StageNodeBuilder.BuildFromJsonPath(
-                    NormalizeAssetPath(entryJson.nodeJsonPath),
+                    nodeJsonPath,
                     stageNodeOutputFolder,
                     popupEventOutputFolder);
 

@@ -106,6 +106,16 @@ namespace Battle
         private BattleRuntime CreateBattleRuntime(
             BattleSO battleSO)
         {
+            SpawnSequenceSO spawnSequence = battleSO.SpawnSequence;
+            Sprite backgroundSprite = battleSO.BackgroundSprite;
+
+            Debug.Log(
+                "[BattleManager] Initializing battle. "
+                + $"battleId={battleSO.BattleId}, "
+                + $"spawnSequence={(spawnSequence != null ? spawnSequence.SequenceId : "null")}, "
+                + $"spawnUnitBindings={battleSO.SpawnUnitBindings?.Count ?? 0}, "
+                + $"backgroundSprite={(backgroundSprite != null ? backgroundSprite.name : "null")}");
+
             return new BattleRuntime
             {
                 battleId = battleSO.BattleId,
@@ -116,7 +126,7 @@ namespace Battle
                 relicDropPool = battleSO.RelicDropPool,
                 normalRelicDropChance = battleSO.NormalRelicDropChance,
                 bossRelicDropChance = battleSO.BossRelicDropChance,
-                backgroundSprite = battleSO.BackgroundSprite,
+                backgroundSprite = backgroundSprite,
                 // monsterSpawnerPrefab assignment removed
                 bossKilled = false,
                 remainingEnemyCount = 0,
@@ -219,10 +229,49 @@ namespace Battle
                 renderer.sprite = battleRuntime.backgroundSprite;
                 renderer.sortingOrder = -1000;
 
+                FitBackgroundToCamera(backgroundObject.transform, renderer);
+
                 return backgroundObject;
             }
 
             return null;
+        }
+
+        private static void FitBackgroundToCamera(
+            Transform backgroundTransform,
+            SpriteRenderer renderer)
+        {
+            Camera camera = Camera.main;
+
+            if (backgroundTransform == null ||
+                renderer == null ||
+                renderer.sprite == null ||
+                camera == null ||
+                !camera.orthographic)
+            {
+                return;
+            }
+
+            Vector2 spriteSize = renderer.sprite.bounds.size;
+            if (spriteSize.x <= 0f || spriteSize.y <= 0f)
+            {
+                return;
+            }
+
+            float cameraHeight = camera.orthographicSize * 2f;
+            float cameraWidth = cameraHeight * camera.aspect;
+            float scale = Mathf.Max(
+                cameraWidth / spriteSize.x,
+                cameraHeight / spriteSize.y);
+
+            backgroundTransform.localScale = new Vector3(scale, scale, 1f);
+
+            Vector3 scaledCenter = renderer.sprite.bounds.center * scale;
+            Vector3 cameraPosition = camera.transform.position;
+            backgroundTransform.position = new Vector3(
+                cameraPosition.x - scaledCenter.x,
+                cameraPosition.y - scaledCenter.y,
+                0f);
         }
 
         private void UpdateVictoryRule()

@@ -101,6 +101,7 @@
                 "visualSetId": "skill.character.yujin.2.passive_1.trigger_skill.visual",
                 "baseVisual": {
                   "visualId": "skill.character.yujin.2.passive_1.trigger_skill.visual.base",
+                  "projectileVisualType": "Default",
                   "archetype": "Ranged",
                   "projectilePrefab": "projectile",
                   "projectileSprite": "arrow_basic",
@@ -164,7 +165,7 @@
           },
           "lifetimeType": "Manual",
           "categoryType": "Buff",
-          "duration": -1,
+          "duration": 0,
           "maxApplyCount": 1
         }
       ],

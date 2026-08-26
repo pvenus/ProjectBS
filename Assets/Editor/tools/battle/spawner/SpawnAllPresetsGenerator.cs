@@ -8,9 +8,9 @@ using UnityEngine;
 public static class SpawnAllPresetsGenerator
 {
     private const string AssetMenuRoot = "Assets/Battle/Spawner";
-    private const string BaseGeneratedFolder = "Assets/Resources/battle/spawner/Generated";
-    private const string SequencesJsonPath = "Assets/Resources/battle/spawner/Jsons/sequence_presets";
-    private const string LegacySequencesJsonPath = "Assets/Resources/battle/spawner/Jsons/sequence_presets.json";
+    private const string BaseGeneratedFolder = "Assets/Contents/Battle/spawner/Generated";
+    private const string SequencesJsonPath = "Assets/Contents/Battle/spawner/Jsons/sequence_presets";
+    private const string LegacySequencesJsonPath = "Assets/Contents/Battle/spawner/Jsons/sequence_presets.json";
 
     [MenuItem("BS/Spawn/Generate All Preset Assets")]
     public static void GenerateAllPresets()

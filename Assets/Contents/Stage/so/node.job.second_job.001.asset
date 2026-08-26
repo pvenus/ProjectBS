@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.job.second_job.001
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.job.second_job.001
+  mainImage: {fileID: -5034695918925393836, guid: a4fc36fb457564f8d9057da20cb9b954, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.job.second.soldier_first
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: SoldierBase
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2400
+      rewardId: character.seojin.2
+      targetId: SoldierBase
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: ec5c164543fb24349948ab2cace07439, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788553
+  - choiceId: choice.job.second.soldier_second
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: SoldierFirst
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2450
+      rewardId: character.seojin.3
+      targetId: SoldierFirst
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: ac694e77d97874e558b6c34cea45aec6, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788554
+  - choiceId: choice.job.second.archer_first
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: ArcherBase
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2400
+      rewardId: character.yujin.2
+      targetId: ArcherBase
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: b2270ac6e89f54db6a9d8b087d3c7e09, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788555
+  - choiceId: choice.job.second.archer_second
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: ArcherFirst
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2450
+      rewardId: character.yujin.3
+      targetId: ArcherFirst
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: ca3cdd5c6123f4d66b1992a652b5f8a8, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788556
+  - choiceId: choice.job.second.monk_first
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: MonkBase
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2400
+      rewardId: character.jihan.2
+      targetId: MonkBase
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: 4c11e233fe4f64054b5a51cb6fe927ce, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788557
+  - choiceId: choice.job.second.monk_second
+    requirements: []
+    visibleConditions:
+    - conditionType: 110
+      targetId: MonkFirst
+      value: 0
+      tag: 
+      invert: 0
+    rewards:
+    - rewardType: 2450
+      rewardId: character.jihan.3
+      targetId: MonkFirst
+      value: 0
+      godType: 0
+      targetData: {fileID: 11400000, guid: 48e47bce3535e45d0b49ff783c0ec802, type: 2}
+      tag: 
+    executionConfig:
+      rid: 5601486779048788558
+  - choiceId: choice.job.second.skip
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486779048788559
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486779048788553
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788560
+    - rid: 5601486779048788554
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788561
+    - rid: 5601486779048788555
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788562
+    - rid: 5601486779048788556
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788563
+    - rid: 5601486779048788557
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788564
+    - rid: 5601486779048788558
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788565
+    - rid: 5601486779048788559
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486779048788566
+    - rid: 5601486779048788560
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788561
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788562
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788563
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788564
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788565
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 
+    - rid: 5601486779048788566
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 

@@ -898,6 +898,12 @@ namespace ResourceTools.Stage
                 return ResolveCharacterData(targetId, result, nodeId, choiceId);
             }
 
+            if (rewardType.Equals("FirstJobChange", StringComparison.OrdinalIgnoreCase) ||
+                rewardType.Equals("SecondJobChange", StringComparison.OrdinalIgnoreCase))
+            {
+                return ResolveCharacterData(rewardJson.rewardId, result, nodeId, choiceId);
+            }
+
             if (rewardType.Equals("shrine_config", StringComparison.OrdinalIgnoreCase) ||
                 rewardType.Equals("shrine", StringComparison.OrdinalIgnoreCase))
             {

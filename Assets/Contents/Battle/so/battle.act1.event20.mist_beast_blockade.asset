@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897374d37d5b749a5923405ad58ad77e, type: 3}
+  m_Name: battle.act1.event20.mist_beast_blockade
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleSO
+  battleId: battle.act1.event20.mist_beast_blockade
+  battleName: "\uC548\uAC1C\uB97C \uAFF0\uB9E4\uB294 \uB178\uD30C - \uC774\uB984\uD45C\uAC00
+    \uBB36\uC778 \uC2E4\uAFB8\uB9AC\uB97C \uBE7C\uC557\uC544 \uC548\uAC1C\uB97C \uAC77\uC5B4\uB0B8\uB2E4."
+  backgroundSprite: {fileID: 21300000, guid: 92d9731f9e65441e69291c8ae73100d9, type: 3}
+  spawnSequence: {fileID: 11400000, guid: 4a55d03db579047d99a436a9a02c32c6, type: 2}
+  spawnUnitBindings:
+  - unitKey: spawn.swarm.fodder.melee
+    role: 1
+    character: {fileID: 11400000, guid: bcd4e548a1d8248d0a59aa37ff502b85, type: 2}
+  - unitKey: spawn.swarm.fast.melee
+    role: 1
+    character: {fileID: 11400000, guid: bcd4e548a1d8248d0a59aa37ff502b85, type: 2}
+  - unitKey: spawn.swarm.pressure.ranged
+    role: 2
+    character: {fileID: 11400000, guid: b40c42d66d86d443a8f215965ca9f69c, type: 2}
+  - unitKey: spawn.swarm.light.blocker
+    role: 3
+    character: {fileID: 11400000, guid: 0478f486b2b964210becc2d6e795a39f, type: 2}
+  timedPropPlacements: []
+  victoryRule: 1
+  survivalTimeSeconds: 0
+  rewardExperience: 20
+  relicDropPool: {fileID: 0}
+  normalRelicDropChance: 0
+  bossRelicDropChance: 0

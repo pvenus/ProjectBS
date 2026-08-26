@@ -1,0 +1,104 @@
+{
+  "stageNodeId": "stage.job.second_job",
+  "roundNodeType": "Event",
+  "chapterId": "job",
+  "actId": "second_job",
+  "actNumber": 2,
+  "isRequired": true,
+  "titleKo": "두 번째 전직",
+  "mainCharacterId": "character.seojin",
+  "themeKo": "전직",
+  "summaryKo": "파티원의 현재 직업 단계에 따라 첫 번째 또는 두 번째 상위 직업으로 전직하는 통합 승급 노드.",
+  "startNodeId": "node.job.second_job.001",
+  "nodes": [
+    {
+      "nodeId": "node.job.second_job.001",
+      "locationId": "location.job_shrine",
+      "bodyKo": "수많은 전장을 건넌 일행은 다시 전직의 제단 앞에 섰다. 한때 희미했던 불빛은 이제 두 층의 계단을 따라 환하게 타오르고 있었다. 아래 단에는 아직 첫 맹세를 기다리는 자의 이름이, 위 단에는 이미 한 길을 걸어 끝까지 증명한 자의 이름이 새겨져 있었다.\n\n제단은 모두에게 같은 답을 요구하지 않았다. 아직 본래의 직업에 머문 자에게는 첫 번째 길을, 한 차례 이름을 바꾼 자에게는 마지막 경지를 열어 보였다.\n\n서진은 동료들과 눈을 맞췄다. 지금까지 살아남은 방식이 곧 앞으로 짊어질 이름이 될 터였다. 이제 각자는 자신이 도달한 자리에서 다음 맹세를 선택해야 했다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "imageDirection": "A modest two-step stone advancement altar beside a weathered Korean mountain shrine. 정상의 작은 석대에는 구름과 해 문양이 새겨진 오래된 청동 거울 성물이 서 있고, 옅은 금빛 원형 광배가 비친다. 서진, 유진, 지한이 성물을 향해 조용히 선다. Existing popup_main style: vertical 3:4, Korean ink-and-wash on aged hanji, muted watercolor, restrained ochre light, grounded historical-fantasy scale, no UI, no caption, no logo, no written text.",
+      "choices": [
+        {
+          "choiceId": "choice.job.second.soldier_first",
+          "labelKo": "군졸 서진을 장군으로 전직시킨다.",
+          "resultKo": "서진은 군졸의 이름을 내려놓고 전장을 이끄는 장군의 첫 맹세를 세웠다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "SoldierBase" }
+          ],
+          "rewards": [
+            { "rewardType": "FirstJobChange", "rewardId": "character.seojin.2", "targetId": "SoldierBase" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.soldier_second",
+          "labelKo": "장군 서진을 이순신으로 전직시킨다.",
+          "resultKo": "서진은 전장의 흐름과 동료의 목숨을 함께 짊어지는 이순신의 경지에 올랐다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "SoldierFirst" }
+          ],
+          "rewards": [
+            { "rewardType": "SecondJobChange", "rewardId": "character.seojin.3", "targetId": "SoldierFirst" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.archer_first",
+          "labelKo": "궁수 유진을 신궁으로 전직시킨다.",
+          "resultKo": "유진은 바람과 거리를 읽는 신궁의 첫 맹세를 세웠다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "ArcherBase" }
+          ],
+          "rewards": [
+            { "rewardType": "FirstJobChange", "rewardId": "character.yujin.2", "targetId": "ArcherBase" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.archer_second",
+          "labelKo": "신궁 유진을 주몽으로 전직시킨다.",
+          "resultKo": "유진은 보이지 않는 길 끝까지 화살을 보내는 주몽의 경지에 올랐다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "ArcherFirst" }
+          ],
+          "rewards": [
+            { "rewardType": "SecondJobChange", "rewardId": "character.yujin.3", "targetId": "ArcherFirst" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.monk_first",
+          "labelKo": "승려 지한을 금강승으로 전직시킨다.",
+          "resultKo": "지한은 몸과 마음을 굳건히 세우는 금강승의 첫 맹세를 세웠다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "MonkBase" }
+          ],
+          "rewards": [
+            { "rewardType": "FirstJobChange", "rewardId": "character.jihan.2", "targetId": "MonkBase" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.monk_second",
+          "labelKo": "금강승 지한을 김윤후로 전직시킨다.",
+          "resultKo": "지한은 흔들리지 않는 의지로 모두를 지켜 내는 김윤후의 경지에 올랐다.",
+          "visibleConditions": [
+            { "conditionType": "HasCharacterJob", "targetId": "MonkFirst" }
+          ],
+          "rewards": [
+            { "rewardType": "SecondJobChange", "rewardId": "character.jihan.3", "targetId": "MonkFirst" }
+          ],
+          "executionConfig": { "type": "CompleteEvent" }
+        },
+        {
+          "choiceId": "choice.job.second.skip",
+          "labelKo": "지금은 전직하지 않는다.",
+          "resultKo": "일행은 제단의 불빛을 뒤로하고 다음 기회를 기다리기로 했다.",
+          "rewards": [],
+          "executionConfig": { "type": "CompleteEvent" }
+        }
+      ]
+    }
+  ]
+}

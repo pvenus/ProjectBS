@@ -23,7 +23,6 @@ public class SkillStatModifierData
     public SkillStatModifierOperationType OperationType => operationType;
     public float Value => value;
 
-    #if UNITY_EDITOR
     public void ApplyEditorData(
         SkillStatModifierType modifierType,
         SkillStatModifierOperationType operationType,
@@ -33,7 +32,6 @@ public class SkillStatModifierData
         this.operationType = operationType;
         this.value = value;
     }
-    #endif
 
     public float Apply(float baseValue)
     {

@@ -403,6 +403,7 @@ GameObject:
   - component: {fileID: 176292456}
   - component: {fileID: 176292457}
   - component: {fileID: 176292458}
+  - component: {fileID: 176292459}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -497,6 +498,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5c8d3a4311a4e84b28011d1386ebe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle.Prop.BattlePropManager
+--- !u!114 &176292459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176292452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11a16828fff74d65b9da64cde66f761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.Presentation.Ambient.BattleAmbientController
+  entries:
+  - kind: 0
+    frames:
+    - {fileID: 21300000, guid: c6621e9a491774e038e9326cc48c78ce, type: 3}
+    - {fileID: 21300000, guid: 829ce6dfcfb784dd88fdbef8facfcaa0, type: 3}
+    - {fileID: 21300000, guid: 6b623caff14214d799f63600187760cb, type: 3}
+    - {fileID: 21300000, guid: d722797a3c09340179701c465b6413cb, type: 3}
+    framesPerSecond: 7
+    scale: 0.22
+    minLifetime: 7
+    maxLifetime: 11
+    weight: 0.65
+  - kind: 1
+    frames:
+    - {fileID: 21300000, guid: 5475cee0c661840c591b10f23ecc6971, type: 3}
+    - {fileID: 21300000, guid: 666730c08036d4f53aed9a73695f3cac, type: 3}
+    - {fileID: 21300000, guid: fc4ed27f999904a38b55487bfb67ae81, type: 3}
+    - {fileID: 21300000, guid: c299b5d21ff8c4a5fa03edc9d1d503d9, type: 3}
+    framesPerSecond: 10
+    scale: 0.34
+    minLifetime: 3
+    maxLifetime: 5
+    weight: 1.2
+  - kind: 2
+    frames:
+    - {fileID: 21300000, guid: ca6c28f0b12ea4d3792ab19fbb201529, type: 3}
+    - {fileID: 21300000, guid: 2e66ecf6d79294af99077600b6ca3ac0, type: 3}
+    - {fileID: 21300000, guid: 3fabb4a83c2534dc784ca1b61c098d41, type: 3}
+    - {fileID: 21300000, guid: 02ae21bbf41b64a28a343f3a1067ef6c, type: 3}
+    framesPerSecond: 7
+    scale: 0.18
+    minLifetime: 4
+    maxLifetime: 7
+    weight: 1
+  - kind: 3
+    frames:
+    - {fileID: 21300000, guid: 65c0eb19e2dd9490484f011b450e3757, type: 3}
+    - {fileID: 21300000, guid: 956db6faa8c7d47e08d1ee4cf1760f9e, type: 3}
+    - {fileID: 21300000, guid: 8348b36e886a247b78b048dac86b7db1, type: 3}
+    - {fileID: 21300000, guid: 68f9fb4fcc9a044d7aca7a62475fcf68, type: 3}
+    framesPerSecond: 6
+    scale: 0.24
+    minLifetime: 8
+    maxLifetime: 14
+    weight: 1.4
+  initialDelay: 1.5
+  minSpawnInterval: 2.5
+  maxSpawnInterval: 5.5
+  maxActiveActors: 7
+  maxPersistentGrass: 8
+  birdGroupWeight: 0.3
+  windLeafGroupWeight: 1
+  grassGroupWeight: 0.55
+  minWindLeafGroupLifetime: 6
+  maxWindLeafGroupLifetime: 10
+  windLifetimeRatio: {x: 0.55, y: 0.9}
+  leafLifetimeRatio: {x: 0.4, y: 0.85}
+  windSpeedVariance: 0.15
+  leafSpeedVariance: 0.35
+  viewportPadding: {x: 0.08, y: 0.08}
+  backgroundSortingOrder: -800
+  foregroundSortingOrder: 800
 --- !u!1001 &254817762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -741,11 +816,11 @@ PrefabInstance:
     - target: {fileID: 5347550289784582208, guid: 509a8d0131fd943518b74e1be52f394f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 5347550289784582208, guid: 509a8d0131fd943518b74e1be52f394f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 6758247042835316770, guid: 509a8d0131fd943518b74e1be52f394f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1202,19 +1277,19 @@ PrefabInstance:
     - target: {fileID: 4460671903956379740, guid: 9ec03d4418ca3442dbfdecea46d5a95a, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 4460671903956379740, guid: 9ec03d4418ca3442dbfdecea46d5a95a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 5132737076978688102, guid: 9ec03d4418ca3442dbfdecea46d5a95a, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 5132737076978688102, guid: 9ec03d4418ca3442dbfdecea46d5a95a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -2503168951834252274, guid: 49c519fe93dd2489c88c32e213cac13f, type: 2}
     - target: {fileID: 7402718045612998552, guid: 9ec03d4418ca3442dbfdecea46d5a95a, type: 3}
       propertyPath: m_Name
       value: Upgrade UI

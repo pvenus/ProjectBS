@@ -157,6 +157,10 @@ namespace ResourceTools.Character
                 Debug.Log($"[CharacterJsonGenerator] Updated CharacterSO: {assetPath}");
             }
 
+            CharacterStringBuilder.ExtractCharacterName(
+                data.characterId,
+                data.name);
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 

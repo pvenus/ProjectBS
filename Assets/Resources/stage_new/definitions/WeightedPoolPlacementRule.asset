@@ -15,11 +15,15 @@ MonoBehaviour:
   mode: 0
   weightedPool:
     pools:
-    - pool: {fileID: 11400000, guid: 2b09e679e0d58487486e9af1a36d9d74, type: 2}
-      weight: 100
     - pool: {fileID: 11400000, guid: 826fdcdf7fea14a4b88b7c84e2d19e9c, type: 2}
       weight: 100
+    - pool: {fileID: 11400000, guid: f464a5daa66104471a380789e1fc27dc, type: 2}
+      weight: 100
     - pool: {fileID: 11400000, guid: ab7ac272b200f49cd86388d8be54bc34, type: 2}
+      weight: 100
+    - pool: {fileID: 11400000, guid: 2f9afc20f9884494d95b50376ffbfa2c, type: 2}
+      weight: 100
+    - pool: {fileID: 11400000, guid: 1dd0a13c12bc243ebb9e1e71f0cb45a1, type: 2}
       weight: 100
     avoidDuplicateInSection: 1
     allowEmptySlot: 0

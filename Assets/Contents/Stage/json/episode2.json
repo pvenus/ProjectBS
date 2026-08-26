@@ -163,22 +163,23 @@
           "textKo": "지한과 함께 아이의 그림에 남은 서쪽 약초꾼 길을 조사한다.",
           "resultKo": "서진은 붉은 천 인형과 아이를 꾀어낸 말이 산귀 소문과 연결될 수 있음을 의식한다.",
           "opens": [
+            "companion_join",
             "investigation",
             "forest_lead"
           ],
           "rewardOwner": "popup",
           "rewardTrigger": "episode_clear",
           "rewardDirection": [
-            "gold_episode_clear"
+            "character_join"
           ],
           "executionConfig": {
             "type": "CompleteEvent"
           },
           "rewards": [
             {
-              "rewardType": "Gold",
-              "rewardId": "reward.act1.chapter01.episode02.follow_jihan_clue.clear",
-              "amount": 50
+              "rewardType": "Character",
+              "rewardId": "reward.act1.chapter01.episode02.jihan_join",
+              "targetId": "character.jihan.1"
             }
           ]
         },
@@ -192,22 +193,23 @@
           "textKo": "유진과 함께 지워진 수레 자국을 따라 동쪽 폐수련장으로 향한다.",
           "resultKo": "서진은 유진과 함께 지워진 흔적을 따라 숲으로 들어가며 다음 에피소드의 추적 흐름을 연다.",
           "opens": [
+            "companion_join",
             "travel",
             "next_episode"
           ],
           "rewardOwner": "popup",
           "rewardTrigger": "episode_clear",
           "rewardDirection": [
-            "gold_episode_clear"
+            "character_join"
           ],
           "executionConfig": {
             "type": "CompleteEvent"
           },
           "rewards": [
             {
-              "rewardType": "Gold",
-              "rewardId": "reward.act1.chapter01.episode02.follow_yujin_trace.clear",
-              "amount": 50
+              "rewardType": "Character",
+              "rewardId": "reward.act1.chapter01.episode02.yujin_join",
+              "targetId": "character.yujin.1"
             }
           ]
         }
@@ -216,4 +218,3 @@
     }
   ]
 }
-

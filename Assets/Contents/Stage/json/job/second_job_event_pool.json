@@ -1,0 +1,20 @@
+{
+  "poolId": "stage.pool.job.second_job",
+  "displayName": "1~2차 통합 전직 이벤트 풀",
+  "entries": [
+    {
+      "entryId": "entry.job.second_job",
+      "nodeJsonPath": "Assets/Contents/Stage/json/job/second_job.json",
+      "weight": 100,
+      "oneShot": true,
+      "cooldownRounds": 0,
+      "minDepth": 0,
+      "maxDepth": 0,
+      "tags": [
+        "job",
+        "first_job_change",
+        "second_job_change"
+      ]
+    }
+  ]
+}

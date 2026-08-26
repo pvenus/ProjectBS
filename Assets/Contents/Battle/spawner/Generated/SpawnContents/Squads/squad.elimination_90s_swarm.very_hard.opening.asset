@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb9a5d55239c2e4cbde4bca537951d9, type: 3}
+  m_Name: squad.elimination_90s_swarm.very_hard.opening
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnSquadSO
+  contentId: squad.elimination_90s_swarm.very_hard.opening
+  spawnDelay: 0
+  formationPatternId: 
+  formationPatternDisplayName: 
+  formationPatternKind: 5
+  formationPatternConfig:
+    rid: 4316572842846585051
+  formationSlotInterval: 1.2
+  formationQuantity: 1
+  groupInterval: 0.25
+  slotInterval: 0
+  quantity: 1
+  groups:
+  - order: 0
+    spawnUnitKey: spawn.swarm.fodder.melee
+    spawnRole: 1
+    patternId: 
+    patternDisplayName: 
+    patternKind: 4
+    patternConfig:
+      rid: 4316572842846585052
+    localOffset: {x: 0, y: 0}
+    localRotation: 0
+    slotInterval: 0.55
+    quantity: 1
+  - order: 0
+    spawnUnitKey: spawn.swarm.fast.melee
+    spawnRole: 1
+    patternId: 
+    patternDisplayName: 
+    patternKind: 3
+    patternConfig:
+      rid: 4316572842846585053
+    localOffset: {x: 0, y: 0}
+    localRotation: 0
+    slotInterval: 0
+    quantity: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 4316572842846585051
+      type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
+      data:
+        slots:
+        - localPosition: {x: 2.8, y: 0}
+          localRotation: 270
+        - localPosition: {x: -2.8, y: -0.00000024478376}
+          localRotation: 90
+    - rid: 4316572842846585052
+      type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
+      data:
+        slots:
+        - localPosition: {x: -2, y: 0}
+          localRotation: 0
+        - localPosition: {x: -1.2, y: 0}
+          localRotation: 0
+        - localPosition: {x: -0.4, y: 0}
+          localRotation: 0
+        - localPosition: {x: 0.4, y: 0}
+          localRotation: 0
+        - localPosition: {x: 1.2, y: 0}
+          localRotation: 0
+        - localPosition: {x: 2, y: 0}
+          localRotation: 0
+    - rid: 4316572842846585053
+      type: {class: FixedSpawnPatternConfig, ns: , asm: Assembly-CSharp}
+      data:
+        slots:
+        - localPosition: {x: 0, y: 0}
+          localRotation: 0

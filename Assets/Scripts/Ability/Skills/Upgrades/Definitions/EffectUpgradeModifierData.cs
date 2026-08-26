@@ -20,7 +20,6 @@ namespace Effect
         public SkillStatModifierOperationType OperationType => operationType;
         public float Value => value;
 
-#if UNITY_EDITOR
         public void ApplyEditorData(
             string targetEffectId,
             EffectModifierFieldType fieldType,
@@ -32,6 +31,5 @@ namespace Effect
             this.operationType = operationType;
             this.value = value;
         }
-#endif
     }
 }

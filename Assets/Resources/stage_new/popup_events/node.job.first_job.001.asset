@@ -26,14 +26,14 @@ MonoBehaviour:
       invert: 0
     rewards:
     - rewardType: 2400
-      rewardId: character.military_officer.2
+      rewardId: character.seojin.2
       targetId: SoldierBase
       value: 0
       godType: 0
-      targetData: {fileID: 11400000, guid: 827ef7fae44ea41d091bed7983094820, type: 2}
+      targetData: {fileID: 11400000, guid: ec5c164543fb24349948ab2cace07439, type: 2}
       tag: 
     executionConfig:
-      rid: 5535069685187608885
+      rid: 5601486779048788236
   - choiceId: choice.job.first.archer_archmaster
     requirements: []
     visibleConditions:
@@ -44,14 +44,14 @@ MonoBehaviour:
       invert: 0
     rewards:
     - rewardType: 2400
-      rewardId: ArcherFirst
+      rewardId: character.yujin.2
       targetId: ArcherBase
       value: 0
       godType: 0
-      targetData: {fileID: 0}
+      targetData: {fileID: 11400000, guid: b2270ac6e89f54db6a9d8b087d3c7e09, type: 2}
       tag: 
     executionConfig:
-      rid: 5535069685187608886
+      rid: 5601486779048788237
   - choiceId: choice.job.first.scholar_strategist
     requirements: []
     visibleConditions:
@@ -69,7 +69,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5535069685187608887
+      rid: 5601486779048788238
   - choiceId: choice.job.first.physician_royal_physician
     requirements: []
     visibleConditions:
@@ -87,7 +87,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5535069685187608888
+      rid: 5601486779048788239
   - choiceId: choice.job.first.monk_vajra_monk
     requirements: []
     visibleConditions:
@@ -98,74 +98,74 @@ MonoBehaviour:
       invert: 0
     rewards:
     - rewardType: 2400
-      rewardId: MonkFirst
+      rewardId: character.jihan.2
       targetId: MonkBase
       value: 0
       godType: 0
-      targetData: {fileID: 0}
+      targetData: {fileID: 11400000, guid: 4c11e233fe4f64054b5a51cb6fe927ce, type: 2}
       tag: 
     executionConfig:
-      rid: 5535069685187608889
+      rid: 5601486779048788240
   - choiceId: choice.job.first.skip
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5535069685187608890
+      rid: 5601486779048788241
   references:
     version: 2
     RefIds:
-    - rid: 5535069685187608885
+    - rid: 5601486779048788236
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608891
-    - rid: 5535069685187608886
+          rid: 5601486779048788242
+    - rid: 5601486779048788237
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608892
-    - rid: 5535069685187608887
+          rid: 5601486779048788243
+    - rid: 5601486779048788238
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608893
-    - rid: 5535069685187608888
+          rid: 5601486779048788244
+    - rid: 5601486779048788239
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608894
-    - rid: 5535069685187608889
+          rid: 5601486779048788245
+    - rid: 5601486779048788240
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608895
-    - rid: 5535069685187608890
+          rid: 5601486779048788246
+    - rid: 5601486779048788241
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5535069685187608896
-    - rid: 5535069685187608891
+          rid: 5601486779048788247
+    - rid: 5601486779048788242
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5535069685187608892
+    - rid: 5601486779048788243
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5535069685187608893
+    - rid: 5601486779048788244
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5535069685187608894
+    - rid: 5601486779048788245
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5535069685187608895
+    - rid: 5601486779048788246
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5535069685187608896
+    - rid: 5601486779048788247
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486773768945904
+      rid: 5601486779048788382
   - choiceId: choice.act1.chapter01.episode03_2.oil_wheel_trace.accept_yujin_join
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486773768945905
+      rid: 5601486779048788383
   references:
     version: 2
     RefIds:
-    - rid: 5601486773768945904
+    - rid: 5601486779048788382
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486773768945906
-    - rid: 5601486773768945905
+          rid: 5601486779048788384
+    - rid: 5601486779048788383
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486773768945907
-    - rid: 5601486773768945906
+          rid: 5601486779048788385
+    - rid: 5601486779048788384
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}
-    - rid: 5601486773768945907
+    - rid: 5601486779048788385
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}
