@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.13.empty_bride_palanquin.intro.4d5cbac29e35c3d533bd",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+  "eventId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+  "popupEventId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+  "eventIdForImage": "node.act1.random_event.13.empty_bride_palanquin.intro",
+  "sourcePopupId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+  "sourcePopupName": "random_event_13_empty_bride_palanquin_intro",
+  "eventDomainId": "event.act1.random_event.13.empty_bride_palanquin",
+  "eventPlanningId": "event_planning.act1.random_event.13.empty_bride_palanquin",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "빈 가마의 신부",
+  "contentUsage": "Act01 random event popup main image for '빈 가마의 신부', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+      "role": "random_event_planning_current",
+      "sha256": "22b6e1155358a49a998f6138c5fd3d3755801115a44203ae891145102eadf7eb"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/13_빈_가마의_신부.md",
+      "role": "random_event_source_text_current",
+      "sha256": "dbb67bc30ed02603cdb591d0ee473d38373d36e71021e4b2db3054e3074b0fee"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+      "sha256": "22b6e1155358a49a998f6138c5fd3d3755801115a44203ae891145102eadf7eb"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/13_빈_가마의_신부.md",
+      "sha256": "dbb67bc30ed02603cdb591d0ee473d38373d36e71021e4b2db3054e3074b0fee"
+    },
+    "popupId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+    "popupDisplayTextKo": "안개 낀 고갯길 한복판에 붉은 혼례 가마가 버려져 있었다. 가마꾼은 없었지만 안쪽에서는 어린아이가 자장가를 부르는 소리가 났고, 발치에는 신부의 비녀와 아이의 짚신이 나란히 놓여 있었다. 가마의 문에는 밖에서 잠근 자물쇠가 달렸으며, 손잡이에는 산적들이 쓰는 검은 천 조각이 끼어 있었다."
+  },
+  "planningSnapshot": {
+    "capturedAt": null,
+    "captureAuthorityStatus": "pending_provider_approval",
+    "snapshotHash": "4d5cbac29e35c3d533bd71f453ee987387af03427d65d52425ff7c86673b4abd",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.13.empty_bride_palanquin.intro"
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_13_empty_bride_palanquin_intro"
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.13.empty_bride_palanquin"
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/titleKo",
+        "value": "빈 가마의 신부"
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "안개 낀 고갯길 한복판에 붉은 혼례 가마가 버려져 있었다. 가마꾼은 없었지만 안쪽에서는 어린아이가 자장가를 부르는 소리가 났고, 발치에는 신부의 비녀와 아이의 짚신이 나란히 놓여 있었다. 가마의 문에는 밖에서 잠근 자물쇠가 달렸으며, 손잡이에는 산적들이 쓰는 검은 천 조각이 끼어 있었다."
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.13.empty_bride_palanquin.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '빈 가마의 신부'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      }
+    ]
+  },
+  "approval": {
+    "status": "pending_provider_approval",
+    "approvedAt": null,
+    "approvedBy": null,
+    "providerCallAllowed": false,
+    "notes": [
+      "Do not route or call ImageGen until user/provider execution approval is recorded."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "pending_provider_approval",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "pending_provider_approval",
+    "idempotencyKey": "pending.gmplan2.background_single_image.node.act1.random_event.13.empty_bride_palanquin.intro.4d5cbac29e35c3d533bd",
+    "idempotencyStatus": "reserved_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: empty palanquin, discarded bridal cloth, tense roadside",
+    "Source popup title: 빈 가마의 신부"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "An empty bridal palanquin sits on a lonely road, suggesting a hidden child bride rescue crisis.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "empty palanquin, discarded bridal cloth, tense roadside",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.13.empty_bride_palanquin.intro",
+      "sceneFacts": [
+        "An empty bridal palanquin sits on a lonely road, suggesting a hidden child bride rescue crisis.",
+        "empty palanquin, discarded bridal cloth, tense roadside",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.13.empty_bride_palanquin.intro.main.png",
+    "spriteName": "node.act1.random_event.13.empty_bride_palanquin.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "future_copy_target_only_after_pass",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.13.empty_bride_palanquin.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.13.empty_bride_palanquin.intro.main.png",
+    "copyTargetRole": "downstream_builder_or_legacy_import_only_not_generation_output"
+  },
+  "readiness": {
+    "status": "blocked_pending_provider_approval",
+    "blockers": [
+      "pending_provider_approval",
+      "missing_generated_media_routing_v2",
+      "missing_generated_media_prompt_v3",
+      "missing_provider_execution_approval_cost_record"
+    ],
+    "readyForRouting": false
+  }
+}

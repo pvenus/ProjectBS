@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.15.ash_eating_jar.intro.eb70412c753bde5c3a06",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "eventId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "popupEventId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "eventIdForImage": "node.act1.random_event.15.ash_eating_jar.intro",
+  "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "sourcePopupName": "random_event_15_ash_eating_jar_intro",
+  "eventDomainId": "event.act1.random_event.15.ash_eating_jar",
+  "eventPlanningId": "event_planning.act1.random_event.15.ash_eating_jar",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "재를 먹는 항아리",
+  "contentUsage": "Act01 random event popup main image for '재를 먹는 항아리', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "role": "random_event_planning_current",
+      "sha256": "fcfdbfc1319c166f9a1400dd1d09e457676168198f0435ad82df5d2987cbaea7"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/15_재를_먹는_항아리.md",
+      "role": "random_event_source_text_current",
+      "sha256": "9251fab7b14f85828263d1249361065664c316bd9d62b8cf80492ef7340f33a7"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "sha256": "fcfdbfc1319c166f9a1400dd1d09e457676168198f0435ad82df5d2987cbaea7"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/15_재를_먹는_항아리.md",
+      "sha256": "9251fab7b14f85828263d1249361065664c316bd9d62b8cf80492ef7340f33a7"
+    },
+    "popupId": "node.act1.random_event.15.ash_eating_jar.intro",
+    "popupDisplayTextKo": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다."
+  },
+  "planningSnapshot": {
+    "capturedAt": null,
+    "captureAuthorityStatus": "pending_provider_approval",
+    "snapshotHash": "eb70412c753bde5c3a06cdace6ddee488ce2d6ba0192f4d139b30ed1a78b4146",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.15.ash_eating_jar.intro"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_15_ash_eating_jar_intro"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.15.ash_eating_jar"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/titleKo",
+        "value": "재를 먹는 항아리"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다."
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '재를 먹는 항아리'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      }
+    ]
+  },
+  "approval": {
+    "status": "pending_provider_approval",
+    "approvedAt": null,
+    "approvedBy": null,
+    "providerCallAllowed": false,
+    "notes": [
+      "Do not route or call ImageGen until user/provider execution approval is recorded."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "pending_provider_approval",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "pending_provider_approval",
+    "idempotencyKey": "pending.gmplan2.background_single_image.node.act1.random_event.15.ash_eating_jar.intro.eb70412c753bde5c3a06",
+    "idempotencyStatus": "reserved_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: ash jar, hearth, hidden grain clue, heavy silence",
+    "Source popup title: 재를 먹는 항아리"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "An ash-eating jar sits in a poor house, hinting at hidden grain and black-cloth enforcers nearby.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "ash jar, hearth, hidden grain clue, heavy silence",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.15.ash_eating_jar.intro",
+      "sceneFacts": [
+        "An ash-eating jar sits in a poor house, hinting at hidden grain and black-cloth enforcers nearby.",
+        "ash jar, hearth, hidden grain clue, heavy silence",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "spriteName": "node.act1.random_event.15.ash_eating_jar.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "future_copy_target_only_after_pass",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "copyTargetRole": "downstream_builder_or_legacy_import_only_not_generation_output"
+  },
+  "readiness": {
+    "status": "blocked_pending_provider_approval",
+    "blockers": [
+      "pending_provider_approval",
+      "missing_generated_media_routing_v2",
+      "missing_generated_media_prompt_v3",
+      "missing_provider_execution_approval_cost_record"
+    ],
+    "readyForRouting": false
+  }
+}

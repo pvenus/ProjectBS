@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.10.silent_jangseung",
+  "eventId": "event.act1.random_event.10.silent_jangseung",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/10_울지_않는_장승.md",
+  "titleKo": "울지 않는 장승",
+  "summaryKo": "울지 않는 장승 랜덤 이벤트. 두 갈래 산길 한가운데 서 있는 장승의 얼굴에서는 검은 물이 흘러내리고 있었다. 지나가던 나무꾼은 밤마다 장승이 아이 울음소리를 내어 누구도 왼쪽 길로 가지 못한다고 말했다. 그러나 장승의 입은 헝겊과 못으로 단단히 막혀 있었고, 왼쪽 길에는 최근 끌려간 수레바퀴 자국이 남아 있었다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_10_silent_jangseung_intro",
+    "popupId": "node.act1.random_event.10.silent_jangseung.intro",
+    "originalTextKo": "# 울지 않는 장승\n\n두 갈래 산길 한가운데 서 있는 장승의 얼굴에서는 검은 물이 흘러내리고 있었다. 지나가던 나무꾼은 밤마다 장승이 아이 울음소리를 내어 누구도 왼쪽 길로 가지 못한다고 말했다. 그러나 장승의 입은 헝겊과 못으로 단단히 막혀 있었고, 왼쪽 길에는 최근 끌려간 수레바퀴 자국이 남아 있었다.\n\n선택 1: 장승의 입을 막은 못과 헝겊을 제거한다.\n\n[전투]\n\n마지막 못을 뽑자 울음 대신 다급한 경고가 터져 나왔다. 왼쪽 길에 숨어 있던 산적들은 자신들의 은신처를 알리던 장승을 잠재우기 위해 입을 막았던 것이다. 정체가 들통난 산적들이 숲에서 쏟아져 나오자 일행은 장승 앞에서 맞서 싸웠다.\n\n선택 2: 수레바퀴 자국을 따라 왼쪽 길을 조용히 정찰한다.\n\n[골드 획득]\n\n길 끝에는 산적들이 버리고 간 빈 수레와 빼앗은 짐 일부가 남아 있었다. 일행은 주인을 찾을 수 있는 물건을 돌려주고, 표식이 없는 돈주머니만 챙겼다. 장승의 검은 눈물은 그날부터 흐르지 않았다.\n\n선택 3: 장승의 경고를 믿고 오른쪽 길로 돌아간다.\n\n[아무 일도 일어나지 않음]\n\n오른쪽 길은 멀고 험했지만 별다른 위협은 없었다. 산등성이를 넘을 때 멀리서 장승의 입을 두드리는 소리가 들렸으나, 일행은 되돌아가지 않았다.",
+    "displayTextKoCandidate": "두 갈래 산길 한가운데 서 있는 장승의 얼굴에서는 검은 물이 흘러내리고 있었다. 지나가던 나무꾼은 밤마다 장승이 아이 울음소리를 내어 누구도 왼쪽 길로 가지 못한다고 말했다. 그러나 장승의 입은 헝겊과 못으로 단단히 막혀 있었고, 왼쪽 길에는 최근 끌려간 수레바퀴 자국이 남아 있었다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.10.silent_jangseung.choice_1",
+      "choiceName": "choice_1",
+      "choiceOrder": 1,
+      "labelKo": "장승의 입을 막은 못과 헝겊을 제거한다.",
+      "originalResultTextKo": "마지막 못을 뽑자 울음 대신 다급한 경고가 터져 나왔다. 왼쪽 길에 숨어 있던 산적들은 자신들의 은신처를 알리던 장승을 잠재우기 위해 입을 막았던 것이다. 정체가 들통난 산적들이 숲에서 쏟아져 나오자 일행은 장승 앞에서 맞서 싸웠다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.10.silent_jangseung.investigate_2",
+      "choiceName": "investigate_2",
+      "choiceOrder": 2,
+      "labelKo": "수레바퀴 자국을 따라 왼쪽 길을 조용히 정찰한다.",
+      "originalResultTextKo": "길 끝에는 산적들이 버리고 간 빈 수레와 빼앗은 짐 일부가 남아 있었다. 일행은 주인을 찾을 수 있는 물건을 돌려주고, 표식이 없는 돈주머니만 챙겼다. 장승의 검은 눈물은 그날부터 흐르지 않았다.",
+      "resultTags": [
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "gold_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.10.silent_jangseung.choice_3",
+      "choiceName": "choice_3",
+      "choiceOrder": 3,
+      "labelKo": "장승의 경고를 믿고 오른쪽 길로 돌아간다.",
+      "originalResultTextKo": "오른쪽 길은 멀고 험했지만 별다른 위협은 없었다. 산등성이를 넘을 때 멀리서 장승의 입을 두드리는 소리가 들렸으나, 일행은 되돌아가지 않았다.",
+      "resultTags": [
+        "[아무 일도 일어나지 않음]"
+      ],
+      "rewardIntent": [
+        "no_effect"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": []
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.10.silent_jangseung.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.10.silent_jangseung.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '울지 않는 장승'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready",
+    "storyRevisionApplied": false,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "ready",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "ready_after_battle_reward_handoff",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.10.silent_jangseung.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/10_울지_않는_장승.md",
+      "battleChoices": [
+        "choice.act1.random_event.10.silent_jangseung.choice_1"
+      ]
+    }
+  }
+}

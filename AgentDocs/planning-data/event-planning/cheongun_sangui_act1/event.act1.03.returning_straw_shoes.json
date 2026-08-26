@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.03.returning_straw_shoes",
+  "eventId": "event.act1.random_event.03.returning_straw_shoes",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/03_밤마다_돌아오는_짚신.md",
+  "titleKo": "밤마다 돌아오는 짚신",
+  "summaryKo": "밤마다 돌아오는 짚신 랜덤 이벤트. 산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_03_returning_straw_shoes_intro",
+    "popupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+    "originalTextKo": "# 밤마다 돌아오는 짚신\n\n산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.\n\n선택 1: 짚신의 흔적을 따라 집 뒤 헛간을 확인한다.\n\n[체력 회복]\n\n헛간 안에는 산에서 내려온 굶주린 아이가 숨어 있었다. 아이는 노파가 무서워 모습을 드러내지 못한 채, 밤마다 음식을 얻으려고 손에 든 짚신을 문턱에 놓았다. 노파는 잃은 손자가 돌아온 줄 알았다며 아이에게 따뜻한 죽을 내주었고, 일행도 함께 쉬며 지친 몸을 회복했다.\n\n선택 2: 노파의 부탁대로 짚신을 아궁이에 넣어 태운다.\n\n[피해]\n\n불길이 짚신을 삼키자 헛간에서 뛰쳐나온 아이가 타다 남은 짚신을 맨손으로 움켜쥐었다. 놀란 노파가 솥을 넘어뜨리는 바람에 뜨거운 물이 튀어 일행이 화상을 입었다. 뒤늦게 사정을 알게 되었지만, 아이는 겁에 질려 산속으로 달아났다.\n\n선택 3: 짚신을 마당에 두고 밤새 누가 가져가는지 지켜본다.\n\n[유물 보상]\n\n달이 기울 무렵 헛간에서 아이가 기어 나왔다. 일행이 조용히 음식을 건네자 아이는 산에서 자신을 길 잃지 않게 해준 작은 나침반을 답례로 내놓았다. 녹슨 바늘은 북쪽이 아니라 사람이 다닌 가장 가까운 길을 가리키고 있었다.",
+    "displayTextKoCandidate": "산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.03.returning_straw_shoes.investigate_1",
+      "choiceName": "investigate_1",
+      "choiceOrder": 1,
+      "labelKo": "짚신의 흔적을 따라 집 뒤 헛간을 확인한다.",
+      "originalResultTextKo": "헛간 안에는 산에서 내려온 굶주린 아이가 숨어 있었다. 아이는 노파가 무서워 모습을 드러내지 못한 채, 밤마다 음식을 얻으려고 손에 든 짚신을 문턱에 놓았다. 노파는 잃은 손자가 돌아온 줄 알았다며 아이에게 따뜻한 죽을 내주었고, 일행도 함께 쉬며 지친 몸을 회복했다.",
+      "resultTags": [
+        "[체력 회복]"
+      ],
+      "rewardIntent": [
+        "heal"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.03.returning_straw_shoes.seal_or_destroy_2",
+      "choiceName": "seal_or_destroy_2",
+      "choiceOrder": 2,
+      "labelKo": "노파의 부탁대로 짚신을 아궁이에 넣어 태운다.",
+      "originalResultTextKo": "불길이 짚신을 삼키자 헛간에서 뛰쳐나온 아이가 타다 남은 짚신을 맨손으로 움켜쥐었다. 놀란 노파가 솥을 넘어뜨리는 바람에 뜨거운 물이 튀어 일행이 화상을 입었다. 뒤늦게 사정을 알게 되었지만, 아이는 겁에 질려 산속으로 달아났다.",
+      "resultTags": [
+        "[피해]"
+      ],
+      "rewardIntent": [
+        "damage"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.03.returning_straw_shoes.choice_3",
+      "choiceName": "choice_3",
+      "choiceOrder": 3,
+      "labelKo": "짚신을 마당에 두고 밤새 누가 가져가는지 지켜본다.",
+      "originalResultTextKo": "달이 기울 무렵 헛간에서 아이가 기어 나왔다. 일행이 조용히 음식을 건네자 아이는 산에서 자신을 길 잃지 않게 해준 작은 나침반을 답례로 내놓았다. 녹슨 바늘은 북쪽이 아니라 사람이 다닌 가장 가까운 길을 가리키고 있었다.",
+      "resultTags": [
+        "[유물 보상]"
+      ],
+      "rewardIntent": [
+        "relic_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "needs_relic_pool",
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.03.returning_straw_shoes.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.03.returning_straw_shoes.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '밤마다 돌아오는 짚신'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "none",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": false,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "not_applicable",
+    "storyRevisionApplied": false,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 0
+  },
+  "reward": {
+    "rewardPlanningStatus": "needs_relic_pool",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "blocked_until_relic_pool",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.03.returning_straw_shoes.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/03_밤마다_돌아오는_짚신.md",
+      "battleChoices": []
+    }
+  }
+}

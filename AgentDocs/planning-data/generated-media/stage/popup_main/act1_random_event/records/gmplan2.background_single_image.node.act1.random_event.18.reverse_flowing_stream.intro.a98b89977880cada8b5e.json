@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.18.reverse_flowing_stream.intro.a98b89977880cada8b5e",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+  "eventId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+  "popupEventId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+  "eventIdForImage": "node.act1.random_event.18.reverse_flowing_stream.intro",
+  "sourcePopupId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+  "sourcePopupName": "random_event_18_reverse_flowing_stream_intro",
+  "eventDomainId": "event.act1.random_event.18.reverse_flowing_stream",
+  "eventPlanningId": "event_planning.act1.random_event.18.reverse_flowing_stream",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "거꾸로 흐르는 개울",
+  "contentUsage": "Act01 random event popup main image for '거꾸로 흐르는 개울', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+      "role": "random_event_planning_current",
+      "sha256": "03f47133916e3b09d751f794d013bb15e7b2670aa849958e4c67a5536ca0e570"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/18_거꾸로_흐르는_개울.md",
+      "role": "random_event_source_text_current",
+      "sha256": "829f9e8755abc0d24f92e845c1ef42f482936d335e0f9db50aafdbcdde8d75ef"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+      "sha256": "03f47133916e3b09d751f794d013bb15e7b2670aa849958e4c67a5536ca0e570"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/18_거꾸로_흐르는_개울.md",
+      "sha256": "829f9e8755abc0d24f92e845c1ef42f482936d335e0f9db50aafdbcdde8d75ef"
+    },
+    "popupId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+    "popupDisplayTextKo": "산 아래로 흘러야 할 개울물이 비탈을 거슬러 올라가고 있었다. 물고기들은 배를 드러낸 채 살아 움직였고, 물가의 빨래터에는 빈 요람 하나가 밧줄로 묶여 있었다. 주민들은 산귀가 아이를 데려간 뒤 물까지 훔쳐 간다고 수군댔지만, 요람 밑에는 물길을 돌리는 방아쇠와 새 밧줄이 숨겨져 있었다."
+  },
+  "planningSnapshot": {
+    "capturedAt": null,
+    "captureAuthorityStatus": "pending_provider_approval",
+    "snapshotHash": "a98b89977880cada8b5e27322adc8dc1d39df40f6480f3c960b128517df4b048",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.18.reverse_flowing_stream.intro"
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_18_reverse_flowing_stream_intro"
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.18.reverse_flowing_stream"
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/titleKo",
+        "value": "거꾸로 흐르는 개울"
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "산 아래로 흘러야 할 개울물이 비탈을 거슬러 올라가고 있었다. 물고기들은 배를 드러낸 채 살아 움직였고, 물가의 빨래터에는 빈 요람 하나가 밧줄로 묶여 있었다. 주민들은 산귀가 아이를 데려간 뒤 물까지 훔쳐 간다고 수군댔지만, 요람 밑에는 물길을 돌리는 방아쇠와 새 밧줄이 숨겨져 있었다."
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.18.reverse_flowing_stream.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '거꾸로 흐르는 개울'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      }
+    ]
+  },
+  "approval": {
+    "status": "pending_provider_approval",
+    "approvedAt": null,
+    "approvedBy": null,
+    "providerCallAllowed": false,
+    "notes": [
+      "Do not route or call ImageGen until user/provider execution approval is recorded."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "pending_provider_approval",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "pending_provider_approval",
+    "idempotencyKey": "pending.gmplan2.background_single_image.node.act1.random_event.18.reverse_flowing_stream.intro.a98b89977880cada8b5e",
+    "idempotencyStatus": "reserved_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: reverse stream, diverted water, stones, armed silhouettes",
+    "Source popup title: 거꾸로 흐르는 개울"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "A stream flows backward near a hidden water theft route guarded by bandits.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "reverse stream, diverted water, stones, armed silhouettes",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.18.reverse_flowing_stream.intro",
+      "sceneFacts": [
+        "A stream flows backward near a hidden water theft route guarded by bandits.",
+        "reverse stream, diverted water, stones, armed silhouettes",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.18.reverse_flowing_stream.intro.main.png",
+    "spriteName": "node.act1.random_event.18.reverse_flowing_stream.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "future_copy_target_only_after_pass",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.18.reverse_flowing_stream.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.18.reverse_flowing_stream.intro.main.png",
+    "copyTargetRole": "downstream_builder_or_legacy_import_only_not_generation_output"
+  },
+  "readiness": {
+    "status": "blocked_pending_provider_approval",
+    "blockers": [
+      "pending_provider_approval",
+      "missing_generated_media_routing_v2",
+      "missing_generated_media_prompt_v3",
+      "missing_provider_execution_approval_cost_record"
+    ],
+    "readyForRouting": false
+  }
+}

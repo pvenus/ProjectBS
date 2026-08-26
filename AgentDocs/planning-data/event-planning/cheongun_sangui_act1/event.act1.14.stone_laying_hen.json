@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.14.stone_laying_hen",
+  "eventId": "event.act1.random_event.14.stone_laying_hen",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/14_돌을_낳는_닭.md",
+  "titleKo": "돌을 낳는 닭",
+  "summaryKo": "돌을 낳는 닭 랜덤 이벤트. 산골 장터에서 한 농부가 매일 옥돌을 낳는다는 흰 닭을 팔고 있었다. 닭장 바닥에는 푸른 돌 세 알이 놓여 있었지만, 닭의 발목은 오래 묶인 듯 피가 배어 있었다. 농부는 산신의 복이라 큰소리쳤고, 곁에 선 아이는 닭이 밤마다 사람 목소리로 집에 보내 달라고 운다고 속삭였다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_14_stone_laying_hen_intro",
+    "popupId": "node.act1.random_event.14.stone_laying_hen.intro",
+    "originalTextKo": "# 돌을 낳는 닭\n\n산골 장터에서 한 농부가 매일 옥돌을 낳는다는 흰 닭을 팔고 있었다. 닭장 바닥에는 푸른 돌 세 알이 놓여 있었지만, 닭의 발목은 오래 묶인 듯 피가 배어 있었다. 농부는 산신의 복이라 큰소리쳤고, 곁에 선 아이는 닭이 밤마다 사람 목소리로 집에 보내 달라고 운다고 속삭였다.\n\n선택 1: 농부에게 값을 치르고 닭을 산 뒤 발목의 끈을 풀어준다.\n\n[유물 보상]\n\n끈이 풀리자 닭은 깃털 사이에서 작은 청옥 조각 하나를 떨어뜨리고 평범한 산새의 모습으로 변해 날아갔다. 청옥은 굶주린 짐승의 울음이 가까워지면 미세하게 떨렸다. 농부가 자랑하던 나머지 돌들은 안료를 바른 자갈이었다.\n\n선택 2: 아이의 증언과 닭장의 흔적을 장터 사람들에게 보여준다.\n\n[전투]\n[골드 획득]\n\n속임수가 드러나자 농부 행세를 하던 산적 앞잡이들이 새장 아래 숨긴 칼과 검은 천을 꺼냈다. 일행이 검은 천 습격자와 흔적 지우는 척후를 제압하자 장터 사람들은 빼앗긴 돈을 되찾았고, 산귀 소문을 팔던 일당에게 걸려 있던 현상금 일부를 일행에게 건넸다.\n\n선택 3: 기이한 장사에 끼어들지 않고 자리를 떠난다.\n\n[아무 일도 일어나지 않음]\n\n일행이 장터를 벗어날 때까지 농부의 호객 소리는 이어졌다. 산모퉁이를 돌기 직전, 닭장 쪽에서 아이가 우는 것과 닮은 짧은 울음이 한 번 들렸다.",
+    "displayTextKoCandidate": "산골 장터에서 한 농부가 매일 옥돌을 낳는다는 흰 닭을 팔고 있었다. 닭장 바닥에는 푸른 돌 세 알이 놓여 있었지만, 닭의 발목은 오래 묶인 듯 피가 배어 있었다. 농부는 산신의 복이라 큰소리쳤고, 곁에 선 아이는 닭이 밤마다 사람 목소리로 집에 보내 달라고 운다고 속삭였다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.14.stone_laying_hen.take_or_buy_1",
+      "choiceName": "take_or_buy_1",
+      "choiceOrder": 1,
+      "labelKo": "농부에게 값을 치르고 닭을 산 뒤 발목의 끈을 풀어준다.",
+      "originalResultTextKo": "끈이 풀리자 닭은 깃털 사이에서 작은 청옥 조각 하나를 떨어뜨리고 평범한 산새의 모습으로 변해 날아갔다. 청옥은 굶주린 짐승의 울음이 가까워지면 미세하게 떨렸다. 농부가 자랑하던 나머지 돌들은 안료를 바른 자갈이었다.",
+      "resultTags": [
+        "[유물 보상]"
+      ],
+      "rewardIntent": [
+        "relic_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "needs_relic_pool",
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.14.stone_laying_hen.expose_2",
+      "choiceName": "expose_2",
+      "choiceOrder": 2,
+      "labelKo": "아이의 증언과 닭장의 흔적을 장터 사람들에게 보여준다.",
+      "originalResultTextKo": "속임수가 드러나자 농부 행세를 하던 산적 앞잡이들이 새장 아래 숨긴 칼과 검은 천을 꺼냈다. 일행이 검은 천 습격자와 흔적 지우는 척후를 제압하자 장터 사람들은 빼앗긴 돈을 되찾았고, 산귀 소문을 팔던 일당에게 걸려 있던 현상금 일부를 일행에게 건넸다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "battle_encounter",
+        "gold_reward"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "battle_reward_handoff",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event14.black_cloth_poultry_racket",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.14.stone_laying_hen.avoid_3",
+      "choiceName": "avoid_3",
+      "choiceOrder": 3,
+      "labelKo": "기이한 장사에 끼어들지 않고 자리를 떠난다.",
+      "originalResultTextKo": "일행이 장터를 벗어날 때까지 농부의 호객 소리는 이어졌다. 산모퉁이를 돌기 직전, 닭장 쪽에서 아이가 우는 것과 닮은 짧은 울음이 한 번 들렸다.",
+      "resultTags": [
+        "[아무 일도 일어나지 않음]"
+      ],
+      "rewardIntent": [
+        "no_effect"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": []
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.14.stone_laying_hen.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.14.stone_laying_hen.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '돌을 낳는 닭'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready_after_story_revision",
+    "storyRevisionApplied": true,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "needs_relic_pool",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "blocked_until_relic_pool",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.14.stone_laying_hen.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/14_돌을_낳는_닭.md",
+      "battleChoices": [
+        "choice.act1.random_event.14.stone_laying_hen.expose_2"
+      ]
+    }
+  }
+}

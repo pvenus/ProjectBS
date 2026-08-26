@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.16.crying_bell_smithy",
+  "eventId": "event.act1.random_event.16.crying_bell_smithy",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/16_우는_쇠종의_대장간.md",
+  "titleKo": "우는 쇠종의 대장간",
+  "summaryKo": "우는 쇠종의 대장간 랜덤 이벤트. 폐광 근처의 버려진 대장간에서는 사람이 없는데도 모루 치는 소리가 났다. 천장에 매달린 쇠종은 망치질이 울릴 때마다 아이처럼 흐느꼈고, 화덕 곁에는 광부들의 안전패를 녹여 만든 쇳덩이가 쌓여 있었다. 문밖에는 관가의 폐쇄 명령이 붙어 있었지만 먹은 아직 마르지 않았다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_16_crying_bell_smithy_intro",
+    "popupId": "node.act1.random_event.16.crying_bell_smithy.intro",
+    "originalTextKo": "# 우는 쇠종의 대장간\n\n폐광 근처의 버려진 대장간에서는 사람이 없는데도 모루 치는 소리가 났다. 천장에 매달린 쇠종은 망치질이 울릴 때마다 아이처럼 흐느꼈고, 화덕 곁에는 광부들의 안전패를 녹여 만든 쇳덩이가 쌓여 있었다. 문밖에는 관가의 폐쇄 명령이 붙어 있었지만 먹은 아직 마르지 않았다.\n\n선택 1: 화덕의 불을 끄고 녹고 있는 안전패를 꺼낸다.\n\n[피해]\n[유물 보상]\n\n물을 붓자 뜨거운 증기와 쇳물이 튀어 일행이 화상을 입었다. 불길이 가라앉은 뒤 쇳덩이 속에서 여러 안전패의 이름이 겹쳐 새겨진 작은 철부적이 드러났다. 부적에서는 무너지는 돌이 가까울 때 쇠종 같은 떨림이 났다.\n\n선택 2: 망치질 소리에 맞춰 쇠종을 세 번 울린다.\n\n[체력 회복]\n\n세 번째 종소리가 울리자 모루 위의 망치가 멈추고, 검댕 묻은 광부들의 그림자가 화덕 주위에 나타났다. 일행이 안전패에 남은 이름을 읽어주자 그림자들은 고개를 숙인 뒤 따뜻한 불빛으로 흩어졌다. 남은 온기가 일행의 굳은 몸과 상처를 풀어 주었다.\n\n선택 3: 최근 붙인 폐쇄 명령의 주인을 기다린다.\n\n[전투]\n\n밤이 되자 광산 관리자의 사병들이 안전패와 사고 기록을 없애러 돌아왔다. 그들은 일행을 도굴꾼으로 몰아 칼을 뽑았고, 일행은 증거가 든 대장간을 지키기 위해 맞서 싸웠다.",
+    "displayTextKoCandidate": "폐광 근처의 버려진 대장간에서는 사람이 없는데도 모루 치는 소리가 났다. 천장에 매달린 쇠종은 망치질이 울릴 때마다 아이처럼 흐느꼈고, 화덕 곁에는 광부들의 안전패를 녹여 만든 쇳덩이가 쌓여 있었다. 문밖에는 관가의 폐쇄 명령이 붙어 있었지만 먹은 아직 마르지 않았다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.16.crying_bell_smithy.direct_intervention_1",
+      "choiceName": "direct_intervention_1",
+      "choiceOrder": 1,
+      "labelKo": "화덕의 불을 끄고 녹고 있는 안전패를 꺼낸다.",
+      "originalResultTextKo": "물을 붓자 뜨거운 증기와 쇳물이 튀어 일행이 화상을 입었다. 불길이 가라앉은 뒤 쇳덩이 속에서 여러 안전패의 이름이 겹쳐 새겨진 작은 철부적이 드러났다. 부적에서는 무너지는 돌이 가까울 때 쇠종 같은 떨림이 났다.",
+      "resultTags": [
+        "[피해]",
+        "[유물 보상]"
+      ],
+      "rewardIntent": [
+        "damage",
+        "relic_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "needs_relic_pool",
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        },
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.16.crying_bell_smithy.choice_2",
+      "choiceName": "choice_2",
+      "choiceOrder": 2,
+      "labelKo": "망치질 소리에 맞춰 쇠종을 세 번 울린다.",
+      "originalResultTextKo": "세 번째 종소리가 울리자 모루 위의 망치가 멈추고, 검댕 묻은 광부들의 그림자가 화덕 주위에 나타났다. 일행이 안전패에 남은 이름을 읽어주자 그림자들은 고개를 숙인 뒤 따뜻한 불빛으로 흩어졌다. 남은 온기가 일행의 굳은 몸과 상처를 풀어 주었다.",
+      "resultTags": [
+        "[체력 회복]"
+      ],
+      "rewardIntent": [
+        "heal"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.16.crying_bell_smithy.investigate_3",
+      "choiceName": "investigate_3",
+      "choiceOrder": 3,
+      "labelKo": "최근 붙인 폐쇄 명령의 주인을 기다린다.",
+      "originalResultTextKo": "밤이 되자 광산 관리자의 사병들이 안전패와 사고 기록을 없애러 돌아왔다. 그들은 일행을 도굴꾼으로 몰아 칼을 뽑았고, 일행은 증거가 든 대장간을 지키기 위해 맞서 싸웠다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event16.defend_blacksmith_records",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.chain_dragger_raider.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.16.crying_bell_smithy.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.16.crying_bell_smithy.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '우는 쇠종의 대장간'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready",
+    "storyRevisionApplied": false,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "needs_relic_pool",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "blocked_until_relic_pool",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.16.crying_bell_smithy.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/16_우는_쇠종의_대장간.md",
+      "battleChoices": [
+        "choice.act1.random_event.16.crying_bell_smithy.investigate_3"
+      ]
+    }
+  }
+}

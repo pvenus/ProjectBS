@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.13.empty_bride_palanquin",
+  "eventId": "event.act1.random_event.13.empty_bride_palanquin",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/13_빈_가마의_신부.md",
+  "titleKo": "빈 가마의 신부",
+  "summaryKo": "빈 가마의 신부 랜덤 이벤트. 안개 낀 고갯길 한복판에 붉은 혼례 가마가 버려져 있었다. 가마꾼은 없었지만 안쪽에서는 어린아이가 자장가를 부르는 소리가 났고, 발치에는 신부의 비녀와 아이의 짚신이 나란히 놓여 있었다. 가마의 문에는 밖에서 잠근 자물쇠가 달렸으며, 손잡이에는 산적들이 쓰는 검은 천 조각이 끼어 있었다...",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_13_empty_bride_palanquin_intro",
+    "popupId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+    "originalTextKo": "# 빈 가마의 신부\n\n안개 낀 고갯길 한복판에 붉은 혼례 가마가 버려져 있었다. 가마꾼은 없었지만 안쪽에서는 어린아이가 자장가를 부르는 소리가 났고, 발치에는 신부의 비녀와 아이의 짚신이 나란히 놓여 있었다. 가마의 문에는 밖에서 잠근 자물쇠가 달렸으며, 손잡이에는 산적들이 쓰는 검은 천 조각이 끼어 있었다.\n\n선택 1: 자물쇠를 부수고 가마 안에 갇힌 이를 꺼낸다.\n\n[전투]\n\n가마 안에는 혼례복을 입힌 아이가 결박된 채 숨어 있었다. 아이를 미끼로 몸값을 뜯으려던 산적들이 안개 속에서 포위망을 좁혔고, 일행은 아이가 달아날 길을 지키며 그들과 맞섰다.\n\n선택 2: 가마를 건드리지 않고 주변의 가마꾼 발자국을 추적한다.\n\n[골드 획득]\n\n발자국은 고개 아래의 버려진 초막으로 이어졌다. 그곳에서 술에 취해 잠든 가짜 가마꾼들과 여러 집에서 빼앗은 패물을 발견한 일행은 물건을 주인들에게 돌려주었다. 주인을 찾지 못한 돈 일부는 피해를 막은 사례로 받았다.\n\n선택 3: 비녀와 짚신만 챙겨 관아에 증거로 가져간다.\n\n[피해]\n\n비녀를 집어 드는 순간 가마 밑에 숨겨진 쇠침 덫이 튀어 올라 일행의 손을 찔렀다. 인기척을 알아챈 산적들은 아이와 가마를 끌고 안개 속으로 달아났고, 길에는 부러진 자물쇠 조각만 남았다.",
+    "displayTextKoCandidate": "안개 낀 고갯길 한복판에 붉은 혼례 가마가 버려져 있었다. 가마꾼은 없었지만 안쪽에서는 어린아이가 자장가를 부르는 소리가 났고, 발치에는 신부의 비녀와 아이의 짚신이 나란히 놓여 있었다. 가마의 문에는 밖에서 잠근 자물쇠가 달렸으며, 손잡이에는 산적들이 쓰는 검은 천 조각이 끼어 있었다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.13.empty_bride_palanquin.direct_intervention_1",
+      "choiceName": "direct_intervention_1",
+      "choiceOrder": 1,
+      "labelKo": "자물쇠를 부수고 가마 안에 갇힌 이를 꺼낸다.",
+      "originalResultTextKo": "가마 안에는 혼례복을 입힌 아이가 결박된 채 숨어 있었다. 아이를 미끼로 몸값을 뜯으려던 산적들이 안개 속에서 포위망을 좁혔고, 일행은 아이가 달아날 길을 지키며 그들과 맞섰다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event13.rescue_child_bride",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.cage_guard_bandit.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.13.empty_bride_palanquin.investigate_2",
+      "choiceName": "investigate_2",
+      "choiceOrder": 2,
+      "labelKo": "가마를 건드리지 않고 주변의 가마꾼 발자국을 추적한다.",
+      "originalResultTextKo": "발자국은 고개 아래의 버려진 초막으로 이어졌다. 그곳에서 술에 취해 잠든 가짜 가마꾼들과 여러 집에서 빼앗은 패물을 발견한 일행은 물건을 주인들에게 돌려주었다. 주인을 찾지 못한 돈 일부는 피해를 막은 사례로 받았다.",
+      "resultTags": [
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "gold_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.13.empty_bride_palanquin.choice_3",
+      "choiceName": "choice_3",
+      "choiceOrder": 3,
+      "labelKo": "비녀와 짚신만 챙겨 관아에 증거로 가져간다.",
+      "originalResultTextKo": "비녀를 집어 드는 순간 가마 밑에 숨겨진 쇠침 덫이 튀어 올라 일행의 손을 찔렀다. 인기척을 알아챈 산적들은 아이와 가마를 끌고 안개 속으로 달아났고, 길에는 부러진 자물쇠 조각만 남았다.",
+      "resultTags": [
+        "[피해]"
+      ],
+      "rewardIntent": [
+        "damage"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.13.empty_bride_palanquin.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.13.empty_bride_palanquin.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '빈 가마의 신부'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready",
+    "storyRevisionApplied": false,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "ready",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "ready_after_battle_reward_handoff",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/13_빈_가마의_신부.md",
+      "battleChoices": [
+        "choice.act1.random_event.13.empty_bride_palanquin.direct_intervention_1"
+      ]
+    }
+  }
+}

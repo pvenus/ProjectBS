@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventBattleHandoff",
+  "handoffId": "event_battle_handoff.act1.random.cheongun_sangui",
+  "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+  "commonSpawnerCandidate": "elimination_90s_swarm",
+  "commonPartyAssumption": "random_event_party_current_player_party",
+  "expectedBattleJsonPathPattern": "Assets/Contents/Battle/json/{battleId}.json",
+  "expectedBattleSOPathPattern": "Assets/Resources/battle/act1/event/{battleId}.asset",
+  "battleChoiceCount": 17,
+  "battleReadyCount": 17,
+  "items": [
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/01_이름을_삼킨_우물.md",
+      "eventPlanningId": "event_planning.act1.random_event.01.name_swallowing_well",
+      "eventId": "event.act1.random_event.01.name_swallowing_well",
+      "titleKo": "이름을 삼킨 우물",
+      "choiceId": "choice.act1.random_event.01.name_swallowing_well.seal_or_destroy_3",
+      "choiceLabelKo": "우물에서 들리는 소리를 위험한 괴이로 여기고 주민들이 입구를 메우도록 돕는다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event01.named_well_wraith",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event01.named_well_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event01.named_well_wraith.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.nameless_tablet_guardian.3.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event01.named_well_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.02.rain_seller.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/02_비를_파는_장사꾼.md",
+      "eventPlanningId": "event_planning.act1.random_event.02.rain_seller",
+      "eventId": "event.act1.random_event.02.rain_seller",
+      "titleKo": "비를 파는 장사꾼",
+      "choiceId": "choice.act1.random_event.02.rain_seller.direct_intervention_1",
+      "choiceLabelKo": "수레 밑의 가죽주머니를 꺼내 장사꾼의 속임수를 밝힌다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "battleId": "battle.act1.event02.expose_rain_peddler",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event02.expose_rain_peddler.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.bone_axe_pursuer.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.04.red_thread_mountain_goat.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/04_붉은_실에_묶인_산양.md",
+      "eventPlanningId": "event_planning.act1.random_event.04.red_thread_mountain_goat",
+      "eventId": "event.act1.random_event.04.red_thread_mountain_goat",
+      "titleKo": "붉은 실에 묶인 산양",
+      "choiceId": "choice.act1.random_event.04.red_thread_mountain_goat.choice_2",
+      "choiceLabelKo": "덤불에 숨어 산양을 노리는 늑대들을 먼저 몰아낸다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event04.drive_off_threaded_wolves",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event04.drive_off_threaded_wolves.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event04.drive_off_threaded_wolves.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.marked_pack_leader.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event04.drive_off_threaded_wolves.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.05.abandoned_miner_supper.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/05_버려진_광부의_저녁상.md",
+      "eventPlanningId": "event_planning.act1.random_event.05.abandoned_miner_supper",
+      "eventId": "event.act1.random_event.05.abandoned_miner_supper",
+      "titleKo": "버려진 광부의 저녁상",
+      "choiceId": "choice.act1.random_event.05.abandoned_miner_supper.take_or_buy_2",
+      "choiceLabelKo": "차려진 음식과 숙소 안의 물건을 챙긴다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event05.bound_miner_wraith",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event05.bound_miner_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/07_그림자를_파는_아이.md",
+      "eventPlanningId": "event_planning.act1.random_event.07.shadow_selling_child",
+      "eventId": "event.act1.random_event.07.shadow_selling_child",
+      "titleKo": "그림자를 파는 아이",
+      "choiceId": "choice.act1.random_event.07.shadow_selling_child.investigate_2",
+      "choiceLabelKo": "장터 사람들에게 발밑을 확인하게 해 아이의 수상한 거래를 멈춘다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event07.red_doll_shadow_hex",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event07.red_doll_shadow_hex.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event07.red_doll_shadow_hex.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.ritual_bell_handler.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event07.red_doll_shadow_hex.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/07_그림자를_파는_아이.md",
+      "eventPlanningId": "event_planning.act1.random_event.07.shadow_selling_child",
+      "eventId": "event.act1.random_event.07.shadow_selling_child",
+      "titleKo": "그림자를 파는 아이",
+      "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_1",
+      "choiceLabelKo": "항아리를 깨뜨려 갇힌 그림자들을 한꺼번에 풀어준다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event07.moonlit_ink_wolves",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.marked_pack_leader.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.09.black_cloth_herbalist.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/09_검은_천을_두른_약초꾼.md",
+      "eventPlanningId": "event_planning.act1.random_event.09.black_cloth_herbalist",
+      "eventId": "event.act1.random_event.09.black_cloth_herbalist",
+      "titleKo": "검은 천을 두른 약초꾼",
+      "choiceId": "choice.act1.random_event.09.black_cloth_herbalist.investigate_2",
+      "choiceLabelKo": "붉은 천 인형과 등짐을 조사해 정체를 확인한다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event09.protect_herbalist_map",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event09.protect_herbalist_map.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event09.protect_herbalist_map.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event09.protect_herbalist_map.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.10.silent_jangseung.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/10_울지_않는_장승.md",
+      "eventPlanningId": "event_planning.act1.random_event.10.silent_jangseung",
+      "eventId": "event.act1.random_event.10.silent_jangseung",
+      "titleKo": "울지 않는 장승",
+      "choiceId": "choice.act1.random_event.10.silent_jangseung.choice_1",
+      "choiceLabelKo": "장승의 입을 막은 못과 헝겊을 제거한다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event10.jangseung_bandit_ambush.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mountain_path_archer.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.11.dry_waterwheel.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/11_메마른_물레방아.md",
+      "eventPlanningId": "event_planning.act1.random_event.11.dry_waterwheel",
+      "eventId": "event.act1.random_event.11.dry_waterwheel",
+      "titleKo": "메마른 물레방아",
+      "choiceId": "choice.act1.random_event.11.dry_waterwheel.investigate_1",
+      "choiceLabelKo": "수로를 거슬러 올라가 돌둑이 물을 막은 이유를 확인한다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "battleId": "battle.act1.event11.restore_waterway",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event11.restore_waterway.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event11.restore_waterway.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.door_shield_barricader.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event11.restore_waterway.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.13.empty_bride_palanquin.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/13_빈_가마의_신부.md",
+      "eventPlanningId": "event_planning.act1.random_event.13.empty_bride_palanquin",
+      "eventId": "event.act1.random_event.13.empty_bride_palanquin",
+      "titleKo": "빈 가마의 신부",
+      "choiceId": "choice.act1.random_event.13.empty_bride_palanquin.direct_intervention_1",
+      "choiceLabelKo": "자물쇠를 부수고 가마 안에 갇힌 이를 꺼낸다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event13.rescue_child_bride",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event13.rescue_child_bride.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.cage_guard_bandit.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.14.stone_laying_hen.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/14_돌을_낳는_닭.md",
+      "eventPlanningId": "event_planning.act1.random_event.14.stone_laying_hen",
+      "eventId": "event.act1.random_event.14.stone_laying_hen",
+      "titleKo": "돌을 낳는 닭",
+      "choiceId": "choice.act1.random_event.14.stone_laying_hen.expose_2",
+      "choiceLabelKo": "아이의 증언과 닭장의 흔적을 장터 사람들에게 보여준다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "battleId": "battle.act1.event14.black_cloth_poultry_racket",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event14.black_cloth_poultry_racket.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/15_재를_먹는_항아리.md",
+      "eventPlanningId": "event_planning.act1.random_event.15.ash_eating_jar",
+      "eventId": "event.act1.random_event.15.ash_eating_jar",
+      "titleKo": "재를 먹는 항아리",
+      "choiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.expose_1",
+      "choiceLabelKo": "길목을 막고 숨겨 둔 곡식의 주인을 밝히라고 요구한다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "battleId": "battle.act1.event15.reclaim_hidden_grain",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event15.reclaim_hidden_grain.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event15.reclaim_hidden_grain.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.chain_axe_enforcer.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event15.reclaim_hidden_grain.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.16.crying_bell_smithy.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/16_우는_쇠종의_대장간.md",
+      "eventPlanningId": "event_planning.act1.random_event.16.crying_bell_smithy",
+      "eventId": "event.act1.random_event.16.crying_bell_smithy",
+      "titleKo": "우는 쇠종의 대장간",
+      "choiceId": "choice.act1.random_event.16.crying_bell_smithy.investigate_3",
+      "choiceLabelKo": "최근 붙인 폐쇄 명령의 주인을 기다린다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event16.defend_blacksmith_records",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event16.defend_blacksmith_records.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.training_ground_skirmisher.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.chain_dragger_raider.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/17_산길의_세_밥그릇.md",
+      "eventPlanningId": "event_planning.act1.random_event.17.three_bowls_on_mountain_path",
+      "eventId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+      "titleKo": "산길의 세 밥그릇",
+      "choiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.investigate_2",
+      "choiceLabelKo": "검은 돌이 놓인 그릇을 들고 어른 발자국을 따라간다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event17.bandit_bowl_trap",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event17.bandit_bowl_trap.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event17.bandit_bowl_trap.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.mud_hood_polehooker.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event17.bandit_bowl_trap.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/18_거꾸로_흐르는_개울.md",
+      "eventPlanningId": "event_planning.act1.random_event.18.reverse_flowing_stream",
+      "eventId": "event.act1.random_event.18.reverse_flowing_stream",
+      "titleKo": "거꾸로 흐르는 개울",
+      "choiceId": "choice.act1.random_event.18.reverse_flowing_stream.direct_intervention_1",
+      "choiceLabelKo": "요람 밑의 방아쇠를 당겨 물길 장치를 멈춘다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event18.water_theft_guard",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event18.water_theft_guard.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.19.faceless_woodcarver.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/19_얼굴_없는_목각장이.md",
+      "eventPlanningId": "event_planning.act1.random_event.19.faceless_woodcarver",
+      "eventId": "event.act1.random_event.19.faceless_woodcarver",
+      "titleKo": "얼굴 없는 목각장이",
+      "choiceId": "choice.act1.random_event.19.faceless_woodcarver.seal_or_destroy_3",
+      "choiceLabelKo": "수상한 인형들을 모아 불태운다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event19.doll_medium_wraith",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event19.doll_medium_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.20.fog_sewing_old_woman.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/20_안개를_꿰매는_노파.md",
+      "eventPlanningId": "event_planning.act1.random_event.20.fog_sewing_old_woman",
+      "eventId": "event.act1.random_event.20.fog_sewing_old_woman",
+      "titleKo": "안개를 꿰매는 노파",
+      "choiceId": "choice.act1.random_event.20.fog_sewing_old_woman.take_or_buy_2",
+      "choiceLabelKo": "이름표가 묶인 실꾸리를 빼앗아 안개를 걷어낸다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event20.mist_beast_blockade",
+      "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event20.mist_beast_blockade.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event20.mist_beast_blockade.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.marked_pack_leader.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.ritual_bell_handler.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardPolicy": [],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event20.mist_beast_blockade.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    }
+  ],
+  "legacyGeneratedBattleJsonPathPattern": "Assets/Resources/battle/act1/event/{battleId}.json",
+  "battleJsonAuthority": "Assets/Contents/Battle/json"
+}

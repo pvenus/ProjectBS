@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.05.abandoned_miner_supper",
+  "eventId": "event.act1.random_event.05.abandoned_miner_supper",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/05_버려진_광부의_저녁상.md",
+  "titleKo": "버려진 광부의 저녁상",
+  "summaryKo": "버려진 광부의 저녁상 랜덤 이벤트. 폐광 입구의 무너진 숙소에는 김이 오르는 밥상이 차려져 있었다. 사람의 흔적은 없는데도 그릇은 광부 수만큼 놓였고, 빈자리 하나에는 깨진 안전패가 올려져 있었다. 음식에서는 구수한 냄새가 났지만 천장에는 갱도 붕괴 때 묻힌 이들의 이름이 검댕으로 빼곡히 적혀 있었다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_05_abandoned_miner_supper_intro",
+    "popupId": "node.act1.random_event.05.abandoned_miner_supper.intro",
+    "originalTextKo": "# 버려진 광부의 저녁상\n\n폐광 입구의 무너진 숙소에는 김이 오르는 밥상이 차려져 있었다. 사람의 흔적은 없는데도 그릇은 광부 수만큼 놓였고, 빈자리 하나에는 깨진 안전패가 올려져 있었다. 음식에서는 구수한 냄새가 났지만 천장에는 갱도 붕괴 때 묻힌 이들의 이름이 검댕으로 빼곡히 적혀 있었다.\n\n선택 1: 빈자리에 안전패를 바로 놓고 죽은 광부들을 위해 묵념한다.\n\n[체력 회복]\n\n일행이 이름을 하나씩 읽자 숙소를 맴돌던 차가운 기운이 잦아들었다. 밥상은 평범한 보리밥과 국으로 변했고, 따뜻한 음식을 나누어 먹는 동안 오래 쌓인 피로가 풀렸다. 식사가 끝나자 그릇과 숟가락은 먼지처럼 흩어졌다.\n\n선택 2: 차려진 음식과 숙소 안의 물건을 챙긴다.\n\n[전투]\n\n첫 그릇을 들어 올리자 벽의 이름들이 검은 손자국으로 번져 나왔다. 무너진 갱도에서 구조받지 못한 이들의 원혼이 꺼진 등불빛처럼 번져 숙소를 에워쌌다. 일행은 폐신당에 남은 원혼과 닮은 그 집착을 밀어내며, 그들이 지키던 마지막 저녁상을 내려놓을 때까지 거센 공격을 견뎌야 했다.\n\n선택 3: 숙소를 조사해 광부들의 유족에게 전할 물건을 찾는다.\n\n[골드 획득]\n\n일행은 침상 밑에서 임금이 적힌 장부와 관리자가 숨긴 체불금 자루를 발견했다. 가까운 마을의 유족들에게 장부와 돈을 돌려주자, 유족들은 끝내 주인을 찾지 못한 몫 일부를 수고비로 건넸다.",
+    "displayTextKoCandidate": "폐광 입구의 무너진 숙소에는 김이 오르는 밥상이 차려져 있었다. 사람의 흔적은 없는데도 그릇은 광부 수만큼 놓였고, 빈자리 하나에는 깨진 안전패가 올려져 있었다. 음식에서는 구수한 냄새가 났지만 천장에는 갱도 붕괴 때 묻힌 이들의 이름이 검댕으로 빼곡히 적혀 있었다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.05.abandoned_miner_supper.help_1",
+      "choiceName": "help_1",
+      "choiceOrder": 1,
+      "labelKo": "빈자리에 안전패를 바로 놓고 죽은 광부들을 위해 묵념한다.",
+      "originalResultTextKo": "일행이 이름을 하나씩 읽자 숙소를 맴돌던 차가운 기운이 잦아들었다. 밥상은 평범한 보리밥과 국으로 변했고, 따뜻한 음식을 나누어 먹는 동안 오래 쌓인 피로가 풀렸다. 식사가 끝나자 그릇과 숟가락은 먼지처럼 흩어졌다.",
+      "resultTags": [
+        "[체력 회복]"
+      ],
+      "rewardIntent": [
+        "heal"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.05.abandoned_miner_supper.take_or_buy_2",
+      "choiceName": "take_or_buy_2",
+      "choiceOrder": 2,
+      "labelKo": "차려진 음식과 숙소 안의 물건을 챙긴다.",
+      "originalResultTextKo": "첫 그릇을 들어 올리자 벽의 이름들이 검은 손자국으로 번져 나왔다. 무너진 갱도에서 구조받지 못한 이들의 원혼이 꺼진 등불빛처럼 번져 숙소를 에워쌌다. 일행은 폐신당에 남은 원혼과 닮은 그 집착을 밀어내며, 그들이 지키던 마지막 저녁상을 내려놓을 때까지 거센 공격을 견뎌야 했다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event05.bound_miner_wraith",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.05.abandoned_miner_supper.investigate_3",
+      "choiceName": "investigate_3",
+      "choiceOrder": 3,
+      "labelKo": "숙소를 조사해 광부들의 유족에게 전할 물건을 찾는다.",
+      "originalResultTextKo": "일행은 침상 밑에서 임금이 적힌 장부와 관리자가 숨긴 체불금 자루를 발견했다. 가까운 마을의 유족들에게 장부와 돈을 돌려주자, 유족들은 끝내 주인을 찾지 못한 몫 일부를 수고비로 건넸다.",
+      "resultTags": [
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "gold_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.05.abandoned_miner_supper.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.05.abandoned_miner_supper.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '버려진 광부의 저녁상'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready_after_story_revision",
+    "storyRevisionApplied": true,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "ready",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "ready_after_battle_reward_handoff",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.05.abandoned_miner_supper.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/05_버려진_광부의_저녁상.md",
+      "battleChoices": [
+        "choice.act1.random_event.05.abandoned_miner_supper.take_or_buy_2"
+      ]
+    }
+  }
+}

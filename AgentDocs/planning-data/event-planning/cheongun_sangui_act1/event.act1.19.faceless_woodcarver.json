@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.19.faceless_woodcarver",
+  "eventId": "event.act1.random_event.19.faceless_woodcarver",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/19_얼굴_없는_목각장이.md",
+  "titleKo": "얼굴 없는 목각장이",
+  "summaryKo": "얼굴 없는 목각장이 랜덤 이벤트. 산길 옆 움막에서 얼굴 부분이 비어 있는 나무 인형 수십 개가 발견되었다. 목각장이는 마을에서 잊힌 사람의 얼굴을 새겨 주면 인형이 대신 기억한다고 말했지만, 완성된 인형의 등에는 아이를 버린 집안의 성씨가 빼곡했다. 작업대 아래에서는 누군가 안쪽에서 두드리는 듯한 소리가 났다.",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_19_faceless_woodcarver_intro",
+    "popupId": "node.act1.random_event.19.faceless_woodcarver.intro",
+    "originalTextKo": "# 얼굴 없는 목각장이\n\n산길 옆 움막에서 얼굴 부분이 비어 있는 나무 인형 수십 개가 발견되었다. 목각장이는 마을에서 잊힌 사람의 얼굴을 새겨 주면 인형이 대신 기억한다고 말했지만, 완성된 인형의 등에는 아이를 버린 집안의 성씨가 빼곡했다. 작업대 아래에서는 누군가 안쪽에서 두드리는 듯한 소리가 났다.\n\n선택 1: 작업대 밑의 널빤지를 들어 올려 소리의 정체를 확인한다.\n\n[특수 이벤트 추가]\n\n바닥 아래에는 인형을 배달하던 아이가 숨어 있었다. 아이는 목각장이가 집집마다 죄를 고백하게 하려 했지만, 겁먹은 주민들이 자신을 붙잡으려 했다고 말했다. 아이는 아직 얼굴이 새겨지지 않은 인형 하나를 건네며, 보름밤에 산 아래 느티나무로 가져오면 잊힌 이름의 주인을 만날 수 있다고 했다.\n\n선택 2: 성씨가 새겨진 인형을 가까운 마을에 가져가 공개한다.\n\n[골드 획득]\n\n주민들은 처음에는 목각장이의 저주라며 부수려 했지만, 인형 속에서 나온 오래된 아이 명부를 보고 침묵했다. 몇몇 집안은 감춰 온 일을 인정하고 공동 묘를 돌보기로 했다. 명부를 보존한 일행에게는 마을 공동 창고에서 여비가 지급되었다.\n\n선택 3: 수상한 인형들을 모아 불태운다.\n\n[전투]\n\n불이 붙자 얼굴 없는 인형들 사이에서 붉은 천 인형을 든 술사의 기척과 폐신당 원혼의 냉기가 번졌다. 목각장이의 집념은 인형을 매개로 원혼을 불러냈고, 일행은 타오르는 움막에서 빠져나가기 위해 붉은 인형 술사와 이름 잃은 원혼의 그림자를 밀어내야 했다.",
+    "displayTextKoCandidate": "산길 옆 움막에서 얼굴 부분이 비어 있는 나무 인형 수십 개가 발견되었다. 목각장이는 마을에서 잊힌 사람의 얼굴을 새겨 주면 인형이 대신 기억한다고 말했지만, 완성된 인형의 등에는 아이를 버린 집안의 성씨가 빼곡했다. 작업대 아래에서는 누군가 안쪽에서 두드리는 듯한 소리가 났다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.19.faceless_woodcarver.investigate_1",
+      "choiceName": "investigate_1",
+      "choiceOrder": 1,
+      "labelKo": "작업대 밑의 널빤지를 들어 올려 소리의 정체를 확인한다.",
+      "originalResultTextKo": "바닥 아래에는 인형을 배달하던 아이가 숨어 있었다. 아이는 목각장이가 집집마다 죄를 고백하게 하려 했지만, 겁먹은 주민들이 자신을 붙잡으려 했다고 말했다. 아이는 아직 얼굴이 새겨지지 않은 인형 하나를 건네며, 보름밤에 산 아래 느티나무로 가져오면 잊힌 이름의 주인을 만날 수 있다고 했다.",
+      "resultTags": [
+        "[특수 이벤트 추가]"
+      ],
+      "rewardIntent": [
+        "special_followup_unlock"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": []
+    },
+    {
+      "choiceId": "choice.act1.random_event.19.faceless_woodcarver.expose_2",
+      "choiceName": "expose_2",
+      "choiceOrder": 2,
+      "labelKo": "성씨가 새겨진 인형을 가까운 마을에 가져가 공개한다.",
+      "originalResultTextKo": "주민들은 처음에는 목각장이의 저주라며 부수려 했지만, 인형 속에서 나온 오래된 아이 명부를 보고 침묵했다. 몇몇 집안은 감춰 온 일을 인정하고 공동 묘를 돌보기로 했다. 명부를 보존한 일행에게는 마을 공동 창고에서 여비가 지급되었다.",
+      "resultTags": [
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "gold_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.19.faceless_woodcarver.seal_or_destroy_3",
+      "choiceName": "seal_or_destroy_3",
+      "choiceOrder": 3,
+      "labelKo": "수상한 인형들을 모아 불태운다.",
+      "originalResultTextKo": "불이 붙자 얼굴 없는 인형들 사이에서 붉은 천 인형을 든 술사의 기척과 폐신당 원혼의 냉기가 번졌다. 목각장이의 집념은 인형을 매개로 원혼을 불러냈고, 일행은 타오르는 움막에서 빠져나가기 위해 붉은 인형 술사와 이름 잃은 원혼의 그림자를 밀어내야 했다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event19.doll_medium_wraith",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.red_doll_hexer.2.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.abandoned_shrine_wraith.2.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": true,
+    "recommendedConnection": "same_file_internal_follow_up_branch",
+    "reason": "EventFormat.md requires same-file special follow-up sections.",
+    "followUps": [
+      {
+        "followUpEventId": "event.act1.random_event.19.faceless_woodcarver.followup.returned_faces_at_zelkova",
+        "followUpPopupId": "node.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.intro",
+        "titleKo": "느티나무에 돌아온 얼굴",
+        "connectionMode": "internal_follow_up_branch",
+        "unlockSourceTag": "[특수 이벤트 추가]",
+        "recommendation": "same_file_internal_follow_up_branch",
+        "originalTextKo": "# 느티나무에 돌아온 얼굴\n\n보름밤, 얼굴 없는 인형을 느티나무 아래 놓자 나무껍질 사이로 희미한 이목구비가 떠올랐다. 곧 아이를 산에 버렸던 집안의 후손들이 횃불을 들고 나타났고, 목각장이는 그들에게 인형에 이름을 새길지 아니면 과거를 다시 묻을지 선택하라고 했다.\n\n선택 1: 남은 명부를 읽어 인형마다 잊힌 아이의 이름을 새긴다.\n\n[유물 보상]\n\n마지막 이름이 새겨지자 인형들은 작은 나무패로 변해 느티나무 뿌리 곁에 가지런히 놓였다. 목각장이는 이름 하나가 새겨진 조각칼을 일행에게 맡겼다. 조각칼은 지워진 글자 위를 지나면 희미한 획을 다시 드러냈다.\n\n선택 2: 후손들이 직접 이름을 기억하고 기록하게 한다.\n\n[체력 회복]\n\n밤새 이어진 고백 끝에 주민들은 아이들의 이름을 새 장부와 비석에 옮겼다. 느티나무에서 따뜻한 수액 향이 퍼져 일행의 피로를 덜었고, 목각장이는 더 이상 대신 기억할 필요가 없다며 빈 인형들을 거두었다.\n\n선택 3: 분노한 후손들에게 인형과 명부를 넘기고 물러난다.\n\n[아무 일도 일어나지 않음]\n\n일행이 숲을 벗어날 때 뒤에서 나무 부서지는 소리가 이어졌다. 다음 날 느티나무 아래에는 톱밥만 남았고, 되찾을 수 있었던 이름들도 다시 사람들의 침묵 속으로 사라졌다.",
+        "displayTextKoCandidate": "보름밤, 얼굴 없는 인형을 느티나무 아래 놓자 나무껍질 사이로 희미한 이목구비가 떠올랐다. 곧 아이를 산에 버렸던 집안의 후손들이 횃불을 들고 나타났고, 목각장이는 그들에게 인형에 이름을 새길지 아니면 과거를 다시 묻을지 선택하라고 했다.",
+        "choices": [
+          {
+            "choiceId": "choice.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.choice_1",
+            "choiceName": "choice_1",
+            "choiceOrder": 1,
+            "labelKo": "남은 명부를 읽어 인형마다 잊힌 아이의 이름을 새긴다.",
+            "originalResultTextKo": "마지막 이름이 새겨지자 인형들은 작은 나무패로 변해 느티나무 뿌리 곁에 가지런히 놓였다. 목각장이는 이름 하나가 새겨진 조각칼을 일행에게 맡겼다. 조각칼은 지워진 글자 위를 지나면 희미한 획을 다시 드러냈다.",
+            "resultTags": [
+              "[유물 보상]"
+            ],
+            "rewardIntent": [
+              "relic_reward"
+            ],
+            "battleNeed": "not_required",
+            "battleThreadReviewRequired": false,
+            "rewardPlanningStatus": "needs_relic_pool",
+            "rewardPolicy": [
+              {
+                "rewardType": "relic",
+                "pool": "Act01 common preferred; uncommon rare",
+                "fixedRelic": "avoid"
+              }
+            ]
+          },
+          {
+            "choiceId": "choice.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.choice_2",
+            "choiceName": "choice_2",
+            "choiceOrder": 2,
+            "labelKo": "후손들이 직접 이름을 기억하고 기록하게 한다.",
+            "originalResultTextKo": "밤새 이어진 고백 끝에 주민들은 아이들의 이름을 새 장부와 비석에 옮겼다. 느티나무에서 따뜻한 수액 향이 퍼져 일행의 피로를 덜었고, 목각장이는 더 이상 대신 기억할 필요가 없다며 빈 인형들을 거두었다.",
+            "resultTags": [
+              "[체력 회복]"
+            ],
+            "rewardIntent": [
+              "heal"
+            ],
+            "battleNeed": "not_required",
+            "battleThreadReviewRequired": false,
+            "rewardPlanningStatus": "ready",
+            "rewardPolicy": [
+              {
+                "rewardType": "heal",
+                "recommendedPercentRange": "10-20",
+                "recommendedFlatRange": "15-30"
+              }
+            ]
+          },
+          {
+            "choiceId": "choice.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.avoid_3",
+            "choiceName": "avoid_3",
+            "choiceOrder": 3,
+            "labelKo": "분노한 후손들에게 인형과 명부를 넘기고 물러난다.",
+            "originalResultTextKo": "일행이 숲을 벗어날 때 뒤에서 나무 부서지는 소리가 이어졌다. 다음 날 느티나무 아래에는 톱밥만 남았고, 되찾을 수 있었던 이름들도 다시 사람들의 침묵 속으로 사라졌다.",
+            "resultTags": [
+              "[아무 일도 일어나지 않음]"
+            ],
+            "rewardIntent": [
+              "no_effect"
+            ],
+            "battleNeed": "not_required",
+            "battleThreadReviewRequired": false,
+            "rewardPlanningStatus": "ready",
+            "rewardPolicy": []
+          }
+        ]
+      }
+    ]
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.19.faceless_woodcarver.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.19.faceless_woodcarver.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '얼굴 없는 목각장이'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready_after_story_revision",
+    "storyRevisionApplied": true,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "needs_relic_pool",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "blocked_until_relic_pool",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.19.faceless_woodcarver.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/19_얼굴_없는_목각장이.md",
+      "battleChoices": [
+        "choice.act1.random_event.19.faceless_woodcarver.seal_or_destroy_3"
+      ]
+    }
+  }
+}

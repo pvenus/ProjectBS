@@ -1,0 +1,134 @@
+{
+  "battleId": "battle.act1.event07.moonlit_ink_wolves",
+  "battleName": "그림자를 파는 아이 - 항아리를 깨뜨려 갇힌 그림자들을 한꺼번에 풀어준다.",
+  "victoryRule": "ClearAllEnemies",
+  "survivalTimeSeconds": 0,
+  "backgroundSprite": "battle.act1.event07.moonlit_ink_wolves.background",
+  "spawnerSelection": {
+    "spawnerType": "elimination_90s_swarm",
+    "difficulty": "easy",
+    "sourceJsonPath": "Assets/Resources/battle/spawner/Jsons/sequence_presets/elimination_90s_swarm.json",
+    "sequenceId": "seq.elimination_90s_swarm.easy",
+    "targetPartySize": 2,
+    "targetSpawnCount": 80,
+    "spawnWindowSec": 60,
+    "clearWindowSec": 30,
+    "matchedTags": {
+      "intentTags": [
+        "act1_random_event",
+        "short_elimination"
+      ],
+      "spaceTags": [
+        "random_event_space",
+        "act1_cheongun_sangui"
+      ],
+      "rhythmTags": [
+        "easy",
+        "short_random_event",
+        "staggered"
+      ]
+    },
+    "selectionReason": "Selected existing elimination_90s_swarm easy preset for random event combat; all spawn unit bindings use approved Act01 NPC pool characterIds only.",
+    "requiredSlots": [
+      {
+        "unitKey": "spawn.swarm.fodder.melee",
+        "role": "Melee",
+        "purpose": "main close pressure",
+        "bindingStrategy": "role_fallback"
+      },
+      {
+        "unitKey": "spawn.swarm.fast.melee",
+        "role": "Melee",
+        "purpose": "fast or secondary melee pressure",
+        "bindingStrategy": "role_fallback"
+      },
+      {
+        "unitKey": "spawn.swarm.pressure.ranged",
+        "role": "Ranged",
+        "purpose": "ranged or ritual pressure",
+        "bindingStrategy": "role_fallback"
+      },
+      {
+        "unitKey": "spawn.swarm.light.blocker",
+        "role": "Tank",
+        "purpose": "blocker or elite anchor pressure",
+        "bindingStrategy": "role_fallback"
+      }
+    ]
+  },
+  "spawnSequenceId": "seq.elimination_90s_swarm.easy",
+  "spawnSequencePath": "",
+  "spawnUnitBindings": [
+    {
+      "unitKey": "spawn.swarm.fodder.melee",
+      "role": "Melee",
+      "characterId": "character.starving_mountain_wolf.1",
+      "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool; role fallback accepted for random event event.act1.random_event.07.shadow_selling_child."
+    },
+    {
+      "unitKey": "spawn.swarm.fast.melee",
+      "role": "Melee",
+      "characterId": "character.starving_mountain_wolf.1",
+      "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool; role fallback accepted for random event event.act1.random_event.07.shadow_selling_child."
+    },
+    {
+      "unitKey": "spawn.swarm.pressure.ranged",
+      "role": "Ranged",
+      "characterId": "character.starving_mountain_wolf.1",
+      "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool; role fallback accepted for random event event.act1.random_event.07.shadow_selling_child."
+    },
+    {
+      "unitKey": "spawn.swarm.light.blocker",
+      "role": "Tank",
+      "characterId": "character.marked_pack_leader.2",
+      "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool; role fallback accepted for random event event.act1.random_event.07.shadow_selling_child."
+    }
+  ],
+  "rewardExperience": 20,
+  "normalRelicDropChance": 0,
+  "bossRelicDropChance": 0,
+  "timedPropPlacements": [],
+  "propDefinitions": [],
+  "rewardPolicy": {
+    "rewardOwner": "battle",
+    "rewardTrigger": "battle_clear",
+    "goldReward": {
+      "enabled": false
+    },
+    "relicReward": "none"
+  },
+  "planningMetadata": {
+    "documentType": "randomEventBattleJson",
+    "sourceHandoff": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event_battle_handoff.act1.random.cheongun_sangui.json",
+    "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+    "sourceEventFile": "AgentDocs/planning-data/event/Act01/07_그림자를_파는_아이.md",
+    "eventPlanningId": "event_planning.act1.random_event.07.shadow_selling_child",
+    "eventId": "event.act1.random_event.07.shadow_selling_child",
+    "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_1",
+    "resultTags": [
+      "[전투]"
+    ],
+    "battleNeed": "required",
+    "battleMood": "short_bandit_skirmish",
+    "modeIntent": "short_random_event_elimination",
+    "difficultyIntent": "act1_random_event_easy",
+    "partyAssumption": "random_event_party_current_player_party",
+    "selectedNpcRefs": [
+      "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.starving_mountain_wolf.1.json",
+      "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.marked_pack_leader.2.json"
+    ],
+    "expectedBattleJsonPath": "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+    "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.asset",
+    "battleSOAssetCreation": "not_created_by_this_task_expected_path_only",
+    "mustAvoid": [
+      "new_npc_creation",
+      "stage_round_node_edit",
+      "popup_event_so_edit",
+      "character_so_reference",
+      "battle_so_object_reference",
+      "image_png_generation"
+    ],
+    "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.json",
+    "battleJsonAuthority": "Assets/Contents/Battle/json"
+  }
+}

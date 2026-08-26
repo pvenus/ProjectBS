@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.18.reverse_flowing_stream",
+  "eventId": "event.act1.random_event.18.reverse_flowing_stream",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/18_거꾸로_흐르는_개울.md",
+  "titleKo": "거꾸로 흐르는 개울",
+  "summaryKo": "거꾸로 흐르는 개울 랜덤 이벤트. 산 아래로 흘러야 할 개울물이 비탈을 거슬러 올라가고 있었다. 물고기들은 배를 드러낸 채 살아 움직였고, 물가의 빨래터에는 빈 요람 하나가 밧줄로 묶여 있었다. 주민들은 산귀가 아이를 데려간 뒤 물까지 훔쳐 간다고 수군댔지만, 요람 밑에는 물길을 돌리는 방아쇠와 새 밧줄이 숨겨져 있었다...",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_18_reverse_flowing_stream_intro",
+    "popupId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+    "originalTextKo": "# 거꾸로 흐르는 개울\n\n산 아래로 흘러야 할 개울물이 비탈을 거슬러 올라가고 있었다. 물고기들은 배를 드러낸 채 살아 움직였고, 물가의 빨래터에는 빈 요람 하나가 밧줄로 묶여 있었다. 주민들은 산귀가 아이를 데려간 뒤 물까지 훔쳐 간다고 수군댔지만, 요람 밑에는 물길을 돌리는 방아쇠와 새 밧줄이 숨겨져 있었다.\n\n선택 1: 요람 밑의 방아쇠를 당겨 물길 장치를 멈춘다.\n\n[전투]\n\n방아쇠가 풀리자 비탈 위 저수조가 열리며 물이 본래 방향으로 쏟아졌다. 물을 몰래 저장해 팔던 산적 호위들이 둑 위에서 내려와 증거를 없애려 했고, 그중에는 흔적을 지우던 척후와 아이를 미끼로 쓰던 그물잡이도 섞여 있었다. 일행은 급류 곁에서 그들과 맞섰다.\n\n선택 2: 거꾸로 흐르는 물을 따라 비탈 위로 올라간다.\n\n[골드 획득]\n\n개울 끝에는 주민들에게서 걷은 물통과 돈을 감춘 창고가 있었다. 일행이 장부를 공개하자 물장수들은 달아났고, 주민들은 되찾은 돈 가운데 일부를 수고비로 건넸다.\n\n선택 3: 빈 요람의 밧줄을 풀어 물에 띄운다.\n\n[피해]\n\n요람이 장치에 걸리자 팽팽했던 밧줄이 끊어져 채찍처럼 휘둘렀다. 일행은 팔과 얼굴에 상처를 입었고, 부서진 요람은 급류에 휩쓸려 사라졌다. 장치의 주인도 소란을 틈타 흔적을 감추었다.",
+    "displayTextKoCandidate": "산 아래로 흘러야 할 개울물이 비탈을 거슬러 올라가고 있었다. 물고기들은 배를 드러낸 채 살아 움직였고, 물가의 빨래터에는 빈 요람 하나가 밧줄로 묶여 있었다. 주민들은 산귀가 아이를 데려간 뒤 물까지 훔쳐 간다고 수군댔지만, 요람 밑에는 물길을 돌리는 방아쇠와 새 밧줄이 숨겨져 있었다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.18.reverse_flowing_stream.direct_intervention_1",
+      "choiceName": "direct_intervention_1",
+      "choiceOrder": 1,
+      "labelKo": "요람 밑의 방아쇠를 당겨 물길 장치를 멈춘다.",
+      "originalResultTextKo": "방아쇠가 풀리자 비탈 위 저수조가 열리며 물이 본래 방향으로 쏟아졌다. 물을 몰래 저장해 팔던 산적 호위들이 둑 위에서 내려와 증거를 없애려 했고, 그중에는 흔적을 지우던 척후와 아이를 미끼로 쓰던 그물잡이도 섞여 있었다. 일행은 급류 곁에서 그들과 맞섰다.",
+      "resultTags": [
+        "[전투]"
+      ],
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event18.water_theft_guard",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.track_eraser_scout.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.child_snatcher_netman.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.18.reverse_flowing_stream.investigate_2",
+      "choiceName": "investigate_2",
+      "choiceOrder": 2,
+      "labelKo": "거꾸로 흐르는 물을 따라 비탈 위로 올라간다.",
+      "originalResultTextKo": "개울 끝에는 주민들에게서 걷은 물통과 돈을 감춘 창고가 있었다. 일행이 장부를 공개하자 물장수들은 달아났고, 주민들은 되찾은 돈 가운데 일부를 수고비로 건넸다.",
+      "resultTags": [
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "gold_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.18.reverse_flowing_stream.choice_3",
+      "choiceName": "choice_3",
+      "choiceOrder": 3,
+      "labelKo": "빈 요람의 밧줄을 풀어 물에 띄운다.",
+      "originalResultTextKo": "요람이 장치에 걸리자 팽팽했던 밧줄이 끊어져 채찍처럼 휘둘렀다. 일행은 팔과 얼굴에 상처를 입었고, 부서진 요람은 급류에 휩쓸려 사라졌다. 장치의 주인도 소란을 틈타 흔적을 감추었다.",
+      "resultTags": [
+        "[피해]"
+      ],
+      "rewardIntent": [
+        "damage"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.18.reverse_flowing_stream.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.18.reverse_flowing_stream.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '거꾸로 흐르는 개울'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready_after_story_revision",
+    "storyRevisionApplied": true,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "ready",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "ready_after_battle_reward_handoff",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.18.reverse_flowing_stream.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/18_거꾸로_흐르는_개울.md",
+      "battleChoices": [
+        "choice.act1.random_event.18.reverse_flowing_stream.direct_intervention_1"
+      ]
+    }
+  }
+}

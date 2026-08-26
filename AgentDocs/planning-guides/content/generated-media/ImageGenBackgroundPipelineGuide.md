@@ -53,7 +53,14 @@ invalid.
 One routed unit produces one `generated_media_prompt_v3` with
 `structureProfile=background_single_image_v2`. Authoring writes a provider-
 neutral visual brief and one cohesive ImageGen scene prompt; it cannot call the
-provider.
+provider. The prompt record is the closed background discriminated branch in
+GeneratedMediaRecordGuide.md: no character expression/identity members, no
+external image-reference branch, exact
+`imagegen_background_single_image_prompt_v2` payload hash, closed opaque PNG
+settings intent, `gmprompt3.background_single_image` identity, canonical
+record/Markdown/index paths, and detached generation handoff. A planning-bound
+`style_contract_only` or `none` reference policy is valid without an image
+reference when the complete background specification remains source-bound.
 
 Generation submits the stored prompt/settings unchanged through
 `providerTool=imagegen` and
@@ -103,6 +110,12 @@ Validate one exact registry row, background-only fields, planning evidence and
 hashes, scene anchor, prompt/settings/approval hashes, attempts/cost evidence,
 and stage separation. No PixelLab route, eight-way contract, icon adapter,
 provider fallback, packaging, evaluation, promotion or Git work is allowed.
+
+Prompt authoring additionally runs
+`tests/test_generated_media_background_prompt_v3_contract.mjs` and preserves
+the existing character prompt-v3 fixed vector. Failure of closed nested keys,
+payload/ID/path projection, canonical LF bytes, index/CAS evidence, or detached
+handoff identity blocks before provider execution.
 
 ## Task Prompts
 

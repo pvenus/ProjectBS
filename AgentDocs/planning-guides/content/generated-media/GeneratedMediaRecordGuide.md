@@ -443,12 +443,13 @@ failure-atomicity rules as the records below.
 
 ## Prompt v3
 
-This section is the schema and byte authority for the current
-`character_single_image` producer. It closes `generated_media_prompt_v3`, its
-hash payload, Markdown file, index, and generation handoff for that type. It
-does not authorize another asset type, PixelLab, a variant, a rotation set, or
-provider execution. A producer presented with another prompt schema or an
-unclosed type returns `unsupported_record_schema` and writes nothing.
+This section is the schema and byte authority for the current discriminated
+`character_single_image` and `background_single_image` producers. Each branch
+closes `generated_media_prompt_v3`, its hash payload, Markdown file, index, and
+generation handoff without borrowing fields from the other branch. It does not
+authorize PixelLab, a variant, a rotation set, or provider execution. A
+producer presented with another prompt schema or an unclosed type returns
+`unsupported_record_schema` and writes nothing.
 
 ### Closed character prompt record and nested values
 
@@ -875,6 +876,121 @@ promptRecordSha256=647a258e8c9e75a8a4f2f1d920467688cb74ecbb310ecd6e68c40be1521f6
 promptMarkdownSha256=d5701576f7dde359bcf106c9a89a5548f6bc855e607c596e1344c6b026830c9c
 promptIndexSha256=7378ddcd043c623a3a885d3436ed159b02871436a1ee4571e0d97d006350abdc
 generationHandoffSha256=642f900ec42f17ad192f58023d5b9f0154c419e2d40454c702cf44af1082f8cf
+```
+
+### Closed background prompt-v3 branch
+
+For `assetType=background_single_image`, `domainType` is exactly `stage`,
+`battle`, or `environment`. The registry row/profile pair is respectively
+`{domainType}_background_single_image_v2` and
+`{domainType}_background@2.0.0`; `structureProfile` is
+`background_single_image_v2`. Character-only expression, identity,
+transparent-foreground, animation, and reference-binding members are forbidden.
+The branch does not invent an image-reference input. A planning-authorized
+`style_contract_only` or `none` policy is expressed only through the verified
+background specification/required/prohibited facts.
+
+The exact top-level member set is the character set above after removing
+`expressionProfileKey`, `expressionProfilePayload`, and
+`expressionProfilePayloadHash`. Its `validation` object has exactly:
+
+```yaml
+status: valid
+routingRecord: valid
+planningSnapshot: valid
+visualBrief: valid
+backgroundSpecification: valid
+providerPromptPayload: valid
+providerSettingsIntent: valid
+promptMarkdown: valid
+recordIdentity: valid
+```
+
+`visualBrief` is the closed background member of
+`generated_media_visual_brief_v2` defined by
+GeneratedMediaVisualPromptAuthoringGuide.md. `providerSettingsIntent` is the
+closed object below. Model, quality, seed, attempt, cost, tool, reference, and
+provider-result fields are forbidden.
+
+```yaml
+canvas: {width: positive JSON integer, height: positive JSON integer}
+generationBackground: {mode: opaque}
+outputFormat: png
+```
+
+The canvas is copied byte-semantically from
+`typeSpecification.backgroundSpecification.canvas`. The provider payload is
+exactly:
+
+```json
+{"schemaVersion":"imagegen_background_single_image_prompt_v2","scenePromptOriginal":"..."}
+```
+
+Calculate `visualBriefSha256` and `providerSettingsIntentSha256` as for the
+character branch, and calculate:
+
+```text
+providerPromptPayloadHash = lowercase_hex(SHA256(canonicalJson({
+  "schemaVersion":"imagegen_background_single_image_prompt_v2",
+  "scenePromptOriginal": scenePromptOriginal
+})))
+```
+
+The background prompt-hash payload is the exact background record after
+removing `promptRecordId`, `promptPayloadSha256`, `promptMarkdownPath`,
+`status`, `createdAt`, and `validation`, then changing only `schemaVersion` to
+`generated_media_prompt_hash_payload_v3`. Its closed member set therefore
+contains no character-only fields. Calculate:
+
+```text
+promptPayloadSha256 = lowercase_hex(SHA256(canonicalJson(promptHashPayload)))
+promptRecordId = gmprompt3.background_single_image.{contentId}.{promptPayloadSha256[0:20]}
+```
+
+The exact paths are:
+
+```text
+record:   AgentDocs/planning-data/generated-media-prompts/v2/background_single_image/{contentId}/{promptRecordId}.json
+Markdown: AgentDocs/planning-data/generated-media-prompts/v2/background_single_image/{contentId}/{promptRecordId}.prompt.md
+index:    AgentDocs/planning-data/generated-media-prompts/v2/background_single_image/{contentId}/prompt_index.json
+```
+
+Markdown bytes remain `UTF8(scenePromptOriginal) + LF`. The prompt text is the
+ordered `requiredElements` copied exactly, followed by each ordered
+`prohibitedElements` value exactly once as
+`Do not depict or include: {value}`, joined by LF with no terminal LF. This is a
+deterministic planning-fact projection, not an invitation to add scene facts.
+
+The closed prompt index uses the same schema and entry projection as the
+character index, with `assetType=background_single_image`, the exact background
+`domainType`, registry row/profile, and structure profile. Character-only
+conditional members are absent. The detached generation handoff uses the same
+closed common projection with the background values and likewise contains no
+character-only member.
+
+All common RFC 8785 JCS, canonical JSON plus one LF, raw Markdown hash,
+record-before-index publication, same-scope lock, CAS, collision,
+failure-atomic rollback, recoverable orphan, and byte-identical idempotent reuse
+rules in this section apply unchanged. An occupied divergent record is
+`record_collision`; invalid/dangling index evidence is `index_entry_invalid`;
+Markdown divergence is `prompt_markdown_mismatch`.
+
+The executable background fixed vector is
+`tests/test_generated_media_background_prompt_v3_contract.mjs`, backed by
+`helpers/generated_media_background_prompt_v3_contract_v1.mjs`. It preserves
+the existing character vector unchanged and validates closed background
+specification/provider settings, payload and ID derivation, canonical paths,
+LF bytes, detached handoff hashes, deterministic reuse, recoverable orphan,
+collision, and dangling-index rejection. Its fixed identity is:
+
+```text
+visualBriefId=gmbrief2.background_single_image.battle.contract_vector.1.e207d168cec83ebff3f0
+promptRecordId=gmprompt3.background_single_image.battle.contract_vector.1.29bed041a02422ef747c
+promptPayloadSha256=29bed041a02422ef747c4b10522b81188d9a3561faf18a18b18cb404d9173a9c
+promptRecordSha256=33effca46cac9ff119f5b7d69e6122f2897112a4067b3aea231867a83810964e
+promptMarkdownSha256=24b0529b2806ee082d73e1dc75c4c2b829902cb23fd074d26ca896b579fa7749
+promptIndexSha256=ca4c4e768f3196353d52cabfd855b169726f8669ae61d510a03ff0b0ecfa995f
+generationHandoffSha256=82c97d6d3517d82f86d8444cbe90ca94c2b9daf06f930d616f5826691100af69
 ```
 
 ## Generation v2

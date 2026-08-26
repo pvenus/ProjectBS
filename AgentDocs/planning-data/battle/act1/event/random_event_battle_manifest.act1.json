@@ -1,0 +1,645 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventBattleManifest",
+  "manifestId": "random_event_battle_manifest.act1",
+  "sourceHandoff": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event_battle_handoff.act1.random.cheongun_sangui.json",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "battleCount": 17,
+  "spawnerCandidate": "elimination_90s_swarm",
+  "partyAssumption": "random_event_party_current_player_party",
+  "battleSOAssetCreation": "not_created_by_this_task_expected_path_only",
+  "items": [
+    {
+      "battleId": "battle.act1.event01.named_well_wraith",
+      "eventId": "event.act1.random_event.01.name_swallowing_well",
+      "choiceId": "choice.act1.random_event.01.name_swallowing_well.seal_or_destroy_3",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event01.named_well_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event01.named_well_wraith.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.nameless_tablet_guardian.3",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event01.named_well_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event02.expose_rain_peddler",
+      "eventId": "event.act1.random_event.02.rain_seller",
+      "choiceId": "choice.act1.random_event.02.rain_seller.direct_intervention_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event02.expose_rain_peddler.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.bone_axe_pursuer.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event04.drive_off_threaded_wolves",
+      "eventId": "event.act1.random_event.04.red_thread_mountain_goat",
+      "choiceId": "choice.act1.random_event.04.red_thread_mountain_goat.choice_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event04.drive_off_threaded_wolves.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event04.drive_off_threaded_wolves.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.marked_pack_leader.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event04.drive_off_threaded_wolves.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event05.bound_miner_wraith",
+      "eventId": "event.act1.random_event.05.abandoned_miner_supper",
+      "choiceId": "choice.act1.random_event.05.abandoned_miner_supper.take_or_buy_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event05.bound_miner_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.abandoned_shrine_wraith.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event05.bound_miner_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event07.red_doll_shadow_hex",
+      "eventId": "event.act1.random_event.07.shadow_selling_child",
+      "choiceId": "choice.act1.random_event.07.shadow_selling_child.investigate_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event07.red_doll_shadow_hex.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event07.red_doll_shadow_hex.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event07.red_doll_shadow_hex.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event07.moonlit_ink_wolves",
+      "eventId": "event.act1.random_event.07.shadow_selling_child",
+      "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.marked_pack_leader.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event07.moonlit_ink_wolves.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event09.protect_herbalist_map",
+      "eventId": "event.act1.random_event.09.black_cloth_herbalist",
+      "choiceId": "choice.act1.random_event.09.black_cloth_herbalist.investigate_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event09.protect_herbalist_map.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event09.protect_herbalist_map.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.mountain_path_archer.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event09.protect_herbalist_map.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+      "eventId": "event.act1.random_event.10.silent_jangseung",
+      "choiceId": "choice.act1.random_event.10.silent_jangseung.choice_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event10.jangseung_bandit_ambush.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.mountain_path_archer.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event10.jangseung_bandit_ambush.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event11.restore_waterway",
+      "eventId": "event.act1.random_event.11.dry_waterwheel",
+      "choiceId": "choice.act1.random_event.11.dry_waterwheel.investigate_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event11.restore_waterway.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event11.restore_waterway.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.door_shield_barricader.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event11.restore_waterway.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event13.rescue_child_bride",
+      "eventId": "event.act1.random_event.13.empty_bride_palanquin",
+      "choiceId": "choice.act1.random_event.13.empty_bride_palanquin.direct_intervention_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event13.rescue_child_bride.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.cage_guard_bandit.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.cage_guard_bandit.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event13.rescue_child_bride.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event14.black_cloth_poultry_racket",
+      "eventId": "event.act1.random_event.14.stone_laying_hen",
+      "choiceId": "choice.act1.random_event.14.stone_laying_hen.expose_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event14.black_cloth_poultry_racket.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.track_eraser_scout.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event14.black_cloth_poultry_racket.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event15.reclaim_hidden_grain",
+      "eventId": "event.act1.random_event.15.ash_eating_jar",
+      "choiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.expose_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event15.reclaim_hidden_grain.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event15.reclaim_hidden_grain.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.black_cloth_raider.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.chain_axe_enforcer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event15.reclaim_hidden_grain.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event16.defend_blacksmith_records",
+      "eventId": "event.act1.random_event.16.crying_bell_smithy",
+      "choiceId": "choice.act1.random_event.16.crying_bell_smithy.investigate_3",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event16.defend_blacksmith_records.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.training_ground_skirmisher.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event16.defend_blacksmith_records.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event17.bandit_bowl_trap",
+      "eventId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+      "choiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.investigate_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event17.bandit_bowl_trap.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event17.bandit_bowl_trap.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.child_snatcher_netman.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event17.bandit_bowl_trap.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event18.water_theft_guard",
+      "eventId": "event.act1.random_event.18.reverse_flowing_stream",
+      "choiceId": "choice.act1.random_event.18.reverse_flowing_stream.direct_intervention_1",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event18.water_theft_guard.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.track_eraser_scout.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.track_eraser_scout.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.track_eraser_scout.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.track_eraser_scout.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event18.water_theft_guard.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event19.doll_medium_wraith",
+      "eventId": "event.act1.random_event.19.faceless_woodcarver",
+      "choiceId": "choice.act1.random_event.19.faceless_woodcarver.seal_or_destroy_3",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event19.doll_medium_wraith.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.red_doll_hexer.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event19.doll_medium_wraith.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    },
+    {
+      "battleId": "battle.act1.event20.mist_beast_blockade",
+      "eventId": "event.act1.random_event.20.fog_sewing_old_woman",
+      "choiceId": "choice.act1.random_event.20.fog_sewing_old_woman.take_or_buy_2",
+      "battleJsonPath": "Assets/Contents/Battle/json/battle.act1.event20.mist_beast_blockade.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event20.mist_beast_blockade.asset",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "npcBindings": [
+        {
+          "unitKey": "spawn.swarm.fodder.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.fast.melee",
+          "role": "Melee",
+          "characterId": "character.starving_mountain_wolf.1",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.pressure.ranged",
+          "role": "Ranged",
+          "characterId": "character.ritual_bell_handler.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        },
+        {
+          "unitKey": "spawn.swarm.light.blocker",
+          "role": "Tank",
+          "characterId": "character.marked_pack_leader.2",
+          "bindingReason": "Bound from event battle handoff selectedNpcRefs using approved Act01 NPC pool."
+        }
+      ],
+      "legacyGeneratedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event20.mist_beast_blockade.json",
+      "battleJsonAuthority": "Assets/Contents/Battle/json"
+    }
+  ],
+  "battleJsonAuthority": "Assets/Contents/Battle/json",
+  "legacyGeneratedBattleJsonRoot": "Assets/Resources/battle/act1/event"
+}

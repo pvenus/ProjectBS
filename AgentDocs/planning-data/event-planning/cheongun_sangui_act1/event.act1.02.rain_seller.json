@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomEventPlanning",
+  "eventPlanningId": "event_planning.act1.random_event.02.rain_seller",
+  "eventId": "event.act1.random_event.02.rain_seller",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "eventType": "random_event",
+  "sourceEventFile": "AgentDocs/planning-data/event/Act01/02_비를_파는_장사꾼.md",
+  "titleKo": "비를 파는 장사꾼",
+  "summaryKo": "비를 파는 장사꾼 랜덤 이벤트. 가뭄으로 갈라진 고갯길에서 일행은 푸른 유리병을 늘어놓은 장사꾼을 만났다. 그는 병마다 산꼭대기에서 붙잡은 비구름이 들어 있다며, 마을 사람들에게 마지막 곡식까지 내놓으라고 재촉했다. 병 안에서는 물방울 부딪히는 소리가 났지만, 수레 밑에는 물을 채운 가죽주머니와 빈 병이 감춰져 있었다...",
+  "randomEventPool": {
+    "eligible": true,
+    "poolIdCandidate": "event_pool.act1.random.cheongun_sangui",
+    "doNotMixWith": "chapter_episode_required_chain",
+    "notes": [
+      "independent_random_event_candidate",
+      "not_main_episode_popup_chain"
+    ]
+  },
+  "popup": {
+    "popupName": "random_event_02_rain_seller_intro",
+    "popupId": "node.act1.random_event.02.rain_seller.intro",
+    "originalTextKo": "# 비를 파는 장사꾼\n\n가뭄으로 갈라진 고갯길에서 일행은 푸른 유리병을 늘어놓은 장사꾼을 만났다. 그는 병마다 산꼭대기에서 붙잡은 비구름이 들어 있다며, 마을 사람들에게 마지막 곡식까지 내놓으라고 재촉했다. 병 안에서는 물방울 부딪히는 소리가 났지만, 수레 밑에는 물을 채운 가죽주머니와 빈 병이 감춰져 있었다. 다만 가장 안쪽의 검은 병만은 서늘한 안개를 흘리고 있었다.\n\n선택 1: 수레 밑의 가죽주머니를 꺼내 장사꾼의 속임수를 밝힌다.\n\n[전투]\n[골드 획득]\n\n속임수가 드러나자 장사꾼과 호위로 위장한 산적들이 곡도와 몽둥이를 꺼냈다. 일행이 그들을 제압하자 주민들은 빼앗겼던 돈과 곡식을 되찾았고, 주인을 확인할 수 없는 산적의 돈 일부를 사건을 해결한 몫으로 건넸다.\n\n선택 2: 서늘한 기운이 새는 검은 병의 정체를 살핀다.\n\n[피해]\n[유물 보상]\n\n마개를 여는 순간 차가운 돌풍이 손을 얼리고 유리 파편이 팔을 스쳤다. 병 안에는 비구름이 아니라 물기를 끌어당기는 작은 청옥 구슬이 들어 있었다. 장사꾼도 산에서 주웠을 뿐 쓰임을 몰랐고, 일행은 위험한 병 대신 청옥 구슬을 거두었다.\n\n선택 3: 수상한 거래에 관여하지 않고 고갯길을 떠난다.\n\n[아무 일도 일어나지 않음]\n\n일행은 장사꾼의 외침을 뒤로하고 길을 재촉했다. 산모퉁이를 돌 때까지 빈 병을 사려는 주민들의 말다툼이 메마른 바람을 타고 들려왔다.",
+    "displayTextKoCandidate": "가뭄으로 갈라진 고갯길에서 일행은 푸른 유리병을 늘어놓은 장사꾼을 만났다. 그는 병마다 산꼭대기에서 붙잡은 비구름이 들어 있다며, 마을 사람들에게 마지막 곡식까지 내놓으라고 재촉했다. 병 안에서는 물방울 부딪히는 소리가 났지만, 수레 밑에는 물을 채운 가죽주머니와 빈 병이 감춰져 있었다. 다만 가장 안쪽의 검은 병만은 서늘한 안개를 흘리고 있었다.",
+    "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+    "textLayoutProfile": "random_event_popup_v1"
+  },
+  "choices": [
+    {
+      "choiceId": "choice.act1.random_event.02.rain_seller.direct_intervention_1",
+      "choiceName": "direct_intervention_1",
+      "choiceOrder": 1,
+      "labelKo": "수레 밑의 가죽주머니를 꺼내 장사꾼의 속임수를 밝힌다.",
+      "originalResultTextKo": "속임수가 드러나자 장사꾼과 호위로 위장한 산적들이 곡도와 몽둥이를 꺼냈다. 일행이 그들을 제압하자 주민들은 빼앗겼던 돈과 곡식을 되찾았고, 주인을 확인할 수 없는 산적의 돈 일부를 사건을 해결한 몫으로 건넸다.",
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "rewardIntent": [
+        "battle_encounter",
+        "gold_reward"
+      ],
+      "battleNeed": "required",
+      "battleThreadReviewRequired": true,
+      "rewardPlanningStatus": "battle_reward_handoff",
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "40-80",
+          "unit": "gold",
+          "owner": "battle",
+          "trigger": "battle_clear"
+        }
+      ],
+      "battlePlanningStatus": "ready",
+      "battleId": "battle.act1.event02.expose_rain_peddler",
+      "expectedBattleJsonPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.json",
+      "expectedBattleSOPath": "Assets/Resources/battle/act1/event/battle.act1.event02.expose_rain_peddler.asset",
+      "selectedNpcRefs": [
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.black_cloth_raider.1.json",
+        "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc/character.bone_axe_pursuer.1.json"
+      ],
+      "spawnerCandidate": "elimination_90s_swarm",
+      "partyAssumption": "random_event_party_current_player_party",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear"
+    },
+    {
+      "choiceId": "choice.act1.random_event.02.rain_seller.investigate_2",
+      "choiceName": "investigate_2",
+      "choiceOrder": 2,
+      "labelKo": "서늘한 기운이 새는 검은 병의 정체를 살핀다.",
+      "originalResultTextKo": "마개를 여는 순간 차가운 돌풍이 손을 얼리고 유리 파편이 팔을 스쳤다. 병 안에는 비구름이 아니라 물기를 끌어당기는 작은 청옥 구슬이 들어 있었다. 장사꾼도 산에서 주웠을 뿐 쓰임을 몰랐고, 일행은 위험한 병 대신 청옥 구슬을 거두었다.",
+      "resultTags": [
+        "[피해]",
+        "[유물 보상]"
+      ],
+      "rewardIntent": [
+        "damage",
+        "relic_reward"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "needs_relic_pool",
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        },
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    },
+    {
+      "choiceId": "choice.act1.random_event.02.rain_seller.avoid_3",
+      "choiceName": "avoid_3",
+      "choiceOrder": 3,
+      "labelKo": "수상한 거래에 관여하지 않고 고갯길을 떠난다.",
+      "originalResultTextKo": "일행은 장사꾼의 외침을 뒤로하고 길을 재촉했다. 산모퉁이를 돌 때까지 빈 병을 사려는 주민들의 말다툼이 메마른 바람을 타고 들려왔다.",
+      "resultTags": [
+        "[아무 일도 일어나지 않음]"
+      ],
+      "rewardIntent": [
+        "no_effect"
+      ],
+      "battleNeed": "not_required",
+      "battleThreadReviewRequired": false,
+      "rewardPlanningStatus": "ready",
+      "rewardPolicy": []
+    }
+  ],
+  "specialFollowUpEvent": {
+    "hasSpecialFollowUp": false,
+    "recommendedConnection": "none",
+    "reason": "No special follow-up branch.",
+    "followUps": []
+  },
+  "image": {
+    "imagePolicy": "generate",
+    "eventIdForImage": "node.act1.random_event.02.rain_seller.intro",
+    "outputImagePath": "Assets/Resources/stage_new/popup_png/node.act1.random_event.02.rain_seller.intro.main.png",
+    "imageDirectionCandidate": "Act01 random event popup main image for '비를 파는 장사꾼'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+  },
+  "battle": {
+    "battlePlanningStatus": "ready",
+    "battleThreadId": "019f42bb-f345-7032-aed3-7472b19d18c5",
+    "battleThreadReviewRequired": true,
+    "npcPoolRef": "AgentDocs/planning-data/character/act-plans/cheongun_sangui_act1/npc",
+    "npcCompatibilityStatus": "ready",
+    "storyRevisionApplied": false,
+    "revisionAllowedAfterBattleReview": false,
+    "battleChoiceCount": 1
+  },
+  "reward": {
+    "rewardPlanningStatus": "needs_relic_pool",
+    "goldPolicy": "[골드 획득] 20-60 gold; [전투]+[골드 획득] 40-80 gold as battle_clear handoff.",
+    "healPolicy": "[체력 회복] 10-20 percent recommended, small rest flat 15-30.",
+    "damagePolicy": "[피해] 8-15 percent recommended, high intensity 15-25 percent.",
+    "relicPoolPolicy": "Act01 common relic pool preferred; uncommon rare; avoid fixed event relic before RelicPool confirmation.",
+    "battleRewardPolicy": "[전투]+[골드 획득] is not popup instant Gold; use rewardOwner=battle and rewardTrigger=battle_clear."
+  },
+  "handoff": {
+    "stageRoundNodeStatus": "blocked_until_relic_pool",
+    "nextBattleThreadInput": {
+      "eventPlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.02.rain_seller.json",
+      "sourceEventFile": "AgentDocs/planning-data/event/Act01/02_비를_파는_장사꾼.md",
+      "battleChoices": [
+        "choice.act1.random_event.02.rain_seller.direct_intervention_1"
+      ]
+    }
+  }
+}

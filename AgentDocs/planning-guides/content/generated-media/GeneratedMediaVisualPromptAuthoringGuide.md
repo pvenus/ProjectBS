@@ -1370,6 +1370,96 @@ subjects. It must not apply transparent-icon defaults, icon visual center,
 outline/silhouette scoring or small-icon readability. Missing background facts
 return the exact background typed blocker before authoring.
 
+For `assetType=background_single_image`, the top-level
+`generated_media_visual_brief_v2` schema at the start of this guide is closed
+after omitting `animationRequestId`, all three `expressionProfile*` members,
+and `referenceBindings`. Its nested values are exactly:
+
+```yaml
+planningOriginalRef:
+  planningHandoffPath:
+  routingRecordId:
+  routingRecordPath:
+  routingRecordSha256:
+  routingPayloadSha256:
+primarySubjectOrSilhouette: exact provider-neutral sceneContract projection
+visualHierarchy: exact playable/readability area followed by ordered depth layers
+composition: exact composition, viewpoint, and horizon projection
+paletteAndMaterial: ordered consistencyLock.sceneFacts projection
+backgroundPolicy: exact finalBackgroundPolicy
+outlinePolicy: line/rendering treatment is limited to consistencyLock.sceneFacts
+anchorPolicy: exact scene_composition_anchor type, framingRegion, and focalDepth
+requiredVisualStatements:
+  - {constraintId, statement}
+prohibitedVisualStatements:
+  - {constraintId, statement}
+supportingElements:
+  - {constraintId, statement} # one per subjectInclusions item
+likelyWrongObjects:
+  - {constraintId, statement} # one per subjectExclusions item
+artifactSpecificBrief:
+  backgroundProfile:
+    registryRowId: exact {domainType}_background_single_image_v2
+    profileKey: exact {domainType}_background@2.0.0
+  backgroundSpecification:
+    anchor: {focalDepth, framingRegion, type: scene_composition_anchor}
+    aspectRatio:
+    canvas: {height, width}
+    composition:
+    consistencyLock: {contentIdentity, sceneFacts}
+    depthLayers: []
+    finalBackgroundPolicy:
+    horizon:
+    playableOrReadabilityArea:
+    safeArea:
+    sceneContract:
+    subjectExclusions: []
+    subjectInclusions: []
+    targetDisplay:
+    viewpoint:
+visualEvidenceMap:
+  - {constraintId, statementPath, sourcePath, sourcePointer, sourceSha256,
+     authorityRole: planning,
+     transformationType: direct_copy | provider_neutral_normalization}
+providerTranslationContract:
+  schemaVersion: imagegen_background_single_image_prompt_v2
+  provider: imagegen
+  promptAssemblyOrder: planning_facts,prohibited_facts
+  settingsSeparated: true
+positiveStyleLock: []
+negativeStyleLock: []
+validation:
+  status: valid
+  sourceEvidence: complete
+  backgroundSingleImage: valid
+  providerTranslation: valid
+```
+
+The background specification is copied byte-semantically from the verified
+routing record. Every leaf is closed; unknown or missing members reject. The
+`consistencyLock.contentIdentity` equals `contentId`. Required, prohibited,
+inclusion, exclusion, and depth-layer arrays preserve source order. No
+character identity/expression member and no image-reference branch is allowed.
+Planning may bind a `style_contract_only` or `none` reference policy through
+its required/prohibited facts and consistency lock; prompt authoring does not
+manufacture an external asset reference.
+
+Project every top-level member except `visualBriefId` and `validation`, change
+only `schemaVersion` to `generated_media_visual_brief_hash_payload_v2`, then
+calculate:
+
+```text
+visualBriefPayloadSha256 = lowercase_hex(SHA256(canonicalJson(projected payload)))
+visualBriefId = gmbrief2.background_single_image.{contentId}.{visualBriefPayloadSha256[0:20]}
+```
+
+Provider text assembly is deterministic: copy ordered `requiredElements`
+exactly, then append ordered prohibited values as
+`Do not depict or include: {value}`. Join all lines with one LF, without CR,
+leading/trailing whitespace, blank lines, headings, evidence paths, IDs,
+hashes, or terminal LF. Provider settings remain separate and are the exact
+background closed object in GeneratedMediaRecordGuide.md.
+
 Provider handoff: `imagegen_background_single_image_prompt_v2`, prompt v3,
 structure `background_single_image_v2`.
 

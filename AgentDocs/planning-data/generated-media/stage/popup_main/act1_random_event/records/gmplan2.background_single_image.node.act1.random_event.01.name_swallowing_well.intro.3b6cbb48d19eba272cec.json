@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.01.name_swallowing_well.intro.3b6cbb48d19eba272cec",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.01.name_swallowing_well.intro",
+  "eventId": "node.act1.random_event.01.name_swallowing_well.intro",
+  "popupEventId": "node.act1.random_event.01.name_swallowing_well.intro",
+  "eventIdForImage": "node.act1.random_event.01.name_swallowing_well.intro",
+  "sourcePopupId": "node.act1.random_event.01.name_swallowing_well.intro",
+  "sourcePopupName": "random_event_01_name_swallowing_well_intro",
+  "eventDomainId": "event.act1.random_event.01.name_swallowing_well",
+  "eventPlanningId": "event_planning.act1.random_event.01.name_swallowing_well",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "이름을 삼킨 우물",
+  "contentUsage": "Act01 random event popup main image for '이름을 삼킨 우물', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+      "role": "random_event_planning_current",
+      "sha256": "68f7e7c51527cd3f394e0cde4a15c3c7da53d91f4fe4085b5e93c6a637a7ee98"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/01_이름을_삼킨_우물.md",
+      "role": "random_event_source_text_current",
+      "sha256": "642a6b5b38a166c21d5093092f6d4fa651a19f068d9571272e98d5ca4ef5698b"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+      "sha256": "68f7e7c51527cd3f394e0cde4a15c3c7da53d91f4fe4085b5e93c6a637a7ee98"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/01_이름을_삼킨_우물.md",
+      "sha256": "642a6b5b38a166c21d5093092f6d4fa651a19f068d9571272e98d5ca4ef5698b"
+    },
+    "popupId": "node.act1.random_event.01.name_swallowing_well.intro",
+    "popupDisplayTextKo": "산자락의 작은 마을을 지나던 일행은 물이 말라붙은 공동 우물가에 사람들이 모여 있는 것을 보았다. 우물 안에서는 물 대신 어린아이의 목소리가 희미하게 울렸다. 목소리는 제 이름을 찾아 달라고 되풀이했지만, 주민들은 산귀가 사람을 꾀는 소리라며 흙과 돌로 우물을 메우려 하고 있었다.\n\n우물가의 낡은 두레박에는 아이 손으로 새긴 듯한 짧은 금이 여럿 남아 있었다. 그런데 우물을 메우자고 앞장선 노인의 집 앞 장승에도 똑같은 자국이 있었고, 노인은 누가 묻기도 전에 오래전 이 마을에는 아이가 빠져 죽은 적이 없다고 말했다. 우물 벽 아래쪽에서는 젖은 흙냄새와 함께 오래된 방울 소리가 들려왔다."
+  },
+  "planningSnapshot": {
+    "capturedAt": null,
+    "captureAuthorityStatus": "pending_provider_approval",
+    "snapshotHash": "3b6cbb48d19eba272cecd30dd3b4b0942101bebc3b6b84d8b895c2ead885fe48",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.01.name_swallowing_well.intro"
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_01_name_swallowing_well_intro"
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.01.name_swallowing_well"
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/titleKo",
+        "value": "이름을 삼킨 우물"
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "산자락의 작은 마을을 지나던 일행은 물이 말라붙은 공동 우물가에 사람들이 모여 있는 것을 보았다. 우물 안에서는 물 대신 어린아이의 목소리가 희미하게 울렸다. 목소리는 제 이름을 찾아 달라고 되풀이했지만, 주민들은 산귀가 사람을 꾀는 소리라며 흙과 돌로 우물을 메우려 하고 있었다.\n\n우물가의 낡은 두레박에는 아이 손으로 새긴 듯한 짧은 금이 여럿 남아 있었다. 그런데 우물을 메우자고 앞장선 노인의 집 앞 장승에도 똑같은 자국이 있었고, 노인은 누가 묻기도 전에 오래전 이 마을에는 아이가 빠져 죽은 적이 없다고 말했다. 우물 벽 아래쪽에서는 젖은 흙냄새와 함께 오래된 방울 소리가 들려왔다."
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.01.name_swallowing_well.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.01.name_swallowing_well.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '이름을 삼킨 우물'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      }
+    ]
+  },
+  "approval": {
+    "status": "pending_provider_approval",
+    "approvedAt": null,
+    "approvedBy": null,
+    "providerCallAllowed": false,
+    "notes": [
+      "Do not route or call ImageGen until user/provider execution approval is recorded."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "pending_provider_approval",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "pending_provider_approval",
+    "idempotencyKey": "pending.gmplan2.background_single_image.node.act1.random_event.01.name_swallowing_well.intro.3b6cbb48d19eba272cec",
+    "idempotencyStatus": "reserved_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: dry well mouth, old bucket scratches, anxious villagers, faint cold mist from below",
+    "Source popup title: 이름을 삼킨 우물"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "A dry communal village well where a childlike voice rises from the shaft while villagers prepare stones and soil to seal it.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "dry well mouth, old bucket scratches, anxious villagers, faint cold mist from below",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.01.name_swallowing_well.intro",
+      "sceneFacts": [
+        "A dry communal village well where a childlike voice rises from the shaft while villagers prepare stones and soil to seal it.",
+        "dry well mouth, old bucket scratches, anxious villagers, faint cold mist from below",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.01.name_swallowing_well.intro.main.png",
+    "spriteName": "node.act1.random_event.01.name_swallowing_well.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "future_copy_target_only_after_pass",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.01.name_swallowing_well.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.01.name_swallowing_well.intro.main.png",
+    "copyTargetRole": "downstream_builder_or_legacy_import_only_not_generation_output"
+  },
+  "readiness": {
+    "status": "blocked_pending_provider_approval",
+    "blockers": [
+      "pending_provider_approval",
+      "missing_generated_media_routing_v2",
+      "missing_generated_media_prompt_v3",
+      "missing_provider_execution_approval_cost_record"
+    ],
+    "readyForRouting": false
+  }
+}

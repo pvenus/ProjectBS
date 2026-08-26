@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.17.three_bowls_on_mountain_path.intro.59c46423f9afe3201026",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "eventId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "popupEventId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "eventIdForImage": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "sourcePopupName": "random_event_17_three_bowls_on_mountain_path_intro",
+  "eventDomainId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+  "eventPlanningId": "event_planning.act1.random_event.17.three_bowls_on_mountain_path",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "산길의 세 밥그릇",
+  "contentUsage": "Act01 random event popup main image for '산길의 세 밥그릇', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+      "role": "random_event_planning_current",
+      "sha256": "d7cbd41b86e0b2f3787356fb7398f3e38cf127125130b194467c47f6d8ca7a9c"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/17_산길의_세_밥그릇.md",
+      "role": "random_event_source_text_current",
+      "sha256": "ae35f57fa9e808053628d1a1e3feb9f5d90582e954def47cc5202c2f7071ec42"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+      "sha256": "d7cbd41b86e0b2f3787356fb7398f3e38cf127125130b194467c47f6d8ca7a9c"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/17_산길의_세_밥그릇.md",
+      "sha256": "ae35f57fa9e808053628d1a1e3feb9f5d90582e954def47cc5202c2f7071ec42"
+    },
+    "popupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+    "popupDisplayTextKo": "사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다."
+  },
+  "planningSnapshot": {
+    "capturedAt": null,
+    "captureAuthorityStatus": "pending_provider_approval",
+    "snapshotHash": "59c46423f9afe3201026b14b9f9ac616adbedde4e6556f6cdcfc42303112c31e",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.17.three_bowls_on_mountain_path.intro"
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_17_three_bowls_on_mountain_path_intro"
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.17.three_bowls_on_mountain_path"
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/titleKo",
+        "value": "산길의 세 밥그릇"
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다."
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '산길의 세 밥그릇'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      }
+    ]
+  },
+  "approval": {
+    "status": "pending_provider_approval",
+    "approvedAt": null,
+    "approvedBy": null,
+    "providerCallAllowed": false,
+    "notes": [
+      "Do not route or call ImageGen until user/provider execution approval is recorded."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "pending_provider_approval",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "pending_provider_approval",
+    "idempotencyKey": "pending.gmplan2.background_single_image.node.act1.random_event.17.three_bowls_on_mountain_path.intro.59c46423f9afe3201026",
+    "idempotencyStatus": "reserved_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: three bowls, narrow path, concealed ambush",
+    "Source popup title: 산길의 세 밥그릇"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "Three bowls of rice sit on a mountain path as an obvious bandit trap.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "three bowls, narrow path, concealed ambush",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "sceneFacts": [
+        "Three bowls of rice sit on a mountain path as an obvious bandit trap.",
+        "three bowls, narrow path, concealed ambush",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.17.three_bowls_on_mountain_path.intro.main.png",
+    "spriteName": "node.act1.random_event.17.three_bowls_on_mountain_path.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "future_copy_target_only_after_pass",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.17.three_bowls_on_mountain_path.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.17.three_bowls_on_mountain_path.intro.main.png",
+    "copyTargetRole": "downstream_builder_or_legacy_import_only_not_generation_output"
+  },
+  "readiness": {
+    "status": "blocked_pending_provider_approval",
+    "blockers": [
+      "pending_provider_approval",
+      "missing_generated_media_routing_v2",
+      "missing_generated_media_prompt_v3",
+      "missing_provider_execution_approval_cost_record"
+    ],
+    "readyForRouting": false
+  }
+}
