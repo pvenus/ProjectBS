@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.17.three_bowls_on_mountain_path",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+  "eventId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+  "eventPlanningId": "event_planning.act1.random_event.17.three_bowls_on_mountain_path",
+  "titleKo": "산길의 세 밥그릇",
+  "summary": "산길의 세 밥그릇 랜덤 이벤트. 사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다.",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_17_three_bowls_on_mountain_path_intro",
+      "eventId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "popupOrder": 1,
+      "titleKo": "산길의 세 밥그릇",
+      "sourceNarrationId": "narration.node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "sourceTextKo": "# 산길의 세 밥그릇\n\n사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다.\n\n선택 1: 밤이 놓인 밥을 나무 뒤의 사람에게 건넨다.\n\n[체력 회복]\n\n나무 뒤에는 아이들을 찾아 산을 헤매다 지친 어머니가 쓰러져 있었다. 일행이 밥을 데워 함께 나누자 숨어 지켜보던 아이 하나가 모습을 드러냈다. 아이는 어머니가 자신을 버린 것이 아니라 산적에게서 도망치게 하려 했음을 알고 품으로 돌아왔고, 일행도 따뜻한 밥으로 기운을 되찾았다.\n\n선택 2: 검은 돌이 놓인 그릇을 들고 어른 발자국을 따라간다.\n\n[전투]\n\n발자국 끝에는 아이를 미끼로 부모의 재물을 빼앗던 산적들이 기다리고 있었다. 검은 돌은 먹이를 가져왔다는 신호였고, 일행이 그릇을 든 채 나타나자 산적들은 새로운 희생자로 여기고 덮쳐왔다.\n\n선택 3: 젖니가 놓인 그릇을 아이 발자국이 향한 곳에 옮겨 둔다.\n\n[유물 보상]\n\n새벽이 되자 밥은 사라지고 작은 천 주머니 하나가 놓여 있었다. 안에는 아이들이 길을 잃지 않으려고 모아 둔 반딧불 돌이 들어 있었다. 희미한 빛은 사람이 밟은 오래된 길 위에서만 밝아졌다.",
+      "textKo": "사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다.",
+      "bodyKo": "사람이 다니지 않는 산길에 따뜻한 밥 세 그릇이 가지런히 놓여 있었다. 첫 그릇에는 잘 익은 밤, 둘째에는 검은 돌, 셋째에는 작은 젖니가 올라가 있었다. 가까운 나무 뒤에서는 마른기침이 들렸고, 흙바닥에는 어른 발자국 하나와 아이 발자국 셋이 서로 반대 방향으로 이어졌다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.help_1",
+          "choiceName": "help_1",
+          "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+          "textKo": "밤이 놓인 밥을 나무 뒤의 사람에게 건넨다.",
+          "labelKo": "밤이 놓인 밥을 나무 뒤의 사람에게 건넨다.",
+          "resultKo": "나무 뒤에는 아이들을 찾아 산을 헤매다 지친 어머니가 쓰러져 있었다. 일행이 밥을 데워 함께 나누자 숨어 지켜보던 아이 하나가 모습을 드러냈다. 아이는 어머니가 자신을 버린 것이 아니라 산적에게서 도망치게 하려 했음을 알고 품으로 돌아왔고, 일행도 따뜻한 밥으로 기운을 되찾았다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.investigate_2",
+          "choiceName": "investigate_2",
+          "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+          "textKo": "검은 돌이 놓인 그릇을 들고 어른 발자국을 따라간다.",
+          "labelKo": "검은 돌이 놓인 그릇을 들고 어른 발자국을 따라간다.",
+          "resultKo": "발자국 끝에는 아이를 미끼로 부모의 재물을 빼앗던 산적들이 기다리고 있었다. 검은 돌은 먹이를 가져왔다는 신호였고, 일행이 그릇을 든 채 나타나자 산적들은 새로운 희생자로 여기고 덮쳐왔다.",
+          "resultTags": [
+            "[전투]"
+          ],
+          "rewardIntent": [
+            "battle_encounter"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event17.bandit_bowl_trap"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.choice_3",
+          "choiceName": "choice_3",
+          "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+          "textKo": "젖니가 놓인 그릇을 아이 발자국이 향한 곳에 옮겨 둔다.",
+          "labelKo": "젖니가 놓인 그릇을 아이 발자국이 향한 곳에 옮겨 둔다.",
+          "resultKo": "새벽이 되자 밥은 사라지고 작은 천 주머니 하나가 놓여 있었다. 안에는 아이들이 길을 잃지 않으려고 모아 둔 반딧불 돌이 들어 있었다. 희미한 빛은 사람이 밟은 오래된 길 위에서만 밝아졌다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.17.three_bowls_on_mountain_path.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "sourceChoiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.help_1",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "sourceChoiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.choice_3",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.17.three_bowls_on_mountain_path.json",
+      "sourcePopupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "sourceChoiceId": "choice.act1.random_event.17.three_bowls_on_mountain_path.investigate_2",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event17.bandit_bowl_trap",
+      "battleJsonRef": "Assets/Contents/Battle/json/battle.act1.event17.bandit_bowl_trap.json",
+      "status": "battle_runtime_handoff"
+    }
+  ],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

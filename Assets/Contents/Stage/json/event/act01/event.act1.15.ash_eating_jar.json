@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.15.ash_eating_jar",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.15.ash_eating_jar",
+  "eventId": "event.act1.random_event.15.ash_eating_jar",
+  "eventPlanningId": "event_planning.act1.random_event.15.ash_eating_jar",
+  "titleKo": "재를 먹는 항아리",
+  "summary": "재를 먹는 항아리 랜덤 이벤트. 불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서...",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_15_ash_eating_jar_intro",
+      "eventId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "popupOrder": 1,
+      "titleKo": "재를 먹는 항아리",
+      "sourceNarrationId": "narration.node.act1.random_event.15.ash_eating_jar.intro",
+      "sourceTextKo": "# 재를 먹는 항아리\n\n불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다.\n\n선택 1: 항아리의 뚜껑을 열어 안에 든 것을 확인한다.\n\n[피해]\n[특수 이벤트 추가]\n\n뚜껑이 열리자 뜨거운 재가 폭풍처럼 쏟아져 일행의 눈과 목을 태웠다. 재 속에서는 불탄 장부 한 장과 반쪽짜리 목패가 떨어졌다. 장부에는 창고 주인이 곡식을 숨기기 위해 빈집에 불을 질렀다는 기록과, 다음 그믐에 남은 곡식을 옮길 산길이 적혀 있었다.\n\n선택 2: 항아리를 흙으로 봉하고 폐허에 작은 제단을 세운다.\n\n[체력 회복]\n\n일행이 흩어진 기왓장에 죽은 이들의 흔적을 모아 놓자 항아리의 기침 소리가 잦아들었다. 검은 재 사이에서 따뜻한 바람이 불어와 일행의 피로와 목의 통증을 씻어 주었다.\n\n선택 3: 수상한 사내를 피해 폐허에서 물러난다.\n\n[아무 일도 일어나지 않음]\n\n일행은 항아리와 사내를 남겨 둔 채 산길로 돌아갔다. 해가 진 뒤 멀리서 수레가 폐허로 들어가는 소리가 들렸지만, 무엇을 싣고 갔는지는 확인할 수 없었다.",
+      "textKo": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다.",
+      "bodyKo": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.direct_intervention_1",
+          "choiceName": "direct_intervention_1",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+          "textKo": "항아리의 뚜껑을 열어 안에 든 것을 확인한다.",
+          "labelKo": "항아리의 뚜껑을 열어 안에 든 것을 확인한다.",
+          "resultKo": "뚜껑이 열리자 뜨거운 재가 폭풍처럼 쏟아져 일행의 눈과 목을 태웠다. 재 속에서는 불탄 장부 한 장과 반쪽짜리 목패가 떨어졌다. 장부에는 창고 주인이 곡식을 숨기기 위해 빈집에 불을 질렀다는 기록과, 다음 그믐에 남은 곡식을 옮길 산길이 적혀 있었다.",
+          "resultTags": [
+            "[피해]",
+            "[특수 이벤트 추가]"
+          ],
+          "rewardIntent": [
+            "damage",
+            "special_followup_unlock"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro"
+            }
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]",
+                "[특수 이벤트 추가]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.help_2",
+          "choiceName": "help_2",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+          "textKo": "항아리를 흙으로 봉하고 폐허에 작은 제단을 세운다.",
+          "labelKo": "항아리를 흙으로 봉하고 폐허에 작은 제단을 세운다.",
+          "resultKo": "일행이 흩어진 기왓장에 죽은 이들의 흔적을 모아 놓자 항아리의 기침 소리가 잦아들었다. 검은 재 사이에서 따뜻한 바람이 불어와 일행의 피로와 목의 통증을 씻어 주었다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.avoid_3",
+          "choiceName": "avoid_3",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+          "textKo": "수상한 사내를 피해 폐허에서 물러난다.",
+          "labelKo": "수상한 사내를 피해 폐허에서 물러난다.",
+          "resultKo": "일행은 항아리와 사내를 남겨 둔 채 산길로 돌아갔다. 해가 진 뒤 멀리서 수레가 폐허로 들어가는 소리가 들렸지만, 무엇을 싣고 갔는지는 확인할 수 없었다.",
+          "resultTags": [
+            "[아무 일도 일어나지 않음]"
+          ],
+          "rewardIntent": [
+            "no_effect"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": []
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.15.ash_eating_jar.intro.main.png"
+    },
+    {
+      "nodeId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "dark_moon_grain_cart",
+      "eventId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+      "popupOrder": 2,
+      "titleKo": "그믐의 곡식 수레",
+      "sourceNarrationId": "narration.node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+      "sourceTextKo": "# 그믐의 곡식 수레\n\n그믐밤, 반쪽짜리 목패가 희미한 열을 내기 시작했다. 장부에 적힌 산길로 향한 일행은 굶주린 마을을 피해 곡식 자루를 옮기는 수레 행렬과 마주했다. 수레 앞에는 폐허의 사내가 서 있었고, 호위들은 모두 검은 재로 얼굴을 가리고 있었다.\n\n선택 1: 길목을 막고 숨겨 둔 곡식의 주인을 밝히라고 요구한다.\n\n[전투]\n[골드 획득]\n\n사내는 화재로 죽은 이들의 몫까지 자신이 차지하려 했고, 호위들에게 입막음을 명령했다. 일행은 재를 뿌리며 달려드는 사병들을 물리치고 곡식을 굶주린 주민들에게 돌려주었다. 수레 밑에서 발견된 비자금 일부는 주민들이 사례로 내어 주었다.\n\n선택 2: 수레를 뒤따라 곡식이 쌓인 은닉 창고를 찾아낸다.\n\n[유물 보상]\n\n인적 없는 바위굴에는 수백 자루의 곡식과 화재 희생자들의 물건이 함께 감춰져 있었다. 일행이 관가와 주민들에게 위치를 알리자, 유족들은 불길 속에서도 타지 않은 검은 토제 호부를 감사의 표시로 건넸다.\n\n선택 3: 목패를 부러뜨리고 더 깊이 관여하지 않는다.\n\n[아무 일도 일어나지 않음]\n\n목패의 열이 식자 수레바퀴 소리도 안개 속으로 멀어졌다. 일행은 아무도 만나지 않은 채 길을 떠났고, 산 아래에서는 한동안 곡식값이 올랐다는 소문이 이어졌다.",
+      "textKo": "그믐밤, 반쪽짜리 목패가 희미한 열을 내기 시작했다. 장부에 적힌 산길로 향한 일행은 굶주린 마을을 피해 곡식 자루를 옮기는 수레 행렬과 마주했다. 수레 앞에는 폐허의 사내가 서 있었고, 호위들은 모두 검은 재로 얼굴을 가리고 있었다.",
+      "bodyKo": "그믐밤, 반쪽짜리 목패가 희미한 열을 내기 시작했다. 장부에 적힌 산길로 향한 일행은 굶주린 마을을 피해 곡식 자루를 옮기는 수레 행렬과 마주했다. 수레 앞에는 폐허의 사내가 서 있었고, 호위들은 모두 검은 재로 얼굴을 가리고 있었다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": null,
+      "imagePolicy": "none",
+      "mainImageRequired": false,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.expose_1",
+          "choiceName": "expose_1",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+          "textKo": "길목을 막고 숨겨 둔 곡식의 주인을 밝히라고 요구한다.",
+          "labelKo": "길목을 막고 숨겨 둔 곡식의 주인을 밝히라고 요구한다.",
+          "resultKo": "사내는 화재로 죽은 이들의 몫까지 자신이 차지하려 했고, 호위들에게 입막음을 명령했다. 일행은 재를 뿌리며 달려드는 사병들을 물리치고 곡식을 굶주린 주민들에게 돌려주었다. 수레 밑에서 발견된 비자금 일부는 주민들이 사례로 내어 주었다.",
+          "resultTags": [
+            "[전투]",
+            "[골드 획득]"
+          ],
+          "rewardIntent": [
+            "battle_encounter",
+            "gold_reward"
+          ],
+          "rewardPlanningStatus": "battle_reward_handoff",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event15.reclaim_hidden_grain"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.investigate_2",
+          "choiceName": "investigate_2",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+          "textKo": "수레를 뒤따라 곡식이 쌓인 은닉 창고를 찾아낸다.",
+          "labelKo": "수레를 뒤따라 곡식이 쌓인 은닉 창고를 찾아낸다.",
+          "resultKo": "인적 없는 바위굴에는 수백 자루의 곡식과 화재 희생자들의 물건이 함께 감춰져 있었다. 일행이 관가와 주민들에게 위치를 알리자, 유족들은 불길 속에서도 타지 않은 검은 토제 호부를 감사의 표시로 건넸다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.avoid_3",
+          "choiceName": "avoid_3",
+          "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+          "textKo": "목패를 부러뜨리고 더 깊이 관여하지 않는다.",
+          "labelKo": "목패를 부러뜨리고 더 깊이 관여하지 않는다.",
+          "resultKo": "목패의 열이 식자 수레바퀴 소리도 안개 속으로 멀어졌다. 일행은 아무도 만나지 않은 채 길을 떠났고, 산 아래에서는 한동안 곡식값이 올랐다는 소문이 이어졌다.",
+          "resultTags": [
+            "[아무 일도 일어나지 않음]"
+          ],
+          "rewardIntent": [
+            "no_effect"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "sourceChoiceId": "choice.act1.random_event.15.ash_eating_jar.direct_intervention_1",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]",
+        "[특수 이벤트 추가]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "sourceChoiceId": "choice.act1.random_event.15.ash_eating_jar.help_2",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+      "sourceChoiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.investigate_2",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.intro",
+      "sourceChoiceId": "choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.expose_1",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardIntent": [
+        "battle_encounter",
+        "gold_reward"
+      ],
+      "resultTags": [
+        "[전투]",
+        "[골드 획득]"
+      ],
+      "battleId": "battle.act1.event15.reclaim_hidden_grain",
+      "battleJsonRef": "Assets/Contents/Battle/json/battle.act1.event15.reclaim_hidden_grain.json",
+      "status": "battle_runtime_handoff",
+      "pendingBattleClearReward": {
+        "intent": "gold_reward",
+        "status": "pending_battle_runtime",
+        "reasonCode": "battle_owned_battle_clear_reward",
+        "rewardPolicy": [
+          {
+            "rewardType": "gold",
+            "recommendedRange": "40-80",
+            "unit": "gold",
+            "owner": "battle",
+            "trigger": "battle_clear"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

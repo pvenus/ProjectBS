@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.12.paper_flower_grave",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.12.paper_flower_grave",
+  "eventId": "event.act1.random_event.12.paper_flower_grave",
+  "eventPlanningId": "event_planning.act1.random_event.12.paper_flower_grave",
+  "titleKo": "종이꽃이 핀 무덤",
+  "summary": "종이꽃이 핀 무덤 랜덤 이벤트. 산비탈의 이름 없는 무덤마다 비에 젖지 않은 종이꽃이 피어 있었다. 꽃잎에는 서로 다른 아이의 이름이 적혀 있었고, 가장 작은 무덤 앞의 꽃만 이름 대신 빈칸으로 남아 있었다. 땔감을 줍던 노인은 산귀가 죽은 아이의 이름을 세어 간다며 꽃을 태워야 한다고 했지만, 그의 손에는 같은 종이...",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.12.paper_flower_grave.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.12.paper_flower_grave.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_12_paper_flower_grave_intro",
+      "eventId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "popupOrder": 1,
+      "titleKo": "종이꽃이 핀 무덤",
+      "sourceNarrationId": "narration.node.act1.random_event.12.paper_flower_grave.intro",
+      "sourceTextKo": "# 종이꽃이 핀 무덤\n\n산비탈의 이름 없는 무덤마다 비에 젖지 않은 종이꽃이 피어 있었다. 꽃잎에는 서로 다른 아이의 이름이 적혀 있었고, 가장 작은 무덤 앞의 꽃만 이름 대신 빈칸으로 남아 있었다. 땔감을 줍던 노인은 산귀가 죽은 아이의 이름을 세어 간다며 꽃을 태워야 한다고 했지만, 그의 손에는 같은 종이를 자른 가위가 들려 있었다.\n\n선택 1: 노인에게 빈 종이꽃의 주인이 누구인지 묻는다.\n\n[체력 회복]\n\n노인은 오래전 기근 때 산에 버려진 동생의 이름을 끝내 쓰지 못했다고 털어놓았다. 일행이 비난하지 않고 이야기를 들어주자 그는 빈 꽃에 동생의 이름을 적어 무덤 앞에 놓았다. 밤새 무덤을 맴돌던 찬 기운이 걷혔고, 노인은 감사의 뜻으로 상처를 달이는 약초를 나누어 주었다.\n\n선택 2: 종이꽃에 적힌 이름을 베껴 가까운 마을에 알린다.\n\n[골드 획득]\n\n명단을 본 주민들은 자신들의 집안이 감춰 온 아이들의 이름을 알아보았다. 처음에는 입을 닫던 이들도 무덤 앞에서 제 가족의 이름을 부르기 시작했다. 주민들은 공동으로 장례를 다시 치르고, 기록을 되찾아 준 일행에게 여비를 건넸다.\n\n선택 3: 산귀의 표식이라 여기고 종이꽃을 모두 불태운다.\n\n[피해]\n\n불길이 번지자 꽃잎에 머물던 차가운 바람이 재와 함께 폭발하듯 솟구쳤다. 날카로운 종이 조각이 일행의 살갗을 베었고, 무덤 아래에서는 이름을 빼앗기지 않으려는 아이들의 울음이 밤새 이어졌다.",
+      "textKo": "산비탈의 이름 없는 무덤마다 비에 젖지 않은 종이꽃이 피어 있었다. 꽃잎에는 서로 다른 아이의 이름이 적혀 있었고, 가장 작은 무덤 앞의 꽃만 이름 대신 빈칸으로 남아 있었다. 땔감을 줍던 노인은 산귀가 죽은 아이의 이름을 세어 간다며 꽃을 태워야 한다고 했지만, 그의 손에는 같은 종이를 자른 가위가 들려 있었다.",
+      "bodyKo": "산비탈의 이름 없는 무덤마다 비에 젖지 않은 종이꽃이 피어 있었다. 꽃잎에는 서로 다른 아이의 이름이 적혀 있었고, 가장 작은 무덤 앞의 꽃만 이름 대신 빈칸으로 남아 있었다. 땔감을 줍던 노인은 산귀가 죽은 아이의 이름을 세어 간다며 꽃을 태워야 한다고 했지만, 그의 손에는 같은 종이를 자른 가위가 들려 있었다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.12.paper_flower_grave.investigate_1",
+          "choiceName": "investigate_1",
+          "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+          "textKo": "노인에게 빈 종이꽃의 주인이 누구인지 묻는다.",
+          "labelKo": "노인에게 빈 종이꽃의 주인이 누구인지 묻는다.",
+          "resultKo": "노인은 오래전 기근 때 산에 버려진 동생의 이름을 끝내 쓰지 못했다고 털어놓았다. 일행이 비난하지 않고 이야기를 들어주자 그는 빈 꽃에 동생의 이름을 적어 무덤 앞에 놓았다. 밤새 무덤을 맴돌던 찬 기운이 걷혔고, 노인은 감사의 뜻으로 상처를 달이는 약초를 나누어 주었다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.12.paper_flower_grave.choice_2",
+          "choiceName": "choice_2",
+          "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+          "textKo": "종이꽃에 적힌 이름을 베껴 가까운 마을에 알린다.",
+          "labelKo": "종이꽃에 적힌 이름을 베껴 가까운 마을에 알린다.",
+          "resultKo": "명단을 본 주민들은 자신들의 집안이 감춰 온 아이들의 이름을 알아보았다. 처음에는 입을 닫던 이들도 무덤 앞에서 제 가족의 이름을 부르기 시작했다. 주민들은 공동으로 장례를 다시 치르고, 기록을 되찾아 준 일행에게 여비를 건넸다.",
+          "resultTags": [
+            "[골드 획득]"
+          ],
+          "rewardIntent": [
+            "gold_reward"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "gold_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_popup_gold_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[골드 획득]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "gold",
+                  "recommendedRange": "20-60",
+                  "unit": "gold",
+                  "owner": "popup",
+                  "trigger": "choice_confirm"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.12.paper_flower_grave.seal_or_destroy_3",
+          "choiceName": "seal_or_destroy_3",
+          "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+          "textKo": "산귀의 표식이라 여기고 종이꽃을 모두 불태운다.",
+          "labelKo": "산귀의 표식이라 여기고 종이꽃을 모두 불태운다.",
+          "resultKo": "불길이 번지자 꽃잎에 머물던 차가운 바람이 재와 함께 폭발하듯 솟구쳤다. 날카로운 종이 조각이 일행의 살갗을 베었고, 무덤 아래에서는 이름을 빼앗기지 않으려는 아이들의 울음이 밤새 이어졌다.",
+          "resultTags": [
+            "[피해]"
+          ],
+          "rewardIntent": [
+            "damage"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.12.paper_flower_grave.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.12.paper_flower_grave.investigate_1",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.12.paper_flower_grave.choice_2",
+      "intent": "gold_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_popup_gold_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[골드 획득]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.12.paper_flower_grave.seal_or_destroy_3",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

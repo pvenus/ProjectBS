@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.20.fog_sewing_old_woman",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.20.fog_sewing_old_woman",
+  "eventId": "event.act1.random_event.20.fog_sewing_old_woman",
+  "eventPlanningId": "event_planning.act1.random_event.20.fog_sewing_old_woman",
+  "titleKo": "안개를 꿰매는 노파",
+  "summary": "안개를 꿰매는 노파 랜덤 이벤트. 산허리의 좁은 길에서 노파가 찢어진 안개를 천처럼 무릎에 올려놓고 꿰매고 있었다. 바늘이 지나간 자리마다 길이 흐려졌고, 안개 너머에서는 아이들이 뛰노는 그림자가 보였다. 노파는 길을 막아야 산귀가 내려오지 못한다고 했지만, 실꾸리에는 아이들의 이름이 적힌 천 조각들이 매듭마다 묶여 있...",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.20.fog_sewing_old_woman.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_20_fog_sewing_old_woman_intro",
+      "eventId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "popupOrder": 1,
+      "titleKo": "안개를 꿰매는 노파",
+      "sourceNarrationId": "narration.node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "sourceTextKo": "# 안개를 꿰매는 노파\n\n산허리의 좁은 길에서 노파가 찢어진 안개를 천처럼 무릎에 올려놓고 꿰매고 있었다. 바늘이 지나간 자리마다 길이 흐려졌고, 안개 너머에서는 아이들이 뛰노는 그림자가 보였다. 노파는 길을 막아야 산귀가 내려오지 못한다고 했지만, 실꾸리에는 아이들의 이름이 적힌 천 조각들이 매듭마다 묶여 있었다.\n\n선택 1: 노파의 바느질을 도와 찢어진 안개를 마저 잇는다.\n\n[체력 회복]\n\n일행이 천 조각을 건네고 실을 당기자 차가운 안개가 포근한 이불처럼 산길을 덮었다. 노파는 자신이 산속 아이들이 잠든 동안 길을 감추는 사람이라고 털어놓았다. 일을 마친 뒤 내어 준 따뜻한 차와 안개의 온기가 일행의 피로를 풀어 주었다.\n\n선택 2: 이름표가 묶인 실꾸리를 빼앗아 안개를 걷어낸다.\n\n[전투]\n\n실이 끊어지자 안개 속에서 아이들을 지키던 짐승 그림자들이 쏟아져 나왔다. 그들은 일행을 아이들의 은신처를 드러내려는 침입자로 여겼고, 노파가 이름표를 다시 모을 때까지 거칠게 길을 막았다.\n\n선택 3: 안개 너머의 아이들에게 해치지 않겠다고 말을 건넨다.\n\n[유물 보상]\n\n한참 뒤 작은 손 하나가 안개 사이로 나와 흰 실팔찌를 내려놓았다. 노파는 아이들이 어른의 말을 믿은 것은 오랜만이라며 길 한쪽만 잠시 열어 주었다. 실팔찌는 해를 끼칠 뜻으로 다가오는 존재가 가까우면 매듭이 스스로 조여들었다.",
+      "textKo": "산허리의 좁은 길에서 노파가 찢어진 안개를 천처럼 무릎에 올려놓고 꿰매고 있었다. 바늘이 지나간 자리마다 길이 흐려졌고, 안개 너머에서는 아이들이 뛰노는 그림자가 보였다. 노파는 길을 막아야 산귀가 내려오지 못한다고 했지만, 실꾸리에는 아이들의 이름이 적힌 천 조각들이 매듭마다 묶여 있었다.",
+      "bodyKo": "산허리의 좁은 길에서 노파가 찢어진 안개를 천처럼 무릎에 올려놓고 꿰매고 있었다. 바늘이 지나간 자리마다 길이 흐려졌고, 안개 너머에서는 아이들이 뛰노는 그림자가 보였다. 노파는 길을 막아야 산귀가 내려오지 못한다고 했지만, 실꾸리에는 아이들의 이름이 적힌 천 조각들이 매듭마다 묶여 있었다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.20.fog_sewing_old_woman.help_1",
+          "choiceName": "help_1",
+          "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+          "textKo": "노파의 바느질을 도와 찢어진 안개를 마저 잇는다.",
+          "labelKo": "노파의 바느질을 도와 찢어진 안개를 마저 잇는다.",
+          "resultKo": "일행이 천 조각을 건네고 실을 당기자 차가운 안개가 포근한 이불처럼 산길을 덮었다. 노파는 자신이 산속 아이들이 잠든 동안 길을 감추는 사람이라고 털어놓았다. 일을 마친 뒤 내어 준 따뜻한 차와 안개의 온기가 일행의 피로를 풀어 주었다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.20.fog_sewing_old_woman.take_or_buy_2",
+          "choiceName": "take_or_buy_2",
+          "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+          "textKo": "이름표가 묶인 실꾸리를 빼앗아 안개를 걷어낸다.",
+          "labelKo": "이름표가 묶인 실꾸리를 빼앗아 안개를 걷어낸다.",
+          "resultKo": "실이 끊어지자 안개 속에서 아이들을 지키던 짐승 그림자들이 쏟아져 나왔다. 그들은 일행을 아이들의 은신처를 드러내려는 침입자로 여겼고, 노파가 이름표를 다시 모을 때까지 거칠게 길을 막았다.",
+          "resultTags": [
+            "[전투]"
+          ],
+          "rewardIntent": [
+            "battle_encounter"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event20.mist_beast_blockade"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.20.fog_sewing_old_woman.help_3",
+          "choiceName": "help_3",
+          "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+          "textKo": "안개 너머의 아이들에게 해치지 않겠다고 말을 건넨다.",
+          "labelKo": "안개 너머의 아이들에게 해치지 않겠다고 말을 건넨다.",
+          "resultKo": "한참 뒤 작은 손 하나가 안개 사이로 나와 흰 실팔찌를 내려놓았다. 노파는 아이들이 어른의 말을 믿은 것은 오랜만이라며 길 한쪽만 잠시 열어 주었다. 실팔찌는 해를 끼칠 뜻으로 다가오는 존재가 가까우면 매듭이 스스로 조여들었다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.20.fog_sewing_old_woman.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "sourceChoiceId": "choice.act1.random_event.20.fog_sewing_old_woman.help_1",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "sourceChoiceId": "choice.act1.random_event.20.fog_sewing_old_woman.help_3",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.20.fog_sewing_old_woman.json",
+      "sourcePopupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "sourceChoiceId": "choice.act1.random_event.20.fog_sewing_old_woman.take_or_buy_2",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event20.mist_beast_blockade",
+      "battleJsonRef": "Assets/Contents/Battle/json/battle.act1.event20.mist_beast_blockade.json",
+      "status": "battle_runtime_handoff"
+    }
+  ],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

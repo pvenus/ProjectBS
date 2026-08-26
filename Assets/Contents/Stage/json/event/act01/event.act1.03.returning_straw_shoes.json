@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.03.returning_straw_shoes",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.03.returning_straw_shoes",
+  "eventId": "event.act1.random_event.03.returning_straw_shoes",
+  "eventPlanningId": "event_planning.act1.random_event.03.returning_straw_shoes",
+  "titleKo": "밤마다 돌아오는 짚신",
+  "summary": "밤마다 돌아오는 짚신 랜덤 이벤트. 산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.03.returning_straw_shoes.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.03.returning_straw_shoes.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_03_returning_straw_shoes_intro",
+      "eventId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "popupOrder": 1,
+      "titleKo": "밤마다 돌아오는 짚신",
+      "sourceNarrationId": "narration.node.act1.random_event.03.returning_straw_shoes.intro",
+      "sourceTextKo": "# 밤마다 돌아오는 짚신\n\n산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.\n\n선택 1: 짚신의 흔적을 따라 집 뒤 헛간을 확인한다.\n\n[체력 회복]\n\n헛간 안에는 산에서 내려온 굶주린 아이가 숨어 있었다. 아이는 노파가 무서워 모습을 드러내지 못한 채, 밤마다 음식을 얻으려고 손에 든 짚신을 문턱에 놓았다. 노파는 잃은 손자가 돌아온 줄 알았다며 아이에게 따뜻한 죽을 내주었고, 일행도 함께 쉬며 지친 몸을 회복했다.\n\n선택 2: 노파의 부탁대로 짚신을 아궁이에 넣어 태운다.\n\n[피해]\n\n불길이 짚신을 삼키자 헛간에서 뛰쳐나온 아이가 타다 남은 짚신을 맨손으로 움켜쥐었다. 놀란 노파가 솥을 넘어뜨리는 바람에 뜨거운 물이 튀어 일행이 화상을 입었다. 뒤늦게 사정을 알게 되었지만, 아이는 겁에 질려 산속으로 달아났다.\n\n선택 3: 짚신을 마당에 두고 밤새 누가 가져가는지 지켜본다.\n\n[유물 보상]\n\n달이 기울 무렵 헛간에서 아이가 기어 나왔다. 일행이 조용히 음식을 건네자 아이는 산에서 자신을 길 잃지 않게 해준 작은 나침반을 답례로 내놓았다. 녹슨 바늘은 북쪽이 아니라 사람이 다닌 가장 가까운 길을 가리키고 있었다.",
+      "textKo": "산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.",
+      "bodyKo": "산길 아래 외딴집의 노파는 문턱에 놓인 작은 짚신 한 짝을 불태워 달라고 부탁했다. 오래전 산에서 잃은 손자의 것과 닮은 짚신이 사흘째 버려도 밤마다 돌아온다는 것이다. 짚신 바닥에는 진흙 대신 갓 찧은 곡식가루가 묻어 있었고, 집 뒤 헛간에서는 가느다란 숨소리가 새어 나왔다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.03.returning_straw_shoes.investigate_1",
+          "choiceName": "investigate_1",
+          "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+          "textKo": "짚신의 흔적을 따라 집 뒤 헛간을 확인한다.",
+          "labelKo": "짚신의 흔적을 따라 집 뒤 헛간을 확인한다.",
+          "resultKo": "헛간 안에는 산에서 내려온 굶주린 아이가 숨어 있었다. 아이는 노파가 무서워 모습을 드러내지 못한 채, 밤마다 음식을 얻으려고 손에 든 짚신을 문턱에 놓았다. 노파는 잃은 손자가 돌아온 줄 알았다며 아이에게 따뜻한 죽을 내주었고, 일행도 함께 쉬며 지친 몸을 회복했다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.03.returning_straw_shoes.seal_or_destroy_2",
+          "choiceName": "seal_or_destroy_2",
+          "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+          "textKo": "노파의 부탁대로 짚신을 아궁이에 넣어 태운다.",
+          "labelKo": "노파의 부탁대로 짚신을 아궁이에 넣어 태운다.",
+          "resultKo": "불길이 짚신을 삼키자 헛간에서 뛰쳐나온 아이가 타다 남은 짚신을 맨손으로 움켜쥐었다. 놀란 노파가 솥을 넘어뜨리는 바람에 뜨거운 물이 튀어 일행이 화상을 입었다. 뒤늦게 사정을 알게 되었지만, 아이는 겁에 질려 산속으로 달아났다.",
+          "resultTags": [
+            "[피해]"
+          ],
+          "rewardIntent": [
+            "damage"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.03.returning_straw_shoes.choice_3",
+          "choiceName": "choice_3",
+          "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+          "textKo": "짚신을 마당에 두고 밤새 누가 가져가는지 지켜본다.",
+          "labelKo": "짚신을 마당에 두고 밤새 누가 가져가는지 지켜본다.",
+          "resultKo": "달이 기울 무렵 헛간에서 아이가 기어 나왔다. 일행이 조용히 음식을 건네자 아이는 산에서 자신을 길 잃지 않게 해준 작은 나침반을 답례로 내놓았다. 녹슨 바늘은 북쪽이 아니라 사람이 다닌 가장 가까운 길을 가리키고 있었다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.03.returning_straw_shoes.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "sourceChoiceId": "choice.act1.random_event.03.returning_straw_shoes.investigate_1",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "sourceChoiceId": "choice.act1.random_event.03.returning_straw_shoes.seal_or_destroy_2",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "sourceChoiceId": "choice.act1.random_event.03.returning_straw_shoes.choice_3",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

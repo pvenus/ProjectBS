@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.07.shadow_selling_child",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.07.shadow_selling_child",
+  "eventId": "event.act1.random_event.07.shadow_selling_child",
+  "eventPlanningId": "event_planning.act1.random_event.07.shadow_selling_child",
+  "titleKo": "그림자를 파는 아이",
+  "summary": "그림자를 파는 아이 랜덤 이벤트. 해 질 무렵 산 아래 장터에서 얼굴을 천으로 가린 아이가 작은 먹물병을 팔고 있었다. 아이는 병 하나로 나쁜 꿈을 지울 수 있다고 했지만, 값을 치른 사람들의 발밑에는 그림자가 사라져 있었다. 아이 자신의 그림자는 몸과 반대 방향으로 길게 뻗어 장터 밖 폐가를 가리켰다.",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.07.shadow_selling_child.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_07_shadow_selling_child_intro",
+      "eventId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "popupOrder": 1,
+      "titleKo": "그림자를 파는 아이",
+      "sourceNarrationId": "narration.node.act1.random_event.07.shadow_selling_child.intro",
+      "sourceTextKo": "# 그림자를 파는 아이\n\n해 질 무렵 산 아래 장터에서 얼굴을 천으로 가린 아이가 작은 먹물병을 팔고 있었다. 아이는 병 하나로 나쁜 꿈을 지울 수 있다고 했지만, 값을 치른 사람들의 발밑에는 그림자가 사라져 있었다. 아이 자신의 그림자는 몸과 반대 방향으로 길게 뻗어 장터 밖 폐가를 가리켰다.\n\n선택 1: 먹물병 하나를 산 뒤 아이가 어디로 가는지 뒤따른다.\n\n[피해]\n[특수 이벤트 추가]\n\n병을 손에 쥐자 차가운 먹물이 손바닥으로 스며들어 기운을 빼앗았다. 장터가 닫힌 뒤 아이는 폐가로 들어가 사라졌고, 문에는 일행의 것과 똑같은 검은 손자국이 남았다. 먹물병 속에서는 빼앗긴 그림자들이 다음 초승달 밤에 자신들을 찾아 달라고 속삭였다.\n\n선택 2: 장터 사람들에게 발밑을 확인하게 해 아이의 수상한 거래를 멈춘다.\n\n[전투]\n\n사라진 그림자를 알아챈 사람들이 아이를 붙잡으려 하자, 장터 끝 폐가에서 붉은 천 인형을 단 술사가 모습을 드러냈다. 바닥의 그림자는 그가 부른 원혼과 주술 잔상처럼 일어나 사람들의 발목을 잡았고, 아이는 시켜서 병을 팔았을 뿐이라며 울부짖었다. 일행은 장터 사람들을 물리며 붉은 인형 술사의 의식과 맞서야 했다.\n\n선택 3: 아이에게 먹을 것을 건네고 물건을 팔지 않아도 된다고 설득한다.\n\n[체력 회복]\n\n아이는 한참 망설이다 얼굴의 천을 내렸다. 산에서 굶다 장터의 술사에게 붙잡힌 아이는 병을 모두 팔기 전에는 돌아갈 수 없었다고 털어놓았다. 일행이 따뜻한 음식을 나누고 병마개를 단단히 봉하자, 아이가 되찾은 옅은 그림자가 지친 몸을 감싸 상처와 피로를 덜어 주었다.",
+      "textKo": "해 질 무렵 산 아래 장터에서 얼굴을 천으로 가린 아이가 작은 먹물병을 팔고 있었다. 아이는 병 하나로 나쁜 꿈을 지울 수 있다고 했지만, 값을 치른 사람들의 발밑에는 그림자가 사라져 있었다. 아이 자신의 그림자는 몸과 반대 방향으로 길게 뻗어 장터 밖 폐가를 가리켰다.",
+      "bodyKo": "해 질 무렵 산 아래 장터에서 얼굴을 천으로 가린 아이가 작은 먹물병을 팔고 있었다. 아이는 병 하나로 나쁜 꿈을 지울 수 있다고 했지만, 값을 치른 사람들의 발밑에는 그림자가 사라져 있었다. 아이 자신의 그림자는 몸과 반대 방향으로 길게 뻗어 장터 밖 폐가를 가리켰다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.take_or_buy_1",
+          "choiceName": "take_or_buy_1",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+          "textKo": "먹물병 하나를 산 뒤 아이가 어디로 가는지 뒤따른다.",
+          "labelKo": "먹물병 하나를 산 뒤 아이가 어디로 가는지 뒤따른다.",
+          "resultKo": "병을 손에 쥐자 차가운 먹물이 손바닥으로 스며들어 기운을 빼앗았다. 장터가 닫힌 뒤 아이는 폐가로 들어가 사라졌고, 문에는 일행의 것과 똑같은 검은 손자국이 남았다. 먹물병 속에서는 빼앗긴 그림자들이 다음 초승달 밤에 자신들을 찾아 달라고 속삭였다.",
+          "resultTags": [
+            "[피해]",
+            "[특수 이벤트 추가]"
+          ],
+          "rewardIntent": [
+            "damage",
+            "special_followup_unlock"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+          "executionConfig": {
+            "type": "NextEvent",
+            "nextEvent": {
+              "nextPopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro"
+            }
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]",
+                "[특수 이벤트 추가]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.investigate_2",
+          "choiceName": "investigate_2",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+          "textKo": "장터 사람들에게 발밑을 확인하게 해 아이의 수상한 거래를 멈춘다.",
+          "labelKo": "장터 사람들에게 발밑을 확인하게 해 아이의 수상한 거래를 멈춘다.",
+          "resultKo": "사라진 그림자를 알아챈 사람들이 아이를 붙잡으려 하자, 장터 끝 폐가에서 붉은 천 인형을 단 술사가 모습을 드러냈다. 바닥의 그림자는 그가 부른 원혼과 주술 잔상처럼 일어나 사람들의 발목을 잡았고, 아이는 시켜서 병을 팔았을 뿐이라며 울부짖었다. 일행은 장터 사람들을 물리며 붉은 인형 술사의 의식과 맞서야 했다.",
+          "resultTags": [
+            "[전투]"
+          ],
+          "rewardIntent": [
+            "battle_encounter"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event07.red_doll_shadow_hex"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.help_3",
+          "choiceName": "help_3",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+          "textKo": "아이에게 먹을 것을 건네고 물건을 팔지 않아도 된다고 설득한다.",
+          "labelKo": "아이에게 먹을 것을 건네고 물건을 팔지 않아도 된다고 설득한다.",
+          "resultKo": "아이는 한참 망설이다 얼굴의 천을 내렸다. 산에서 굶다 장터의 술사에게 붙잡힌 아이는 병을 모두 팔기 전에는 돌아갈 수 없었다고 털어놓았다. 일행이 따뜻한 음식을 나누고 병마개를 단단히 봉하자, 아이가 되찾은 옅은 그림자가 지친 몸을 감싸 상처와 피로를 덜어 주었다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.07.shadow_selling_child.intro.main.png"
+    },
+    {
+      "nodeId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "moonlit_empty_market",
+      "eventId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "popupOrder": 2,
+      "titleKo": "초승달 아래 빈 장터",
+      "sourceNarrationId": "narration.node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "sourceTextKo": "# 초승달 아래 빈 장터\n\n다음 초승달 밤, 먹물에 물든 손자국이 희미하게 빛났다. 폐가의 문을 열자 낮의 장터와 닮았지만 사람 대신 그림자만 오가는 검은 거리가 나타났다. 거리 끝에는 먹물병을 만든 술사가 훔친 그림자들을 커다란 항아리에 붓고 있었다.\n\n선택 1: 항아리를 깨뜨려 갇힌 그림자들을 한꺼번에 풀어준다.\n\n[전투]\n\n항아리에 금이 가자 술사가 산짐승의 그림자에 먹물을 끼얹어 만든 늑대 실루엣들이 바닥과 벽에서 솟아났다. 굶주린 산늑대와 표식 박힌 우두머리 늑대처럼 움직이는 검은 짐승들이 달려들었고, 일행은 그림자들이 주인에게 돌아갈 시간을 벌기 위해 그 무리를 막아섰다.\n\n선택 2: 술사에게 다가가 그림자를 모으는 이유를 묻는다.\n\n[피해]\n[유물 보상]\n\n술사는 산에서 이름 없이 죽은 이들에게 몸을 만들어 주려 했다고 주장했지만, 이미 산 사람의 그림자까지 탐내고 있었다. 대화 중 검은 사슬이 일행의 발목을 파고들어 상처를 남겼으나, 일행은 술사의 품에서 그림자를 붙잡아 두는 먹빛 거울을 빼앗았다.\n\n선택 3: 자신의 먹물 자국을 지우고 검은 거리에서 빠져나온다.\n\n[아무 일도 일어나지 않음]\n\n일행이 손자국을 흙으로 문지르자 폐가와 검은 장터가 안개처럼 멀어졌다. 현실로 돌아왔을 때 손의 냉기는 사라졌지만, 주인을 찾지 못한 그림자들의 속삭임도 더는 들을 수 없었다.",
+      "textKo": "다음 초승달 밤, 먹물에 물든 손자국이 희미하게 빛났다. 폐가의 문을 열자 낮의 장터와 닮았지만 사람 대신 그림자만 오가는 검은 거리가 나타났다. 거리 끝에는 먹물병을 만든 술사가 훔친 그림자들을 커다란 항아리에 붓고 있었다.",
+      "bodyKo": "다음 초승달 밤, 먹물에 물든 손자국이 희미하게 빛났다. 폐가의 문을 열자 낮의 장터와 닮았지만 사람 대신 그림자만 오가는 검은 거리가 나타났다. 거리 끝에는 먹물병을 만든 술사가 훔친 그림자들을 커다란 항아리에 붓고 있었다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": null,
+      "imagePolicy": "none",
+      "mainImageRequired": false,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_1",
+          "choiceName": "direct_intervention_1",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+          "textKo": "항아리를 깨뜨려 갇힌 그림자들을 한꺼번에 풀어준다.",
+          "labelKo": "항아리를 깨뜨려 갇힌 그림자들을 한꺼번에 풀어준다.",
+          "resultKo": "항아리에 금이 가자 술사가 산짐승의 그림자에 먹물을 끼얹어 만든 늑대 실루엣들이 바닥과 벽에서 솟아났다. 굶주린 산늑대와 표식 박힌 우두머리 늑대처럼 움직이는 검은 짐승들이 달려들었고, 일행은 그림자들이 주인에게 돌아갈 시간을 벌기 위해 그 무리를 막아섰다.",
+          "resultTags": [
+            "[전투]"
+          ],
+          "rewardIntent": [
+            "battle_encounter"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event07.moonlit_ink_wolves"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_2",
+          "choiceName": "direct_intervention_2",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+          "textKo": "술사에게 다가가 그림자를 모으는 이유를 묻는다.",
+          "labelKo": "술사에게 다가가 그림자를 모으는 이유를 묻는다.",
+          "resultKo": "술사는 산에서 이름 없이 죽은 이들에게 몸을 만들어 주려 했다고 주장했지만, 이미 산 사람의 그림자까지 탐내고 있었다. 대화 중 검은 사슬이 일행의 발목을 파고들어 상처를 남겼으나, 일행은 술사의 품에서 그림자를 붙잡아 두는 먹빛 거울을 빼앗았다.",
+          "resultTags": [
+            "[피해]",
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "damage",
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]",
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                },
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            },
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[피해]",
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                },
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.avoid_3",
+          "choiceName": "avoid_3",
+          "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+          "textKo": "자신의 먹물 자국을 지우고 검은 거리에서 빠져나온다.",
+          "labelKo": "자신의 먹물 자국을 지우고 검은 거리에서 빠져나온다.",
+          "resultKo": "일행이 손자국을 흙으로 문지르자 폐가와 검은 장터가 안개처럼 멀어졌다. 현실로 돌아왔을 때 손의 냉기는 사라졌지만, 주인을 찾지 못한 그림자들의 속삭임도 더는 들을 수 없었다.",
+          "resultTags": [
+            "[아무 일도 일어나지 않음]"
+          ],
+          "rewardIntent": [
+            "no_effect"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.take_or_buy_1",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]",
+        "[특수 이벤트 추가]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.help_3",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_2",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]",
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        },
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_2",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[피해]",
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        },
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [
+    {
+      "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.investigate_2",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event07.red_doll_shadow_hex",
+      "battleJsonRef": "Assets/Contents/Battle/json/battle.act1.event07.red_doll_shadow_hex.json",
+      "status": "battle_runtime_handoff"
+    },
+    {
+      "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.07.shadow_selling_child.json",
+      "sourcePopupId": "node.act1.random_event.07.shadow_selling_child.moonlit_empty_market.intro",
+      "sourceChoiceId": "choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_1",
+      "rewardOwner": "battle",
+      "rewardTrigger": "battle_clear",
+      "rewardIntent": [
+        "battle_encounter"
+      ],
+      "resultTags": [
+        "[전투]"
+      ],
+      "battleId": "battle.act1.event07.moonlit_ink_wolves",
+      "battleJsonRef": "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+      "status": "battle_runtime_handoff"
+    }
+  ],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

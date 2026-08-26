@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.06.shrine_eaves_empty_perch",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.06.shrine_eaves_empty_perch",
+  "eventId": "event.act1.random_event.06.shrine_eaves_empty_perch",
+  "eventPlanningId": "event_planning.act1.random_event.06.shrine_eaves_empty_perch",
+  "titleKo": "신당 처마의 빈자리",
+  "summary": "신당 처마의 빈자리 랜덤 이벤트. 비를 피해 들어간 작은 신당의 처마에는 나무 새들이 줄지어 매달려 있었다. 한가운데 자리만 비어 있었고, 바닥에는 날개가 부러진 나무 새 하나가 떨어져 있었다. 마을 사람은 빈자리를 채우면 길을 지키던 것이 노한다고 경고했지만, 제단의 향은 누군가 방금 다녀간 듯 아직 따뜻했다.",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.06.shrine_eaves_empty_perch.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_06_shrine_eaves_empty_perch_intro",
+      "eventId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "popupOrder": 1,
+      "titleKo": "신당 처마의 빈자리",
+      "sourceNarrationId": "narration.node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "sourceTextKo": "# 신당 처마의 빈자리\n\n비를 피해 들어간 작은 신당의 처마에는 나무 새들이 줄지어 매달려 있었다. 한가운데 자리만 비어 있었고, 바닥에는 날개가 부러진 나무 새 하나가 떨어져 있었다. 마을 사람은 빈자리를 채우면 길을 지키던 것이 노한다고 경고했지만, 제단의 향은 누군가 방금 다녀간 듯 아직 따뜻했다.\n\n선택 1: 부러진 날개를 묶어 나무 새를 빈자리에 다시 매단다.\n\n[유물 보상]\n\n나무 새가 처마에 걸리자 모든 새가 바람도 없이 한꺼번에 흔들렸다. 신당 뒤편에서 오래된 제관의 그림자가 나타나 고개를 숙였고, 부러진 날개 사이에서 푸른 깃털 모양의 목패가 떨어졌다. 목패는 짙은 안개 속에서도 안전한 산길 쪽으로 기울었다.\n\n선택 2: 따뜻한 향의 주인을 기다리며 신당 주변을 살핀다.\n\n[체력 회복]\n\n해 질 무렵 약초를 캐던 노인이 돌아왔다. 그는 아무도 찾지 않는 신당의 향을 홀로 갈아 온 사람이었다. 일행이 신당을 훼손하지 않고 기다린 것을 본 노인은 몸을 덥히는 약차와 마른 자리를 내주었다.\n\n선택 3: 불길한 물건이라 여기고 떨어진 나무 새를 밖으로 던진다.\n\n[피해]\n\n나무 새가 돌에 부딪혀 갈라지자 처마의 다른 새들이 날카로운 파편을 쏟아냈다. 일행은 팔과 얼굴에 상처를 입고 신당 밖으로 물러났다. 잠잠해진 뒤에도 빈자리에서는 젖은 새가 우는 듯한 소리가 이어졌다.",
+      "textKo": "비를 피해 들어간 작은 신당의 처마에는 나무 새들이 줄지어 매달려 있었다. 한가운데 자리만 비어 있었고, 바닥에는 날개가 부러진 나무 새 하나가 떨어져 있었다. 마을 사람은 빈자리를 채우면 길을 지키던 것이 노한다고 경고했지만, 제단의 향은 누군가 방금 다녀간 듯 아직 따뜻했다.",
+      "bodyKo": "비를 피해 들어간 작은 신당의 처마에는 나무 새들이 줄지어 매달려 있었다. 한가운데 자리만 비어 있었고, 바닥에는 날개가 부러진 나무 새 하나가 떨어져 있었다. 마을 사람은 빈자리를 채우면 길을 지키던 것이 노한다고 경고했지만, 제단의 향은 누군가 방금 다녀간 듯 아직 따뜻했다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.help_1",
+          "choiceName": "help_1",
+          "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+          "textKo": "부러진 날개를 묶어 나무 새를 빈자리에 다시 매단다.",
+          "labelKo": "부러진 날개를 묶어 나무 새를 빈자리에 다시 매단다.",
+          "resultKo": "나무 새가 처마에 걸리자 모든 새가 바람도 없이 한꺼번에 흔들렸다. 신당 뒤편에서 오래된 제관의 그림자가 나타나 고개를 숙였고, 부러진 날개 사이에서 푸른 깃털 모양의 목패가 떨어졌다. 목패는 짙은 안개 속에서도 안전한 산길 쪽으로 기울었다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.investigate_2",
+          "choiceName": "investigate_2",
+          "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+          "textKo": "따뜻한 향의 주인을 기다리며 신당 주변을 살핀다.",
+          "labelKo": "따뜻한 향의 주인을 기다리며 신당 주변을 살핀다.",
+          "resultKo": "해 질 무렵 약초를 캐던 노인이 돌아왔다. 그는 아무도 찾지 않는 신당의 향을 홀로 갈아 온 사람이었다. 일행이 신당을 훼손하지 않고 기다린 것을 본 노인은 몸을 덥히는 약차와 마른 자리를 내주었다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.seal_or_destroy_3",
+          "choiceName": "seal_or_destroy_3",
+          "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+          "textKo": "불길한 물건이라 여기고 떨어진 나무 새를 밖으로 던진다.",
+          "labelKo": "불길한 물건이라 여기고 떨어진 나무 새를 밖으로 던진다.",
+          "resultKo": "나무 새가 돌에 부딪혀 갈라지자 처마의 다른 새들이 날카로운 파편을 쏟아냈다. 일행은 팔과 얼굴에 상처를 입고 신당 밖으로 물러났다. 잠잠해진 뒤에도 빈자리에서는 젖은 새가 우는 듯한 소리가 이어졌다.",
+          "resultTags": [
+            "[피해]"
+          ],
+          "rewardIntent": [
+            "damage"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.06.shrine_eaves_empty_perch.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "sourceChoiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.help_1",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "sourceChoiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.investigate_2",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "sourceChoiceId": "choice.act1.random_event.06.shrine_eaves_empty_perch.seal_or_destroy_3",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}

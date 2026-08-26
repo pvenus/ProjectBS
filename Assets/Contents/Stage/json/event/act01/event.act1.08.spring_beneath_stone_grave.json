@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "generationStage": "stage_a_generation_only",
+  "runtimeRewardStatus": "pending_handoffs_not_executable",
+  "stageNodeId": "stage.act1.random_event.08.spring_beneath_stone_grave",
+  "roundNodeType": "Event",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.08.spring_beneath_stone_grave",
+  "eventId": "event.act1.random_event.08.spring_beneath_stone_grave",
+  "eventPlanningId": "event_planning.act1.random_event.08.spring_beneath_stone_grave",
+  "titleKo": "돌무덤 아래의 샘",
+  "summary": "돌무덤 아래의 샘 랜덤 이벤트. 메마른 숲길에서 일행은 돌무덤 틈으로 맑은 물이 흐르는 것을 발견했다. 샘가에는 물을 마시지 말라는 낡은 나무패와, 누군가 최근 놓고 간 어린아이의 꽃신이 함께 있었다. 물속에는 은빛 동전이 가득했지만, 동전을 비추는 사람의 얼굴은 실제보다 훨씬 늙어 보였다.",
+  "isRequired": false,
+  "hiddenByDefault": false,
+  "startNodeId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+  "tags": [
+    "act01",
+    "random_event",
+    "cheongun_sangui",
+    "independent_pool",
+    "not_required_episode_chain"
+  ],
+  "sourcePlanningFile": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.08.spring_beneath_stone_grave.json",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "nodeType": "PopupEvent",
+      "popupName": "random_event_08_spring_beneath_stone_grave_intro",
+      "eventId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "popupOrder": 1,
+      "titleKo": "돌무덤 아래의 샘",
+      "sourceNarrationId": "narration.node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "sourceTextKo": "# 돌무덤 아래의 샘\n\n메마른 숲길에서 일행은 돌무덤 틈으로 맑은 물이 흐르는 것을 발견했다. 샘가에는 물을 마시지 말라는 낡은 나무패와, 누군가 최근 놓고 간 어린아이의 꽃신이 함께 있었다. 물속에는 은빛 동전이 가득했지만, 동전을 비추는 사람의 얼굴은 실제보다 훨씬 늙어 보였다.\n\n선택 1: 동전을 건드리지 않고 흐르는 물로 목을 축인다.\n\n[체력 회복]\n\n차가운 샘물은 긴 산행으로 지친 몸을 맑게 씻어 주었다. 물속의 늙은 얼굴은 잠시 눈을 감았다가 본래 모습으로 돌아왔고, 돌무덤 사이에서는 고맙다는 듯 작은 물소리가 울렸다.\n\n선택 2: 물속에 쌓인 동전을 건져 올린다.\n\n[피해]\n[골드 획득]\n\n동전을 움켜쥐는 순간 물에 비친 늙은 손이 손목을 붙잡았다. 일행은 살갗이 얼어붙는 고통을 견디며 팔을 빼냈고, 건져 올린 옛 동전은 손에 남았다. 샘물은 곧 흙탕물로 변해 더는 마실 수 없게 되었다.\n\n선택 3: 꽃신의 주인을 찾기 위해 주변의 발자국을 따라간다.\n\n[유물 보상]\n\n발자국 끝에는 물을 뜨러 왔다가 길을 잃은 아이가 웅크리고 있었다. 일행이 아이를 산 아래 집까지 데려다주자 가족은 대대로 샘에 제사를 지낼 때 쓰던 작은 돌잔을 내주었다. 돌잔에 담긴 물은 오래 지나도 쉽게 탁해지지 않았다.",
+      "textKo": "메마른 숲길에서 일행은 돌무덤 틈으로 맑은 물이 흐르는 것을 발견했다. 샘가에는 물을 마시지 말라는 낡은 나무패와, 누군가 최근 놓고 간 어린아이의 꽃신이 함께 있었다. 물속에는 은빛 동전이 가득했지만, 동전을 비추는 사람의 얼굴은 실제보다 훨씬 늙어 보였다.",
+      "bodyKo": "메마른 숲길에서 일행은 돌무덤 틈으로 맑은 물이 흐르는 것을 발견했다. 샘가에는 물을 마시지 말라는 낡은 나무패와, 누군가 최근 놓고 간 어린아이의 꽃신이 함께 있었다. 물속에는 은빛 동전이 가득했지만, 동전을 비추는 사람의 얼굴은 실제보다 훨씬 늙어 보였다.",
+      "textLayoutProfile": "random_event_popup_v1",
+      "displayDirective": "선택 전 상황, 위험, 유혹, 핵심 단서를 한 페이지에 담고 결과 태그와 보상은 노출하지 않는다.",
+      "imagePolicy": "generate",
+      "mainImageRequired": true,
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.choice_1",
+          "choiceName": "choice_1",
+          "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+          "textKo": "동전을 건드리지 않고 흐르는 물로 목을 축인다.",
+          "labelKo": "동전을 건드리지 않고 흐르는 물로 목을 축인다.",
+          "resultKo": "차가운 샘물은 긴 산행으로 지친 몸을 맑게 씻어 주었다. 물속의 늙은 얼굴은 잠시 눈을 감았다가 본래 모습으로 돌아왔고, 돌무덤 사이에서는 고맙다는 듯 작은 물소리가 울렸다.",
+          "resultTags": [
+            "[체력 회복]"
+          ],
+          "rewardIntent": [
+            "heal"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "heal",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[체력 회복]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "heal",
+                  "recommendedPercentRange": "10-20",
+                  "recommendedFlatRange": "15-30"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.take_or_buy_2",
+          "choiceName": "take_or_buy_2",
+          "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+          "textKo": "물속에 쌓인 동전을 건져 올린다.",
+          "labelKo": "물속에 쌓인 동전을 건져 올린다.",
+          "resultKo": "동전을 움켜쥐는 순간 물에 비친 늙은 손이 손목을 붙잡았다. 일행은 살갗이 얼어붙는 고통을 견디며 팔을 빼냈고, 건져 올린 옛 동전은 손에 남았다. 샘물은 곧 흙탕물로 변해 더는 마실 수 없게 되었다.",
+          "resultTags": [
+            "[피해]",
+            "[골드 획득]"
+          ],
+          "rewardIntent": [
+            "damage",
+            "gold_reward"
+          ],
+          "rewardPlanningStatus": "ready",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "damage",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]",
+                "[골드 획득]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "gold",
+                  "recommendedRange": "20-60",
+                  "unit": "gold",
+                  "owner": "popup",
+                  "trigger": "choice_confirm"
+                },
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            },
+            {
+              "intent": "gold_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_exact_popup_gold_value_and_runtime_handler",
+              "sourceResultTags": [
+                "[피해]",
+                "[골드 획득]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "gold",
+                  "recommendedRange": "20-60",
+                  "unit": "gold",
+                  "owner": "popup",
+                  "trigger": "choice_confirm"
+                },
+                {
+                  "rewardType": "damage",
+                  "recommendedPercentRange": "8-15",
+                  "highIntensityPercentRange": "15-25"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "choiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.investigate_3",
+          "choiceName": "investigate_3",
+          "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+          "textKo": "꽃신의 주인을 찾기 위해 주변의 발자국을 따라간다.",
+          "labelKo": "꽃신의 주인을 찾기 위해 주변의 발자국을 따라간다.",
+          "resultKo": "발자국 끝에는 물을 뜨러 왔다가 길을 잃은 아이가 웅크리고 있었다. 일행이 아이를 산 아래 집까지 데려다주자 가족은 대대로 샘에 제사를 지낼 때 쓰던 작은 돌잔을 내주었다. 돌잔에 담긴 물은 오래 지나도 쉽게 탁해지지 않았다.",
+          "resultTags": [
+            "[유물 보상]"
+          ],
+          "rewardIntent": [
+            "relic_reward"
+          ],
+          "rewardPlanningStatus": "needs_relic_pool",
+          "nextNodeId": null,
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": [],
+          "pendingRewardHandoff": [
+            {
+              "intent": "relic_reward",
+              "status": "pending_non_runtime",
+              "reasonCode": "missing_relic_pool_ref",
+              "sourceResultTags": [
+                "[유물 보상]"
+              ],
+              "rewardPolicy": [
+                {
+                  "rewardType": "relic",
+                  "pool": "Act01 common preferred; uncommon rare",
+                  "fixedRelic": "avoid"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.08.spring_beneath_stone_grave.intro.main.png"
+    }
+  ],
+  "pendingRewardHandoff": [
+    {
+      "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.choice_1",
+      "intent": "heal",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_hp_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[체력 회복]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "heal",
+          "recommendedPercentRange": "10-20",
+          "recommendedFlatRange": "15-30"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.take_or_buy_2",
+      "intent": "damage",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_damage_semantics_exact_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]",
+        "[골드 획득]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        },
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.take_or_buy_2",
+      "intent": "gold_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_exact_popup_gold_value_and_runtime_handler",
+      "sourceResultTags": [
+        "[피해]",
+        "[골드 획득]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "gold",
+          "recommendedRange": "20-60",
+          "unit": "gold",
+          "owner": "popup",
+          "trigger": "choice_confirm"
+        },
+        {
+          "rewardType": "damage",
+          "recommendedPercentRange": "8-15",
+          "highIntensityPercentRange": "15-25"
+        }
+      ]
+    },
+    {
+      "sourcePopupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "sourceChoiceId": "choice.act1.random_event.08.spring_beneath_stone_grave.investigate_3",
+      "intent": "relic_reward",
+      "status": "pending_non_runtime",
+      "reasonCode": "missing_relic_pool_ref",
+      "sourceResultTags": [
+        "[유물 보상]"
+      ],
+      "rewardPolicy": [
+        {
+          "rewardType": "relic",
+          "pool": "Act01 common preferred; uncommon rare",
+          "fixedRelic": "avoid"
+        }
+      ]
+    }
+  ],
+  "battleRewardHandoff": [],
+  "metadata": {
+    "poolId": "event_pool.act1.random.cheongun_sangui",
+    "independentFromRequiredEpisodeChain": true,
+    "unityObjectReferencesIncluded": false,
+    "runtimeRewardCompletionClaimed": false
+  }
+}
