@@ -19,6 +19,8 @@ namespace Session
 
         public CurrencyRutimeData CurrencyRuntimeData;
 
+        public bool isIntroCompleted;
+
         public void Initialize(
             StageRuntimeData runtimeData)
         {
@@ -38,6 +40,7 @@ namespace Session
             RelicRuntimeData = new RelicRuntimeData();
             BlessRuntimeData = new BlessRuntimeData();
             CurrencyRuntimeData = new CurrencyRutimeData();
+            isIntroCompleted = false;
         }
 
         public void Clear()
@@ -48,6 +51,7 @@ namespace Session
             RelicRuntimeData = null;
             BlessRuntimeData = null;
             CurrencyRuntimeData = null;
+            isIntroCompleted = false;
         }
 
         public bool TryApplyCompletedBattleNode(
