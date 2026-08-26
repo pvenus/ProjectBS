@@ -14,6 +14,7 @@ namespace ResourceTools.Skill
         public int spawnCount = 1;
         public float spawnInterval;
         public float spawnLifeTime;
+        public float spawnRadius = 0.75f;
         public float duration;
         public string characterSO;
         public string timing;
@@ -86,7 +87,8 @@ namespace ResourceTools.Skill
                 ParseEnum(spawnJson.position, SpawnSkillPosition.ProjectilePosition),
                 Mathf.Max(1, spawnJson.spawnCount),
                 Mathf.Max(0f, spawnJson.spawnInterval),
-                ResolveSpawnLifeTime(spawnJson));
+                ResolveSpawnLifeTime(spawnJson),
+                Mathf.Max(0f, spawnJson.spawnRadius));
 
             CharacterSO characterSo = FindCharacterSO(spawnJson.characterSO);
             spawnSkillSo.ApplyEditorConfig(

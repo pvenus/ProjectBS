@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentBaseProfileSO
   baseProfileId: skill.character.seojin.3.active_3.turtle_ship_assault.profile
   skillType: 0
-  skillComponentType: 1
+  skillComponentType: 0
   projectileCount: 2
-  projectileScale: 2.5
+  projectileScale: 10
   projectileColliderRadius: 0.5
   projectileLifetime: 6
   projectile:
@@ -25,7 +25,7 @@ MonoBehaviour:
     spreadAngle: 0
     radius: 0
   projectileSpawn:
-    spawnOffset: 0.4
+    spawnOffset: 2
     interval: 0
   brainMeta:
     category: 0

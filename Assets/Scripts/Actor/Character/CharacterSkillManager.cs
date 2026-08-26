@@ -164,9 +164,12 @@ namespace Character
             ApplyPassiveSkills();
         }
 
-        public EquipmentSkillRuntimeData SelectReadyActiveSkill()
+        public EquipmentSkillRuntimeData SelectReadyActiveSkill(
+            bool allowActiveSkills = true)
         {
-            return skillService.SelectActiveSkill(this);
+            return skillService.SelectActiveSkill(
+                this,
+                allowActiveSkills);
         }
 
         public void MarkSkillExecutionFailed(EquipmentSkillRuntimeData runtime)

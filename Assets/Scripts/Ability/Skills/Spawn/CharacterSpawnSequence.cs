@@ -4,6 +4,7 @@ using Character.Helper;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+using Util;
 
 namespace Skill
 {
@@ -14,13 +15,15 @@ namespace Skill
     [DisallowMultipleComponent]
     public class CharacterSpawnSequence : MonoBehaviour
     {
-        private const float DefaultVisualScale = 0.25f;
+        private const float DefaultVisualScale = 1f;
 
         private SpriteRenderer visualRenderer;
         private Animator visualAnimator;
         private GameObject spawnedCharacter;
         private Coroutine sequenceRoutine;
         private PlayableGraph visualGraph;
+        private GameObject sortingOwner;
+        private SkillSortingRelation sortingRelation;
 
         public void Initialize(
             CharacterSO characterSo,
@@ -28,8 +31,13 @@ namespace Skill
             Vector3 spawnPosition,
             Quaternion spawnRotation,
             float spawnLifeTime,
-            float visualScale)
+            float visualScale,
+            GameObject sortingOwner)
         {
+            this.sortingOwner = sortingOwner;
+            sortingRelation = baseVisual != null
+                ? baseVisual.SortingRelation
+                : SkillSortingRelation.SameAsOwner;
             transform.SetPositionAndRotation(spawnPosition, spawnRotation);
             visualRenderer = gameObject.AddComponent<SpriteRenderer>();
             visualAnimator = gameObject.AddComponent<Animator>();
@@ -43,7 +51,30 @@ namespace Skill
                     summonClip,
                     spawnPosition,
                     spawnRotation,
-                    Mathf.Max(0f, spawnLifeTime)));
+                Mathf.Max(0f, spawnLifeTime)));
+        }
+
+        private void LateUpdate()
+        {
+            if (visualRenderer == null || sortingOwner == null)
+            {
+                return;
+            }
+
+            SortingOrderMono ownerSorting =
+                sortingOwner.GetComponentInChildren<SortingOrderMono>();
+            SpriteRenderer ownerRenderer =
+                sortingOwner.GetComponentInChildren<SpriteRenderer>();
+
+            if (ownerSorting == null && ownerRenderer == null)
+            {
+                return;
+            }
+
+            int ownerOrder = ownerSorting != null
+                ? ownerSorting.CalculateSortingOrder()
+                : ownerRenderer.sortingOrder;
+            visualRenderer.sortingOrder = ownerOrder + (int)sortingRelation;
         }
 
         private IEnumerator RunSequence(
@@ -87,11 +118,76 @@ namespace Skill
             if (spawnLifeTime > 0f)
             {
                 yield return new WaitForSeconds(spawnLifeTime);
-                Destroy(spawnedCharacter);
+                yield return DespawnCharacterWithDissolve();
             }
 
             sequenceRoutine = null;
             Destroy(gameObject);
+        }
+
+        private IEnumerator DespawnCharacterWithDissolve()
+        {
+            if (spawnedCharacter == null)
+            {
+                yield break;
+            }
+
+            DisableSpawnedCharacterGameplay(spawnedCharacter);
+
+            ShaderControllerMono shaderController =
+                spawnedCharacter.GetComponent<ShaderControllerMono>();
+            if (shaderController != null)
+            {
+                shaderController.PlayDeathDissolve();
+
+                float dissolveDuration = shaderController.DeathDissolveDuration;
+                if (dissolveDuration > 0f)
+                {
+                    yield return new WaitForSeconds(dissolveDuration);
+                }
+            }
+
+            if (spawnedCharacter != null)
+            {
+                Destroy(spawnedCharacter);
+            }
+        }
+
+        private static void DisableSpawnedCharacterGameplay(
+            GameObject characterObject)
+        {
+            Collider2D[] colliders =
+                characterObject.GetComponentsInChildren<Collider2D>(true);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i] != null)
+                {
+                    colliders[i].enabled = false;
+                }
+            }
+
+            Rigidbody2D rigidbody = characterObject.GetComponent<Rigidbody2D>();
+            if (rigidbody != null)
+            {
+                rigidbody.linearVelocity = Vector2.zero;
+                rigidbody.angularVelocity = 0f;
+                rigidbody.simulated = false;
+            }
+
+            MonoBehaviour[] behaviours =
+                characterObject.GetComponentsInChildren<MonoBehaviour>(true);
+            for (int i = 0; i < behaviours.Length; i++)
+            {
+                MonoBehaviour behaviour = behaviours[i];
+                if (behaviour == null ||
+                    behaviour is ShaderControllerMono ||
+                    behaviour is ShaderMono)
+                {
+                    continue;
+                }
+
+                behaviour.enabled = false;
+            }
         }
 
         private IEnumerator PlayClipOnce(AnimationClip clip)

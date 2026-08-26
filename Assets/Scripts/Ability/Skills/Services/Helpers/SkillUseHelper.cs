@@ -214,7 +214,8 @@ namespace Skill.Service.Helper
                 spawnPosition,
                 context.Caster.rotation,
                 spawnLifeTime,
-                Mathf.Max(0.01f, context.Runtime.resolvedProjectileScale));
+                Mathf.Max(0.01f, context.Runtime.resolvedProjectileScale),
+                context.CasterObject);
 
             return true;
         }
@@ -285,7 +286,9 @@ namespace Skill.Service.Helper
         private static float ResolveSpawnRadius(
             SpawnSkillSO spawnSkill)
         {
-            return 0.75f;
+            return spawnSkill != null
+                ? spawnSkill.SpawnRadius
+                : 0.75f;
         }
 
 

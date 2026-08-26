@@ -50,6 +50,7 @@
     "spawnCount": 3,
     "spawnInterval": 0,
     "spawnLifeTime": 8,
+    "spawnRadius": 1.5,
     "characterSO": "character.yujin.3.clone"
   },
   "hits": [
@@ -66,6 +67,7 @@
     "attackClip": "arrow_attack",
     "projectileLoopClip": "smoke_spawn",
     "hitClip": "arrow_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

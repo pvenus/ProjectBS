@@ -699,6 +699,7 @@ public class ProjectileFactory
             material = source.material,
             color = source.color,
             projectileVisualType = source.projectileVisualType,
+            sortingRelation = source.sortingRelation,
             useAnimatorTriggers = source.useAnimatorTriggers
         };
 

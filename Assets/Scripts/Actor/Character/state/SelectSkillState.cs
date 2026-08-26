@@ -62,7 +62,9 @@ namespace Character.Skill
             if (skillManager != null)
             {
                 EquipmentSkillRuntimeData selectedRuntime =
-                    skillManager.SelectReadyActiveSkill();
+                    skillManager.SelectReadyActiveSkill(
+                        context.StateService == null ||
+                        context.StateService.CanUseActiveSkill);
 
                 EquipmentSkillSO selectedSkill =
                     selectedRuntime != null

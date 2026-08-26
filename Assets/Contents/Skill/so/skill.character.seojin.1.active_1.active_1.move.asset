@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
   moveId: skill.character.seojin.1.active_1.active_1.move
   applyDirectionRotation: 1
-  rotationOffset: 180
+  rotationOffset: 0
   moveType: 3
   config:
-    rid: 5601486772394787067
+    rid: 5601486773768945709
   references:
     version: 2
     RefIds:
-    - rid: 5601486772394787067
+    - rid: 5601486773768945709
       type: {class: HoverMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
       data:
         followOffset: {x: 0, y: 0}

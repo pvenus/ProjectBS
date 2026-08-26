@@ -14,11 +14,15 @@ public class BaseVisualSO : ScriptableObject
     [Header("Visual Type")]
     [SerializeField] private ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
 
+    [Header("Sorting")]
+    [SerializeField] private SkillSortingRelation sortingRelation = SkillSortingRelation.SameAsOwner;
+
     [Header("Animation Clips")]
     [SerializeField] private AnimationClipEntry[] animationClips;
 
     public string VisualId => visualId;
     public ProjectileVisualType ProjectileVisualType => projectileVisualType;
+    public SkillSortingRelation SortingRelation => sortingRelation;
 
     public AnimationClipEntry[] AnimationClips => animationClips;
 
@@ -26,10 +30,12 @@ public class BaseVisualSO : ScriptableObject
     public void ApplyEditorData(
         string visualId,
         ProjectileVisualType projectileVisualType,
+        SkillSortingRelation sortingRelation,
         AnimationClipEntry[] animationClips)
     {
         this.visualId = visualId;
         this.projectileVisualType = projectileVisualType;
+        this.sortingRelation = sortingRelation;
         this.animationClips = animationClips;
     }
 #endif

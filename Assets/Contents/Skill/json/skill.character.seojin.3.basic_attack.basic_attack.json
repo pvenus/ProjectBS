@@ -6,7 +6,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "melee_slash",
     "projectileCount": 1,
-    "projectileScale": 1,
+    "projectileScale": 3,
     "projectileLifetime": 0.2,
     "category": "Attack",
     "targetType": "Enemy",
@@ -46,7 +46,7 @@
     "moveId": "skill.character.seojin.3.basic_attack.basic_attack.move",
     "moveType": "Linear",
     "applyDirectionRotation": true,
-    "rotationOffset": 0,
+    "rotationOffset": 90,
     "linear": {
       "speed": 0
     },
@@ -96,6 +96,7 @@
     "attackClip": "slash_attack",
     "projectileLoopClip": "",
     "hitClip": "slash_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

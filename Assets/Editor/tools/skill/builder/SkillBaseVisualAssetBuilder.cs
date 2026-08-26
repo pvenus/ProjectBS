@@ -15,6 +15,8 @@ namespace ResourceTools.Skill
         public string visualId;
 
         public string projectileVisualType;
+
+        public string sortingRelation;
     }
 
     /// <summary>
@@ -110,6 +112,7 @@ namespace ResourceTools.Skill
             }
 
             ProjectileVisualType projectileVisualType = ResolveProjectileVisualType(json.projectileVisualType);
+            SkillSortingRelation sortingRelation = ResolveSortingRelation(json.sortingRelation);
             AnimationClipEntry[] animationClips;
 
             if (generateAnimation)
@@ -128,7 +131,25 @@ namespace ResourceTools.Skill
             visualSo.ApplyEditorData(
                 json.visualId,
                 projectileVisualType,
+                sortingRelation,
                 animationClips);
+        }
+
+        private static SkillSortingRelation ResolveSortingRelation(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return SkillSortingRelation.SameAsOwner;
+            }
+
+            if (Enum.TryParse(value, true, out SkillSortingRelation relation))
+            {
+                return relation;
+            }
+
+            Debug.LogError(
+                $"[SkillBaseVisualAssetBuilder] Invalid sortingRelation. value={value}");
+            return SkillSortingRelation.SameAsOwner;
         }
 
         private static ProjectileVisualType ResolveProjectileVisualType(string value)

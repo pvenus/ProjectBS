@@ -34,7 +34,8 @@ namespace Character.Skill
         /// Passive skills are excluded from this selection flow.
         /// </summary>
         public EquipmentSkillRuntimeData SelectActiveSkill(
-            CharacterSkillManager skillManager)
+            CharacterSkillManager skillManager,
+            bool allowActiveSkills = true)
         {
             if (skillManager == null)
             {
@@ -47,6 +48,17 @@ namespace Character.Skill
             if (runtimes == null || runtimes.Length == 0)
             {
                 return null;
+            }
+
+            if (!allowActiveSkills)
+            {
+                EquipmentSkillRuntimeData basicAttack =
+                    skillManager.SkillPool?.GetRuntimeByKey(
+                        SkillPoolSlotKeys.BasicAttack);
+
+                return IsRuntimeReady(skillManager, basicAttack)
+                    ? basicAttack
+                    : null;
             }
 
             for (int i = runtimes.Length - 1; i >= 0; i--)
@@ -119,6 +131,20 @@ namespace Character.Skill
             CharacterSkillManager skillManager)
         {
             return SelectActiveSkill(skillManager);
+        }
+
+        private bool IsRuntimeReady(
+            CharacterSkillManager skillManager,
+            EquipmentSkillRuntimeData runtime)
+        {
+            if (skillManager == null || runtime == null)
+            {
+                return false;
+            }
+
+            string skillId = CharacterSkillHelper.GetSkillId(runtime);
+            return !IsTemporarilyBlockedAfterFailure(skillId) &&
+                   IsCooldownReady(skillManager.SkillRuntimeData, skillId);
         }
         /// <summary>
         /// Fires a specific runtime skill through SkillExecutorMono.

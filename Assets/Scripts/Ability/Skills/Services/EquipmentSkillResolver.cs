@@ -208,6 +208,7 @@ public class EquipmentSkillResolver
             effectRuntimeSet = source.effectRuntimeSet,
             spawnSkillSo = source.spawnSkillSo,
             projectileVisualType = source.projectileVisualType,
+            sortingRelation = source.sortingRelation,
             material = source.material,
             color = source.color,
             useAnimatorTriggers = source.useAnimatorTriggers
@@ -504,6 +505,9 @@ public class EquipmentSkillResolver
         projectileData.projectileVisualType = baseVisual != null
             ? baseVisual.ProjectileVisualType
             : ProjectileVisualType.Default;
+        projectileData.sortingRelation = baseVisual != null
+            ? baseVisual.SortingRelation
+            : SkillSortingRelation.SameAsOwner;
 
         projectileData.material = null;
         projectileData.color = Color.white;

@@ -4,6 +4,7 @@ using Skill;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+using Util;
 
 /// <summary>
 /// ProjectileEntity의 비주얼 표현을 담당하는 컴포넌트.
@@ -190,6 +191,66 @@ public class ProjectileVisual : MonoBehaviour
             if (deactivateAfterClipFinished && owner != null)
             {
                 owner.Despawn();
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        ApplyRelativeSortingOrder();
+    }
+
+    private void ApplyRelativeSortingOrder()
+    {
+        if (!initialized || runtimeData == null || spriteRenderer == null)
+        {
+            return;
+        }
+
+        GameObject sortingOwner = runtimeData.owner;
+        if (sortingOwner == null || sortingOwner == gameObject)
+        {
+            return;
+        }
+
+        int ownerOrder;
+        ProjectileEntity ownerProjectile =
+            sortingOwner.GetComponent<ProjectileEntity>();
+        if (ownerProjectile != null &&
+            ownerProjectile.Visual != null &&
+            ownerProjectile.Visual.SpriteRenderer != null)
+        {
+            ownerOrder = ownerProjectile.Visual.SpriteRenderer.sortingOrder;
+        }
+        else
+        {
+            SortingOrderMono ownerSorting =
+                sortingOwner.GetComponentInChildren<SortingOrderMono>();
+            if (ownerSorting != null)
+            {
+                ownerOrder = ownerSorting.CalculateSortingOrder();
+            }
+            else
+            {
+                SpriteRenderer ownerRenderer =
+                    sortingOwner.GetComponentInChildren<SpriteRenderer>();
+                if (ownerRenderer == null)
+                {
+                    return;
+                }
+
+                ownerOrder = ownerRenderer.sortingOrder;
+            }
+        }
+
+        int resolvedOrder = ownerOrder + (int)runtimeData.sortingRelation;
+        spriteRenderer.sortingOrder = resolvedOrder;
+
+        for (int i = 0; i < rainRenderers.Count; i++)
+        {
+            if (rainRenderers[i] != null)
+            {
+                rainRenderers[i].sortingOrder = resolvedOrder + i + 1;
             }
         }
     }

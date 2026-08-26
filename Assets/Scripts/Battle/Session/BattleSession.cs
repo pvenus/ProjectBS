@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Party;
 using Battle;
+using Character;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +25,37 @@ namespace Session
         public BattleSO BattleSO;
 
         public BattleRuntime BattleRuntime;
+
+        public bool TryInitializePartyMembers(
+            IReadOnlyList<CharacterSO> initialMembers)
+        {
+            PartyRuntimeData ??= new PartyRuntimeData();
+
+            if (PartyRuntimeData.Members.Count > 0
+                || initialMembers == null
+                || initialMembers.Count == 0)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < initialMembers.Count; i++)
+            {
+                CharacterSO characterSO = initialMembers[i];
+                if (characterSO == null)
+                {
+                    continue;
+                }
+
+                PartyRuntimeData.AddMember(
+                    new CharacterRuntimeData
+                    {
+                        characterSO = characterSO,
+                        isDead = false
+                    });
+            }
+
+            return PartyRuntimeData.Members.Count > 0;
+        }
 
         [Header("Stage Node Completion")]
         public string PendingStageNodeId;

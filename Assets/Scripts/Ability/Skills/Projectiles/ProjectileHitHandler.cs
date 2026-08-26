@@ -434,15 +434,16 @@ public class ProjectileHitHandler : MonoBehaviour
             currentHitCount++;
             ownerEntity.Spawner?.TrySpawnChildSkill(SpawnSkillTiming.OnHit);
 
+            if (consumeAfterHit)
+            {
+                ownerEntity.Despawn();
+                return;
+            }
+
             if (HasReachedMaxHitCount())
             {
                 ownerEntity.CompleteCollisionAndDespawnAfterVisual();
                 return;
-            }
-
-            if (consumeAfterHit)
-            {
-                ownerEntity.CompleteCollisionAndDespawnAfterVisual();
             }
 
             return;
@@ -502,15 +503,16 @@ public class ProjectileHitHandler : MonoBehaviour
 
         ApplyAdditionalEffects(targetCharacter);
 
+        if (consumeAfterHit)
+        {
+            ownerEntity.Despawn();
+            return;
+        }
+
         if (HasReachedMaxHitCount())
         {
             ownerEntity.CompleteCollisionAndDespawnAfterVisual();
             return;
-        }
-
-        if (consumeAfterHit)
-        {
-            ownerEntity.CompleteCollisionAndDespawnAfterVisual();
         }
     }
 

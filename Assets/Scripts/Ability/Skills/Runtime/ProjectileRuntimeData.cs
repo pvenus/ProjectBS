@@ -50,6 +50,7 @@ public class ProjectileRuntimeData
     // --- Resolved Visual Runtime (filled by resolver) ---
     [Header("Resolved Visual Runtime")]
     public ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
+    public SkillSortingRelation sortingRelation = SkillSortingRelation.SameAsOwner;
     public Material material;
     public Color color = Color.white;
     // Optional: if true, prefer Animator triggers over direct clips

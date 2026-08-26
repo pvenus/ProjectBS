@@ -144,6 +144,13 @@ namespace Character.Skill
                     context.Owner != null ? context.Owner.transform : null,
                     target);
 
+            if (executed)
+            {
+                context.StateService?.RecordSuccessfulSkillUse(
+                    selectedRuntime,
+                    skillManager);
+            }
+
             context.StateManager?.LogStateMessage(
                 $"AttackTargetState Result: Skill={GetSkillName(selectedRuntime)} " +
                 $"RuntimeFound={selectedRuntime != null} " +

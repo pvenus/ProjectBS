@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile11",
     "projectileCount": 1,
-    "projectileScale": 1.2,
+    "projectileScale": 5,
     "projectileLifetime": 0.3,
     "category": "Attack",
     "targetType": "Enemy",
@@ -74,7 +74,7 @@
     "duration": 0.3,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
-    "rotationOffset": 180,
+    "rotationOffset": 0,
     "followLerpSpeed": 12,
     "snapOnInitialize": true,
     "useHoverMotion": false,
@@ -157,6 +157,7 @@
     "attackClip": "slash_attack",
     "projectileLoopClip": "military_officer_rush",
     "hitClip": "slash_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

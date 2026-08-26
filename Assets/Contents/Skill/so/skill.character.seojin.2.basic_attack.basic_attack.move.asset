@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillMoveSO
   moveId: skill.character.seojin.2.basic_attack.basic_attack.move
   applyDirectionRotation: 1
-  rotationOffset: 0
+  rotationOffset: 90
   moveType: 1
   config:
-    rid: 5601486772394787073
+    rid: 5601486773768945715
   references:
     version: 2
     RefIds:
-    - rid: 5601486772394787073
+    - rid: 5601486773768945715
       type: {class: LinearMoveConfig, ns: Skills.Move.Config, asm: Assembly-CSharp}
       data:
         speed: 0

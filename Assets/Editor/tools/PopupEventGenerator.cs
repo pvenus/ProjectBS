@@ -301,6 +301,7 @@ public static class PopupEventGenerator
                     rewardData.rewardType,
                     PopupEventRewardType.None),
                 value = rewardData.value,
+                targetId = rewardData.targetId,
                 tag = rewardData.tag,
                 targetData = FindTargetData(rewardData, baseFolder)
             };

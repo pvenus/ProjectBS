@@ -4,7 +4,7 @@
   "skillName": "전열베기",
   "baseProfile": {
     "projectileCount": 1,
-    "projectileScale": 2,
+    "projectileScale": 3,
     "projectileLifetime": 0.2,
     "projectileColliderRadius": 0.6,
     "category": "Attack",
@@ -44,7 +44,7 @@
     "moveId": "skill.character.seojin.1.basic_attack.basic_attack.move",
     "moveType": "Linear",
     "applyDirectionRotation": true,
-    "rotationOffset": 0,
+    "rotationOffset": 90,
     "linear": {
       "speed": 0
     },
@@ -94,7 +94,8 @@
     "attackClip": "slash_attack",
     "projectileLoopClip": "",
     "hitClip": "slash_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   },
   "upgradeTable": {
     "skillId": "skill.character.seojin.1.basic_attack",
@@ -111,13 +112,13 @@
         "level": 2,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 2
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.05
           }
         ]
@@ -126,18 +127,18 @@
         "level": 3,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 2
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.05
           },
           {
-            "statType": "Range",
-            "modifierType": "Flat",
+            "modifierType": "Range",
+            "operationType": "Flat",
             "value": 0.1
           }
         ]
@@ -146,18 +147,18 @@
         "level": 4,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 3
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.06
           },
           {
-            "statType": "Cooldown",
-            "modifierType": "Flat",
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
             "value": -0.08
           }
         ]
@@ -166,23 +167,23 @@
         "level": 5,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 4
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.07
           },
           {
-            "statType": "Range",
-            "modifierType": "Flat",
+            "modifierType": "Range",
+            "operationType": "Flat",
             "value": 0.1
           },
           {
-            "statType": "SplitHitCount",
-            "modifierType": "Flat",
+            "modifierType": "SplitHitCount",
+            "operationType": "Flat",
             "value": 1
           }
         ]
@@ -191,18 +192,18 @@
         "level": 6,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 5
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.08
           },
           {
-            "statType": "Cooldown",
-            "modifierType": "Flat",
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
             "value": -0.08
           }
         ]
@@ -211,18 +212,18 @@
         "level": 7,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 6
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.09
           },
           {
-            "statType": "Range",
-            "modifierType": "Flat",
+            "modifierType": "Range",
+            "operationType": "Flat",
             "value": 0.15
           }
         ]
@@ -231,23 +232,23 @@
         "level": 8,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 7
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.1
           },
           {
-            "statType": "Cooldown",
-            "modifierType": "Flat",
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
             "value": -0.09
           },
           {
-            "statType": "SplitHitCount",
-            "modifierType": "Flat",
+            "modifierType": "SplitHitCount",
+            "operationType": "Flat",
             "value": 1
           }
         ]
@@ -256,23 +257,23 @@
         "level": 9,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 8
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.12
           },
           {
-            "statType": "Range",
-            "modifierType": "Flat",
+            "modifierType": "Range",
+            "operationType": "Flat",
             "value": 0.15
           },
           {
-            "statType": "Cooldown",
-            "modifierType": "Flat",
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
             "value": -0.08
           }
         ]
@@ -281,28 +282,28 @@
         "level": 10,
         "statModifiers": [
           {
-            "statType": "BaseDamage",
-            "modifierType": "Flat",
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
             "value": 9
           },
           {
-            "statType": "AttackPercentDamage",
-            "modifierType": "Flat",
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
             "value": 0.13
           },
           {
-            "statType": "Range",
-            "modifierType": "Flat",
+            "modifierType": "Range",
+            "operationType": "Flat",
             "value": 0.15
           },
           {
-            "statType": "Cooldown",
-            "modifierType": "Flat",
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
             "value": -0.09
           },
           {
-            "statType": "SplitHitCount",
-            "modifierType": "Flat",
+            "modifierType": "SplitHitCount",
+            "operationType": "Flat",
             "value": 1
           }
         ]

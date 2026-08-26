@@ -949,7 +949,7 @@ namespace ResourceTools.Stage
             string nodeId,
             string choiceId)
         {
-            Type characterDataType = FindType("Character.CharacterDataSO") ?? FindType("CharacterDataSO");
+            Type characterDataType = FindType("Character.CharacterSO") ?? FindType("CharacterSO");
             if (characterDataType == null)
             {
                 return null;

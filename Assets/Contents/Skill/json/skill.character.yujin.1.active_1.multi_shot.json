@@ -7,7 +7,7 @@
     "attackArchetype": "Ranged",
     "projectilePrefabName": "projectile",
     "projectileCount": 5,
-    "projectileScale": 0.3,
+    "projectileScale": 0.85,
     "projectileLifetime": 1.2,
     "category": "Attack",
     "targetType": "Enemy",
@@ -116,6 +116,37 @@
     "attackClip": "arrow_attack",
     "projectileLoopClip": "archer_multishot",
     "hitClip": "arrow_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.yujin.1.active_1",
+    "upgradeTableId": "upgrade.skill.character.yujin.1.active_1",
+    "displayName": "멀티샷 강화",
+    "entries": [
+      {"level":1,"statModifiers":[]},
+      {"level":2,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":5}]},
+      {"level":3,"statModifiers":[{"modifierType": "ProjectileSpreadAngle",
+            "operationType": "Flat","value":4}]},
+      {"level":4,"statModifiers":[{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":5}]},
+      {"level":5,"statModifiers":[{"modifierType": "ProjectileCount",
+            "operationType": "Flat","value":1},{"modifierType": "Cooldown",
+            "operationType": "Flat","value":-0.3}]},
+      {"level":6,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":7}]},
+      {"level":7,"statModifiers":[{"modifierType": "Range",
+            "operationType": "Flat","value":0.4}]},
+      {"level":8,"statModifiers":[{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":8}]},
+      {"level":9,"statModifiers":[{"modifierType": "ProjectileCount",
+            "operationType": "Flat","value":1},{"modifierType": "ProjectileSpreadAngle",
+            "operationType": "Flat","value":4}]},
+      {"level":10,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":10},{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":10},{"modifierType": "Cooldown",
+            "operationType": "Flat","value":-0.5}]}
+    ]
   }
 }

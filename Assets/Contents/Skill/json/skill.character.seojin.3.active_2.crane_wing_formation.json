@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile",
     "projectileCount": 1,
-    "projectileScale": 0.5,
+    "projectileScale": 5,
     "projectileLifetime": 5,
     "category": "Attack",
     "targetType": "Point",
@@ -71,7 +71,7 @@
     "config": {
       "followOffset": {
         "x": 0,
-        "y": 0
+        "y": 1
       }
     }
   },
@@ -178,6 +178,7 @@
     "attackClip": "formation_attack",
     "projectileLoopClip": "military_officer_crane_wing_formation",
     "hitClip": "formation_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "BelowOwner"
   }
 }

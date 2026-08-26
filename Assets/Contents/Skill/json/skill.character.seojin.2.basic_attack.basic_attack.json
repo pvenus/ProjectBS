@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "melee_slash",
     "projectileCount": 1,
-    "projectileScale": 2,
+    "projectileScale": 3,
     "projectileLifetime": 0.2,
     "category": "Attack",
     "targetType": "Enemy",
@@ -49,7 +49,7 @@
     "speed": 0,
     "arrivalThreshold": 0.01,
     "applyDirectionRotation": true,
-    "rotationOffset": 0,
+    "rotationOffset": 90,
     "followOffsetX": 0,
     "followOffsetY": 0,
     "followLerpSpeed": 12,
@@ -115,6 +115,7 @@
     "attackClip": "slash_attack",
     "projectileLoopClip": "",
     "hitClip": "slash_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

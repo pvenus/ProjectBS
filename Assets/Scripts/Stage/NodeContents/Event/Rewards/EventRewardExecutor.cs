@@ -65,6 +65,7 @@ namespace Stage
 
             Register(new JobChangeRewardHandler(PopupEventRewardType.FirstJobChange));
             Register(new JobChangeRewardHandler(PopupEventRewardType.SecondJobChange));
+            Register(new CharacterRewardHandler());
 
             Register(new RevealHiddenNodeRewardHandler());
             Register(new UnlockRouteRewardHandler());
@@ -453,6 +454,44 @@ namespace Stage
 
             Debug.Log(
                 $"[EventRewardExecutor] Job changed. type={RewardType}, from={sourceJob}, to={targetCharacterSO.Job}, targetCharacter={targetCharacterSO.CharacterId}");
+        }
+    }
+
+    public sealed class CharacterRewardHandler : EventRewardHandlerBase
+    {
+        public override PopupEventRewardType RewardType => PopupEventRewardType.Character;
+
+        public override void Execute(PopupEventRewardData reward, EventRewardContext context)
+        {
+            if (!TryGetTarget(reward, out CharacterSO characterSO))
+            {
+                return;
+            }
+
+            if (characterSO.CharacterType != CharacterType.Player)
+            {
+                Debug.LogWarning(
+                    $"[EventRewardExecutor] Character reward target is not a player. character={characterSO.CharacterId}");
+                return;
+            }
+
+            PartyManager partyManager = PartyManager.Instance
+                ?? Object.FindFirstObjectByType<PartyManager>();
+            if (partyManager == null)
+            {
+                Debug.LogWarning("[EventRewardExecutor] PartyManager not found.");
+                return;
+            }
+
+            if (!partyManager.TryAddPartyMember(characterSO))
+            {
+                Debug.LogWarning(
+                    $"[EventRewardExecutor] Character reward failed. character={characterSO.CharacterId}");
+                return;
+            }
+
+            Debug.Log(
+                $"[EventRewardExecutor] Character granted. character={characterSO.CharacterId}");
         }
     }
 

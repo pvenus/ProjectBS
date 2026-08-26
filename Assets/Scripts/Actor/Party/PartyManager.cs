@@ -349,6 +349,20 @@ namespace Party
                 return false;
             }
 
+            if (runtimeData.Members.Any(member =>
+                    member != null
+                    && member.characterSO != null
+                    && (member.characterSO == characterSO
+                        || string.Equals(
+                            member.characterSO.CharacterId,
+                            characterSO.CharacterId,
+                            System.StringComparison.OrdinalIgnoreCase))))
+            {
+                Debug.LogWarning(
+                    $"[PartyManager] Character is already in party. character={characterSO.CharacterId}");
+                return false;
+            }
+
             int newPartyIndex = runtimeData.Members.Count;
             CharacterManager characterManager =
                 CreateRuntimeCharacterManager(

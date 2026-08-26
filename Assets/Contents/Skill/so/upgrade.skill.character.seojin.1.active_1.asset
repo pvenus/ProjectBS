@@ -18,53 +18,110 @@ MonoBehaviour:
     statModifiers: []
     effectModifiers: []
   - level: 2
-    statModifiers: []
+    statModifiers:
+    - modifierType: 0
+      operationType: 0
+      value: 10
+    - modifierType: 1
+      operationType: 0
+      value: 0.1
     effectModifiers: []
   - level: 3
-    statModifiers: []
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -0.5
     effectModifiers:
-    - targetEffectId: 
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
       fieldType: 0
       operationType: 0
       value: 5
   - level: 4
-    statModifiers: []
+    statModifiers:
+    - modifierType: 3
+      operationType: 0
+      value: 0.25
+    - modifierType: 0
+      operationType: 0
+      value: 12
     effectModifiers: []
   - level: 5
-    statModifiers: []
+    statModifiers:
+    - modifierType: 8
+      operationType: 0
+      value: 0.05
+    - modifierType: 1
+      operationType: 0
+      value: 0.15
     effectModifiers:
-    - targetEffectId: 
-      fieldType: 0
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
+      fieldType: 1
       operationType: 0
       value: 0.5
   - level: 6
-    statModifiers: []
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -0.5
+    - modifierType: 0
+      operationType: 0
+      value: 15
     effectModifiers: []
   - level: 7
-    statModifiers: []
+    statModifiers:
+    - modifierType: 3
+      operationType: 0
+      value: 0.25
+    - modifierType: 1
+      operationType: 0
+      value: 0.2
     effectModifiers:
-    - targetEffectId: 
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
       fieldType: 0
       operationType: 0
       value: 5
   - level: 8
-    statModifiers: []
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -0.75
+    - modifierType: 8
+      operationType: 0
+      value: 0.05
     effectModifiers: []
   - level: 9
-    statModifiers: []
+    statModifiers:
+    - modifierType: 0
+      operationType: 0
+      value: 18
+    - modifierType: 1
+      operationType: 0
+      value: 0.25
     effectModifiers:
-    - targetEffectId: 
-      fieldType: 0
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
+      fieldType: 1
       operationType: 0
       value: 0.5
   - level: 10
-    statModifiers: []
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -1
+    - modifierType: 3
+      operationType: 0
+      value: 0.5
+    - modifierType: 0
+      operationType: 0
+      value: 25
+    - modifierType: 1
+      operationType: 0
+      value: 0.3
     effectModifiers:
-    - targetEffectId: 
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
       fieldType: 0
       operationType: 0
       value: 10
-    - targetEffectId: 
-      fieldType: 0
+    - targetEffectId: skill.character.seojin.1.active_1.active_1.effect.self.1
+      fieldType: 1
       operationType: 0
       value: 1

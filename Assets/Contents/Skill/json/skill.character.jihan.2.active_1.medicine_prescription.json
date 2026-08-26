@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile11",
     "projectileCount": 1,
-    "projectileScale": 1.2,
+    "projectileScale": 4,
     "projectileLifetime": 1,
     "category": "Support",
     "targetType": "Ally",
@@ -126,6 +126,7 @@
     "attackClip": "slash_attack",
     "projectileLoopClip": "slash_fly",
     "hitClip": "slash_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

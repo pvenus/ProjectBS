@@ -48,6 +48,7 @@ namespace Character
                 SkillManager = skillManager,
                 MovementController = movementController,
                 MovementExecutionService = new CharacterMovementExecutionService(),
+                StateService = new CharacterStateService(),
                 AnimationMono = null
             };
 

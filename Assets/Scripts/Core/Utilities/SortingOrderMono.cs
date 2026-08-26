@@ -53,8 +53,7 @@ namespace Util
                 return;
             }
 
-            float y = sortPivot.position.y;
-            int order = sortingOffset - Mathf.RoundToInt(y * sortingScale);
+            int order = CalculateSortingOrder();
 
             foreach (var spriteRenderer in spriteRenderers)
             {
@@ -65,6 +64,12 @@ namespace Util
 
                 spriteRenderer.sortingOrder = order;
             }
+        }
+
+        public int CalculateSortingOrder()
+        {
+            Transform pivot = sortPivot != null ? sortPivot : transform;
+            return sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
         }
     }
 }

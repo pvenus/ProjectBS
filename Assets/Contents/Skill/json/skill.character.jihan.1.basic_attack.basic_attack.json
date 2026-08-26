@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "skill.character.jihan.1.basic_attack.projectile",
     "projectileCount": 1,
-    "projectileScale": 1.5,
+    "projectileScale": 6,
     "projectileLifetime": 0.3,
     "category": "Attack",
     "targetType": "Enemy",
@@ -154,6 +154,42 @@
     "attackClip": "nova_attack",
     "projectileLoopClip": "nova_active",
     "hitClip": "nova_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "BelowOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.jihan.1.basic_attack",
+    "upgradeTableId": "upgrade.skill.character.jihan.1.basic_attack",
+    "displayName": "기파술 강화",
+    "entries": [
+      {"level":1,"statModifiers":[],"effectModifiers":[]},
+      {"level":2,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":3}],"effectModifiers":[]},
+      {"level":3,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.jihan.1.basic_attack.basic_attack.effect.buff_2.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":2}]},
+      {"level":4,"statModifiers":[{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":5}],"effectModifiers":[]},
+      {"level":5,"statModifiers":[{"modifierType": "Range",
+            "operationType": "Flat","value":0.1}],"effectModifiers":[{"targetEffectId": "skill.character.jihan.1.basic_attack.basic_attack.effect.buff_2.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":3}]},
+      {"level":6,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":5}],"effectModifiers":[]},
+      {"level":7,"statModifiers":[{"modifierType": "Cooldown",
+            "operationType": "Flat","value":-0.15}],"effectModifiers":[]},
+      {"level":8,"statModifiers":[{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":8}],"effectModifiers":[{"targetEffectId": "skill.character.jihan.1.basic_attack.basic_attack.effect.buff_2.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":4}]},
+      {"level":9,"statModifiers":[{"modifierType": "BaseDamage",
+            "operationType": "Flat","value":7},{"modifierType": "Range",
+            "operationType": "Flat","value":0.15}],"effectModifiers":[]},
+      {"level":10,"statModifiers":[{"modifierType": "AttackPercentDamage",
+            "operationType": "Flat","value":10},{"modifierType": "Cooldown",
+            "operationType": "Flat","value":-0.2}],"effectModifiers":[{"targetEffectId": "skill.character.jihan.1.basic_attack.basic_attack.effect.buff_2.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":6}]}
+    ]
   }
 }

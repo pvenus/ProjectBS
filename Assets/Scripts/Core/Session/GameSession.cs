@@ -1,12 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.Collections.Generic;
 using Currency;
 using Item;
 using Session.SO;
-using Character;
-using Party;
 using Battle;
 using System;
 
@@ -134,11 +131,6 @@ namespace Session
             battleManager.OpenSkillUpgradeForDebug();
         }
 
-        private IReadOnlyList<CharacterRuntimeData> CollectPartyCharacterRuntimeDatas()
-        {
-            return BattleSession.PartyRuntimeData.Members;
-        }
-
         private IEnumerator ApplyStartProfileDelayed()
         {
             int delayFrame = Mathf.Max(0, startProfileApplyDelayFrame);
@@ -186,34 +178,16 @@ namespace Session
                 }
             }
 
-            if (startProfile.StartPartyMembers != null && startProfile.StartPartyMembers.Count > 0)
+            bool partyInitialized =
+                BattleSession.TryInitializePartyMembers(
+                    startProfile.StartPartyMembers);
+
+            // PartyManager.Start can run before the delayed start profile is
+            // applied. Re-run the normal party initialization path so the
+            // newly created members receive stats and owned skill instances.
+            if (partyInitialized && Party.PartyManager.Instance != null)
             {
-                BattleSession.PartyRuntimeData ??= new Party.PartyRuntimeData();
-                BattleSession.PartyRuntimeData.Members.Clear();
-
-                for (int i = 0; i < startProfile.StartPartyMembers.Count; i++)
-                {
-                    CharacterSO characterSO = startProfile.StartPartyMembers[i];
-                    if (characterSO == null)
-                    {
-                        continue;
-                    }
-
-                    CharacterRuntimeData member = new CharacterRuntimeData
-                    {
-                        characterSO = characterSO,
-                        isDead = false
-                    };
-                    BattleSession.PartyRuntimeData.Members.Add(member);
-                }
-
-                // PartyManager.Start can run before the delayed start profile is
-                // applied. Re-run the normal party initialization path so the
-                // newly created members receive stats and owned skill instances.
-                if (PartyManager.Instance != null)
-                {
-                    PartyManager.Instance.SpawnParty();
-                }
+                Party.PartyManager.Instance.SpawnParty();
             }
 
             startProfileApplied = true;

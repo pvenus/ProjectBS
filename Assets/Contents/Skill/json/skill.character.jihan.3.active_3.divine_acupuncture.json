@@ -7,8 +7,8 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile",
     "projectileCount": 1,
-    "projectileScale": 1.5,
-    "projectileLifetime": 0.5,
+    "projectileScale": 4,
+    "projectileLifetime": 1,
     "category": "Support",
     "targetType": "Ally",
     "tacticalNeed": "Buff",
@@ -150,6 +150,7 @@
     "attackClip": "acupuncture_needle_attack",
     "projectileLoopClip": "acupuncture_needle_active",
     "hitClip": "acupuncture_needle_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

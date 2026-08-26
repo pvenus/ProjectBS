@@ -180,6 +180,44 @@
   ],
   "baseVisual": {
     "visualId": "skill.character.yujin.1.passive_1.passive_1.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.yujin.1.passive_1",
+    "upgradeTableId": "upgrade.skill.character.yujin.1.passive_1",
+    "displayName": "치명 화살 파동 강화",
+    "entries": [
+      {"level":1,"statModifiers":[],"effectModifiers":[]},
+      {"level":2,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":5}]},
+      {"level":3,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Cooldown",
+            "operationType": "Flat","value":-0.1}]},
+      {"level":4,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":5}]},
+      {"level":5,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "MaxApplyCount",
+            "operationType": "Flat","value":1}]},
+      {"level":6,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":8}]},
+      {"level":7,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Cooldown",
+            "operationType": "Flat","value":-0.15}]},
+      {"level":8,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":10}]},
+      {"level":9,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "MaxApplyCount",
+            "operationType": "Flat","value":1}]},
+      {"level":10,"statModifiers":[],"effectModifiers":[{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Value",
+            "operationType": "Flat","value":15},{"targetEffectId": "skill.character.yujin.1.passive_1.passive_1.effect.buff.1",
+            "fieldType": "Cooldown",
+            "operationType": "Flat","value":-0.25}]}
+    ]
   }
 }

@@ -217,6 +217,13 @@ namespace Skill
         Spawn = 1
     }
 
+    public enum SkillSortingRelation
+    {
+        BelowOwner = -1,
+        SameAsOwner = 0,
+        AboveOwner = 1
+    }
+
     public enum ProjectileMoveType
     {
         None = 0,

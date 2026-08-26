@@ -7,7 +7,7 @@
     "attackArchetype": "Ranged",
     "projectilePrefabName": "projectile",
     "projectileCount": 10,
-    "projectileScale": 0.3,
+    "projectileScale": 0.85,
     "projectileLifetime": 1.2,
     "category": "Attack",
     "targetType": "Enemy",
@@ -116,6 +116,7 @@
     "attackClip": "arrow_attack",
     "projectileLoopClip": "archer_multishot",
     "hitClip": "arrow_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

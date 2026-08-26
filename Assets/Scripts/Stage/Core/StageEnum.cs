@@ -98,6 +98,7 @@ namespace Stage
 
         FirstJobChange = 2400,
         SecondJobChange = 2450,
+        Character = 2500,
 
 
         UnlockRoute = 4000,

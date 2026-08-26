@@ -9,7 +9,7 @@
     "projectileCount": 3,
     "projectileArrangement": "Line",
     "projectileArrangementValue": 0.45,
-    "projectileScale": 0.5,
+    "projectileScale": 0.85,
     "projectileLifetime": 0.75,
     "category": "Attack",
     "targetType": "Enemy",
@@ -20,8 +20,8 @@
     "skillComponentType": "Projectile",
     "projectileColliderRadius": 0.5,
     "projectile": {
-      "arrangement": "Spread",
-      "arrangementValue": 0,
+      "arrangement": "Line",
+      "arrangementValue": 0.45,
       "spreadAngle": 0,
       "radius": 0
     },
@@ -116,6 +116,7 @@
     "attackClip": "arrow_attack",
     "projectileLoopClip": "archer_hwalbin_barrage",
     "hitClip": "arrow_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }

@@ -32,6 +32,8 @@ namespace Character
 
         public CharacterMovementExecutionService MovementExecutionService;
 
+        public CharacterStateService StateService;
+
         public AnimationMono AnimationMono;
 
         public EquipmentSkillRuntimeData SelectedSkillRuntime;

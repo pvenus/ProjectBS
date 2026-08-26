@@ -36,6 +36,9 @@ public class ShaderControllerMono : MonoBehaviour
     public bool IsHitFlashPlaying => hitFlash != null && hitFlash.isPlaying;
     public bool IsSpawnRevealPlaying => spawnReveal != null && spawnReveal.isPlaying;
     public bool IsDeathDissolvePlaying => deathDissolve != null && deathDissolve.isPlaying;
+    public float DeathDissolveDuration => deathDissolve != null && deathDissolve.enabled
+        ? Mathf.Max(0.01f, deathDissolve.duration)
+        : 0f;
     public bool IsStunBlinkActive => stunBlink != null && stunBlink.IsActive;
 
     private void Reset()

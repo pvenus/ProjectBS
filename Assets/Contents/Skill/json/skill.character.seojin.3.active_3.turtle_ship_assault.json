@@ -7,7 +7,7 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile",
     "projectileCount": 2,
-    "projectileScale": 2.5,
+    "projectileScale": 10,
     "projectileLifetime": 6,
     "category": "Attack",
     "targetType": "Point",
@@ -15,7 +15,7 @@
     "basePriority": 1.0,
     "baseProfileId": "skill.character.seojin.3.active_3.turtle_ship_assault.profile",
     "skillType": "Active",
-    "skillComponentType": "Spawn",
+    "skillComponentType": "Projectile",
     "projectileColliderRadius": 0.5,
     "projectile": {
       "arrangement": "Spread",
@@ -24,7 +24,7 @@
       "radius": 0
     },
     "projectileSpawn": {
-      "spawnOffset": 0.4,
+      "spawnOffset": 2,
       "interval": 0
     }
   },
@@ -145,6 +145,7 @@
         "visualSetId": "skill.character.seojin.3.turtle_ship_cannon_zone.visual",
         "baseVisual": {
           "visualId": "skill.character.seojin.3.turtle_ship_cannon_zone.visual.base",
+          "sortingRelation": "BelowOwner",
           "archetype": "Melee",
           "projectilePrefab": "projectile",
           "projectileSprite": "cannon_zone_basic",
@@ -263,6 +264,7 @@
     "attackClip": "turtle_ship_attack",
     "projectileLoopClip": "military_officer_turtleship",
     "hitClip": "turtle_ship_hit",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
   }
 }
