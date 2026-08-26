@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Battle;
 using Character;
@@ -35,6 +36,7 @@ namespace Battle.UI.StrategicBoard
 
         private ItemManager subscribedItemManager;
         private StrategicSkillCostManager subscribedCostManager;
+        private Coroutine initializationRoutine;
         private readonly List<StrategicSkillSlotView> boundSlots = new();
         private StrategicSkillSlotView activeDragSlot;
         private bool ownsTargetingGuideView;
@@ -56,16 +58,56 @@ namespace Battle.UI.StrategicBoard
 
         private void OnEnable()
         {
-            ResolveReferences();
-            SubscribeEvents();
-            Rebind();
+            initializationRoutine = StartCoroutine(
+                InitializeWhenDependenciesReady());
         }
 
         private void OnDisable()
         {
+            if (initializationRoutine != null)
+            {
+                StopCoroutine(initializationRoutine);
+                initializationRoutine = null;
+            }
+
             ClearInteractionSelection(activeDragSlot);
             UnsubscribeEvents();
             HideTargetingGuide();
+        }
+
+        private IEnumerator InitializeWhenDependenciesReady()
+        {
+            // Let every scene object's Awake/OnEnable complete before resolving
+            // singleton-backed battle data. Their relative order is not guaranteed.
+            yield return null;
+
+            while (isActiveAndEnabled)
+            {
+                ResolveReferences();
+
+                bool sessionReady =
+                    Session.GameSession.Instance != null
+                    && Session.GameSession.Instance.StageSession != null
+                    && Session.GameSession.Instance.StageSession
+                        .StrategicSkillItemRuntimeData != null;
+
+                if (boardView != null
+                    && boardView.Slots != null
+                    && boardView.Slots.Count > 0
+                    && ItemManager.Instance != null
+                    && StrategicSkillCostManager.Instance != null
+                    && sessionReady)
+                {
+                    SubscribeEvents();
+                    Rebind();
+                    initializationRoutine = null;
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            initializationRoutine = null;
         }
 
         private void OnDestroy()
