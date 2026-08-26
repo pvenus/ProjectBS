@@ -44,6 +44,7 @@ namespace Stage.UI
             }
 
             Subscribe();
+            RefreshAll();
 
             if (rebuildOnEnable)
             {

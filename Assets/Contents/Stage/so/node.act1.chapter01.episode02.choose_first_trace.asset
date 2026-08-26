@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: 870d511019c614b3693c32f1b02352e8, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486779048788366
+      rid: 5601486782127932066
   - choiceId: choice.act1.chapter01.episode02.choose_first_trace.follow_yujin_trace
     requirements: []
     visibleConditions: []
@@ -41,25 +41,25 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: 13a83453f1f03414babf3f5701140a94, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486779048788367
+      rid: 5601486782127932067
   references:
     version: 2
     RefIds:
-    - rid: 5601486779048788366
+    - rid: 5601486782127932066
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486779048788368
-    - rid: 5601486779048788367
+          rid: 5601486782127932068
+    - rid: 5601486782127932067
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486779048788369
-    - rid: 5601486779048788368
+          rid: 5601486782127932069
+    - rid: 5601486782127932068
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486779048788369
+    - rid: 5601486782127932069
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

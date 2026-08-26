@@ -428,12 +428,6 @@ namespace Stage
                 return;
             }
 
-            if (!System.Enum.TryParse(reward.targetId, out CharacterJob sourceJob))
-            {
-                Debug.LogWarning($"[EventRewardExecutor] Invalid job change source job. targetId={reward.targetId}");
-                return;
-            }
-
             PartyManager partyManager = Object.FindFirstObjectByType<PartyManager>();
             if (partyManager == null)
             {
@@ -442,18 +436,18 @@ namespace Stage
             }
 
             bool changed = partyManager.TryChangePartyMemberJob(
-                sourceJob,
-                targetCharacterSO.Job);
+                reward.targetId,
+                targetCharacterSO);
 
             if (!changed)
             {
                 Debug.LogWarning(
-                    $"[EventRewardExecutor] Job change failed. from={sourceJob}, to={targetCharacterSO.Job}, targetCharacter={targetCharacterSO.CharacterId}");
+                    $"[EventRewardExecutor] Job change failed. from={reward.targetId}, to={targetCharacterSO.CharacterId}");
                 return;
             }
 
             Debug.Log(
-                $"[EventRewardExecutor] Job changed. type={RewardType}, from={sourceJob}, to={targetCharacterSO.Job}, targetCharacter={targetCharacterSO.CharacterId}");
+                $"[EventRewardExecutor] Job changed. type={RewardType}, from={reward.targetId}, to={targetCharacterSO.CharacterId}");
         }
     }
 

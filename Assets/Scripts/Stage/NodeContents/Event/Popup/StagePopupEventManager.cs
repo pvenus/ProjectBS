@@ -270,12 +270,12 @@ namespace Stage
 
             UIPopupViewController.Instance?.Close(PopupType.EventPopup);
 
-            OnPopupEventClosed?.Invoke(closedEvent, node);
-
             if (stageManager != null && stageManager.CurrentNode == node)
             {
                 stageManager.CompleteCurrentNode();
             }
+
+            OnPopupEventClosed?.Invoke(closedEvent, node);
         }
 
         public void CloseWithoutComplete()

@@ -1,0 +1,237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c260ff891d0d542c4ae0a2816afcfef9, type: 3}
+  m_Name: event_pool.act1.random.cheongun_sangui
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.EventPoolSO
+  poolId: event_pool.act1.random.cheongun_sangui
+  displayName: "Act01 \uCCAD\uC6B4\uC0B0\uC758 \uB79C\uB364 \uC774\uBCA4\uD2B8 \uD480"
+  entries:
+  - node: {fileID: 11400000, guid: ccd4fe3a04e8b47f7a90a136d102c940, type: 2}
+    entryId: entry.act1.random_event.01.name_swallowing_well
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: f14808d6aa3904ca3a653493bfd88514, type: 2}
+    entryId: entry.act1.random_event.02.rain_seller
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: e0470486f35944552a5306755dbf83c2, type: 2}
+    entryId: entry.act1.random_event.03.returning_straw_shoes
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: d2a65a641f44a47fe86cb124a037df5c, type: 2}
+    entryId: entry.act1.random_event.04.red_thread_mountain_goat
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 5ff8c3957fde948cc86e7efbc2e4a7b5, type: 2}
+    entryId: entry.act1.random_event.05.abandoned_miner_supper
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 652144bc7a390402d8435a07cb83b5b3, type: 2}
+    entryId: entry.act1.random_event.06.shrine_eaves_empty_perch
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 5ecfc24fab5404f41979a69c8ba98949, type: 2}
+    entryId: entry.act1.random_event.07.shadow_selling_child
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 444ab35c79a654b4ab9289220a444575, type: 2}
+    entryId: entry.act1.random_event.08.spring_beneath_stone_grave
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: e6bf7a272c0de46f29316a7219117a9d, type: 2}
+    entryId: entry.act1.random_event.09.black_cloth_herbalist
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 2182669c0240f4c5c8018321254b73e2, type: 2}
+    entryId: entry.act1.random_event.10.silent_jangseung
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 1f83624014482464c832df7895704fb3, type: 2}
+    entryId: entry.act1.random_event.11.dry_waterwheel
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 4555c1187b793458eac63857ab7daaf7, type: 2}
+    entryId: entry.act1.random_event.12.paper_flower_grave
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: afecf2355b750443494a4f7703164938, type: 2}
+    entryId: entry.act1.random_event.13.empty_bride_palanquin
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: b869d53e8995b4fbab82898c9b414b56, type: 2}
+    entryId: entry.act1.random_event.14.stone_laying_hen
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: d455b2fa556ff4d8390b61bf18184149, type: 2}
+    entryId: entry.act1.random_event.15.ash_eating_jar
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 99cfc79c663d64b0a8992944f0f75405, type: 2}
+    entryId: entry.act1.random_event.16.crying_bell_smithy
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: dd1e07f5a247e46f2b9080079d1512dd, type: 2}
+    entryId: entry.act1.random_event.17.three_bowls_on_mountain_path
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 43e6309bca5a649d3961fc61848b51c8, type: 2}
+    entryId: entry.act1.random_event.18.reverse_flowing_stream
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: ae6252e45593041f6a783df94f11af5b, type: 2}
+    entryId: entry.act1.random_event.19.faceless_woodcarver
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui
+  - node: {fileID: 11400000, guid: 13f75906a34154dd686984114a1dddf9, type: 2}
+    entryId: entry.act1.random_event.20.fog_sewing_old_woman
+    weight: 1
+    oneShot: 0
+    cooldownRounds: 0
+    minDepth: 0
+    maxDepth: 0
+    tags:
+    - act01
+    - random_event
+    - cheongun_sangui

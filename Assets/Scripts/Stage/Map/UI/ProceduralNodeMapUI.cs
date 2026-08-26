@@ -91,6 +91,7 @@ namespace Stage.UI
         {
             if (stageManager == null) stageManager = StageManager.Instance;
             Subscribe();
+            RefreshAll();
 
             if (rebuildOnEnable)
             {

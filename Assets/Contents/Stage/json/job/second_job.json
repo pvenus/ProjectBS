@@ -21,73 +21,73 @@
       "choices": [
         {
           "choiceId": "choice.job.second.soldier_first",
-          "labelKo": "군졸 서진을 장군으로 전직시킨다.",
-          "resultKo": "서진은 군졸의 이름을 내려놓고 전장을 이끄는 장군의 첫 맹세를 세웠다.",
+          "labelKo": "서진의 잠재된 힘을 일깨운다.",
+          "resultKo": "수많은 싸움으로 단련된 서진의 기세가 한층 강해졌다. 이제 그는 더 거센 산귀와 요물 앞에서도 물러서지 않을 것이다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "SoldierBase" }
           ],
           "rewards": [
-            { "rewardType": "FirstJobChange", "rewardId": "character.seojin.2", "targetId": "SoldierBase" }
+            { "rewardType": "FirstJobChange", "rewardId": "character.seojin.2", "targetId": "character.seojin.1" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
         {
           "choiceId": "choice.job.second.soldier_second",
-          "labelKo": "장군 서진을 이순신으로 전직시킨다.",
-          "resultKo": "서진은 전장의 흐름과 동료의 목숨을 함께 짊어지는 이순신의 경지에 올랐다.",
+          "labelKo": "서진을 한계 너머의 경지로 이끈다.",
+          "resultKo": "죽은 자의 원한과 산 자의 두려움이 뒤엉킨 전장을 지나며, 서진의 혼은 쇠처럼 벼려졌다. 이제 그의 의지는 어떤 산귀의 사기에도 꺾이지 않는다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "SoldierFirst" }
           ],
           "rewards": [
-            { "rewardType": "SecondJobChange", "rewardId": "character.seojin.3", "targetId": "SoldierFirst" }
+            { "rewardType": "SecondJobChange", "rewardId": "character.seojin.3", "targetId": "character.seojin.2" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
         {
           "choiceId": "choice.job.second.archer_first",
-          "labelKo": "궁수 유진을 신궁으로 전직시킨다.",
-          "resultKo": "유진은 바람과 거리를 읽는 신궁의 첫 맹세를 세웠다.",
+          "labelKo": "유진의 감각을 더욱 날카롭게 벼린다.",
+          "resultKo": "수많은 추적과 전투를 거치며 유진은 바람의 결 너머에 숨은 움직임까지 읽게 되었다. 그녀의 화살은 이제 산귀가 몸을 숨길 틈조차 허락하지 않는다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "ArcherBase" }
           ],
           "rewards": [
-            { "rewardType": "FirstJobChange", "rewardId": "character.yujin.2", "targetId": "ArcherBase" }
+            { "rewardType": "FirstJobChange", "rewardId": "character.yujin.2", "targetId": "character.yujin.1" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
         {
           "choiceId": "choice.job.second.archer_second",
-          "labelKo": "신궁 유진을 주몽으로 전직시킨다.",
-          "resultKo": "유진은 보이지 않는 길 끝까지 화살을 보내는 주몽의 경지에 올랐다.",
+          "labelKo": "유진의 시야를 인간의 한계 너머로 연다.",
+          "resultKo": "짙은 안개와 요기가 시야를 삼켜도 유진의 눈은 흔들리지 않는다. 활시위를 떠난 화살은 보이지 않는 원한의 맥까지 찾아 꿰뚫는다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "ArcherFirst" }
           ],
           "rewards": [
-            { "rewardType": "SecondJobChange", "rewardId": "character.yujin.3", "targetId": "ArcherFirst" }
+            { "rewardType": "SecondJobChange", "rewardId": "character.yujin.3", "targetId": "character.yujin.2" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
         {
           "choiceId": "choice.job.second.monk_first",
-          "labelKo": "승려 지한을 금강승으로 전직시킨다.",
-          "resultKo": "지한은 몸과 마음을 굳건히 세우는 금강승의 첫 맹세를 세웠다.",
+          "labelKo": "지한의 몸과 마음을 더욱 굳건히 단련한다.",
+          "resultKo": "고행과 전투를 견딘 지한의 몸에는 흔들림 없는 힘이 자리 잡았다. 그는 이제 거센 요기 앞에서도 동료를 지킬 수 있다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "MonkBase" }
           ],
           "rewards": [
-            { "rewardType": "FirstJobChange", "rewardId": "character.jihan.2", "targetId": "MonkBase" }
+            { "rewardType": "FirstJobChange", "rewardId": "character.jihan.2", "targetId": "character.jihan.1" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
         {
           "choiceId": "choice.job.second.monk_second",
-          "labelKo": "금강승 지한을 김윤후로 전직시킨다.",
-          "resultKo": "지한은 흔들리지 않는 의지로 모두를 지켜 내는 김윤후의 경지에 올랐다.",
+          "labelKo": "지한의 신념을 금강과 같은 경지로 이끈다.",
+          "resultKo": "원혼의 울음과 요기의 압박 속에서도 지한의 마음은 흔들리지 않는다. 금강처럼 굳어진 그의 의지는 자신과 동료를 범접할 수 없는 방벽으로 감싼다.",
           "visibleConditions": [
             { "conditionType": "HasCharacterJob", "targetId": "MonkFirst" }
           ],
           "rewards": [
-            { "rewardType": "SecondJobChange", "rewardId": "character.jihan.3", "targetId": "MonkFirst" }
+            { "rewardType": "SecondJobChange", "rewardId": "character.jihan.3", "targetId": "character.jihan.2" }
           ],
           "executionConfig": { "type": "CompleteEvent" }
         },
