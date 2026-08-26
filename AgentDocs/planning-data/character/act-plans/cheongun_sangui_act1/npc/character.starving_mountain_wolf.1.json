@@ -26,7 +26,39 @@
             "fast"
         ]
     },
-    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["굶주린 회갈색 산늑대 1마리", "다리 4개·귀 2개·꼬리 1개", "갈비 윤곽과 낮은 경계 자세"], "prohibitedElements": ["개·여우·호랑이 또는 판타지 마수로 치환", "추가 팔다리·머리·꼬리", "목줄·안장·갑옷·장신구와 노골적 상처"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body animal, near-front 3/4 neutral readable pose, ears through all four paws and tail visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
+    "generatedMediaPlanning": {
+        "characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["굶주린 회갈색 산늑대 1마리", "다리 4개·귀 2개·꼬리 1개", "갈비 윤곽과 낮은 경계 자세"], "prohibitedElements": ["개·여우·호랑이 또는 판타지 마수로 치환", "추가 팔다리·머리·꼬리", "목줄·안장·갑옷·장신구와 노골적 상처"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body animal, near-front 3/4 neutral readable pose, ears through all four paws and tail visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}},
+        "animationRequests": [
+            {
+                "animationRequestId": "character.starving_mountain_wolf.1.attack.hunger_bite.one_shot.v1",
+                "action": "ATTACK",
+                "canonicalActionBinding": {"skillId": "skill.character.starving_mountain_wolf.1.basic_attack.hunger_bite", "semantic": "hunger_bite"},
+                "playback": {"frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": false},
+                "phases": ["f0 grounded quadruped hunger-bite load", "f1 short forward deployment", "f2 exactly one bite contact", "f3 controlled recovery"],
+                "motion": "one fast close-range hunger bite with four legs, one tail and fixed species identity; no repeated bite",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 627, "height": 627, "frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": 0}, "orderedFrames": {"count": 4, "width": 627, "height": 627, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.starving_mountain_wolf.1.movement.fast_pursuit.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": true},
+                "phases": ["f0 right-lead quadruped contact", "f1 right-lead passing", "f2 left-lead quadruped contact", "f3 left-lead passing closing to f0"],
+                "motion": "fast screen-right pursuit loop for the fast melee swarm role with four coherent legs and one tail",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 627, "height": 627, "frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": 0}, "orderedFrames": {"count": 4, "width": 627, "height": 627, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.starving_mountain_wolf.1.idle.pack_alert.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": true},
+                "phases": ["f0 four-paw neutral alert", "f1 shallow inhale", "f2 subtle weight settle", "f3 near-start return closing to f0"],
+                "motion": "restrained living wolf-pack alert idle with four paws grounded and one tail; no attack activation",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 627, "height": 627, "frameCount": 4, "durationsMs": [300, 300, 300, 300], "loop": 0}, "orderedFrames": {"count": 4, "width": 627, "height": 627, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            }
+        ]
+    },
     "combat": {
         "roleIntent": "초반 산길에서 측면 압박을 주는 빠른 근접 적",
         "preferredRange": "melee",
