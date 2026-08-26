@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "generated_media_planning_provider_approval_decision_v1",
+  "decisionId": "gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-08-27T03:53:22+09:00",
+    "approvedBy": "user:authenticated_current_user",
+    "approvalEvidence": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:act1-random-event-popup-provider-approval",
+    "exactUserApprovalText": "gmplan2.index.stage.popup_main.act1_random_event.json에 고정된 Act01 랜덤 이벤트 팝업 이미지 20건의 ImageGen provider 실행과 provider 표준 비용 발생을 승인합니다. 각 requestId는 submit 최대 1회, retry 0회, 전체 submit 최대 20회로 제한하며 deterministic idempotency 검사를 적용합니다. 출력은 960x1280 세로 3:4 불투명 PNG입니다. 이미지 생성만 승인하며 프로젝트 복사, .meta, Unity import, Git, Slack, 평가는 제외합니다.",
+    "clarificationEvidence": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:events-01-05-fresh-generation-clarification",
+    "exactUserClarificationText": "01~05도 생성 하면 돼 중복 아니야",
+    "preservationClarificationEvidence": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:canonical-project-copy-without-evaluation-clarification",
+    "exactUserPreservationClarificationText": "평가와 무관하게 이미지 바로 프로젝트에 복사까지 진행해줘"
+  },
+  "scope": {
+    "authorityIndexId": "gmplan2.index.stage.popup_main.act1_random_event",
+    "authorityIndexPath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/gmplan2.index.stage.popup_main.act1_random_event.json",
+    "authorityIndexSha256": "3f665c7ba69d2e83e1396bead49c734bec132f1162a9cde118293841e1e2ddd4",
+    "provider": "imagegen",
+    "providerCostExposure": "provider_standard_cost",
+    "recordCount": 20,
+    "contentIds": [
+      "node.act1.random_event.01.name_swallowing_well.intro",
+      "node.act1.random_event.02.rain_seller.intro",
+      "node.act1.random_event.03.returning_straw_shoes.intro",
+      "node.act1.random_event.04.red_thread_mountain_goat.intro",
+      "node.act1.random_event.05.abandoned_miner_supper.intro",
+      "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "node.act1.random_event.07.shadow_selling_child.intro",
+      "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "node.act1.random_event.09.black_cloth_herbalist.intro",
+      "node.act1.random_event.10.silent_jangseung.intro",
+      "node.act1.random_event.11.dry_waterwheel.intro",
+      "node.act1.random_event.12.paper_flower_grave.intro",
+      "node.act1.random_event.13.empty_bride_palanquin.intro",
+      "node.act1.random_event.14.stone_laying_hen.intro",
+      "node.act1.random_event.15.ash_eating_jar.intro",
+      "node.act1.random_event.16.crying_bell_smithy.intro",
+      "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "node.act1.random_event.18.reverse_flowing_stream.intro",
+      "node.act1.random_event.19.faceless_woodcarver.intro",
+      "node.act1.random_event.20.fog_sewing_old_woman.intro"
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280,
+      "aspectRatio": "3:4",
+      "mode": "opaque_png"
+    },
+    "submitCountMaximumPerUnit": 1,
+    "retryCountMaximumPerUnit": 0,
+    "submitCountMaximumAggregate": 20,
+    "authorizedStages": [
+      "provider_generation",
+      "canonical_project_copy_after_generation"
+    ],
+    "canonicalProjectCopyWithoutEvaluation": true,
+    "generationOnly": false,
+    "forbiddenStages": [
+      "legacy_resources_copy",
+      ".meta",
+      "unity_import",
+      "git",
+      "slack",
+      "evaluation"
+    ]
+  },
+  "providerScopeClosure": {
+    "status": "pending_downstream_routing_prompt_capability_and_cost_preflight",
+    "scopeHashClaimed": false,
+    "costEstimateClaimed": false
+  },
+  "authorityCorrection": "Successor snapshot binds generationOnly=false after the authenticated canonical-project-copy-without-evaluation clarification.",
+  "duplicateRisk": {
+    "events01To05": "fresh_generation_explicitly_authorized_orphan_outputs_non_authoritative",
+    "events06To20": "fresh_generation_authorized",
+    "orphanOutputReusePolicy": "forbidden",
+    "rule": "All 20 are eligible fresh official generation units. Do not reuse or treat prior orphan outputs as completion or duplicate evidence."
+  }
+}

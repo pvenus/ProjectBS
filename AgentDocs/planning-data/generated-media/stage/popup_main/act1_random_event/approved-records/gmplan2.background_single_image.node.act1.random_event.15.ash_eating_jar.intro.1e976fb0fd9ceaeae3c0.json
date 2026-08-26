@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "generated_media_planning_handoff_v2",
+  "requestId": "gmplan2.background_single_image.node.act1.random_event.15.ash_eating_jar.intro.1e976fb0fd9ceaeae3c0",
+  "assetType": "background_single_image",
+  "domainType": "stage",
+  "contentId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "eventId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "popupEventId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "eventIdForImage": "node.act1.random_event.15.ash_eating_jar.intro",
+  "sourcePopupId": "node.act1.random_event.15.ash_eating_jar.intro",
+  "sourcePopupName": "random_event_15_ash_eating_jar_intro",
+  "eventDomainId": "event.act1.random_event.15.ash_eating_jar",
+  "eventPlanningId": "event_planning.act1.random_event.15.ash_eating_jar",
+  "actId": "act.01",
+  "actGroupId": "cheongun_sangui_act1",
+  "titleKo": "재를 먹는 항아리",
+  "contentUsage": "Act01 random event popup main image for '재를 먹는 항아리', using popupId as generated-media event identity.",
+  "imagePolicy": "generate",
+  "sourcePlanningFiles": [
+    {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "role": "random_event_planning_current",
+      "sha256": "fcfdbfc1319c166f9a1400dd1d09e457676168198f0435ad82df5d2987cbaea7"
+    },
+    {
+      "path": "AgentDocs/planning-data/event/Act01/15_재를_먹는_항아리.md",
+      "role": "random_event_source_text_current",
+      "sha256": "9251fab7b14f85828263d1249361065664c316bd9d62b8cf80492ef7340f33a7"
+    },
+    {
+      "path": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+      "role": "provider_execution_approval_decision",
+      "sha256": "914c66eac200ac0fae90882087c81c4c6fe85ba2ac299eb2f9ed367853baad00"
+    }
+  ],
+  "sourceSnapshot": {
+    "eventPlanningFile": {
+      "path": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+      "sha256": "fcfdbfc1319c166f9a1400dd1d09e457676168198f0435ad82df5d2987cbaea7"
+    },
+    "sourceEventFile": {
+      "path": "AgentDocs/planning-data/event/Act01/15_재를_먹는_항아리.md",
+      "sha256": "9251fab7b14f85828263d1249361065664c316bd9d62b8cf80492ef7340f33a7"
+    },
+    "popupId": "node.act1.random_event.15.ash_eating_jar.intro",
+    "popupDisplayTextKo": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다."
+  },
+  "planningSnapshot": {
+    "capturedAt": "2026-08-27T03:53:22+09:00",
+    "snapshotHash": "1e976fb0fd9ceaeae3c0ea9a0be664ae9cebdbdb12906a5b9f47d0b5e850190b",
+    "approvedFacts": [
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.domain_event_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/eventId",
+        "value": "event.act1.random_event.15.ash_eating_jar"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.image.direction_candidate",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/image/imageDirectionCandidate",
+        "value": "Act01 random event popup main image for '재를 먹는 항아리'. Show the pre-choice situation and core visual clues from the source event, not result/reward scenes. 3:4 vertical painted Korean dark fantasy RPG story-popup image. No UI, caption, logo, readable text, speech bubble, button, or label."
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.image.policy",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/image/imagePolicy",
+        "value": "generate"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.story.pre_choice_display",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/displayTextKoCandidate",
+        "value": "불탄 마을터 한가운데 놓인 검은 항아리가 바람에 날리는 재를 모조리 빨아들이고 있었다. 항아리 주위만 깨끗한 흙이 드러났고, 안쪽에서는 여러 사람이 기침하는 소리가 겹쳐 들렸다. 폐허를 지키던 사내는 역병으로 죽은 이들의 재라 열어서는 안 된다고 했지만, 무너진 창고에는 불을 안쪽에서 지른 흔적이 남아 있었다."
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.popup_id",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/popupId",
+        "value": "node.act1.random_event.15.ash_eating_jar.intro"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.identity.popup_name",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/popup/popupName",
+        "value": "random_event_15_ash_eating_jar_intro"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.story.title",
+        "sourcePath": "AgentDocs/planning-data/event-planning/cheongun_sangui_act1/event.act1.15.ash_eating_jar.json",
+        "sourcePointer": "/titleKo",
+        "value": "재를 먹는 항아리"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.evidence",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/approvalEvidence",
+        "value": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:act1-random-event-popup-provider-approval"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.approved_at",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/approvedAt",
+        "value": "2026-08-27T03:53:22+09:00"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.approved_by",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/approvedBy",
+        "value": "user:authenticated_current_user"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.clarification_evidence",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/clarificationEvidence",
+        "value": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:events-01-05-fresh-generation-clarification"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.exact_user_text",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/exactUserApprovalText",
+        "value": "gmplan2.index.stage.popup_main.act1_random_event.json에 고정된 Act01 랜덤 이벤트 팝업 이미지 20건의 ImageGen provider 실행과 provider 표준 비용 발생을 승인합니다. 각 requestId는 submit 최대 1회, retry 0회, 전체 submit 최대 20회로 제한하며 deterministic idempotency 검사를 적용합니다. 출력은 960x1280 세로 3:4 불투명 PNG입니다. 이미지 생성만 승인하며 프로젝트 복사, .meta, Unity import, Git, Slack, 평가는 제외합니다."
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.exact_user_clarification",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/exactUserClarificationText",
+        "value": "01~05도 생성 하면 돼 중복 아니야"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.exact_user_preservation_clarification",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/exactUserPreservationClarificationText",
+        "value": "평가와 무관하게 이미지 바로 프로젝트에 복사까지 진행해줘"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.preservation_clarification_evidence",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/approval/preservationClarificationEvidence",
+        "value": "codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:canonical-project-copy-without-evaluation-clarification"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.duplicate_risk",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/duplicateRisk/events06To20",
+        "value": "fresh_generation_authorized"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.orphan_output_reuse_policy",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/duplicateRisk/orphanOutputReusePolicy",
+        "value": "forbidden"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.canonical_copy_without_evaluation",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/canonicalProjectCopyWithoutEvaluation",
+        "value": true
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.canvas",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/canvas",
+        "value": {
+          "width": 960,
+          "height": 1280,
+          "aspectRatio": "3:4",
+          "mode": "opaque_png"
+        }
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.content_id",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/contentIds/14",
+        "value": "node.act1.random_event.15.ash_eating_jar.intro"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.generation_only",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/generationOnly",
+        "value": false
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.provider",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/provider",
+        "value": "imagegen"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.provider_cost_exposure",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/providerCostExposure",
+        "value": "provider_standard_cost"
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.retry_per_unit",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/retryCountMaximumPerUnit",
+        "value": 0
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.submit_aggregate",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/submitCountMaximumAggregate",
+        "value": 20
+      },
+      {
+        "factId": "node.act1.random_event.15.ash_eating_jar.intro.approval.scope.submit_per_unit",
+        "sourcePath": "AgentDocs/planning-data/generated-media/stage/popup_main/act1_random_event/approvals/gmapproval2.stage.popup_main.act1_random_event.fc0e6a6bd83f50e6bfa1.json",
+        "sourcePointer": "/scope/submitCountMaximumPerUnit",
+        "value": 1
+      }
+    ]
+  },
+  "approval": {
+    "status": "approved_for_routing",
+    "approvedAt": "2026-08-27T03:53:22+09:00",
+    "approvedBy": "user:authenticated_current_user",
+    "providerCallAllowed": false,
+    "notes": [
+      "approvalEvidence=codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:act1-random-event-popup-provider-approval",
+      "exactUserApprovalText=gmplan2.index.stage.popup_main.act1_random_event.json에 고정된 Act01 랜덤 이벤트 팝업 이미지 20건의 ImageGen provider 실행과 provider 표준 비용 발생을 승인합니다. 각 requestId는 submit 최대 1회, retry 0회, 전체 submit 최대 20회로 제한하며 deterministic idempotency 검사를 적용합니다. 출력은 960x1280 세로 3:4 불투명 PNG입니다. 이미지 생성만 승인하며 프로젝트 복사, .meta, Unity import, Git, Slack, 평가는 제외합니다.",
+      "clarificationEvidence=codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:events-01-05-fresh-generation-clarification",
+      "exactUserClarificationText=01~05도 생성 하면 돼 중복 아니야",
+      "preservationClarificationEvidence=codex-thread:019f47a0-d487-7c22-8c67-e5cabfc7a7ca/current-authenticated-user-message:canonical-project-copy-without-evaluation-clarification",
+      "exactUserPreservationClarificationText=평가와 무관하게 이미지 바로 프로젝트에 복사까지 진행해줘",
+      "All 20 units, including events 01-05, are fresh-generation eligible; prior orphan outputs are non-authoritative and forbidden as reuse/completion evidence.",
+      "After generation, a separate preservation/copy role is authorized to copy directly to projectTarget.path without evaluation; legacy Resources copy remains forbidden.",
+      "Provider execution scopeHash and provider cost estimate remain downstream pre-submit closure requirements; no provider call is claimed by this handoff."
+    ]
+  },
+  "providerExecutionAuthority": {
+    "status": "approved_scope_pending_downstream_closure",
+    "provider": "imagegen",
+    "providerCalled": false,
+    "submitCount": 0,
+    "retryCount": 0,
+    "generationChildrenCreated": 0,
+    "filesystemMutation": false,
+    "costApprovalStatus": "provider_standard_cost_exposure_approved_estimate_not_yet_claimed",
+    "idempotencyKey": "pending_scope_hash.gmplan2.background_single_image.node.act1.random_event.15.ash_eating_jar.intro.1e976fb0fd9ceaeae3c0",
+    "idempotencyStatus": "fresh_official_submit_authorized_not_executed"
+  },
+  "registryIntent": {
+    "registryVersion": "generated_media_authoring_profile_registry_v2",
+    "registryRowIdCandidate": "stage_background_single_image_v2",
+    "profileKeyCandidate": "stage_background@2.0.0",
+    "selectedPipelineCandidate": "imagegen_background_single_image",
+    "structureProfile": "background_single_image_v2",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "requiredElements": [
+    "A single 3:4 vertical story-popup main image for the Act01 Cheongun Sangui random event.",
+    "Depict the pre-choice situation and core story clue from the source popup, not an outcome, reward, battle-clear, or victory moment.",
+    "Keep the illustration readable behind popup UI overlays with uncluttered lower text space and no readable text inside the image.",
+    "Use Korean dark fantasy/Joseon rural visual grounding: period-appropriate clothing, props, architecture, weather, soil, wood, stone, fabric and ritual objects.",
+    "Maintain one clear focal moment with foreground/midground/background depth and a stable composition suitable for a stage popup main image.",
+    "Specific event clue: ash jar, hearth, hidden grain clue, heavy silence",
+    "Source popup title: 재를 먹는 항아리"
+  ],
+  "prohibitedElements": [
+    "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+    "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation.",
+    "Do not depict modern objects, modern typography, modern signage, anachronistic clothing, or non-Joseon fantasy armor as the focus.",
+    "Do not place critical story clues under the lower popup text overlay or near the outermost edges.",
+    "Do not overfill the canvas with small details that cannot read behind the story popup UI."
+  ],
+  "backgroundProfile": {
+    "profileId": "stage_popup_main_background",
+    "profileVersion": "2.0.0",
+    "targetDisplay": "story_popup_main_image"
+  },
+  "backgroundSpecification": {
+    "sceneContract": "An ash-eating jar sits in a poor house, hinting at hidden grain and black-cloth enforcers nearby.",
+    "composition": "Vertical 3:4 story popup main composition; one clear pre-choice focal moment in the middle third, supporting clue objects visible, lower quarter kept calm for UI readability.",
+    "viewpoint": "Eye-level or slightly low three-quarter cinematic view from the player party viewpoint, readable as an encountered random event moment.",
+    "horizon": "Low-to-middle horizon unless the source scene requires a shaft, grave mound, eave, or mountain path vertical emphasis; never let horizon split the lower UI-safe text area.",
+    "depthLayers": [
+      "foreground clue or threshold object",
+      "midground main event subject/focal action",
+      "background Act01 village, shrine, road, mine, forest, or mountain atmosphere"
+    ],
+    "playableOrReadabilityArea": "Keep the lower 25 percent and outer edge margins visually quiet so popup body text and choice UI remain readable.",
+    "subjectInclusions": [
+      "ash jar, hearth, hidden grain clue, heavy silence",
+      "Act01 Cheongun Sangui Korean dark fantasy mood",
+      "pre-choice uncertainty"
+    ],
+    "subjectExclusions": [
+      "Do not include UI overlays, buttons, captions, subtitles, labels, logos, watermarks, speech bubbles, comic text, readable writing, or result/reward/victory text.",
+      "Do not show a completed reward scene, victory pose, loot payout, result screen, or choice result; depict only the pre-choice dramatic situation."
+    ],
+    "canvas": {
+      "width": 960,
+      "height": 1280
+    },
+    "aspectRatio": "3:4",
+    "targetDisplay": "story_popup_main_image",
+    "safeArea": "Critical subjects and clues inside left/right/top 96 px and above bottom 320 px; lower overlay zone stays low-detail and non-textual.",
+    "finalBackgroundPolicy": "opaque_scene_background",
+    "consistencyLock": {
+      "contentIdentity": "node.act1.random_event.15.ash_eating_jar.intro",
+      "sceneFacts": [
+        "An ash-eating jar sits in a poor house, hinting at hidden grain and black-cloth enforcers nearby.",
+        "ash jar, hearth, hidden grain clue, heavy silence",
+        "pre-choice only, no reward/result/victory"
+      ]
+    },
+    "anchor": {
+      "type": "scene_composition_anchor",
+      "framingRegion": "center middle third with lower UI readability reserve",
+      "focalDepth": "midground"
+    }
+  },
+  "projectTarget": {
+    "status": "informational_only_future_pass_promotion_target",
+    "path": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "spriteName": "node.act1.random_event.15.ash_eating_jar.intro.main"
+  },
+  "preservationHandoff": {
+    "status": "approved_copy_after_generation_without_evaluation",
+    "canonicalGeneratedPath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "legacyResourcesCopyTarget": "Assets/Resources/stage_new/popup_png/node.act1.random_event.15.ash_eating_jar.intro.main.png",
+    "copyTargetRole": "canonical_generated_project_target_only_no_legacy_resources_copy"
+  },
+  "readiness": {
+    "status": "ready_for_routing",
+    "blockers": [],
+    "readyForRouting": true
+  }
+}
