@@ -54,20 +54,6 @@ public class UITextButton : UIComponent
             gameObject.name = "Bind_Button";
         }
 
-        // 2. Setup (img)foreground child
-        Transform foreground = transform.Find("(img)foreground");
-        if (foreground == null)
-        {
-            GameObject fgGo = new GameObject("(img)foreground");
-            fgGo.transform.SetParent(transform, false);
-            RectTransform fgRt = fgGo.AddComponent<RectTransform>();
-            fgRt.anchorMin = Vector2.zero;
-            fgRt.anchorMax = Vector2.one;
-            fgRt.sizeDelta = Vector2.zero;
-            
-            fgGo.AddComponent<Image>();
-        }
-
         // 3. Setup Bind_Text child
         Transform textTrans = transform.Find("Bind_Text");
         if (textTrans == null)
