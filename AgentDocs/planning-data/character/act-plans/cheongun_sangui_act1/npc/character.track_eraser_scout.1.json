@@ -29,7 +29,39 @@
             "false_beast_track"
         ]
     },
-    "generatedMediaPlanning": {"characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["성인 한국인 산채 정찰병", "오른손 짧은 창 1자루와 왼손 작은 솔 1개", "오른쪽 허리 짐승 발 모양 나무판 2개"], "prohibitedElements": ["닌자·사무라이·중국 무협 정찰병으로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "장창·총·추가 발판 또는 추가 솔"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}}},
+    "generatedMediaPlanning": {
+        "characterSingleImage": {"readiness": "ready", "assetIdentity": "MAIN", "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0", "requiredElements": ["성인 한국인 산채 정찰병", "오른손 짧은 창 1자루와 왼손 작은 솔 1개", "오른쪽 허리 짐승 발 모양 나무판 2개"], "prohibitedElements": ["닌자·사무라이·중국 무협 정찰병으로 치환", "실존 역사 인물의 얼굴이나 초상 재현", "장창·총·추가 발판 또는 추가 솔"], "visualStyle": "ProjectBS rough low-density open ink/mok-seon with sparse broad pastel masses; broken variable-pressure brush lines, large unpainted interior areas, no polished cel or 3D rendering", "composition": "one full-body subject, near-front 3/4 neutral readable pose, head to toe and all equipment visible", "outputContract": {"width": 1024, "height": 1536, "format": "PNG", "colorMode": "RGB", "alpha": false, "masterCount": 1, "background": "perfectly uniform edge-to-edge #00FF00 outside foreground", "forbid": ["alpha", "checkerboard", "scene", "floor", "ground plane", "cast shadow", "contact shadow", "halo", "gradient", "texture", "exact #00FF00 anywhere in foreground"]}, "executionPolicy": {"submitMax": 1, "retryMax": 0, "publicationState": "local_unpublished"}},
+        "animationRequests": [
+            {
+                "animationRequestId": "character.track_eraser_scout.1.attack.short_spear_probe.one_shot.v1",
+                "action": "ATTACK",
+                "canonicalActionBinding": {"skillId": "skill.character.track_eraser_scout.1.basic_attack.short_spear_probe", "semantic": "short_spear_probe"},
+                "playback": {"frameCount": 4, "durationsMs": [160, 160, 160, 160], "loop": false},
+                "phases": ["f0 grounded short-spear probe load", "f1 controlled deployment with fixed right-hand spear ownership", "f2 exactly one short-spear contact", "f3 restrained recovery"],
+                "motion": "one light screen-right short-spear probe for ambush setup; no repeated thrust, weapon swap, or trace-tool activation",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 676, "height": 512, "frameCount": 4, "durationsMs": [160, 160, 160, 160], "loop": 0}, "orderedFrames": {"count": 4, "width": 676, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.track_eraser_scout.1.movement.scout_run.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 4, "durationsMs": [160, 160, 160, 160], "loop": true},
+                "phases": ["f0 anatomical right-foot contact", "f1 right-support passing with opposite knee forward", "f2 anatomical left-foot contact", "f3 left-support passing closing to f0"],
+                "motion": "screen-right scout run loop with the short spear, trace brush and paired false-track boards secured; no attack or direction reversal",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 467, "height": 512, "frameCount": 4, "durationsMs": [160, 160, 160, 160], "loop": 0}, "orderedFrames": {"count": 4, "width": 467, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.track_eraser_scout.1.idle.ambush_ready.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": true},
+                "phases": ["f0 neutral ambush-ready inhale", "f1 tiny inhale peak", "f2 subtle exhale and grounded weight settle", "f3 near-start return closing to f0"],
+                "motion": "restrained living scout idle with fixed feet and all tools retained; no spear attack, trace erasure action, or walking in place",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 512, "height": 512, "frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": 0}, "orderedFrames": {"count": 4, "width": 512, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            }
+        ]
+    },
     "combat": {
         "roleIntent": "직접 화력보다 매복 전조와 교란을 담당하는 약한 정찰형 적",
         "preferredRange": "melee_extended",

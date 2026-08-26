@@ -36,7 +36,37 @@
             "requiredElements": ["성인 한국인 산채 포획꾼의 구부정하고 긴 체형", "굳은 진흙이 묻은 검은 두건", "screen-right 주손과 screen-left 보조손의 긴 나무 장대 정확히 1개", "장대 끝 쇠갈고리 정확히 1개", "screen-left 등끈의 쇠고리 정확히 2개"],
             "prohibitedElements": ["장비 좌우 반전, 증식, 누락", "검, 활, 방패 또는 사슬낫 추가", "우리, 짐승, 포획 장면", "타 문화권 복식이나 무기로 치환", "실존 역사 인물 재현", "갈고리나 장대 crop"],
             "opaqueChromaProviderMasterContract": {"schemaVersion": "generated_media_opaque_chroma_provider_master_v1", "canvas": {"width": 1024, "height": 1536}, "outputCount": 1, "outputFormat": "png", "pixelMode": "opaque_rgb", "backgroundFullyOpaque": true, "generationBackground": {"mode": "removable_solid", "color": "#00FF00"}, "fieldCoverage": "edge_to_edge_outside_intended_foreground", "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0", "foregroundExactChromaRgb": "prohibited", "providerTransparency": "prohibited", "neighboringFragments": "prohibited", "forbiddenFieldFeatures": ["alpha", "checkerboard", "scene", "floor", "shadow", "halo", "gradient", "texture", "lighting_variation"]}
-        }
+        },
+        "animationRequests": [
+            {
+                "animationRequestId": "character.mud_hood_polehooker.1.attack.hook_poke.one_shot.v1",
+                "action": "ATTACK",
+                "canonicalActionBinding": {"skillId": "skill.character.mud_hood_polehooker.1.basic_attack.hook_poke", "semantic": "hook_poke"},
+                "playback": {"frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": false},
+                "phases": ["f0 grounded pole-hook load", "f1 controlled two-hand deployment", "f2 exactly one hook-poke contact", "f3 restrained recovery"],
+                "motion": "one screen-right long-reach hook poke with fixed two-hand pole control; no repeated strike, sweep, pull combo, or equipment duplication",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 798, "height": 512, "frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": 0}, "orderedFrames": {"count": 4, "width": 798, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.mud_hood_polehooker.1.movement.captor_advance.loop.v1",
+                "action": "MOVEMENT",
+                "playback": {"frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": true},
+                "phases": ["f0 anatomical right-foot contact", "f1 right-support passing with opposite knee forward", "f2 anatomical left-foot contact", "f3 left-support passing closing to f0"],
+                "motion": "screen-right captor advance loop with the long pole, single hook and two back-mounted cage rings continuously secured; no attack or direction reversal",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 501, "height": 512, "frameCount": 4, "durationsMs": [180, 180, 180, 180], "loop": 0}, "orderedFrames": {"count": 4, "width": 501, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            },
+            {
+                "animationRequestId": "character.mud_hood_polehooker.1.idle.captor_ready.loop.v1",
+                "action": "IDLE",
+                "playback": {"frameCount": 4, "durationsMs": [240, 240, 240, 240], "loop": true},
+                "phases": ["f0 neutral reach-control inhale", "f1 tiny inhale peak", "f2 subtle exhale and grounded weight settle", "f3 near-start return closing to f0"],
+                "motion": "restrained living captor idle with fixed feet, two-hand pole ownership and back rings retained; no hook attack, flourish, or walking in place",
+                "mediaContract": {"structureProfile": "animation_gif_frame_set_v2", "completedGif": {"width": 410, "height": 512, "frameCount": 4, "durationsMs": [240, 240, 240, 240], "loop": 0}, "orderedFrames": {"count": 4, "width": 410, "height": 512, "colorMode": "RGBA", "names": ["frame-0.png", "frame-1.png", "frame-2.png", "frame-3.png"]}},
+                "registrationPolicy": {"purpose": "copy_target_authority_only", "providerMasterClaimed": false, "evaluationClaimed": false, "promotionClaimed": false}
+            }
+        ]
     },
     "combat": {
         "roleIntent": "아이 보호/탈출 전투에서 긴 사거리로 접근을 방해하는 포획형 적",
