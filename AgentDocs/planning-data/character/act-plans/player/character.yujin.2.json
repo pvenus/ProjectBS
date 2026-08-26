@@ -2,6 +2,17 @@
   "schemaVersion": "character_planning_v2",
   "documentId": "character_planning.character.yujin.2",
   "documentType": "characterPlanning",
+  "skillMediaPlanning": {
+    "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#유진--추적-궁수와-의적-지휘자",
+    "iconStyle": "완전 수평 우향의 단일 화살을 유지하고 바람선과 색 대비를 강화한다.",
+    "animationStyle": "768x768 RGBA 4프레임 무한 루프. 화살 선단과 중심축은 움직이지 않으며 잔상과 후방 먹선만 맥동한다.",
+    "skills": [
+      {"skillId":"skill.character.yujin.2.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"가늘고 긴 단일 우향 화살과 청록 바람 꼬리.","animationDescription":"고정된 화살 주위의 청록 바람이 위·아래·양방향·수평 형태로 순환한다."},
+      {"skillId":"skill.character.yujin.2.passive_1.passive_1","slot":"passive_1","iconDescription":"바람 흔적과 작은 우향 화살촉으로 추적 감각을 표현한다.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+      {"skillId":"skill.character.yujin.2.active_1.multi_shot","slot":"active_1","iconDescription":"얇고 긴 단일 화살과 둘로 갈라지는 짧은 청백 잔상.","animationDescription":"화살은 고정하고 가는 잔상이 분기, 압축, 재전개, 복귀를 반복한다."},
+      {"skillId":"skill.character.yujin.2.active_2.hwalbin_barrage","slot":"active_2","iconDescription":"굵은 단일 우향 화살촉과 자주색·먹색 관통 파동.","animationDescription":"선단은 고정하고 후방 자주색 깃이 조밀함, 압축, 최대 관통 폭발, 복귀로 반복된다."}
+    ]
+  },
   "planningStatus": "approved",
   "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
   "identity": {

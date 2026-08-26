@@ -1,1 +1,157 @@
-{"appearance":{"evolutionDirection":"절제된 command-ready 조선 수군 장교 실루엣. near-black navy, controlled shoulder/coat mass, 정확히 하나의 bounded oxidized-red accent, 최소 aged brass, 절제된 해풍만 사용한다.","identityContinuity":"Grade 1 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 왼쪽 허리의 동일 핵심 환도·칼집·장비 정체성을 유지한다."},"documentId":"character_planning.character.seojin.2","documentType":"characterPlanning","generatedMediaPlanning":{"characterSingleImage":{"baseExpressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","baseExpressionProfilePayloadHash":"b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5","expressionProfileKey":"projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0","expressionProfilePayloadHash":"b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a","identityConsistencyLock":{"continuityStatement":"Grade 1 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 왼쪽 허리의 동일 핵심 환도·칼집·장비 정체성을 유지한다.","identityAuthority":{"path":"Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png","role":"identity_authority","sha256":"ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf"},"identityId":"character.seojin.2","referenceFacts":[{"evidenceFactIds":["character.seojin.2.identity_continuity.v1"],"sourcePointer":"/identityContinuity"},{"evidenceFactIds":["character.seojin.2.evolution_direction.v1"],"sourcePointer":"/evolutionDirection"}],"referenceRoles":{"failedOrPriorPreview":"non_reusable_not_identity_source","grade1Main":"identity_authority","yiSunSin":"homage_direction_only"}},"opaqueChromaProviderMasterContract":{"backgroundFullyOpaque":true,"canvas":{"height":1536,"width":1024},"fieldCoverage":"edge_to_edge_outside_intended_foreground","fieldUniformity":"every_background_pixel_exact_rgb_0_255_0","forbiddenFieldFeatures":["checkerboard","gradient","texture","lighting_variation","halo","vignette","floor","scene","shadow"],"foregroundExactChromaRgb":"prohibited","generationBackground":{"color":"#00FF00","mode":"removable_solid"},"neighboringFragments":"prohibited","outputCount":1,"outputFormat":"png","providerTransparency":"prohibited","schemaVersion":"generated_media_opaque_chroma_provider_master_v1"},"postprocessBoundaryContract":{"algorithmAuthority":"separate_closed_postprocess_contract_required_before_execution","generationRoleMayClaimTrueAlpha":false,"generationRoleMayUncomposite":false,"inputBinding":"exact_provider_master_path_sha_dimensions_and_generation_receipt_required","ownerRole":"generated_media_chroma_uncomposite","projectCopyEligibleBeforePostprocessAndEvaluationPass":false,"providerRecall":"prohibited","requiredOutcome":"final_true_alpha","timing":"after_provider_master_generation_in_a_distinct_authorized_stage"},"prohibitedElements":["서진의 얼굴·머리·체형·손잡이 방향·환도·칼집·핵심 장비를 redesign하지 않는다.","타 문화권·외국·판타지 복식, 무기, 갑주 또는 상징으로 치환하지 않는다.","실존 이순신의 얼굴·유명 초상 자세·수염·복식·계급장·문양을 재현하거나 named historical reproduction으로 만들지 않는다.","provider alpha, transparency, checkerboard, gradient, texture, lighting variation, halo, vignette, floor, scene, shadow 또는 neighboring fragments를 포함하지 않는다.","intended foreground의 어떤 pixel에도 exact RGB #00FF00을 사용하지 않는다.","기존 preview나 direct-alpha chain을 재사용·변환·덮어쓰지 않는다."],"readiness":"ready","requiredElements":["Grade 1 서진과 동일한 얼굴·머리·체형·오른손잡이·환도·칼집·핵심 장비 정체성을 유지한다.","절제된 command-ready 조선 수군 장교로 읽히며 near-black navy와 controlled shoulder/coat mass를 사용한다.","bounded oxidized-red accent는 정확히 하나만, aged brass는 최소량만 사용한다.","controlled sea-wind가 읽히는 전신을 crop 없이 canvas 안에 둔다."],"singleImageSpecification":{"anchor":{"groundContactAxis":"horizontal normalized line from (0.25,0.92) to (0.75,0.92)","pelvisOrRootPoint":"normalized canvas point (0.5,0.55)","type":"pelvis_root_ground_axis"},"canvas":{"height":1536,"width":1024},"finalBackgroundPolicy":"transparent_after_distinct_generated_media_chroma_uncomposite","framing":"centered full-body head-to-toe with broad empty space; no crop","generationBackground":{"color":"#00FF00","mode":"removable_solid"},"noShadow":true,"outline":{"enabled":false},"pose":"natural front three-quarter full-body command-ready stance; controlled sea-wind; no crop","safeArea":"left 96 px, right 96 px, top 96 px, bottom 128 px; complete foreground inside all insets","targetDisplaySize":{"height":144,"width":96},"viewpoint":"natural front three-quarter view, one approved viewpoint only"}}},"identity":{"characterId":"character.seojin.2","characterType":"Player","grade":2,"name":"서진","role":"command_ready_naval_officer","runtimeDomain":"character","tierId":"player_grade2"},"missingDesignInputs":[],"planningStatus":"approved","provenance":{"factEvidence":[],"sourcePlanningRefs":["AgentDocs/planning-data/character/design-decisions/v1/character.seojin.2.visual-design.v1.json"]},"schemaVersion":"character_planning_v2"}
+{
+  "appearance": {
+    "evolutionDirection": "절제된 command-ready 조선 수군 장교 실루엣. near-black navy, controlled shoulder/coat mass, 정확히 하나의 bounded oxidized-red accent, 최소 aged brass, 절제된 해풍만 사용한다.",
+    "identityContinuity": "Grade 1 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 왼쪽 허리의 동일 핵심 환도·칼집·장비 정체성을 유지한다."
+  },
+  "documentId": "character_planning.character.seojin.2",
+  "documentType": "characterPlanning",
+  "skillMediaPlanning": {
+    "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#서진--전열-지휘관",
+    "iconStyle": "1등급의 청남색 먹선 정체성을 유지하고 보조 붓선과 황동색 대비를 한 단계 늘린다.",
+    "animationStyle": "768x768 RGBA 4프레임 무한 루프. 핵심 중심과 방향은 고정하며 2·3프레임의 힘을 가장 크게 만든다.",
+    "skills": [
+      {"skillId":"skill.character.seojin.2.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"낮은 수평 환도 베기와 청남색 깃털형 먹선, 황금 충돌점.","animationDescription":"낮은 초승달 베기의 폭과 충격 불꽃만 순환하며 위치는 움직이지 않는다."},
+      {"skillId":"skill.character.seojin.2.passive_1.indomitable","slot":"passive_1","iconDescription":"땅에 박힌 환도와 열린 방패형 청색 먹선, 황동색 결의 불씨.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+      {"skillId":"skill.character.seojin.2.active_1.charge","slot":"active_1","iconDescription":"우향 백금색 선단으로 수렴하는 굵은 청남색 돌진 쐐기.","animationDescription":"고정된 우측 선단 뒤에서 먹선이 수렴, 압축, 상하 폭발, 복귀한다."},
+      {"skillId":"skill.character.seojin.2.active_2.crane_wing_formation","slot":"active_2","iconDescription":"중앙 청록 지휘 매듭에서 좌우 대칭으로 펼쳐지는 흰색·먹색 학익형 붓선.","animationDescription":"중앙 매듭을 고정하고 두 날개가 좁은 U자, 열린 V자, 낮고 넓은 전개, 복귀를 반복한다."}
+    ]
+  },
+  "generatedMediaPlanning": {
+    "characterSingleImage": {
+      "baseExpressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+      "baseExpressionProfilePayloadHash": "b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5",
+      "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+      "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a",
+      "identityConsistencyLock": {
+        "continuityStatement": "Grade 1 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 왼쪽 허리의 동일 핵심 환도·칼집·장비 정체성을 유지한다.",
+        "identityAuthority": {
+          "path": "Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+          "role": "identity_authority",
+          "sha256": "ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf"
+        },
+        "identityId": "character.seojin.2",
+        "referenceFacts": [
+          {
+            "evidenceFactIds": [
+              "character.seojin.2.identity_continuity.v1"
+            ],
+            "sourcePointer": "/identityContinuity"
+          },
+          {
+            "evidenceFactIds": [
+              "character.seojin.2.evolution_direction.v1"
+            ],
+            "sourcePointer": "/evolutionDirection"
+          }
+        ],
+        "referenceRoles": {
+          "failedOrPriorPreview": "non_reusable_not_identity_source",
+          "grade1Main": "identity_authority",
+          "yiSunSin": "homage_direction_only"
+        }
+      },
+      "opaqueChromaProviderMasterContract": {
+        "backgroundFullyOpaque": true,
+        "canvas": {
+          "height": 1536,
+          "width": 1024
+        },
+        "fieldCoverage": "edge_to_edge_outside_intended_foreground",
+        "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0",
+        "forbiddenFieldFeatures": [
+          "checkerboard",
+          "gradient",
+          "texture",
+          "lighting_variation",
+          "halo",
+          "vignette",
+          "floor",
+          "scene",
+          "shadow"
+        ],
+        "foregroundExactChromaRgb": "prohibited",
+        "generationBackground": {
+          "color": "#00FF00",
+          "mode": "removable_solid"
+        },
+        "neighboringFragments": "prohibited",
+        "outputCount": 1,
+        "outputFormat": "png",
+        "providerTransparency": "prohibited",
+        "schemaVersion": "generated_media_opaque_chroma_provider_master_v1"
+      },
+      "postprocessBoundaryContract": {
+        "algorithmAuthority": "separate_closed_postprocess_contract_required_before_execution",
+        "generationRoleMayClaimTrueAlpha": false,
+        "generationRoleMayUncomposite": false,
+        "inputBinding": "exact_provider_master_path_sha_dimensions_and_generation_receipt_required",
+        "ownerRole": "generated_media_chroma_uncomposite",
+        "projectCopyEligibleBeforePostprocessAndEvaluationPass": false,
+        "providerRecall": "prohibited",
+        "requiredOutcome": "final_true_alpha",
+        "timing": "after_provider_master_generation_in_a_distinct_authorized_stage"
+      },
+      "prohibitedElements": [
+        "서진의 얼굴·머리·체형·손잡이 방향·환도·칼집·핵심 장비를 redesign하지 않는다.",
+        "타 문화권·외국·판타지 복식, 무기, 갑주 또는 상징으로 치환하지 않는다.",
+        "실존 이순신의 얼굴·유명 초상 자세·수염·복식·계급장·문양을 재현하거나 named historical reproduction으로 만들지 않는다.",
+        "provider alpha, transparency, checkerboard, gradient, texture, lighting variation, halo, vignette, floor, scene, shadow 또는 neighboring fragments를 포함하지 않는다.",
+        "intended foreground의 어떤 pixel에도 exact RGB #00FF00을 사용하지 않는다.",
+        "기존 preview나 direct-alpha chain을 재사용·변환·덮어쓰지 않는다."
+      ],
+      "readiness": "ready",
+      "requiredElements": [
+        "Grade 1 서진과 동일한 얼굴·머리·체형·오른손잡이·환도·칼집·핵심 장비 정체성을 유지한다.",
+        "절제된 command-ready 조선 수군 장교로 읽히며 near-black navy와 controlled shoulder/coat mass를 사용한다.",
+        "bounded oxidized-red accent는 정확히 하나만, aged brass는 최소량만 사용한다.",
+        "controlled sea-wind가 읽히는 전신을 crop 없이 canvas 안에 둔다."
+      ],
+      "singleImageSpecification": {
+        "anchor": {
+          "groundContactAxis": "horizontal normalized line from (0.25,0.92) to (0.75,0.92)",
+          "pelvisOrRootPoint": "normalized canvas point (0.5,0.55)",
+          "type": "pelvis_root_ground_axis"
+        },
+        "canvas": {
+          "height": 1536,
+          "width": 1024
+        },
+        "finalBackgroundPolicy": "transparent_after_distinct_generated_media_chroma_uncomposite",
+        "framing": "centered full-body head-to-toe with broad empty space; no crop",
+        "generationBackground": {
+          "color": "#00FF00",
+          "mode": "removable_solid"
+        },
+        "noShadow": true,
+        "outline": {
+          "enabled": false
+        },
+        "pose": "natural front three-quarter full-body command-ready stance; controlled sea-wind; no crop",
+        "safeArea": "left 96 px, right 96 px, top 96 px, bottom 128 px; complete foreground inside all insets",
+        "targetDisplaySize": {
+          "height": 144,
+          "width": 96
+        },
+        "viewpoint": "natural front three-quarter view, one approved viewpoint only"
+      }
+    }
+  },
+  "identity": {
+    "characterId": "character.seojin.2",
+    "characterType": "Player",
+    "grade": 2,
+    "name": "서진",
+    "role": "command_ready_naval_officer",
+    "runtimeDomain": "character",
+    "tierId": "player_grade2"
+  },
+  "missingDesignInputs": [],
+  "planningStatus": "approved",
+  "provenance": {
+    "factEvidence": [],
+    "sourcePlanningRefs": [
+      "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.2.visual-design.v1.json"
+    ]
+  },
+  "schemaVersion": "character_planning_v2"
+}

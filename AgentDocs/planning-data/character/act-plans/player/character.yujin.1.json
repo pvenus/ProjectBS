@@ -1,6 +1,16 @@
 ﻿{
     "documentId":  "character_planning.character.yujin.1",
     "documentType":  "characterPlanning",
+    "skillMediaPlanning":  {
+        "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#유진--추적-궁수와-의적-지휘자",
+        "iconStyle": "완전 수평 우향의 단일 화살과 제한된 청록 바람만 사용한다.",
+        "animationStyle": "768x768 RGBA 4프레임 무한 루프. 화살의 위치와 길이는 고정하고 꼬리 바람과 먹선 밀도만 바꾼다.",
+        "skills": [
+            {"skillId":"skill.character.yujin.1.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"가늘고 긴 우향 화살 한 발과 짧은 청록색 바람 꼬리.","animationDescription":"화살을 고정한 채 바람 꼬리가 위쪽 말림, 아래쪽 연장, 양방향 최대 전개, 수평 복귀로 반복된다."},
+            {"skillId":"skill.character.yujin.1.passive_1.passive_1","slot":"passive_1","iconDescription":"희미한 발자국 또는 바람 흔적 위의 작은 우향 화살촉.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+            {"skillId":"skill.character.yujin.1.active_1.multi_shot","slot":"active_1","iconDescription":"얇고 긴 우향 화살 한 발과 두 갈래로 갈라지는 청백 잔상.","animationDescription":"단일 화살은 고정하고 잔상이 짧은 분기, 가는 압축, 위아래 전개, 수평 복귀로 반복된다."}
+        ]
+    },
     "commonDataRef":  "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
     "identity":  {
                      "characterId":  "character.yujin.1",

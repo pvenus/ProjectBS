@@ -2,6 +2,19 @@
   "schemaVersion": "character_planning_v2",
   "documentId": "character_planning.character.yujin.3",
   "documentType": "characterPlanning",
+  "skillMediaPlanning": {
+    "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#유진--추적-궁수와-의적-지휘자",
+    "iconStyle": "단일 수평 우향 화살 원칙을 유지하고 청록·자주·산화 적색으로 각 스킬을 분리한다.",
+    "animationStyle": "768x768 RGBA 4프레임 무한 루프. 투사체와 소환 연기의 기준점을 고정한다.",
+    "skills": [
+      {"skillId":"skill.character.yujin.3.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"가늘고 긴 단일 우향 화살과 선명한 청록 바람 꼬리.","animationDescription":"고정된 화살 주위의 청록 바람이 위·아래·양방향·수평으로 순환한다."},
+      {"skillId":"skill.character.yujin.3.passive_1.passive_1","slot":"passive_1","iconDescription":"회청색 흔적 위의 작은 우향 화살촉 표식.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+      {"skillId":"skill.character.yujin.3.active_1.multi_shot","slot":"active_1","iconDescription":"얇고 긴 단일 화살과 분기되는 청백 잔상. 여러 화살은 그리지 않는다.","animationDescription":"화살은 고정하고 잔상이 분기, 압축, 최대 전개, 복귀한다."},
+      {"skillId":"skill.character.yujin.3.active_2.hwalbin_barrage","slot":"active_2","iconDescription":"굵은 단일 우향 화살촉과 자주색·먹색 압축 관통 파동.","animationDescription":"선단은 고정하고 후방 깃이 조밀함, 압축, 최대 폭발, 복귀로 반복된다."},
+      {"skillId":"skill.character.yujin.3.active_3.outlaw_appearance","slot":"active_3","iconDescription":"낮은 검은 연기에서 드러나는 산화 적색 매듭 또는 불씨 하나.","animationDescription":"바닥 접점과 적색 핵을 고정하고 연기가 낮은 상태, 왼쪽 상승, 반대 굽힘, 하강으로 반복된다. 스폰과 해제는 런타임이 담당한다."}
+    ],
+    "cloneRule": "character.yujin.3.clone은 별도 기본 공격·패시브·Active 1·Active 2를 사용하지만 Active 3은 보유하지 않는다."
+  },
   "planningStatus": "approved",
   "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
   "identity": {

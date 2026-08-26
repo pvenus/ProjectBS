@@ -517,14 +517,15 @@ namespace ResourceTools.Skill
                 return null;
             }
 
-            Debug.Log($"[EquipmentSkillJsonGenerator] Find icon sprite: {iconId}");
             Sprite sprite = SpriteHelper.FindSpriteByName(iconId);
             if (sprite != null)
             {
                 return sprite;
             }
 
-            Debug.LogWarning($"[EquipmentSkillJsonGenerator] Icon sprite not found: {iconId}");
+            Debug.LogWarning(
+                $"[EquipmentSkillJsonGenerator] Icon sprite not found. " +
+                $"Expected=Assets/ImagesGenerated/Skill/icon/{iconId}.png");
             return null;
         }
 

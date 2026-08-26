@@ -1,1 +1,159 @@
-{"appearance":{"evolutionDirection":"storm-seasoned supreme command 실루엣. asymmetric near-black navy mantle, oxidized-red diagonal sash, 정확히 하나의 brass closure, 절제된 wave motif와 rear wind tabs, screen-right 방향 바람만 사용한다.","identityContinuity":"Grade 1/2 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 동일 핵심 환도·칼집·장비 정체성을 유지한다. 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다."},"documentId":"character_planning.character.seojin.3","documentType":"characterPlanning","generatedMediaPlanning":{"characterSingleImage":{"baseExpressionProfileKey":"projectbs_character_open_ink_wash_dynamic_contour@2.0.0","baseExpressionProfilePayloadHash":"b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5","expressionProfileKey":"projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0","expressionProfilePayloadHash":"b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a","identityConsistencyLock":{"continuityStatement":"Grade 1/2 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 동일 핵심 환도·칼집·장비 정체성을 유지한다. 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다.","identityAuthority":{"path":"Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png","role":"identity_authority","sha256":"ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf"},"identityId":"character.seojin.3","referenceFacts":[{"evidenceFactIds":["character.seojin.3.identity_continuity.v1"],"sourcePointer":"/identityContinuity"},{"evidenceFactIds":["character.seojin.3.evolution_direction.v1"],"sourcePointer":"/evolutionDirection"}],"referenceRoles":{"failedOrPriorPreview":"non_reusable_not_identity_source","grade1Main":"identity_authority","yiSunSin":"homage_direction_only"}},"opaqueChromaProviderMasterContract":{"backgroundFullyOpaque":true,"canvas":{"height":1536,"width":1024},"fieldCoverage":"edge_to_edge_outside_intended_foreground","fieldUniformity":"every_background_pixel_exact_rgb_0_255_0","forbiddenFieldFeatures":["checkerboard","gradient","texture","lighting_variation","halo","vignette","floor","scene","shadow"],"foregroundExactChromaRgb":"prohibited","generationBackground":{"color":"#00FF00","mode":"removable_solid"},"neighboringFragments":"prohibited","outputCount":1,"outputFormat":"png","providerTransparency":"prohibited","schemaVersion":"generated_media_opaque_chroma_provider_master_v1"},"postprocessBoundaryContract":{"algorithmAuthority":"separate_closed_postprocess_contract_required_before_execution","generationRoleMayClaimTrueAlpha":false,"generationRoleMayUncomposite":false,"inputBinding":"exact_provider_master_path_sha_dimensions_and_generation_receipt_required","ownerRole":"generated_media_chroma_uncomposite","projectCopyEligibleBeforePostprocessAndEvaluationPass":false,"providerRecall":"prohibited","requiredOutcome":"final_true_alpha","timing":"after_provider_master_generation_in_a_distinct_authorized_stage"},"prohibitedElements":["서진의 얼굴·머리·체형·손잡이 방향·환도·칼집·핵심 장비를 redesign하거나 mirror하지 않는다.","타 문화권·외국·판타지 복식, 무기, 갑주 또는 상징으로 치환하지 않는다.","실존 이순신의 얼굴·유명 초상 자세·수염·복식·계급장·문양을 재현하거나 named historical reproduction으로 만들지 않는다.","provider alpha, transparency, checkerboard, gradient, texture, lighting variation, halo, vignette, floor, scene, shadow 또는 neighboring fragments를 포함하지 않는다.","intended foreground의 어떤 pixel에도 exact RGB #00FF00을 사용하지 않는다.","기존 preview나 direct-alpha chain을 재사용·변환·덮어쓰지 않는다."],"readiness":"ready","requiredElements":["Grade 1/2 서진과 동일한 얼굴·머리·체형·오른손잡이·환도·칼집·핵심 장비 정체성을 유지한다.","storm-seasoned supreme commander로 읽히는 asymmetric near-black navy mantle과 oxidized-red diagonal sash를 사용한다.","brass closure는 정확히 하나만 사용하고 wave motif와 rear wind tabs는 절제한다.","바람은 screen-right이며 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다."],"singleImageSpecification":{"anchor":{"groundContactAxis":"horizontal normalized line from (0.25,0.92) to (0.75,0.92)","pelvisOrRootPoint":"normalized canvas point (0.5,0.55)","type":"pelvis_root_ground_axis"},"canvas":{"height":1536,"width":1024},"finalBackgroundPolicy":"transparent_after_distinct_generated_media_chroma_uncomposite","framing":"centered full-body head-to-toe with broad empty space; no crop","generationBackground":{"color":"#00FF00","mode":"removable_solid"},"noShadow":true,"outline":{"enabled":false},"pose":"natural front three-quarter full-body supreme-command stance; wind screen-right; fixed non-mirrored orientation; no crop","safeArea":"left 96 px, right 96 px, top 96 px, bottom 128 px; complete foreground inside all insets","targetDisplaySize":{"height":144,"width":96},"viewpoint":"natural front three-quarter view, one approved viewpoint only"}}},"identity":{"characterId":"character.seojin.3","characterType":"Player","grade":3,"name":"서진","role":"storm_seasoned_supreme_commander","runtimeDomain":"character","tierId":"player_grade3"},"missingDesignInputs":[],"planningStatus":"approved","provenance":{"factEvidence":[],"sourcePlanningRefs":["AgentDocs/planning-data/character/design-decisions/v1/character.seojin.3.visual-design.v1.json"]},"schemaVersion":"character_planning_v2"}
+{
+  "appearance": {
+    "evolutionDirection": "storm-seasoned supreme command 실루엣. asymmetric near-black navy mantle, oxidized-red diagonal sash, 정확히 하나의 brass closure, 절제된 wave motif와 rear wind tabs, screen-right 방향 바람만 사용한다.",
+    "identityContinuity": "Grade 1/2 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 동일 핵심 환도·칼집·장비 정체성을 유지한다. 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다."
+  },
+  "documentId": "character_planning.character.seojin.3",
+  "documentType": "characterPlanning",
+  "skillMediaPlanning": {
+    "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#서진--전열-지휘관",
+    "iconStyle": "청남색·먹색·회갈색을 주조로 하고 황금 섬광과 화포 주홍색은 충격점에만 사용한다.",
+    "animationStyle": "768x768 RGBA 4프레임 무한 루프. 시작·소멸 없이 중심, 크기, 방향을 고정하고 입자와 색 대비만 강화한다.",
+    "skills": [
+      {"skillId":"skill.character.seojin.3.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"낮은 수평 환도 베기와 진한 청남색 먹선, 선명한 황금 충돌점.","animationDescription":"고정된 낮은 초승달형 베기가 가는 호, 확장, 최대 충격, 복귀로 반복된다."},
+      {"skillId":"skill.character.seojin.3.passive_1.indomitable","slot":"passive_1","iconDescription":"땅에 박힌 환도와 열린 방패형 먹선, 황동색 결의 불씨.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+      {"skillId":"skill.character.seojin.3.active_1.charge","slot":"active_1","iconDescription":"우측 백금색 충격점으로 모이는 강한 청남색 쐐기와 황금 파편.","animationDescription":"우측 선단을 고정하고 후방 먹선이 중간 폭, 압축, 최대 폭발, 복귀한다."},
+      {"skillId":"skill.character.seojin.3.active_2.crane_wing_formation","slot":"active_2","iconDescription":"중앙 매듭에서 좌우로 열린 학익형 흰색·먹색 날개와 제한된 주홍 파편.","animationDescription":"중앙축을 고정한 두 날개가 세로 U자에서 낮은 좌우 전개까지 열리고 다시 닫힌다."},
+      {"skillId":"skill.character.seojin.3.active_3.turtle_ship_assault","slot":"active_3","iconDescription":"오른쪽을 향한 거북선 측면 한 척과 포구의 주홍 불빛, 선체 아래 청회색 물결.","animationDescription":"선체 위치를 고정하고 포구 점화와 낮은 포말만 변화해 전진 중인 중량감을 반복한다."},
+      {"skillId":"skill.character.seojin.3.turtle_ship_cannon_zone","slot":"auxiliary","iconDescription":"검은 지면 균열 중앙을 둘러싼 주홍색 화포 파동과 황동색 충격 고리.","animationDescription":"같은 원형 지대가 먹색 융기, 주홍 균열, 밝은 충격 고리, 먹색 복귀로 순환한다."}
+    ]
+  },
+  "generatedMediaPlanning": {
+    "characterSingleImage": {
+      "baseExpressionProfileKey": "projectbs_character_open_ink_wash_dynamic_contour@2.0.0",
+      "baseExpressionProfilePayloadHash": "b0510a47827ba4b4d53f19220091799b6870b259ed23ef850dafde6444aeb6f5",
+      "expressionProfileKey": "projectbs_character_open_ink_wash_opaque_chroma_master@1.0.0",
+      "expressionProfilePayloadHash": "b8e5d07f4e3c828649880c23d32bfd945b05b0e57a2c9cc2c240a2068049fb1a",
+      "identityConsistencyLock": {
+        "continuityStatement": "Grade 1/2 서진과 동일한 젊은 한국 남성 얼굴, 낮은 상투, compact 체형, 오른손잡이, 동일 핵심 환도·칼집·장비 정체성을 유지한다. 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다.",
+        "identityAuthority": {
+          "path": "Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+          "role": "identity_authority",
+          "sha256": "ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf"
+        },
+        "identityId": "character.seojin.3",
+        "referenceFacts": [
+          {
+            "evidenceFactIds": [
+              "character.seojin.3.identity_continuity.v1"
+            ],
+            "sourcePointer": "/identityContinuity"
+          },
+          {
+            "evidenceFactIds": [
+              "character.seojin.3.evolution_direction.v1"
+            ],
+            "sourcePointer": "/evolutionDirection"
+          }
+        ],
+        "referenceRoles": {
+          "failedOrPriorPreview": "non_reusable_not_identity_source",
+          "grade1Main": "identity_authority",
+          "yiSunSin": "homage_direction_only"
+        }
+      },
+      "opaqueChromaProviderMasterContract": {
+        "backgroundFullyOpaque": true,
+        "canvas": {
+          "height": 1536,
+          "width": 1024
+        },
+        "fieldCoverage": "edge_to_edge_outside_intended_foreground",
+        "fieldUniformity": "every_background_pixel_exact_rgb_0_255_0",
+        "forbiddenFieldFeatures": [
+          "checkerboard",
+          "gradient",
+          "texture",
+          "lighting_variation",
+          "halo",
+          "vignette",
+          "floor",
+          "scene",
+          "shadow"
+        ],
+        "foregroundExactChromaRgb": "prohibited",
+        "generationBackground": {
+          "color": "#00FF00",
+          "mode": "removable_solid"
+        },
+        "neighboringFragments": "prohibited",
+        "outputCount": 1,
+        "outputFormat": "png",
+        "providerTransparency": "prohibited",
+        "schemaVersion": "generated_media_opaque_chroma_provider_master_v1"
+      },
+      "postprocessBoundaryContract": {
+        "algorithmAuthority": "separate_closed_postprocess_contract_required_before_execution",
+        "generationRoleMayClaimTrueAlpha": false,
+        "generationRoleMayUncomposite": false,
+        "inputBinding": "exact_provider_master_path_sha_dimensions_and_generation_receipt_required",
+        "ownerRole": "generated_media_chroma_uncomposite",
+        "projectCopyEligibleBeforePostprocessAndEvaluationPass": false,
+        "providerRecall": "prohibited",
+        "requiredOutcome": "final_true_alpha",
+        "timing": "after_provider_master_generation_in_a_distinct_authorized_stage"
+      },
+      "prohibitedElements": [
+        "서진의 얼굴·머리·체형·손잡이 방향·환도·칼집·핵심 장비를 redesign하거나 mirror하지 않는다.",
+        "타 문화권·외국·판타지 복식, 무기, 갑주 또는 상징으로 치환하지 않는다.",
+        "실존 이순신의 얼굴·유명 초상 자세·수염·복식·계급장·문양을 재현하거나 named historical reproduction으로 만들지 않는다.",
+        "provider alpha, transparency, checkerboard, gradient, texture, lighting variation, halo, vignette, floor, scene, shadow 또는 neighboring fragments를 포함하지 않는다.",
+        "intended foreground의 어떤 pixel에도 exact RGB #00FF00을 사용하지 않는다.",
+        "기존 preview나 direct-alpha chain을 재사용·변환·덮어쓰지 않는다."
+      ],
+      "readiness": "ready",
+      "requiredElements": [
+        "Grade 1/2 서진과 동일한 얼굴·머리·체형·오른손잡이·환도·칼집·핵심 장비 정체성을 유지한다.",
+        "storm-seasoned supreme commander로 읽히는 asymmetric near-black navy mantle과 oxidized-red diagonal sash를 사용한다.",
+        "brass closure는 정확히 하나만 사용하고 wave motif와 rear wind tabs는 절제한다.",
+        "바람은 screen-right이며 얼굴·검·칼집·mantle·sash 방향을 고정하고 mirror하지 않는다."
+      ],
+      "singleImageSpecification": {
+        "anchor": {
+          "groundContactAxis": "horizontal normalized line from (0.25,0.92) to (0.75,0.92)",
+          "pelvisOrRootPoint": "normalized canvas point (0.5,0.55)",
+          "type": "pelvis_root_ground_axis"
+        },
+        "canvas": {
+          "height": 1536,
+          "width": 1024
+        },
+        "finalBackgroundPolicy": "transparent_after_distinct_generated_media_chroma_uncomposite",
+        "framing": "centered full-body head-to-toe with broad empty space; no crop",
+        "generationBackground": {
+          "color": "#00FF00",
+          "mode": "removable_solid"
+        },
+        "noShadow": true,
+        "outline": {
+          "enabled": false
+        },
+        "pose": "natural front three-quarter full-body supreme-command stance; wind screen-right; fixed non-mirrored orientation; no crop",
+        "safeArea": "left 96 px, right 96 px, top 96 px, bottom 128 px; complete foreground inside all insets",
+        "targetDisplaySize": {
+          "height": 144,
+          "width": 96
+        },
+        "viewpoint": "natural front three-quarter view, one approved viewpoint only"
+      }
+    }
+  },
+  "identity": {
+    "characterId": "character.seojin.3",
+    "characterType": "Player",
+    "grade": 3,
+    "name": "서진",
+    "role": "storm_seasoned_supreme_commander",
+    "runtimeDomain": "character",
+    "tierId": "player_grade3"
+  },
+  "missingDesignInputs": [],
+  "planningStatus": "approved",
+  "provenance": {
+    "factEvidence": [],
+    "sourcePlanningRefs": [
+      "AgentDocs/planning-data/character/design-decisions/v1/character.seojin.3.visual-design.v1.json"
+    ]
+  },
+  "schemaVersion": "character_planning_v2"
+}

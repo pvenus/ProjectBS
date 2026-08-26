@@ -40,30 +40,6 @@ namespace ResourceTools.Helper
                 return generatedSprite;
             }
 
-            // Compatibility fallback for content that has not moved to
-            // Assets/ImagesGenerated yet. Generated icons must always win
-            // when a legacy sprite with the same name also exists.
-            string[] guids = AssetDatabase.FindAssets($"{spriteName} t:Sprite");
-
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-
-                if (sprite == null)
-                {
-                    continue;
-                }
-
-                if (string.Equals(
-                        sprite.name,
-                        spriteName,
-                        StringComparison.OrdinalIgnoreCase))
-                {
-                    return sprite;
-                }
-            }
-
             return null;
         }
 

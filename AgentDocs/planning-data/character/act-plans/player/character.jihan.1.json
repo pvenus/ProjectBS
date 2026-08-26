@@ -1,6 +1,17 @@
 ﻿{
     "documentId":  "character_planning.character.jihan.1",
     "documentType":  "characterPlanning",
+    "skillMediaPlanning":  {
+        "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#지한--약술과-기혈-지원가",
+        "gradeCoverage": "이 문서는 지한 1등급 스킬 미디어를 정의하며 2·3등급은 각각 character.jihan.2.json과 character.jihan.3.json에서 정의한다.",
+        "iconStyle": "청록·약초 녹색·황토·먹색을 주조로 하고 회복의 중심핵에만 따뜻한 금색을 사용한다.",
+        "animationStyle": "768x768 RGBA 4프레임 무한 루프. 중심점과 외경을 고정하고 방사선, 약재, 경락선의 수축·팽창으로 변화시킨다.",
+        "skills": [
+            {"skillId":"skill.character.jihan.1.basic_attack.basic_attack","slot":"basic_attack","iconDescription":"황토색 핵을 둘러싸는 끊긴 청록 원형 기파 한 겹.","animationDescription":"중심핵을 고정하고 외곽 먹선과 내부 소용돌이가 성김, 말림, 최대 밀도, 복귀로 반복된다."},
+            {"skillId":"skill.character.jihan.1.passive_1.blood_qi_circulation","slot":"passive_1","iconDescription":"황토색 숨결점을 중심으로 순환하는 열린 청록·먹갈색 붓선 두 개.","animationDescription":"패시브는 별도 애니메이션을 제작하지 않는다."},
+            {"skillId":"skill.character.jihan.1.active_1.medicine_prescription","slot":"active_1","iconDescription":"금백색 약기운 핵과 순환하는 녹색 약잎, 주홍 열매, 황토 가루.","animationDescription":"중앙 핵을 고정하고 약재가 성긴 배치, 조밀한 순환, 최대 확장, 복귀로 반복된다. 온전한 그릇은 반복하지 않는다."}
+        ]
+    },
     "commonDataRef":  "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
     "identity":  {
                      "characterId":  "character.jihan.1",

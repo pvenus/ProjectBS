@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "character_planning_v2",
+  "documentId": "character_planning.character.jihan.2",
+  "documentType": "characterPlanning",
+  "planningStatus": "reverse_designed",
+  "commonDataRef": "AgentDocs/planning-data/character/act-plans/player/cheongun_sangui_act1.player_common.json",
+  "identity": {
+    "characterId": "character.jihan.2",
+    "characterType": "Player",
+    "runtimeDomain": "character",
+    "name": "지한",
+    "grade": 2,
+    "tierId": "player_grade2",
+    "role": "healer_monk",
+    "tags": ["human", "support", "monk", "medicine"]
+  },
+  "appearance": {
+    "identityContinuity": "Grade 1 지한과 동일한 온화한 한국인 승려의 얼굴, 체형, 승복, 염주, 짧은 지팡이와 약 주머니를 유지한다.",
+    "evolutionDirection": "약술이 숙련된 중급 지원가로 읽히도록 약초 녹색과 황토색의 작은 직물 매듭 또는 처방 표식 하나를 보강한다. 장식 누적, 중갑, 화려한 종교 관모는 사용하지 않는다.",
+    "paletteDirection": "먹갈색과 무채색 승복을 바탕으로 약초 녹색·따뜻한 황토색을 제한된 보조색으로 사용한다.",
+    "directionLock": "Grade 1과 같은 장비 배치와 손잡이 방향을 유지하며 전신 좌우 반전을 금지한다."
+  },
+  "combat": {
+    "roleIntent": "기파 견제와 탕약 처방에 더해 십전대보탕으로 아군의 지속 생존과 강화를 담당하는 후열 지원",
+    "preferredRange": "mid",
+    "partyFunction": ["heal", "sustain", "party_buff", "calm_spirit"]
+  },
+  "skillMediaPlanning": {
+    "detailRef": "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md#지한--약술과-기혈-지원가",
+    "iconStyle": "청록·약초 녹색·황토·먹색을 주조로 하고 회복 중심핵에만 따뜻한 금색을 사용한다. Grade 1보다 보조 약재와 붓선 밀도를 한 단계 높인다.",
+    "animationStyle": "768x768 RGBA 4프레임 무한 루프. 중심점과 외경을 고정하고 방사선, 약재, 경락선의 수축·팽창으로 변화를 만든다.",
+    "skills": [
+      {
+        "skillId": "skill.character.jihan.2.basic_attack.basic_attack",
+        "slot": "basic_attack",
+        "iconDescription": "황토색 핵을 둘러싸는 끊긴 청록 원형 기파 한 겹.",
+        "animationDescription": "중심핵을 고정하고 외곽 먹선과 내부 소용돌이가 성김, 말림, 최대 밀도, 복귀로 반복된다."
+      },
+      {
+        "skillId": "skill.character.jihan.2.passive_1.blood_qi_circulation",
+        "slot": "passive_1",
+        "iconDescription": "황토색 숨결점을 중심으로 순환하는 열린 청록·먹갈색 붓선 두 개.",
+        "animationDescription": "패시브는 별도 애니메이션을 제작하지 않는다."
+      },
+      {
+        "skillId": "skill.character.jihan.2.active_1.medicine_prescription",
+        "slot": "active_1",
+        "iconDescription": "금백색 약기운 핵과 순환하는 녹색 약잎, 주홍 열매, 황토 가루.",
+        "animationDescription": "중앙 핵을 고정하고 약재가 성긴 배치, 조밀한 순환, 최대 확장, 복귀로 반복된다. 온전한 그릇은 반복하지 않는다."
+      },
+      {
+        "skillId": "skill.character.jihan.2.active_2.ten_tonic_soup",
+        "slot": "active_2",
+        "iconDescription": "중앙 사각 처방 인장과 네 방향의 녹색·황토·주홍·백색 보양 붓선.",
+        "animationDescription": "중앙 인장을 고정하고 네 갈래가 세로 전개, 대각 압축, 가로 최대 폭발, 대각 복귀로 순환한다."
+      }
+    ]
+  },
+  "provenance": {
+    "derivationType": "reverse_design_from_current_content",
+    "sourcePlanningRefs": [
+      "AgentDocs/planning-data/character/act-plans/player/character.jihan.1.json",
+      "AgentDocs/planning-data/character/act-plans/player/PLAYER_SKILL_MEDIA_REVERSE_DESIGN.md"
+    ],
+    "sourceRuntimeRefs": [
+      "Assets/Contents/Skill/json/skill.character.jihan.2.*.json",
+      "Assets/ImagesGenerated/Skill/animation/skill.character.jihan.2.*"
+    ]
+  },
+  "notes": [
+    "밸런스 수치와 런타임 동작은 Assets/Contents/Skill/json을 권위 원천으로 사용한다."
+  ]
+}
