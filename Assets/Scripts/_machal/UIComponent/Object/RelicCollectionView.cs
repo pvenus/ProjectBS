@@ -156,7 +156,9 @@ public class RelicCollectionView : UIView
 
         if (countText != null)
         {
-            countText.text = $"{data.ownedCount} / {data.totalCount}";
+            countText.text = data.totalCount > 0
+                ? $"{data.ownedCount} / {data.totalCount}"
+                : "보유 유물 0개";
         }
 
         if (gridRoot != null && relicGridItemPrefab != null)

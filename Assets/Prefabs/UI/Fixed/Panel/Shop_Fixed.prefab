@@ -2730,6 +2730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6561626137462372602}
+  - component: {fileID: -87874978921567987}
   - component: {fileID: 911503228100000003}
   - component: {fileID: 911503228100000004}
   m_Layer: 5
@@ -2762,6 +2763,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &-87874978921567987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599604988202033487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b90dba95dc4d0439bb7a19cb32145a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.UI.StageShopPanelView
+  closeButton: {fileID: 0}
 --- !u!114 &911503228100000003
 MonoBehaviour:
   m_ObjectHideFlags: 0

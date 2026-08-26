@@ -25,10 +25,11 @@ namespace UI
 
         private readonly RelicPresentationResolver relicResolver = new();
         private readonly BlessPresentationResolver blessResolver = new();
+        private bool hasExplicitlyBuilt;
 
         private void Start()
         {
-            if (buildOnStart)
+            if (buildOnStart && !hasExplicitlyBuilt)
             {
                 BuildConfiguredInventory();
             }
@@ -41,6 +42,8 @@ namespace UI
             {
                 return;
             }
+
+            hasExplicitlyBuilt = true;
 
             List<ContentInventoryCategoryData> categories = new();
             AddCategory(
@@ -72,6 +75,8 @@ namespace UI
                 return;
             }
 
+            hasExplicitlyBuilt = true;
+
             List<ContentInventoryCategoryData> categories = new();
             AddCategory(
                 categories,
@@ -100,6 +105,12 @@ namespace UI
                     "[OwnedEffectInventoryPresenter] Enter Play Mode before building owned effects.",
                     this);
                 return false;
+            }
+
+            if (inventoryView == null)
+            {
+                inventoryView = GetComponent<OwnedEffectInventoryView>() ??
+                                GetComponentInChildren<OwnedEffectInventoryView>(true);
             }
 
             if (inventoryView == null)

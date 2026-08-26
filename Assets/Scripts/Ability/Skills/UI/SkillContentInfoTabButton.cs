@@ -12,6 +12,7 @@ public sealed class SkillContentInfoTabButton : UIComponent
     [AutoBind("Bind_SkillIconImage")]
     [SerializeField] private Image skillIconImage;
 
+    [SerializeField] private GameObject unselectedVisual;
     [SerializeField] private GameObject selectedVisual;
 
     private Action onClick;
@@ -41,12 +42,17 @@ public sealed class SkillContentInfoTabButton : UIComponent
 
     public void Bind(EquipmentSkillSO skill, Action clickAction)
     {
+        Bind(skill, skill != null ? skill.Icon : null, clickAction);
+    }
+
+    public void Bind(EquipmentSkillSO skill, Sprite icon, Action clickAction)
+    {
         Skill = skill;
         onClick = clickAction;
 
         if (skillIconImage != null)
         {
-            skillIconImage.sprite = skill != null ? skill.Icon : null;
+            skillIconImage.sprite = icon;
             skillIconImage.enabled = skillIconImage.sprite != null;
         }
         else
@@ -61,6 +67,11 @@ public sealed class SkillContentInfoTabButton : UIComponent
 
     public void SetSelected(bool selected)
     {
+        if (unselectedVisual != null)
+        {
+            unselectedVisual.SetActive(!selected);
+        }
+
         if (selectedVisual != null)
         {
             selectedVisual.SetActive(selected);

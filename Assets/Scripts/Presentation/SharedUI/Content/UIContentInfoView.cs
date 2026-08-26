@@ -11,6 +11,7 @@ namespace UI
     {
         [Header("Identity")]
         [AutoBind] [SerializeField] private Image iconImage;
+        [SerializeField] private bool showIcon = true;
         [AutoBind] [SerializeField] private TMP_Text nameText;
         [AutoBind] [SerializeField] private RectTransform tagRoot;
 
@@ -33,6 +34,17 @@ namespace UI
             formatter = value ?? new PresentationTextFormatter();
         }
 
+        public void SetIconVisible(bool visible)
+        {
+            showIcon = visible;
+
+            if (iconImage != null)
+            {
+                iconImage.gameObject.SetActive(
+                    showIcon && iconImage.sprite != null);
+            }
+        }
+
         public void Bind(ContentPresentationData content)
         {
             ClearChildren(tagRoot);
@@ -52,7 +64,7 @@ namespace UI
             if (iconImage != null)
             {
                 iconImage.sprite = content.Identity?.Icon;
-                bool hasIcon = iconImage.sprite != null;
+                bool hasIcon = showIcon && iconImage.sprite != null;
                 iconImage.enabled = hasIcon;
                 iconImage.gameObject.SetActive(hasIcon);
             }

@@ -16,6 +16,32 @@ namespace Shop
         [Header("Shop")]
         public ShopProductType productType;
 
+        public ShopProductType ProductType
+        {
+            get
+            {
+                if (rewardData != null)
+                {
+                    if (rewardData.Relic != null || rewardData.rewardType == ShopRewardType.Relic)
+                    {
+                        return ShopProductType.Relic;
+                    }
+
+                    if (rewardData.StrategicSkillItem != null || rewardData.rewardType == ShopRewardType.StrategicSkillItem)
+                    {
+                        return ShopProductType.StrategicSkillItem;
+                    }
+
+                    if (rewardData.rewardType == ShopRewardType.AIFunction)
+                    {
+                        return ShopProductType.AIFunction;
+                    }
+                }
+
+                return productType != ShopProductType.None ? productType : ShopProductType.None;
+            }
+        }
+
         [Tooltip("상품 UI에 표시할 등급. 유물 상품은 RelicSO의 등급을 우선 사용합니다.")]
         public ShopItemRarity rarity = ShopItemRarity.Common;
 

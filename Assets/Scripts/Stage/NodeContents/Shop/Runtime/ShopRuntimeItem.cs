@@ -30,7 +30,7 @@ namespace Shop
         public string DisplayName => product != null ? product.DisplayName : "Empty";
         public string Description => product != null ? product.Description : string.Empty;
         public Sprite Icon => product != null ? product.Icon : null;
-        public ShopProductType ProductType => product != null ? product.productType : ShopProductType.None;
+        public ShopProductType ProductType => product != null ? product.ProductType : ShopProductType.None;
 
         public bool IsAvailable => state == ShopItemState.Available && !isPurchased && product != null;
         public bool IsSoldOut => state == ShopItemState.SoldOut || isPurchased;

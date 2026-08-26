@@ -71,7 +71,23 @@ public sealed class SkillContentInfoPresenter : UIComponent
 
     public void ShowSkill(EquipmentSkillSO value)
     {
+        ShowSkill(value, null);
+    }
+
+    public void ShowSkill(EquipmentSkillSO value, EquipmentSkillInstanceData instanceData)
+    {
         skill = value;
+
+        if (instanceData != null)
+        {
+            useRuntimeValues = true;
+            currentLevel = Mathf.Max(1, instanceData.currentLevel);
+            upgradeLevel = Mathf.Max(0, instanceData.upgradeLevel);
+        }
+        else
+        {
+            useRuntimeValues = false;
+        }
 
         if (skill == null)
         {

@@ -103,9 +103,28 @@ namespace Character
             CharacterRuntimeData runtime,
             bool useRuntime)
         {
-            IReadOnlyList<StatEntry> source = useRuntime
-                ? runtime.finalStats
-                : character.BaseStats;
+            IReadOnlyList<StatEntry> source = character.BaseStats;
+            PresentationProvenanceKind sourceKind =
+                PresentationProvenanceKind.AuthoredAsset;
+            string sourceField = "BaseStats";
+
+            if (useRuntime
+                && runtime.finalStats != null
+                && runtime.finalStats.Count > 0)
+            {
+                source = runtime.finalStats;
+                sourceKind = PresentationProvenanceKind.RuntimeResolved;
+                sourceField = "finalStats";
+            }
+            else if (useRuntime
+                     && runtime.stats != null
+                     && runtime.stats.Count > 0)
+            {
+                source = runtime.stats;
+                sourceKind = PresentationProvenanceKind.RuntimeResolved;
+                sourceField = "stats";
+            }
+
             if (source == null)
             {
                 return Array.Empty<PresentationEntryData>();
@@ -129,12 +148,8 @@ namespace Character
                             GetStatUnit(stat.statType),
                             Provenance(
                                 character,
-                                useRuntime
-                                    ? PresentationProvenanceKind.RuntimeResolved
-                                    : PresentationProvenanceKind.AuthoredAsset,
-                                useRuntime
-                                    ? $"finalStats[{index}]"
-                                    : $"BaseStats[{index}]")),
+                                sourceKind,
+                                $"{sourceField}[{index}]")),
                     }));
             }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Presentation;
+using UnityEngine;
 
 namespace UIFramework.Data
 {
@@ -20,6 +21,7 @@ namespace UIFramework.Data
     [Serializable]
     public class SkillUpgradeOptionData
     {
+        public Sprite characterPortrait;
         public string characterName;
         public int currentLevel;
         public int nextLevel;

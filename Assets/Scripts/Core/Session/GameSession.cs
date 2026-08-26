@@ -47,6 +47,7 @@ namespace Session
 
             Instance = this;
 
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
 
             Initialize();
@@ -204,6 +205,14 @@ namespace Session
                         isDead = false
                     };
                     BattleSession.PartyRuntimeData.Members.Add(member);
+                }
+
+                // PartyManager.Start can run before the delayed start profile is
+                // applied. Re-run the normal party initialization path so the
+                // newly created members receive stats and owned skill instances.
+                if (PartyManager.Instance != null)
+                {
+                    PartyManager.Instance.SpawnParty();
                 }
             }
 

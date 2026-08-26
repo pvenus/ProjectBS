@@ -5,6 +5,7 @@ using UnityEngine;
 using Effect;
 using Effect.Helper;
 using Character;
+using Session;
 
 namespace Bless
 {
@@ -21,7 +22,7 @@ namespace Bless
         private BlessRuntimeData runtimeData = new();
 
         public IReadOnlyList<BlessRuntimeData.BlessEntry> Blessings =>
-            runtimeData.GetBlessings();
+            ResolveBlessRuntimeData().GetBlessings();
         public BlessPoolSO CommonPool =>
             config != null
                 ? config.CommonPool
@@ -108,14 +109,14 @@ namespace Bless
             if (source.GodType == ShrineGodType.None
                 && source.DurationType == BlessDurationType.Permanent)
             {
-                runtimeData.RemoveBlesses(
+                ResolveBlessRuntimeData().RemoveBlesses(
                     x => x != null
                          && x.source != null
                          && x.source.GodType == ShrineGodType.None
                          && !x.isTemporary);
             }
 
-            runtimeData.AddBless(
+            ResolveBlessRuntimeData().AddBless(
                 source,
                 generatedFromPoolId,
                 slotIndex);
@@ -287,7 +288,7 @@ namespace Bless
             System.Predicate<BlessRuntimeData.BlessEntry> match)
         {
             List<BlessRuntimeData.BlessEntry> targets =
-                runtimeData.GetBlessings()
+                ResolveBlessRuntimeData().GetBlessings()
                     .Where(x => x != null && match(x))
                     .ToList();
 
@@ -301,22 +302,66 @@ namespace Bless
                 RemoveEffectsFromEffectManagers(entry.source);
             }
 
-            runtimeData.RemoveBlesses(match);
+            ResolveBlessRuntimeData().RemoveBlesses(match);
         }
 
         public void ConsumeBattleBlessings()
         {
-            runtimeData.ConsumeBattleBlessings();
+            ResolveBlessRuntimeData().ConsumeBattleBlessings();
         }
 
         private void Initialize()
         {
-            runtimeData = new BlessRuntimeData();
+            // 세션이 있으면 세션 데이터를 참조한다 (씬 재진입 시 초기화 방지).
+            // 세션이 없을 때만 로컬 runtimeData를 사용한다.
+            runtimeData = ResolveBlessRuntimeData();
         }
 
         public void ResetRuntime()
         {
-            Initialize();
+            // 새 게임 시작이나 명시적 세션 초기화 시에만 호출한다.
+            runtimeData = new BlessRuntimeData();
+            PushBlessRuntimeDataToSession(runtimeData);
+        }
+
+        /// <summary>
+        /// StageSession이 있으면 세션의 BlessRuntimeData를 반환한다.
+        /// 없으면 로컬 runtimeData를 반환한다.
+        /// ItemManager.ResolveRelicRuntimeData()와 동일한 패턴.
+        /// </summary>
+        private BlessRuntimeData ResolveBlessRuntimeData()
+        {
+            if (GameSession.Instance != null
+                && GameSession.Instance.StageSession != null)
+            {
+                if (GameSession.Instance.StageSession.BlessRuntimeData == null)
+                {
+                    GameSession.Instance.StageSession.BlessRuntimeData =
+                        runtimeData ?? new BlessRuntimeData();
+                }
+
+                runtimeData = GameSession.Instance.StageSession.BlessRuntimeData;
+                return runtimeData;
+            }
+
+            if (runtimeData == null)
+            {
+                runtimeData = new BlessRuntimeData();
+            }
+
+            return runtimeData;
+        }
+
+        private void PushBlessRuntimeDataToSession(BlessRuntimeData data)
+        {
+            if (data == null
+                || GameSession.Instance == null
+                || GameSession.Instance.StageSession == null)
+            {
+                return;
+            }
+
+            GameSession.Instance.StageSession.BlessRuntimeData = data;
         }
     }
 }

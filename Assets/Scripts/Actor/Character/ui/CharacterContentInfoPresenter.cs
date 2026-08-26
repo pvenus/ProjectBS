@@ -14,11 +14,13 @@ namespace Character.UI
         [Header("Character")]
         [SerializeField] private CharacterSO character;
         [SerializeField] private bool buildOnStart = true;
+        private CharacterRuntimeData characterRuntime;
 
         [Header("Optional Skill Tabs")]
         [SerializeField] private CharacterSkillContentInfoPresenter skillTabs;
 
         public CharacterSO Character => character;
+        public CharacterRuntimeData CharacterRuntime => characterRuntime;
 
         private void Start()
         {
@@ -64,8 +66,11 @@ namespace Character.UI
                     this);
             }
 
-            ContentPresentationData content =
-                new CharacterPresentationResolver().ResolveForPlayerDisplay(
+            ContentPresentationData content = characterRuntime != null
+                ? new CharacterPresentationResolver().ResolveForPlayerDisplay(
+                    characterRuntime,
+                    PresentationContext.Runtime)
+                : new CharacterPresentationResolver().ResolveForPlayerDisplay(
                     character,
                     PresentationContext.Preview);
 
@@ -76,13 +81,32 @@ namespace Character.UI
 
             if (skillTabs != null && skillTabs.Character != character)
             {
-                skillTabs.SetCharacter(character);
+                if (characterRuntime != null)
+                {
+                    skillTabs.SetCharacter(characterRuntime);
+                }
+                else
+                {
+                    skillTabs.SetCharacter(character);
+                }
             }
         }
 
         public void SetCharacter(CharacterSO value, bool rebuild = true)
         {
+            characterRuntime = null;
             character = value;
+
+            if (rebuild && Application.isPlaying)
+            {
+                BuildPresentation();
+            }
+        }
+
+        public void SetCharacter(CharacterRuntimeData value, bool rebuild = true)
+        {
+            characterRuntime = value;
+            character = value?.characterSO;
 
             if (rebuild && Application.isPlaying)
             {
@@ -93,6 +117,7 @@ namespace Character.UI
         public void ClearPresentation()
         {
             character = null;
+            characterRuntime = null;
             contentView?.Bind(null);
         }
     }

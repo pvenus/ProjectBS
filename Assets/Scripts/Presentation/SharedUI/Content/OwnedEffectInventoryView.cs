@@ -11,6 +11,7 @@ namespace UI
     {
         [Header("Page")]
         [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text emptyMessageText;
 
         [AutoBind]
         [SerializeField] private ScrollRect scrollRect;
@@ -76,6 +77,11 @@ namespace UI
                     categoryView.Bind(category, SelectItem);
                     spawnedCategories.Add(categoryView);
                 }
+            }
+
+            if (emptyMessageText != null)
+            {
+                emptyMessageText.gameObject.SetActive(spawnedCategories.Count == 0);
             }
 
             RefreshLayout();

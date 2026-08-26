@@ -31,6 +31,10 @@ namespace Battle.UI.PartyHud
         [SerializeField] private RectTransform passiveSkillRoot;
         [SerializeField] private PartyHudSkillSlotView skillSlotPrefab;
 
+        [Header("Reuse")]
+        [Tooltip("Skips HUD-only skill construction when this View is nested as a portrait-only selector.")]
+        [SerializeField] private bool portraitOnlyMode;
+
         private readonly List<PartyHudSkillSlotView> activeSkillSlots =
             new List<PartyHudSkillSlotView>(ActiveSkillSlotCount);
 
@@ -41,6 +45,12 @@ namespace Battle.UI.PartyHud
 
         private void Awake()
         {
+            if (portraitOnlyMode)
+            {
+                ApplyPortraitOnlyMode();
+                return;
+            }
+
             EnsureSkillSlots();
         }
 
@@ -84,6 +94,13 @@ namespace Battle.UI.PartyHud
                 portraitImage.sprite = portrait;
                 portraitImage.enabled = portrait != null;
             }
+        }
+
+        public void RenderPortraitOnly(Sprite portrait)
+        {
+            portraitOnlyMode = true;
+            ApplyPortraitOnlyMode();
+            SetIdentity(string.Empty, portrait);
         }
 
         public void SetPortraitForeground(Sprite foreground)
@@ -208,6 +225,11 @@ namespace Battle.UI.PartyHud
 
         private void EnsureSkillSlots()
         {
+            if (portraitOnlyMode)
+            {
+                return;
+            }
+
             if (skillSlotPrefab == null)
             {
                 if (!missingPrefabReported)
@@ -239,6 +261,37 @@ namespace Battle.UI.PartyHud
             {
                 passiveSkillSlot = Instantiate(skillSlotPrefab, passiveSkillRoot);
                 passiveSkillSlot.name = "PassiveSkillSlot";
+            }
+        }
+
+        private void ApplyPortraitOnlyMode()
+        {
+            SetActive(nameText, false);
+            SetActive(hpBackgroundImage, false);
+            SetActive(hpFillImage, false);
+            SetActive(hpText, false);
+
+            if (statusRoot != null)
+            {
+                statusRoot.SetActive(false);
+            }
+
+            if (activeSkillRoot != null)
+            {
+                activeSkillRoot.gameObject.SetActive(false);
+            }
+
+            if (passiveSkillRoot != null)
+            {
+                passiveSkillRoot.gameObject.SetActive(false);
+            }
+        }
+
+        private static void SetActive(Component component, bool active)
+        {
+            if (component != null)
+            {
+                component.gameObject.SetActive(active);
             }
         }
     }

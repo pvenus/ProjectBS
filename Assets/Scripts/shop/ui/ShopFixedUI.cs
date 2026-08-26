@@ -369,10 +369,7 @@ namespace Shop
 
         private void SetShopVisible(bool visible)
         {
-            Debug.Log(
-                $"[PLACEHOLDER] {nameof(ShopFixedUI)}.{nameof(SetShopVisible)} called. " +
-                $"visible={visible}; panel visibility behavior is pending.",
-                this);
+            gameObject.SetActive(visible);
         }
 
         private static int GetCurrentGold()

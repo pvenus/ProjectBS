@@ -22,8 +22,11 @@ public class UISkillUpgradeButton : UIComponent
     [AutoBind] [SerializeField] private Image backgroundImage;
     [AutoBind] [SerializeField] private UIContentInfoView contentInfoView;
 
-    [Header("Labels")]
+    [Header("Character")]
+    [AutoBind] [SerializeField] private Image characterPortraitImage;
     [AutoBind] [SerializeField] private TMP_Text memberNameText;
+
+    [Header("Skill")]
     [AutoBind] [SerializeField] private TMP_Text levelText;
     [AutoBind] [SerializeField] private TMP_Text statComparisonText;
 
@@ -46,6 +49,7 @@ public class UISkillUpgradeButton : UIComponent
     {
         onClickCallback = onClick;
 
+        SetCharacterPortrait(data?.characterPortrait);
         SetCharacterName(data?.characterName ?? string.Empty);
         SetLevelText(data?.currentLevel ?? 1, data?.nextLevel ?? 2);
         SetStatComparison(data?.statComparisonText ?? string.Empty);
@@ -53,6 +57,18 @@ public class UISkillUpgradeButton : UIComponent
     }
 
     // ── 내부 구현 ─────────────────────────────────────────────────
+
+    private void SetCharacterPortrait(Sprite portrait)
+    {
+        if (characterPortraitImage == null)
+        {
+            return;
+        }
+
+        characterPortraitImage.sprite = portrait;
+        characterPortraitImage.preserveAspect = true;
+        characterPortraitImage.enabled = portrait != null;
+    }
 
     private void SetCharacterName(string characterName)
     {

@@ -48,18 +48,21 @@ public static class SkillUpgradeViewDataBuilder
             int currentLevel = Mathf.Max(1, candidate.skillInstance.currentLevel);
             int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
 
-            var characterName = string.Empty;
+            string characterName = string.Empty;
+            Sprite characterPortrait = null;
             if (candidate.skillManager != null && candidate.skillManager.GetComponent<CharacterManager>() != null)
             {
                 var charManager = candidate.skillManager.GetComponent<CharacterManager>();
                 if (charManager.RuntimeData != null && charManager.RuntimeData.characterSO != null)
                 {
                     characterName = charManager.RuntimeData.characterSO.DisplayName;
+                    characterPortrait = charManager.RuntimeData.characterSO.Portrait;
                 }
             }
 
             optionDatas.Add(new SkillUpgradeOptionData
             {
+                characterPortrait = characterPortrait,
                 characterName = !string.IsNullOrEmpty(characterName) ? characterName : "Character",
                 currentLevel = currentLevel,
                 nextLevel = nextLevel,
