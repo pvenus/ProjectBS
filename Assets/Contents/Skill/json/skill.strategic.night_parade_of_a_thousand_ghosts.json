@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.night_parade_of_a_thousand_ghosts",
   "skillName": "만귀야행",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.night_parade_of_a_thousand_ghosts.profile",
     "skillType": "Active",
@@ -75,6 +76,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.night_parade_of_a_thousand_ghosts.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

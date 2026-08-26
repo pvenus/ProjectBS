@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: effect.item.relic.frozen_nail.move_speed_down_on_hit
   icon: {fileID: 0}
   config:
-    rid: 5601486779048788280
+    rid: 5601486782127931509
   references:
     version: 2
     RefIds:
-    - rid: 5601486779048788280
+    - rid: 5601486782127931509
       type: {class: OnHitTimedStatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chancePercent: 12

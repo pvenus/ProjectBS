@@ -1,7 +1,8 @@
 {
   "equipmentId": "skill.character.yujin.3.passive_1.passive_1",
   "slotName": "passive_1",
-  "skillName": "skill.character.yujin.3.passive_1.passive_1",
+  "skillName": "치명 화살 파동",
+  "desc": "전투 중 고유한 지속 효과를 적용합니다.",
   "iconName": "passive_1",
   "baseProfile": {
     "skillType": "Passive",
@@ -38,7 +39,8 @@
             "skill": {
               "equipmentId": "passive_1.critical_arrow_wave",
               "slotName": "passive_1_trigger_skill",
-              "skillName": "skill.character.yujin.3.passive_1.trigger_skill",
+              "skillName": "치명 화살 파동",
+              "desc": "치명타가 발생하면 추가 화살 파동을 발사해 적에게 피해를 줍니다.",
               "iconName": "passive_1",
               "baseProfile": {
                 "profileId": "skill.character.yujin.3.passive_1.trigger_skill.profile",

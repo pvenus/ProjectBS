@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.nine_heavens_thunderfall_formation",
   "skillName": "구천멸뢰진",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.nine_heavens_thunderfall_formation.profile",
     "skillType": "Active",
@@ -71,6 +72,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.nine_heavens_thunderfall_formation.visual",
-    "projectileVisualType": "Rain"
+    "projectileVisualType": "Rain",
+    "sortingRelation": "AbsoluteTop"
   }
 }

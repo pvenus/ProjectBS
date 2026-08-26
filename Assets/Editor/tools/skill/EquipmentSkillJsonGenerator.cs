@@ -20,6 +20,8 @@ namespace ResourceTools.Skill
         {
             public string equipmentId;
             public string skillName;
+            public string desc;
+            public string description;
 
             public string baseProfile;
             public string cast;
@@ -36,6 +38,8 @@ namespace ResourceTools.Skill
         {
             public string equipmentId;
             public string skillName;
+            public string desc;
+            public string description;
         }
 
 
@@ -352,15 +356,28 @@ namespace ResourceTools.Skill
             EquipmentSkillJson data)
         {
             if (data == null ||
-                string.IsNullOrWhiteSpace(data.equipmentId) ||
-                string.IsNullOrWhiteSpace(data.skillName))
+                string.IsNullOrWhiteSpace(data.equipmentId))
             {
                 return;
             }
 
-            SkillStringBuilder.ExtractSkillName(
+            SkillStringBuilder.ExtractSkillStrings(
                 data.equipmentId,
-                data.skillName);
+                data.skillName,
+                ResolveSkillDescription(data));
+        }
+
+        private static string ResolveSkillDescription(
+            EquipmentSkillJson data)
+        {
+            if (data == null)
+            {
+                return null;
+            }
+
+            return !string.IsNullOrWhiteSpace(data.desc)
+                ? data.desc
+                : data.description;
         }
 
         private static void ApplySkillFields(
@@ -580,6 +597,8 @@ namespace ResourceTools.Skill
             {
                 equipmentId = root.equipmentId,
                 skillName = root.skillName,
+                desc = root.desc,
+                description = root.description,
                 baseProfile = ExtractJsonValue(json, "baseProfile"),
                 cast = ExtractJsonValue(json, "cast"),
                 move = ExtractJsonValue(json, "move"),

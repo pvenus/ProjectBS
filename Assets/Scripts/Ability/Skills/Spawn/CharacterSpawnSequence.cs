@@ -56,7 +56,18 @@ namespace Skill
 
         private void LateUpdate()
         {
-            if (visualRenderer == null || sortingOwner == null)
+            if (visualRenderer == null)
+            {
+                return;
+            }
+
+            if (sortingRelation == SkillSortingRelation.AbsoluteTop)
+            {
+                visualRenderer.sortingOrder = (int)SkillSortingRelation.AbsoluteTop;
+                return;
+            }
+
+            if (sortingOwner == null)
             {
                 return;
             }

@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.frost_spirit_formation",
   "skillName": "빙령진",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.frost_spirit_formation.profile",
     "skillType": "Active",
@@ -72,6 +73,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.frost_spirit_formation.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

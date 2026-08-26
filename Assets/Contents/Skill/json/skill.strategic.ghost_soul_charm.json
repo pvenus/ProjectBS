@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.ghost_soul_charm",
   "skillName": "귀혼부",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.ghost_soul_charm.profile",
     "skillType": "Active",
@@ -72,6 +73,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.ghost_soul_charm.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

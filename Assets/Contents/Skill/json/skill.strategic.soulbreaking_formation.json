@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.soulbreaking_formation",
   "skillName": "사혼진",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.soulbreaking_formation.profile",
     "skillType": "Active",
@@ -72,6 +73,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.soulbreaking_formation.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

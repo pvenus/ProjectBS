@@ -221,7 +221,8 @@ namespace Skill
     {
         BelowOwner = -1,
         SameAsOwner = 0,
-        AboveOwner = 1
+        AboveOwner = 1,
+        AbsoluteTop = 30000
     }
 
     public enum ProjectileMoveType

@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.flash_charm",
   "skillName": "섬광부",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.flash_charm.profile",
     "skillType": "Active",
@@ -72,6 +73,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.flash_charm.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

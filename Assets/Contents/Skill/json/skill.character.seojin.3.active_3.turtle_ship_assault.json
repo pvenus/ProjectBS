@@ -1,7 +1,8 @@
 {
   "equipmentId": "skill.character.seojin.3.active_3.turtle_ship_assault",
   "slotName": "active_3",
-  "skillName": "skill.character.seojin.3.active_3.turtle_ship_assault",
+  "skillName": "거북선 출진",
+  "desc": "고유한 전투 효과를 발동합니다.",
   "iconName": "basic_attack",
   "baseProfile": {
     "attackArchetype": "Melee",
@@ -82,7 +83,8 @@
     "skill": {
       "equipmentId": "skill.character.seojin.3.turtle_ship_cannon_zone",
       "slotName": "spawn_child",
-      "skillName": "skill.character.seojin.3.turtle_ship_cannon_zone",
+      "skillName": "거북선 화포",
+      "desc": "거북선이 화포를 발사해 범위 안의 적에게 피해를 줍니다.",
       "iconName": "basic_attack",
       "baseProfile": {
         "profileId": "skill.character.seojin.3.turtle_ship_cannon_zone.profile",

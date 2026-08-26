@@ -9,7 +9,7 @@ namespace ResourceTools.Skill
 {
     /// <summary>
     /// Skill String CSV 생성용.
-    /// 현재는 스킬 이름만 추출.
+    /// 스킬 이름과 설명을 로컬라이징 CSV로 추출한다.
     /// </summary>
     public static class SkillStringBuilder
     {
@@ -23,25 +23,39 @@ namespace ResourceTools.Skill
             public string en;
         }
 
-        public static void ExtractSkillName(
+        public static void ExtractSkillStrings(
             string skillId,
-            string skillNameKo)
+            string skillNameKo,
+            string skillDescriptionKo)
         {
             List<StringEntry> entries = new();
 
-            if (string.IsNullOrWhiteSpace(skillId) ||
-                string.IsNullOrWhiteSpace(skillNameKo))
+            if (string.IsNullOrWhiteSpace(skillId))
             {
                 return;
             }
 
-            entries.Add(
-                new StringEntry
-                {
-                    mainKey = skillId,
-                    subKey = "name",
-                    ko = skillNameKo
-                });
+            if (!string.IsNullOrWhiteSpace(skillNameKo))
+            {
+                entries.Add(
+                    new StringEntry
+                    {
+                        mainKey = skillId,
+                        subKey = "name",
+                        ko = skillNameKo
+                    });
+            }
+
+            if (!string.IsNullOrWhiteSpace(skillDescriptionKo))
+            {
+                entries.Add(
+                    new StringEntry
+                    {
+                        mainKey = skillId,
+                        subKey = "desc",
+                        ko = skillDescriptionKo
+                    });
+            }
 
             SaveEntries(entries);
         }

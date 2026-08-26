@@ -207,6 +207,12 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
+        if (runtimeData.sortingRelation == SkillSortingRelation.AbsoluteTop)
+        {
+            ApplyResolvedSortingOrder((int)SkillSortingRelation.AbsoluteTop);
+            return;
+        }
+
         GameObject sortingOwner = runtimeData.owner;
         if (sortingOwner == null || sortingOwner == gameObject)
         {
@@ -244,6 +250,11 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         int resolvedOrder = ownerOrder + (int)runtimeData.sortingRelation;
+        ApplyResolvedSortingOrder(resolvedOrder);
+    }
+
+    private void ApplyResolvedSortingOrder(int resolvedOrder)
+    {
         spriteRenderer.sortingOrder = resolvedOrder;
 
         for (int i = 0; i < rainRenderers.Count; i++)

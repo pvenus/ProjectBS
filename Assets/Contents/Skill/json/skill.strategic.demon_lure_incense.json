@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.demon_lure_incense",
   "skillName": "요귀향",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.demon_lure_incense.profile",
     "skillType": "Active",
@@ -68,6 +69,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.demon_lure_incense.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }

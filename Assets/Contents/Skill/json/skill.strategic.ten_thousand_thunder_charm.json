@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.ten_thousand_thunder_charm",
   "skillName": "만뢰부적",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.ten_thousand_thunder_charm.profile",
     "skillType": "Active",
@@ -71,6 +72,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.ten_thousand_thunder_charm.visual",
-    "projectileVisualType": "Rain"
+    "projectileVisualType": "Rain",
+    "sortingRelation": "AbsoluteTop"
   }
 }

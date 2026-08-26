@@ -1,6 +1,7 @@
 {
   "equipmentId": "skill.strategic.heavenfall_thunder",
   "skillName": "천뢰낙",
+  "desc": "전장에 고유한 전략 효과를 적용합니다.",
   "baseProfile": {
     "baseProfileId": "skill.strategic.heavenfall_thunder.profile",
     "skillType": "Active",
@@ -61,6 +62,7 @@
   ],
   "baseVisual": {
     "visualId": "skill.strategic.heavenfall_thunder.visual",
-    "projectileVisualType": "Default"
+    "projectileVisualType": "Default",
+    "sortingRelation": "AbsoluteTop"
   }
 }
