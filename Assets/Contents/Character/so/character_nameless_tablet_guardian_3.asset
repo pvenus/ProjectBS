@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.nameless_tablet_guardian.3
   characterType: 1
   job: 257
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 972bcd50c76734fce82c4dd9959c3f7c, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 566f8990a583a47bdb367953000b7d1a, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 972bcd50c76734fce82c4dd9959c3f7c, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 566f8990a583a47bdb367953000b7d1a, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 3121d79ef94bb42559768ad577f3e89a, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 6198555c396e349c1afab6c15de41a5d, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 3121d79ef94bb42559768ad577f3e89a, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 6198555c396e349c1afab6c15de41a5d, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: b63d3ed1101914aa9a50762b5f4f9faa, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: f3b27341fad1543cda6c69aa36075cf9, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: b63d3ed1101914aa9a50762b5f4f9faa, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: f3b27341fad1543cda6c69aa36075cf9, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 08bc4324bb8594eb38f2c60848a5f83c, type: 2}

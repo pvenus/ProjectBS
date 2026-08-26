@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.mountain_path_archer.1
   characterType: 1
   job: 33
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 270d1add15ff4406bbbeef6d824196cf, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 888e331b1e4ec436aaf5061c704d8cb9, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 270d1add15ff4406bbbeef6d824196cf, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 888e331b1e4ec436aaf5061c704d8cb9, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 19bf2863236a342c39bbfc62f0e0dfd7, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 0035b6d5cb34b43cdb52e3d61f6dfbc7, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 19bf2863236a342c39bbfc62f0e0dfd7, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 0035b6d5cb34b43cdb52e3d61f6dfbc7, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: d0dfc4d4e43654652a0953f543206979, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: d562fcdc606c141f591db563f712c270, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: d0dfc4d4e43654652a0953f543206979, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: d562fcdc606c141f591db563f712c270, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 16baa88f9f6a24ae9a2e69e1bcc763c5, type: 2}

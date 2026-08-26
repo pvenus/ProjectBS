@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.watchtower_marksman.1
   characterType: 1
   job: 33
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 8f8cf573024be4692a1a8fc64c2193c6, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 260f9e14709e3461b876b77f7d7a39aa, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 8f8cf573024be4692a1a8fc64c2193c6, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 260f9e14709e3461b876b77f7d7a39aa, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: b8c2442ddd2244e56bb332a4f605584d, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: b145b1d8fa1d74edb93b69344bd7987a, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: b8c2442ddd2244e56bb332a4f605584d, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: b145b1d8fa1d74edb93b69344bd7987a, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: f503ca261bf0f4b5ba98e8fb587148a5, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 0df705c3a7aab4aec8d7222edc7b7d3c, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: f503ca261bf0f4b5ba98e8fb587148a5, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 0df705c3a7aab4aec8d7222edc7b7d3c, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 4669fb2b58735401ca24a9f451886e23, type: 2}

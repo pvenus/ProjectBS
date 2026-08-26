@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.bone_axe_pursuer.1
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 493236d7661de4d2eacf3b6308e8ce8b, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 17a344122c1ac404e8d2ff3a6729daab, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 493236d7661de4d2eacf3b6308e8ce8b, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 17a344122c1ac404e8d2ff3a6729daab, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 685f0dbf4a4e048ab83498160eaf96d4, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: eff6cf95110e5453597b8ec37e460fa6, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 685f0dbf4a4e048ab83498160eaf96d4, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: eff6cf95110e5453597b8ec37e460fa6, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 171c1327dcc4e403995ad32af21b1e8d, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 08826952c56a6429d97bed04d174818f, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 171c1327dcc4e403995ad32af21b1e8d, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 08826952c56a6429d97bed04d174818f, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: b0738096fe864407a9845fb534201b6e, type: 2}

@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.starving_mountain_wolf.1
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: aaa13abe9f9b045ca829b14f0e293a71, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 1f927672e50ce4c29ba808740ab2328d, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: aaa13abe9f9b045ca829b14f0e293a71, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 1f927672e50ce4c29ba808740ab2328d, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 2c700d876b07a4d3ba58ef23e1b96c00, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: b0ca5207fb444468f94a2738a03bf727, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 2c700d876b07a4d3ba58ef23e1b96c00, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: b0ca5207fb444468f94a2738a03bf727, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: c39badfbae1604786902e4d237f28e8e, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: a00b8ec85c23c4499bf398012909698e, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c39badfbae1604786902e4d237f28e8e, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: a00b8ec85c23c4499bf398012909698e, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: a295c68f89dd94e5b8c309ca8e1396fa, type: 2}

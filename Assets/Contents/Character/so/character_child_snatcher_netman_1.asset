@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.child_snatcher_netman.1
   characterType: 1
   job: 65
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 5ec925587fc604037852d1115faa8548, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: e2e81528873d74f50aa138d8780f8107, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 5ec925587fc604037852d1115faa8548, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: e2e81528873d74f50aa138d8780f8107, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 02110035084e34162b9f3191a69dbcce, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: cb923a124bb514f4483fc92ae64cc43b, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 02110035084e34162b9f3191a69dbcce, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: cb923a124bb514f4483fc92ae64cc43b, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: d5be3688176f044048e712471f1e4b3c, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 2acf6e453f91043d48b083b5a8b06009, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: d5be3688176f044048e712471f1e4b3c, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 2acf6e453f91043d48b083b5a8b06009, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: bd7f6d66ce6924eaf8c58f6a8cd7caeb, type: 2}

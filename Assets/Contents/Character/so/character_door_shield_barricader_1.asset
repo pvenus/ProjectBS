@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.door_shield_barricader.1
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 78a714d90c90e4d38b3def71a9975d0e, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: ea65c203b2ea840aab373713c3a0fd19, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 78a714d90c90e4d38b3def71a9975d0e, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: ea65c203b2ea840aab373713c3a0fd19, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 87323039eabbf4c2d9f39e727f5489e3, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 092bbbcf0624c41a088636948238b286, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 87323039eabbf4c2d9f39e727f5489e3, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 092bbbcf0624c41a088636948238b286, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: c8548eee082274964bfe412a452de9b0, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 2f1c091adc0fa42808a562166c1275d1, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: c8548eee082274964bfe412a452de9b0, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 2f1c091adc0fa42808a562166c1275d1, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 456d078dc00e34d9d8195e92e35cbedd, type: 2}

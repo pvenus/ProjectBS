@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.abandoned_shrine_wraith.2
   characterType: 1
   job: 65
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: e5b73475f7e534a63bcff07305ac6cf8, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 23fb7f380877e4e38b7c3198fae04742, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: e5b73475f7e534a63bcff07305ac6cf8, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 23fb7f380877e4e38b7c3198fae04742, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 82a847087a04240e38016a9b205c9045, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 5b4416ca1c6514befb833eeddf001860, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 82a847087a04240e38016a9b205c9045, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 5b4416ca1c6514befb833eeddf001860, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: d83298568c24e4cff9b0c406a14eaad7, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 8d02fe79f457746428f6c5d7cd2771c0, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: d83298568c24e4cff9b0c406a14eaad7, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 8d02fe79f457746428f6c5d7cd2771c0, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: b658c1cacc4dd46c9940e82b2f538fb2, type: 2}

@@ -285,6 +285,23 @@ public class EquipmentStatResolver
             SkillStatModifierType.AttackPercentDamage,
             modifiers);
     }
+
+    public float ResolveHitDamageStat(
+        SkillHitSO hitSo,
+        SkillStatModifierType modifierType,
+        IEnumerable<SkillStatModifierData> modifiers)
+    {
+        float baseValue = modifierType switch
+        {
+            SkillStatModifierType.BaseDamage => GetBaseDamage(hitSo),
+            SkillStatModifierType.AttackPercentDamage => GetAttackPercentDamage(hitSo),
+            _ => 0f
+        };
+
+        return ClampResolvedStat(
+            modifierType,
+            ApplyStatModifiers(baseValue, modifierType, modifiers));
+    }
     public int ResolveMaxHitCount(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierData> modifiers)

@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.mud_hood_polehooker.1
   characterType: 1
   job: 65
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 4044641cb09ff422e831b6c63330c457, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 15b757da0af4a4cc89e737da3ab3a917, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 4044641cb09ff422e831b6c63330c457, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 15b757da0af4a4cc89e737da3ab3a917, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 7b9274bc1dd9e4231a67641354a2d912, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 6b43ad7406a9e45a8ac924847c5e1019, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 7b9274bc1dd9e4231a67641354a2d912, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 6b43ad7406a9e45a8ac924847c5e1019, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 1d4e5d67670b94c67bf42a2ba52e2234, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: e99671037ad8246eb8813460b2e72e82, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 1d4e5d67670b94c67bf42a2ba52e2234, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: e99671037ad8246eb8813460b2e72e82, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 48e1eab22d71442c69cf0076a0a4d295, type: 2}

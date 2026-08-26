@@ -353,7 +353,7 @@ public class ProjectileHitHandler : MonoBehaviour
             return false;
         }
 
-        if (!IsTargetLayer(other.gameObject.layer))
+        if (!IsTargetLayer(ResolveAuthoritativeTargetLayer(other)))
         {
             return false;
         }
@@ -369,6 +369,24 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         return true;
+    }
+
+    private static int ResolveAuthoritativeTargetLayer(Collider2D other)
+    {
+        if (other == null)
+        {
+            return -1;
+        }
+
+        // Character prefabs can contain visual/auxiliary child objects whose
+        // layer differs from the actual faction layer. Damage and effects must
+        // follow the CharacterManager root, never the collider child layer.
+        CharacterManager targetCharacter =
+            other.GetComponentInParent<CharacterManager>();
+
+        return targetCharacter != null
+            ? targetCharacter.gameObject.layer
+            : other.gameObject.layer;
     }
 
     private bool HasReachedMaxHitCount()
@@ -438,8 +456,7 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
 
-        bool hasDamage = runtimeData.hit != null
-            && runtimeData.hit.damageProfile != null;
+        bool hasDamage = HasMeaningfulDamageProfile(runtimeData.hit);
         bool hasBuffEffects = runtimeData.hit != null
             && runtimeData.hit.buffEffectEntries != null
             && runtimeData.hit.buffEffectEntries.Length > 0;
@@ -495,6 +512,18 @@ public class ProjectileHitHandler : MonoBehaviour
         {
             ownerEntity.CompleteCollisionAndDespawnAfterVisual();
         }
+    }
+
+    private static bool HasMeaningfulDamageProfile(SkillProjectileHitDto hit)
+    {
+        if (hit == null || hit.damageProfile == null)
+        {
+            return false;
+        }
+
+        return hit.damageProfile.baseDamage > Mathf.Epsilon
+            || hit.damageProfile.firstHitBaseDamage > Mathf.Epsilon
+            || hit.damageProfile.attackDamagePercent > Mathf.Epsilon;
     }
 
     private void OnDisable()

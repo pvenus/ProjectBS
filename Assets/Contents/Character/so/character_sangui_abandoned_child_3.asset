@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.sangui_abandoned_child.3
   characterType: 2
   job: 65
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 356249f0f73b04809a2c5194f371f1d6, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 9d9202954918c4e3891fb1b9d76230da, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 356249f0f73b04809a2c5194f371f1d6, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 9d9202954918c4e3891fb1b9d76230da, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: 03e026fc72d8541bbb1d402496c4e6e7, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 3a74efe2ac6214d5cbffaf2cc5a9785e, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: 03e026fc72d8541bbb1d402496c4e6e7, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 3a74efe2ac6214d5cbffaf2cc5a9785e, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 2067392ad77e946edaa23a05b4c0bfbd, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: d3ca00dd4fae04c8da72abb21dbf4d86, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 2067392ad77e946edaa23a05b4c0bfbd, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: d3ca00dd4fae04c8da72abb21dbf4d86, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 5a4fde09d39af48c1b9f85b8bc783078, type: 2}

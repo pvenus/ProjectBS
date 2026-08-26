@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92471079cd84e4a3a972f115d06a150f, type: 3}
+  m_Name: '[shop.pool.relic.common.ember_necklace] ShopProductSO'
+  m_EditorClassIdentifier: Assembly-CSharp::Shop.ShopProductSO
+  productId: shop.pool.relic.common.ember_necklace
+  productType: 100
+  rarity: 0
+  price: 100
+  weight: 100
+  uniqueProduct: 0
+  tags:
+  - relic
+  - common
+  rewardData:
+    rewardType: 100
+    reward: {fileID: 11400000, guid: 4ffe63f8269d845e88468f082bdf19f9, type: 2}

@@ -72,20 +72,23 @@ namespace Character.Skill
 
         private LayerMask[] ResolveTargetMask(CharacterActionContext context)
         {
-            if (context?.SelectedSkillRuntime?.sourceEquipment?.HitSos != null &&
-                context.SelectedSkillRuntime.sourceEquipment.HitSos.Length > 0)
+            return new[] { ResolvePrimaryTargetMask(context) };
+        }
+
+        private LayerMask ResolvePrimaryTargetMask(CharacterActionContext context)
+        {
+            SkillHitSO[] hitSos =
+                context?.SelectedSkillRuntime?.sourceEquipment?.HitSos;
+
+            if (hitSos != null && hitSos.Length > 0 && hitSos[0] != null)
             {
-                LayerMask[] targetMasks = new LayerMask[context.SelectedSkillRuntime.sourceEquipment.HitSos.Length];
-
-                for (int i = 0; i < context.SelectedSkillRuntime.sourceEquipment.HitSos.Length; i++)
-                {
-                    targetMasks[i] = context.SelectedSkillRuntime.sourceEquipment.HitSos[i].TargetLayerMask;
-                }
-
-                return targetMasks;
+                // A skill can contain secondary hit definitions for auxiliary
+                // effects such as healing allies. Those masks control effect
+                // application only; they must not become AI target candidates.
+                return hitSos[0].TargetLayerMask;
             }
 
-            return new[] { _targetMask };
+            return _targetMask;
         }
 
         private bool RequiresTarget(CharacterActionContext context)
@@ -120,7 +123,8 @@ namespace Character.Skill
                 return false;
             }
 
-            return true;
+            LayerMask primaryTargetMask = ResolvePrimaryTargetMask(context);
+            return (primaryTargetMask.value & (1 << target.gameObject.layer)) != 0;
         }
         private bool IsTargetInSelectedSkillRange(CharacterActionContext context)
         {

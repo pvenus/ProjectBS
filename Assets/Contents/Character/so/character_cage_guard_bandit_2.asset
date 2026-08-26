@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.cage_guard_bandit.2
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: ee281c9f1d3b8462bbf3ddf34d0b7fbe, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: b41315929164a45c784c798baf7596b8, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: ee281c9f1d3b8462bbf3ddf34d0b7fbe, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: b41315929164a45c784c798baf7596b8, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: e271051e93bed4335aad718af16f9cd0, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: d8940473ea31d4528861dc860d6f28a6, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: e271051e93bed4335aad718af16f9cd0, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: d8940473ea31d4528861dc860d6f28a6, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 0bd6ef0ec6bc84e2a9fb52be74094f0c, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: cf43ad662f15c4ee497f1a1b0a71823b, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 0bd6ef0ec6bc84e2a9fb52be74094f0c, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: cf43ad662f15c4ee497f1a1b0a71823b, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 57e272b98c6094f9ab904b283023462a, type: 2}

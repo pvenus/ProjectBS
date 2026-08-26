@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.ritual_bell_handler.2
   characterType: 1
   job: 65
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: fdfaf4f1ff5d24ea9a1d36954636819c, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: e53fdc03da3dc4756a48c795aadc65dd, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: fdfaf4f1ff5d24ea9a1d36954636819c, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: e53fdc03da3dc4756a48c795aadc65dd, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: e0bfc2cafd09c4ba6a9694796ea23568, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: dd09c6b1e7f68471f9e49e69965fcc83, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: e0bfc2cafd09c4ba6a9694796ea23568, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: dd09c6b1e7f68471f9e49e69965fcc83, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 279fd28abe3984bf4a31b809a283f7ca, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 291ede28c13c94063bddc10baa3ebe8e, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 279fd28abe3984bf4a31b809a283f7ca, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 291ede28c13c94063bddc10baa3ebe8e, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: babe560f3164c4325af3a99665fcfaa8, type: 2}

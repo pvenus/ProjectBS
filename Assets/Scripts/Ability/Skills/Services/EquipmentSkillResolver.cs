@@ -459,23 +459,30 @@ public class EquipmentSkillResolver
             return null;
         }
 
-        EquipmentSkillSO equipmentSo = runtime.sourceEquipment;
+        bool definesDamage = hitSo.BaseDamage > Mathf.Epsilon
+            || hitSo.FirstHitBaseDamage > Mathf.Epsilon
+            || hitSo.AttackPercentDamage > Mathf.Epsilon;
+
+        if (!definesDamage)
+        {
+            // Effect-only hits are represented by an empty embedded damage
+            // block in the SO. Keep them damage-free even when the skill has
+            // damage upgrade modifiers intended for another hit entry.
+            return null;
+        }
 
         SkillDamageProfileDto dto = new SkillDamageProfileDto
         {
             damageType = statResolver.GetDamageType(hitSo),
-            baseDamage = equipmentSo != null
-                ? statResolver.ResolveStat(
-                    equipmentSo,
-                    SkillStatModifierType.BaseDamage,
-                    resolvedStatModifiers)
-                : statResolver.GetBaseDamage(hitSo),
-            attackDamagePercent = equipmentSo != null
-                ? statResolver.ResolveStat(
-                    equipmentSo,
-                    SkillStatModifierType.AttackPercentDamage,
-                    resolvedStatModifiers)
-                : statResolver.GetAttackPercentDamage(hitSo),
+            baseDamage = statResolver.ResolveHitDamageStat(
+                hitSo,
+                SkillStatModifierType.BaseDamage,
+                resolvedStatModifiers),
+            attackDamagePercent = statResolver.ResolveHitDamageStat(
+                hitSo,
+                SkillStatModifierType.AttackPercentDamage,
+                resolvedStatModifiers),
+            firstHitBaseDamage = Mathf.Max(0f, hitSo.FirstHitBaseDamage),
             canCritical = statResolver.GetCanCritical(hitSo),
             ignoreDefense = statResolver.GetIgnoreDefense(hitSo)
         };

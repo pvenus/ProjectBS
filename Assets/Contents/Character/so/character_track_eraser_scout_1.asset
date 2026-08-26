@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.track_eraser_scout.1
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: cc6fd032ee22f4f9795e7c4db149f413, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: d1e6dc9c022ff46258458447880414b8, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: cc6fd032ee22f4f9795e7c4db149f413, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: d1e6dc9c022ff46258458447880414b8, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: a5a7b344f424e45d584b5ae37f65d556, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: 04fd53fd56b4a4896ace466a50a3ff81, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: a5a7b344f424e45d584b5ae37f65d556, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: 04fd53fd56b4a4896ace466a50a3ff81, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: 943c42b062bcd47d1ab13dc4416f7936, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 554e53686410b499ba7b597fb43d6bf5, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: 943c42b062bcd47d1ab13dc4416f7936, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 554e53686410b499ba7b597fb43d6bf5, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: 1dbaf039774354b92bf63c46fe3bfea6, type: 2}

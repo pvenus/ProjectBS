@@ -15,8 +15,33 @@ MonoBehaviour:
   characterId: character.mountain_fort_spearman.1
   characterType: 1
   job: 17
+  portrait: {fileID: 0}
   scale: 0.2
-  animationClips: []
+  animationClips:
+  - clipType: 0
+    clip: {fileID: 7400000, guid: 28e9e9758dd204602b500fd7bd6e55e3, type: 2}
+  - clipType: 1
+    clip: {fileID: 7400000, guid: 3eb90946665734bd08414139ff1489c5, type: 2}
+  - clipType: 2
+    clip: {fileID: 7400000, guid: 28e9e9758dd204602b500fd7bd6e55e3, type: 2}
+  - clipType: 3
+    clip: {fileID: 7400000, guid: 3eb90946665734bd08414139ff1489c5, type: 2}
+  - clipType: 4
+    clip: {fileID: 7400000, guid: faf988eeffc7745fbbef3c99f310dac9, type: 2}
+  - clipType: 5
+    clip: {fileID: 7400000, guid: c77b4b3458e4248a980d67d96b722d08, type: 2}
+  - clipType: 6
+    clip: {fileID: 7400000, guid: faf988eeffc7745fbbef3c99f310dac9, type: 2}
+  - clipType: 7
+    clip: {fileID: 7400000, guid: c77b4b3458e4248a980d67d96b722d08, type: 2}
+  - clipType: 8
+    clip: {fileID: 7400000, guid: f8194d3a483734fb7bc270b122368c37, type: 2}
+  - clipType: 9
+    clip: {fileID: 7400000, guid: 2e29749de17b5461db384b5690d4693f, type: 2}
+  - clipType: 10
+    clip: {fileID: 7400000, guid: f8194d3a483734fb7bc270b122368c37, type: 2}
+  - clipType: 11
+    clip: {fileID: 7400000, guid: 2e29749de17b5461db384b5690d4693f, type: 2}
   skills:
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: be62211b73e6740148aa125e8ca43fae, type: 2}

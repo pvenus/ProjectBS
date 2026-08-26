@@ -1,0 +1,51 @@
+{
+  "catalogId": "shop.catalog.common",
+  "pools": [
+    {
+      "poolId": "shop.pool.relic.common",
+      "outputFolder": "relic",
+      "allowDuplicate": false,
+      "includeDisabledEntries": false,
+      "products": [
+        {"productId":"shop.pool.relic.common.black_incense_candle","productType":"Relic","rewardId":"item.relic.black_incense_candle","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.blunt_gear","productType":"Relic","rewardId":"item.relic.blunt_gear","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.electric_crystal","productType":"Relic","rewardId":"item.relic.electric_crystal","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.ember_necklace","productType":"Relic","rewardId":"item.relic.ember_necklace","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.frozen_nail","productType":"Relic","rewardId":"item.relic.frozen_nail","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.golden_fang","productType":"Relic","rewardId":"item.relic.golden_fang","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.old_war_horn","productType":"Relic","rewardId":"item.relic.old_war_horn","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.red_feather","productType":"Relic","rewardId":"item.relic.red_feather","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.spiked_carapace","productType":"Relic","rewardId":"item.relic.spiked_carapace","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]},
+        {"productId":"shop.pool.relic.common.toxic_pouch","productType":"Relic","rewardId":"item.relic.toxic_pouch","price":100,"weight":100,"uniqueProduct":false,"tags":["relic","common"]}
+      ]
+    },
+    {
+      "poolId": "shop.pool.strategic.common",
+      "outputFolder": "strategic",
+      "allowDuplicate": false,
+      "includeDisabledEntries": false,
+      "products": [
+        {"productId":"shop.pool.strategic.common.blackwind_bomb","productType":"StrategicSkillItem","rewardId":"item.strategic.blackwind_bomb","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.blood_meridian_release","productType":"StrategicSkillItem","rewardId":"item.strategic.blood_meridian_release","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.crushing_war_cry","productType":"StrategicSkillItem","rewardId":"item.strategic.crushing_war_cry","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.demon_lure_incense","productType":"StrategicSkillItem","rewardId":"item.strategic.demon_lure_incense","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.emergency_pill","productType":"StrategicSkillItem","rewardId":"item.strategic.emergency_pill","price":150,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.flash_charm","productType":"StrategicSkillItem","rewardId":"item.strategic.flash_charm","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.frost_spirit_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.frost_spirit_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.gale_step","productType":"StrategicSkillItem","rewardId":"item.strategic.gale_step","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.ghost_soul_charm","productType":"StrategicSkillItem","rewardId":"item.strategic.ghost_soul_charm","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.golden_chain_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.golden_chain_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.heavenfall_thunder","productType":"StrategicSkillItem","rewardId":"item.strategic.heavenfall_thunder","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.ironbody_call","productType":"StrategicSkillItem","rewardId":"item.strategic.ironbody_call","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.night_parade_of_a_thousand_ghosts","productType":"StrategicSkillItem","rewardId":"item.strategic.night_parade_of_a_thousand_ghosts","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.nine_heavens_thunderfall_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.nine_heavens_thunderfall_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.soul_snare_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.soul_snare_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.soulbreaking_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.soulbreaking_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.taeul_healing_formation","productType":"StrategicSkillItem","rewardId":"item.strategic.taeul_healing_formation","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.ten_thousand_thunder_charm","productType":"StrategicSkillItem","rewardId":"item.strategic.ten_thousand_thunder_charm","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.thundercrash_orb","productType":"StrategicSkillItem","rewardId":"item.strategic.thundercrash_orb","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]},
+        {"productId":"shop.pool.strategic.common.wind_demon_pull","productType":"StrategicSkillItem","rewardId":"item.strategic.wind_demon_pull","price":100,"weight":100,"uniqueProduct":false,"tags":["strategic","common"]}
+      ]
+    }
+  ]
+}
