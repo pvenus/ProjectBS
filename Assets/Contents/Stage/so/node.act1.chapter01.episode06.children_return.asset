@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode06.children_return
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode06.children_return
-  mainImage: {fileID: -5789567098418201261, guid: 955cb725a5a234bfa86f7c4101af2a7c, type: 3}
+  mainImage: {fileID: 21300000, guid: 955cb725a5a234bfa86f7c4101af2a7c, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode06.children_return.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932056
+      rid: 5601486783294734708
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932056
+    - rid: 5601486783294734708
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932057
-    - rid: 5601486782127932057
+          rid: 5601486783294734709
+    - rid: 5601486783294734709
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 0a04f52fbf9294464b77a34d0133877a, type: 2}

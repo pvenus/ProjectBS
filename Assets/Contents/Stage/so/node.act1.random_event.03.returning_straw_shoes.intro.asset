@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.random_event.03.returning_straw_shoes.intro
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.random_event.03.returning_straw_shoes.intro
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: 7ee7a5f595b884c40a5ac6d344617184, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.random_event.03.returning_straw_shoes.investigate_1
@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932076
+      rid: 5601486783294734724
   - choiceId: choice.act1.random_event.03.returning_straw_shoes.seal_or_destroy_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932077
+      rid: 5601486783294734725
   - choiceId: choice.act1.random_event.03.returning_straw_shoes.choice_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932078
+      rid: 5601486783294734726
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932076
+    - rid: 5601486783294734724
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932079
-    - rid: 5601486782127932077
+          rid: 5601486783294734727
+    - rid: 5601486783294734725
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932080
-    - rid: 5601486782127932078
+          rid: 5601486783294734728
+    - rid: 5601486783294734726
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932081
-    - rid: 5601486782127932079
+          rid: 5601486783294734729
+    - rid: 5601486783294734727
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932080
+    - rid: 5601486783294734728
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932081
+    - rid: 5601486783294734729
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

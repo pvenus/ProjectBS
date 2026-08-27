@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode04_2.cage_to_west_path
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode04_2.cage_to_west_path
-  mainImage: {fileID: -9163342157159037696, guid: 6af4ea9fa07754b9da6a6f95e13f64b4, type: 3}
+  mainImage: {fileID: 21300000, guid: 6af4ea9fa07754b9da6a6f95e13f64b4, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode04_2.cage_to_west_path.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932182
+      rid: 5601486783294734688
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932182
+    - rid: 5601486783294734688
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932183
-    - rid: 5601486782127932183
+          rid: 5601486783294734689
+    - rid: 5601486783294734689
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 39d2f3fba3ec84e8fa5a796787e3b487, type: 2}

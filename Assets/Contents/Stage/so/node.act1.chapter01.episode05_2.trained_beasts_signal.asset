@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode05_2.trained_beasts_signal
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode05_2.trained_beasts_signal
-  mainImage: {fileID: 1236979308934456219, guid: 751c1616bae314e7ebfa38ec4f3c4c5b, type: 3}
+  mainImage: {fileID: 21300000, guid: 751c1616bae314e7ebfa38ec4f3c4c5b, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode05_2.trained_beasts_signal.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932118
+      rid: 5601486783294734702
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932118
+    - rid: 5601486783294734702
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932119
-    - rid: 5601486782127932119
+          rid: 5601486783294734703
+    - rid: 5601486783294734703
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 1b74e3c2144024846997b8af0d5576f3, type: 2}

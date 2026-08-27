@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode03_2.oil_wheel_trace
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode03_2.oil_wheel_trace
-  mainImage: {fileID: 5637562177187687629, guid: c7d463d55963b40e8a14c54b1b813553, type: 3}
+  mainImage: {fileID: 21300000, guid: c7d463d55963b40e8a14c54b1b813553, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode03_2.oil_wheel_trace.track_erased_traces
@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932242
+      rid: 5601486783294734680
   - choiceId: choice.act1.chapter01.episode03_2.oil_wheel_trace.accept_yujin_join
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932243
+      rid: 5601486783294734681
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932242
+    - rid: 5601486783294734680
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932244
-    - rid: 5601486782127932243
+          rid: 5601486783294734682
+    - rid: 5601486783294734681
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932245
-    - rid: 5601486782127932244
+          rid: 5601486783294734683
+    - rid: 5601486783294734682
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}
-    - rid: 5601486782127932245
+    - rid: 5601486783294734683
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}

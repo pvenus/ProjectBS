@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.random_event.11.dry_waterwheel.intro
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.random_event.11.dry_waterwheel.intro
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: 54a55590c30074d7eadcefa938cd6e5b, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.random_event.11.dry_waterwheel.investigate_1
@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932296
+      rid: 5601486783294734778
   - choiceId: choice.act1.random_event.11.dry_waterwheel.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932297
+      rid: 5601486783294734779
   - choiceId: choice.act1.random_event.11.dry_waterwheel.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932298
+      rid: 5601486783294734780
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932296
+    - rid: 5601486783294734778
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486782127932299
-    - rid: 5601486782127932297
+          rid: 5601486783294734781
+    - rid: 5601486783294734779
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932300
-    - rid: 5601486782127932298
+          rid: 5601486783294734782
+    - rid: 5601486783294734780
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932301
-    - rid: 5601486782127932299
+          rid: 5601486783294734783
+    - rid: 5601486783294734781
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 279f542de6eeb474b8ea1b048ffb1601, type: 2}
-    - rid: 5601486782127932300
+    - rid: 5601486783294734782
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932301
+    - rid: 5601486783294734783
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

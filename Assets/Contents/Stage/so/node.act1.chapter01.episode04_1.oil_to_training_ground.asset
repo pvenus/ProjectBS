@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode04_1.oil_to_training_ground
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode04_1.oil_to_training_ground
-  mainImage: {fileID: -1150385934395497054, guid: 431ba8f88f0b34533b60bfa518a22000, type: 3}
+  mainImage: {fileID: 21300000, guid: 431ba8f88f0b34533b60bfa518a22000, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode04_1.oil_to_training_ground.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932196
+      rid: 5601486783294734686
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932196
+    - rid: 5601486783294734686
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932197
-    - rid: 5601486782127932197
+          rid: 5601486783294734687
+    - rid: 5601486783294734687
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: a10ad809f3ea440ec8e3afee12fe2e48, type: 2}

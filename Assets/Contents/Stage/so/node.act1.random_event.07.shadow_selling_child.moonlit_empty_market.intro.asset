@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932278
+      rid: 5601486783294734754
   - choiceId: choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.direct_intervention_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932279
+      rid: 5601486783294734755
   - choiceId: choice.act1.random_event.07.shadow_selling_child.moonlit_empty_market.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932280
+      rid: 5601486783294734756
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932278
+    - rid: 5601486783294734754
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486782127932281
-    - rid: 5601486782127932279
+          rid: 5601486783294734757
+    - rid: 5601486783294734755
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932282
-    - rid: 5601486782127932280
+          rid: 5601486783294734758
+    - rid: 5601486783294734756
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932283
-    - rid: 5601486782127932281
+          rid: 5601486783294734759
+    - rid: 5601486783294734757
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 68b5053d0bfde4139bc0af6effc5d205, type: 2}
-    - rid: 5601486782127932282
+    - rid: 5601486783294734758
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932283
+    - rid: 5601486783294734759
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

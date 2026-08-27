@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode01.black_cloth_raid
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode01.black_cloth_raid
-  mainImage: {fileID: -3348295605585070447, guid: 7a966246979d945a291c9647a945bdd5, type: 3}
+  mainImage: {fileID: 21300000, guid: 7a966246979d945a291c9647a945bdd5, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode01.black_cloth_raid.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932104
+      rid: 5601486783294734656
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932104
+    - rid: 5601486783294734656
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932105
-    - rid: 5601486782127932105
+          rid: 5601486783294734657
+    - rid: 5601486783294734657
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 901824b26ecaf4393bc4e44af0a86d7e, type: 2}

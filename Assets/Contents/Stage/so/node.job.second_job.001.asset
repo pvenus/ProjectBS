@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.job.second_job.001
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.job.second_job.001
-  mainImage: {fileID: -5034695918925393836, guid: a4fc36fb457564f8d9057da20cb9b954, type: 3}
+  mainImage: {fileID: 21300000, guid: a4fc36fb457564f8d9057da20cb9b954, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.job.second.soldier_first
@@ -33,7 +33,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: ec5c164543fb24349948ab2cace07439, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932362
+      rid: 5601486783294734862
   - choiceId: choice.job.second.soldier_second
     requirements: []
     visibleConditions:
@@ -51,7 +51,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: ac694e77d97874e558b6c34cea45aec6, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932363
+      rid: 5601486783294734863
   - choiceId: choice.job.second.archer_first
     requirements: []
     visibleConditions:
@@ -69,7 +69,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: b2270ac6e89f54db6a9d8b087d3c7e09, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932364
+      rid: 5601486783294734864
   - choiceId: choice.job.second.archer_second
     requirements: []
     visibleConditions:
@@ -87,7 +87,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: ca3cdd5c6123f4d66b1992a652b5f8a8, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932365
+      rid: 5601486783294734865
   - choiceId: choice.job.second.monk_first
     requirements: []
     visibleConditions:
@@ -105,7 +105,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: 4c11e233fe4f64054b5a51cb6fe927ce, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932366
+      rid: 5601486783294734866
   - choiceId: choice.job.second.monk_second
     requirements: []
     visibleConditions:
@@ -123,76 +123,76 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: 48e47bce3535e45d0b49ff783c0ec802, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486782127932367
+      rid: 5601486783294734867
   - choiceId: choice.job.second.skip
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932368
+      rid: 5601486783294734868
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932362
+    - rid: 5601486783294734862
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932369
-    - rid: 5601486782127932363
+          rid: 5601486783294734869
+    - rid: 5601486783294734863
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932370
-    - rid: 5601486782127932364
+          rid: 5601486783294734870
+    - rid: 5601486783294734864
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932371
-    - rid: 5601486782127932365
+          rid: 5601486783294734871
+    - rid: 5601486783294734865
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932372
-    - rid: 5601486782127932366
+          rid: 5601486783294734872
+    - rid: 5601486783294734866
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932373
-    - rid: 5601486782127932367
+          rid: 5601486783294734873
+    - rid: 5601486783294734867
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932374
-    - rid: 5601486782127932368
+          rid: 5601486783294734874
+    - rid: 5601486783294734868
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932375
-    - rid: 5601486782127932369
+          rid: 5601486783294734875
+    - rid: 5601486783294734869
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932370
+    - rid: 5601486783294734870
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932371
+    - rid: 5601486783294734871
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932372
+    - rid: 5601486783294734872
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932373
+    - rid: 5601486783294734873
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932374
+    - rid: 5601486783294734874
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932375
+    - rid: 5601486783294734875
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

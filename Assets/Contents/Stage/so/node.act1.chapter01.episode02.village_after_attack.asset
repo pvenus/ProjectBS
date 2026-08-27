@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode02.village_after_attack
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode02.village_after_attack
-  mainImage: {fileID: -710368208085566415, guid: ea597b90f5ffe40abb019f5d0db33447, type: 3}
+  mainImage: {fileID: 21300000, guid: ea597b90f5ffe40abb019f5d0db33447, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode02.village_after_attack.check_remaining_traces
@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932178
+      rid: 5601486783294734660
   - choiceId: choice.act1.chapter01.episode02.village_after_attack.ask_child_family
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932179
+      rid: 5601486783294734661
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932178
+    - rid: 5601486783294734660
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932180
-    - rid: 5601486782127932179
+          rid: 5601486783294734662
+    - rid: 5601486783294734661
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932181
-    - rid: 5601486782127932180
+          rid: 5601486783294734663
+    - rid: 5601486783294734662
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}
-    - rid: 5601486782127932181
+    - rid: 5601486783294734663
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}

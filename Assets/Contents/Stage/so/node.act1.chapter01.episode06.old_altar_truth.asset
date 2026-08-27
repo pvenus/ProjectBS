@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode06.old_altar_truth
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode06.old_altar_truth
-  mainImage: {fileID: -4791970041189609925, guid: af0390d9e051245dda908b5a4b9945e6, type: 3}
+  mainImage: {fileID: 21300000, guid: af0390d9e051245dda908b5a4b9945e6, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode06.old_altar_truth.next
@@ -21,16 +21,16 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932246
+      rid: 5601486783294734710
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932246
+    - rid: 5601486783294734710
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932247
-    - rid: 5601486782127932247
+          rid: 5601486783294734711
+    - rid: 5601486783294734711
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

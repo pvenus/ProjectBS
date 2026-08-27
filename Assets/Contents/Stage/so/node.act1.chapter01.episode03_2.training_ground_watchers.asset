@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode03_2.training_ground_watchers
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode03_2.training_ground_watchers
-  mainImage: {fileID: -6274778380024687240, guid: 40637b95ad8b8495a80deea0f9ea3acd, type: 3}
+  mainImage: {fileID: 21300000, guid: 40637b95ad8b8495a80deea0f9ea3acd, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode03_2.training_ground_watchers.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932184
+      rid: 5601486783294734678
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932184
+    - rid: 5601486783294734678
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932185
-    - rid: 5601486782127932185
+          rid: 5601486783294734679
+    - rid: 5601486783294734679
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 661f2545d403647b0b2369e01d5d3388, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.random_event.13.empty_bride_palanquin.intro
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.random_event.13.empty_bride_palanquin.intro
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: f59f610ec155a41998cace80e428c7f4, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.random_event.13.empty_bride_palanquin.direct_intervention_1
@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932302
+      rid: 5601486783294734790
   - choiceId: choice.act1.random_event.13.empty_bride_palanquin.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932303
+      rid: 5601486783294734791
   - choiceId: choice.act1.random_event.13.empty_bride_palanquin.choice_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932304
+      rid: 5601486783294734792
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932302
+    - rid: 5601486783294734790
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486782127932305
-    - rid: 5601486782127932303
+          rid: 5601486783294734793
+    - rid: 5601486783294734791
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932306
-    - rid: 5601486782127932304
+          rid: 5601486783294734794
+    - rid: 5601486783294734792
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932307
-    - rid: 5601486782127932305
+          rid: 5601486783294734795
+    - rid: 5601486783294734793
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: f3ba6e9dae43540608bd8f2101d18e87, type: 2}
-    - rid: 5601486782127932306
+    - rid: 5601486783294734794
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932307
+    - rid: 5601486783294734795
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

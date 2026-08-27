@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.random_event.15.ash_eating_jar.intro
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.random_event.15.ash_eating_jar.intro
-  mainImage: {fileID: 0}
+  mainImage: {fileID: 21300000, guid: 077a1f77354274afab5f426fad8ee104, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.random_event.15.ash_eating_jar.direct_intervention_1
@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932314
+      rid: 5601486783294734802
   - choiceId: choice.act1.random_event.15.ash_eating_jar.help_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932315
+      rid: 5601486783294734803
   - choiceId: choice.act1.random_event.15.ash_eating_jar.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932316
+      rid: 5601486783294734804
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932314
+    - rid: 5601486783294734802
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932317
-    - rid: 5601486782127932315
+          rid: 5601486783294734805
+    - rid: 5601486783294734803
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932318
-    - rid: 5601486782127932316
+          rid: 5601486783294734806
+    - rid: 5601486783294734804
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932319
-    - rid: 5601486782127932317
+          rid: 5601486783294734807
+    - rid: 5601486783294734805
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: d554c143ea3fe4338bf381c194c2ae39, type: 2}
-    - rid: 5601486782127932318
+    - rid: 5601486783294734806
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932319
+    - rid: 5601486783294734807
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

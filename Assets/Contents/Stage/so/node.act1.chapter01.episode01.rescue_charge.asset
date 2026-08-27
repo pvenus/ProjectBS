@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode01.rescue_charge
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode01.rescue_charge
-  mainImage: {fileID: -1903782926944550102, guid: d23f487b0faae48c1a010bbde07d6495, type: 3}
+  mainImage: {fileID: 21300000, guid: d23f487b0faae48c1a010bbde07d6495, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode01.rescue_charge.rescue_villagers
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932198
+      rid: 5601486783294734654
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932198
+    - rid: 5601486783294734654
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486782127932199
-    - rid: 5601486782127932199
+          rid: 5601486783294734655
+    - rid: 5601486783294734655
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 0ef4be96071d44526af768b79f77cc33, type: 2}

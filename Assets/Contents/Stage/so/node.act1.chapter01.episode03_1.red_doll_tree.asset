@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode03_1.red_doll_tree
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode03_1.red_doll_tree
-  mainImage: {fileID: -737249170838963345, guid: 54a3370dbce9c4c968b73bfe14766896, type: 3}
+  mainImage: {fileID: 21300000, guid: 54a3370dbce9c4c968b73bfe14766896, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode03_1.red_doll_tree.follow_red_doll_trace
@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932100
+      rid: 5601486783294734672
   - choiceId: choice.act1.chapter01.episode03_1.red_doll_tree.accept_jihan_join
     requirements: []
     visibleConditions: []
@@ -41,27 +41,27 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932101
+      rid: 5601486783294734673
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932100
+    - rid: 5601486783294734672
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932102
-    - rid: 5601486782127932101
+          rid: 5601486783294734674
+    - rid: 5601486783294734673
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932103
-    - rid: 5601486782127932102
+          rid: 5601486783294734675
+    - rid: 5601486783294734674
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 9c46eac12296d4a17a5011c054daea43, type: 2}
-    - rid: 5601486782127932103
+    - rid: 5601486783294734675
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 9c46eac12296d4a17a5011c054daea43, type: 2}

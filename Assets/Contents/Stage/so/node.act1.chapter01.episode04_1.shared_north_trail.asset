@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode04_1.shared_north_trail
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode04_1.shared_north_trail
-  mainImage: {fileID: -7694493950769176042, guid: cb52c332e82694ba3a4ec26ba60eca1c, type: 3}
+  mainImage: {fileID: 21300000, guid: cb52c332e82694ba3a4ec26ba60eca1c, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode04_1.shared_north_trail.follow_bloody_trace_with_jihan
@@ -28,16 +28,16 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932058
+      rid: 5601486783294734684
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932058
+    - rid: 5601486783294734684
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932059
-    - rid: 5601486782127932059
+          rid: 5601486783294734685
+    - rid: 5601486783294734685
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

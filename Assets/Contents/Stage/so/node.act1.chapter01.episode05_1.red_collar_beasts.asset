@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode05_1.red_collar_beasts
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode05_1.red_collar_beasts
-  mainImage: {fileID: -7076264732187145956, guid: bcb274bc23e954c5397eca65928192a1, type: 3}
+  mainImage: {fileID: 21300000, guid: bcb274bc23e954c5397eca65928192a1, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode05_1.red_collar_beasts.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932218
+      rid: 5601486783294734696
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932218
+    - rid: 5601486783294734696
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932219
-    - rid: 5601486782127932219
+          rid: 5601486783294734697
+    - rid: 5601486783294734697
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4c37ab28cdea24e85bc7fd8c0ec77c0e, type: 2}

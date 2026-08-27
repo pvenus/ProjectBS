@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932350
+      rid: 5601486783294734838
   - choiceId: choice.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.choice_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932351
+      rid: 5601486783294734839
   - choiceId: choice.act1.random_event.19.faceless_woodcarver.returned_faces_at_zelkova.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932352
+      rid: 5601486783294734840
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932350
+    - rid: 5601486783294734838
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932353
-    - rid: 5601486782127932351
+          rid: 5601486783294734841
+    - rid: 5601486783294734839
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932354
-    - rid: 5601486782127932352
+          rid: 5601486783294734842
+    - rid: 5601486783294734840
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932355
-    - rid: 5601486782127932353
+          rid: 5601486783294734843
+    - rid: 5601486783294734841
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932354
+    - rid: 5601486783294734842
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932355
+    - rid: 5601486783294734843
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

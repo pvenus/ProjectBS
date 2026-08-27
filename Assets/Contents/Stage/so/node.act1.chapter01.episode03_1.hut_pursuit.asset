@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode03_1.hut_pursuit
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode03_1.hut_pursuit
-  mainImage: {fileID: 7947571950379059669, guid: 38650b53a0a414a2da2370fce471c842, type: 3}
+  mainImage: {fileID: 21300000, guid: 38650b53a0a414a2da2370fce471c842, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode03_1.hut_pursuit.next
@@ -21,17 +21,17 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932054
+      rid: 5601486783294734670
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932054
+    - rid: 5601486783294734670
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932055
-    - rid: 5601486782127932055
+          rid: 5601486783294734671
+    - rid: 5601486783294734671
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 7d9f357d24c0d42b2b942a1c05bbe8f2, type: 2}

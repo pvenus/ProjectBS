@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: node.act1.chapter01.episode05_1.bloodied_herbs
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode05_1.bloodied_herbs
-  mainImage: {fileID: 3600437536697328544, guid: ea4c72d30b7a4445daf3e30694182262, type: 3}
+  mainImage: {fileID: 21300000, guid: ea4c72d30b7a4445daf3e30694182262, type: 3}
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode05_1.bloodied_herbs.accept_yujin_join
@@ -28,17 +28,17 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486782127932138
+      rid: 5601486783294734692
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932138
+    - rid: 5601486783294734692
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486782127932139
-    - rid: 5601486782127932139
+          rid: 5601486783294734693
+    - rid: 5601486783294734693
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 1c60b110bc4bb4573b11203e40be1637, type: 2}

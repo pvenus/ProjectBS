@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932320
+      rid: 5601486783294734808
   - choiceId: choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932321
+      rid: 5601486783294734809
   - choiceId: choice.act1.random_event.15.ash_eating_jar.dark_moon_grain_cart.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486782127932322
+      rid: 5601486783294734810
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127932320
+    - rid: 5601486783294734808
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486782127932323
-    - rid: 5601486782127932321
+          rid: 5601486783294734811
+    - rid: 5601486783294734809
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932324
-    - rid: 5601486782127932322
+          rid: 5601486783294734812
+    - rid: 5601486783294734810
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486782127932325
-    - rid: 5601486782127932323
+          rid: 5601486783294734813
+    - rid: 5601486783294734811
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 1dd9691c14f8f4c8f88e08049ac5248d, type: 2}
-    - rid: 5601486782127932324
+    - rid: 5601486783294734812
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486782127932325
+    - rid: 5601486783294734813
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
