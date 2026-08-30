@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+  "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+  "titleKo": "상처 입은 산군의 영역",
+  "summary": "밀렵꾼과 싸워 상처 입은 산군을 풀어 주고 독 도구를 거두거나, 싸움을 피하려 산군을 영역 밖으로 몰아낸 기록을 남긴다.",
+  "startNodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "부러진 사냥창 곁에 상처 입은 산군이 낮게 숨을 몰아쉬고 있었다.\n숲 안쪽에서는 검은 천을 두른 사내들이 독주머니와 올가미를 챙겨 다시 다가왔다.\n밀렵꾼을 막아 산군이 제 길로 돌아가게 할지, 싸움을 피하려 산군부터 영역 밖으로 몰아낼지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.defeat_poachers",
+          "textKo": "밀렵꾼을 막아 산군의 길을 연다",
+          "resultKo": "마지막 밀렵꾼이 물러나자 산군은 한동안 일행을 바라보다 숲 깊은 곳으로 사라졌다. 부러진 사냥창 곁에는 그들이 쓰던 독주머니 하나만 남았다.",
+          "resultStatusKo": "전투 · 승리하면 유물 ‘독주머니’ 1개 획득",
+          "disabledStatusKo": "이미 ‘독주머니’를 지니고 있어 같은 밀렵 도구를 더 거둘 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+              "nodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+              "sourcePopupId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+              "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.defeat_poachers",
+              "resultId": "result.act1.random_event.31.wounded_mountain_tiger_domain.poachers_defeated_toxic_pouch_claimed",
+              "reservationId": "reservation.act1.chapter01.random_event.31.wounded_mountain_tiger_domain",
+              "operations": [
+                { "kind": "BeginBattle", "battleId": "battle.act1.event09.protect_herbalist_map" },
+                { "kind": "InventoryGrant", "relicId": "item.relic.toxic_pouch", "count": 1, "unique": true }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.drive_tiger_away",
+          "textKo": "불과 소리로 산군을 영역 밖으로 몰아낸다",
+          "resultKo": "횃불 연기와 쇳소리가 이어지자 산군은 상처 난 다리를 끌며 능선 너머로 물러났다. 길은 조용해졌지만, 숲에는 밀렵꾼의 올가미와 비어 버린 영역만 남았다.",
+          "resultStatusKo": "전투·유물 없음 · 산군을 내쫓은 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+              "nodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+              "sourcePopupId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+              "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.drive_tiger_away",
+              "resultId": "result.act1.random_event.31.wounded_mountain_tiger_domain.tiger_driven_from_domain",
+              "reservationId": "reservation.act1.chapter01.random_event.31.wounded_mountain_tiger_domain",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event31.wounded_tiger_driven_from_domain" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

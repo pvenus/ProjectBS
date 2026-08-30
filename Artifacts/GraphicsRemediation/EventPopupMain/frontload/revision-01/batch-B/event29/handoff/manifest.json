@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.29.chain_bridge_tollkeepers",
+  "nodeId":"node.act1.random_event.29.chain_bridge_tollkeepers.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.29.chain_bridge_tollkeepers.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event29-design-lock.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event29/candidates/event29-candidate-A.png","sha256":"fe8f19c03801f29a43f68e0a645205d8b2a2daaf740b7e51da3e1820b5819640","disposition":"REJECTED_PROVENANCE","reason":"strong setting but ledger is too dark and low-contrast at thumbnail"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event29/candidates/event29-candidate-B.png","sha256":"e3b59542c4e178db1ea45e7b4bb14668497aeac7b253bba42064617f72b87764","disposition":"SELECTED","reason":"chain bridge, bright vertical drop, barrier, tied unmarked ledger and exactly two distant tollkeepers read cleanly"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event29/selected/event29-selected-B-960x1280.png","sha256":"73f46ccf1a65234a574cefe6e30273fe33aa868f04a5127ef949ff8775bc09d1","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event29/handoff/event29-selected-B-max512-A.png","sha256":"8be8eb53f16e161cb702993433e8c28cad70e4f545ef41c12e47a466069f8b6a","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event29-selected-B-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

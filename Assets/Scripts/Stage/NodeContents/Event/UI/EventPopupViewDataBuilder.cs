@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Character;
 using Stage;
 using UIFramework.Data;
@@ -85,7 +86,13 @@ public static class EventPopupViewDataBuilder
     private static bool HasCharacter(string characterId)
     {
         if (string.IsNullOrWhiteSpace(characterId)) return false;
-        return false;
+        var members = Session.GameSession.Instance?.BattleSession?.PartyRuntimeData?.Members;
+        return members != null && members.Any(member =>
+        {
+            string id = member?.characterSO?.CharacterId;
+            return string.Equals(id, characterId, StringComparison.Ordinal)
+                || id?.StartsWith(characterId + ".", StringComparison.Ordinal) == true;
+        });
     }
 
     private static bool HasCharacterJob(string jobText)

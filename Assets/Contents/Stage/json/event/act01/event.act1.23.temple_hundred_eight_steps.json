@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.23.temple_hundred_eight_steps",
+  "eventId": "event.act1.random_event.23.temple_hundred_eight_steps",
+  "titleKo": "백팔 계단의 돌",
+  "summary": "닳은 돌계단 아래 둥근 돌이 놓여 있다. 정상까지 옮겨 한계를 시험하거나 중턱에서 쉬어 갈 수 있다.",
+  "startNodeId": "node.act1.random_event.23.temple_hundred_eight_steps.intro",
+  "nodes": [{
+    "nodeId": "node.act1.random_event.23.temple_hundred_eight_steps.intro",
+    "nodeType": "PopupEvent",
+    "textKo": "닳은 돌계단 아래 둥근 돌이 놓여 있다. 정상까지 옮겨 한계를 시험하거나 중턱에서 쉬어 갈 수 있다.",
+    "choices": [
+      {
+        "choiceId": "choice.act1.random_event.23.temple_hundred_eight_steps.carry_stone_to_summit",
+        "textKo": "돌을 들고 정상까지 오른다",
+        "resultKo": "지친 몸에서도 흐트러지지 않는 호흡을 익혔다.",
+        "resultStatusKo": "성장 기회가 준비되었습니다.",
+        "executionConfig": {"type":"RandomGrowthRisk","targetCount":3,"costRateBasisPoints":1000,"segmentId":"progress.segment.act1.chapter01.optional_random_growth","reservationId":"reservation.act1.chapter01.portfolio_b1.event23"},
+        "rewards": []
+      },
+      {
+        "choiceId": "choice.act1.random_event.23.temple_hundred_eight_steps.rest_midway",
+        "textKo": "중턱의 그늘에서 숨을 고른다",
+        "resultKo": "찬 계단에 기대 숨을 고르자 발걸음이 가벼워졌다.",
+        "resultStatusKo": "파티가 최대 HP의 15%를 회복했습니다.",
+        "executionConfig": {"type":"PortfolioOutcome","portfolioOutcome":{"schemaVersion":1,"eventId":"event.act1.random_event.23.temple_hundred_eight_steps","nodeId":"node.act1.random_event.23.temple_hundred_eight_steps.intro","sourcePopupId":"node.act1.random_event.23.temple_hundred_eight_steps.intro","choiceId":"choice.act1.random_event.23.temple_hundred_eight_steps.rest_midway","resultId":"result.act1.random_event.23.temple_hundred_eight_steps.party_rested","reservationId":"reservation.act1.chapter01.portfolio_b1.event23","operations":[{"kind":"VitalDelta","maxHpPercent":15,"nonlethal":false,"targetId":"AliveParty"}]}},
+        "rewards": []
+      }
+    ]
+  }]
+}

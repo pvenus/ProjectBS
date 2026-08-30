@@ -55,10 +55,10 @@ TextureImporter:
   cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: 1
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,10 +106,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -119,10 +119,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,8 +139,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1219
-        height: 1236
+        width: 498
+        height: 505
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 939
-        width: 6
-        height: 6
+        x: 39
+        y: 383
+        width: 3
+        height: 3
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_2
       rect:
         serializedVersion: 2
-        x: 106
-        y: 933
-        width: 8
-        height: 9
+        x: 43
+        y: 380
+        width: 4
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 923
-        width: 6
-        height: 14
+        x: 41
+        y: 376
+        width: 4
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_4
       rect:
         serializedVersion: 2
-        x: 106
-        y: 915
-        width: 12
-        height: 17
+        x: 43
+        y: 373
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_5
       rect:
         serializedVersion: 2
-        x: 110
-        y: 929
-        width: 6
-        height: 6
+        x: 44
+        y: 379
+        width: 4
+        height: 3
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_6
       rect:
         serializedVersion: 2
-        x: 54
-        y: 698
-        width: 11
-        height: 11
+        x: 22
+        y: 284
+        width: 5
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.icon_7
       rect:
         serializedVersion: 2
-        x: 1188
-        y: 310
-        width: 9
-        height: 14
+        x: 485
+        y: 126
+        width: 4
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

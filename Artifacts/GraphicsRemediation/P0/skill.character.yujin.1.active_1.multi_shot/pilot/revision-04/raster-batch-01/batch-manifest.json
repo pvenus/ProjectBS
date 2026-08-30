@@ -1,0 +1,45 @@
+{
+  "unit": "Art-A0-raster-batch01",
+  "expectedExact": 20,
+  "neutralMatte": "#D8D5CC",
+  "resizeKernel": "lanczos3",
+  "comparisonOrder": [
+    "basic",
+    "passive",
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "contacts": {
+    "actual": [
+      200,
+      80
+    ],
+    "synthetic": [
+      32
+    ]
+  },
+  "automaticChecksOnly": [
+    "decode",
+    "dimensions",
+    "channels",
+    "blank",
+    "checkerboard"
+  ],
+  "alphaDeferred": true,
+  "canonicalTouched": false,
+  "passSet": [
+    "A",
+    "C"
+  ],
+  "selectedOriginal": "C",
+  "selectionStatus": "SELECTED_ONE_ALPHA_DEFERRED",
+  "selectionRationale": "C best preserves three physical arrows, common origin, blue-gray ink motion, and 200/80/32 readability without exceeding the grade-1 family weight.",
+  "rejections": {
+    "A": "Meaning/style pass but more detailed arrowheads and bindings, with composition heavier than the family.",
+    "B": "Meaning/style readable at 200/80, but three-tip silhouette becomes too thin at synthetic 32.",
+    "D": "Compact and family-compatible at 200/80, but subject scale and tip separation become too weak at synthetic 32."
+  },
+  "nextGate": "selected-C alpha-safe cutout contract; importer/G2 remain blocked"
+}

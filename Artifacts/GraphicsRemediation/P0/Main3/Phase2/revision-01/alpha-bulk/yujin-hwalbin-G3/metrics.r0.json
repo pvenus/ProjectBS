@@ -1,0 +1,49 @@
+{
+  "member": "yujin-hwalbin-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Yujin/hwalbin_barrage/selected/yujin-hwalbin-barrage-G3-selected-A.png",
+    "sha256": "6b3efad5a54c6610923afe759f7ad475f997bd725257a4744df4d871ac04321d",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 24099,
+    "opaquePixels": 282106,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 27,
+      "minY": 303,
+      "maxX": 1220,
+      "maxY": 954,
+      "widthPct": 95.21531100478468,
+      "heightPct": 51.993620414673046,
+      "marginsPct": {
+        "left": 2.15311004784689,
+        "right": 2.631578947368421,
+        "top": 24.16267942583732,
+        "bottom": 23.843700159489632
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "3a5061cc7bed3e903a9407159a3b4df7fa6bef3ac9aee69fc1466ead3b654eba",
+    "trimap": "f2e40ebd9e974f3756b8a01ba496ca78442695ed1eefa3f39534642677ad2489",
+    "master": "a0f4143bc9e517dc01085c664dc3fc78caba9d0a7b90cf18433156e56b27a8d4",
+    "runtime512": "aaf203828881fab7545bf6ff22edad51bb8405b2fd77aafc6ba8e1325e1564ef",
+    "identity": "dc917f613838e18081782b3c9847cb03098d28351d5b55d1ba8fc094b75d6a84"
+  }
+}

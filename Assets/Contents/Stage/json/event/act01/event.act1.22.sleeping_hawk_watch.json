@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.22.sleeping_hawk_watch",
+  "eventId": "event.act1.random_event.22.sleeping_hawk_watch",
+  "titleKo": "잠든 매의 밤샘",
+  "summary": "바위 처마 아래 다친 매가 꺼져 가는 등잔 곁에서 잠들어 있다. 밤을 새워 기척을 살피면 판단의 순간을 배울 수 있지만 피로를 감수해야 한다.",
+  "startNodeId": "node.act1.random_event.22.sleeping_hawk_watch.intro",
+  "nodes": [{
+    "nodeId": "node.act1.random_event.22.sleeping_hawk_watch.intro",
+    "nodeType": "PopupEvent",
+    "textKo": "바위 처마 아래 다친 매가 꺼져 가는 등잔 곁에서 잠들어 있다. 밤을 새워 기척을 살피면 판단의 순간을 배울 수 있지만 피로를 감수해야 한다.",
+    "choices": [
+      {
+        "choiceId": "choice.act1.random_event.22.sleeping_hawk_watch.keep_night_watch",
+        "textKo": "밤을 새워 매의 감각을 살핀다",
+        "resultKo": "새벽에 매가 눈을 뜨자 일행은 그 시선보다 먼저 움직일 순간을 읽었다.",
+        "resultStatusKo": "성장 기회가 준비되었습니다.",
+        "executionConfig": {"type":"RandomGrowthRisk","targetCount":3,"costRateBasisPoints":1000,"segmentId":"progress.segment.act1.chapter01.optional_random_growth","reservationId":"reservation.act1.chapter01.portfolio_b1.event22"},
+        "rewards": []
+      },
+      {
+        "choiceId": "choice.act1.random_event.22.sleeping_hawk_watch.leave_hawk_sleeping",
+        "textKo": "매를 깨우지 않고 떠난다",
+        "resultKo": "일행은 등잔을 가리고 조용히 처마를 벗어났다.",
+        "resultStatusKo": "피해 없음 · 성장 없음",
+        "executionConfig": {"type":"RandomGrowthDecline","segmentId":"progress.segment.act1.chapter01.optional_random_growth","reservationId":"reservation.act1.chapter01.portfolio_b1.event22"},
+        "rewards": []
+      }
+    ]
+  }]
+}

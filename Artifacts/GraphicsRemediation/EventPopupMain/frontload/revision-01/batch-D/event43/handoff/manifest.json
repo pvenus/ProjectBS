@@ -1,0 +1,24 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
+  "nodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+  "sourcePopupId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.43.reverse_growing_moss_marker.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "soft natural morning light, two wet paths, a modest anonymous marker, sunlit mossy plane and shaded bare plane preserve the contradiction without a glowing-path or magical read",
+    "candidateA": {"sha256": "ab2f4ab889acf3de18cb163977fee8563bb82916bd45e86fd3c2a6c6e3806f37", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "strong beam and monumental marker increase glowing-path and magical-monument risk"},
+    "candidateB": {"sha256": "ab21dc0ef932413aba25813c81daa8ef7a0337a89b697f2656f061e1f3585ca3", "disposition": "SELECTED"}
+  },
+  "selected960": {"path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event43/selected/event43-selected-B-960x1280.png", "sha256": "a034950e417c555d5f7ef61aa7a6e9f2d135853089ec42cadd62158326518f86", "dimensions": "960x1280", "format": "PNG RGB8 opaque"},
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event43/handoff/event43-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event43/handoff/event43-selected-B-max512-B.png",
+    "sha256": "6b5413fd7ea01774a9a5b2502b6056bcb51b6558f5ad506c75ca651c493e9808",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"inscriptionOrArrow": 0, "toxicPouchOrReward": 0, "jangseungFace": 0, "mapUI": 0, "glowingPath": 0, "magic": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

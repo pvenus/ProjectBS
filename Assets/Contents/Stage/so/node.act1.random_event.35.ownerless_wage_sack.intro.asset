@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.35.ownerless_wage_sack.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.35.ownerless_wage_sack.intro
+  mainImage: {fileID: 21300000, guid: 11db0b1d3a73f43138f22c816aab1ffb, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.35.ownerless_wage_sack.keep_all_wages
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043277
+  - choiceId: choice.act1.random_event.35.ownerless_wage_sack.return_all_wages
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043278
+  - choiceId: choice.act1.random_event.35.ownerless_wage_sack.take_only_unlisted_share
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043279
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043277
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043280
+    - rid: 5601486867666043278
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043281
+    - rid: 5601486867666043279
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043282
+    - rid: 5601486867666043280
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.35.ownerless_wage_sack
+        nodeId: node.act1.random_event.35.ownerless_wage_sack.intro
+        sourcePopupId: node.act1.random_event.35.ownerless_wage_sack.intro
+        choiceId: choice.act1.random_event.35.ownerless_wage_sack.keep_all_wages
+        resultId: result.act1.random_event.35.ownerless_wage_sack.all_wages_kept_gold75
+        reservationId: reservation.act1.chapter01.random_event.35.ownerless_wage_sack
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 75
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event35.workers_wages_taken
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043281
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.35.ownerless_wage_sack
+        nodeId: node.act1.random_event.35.ownerless_wage_sack.intro
+        sourcePopupId: node.act1.random_event.35.ownerless_wage_sack.intro
+        choiceId: choice.act1.random_event.35.ownerless_wage_sack.return_all_wages
+        resultId: result.act1.random_event.35.ownerless_wage_sack.wages_returned_party_recovered
+        reservationId: reservation.act1.chapter01.random_event.35.ownerless_wage_sack
+        operations:
+        - kind: 10
+          maxHpPercent: 25
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 1
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event35.workers_wages_returned
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043282
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.35.ownerless_wage_sack
+        nodeId: node.act1.random_event.35.ownerless_wage_sack.intro
+        sourcePopupId: node.act1.random_event.35.ownerless_wage_sack.intro
+        choiceId: choice.act1.random_event.35.ownerless_wage_sack.take_only_unlisted_share
+        resultId: result.act1.random_event.35.ownerless_wage_sack.partial_share_taken_gold25
+        reservationId: reservation.act1.chapter01.random_event.35.ownerless_wage_sack
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 25
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

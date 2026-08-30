@@ -10,7 +10,7 @@ namespace StageEditor
     public static class StageSvgSlotMapRegressionSelfTest
     {
         private const string DefinitionPath =
-            "Assets/Resources/stage_new/definitions/stage.chapter1.asset";
+            "Assets/Contents/Stage/so/stage.chapter1.asset";
 
         [MenuItem(
             "Tools/Stage/Choice Execution Tests/Run SVG Map Regression")]

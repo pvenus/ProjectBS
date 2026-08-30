@@ -1,0 +1,49 @@
+{
+  "member": "seojin-basic-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Seojin/basic_attack/selected/seojin-basic-attack-G3-selected-A.png",
+    "sha256": "e00ad9e42ae26f698194902571d12d2607f6800b24b2eb0686b46ac59ed93743",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),7.5,30)",
+  "preTransform": {
+    "partialPixels": 124696,
+    "opaquePixels": 324632,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 0,
+      "minY": 0,
+      "maxX": 1253,
+      "maxY": 1253,
+      "widthPct": 100,
+      "heightPct": 100,
+      "marginsPct": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "bca68709b6348e47f8284cebdf79b33e953c1a2cfd472cf63400994ace6c5978",
+    "trimap": "0f4f33686cd5f137bcea1e3e21d0c0643613ba32ee730bf5631ed5424ad2d979",
+    "master": "e98d369d9372ee897e8b592b9ce2ed2cf027925a3f9b30ba9af20249bb170133",
+    "runtime512": "7accc26661e29b6a3b9191a6cf84a258c2b9224b27bfb8b168eccb7e205e4988",
+    "identity": "bafd9c93eb63607b5f4b8bffea2d1d83f7c0aaaf0859b131a6e8e24e7a19e4b3"
+  }
+}

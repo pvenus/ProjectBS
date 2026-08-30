@@ -1,0 +1,32 @@
+{
+  "candidate": "D-compact_emblem",
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "rsvg": "2.62.91",
+    "png": "1.6.58"
+  },
+  "locale": "C",
+  "timezone": "UTC",
+  "concurrency": 1,
+  "network": false,
+  "fontDiscovery": false,
+  "random": false,
+  "sourceSha": "8d89d87569214013991860390a09125a9a39b0f0dfebf754de223771279685d8",
+  "maskSha": "8073c59f6d6d9a79fdbc98a5f1823cb668fd9803170befb67212f879ead2c171",
+  "rendererSha": "2372869dadc8f069233ee6837be32cdfa28c37773a65dcf298cb8d7a83fa86be",
+  "commandDigest": "4cc0ba69e320767710dc1c29e78bc7932fea4e04c0ed3d555e9c2ee3e8824aef",
+  "outputSha": "9d008cab3aa3aa3cd67e63a7af526b990fb99f32ec54146d26a906f522bf8cf1",
+  "gate": {
+    "rgba": true,
+    "cornersZero": true,
+    "residueZero": true,
+    "bbox": false,
+    "margins": true,
+    "palette": false,
+    "outOfPalette": true,
+    "partialAlpha": false
+  },
+  "pass": false
+}

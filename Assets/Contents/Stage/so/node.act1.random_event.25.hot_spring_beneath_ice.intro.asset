@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.25.hot_spring_beneath_ice.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.25.hot_spring_beneath_ice.intro
+  mainImage: {fileID: 21300000, guid: 5558aaa53cee46978b9218930847963e, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.25.hot_spring_beneath_ice.rest_at_ice_edge
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043229
+  - choiceId: choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043230
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043229
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043231
+    - rid: 5601486867666043230
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043232
+    - rid: 5601486867666043231
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.25.hot_spring_beneath_ice
+        nodeId: node.act1.random_event.25.hot_spring_beneath_ice.intro
+        sourcePopupId: node.act1.random_event.25.hot_spring_beneath_ice.intro
+        choiceId: choice.act1.random_event.25.hot_spring_beneath_ice.rest_at_ice_edge
+        resultId: result.act1.random_event.25.hot_spring_beneath_ice.safe_recovery
+        reservationId: reservation.act1.chapter01.portfolio_b1.event25
+        operations:
+        - kind: 10
+          maxHpPercent: 20
+          nonlethal: 0
+          targetId: AliveParty
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043232
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.25.hot_spring_beneath_ice
+        nodeId: node.act1.random_event.25.hot_spring_beneath_ice.intro
+        sourcePopupId: node.act1.random_event.25.hot_spring_beneath_ice.intro
+        choiceId: choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral
+        resultId: result.act1.random_event.25.hot_spring_beneath_ice.relic_recovered
+        reservationId: reservation.act1.chapter01.portfolio_b1.event25
+        operations:
+        - kind: 50
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 11400000, guid: 8c54231f09b03478cb71979aaae3aeca, type: 2}
+        - kind: 20
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: Event25RelicClaimPendingRetry
+          snapshotId: 
+          count: 1
+          amount: 0
+          unique: 1
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 11400000, guid: f94c161b6d6346aa84bff7c6f2194183, type: 2}
+          battle: {fileID: 0}

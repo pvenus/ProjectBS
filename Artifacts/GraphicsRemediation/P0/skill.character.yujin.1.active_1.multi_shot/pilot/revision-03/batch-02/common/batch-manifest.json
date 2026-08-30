@@ -1,0 +1,44 @@
+{
+  "batch": "revision03-batch02",
+  "attempt": "2/2",
+  "results": [
+    {
+      "id": "A2-wide_balanced_fan",
+      "staticPass": true,
+      "probeVisible": 1232,
+      "fullRenderCount": 1,
+      "pass": false,
+      "firstFailure": "palette",
+      "outputSha": "6ce0bfa3f28014f5dbc322409ad7e6a73db647d77a42ed1b11911e1b26a520eb"
+    },
+    {
+      "id": "B2-open_negative_fan",
+      "staticPass": true,
+      "probeVisible": 1071,
+      "fullRenderCount": 1,
+      "pass": false,
+      "firstFailure": "palette",
+      "outputSha": "0accb62989814380dc836c9d5cac6bb893086ee488b3568bf4ecebeaa4f8f7f4"
+    },
+    {
+      "id": "C2-vertical_brush_burst",
+      "staticPass": true,
+      "probeVisible": 1077,
+      "fullRenderCount": 1,
+      "pass": false,
+      "firstFailure": "palette",
+      "outputSha": "cec8e2db49b8d9602717a51ea7266ec8c774aab168ba9a788d1db35f4b93eec7"
+    },
+    {
+      "id": "D2-round_compact_emblem",
+      "staticPass": true,
+      "probeVisible": 1397,
+      "fullRenderCount": 1,
+      "pass": false,
+      "firstFailure": "palette",
+      "outputSha": "effca64dd3c27f6925ab2db2d5d9cdb722ff2e95fa99e8b0392b54bccdd66a7e"
+    }
+  ],
+  "passSet": [],
+  "nextGate": "STOP_AND_RESCOPE"
+}

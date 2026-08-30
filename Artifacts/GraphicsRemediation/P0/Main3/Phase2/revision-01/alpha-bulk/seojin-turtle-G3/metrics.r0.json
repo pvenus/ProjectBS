@@ -1,0 +1,49 @@
+{
+  "member": "seojin-turtle-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Seojin/turtle_ship_assault/selected/seojin-turtle-ship-assault-G3-selected-A.png",
+    "sha256": "9bcbe54be17d3991720e36946666f8ba85c5b995eaa1cfb2fda416eee82dd6b6",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 11691,
+    "opaquePixels": 361409,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 0,
+      "minY": 472,
+      "maxX": 1235,
+      "maxY": 960,
+      "widthPct": 98.56459330143541,
+      "heightPct": 38.995215311004785,
+      "marginsPct": {
+        "left": 0,
+        "right": 1.4354066985645932,
+        "top": 37.63955342902711,
+        "bottom": 23.365231259968102
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "ed58ced6ec9fbcc0de8eefb0fc2203095d7b9fd7bce55fb9961b2add3bda3937",
+    "trimap": "64aa52b741ed23351190188c865e854135272258b31411c9201110d18caf6dbe",
+    "master": "cc0dede218559f669ca13c96c994d8183a3adc16443319064ebc97784ceccf28",
+    "runtime512": "3ba7259db3e613c1d447b5bce7baaa9c0954606d81f28e3c12f36f05a0f1917e",
+    "identity": "ca4c1dd06d40555b094fed16f40187104d2a49581a7ad15521ff01c58abc156b"
+  }
+}

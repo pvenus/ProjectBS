@@ -1,0 +1,9 @@
+{
+  "icon": "skill.character.yujin.1.basic_attack.basic_attack",
+  "mustShow": "exactly one physical arrow on one straight axis",
+  "candidates": [
+    {"id":"A","sha256":"c58ce70443026c53c35549ce154014561342c543d24e8983c00bb54cf630e903","axis":"horizontal arrow with short blue-gray wake","stylePass":true,"selected":false},
+    {"id":"B","sha256":"87c7ceab8d1b2116aec1e67ce98ef035c92a01f3883d8a03eba2251c7b806b3e","axis":"rising diagonal arrow with one bold ink speed stroke","stylePass":true,"selected":true},
+    {"id":"C","sha256":"31d188126a4db8a7d83a6420ac1bc65504f5b79982a69574a699346abf4b8129","axis":"compact enlarged head and fletching emblem","stylePass":false,"selected":false,"reason":"oversized head risks spear/fantasy reading"}
+  ]
+}

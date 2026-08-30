@@ -1,0 +1,15 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.27.paper_armor_bandits",
+  "nodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.27.paper_armor_bandits.intro.main.png",
+  "briefAuthority": "/private/tmp/projectbs-current-byeori-event27-design-lock.txt",
+  "candidates": [
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event27/candidates/event27-candidate-A.png","sha256":"1c35f7990f580016601d4c5717cefd5cd410cce9914121d885508cdded895436","disposition":"REJECTED_PROVENANCE","reason":"wet armor reads strongly but form is too full-body-like and less clearly detached layered paper at thumbnail"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event27/candidates/event27-candidate-B.png","sha256":"45a874cffd2f5c83d898176517b3ebef1020c47e21f5bbba4ec9fc10a1a5e353","disposition":"SELECTED","reason":"wet layered paper scales, diagonal rain, distant bandits and half-submerged sack remain distinct without outcome bias"}
+  ],
+  "selected960x1280": {"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event27/selected/event27-selected-B-960x1280.png","sha256":"9ca237eb82c99249e777d7639aefee4dea74d4a9d954b01618016a7e0bb00e3e","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction": {"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event27/handoff/event27-selected-B-max512-r1-A.png","sha256":"51dc2046dd5379f2c7834e19e39029bcded19622b7d0db7423addda08d93dee5","dimensions":"384x512","algorithm":"Sharp Lanczos3, RGB opaque, PNG compression9 adaptiveFiltering0","renderB":"event27-selected-B-max512-r1-B.png","byteIdentity":true},
+  "invalidEarlySquare512": {"disposition":"PROVENANCE_ONLY_NOT_HANDOFF","reason":"3:4 aspect contract corrected to 384x512 max-edge output"},
+  "forbiddenWrites": {"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

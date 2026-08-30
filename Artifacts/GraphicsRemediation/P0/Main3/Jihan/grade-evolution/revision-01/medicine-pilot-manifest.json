@@ -1,0 +1,98 @@
+{
+  "status": "MEDICINE_STRIP_VISUAL_ALPHA_READY",
+  "selection": {
+    "G2": "candidate-B",
+    "G3": "candidate-C"
+  },
+  "visualDecision": "one bowl/core retained; G2 adds paired ingredient cue and open circulation; G3 connects prescription to one outer support flow",
+  "assets": [
+    {
+      "assetId": "skill.character.jihan.2.active_1.medicine_prescription.icon",
+      "source": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/selected/selected-B.png",
+      "sourceSha256": "2b2a296e8dbdb3bdf1c58737708b455b453e0fc15cbe06835bc95c66b8632aaf",
+      "output": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.selected-alpha.png",
+      "outputSha256": "732929a0cdbba3f931b825ad67edcdb9562ce20dc3df54bf5edec310ecd26153",
+      "mask": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.mask.png",
+      "maskSha256": "f21053fdb1f241133d60f1f75ce46baa142812570ec285e5dc2edb6c0738fe6f",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.894118,
+        0.866667,
+        0.819608
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 21116,
+      "bboxAlpha16": [
+        227,
+        127,
+        1116,
+        1154
+      ],
+      "metrics": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.metrics.json",
+      "metricsSha256": "8e8a2087f942577822add7187e3d5b782e73fcbad610868a65b621e9fa798e01"
+    },
+    {
+      "assetId": "skill.character.jihan.3.active_1.medicine_prescription.icon",
+      "source": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/selected/selected-C.png",
+      "sourceSha256": "5293a70c763e087cf7b633825aee2589029fddc1bcc22445995d6703affdee53",
+      "output": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.selected-alpha.png",
+      "outputSha256": "4a49a84198b2a2bbf391d3acb454732f1bd4ab7d2a3d8a3b4980f902efebc000",
+      "mask": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.mask.png",
+      "maskSha256": "20585f1ed28340e16889fb206fc723500b39a5da216fa24900ec7d9680b662b3",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.890196,
+        0.866667,
+        0.823529
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 89922,
+      "bboxAlpha16": [
+        147,
+        135,
+        1092,
+        1108
+      ],
+      "metrics": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.metrics.json",
+      "metricsSha256": "76bd68ca2fe3fd1ad5f8471fd4df5f8d037bd7b799de58b1b1f8a53d5e86dfe4"
+    }
+  ],
+  "contacts": [
+    {
+      "size": 200,
+      "path": "pilot-evidence/medicine-family-contact-200.png",
+      "sha256": "270b497384d7d47a6f2e5cfba8a36fbfb25c35a808d0611e12257485f328700f"
+    },
+    {
+      "size": 80,
+      "path": "pilot-evidence/medicine-family-contact-80.png",
+      "sha256": "5a0bcc2199d70fc0d543c36b54040c9d88d785b238271b316b1b356666259c4c"
+    },
+    {
+      "size": 32,
+      "path": "pilot-evidence/medicine-family-contact-32.png",
+      "sha256": "027b3ab7a16e04862999f3929b6eb86d960a95d892ae460b38d3da4e3c944057"
+    }
+  ],
+  "canonicalWrite": false,
+  "unity": false,
+  "staging": false
+}

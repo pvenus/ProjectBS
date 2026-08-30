@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.25.hot_spring_beneath_ice",
+  "eventId": "event.act1.random_event.25.hot_spring_beneath_ice",
+  "titleKo": "얼음 아래의 온천",
+  "summary": "얇은 얼음 아래 온기와 푸른 광물이 비친다. 가장자리에서 쉬거나, 광물을 노리는 자들과 맞서 깊은 곳을 차지할 수 있다.",
+  "startNodeId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "얇은 얼음 아래 온기와 푸른 광물이 비친다. 가장자리에서 쉬거나, 광물을 노리는 자들과 맞서 깊은 곳을 차지할 수 있다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.rest_at_ice_edge",
+          "textKo": "얼음 가장자리에서 몸을 녹인다",
+          "resultKo": "따뜻한 김이 굳은 몸을 풀었다.",
+          "resultStatusKo": "파티가 최대 HP의 20%를 회복했습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.25.hot_spring_beneath_ice",
+              "nodeId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+              "sourcePopupId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+              "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.rest_at_ice_edge",
+              "resultId": "result.act1.random_event.25.hot_spring_beneath_ice.safe_recovery",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event25",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": 20, "nonlethal": false, "targetId": "AliveParty" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral",
+          "textKo": "광물을 노리는 무리를 몰아낸다",
+          "resultKo": "일행은 온천 바닥의 푸른 광물을 차지했다.",
+          "resultStatusKo": "유물 1개를 얻었습니다.",
+          "disabledStatusKo": "획득 가능한 새 유물이 없어 전투 보상을 받을 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.25.hot_spring_beneath_ice",
+              "nodeId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+              "sourcePopupId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+              "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral",
+              "resultId": "result.act1.random_event.25.hot_spring_beneath_ice.relic_recovered",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event25",
+              "operations": [
+                { "kind": "BeginBattle", "battleId": "battle.act1.event18.water_theft_guard" },
+                { "kind": "InventoryGrant", "relicPoolId": "relic_pool.act1.chapter01.random_event.standard.v1", "count": 1, "unique": true, "targetId": "Event25RelicClaimPendingRetry" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

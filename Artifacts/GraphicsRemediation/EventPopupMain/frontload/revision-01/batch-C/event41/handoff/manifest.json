@@ -1,0 +1,29 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+  "nodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+  "sourcePopupId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.41.yujin_broken_arrow_fletching.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "two separated shaft pieces, conflicting compact fletching, bow fragment and one-direction trail are simultaneously legible without character portrait or outcome preview",
+    "candidateA": {"sha256": "48fc4c5bdc3ff68533c1cb33d901c0b1a242ebc9164d51d6b77cd5900fccd609", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "oversized feathers risk a bird-wing reading and shaft break is less explicit"},
+    "candidateB": {"sha256": "7c8e38c92fc756365237a267a0a74ff70bfb964cc74d79d2245e494a38e68e80", "disposition": "SELECTED"}
+  },
+  "selected960": {
+    "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event41/selected/event41-selected-B-960x1280.png",
+    "sha256": "143b7972925d18b1843af198446d5494e4f7abaf3a0c1fba888d791451d9a032",
+    "dimensions": "960x1280",
+    "format": "PNG RGB8 opaque"
+  },
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event41/handoff/event41-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event41/handoff/event41-selected-B-max512-B.png",
+    "sha256": "f9e7d3182916d4778e87fce3c270795ba7145cff25612cf6d52d978c603d673e",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"birdOrWingSubject": 0, "ambusher": 0, "battleOrVictory": 0, "arrowRainOrMultiShot": 0, "heroPortrait": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

@@ -1,0 +1,592 @@
+{
+  "status": "SEOJIN13_SELECTED_ALPHA_VISUAL_PASS_T0_PENDING",
+  "selection": {
+    "basic": [
+      "G1:A",
+      "G2:C",
+      "G3:C"
+    ],
+    "passive": [
+      "G1:B",
+      "G2:C",
+      "G3:C"
+    ],
+    "charge": [
+      "G1:B",
+      "G2:C",
+      "G3:B"
+    ],
+    "craneWing": [
+      "G2:B",
+      "G3:B"
+    ],
+    "turtleShipAssault": [
+      "G3:C"
+    ],
+    "cannonZone": [
+      "G3:C"
+    ]
+  },
+  "assets": [
+    {
+      "family": "basic",
+      "grade": "G1",
+      "assetId": "skill.character.seojin.1.basic_attack.basic_attack.icon",
+      "source": "Y1/skill.character.seojin.1.basic_attack.basic_attack.icon/selected/selected-A.png",
+      "sourceSha256": "596e28764ebcd10aefcd92dcda75780d4572ada3c6730bc2131e2ec79ed4a7b5",
+      "output": "Y1/skill.character.seojin.1.basic_attack.basic_attack.icon/alpha/skill.character.seojin.1.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "8ca46e445c93c5c4877dfff111c30aaa8e0adcfe40f916a2e160abb46111c72e",
+      "mask": "Y1/skill.character.seojin.1.basic_attack.basic_attack.icon/alpha/skill.character.seojin.1.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "b1b8f7e6089c14498a20b44e517c77168ee9336d7d869d3e3fba3247df302759",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.85098,
+        0.831373,
+        0.784314
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 79355,
+      "bboxAlpha16": [
+        135,
+        200,
+        1138,
+        946
+      ],
+      "bboxPercent": [
+        80.064,
+        59.569
+      ],
+      "normalizationScale": 0.846582,
+      "metrics": "Y1/skill.character.seojin.1.basic_attack.basic_attack.icon/alpha/skill.character.seojin.1.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "8154c40013e5ca3ab3d9d85d9f71720e0ce5f3367d9e2e5c5d430b137fdcab88"
+    },
+    {
+      "family": "basic",
+      "grade": "G2",
+      "assetId": "skill.character.seojin.2.basic_attack.basic_attack.icon",
+      "source": "Y2/skill.character.seojin.2.basic_attack.basic_attack.icon/selected/selected-C.png",
+      "sourceSha256": "77a7630f4effea7f93b511c48b1c428177da8d7a8e4b7ae25948eddb30c97a95",
+      "output": "Y2/skill.character.seojin.2.basic_attack.basic_attack.icon/alpha/skill.character.seojin.2.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "c664eef67cddca56e41c2be3bfbe10852c21d964dd9432c3070922b49ea53a93",
+      "mask": "Y2/skill.character.seojin.2.basic_attack.basic_attack.icon/alpha/skill.character.seojin.2.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "0ad4e73b92517697e41a02ca85781bb8bd7761f57f205ae13245dcac1d0d0253",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 29014,
+      "bboxAlpha16": [
+        128,
+        266,
+        1131,
+        982
+      ],
+      "bboxPercent": [
+        80.064,
+        57.177
+      ],
+      "normalizationScale": 0.888574,
+      "metrics": "Y2/skill.character.seojin.2.basic_attack.basic_attack.icon/alpha/skill.character.seojin.2.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "f3d3483aee462480d039e8b0dea22c132d7adc0d17c11451dc0958e94971dade"
+    },
+    {
+      "family": "basic",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.basic_attack.basic_attack.icon",
+      "source": "Y3/skill.character.seojin.3.basic_attack.basic_attack.icon/selected/selected-C.png",
+      "sourceSha256": "7cd1ac5cde92140615bba0dde47c0861b27fbb340c5f659c7b6a79a4a4378782",
+      "output": "Y3/skill.character.seojin.3.basic_attack.basic_attack.icon/alpha/skill.character.seojin.3.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "ff7a007a8fe8351dd8e5b444c6ca9629e3a408dc528b6a154d451a859a828246",
+      "mask": "Y3/skill.character.seojin.3.basic_attack.basic_attack.icon/alpha/skill.character.seojin.3.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "d8962d037d031dc09da2dc38e37d3f7b8172329ab1790615d97df0323260b41f",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 33329,
+      "bboxAlpha16": [
+        135,
+        332,
+        1138,
+        1086
+      ],
+      "bboxPercent": [
+        80.064,
+        60.207
+      ],
+      "normalizationScale": 0.869324,
+      "metrics": "Y3/skill.character.seojin.3.basic_attack.basic_attack.icon/alpha/skill.character.seojin.3.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "5c0369d5a61a0407b9c9163411c61cb0a444df9ac3c7ea806be91d2aee3e6656"
+    },
+    {
+      "family": "passive",
+      "grade": "G1",
+      "assetId": "skill.character.seojin.1.passive_1.indomitable.icon",
+      "source": "Y1/skill.character.seojin.1.passive_1.indomitable.icon/selected/selected-B.png",
+      "sourceSha256": "698ab7e476cf60c1406d7fd59e3aab5b3fd3fd869e2d25f6e53728b63771510e",
+      "output": "Y1/skill.character.seojin.1.passive_1.indomitable.icon/alpha/skill.character.seojin.1.passive_1.indomitable.icon.selected-alpha.png",
+      "outputSha256": "36d6510e4e78b841a5e21dfd16175c7e0e0d2cc2c7d5ed54f5a6179b785c273c",
+      "mask": "Y1/skill.character.seojin.1.passive_1.indomitable.icon/alpha/skill.character.seojin.1.passive_1.indomitable.icon.mask.png",
+      "maskSha256": "b2e5924581cd208ea2ec2f9bebb6d160b9a8a6e9b0ed3beb76a24d6e77aef9f9",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.843137,
+        0.811765,
+        0.760784
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 11951,
+      "bboxAlpha16": [
+        240,
+        201,
+        1082,
+        1078
+      ],
+      "bboxPercent": [
+        67.225,
+        70.016
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y1/skill.character.seojin.1.passive_1.indomitable.icon/alpha/skill.character.seojin.1.passive_1.indomitable.icon.metrics.json",
+      "metricsSha256": "e487e0855632f8115c22719c6fdaa8bd79025bd99ecdc648cf023a1dcbd7064c"
+    },
+    {
+      "family": "passive",
+      "grade": "G2",
+      "assetId": "skill.character.seojin.2.passive_1.indomitable.icon",
+      "source": "Y2/skill.character.seojin.2.passive_1.indomitable.icon/selected/selected-C.png",
+      "sourceSha256": "0d5633a1cb50fc6a9e2bc4138817b194f00d8b1578c27b1f65dc0470f028f19b",
+      "output": "Y2/skill.character.seojin.2.passive_1.indomitable.icon/alpha/skill.character.seojin.2.passive_1.indomitable.icon.selected-alpha.png",
+      "outputSha256": "1a3d2afa9c81fb2fea88ed95a4c1046b82a4c927f5bef73ff074ab94adc47551",
+      "mask": "Y2/skill.character.seojin.2.passive_1.indomitable.icon/alpha/skill.character.seojin.2.passive_1.indomitable.icon.mask.png",
+      "maskSha256": "26b5e0b5906054a32bc9a85f048c6c6a16f371d22e690095b41448991e60e1ff",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 46173,
+      "bboxAlpha16": [
+        123,
+        176,
+        1127,
+        1095
+      ],
+      "bboxPercent": [
+        80.144,
+        73.365
+      ],
+      "normalizationScale": 0.825,
+      "metrics": "Y2/skill.character.seojin.2.passive_1.indomitable.icon/alpha/skill.character.seojin.2.passive_1.indomitable.icon.metrics.json",
+      "metricsSha256": "1c06e0defd663f12bfaa565faa9c8fe820d288c749959a1f119c19a6973f189a"
+    },
+    {
+      "family": "passive",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.passive_1.indomitable.icon",
+      "source": "Y3/skill.character.seojin.3.passive_1.indomitable.icon/selected/selected-C.png",
+      "sourceSha256": "89f4ce026d1fe3fa5663b566582cc91d3c440396c5e3cd644b6b055be2536930",
+      "output": "Y3/skill.character.seojin.3.passive_1.indomitable.icon/alpha/skill.character.seojin.3.passive_1.indomitable.icon.selected-alpha.png",
+      "outputSha256": "eb145e66800495ce84dc1c82e5bbf1fa6bd686cbd948b78c28dae8d33825bbe1",
+      "mask": "Y3/skill.character.seojin.3.passive_1.indomitable.icon/alpha/skill.character.seojin.3.passive_1.indomitable.icon.mask.png",
+      "maskSha256": "8321dc9c1c33833e6a88ba3eda58cc9035757bdece81a2b10df1be8b37504b28",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 37933,
+      "bboxAlpha16": [
+        124,
+        153,
+        1127,
+        1102
+      ],
+      "bboxPercent": [
+        80.064,
+        75.758
+      ],
+      "normalizationScale": 0.86707,
+      "metrics": "Y3/skill.character.seojin.3.passive_1.indomitable.icon/alpha/skill.character.seojin.3.passive_1.indomitable.icon.metrics.json",
+      "metricsSha256": "f777bb60f545f86c2aacbdc1a6579e92d1857a750dcd75915adbc13e32dc18c6"
+    },
+    {
+      "family": "charge",
+      "grade": "G1",
+      "assetId": "skill.character.seojin.1.active_1.active_1.icon",
+      "source": "Y1/skill.character.seojin.1.active_1.active_1.icon/selected/selected-B.png",
+      "sourceSha256": "9ffe70fe67d97ad6d434521545cd7d17a52b10590fc8dd39d6ff4b8ae1cd71e5",
+      "output": "Y1/skill.character.seojin.1.active_1.active_1.icon/alpha/skill.character.seojin.1.active_1.active_1.icon.selected-alpha.png",
+      "outputSha256": "d645d597227cd5db82b32767c41245bb7a28e17b18ad8a2b301dd196ea6d35a6",
+      "mask": "Y1/skill.character.seojin.1.active_1.active_1.icon/alpha/skill.character.seojin.1.active_1.active_1.icon.mask.png",
+      "maskSha256": "ad7d4c61ffac2de6e0966bacdfc1014c7f73112fb92cd2070c2549b8a8cdfdf0",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.866667,
+        0.847059,
+        0.811765
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 44417,
+      "bboxAlpha16": [
+        127,
+        337,
+        1131,
+        902
+      ],
+      "bboxPercent": [
+        80.144,
+        45.136
+      ],
+      "normalizationScale": 0.839498,
+      "metrics": "Y1/skill.character.seojin.1.active_1.active_1.icon/alpha/skill.character.seojin.1.active_1.active_1.icon.metrics.json",
+      "metricsSha256": "20a968aaed13b8f41d3b116bd63b5083267ed743ab1141e410322ad2ab88cd7e"
+    },
+    {
+      "family": "charge",
+      "grade": "G2",
+      "assetId": "skill.character.seojin.2.active_1.charge.icon",
+      "source": "Y2/skill.character.seojin.2.active_1.charge.icon/selected/selected-C.png",
+      "sourceSha256": "a67657a379d01e028c74443116f5a76ea58596971ef94b9d4ebcb54a4e4921e1",
+      "output": "Y2/skill.character.seojin.2.active_1.charge.icon/alpha/skill.character.seojin.2.active_1.charge.icon.selected-alpha.png",
+      "outputSha256": "e8a7a3e126089e3d14930a7fa8927a0bb43c189d73e6ef35cb3816f26ed8f414",
+      "mask": "Y2/skill.character.seojin.2.active_1.charge.icon/alpha/skill.character.seojin.2.active_1.charge.icon.mask.png",
+      "maskSha256": "fbc19bf214e68868d01eae05786011d26076d0ef8871e87d16d41531552e746a",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.862745,
+        0.839216,
+        0.796078
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 14033,
+      "bboxAlpha16": [
+        94,
+        274,
+        1164,
+        974
+      ],
+      "bboxPercent": [
+        85.407,
+        55.901
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y2/skill.character.seojin.2.active_1.charge.icon/alpha/skill.character.seojin.2.active_1.charge.icon.metrics.json",
+      "metricsSha256": "1f38da27f027a0abddb5e5a40dc982bef8184855c3da558e5e3e7754b0e967b4"
+    },
+    {
+      "family": "charge",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.active_1.charge.icon",
+      "source": "Y3/skill.character.seojin.3.active_1.charge.icon/selected/selected-B.png",
+      "sourceSha256": "eb71082da9cef004e072e52d735b3aa00efbfb1a6b92eeb68986944fe81b0025",
+      "output": "Y3/skill.character.seojin.3.active_1.charge.icon/alpha/skill.character.seojin.3.active_1.charge.icon.selected-alpha.png",
+      "outputSha256": "676870f90bce08f9df3b82fd273a3ff01e5d1c72466ab3f33a157f4db9971c57",
+      "mask": "Y3/skill.character.seojin.3.active_1.charge.icon/alpha/skill.character.seojin.3.active_1.charge.icon.mask.png",
+      "maskSha256": "08b23f5712e7dc735c6065008bd24282ac719cbf7d67532e77b70bae4e5b1d04",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.862745,
+        0.847059,
+        0.803922
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 66986,
+      "bboxAlpha16": [
+        130,
+        204,
+        1133,
+        990
+      ],
+      "bboxPercent": [
+        80.064,
+        62.759
+      ],
+      "normalizationScale": 0.886219,
+      "metrics": "Y3/skill.character.seojin.3.active_1.charge.icon/alpha/skill.character.seojin.3.active_1.charge.icon.metrics.json",
+      "metricsSha256": "6b7b240ec80be196c2f0e45bd2ab8f7d8833c3fc5507554028c72d4d72e1abc7"
+    },
+    {
+      "family": "crane-wing",
+      "grade": "G2",
+      "assetId": "skill.character.seojin.2.active_2.crane_wing_formation.icon",
+      "source": "Y2/skill.character.seojin.2.active_2.crane_wing_formation.icon/selected/selected-B.png",
+      "sourceSha256": "c2e9b9bdada440ea2e1d4c17d1ad6e8b919d80a3cca5fc94c1715a26d47611e7",
+      "output": "Y2/skill.character.seojin.2.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.2.active_2.crane_wing_formation.icon.selected-alpha.png",
+      "outputSha256": "87745ef77c14c7935188d13eb5467fa898017ed53540a792db69afcd0927e535",
+      "mask": "Y2/skill.character.seojin.2.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.2.active_2.crane_wing_formation.icon.mask.png",
+      "maskSha256": "2a1da30a13ce378ebca44225c5635b9742266bb436b26fc407e41601dc4ed4e0",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.85098,
+        0.827451,
+        0.788235
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 25199,
+      "bboxAlpha16": [
+        126,
+        443,
+        1129,
+        866
+      ],
+      "bboxPercent": [
+        80.064,
+        33.812
+      ],
+      "normalizationScale": 0.920367,
+      "metrics": "Y2/skill.character.seojin.2.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.2.active_2.crane_wing_formation.icon.metrics.json",
+      "metricsSha256": "fae21deb6ca033b0791f3154bdd50d17b5b2fbb1bed306b76253f6eaed35cc7c"
+    },
+    {
+      "family": "crane-wing",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.active_2.crane_wing_formation.icon",
+      "source": "Y3/skill.character.seojin.3.active_2.crane_wing_formation.icon/selected/selected-B.png",
+      "sourceSha256": "87bbb506fb90484a452964f9e234aa7efe826ee6b659cd118e6a77467c9462ed",
+      "output": "Y3/skill.character.seojin.3.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.3.active_2.crane_wing_formation.icon.selected-alpha.png",
+      "outputSha256": "d126bbc58a8a1da7224cdddf876f4c69c76fb9fd5b21261cbd83d1b9cdab98a2",
+      "mask": "Y3/skill.character.seojin.3.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.3.active_2.crane_wing_formation.icon.mask.png",
+      "maskSha256": "1e15c34060eaf46472e613e4bb3fa8c4d0ca15ff6926b76c050f8f2f208e59ef",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.85098,
+        0.831373,
+        0.8
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 70874,
+      "bboxAlpha16": [
+        132,
+        185,
+        1134,
+        1060
+      ],
+      "bboxPercent": [
+        79.984,
+        69.856
+      ],
+      "normalizationScale": 0.880773,
+      "metrics": "Y3/skill.character.seojin.3.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.3.active_2.crane_wing_formation.icon.metrics.json",
+      "metricsSha256": "630e45951a919828a8c40559a240d6b486772b50802bb368ab22d54f0237775f"
+    },
+    {
+      "family": "turtle-ship-assault",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.active_3.turtle_ship_assault.icon",
+      "source": "Y3/skill.character.seojin.3.active_3.turtle_ship_assault.icon/selected/selected-C.png",
+      "sourceSha256": "f1a825b65b6cdcfa4faa7e06d960e1844f4cc71e44b998b614c89f693ac155b7",
+      "output": "Y3/skill.character.seojin.3.active_3.turtle_ship_assault.icon/alpha/skill.character.seojin.3.active_3.turtle_ship_assault.icon.selected-alpha.png",
+      "outputSha256": "5fb604a1419b73155d3e956be8703e4ede41013b11302df641a4e675d71cf460",
+      "mask": "Y3/skill.character.seojin.3.active_3.turtle_ship_assault.icon/alpha/skill.character.seojin.3.active_3.turtle_ship_assault.icon.mask.png",
+      "maskSha256": "3d2d38eb2046b90976e99b2ff651fbec1b2da42dd7d01446bc0da8a4a9e3e530",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.847059,
+        0.827451,
+        0.792157
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 28743,
+      "bboxAlpha16": [
+        123,
+        453,
+        1126,
+        836
+      ],
+      "bboxPercent": [
+        80.064,
+        30.622
+      ],
+      "normalizationScale": 0.863339,
+      "metrics": "Y3/skill.character.seojin.3.active_3.turtle_ship_assault.icon/alpha/skill.character.seojin.3.active_3.turtle_ship_assault.icon.metrics.json",
+      "metricsSha256": "15744dfb9ecd38192798e2053dfb7a344a69f9585cfe6c02545291cdce662af8"
+    },
+    {
+      "family": "cannon-zone",
+      "grade": "G3",
+      "assetId": "skill.character.seojin.3.turtle_ship_cannon_zone.icon",
+      "source": "Y3/skill.character.seojin.3.turtle_ship_cannon_zone.icon/selected/selected-C.png",
+      "sourceSha256": "5ad48d00a634edecf86202084720894e820beb815c85fce731dde7b594043787",
+      "output": "Y3/skill.character.seojin.3.turtle_ship_cannon_zone.icon/alpha/skill.character.seojin.3.turtle_ship_cannon_zone.icon.selected-alpha.png",
+      "outputSha256": "ab134b6432fed8a89672d2053f93f3b46df389274511aaa9d0b1c08166c0a6bf",
+      "mask": "Y3/skill.character.seojin.3.turtle_ship_cannon_zone.icon/alpha/skill.character.seojin.3.turtle_ship_cannon_zone.icon.mask.png",
+      "maskSha256": "54dd8f37ee71b4b5b48f1e038f4d3a704e47a8f17f6d575ea5ed69d73d9a92bf",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.831373,
+        0.807843,
+        0.772549
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 33311,
+      "bboxAlpha16": [
+        128,
+        494,
+        1130,
+        911
+      ],
+      "bboxPercent": [
+        79.984,
+        33.333
+      ],
+      "normalizationScale": 0.825679,
+      "metrics": "Y3/skill.character.seojin.3.turtle_ship_cannon_zone.icon/alpha/skill.character.seojin.3.turtle_ship_cannon_zone.icon.metrics.json",
+      "metricsSha256": "8667adff8089b90bcc5324bc0053c6acca7f32fc5d25e9a2e5dc769a4db32d82"
+    }
+  ],
+  "contacts": [
+    {
+      "size": 200,
+      "path": "family-evidence/seojin13-family-contact-200.png",
+      "sha256": "8b7136186b94d8802fbd5db24f9619e24acb22338b2689371c148e1869201ae0"
+    },
+    {
+      "size": 80,
+      "path": "family-evidence/seojin13-family-contact-80.png",
+      "sha256": "61ee80acc59469b2ac333076b9306fe8f35862643c4bf7d485963a2969e3b66f"
+    },
+    {
+      "size": 32,
+      "path": "family-evidence/seojin13-family-contact-32.png",
+      "sha256": "c88d518c369da4cdd4369f71e7ec8b279a4d46007559a253038969dc7eb034c9"
+    }
+  ],
+  "visualReview": {
+    "familyStyle": "PASS",
+    "gradeEvolution": "PASS",
+    "alphaEdgesLightDark": "PASS",
+    "meaningMustShow": "PASS"
+  },
+  "canonicalWrite": false,
+  "metaWrite": false,
+  "unity": false,
+  "staging": false
+}

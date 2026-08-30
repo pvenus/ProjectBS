@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "unit": "art-A0-multishot-normalization",
+  "assetId": "skill.character.yujin.1.active_1.multi_shot",
+  "canonical": {
+    "path": "Assets/ImagesGenerated/Skill/icon/skill.character.yujin.1.active_1.multi_shot.icon.png",
+    "sha256": "df3c72d37fdfcfd9bc10ea4dec00e60ed5fdd58feadc12384f2574c68a67d66d",
+    "guid": "6426a80b7a00f48fb84b47ec317d49e2",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaMin": 36,
+    "alphaMax": 251,
+    "transparentPixelCount": 0,
+    "opaquePixelCount": 0,
+    "status": "full_frame_translucent_background_rejected"
+  },
+  "normalizationSource": {
+    "path": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-1d76db10-2d7c-45b6-b1ca-ec9c110cb958.png",
+    "sha256": "b49daa36d60cbb4a1a06b26d84ca6fbc80b312b7d45eb6b54c5bdddf02b2e09b",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "alphaBbox": [0, 19, 1240, 1254]
+  },
+  "algorithm": {
+    "type": "deterministic_premultiplied_alpha_normalization",
+    "sourceCanvasResize": [991, 991],
+    "resample": "Lanczos",
+    "premultipliedAlpha": true,
+    "destinationCanvas": [1254, 1254],
+    "pasteOffset": [131, 131],
+    "destinationFillRgba": [0, 0, 0, 0],
+    "crop": false,
+    "alphaThreshold": false,
+    "repaint": false,
+    "sourceInternalPixelEdit": false
+  },
+  "consumers": {
+    "authoritativeCanvasSizes": [200, 80],
+    "syntheticStressSize": 32
+  },
+  "canonicalTouched": false
+}

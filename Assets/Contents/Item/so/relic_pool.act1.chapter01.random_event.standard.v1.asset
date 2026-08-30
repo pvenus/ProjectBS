@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3c3b54dffbb4fe1b8960a01427ed41, type: 3}
+  m_Name: relic_pool.act1.chapter01.random_event.standard.v1
+  m_EditorClassIdentifier: Assembly-CSharp::Item.RelicPoolSO
+  poolId: relic_pool.act1.chapter01.random_event.standard.v1
+  displayName: Chapter 1 Random Event Standard Relic Pool
+  description: Explicit shared Common relic pool for Chapter 1 random events.
+  icon: {fileID: 0}
+  relics:
+  - relic: {fileID: 11400000, guid: 205192d192c944a88940ac0721950dc8, type: 2}
+    weight: 100
+  - relic: {fileID: 11400000, guid: 0b48d722bd862486eb2c3940b6af98b8, type: 2}
+    weight: 100
+  - relic: {fileID: 11400000, guid: 4ffe63f8269d845e88468f082bdf19f9, type: 2}
+    weight: 100
+  - relic: {fileID: 11400000, guid: 5eae9a374544543ee90148cb3ebfb9bd, type: 2}
+    weight: 100
+  - relic: {fileID: 11400000, guid: d6b233d5197bf4f2aa86ecabc00ec785, type: 2}
+    weight: 100
+  - relic: {fileID: 11400000, guid: a9afcb3bc48df4f6d95e2d14068dee11, type: 2}
+    weight: 100

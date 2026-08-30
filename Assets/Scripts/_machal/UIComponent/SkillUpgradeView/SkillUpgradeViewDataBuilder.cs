@@ -5,6 +5,7 @@ using Presentation;
 using Skill;
 using UIFramework.Data;
 using UnityEngine;
+using Progression;
 
 public struct SkillUpgradeOptionContext
 {
@@ -25,6 +26,28 @@ public static class SkillUpgradeViewDataBuilder
     private static readonly EquipmentSkillResolver equipmentSkillResolver = new();
     private static readonly SkillPresentationResolver skillPresentationResolver = new();
     private static readonly SkillPresentationGroupResolver skillGroupResolver = new();
+
+    public static SkillUpgradeOptionData BuildFixedOfferOption(
+        CharacterRuntimeData owner,
+        EquipmentSkillInstanceData instance,
+        EquipmentSkillSO skillSo)
+    {
+        if (owner?.characterSO == null || instance == null || skillSo == null
+            || !string.Equals(instance.equipmentId, skillSo.EquipmentId, System.StringComparison.Ordinal))
+            return null;
+        int current = Mathf.Max(1, instance.currentLevel);
+        int next = current + 1;
+        if (!HasRuntimeApplicableUpgrade(skillSo, next)) return null;
+        return new SkillUpgradeOptionData
+        {
+            characterPortrait = owner.characterSO.Portrait,
+            characterName = owner.characterSO.DisplayName,
+            currentLevel = current,
+            nextLevel = next,
+            statComparisonText = comparisonService.BuildComparisonText(skillSo, current, next),
+            content = BuildNextLevelContent(skillSo, instance, next)
+        };
+    }
 
     public static SkillUpgradeBuildResult Build(
         IReadOnlyList<CharacterManager> characterManagers, 

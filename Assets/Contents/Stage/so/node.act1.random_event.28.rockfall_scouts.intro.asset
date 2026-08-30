@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.28.rockfall_scouts.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.28.rockfall_scouts.intro
+  mainImage: {fileID: 21300000, guid: f1f8d3e89ea7949bdb97a24887b983e0, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.28.rockfall_scouts.ambush_signal_scouts
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043241
+  - choiceId: choice.act1.random_event.28.rockfall_scouts.endure_rockfall_detour
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043242
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043241
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486867666043243
+    - rid: 5601486867666043242
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043244
+    - rid: 5601486867666043243
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 8c54231f09b03478cb71979aaae3aeca, type: 2}
+        eventId: event.act1.random_event.28.rockfall_scouts
+        nodeId: node.act1.random_event.28.rockfall_scouts.intro
+        sourcePopupId: node.act1.random_event.28.rockfall_scouts.intro
+        reservationId: reservation.act1.chapter01.random_event.28.rockfall_scouts
+        choiceId: choice.act1.random_event.28.rockfall_scouts.ambush_signal_scouts
+        expectedVictoryResultId: result.act1.random_event.28.rockfall_scouts.scouts_defeated_shortcut_committed
+    - rid: 5601486867666043244
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.28.rockfall_scouts
+        nodeId: node.act1.random_event.28.rockfall_scouts.intro
+        sourcePopupId: node.act1.random_event.28.rockfall_scouts.intro
+        choiceId: choice.act1.random_event.28.rockfall_scouts.endure_rockfall_detour
+        resultId: result.act1.random_event.28.rockfall_scouts.rockfall_endured_detour_committed
+        reservationId: reservation.act1.chapter01.random_event.28.rockfall_scouts
+        operations:
+        - kind: 10
+          maxHpPercent: -10
+          nonlethal: 1
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 60
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: reservation.act1.chapter01.random_event.28.rockfall_scouts
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 20
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

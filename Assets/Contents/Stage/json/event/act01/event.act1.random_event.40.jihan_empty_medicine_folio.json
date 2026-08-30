@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.40.jihan_empty_medicine_folio",
+  "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio",
+  "requiredCharacterId": "character.jihan.1",
+  "titleKo": "지한의 빈 약첩",
+  "summary": "남은 약재를 써서 일행을 치료하거나 당장의 치료를 포기하고 지한과 함께 지워진 처방을 복원한다.",
+  "startNodeId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "지한은 젖은 약첩 한 권을 펼쳤다. 처방의 마지막 줄은 물에 번져 지워졌고, 남은 약재는 당장의 상처를 돌볼 만큼만 남아 있었다.\n약재를 쓰면 일행의 숨을 고를 수 있지만 약첩은 빈 종이가 된다.\n지워진 처방을 되살리려면 지금의 치료를 포기하고 지한의 기억을 따라 빈칸을 메워야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.use_remaining_medicine",
+          "textKo": "남은 약재로 일행을 치료한다",
+          "resultKo": "지한이 남은 약재를 달여 상처를 씻자 일행의 거친 숨이 가라앉았다. 마지막 약재가 사라진 약첩에는 번진 처방과 빈자리만 남았다.",
+          "resultStatusKo": "파티 생존자 · 최대 HP의 25% 회복 (올림)",
+          "disabledStatusKo": "이미 모든 생존자가 온전해 남은 약재를 쓸 필요가 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio",
+              "nodeId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+              "sourcePopupId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+              "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.use_remaining_medicine",
+              "resultId": "result.act1.random_event.40.jihan_empty_medicine_folio.party_treated",
+              "reservationId": "reservation.act1.chapter01.random_event.40.jihan_empty_medicine_folio",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": 25, "nonlethal": false, "targetId": "AliveParty" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription",
+          "textKo": "지한과 함께 지워진 처방을 복원한다",
+          "resultKo": "지한은 약향과 번진 획을 하나씩 짚어 가며 마지막 처방을 다시 적었다. 당장의 상처는 그대로였지만, 잊혔던 치료법과 그가 지키려 했던 이름 하나가 약첩에 돌아왔다.",
+          "resultStatusKo": "회복 없음 · 지한의 처방을 복원한 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio",
+              "nodeId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+              "sourcePopupId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+              "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription",
+              "resultId": "result.act1.random_event.40.jihan_empty_medicine_folio.prescription_restored",
+              "reservationId": "reservation.act1.chapter01.random_event.40.jihan_empty_medicine_folio",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event40.jihan_prescription_restored" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "unit": "Captain2-rev05-alpha-border-correction1",
+  "sourceR1Sha256": "c02c02f812f3df9efada0dbee40bb30ae4b5cc595876010d77bbf42a20662cdc",
+  "outputR2": "captain2-rev05-selected-A-alpha-r2.png",
+  "outputR2Sha256": "e0f5c6a6f7f2c11dee8a95471e6612155f4e193656b118cc93e4ea4d0c1452b6",
+  "dimensions": [1024,1536],
+  "operation": "set unsupported bottom-right pixel (1023,1535) RGBA from [212,205,193,6] to [0,0,0,0]",
+  "changedByteCount": 4,
+  "allOtherBytesIdentical": true,
+  "borderNonzeroAfter": {"top":0,"bottom":0,"left":0,"right":0},
+  "cornerAfter": [0,0,0,0],
+  "visualIdentity": "unchanged; isolated subvisual residue only",
+  "canonicalMutation": false
+}

@@ -1,0 +1,23 @@
+status=EXPECTED_MAPPING_PREPARED_SELECTION_HOLD_UNTIL_HANGYEOL_IDENTITY_PASS
+
+All source frame sets are RGBA, frame-0..3 exact4. Each desired clip resolves to both Left/Right AnimationClip targets after selection; expected target names remove `.candidate_vN` while preserving the semantic stem. Exact GUID/fileID mapping remains Hangyeol authority.
+
+child_snatcher_netman.1
+- idle: candidates v1/v2/v3/v4/v5; source `Assets/ImagesGenerated/Character/animation/character.child_snatcher_netman.1/character.child_snatcher_netman.1.idle.simple_stable.four_key_pose.loop.candidate_vN/`; expected targets `Assets/AnimationClips/Character/character.child_snatcher_netman.1.idle.simple_stable.four_key_pose.loop.{Left,Right}.anim`.
+- attack: candidates v1/v2/v3/v4/v5; source stem `character.child_snatcher_netman.1.attack.weighted_net_cast.four_key_pose.one_shot.candidate_vN`; expected targets same stem without candidate suffix, `{Left,Right}.anim`.
+- run: candidates v1/v2/v3/v4/v5; source stem `character.child_snatcher_netman.1.run.screen_right.four_key_pose.loop.candidate_vN`; expected targets same stem without candidate suffix, `{Left,Right}.anim`.
+
+red_doll_hexer.2
+- idle: candidates v1-v5; source stem `character.red_doll_hexer.2.idle.simple_stable.four_key_pose.loop.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+- attack: candidates v1-v5; source stem `character.red_doll_hexer.2.attack.charm_toss.four_key_pose.one_shot.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+- run: candidates v1-v5; source stem `character.red_doll_hexer.2.run.screen_right.four_key_pose.loop.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+
+ritual_bell_handler.2
+- idle: candidates v1-v5; source stem `character.ritual_bell_handler.2.idle.simple_stable.four_key_pose.loop.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+- attack: candidates v1-v5; source stem `character.ritual_bell_handler.2.attack.bell_charm_throw.four_key_pose.one_shot.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+- run: candidates v1/v2/v3/v5 (v4 absent); source stem `character.ritual_bell_handler.2.run.screen_right.four_key_pose.loop.candidate_vN`; expected canonical `{Left,Right}.anim` without candidate suffix.
+
+Visual gates per desired clip: same-character portrait identity; equipment/action silhouette; frame0-3 style continuity; center jitter<=5%; foot baseline jitter<=3%; idle/run f3->f0 loop continuity; attack anticipation-impact-recovery readability; RGBA edge integrity. Selection0 until exact identity mapping PASS.
+
+First prepared evidence: `Artifacts/GraphicsRemediation/AnimationCategory/child_snatcher_netman.1/idle-contact/child-snatcher-idle-candidates5-contact.png` (rows v1-v5, columns f0/f1/f2/f3/f0 loop seam).
+Boundary: generation0, selection0, canonical/meta/GUID/index/staging/Unity0.

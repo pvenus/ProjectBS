@@ -1,0 +1,49 @@
+{
+  "member": "seojin-indomitable-G2",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Seojin/indomitable/selected/seojin-indomitable-G2-selected-B.png",
+    "sha256": "808ef4bf3ff8ec36bf1688694a4ad5b12588b1bd9170f67c4e6687952da520c1",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 18878,
+    "opaquePixels": 434778,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 101,
+      "minY": 173,
+      "maxX": 1170,
+      "maxY": 1108,
+      "widthPct": 85.32695374800639,
+      "heightPct": 74.64114832535886,
+      "marginsPct": {
+        "left": 8.054226475279107,
+        "right": 6.618819776714513,
+        "top": 13.795853269537481,
+        "bottom": 11.562998405103668
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "7033b5d9b719f50841a998217ee31a09618a5d0cb75c3a1787ca4509288f7109",
+    "trimap": "76e191a5c90c8bb6fc6c5183903ba9d55c1dc6f94fe7840388c8ed72efc15e8a",
+    "master": "761cc8b8747bec4e02ed0aaa3adefbba591fbb06c8435fc656622765bcbf72d7",
+    "runtime512": "f42906a3fd13f3e460fc294111f01ceb2b0682d7e4fae765f8a2b133e9073924",
+    "identity": "d2eeff0601fdd3186b70914beeea33409a28ddd4c4f6d4087848ff668d8d0481"
+  }
+}

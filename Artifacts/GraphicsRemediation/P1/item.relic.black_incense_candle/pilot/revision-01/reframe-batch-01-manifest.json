@@ -1,0 +1,102 @@
+{
+  "assetId": "item.relic.black_incense_candle",
+  "source": "Assets/ImagesGenerated/Item/icon/item.relic.black_incense_candle.icon.png",
+  "sourceSha256": "f10bf7afa0c226f528f10510aaab6caef64dab8403363c67872661cf72dd6237",
+  "operation": "identity-preserving deterministic crop-to-alpha-bbox, uniform scale, centered transparent canvas",
+  "candidates": [
+    {
+      "candidate": "A",
+      "targetMaxPercent": 72.0,
+      "path": "Artifacts/GraphicsRemediation/P1/item.relic.black_incense_candle/pilot/revision-01/reframe-batch-01/candidate-A.png",
+      "sha256": "501e7ad21237bb9a5f3626db68f5e9c3da0ea60ddd6336a4c9ce6b33a60744ed",
+      "bboxPercent": [
+        32.536,
+        72.01
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "operation": {
+        "cropToSourceAlpha16BBox": [
+          357,
+          20,
+          901,
+          1225
+        ],
+        "uniformScale": 0.7492780082987552,
+        "centerOffset": [
+          423,
+          175
+        ]
+      }
+    },
+    {
+      "candidate": "B",
+      "targetMaxPercent": 76.0,
+      "path": "Artifacts/GraphicsRemediation/P1/item.relic.black_incense_candle/pilot/revision-01/reframe-batch-01/candidate-B.png",
+      "sha256": "c2920c5fe8df7ba4a0582016f0e7cb34554c9e36f56e820d7b284a19a306975b",
+      "bboxPercent": [
+        34.29,
+        75.997
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "operation": {
+        "cropToSourceAlpha16BBox": [
+          357,
+          20,
+          901,
+          1225
+        ],
+        "uniformScale": 0.7909045643153527,
+        "centerOffset": [
+          412,
+          150
+        ]
+      }
+    },
+    {
+      "candidate": "C",
+      "targetMaxPercent": 80.0,
+      "path": "Artifacts/GraphicsRemediation/P1/item.relic.black_incense_candle/pilot/revision-01/reframe-batch-01/candidate-C.png",
+      "sha256": "2e32d7a75e14df00739dab6aa38a34aaa393d7ec4e734ac57531dc7fdfab0497",
+      "bboxPercent": [
+        36.124,
+        79.984
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "operation": {
+        "cropToSourceAlpha16BBox": [
+          357,
+          20,
+          901,
+          1225
+        ],
+        "uniformScale": 0.8325311203319502,
+        "centerOffset": [
+          400,
+          125
+        ]
+      }
+    }
+  ],
+  "canonicalWrite": false,
+  "metaWrite": false,
+  "unity": false,
+  "staging": false
+}

@@ -33,6 +33,14 @@ namespace StageEditor
             "selftest.choice.execution.shrine.config";
         private const string ShrineGodId =
             "selftest.choice.execution.shrine.god";
+        private const string BattleEventId =
+            "selftest.choice.execution.event";
+        private const string BattleNodeId =
+            "selftest.choice.execution.node";
+        private const string BattleReservationId =
+            "selftest.choice.execution.reservation";
+        private const string BattleResultId =
+            "selftest.choice.execution.result";
 
         [MenuItem(
             "Tools/Stage/Choice Execution Tests/Run Builder Fixtures")]
@@ -45,6 +53,100 @@ namespace StageEditor
         public static void RunAllBatch()
         {
             RunAll();
+        }
+
+        public static void RunBattleTupleBatch()
+        {
+            string tempFolder = Path.Combine(
+                Path.GetTempPath(),
+                "ProjectBS_BattleTupleBuilderSelfTest");
+            CleanupAssets();
+            CleanupDirectory(tempFolder);
+            try
+            {
+                Directory.CreateDirectory(tempFolder);
+                CreateReferenceAssets();
+                string jsonPath = WriteFixture(
+                    tempFolder,
+                    "battle-tuple.json",
+                    CreateSingleChoiceJson(
+                        "\"executionConfig\":{\"type\":\"Battle\","
+                        + "\"battle\":{\"battleId\":\"" + BattleId
+                        + "\",\"eventId\":\"" + BattleEventId
+                        + "\",\"nodeId\":\"" + BattleNodeId
+                        + "\",\"sourcePopupId\":\"" + BattleNodeId
+                        + "\",\"reservationId\":\"" + BattleReservationId
+                        + "\",\"choiceId\":\"fixture.choice\""
+                        + ",\"expectedVictoryResultId\":\"" + BattleResultId
+                        + "\"}}"));
+                PopupEventBuilder.BuildResult result =
+                    PopupEventBuilder.BuildFromJsonPath(
+                        jsonPath,
+                        OutputFolder + "/BattleTuple");
+                var popup = (PopupEventSO)result.StartEvent;
+                var data = (BattleExecutionData)popup.choices[0].executionConfig.data;
+                Ensure(data.battle?.BattleId == BattleId
+                    && data.eventId == BattleEventId
+                    && data.nodeId == BattleNodeId
+                    && data.sourcePopupId == BattleNodeId
+                    && data.reservationId == BattleReservationId
+                    && data.choiceId == "fixture.choice"
+                    && data.expectedVictoryResultId == BattleResultId,
+                    "Battle completion identity tuple did not round-trip.");
+            }
+            finally
+            {
+                CleanupAssets();
+                CleanupDirectory(tempFolder);
+                AssetDatabase.Refresh();
+            }
+        }
+
+        public static void RunEvent34NextEventBatch()
+        {
+            string tempFolder = Path.Combine(
+                Path.GetTempPath(), "ProjectBS_Event34NextEventBuilderSelfTest");
+            CleanupAssets();
+            CleanupDirectory(tempFolder);
+            try
+            {
+                Directory.CreateDirectory(tempFolder);
+                string parentEvent = "event.act1.random_event.34.half_vein_map";
+                string parentNode = "node.act1.random_event.34.half_vein_map.intro";
+                string childEvent = parentEvent + ".followup.unstable_vein";
+                string childNode = "node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro";
+                string typed = "{\"startNodeId\":\"" + parentNode + "\",\"nodes\":["
+                    + "{\"nodeId\":\"" + parentNode + "\",\"choices\":[{\"choiceId\":\"choice.parent\","
+                    + "\"executionConfig\":{\"type\":\"NextEvent\",\"nextEvent\":{"
+                    + "\"parentEventId\":\"" + parentEvent + "\",\"parentNodeId\":\"" + parentNode + "\","
+                    + "\"parentChoiceId\":\"choice.parent\",\"parentResultId\":\"result.parent\","
+                    + "\"parentReservationId\":\"reservation.parent\",\"childEventId\":\"" + childEvent + "\","
+                    + "\"childNodeId\":\"" + childNode + "\",\"childReservationId\":\"reservation.child\"}}}]},"
+                    + "{\"nodeId\":\"" + childNode + "\",\"choices\":[]}]}";
+                PopupEventBuilder.BuildResult result = PopupEventBuilder.BuildFromJsonPath(
+                    WriteFixture(tempFolder, "event34.json", typed), OutputFolder + "/Event34");
+                var popup = (PopupEventSO)result.StartEvent;
+                var data = (NextEventExecutionData)popup.choices[0].executionConfig.data;
+                Ensure(data.nextEvent?.eventId == childNode
+                    && data.parentEventId == parentEvent
+                    && data.parentNodeId == parentNode
+                    && data.parentChoiceId == "choice.parent"
+                    && data.parentResultId == "result.parent"
+                    && data.parentReservationId == "reservation.parent"
+                    && data.childEventId == childEvent
+                    && data.childNodeId == childNode
+                    && data.childReservationId == "reservation.child",
+                    "Event34 typed NextEvent identity did not round-trip.");
+                Ensure(ChoiceExecutionConfigValidator.Validate(
+                    popup.choices[0].executionConfig).Count == 0,
+                    "Event34 typed NextEvent identity failed runtime validation.");
+            }
+            finally
+            {
+                CleanupAssets();
+                CleanupDirectory(tempFolder);
+                AssetDatabase.Refresh();
+            }
         }
 
         public static void RunAll()
@@ -70,6 +172,7 @@ namespace StageEditor
                 AssetDatabase.Refresh();
             }
         }
+
 
         private static void CreateReferenceAssets()
         {
@@ -251,7 +354,7 @@ namespace StageEditor
                 "unknown-type",
                 CreateSingleChoiceJson(
                     "\"executionConfig\":{\"type\":\"Unknown\"}"),
-                "EXECUTION_TYPE_UNKNOWN");
+                "INVALID_EXECUTION_TYPE");
 
             ExpectFailure(
                 tempFolder,
@@ -334,6 +437,16 @@ namespace StageEditor
                     outputFolder);
             }
             catch (InvalidDataException exception)
+            {
+                Ensure(
+                    exception.Message.IndexOf(
+                        expectedCode,
+                        StringComparison.Ordinal) >= 0,
+                    $"{fixtureName} failed with an unexpected error: "
+                    + exception.Message);
+                return;
+            }
+            catch (InvalidOperationException exception)
             {
                 Ensure(
                     exception.Message.IndexOf(

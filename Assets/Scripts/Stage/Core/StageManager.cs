@@ -40,6 +40,7 @@ namespace Stage
         public event Action<RoundNode> OnNodeSelected;
         public event Action<RoundNode> OnNodeCompleted;
         public event Action<StageProgressState> OnStageProgressChanged;
+        public event Action<OrdinaryBattleCompletionReceipt> OnOrdinaryBattleCompleted;
 
         private void Awake()
         {
@@ -226,6 +227,31 @@ namespace Stage
             return true;
         }
 
+        public bool TryResolveSvgPlacement(RoundNode node, out string sectionId, out string slotId)
+        {
+            sectionId = string.Empty;
+            slotId = string.Empty;
+            if (node == null || node.roundNodeSO == null || string.IsNullOrWhiteSpace(node.nodeId))
+                return false;
+            foreach (SvgPlacementResultEntry entry in _svgPlacementResult)
+            {
+                if (entry == null || entry.assignedNode != node.roundNodeSO
+                    || string.IsNullOrWhiteSpace(entry.slotId)) continue;
+                string safeSlot = entry.slotId.Replace('.', '_').Replace('-', '_');
+                if (!node.nodeId.Contains("_s" + safeSlot + "_", StringComparison.Ordinal)) continue;
+                sectionId = entry.sectionId ?? string.Empty;
+                slotId = entry.slotId;
+                return !string.IsNullOrWhiteSpace(sectionId);
+            }
+            return false;
+        }
+
+        public void PublishAtomicCompletion(RoundNode completedNode, StageProgressState progress)
+        {
+            OnNodeCompleted?.Invoke(completedNode);
+            OnStageProgressChanged?.Invoke(progress);
+        }
+
         private void ApplyPendingBattleNodeCompletion()
         {
             GameSession gameSession = GameSession.Instance;
@@ -259,6 +285,13 @@ namespace Stage
                 OnNodeCompleted?.Invoke(completedNode);
                 OnStageProgressChanged?.Invoke(
                     runtimeData.currentGraph.progressState);
+            }
+
+            OrdinaryBattleCompletionReceipt ordinaryReceipt =
+                gameSession.StageSession.OrdinaryBattles?.ConsumePublication();
+            if (ordinaryReceipt != null)
+            {
+                OnOrdinaryBattleCompleted?.Invoke(ordinaryReceipt);
             }
 
             Debug.Log(

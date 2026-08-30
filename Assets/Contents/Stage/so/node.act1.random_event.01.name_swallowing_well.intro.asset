@@ -21,47 +21,53 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734712
+      rid: 5601486867666043087
   - choiceId: choice.act1.random_event.01.name_swallowing_well.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734713
+      rid: 5601486867666043088
   - choiceId: choice.act1.random_event.01.name_swallowing_well.seal_or_destroy_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734714
+      rid: 5601486867666043089
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734712
+    - rid: 5601486867666043087
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734715
-    - rid: 5601486783294734713
+          rid: 5601486867666043090
+    - rid: 5601486867666043088
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734716
-    - rid: 5601486783294734714
+          rid: 5601486867666043091
+    - rid: 5601486867666043089
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486783294734717
-    - rid: 5601486783294734715
+          rid: 5601486867666043092
+    - rid: 5601486867666043090
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734716
+    - rid: 5601486867666043091
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734717
+    - rid: 5601486867666043092
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: dbbf16a59cf8c41bb8eb0738b3909986, type: 2}
+        eventId: 
+        nodeId: 
+        sourcePopupId: 
+        reservationId: 
+        choiceId: 
+        expectedVictoryResultId: 

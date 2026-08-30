@@ -1,0 +1,11 @@
+{
+  "unit":"Art-A1-Yujin-family",
+  "status":"STOP_AND_RESCOPE_ALPHA_GATE_FAILED_NOT_PROMOTABLE",
+  "budget":{"imageGenCalls":6,"imageGenCorrections":0,"alphaProduction":2,"alphaCorrections":2,"unitySmoke":0,"exactFiles":24},
+  "selectedStyle":{"basic":"B","passive":"B"},
+  "alphaGate":{"required":"bbox each axis 65-86%, margin each side >=7%, residue0, corners0, partial alpha","basicObserved":"100.0% x 51.2759%; margins L0 R0 T48.7241% B0","passiveObserved":"100.0% x 60.2073%; margins L0 R0 T39.7927% B0","result":"FAIL"},
+  "promotionEligible":false,
+  "canonicalTouched":false,
+  "unityRun":false,
+  "nextGate":"production_method_rescope_only"
+}

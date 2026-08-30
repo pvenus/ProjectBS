@@ -1,0 +1,24 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
+  "nodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+  "sourcePopupId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.38.three_cups_of_moonlight.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "exactly three rough stone cups remain larger and distinct at popup scale, with unequal heights, moon-white/celadon/indigo temperatures and visibly incompatible shadow directions",
+    "candidateA": {"sha256": "a0c9ef8f6ea43ffc366e20b7ad930a26d99faca97f65dfa1e519b9744b1959cf", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "cups are smaller and the shadow-direction contradiction is weaker at 144x192"},
+    "candidateB": {"sha256": "e9bb9224c1a1c5d6d3c82207340fccd40bceac8b9a98b656075b33a4f22fcb36", "disposition": "SELECTED"}
+  },
+  "selected960": {"path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event38/selected/event38-selected-B-960x1280.png", "sha256": "bb03b42b829bced0af7591d8668b9ba74afe20308bcf9363dcf9bbc78d4a9efd", "dimensions": "960x1280", "format": "PNG RGB8 opaque"},
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event38/handoff/event38-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event38/handoff/event38-selected-B-max512-B.png",
+    "sha256": "568b122f5dffe3fa80468ae76a0933945896cd43e1b923ca6a561b8fff678a4e",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"people": 0, "mealOrDrinkingParty": 0, "relicOrHealing": 0, "recommendedCup": 0, "rarityGlow": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

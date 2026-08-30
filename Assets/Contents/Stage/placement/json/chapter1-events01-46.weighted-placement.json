@@ -1,0 +1,1537 @@
+{
+  "schemaVersion": 1,
+  "documentType": "weightedPoolPlacementRule",
+  "contractVersion": "chapter1.weighted_pool_placement.v1",
+  "coefficientVersion": "weighted-pool-coefficients.v1",
+  "sourceRewardRiskDefinition": "AgentDocs/planning-guides/evaluation/stage-reward-risk/StageRewardRiskValueFramework.md",
+  "rewardRiskContractVersion": "stage-reward-risk-definition.v1",
+  "rewardRiskDefinitionSha256": "de486ed9062980b2345e80bb15829e4ba3384e1ac2a0e2b096ad74c0ff953bbf",
+  "staleRecalcState": "Current",
+  "staleReason": "",
+  "overrides": [
+
+  ],
+  "catalogId": "catalog.stage.act1.chapter01.weighted-placement.v1",
+  "chapterId": "act1.chapter01",
+  "sourceRuntimeAssetPath": "Assets/Contents/Stage/placement/rules/WeightedPoolPlacementRule.asset",
+  "sourceRuntimeAssetGuid": "90ef4f6016c18d342a0f6aaf00e394bd",
+  "sourceRuntimeAssetSha256": "833cefb49823f6ffe0301b39532e310c52ebc324bc4a27f7ad151fcec327edf7",
+  "runEncounterBudget": 12,
+  "earlyBudget": 4,
+  "midBudget": 4,
+  "lateBudget": 4,
+  "legacyMass": 45,
+  "newMass": 55,
+  "minEligibleCandidates": 4,
+  "minEligiblePurposes": 2,
+  "sectionBands": [
+    {
+      "sectionId": "sec_ep_2_to_ep_3_1",
+      "band": "early"
+    },
+    {
+      "sectionId": "sec_ep_2_to_ep_3_2",
+      "band": "early"
+    },
+    {
+      "sectionId": "sec_ep_3_1_to_ep_4_1",
+      "band": "mid"
+    },
+    {
+      "sectionId": "sec_ep_3_2_to_ep_4_2",
+      "band": "mid"
+    },
+    {
+      "sectionId": "sec_ep_4_1_to_ep_5_1",
+      "band": "mid"
+    },
+    {
+      "sectionId": "sec_ep_4_2_to_ep_5_2",
+      "band": "mid"
+    },
+    {
+      "sectionId": "sec_ep_5_1_to_ep_6",
+      "band": "late"
+    },
+    {
+      "sectionId": "sec_ep_5_2_to_ep_6",
+      "band": "late"
+    }
+  ],
+  "rows": [
+    {
+      "eventId": "event.act1.random_event.01.name_swallowing_well",
+      "topLevelNodeId": "node.act1.random_event.01.name_swallowing_well.intro",
+      "popupId": "node.act1.random_event.01.name_swallowing_well.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.01.name_swallowing_well.asset",
+      "nodeGuid": "ccd4fe3a04e8b47f7a90a136d102c940",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 100,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "name",
+        "settlement",
+        "well"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 1,
+      "rationale": "이름·진실·전투 분기가 어느 구간에서도 성립",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.02.rain_seller",
+      "topLevelNodeId": "node.act1.random_event.02.rain_seller.intro",
+      "popupId": "node.act1.random_event.02.rain_seller.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.02.rain_seller.asset",
+      "nodeGuid": "f14808d6aa3904ca3a653493bfd88514",
+      "generation": "legacy",
+      "primaryBand": "mid",
+      "rawWeight": 85,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "deception",
+        "merchant",
+        "rain"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 2,
+      "rationale": "Gold·기만·전투 판단은 경제 맥락 형성 후 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.03.returning_straw_shoes",
+      "topLevelNodeId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "popupId": "node.act1.random_event.03.returning_straw_shoes.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.03.returning_straw_shoes.asset",
+      "nodeGuid": "e0470486f35944552a5306755dbf83c2",
+      "generation": "legacy",
+      "primaryBand": "early",
+      "rawWeight": 110,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "child-trace",
+        "night",
+        "shelter"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 3,
+      "rationale": "쉼·아이·낮은 복잡도의 초반 생존 사건",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.04.red_thread_mountain_goat",
+      "topLevelNodeId": "node.act1.random_event.04.red_thread_mountain_goat.intro",
+      "popupId": "node.act1.random_event.04.red_thread_mountain_goat.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.04.red_thread_mountain_goat.asset",
+      "nodeGuid": "d2a65a641f44a47fe86cb124a037df5c",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 95,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "animal",
+        "red-thread",
+        "slope"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 4,
+      "rationale": "구조·전투·우회가 런 상태와 무관하게 읽힘",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.05.abandoned_miner_supper",
+      "topLevelNodeId": "node.act1.random_event.05.abandoned_miner_supper.intro",
+      "popupId": "node.act1.random_event.05.abandoned_miner_supper.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.05.abandoned_miner_supper.asset",
+      "nodeGuid": "5ff8c3957fde948cc86e7efbc2e4a7b5",
+      "generation": "legacy",
+      "primaryBand": "early",
+      "rawWeight": 100,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "ghost",
+        "mine",
+        "supper"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 5,
+      "rationale": "회복·조사 중심으로 초반 피로 회복 축을 담당",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.06.shrine_eaves_empty_perch",
+      "topLevelNodeId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "popupId": "node.act1.random_event.06.shrine_eaves_empty_perch.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.06.shrine_eaves_empty_perch.asset",
+      "nodeGuid": "652144bc7a390402d8435a07cb83b5b3",
+      "generation": "legacy",
+      "primaryBand": "early",
+      "rawWeight": 100,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "empty-perch",
+        "ritual",
+        "shrine"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 6,
+      "rationale": "저위험 관찰과 휴식이며 복잡한 축적 결과가 없음",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.07.shadow_selling_child",
+      "topLevelNodeId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "popupId": "node.act1.random_event.07.shadow_selling_child.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.07.shadow_selling_child.asset",
+      "nodeGuid": "5ecfc24fab5404f41979a69c8ba98949",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 80,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Gold",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "child",
+        "doll",
+        "shadow"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 7,
+      "rationale": "초자연 연쇄 변동성 때문에 빈도를 절제하되 시기에는 독립",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.08.spring_beneath_stone_grave",
+      "topLevelNodeId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "popupId": "node.act1.random_event.08.spring_beneath_stone_grave.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.08.spring_beneath_stone_grave.asset",
+      "nodeGuid": "444ab35c79a654b4ab9289220a444575",
+      "generation": "legacy",
+      "primaryBand": "early",
+      "rawWeight": 90,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "grave",
+        "spring",
+        "water"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 8,
+      "rationale": "회복과 유혹을 초반 생존 판단으로 제공",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.09.black_cloth_herbalist",
+      "topLevelNodeId": "node.act1.random_event.09.black_cloth_herbalist.intro",
+      "popupId": "node.act1.random_event.09.black_cloth_herbalist.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.09.black_cloth_herbalist.asset",
+      "nodeGuid": "e6bf7a272c0de46f29316a7219117a9d",
+      "generation": "legacy",
+      "primaryBand": "mid",
+      "rawWeight": 85,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "black-cloth",
+        "herbalist",
+        "suspicion"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 9,
+      "rationale": "인간에 대한 의심과 전투 선택을 빌드 형성기에 연결",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.10.silent_jangseung",
+      "topLevelNodeId": "node.act1.random_event.10.silent_jangseung.intro",
+      "popupId": "node.act1.random_event.10.silent_jangseung.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.10.silent_jangseung.asset",
+      "nodeGuid": "2182669c0240f4c5c8018321254b73e2",
+      "generation": "legacy",
+      "primaryBand": "late",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Route",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "crossroad",
+        "jangseung",
+        "red-clue"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 10,
+      "rationale": "갈림길과 봉쇄의 의미가 누적 경로 상태에서 강해짐",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.11.dry_waterwheel",
+      "topLevelNodeId": "node.act1.random_event.11.dry_waterwheel.intro",
+      "popupId": "node.act1.random_event.11.dry_waterwheel.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.11.dry_waterwheel.asset",
+      "nodeGuid": "1f83624014482464c832df7895704fb3",
+      "generation": "legacy",
+      "primaryBand": "late",
+      "rawWeight": 0,
+      "topLevelEligible": false,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "dry-channel",
+        "exploitation",
+        "waterwheel"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 11,
+      "rationale": "Event18 연쇄 자식이므로 독립 최상위 선택을 금지",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.12.paper_flower_grave",
+      "topLevelNodeId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "popupId": "node.act1.random_event.12.paper_flower_grave.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.12.paper_flower_grave.asset",
+      "nodeGuid": "4555c1187b793458eac63857ab7daaf7",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 100,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "grave",
+        "mourning",
+        "paper-flower"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 12,
+      "rationale": "추모와 이름의 World 선택은 전 구간에서 안정적으로 성립",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.13.empty_bride_palanquin",
+      "topLevelNodeId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+      "popupId": "node.act1.random_event.13.empty_bride_palanquin.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.13.empty_bride_palanquin.asset",
+      "nodeGuid": "afecf2355b750443494a4f7703164938",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 85,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "abduction-trace",
+        "palanquin",
+        "wedding"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 13,
+      "rationale": "전투와 조사 위험이 진행 phase에 종속되지 않음",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.14.stone_laying_hen",
+      "topLevelNodeId": "node.act1.random_event.14.stone_laying_hen.intro",
+      "popupId": "node.act1.random_event.14.stone_laying_hen.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.14.stone_laying_hen.asset",
+      "nodeGuid": "b869d53e8995b4fbab82898c9b414b56",
+      "generation": "legacy",
+      "primaryBand": "mid",
+      "rawWeight": 80,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "Relic",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "greed",
+        "hen",
+        "stone-egg"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 14,
+      "rationale": "탐욕과 Gold·Relic 기대를 중반 경제 판단으로 제한",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.15.ash_eating_jar",
+      "topLevelNodeId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "popupId": "node.act1.random_event.15.ash_eating_jar.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.15.ash_eating_jar.asset",
+      "nodeGuid": "d455b2fa556ff4d8390b61bf18184149",
+      "generation": "legacy",
+      "primaryBand": "late",
+      "rawWeight": 65,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "ash",
+        "fire",
+        "jar"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 15,
+      "rationale": "연쇄·봉인·화염 위험의 높은 분산을 후반에 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.16.crying_bell_smithy",
+      "topLevelNodeId": "node.act1.random_event.16.crying_bell_smithy.intro",
+      "popupId": "node.act1.random_event.16.crying_bell_smithy.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.16.crying_bell_smithy.asset",
+      "nodeGuid": "99cfc79c663d64b0a8992944f0f75405",
+      "generation": "legacy",
+      "primaryBand": "mid",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "relic_p1",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Relic",
+      "secondaryPurpose": "Growth",
+      "oneShot": true,
+      "exclusionGroupIds": [
+        "exclusion.smithy.original_or_growth_trial"
+      ],
+      "motifTags": [
+        "bell",
+        "fire",
+        "smithy"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 16,
+      "rationale": "Relic P1 gate 뒤에만 활성화하고 Smithy 시련과 같은 런 노출을 금지",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.17.three_bowls_on_mountain_path",
+      "topLevelNodeId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "popupId": "node.act1.random_event.17.three_bowls_on_mountain_path.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.17.three_bowls_on_mountain_path.asset",
+      "nodeGuid": "dd1e07f5a247e46f2b9080079d1512dd",
+      "generation": "legacy",
+      "primaryBand": "early",
+      "rawWeight": 110,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "bowls",
+        "care",
+        "mountain-path"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 17,
+      "rationale": "회복 개조본의 초반 생존 기반 역할",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.18.reverse_flowing_stream",
+      "topLevelNodeId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+      "popupId": "node.act1.random_event.18.reverse_flowing_stream.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.18.reverse_flowing_stream.asset",
+      "nodeGuid": "43e6309bca5a649d3961fc61848b51c8",
+      "generation": "legacy",
+      "primaryBand": "late",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "exploitation",
+        "reverse-flow",
+        "stream"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 18,
+      "rationale": "물길 착취와 Event11 자식 연쇄를 후반 결산으로 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.19.faceless_woodcarver",
+      "topLevelNodeId": "node.act1.random_event.19.faceless_woodcarver.intro",
+      "popupId": "node.act1.random_event.19.faceless_woodcarver.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.19.faceless_woodcarver.asset",
+      "nodeGuid": "ae6252e45593041f6a783df94f11af5b",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Character",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "masks",
+        "memory",
+        "woodcarver"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 19,
+      "rationale": "기억·정체성 연쇄는 시기 독립이나 반복 빈도를 절제",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.20.fog_sewing_old_woman",
+      "topLevelNodeId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "popupId": "node.act1.random_event.20.fog_sewing_old_woman.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.20.fog_sewing_old_woman.asset",
+      "nodeGuid": "13f75906a34154dd686984114a1dddf9",
+      "generation": "legacy",
+      "primaryBand": "all",
+      "rawWeight": 90,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Route",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "fog",
+        "old-woman",
+        "thread"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 20,
+      "rationale": "길 봉쇄와 World 판단이 어느 phase에서도 성립",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.21.breath_between_water_drops",
+      "topLevelNodeId": "node.act1.random_event.21.breath_between_water_drops.intro",
+      "popupId": "node.act1.random_event.21.breath_between_water_drops.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.21.breath_between_water_drops.asset",
+      "nodeGuid": "9d5ac2a8a850d4ebcab2b07afc24d3dc",
+      "generation": "new",
+      "primaryBand": "early",
+      "rawWeight": 110,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Growth",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "breath",
+        "cave",
+        "water-drops"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 21,
+      "rationale": "비용 없는 Growth2로 초반 빌드 시작을 지원",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.22.sleeping_hawk_watch",
+      "topLevelNodeId": "node.act1.random_event.22.sleeping_hawk_watch.intro",
+      "popupId": "node.act1.random_event.22.sleeping_hawk_watch.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.22.sleeping_hawk_watch.asset",
+      "nodeGuid": "4373fbd8cd99b403d8bc594abf7c5167",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Growth",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "hawk",
+        "lamp",
+        "night-watch"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 22,
+      "rationale": "HP 비용 Growth3는 생존 기반이 생긴 뒤 판단",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.23.temple_hundred_eight_steps",
+      "topLevelNodeId": "node.act1.random_event.23.temple_hundred_eight_steps.intro",
+      "popupId": "node.act1.random_event.23.temple_hundred_eight_steps.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.23.temple_hundred_eight_steps.asset",
+      "nodeGuid": "8e94982438a7e4d86aff9236cda98b29",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Growth",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "endurance",
+        "stone-steps",
+        "temple"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 23,
+      "rationale": "Risk Growth3와 Heal15의 중반 기회비용을 비교",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.24.herb_scent_empty_barracks",
+      "topLevelNodeId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+      "popupId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.24.herb_scent_empty_barracks.asset",
+      "nodeGuid": "eb313f583cba8449ba40e466abec28ae",
+      "generation": "new",
+      "primaryBand": "early",
+      "rawWeight": 105,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "barracks",
+        "herbs",
+        "steam"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 24,
+      "rationale": "Heal20과 기록의 낮은 복잡도 초반 선택",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.25.hot_spring_beneath_ice",
+      "topLevelNodeId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+      "popupId": "node.act1.random_event.25.hot_spring_beneath_ice.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.25.hot_spring_beneath_ice.asset",
+      "nodeGuid": "70433d7598b4a44e3bdb52a80ecc0a78",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 70,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "Relic",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "hot-spring",
+        "ice",
+        "mineral"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 25,
+      "rationale": "Heal과 Battle·Relic의 V3 claim 변동성 때문에 빈도를 절제",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.26.sleepless_waystation",
+      "topLevelNodeId": "node.act1.random_event.26.sleepless_waystation.intro",
+      "popupId": "node.act1.random_event.26.sleepless_waystation.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.26.sleepless_waystation.asset",
+      "nodeGuid": "3e590dbf5ffd3426c907928518dbacf2",
+      "generation": "new",
+      "primaryBand": "early",
+      "rawWeight": 95,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Recovery",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "cold-hearth",
+        "exposure",
+        "waystation"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 26,
+      "rationale": "Heal30과 다음 길 정보로 초반 준비 방향을 선택",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.27.paper_armor_bandits",
+      "topLevelNodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+      "popupId": "node.act1.random_event.27.paper_armor_bandits.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.27.paper_armor_bandits.asset",
+      "nodeGuid": "6f5af765a72d640c886564fc79899e37",
+      "generation": "new",
+      "primaryBand": "all",
+      "rawWeight": 85,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "Gold",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "bandits",
+        "paper-armor",
+        "rain"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 27,
+      "rationale": "위험과 Gold가 다른 두 전투를 전 구간에서 비교 가능",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.28.rockfall_scouts",
+      "topLevelNodeId": "node.act1.random_event.28.rockfall_scouts.intro",
+      "popupId": "node.act1.random_event.28.rockfall_scouts.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.28.rockfall_scouts.asset",
+      "nodeGuid": "cce301c066907457d82f825f76b5201c",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "cliff",
+        "rockfall",
+        "signal-mirror"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 28,
+      "rationale": "전투·HP와 route commit의 고분산을 후반에 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.29.chain_bridge_tollkeepers",
+      "topLevelNodeId": "node.act1.random_event.29.chain_bridge_tollkeepers.intro",
+      "popupId": "node.act1.random_event.29.chain_bridge_tollkeepers.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.29.chain_bridge_tollkeepers.asset",
+      "nodeGuid": "2886f619cabbf4ad28325549b9f729d3",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "Gold",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "chain-bridge",
+        "ravine",
+        "toll"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 29,
+      "rationale": "Gold50 지불과 전투는 Gold가 형성된 뒤 유효",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.30.night_beacon_intruders",
+      "topLevelNodeId": "node.act1.random_event.30.night_beacon_intruders.intro",
+      "popupId": "node.act1.random_event.30.night_beacon_intruders.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.30.night_beacon_intruders.asset",
+      "nodeGuid": "ee55ef8aba1b543ee8bf3e33dea291af",
+      "generation": "new",
+      "primaryBand": "all",
+      "rawWeight": 80,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "beacon",
+        "intruders",
+        "night"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 30,
+      "rationale": "전투와 경계 flag 선택은 시기 독립이며 material EV가 낮음",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+      "topLevelNodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+      "popupId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.31.wounded_mountain_tiger_domain.asset",
+      "nodeGuid": "f5d110a2211f6409fb0ce375ae8b2080",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 65,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Battle",
+      "secondaryPurpose": "Relic",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "broken-spear",
+        "forest",
+        "tiger"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 31,
+      "rationale": "Battle·Relic과 World 기록의 owned·claim 변동성을 절제",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.32.hidden_ledger_salt_cart",
+      "topLevelNodeId": "node.act1.random_event.32.hidden_ledger_salt_cart.intro",
+      "popupId": "node.act1.random_event.32.hidden_ledger_salt_cart.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.32.hidden_ledger_salt_cart.asset",
+      "nodeGuid": "502650b07f7f8445d81ff2168cc338ba",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 80,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "ledger",
+        "salt-cart",
+        "trade"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 32,
+      "rationale": "Gold25·50과 윤리 기록의 중반 경제 비교",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.33.false_mountain_rite_offering_box",
+      "topLevelNodeId": "node.act1.random_event.33.false_mountain_rite_offering_box.intro",
+      "popupId": "node.act1.random_event.33.false_mountain_rite_offering_box.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.33.false_mountain_rite_offering_box.asset",
+      "nodeGuid": "e5470cd72e2354572bb2bc99afe86415",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 70,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "deception",
+        "false-rite",
+        "offering-box"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 33,
+      "rationale": "Battle Gold50·Gold25·0의 중반 위험 프리미엄",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.34.half_vein_map",
+      "topLevelNodeId": "node.act1.random_event.34.half_vein_map.intro",
+      "popupId": "node.act1.random_event.34.half_vein_map.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.34.half_vein_map.asset",
+      "nodeGuid": "9c54b2147e99a4ad38edaf05dfe5be07",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 55,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "collapse",
+        "mine",
+        "vein-map"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+        "node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro"
+      ],
+      "order": 34,
+      "rationale": "자식 연쇄·HP 비용·Gold75의 지연과 고분산을 후반에 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.35.ownerless_wage_sack",
+      "topLevelNodeId": "node.act1.random_event.35.ownerless_wage_sack.intro",
+      "popupId": "node.act1.random_event.35.ownerless_wage_sack.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.35.ownerless_wage_sack.asset",
+      "nodeGuid": "872b18072cc7745e0b5e77a90077c8f8",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 75,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Gold",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "hands",
+        "labor",
+        "wage-sack"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 35,
+      "rationale": "Gold75·Heal25·Gold25를 빌드와 경제 형성기에 비교",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
+      "topLevelNodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+      "popupId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.36.cracked_bronze_mirror.asset",
+      "nodeGuid": "3a92bd4cbfe8541e58ba1ce52655eb60",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 55,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Relic",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "bronze-mirror",
+        "crack",
+        "reflection"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 36,
+      "rationale": "HP 비용 fixed Relic과 flag의 큰 가치차를 후반에 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+      "topLevelNodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+      "popupId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.37.nameless_long_sword_in_rain.asset",
+      "nodeGuid": "c6a424950ade042ebbbd733c97da3796",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Relic",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "long-sword",
+        "nameless",
+        "rain"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 37,
+      "rationale": "Battle·Relic과 World 기록의 claim 변동성으로 희소화",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
+      "topLevelNodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+      "popupId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.38.three_cups_of_moonlight.asset",
+      "nodeGuid": "9a1cfdaf3342f4cdf9fbbd6ed00503dd",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 65,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Relic",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "cups",
+        "moonlight",
+        "pavilion"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 38,
+      "rationale": "Heal20과 fixed Relic의 빌드 시너지를 중반에 비교",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.39.self_knotting_rope",
+      "topLevelNodeId": "node.act1.random_event.39.self_knotting_rope.intro",
+      "popupId": "node.act1.random_event.39.self_knotting_rope.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.39.self_knotting_rope.asset",
+      "nodeGuid": "e584dcbeb9d97476a8695b2b375915d3",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 55,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Relic",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "knot",
+        "rope",
+        "warehouse"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 39,
+      "rationale": "Relic 가치와 shortcut의 route 맥락을 후반 결산",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio",
+      "topLevelNodeId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+      "popupId": "node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.40.jihan_empty_medicine_folio.asset",
+      "nodeGuid": "2c3d31c42cf5948608303ee6245bdb7d",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 70,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "character.jihan.1",
+      "primaryPurpose": "Character",
+      "secondaryPurpose": "Recovery",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "jihan",
+        "medicine-folio",
+        "prescription"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 40,
+      "rationale": "지한 합류 뒤 Heal25와 Character 기록을 선택",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+      "topLevelNodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+      "popupId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.41.yujin_broken_arrow_fletching.asset",
+      "nodeGuid": "eec729dc7b62d40bd90cab906ccbb914",
+      "generation": "new",
+      "primaryBand": "mid",
+      "rawWeight": 65,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "character.yujin.1",
+      "primaryPurpose": "Character",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "arrow-fletching",
+        "trail",
+        "yujin"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 41,
+      "rationale": "유진 합류 뒤 Battle 기록과 안전한 Character 기록을 선택",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.42.twice_ringing_mountain_echo",
+      "topLevelNodeId": "node.act1.random_event.42.twice_ringing_mountain_echo.intro",
+      "popupId": "node.act1.random_event.42.twice_ringing_mountain_echo.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.42.twice_ringing_mountain_echo.asset",
+      "nodeGuid": "714864da43901411ea7ecd61059c934a",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Route",
+      "secondaryPurpose": "World",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "cliff",
+        "direction",
+        "echo"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 42,
+      "rationale": "정보와 alert·shortcut을 누적 경로 상태에서 결산",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
+      "topLevelNodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+      "popupId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.43.reverse_growing_moss_marker.asset",
+      "nodeGuid": "10afacefbfd8541caa2399ad8a7c43ff",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "Route",
+      "secondaryPurpose": "Relic",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "crossroad",
+        "marker",
+        "moss"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 43,
+      "rationale": "route 정보와 fixed Relic의 큰 가치차를 후반에 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.44.buried_tax_stele",
+      "topLevelNodeId": "node.act1.random_event.44.buried_tax_stele.intro",
+      "popupId": "node.act1.random_event.44.buried_tax_stele.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.44.buried_tax_stele.asset",
+      "nodeGuid": "7e7be22e84a554e7992bf699790289af",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 60,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Gold",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "buried",
+        "field",
+        "tax-stele"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 44,
+      "rationale": "Gold25·75와 공개·은폐 기록을 런 경제 결산으로 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.45.false_wildfire_boundary_stones",
+      "topLevelNodeId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+      "popupId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.45.false_wildfire_boundary_stones.asset",
+      "nodeGuid": "d53dec66b46f245898a7a913e5aa4f28",
+      "generation": "new",
+      "primaryBand": "late",
+      "rawWeight": 55,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Route",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "boundary-stone",
+        "tampering",
+        "wildfire"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 45,
+      "rationale": "정의 flag·Battle route와 무개입을 후반 상태 결산으로 배치",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    },
+    {
+      "eventId": "event.act1.random_event.46.funeral_without_black_cloth",
+      "topLevelNodeId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+      "popupId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+      "nodeAssetPath": "Assets/Contents/Stage/so/stage.act1.random_event.46.funeral_without_black_cloth.asset",
+      "nodeGuid": "1fc9f6c43e6854359b258bb30c108801",
+      "generation": "new",
+      "primaryBand": "all",
+      "rawWeight": 80,
+      "topLevelEligible": true,
+      "capabilityGate": "",
+      "requiredCharacterId": "",
+      "primaryPurpose": "World",
+      "secondaryPurpose": "Battle",
+      "oneShot": true,
+      "exclusionGroupIds": [
+
+      ],
+      "motifTags": [
+        "empty-bier",
+        "funeral",
+        "white-cord"
+      ],
+      "cooldown": 3,
+      "chainChildren": [
+
+      ],
+      "order": 46,
+      "rationale": "World·Battle·leave 삼분기가 phase와 무관하게 성립",
+      "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
+      "staleState": "Current"
+    }
+  ],
+  "canonicalContentSha256": "6e58a3620aadfe1d87cb9058e29e4fcbb9c36c6a3d11dd6a9bc57fe814d43661",
+  "generatorVersion": "chapter1.weighted_pool_manifest.v1"
+}

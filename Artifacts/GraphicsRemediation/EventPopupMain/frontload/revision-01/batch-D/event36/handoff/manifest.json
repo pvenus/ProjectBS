@@ -1,0 +1,29 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
+  "nodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+  "sourcePopupId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.36.cracked_bronze_mirror.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "tarnished bronze disk and patina, empty room, restrained crack and offset pillar-door reflection provide the clearest spatial-reflection motif without character or reward preview",
+    "candidateA": {"sha256": "7f58fa61063c2646ce0fe70d2d3f8085cd16524fb1f8b705d0e1da0fa95c45b9", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "clear mirror surface and tabletop framing increase western-glass/product-display risk"},
+    "candidateB": {"sha256": "9267d2619a3338575b8d058f011a2267b8e10e4f84a09b732d7963811eef85da", "disposition": "SELECTED"}
+  },
+  "selected960": {
+    "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event36/selected/event36-selected-B-960x1280.png",
+    "sha256": "7f373d61e1df0daf807c5c4676f38f23cf8c8eb198fb786fa6806bf1a3e49019",
+    "dimensions": "960x1280",
+    "format": "PNG RGB8 opaque"
+  },
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event36/handoff/event36-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event36/handoff/event36-selected-B-max512-B.png",
+    "sha256": "66e1b6265dc348dfd503efe87bfad8848528abad008d96cd1b7b70bf976f6196",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"personOrFace": 0, "ghost": 0, "spikedCarapace": 0, "blood": 0, "portalOrNeon": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

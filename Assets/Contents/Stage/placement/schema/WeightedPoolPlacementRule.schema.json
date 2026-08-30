@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projectbs://stage/weighted-pool-placement-rule/v1",
+  "title": "ProjectBS Weighted Pool Placement Rule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "documentType", "catalogId", "chapterId", "sourceRewardRiskDefinition", "rewardRiskContractVersion", "rewardRiskDefinitionSha256", "staleRecalcState", "overrides", "runEncounterBudget", "earlyBudget", "midBudget", "lateBudget", "legacyMass", "newMass", "rows"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "documentType": { "const": "weightedPoolPlacementRule" },
+    "contractVersion": { "type": "string", "minLength": 1 },
+    "coefficientVersion": { "type": "string", "minLength": 1 },
+    "sourceRewardRiskDefinition": { "type": "string", "pattern": "^AgentDocs/" },
+    "rewardRiskContractVersion": { "type": "string", "minLength": 1 },
+    "rewardRiskDefinitionSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "staleRecalcState": { "enum": ["Current", "StaleRewardRiskDependency"] },
+    "staleReason": { "type": "string" },
+    "overrides": { "type": "array", "items": { "$ref": "#/$defs/override" } },
+    "catalogId": { "type": "string", "minLength": 1 },
+    "chapterId": { "type": "string", "minLength": 1 },
+    "sourceRuntimeAssetPath": { "type": "string" },
+    "sourceRuntimeAssetGuid": { "type": "string" },
+    "sourceRuntimeAssetSha256": { "type": "string" },
+    "runEncounterBudget": { "const": 12 },
+    "earlyBudget": { "const": 4 },
+    "midBudget": { "const": 4 },
+    "lateBudget": { "const": 4 },
+    "legacyMass": { "const": 45 },
+    "newMass": { "const": 55 },
+    "minEligibleCandidates": { "type": "integer", "minimum": 4 },
+    "minEligiblePurposes": { "type": "integer", "minimum": 2 },
+    "sectionBands": { "type": "array", "items": { "$ref": "#/$defs/sectionBand" } },
+    "rows": { "type": "array", "minItems": 46, "maxItems": 46, "items": { "$ref": "#/$defs/eventRow" } },
+    "canonicalContentSha256": { "type": "string" },
+    "generatorVersion": { "type": "string" }
+  },
+  "$defs": {
+    "sectionBand": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sectionId", "band"],
+      "properties": { "sectionId": { "type": "string", "minLength": 1 }, "band": { "enum": ["all", "early", "mid", "late"] } }
+    },
+    "eventRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eventId", "topLevelNodeId", "nodeAssetPath", "nodeGuid", "generation", "primaryBand", "rawWeight", "topLevelEligible", "primaryPurpose", "rationale", "sourceAuthority", "staleState", "order"],
+      "properties": {
+        "eventId": { "type": "string", "minLength": 1 }, "topLevelNodeId": { "type": "string", "minLength": 1 }, "popupId": { "type": "string" },
+        "nodeAssetPath": { "type": "string", "pattern": "^Assets/" }, "nodeGuid": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "generation": { "enum": ["legacy", "new"] }, "primaryBand": { "enum": ["all", "early", "mid", "late"] },
+        "rawWeight": { "type": "integer", "minimum": 0 }, "topLevelEligible": { "type": "boolean" }, "capabilityGate": { "type": "string" },
+        "requiredCharacterId": { "type": "string" }, "primaryPurpose": { "type": "string" }, "secondaryPurpose": { "type": "string" },
+        "oneShot": { "type": "boolean" }, "exclusionGroupIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "motifTags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }, "cooldown": { "type": "integer", "minimum": 0 },
+        "chainChildren": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "rationale": { "type": "string", "minLength": 1 }, "sourceAuthority": { "type": "string", "minLength": 1 },
+        "staleState": { "enum": ["Current", "StaleRewardRiskDependency"] }, "order": { "type": "integer" }
+      }
+    },
+    "override": {
+      "type": "object", "additionalProperties": false,
+      "required": ["overrideId", "rowId", "field", "baseContractVersion", "oldValue", "newValue", "rationale", "evidence", "owner", "approver", "reviewGate", "affectedDistributionCells"],
+      "properties": {
+        "overrideId": { "type": "string", "minLength": 1 }, "rowId": { "type": "string", "minLength": 1 },
+        "field": { "type": "string", "minLength": 1 }, "baseContractVersion": { "type": "string", "minLength": 1 },
+        "oldValue": { "type": "string" }, "newValue": { "type": "string" }, "rationale": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string", "minLength": 1 }, "owner": { "type": "string" }, "approver": { "type": "string" },
+        "reviewGate": { "type": "string" }, "affectedDistributionCells": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    }
+  }
+}

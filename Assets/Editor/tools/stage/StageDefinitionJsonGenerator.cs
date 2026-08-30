@@ -168,8 +168,13 @@ namespace ResourceTools.Stage
             }
 
             string normalizedKey = NormalizeKey(key);
-            return FindAssets<StagePlacementRuleSO>().FirstOrDefault(rule =>
-                NormalizeKey(rule.name) == normalizedKey);
+            StagePlacementRuleSO canonical = FindAssets<StagePlacementRuleSO>(
+                    "Assets/Contents/Stage/placement/rules")
+                .FirstOrDefault(rule => NormalizeKey(rule.name) == normalizedKey);
+            return canonical != null
+                ? canonical
+                : FindAssets<StagePlacementRuleSO>().FirstOrDefault(rule =>
+                    NormalizeKey(rule.name) == normalizedKey);
         }
 
         private static List<T> FindAssets<T>(

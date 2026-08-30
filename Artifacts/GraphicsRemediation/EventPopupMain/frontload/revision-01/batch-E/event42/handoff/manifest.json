@@ -1,0 +1,24 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.42.twice_ringing_mountain_echo",
+  "nodeId": "node.act1.random_event.42.twice_ringing_mountain_echo.intro",
+  "sourcePopupId": "node.act1.random_event.42.twice_ringing_mountain_echo.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.42.twice_ringing_mountain_echo.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "two open limestone gaps and two broken granular dust plumes of visibly unequal reach read as natural echo traces without arrows, sonar rings or a committed route",
+    "candidateA": {"sha256": "4df66fbce61d940f111f5071f51be3b9226f41d3ba13310b484a8db06b81fb7e", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "clean continuous traces risk an arrow or UI-route reading"},
+    "candidateB": {"sha256": "58a5096c2decf0ee764af3eb9ff61128630a3f876d0db931f91bc2e2f7843868", "disposition": "SELECTED"}
+  },
+  "selected960": {"path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event42/selected/event42-selected-B-960x1280.png", "sha256": "a6868a1dd1b0164fc69949a77dffa2e826dd8c43af424a0bcded7d3b24461572", "dimensions": "960x1280", "format": "PNG RGB8 opaque"},
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event42/handoff/event42-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event42/handoff/event42-selected-B-max512-B.png",
+    "sha256": "2258902b93cd97f00532f9d75b6ac4a85ef31e8f846a6a978d30e7de2b43b38a",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"arrowOrUI": 0, "sonarOrClosedRing": 0, "routeResult": 0, "ambusherOrVictory": 0, "caveOrFog": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

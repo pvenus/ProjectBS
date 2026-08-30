@@ -61,6 +61,7 @@ namespace StageEditor
 
                 VerifyNextEventAndDuplicateGuard(
                     nextEvent);
+                VerifyNextEventTransactionDispatch(nextEvent);
                 VerifyDefaultRouter(
                     nextEvent,
                     battle,
@@ -296,6 +297,102 @@ namespace StageEditor
             Ensure(
                 openCount == 2,
                 "A new execution ID did not execute.");
+        }
+
+        private static void VerifyNextEventTransactionDispatch(PopupEventSO nextEvent)
+        {
+            ChoiceExecutionRouter router = ChoiceExecutionRouter.CreateNextEventOnly();
+            int legacyOpenCount = 0;
+            int transactionOpenCount = 0;
+            PortfolioOutcomeOwnership ownership = new();
+            ownership.ResetForNewRun("router.next.transaction");
+            ChoiceExecutionContext context = new(
+                openNextEvent: _ => legacyOpenCount++,
+                openNextEventTransaction: (NextEventExecutionData data, out string error) =>
+                {
+                    error = string.Empty;
+                    transactionOpenCount++;
+                    return ownership.TryReserveContinuation(new PortfolioNextEventContinuationReceipt
+                    {
+                        parentEventId = data.parentEventId,
+                        parentNodeId = data.parentNodeId,
+                        parentChoiceId = data.parentChoiceId,
+                        parentResultId = data.parentResultId,
+                        parentReservationId = data.parentReservationId,
+                        childEventId = data.childEventId,
+                        childNodeId = data.childNodeId,
+                        childReservationId = data.childReservationId
+                    });
+                });
+
+            ChoiceExecutionConfig legacy = ChoiceExecutionDataFactory.CreateConfig(
+                ChoiceExecutionType.NextEvent);
+            ((NextEventExecutionData)legacy.data).nextEvent = nextEvent;
+            EnsureSuccess(router, "router.next.legacy", legacy, context);
+            Ensure(legacyOpenCount == 1 && transactionOpenCount == 0
+                && ownership.PendingContinuation == null,
+                "Legacy NextEvent did not use the non-transactional fallback exactly once.");
+
+            ChoiceExecutionConfig typed = ChoiceExecutionDataFactory.CreateConfig(
+                ChoiceExecutionType.NextEvent);
+            NextEventExecutionData typedData = (NextEventExecutionData)typed.data;
+            typedData.nextEvent = nextEvent;
+            typedData.parentEventId = "event.act1.random_event.34.half_vein_map";
+            typedData.parentNodeId = "node.act1.random_event.34.half_vein_map.intro";
+            typedData.parentChoiceId = "choice.act1.random_event.34.half_vein_map.follow_unstable_vein";
+            typedData.parentResultId = "result.act1.random_event.34.half_vein_map.unstable_vein_entered";
+            typedData.parentReservationId = "reservation.act1.chapter01.random_event.34.half_vein_map";
+            typedData.childEventId = "event.act1.random_event.34.half_vein_map.followup.unstable_vein";
+            typedData.childNodeId = "node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro";
+            typedData.childReservationId = "reservation.act1.chapter01.random_event.34.half_vein_map.followup.unstable_vein";
+            nextEvent.eventId = typedData.childNodeId;
+            EnsureSuccess(router, "router.next.typed", typed, context);
+            Ensure(transactionOpenCount == 1 && legacyOpenCount == 1
+                && ownership.PendingContinuation != null,
+                "Complete typed NextEvent did not reserve transactionally.");
+            Ensure(ownership.TryCommitContinuation(typedData.childEventId, typedData.childNodeId),
+                "Typed continuation did not commit and clear its reservation.");
+            Ensure(ownership.PendingContinuation == null,
+                "Committed typed continuation remained pending.");
+            Ensure(router.TryExecute("router.next.typed", typed, context, out _)
+                    == ChoiceExecutionResult.AlreadyExecuted
+                && transactionOpenCount == 1,
+                "Typed NextEvent replay opened twice.");
+
+            ChoiceExecutionConfig partial = ChoiceExecutionDataFactory.CreateConfig(
+                ChoiceExecutionType.NextEvent);
+            NextEventExecutionData partialData = (NextEventExecutionData)partial.data;
+            partialData.nextEvent = nextEvent;
+            partialData.parentEventId = "event.partial";
+            bool partialResult = new NextEventChoiceExecutionExecutor().TryExecute(
+                partialData, context, out string partialError);
+            Ensure(!partialResult
+                && partialError.StartsWith("NEXT_EVENT_TRANSACTION_IDENTITY_INVALID",
+                    StringComparison.Ordinal)
+                && legacyOpenCount == 1 && transactionOpenCount == 1,
+                "Partial NextEvent identity did not fail closed without mutation.");
+
+            PortfolioNextEventContinuationReceipt stale = new()
+            {
+                parentEventId = "event.stale",
+                parentNodeId = "node.stale",
+                parentChoiceId = "choice.stale",
+                parentResultId = "result.stale",
+                parentReservationId = "reservation.stale",
+                childEventId = "event.stale.child",
+                childNodeId = "node.stale.child",
+                childReservationId = "reservation.stale.child"
+            };
+            Ensure(ownership.TryReserveContinuation(stale),
+                "Stale reservation fixture was not established.");
+            ChoiceExecutionResult conflict = router.TryExecute(
+                "router.next.conflict", typed, context, out _);
+            Ensure(conflict == ChoiceExecutionResult.ExecutionFailed
+                && ownership.PendingContinuation == stale,
+                "A real typed reservation conflict was not preserved fail-closed.");
+            Ensure(ownership.TryReleaseContinuation(stale)
+                && ownership.PendingContinuation == null,
+                "Stale typed continuation did not release cleanly.");
         }
 
         private static void VerifyInvalidConfigHasNoSideEffect()

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "documentType": "randomGrowthSafeEventPool",
+  "contentContractVersion": "chapter1-random-growth-safe-content.v2",
+  "poolId": "event_pool.act1.random_growth.safe",
+  "probabilityOwner": "chapterPortfolioManifest",
+  "entries": [
+    {
+      "entryId": "stage.act1.random_growth.02.windworn_sword_marks",
+      "nodeJsonPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_growth.02.windworn_sword_marks.json",
+      "nodeId": "stage.act1.random_growth.02.windworn_sword_marks",
+      "weight": 1,
+      "oneShot": true,
+      "tags": ["act01", "random_growth", "safe", "portfolio_manifest_owned"]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "member": "yujin-basic-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Yujin/basic_attack/selected/yujin-basic-attack-G3-selected-A.png",
+    "sha256": "3fc8c341fa72cd3b53a89f914ea200f3d12e906c6e70980dcece4791dc7783e8",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 12670,
+    "opaquePixels": 79104,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 26,
+      "minY": 269,
+      "maxX": 1184,
+      "maxY": 995,
+      "widthPct": 92.42424242424242,
+      "heightPct": 57.97448165869219,
+      "marginsPct": {
+        "left": 2.073365231259968,
+        "right": 5.502392344497608,
+        "top": 21.451355661881976,
+        "bottom": 20.574162679425836
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "cc8a61a3b6dfa9a7396267e39e4aa950382dc4fee5571db4abe9721b3699151a",
+    "trimap": "f26480146aac2b298ac2798f6c38c0be6bb0e18ffd315685fcb7a80f07e40f7a",
+    "master": "19ba629f7cf5ea54e76be75da29f83ad3b1cc240d587a8526d5461fed36ea38e",
+    "runtime512": "d7f0b2628f9e23c0c2ea39a7ea2d815ba33bb75ebea49c5eac7bd35da7063c33",
+    "identity": "3db0f6df47b3c16bbb07956c0ffee776875a6162b403959075f1c6f1ddbad45d"
+  }
+}

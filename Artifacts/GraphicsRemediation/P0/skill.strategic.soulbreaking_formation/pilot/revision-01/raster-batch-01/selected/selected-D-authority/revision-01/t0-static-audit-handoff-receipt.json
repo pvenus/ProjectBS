@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "projectbs_graphics_remediation_t0_static_audit_handoff_v1",
+  "createdAtUtc": "2026-08-29T18:30:02Z",
+  "scope": {
+    "assetId": "skill.strategic.soulbreaking_formation",
+    "selection": "selected-D",
+    "authorized": [
+      "static PNG decode and alpha audit",
+      "deterministic premultiplied-alpha linear-light Lanczos3 512 only after static PASS"
+    ],
+    "excluded": [
+      "aesthetic reassessment",
+      "alpha extraction or correction",
+      "canonical write",
+      "meta or GUID change",
+      "importer execution",
+      "Unity",
+      "staging",
+      "UI, capture, contact sheet, sandbox, tests"
+    ]
+  },
+  "artHandoff": {
+    "receiptPath": "/private/tmp/projectbs-current-hwagam-art-p0-soulbreaking-formation-pilot.txt",
+    "expectedSha256": "6b63177b088b91c15ef08adc895525bbefb812b272da905b62e3952b7b4da542",
+    "actualSha256": "6b63177b088b91c15ef08adc895525bbefb812b272da905b62e3952b7b4da542",
+    "shaMatch": true,
+    "artRevalidationCount": 0
+  },
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/skill.strategic.soulbreaking_formation/pilot/revision-01/raster-batch-01/selected/selected-D.png",
+    "expectedSha256": "e41e2fbd3aefafc5a5a82b5695532d247dda9ea0b6e44d61e9e72a17b97074f2",
+    "actualSha256": "e41e2fbd3aefafc5a5a82b5695532d247dda9ea0b6e44d61e9e72a17b97074f2",
+    "shaMatch": true,
+    "format": "PNG",
+    "decode": "PASS",
+    "mode": "RGBA",
+    "dimensions": [1254, 1254],
+    "pixelCount": 1572516,
+    "blankOrEmpty": false
+  },
+  "staticAudit": {
+    "alpha": {
+      "min": 0,
+      "max": 255,
+      "uniqueValueCount": 256,
+      "transparentPixelCount": 526278,
+      "partialPixelCount": 1046126,
+      "opaquePixelCount": 112,
+      "alpha1PixelCount": 33951,
+      "alpha2Through7PixelCount": 38750
+    },
+    "transparentResidue": {
+      "alpha0RgbNonzeroPixelCount": 0,
+      "alpha0RgbChannelMax": [0, 0, 0],
+      "status": "PASS"
+    },
+    "cornersRgba": {
+      "topLeft": [0, 0, 0, 0],
+      "topRight": [0, 0, 0, 0],
+      "bottomLeft": [0, 0, 0, 1],
+      "bottomRight": [0, 0, 0, 0]
+    },
+    "alphaPositiveBBoxHalfOpen": [0, 0, 1242, 1254],
+    "alphaPositiveMarginsLTRB": [0, 0, 12, 0],
+    "thresholdBboxes": {
+      "alphaAtLeast2": {"bboxHalfOpen": [25, 64, 1225, 1230], "marginsLTRB": [25, 64, 29, 24], "pixelCount": 1012287},
+      "alphaAtLeast8": {"bboxHalfOpen": [27, 66, 1223, 1180], "marginsLTRB": [27, 66, 31, 74], "pixelCount": 973537},
+      "alphaAtLeast128": {"bboxHalfOpen": [29, 67, 1220, 1178], "marginsLTRB": [29, 67, 34, 76], "pixelCount": 901646},
+      "alpha255": {"bboxHalfOpen": [55, 68, 1189, 1175], "marginsLTRB": [55, 68, 65, 79], "pixelCount": 112}
+    },
+    "perimeterAlphaPositive": {
+      "top": {"pixelCount": 4, "coordinateRangeX": [410, 413], "alphaValues": [1]},
+      "bottom": {"pixelCount": 102, "coordinateRangeX": [0, 1029], "alphaValues": [1]},
+      "left": {"pixelCount": 62, "coordinateRangeY": [21, 1253], "alphaValues": [1]},
+      "right": {"pixelCount": 0, "coordinateRangeY": null, "alphaValues": []}
+    },
+    "haloRisk": {
+      "status": "BLOCKED",
+      "reason": "Near-transparent alpha=1 pixels touch three canvas edges and the bottom-left corner; 741 alpha=1 pixels also carry nonzero RGB. Although alpha=0 RGB residue is exactly zero, resampling this edge-connected near-transparent field can introduce fringe contribution, so deterministic 512 feasibility is not granted."
+    }
+  },
+  "gate": {
+    "staticStatus": "FAIL_ALPHA_DEFECT",
+    "exactBlocker": "The alpha-positive bbox touches top, bottom, and left canvas boundaries solely through alpha=1 residue; bottom-left RGBA is (0,0,0,1). This violates the clean-corner/bounded-alpha prerequisite for resize.",
+    "correctionPerformed": false,
+    "extractionPerformed": false,
+    "resizeAuthorizedAfterAudit": false,
+    "resizeGenerated": false,
+    "twoRenderIdentity": "NOT_RUN_STATIC_GATE_FAILED",
+    "nextGate": "T0_handoff_or_alpha_rescope"
+  },
+  "proposedCanonicalImporterOnlyAfterFutureCombinedPass": {
+    "spriteMeshType": "FullRect",
+    "filterMode": "Bilinear",
+    "maxTextureSize": 512,
+    "compression": "lossless",
+    "preserveExistingGuid": true,
+    "canonicalWriteNow": false
+  },
+  "rollbackBaseline": {
+    "policy": "No canonical, meta, GUID, importer, or staging mutation occurred; rollback is a no-op.",
+    "sourceImmutable": true
+  }
+}

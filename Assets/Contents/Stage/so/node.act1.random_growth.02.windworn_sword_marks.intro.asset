@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_growth.02.windworn_sword_marks.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_growth.02.windworn_sword_marks.intro
+  mainImage: {fileID: 21300000, guid: e977923f8a294398ac4091979381ed8f, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_growth.02.windworn_sword_marks.observe_sword_path
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486843319418880
+  - choiceId: choice.act1.random_growth.02.windworn_sword_marks.leave_training_ground
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486843319418881
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486843319418880
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1020
+        data:
+          rid: 5601486843319418882
+    - rid: 5601486843319418881
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1010
+        data:
+          rid: 5601486843319418883
+    - rid: 5601486843319418882
+      type: {class: RandomGrowthSafeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 2
+        contentContractVersion: chapter1-random-growth-safe-content.v2
+        definitionFingerprint: 72acd7c52fdc3aebe4e9c5cedbdb01377c80e1f65512478d25657973b65da6bd
+        presentationTextDigestKo: 5b6ab7c72e213c70b0f38e5601263c461bc025fb40689357ae264b07920c9b80
+        presentationCatalogId: presentation.catalog.act1.random_growth.02.windworn_sword_marks.ko-KR
+        presentationProjectionKind: safe-growth-presentation-copy.v2
+        presentationLocale: ko-KR
+        eventId: event.act1.random_growth.02.windworn_sword_marks
+        stageNodeId: stage.act1.random_growth.02.windworn_sword_marks
+        sourcePopupId: node.act1.random_growth.02.windworn_sword_marks.intro
+        choiceId: choice.act1.random_growth.02.windworn_sword_marks.observe_sword_path
+        segmentId: progress.segment.act1.chapter01.optional_random_growth
+        reservationId: reservation.act1.chapter01.random_growth.after_episode02
+        poolMode: PartyWide
+        targetCount: 2
+        resultKind: ObserveSelected
+        successResultKind: SafeGrowthGranted
+        failureState: ObserveSelectedPendingRetry
+        candidateUnavailableState: CandidateUnavailable
+        capPolicy:
+          fixedApplied: 2
+          randomApplied: 0
+          optionalGranted: 1
+          optionalApplied: 1
+          totalApplied: 3
+        cost: 0
+        growthGrant: 1
+        candidateZeroBlocksExecutor: 1
+        candidateZeroAllowsFallback: 1
+        mutationCountBeforeConfirm: 0
+    - rid: 5601486843319418883
+      type: {class: RandomGrowthDeclineExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 2
+        contentContractVersion: chapter1-random-growth-safe-content.v2
+        definitionFingerprint: 72acd7c52fdc3aebe4e9c5cedbdb01377c80e1f65512478d25657973b65da6bd
+        presentationTextDigestKo: 5b6ab7c72e213c70b0f38e5601263c461bc025fb40689357ae264b07920c9b80
+        presentationCatalogId: presentation.catalog.act1.random_growth.02.windworn_sword_marks.ko-KR
+        presentationProjectionKind: safe-growth-presentation-copy.v2
+        presentationLocale: ko-KR
+        eventId: event.act1.random_growth.02.windworn_sword_marks
+        stageNodeId: stage.act1.random_growth.02.windworn_sword_marks
+        sourcePopupId: node.act1.random_growth.02.windworn_sword_marks.intro
+        choiceId: choice.act1.random_growth.02.windworn_sword_marks.leave_training_ground
+        segmentId: progress.segment.act1.chapter01.optional_random_growth
+        reservationId: reservation.act1.chapter01.random_growth.after_episode02
+        poolMode: PartyWide
+        targetCount: 2
+        resultKind: Declined
+        cost: 0
+        growthGrant: 0

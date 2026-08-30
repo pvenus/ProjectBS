@@ -21,48 +21,62 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734748
+      rid: 5601486867666043123
   - choiceId: choice.act1.random_event.07.shadow_selling_child.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734749
+      rid: 5601486867666043124
   - choiceId: choice.act1.random_event.07.shadow_selling_child.help_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734750
+      rid: 5601486867666043125
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734748
+    - rid: 5601486867666043123
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734751
-    - rid: 5601486783294734749
+          rid: 5601486867666043126
+    - rid: 5601486867666043124
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486783294734752
-    - rid: 5601486783294734750
+          rid: 5601486867666043127
+    - rid: 5601486867666043125
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734753
-    - rid: 5601486783294734751
+          rid: 5601486867666043128
+    - rid: 5601486867666043126
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: d08cb9a30b33e4b14b44a90192bc0a74, type: 2}
-    - rid: 5601486783294734752
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 
+    - rid: 5601486867666043127
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 7dfa4d64ba00c4a5c8782a7441394755, type: 2}
-    - rid: 5601486783294734753
+        eventId: 
+        nodeId: 
+        sourcePopupId: 
+        reservationId: 
+        choiceId: 
+        expectedVictoryResultId: 
+    - rid: 5601486867666043128
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

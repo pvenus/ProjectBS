@@ -52,7 +52,8 @@ namespace Stage
                     new BattleChoiceExecutionExecutor(),
                     new ShopChoiceExecutionExecutor(),
                     new ShrineChoiceExecutionExecutor(),
-                    new CompleteEventChoiceExecutionExecutor()
+                    new CompleteEventChoiceExecutionExecutor(),
+                    new PortfolioOutcomeChoiceExecutionExecutor()
                 });
         }
 
@@ -102,6 +103,17 @@ namespace Stage
 
             completedExecutionIds.Add(executionId);
             return ChoiceExecutionResult.Success;
+        }
+
+        /// <summary>
+        /// 실행이나 history 변경 없이 confirmable Safe choice의 routing 계약만 조회한다.
+        /// 기존 TryExecute 경로와 executor 등록에는 영향을 주지 않는다.
+        /// </summary>
+        public ConfirmableChoiceDispatchResult QueryConfirmable(
+            ChoiceExecutionConfig config,
+            ConfirmableChoiceRuntimeState state = ConfirmableChoiceRuntimeState.Offerable)
+        {
+            return ConfirmableChoiceContract.Query(config, state);
         }
 
         public void ClearHistory()

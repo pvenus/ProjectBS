@@ -1,0 +1,44 @@
+{
+  "priorStored": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/alpha-bulk/seojin-cannon-G3-correction-r2-ready/runtime-512.r1.png",
+    "sha256": "3ba8472b9d73884a10bb710bc9c8e35c5309384e416ec01bc432941badfa0b2e",
+    "disposition": "provenance-only; deterministic authority superseded"
+  },
+  "acceptedReproduction": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/alpha-bulk/seojin-cannon-G3-correction-r2-ready/runtime-512.reproduction-r2.png",
+    "sha256": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+    "width": 512,
+    "height": 512,
+    "format": "PNG RGBA8 sRGB"
+  },
+  "algorithm": {
+    "decoder": "sharp/libvips",
+    "source": "acceptedMaster",
+    "resize": [
+      512,
+      512
+    ],
+    "kernel": "lanczos3",
+    "premultipliedAlpha": true,
+    "sourceColorspace": "sRGB",
+    "workingColorspace": "scRGB linear-light",
+    "targetColorspace": "sRGB",
+    "alphaZeroRgbPolicy": "zero",
+    "edgeMode": "libvips extend copy/default; no canvas extension during 512 resize",
+    "output": {
+      "format": "PNG",
+      "channels": "RGBA8",
+      "compressionLevel": 9,
+      "adaptiveFiltering": false,
+      "filter": "none",
+      "interlace": false,
+      "profile": "none embedded",
+      "ancillaryChunkPolicy": "sharp/libvips deterministic defaults; no custom text/time chunks"
+    }
+  },
+  "commandDigestInput": "sharp(master).pipelineColourspace('scrgb').resize(512,512,{kernel:'lanczos3',premultiplied:true}).toColourspace('srgb').ensureAlpha().png({compressionLevel:9,adaptiveFiltering:false,interlace:false})",
+  "renderA": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+  "renderB": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+  "encodedIdentity": true,
+  "decodedRgbaMismatch": 0
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projectbs://schema/stage-reward-risk-row.v1",
+  "title": "ProjectBS Stage Reward-Risk Audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["definitionUnit", "coefficientVersion", "rowSchemaVersion", "snapshot", "authorityCrossCheck", "inventory", "events", "overrides"],
+  "properties": {
+    "definitionUnit": { "const": "stage-reward-risk-definition.v1" },
+    "coefficientVersion": { "const": "stage-value-coefficients.v1" },
+    "rowSchemaVersion": { "const": "stage-reward-risk-row.v1" },
+    "snapshot": { "type": "string", "format": "date" },
+    "authorityCrossCheck": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inventoryPath", "inventorySha256", "receiptPath", "receiptSha256", "result", "reconciliations"],
+      "properties": {
+        "inventoryPath": { "type": "string" }, "inventorySha256": { "type": "string" },
+        "receiptPath": { "type": "string" }, "receiptSha256": { "type": "string" },
+        "result": { "enum": ["MATCH", "MATCH_WITH_AUTHORITY_RECONCILIATION", "MISMATCH"] },
+        "reconciliations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalogDefinitions", "catalogNodes", "generalDefinitions", "growthDefinitions", "serializedChoices", "auditedEvents", "auditedNodes", "auditedChoices", "remainingEvents", "remainingChoices"],
+      "properties": {
+        "catalogDefinitions": { "const": 48 }, "catalogNodes": { "const": 51 }, "generalDefinitions": { "const": 46 }, "growthDefinitions": { "const": 2 },
+        "serializedChoices": { "const": 129 }, "auditedEvents": { "const": 26 }, "auditedNodes": { "const": 27 }, "auditedChoices": { "const": 58 },
+        "remainingEvents": { "const": 22 }, "remainingChoices": { "const": 71 }
+      }
+    },
+    "events": { "type": "array", "minItems": 26, "maxItems": 26, "items": { "$ref": "#/$defs/event" } },
+    "overrides": { "type": "array", "items": { "$ref": "#/$defs/override" } }
+  },
+  "$defs": {
+    "event": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eventId", "nodes", "sourceAuthority", "intent", "primaryPurpose", "targetArchetype", "repeatPolicy", "exclusions", "auditStatus", "choices"],
+      "properties": {
+        "eventId": { "type": "string", "minLength": 1 },
+        "nodes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nodeAuthority" } },
+        "sourceAuthority": { "$ref": "#/$defs/source" }, "intent": { "type": "string", "minLength": 1 },
+        "primaryPurpose": { "enum": ["Growth", "Recovery", "Battle", "Gold", "Relic", "Character", "Route", "World"] },
+        "secondaryPurpose": { "type": ["string", "null"] },
+        "targetArchetype": { "enum": ["Safe", "Risk", "Battle", "Recovery", "Economy", "Route", "World", "Character"] },
+        "repeatPolicy": { "type": "string" }, "exclusions": { "type": "array", "items": { "type": "string" } },
+        "auditStatus": { "enum": ["AUDITED_PROVISIONAL", "NOT_AUDITED", "STALE_COEFFICIENT", "BLOCKED_AUTHORITY_MISMATCH"] },
+        "choices": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/choice" } }
+      }
+    },
+    "nodeAuthority": {
+      "type": "object", "additionalProperties": false, "required": ["nodeId", "sourcePopupId"],
+      "properties": { "nodeId": { "type": "string", "minLength": 1 }, "sourcePopupId": { "type": ["string", "null"] } }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["contentPath", "receiptPath"],
+      "properties": { "contentPath": { "type": "string" }, "receiptPath": { "type": "string" }, "contentDigest": { "type": ["string", "null"] } }
+    },
+    "choice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["choiceId", "intent", "guaranteedReward", "conditionalReward", "costRisk", "evBand", "variance", "confidence", "terminal", "warnings"],
+      "properties": {
+        "choiceId": { "type": "string", "minLength": 1 }, "intent": { "type": "string", "minLength": 1 },
+        "guaranteedReward": { "type": "array", "items": { "$ref": "#/$defs/outcome" } },
+        "conditionalReward": { "type": "array", "items": { "$ref": "#/$defs/outcome" } },
+        "costRisk": { "type": "array", "items": { "$ref": "#/$defs/outcome" } },
+        "evBand": { "pattern": "^[SABCDE](~[SABCDE])?$" }, "variance": { "enum": ["V0", "V1", "V2", "V3"] },
+        "confidence": { "enum": ["high", "medium", "low", "contextual"] }, "optionValue": { "type": "number", "minimum": 0 },
+        "terminal": { "type": "string" }, "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "outcome": {
+      "type": "object", "additionalProperties": false, "required": ["type", "summary"],
+      "properties": { "type": { "type": "string" }, "summary": { "type": "string" }, "amount": { "type": ["number", "null"] }, "unit": { "type": ["string", "null"] }, "condition": { "type": ["string", "null"] }, "realizedSvu": { "type": ["number", "null"] } }
+    },
+    "override": {
+      "type": "object", "additionalProperties": false,
+      "required": ["overrideId", "scope", "baseCoefficientVersion", "baseValue", "overrideValueOrRange", "rationale", "evidence", "owner", "approvedBy", "reviewGate", "affectedRowIds"],
+      "properties": {
+        "overrideId": { "type": "string" }, "scope": { "type": "string" }, "baseCoefficientVersion": { "type": "string" },
+        "baseValue": {}, "overrideValueOrRange": {}, "rationale": { "type": "string" }, "evidence": { "type": "string" },
+        "owner": { "type": "string" }, "approvedBy": { "type": "string" }, "reviewGate": { "type": "string" },
+        "affectedRowIds": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

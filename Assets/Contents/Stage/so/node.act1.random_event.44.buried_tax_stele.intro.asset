@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.44.buried_tax_stele.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.44.buried_tax_stele.intro
+  mainImage: {fileID: 21300000, guid: 36061c01270f046288083114ccbd8b11, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.44.buried_tax_stele.publish_altered_tax_record
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043315
+  - choiceId: choice.act1.random_event.44.buried_tax_stele.sell_rubbing_to_tax_collector
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043316
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043315
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043317
+    - rid: 5601486867666043316
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043318
+    - rid: 5601486867666043317
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.44.buried_tax_stele
+        nodeId: node.act1.random_event.44.buried_tax_stele.intro
+        sourcePopupId: node.act1.random_event.44.buried_tax_stele.intro
+        choiceId: choice.act1.random_event.44.buried_tax_stele.publish_altered_tax_record
+        resultId: result.act1.random_event.44.buried_tax_stele.tax_record_published_gold25
+        reservationId: reservation.act1.chapter01.random_event.44.buried_tax_stele
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 25
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event44.altered_tax_record_published
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043318
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.44.buried_tax_stele
+        nodeId: node.act1.random_event.44.buried_tax_stele.intro
+        sourcePopupId: node.act1.random_event.44.buried_tax_stele.intro
+        choiceId: choice.act1.random_event.44.buried_tax_stele.sell_rubbing_to_tax_collector
+        resultId: result.act1.random_event.44.buried_tax_stele.rubbing_sold_silence_gold75
+        reservationId: reservation.act1.chapter01.random_event.44.buried_tax_stele
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 75
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event44.tax_evidence_sold_for_silence
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

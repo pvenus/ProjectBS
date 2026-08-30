@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.26.sleepless_waystation",
+  "eventId": "event.act1.random_event.26.sleepless_waystation",
+  "titleKo": "잠들지 않는 역참",
+  "summary": "불 꺼진 역참에는 마른 잠자리와 높은 망루가 함께 남아 있다. 쉬거나 다음 갈림길을 살필 수 있다.",
+  "startNodeId": "node.act1.random_event.26.sleepless_waystation.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.26.sleepless_waystation.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "불 꺼진 역참에는 마른 잠자리와 높은 망루가 함께 남아 있다. 쉬거나 다음 갈림길을 살필 수 있다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.26.sleepless_waystation.rest_by_cold_brazier",
+          "textKo": "찬 화로 곁에서 깊이 쉰다",
+          "resultKo": "깊은 잠 뒤 몸이 가벼워졌다.",
+          "resultStatusKo": "파티가 최대 HP의 30%를 회복했습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.26.sleepless_waystation",
+              "nodeId": "node.act1.random_event.26.sleepless_waystation.intro",
+              "sourcePopupId": "node.act1.random_event.26.sleepless_waystation.intro",
+              "choiceId": "choice.act1.random_event.26.sleepless_waystation.rest_by_cold_brazier",
+              "resultId": "result.act1.random_event.26.sleepless_waystation.party_rested",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event26",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": 30, "nonlethal": false, "targetId": "AliveParty" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.26.sleepless_waystation.observe_next_routes",
+          "textKo": "망루에서 다음 길을 살핀다",
+          "resultKo": "밤새 오간 불빛으로 두 길의 성격을 읽었다.",
+          "resultStatusKo": "다음 갈림길 정보가 공개되었습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.26.sleepless_waystation",
+              "nodeId": "node.act1.random_event.26.sleepless_waystation.intro",
+              "sourcePopupId": "node.act1.random_event.26.sleepless_waystation.intro",
+              "choiceId": "choice.act1.random_event.26.sleepless_waystation.observe_next_routes",
+              "resultId": "result.act1.random_event.26.sleepless_waystation.next_route_revealed",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event26",
+              "operations": [
+                { "kind": "RevealImmediateSuccessorPurpose", "targetId": "ImmediateSuccessors" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.32.hidden_ledger_salt_cart",
+  "nodeId":"node.act1.random_event.32.hidden_ledger_salt_cart.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.32.hidden_ledger_salt_cart.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event32-design-lock.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event32/candidates/event32-candidate-A.png","sha256":"cb6926a31b2b60682a92e285c3e856d156bc62c786271bda2a9c9aeb1600e1d4","disposition":"SELECTED","reason":"tilted cart, salt spill, double blank ledgers, wheel and exactly two opposing hands satisfy the locked hierarchy"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event32/candidates/event32-candidate-B.png","sha256":"acd9ef786f44e7c81242cbbb0f462cef774acd3dff544dde36cf1769083101c9","disposition":"REJECTED_PROVENANCE","reason":"background crowd exceeds the at-most-two figure authority"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event32/selected/event32-selected-A-960x1280.png","sha256":"e849617f6717fb716d8968db157f422daea5864bfb72a30e6f679c469873eafc","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event32/handoff/event32-selected-A-max512-A.png","sha256":"8eb857ff23ca16d3f87eb8e1cbbd57ffbd1681293f47c5dacd18d52dccfa5d3a","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event32-selected-A-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

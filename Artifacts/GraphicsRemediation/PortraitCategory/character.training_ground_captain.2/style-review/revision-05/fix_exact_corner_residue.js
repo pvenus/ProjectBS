@@ -1,0 +1,2 @@
+const sharp=require('sharp'),path=require('path');const r=__dirname,src=path.join(r,'selected/captain2-rev05-selected-A-alpha-r1.png'),out=path.join(r,'selected/captain2-rev05-selected-A-alpha-r2.png');
+(async()=>{const a=await sharp(src).ensureAlpha().raw().toBuffer({resolveWithObject:true}),{width:w,height:h}=a.info,d=Buffer.from(a.data),i=((h-1)*w+(w-1))*4;if(d[i+3]!==6)throw new Error(`expected alpha6, got ${d[i+3]}`);d[i]=d[i+1]=d[i+2]=d[i+3]=0;await sharp(d,{raw:a.info}).png({compressionLevel:9,adaptiveFiltering:false}).toFile(out);})();

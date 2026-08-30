@@ -1,0 +1,24 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.44.buried_tax_stele",
+  "nodeId": "node.act1.random_event.44.buried_tax_stele.intro",
+  "sourcePopupId": "node.act1.random_event.44.buried_tax_stele.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.44.buried_tax_stele.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "the horizontal half-buried record, opposing hands, broad worn grooves and sharper crossing cuts read within a field context without reward glow or grave-monument framing",
+    "candidateA": {"sha256": "f0bced6a52b017cdc732d385b1c2eec28077c79dfb0169a2d93fd7def57fbea2", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "central hotspot risks recommendation or reward emphasis and the groove layers are visually crowded"},
+    "candidateB": {"sha256": "505138aa22a6e33576b23fa088d50cd61d9c449807414c0b9384370de8cf1459", "disposition": "SELECTED"}
+  },
+  "selected960": {"path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event44/selected/event44-selected-B-960x1280.png", "sha256": "1b52a10577032b9af53ab2948c5ed1daa23092af6b5f5b9d857187f5e91daf9e", "dimensions": "960x1280", "format": "PNG RGB8 opaque"},
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event44/handoff/event44-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-E/event44/handoff/event44-selected-B-max512-B.png",
+    "sha256": "84776abf60e3a2fe46d0cb4fa002de3d0ec312f65aa583969efc9f1298148045",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"readableWritingOrNumber": 0, "modernTaxPaperOrLedger": 0, "coinsOrGold": 0, "graveOrUprightStele": 0, "recommendationGlow": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

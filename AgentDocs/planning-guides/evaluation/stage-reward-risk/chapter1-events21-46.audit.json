@@ -1,0 +1,273 @@
+{
+  "definitionUnit": "stage-reward-risk-definition.v1",
+  "coefficientVersion": "stage-value-coefficients.v1",
+  "rowSchemaVersion": "stage-reward-risk-row.v1",
+  "snapshot": "2026-08-30",
+  "authorityCrossCheck": {
+    "inventoryPath": "/private/tmp/projectbs-current-hangyeol-stage-event-outcome-inventory.jsonl",
+    "inventorySha256": "aa5d543d2262c455a70ae00de72eaacacd70fa8f7229718750cdba123d1d5c1f",
+    "receiptPath": "/private/tmp/projectbs-current-hangyeol-stage-event-outcome-inventory-receipt.txt",
+    "receiptSha256": "911ee5e3ca22fc2498d34647455d958b0c36184e72a22b07088eb99e5c6c9a62",
+    "result": "MATCH_WITH_AUTHORITY_RECONCILIATION",
+    "reconciliations": [
+      "Document-level sourcePopupId is absent in all Events21-46 JSON nodes and is represented as null; ordinary Battle tuples retain their nested sourcePopupId authority.",
+      "Catalog node counts 51 total and 27 for Events21-46 were added from the normalized inventory.",
+      "Actual execution type and operation payload authority remains the referenced contentPath plus the normalized inventory digest; repeat, exclusion, retry, and cooldown remain runtime-contract authority."
+    ]
+  },
+  "inventory": {
+    "catalogDefinitions": 48,
+    "catalogNodes": 51,
+    "generalDefinitions": 46,
+    "growthDefinitions": 2,
+    "serializedChoices": 129,
+    "auditedEvents": 26,
+    "auditedNodes": 27,
+    "auditedChoices": 58,
+    "remainingEvents": 22,
+    "remainingChoices": 71
+  },
+  "events": [
+    {
+      "eventId": "event.act1.random_event.21.breath_between_water_drops", "nodes": [{"nodeId":"node.act1.random_event.21.breath_between_water_drops.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.21.breath_between_water_drops.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "비용 없는 좁은 성장 선택폭과 무보상 이탈 비교", "primaryPurpose": "Growth", "secondaryPurpose": "World", "targetArchetype": "Safe", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm", "intent": "관찰을 마치고 Safe Growth를 연다", "guaranteedReward": [{"type":"Growth","summary":"PartyWide targetCount2","amount":1,"unit":"opportunity","condition":null,"realizedSvu":4}], "conditionalReward": [], "costRisk": [], "evBand": "A", "variance": "V1", "confidence": "medium", "terminal": "growth pending after atomic result", "warnings": ["CAP_OR_OWNED_STALE"] },
+        { "choiceId": "choice.act1.random_event.21.breath_between_water_drops.leave_cave_unchanged", "intent": "성장 없이 떠난다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral completion", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.22.sleeping_hawk_watch", "nodes": [{"nodeId":"node.act1.random_event.22.sleeping_hawk_watch.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.22.sleeping_hawk_watch.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "파티 생명력 비용을 감수해 표준 성장 기회를 얻을지 결정", "primaryPurpose": "Growth", "secondaryPurpose": "Recovery", "targetArchetype": "Risk", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.22.sleeping_hawk_watch.keep_night_watch", "intent": "HP 비용을 전액 내고 Growth를 연다", "guaranteedReward": [], "conditionalReward": [{"type":"Growth","summary":"PartyWide targetCount3 after cost commit","amount":1,"unit":"opportunity","condition":"all living members can pay","realizedSvu":5}], "costRisk": [{"type":"PartyHP","summary":"all living members MaxHP10% nonlethal","amount":10,"unit":"percent","condition":null,"realizedSvu":-1}], "evBand": "A", "variance": "V2", "confidence": "medium", "terminal": "atomic cost plus growth pending", "warnings": ["CAP_OR_OWNED_STALE"] },
+        { "choiceId": "choice.act1.random_event.22.sleeping_hawk_watch.leave_hawk_sleeping", "intent": "비용과 성장 없이 떠난다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral completion", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.23.temple_hundred_eight_steps", "nodes": [{"nodeId":"node.act1.random_event.23.temple_hundred_eight_steps.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.23.temple_hundred_eight_steps.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "위험 성장과 즉시 회복을 비교", "primaryPurpose": "Growth", "secondaryPurpose": "Recovery", "targetArchetype": "Risk", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.23.temple_hundred_eight_steps.carry_stone_to_summit", "intent": "HP 비용 뒤 Growth3", "guaranteedReward": [], "conditionalReward": [{"type":"Growth","summary":"PartyWide targetCount3","amount":1,"unit":"opportunity","condition":"cost succeeds","realizedSvu":5}], "costRisk": [{"type":"PartyHP","summary":"MaxHP10% nonlethal cost","amount":10,"unit":"percent","condition":null,"realizedSvu":-1}], "evBand": "A", "variance": "V2", "confidence": "medium", "terminal": "atomic cost plus growth pending", "warnings": ["CAP_OR_OWNED_STALE"] },
+        { "choiceId": "choice.act1.random_event.23.temple_hundred_eight_steps.rest_midway", "intent": "파티를 즉시 회복", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP15%","amount":15,"unit":"percent","condition":null,"realizedSvu":1.5}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.24.herb_scent_empty_barracks", "nodes": [{"nodeId":"node.act1.random_event.24.herb_scent_empty_barracks.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.24.herb_scent_empty_barracks.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "현재 회복과 미래 서사 기록을 교환", "primaryPurpose": "Recovery", "secondaryPurpose": "World", "targetArchetype": "Recovery", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.share_medicine", "intent": "약을 지금 사용", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP20%","amount":20,"unit":"percent","condition":null,"realizedSvu":2}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine", "intent": "회복을 포기하고 약속 기록", "guaranteedReward": [{"type":"RunFlag","summary":"medicine preserved; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.25.hot_spring_beneath_ice", "nodes": [{"nodeId":"node.act1.random_event.25.hot_spring_beneath_ice.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.25.hot_spring_beneath_ice.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "안전한 회복과 전투 후 유물 획득 비교", "primaryPurpose": "Relic", "secondaryPurpose": "Recovery", "targetArchetype": "Battle", "repeatPolicy": "oneShot; event18 mutually exclusive", "exclusions": ["event.act1.random_event.18.reverse_flowing_stream"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.rest_at_ice_edge", "intent": "안전하게 회복", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP20%","amount":20,"unit":"percent","condition":null,"realizedSvu":2}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral", "intent": "전투 승리 후 중복 없는 유물", "guaranteedReward": [], "conditionalReward": [{"type":"Relic","summary":"deterministic eligible relic1","amount":1,"unit":"relic","condition":"verified battle victory and inventory eligibility","realizedSvu":4.5}], "costRisk": [{"type":"Battle","summary":"ordinary battle entry","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "C~B", "variance": "V3", "confidence": "low", "terminal": "victory receipt then fixed claim; defeat zero", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","CAP_OR_OWNED_STALE","DELAYED_CLAIM"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.26.sleepless_waystation", "nodes": [{"nodeId":"node.act1.random_event.26.sleepless_waystation.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.26.sleepless_waystation.json", "receiptPath": "/private/tmp/projectbs-current-byeori-b1-events21-26-mvp.txt", "contentDigest": null },
+      "intent": "강한 회복과 다음 길 정보 비교", "primaryPurpose": "Recovery", "secondaryPurpose": "Route", "targetArchetype": "Route", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.26.sleepless_waystation.rest_by_cold_brazier", "intent": "깊이 쉬어 회복", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP30%","amount":30,"unit":"percent","condition":null,"realizedSvu":3}], "conditionalReward": [], "costRisk": [], "evBand": "B", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.26.sleepless_waystation.observe_next_routes", "intent": "회복 대신 다음 길의 성격 공개", "guaranteedReward": [{"type":"RouteInfo","summary":"reveal immediate successor purposes","amount":1,"unit":"disclosure","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "contextual", "terminal": "disclosure snapshot and complete", "warnings": ["ROUTE_CONTEXT_REQUIRED"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.27.paper_armor_bandits", "nodes": [{"nodeId":"node.act1.random_event.27.paper_armor_bandits.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.27.paper_armor_bandits.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event27-design-lock.txt", "contentDigest": null },
+      "intent": "낮은 위험 무보상 전투와 높은 위험 Gold 전투 비교", "primaryPurpose": "Battle", "secondaryPurpose": "Gold", "targetArchetype": "Battle", "repeatPolicy": "oneShot; reused source battles mutually exclusive", "exclusions": ["event.act1.random_event.02.rain_seller","event.act1.random_event.17.three_bowls_on_mountain_path"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.27.paper_armor_bandits.wait_for_paper_armor_to_soak", "intent": "더 낮은 위험으로 싸우되 사건 Gold를 포기", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Battle","summary":"lower-risk battle, Gold0","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "E~D", "variance": "V2", "confidence": "low", "terminal": "victory node completion; defeat retry", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","NO_REALIZED_REWARD"] },
+        { "choiceId": "choice.act1.random_event.27.paper_armor_bandits.attack_before_spoils_sink", "intent": "더 위험한 전투 승리로 Gold50", "guaranteedReward": [], "conditionalReward": [{"type":"Gold","summary":"Gold50 after verified victory","amount":50,"unit":"gold","condition":"victory","realizedSvu":2}], "costRisk": [{"type":"Battle","summary":"higher-risk battle","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "D~C", "variance": "V2", "confidence": "low", "terminal": "victory plus exactly-once Gold claim", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","REWARD_COPY_RUNTIME_MISMATCH"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.28.rockfall_scouts", "nodes": [{"nodeId":"node.act1.random_event.28.rockfall_scouts.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.28.rockfall_scouts.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event28-design-lock.txt", "contentDigest": null },
+      "intent": "전투로 짧은 길을 확보하거나 HP를 내고 긴 길을 확정", "primaryPurpose": "Route", "secondaryPurpose": "Battle", "targetArchetype": "Route", "repeatPolicy": "oneShot; route-commit cooldown2", "exclusions": ["event.act1.random_event.39.self_knotting_rope","event.act1.random_event.42.twice_ringing_mountain_echo","event.act1.random_event.45.false_wildfire_boundary_stones"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.28.rockfall_scouts.ambush_signal_scouts", "intent": "전투 승리로 짧은 경로 확정", "guaranteedReward": [], "conditionalReward": [{"type":"RouteCommit","summary":"shortest eligible successor","amount":1,"unit":"route","condition":"verified victory","realizedSvu":2}], "costRisk": [{"type":"Battle","summary":"ordinary battle","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "D~C", "variance": "V3", "confidence": "contextual", "terminal": "victory receipt then route commit", "warnings": ["ROUTE_CONTEXT_REQUIRED","BATTLE_MODEL_LOW_CONFIDENCE","DELAYED_CLAIM"] },
+        { "choiceId": "choice.act1.random_event.28.rockfall_scouts.endure_rockfall_detour", "intent": "HP 비용과 함께 긴 경로 확정", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"PartyHP","summary":"MaxHP10% nonlethal cost","amount":10,"unit":"percent","condition":null,"realizedSvu":-1},{"type":"RouteCommit","summary":"longest eligible successor","amount":1,"unit":"route","condition":null,"realizedSvu":-1}], "evBand": "E~D", "variance": "V2", "confidence": "contextual", "terminal": "atomic HP cost plus route commit", "warnings": ["ROUTE_CONTEXT_REQUIRED"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.29.chain_bridge_tollkeepers", "nodes": [{"nodeId":"node.act1.random_event.29.chain_bridge_tollkeepers.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.29.chain_bridge_tollkeepers.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event29-design-lock.txt", "contentDigest": null },
+      "intent": "Gold50 확정 지불과 무보상 전투 위험 비교", "primaryPurpose": "Gold", "secondaryPurpose": "Battle", "targetArchetype": "Economy", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.29.chain_bridge_tollkeepers.pay_private_toll", "intent": "Gold50을 내고 안전 통과", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Gold","summary":"spend Gold50","amount":50,"unit":"gold","condition":"sufficient balance","realizedSvu":-2}], "evBand": "E", "variance": "V0", "confidence": "high", "terminal": "wallet spend and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.29.chain_bridge_tollkeepers.fight_tollkeepers", "intent": "Gold를 보존하고 전투", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Battle","summary":"ordinary battle, event reward0","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "E~D", "variance": "V2", "confidence": "low", "terminal": "victory node completion; defeat retry", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","NO_REALIZED_REWARD"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.30.night_beacon_intruders", "nodes": [{"nodeId":"node.act1.random_event.30.night_beacon_intruders.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.30.night_beacon_intruders.json", "receiptPath": "/private/tmp/projectbs-current-byeori-portfolio-next-batch.txt", "contentDigest": null },
+      "intent": "거짓 봉화를 막는 전투와 은신 관찰의 불리한 기록 비교", "primaryPurpose": "Battle", "secondaryPurpose": "World", "targetArchetype": "Battle", "repeatPolicy": "oneShot; event10 mutually exclusive", "exclusions": ["event.act1.random_event.10.silent_jangseung"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.30.night_beacon_intruders.extinguish_false_beacon", "intent": "전투로 봉화를 끈다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Battle","summary":"ordinary battle, material reward0","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "E~D", "variance": "V2", "confidence": "low", "terminal": "victory node-only terminal", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","NO_REALIZED_REWARD"] },
+        { "choiceId": "choice.act1.random_event.30.night_beacon_intruders.watch_false_beacon_from_hiding", "intent": "싸움을 피하고 거짓 봉화를 방치한 기록", "guaranteedReward": [{"type":"RunFlag","summary":"false beacon lit unopposed; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain", "nodes": [{"nodeId":"node.act1.random_event.31.wounded_mountain_tiger_domain.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.31.wounded_mountain_tiger_domain.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event31-design-lock.txt", "contentDigest": null },
+      "intent": "전투로 산군을 풀고 유물을 얻거나 싸움 없이 몰아낸 기록", "primaryPurpose": "Relic", "secondaryPurpose": "World", "targetArchetype": "Battle", "repeatPolicy": "oneShot; source battle mutually exclusive", "exclusions": ["event.act1.random_event.09.black_cloth_herbalist"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.defeat_poachers", "intent": "밀렵꾼을 막고 toxic_pouch 획득", "guaranteedReward": [], "conditionalReward": [{"type":"Relic","summary":"fixed item.relic.toxic_pouch","amount":1,"unit":"relic","condition":"verified victory and not owned","realizedSvu":4}], "costRisk": [{"type":"Battle","summary":"battle.act1.event09.protect_herbalist_map","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "C~B", "variance": "V3", "confidence": "low", "terminal": "victory then fixed relic claim", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","CAP_OR_OWNED_STALE","DELAYED_CLAIM"] },
+        { "choiceId": "choice.act1.random_event.31.wounded_mountain_tiger_domain.drive_tiger_away", "intent": "산군을 몰아낸 기록", "guaranteedReward": [{"type":"RunFlag","summary":"wounded tiger driven from domain; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.32.hidden_ledger_salt_cart", "nodes": [{"nodeId":"node.act1.random_event.32.hidden_ledger_salt_cart.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.32.hidden_ledger_salt_cart.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event32-design-lock.txt", "contentDigest": null },
+      "intent": "작은 사례와 공정 기록 또는 큰 대가와 착취 기록", "primaryPurpose": "Gold", "secondaryPurpose": "World", "targetArchetype": "Economy", "repeatPolicy": "oneShot; motif cooldown4 with event44", "exclusions": ["event.act1.random_event.44.buried_tax_stele"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.32.hidden_ledger_salt_cart.return_ledger_to_workers", "intent": "Gold25와 공정 회복 기록", "guaranteedReward": [{"type":"Gold","summary":"grant Gold25","amount":25,"unit":"gold","condition":null,"realizedSvu":1},{"type":"RunFlag","summary":"ledger returned; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "atomic Gold plus flag", "warnings": ["FLAG_NO_CONSUMER"] },
+        { "choiceId": "choice.act1.random_event.32.hidden_ledger_salt_cart.sell_ledger_to_collector", "intent": "Gold50과 착취 가담 기록", "guaranteedReward": [{"type":"Gold","summary":"grant Gold50","amount":50,"unit":"gold","condition":null,"realizedSvu":2},{"type":"RunFlag","summary":"ledger sold; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "atomic Gold plus flag", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.33.false_mountain_rite_offering_box", "nodes": [{"nodeId":"node.act1.random_event.33.false_mountain_rite_offering_box.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.33.false_mountain_rite_offering_box.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event33-design-lock.txt", "contentDigest": null },
+      "intent": "전투 공개, 조용한 판매, 무관여의 Gold/위험 비교", "primaryPurpose": "Gold", "secondaryPurpose": "Battle", "targetArchetype": "Economy", "repeatPolicy": "oneShot; source battle mutually exclusive", "exclusions": ["event.act1.random_event.14.stone_laying_hen"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.33.false_mountain_rite_offering_box.expose_false_rite", "intent": "전투 승리 뒤 Gold50", "guaranteedReward": [], "conditionalReward": [{"type":"Gold","summary":"Gold50 after verified victory","amount":50,"unit":"gold","condition":"victory","realizedSvu":2}], "costRisk": [{"type":"Battle","summary":"battle.act1.event14.black_cloth_poultry_racket","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "D~C", "variance": "V2", "confidence": "low", "terminal": "victory then fixed Gold claim", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","DELAYED_CLAIM"] },
+        { "choiceId": "choice.act1.random_event.33.false_mountain_rite_offering_box.sell_rite_ledger_quietly", "intent": "전투 없이 Gold25", "guaranteedReward": [{"type":"Gold","summary":"grant Gold25","amount":25,"unit":"gold","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "terminal": "Gold and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.33.false_mountain_rite_offering_box.leave_false_rite_alone", "intent": "개입 없이 떠난다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral completion", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.34.half_vein_map", "nodes": [{"nodeId":"node.act1.random_event.34.half_vein_map.intro","sourcePopupId":null},{"nodeId":"node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.34.half_vein_map.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event34-design-lock.txt", "contentDigest": null },
+      "intent": "확정 소액, 위험 연계 고액, 폐기의 비교", "primaryPurpose": "Gold", "secondaryPurpose": "Route", "targetArchetype": "Economy", "repeatPolicy": "oneShot parent-child chain", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.34.half_vein_map.sell_half_map", "intent": "지도를 팔아 Gold25", "guaranteedReward": [{"type":"Gold","summary":"grant Gold25","amount":25,"unit":"gold","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "terminal": "Gold and parent complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.34.half_vein_map.follow_unstable_vein", "intent": "보상 없이 exact child 사건 진입", "guaranteedReward": [], "conditionalReward": [{"type":"NextEvent","summary":"open unstable-vein child","amount":1,"unit":"chain","condition":"child authority valid","realizedSvu":null}], "costRisk": [], "evBand": "D", "variance": "V2", "confidence": "contextual", "terminal": "parent pending until child terminal", "warnings": ["DELAYED_CLAIM"] },
+        { "choiceId": "choice.act1.random_event.34.half_vein_map.destroy_false_map", "intent": "지도와 보상을 포기", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral parent completion", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.34.half_vein_map.followup.unstable_vein.extract_ore", "intent": "HP 비용과 Gold75를 원자 교환", "guaranteedReward": [{"type":"Gold","summary":"grant Gold75","amount":75,"unit":"gold","condition":null,"realizedSvu":3}], "conditionalReward": [], "costRisk": [{"type":"PartyHP","summary":"MaxHP10% nonlethal cost","amount":10,"unit":"percent","condition":null,"realizedSvu":-1}], "evBand": "C", "variance": "V2", "confidence": "medium", "terminal": "atomic child and parent completion", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.34.half_vein_map.followup.unstable_vein.retreat_empty_handed", "intent": "비용과 Gold 없이 연계 사건 종료", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral child and parent completion", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.35.ownerless_wage_sack", "nodes": [{"nodeId":"node.act1.random_event.35.ownerless_wage_sack.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.35.ownerless_wage_sack.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event35-design-lock.txt", "contentDigest": null },
+      "intent": "큰 횡령, 회복과 반환, 작은 취득 비교", "primaryPurpose": "Gold", "secondaryPurpose": "Recovery", "targetArchetype": "Economy", "repeatPolicy": "oneShot; motif cooldown3 with event44", "exclusions": ["event.act1.random_event.44.buried_tax_stele"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.35.ownerless_wage_sack.keep_all_wages", "intent": "Gold75와 횡령 기록", "guaranteedReward": [{"type":"Gold","summary":"grant Gold75","amount":75,"unit":"gold","condition":null,"realizedSvu":3},{"type":"RunFlag","summary":"wages taken; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "B", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "atomic Gold plus flag", "warnings": ["FLAG_NO_CONSUMER"] },
+        { "choiceId": "choice.act1.random_event.35.ownerless_wage_sack.return_all_wages", "intent": "Heal25%와 반환 기록", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP25%; effective0 allowed","amount":25,"unit":"percent","condition":null,"realizedSvu":2.5},{"type":"RunFlag","summary":"wages returned; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "B", "variance": "V1", "confidence": "medium", "optionValue": 0.5, "terminal": "atomic heal plus flag", "warnings": ["FLAG_NO_CONSUMER"] },
+        { "choiceId": "choice.act1.random_event.35.ownerless_wage_sack.take_only_unlisted_share", "intent": "Gold25만 취득", "guaranteedReward": [{"type":"Gold","summary":"grant Gold25","amount":25,"unit":"gold","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "terminal": "Gold and complete", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.36.cracked_bronze_mirror", "nodes": [{"nodeId":"node.act1.random_event.36.cracked_bronze_mirror.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.36.cracked_bronze_mirror.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event36-design-lock.txt", "contentDigest": null },
+      "intent": "HP 대가의 반격 유물과 무보상 World 기록 비교", "primaryPurpose": "Relic", "secondaryPurpose": "World", "targetArchetype": "Risk", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.accept_cracked_reflection", "intent": "HP10% 비용으로 spiked_carapace", "guaranteedReward": [{"type":"Relic","summary":"fixed item.relic.spiked_carapace","amount":1,"unit":"relic","condition":null,"realizedSvu":4}], "conditionalReward": [], "costRisk": [{"type":"PartyHP","summary":"MaxHP10% nonlethal cost","amount":10,"unit":"percent","condition":null,"realizedSvu":-1}], "evBand": "B", "variance": "V1", "confidence": "medium", "terminal": "atomic cost plus relic", "warnings": ["CAP_OR_OWNED_STALE"] },
+        { "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.break_false_reflection", "intent": "거울을 깨고 기록만 남김", "guaranteedReward": [{"type":"RunFlag","summary":"false reflection broken; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain", "nodes": [{"nodeId":"node.act1.random_event.37.nameless_long_sword_in_rain.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.37.nameless_long_sword_in_rain.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event37-design-lock.txt", "contentDigest": null },
+      "intent": "수호령 전투 유물과 이름을 매장한 기록 비교", "primaryPurpose": "Relic", "secondaryPurpose": "World", "targetArchetype": "Battle", "repeatPolicy": "oneShot; source battle mutually exclusive", "exclusions": ["event.act1.random_event.01.name_swallowing_well"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.draw_nameless_sword", "intent": "전투 승리로 ember_necklace", "guaranteedReward": [], "conditionalReward": [{"type":"Relic","summary":"fixed item.relic.ember_necklace","amount":1,"unit":"relic","condition":"verified victory and not owned","realizedSvu":4}], "costRisk": [{"type":"Battle","summary":"battle.act1.event01.named_well_wraith","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "C~B", "variance": "V3", "confidence": "low", "terminal": "victory then fixed relic claim", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","CAP_OR_OWNED_STALE","DELAYED_CLAIM"] },
+        { "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.trace_sword_owner_name", "intent": "주인의 이름과 매장 기록", "guaranteedReward": [{"type":"RunFlag","summary":"owner named and buried; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.38.three_cups_of_moonlight", "nodes": [{"nodeId":"node.act1.random_event.38.three_cups_of_moonlight.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.38.three_cups_of_moonlight.json", "receiptPath": "/private/tmp/projectbs-current-byeori-events38-43-design-lock.txt", "contentDigest": null },
+      "intent": "즉시 회복과 고정 유물 비교", "primaryPurpose": "Recovery", "secondaryPurpose": "Relic", "targetArchetype": "Recovery", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.drink_one_cup", "intent": "Heal20%", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP20%","amount":20,"unit":"percent","condition":null,"realizedSvu":2}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.combine_three_cups", "intent": "회복을 포기하고 frozen_nail", "guaranteedReward": [{"type":"Relic","summary":"fixed item.relic.frozen_nail","amount":1,"unit":"relic","condition":null,"realizedSvu":4}], "conditionalReward": [], "costRisk": [], "evBand": "A", "variance": "V1", "confidence": "medium", "terminal": "fixed relic and complete", "warnings": ["CAP_OR_OWNED_STALE","DOMINANT_DELTA_GT_2"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.39.self_knotting_rope", "nodes": [{"nodeId":"node.act1.random_event.39.self_knotting_rope.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.39.self_knotting_rope.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event39-design-lock.txt", "contentDigest": null },
+      "intent": "사건 유물을 소유하거나 같은 entitlement를 지름길에 사용", "primaryPurpose": "Route", "secondaryPurpose": "Relic", "targetArchetype": "Route", "repeatPolicy": "oneShot; route-commit cooldown2", "exclusions": ["event.act1.random_event.28.rockfall_scouts","event.act1.random_event.42.twice_ringing_mountain_echo","event.act1.random_event.45.false_wildfire_boundary_stones"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.39.self_knotting_rope.keep_blunt_gear", "intent": "blunt_gear를 유물로 보존", "guaranteedReward": [{"type":"Relic","summary":"fixed item.relic.blunt_gear","amount":1,"unit":"relic","condition":null,"realizedSvu":4}], "conditionalReward": [], "costRisk": [], "evBand": "A", "variance": "V1", "confidence": "medium", "terminal": "event entitlement becomes inventory relic", "warnings": ["CAP_OR_OWNED_STALE"] },
+        { "choiceId": "choice.act1.random_event.39.self_knotting_rope.spend_blunt_gear_on_shortcut", "intent": "사건 entitlement를 소비해 짧은 길", "guaranteedReward": [{"type":"RouteCommit","summary":"shortest eligible successor","amount":1,"unit":"route","condition":null,"realizedSvu":2}], "conditionalReward": [], "costRisk": [{"type":"Opportunity","summary":"forgo event relic entitlement","amount":1,"unit":"item.relic.blunt_gear","condition":null,"realizedSvu":-4}], "evBand": "C", "variance": "V2", "confidence": "contextual", "terminal": "consume event entitlement plus route commit", "warnings": ["ROUTE_CONTEXT_REQUIRED","DOMINANT_DELTA_GT_2"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio", "nodes": [{"nodeId":"node.act1.random_event.40.jihan_empty_medicine_folio.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.40.jihan_empty_medicine_folio.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event40-design-lock.txt", "contentDigest": null },
+      "intent": "현재 회복과 지한의 처방 복원 기록 비교", "primaryPurpose": "Character", "secondaryPurpose": "Recovery", "targetArchetype": "Character", "repeatPolicy": "oneShot; requires character.jihan.1", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.use_remaining_medicine", "intent": "Heal25%", "guaranteedReward": [{"type":"PartyHP","summary":"heal all living MaxHP25%","amount":25,"unit":"percent","condition":null,"realizedSvu":2.5}], "conditionalReward": [], "costRisk": [], "evBand": "B", "variance": "V1", "confidence": "medium", "terminal": "heal and complete", "warnings": [] },
+        { "choiceId": "choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription", "intent": "회복을 포기하고 지한 기록", "guaranteedReward": [{"type":"RunFlag","summary":"Jihan prescription restored; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER","DOMINANT_DELTA_GT_2"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching", "nodes": [{"nodeId":"node.act1.random_event.41.yujin_broken_arrow_fletching.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.41.yujin_broken_arrow_fletching.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event41-design-lock.txt", "contentDigest": null },
+      "intent": "유진의 위험한 추적 전투와 신중한 판단 기록 비교", "primaryPurpose": "Character", "secondaryPurpose": "Battle", "targetArchetype": "Character", "repeatPolicy": "oneShot; requires character.yujin.1; source battle exclusive", "exclusions": ["event.act1.random_event.10.silent_jangseung"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.follow_false_shot_trail", "intent": "매복대를 전투로 끊는 Character 기록", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Battle","summary":"battle.act1.event10.jangseung_bandit_ambush","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "E~D", "variance": "V2", "confidence": "low", "optionValue": 0.5, "terminal": "victory node-only character result", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","NO_REALIZED_REWARD"] },
+        { "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.repair_fletching_and_withdraw", "intent": "유진의 신중한 판단 기록", "guaranteedReward": [{"type":"RunFlag","summary":"Yujin repaired fletching; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.42.twice_ringing_mountain_echo", "nodes": [{"nodeId":"node.act1.random_event.42.twice_ringing_mountain_echo.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.42.twice_ringing_mountain_echo.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event42-design-lock.txt", "contentDigest": null },
+      "intent": "경로 정보와 위치 노출을 동반한 지름길 비교", "primaryPurpose": "Route", "secondaryPurpose": "World", "targetArchetype": "Route", "repeatPolicy": "oneShot; route-commit cooldown2", "exclusions": ["event.act1.random_event.28.rockfall_scouts","event.act1.random_event.39.self_knotting_rope","event.act1.random_event.45.false_wildfire_boundary_stones"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.42.twice_ringing_mountain_echo.test_echo_quietly", "intent": "다음 길의 성격만 공개", "guaranteedReward": [{"type":"RouteInfo","summary":"reveal immediate successor purposes","amount":1,"unit":"disclosure","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "contextual", "terminal": "disclosure and complete", "warnings": ["ROUTE_CONTEXT_REQUIRED"] },
+        { "choiceId": "choice.act1.random_event.42.twice_ringing_mountain_echo.shout_toward_short_echo", "intent": "적 경계 기록과 함께 짧은 길 확정", "guaranteedReward": [{"type":"RouteCommit","summary":"shortest eligible successor","amount":1,"unit":"route","condition":null,"realizedSvu":2},{"type":"RunFlag","summary":"enemies alerted; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V2", "confidence": "contextual", "optionValue": 0.5, "terminal": "atomic flag plus route commit", "warnings": ["ROUTE_CONTEXT_REQUIRED","FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.43.reverse_growing_moss_marker", "nodes": [{"nodeId":"node.act1.random_event.43.reverse_growing_moss_marker.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.43.reverse_growing_moss_marker.json", "receiptPath": "/private/tmp/projectbs-current-byeori-events38-43-design-lock.txt", "contentDigest": null },
+      "intent": "다음 길 정보와 고정 유물 비교", "primaryPurpose": "Route", "secondaryPurpose": "Relic", "targetArchetype": "Route", "repeatPolicy": "oneShot per run assignment", "exclusions": [], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.follow_reverse_moss", "intent": "다음 길의 성격 공개", "guaranteedReward": [{"type":"RouteInfo","summary":"reveal immediate successor purposes","amount":1,"unit":"disclosure","condition":null,"realizedSvu":1}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V1", "confidence": "contextual", "terminal": "disclosure and complete", "warnings": ["ROUTE_CONTEXT_REQUIRED"] },
+        { "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.remove_reverse_moss", "intent": "정보를 포기하고 toxic_pouch", "guaranteedReward": [{"type":"Relic","summary":"fixed item.relic.toxic_pouch","amount":1,"unit":"relic","condition":null,"realizedSvu":4}], "conditionalReward": [], "costRisk": [], "evBand": "A", "variance": "V1", "confidence": "medium", "terminal": "fixed relic and complete", "warnings": ["CAP_OR_OWNED_STALE","DOMINANT_DELTA_GT_2"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.44.buried_tax_stele", "nodes": [{"nodeId":"node.act1.random_event.44.buried_tax_stele.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.44.buried_tax_stele.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event44-design-lock.txt", "contentDigest": null },
+      "intent": "작은 공익 사례와 큰 입막음 값 비교", "primaryPurpose": "World", "secondaryPurpose": "Gold", "targetArchetype": "World", "repeatPolicy": "oneShot; cooldown4 event32, cooldown3 event35", "exclusions": ["event.act1.random_event.32.hidden_ledger_salt_cart","event.act1.random_event.35.ownerless_wage_sack"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.44.buried_tax_stele.publish_altered_tax_record", "intent": "Gold25와 공개 기록", "guaranteedReward": [{"type":"Gold","summary":"grant Gold25","amount":25,"unit":"gold","condition":null,"realizedSvu":1},{"type":"RunFlag","summary":"tax record published; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "C", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "atomic Gold plus flag", "warnings": ["FLAG_NO_CONSUMER"] },
+        { "choiceId": "choice.act1.random_event.44.buried_tax_stele.sell_rubbing_to_tax_collector", "intent": "Gold75와 은폐 기록", "guaranteedReward": [{"type":"Gold","summary":"grant Gold75","amount":75,"unit":"gold","condition":null,"realizedSvu":3},{"type":"RunFlag","summary":"tax evidence sold; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "B", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "atomic Gold plus flag", "warnings": ["FLAG_NO_CONSUMER"] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.45.false_wildfire_boundary_stones", "nodes": [{"nodeId":"node.act1.random_event.45.false_wildfire_boundary_stones.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.45.false_wildfire_boundary_stones.json", "receiptPath": "/private/tmp/projectbs-current-byeori-event45-design-lock.txt", "contentDigest": null },
+      "intent": "정의 기록과 위험 경로를 함께 택하거나 그대로 통과", "primaryPurpose": "World", "secondaryPurpose": "Route", "targetArchetype": "World", "repeatPolicy": "oneShot; route-commit cooldown2", "exclusions": ["event.act1.random_event.28.rockfall_scouts","event.act1.random_event.39.self_knotting_rope","event.act1.random_event.42.twice_ringing_mountain_echo"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.45.false_wildfire_boundary_stones.restore_original_boundary", "intent": "정의 기록과 Battle-purpose 경로 확정", "guaranteedReward": [{"type":"RunFlag","summary":"seized land boundary restored; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [{"type":"RouteCommit","summary":"Battle-purpose successor","amount":1,"unit":"route","condition":null,"realizedSvu":-1}], "evBand": "E~D", "variance": "V2", "confidence": "contextual", "optionValue": 0.5, "terminal": "atomic flag plus dangerous route", "warnings": ["FLAG_NO_CONSUMER","ROUTE_CONTEXT_REQUIRED","NO_REALIZED_REWARD"] },
+        { "choiceId": "choice.act1.random_event.45.false_wildfire_boundary_stones.leave_boundary_untouched", "intent": "기록과 경로 변경 없이 떠난다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral completion", "warnings": [] }
+      ]
+    },
+    {
+      "eventId": "event.act1.random_event.46.funeral_without_black_cloth", "nodes": [{"nodeId":"node.act1.random_event.46.funeral_without_black_cloth.intro","sourcePopupId":null}],
+      "sourceAuthority": { "contentPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_event.46.funeral_without_black_cloth.json", "receiptPath": "/private/tmp/projectbs-current-byeori-portfolio-next-batch.txt", "contentDigest": null },
+      "intent": "장례 기록, 조사 전투, 중립 이탈 비교", "primaryPurpose": "World", "secondaryPurpose": "Battle", "targetArchetype": "World", "repeatPolicy": "oneShot; event13 mutually exclusive", "exclusions": ["event.act1.random_event.13.empty_bride_palanquin"], "auditStatus": "AUDITED_PROVISIONAL",
+      "choices": [
+        { "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.attend_unmarked_funeral", "intent": "표식 없는 장례에 참석한 기록", "guaranteedReward": [{"type":"RunFlag","summary":"attended unmarked funeral; no verified consumer","amount":1,"unit":"flag","condition":null,"realizedSvu":0}], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "optionValue": 0.5, "terminal": "flag and complete", "warnings": ["FLAG_NO_CONSUMER"] },
+        { "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.inspect_empty_bier", "intent": "상여를 조사해 전투", "guaranteedReward": [], "conditionalReward": [], "costRisk": [{"type":"Battle","summary":"battle.act1.event13.rescue_child_bride; reward0","amount":1,"unit":"battle","condition":null,"realizedSvu":-2}], "evBand": "E~D", "variance": "V2", "confidence": "low", "terminal": "victory node-only terminal", "warnings": ["BATTLE_MODEL_LOW_CONFIDENCE","NO_REALIZED_REWARD"] },
+        { "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.leave_funeral_untouched", "intent": "아무 결과 없이 떠난다", "guaranteedReward": [], "conditionalReward": [], "costRisk": [], "evBand": "D", "variance": "V0", "confidence": "high", "terminal": "neutral completion", "warnings": [] }
+      ]
+    }
+  ],
+  "overrides": []
+}

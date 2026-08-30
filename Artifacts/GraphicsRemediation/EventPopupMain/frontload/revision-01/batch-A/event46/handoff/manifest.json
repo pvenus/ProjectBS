@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.46.funeral_without_black_cloth",
+  "nodeId":"node.act1.random_event.46.funeral_without_black_cloth.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.46.funeral_without_black_cloth.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-events30-46-image-authority.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event46/candidates/event46-candidate-A.png","sha256":"2e4f47d5ee2e253dac249956e57c9eba774ac60404b8a9e7278d07f852e4b2e6","disposition":"REJECTED_PROVENANCE","reason":"empty platform is clear but frame silhouette is less immediately bier-like"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event46/candidates/event46-candidate-B.png","sha256":"197ae4e53bededebfa133a1856e120dbd697fe7d80aac960661e2fc4b9c264ad","disposition":"SELECTED","reason":"open empty bier frame, white ties and exactly three distant mourners retain the intended absence hierarchy"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event46/selected/event46-selected-B-960x1280.png","sha256":"32a91aeb5320ff42ac659306f108c6eb80b9c8dbe86a7bb863975fac647e5d50","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event46/handoff/event46-selected-B-max512-A.png","sha256":"54835ef729f85010e13cdfc2d97f5cda3ac8f4f6590c68af40023312f27f8fa4","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event46-selected-B-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

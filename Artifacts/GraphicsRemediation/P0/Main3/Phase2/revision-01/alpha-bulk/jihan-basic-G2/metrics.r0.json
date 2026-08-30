@@ -1,0 +1,49 @@
+{
+  "member": "jihan-basic-G2",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Jihan/basic_attack/selected/jihan-basic-attack-G2-selected-A.png",
+    "sha256": "b1cb464c4114d1eb9a99d3326fcaa2e3eaa69b5fc949a408bb7b51af4da15fc7",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 28913,
+    "opaquePixels": 292137,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 182,
+      "minY": 163,
+      "maxX": 1072,
+      "maxY": 1095,
+      "widthPct": 71.05263157894737,
+      "heightPct": 74.4019138755981,
+      "marginsPct": {
+        "left": 14.513556618819775,
+        "right": 14.433811802232855,
+        "top": 12.998405103668262,
+        "bottom": 12.599681020733652
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "d5c2c23870dfebd5db0ed732867d28e7866d5a1e595dd26b2ed46f44c3e0e996",
+    "trimap": "16fe38c328495ba61a1f9796a70226cf7d81462fb4d030f9d0235dcee17ecf6c",
+    "master": "260ab1dffe9f1bd47fc73eac3ffed9df43fd00559893cb3fa2eb34b3bfe06298",
+    "runtime512": "b921e4888e6dd9f03a4afc1f21b807c9e42eaf5f6b8ca7b23719fcb19529d0d5",
+    "identity": "e6af7a57448cbbcff76928410ecc8d80a05e5f67f2a8790ca36c10301b87916e"
+  }
+}

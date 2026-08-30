@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+  mainImage: {fileID: 21300000, guid: 8cf7b899e10524b9cb19c358bbb840ba, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.41.yujin_broken_arrow_fletching.follow_false_shot_trail
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043303
+  - choiceId: choice.act1.random_event.41.yujin_broken_arrow_fletching.repair_fletching_and_withdraw
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043304
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043303
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486867666043305
+    - rid: 5601486867666043304
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043306
+    - rid: 5601486867666043305
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: e0ae06475951e469baadc4202f3b2542, type: 2}
+        eventId: event.act1.random_event.41.yujin_broken_arrow_fletching
+        nodeId: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+        sourcePopupId: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+        reservationId: reservation.act1.chapter01.random_event.41.yujin_broken_arrow_fletching
+        choiceId: choice.act1.random_event.41.yujin_broken_arrow_fletching.follow_false_shot_trail
+        expectedVictoryResultId: result.act1.random_event.41.yujin_broken_arrow_fletching.false_shot_ambush_defeated
+    - rid: 5601486867666043306
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.41.yujin_broken_arrow_fletching
+        nodeId: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+        sourcePopupId: node.act1.random_event.41.yujin_broken_arrow_fletching.intro
+        choiceId: choice.act1.random_event.41.yujin_broken_arrow_fletching.repair_fletching_and_withdraw
+        resultId: result.act1.random_event.41.yujin_broken_arrow_fletching.fletching_repaired_trail_marked
+        reservationId: reservation.act1.chapter01.random_event.41.yujin_broken_arrow_fletching
+        operations:
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event41.yujin_repaired_fletching_and_marked_trail
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

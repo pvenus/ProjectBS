@@ -55,10 +55,10 @@ TextureImporter:
   cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: 1
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,10 +106,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,8 +139,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1233
-        height: 1235
+        width: 504
+        height: 505
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_1
       rect:
         serializedVersion: 2
-        x: 209
-        y: 829
-        width: 13
-        height: 26
+        x: 85
+        y: 338
+        width: 6
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_2
       rect:
         serializedVersion: 2
-        x: 1163
-        y: 618
-        width: 6
-        height: 6
+        x: 474
+        y: 252
+        width: 4
+        height: 3
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_3
       rect:
         serializedVersion: 2
-        x: 1121
-        y: 521
-        width: 7
-        height: 8
+        x: 457
+        y: 212
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_4
       rect:
         serializedVersion: 2
-        x: 263
-        y: 349
-        width: 9
-        height: 40
+        x: 107
+        y: 142
+        width: 5
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_5
       rect:
         serializedVersion: 2
-        x: 951
-        y: 87
-        width: 9
-        height: 12
+        x: 388
+        y: 35
+        width: 4
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_6
       rect:
         serializedVersion: 2
-        x: 96
-        y: 71
-        width: 7
-        height: 11
+        x: 39
+        y: 28
+        width: 4
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: item.relic.electric_crystal.icon_7
       rect:
         serializedVersion: 2
-        x: 102
-        y: 68
-        width: 6
-        height: 14
+        x: 41
+        y: 27
+        width: 4
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

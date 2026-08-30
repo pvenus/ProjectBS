@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.36.cracked_bronze_mirror",
+  "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
+  "titleKo": "금 간 청동거울",
+  "summary": "빈 사랑방의 청동거울은 사람 대신 어긋난 방 안을 비춘다. 상처를 감수하고 반격의 갑각을 얻거나 거울을 깨뜨려 잘못된 반사를 끝낼 수 있다.",
+  "startNodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "비어 있는 사랑방의 청동거울은 사람 대신 어긋난 방 안을 비추고 있었다.\n금 사이로 손을 대면 날카로운 조각이 살을 파고들겠지만, 그 조각은 받은 충격을 되돌리는 갑각처럼 굳어질 듯했다.\n거울을 품어 힘을 가져갈지, 깨뜨려 잘못된 반사를 끝낼지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.accept_cracked_reflection",
+          "textKo": "금 사이로 손을 넣어 거울 조각을 꺼낸다",
+          "resultKo": "거울 조각이 손바닥을 파고들자 일행의 상처 위로 단단한 결이 번졌다. 조각은 가시 돋친 갑각처럼 굳어, 앞으로 받을 충격 일부를 되돌릴 힘이 되었다.",
+          "resultStatusKo": "파티 생존자가 최대 HP의 10%를 지불하고 유물 ‘가시 갑각’을 얻었습니다.",
+          "disabledStatusKo": "모든 생존자가 비용을 전액 지불하고 HP 1 이상 남아야 합니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
+              "nodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+              "sourcePopupId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+              "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.accept_cracked_reflection",
+              "resultId": "result.act1.random_event.36.cracked_bronze_mirror.spiked_carapace_claimed",
+              "reservationId": "reservation.act1.chapter01.random_event.36.cracked_bronze_mirror",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": -10, "nonlethal": true, "targetId": "AliveParty" },
+                { "kind": "InventoryGrant", "relicId": "item.relic.spiked_carapace", "count": 1, "unique": true }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.break_false_reflection",
+          "textKo": "거울을 천으로 감싸 깨뜨린다",
+          "resultKo": "일행이 거울을 천으로 감싸 깨뜨리자 어긋나 있던 방의 반사가 제자리로 돌아왔다. 조각은 평범한 청동 파편으로 식었고, 빈 사랑방에는 더는 낯선 움직임이 비치지 않았다.",
+          "resultStatusKo": "잘못된 반사를 끝낸 기록이 남았습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
+              "nodeId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+              "sourcePopupId": "node.act1.random_event.36.cracked_bronze_mirror.intro",
+              "choiceId": "choice.act1.random_event.36.cracked_bronze_mirror.break_false_reflection",
+              "resultId": "result.act1.random_event.36.cracked_bronze_mirror.false_reflection_broken",
+              "reservationId": "reservation.act1.chapter01.random_event.36.cracked_bronze_mirror",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event36.false_reflection_broken" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

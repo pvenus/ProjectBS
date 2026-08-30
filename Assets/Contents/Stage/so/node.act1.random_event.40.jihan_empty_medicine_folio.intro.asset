@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+  mainImage: {fileID: 21300000, guid: 5bcf9e4f0b90141f5aa7fd22f409f100, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.40.jihan_empty_medicine_folio.use_remaining_medicine
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043299
+  - choiceId: choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043300
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043299
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043301
+    - rid: 5601486867666043300
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043302
+    - rid: 5601486867666043301
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.40.jihan_empty_medicine_folio
+        nodeId: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+        sourcePopupId: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+        choiceId: choice.act1.random_event.40.jihan_empty_medicine_folio.use_remaining_medicine
+        resultId: result.act1.random_event.40.jihan_empty_medicine_folio.party_treated
+        reservationId: reservation.act1.chapter01.random_event.40.jihan_empty_medicine_folio
+        operations:
+        - kind: 10
+          maxHpPercent: 25
+          nonlethal: 0
+          targetId: AliveParty
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043302
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.40.jihan_empty_medicine_folio
+        nodeId: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+        sourcePopupId: node.act1.random_event.40.jihan_empty_medicine_folio.intro
+        choiceId: choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription
+        resultId: result.act1.random_event.40.jihan_empty_medicine_folio.prescription_restored
+        reservationId: reservation.act1.chapter01.random_event.40.jihan_empty_medicine_folio
+        operations:
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event40.jihan_prescription_restored
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

@@ -1,0 +1,49 @@
+{
+  "member": "jihan-acupuncture-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Jihan/divine_acupuncture/selected/jihan-divine-acupuncture-G3-selected-A.png",
+    "sha256": "303958019582dbc2746092c82980e923f8fa1dea3a788428f639d0cdb5b12ec9",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 13118,
+    "opaquePixels": 194365,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 66,
+      "minY": 50,
+      "maxX": 1188,
+      "maxY": 1217,
+      "widthPct": 89.55342902711324,
+      "heightPct": 93.14194577352472,
+      "marginsPct": {
+        "left": 5.263157894736842,
+        "right": 5.18341307814992,
+        "top": 3.9872408293460926,
+        "bottom": 2.8708133971291865
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "7d714987c29697bd5d442292ea3e2a2dce03881d5cb6fbd029c6dc9acfbb988b",
+    "trimap": "682e09893a55045199cf35acb89b6bb5820b6b08a7fe5eaa83380068c35b8c1c",
+    "master": "9a5bad84cac2211400016e584d013a69f5fabf23132e0804850691878612da05",
+    "runtime512": "f21b15f3a8138e97c4dc90266b0404a528bb3350e495f18f0593421ca302ca2b",
+    "identity": "686383d292fd98f8ef8fea71b9f90f45f38be4c5e53adf3be1fec0cfd5358950"
+  }
+}

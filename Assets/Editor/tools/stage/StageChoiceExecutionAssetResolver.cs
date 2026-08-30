@@ -5,6 +5,7 @@ using System.Linq;
 using Battle;
 using Shop;
 using Shrine;
+using Item;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,6 +24,13 @@ namespace ResourceTools.Stage
                 "BattleSO",
                 battle => battle.BattleId);
         }
+
+        public static RelicSO ResolveRelic(string relicId) =>
+            ResolveUnique<RelicSO>(relicId, "RelicSO", relic => relic.relicId,
+                "Assets/Contents/Item/so/");
+
+        public static RelicPoolSO ResolveRelicPool(string poolId) =>
+            ResolveUnique<RelicPoolSO>(poolId, "RelicPoolSO", pool => pool.poolId);
 
         public static List<ShopItemPoolSO> ResolveShopPools(
             IReadOnlyList<string> poolIds)
@@ -68,7 +76,8 @@ namespace ResourceTools.Stage
         private static T ResolveUnique<T>(
             string id,
             string assetLabel,
-            Func<T, string> getId)
+            Func<T, string> getId,
+            string preferredRoot = null)
             where T : ScriptableObject
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -99,6 +108,14 @@ namespace ResourceTools.Stage
             if (contentMatches.Count > 0)
             {
                 matches = contentMatches;
+            }
+
+            if (!string.IsNullOrWhiteSpace(preferredRoot))
+            {
+                List<T> preferredMatches = matches.Where(asset =>
+                    AssetDatabase.GetAssetPath(asset).StartsWith(
+                        preferredRoot, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (preferredMatches.Count > 0) matches = preferredMatches;
             }
 
             if (matches.Count == 0)

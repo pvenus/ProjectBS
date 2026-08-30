@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomGrowthEventPool",
+  "contentContractVersion": "crying_bell_smithy_trial.v1",
+  "poolId": "event_pool.act1.random_growth.cheongun_sangui",
+  "displayName": "Act01 청운산의 랜덤 성장 이벤트 전용 풀",
+  "probabilityOwner": "chapterManifestAbsoluteRoll",
+  "entries": [{
+    "entryId": "stage.act1.random_growth.01.crying_bell_smithy_trial",
+    "nodeJsonPath": "Assets/Contents/Stage/json/event/act01/event.act1.random_growth.01.crying_bell_smithy_trial.json",
+    "nodeId": "stage.act1.random_growth.01.crying_bell_smithy_trial",
+    "weight": 1,
+    "oneShot": false,
+    "cooldownRounds": 0,
+    "minDepth": 0,
+    "maxDepth": 0,
+    "tags": ["act01", "random_growth", "cheongun_sangui", "manifest_probability_owned"]
+  }]
+}

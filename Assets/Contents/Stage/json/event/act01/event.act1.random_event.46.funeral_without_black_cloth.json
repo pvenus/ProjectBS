@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.46.funeral_without_black_cloth",
+  "eventId": "event.act1.random_event.46.funeral_without_black_cloth",
+  "titleKo": "검은 천 없는 장례",
+  "summary": "이름 없는 장례의 끝을 지키거나 빈 상여의 매복을 확인하고, 아무 기록 없이 떠날 수도 있다.",
+  "startNodeId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "마을 밖 길가에 검은 천도 위패도 없는 상여 틀이 놓여 있었다.\n낯선 조문객들은 이름 없는 이를 보낸다며 빈 상여 앞에 고개를 숙였다.\n예를 갖추면 그들의 기억에 남고, 빈 상여를 살피면 감춰 둔 자들이 움직일 것이다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.attend_unmarked_funeral",
+          "textKo": "말없이 장례의 끝을 지킨다",
+          "resultKo": "일행이 끝까지 자리를 지키자 낯선 조문객 하나가 흰 끈의 매듭을 고쳐 묶었다. 누구의 장례인지는 말하지 않았지만, 그들은 일행의 얼굴을 기억했다.",
+          "resultStatusKo": "전투 없음 · 이름 없는 장례에 참석한 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.46.funeral_without_black_cloth",
+              "nodeId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+              "sourcePopupId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+              "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.attend_unmarked_funeral",
+              "resultId": "result.act1.random_event.46.funeral_without_black_cloth.funeral_attended",
+              "reservationId": "reservation.act1.chapter01.random_event.46.funeral_without_black_cloth",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event46.attended_unmarked_funeral" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.inspect_empty_bier",
+          "textKo": "빈 상여 안쪽을 확인한다",
+          "resultKo": "빈 상여 아래에서 그물과 무기가 튀어나왔다. 매복을 물리친 뒤에도 상여 안에는 이름도 시신도 없었고, 잘린 흰 끈만 남았다.",
+          "resultStatusKo": "전투 · 숨은 매복을 확인합니다",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event13.rescue_child_bride",
+              "eventId": "event.act1.random_event.46.funeral_without_black_cloth",
+              "nodeId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+              "sourcePopupId": "node.act1.random_event.46.funeral_without_black_cloth.intro",
+              "reservationId": "reservation.act1.chapter01.random_event.46.funeral_without_black_cloth",
+              "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.inspect_empty_bier",
+              "expectedVictoryResultId": "result.act1.random_event.46.funeral_without_black_cloth.empty_bier_ambush_defeated"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.46.funeral_without_black_cloth.leave_funeral_untouched",
+          "textKo": "장례를 건드리지 않고 떠난다",
+          "resultKo": "일행은 빈 상여와 낯선 조문객을 뒤에 두고 길을 계속 갔다. 흰 끈이 바람에 한 번 흔들렸지만 누구도 뒤돌아보지 않았다.",
+          "resultStatusKo": "전투 없음 · 기록 없음",
+          "executionConfig": { "type": "CompleteEvent" },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

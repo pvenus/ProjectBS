@@ -1,0 +1,112 @@
+{
+  "member": "seojin-cannon-G3-correction-r2-ready",
+  "status": "VISUAL_SELECTED_ALPHA_READY_NOT_PROMOTED",
+  "visualSource": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Seojin/turtle_ship_cannon_zone/correction-r2/selected/seojin-cannon-G3-selected-B.png",
+    "sha256": "11c20f0724ee82f6e4641030526326a8c6523d10b77d62054343e42c870ae5b3"
+  },
+  "acceptedMaster": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/alpha-bulk/seojin-cannon-G3-correction-r2-ready/master-1254.r1.png",
+    "sha256": "f224f1879ff3141638508b8d782661b8c322edb2824823fe4d026f9d92cf179a",
+    "width": 1254,
+    "height": 1254,
+    "channels": 4
+  },
+  "extractionAndNormalization": {
+    "authority": "existing accepted r1 output; no rerender or visual modification in this repair",
+    "foregroundDesignIdentity": "selected-B muzzle, diagonal fall axis, off-center impact, asymmetric rupture scars and irregular residual patches are unchanged; no repaint, crop, rotation, nonuniform transform, or geometry edit",
+    "alphaExtraction": "asset-specific matte separation recorded by render-alpha-cannon-r2.mjs",
+    "transform": {
+      "uniformScalePercent": 96.012759,
+      "translationPercent": [
+        0,
+        0
+      ],
+      "rotationDegrees": 0,
+      "nonuniformScale": false,
+      "crop": false
+    },
+    "placement": "centered on unchanged 1254x1254 canvas"
+  },
+  "masterMetrics": {
+    "partialPixels": 200044,
+    "opaquePixels": 277304,
+    "alphaZeroRgbResidue": 0,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bboxAlphaGe16": {
+      "minX": 25,
+      "minY": 25,
+      "maxX": 1192,
+      "maxY": 1228,
+      "widthPct": 93.14194577352472,
+      "heightPct": 96.01275917065391,
+      "marginsPct": {
+        "left": 1.9936204146730463,
+        "right": 4.864433811802233,
+        "top": 1.9936204146730463,
+        "bottom": 1.9936204146730463
+      }
+    }
+  },
+  "runtime512": {
+    "priorStored": {
+      "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/alpha-bulk/seojin-cannon-G3-correction-r2-ready/runtime-512.r1.png",
+      "sha256": "3ba8472b9d73884a10bb710bc9c8e35c5309384e416ec01bc432941badfa0b2e",
+      "disposition": "provenance-only; deterministic authority superseded"
+    },
+    "acceptedReproduction": {
+      "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/alpha-bulk/seojin-cannon-G3-correction-r2-ready/runtime-512.reproduction-r2.png",
+      "sha256": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+      "width": 512,
+      "height": 512,
+      "format": "PNG RGBA8 sRGB"
+    },
+    "algorithm": {
+      "decoder": "sharp/libvips",
+      "source": "acceptedMaster",
+      "resize": [
+        512,
+        512
+      ],
+      "kernel": "lanczos3",
+      "premultipliedAlpha": true,
+      "sourceColorspace": "sRGB",
+      "workingColorspace": "scRGB linear-light",
+      "targetColorspace": "sRGB",
+      "alphaZeroRgbPolicy": "zero",
+      "edgeMode": "libvips extend copy/default; no canvas extension during 512 resize",
+      "output": {
+        "format": "PNG",
+        "channels": "RGBA8",
+        "compressionLevel": 9,
+        "adaptiveFiltering": false,
+        "filter": "none",
+        "interlace": false,
+        "profile": "none embedded",
+        "ancillaryChunkPolicy": "sharp/libvips deterministic defaults; no custom text/time chunks"
+      }
+    },
+    "commandDigestInput": "sharp(master).pipelineColourspace('scrgb').resize(512,512,{kernel:'lanczos3',premultiplied:true}).toColourspace('srgb').ensureAlpha().png({compressionLevel:9,adaptiveFiltering:false,interlace:false})",
+    "renderA": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+    "renderB": "c84e611e272db30bb8a604337736475d881cba8103fab05cbb542616f68d04f4",
+    "encodedIdentity": true,
+    "decodedRgbaMismatch": 0
+  },
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "libvips": "8.18.6"
+  },
+  "forbiddenWrites": {
+    "canonical": 0,
+    "meta": 0,
+    "guid": 0,
+    "staging": 0,
+    "unity": 0
+  }
+}

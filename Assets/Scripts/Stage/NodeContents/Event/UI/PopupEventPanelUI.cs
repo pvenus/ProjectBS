@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Character;
+using Session;
 
 namespace Stage.UI
 {
@@ -286,8 +289,13 @@ namespace Stage.UI
                 return false;
             }
 
-            Debug.LogWarning($"[PopupEventPanelUI] HasCharacter condition is not connected yet. characterId={characterId}");
-            return false;
+            var members = GameSession.Instance?.BattleSession?.PartyRuntimeData?.Members;
+            return members != null && members.Any(member =>
+            {
+                string id = member?.characterSO?.CharacterId;
+                return string.Equals(id, characterId, System.StringComparison.Ordinal)
+                    || id?.StartsWith(characterId + ".", System.StringComparison.Ordinal) == true;
+            });
         }
 
         private bool HasCharacterJob(string jobText)

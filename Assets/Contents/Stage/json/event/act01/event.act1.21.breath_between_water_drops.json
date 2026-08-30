@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.21.breath_between_water_drops",
+  "eventId": "event.act1.random_event.21.breath_between_water_drops",
+  "titleKo": "낙숫물 사이의 숨",
+  "summary": "동굴 천장의 물방울이 일정한 파문을 만든다. 소리보다 그 사이의 고요에 귀를 기울이자, 전투 중 놓치던 호흡의 틈이 보인다.",
+  "startNodeId": "node.act1.random_event.21.breath_between_water_drops.intro",
+  "nodes": [{
+    "nodeId": "node.act1.random_event.21.breath_between_water_drops.intro",
+    "nodeType": "PopupEvent",
+    "textKo": "동굴 천장의 물방울이 일정한 파문을 만든다. 소리보다 그 사이의 고요에 귀를 기울이자, 전투 중 놓치던 호흡의 틈이 보인다.",
+    "choices": [
+      {
+        "choiceId": "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm",
+        "textKo": "물방울 사이의 박자를 익힌다",
+        "resultKo": "일행은 물소리 사이의 고요에 움직임을 맞췄다.",
+        "resultStatusKo": "성장 기회가 준비되었습니다.",
+        "executionConfig": {"type":"RandomGrowthSafe","targetCount":2,"segmentId":"progress.segment.act1.chapter01.optional_random_growth","reservationId":"reservation.act1.chapter01.portfolio_b1.event21"},
+        "rewards": []
+      },
+      {
+        "choiceId": "choice.act1.random_event.21.breath_between_water_drops.leave_cave_unchanged",
+        "textKo": "동굴을 빠져나간다",
+        "resultKo": "일행은 물방울 소리를 뒤로하고 동굴을 나섰다.",
+        "resultStatusKo": "성장 없음",
+        "executionConfig": {"type":"RandomGrowthDecline","segmentId":"progress.segment.act1.chapter01.optional_random_growth","reservationId":"reservation.act1.chapter01.portfolio_b1.event21"},
+        "rewards": []
+      }
+    ]
+  }]
+}

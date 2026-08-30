@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "eventId": "event.act1.random_event.39.self_knotting_rope",
+  "titleKo": "스스로 묶이는 노끈",
+  "startNodeId": "node.act1.random_event.39.self_knotting_rope.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.39.self_knotting_rope.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "끊어진 나무다리 곁에서 굵은 노끈이 사람 손도 없이 매듭을 만들고 있었다.\n노끈 중심에는 이가 닳은 작은 도르래 톱니가 박혀 있었고, 바람이 불 때마다 줄을 당겨 끊어진 다리 쪽으로 감아 올렸다.\n톱니를 떼어 유물로 간직할지, 노끈과 함께 다리에 고정해 짧은 길을 열지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.39.self_knotting_rope.keep_blunt_gear",
+          "textKo": "도르래 핵을 떼어 유물로 보존한다",
+          "resultKo": "도르래 핵을 떼어 내자 노끈의 매듭이 천천히 풀렸다. 이가 닳은 톱니는 손안에서도 짧게 떨며 바깥으로 미는 힘을 남겼고, 끊어진 다리는 그대로였다.",
+          "resultStatusKo": "유물 ‘무딘 톱니’ 1개 · 지름길 없음",
+          "disabledStatusKo": "이미 ‘무딘 톱니’를 지니고 있어 같은 도르래 핵을 유물로 더 보관할 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.39.self_knotting_rope",
+              "nodeId": "node.act1.random_event.39.self_knotting_rope.intro",
+              "sourcePopupId": "node.act1.random_event.39.self_knotting_rope.intro",
+              "choiceId": "choice.act1.random_event.39.self_knotting_rope.keep_blunt_gear",
+              "resultId": "result.act1.random_event.39.self_knotting_rope.blunt_gear_kept",
+              "reservationId": "reservation.act1.chapter01.random_event.39.self_knotting_rope",
+              "operations": [
+                {
+                  "kind": "InventoryGrant",
+                  "relicId": "item.relic.blunt_gear",
+                  "count": 1,
+                  "unique": true,
+                  "sourceEntitlementId": "entitlement.act1.chapter01.random_event.39.self_knotting_rope.blunt_gear"
+                }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.39.self_knotting_rope.spend_blunt_gear_on_shortcut",
+          "textKo": "도르래 핵과 노끈으로 끊어진 다리를 잇는다",
+          "resultKo": "무딘 톱니가 돌아가자 노끈은 끊어진 널판을 차례로 끌어당겨 단단한 매듭을 만들었다. 일행이 건넌 뒤 톱니와 줄은 다리 한가운데 고정되어, 가져갈 유물은 남지 않았다.",
+          "resultStatusKo": "유물 획득 없음 · 짧은 길 확정",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.39.self_knotting_rope",
+              "nodeId": "node.act1.random_event.39.self_knotting_rope.intro",
+              "sourcePopupId": "node.act1.random_event.39.self_knotting_rope.intro",
+              "choiceId": "choice.act1.random_event.39.self_knotting_rope.spend_blunt_gear_on_shortcut",
+              "resultId": "result.act1.random_event.39.self_knotting_rope.blunt_gear_spent_shortcut_committed",
+              "reservationId": "reservation.act1.chapter01.random_event.39.self_knotting_rope",
+              "operations": [
+                {
+                  "kind": "RelicRouteTrade",
+                  "relicId": "item.relic.blunt_gear",
+                  "sourceEntitlementId": "entitlement.act1.chapter01.random_event.39.self_knotting_rope.blunt_gear",
+                  "snapshotId": "reservation.act1.chapter01.random_event.39.self_knotting_rope",
+                  "selectionMode": "ShortestRemainingToSectionExit"
+                }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

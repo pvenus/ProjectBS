@@ -1,0 +1,49 @@
+{
+  "member": "jihan-tonic-G2",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Jihan/ten_tonic_soup/selected/jihan-ten-tonic-soup-G2-selected-B.png",
+    "sha256": "0432e0ba33838fd171dcf68bb9ee1f46dc49f300c31e580733f1af41160f500d",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 46908,
+    "opaquePixels": 294471,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 35,
+      "minY": 245,
+      "maxX": 1205,
+      "maxY": 1154,
+      "widthPct": 93.38118022328548,
+      "heightPct": 72.56778309409889,
+      "marginsPct": {
+        "left": 2.7910685805422646,
+        "right": 3.827751196172249,
+        "top": 19.537480063795854,
+        "bottom": 7.894736842105263
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "1dd099d763f88b10307795c2e3bbcbee86faa8668c79e86c03d72fa49a36ef4f",
+    "trimap": "eea4ceafaa5b7e5a91449d572aa30d71aea86aa0d707663b4f93ec302f0c4592",
+    "master": "ab6039c9c83e5b158be651a269d1c8c963b82c1a38ba5e7f2ab3e8f8da596253",
+    "runtime512": "2502751c02ed9ae24dae1f584d05ffeca1241c00c6daa48d91a78f217c09ef9c",
+    "identity": "104758776e666cf9e4a782ce67d949fa522d73c31027eaac9db68ca8916ee301"
+  }
+}

@@ -61,10 +61,10 @@ TextureImporter:
   cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: 1
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -99,7 +99,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -112,10 +112,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,10 +125,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -145,8 +145,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1229
-        height: 1236
+        width: 502
+        height: 505
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +165,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_1
       rect:
         serializedVersion: 2
-        x: 1204
-        y: 312
-        width: 9
-        height: 18
+        x: 491
+        y: 127
+        width: 5
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +187,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_2
       rect:
         serializedVersion: 2
-        x: 1003
-        y: 101
-        width: 31
-        height: 15
+        x: 409
+        y: 41
+        width: 14
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_3
       rect:
         serializedVersion: 2
-        x: 611
-        y: 71
-        width: 7
-        height: 11
+        x: 249
+        y: 28
+        width: 4
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,10 +231,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_4
       rect:
         serializedVersion: 2
-        x: 617
-        y: 65
-        width: 13
-        height: 22
+        x: 251
+        y: 26
+        width: 7
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,10 +253,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_5
       rect:
         serializedVersion: 2
-        x: 534
-        y: 53
-        width: 14
-        height: 16
+        x: 218
+        y: 21
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -275,10 +275,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_6
       rect:
         serializedVersion: 2
-        x: 537
-        y: 47
-        width: 9
-        height: 11
+        x: 219
+        y: 19
+        width: 4
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,10 +297,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_7
       rect:
         serializedVersion: 2
-        x: 526
-        y: 39
-        width: 14
-        height: 11
+        x: 214
+        y: 15
+        width: 7
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,10 +319,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_8
       rect:
         serializedVersion: 2
-        x: 153
+        x: 62
         y: 0
-        width: 81
-        height: 26
+        width: 34
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,10 +341,10 @@ TextureImporter:
       name: skill.strategic.gale_step.icon_9
       rect:
         serializedVersion: 2
-        x: 697
-        y: 15
-        width: 11
-        height: 11
+        x: 284
+        y: 6
+        width: 6
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

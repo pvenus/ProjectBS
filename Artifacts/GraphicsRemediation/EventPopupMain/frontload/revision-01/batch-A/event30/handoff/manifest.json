@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.30.night_beacon_intruders",
+  "nodeId":"node.act1.random_event.30.night_beacon_intruders.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.30.night_beacon_intruders.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-events30-46-image-authority.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event30/candidates/event30-candidate-A.png","sha256":"27cfb8ecbd09643e69a4c35bc8916534228ea46d3a4c27b17d87d69746f78b99","disposition":"REJECTED_PROVENANCE","reason":"strong atmosphere but document resembles an open folio and loses the sealed false-command cue"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event30/candidates/event30-candidate-B.png","sha256":"ecfda2f79fb323408873def9ac6266856e990998e657d5456a0d84f695d55346","disposition":"SELECTED","reason":"low unlit basin, sealed folded command and intruders read in clear hierarchy without outcome preview"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event30/selected/event30-selected-B-960x1280.png","sha256":"4075035109af6d59e8605a98a4597bb2842f5327bd69cbddcc7838e2a8fce917","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event30/handoff/event30-selected-B-max512-A.png","sha256":"f069db581cbeb46d64bb8f2369f47d62edcc82264049332eb9d6566c755995b0","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event30-selected-B-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

@@ -14,6 +14,20 @@ exception to the master concept period, cultural, aesthetic, or prohibition rule
 
 This folder contains reference documents for agents.
 
+Current project art-direction authority:
+
+```text
+AgentDocs/planning-guides/art-direction/README.md
+AgentDocs/planning-guides/art-direction/ProjectArtDirection.md
+AgentDocs/planning-guides/art-direction/DomainImageSpecifications.md
+AgentDocs/planning-guides/art-direction/ArtReferenceRegistry.md
+AgentDocs/planning-guides/art-direction/ArtProductionApprovalWorkflow.md
+```
+
+These documents own visual language, image specifications, reference status,
+and art approval. They do not replace the master concept or own game rules,
+release scope, Unity import, rendering, performance, or code.
+
 Use these files as guides, schemas, SO explanations, policy notes, and workflow
 documentation while executing a task.
 

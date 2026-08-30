@@ -1,0 +1,29 @@
+{
+  "source": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/selected/character.training_ground_captain.2.portrait.selected-A.png",
+  "source_sha256": "905a1740936056a82a06d16334824b8740e776779bfdb7e2aa48dd37fb147221",
+  "output": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/alpha-revision-01/portrait-alpha-r1.png",
+  "output_sha256": "ced0f69513c7f68fcf8c4eae7d62566bffd66537a51e798e3ae4a41795d6247a",
+  "mask": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/alpha-revision-01/mask-r1.png",
+  "mask_sha256": "c98db0faf94c1488c0f6f915d2ad229f125818a41ec00f096656deee97f50373",
+  "size": [
+    1024,
+    1536
+  ],
+  "bbox_alpha16": [
+    69,
+    45,
+    846,
+    1487
+  ],
+  "corner_alpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "partial_alpha_pixels": 27600,
+  "transparent_rgb_residue": 0,
+  "opaque_rgb_mismatch": 0,
+  "erosion": 3,
+  "rule": "border-connected low-chroma beige matte; partial-edge-only decontamination; alpha0 RGB zero"
+}

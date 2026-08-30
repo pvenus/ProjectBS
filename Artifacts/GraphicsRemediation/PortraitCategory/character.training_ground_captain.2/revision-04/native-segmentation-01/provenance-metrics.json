@@ -1,0 +1,116 @@
+{
+  "source_sha256": "4f1d8f8bc096f0545d10257d80404613f2058b5e4c9f373fd3c2d3dd97c87de7",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "alpha": {
+    "transparent": 1135488,
+    "partial": 3558,
+    "opaque": 433818,
+    "bbox": [
+      103,
+      72,
+      820,
+      1425
+    ],
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "alpha0_rgb_residue": 0,
+    "opaque_source_rgb_mismatch": 0
+  },
+  "components": {
+    "candidate": 147,
+    "retained": 24
+  },
+  "regions": {
+    "R1_head_topknot": {
+      "bbox": [
+        438,
+        42,
+        608,
+        252
+      ],
+      "alpha_ge16": 20679,
+      "background_model_positive_alpha_ge16": 144,
+      "partial": 428
+    },
+    "R2_right_shoulder_sleeve": {
+      "bbox": [
+        632,
+        238,
+        826,
+        760
+      ],
+      "alpha_ge16": 65731,
+      "background_model_positive_alpha_ge16": 122,
+      "partial": 383
+    },
+    "R3_left_shoulder_hand_sword_root": {
+      "bbox": [
+        250,
+        275,
+        388,
+        900
+      ],
+      "alpha_ge16": 39303,
+      "background_model_positive_alpha_ge16": 108,
+      "partial": 491
+    },
+    "R4_sword_blade": {
+      "bbox": [
+        92,
+        805,
+        318,
+        1330
+      ],
+      "alpha_ge16": 14698,
+      "background_model_positive_alpha_ge16": 485,
+      "partial": 1045
+    },
+    "R5_leg_gap": {
+      "bbox": [
+        438,
+        1034,
+        574,
+        1390
+      ],
+      "alpha_ge16": 13812,
+      "background_model_positive_alpha_ge16": 24,
+      "partial": 176
+    },
+    "R6_left_boot": {
+      "bbox": [
+        326,
+        1180,
+        486,
+        1425
+      ],
+      "alpha_ge16": 16170,
+      "background_model_positive_alpha_ge16": 23,
+      "partial": 146
+    },
+    "R7_right_boot": {
+      "bbox": [
+        618,
+        1180,
+        768,
+        1450
+      ],
+      "alpha_ge16": 20409,
+      "background_model_positive_alpha_ge16": 32,
+      "partial": 258
+    }
+  },
+  "outputs": {
+    "background-model.json": "d34d73a2ca9a2807cf5b196ba2b878ad150fa90af4437f51250b7e581510a903",
+    "region-trimap.png": "1fff16fd62bbb2df8cfb7a8dc12ec4155b2bdc4b50453bccb1b34565997e5d9b",
+    "alpha-mask.png": "0b97ceadccdafe2273738b631ded93eadb9cb939fc10ee295421962a4f0d1452",
+    "final-selected-B-alpha.png": "33e5bf299d10938b1b1ed6a1ab73e87578f49fdff164ef75a946066297f8e6ae",
+    "contact-neutral-dark.png": "838ce2a62cffaa7b4cbb06ed0ecdc5c7f042ff99a82296974cde62ec91f923da"
+  }
+}

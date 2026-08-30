@@ -21,6 +21,9 @@ namespace Stage
         public string startNodeId;
         public string currentNodeId;
         public string bossNodeId;
+        public int routeRevision;
+        public string committedRouteSourceNodeId;
+        public string committedRouteTargetNodeId;
 
         [Header("Nodes")]
         public List<RoundNode> nodes = new();
@@ -134,12 +137,193 @@ namespace Stage
                 return new List<RoundNode>();
             }
 
-            return node.nextNodeIds
+            IEnumerable<string> nextIds = node.nextNodeIds;
+            if (string.Equals(node.nodeId, committedRouteSourceNodeId, StringComparison.Ordinal)
+                && !string.IsNullOrWhiteSpace(committedRouteTargetNodeId))
+                nextIds = nextIds.Where(id => string.Equals(id,
+                    committedRouteTargetNodeId, StringComparison.Ordinal));
+            return nextIds
                 .Select(GetNode)
                 .Where(x => x != null)
                 .OrderBy(x => x.depth)
                 .ThenBy(x => x.indexInDepth)
                 .ToList();
+        }
+
+        public bool TryCommitImmediateSuccessorRoute(
+            RoundNode source,
+            ImmediateSuccessorRouteSelectionMode mode,
+            out StageRouteCommitSnapshot snapshot,
+            out string error)
+        {
+            snapshot = new StageRouteCommitSnapshot(routeRevision,
+                committedRouteSourceNodeId, committedRouteTargetNodeId);
+            error = string.Empty;
+            if (source == null || mode == ImmediateSuccessorRouteSelectionMode.None
+                || !string.IsNullOrWhiteSpace(committedRouteTargetNodeId)
+                || routeRevision == int.MaxValue)
+            {
+                error = "STAGE_ROUTE_COMMIT_STATE_INVALID";
+                return false;
+            }
+            List<RoundNode> candidates = source.nextNodeIds.Select(GetNode)
+                .Where(node => node != null).Distinct().ToList();
+            if (candidates.Count < 2)
+            {
+                error = "STAGE_ROUTE_COMMIT_CANDIDATES_INSUFFICIENT";
+                return false;
+            }
+            var ranked = candidates.Select(node => new
+                {
+                    Node = node,
+                    Remaining = CountShortestRemainingNodes(node)
+                })
+                .Where(item => item.Remaining >= 0)
+                .ToList();
+            if (ranked.Count != candidates.Count)
+            {
+                error = "STAGE_ROUTE_COMMIT_EXIT_UNREACHABLE";
+                return false;
+            }
+            if (mode == ImmediateSuccessorRouteSelectionMode.BattlePurposeThenShortestRemainingToSectionExit)
+            {
+                int battleCount = ranked.Count(item => string.Equals(
+                    item.Node.LocalizationMainKey, "Battle", StringComparison.Ordinal));
+                if (battleCount == 0 || battleCount == ranked.Count)
+                {
+                    error = "STAGE_ROUTE_BATTLE_PURPOSE_CANDIDATES_INVALID";
+                    return false;
+                }
+                ranked = ranked.Where(item => string.Equals(item.Node.LocalizationMainKey,
+                    "Battle", StringComparison.Ordinal)).ToList();
+            }
+            int selectedDistance = mode == ImmediateSuccessorRouteSelectionMode.LongestRemainingToSectionExit
+                ? ranked.Max(item => item.Remaining)
+                : ranked.Min(item => item.Remaining);
+            RoundNode selected = ranked.Where(item => item.Remaining == selectedDistance)
+                .Select(item => item.Node)
+                .OrderBy(node => node.nodeId, StringComparer.Ordinal)
+                .First();
+            committedRouteSourceNodeId = source.nodeId;
+            committedRouteTargetNodeId = selected.nodeId;
+            routeRevision++;
+            return true;
+        }
+
+        public bool TryCreateImmediateSuccessorRouteSnapshot(
+            RoundNode source,
+            string snapshotId,
+            out StageRouteCandidateSnapshot snapshot,
+            out string error)
+        {
+            snapshot = null;
+            error = string.Empty;
+            if (source == null || string.IsNullOrWhiteSpace(snapshotId))
+            {
+                error = "STAGE_ROUTE_SNAPSHOT_IDENTITY_INVALID";
+                return false;
+            }
+            List<StageRouteCandidate> candidates = source.nextNodeIds.Select(GetNode)
+                .Where(node => node != null)
+                .Distinct()
+                .Select(node => new StageRouteCandidate
+                {
+                    nodeId = node.nodeId,
+                    purposeId = node.LocalizationMainKey,
+                    remainingNodeCount = CountShortestRemainingNodes(node)
+                })
+                .OrderBy(item => item.nodeId, StringComparer.Ordinal)
+                .ToList();
+            if (candidates.Count < 2 || candidates.Any(item => item.remainingNodeCount < 0))
+            {
+                error = "STAGE_ROUTE_SNAPSHOT_CANDIDATES_INVALID";
+                return false;
+            }
+            snapshot = new StageRouteCandidateSnapshot
+            {
+                snapshotId = snapshotId,
+                sourceNodeId = source.nodeId,
+                graphRevision = routeRevision,
+                candidates = candidates
+            };
+            return true;
+        }
+
+        public bool TryCommitImmediateSuccessorRoute(
+            StageRouteCandidateSnapshot candidateSnapshot,
+            ImmediateSuccessorRouteSelectionMode mode,
+            out StageRouteCommitSnapshot rollbackSnapshot,
+            out string error)
+        {
+            rollbackSnapshot = new StageRouteCommitSnapshot(routeRevision,
+                committedRouteSourceNodeId, committedRouteTargetNodeId);
+            error = string.Empty;
+            if (candidateSnapshot == null || candidateSnapshot.graphRevision != routeRevision
+                || candidateSnapshot.candidates == null || candidateSnapshot.candidates.Count < 2
+                || mode == ImmediateSuccessorRouteSelectionMode.None
+                || !string.IsNullOrWhiteSpace(committedRouteTargetNodeId))
+            {
+                error = "STAGE_ROUTE_SNAPSHOT_STALE";
+                return false;
+            }
+            RoundNode source = GetNode(candidateSnapshot.sourceNodeId);
+            if (source == null || candidateSnapshot.candidates.Any(candidate =>
+                    !source.nextNodeIds.Contains(candidate.nodeId)
+                    || GetNode(candidate.nodeId) == null))
+            {
+                error = "STAGE_ROUTE_SNAPSHOT_GRAPH_MISMATCH";
+                return false;
+            }
+            IReadOnlyList<StageRouteCandidate> selectable = candidateSnapshot.candidates;
+            if (mode == ImmediateSuccessorRouteSelectionMode.BattlePurposeThenShortestRemainingToSectionExit)
+            {
+                int battleCount = candidateSnapshot.candidates.Count(item =>
+                    string.Equals(item.purposeId, "Battle", StringComparison.Ordinal));
+                if (battleCount == 0 || battleCount == candidateSnapshot.candidates.Count)
+                {
+                    error = "STAGE_ROUTE_BATTLE_PURPOSE_CANDIDATES_INVALID";
+                    return false;
+                }
+                selectable = candidateSnapshot.candidates.Where(item =>
+                    string.Equals(item.purposeId, "Battle", StringComparison.Ordinal)).ToArray();
+            }
+            int selectedDistance = mode == ImmediateSuccessorRouteSelectionMode.LongestRemainingToSectionExit
+                ? selectable.Max(item => item.remainingNodeCount)
+                : selectable.Min(item => item.remainingNodeCount);
+            StageRouteCandidate selected = selectable
+                .Where(item => item.remainingNodeCount == selectedDistance)
+                .OrderBy(item => item.nodeId, StringComparer.Ordinal).First();
+            committedRouteSourceNodeId = source.nodeId;
+            committedRouteTargetNodeId = selected.nodeId;
+            routeRevision++;
+            return true;
+        }
+
+        public bool TryRollbackImmediateSuccessorRoute(StageRouteCommitSnapshot snapshot)
+        {
+            if (routeRevision != snapshot.Revision + 1) return false;
+            routeRevision = snapshot.Revision;
+            committedRouteSourceNodeId = snapshot.SourceNodeId;
+            committedRouteTargetNodeId = snapshot.TargetNodeId;
+            return true;
+        }
+
+        private int CountShortestRemainingNodes(RoundNode start)
+        {
+            var queue = new Queue<(RoundNode node, int count)>();
+            var visited = new HashSet<string>(StringComparer.Ordinal);
+            queue.Enqueue((start, 0));
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+                if (!visited.Add(current.node.nodeId)) continue;
+                List<RoundNode> next = current.node.nextNodeIds.Select(GetNode)
+                    .Where(node => node != null).ToList();
+                if (next.Count == 0 || current.node.IsBossNode) return current.count;
+                foreach (RoundNode node in next.OrderBy(node => node.nodeId, StringComparer.Ordinal))
+                    queue.Enqueue((node, current.count + 1));
+            }
+            return -1;
         }
 
         public List<RoundNode> GetPrevNodes(RoundNode node)

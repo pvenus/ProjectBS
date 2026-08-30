@@ -1,0 +1,86 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+
+namespace ResourceTools.Stage.Placement
+{
+    [Serializable]
+    internal sealed class WeightedPlacementJsonDocument
+    {
+        public int schemaVersion = 1;
+        public string documentType = "weightedPoolPlacementRule";
+        public string contractVersion;
+        public string coefficientVersion;
+        public string sourceRewardRiskDefinition;
+        public string rewardRiskContractVersion;
+        public string rewardRiskDefinitionSha256;
+        public string staleRecalcState;
+        public string staleReason;
+        public List<OverrideJson> overrides = new();
+        public string catalogId;
+        public string chapterId;
+        public string sourceRuntimeAssetPath;
+        public string sourceRuntimeAssetGuid;
+        public string sourceRuntimeAssetSha256;
+        public int runEncounterBudget;
+        public int earlyBudget;
+        public int midBudget;
+        public int lateBudget;
+        public int legacyMass;
+        public int newMass;
+        public int minEligibleCandidates;
+        public int minEligiblePurposes;
+        public List<SectionBandJson> sectionBands = new();
+        public List<EventRowJson> rows = new();
+        public string canonicalContentSha256;
+        public string generatorVersion;
+    }
+
+    [Serializable]
+    internal sealed class SectionBandJson { public string sectionId; public string band; }
+
+    [Serializable]
+    internal sealed class EventRowJson
+    {
+        public string eventId;
+        public string topLevelNodeId;
+        public string popupId;
+        public string nodeAssetPath;
+        public string nodeGuid;
+        public string generation;
+        public string primaryBand;
+        public int rawWeight;
+        public bool topLevelEligible;
+        public string capabilityGate;
+        public string requiredCharacterId;
+        public string primaryPurpose;
+        public string secondaryPurpose;
+        public bool oneShot;
+        public List<string> exclusionGroupIds = new();
+        public List<string> motifTags = new();
+        public int cooldown;
+        public List<string> chainChildren = new();
+        public int order;
+        public string rationale;
+        public string sourceAuthority;
+        public string staleState;
+    }
+
+    [Serializable]
+    internal sealed class OverrideJson
+    {
+        public string overrideId;
+        public string rowId;
+        public string field;
+        public string baseContractVersion;
+        public string oldValue;
+        public string newValue;
+        public string rationale;
+        public string evidence;
+        public string owner;
+        public string approver;
+        public string reviewGate;
+        public List<string> affectedDistributionCells = new();
+    }
+}
+#endif

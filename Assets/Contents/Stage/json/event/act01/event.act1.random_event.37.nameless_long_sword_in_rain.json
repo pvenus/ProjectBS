@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+  "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+  "titleKo": "빗속의 이름 없는 장도",
+  "summary": "빗속의 이름 없는 장도를 뽑아 수호령의 시험을 받고 잿불 목걸이를 얻거나, 주인의 이름을 찾아 장도를 무덤 표식으로 돌려놓는다.",
+  "startNodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "이름 없는 돌담 아래, 칼집에 든 장도 한 자루가 빗물을 맞고 있었다.\n손잡이에는 이름을 긁어 낸 자국과 잿빛 목걸이가 함께 묶여 있었고, 칼을 향해 다가설 때마다 젖은 흙이 사람 형상으로 일어났다.\n장도를 뽑아 수호령의 시험을 받을지, 칼을 건드리지 않고 주인의 흔적을 찾을지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.draw_nameless_sword",
+          "textKo": "장도를 뽑아 수호령의 시험을 받는다",
+          "resultKo": "수호령이 젖은 흙으로 무너지자 장도는 다시 칼집 안에서 잠잠해졌다. 손잡이에 묶인 잿빛 목걸이만 따뜻한 불씨를 머금었고, 일행은 시험의 대가로 그것을 거두었다.",
+          "resultStatusKo": "전투 · 승리하면 유물 ‘잿불 목걸이’ 1개 획득",
+          "disabledStatusKo": "이미 ‘잿불 목걸이’를 지니고 있어 수호령의 보상을 받을 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+              "nodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+              "sourcePopupId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+              "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.draw_nameless_sword",
+              "resultId": "result.act1.random_event.37.nameless_long_sword_in_rain.guardian_defeated_relic_claimed",
+              "reservationId": "reservation.act1.chapter01.random_event.37.nameless_long_sword_in_rain",
+              "operations": [
+                { "kind": "BeginBattle", "battleId": "battle.act1.event01.named_well_wraith" },
+                { "kind": "InventoryGrant", "relicId": "item.relic.ember_necklace", "count": 1, "unique": true }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.trace_sword_owner_name",
+          "textKo": "장도를 건드리지 않고 주인의 흔적을 찾는다",
+          "resultKo": "돌담 아래의 군번 조각과 칼집 안쪽 흔적을 맞추자 지워졌던 이름이 드러났다. 일행은 장도를 무덤 표식 곁에 돌려놓고 그 이름을 빗물에 씻기지 않도록 새겼다. 젖은 흙의 수호령은 끝내 일어나지 않았다.",
+          "resultStatusKo": "전투·유물 없음 · 이름을 찾아 매장한 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+              "nodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+              "sourcePopupId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+              "choiceId": "choice.act1.random_event.37.nameless_long_sword_in_rain.trace_sword_owner_name",
+              "resultId": "result.act1.random_event.37.nameless_long_sword_in_rain.owner_named_and_buried",
+              "reservationId": "reservation.act1.chapter01.random_event.37.nameless_long_sword_in_rain",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event37.nameless_sword_owner_named_and_buried" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

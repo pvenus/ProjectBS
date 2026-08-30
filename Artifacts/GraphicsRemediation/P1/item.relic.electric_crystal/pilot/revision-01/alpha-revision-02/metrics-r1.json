@@ -1,0 +1,32 @@
+{
+  "source": "Artifacts/GraphicsRemediation/P1/item.relic.electric_crystal/pilot/revision-01/selected/item.relic.electric_crystal.icon.selected-C.png",
+  "source_sha256": "9ac5f554d03ea0979aa12372638278595d6b158964499444891402f9e7348d35",
+  "output": "Artifacts/GraphicsRemediation/P1/item.relic.electric_crystal/pilot/revision-01/alpha-revision-02/candidate-alpha-r1.png",
+  "output_sha256": "536bab0cd09a52e18139eddfdcc04f3c8c813c96615a78263a58472a84b102a3",
+  "mask": "Artifacts/GraphicsRemediation/P1/item.relic.electric_crystal/pilot/revision-01/alpha-revision-02/mask-r1.png",
+  "mask_sha256": "55ffe4bc5abd780772b597ba147d6d93319d39140010642ddf687b2ff06ca068",
+  "size": [
+    1254,
+    1254
+  ],
+  "bbox_alpha16": [
+    302,
+    141,
+    946,
+    1111
+  ],
+  "bbox_percent": [
+    51.3557,
+    77.3525
+  ],
+  "corner_alpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "partial_alpha_pixels": 11562,
+  "transparent_rgb_residue": 0,
+  "opaque_rgb_mismatch": 0,
+  "rule": "border-connected neutral RGB>=235 checker removal; subject MinFilter5; Gaussian0.7 partial edge; 250-gray edge-only decontamination; alpha0 RGB zero"
+}

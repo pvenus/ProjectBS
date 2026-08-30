@@ -1,0 +1,16 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.40.jihan_empty_medicine_folio",
+  "nodeId":"node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.40.jihan_empty_medicine_folio.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event40-design-lock.txt",
+  "supersedes":"revision-01 event40 human-centered selected-C, now USER_REJECTED_NOT_PROMOTABLE provenance-only",
+  "visualGrammar":"environment/object-led Korean ink wash; people/anatomy0; empty treatment place and material traces carry meaning",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-02/batch-A/event40/candidates/event40-object-candidate-A.png","sha256":"073a1e365a7f033aca09945fd78c179d9ef5a1b23a7973b8007c41b413280ade","disposition":"REJECTED_PROVENANCE","reason":"object-led family pass, but background storage reads slightly too stocked and folio botanical traces compete with the erased prescription cue"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-02/batch-A/event40/candidates/event40-object-candidate-B.png","sha256":"c9f6874dbf7e5f4cfcc5c68b721c85d61a3ea6c3f6d14b30c6ba4d9c5adf1df9","disposition":"SELECTED","reason":"blank water-stained folio, two remaining herb sprigs, empty bowl and vacant treatment cushion communicate scarcity/lost knowledge without portrait or outcome"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-02/batch-A/event40/selected/event40-object-selected-B-960x1280.png","sha256":"0f3ef77a535004977e99619eaf7b15e3d0af472ab037b7c005838787a865d398","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-02/batch-A/event40/handoff/event40-object-selected-B-max512-A.png","sha256":"9ddde9a2b5c34f530f6914a0b7240aba179cc70dadd7cc4a878a4b7af8496da7","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event40-object-selected-B-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

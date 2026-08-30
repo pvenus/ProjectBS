@@ -21,47 +21,53 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734730
+      rid: 5601486867666043105
   - choiceId: choice.act1.random_event.04.red_thread_mountain_goat.choice_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734731
+      rid: 5601486867666043106
   - choiceId: choice.act1.random_event.04.red_thread_mountain_goat.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734732
+      rid: 5601486867666043107
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734730
+    - rid: 5601486867666043105
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734733
-    - rid: 5601486783294734731
+          rid: 5601486867666043108
+    - rid: 5601486867666043106
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486783294734734
-    - rid: 5601486783294734732
+          rid: 5601486867666043109
+    - rid: 5601486867666043107
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734735
-    - rid: 5601486783294734733
+          rid: 5601486867666043110
+    - rid: 5601486867666043108
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734734
+    - rid: 5601486867666043109
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 3609d3e137414450d947d4a4a05c35d9, type: 2}
-    - rid: 5601486783294734735
+        eventId: 
+        nodeId: 
+        sourcePopupId: 
+        reservationId: 
+        choiceId: 
+        expectedVictoryResultId: 
+    - rid: 5601486867666043110
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

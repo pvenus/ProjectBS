@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.38.three_cups_of_moonlight",
+  "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
+  "titleKo": "달빛을 담은 석잔",
+  "summary": "빈 정자의 세 돌잔에 서로 다른 온도의 달빛이 고여 있다. 한 잔을 마셔 상처를 돌보거나 세 잔을 굳혀 차가운 못을 얻을 수 있다.",
+  "startNodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "빈 정자 한가운데 놓인 세 개의 돌잔에는 서로 다른 온도의 달빛이 고여 있었다.\n한 잔을 마시면 지친 몸을 돌볼 수 있지만, 세 잔의 빛을 한데 굳히면 차가운 못 하나가 남을 듯했다.\n회복을 택할지, 지금의 상처를 안고 새로운 힘을 가져갈지 결정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.drink_one_cup",
+          "textKo": "따뜻한 잔 하나를 나누어 마신다",
+          "resultKo": "따뜻한 달빛이 목을 타고 내려가자 굳었던 숨이 풀렸다. 돌잔의 빛은 사라졌지만 일행의 상처에는 은은한 온기가 남았다.",
+          "resultStatusKo": "파티 생존자가 최대 HP의 20%를 회복했습니다.",
+          "disabledStatusKo": "이미 모든 생존자가 온전해 회복할 필요가 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
+              "nodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+              "sourcePopupId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+              "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.drink_one_cup",
+              "resultId": "result.act1.random_event.38.three_cups_of_moonlight.party_recovered",
+              "reservationId": "reservation.act1.chapter01.random_event.38.three_cups_of_moonlight",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": 20, "nonlethal": false, "targetId": "AliveParty" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.combine_three_cups",
+          "textKo": "세 잔의 달빛을 한데 굳힌다",
+          "resultKo": "세 잔의 빛이 맞부딪히며 가느다란 서리가 맺혔다. 달빛은 차가운 못 하나로 굳었고, 정자에는 빈 돌잔만 남았다.",
+          "resultStatusKo": "유물 ‘얼어붙은 못’ 1개를 얻었습니다.",
+          "disabledStatusKo": "이미 ‘얼어붙은 못’을 지니고 있어 달빛을 다시 굳힐 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
+              "nodeId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+              "sourcePopupId": "node.act1.random_event.38.three_cups_of_moonlight.intro",
+              "choiceId": "choice.act1.random_event.38.three_cups_of_moonlight.combine_three_cups",
+              "resultId": "result.act1.random_event.38.three_cups_of_moonlight.frozen_nail_formed",
+              "reservationId": "reservation.act1.chapter01.random_event.38.three_cups_of_moonlight",
+              "operations": [
+                { "kind": "InventoryGrant", "relicId": "item.relic.frozen_nail", "count": 1, "unique": true }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

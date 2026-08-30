@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "eventId": "event.act1.random_event.45.false_wildfire_boundary_stones",
+  "titleKo": "조작된 산불 경계석",
+  "startNodeId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "불탄 능선 아래의 경계석들이 서로 다른 빛깔의 흙 위에 어긋나 서 있었다.\n돌을 들어 보니 원래 자리는 오래된 재가 아니라 최근 파낸 황토로 메워져 있었고, 옮겨진 선 안쪽의 밭과 샘은 한 집안의 땅처럼 묶여 있었다.\n경계석을 되돌리면 빼앗긴 땅의 흔적은 드러나지만, 되찾은 옛길의 순찰대와 맞닿는 위험한 구간으로 들어가야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.45.false_wildfire_boundary_stones.restore_original_boundary",
+          "textKo": "경계석을 원래 자리로 돌려놓는다",
+          "resultKo": "경계석이 오래된 홈에 맞물리자 감춰졌던 밭둑과 샘의 경계가 다시 이어졌다. 빼앗긴 땅의 흔적은 드러났지만, 되찾은 옛길 끝에서는 순찰의 방울 소리가 가까워졌다.",
+          "resultStatusKo": "토지 경계 복원 · 위험한 전투 경로 확정",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.45.false_wildfire_boundary_stones",
+              "nodeId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+              "sourcePopupId": "node.act1.random_event.45.false_wildfire_boundary_stones.intro",
+              "choiceId": "choice.act1.random_event.45.false_wildfire_boundary_stones.restore_original_boundary",
+              "resultId": "result.act1.random_event.45.false_wildfire_boundary_stones.boundary_restored_danger_route_committed",
+              "reservationId": "reservation.act1.chapter01.random_event.45.false_wildfire_boundary_stones",
+              "operations": [
+                {
+                  "kind": "SetRunFlagTrue",
+                  "targetId": "runflag.act1.chapter01.event45.seized_land_boundary_restored"
+                },
+                {
+                  "kind": "CommitImmediateSuccessorRoute",
+                  "snapshotId": "reservation.act1.chapter01.random_event.45.false_wildfire_boundary_stones",
+                  "selectionMode": "BattlePurposeThenShortestRemainingToSectionExit"
+                }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.45.false_wildfire_boundary_stones.leave_boundary_untouched",
+          "textKo": "경계석을 그대로 두고 지나간다",
+          "resultKo": "일행은 새 흙과 오래된 홈을 뒤에 두고 조용히 밭둑을 지나갔다. 옮겨진 경계석은 그대로 남았고, 다음 길도 달라지지 않았다.",
+          "resultStatusKo": "기록 없음 · 경로 변경 없음",
+          "executionConfig": {
+            "type": "CompleteEvent"
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "candidate": "A-balanced_fan",
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "rsvg": "2.62.91",
+    "png": "1.6.58"
+  },
+  "locale": "C",
+  "timezone": "UTC",
+  "concurrency": 1,
+  "network": false,
+  "fontDiscovery": false,
+  "random": false,
+  "sourceSha": "1a7dddfa5a04fce532a0b681ab889ad7e4e6afd3db29516656a6d9c6c6caddaa",
+  "maskSha": "1313a5227b8aadf89320d822532683c4d8e9c15b53a5c64e5f645cd3c9967667",
+  "rendererSha": "2372869dadc8f069233ee6837be32cdfa28c37773a65dcf298cb8d7a83fa86be",
+  "commandDigest": "4cc0ba69e320767710dc1c29e78bc7932fea4e04c0ed3d555e9c2ee3e8824aef",
+  "outputSha": "030fc739f138268e0745c85d1cc9301d975958d440dec55011124b6820fdbb4a",
+  "gate": {
+    "rgba": true,
+    "cornersZero": true,
+    "residueZero": true,
+    "bbox": false,
+    "margins": true,
+    "palette": true,
+    "outOfPalette": true,
+    "partialAlpha": true
+  },
+  "pass": false
+}

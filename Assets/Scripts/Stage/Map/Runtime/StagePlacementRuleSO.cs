@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Progression.Portfolio;
 using UnityEngine;
 
 namespace Stage
@@ -9,6 +10,45 @@ namespace Stage
     {
         WeightedPool = 0,
         BalancedComposition = 1
+    }
+
+    public enum WeightedPlacementBand { All = 0, Early = 10, Mid = 20, Late = 30 }
+    public enum WeightedPlacementGeneration { Legacy = 0, New = 10 }
+    public enum WeightedPlacementStaleState { Current = 0, StaleRewardRiskDependency = 10 }
+
+    [Serializable]
+    public sealed class WeightedPlacementOverride
+    {
+        public string overrideId, rowId, field, baseContractVersion, oldValue, newValue;
+        public string rationale, evidence, owner, approver, reviewGate;
+        public List<string> affectedDistributionCells = new();
+    }
+
+    [Serializable]
+    public sealed class WeightedPlacementSectionBand
+    {
+        public string sectionId;
+        public WeightedPlacementBand band;
+    }
+
+    [Serializable]
+    public sealed class WeightedPlacementEventRow
+    {
+        public string eventId, topLevelNodeId, popupId;
+        public RoundNodeSO node;
+        public WeightedPlacementGeneration generation;
+        public WeightedPlacementBand primaryBand;
+        [Min(0)] public int rawWeight;
+        public bool topLevelEligible = true;
+        public string capabilityGate, requiredCharacterId;
+        public PortfolioPurpose primaryPurpose, secondaryPurpose;
+        public bool oneShot = true;
+        public List<string> exclusionGroupIds = new(), motifTags = new();
+        [Min(0)] public int cooldown;
+        public List<string> chainChildren = new();
+        public string rationale, sourceAuthority;
+        public WeightedPlacementStaleState staleState;
+        public int order;
     }
 
     [Serializable]
@@ -25,6 +65,9 @@ namespace Stage
     [Serializable]
     public class WeightedPoolPlacementConfig
     {
+        public const int CurrentSchemaVersion = 1;
+        public const string DocumentType = "weightedPoolPlacementRule";
+
         [Tooltip("사용할 이벤트 풀과 가중치 목록")]
         public List<StagePlacementPoolEntry> pools = new();
 
@@ -33,6 +76,32 @@ namespace Stage
 
         [Tooltip("노드 선택 실패 시 슬롯을 비워 두는 것을 허용합니다.")]
         public bool allowEmptySlot;
+
+        [Header("Compiled JSON Placement (optional; legacy assets remain valid)")]
+        public int schemaVersion;
+        public string documentType;
+        public string contractVersion = "chapter1.weighted_pool_placement.v1";
+        public string coefficientVersion = "weighted-pool-coefficients.v1";
+        public string sourceRewardRiskDefinition;
+        public string rewardRiskContractVersion = "stage-reward-risk-row.v1";
+        public string rewardRiskDefinitionSha256;
+        public WeightedPlacementStaleState staleRecalcState;
+        public string staleReason;
+        public List<WeightedPlacementOverride> overrides = new();
+        public string catalogId, chapterId, sourceRuntimeAssetPath, sourceRuntimeAssetGuid;
+        public long sourceRuntimeAssetFileId = 11400000;
+        public string sourceRuntimeAssetSha256;
+        [Min(1)] public int runEncounterBudget = 12;
+        [Min(0)] public int earlyBudget = 4, midBudget = 4, lateBudget = 4;
+        [Range(0, 100)] public int legacyMass = 45, newMass = 55;
+        [Min(1)] public int minEligibleCandidates = 4, minEligiblePurposes = 2;
+        public List<WeightedPlacementSectionBand> sectionBands = new();
+        public List<WeightedPlacementEventRow> rows = new();
+        public string canonicalContentSha256;
+        public string generatorVersion = "weighted-placement-rule-json.v1";
+
+        public bool HasCompiledPlacement => schemaVersion == CurrentSchemaVersion
+            && documentType == DocumentType && rows != null && rows.Count > 0;
     }
 
     [Serializable]

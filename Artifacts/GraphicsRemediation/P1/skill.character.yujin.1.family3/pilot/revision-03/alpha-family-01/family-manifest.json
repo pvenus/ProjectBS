@@ -1,0 +1,17 @@
+{
+  "unit": "Art-A1-selected2-alpha-family",
+  "status": "ALPHA_VISUAL_PASS_TECHNICAL_AUDIT_PENDING_NOT_PROMOTABLE",
+  "members": {
+    "basic-B2": {"selectedRevision":"r1","normalizationScale":1.0,"maskCorrectionUsed":true,"correction":"outer4px AND alpha<16; one disconnected corner pixel removed"},
+    "passive-A2": {"selectedRevision":"r0","normalizationScale":0.96,"maskCorrectionUsed":false}
+  },
+  "toolchain": {"node":"24.19.0","sharp":"0.35.4","libvips":"8.18.6","rendererSha256":"d73fa1faa2a11d9c577ea734374bfb35ad32227f016d60f6716343b9c200c724"},
+  "visualAuthorityReceipt": {"path":"/private/tmp/projectbs-current-hwagam-art-a1-visual-selection-rescope.txt","sha256":"b9619330aca903f76e9efa90ff46aea5f111d89b0839f19e25f53d891e872dbf"},
+  "technicalMethodReceipt": {"path":"/private/tmp/projectbs-current-hangyeol-art-alpha-pipeline-method.txt","sha256":"53ded33a7a0dd415e274b8284adc8e8ccf1e730993e61d8037dae8a28620adf0"},
+  "productionOptionsReceipt": {"path":"/private/tmp/projectbs-current-hangyeol-art-a1-alpha-options.txt","sha256":"cd5e47cba2686c2db142ae907d49a8f8fa080a0d825529025b32d071f9b76718"},
+  "materialCount": 24,
+  "correctionBudget": {"basic":"1/1","passive":"0/1"},
+  "familyVisualGate": {"lightEdge":"PASS","darkEdge":"PASS","contact200":"PASS","available80":"PENDING","cooldown80":"PENDING"},
+  "promotionEligible": false,
+  "nextGate": "hangyeol_selected2_static_alpha_and_deterministic512_audit_then_actual_UI_smoke"
+}

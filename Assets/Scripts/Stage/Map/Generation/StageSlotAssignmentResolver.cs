@@ -9,7 +9,8 @@ namespace Stage
     {
         public Dictionary<string, RoundNodeSO> ResolveAssignments(
             StageDefinitionSO stageDefinition,
-            int? seed = null)
+            int? seed = null,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations = null)
         {
             var result = new Dictionary<string, RoundNodeSO>(StringComparer.OrdinalIgnoreCase);
 
@@ -19,11 +20,73 @@ namespace Stage
                 return result;
             }
 
+            ValidateReservations(stageDefinition, reservations);
             ResolveStoryAssignments(stageDefinition, result);
-            ResolveRandomAssignments(stageDefinition, result, seed);
+            ApplyReservedAssignments(result, reservations);
+            ResolveRandomAssignments(stageDefinition, result, seed, reservations);
             ValidateAssignedSlots(stageDefinition, result);
 
             return result;
+        }
+
+        internal Dictionary<string, RoundNodeSO> ResolveAssignments(
+            StageDefinitionSO stageDefinition,
+            Chapter1WeightedEventManifest weightedManifest,
+            int? seed = null,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations = null)
+        {
+            if (weightedManifest == null || !weightedManifest.Success)
+                return ResolveAssignments(stageDefinition, seed, reservations);
+            var result = new Dictionary<string, RoundNodeSO>(StringComparer.OrdinalIgnoreCase);
+            foreach (var pair in Chapter1WeightedEventProjection.Project(stageDefinition, weightedManifest))
+            {
+                result[pair.Key] = pair.Value;
+            }
+            ValidateReservations(stageDefinition, reservations);
+            ResolveStoryAssignments(stageDefinition, result);
+            ApplyReservedAssignments(result, reservations);
+            ResolveRandomAssignments(stageDefinition, result, seed, reservations);
+            ValidateAssignedSlots(stageDefinition, result);
+            return result;
+        }
+
+        private static void ApplyReservedAssignments(
+            Dictionary<string, RoundNodeSO> resultBySlotId,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations)
+        {
+            if (reservations == null) return;
+            foreach (RandomGrowthReservationDescriptor reservation in reservations)
+            {
+                if (reservation?.Node != null)
+                    resultBySlotId[reservation.SlotId] = reservation.Node;
+            }
+        }
+
+        private static void ValidateReservations(
+            StageDefinitionSO stageDefinition,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations)
+        {
+            if (reservations == null || reservations.Count == 0)
+            {
+                return;
+            }
+
+            var randomSlotIds = new HashSet<string>(
+                stageDefinition.svgMapSlots
+                    .Where(slot => slot != null && slot.role == StageMapSlotRole.Random)
+                    .Select(slot => slot.slotId),
+                StringComparer.Ordinal);
+            var reservedSlotIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (RandomGrowthReservationDescriptor reservation in reservations)
+            {
+                if (reservation == null
+                    || !randomSlotIds.Contains(reservation.SlotId)
+                    || !reservedSlotIds.Add(reservation.SlotId))
+                {
+                    throw new InvalidOperationException(
+                        "Random-growth reservations must target distinct canonical Random slots.");
+                }
+            }
         }
 
         private void ResolveStoryAssignments(
@@ -50,7 +113,8 @@ namespace Stage
         private void ResolveRandomAssignments(
             StageDefinitionSO stageDefinition,
             Dictionary<string, RoundNodeSO> resultBySlotId,
-            int? seed)
+            int? seed,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations)
         {
             if (stageDefinition.svgRandomSections == null || stageDefinition.svgRandomSections.Count == 0)
                 return;
@@ -64,6 +128,11 @@ namespace Stage
 
             System.Random random = seed.HasValue ? new System.Random(seed.Value) : new System.Random();
             var processedSlots = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var reservedSlotIds = new HashSet<string>(
+                (reservations ?? Array.Empty<RandomGrowthReservationDescriptor>())
+                    .Where(value => value?.Node != null)
+                    .Select(value => value.SlotId),
+                StringComparer.OrdinalIgnoreCase);
 
             foreach (var section in stageDefinition.svgRandomSections)
             {
@@ -82,6 +151,7 @@ namespace Stage
                 foreach (var slotId in section.targetSlotIds)
                 {
                     if (string.IsNullOrEmpty(slotId)) continue;
+                    if (reservedSlotIds.Contains(slotId)) continue;
 
                     if (slotById.TryGetValue(slotId, out var slot))
                     {

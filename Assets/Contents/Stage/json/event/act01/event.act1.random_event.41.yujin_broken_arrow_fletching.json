@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+  "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+  "requiredCharacterId": "character.yujin.1",
+  "titleKo": "유진의 어긋난 화살깃",
+  "summary": "유진이 읽어 낸 위장 사격 흔적을 따라 매복대를 끊거나, 추적을 포기하고 화살깃을 바로잡아 위험한 길을 기록한다.",
+  "startNodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "산길 표적판 아래에 부러진 연습용 화살 하나가 박혀 있었다.\n유진은 한쪽으로 비튼 화살깃과 일부러 남긴 흙자국을 보고, 빗나간 사격이 아니라 사람을 좁은 길로 유인하는 표식이라고 말했다.\n그 흔적을 역으로 따라가 매복을 끊을지, 더 큰 위험을 피하고 화살만 바로잡을지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.follow_false_shot_trail",
+          "textKo": "유진과 함께 위장 사격 흔적을 거슬러 간다",
+          "resultKo": "유진은 비튼 화살깃이 가리킨 길을 거꾸로 짚어 매복대의 옆을 잡았다. 적들이 물러난 뒤 그는 부러진 화살을 흙에 꽂아, 다시는 같은 유도선이 쓰이지 않게 표시했다.",
+          "resultStatusKo": "전투 · 승리하면 매복 흔적을 끊은 기록",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+              "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+              "nodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+              "sourcePopupId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+              "reservationId": "reservation.act1.chapter01.random_event.41.yujin_broken_arrow_fletching",
+              "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.follow_false_shot_trail",
+              "expectedVictoryResultId": "result.act1.random_event.41.yujin_broken_arrow_fletching.false_shot_ambush_defeated"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.repair_fletching_and_withdraw",
+          "textKo": "화살깃을 바로잡고 위험한 길을 표시한다",
+          "resultKo": "유진은 비틀린 깃을 곧게 펴고 화살대에 위험한 길을 알리는 매듭을 묶었다. 매복대는 그대로 남았지만, 적어도 같은 표식을 따라 들어갈 사람은 줄어들 터였다.",
+          "resultStatusKo": "전투 없음 · 유진의 신중한 판단을 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
+              "nodeId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+              "sourcePopupId": "node.act1.random_event.41.yujin_broken_arrow_fletching.intro",
+              "choiceId": "choice.act1.random_event.41.yujin_broken_arrow_fletching.repair_fletching_and_withdraw",
+              "resultId": "result.act1.random_event.41.yujin_broken_arrow_fletching.fletching_repaired_trail_marked",
+              "reservationId": "reservation.act1.chapter01.random_event.41.yujin_broken_arrow_fletching",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event41.yujin_repaired_fletching_and_marked_trail" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

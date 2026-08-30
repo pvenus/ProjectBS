@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.34.half_vein_map.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.34.half_vein_map.intro
+  mainImage: {fileID: 21300000, guid: 7ebccd1e80a2747d5a132e891380a8b2, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.34.half_vein_map.sell_half_map
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043267
+  - choiceId: choice.act1.random_event.34.half_vein_map.follow_unstable_vein
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043268
+  - choiceId: choice.act1.random_event.34.half_vein_map.destroy_false_map
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043269
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043267
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043270
+    - rid: 5601486867666043268
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 50
+        data:
+          rid: 5601486867666043271
+    - rid: 5601486867666043269
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486867666043272
+    - rid: 5601486867666043270
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.34.half_vein_map
+        nodeId: node.act1.random_event.34.half_vein_map.intro
+        sourcePopupId: node.act1.random_event.34.half_vein_map.intro
+        choiceId: choice.act1.random_event.34.half_vein_map.sell_half_map
+        resultId: result.act1.random_event.34.half_vein_map.half_map_sold_gold25
+        reservationId: reservation.act1.chapter01.random_event.34.half_vein_map
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 25
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043271
+      type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        nextEvent: {fileID: 11400000, guid: 0dc6ca0f3114347ee96b290747f0a920, type: 2}
+        parentEventId: event.act1.random_event.34.half_vein_map
+        parentNodeId: node.act1.random_event.34.half_vein_map.intro
+        parentChoiceId: choice.act1.random_event.34.half_vein_map.follow_unstable_vein
+        parentResultId: result.act1.random_event.34.half_vein_map.unstable_vein_entered
+        parentReservationId: reservation.act1.chapter01.random_event.34.half_vein_map
+        childEventId: event.act1.random_event.34.half_vein_map.followup.unstable_vein
+        childNodeId: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
+        childReservationId: reservation.act1.chapter01.random_event.34.half_vein_map.followup.unstable_vein
+    - rid: 5601486867666043272
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 

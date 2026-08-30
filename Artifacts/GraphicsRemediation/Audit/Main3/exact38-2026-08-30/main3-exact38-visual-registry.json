@@ -1,0 +1,752 @@
+{
+  "schema": "projectbs.main3.visual-reaudit.v1",
+  "scope": "exact38 only; Non-Main58 excluded",
+  "status": "READ_ONLY_AUDIT_COMPLETE_PILOT_GENERATION_BLOCKED",
+  "palettePolicy": "signature color is a recognition anchor, not an exclusive palette; support/accent hues unrestricted when motivated",
+  "hardFails": [
+    "cross-character identity confusion",
+    "unmotivated neon/gold flooding",
+    "color-only grade escalation",
+    "grayscale structural order below 80%",
+    "lineage below 90%",
+    "other-slot confusion above 10%"
+  ],
+  "counts": {
+    "total": 38,
+    "pass": 17,
+    "fail": 21
+  },
+  "byCharacter": {
+    "Yujin": {
+      "total": 13,
+      "pass": 4,
+      "fail": 9
+    },
+    "Jihan": {
+      "total": 12,
+      "pass": 7,
+      "fail": 5
+    },
+    "Seojin": {
+      "total": 13,
+      "pass": 6,
+      "fail": 7
+    }
+  },
+  "contacts": {
+    "Yujin": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/Audit/Main3/exact38-2026-08-30/main3-yujin-exact13-contact.png",
+      "sha256": "7cb8e053b872c66cdbc8551b40fbcee3377ce12eac6611ca33b2357a0b97ae8b"
+    },
+    "Jihan": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/Audit/Main3/exact38-2026-08-30/main3-jihan-exact12-contact.png",
+      "sha256": "9213b928b4f466ca9afcb534babccdb4de52d0b5ae31bc70ec8ce069432fd25f"
+    },
+    "Seojin": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/Audit/Main3/exact38-2026-08-30/main3-seojin-exact13-contact.png",
+      "sha256": "f349b287dd56951951a6a2cde64f0ff75a7a664ace036a22c8e901c7d67771c7"
+    }
+  },
+  "entries": [
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.2.active_1.multi_shot.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.2.active_1.multi_shot.icon.png",
+      "canonicalSha256": "82c16684d89ece9c6daadd3fb61cebf3200c2358ab1f38482c8b2b407e3e750e",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Three-arrow lineage is clear, but G2/G3 silhouettes remain near-duplicates; clone follows corrected Y3 source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.2.active_2.hwalbin_barrage.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.2.active_2.hwalbin_barrage.icon.png",
+      "canonicalSha256": "759e1695129044157e5a3acdccde0f724856cf1131c4ec2b541f0311ce556b01",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Parallel corridor meaning reads, but G2/G3 use the same three-line corridor without command-scale growth; clone follows source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.2.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.2.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "e71b158522229728d0f4264fb75f801528c4da0e32bcd9b617dd8ce1f0af9157",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "G2 basic retains one physical horizontal arrow, ordered tail, and open aiming space.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.2.passive_1.passive_1.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.2.passive_1.passive_1.icon.png",
+      "canonicalSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "disposition": "PASS",
+      "correctionType": "KEEP_RUNTIME_EQUIVALENT",
+      "reason": "Tracking-arrow cause/effect is readable; G2/G3 runtime meaning is identical, so stable artwork and clone projection are correct.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.active_1.multi_shot.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.active_1.multi_shot.icon.png",
+      "canonicalSha256": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Three-arrow lineage is clear, but G2/G3 silhouettes remain near-duplicates; clone follows corrected Y3 source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.active_2.hwalbin_barrage.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.active_2.hwalbin_barrage.icon.png",
+      "canonicalSha256": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Parallel corridor meaning reads, but G2/G3 use the same three-line corridor without command-scale growth; clone follows source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.active_3.outlaw_appearance.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.active_3.outlaw_appearance.icon.png",
+      "canonicalSha256": "b8d8faf8f45a8dbd113437885802e53a1e7a002c788dce1d29014f16be57cc7b",
+      "disposition": "FAIL",
+      "correctionType": "READABILITY_32_80",
+      "reason": "Central hat/tie motif occupies too little area and collapses into noise at 32/80.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "G3 becomes a dense black firing wedge instead of extending the one-arrow empty-range structure; clone follows corrected source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.clone.active_1.multi_shot.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.clone.active_1.multi_shot.icon.png",
+      "canonicalSha256": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Three-arrow lineage is clear, but G2/G3 silhouettes remain near-duplicates; clone follows corrected Y3 source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon.png",
+      "canonicalSha256": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "Parallel corridor meaning reads, but G2/G3 use the same three-line corridor without command-scale growth; clone follows source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.clone.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.clone.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "G3 becomes a dense black firing wedge instead of extending the one-arrow empty-range structure; clone follows corrected source.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.clone.passive_1.passive_1.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.clone.passive_1.passive_1.icon.png",
+      "canonicalSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "disposition": "PASS",
+      "correctionType": "KEEP_RUNTIME_EQUIVALENT",
+      "reason": "Tracking-arrow cause/effect is readable; G2/G3 runtime meaning is identical, so stable artwork and clone projection are correct.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Yujin",
+      "assetId": "skill.character.yujin.3.passive_1.passive_1.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.yujin.3.passive_1.passive_1.icon.png",
+      "canonicalSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "disposition": "PASS",
+      "correctionType": "KEEP_RUNTIME_EQUIVALENT",
+      "reason": "Tracking-arrow cause/effect is readable; G2/G3 runtime meaning is identical, so stable artwork and clone projection are correct.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.1.active_1.medicine_prescription.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.1.active_1.medicine_prescription.icon.png",
+      "canonicalSha256": "2592e2d7c0dac48d8bd886fc39b76a9aed2d9346be4c7972f79614828c5d8021",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.1.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.1.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "ac241c2dab2a60351df17c462df44fb6abcd903912a389896cf54d5fed84c7b0",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.1.passive_1.blood_qi_circulation.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.png",
+      "canonicalSha256": "49e2568ec58258be237c8890e9c1e2669b4512047e255aa59f8a47061dd292c7",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.2.active_1.medicine_prescription.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.2.active_1.medicine_prescription.icon.png",
+      "canonicalSha256": "84aa3c35973d939c1a3e9c76d513effc674aa35512333ca1c6f609cba7f730c2",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE_COLOR_BALANCE",
+      "reason": "G2/G3 become similar botanical rings; G3 relies on yellow ornament rather than an open cause-to-circuit structure.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.2.active_2.ten_tonic_soup.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.2.active_2.ten_tonic_soup.icon.png",
+      "canonicalSha256": "f8ec97913bb74ecdfa31fbdca3f69b54ead7971106b55e53725aaedd293b938d",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "G2/G3 four-lobe rotations exchange texture but do not establish a stronger connected support structure.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.2.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.2.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "f9a66da051f21a688a00daf1bbf06aa1bcf7e43a2591ae1f4f86faa10c19ab82",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.2.passive_1.blood_qi_circulation.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.png",
+      "canonicalSha256": "96df54a3bcaaeb9d74f3af449f52c67b1ef78ca3412fa99fb58e3a0f572b2763",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.3.active_1.medicine_prescription.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.3.active_1.medicine_prescription.icon.png",
+      "canonicalSha256": "b873b44dd5a4c8baf673dd4786d2f833f1ba04ad45988b09efa98145be14c476",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE_COLOR_BALANCE",
+      "reason": "G2/G3 become similar botanical rings; G3 relies on yellow ornament rather than an open cause-to-circuit structure.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.3.active_2.ten_tonic_soup.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.3.active_2.ten_tonic_soup.icon.png",
+      "canonicalSha256": "a21961782c43e536f37bc174585c5eaa0ad3d235f11cfd8c52f91ef2505b23c8",
+      "disposition": "FAIL",
+      "correctionType": "STRUCTURAL_GRADE",
+      "reason": "G2/G3 four-lobe rotations exchange texture but do not establish a stronger connected support structure.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.3.active_3.divine_acupuncture.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.3.active_3.divine_acupuncture.icon.png",
+      "canonicalSha256": "01538a574e68cbc75791d255be994916ac73f50f3266f0b7d630ac1975565713",
+      "disposition": "FAIL",
+      "correctionType": "READABILITY_32_80",
+      "reason": "Needle/meridian detail is meaningful at 200 but too thin and dispersed at 80/32.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.3.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.3.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "46a156a5e74e85a0a30e65fae1d1a792066216f3bd694b2d77497f4af96a2ed5",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Jihan",
+      "assetId": "skill.character.jihan.3.passive_1.blood_qi_circulation.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.png",
+      "canonicalSha256": "83c31712679f4eceb11861b3d6121213d44ee2b3aae2ab7dbba6e26defdf9158",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Center/circulation silhouette and herb/teal recognition anchors remain readable with acceptable structural growth.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.1.active_1.active_1.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.1.active_1.active_1.icon.png",
+      "canonicalSha256": "7da07697da084db1998e90a4bb756256eabb921989398ed414739f38414c4817",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.1.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.1.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "da0b5bc2378f9e9aca83b23250fda83a7bc903bfa9cca4bb85387d24dd9bd027",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.1.passive_1.indomitable.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.1.passive_1.indomitable.icon.png",
+      "canonicalSha256": "2a93ded45cd729840bc01534fc3357f234d542da1723d686c2ade5dfcb653be3",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.2.active_1.charge.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.2.active_1.charge.icon.png",
+      "canonicalSha256": "10a9343d29b2e4b7b0a7015fee18f91254bcbeedc025c196d07c8334c8f9e373",
+      "disposition": "FAIL",
+      "correctionType": "QUALITY_AND_STRUCTURAL_GRADE",
+      "reason": "G2 broad wing has more authority than sparse G3 planes; material weight regresses and grade order reverses.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.2.active_2.crane_wing_formation.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.2.active_2.crane_wing_formation.icon.png",
+      "canonicalSha256": "f95e4356d6bf8195509e3f0c0f4af88e7fdf852ec335d3aa6920d63866ddd8c5",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.2.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.2.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "28556c9189c0044e823e3da0708a1ed30faddb01ef7e58fe54a7c41b81236cf0",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.2.passive_1.indomitable.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.2.passive_1.indomitable.icon.png",
+      "canonicalSha256": "c85d7898000b1426aa026f6f94e6110cb9adb6ce4f1839f07b7031de3c4320e8",
+      "disposition": "FAIL",
+      "correctionType": "LINEAGE_AND_MISREAD",
+      "reason": "G2 sign/roof and G3 anchor-fortress are individually legible but weakly related and risk non-skill object misread.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.active_1.charge.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.active_1.charge.icon.png",
+      "canonicalSha256": "23836446299e0cea1eae6b1d096d20a7dd6133e458e3c0a3a7c49c6a596a5a42",
+      "disposition": "FAIL",
+      "correctionType": "QUALITY_AND_STRUCTURAL_GRADE",
+      "reason": "G2 broad wing has more authority than sparse G3 planes; material weight regresses and grade order reverses.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.active_2.crane_wing_formation.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.active_2.crane_wing_formation.icon.png",
+      "canonicalSha256": "1f1cb352598759c63fb9c68cb91cf98b848bd0cb73f065dba6555c67241c5848",
+      "disposition": "PASS",
+      "correctionType": "KEEP",
+      "reason": "Heavy forward silhouette, tactical formation structure, and navy/ink/russet anchor placement remain readable.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.active_3.turtle_ship_assault.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.active_3.turtle_ship_assault.icon.png",
+      "canonicalSha256": "7a1c3fe3273e8355c9593fe00528ce837e33437613f17d33ebfe2b23db4a37a1",
+      "disposition": "FAIL",
+      "correctionType": "STYLE_AND_READABILITY_32_80",
+      "reason": "Literal detailed ship becomes a dark blob at 32 and departs from the abstract ink tactical grammar.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.basic_attack.basic_attack.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.basic_attack.basic_attack.icon.png",
+      "canonicalSha256": "778e867e513d5aa4574008159a5caaa234ad481ac158e15e8164f4aa78d14a10",
+      "disposition": "FAIL",
+      "correctionType": "LINEAGE_AND_STRUCTURAL_GRADE",
+      "reason": "G3 changes the grounded cut into a separate post-like sweep and loses the G1/G2 family axis.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.passive_1.indomitable.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.passive_1.indomitable.icon.png",
+      "canonicalSha256": "1210599856bcc8edf1ce3d17c938ca4001ababc774fe65f5e690707710e3ec06",
+      "disposition": "FAIL",
+      "correctionType": "LINEAGE_AND_MISREAD",
+      "reason": "G2 sign/roof and G3 anchor-fortress are individually legible but weakly related and risk non-skill object misread.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    },
+    {
+      "character": "Seojin",
+      "assetId": "skill.character.seojin.3.turtle_ship_cannon_zone.icon",
+      "canonicalPng": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/icon/skill.character.seojin.3.turtle_ship_cannon_zone.icon.png",
+      "canonicalSha256": "2f468374b78510537959944e405c792b90a11f903ffd02484a7865d367941f03",
+      "disposition": "FAIL",
+      "correctionType": "READABILITY_32_80",
+      "reason": "Crater/zone reads at 200 but becomes a generic dark oval at 32 without a command-fire cue.",
+      "evaluation": [
+        "quality/material",
+        "structural grade separation",
+        "32/80 readability",
+        "signature anchor and support colors",
+        "silhouette/effect lineage"
+      ]
+    }
+  ],
+  "productionGraph": [
+    {
+      "order": 0,
+      "gate": "USER_CALIBRATION",
+      "character": "Seojin",
+      "family": "charge",
+      "scope": "representative G1/G2/G3 strip; G1 authority, correct G2/G3"
+    },
+    {
+      "order": 0,
+      "gate": "USER_CALIBRATION",
+      "character": "Jihan",
+      "family": "medicine_prescription",
+      "scope": "representative G1/G2/G3 strip; G1 authority, correct G2/G3"
+    },
+    {
+      "order": 0,
+      "gate": "USER_CALIBRATION",
+      "character": "Yujin",
+      "family": "multi_shot",
+      "scope": "representative G1/G2/G3 strip; G1 authority, correct G2/G3 then project clone"
+    },
+    {
+      "order": 1,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Yujin",
+      "family": "hwalbin_barrage",
+      "scope": "G2/G3 structural corridor growth then clone projection"
+    },
+    {
+      "order": 2,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Yujin",
+      "family": "basic_attack",
+      "scope": "G3 open-range structure correction then clone projection; retain G2"
+    },
+    {
+      "order": 3,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Yujin",
+      "family": "outlaw_appearance",
+      "scope": "G3 occupancy/readability correction"
+    },
+    {
+      "order": 4,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Jihan",
+      "family": "ten_tonic_soup",
+      "scope": "G2/G3 connected-support structural growth"
+    },
+    {
+      "order": 5,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Jihan",
+      "family": "divine_acupuncture",
+      "scope": "G3 32/80 silhouette consolidation"
+    },
+    {
+      "order": 6,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Seojin",
+      "family": "basic_attack",
+      "scope": "G3 lineage correction using G1/G2 authority"
+    },
+    {
+      "order": 7,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Seojin",
+      "family": "indomitable",
+      "scope": "G2/G3 common defensive lineage and object-misread removal"
+    },
+    {
+      "order": 8,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Seojin",
+      "family": "turtle_ship_assault",
+      "scope": "G3 tactical silhouette/style consolidation"
+    },
+    {
+      "order": 9,
+      "gate": "AFTER_CALIBRATION_PASS",
+      "character": "Seojin",
+      "family": "turtle_ship_cannon_zone",
+      "scope": "G3 zone+command-fire 32/80 correction"
+    }
+  ],
+  "boundary": {
+    "pilotGeneration": 0,
+    "canonicalWrite": 0,
+    "metaGuidStagingUnity": 0,
+    "nextGate": "user reviews representative3 calibration contacts"
+  }
+}

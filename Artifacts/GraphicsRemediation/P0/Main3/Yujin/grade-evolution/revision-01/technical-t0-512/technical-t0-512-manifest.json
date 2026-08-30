@@ -1,0 +1,775 @@
+{
+  "status": "T0_512_PASS",
+  "tool": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6"
+  },
+  "command": "sRGB->linear; premultiply; separable Lanczos3; unpremultiply; alpha0 RGB zero; RGBA8 PNG",
+  "commandDigest": "bdc7001886be2be81d0be3df9a5bb29f50ed73f400f6bd512ec06e9f0ce6e008",
+  "entries": [
+    {
+      "id": "skill.character.yujin.2.basic_attack.basic_attack.icon",
+      "sourcePath": "Y2/skill.character.yujin.2.basic_attack.basic_attack.icon/alpha-revision-02-correction-01/skill.character.yujin.2.basic_attack.basic_attack.icon.selected-alpha-r2c1.png",
+      "sourceSha256": "d4f1fe8b2e25b3db477f6e13fb2847221de417b615125e53ded35b15bda186cd",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1369095,
+        "partial": 11709,
+        "opaque": 191712,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 80,
+          "minY": 334,
+          "maxX": 1170,
+          "maxY": 1000
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.2.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "e71b158522229728d0f4264fb75f801528c4da0e32bcd9b617dd8ce1f0af9157",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 217263,
+        "partial": 22366,
+        "opaque": 22515,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 32,
+          "minY": 136,
+          "maxX": 477,
+          "maxY": 403
+        }
+      },
+      "renderA": "e71b158522229728d0f4264fb75f801528c4da0e32bcd9b617dd8ce1f0af9157",
+      "renderB": "e71b158522229728d0f4264fb75f801528c4da0e32bcd9b617dd8ce1f0af9157",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.2.passive_1.passive_1.icon",
+      "sourcePath": "Y2/skill.character.yujin.2.passive_1.passive_1.icon/alpha-correction-01/skill.character.yujin.2.passive_1.passive_1.icon.selected-alpha-r1.png",
+      "sourceSha256": "472ac67401cf76a171b628570a4213e6931e418def947a01cdfe3fa56e0f4a6c",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2228806,
+        "partial": 5964,
+        "opaque": 124526,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 121,
+          "minY": 462,
+          "maxX": 1481,
+          "maxY": 1278
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.2.passive_1.passive_1.icon.512.png",
+      "outputSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 241967,
+        "partial": 11481,
+        "opaque": 8696,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 81,
+          "minY": 153,
+          "maxX": 379,
+          "maxY": 392
+        }
+      },
+      "renderA": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "renderB": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.2.active_1.multi_shot.icon",
+      "sourcePath": "Y2/skill.character.yujin.2.active_1.multi_shot.icon/alpha/skill.character.yujin.2.active_1.multi_shot.icon.selected-alpha.png",
+      "sourceSha256": "0f5e6f9cb4cd3363bd96ee9f4f48dd2cd5baa4b102dfbf906ee760b8978d0cfa",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1355211,
+        "partial": 20182,
+        "opaque": 197123,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 113,
+          "minY": 188,
+          "maxX": 1135,
+          "maxY": 1031
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.2.active_1.multi_shot.icon.512.png",
+      "outputSha256": "82c16684d89ece9c6daadd3fb61cebf3200c2358ab1f38482c8b2b407e3e750e",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 217441,
+        "partial": 23080,
+        "opaque": 21623,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 46,
+          "minY": 76,
+          "maxX": 463,
+          "maxY": 421
+        }
+      },
+      "renderA": "82c16684d89ece9c6daadd3fb61cebf3200c2358ab1f38482c8b2b407e3e750e",
+      "renderB": "82c16684d89ece9c6daadd3fb61cebf3200c2358ab1f38482c8b2b407e3e750e",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.2.active_2.hwalbin_barrage.icon",
+      "sourcePath": "Y2/skill.character.yujin.2.active_2.hwalbin_barrage.icon/alpha-correction-01/skill.character.yujin.2.active_2.hwalbin_barrage.icon.selected-alpha-r1.png",
+      "sourceSha256": "46bf9e5701758d9d8e3abb050084c1253fe513344decf9f3bd4d589da0a4179f",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2174596,
+        "partial": 12005,
+        "opaque": 172695,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 57,
+          "minY": 258,
+          "maxX": 1477,
+          "maxY": 1278
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.2.active_2.hwalbin_barrage.icon.512.png",
+      "outputSha256": "759e1695129044157e5a3acdccde0f724856cf1131c4ec2b541f0311ce556b01",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 229638,
+        "partial": 20987,
+        "opaque": 11519,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 20,
+          "minY": 88,
+          "maxX": 456,
+          "maxY": 403
+        }
+      },
+      "renderA": "759e1695129044157e5a3acdccde0f724856cf1131c4ec2b541f0311ce556b01",
+      "renderB": "759e1695129044157e5a3acdccde0f724856cf1131c4ec2b541f0311ce556b01",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.basic_attack.basic_attack.icon",
+      "sourcePath": "Y3/skill.character.yujin.3.basic_attack.basic_attack.icon/alpha-revision-02/skill.character.yujin.3.basic_attack.basic_attack.icon.selected-alpha-r2.png",
+      "sourceSha256": "d3df8f96bd37d5d229fbf68a4330653c86a5256a9392ab69f8598ccac7d06e14",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1226234,
+        "partial": 18416,
+        "opaque": 327866,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 199,
+          "minY": 178,
+          "maxX": 1084,
+          "maxY": 1071
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 195750,
+        "partial": 25493,
+        "opaque": 40901,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 81,
+          "minY": 72,
+          "maxX": 442,
+          "maxY": 437
+        }
+      },
+      "renderA": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "renderB": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.passive_1.passive_1.icon",
+      "sourcePath": "Y3/skill.character.yujin.3.passive_1.passive_1.icon/alpha-correction-01/skill.character.yujin.3.passive_1.passive_1.icon.selected-alpha-r1.png",
+      "sourceSha256": "472ac67401cf76a171b628570a4213e6931e418def947a01cdfe3fa56e0f4a6c",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2228806,
+        "partial": 5964,
+        "opaque": 124526,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 121,
+          "minY": 462,
+          "maxX": 1481,
+          "maxY": 1278
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.passive_1.passive_1.icon.512.png",
+      "outputSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 241967,
+        "partial": 11481,
+        "opaque": 8696,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 81,
+          "minY": 153,
+          "maxX": 379,
+          "maxY": 392
+        }
+      },
+      "renderA": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "renderB": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.active_1.multi_shot.icon",
+      "sourcePath": "Y3/skill.character.yujin.3.active_1.multi_shot.icon/alpha/skill.character.yujin.3.active_1.multi_shot.icon.selected-alpha.png",
+      "sourceSha256": "353a18c36ccc07058d77343d928bec0f1a650bbb9942aaaac213115cfc57591b",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1212152,
+        "partial": 23781,
+        "opaque": 336583,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 77,
+          "minY": 172,
+          "maxX": 1159,
+          "maxY": 1091
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.active_1.multi_shot.icon.512.png",
+      "outputSha256": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 192368,
+        "partial": 28186,
+        "opaque": 41590,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 31,
+          "minY": 70,
+          "maxX": 473,
+          "maxY": 445
+        }
+      },
+      "renderA": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "renderB": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.active_2.hwalbin_barrage.icon",
+      "sourcePath": "Y3/skill.character.yujin.3.active_2.hwalbin_barrage.icon/alpha-correction-01/skill.character.yujin.3.active_2.hwalbin_barrage.icon.selected-alpha-r1.png",
+      "sourceSha256": "3277ab2c0c20ef4438abc670b2faeef03834b1aaca91bc1db8834fcf468293cc",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2203364,
+        "partial": 23431,
+        "opaque": 132501,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 50,
+          "minY": 260,
+          "maxX": 1480,
+          "maxY": 1269
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.active_2.hwalbin_barrage.icon.512.png",
+      "outputSha256": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 228835,
+        "partial": 25036,
+        "opaque": 8273,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 18,
+          "minY": 87,
+          "maxX": 492,
+          "maxY": 423
+        }
+      },
+      "renderA": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "renderB": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.active_3.outlaw_appearance.icon",
+      "sourcePath": "Y3/skill.character.yujin.3.active_3.outlaw_appearance.icon/alpha/skill.character.yujin.3.active_3.outlaw_appearance.icon.selected-alpha.png",
+      "sourceSha256": "eebf8e43595de6448764c83ea5560ab6e2797b74a89fdf83e124314b5792aabf",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1404970,
+        "partial": 24375,
+        "opaque": 143171,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 95,
+          "minY": 365,
+          "maxX": 1159,
+          "maxY": 865
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.active_3.outlaw_appearance.icon.512.png",
+      "outputSha256": "b8d8faf8f45a8dbd113437885802e53a1e7a002c788dce1d29014f16be57cc7b",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 226480,
+        "partial": 19523,
+        "opaque": 16141,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 42,
+          "minY": 149,
+          "maxX": 473,
+          "maxY": 353
+        }
+      },
+      "renderA": "b8d8faf8f45a8dbd113437885802e53a1e7a002c788dce1d29014f16be57cc7b",
+      "renderB": "b8d8faf8f45a8dbd113437885802e53a1e7a002c788dce1d29014f16be57cc7b",
+      "byteIdentity": true,
+      "decodedMismatch": 0
+    },
+    {
+      "id": "skill.character.yujin.3.clone.basic_attack.basic_attack.icon",
+      "sourcePath": "Y3C/skill.character.yujin.3.clone.basic_attack.basic_attack.icon/alpha/skill.character.yujin.3.clone.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "d3df8f96bd37d5d229fbf68a4330653c86a5256a9392ab69f8598ccac7d06e14",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1226234,
+        "partial": 18416,
+        "opaque": 327866,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 199,
+          "minY": 178,
+          "maxX": 1084,
+          "maxY": 1071
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.clone.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "adc22fc29a9a774b52cc6ee6b915bafb06a2addbe9eea8f88aae82ac8d2ace58",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 195750,
+        "partial": 25493,
+        "opaque": 40901,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 81,
+          "minY": 72,
+          "maxX": 442,
+          "maxY": 437
+        }
+      },
+      "projectionOf": "skill.character.yujin.3.basic_attack.basic_attack.icon",
+      "projectionSourceByteIdentical": true,
+      "outputByteIdentical": true
+    },
+    {
+      "id": "skill.character.yujin.3.clone.passive_1.passive_1.icon",
+      "sourcePath": "Y3C/skill.character.yujin.3.clone.passive_1.passive_1.icon/alpha/skill.character.yujin.3.clone.passive_1.passive_1.icon.selected-alpha.png",
+      "sourceSha256": "472ac67401cf76a171b628570a4213e6931e418def947a01cdfe3fa56e0f4a6c",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2228806,
+        "partial": 5964,
+        "opaque": 124526,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 121,
+          "minY": 462,
+          "maxX": 1481,
+          "maxY": 1278
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.clone.passive_1.passive_1.icon.512.png",
+      "outputSha256": "d07389dc8a7859deeaa7ec17749f213998bab5fd2bbe2ab387db7abf5a13b764",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 241967,
+        "partial": 11481,
+        "opaque": 8696,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 81,
+          "minY": 153,
+          "maxX": 379,
+          "maxY": 392
+        }
+      },
+      "projectionOf": "skill.character.yujin.3.passive_1.passive_1.icon",
+      "projectionSourceByteIdentical": true,
+      "outputByteIdentical": true
+    },
+    {
+      "id": "skill.character.yujin.3.clone.active_1.multi_shot.icon",
+      "sourcePath": "Y3C/skill.character.yujin.3.clone.active_1.multi_shot.icon/alpha/skill.character.yujin.3.clone.active_1.multi_shot.icon.selected-alpha.png",
+      "sourceSha256": "353a18c36ccc07058d77343d928bec0f1a650bbb9942aaaac213115cfc57591b",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 1212152,
+        "partial": 23781,
+        "opaque": 336583,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 77,
+          "minY": 172,
+          "maxX": 1159,
+          "maxY": 1091
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.clone.active_1.multi_shot.icon.512.png",
+      "outputSha256": "486b29db349409726381d19b5010311c891d32d75708be607cfc8701ef4d2465",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 192368,
+        "partial": 28186,
+        "opaque": 41590,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 31,
+          "minY": 70,
+          "maxX": 473,
+          "maxY": 445
+        }
+      },
+      "projectionOf": "skill.character.yujin.3.active_1.multi_shot.icon",
+      "projectionSourceByteIdentical": true,
+      "outputByteIdentical": true
+    },
+    {
+      "id": "skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon",
+      "sourcePath": "Y3C/skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon/alpha/skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon.selected-alpha.png",
+      "sourceSha256": "3277ab2c0c20ef4438abc670b2faeef03834b1aaca91bc1db8834fcf468293cc",
+      "source": {
+        "width": 1536,
+        "height": 1536,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 2203364,
+        "partial": 23431,
+        "opaque": 132501,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 50,
+          "minY": 260,
+          "maxX": 1480,
+          "maxY": 1269
+        }
+      },
+      "outputPath": "technical-t0-512/skill.character.yujin.3.clone.active_2.hwalbin_barrage.icon.512.png",
+      "outputSha256": "2e4487fc86445c328abef2610ea65af7d9d73f6821723f46a3e55f1d0723749b",
+      "output": {
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "format": "png",
+        "hasAlpha": true,
+        "transparent": 228835,
+        "partial": 25036,
+        "opaque": 8273,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "blank": false,
+        "bboxAlpha16": {
+          "minX": 18,
+          "minY": 87,
+          "maxX": 492,
+          "maxY": 423
+        }
+      },
+      "projectionOf": "skill.character.yujin.3.active_2.hwalbin_barrage.icon",
+      "projectionSourceByteIdentical": true,
+      "outputByteIdentical": true
+    }
+  ]
+}

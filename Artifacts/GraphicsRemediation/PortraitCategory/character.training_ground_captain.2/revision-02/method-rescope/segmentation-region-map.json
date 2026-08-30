@@ -1,0 +1,79 @@
+{
+  "unit": "captain2-selected-B-segmentation-region-map",
+  "status": "READ_ONLY_VISUAL_AUTHORITY_MAP_PRODUCTION_HOLD",
+  "canvas": {"width": 1024, "height": 1536, "origin": "top-left"},
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/PortraitCategory/character.training_ground_captain.2/revision-02/selected/captain2-selected-B.png",
+    "sha256": "4f1d8f8bc096f0545d10257d80404613f2058b5e4c9f373fd3c2d3dd97c87de7"
+  },
+  "global_preserve": [
+    "face identity, topknot, headband, brows, beard and mustache",
+    "worn black robe and dry-brush outer fibers",
+    "matte scale armor, exactly three claws and red cord",
+    "both hands, exactly one lowered sword including pale blade and tip",
+    "wrapped boots, pose, placement, canvas and margins"
+  ],
+  "global_remove": [
+    "all former neutral matte outside the true painted silhouette",
+    "broad pale wedges, triangles or continuous light shelves adjacent to the subject",
+    "checker pattern, cast shadow, floor, halo and disconnected background specks"
+  ],
+  "regions": [
+    {
+      "id": "R1_head_topknot",
+      "bbox": [438, 42, 608, 252],
+      "preserve": ["topknot ink mass", "loose hair strands connected to head", "headband edge", "ear and beard outline", "intentional dry-brush gaps inside hair"],
+      "remove": ["pale cap above/behind topknot", "continuous matte crescent behind right hair", "background visible between disconnected flyaway strands"],
+      "guard": "do not merge hair flyaways into one opaque helmet silhouette"
+    },
+    {
+      "id": "R2_right_shoulder_sleeve",
+      "bbox": [632, 238, 826, 760],
+      "preserve": ["outer robe brush tips that visibly connect to sleeve", "shoulder slope", "ragged cuff", "hand silhouette"],
+      "remove": ["broad pale shoulder wedge", "matte pockets between disconnected outward brush scratches", "light strip beyond the last connected fabric fiber"],
+      "guard": "retain isolated-looking stroke only when a visible pixel bridge connects it to robe"
+    },
+    {
+      "id": "R3_left_shoulder_hand_sword_root",
+      "bbox": [250, 275, 388, 900],
+      "preserve": ["left robe edge", "ragged sleeve", "hand and guard", "blade attachment at guard"],
+      "remove": ["matte between sleeve fibers", "matte wedge between blade and robe"],
+      "guard": "sword and hand remain one connected foreground component"
+    },
+    {
+      "id": "R4_sword_blade",
+      "bbox": [92, 805, 318, 1330],
+      "preserve": ["full pale blade", "dark blade outline", "tip", "narrow highlight"],
+      "remove": ["all matte on both sides of blade", "any triangular fill from blade to body"],
+      "guard": "blade width and curvature must not be thinned or broadened"
+    },
+    {
+      "id": "R5_leg_gap",
+      "bbox": [438, 1034, 574, 1390],
+      "preserve": ["inner trouser brush edges", "intentional fabric wisps connected to either leg"],
+      "remove": ["entire open space between legs", "closed pale polygon or dark matte island"],
+      "guard": "gap must remain background-connected from lower robe opening to bottom"
+    },
+    {
+      "id": "R6_left_boot",
+      "bbox": [326, 1180, 486, 1425],
+      "preserve": ["wrapped boot silhouette", "toe", "connected wrap fibers"],
+      "remove": ["pale sole-shaped slab below/left of boot", "background between disconnected wrap threads"],
+      "guard": "do not flatten toe or erase connected wrap ends"
+    },
+    {
+      "id": "R7_right_boot",
+      "bbox": [618, 1180, 768, 1450],
+      "preserve": ["wrapped boot silhouette", "toe", "connected wrap fibers"],
+      "remove": ["pale halo around heel/toe", "matte between disconnected wrap threads"],
+      "guard": "right boot remains fully inside original silhouette and margin"
+    }
+  ],
+  "acceptance": [
+    "neutral and dark contacts show no broad matte enclosure in R1/R2/R6/R7",
+    "R4 sword is complete with clean background on both sides",
+    "R5 remains an open background-connected gap",
+    "no foreground RGB repaint, geometry transform or equipment count change"
+  ],
+  "boundary": "segmentation production0; canonical/meta/GUID/index/staging/Unity0"
+}

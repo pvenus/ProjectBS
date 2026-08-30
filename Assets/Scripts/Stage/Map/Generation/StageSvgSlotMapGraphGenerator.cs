@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Session;
 
 namespace Stage
 {
@@ -10,10 +11,22 @@ namespace Stage
         private readonly HashSet<string> generatedNodeIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, RoundNodeSO> lastAssignments =
             new Dictionary<string, RoundNodeSO>(StringComparer.OrdinalIgnoreCase);
+        private readonly List<RandomGrowthReservationDescriptor> lastRandomGrowthReservations = new();
+        private readonly Dictionary<string, string> lastRuntimeNodeIdBySlotId =
+            new(StringComparer.Ordinal);
+        private Chapter1WeightedEventManifest lastWeightedEventManifest;
 
         public IReadOnlyDictionary<string, RoundNodeSO> LastAssignments => lastAssignments;
+        public IReadOnlyList<RandomGrowthReservationDescriptor> LastRandomGrowthReservations =>
+            lastRandomGrowthReservations.AsReadOnly();
+        public IReadOnlyDictionary<string, string> LastRuntimeNodeIdBySlotId =>
+            lastRuntimeNodeIdBySlotId;
+        internal Chapter1WeightedEventManifest LastWeightedEventManifest => lastWeightedEventManifest;
 
-        public bool Generate(StageDefinitionSO definition, StageGraph graph)
+        public bool Generate(
+            StageDefinitionSO definition,
+            StageGraph graph,
+            RandomGrowthGraphContext randomGrowthContext = null)
         {
             if (definition == null)
             {
@@ -29,6 +42,9 @@ namespace Stage
 
             generatedNodeIds.Clear();
             lastAssignments.Clear();
+            lastRandomGrowthReservations.Clear();
+            lastRuntimeNodeIdBySlotId.Clear();
+            lastWeightedEventManifest = null;
             var slots = definition.svgMapSlots;
 
             if (slots == null || slots.Count == 0)
@@ -94,9 +110,45 @@ namespace Stage
                 }
             }
 
+            RandomGrowthGraphContext context = randomGrowthContext
+                ?? RandomGrowthGraphContext.TryCreateCurrent();
+            if (context != null)
+            {
+                RandomGrowthProjectionResult projection =
+                    new Chapter1RandomGrowthReservationProjector().Project(
+                        definition,
+                        context.StageSession,
+                        context.RunId,
+                        context.IdentityFactory);
+                lastRandomGrowthReservations.AddRange(projection.Reservations);
+                if (context.SafePlacement != null)
+                {
+                    SafeGrowthProjectionResult safeProjection =
+                        new Chapter1RandomGrowthReservationProjector().ProjectSafe(
+                            definition,
+                            context.StageSession,
+                            context.SafePlacement);
+                    lastRandomGrowthReservations.AddRange(safeProjection.Reservations);
+                }
+            }
+
             var assignmentResolver = new StageSlotAssignmentResolver();
             int? seed = definition.useFixedSeed ? definition.seed : (int?)null;
-            var assignedNodeBySlotId = assignmentResolver.ResolveAssignments(definition, seed);
+            WeightedPoolPlacementConfig weightedConfig = definition.svgRandomSections
+                .Select(section => section?.placementRule)
+                .Where(rule => rule != null && rule.mode == StagePlacementRuleMode.WeightedPool)
+                .Select(rule => rule.weightedPool)
+                .FirstOrDefault(config => config != null && config.HasCompiledPlacement);
+            if (weightedConfig != null)
+            {
+                int manifestSeed = seed ?? StableSeed(definition.stageId);
+                lastWeightedEventManifest = new Chapter1WeightedEventManifestBuilder().Build(
+                    weightedConfig, manifestSeed, CurrentRoster(), CapabilityEnabled);
+            }
+            var assignedNodeBySlotId = lastWeightedEventManifest?.Success == true
+                ? assignmentResolver.ResolveAssignments(definition, lastWeightedEventManifest,
+                    seed, lastRandomGrowthReservations)
+                : assignmentResolver.ResolveAssignments(definition, seed, lastRandomGrowthReservations);
             foreach (var assignment in assignedNodeBySlotId)
             {
                 lastAssignments[assignment.Key] = assignment.Value;
@@ -135,6 +187,7 @@ namespace Stage
 
                 graph.AddNode(roundNode);
                 runtimeNodeIdBySlotId[slot.slotId] = runtimeNodeId;
+                lastRuntimeNodeIdBySlotId[slot.slotId] = runtimeNodeId;
             }
 
             foreach (var slot in sortedSlots)
@@ -176,6 +229,26 @@ namespace Stage
             Debug.Log($"[SvgSlotMapGraphGenerator] Generate completed successfully with {graph.nodes.Count} nodes.");
             return true;
         }
+
+        private static int StableSeed(string value)
+        {
+            unchecked
+            {
+                int hash = 17;
+                foreach (char c in value ?? string.Empty) hash = hash * 31 + c;
+                return hash;
+            }
+        }
+
+        private static IReadOnlyCollection<string> CurrentRoster()
+        {
+            return GameSession.Instance?.BattleSession?.PartyRuntimeData?.Members?
+                .Where(member => member != null && member.characterSO != null)
+                .Select(member => member.characterSO.CharacterId).ToArray()
+                ?? Array.Empty<string>();
+        }
+
+        private static bool CapabilityEnabled(string gate) => string.IsNullOrWhiteSpace(gate);
 
         private static RoundNode CreateNodeFromSO(
             RoundNodeSO source,

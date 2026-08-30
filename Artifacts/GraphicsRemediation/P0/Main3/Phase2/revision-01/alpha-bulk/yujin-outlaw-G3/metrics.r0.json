@@ -1,0 +1,49 @@
+{
+  "member": "yujin-outlaw-G3",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Yujin/outlaw_appearance/selected/yujin-outlaw-appearance-G3-selected-A.png",
+    "sha256": "0b9266365fdd859a57048ab61d3638b6e3e993305449727778b716919fd2aeaa",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 47400,
+    "opaquePixels": 480645,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 34,
+      "minY": 182,
+      "maxX": 1220,
+      "maxY": 1114,
+      "widthPct": 94.65709728867624,
+      "heightPct": 74.4019138755981,
+      "marginsPct": {
+        "left": 2.711323763955343,
+        "right": 2.631578947368421,
+        "top": 14.513556618819775,
+        "bottom": 11.084529505582138
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "58b0a2fc70ad8d52cb757adb6b8790c83ac710fad4d0024e2f50cf599fe217bb",
+    "trimap": "6797e82c227a63c25c8aa5a8c946441625a3b03195d72b6e52826df59d305ece",
+    "master": "d8010ee23975d4b8962f81ae515938267c0140af6be490e9871eda0a250a55a4",
+    "runtime512": "d1079611f2dda72b511d2961c10e1aee8adad99ecd0789f3d182278756ff4808",
+    "identity": "72ef4b05da83e04ad1abf020d60b003ed68ea39188ba74c7ff8b9675a89fdfd0"
+  }
+}

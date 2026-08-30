@@ -1,0 +1,542 @@
+{
+  "status": "JIHAN12_SELECTED_ALPHA_VISUAL_REVIEW_READY",
+  "selection": {
+    "basic": [
+      "G1:A",
+      "G2:B",
+      "G3:A"
+    ],
+    "passive": [
+      "G1:B",
+      "G2:B",
+      "G3:B"
+    ],
+    "medicine": [
+      "G1:C",
+      "G2:B",
+      "G3:C"
+    ],
+    "tenTonic": [
+      "G2:batch02-B",
+      "G3:batch02-A"
+    ],
+    "divineAcupuncture": [
+      "G3:A"
+    ]
+  },
+  "assets": [
+    {
+      "family": "basic",
+      "grade": "G1",
+      "assetId": "skill.character.jihan.1.basic_attack.basic_attack.icon",
+      "source": "Y1/skill.character.jihan.1.basic_attack.basic_attack.icon/selected/selected-A.png",
+      "sourceSha256": "e08f39690e5a18d41d82692ee6b442db9760ec516c1d299aabbe9181ed9a223b",
+      "output": "Y1/skill.character.jihan.1.basic_attack.basic_attack.icon/alpha/skill.character.jihan.1.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "6a773f9bdabf09b9e97bca76d0a8ba87db1ffc9641b6498173a8acfa2deafb85",
+      "mask": "Y1/skill.character.jihan.1.basic_attack.basic_attack.icon/alpha/skill.character.jihan.1.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "b76e02968a7a4772ebca46622507e1a23b1d4520a1271e1a8496a39c941706a8",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.85098,
+        0.823529,
+        0.788235
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 12788,
+      "bboxAlpha16": [
+        300,
+        309,
+        953,
+        953
+      ],
+      "bboxPercent": [
+        52.153,
+        51.435
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y1/skill.character.jihan.1.basic_attack.basic_attack.icon/alpha/skill.character.jihan.1.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "feb97b5886454f1e59443c3b1d47b0c53e50643e10df6981d141eecf1e29f050"
+    },
+    {
+      "family": "basic",
+      "grade": "G2",
+      "assetId": "skill.character.jihan.2.basic_attack.basic_attack.icon",
+      "source": "Y2/skill.character.jihan.2.basic_attack.basic_attack.icon/selected/selected-B.png",
+      "sourceSha256": "675e582a2b7dcf4071a7ccf8eb98cdac418c6522e83a2129b71f1ace37226aed",
+      "output": "Y2/skill.character.jihan.2.basic_attack.basic_attack.icon/alpha/skill.character.jihan.2.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "003cfcb11d453b074263cdab5ac34c2f19f7b09159149a85721926b05f551008",
+      "mask": "Y2/skill.character.jihan.2.basic_attack.basic_attack.icon/alpha/skill.character.jihan.2.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "20cd1c77c2057e63731e2d6c03b2874d5d4f469f0e77348093acfaf4faaf7919",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.85098,
+        0.819608,
+        0.784314
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 25116,
+      "bboxAlpha16": [
+        99,
+        92,
+        1175,
+        1162
+      ],
+      "bboxPercent": [
+        85.885,
+        85.407
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y2/skill.character.jihan.2.basic_attack.basic_attack.icon/alpha/skill.character.jihan.2.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "ca64abdfdad8c8f976ad4ddb305876de30a5d18dce1e2581a4acbbe39a3ada73"
+    },
+    {
+      "family": "basic",
+      "grade": "G3",
+      "assetId": "skill.character.jihan.3.basic_attack.basic_attack.icon",
+      "source": "Y3/skill.character.jihan.3.basic_attack.basic_attack.icon/selected/selected-A.png",
+      "sourceSha256": "00cbf77e20fa50e644bbf3edf1dc8b2d3854f672122d34e5d690078607519b5e",
+      "output": "Y3/skill.character.jihan.3.basic_attack.basic_attack.icon/alpha/skill.character.jihan.3.basic_attack.basic_attack.icon.selected-alpha.png",
+      "outputSha256": "6bec50abdb52e992fa34e1589419f8b31bfca44b41ff1d45cf6c81906da506be",
+      "mask": "Y3/skill.character.jihan.3.basic_attack.basic_attack.icon/alpha/skill.character.jihan.3.basic_attack.basic_attack.icon.mask.png",
+      "maskSha256": "a82694bace8aa6673d5bc2deea3336f715a88a00b37f1a15abbcf00cf78f2913",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.854902,
+        0.827451,
+        0.796078
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 46072,
+      "bboxAlpha16": [
+        145,
+        140,
+        1123,
+        1104
+      ],
+      "bboxPercent": [
+        78.07,
+        76.954
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y3/skill.character.jihan.3.basic_attack.basic_attack.icon/alpha/skill.character.jihan.3.basic_attack.basic_attack.icon.metrics.json",
+      "metricsSha256": "5df43bc2e4a2c43605f0c42edde099e9455d29bda1a9b79cebe13f01b5ac15bf"
+    },
+    {
+      "family": "passive",
+      "grade": "G1",
+      "assetId": "skill.character.jihan.1.passive_1.blood_qi_circulation.icon",
+      "source": "Y1/skill.character.jihan.1.passive_1.blood_qi_circulation.icon/selected/selected-B.png",
+      "sourceSha256": "e890b555e604fed3259eb00a43c0849d61595de4978bbb95f3fbbc9323f52000",
+      "output": "Y1/skill.character.jihan.1.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "outputSha256": "d2591fa868cad78f0193ca127e24d1c8becd0bf8c9fe47a43c84173727bb7698",
+      "mask": "Y1/skill.character.jihan.1.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.mask.png",
+      "maskSha256": "3e64d50f4c13ccc8f65ffa8322f5f8032fa20be11b8e1a6983a008d3e77efbd8",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.862745,
+        0.835294,
+        0.796078
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 19385,
+      "bboxAlpha16": [
+        230,
+        214,
+        1020,
+        1039
+      ],
+      "bboxPercent": [
+        63.078,
+        65.869
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y1/skill.character.jihan.1.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.metrics.json",
+      "metricsSha256": "3ab31af43b0519707e9cd8726f1896188f8b7e4e96ff93b9d3a9e3edde230e23"
+    },
+    {
+      "family": "passive",
+      "grade": "G2",
+      "assetId": "skill.character.jihan.2.passive_1.blood_qi_circulation.icon",
+      "source": "Y2/skill.character.jihan.2.passive_1.blood_qi_circulation.icon/selected/selected-B.png",
+      "sourceSha256": "7bd86cec7e986dac1865a156121f9231f8c39bd050151416ed850f5d60da9ac6",
+      "output": "Y2/skill.character.jihan.2.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "outputSha256": "a824279286cfd24cc2e7ef08e480b403a98ed12d48bf831fc43ce8363cb02664",
+      "mask": "Y2/skill.character.jihan.2.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.mask.png",
+      "maskSha256": "e795bd3fda350c810785e1a9b474dca232b6588c04c7dea7f66600c3b2e226c1",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.847059,
+        0.819608,
+        0.780392
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 22127,
+      "bboxAlpha16": [
+        164,
+        332,
+        1091,
+        985
+      ],
+      "bboxPercent": [
+        74.003,
+        52.153
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y2/skill.character.jihan.2.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.metrics.json",
+      "metricsSha256": "be4d97282a7ee826d158908912b6115a43b6c1f996cdd697bee1363d2253f77b"
+    },
+    {
+      "family": "passive",
+      "grade": "G3",
+      "assetId": "skill.character.jihan.3.passive_1.blood_qi_circulation.icon",
+      "source": "Y3/skill.character.jihan.3.passive_1.blood_qi_circulation.icon/selected/selected-B.png",
+      "sourceSha256": "1a0551120848c63b8a8dca22ed49aa1f90a70cbb1579397c98346318a94ab26a",
+      "output": "Y3/skill.character.jihan.3.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "outputSha256": "41c83342702eb0e5bdb5eafd4a96a8867f04b5db0c4b6743e61d09351cb1e916",
+      "mask": "Y3/skill.character.jihan.3.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.mask.png",
+      "maskSha256": "eba27a7871ca6036c5ef6e039df34155b13aa57ba229e545a73be23a8b51de17",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.854902,
+        0.827451,
+        0.788235
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 20591,
+      "bboxAlpha16": [
+        206,
+        174,
+        1059,
+        1037
+      ],
+      "bboxPercent": [
+        68.102,
+        68.9
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y3/skill.character.jihan.3.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.metrics.json",
+      "metricsSha256": "77f13933a8892210f4d60eaec79b81c7e000772b808c99c698c6c1927e8a8568"
+    },
+    {
+      "family": "medicine",
+      "grade": "G1",
+      "assetId": "skill.character.jihan.1.active_1.medicine_prescription.icon",
+      "source": "Y1/skill.character.jihan.1.active_1.medicine_prescription.icon/selected/selected-C.png",
+      "sourceSha256": "4619d5a31ee944e649ef34d69b360e990f213d95e181c9032170ffc502da3159",
+      "output": "Y1/skill.character.jihan.1.active_1.medicine_prescription.icon/alpha/skill.character.jihan.1.active_1.medicine_prescription.icon.selected-alpha.png",
+      "outputSha256": "432234c48707ff67a082bc25529d2445880373704358890d72c0b71d576ff51f",
+      "mask": "Y1/skill.character.jihan.1.active_1.medicine_prescription.icon/alpha/skill.character.jihan.1.active_1.medicine_prescription.icon.mask.png",
+      "maskSha256": "237091074d37cd04b9150f6c3b9cceb83153e88cb260409ed95a37ae6389961f",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.870588,
+        0.843137,
+        0.803922
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 13070,
+      "bboxAlpha16": [
+        204,
+        195,
+        1004,
+        1052
+      ],
+      "bboxPercent": [
+        63.876,
+        68.421
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y1/skill.character.jihan.1.active_1.medicine_prescription.icon/alpha/skill.character.jihan.1.active_1.medicine_prescription.icon.metrics.json",
+      "metricsSha256": "d089f27f670d16f8c4301c39c1c5aaa8cacdd0eb025d2d282f2d6fa6e933ac65"
+    },
+    {
+      "family": "medicine",
+      "grade": "G2",
+      "assetId": "skill.character.jihan.2.active_1.medicine_prescription.icon",
+      "source": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/selected/selected-B.png",
+      "sourceSha256": "2b2a296e8dbdb3bdf1c58737708b455b453e0fc15cbe06835bc95c66b8632aaf",
+      "output": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.selected-alpha.png",
+      "outputSha256": "732929a0cdbba3f931b825ad67edcdb9562ce20dc3df54bf5edec310ecd26153",
+      "mask": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.mask.png",
+      "maskSha256": "f21053fdb1f241133d60f1f75ce46baa142812570ec285e5dc2edb6c0738fe6f",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.894118,
+        0.866667,
+        0.819608
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 21116,
+      "bboxAlpha16": [
+        227,
+        127,
+        1116,
+        1154
+      ],
+      "bboxPercent": [
+        70.973,
+        81.978
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.metrics.json",
+      "metricsSha256": "1ae708efd8d8823fa3728240c45a8cc48705d3e9a8d35c9c764616bf5875ba54"
+    },
+    {
+      "family": "medicine",
+      "grade": "G3",
+      "assetId": "skill.character.jihan.3.active_1.medicine_prescription.icon",
+      "source": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/selected/selected-C.png",
+      "sourceSha256": "5293a70c763e087cf7b633825aee2589029fddc1bcc22445995d6703affdee53",
+      "output": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.selected-alpha.png",
+      "outputSha256": "4a49a84198b2a2bbf391d3acb454732f1bd4ab7d2a3d8a3b4980f902efebc000",
+      "mask": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.mask.png",
+      "maskSha256": "20585f1ed28340e16889fb206fc723500b39a5da216fa24900ec7d9680b662b3",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.890196,
+        0.866667,
+        0.823529
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 89922,
+      "bboxAlpha16": [
+        147,
+        135,
+        1092,
+        1108
+      ],
+      "bboxPercent": [
+        75.439,
+        77.671
+      ],
+      "normalizationScale": 1.0,
+      "metrics": "Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.metrics.json",
+      "metricsSha256": "b99fe47241f6a188b63c4e20473d17330a0dace71c2a535ac3acc28728b0b6d8"
+    },
+    {
+      "family": "ten-tonic",
+      "grade": "G2",
+      "assetId": "skill.character.jihan.2.active_2.ten_tonic_prescription.icon",
+      "source": "Y2/skill.character.jihan.2.active_2.ten_tonic_prescription.icon/selected-batch02/selected-B.png",
+      "sourceSha256": "8abfcc16098a8ee0c07360e0a3cb591828d3beb5704c12641db81dbcb77f1616",
+      "output": "Y2/skill.character.jihan.2.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.2.active_2.ten_tonic_prescription.icon.selected-alpha.png",
+      "outputSha256": "1109b58c5267e34c8600dc93a6731298de19e57d9890fd015685bb988673ec48",
+      "mask": "Y2/skill.character.jihan.2.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.2.active_2.ten_tonic_prescription.icon.mask.png",
+      "maskSha256": "fb11f6911e3f4869a796e6149c9d52f54a0fd5435e12fcbc3a37f94f8f61c9f5",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.862745,
+        0.839216,
+        0.796078
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 64605,
+      "bboxAlpha16": [
+        126,
+        135,
+        1129,
+        1120
+      ],
+      "bboxPercent": [
+        80.064,
+        78.628
+      ],
+      "normalizationScale": 0.823645,
+      "metrics": "Y2/skill.character.jihan.2.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.2.active_2.ten_tonic_prescription.icon.metrics.json",
+      "metricsSha256": "0882d19847a2b02d60463998fbb1932f3a3d0b23a0d053a34ab8241a236a3ede"
+    },
+    {
+      "family": "ten-tonic",
+      "grade": "G3",
+      "assetId": "skill.character.jihan.3.active_2.ten_tonic_prescription.icon",
+      "source": "Y3/skill.character.jihan.3.active_2.ten_tonic_prescription.icon/selected-batch02/selected-A.png",
+      "sourceSha256": "16d1f733cccf1b657e5f61f2b9db4905d211abf5539ac5051cb7def0a7a9daae",
+      "output": "Y3/skill.character.jihan.3.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.3.active_2.ten_tonic_prescription.icon.selected-alpha.png",
+      "outputSha256": "1420ef780e65cb7a94ccdc2c33821df2cf5760cd0643cd09a2c8424e4ccab5df",
+      "mask": "Y3/skill.character.jihan.3.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.3.active_2.ten_tonic_prescription.icon.mask.png",
+      "maskSha256": "33f07a3f280343f0158f242a5f143061a0c51437b4920b02bbfeb2383e0aed2d",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.878431,
+        0.854902,
+        0.815686
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 125254,
+      "bboxAlpha16": [
+        133,
+        116,
+        1136,
+        1118
+      ],
+      "bboxPercent": [
+        80.064,
+        79.984
+      ],
+      "normalizationScale": 0.909519,
+      "metrics": "Y3/skill.character.jihan.3.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.3.active_2.ten_tonic_prescription.icon.metrics.json",
+      "metricsSha256": "d8d5b552067d9a94ba4819a03bbe42eb34672359979dfc8900aefdedcce92923"
+    },
+    {
+      "family": "divine-acupuncture",
+      "grade": "G3",
+      "assetId": "skill.character.jihan.3.active_3.divine_acupuncture.icon",
+      "source": "Y3/skill.character.jihan.3.active_3.divine_acupuncture.icon/selected/selected-A.png",
+      "sourceSha256": "90b91293d1a3d06cb3f0e0011b2d334fc9812efb2703e79aabe20dc19f716c8d",
+      "output": "Y3/skill.character.jihan.3.active_3.divine_acupuncture.icon/alpha/skill.character.jihan.3.active_3.divine_acupuncture.icon.selected-alpha.png",
+      "outputSha256": "ceefe9567ecfd377e8b1e97f3a3d60cb64ed28d9accff84a20f391ed6e2f5897",
+      "mask": "Y3/skill.character.jihan.3.active_3.divine_acupuncture.icon/alpha/skill.character.jihan.3.active_3.divine_acupuncture.icon.mask.png",
+      "maskSha256": "64b03d21397c3d7393e6e1b68280c3e378ac2f04dc5f7f58af5ad5dee9509b40",
+      "size": [
+        1254,
+        1254
+      ],
+      "matteRgb": [
+        0.862745,
+        0.839216,
+        0.803922
+      ],
+      "cornersAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alphaZeroRgbResidue": 0,
+      "alphaPartial": 105381,
+      "bboxAlpha16": [
+        207,
+        133,
+        1046,
+        1135
+      ],
+      "bboxPercent": [
+        66.986,
+        79.984
+      ],
+      "normalizationScale": 0.888574,
+      "metrics": "Y3/skill.character.jihan.3.active_3.divine_acupuncture.icon/alpha/skill.character.jihan.3.active_3.divine_acupuncture.icon.metrics.json",
+      "metricsSha256": "d65a8e6411fabea63c512aaf6afb47e3afb9edf2031980d0440368655de387a0"
+    }
+  ],
+  "contacts": [
+    {
+      "size": 200,
+      "path": "family-evidence/jihan12-family-contact-200.png",
+      "sha256": "fb57257f3bf3ead7d6e7773d73a2906491120d37695b450c9dad38bd7daa54ee"
+    },
+    {
+      "size": 80,
+      "path": "family-evidence/jihan12-family-contact-80.png",
+      "sha256": "d37f0819b44c49eaff4a315054f772eccbf010604f5ddd738bd71b1e0194a23a"
+    },
+    {
+      "size": 32,
+      "path": "family-evidence/jihan12-family-contact-32.png",
+      "sha256": "a429292f8c7f9bc144685ec25ce670273eb557ef0afada5f710cac5d64562889"
+    }
+  ],
+  "canonicalWrite": false,
+  "metaWrite": false,
+  "unity": false,
+  "staging": false
+}

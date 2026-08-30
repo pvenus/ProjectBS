@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734784
+      rid: 5601486867666043159
   - choiceId: choice.act1.random_event.12.paper_flower_grave.choice_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734785
+      rid: 5601486867666043160
   - choiceId: choice.act1.random_event.12.paper_flower_grave.seal_or_destroy_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734786
+      rid: 5601486867666043161
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734784
+    - rid: 5601486867666043159
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734787
-    - rid: 5601486783294734785
+          rid: 5601486867666043162
+    - rid: 5601486867666043160
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734788
-    - rid: 5601486783294734786
+          rid: 5601486867666043163
+    - rid: 5601486867666043161
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734789
-    - rid: 5601486783294734787
+          rid: 5601486867666043164
+    - rid: 5601486867666043162
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734788
+    - rid: 5601486867666043163
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734789
+    - rid: 5601486867666043164
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

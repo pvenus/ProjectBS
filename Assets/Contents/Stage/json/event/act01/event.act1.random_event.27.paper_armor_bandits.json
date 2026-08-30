@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.27.paper_armor_bandits",
+  "eventId": "event.act1.random_event.27.paper_armor_bandits",
+  "titleKo": "비에 젖은 종이갑옷",
+  "summary": "비를 더 맞혀 약해진 도적을 안전하게 몰아내거나 전리품이 잠기기 전에 위험을 감수하고 공격한다.",
+  "startNodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "논둑 아래 도적들이 여러 겹의 종이갑옷을 두르고 길목을 막고 있었다.\n빗물이 스며들수록 갑옷과 활시위는 무거워졌지만, 그들이 빼앗은 전리품 자루도 진흙물 속으로 가라앉고 있었다.\n조금 더 기다려 안전하게 몰아낼지, 전리품이 상하기 전에 즉시 덮칠지 정해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.27.paper_armor_bandits.wait_for_paper_armor_to_soak",
+          "textKo": "비가 종이갑옷을 더 적실 때까지 기다린다",
+          "resultKo": "종이갑옷이 빗물에 들러붙자 도적들의 움직임은 눈에 띄게 둔해졌다. 일행은 큰 피해 없이 그들을 몰아냈지만, 전리품 자루는 진흙물에 젖어 건질 것이 남지 않았다.",
+          "resultStatusKo": "낮은 위험 · 승리해도 Gold 없음",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event17.bandit_bowl_trap",
+              "eventId": "event.act1.random_event.27.paper_armor_bandits",
+              "nodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+              "sourcePopupId": "node.act1.random_event.27.paper_armor_bandits.intro",
+              "reservationId": "reservation.act1.chapter01.random_event.27.paper_armor_bandits",
+              "choiceId": "choice.act1.random_event.27.paper_armor_bandits.wait_for_paper_armor_to_soak",
+              "expectedVictoryResultId": "result.act1.random_event.27.paper_armor_bandits.soaked_bandits_driven_off"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.27.paper_armor_bandits.attack_before_spoils_sink",
+          "textKo": "전리품이 잠기기 전에 즉시 덮친다",
+          "resultKo": "일행은 빗속에서도 진형을 갖춘 도적들을 밀어내고 진흙에 잠기기 전 전리품 자루를 건졌다. 쓸 수 있는 물건을 추려 내자 Gold 50만큼의 값어치가 남았다.",
+          "resultStatusKo": "높은 위험 · 승리 시 Gold 50",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event02.expose_rain_peddler",
+              "eventId": "event.act1.random_event.27.paper_armor_bandits",
+              "nodeId": "node.act1.random_event.27.paper_armor_bandits.intro",
+              "sourcePopupId": "node.act1.random_event.27.paper_armor_bandits.intro",
+              "reservationId": "reservation.act1.chapter01.random_event.27.paper_armor_bandits",
+              "choiceId": "choice.act1.random_event.27.paper_armor_bandits.attack_before_spoils_sink",
+              "expectedVictoryResultId": "result.act1.random_event.27.paper_armor_bandits.bandits_defeated_spoils_secured"
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

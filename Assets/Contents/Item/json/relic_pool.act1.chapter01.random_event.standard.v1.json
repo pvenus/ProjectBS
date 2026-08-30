@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "poolId": "relic_pool.act1.chapter01.random_event.standard.v1",
+  "poolVersion": "1",
+  "rarity": "Common",
+  "implicitSharingAllowed": false,
+  "classification": {
+    "event": [],
+    "shop": [
+      "item.relic.black_incense_candle",
+      "item.relic.golden_fang",
+      "item.relic.old_war_horn",
+      "item.relic.red_feather"
+    ],
+    "shared": [
+      "item.relic.blunt_gear",
+      "item.relic.electric_crystal",
+      "item.relic.ember_necklace",
+      "item.relic.frozen_nail",
+      "item.relic.spiked_carapace",
+      "item.relic.toxic_pouch"
+    ],
+    "excluded": []
+  },
+  "entries": [
+    { "relicId": "item.relic.blunt_gear", "classification": "shared", "weight": 100, "enabled": true },
+    { "relicId": "item.relic.electric_crystal", "classification": "shared", "weight": 100, "enabled": true },
+    { "relicId": "item.relic.ember_necklace", "classification": "shared", "weight": 100, "enabled": true },
+    { "relicId": "item.relic.frozen_nail", "classification": "shared", "weight": 100, "enabled": true },
+    { "relicId": "item.relic.spiked_carapace", "classification": "shared", "weight": 100, "enabled": true },
+    { "relicId": "item.relic.toxic_pouch", "classification": "shared", "weight": 100, "enabled": true }
+  ]
+}

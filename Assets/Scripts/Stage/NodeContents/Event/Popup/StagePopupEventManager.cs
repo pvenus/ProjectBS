@@ -4,6 +4,10 @@ using Stat;
 using Session;
 using UIFramework.Data;
 using System.Collections.Generic;
+using System.Linq;
+using Skill;
+using Progression;
+using Progression.RandomGrowth;
 
 namespace Stage
 {
@@ -22,6 +26,8 @@ namespace Stage
         private EventRewardExecutor rewardExecutor;
         private StageEventResolver eventResolver;
         private ChoiceExecutionRouter executionRouter;
+        private readonly PortfolioOutcomeRuntimeService portfolioOutcomeService = new();
+        private readonly OrdinaryBattleCompletionService ordinaryBattleService = new();
         private IChoiceRewardPresentation rewardPresentation;
         private PopupEventSO currentEvent;
         private RoundNode currentNode;
@@ -30,6 +36,11 @@ namespace Stage
         private int selectionSequence;
         private readonly ChoiceContinuationGate continuationGate =
             new();
+        private SafeGrowthPopupRuntimeAdapter safeGrowthAdapter;
+        private readonly SafeGrowthEventPopupPresentationBinder safeGrowthPresentationBinder = new();
+        private EventPopupView safeGrowthView;
+        private SafeGrowthPartyWideOfferPresenter safeGrowthOfferPresenter;
+        private PortfolioRandomGrowthPopupRuntimeAdapter portfolioRandomGrowthAdapter;
 
         public PopupEventSO CurrentEvent => currentEvent;
         public bool IsOpened => currentEvent != null;
@@ -92,6 +103,7 @@ namespace Stage
             currentNode = null;
             selectionSequence = 0;
             ResetPendingChoiceState();
+            safeGrowthOfferPresenter = null;
             executionRouter?.ClearHistory();
         }
 
@@ -137,6 +149,16 @@ namespace Stage
             ResetPendingChoiceState();
             currentEvent = popupEvent;
             currentNode = node;
+            EnsureSafeGrowthAdapterAndRoute(popupEvent, node);
+
+            SafeGrowthPendingConfirmContext restored = safeGrowthAdapter?.Pending;
+            if (restored != null
+                && string.Equals(restored.PopupId, popupEvent?.eventId, System.StringComparison.Ordinal)
+                && string.Equals(restored.NodeInstanceId, node?.nodeId, System.StringComparison.Ordinal))
+            {
+                pendingChoice = popupEvent.GetChoice(restored.ChoiceId);
+                pendingExecutionId = restored.InteractionTokenId;
+            }
 
             // UIPopupViewController 로 EventPopupView 열기
             if (UIPopupViewController.Instance != null)
@@ -144,10 +166,15 @@ namespace Stage
                 EventPopupView view = UIPopupViewController.Instance.Open<EventPopupView>(PopupType.EventPopup);
                 if (view != null)
                 {
-                    EventPopupViewData viewData = EventPopupViewDataBuilder.Build(popupEvent, node);
-                    view.SetData(viewData);
-                    view.OnChoiceSelected += SelectChoiceById;
-                    view.OnChoiceConfirmed += ConfirmChoiceResult;
+                    safeGrowthView = view;
+                    if (!TryRenderSafeGrowthPresentation())
+                    {
+                        EventPopupViewData viewData = EventPopupViewDataBuilder.Build(popupEvent, node);
+                        view.SetData(viewData);
+                        ApplyPortfolioChoicePrevalidation(view, popupEvent);
+                        view.OnChoiceSelected += SelectChoiceById;
+                        view.OnChoiceConfirmed += ConfirmChoiceResult;
+                    }
                 }
             }
 
@@ -216,6 +243,48 @@ namespace Stage
                 return;
             }
 
+            if (choice.executionConfig?.data is PortfolioOutcomeExecutionData portfolio
+                && !portfolioOutcomeService.CanExecuteChoice(portfolio,
+                    out string disabledCopy, out string prevalidationError))
+            {
+                Debug.LogWarning("[StagePopupEventManager] Choice disabled before dispatch. "
+                    + $"choiceId={choice.choiceId}, error={prevalidationError}, "
+                    + $"copy={disabledCopy}");
+                return;
+            }
+
+            PortfolioRandomGrowthDispatchResult portfolioGrowth =
+                portfolioRandomGrowthAdapter?.Select(currentEvent, currentNode, choice);
+            if (portfolioGrowth != null
+                && portfolioGrowth.Status != PortfolioRandomGrowthDispatchStatus.Unsupported)
+            {
+                if (portfolioGrowth.Status == PortfolioRandomGrowthDispatchStatus.RequiresConfirmation
+                    || portfolioGrowth.Status == PortfolioRandomGrowthDispatchStatus.PendingRetry)
+                {
+                    pendingChoice = choice;
+                    pendingExecutionId = GameSession.Instance?.StageSession?.PortfolioRandomGrowth?.Pending?.TokenId;
+                    OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
+                }
+                return;
+            }
+
+            SafeGrowthPopupAdapterResult safe = SelectSafeChoice(choice);
+            if (safe != null && safe.Status != SafeGrowthPopupAdapterStatus.Unsupported)
+            {
+                if (safe.Status == SafeGrowthPopupAdapterStatus.RequiresConfirmation
+                    || safe.Status == SafeGrowthPopupAdapterStatus.PendingRetry)
+                {
+                    pendingChoice = choice;
+                    pendingExecutionId = safe.Pending?.InteractionTokenId;
+                    OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
+                }
+                else if (safe.Status == SafeGrowthPopupAdapterStatus.TerminalReplay)
+                {
+                    TryRenderSafeGrowthPresentation();
+                }
+                return;
+            }
+
             pendingChoice = choice;
             pendingExecutionId =
                 CreateExecutionId(currentEvent, choice);
@@ -250,6 +319,20 @@ namespace Stage
         {
             if (pendingChoice == null)
             {
+                return;
+            }
+
+            if (safeGrowthAdapter?.Pending != null)
+            {
+                ConfirmSafePending();
+                return;
+            }
+
+            if (GameSession.Instance?.StageSession?.PortfolioRandomGrowth?.Pending != null)
+            {
+                portfolioRandomGrowthAdapter?.Confirm(currentNode,
+                    node => stageManager?.PublishAtomicCompletion(node, stageManager.ProgressState),
+                    _ => { });
                 return;
             }
 
@@ -300,6 +383,72 @@ namespace Stage
                 ?? new ImmediateChoiceRewardPresentation();
         }
 
+        public SafeGrowthPendingConfirmContext GetSafePendingSnapshot() =>
+            safeGrowthAdapter?.Pending ?? GameSession.Instance?.StageSession?.SafeGrowthPendingConfirm;
+
+        public SafeGrowthPopupAdapterResult SelectSafeChoice(PopupEventChoice choice)
+        {
+            EnsureSafeGrowthAdapterAndRoute(currentEvent, currentNode);
+            return safeGrowthAdapter?.Select(currentEvent, currentNode, choice);
+        }
+
+        public SafeGrowthPopupAdapterResult CancelSafePending()
+        {
+            SafeGrowthPopupAdapterResult result = safeGrowthAdapter?.Cancel();
+            if (result?.Status == SafeGrowthPopupAdapterStatus.Cancelled)
+                ResetPendingChoiceState();
+            return result;
+        }
+
+        public SafeGrowthPopupAdapterResult RecheckSafeEligibility()
+        {
+            EnsureSafeGrowthAdapterAndRoute(currentEvent, currentNode);
+            return safeGrowthAdapter?.Recheck(currentEvent, currentNode, pendingChoice);
+        }
+
+        public SafeGrowthPopupAdapterResult ConfirmSafePending()
+            => ConfirmSafePending(GetSafePendingSnapshot());
+
+        public SafeGrowthPopupAdapterResult ConfirmSafePending(
+            SafeGrowthPendingConfirmContext expected)
+        {
+            if (safeGrowthAdapter == null || pendingChoice == null)
+                return null;
+            SafeGrowthPopupAdapterResult result = safeGrowthAdapter.Confirm(
+                currentEvent, currentNode, pendingChoice, expected,
+                node => stageManager?.PublishAtomicCompletion(node,
+                    stageManager.ProgressState),
+                _ => { });
+            return result;
+        }
+
+        public bool TryRenderSafeGrowthEvidenceProjection(
+            SafeGrowthPlayerEvidenceCase evidenceCase, string token, string planSha,
+            out SafeGrowthPresentationSnapshot snapshot, out string payloadSha)
+        {
+            snapshot = null;
+            payloadSha = string.Empty;
+            if (safeGrowthView == null || safeGrowthAdapter == null)
+                return false;
+            RandomGrowthPresentationCopyAsset catalog = Resources.Load<RandomGrowthPresentationCopyAsset>(
+                SafeGrowthPlayerEvidencePlan.PresentationCatalogResource);
+            if (!SafeGrowthPlayerEvidenceOrchestrator.TryValidateIdentity(currentEvent, catalog,
+                    out _, out _, out _))
+                return false;
+            // Require the production binder to accept the actual Popup/SO/catalog/adapter first.
+            if (!safeGrowthPresentationBinder.TryBuild(currentEvent, catalog, safeGrowthAdapter,
+                    out SafeGrowthPresentationSnapshot production, out _)
+                || production == null)
+                return false;
+            var orchestrator = new SafeGrowthPlayerEvidenceOrchestrator();
+            if (!orchestrator.TryProject(currentEvent, catalog, evidenceCase, token, planSha,
+                    out snapshot, out payloadSha))
+                return false;
+            // StagePopupEventManager remains the sole owner of the binder-to-View render seam.
+            safeGrowthView.SetSafeGrowthPresentation(snapshot, _ => { });
+            return true;
+        }
+
         private void HandleRewardPresentationCompleted(
             string selectionId)
         {
@@ -341,6 +490,20 @@ namespace Stage
         {
             if (choice.executionConfig != null)
             {
+                OrdinaryBattleCompletionIdentity preparedBattle = null;
+                if (choice.executionConfig.data is BattleExecutionData battleData
+                    && !string.IsNullOrWhiteSpace(battleData.eventId))
+                {
+                    if (!ordinaryBattleService.TryPrepare(
+                            battleData, GameSession.Instance?.StageSession,
+                            out preparedBattle, out string prepareError))
+                    {
+                        Debug.LogError(
+                            "[StagePopupEventManager] Ordinary Battle prepare failed. "
+                            + $"choiceId={choice.choiceId}, error={prepareError}");
+                        return;
+                    }
+                }
                 executionRouter ??=
                     ChoiceExecutionRouter.CreateDefault();
                 ChoiceExecutionContext context =
@@ -354,7 +517,11 @@ namespace Stage
                         openShop:
                             LogShopExecution,
                         openShrine:
-                            LogShrineExecution);
+                            LogShrineExecution,
+                        applyPortfolioOutcome:
+                            ApplyPortfolioOutcome,
+                        openNextEventTransaction:
+                            OpenNextEventTransaction);
                 ChoiceExecutionResult result =
                     executionRouter.TryExecute(
                         executionId,
@@ -369,6 +536,12 @@ namespace Stage
                     return;
                 }
 
+                if (preparedBattle != null)
+                {
+                    ordinaryBattleService.Abort(
+                        GameSession.Instance?.StageSession, preparedBattle);
+                }
+
                 Debug.LogError(
                     "[StagePopupEventManager] Choice execution failed. "
                     + $"choiceId={choice.choiceId}, result={result}, "
@@ -379,6 +552,37 @@ namespace Stage
             Debug.LogError(
                 "[StagePopupEventManager] Choice executionConfig is missing. "
                 + $"choiceId={choice.choiceId}");
+        }
+
+        private bool ApplyPortfolioOutcome(
+            PortfolioOutcomeExecutionData data,
+            out string error)
+        {
+            StageSession session = GameSession.Instance?.StageSession;
+            bool sharesGrowthTerminal = data?.eventId
+                == "event.act1.random_event.23.temple_hundred_eight_steps";
+            if (sharesGrowthTerminal && session?.PortfolioRandomGrowth?.IsTerminal(
+                    data.eventId, currentNode?.nodeId) == true)
+            {
+                error = "PORTFOLIO_RANDOM_GROWTH_TERMINAL_CONFLICT";
+                return false;
+            }
+            bool executed = portfolioOutcomeService.TryExecute(
+                data,
+                GameSession.Instance,
+                currentNode,
+                currentEvent,
+                CompleteExecution,
+                LogBattleExecution,
+                out error);
+            if (executed && sharesGrowthTerminal
+                && session?.PortfolioRandomGrowth?.TryCommitExternal(
+                    data.eventId, currentNode?.nodeId) != true)
+            {
+                error = "PORTFOLIO_RANDOM_GROWTH_TERMINAL_COMMIT_FAILED";
+                return false;
+            }
+            return executed;
         }
 
         private string CreateExecutionId(
@@ -447,7 +651,48 @@ namespace Stage
                 return false;
             }
 
+            PortfolioOutcomeOwnership ownership =
+                GameSession.Instance?.StageSession?.PortfolioOutcomes;
+            PortfolioNextEventContinuationReceipt continuation = ownership?.PendingContinuation;
+            if (continuation != null
+                && string.Equals(continuation.childEventId, currentEvent.eventId,
+                    System.StringComparison.Ordinal)
+                && !ownership.TryCommitContinuation(currentEvent.eventId,
+                    currentNode?.nodeId))
+                return false;
+
             Complete();
+            return true;
+        }
+
+        private bool OpenNextEventTransaction(NextEventExecutionData data, out string error)
+        {
+            error = string.Empty;
+            if (data?.nextEvent == null || currentNode == null)
+            {
+                error = "NEXT_EVENT_TRANSACTION_CONTEXT_INVALID";
+                return false;
+            }
+            var receipt = new PortfolioNextEventContinuationReceipt
+            {
+                parentEventId = data.parentEventId,
+                parentNodeId = data.parentNodeId,
+                parentChoiceId = data.parentChoiceId,
+                parentResultId = data.parentResultId,
+                parentReservationId = data.parentReservationId,
+                childEventId = data.childEventId,
+                childNodeId = data.childNodeId,
+                childReservationId = data.childReservationId
+            };
+            PortfolioOutcomeOwnership ownership =
+                GameSession.Instance?.StageSession?.PortfolioOutcomes;
+            if (ownership?.TryReserveContinuation(receipt) != true)
+            {
+                error = "NEXT_EVENT_TRANSACTION_RESERVATION_CONFLICT";
+                return false;
+            }
+            Open(data.nextEvent, currentNode);
+            receipt.childOpened = true;
             return true;
         }
 
@@ -559,6 +804,160 @@ namespace Stage
             pendingChoice = null;
             pendingExecutionId = null;
             continuationGate.Reset();
+        }
+
+        private void EnsureSafeGrowthAdapterAndRoute(PopupEventSO popup, RoundNode node)
+        {
+            GameSession game = GameSession.Instance;
+            if (game?.StageSession == null || game.BattleSession?.PartyRuntimeData == null)
+                return;
+            EquipmentSkillSO[] catalog = ResolveSafeGrowthSkillCatalog(game);
+            safeGrowthAdapter = new SafeGrowthPopupRuntimeAdapter(game.StageSession,
+                game.BattleSession.PartyRuntimeData, catalog,
+                executionRouter ??= ChoiceExecutionRouter.CreateDefault());
+            game.StageSession.ConfigurePortfolioRandomGrowthRuntime(
+                game.ProgressionSession, game.BattleSession.PartyRuntimeData);
+            portfolioRandomGrowthAdapter = new PortfolioRandomGrowthPopupRuntimeAdapter(game.StageSession);
+            if (game.StageSession.SafeGrowthRouteEncounter != null || stageManager == null
+                || !stageManager.TryResolveSvgPlacement(node, out string sectionId, out string slotId))
+                return;
+            new SafeGrowthRouteEntryBridge().TryEnter(game.StageSession, sectionId, slotId,
+                node.nodeId, node.roundNodeSO?.nodeId,
+                game.StageSession.SafeGrowthPlacement?.Assignment?.DisplayedEventId,
+                game.BattleSession.PartyRuntimeData, catalog);
+        }
+
+        private void ApplyPortfolioChoicePrevalidation(EventPopupView view, PopupEventSO popup)
+        {
+            if (view == null || popup?.choices == null) return;
+            foreach (PopupEventChoice choice in popup.choices)
+                if (choice?.executionConfig?.data is PortfolioOutcomeExecutionData data
+                    && !portfolioOutcomeService.CanExecuteChoice(data,
+                        out string disabledCopy, out _))
+                    view.SetChoiceDisabled(choice.choiceId, disabledCopy);
+        }
+
+        private static EquipmentSkillSO[] ResolveSafeGrowthSkillCatalog(GameSession game)
+        {
+            if (game?.BattleSession?.PartyRuntimeData?.Members == null)
+                return System.Array.Empty<EquipmentSkillSO>();
+            return game.BattleSession.PartyRuntimeData.Members
+                .Where(x => x?.characterSO?.Skills != null)
+                .SelectMany(x => x.characterSO.Skills)
+                .Where(x => x?.skillSo != null)
+                .Select(x => x.skillSo)
+                .GroupBy(x => x.EquipmentId, System.StringComparer.Ordinal)
+                .Select(x => x.First()).ToArray();
+        }
+
+        private void CloseAfterSafeTerminal()
+        {
+            PopupEventSO closedEvent = currentEvent;
+            RoundNode node = currentNode;
+            currentEvent = null;
+            currentNode = null;
+            ResetPendingChoiceState();
+            UIPopupViewController.Instance?.Close(PopupType.EventPopup);
+            OnPopupEventClosed?.Invoke(closedEvent, node);
+        }
+
+        private bool TryRenderSafeGrowthPresentation()
+        {
+            if (safeGrowthView == null || safeGrowthAdapter == null)
+                return false;
+            if (!string.Equals(currentEvent?.eventId, ConfirmableChoiceContract.SourcePopupId,
+                    System.StringComparison.Ordinal))
+                return false;
+            RandomGrowthPresentationCopyAsset catalog = Resources.Load<RandomGrowthPresentationCopyAsset>(
+                "Stage/RandomGrowth/Presentation/event.act1.random_growth.02.windworn_sword_marks.ko-KR");
+            if (!SafeGrowthPlayerEvidenceOrchestrator.TryValidateIdentity(currentEvent, catalog,
+                    out _, out _, out _))
+            {
+                ExecuteSafePresentationUnavailable();
+                return true;
+            }
+            if (safeGrowthPresentationBinder.TryBuild(currentEvent, catalog, safeGrowthAdapter,
+                    out SafeGrowthPresentationSnapshot snapshot, out _))
+            {
+                safeGrowthView.SetSafeGrowthPresentation(snapshot, HandleSafeGrowthIntent);
+                return true;
+            }
+            ExecuteSafePresentationUnavailable();
+            return true;
+        }
+
+        private void HandleSafeGrowthIntent(SafeGrowthPresentationActionIntent intent)
+        {
+            switch (intent)
+            {
+                case SafeGrowthPresentationActionIntent.RequestObservePreconfirm:
+                    SelectChoiceById(SafeGrowthTransactionIds.ObserveChoiceId); break;
+                case SafeGrowthPresentationActionIntent.ConfirmDecline:
+                    if (safeGrowthAdapter?.Pending == null)
+                        SelectChoiceById(SafeGrowthTransactionIds.DeclineChoiceId);
+                    else ConfirmSafePending();
+                    break;
+                case SafeGrowthPresentationActionIntent.CancelPreconfirm:
+                    CancelSafePending(); break;
+                case SafeGrowthPresentationActionIntent.RecheckEligibility:
+                    RecheckSafeEligibility(); break;
+                case SafeGrowthPresentationActionIntent.ConfirmObserve:
+                case SafeGrowthPresentationActionIntent.RetrySameChoice:
+                    ConfirmSafePending(); break;
+                case SafeGrowthPresentationActionIntent.OpenGrowthOffer:
+                    if (TryOpenSafeGrowthOffer()) CloseAfterSafeTerminal();
+                    return;
+                case SafeGrowthPresentationActionIntent.ContinueStage:
+                    CloseAfterSafeTerminal(); return;
+                default: return;
+            }
+            if (currentEvent != null) TryRenderSafeGrowthPresentation();
+        }
+
+        private bool TryOpenSafeGrowthOffer()
+        {
+            GameSession game = GameSession.Instance;
+            if (game?.StageSession?.SafeGrowthRuntime?.ProgressionLedger == null
+                || game.BattleSession?.PartyRuntimeData == null)
+                return false;
+            safeGrowthOfferPresenter ??= new SafeGrowthPartyWideOfferPresenter(
+                game.StageSession.SafeGrowthRuntime.ProgressionLedger,
+                game.BattleSession.PartyRuntimeData,
+                ResolveSafeGrowthSkillCatalog(game),
+                new SafeGrowthSkillUpgradeViewHost());
+            SafeGrowthPartyWideOfferOpenResult result = safeGrowthOfferPresenter.Open();
+            return result == SafeGrowthPartyWideOfferOpenResult.Opened
+                || result == SafeGrowthPartyWideOfferOpenResult.AlreadyOpen
+                || result == SafeGrowthPartyWideOfferOpenResult.AlreadyApplied;
+        }
+
+        private void ExecuteSafePresentationUnavailable()
+        {
+            GameSession game = GameSession.Instance;
+            StageSession session = game?.StageSession;
+            if (session?.SafeGrowthRuntime?.IsReady != true || currentNode == null) return;
+            SafeGrowthInteractionToken token = session.SafeGrowthInteraction.Token;
+            if (token == null)
+            {
+                SafeGrowthInteractionKey key = new(session.SafeGrowthRuntime.RunId.Value,
+                    session.RandomGrowthSession.StageGenerationId,
+                    SafeGrowthTransactionIds.ReservationId, currentNode.nodeId);
+                session.SafeGrowthInteraction.TryEnterPreconfirm(key,
+                    SafeGrowthTransactionIds.ObserveChoiceId,
+                    SafeGrowthPresentationCopyResolver.V2DefinitionFingerprint, true, out token);
+            }
+            if (token == null) return;
+            var cause = new SafeGrowthNodeOnlyFailureCause(token.Key.RunId,
+                token.Key.StageGenerationId, SafeGrowthTransactionIds.EventId,
+                currentNode.roundNodeSO?.nodeId, SafeGrowthTransactionIds.ReservationId,
+                currentNode.nodeId, SafeGrowthNodeOnlyFailureIds.ReceiptId);
+            string revision = StageAtomicNodeCompletionService.ComputeRevision(session.RuntimeData?.currentGraph);
+            SafeGrowthNodeOnlyFailureExecutionResult result = session.SafeGrowthRuntime.NodeOnlyFailureCoordinator.Execute(
+                session.SafeGrowthRuntime.NodeOnlyFailure, cause, token,
+                session.SafeGrowthRuntime.NodeCompletion, session, revision,
+                () => stageManager?.PublishAtomicCompletion(currentNode, stageManager.ProgressState), out _);
+            if (result == SafeGrowthNodeOnlyFailureExecutionResult.Succeeded)
+                CloseAfterSafeTerminal();
         }
     }
 }

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.24.herb_scent_empty_barracks",
+  "eventId": "event.act1.random_event.24.herb_scent_empty_barracks",
+  "titleKo": "약향만 남은 막사",
+  "summary": "빈 군막에 식지 않은 약사발과 이름표가 남아 있다. 약을 마시거나 돌아올 이들을 위해 봉해 둘 수 있다.",
+  "startNodeId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "빈 군막에 식지 않은 약사발과 이름표가 남아 있다. 약을 마시거나 돌아올 이들을 위해 봉해 둘 수 있다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.share_medicine",
+          "textKo": "남은 약을 나눠 마신다",
+          "resultKo": "쓴 약이 오래된 피로를 풀었다.",
+          "resultStatusKo": "파티가 최대 HP의 20%를 회복했습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.24.herb_scent_empty_barracks",
+              "nodeId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+              "sourcePopupId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+              "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.share_medicine",
+              "resultId": "result.act1.random_event.24.herb_scent_empty_barracks.party_treated",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event24",
+              "operations": [
+                { "kind": "VitalDelta", "maxHpPercent": 20, "nonlethal": false, "targetId": "AliveParty" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine",
+          "textKo": "약을 봉해 돌아올 이들을 위해 남긴다",
+          "resultKo": "빈 막사에 누군가 돌아올 자리를 남겼다.",
+          "resultStatusKo": "약속의 흔적이 기록되었습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.24.herb_scent_empty_barracks",
+              "nodeId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+              "sourcePopupId": "node.act1.random_event.24.herb_scent_empty_barracks.intro",
+              "choiceId": "choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine",
+              "resultId": "result.act1.random_event.24.herb_scent_empty_barracks.medicine_preserved",
+              "reservationId": "reservation.act1.chapter01.portfolio_b1.event24",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "world_flag.act1.chapter01.barracks_medicine_preserved" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

@@ -28,6 +28,17 @@ public class UITextButton : UIComponent
         }
     }
 
+    public void SetInteractable(bool value)
+    {
+        if (button != null) button.interactable = value;
+    }
+
+    public void AppendLabel(string suffix)
+    {
+        if (text != null && !string.IsNullOrWhiteSpace(suffix))
+            text.text = text.text + "\n" + suffix;
+    }
+
     private void OnClick()
     {
         onClickCallback?.Invoke();

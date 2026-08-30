@@ -1,0 +1,30 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
+  "nodeId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+  "sourcePopupId": "node.act1.random_event.31.wounded_mountain_tiger_domain.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.31.wounded_mountain_tiger_domain.intro.main.png",
+  "authorityReceiptSha256": "efab2bb90e85ab50f21ffccb0631bee0791061ef821a6d785677cac51fc20d4d",
+  "selection": {
+    "selected": "B",
+    "reason": "natural low-breathing tiger, restrained wound, broken spear, severed snare and two open forest routes remain simultaneously legible at popup scale",
+    "candidateA": {"sha256": "a0f1bca3e68f5977700e318190ca4fbfc0fc9788fb05b6689aa489471d350e28", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "tiger occupies more of the frame and the restrained wound cue is less legible"},
+    "candidateB": {"sha256": "b471c1d15d0c394d23209f17ccca1837ef4b50ad7e2f08191ca039e1e3ccbb93", "disposition": "SELECTED"}
+  },
+  "selected960": {
+    "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event31/selected/event31-selected-B-960x1280.png",
+    "sha256": "0236e0a264f68ef4e958f94b80a8b03316c150eee8777a2b1d87a53108e32013",
+    "dimensions": "960x1280",
+    "format": "PNG RGB8 opaque"
+  },
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event31/handoff/event31-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-C/event31/handoff/event31-selected-B-max512-B.png",
+    "sha256": "d1ce18e2481c71c9d4cfe2ee36a0f8d5e27ec4b65300d2e634062b5c6894d4c4",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"toxicPouch": 0, "victory": 0, "deadOrCapturedTiger": 0, "gore": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

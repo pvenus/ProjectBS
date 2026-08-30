@@ -9,23 +9,34 @@ namespace Stage
     public sealed class ChoiceExecutionContext
     {
         public Action<PopupEventSO> OpenNextEvent { get; }
+        public TryOpenNextEventTransaction OpenNextEventTransaction { get; }
         public Func<bool> CompleteEvent { get; }
         public Func<BattleSO, bool> BeginBattle { get; }
         public Func<ShopExecutionData, bool> OpenShop { get; }
         public Func<ShrineExecutionData, bool> OpenShrine { get; }
+        public TryApplyPortfolioOutcome ApplyPortfolioOutcome { get; }
+
+        public delegate bool TryApplyPortfolioOutcome(
+            PortfolioOutcomeExecutionData data, out string error);
+        public delegate bool TryOpenNextEventTransaction(
+            NextEventExecutionData data, out string error);
 
         public ChoiceExecutionContext(
             Action<PopupEventSO> openNextEvent = null,
             Func<bool> completeEvent = null,
             Func<BattleSO, bool> beginBattle = null,
             Func<ShopExecutionData, bool> openShop = null,
-            Func<ShrineExecutionData, bool> openShrine = null)
+            Func<ShrineExecutionData, bool> openShrine = null,
+            TryApplyPortfolioOutcome applyPortfolioOutcome = null,
+            TryOpenNextEventTransaction openNextEventTransaction = null)
         {
             OpenNextEvent = openNextEvent;
             CompleteEvent = completeEvent;
             BeginBattle = beginBattle;
             OpenShop = openShop;
             OpenShrine = openShrine;
+            ApplyPortfolioOutcome = applyPortfolioOutcome;
+            OpenNextEventTransaction = openNextEventTransaction;
         }
     }
 }

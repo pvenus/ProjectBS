@@ -1,0 +1,81 @@
+{
+  "status": "ITEM_RELIC_VISUAL_REGISTRY_READY",
+  "total": 10,
+  "complete": 3,
+  "remaining": 7,
+  "completeAssets": [
+    "item.relic.old_war_horn",
+    "item.relic.blunt_gear",
+    "item.relic.electric_crystal"
+  ],
+  "assets": [
+    {
+      "assetId": "item.relic.black_incense_candle",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.black_incense_candle.icon.png",
+      "sha256": "f10bf7afa0c226f528f10510aaab6caef64dab8403363c67872661cf72dd6237",
+      "size": [1254, 1254],
+      "bboxPercent": [43.38, 96.09],
+      "disposition": "READY_MECHANICAL_REFRAME_512",
+      "reason": "Vertical edge crowding; identity and family meaning remain usable."
+    },
+    {
+      "assetId": "item.relic.frozen_nail",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.frozen_nail.icon.png",
+      "sha256": "e906475d30e21172739a54bba3809a7e0042c8fbb3ce7fe6d7b1fd96beb85a34",
+      "size": [1254, 1254],
+      "bboxPercent": [83.17, 85.25],
+      "disposition": "READY_MECHANICAL_REFRAME_512",
+      "reason": "Meaning/style usable; occupancy is at the upper edge of the icon policy."
+    },
+    {
+      "assetId": "item.relic.ember_necklace",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.ember_necklace.icon.png",
+      "sha256": "a70b9982a31737bc43404a033ae0249aef4948c37d139d12f8e16753ad7e0a12",
+      "size": [1254, 1254],
+      "bboxPercent": [67.94, 93.54],
+      "disposition": "STYLE_MEANING_BRIEF_REQUIRED",
+      "reason": "Full-frame glow and western-fantasy jewel treatment require a locked reinterpretation, not crop alone."
+    },
+    {
+      "assetId": "item.relic.golden_fang",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.golden_fang.icon.png",
+      "sha256": "08900ece5b3833bce4b1533bbb9db9459790169be3236cbb1f34e1b8a880f21d",
+      "size": [1254, 1254],
+      "bboxPercent": [62.36, 87.72],
+      "disposition": "STYLE_MEANING_BRIEF_REQUIRED",
+      "reason": "Gold sparkle and polished talisman treatment exceed the restrained relic grammar."
+    },
+    {
+      "assetId": "item.relic.red_feather",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.red_feather.icon.png",
+      "sha256": "ce636501851d1deedd2463f5e726b9bc2c130069b093439d0854addde9b9a123",
+      "size": [1254, 1254],
+      "bboxPercent": [81.82, 91.63],
+      "disposition": "STYLE_MEANING_BRIEF_REQUIRED",
+      "reason": "Saturated glossy feather and edge alpha contact require a locked material/motif correction."
+    },
+    {
+      "assetId": "item.relic.spiked_carapace",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.spiked_carapace.icon.png",
+      "sha256": "615f6b543c20cd8448ab0d82bda3e91caa626cddefec38e499d216b9aeab7a9e",
+      "size": [1254, 1254],
+      "bboxPercent": [83.41, 88.92],
+      "disposition": "STYLE_MEANING_BRIEF_REQUIRED",
+      "reason": "Teal 3D armor mass and sparkle require a locked creature/material interpretation."
+    },
+    {
+      "assetId": "item.relic.toxic_pouch",
+      "canonical": "Assets/ImagesGenerated/Item/icon/item.relic.toxic_pouch.icon.png",
+      "sha256": "3116b9257ae5f4c07049e387f61c22108dd9d8bdc5ba79773080be8b85e08b9d",
+      "size": [1254, 1254],
+      "bboxPercent": [66.19, 90.19],
+      "disposition": "STYLE_MEANING_BRIEF_REQUIRED",
+      "reason": "Purple/green fantasy poison language needs a locked period-material brief."
+    }
+  ],
+  "nextReady": "item.relic.black_incense_candle",
+  "canonicalWrite": false,
+  "metaWrite": false,
+  "unity": false,
+  "staging": false
+}

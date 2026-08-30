@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.27.paper_armor_bandits.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.27.paper_armor_bandits.intro
+  mainImage: {fileID: 21300000, guid: e444beb323bb2460091bbaef2aa26f65, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.27.paper_armor_bandits.wait_for_paper_armor_to_soak
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043237
+  - choiceId: choice.act1.random_event.27.paper_armor_bandits.attack_before_spoils_sink
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043238
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043237
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486867666043239
+    - rid: 5601486867666043238
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 100
+        data:
+          rid: 5601486867666043240
+    - rid: 5601486867666043239
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: 7cc0f117e19d94925916456f6f5dda54, type: 2}
+        eventId: event.act1.random_event.27.paper_armor_bandits
+        nodeId: node.act1.random_event.27.paper_armor_bandits.intro
+        sourcePopupId: node.act1.random_event.27.paper_armor_bandits.intro
+        reservationId: reservation.act1.chapter01.random_event.27.paper_armor_bandits
+        choiceId: choice.act1.random_event.27.paper_armor_bandits.wait_for_paper_armor_to_soak
+        expectedVictoryResultId: result.act1.random_event.27.paper_armor_bandits.soaked_bandits_driven_off
+    - rid: 5601486867666043240
+      type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        battle: {fileID: 11400000, guid: dd286c89fa20d4ada9eea78435810286, type: 2}
+        eventId: event.act1.random_event.27.paper_armor_bandits
+        nodeId: node.act1.random_event.27.paper_armor_bandits.intro
+        sourcePopupId: node.act1.random_event.27.paper_armor_bandits.intro
+        reservationId: reservation.act1.chapter01.random_event.27.paper_armor_bandits
+        choiceId: choice.act1.random_event.27.paper_armor_bandits.attack_before_spoils_sink
+        expectedVictoryResultId: result.act1.random_event.27.paper_armor_bandits.bandits_defeated_spoils_secured

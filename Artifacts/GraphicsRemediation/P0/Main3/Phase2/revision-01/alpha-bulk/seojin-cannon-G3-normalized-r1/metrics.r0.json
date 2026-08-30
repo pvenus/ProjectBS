@@ -1,0 +1,49 @@
+{
+  "member": "seojin-cannon-G3-normalized-r1",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P0/Main3/Phase2/revision-01/Seojin/turtle_ship_cannon_zone/normalized-r1/seojin-cannon-G3-normalized-96.png",
+    "sha256": "3895828710bdd63d81aa66ba12f58a26895705a0acc93076693c1a1c90b4d07a",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),30,72); paper-grain calibrated, not visual-threshold relaxation",
+  "preTransform": {
+    "partialPixels": 184009,
+    "opaquePixels": 415930,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 0,
+      "minY": 0,
+      "maxX": 1253,
+      "maxY": 1253,
+      "widthPct": 100,
+      "heightPct": 100,
+      "marginsPct": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      }
+    }
+  },
+  "normalization": {
+    "scale": 1,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "3b1417bdb6e25a05765f42ca595d66844ce1de9c98f557f1636119e30c160a15",
+    "trimap": "51ea04674b80c61972ac3fb2db7f25b6c02ad00d8d4cb99d9a12bfd5c9373dbd",
+    "master": "aab7941aea83082d3d26a6305d058d9e8d9586a9552f129b68a8b2e54900be02",
+    "runtime512": "83868d02f273b4fb4d7f0dfa0db01aa221cf0070201d43f8d5323488964903fc",
+    "identity": "fcb1bb7d9af0251ed8b3a2ad5df4df079b4963dbd54da9b146831d3ea6d31aa8"
+  }
+}

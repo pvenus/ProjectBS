@@ -1,0 +1,101 @@
+{
+  "candidate": "D2-round_compact_emblem",
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "rsvg": "2.62.91",
+    "png": "1.6.58"
+  },
+  "staticGate": {
+    "declaredBounds": [
+      120,
+      120,
+      1134,
+      1134
+    ],
+    "bboxPercent": [
+      80.86124401913875,
+      80.86124401913875
+    ],
+    "marginsPercent": [
+      9.569377990430622,
+      9.569377990430622,
+      9.569377990430622,
+      9.569377990430622
+    ],
+    "paletteGuard": [
+      71,
+      19,
+      10
+    ],
+    "checks": {
+      "bounds": true,
+      "margins": true,
+      "palette": true,
+      "layers": true,
+      "forbidden": true
+    },
+    "pass": true
+  },
+  "maskProof": {
+    "sourceChannels": 3,
+    "normalizedChannels": 1,
+    "expectedLength": 1572516,
+    "actualLength": 1572516,
+    "rgbIdentity": true
+  },
+  "fixtures": {
+    "allZeroRejected": true,
+    "allOneRejected": true,
+    "offsetRejected": true,
+    "channelMismatchRejected": true
+  },
+  "probeVisible": 1397,
+  "fullRenderCount": 1,
+  "metrics": {
+    "visible": 471027,
+    "partial": 26307,
+    "zeroRgbResidue": 0,
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bboxPercent": [
+      79.98,
+      78.23
+    ],
+    "marginsPercent": [
+      10.05,
+      10.93,
+      9.97,
+      10.85
+    ],
+    "paletteWeightedPercent": {
+      "ink": 90.02,
+      "blueGray": 9.98,
+      "grayWhite": 0
+    },
+    "gates": {
+      "G0": true,
+      "alpha": true,
+      "bbox": true,
+      "mustShow": true,
+      "palette": false
+    },
+    "pass": false
+  },
+  "reproduction": {
+    "renderASha": "effca64dd3c27f6925ab2db2d5d9cdb722ff2e95fa99e8b0392b54bccdd66a7e",
+    "renderBSha": "effca64dd3c27f6925ab2db2d5d9cdb722ff2e95fa99e8b0392b54bccdd66a7e",
+    "byteIdentical": true,
+    "decodedMismatch": 0,
+    "maxDelta": 0
+  },
+  "pass": false,
+  "sourceSha": "69c2be8754d70ace060c8936fb517fac0ea6c71b5e3844ab7cc3661f161835bc",
+  "maskSha": "79e6701bbc38ac64bc3001dbd5cea60c934449d8d26b3c4275715e3015462468",
+  "rendererSha": "ef17feee1dad18a8fbe54dad80a45e504342995ec923c7cdd487d1530e68c439"
+}

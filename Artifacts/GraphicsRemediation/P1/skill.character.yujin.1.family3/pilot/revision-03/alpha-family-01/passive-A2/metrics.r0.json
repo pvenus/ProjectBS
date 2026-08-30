@@ -1,0 +1,49 @@
+{
+  "member": "passive-A2",
+  "source": {
+    "path": "Artifacts/GraphicsRemediation/P1/skill.character.yujin.1.family3/pilot/revision-02/passive/candidates/A2.png",
+    "sha256": "019131d949ec359d111f9df6db4b1123baed10a0bc32f04a99f39f077bf2044c",
+    "width": 1254,
+    "height": 1254
+  },
+  "backgroundModel": "robust quadratic RGB surface from outer48px samples",
+  "alpha": "smoothstep(max(RGBdistance,1.35*lumaDistance),7.5,30)",
+  "preTransform": {
+    "partialPixels": 35674,
+    "opaquePixels": 332032,
+    "opaqueInternalRgbMismatch": 0,
+    "bboxAlphaGe16": {
+      "minX": 96,
+      "minY": 133,
+      "maxX": 1186,
+      "maxY": 1117,
+      "widthPct": 87.00159489633174,
+      "heightPct": 78.54864433811802,
+      "marginsPct": {
+        "left": 7.655502392344498,
+        "right": 5.342902711323764,
+        "top": 10.606060606060606,
+        "bottom": 10.845295055821373
+      }
+    }
+  },
+  "normalization": {
+    "scale": 0.96,
+    "translation": [
+      0,
+      0
+    ],
+    "rotation": 0,
+    "nonuniform": false
+  },
+  "final": {
+    "alphaZeroRgbResidue": 0
+  },
+  "outputs": {
+    "mask": "a6c284ebfae1f320abf6b9db9889c442f57489ff187f0d5223b9223ab484bdba",
+    "trimap": "66bdaadf6bf6de5be382a5e93aee2d20be8b713fff8e420f645471ae764f9375",
+    "master": "5e6752d6d55d998e31975d058f3df3b8a2625da0edaa76f1118fc0ded6e4def3",
+    "runtime512": "eb236705a6c35a3481073ef940bfcfae8e40ef82bcd9bab030a53797fb74d091",
+    "identity": "6dd4d13fa66eee525d4db59a86d8dbe7fc095d18bc0011dcf5a97bcb5973e52d"
+  }
+}

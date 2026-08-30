@@ -1,0 +1,32 @@
+{
+  "source": "Artifacts/GraphicsRemediation/P1/item.relic.blunt_gear/pilot/revision-01/selected/item.relic.blunt_gear.icon.selected-B.png",
+  "source_sha256": "9abfae831d47b2df80a9cefa4759cce5952981d63ae79f835fe996ca0de40343",
+  "output": "Artifacts/GraphicsRemediation/P1/item.relic.blunt_gear/pilot/revision-01/alpha-revision-02/candidate-alpha-r1.png",
+  "output_sha256": "d12f072cc4845cdd4269e3e43a6c601a1bbe0fe95e4ab06ef399e58c86c388da",
+  "mask": "Artifacts/GraphicsRemediation/P1/item.relic.blunt_gear/pilot/revision-01/alpha-revision-02/mask-r1.png",
+  "mask_sha256": "4254889c5ce9ec85d3aee0e47db50110283dc4f4d140a821503abe77952ab512",
+  "size": [
+    1254,
+    1254
+  ],
+  "bbox_alpha16": [
+    183,
+    142,
+    1024,
+    1051
+  ],
+  "bbox_percent": [
+    67.0654,
+    72.488
+  ],
+  "corner_alpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "partial_alpha_pixels": 12737,
+  "transparent_rgb_residue": 0,
+  "opaque_rgb_mismatch": 0,
+  "rule": "border-connected neutral RGB>=235 checker removal; subject MinFilter5; Gaussian0.7 partial edge; 250-gray edge-only decontamination; alpha0 RGB zero"
+}

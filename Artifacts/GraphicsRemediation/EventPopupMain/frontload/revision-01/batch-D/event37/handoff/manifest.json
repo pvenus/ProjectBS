@@ -1,0 +1,24 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
+  "nodeId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+  "sourcePopupId": "node.act1.random_event.37.nameless_long_sword_in_rain.intro",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.37.nameless_long_sword_in_rain.intro.main.png",
+  "selection": {
+    "selected": "B",
+    "reason": "the hilt, guard, scabbard mouth, erased-name plate, dull wooden-tag necklace, stone wall and rain direction remain distinct while the blade stays fully hidden",
+    "candidateA": {"sha256": "276ba74e0a057452bdeec7d6a29d5af843b66fe0fabc188550e6f88d3784761f", "disposition": "REJECTED_PROVENANCE_ONLY", "reason": "hilt and erased-name identity are weak and the object risks reading as a cylindrical case"},
+    "candidateB": {"sha256": "aa2481ee128af4d48e43a0dd1b5e4b7c608fb4ab16aee5300015bb9a696cae00", "disposition": "SELECTED"}
+  },
+  "selected960": {"path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event37/selected/event37-selected-B-960x1280.png", "sha256": "002821fe77f17aa90136204e05c680eacd81d97118572bdfc33297949fc34296", "dimensions": "960x1280", "format": "PNG RGB8 opaque"},
+  "deterministicMax512": {
+    "dimensions": "384x512",
+    "algorithm": "Sharp Lanczos3 removeAlpha PNG compressionLevel9 adaptiveFiltering=false",
+    "renderA": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event37/handoff/event37-selected-B-max512-A.png",
+    "renderB": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-D/event37/handoff/event37-selected-B-max512-B.png",
+    "sha256": "c3b17c4902744a365c2c6ed8414e3e19840aa608e470e2ccf7eedcf9f250697c",
+    "byteIdentity": true
+  },
+  "forbiddenPreview": {"exposedBlade": 0, "guardianOrBattle": 0, "victoryOrRewardGlow": 0, "blood": 0, "heroFraming": 0},
+  "mutationBoundary": {"canonical": 0, "meta": 0, "so": 0, "guid": 0, "staging": 0, "index": 0, "unity": 0}
+}

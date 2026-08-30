@@ -1,0 +1,15 @@
+{
+  "status":"USER_REJECTED_NOT_PROMOTABLE_PROVENANCE_ONLY",
+  "eventId":"event.act1.random_event.40.jihan_empty_medicine_folio",
+  "nodeId":"node.act1.random_event.40.jihan_empty_medicine_folio.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.40.jihan_empty_medicine_folio.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event40-design-lock.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event40/candidates/event40-candidate-A.png","sha256":"1fa3b4ccc1cd678b14ef6c82fa681ab2c22c762f3e7063699a1d6165f7c763ec","disposition":"REJECTED_PROVENANCE","reason":"face-dominant hero framing"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event40/candidates/event40-candidate-B.png","sha256":"d20ff3a8843059cd0b37178ca6311d2b9b125fbe647facc89e243210e95b5a86","disposition":"REJECTED_PROVENANCE","reason":"folio focus is strong but herb quantity and first-person hand weaken Jihan authority"},
+    {"id":"C","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event40/candidates/event40-candidate-C.png","sha256":"d8a560fb925802e67dc8592fd1f27727424d18d24f6cadf50a7ecaf6aeef8a73","disposition":"USER_REJECTED_NOT_PROMOTABLE_PROVENANCE_ONLY","reason":"semi-realistic visible character/portrait language breaks the established object-and-environment ink-wash popup family"}
+  ],
+  "rejected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event40/selected/event40-selected-C-960x1280.png","sha256":"3f3011a79b2f81058bc68bc828e6d0210d0021e2d7de6342e2fe4dfda316841a","format":"PNG RGB","dimensions":"960x1280","promotionEligible":false},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-A/event40/handoff/event40-selected-C-max512-A.png","sha256":"f3d056860bf0685cd2cf6c6bfa49381f019cb423dbb62fecb685e298288de431","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event40-selected-C-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

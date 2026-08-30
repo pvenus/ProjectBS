@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734724
+      rid: 5601486867666043099
   - choiceId: choice.act1.random_event.03.returning_straw_shoes.seal_or_destroy_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734725
+      rid: 5601486867666043100
   - choiceId: choice.act1.random_event.03.returning_straw_shoes.choice_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734726
+      rid: 5601486867666043101
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734724
+    - rid: 5601486867666043099
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734727
-    - rid: 5601486783294734725
+          rid: 5601486867666043102
+    - rid: 5601486867666043100
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734728
-    - rid: 5601486783294734726
+          rid: 5601486867666043103
+    - rid: 5601486867666043101
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734729
-    - rid: 5601486783294734727
+          rid: 5601486867666043104
+    - rid: 5601486867666043102
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734728
+    - rid: 5601486867666043103
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734729
+    - rid: 5601486867666043104
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

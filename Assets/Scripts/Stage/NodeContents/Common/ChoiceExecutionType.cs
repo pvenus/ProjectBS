@@ -13,6 +13,12 @@ namespace Stage
         Shop = 200,
         Shrine = 300,
 
-        CompleteEvent = 900
+        CompleteEvent = 900,
+
+        RandomGrowthRisk = 1000,
+        RandomGrowthDecline = 1010,
+        RandomGrowthSafe = 1020,
+
+        PortfolioOutcome = 1100
     }
 }

@@ -1,0 +1,105 @@
+{
+  "sourcePath": "Artifacts/GraphicsRemediation/P1/item.relic.blunt_gear/pilot/revision-01/alpha-revision-02/candidate-alpha-r1.png",
+  "sourceSha256": "d12f072cc4845cdd4269e3e43a6c601a1bbe0fe95e4ab06ef399e58c86c388da",
+  "source": {
+    "width": 1254,
+    "height": 1254,
+    "channels": 4,
+    "format": "png",
+    "space": "srgb",
+    "hasAlpha": true,
+    "depth": "uchar",
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "transparent": 1078757,
+    "partial": 12737,
+    "opaque": 481022,
+    "residue": 0,
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bbox": {
+      "minX": 183,
+      "minY": 142,
+      "maxX": 1023,
+      "maxY": 1050,
+      "width": 841,
+      "height": 909,
+      "widthPct": 67.06539074960128,
+      "heightPct": 72.48803827751196,
+      "marginsPx": {
+        "left": 183,
+        "right": 230,
+        "top": 142,
+        "bottom": 203
+      },
+      "marginsPct": {
+        "left": 14.5933014354067,
+        "right": 18.341307814992025,
+        "top": 11.323763955342903,
+        "bottom": 16.188197767145134
+      }
+    },
+    "blank": false
+  },
+  "outputPath": "Artifacts/GraphicsRemediation/P1/item.relic.blunt_gear/pilot/revision-01/final-t0/pilot-512/item.relic.blunt_gear.icon.final-512.png",
+  "outputSha256": "534c038bea7d8fb2b788232ade083ebbf787f68474fedcf742e5e3050e320a56",
+  "tool": "node v24.19.0; sharp 0.35.4; libvips 8.18.6; custom separable Lanczos3",
+  "commandDigest": "bdc7001886be2be81d0be3df9a5bb29f50ed73f400f6bd512ec06e9f0ce6e008",
+  "renderA": {
+    "path": "/private/tmp/projectbs-art-p1-blunt-512-render-a.png",
+    "sha256": "534c038bea7d8fb2b788232ade083ebbf787f68474fedcf742e5e3050e320a56"
+  },
+  "renderB": {
+    "path": "/private/tmp/projectbs-art-p1-blunt-512-render-b.png",
+    "sha256": "534c038bea7d8fb2b788232ade083ebbf787f68474fedcf742e5e3050e320a56"
+  },
+  "byteShaIdentity": true,
+  "decodedRgbaMismatch": 0,
+  "output": {
+    "width": 512,
+    "height": 512,
+    "channels": 4,
+    "format": "png",
+    "space": "srgb",
+    "hasAlpha": true,
+    "depth": "uchar",
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "transparent": 178821,
+    "residue": 0,
+    "partial": 4113,
+    "opaque": 79210,
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bbox": {
+      "minX": 75,
+      "minY": 58,
+      "maxX": 417,
+      "maxY": 428,
+      "width": 343,
+      "height": 371,
+      "widthPct": 66.9921875,
+      "heightPct": 72.4609375,
+      "marginsPx": {
+        "left": 75,
+        "right": 94,
+        "top": 58,
+        "bottom": 83
+      },
+      "marginsPct": {
+        "left": 14.6484375,
+        "right": 18.359375,
+        "top": 11.328125,
+        "bottom": 16.2109375
+      }
+    }
+  }
+}

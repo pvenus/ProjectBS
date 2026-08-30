@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+  mainImage: {fileID: 21300000, guid: a1a8040366a814555869cd885222fbc9, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.32.hidden_ledger_salt_cart.return_ledger_to_workers
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043257
+  - choiceId: choice.act1.random_event.32.hidden_ledger_salt_cart.sell_ledger_to_collector
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043258
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043257
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043259
+    - rid: 5601486867666043258
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043260
+    - rid: 5601486867666043259
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.32.hidden_ledger_salt_cart
+        nodeId: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+        sourcePopupId: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+        choiceId: choice.act1.random_event.32.hidden_ledger_salt_cart.return_ledger_to_workers
+        resultId: result.act1.random_event.32.hidden_ledger_salt_cart.ledger_returned_gold25
+        reservationId: reservation.act1.chapter01.random_event.32.hidden_ledger_salt_cart
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 25
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event32.salt_ledger_returned_to_workers
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043260
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.32.hidden_ledger_salt_cart
+        nodeId: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+        sourcePopupId: node.act1.random_event.32.hidden_ledger_salt_cart.intro
+        choiceId: choice.act1.random_event.32.hidden_ledger_salt_cart.sell_ledger_to_collector
+        resultId: result.act1.random_event.32.hidden_ledger_salt_cart.ledger_sold_gold50
+        reservationId: reservation.act1.chapter01.random_event.32.hidden_ledger_salt_cart
+        operations:
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 50
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: runflag.act1.chapter01.event32.salt_ledger_sold_for_profit
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

@@ -21,6 +21,14 @@ namespace Stage
                     new ShrineExecutionData(),
                 ChoiceExecutionType.CompleteEvent =>
                     new CompleteEventExecutionData(),
+                ChoiceExecutionType.RandomGrowthRisk =>
+                    new RandomGrowthRiskExecutionData(),
+                ChoiceExecutionType.RandomGrowthDecline =>
+                    new RandomGrowthDeclineExecutionData(),
+                ChoiceExecutionType.RandomGrowthSafe =>
+                    new RandomGrowthSafeExecutionData(),
+                ChoiceExecutionType.PortfolioOutcome =>
+                    new PortfolioOutcomeExecutionData(),
                 _ => null
             };
         }

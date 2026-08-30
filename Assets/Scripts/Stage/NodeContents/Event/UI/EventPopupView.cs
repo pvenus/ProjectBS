@@ -4,6 +4,7 @@ using TMPro;
 using UIFramework.Data;
 using UnityEngine;
 using UnityEngine.UI;
+using Stage;
 
 [AutoBindPrefix("Bind")]
 public class EventPopupView : UIView
@@ -23,6 +24,7 @@ public class EventPopupView : UIView
     public event Action OnChoiceConfirmed;
 
     private readonly List<UITextButton> spawnedButtons = new();
+    private readonly Dictionary<string, UITextButton> choiceButtons = new(StringComparer.Ordinal);
 
     public void SetData(EventPopupViewData data)
     {
@@ -63,7 +65,49 @@ public class EventPopupView : UIView
                     () => OnChoiceSelectedInternal(choice));
                 btn.gameObject.SetActive(true);
                 spawnedButtons.Add(btn);
+                choiceButtons[choice.Id] = btn;
             }
+        }
+    }
+
+    public bool SetChoiceDisabled(string choiceId, string disabledCopy)
+    {
+        if (string.IsNullOrWhiteSpace(choiceId)
+            || !choiceButtons.TryGetValue(choiceId, out UITextButton button) || button == null)
+            return false;
+        button.SetInteractable(false);
+        button.AppendLabel(disabledCopy);
+        return true;
+    }
+
+    public void SetSafeGrowthPresentation(
+        SafeGrowthPresentationSnapshot snapshot,
+        Action<SafeGrowthPresentationActionIntent> onIntent)
+    {
+        ClearCallbacks();
+        ClearChoices();
+        if (snapshot == null) return;
+
+        if (titleText != null) titleText.text = snapshot.Title;
+        if (bodyText != null) bodyText.text = snapshot.Body;
+        if (resultText != null)
+        {
+            string value = string.IsNullOrEmpty(snapshot.Status)
+                ? snapshot.Assist : snapshot.Status;
+            resultText.text = value;
+            resultText.gameObject.SetActive(!string.IsNullOrEmpty(value));
+        }
+
+        foreach (SafeGrowthPresentationActionIntent intent in snapshot.Actions)
+        {
+            if (intent == SafeGrowthPresentationActionIntent.None) continue;
+            string label = SafeGrowthEventPopupPresentationBinder.ResolveLabel(snapshot, intent);
+            if (string.IsNullOrEmpty(label) || choiceButtonPrefab == null || choiceContainer == null)
+                continue;
+            UITextButton btn = Instantiate(choiceButtonPrefab, choiceContainer);
+            btn.Bind(label, () => onIntent?.Invoke(intent));
+            btn.gameObject.SetActive(true);
+            spawnedButtons.Add(btn);
         }
     }
 
@@ -139,6 +183,7 @@ public class EventPopupView : UIView
             if (btn != null) Destroy(btn.gameObject);
         }
         spawnedButtons.Clear();
+        choiceButtons.Clear();
 
         if (choiceContainer != null)
         {

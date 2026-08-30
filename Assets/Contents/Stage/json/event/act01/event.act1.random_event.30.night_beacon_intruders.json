@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.30.night_beacon_intruders",
+  "eventId": "event.act1.random_event.30.night_beacon_intruders",
+  "titleKo": "밤 봉수대의 침입자",
+  "summary": "거짓 봉화를 준비하는 침입자를 공격하거나 숨어서 배후의 흔적과 거짓 봉화의 기록을 남긴다.",
+  "startNodeId": "node.act1.random_event.30.night_beacon_intruders.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.30.night_beacon_intruders.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "산정의 봉수대에는 관군 표식이 없는 자들이 모여 있었다.\n그들은 거짓 명령서를 불씨 곁에 펼쳐 놓고, 아직 오지 않은 적을 알리는 봉화를 준비하고 있었다.\n지금 막으면 싸움을 피할 수 없고, 숨어서 지켜보면 배후의 흔적은 남지만 거짓 봉화가 오르게 된다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.30.night_beacon_intruders.extinguish_false_beacon",
+          "textKo": "봉수대에 올라 거짓 봉화를 막는다",
+          "resultKo": "침입자들이 물러나자 일행은 화구의 불씨를 흩어 거짓 봉화를 막았다. 타다 남은 명령서에는 산 아래와 이어진 낯선 표식이 남아 있었다.",
+          "resultStatusKo": "전투 · 승리하면 거짓 봉화가 오르지 않습니다",
+          "executionConfig": {
+            "type": "Battle",
+            "battle": {
+              "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+              "eventId": "event.act1.random_event.30.night_beacon_intruders",
+              "nodeId": "node.act1.random_event.30.night_beacon_intruders.intro",
+              "sourcePopupId": "node.act1.random_event.30.night_beacon_intruders.intro",
+              "reservationId": "reservation.act1.chapter01.random_event.30.night_beacon_intruders",
+              "choiceId": "choice.act1.random_event.30.night_beacon_intruders.extinguish_false_beacon",
+              "expectedVictoryResultId": "result.act1.random_event.30.night_beacon_intruders.false_beacon_extinguished"
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.30.night_beacon_intruders.watch_false_beacon_from_hiding",
+          "textKo": "숨어서 봉화를 올리는 자들을 지켜본다",
+          "resultKo": "거짓 봉화가 산줄기 너머로 번졌다. 일행은 불빛 아래 오간 손짓과 명령서의 표식을 기억했지만, 주변 길에는 이미 경계의 기척이 퍼지고 있었다.",
+          "resultStatusKo": "전투 없음 · 거짓 봉화와 배후 흔적을 기록",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.30.night_beacon_intruders",
+              "nodeId": "node.act1.random_event.30.night_beacon_intruders.intro",
+              "sourcePopupId": "node.act1.random_event.30.night_beacon_intruders.intro",
+              "choiceId": "choice.act1.random_event.30.night_beacon_intruders.watch_false_beacon_from_hiding",
+              "resultId": "result.act1.random_event.30.night_beacon_intruders.false_beacon_lit_unopposed",
+              "reservationId": "reservation.act1.chapter01.random_event.30.night_beacon_intruders",
+              "operations": [
+                { "kind": "SetRunFlagTrue", "targetId": "runflag.act1.chapter01.event30.false_beacon_lit_unopposed" }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

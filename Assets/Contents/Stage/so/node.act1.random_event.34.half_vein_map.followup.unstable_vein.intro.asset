@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
+  mainImage: {fileID: 21300000, guid: 9a7cc0ac64b2045f697cb854ceb8a060, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.34.half_vein_map.followup.unstable_vein.extract_ore
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043273
+  - choiceId: choice.act1.random_event.34.half_vein_map.followup.unstable_vein.retreat_empty_handed
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043274
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043273
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043275
+    - rid: 5601486867666043274
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data:
+          rid: 5601486867666043276
+    - rid: 5601486867666043275
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.34.half_vein_map.followup.unstable_vein
+        nodeId: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
+        sourcePopupId: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
+        choiceId: choice.act1.random_event.34.half_vein_map.followup.unstable_vein.extract_ore
+        resultId: result.act1.random_event.34.half_vein_map.followup.unstable_vein.ore_extracted_gold75
+        reservationId: reservation.act1.chapter01.random_event.34.half_vein_map.followup.unstable_vein
+        operations:
+        - kind: 10
+          maxHpPercent: -10
+          nonlethal: 1
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+        - kind: 80
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: 
+          snapshotId: 
+          count: 0
+          amount: 75
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043276
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data: 

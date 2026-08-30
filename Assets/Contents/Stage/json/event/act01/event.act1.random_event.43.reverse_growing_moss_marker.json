@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomEventStageNode",
+  "actId": "act.01",
+  "actNumber": 1,
+  "chapterId": "act01",
+  "episodeId": "event.act1.random_event.43.reverse_growing_moss_marker",
+  "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
+  "titleKo": "해를 거스른 이끼 표석",
+  "summary": "갈림길 표석의 햇빛 드는 면에만 이끼가 자라 있다. 흐름을 읽어 다음 길의 성격을 보거나 뿌리 아래 독주머니를 거둘 수 있다.",
+  "startNodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+  "nodes": [
+    {
+      "nodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+      "nodeType": "PopupEvent",
+      "textKo": "갈림길의 무명 표석에는 햇빛을 받는 면에만 짙은 이끼가 자라 있었다.\n이끼의 흐름을 따라가면 다음 길의 성격을 미리 읽을 수 있지만, 뿌리를 걷어 내면 독기를 머금은 작은 주머니가 드러날 듯했다.\n길의 정보를 남길지, 표식을 훼손하고 힘을 가져갈지 선택해야 한다.",
+      "choices": [
+        {
+          "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.follow_reverse_moss",
+          "textKo": "이끼가 가리키는 길을 살핀다",
+          "resultKo": "이끼가 번진 면과 바람의 방향을 맞춰 보자 갈림길마다 남은 기척이 달리 읽혔다. 일행은 다음 길들이 품은 성격을 미리 가늠할 수 있게 되었다.",
+          "resultStatusKo": "다음 선택 가능한 노드의 성격이 공개되었습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
+              "nodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+              "sourcePopupId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+              "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.follow_reverse_moss",
+              "resultId": "result.act1.random_event.43.reverse_growing_moss_marker.successor_purposes_revealed",
+              "reservationId": "reservation.act1.chapter01.random_event.43.reverse_growing_moss_marker",
+              "operations": [
+                { "kind": "RevealImmediateSuccessorPurpose" }
+              ]
+            }
+          },
+          "rewards": []
+        },
+        {
+          "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.remove_reverse_moss",
+          "textKo": "표석의 이끼를 걷어 낸다",
+          "resultKo": "이끼 뿌리 아래에서 검게 마른 주머니가 떨어졌다. 일행은 독기를 거두었지만, 훼손된 표석에서는 더는 길의 방향을 읽을 수 없었다.",
+          "resultStatusKo": "유물 ‘독주머니’ 1개를 얻었습니다.",
+          "disabledStatusKo": "이미 ‘독주머니’를 지니고 있어 같은 독기를 거둘 수 없습니다.",
+          "executionConfig": {
+            "type": "PortfolioOutcome",
+            "portfolioOutcome": {
+              "schemaVersion": 1,
+              "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
+              "nodeId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+              "sourcePopupId": "node.act1.random_event.43.reverse_growing_moss_marker.intro",
+              "choiceId": "choice.act1.random_event.43.reverse_growing_moss_marker.remove_reverse_moss",
+              "resultId": "result.act1.random_event.43.reverse_growing_moss_marker.toxic_pouch_recovered",
+              "reservationId": "reservation.act1.chapter01.random_event.43.reverse_growing_moss_marker",
+              "operations": [
+                { "kind": "InventoryGrant", "relicId": "item.relic.toxic_pouch", "count": 1, "unique": true }
+              ]
+            }
+          },
+          "rewards": []
+        }
+      ]
+    }
+  ]
+}

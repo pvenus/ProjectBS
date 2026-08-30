@@ -6,6 +6,8 @@ using Item;
 using Session.SO;
 using Battle;
 using System;
+using Progression;
+using Progression.RandomGrowth;
 
 namespace Session
 {
@@ -17,6 +19,8 @@ namespace Session
         public StageSession StageSession;
 
         public BattleSession BattleSession;
+
+        public ProgressionSession ProgressionSession { get; private set; }
 
         [Header("Start Profile")]
         [SerializeField] private StartProfileSO startProfile;
@@ -197,6 +201,36 @@ namespace Session
         {
             StageSession ??= new StageSession();
             BattleSession ??= new BattleSession();
+            ProgressionSession ??= new Progression.ProgressionSession();
+        }
+
+        public ProgressionRunId BeginNewProgressionRun()
+        {
+            return BeginNewProgressionRun(
+                new GuidRandomGrowthSessionIdentityFactory());
+        }
+
+        public ProgressionRunId BeginNewProgressionRun(
+            IRandomGrowthSessionIdentityFactory identityFactory)
+        {
+            Initialize();
+
+            if (identityFactory == null)
+            {
+                throw new ArgumentNullException(nameof(identityFactory));
+            }
+
+            ProgressionRunId runId = identityFactory.CreateRunId();
+            if (!runId.IsValid)
+            {
+                throw new InvalidOperationException(
+                    "The progression identity factory returned an invalid run ID.");
+            }
+
+            ProgressionSession.ResetForNewRun(runId);
+            StageSession.ResetRandomGrowthForNewRun(runId);
+            StageSession.ConfigureSafeGrowthRuntime(ProgressionSession);
+            return runId;
         }
 
         public bool TryBeginStageBattle(

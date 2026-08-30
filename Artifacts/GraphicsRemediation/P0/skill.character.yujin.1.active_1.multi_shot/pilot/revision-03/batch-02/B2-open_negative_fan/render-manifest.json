@@ -1,0 +1,101 @@
+{
+  "candidate": "B2-open_negative_fan",
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "rsvg": "2.62.91",
+    "png": "1.6.58"
+  },
+  "staticGate": {
+    "declaredBounds": [
+      115,
+      130,
+      1139,
+      1124
+    ],
+    "bboxPercent": [
+      81.65869218500798,
+      79.26634768740031
+    ],
+    "marginsPercent": [
+      9.170653907496012,
+      10.36682615629984,
+      9.170653907496012,
+      10.36682615629984
+    ],
+    "paletteGuard": [
+      70,
+      20,
+      10
+    ],
+    "checks": {
+      "bounds": true,
+      "margins": true,
+      "palette": true,
+      "layers": true,
+      "forbidden": true
+    },
+    "pass": true
+  },
+  "maskProof": {
+    "sourceChannels": 3,
+    "normalizedChannels": 1,
+    "expectedLength": 1572516,
+    "actualLength": 1572516,
+    "rgbIdentity": true
+  },
+  "fixtures": {
+    "allZeroRejected": true,
+    "allOneRejected": true,
+    "offsetRejected": true,
+    "channelMismatchRejected": true
+  },
+  "probeVisible": 1071,
+  "fullRenderCount": 1,
+  "metrics": {
+    "visible": 315488,
+    "partial": 23137,
+    "zeroRgbResidue": 0,
+    "corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bboxPercent": [
+      80.54,
+      70.33
+    ],
+    "marginsPercent": [
+      10.37,
+      14.83,
+      9.09,
+      14.83
+    ],
+    "paletteWeightedPercent": {
+      "ink": 85.12,
+      "blueGray": 14.88,
+      "grayWhite": 0
+    },
+    "gates": {
+      "G0": true,
+      "alpha": true,
+      "bbox": true,
+      "mustShow": true,
+      "palette": false
+    },
+    "pass": false
+  },
+  "reproduction": {
+    "renderASha": "0accb62989814380dc836c9d5cac6bb893086ee488b3568bf4ecebeaa4f8f7f4",
+    "renderBSha": "0accb62989814380dc836c9d5cac6bb893086ee488b3568bf4ecebeaa4f8f7f4",
+    "byteIdentical": true,
+    "decodedMismatch": 0,
+    "maxDelta": 0
+  },
+  "pass": false,
+  "sourceSha": "d9ce9968039832e49dc2940d3645ee2ae1a79081946702048229f9538b46fb71",
+  "maskSha": "698ba2aa963dcb32c4f25706851605d80d5be586997594784e47e2069e38a544",
+  "rendererSha": "ef17feee1dad18a8fbe54dad80a45e504342995ec923c7cdd487d1530e68c439"
+}

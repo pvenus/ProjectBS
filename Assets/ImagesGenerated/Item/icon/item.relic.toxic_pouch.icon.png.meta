@@ -49,10 +49,10 @@ TextureImporter:
   cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: 1
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +63,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -87,7 +87,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -100,10 +100,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -131,10 +131,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_0
       rect:
         serializedVersion: 2
-        x: 76
+        x: 31
         y: 0
-        width: 1117
-        height: 1224
+        width: 457
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_1
       rect:
         serializedVersion: 2
-        x: 159
-        y: 552
-        width: 9
-        height: 13
+        x: 64
+        y: 225
+        width: 5
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_2
       rect:
         serializedVersion: 2
-        x: 167
-        y: 554
-        width: 8
-        height: 9
+        x: 68
+        y: 226
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_3
       rect:
         serializedVersion: 2
-        x: 1149
-        y: 417
-        width: 20
-        height: 64
+        x: 469
+        y: 170
+        width: 9
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_4
       rect:
         serializedVersion: 2
-        x: 78
-        y: 377
-        width: 16
-        height: 35
+        x: 31
+        y: 153
+        width: 8
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +241,10 @@ TextureImporter:
       name: item.relic.toxic_pouch.icon_5
       rect:
         serializedVersion: 2
-        x: 1105
-        y: 288
-        width: 90
-        height: 111
+        x: 451
+        y: 117
+        width: 37
+        height: 46
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

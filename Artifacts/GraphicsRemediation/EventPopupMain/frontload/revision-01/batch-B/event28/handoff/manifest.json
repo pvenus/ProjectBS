@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.28.rockfall_scouts",
+  "nodeId":"node.act1.random_event.28.rockfall_scouts.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.28.rockfall_scouts.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event28-design-lock.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event28/candidates/event28-candidate-A.png","sha256":"5c45d5f4abc2b97ed79c39846dfa726cc9269bc344d9f15f204ef6bfc4ed858e","disposition":"SELECTED","reason":"mirror is the single brightest point while falling rocks and route split remain clear"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event28/candidates/event28-candidate-B.png","sha256":"104fd5bab5562170e7943af2f94298d06eb8fc3055ce01aefe3b67c7bcaf703d","disposition":"REJECTED_PROVENANCE","reason":"sun competes with the signal mirror and breaks the single-brightest-point hierarchy"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event28/selected/event28-selected-A-960x1280.png","sha256":"dd27c5655ba1cc1eabb8c996e390e449816df5b3723612417eb8e53f1e608700","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event28/handoff/event28-selected-A-max512-A.png","sha256":"63e8f141e20833cb32cb2c3b0dc0f9882ee9b0bb8d08de8d25f4bfb7d689c358","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event28-selected-A-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

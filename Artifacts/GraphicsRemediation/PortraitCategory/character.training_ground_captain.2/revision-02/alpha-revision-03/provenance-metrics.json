@@ -1,0 +1,27 @@
+{
+  "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PortraitCategory/character.training_ground_captain.2/revision-02/selected/captain2-selected-B.png",
+  "source_sha256": "4f1d8f8bc096f0545d10257d80404613f2058b5e4c9f373fd3c2d3dd97c87de7",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "trimap_values": {
+    "0": 1096404,
+    "128": 28346,
+    "255": 448114
+  },
+  "unknown_band_nominal_px": 2,
+  "unknown_band_bounds_px": [
+    1,
+    3
+  ],
+  "method": "versioned human-authored tight body contour + separate sword contour + explicit leg BG island; 5px centered L8 edge; local inward RGB extrapolation radius<=3",
+  "correction_reason": "remove broad former-matte enclosure from coarse revision02 contour",
+  "outputs": {
+    "manual-contour.svg": "82346fad8dba83b477201c8f540571983347f108f62cb1e3eac81d4979aa5adb",
+    "manual-trimap.png": "94c5e030ba64dd6c02933d3ccad2bd3f3b9a4afa1194639c114ec6264e985332",
+    "final-selected-B-alpha.png": "c5d8bcdf0c395d893df795ccf8a3fadca8fe75d0b17e74233f156f1c57b4db2b",
+    "alpha-mask.png": "94c5e030ba64dd6c02933d3ccad2bd3f3b9a4afa1194639c114ec6264e985332",
+    "contact-neutral-dark.png": "bdb3818d0e170d3a9b5a5ed415fba27b29277f4a81d79557fd6be1c5f46aaf98"
+  }
+}

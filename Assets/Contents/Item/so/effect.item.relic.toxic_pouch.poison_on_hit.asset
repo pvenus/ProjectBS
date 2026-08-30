@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: effect.item.relic.toxic_pouch.poison_on_hit
   icon: {fileID: 0}
   config:
-    rid: 5601486782127931997
+    rid: 5601486797039992912
   references:
     version: 2
     RefIds:
-    - rid: 5601486782127931997
+    - rid: 5601486797039992912
       type: {class: OnHitPoisonDotEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chancePercent: 15

@@ -1,0 +1,32 @@
+{
+  "candidate": "B-negative_space_fan",
+  "versions": {
+    "node": "v24.19.0",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "rsvg": "2.62.91",
+    "png": "1.6.58"
+  },
+  "locale": "C",
+  "timezone": "UTC",
+  "concurrency": 1,
+  "network": false,
+  "fontDiscovery": false,
+  "random": false,
+  "sourceSha": "33249e4e11dae67f34b1936edeab5dce81ef8b162312df921aa0bc103bc7c662",
+  "maskSha": "ccb02821528b382d079f6c56e94d5c12368c077866d5e30435525cb632018e94",
+  "rendererSha": "2372869dadc8f069233ee6837be32cdfa28c37773a65dcf298cb8d7a83fa86be",
+  "commandDigest": "4cc0ba69e320767710dc1c29e78bc7932fea4e04c0ed3d555e9c2ee3e8824aef",
+  "outputSha": "352fcbd5bb62033a830fd17b9b3a9b714c92009078e2a837472b7d766302cc1d",
+  "gate": {
+    "rgba": true,
+    "cornersZero": true,
+    "residueZero": true,
+    "bbox": false,
+    "margins": true,
+    "palette": false,
+    "outOfPalette": true,
+    "partialAlpha": true
+  },
+  "pass": false
+}

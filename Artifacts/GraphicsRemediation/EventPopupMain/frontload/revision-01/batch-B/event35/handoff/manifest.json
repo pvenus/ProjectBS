@@ -1,0 +1,14 @@
+{
+  "status":"SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId":"event.act1.random_event.35.ownerless_wage_sack",
+  "nodeId":"node.act1.random_event.35.ownerless_wage_sack.intro",
+  "canonicalTarget":"Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.35.ownerless_wage_sack.intro.main.png",
+  "briefAuthority":"/private/tmp/projectbs-current-byeori-event35-design-lock.txt",
+  "candidates":[
+    {"id":"A","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event35/candidates/event35-candidate-A.png","sha256":"8cd6dc31baf69cd6ab1879545c60b4b229343a44f4ee5b0ead6bae251286c6d1","disposition":"REJECTED_PROVENANCE","reason":"visible wage tokens over-preview the monetary result"},
+    {"id":"B","path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event35/candidates/event35-candidate-B.png","sha256":"68c0bdedb933224f2b1d2271c29c6a0d495cf94432d5f94ac573c8c335466c33","disposition":"SELECTED","reason":"shadowed sack interior, blank roster, two halted hands and empty work yard preserve unresolved ownership without displaying money"}
+  ],
+  "selected960x1280":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event35/selected/event35-selected-B-960x1280.png","sha256":"c167c7eca2b511dde52b18a3414eff6a552a0ac09cbf70fe2a825df6e89b5d64","format":"PNG RGB","dimensions":"960x1280"},
+  "max512Reproduction":{"path":"Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event35/handoff/event35-selected-B-max512-A.png","sha256":"be98b989445633c4e3960026880292356c1542fd7f1028c9b1dca4e94633a733","dimensions":"384x512","algorithm":"Sharp Lanczos3 RGB opaque PNG compression9 adaptiveFiltering0","renderB":"event35-selected-B-max512-B.png","byteIdentity":true},
+  "forbiddenWrites":{"canonical":0,"meta":0,"guid":0,"staging":0,"unity":0}
+}

@@ -1,0 +1,787 @@
+{
+  "status": "PASS",
+  "tool": "node v24.19.0; sharp 0.35.4; libvips 8.18.6",
+  "command": "sRGB->linear; premultiply; separable Lanczos3; unpremultiply; sRGB RGBA8; alpha0 RGB zero",
+  "assets": [
+    {
+      "assetId": "skill.character.jihan.1.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y1/skill.character.jihan.1.basic_attack.basic_attack.icon/alpha/skill.character.jihan.1.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "6a773f9bdabf09b9e97bca76d0a8ba87db1ffc9641b6498173a8acfa2deafb85",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1435825,
+        "partial": 12788,
+        "opaque": 123903,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          300,
+          309,
+          953,
+          953
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.1.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "ac241c2dab2a60351df17c462df44fb6abcd903912a389896cf54d5fed84c7b0",
+      "renderASha256": "ac241c2dab2a60351df17c462df44fb6abcd903912a389896cf54d5fed84c7b0",
+      "renderBSha256": "ac241c2dab2a60351df17c462df44fb6abcd903912a389896cf54d5fed84c7b0",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 231958,
+        "partial": 15359,
+        "opaque": 14827,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          122,
+          126,
+          389,
+          389
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.2.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y2/skill.character.jihan.2.basic_attack.basic_attack.icon/alpha/skill.character.jihan.2.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "003cfcb11d453b074263cdab5ac34c2f19f7b09159149a85721926b05f551008",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1145588,
+        "partial": 25116,
+        "opaque": 401812,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          99,
+          92,
+          1175,
+          1162
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.2.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "f9a66da051f21a688a00daf1bbf06aa1bcf7e43a2591ae1f4f86faa10c19ab82",
+      "renderASha256": "f9a66da051f21a688a00daf1bbf06aa1bcf7e43a2591ae1f4f86faa10c19ab82",
+      "renderBSha256": "f9a66da051f21a688a00daf1bbf06aa1bcf7e43a2591ae1f4f86faa10c19ab82",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 177924,
+        "partial": 33086,
+        "opaque": 51134,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          40,
+          37,
+          479,
+          474
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.3.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y3/skill.character.jihan.3.basic_attack.basic_attack.icon/alpha/skill.character.jihan.3.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "6bec50abdb52e992fa34e1589419f8b31bfca44b41ff1d45cf6c81906da506be",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1212090,
+        "partial": 46072,
+        "opaque": 314354,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          145,
+          140,
+          1123,
+          1104
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.3.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "46a156a5e74e85a0a30e65fae1d1a792066216f3bd694b2d77497f4af96a2ed5",
+      "renderASha256": "46a156a5e74e85a0a30e65fae1d1a792066216f3bd694b2d77497f4af96a2ed5",
+      "renderBSha256": "46a156a5e74e85a0a30e65fae1d1a792066216f3bd694b2d77497f4af96a2ed5",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 189751,
+        "partial": 34940,
+        "opaque": 37453,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          59,
+          57,
+          458,
+          450
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.1.passive_1.blood_qi_circulation.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y1/skill.character.jihan.1.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "sourceSha256": "d2591fa868cad78f0193ca127e24d1c8becd0bf8c9fe47a43c84173727bb7698",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1329396,
+        "partial": 19385,
+        "opaque": 223735,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          230,
+          214,
+          1020,
+          1039
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.1.passive_1.blood_qi_circulation.icon.512.png",
+      "outputSha256": "49e2568ec58258be237c8890e9c1e2669b4512047e255aa59f8a47061dd292c7",
+      "renderASha256": "49e2568ec58258be237c8890e9c1e2669b4512047e255aa59f8a47061dd292c7",
+      "renderBSha256": "49e2568ec58258be237c8890e9c1e2669b4512047e255aa59f8a47061dd292c7",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 213123,
+        "partial": 20140,
+        "opaque": 28881,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          93,
+          87,
+          416,
+          424
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.2.passive_1.blood_qi_circulation.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y2/skill.character.jihan.2.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "sourceSha256": "a824279286cfd24cc2e7ef08e480b403a98ed12d48bf831fc43ce8363cb02664",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1397419,
+        "partial": 22127,
+        "opaque": 152970,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          164,
+          332,
+          1091,
+          985
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.2.passive_1.blood_qi_circulation.icon.512.png",
+      "outputSha256": "96df54a3bcaaeb9d74f3af449f52c67b1ef78ca3412fa99fb58e3a0f572b2763",
+      "renderASha256": "96df54a3bcaaeb9d74f3af449f52c67b1ef78ca3412fa99fb58e3a0f572b2763",
+      "renderBSha256": "96df54a3bcaaeb9d74f3af449f52c67b1ef78ca3412fa99fb58e3a0f572b2763",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 225523,
+        "partial": 18494,
+        "opaque": 18127,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          67,
+          137,
+          445,
+          401
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.3.passive_1.blood_qi_circulation.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y3/skill.character.jihan.3.passive_1.blood_qi_circulation.icon/alpha/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.selected-alpha.png",
+      "sourceSha256": "41c83342702eb0e5bdb5eafd4a96a8867f04b5db0c4b6743e61d09351cb1e916",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1242990,
+        "partial": 20591,
+        "opaque": 308935,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          206,
+          174,
+          1059,
+          1037
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.3.passive_1.blood_qi_circulation.icon.512.png",
+      "outputSha256": "83c31712679f4eceb11861b3d6121213d44ee2b3aae2ab7dbba6e26defdf9158",
+      "renderASha256": "83c31712679f4eceb11861b3d6121213d44ee2b3aae2ab7dbba6e26defdf9158",
+      "renderBSha256": "83c31712679f4eceb11861b3d6121213d44ee2b3aae2ab7dbba6e26defdf9158",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 198629,
+        "partial": 22652,
+        "opaque": 40863,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          84,
+          71,
+          432,
+          423
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.1.active_1.medicine_prescription.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y1/skill.character.jihan.1.active_1.medicine_prescription.icon/alpha/skill.character.jihan.1.active_1.medicine_prescription.icon.selected-alpha.png",
+      "sourceSha256": "432234c48707ff67a082bc25529d2445880373704358890d72c0b71d576ff51f",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1424425,
+        "partial": 13070,
+        "opaque": 135021,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          204,
+          195,
+          1004,
+          1052
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.1.active_1.medicine_prescription.icon.512.png",
+      "outputSha256": "2592e2d7c0dac48d8bd886fc39b76a9aed2d9346be4c7972f79614828c5d8021",
+      "renderASha256": "2592e2d7c0dac48d8bd886fc39b76a9aed2d9346be4c7972f79614828c5d8021",
+      "renderBSha256": "2592e2d7c0dac48d8bd886fc39b76a9aed2d9346be4c7972f79614828c5d8021",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 231980,
+        "partial": 14144,
+        "opaque": 16020,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          83,
+          79,
+          410,
+          429
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.2.active_1.medicine_prescription.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y2/skill.character.jihan.2.active_1.medicine_prescription.icon/alpha/skill.character.jihan.2.active_1.medicine_prescription.icon.selected-alpha.png",
+      "sourceSha256": "732929a0cdbba3f931b825ad67edcdb9562ce20dc3df54bf5edec310ecd26153",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1281979,
+        "partial": 21116,
+        "opaque": 269421,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          227,
+          127,
+          1116,
+          1154
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.2.active_1.medicine_prescription.icon.512.png",
+      "outputSha256": "84aa3c35973d939c1a3e9c76d513effc674aa35512333ca1c6f609cba7f730c2",
+      "renderASha256": "84aa3c35973d939c1a3e9c76d513effc674aa35512333ca1c6f609cba7f730c2",
+      "renderBSha256": "84aa3c35973d939c1a3e9c76d513effc674aa35512333ca1c6f609cba7f730c2",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 202815,
+        "partial": 27293,
+        "opaque": 32036,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          92,
+          52,
+          455,
+          471
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.3.active_1.medicine_prescription.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y3/skill.character.jihan.3.active_1.medicine_prescription.icon/alpha/skill.character.jihan.3.active_1.medicine_prescription.icon.selected-alpha.png",
+      "sourceSha256": "4a49a84198b2a2bbf391d3acb454732f1bd4ab7d2a3d8a3b4980f902efebc000",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1212454,
+        "partial": 89922,
+        "opaque": 270140,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          147,
+          135,
+          1092,
+          1108
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.3.active_1.medicine_prescription.icon.512.png",
+      "outputSha256": "b873b44dd5a4c8baf673dd4786d2f833f1ba04ad45988b09efa98145be14c476",
+      "renderASha256": "b873b44dd5a4c8baf673dd4786d2f833f1ba04ad45988b09efa98145be14c476",
+      "renderBSha256": "b873b44dd5a4c8baf673dd4786d2f833f1ba04ad45988b09efa98145be14c476",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 188410,
+        "partial": 43774,
+        "opaque": 29960,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          60,
+          55,
+          446,
+          452
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.2.active_2.ten_tonic_prescription.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y2/skill.character.jihan.2.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.2.active_2.ten_tonic_prescription.icon.selected-alpha.png",
+      "sourceSha256": "1109b58c5267e34c8600dc93a6731298de19e57d9890fd015685bb988673ec48",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1254941,
+        "partial": 64605,
+        "opaque": 252970,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          126,
+          135,
+          1129,
+          1120
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.2.active_2.ten_tonic_prescription.icon.512.png",
+      "outputSha256": "f8ec97913bb74ecdfa31fbdca3f69b54ead7971106b55e53725aaedd293b938d",
+      "renderASha256": "f8ec97913bb74ecdfa31fbdca3f69b54ead7971106b55e53725aaedd293b938d",
+      "renderBSha256": "f8ec97913bb74ecdfa31fbdca3f69b54ead7971106b55e53725aaedd293b938d",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 205766,
+        "partial": 18109,
+        "opaque": 38269,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          51,
+          55,
+          461,
+          457
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.3.active_2.ten_tonic_prescription.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y3/skill.character.jihan.3.active_2.ten_tonic_prescription.icon/alpha/skill.character.jihan.3.active_2.ten_tonic_prescription.icon.selected-alpha.png",
+      "sourceSha256": "1420ef780e65cb7a94ccdc2c33821df2cf5760cd0643cd09a2c8424e4ccab5df",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1077903,
+        "partial": 125254,
+        "opaque": 369359,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          133,
+          116,
+          1136,
+          1118
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.3.active_2.ten_tonic_prescription.icon.512.png",
+      "outputSha256": "a21961782c43e536f37bc174585c5eaa0ad3d235f11cfd8c52f91ef2505b23c8",
+      "renderASha256": "a21961782c43e536f37bc174585c5eaa0ad3d235f11cfd8c52f91ef2505b23c8",
+      "renderBSha256": "a21961782c43e536f37bc174585c5eaa0ad3d235f11cfd8c52f91ef2505b23c8",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 173962,
+        "partial": 34640,
+        "opaque": 53542,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          54,
+          51,
+          463,
+          456
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.jihan.3.active_3.divine_acupuncture.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/Y3/skill.character.jihan.3.active_3.divine_acupuncture.icon/alpha/skill.character.jihan.3.active_3.divine_acupuncture.icon.selected-alpha.png",
+      "sourceSha256": "ceefe9567ecfd377e8b1e97f3a3d60cb64ed28d9accff84a20f391ed6e2f5897",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1317035,
+        "partial": 105381,
+        "opaque": 150100,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          207,
+          133,
+          1046,
+          1135
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Jihan/grade-evolution/revision-01/technical-t0-512/skill.character.jihan.3.active_3.divine_acupuncture.icon.512.png",
+      "outputSha256": "01538a574e68cbc75791d255be994916ac73f50f3266f0b7d630ac1975565713",
+      "renderASha256": "01538a574e68cbc75791d255be994916ac73f50f3266f0b7d630ac1975565713",
+      "renderBSha256": "01538a574e68cbc75791d255be994916ac73f50f3266f0b7d630ac1975565713",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 213697,
+        "partial": 28782,
+        "opaque": 19665,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          84,
+          54,
+          425,
+          463
+        ]
+      }
+    }
+  ]
+}

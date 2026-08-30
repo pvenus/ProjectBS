@@ -1,0 +1,68 @@
+{
+  "input": {
+    "path": "Artifacts/GraphicsRemediation/P0/skill.character.yujin.1.active_1.multi_shot/pilot/revision-04/raster-batch-01/candidate-C/raw-candidate.png",
+    "sha256": "9ba740f2ca5d8b99e865848d02d25c4be3ea3ace4966f1cb1f93864fc8ea0a76",
+    "width": 1254,
+    "height": 1254,
+    "channels": 3,
+    "nominalMatte": "#D8D5CC"
+  },
+  "output": {
+    "path": "Artifacts/GraphicsRemediation/P0/skill.character.yujin.1.active_1.multi_shot/pilot/revision-05/selected-C-alpha-01/candidate/skill.character.yujin.1.active_1.multi_shot.icon.candidate-C-alpha-r1.png",
+    "width": 1254,
+    "height": 1254,
+    "channels": 4,
+    "sha256": "61300ca764b18d637bf68036ef95b6d3f9eaa97d84b7bdd183e4495e3ad11721"
+  },
+  "algorithm": {
+    "backgroundModel": "quadratic RGB surface fitted from 48px border sampled every 2px",
+    "alphaSignal": "max(RGB distance, 1.35*luminance distance)",
+    "smoothstep": [
+      7.5,
+      30
+    ],
+    "borderClearPx": 4,
+    "authorizedCorrection1": "x<88 and alpha<128 => alpha0; no RGB/other-edge change",
+    "edgeDecontamination": "inverse composite against fitted local matte for 0<alpha<255",
+    "alphaZeroRgb": "forced 0,0,0"
+  },
+  "alpha": {
+    "visiblePixelsAlphaGe16": 244253,
+    "opaquePixels": 223822,
+    "partialPixelsAlpha1To254": 27908,
+    "alphaZeroRgbResiduePixels": 0,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "bboxAlphaGe16": {
+    "minX": 88,
+    "minY": 157,
+    "maxX": 1162,
+    "maxY": 1025,
+    "width": 1075,
+    "height": 869,
+    "widthPct": 85.726,
+    "heightPct": 69.298,
+    "marginsPct": {
+      "left": 7.018,
+      "right": 7.257,
+      "top": 12.52,
+      "bottom": 18.182
+    }
+  },
+  "identity": {
+    "foregroundOpaqueRgbMismatchPixels": 0,
+    "edgeDecontaminationPixels": 27908,
+    "maxEdgeRgbDelta": 214
+  },
+  "reproduction": {
+    "renderCount": 2,
+    "firstSha256": "61300ca764b18d637bf68036ef95b6d3f9eaa97d84b7bdd183e4495e3ad11721",
+    "secondSha256": "61300ca764b18d637bf68036ef95b6d3f9eaa97d84b7bdd183e4495e3ad11721",
+    "shaIdentity": true
+  }
+}

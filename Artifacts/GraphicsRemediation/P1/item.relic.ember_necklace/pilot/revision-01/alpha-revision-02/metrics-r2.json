@@ -1,0 +1,49 @@
+{
+  "unit": "item.relic.ember_necklace.alpha-r2",
+  "method": "manual trimap; nearest sure-foreground RGB extrapolation; nearest FG/BG Euclidean-distance alpha within unknown only",
+  "source": "Artifacts/GraphicsRemediation/P1/item.relic.ember_necklace/pilot/revision-01/selected/item.relic.ember_necklace.icon.selected-C.png",
+  "sourceSha256": "cd2b6ad090db36fcd969f4a3fe0ae385cf2d1ab8b5489b4123d3b442289dbd68",
+  "trimap": "Artifacts/GraphicsRemediation/P1/item.relic.ember_necklace/pilot/revision-01/alpha-revision-02/manual-trimap.png",
+  "trimapSha256": "41fe7be0eb1c0ae38aca11ed20ef0a8e7caef949e23ff2e09129586f0e75ddfe",
+  "trimapCounts": {
+    "bg": 1340989,
+    "unknown": 30332,
+    "fg": 201195
+  },
+  "unknownSearchMaxRadius": 18,
+  "output": "Artifacts/GraphicsRemediation/P1/item.relic.ember_necklace/pilot/revision-01/alpha-revision-02/item.relic.ember_necklace.icon.selected-C-alpha-r2.png",
+  "outputSha256": "48cd32029de8bf29ada1261c727bf3e5a7e97ccea74fe4c8ce57f9f75e254435",
+  "renderASha256": "48cd32029de8bf29ada1261c727bf3e5a7e97ccea74fe4c8ce57f9f75e254435",
+  "renderBSha256": "48cd32029de8bf29ada1261c727bf3e5a7e97ccea74fe4c8ce57f9f75e254435",
+  "decodedMismatch": 0,
+  "size": [
+    1254,
+    1254
+  ],
+  "rgba": true,
+  "residue": 0,
+  "corners": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "partial": 30332,
+  "opaque": 201195,
+  "bboxAlpha16": [
+    181,
+    200,
+    1056,
+    1089
+  ],
+  "sureForegroundRgbMismatch": 0,
+  "sureBackgroundNonzero": 0,
+  "globalDistanceMask": false,
+  "thresholdRelaxation": false,
+  "geometryTransform": false,
+  "contact": "Artifacts/GraphicsRemediation/P1/item.relic.ember_necklace/pilot/revision-01/alpha-revision-02/neutral-dark-contact-r2.png",
+  "contactSha256": "50bea1531a0a3561a829082ce25c4ff0b2708b173c37965586532369006fe522",
+  "canonicalWrite": false,
+  "unity": false,
+  "staging": false
+}

@@ -1,0 +1,30 @@
+{
+  "source": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/selected/character.training_ground_captain.2.portrait.selected-A.png",
+  "source_sha256": "905a1740936056a82a06d16334824b8740e776779bfdb7e2aa48dd37fb147221",
+  "output": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/alpha-revision-02/portrait-alpha-r1.png",
+  "output_sha256": "4c5d59c0e78e41cd766b59f2be3a11519972edd0a03023bbcbf2e4a3e352fcbc",
+  "mask": "Artifacts/GraphicsRemediation/P1/character.training_ground_captain.2/portrait/pilot/revision-01/alpha-revision-02/mask-r1.png",
+  "mask_sha256": "ab47daee67de0179af63825aeb43c14a399615a0936ca6632bbeea59a3d94fc9",
+  "size": [
+    1024,
+    1536
+  ],
+  "bbox_alpha16": [
+    61,
+    45,
+    846,
+    1487
+  ],
+  "corner_alpha": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "partial_alpha_pixels": 46034,
+  "transparent_rgb_residue": 0,
+  "opaque_rgb_mismatch": 0,
+  "erosion": 3,
+  "sword_restore": true,
+  "rule": "border-connected low-chroma beige matte; partial-edge-only decontamination; alpha0 RGB zero; optional canonical sword-corridor luminance restore"
+}

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.act1.random_event.24.herb_scent_empty_barracks.intro
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.act1.random_event.24.herb_scent_empty_barracks.intro
+  mainImage: {fileID: 21300000, guid: 2400d87fe43c4743937b09347f7f61aa, type: 3}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.act1.random_event.24.herb_scent_empty_barracks.share_medicine
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043225
+  - choiceId: choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig:
+      rid: 5601486867666043226
+  references:
+    version: 2
+    RefIds:
+    - rid: 5601486867666043225
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043227
+    - rid: 5601486867666043226
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486867666043228
+    - rid: 5601486867666043227
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.24.herb_scent_empty_barracks
+        nodeId: node.act1.random_event.24.herb_scent_empty_barracks.intro
+        sourcePopupId: node.act1.random_event.24.herb_scent_empty_barracks.intro
+        choiceId: choice.act1.random_event.24.herb_scent_empty_barracks.share_medicine
+        resultId: result.act1.random_event.24.herb_scent_empty_barracks.party_treated
+        reservationId: reservation.act1.chapter01.portfolio_b1.event24
+        operations:
+        - kind: 10
+          maxHpPercent: 20
+          nonlethal: 0
+          targetId: AliveParty
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}
+    - rid: 5601486867666043228
+      type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        schemaVersion: 1
+        eventId: event.act1.random_event.24.herb_scent_empty_barracks
+        nodeId: node.act1.random_event.24.herb_scent_empty_barracks.intro
+        sourcePopupId: node.act1.random_event.24.herb_scent_empty_barracks.intro
+        choiceId: choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine
+        resultId: result.act1.random_event.24.herb_scent_empty_barracks.medicine_preserved
+        reservationId: reservation.act1.chapter01.portfolio_b1.event24
+        operations:
+        - kind: 30
+          maxHpPercent: 0
+          nonlethal: 0
+          targetId: world_flag.act1.chapter01.barracks_medicine_preserved
+          snapshotId: 
+          count: 0
+          amount: 0
+          unique: 0
+          allowEffectiveZero: 0
+          selectionMode: 0
+          sourceEntitlementId: 
+          relic: {fileID: 0}
+          relicPool: {fileID: 0}
+          battle: {fileID: 0}

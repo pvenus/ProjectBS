@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "documentType": "randomGrowthEvent",
+  "contentContractVersion": "crying_bell_smithy_trial.v1",
+  "generatorVersion": "chapter1.random_growth_manifest.v1",
+  "poolId": "event_pool.act1.random_growth.cheongun_sangui",
+  "eventId": "event.act1.random_growth.01.crying_bell_smithy_trial",
+  "stageNodeId": "stage.act1.random_growth.01.crying_bell_smithy_trial",
+  "nodeId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+  "segmentId": "progress.segment.act1.chapter01.random_before_episode06",
+  "reservationId": "reservation.act1.chapter01.random_growth.before_episode06",
+  "poolMode": "PartyWide",
+  "pairedSectionIds": ["sec_ep_5_1_to_ep_6", "sec_ep_5_2_to_ep_6"],
+  "startNodeId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+  "mainImagePath": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_growth.01.crying_bell_smithy_trial.intro.main.png",
+  "mainImageSha256": "2733405c92fad4a474acffd6a765c0d039525d8090f412200a186a1e2b9bc3c8",
+  "presentationTextDigestKo": "13af056089beed858ed4856f604a45326875846df41332f8db64cfddbe59ea4d",
+  "presentationKo": {
+    "title": "우는 쇠종의 시련",
+    "discoveryBody": "사람 없는 대장간에서 쇠종이 낮게 흐느낀다.\n화덕 속 안전패는 아직 붉고, 집게를 대는 순간 불길이 일행 모두를 덮칠 듯하다.\n그러나 쇳소리 사이에는 전투의 호흡과 닮은 박자가 숨어 있다.",
+    "riskLabel": "달아오른 안전패를 꺼낸다",
+    "riskCostLine": "파티 전원: 최대 HP 10% 피해 (올림)",
+    "riskEligibilityLine": "전액을 지불한 뒤 모두 HP 1 이상 남아야 합니다.",
+    "riskRewardLine": "성공: 성장 정비 1회",
+    "declineLabel": "대장간을 떠난다",
+    "declineHelper": "피해 없음 · 성장 없음",
+    "confirmTitle": "시련을 감수하시겠습니까?",
+    "confirmBody": "표시된 HP 비용이 파티원 모두에게 적용됩니다.\n이후 무작위 성장 후보 중 하나를 선택합니다.",
+    "confirmCta": "시련을 감수한다",
+    "confirmCancelCta": "다시 생각한다",
+    "disabledInsufficientParty": "선택 불가 — 비용을 감당할 수 없는 파티원이 있습니다.",
+    "disabledInsufficientMemberTemplate": "필요 HP {cost} · 현재 HP {currentDisplay} · 지불 후 생존 불가",
+    "disabledNoCandidate": "선택 불가 — 강화 가능한 스킬이 없습니다.",
+    "disabledCapReached": "선택 불가 — 이번 장의 추가 성장을 모두 마쳤습니다.",
+    "disabledTechnical": "현재 파티 상태를 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.",
+    "revalidateCta": "다시 확인",
+    "riskSuccessBody": "집게가 안전패를 끌어내는 순간 불길이 치솟았다.\n화상을 견딘 일행은 쇠종과 망치가 맞물리는 박자에서\n전투의 새로운 호흡을 읽어 냈다.",
+    "riskSuccessStatus": "성장 기회가 준비되었습니다.",
+    "riskSuccessCta": "성장 정비로 이동",
+    "declineResultBody": "일행은 달아오른 안전패에서 손을 뗐다.\n뒤로 물러서자 쇠종은 한 번 길게 울었고,\n대장간은 다시 불길 속에 잠겼다.",
+    "declineResultStatus": "피해 없음 · 성장 없음",
+    "declineResultCta": "길을 계속 간다",
+    "transactionFailureBody": "시련의 결과를 확정하지 못했습니다.\n피해와 성장 기회는 적용되지 않았습니다.",
+    "transactionFailureHelper": "같은 선택으로 다시 시도할 수 있습니다.",
+    "transactionRetryCta": "다시 시도",
+    "growthAppliedFollowupTemplate": "{characterName}는 {skillName}을 불길과 쇳소리 속에서 익힌 호흡으로 가다듬었다."
+  },
+  "capPolicy": { "fixedApplied": 2, "randomApplied": 1, "totalApplied": 3 },
+  "nodes": [{
+    "nodeId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+    "nodeType": "PopupEvent",
+    "sourcePopupId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+    "choices": [
+      {
+        "choiceId": "choice.act1.random_growth.01.crying_bell_smithy_trial.take_heated_talisman",
+        "sourcePopupId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+        "isTerminal": false,
+        "disabledExecutorCallCount": 0,
+        "execution": {
+          "schemaVersion": 1, "executionType": "RandomGrowthRisk", "resultKind": "RiskSelected",
+          "successResultKind": "RiskGranted", "failureState": "RiskSelectedPendingRetry",
+          "contentContractVersion": "crying_bell_smithy_trial.v1",
+          "eventId": "event.act1.random_growth.01.crying_bell_smithy_trial",
+          "stageNodeId": "stage.act1.random_growth.01.crying_bell_smithy_trial",
+          "nodeId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+          "choiceId": "choice.act1.random_growth.01.crying_bell_smithy_trial.take_heated_talisman",
+          "segmentId": "progress.segment.act1.chapter01.random_before_episode06",
+          "reservationId": "reservation.act1.chapter01.random_growth.before_episode06",
+          "poolMode": "PartyWide",
+          "interactionReservation": {
+            "authority": "StageSession", "lifetime": "SessionOnly",
+            "stableKeyFields": ["runId", "stageGenerationId", "reservationId", "encounteredNodeInstanceId"],
+            "orderedStates": ["RiskSelected", "Applying", "RiskSelectedPendingRetry", "RiskGranted"],
+            "locksDecline": true, "blocksDuplicateConfirm": true, "mutationCountBeforeAtomicTransaction": 0
+          },
+          "costPolicy": { "type": "MaxHpPercentNonlethal", "rateBasisPoints": 1000, "rounding": "Ceil", "minimumRemainingHp": 1.0 },
+          "capPolicy": { "fixedApplied": 2, "randomApplied": 1, "totalApplied": 3 },
+          "growthGrant": 1, "rewards": []
+        },
+        "rewards": []
+      },
+      {
+        "choiceId": "choice.act1.random_growth.01.crying_bell_smithy_trial.leave_forge",
+        "sourcePopupId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+        "isTerminal": true,
+        "disabledExecutorCallCount": 0,
+        "execution": {
+          "schemaVersion": 1, "executionType": "RandomGrowthDecline", "resultKind": "Declined",
+          "contentContractVersion": "crying_bell_smithy_trial.v1",
+          "eventId": "event.act1.random_growth.01.crying_bell_smithy_trial",
+          "stageNodeId": "stage.act1.random_growth.01.crying_bell_smithy_trial",
+          "nodeId": "node.act1.random_growth.01.crying_bell_smithy_trial.intro",
+          "choiceId": "choice.act1.random_growth.01.crying_bell_smithy_trial.leave_forge",
+          "segmentId": "progress.segment.act1.chapter01.random_before_episode06",
+          "reservationId": "reservation.act1.chapter01.random_growth.before_episode06",
+          "poolMode": "PartyWide", "cost": 0, "growthGrant": 0, "rewards": []
+        },
+        "rewards": []
+      }
+    ]
+  }]
+}

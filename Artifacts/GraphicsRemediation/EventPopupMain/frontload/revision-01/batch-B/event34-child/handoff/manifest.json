@@ -1,0 +1,53 @@
+{
+  "status": "SELECTED_T0_HANDOFF_READY_NOT_CANONICAL",
+  "eventId": "event.act1.random_event.34.half_vein_map.followup.unstable_vein",
+  "nodeId": "node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro",
+  "sourcePopupId": "node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro",
+  "reservationId": "reservation.act1.chapter01.random_event.34.half_vein_map.followup.unstable_vein",
+  "canonicalTarget": "Assets/ImagesGenerated/Stage/popup_main/node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro.main.png",
+  "authority": {
+    "mainImageRequired": true,
+    "parentAliasAllowed": false,
+    "mustShow": ["same vein interior", "small falling stone dust", "ore sack", "open escape path"],
+    "forbidden": ["injury outcome preview", "Gold outcome preview", "parent popup alias"]
+  },
+  "candidates": [
+    {
+      "id": "A",
+      "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event34-child/candidates/event34-child-candidate-A.png",
+      "sha256": "39bc2793c11a22c7597627ead1cc49f1febb5d1b19e042088e4442ddb6cdcee7",
+      "disposition": "REJECTED_PROVENANCE_ONLY",
+      "reason": "falling debris dominates and the escape route is less immediately legible"
+    },
+    {
+      "id": "B",
+      "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event34-child/candidates/event34-child-candidate-B.png",
+      "sha256": "0c7f465920fb71f905f2d90915735cf5194b8d6e5e82b7b3922967e9fe0f5a83",
+      "disposition": "SELECTED",
+      "reason": "the vein interior, restrained falling dust, ore sack and open right-hand escape path remain distinct without previewing injury or reward"
+    }
+  ],
+  "selected960": {
+    "path": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event34-child/selected/event34-child-selected-B-960x1280.png",
+    "sha256": "c6d5702328e546f8288f4d3ccde1be2770a10e2a10dbbb5277f20f370e562bf1",
+    "dimensions": "960x1280",
+    "format": "PNG RGB8 opaque"
+  },
+  "deterministicMax512": {
+    "algorithm": "Sharp resize Lanczos3, removeAlpha, PNG compressionLevel9, adaptiveFiltering=false",
+    "dimensions": "384x512",
+    "renderAPath": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event34-child/handoff/event34-child-selected-B-max512-A.png",
+    "renderBPath": "Artifacts/GraphicsRemediation/EventPopupMain/frontload/revision-01/batch-B/event34-child/handoff/event34-child-selected-B-max512-B.png",
+    "sha256": "11c8385bfc2f204debfb72ca4f20432dde42d6640e5ad51b738c355bba1c87cb",
+    "byteIdentity": true
+  },
+  "mutationBoundary": {
+    "canonical": 0,
+    "meta": 0,
+    "guid": 0,
+    "staging": 0,
+    "unity": 0,
+    "parentRegeneration": 0,
+    "otherBatchBRegeneration": 0
+  }
+}

@@ -21,47 +21,53 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734796
+      rid: 5601486867666043171
   - choiceId: choice.act1.random_event.14.stone_laying_hen.expose_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734797
+      rid: 5601486867666043172
   - choiceId: choice.act1.random_event.14.stone_laying_hen.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734798
+      rid: 5601486867666043173
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734796
+    - rid: 5601486867666043171
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734799
-    - rid: 5601486783294734797
+          rid: 5601486867666043174
+    - rid: 5601486867666043172
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486783294734800
-    - rid: 5601486783294734798
+          rid: 5601486867666043175
+    - rid: 5601486867666043173
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734801
-    - rid: 5601486783294734799
+          rid: 5601486867666043176
+    - rid: 5601486867666043174
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734800
+    - rid: 5601486867666043175
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 6a920d4a7d1344cbfa0ceaf968938676, type: 2}
-    - rid: 5601486783294734801
+        eventId: 
+        nodeId: 
+        sourcePopupId: 
+        reservationId: 
+        choiceId: 
+        expectedVictoryResultId: 
+    - rid: 5601486867666043176
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

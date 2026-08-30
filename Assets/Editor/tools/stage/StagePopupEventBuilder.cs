@@ -88,18 +88,35 @@ namespace ResourceTools.Stage
             public ShopExecutionJson shop;
             public ShrineExecutionJson shrine;
             public CompleteEventExecutionJson completeEvent;
+            public PortfolioOutcomeExecutionJson portfolioOutcome;
         }
 
         [Serializable]
         private sealed class NextEventExecutionJson
         {
             public string nextPopupId;
+            public string eventId;
+            public string nodeId;
+            public string parentEventId;
+            public string parentNodeId;
+            public string parentChoiceId;
+            public string parentResultId;
+            public string parentReservationId;
+            public string childEventId;
+            public string childNodeId;
+            public string childReservationId;
         }
 
         [Serializable]
         private sealed class BattleExecutionJson
         {
             public string battleId;
+            public string eventId;
+            public string nodeId;
+            public string sourcePopupId;
+            public string reservationId;
+            public string choiceId;
+            public string expectedVictoryResultId;
         }
 
         [Serializable]
@@ -120,6 +137,38 @@ namespace ResourceTools.Stage
         [Serializable]
         private sealed class CompleteEventExecutionJson
         {
+        }
+
+        [Serializable]
+        private sealed class PortfolioOutcomeExecutionJson
+        {
+            public int schemaVersion;
+            public string eventId;
+            public string nodeId;
+            public string sourcePopupId;
+            public string choiceId;
+            public string resultId;
+            public string reservationId;
+            public List<PortfolioOutcomeOperationJson> operations;
+        }
+
+        [Serializable]
+        private sealed class PortfolioOutcomeOperationJson
+        {
+            public string kind;
+            public int maxHpPercent;
+            public bool nonlethal;
+            public string targetId;
+            public string snapshotId;
+            public int count;
+            public int amount;
+            public bool unique;
+            public bool allowEffectiveZero;
+            public string selectionMode;
+            public string sourceEntitlementId;
+            public string relicId;
+            public string relicPoolId;
+            public string battleId;
         }
 
         [Serializable]
@@ -405,6 +454,9 @@ namespace ResourceTools.Stage
                         choiceId),
                 ChoiceExecutionType.CompleteEvent =>
                     BuildCompleteEventExecutionData(),
+                ChoiceExecutionType.PortfolioOutcome =>
+                    BuildPortfolioOutcomeExecutionData(
+                        configJson.portfolioOutcome, nodeId, choiceId),
                 _ => throw CreateChoiceImportException(
                     "UNSUPPORTED_EXECUTION_TYPE",
                     nodeId,
@@ -423,9 +475,7 @@ namespace ResourceTools.Stage
             string nodeId,
             string choiceId)
         {
-            bool hasNextEventPayload =
-                !string.IsNullOrWhiteSpace(
-                    json.nextEvent?.nextPopupId);
+            bool hasNextEventPayload = HasNextEventPayload(json.nextEvent);
             bool hasBattlePayload =
                 !string.IsNullOrWhiteSpace(
                     json.battle?.battleId);
@@ -439,30 +489,42 @@ namespace ResourceTools.Stage
                     json.shrine?.configId)
                 || !string.IsNullOrWhiteSpace(
                     json.shrine?.godId);
+            bool hasPortfolioPayload = HasPortfolioPayload(json.portfolioOutcome);
 
             bool payloadMatches = executionType switch
             {
                 ChoiceExecutionType.NextEvent =>
                     !hasBattlePayload
                     && !hasShopPayload
-                    && !hasShrinePayload,
+                    && !hasShrinePayload
+                    && !hasPortfolioPayload,
                 ChoiceExecutionType.Battle =>
                     !hasNextEventPayload
                     && !hasShopPayload
-                    && !hasShrinePayload,
+                    && !hasShrinePayload
+                    && !hasPortfolioPayload,
                 ChoiceExecutionType.Shop =>
                     !hasNextEventPayload
                     && !hasBattlePayload
-                    && !hasShrinePayload,
+                    && !hasShrinePayload
+                    && !hasPortfolioPayload,
                 ChoiceExecutionType.Shrine =>
                     !hasNextEventPayload
                     && !hasBattlePayload
-                    && !hasShopPayload,
+                    && !hasShopPayload
+                    && !hasPortfolioPayload,
                 ChoiceExecutionType.CompleteEvent =>
                     !hasNextEventPayload
                     && !hasBattlePayload
                     && !hasShopPayload
-                    && !hasShrinePayload,
+                    && !hasShrinePayload
+                    && !hasPortfolioPayload,
+                ChoiceExecutionType.PortfolioOutcome =>
+                    !hasNextEventPayload
+                    && !hasBattlePayload
+                    && !hasShopPayload
+                    && !hasShrinePayload
+                    && hasPortfolioPayload,
                 _ => false
             };
 
@@ -474,6 +536,35 @@ namespace ResourceTools.Stage
                     choiceId,
                     $"{executionType} has a missing or conflicting payload.");
             }
+        }
+
+        private static bool HasPortfolioPayload(PortfolioOutcomeExecutionJson json)
+        {
+            return json != null
+                && (json.schemaVersion != 0
+                    || !string.IsNullOrWhiteSpace(json.eventId)
+                    || !string.IsNullOrWhiteSpace(json.nodeId)
+                    || !string.IsNullOrWhiteSpace(json.sourcePopupId)
+                    || !string.IsNullOrWhiteSpace(json.choiceId)
+                    || !string.IsNullOrWhiteSpace(json.resultId)
+                    || !string.IsNullOrWhiteSpace(json.reservationId)
+                    || json.operations?.Count > 0);
+        }
+
+        private static bool HasNextEventPayload(NextEventExecutionJson json)
+        {
+            return json != null
+                && (!string.IsNullOrWhiteSpace(json.nextPopupId)
+                    || !string.IsNullOrWhiteSpace(json.eventId)
+                    || !string.IsNullOrWhiteSpace(json.nodeId)
+                    || !string.IsNullOrWhiteSpace(json.parentEventId)
+                    || !string.IsNullOrWhiteSpace(json.parentNodeId)
+                    || !string.IsNullOrWhiteSpace(json.parentChoiceId)
+                    || !string.IsNullOrWhiteSpace(json.parentResultId)
+                    || !string.IsNullOrWhiteSpace(json.parentReservationId)
+                    || !string.IsNullOrWhiteSpace(json.childEventId)
+                    || !string.IsNullOrWhiteSpace(json.childNodeId)
+                    || !string.IsNullOrWhiteSpace(json.childReservationId));
         }
 
         private static ChoiceExecutionData BuildNextEventExecutionData(
@@ -499,7 +590,33 @@ namespace ResourceTools.Stage
             string nodeId,
             string choiceId)
         {
-            if (string.IsNullOrWhiteSpace(json?.nextPopupId))
+            string[] typedIdentity =
+            {
+                json?.parentEventId,
+                json?.parentNodeId,
+                json?.parentChoiceId,
+                json?.parentResultId,
+                json?.parentReservationId,
+                json?.childEventId,
+                json?.childNodeId,
+                json?.childReservationId
+            };
+            int typedCount = typedIdentity.Count(
+                value => !string.IsNullOrWhiteSpace(value));
+            if (typedCount != 0 && typedCount != typedIdentity.Length)
+            {
+                throw CreateChoiceImportException(
+                    "NEXT_EVENT_CONTINUATION_IDENTITY_PARTIAL",
+                    nodeId,
+                    choiceId,
+                    "Typed NextEvent continuation identity must be all-empty or complete.");
+            }
+
+            bool hasTypedIdentity = typedCount == typedIdentity.Length;
+            string nextPopupId = hasTypedIdentity
+                ? json.childNodeId
+                : json?.nextPopupId;
+            if (string.IsNullOrWhiteSpace(nextPopupId))
             {
                 throw CreateChoiceImportException(
                     "NEXT_EVENT_ID_REQUIRED",
@@ -509,7 +626,7 @@ namespace ResourceTools.Stage
             }
 
             ScriptableObject nextEvent = ResolveNextEvent(
-                json.nextPopupId,
+                nextPopupId,
                 result,
                 nodeId,
                 choiceId);
@@ -524,6 +641,17 @@ namespace ResourceTools.Stage
             }
 
             data.nextEvent = popupEvent;
+            if (hasTypedIdentity)
+            {
+                data.parentEventId = json.parentEventId;
+                data.parentNodeId = json.parentNodeId;
+                data.parentChoiceId = json.parentChoiceId;
+                data.parentResultId = json.parentResultId;
+                data.parentReservationId = json.parentReservationId;
+                data.childEventId = json.childEventId;
+                data.childNodeId = json.childNodeId;
+                data.childReservationId = json.childReservationId;
+            }
         }
 
         private static ChoiceExecutionData BuildBattleExecutionData(
@@ -561,6 +689,12 @@ namespace ResourceTools.Stage
             data.battle =
                 StageChoiceExecutionAssetResolver.ResolveBattle(
                     json.battleId);
+            data.eventId = json.eventId;
+            data.nodeId = json.nodeId;
+            data.sourcePopupId = json.sourcePopupId;
+            data.reservationId = json.reservationId;
+            data.choiceId = json.choiceId;
+            data.expectedVictoryResultId = json.expectedVictoryResultId;
         }
 
         private static ChoiceExecutionData BuildShopExecutionData(
@@ -660,6 +794,70 @@ namespace ResourceTools.Stage
         private static ChoiceExecutionData BuildCompleteEventExecutionData()
         {
             return new CompleteEventExecutionData();
+        }
+
+        private static ChoiceExecutionData BuildPortfolioOutcomeExecutionData(
+            PortfolioOutcomeExecutionJson json,
+            string nodeId,
+            string choiceId)
+        {
+            if (json == null) throw CreateChoiceImportException(
+                "PORTFOLIO_OUTCOME_REQUIRED", nodeId, choiceId,
+                "portfolioOutcome is required.");
+            PortfolioOutcomeExecutionData data = new()
+            {
+                schemaVersion = json.schemaVersion,
+                eventId = json.eventId,
+                nodeId = json.nodeId,
+                sourcePopupId = json.sourcePopupId,
+                choiceId = json.choiceId,
+                resultId = json.resultId,
+                reservationId = json.reservationId,
+                operations = new List<PortfolioOutcomeOperationData>()
+            };
+            foreach (PortfolioOutcomeOperationJson source in json.operations
+                         ?? new List<PortfolioOutcomeOperationJson>())
+            {
+                if (source == null || !Enum.TryParse(source.kind, true,
+                        out PortfolioOutcomeOperationKind kind))
+                    throw CreateChoiceImportException("PORTFOLIO_OUTCOME_KIND_INVALID",
+                        nodeId, choiceId, $"Unsupported operation kind '{source?.kind}'.");
+                PortfolioOutcomeOperationData operation = new()
+                {
+                    kind = kind,
+                    maxHpPercent = source.maxHpPercent,
+                    nonlethal = source.nonlethal,
+                    targetId = source.targetId,
+                    snapshotId = source.snapshotId,
+                    count = source.count,
+                    amount = source.amount,
+                    unique = source.unique,
+                    allowEffectiveZero = source.allowEffectiveZero,
+                    sourceEntitlementId = source.sourceEntitlementId
+                };
+                if (!string.IsNullOrWhiteSpace(source.selectionMode)
+                    && !Enum.TryParse(source.selectionMode, true,
+                        out operation.selectionMode))
+                    throw CreateChoiceImportException(
+                        "PORTFOLIO_OUTCOME_ROUTE_SELECTION_INVALID",
+                        nodeId, choiceId,
+                        $"Unsupported route selection mode '{source.selectionMode}'.");
+                if (!string.IsNullOrWhiteSpace(source.relicId))
+                    operation.relic = StageChoiceExecutionAssetResolver.ResolveRelic(source.relicId);
+                if (!string.IsNullOrWhiteSpace(source.relicPoolId))
+                    operation.relicPool = StageChoiceExecutionAssetResolver.ResolveRelicPool(source.relicPoolId);
+                if (!string.IsNullOrWhiteSpace(source.battleId))
+                    operation.battle = StageChoiceExecutionAssetResolver.ResolveBattle(source.battleId);
+                data.operations.Add(operation);
+            }
+            List<string> errors = ChoiceExecutionConfigValidator.Validate(new ChoiceExecutionConfig
+            {
+                executionType = ChoiceExecutionType.PortfolioOutcome,
+                data = data
+            });
+            if (errors.Count > 0) throw CreateChoiceImportException(
+                errors[0], nodeId, choiceId, string.Join(";", errors));
+            return data;
         }
 
         private static Exception CreateChoiceImportException(

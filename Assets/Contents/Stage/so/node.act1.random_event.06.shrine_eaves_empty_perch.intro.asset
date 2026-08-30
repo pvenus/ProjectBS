@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734742
+      rid: 5601486867666043117
   - choiceId: choice.act1.random_event.06.shrine_eaves_empty_perch.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734743
+      rid: 5601486867666043118
   - choiceId: choice.act1.random_event.06.shrine_eaves_empty_perch.seal_or_destroy_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734744
+      rid: 5601486867666043119
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734742
+    - rid: 5601486867666043117
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734745
-    - rid: 5601486783294734743
+          rid: 5601486867666043120
+    - rid: 5601486867666043118
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734746
-    - rid: 5601486783294734744
+          rid: 5601486867666043121
+    - rid: 5601486867666043119
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734747
-    - rid: 5601486783294734745
+          rid: 5601486867666043122
+    - rid: 5601486867666043120
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734746
+    - rid: 5601486867666043121
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734747
+    - rid: 5601486867666043122
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

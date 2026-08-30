@@ -7,6 +7,38 @@ using UnityEngine;
 namespace Stage
 {
     [Serializable]
+    public readonly struct StageRouteCommitSnapshot
+    {
+        public StageRouteCommitSnapshot(int revision, string sourceNodeId, string targetNodeId)
+        {
+            Revision = revision;
+            SourceNodeId = sourceNodeId ?? string.Empty;
+            TargetNodeId = targetNodeId ?? string.Empty;
+        }
+
+        public int Revision { get; }
+        public string SourceNodeId { get; }
+        public string TargetNodeId { get; }
+    }
+
+    [Serializable]
+    public sealed class StageRouteCandidate
+    {
+        public string nodeId;
+        public string purposeId;
+        public int remainingNodeCount;
+    }
+
+    [Serializable]
+    public sealed class StageRouteCandidateSnapshot
+    {
+        public string snapshotId;
+        public string sourceNodeId;
+        public int graphRevision;
+        public List<StageRouteCandidate> candidates = new();
+    }
+
+    [Serializable]
     public class StageRuntimeData
     {
         [Header("Stage")]

@@ -1,0 +1,852 @@
+{
+  "status": "PASS",
+  "tool": "node v24.19.0; sharp 0.35.4; libvips 8.18.6",
+  "command": "sRGB->linear; premultiply; separable Lanczos3; unpremultiply; sRGB RGBA8; alpha0 RGB zero",
+  "assets": [
+    {
+      "assetId": "skill.character.seojin.1.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y1/skill.character.seojin.1.basic_attack.basic_attack.icon/alpha/skill.character.seojin.1.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "8ca46e445c93c5c4877dfff111c30aaa8e0adcfe40f916a2e160abb46111c72e",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1311551,
+        "partial": 79355,
+        "opaque": 181610,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          135,
+          200,
+          1138,
+          946
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.1.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "da0b5bc2378f9e9aca83b23250fda83a7bc903bfa9cca4bb85387d24dd9bd027",
+      "renderASha256": "da0b5bc2378f9e9aca83b23250fda83a7bc903bfa9cca4bb85387d24dd9bd027",
+      "renderBSha256": "da0b5bc2378f9e9aca83b23250fda83a7bc903bfa9cca4bb85387d24dd9bd027",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 215508,
+        "partial": 20645,
+        "opaque": 25991,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          55,
+          81,
+          464,
+          386
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.2.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y2/skill.character.seojin.2.basic_attack.basic_attack.icon/alpha/skill.character.seojin.2.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "c664eef67cddca56e41c2be3bfbe10852c21d964dd9432c3070922b49ea53a93",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1377006,
+        "partial": 29014,
+        "opaque": 166496,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          128,
+          266,
+          1131,
+          982
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.2.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "28556c9189c0044e823e3da0708a1ed30faddb01ef7e58fe54a7c41b81236cf0",
+      "renderASha256": "28556c9189c0044e823e3da0708a1ed30faddb01ef7e58fe54a7c41b81236cf0",
+      "renderBSha256": "28556c9189c0044e823e3da0708a1ed30faddb01ef7e58fe54a7c41b81236cf0",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 227942,
+        "partial": 8973,
+        "opaque": 25229,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          52,
+          108,
+          462,
+          401
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.basic_attack.basic_attack.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.basic_attack.basic_attack.icon/alpha/skill.character.seojin.3.basic_attack.basic_attack.icon.selected-alpha.png",
+      "sourceSha256": "ff7a007a8fe8351dd8e5b444c6ca9629e3a408dc528b6a154d451a859a828246",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1342656,
+        "partial": 33329,
+        "opaque": 196531,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          135,
+          332,
+          1138,
+          1086
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.basic_attack.basic_attack.icon.512.png",
+      "outputSha256": "778e867e513d5aa4574008159a5caaa234ad481ac158e15e8164f4aa78d14a10",
+      "renderASha256": "778e867e513d5aa4574008159a5caaa234ad481ac158e15e8164f4aa78d14a10",
+      "renderBSha256": "778e867e513d5aa4574008159a5caaa234ad481ac158e15e8164f4aa78d14a10",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 221695,
+        "partial": 10914,
+        "opaque": 29535,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          55,
+          135,
+          464,
+          443
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.1.passive_1.indomitable.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y1/skill.character.seojin.1.passive_1.indomitable.icon/alpha/skill.character.seojin.1.passive_1.indomitable.icon.selected-alpha.png",
+      "sourceSha256": "36d6510e4e78b841a5e21dfd16175c7e0e0d2cc2c7d5ed54f5a6179b785c273c",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1283940,
+        "partial": 11951,
+        "opaque": 276625,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          240,
+          201,
+          1082,
+          1078
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.1.passive_1.indomitable.icon.512.png",
+      "outputSha256": "2a93ded45cd729840bc01534fc3357f234d542da1723d686c2ade5dfcb653be3",
+      "renderASha256": "2a93ded45cd729840bc01534fc3357f234d542da1723d686c2ade5dfcb653be3",
+      "renderBSha256": "2a93ded45cd729840bc01534fc3357f234d542da1723d686c2ade5dfcb653be3",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 207401,
+        "partial": 15827,
+        "opaque": 38916,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          98,
+          82,
+          441,
+          440
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.2.passive_1.indomitable.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y2/skill.character.seojin.2.passive_1.indomitable.icon/alpha/skill.character.seojin.2.passive_1.indomitable.icon.selected-alpha.png",
+      "sourceSha256": "1a3d2afa9c81fb2fea88ed95a4c1046b82a4c927f5bef73ff074ab94adc47551",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1265136,
+        "partial": 46173,
+        "opaque": 261207,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          123,
+          176,
+          1127,
+          1095
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.2.passive_1.indomitable.icon.512.png",
+      "outputSha256": "c85d7898000b1426aa026f6f94e6110cb9adb6ce4f1839f07b7031de3c4320e8",
+      "renderASha256": "c85d7898000b1426aa026f6f94e6110cb9adb6ce4f1839f07b7031de3c4320e8",
+      "renderBSha256": "c85d7898000b1426aa026f6f94e6110cb9adb6ce4f1839f07b7031de3c4320e8",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 208783,
+        "partial": 15702,
+        "opaque": 37659,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          50,
+          72,
+          460,
+          446
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.passive_1.indomitable.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.passive_1.indomitable.icon/alpha/skill.character.seojin.3.passive_1.indomitable.icon.selected-alpha.png",
+      "sourceSha256": "eb145e66800495ce84dc1c82e5bbf1fa6bd686cbd948b78c28dae8d33825bbe1",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1265085,
+        "partial": 37933,
+        "opaque": 269498,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          124,
+          153,
+          1127,
+          1102
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.passive_1.indomitable.icon.512.png",
+      "outputSha256": "1210599856bcc8edf1ce3d17c938ca4001ababc774fe65f5e690707710e3ec06",
+      "renderASha256": "1210599856bcc8edf1ce3d17c938ca4001ababc774fe65f5e690707710e3ec06",
+      "renderBSha256": "1210599856bcc8edf1ce3d17c938ca4001ababc774fe65f5e690707710e3ec06",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 208434,
+        "partial": 12960,
+        "opaque": 40750,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          51,
+          62,
+          460,
+          449
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.1.active_1.active_1.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y1/skill.character.seojin.1.active_1.active_1.icon/alpha/skill.character.seojin.1.active_1.active_1.icon.selected-alpha.png",
+      "sourceSha256": "d645d597227cd5db82b32767c41245bb7a28e17b18ad8a2b301dd196ea6d35a6",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1291949,
+        "partial": 44417,
+        "opaque": 236150,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          127,
+          337,
+          1131,
+          902
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.1.active_1.active_1.icon.512.png",
+      "outputSha256": "7da07697da084db1998e90a4bb756256eabb921989398ed414739f38414c4817",
+      "renderASha256": "7da07697da084db1998e90a4bb756256eabb921989398ed414739f38414c4817",
+      "renderBSha256": "7da07697da084db1998e90a4bb756256eabb921989398ed414739f38414c4817",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 213161,
+        "partial": 13254,
+        "opaque": 35729,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          52,
+          137,
+          461,
+          368
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.2.active_1.charge.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y2/skill.character.seojin.2.active_1.charge.icon/alpha/skill.character.seojin.2.active_1.charge.icon.selected-alpha.png",
+      "sourceSha256": "e8a7a3e126089e3d14930a7fa8927a0bb43c189d73e6ef35cb3816f26ed8f414",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1111202,
+        "partial": 14033,
+        "opaque": 447281,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          94,
+          274,
+          1164,
+          974
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.2.active_1.charge.icon.512.png",
+      "outputSha256": "10a9343d29b2e4b7b0a7015fee18f91254bcbeedc025c196d07c8334c8f9e373",
+      "renderASha256": "10a9343d29b2e4b7b0a7015fee18f91254bcbeedc025c196d07c8334c8f9e373",
+      "renderBSha256": "10a9343d29b2e4b7b0a7015fee18f91254bcbeedc025c196d07c8334c8f9e373",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 181743,
+        "partial": 13317,
+        "opaque": 67084,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          38,
+          112,
+          475,
+          398
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.active_1.charge.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.active_1.charge.icon/alpha/skill.character.seojin.3.active_1.charge.icon.selected-alpha.png",
+      "sourceSha256": "676870f90bce08f9df3b82fd273a3ff01e5d1c72466ab3f33a157f4db9971c57",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1257669,
+        "partial": 66986,
+        "opaque": 247861,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          130,
+          204,
+          1133,
+          990
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.active_1.charge.icon.512.png",
+      "outputSha256": "23836446299e0cea1eae6b1d096d20a7dd6133e458e3c0a3a7c49c6a596a5a42",
+      "renderASha256": "23836446299e0cea1eae6b1d096d20a7dd6133e458e3c0a3a7c49c6a596a5a42",
+      "renderBSha256": "23836446299e0cea1eae6b1d096d20a7dd6133e458e3c0a3a7c49c6a596a5a42",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 205779,
+        "partial": 20052,
+        "opaque": 36313,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          53,
+          83,
+          462,
+          404
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.2.active_2.crane_wing_formation.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y2/skill.character.seojin.2.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.2.active_2.crane_wing_formation.icon.selected-alpha.png",
+      "sourceSha256": "87745ef77c14c7935188d13eb5467fa898017ed53540a792db69afcd0927e535",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1451339,
+        "partial": 25199,
+        "opaque": 95978,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          126,
+          443,
+          1129,
+          866
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.2.active_2.crane_wing_formation.icon.512.png",
+      "outputSha256": "f95e4356d6bf8195509e3f0c0f4af88e7fdf852ec335d3aa6920d63866ddd8c5",
+      "renderASha256": "f95e4356d6bf8195509e3f0c0f4af88e7fdf852ec335d3aa6920d63866ddd8c5",
+      "renderBSha256": "f95e4356d6bf8195509e3f0c0f4af88e7fdf852ec335d3aa6920d63866ddd8c5",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 239923,
+        "partial": 8369,
+        "opaque": 13852,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          51,
+          181,
+          461,
+          353
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.active_2.crane_wing_formation.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.active_2.crane_wing_formation.icon/alpha/skill.character.seojin.3.active_2.crane_wing_formation.icon.selected-alpha.png",
+      "sourceSha256": "d126bbc58a8a1da7224cdddf876f4c69c76fb9fd5b21261cbd83d1b9cdab98a2",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1337495,
+        "partial": 70874,
+        "opaque": 164147,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          132,
+          185,
+          1134,
+          1060
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.active_2.crane_wing_formation.icon.512.png",
+      "outputSha256": "1f1cb352598759c63fb9c68cb91cf98b848bd0cb73f065dba6555c67241c5848",
+      "renderASha256": "1f1cb352598759c63fb9c68cb91cf98b848bd0cb73f065dba6555c67241c5848",
+      "renderBSha256": "1f1cb352598759c63fb9c68cb91cf98b848bd0cb73f065dba6555c67241c5848",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 218916,
+        "partial": 20409,
+        "opaque": 22819,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          54,
+          75,
+          463,
+          432
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.active_3.turtle_ship_assault.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.active_3.turtle_ship_assault.icon/alpha/skill.character.seojin.3.active_3.turtle_ship_assault.icon.selected-alpha.png",
+      "sourceSha256": "5fb604a1419b73155d3e956be8703e4ede41013b11302df641a4e675d71cf460",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1352734,
+        "partial": 28743,
+        "opaque": 191039,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          123,
+          453,
+          1126,
+          836
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.active_3.turtle_ship_assault.icon.512.png",
+      "outputSha256": "7a1c3fe3273e8355c9593fe00528ce837e33437613f17d33ebfe2b23db4a37a1",
+      "renderASha256": "7a1c3fe3273e8355c9593fe00528ce837e33437613f17d33ebfe2b23db4a37a1",
+      "renderBSha256": "7a1c3fe3273e8355c9593fe00528ce837e33437613f17d33ebfe2b23db4a37a1",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 223852,
+        "partial": 9295,
+        "opaque": 28997,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          50,
+          185,
+          460,
+          341
+        ]
+      }
+    },
+    {
+      "assetId": "skill.character.seojin.3.turtle_ship_cannon_zone.icon",
+      "source": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/Y3/skill.character.seojin.3.turtle_ship_cannon_zone.icon/alpha/skill.character.seojin.3.turtle_ship_cannon_zone.icon.selected-alpha.png",
+      "sourceSha256": "ab134b6432fed8a89672d2053f93f3b46df389274511aaa9d0b1c08166c0a6bf",
+      "sourceMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 1254,
+        "height": 1254,
+        "channels": 4,
+        "transparent": 1279699,
+        "partial": 33311,
+        "opaque": 259506,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          128,
+          494,
+          1130,
+          911
+        ]
+      },
+      "output": "Artifacts/GraphicsRemediation/P0/Main3/Seojin/grade-evolution/revision-01/technical-t0-512/skill.character.seojin.3.turtle_ship_cannon_zone.icon.512.png",
+      "outputSha256": "2f468374b78510537959944e405c792b90a11f903ffd02484a7865d367941f03",
+      "renderASha256": "2f468374b78510537959944e405c792b90a11f903ffd02484a7865d367941f03",
+      "renderBSha256": "2f468374b78510537959944e405c792b90a11f903ffd02484a7865d367941f03",
+      "byteIdentity": true,
+      "decodedMismatch": 0,
+      "outputMetrics": {
+        "meta": {
+          "format": "png",
+          "space": "srgb",
+          "depth": "uchar",
+          "hasAlpha": true
+        },
+        "width": 512,
+        "height": 512,
+        "channels": 4,
+        "transparent": 211666,
+        "partial": 10193,
+        "opaque": 40285,
+        "residue": 0,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bboxAlpha16": [
+          52,
+          202,
+          461,
+          371
+        ]
+      }
+    }
+  ]
+}
