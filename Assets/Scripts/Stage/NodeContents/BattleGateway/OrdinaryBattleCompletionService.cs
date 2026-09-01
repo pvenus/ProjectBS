@@ -179,11 +179,13 @@ namespace Stage
         };
 
         public bool TryPrepare(BattleExecutionData data, StageSession session,
+            string runtimeNodeId,
             out OrdinaryBattleCompletionIdentity identity, out string error)
         {
             identity = null;
             error = string.Empty;
-            if (data == null || session?.OrdinaryBattles == null)
+            if (data == null || session?.OrdinaryBattles == null
+                || string.IsNullOrWhiteSpace(runtimeNodeId))
             {
                 error = "ORDINARY_BATTLE_CONTEXT_INVALID";
                 return false;
@@ -203,7 +205,7 @@ namespace Stage
                 error = "ORDINARY_BATTLE_CONTRACT_MISMATCH";
                 return false;
             }
-            identity = new OrdinaryBattleCompletionIdentity(data.eventId, data.nodeId,
+            identity = new OrdinaryBattleCompletionIdentity(data.eventId, runtimeNodeId,
                 data.sourcePopupId, data.reservationId, data.choiceId,
                 data.expectedVictoryResultId, battleId);
             if (!session.OrdinaryBattles.TryPrepare(identity))
@@ -229,12 +231,20 @@ namespace Stage
         }
 
         public bool TryFinalize(StageSession session, BattleSession battleSession,
-            string nodeId, out string error)
+            RoundNode completedNode, out string error)
         {
             error = string.Empty;
             OrdinaryBattleCompletionIdentity pending = session?.OrdinaryBattles?.Pending;
             if (pending == null) return true;
-            if (!string.Equals(pending.NodeId, nodeId, StringComparison.Ordinal)
+            string runtimeNodeId = completedNode?.nodeId;
+            string popupNodeId = completedNode?.popupEvent?.eventId;
+            bool exactRuntimeIdentity = string.Equals(
+                pending.NodeId, runtimeNodeId, StringComparison.Ordinal);
+            bool legacyPopupIdentity = string.Equals(
+                    pending.NodeId, pending.SourcePopupId, StringComparison.Ordinal)
+                && string.Equals(
+                    pending.SourcePopupId, popupNodeId, StringComparison.Ordinal);
+            if ((!exactRuntimeIdentity && !legacyPopupIdentity)
                 || !string.Equals(pending.BattleId, battleSession?.BattleId,
                     StringComparison.Ordinal))
             {

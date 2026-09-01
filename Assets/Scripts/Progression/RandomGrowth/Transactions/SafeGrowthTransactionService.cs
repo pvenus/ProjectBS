@@ -211,20 +211,30 @@ namespace Progression
         private bool Validate(SafeGrowthTransactionCommand command)
         {
             if (command?.Token?.Key == null || !command.Token.Key.IsValid
-                || !string.Equals(command.Token.Key.RunId, progression.RunId.Value, StringComparison.Ordinal)
-                || !string.Equals(command.Token.Key.ReservationId, SafeGrowthTransactionIds.ReservationId, StringComparison.Ordinal))
+                || !string.Equals(command.Token.Key.RunId, progression.RunId.Value, StringComparison.Ordinal))
                 return false;
-            string choice = command.Choice == SafeGrowthTransactionChoice.Observe
-                ? SafeGrowthTransactionIds.ObserveChoiceId : SafeGrowthTransactionIds.DeclineChoiceId;
+            RandomGrowthEventIdentity identity = command.Identity;
+            string reservation = identity?.ReservationId ?? SafeGrowthTransactionIds.ReservationId;
+            string choice = identity?.ChoiceId ?? (command.Choice == SafeGrowthTransactionChoice.Observe
+                ? SafeGrowthTransactionIds.ObserveChoiceId : SafeGrowthTransactionIds.DeclineChoiceId);
+            if (!string.Equals(command.Token.Key.ReservationId, reservation, StringComparison.Ordinal))
+                return false;
             if (!string.Equals(command.Token.ChoiceId, choice, StringComparison.Ordinal)) return false;
+            if (identity != null && ((command.Choice == SafeGrowthTransactionChoice.Observe
+                        && identity.PayloadKind != RandomGrowthPayloadKind.Safe)
+                    || (command.Choice == SafeGrowthTransactionChoice.Decline
+                        && identity.PayloadKind != RandomGrowthPayloadKind.Decline))) return false;
             if (command.Choice == SafeGrowthTransactionChoice.Decline) return command.EarnRequest == null;
             ProgressionEarnRequest earn = command.EarnRequest;
             return earn != null
                 && earn.SourceCategory == ProgressionSourceCategory.Random
                 && earn.SourceType == ProgressionSourceType.RandomEventSafe
-                && string.Equals(earn.SegmentId, ProgressionSourceRegistry.OptionalRandomGrowthSegment, StringComparison.Ordinal)
-                && string.Equals(earn.SourceId, ProgressionSourceRegistry.RandomGrowthSafeSource, StringComparison.Ordinal)
-                && string.Equals(earn.ResultId, SafeGrowthTransactionIds.GrantedResultId, StringComparison.Ordinal);
+                && string.Equals(earn.SegmentId, identity?.SegmentId
+                    ?? ProgressionSourceRegistry.OptionalRandomGrowthSegment, StringComparison.Ordinal)
+                && string.Equals(earn.SourceId, identity?.SourceId
+                    ?? ProgressionSourceRegistry.RandomGrowthSafeSource, StringComparison.Ordinal)
+                && string.Equals(earn.ResultId, identity?.ResultId
+                    ?? SafeGrowthTransactionIds.GrantedResultId, StringComparison.Ordinal);
         }
 
         private SafeGrowthTransactionResult? TryResolveTerminalDelivery(
@@ -256,9 +266,11 @@ namespace Progression
 
         private static StageEventCause Cause(SafeGrowthTransactionCommand command) => new(
             command.Token.Key.RunId, command.Token.Key.StageGenerationId,
-            command.Token.Key.EncounteredNodeInstanceId, SafeGrowthTransactionIds.EventId,
+            command.Token.Key.EncounteredNodeInstanceId,
+            command.Identity?.EventId ?? SafeGrowthTransactionIds.EventId,
             command.Token.ChoiceId, command.Choice == SafeGrowthTransactionChoice.Observe
-                ? SafeGrowthTransactionIds.GrantedResultId : SafeGrowthTransactionIds.DeclinedResultId);
+                ? command.Identity?.ResultId ?? SafeGrowthTransactionIds.GrantedResultId
+                : command.Identity?.ResultId ?? SafeGrowthTransactionIds.DeclinedResultId);
         private static SafeGrowthTransactionReceipt Receipt(SafeGrowthTransactionResult result) => new(result, null, null);
 
         private sealed class PreparedState

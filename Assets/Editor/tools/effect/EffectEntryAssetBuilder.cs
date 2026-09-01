@@ -49,7 +49,11 @@ namespace ResourceTools.Effect
                 data.effect,
                 outputFolder);
             if (effectSO == null)
+            {
+                Debug.LogError(
+                    $"[EffectEntryAssetBuilder] Failed to materialize nested effect. entryId={data.entryId}");
                 return null;
+            }
 
             string assetPath = System.IO.Path.Combine(
                 outputFolder,

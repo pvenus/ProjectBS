@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-projectile-flow
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.projectileFlow.v1
+  preset: 1
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 0.43137, g: 0.52941, b: 0.6, a: 1}
+  tintStrength: 0.09
+  colorA: {r: 0.2, g: 0.29412, b: 0.38824, a: 1}
+  colorB: {r: 0.72549, g: 0.78039, b: 0.80392, a: 1}
+  colorShiftStrength: 0.14
+  emissionColor: {r: 0.56863, g: 0.68627, b: 0.75294, a: 1}
+  emissionIntensity: 0.1
+  desaturate: 0
+  outlineColor: {r: 0.1451, g: 0.19216, b: 0.24314, a: 0.8}
+  outlineWidth: 1
+  fadeIn: 0.06
+  hold: 0.3
+  fadeOut: 0.14
+  phaseSpeed: 1.35
+  flowSpeed: {x: 1, y: 0}
+  rimColor: {r: 0.47059, g: 0.58431, b: 0.66667, a: 1}
+  spatialPattern: 1
+  rimPulseStrength: 0.3
+  sweepColor: {r: 0.6549, g: 0.75686, b: 0.81176, a: 1}
+  sweepDirection: {x: 1, y: 0}
+  sweepStrength: 0.28
+  sweepWidth: 0.085
+  sweepSoftness: 0.045
+  glintColor: {r: 0.83529, g: 0.87843, b: 0.88627, a: 1}
+  glintStrength: 0.16
+  glintWidth: 0.028
+  peakColor: {r: 0.57647, g: 0.72157, b: 0.78431, a: 1}
+  peakIntensity: 0.54
+  peakDuration: 0.045
+  afterglowColor: {r: 0.28627, g: 0.4, b: 0.47843, a: 1}
+  afterglowIntensity: 0.16
+  afterglowDuration: 0.13
+  inkDensity: 0.26
+  inkBreakup: 0.68
+  inkScale: 34
+  inkFlow: {x: 1, y: 0}
+  neonRimStrength: 0.72
+  neonPeakGain: 1.1
+  neonAfterglowGain: 0.75

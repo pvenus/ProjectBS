@@ -1,0 +1,31 @@
+{
+  "status": "REVIEW_ONLY_RAW_IMAGES",
+  "installAuthority": false,
+  "generationMode": "built-in imagegen",
+  "sourceJoint": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-01/g2-g3-joint-contact.png",
+    "sha256": "dcbfa184021fb83c1acecfb61e215dee5408a65e65b65f055fc1a3abbd13b687",
+    "dimensions": [1254, 1254]
+  },
+  "g2": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-01/g2-raw-review.png",
+    "sha256": "b2bd5257636d72fe85a8115b30ae085d05635f4f65f187bbb6993d526f7189da",
+    "dimensions": [627, 1254],
+    "derivation": "lossless left-half pixel crop from joint raw generation"
+  },
+  "g3": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-01/g3-raw-review.png",
+    "sha256": "2c0447022947ad0db59088b6f5f3482c5bbc7742d09754e971f5a0ac67cac9f2",
+    "dimensions": [627, 1254],
+    "derivation": "lossless right-half pixel crop from joint raw generation"
+  },
+  "boundaries": {
+    "visualAcceptance": false,
+    "implementation": false,
+    "install": false,
+    "canonical": false,
+    "gif": false,
+    "t0": false,
+    "unity": false
+  }
+}

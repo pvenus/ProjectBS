@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043249
+      rid: 5601486871972282614
   - choiceId: choice.act1.random_event.30.night_beacon_intruders.watch_false_beacon_from_hiding
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043250
+      rid: 5601486871972282615
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043249
+    - rid: 5601486871972282614
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486867666043251
-    - rid: 5601486867666043250
+          rid: 5601486871972282616
+    - rid: 5601486871972282615
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043252
-    - rid: 5601486867666043251
+          rid: 5601486871972282617
+    - rid: 5601486871972282616
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: e0ae06475951e469baadc4202f3b2542, type: 2}
@@ -53,7 +53,7 @@ MonoBehaviour:
         reservationId: reservation.act1.chapter01.random_event.30.night_beacon_intruders
         choiceId: choice.act1.random_event.30.night_beacon_intruders.extinguish_false_beacon
         expectedVictoryResultId: result.act1.random_event.30.night_beacon_intruders.false_beacon_extinguished
-    - rid: 5601486867666043252
+    - rid: 5601486871972282617
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

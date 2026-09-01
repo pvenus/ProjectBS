@@ -1,0 +1,967 @@
+{
+  "schema": "projectbs.skill-animation-native-rgba-exact18.v1",
+  "status": "FRESH_SOURCE_REVIEW_READY_NOT_INSTALLED",
+  "contentId": "skill.character.seojin.basic_attack",
+  "freshBatch": {
+    "priorCandidatePixelReuse": false,
+    "priorFrameSplice": false,
+    "frameDonor": false
+  },
+  "stripSources": [
+    {
+      "grade": "G1",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/grade-strips/seojin-basic-G1-strip.png",
+      "sha256": "647492a88ea0a331d9998772a22a5f25b9025542e8d686015e438e1ba6dc3351",
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "grade": "G2",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/grade-strips/seojin-basic-G2-strip.png",
+      "sha256": "06e0a9e54f2ac450af6d91467d9fe7a23a2ae2ac1ee2c69c8a3b20598fc1bc12",
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "grade": "G3",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/grade-strips/seojin-basic-G3-strip.png",
+      "sha256": "25f201237a8ab05b1fc9953bdd875273b918e4c3eea0b35919fa06d7c0db32ee",
+      "dimensions": [
+        2172,
+        724
+      ]
+    }
+  ],
+  "mapping": {
+    "rows": [
+      "G1",
+      "G2",
+      "G3"
+    ],
+    "columns": [
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5"
+    ],
+    "frameCount": 18
+  },
+  "timing": {
+    "timestampsSeconds": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32,
+      0.4
+    ],
+    "stopTimeSeconds": 0.48,
+    "composedTerminalAlpha": 0
+  },
+  "normalization": "crop each 362x724 logical cell to its native alpha bbox; alpha0 RGB zero; never upscale; downscale only if bbox exceeds236; center in256x256",
+  "frames": [
+    {
+      "grade": "G1",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "stripLogicalRect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "stripAlphaBBox": [
+        125,
+        337,
+        238,
+        368
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f0.png",
+      "sha256": "2e5c73cb778259fd40717a373f7d81ae2121b2db9b5678b3c4f91db803c60842",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 1396,
+      "alphaPartial": 1396,
+      "alphaOpaque": 0,
+      "alphaSum": 108560,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "stripLogicalRect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "stripAlphaBBox": [
+        65,
+        330,
+        282,
+        371
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f1.png",
+      "sha256": "f51adfbc6ed3866456a01dc65fc937055070476b4cac230ef09415d47f508298",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 4672,
+      "alphaPartial": 4671,
+      "alphaOpaque": 1,
+      "alphaSum": 550680,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "stripLogicalRect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "stripAlphaBBox": [
+        43,
+        317,
+        306,
+        388
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f2.png",
+      "sha256": "30b658188ee2622b31dcd76129bdd934ed89e2fece249a8b58300d45cb64e077",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 8307,
+      "alphaPartial": 8290,
+      "alphaOpaque": 17,
+      "alphaSum": 1056667,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "stripLogicalRect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "stripAlphaBBox": [
+        63,
+        320,
+        299,
+        394
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f3.png",
+      "sha256": "eb9461d8edb73b2e1ffb0b0cd06ddf9ce75da53df43d3e12b32771d745faff01",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 10882,
+      "alphaPartial": 10874,
+      "alphaOpaque": 8,
+      "alphaSum": 1238232,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "stripLogicalRect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "stripAlphaBBox": [
+        67,
+        319,
+        289,
+        388
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f4.png",
+      "sha256": "0e9281f148cb1b0eb39724b90b8eda7001c1143cbb66fc64c37c34989f7294a0",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 10144,
+      "alphaPartial": 10139,
+      "alphaOpaque": 5,
+      "alphaSum": 1180004,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "stripLogicalRect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "stripAlphaBBox": [
+        79,
+        327,
+        243,
+        388
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g1-f5.png",
+      "sha256": "bf60678cc88eeaa9cbd5e938b7b644f4b0b6918934f853918df99b200ffb9268",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 5242,
+      "alphaPartial": 5242,
+      "alphaOpaque": 0,
+      "alphaSum": 225506,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "stripLogicalRect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "stripAlphaBBox": [
+        99,
+        337,
+        223,
+        376
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f0.png",
+      "sha256": "8afa8c02878f10cb90fac26b242462882a35bb93d141b246f05871f48c9e59dd",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 2484,
+      "alphaPartial": 2484,
+      "alphaOpaque": 0,
+      "alphaSum": 240480,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "stripLogicalRect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "stripAlphaBBox": [
+        65,
+        317,
+        259,
+        459
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f1.png",
+      "sha256": "70d3ae39fc71a22768ee6e8359bbc948aff74200788baee8b5b1efbba21cbdaa",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 8445,
+      "alphaPartial": 8439,
+      "alphaOpaque": 6,
+      "alphaSum": 1058405,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "stripLogicalRect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "stripAlphaBBox": [
+        1,
+        280,
+        332,
+        420
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f2.png",
+      "sha256": "c18078357d15e7f68145e3b1f8e60f0251cc6a92b2e7492fd269b5e18e28e74d",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 8081,
+      "alphaPartial": 8019,
+      "alphaOpaque": 62,
+      "alphaSum": 1182526,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "stripLogicalRect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "stripAlphaBBox": [
+        37,
+        303,
+        318,
+        418
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f3.png",
+      "sha256": "e8d3c5aa774ade95abafaaa60908c16477405f78149645be27ca23c2a034e54f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 12637,
+      "alphaPartial": 12590,
+      "alphaOpaque": 47,
+      "alphaSum": 1949706,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "stripLogicalRect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "stripAlphaBBox": [
+        38,
+        305,
+        318,
+        404
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f4.png",
+      "sha256": "1577b2850590ff6f6939f81c088f8788ef61edf3c86c029aba4b4deaaafbf70a",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 11223,
+      "alphaPartial": 11169,
+      "alphaOpaque": 54,
+      "alphaSum": 1740967,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "stripLogicalRect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "stripAlphaBBox": [
+        65,
+        315,
+        300,
+        404
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g2-f5.png",
+      "sha256": "9dbd0af19e8b9488c7cd758f0c19e1a3781c018179c44c1c6aeed3aedba7fedc",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 9631,
+      "alphaPartial": 9631,
+      "alphaOpaque": 0,
+      "alphaSum": 317572,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "stripLogicalRect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "stripAlphaBBox": [
+        112,
+        334,
+        270,
+        378
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f0.png",
+      "sha256": "f6e59cb6c31b4b5478cbcd355d60b3403bd53d5d3bcfecc91c0a0740884852e8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 2951,
+      "alphaPartial": 2951,
+      "alphaOpaque": 0,
+      "alphaSum": 255191,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "stripLogicalRect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "stripAlphaBBox": [
+        52,
+        323,
+        298,
+        388
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f1.png",
+      "sha256": "b3c2a86e26379c8769c511292791e180e181ab45794522594ba8cf547a9afe9f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 6216,
+      "alphaPartial": 6210,
+      "alphaOpaque": 6,
+      "alphaSum": 659089,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "stripLogicalRect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "stripAlphaBBox": [
+        17,
+        300,
+        333,
+        416
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f2.png",
+      "sha256": "0577fc0506ab3e0187135ccd8181a40f789b72fb758612b0e4c0a820a82784f8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 10470,
+      "alphaPartial": 10456,
+      "alphaOpaque": 14,
+      "alphaSum": 1294634,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "stripLogicalRect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "stripAlphaBBox": [
+        63,
+        295,
+        316,
+        408
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f3.png",
+      "sha256": "65c12f2c212b6c77947084efb879770ceed14cb0dc106ad8631fbab5ce4f7a6f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 11367,
+      "alphaPartial": 11357,
+      "alphaOpaque": 10,
+      "alphaSum": 1394100,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "stripLogicalRect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "stripAlphaBBox": [
+        55,
+        303,
+        307,
+        410
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f4.png",
+      "sha256": "c840e1f26ed625a97e5e1b616ea55f764124a11471cf0e2b50da11d053bf7aed",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 10941,
+      "alphaPartial": 10929,
+      "alphaOpaque": 12,
+      "alphaSum": 1425805,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "stripLogicalRect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "stripAlphaBBox": [
+        41,
+        325,
+        292,
+        388
+      ],
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba/seojin-basic-g3-f5.png",
+      "sha256": "8f30fcdfc63a0e8751db3b4e590168badc90a7a77bd5066cd3ab585061131b6f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "alphaNonzero": 6614,
+      "alphaPartial": 6614,
+      "alphaOpaque": 0,
+      "alphaSum": 397401,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    }
+  ],
+  "contacts": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-200px-light-color.png",
+      "sha256": "b7ea59915cfc9b53c222bb1e8b1fb4fc3bfb36447d57ae56cff61ba50ec2cabd",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-200px-light-gray.png",
+      "sha256": "4e2a3109334c03ec996ea83d4a4e5c056ae839116ec1dccb515f3d7113fc880b",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-200px-dark-color.png",
+      "sha256": "561412ea926412b3b6137a4cac516077e8f816044c8afdba42c5970e4a49cb39",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-200px-dark-gray.png",
+      "sha256": "6a09ff4d4070bef91bf73090faed424bdbcae60a0f4852e907fa42ca3ba8a3b9",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-80px-light-color.png",
+      "sha256": "fe9cc0d6f3c7732790ab7ab3552b8c6456332f45c4900d764e33acf5740953f6",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-80px-light-gray.png",
+      "sha256": "e9b9239fdb6c13344b1672158705b1df6e88e56b5ddb6088aca5dc5291f947d0",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-80px-dark-color.png",
+      "sha256": "a02a0db68d94508ae528b6e0839f93d20ffc2e9022cc51f175cbda878ef344bc",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-80px-dark-gray.png",
+      "sha256": "1a2a8db4fbc7bdd2990472b7fc8d3d92220daddaf6f6fdedd4fc90ae39b8bdf1",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-32px-light-color.png",
+      "sha256": "e929b89b14de8b3b1ff829b0b6a6b02b4b3e8e15b22062343c9e8b9107a0b727",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-32px-light-gray.png",
+      "sha256": "e176596f451de0dd40161ea174a6770247562891345096a01697c31399986351",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-32px-dark-color.png",
+      "sha256": "884476ea7b7226957d83a35910291f10c8cdea39e07bab9bbe6d2dc3d6d5976f",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts/seojin-basic-fresh-exact18-32px-dark-gray.png",
+      "sha256": "6b1dbf155f9330a85fd80234d3444568d2f15ee3827fe7410114675f56b85720",
+      "dimensions": [
+        192,
+        96
+      ]
+    }
+  ],
+  "mutationBoundary": {
+    "canonical": false,
+    "clip": false,
+    "metaGuid": false,
+    "shader": false,
+    "unity": false
+  }
+}

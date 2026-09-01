@@ -21,6 +21,12 @@ namespace Stage
                 return false;
             }
 
+            if (shopData.HasAnyIdentity && !shopData.HasCompleteIdentity)
+            {
+                error = "SHOP_IDENTITY_PARTIAL: Typed shop identity must be all-empty or complete.";
+                return false;
+            }
+
             if (context?.OpenShop == null)
             {
                 error =

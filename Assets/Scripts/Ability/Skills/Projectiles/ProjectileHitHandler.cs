@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Skill;
 using UnityEngine;
+using Battle.Presentation.SkillFocus;
 using Character;
 using Effect;
 using Effect.Helper;
@@ -30,6 +31,7 @@ public class ProjectileHitHandler : MonoBehaviour
     private readonly HashSet<Collider2D> hitTargets = new();
     private readonly List<Collider2D> pendingHitTargets = new();
     private readonly HashSet<Collider2D> overlapTargets = new();
+    private readonly Dictionary<Collider2D, int> repeatApplyCounts = new();
     private Coroutine collectCoroutine;
     private Coroutine repeatHitCoroutine;
     private bool isCollectingInitialHits;
@@ -74,6 +76,7 @@ public class ProjectileHitHandler : MonoBehaviour
         hitTargets.Clear();
         pendingHitTargets.Clear();
         overlapTargets.Clear();
+        repeatApplyCounts.Clear();
         initialHitCollectionCompleted = false;
         isCollectingInitialHits = false;
         hasAppliedDamage = false;
@@ -166,6 +169,7 @@ public class ProjectileHitHandler : MonoBehaviour
         if (runtimeData.hit.useRepeatInterval)
         {
             RegisterOverlapTarget(other);
+            ProcessRepeatHit(other);
             return;
         }
 
@@ -186,6 +190,7 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         overlapTargets.Remove(other);
+        repeatApplyCounts.Remove(other);
     }
 
     private void StartRepeatHitIfNeeded()
@@ -249,8 +254,33 @@ public class ProjectileHitHandler : MonoBehaviour
             }
 
             overlapTargets.Add(target);
-            ProcessHit(target, true, false);
+            ProcessRepeatHit(target);
         }
+    }
+
+    private void ProcessRepeatHit(Collider2D target)
+    {
+        if (target == null || runtimeData == null || runtimeData.hit == null)
+        {
+            return;
+        }
+
+        float interval = Mathf.Max(0.05f, runtimeData.hit.repeatInterval);
+        float hitDuration = runtimeData.hit.hitDuration > 0f
+            ? runtimeData.hit.hitDuration
+            : runtimeData.lifetime;
+        int maxApplications = Mathf.Max(
+            1,
+            Mathf.CeilToInt(Mathf.Max(0f, hitDuration) / interval));
+
+        repeatApplyCounts.TryGetValue(target, out int appliedCount);
+        if (appliedCount >= maxApplications)
+        {
+            return;
+        }
+
+        ProcessHit(target, true, false);
+        repeatApplyCounts[target] = appliedCount + 1;
     }
 
     private void StartInitialHitCollectionIfNeeded()
@@ -502,6 +532,7 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         ApplyAdditionalEffects(targetCharacter);
+        MainCharacterSkillFocusFeature.NotifyProjectileImpact(runtimeData);
 
         if (consumeAfterHit)
         {
@@ -544,6 +575,7 @@ public class ProjectileHitHandler : MonoBehaviour
 
         pendingHitTargets.Clear();
         overlapTargets.Clear();
+        repeatApplyCounts.Clear();
         isCollectingInitialHits = false;
         initialHitCollectionCompleted = false;
         hasAppliedDamage = false;

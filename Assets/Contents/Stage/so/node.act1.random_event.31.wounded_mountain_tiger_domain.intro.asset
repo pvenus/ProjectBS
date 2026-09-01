@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043253
+      rid: 5601486871972282618
   - choiceId: choice.act1.random_event.31.wounded_mountain_tiger_domain.drive_tiger_away
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043254
+      rid: 5601486871972282619
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043253
+    - rid: 5601486871972282618
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043255
-    - rid: 5601486867666043254
+          rid: 5601486871972282620
+    - rid: 5601486871972282619
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043256
-    - rid: 5601486867666043255
+          rid: 5601486871972282621
+    - rid: 5601486871972282620
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
           relic: {fileID: 11400000, guid: a9afcb3bc48df4f6d95e2d14068dee11, type: 2}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043256
+    - rid: 5601486871972282621
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

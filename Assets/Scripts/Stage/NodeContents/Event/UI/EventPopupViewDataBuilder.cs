@@ -17,6 +17,9 @@ public static class EventPopupViewDataBuilder
             Title = node != null ? node.Title : (popupEvent != null ? popupEvent.Title : string.Empty),
             Description = popupEvent != null ? popupEvent.Body : string.Empty,
             Illustration = popupEvent != null ? popupEvent.mainImage : null,
+            MotionSequenceResourcePath = popupEvent != null
+                ? popupEvent.motionSequenceResourcePath
+                : string.Empty,
             Choices = BuildChoices(popupEvent)
         };
     }

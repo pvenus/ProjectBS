@@ -147,6 +147,7 @@
         "visualSetId": "skill.character.seojin.3.turtle_ship_cannon_zone.visual",
         "baseVisual": {
           "visualId": "skill.character.seojin.3.turtle_ship_cannon_zone.visual.base",
+          "projectileVisualType": "Default",
           "sortingRelation": "BelowOwner",
           "archetype": "Melee",
           "projectilePrefab": "projectile",
@@ -160,6 +161,7 @@
         },
         "impactVisual": {
           "visualId": "skill.character.seojin.3.turtle_ship_cannon_zone.visual.impact",
+          "projectileVisualType": "Default",
           "impactType": "Hit",
           "element": "None",
           "effectPrefab": "fx_cannon_zone_hit",

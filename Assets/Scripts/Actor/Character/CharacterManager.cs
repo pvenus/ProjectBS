@@ -122,6 +122,22 @@ namespace Character
                 bleedTickInterval);
         }
 
+        public void ConfigureIndomitablePassiveSnapshot(
+            Character.Skill.ResolvedConditionalPassiveSnapshot snapshot)
+        {
+            if (statusTickService == null)
+            {
+                statusTickService = new CharacterStatusTickService();
+            }
+
+            statusTickService.ConfigureIndomitableSnapshot(this, snapshot);
+        }
+
+        private void OnDisable()
+        {
+            statusTickService?.SuspendIndomitableProjection(this);
+        }
+
         public void InitializeFromSO(CharacterSO characterSO)
         {
             ResolveComponents();

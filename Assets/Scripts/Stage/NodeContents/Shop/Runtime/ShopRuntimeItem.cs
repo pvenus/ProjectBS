@@ -104,7 +104,7 @@ namespace Shop
                 ? product.productId
                 : "empty";
 
-            return $"shop_item_{slotIndex}_{itemId}_{Guid.NewGuid().ToString("N")[..8]}";
+            return $"shop_item_{slotIndex}_{itemId}";
         }
     }
 }

@@ -21,46 +21,46 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043135
+      rid: 5601486871972282498
   - choiceId: choice.act1.random_event.08.spring_beneath_stone_grave.take_or_buy_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043136
+      rid: 5601486871972282499
   - choiceId: choice.act1.random_event.08.spring_beneath_stone_grave.investigate_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043137
+      rid: 5601486871972282500
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043135
+    - rid: 5601486871972282498
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043138
-    - rid: 5601486867666043136
+          rid: 5601486871972282501
+    - rid: 5601486871972282499
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043139
-    - rid: 5601486867666043137
+          rid: 5601486871972282502
+    - rid: 5601486871972282500
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043140
-    - rid: 5601486867666043138
+          rid: 5601486871972282503
+    - rid: 5601486871972282501
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043139
+    - rid: 5601486871972282502
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043140
+    - rid: 5601486871972282503
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

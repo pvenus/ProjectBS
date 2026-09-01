@@ -19,12 +19,16 @@ public class BaseVisualSO : ScriptableObject
 
     [Header("Animation Clips")]
     [SerializeField] private AnimationClipEntry[] animationClips;
+    [SerializeField] private SkillAnimationVfxProfileSO animationVfxProfile;
+    [SerializeField] private SkillAnimationVfxPaletteBinding animationVfxPalette;
 
     public string VisualId => visualId;
     public ProjectileVisualType ProjectileVisualType => projectileVisualType;
     public SkillSortingRelation SortingRelation => sortingRelation;
 
     public AnimationClipEntry[] AnimationClips => animationClips;
+    public SkillAnimationVfxProfileSO AnimationVfxProfile => animationVfxProfile;
+    public SkillAnimationVfxPaletteBinding AnimationVfxPalette => animationVfxPalette;
 
 #if UNITY_EDITOR
     public void ApplyEditorData(

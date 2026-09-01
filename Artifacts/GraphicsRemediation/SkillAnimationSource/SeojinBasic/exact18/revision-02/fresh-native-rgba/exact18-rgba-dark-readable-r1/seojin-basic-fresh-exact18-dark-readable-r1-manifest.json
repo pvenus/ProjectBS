@@ -1,0 +1,865 @@
+{
+  "schema": "projectbs.skill-animation-native-rgba-exact18.correction-r1",
+  "status": "DARK_READABILITY_REVIEW_READY_NOT_INSTALLED",
+  "sourceManifestSha256": "6f5024e425578f3d0f45da6932a0a55c4bd07b124a7f27e1727c859306992c08",
+  "correctionScope": [
+    "G1F0",
+    "G1F1",
+    "G1F2",
+    "G2F0",
+    "G2F1",
+    "G2F2"
+  ],
+  "method": "existing-alpha-only coverage redistribution and bounded mid-navy core convergence; nonzero mask invariant",
+  "forbiddenOperations": {
+    "newGeometry": false,
+    "glow": false,
+    "outline": false,
+    "blur": false,
+    "scale": false,
+    "nearWhite": false
+  },
+  "frames": [
+    {
+      "grade": "G1",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f0.png",
+      "sha256": "dee030e2f357a6d6d9a77c233d2636e8064e8f984b70dde4a655b8682642a5da",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "2e5c73cb778259fd40717a373f7d81ae2121b2db9b5678b3c4f91db803c60842",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 1396,
+        "alphaOpaqueBefore": 0,
+        "alphaOpaqueAfter": 0,
+        "alphaSumBefore": 108560,
+        "alphaSumAfter": 120144,
+        "maxRgbAfter": 111,
+        "coreThreshold": 143.4000244140625
+      },
+      "alphaNonzero": 1396,
+      "alphaPartial": 1396,
+      "alphaOpaque": 0,
+      "alphaSum": 120144,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f1.png",
+      "sha256": "e4ef1c9e1b1446d26627242e36b3a48acb3b49e7e1ed71b31c141f39fe139194",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "f51adfbc6ed3866456a01dc65fc937055070476b4cac230ef09415d47f508298",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 4672,
+        "alphaOpaqueBefore": 1,
+        "alphaOpaqueAfter": 2,
+        "alphaSumBefore": 550680,
+        "alphaSumAfter": 518914,
+        "maxRgbAfter": 108,
+        "coreThreshold": 241.0
+      },
+      "alphaNonzero": 4672,
+      "alphaPartial": 4670,
+      "alphaOpaque": 2,
+      "alphaSum": 518914,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f2.png",
+      "sha256": "efa674b13156158e1b2d4009647140cb0243b92366921cc2aaf0ca6b11133ffa",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "30b658188ee2622b31dcd76129bdd934ed89e2fece249a8b58300d45cb64e077",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 8307,
+        "alphaOpaqueBefore": 17,
+        "alphaOpaqueAfter": 23,
+        "alphaSumBefore": 1056667,
+        "alphaSumAfter": 939884,
+        "maxRgbAfter": 180,
+        "coreThreshold": 249.0
+      },
+      "alphaNonzero": 8307,
+      "alphaPartial": 8284,
+      "alphaOpaque": 23,
+      "alphaSum": 939884,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f3.png",
+      "sha256": "eb9461d8edb73b2e1ffb0b0cd06ddf9ce75da53df43d3e12b32771d745faff01",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "eb9461d8edb73b2e1ffb0b0cd06ddf9ce75da53df43d3e12b32771d745faff01",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 10882,
+      "alphaPartial": 10874,
+      "alphaOpaque": 8,
+      "alphaSum": 1238232,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f4.png",
+      "sha256": "0e9281f148cb1b0eb39724b90b8eda7001c1143cbb66fc64c37c34989f7294a0",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "0e9281f148cb1b0eb39724b90b8eda7001c1143cbb66fc64c37c34989f7294a0",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 10144,
+      "alphaPartial": 10139,
+      "alphaOpaque": 5,
+      "alphaSum": 1180004,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G1",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g1-f5.png",
+      "sha256": "bf60678cc88eeaa9cbd5e938b7b644f4b0b6918934f853918df99b200ffb9268",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "bf60678cc88eeaa9cbd5e938b7b644f4b0b6918934f853918df99b200ffb9268",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 5242,
+      "alphaPartial": 5242,
+      "alphaOpaque": 0,
+      "alphaSum": 225506,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f0.png",
+      "sha256": "136edebb8bf1005e993aee69c8f0115d1dc076a1b49ca479dc56d263379e8393",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "8afa8c02878f10cb90fac26b242462882a35bb93d141b246f05871f48c9e59dd",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 2484,
+        "alphaOpaqueBefore": 0,
+        "alphaOpaqueAfter": 1,
+        "alphaSumBefore": 240480,
+        "alphaSumAfter": 237931,
+        "maxRgbAfter": 94,
+        "coreThreshold": 230.7601318359375
+      },
+      "alphaNonzero": 2484,
+      "alphaPartial": 2483,
+      "alphaOpaque": 1,
+      "alphaSum": 237931,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f1.png",
+      "sha256": "4b620487071d19196bf095ff971c2cd0b21eade1259eb335331aad381e0dfd62",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "70d3ae39fc71a22768ee6e8359bbc948aff74200788baee8b5b1efbba21cbdaa",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 8445,
+        "alphaOpaqueBefore": 6,
+        "alphaOpaqueAfter": 14,
+        "alphaSumBefore": 1058405,
+        "alphaSumAfter": 949750,
+        "maxRgbAfter": 180,
+        "coreThreshold": 248.0
+      },
+      "alphaNonzero": 8445,
+      "alphaPartial": 8431,
+      "alphaOpaque": 14,
+      "alphaSum": 949750,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f2.png",
+      "sha256": "ac19a09d978bb56e8b1060ea3b8af8ed21c3cf31c36a93a02b55743ce3bc0646",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "c18078357d15e7f68145e3b1f8e60f0251cc6a92b2e7492fd269b5e18e28e74d",
+      "correctionApplied": true,
+      "correctionMetrics": {
+        "nonzeroMaskIdentity": true,
+        "changedPixelCount": 8081,
+        "alphaOpaqueBefore": 62,
+        "alphaOpaqueAfter": 114,
+        "alphaSumBefore": 1182526,
+        "alphaSumAfter": 988631,
+        "maxRgbAfter": 180,
+        "coreThreshold": 251.0
+      },
+      "alphaNonzero": 8081,
+      "alphaPartial": 7967,
+      "alphaOpaque": 114,
+      "alphaSum": 988631,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f3.png",
+      "sha256": "e8d3c5aa774ade95abafaaa60908c16477405f78149645be27ca23c2a034e54f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "e8d3c5aa774ade95abafaaa60908c16477405f78149645be27ca23c2a034e54f",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 12637,
+      "alphaPartial": 12590,
+      "alphaOpaque": 47,
+      "alphaSum": 1949706,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f4.png",
+      "sha256": "1577b2850590ff6f6939f81c088f8788ef61edf3c86c029aba4b4deaaafbf70a",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "1577b2850590ff6f6939f81c088f8788ef61edf3c86c029aba4b4deaaafbf70a",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 11223,
+      "alphaPartial": 11169,
+      "alphaOpaque": 54,
+      "alphaSum": 1740967,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G2",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g2-f5.png",
+      "sha256": "9dbd0af19e8b9488c7cd758f0c19e1a3781c018179c44c1c6aeed3aedba7fedc",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "9dbd0af19e8b9488c7cd758f0c19e1a3781c018179c44c1c6aeed3aedba7fedc",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 9631,
+      "alphaPartial": 9631,
+      "alphaOpaque": 0,
+      "alphaSum": 317572,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F0",
+      "timestampSeconds": 0.0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f0.png",
+      "sha256": "f6e59cb6c31b4b5478cbcd355d60b3403bd53d5d3bcfecc91c0a0740884852e8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "f6e59cb6c31b4b5478cbcd355d60b3403bd53d5d3bcfecc91c0a0740884852e8",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 2951,
+      "alphaPartial": 2951,
+      "alphaOpaque": 0,
+      "alphaSum": 255191,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F1",
+      "timestampSeconds": 0.08,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f1.png",
+      "sha256": "b3c2a86e26379c8769c511292791e180e181ab45794522594ba8cf547a9afe9f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "b3c2a86e26379c8769c511292791e180e181ab45794522594ba8cf547a9afe9f",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 6216,
+      "alphaPartial": 6210,
+      "alphaOpaque": 6,
+      "alphaSum": 659089,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F2",
+      "timestampSeconds": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f2.png",
+      "sha256": "0577fc0506ab3e0187135ccd8181a40f789b72fb758612b0e4c0a820a82784f8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "0577fc0506ab3e0187135ccd8181a40f789b72fb758612b0e4c0a820a82784f8",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 10470,
+      "alphaPartial": 10456,
+      "alphaOpaque": 14,
+      "alphaSum": 1294634,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F3",
+      "timestampSeconds": 0.24,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f3.png",
+      "sha256": "65c12f2c212b6c77947084efb879770ceed14cb0dc106ad8631fbab5ce4f7a6f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "65c12f2c212b6c77947084efb879770ceed14cb0dc106ad8631fbab5ce4f7a6f",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 11367,
+      "alphaPartial": 11357,
+      "alphaOpaque": 10,
+      "alphaSum": 1394100,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F4",
+      "timestampSeconds": 0.32,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f4.png",
+      "sha256": "c840e1f26ed625a97e5e1b616ea55f764124a11471cf0e2b50da11d053bf7aed",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "c840e1f26ed625a97e5e1b616ea55f764124a11471cf0e2b50da11d053bf7aed",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 10941,
+      "alphaPartial": 10929,
+      "alphaOpaque": 12,
+      "alphaSum": 1425805,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    },
+    {
+      "grade": "G3",
+      "frame": "F5",
+      "timestampSeconds": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/exact18-rgba-dark-readable-r1/seojin-basic-g3-f5.png",
+      "sha256": "8f30fcdfc63a0e8751db3b4e590168badc90a7a77bd5066cd3ab585061131b6f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "sourceSha256": "8f30fcdfc63a0e8751db3b4e590168badc90a7a77bd5066cd3ab585061131b6f",
+      "correctionApplied": false,
+      "correctionMetrics": {
+        "bytePreserved": true
+      },
+      "alphaNonzero": 6614,
+      "alphaPartial": 6614,
+      "alphaOpaque": 0,
+      "alphaSum": 397401,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderNonzero": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResidue": 0
+    }
+  ],
+  "contacts": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-200px-light-color.png",
+      "sha256": "6914c908da99639c68e819972fe0aa6cbadea23e8cd03390e6f0f78b82b85bfb",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-200px-light-gray.png",
+      "sha256": "aad018befbc480b0f3246a022d164b8973acefad54259fa7ca3b76cf385a798d",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-200px-dark-color.png",
+      "sha256": "9966d7d63dd7e6762c8055539adc3c90adf2836950485ef4329ce837c949b158",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-200px-dark-gray.png",
+      "sha256": "6cd20262a74e3f5c899d0936c4618be8af23e4cef85599bb2f6fb96b08337799",
+      "dimensions": [
+        1200,
+        600
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-80px-light-color.png",
+      "sha256": "3277723bfaf8e1f8e2608b26d5052a9c13e228b673ff3382f0b5e4000d145dd6",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-80px-light-gray.png",
+      "sha256": "c76244bc220465fe7a29954b25f40f4d08192de5b1bca8eb49c2d75eb237308e",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-80px-dark-color.png",
+      "sha256": "6167d39ba9d8b8b965abf02105672f2bd59dc9016cc422000684b3f89381587d",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-80px-dark-gray.png",
+      "sha256": "ba4ffe86ac675270840f783e5b9558f7921a467b31f4ebbcc35af1bc0657954a",
+      "dimensions": [
+        480,
+        240
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-32px-light-color.png",
+      "sha256": "db0fb24e6186e2a6c63d586a0f62e16c631f0463f4172f824c3d22e930868d69",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-32px-light-gray.png",
+      "sha256": "4739d5c7eb327df1775de5679d00fcb0f0ec3a8229003e2b6327a3b812b6ee5f",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-32px-dark-color.png",
+      "sha256": "b63461ece6750e459564e9ae118deafc6025de572b2691bf2d82dc51b439d4c4",
+      "dimensions": [
+        192,
+        96
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-02/fresh-native-rgba/contacts-dark-readable-r1/seojin-basic-fresh-r1-32px-dark-gray.png",
+      "sha256": "158a42d2e61aca716251209fe5eca380a8231808a4817c3715230b8619e92673",
+      "dimensions": [
+        192,
+        96
+      ]
+    }
+  ],
+  "timing": {
+    "timestampsSeconds": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32,
+      0.4
+    ],
+    "stopTimeSeconds": 0.48,
+    "composedTerminalAlpha": 0
+  },
+  "mapping": {
+    "rows": [
+      "G1",
+      "G2",
+      "G3"
+    ],
+    "columns": [
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5"
+    ],
+    "frameCount": 18
+  },
+  "mutationBoundary": {
+    "canonical": false,
+    "clip": false,
+    "metaGuid": false,
+    "shader": false,
+    "unity": false
+  }
+}

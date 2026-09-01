@@ -45,6 +45,12 @@ public class ProjectileVisual : MonoBehaviour
 
     private ProjectileEntity owner;
     private ProjectileRuntimeData runtimeData;
+    private SkillAnimationVfxFeatureObject animationVfx;
+    private Material baselineSharedMaterial;
+    private bool baselineMaterialCaptured;
+    private Transform rendererScaleTransform;
+    private Vector3 baselineRendererLocalScale;
+    private bool baselineRendererScaleCaptured;
 
     private PlayableGraph playableGraph;
     private AnimationClipPlayable clipPlayable;
@@ -115,7 +121,16 @@ public class ProjectileVisual : MonoBehaviour
         EnsureSpriteRenderer();
         EnsureAnimator();
         EnsureMaterialTargetRenderer();
+        CaptureBaselineMaterial();
+        CaptureBaselineRendererScale();
         EnsureVfxRoot();
+    }
+
+    private void CaptureBaselineMaterial()
+    {
+        if (baselineMaterialCaptured || materialTargetRenderer == null) return;
+        baselineSharedMaterial = materialTargetRenderer.sharedMaterial;
+        baselineMaterialCaptured = true;
     }
 
     private void EnsureSpriteRenderer()
@@ -169,6 +184,47 @@ public class ProjectileVisual : MonoBehaviour
         if (vfxRoot == null)
         {
             vfxRoot = transform;
+        }
+    }
+
+    private void CaptureBaselineRendererScale()
+    {
+        Transform candidate = spriteRenderer != null
+            ? spriteRenderer.transform
+            : materialTargetRenderer != null
+                ? materialTargetRenderer.transform
+                : null;
+
+        if (candidate == null || candidate == transform)
+        {
+            return;
+        }
+
+        if (!baselineRendererScaleCaptured || rendererScaleTransform != candidate)
+        {
+            rendererScaleTransform = candidate;
+            baselineRendererLocalScale = candidate.localScale;
+            baselineRendererScaleCaptured = true;
+        }
+    }
+
+    private void ApplyRendererScale(float scale)
+    {
+        CaptureBaselineRendererScale();
+        if (!baselineRendererScaleCaptured || rendererScaleTransform == null)
+        {
+            return;
+        }
+
+        float effectiveScale = EquipmentBaseProfileSO.NormalizeRendererScale(scale);
+        rendererScaleTransform.localScale = baselineRendererLocalScale * effectiveScale;
+    }
+
+    private void RestoreRendererScale()
+    {
+        if (baselineRendererScaleCaptured && rendererScaleTransform != null)
+        {
+            rendererScaleTransform.localScale = baselineRendererLocalScale;
         }
     }
 
@@ -256,6 +312,7 @@ public class ProjectileVisual : MonoBehaviour
     private void ApplyResolvedSortingOrder(int resolvedOrder)
     {
         spriteRenderer.sortingOrder = resolvedOrder;
+        animationVfx?.SetSortingOrder(resolvedOrder);
 
         for (int i = 0; i < rainRenderers.Count; i++)
         {
@@ -291,6 +348,8 @@ public class ProjectileVisual : MonoBehaviour
         EnsureVisualComponents();
         initialized = true;
 
+        RestoreRendererScale();
+        ApplyRendererScale(data.rendererScale);
         ApplyRuntimeVisualData(data);
 
         OnSpawn();
@@ -302,6 +361,8 @@ public class ProjectileVisual : MonoBehaviour
         {
             return;
         }
+
+        animationVfx?.Play();
 
         if (IsRainVisualType())
         {
@@ -326,6 +387,11 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
+        if (animationVfx != null && animationVfx.RestartsOnHit)
+        {
+            animationVfx.Play();
+        }
+
         if (IsRainVisualType())
         {
             return;
@@ -347,6 +413,9 @@ public class ProjectileVisual : MonoBehaviour
         {
             return;
         }
+
+        animationVfx?.StopImmediate();
+        RestoreRendererScale();
 
         if (IsRainVisualType())
         {
@@ -432,7 +501,7 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
-        materialTargetRenderer.material = material;
+        materialTargetRenderer.sharedMaterial = material;
     }
 
     private void ApplyRuntimeVisualData(ProjectileRuntimeData data)
@@ -442,11 +511,43 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
+        // ProjectileEntity may be reused. Always remove the previous profile's
+        // shared material/MPB before applying this spawn's optional visual data.
+        animationVfx?.StopImmediate();
+        CaptureBaselineMaterial();
+        if (materialTargetRenderer != null && baselineMaterialCaptured)
+        {
+            materialTargetRenderer.sharedMaterial = baselineSharedMaterial;
+        }
+
         SetColor(data.color);
 
         if (data.material != null)
         {
             SetMaterial(data.material);
+        }
+
+        BaseVisualSO baseVisual = data.sourceEquipment != null
+            ? data.sourceEquipment.BaseVisualSo
+            : null;
+        SkillAnimationVfxProfileSO profile = baseVisual != null
+            ? baseVisual.AnimationVfxProfile
+            : null;
+        if (profile != null && spriteRenderer != null)
+        {
+            if (profile.Material != null)
+            {
+                SetMaterial(profile.Material);
+            }
+            animationVfx ??= GetComponent<SkillAnimationVfxFeatureObject>()
+                ?? gameObject.AddComponent<SkillAnimationVfxFeatureObject>();
+            animationVfx.Initialize(spriteRenderer, profile, baseVisual.AnimationVfxPalette);
+            animationVfx.Play();
+        }
+        else
+        {
+            animationVfx?.StopImmediate();
+            SkillAnimationVfxMaterialAuthority.Ensure(spriteRenderer);
         }
     }
 
@@ -486,6 +587,33 @@ public class ProjectileVisual : MonoBehaviour
         return runtimeData != null &&
                runtimeData.projectileVisualType == ProjectileVisualType.Rain;
     }
+
+#if UNITY_EDITOR
+    public bool EditorInitializeProceduralCapture(BaseVisualSO baseVisual)
+    {
+        EnsureVisualComponents();
+        SkillAnimationVfxProfileSO captureProfile = baseVisual != null
+            ? baseVisual.AnimationVfxProfile
+            : null;
+        if (captureProfile == null || !captureProfile.ProceduralGroundField || spriteRenderer == null)
+            return false;
+        animationVfx ??= GetComponent<SkillAnimationVfxFeatureObject>()
+            ?? gameObject.AddComponent<SkillAnimationVfxFeatureObject>();
+        animationVfx.Initialize(spriteRenderer, captureProfile, baseVisual.AnimationVfxPalette);
+        animationVfx.Play();
+        return true;
+    }
+
+    public void EditorApplyProceduralCapturePhase(float phase01)
+    {
+        animationVfx?.EditorApplyCapturePhase(phase01);
+    }
+
+    public void EditorStopProceduralCapture()
+    {
+        animationVfx?.StopImmediate();
+    }
+#endif
 
     private void PlayRainVisual()
     {

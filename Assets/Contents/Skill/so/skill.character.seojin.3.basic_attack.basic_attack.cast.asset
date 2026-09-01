@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: skill.character.seojin.3.basic_attack.basic_attack.cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
   castId: skill.character.seojin.3.basic_attack.basic_attack.cast
-  cooldown: 3
+  cooldown: 2
   castTime: 0
-  range: 1
+  range: 0.8
   targetingType: 2
   burst:
     count: 1

@@ -35,6 +35,7 @@ public class ProjectileRuntimeData
     public float projectileArrangementValue = 0f;
     public float projectileSpreadAngle = 0f;
     public float projectileScale = 1f;
+    public float rendererScale = 1f;
     public float projectileSpawnInterval = 0f;
     public float projectileSpawnRadius = 0f;
 

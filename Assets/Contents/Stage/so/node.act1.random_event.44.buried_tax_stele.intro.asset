@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043315
+      rid: 5601486871972282680
   - choiceId: choice.act1.random_event.44.buried_tax_stele.sell_rubbing_to_tax_collector
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043316
+      rid: 5601486871972282681
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043315
+    - rid: 5601486871972282680
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043317
-    - rid: 5601486867666043316
+          rid: 5601486871972282682
+    - rid: 5601486871972282681
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043318
-    - rid: 5601486867666043317
+          rid: 5601486871972282683
+    - rid: 5601486871972282682
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043318
+    - rid: 5601486871972282683
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

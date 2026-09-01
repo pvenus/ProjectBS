@@ -35,6 +35,7 @@ namespace Session
         public OrdinaryBattleCompletionOwnership OrdinaryBattles { get; private set; } = new();
         public PortfolioRandomGrowthInteractionOwnership PortfolioRandomGrowth { get; private set; } = new();
         public PortfolioRandomGrowthRuntime PortfolioRandomGrowthRuntime { get; private set; }
+        public StageShopRuntimeOwnership Shops { get; private set; } = new();
 
         public void Initialize(
             StageRuntimeData runtimeData)
@@ -45,6 +46,7 @@ namespace Session
             RelicRuntimeData ??= new RelicRuntimeData();
             BlessRuntimeData ??= new BlessRuntimeData();
             CurrencyRuntimeData ??= new CurrencyRutimeData();
+            Shops ??= new StageShopRuntimeOwnership();
         }
 
         public void ResetRuntime()
@@ -56,6 +58,7 @@ namespace Session
             BlessRuntimeData = new BlessRuntimeData();
             CurrencyRuntimeData = new CurrencyRutimeData();
             isIntroCompleted = false;
+            Shops?.Reset();
         }
 
         public void Clear()
@@ -78,6 +81,7 @@ namespace Session
             OrdinaryBattles?.ResetForNewRun();
             PortfolioRandomGrowth?.ResetForNewRun(string.Empty);
             PortfolioRandomGrowthRuntime = null;
+            Shops?.Reset();
         }
 
         public void ResetRandomGrowthForNewRun(ProgressionRunId runId)
@@ -99,6 +103,8 @@ namespace Session
             PortfolioRandomGrowth ??= new PortfolioRandomGrowthInteractionOwnership();
             PortfolioRandomGrowth.ResetForNewRun(runId.Value);
             PortfolioRandomGrowthRuntime = null;
+            Shops ??= new StageShopRuntimeOwnership();
+            Shops.Reset();
         }
 
         public bool ConfigurePortfolioRandomGrowthRuntime(
@@ -227,7 +233,7 @@ namespace Session
             var ordinaryService = new OrdinaryBattleCompletionService();
             bool hasOrdinaryBattle = OrdinaryBattles?.Pending != null;
             if (hasOrdinaryBattle
-                && !ordinaryService.TryFinalize(this, battleSession, completedNodeId, out error))
+                && !ordinaryService.TryFinalize(this, battleSession, completedNode, out error))
                 return false;
             if (!graph.TryCompleteCurrentNode(completedNodeId))
             {

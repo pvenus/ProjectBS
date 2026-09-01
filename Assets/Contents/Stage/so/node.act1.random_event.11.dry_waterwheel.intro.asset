@@ -21,41 +21,41 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043153
+      rid: 5601486871972282516
   - choiceId: choice.act1.random_event.11.dry_waterwheel.investigate_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043154
+      rid: 5601486871972282517
   - choiceId: choice.act1.random_event.11.dry_waterwheel.avoid_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043155
+      rid: 5601486871972282518
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043153
+    - rid: 5601486871972282516
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486867666043156
-    - rid: 5601486867666043154
+          rid: 5601486871972282519
+    - rid: 5601486871972282517
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043157
-    - rid: 5601486867666043155
+          rid: 5601486871972282520
+    - rid: 5601486871972282518
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043158
-    - rid: 5601486867666043156
+          rid: 5601486871972282521
+    - rid: 5601486871972282519
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: 279f542de6eeb474b8ea1b048ffb1601, type: 2}
@@ -65,9 +65,9 @@ MonoBehaviour:
         reservationId: 
         choiceId: 
         expectedVictoryResultId: 
-    - rid: 5601486867666043157
+    - rid: 5601486871972282520
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043158
+    - rid: 5601486871972282521
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

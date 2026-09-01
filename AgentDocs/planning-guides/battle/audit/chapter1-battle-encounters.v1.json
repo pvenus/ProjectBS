@@ -1,0 +1,1742 @@
+{
+  "contractId": "battle-encounter-monster-scaling.v1",
+  "auditVersion": "chapter1-battle-encounters.v1",
+  "status": "BASELINE_AND_PILOT_TARGET_ONLY",
+  "digestPolicy": {
+    "algorithm": "SHA-256",
+    "canonicalization": "same as coefficients; digest omitted",
+    "digest": "287a6e4b0216cfcb7b0a699baa315254038516e2268a9a94d7d053b7e5fec99e"
+  },
+  "inventory": {
+    "encounters": 23,
+    "monsters": 21,
+    "pilots": 4,
+    "full23RolloutAuthorized": false
+  },
+  "sourceAuthority": [
+    {
+      "path": "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt",
+      "sha256": "94d67706e6e58bacddd73a252f18bb92d3ef1661f29a4858c95efe9cc362c540"
+    }
+  ],
+  "encounterRows": [
+    {
+      "encounterId": "encounter.battle.act1.chapter01.01.rescue_villagers",
+      "battleId": "battle.act1.chapter01.01.rescue_villagers",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.01.rescue_villagers.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Early",
+      "difficulty": "very_easy",
+      "sequenceId": "seq.elimination_90s_swarm.very_easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 28,
+        "derivedSequenceSpawnCount": 28,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": true,
+        "spawnArchetype": "burst_opening",
+        "durationSec": {
+          "min": 75,
+          "target": 90,
+          "max": 105
+        },
+        "entryIntervalSec": {
+          "min": 0.35,
+          "target": 0.55,
+          "max": 0.75
+        },
+        "liveCap": {
+          "target": 16,
+          "max": 18
+        },
+        "count": {
+          "min": 80,
+          "target": 88,
+          "max": 96
+        }
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.chain_dragger_raider.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.01.rescue_villagers.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.chapter01.03_1.defend_hut",
+      "battleId": "battle.act1.chapter01.03_1.defend_hut",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.03_1.defend_hut.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Early",
+      "difficulty": "very_easy",
+      "sequenceId": "seq.elimination_90s_swarm.very_easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 28,
+        "derivedSequenceSpawnCount": 28,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.starving_mountain_wolf.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.03_1.defend_hut.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.chapter01.03_2.training_ground_ambush",
+      "battleId": "battle.act1.chapter01.03_2.training_ground_ambush",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.03_2.training_ground_ambush.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Early",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": true,
+        "spawnArchetype": "flank_reveal",
+        "durationSec": {
+          "min": 75,
+          "target": 90,
+          "max": 105
+        },
+        "entryIntervalSec": {
+          "min": 0.35,
+          "target": 0.55,
+          "max": 0.75
+        },
+        "liveCap": {
+          "target": 16,
+          "max": 18
+        },
+        "count": {
+          "min": 80,
+          "target": 88,
+          "max": 96
+        }
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.training_ground_skirmisher.1",
+        "character.mountain_path_archer.1",
+        "character.door_shield_barricader.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.03_2.training_ground_ambush.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.chapter01.05_1.training_ground_breakout",
+      "battleId": "battle.act1.chapter01.05_1.training_ground_breakout",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.05_1.training_ground_breakout.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Mid",
+      "difficulty": "normal",
+      "sequenceId": "seq.elimination_90s_swarm.normal",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": true,
+        "spawnArchetype": "alternating_roles",
+        "durationSec": {
+          "min": 75,
+          "target": 90,
+          "max": 105
+        },
+        "entryIntervalSec": {
+          "min": 0.35,
+          "target": 0.55,
+          "max": 0.75
+        },
+        "liveCap": {
+          "target": 16,
+          "max": 18
+        },
+        "count": {
+          "min": 88,
+          "target": 96,
+          "max": 104
+        }
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.starving_mountain_wolf.1",
+        "character.mountain_path_archer.1",
+        "character.door_shield_barricader.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.05_1.training_ground_breakout.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.chapter01.05_2.hut_escape",
+      "battleId": "battle.act1.chapter01.05_2.hut_escape",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.05_2.hut_escape.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Mid",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.mud_hood_polehooker.1",
+        "character.child_snatcher_netman.1",
+        "character.hut_blocker_guard.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.05_2.hut_escape.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.chapter01.06.bandit_fort_assault",
+      "battleId": "battle.act1.chapter01.06.bandit_fort_assault",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.chapter01.06.bandit_fort_assault.json",
+      "sourceType": "Direct",
+      "chapterPhase": "Late",
+      "difficulty": "normal",
+      "sequenceId": "seq.elimination_90s_swarm.normal",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": true,
+        "spawnArchetype": "threshold_escalation",
+        "durationSec": {
+          "min": 75,
+          "target": 90,
+          "max": 105
+        },
+        "entryIntervalSec": {
+          "min": 0.35,
+          "target": 0.55,
+          "max": 0.75
+        },
+        "liveCap": {
+          "target": 18,
+          "max": 20
+        },
+        "count": {
+          "min": 88,
+          "target": 104,
+          "max": 112
+        }
+      },
+      "monsterBindingIds": [
+        "character.mountain_fort_spearman.1",
+        "character.bone_axe_pursuer.1",
+        "character.watchtower_marksman.1",
+        "character.mountain_fort_spearman.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.chapter01.06.bandit_fort_assault.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "THRESHOLD_RUNTIME_UNSUPPORTED"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event01.named_well_wraith",
+      "battleId": "battle.act1.event01.named_well_wraith",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event01.named_well_wraith.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.abandoned_shrine_wraith.2",
+        "character.abandoned_shrine_wraith.2",
+        "character.abandoned_shrine_wraith.2",
+        "character.nameless_tablet_guardian.3"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event01.named_well_wraith.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event02.expose_rain_peddler",
+      "battleId": "battle.act1.event02.expose_rain_peddler",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event02.expose_rain_peddler.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.bone_axe_pursuer.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event02.expose_rain_peddler.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event04.drive_off_threaded_wolves",
+      "battleId": "battle.act1.event04.drive_off_threaded_wolves",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event04.drive_off_threaded_wolves.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.starving_mountain_wolf.1",
+        "character.starving_mountain_wolf.1",
+        "character.starving_mountain_wolf.1",
+        "character.marked_pack_leader.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event04.drive_off_threaded_wolves.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event05.bound_miner_wraith",
+      "battleId": "battle.act1.event05.bound_miner_wraith",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event05.bound_miner_wraith.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.abandoned_shrine_wraith.2",
+        "character.abandoned_shrine_wraith.2",
+        "character.abandoned_shrine_wraith.2",
+        "character.abandoned_shrine_wraith.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event05.bound_miner_wraith.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event07.moonlit_ink_wolves",
+      "battleId": "battle.act1.event07.moonlit_ink_wolves",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.starving_mountain_wolf.1",
+        "character.starving_mountain_wolf.1",
+        "character.starving_mountain_wolf.1",
+        "character.marked_pack_leader.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event07.moonlit_ink_wolves.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event07.red_doll_shadow_hex",
+      "battleId": "battle.act1.event07.red_doll_shadow_hex",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event07.red_doll_shadow_hex.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event07.red_doll_shadow_hex.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event09.protect_herbalist_map",
+      "battleId": "battle.act1.event09.protect_herbalist_map",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event09.protect_herbalist_map.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.mountain_path_archer.1",
+        "character.black_cloth_raider.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event09.protect_herbalist_map.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event10.jangseung_bandit_ambush",
+      "battleId": "battle.act1.event10.jangseung_bandit_ambush",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event10.jangseung_bandit_ambush.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.training_ground_skirmisher.1",
+        "character.training_ground_skirmisher.1",
+        "character.mountain_path_archer.1",
+        "character.training_ground_skirmisher.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event10.jangseung_bandit_ambush.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event11.restore_waterway",
+      "battleId": "battle.act1.event11.restore_waterway",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event11.restore_waterway.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.door_shield_barricader.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event11.restore_waterway.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event13.rescue_child_bride",
+      "battleId": "battle.act1.event13.rescue_child_bride",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event13.rescue_child_bride.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.child_snatcher_netman.1",
+        "character.child_snatcher_netman.1",
+        "character.cage_guard_bandit.2",
+        "character.cage_guard_bandit.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event13.rescue_child_bride.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event14.black_cloth_poultry_racket",
+      "battleId": "battle.act1.event14.black_cloth_poultry_racket",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event14.black_cloth_poultry_racket.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.track_eraser_scout.1",
+        "character.black_cloth_raider.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event14.black_cloth_poultry_racket.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event15.reclaim_hidden_grain",
+      "battleId": "battle.act1.event15.reclaim_hidden_grain",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event15.reclaim_hidden_grain.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.black_cloth_raider.1",
+        "character.chain_axe_enforcer.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event15.reclaim_hidden_grain.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event16.defend_blacksmith_records",
+      "battleId": "battle.act1.event16.defend_blacksmith_records",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event16.defend_blacksmith_records.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.training_ground_skirmisher.1",
+        "character.training_ground_skirmisher.1",
+        "character.training_ground_skirmisher.1",
+        "character.training_ground_skirmisher.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event16.defend_blacksmith_records.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event17.bandit_bowl_trap",
+      "battleId": "battle.act1.event17.bandit_bowl_trap",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event17.bandit_bowl_trap.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.child_snatcher_netman.1",
+        "character.child_snatcher_netman.1",
+        "character.child_snatcher_netman.1",
+        "character.child_snatcher_netman.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event17.bandit_bowl_trap.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event18.water_theft_guard",
+      "battleId": "battle.act1.event18.water_theft_guard",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event18.water_theft_guard.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.track_eraser_scout.1",
+        "character.track_eraser_scout.1",
+        "character.track_eraser_scout.1",
+        "character.track_eraser_scout.1"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event18.water_theft_guard.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event19.doll_medium_wraith",
+      "battleId": "battle.act1.event19.doll_medium_wraith",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event19.doll_medium_wraith.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2",
+        "character.red_doll_hexer.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event19.doll_medium_wraith.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    },
+    {
+      "encounterId": "encounter.battle.act1.event20.mist_beast_blockade",
+      "battleId": "battle.act1.event20.mist_beast_blockade",
+      "battleAssetPath": "Assets/Contents/Battle/json/battle.act1.event20.mist_beast_blockade.json",
+      "sourceType": "Event",
+      "chapterPhase": "RuntimePlacement",
+      "difficulty": "easy",
+      "sequenceId": "seq.elimination_90s_swarm.easy",
+      "baselineCurrent": {
+        "metadataSpawnCount": 80,
+        "derivedSequenceSpawnCount": 76,
+        "spawnWindowSec": 60,
+        "cleanupSec": 30,
+        "liveCap": null,
+        "statScaler": null,
+        "thresholdTrigger": null
+      },
+      "targetV1": {
+        "pilot": false,
+        "status": "FULL23_ROLLOUT_NOT_AUTHORIZED"
+      },
+      "monsterBindingIds": [
+        "character.starving_mountain_wolf.1",
+        "character.starving_mountain_wolf.1",
+        "character.ritual_bell_handler.2",
+        "character.marked_pack_leader.2"
+      ],
+      "coefficientVersion": "battle-scaling-coefficients.v1",
+      "sourceAuthority": [
+        "Assets/Contents/Battle/json/battle.act1.event20.mist_beast_blockade.json",
+        "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "SINGLE_SPAWN_SHAPE_OVERUSED",
+        "STAT_SCALER_RUNTIME_MISSING",
+        "LIVE_CAP_UNPROVEN",
+        "COUNT_METADATA_RUNTIME_MISMATCH",
+        "DIFFICULTY_SHAPE_IDENTICAL",
+        "PHASE_ASSIGNMENT_RUNTIME_CONTEXT"
+      ]
+    }
+  ],
+  "monsterRows": [
+    {
+      "characterId": "character.abandoned_shrine_wraith.2",
+      "characterPath": "Assets/Contents/Character/json/character.abandoned_shrine_wraith.2.json",
+      "grade": 2,
+      "role": "support",
+      "roleTU": 1.5,
+      "baselineCurrent": {
+        "hp": 70,
+        "atk": 10,
+        "def": 7,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event01.named_well_wraith",
+        "encounter.battle.act1.event05.bound_miner_wraith"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.abandoned_shrine_wraith.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.black_cloth_raider.1",
+      "characterPath": "Assets/Contents/Character/json/character.black_cloth_raider.1.json",
+      "grade": 1,
+      "role": "striker",
+      "roleTU": 1,
+      "baselineCurrent": {
+        "hp": 100,
+        "atk": 12,
+        "def": 14,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.01.rescue_villagers",
+        "encounter.battle.act1.chapter01.03_1.defend_hut",
+        "encounter.battle.act1.chapter01.03_2.training_ground_ambush",
+        "encounter.battle.act1.chapter01.05_1.training_ground_breakout",
+        "encounter.battle.act1.chapter01.05_2.hut_escape",
+        "encounter.battle.act1.event02.expose_rain_peddler",
+        "encounter.battle.act1.event09.protect_herbalist_map",
+        "encounter.battle.act1.event11.restore_waterway",
+        "encounter.battle.act1.event14.black_cloth_poultry_racket",
+        "encounter.battle.act1.event15.reclaim_hidden_grain"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.black_cloth_raider.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.bone_axe_pursuer.1",
+      "characterPath": "Assets/Contents/Character/json/character.bone_axe_pursuer.1.json",
+      "grade": 1,
+      "role": "striker",
+      "roleTU": 1,
+      "baselineCurrent": {
+        "hp": 149,
+        "atk": 15,
+        "def": 15,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.06.bandit_fort_assault",
+        "encounter.battle.act1.event02.expose_rain_peddler"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.bone_axe_pursuer.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.cage_guard_bandit.2",
+      "characterPath": "Assets/Contents/Character/json/character.cage_guard_bandit.2.json",
+      "grade": 2,
+      "role": "striker",
+      "roleTU": 1,
+      "baselineCurrent": {
+        "hp": 276,
+        "atk": 7,
+        "def": 40,
+        "move": 0.5,
+        "attackSpeed": 0.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event13.rescue_child_bride"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.cage_guard_bandit.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.chain_axe_enforcer.2",
+      "characterPath": "Assets/Contents/Character/json/character.chain_axe_enforcer.2.json",
+      "grade": 2,
+      "role": "elite",
+      "roleTU": 3,
+      "baselineCurrent": {
+        "hp": 357,
+        "atk": 29,
+        "def": 23,
+        "move": 0.5,
+        "attackSpeed": 0.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event15.reclaim_hidden_grain"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.chain_axe_enforcer.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.chain_dragger_raider.1",
+      "characterPath": "Assets/Contents/Character/json/character.chain_dragger_raider.1.json",
+      "grade": 1,
+      "role": "pursuer",
+      "roleTU": 1.1,
+      "baselineCurrent": {
+        "hp": 108,
+        "atk": 8,
+        "def": 15,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.01.rescue_villagers"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.chain_dragger_raider.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.child_snatcher_netman.1",
+      "characterPath": "Assets/Contents/Character/json/character.child_snatcher_netman.1.json",
+      "grade": 1,
+      "role": "support",
+      "roleTU": 1.5,
+      "baselineCurrent": {
+        "hp": 86,
+        "atk": 6,
+        "def": 10,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.05_2.hut_escape",
+        "encounter.battle.act1.event13.rescue_child_bride",
+        "encounter.battle.act1.event17.bandit_bowl_trap"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.child_snatcher_netman.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.door_shield_barricader.1",
+      "characterPath": "Assets/Contents/Character/json/character.door_shield_barricader.1.json",
+      "grade": 1,
+      "role": "tank",
+      "roleTU": 1.6,
+      "baselineCurrent": {
+        "hp": 241,
+        "atk": 6,
+        "def": 37,
+        "move": 0.5,
+        "attackSpeed": 0.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.03_2.training_ground_ambush",
+        "encounter.battle.act1.chapter01.05_1.training_ground_breakout",
+        "encounter.battle.act1.event11.restore_waterway"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.door_shield_barricader.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.hut_blocker_guard.2",
+      "characterPath": "Assets/Contents/Character/json/character.hut_blocker_guard.2.json",
+      "grade": 2,
+      "role": "tank",
+      "roleTU": 1.6,
+      "baselineCurrent": {
+        "hp": 340,
+        "atk": 8,
+        "def": 45,
+        "move": 0.5,
+        "attackSpeed": 0.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.05_2.hut_escape"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.hut_blocker_guard.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.marked_pack_leader.2",
+      "characterPath": "Assets/Contents/Character/json/character.marked_pack_leader.2.json",
+      "grade": 2,
+      "role": "elite",
+      "roleTU": 3,
+      "baselineCurrent": {
+        "hp": 177,
+        "atk": 18,
+        "def": 12,
+        "move": 1.5,
+        "attackSpeed": 1.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event04.drive_off_threaded_wolves",
+        "encounter.battle.act1.event07.moonlit_ink_wolves",
+        "encounter.battle.act1.event20.mist_beast_blockade"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.marked_pack_leader.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.mountain_fort_spearman.1",
+      "characterPath": "Assets/Contents/Character/json/character.mountain_fort_spearman.1.json",
+      "grade": 1,
+      "role": "tank",
+      "roleTU": 1.6,
+      "baselineCurrent": {
+        "hp": 190,
+        "atk": 8,
+        "def": 33,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.06.bandit_fort_assault"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.mountain_fort_spearman.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.mountain_path_archer.1",
+      "characterPath": "Assets/Contents/Character/json/character.mountain_path_archer.1.json",
+      "grade": 1,
+      "role": "ranged",
+      "roleTU": 1.25,
+      "baselineCurrent": {
+        "hp": 86,
+        "atk": 14,
+        "def": 10,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.03_2.training_ground_ambush",
+        "encounter.battle.act1.chapter01.05_1.training_ground_breakout",
+        "encounter.battle.act1.event09.protect_herbalist_map",
+        "encounter.battle.act1.event10.jangseung_bandit_ambush"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.mountain_path_archer.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.mud_hood_polehooker.1",
+      "characterPath": "Assets/Contents/Character/json/character.mud_hood_polehooker.1.json",
+      "grade": 1,
+      "role": "support",
+      "roleTU": 1.5,
+      "baselineCurrent": {
+        "hp": 99,
+        "atk": 7,
+        "def": 13,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.05_2.hut_escape"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.mud_hood_polehooker.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.nameless_tablet_guardian.3",
+      "characterPath": "Assets/Contents/Character/json/character.nameless_tablet_guardian.3.json",
+      "grade": 3,
+      "role": "elite",
+      "roleTU": 3,
+      "baselineCurrent": {
+        "hp": 345,
+        "atk": 11,
+        "def": 34,
+        "move": 0.5,
+        "attackSpeed": 0.5
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event01.named_well_wraith"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.nameless_tablet_guardian.3.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.red_doll_hexer.2",
+      "characterPath": "Assets/Contents/Character/json/character.red_doll_hexer.2.json",
+      "grade": 2,
+      "role": "support",
+      "roleTU": 1.5,
+      "baselineCurrent": {
+        "hp": 99,
+        "atk": 6,
+        "def": 13,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event07.red_doll_shadow_hex",
+        "encounter.battle.act1.event19.doll_medium_wraith"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.red_doll_hexer.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.ritual_bell_handler.2",
+      "characterPath": "Assets/Contents/Character/json/character.ritual_bell_handler.2.json",
+      "grade": 2,
+      "role": "support",
+      "roleTU": 1.5,
+      "baselineCurrent": {
+        "hp": 108,
+        "atk": 6,
+        "def": 12,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event20.mist_beast_blockade"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.ritual_bell_handler.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.starving_mountain_wolf.1",
+      "characterPath": "Assets/Contents/Character/json/character.starving_mountain_wolf.1.json",
+      "grade": 1,
+      "role": "pursuer",
+      "roleTU": 1.1,
+      "baselineCurrent": {
+        "hp": 45,
+        "atk": 7,
+        "def": 6,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.03_1.defend_hut",
+        "encounter.battle.act1.chapter01.05_1.training_ground_breakout",
+        "encounter.battle.act1.event04.drive_off_threaded_wolves",
+        "encounter.battle.act1.event07.moonlit_ink_wolves",
+        "encounter.battle.act1.event20.mist_beast_blockade"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.starving_mountain_wolf.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.track_eraser_scout.1",
+      "characterPath": "Assets/Contents/Character/json/character.track_eraser_scout.1.json",
+      "grade": 1,
+      "role": "pursuer",
+      "roleTU": 1.1,
+      "baselineCurrent": {
+        "hp": 73,
+        "atk": 7,
+        "def": 10,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.event14.black_cloth_poultry_racket",
+        "encounter.battle.act1.event18.water_theft_guard"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.track_eraser_scout.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.training_ground_captain.2",
+      "characterPath": "Assets/Contents/Character/json/character.training_ground_captain.2.json",
+      "grade": 2,
+      "role": "elite",
+      "roleTU": 3,
+      "baselineCurrent": {
+        "hp": 238,
+        "atk": 18,
+        "def": 26,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.training_ground_captain.2.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.training_ground_skirmisher.1",
+      "characterPath": "Assets/Contents/Character/json/character.training_ground_skirmisher.1.json",
+      "grade": 1,
+      "role": "striker",
+      "roleTU": 1,
+      "baselineCurrent": {
+        "hp": 68,
+        "atk": 11,
+        "def": 9,
+        "move": 1,
+        "attackSpeed": 1
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.03_2.training_ground_ambush",
+        "encounter.battle.act1.event10.jangseung_bandit_ambush",
+        "encounter.battle.act1.event16.defend_blacksmith_records"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.training_ground_skirmisher.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    },
+    {
+      "characterId": "character.watchtower_marksman.1",
+      "characterPath": "Assets/Contents/Character/json/character.watchtower_marksman.1.json",
+      "grade": 1,
+      "role": "ranged",
+      "roleTU": 1.25,
+      "baselineCurrent": {
+        "hp": 81,
+        "atk": 15,
+        "def": 10,
+        "move": 0.75,
+        "attackSpeed": 0.75
+      },
+      "targetV1": {
+        "mutationAuthorized": false,
+        "scalerStatus": "UNSUPPORTED_RUNTIME",
+        "identityInvariant": "base role ordering must not invert"
+      },
+      "affectedEncounterIds": [
+        "encounter.battle.act1.chapter01.06.bandit_fort_assault"
+      ],
+      "sourceAuthority": [
+        "Assets/Contents/Character/json/character.watchtower_marksman.1.json"
+      ],
+      "override": null,
+      "staleState": "STALE_RUNTIME_GAPS",
+      "warnings": [
+        "STAT_SCALER_RUNTIME_MISSING"
+      ]
+    }
+  ],
+  "warnings": [
+    "CURRENT_METADATA_80_DERIVES_76",
+    "CURRENT_METADATA_108_DERIVES_104",
+    "LIVE_CAP_UNPROVEN",
+    "THRESHOLD_RUNTIME_UNSUPPORTED",
+    "STAT_SCALER_RUNTIME_MISSING"
+  ],
+  "staleState": "STALE_RUNTIME_GAPS"
+}

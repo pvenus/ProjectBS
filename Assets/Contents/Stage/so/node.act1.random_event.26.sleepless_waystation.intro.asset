@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043233
+      rid: 5601486871972282598
   - choiceId: choice.act1.random_event.26.sleepless_waystation.observe_next_routes
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043234
+      rid: 5601486871972282599
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043233
+    - rid: 5601486871972282598
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043235
-    - rid: 5601486867666043234
+          rid: 5601486871972282600
+    - rid: 5601486871972282599
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043236
-    - rid: 5601486867666043235
+          rid: 5601486871972282601
+    - rid: 5601486871972282600
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043236
+    - rid: 5601486871972282601
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

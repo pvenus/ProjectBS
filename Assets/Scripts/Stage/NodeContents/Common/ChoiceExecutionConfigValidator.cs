@@ -630,6 +630,12 @@ namespace Stage
                 errors.Add(
                     "SHOP_ITEM_COUNT: itemCount must be greater than zero.");
             }
+
+
+            if (data.HasAnyIdentity && !data.HasCompleteIdentity)
+            {
+                errors.Add("SHOP_IDENTITY_PARTIAL: Typed shop identity must be all-empty or complete.");
+            }
         }
 
         private static bool HasValidProduct(ShopItemPoolSO pool)

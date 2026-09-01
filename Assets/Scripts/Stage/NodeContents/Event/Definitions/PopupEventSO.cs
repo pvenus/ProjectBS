@@ -32,6 +32,8 @@ namespace Stage
         [Header("Visual")]
         public Sprite mainImage;
         public Sprite icon;
+        [Tooltip("Optional Resources path. Empty keeps the static mainImage path.")]
+        public string motionSequenceResourcePath;
 
         [Header("Choices")]
         public List<PopupEventChoice> choices = new();

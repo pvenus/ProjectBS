@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043311
+      rid: 5601486871972282676
   - choiceId: choice.act1.random_event.43.reverse_growing_moss_marker.remove_reverse_moss
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043312
+      rid: 5601486871972282677
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043311
+    - rid: 5601486871972282676
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043313
-    - rid: 5601486867666043312
+          rid: 5601486871972282678
+    - rid: 5601486871972282677
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043314
-    - rid: 5601486867666043313
+          rid: 5601486871972282679
+    - rid: 5601486871972282678
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043314
+    - rid: 5601486871972282679
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

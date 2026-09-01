@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: skill-animation-vfx
+  m_Shader: {fileID: 4800000, guid: 992bdb159b864b35a65e39dcba381d98, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _FlowSpeedX: -1.71
+    - _FlowSpeedY: 0
+    - _OutlineWidth: 1
+    - _PulseIntensity: 0.1
+    - _PulseSpeed: 2
+    - _RimIntensity: 0.35
+    - _VfxAfterglow: 0
+    - _VfxAuxiliaryEnvelope: 0.18
+    - _VfxBodyOpacityGain: 0
+    - _VfxColorPhase: 0.832
+    - _VfxColorShiftStrength: 0.115
+    - _VfxDesaturate: 0
+    - _VfxEmissionIntensity: 0.382
+    - _VfxGlintStrength: 0
+    - _VfxGlintWidth: 0.03
+    - _VfxGlobalAlpha: 0.439
+    - _VfxImpactPeak: 0.751
+    - _VfxInkBreakup: 0.5
+    - _VfxInkDensity: 0.3
+    - _VfxInkScale: 24
+    - _VfxLocalizedGlowAlpha: 0
+    - _VfxNeonAfterglowGain: 0.5
+    - _VfxNeonPeakGain: 1
+    - _VfxNeonRimStrength: 0.5
+    - _VfxNeutralPeakEnvelope: 0.04
+    - _VfxRimPulsePhase: 0
+    - _VfxRimPulseStrength: 0
+    - _VfxSignatureCoverage: 0.8
+    - _VfxSpatialPattern: 0
+    - _VfxSweepPhase: 0
+    - _VfxSweepSoftness: 0.05
+    - _VfxSweepStrength: 0
+    - _VfxSweepWidth: 0.1
+    - _VfxTintStrength: 0.204
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0.78}
+    - _VfxAfterglowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _VfxAuxiliaryColor: {r: 0, g: 0, b: 0, a: 1}
+    - _VfxColorA: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxColorB: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxEmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _VfxGlintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxImpactColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxInkFlow: {r: 1, g: 0, b: 0, a: 0}
+    - _VfxNeutralPeakColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxRimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxSignatureColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxSpriteUvRect: {r: 0, g: 0, b: 1, a: 1}
+    - _VfxSweepColor: {r: 1, g: 1, b: 1, a: 1}
+    - _VfxSweepDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _VfxTintColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 using Skill;
 using System.Collections;
 using System.Collections.Generic;
+using Battle.Presentation.SkillFocus;
 
 namespace Character.Skill
 {
@@ -297,6 +298,22 @@ namespace Character.Skill
                 return false;
             }
 
+            return StartSkillUseRoutineCore(skillManager, runtime, caster, target, usePoint, targetPoint);
+        }
+
+        private bool StartSkillUseRoutineCore(
+            CharacterSkillManager skillManager,
+            EquipmentSkillRuntimeData runtime,
+            Transform caster,
+            Transform target,
+            bool usePoint,
+            Vector2 targetPoint)
+        {
+            if (skillManager == null || runtime == null || caster == null)
+            {
+                return false;
+            }
+
             bool isSelfOrNoTargetSkill = IsSelfOrNoTargetSkill(runtime);
             Vector2 resolvedTargetPoint = ResolveTargetPoint(
                 runtime,
@@ -386,6 +403,10 @@ namespace Character.Skill
 
             for (int burstIndex = 0; burstIndex < burstCount; burstIndex++)
             {
+                if (!successNotified)
+                {
+                    MainCharacterSkillFocusFeature.NotifySkillExecuting(skillManager, runtime, caster);
+                }
                 bool burstFired = UseSkillOnce(
                     skillManager,
                     runtime,
@@ -398,6 +419,10 @@ namespace Character.Skill
                 {
                     successNotified = true;
                     skillManager.NotifySkillUseSucceeded(runtime);
+                }
+                else if (!burstFired && !successNotified)
+                {
+                    MainCharacterSkillFocusFeature.CancelPending(caster);
                 }
 
                 if (burstIndex < burstCount - 1 && burstInterval > 0f)

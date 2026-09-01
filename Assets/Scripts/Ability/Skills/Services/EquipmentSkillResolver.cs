@@ -46,6 +46,9 @@ public class EquipmentSkillResolver
             resolvedProjectileSpreadAngle = statResolver.ResolveProjectileSpreadAngle(equipmentSo, resolvedStatModifiers),
             resolvedProjectileArrangementValue = statResolver.GetProjectileArrangementValue(equipmentSo),
             resolvedProjectileScale = statResolver.ResolveProjectileScale(equipmentSo, resolvedStatModifiers),
+            resolvedRendererScale = equipmentSo.BaseProfileSo != null
+                ? equipmentSo.BaseProfileSo.RendererScale
+                : 1f,
 
             visualContext = BuildVisualContext(equipmentSo),
             upgradeRuntimeData = upgradeRuntimeData
@@ -173,6 +176,7 @@ public class EquipmentSkillResolver
             projectileSpreadAngle = Mathf.Max(0f, runtime.resolvedProjectileSpreadAngle),
             projectileArrangementValue = Mathf.Max(0f, runtime.resolvedProjectileArrangementValue),
             projectileScale = Mathf.Max(0.01f, runtime.resolvedProjectileScale),
+            rendererScale = EquipmentBaseProfileSO.NormalizeRendererScale(runtime.resolvedRendererScale),
             visualContext = runtime.visualContext,
             spawnSkillSo = equipmentSo != null
                 ? equipmentSo.SpawnSkillSo
@@ -200,6 +204,7 @@ public class EquipmentSkillResolver
             projectileSpreadAngle = source.projectileSpreadAngle,
             projectileArrangementValue = source.projectileArrangementValue,
             projectileScale = source.projectileScale,
+            rendererScale = EquipmentBaseProfileSO.NormalizeRendererScale(source.rendererScale),
             projectileSpawnInterval = source.projectileSpawnInterval,
             projectileSpawnRadius = source.projectileSpawnRadius,
             moveRuntime = source.moveRuntime,
@@ -365,7 +370,9 @@ public class EquipmentSkillResolver
             ignoreSameRoot = hitSo.IgnoreSameRoot,
             useRepeatInterval = hitSo.UseRepeatInterval,
             repeatInterval = Mathf.Max(0f, hitSo.RepeatInterval),
+            useHitWindow = hitSo.UseHitWindow,
             hitStartTime = Mathf.Max(0f, hitSo.HitStartTime),
+            hitDuration = Mathf.Max(0f, hitSo.HitDuration),
             deactivateAfterFirstHit = hitSo.DeactivateAfterFirstHit,
             targetLayerMask = hitSo.TargetLayerMask,
             damageProfile = resolvedDamageProfile,

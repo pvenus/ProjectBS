@@ -17,14 +17,16 @@ MonoBehaviour:
   ignoreSameRoot: 1
   useRepeatInterval: 1
   repeatInterval: 1
+  useHitWindow: 0
   hitStartTime: 0
+  hitDuration: 6
   deactivateAfterFirstHit: 0
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
   damage:
     damageType: 2
-    baseDamage: 100
+    baseDamage: 120
     firstHitBaseDamage: 0
     attackPercentDamage: 0.6
     canCritical: 0
@@ -34,7 +36,7 @@ MonoBehaviour:
   effects:
     buffEffects: []
     debuffEffects:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 08f27517b5b8471eb9b19b4a73332418, type: 2}
   split:
     useSplitMultiHitDamage: 0
     splitHitCount: 1

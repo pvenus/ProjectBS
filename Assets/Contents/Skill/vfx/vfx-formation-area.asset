@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-formation-area
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.formationArea.v1
+  preset: 3
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 0.34, g: 0.39, b: 0.38, a: 1}
+  tintStrength: 0.07
+  colorA: {r: 0.26, g: 0.32, b: 0.31, a: 1}
+  colorB: {r: 0.53, g: 0.45, b: 0.34, a: 1}
+  colorShiftStrength: 0.07
+  emissionColor: {r: 0.43, g: 0.5, b: 0.47, a: 1}
+  emissionIntensity: 0.05
+  desaturate: 0.05
+  outlineColor: {r: 0.13, g: 0.15, b: 0.15, a: 0.76}
+  outlineWidth: 1.15
+  fadeIn: 0.12
+  hold: 0.3
+  fadeOut: 0.25
+  phaseSpeed: 0.6
+  flowSpeed: {x: 1, y: 0}
+  rimColor: {r: 0.46, g: 0.54, b: 0.51, a: 1}
+  spatialPattern: 2
+  rimPulseStrength: 0.2
+  sweepColor: {r: 0.58, g: 0.49, b: 0.37, a: 1}
+  sweepDirection: {x: 1, y: 0}
+  sweepStrength: 0.13
+  sweepWidth: 0.15
+  sweepSoftness: 0.1
+  glintColor: {r: 0.63, g: 0.64, b: 0.56, a: 1}
+  glintStrength: 0.07
+  glintWidth: 0.04
+  peakColor: {r: 0.48, g: 0.57, b: 0.54, a: 1}
+  peakIntensity: 0.28
+  peakDuration: 0.06
+  afterglowColor: {r: 0.27, g: 0.33, b: 0.32, a: 1}
+  afterglowIntensity: 0.11
+  afterglowDuration: 0.24
+  inkDensity: 0.31
+  inkBreakup: 0.5
+  inkScale: 22
+  inkFlow: {x: 1, y: 0}
+  neonRimStrength: 0.62
+  neonPeakGain: 0.95
+  neonAfterglowGain: 0.8

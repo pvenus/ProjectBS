@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b522ebaa721d4dd4892c63aa82e297fb, type: 3}
+  m_Name: episode1.rescue_villagers.solo_large_wave.v2
+  m_EditorClassIdentifier: Assembly-CSharp::Battle.BattleLargeWavePolicySO
+  policyId: seq.act1.chapter01.01.rescue_villagers.solo_large_wave.v2
+  enabled: 1
+  soloOriginAtControlHandoff: 1
+  reservationCommitTime: 0.25
+  telegraphDuration: 0.2
+  hardLivingCap: 28
+  safetyRadius: 4.5
+  minimumSpawnRadius: 9
+  maximumSpawnRadius: 14
+  minimumCameraEdgeDistance: 1.5
+  maximumCameraEdgeDistance: 2.5

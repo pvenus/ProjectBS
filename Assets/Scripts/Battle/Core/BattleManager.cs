@@ -191,6 +191,12 @@ namespace Battle
             UnsubscribeBattleSpawnManager();
             isSpawnSequenceFinished = false;
             spawnManager.OnSequenceFinished += HandleSpawnSequenceFinished;
+            if (spawnManager.TryPlayLargeWave(
+                battleSession.BattleSO.LargeWavePolicy,
+                new SpawnUnitBindingResolver(battleSession.BattleSO.SpawnUnitBindings)))
+            {
+                return;
+            }
             spawnManager.PlaySequence(
                 spawnSequence,
                 new SpawnUnitBindingResolver(battleSession.BattleSO.SpawnUnitBindings));
@@ -326,6 +332,16 @@ namespace Battle
             if (battleSession.BattleSO != null &&
                 battleSession.BattleSO.SpawnSequence != null)
             {
+                BattleSpawnManager spawnManager = BattleSpawnManager.Instance;
+                if (spawnManager != null && spawnManager.UsesLargeWave)
+                {
+                    if (spawnManager.HasLargeWaveFailed || !spawnManager.IsLargeWaveTerminalReady)
+                    {
+                        return;
+                    }
+                    CompleteBattle();
+                    return;
+                }
                 if (!isSpawnSequenceFinished)
                 {
                     return;

@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043283
+      rid: 5601486871972282648
   - choiceId: choice.act1.random_event.36.cracked_bronze_mirror.break_false_reflection
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043284
+      rid: 5601486871972282649
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043283
+    - rid: 5601486871972282648
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043285
-    - rid: 5601486867666043284
+          rid: 5601486871972282650
+    - rid: 5601486871972282649
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043286
-    - rid: 5601486867666043285
+          rid: 5601486871972282651
+    - rid: 5601486871972282650
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
           relic: {fileID: 11400000, guid: d6b233d5197bf4f2aa86ecabc00ec785, type: 2}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043286
+    - rid: 5601486871972282651
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

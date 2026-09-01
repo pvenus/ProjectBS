@@ -39,9 +39,14 @@ public class EventPopupView : UIView
             {
                 eventImage.sprite = data.Illustration;
                 eventImage.gameObject.SetActive(true);
+                PopupMotionPlaybackOwner.Bind(
+                    eventImage,
+                    data.Illustration,
+                    data.MotionSequenceResourcePath);
             }
             else
             {
+                PopupMotionPlaybackOwner.Release(eventImage);
                 eventImage.gameObject.SetActive(false);
             }
         }
@@ -113,8 +118,12 @@ public class EventPopupView : UIView
 
     private void OnChoiceSelectedInternal(EventChoiceViewData choice)
     {
+        PopupMotionPlaybackOwner.Release(eventImage);
         // 콜백에서 다음 Popup이 동기적으로 열릴 수 있으므로
         // 현재 선택지 정리는 Manager 호출보다 먼저 끝낸다.
+        // Manager 호출 중 View가 다시 구성되어 콜백 필드가 초기화되더라도
+        // 이 선택의 확인 버튼은 최초에 결속된 완료 콜백을 유지해야 한다.
+        Action confirmCallback = OnChoiceConfirmed;
         ClearChoices();
         OnChoiceSelected?.Invoke(choice.Id);
 
@@ -132,14 +141,14 @@ public class EventPopupView : UIView
                 UITextButton btn = Instantiate(choiceButtonPrefab, choiceContainer);
                 btn.Bind(
                     "확인",
-                    () => OnChoiceConfirmed?.Invoke());
+                    () => confirmCallback?.Invoke());
                 btn.gameObject.SetActive(true);
                 spawnedButtons.Add(btn);
             }
         }
         else
         {
-            OnChoiceConfirmed?.Invoke();
+            confirmCallback?.Invoke();
         }
     }
 
@@ -158,6 +167,7 @@ public class EventPopupView : UIView
 
     public override void Hide()
     {
+        PopupMotionPlaybackOwner.Release(eventImage);
         if (panelRoot != null)
         {
             panelRoot.SetActive(false);
@@ -167,6 +177,7 @@ public class EventPopupView : UIView
 
     public override void Clear()
     {
+        PopupMotionPlaybackOwner.Release(eventImage);
         ClearChoices();
     }
 

@@ -62,7 +62,9 @@ namespace ResourceTools.Stage
             public string nodeId;
             public string actId;
             public string episodeId;
+            public string eventId;
             public string titleKo;
+            public string summary;
             public string summaryKo;
             public string bodyKo;
             public string textKo;
@@ -265,7 +267,8 @@ namespace ResourceTools.Stage
             if (!string.IsNullOrWhiteSpace(rootId))
             {
                 AddEntry(entries, rootId, "title", root.titleKo);
-                AddEntry(entries, rootId, "body", FirstNonEmpty(root.summaryKo, root.bodyKo, root.textKo));
+                AddEntry(entries, rootId, "body", FirstNonEmpty(
+                    root.summaryKo, root.summary, root.bodyKo, root.textKo));
             }
 
             if (root.nodes == null)
@@ -320,17 +323,35 @@ namespace ResourceTools.Stage
                 return root.nodeId;
             }
 
+            string eventStageId = DeriveStageId(root.eventId);
+            if (!string.IsNullOrWhiteSpace(eventStageId))
+            {
+                return eventStageId;
+            }
+
+            if (!string.IsNullOrWhiteSpace(root.episodeId))
+            {
+                string episodeStageId = DeriveStageId(root.episodeId);
+                return !string.IsNullOrWhiteSpace(episodeStageId)
+                    ? episodeStageId
+                    : root.episodeId;
+            }
+
             if (!string.IsNullOrWhiteSpace(root.actId))
             {
                 return root.actId;
             }
 
-            if (!string.IsNullOrWhiteSpace(root.episodeId))
-            {
-                return root.episodeId;
-            }
-
             return null;
+        }
+
+        private static string DeriveStageId(string value)
+        {
+            const string EventPrefix = "event.";
+            return !string.IsNullOrWhiteSpace(value)
+                && value.StartsWith(EventPrefix, StringComparison.Ordinal)
+                ? "stage." + value.Substring(EventPrefix.Length)
+                : null;
         }
 
         private static void AddEntry(Dictionary<string, StringEntry> entries, string mainKey, string subKey, string ko)

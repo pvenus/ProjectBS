@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17b84108722143f8b526a016c3a0235, type: 3}
+  m_Name: node.shop.chapter1.normal.v1
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
+  eventId: node.shop.chapter1.normal.v1
+  mainImage: {fileID: 0}
+  icon: {fileID: 0}
+  choices:
+  - choiceId: choice.shop.chapter1.normal.v1.enter
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig: {rid: 6101001}
+  - choiceId: choice.shop.chapter1.normal.v1.leave
+    requirements: []
+    visibleConditions: []
+    rewards: []
+    executionConfig: {rid: 6101002}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6101001
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 200
+        data: {rid: 6101003}
+    - rid: 6101002
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 900
+        data: {rid: 6101004}
+    - rid: 6101003
+      type: {class: ShopExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:
+        shopType: 0
+        pools:
+        - {fileID: 11400000, guid: 41ed2e3e261b5460e95917b22782862a, type: 2}
+        - {fileID: 11400000, guid: 40e22fc91a63b4895bbb728e8f7ba8c6, type: 2}
+        itemCount: 6
+        serviceId: shop.service.chapter1.normal.v1
+        stockReservationId: reservation.shop.chapter1.normal.v1.stock
+        stockReceiptId: receipt.shop.chapter1.normal.v1.stock
+        nodeCompletionReceiptId: receipt.shop.chapter1.normal.v1.node
+    - rid: 6101004
+      type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
+      data:

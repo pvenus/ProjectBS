@@ -50,6 +50,219 @@ namespace ProjectBS.EditorTests.Stage
         }
 
         [Test]
+        public void LegacyFallback_DoesNotRepeatManifestAssignedOneShotNode()
+        {
+            var rule = ScriptableObject.CreateInstance<StagePlacementRuleSO>();
+            var pool = ScriptableObject.CreateInstance<EventPoolSO>();
+            var oneShot = ScriptableObject.CreateInstance<RoundNodeSO>();
+            var repeatable = ScriptableObject.CreateInstance<RoundNodeSO>();
+            try
+            {
+                rule.weightedPool.avoidDuplicateInSection = false;
+                rule.weightedPool.rows.Add(new WeightedPlacementEventRow
+                {
+                    eventId = "event.act1.random_event.26.sleepless_waystation",
+                    node = oneShot,
+                    oneShot = true,
+                    topLevelEligible = true,
+                    rawWeight = 100
+                });
+                pool.entries.Add(new EventPoolEntry
+                    { node = oneShot, entryId = "event26", weight = 100 });
+                pool.entries.Add(new EventPoolEntry
+                    { node = repeatable, entryId = "repeatable", weight = 1 });
+                rule.weightedPool.pools.Add(new StagePlacementPoolEntry
+                    { pool = pool, weight = 100 });
+
+                var assignments = new Dictionary<string, RoundNodeSO>
+                    { ["manifest-slot"] = oneShot };
+                var section = new StageRandomSection { sectionId = "fallback" };
+                var slots = new[]
+                {
+                    new StageMapSlot { slotId = "fallback-1", role = StageMapSlotRole.Random },
+                    new StageMapSlot { slotId = "fallback-2", role = StageMapSlotRole.Random }
+                };
+
+                rule.Fill(section, slots, assignments, new System.Random(26));
+
+                Assert.AreSame(oneShot, assignments["manifest-slot"]);
+                Assert.AreSame(repeatable, assignments["fallback-1"]);
+                Assert.AreSame(repeatable, assignments["fallback-2"],
+                    "Non-oneShot legacy repetition must remain compatible when the section guard is disabled.");
+                Assert.AreEqual(1, assignments.Values.Count(node => node == oneShot));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(oneShot);
+                UnityEngine.Object.DestroyImmediate(repeatable);
+                UnityEngine.Object.DestroyImmediate(pool);
+                UnityEngine.Object.DestroyImmediate(rule);
+            }
+        }
+
+        [Test]
+        public void Projection_MapsLogicalAssignmentsByDepth_NotFlattenedPhysicalSlotIndex()
+        {
+            var definition = ScriptableObject.CreateInstance<StageDefinitionSO>();
+            var first = ScriptableObject.CreateInstance<RoundNodeSO>();
+            var second = ScriptableObject.CreateInstance<RoundNodeSO>();
+            try
+            {
+                definition.svgMapSlots.AddRange(new[]
+                {
+                    new StageMapSlot { slotId = "depth-0-a", depth = 0, orderInDepth = 0, role = StageMapSlotRole.Random },
+                    new StageMapSlot { slotId = "depth-0-b", depth = 0, orderInDepth = 1, role = StageMapSlotRole.Random },
+                    new StageMapSlot { slotId = "depth-1-a", depth = 1, orderInDepth = 0, role = StageMapSlotRole.Random },
+                    new StageMapSlot { slotId = "depth-1-b", depth = 1, orderInDepth = 1, role = StageMapSlotRole.Random }
+                });
+                var manifest = new Chapter1WeightedEventManifest(true, string.Empty, new[]
+                {
+                    new Chapter1WeightedEventAssignment(0, WeightedPlacementBand.Early,
+                        new WeightedPlacementEventRow { node = first }, false),
+                    new Chapter1WeightedEventAssignment(1, WeightedPlacementBand.Mid,
+                        new WeightedPlacementEventRow { node = second }, false)
+                });
+
+                IReadOnlyDictionary<string, RoundNodeSO> projected =
+                    Chapter1WeightedEventProjection.Project(definition, manifest);
+
+                Assert.AreSame(first, projected["depth-0-a"]);
+                Assert.AreSame(first, projected["depth-0-b"]);
+                Assert.AreSame(second, projected["depth-1-a"]);
+                Assert.AreSame(second, projected["depth-1-b"]);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(first);
+                UnityEngine.Object.DestroyImmediate(second);
+                UnityEngine.Object.DestroyImmediate(definition);
+            }
+        }
+
+        [Test]
+        public void Projection_MovesRouteBoundEventToBranchCapableDepth()
+        {
+            var definition = ScriptableObject.CreateInstance<StageDefinitionSO>();
+            var ordinary = ScriptableObject.CreateInstance<RoundNodeSO>();
+            var route = ScriptableObject.CreateInstance<RoundNodeSO>();
+            var popup = ScriptableObject.CreateInstance<PopupEventSO>();
+            try
+            {
+                route.popupEvent = popup;
+                popup.choices.Add(new PopupEventChoice
+                {
+                    choiceId = "route",
+                    executionConfig = new ChoiceExecutionConfig
+                    {
+                        executionType = ChoiceExecutionType.PortfolioOutcome,
+                        data = new PortfolioOutcomeExecutionData
+                        {
+                            operations = new List<PortfolioOutcomeOperationData>
+                            {
+                                new() { kind = PortfolioOutcomeOperationKind.CommitImmediateSuccessorRoute,
+                                    selectionMode = ImmediateSuccessorRouteSelectionMode.ShortestRemainingToSectionExit }
+                            }
+                        }
+                    }
+                });
+                definition.svgMapSlots.AddRange(new[]
+                {
+                    new StageMapSlot { slotId = "single", depth = 0, role = StageMapSlotRole.Random,
+                        connections = new List<StageSlotConnection> { new() { toSlotId = "next" } } },
+                    new StageMapSlot { slotId = "branch", depth = 1, role = StageMapSlotRole.Random,
+                        connections = new List<StageSlotConnection> { new() { toSlotId = "left" }, new() { toSlotId = "right" } } }
+                });
+                var manifest = new Chapter1WeightedEventManifest(true, string.Empty, new[]
+                {
+                    new Chapter1WeightedEventAssignment(0, WeightedPlacementBand.Early,
+                        new WeightedPlacementEventRow { node = route }, false),
+                    new Chapter1WeightedEventAssignment(1, WeightedPlacementBand.Mid,
+                        new WeightedPlacementEventRow { node = ordinary }, false)
+                });
+
+                IReadOnlyDictionary<string, RoundNodeSO> projected =
+                    Chapter1WeightedEventProjection.Project(definition, manifest);
+
+                Assert.AreSame(ordinary, projected["single"]);
+                Assert.AreSame(route, projected["branch"]);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(popup);
+                UnityEngine.Object.DestroyImmediate(route);
+                UnityEngine.Object.DestroyImmediate(ordinary);
+                UnityEngine.Object.DestroyImmediate(definition);
+            }
+        }
+
+        [Test]
+        public void BattlePressureBuilder_ProducesLockedExactCompositionAndPhaseCounts()
+        {
+            StagePlacementRuleSO rule = CreateRule(46);
+            var battlePool = ScriptableObject.CreateInstance<EventPoolSO>();
+            var shopPool = ScriptableObject.CreateInstance<EventPoolSO>();
+            var restPool = ScriptableObject.CreateInstance<EventPoolSO>();
+            var created = new List<RoundNodeSO>();
+            try
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    var node = ScriptableObject.CreateInstance<RoundNodeSO>();
+                    node.nodeType = RoundNodeType.Battle; created.Add(node);
+                    battlePool.entries.Add(new EventPoolEntry { node = node, weight = 100 });
+                }
+                var shop = ScriptableObject.CreateInstance<RoundNodeSO>();
+                shop.nodeType = RoundNodeType.Shop; created.Add(shop);
+                shopPool.entries.Add(new EventPoolEntry { node = shop, weight = 100 });
+                var rest = ScriptableObject.CreateInstance<RoundNodeSO>();
+                rest.nodeType = RoundNodeType.Rest; created.Add(rest);
+                restPool.entries.Add(new EventPoolEntry { node = rest, weight = 100 });
+                rule.weightedPool.composition = new BattlePressureCompositionConfig
+                {
+                    enabled = true, directBattlePool = battlePool,
+                    shopPool = shopPool, restPool = restPool
+                };
+
+                Chapter1BattlePressureManifest manifest =
+                    new Chapter1BattlePressureManifestBuilder().Build(rule.weightedPool, 17);
+
+                Assert.IsTrue(manifest.Success, manifest.Error);
+                Assert.AreEqual(12, manifest.Assignments.Count);
+                Assert.AreEqual(4, manifest.Assignments.Count(x => x.Kind == Chapter1EncounterKind.DirectBattle));
+                Assert.AreEqual(2, manifest.Assignments.Count(x => x.Kind == Chapter1EncounterKind.Shop));
+                Assert.AreEqual(2, manifest.Assignments.Count(x => x.Kind == Chapter1EncounterKind.Rest));
+                Assert.AreEqual(4, manifest.Assignments.Count(x => x.Kind == Chapter1EncounterKind.Event));
+                Assert.AreEqual(1, manifest.Assignments.Count(x => x.Phase == WeightedPlacementBand.Early
+                    && x.Kind == Chapter1EncounterKind.DirectBattle));
+                Assert.AreEqual(2, manifest.Assignments.Count(x => x.Phase == WeightedPlacementBand.Mid
+                    && x.Kind == Chapter1EncounterKind.DirectBattle));
+                Assert.AreEqual(1, manifest.Assignments.Count(x => x.Phase == WeightedPlacementBand.Late
+                    && x.Kind == Chapter1EncounterKind.DirectBattle));
+                Assert.IsFalse(manifest.Assignments.Zip(manifest.Assignments.Skip(1),
+                    (left, right) => left.Kind == Chapter1EncounterKind.DirectBattle
+                        && right.Kind == Chapter1EncounterKind.DirectBattle).Any(value => value));
+                int[] directOrdinals = manifest.Assignments
+                    .Where(x => x.Kind == Chapter1EncounterKind.DirectBattle)
+                    .Select(x => x.Ordinal).ToArray();
+                Assert.LessOrEqual(directOrdinals[0] - 1, 3);
+                Assert.LessOrEqual(12 - directOrdinals[^1], 3);
+                Assert.IsTrue(directOrdinals.Zip(directOrdinals.Skip(1),
+                    (left, right) => right - left - 1 <= 3).All(value => value));
+                Assert.AreEqual(4, manifest.Assignments
+                    .Where(x => x.Kind == Chapter1EncounterKind.DirectBattle)
+                    .Select(x => x.Node).Distinct().Count());
+            }
+            finally
+            {
+                foreach (RoundNodeSO node in created) UnityEngine.Object.DestroyImmediate(node);
+                UnityEngine.Object.DestroyImmediate(battlePool);
+                UnityEngine.Object.DestroyImmediate(shopPool);
+                UnityEngine.Object.DestroyImmediate(restPool);
+                UnityEngine.Object.DestroyImmediate(rule);
+            }
+        }
+
+        [Test]
         public void AuthoringMetadata_RoundTripsLosslesslyWithDeterministicDigest()
         {
             StagePlacementRuleSO catalog = CreateRule(46);

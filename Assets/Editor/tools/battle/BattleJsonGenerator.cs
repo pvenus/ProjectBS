@@ -288,6 +288,7 @@ namespace ResourceTools
             public string backgroundSprite;
             public string spawnSequenceId;
             public string spawnSequencePath;
+            public string largeWavePolicyAssetPath;
             public List<SpawnUnitBindingJson> spawnUnitBindings = new();
             public int rewardExperience;
             public float normalRelicDropChance;

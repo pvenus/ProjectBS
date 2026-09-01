@@ -1,0 +1,10 @@
+UnityEngine.MissingComponentException: There is no 'SpriteRenderer' attached to the "SkillAnimationVfxGroundField" game object, but a script is trying to access it.
+You probably need to add a SpriteRenderer to the game object "SkillAnimationVfxGroundField". Or your script needs to check if the component is attached before using it.
+  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000d1] in /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/UnityEngineObject.bindings.cs:1072 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x00010] in /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/BindingsHelpers.cs:61 
+  at UnityEngine.SpriteRenderer.set_sprite (UnityEngine.Sprite value) [0x00006] in <4990d45a15a2497e80e991eed7064d73>:0 
+  at SkillAnimationVfxFeatureObject.EnsureGroundRenderer (UnityEngine.SpriteRenderer reference) [0x0006d] in /Users/pvenus/ProjectBS/Assets/Scripts/Ability/Skills/Presentation/SkillAnimationVfxFeatureObject.cs:98 
+  at SkillAnimationVfxFeatureObject.Initialize (UnityEngine.SpriteRenderer renderer, SkillAnimationVfxProfileSO value, SkillAnimationVfxPaletteBinding paletteOverride) [0x00032] in /Users/pvenus/ProjectBS/Assets/Scripts/Ability/Skills/Presentation/SkillAnimationVfxFeatureObject.cs:22 
+  at ProjectileVisual.EditorInitializeProceduralCapture (BaseVisualSO baseVisual) [0x00066] in /Users/pvenus/ProjectBS/Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs:602 
+  at Active2ProceduralCaptureDriver.CaptureGrade (ProjectileVisual visual, UnityEngine.Camera camera, UnityEngine.Texture2D readback, System.String output, System.Int32 grade, System.String assetPath, System.String visualId, System.Text.StringBuilder manifest) [0x00009] in /Users/pvenus/ProjectBS/Assets/Editor/tools/skill/Active2ProceduralCaptureDriver.cs:96 
+  at Active2ProceduralCaptureDriver.Capture () [0x00180] in /Users/pvenus/ProjectBS/Assets/Editor/tools/skill/Active2ProceduralCaptureDriver.cs:60 

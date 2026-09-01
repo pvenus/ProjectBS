@@ -21,6 +21,7 @@ namespace Stage
 
         [Header("References")]
         [SerializeField] private StageManager stageManager;
+        [SerializeField] private StagePlayerPopupCoordinator playerPopupCoordinator;
 
         [Header("Runtime")]
         private EventRewardExecutor rewardExecutor;
@@ -41,6 +42,7 @@ namespace Stage
         private EventPopupView safeGrowthView;
         private SafeGrowthPartyWideOfferPresenter safeGrowthOfferPresenter;
         private PortfolioRandomGrowthPopupRuntimeAdapter portfolioRandomGrowthAdapter;
+        private string pendingShopCompletionKey;
 
         public PopupEventSO CurrentEvent => currentEvent;
         public bool IsOpened => currentEvent != null;
@@ -63,7 +65,10 @@ namespace Stage
             {
                 stageManager = StageManager.Instance;
             }
-
+            if (playerPopupCoordinator == null)
+            {
+                playerPopupCoordinator = FindObjectOfType<StagePlayerPopupCoordinator>();
+            }
             rewardExecutor = new EventRewardExecutor(
                 ItemManager.Instance,
                 StatManager.Instance);
@@ -81,6 +86,15 @@ namespace Stage
             {
                 stageManager = StageManager.Instance;
             }
+            if (playerPopupCoordinator == null)
+            {
+                playerPopupCoordinator = FindObjectOfType<StagePlayerPopupCoordinator>();
+            }
+            if (playerPopupCoordinator != null)
+            {
+                playerPopupCoordinator.ShopClosed -= HandleShopClosed;
+                playerPopupCoordinator.ShopClosed += HandleShopClosed;
+            }
 
             stageManager.OnNodeSelected += HandleNodeSelected;
             stageManager.OnStageGenerated += HandleStageGenerated;
@@ -88,6 +102,10 @@ namespace Stage
 
         private void OnDisable()
         {
+            if (playerPopupCoordinator != null)
+            {
+                playerPopupCoordinator.ShopClosed -= HandleShopClosed;
+            }
             if (stageManager == null)
             {
                 return;
@@ -122,7 +140,9 @@ namespace Stage
             if (node.nodeType != RoundNodeType.Event &&
                 node.nodeType != RoundNodeType.Battle &&
                 node.nodeType != RoundNodeType.Boss &&
-                node.nodeType != RoundNodeType.RequiredSubEvent)
+                node.nodeType != RoundNodeType.RequiredSubEvent &&
+                node.nodeType != RoundNodeType.Shop &&
+                node.nodeType != RoundNodeType.Rest)
             {
                 return false;
             }
@@ -265,6 +285,13 @@ namespace Stage
                     pendingExecutionId = GameSession.Instance?.StageSession?.PortfolioRandomGrowth?.Pending?.TokenId;
                     OnPopupEventChoiceSelected?.Invoke(currentEvent, choice, currentNode);
                 }
+                else if (portfolioGrowth.Status == PortfolioRandomGrowthDispatchStatus.Failed)
+                {
+                    Debug.LogError(
+                        "[StagePopupEventManager] Portfolio random growth selection failed. "
+                        + $"eventId={currentEvent?.eventId}, choiceId={choice.choiceId}, "
+                        + $"nodeId={currentNode?.nodeId}, error={portfolioGrowth.Error}");
+                }
                 return;
             }
 
@@ -330,9 +357,22 @@ namespace Stage
 
             if (GameSession.Instance?.StageSession?.PortfolioRandomGrowth?.Pending != null)
             {
-                portfolioRandomGrowthAdapter?.Confirm(currentNode,
+                PortfolioRandomGrowthDispatchResult result =
+                    portfolioRandomGrowthAdapter?.Confirm(currentNode,
                     node => stageManager?.PublishAtomicCompletion(node, stageManager.ProgressState),
                     _ => { });
+                if (result?.Status == PortfolioRandomGrowthDispatchStatus.Succeeded
+                    || result?.Status == PortfolioRandomGrowthDispatchStatus.Declined)
+                {
+                    CloseAfterSafeTerminal();
+                }
+                else if (result != null)
+                {
+                    Debug.LogError(
+                        "[StagePopupEventManager] Portfolio random growth confirmation failed. "
+                        + $"eventId={currentEvent?.eventId}, "
+                        + $"nodeId={currentNode?.nodeId}, error={result.Error}");
+                }
                 return;
             }
 
@@ -496,6 +536,7 @@ namespace Stage
                 {
                     if (!ordinaryBattleService.TryPrepare(
                             battleData, GameSession.Instance?.StageSession,
+                            node?.nodeId,
                             out preparedBattle, out string prepareError))
                     {
                         Debug.LogError(
@@ -515,7 +556,7 @@ namespace Stage
                         beginBattle:
                             LogBattleExecution,
                         openShop:
-                            LogShopExecution,
+                            OpenStageShop,
                         openShrine:
                             LogShrineExecution,
                         applyPortfolioOutcome:
@@ -746,35 +787,85 @@ namespace Stage
             return true;
         }
 
-        private bool LogShopExecution(
+        private bool OpenStageShop(
             ShopExecutionData data)
         {
             if (data == null)
             {
                 Debug.LogWarning(
-                    "[ChoiceExecution][Shop][Deferred] "
+                    "[ChoiceExecution][Shop] "
                     + "Shop execution data is null.");
                 return false;
             }
+            playerPopupCoordinator ??= FindObjectOfType<StagePlayerPopupCoordinator>();
+            if (playerPopupCoordinator == null)
+            {
+                Debug.LogWarning("[ChoiceExecution][Shop] Popup coordinator is missing.");
+                return false;
+            }
 
-            string poolNames = data.pools == null
-                ? "(null)"
-                : string.Join(
-                    ", ",
-                    data.pools.ConvertAll(
-                        pool => pool == null
-                            ? "(null)"
-                            : pool.name));
+            StageShopRuntimeOwnership ownership =
+                GameSession.Instance?.StageSession?.Shops;
+            string nodeId = currentNode?.nodeId ?? string.Empty;
+            string stockKey = data.HasCompleteIdentity
+                ? $"{data.serviceId}|{data.stockReservationId}|{data.stockReceiptId}|{nodeId}"
+                : string.Empty;
+            Shop.ShopRuntimeData restored = null;
+            if (data.HasCompleteIdentity)
+            {
+                if (ownership == null || ownership.IsComplete(data.nodeCompletionReceiptId + "|" + nodeId))
+                {
+                    return false;
+                }
+                ownership.TryGetStock(stockKey, out restored);
+            }
 
-            Debug.Log(
-                "[ChoiceExecution][Shop][Deferred] "
-                + "Shop entry call point reached. "
-                + $"shopType={data.shopType}, "
-                + $"itemCount={data.itemCount}, "
-                + $"pools=[{poolNames}]. "
-                + "Actual StageShopManager connection is deferred.");
-            Complete();
+            int deterministicSeed = StableShopSeed(data.serviceId, nodeId);
+            bool opened = playerPopupCoordinator.OpenShop(
+                data, restored, data.HasCompleteIdentity ? deterministicSeed : null,
+                data.HasCompleteIdentity ? data.serviceId : null);
+            if (!opened) return false;
+
+            if (data.HasCompleteIdentity && restored == null)
+            {
+                Shop.ShopRuntimeData generated = Shop.StageShopManager.Instance?.CurrentShop;
+                if (!ownership.TryStoreStock(stockKey, generated))
+                {
+                    playerPopupCoordinator.CloseCurrentPanel();
+                    return false;
+                }
+            }
+            pendingShopCompletionKey = data.HasCompleteIdentity
+                ? data.nodeCompletionReceiptId + "|" + nodeId
+                : "legacy|" + nodeId;
             return true;
+        }
+
+        private void HandleShopClosed()
+        {
+            if (string.IsNullOrWhiteSpace(pendingShopCompletionKey)) return;
+            string completionKey = pendingShopCompletionKey;
+            pendingShopCompletionKey = null;
+            StageShopRuntimeOwnership ownership = GameSession.Instance?.StageSession?.Shops;
+            if (completionKey.StartsWith("legacy|") || ownership?.TryComplete(completionKey) == true)
+            {
+                Complete();
+            }
+        }
+
+        private static int StableShopSeed(string serviceId, string nodeId)
+        {
+            unchecked
+            {
+                uint hash = 2166136261;
+                string value = (serviceId ?? string.Empty) + "|" + (nodeId ?? string.Empty);
+                for (int i = 0; i < value.Length; i++)
+                {
+                    hash ^= value[i];
+                    hash *= 16777619;
+                }
+                return (int)(hash & 0x7fffffff);
+            }
         }
 
         private bool LogShrineExecution(

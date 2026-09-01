@@ -19,6 +19,24 @@ namespace Stage
             ShufflePhase(slots, catalog.earlyBudget, catalog.midBudget, new Random(seed ^ 0x1717));
             ShufflePhase(slots, catalog.earlyBudget + catalog.midBudget,
                 catalog.lateBudget, new Random(seed ^ 0x3535));
+            return BuildForBands(catalog, slots, seed, roster, capabilityGate);
+        }
+
+        internal Chapter1WeightedEventManifest BuildForBands(
+            WeightedPoolPlacementConfig catalog,
+            IReadOnlyList<WeightedPlacementBand> requestedBands,
+            int seed,
+            IReadOnlyCollection<string> roster = null,
+            Func<string, bool> capabilityGate = null)
+        {
+            string error = ValidateCatalog(catalog);
+            if (!string.IsNullOrEmpty(error))
+                return new Chapter1WeightedEventManifest(false, error, null);
+            List<WeightedPlacementBand> slots = requestedBands?.ToList()
+                ?? new List<WeightedPlacementBand>();
+            if (slots.Count == 0)
+                return new Chapter1WeightedEventManifest(false,
+                    "WEIGHTED_PLACEMENT_REQUESTED_BANDS_EMPTY", null);
             if (!InitialBandsHaveBreadth(slots, catalog, roster, capabilityGate))
                 return new Chapter1WeightedEventManifest(false,
                     "WEIGHTED_PLACEMENT_INITIAL_BREADTH_INSUFFICIENT", null);

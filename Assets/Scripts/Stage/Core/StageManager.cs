@@ -85,6 +85,15 @@ namespace Stage
                 return;
             }
 
+            // StageScene can be entered directly in the Editor. Weighted/random-growth
+            // events require a run and stage-generation identity even on that path.
+            // Returning from battle already owns an active run and must not reset it.
+            GameSession gameSession = GameSession.Instance;
+            if (gameSession?.ProgressionSession?.HasActiveRun != true)
+            {
+                gameSession?.BeginNewProgressionRun();
+            }
+
             if (stageDefinition != null
                 && (runtimeData.currentGraph == null
                     || runtimeData.currentGraph.nodes.Count == 0))

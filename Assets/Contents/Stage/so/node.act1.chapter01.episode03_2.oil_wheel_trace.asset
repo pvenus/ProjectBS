@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734680
+      rid: 5601486871972282418
   - choiceId: choice.act1.chapter01.episode03_2.oil_wheel_trace.accept_yujin_join
     requirements: []
     visibleConditions: []
@@ -41,27 +41,43 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734681
+      rid: 5601486871972282419
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734680
+    - rid: 5601486871972282418
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734682
-    - rid: 5601486783294734681
+          rid: 5601486871972282420
+    - rid: 5601486871972282419
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734683
-    - rid: 5601486783294734682
+          rid: 5601486871972282421
+    - rid: 5601486871972282420
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}
-    - rid: 5601486783294734683
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 
+    - rid: 5601486871972282421
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 4e494ee78e8c34aecb9ba4364518d816, type: 2}
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 

@@ -17,7 +17,9 @@ MonoBehaviour:
   ignoreSameRoot: 0
   useRepeatInterval: 0
   repeatInterval: 0.25
+  useHitWindow: 0
   hitStartTime: 0
+  hitDuration: 0.5
   deactivateAfterFirstHit: 0
   targetLayerMask:
     serializedVersion: 2
@@ -33,9 +35,9 @@ MonoBehaviour:
     spawnSkill: {fileID: 0}
   effects:
     buffEffects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: d0aabc20e334e4227a96afa7f516d446, type: 2}
+    - {fileID: 11400000, guid: 6c6f9aa7098b04eed8a34569a0cbd215, type: 2}
+    - {fileID: 11400000, guid: f8e68c2a04a7341f3ad08f140f2a74bc, type: 2}
     debuffEffects: []
   split:
     useSplitMultiHitDamage: 0

@@ -4,6 +4,7 @@ using UnityEngine.Playables;
 
 public class SkillProjectileVisualMono : MonoBehaviour
 {
+    private SkillAnimationVfxFeatureObject _animationVfx;
     [Header("Optional Auto Play")]
     [SerializeField] private bool playOnStart;
     [SerializeField] private SkillAnimationSO animationConfig;
@@ -69,6 +70,7 @@ public class SkillProjectileVisualMono : MonoBehaviour
 
         animationConfig = config;
         Initialize(config.CreateVisualDto(directionOverride));
+        BindAnimationVfx(config.AnimationVfxProfile);
     }
 
     public void Initialize(SkillProjectileVisualDto dto)
@@ -167,6 +169,7 @@ public class SkillProjectileVisualMono : MonoBehaviour
         {
             _spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
+        SkillAnimationVfxMaterialAuthority.Ensure(_spriteRenderer);
 
         if (_animator == null)
         {
@@ -192,6 +195,23 @@ public class SkillProjectileVisualMono : MonoBehaviour
         }
     }
 
+    private void BindAnimationVfx(SkillAnimationVfxProfileSO profile)
+    {
+        if (profile == null || _spriteRenderer == null)
+        {
+            _animationVfx?.StopImmediate();
+            SkillAnimationVfxMaterialAuthority.Ensure(_spriteRenderer);
+            return;
+        }
+
+        SkillAnimationVfxMaterialAuthority.Ensure(_spriteRenderer, profile.Material);
+
+        _animationVfx ??= GetComponent<SkillAnimationVfxFeatureObject>()
+            ?? gameObject.AddComponent<SkillAnimationVfxFeatureObject>();
+        _animationVfx.Initialize(_spriteRenderer, profile);
+        _animationVfx.Play();
+    }
+
     private void StopCurrentPlayable()
     {
         if (!_hasPlayableGraph)
@@ -204,6 +224,7 @@ public class SkillProjectileVisualMono : MonoBehaviour
 
     private void OnDisable()
     {
+        _animationVfx?.StopImmediate();
         StopCurrentPlayable();
     }
 

@@ -61,12 +61,18 @@ namespace Shop
                 return false;
             }
 
-            if (!ApplyReward(product.rewardData))
+            if (!CurrencyManager.Instance.TrySpendGold(purchasePrice))
             {
                 return false;
             }
 
-            CurrencyManager.Instance.TrySpendGold(purchasePrice);
+            if (!ApplyReward(product.rewardData))
+            {
+                CurrencyManager.Instance.AddGold(purchasePrice);
+                Debug.LogWarning(
+                    $"[ShopPurchaseService] Reward failed; purchase rolled back. product={product.DisplayName}");
+                return false;
+            }
 
             Debug.Log(
                 $"[ShopPurchaseService] Purchase success. product={product.DisplayName}, remainGold={CurrencyManager.Instance.Gold}");
@@ -116,7 +122,11 @@ namespace Shop
                 return false;
             }
 
-            ItemManager.Instance.AddRelic(relic);
+            if (ItemManager.Instance.HasRelic(relic)
+                || !ItemManager.Instance.AddRelic(relic))
+            {
+                return false;
+            }
 
             Debug.Log(
                 $"[ShopPurchaseService] Relic granted. relic={relic.name}");

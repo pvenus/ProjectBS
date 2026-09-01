@@ -1,0 +1,411 @@
+{
+  "status": "USER_AUTHORIZED_ALPHA_EXTRACTION_PHYSICAL_PASS_INSTALL_HANDOFF",
+  "sourceManifest": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/manifest.json",
+    "sha256": "6660badea04da9583d45fd3b92ce252605eef573e9a3ed5d02e0efcd36cfc5af"
+  },
+  "model": {
+    "name": "neutral-checker deterministic smoothstep unmatte v1",
+    "backgroundRgb": [
+      250,
+      250,
+      250
+    ],
+    "distance": "max(250-minRGB,1.6*(maxRGB-minRGB))",
+    "d0": 7.0,
+    "d1": 105.0,
+    "alphaCurve": "smoothstep",
+    "unmatte": "(observed-(1-alpha)*250)/alpha",
+    "alpha0Rgb0": true
+  },
+  "timing": {
+    "timestamps": [
+      0,
+      0.167,
+      0.333,
+      0.5,
+      0.667,
+      0.833
+    ],
+    "gifDelaysMs": [
+      170,
+      160,
+      170,
+      170,
+      160,
+      170
+    ],
+    "durationMs": 1000
+  },
+  "grades": {
+    "G2": {
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 0,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f0-0.000-rgb-review.png",
+          "sourceSha256": "3bd84d33fd5858d7787eeb15b9b259e83023b65e5223e6e0d0c85ec9bc930e7c",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f0-0.000-rgba.png",
+          "sha256": "2996650f7aa136f3c520d36585dd7e8c55ffd2f8265fe8f2bef8268a21fe0742",
+          "decodedRgbaSha256": "e60968aead8fb3d077a7e668623dd138ac4e5708d5eb0c2e05c782619f0529c1",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 31259,
+          "alphaOpaque": 25411,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 0,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 1,
+          "timestamp": 0.167,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f1-0.167-rgb-review.png",
+          "sourceSha256": "09a71c490ace2ff0f42c9adae71d433c20061aa1e13c1341aecb9711afb2d717",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f1-0.167-rgba.png",
+          "sha256": "52743407f1a9a23930e9a302191f01c1467f58b7b5dedc63fbd5635164d3dc6f",
+          "decodedRgbaSha256": "0a23e389c9d9c750b88b13d12f912a8695ace04ce8b58bd322b65a55c0449a8b",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 43265,
+          "alphaOpaque": 33684,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 0,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 2,
+          "timestamp": 0.333,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f2-0.333-rgb-review.png",
+          "sourceSha256": "3632354effda5ab366111c19d9049c20d88b20e2fbd4b077b6354d49f3fe31b6",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f2-0.333-rgba.png",
+          "sha256": "a1500281f113f14b06ac7b635755becace41f951bef481fb602b0f8092229ceb",
+          "decodedRgbaSha256": "023f00e0372cc973be62d1e58e62bd97f7352c72d432378f0141ac40497ee77d",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 48593,
+          "alphaOpaque": 38237,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 0,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 3,
+          "timestamp": 0.5,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f3-0.500-rgb-review.png",
+          "sourceSha256": "38d542366277a10f7537447a3854184063f436698bc056efed9415b3eec93064",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f3-0.500-rgba.png",
+          "sha256": "d7390d180fcdb2be1f876835b0b9929e10a411d758ec3751c271afac92e5c4c1",
+          "decodedRgbaSha256": "5424508475e78bd2eba8e84652b4412239a0c1d9456308f65e658a6e79e1e72d",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 78861,
+          "alphaOpaque": 59645,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 1,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 4,
+          "timestamp": 0.667,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f4-0.667-rgb-review.png",
+          "sourceSha256": "014791eb09665249cd00aee6353abab165daac8dd6b89a856d695b8a27089cf2",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f4-0.667-rgba.png",
+          "sha256": "110662113fbdebe0f36cb79b330c100d53810788aed1eb9c571f6a56cdcd77e8",
+          "decodedRgbaSha256": "2fc380ec53288d8955374da2f0a073b08b77d405d9cc03307d429a9c7bd5fa7e",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 53229,
+          "alphaOpaque": 41189,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 21,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 5,
+          "timestamp": 0.833,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g2-f5-0.833-rgb-review.png",
+          "sourceSha256": "45a118a0dde11f19f34b495f9e1606761f8d140760d2ade23bf9cf436cd666bc",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-f5-0.833-rgba.png",
+          "sha256": "cd7dc8893072914bf7c3ecfec3287ccfd18635f3dacb2325e1be217bd9c7f467",
+          "decodedRgbaSha256": "b15c3992c230265400a5c0700eacc021764b02c3ebc65eb10713239303f50e7e",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 32204,
+          "alphaOpaque": 25451,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 71,
+          "corners": [
+            0,
+            0,
+            0,
+            7
+          ],
+          "alpha0RgbResidue": 0
+        }
+      ],
+      "uniqueFrames": 6,
+      "deterministicRerunDiff0": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g2-exact6-alpha-review-loop-1s.gif",
+        "sha256": "73c0dc837b2cd17baa5ddd44972e6febd6e02df43b4812b55ef7610666aed25c",
+        "physicalFrames": 6,
+        "durationMs": 1000,
+        "loop": "infinite"
+      }
+    },
+    "G3": {
+      "frames": [
+        {
+          "index": 0,
+          "timestamp": 0,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f0-0.000-rgb-review.png",
+          "sourceSha256": "ca32a37a7e0806b6aec970912e33ddb1c64e2ed9460fba3187b2ac4704c32a71",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f0-0.000-rgba.png",
+          "sha256": "57d045c9814daf42f71871c4e8317cbb4240518e672fe23e07553a17d6fda37b",
+          "decodedRgbaSha256": "ed68d20e033caa074fe44bcd46d2ab52edd6dffb49e07ee8f37ee9f65ef4a0a4",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 58605,
+          "alphaOpaque": 28641,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 343,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 1,
+          "timestamp": 0.167,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f1-0.167-rgb-review.png",
+          "sourceSha256": "ab2f7d477f181e9951feb74df03b323cd2f065d345e6837c8080dd981f5585bb",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f1-0.167-rgba.png",
+          "sha256": "db198798d86773ed8eeae06874fa96f09340f328440750a61c71dd3a729100bb",
+          "decodedRgbaSha256": "f3988083a644a164046b6ae93399f8eee691367ed11d6bacd60b3b7d62a5b50c",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 63924,
+          "alphaOpaque": 35678,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 179,
+          "corners": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 2,
+          "timestamp": 0.333,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f2-0.333-rgb-review.png",
+          "sourceSha256": "6c58e2f48e9967b12c140d0348386e2314f810fc912b862df3004bd95cd3637f",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f2-0.333-rgba.png",
+          "sha256": "27486c5734f2eecf01820001e6c36516df5ffbb8d75a05270f36db5eb80d2e4d",
+          "decodedRgbaSha256": "edc47e7a00338fbb8acd7bea4d1d5c6266757f38856b940a03dab38c541b6517",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 69012,
+          "alphaOpaque": 40274,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 241,
+          "corners": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 3,
+          "timestamp": 0.5,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f3-0.500-rgb-review.png",
+          "sourceSha256": "100b40251a6af5118a76d312a90538e1fc49cf95e540b6ba15d3301076dd20f5",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f3-0.500-rgba.png",
+          "sha256": "8834c942451c929a2d1495ac9bb4b1f11afff6be4dfc34e32aae2565504ce9cb",
+          "decodedRgbaSha256": "280934b3745ddea2714b315743753f62205f4bb067d9ae11836a2b6a96d2cfc0",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 93228,
+          "alphaOpaque": 64302,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 256,
+          "corners": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 4,
+          "timestamp": 0.667,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f4-0.667-rgb-review.png",
+          "sourceSha256": "00d24238c83b3ab3821b2c7bf0d507b0927acfea877e696ecc17a0c6468bfef9",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f4-0.667-rgba.png",
+          "sha256": "4d4cb0e15247f8227c0de0fe5fdebaaab718bd50194f5be515ab7094d930320e",
+          "decodedRgbaSha256": "c5fe2a07e40c8c74e47d4d7b6507f777551d367e8be5c1f67704e6912f289c72",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 70825,
+          "alphaOpaque": 45735,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 201,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        },
+        {
+          "index": 5,
+          "timestamp": 0.833,
+          "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-07-independent-exact6-clean-review/seojin-active2-g3-f5-0.833-rgb-review.png",
+          "sourceSha256": "051d1745a0dfd5781b5bb484fc64201c343314a0e35bf9e87477080ad21dcd6b",
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-f5-0.833-rgba.png",
+          "sha256": "98abf31279f86f6b1c2daedbcc8074f0389bb29bf5ad777ef948e3fe3030ff31",
+          "decodedRgbaSha256": "a8cf9f6b2298313150924362591ffcd357b4ec872ab0bd1aec316534ebbfff4a",
+          "dimensions": [
+            362,
+            724
+          ],
+          "alphaNonzero": 55299,
+          "alphaOpaque": 30617,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "borderNonzero": 262,
+          "corners": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "alpha0RgbResidue": 0
+        }
+      ],
+      "uniqueFrames": 6,
+      "deterministicRerunDiff0": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/seojin-active2-g3-exact6-alpha-review-loop-1s.gif",
+        "sha256": "11d7d2a78063fd2537c1fd93ad8bc14b002996618899fee164aa3f6b6ce28d6f",
+        "physicalFrames": 6,
+        "durationMs": 1000,
+        "loop": "infinite"
+      }
+    }
+  },
+  "boundaries": {
+    "canonicalWriteByHwagam": false,
+    "clipWriteByHwagam": false,
+    "unityWriteByHwagam": false
+  },
+  "contacts": [
+    {
+      "size": 200,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-200px-light-contact.png",
+      "sha256": "0e5e9ed96c1f1313f3dee0209b298e52244c8649982e158f4cd084c68b831290"
+    },
+    {
+      "size": 200,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-200px-dark-contact.png",
+      "sha256": "baaf8097bb7396c27b60a53ee9aabd245bddef013b33d17170bc51426c413711"
+    },
+    {
+      "size": 80,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-80px-light-contact.png",
+      "sha256": "c8e2410e461ccf0e28a617a40a2f4072fdcc99bca64279b28693feb365dd1984"
+    },
+    {
+      "size": 80,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-80px-dark-contact.png",
+      "sha256": "98430e295050e7810dd6186612bb1617eef0754c9267571a2f3fff699cd6a0ad"
+    },
+    {
+      "size": 32,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-32px-light-contact.png",
+      "sha256": "ef3c5d6e0a3d49e202c6607222daee6063f9e7ac3e9836d6ec3757aa62824f7a"
+    },
+    {
+      "size": 32,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/selected/revision-08-exact6-alpha/active2-exact12-32px-dark-contact.png",
+      "sha256": "3e03a655d1ff05354365e5ce94517ea7cadcabf3506aa68b27e4bedcf156d786"
+    }
+  ]
+}

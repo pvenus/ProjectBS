@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b1c2d3e4f5467890a1b2c3d4e5f601, type: 3}
+  m_Name: node.act1.chapter01.episode01.village_arrival.motion
+  m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupMotionSequenceSO
+  frameResourcePaths:
+  - Contents/Stage/popup_motion/node.act1.chapter01.episode01.village_arrival/frames/Q0
+  - Contents/Stage/popup_motion/node.act1.chapter01.episode01.village_arrival/frames/Q1
+  - Contents/Stage/popup_motion/node.act1.chapter01.episode01.village_arrival/frames/Q2
+  - Contents/Stage/popup_motion/node.act1.chapter01.episode01.village_arrival/frames/Q3
+  slotSequence:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 1
+  - 2
+  - 3
+  - 3
+  - 2
+  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  slotDuration: 0.5
+  firstOpenLoopLimit: 3
+  reentryLoopLimit: 1

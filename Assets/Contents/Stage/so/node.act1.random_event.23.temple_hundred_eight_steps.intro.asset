@@ -27,7 +27,7 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 2300000000000000002
+      rid: 5601486871972282588
   references:
     version: 2
     RefIds:
@@ -37,12 +37,6 @@ MonoBehaviour:
         executionType: 1000
         data:
           rid: 2300000000000000003
-    - rid: 2300000000000000002
-      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
-      data:
-        executionType: 1100
-        data:
-          rid: 2300000000000000004
     - rid: 2300000000000000003
       type: {class: RandomGrowthRiskExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
@@ -92,7 +86,13 @@ MonoBehaviour:
           optionalApplied: 0
           totalApplied: 3
         growthGrant: 1
-    - rid: 2300000000000000004
+    - rid: 5601486871972282588
+      type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
+      data:
+        executionType: 1100
+        data:
+          rid: 5601486871972282589
+    - rid: 5601486871972282589
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

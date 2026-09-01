@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043287
+      rid: 5601486871972282652
   - choiceId: choice.act1.random_event.37.nameless_long_sword_in_rain.trace_sword_owner_name
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043288
+      rid: 5601486871972282653
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043287
+    - rid: 5601486871972282652
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043289
-    - rid: 5601486867666043288
+          rid: 5601486871972282654
+    - rid: 5601486871972282653
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043290
-    - rid: 5601486867666043289
+          rid: 5601486871972282655
+    - rid: 5601486871972282654
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
           relic: {fileID: 11400000, guid: 4ffe63f8269d845e88468f082bdf19f9, type: 2}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043290
+    - rid: 5601486871972282655
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

@@ -1,0 +1,34 @@
+{
+  "status": "REVIEW_ONLY_RAW_CANDIDATES",
+  "installAuthority": false,
+  "generationMode": "built-in ImageGen",
+  "candidates": [
+    {
+      "id": "A",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-02/candidate-A-g2-g3-joint.png",
+      "sha256": "322347bf92ded11362569085df6301f8e1d1cd159acb0ce1d3358df9981c71f6",
+      "dimensions": [1254, 1254],
+      "recommendation": false,
+      "note": "strong wing/body identity but overly literal central bird-body read and star/crater-like rust impacts"
+    },
+    {
+      "id": "B",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-02/candidate-B-g2-g3-joint.png",
+      "sha256": "12f317b1c7205f8fd432813ff0fe318f572173217636f9cb380ad0925c540ae4",
+      "dimensions": [1254, 1254],
+      "recommendation": true,
+      "note": "clear paired crane-wing rank cadence, compact-to-wide lineage, repeated directional pressure strokes without a literal bird head/body"
+    }
+  ],
+  "recommended": "B",
+  "boundaries": {
+    "userVisualChoicePending": true,
+    "alpha": false,
+    "gif": false,
+    "t0": false,
+    "implementation": false,
+    "install": false,
+    "canonical": false,
+    "unity": false
+  }
+}

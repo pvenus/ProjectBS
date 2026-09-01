@@ -957,6 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stage.StagePopupEventManager
   stageManager: {fileID: 641711437}
+  playerPopupCoordinator: {fileID: 0}
 --- !u!4 &269257061
 Transform:
   m_ObjectHideFlags: 0
@@ -1819,6 +1820,9 @@ MonoBehaviour:
       startNodeId: 
       currentNodeId: 
       bossNodeId: 
+      routeRevision: 0
+      committedRouteSourceNodeId: 
+      committedRouteTargetNodeId: 
       nodes: []
     currentNode:
       nodeId: 
@@ -2642,6 +2646,9 @@ MonoBehaviour:
         startNodeId: 
         currentNodeId: 
         bossNodeId: 
+        routeRevision: 0
+        committedRouteSourceNodeId: 
+        committedRouteTargetNodeId: 
         nodes: []
       currentNode:
         nodeId: 
@@ -2697,6 +2704,7 @@ MonoBehaviour:
       blessings: []
     CurrencyRuntimeData:
       gold: 0
+      revision: 0
     isIntroCompleted: 0
   BattleSession:
     IsBattleActive: 0

@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043225
+      rid: 5601486871972282590
   - choiceId: choice.act1.random_event.24.herb_scent_empty_barracks.preserve_medicine
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043226
+      rid: 5601486871972282591
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043225
+    - rid: 5601486871972282590
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043227
-    - rid: 5601486867666043226
+          rid: 5601486871972282592
+    - rid: 5601486871972282591
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043228
-    - rid: 5601486867666043227
+          rid: 5601486871972282593
+    - rid: 5601486871972282592
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043228
+    - rid: 5601486871972282593
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

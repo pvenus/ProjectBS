@@ -15,6 +15,31 @@ namespace Stage
     public enum WeightedPlacementBand { All = 0, Early = 10, Mid = 20, Late = 30 }
     public enum WeightedPlacementGeneration { Legacy = 0, New = 10 }
     public enum WeightedPlacementStaleState { Current = 0, StaleRewardRiskDependency = 10 }
+    public enum EventCombatClass
+    {
+        NonBattle = 0,
+        OptionalBattleEvent = 10,
+        GuaranteedBehaviorBattleEvent = 20
+    }
+
+    [Serializable]
+    public sealed class BattlePressureCompositionConfig
+    {
+        public bool enabled;
+        public int schemaVersion = 1;
+        public string coefficientVersion = "chapter1.battle_pressure_coefficients.v1";
+        public EventPoolSO directBattlePool;
+        public EventPoolSO shopPool;
+        public EventPoolSO restPool;
+        public int directBattleCount = 4, shopCount = 2, restCount = 2, eventCount = 4;
+        public int earlyDirect = 1, midDirect = 2, lateDirect = 1;
+        public int maxDirectBattleFreeGap = 3;
+        public bool allowAdjacentDirectBattle;
+        [Range(0f, 1f)] public float optionalBattleCredit = 0.5f;
+        public string classificationAuthorityVersion = "chapter1.event_combat_classification.v1";
+        public WeightedPlacementStaleState staleState;
+        public string staleReason;
+    }
 
     [Serializable]
     public sealed class WeightedPlacementOverride
@@ -48,6 +73,10 @@ namespace Stage
         public List<string> chainChildren = new();
         public string rationale, sourceAuthority;
         public WeightedPlacementStaleState staleState;
+        public EventCombatClass combatClass;
+        [Range(0f, 1f)] public float expectedBattleCredit;
+        public string combatAuthorityVersion;
+        public WeightedPlacementStaleState combatStaleState;
         public int order;
     }
 
@@ -97,6 +126,7 @@ namespace Stage
         [Min(1)] public int minEligibleCandidates = 4, minEligiblePurposes = 2;
         public List<WeightedPlacementSectionBand> sectionBands = new();
         public List<WeightedPlacementEventRow> rows = new();
+        public BattlePressureCompositionConfig composition = new();
         public string canonicalContentSha256;
         public string generatorVersion = "weighted-placement-rule-json.v1";
 
@@ -192,6 +222,13 @@ namespace Stage
                 return;
             }
 
+            var oneShotNodes = new HashSet<RoundNodeSO>((config.rows
+                    ?? new List<WeightedPlacementEventRow>())
+                .Where(row => row?.oneShot == true && row.node != null)
+                .Select(row => row.node));
+            var globallyAssignedOneShot = new HashSet<RoundNodeSO>(
+                resultBySlotId.Values.Where(node => node != null
+                    && oneShotNodes.Contains(node)));
             var sectionAssigned = new HashSet<RoundNodeSO>();
             foreach (StageMapSlot slot in targetSlots)
             {
@@ -210,6 +247,7 @@ namespace Stage
                     slot,
                     validPools,
                     sectionAssigned,
+                    globallyAssignedOneShot,
                     config.avoidDuplicateInSection,
                     random);
 
@@ -219,6 +257,10 @@ namespace Stage
                     if (config.avoidDuplicateInSection)
                     {
                         sectionAssigned.Add(selectedNode);
+                    }
+                    if (oneShotNodes.Contains(selectedNode))
+                    {
+                        globallyAssignedOneShot.Add(selectedNode);
                     }
                 }
                 else if (!config.allowEmptySlot)
@@ -245,6 +287,7 @@ namespace Stage
             StageMapSlot slot,
             IReadOnlyList<StagePlacementPoolEntry> validPools,
             HashSet<RoundNodeSO> sectionAssigned,
+            HashSet<RoundNodeSO> globallyAssignedOneShot,
             bool avoidDuplicateInSection,
             System.Random random)
         {
@@ -274,6 +317,8 @@ namespace Stage
                 List<EventPoolEntry> candidates = chosenPool.pool
                     .GetAvailableEntries(slot.depth)
                     .Where(entry => entry.node != null && entry.weight > 0)
+                    .Where(entry => globallyAssignedOneShot == null
+                        || !globallyAssignedOneShot.Contains(entry.node))
                     .Where(entry => !avoidDuplicateInSection || !sectionAssigned.Contains(entry.node))
                     .ToList();
 

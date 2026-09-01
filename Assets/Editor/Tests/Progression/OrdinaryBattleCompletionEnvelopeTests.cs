@@ -29,17 +29,20 @@ public sealed class OrdinaryBattleCompletionEnvelopeTests
             session.Initialize(new StageRuntimeData());
             session.CurrencyRuntimeData.gold = 10;
             var service = new OrdinaryBattleCompletionService();
-            Assert.That(service.TryPrepare(data, session, out var identity, out var error),
+            const string runtimeNodeId = "rt_svg_random_d3_sslot_575_1950_stage.act1.random_event.27.paper_armor_bandits";
+            Assert.That(service.TryPrepare(data, session, runtimeNodeId,
+                out var identity, out var error),
                 Is.True, error);
             var battleSession = new BattleSession { BattleId = battle.battleId };
-            Assert.That(service.TryFinalize(session, battleSession, data.nodeId, out error),
-                Is.True, error);
+            var runtimeNode = new RoundNode { nodeId = runtimeNodeId };
+            Assert.That(service.TryFinalize(session, battleSession, runtimeNode, out error), Is.True, error);
             Assert.That(session.CurrencyRuntimeData.gold, Is.EqualTo(60));
             Assert.That(service.CommitFinalized(session), Is.True);
             OrdinaryBattleCompletionReceipt receipt =
                 session.OrdinaryBattles.ConsumePublication();
             Assert.That(receipt, Is.Not.Null);
             Assert.That(receipt.GoldGranted, Is.EqualTo(50));
+            Assert.That(receipt.Identity.NodeId, Is.EqualTo(runtimeNodeId));
             Assert.That(receipt.Identity.Key, Is.EqualTo(identity.Key));
             Assert.That(session.OrdinaryBattles.ConsumePublication(), Is.Null);
         }
@@ -57,15 +60,47 @@ public sealed class OrdinaryBattleCompletionEnvelopeTests
             session.Initialize(new StageRuntimeData());
             session.CurrencyRuntimeData.gold = 10;
             var service = new OrdinaryBattleCompletionService();
-            Assert.That(service.TryPrepare(Event27Attack(battle), session,
+            Assert.That(service.TryPrepare(Event27Attack(battle), session, "runtime.event27",
                 out _, out _), Is.True);
             var wrong = new BattleSession { BattleId = "battle.wrong" };
             Assert.That(service.TryFinalize(session, wrong,
-                "node.act1.random_event.27.paper_armor_bandits.intro", out var error), Is.False);
+                new RoundNode { nodeId = "runtime.event27" }, out var error), Is.False);
             Assert.That(error, Is.EqualTo("ORDINARY_BATTLE_COMPLETION_IDENTITY_MISMATCH"));
             Assert.That(session.CurrencyRuntimeData.gold, Is.EqualTo(10));
         }
         finally { Object.DestroyImmediate(battle); }
+    }
+
+    [Test]
+    public void LegacyPopupNodeReceiptFinalizesOnlyAgainstItsBoundRuntimePopup()
+    {
+        BattleSO battle = ScriptableObject.CreateInstance<BattleSO>();
+        PopupEventSO popup = ScriptableObject.CreateInstance<PopupEventSO>();
+        try
+        {
+            battle.battleId = "battle.act1.event02.expose_rain_peddler";
+            BattleExecutionData data = Event27Attack(battle);
+            popup.eventId = data.sourcePopupId;
+            StageSession session = new();
+            session.Initialize(new StageRuntimeData());
+            var service = new OrdinaryBattleCompletionService();
+            Assert.That(service.TryPrepare(data, session, data.nodeId,
+                out _, out var prepareError), Is.True, prepareError);
+
+            var runtimeNode = new RoundNode
+            {
+                nodeId = "rt_svg_random_event27",
+                popupEvent = popup
+            };
+            Assert.That(service.TryFinalize(
+                session, new BattleSession { BattleId = battle.battleId },
+                runtimeNode, out var error), Is.True, error);
+        }
+        finally
+        {
+            Object.DestroyImmediate(popup);
+            Object.DestroyImmediate(battle);
+        }
     }
 
     [Test]
@@ -79,11 +114,11 @@ public sealed class OrdinaryBattleCompletionEnvelopeTests
             session.Initialize(new StageRuntimeData());
             session.CurrencyRuntimeData.gold = 10;
             var service = new OrdinaryBattleCompletionService();
-            Assert.That(service.TryPrepare(Event27Attack(battle), session,
+            Assert.That(service.TryPrepare(Event27Attack(battle), session, "runtime.event27",
                 out _, out _), Is.True);
             Assert.That(service.TryFinalize(session,
                 new BattleSession { BattleId = battle.battleId },
-                "node.act1.random_event.27.paper_armor_bandits.intro", out _), Is.True);
+                new RoundNode { nodeId = "runtime.event27" }, out _), Is.True);
             Assert.That(service.RollbackFinalized(session), Is.True);
             Assert.That(session.CurrencyRuntimeData.gold, Is.EqualTo(10));
             Assert.That(session.OrdinaryBattles.Pending, Is.Not.Null);

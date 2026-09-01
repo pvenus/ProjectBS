@@ -11,6 +11,8 @@ public class SkillProjectileHitDto
     public bool ignoreSameRoot = true;
     public bool useRepeatInterval;
     public float repeatInterval = 0.25f;
+    public bool useHitWindow;
+    public float hitDuration;
 
     public float hitStartTime;
     public bool deactivateAfterFirstHit;

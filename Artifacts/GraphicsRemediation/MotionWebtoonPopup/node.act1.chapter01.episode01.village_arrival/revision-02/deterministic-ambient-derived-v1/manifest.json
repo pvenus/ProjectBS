@@ -1,0 +1,78 @@
+{
+  "methodVersion": "village-arrival.ambient-derived.v1",
+  "toolVersion": "dual-deterministic-gates.v1",
+  "basePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-01/candidate-B-frames-v3/Q0-384x512.png",
+  "baseSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+  "frames": [
+    {
+      "index": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-02/deterministic-ambient-derived-v1/Q0-384x512.png",
+      "sha256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+      "rerunSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896"
+    },
+    {
+      "index": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-02/deterministic-ambient-derived-v1/Q1-384x512.png",
+      "sha256": "dd2c92595d10e1a8764c849c5120cc7a2565c65ab9dfdc03d17c35535e28395f",
+      "rerunSHA256": "dd2c92595d10e1a8764c849c5120cc7a2565c65ab9dfdc03d17c35535e28395f"
+    },
+    {
+      "index": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-02/deterministic-ambient-derived-v1/Q2-384x512.png",
+      "sha256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+      "rerunSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896"
+    },
+    {
+      "index": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-02/deterministic-ambient-derived-v1/Q3-384x512.png",
+      "sha256": "3ad705f04f407e441c6c6bd40edeaf5fb229a6716f235e990bdd36a54ca3dbdb",
+      "rerunSHA256": "3ad705f04f407e441c6c6bd40edeaf5fb229a6716f235e990bdd36a54ca3dbdb"
+    }
+  ],
+  "metrics": [
+    {
+      "pair": "Q0-Q1",
+      "ssim": 0.9999428250197572,
+      "mean_luma_pct": 0.0300532781734016,
+      "p95_pct": 0.4596253709341959,
+      "max_pct": 0.6266749169141717,
+      "pixels_gt_1pct": 0.0,
+      "highpass_unexplained_pct": 0.0
+    },
+    {
+      "pair": "Q1-Q2",
+      "ssim": 0.9999428250197572,
+      "mean_luma_pct": 0.0300532781734016,
+      "p95_pct": 0.4596253709341959,
+      "max_pct": 0.6266749169141717,
+      "pixels_gt_1pct": 0.0,
+      "highpass_unexplained_pct": 0.0
+    },
+    {
+      "pair": "Q2-Q3",
+      "ssim": 0.999942565861534,
+      "mean_luma_pct": 0.03027030711725598,
+      "p95_pct": 0.462904808924991,
+      "max_pct": 0.6308747567065565,
+      "pixels_gt_1pct": 0.0,
+      "highpass_unexplained_pct": 0.0
+    },
+    {
+      "pair": "Q3-Q0",
+      "ssim": 0.999942565861534,
+      "mean_luma_pct": 0.03027030711725598,
+      "p95_pct": 0.462904808924991,
+      "max_pct": 0.6308747567065565,
+      "pixels_gt_1pct": 0.0,
+      "highpass_unexplained_pct": 0.0
+    }
+  ],
+  "geometry": "byte-coordinate-identical/no resampling",
+  "weights": [
+    0,
+    1,
+    0,
+    -1
+  ],
+  "timing": "quiet exact4 slots; runtime authority pending"
+}

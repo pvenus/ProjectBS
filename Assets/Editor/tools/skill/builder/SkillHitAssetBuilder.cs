@@ -500,6 +500,16 @@ namespace ResourceTools.Skill
             }
 
             int length = values != null ? values.Length : 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (values[i] == null)
+                {
+                    throw new InvalidOperationException(
+                        $"[SkillHitAssetBuilder] Refusing to serialize a null {propertyName} entry at index {i}.");
+                }
+            }
+
             property.arraySize = length;
 
             for (int i = 0; i < length; i++)
@@ -528,9 +538,17 @@ namespace ResourceTools.Skill
                     continue;
                 }
 
-                entries[i] = Effect.EffectEntryAssetBuilder.CreateOrUpdate(
+                EffectEntrySO entry = Effect.EffectEntryAssetBuilder.CreateOrUpdate(
                     entryJson,
                     outputFolder);
+
+                if (entry == null)
+                {
+                    throw new InvalidOperationException(
+                        $"[SkillHitAssetBuilder] Failed to materialize effect entry at index {i}.");
+                }
+
+                entries[i] = entry;
             }
 
             return entries;

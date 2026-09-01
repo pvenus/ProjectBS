@@ -52,6 +52,25 @@ namespace ResourceTools.Stage.Placement
                 minEligiblePurposes = catalog.minEligiblePurposes,
                 generatorVersion = catalog.generatorVersion
             };
+            BattlePressureCompositionConfig composition = catalog.composition
+                ?? new BattlePressureCompositionConfig();
+            value.composition = new CompositionJson {
+                enabled=composition.enabled, schemaVersion=composition.schemaVersion,
+                coefficientVersion=composition.coefficientVersion,
+                directBattlePoolAssetPath=AssetDatabase.GetAssetPath(composition.directBattlePool),
+                directBattlePoolGuid=AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(composition.directBattlePool)),
+                shopPoolAssetPath=AssetDatabase.GetAssetPath(composition.shopPool),
+                shopPoolGuid=AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(composition.shopPool)),
+                restPoolAssetPath=AssetDatabase.GetAssetPath(composition.restPool),
+                restPoolGuid=AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(composition.restPool)),
+                directBattleCount=composition.directBattleCount, shopCount=composition.shopCount,
+                restCount=composition.restCount, eventCount=composition.eventCount,
+                earlyDirect=composition.earlyDirect, midDirect=composition.midDirect,
+                lateDirect=composition.lateDirect, maxDirectBattleFreeGap=composition.maxDirectBattleFreeGap,
+                allowAdjacentDirectBattle=composition.allowAdjacentDirectBattle,
+                optionalBattleCredit=composition.optionalBattleCredit,
+                classificationAuthorityVersion=composition.classificationAuthorityVersion,
+                staleState=composition.staleState.ToString(), staleReason=composition.staleReason };
             value.sectionBands = catalog.sectionBands.Where(x => x != null)
                 .OrderBy(x => x.sectionId, StringComparer.Ordinal).Select(x => new SectionBandJson
                 { sectionId = x.sectionId, band = x.band.ToString().ToLowerInvariant() }).ToList();
@@ -72,7 +91,10 @@ namespace ResourceTools.Stage.Placement
                         cooldown=x.cooldown, chainChildren=(x.chainChildren ?? new()).Distinct()
                             .OrderBy(v=>v,StringComparer.Ordinal).ToList(), order=x.order,
                         rationale=x.rationale, sourceAuthority=x.sourceAuthority,
-                        staleState=x.staleState.ToString() }).ToList();
+                        staleState=x.staleState.ToString(), combatClass=x.combatClass.ToString(),
+                        expectedBattleCredit=x.expectedBattleCredit,
+                        combatAuthorityVersion=x.combatAuthorityVersion,
+                        combatStaleState=x.combatStaleState.ToString() }).ToList();
             value.overrides = (catalog.overrides ?? new()).Where(x => x != null)
                 .OrderBy(x => x.overrideId, StringComparer.Ordinal).Select(x => new OverrideJson {
                     overrideId=x.overrideId,rowId=x.rowId,field=x.field,baseContractVersion=x.baseContractVersion,

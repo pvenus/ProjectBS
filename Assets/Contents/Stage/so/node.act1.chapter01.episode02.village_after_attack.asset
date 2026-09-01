@@ -28,7 +28,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734660
+      rid: 5601486871972282398
   - choiceId: choice.act1.chapter01.episode02.village_after_attack.ask_child_family
     requirements: []
     visibleConditions: []
@@ -41,27 +41,43 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734661
+      rid: 5601486871972282399
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734660
+    - rid: 5601486871972282398
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734662
-    - rid: 5601486783294734661
+          rid: 5601486871972282400
+    - rid: 5601486871972282399
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734663
-    - rid: 5601486783294734662
+          rid: 5601486871972282401
+    - rid: 5601486871972282400
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}
-    - rid: 5601486783294734663
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 
+    - rid: 5601486871972282401
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 3ca95905e84c3403c8b662b208ab28a2, type: 2}
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 

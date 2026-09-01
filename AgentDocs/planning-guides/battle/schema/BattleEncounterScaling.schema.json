@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projectbs://battle/BattleEncounterScaling.schema.v1",
+  "title": "Battle Encounter Scaling definition",
+  "type": "object",
+  "required": [
+    "contractId",
+    "status",
+    "digestPolicy"
+  ],
+  "properties": {
+    "contractId": {
+      "const": "battle-encounter-monster-scaling.v1"
+    },
+    "status": {
+      "type": "string"
+    },
+    "coefficientVersion": {
+      "type": "string"
+    },
+    "auditVersion": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "digestPolicy": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "digest"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "SHA-256"
+        },
+        "canonicalization": {
+          "type": "string"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "staleState": {
+      "type": "string"
+    },
+    "encounterRows": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "items": {
+        "$ref": "#/$defs/encounter"
+      }
+    },
+    "monsterRows": {
+      "type": "array",
+      "minItems": 21,
+      "maxItems": 21,
+      "items": {
+        "$ref": "#/$defs/monster"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "encounter": {
+      "type": "object",
+      "required": [
+        "encounterId",
+        "battleId",
+        "battleAssetPath",
+        "baselineCurrent",
+        "targetV1",
+        "sourceAuthority",
+        "staleState",
+        "warnings"
+      ],
+      "properties": {
+        "encounterId": {
+          "type": "string"
+        },
+        "battleId": {
+          "type": "string"
+        },
+        "battleAssetPath": {
+          "type": "string"
+        },
+        "baselineCurrent": {
+          "type": "object"
+        },
+        "targetV1": {
+          "type": "object"
+        },
+        "sourceAuthority": {
+          "type": "array",
+          "minItems": 1
+        },
+        "staleState": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array"
+        }
+      },
+      "additionalProperties": true
+    },
+    "monster": {
+      "type": "object",
+      "required": [
+        "characterId",
+        "characterPath",
+        "role",
+        "roleTU",
+        "baselineCurrent",
+        "targetV1",
+        "sourceAuthority",
+        "staleState"
+      ],
+      "properties": {
+        "characterId": {
+          "type": "string"
+        },
+        "characterPath": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "roleTU": {
+          "type": "number"
+        },
+        "baselineCurrent": {
+          "type": "object"
+        },
+        "targetV1": {
+          "type": "object"
+        },
+        "sourceAuthority": {
+          "type": "array",
+          "minItems": 1
+        },
+        "staleState": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

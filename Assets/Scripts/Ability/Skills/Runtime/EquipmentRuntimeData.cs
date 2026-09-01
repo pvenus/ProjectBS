@@ -29,6 +29,7 @@ public class EquipmentSkillRuntimeData
     public float resolvedProjectileSpreadAngle;
     public float resolvedProjectileArrangementValue;
     public float resolvedProjectileScale;
+    public float resolvedRendererScale = 1f;
 
     [Header("Resolved Runtime Context")]
     public ResolvedVisualContextDto visualContext;

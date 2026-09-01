@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-guard-control
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.guardControl.v1
+  preset: 3
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 0.34902, g: 0.40392, b: 0.41961, a: 1}
+  tintStrength: 0.08
+  colorA: {r: 0.15294, g: 0.21961, b: 0.27059, a: 1}
+  colorB: {r: 0.54118, g: 0.4, b: 0.33725, a: 1}
+  colorShiftStrength: 0.08
+  emissionColor: {r: 0.46667, g: 0.5451, b: 0.53333, a: 1}
+  emissionIntensity: 0.06
+  desaturate: 0.06
+  outlineColor: {r: 0.14118, g: 0.16471, b: 0.17255, a: 0.8}
+  outlineWidth: 1.4
+  fadeIn: 0.11
+  hold: 0.28
+  fadeOut: 0.25
+  phaseSpeed: 0.55
+  flowSpeed: {x: 1, y: 0}
+  rimColor: {r: 0.42745, g: 0.4902, b: 0.47451, a: 1}
+  spatialPattern: 3
+  rimPulseStrength: 0.34
+  sweepColor: {r: 0.54118, g: 0.41961, b: 0.34902, a: 1}
+  sweepDirection: {x: 1, y: 0}
+  sweepStrength: 0.14
+  sweepWidth: 0.15
+  sweepSoftness: 0.1
+  glintColor: {r: 0.64314, g: 0.66667, b: 0.63529, a: 1}
+  glintStrength: 0.12
+  glintWidth: 0.035
+  peakColor: {r: 0.45882, g: 0.5451, b: 0.52549, a: 1}
+  peakIntensity: 0.32
+  peakDuration: 0.06
+  afterglowColor: {r: 0.29412, g: 0.36078, b: 0.36471, a: 1}
+  afterglowIntensity: 0.12
+  afterglowDuration: 0.24
+  inkDensity: 0.39
+  inkBreakup: 0.55
+  inkScale: 26
+  inkFlow: {x: 1, y: 0}
+  neonRimStrength: 0.66
+  neonPeakGain: 1
+  neonAfterglowGain: 0.8

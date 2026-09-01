@@ -21,41 +21,41 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043267
+      rid: 5601486871972282632
   - choiceId: choice.act1.random_event.34.half_vein_map.follow_unstable_vein
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043268
+      rid: 5601486871972282633
   - choiceId: choice.act1.random_event.34.half_vein_map.destroy_false_map
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043269
+      rid: 5601486871972282634
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043267
+    - rid: 5601486871972282632
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043270
-    - rid: 5601486867666043268
+          rid: 5601486871972282635
+    - rid: 5601486871972282633
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486867666043271
-    - rid: 5601486867666043269
+          rid: 5601486871972282636
+    - rid: 5601486871972282634
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043272
-    - rid: 5601486867666043270
+          rid: 5601486871972282637
+    - rid: 5601486871972282635
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043271
+    - rid: 5601486871972282636
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: 0dc6ca0f3114347ee96b290747f0a920, type: 2}
@@ -92,6 +92,6 @@ MonoBehaviour:
         childEventId: event.act1.random_event.34.half_vein_map.followup.unstable_vein
         childNodeId: node.act1.random_event.34.half_vein_map.followup.unstable_vein.intro
         childReservationId: reservation.act1.chapter01.random_event.34.half_vein_map.followup.unstable_vein
-    - rid: 5601486867666043272
+    - rid: 5601486871972282637
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

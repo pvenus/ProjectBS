@@ -21,41 +21,41 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043261
+      rid: 5601486871972282626
   - choiceId: choice.act1.random_event.33.false_mountain_rite_offering_box.sell_rite_ledger_quietly
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043262
+      rid: 5601486871972282627
   - choiceId: choice.act1.random_event.33.false_mountain_rite_offering_box.leave_false_rite_alone
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043263
+      rid: 5601486871972282628
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043261
+    - rid: 5601486871972282626
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043264
-    - rid: 5601486867666043262
+          rid: 5601486871972282629
+    - rid: 5601486871972282627
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043265
-    - rid: 5601486867666043263
+          rid: 5601486871972282630
+    - rid: 5601486871972282628
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043266
-    - rid: 5601486867666043264
+          rid: 5601486871972282631
+    - rid: 5601486871972282629
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043265
+    - rid: 5601486871972282630
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -119,6 +119,6 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043266
+    - rid: 5601486871972282631
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

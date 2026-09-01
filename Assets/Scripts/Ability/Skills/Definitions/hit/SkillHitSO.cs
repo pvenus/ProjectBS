@@ -20,7 +20,9 @@ public class SkillHitSO : ScriptableObject
     [SerializeField, Min(0f)] private float repeatInterval = 0.25f;
 
     [Header("Hit Timing")]
+    [SerializeField] private bool useHitWindow;
     [SerializeField, Min(0f)] private float hitStartTime;
+    [SerializeField, Min(0f)] private float hitDuration;
     [Tooltip("첫 성공 타격 직후 투사체를 제거합니다. true이면 maxHitCount는 반드시 1이어야 합니다.")]
     [SerializeField] private bool deactivateAfterFirstHit;
 
@@ -46,6 +48,8 @@ public class SkillHitSO : ScriptableObject
     public float RepeatInterval => repeatInterval;
 
     public float HitStartTime => hitStartTime;
+    public bool UseHitWindow => useHitWindow;
+    public float HitDuration => Mathf.Max(0f, hitDuration);
     public bool DeactivateAfterFirstHit => deactivateAfterFirstHit;
     public LayerMask TargetLayerMask => targetLayerMask;
 

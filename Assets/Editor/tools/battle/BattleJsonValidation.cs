@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Battle;
 using Battle.Prop;
 using Battle.Prop.SO;
+using UnityEditor;
 using UnityEngine;
 
 namespace ResourceTools
@@ -51,6 +52,12 @@ namespace ResourceTools
                     data.spawnUnitBindings,
                     sourceLabel,
                     errors);
+
+                if (!string.IsNullOrEmpty(data.largeWavePolicyAssetPath) &&
+                    AssetDatabase.LoadAssetAtPath<BattleLargeWavePolicySO>(data.largeWavePolicyAssetPath) == null)
+                {
+                    errors.Add($"{sourceLabel}: BattleLargeWavePolicySO를 찾을 수 없습니다. path={data.largeWavePolicyAssetPath}");
+                }
             }
 
             if (data != null &&

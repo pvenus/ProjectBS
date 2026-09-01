@@ -21,6 +21,8 @@ namespace Skill
         [Header("Projectile Defaults")]
         [SerializeField, Min(1)] private int projectileCount = 1;
         [SerializeField] private float projectileScale = 1f;
+        [SerializeField, Min(0.0001f), Tooltip("Projectile Renderer에만 적용되는 배율입니다.")]
+        private float rendererScale = 1f;
         [SerializeField] private float projectileColliderRadius = 0.5f;
         [SerializeField] private float projectileLifetime = 3f;
 
@@ -58,6 +60,7 @@ namespace Skill
 
         public int ProjectileCount => Mathf.Max(1, projectileCount);
         public float ProjectileScale => Mathf.Max(0.01f, projectileScale);
+        public float RendererScale => NormalizeRendererScale(rendererScale);
         public float ProjectileColliderRadius => Mathf.Max(0.01f, projectileColliderRadius);
         public float ProjectileLifetime => Mathf.Max(0.01f, projectileLifetime);
 
@@ -89,13 +92,15 @@ namespace Skill
             int projectileCount,
             float projectileScale,
             float projectileColliderRadius,
-            float projectileLifetime)
+            float projectileLifetime,
+            float rendererScale = 1f)
         {
             this.baseProfileId = baseProfileId;
             this.skillType = skillType;
             this.skillComponentType = skillComponentType;
             this.projectileCount = projectileCount;
             this.projectileScale = projectileScale;
+            this.rendererScale = NormalizeRendererScale(rendererScale);
             this.projectileColliderRadius = projectileColliderRadius;
             this.projectileLifetime = projectileLifetime;
         }
@@ -135,6 +140,13 @@ namespace Skill
                 basePriority);
         }
 #endif
+
+        public static float NormalizeRendererScale(float value)
+        {
+            return float.IsNaN(value) || float.IsInfinity(value) || value <= 0f
+                ? 1f
+                : value;
+        }
     }
 
     [Serializable]

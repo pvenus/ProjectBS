@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043299
+      rid: 5601486871972282664
   - choiceId: choice.act1.random_event.40.jihan_empty_medicine_folio.restore_erased_prescription
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043300
+      rid: 5601486871972282665
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043299
+    - rid: 5601486871972282664
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043301
-    - rid: 5601486867666043300
+          rid: 5601486871972282666
+    - rid: 5601486871972282665
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043302
-    - rid: 5601486867666043301
+          rid: 5601486871972282667
+    - rid: 5601486871972282666
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043302
+    - rid: 5601486871972282667
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

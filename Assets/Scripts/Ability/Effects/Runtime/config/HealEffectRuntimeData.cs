@@ -1,4 +1,5 @@
 using Character;
+using Battle.Presentation.SkillFocus;
 using UnityEngine;
 
 namespace Effect
@@ -41,6 +42,7 @@ namespace Effect
             }
 
             targetCharacter.Heal(healAmount);
+            MainCharacterSkillFocusFeature.NotifyHealApplied(sourceCharacter);
         }
 
         public override void OnRemove()

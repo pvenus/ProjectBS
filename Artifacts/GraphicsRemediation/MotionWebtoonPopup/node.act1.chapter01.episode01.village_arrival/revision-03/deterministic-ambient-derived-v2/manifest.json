@@ -1,0 +1,76 @@
+{
+  "methodVersion": "village-arrival.ambient-derived.v2",
+  "toolVersion": "active2-exact8-village-ambient-v2.v1",
+  "basePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-01/candidate-B-frames-v3/Q0-384x512.png",
+  "baseSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+  "q96": 0.8911208039319055,
+  "q98": 0.9371725086353961,
+  "feasiblePairCount": 9697,
+  "status": "PASS",
+  "selectedB": 0.00262,
+  "selectedA": 0.0103,
+  "metrics": [
+    {
+      "pair": "Q0-Q1",
+      "meanLumaPct": 0.2500501955244138,
+      "p95Pct": 0.3794225509308996,
+      "maxPct": 1.4321686568899483,
+      "over1PctCoveragePct": 2.506510416666667,
+      "ssim": 0.9997407954466266,
+      "highpassUnexplainedPct": 0.0
+    },
+    {
+      "pair": "Q1-Q2",
+      "meanLumaPct": 0.2500501955244138,
+      "p95Pct": 0.3794225509308996,
+      "maxPct": 1.4321686568899483,
+      "over1PctCoveragePct": 2.506510416666667,
+      "ssim": 0.9997407954466266,
+      "highpassUnexplainedPct": 0.0
+    },
+    {
+      "pair": "Q2-Q3",
+      "meanLumaPct": 0.24972401741208197,
+      "p95Pct": 0.37793019289059093,
+      "maxPct": 1.4145791041333622,
+      "over1PctCoveragePct": 2.50244140625,
+      "ssim": 0.9997401335592712,
+      "highpassUnexplainedPct": 0.0
+    },
+    {
+      "pair": "Q3-Q0",
+      "meanLumaPct": 0.24972401741208197,
+      "p95Pct": 0.37793019289059093,
+      "maxPct": 1.4145791041333622,
+      "over1PctCoveragePct": 2.50244140625,
+      "ssim": 0.9997401335592712,
+      "highpassUnexplainedPct": 0.0
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-03/deterministic-ambient-derived-v2/Q0-384x512.png",
+      "sha256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+      "rerunSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896"
+    },
+    {
+      "index": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-03/deterministic-ambient-derived-v2/Q1-384x512.png",
+      "sha256": "3698ef32d49a9f633e242311e91c621b7553ad717dcf45cad770f99a1f2fa174",
+      "rerunSHA256": "3698ef32d49a9f633e242311e91c621b7553ad717dcf45cad770f99a1f2fa174"
+    },
+    {
+      "index": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-03/deterministic-ambient-derived-v2/Q2-384x512.png",
+      "sha256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+      "rerunSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896"
+    },
+    {
+      "index": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-03/deterministic-ambient-derived-v2/Q3-384x512.png",
+      "sha256": "39617dff7dbca08158434da4e35808e855372ef7d8bde5d381d4705c0ecfe03e",
+      "rerunSHA256": "39617dff7dbca08158434da4e35808e855372ef7d8bde5d381d4705c0ecfe03e"
+    }
+  ]
+}

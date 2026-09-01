@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043257
+      rid: 5601486871972282622
   - choiceId: choice.act1.random_event.32.hidden_ledger_salt_cart.sell_ledger_to_collector
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043258
+      rid: 5601486871972282623
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043257
+    - rid: 5601486871972282622
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043259
-    - rid: 5601486867666043258
+          rid: 5601486871972282624
+    - rid: 5601486871972282623
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043260
-    - rid: 5601486867666043259
+          rid: 5601486871972282625
+    - rid: 5601486871972282624
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043260
+    - rid: 5601486871972282625
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

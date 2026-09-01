@@ -14,6 +14,7 @@ namespace ResourceTools.Skill
         public string skillComponentType;
         public int projectileCount;
         public float projectileScale;
+        public float rendererScale = 1f;
         public float projectileColliderRadius;
         public float projectileLifetime;
 
@@ -332,7 +333,8 @@ namespace ResourceTools.Skill
                 json.projectileCount,
                 json.projectileScale,
                 json.projectileColliderRadius,
-                json.projectileLifetime);
+                json.projectileLifetime,
+                EquipmentBaseProfileSO.NormalizeRendererScale(json.rendererScale));
 
             ProjectileArrangementJson projectile = ParseOptionalJson<ProjectileArrangementJson>(json.projectile);
             ProjectileSpawnJson projectileSpawn = ParseOptionalJson<ProjectileSpawnJson>(json.projectileSpawn);

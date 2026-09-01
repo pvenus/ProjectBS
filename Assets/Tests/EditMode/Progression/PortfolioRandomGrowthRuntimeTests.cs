@@ -53,6 +53,54 @@ namespace Progression.Tests
         }
 
         [Test]
+        public void AbandonedPendingConfirmMayBeCancelledBeforeEnteringAnotherRuntimeNode()
+        {
+            object ownership=NewOwnership();Invoke(ownership,"ResetForNewRun","run.b1");
+            RandomGrowthEventIdentityCatalog.TryResolve(
+                "event.act1.random_event.21.breath_between_water_drops",
+                "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm",
+                RandomGrowthPayloadKind.Safe,out var identity);
+            object stale=Begin(ownership,identity,"node.instance.old",'d');
+            Assert.That(InvokeBool(ownership,"Cancel",stale),Is.True);
+            Assert.That(TryBegin(ownership,identity,"node.instance.current",'d',out object current),Is.True);
+            Assert.That(current,Is.Not.Null);
+        }
+
+        [Test]
+        public void AbandonedPendingConfirmMaySwitchChoiceOnTheSameRuntimeNode()
+        {
+            object ownership=NewOwnership();Invoke(ownership,"ResetForNewRun","run.b1");
+            RandomGrowthEventIdentityCatalog.TryResolve(
+                "event.act1.random_event.21.breath_between_water_drops",
+                "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm",
+                RandomGrowthPayloadKind.Safe,out var observe);
+            RandomGrowthEventIdentityCatalog.TryResolve(
+                "event.act1.random_event.21.breath_between_water_drops",
+                "choice.act1.random_event.21.breath_between_water_drops.leave_cave_unchanged",
+                RandomGrowthPayloadKind.Decline,out var decline);
+            object stale=Begin(ownership,decline,"node.instance.same",'e');
+            Assert.That(InvokeBool(ownership,"Cancel",stale),Is.True);
+            Assert.That(TryBegin(ownership,observe,"node.instance.same",'e',out object current),Is.True);
+            Assert.That(current,Is.Not.Null);
+        }
+
+        [Test]
+        public void RolledBackRetryMayBeAbandonedAfterMovingToAnotherRuntimeNode()
+        {
+            object ownership=NewOwnership();Invoke(ownership,"ResetForNewRun","run.b1");
+            RandomGrowthEventIdentityCatalog.TryResolve(
+                "event.act1.random_event.21.breath_between_water_drops",
+                "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm",
+                RandomGrowthPayloadKind.Safe,out var identity);
+            object stale=Begin(ownership,identity,"node.instance.old",'f');
+            Assert.That(InvokeBool(ownership,"TryApplying",stale),Is.True);
+            Assert.That(InvokeBool(ownership,"TryRetry",stale),Is.True);
+            Assert.That(InvokeBool(ownership,"AbandonRolledBackRetry",stale),Is.True);
+            Assert.That(TryBegin(ownership,identity,"node.instance.current",'f',out object current),Is.True);
+            Assert.That(current,Is.Not.Null);
+        }
+
+        [Test]
         public void ExternalHealAndRiskShareOneEvent23Terminal()
         {
             object ownership=NewOwnership();Invoke(ownership,"ResetForNewRun","run.b1");

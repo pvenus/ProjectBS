@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043229
+      rid: 5601486871972282594
   - choiceId: choice.act1.random_event.25.hot_spring_beneath_ice.break_ice_for_mineral
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043230
+      rid: 5601486871972282595
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043229
+    - rid: 5601486871972282594
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043231
-    - rid: 5601486867666043230
+          rid: 5601486871972282596
+    - rid: 5601486871972282595
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043232
-    - rid: 5601486867666043231
+          rid: 5601486871972282597
+    - rid: 5601486871972282596
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043232
+    - rid: 5601486871972282597
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

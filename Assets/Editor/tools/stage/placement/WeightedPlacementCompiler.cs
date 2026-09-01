@@ -41,6 +41,24 @@ namespace ResourceTools.Stage.Placement
             config.minEligiblePurposes = source.minEligiblePurposes;
             config.generatorVersion = source.generatorVersion;
             config.canonicalContentSha256 = source.canonicalContentSha256;
+            CompositionJson composition = source.composition ?? new CompositionJson();
+            config.composition = new BattlePressureCompositionConfig {
+                enabled=composition.enabled, schemaVersion=composition.schemaVersion,
+                coefficientVersion=composition.coefficientVersion,
+                directBattlePool=AssetDatabase.LoadAssetAtPath<EventPoolSO>(composition.directBattlePoolAssetPath),
+                shopPool=AssetDatabase.LoadAssetAtPath<EventPoolSO>(composition.shopPoolAssetPath),
+                restPool=AssetDatabase.LoadAssetAtPath<EventPoolSO>(composition.restPoolAssetPath),
+                directBattleCount=composition.directBattleCount, shopCount=composition.shopCount,
+                restCount=composition.restCount, eventCount=composition.eventCount,
+                earlyDirect=composition.earlyDirect, midDirect=composition.midDirect,
+                lateDirect=composition.lateDirect, maxDirectBattleFreeGap=composition.maxDirectBattleFreeGap,
+                allowAdjacentDirectBattle=composition.allowAdjacentDirectBattle,
+                optionalBattleCredit=composition.optionalBattleCredit,
+                classificationAuthorityVersion=composition.classificationAuthorityVersion,
+                staleState=composition.enabled
+                    ? Parse<WeightedPlacementStaleState>(composition.staleState)
+                    : WeightedPlacementStaleState.Current,
+                staleReason=composition.staleReason };
             config.sectionBands = (source.sectionBands ?? new List<SectionBandJson>())
                 .OrderBy(x => x.sectionId, StringComparer.Ordinal)
                 .Select(x => new WeightedPlacementSectionBand {
@@ -63,7 +81,14 @@ namespace ResourceTools.Stage.Placement
                     cooldown=x.cooldown,
                     chainChildren=(x.chainChildren ?? new List<string>()).Distinct().OrderBy(v=>v,StringComparer.Ordinal).ToList(),
                     order=x.order, rationale=x.rationale, sourceAuthority=x.sourceAuthority,
-                    staleState=Parse<WeightedPlacementStaleState>(x.staleState)
+                    staleState=Parse<WeightedPlacementStaleState>(x.staleState),
+                    combatClass=string.IsNullOrWhiteSpace(x.combatClass)
+                        ? EventCombatClass.NonBattle : Parse<EventCombatClass>(x.combatClass),
+                    expectedBattleCredit=x.expectedBattleCredit,
+                    combatAuthorityVersion=x.combatAuthorityVersion,
+                    combatStaleState=string.IsNullOrWhiteSpace(x.combatStaleState)
+                        ? WeightedPlacementStaleState.Current
+                        : Parse<WeightedPlacementStaleState>(x.combatStaleState)
                 }).ToList();
             config.overrides = (source.overrides ?? new List<OverrideJson>()).OrderBy(x=>x.overrideId,StringComparer.Ordinal)
                 .Select(x=>new WeightedPlacementOverride { overrideId=x.overrideId,rowId=x.rowId,field=x.field,

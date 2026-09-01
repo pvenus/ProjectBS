@@ -683,6 +683,7 @@ public class ProjectileFactory
             // projectileArrangement = source.projectileArrangement, // REMOVED
             projectileArrangementValue = source.projectileArrangementValue,
             projectileScale = source.projectileScale,
+            rendererScale = EquipmentBaseProfileSO.NormalizeRendererScale(source.rendererScale),
             spawnOrder = spawnOrder,
             projectileSpawnInterval = source.projectileSpawnInterval,
             projectileSpawnRadius = source.projectileSpawnRadius,

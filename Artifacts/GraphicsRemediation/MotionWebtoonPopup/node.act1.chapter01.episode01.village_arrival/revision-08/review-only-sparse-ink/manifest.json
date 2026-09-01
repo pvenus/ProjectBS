@@ -1,0 +1,100 @@
+{
+  "status": "REVIEW_ONLY_NOT_ACCEPTED",
+  "installAuthority": false,
+  "authoritySHA256": "d9ee16a193e451525cd70b9bdb2d78e53ac68b087bdd051f77e3a2d0b33d70d4",
+  "basePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-01/candidate-B-frames-v3/Q0-384x512.png",
+  "baseSHA256": "fb6d1952399336f0c81fc2f7fdfb8fa7b4428a2bdd1aa8ca9970eb2fd1b22896",
+  "scriptSHA256": "9741810ac6b0885059386180e3354f726e0f838399fa982c7c74b6e191bd4f98",
+  "seed": "0x56494c4c41474531",
+  "formula": "v1 fields/phases; per-frame combined raw alpha q60/q92 smoothstep; alpha=.18*pow(S,.85)",
+  "blend": "premultiplied source-over",
+  "frames": [
+    {
+      "slot": "Q0",
+      "overlay": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/overlay/Q0.png",
+      "overlaySHA256": "f7e3f218073e8d2027cff6cb0e0647054bc97efb8fcb182c1be5bd4c89e4d536",
+      "composite": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/composite/Q0.png",
+      "compositeSHA256": "fe2f094642029d49ec9856d1a87a4efca80b46ca6d52c39e25f08082e349beaa",
+      "nonzeroAlphaCoverage": 0.3878224690755208,
+      "meanAlpha": 0.04589610380284926,
+      "maxAlpha": 0.1803921568627451
+    },
+    {
+      "slot": "Q1",
+      "overlay": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/overlay/Q1.png",
+      "overlaySHA256": "7a3972010ff1e9a3645324c7092700a120c08c25cb4bb1d8949e504e10c9b08c",
+      "composite": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/composite/Q1.png",
+      "compositeSHA256": "5bcdc174e9125f0de0ca96eec3cb1312c52918ee1874cbe469fe911c51511451",
+      "nonzeroAlphaCoverage": 0.3889007568359375,
+      "meanAlpha": 0.047314413232741014,
+      "maxAlpha": 0.1803921568627451
+    },
+    {
+      "slot": "Q2",
+      "overlay": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/overlay/Q2.png",
+      "overlaySHA256": "206500dd082b4814e738fd6c9b3c229dedee379ea5b17c5079e4f79e26de92e1",
+      "composite": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/composite/Q2.png",
+      "compositeSHA256": "a580d5e0ba3c5c173bcc829f9d03bfa0e508886325d45759895ac31bff2b4523",
+      "nonzeroAlphaCoverage": 0.3880513509114583,
+      "meanAlpha": 0.04523720336116218,
+      "maxAlpha": 0.1803921568627451
+    },
+    {
+      "slot": "Q3",
+      "overlay": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/overlay/Q3.png",
+      "overlaySHA256": "c407e6406df302df74bf961122d9b693d2b9d100f14a4442c72cfdc4d279b16c",
+      "composite": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/composite/Q3.png",
+      "compositeSHA256": "878d59c4dc74bdbc63f92e34d00d74553d39925ac48987d46ec355f9075076af",
+      "nonzeroAlphaCoverage": 0.3883412679036458,
+      "meanAlpha": 0.0467440935521344,
+      "maxAlpha": 0.1803921568627451
+    }
+  ],
+  "contact": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/contact-exact4.png",
+    "sha256": "11bf0fc23aabd4153fa39cb8eb04bcdca36700c875f93f64010671e6b77b7ab8"
+  },
+  "reviewGif": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/village-arrival-sparse-ink-review-2s.gif",
+    "sha256": "cf40a3b3b298e3b05762ef44309605b505a2e75216d5a8b5742cc7b39106b4a7",
+    "dimensions": [
+      384,
+      512
+    ],
+    "frames": 4,
+    "delayMs": 500,
+    "cycleSeconds": 2,
+    "loop": "infinite"
+  },
+  "runtimeGif": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MotionWebtoonPopup/node.act1.chapter01.episode01.village_arrival/revision-08/review-only-sparse-ink/village-arrival-sparse-ink-runtime-preview-8s.gif",
+    "sha256": "960630f08bed12924aa6995c588737922f17f7f498764d493b515dc4bcbab8f4",
+    "dimensions": [
+      384,
+      512
+    ],
+    "frames": 16,
+    "delayMs": 500,
+    "cycleSeconds": 8,
+    "loop": "infinite",
+    "order": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      3,
+      3,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "projectCanonicalUnityWrite": 0
+}

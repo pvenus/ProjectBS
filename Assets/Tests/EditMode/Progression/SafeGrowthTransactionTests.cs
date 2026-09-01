@@ -31,6 +31,34 @@ namespace Progression.Tests
         }
 
         [Test]
+        public void Event21TypedIdentityUsesItsOwnReservationAndResultContract()
+        {
+            Context c = Context.Create();
+            Assert.That(RandomGrowthEventIdentityCatalog.TryResolve(
+                "event.act1.random_event.21.breath_between_water_drops",
+                "choice.act1.random_event.21.breath_between_water_drops.follow_silent_rhythm",
+                RandomGrowthPayloadKind.Safe,out var identity),Is.True);
+            var interaction = new SafeGrowthInteractionOwnership();
+            interaction.ResetForNewRun(c.RunId);
+            var key = new SafeGrowthInteractionKey(c.RunId.Value,
+                "stage-generation.event21",identity.ReservationId,"node-instance.event21");
+            Assert.That(interaction.TryEnterPreconfirm(key,identity.ChoiceId,
+                "definition.event21",true,out var token),Is.EqualTo(SafeGrowthInteractionResult.Changed));
+            var service = new SafeGrowthTransactionService(c.Ledger,c.Results,interaction);
+            var earn = new ProgressionEarnRequest(identity.SegmentId,
+                ProgressionSourceCategory.Random,ProgressionSourceType.RandomEventSafe,
+                identity.SourceId,identity.ResultId);
+
+            SafeGrowthTransactionReceipt receipt = service.Execute(
+                new SafeGrowthTransactionCommand(token,SafeGrowthTransactionChoice.Observe,
+                    earn,2,identity));
+
+            Assert.That(receipt.Result,Is.EqualTo(SafeGrowthTransactionResult.Succeeded));
+            Assert.That(receipt.EventReceipt.Cause.EventId,Is.EqualTo(identity.EventId));
+            Assert.That(receipt.EventReceipt.Cause.ResultId,Is.EqualTo(identity.ResultId));
+        }
+
+        [Test]
         public void PrepareReservesExclusivelyWithoutVisibleLedgerMutation()
         {
             Context c = Context.Create();

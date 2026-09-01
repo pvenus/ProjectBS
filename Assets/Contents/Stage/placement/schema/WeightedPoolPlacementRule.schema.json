@@ -29,12 +29,31 @@
     "newMass": { "const": 55 },
     "minEligibleCandidates": { "type": "integer", "minimum": 4 },
     "minEligiblePurposes": { "type": "integer", "minimum": 2 },
+    "composition": { "$ref": "#/$defs/composition" },
     "sectionBands": { "type": "array", "items": { "$ref": "#/$defs/sectionBand" } },
     "rows": { "type": "array", "minItems": 46, "maxItems": 46, "items": { "$ref": "#/$defs/eventRow" } },
     "canonicalContentSha256": { "type": "string" },
     "generatorVersion": { "type": "string" }
   },
   "$defs": {
+    "composition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["enabled", "schemaVersion", "coefficientVersion", "directBattleCount", "shopCount", "restCount", "eventCount", "earlyDirect", "midDirect", "lateDirect", "maxDirectBattleFreeGap", "allowAdjacentDirectBattle", "optionalBattleCredit", "classificationAuthorityVersion", "staleState"],
+      "properties": {
+        "enabled": { "type": "boolean" }, "schemaVersion": { "const": 1 },
+        "coefficientVersion": { "type": "string" },
+        "directBattlePoolAssetPath": { "type": "string" }, "directBattlePoolGuid": { "type": "string" },
+        "shopPoolAssetPath": { "type": "string" }, "shopPoolGuid": { "type": "string" },
+        "restPoolAssetPath": { "type": "string" }, "restPoolGuid": { "type": "string" },
+        "directBattleCount": { "const": 4 }, "shopCount": { "const": 2 },
+        "restCount": { "const": 2 }, "eventCount": { "const": 4 },
+        "earlyDirect": { "const": 1 }, "midDirect": { "const": 2 }, "lateDirect": { "const": 1 },
+        "maxDirectBattleFreeGap": { "const": 3 }, "allowAdjacentDirectBattle": { "const": false },
+        "optionalBattleCredit": { "type": "number", "minimum": 0, "maximum": 1 },
+        "classificationAuthorityVersion": { "type": "string" },
+        "staleState": { "enum": ["Current", "StaleRewardRiskDependency"] }, "staleReason": { "type": "string" }
+      }
+    },
     "sectionBand": {
       "type": "object", "additionalProperties": false,
       "required": ["sectionId", "band"],
@@ -53,7 +72,12 @@
         "motifTags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }, "cooldown": { "type": "integer", "minimum": 0 },
         "chainChildren": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "rationale": { "type": "string", "minLength": 1 }, "sourceAuthority": { "type": "string", "minLength": 1 },
-        "staleState": { "enum": ["Current", "StaleRewardRiskDependency"] }, "order": { "type": "integer" }
+        "staleState": { "enum": ["Current", "StaleRewardRiskDependency"] },
+        "combatClass": { "enum": ["NonBattle", "OptionalBattleEvent", "GuaranteedBehaviorBattleEvent"] },
+        "expectedBattleCredit": { "type": "number", "minimum": 0, "maximum": 1 },
+        "combatAuthorityVersion": { "type": "string" },
+        "combatStaleState": { "enum": ["Current", "StaleRewardRiskDependency"] },
+        "order": { "type": "integer" }
       }
     },
     "override": {

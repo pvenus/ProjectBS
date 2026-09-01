@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-seojin-active2-ground-g2
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.seojin.active2.g2.proceduralGround.v1
+  preset: 3
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 1, g: 1, b: 1, a: 1}
+  tintStrength: 0
+  colorA: {r: 0.16, g: 0.29, b: 0.41, a: 1}
+  colorB: {r: 0.78, g: 0.34, b: 0.26, a: 1}
+  colorShiftStrength: 0
+  emissionColor: {r: 0, g: 0, b: 0, a: 1}
+  emissionIntensity: 0
+  desaturate: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  outlineWidth: 0.75
+  fadeIn: 0.01
+  hold: 5
+  fadeOut: 0.01
+  phaseSpeed: 1
+  flowSpeed: {x: 0, y: 0}
+  rimColor: {r: 0, g: 0, b: 0, a: 0}
+  spatialPattern: 3
+  rimPulseStrength: 0
+  sweepColor: {r: 0, g: 0, b: 0, a: 0}
+  sweepDirection: {x: 1, y: 0}
+  sweepStrength: 0
+  sweepWidth: 0.1
+  sweepSoftness: 0.05
+  glintColor: {r: 0, g: 0, b: 0, a: 0}
+  glintStrength: 0
+  glintWidth: 0.03
+  peakColor: {r: 0, g: 0, b: 0, a: 0}
+  peakIntensity: 0
+  peakDuration: 0.05
+  afterglowColor: {r: 0, g: 0, b: 0, a: 0}
+  afterglowIntensity: 0
+  afterglowDuration: 0
+  inkDensity: 0
+  inkBreakup: 0
+  inkScale: 24
+  inkFlow: {x: 0, y: 0}
+  neonRimStrength: 0
+  neonPeakGain: 0
+  neonAfterglowGain: 0
+  bodyOpacityGain: 0
+  localizedGlowAlpha: 0
+  proceduralGroundField: 1
+  fieldRadiusWorld: 3
+  footprintAspect: {x: 1, y: 0.62}
+  edgeSoftness: 0.18
+  edgeIrregularity: 0.22
+  fieldInkDensity: 0.62
+  supportContrast: 0.14
+  supportLobes: 2
+  pressureScarCount: 3
+  rustCoverage: 0.025
+  deterministicSeed: 2730622978

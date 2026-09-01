@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stage.PopupEventSO
   eventId: node.act1.chapter01.episode01.village_arrival
   mainImage: {fileID: 21300000, guid: 79abfca6304224f468e53b54dbb659cf, type: 3}
+  motionSequenceResourcePath: Contents/Stage/popup_motion/node.act1.chapter01.episode01.village_arrival/sequence
   icon: {fileID: 0}
   choices:
   - choiceId: choice.act1.chapter01.episode01.village_arrival.next
@@ -21,17 +22,25 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734652
+      rid: 5601486871972282390
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734652
+    - rid: 5601486871972282390
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486783294734653
-    - rid: 5601486783294734653
+          rid: 5601486871972282391
+    - rid: 5601486871972282391
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: e4e03567cf2e248f8b2be96e7fe0f053, type: 2}
+        parentEventId: 
+        parentNodeId: 
+        parentChoiceId: 
+        parentResultId: 
+        parentReservationId: 
+        childEventId: 
+        childNodeId: 
+        childReservationId: 

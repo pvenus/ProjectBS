@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043291
+      rid: 5601486871972282656
   - choiceId: choice.act1.random_event.38.three_cups_of_moonlight.combine_three_cups
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043292
+      rid: 5601486871972282657
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043291
+    - rid: 5601486871972282656
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043293
-    - rid: 5601486867666043292
+          rid: 5601486871972282658
+    - rid: 5601486871972282657
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043294
-    - rid: 5601486867666043293
+          rid: 5601486871972282659
+    - rid: 5601486871972282658
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043294
+    - rid: 5601486871972282659
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

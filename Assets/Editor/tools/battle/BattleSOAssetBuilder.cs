@@ -101,6 +101,9 @@ namespace ResourceTools
                 BattleAssetBuilderUtility.FindSprite(
                     ResolveBackgroundSpriteKey(data));
             battleSO.spawnSequence = spawnSequence;
+            battleSO.largeWavePolicy = string.IsNullOrEmpty(data.largeWavePolicyAssetPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<BattleLargeWavePolicySO>(data.largeWavePolicyAssetPath);
             battleSO.spawnUnitBindings =
                 ConvertSpawnUnitBindings(data.spawnUnitBindings);
             battleSO.timedPropPlacements =

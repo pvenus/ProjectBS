@@ -8,8 +8,9 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile",
     "projectileCount": 1,
-    "projectileScale": 5,
-    "projectileLifetime": 5,
+    "projectileScale": 1.0,
+    "rendererScale": 0.1,
+    "projectileLifetime": 6,
     "category": "Attack",
     "targetType": "Point",
     "tacticalNeed": "AreaControl",
@@ -17,7 +18,7 @@
     "baseProfileId": "skill.character.seojin.3.active_2.crane_wing_formation.profile",
     "skillType": "Active",
     "skillComponentType": "Projectile",
-    "projectileColliderRadius": 0.5,
+    "projectileColliderRadius": 2.2,
     "projectile": {
       "arrangement": "Spread",
       "arrangementValue": 0,
@@ -31,7 +32,7 @@
   },
   "cast": {
     "castId": "skill.character.seojin.3.active_2.crane_wing_formation.cast",
-    "cooldown": 18,
+    "cooldown": 16,
     "castTime": 0,
     "range": 0,
     "castType": "Instant",
@@ -72,7 +73,7 @@
     "config": {
       "followOffset": {
         "x": 0,
-        "y": 1
+        "y": 0
       }
     }
   },
@@ -85,13 +86,13 @@
       "repeatInterval": 1,
       "useHitWindow": false,
       "hitStartTime": 0,
-      "hitDuration": 5,
+      "hitDuration": 6,
       "deactivateAfterFirstHit": false,
       "targetLayerMask": "Enemy",
       "damage": {
         "skillId": "skill.character.seojin.3.active_2.crane_wing_formation.damage.1",
         "damageType": "Dot",
-        "baseDamage": 100,
+        "baseDamage": 120,
         "attackPercentDamage": 0.6,
         "canCritical": false,
         "ignoreDefense": false
@@ -130,9 +131,9 @@
       "repeatInterval": 1,
       "useHitWindow": false,
       "hitStartTime": 0,
-      "hitDuration": 5,
+      "hitDuration": 6,
       "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Player",
+      "targetLayerMask": "Party",
       "damage": {
         "skillId": "skill.character.seojin.3.active_2.crane_wing_formation.damage.2",
         "damageType": "Normal",

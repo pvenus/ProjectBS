@@ -33,7 +33,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: ec5c164543fb24349948ab2cace07439, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486783294734850
+      rid: 5601486871972282694
   - choiceId: choice.job.first.archer_archmaster
     requirements: []
     visibleConditions:
@@ -51,7 +51,7 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: b2270ac6e89f54db6a9d8b087d3c7e09, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486783294734851
+      rid: 5601486871972282695
   - choiceId: choice.job.first.scholar_strategist
     requirements: []
     visibleConditions:
@@ -69,7 +69,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734852
+      rid: 5601486871972282696
   - choiceId: choice.job.first.physician_royal_physician
     requirements: []
     visibleConditions:
@@ -87,7 +87,7 @@ MonoBehaviour:
       targetData: {fileID: 0}
       tag: 
     executionConfig:
-      rid: 5601486783294734853
+      rid: 5601486871972282697
   - choiceId: choice.job.first.monk_vajra_monk
     requirements: []
     visibleConditions:
@@ -105,67 +105,67 @@ MonoBehaviour:
       targetData: {fileID: 11400000, guid: 4c11e233fe4f64054b5a51cb6fe927ce, type: 2}
       tag: 
     executionConfig:
-      rid: 5601486783294734854
+      rid: 5601486871972282698
   - choiceId: choice.job.first.skip
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486783294734855
+      rid: 5601486871972282699
   references:
     version: 2
     RefIds:
-    - rid: 5601486783294734850
+    - rid: 5601486871972282694
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734856
-    - rid: 5601486783294734851
+          rid: 5601486871972282700
+    - rid: 5601486871972282695
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734857
-    - rid: 5601486783294734852
+          rid: 5601486871972282701
+    - rid: 5601486871972282696
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734858
-    - rid: 5601486783294734853
+          rid: 5601486871972282702
+    - rid: 5601486871972282697
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734859
-    - rid: 5601486783294734854
+          rid: 5601486871972282703
+    - rid: 5601486871972282698
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734860
-    - rid: 5601486783294734855
+          rid: 5601486871972282704
+    - rid: 5601486871972282699
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486783294734861
-    - rid: 5601486783294734856
+          rid: 5601486871972282705
+    - rid: 5601486871972282700
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734857
+    - rid: 5601486871972282701
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734858
+    - rid: 5601486871972282702
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734859
+    - rid: 5601486871972282703
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734860
+    - rid: 5601486871972282704
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486783294734861
+    - rid: 5601486871972282705
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

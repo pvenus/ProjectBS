@@ -1,4 +1,5 @@
 using Character;
+using Character.Skill;
 using Stat;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Character.Service
         private float appliedLowHpDefenseBonus;
         private float appliedSurroundedAttackPercent;
         private float appliedSurroundedDamageReductionPercent;
+        private ResolvedConditionalPassiveSnapshot indomitableSnapshot;
 
         public void Reset()
         {
@@ -31,6 +33,43 @@ namespace Character.Service
             appliedLowHpDefenseBonus = 0f;
             appliedSurroundedAttackPercent = 0f;
             appliedSurroundedDamageReductionPercent = 0f;
+            indomitableSnapshot = null;
+        }
+
+        public void ConfigureIndomitableSnapshot(
+            CharacterManager characterManager,
+            ResolvedConditionalPassiveSnapshot snapshot)
+        {
+            if (IsSameIndomitableSnapshot(indomitableSnapshot, snapshot))
+            {
+                return;
+            }
+
+            RemoveIndomitableProjection(characterManager);
+            indomitableSnapshot = snapshot;
+        }
+
+        public void SuspendIndomitableProjection(
+            CharacterManager characterManager)
+        {
+            RemoveIndomitableProjection(characterManager);
+        }
+
+        private static bool IsSameIndomitableSnapshot(
+            ResolvedConditionalPassiveSnapshot left,
+            ResolvedConditionalPassiveSnapshot right)
+        {
+            if (ReferenceEquals(left, right))
+            {
+                return true;
+            }
+
+            return left != null && right != null &&
+                   left.SourceEquipmentId == right.SourceEquipmentId &&
+                   left.Level == right.Level &&
+                   left.Revision == right.Revision &&
+                   Mathf.Abs(left.AttackPercent - right.AttackPercent) <= 0.0001f &&
+                   Mathf.Abs(left.DamageReductionPercent - right.DamageReductionPercent) <= 0.0001f;
         }
 
         public void Tick(
@@ -42,10 +81,14 @@ namespace Character.Service
             float hpRegenTickInterval,
             float bleedTickInterval)
         {
-            if (characterManager == null
-                || runtimeData == null
-                || runtimeData.isDead)
+            if (characterManager == null || runtimeData == null)
             {
+                return;
+            }
+
+            if (runtimeData.isDead)
+            {
+                RemoveIndomitableProjection(characterManager);
                 return;
             }
 
@@ -371,7 +414,7 @@ namespace Character.Service
                 return;
             }
 
-            bool isSurrounded = IsSurroundedByEnemies(
+            bool isSurrounded = indomitableSnapshot != null && IsSurroundedByEnemies(
                 characterManager,
                 2f,
                 10);
@@ -389,9 +432,9 @@ namespace Character.Service
             CharacterManager characterManager,
             bool isSurrounded)
         {
-            float bonusPercent =
-                characterManager.GetStatValue(
-                    StatType.SurroundedAttackPercent);
+            float bonusPercent = indomitableSnapshot != null
+                ? indomitableSnapshot.AttackPercent
+                : 0f;
 
             float targetBonus =
                 isSurrounded
@@ -418,14 +461,22 @@ namespace Character.Service
             CharacterManager characterManager,
             bool isSurrounded)
         {
-            float bonusPercent =
-                characterManager.GetStatValue(
-                    StatType.SurroundedDamageReductionPercent);
+            float bonusPercent = indomitableSnapshot != null
+                ? indomitableSnapshot.DamageReductionPercent
+                : 0f;
 
-            float targetBonus =
-                isSurrounded
-                    ? bonusPercent
-                    : 0f;
+            float defenseWithoutIndomitable =
+                characterManager.GetStatValue(StatType.Defense) -
+                appliedSurroundedDamageReductionPercent;
+
+            float targetBonus = isSurrounded
+                ? Mathf.Min(
+                    bonusPercent,
+                    Mathf.Max(
+                        0f,
+                        IndomitablePassiveSnapshotResolver.EffectiveDefenseCap -
+                        defenseWithoutIndomitable))
+                : 0f;
 
             float diff =
                 targetBonus - appliedSurroundedDamageReductionPercent;
@@ -441,6 +492,30 @@ namespace Character.Service
 
             appliedSurroundedDamageReductionPercent =
                 targetBonus;
+        }
+
+        private void RemoveIndomitableProjection(
+            CharacterManager characterManager)
+        {
+            if (characterManager != null)
+            {
+                if (Mathf.Abs(appliedSurroundedAttackPercent) > 0.001f)
+                {
+                    characterManager.AddStat(
+                        StatType.AttackPercent,
+                        -appliedSurroundedAttackPercent);
+                }
+
+                if (Mathf.Abs(appliedSurroundedDamageReductionPercent) > 0.001f)
+                {
+                    characterManager.AddStat(
+                        StatType.Defense,
+                        -appliedSurroundedDamageReductionPercent);
+                }
+            }
+
+            appliedSurroundedAttackPercent = 0f;
+            appliedSurroundedDamageReductionPercent = 0f;
         }
 
         private bool IsSurroundedByEnemies(
@@ -470,6 +545,11 @@ namespace Character.Service
                 CharacterManager target = characters[i];
 
                 if (target == null || target == source)
+                {
+                    continue;
+                }
+
+                if (!target.isActiveAndEnabled || !target.gameObject.activeInHierarchy)
                 {
                     continue;
                 }

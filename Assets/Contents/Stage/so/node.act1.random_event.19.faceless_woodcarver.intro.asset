@@ -21,41 +21,41 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043213
+      rid: 5601486871972282576
   - choiceId: choice.act1.random_event.19.faceless_woodcarver.expose_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043214
+      rid: 5601486871972282577
   - choiceId: choice.act1.random_event.19.faceless_woodcarver.seal_or_destroy_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043215
+      rid: 5601486871972282578
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043213
+    - rid: 5601486871972282576
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 50
         data:
-          rid: 5601486867666043216
-    - rid: 5601486867666043214
+          rid: 5601486871972282579
+    - rid: 5601486871972282577
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043217
-    - rid: 5601486867666043215
+          rid: 5601486871972282580
+    - rid: 5601486871972282578
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486867666043218
-    - rid: 5601486867666043216
+          rid: 5601486871972282581
+    - rid: 5601486871972282579
       type: {class: NextEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         nextEvent: {fileID: 11400000, guid: a35e474103fa84bf28c073060a99fc08, type: 2}
@@ -67,10 +67,10 @@ MonoBehaviour:
         childEventId: 
         childNodeId: 
         childReservationId: 
-    - rid: 5601486867666043217
+    - rid: 5601486871972282580
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043218
+    - rid: 5601486871972282581
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: ab11c219111bb4b2daabac1c8aae07ca, type: 2}

@@ -10,6 +10,7 @@ namespace UIFramework.Data
         public string Title;
         public string Description;
         public Sprite Illustration;
+        public string MotionSequenceResourcePath;
         public IReadOnlyList<EventChoiceViewData> Choices;
     }
 

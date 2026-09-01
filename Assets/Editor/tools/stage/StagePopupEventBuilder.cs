@@ -83,6 +83,10 @@ namespace ResourceTools.Stage
         private sealed class ChoiceExecutionConfigJson
         {
             public string type;
+            public int targetCount;
+            public int costRateBasisPoints;
+            public string segmentId;
+            public string reservationId;
             public NextEventExecutionJson nextEvent;
             public BattleExecutionJson battle;
             public ShopExecutionJson shop;
@@ -359,7 +363,8 @@ namespace ResourceTools.Stage
                     BuildChoiceExecutionConfig(
                         choiceJson,
                         result,
-                        node.nodeId);
+                        node.nodeId,
+                        FindExistingChoice(eventAsset, choiceJson.choiceId)?.executionConfig);
                 SetMemberValue(
                     choice,
                     "executionConfig",
@@ -399,7 +404,8 @@ namespace ResourceTools.Stage
         private static ChoiceExecutionConfig BuildChoiceExecutionConfig(
             PopupEventChoiceJson choiceJson,
             BuildResult result,
-            string nodeId)
+            string nodeId,
+            ChoiceExecutionConfig existingConfig = null)
         {
             string choiceId = choiceJson?.choiceId;
             ChoiceExecutionConfigJson configJson = choiceJson?.executionConfig;
@@ -419,6 +425,12 @@ namespace ResourceTools.Stage
                     nodeId,
                     choiceId,
                     $"Unsupported ChoiceExecutionType: '{configJson.type}'");
+            }
+
+            if (IsRandomGrowthExecution(executionType))
+            {
+                return ReuseValidatedRandomGrowthConfig(
+                    configJson, executionType, existingConfig, nodeId, choiceId);
             }
 
             ValidateExecutionConfigPayload(
@@ -467,6 +479,63 @@ namespace ResourceTools.Stage
             var config = ChoiceExecutionDataFactory.CreateConfig(executionType);
             config.data = executionData;
             return config;
+        }
+
+        private static PopupEventChoice FindExistingChoice(
+            ScriptableObject eventAsset, string choiceId) =>
+            (eventAsset as PopupEventSO)?.choices?.FirstOrDefault(choice =>
+                choice != null && string.Equals(choice.choiceId, choiceId,
+                    StringComparison.Ordinal));
+
+        private static bool IsRandomGrowthExecution(ChoiceExecutionType type) =>
+            type == ChoiceExecutionType.RandomGrowthSafe
+            || type == ChoiceExecutionType.RandomGrowthRisk
+            || type == ChoiceExecutionType.RandomGrowthDecline;
+
+        private static ChoiceExecutionConfig ReuseValidatedRandomGrowthConfig(
+            ChoiceExecutionConfigJson json,
+            ChoiceExecutionType executionType,
+            ChoiceExecutionConfig existing,
+            string nodeId,
+            string choiceId)
+        {
+            if (existing == null || existing.executionType != executionType
+                || !ChoiceExecutionConfigValidator.IsTypeMatch(executionType, existing.data)
+                || existing.data is not RandomGrowthChoiceExecutionData data)
+            {
+                throw CreateChoiceImportException(
+                    "RANDOM_GROWTH_EXISTING_AUTHORITY_REQUIRED", nodeId, choiceId,
+                    "A matching validated typed Random Growth execution config is required.");
+            }
+
+            bool identityMatches = string.Equals(data.choiceId, choiceId,
+                    StringComparison.Ordinal)
+                && string.Equals(data.stageNodeId, nodeId, StringComparison.Ordinal)
+                && string.Equals(data.segmentId, json.segmentId, StringComparison.Ordinal)
+                && string.Equals(data.reservationId, json.reservationId,
+                    StringComparison.Ordinal)
+                && data.targetCount == json.targetCount;
+            if (executionType == ChoiceExecutionType.RandomGrowthRisk)
+            {
+                identityMatches = identityMatches
+                    && data is RandomGrowthRiskExecutionData risk
+                    && risk.costPolicy?.rateBasisPoints == json.costRateBasisPoints;
+            }
+            else if (json.costRateBasisPoints != 0)
+            {
+                identityMatches = false;
+            }
+
+            List<string> errors = ChoiceExecutionConfigValidator.Validate(existing);
+            if (!identityMatches || errors.Count != 0)
+            {
+                throw CreateChoiceImportException(
+                    "RANDOM_GROWTH_AUTHORITY_MISMATCH", nodeId, choiceId,
+                    identityMatches ? string.Join(" | ", errors)
+                        : "JSON identity/projection fields conflict with the existing typed contract.");
+            }
+
+            return existing;
         }
 
         private static void ValidateExecutionConfigPayload(

@@ -61,35 +61,61 @@ namespace Shop
             OpenShop(defaultPools, itemCount, shopType);
         }
 
-        public void OpenShop(
+        public bool OpenShop(
             List<ShopItemPoolSO> pools,
             int generateCount,
             ShopType targetShopType = ShopType.Normal,
-            int fallbackPrice = 0)
+            int fallbackPrice = 0,
+            int? deterministicSeed = null,
+            string runtimeShopId = null)
         {
             if (pools == null
                 || pools.Count == 0)
             {
                 Debug.LogWarning("[StageShopManager] OpenShop failed. Pools are empty.");
-                return;
+                return false;
             }
 
-            fixedRandom = useFixedSeed ? new System.Random(seed) : null;
+            int resolvedSeed = deterministicSeed ?? seed;
+            fixedRandom = deterministicSeed.HasValue || useFixedSeed
+                ? new System.Random(resolvedSeed)
+                : null;
+            string resolvedShopId = string.IsNullOrWhiteSpace(runtimeShopId)
+                ? shopId
+                : runtimeShopId;
 
             currentShop = GenerateShop(
                 pools,
                 generateCount,
                 targetShopType,
-                fallbackPrice);
+                fallbackPrice,
+                resolvedSeed,
+                resolvedShopId);
             if (currentShop == null)
             {
                 Debug.LogWarning("[StageShopManager] OpenShop failed. Generated shop is null.");
-                return;
+                return false;
             }
 
             currentShop.Open();
             OnShopOpened?.Invoke(currentShop);
             OnShopRefreshed?.Invoke(currentShop);
+            return true;
+        }
+
+        public bool OpenRestoredShop(ShopRuntimeData restoredShop)
+        {
+            if (restoredShop == null || !restoredShop.HasGroups)
+            {
+                Debug.LogWarning("[StageShopManager] OpenRestoredShop failed. Stock is empty.");
+                return false;
+            }
+
+            currentShop = restoredShop;
+            currentShop.Open();
+            OnShopOpened?.Invoke(currentShop);
+            OnShopRefreshed?.Invoke(currentShop);
+            return true;
         }
 
         public void CloseShop()
@@ -217,7 +243,9 @@ namespace Shop
             List<ShopItemPoolSO> pools,
             int generateCount,
             ShopType targetShopType,
-            int fallbackPrice)
+            int fallbackPrice,
+            int resolvedSeed,
+            string resolvedShopId)
         {
             List<ShopItemPoolSO> selectedPools =
                 pools
@@ -236,12 +264,12 @@ namespace Shop
 
             ShopRuntimeData shop =
                 new ShopRuntimeData(
-                    shopId,
+                    resolvedShopId,
                     targetShopType)
                 {
                     generatedFromPoolId = string.Join(",",
                         selectedPools.Select(x => x.poolId)),
-                    seed = seed
+                    seed = resolvedSeed
                 };
 
             Dictionary<string, ShopRuntimeGroup> runtimeGroups =

@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043319
+      rid: 5601486871972282684
   - choiceId: choice.act1.random_event.45.false_wildfire_boundary_stones.leave_boundary_untouched
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043320
+      rid: 5601486871972282685
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043319
+    - rid: 5601486871972282684
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043321
-    - rid: 5601486867666043320
+          rid: 5601486871972282686
+    - rid: 5601486871972282685
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043322
-    - rid: 5601486867666043321
+          rid: 5601486871972282687
+    - rid: 5601486871972282686
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,6 +82,6 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043322
+    - rid: 5601486871972282687
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

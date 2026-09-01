@@ -26,6 +26,24 @@ namespace ResourceTools.Stage.Placement
                 errors.Add("STALE_RECALC_STATE_INVALID");
             else if (rootState != WeightedPlacementStaleState.Current) errors.Add("STALE_RECALC_REQUIRED");
             if (value.rows == null || value.rows.Count != 46) errors.Add("EXACT46_REQUIRED");
+            CompositionJson composition = value.composition ?? new CompositionJson();
+            if (composition.enabled)
+            {
+                if (composition.schemaVersion != 1 || composition.directBattleCount != 4
+                    || composition.shopCount != 2 || composition.restCount != 2
+                    || composition.eventCount != 4 || composition.earlyDirect != 1
+                    || composition.midDirect != 2 || composition.lateDirect != 1
+                    || composition.maxDirectBattleFreeGap != 3
+                    || composition.allowAdjacentDirectBattle)
+                    errors.Add("COMPOSITION_CONTRACT_INVALID");
+                ValidatePool(composition.directBattlePoolAssetPath, composition.directBattlePoolGuid,
+                    "DIRECT_BATTLE_POOL", errors);
+                ValidatePool(composition.shopPoolAssetPath, composition.shopPoolGuid, "SHOP_POOL", errors);
+                ValidatePool(composition.restPoolAssetPath, composition.restPoolGuid, "REST_POOL", errors);
+                if (!Enum.TryParse(composition.staleState, true, out WeightedPlacementStaleState state)
+                    || state != WeightedPlacementStaleState.Current)
+                    errors.Add("COMPOSITION_STALE");
+            }
             EventRowJson[] rows = value.rows?.Where(x => x != null).ToArray() ?? Array.Empty<EventRowJson>();
             if (rows.Select(x => x.eventId).Distinct(StringComparer.Ordinal).Count() != rows.Length)
                 errors.Add("DUPLICATE_EVENT_ID");
@@ -38,6 +56,11 @@ namespace ResourceTools.Stage.Placement
                     errors.Add("ROW_AUTHORING_AUTHORITY_MISSING:" + row.eventId);
                 if (!Enum.TryParse(row.staleState, true, out WeightedPlacementStaleState rowState)
                     || rowState != WeightedPlacementStaleState.Current) errors.Add("ROW_STALE:" + row.eventId);
+                if (composition.enabled && (!Enum.TryParse(row.combatClass, true, out EventCombatClass _)
+                    || !Enum.TryParse(row.combatStaleState, true, out WeightedPlacementStaleState combatState)
+                    || combatState != WeightedPlacementStaleState.Current
+                    || string.IsNullOrWhiteSpace(row.combatAuthorityVersion)))
+                    errors.Add("ROW_COMBAT_AUTHORITY_INVALID:" + row.eventId);
                 if (!string.IsNullOrWhiteSpace(row.nodeAssetPath))
                 {
                     string actual = AssetDatabase.AssetPathToGUID(row.nodeAssetPath);
@@ -65,6 +88,15 @@ namespace ResourceTools.Stage.Placement
                     WeightedPlacementJsonCodec.ComputeCanonicalDigest(value), StringComparison.Ordinal))
                 errors.Add("DIGEST_MISMATCH");
             return errors;
+        }
+
+        private static void ValidatePool(string path, string expectedGuid, string label,
+            List<string> errors)
+        {
+            string actual = AssetDatabase.AssetPathToGUID(path);
+            if (string.IsNullOrWhiteSpace(path) || string.IsNullOrWhiteSpace(expectedGuid)
+                || !string.Equals(actual, expectedGuid, StringComparison.Ordinal))
+                errors.Add(label + "_GUID_PATH_INVALID");
         }
     }
 }

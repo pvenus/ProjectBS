@@ -36,7 +36,7 @@
             "effectName": "불퇴전 공격 증가",
             "statType": "SurroundedAttackPercent",
             "valueType": "Flat",
-            "value": 20,
+            "value": 23,
             "duration": 0
           },
           "lifetimeType": "Manual",
@@ -51,7 +51,7 @@
             "effectName": "불퇴전 피해 감소",
             "statType": "SurroundedDamageReductionPercent",
             "valueType": "Flat",
-            "value": 10,
+            "value": 11,
             "duration": 0
           },
           "lifetimeType": "Manual",
@@ -73,5 +73,22 @@
   "baseVisual": {
     "visualId": "skill.character.seojin.2.passive_1.indomitable.visual",
     "projectileVisualType": "Default"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.seojin.2.indomitable",
+    "upgradeTableId": "upgrade.skill.character.seojin.2.indomitable",
+    "displayName": "불퇴전 강화",
+    "entries": [
+      {"level":1,"statModifiers":[],"effectModifiers":[]},
+      {"level":2,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":2}]},
+      {"level":3,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.2","fieldType":"Value","operationType":"Flat","value":1}]},
+      {"level":4,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":2}]},
+      {"level":5,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":1}]},
+      {"level":6,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":2}]},
+      {"level":7,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.2","fieldType":"Value","operationType":"Flat","value":1}]},
+      {"level":8,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":2}]},
+      {"level":9,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.2","fieldType":"Value","operationType":"Flat","value":1}]},
+      {"level":10,"statModifiers":[],"effectModifiers":[{"targetEffectId":"skill.character.seojin.2.passive_1.indomitable.effect.buff.1","fieldType":"Value","operationType":"Flat","value":3}]}
+    ]
   }
 }

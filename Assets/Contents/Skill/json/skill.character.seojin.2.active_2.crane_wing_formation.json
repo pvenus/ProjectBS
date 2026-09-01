@@ -8,9 +8,10 @@
     "attackArchetype": "Melee",
     "projectilePrefabName": "projectile",
     "projectileCount": 1,
-    "projectileScale": 5,
+    "projectileScale": 0.8,
+    "rendererScale": 0.1,
     "projectileLifetime": 5,
-    "projectileColliderRadius": 3,
+    "projectileColliderRadius": 2.2,
     "category": "Attack",
     "targetType": "Point",
     "tacticalNeed": "AreaControl",
@@ -72,7 +73,7 @@
     "config": {
       "followOffset": {
         "x": 0,
-        "y": 1
+        "y": 0
       }
     }
   },
@@ -132,7 +133,7 @@
       "hitStartTime": 0,
       "hitDuration": 5,
       "deactivateAfterFirstHit": false,
-      "targetLayerMask": "Player",
+      "targetLayerMask": "Party",
       "damage": {
         "skillId": "skill.character.seojin.2.active_2.crane_wing_formation.damage.2",
         "damageType": "Normal",

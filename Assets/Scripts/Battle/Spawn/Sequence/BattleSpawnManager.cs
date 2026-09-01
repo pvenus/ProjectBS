@@ -1,6 +1,7 @@
 using System;
 using Session;
 using UnityEngine;
+using Battle;
 
 [AddComponentMenu("BS/Spawn/Battle Spawn Manager")]
 public class BattleSpawnManager : MonoBehaviour
@@ -14,12 +15,16 @@ public class BattleSpawnManager : MonoBehaviour
 
     private BattleSession battleSession;
     private SpawnSequenceRunner sequenceRunner;
+    private BattleLargeWaveRunner largeWaveRunner;
     private bool isInitialPrefabSpawned;
 
     // 소환 시퀀스 종료 시 외부(BattleManager 등)로 전파하기 위한 이벤트
     public event Action OnSequenceFinished;
 
     public BattleSession BattleSession => battleSession;
+    public bool UsesLargeWave => largeWaveRunner != null;
+    public bool IsLargeWaveTerminalReady => largeWaveRunner != null && largeWaveRunner.IsTerminalReadyNextFrame;
+    public bool HasLargeWaveFailed => largeWaveRunner != null && largeWaveRunner.HasFailed;
 
     private void Awake()
     {
@@ -57,6 +62,8 @@ public class BattleSpawnManager : MonoBehaviour
         {
             sequenceRunner.Tick(Time.deltaTime);
         }
+
+        largeWaveRunner?.Tick(Time.deltaTime);
     }
 
     /// <summary>
@@ -98,6 +105,15 @@ public class BattleSpawnManager : MonoBehaviour
         Debug.Log($"[BattleSpawnManager] 신규 스폰 시퀀스 '{runtime.OriginalSequence.SequenceId}' 재생 시작");
     }
 
+    public bool TryPlayLargeWave(BattleLargeWavePolicySO policy, ISpawnUnitResolver unitResolver)
+    {
+        if (policy == null || !policy.Enabled) return false;
+        StopSequence();
+        largeWaveRunner = new BattleLargeWaveRunner(policy, unitResolver);
+        EnemyRegistry.Instance.OnEnemyDied += HandleLargeWaveEnemyDied;
+        return true;
+    }
+
     /// <summary>
     /// 인스펙터에 할당된 spawnSequence를 재생합니다.
     /// </summary>
@@ -123,7 +139,14 @@ public class BattleSpawnManager : MonoBehaviour
             sequenceRunner.StopSequence();
             sequenceRunner = null;
         }
+        if (largeWaveRunner != null)
+        {
+            EnemyRegistry.Instance.OnEnemyDied -= HandleLargeWaveEnemyDied;
+            largeWaveRunner = null;
+        }
     }
+
+    private void HandleLargeWaveEnemyDied(GameObject enemy) => largeWaveRunner?.NotifyEnemyDied(enemy);
 
     private void HandleSequenceFinished()
     {

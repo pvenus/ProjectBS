@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043273
+      rid: 5601486871972282638
   - choiceId: choice.act1.random_event.34.half_vein_map.followup.unstable_vein.retreat_empty_handed
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043274
+      rid: 5601486871972282639
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043273
+    - rid: 5601486871972282638
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043275
-    - rid: 5601486867666043274
+          rid: 5601486871972282640
+    - rid: 5601486871972282639
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043276
-    - rid: 5601486867666043275
+          rid: 5601486871972282641
+    - rid: 5601486871972282640
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -82,6 +82,6 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043276
+    - rid: 5601486871972282641
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 

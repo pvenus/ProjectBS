@@ -50,6 +50,25 @@ namespace Stage
             return result;
         }
 
+        internal Dictionary<string, RoundNodeSO> ResolveAssignments(
+            StageDefinitionSO stageDefinition,
+            Chapter1BattlePressureManifest compositionManifest,
+            int? seed = null,
+            IReadOnlyList<RandomGrowthReservationDescriptor> reservations = null)
+        {
+            if (compositionManifest == null || !compositionManifest.Success)
+                return ResolveAssignments(stageDefinition, seed, reservations);
+            var result = new Dictionary<string, RoundNodeSO>(StringComparer.OrdinalIgnoreCase);
+            foreach (var pair in Chapter1WeightedEventProjection.Project(stageDefinition, compositionManifest))
+                result[pair.Key] = pair.Value;
+            ValidateReservations(stageDefinition, reservations);
+            ResolveStoryAssignments(stageDefinition, result);
+            ApplyReservedAssignments(result, reservations);
+            ResolveRandomAssignments(stageDefinition, result, seed, reservations);
+            ValidateAssignedSlots(stageDefinition, result);
+            return result;
+        }
+
         private static void ApplyReservedAssignments(
             Dictionary<string, RoundNodeSO> resultBySlotId,
             IReadOnlyList<RandomGrowthReservationDescriptor> reservations)

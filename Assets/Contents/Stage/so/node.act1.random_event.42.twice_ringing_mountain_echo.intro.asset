@@ -21,29 +21,29 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043307
+      rid: 5601486871972282672
   - choiceId: choice.act1.random_event.42.twice_ringing_mountain_echo.shout_toward_short_echo
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043308
+      rid: 5601486871972282673
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043307
+    - rid: 5601486871972282672
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043309
-    - rid: 5601486867666043308
+          rid: 5601486871972282674
+    - rid: 5601486871972282673
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043310
-    - rid: 5601486867666043309
+          rid: 5601486871972282675
+    - rid: 5601486871972282674
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043310
+    - rid: 5601486871972282675
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

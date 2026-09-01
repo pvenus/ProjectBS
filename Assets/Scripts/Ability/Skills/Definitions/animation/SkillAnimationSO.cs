@@ -14,12 +14,14 @@ public class SkillAnimationSO : ScriptableObject
     [Header("Renderer")]
     [SerializeField] private bool ensureSpriteRenderer = true;
     [SerializeField] private string sortingLayerName = "Default";
+    [SerializeField] private SkillAnimationVfxProfileSO animationVfxProfile;
 
     public AnimationClip AnimationClip => animationClip;
     public Vector2 DefaultDirection => defaultDirection;
     public int SortingOrder => sortingOrder;
     public bool EnsureSpriteRenderer => ensureSpriteRenderer;
     public string SortingLayerName => sortingLayerName;
+    public SkillAnimationVfxProfileSO AnimationVfxProfile => animationVfxProfile;
 
     public SkillProjectileVisualDto CreateVisualDto(Vector2? directionOverride = null)
     {

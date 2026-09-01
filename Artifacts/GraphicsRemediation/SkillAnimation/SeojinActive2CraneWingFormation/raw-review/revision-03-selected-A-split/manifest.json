@@ -1,0 +1,79 @@
+{
+  "status": "REVIEW_ONLY_USER_SELECTED_A_DIRECTION",
+  "installAuthority": false,
+  "source": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-02/candidate-A-g2-g3-joint.png",
+    "sha256": "322347bf92ded11362569085df6301f8e1d1cd159acb0ce1d3358df9981c71f6",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGB"
+  },
+  "split": {
+    "axis": "x",
+    "coordinate": 627,
+    "method": "lossless decoded-pixel rectangular split",
+    "repaint": false,
+    "recolor": false,
+    "alphaExtraction": false,
+    "candidateBUsed": false
+  },
+  "artifacts": [
+    {
+      "grade": "G2",
+      "mapping": {
+        "sourceRect": [
+          0,
+          0,
+          627,
+          1254
+        ],
+        "role": "left"
+      },
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-03-selected-A-split/seojin-active2-g2-candidate-A-review.png",
+      "sha256": "ade6acd6b6d77f878f9217ddb710c0d990d63e826eb4b3607462891a0c4ffda8",
+      "dimensions": [
+        627,
+        1254
+      ],
+      "mode": "RGB",
+      "decodedPixelIdentity": true
+    },
+    {
+      "grade": "G3",
+      "mapping": {
+        "sourceRect": [
+          627,
+          0,
+          1254,
+          1254
+        ],
+        "role": "right"
+      },
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-03-selected-A-split/seojin-active2-g3-candidate-A-review.png",
+      "sha256": "4c2400a1180a5a450ab39e0d636b2020671e4d1d243263c2162e779962f0be72",
+      "dimensions": [
+        627,
+        1254
+      ],
+      "mode": "RGB",
+      "decodedPixelIdentity": true
+    }
+  ],
+  "contact": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinActive2CraneWingFormation/raw-review/revision-03-selected-A-split/candidate-A-g2-g3-light-dark-review-contact.png",
+    "sha256": "c339fc71c0dcabc66b28f433b6049f7dee4124e0f2743c65740fb37c82ce2d11",
+    "note": "mechanical display card; opaque source pixels unchanged"
+  },
+  "boundaries": {
+    "animation": false,
+    "gif": false,
+    "t0": false,
+    "implementation": false,
+    "install": false,
+    "canonical": false,
+    "unity": false,
+    "projectAssets": false
+  }
+}

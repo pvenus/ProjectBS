@@ -128,6 +128,10 @@ namespace Stage.UI
             {
                 mainImage.sprite = popupEvent.mainImage;
                 mainImage.enabled = popupEvent.mainImage != null;
+                PopupMotionPlaybackOwner.Bind(
+                    mainImage,
+                    popupEvent.mainImage,
+                    popupEvent.motionSequenceResourcePath);
             }
 
             if (iconImage != null)
@@ -141,6 +145,7 @@ namespace Stage.UI
 
         public void Hide()
         {
+            PopupMotionPlaybackOwner.Release(mainImage);
             currentEvent = null;
             currentNode = null;
 

@@ -131,6 +131,12 @@ namespace Party
                 return;
             }
 
+            bool useSoloOrigin = battleSession.BattleSO != null
+                && battleSession.BattleSO.LargeWavePolicy != null
+                && battleSession.BattleSO.LargeWavePolicy.Enabled
+                && battleSession.BattleSO.LargeWavePolicy.SoloOriginAtControlHandoff
+                && runtimeData.Members.Count == 1;
+
             for (int i = 0;
                  i < runtimeData.Members.Count;
                  i++)
@@ -147,7 +153,7 @@ namespace Party
                 // Removed prefab support; pass null as prefab argument.
 
                 Vector3 spawnPosition =
-                    new Vector3(
+                    useSoloOrigin ? Vector3.zero : new Vector3(
                         battleSpawnX + Random.Range(-0.5f, 0.5f),
                         Random.Range(-battleSpawnYRange, battleSpawnYRange),
                         0f);

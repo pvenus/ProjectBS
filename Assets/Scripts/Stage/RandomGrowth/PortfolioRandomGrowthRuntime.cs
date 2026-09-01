@@ -48,6 +48,8 @@ namespace Progression
         public bool TryCommit(PortfolioRandomGrowthPending value,PortfolioRandomGrowthState result)
         {if(!Owns(value)||State!=PortfolioRandomGrowthState.Applying||(result!=PortfolioRandomGrowthState.Succeeded&&result!=PortfolioRandomGrowthState.Declined))return false;terminal[value.TerminalKey]=result;State=result;Pending=null;return true;}
         public bool Cancel(PortfolioRandomGrowthPending value){if(!Owns(value)||State!=PortfolioRandomGrowthState.PendingConfirm)return false;Pending=null;State=PortfolioRandomGrowthState.Offerable;return true;}
+        public bool AbandonRolledBackRetry(PortfolioRandomGrowthPending value)
+        {if(!Owns(value)||State!=PortfolioRandomGrowthState.PendingRetry)return false;Pending=null;State=PortfolioRandomGrowthState.Offerable;return true;}
         public bool IsTerminal(string eventId,string node)=>terminal.ContainsKey(eventId+"\n"+node);
         public bool TryCommitExternal(string eventId,string node)
         {string key=(eventId??string.Empty)+"\n"+(node??string.Empty);if(string.IsNullOrWhiteSpace(eventId)||string.IsNullOrWhiteSpace(node)||terminal.ContainsKey(key)||Pending!=null)return false;terminal[key]=PortfolioRandomGrowthState.Succeeded;return true;}
@@ -102,7 +104,7 @@ namespace Progression
             var request=new ProgressionEarnRequest(identity.SegmentId,ProgressionSourceCategory.Random,
                 ProgressionSourceType.RandomEventSafe,identity.SourceId,identity.ResultId);
             SafeGrowthTransactionReceipt safe=safeTransaction.Execute(new SafeGrowthTransactionCommand(
-                token,SafeGrowthTransactionChoice.Observe,request,2));
+                token,SafeGrowthTransactionChoice.Observe,request,2,identity));
             bool ok=safe.Result==SafeGrowthTransactionResult.Succeeded||safe.Result==SafeGrowthTransactionResult.AlreadyResolved;
             if(!ok)error=safe.Result.ToString();return ok;
         }

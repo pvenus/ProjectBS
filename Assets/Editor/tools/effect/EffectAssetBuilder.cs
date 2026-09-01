@@ -32,7 +32,13 @@ namespace ResourceTools.Effect
         public class StatModifierEffectJson : EffectJson
         {
             public string statType;
+            // Canonical nested effect configs use targetStat while older/root
+            // payloads use statType. Normalize both to statType before validation.
+            public string targetStat;
             public string modifierType;
+            // Legacy/canonical skill JSONs used valueType for the same enum.
+            // Keep both inputs so nested hit effects remain backward compatible.
+            public string valueType;
             public float value;
         }
 
@@ -158,12 +164,12 @@ namespace ResourceTools.Effect
             string json)
         {
             EffectJson header = JsonUtility.FromJson<EffectJson>(json);
-            header.effectType = ExtractJsonValue(json, "effectType");
-
             if (header == null)
             {
                 return null;
             }
+
+            header.effectType = ExtractJsonValue(json, "effectType");
 
             string configJson = ExtractJsonValue(json, "config");
 
@@ -201,7 +207,27 @@ namespace ResourceTools.Effect
             switch (effectType)
             {
                 case EffectType.StatModifier:
-                    return JsonUtility.FromJson<StatModifierEffectJson>(json);
+                {
+                    StatModifierEffectJson parsed =
+                        JsonUtility.FromJson<StatModifierEffectJson>(json);
+
+                    if (parsed != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(parsed.statType)
+                            && !string.IsNullOrWhiteSpace(parsed.targetStat))
+                        {
+                            parsed.statType = parsed.targetStat;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(parsed.modifierType)
+                            && !string.IsNullOrWhiteSpace(parsed.valueType))
+                        {
+                            parsed.modifierType = parsed.valueType;
+                        }
+                    }
+
+                    return parsed;
+                }
                 case EffectType.Heal:
                     return JsonUtility.FromJson<HealEffectJson>(json);
                 case EffectType.Knockback:

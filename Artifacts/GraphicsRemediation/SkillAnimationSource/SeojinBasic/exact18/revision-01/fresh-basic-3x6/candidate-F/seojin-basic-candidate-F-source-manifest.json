@@ -1,0 +1,71 @@
+{
+  "schema": "projectbs.skill-animation-source-contact.v1",
+  "contentId": "skill.character.seojin.basic_attack",
+  "status": "DESIGN_REVIEW_READY_NOT_SELECTED",
+  "candidate": "F",
+  "source": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimationSource/SeojinBasic/exact18/revision-01/fresh-basic-3x6/candidate-F/seojin-basic-g1-g2-g3-3x6-F.png",
+    "sha256": "3d0b7227f8665cbd765310aa45afd832961e47a3c9c2496ddf4f7820ae4bf441",
+    "width": 1536,
+    "height": 1024,
+    "format": "PNG",
+    "mode": "RGB_OPAQUE_REVIEW_CONTACT"
+  },
+  "grid": {
+    "rows": 3,
+    "columns": 6,
+    "frameCount": 18,
+    "verticalBoundaryPixels": [70, 297, 298, 536, 782, 1021, 1262, 1263, 1524],
+    "horizontalBoundaryPixels": [57, 353, 645, 646, 997],
+    "coordinateConvention": "[x0,y0,x1,y1), excluding all review-grid pixels",
+    "cells": [
+      {"grade":"G1","frame":"F0","rect":[71,58,297,353]},
+      {"grade":"G1","frame":"F1","rect":[299,58,536,353]},
+      {"grade":"G1","frame":"F2","rect":[537,58,782,353]},
+      {"grade":"G1","frame":"F3","rect":[783,58,1021,353]},
+      {"grade":"G1","frame":"F4","rect":[1022,58,1262,353]},
+      {"grade":"G1","frame":"F5","rect":[1264,58,1524,353]},
+      {"grade":"G2","frame":"F0","rect":[71,354,297,645]},
+      {"grade":"G2","frame":"F1","rect":[299,354,536,645]},
+      {"grade":"G2","frame":"F2","rect":[537,354,782,645]},
+      {"grade":"G2","frame":"F3","rect":[783,354,1021,645]},
+      {"grade":"G2","frame":"F4","rect":[1022,354,1262,645]},
+      {"grade":"G2","frame":"F5","rect":[1264,354,1524,645]},
+      {"grade":"G3","frame":"F0","rect":[71,647,297,997]},
+      {"grade":"G3","frame":"F1","rect":[299,647,536,997]},
+      {"grade":"G3","frame":"F2","rect":[537,647,782,997]},
+      {"grade":"G3","frame":"F3","rect":[783,647,1021,997]},
+      {"grade":"G3","frame":"F4","rect":[1022,647,1262,997]},
+      {"grade":"G3","frame":"F5","rect":[1264,647,1524,997]}
+    ]
+  },
+  "timingAuthority": {
+    "timestampsSeconds": [0.0, 0.08, 0.16, 0.24, 0.32, 0.40],
+    "stopTimeSeconds": 0.48,
+    "composedTerminalAlphaAtStopTime": 0
+  },
+  "freshness": {
+    "candidateEPixelReuse": false,
+    "candidateEFrameSplice": false,
+    "priorCandidateExtraction": false,
+    "initialCandidateFWithRadialF4Selected": false,
+    "initialCandidateFProvenanceSha256": "6578317f8b04fc38c771a27d84c429443d95355f5a03b8cc52b414bb8c654c41"
+  },
+  "visualGate": {
+    "direction": "screen/world right",
+    "singlePrincipalBody": true,
+    "g2PressureMergedIntoBodyByF2F3": true,
+    "g3OneOuterWedgeAtF0F3": true,
+    "f4SingleHorizontalContact": true,
+    "f5SameAxisDecay": true,
+    "weaponOrAnatomy": false
+  },
+  "mutationBoundary": {
+    "selected": false,
+    "frameExtraction": false,
+    "canonical": false,
+    "clip": false,
+    "metaGuid": false,
+    "unity": false
+  }
+}

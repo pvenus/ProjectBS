@@ -24,12 +24,13 @@ namespace Progression
     {
         public SafeGrowthTransactionCommand(SafeGrowthInteractionToken token,
             SafeGrowthTransactionChoice choice, ProgressionEarnRequest earnRequest,
-            int candidateCount)
-        { Token = token; Choice = choice; EarnRequest = earnRequest; CandidateCount = candidateCount; }
+            int candidateCount, RandomGrowthEventIdentity identity = null)
+        { Token = token; Choice = choice; EarnRequest = earnRequest; CandidateCount = candidateCount; Identity = identity; }
         public SafeGrowthInteractionToken Token { get; }
         public SafeGrowthTransactionChoice Choice { get; }
         public ProgressionEarnRequest EarnRequest { get; }
         public int CandidateCount { get; }
+        public RandomGrowthEventIdentity Identity { get; }
     }
 
     public sealed class SafeGrowthTransactionReceipt

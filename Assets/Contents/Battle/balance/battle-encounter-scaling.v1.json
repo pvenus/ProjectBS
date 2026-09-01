@@ -1,0 +1,333 @@
+{
+  "contractId": "battle-encounter-monster-scaling.v1",
+  "schemaVersion": "battle-encounter-scaling.schema.v1",
+  "coefficientVersion": "battle-scaling-coefficients.v1",
+  "status": "DESIGN_DEFINITION_ONLY",
+  "enabled": false,
+  "digestPolicy": {
+    "algorithm": "SHA-256",
+    "canonicalization": "UTF-8 LF; recursively sorted object keys; arrays preserve order; digest field omitted",
+    "digest": "072ee63f7983d4cd091bf0373db47c2d67b1764bf69e1d42244675594ad8af6c"
+  },
+  "sourceAuthority": [
+    {
+      "path": "/private/tmp/projectbs-current-byeori-battle-encounter-monster-scaling-framework-v1.txt",
+      "sha256": "94d67706e6e58bacddd73a252f18bb92d3ef1661f29a4858c95efe9cc362c540"
+    }
+  ],
+  "dependencies": [
+    "chapter1-composition-v1",
+    "chapter1-battle-pressure-v1",
+    "stage-reward-risk-value-framework.v1"
+  ],
+  "staleRecalc": {
+    "allOrNothing": true,
+    "order": [
+      "coefficients",
+      "monsterRows",
+      "encounterRows",
+      "TU_TTK_simulation",
+      "overrideReview"
+    ],
+    "triggers": [
+      "coefficient",
+      "formula",
+      "clamp",
+      "rounding",
+      "roleTU",
+      "monsterBase",
+      "sequence",
+      "composition"
+    ]
+  },
+  "baselineReconciliation": {
+    "metadataCounts": {
+      "very_easy": 28,
+      "easy": 80,
+      "normal": 80,
+      "hard": 80,
+      "very_hard": 108
+    },
+    "derivedSequenceCounts": {
+      "very_easy": 28,
+      "easy": 76,
+      "normal": 76,
+      "hard": 76,
+      "very_hard": 104
+    },
+    "policy": "preserve both; mismatch is fail-closed warning, never silently rewrite runtime/content"
+  },
+  "plannedVsLive": {
+    "plannedCountSource": "deterministic manifest",
+    "liveCapRuntimeStatus": "UNSUPPORTED",
+    "policy": "never publish target until live cap gate exists"
+  },
+  "formulas": {
+    "unitTU": "RoleTU * StatThreat * AbilityThreat * SpatialExposure",
+    "statThreat": "0.35*EHP + 0.40*EDPS + 0.10*Speed + 0.10*Control + 0.05*Range",
+    "encounterTU": "sum(UnitTU) * OverlapFactor * CadenceFactor"
+  },
+  "rounding": {
+    "hp": "half-away-from-zero; min1",
+    "count": "deterministic largest remainder",
+    "probability": "basis points",
+    "seedDomain": "length-prefixed(runId,stageGenerationId,battleId,encounterOrdinal,coefficientVersion)"
+  },
+  "archetypes": [
+    {
+      "id": "burst_opening",
+      "purpose": "fast readable opening",
+      "unsupported": false
+    },
+    {
+      "id": "drip_pressure",
+      "purpose": "continuous attrition",
+      "unsupported": false
+    },
+    {
+      "id": "alternating_roles",
+      "purpose": "priority rotation",
+      "unsupported": false
+    },
+    {
+      "id": "flank_reveal",
+      "purpose": "reposition pressure",
+      "unsupported": false
+    },
+    {
+      "id": "reinforcement_call",
+      "purpose": "committed refill packet",
+      "unsupported": true
+    },
+    {
+      "id": "threshold_escalation",
+      "purpose": "phase escalation",
+      "unsupported": true
+    }
+  ],
+  "difficulties": [
+    {
+      "id": "Easy",
+      "hp": 0.85,
+      "atk": 0.82,
+      "def": 0.9,
+      "move": 0.97,
+      "attackSpeed": 0.95,
+      "cooldown": 1.08,
+      "count": 0.78,
+      "eliteRate": 0.25,
+      "accuracy": 0.92,
+      "ccDuration": 0.85,
+      "resistance": 0.85,
+      "futureReward": 0.9
+    },
+    {
+      "id": "Normal",
+      "hp": 1,
+      "atk": 1,
+      "def": 1,
+      "move": 1,
+      "attackSpeed": 1,
+      "cooldown": 1,
+      "count": 1,
+      "eliteRate": 1,
+      "accuracy": 1,
+      "ccDuration": 1,
+      "resistance": 1,
+      "futureReward": 1
+    },
+    {
+      "id": "Hard",
+      "hp": 1.15,
+      "atk": 1.12,
+      "def": 1.08,
+      "move": 1.04,
+      "attackSpeed": 1.04,
+      "cooldown": 0.94,
+      "count": 1.15,
+      "eliteRate": 1.5,
+      "accuracy": 1.05,
+      "ccDuration": 1.08,
+      "resistance": 1.1,
+      "futureReward": 1.15
+    }
+  ],
+  "phases": [
+    {
+      "id": "Early",
+      "hp": 0.92,
+      "atk": 0.92,
+      "def": 0.95,
+      "move": 0.98,
+      "cooldown": 1.03,
+      "count": 0.92,
+      "eliteRate": 0.5
+    },
+    {
+      "id": "Mid",
+      "hp": 1,
+      "atk": 1,
+      "def": 1,
+      "move": 1,
+      "cooldown": 1,
+      "count": 1,
+      "eliteRate": 1
+    },
+    {
+      "id": "Late",
+      "hp": 1.1,
+      "atk": 1.08,
+      "def": 1.05,
+      "move": 1.02,
+      "cooldown": 0.97,
+      "count": 1.08,
+      "eliteRate": 1.25
+    }
+  ],
+  "roles": [
+    {
+      "id": "fodder",
+      "tu": 0.85
+    },
+    {
+      "id": "striker",
+      "tu": 1
+    },
+    {
+      "id": "pursuer",
+      "tu": 1.1
+    },
+    {
+      "id": "ranged",
+      "tu": 1.25
+    },
+    {
+      "id": "tank",
+      "tu": 1.6
+    },
+    {
+      "id": "support",
+      "tu": 1.5
+    },
+    {
+      "id": "elite",
+      "tu": 3
+    },
+    {
+      "id": "boss",
+      "tu": 10
+    }
+  ],
+  "slopeCaps": {
+    "hp": 0.1,
+    "atk": 0.08,
+    "def": 0.06,
+    "moveAttackSpeed": 0.03,
+    "cooldownReduction": 0.05,
+    "count": 0.15,
+    "eliteRatePp": 5,
+    "ehp": 0.15,
+    "edps": 0.12,
+    "encounterTU": 0.2
+  },
+  "matrix": [
+    {
+      "difficulty": "Easy",
+      "phase": "Early",
+      "count": 69,
+      "liveCap": 12,
+      "tu": [
+        50,
+        65
+      ]
+    },
+    {
+      "difficulty": "Easy",
+      "phase": "Mid",
+      "count": 75,
+      "liveCap": 14,
+      "tu": [
+        60,
+        78
+      ]
+    },
+    {
+      "difficulty": "Easy",
+      "phase": "Late",
+      "count": 81,
+      "liveCap": 16,
+      "tu": [
+        68,
+        88
+      ]
+    },
+    {
+      "difficulty": "Normal",
+      "phase": "Early",
+      "count": 88,
+      "liveCap": 16,
+      "tu": [
+        70,
+        88
+      ]
+    },
+    {
+      "difficulty": "Normal",
+      "phase": "Mid",
+      "count": 96,
+      "liveCap": 18,
+      "tu": [
+        88,
+        110
+      ]
+    },
+    {
+      "difficulty": "Normal",
+      "phase": "Late",
+      "count": 104,
+      "liveCap": 20,
+      "tu": [
+        98,
+        124
+      ]
+    },
+    {
+      "difficulty": "Hard",
+      "phase": "Early",
+      "count": 102,
+      "liveCap": 18,
+      "tu": [
+        90,
+        112
+      ]
+    },
+    {
+      "difficulty": "Hard",
+      "phase": "Mid",
+      "count": 110,
+      "liveCap": 22,
+      "tu": [
+        112,
+        140
+      ]
+    },
+    {
+      "difficulty": "Hard",
+      "phase": "Late",
+      "count": 119,
+      "liveCap": 24,
+      "tu": [
+        125,
+        158
+      ]
+    }
+  ],
+  "overrides": [],
+  "staleState": "STALE_RUNTIME_GAPS",
+  "warnings": [
+    "COUNT_METADATA_RUNTIME_MISMATCH",
+    "LIVE_CAP_UNPROVEN",
+    "THRESHOLD_RUNTIME_UNSUPPORTED",
+    "STAT_SCALER_RUNTIME_MISSING"
+  ]
+}

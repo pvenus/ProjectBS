@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-heal-support
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.healSupport.v1
+  preset: 2
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 0.47059, g: 0.63922, b: 0.55686, a: 1}
+  tintStrength: 0.12
+  colorA: {r: 0.66275, g: 0.54118, b: 0.33333, a: 1}
+  colorB: {r: 0.47451, g: 0.66275, b: 0.60392, a: 1}
+  colorShiftStrength: 0.1
+  emissionColor: {r: 0.66275, g: 0.78039, b: 0.63529, a: 1}
+  emissionIntensity: 0.08
+  desaturate: 0.04
+  outlineColor: {r: 0.22353, g: 0.25882, b: 0.21961, a: 0.72157}
+  outlineWidth: 0.85
+  fadeIn: 0.16
+  hold: 0.32
+  fadeOut: 0.34
+  phaseSpeed: 0.75
+  flowSpeed: {x: 0, y: 1}
+  rimColor: {r: 0.49804, g: 0.64706, b: 0.56078, a: 1}
+  spatialPattern: 2
+  rimPulseStrength: 0.26
+  sweepColor: {r: 0.71765, g: 0.64314, b: 0.42353, a: 1}
+  sweepDirection: {x: 0, y: 1}
+  sweepStrength: 0.18
+  sweepWidth: 0.14
+  sweepSoftness: 0.09
+  glintColor: {r: 0.71765, g: 0.82353, b: 0.74902, a: 1}
+  glintStrength: 0.14
+  glintWidth: 0.04
+  peakColor: {r: 0.56471, g: 0.71765, b: 0.59608, a: 1}
+  peakIntensity: 0.36
+  peakDuration: 0.065
+  afterglowColor: {r: 0.60392, g: 0.4902, b: 0.31373, a: 1}
+  afterglowIntensity: 0.12
+  afterglowDuration: 0.28
+  inkDensity: 0.23
+  inkBreakup: 0.42
+  inkScale: 20
+  inkFlow: {x: 0, y: 1}
+  neonRimStrength: 0.58
+  neonPeakGain: 0.9
+  neonAfterglowGain: 0.7

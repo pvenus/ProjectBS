@@ -227,6 +227,15 @@ namespace ResourceTools.Stage
             try
             {
                 var text = File.ReadAllText(path);
+                // Dedicated random-growth documents are owned by
+                // RandomGrowthGeneratedAssetBuilder. Treating them as ordinary stage
+                // documents would replace their fully typed execution contracts with
+                // incomplete generic choices.
+                if (text.Contains("\"documentType\"", StringComparison.Ordinal)
+                    && text.Contains("\"randomGrowthEvent\"", StringComparison.Ordinal))
+                {
+                    return false;
+                }
                 return text.Contains("\"nodes\"", StringComparison.Ordinal)
                     && text.Contains("\"startNodeId\"", StringComparison.Ordinal);
             }

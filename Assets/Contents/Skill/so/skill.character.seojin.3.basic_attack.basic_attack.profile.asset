@@ -16,8 +16,9 @@ MonoBehaviour:
   skillType: 0
   skillComponentType: 0
   projectileCount: 1
-  projectileScale: 3
-  projectileColliderRadius: 0.5
+  projectileScale: 1.2
+  rendererScale: 0.8
+  projectileColliderRadius: 0.6
   projectileLifetime: 0.2
   projectile:
     arrangement: 0
@@ -25,10 +26,10 @@ MonoBehaviour:
     spreadAngle: 0
     radius: 0
   projectileSpawn:
-    spawnOffset: 0.5
+    spawnOffset: 0.45
     interval: 0
   brainMeta:
-    category: 0
-    targetType: 0
+    category: 1
+    targetType: 3
     tacticalNeed: 0
     basePriority: 0

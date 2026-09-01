@@ -18,3 +18,8 @@ Assets/**/*SDF.asset.meta
 
 # Generated visual previews are not Unity runtime assets.
 /.preview/
+
+# Tool-generated local caches and debug logs
+__pycache__/
+*.py[cod]
+/vstuc-debug.log

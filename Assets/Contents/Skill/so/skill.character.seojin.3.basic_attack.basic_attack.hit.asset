@@ -17,7 +17,9 @@ MonoBehaviour:
   ignoreSameRoot: 1
   useRepeatInterval: 0
   repeatInterval: 0.25
+  useHitWindow: 0
   hitStartTime: 0
+  hitDuration: 0
   deactivateAfterFirstHit: 0
   targetLayerMask:
     serializedVersion: 2
@@ -26,7 +28,7 @@ MonoBehaviour:
     damageType: 0
     baseDamage: 45
     firstHitBaseDamage: 0
-    attackPercentDamage: 100
+    attackPercentDamage: 1
     canCritical: 1
     ignoreDefense: 0
   skillSpawn:

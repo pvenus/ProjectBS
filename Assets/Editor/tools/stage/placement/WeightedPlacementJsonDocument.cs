@@ -30,6 +30,7 @@ namespace ResourceTools.Stage.Placement
         public int newMass;
         public int minEligibleCandidates;
         public int minEligiblePurposes;
+        public CompositionJson composition = new();
         public List<SectionBandJson> sectionBands = new();
         public List<EventRowJson> rows = new();
         public string canonicalContentSha256;
@@ -38,6 +39,22 @@ namespace ResourceTools.Stage.Placement
 
     [Serializable]
     internal sealed class SectionBandJson { public string sectionId; public string band; }
+
+    [Serializable]
+    internal sealed class CompositionJson
+    {
+        public bool enabled;
+        public int schemaVersion = 1;
+        public string coefficientVersion;
+        public string directBattlePoolAssetPath, directBattlePoolGuid;
+        public string shopPoolAssetPath, shopPoolGuid;
+        public string restPoolAssetPath, restPoolGuid;
+        public int directBattleCount, shopCount, restCount, eventCount;
+        public int earlyDirect, midDirect, lateDirect, maxDirectBattleFreeGap;
+        public bool allowAdjacentDirectBattle;
+        public float optionalBattleCredit;
+        public string classificationAuthorityVersion, staleState, staleReason;
+    }
 
     [Serializable]
     internal sealed class EventRowJson
@@ -64,6 +81,10 @@ namespace ResourceTools.Stage.Placement
         public string rationale;
         public string sourceAuthority;
         public string staleState;
+        public string combatClass;
+        public float expectedBattleCredit;
+        public string combatAuthorityVersion;
+        public string combatStaleState;
     }
 
     [Serializable]

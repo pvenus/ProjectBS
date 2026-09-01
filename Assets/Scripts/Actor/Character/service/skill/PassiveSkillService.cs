@@ -1,5 +1,6 @@
 using Skill.Service.Helper;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Character.Skill
 {
@@ -83,9 +84,36 @@ namespace Character.Skill
             List<EquipmentSkillRuntimeData> passiveSkills =
                 GetPassiveSkills(skillManager);
 
+            ResolvedConditionalPassiveSnapshot indomitableSnapshot = null;
+            bool invalidIndomitable = false;
+
             for (int i = 0; i < passiveSkills.Count; i++)
             {
                 EquipmentSkillRuntimeData runtime = passiveSkills[i];
+
+                if (IndomitablePassiveSnapshotResolver.IsIndomitable(runtime))
+                {
+                    if (indomitableSnapshot != null)
+                    {
+                        invalidIndomitable = true;
+                        Debug.LogError(
+                            "InvalidIndomitablePassiveDefinition: duplicate equipped source.");
+                        continue;
+                    }
+
+                    if (!IndomitablePassiveSnapshotResolver.TryResolve(
+                            runtime,
+                            out ResolvedConditionalPassiveSnapshot resolved,
+                            out string error))
+                    {
+                        invalidIndomitable = true;
+                        Debug.LogError(error);
+                        continue;
+                    }
+
+                    indomitableSnapshot = resolved;
+                    continue;
+                }
 
                 if (!HasPassiveEffects(runtime))
                 {
@@ -94,6 +122,9 @@ namespace Character.Skill
 
                 SkillUseHelper.ApplyCastSelfEffects(runtime, ownerCharacter.gameObject);
             }
+
+            ownerCharacter.ConfigureIndomitablePassiveSnapshot(
+                invalidIndomitable ? null : indomitableSnapshot);
         }
     }
 }

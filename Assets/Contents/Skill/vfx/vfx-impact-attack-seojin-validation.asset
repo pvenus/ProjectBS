@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:yaml.org,2002:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a31b8651f5f48a7b8de074d83723e2e, type: 3}
+  m_Name: vfx-impact-attack-seojin-validation
+  m_EditorClassIdentifier: Assembly-CSharp::SkillAnimationVfxProfileSO
+  profileId: skillAnimationVfx.impactAttack.seojinValidation.v1
+  preset: 0
+  material: {fileID: 2100000, guid: e12807dd7e3e4cd29351b523b86e2b94, type: 2}
+  tintColor: {r: 0.65098, g: 0.29412, b: 0.22745, a: 1}
+  tintStrength: 0.1
+  colorA: {r: 0.14118, g: 0.23137, b: 0.33333, a: 1}
+  colorB: {r: 0.70588, g: 0.35294, b: 0.25882, a: 1}
+  colorShiftStrength: 0.16
+  emissionColor: {r: 0.81569, g: 0.47843, b: 0.33333, a: 1}
+  emissionIntensity: 0.12
+  desaturate: 0.02
+  outlineColor: {r: 0.12941, g: 0.11765, b: 0.13333, a: 0.8}
+  outlineWidth: 1.25
+  fadeIn: 0.07
+  hold: 0.06
+  fadeOut: 0.21
+  phaseSpeed: 1.8
+  flowSpeed: {x: 1, y: 0}
+  rimColor: {r: 0.72157, g: 0.35686, b: 0.26275, a: 1}
+  spatialPattern: 0
+  rimPulseStrength: 0.48
+  sweepColor: {r: 0.83529, g: 0.54118, b: 0.38431, a: 1}
+  sweepDirection: {x: 1, y: 0}
+  sweepStrength: 0.34
+  sweepWidth: 0.11
+  sweepSoftness: 0.055
+  glintColor: {r: 0.94118, g: 0.84314, b: 0.69804, a: 1}
+  glintStrength: 0.2
+  glintWidth: 0.035
+  peakColor: {r: 0.78431, g: 0.39608, b: 0.28235, a: 1}
+  peakIntensity: 0.72
+  peakDuration: 0.05
+  afterglowColor: {r: 0.49412, g: 0.23922, b: 0.20784, a: 1}
+  afterglowIntensity: 0.22
+  afterglowDuration: 0.18
+  inkDensity: 0.42
+  inkBreakup: 0.58
+  inkScale: 30
+  inkFlow: {x: 1, y: 0}
+  neonRimStrength: 0.78
+  neonPeakGain: 1.2
+  neonAfterglowGain: 0.85
+  bodyOpacityGain: 0.45
+  localizedGlowAlpha: 0.12

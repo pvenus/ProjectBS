@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: skill.character.seojin.2.active_1.charge.cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
   castId: skill.character.seojin.2.active_1.charge.cast
-  cooldown: 10
+  cooldown: 9
   castTime: 0
   range: 2
   targetingType: 2
@@ -22,8 +22,8 @@ MonoBehaviour:
     interval: 0
   castMove:
     moveType: 1
-    distance: 2
+    distance: 2.5
     duration: 0.25
   selfEffects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4ea54cc56fa6a499e971ce72f6b4b374, type: 2}
   skipAttackAnimation: 0

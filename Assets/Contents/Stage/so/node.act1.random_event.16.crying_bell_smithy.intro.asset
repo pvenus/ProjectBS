@@ -21,47 +21,47 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043189
+      rid: 5601486871972282552
   - choiceId: choice.act1.random_event.16.crying_bell_smithy.choice_2
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043190
+      rid: 5601486871972282553
   - choiceId: choice.act1.random_event.16.crying_bell_smithy.investigate_3
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043191
+      rid: 5601486871972282554
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043189
+    - rid: 5601486871972282552
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043192
-    - rid: 5601486867666043190
+          rid: 5601486871972282555
+    - rid: 5601486871972282553
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 900
         data:
-          rid: 5601486867666043193
-    - rid: 5601486867666043191
+          rid: 5601486871972282556
+    - rid: 5601486871972282554
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 100
         data:
-          rid: 5601486867666043194
-    - rid: 5601486867666043192
+          rid: 5601486871972282557
+    - rid: 5601486871972282555
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043193
+    - rid: 5601486871972282556
       type: {class: CompleteEventExecutionData, ns: Stage, asm: Assembly-CSharp}
       data: 
-    - rid: 5601486867666043194
+    - rid: 5601486871972282557
       type: {class: BattleExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         battle: {fileID: 11400000, guid: ef8546b25b182411194a05bf712c22d8, type: 2}

@@ -37,6 +37,9 @@ namespace Battle
         public SpawnSequenceSO spawnSequence;
         public SpawnUnitBinding[] spawnUnitBindings;
 
+        [Header("Optional Encounter Composition")]
+        public BattleLargeWavePolicySO largeWavePolicy;
+
         [Header("Timed Props")]
         public List<TimedPropPlacement> timedPropPlacements = new();
 
@@ -68,6 +71,8 @@ namespace Battle
         public SpawnSequenceSO SpawnSequence => spawnSequence;
 
         public IReadOnlyList<SpawnUnitBinding> SpawnUnitBindings => spawnUnitBindings;
+
+        public BattleLargeWavePolicySO LargeWavePolicy => largeWavePolicy;
 
         public IReadOnlyList<TimedPropPlacement> TimedPropPlacements => timedPropPlacements;
 

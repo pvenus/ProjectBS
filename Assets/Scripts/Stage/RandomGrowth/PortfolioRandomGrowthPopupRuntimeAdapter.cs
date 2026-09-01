@@ -33,9 +33,39 @@ namespace Stage
                 return new(PortfolioRandomGrowthDispatchStatus.Failed,"PORTFOLIO_RANDOM_GROWTH_IDENTITY_MISMATCH");
             if(session.PortfolioRandomGrowth.IsTerminal(identity.EventId,node.nodeId))
                 return new(PortfolioRandomGrowthDispatchStatus.TerminalReplay);
+            PortfolioRandomGrowthPending existing=session.PortfolioRandomGrowth.Pending;
+            string stageGenerationId=session.RandomGrowthSession?.StageGenerationId??string.Empty;
+            bool samePendingRequest=existing!=null
+                &&string.Equals(existing.Identity?.EventId,identity.EventId,StringComparison.Ordinal)
+                &&string.Equals(existing.NodeInstanceId,node.nodeId,StringComparison.Ordinal)
+                &&string.Equals(existing.Identity?.ChoiceId,identity.ChoiceId,StringComparison.Ordinal);
+            if(existing!=null&&!samePendingRequest)
+            {
+                // An abandoned confirmation (including another choice on the same node) has
+                // applied no mutation and must not reserve the whole run. An identical request
+                // remains idempotent and is reused by TryBegin below.
+                // PendingRetry/Applying and cross-generation ownership remain fail-closed.
+                bool differentRuntimeNode=!string.Equals(
+                    existing.NodeInstanceId,node.nodeId,StringComparison.Ordinal);
+                bool sameGeneration=string.Equals(
+                    existing.StageGenerationId,stageGenerationId,StringComparison.Ordinal);
+                bool released=sameGeneration&&(session.PortfolioRandomGrowth.Cancel(existing)
+                    ||(differentRuntimeNode
+                        &&session.PortfolioRandomGrowth.AbandonRolledBackRetry(existing)));
+                if(!released)
+                    return new(PortfolioRandomGrowthDispatchStatus.Failed,
+                        "PORTFOLIO_RANDOM_GROWTH_PENDING_CONFLICT:"
+                        +session.PortfolioRandomGrowth.State+":"
+                        +existing.NodeInstanceId+":"+existing.Identity?.ChoiceId);
+            }
             if(!session.PortfolioRandomGrowth.TryBegin(identity,node.nodeId,
-                    session.RandomGrowthSession?.StageGenerationId,data.definitionFingerprint,out _))
-                return new(PortfolioRandomGrowthDispatchStatus.Failed,"PORTFOLIO_RANDOM_GROWTH_PENDING_CONFLICT");
+                    stageGenerationId,data.definitionFingerprint,out _))
+                return new(PortfolioRandomGrowthDispatchStatus.Failed,
+                    "PORTFOLIO_RANDOM_GROWTH_CONTEXT_OR_PENDING_INVALID:"
+                    +(session.RandomGrowthSession?.RunId.IsValid==true?"run-valid":"run-missing")+":"
+                    +(string.IsNullOrWhiteSpace(stageGenerationId)?"generation-missing":"generation-valid")+":"
+                    +(string.IsNullOrWhiteSpace(data.definitionFingerprint)?"fingerprint-missing":"fingerprint-valid")+":"
+                    +session.PortfolioRandomGrowth.State);
             return new(session.PortfolioRandomGrowth.State==PortfolioRandomGrowthState.PendingRetry
                 ?PortfolioRandomGrowthDispatchStatus.PendingRetry:PortfolioRandomGrowthDispatchStatus.RequiresConfirmation);
         }

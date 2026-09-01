@@ -24,6 +24,30 @@
   "newMass": 55,
   "minEligibleCandidates": 4,
   "minEligiblePurposes": 2,
+  "composition": {
+    "enabled": false,
+    "schemaVersion": 1,
+    "coefficientVersion": "chapter1.battle_pressure_coefficients.v1",
+    "directBattlePoolAssetPath": "Assets/Contents/Stage/so/stage.pool.battle.normal.asset",
+    "directBattlePoolGuid": "2b09e679e0d58487486e9af1a36d9d74",
+    "shopPoolAssetPath": "Assets/Contents/Stage/so/stage.pool.shop.chapter1.normal.v1.asset",
+    "shopPoolGuid": "42417d5bb1ac4134844ff655f601b77a",
+    "restPoolAssetPath": "Assets/Contents/Stage/so/stage.pool.rest.chapter1.field.v1.asset",
+    "restPoolGuid": "dd7285a806994446b7a7bb850803b7cd",
+    "directBattleCount": 4,
+    "shopCount": 2,
+    "restCount": 2,
+    "eventCount": 4,
+    "earlyDirect": 1,
+    "midDirect": 2,
+    "lateDirect": 1,
+    "maxDirectBattleFreeGap": 3,
+    "allowAdjacentDirectBattle": false,
+    "optionalBattleCredit": 0.5,
+    "classificationAuthorityVersion": "chapter1.event_combat_classification.v1",
+    "staleState": "Current",
+    "staleReason": ""
+  },
   "sectionBands": [
     {
       "sectionId": "sec_ep_2_to_ep_3_1",
@@ -89,7 +113,11 @@
       "order": 1,
       "rationale": "이름·진실·전투 분기가 어느 구간에서도 성립",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.02.rain_seller",
@@ -121,7 +149,11 @@
       "order": 2,
       "rationale": "Gold·기만·전투 판단은 경제 맥락 형성 후 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.03.returning_straw_shoes",
@@ -153,7 +185,11 @@
       "order": 3,
       "rationale": "쉼·아이·낮은 복잡도의 초반 생존 사건",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.04.red_thread_mountain_goat",
@@ -185,7 +221,11 @@
       "order": 4,
       "rationale": "구조·전투·우회가 런 상태와 무관하게 읽힘",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.05.abandoned_miner_supper",
@@ -217,7 +257,11 @@
       "order": 5,
       "rationale": "회복·조사 중심으로 초반 피로 회복 축을 담당",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.06.shrine_eaves_empty_perch",
@@ -249,7 +293,11 @@
       "order": 6,
       "rationale": "저위험 관찰과 휴식이며 복잡한 축적 결과가 없음",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.07.shadow_selling_child",
@@ -281,7 +329,11 @@
       "order": 7,
       "rationale": "초자연 연쇄 변동성 때문에 빈도를 절제하되 시기에는 독립",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.08.spring_beneath_stone_grave",
@@ -313,7 +365,11 @@
       "order": 8,
       "rationale": "회복과 유혹을 초반 생존 판단으로 제공",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.09.black_cloth_herbalist",
@@ -345,7 +401,11 @@
       "order": 9,
       "rationale": "인간에 대한 의심과 전투 선택을 빌드 형성기에 연결",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.10.silent_jangseung",
@@ -377,7 +437,11 @@
       "order": 10,
       "rationale": "갈림길과 봉쇄의 의미가 누적 경로 상태에서 강해짐",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.11.dry_waterwheel",
@@ -409,7 +473,11 @@
       "order": 11,
       "rationale": "Event18 연쇄 자식이므로 독립 최상위 선택을 금지",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.12.paper_flower_grave",
@@ -441,7 +509,11 @@
       "order": 12,
       "rationale": "추모와 이름의 World 선택은 전 구간에서 안정적으로 성립",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.13.empty_bride_palanquin",
@@ -473,7 +545,11 @@
       "order": 13,
       "rationale": "전투와 조사 위험이 진행 phase에 종속되지 않음",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.14.stone_laying_hen",
@@ -505,7 +581,11 @@
       "order": 14,
       "rationale": "탐욕과 Gold·Relic 기대를 중반 경제 판단으로 제한",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.15.ash_eating_jar",
@@ -537,7 +617,11 @@
       "order": 15,
       "rationale": "연쇄·봉인·화염 위험의 높은 분산을 후반에 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.16.crying_bell_smithy",
@@ -569,7 +653,11 @@
       "order": 16,
       "rationale": "Relic P1 gate 뒤에만 활성화하고 Smithy 시련과 같은 런 노출을 금지",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.17.three_bowls_on_mountain_path",
@@ -601,7 +689,11 @@
       "order": 17,
       "rationale": "회복 개조본의 초반 생존 기반 역할",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.18.reverse_flowing_stream",
@@ -633,7 +725,11 @@
       "order": 18,
       "rationale": "물길 착취와 Event11 자식 연쇄를 후반 결산으로 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.19.faceless_woodcarver",
@@ -665,7 +761,11 @@
       "order": 19,
       "rationale": "기억·정체성 연쇄는 시기 독립이나 반복 빈도를 절제",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.20.fog_sewing_old_woman",
@@ -697,7 +797,11 @@
       "order": 20,
       "rationale": "길 봉쇄와 World 판단이 어느 phase에서도 성립",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.21.breath_between_water_drops",
@@ -729,7 +833,11 @@
       "order": 21,
       "rationale": "비용 없는 Growth2로 초반 빌드 시작을 지원",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.22.sleeping_hawk_watch",
@@ -761,7 +869,11 @@
       "order": 22,
       "rationale": "HP 비용 Growth3는 생존 기반이 생긴 뒤 판단",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.23.temple_hundred_eight_steps",
@@ -793,7 +905,11 @@
       "order": 23,
       "rationale": "Risk Growth3와 Heal15의 중반 기회비용을 비교",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.24.herb_scent_empty_barracks",
@@ -825,7 +941,11 @@
       "order": 24,
       "rationale": "Heal20과 기록의 낮은 복잡도 초반 선택",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.25.hot_spring_beneath_ice",
@@ -857,7 +977,11 @@
       "order": 25,
       "rationale": "Heal과 Battle·Relic의 V3 claim 변동성 때문에 빈도를 절제",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.26.sleepless_waystation",
@@ -889,7 +1013,11 @@
       "order": 26,
       "rationale": "Heal30과 다음 길 정보로 초반 준비 방향을 선택",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.27.paper_armor_bandits",
@@ -921,7 +1049,11 @@
       "order": 27,
       "rationale": "위험과 Gold가 다른 두 전투를 전 구간에서 비교 가능",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "GuaranteedBehaviorBattleEvent",
+      "expectedBattleCredit": 1.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.28.rockfall_scouts",
@@ -953,7 +1085,11 @@
       "order": 28,
       "rationale": "전투·HP와 route commit의 고분산을 후반에 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.29.chain_bridge_tollkeepers",
@@ -985,7 +1121,11 @@
       "order": 29,
       "rationale": "Gold50 지불과 전투는 Gold가 형성된 뒤 유효",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.30.night_beacon_intruders",
@@ -1017,7 +1157,11 @@
       "order": 30,
       "rationale": "전투와 경계 flag 선택은 시기 독립이며 material EV가 낮음",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.31.wounded_mountain_tiger_domain",
@@ -1049,7 +1193,11 @@
       "order": 31,
       "rationale": "Battle·Relic과 World 기록의 owned·claim 변동성을 절제",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.32.hidden_ledger_salt_cart",
@@ -1081,7 +1229,11 @@
       "order": 32,
       "rationale": "Gold25·50과 윤리 기록의 중반 경제 비교",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.33.false_mountain_rite_offering_box",
@@ -1113,7 +1265,11 @@
       "order": 33,
       "rationale": "Battle Gold50·Gold25·0의 중반 위험 프리미엄",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.34.half_vein_map",
@@ -1145,7 +1301,11 @@
       "order": 34,
       "rationale": "자식 연쇄·HP 비용·Gold75의 지연과 고분산을 후반에 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.35.ownerless_wage_sack",
@@ -1177,7 +1337,11 @@
       "order": 35,
       "rationale": "Gold75·Heal25·Gold25를 빌드와 경제 형성기에 비교",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.36.cracked_bronze_mirror",
@@ -1209,7 +1373,11 @@
       "order": 36,
       "rationale": "HP 비용 fixed Relic과 flag의 큰 가치차를 후반에 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.37.nameless_long_sword_in_rain",
@@ -1241,7 +1409,11 @@
       "order": 37,
       "rationale": "Battle·Relic과 World 기록의 claim 변동성으로 희소화",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.38.three_cups_of_moonlight",
@@ -1273,7 +1445,11 @@
       "order": 38,
       "rationale": "Heal20과 fixed Relic의 빌드 시너지를 중반에 비교",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.39.self_knotting_rope",
@@ -1305,7 +1481,11 @@
       "order": 39,
       "rationale": "Relic 가치와 shortcut의 route 맥락을 후반 결산",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.40.jihan_empty_medicine_folio",
@@ -1337,7 +1517,11 @@
       "order": 40,
       "rationale": "지한 합류 뒤 Heal25와 Character 기록을 선택",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.41.yujin_broken_arrow_fletching",
@@ -1369,7 +1553,11 @@
       "order": 41,
       "rationale": "유진 합류 뒤 Battle 기록과 안전한 Character 기록을 선택",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.42.twice_ringing_mountain_echo",
@@ -1401,7 +1589,11 @@
       "order": 42,
       "rationale": "정보와 alert·shortcut을 누적 경로 상태에서 결산",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.43.reverse_growing_moss_marker",
@@ -1433,7 +1625,11 @@
       "order": 43,
       "rationale": "route 정보와 fixed Relic의 큰 가치차를 후반에 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.44.buried_tax_stele",
@@ -1465,7 +1661,11 @@
       "order": 44,
       "rationale": "Gold25·75와 공개·은폐 기록을 런 경제 결산으로 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.45.false_wildfire_boundary_stones",
@@ -1497,7 +1697,11 @@
       "order": 45,
       "rationale": "정의 flag·Battle route와 무개입을 후반 상태 결산으로 배치",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "NonBattle",
+      "expectedBattleCredit": 0.0,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     },
     {
       "eventId": "event.act1.random_event.46.funeral_without_black_cloth",
@@ -1529,9 +1733,13 @@
       "order": 46,
       "rationale": "World·Battle·leave 삼분기가 phase와 무관하게 성립",
       "sourceAuthority": "/private/tmp/projectbs-current-byeori-weighted-pool-placement-design.txt#sha256=efce8be0a6a4912efa1ba0bc8adafd57e984b408e23ae3e0471863f3bfc20d6c",
-      "staleState": "Current"
+      "staleState": "Current",
+      "combatClass": "OptionalBattleEvent",
+      "expectedBattleCredit": 0.5,
+      "combatAuthorityVersion": "chapter1.event_combat_classification.v1",
+      "combatStaleState": "Current"
     }
   ],
-  "canonicalContentSha256": "6e58a3620aadfe1d87cb9058e29e4fcbb9c36c6a3d11dd6a9bc57fe814d43661",
+  "canonicalContentSha256": "",
   "generatorVersion": "chapter1.weighted_pool_manifest.v1"
 }

@@ -21,41 +21,41 @@ MonoBehaviour:
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043277
+      rid: 5601486871972282642
   - choiceId: choice.act1.random_event.35.ownerless_wage_sack.return_all_wages
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043278
+      rid: 5601486871972282643
   - choiceId: choice.act1.random_event.35.ownerless_wage_sack.take_only_unlisted_share
     requirements: []
     visibleConditions: []
     rewards: []
     executionConfig:
-      rid: 5601486867666043279
+      rid: 5601486871972282644
   references:
     version: 2
     RefIds:
-    - rid: 5601486867666043277
+    - rid: 5601486871972282642
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043280
-    - rid: 5601486867666043278
+          rid: 5601486871972282645
+    - rid: 5601486871972282643
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043281
-    - rid: 5601486867666043279
+          rid: 5601486871972282646
+    - rid: 5601486871972282644
       type: {class: ChoiceExecutionConfig, ns: Stage, asm: Assembly-CSharp}
       data:
         executionType: 1100
         data:
-          rid: 5601486867666043282
-    - rid: 5601486867666043280
+          rid: 5601486871972282647
+    - rid: 5601486871972282645
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043281
+    - rid: 5601486871972282646
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
           relic: {fileID: 0}
           relicPool: {fileID: 0}
           battle: {fileID: 0}
-    - rid: 5601486867666043282
+    - rid: 5601486871972282647
       type: {class: PortfolioOutcomeExecutionData, ns: Stage, asm: Assembly-CSharp}
       data:
         schemaVersion: 1

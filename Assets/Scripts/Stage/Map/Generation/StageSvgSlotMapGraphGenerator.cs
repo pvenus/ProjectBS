@@ -15,6 +15,7 @@ namespace Stage
         private readonly Dictionary<string, string> lastRuntimeNodeIdBySlotId =
             new(StringComparer.Ordinal);
         private Chapter1WeightedEventManifest lastWeightedEventManifest;
+        private Chapter1BattlePressureManifest lastBattlePressureManifest;
 
         public IReadOnlyDictionary<string, RoundNodeSO> LastAssignments => lastAssignments;
         public IReadOnlyList<RandomGrowthReservationDescriptor> LastRandomGrowthReservations =>
@@ -22,6 +23,7 @@ namespace Stage
         public IReadOnlyDictionary<string, string> LastRuntimeNodeIdBySlotId =>
             lastRuntimeNodeIdBySlotId;
         internal Chapter1WeightedEventManifest LastWeightedEventManifest => lastWeightedEventManifest;
+        internal Chapter1BattlePressureManifest LastBattlePressureManifest => lastBattlePressureManifest;
 
         public bool Generate(
             StageDefinitionSO definition,
@@ -45,6 +47,7 @@ namespace Stage
             lastRandomGrowthReservations.Clear();
             lastRuntimeNodeIdBySlotId.Clear();
             lastWeightedEventManifest = null;
+            lastBattlePressureManifest = null;
             var slots = definition.svgMapSlots;
 
             if (slots == null || slots.Count == 0)
@@ -133,7 +136,11 @@ namespace Stage
             }
 
             var assignmentResolver = new StageSlotAssignmentResolver();
-            int? seed = definition.useFixedSeed ? definition.seed : (int?)null;
+            // A non-fixed stage must vary between runs, but remain reproducible while
+            // rebuilding the same run. Previously the weighted manifest always used
+            // StableSeed(stageId), so every new game received the exact same events.
+            int runSeed = StableSeed($"{definition.stageId}|{context?.RunId.Value ?? Guid.NewGuid().ToString("N")}");
+            int? seed = definition.useFixedSeed ? definition.seed : runSeed;
             WeightedPoolPlacementConfig weightedConfig = definition.svgRandomSections
                 .Select(section => section?.placementRule)
                 .Where(rule => rule != null && rule.mode == StagePlacementRuleMode.WeightedPool)
@@ -141,11 +148,26 @@ namespace Stage
                 .FirstOrDefault(config => config != null && config.HasCompiledPlacement);
             if (weightedConfig != null)
             {
-                int manifestSeed = seed ?? StableSeed(definition.stageId);
-                lastWeightedEventManifest = new Chapter1WeightedEventManifestBuilder().Build(
-                    weightedConfig, manifestSeed, CurrentRoster(), CapabilityEnabled);
+                int manifestSeed = seed.Value;
+                if (weightedConfig.composition?.enabled == true)
+                {
+                    lastBattlePressureManifest = new Chapter1BattlePressureManifestBuilder().Build(
+                        weightedConfig, manifestSeed, CurrentRoster(), CapabilityEnabled);
+                    if (!lastBattlePressureManifest.Success)
+                    {
+                        Debug.LogError($"[SvgSlotMapGraphGenerator] Composition manifest failed: "
+                            + lastBattlePressureManifest.Error);
+                        return false;
+                    }
+                }
+                else
+                    lastWeightedEventManifest = new Chapter1WeightedEventManifestBuilder().Build(
+                        weightedConfig, manifestSeed, CurrentRoster(), CapabilityEnabled);
             }
-            var assignedNodeBySlotId = lastWeightedEventManifest?.Success == true
+            var assignedNodeBySlotId = lastBattlePressureManifest?.Success == true
+                ? assignmentResolver.ResolveAssignments(definition, lastBattlePressureManifest,
+                    seed, lastRandomGrowthReservations)
+                : lastWeightedEventManifest?.Success == true
                 ? assignmentResolver.ResolveAssignments(definition, lastWeightedEventManifest,
                     seed, lastRandomGrowthReservations)
                 : assignmentResolver.ResolveAssignments(definition, seed, lastRandomGrowthReservations);

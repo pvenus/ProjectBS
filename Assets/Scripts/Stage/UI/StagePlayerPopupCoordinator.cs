@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using Bless;
 using Character;
 using Character.UI;
@@ -27,6 +28,7 @@ namespace Stage
     /// </summary>
     public class StagePlayerPopupCoordinator : MonoBehaviour
     {
+        public event Action ShopClosed;
         // ── 현재 열린 팝업 추적 ──────────────────────────────────────
         private PopupType currentOpenType = PopupType.None;
 
@@ -43,7 +45,11 @@ namespace Stage
         /// UIPopupViewController 를 통해 Shop_Fixed 프리팹을 취득하고,
         /// StageShopManager.OpenShop(data) 를 호출한다.
         /// </summary>
-        public bool OpenShop(ShopExecutionData data)
+        public bool OpenShop(
+            ShopExecutionData data,
+            ShopRuntimeData restoredStock = null,
+            int? deterministicSeed = null,
+            string runtimeShopId = null)
         {
             if (data == null)
             {
@@ -57,21 +63,28 @@ namespace Stage
                 return false;
             }
 
+            if (StageShopManager.Instance == null)
+            {
+                Debug.LogWarning("[StagePlayerPopupCoordinator] StageShopManager.Instance is null.");
+                return false;
+            }
+
             if (!OpenPanel(PopupType.StageShop, out UIView view))
             {
                 return false;
             }
 
-            if (StageShopManager.Instance != null)
+            bool opened = restoredStock != null
+                ? StageShopManager.Instance.OpenRestoredShop(restoredStock)
+                : StageShopManager.Instance.OpenShop(
+                    data.pools, data.itemCount, data.shopType, 0,
+                    deterministicSeed, runtimeShopId);
+            if (!opened)
             {
-                StageShopManager.Instance.OpenShop(data.pools, data.itemCount, data.shopType);
+                UIPopupViewController.Instance.Close(PopupType.StageShop);
+                currentOpenType = PopupType.None;
             }
-            else
-            {
-                Debug.LogWarning("[StagePlayerPopupCoordinator] StageShopManager.Instance is null.");
-            }
-
-            return true;
+            return opened;
         }
 
         /// <summary>실제 파티 런타임 데이터를 조회해 캐릭터 정보 팝업을 연다.</summary>
@@ -185,7 +198,8 @@ namespace Stage
                 return;
             }
 
-            if (currentOpenType == PopupType.StageShop
+            bool closedShop = currentOpenType == PopupType.StageShop;
+            if (closedShop
                 && StageShopManager.Instance != null
                 && StageShopManager.Instance.IsOpened)
             {
@@ -196,11 +210,19 @@ namespace Stage
             {
                 Debug.LogWarning("[StagePlayerPopupCoordinator] CloseCurrentPanel: UIPopupViewController.Instance is null.");
                 currentOpenType = PopupType.None;
+                if (closedShop)
+                {
+                    ShopClosed?.Invoke();
+                }
                 return;
             }
 
             UIPopupViewController.Instance.Close(currentOpenType);
             currentOpenType = PopupType.None;
+            if (closedShop)
+            {
+                ShopClosed?.Invoke();
+            }
         }
 
         // ── 내부 헬퍼 ────────────────────────────────────────────────
