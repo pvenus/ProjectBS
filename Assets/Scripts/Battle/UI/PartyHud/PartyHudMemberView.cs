@@ -8,7 +8,7 @@ namespace Battle.UI.PartyHud
     [DisallowMultipleComponent]
     public sealed class PartyHudMemberView : MonoBehaviour
     {
-        private const int ActiveSkillSlotCount = 4;
+        private const int ActiveSkillSlotCount = 5;
 
         [Header("Identity")]
         [SerializeField] private Image backgroundImage;
