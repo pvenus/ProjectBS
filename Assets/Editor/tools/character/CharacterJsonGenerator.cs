@@ -23,6 +23,7 @@ namespace ResourceTools.Character
             public string characterType;
             public string job;
             public float scale = 0.2f;
+            public string animationProfileJsonPath;
             public List<StatEntryJson> baseStats = new();
         }
 
@@ -137,11 +138,17 @@ namespace ResourceTools.Character
                     typeof(CharacterJob),
                     data.job,
                     true);
+            bool animationContentReady = TryPrepareAnimationContent(
+                data.characterId, data.animationProfileJsonPath);
+            List<CharacterAnimationClipEntry> generatedAnimationClips =
+                animationContentReady || characterSo.AnimationClips == null || characterSo.AnimationClips.Count == 0
+                    ? BuildAnimationClips(data.characterId)
+                    : characterSo.AnimationClips.ToList();
             characterSo.ApplyEditorData(
                 data.characterId,
                 characterType,
                 job,
-                BuildAnimationClips(data.characterId),
+                generatedAnimationClips,
                 BuildSkills(data.characterId),
                 ConvertBaseStats(data.baseStats),
                 data.scale > 0f ? data.scale : 0.2f);
@@ -164,7 +171,69 @@ namespace ResourceTools.Character
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
+            TryGenerateAnimationProfile(characterSo, data.characterId, data.animationProfileJsonPath,
+                outputFolder, assetName);
+
             return characterSo;
+        }
+
+        private static void TryGenerateAnimationProfile(CharacterSO characterSo, string characterId,
+            string profileJsonPath, string outputFolder, string assetName)
+        {
+            if (string.IsNullOrWhiteSpace(profileJsonPath))
+            {
+                Debug.Log($"[CharacterJsonGenerator] Animation profile is not configured; " +
+                    $"legacy CharacterSO generation remains active. Character={characterId}");
+                return;
+            }
+
+            if (!File.Exists(profileJsonPath))
+            {
+                Debug.LogWarning($"[CharacterJsonGenerator] Animation profile json is not available; " +
+                    $"legacy CharacterSO generation remains active. Character={characterId}, Path={profileJsonPath}");
+                return;
+            }
+
+            string profileAssetPath = $"{outputFolder}/{assetName}.animation-profile.asset";
+            try
+            {
+                CharacterAnimationProfileSO candidate =
+                    CharacterAnimationProfileAssetBuilder.Build(profileJsonPath, profileAssetPath);
+                if (!CharacterAnimationMigrationTransaction.TryPromote(characterSo, candidate, out string error))
+                {
+                    Debug.LogWarning($"[CharacterJsonGenerator] Animation profile promotion failed; " +
+                        $"the existing profile remains active. Character={characterId}, Reason={error}");
+                    return;
+                }
+
+                CharacterAnimationProfileReportWriter.Write(profileJsonPath, profileAssetPath, candidate);
+                Debug.Log($"[CharacterJsonGenerator] Animation profile generated and promoted: {profileAssetPath}");
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"[CharacterJsonGenerator] Animation profile generation was skipped; " +
+                    $"legacy CharacterSO generation remains active. Character={characterId}, " +
+                    $"Reason={exception.Message}");
+            }
+        }
+
+        private static bool TryPrepareAnimationContent(string characterId, string profileJsonPath)
+        {
+            if (string.IsNullOrWhiteSpace(profileJsonPath) ||
+                !string.Equals(characterId, SeojinG1AnimationV2PilotMaterializer.CharacterId,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (!SeojinG1AnimationV2PilotMaterializer.TryPrepareContent(out string prepareError))
+            {
+                Debug.LogWarning($"[CharacterJsonGenerator] Optional animation content preparation was skipped; " +
+                    $"legacy clips remain available. Character={characterId}, Reason={prepareError}");
+                return false;
+            }
+
+            return true;
         }
 
         private static string ResolveOutputFolder(string jsonPath)
@@ -304,6 +373,27 @@ namespace ResourceTools.Character
 
                 if (clip == null || !clip.name.StartsWith(characterId + ".", StringComparison.OrdinalIgnoreCase))
                 {
+                    continue;
+                }
+
+                // Canonical v2 body clips can be direction-neutral. Keep the legacy
+                // CharacterSO fallback complete by projecting those persisted clips
+                // into both directional slots instead of retaining deleted GUIDs.
+                if (clip.name.Equals(
+                        characterId + ".basic_attack.combo.continuous18.body",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    result["attack.left"] = clip;
+                    result["attack.right"] = clip;
+                    continue;
+                }
+
+                if (clip.name.Equals(
+                        characterId + ".death.c.user-manual",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    result["death.left"] = clip;
+                    result["death.right"] = clip;
                     continue;
                 }
 

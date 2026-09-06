@@ -1,0 +1,23 @@
+{
+  "asset": "black_cloth_raider-staging-v003",
+  "created": "2026-09-05",
+  "generator": "built-in ImageGen",
+  "identityReferenceOnly": "Assets/ImagesGenerated/Character/portrait/character.black_cloth_raider.1.portrait.png",
+  "existingFramePixelDonor": false,
+  "existingWholeSourcePixelDonor": false,
+  "imageForge": {
+    "available": false,
+    "inspect_image": "not callable in this session",
+    "separate_sprite_frames": "not callable in this session",
+    "cleanupOrResavePerformed": false,
+    "promotionPerformed": false
+  },
+  "actions": {
+    "Idle": {"path":"sources/Idle.png","sha256":"f3d4b3eb1e10f4788040efd5898c2330f760c09797509fb32ad0333dda14b3fc","size":[1254,1254],"hasAlpha":false,"status":"FAIL_NATIVE_ALPHA"},
+    "Move": {"path":"sources/Move.png","sha256":"9b012c6e94de4aad6c5dab1955b5cb83136840177589a18e5375aa06bba89112","size":[1024,1536],"hasAlpha":true,"status":"AWAITING_IMAGEFORGE"},
+    "BasicAttack": {"path":"sources/BasicAttack.png","sha256":"117d66138d8086da9f9cf6231450bf17ccfbc8d7862b03f6721c8831ddc96a23","size":[1217,1293],"hasAlpha":true,"status":"AWAITING_IMAGEFORGE"},
+    "Death": {"path":"sources/Death.png","sha256":"91eecec652d3178bb2ee1f7634258d71dd2f0042bc52874a35d09b966e29a048","size":[1024,1536],"hasAlpha":true,"status":"AWAITING_IMAGEFORGE"},
+    "Stun": {"path":"sources/Stun.png","sha256":"cafc3f4181d0044fc332b59f12ddfcd9a3d3bcd2d04f715cb8bffeeb46d6a72b","size":[1024,1536],"hasAlpha":true,"status":"AWAITING_IMAGEFORGE"},
+    "VFX": {"path":"sources/VFX.png","sha256":"e7a673fe6866b441fd44f371f1252d8c5287e4b1fe6dfad07a503a85073b62b1","size":[1235,1274],"hasAlpha":true,"status":"AWAITING_IMAGEFORGE"}
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schema": "projectbs.fresh-whole-visible-defect-reassessment.v2",
+  "supersedesForPromotionDecision": "The alpha0 RGB residue blocker in qa-receipt.json. Residue is WARN-only and does not determine these verdicts.",
+  "pixelChanges": 0,
+  "criteria": [
+    "visible background",
+    "visible clipping",
+    "full-pose missing, empty, or duplicate",
+    "foreign fragment",
+    "identity and equipment continuity"
+  ],
+  "actions": {
+    "black_cloth_raider": {
+      "Idle": {
+        "verdict": "PASS",
+        "sourceDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle",
+        "frameSha256": [
+          "0593df95d90ebc5f4824cd86502089bb37e3b63dd895ea9a7487a204fe3160be",
+          "eee0cd4fd5f2ef7be8a24b5d7423a08afb7b694d49d00b0c2fddd56bfcaec5cf",
+          "aab6f6b495d3ffe4d17c325c69b2b8e56e4bd44d92bf7acfc6f8a18c4209dfd6",
+          "73c16a7401fc8d007392c6734d92e47025a7c85dae8e1cd0eb751f1ccbbf2888"
+        ],
+        "reason": "No visible background, clipping, missing pose, foreign fragment, or identity/equipment discontinuity. Alpha0 RGB residue remains WARN-only."
+      },
+      "Move": {
+        "verdict": "FAIL",
+        "failures": [{"frame": 2, "visibleSide": "right", "reason": "pose reaches and is visibly clipped by the right canvas edge"}]
+      },
+      "BasicAttack": {
+        "verdict": "FAIL",
+        "failures": [{"frame": 2, "visibleSide": "right", "reason": "attack pose/extended limb reaches the right edge and equipment continuity is not fully preserved"}]
+      },
+      "Death": {
+        "verdict": "FAIL",
+        "failures": [
+          {"frame": 0, "visibleSide": "bottom", "reason": "lower body reaches and is clipped by bottom edge"},
+          {"frame": 1, "visibleSide": "bottom", "reason": "lower body reaches and is clipped by bottom edge"},
+          {"frame": 2, "visibleSide": "right", "reason": "fallen pose reaches and is clipped by right edge"},
+          {"frame": 3, "visibleSide": "left", "reason": "fallen pose reaches and is clipped by left edge"}
+        ]
+      },
+      "Stun": {
+        "verdict": "PASS",
+        "sourceDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun",
+        "frameSha256": [
+          "6792a3f05e4434df62cf922fdc187a255fa722ed54cd4873aa97ca357b66a446",
+          "21aab0120ed8f798ed85937e4bab7a8f64c994e9d67bd972e130f1d35abc0950",
+          "c2aea18bb9faf76d5cfdd6af7fc24c3f1d7ad9cc728b8133380129040a82922f",
+          "1a4931b80bca54ec3fb5e848db9b5bf3fbba6d0f4df14a78ed769a74615a3f31"
+        ],
+        "reason": "No visible background, clipping, missing pose, foreign fragment, or identity/equipment discontinuity. Alpha0 RGB residue remains WARN-only."
+      }
+    },
+    "chain_dragger_raider": {
+      "Idle": {
+        "verdict": "FAIL",
+        "failures": [{"frame": 3, "visibleSide": "left", "reason": "chain/equipment reaches and is clipped by left canvas edge"}]
+      },
+      "Move": {
+        "verdict": "FAIL",
+        "failures": [{"frame": 0, "visibleSide": "right", "reason": "chain/equipment reaches and is clipped by right canvas edge"}]
+      },
+      "BasicAttack": {
+        "verdict": "FAIL",
+        "failures": [
+          {"frame": 0, "visibleSide": "right", "reason": "chain/equipment is clipped by right canvas edge"},
+          {"frame": 1, "visibleSide": "right", "reason": "chain/equipment is clipped by right canvas edge"},
+          {"frame": 2, "visibleSide": "none", "reason": "full pose is missing; only a 23x46-pixel detached/foreign fragment remains"}
+        ]
+      },
+      "Death": {
+        "verdict": "FAIL",
+        "failures": [
+          {"frame": 0, "visibleSide": "bottom", "reason": "pose is severely clipped by bottom canvas edge"},
+          {"frame": 1, "visibleSide": "left+bottom", "reason": "pose is severely clipped by left and bottom canvas edges"},
+          {"frame": 2, "visibleSide": "none", "reason": "empty alpha; full pose missing"},
+          {"frame": 3, "visibleSide": "none", "reason": "empty alpha; duplicate of frame 2, SHA-256 787a9bca5cd56e3919ac3e53cb33ce607a61730788a2ad6f52765dd4633877d5"}
+        ]
+      },
+      "Stun": {
+        "verdict": "FAIL",
+        "failures": [{"frame": 3, "visibleSide": "left", "reason": "chain/equipment reaches and is clipped by left canvas edge"}]
+      }
+    }
+  },
+  "summary": {"passActions": 2, "failActions": 8},
+  "vfx": {
+    "black_cloth_raider": "FAIL: separate_sprite_frames expected 4 failed",
+    "chain_dragger_raider": "FAIL: separate_sprite_frames expected 4 failed",
+    "workaround": false,
+    "promotionByQa": false
+  },
+  "promotionAuthority": "root"
+}

@@ -1,0 +1,54 @@
+{
+  "status": "STAGING_QA_FAILED_NO_PROMOTION",
+  "engine": "ImageForge MCP",
+  "method": "inspect_image then separate_sprite_frames(expected_object_count=4)",
+  "selectedSettings": {"backgroundTolerance": 4, "alphaThreshold": 150, "minPixels": 200},
+  "expectedCountPerAction": 4,
+  "sources": {
+    "black_cloth_raider": {
+      "Idle": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/black_cloth_raider/Idle/imagegen-source.png", "1cedc966ec4525d300c6940b02cc0918c7a81d3ac39451c5023144d59207962a"],
+      "Move": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/black_cloth_raider/Move/imagegen-source.png", "76e47cf6335b0523ad7a04bf65d0f45aafc3115c82f8bb0defc3e93999c65eeb"],
+      "BasicAttack": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-basic-neon-v20260904/black_cloth_raider/body/imagegen-source.png", "f5f42810b1ed5264b3bbeed3e86d8d1f3ecfed4e19b1bde87a9472e01d9dd8a4"],
+      "Death": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/black_cloth_raider/Death/imagegen-source.png", "728d9525abc775233b170d78365b6f9a2549c49df8072d35d5ea37f72e7de7cc"],
+      "Stun": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/black_cloth_raider/Stun/imagegen-source.png", "23907d94206cf83084f39bcc1c1d40aafb4d65d1a4ef55b79ba3824b6caf3dfb"],
+      "VFX": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-basic-neon-v20260904/black_cloth_raider/vfx-candidate-v2/imagegen-source.png", "fbc0d447909d41f5deb17c92d6c59f7574daa7297cd0ce9b956f28d03f019212"]
+    },
+    "chain_dragger_raider": {
+      "Idle": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/chain_dragger_raider/Idle/imagegen-source.png", "dce1f388791ef6dd4ee466f9bf202b559f487b1399663458e5dae3402accc946"],
+      "Move": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/chain_dragger_raider/Move/imagegen-source.png", "4c70f821296cc7f936255ab41623764b4e1cf1bc2ff40ec231682e80f85c4c05"],
+      "BasicAttack": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-basic-neon-v20260904/chain_dragger_raider/body/imagegen-source.png", "6568d99acb8c0f6c5bbc9523aad0ab01d9f4adc3ddc3fa29c9e16dde9ce2ebe3"],
+      "Death": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/chain_dragger_raider/Death/imagegen-source.png", "9f63eaf46ea7001ecbb55680e784db9c9d3d905a24f94c00d2d2cdc3438bc607"],
+      "Stun": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/chain_dragger_raider/Stun/imagegen-source.png", "4c383b240a776fb8b4c42afb52da1856b72947982866b5969d43cad7c2419f87"],
+      "VFX": ["/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-basic-neon-v20260904/chain_dragger_raider/vfx/imagegen-source.png", "a360b3b66999b8d9a4b4b744c817da74bdbf1e15f333686f98667c527281fa3a"]
+    }
+  },
+  "results": {
+    "bodyActions": {
+      "detectedExpected4": "10/10",
+      "frames": 40,
+      "rgba": "40/40",
+      "uniqueSha": "40/40",
+      "alpha0RgbResidue0": "0/40",
+      "promotion": false
+    },
+    "vfxActions": {
+      "black_cloth_raider": "FAIL expected4 separation error",
+      "chain_dragger_raider": "FAIL 21 connected components detected",
+      "promotion": false
+    }
+  },
+  "clippedFrames": {
+    "black_cloth_raider": {"Move": [2,3], "BasicAttack": [2], "Death": [0,1,3], "Stun": [3]},
+    "chain_dragger_raider": {"Move": [1], "BasicAttack": [2], "Death": [1], "Stun": [2,3]}
+  },
+  "canvasMismatches": {
+    "black_cloth_raider/Move": {"actual": [618,637], "target": [627,627]},
+    "black_cloth_raider/BasicAttack": {"actual": [618,636], "target": [627,627]},
+    "chain_dragger_raider/BasicAttack": {"actual": [627,627], "target": [768,512]}
+  },
+  "promotionTarget": "/Users/pvenus/imageforge-mcp/generated_image/<npc>/<Action>/frame_01.png..frame_04.png",
+  "promotionPerformed": false,
+  "fallbackToPriorSplitFrames": false,
+  "otherEngineUsed": false,
+  "unityCanonicalGitWrites": false
+}

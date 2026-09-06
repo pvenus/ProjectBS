@@ -1,0 +1,2529 @@
+{
+  "schema": "projectbs.fresh-whole-imageforge-qa-selected.v1",
+  "status": "QA_PACKAGE_NO_PROMOTION",
+  "source": "direct MCP frame-0..3 only",
+  "actions": {
+    "black_cloth_raider": {
+      "Idle": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle/frame-manifest.json",
+        "manifestSha256": "aa7c31a04d276d1bb236dbd8efb3dc95b15b8bc1b2cba05820918cb6f4f30d92",
+        "manifest": {
+          "asset": "black_cloth_raider_fresh_whole_20260905",
+          "action": "Idle",
+          "canvas": [
+            627,
+            627
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle/frame-0.png",
+            "packagePath": "frames/black_cloth_raider/Idle/frame-0.png",
+            "sha256": "0593df95d90ebc5f4824cd86502089bb37e3b63dd895ea9a7487a204fe3160be",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              205,
+              38,
+              439,
+              585
+            ],
+            "alphaMargins": [
+              205,
+              38,
+              188,
+              42
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 325039,
+            "alphaZeroRgbResidue": 325039
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle/frame-1.png",
+            "packagePath": "frames/black_cloth_raider/Idle/frame-1.png",
+            "sha256": "eee0cd4fd5f2ef7be8a24b5d7423a08afb7b694d49d00b0c2fddd56bfcaec5cf",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              182,
+              38,
+              417,
+              585
+            ],
+            "alphaMargins": [
+              182,
+              38,
+              210,
+              42
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 325033,
+            "alphaZeroRgbResidue": 325033
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle/frame-2.png",
+            "packagePath": "frames/black_cloth_raider/Idle/frame-2.png",
+            "sha256": "aab6f6b495d3ffe4d17c325c69b2b8e56e4bd44d92bf7acfc6f8a18c4209dfd6",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              201,
+              33,
+              435,
+              582
+            ],
+            "alphaMargins": [
+              201,
+              33,
+              192,
+              45
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 325385,
+            "alphaZeroRgbResidue": 325385
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_91d249f6/Idle/frame-3.png",
+            "packagePath": "frames/black_cloth_raider/Idle/frame-3.png",
+            "sha256": "73c16a7401fc8d007392c6734d92e47025a7c85dae8e1cd0eb751f1ccbbf2888",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              182,
+              33,
+              417,
+              582
+            ],
+            "alphaMargins": [
+              182,
+              33,
+              210,
+              45
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 324739,
+            "alphaZeroRgbResidue": 324739
+          }
+        ]
+      },
+      "Move": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_e059fa3a/Move/frame-manifest.json",
+        "manifestSha256": "80bab6e66c85c4de3db96a59d8ea31254d867eb79840bac2e96b6e4610a9c670",
+        "manifest": {
+          "asset": "black_cloth_raider_fresh_whole_20260905",
+          "action": "Move",
+          "canvas": [
+            512,
+            768
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_e059fa3a/Move/frame-0.png",
+            "packagePath": "frames/black_cloth_raider/Move/frame-0.png",
+            "sha256": "0b6710ec7d8b8ea49e220d9492f3a4df9144cf55dbd90e830004ca298fe38573",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              79,
+              62,
+              485,
+              735
+            ],
+            "alphaMargins": [
+              79,
+              62,
+              27,
+              33
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 273095,
+            "alphaZeroRgbResidue": 273095
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_e059fa3a/Move/frame-1.png",
+            "packagePath": "frames/black_cloth_raider/Move/frame-1.png",
+            "sha256": "d21358ee8e4d5e122b8ca5729c251568851c7c1f2a37cbc549f32ed93446f0fa",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              37,
+              65,
+              459,
+              733
+            ],
+            "alphaMargins": [
+              37,
+              65,
+              53,
+              35
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 286160,
+            "alphaZeroRgbResidue": 286160
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_e059fa3a/Move/frame-2.png",
+            "packagePath": "frames/black_cloth_raider/Move/frame-2.png",
+            "sha256": "31c03b61907ffee0c827bcc95fa6211f3e030312d2b3ca9578e5a68328e7fc87",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              54,
+              21,
+              512,
+              668
+            ],
+            "alphaMargins": [
+              54,
+              21,
+              0,
+              100
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 21,
+                "max": 252
+              }
+            },
+            "alphaZeroPixels": 276064,
+            "alphaZeroRgbResidue": 276064
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_e059fa3a/Move/frame-3.png",
+            "packagePath": "frames/black_cloth_raider/Move/frame-3.png",
+            "sha256": "f86b87627968ebdd8cb5897917e109270d6cfb3a343866461fc1ddee520576fc",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              33,
+              19,
+              481,
+              656
+            ],
+            "alphaMargins": [
+              33,
+              19,
+              31,
+              112
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 280058,
+            "alphaZeroRgbResidue": 280058
+          }
+        ]
+      },
+      "BasicAttack": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_75ea74ec/BasicAttack/frame-manifest.json",
+        "manifestSha256": "eb20b3822feb3fe573f0cb3c94755daa1c9aaa2bf5c4d68f5ce46c20b9b5a950",
+        "manifest": {
+          "asset": "black_cloth_raider_fresh_whole_20260905",
+          "action": "BasicAttack",
+          "canvas": [
+            609,
+            647
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_75ea74ec/BasicAttack/frame-0.png",
+            "packagePath": "frames/black_cloth_raider/BasicAttack/frame-0.png",
+            "sha256": "c6ee3c68190b7bc645006b8c9549ed8b79889288b7327f1d907b03f98f564def",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              609,
+              647
+            ],
+            "alphaBBox": [
+              100,
+              26,
+              539,
+              636
+            ],
+            "alphaMargins": [
+              100,
+              26,
+              70,
+              11
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 294137,
+            "alphaZeroRgbResidue": 294137
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_75ea74ec/BasicAttack/frame-1.png",
+            "packagePath": "frames/black_cloth_raider/BasicAttack/frame-1.png",
+            "sha256": "05a5ba530e5d1913d39d0b5938834f0bd6345fec8fe259b41b8e1f9705ca3631",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              609,
+              647
+            ],
+            "alphaBBox": [
+              46,
+              57,
+              605,
+              611
+            ],
+            "alphaMargins": [
+              46,
+              57,
+              4,
+              36
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 302871,
+            "alphaZeroRgbResidue": 302871
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_75ea74ec/BasicAttack/frame-2.png",
+            "packagePath": "frames/black_cloth_raider/BasicAttack/frame-2.png",
+            "sha256": "9cd98a6942ec42fe108923f424254f9fc8189831abc7b2c984b2f2d3b2e48c83",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              609,
+              647
+            ],
+            "alphaBBox": [
+              36,
+              11,
+              609,
+              597
+            ],
+            "alphaMargins": [
+              36,
+              11,
+              0,
+              50
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 21,
+                "max": 251
+              }
+            },
+            "alphaZeroPixels": 290537,
+            "alphaZeroRgbResidue": 290537
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_75ea74ec/BasicAttack/frame-3.png",
+            "packagePath": "frames/black_cloth_raider/BasicAttack/frame-3.png",
+            "sha256": "c53de74ce247f3dbe8baed7207dde4df4237669ba3315b995503735bbed064bc",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              609,
+              647
+            ],
+            "alphaBBox": [
+              101,
+              89,
+              557,
+              565
+            ],
+            "alphaMargins": [
+              101,
+              89,
+              52,
+              82
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 303118,
+            "alphaZeroRgbResidue": 303118
+          }
+        ]
+      },
+      "Death": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_9f0f9dcd/Death/frame-manifest.json",
+        "manifestSha256": "bfdf584534f63b3f352c667f44127e4842dbd617ce1dde4f110912f0bf553dea",
+        "manifest": {
+          "asset": "black_cloth_raider_fresh_whole_20260905",
+          "action": "Death",
+          "canvas": [
+            512,
+            768
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_9f0f9dcd/Death/frame-0.png",
+            "packagePath": "frames/black_cloth_raider/Death/frame-0.png",
+            "sha256": "092e011e818ea4263ef71fdf7bc0c9ad1e406820231caecee2a9353de2c72a93",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              58,
+              101,
+              505,
+              768
+            ],
+            "alphaMargins": [
+              58,
+              101,
+              7,
+              0
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 69,
+                "max": 253
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 256321,
+            "alphaZeroRgbResidue": 256321
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_9f0f9dcd/Death/frame-1.png",
+            "packagePath": "frames/black_cloth_raider/Death/frame-1.png",
+            "sha256": "f31c4adc17a1b932b040d4a93eadd7b20a56c934bf830ecd17b9aae103be2a5f",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              8,
+              377,
+              472,
+              768
+            ],
+            "alphaMargins": [
+              8,
+              377,
+              40,
+              0
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 295,
+                "max": 253
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 290391,
+            "alphaZeroRgbResidue": 290391
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_9f0f9dcd/Death/frame-2.png",
+            "packagePath": "frames/black_cloth_raider/Death/frame-2.png",
+            "sha256": "512936d48d1383bc949976f488598c0f637179dcf3183754c03a7e64e528e9a3",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              68,
+              241,
+              512,
+              508
+            ],
+            "alphaMargins": [
+              68,
+              241,
+              0,
+              260
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 82,
+                "max": 253
+              }
+            },
+            "alphaZeroPixels": 314987,
+            "alphaZeroRgbResidue": 314987
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_9f0f9dcd/Death/frame-3.png",
+            "packagePath": "frames/black_cloth_raider/Death/frame-3.png",
+            "sha256": "8379a7f0becf239b50a275da5ef1370fd7fa4016455c8e8447d0445134be13b4",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              0,
+              378,
+              497,
+              686
+            ],
+            "alphaMargins": [
+              0,
+              378,
+              15,
+              82
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 95,
+                "max": 253
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 321942,
+            "alphaZeroRgbResidue": 321942
+          }
+        ]
+      },
+      "Stun": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun/frame-manifest.json",
+        "manifestSha256": "f62800dc873961ee3f320b0ca97325bde91b55fc41c55dbe38a142c3dde6c4fd",
+        "manifest": {
+          "asset": "black_cloth_raider_fresh_whole_20260905",
+          "action": "Stun",
+          "canvas": [
+            512,
+            768
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 3,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun/frame-0.png",
+            "packagePath": "frames/black_cloth_raider/Stun/frame-0.png",
+            "sha256": "6792a3f05e4434df62cf922fdc187a255fa722ed54cd4873aa97ca357b66a446",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              61,
+              98,
+              482,
+              760
+            ],
+            "alphaMargins": [
+              61,
+              98,
+              30,
+              8
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 255841,
+            "alphaZeroRgbResidue": 255841
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun/frame-1.png",
+            "packagePath": "frames/black_cloth_raider/Stun/frame-1.png",
+            "sha256": "21aab0120ed8f798ed85937e4bab7a8f64c994e9d67bd972e130f1d35abc0950",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              76,
+              139,
+              467,
+              753
+            ],
+            "alphaMargins": [
+              76,
+              139,
+              45,
+              15
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 272017,
+            "alphaZeroRgbResidue": 272017
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun/frame-2.png",
+            "packagePath": "frames/black_cloth_raider/Stun/frame-2.png",
+            "sha256": "c2aea18bb9faf76d5cfdd6af7fc24c3f1d7ad9cc728b8133380129040a82922f",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              77,
+              53,
+              491,
+              727
+            ],
+            "alphaMargins": [
+              77,
+              53,
+              21,
+              41
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 250767,
+            "alphaZeroRgbResidue": 250767
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider_fresh_whole_20260905_b4f9627d/Stun/frame-3.png",
+            "packagePath": "frames/black_cloth_raider/Stun/frame-3.png",
+            "sha256": "1a4931b80bca54ec3fb5e848db9b5bf3fbba6d0f4df14a78ed769a74615a3f31",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              512,
+              768
+            ],
+            "alphaBBox": [
+              75,
+              27,
+              465,
+              710
+            ],
+            "alphaMargins": [
+              75,
+              27,
+              47,
+              58
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 260523,
+            "alphaZeroRgbResidue": 260523
+          }
+        ]
+      }
+    },
+    "chain_dragger_raider": {
+      "Idle": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_0771f384/Idle/frame-manifest.json",
+        "manifestSha256": "66be0c710f4379442b0d1909c57dd1879cb6d6e7579da05e76b61b9996ecb9e6",
+        "manifest": {
+          "asset": "chain_dragger_raider_fresh_whole_20260905",
+          "action": "Idle",
+          "canvas": [
+            481,
+            819
+          ],
+          "frameCount": 4,
+          "rowCount": 1,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_0771f384/Idle/frame-0.png",
+            "packagePath": "frames/chain_dragger_raider/Idle/frame-0.png",
+            "sha256": "b2c1158ab126b24358560b207404573c4559c6e8694529b17024d2db884ba731",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              481,
+              819
+            ],
+            "alphaBBox": [
+              91,
+              147,
+              417,
+              718
+            ],
+            "alphaMargins": [
+              91,
+              147,
+              64,
+              101
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 299075,
+            "alphaZeroRgbResidue": 299075
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_0771f384/Idle/frame-1.png",
+            "packagePath": "frames/chain_dragger_raider/Idle/frame-1.png",
+            "sha256": "7dd924063481fed018055693f6c323781759eaa08e255643c89c31e02266d77b",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              481,
+              819
+            ],
+            "alphaBBox": [
+              46,
+              148,
+              412,
+              718
+            ],
+            "alphaMargins": [
+              46,
+              148,
+              69,
+              101
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 300066,
+            "alphaZeroRgbResidue": 300066
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_0771f384/Idle/frame-2.png",
+            "packagePath": "frames/chain_dragger_raider/Idle/frame-2.png",
+            "sha256": "e9c6e8c76ae94d0c5faf573153579cf27ead9be4bc3c8430743a0f2af32317b6",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              481,
+              819
+            ],
+            "alphaBBox": [
+              11,
+              146,
+              321,
+              718
+            ],
+            "alphaMargins": [
+              11,
+              146,
+              160,
+              101
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 302868,
+            "alphaZeroRgbResidue": 302868
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_0771f384/Idle/frame-3.png",
+            "packagePath": "frames/chain_dragger_raider/Idle/frame-3.png",
+            "sha256": "16a26c1509d538fdfe3b4bc0472c5b810e29ef381454c26f4aace27219cb6ca1",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              481,
+              819
+            ],
+            "alphaBBox": [
+              0,
+              152,
+              302,
+              717
+            ],
+            "alphaMargins": [
+              0,
+              152,
+              179,
+              102
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 39,
+                "max": 255
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 304377,
+            "alphaZeroRgbResidue": 304377
+          }
+        ]
+      },
+      "Move": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_ad8ace4d/Move/frame-manifest.json",
+        "manifestSha256": "b91ab0e49a52e2db50cfbf1c621dc7a53026aa7feda304b3413241f74d98108d",
+        "manifest": {
+          "asset": "chain_dragger_raider_fresh_whole_20260905",
+          "action": "Move",
+          "canvas": [
+            444,
+            887
+          ],
+          "frameCount": 4,
+          "rowCount": 1,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_ad8ace4d/Move/frame-0.png",
+            "packagePath": "frames/chain_dragger_raider/Move/frame-0.png",
+            "sha256": "1f624be6e3f551e5ec8b11a163c1d7e8ea99cd9b3f1ca439352f98709e2aec1d",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              21,
+              246,
+              444,
+              695
+            ],
+            "alphaMargins": [
+              21,
+              246,
+              0,
+              192
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 20,
+                "max": 255
+              }
+            },
+            "alphaZeroPixels": 323853,
+            "alphaZeroRgbResidue": 323853
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_ad8ace4d/Move/frame-1.png",
+            "packagePath": "frames/chain_dragger_raider/Move/frame-1.png",
+            "sha256": "915894c4a026b6fcc679c64c3de299b592826a5612ca4624ba40880d6b403ee5",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              39,
+              220,
+              441,
+              695
+            ],
+            "alphaMargins": [
+              39,
+              220,
+              3,
+              192
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 326501,
+            "alphaZeroRgbResidue": 326501
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_ad8ace4d/Move/frame-2.png",
+            "packagePath": "frames/chain_dragger_raider/Move/frame-2.png",
+            "sha256": "54178077c4fa2c70a8a02a1f316b747ce0566d58bbde27b3125e79e95d6b89bf",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              32,
+              245,
+              437,
+              696
+            ],
+            "alphaMargins": [
+              32,
+              245,
+              7,
+              191
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 323023,
+            "alphaZeroRgbResidue": 323023
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_ad8ace4d/Move/frame-3.png",
+            "packagePath": "frames/chain_dragger_raider/Move/frame-3.png",
+            "sha256": "06e86b0079840eaf94123174e434075c82f88fe9a6240ffbb70cb9e7a747d36b",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              15,
+              228,
+              408,
+              699
+            ],
+            "alphaMargins": [
+              15,
+              228,
+              36,
+              188
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 327554,
+            "alphaZeroRgbResidue": 327554
+          }
+        ]
+      },
+      "BasicAttack": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_2f9fd588/BasicAttack/frame-manifest.json",
+        "manifestSha256": "8d1ca09e85018e06a4685a10b6ee432db252fe1f1d4652a6117ecc8ad520520f",
+        "manifest": {
+          "asset": "chain_dragger_raider_fresh_whole_20260905",
+          "action": "BasicAttack",
+          "canvas": [
+            444,
+            887
+          ],
+          "frameCount": 4,
+          "rowCount": 1,
+          "selectedSettings": {
+            "backgroundTolerance": 2,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "FAIL foreign fragment / missing main pose at frame-2",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_2f9fd588/BasicAttack/frame-0.png",
+            "packagePath": "frames/chain_dragger_raider/BasicAttack/frame-0.png",
+            "sha256": "922cfafb89328b1c58f7c24494c5bfd8063d14de25ec0cbca0c38fc3d32aaf8e",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              8,
+              214,
+              444,
+              680
+            ],
+            "alphaMargins": [
+              8,
+              214,
+              0,
+              207
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 54,
+                "max": 255
+              }
+            },
+            "alphaZeroPixels": 318950,
+            "alphaZeroRgbResidue": 318950
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_2f9fd588/BasicAttack/frame-1.png",
+            "packagePath": "frames/chain_dragger_raider/BasicAttack/frame-1.png",
+            "sha256": "adf4554869ec7ebe90162ce12f8f446015fbd2d364067beb5c3f40e181fc772d",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              8,
+              208,
+              444,
+              682
+            ],
+            "alphaMargins": [
+              8,
+              208,
+              0,
+              205
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 18,
+                "max": 255
+              }
+            },
+            "alphaZeroPixels": 322527,
+            "alphaZeroRgbResidue": 322527
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_2f9fd588/BasicAttack/frame-2.png",
+            "packagePath": "frames/chain_dragger_raider/BasicAttack/frame-2.png",
+            "sha256": "719dd93d546739780a57a9f80ed6968eefa94534de57aaa1199848fc2b727e3f",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              395,
+              405,
+              418,
+              451
+            ],
+            "alphaMargins": [
+              395,
+              405,
+              26,
+              436
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 393584,
+            "alphaZeroRgbResidue": 393584
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_2f9fd588/BasicAttack/frame-3.png",
+            "packagePath": "frames/chain_dragger_raider/BasicAttack/frame-3.png",
+            "sha256": "3357aff02da4b45362eaa1b6fa79d8b72213c7d706c29c300e383e103c10674e",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              5,
+              248,
+              435,
+              681
+            ],
+            "alphaMargins": [
+              5,
+              248,
+              9,
+              206
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 331086,
+            "alphaZeroRgbResidue": 331086
+          }
+        ]
+      },
+      "Death": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_f8cf483d/Death/frame-manifest.json",
+        "manifestSha256": "923048c1c5fbdfa7ab0130fcbceae3dc6181bb2c192952786bcfc51dad142b92",
+        "manifest": {
+          "asset": "chain_dragger_raider_fresh_whole_20260905",
+          "action": "Death",
+          "canvas": [
+            677,
+            388
+          ],
+          "frameCount": 4,
+          "rowCount": 2,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "FAIL empty alpha frames 2 and 3",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_f8cf483d/Death/frame-0.png",
+            "packagePath": "frames/chain_dragger_raider/Death/frame-0.png",
+            "sha256": "d0443dadb0616e61d5aa2f95d3e2fd5bf64d7ff366f6db29079f95ace70f48f3",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              677,
+              388
+            ],
+            "alphaBBox": [
+              152,
+              195,
+              381,
+              388
+            ],
+            "alphaMargins": [
+              152,
+              195,
+              296,
+              0
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 210,
+                "max": 255
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 233030,
+            "alphaZeroRgbResidue": 233030
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_f8cf483d/Death/frame-1.png",
+            "packagePath": "frames/chain_dragger_raider/Death/frame-1.png",
+            "sha256": "d56f9df1a63a7bf3897a2f0f1526a5fcf8836bce7e0f37d421940d62fe280ec4",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              677,
+              388
+            ],
+            "alphaBBox": [
+              0,
+              344,
+              50,
+              388
+            ],
+            "alphaMargins": [
+              0,
+              344,
+              627,
+              0
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              255,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 49,
+                "max": 255
+              },
+              "left": {
+                "nonzero": 26,
+                "max": 255
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 261934,
+            "alphaZeroRgbResidue": 261934
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_f8cf483d/Death/frame-2.png",
+            "packagePath": "frames/chain_dragger_raider/Death/frame-2.png",
+            "sha256": "787a9bca5cd56e3919ac3e53cb33ce607a61730788a2ad6f52765dd4633877d5",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              677,
+              388
+            ],
+            "alphaBBox": null,
+            "alphaMargins": null,
+            "emptyAlpha": true,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 262676,
+            "alphaZeroRgbResidue": 262676
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_f8cf483d/Death/frame-3.png",
+            "packagePath": "frames/chain_dragger_raider/Death/frame-3.png",
+            "sha256": "787a9bca5cd56e3919ac3e53cb33ce607a61730788a2ad6f52765dd4633877d5",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              677,
+              388
+            ],
+            "alphaBBox": null,
+            "alphaMargins": null,
+            "emptyAlpha": true,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 262676,
+            "alphaZeroRgbResidue": 262676
+          }
+        ]
+      },
+      "Stun": {
+        "result": "FAIL",
+        "manifestPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_943262f3/Stun/frame-manifest.json",
+        "manifestSha256": "0984822a44fb5233dda0f9b7e7c0df200374d59e01090806148409075a9fc4a0",
+        "manifest": {
+          "asset": "chain_dragger_raider_fresh_whole_20260905",
+          "action": "Stun",
+          "canvas": [
+            444,
+            887
+          ],
+          "frameCount": 4,
+          "rowCount": 1,
+          "selectedSettings": {
+            "backgroundTolerance": 4,
+            "alphaThreshold": 150
+          }
+        },
+        "exact4AndOrder": true,
+        "framePhysicalPass": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "visualQa": "pending_contact_readback",
+        "frames": [
+          {
+            "frame": 0,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_943262f3/Stun/frame-0.png",
+            "packagePath": "frames/chain_dragger_raider/Stun/frame-0.png",
+            "sha256": "6ae9fe96665c034b4cc9710b0a1cce28c827585627f727a4f696e2eb8d593fc1",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              56,
+              152,
+              429,
+              713
+            ],
+            "alphaMargins": [
+              56,
+              152,
+              15,
+              174
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 287257,
+            "alphaZeroRgbResidue": 287257
+          },
+          {
+            "frame": 1,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_943262f3/Stun/frame-1.png",
+            "packagePath": "frames/chain_dragger_raider/Stun/frame-1.png",
+            "sha256": "d73c3201d12a32adfdbcc4f3e9142f653680567bd627b2aa30c265bd0a4220e5",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              26,
+              206,
+              409,
+              713
+            ],
+            "alphaMargins": [
+              26,
+              206,
+              35,
+              174
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 300027,
+            "alphaZeroRgbResidue": 300027
+          },
+          {
+            "frame": 2,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_943262f3/Stun/frame-2.png",
+            "packagePath": "frames/chain_dragger_raider/Stun/frame-2.png",
+            "sha256": "ce02202dd786676a5fc1a425a32828db7bff4db69c97f98c0ac067cea6818f3a",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              11,
+              170,
+              370,
+              713
+            ],
+            "alphaMargins": [
+              11,
+              170,
+              74,
+              174
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 299543,
+            "alphaZeroRgbResidue": 299543
+          },
+          {
+            "frame": 3,
+            "sourcePath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_fresh_whole_20260905_943262f3/Stun/frame-3.png",
+            "packagePath": "frames/chain_dragger_raider/Stun/frame-3.png",
+            "sha256": "4d7d75386ae1d44970e36b797aea9d2e0d9e409b9b3ad895004c9c19dbe7756a",
+            "packageByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              444,
+              887
+            ],
+            "alphaBBox": [
+              0,
+              189,
+              342,
+              723
+            ],
+            "alphaMargins": [
+              0,
+              189,
+              102,
+              164
+            ],
+            "emptyAlpha": false,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 118,
+                "max": 255
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroPixels": 304460,
+            "alphaZeroRgbResidue": 304460
+          }
+        ]
+      }
+    }
+  },
+  "inventory": {
+    "actions": 10,
+    "frames": 40,
+    "shaUnique": false
+  },
+  "vfx": {
+    "black_cloth_raider": {
+      "freshSourceExists": true,
+      "separateSpriteFramesExpected4": "FAIL",
+      "workaround": false
+    },
+    "chain_dragger_raider": {
+      "freshSourceExists": true,
+      "separateSpriteFramesExpected4": "FAIL",
+      "workaround": false
+    },
+    "packagedFrames": 0
+  },
+  "previews": [
+    {
+      "file": "previews/black_cloth_raider-Idle-contact.png",
+      "sha256": "2957fd9194a5675d80a667c7749bf40bd266a1de2c2eb62f5a580c3b9365bb37"
+    },
+    {
+      "file": "previews/black_cloth_raider-Idle.gif",
+      "sha256": "080794f8c46602c9320100a5e3ae4b6799c34d56ed40bb8e7f1c3da35813ed39"
+    },
+    {
+      "file": "previews/black_cloth_raider-Move-contact.png",
+      "sha256": "04517978fa4e15e01f420f0e0a393b24bc13588f69de7bcda8f8a5bff96c3c63"
+    },
+    {
+      "file": "previews/black_cloth_raider-Move.gif",
+      "sha256": "84c92c1bb5122ed5ce169c9eefe0c1e55d600a048c499fd21dd2e23bfa8ff555"
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack-contact.png",
+      "sha256": "ae168a78c5f1d23a2d37c3266b4adef245d4cf9c6d5a88fe2df8229291b4f840"
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack.gif",
+      "sha256": "a10dd534df00e308c195a252c7737c35e641f639a8755797bc33d25d41004ec7"
+    },
+    {
+      "file": "previews/black_cloth_raider-Death-contact.png",
+      "sha256": "cd3aa28da0e9fddf539209ccb835cbb6b9b214404a1619f43b819dfc4d23cc7b"
+    },
+    {
+      "file": "previews/black_cloth_raider-Death.gif",
+      "sha256": "54ca54084caf02dc0b48c2e0df3879ce710b39be076abd0081b7fd94b714f1f0"
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun-contact.png",
+      "sha256": "0f216541e8a479963223d07de8caa01f0c7d52dddbe570cb880b4bad792f923b"
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun.gif",
+      "sha256": "fb069628670646a230619f07edda20f13c73c3d82ad982ab05a5d550fcb6fee2"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle-contact.png",
+      "sha256": "b641938a2dc8e3ae9a3f43ec70799c267f568ddc8cd9896e4c8a612f056bcb00"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle.gif",
+      "sha256": "9913271769aed9c32cd010fe0fd84db2f93fb81d739946699c92fcdba8a220b6"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move-contact.png",
+      "sha256": "0bfe36ec949432c141b7594ef82f2b6175c3e6a873af20aaedf21c07fa479c07"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move.gif",
+      "sha256": "3c3ce637134c48297647086c551f2f237d4d871509e093ee77c2adeb9b10283a"
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack-contact.png",
+      "sha256": "52bbd37cebbe21b8bbe201701cf2e204d549faf79a6ff0c9663e9e699d808f7e"
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack.gif",
+      "sha256": "22307a75662c12e63846863742169bb870950e78ceaace923302d6f1129b7c2b"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death-contact.png",
+      "sha256": "1c5dd22e8093a5b2b9dd56c87d4583ff273b47eccc1297e1d2fc4dce56030d70"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death.gif",
+      "sha256": "3afcf15f294c99ae3314cd701b5c925f918b4c13414fbfe7d56f042f009aef51"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun-contact.png",
+      "sha256": "687ed4f9981e75b566cc8c98dc7e4cf82857ded7a6ec2d8e639a87605db4debf"
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun.gif",
+      "sha256": "84c51f31fea2855f619501e1a56914d7f9174c34e614cdd962be4e7ae85b918c"
+    }
+  ],
+  "mutations": {
+    "mcpPngBytes": 0,
+    "resaves": 0,
+    "transforms": 0,
+    "finalGeneratedImagePromotion": 0,
+    "Unity": 0,
+    "canonical": 0
+  }
+}

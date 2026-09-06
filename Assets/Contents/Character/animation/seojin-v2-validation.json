@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 2,
+  "status": "P4_SEOJIN_G1_CONTENT_COMPLETE_STATIC_PASS",
+  "characters": [
+    { "characterId": "character.seojin.1", "legacyLocomotion": false, "basicContinuous18": true, "skillActions": ["active_1", "active_4"], "missingSelections": [], "pendingPhysical": [], "pendingMaterialization": [] },
+    { "characterId": "character.seojin.2", "legacyLocomotion": true, "skillActions": ["active_1", "active_2", "active_4"], "missingSelections": ["Death", "AttackDisabledCc"] },
+    { "characterId": "character.seojin.3", "legacyLocomotion": true, "skillActions": ["active_1", "active_2", "active_3", "active_4"], "missingSelections": ["Death", "AttackDisabledCc"] }
+  ],
+  "notes": [
+    "G1 Active2/Active3 were not invented.",
+    "Existing SkillCastSO bodyActionClip bindings remain authoritative until complete profiles pass validation.",
+    "DeathC and StunB were materialized by the Unity serialization API and the generated profile validation report is PASS.",
+    "Seojin G1 is the first content-complete v2 pilot; G2/G3 remain bounded legacy/profile migration work."
+  ]
+}

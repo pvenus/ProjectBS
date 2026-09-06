@@ -1,0 +1,376 @@
+{
+  "status": "REVIEW_ONLY_NOT_INSTALL_AUTHORITY",
+  "revision": "revision-04-right-diagonal-walk-run-white",
+  "reference": "/Users/pvenus/ProjectBS-image-python/downloads/exec-600783ed-96f5-4d18-9ddd-d1dbaa661289_7d56b10b/frames/frame_001.png",
+  "background_prompt_exact_phrase": "a completely uniform, flat, opaque pure white (#FFFFFF) background, edge to edge, with no pattern, no grid, no tiles, no floor line, no shadow, no texture, no gradient",
+  "raw_board_count": 6,
+  "review_gif_count": 6,
+  "physical_frames_per_gif": 4,
+  "raw_boards_preserved_byte_for_byte": true,
+  "background_or_frame_position_processing": false,
+  "canonical_install": false,
+  "overview": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/right-diagonal-walk-run-A-B-C-overview.png",
+  "overview_sha256": "130ab842d7bf7cb09244f2baa4decd4818b42c54b2af34cf89f25fc43196a4dc",
+  "records": [
+    {
+      "action": "RightDiagonalWalk",
+      "variant": "A",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-056f3b03-efcb-4274-8ded-742fba2352f9.png",
+      "source_sha256": "8961e5d73d096621c31bfb0687e3a0efb94f891baa216f984f24550d2b888f9e",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalwalk-a-four-pose-white.png",
+      "raw_board_sha256": "8961e5d73d096621c31bfb0687e3a0efb94f891baa216f984f24550d2b888f9e",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.126644,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalwalk-a-four-pose-white.gif",
+      "gif_sha256": "4c2ad36f29a1800d58ba26383aba177956124fdc59648c7e3860d43097402982",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalwalk-a-four-pose-white-contact.png",
+      "contact_sha256": "d22902457ab1f8e3c3ca282cef7ee9d27c321e02174f1c24547bdbb60aeba1bb"
+    },
+    {
+      "action": "RightDiagonalWalk",
+      "variant": "B",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-3ac1e5a2-1af9-42cb-a43f-5ab08c06010e.png",
+      "source_sha256": "d2e17883d5035f03a0589803572fd03e9900fbe670a8b7666809e239611da161",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalwalk-b-four-pose-white.png",
+      "raw_board_sha256": "d2e17883d5035f03a0589803572fd03e9900fbe670a8b7666809e239611da161",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.114431,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            253
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalwalk-b-four-pose-white.gif",
+      "gif_sha256": "84afa3774c0b8a0ce2db94915b57ec47b352cec4504e46e70cf455b894a981ed",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalwalk-b-four-pose-white-contact.png",
+      "contact_sha256": "c8424671f9fbd08e8811b79f50e77e4c8d9d3901723542100798978631e1254a"
+    },
+    {
+      "action": "RightDiagonalWalk",
+      "variant": "C",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-12d2eb6a-11c0-41e0-a6db-6d4cf1f1a19f.png",
+      "source_sha256": "dd92a5a62ffa784055a9b106241780eed507c9b3902020046fe8e931ebbadac5",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalwalk-c-four-pose-white.png",
+      "raw_board_sha256": "dd92a5a62ffa784055a9b106241780eed507c9b3902020046fe8e931ebbadac5",
+      "dimensions": [
+        1694,
+        929
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 423,
+        "height": 929,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.132482,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalwalk-c-four-pose-white.gif",
+      "gif_sha256": "65622dd8dca2250035c35055bc2e23707f366c90fade46e7aef373b2c6c5f80e",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalwalk-c-four-pose-white-contact.png",
+      "contact_sha256": "fd3f195521a8f76d3e11c05aed59b609de5bf1df457ae8d9461418d7772fb739"
+    },
+    {
+      "action": "RightDiagonalRun",
+      "variant": "A",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-aed78ed6-9fb5-40e1-862c-660015673b1c.png",
+      "source_sha256": "ca6bab0bc2cc094e1ab0446bdb2661e6b5bdd8054f786c104ddaf0e68a762582",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalrun-a-four-pose-white.png",
+      "raw_board_sha256": "ca6bab0bc2cc094e1ab0446bdb2661e6b5bdd8054f786c104ddaf0e68a762582",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact_drive",
+        "F1_airborne_passing",
+        "F2_right_contact_drive",
+        "F3_airborne_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.118752,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalrun-a-four-pose-white.gif",
+      "gif_sha256": "cb55994bacc20ae76e4e9d946877d3af5ee41995e9753b7248e1eca23623cacf",
+      "gif_frames": 4,
+      "gif_delay_ms": 120,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalrun-a-four-pose-white-contact.png",
+      "contact_sha256": "84322de29d395f449b855bd54ceae787bad9ab3197c89e30defdc63dc9af2cfd"
+    },
+    {
+      "action": "RightDiagonalRun",
+      "variant": "B",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-864113e5-3bcf-4ef2-97a2-e0a76e11afeb.png",
+      "source_sha256": "a3894ec76b8ace186c8339fc6cfa3c007a6098eef0c8873b1664339a83d4c0c6",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalrun-b-four-pose-white.png",
+      "raw_board_sha256": "a3894ec76b8ace186c8339fc6cfa3c007a6098eef0c8873b1664339a83d4c0c6",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact_drive",
+        "F1_airborne_passing",
+        "F2_right_contact_drive",
+        "F3_airborne_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.133033,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            253
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalrun-b-four-pose-white.gif",
+      "gif_sha256": "aadecb4a4fdf81862dae540f7de7ec9f09e2db507fc551b5e2bc8434f3f19d3d",
+      "gif_frames": 4,
+      "gif_delay_ms": 120,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalrun-b-four-pose-white-contact.png",
+      "contact_sha256": "c344a78d7615e465b9a58f9d49b29b75dd86357c4cb58b01bda6d0c97ffd931d"
+    },
+    {
+      "action": "RightDiagonalRun",
+      "variant": "C",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-4d7c25ed-24ec-449e-8713-970b447b0ddf.png",
+      "source_sha256": "4199a9cbd974ba6c2d2faf3cab5e48ab57cd709afd54981147525d12d0f197bc",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/raw-boards/rightdiagonalrun-c-four-pose-white.png",
+      "raw_board_sha256": "4199a9cbd974ba6c2d2faf3cab5e48ab57cd709afd54981147525d12d0f197bc",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact_drive",
+        "F1_airborne_passing",
+        "F2_right_contact_drive",
+        "F3_airborne_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.128147,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/gifs/rightdiagonalrun-c-four-pose-white.gif",
+      "gif_sha256": "ed10ed1d26f36fde1517b580175b308d93e1a31dda70e75344a07580bc5cfbba",
+      "gif_frames": 4,
+      "gif_delay_ms": 120,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-04-right-diagonal-walk-run-white/contacts/rightdiagonalrun-c-four-pose-white-contact.png",
+      "contact_sha256": "438bda6c347ffde4b07ef0b589833fe7fc4dbfb71154ae74d74529e6a19aee24"
+    }
+  ]
+}

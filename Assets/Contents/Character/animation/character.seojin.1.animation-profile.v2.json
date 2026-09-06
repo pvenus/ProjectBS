@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "generatorVersion": "character-animation-profile-builder/2.0.0",
+  "sourceDigest": "sha256:37a234a2a7e766973cb6518c211e5684ae59429dcef6a56de6322ebf82b892c1",
+  "changeLog": "Seojin G1 P2 pilot: selected actions34, Basic continuous18, DeathC, StunB",
+  "contentContractReceipt": "sha256:1235c39e7e30d429737c6f0e6ff6ce42d75f241aee3ba2a35daa3feda1168737",
+  "productionGovernanceReceipt": "sha256:156bed56f5247b93d3f315463651f223cd044fca879f543336c83b39c7c23864",
+  "characterId": "character.seojin.1",
+  "attackDisabledCcReachable": true,
+  "states": [
+    { "animationId": "character.seojin.1.idle.user-manual", "slot": "Idle", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [
+      { "direction": "IdleUpRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.idle.user-manual.Right.anim" },
+      { "direction": "IdleUpLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.idle.user-manual.Left.anim" },
+      { "direction": "IdleDownRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.idle.user-manual.Right.anim" },
+      { "direction": "IdleDownLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.idle.user-manual.Left.anim" }
+    ]},
+    { "animationId": "character.seojin.1.run.user-manual", "slot": "Move", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [
+      { "direction": "MoveUpRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.run.user-manual.Right.anim" },
+      { "direction": "MoveUpLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.run.user-manual.Left.anim" },
+      { "direction": "MoveDownRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.run.user-manual.Right.anim" },
+      { "direction": "MoveDownLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.run.user-manual.Left.anim" }
+    ]},
+    { "animationId": "character.seojin.1.basic.continuous18", "slot": "BasicAttack", "loop": false, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [
+      { "direction": "AttackUpRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.basic_attack.combo.continuous18.body.anim" },
+      { "direction": "AttackUpLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.basic_attack.combo.continuous18.body.anim" },
+      { "direction": "AttackDownRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.basic_attack.combo.continuous18.body.anim" },
+      { "direction": "AttackDownLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.basic_attack.combo.continuous18.body.anim" }
+    ]},
+    { "animationId": "character.seojin.1.death.c", "slot": "Death", "loop": false, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [
+      { "direction": "DeathUpRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.death.c.user-manual.anim" },
+      { "direction": "DeathUpLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.death.c.user-manual.anim" },
+      { "direction": "DeathDownRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.death.c.user-manual.anim" },
+      { "direction": "DeathDownLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.death.c.user-manual.anim" }
+    ]},
+    { "animationId": "character.seojin.1.stun.b", "slot": "AttackDisabledCc", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [
+      { "direction": "IdleUpRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.stun.b.user-manual.anim" },
+      { "direction": "IdleUpLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.stun.b.user-manual.anim" },
+      { "direction": "IdleDownRight", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.stun.b.user-manual.anim" },
+      { "direction": "IdleDownLeft", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.stun.b.user-manual.anim" }
+    ]}
+  ],
+  "skillActions": [
+    { "skillId": "skill.character.seojin.1.active_1.active_1", "animationId": "character.seojin.skill.charge.user-manual", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.charge.user-manual.anim", "playbackSpeed": 1.0, "mirrorWithFacing": true, "fallback": "BasicAttack", "fallbackReceipt": "", "markerIntents": ["cast", "contact", "restore"], "interruptPolicy": "CancelToLocomotion", "restorePolicy": "PreviousLocomotion", "gradeReuseSource": "shared:seojin.g1-g3.charge", "exceptionReceipt": "" },
+    { "skillId": "skill.character.seojin.1.active_4.swift_step", "animationId": "character.seojin.skill.swift-step.user-manual", "clipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.dash.user-manual.anim", "playbackSpeed": 1.0, "mirrorWithFacing": true, "fallback": "Rendererless", "fallbackReceipt": "", "markerIntents": ["prepare", "movement-start", "terminal", "restore"], "interruptPolicy": "CancelToLocomotion", "restorePolicy": "PreviousLocomotion", "gradeReuseSource": "shared:seojin.g1-g3.swift-step", "exceptionReceipt": "" }
+  ]
+}

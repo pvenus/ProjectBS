@@ -1,0 +1,49 @@
+{
+  "assignment": "Seojin G2/G3 canonical body variation complete76",
+  "producer": "담채",
+  "productionMode": "built-in ImageGen, one call per standalone frame",
+  "status": "blocked_quality_gate",
+  "canonicalInstallPerformed": false,
+  "attempts": {
+    "G2": {
+      "idle": {
+        "requestedFrames": 6,
+        "generatedFrames": 6,
+        "status": "rejected_action_whole",
+        "reason": "Five direct outputs baked a checkerboard into RGB; the one background-extraction retry produced native RGBA but changed scale/placement and cannot form a coherent six-frame loop."
+      },
+      "run": {
+        "requestedFrames": 4,
+        "generatedFrames": 4,
+        "status": "rejected_action_whole",
+        "reason": "Direct outputs baked checkerboard RGB and show inconsistent sword handling, character scale, and foot anchors."
+      },
+      "basic_attack": {
+        "requestedFrames": 18,
+        "generatedFrames": 18,
+        "status": "rejected_action_whole",
+        "segments": [[0,6],[6,12],[12,18]],
+        "contacts": [4,10,16],
+        "reason": "Independent generation caused severe frame-to-frame discontinuity in sword orientation, armor placement, body proportions, costume details, facing, and scale. Most outputs baked checkerboard RGB; frame 04 added a black vignette. This cannot be a continuous three-strike animation and must not be mixed."
+      },
+      "death": {"requestedFrames": 6, "generatedFrames": 0, "status": "not_started_after_block"},
+      "stun": {"requestedFrames": 4, "generatedFrames": 0, "status": "not_started_after_block"}
+    },
+    "G3": {
+      "status": "not_started_after_G2_quality_gate_block"
+    }
+  },
+  "canvasContract": {
+    "height": 340,
+    "widths": {"idle": 412, "run": 467, "basic_attack": 568, "death": 441, "stun": 417},
+    "rootDisplacement": 0,
+    "footAnchor": "must match G1",
+    "result": "not satisfied by generated outputs"
+  },
+  "references": {
+    "G2Identity": "Assets/ImagesGenerated/Character/portrait/character.seojin.2.portrait.png",
+    "G3Identity": "Assets/ImagesGenerated/Character/portrait/character.seojin.3.portrait.png",
+    "G1MotionRoot": "Assets/ImagesGenerated/Character/animation/character.seojin.1"
+  },
+  "requiredResolution": "A production path with deterministic character/pose consistency and true-alpha control is required. CLI/API fallback was not authorized, and the imagegen skill forbids silently switching to it."
+}

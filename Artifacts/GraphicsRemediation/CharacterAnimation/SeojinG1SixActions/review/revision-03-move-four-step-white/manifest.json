@@ -1,0 +1,197 @@
+{
+  "status": "REVIEW_ONLY_NOT_INSTALL_AUTHORITY",
+  "revision": "revision-03-move-four-step-white",
+  "supersedes_for_move_selection": "revision-02-white-background Move A/B/C",
+  "reference": "/Users/pvenus/ProjectBS-image-python/downloads/exec-600783ed-96f5-4d18-9ddd-d1dbaa661289_7d56b10b/frames/frame_001.png",
+  "background_prompt_exact_phrase": "a completely uniform, flat, opaque pure white (#FFFFFF) background, edge to edge, with no pattern, no grid, no tiles, no floor line, no shadow, no texture, no gradient",
+  "raw_boards": 3,
+  "review_gifs": 3,
+  "physical_frames_per_gif": 4,
+  "raw_boards_preserved_byte_for_byte": true,
+  "background_or_frame_position_processing": false,
+  "canonical_install": false,
+  "overview": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/contacts/move-A-B-C-four-step-overview.png",
+  "overview_sha256": "a0e0d048edeafa8a075e52c04c0d40e76ee586722490fb68498f19a4cc936cd0",
+  "records": [
+    {
+      "action": "Move",
+      "variant": "A",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-e5605614-f3ec-43be-aacf-5da8edfd7a27.png",
+      "source_sha256": "5967fe92cb0c5713a30aae3fb47cd18245d8a5b22e9ad20e0d76653b8f6a4ca6",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/raw-boards/move-a-four-step-white.png",
+      "raw_board_sha256": "5967fe92cb0c5713a30aae3fb47cd18245d8a5b22e9ad20e0d76653b8f6a4ca6",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.118377,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/gifs/move-a-four-step-white.gif",
+      "gif_sha256": "b09844e0a7df0f75de6742e4476b6e738326b544cc88e42de316c3db61db8f34",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/contacts/move-a-four-step-white-contact.png",
+      "contact_sha256": "2d9048180c70fa784a0a935f5dd89a62244ce3f3c363c3152cd132afa5c74ebb"
+    },
+    {
+      "action": "Move",
+      "variant": "B",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-6d7c4e73-680f-42a4-bfb2-e6d94d65b68d.png",
+      "source_sha256": "e5042528f0de6ec6c9c80980b75ff4f19f996c8a14097be9e4436aeb542a435c",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/raw-boards/move-b-four-step-white.png",
+      "raw_board_sha256": "e5042528f0de6ec6c9c80980b75ff4f19f996c8a14097be9e4436aeb542a435c",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.11274,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/gifs/move-b-four-step-white.gif",
+      "gif_sha256": "9104166118d0703ed11f4644b148eb52534343cc00a77d4fa2d8b76994d7e633",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/contacts/move-b-four-step-white-contact.png",
+      "contact_sha256": "2ecc683d931688f2a1d03297efbdaf616ac09cd1787eef61b229112f3d80e975"
+    },
+    {
+      "action": "Move",
+      "variant": "C",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-2aeb8b60-a969-4724-b911-d86015e4a2c6.png",
+      "source_sha256": "90dcde51f205f683f20f7bcce4176b6f9d73c04f23cb3c4bf90fe04ce59dafc4",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/raw-boards/move-c-four-step-white.png",
+      "raw_board_sha256": "90dcde51f205f683f20f7bcce4176b6f9d73c04f23cb3c4bf90fe04ce59dafc4",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_order": [
+        "F0_left_contact",
+        "F1_passing",
+        "F2_right_contact",
+        "F3_passing_to_F0"
+      ],
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.127208,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/gifs/move-c-four-step-white.gif",
+      "gif_sha256": "a29f778835f005b240daaaa37a0a09102fa7dbf5d6800b749bdac15a9d748eae",
+      "gif_frames": 4,
+      "gif_delay_ms": 140,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-03-move-four-step-white/contacts/move-c-four-step-white-contact.png",
+      "contact_sha256": "b1c1d6062c3258e406eae47ad3813160e970b756430a5dae2842e8fe9626a563"
+    }
+  ]
+}

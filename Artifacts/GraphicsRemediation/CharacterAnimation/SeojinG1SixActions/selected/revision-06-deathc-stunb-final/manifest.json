@@ -1,0 +1,415 @@
+{
+  "status": "USER_POSTPROCESSED_FINAL_SELECTION_PACKAGE_INSTALL_BY_HANGYEOL_ONLY",
+  "closes_pending_user_selection": [
+    "Seojin Death",
+    "Seojin Stun"
+  ],
+  "selected_actions": [
+    {
+      "action": "Death",
+      "variant": "C",
+      "frames": 6,
+      "runtime_loop": false,
+      "terminal_frame": 5
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "frames": 4,
+      "runtime_loop": true
+    }
+  ],
+  "source_pixels_mutated": false,
+  "background_removal_or_reposition": false,
+  "audit": {
+    "counts_pass": true,
+    "rgba_pass": true,
+    "unique_pass": true,
+    "alpha_border_zero_pass": true,
+    "clipping_absent_pass": true,
+    "alpha0_rgb_residue_zero_pass": false
+  },
+  "alpha0_rgb_residue_disposition": "Preserved exactly under fully transparent pixels because user pixels are authoritative; import with alphaIsTransparency enabled.",
+  "comparison_to_selected_actions34": {
+    "manifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/manifest.json",
+    "manifest_sha256": "ce203e68a197e7393de1112e64b19f5ebf7136d33c3862c7188e1510dd33e322",
+    "existing_canvas_height": 340,
+    "existing_foot_bottom_range_top_origin": [
+      320,
+      332
+    ],
+    "death_foot_bottom_range_top_origin": [
+      323,
+      337
+    ],
+    "stun_foot_bottom_range_top_origin": [
+      331,
+      332
+    ],
+    "recommendation": "Use identical Sprite Single, PPU100, pivot .5/.5, Point, Clamp, alphaIsTransparency, runtime scale1.0. Do not height-normalize the deliberate Death ground poses."
+  },
+  "summaries": [
+    {
+      "action": "Death",
+      "variant": "C",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames",
+      "frame_count": 6,
+      "unique_count": 6,
+      "runtime_loop": false,
+      "runtime_terminal_frame": 5,
+      "dimensions": [
+        [
+          441,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        71,
+        280
+      ],
+      "bbox_height_median": 138.0,
+      "foot_bottom_range_top_origin": [
+        323,
+        337
+      ],
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 810062,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/gifs/death-c-final.gif",
+      "gif_sha256": "1c6447f5345768644eaf59ae51b4f605ca85b60a3808778d67895b76f50f0079",
+      "gif_durations_ms": [
+        150,
+        150,
+        150,
+        150,
+        180,
+        700
+      ],
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/contacts/death-c-contact.png",
+      "contact_sha256": "9ab64fe3521a1ea89d8a0834912cdc26fcf418184e40613e8d7a47caff42e5a5",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/stun-b-six-frame-white_570b7b1a/frames",
+      "frame_count": 4,
+      "unique_count": 4,
+      "runtime_loop": true,
+      "runtime_terminal_frame": null,
+      "dimensions": [
+        [
+          417,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        210,
+        285
+      ],
+      "bbox_height_median": 271.5,
+      "foot_bottom_range_top_origin": [
+        331,
+        332
+      ],
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 478229,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/gifs/stun-b-final.gif",
+      "gif_sha256": "e13f510d9e721b9a3f9aaf9d9a30f9052d9b0f59d8c377354f8b3676850824cc",
+      "gif_durations_ms": [
+        170,
+        170,
+        170,
+        170
+      ],
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/contacts/stun-b-contact.png",
+      "contact_sha256": "d8f4fe772213f74f198db8db8762818fd84b68fd7e2c971153c1bd9482ca783c",
+      "atomic_action_complete": true
+    }
+  ],
+  "frames": [
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        127,
+        51,
+        285,
+        331
+      ],
+      "bbox_width": 158,
+      "bbox_height": 280,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 126772,
+      "clipped": false,
+      "sha256": "8b8d06e1fdd06677f18aecaa908b60cc04587c46d8ba5efa1e3c0c9e409cc7b2",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_001.png",
+      "source_sha256": "8b8d06e1fdd06677f18aecaa908b60cc04587c46d8ba5efa1e3c0c9e409cc7b2",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-00.png",
+      "packaged_sha256": "8b8d06e1fdd06677f18aecaa908b60cc04587c46d8ba5efa1e3c0c9e409cc7b2",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        124,
+        94,
+        304,
+        323
+      ],
+      "bbox_width": 180,
+      "bbox_height": 229,
+      "bbox_bottom_top_origin": 323,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 130325,
+      "clipped": false,
+      "sha256": "afbfb20b3e78b9aedd9c0f64e2d91d186113a594dae074f5eaa73ad4a5879290",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_002.png",
+      "source_sha256": "afbfb20b3e78b9aedd9c0f64e2d91d186113a594dae074f5eaa73ad4a5879290",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-01.png",
+      "packaged_sha256": "afbfb20b3e78b9aedd9c0f64e2d91d186113a594dae074f5eaa73ad4a5879290",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        123,
+        159,
+        324,
+        328
+      ],
+      "bbox_width": 201,
+      "bbox_height": 169,
+      "bbox_bottom_top_origin": 328,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 134295,
+      "clipped": false,
+      "sha256": "3484120ca4d07c101da53ea1873ed0b403f117636a47b2fd3005f98bbce51071",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_003.png",
+      "source_sha256": "3484120ca4d07c101da53ea1873ed0b403f117636a47b2fd3005f98bbce51071",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-02.png",
+      "packaged_sha256": "3484120ca4d07c101da53ea1873ed0b403f117636a47b2fd3005f98bbce51071",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        187,
+        229,
+        366,
+        336
+      ],
+      "bbox_width": 179,
+      "bbox_height": 107,
+      "bbox_bottom_top_origin": 336,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 136741,
+      "clipped": false,
+      "sha256": "293c36c262b05826a00e83c9be7133639e9015d5fd2bcbf4e3ebeb3342ab1d15",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_004.png",
+      "source_sha256": "293c36c262b05826a00e83c9be7133639e9015d5fd2bcbf4e3ebeb3342ab1d15",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-03.png",
+      "packaged_sha256": "293c36c262b05826a00e83c9be7133639e9015d5fd2bcbf4e3ebeb3342ab1d15",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        174,
+        260,
+        367,
+        334
+      ],
+      "bbox_width": 193,
+      "bbox_height": 74,
+      "bbox_bottom_top_origin": 334,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 139937,
+      "clipped": false,
+      "sha256": "3a2f753a77061a68910ef35329718c7dc672901fd7295ec0a5c24c114a1a0254",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_005.png",
+      "source_sha256": "3a2f753a77061a68910ef35329718c7dc672901fd7295ec0a5c24c114a1a0254",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-04.png",
+      "packaged_sha256": "3a2f753a77061a68910ef35329718c7dc672901fd7295ec0a5c24c114a1a0254",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "mode": "RGBA",
+      "dimensions": [
+        441,
+        340
+      ],
+      "alpha_bbox": [
+        173,
+        266,
+        341,
+        337
+      ],
+      "bbox_width": 168,
+      "bbox_height": 71,
+      "bbox_bottom_top_origin": 337,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 141992,
+      "clipped": false,
+      "sha256": "5710eaa5da482352f490ed71f9e95b85decd4e210ff17acbcdbf13fd4be6af53",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/death-c-white_be1af0a1/frames/frame_006.png",
+      "source_sha256": "5710eaa5da482352f490ed71f9e95b85decd4e210ff17acbcdbf13fd4be6af53",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Death/frame-05.png",
+      "packaged_sha256": "5710eaa5da482352f490ed71f9e95b85decd4e210ff17acbcdbf13fd4be6af53",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "mode": "RGBA",
+      "dimensions": [
+        417,
+        340
+      ],
+      "alpha_bbox": [
+        117,
+        46,
+        287,
+        331
+      ],
+      "bbox_width": 170,
+      "bbox_height": 285,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 117629,
+      "clipped": false,
+      "sha256": "7160eee44c749cfb7443b404b6cc33c8a4378c91d847014dfccd9ae4358c911c",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/stun-b-six-frame-white_570b7b1a/frames/frame_001.png",
+      "source_sha256": "7160eee44c749cfb7443b404b6cc33c8a4378c91d847014dfccd9ae4358c911c",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Stun/frame-00.png",
+      "packaged_sha256": "7160eee44c749cfb7443b404b6cc33c8a4378c91d847014dfccd9ae4358c911c",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "mode": "RGBA",
+      "dimensions": [
+        417,
+        340
+      ],
+      "alpha_bbox": [
+        99,
+        59,
+        276,
+        332
+      ],
+      "bbox_width": 177,
+      "bbox_height": 273,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 117980,
+      "clipped": false,
+      "sha256": "cacc9ef7081077a51222ce9772ca67d3aefcc7d80c620b4426b4cbbf41097545",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/stun-b-six-frame-white_570b7b1a/frames/frame_002.png",
+      "source_sha256": "cacc9ef7081077a51222ce9772ca67d3aefcc7d80c620b4426b4cbbf41097545",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Stun/frame-01.png",
+      "packaged_sha256": "cacc9ef7081077a51222ce9772ca67d3aefcc7d80c620b4426b4cbbf41097545",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "mode": "RGBA",
+      "dimensions": [
+        417,
+        340
+      ],
+      "alpha_bbox": [
+        110,
+        122,
+        261,
+        332
+      ],
+      "bbox_width": 151,
+      "bbox_height": 210,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 123408,
+      "clipped": false,
+      "sha256": "bb25eb43b8d48be6842c7d42c7598add4f933aa857a117b048ba7beec3ed859e",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/stun-b-six-frame-white_570b7b1a/frames/frame_003.png",
+      "source_sha256": "bb25eb43b8d48be6842c7d42c7598add4f933aa857a117b048ba7beec3ed859e",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Stun/frame-02.png",
+      "packaged_sha256": "bb25eb43b8d48be6842c7d42c7598add4f933aa857a117b048ba7beec3ed859e",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "mode": "RGBA",
+      "dimensions": [
+        417,
+        340
+      ],
+      "alpha_bbox": [
+        106,
+        61,
+        269,
+        331
+      ],
+      "bbox_width": 163,
+      "bbox_height": 270,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 119212,
+      "clipped": false,
+      "sha256": "523e1654e1a7b542b0fb6394e900f8dfacc8a3ec23c8ccc023f2fcd82f44af08",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/stun-b-six-frame-white_570b7b1a/frames/frame_004.png",
+      "source_sha256": "523e1654e1a7b542b0fb6394e900f8dfacc8a3ec23c8ccc023f2fcd82f44af08",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-06-deathc-stunb-final/frames/Stun/frame-03.png",
+      "packaged_sha256": "523e1654e1a7b542b0fb6394e900f8dfacc8a3ec23c8ccc023f2fcd82f44af08",
+      "byte_identical_copy": true
+    }
+  ],
+  "project_or_canonical_install_by_hwagam": false,
+  "handoff_target": "Hangyeol complete action atomic binding"
+}

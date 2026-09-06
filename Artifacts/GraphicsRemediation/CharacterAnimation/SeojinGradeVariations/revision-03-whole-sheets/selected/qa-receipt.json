@@ -1,0 +1,43 @@
+{
+  "schema": "projectbs.whole-sheet-minimal-physical-qa-receipt.v1",
+  "result": "PASS_AS_INCOMPLETE_MANUAL_SEPARATION_SOURCES_ONLY",
+  "scope": "Decode/open, dimensions, color mode, SHA-256, byte preservation, and comparison of manifest-recorded clipping/overlap/pose-count/missing-pose observations.",
+  "checks": {
+    "G2-B": {
+      "pngDecodeOpen": true,
+      "dimensionsMatchManifest": true,
+      "colorModeMatchesManifest": true,
+      "sha256MatchesManifest": true,
+      "selectedCopyByteForByte": true,
+      "poseCountMatchesManifest": true,
+      "structureMatchesManifest": true,
+      "clippingOverlapRecordMatchesManifest": true,
+      "limitations": "32 poses across 6 occupied rows; attack/death compressed; not complete38."
+    },
+    "G3-A": {
+      "pngDecodeOpen": true,
+      "dimensionsMatchManifest": true,
+      "colorModeMatchesManifest": true,
+      "sha256MatchesManifest": true,
+      "selectedCopyByteForByte": true,
+      "poseCountMatchesManifest": true,
+      "structureMatchesManifest": true,
+      "clippingOverlapRecordMatchesManifest": true,
+      "limitations": "36 poses; Run1 and Death1 missing; not complete38."
+    }
+  },
+  "authority": {
+    "manualSeparationSourceOnly": true,
+    "complete38": false,
+    "install": false,
+    "canonical": false,
+    "unity": false,
+    "release": false
+  },
+  "mutations": {
+    "raw": 0,
+    "canonical": 0,
+    "unity": 0,
+    "projectConsumingAssets": 0
+  }
+}

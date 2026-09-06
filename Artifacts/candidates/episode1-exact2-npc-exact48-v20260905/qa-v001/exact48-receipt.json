@@ -1,0 +1,28 @@
+{
+  "schema": "projectbs.imageforge-final-exact48-receipt.v1",
+  "result": "PASS_EXACT48_COMPLETENESS",
+  "checks": {
+    "actionCount12": true,
+    "frameCount48": true,
+    "perActionCount4": true,
+    "order": true,
+    "pngOpenRgba": true,
+    "byteIdentity48": true,
+    "shaInventoryChecked": true,
+    "rollbackPresent48": true
+  },
+  "warnings": {
+    "qualityPolicy": "Alpha0 RGB residue and visible quality defects are WARN-only and do not reverse exact48 completeness.",
+    "shaUnique48": false,
+    "duplicate": "chain_dragger_raider/Death frame_03.png and frame_04.png share SHA-256 7d903e99b45ea9a9d1a9c138553ca6ce11db9d37f8bdfe1d3572a244bada964f"
+  },
+  "manifest": "exact48-manifest.json",
+  "manifestSha256": "9175e5eeea0b772b403d294bb06af1186163711a507722cd83ca10924fdb80ce",
+  "authority": {
+    "promotion": false,
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

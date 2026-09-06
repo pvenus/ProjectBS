@@ -1,0 +1,40 @@
+status=FAIL_CLOSED_INTERNAL_ISLAND_BACKGROUND_UNREACHABLE
+date=2026-09-05
+owner=Hwagam
+
+identified_target_bundle=/Users/pvenus/imageforge-mcp/generated_image
+target_scope=NPC2 exact12 actions exact48 frames
+reason_for_scope=latest extracted and atomically promoted frame package in current work context
+
+editing_method=mcp__imageforge__remove_image_background
+other_editing_tools_used=0
+source_overwrite=0
+unity_write=0
+canonical_write=0
+install_write=0
+
+sample_source=/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_01.png
+sample_source_sha256=bc707f828340a1ff499ca3207fb9a9b8b0c3d5f3f8479c8a9e8094d446abaa95
+sample_dimensions=594x627
+sample_mode=RGBA
+sample_settings=tolerance1,feather0,sample_radius2
+sample_output=/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-background-detail-v20260905/sample/chain-basicattack-frame01-tol1.png
+sample_output_sha256=62c51968c55a9a7310e48df8d71fcec7690ca7e895056a09ed7a16c17d5fec99
+
+changed_pixels=23
+alpha_changed_pixels=23
+alpha_removed_pixels=23
+interior_alpha_removed_pixels=23
+visible_nearwhite_candidate_pixels_before=1697
+visible_nearwhite_candidate_pixels_after=1674
+meaningful_internal_gap_removal=0
+
+limitation=remove_image_background removes only background color connected to the four corners; arm-body, garment-weapon, and other enclosed background islands are disconnected from corners and remain opaque
+semantic_pixel_loss_risk=raising tolerance can reach similar pale clothing, highlights, skin, and edge antialias pixels before it can cross closed subject boundaries
+batch_application=0
+corrected_frame_count=0
+
+light_dark_contact=/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-background-detail-v20260905/sample/chain-basicattack-frame01-original-vs-mcp-tol1-light-dark.png
+light_dark_contact_sha256=809571edb9b04a4b2b669e9a6773b200cc6911e8a1c4084e18f2c6811cfea25c
+
+disposition=No versioned corrected bundle issued. Original exact48 remains unchanged. Another editing tool or click-connected internal-island selection would be required, but is outside this request and was not used.

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 2,
+  "generatorVersion": "character-animation-profile-builder/2.0.0",
+  "sourceDigest": "sha256:replace-with-content-contract-digest",
+  "changeLog": "initial-v2-profile",
+  "contentContractReceipt": "receipt:content-design-authority",
+  "productionGovernanceReceipt": "receipt:production-release-governance",
+  "characterId": "character.example.1",
+  "attackDisabledCcReachable": true,
+  "states": [
+    { "animationId": "character.example.1.idle", "slot": "Idle", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [{ "direction": "IdleDownRight", "clipPath": "Assets/AnimationClips/Character/character.example.1.idle.Right.anim" }] },
+    { "animationId": "character.example.1.move", "slot": "Move", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [{ "direction": "MoveDownRight", "clipPath": "Assets/AnimationClips/Character/character.example.1.run.Right.anim" }] },
+    { "animationId": "character.example.1.basic", "slot": "BasicAttack", "loop": false, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [{ "direction": "AttackDownRight", "clipPath": "Assets/AnimationClips/Character/character.example.1.attack.Right.anim" }] },
+    { "animationId": "character.example.1.death", "slot": "Death", "loop": false, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [{ "direction": "DeathDownRight", "clipPath": "Assets/AnimationClips/Character/character.example.1.death.Right.anim" }] },
+    { "animationId": "character.example.1.stun", "slot": "AttackDisabledCc", "loop": true, "mirrorLeftFromRight": true, "rootMotion": false, "clips": [{ "direction": "IdleDownRight", "clipPath": "Assets/AnimationClips/Character/character.example.1.stun.Right.anim" }] }
+  ],
+  "skillActions": [
+    { "skillId": "skill.character.example.1.active_1", "animationId": "character.example.1.skill.active1", "clipPath": "", "playbackSpeed": 1.0, "mirrorWithFacing": true, "fallback": "BasicAttack", "fallbackReceipt": "receipt:replace-with-approved-fallback", "markerIntents": ["cast", "contact", "restore"], "interruptPolicy": "CancelToLocomotion", "restorePolicy": "PreviousLocomotion", "gradeReuseSource": "", "exceptionReceipt": "" }
+  ]
+}

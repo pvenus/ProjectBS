@@ -1,0 +1,45 @@
+{
+  "schema": "projectbs.manual-separation-source-selection.v1",
+  "revision": "revision-03-whole-sheets",
+  "selectionStatus": "selected_for_manual_separation_source_only",
+  "complete38": false,
+  "installAuthority": false,
+  "canonicalAuthority": false,
+  "unityAuthority": false,
+  "sourceManifest": "../manifest.json",
+  "sourceManifestSelectionPerformed": false,
+  "selectionProvenance": "Art-direction provisional selections supplied to physical QA: G2-B and G3-A.",
+  "files": [
+    {
+      "id": "G2-B",
+      "file": "seojin-g2-whole-sheet-B.png",
+      "source": "../raw/seojin-g2-whole-sheet-B.png",
+      "sha256": "c422b37ccbf8bcd20854c2820e3e141f6931ccdd8ae5488a0266c3cd689faa80",
+      "byteSize": 2414222,
+      "format": "PNG",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "poseCount": 32,
+      "occupiedRows": 6,
+      "observedStructure": [6, 4, 6, 6, 6, 4],
+      "missingOrCompressed": "Six poses short of requested 38; attack/death chronology is compressed and the requested third BasicAttack row plus separate six-frame Death row are not independently present.",
+      "clippingOverlap": "Manifest reports airier, generally unclipped staging and no obvious adjacent-body overlap. This package does not reinterpret the visual direction."
+    },
+    {
+      "id": "G3-A",
+      "file": "seojin-g3-whole-sheet-A.png",
+      "source": "../raw/seojin-g3-whole-sheet-A.png",
+      "sha256": "95e10da74b40b209e6c94269081bad395a448ac05fca77127499a535e9202b8c",
+      "byteSize": 2735253,
+      "format": "PNG",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "poseCount": 36,
+      "occupiedRows": 7,
+      "observedStructure": [6, 3, 6, 6, 6, 5, 4],
+      "missingOrCompressed": "Run1 and Death1 are missing: Run has 3/4 poses and Death has 5/6 poses; total is 36/38.",
+      "clippingOverlap": "Manifest reports some extended blades and cape tails narrowing gutters, with no obvious merged body pair. This package does not reinterpret the visual direction."
+    }
+  ],
+  "immutability": "Selected PNGs are byte-for-byte copies of raw inputs. No separation, pixel edit, alpha work, regeneration, canonical update, Unity update, or project-consuming asset update was performed."
+}

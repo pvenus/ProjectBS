@@ -1,0 +1,316 @@
+{
+  "schema": "projectbs.corrected-vfx-physical-qa-receipt.v1",
+  "result": "FAIL",
+  "manifestSha256": "643b03f83387115165212215cc61cb33979a48e47030eb8c8b6d6e3f50649acc",
+  "checks": {
+    "frameOrder": true,
+    "timing": true,
+    "pngOpen": true,
+    "rgba": true,
+    "dimensions768": true,
+    "shaMatchesManifest": true,
+    "shaUnique": true,
+    "cornersAlphaZero": true,
+    "fourBordersAlphaZero": false,
+    "alphaZeroRgbResidueZero": true,
+    "alphaBBoxStrictlyInsideCanvas": false
+  },
+  "failedGates": [
+    "frame-0 right border: 2 pixels with alpha=1; alpha bbox reaches x=768",
+    "frame-2 right border: 6 pixels with alpha=1; alpha bbox reaches x=768"
+  ],
+  "borderFailures": [
+    {
+      "frame": 0,
+      "side": "right",
+      "nonzeroAlphaPixels": 2,
+      "maxAlpha": 1
+    },
+    {
+      "frame": 2,
+      "side": "right",
+      "nonzeroAlphaPixels": 6,
+      "maxAlpha": 1
+    }
+  ],
+  "halo": "Light/dark contacts packaged. No categorical halo redesign judgment is made; semitransparent dark-pixel diagnostics are preserved per frame.",
+  "frames": [
+    {
+      "frame": 0,
+      "timeSeconds": 0,
+      "file": "frame-0.png",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "sha256": "d90e0d7136fb840cbff49648c1cdb430269fabb8058881a27a95111df79d941b",
+      "manifestSha256": "d90e0d7136fb840cbff49648c1cdb430269fabb8058881a27a95111df79d941b",
+      "shaMatchesManifest": true,
+      "alphaExtrema": [
+        0,
+        252
+      ],
+      "alphaBBox": [
+        113,
+        158,
+        768,
+        640
+      ],
+      "alphaMargins": [
+        113,
+        158,
+        0,
+        128
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 2,
+          "maxAlpha": 1
+        }
+      },
+      "alphaZeroPixels": 574315,
+      "alphaZeroRgbResiduePixels": 0,
+      "semitransparentPixels": 15509,
+      "darkSemitransparentPixelsRgbMaxLt20": 391
+    },
+    {
+      "frame": 1,
+      "timeSeconds": 0.12,
+      "file": "frame-1.png",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "sha256": "ca5cc7583f2bc778744358edbbe2d172f214e29a498853ff96ff4d47a875ee08",
+      "manifestSha256": "ca5cc7583f2bc778744358edbbe2d172f214e29a498853ff96ff4d47a875ee08",
+      "shaMatchesManifest": true,
+      "alphaExtrema": [
+        0,
+        253
+      ],
+      "alphaBBox": [
+        1,
+        199,
+        754,
+        640
+      ],
+      "alphaMargins": [
+        1,
+        199,
+        14,
+        128
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 546627,
+      "alphaZeroRgbResiduePixels": 0,
+      "semitransparentPixels": 43197,
+      "darkSemitransparentPixelsRgbMaxLt20": 339
+    },
+    {
+      "frame": 2,
+      "timeSeconds": 0.24,
+      "file": "frame-2.png",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "sha256": "4337142ba9923658bc09d8bda6e2829259ff43175c4aa6e532e34a496711300c",
+      "manifestSha256": "4337142ba9923658bc09d8bda6e2829259ff43175c4aa6e532e34a496711300c",
+      "shaMatchesManifest": true,
+      "alphaExtrema": [
+        0,
+        253
+      ],
+      "alphaBBox": [
+        25,
+        129,
+        768,
+        606
+      ],
+      "alphaMargins": [
+        25,
+        129,
+        0,
+        162
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 6,
+          "maxAlpha": 1
+        }
+      },
+      "alphaZeroPixels": 534725,
+      "alphaZeroRgbResiduePixels": 0,
+      "semitransparentPixels": 55099,
+      "darkSemitransparentPixelsRgbMaxLt20": 32
+    },
+    {
+      "frame": 3,
+      "timeSeconds": 0.36,
+      "file": "frame-3.png",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "sha256": "caf1fb7f98d8ec1f2478e8b5e7c2ff24d0be68871359584b4edc34de564c8894",
+      "manifestSha256": "caf1fb7f98d8ec1f2478e8b5e7c2ff24d0be68871359584b4edc34de564c8894",
+      "shaMatchesManifest": true,
+      "alphaExtrema": [
+        0,
+        250
+      ],
+      "alphaBBox": [
+        1,
+        128,
+        694,
+        614
+      ],
+      "alphaMargins": [
+        1,
+        128,
+        74,
+        154
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 565543,
+      "alphaZeroRgbResiduePixels": 0,
+      "semitransparentPixels": 24281,
+      "darkSemitransparentPixelsRgbMaxLt20": 1000
+    }
+  ],
+  "previews": [
+    {
+      "file": "contact-light.png",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "contact-dark.png",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "preview-dark.gif",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "frameDurationMs": 120,
+      "loop": false
+    }
+  ],
+  "mutations": {
+    "pixels": 0,
+    "Unity": 0,
+    "canonical": 0
+  },
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

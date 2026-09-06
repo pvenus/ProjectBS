@@ -1,0 +1,131 @@
+{
+  "authoritySha256": "0d1863db84c211254d0236fad1fe035624998ac448423f4ba82f191cb3257da3",
+  "pilotOnly": true,
+  "forbiddenExpansion": [
+    "Idle",
+    "Move",
+    "Death",
+    "Stun"
+  ],
+  "presentationOnly": {
+    "rendererScaleMultiplier": 0.72,
+    "sourceDownsample": false
+  },
+  "runtimeInvariants": [
+    "collider unchanged",
+    "range unchanged",
+    "nav unchanged",
+    "hit unchanged"
+  ],
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "sequences": {
+    "black_cloth_raider/body": {
+      "kind": "body",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c"
+        },
+        {
+          "frame": 1,
+          "sha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d"
+        },
+        {
+          "frame": 2,
+          "sha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75"
+        },
+        {
+          "frame": 3,
+          "sha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9"
+        }
+      ]
+    },
+    "black_cloth_raider/vfx": {
+      "kind": "vfx",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "27fbe19b4a2d6a20f466918bf0d0ab82a18028448001fc955d42b52bd7a365e5"
+        },
+        {
+          "frame": 1,
+          "sha256": "7f3569c2fd9f2f6313391db259ee3f97192f04e43706db208e774ca6b31b3a7b"
+        },
+        {
+          "frame": 2,
+          "sha256": "075472cc5d227d1b3eac1a24060ab80c73112c599b3a3e33d6f5a25d860a6d67"
+        },
+        {
+          "frame": 3,
+          "sha256": "77c79d8a1090bbc94e374b8648f914ef3feaaaf83651d59851405a854446a76e"
+        }
+      ]
+    },
+    "chain_dragger_raider/body": {
+      "kind": "body",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134"
+        },
+        {
+          "frame": 1,
+          "sha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb"
+        },
+        {
+          "frame": 2,
+          "sha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5"
+        },
+        {
+          "frame": 3,
+          "sha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295"
+        }
+      ]
+    },
+    "chain_dragger_raider/vfx": {
+      "kind": "vfx",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6"
+        },
+        {
+          "frame": 1,
+          "sha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6"
+        },
+        {
+          "frame": 2,
+          "sha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2"
+        },
+        {
+          "frame": 3,
+          "sha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9"
+        }
+      ]
+    }
+  }
+}

@@ -64,18 +64,21 @@ namespace ResourceTools
                 }
 
                 string baseClipName = CreateClipName(SourceFolderPath, folderPath);
+                bool isIdle = IsIdleAnimationFolder(folderPath);
                 AnimationClip rightClip = CreateDirectionalClip(
                     outputFolderPath,
                     baseClipName,
                     "Right",
                     sprites,
-                    false);
+                    false,
+                    isIdle);
                 AnimationClip leftClip = CreateDirectionalClip(
                     outputFolderPath,
                     baseClipName,
                     "Left",
                     sprites,
-                    true);
+                    true,
+                    isIdle);
 
                 if (rightClip == null || leftClip == null)
                 {
@@ -110,16 +113,22 @@ namespace ResourceTools
             string baseClipName,
             string direction,
             Sprite[] sprites,
-            bool flipX)
+            bool flipX,
+            bool isIdle)
         {
             string clipName = $"{baseClipName}.{direction}";
             string clipPath = $"{outputFolderPath}/{clipName}.anim";
-            AnimationClip clip = AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClip(
-                clipPath,
-                sprites,
-                FrameRate,
-                true,
-                flipX);
+            AnimationClip clip = isIdle
+                ? AnimationClipAssetHelper.CreateOrUpdateCharacterIdleLoop(
+                    clipPath,
+                    sprites,
+                    flipX)
+                : AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClip(
+                    clipPath,
+                    sprites,
+                    FrameRate,
+                    true,
+                    flipX);
 
             if (clip != null)
             {
@@ -127,6 +136,15 @@ namespace ResourceTools
             }
 
             return clip;
+        }
+
+        private static bool IsIdleAnimationFolder(string folderPath)
+        {
+            string folderName = Path.GetFileName(
+                folderPath?.TrimEnd('/', '\\'));
+            return string.Equals(folderName, "idle", StringComparison.OrdinalIgnoreCase)
+                || (folderName != null && folderName.StartsWith(
+                    "idle.", StringComparison.OrdinalIgnoreCase));
         }
 
         public static List<AnimationClip> GenerateFromCharacterFolderPath(string characterFolderPath)

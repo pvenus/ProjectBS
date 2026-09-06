@@ -1,0 +1,686 @@
+{
+  "schema": "projectbs.episode1-exact2-expansion-final-qa.v1",
+  "sourceManifests": {
+    "complete-registry.json": "c780196aaf256dbba5d7f471fc4c1621323308e7e27c36945e333680a17e7323",
+    "black_cloth_raider/action-manifest.json": "9edbe441f1fdd3a83272e134672f1827eb0377e542be9967d2ab17a07c6810ae",
+    "chain_dragger_raider/action-manifest.json": "22638c141f3d8b791216ddef823a4642f36069e772474eeca32d9d338c8265fc"
+  },
+  "frameInventoryCount": 48,
+  "sourceDownsample": false,
+  "presentationOnly": {
+    "rendererScaleMultiplier": 0.72
+  },
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "actionAtomicClassification": {
+    "black_cloth_raider": {
+      "Idle": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": true,
+        "bodyFree": null
+      },
+      "Move": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "Death": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "Stun": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "failedFrames": [
+          2,
+          3
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "BasicAttack": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": null,
+        "bodyFree": false
+      },
+      "VFX": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": null,
+        "bodyFree": true
+      }
+    },
+    "chain_dragger_raider": {
+      "Idle": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": true,
+        "bodyFree": null
+      },
+      "Move": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          false,
+          false,
+          true,
+          true
+        ],
+        "failedFrames": [
+          0,
+          1
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "Death": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "failedFrames": [
+          1,
+          3
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "Stun": {
+        "status": "FAIL",
+        "actionAtomic": true,
+        "framePasses": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "failedFrames": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "registrySafeBorder": false,
+        "bodyFree": null
+      },
+      "BasicAttack": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": null,
+        "bodyFree": false
+      },
+      "VFX": {
+        "status": "PASS",
+        "actionAtomic": true,
+        "framePasses": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "failedFrames": [],
+        "registrySafeBorder": null,
+        "bodyFree": true
+      }
+    }
+  },
+  "bodyVfxSeparation": {
+    "directoriesSeparate": true,
+    "shaSetsDisjoint": true
+  },
+  "previews": [
+    {
+      "file": "previews/black_cloth_raider-Idle-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Idle-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Idle.gif",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Move-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Move-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Move.gif",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Death-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Death-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Death.gif",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun.gif",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack.gif",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX.gif",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": true,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack.gif",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX.gif",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "gif",
+      "background": "dark",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "previewFrameDurationMs": 120,
+      "loop": false,
+      "timingAuthority": false
+    }
+  ],
+  "completeRegistryInstallAuthority": false,
+  "authority": {
+    "install": false,
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

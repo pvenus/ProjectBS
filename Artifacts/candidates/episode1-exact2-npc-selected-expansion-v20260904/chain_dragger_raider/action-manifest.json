@@ -1,0 +1,153 @@
+{
+  "canvas": [
+    768,
+    512
+  ],
+  "actions": {
+    "Idle": {
+      "mode": "loop",
+      "singleAttempt": true,
+      "crossAttemptMixing": false,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "d36880641912b579fdd4ecc218d6e8cd2fc283c3d6a2c2d2e78dd1d200d29a21"
+        },
+        {
+          "frame": 1,
+          "sha256": "4079864daf23db02867c95eac9f05137a46dd797e8476b608b00f0864eddcd17"
+        },
+        {
+          "frame": 2,
+          "sha256": "2de478775135a4e35af39156f769ad4a2a8cf6b1d321b0f6ccae7056054e3286"
+        },
+        {
+          "frame": 3,
+          "sha256": "96006d06a0cca5a707007b2ac08b85d9dc65940a7fbc8452eebae3095eeb5894"
+        }
+      ],
+      "safeBorder": true,
+      "rawSourceSha256": "dce1f388791ef6dd4ee466f9bf202b559f487b1399663458e5dae3402accc946"
+    },
+    "Move": {
+      "mode": "loop",
+      "singleAttempt": true,
+      "crossAttemptMixing": false,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "faccaca5fb4408b9e27700483c274ba5909d149df5f86866152f5a2c36fa79d2"
+        },
+        {
+          "frame": 1,
+          "sha256": "76980a1aa4284e50b7c630241ca7b5181d00704dab9a7438c2cba1d52ee9ed60"
+        },
+        {
+          "frame": 2,
+          "sha256": "73545c83d9d792fd80aa70334e3aec0f3118f93f91e9a1623d5dc7a05da6375b"
+        },
+        {
+          "frame": 3,
+          "sha256": "30d0f6adffb9633aaede9d10124a5c10e6c55bc57e48cd79ec18662a6f661f4b"
+        }
+      ],
+      "safeBorder": false,
+      "rawSourceSha256": "4c70f821296cc7f936255ab41623764b4e1cf1bc2ff40ec231682e80f85c4c05"
+    },
+    "Death": {
+      "mode": "one-shot",
+      "singleAttempt": true,
+      "crossAttemptMixing": false,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "5b1cadb4de008b43a91ea751d4bf711b2ad9c522552342d88af80387683296c0"
+        },
+        {
+          "frame": 1,
+          "sha256": "b6ff36b8213a703f6e5d704ddb2b7bf67189cf679e79df613a229d7be7aaec45"
+        },
+        {
+          "frame": 2,
+          "sha256": "37cfcbe8494b7ecedb620f6a3d878a6ca803b6be196def8ff6b79a15b28de990"
+        },
+        {
+          "frame": 3,
+          "sha256": "d8331501a6b357c0c2253a071c878a53381382bd28dd5962457befd9f66bd4cc"
+        }
+      ],
+      "safeBorder": false,
+      "rawSourceSha256": "9f63eaf46ea7001ecbb55680e784db9c9d3d905a24f94c00d2d2cdc3438bc607"
+    },
+    "Stun": {
+      "mode": "loop",
+      "singleAttempt": true,
+      "crossAttemptMixing": false,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "dc178a396e519557cea9cdfe3d19b92069bf960a4196dddd72711ac78735a4c5"
+        },
+        {
+          "frame": 1,
+          "sha256": "2805b83d1e1416e380719145ec7e78687ee8b74fe5a49087a4a5b033af877223"
+        },
+        {
+          "frame": 2,
+          "sha256": "70b109d4337562cadaaf75c77f0c8b6acf36ac981746708d10e483d94ee9f3b9"
+        },
+        {
+          "frame": 3,
+          "sha256": "09439676103dac065467d204dfe129c6912a1f88bc71627179551a4f7ef1aab1"
+        }
+      ],
+      "safeBorder": false,
+      "rawSourceSha256": "4c383b240a776fb8b4c42afb52da1856b72947982866b5969d43cad7c2419f87"
+    },
+    "BasicAttack": {
+      "selectedPilotCopy": true,
+      "bodyFree": false,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134"
+        },
+        {
+          "frame": 1,
+          "sha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb"
+        },
+        {
+          "frame": 2,
+          "sha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5"
+        },
+        {
+          "frame": 3,
+          "sha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295"
+        }
+      ]
+    },
+    "VFX": {
+      "selectedPilotCopy": true,
+      "bodyFree": true,
+      "frames": [
+        {
+          "frame": 0,
+          "sha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6"
+        },
+        {
+          "frame": 1,
+          "sha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6"
+        },
+        {
+          "frame": 2,
+          "sha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2"
+        },
+        {
+          "frame": 3,
+          "sha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9"
+        }
+      ]
+    }
+  },
+  "status": "incomplete"
+}

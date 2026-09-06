@@ -1,0 +1,432 @@
+{
+  "status": "REVIEW_ONLY_NOT_INSTALL_AUTHORITY",
+  "revision": "revision-05-death-stun-white",
+  "reference": "/Users/pvenus/ProjectBS-image-python/downloads/exec-600783ed-96f5-4d18-9ddd-d1dbaa661289_7d56b10b/frames/frame_001.png",
+  "background_prompt_exact_phrase": "a completely uniform, flat, opaque pure white (#FFFFFF) background, edge to edge, with no pattern, no grid, no tiles, no floor line, no shadow, no texture, no gradient",
+  "raw_board_count": 6,
+  "death_variants": 3,
+  "death_poses_each": 6,
+  "stun_variants": 3,
+  "stun_poses_each": 4,
+  "raw_boards_preserved_byte_for_byte": true,
+  "background_or_frame_position_processing": false,
+  "canonical_install": false,
+  "overview": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/death-stun-A-B-C-overview.png",
+  "overview_sha256": "92ceaf5306d5428fa9b609987dc0383b9e3ecb64d9ccbe02a25deac4a20086e8",
+  "records": [
+    {
+      "action": "Death",
+      "variant": "A",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-b4b357db-5f76-49f9-b87c-467dd71cae7a.png",
+      "source_sha256": "55d2d06220c9e4b95c43c51ef52bf72c19293d5dc92441d9bd59b899b20c824b",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/death-a-white.png",
+      "raw_board_sha256": "55d2d06220c9e4b95c43c51ef52bf72c19293d5dc92441d9bd59b899b20c824b",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "pose_count": 6,
+      "pose_order": [
+        "F0_strength_lost",
+        "F1_buckle",
+        "F2_controlled_fall",
+        "F3_ground_contact",
+        "F4_settle",
+        "F5_final_still"
+      ],
+      "runtime_loop_intent": false,
+      "review_split": {
+        "equal_cells": 6,
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.162983,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/death-a-white.gif",
+      "gif_sha256": "038eff642f85dace855f17854bff6c38076a96d42fdfabdd329fd2482724dffd",
+      "gif_physical_frames": 6,
+      "gif_durations_ms": [
+        140,
+        140,
+        140,
+        140,
+        160,
+        650
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/death-a-white-contact.png",
+      "contact_sha256": "53db68bfd3ab76eddcd1db7e9c39d496bb73de0dcb809465c263482078e663dd"
+    },
+    {
+      "action": "Death",
+      "variant": "B",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-99b91bfa-97a3-46b4-afe0-c623ca05afa7.png",
+      "source_sha256": "df76c2755c336df8ceac325edc8498e38cd24b62bf166b1caf496d49a9084148",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/death-b-white.png",
+      "raw_board_sha256": "df76c2755c336df8ceac325edc8498e38cd24b62bf166b1caf496d49a9084148",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_count": 6,
+      "pose_order": [
+        "F0_strength_lost",
+        "F1_buckle",
+        "F2_controlled_fall",
+        "F3_ground_contact",
+        "F4_settle",
+        "F5_final_still"
+      ],
+      "runtime_loop_intent": false,
+      "review_split": {
+        "equal_cells": 6,
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.155769,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/death-b-white.gif",
+      "gif_sha256": "83a17d99dd824a7c71403fe9b0d7ac8be704a418334715c86e357bbea886e2b7",
+      "gif_physical_frames": 6,
+      "gif_durations_ms": [
+        140,
+        140,
+        140,
+        140,
+        160,
+        650
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/death-b-white-contact.png",
+      "contact_sha256": "b306f242769e5cef8db0080c3a4cd2810d385f174fb12f134748664df43dd93d"
+    },
+    {
+      "action": "Death",
+      "variant": "C",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-58712edf-3c1e-4ca3-854f-f4e9e11cbc6d.png",
+      "source_sha256": "d1f81ddb4b426df0f342627d96a215f6119a4951f8164c3aa5fea56bbb2e61ea",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/death-c-white.png",
+      "raw_board_sha256": "d1f81ddb4b426df0f342627d96a215f6119a4951f8164c3aa5fea56bbb2e61ea",
+      "dimensions": [
+        1823,
+        863
+      ],
+      "mode": "RGB",
+      "pose_count": 6,
+      "pose_order": [
+        "F0_strength_lost",
+        "F1_buckle",
+        "F2_controlled_fall",
+        "F3_ground_contact",
+        "F4_settle",
+        "F5_final_still"
+      ],
+      "runtime_loop_intent": false,
+      "review_split": {
+        "equal_cells": 6,
+        "cell_width": 303,
+        "height": 863,
+        "unassigned_right_background_pixels": 5
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.153388,
+        "border_near_white_250_255_ratio": 0.997952,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/death-c-white.gif",
+      "gif_sha256": "9c220c852b388115be945f64e72162da4bf729e04031bce7fa0f536e3d89e35e",
+      "gif_physical_frames": 6,
+      "gif_durations_ms": [
+        140,
+        140,
+        140,
+        140,
+        160,
+        650
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/death-c-white-contact.png",
+      "contact_sha256": "d2a3b7a40a0829c0bb3582d85a3e75aab3105c4137e36a0f717d23434d720264"
+    },
+    {
+      "action": "Stun",
+      "variant": "A",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-a85c0d41-348a-4f41-a724-83445b05936e.png",
+      "source_sha256": "b544c71f9527d43c9042a1799fe835e3c5a4eae98071a5507684dfbf6c072e54",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/stun-a-white.png",
+      "raw_board_sha256": "b544c71f9527d43c9042a1799fe835e3c5a4eae98071a5507684dfbf6c072e54",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_count": 4,
+      "pose_order": [
+        "F0_stagger",
+        "F1_sway",
+        "F2_recoil",
+        "F3_return_to_F0"
+      ],
+      "runtime_loop_intent": true,
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.125141,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/stun-a-white.gif",
+      "gif_sha256": "712ef5084f296a51b6e1dd1676cbd1a9b978d98c93c116c269b1febbc234c9b0",
+      "gif_physical_frames": 4,
+      "gif_durations_ms": [
+        160,
+        160,
+        160,
+        160
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/stun-a-white-contact.png",
+      "contact_sha256": "4864af620d353897a152fbf4beda319c8a1adc365a4035706724990370c0bbc5"
+    },
+    {
+      "action": "Stun",
+      "variant": "B",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-2bfebe51-efda-4d65-9504-c75017d3015c.png",
+      "source_sha256": "c717a9fbb736712e4fe31a466bb26d0c4c659ee1fe40fb1b356686c5be18ea6e",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/stun-b-white.png",
+      "raw_board_sha256": "c717a9fbb736712e4fe31a466bb26d0c4c659ee1fe40fb1b356686c5be18ea6e",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "pose_count": 4,
+      "pose_order": [
+        "F0_stagger",
+        "F1_sway",
+        "F2_recoil",
+        "F3_return_to_F0"
+      ],
+      "runtime_loop_intent": true,
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 443,
+        "height": 887,
+        "unassigned_right_background_pixels": 2
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.124201,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/stun-b-white.gif",
+      "gif_sha256": "a3880a3bdb038e624111e310364e40e1e29e7da2af1000850e19ce29d25ce5c1",
+      "gif_physical_frames": 4,
+      "gif_durations_ms": [
+        160,
+        160,
+        160,
+        160
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/stun-b-white-contact.png",
+      "contact_sha256": "46ce385db09342d581a2f0ff8dee638edc42b91e72ab33eb3e9f638963789192"
+    },
+    {
+      "action": "Stun",
+      "variant": "C",
+      "source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-0cb763b6-919d-4411-8c3b-18e5a2be573b.png",
+      "source_sha256": "571c947286af1638df57767ad3321765fcc28e4921591d49c83438e6da8f7f80",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/raw-boards/stun-c-white.png",
+      "raw_board_sha256": "571c947286af1638df57767ad3321765fcc28e4921591d49c83438e6da8f7f80",
+      "dimensions": [
+        1717,
+        916
+      ],
+      "mode": "RGB",
+      "pose_count": 4,
+      "pose_order": [
+        "F0_stagger",
+        "F1_sway",
+        "F2_recoil",
+        "F3_return_to_F0"
+      ],
+      "runtime_loop_intent": true,
+      "review_split": {
+        "equal_cells": 4,
+        "cell_width": 429,
+        "height": 916,
+        "unassigned_right_background_pixels": 1
+      },
+      "background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.112229,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visible_pattern_grid_tiles_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/gifs/stun-c-white.gif",
+      "gif_sha256": "c9b0b09fc629099c261115f8994fd8f6dad36ec47c0975b3f472152913427df8",
+      "gif_physical_frames": 4,
+      "gif_durations_ms": [
+        160,
+        160,
+        160,
+        160
+      ],
+      "gif_review_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-05-death-stun-white/contacts/stun-c-white-contact.png",
+      "contact_sha256": "abf07ce902691b82aa263422b011c2736daa6648fc6003cdaa982d1244e63fbf"
+    }
+  ]
+}

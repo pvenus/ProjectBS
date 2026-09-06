@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projectbs.character-animation-profile.v2",
+  "title": "ProjectBS Character Animation Profile v2",
+  "type": "object",
+  "required": ["schemaVersion", "generatorVersion", "sourceDigest", "changeLog", "contentContractReceipt", "productionGovernanceReceipt", "characterId", "attackDisabledCcReachable", "states", "skillActions"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "generatorVersion": { "type": "string", "minLength": 1 },
+    "sourceDigest": { "type": "string", "minLength": 1 },
+    "changeLog": { "type": "string", "minLength": 1 },
+    "contentContractReceipt": { "type": "string", "minLength": 1 },
+    "productionGovernanceReceipt": { "type": "string", "minLength": 1 },
+    "characterId": { "type": "string", "minLength": 1 },
+    "attackDisabledCcReachable": { "type": "boolean" },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["animationId", "slot", "loop", "mirrorLeftFromRight", "rootMotion", "clips"],
+        "properties": {
+          "animationId": { "type": "string", "minLength": 1 },
+          "slot": { "enum": ["Idle", "Move", "BasicAttack", "Death", "AttackDisabledCc", "Hurt", "Knockback"] },
+          "loop": { "type": "boolean" },
+          "mirrorLeftFromRight": { "type": "boolean" },
+          "rootMotion": { "const": false },
+          "clips": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["direction", "clipPath"],
+              "properties": {
+                "direction": { "type": "string" },
+                "clipPath": { "type": "string", "pattern": "^Assets/.+\\.anim$" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "skillActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skillId", "animationId", "clipPath", "playbackSpeed", "mirrorWithFacing", "fallback", "fallbackReceipt", "markerIntents", "interruptPolicy", "restorePolicy", "gradeReuseSource", "exceptionReceipt"],
+        "properties": {
+          "skillId": { "type": "string", "minLength": 1 },
+          "animationId": { "type": "string", "minLength": 1 },
+          "clipPath": { "type": "string" },
+          "playbackSpeed": { "type": "number", "exclusiveMinimum": 0 },
+          "mirrorWithFacing": { "type": "boolean" },
+          "fallback": { "enum": ["LegacyDirectional", "BasicAttack", "Idle", "Rendererless"] }
+          ,"fallbackReceipt": { "type": "string" }
+          ,"markerIntents": { "type": "array", "items": { "type": "string" } }
+          ,"interruptPolicy": { "enum": ["CancelToLocomotion", "DeathOverride", "UninterruptiblePresentation"] }
+          ,"restorePolicy": { "enum": ["PreviousLocomotion", "Idle", "HoldTerminal"] }
+          ,"gradeReuseSource": { "type": "string" }
+          ,"exceptionReceipt": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,33 @@ namespace ResourceTools.Helper
     public static class AnimationClipAssetHelper
     {
         public const float DefaultFrameRate = 12f;
+        public const float CharacterIdleLoopDuration = 2f;
+
+        public static AnimationClip CreateOrUpdateCharacterIdleLoop(
+            string assetPath,
+            IReadOnlyList<Sprite> sprites,
+            bool flipX = false)
+        {
+            int frameCount = sprites?.Count ?? 0;
+            if (frameCount <= 0)
+            {
+                Debug.LogWarning($"[AnimationClipAssetHelper] No idle sprites supplied: {assetPath}");
+                return null;
+            }
+
+            float frameDuration = CharacterIdleLoopDuration / frameCount;
+            float[] frameDurations = Enumerable
+                .Repeat(frameDuration, frameCount)
+                .ToArray();
+
+            return CreateOrUpdateSpriteAnimationClipWithDurations(
+                assetPath,
+                sprites,
+                frameDurations,
+                frameCount / CharacterIdleLoopDuration,
+                true,
+                flipX);
+        }
 
         public static AnimationClip RecreateSpriteAnimationClip(
             string assetPath,

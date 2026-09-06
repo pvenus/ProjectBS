@@ -1,0 +1,984 @@
+{
+  "status": "REVIEW_ONLY_NOT_INSTALL_AUTHORITY",
+  "revision": "revision-02-white-background",
+  "supersedes_for_final_choice": "revision-01-exact18-variants",
+  "reference": "/Users/pvenus/ProjectBS-image-python/downloads/exec-600783ed-96f5-4d18-9ddd-d1dbaa661289_7d56b10b/frames/frame_001.png",
+  "background_prompt_exact_phrase": "a completely uniform, flat, opaque pure white (#FFFFFF) background, edge to edge, with no pattern, no grid, no tiles, no floor line, no shadow, no texture, no gradient",
+  "actions": [
+    "Move",
+    "Idle",
+    "Dash",
+    "Charge",
+    "CraneCast",
+    "TurtleSummon"
+  ],
+  "variants_per_action": [
+    "A",
+    "B",
+    "C"
+  ],
+  "board_count": 18,
+  "review_gif_count": 18,
+  "raw_boards_preserved_without_pixel_modification": true,
+  "background_removal_or_alpha_processing": false,
+  "frame_position_normalization": false,
+  "canonical_project_install": false,
+  "overview": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/overview-18-white-background.png",
+  "overview_sha256": "1c66a73b147c6b6b06b1736aea99a981e5fedb84220ff502fdec43bc2b5c0cd6",
+  "records": [
+    {
+      "action": "Move",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-9196255b-3610-4ab3-af84-209b0905f9bf.png",
+      "generated_source_sha256": "f7a7aa3dbdcdfbfca51cf6ff5bbec6e47a3de1f694327e275f1c18b03bde9312",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/move-a-six-pose-white.png",
+      "raw_board_sha256": "f7a7aa3dbdcdfbfca51cf6ff5bbec6e47a3de1f694327e275f1c18b03bde9312",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.157977,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/move-a-six-pose-white.gif",
+      "review_gif_sha256": "71eb5088f4b95348cead099506b2a1305c5a2e7b02558f56dfc27a7560d27a1d",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/move-a-six-pose-white-contact.png",
+      "contact_sha256": "3bc9221267d269148dea095e1cbcc810157c9f4638ad86b047feb56ab6cae221"
+    },
+    {
+      "action": "Move",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-65d08d04-584a-4e6e-b473-14b1cdf2778f.png",
+      "generated_source_sha256": "9e9f65e85bdae66d3d5435c1bdfee81cb1999164dd44bc9662b4b6a58bb706e1",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/move-b-six-pose-white.png",
+      "raw_board_sha256": "9e9f65e85bdae66d3d5435c1bdfee81cb1999164dd44bc9662b4b6a58bb706e1",
+      "dimensions": [
+        2200,
+        715
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 366,
+        "height": 715,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.157633,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/move-b-six-pose-white.gif",
+      "review_gif_sha256": "5e9776a07d06e6711a85dac4c06a69c385b1b3e4378810dad5368dd03500d0f8",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/move-b-six-pose-white-contact.png",
+      "contact_sha256": "fe1c0fb056211c386039f9f3897e0bcee38ef8ff348eadd06eac2e160e0c5d30"
+    },
+    {
+      "action": "Move",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-fffe9134-2fc8-4905-9e87-16ccf91070a3.png",
+      "generated_source_sha256": "bc71014fc83f7de4b044a11e3b2987a2fff3b9cafdbbb95e69921c1ba84d00ba",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/move-c-six-pose-white.png",
+      "raw_board_sha256": "bc71014fc83f7de4b044a11e3b2987a2fff3b9cafdbbb95e69921c1ba84d00ba",
+      "dimensions": [
+        1983,
+        793
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 330,
+        "height": 793,
+        "unassigned_right_background_pixels": 3
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.154179,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/move-c-six-pose-white.gif",
+      "review_gif_sha256": "60ce9068688432f491c3336868941009be41900cf61aff4e27d6aa7f36465893",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/move-c-six-pose-white-contact.png",
+      "contact_sha256": "011c3b39d8620b2eb93b0d68f168a97ec8340a452bb74a8603b77b7e982c4d64"
+    },
+    {
+      "action": "Idle",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-c76d744b-68ac-4f12-90e1-c6058baf93aa.png",
+      "generated_source_sha256": "e3eb63f466b892ab4e6bee46eae3fd73712c0dd5ae98084b89ac766ef75747e0",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/idle-a-six-pose-white.png",
+      "raw_board_sha256": "e3eb63f466b892ab4e6bee46eae3fd73712c0dd5ae98084b89ac766ef75747e0",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.121383,
+        "border_near_white_250_255_ratio": 0.998873,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/idle-a-six-pose-white.gif",
+      "review_gif_sha256": "dae6d5ab8fb8a91e26ac9af7bc2f7279275e3c4cd7e31545d11bbeaf17e350ef",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/idle-a-six-pose-white-contact.png",
+      "contact_sha256": "153a6685eaafc1098238cd3129fd74b00ca131f96d295205c8d74361d3149184"
+    },
+    {
+      "action": "Idle",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-7a1cee2f-2efc-452e-91a9-52ce00c420a3.png",
+      "generated_source_sha256": "45bab4c7d5d43c9d4b5e61d91dd5707835ad1b643174d6210184bf8d81b842e0",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/idle-b-six-pose-white.png",
+      "raw_board_sha256": "45bab4c7d5d43c9d4b5e61d91dd5707835ad1b643174d6210184bf8d81b842e0",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.129275,
+        "border_near_white_250_255_ratio": 0.996994,
+        "corners_rgb": [
+          [
+            253,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/idle-b-six-pose-white.gif",
+      "review_gif_sha256": "abc173fc4167c57269cee3945319b60d02d2f08c4c091eb118092d276a9807db",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/idle-b-six-pose-white-contact.png",
+      "contact_sha256": "e47388b72fe7014484111fe6d23fdecc2a219a45aa398e8c6359e896afd42a38"
+    },
+    {
+      "action": "Idle",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-235acf17-6dcc-41e5-9717-f575049c134b.png",
+      "generated_source_sha256": "53829458c85ad45cde15350672f3fe41b877be863c02487b696a470b82068973",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/idle-c-six-pose-white.png",
+      "raw_board_sha256": "53829458c85ad45cde15350672f3fe41b877be863c02487b696a470b82068973",
+      "dimensions": [
+        1690,
+        931
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 281,
+        "height": 931,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.129149,
+        "border_near_white_250_255_ratio": 0.994849,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/idle-c-six-pose-white.gif",
+      "review_gif_sha256": "aaa69bdcfed29aec1b97e5e1616dbebed1b673edbeb278bfa7e0cc7f7dd98cc3",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/idle-c-six-pose-white-contact.png",
+      "contact_sha256": "06e9cad26a1cfd09710f612a81a4c37c3a8c183ea3a9e752cb30a55cbd5f5d95"
+    },
+    {
+      "action": "Dash",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-dd12d228-7df8-485d-94c7-6c914fa4c166.png",
+      "generated_source_sha256": "612fbbeb53348a442d953051d45afb01f20c0fd1f6902674b3e31e51ffdf04c2",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/dash-a-six-pose-white.png",
+      "raw_board_sha256": "612fbbeb53348a442d953051d45afb01f20c0fd1f6902674b3e31e51ffdf04c2",
+      "dimensions": [
+        2146,
+        733
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 357,
+        "height": 733,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.166204,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/dash-a-six-pose-white.gif",
+      "review_gif_sha256": "78027025d901f7a740ce48a468aedeaf1adaddcd989502a41436b8666e8ccb27",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/dash-a-six-pose-white-contact.png",
+      "contact_sha256": "4cb96decc5864f8557e6bed3d52920d27a162ed3fbd43fe4985b87a41632a073"
+    },
+    {
+      "action": "Dash",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-b40ff8cb-dbf0-48c9-84a5-471cf193ce35.png",
+      "generated_source_sha256": "3b87c9eadba52475f80e49d5baa838225044ef9341df1ec69e856e3892891b78",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/dash-b-six-pose-white.png",
+      "raw_board_sha256": "3b87c9eadba52475f80e49d5baa838225044ef9341df1ec69e856e3892891b78",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.161781,
+        "border_near_white_250_255_ratio": 0.999248,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/dash-b-six-pose-white.gif",
+      "review_gif_sha256": "cf3088d1a02b8d69f38c78bf78b1fa61d02a59c4892b658d66724dbdd1c9f985",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/dash-b-six-pose-white-contact.png",
+      "contact_sha256": "17815eeab462ffeda33733c47b4be97d8a1342b1031a5d6801ff8d023c6956a0"
+    },
+    {
+      "action": "Dash",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-b0d38a11-ada4-4ed1-8853-616459413fe2.png",
+      "generated_source_sha256": "2377cfede8a106a9a0938b29e292959dc52f3013b03ae651ef5b82f622e764f8",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/dash-c-six-pose-white.png",
+      "raw_board_sha256": "2377cfede8a106a9a0938b29e292959dc52f3013b03ae651ef5b82f622e764f8",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.146186,
+        "border_near_white_250_255_ratio": 0.999248,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/dash-c-six-pose-white.gif",
+      "review_gif_sha256": "3bc2d8967f42338861733d31dc62d8df1821f942403edc6303819705a88bcf3e",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/dash-c-six-pose-white-contact.png",
+      "contact_sha256": "6eea286a2c718d4fdd0880c97febf76e374a9dd418db38a4f6a8bed0d3433d4b"
+    },
+    {
+      "action": "Charge",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-3ec42016-e616-4eb0-9903-63a080ac2973.png",
+      "generated_source_sha256": "cc486b2d92cb884caf055c306f7a63788c4b34766b43f980232f189f585e6218",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/charge-a-six-pose-white.png",
+      "raw_board_sha256": "cc486b2d92cb884caf055c306f7a63788c4b34766b43f980232f189f585e6218",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.150883,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            253,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/charge-a-six-pose-white.gif",
+      "review_gif_sha256": "361f77429e58d93225083fccb5755d0513da342ba0722e3c5487d01dfac97285",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/charge-a-six-pose-white-contact.png",
+      "contact_sha256": "cc4b7ac1bebdf1fd1c726470efec35bb38a1df4cd09f7be7ad45f279f12d0b8b"
+    },
+    {
+      "action": "Charge",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-d49d7a25-597e-4a7b-8c6c-f3bdba80f697.png",
+      "generated_source_sha256": "4d9502047754621f1b06ed6b28e1cd8da99f91084f573343967f41a98dc00b08",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/charge-b-six-pose-white.png",
+      "raw_board_sha256": "4d9502047754621f1b06ed6b28e1cd8da99f91084f573343967f41a98dc00b08",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.145246,
+        "border_near_white_250_255_ratio": 0.997933,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/charge-b-six-pose-white.gif",
+      "review_gif_sha256": "7576f125ab5d62554fba61fcae42faf9e7dbe17ad2914b7a2f603bb7e933edd4",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/charge-b-six-pose-white-contact.png",
+      "contact_sha256": "e0769ebdbb177d023b5dd9739cb3fd8a3149568f5d51c0ec421eb711292f0618"
+    },
+    {
+      "action": "Charge",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-b0af6f3a-8302-4ec8-b406-b9117336717a.png",
+      "generated_source_sha256": "91bfb381f77f9741d1353b2f52ec03fc700564d082699e3fb4d4c5ed0640927e",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/charge-c-six-pose-white.png",
+      "raw_board_sha256": "91bfb381f77f9741d1353b2f52ec03fc700564d082699e3fb4d4c5ed0640927e",
+      "dimensions": [
+        1799,
+        874
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 299,
+        "height": 874,
+        "unassigned_right_background_pixels": 5
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.156004,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/charge-c-six-pose-white.gif",
+      "review_gif_sha256": "b47a9ab0ff854c808659420735364683f7ffd6eaadb8fa5aeb92b99b502a3f7f",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/charge-c-six-pose-white-contact.png",
+      "contact_sha256": "fc601fa7ebd93a2572ae6c8b7c014ab1bb13e4426fb41ce0b113a41087372d6d"
+    },
+    {
+      "action": "CraneCast",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-b6b2a100-b3f9-4ad7-8b4f-1db4afcdd3f3.png",
+      "generated_source_sha256": "2d402fa4e91fa3fd4ef88be13c12f3c54a9df41c037a8d9edf5f4d073fa0210e",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/cranecast-a-six-pose-white.png",
+      "raw_board_sha256": "2d402fa4e91fa3fd4ef88be13c12f3c54a9df41c037a8d9edf5f4d073fa0210e",
+      "dimensions": [
+        1983,
+        793
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 330,
+        "height": 793,
+        "unassigned_right_background_pixels": 3
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.148415,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/cranecast-a-six-pose-white.gif",
+      "review_gif_sha256": "ff08ab93c03048ffa80b943bf316a701ff4735edea4f4fd75c1f2f037bc0304e",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/cranecast-a-six-pose-white-contact.png",
+      "contact_sha256": "a4fd6f1b3f855bffb7532fa022ccf6dcb68099d36c34148c6c4278aa747d3726"
+    },
+    {
+      "action": "CraneCast",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-005aa2d5-d1d0-4e81-a54b-79135ca5f366.png",
+      "generated_source_sha256": "a1c3a69f188155732d478e009bc2edf6a093530c80b501d6b85d22aa43365350",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/cranecast-b-six-pose-white.png",
+      "raw_board_sha256": "a1c3a69f188155732d478e009bc2edf6a093530c80b501d6b85d22aa43365350",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.140193,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/cranecast-b-six-pose-white.gif",
+      "review_gif_sha256": "67965727e4b42f3740c8a8ea7eda88f1205c9b8810ea3d5ee75055c01a842d0b",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/cranecast-b-six-pose-white-contact.png",
+      "contact_sha256": "a9ff5521e7f89dd1a8998499b4aceebdf3ae0074d94436ea234c3f161db35200"
+    },
+    {
+      "action": "CraneCast",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-a9455484-0222-4683-a3f2-406ad4aa3497.png",
+      "generated_source_sha256": "21a2e83659364ad2a3e86d01c6ee4a806138c5010ae9c41494d728b3d5137b05",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/cranecast-c-six-pose-white.png",
+      "raw_board_sha256": "21a2e83659364ad2a3e86d01c6ee4a806138c5010ae9c41494d728b3d5137b05",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.148481,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/cranecast-c-six-pose-white.gif",
+      "review_gif_sha256": "320047a138cff067fdac291f658420a7806e0a6fb543775d2dfd20f1db42f7e9",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/cranecast-c-six-pose-white-contact.png",
+      "contact_sha256": "0d97fdf54e7f5e68e6b3e48a54310819ee4977e1fc4b757979cbe7d04c1af1c6"
+    },
+    {
+      "action": "TurtleSummon",
+      "variant": "A",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-6f35f640-738e-497c-ae50-45a4e7172a2e.png",
+      "generated_source_sha256": "0891496038345c5ede82f5e740f7fcb2887e49a60cddbce9bfd68cb2b82eb4b3",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/turtlesummon-a-six-pose-white.png",
+      "raw_board_sha256": "0891496038345c5ede82f5e740f7fcb2887e49a60cddbce9bfd68cb2b82eb4b3",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.160566,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/turtlesummon-a-six-pose-white.gif",
+      "review_gif_sha256": "26e90280fa1303dfb59bde54edd701d5571d9cd5c91b7724fee0f930e8abdebf",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/turtlesummon-a-six-pose-white-contact.png",
+      "contact_sha256": "9d5cb49a84df7d828d2f0e3391ea630c60b41eae006857728d359c7dc51786b3"
+    },
+    {
+      "action": "TurtleSummon",
+      "variant": "B",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-284bdc2d-46d1-4bdb-9b3c-c8b12268f5af.png",
+      "generated_source_sha256": "0e5296e394b57a04395a0f5914ef7cab3bfb04c27c484369fd85afc9491a8693",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/turtlesummon-b-six-pose-white.png",
+      "raw_board_sha256": "0e5296e394b57a04395a0f5914ef7cab3bfb04c27c484369fd85afc9491a8693",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 362,
+        "height": 724,
+        "unassigned_right_background_pixels": 0
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.146754,
+        "border_near_white_250_255_ratio": 1.0,
+        "corners_rgb": [
+          [
+            255,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/turtlesummon-b-six-pose-white.gif",
+      "review_gif_sha256": "25a5e8601f3a74f35bbb5db848920d1d79a4261838cc971125df431e70b48a9f",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/turtlesummon-b-six-pose-white-contact.png",
+      "contact_sha256": "d1c2c32907be8de02cca933db68d10ace0c23b8846542bbbf7d347525fea5e6d"
+    },
+    {
+      "action": "TurtleSummon",
+      "variant": "C",
+      "generated_source": "/Users/pvenus/.codex/generated_images/01a0421a-c5ea-7623-88db-2ac71c27bd93/exec-37f3c024-75ee-492a-8027-a401c3c9fd22.png",
+      "generated_source_sha256": "fe5f8dcd942bff655c75cacfb1800c7f7871885a1f62b5974348aa99dbe64874",
+      "raw_board": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/raw-boards/turtlesummon-c-six-pose-white.png",
+      "raw_board_sha256": "fe5f8dcd942bff655c75cacfb1800c7f7871885a1f62b5974348aa99dbe64874",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "six_equal_review_cells": {
+        "cell_width": 295,
+        "height": 887,
+        "unassigned_right_background_pixels": 4
+      },
+      "white_background_measurement": {
+        "border_exact_FFFFFF_ratio": 0.128523,
+        "border_near_white_250_255_ratio": 0.995678,
+        "corners_rgb": [
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "visual_pattern_grid_floor_shadow_gradient": false,
+        "source_pixels_modified": false
+      },
+      "review_gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/gifs/turtlesummon-c-six-pose-white.gif",
+      "review_gif_sha256": "4c3b4024ddc3765d1540f79c5ea78ee205f8058694ea5da6ea02d33dcf9e1858",
+      "gif_frames": 6,
+      "gif_frame_delay_ms": 180,
+      "gif_loop": "infinite",
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/review/revision-02-white-background/contacts/turtlesummon-c-six-pose-white-contact.png",
+      "contact_sha256": "2bc4aa17af7acbdac1dd260a4e8dbd14d92b1ace163bb6693ec3032717e95ece"
+    }
+  ]
+}

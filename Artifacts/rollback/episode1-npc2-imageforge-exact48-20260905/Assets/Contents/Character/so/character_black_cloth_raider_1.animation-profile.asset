@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d2429680db43a5ae0d8a5520619c32, type: 3}
+  m_Name: character_black_cloth_raider_1.animation-profile
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterAnimationProfileSO
+  schemaVersion: 2
+  generatorVersion: character-animation-profile-builder/2.0.0
+  sourceDigest: sha256:589375dbeb75bf3ed49f14095ac59c05c613012162bd36c924825e927574242c
+  contentContractReceipt: sha256:0d1863db84c211254d0236fad1fe035624998ac448423f4ba82f191cb3257da3
+  productionGovernanceReceipt: sha256:156bed56f5247b93d3f315463651f223cd044fca879f543336c83b39c7c23864
+  attackDisabledCcReachable: 1
+  characterId: character.black_cloth_raider.1
+  states:
+  - slot: 0
+    animationId: animation.character.black_cloth_raider.1.idle.v2
+    directionalClips:
+    - clipType: 0
+      clip: {fileID: 7400000, guid: 309693dfeea764b34b9426fa25db4480, type: 2}
+    - clipType: 1
+      clip: {fileID: 7400000, guid: fbd94aacba1f2423fab807a074addba9, type: 2}
+    - clipType: 2
+      clip: {fileID: 7400000, guid: 309693dfeea764b34b9426fa25db4480, type: 2}
+    - clipType: 3
+      clip: {fileID: 7400000, guid: fbd94aacba1f2423fab807a074addba9, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 1
+    animationId: animation.character.black_cloth_raider.1.move.v2
+    directionalClips:
+    - clipType: 4
+      clip: {fileID: 7400000, guid: 0d9b1689e2d674898a8aeecfd12d44cd, type: 2}
+    - clipType: 5
+      clip: {fileID: 7400000, guid: 8ff9ef3e8be6d44faa354a840aa60fd2, type: 2}
+    - clipType: 6
+      clip: {fileID: 7400000, guid: 0d9b1689e2d674898a8aeecfd12d44cd, type: 2}
+    - clipType: 7
+      clip: {fileID: 7400000, guid: 8ff9ef3e8be6d44faa354a840aa60fd2, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 2
+    animationId: animation.character.black_cloth_raider.1.basic_attack.black_knife_cut.v2
+    directionalClips:
+    - clipType: 8
+      clip: {fileID: 7400000, guid: 7d4f5d3b3000446e3b093d136337deee, type: 2}
+    - clipType: 9
+      clip: {fileID: 7400000, guid: 1930f66bc194049d08c66eb95eabc951, type: 2}
+    - clipType: 10
+      clip: {fileID: 7400000, guid: 7d4f5d3b3000446e3b093d136337deee, type: 2}
+    - clipType: 11
+      clip: {fileID: 7400000, guid: 1930f66bc194049d08c66eb95eabc951, type: 2}
+    loop: 0
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 3
+    animationId: animation.character.black_cloth_raider.1.death.v2
+    directionalClips:
+    - clipType: 12
+      clip: {fileID: 7400000, guid: d213f6083529842b7a4e53351ba5d4a9, type: 2}
+    - clipType: 13
+      clip: {fileID: 7400000, guid: d213f6083529842b7a4e53351ba5d4a9, type: 2}
+    - clipType: 14
+      clip: {fileID: 7400000, guid: d213f6083529842b7a4e53351ba5d4a9, type: 2}
+    - clipType: 15
+      clip: {fileID: 7400000, guid: d213f6083529842b7a4e53351ba5d4a9, type: 2}
+    loop: 0
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 4
+    animationId: animation.character.black_cloth_raider.1.stun.v2
+    directionalClips:
+    - clipType: 0
+      clip: {fileID: 7400000, guid: f4eaabfbb141d4279bbf140705adfefd, type: 2}
+    - clipType: 1
+      clip: {fileID: 7400000, guid: f4eaabfbb141d4279bbf140705adfefd, type: 2}
+    - clipType: 2
+      clip: {fileID: 7400000, guid: f4eaabfbb141d4279bbf140705adfefd, type: 2}
+    - clipType: 3
+      clip: {fileID: 7400000, guid: f4eaabfbb141d4279bbf140705adfefd, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  skillActions: []

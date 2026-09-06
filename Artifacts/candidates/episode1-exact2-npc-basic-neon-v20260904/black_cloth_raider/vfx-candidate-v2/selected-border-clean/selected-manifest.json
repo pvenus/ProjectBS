@@ -1,0 +1,103 @@
+{
+  "schema": "projectbs.border-clean-selected-vfx.v1",
+  "sourceManifest": "../manifest.json",
+  "sourceManifestSha256": "643b03f83387115165212215cc61cb33979a48e47030eb8c8b6d6e3f50649acc",
+  "cleanupScript": "../normalize_border_alpha.py",
+  "cleanupScriptSha256": "f9fba0f42b33ad3f6e0355ceb0669c876e3ea897fdb634aa3b07261f3b581369",
+  "operation": "Only canvas-border pixels with alpha <= 1 were replaced by RGBA(0,0,0,0).",
+  "canvas": [
+    768,
+    768
+  ],
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "frameTimesSeconds": [
+    0,
+    0.12,
+    0.24,
+    0.36
+  ],
+  "stopTimeSeconds": 0.48,
+  "loop": false,
+  "frames": [
+    {
+      "frame": 0,
+      "timeSeconds": 0,
+      "file": "frame-0.png",
+      "sha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+      "sourceSha256": "d90e0d7136fb840cbff49648c1cdb430269fabb8058881a27a95111df79d941b",
+      "pixelDiffCount": 2,
+      "changedCoordinates": [
+        [
+          767,
+          440
+        ],
+        [
+          767,
+          631
+        ]
+      ]
+    },
+    {
+      "frame": 1,
+      "timeSeconds": 0.12,
+      "file": "frame-1.png",
+      "sha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+      "sourceSha256": "ca5cc7583f2bc778744358edbbe2d172f214e29a498853ff96ff4d47a875ee08",
+      "pixelDiffCount": 0,
+      "changedCoordinates": []
+    },
+    {
+      "frame": 2,
+      "timeSeconds": 0.24,
+      "file": "frame-2.png",
+      "sha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+      "sourceSha256": "4337142ba9923658bc09d8bda6e2829259ff43175c4aa6e532e34a496711300c",
+      "pixelDiffCount": 6,
+      "changedCoordinates": [
+        [
+          767,
+          135
+        ],
+        [
+          767,
+          152
+        ],
+        [
+          767,
+          391
+        ],
+        [
+          767,
+          392
+        ],
+        [
+          767,
+          399
+        ],
+        [
+          767,
+          407
+        ]
+      ]
+    },
+    {
+      "frame": 3,
+      "timeSeconds": 0.36,
+      "file": "frame-3.png",
+      "sha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d",
+      "sourceSha256": "caf1fb7f98d8ec1f2478e8b5e7c2ff24d0be68871359584b4edc34de564c8894",
+      "pixelDiffCount": 0,
+      "changedCoordinates": []
+    }
+  ],
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

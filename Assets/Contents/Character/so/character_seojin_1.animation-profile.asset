@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d2429680db43a5ae0d8a5520619c32, type: 3}
+  m_Name: character_seojin_1.animation-profile
+  m_EditorClassIdentifier: Assembly-CSharp::Character.CharacterAnimationProfileSO
+  schemaVersion: 2
+  generatorVersion: character-animation-profile-builder/2.0.0
+  sourceDigest: sha256:37a234a2a7e766973cb6518c211e5684ae59429dcef6a56de6322ebf82b892c1
+  contentContractReceipt: sha256:1235c39e7e30d429737c6f0e6ff6ce42d75f241aee3ba2a35daa3feda1168737
+  productionGovernanceReceipt: sha256:156bed56f5247b93d3f315463651f223cd044fca879f543336c83b39c7c23864
+  attackDisabledCcReachable: 1
+  characterId: character.seojin.1
+  states:
+  - slot: 0
+    animationId: character.seojin.1.idle.user-manual
+    directionalClips:
+    - clipType: 0
+      clip: {fileID: 7400000, guid: 16567e50dfa6ac9a6c922e6e18102171, type: 2}
+    - clipType: 1
+      clip: {fileID: 7400000, guid: 6fe925271ff31061e9a39bf17deda03a, type: 2}
+    - clipType: 2
+      clip: {fileID: 7400000, guid: 16567e50dfa6ac9a6c922e6e18102171, type: 2}
+    - clipType: 3
+      clip: {fileID: 7400000, guid: 6fe925271ff31061e9a39bf17deda03a, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 1
+    animationId: character.seojin.1.run.user-manual
+    directionalClips:
+    - clipType: 4
+      clip: {fileID: 7400000, guid: 4d77232be803c944db49a2a1398b8b33, type: 2}
+    - clipType: 5
+      clip: {fileID: 7400000, guid: fa02242423f63c6dd1eea837003e69bd, type: 2}
+    - clipType: 6
+      clip: {fileID: 7400000, guid: 4d77232be803c944db49a2a1398b8b33, type: 2}
+    - clipType: 7
+      clip: {fileID: 7400000, guid: fa02242423f63c6dd1eea837003e69bd, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 2
+    animationId: character.seojin.1.basic.continuous18
+    directionalClips:
+    - clipType: 8
+      clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+    - clipType: 9
+      clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+    - clipType: 10
+      clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+    - clipType: 11
+      clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+    loop: 0
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 3
+    animationId: character.seojin.1.death.c
+    directionalClips:
+    - clipType: 12
+      clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+    - clipType: 13
+      clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+    - clipType: 14
+      clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+    - clipType: 15
+      clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+    loop: 0
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  - slot: 4
+    animationId: character.seojin.1.stun.b
+    directionalClips:
+    - clipType: 0
+      clip: {fileID: 7400000, guid: 4c1064c1e95254ae2a86d87a5d527404, type: 2}
+    - clipType: 1
+      clip: {fileID: 7400000, guid: 4c1064c1e95254ae2a86d87a5d527404, type: 2}
+    - clipType: 2
+      clip: {fileID: 7400000, guid: 4c1064c1e95254ae2a86d87a5d527404, type: 2}
+    - clipType: 3
+      clip: {fileID: 7400000, guid: 4c1064c1e95254ae2a86d87a5d527404, type: 2}
+    loop: 1
+    mirrorLeftFromRight: 1
+    rootMotion: 0
+  skillActions:
+  - skillId: skill.character.seojin.1.active_1.active_1
+    animationId: character.seojin.skill.charge.user-manual
+    clip: {fileID: 7400000, guid: 1d2917a1254840994c1570c1e47556cb, type: 2}
+    playbackSpeed: 1
+    mirrorWithFacing: 1
+    fallback: 1
+    fallbackReceipt: 
+    markerIntents:
+    - cast
+    - contact
+    - restore
+    interruptPolicy: 0
+    restorePolicy: 0
+    gradeReuseSource: shared:seojin.g1-g3.charge
+    exceptionReceipt: 
+  - skillId: skill.character.seojin.1.active_4.swift_step
+    animationId: character.seojin.skill.swift-step.user-manual
+    clip: {fileID: 7400000, guid: fb54330c4e1b244f3e16af7139691fb9, type: 2}
+    playbackSpeed: 1
+    mirrorWithFacing: 1
+    fallback: 3
+    fallbackReceipt: 
+    markerIntents:
+    - prepare
+    - movement-start
+    - terminal
+    - restore
+    interruptPolicy: 0
+    restorePolicy: 0
+    gradeReuseSource: shared:seojin.g1-g3.swift-step
+    exceptionReceipt: 

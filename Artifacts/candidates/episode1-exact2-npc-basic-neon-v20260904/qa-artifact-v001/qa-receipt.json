@@ -1,0 +1,944 @@
+{
+  "schema": "projectbs.episode1-exact2-neon-physical-qa-receipt.v1",
+  "result": "PASS_WITH_WARNING",
+  "manifestShaVerified": true,
+  "checks": {
+    "frameCount16": true,
+    "frameOrder0Through3PerSequence": true,
+    "pngOpen": true,
+    "rgbaMode": true,
+    "dimensionsMatchManifest": true,
+    "shaMatchesManifest": true,
+    "shaUniqueAcross16": true,
+    "alphaPresent": true,
+    "alphaBBoxInsideCanvasNoClipping": true,
+    "cornersAlphaZero": true,
+    "fourBordersAlphaZero": true,
+    "alphaZeroRgbResidueZero": true,
+    "bodyVfxPhysicallySeparated": true,
+    "rendererScaleMultiplierPresentationOnly": true,
+    "pivotPpuManifestConsistentWithExistingBodyImporters": true,
+    "timingConsistentWithExistingBodyClips": true
+  },
+  "warning": "Filename one_shot conflicts with serialized m_LoopTime=1 for both body clips (Left and Right); no modification made. GIF previews encode 80 ms per frame because GIF timing is centisecond-quantized; the 12 fps source timing remains separately recorded as reference metadata.",
+  "haloDiagnostic": "Light/dark contacts packaged. darkSemitransparentPixelsRgbMaxLt20 is recorded per frame as a diagnostic, not treated as automatic proof of a black fringe.",
+  "frames": {
+    "black_cloth_raider/body": [
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          627,
+          627
+        ],
+        "sha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          30,
+          9,
+          505,
+          610
+        ],
+        "alphaMargins": [
+          30,
+          9,
+          122,
+          17
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 278729,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 114132,
+        "darkSemitransparentPixelsRgbMaxLt20": 8219,
+        "frame": 0,
+        "manifestSha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          627,
+          627
+        ],
+        "sha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          25,
+          64,
+          571,
+          610
+        ],
+        "alphaMargins": [
+          25,
+          64,
+          56,
+          17
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 274379,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 118434,
+        "darkSemitransparentPixelsRgbMaxLt20": 8357,
+        "frame": 1,
+        "manifestSha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          627,
+          627
+        ],
+        "sha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          44,
+          18,
+          618,
+          588
+        ],
+        "alphaMargins": [
+          44,
+          18,
+          9,
+          39
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 277914,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 114860,
+        "darkSemitransparentPixelsRgbMaxLt20": 8546,
+        "frame": 2,
+        "manifestSha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          627,
+          627
+        ],
+        "sha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          9,
+          71,
+          587,
+          606
+        ],
+        "alphaMargins": [
+          9,
+          71,
+          40,
+          21
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 283156,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 109673,
+        "darkSemitransparentPixelsRgbMaxLt20": 8562,
+        "frame": 3,
+        "manifestSha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9",
+        "shaMatchesManifest": true
+      }
+    ],
+    "black_cloth_raider/vfx": [
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "27fbe19b4a2d6a20f466918bf0d0ab82a18028448001fc955d42b52bd7a365e5",
+        "alphaExtrema": [
+          0,
+          253
+        ],
+        "alphaBBox": [
+          265,
+          261,
+          529,
+          511
+        ],
+        "alphaMargins": [
+          265,
+          261,
+          239,
+          257
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 565714,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 24110,
+        "darkSemitransparentPixelsRgbMaxLt20": 303,
+        "frame": 0,
+        "manifestSha256": "27fbe19b4a2d6a20f466918bf0d0ab82a18028448001fc955d42b52bd7a365e5",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "7f3569c2fd9f2f6313391db259ee3f97192f04e43706db208e774ca6b31b3a7b",
+        "alphaExtrema": [
+          0,
+          253
+        ],
+        "alphaBBox": [
+          82,
+          217,
+          660,
+          560
+        ],
+        "alphaMargins": [
+          82,
+          217,
+          108,
+          208
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 538068,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 51756,
+        "darkSemitransparentPixelsRgbMaxLt20": 649,
+        "frame": 1,
+        "manifestSha256": "7f3569c2fd9f2f6313391db259ee3f97192f04e43706db208e774ca6b31b3a7b",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "075472cc5d227d1b3eac1a24060ab80c73112c599b3a3e33d6f5a25d860a6d67",
+        "alphaExtrema": [
+          0,
+          254
+        ],
+        "alphaBBox": [
+          123,
+          148,
+          739,
+          546
+        ],
+        "alphaMargins": [
+          123,
+          148,
+          29,
+          222
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 500470,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 89354,
+        "darkSemitransparentPixelsRgbMaxLt20": 586,
+        "frame": 2,
+        "manifestSha256": "075472cc5d227d1b3eac1a24060ab80c73112c599b3a3e33d6f5a25d860a6d67",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "77c79d8a1090bbc94e374b8648f914ef3feaaaf83651d59851405a854446a76e",
+        "alphaExtrema": [
+          0,
+          253
+        ],
+        "alphaBBox": [
+          139,
+          193,
+          601,
+          541
+        ],
+        "alphaMargins": [
+          139,
+          193,
+          167,
+          227
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 552513,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 37311,
+        "darkSemitransparentPixelsRgbMaxLt20": 487,
+        "frame": 3,
+        "manifestSha256": "77c79d8a1090bbc94e374b8648f914ef3feaaaf83651d59851405a854446a76e",
+        "shaMatchesManifest": true
+      }
+    ],
+    "chain_dragger_raider/body": [
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          512
+        ],
+        "sha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          212,
+          116,
+          508,
+          467
+        ],
+        "alphaMargins": [
+          212,
+          116,
+          260,
+          45
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 350113,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 5440,
+        "darkSemitransparentPixelsRgbMaxLt20": 192,
+        "frame": 0,
+        "manifestSha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          512
+        ],
+        "sha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          135,
+          111,
+          525,
+          468
+        ],
+        "alphaMargins": [
+          135,
+          111,
+          243,
+          44
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 350273,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 5921,
+        "darkSemitransparentPixelsRgbMaxLt20": 155,
+        "frame": 1,
+        "manifestSha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          512
+        ],
+        "sha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          181,
+          46,
+          640,
+          387
+        ],
+        "alphaMargins": [
+          181,
+          46,
+          128,
+          125
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 350104,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 5451,
+        "darkSemitransparentPixelsRgbMaxLt20": 187,
+        "frame": 2,
+        "manifestSha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          512
+        ],
+        "sha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          128,
+          26,
+          533,
+          393
+        ],
+        "alphaMargins": [
+          128,
+          26,
+          235,
+          119
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 349822,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 5729,
+        "darkSemitransparentPixelsRgbMaxLt20": 160,
+        "frame": 3,
+        "manifestSha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295",
+        "shaMatchesManifest": true
+      }
+    ],
+    "chain_dragger_raider/vfx": [
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          101,
+          122,
+          660,
+          634
+        ],
+        "alphaMargins": [
+          101,
+          122,
+          108,
+          134
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 569555,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 20266,
+        "darkSemitransparentPixelsRgbMaxLt20": 57,
+        "frame": 0,
+        "manifestSha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          93,
+          127,
+          680,
+          642
+        ],
+        "alphaMargins": [
+          93,
+          127,
+          88,
+          126
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 523272,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 66543,
+        "darkSemitransparentPixelsRgbMaxLt20": 463,
+        "frame": 1,
+        "manifestSha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          90,
+          82,
+          680,
+          593
+        ],
+        "alphaMargins": [
+          90,
+          82,
+          88,
+          175
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 510937,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 78882,
+        "darkSemitransparentPixelsRgbMaxLt20": 186,
+        "frame": 2,
+        "manifestSha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+        "shaMatchesManifest": true
+      },
+      {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          768,
+          768
+        ],
+        "sha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9",
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          99,
+          109,
+          678,
+          603
+        ],
+        "alphaMargins": [
+          99,
+          109,
+          90,
+          165
+        ],
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "border": {
+          "top": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "bottom": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "left": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          },
+          "right": {
+            "nonzeroAlphaPixels": 0,
+            "maxAlpha": 0
+          }
+        },
+        "alphaZeroPixels": 537018,
+        "alphaZeroRgbResiduePixels": 0,
+        "semitransparentPixels": 52796,
+        "darkSemitransparentPixelsRgbMaxLt20": 166,
+        "frame": 3,
+        "manifestSha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9",
+        "shaMatchesManifest": true
+      }
+    ]
+  },
+  "mutations": {
+    "candidatePixels": 0,
+    "sourcePixels": 0,
+    "Unity": 0,
+    "canonical": 0,
+    "runtime": 0
+  },
+  "authority": {
+    "runtime": false,
+    "release": false,
+    "Unity": false,
+    "canonical": false
+  }
+}

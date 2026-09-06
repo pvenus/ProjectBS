@@ -19,32 +19,43 @@ MonoBehaviour:
   scale: 0.3
   animationClips:
   - clipType: 0
-    clip: {fileID: 7400000, guid: b8530d0cf9a3743469ffe8524414f64a, type: 2}
+    clip: {fileID: 7400000, guid: 16567e50dfa6ac9a6c922e6e18102171, type: 2}
   - clipType: 1
-    clip: {fileID: 7400000, guid: e1ac327cb189d4580aeddb15d6672db4, type: 2}
+    clip: {fileID: 7400000, guid: 6fe925271ff31061e9a39bf17deda03a, type: 2}
   - clipType: 2
-    clip: {fileID: 7400000, guid: b8530d0cf9a3743469ffe8524414f64a, type: 2}
+    clip: {fileID: 7400000, guid: 16567e50dfa6ac9a6c922e6e18102171, type: 2}
   - clipType: 3
-    clip: {fileID: 7400000, guid: e1ac327cb189d4580aeddb15d6672db4, type: 2}
+    clip: {fileID: 7400000, guid: 6fe925271ff31061e9a39bf17deda03a, type: 2}
   - clipType: 4
-    clip: {fileID: 7400000, guid: 1483f987904c94dc68c04da33d4cd982, type: 2}
+    clip: {fileID: 7400000, guid: 4d77232be803c944db49a2a1398b8b33, type: 2}
   - clipType: 5
-    clip: {fileID: 7400000, guid: 717ac6a596e134879a20104fdfb805a5, type: 2}
+    clip: {fileID: 7400000, guid: fa02242423f63c6dd1eea837003e69bd, type: 2}
   - clipType: 6
-    clip: {fileID: 7400000, guid: 1483f987904c94dc68c04da33d4cd982, type: 2}
+    clip: {fileID: 7400000, guid: 4d77232be803c944db49a2a1398b8b33, type: 2}
   - clipType: 7
-    clip: {fileID: 7400000, guid: 717ac6a596e134879a20104fdfb805a5, type: 2}
+    clip: {fileID: 7400000, guid: fa02242423f63c6dd1eea837003e69bd, type: 2}
   - clipType: 8
-    clip: {fileID: 7400000, guid: 4e5b00921ccff4e17a41f5f5161157c5, type: 2}
+    clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
   - clipType: 9
-    clip: {fileID: 7400000, guid: c4aac6bf264ab45589be7462d13c7235, type: 2}
+    clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
   - clipType: 10
-    clip: {fileID: 7400000, guid: 4e5b00921ccff4e17a41f5f5161157c5, type: 2}
+    clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
   - clipType: 11
-    clip: {fileID: 7400000, guid: c4aac6bf264ab45589be7462d13c7235, type: 2}
+    clip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+  - clipType: 12
+    clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+  - clipType: 13
+    clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+  - clipType: 14
+    clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+  - clipType: 15
+    clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
+  animationProfile: {fileID: 11400000, guid: 1c7a330f92c0a4eceb2d1a82b50e3ade, type: 2}
   skills:
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 5616bfac4b440418b839371b6e9d9c8c, type: 2}
+  - slotKey: active_4
+    skillSo: {fileID: 11400000, guid: 2b9ec721b15af485d96b348ad7ac1503, type: 2}
   - slotKey: basic_attack
     skillSo: {fileID: 11400000, guid: f3a0adba2275e4ab19b8430845507e92, type: 2}
   - slotKey: passive_1

@@ -1,0 +1,21 @@
+{
+  "schema": "projectbs.fresh-whole-imageforge-visual-readback.v1",
+  "method": "Readback of the ten packaged four-frame contact sheets; no pixel edits or visual redesign.",
+  "actions": {
+    "black_cloth_raider": {
+      "Idle": "Identity, equipment, neutral direction, scale, and foot anchor are coherent across four poses; physical result remains FAIL because alpha0 RGB residue is nonzero in all frames.",
+      "Move": "Identity and rightward motion read coherently; frame-2 reaches the right canvas border, so clipping plus residue makes the action FAIL.",
+      "BasicAttack": "Identity and sequence order are readable, but weapon/equipment continuity weakens at frame-2 and that frame reaches the right border; residue also affects all frames. FAIL.",
+      "Death": "Death progression is readable, but frames 0-3 contain multiple bottom/right/left border contacts and visible crops; residue affects all frames. FAIL.",
+      "Stun": "Identity, scale, and stagger progression are coherent; borders are clear, but alpha0 RGB residue affects all frames. FAIL."
+    },
+    "chain_dragger_raider": {
+      "Idle": "Identity and equipment are broadly coherent, but frame-3 reaches the left border and residue affects all frames. FAIL.",
+      "Move": "Identity, chain equipment, direction, scale, and foot-anchor progression are readable; frame-0 reaches the right border and residue affects all frames. FAIL.",
+      "BasicAttack": "Frame-2 contains only a 23x46-pixel detached/foreign fragment instead of a full pose; frames 0-1 also reach the right border and residue affects all frames. FAIL.",
+      "Death": "Frames 2 and 3 are fully transparent duplicate files; frames 0 and 1 are severely cropped at canvas borders. Sequence and pose count fail, with residue throughout. FAIL.",
+      "Stun": "Identity, equipment, scale, and stagger order are readable; frame-3 reaches the left border and residue affects all frames. FAIL."
+    }
+  },
+  "promotion": false
+}

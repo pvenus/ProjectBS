@@ -1,0 +1,165 @@
+{
+  "npc": "chain",
+  "action": "BasicAttack",
+  "stagingDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack",
+  "operationId": "274f7165",
+  "inventoryExact4Order": true,
+  "unique4": true,
+  "frames": [
+    {
+      "index": 0,
+      "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/frame-0.png",
+      "sha256": "bc707f828340a1ff499ca3207fb9a9b8b0c3d5f3f8479c8a9e8094d446abaa95",
+      "open": true,
+      "mode": "RGBA",
+      "canvas": [
+        594,
+        627
+      ],
+      "alphaBBox": [
+        63,
+        117,
+        531,
+        584
+      ],
+      "margins": {
+        "left": 63,
+        "top": 117,
+        "right": 63,
+        "bottom": 43
+      },
+      "allMarginsPositive": true,
+      "borderContact": false,
+      "visibleClipping": "NONE"
+    },
+    {
+      "index": 1,
+      "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/frame-1.png",
+      "sha256": "d1c937c3958c9e154592144cb038aae04364d26d8a4527e1dfd9fcd1d302273e",
+      "open": true,
+      "mode": "RGBA",
+      "canvas": [
+        594,
+        627
+      ],
+      "alphaBBox": [
+        72,
+        97,
+        521,
+        586
+      ],
+      "margins": {
+        "left": 72,
+        "top": 97,
+        "right": 73,
+        "bottom": 41
+      },
+      "allMarginsPositive": true,
+      "borderContact": false,
+      "visibleClipping": "NONE"
+    },
+    {
+      "index": 2,
+      "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/frame-2.png",
+      "sha256": "9789745c079558f2ebe362bbdb610fc57082e42cef5934a2e06a0a69117b40ae",
+      "open": true,
+      "mode": "RGBA",
+      "canvas": [
+        594,
+        627
+      ],
+      "alphaBBox": [
+        20,
+        71,
+        574,
+        497
+      ],
+      "margins": {
+        "left": 20,
+        "top": 71,
+        "right": 20,
+        "bottom": 130
+      },
+      "allMarginsPositive": true,
+      "borderContact": false,
+      "visibleClipping": "NONE"
+    },
+    {
+      "index": 3,
+      "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/frame-3.png",
+      "sha256": "5c7b2dce2001f622480452b85436b7e7232629e36221f6fd3fc2579375755467",
+      "open": true,
+      "mode": "RGBA",
+      "canvas": [
+        594,
+        627
+      ],
+      "alphaBBox": [
+        83,
+        60,
+        510,
+        499
+      ],
+      "margins": {
+        "left": 83,
+        "top": 60,
+        "right": 84,
+        "bottom": 128
+      },
+      "allMarginsPositive": true,
+      "borderContact": false,
+      "visibleClipping": "NONE"
+    }
+  ],
+  "source": {
+    "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/imagegen-source.png",
+    "sha256": "18522f30e74f41228595a4b7893f33483e773234582ca261fc23c8a2ff53ffa5",
+    "mode": "RGBA",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "rowCount": 2,
+    "frameHeight": 627
+  },
+  "mcpManifest": {
+    "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider_274f7165/BasicAttack/frame-manifest.json",
+    "sha256": "b9c988674b8e95c90c35cc3d5a091dcee4bdf7593f04cd2009108dbe9c802086",
+    "rowCount": 2,
+    "frameHeight": 627,
+    "outputCanvas": [
+      594,
+      627
+    ],
+    "horizontalPadding": 20,
+    "settings": {
+      "backgroundTolerance": 4,
+      "alphaThreshold": 150
+    },
+    "raw": {
+      "asset": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "canvas": [
+        594,
+        627
+      ],
+      "frameCount": 4,
+      "rowCount": 2,
+      "horizontalPadding": 20,
+      "selectedSettings": {
+        "backgroundTolerance": 4,
+        "alphaThreshold": 150
+      }
+    }
+  },
+  "pass": true,
+  "newSourceProvenance": {
+    "canonicalSourcePath": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-latest-api-v20260905/new-source/chain_dragger_raider/BasicAttack.png",
+    "canonicalSourceSha256": "0148ffad6ef521c0039a47ec6648a1c8730df1f3288e227cbfe91da12b501056",
+    "expectedShaPrefixMatch": true,
+    "stagedImagegenSourceSha256": "18522f30e74f41228595a4b7893f33483e773234582ca261fc23c8a2ff53ffa5",
+    "byteIdentical": false,
+    "decodedPixelIdentical": true,
+    "note": "MCP staged source is RGBA re-encoding of RGB source; decoded pixels are identical."
+  }
+}

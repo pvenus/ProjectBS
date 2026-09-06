@@ -1,0 +1,627 @@
+{
+  "schema": "projectbs.npc2-complete-selected-install-candidate.v1",
+  "status": "INSTALL_CANDIDATE_QA_PASS",
+  "selectedManifest": "../selected-manifest.json",
+  "selectedManifestSha256": "589375dbeb75bf3ed49f14095ac59c05c613012162bd36c924825e927574242c",
+  "buildScript": "../../build_selected_border_safe.py",
+  "buildScriptSha256": "444c40f091a927bacce15f8500e854b352a263b4b6abc45c8bbe43415644eaea",
+  "frameCount": 48,
+  "npcs": {
+    "black_cloth_raider": {
+      "status": "PASS",
+      "actions": {
+        "Idle": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/Idle/frame-0.png",
+              "sha256": "219677d116cf059f91f458b9ba142ff96e2704ce9ba02377a5ff2d6e2ba3675d"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/Idle/frame-1.png",
+              "sha256": "1f214d64bc2b6ad15f4efb7ee2856869b09a33b6701923f38453f7347b73cc0b"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/Idle/frame-2.png",
+              "sha256": "a01561c21250f5e6e4006a337852151ec64ff0023d6b541e7d06ada905f64da9"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/Idle/frame-3.png",
+              "sha256": "5ab1bceb15df4b9b35fc0086d4dda8faead8a0c13644e6b820cbcb4cf599dfaf"
+            }
+          ]
+        },
+        "Move": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/Move/frame-0.png",
+              "sha256": "d214e57ef786f7386a20b4d00bb78c1f2b140edadaf6676f8f27448194e0aba0"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/Move/frame-1.png",
+              "sha256": "c25d825db0c4405c7c0405865344c749e613b047ed2c6f765c7de7d0aca25ede"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/Move/frame-2.png",
+              "sha256": "6c8d6cabab4f622b469348585d51ce0284a169cd02507d3b4e73f157a90b03eb"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/Move/frame-3.png",
+              "sha256": "b75aa19cd753e17914a1735f2f6bb5b1e93b6acf7649e4c7a9874ecb58304654"
+            }
+          ]
+        },
+        "Death": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/Death/frame-0.png",
+              "sha256": "fcc263e3f5d9c573baf29c0839d745e92f9d2f28103661a41b176c4c70729464"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/Death/frame-1.png",
+              "sha256": "9f6701447ed400600a23e61ec5884ee659aa030ee96838995cb13f11e5e9f913"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/Death/frame-2.png",
+              "sha256": "6341f3ca82fa1a7e9698aed186f695fcad054d107c35c9fa103fb9545eb3433b"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/Death/frame-3.png",
+              "sha256": "9f4634d3e45a450fc4f7a160564f98dcc8032acf913885ed673630cdf5f5968b"
+            }
+          ]
+        },
+        "Stun": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/Stun/frame-0.png",
+              "sha256": "165efdec51b54a479f2c5cbbd33839c36596d8c37157a4840b70a24a17ef9875"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/Stun/frame-1.png",
+              "sha256": "2cd2aae9515dba59d5240dab18dacf5b6a90009c0157b187ea37b85fbac64f15"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/Stun/frame-2.png",
+              "sha256": "93b04b4518de0a059c422c3e84328642611e510aa245a37b11efb089b253c4ab"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/Stun/frame-3.png",
+              "sha256": "ed3d31257f25e9b79dbc6fd5b3f835fd93a0952430a8a8178180be478b33931c"
+            }
+          ]
+        },
+        "BasicAttack": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/BasicAttack/frame-0.png",
+              "sha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/BasicAttack/frame-1.png",
+              "sha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/BasicAttack/frame-2.png",
+              "sha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/BasicAttack/frame-3.png",
+              "sha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9"
+            }
+          ]
+        },
+        "VFX": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../black_cloth_raider/VFX/frame-0.png",
+              "sha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876"
+            },
+            {
+              "frame": 1,
+              "file": "../black_cloth_raider/VFX/frame-1.png",
+              "sha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114"
+            },
+            {
+              "frame": 2,
+              "file": "../black_cloth_raider/VFX/frame-2.png",
+              "sha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d"
+            },
+            {
+              "frame": 3,
+              "file": "../black_cloth_raider/VFX/frame-3.png",
+              "sha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d"
+            }
+          ]
+        }
+      }
+    },
+    "chain_dragger_raider": {
+      "status": "PASS",
+      "actions": {
+        "Idle": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/Idle/frame-0.png",
+              "sha256": "d36880641912b579fdd4ecc218d6e8cd2fc283c3d6a2c2d2e78dd1d200d29a21"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/Idle/frame-1.png",
+              "sha256": "4079864daf23db02867c95eac9f05137a46dd797e8476b608b00f0864eddcd17"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/Idle/frame-2.png",
+              "sha256": "2de478775135a4e35af39156f769ad4a2a8cf6b1d321b0f6ccae7056054e3286"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/Idle/frame-3.png",
+              "sha256": "96006d06a0cca5a707007b2ac08b85d9dc65940a7fbc8452eebae3095eeb5894"
+            }
+          ]
+        },
+        "Move": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/Move/frame-0.png",
+              "sha256": "536b1427f8e21f37b0537fde5d4ef62004cfd8492ea93c84e99dd5bf1fd51401"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/Move/frame-1.png",
+              "sha256": "4f2c8f91a20604c8b345a381bfeb81bcff78cce02eeeb9dc506eda096ef0a286"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/Move/frame-2.png",
+              "sha256": "c9062bfea21c590153767c690331fef99e3f35b0641028f5985e516bf62e9e5c"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/Move/frame-3.png",
+              "sha256": "62350f76064e1ea9207ef873a229d57fd8f0caf8ed3f7873cd8397d74c224c1e"
+            }
+          ]
+        },
+        "Death": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/Death/frame-0.png",
+              "sha256": "5ad9efc47e80b4a212f363b7e8241dc0d950cb9c8d2b904f3d8e3efe39f5b2db"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/Death/frame-1.png",
+              "sha256": "77ccfea59821f9de0bfdc3cbd9c0f566591b368b1c4c2dda2afeb5684445b06f"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/Death/frame-2.png",
+              "sha256": "5cb883d3f826ed666f9b529f5015b0cc4d5796d5fb53e0f79a92c0bebbb9c99a"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/Death/frame-3.png",
+              "sha256": "3f51dce231d554e1a21d3e892cf6cb8b0989e89ddd0e03633113f1ba683440fa"
+            }
+          ]
+        },
+        "Stun": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/Stun/frame-0.png",
+              "sha256": "162b0156f84001c892997b0d5c6de13ba6c72bd49b1b58a354902182c7b6a2ba"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/Stun/frame-1.png",
+              "sha256": "26d2bc38c9232346a5caf5b2ddcd0ea140dba781eb3efd17293e50d3002c8648"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/Stun/frame-2.png",
+              "sha256": "c024aeeca05cd84d97a324c231274b29bd5cff7d39cff2d9e2dfbff2d5e50179"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/Stun/frame-3.png",
+              "sha256": "4f8089bb47a3087e47d926c60d1eb8ebf4a14ed72a35fa9c6462fb5f2ee32495"
+            }
+          ]
+        },
+        "BasicAttack": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/BasicAttack/frame-0.png",
+              "sha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/BasicAttack/frame-1.png",
+              "sha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/BasicAttack/frame-2.png",
+              "sha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/BasicAttack/frame-3.png",
+              "sha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295"
+            }
+          ]
+        },
+        "VFX": {
+          "status": "PASS",
+          "frames": [
+            {
+              "frame": 0,
+              "file": "../chain_dragger_raider/VFX/frame-0.png",
+              "sha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6"
+            },
+            {
+              "frame": 1,
+              "file": "../chain_dragger_raider/VFX/frame-1.png",
+              "sha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6"
+            },
+            {
+              "frame": 2,
+              "file": "../chain_dragger_raider/VFX/frame-2.png",
+              "sha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2"
+            },
+            {
+              "frame": 3,
+              "file": "../chain_dragger_raider/VFX/frame-3.png",
+              "sha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "presentationOnly": {
+    "rendererScaleMultiplier": 0.72
+  },
+  "sourceDownsample": false,
+  "installAuthority": false,
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  },
+  "previews": [
+    {
+      "file": "previews/black_cloth_raider-Idle-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Idle-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Idle.gif",
+      "npc": "black_cloth_raider",
+      "action": "Idle",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/black_cloth_raider-Move-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Move-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Move.gif",
+      "npc": "black_cloth_raider",
+      "action": "Move",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/black_cloth_raider-Death-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Death-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Death.gif",
+      "npc": "black_cloth_raider",
+      "action": "Death",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-Stun.gif",
+      "npc": "black_cloth_raider",
+      "action": "Stun",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-BasicAttack.gif",
+      "npc": "black_cloth_raider",
+      "action": "BasicAttack",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX-contact-light.png",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX-contact-dark.png",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-VFX.gif",
+      "npc": "black_cloth_raider",
+      "action": "VFX",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Idle.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Idle",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Move.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Move",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Death.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Death",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-Stun.gif",
+      "npc": "chain_dragger_raider",
+      "action": "Stun",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-BasicAttack.gif",
+      "npc": "chain_dragger_raider",
+      "action": "BasicAttack",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX-contact-light.png",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "light",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX-contact-dark.png",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "contact",
+      "background": "dark",
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-VFX.gif",
+      "npc": "chain_dragger_raider",
+      "action": "VFX",
+      "type": "gif",
+      "previewTimingOnly": true,
+      "frameDurationMs": 120
+    }
+  ]
+}

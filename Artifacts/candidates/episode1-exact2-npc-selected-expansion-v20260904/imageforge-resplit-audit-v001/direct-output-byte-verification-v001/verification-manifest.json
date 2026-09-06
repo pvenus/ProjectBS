@@ -1,0 +1,868 @@
+{
+  "schema": "projectbs.imageforge-direct-output-byte-verification.v1",
+  "result": "PASS_40_OF_40_BYTE_IDENTICAL",
+  "mapping": "staging frame-0..3 maps to final frame_01..04",
+  "counts": {
+    "actions": 10,
+    "expectedFrames": 40,
+    "finalFramesRead": 40,
+    "stagingFramesRead": 40
+  },
+  "orderVerified": true,
+  "shaIdentity40Of40": true,
+  "finalShaUnique": true,
+  "actions": {
+    "black_cloth_raider": {
+      "Idle": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_71446c5a/Idle/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_01.png",
+            "stagingSha256": "697f14ba89180616cfa6231f61c9611039e484c728aef4b31cf77a89d30bd0f3",
+            "finalSha256": "697f14ba89180616cfa6231f61c9611039e484c728aef4b31cf77a89d30bd0f3",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_71446c5a/Idle/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_02.png",
+            "stagingSha256": "4ee86a81d6c2cb9228c92700dd90330921f45c6e141a598a2bf6e0eff26a2276",
+            "finalSha256": "4ee86a81d6c2cb9228c92700dd90330921f45c6e141a598a2bf6e0eff26a2276",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_71446c5a/Idle/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_03.png",
+            "stagingSha256": "477bbb6ca0e708896c19ff7b765eba007a822deee9e1b13c18c3d8647c5055b8",
+            "finalSha256": "477bbb6ca0e708896c19ff7b765eba007a822deee9e1b13c18c3d8647c5055b8",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_71446c5a/Idle/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_04.png",
+            "stagingSha256": "5d399bdc096f8c0201abfdedb66e01f632bbca27e1307b0ec2c96159ca73ddb6",
+            "finalSha256": "5d399bdc096f8c0201abfdedb66e01f632bbca27e1307b0ec2c96159ca73ddb6",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Move": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_bd58354c/Move/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_01.png",
+            "stagingSha256": "443cc30de065db47a986e8a2cd6a8981ccec7861cf84ffad6b01bd292fd4628b",
+            "finalSha256": "443cc30de065db47a986e8a2cd6a8981ccec7861cf84ffad6b01bd292fd4628b",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                637
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_bd58354c/Move/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_02.png",
+            "stagingSha256": "cd13f5f89dc078516e7117ecf7bb1071339465a9df360983670a38108c5eff53",
+            "finalSha256": "cd13f5f89dc078516e7117ecf7bb1071339465a9df360983670a38108c5eff53",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                637
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_bd58354c/Move/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_03.png",
+            "stagingSha256": "770ea15c440d40c9fd043cec2c2ff281016a3fc4746e044b1101ae4c629a4da6",
+            "finalSha256": "770ea15c440d40c9fd043cec2c2ff281016a3fc4746e044b1101ae4c629a4da6",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                637
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_bd58354c/Move/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_04.png",
+            "stagingSha256": "0bc44f63b803dad7f284a65660ef68a65f74426faab2219ce186d2adac6d0d6e",
+            "finalSha256": "0bc44f63b803dad7f284a65660ef68a65f74426faab2219ce186d2adac6d0d6e",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                637
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          2,
+          3
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "BasicAttack": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_62237c94/BasicAttack/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_01.png",
+            "stagingSha256": "f237f96c32e4d76194abf198adf9a394d0d40a74d89fe739c6e1c936adb975ed",
+            "finalSha256": "f237f96c32e4d76194abf198adf9a394d0d40a74d89fe739c6e1c936adb975ed",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                636
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_62237c94/BasicAttack/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_02.png",
+            "stagingSha256": "011be1480d98ef209b1a6d00167a69b4dc6f3a572e3cfcf648096c241b30a6d3",
+            "finalSha256": "011be1480d98ef209b1a6d00167a69b4dc6f3a572e3cfcf648096c241b30a6d3",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                636
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_62237c94/BasicAttack/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_03.png",
+            "stagingSha256": "0434a9c279053deb3da7ca43bbe764c57711c2971480ebb8f82721848685ca73",
+            "finalSha256": "0434a9c279053deb3da7ca43bbe764c57711c2971480ebb8f82721848685ca73",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                636
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_62237c94/BasicAttack/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_04.png",
+            "stagingSha256": "76e4b6f6b040e2a25039970be927fefb77a9313d40e98d96b536c9bcd3384ca0",
+            "finalSha256": "76e4b6f6b040e2a25039970be927fefb77a9313d40e98d96b536c9bcd3384ca0",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                618,
+                636
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          2
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Death": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_b35a49a9/Death/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_01.png",
+            "stagingSha256": "467256ecc785930d8508f351ecd10954ed13ce9d5b821f6ce4c43d90fe7e4fdb",
+            "finalSha256": "467256ecc785930d8508f351ecd10954ed13ce9d5b821f6ce4c43d90fe7e4fdb",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_b35a49a9/Death/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_02.png",
+            "stagingSha256": "3d7b7110b50a07a38d33ba6e263b989a548661a45a5f2d54a73d99e111173985",
+            "finalSha256": "3d7b7110b50a07a38d33ba6e263b989a548661a45a5f2d54a73d99e111173985",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_b35a49a9/Death/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_03.png",
+            "stagingSha256": "527eff3e4449ae55837f1a5da1ee6371859eeec24cb8c28a0284b6db45f24b18",
+            "finalSha256": "527eff3e4449ae55837f1a5da1ee6371859eeec24cb8c28a0284b6db45f24b18",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_b35a49a9/Death/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_04.png",
+            "stagingSha256": "f54bb21e660e20a59c6e92589bb369f81dd969f0d9ac236ee5d11c58671a7c13",
+            "finalSha256": "f54bb21e660e20a59c6e92589bb369f81dd969f0d9ac236ee5d11c58671a7c13",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          0,
+          1,
+          3
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Stun": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_a5605023/Stun/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_01.png",
+            "stagingSha256": "6f40da46cafbeab989973be039e090a44919ac1f157f873ad132fd31542dc784",
+            "finalSha256": "6f40da46cafbeab989973be039e090a44919ac1f157f873ad132fd31542dc784",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_a5605023/Stun/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_02.png",
+            "stagingSha256": "2fe800c050d07377e0ae16465f4da22c21a2d04a9679a93b8342ba079198c138",
+            "finalSha256": "2fe800c050d07377e0ae16465f4da22c21a2d04a9679a93b8342ba079198c138",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_a5605023/Stun/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_03.png",
+            "stagingSha256": "11fa1ed8aae5bb919fbdd3288086f3357c7ad38ef6fd56dab6a11a1e6f3023b2",
+            "finalSha256": "11fa1ed8aae5bb919fbdd3288086f3357c7ad38ef6fd56dab6a11a1e6f3023b2",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider-staging-v003_a5605023/Stun/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_04.png",
+            "stagingSha256": "40f959d6f6a8e129d2abf0194844c6c80cb0d7160b4999076491e1969f35b45f",
+            "finalSha256": "40f959d6f6a8e129d2abf0194844c6c80cb0d7160b4999076491e1969f35b45f",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          3
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      }
+    },
+    "chain_dragger_raider": {
+      "Idle": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_8e44d04e/Idle/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_01.png",
+            "stagingSha256": "9c259af8e7a7fceb6579051e1593834fed86552daf44f118d0c573eb67f2c4a0",
+            "finalSha256": "9c259af8e7a7fceb6579051e1593834fed86552daf44f118d0c573eb67f2c4a0",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_8e44d04e/Idle/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_02.png",
+            "stagingSha256": "8dc9f6b07431610a98ec3e035bfb83a435389552fd856c48d06d6d7b52da25b1",
+            "finalSha256": "8dc9f6b07431610a98ec3e035bfb83a435389552fd856c48d06d6d7b52da25b1",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_8e44d04e/Idle/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_03.png",
+            "stagingSha256": "69947c827bad7032195ec98c9e469c4948e0e88128b7b7aa033860f77eb65c60",
+            "finalSha256": "69947c827bad7032195ec98c9e469c4948e0e88128b7b7aa033860f77eb65c60",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_8e44d04e/Idle/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_04.png",
+            "stagingSha256": "bb1bdbd6eceafe0ecf07ba008d3f97e918ea30680d1182687369191f443aff6b",
+            "finalSha256": "bb1bdbd6eceafe0ecf07ba008d3f97e918ea30680d1182687369191f443aff6b",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Move": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_1885dc3b/Move/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_01.png",
+            "stagingSha256": "d2a1f0b33a58e78352ee496fb4e9eccbeef42263966ead2f8d25005f56967114",
+            "finalSha256": "d2a1f0b33a58e78352ee496fb4e9eccbeef42263966ead2f8d25005f56967114",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_1885dc3b/Move/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_02.png",
+            "stagingSha256": "1c8a81c8088334e35b09afc178868a0f93cdd94ea66d13bcec44ead5692c6eb1",
+            "finalSha256": "1c8a81c8088334e35b09afc178868a0f93cdd94ea66d13bcec44ead5692c6eb1",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_1885dc3b/Move/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_03.png",
+            "stagingSha256": "32b69e982c6a0b5858aac82614a09b7f863828602cb59f71a25451c1da9ea88b",
+            "finalSha256": "32b69e982c6a0b5858aac82614a09b7f863828602cb59f71a25451c1da9ea88b",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_1885dc3b/Move/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_04.png",
+            "stagingSha256": "4157d615992806d5e23cf45e8672bc2eb76c8b858988c74ec26f4ae0d132d4ac",
+            "finalSha256": "4157d615992806d5e23cf45e8672bc2eb76c8b858988c74ec26f4ae0d132d4ac",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          1
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "BasicAttack": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_e6588b87/BasicAttack/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_01.png",
+            "stagingSha256": "2cce884e30b11aa1b5bd8abc1ca10d8a100fc8a1fa6452ca60de62457ccdb657",
+            "finalSha256": "2cce884e30b11aa1b5bd8abc1ca10d8a100fc8a1fa6452ca60de62457ccdb657",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_e6588b87/BasicAttack/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_02.png",
+            "stagingSha256": "fbe50eba10a9c71afa0157dfbed7ca01952309c6fb354dfdcfee1e1afc710e92",
+            "finalSha256": "fbe50eba10a9c71afa0157dfbed7ca01952309c6fb354dfdcfee1e1afc710e92",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_e6588b87/BasicAttack/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_03.png",
+            "stagingSha256": "36caf6732be09db9b5238a779247f7e4b888b505635dd31dfb511f43f17a96e6",
+            "finalSha256": "36caf6732be09db9b5238a779247f7e4b888b505635dd31dfb511f43f17a96e6",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_e6588b87/BasicAttack/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_04.png",
+            "stagingSha256": "14a30aed12cbb8cfc49fa3b31906afd676c0363703875c150e324e54438364e0",
+            "finalSha256": "14a30aed12cbb8cfc49fa3b31906afd676c0363703875c150e324e54438364e0",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          2
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Death": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_f9bdaa07/Death/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_01.png",
+            "stagingSha256": "8170e226670799b65785d76311ae7409415daf1459e410eec51880187121a6a4",
+            "finalSha256": "8170e226670799b65785d76311ae7409415daf1459e410eec51880187121a6a4",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_f9bdaa07/Death/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_02.png",
+            "stagingSha256": "55ade214e3a1490ffceb27d398962f367682f5ed961e33b0fc8be16c6caf168a",
+            "finalSha256": "55ade214e3a1490ffceb27d398962f367682f5ed961e33b0fc8be16c6caf168a",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_f9bdaa07/Death/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_03.png",
+            "stagingSha256": "30982bc0edca0e39d933f4a6f87315f4594a81fec7996aa30593c6f11394aab8",
+            "finalSha256": "30982bc0edca0e39d933f4a6f87315f4594a81fec7996aa30593c6f11394aab8",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_f9bdaa07/Death/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_04.png",
+            "stagingSha256": "8d519d309a25918352f7dca1b42d31bde8aba85aac493824ca1e89149d894208",
+            "finalSha256": "8d519d309a25918352f7dca1b42d31bde8aba85aac493824ca1e89149d894208",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          1
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      },
+      "Stun": {
+        "result": "BYTE_IDENTICAL_4_OF_4",
+        "frames": [
+          {
+            "sourceOrder": 0,
+            "finalOrder": 1,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_4018a1f4/Stun/frame-0.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_01.png",
+            "stagingSha256": "f5eddf48aef1428d4f9f3f28423d73c795f86ee3567c3b0917b0ec40afa411f4",
+            "finalSha256": "f5eddf48aef1428d4f9f3f28423d73c795f86ee3567c3b0917b0ec40afa411f4",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 1,
+            "finalOrder": 2,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_4018a1f4/Stun/frame-1.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_02.png",
+            "stagingSha256": "013fb1fdf1a64bb80bac9b41ca540a1c70fae23c6ab9c7bec5a1cb4db36c505f",
+            "finalSha256": "013fb1fdf1a64bb80bac9b41ca540a1c70fae23c6ab9c7bec5a1cb4db36c505f",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 2,
+            "finalOrder": 3,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_4018a1f4/Stun/frame-2.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_03.png",
+            "stagingSha256": "df109ff97494e99776ea8df9a3b943dfcb8e0a0cd7f96f8573f05cf8c99ebcf1",
+            "finalSha256": "df109ff97494e99776ea8df9a3b943dfcb8e0a0cd7f96f8573f05cf8c99ebcf1",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          },
+          {
+            "sourceOrder": 3,
+            "finalOrder": 4,
+            "stagingPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider-staging-v003_4018a1f4/Stun/frame-3.png",
+            "finalPath": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_04.png",
+            "stagingSha256": "9b90afa1e5557f3287e59dacd4e9c26cacbd091a477a30620cfee1a70888fcff",
+            "finalSha256": "9b90afa1e5557f3287e59dacd4e9c26cacbd091a477a30620cfee1a70888fcff",
+            "byteIdentical": true,
+            "readback": {
+              "format": "PNG",
+              "mode": "RGBA",
+              "dimensions": [
+                768,
+                512
+              ]
+            }
+          }
+        ],
+        "visibleClippingFlagsFromPriorAudit": [
+          2,
+          3
+        ],
+        "clippingFlagsDisposition": "informational only; residue gate withdrawn; no promotion reversal"
+      }
+    }
+  },
+  "vfx": {
+    "black_cloth_raider": {
+      "existingFilesExcluded": true,
+      "directResplitResult": "FAILED separate error",
+      "newPromotion": false
+    },
+    "chain_dragger_raider": {
+      "existingFilesExcluded": true,
+      "directResplitResult": "FAILED 21 components detected",
+      "newPromotion": false
+    },
+    "countedAsSuccessfulActions": false
+  },
+  "rollback": {
+    "root": "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905",
+    "exists": true,
+    "bodyFrameInventoryCount": 40,
+    "files": [
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/BasicAttack/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/BasicAttack/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/BasicAttack/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/BasicAttack/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Death/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Death/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Death/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Death/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Idle/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Idle/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Idle/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Idle/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Move/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Move/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Move/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Move/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Stun/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Stun/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Stun/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/black_cloth_raider/Stun/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/BasicAttack/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/BasicAttack/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/BasicAttack/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/BasicAttack/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Death/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Death/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Death/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Death/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Idle/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Idle/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Idle/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Idle/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Move/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Move/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Move/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Move/frame_04.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Stun/frame_01.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Stun/frame_02.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Stun/frame_03.png",
+      "/Users/pvenus/imageforge-mcp/generated_image/rollback/episode1-npc2-before-mcp-direct-20260905/chain_dragger_raider/Stun/frame_04.png"
+    ]
+  },
+  "gatePolicy": {
+    "alpha0RgbResidue": "withdrawn by user; not evaluated as rejection",
+    "visibleClippingFlags": "reported from prior audit only; no promotion reversal"
+  },
+  "writes": {
+    "pixels": 0,
+    "renames": 0,
+    "copies": 0,
+    "Unity": 0,
+    "canonical": 0,
+    "Git": 0
+  },
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

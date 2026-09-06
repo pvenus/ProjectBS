@@ -1,0 +1,46 @@
+{
+  "manifest": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/exact48-qa-manifest.json",
+  "manifestSha256": "0485cc7aa7019d739d533cf6597c3fdc9c671e881df85923412cac5ab69b4a1e",
+  "artifactCounts": {
+    "contacts": 12,
+    "gifs": 12
+  },
+  "sourceOrFinalPixelsMutated": false,
+  "result": {
+    "totalFinalFiles": 48,
+    "exact48": true,
+    "allStructuralAndByteGatesPass": false,
+    "warningPolicy": "residue and visual quality defects are recorded as warnings only; no pixel-level quality rejection was performed",
+    "globalUniqueFrameShas": 48,
+    "all48GloballyUnique": true,
+    "operationProvenanceVerifiedActions": 8,
+    "operationProvenanceUnverifiedActions": [
+      {
+        "npc": "black_cloth_raider",
+        "action": "Stun",
+        "expectedOperationId": "5d737f09",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "black_cloth_raider",
+        "action": "VFX",
+        "expectedOperationId": "f42c71df",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "chain_dragger_raider",
+        "action": "BasicAttack",
+        "expectedOperationId": "72626073",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "chain_dragger_raider",
+        "action": "VFX",
+        "expectedOperationId": "47af3f94",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      }
+    ],
+    "allStructuralAndReadbackGatesPass": true
+  },
+  "previewsReadbackPass": true
+}

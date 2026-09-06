@@ -1,0 +1,19 @@
+{
+  "schema": "projectbs.imageforge-direct-output-byte-verification-receipt.v1",
+  "result": "PASS_40_OF_40_BYTE_IDENTICAL",
+  "checks": {
+    "actionCount10": true,
+    "finalCount40": true,
+    "stagingCount40": true,
+    "byteIdentity40Of40": true,
+    "orderFrame0To01": true,
+    "readback40Of40": true,
+    "rgba40Of40": true,
+    "dimensionsAndCanvasByteIdenticalToStaging40Of40": true,
+    "vfxExcluded": true,
+    "rollbackPresent": true
+  },
+  "verificationManifest": "verification-manifest.json",
+  "verificationManifestSha256": "df0e4a3b2f17835fa398369791823883eb5a979e1f56660ef4fcdb8ecb9bec63",
+  "mutationCount": 0
+}

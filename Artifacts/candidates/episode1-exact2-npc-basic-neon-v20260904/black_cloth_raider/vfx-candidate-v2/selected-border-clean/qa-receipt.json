@@ -1,0 +1,307 @@
+{
+  "schema": "projectbs.border-clean-physical-qa-receipt.v1",
+  "result": "PASS_PHYSICAL_QA_ONLY",
+  "determinism": {
+    "rerunAFrameSha256": [
+      "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+      "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+      "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+      "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d"
+    ],
+    "rerunBFrameSha256": [
+      "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+      "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+      "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+      "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d"
+    ],
+    "selectedFrameSha256": [
+      "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+      "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+      "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+      "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d"
+    ],
+    "byteIdenticalAcrossA_B_Selected": true
+  },
+  "checks": {
+    "cleanupScriptShaVerified": true,
+    "diffRestrictedToApprovedBorderPixels": true,
+    "interiorPixelDiffCountZero": true,
+    "frameOrder": true,
+    "timing": true,
+    "pngRgba768": true,
+    "selectedShaUnique": true,
+    "alphaBBoxStrictlyInsideCanvas": true,
+    "cornersAlphaZero": true,
+    "fourBordersAlphaZero": true,
+    "alphaZeroRgbResidueZero": true
+  },
+  "halo": "Native-canvas light/dark contacts packaged for inspection; no visual direction was re-adjudicated.",
+  "frames": [
+    {
+      "frame": 0,
+      "timeSeconds": 0,
+      "file": "frame-0.png",
+      "sha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+      "sourceSha256": "d90e0d7136fb840cbff49648c1cdb430269fabb8058881a27a95111df79d941b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "pixelDiffCount": 2,
+      "changedCoordinates": [
+        [
+          767,
+          440
+        ],
+        [
+          767,
+          631
+        ]
+      ],
+      "diffRestrictedToApprovedBorderAlphaLte1ToRgba0": true,
+      "alphaBBox": [
+        113,
+        158,
+        767,
+        640
+      ],
+      "alphaMargins": [
+        113,
+        158,
+        1,
+        128
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 574317,
+      "alphaZeroRgbResiduePixels": 0
+    },
+    {
+      "frame": 1,
+      "timeSeconds": 0.12,
+      "file": "frame-1.png",
+      "sha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+      "sourceSha256": "ca5cc7583f2bc778744358edbbe2d172f214e29a498853ff96ff4d47a875ee08",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "pixelDiffCount": 0,
+      "changedCoordinates": [],
+      "diffRestrictedToApprovedBorderAlphaLte1ToRgba0": true,
+      "alphaBBox": [
+        1,
+        199,
+        754,
+        640
+      ],
+      "alphaMargins": [
+        1,
+        199,
+        14,
+        128
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 546627,
+      "alphaZeroRgbResiduePixels": 0
+    },
+    {
+      "frame": 2,
+      "timeSeconds": 0.24,
+      "file": "frame-2.png",
+      "sha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+      "sourceSha256": "4337142ba9923658bc09d8bda6e2829259ff43175c4aa6e532e34a496711300c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "pixelDiffCount": 6,
+      "changedCoordinates": [
+        [
+          767,
+          135
+        ],
+        [
+          767,
+          152
+        ],
+        [
+          767,
+          391
+        ],
+        [
+          767,
+          392
+        ],
+        [
+          767,
+          399
+        ],
+        [
+          767,
+          407
+        ]
+      ],
+      "diffRestrictedToApprovedBorderAlphaLte1ToRgba0": true,
+      "alphaBBox": [
+        25,
+        129,
+        762,
+        606
+      ],
+      "alphaMargins": [
+        25,
+        129,
+        6,
+        162
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 534731,
+      "alphaZeroRgbResiduePixels": 0
+    },
+    {
+      "frame": 3,
+      "timeSeconds": 0.36,
+      "file": "frame-3.png",
+      "sha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d",
+      "sourceSha256": "caf1fb7f98d8ec1f2478e8b5e7c2ff24d0be68871359584b4edc34de564c8894",
+      "format": "PNG",
+      "mode": "RGBA",
+      "dimensions": [
+        768,
+        768
+      ],
+      "pixelDiffCount": 0,
+      "changedCoordinates": [],
+      "diffRestrictedToApprovedBorderAlphaLte1ToRgba0": true,
+      "alphaBBox": [
+        1,
+        128,
+        694,
+        614
+      ],
+      "alphaMargins": [
+        1,
+        128,
+        74,
+        154
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "border": {
+        "top": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "bottom": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "left": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        },
+        "right": {
+          "nonzeroAlphaPixels": 0,
+          "maxAlpha": 0
+        }
+      },
+      "alphaZeroPixels": 565543,
+      "alphaZeroRgbResiduePixels": 0
+    }
+  ],
+  "previews": [
+    "contact-light.png",
+    "contact-dark.png",
+    "preview-dark.gif"
+  ],
+  "mutationsByQa": {
+    "pixels": 0,
+    "Unity": 0,
+    "canonical": 0
+  },
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

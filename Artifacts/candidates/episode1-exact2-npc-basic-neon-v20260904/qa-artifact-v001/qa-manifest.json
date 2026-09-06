@@ -1,0 +1,242 @@
+{
+  "schema": "projectbs.episode1-exact2-neon-physical-qa.v1",
+  "pilotManifest": "../pilot-manifest.json",
+  "pilotManifestSha256": "218ef90306f7733d3504e7ed6cccf6bb6b57293813e6b2617d5db685ffc1c8bd",
+  "scope": "QA artifact only; no runtime, release, Unity, or canonical authority.",
+  "presentationOnly": {
+    "rendererScaleMultiplier": 0.72,
+    "sourceDownsample": false
+  },
+  "sourceProvenance": {
+    "black_cloth_raider": {
+      "body": {
+        "file": "black_cloth_raider/body/imagegen-source.png",
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1236,
+          1272
+        ],
+        "sha256": "f5f42810b1ed5264b3bbeed3e86d8d1f3ecfed4e19b1bde87a9472e01d9dd8a4"
+      },
+      "vfx": {
+        "file": "black_cloth_raider/vfx/imagegen-source.png",
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1536,
+          1024
+        ],
+        "sha256": "3c6ef2e01e51a41d90c87172fe60c65ec306b09d601b9f78bb6ed0f9166d06e7"
+      }
+    },
+    "chain_dragger_raider": {
+      "body": {
+        "file": "chain_dragger_raider/body/imagegen-source.png",
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "sha256": "6568d99acb8c0f6c5bbc9523aad0ab01d9f4adc3ddc3fa29c9e16dde9ce2ebe3"
+      },
+      "vfx": {
+        "file": "chain_dragger_raider/vfx/imagegen-source.png",
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "sha256": "a360b3b66999b8d9a4b4b744c817da74bdbf1e15f333686f98667c527281fa3a"
+      }
+    }
+  },
+  "candidateProvenance": "Frame PNGs are derived candidates stored separately from imagegen-source.png. Their differing canvas dimensions are recorded; no claim of byte identity with source is made.",
+  "separation": {
+    "bodyAndVfxDirectoriesDistinct": true,
+    "bodyAndVfxShaSetsDisjoint": true
+  },
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "timingReference": {
+    "sampleRate": 12,
+    "frameTimesSeconds": [
+      0,
+      0.08333333333333333,
+      0.16666666666666666,
+      0.25
+    ],
+    "stopTimeSeconds": 0.3333333333333333,
+    "source": "existing read-only body AnimationClip serialization"
+  },
+  "warnings": [
+    "Both body clip filenames contain one_shot, while existing Left/Right AnimationClip serialization has m_LoopTime=1. Recorded only; not modified."
+  ],
+  "previews": [
+    {
+      "file": "previews/black_cloth_raider-body.gif",
+      "kind": "gif",
+      "canvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "presentation": "dark background",
+      "sourceTimingSecondsApprox": [
+        0,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.25
+      ],
+      "sourceStopTimeSeconds": 0.3333333333333333,
+      "gifEncodedFrameDurationMs": 80
+    },
+    {
+      "file": "previews/black_cloth_raider-body-contact-light.png",
+      "kind": "contact",
+      "background": "light",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-body-contact-dark.png",
+      "kind": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        627,
+        627
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-vfx.gif",
+      "kind": "gif",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "presentation": "dark background",
+      "sourceTimingSecondsApprox": [
+        0,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.25
+      ],
+      "sourceStopTimeSeconds": 0.3333333333333333,
+      "gifEncodedFrameDurationMs": 80
+    },
+    {
+      "file": "previews/black_cloth_raider-vfx-contact-light.png",
+      "kind": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/black_cloth_raider-vfx-contact-dark.png",
+      "kind": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-body.gif",
+      "kind": "gif",
+      "canvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "presentation": "dark background",
+      "sourceTimingSecondsApprox": [
+        0,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.25
+      ],
+      "sourceStopTimeSeconds": 0.3333333333333333,
+      "gifEncodedFrameDurationMs": 80
+    },
+    {
+      "file": "previews/chain_dragger_raider-body-contact-light.png",
+      "kind": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-body-contact-dark.png",
+      "kind": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        512
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-vfx.gif",
+      "kind": "gif",
+      "canvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "presentation": "dark background",
+      "sourceTimingSecondsApprox": [
+        0,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.25
+      ],
+      "sourceStopTimeSeconds": 0.3333333333333333,
+      "gifEncodedFrameDurationMs": 80
+    },
+    {
+      "file": "previews/chain_dragger_raider-vfx-contact-light.png",
+      "kind": "contact",
+      "background": "light",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "resized": false
+    },
+    {
+      "file": "previews/chain_dragger_raider-vfx-contact-dark.png",
+      "kind": "contact",
+      "background": "dark",
+      "cellCanvas": [
+        768,
+        768
+      ],
+      "frameCount": 4,
+      "resized": false
+    }
+  ]
+}

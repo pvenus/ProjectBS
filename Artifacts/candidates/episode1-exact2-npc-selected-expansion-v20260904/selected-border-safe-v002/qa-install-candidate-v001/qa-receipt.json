@@ -1,0 +1,2976 @@
+{
+  "schema": "projectbs.npc2-selected-border-safe-full-qa-receipt.v1",
+  "result": "BOTH_NPC_FULL_REGISTRIES_PASS",
+  "checks": {
+    "inventory48": true,
+    "order": true,
+    "manifestSha": true,
+    "rgbaCanvas": true,
+    "unique48": true,
+    "deterministicRerunAB": true,
+    "strictBBoxMargins": true,
+    "bordersCornersZero": true,
+    "residueZero": true,
+    "passActionsByteIdentity": true,
+    "correctedActionUnitTransform": true,
+    "contract": true,
+    "bodyVfxSeparated": true
+  },
+  "footBaselineAdjacentContinuity": {
+    "method": "Same scale and translation are applied to all four frames of each corrected action; per-frame alpha-bbox baseline series and adjacent deltas are recorded for review.",
+    "actions": {
+      "black_cloth_raider": {
+        "Move": {
+          "uniformScale": 0.9617224880382775,
+          "translation": [
+            -5,
+            12
+          ],
+          "baselineSeriesYExclusive": [
+            615,
+            615,
+            575,
+            590
+          ],
+          "adjacentBaselineDeltas": [
+            0,
+            -40,
+            15
+          ]
+        },
+        "Death": {
+          "uniformScale": 0.9617224880382775,
+          "translation": [
+            12,
+            12
+          ],
+          "baselineSeriesYExclusive": [
+            615,
+            615,
+            532,
+            540
+          ],
+          "adjacentBaselineDeltas": [
+            0,
+            -83,
+            8
+          ]
+        },
+        "Stun": {
+          "uniformScale": 0.9617224880382775,
+          "translation": [
+            12,
+            13
+          ],
+          "baselineSeriesYExclusive": [
+            612,
+            612,
+            586,
+            586
+          ],
+          "adjacentBaselineDeltas": [
+            0,
+            -26,
+            0
+          ]
+        }
+      },
+      "chain_dragger_raider": {
+        "Move": {
+          "uniformScale": 0.96875,
+          "translation": [
+            12,
+            22
+          ],
+          "baselineSeriesYExclusive": [
+            481,
+            486,
+            445,
+            448
+          ],
+          "adjacentBaselineDeltas": [
+            5,
+            -41,
+            3
+          ]
+        },
+        "Death": {
+          "uniformScale": 0.953125,
+          "translation": [
+            18,
+            12
+          ],
+          "baselineSeriesYExclusive": [
+            496,
+            500,
+            395,
+            431
+          ],
+          "adjacentBaselineDeltas": [
+            4,
+            -105,
+            36
+          ]
+        },
+        "Stun": {
+          "uniformScale": 0.953125,
+          "translation": [
+            -12,
+            12
+          ],
+          "baselineSeriesYExclusive": [
+            500,
+            500,
+            438,
+            442
+          ],
+          "adjacentBaselineDeltas": [
+            0,
+            -62,
+            4
+          ]
+        }
+      }
+    }
+  },
+  "records": {
+    "black_cloth_raider": {
+      "Idle": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          597,
+          593,
+          588,
+          588
+        ],
+        "adjacentBaselineDeltas": [
+          -4,
+          -5,
+          0
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/Idle/frame-0.png",
+            "sha256": "219677d116cf059f91f458b9ba142ff96e2704ce9ba02377a5ff2d6e2ba3675d",
+            "manifestOutputSha256": "219677d116cf059f91f458b9ba142ff96e2704ce9ba02377a5ff2d6e2ba3675d",
+            "sourceSha256": "219677d116cf059f91f458b9ba142ff96e2704ce9ba02377a5ff2d6e2ba3675d",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              183,
+              35,
+              434,
+              597
+            ],
+            "alphaMargins": [
+              183,
+              35,
+              193,
+              30
+            ],
+            "baselineYExclusive": 597,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/Idle/frame-1.png",
+            "sha256": "1f214d64bc2b6ad15f4efb7ee2856869b09a33b6701923f38453f7347b73cc0b",
+            "manifestOutputSha256": "1f214d64bc2b6ad15f4efb7ee2856869b09a33b6701923f38453f7347b73cc0b",
+            "sourceSha256": "1f214d64bc2b6ad15f4efb7ee2856869b09a33b6701923f38453f7347b73cc0b",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              170,
+              29,
+              423,
+              593
+            ],
+            "alphaMargins": [
+              170,
+              29,
+              204,
+              34
+            ],
+            "baselineYExclusive": 593,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/Idle/frame-2.png",
+            "sha256": "a01561c21250f5e6e4006a337852151ec64ff0023d6b541e7d06ada905f64da9",
+            "manifestOutputSha256": "a01561c21250f5e6e4006a337852151ec64ff0023d6b541e7d06ada905f64da9",
+            "sourceSha256": "a01561c21250f5e6e4006a337852151ec64ff0023d6b541e7d06ada905f64da9",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              187,
+              25,
+              435,
+              588
+            ],
+            "alphaMargins": [
+              187,
+              25,
+              192,
+              39
+            ],
+            "baselineYExclusive": 588,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/Idle/frame-3.png",
+            "sha256": "5ab1bceb15df4b9b35fc0086d4dda8faead8a0c13644e6b820cbcb4cf599dfaf",
+            "manifestOutputSha256": "5ab1bceb15df4b9b35fc0086d4dda8faead8a0c13644e6b820cbcb4cf599dfaf",
+            "sourceSha256": "5ab1bceb15df4b9b35fc0086d4dda8faead8a0c13644e6b820cbcb4cf599dfaf",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              171,
+              23,
+              422,
+              588
+            ],
+            "alphaMargins": [
+              171,
+              23,
+              205,
+              39
+            ],
+            "baselineYExclusive": 588,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Move": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.9617224880382775,
+        "translation": [
+          -5,
+          12
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          615,
+          615,
+          575,
+          590
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -40,
+          15
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/Move/frame-0.png",
+            "sha256": "d214e57ef786f7386a20b4d00bb78c1f2b140edadaf6676f8f27448194e0aba0",
+            "manifestOutputSha256": "d214e57ef786f7386a20b4d00bb78c1f2b140edadaf6676f8f27448194e0aba0",
+            "sourceSha256": "287751005f259fc12eb1d84819fc96b0fd4c4f9de6c6c117775a733ef2208505",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              72,
+              19,
+              530,
+              615
+            ],
+            "alphaMargins": [
+              72,
+              19,
+              97,
+              12
+            ],
+            "baselineYExclusive": 615,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/Move/frame-1.png",
+            "sha256": "c25d825db0c4405c7c0405865344c749e613b047ed2c6f765c7de7d0aca25ede",
+            "manifestOutputSha256": "c25d825db0c4405c7c0405865344c749e613b047ed2c6f765c7de7d0aca25ede",
+            "sourceSha256": "c2f7efb04c95d2ad2f30f48dcbbe3d4fac23e341437f1a9f5f532814691719a3",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              77,
+              19,
+              546,
+              615
+            ],
+            "alphaMargins": [
+              77,
+              19,
+              81,
+              12
+            ],
+            "baselineYExclusive": 615,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/Move/frame-2.png",
+            "sha256": "6c8d6cabab4f622b469348585d51ce0284a169cd02507d3b4e73f157a90b03eb",
+            "manifestOutputSha256": "6c8d6cabab4f622b469348585d51ce0284a169cd02507d3b4e73f157a90b03eb",
+            "sourceSha256": "b65c46e91a2fdc05050391bf55a039577f630badc11f0a86a254af9d0b862043",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              60,
+              12,
+              567,
+              575
+            ],
+            "alphaMargins": [
+              60,
+              12,
+              60,
+              52
+            ],
+            "baselineYExclusive": 575,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/Move/frame-3.png",
+            "sha256": "b75aa19cd753e17914a1735f2f6bb5b1e93b6acf7649e4c7a9874ecb58304654",
+            "manifestOutputSha256": "b75aa19cd753e17914a1735f2f6bb5b1e93b6acf7649e4c7a9874ecb58304654",
+            "sourceSha256": "501f813a12763237d734ce57e46465d6db7eff98e5e7ed99ad79b97ab3f0ae73",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              101,
+              12,
+              539,
+              590
+            ],
+            "alphaMargins": [
+              101,
+              12,
+              88,
+              37
+            ],
+            "baselineYExclusive": 590,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Death": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.9617224880382775,
+        "translation": [
+          12,
+          12
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          615,
+          615,
+          532,
+          540
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -83,
+          8
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/Death/frame-0.png",
+            "sha256": "fcc263e3f5d9c573baf29c0839d745e92f9d2f28103661a41b176c4c70729464",
+            "manifestOutputSha256": "fcc263e3f5d9c573baf29c0839d745e92f9d2f28103661a41b176c4c70729464",
+            "sourceSha256": "ce44adb030ee16053a53d97d997e0b83ac82bbccb802013ef4ee2f76e80a0f7c",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              79,
+              69,
+              521,
+              615
+            ],
+            "alphaMargins": [
+              79,
+              69,
+              106,
+              12
+            ],
+            "baselineYExclusive": 615,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/Death/frame-1.png",
+            "sha256": "9f6701447ed400600a23e61ec5884ee659aa030ee96838995cb13f11e5e9f913",
+            "manifestOutputSha256": "9f6701447ed400600a23e61ec5884ee659aa030ee96838995cb13f11e5e9f913",
+            "sourceSha256": "b7dfb0c0935f4390928af2039025287e5cb119971ff107a4c907f159143dbf74",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              12,
+              220,
+              414,
+              615
+            ],
+            "alphaMargins": [
+              12,
+              220,
+              213,
+              12
+            ],
+            "baselineYExclusive": 615,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/Death/frame-2.png",
+            "sha256": "6341f3ca82fa1a7e9698aed186f695fcad054d107c35c9fa103fb9545eb3433b",
+            "manifestOutputSha256": "6341f3ca82fa1a7e9698aed186f695fcad054d107c35c9fa103fb9545eb3433b",
+            "sourceSha256": "b95ac1b8d2b3aba275007874f7c36d550fd1ef17f88874bbbb3371dac048d224",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              56,
+              12,
+              615,
+              532
+            ],
+            "alphaMargins": [
+              56,
+              12,
+              12,
+              95
+            ],
+            "baselineYExclusive": 532,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/Death/frame-3.png",
+            "sha256": "9f4634d3e45a450fc4f7a160564f98dcc8032acf913885ed673630cdf5f5968b",
+            "manifestOutputSha256": "9f4634d3e45a450fc4f7a160564f98dcc8032acf913885ed673630cdf5f5968b",
+            "sourceSha256": "15783aeab8bdce739149f6bac23721acf9b68b314c11967d36cc07bf05420b66",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              12,
+              12,
+              552,
+              540
+            ],
+            "alphaMargins": [
+              12,
+              12,
+              75,
+              87
+            ],
+            "baselineYExclusive": 540,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Stun": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.9617224880382775,
+        "translation": [
+          12,
+          13
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          612,
+          612,
+          586,
+          586
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -26,
+          0
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/Stun/frame-0.png",
+            "sha256": "165efdec51b54a479f2c5cbbd33839c36596d8c37157a4840b70a24a17ef9875",
+            "manifestOutputSha256": "165efdec51b54a479f2c5cbbd33839c36596d8c37157a4840b70a24a17ef9875",
+            "sourceSha256": "bda702bc0e61b9119ad508ecc7cc314268a284900efb1dd900e240b496a1c6ab",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              201,
+              35,
+              528,
+              612
+            ],
+            "alphaMargins": [
+              201,
+              35,
+              99,
+              15
+            ],
+            "baselineYExclusive": 612,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/Stun/frame-1.png",
+            "sha256": "2cd2aae9515dba59d5240dab18dacf5b6a90009c0157b187ea37b85fbac64f15",
+            "manifestOutputSha256": "2cd2aae9515dba59d5240dab18dacf5b6a90009c0157b187ea37b85fbac64f15",
+            "sourceSha256": "a737cdc8132c134aba07ad26946e18a79964ba1e6071266d7e544a74d277da31",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              39,
+              71,
+              331,
+              612
+            ],
+            "alphaMargins": [
+              39,
+              71,
+              296,
+              15
+            ],
+            "baselineYExclusive": 612,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/Stun/frame-2.png",
+            "sha256": "93b04b4518de0a059c422c3e84328642611e510aa245a37b11efb089b253c4ab",
+            "manifestOutputSha256": "93b04b4518de0a059c422c3e84328642611e510aa245a37b11efb089b253c4ab",
+            "sourceSha256": "afaf3211d8013134edd25e8c139335443eb334cbf34103f7c046183e15a761a9",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              206,
+              15,
+              615,
+              586
+            ],
+            "alphaMargins": [
+              206,
+              15,
+              12,
+              41
+            ],
+            "baselineYExclusive": 586,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/Stun/frame-3.png",
+            "sha256": "ed3d31257f25e9b79dbc6fd5b3f835fd93a0952430a8a8178180be478b33931c",
+            "manifestOutputSha256": "ed3d31257f25e9b79dbc6fd5b3f835fd93a0952430a8a8178180be478b33931c",
+            "sourceSha256": "b5adfba1ba4f3073844541cc2a3d79a2f9c4e8f71a5a49a93fd0538ae11675f2",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              12,
+              15,
+              328,
+              586
+            ],
+            "alphaMargins": [
+              12,
+              15,
+              299,
+              41
+            ],
+            "baselineYExclusive": 586,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "BasicAttack": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          610,
+          610,
+          588,
+          606
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -22,
+          18
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/BasicAttack/frame-0.png",
+            "sha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c",
+            "manifestOutputSha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c",
+            "sourceSha256": "f03fd1612d8170d58a9441e5653130f0377d4202755e40190292a35ea208e05c",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              30,
+              9,
+              505,
+              610
+            ],
+            "alphaMargins": [
+              30,
+              9,
+              122,
+              17
+            ],
+            "baselineYExclusive": 610,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/BasicAttack/frame-1.png",
+            "sha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d",
+            "manifestOutputSha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d",
+            "sourceSha256": "d5525084bb3ed0312bedd3180271b861db06e294dc764c051d8beceb8d6beb0d",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              25,
+              64,
+              571,
+              610
+            ],
+            "alphaMargins": [
+              25,
+              64,
+              56,
+              17
+            ],
+            "baselineYExclusive": 610,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/BasicAttack/frame-2.png",
+            "sha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75",
+            "manifestOutputSha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75",
+            "sourceSha256": "a8c73699687bdaf5e2738b4e1dc4fb0958a2ae895588153a1d09cabe4f14df75",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              44,
+              18,
+              618,
+              588
+            ],
+            "alphaMargins": [
+              44,
+              18,
+              9,
+              39
+            ],
+            "baselineYExclusive": 588,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/BasicAttack/frame-3.png",
+            "sha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9",
+            "manifestOutputSha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9",
+            "sourceSha256": "1fa03b5f398c49ebd6eab301f25d7dfc0e93f31a45c49493ba154410a1e738b9",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              627,
+              627
+            ],
+            "alphaBBox": [
+              9,
+              71,
+              587,
+              606
+            ],
+            "alphaMargins": [
+              9,
+              71,
+              40,
+              21
+            ],
+            "baselineYExclusive": 606,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "VFX": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          640,
+          640,
+          606,
+          614
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -34,
+          8
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "black_cloth_raider/VFX/frame-0.png",
+            "sha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+            "manifestOutputSha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+            "sourceSha256": "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              113,
+              158,
+              767,
+              640
+            ],
+            "alphaMargins": [
+              113,
+              158,
+              1,
+              128
+            ],
+            "baselineYExclusive": 640,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "black_cloth_raider/VFX/frame-1.png",
+            "sha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+            "manifestOutputSha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+            "sourceSha256": "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              1,
+              199,
+              754,
+              640
+            ],
+            "alphaMargins": [
+              1,
+              199,
+              14,
+              128
+            ],
+            "baselineYExclusive": 640,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "black_cloth_raider/VFX/frame-2.png",
+            "sha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+            "manifestOutputSha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+            "sourceSha256": "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              25,
+              129,
+              762,
+              606
+            ],
+            "alphaMargins": [
+              25,
+              129,
+              6,
+              162
+            ],
+            "baselineYExclusive": 606,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "black_cloth_raider/VFX/frame-3.png",
+            "sha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d",
+            "manifestOutputSha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d",
+            "sourceSha256": "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              1,
+              128,
+              694,
+              614
+            ],
+            "alphaMargins": [
+              1,
+              128,
+              74,
+              154
+            ],
+            "baselineYExclusive": 614,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      }
+    },
+    "chain_dragger_raider": {
+      "Idle": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          507,
+          508,
+          504,
+          507
+        ],
+        "adjacentBaselineDeltas": [
+          1,
+          -4,
+          3
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/Idle/frame-0.png",
+            "sha256": "d36880641912b579fdd4ecc218d6e8cd2fc283c3d6a2c2d2e78dd1d200d29a21",
+            "manifestOutputSha256": "d36880641912b579fdd4ecc218d6e8cd2fc283c3d6a2c2d2e78dd1d200d29a21",
+            "sourceSha256": "d36880641912b579fdd4ecc218d6e8cd2fc283c3d6a2c2d2e78dd1d200d29a21",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              261,
+              11,
+              688,
+              507
+            ],
+            "alphaMargins": [
+              261,
+              11,
+              80,
+              5
+            ],
+            "baselineYExclusive": 507,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/Idle/frame-1.png",
+            "sha256": "4079864daf23db02867c95eac9f05137a46dd797e8476b608b00f0864eddcd17",
+            "manifestOutputSha256": "4079864daf23db02867c95eac9f05137a46dd797e8476b608b00f0864eddcd17",
+            "sourceSha256": "4079864daf23db02867c95eac9f05137a46dd797e8476b608b00f0864eddcd17",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              166,
+              4,
+              601,
+              508
+            ],
+            "alphaMargins": [
+              166,
+              4,
+              167,
+              4
+            ],
+            "baselineYExclusive": 508,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/Idle/frame-2.png",
+            "sha256": "2de478775135a4e35af39156f769ad4a2a8cf6b1d321b0f6ccae7056054e3286",
+            "manifestOutputSha256": "2de478775135a4e35af39156f769ad4a2a8cf6b1d321b0f6ccae7056054e3286",
+            "sourceSha256": "2de478775135a4e35af39156f769ad4a2a8cf6b1d321b0f6ccae7056054e3286",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              256,
+              18,
+              714,
+              504
+            ],
+            "alphaMargins": [
+              256,
+              18,
+              54,
+              8
+            ],
+            "baselineYExclusive": 504,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/Idle/frame-3.png",
+            "sha256": "96006d06a0cca5a707007b2ac08b85d9dc65940a7fbc8452eebae3095eeb5894",
+            "manifestOutputSha256": "96006d06a0cca5a707007b2ac08b85d9dc65940a7fbc8452eebae3095eeb5894",
+            "sourceSha256": "96006d06a0cca5a707007b2ac08b85d9dc65940a7fbc8452eebae3095eeb5894",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              172,
+              10,
+              597,
+              507
+            ],
+            "alphaMargins": [
+              172,
+              10,
+              171,
+              5
+            ],
+            "baselineYExclusive": 507,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Move": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.96875,
+        "translation": [
+          12,
+          22
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          481,
+          486,
+          445,
+          448
+        ],
+        "adjacentBaselineDeltas": [
+          5,
+          -41,
+          3
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/Move/frame-0.png",
+            "sha256": "536b1427f8e21f37b0537fde5d4ef62004cfd8492ea93c84e99dd5bf1fd51401",
+            "manifestOutputSha256": "536b1427f8e21f37b0537fde5d4ef62004cfd8492ea93c84e99dd5bf1fd51401",
+            "sourceSha256": "faccaca5fb4408b9e27700483c274ba5909d149df5f86866152f5a2c36fa79d2",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              95,
+              70,
+              756,
+              481
+            ],
+            "alphaMargins": [
+              95,
+              70,
+              12,
+              31
+            ],
+            "baselineYExclusive": 481,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/Move/frame-1.png",
+            "sha256": "4f2c8f91a20604c8b345a381bfeb81bcff78cce02eeeb9dc506eda096ef0a286",
+            "manifestOutputSha256": "4f2c8f91a20604c8b345a381bfeb81bcff78cce02eeeb9dc506eda096ef0a286",
+            "sourceSha256": "76980a1aa4284e50b7c630241ca7b5181d00704dab9a7438c2cba1d52ee9ed60",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              12,
+              70,
+              511,
+              486
+            ],
+            "alphaMargins": [
+              12,
+              70,
+              257,
+              26
+            ],
+            "baselineYExclusive": 486,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/Move/frame-2.png",
+            "sha256": "c9062bfea21c590153767c690331fef99e3f35b0641028f5985e516bf62e9e5c",
+            "manifestOutputSha256": "c9062bfea21c590153767c690331fef99e3f35b0641028f5985e516bf62e9e5c",
+            "sourceSha256": "73545c83d9d792fd80aa70334e3aec0f3118f93f91e9a1623d5dc7a05da6375b",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              105,
+              27,
+              656,
+              445
+            ],
+            "alphaMargins": [
+              105,
+              27,
+              112,
+              67
+            ],
+            "baselineYExclusive": 445,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/Move/frame-3.png",
+            "sha256": "62350f76064e1ea9207ef873a229d57fd8f0caf8ed3f7873cd8397d74c224c1e",
+            "manifestOutputSha256": "62350f76064e1ea9207ef873a229d57fd8f0caf8ed3f7873cd8397d74c224c1e",
+            "sourceSha256": "30d0f6adffb9633aaede9d10124a5c10e6c55bc57e48cd79ec18662a6f661f4b",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              64,
+              40,
+              686,
+              448
+            ],
+            "alphaMargins": [
+              64,
+              40,
+              82,
+              64
+            ],
+            "baselineYExclusive": 448,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Death": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.953125,
+        "translation": [
+          18,
+          12
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          496,
+          500,
+          395,
+          431
+        ],
+        "adjacentBaselineDeltas": [
+          4,
+          -105,
+          36
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/Death/frame-0.png",
+            "sha256": "5ad9efc47e80b4a212f363b7e8241dc0d950cb9c8d2b904f3d8e3efe39f5b2db",
+            "manifestOutputSha256": "5ad9efc47e80b4a212f363b7e8241dc0d950cb9c8d2b904f3d8e3efe39f5b2db",
+            "sourceSha256": "5b1cadb4de008b43a91ea751d4bf711b2ad9c522552342d88af80387683296c0",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              262,
+              79,
+              718,
+              496
+            ],
+            "alphaMargins": [
+              262,
+              79,
+              50,
+              16
+            ],
+            "baselineYExclusive": 496,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/Death/frame-1.png",
+            "sha256": "77ccfea59821f9de0bfdc3cbd9c0f566591b368b1c4c2dda2afeb5684445b06f",
+            "manifestOutputSha256": "77ccfea59821f9de0bfdc3cbd9c0f566591b368b1c4c2dda2afeb5684445b06f",
+            "sourceSha256": "b6ff36b8213a703f6e5d704ddb2b7bf67189cf679e79df613a229d7be7aaec45",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              93,
+              208,
+              594,
+              500
+            ],
+            "alphaMargins": [
+              93,
+              208,
+              174,
+              12
+            ],
+            "baselineYExclusive": 500,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/Death/frame-2.png",
+            "sha256": "5cb883d3f826ed666f9b529f5015b0cc4d5796d5fb53e0f79a92c0bebbb9c99a",
+            "manifestOutputSha256": "5cb883d3f826ed666f9b529f5015b0cc4d5796d5fb53e0f79a92c0bebbb9c99a",
+            "sourceSha256": "37cfcbe8494b7ecedb620f6a3d878a6ca803b6be196def8ff6b79a15b28de990",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              105,
+              22,
+              681,
+              395
+            ],
+            "alphaMargins": [
+              105,
+              22,
+              87,
+              117
+            ],
+            "baselineYExclusive": 395,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/Death/frame-3.png",
+            "sha256": "3f51dce231d554e1a21d3e892cf6cb8b0989e89ddd0e03633113f1ba683440fa",
+            "manifestOutputSha256": "3f51dce231d554e1a21d3e892cf6cb8b0989e89ddd0e03633113f1ba683440fa",
+            "sourceSha256": "d8331501a6b357c0c2253a071c878a53381382bd28dd5962457befd9f66bd4cc",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              51,
+              12,
+              680,
+              431
+            ],
+            "alphaMargins": [
+              51,
+              12,
+              88,
+              81
+            ],
+            "baselineYExclusive": 431,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "Stun": {
+        "status": "PASS",
+        "buildStatus": "corrected",
+        "uniformScale": 0.953125,
+        "translation": [
+          -12,
+          12
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          500,
+          500,
+          438,
+          442
+        ],
+        "adjacentBaselineDeltas": [
+          0,
+          -62,
+          4
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/Stun/frame-0.png",
+            "sha256": "162b0156f84001c892997b0d5c6de13ba6c72bd49b1b58a354902182c7b6a2ba",
+            "manifestOutputSha256": "162b0156f84001c892997b0d5c6de13ba6c72bd49b1b58a354902182c7b6a2ba",
+            "sourceSha256": "dc178a396e519557cea9cdfe3d19b92069bf960a4196dddd72711ac78735a4c5",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              261,
+              27,
+              645,
+              500
+            ],
+            "alphaMargins": [
+              261,
+              27,
+              123,
+              12
+            ],
+            "baselineYExclusive": 500,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/Stun/frame-1.png",
+            "sha256": "26d2bc38c9232346a5caf5b2ddcd0ea140dba781eb3efd17293e50d3002c8648",
+            "manifestOutputSha256": "26d2bc38c9232346a5caf5b2ddcd0ea140dba781eb3efd17293e50d3002c8648",
+            "sourceSha256": "2805b83d1e1416e380719145ec7e78687ee8b74fe5a49087a4a5b033af877223",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              124,
+              125,
+              510,
+              500
+            ],
+            "alphaMargins": [
+              124,
+              125,
+              258,
+              12
+            ],
+            "baselineYExclusive": 500,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/Stun/frame-2.png",
+            "sha256": "c024aeeca05cd84d97a324c231274b29bd5cff7d39cff2d9e2dfbff2d5e50179",
+            "manifestOutputSha256": "c024aeeca05cd84d97a324c231274b29bd5cff7d39cff2d9e2dfbff2d5e50179",
+            "sourceSha256": "70b109d4337562cadaaf75c77f0c8b6acf36ac981746708d10e483d94ee9f3b9",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              254,
+              12,
+              624,
+              438
+            ],
+            "alphaMargins": [
+              254,
+              12,
+              144,
+              74
+            ],
+            "baselineYExclusive": 438,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/Stun/frame-3.png",
+            "sha256": "4f8089bb47a3087e47d926c60d1eb8ebf4a14ed72a35fa9c6462fb5f2ee32495",
+            "manifestOutputSha256": "4f8089bb47a3087e47d926c60d1eb8ebf4a14ed72a35fa9c6462fb5f2ee32495",
+            "sourceSha256": "09439676103dac065467d204dfe129c6912a1f88bc71627179551a4f7ef1aab1",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              136,
+              12,
+              516,
+              442
+            ],
+            "alphaMargins": [
+              136,
+              12,
+              252,
+              70
+            ],
+            "baselineYExclusive": 442,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "BasicAttack": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          467,
+          468,
+          387,
+          393
+        ],
+        "adjacentBaselineDeltas": [
+          1,
+          -81,
+          6
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/BasicAttack/frame-0.png",
+            "sha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134",
+            "manifestOutputSha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134",
+            "sourceSha256": "570e4720893c3a759477c7706c7bd58caa414d65cffaf80c8ee0714fed684134",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              212,
+              116,
+              508,
+              467
+            ],
+            "alphaMargins": [
+              212,
+              116,
+              260,
+              45
+            ],
+            "baselineYExclusive": 467,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/BasicAttack/frame-1.png",
+            "sha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb",
+            "manifestOutputSha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb",
+            "sourceSha256": "5215b7e98b1cb298afb3ff86c53824253fda9cd6d6c63493e8f64aac7d9c56bb",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              135,
+              111,
+              525,
+              468
+            ],
+            "alphaMargins": [
+              135,
+              111,
+              243,
+              44
+            ],
+            "baselineYExclusive": 468,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/BasicAttack/frame-2.png",
+            "sha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5",
+            "manifestOutputSha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5",
+            "sourceSha256": "41a8dbe765afe9f2e6d840ad9fbb6ccc8b9fe037436be94e6255d5739e34c5d5",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              181,
+              46,
+              640,
+              387
+            ],
+            "alphaMargins": [
+              181,
+              46,
+              128,
+              125
+            ],
+            "baselineYExclusive": 387,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/BasicAttack/frame-3.png",
+            "sha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295",
+            "manifestOutputSha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295",
+            "sourceSha256": "822895784ae6e171903bed391182b6279562c0fbb1a1af4cbd41a4b6d50d0295",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              512
+            ],
+            "alphaBBox": [
+              128,
+              26,
+              533,
+              393
+            ],
+            "alphaMargins": [
+              128,
+              26,
+              235,
+              119
+            ],
+            "baselineYExclusive": 393,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      },
+      "VFX": {
+        "status": "PASS",
+        "buildStatus": "byte-preserved",
+        "uniformScale": 1.0,
+        "translation": [
+          0,
+          0
+        ],
+        "sameTransformAcrossActionUnit": true,
+        "baselineSeriesYExclusive": [
+          634,
+          642,
+          593,
+          603
+        ],
+        "adjacentBaselineDeltas": [
+          8,
+          -49,
+          10
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "file": "chain_dragger_raider/VFX/frame-0.png",
+            "sha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+            "manifestOutputSha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+            "sourceSha256": "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              101,
+              122,
+              660,
+              634
+            ],
+            "alphaMargins": [
+              101,
+              122,
+              108,
+              134
+            ],
+            "baselineYExclusive": 634,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 1,
+            "file": "chain_dragger_raider/VFX/frame-1.png",
+            "sha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+            "manifestOutputSha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+            "sourceSha256": "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              93,
+              127,
+              680,
+              642
+            ],
+            "alphaMargins": [
+              93,
+              127,
+              88,
+              126
+            ],
+            "baselineYExclusive": 642,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 2,
+            "file": "chain_dragger_raider/VFX/frame-2.png",
+            "sha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+            "manifestOutputSha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+            "sourceSha256": "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              90,
+              82,
+              680,
+              593
+            ],
+            "alphaMargins": [
+              90,
+              82,
+              88,
+              175
+            ],
+            "baselineYExclusive": 593,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          },
+          {
+            "frame": 3,
+            "file": "chain_dragger_raider/VFX/frame-3.png",
+            "sha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9",
+            "manifestOutputSha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9",
+            "sourceSha256": "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9",
+            "rerunAByteIdentical": true,
+            "rerunBByteIdentical": true,
+            "format": "PNG",
+            "mode": "RGBA",
+            "dimensions": [
+              768,
+              768
+            ],
+            "alphaBBox": [
+              99,
+              109,
+              678,
+              603
+            ],
+            "alphaMargins": [
+              99,
+              109,
+              90,
+              165
+            ],
+            "baselineYExclusive": 603,
+            "cornerAlpha": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "border": {
+              "top": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "bottom": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "left": {
+                "nonzero": 0,
+                "max": 0
+              },
+              "right": {
+                "nonzero": 0,
+                "max": 0
+              }
+            },
+            "alphaZeroRgbResidue": 0
+          }
+        ]
+      }
+    }
+  },
+  "installCandidateManifestWritten": true,
+  "installAuthority": false,
+  "mutationsByQa": {
+    "pixels": 0,
+    "Unity": 0,
+    "canonical": 0,
+    "runtime": 0
+  },
+  "authority": {
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

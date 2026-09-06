@@ -1,0 +1,43 @@
+{
+  "schema": "projectbs.fresh-whole-imageforge-qa-receipt.v1",
+  "result": "FAIL",
+  "checks": {
+    "exact40": true,
+    "order": true,
+    "rgba": true,
+    "canvasMatchesLocalManifest": true,
+    "uniqueSha40": false,
+    "packageByteIdentity40": true,
+    "nonemptyAlpha40": false,
+    "strictBordersCornersResidue40": false
+  },
+  "actionResults": {
+    "black_cloth_raider": {
+      "Idle": "FAIL",
+      "Move": "FAIL",
+      "BasicAttack": "FAIL",
+      "Death": "FAIL",
+      "Stun": "FAIL"
+    },
+    "chain_dragger_raider": {
+      "Idle": "FAIL",
+      "Move": "FAIL",
+      "BasicAttack": "FAIL",
+      "Death": "FAIL",
+      "Stun": "FAIL"
+    }
+  },
+  "knownContentFailures": [
+    "chain_dragger_raider/BasicAttack frame-2 is a small foreign/detached fragment rather than a full pose",
+    "chain_dragger_raider/Death frame-2 and frame-3 have empty alpha and identical SHA-256 787a9bca5cd56e3919ac3e53cb33ce607a61730788a2ad6f52765dd4633877d5"
+  ],
+  "visualReadback": "visual-readback.json",
+  "manifest": "qa-selected-manifest.json",
+  "authority": {
+    "promotion": false,
+    "Unity": false,
+    "canonical": false,
+    "runtime": false,
+    "release": false
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "revision": "revision-03-whole-sheets",
+  "producer": "담채",
+  "status": "source_review_candidates_only",
+  "tool": "built-in ImageGen",
+  "generationPolicy": "one built-in call per whole-sheet candidate",
+  "rawPreservation": "Copied byte-for-byte from the built-in output; no extraction, alpha cleanup, masking, retouching, or canonical work.",
+  "sourcePortraits": {
+    "G2": {
+      "path": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/portrait/character.seojin.2.portrait.png",
+      "sha256": "ff512be1ac75ba0924eab316679dcab4ee171f4a0703014791f2f295e8a6d327"
+    },
+    "G3": {
+      "path": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/portrait/character.seojin.3.portrait.png",
+      "sha256": "069fd1a9871b8b4c1f06e27e088e8eb426194dbd58f501baf7fa489d2c54fbe2"
+    }
+  },
+  "prompt": {
+    "common": "Use case: stylized-concept. Asset type: one whole 2D game animation source sheet/contact board for Seojin <GRADE>, candidate <VARIANT>. Input image is the authoritative identity and costume reference; preserve the same young Korean male face, black hair/topknot, sword, anatomy, body scale and watercolor-ink rendering in every occupied cell. Create ONE single portrait-oriented image arranged as a clean 6-column by 7-row contact-board composition. Exactly 38 full-body poses occupy prescribed cells; four cells intentionally blank. Row 1: six Idle F0-F5 subtle breathing. Row 2: four screen-right Run F0-F3 in columns 1-4; columns 5-6 empty. Rows 3-5: eighteen continuous BasicAttack F0-F17, six per row, three connected sword strikes with anticipation, acceleration, extension, near-contact, contact, recovery/reset; contacts F4/F10/F16 and decisive final-row finisher. Row 6: six Death poses, strike loss through final defeated. Row 7: four Stun poses in columns 1-4; columns 5-6 empty. Portrait canvas; six aligned invisible columns and seven aligned invisible rows; generous blank gutters; no overlap. Every occupied cell contains one complete unclipped full body, sword and garments. Consistent scale and screen-right action. Restrained Korean watercolor and ink game illustration. Body-only; no VFX, aura, glow, glyph, projectile, attack trail, blood, scenery, or props beyond sword and pouch. No embedded text, numbers, labels, captions, grid lines, cell borders, checker instruction, UI, watermark, or logo. Do not merge poses. Exactly one whole source-sheet image.",
+    "G2-costume": "dark navy outer robe, warm rust sash, bronze-brown shoulder armor, pale trousers, existing pouch",
+    "G3-costume": "dark navy shoulder mantle/cape with bronze clasp, long rear cloth tails, pale wave-pattern hem, rust sash, bronze shoulder armor, pale trousers and pouch",
+    "A-variation": "even, compact staging with disciplined consistent scale, regular generous gutters, and strongly readable silhouettes; G3 cloth inertia must remain inside its cell",
+    "B-variation": "airier presentation with extra negative space around broad/contact/fall poses and clearer anticipation/contact contrast; exact six-column alignment and unchanged identity/costume",
+    "C-layout-retry": "One portrait source sheet with five clearly separated horizontal ACTION BANDS: Idle exactly 6 in one row; Run exactly 4 in one row; BasicAttack exactly 18 in a visibly taller three-row sub-grid of six per row; Death exactly 6 in one row; Stun exactly 4 in one row. Large blank gutters, no overlap or clipping, no text/numbers/labels/grid lines, full character/sword/cape, body-only and no VFX."
+  },
+  "candidates": [
+    {
+      "id": "G2-A",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g2-whole-sheet-A.png",
+      "sha256": "ad0062e24c2111194b39ac6c5cba2039177904978615188813f37d5654c6ae3a",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 32,
+      "observedStructure": [6, 4, 6, 6, 6, 4],
+      "notes": "Visually clean gutters with no obvious body overlap. Generated only six occupied rows: the requested third BasicAttack row and separate six-frame Death row are conflated/omitted. A few long sword tips approach or cross the intended cell/outer boundary."
+    },
+    {
+      "id": "G2-B",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g2-whole-sheet-B.png",
+      "sha256": "c422b37ccbf8bcd20854c2820e3e141f6931ccdd8ae5488a0266c3cd689faa80",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 32,
+      "observedStructure": [6, 4, 6, 6, 6, 4],
+      "notes": "Airier and generally unclipped with no obvious adjacent body overlap. Generated six occupied rows rather than seven; 32 poses instead of 38, with attack/death chronology compressed."
+    },
+    {
+      "id": "G3-A",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g3-whole-sheet-A.png",
+      "sha256": "95e10da74b40b209e6c94269081bad395a448ac05fca77127499a535e9202b8c",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 36,
+      "observedStructure": [6, 3, 6, 6, 6, 5, 4],
+      "notes": "Best preservation of the requested seven-row layout and G3 costume lineage. Run row has only three poses and Death row only five, for 36 occupied poses. Some extended blades and cape tails narrow the gutter but there is no obvious merged body pair."
+    },
+    {
+      "id": "G3-B",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g3-whole-sheet-B.png",
+      "sha256": "dcfb1dacd4b0bde701c56f087ec71275484cfb884ba73996bc6a759a5158c475",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 31,
+      "observedStructure": [6, 4, 6, 6, 5, 4],
+      "notes": "Clean, airy silhouettes and strong G3 identity, but only six occupied rows and 31 poses. The first attack-row left sword is clipped at the sheet edge; several extended swords intrude into intended gutter space."
+    },
+    {
+      "id": "G2-C",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g2-whole-sheet-C.png",
+      "sha256": "6f3349e1109689b9399c5e436e40a944a79f026cf6df6cca9ebb346723c6024f",
+      "dimensions": [1024, 1536],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 30,
+      "observedBandCounts": {"idle": 6, "run": 4, "basicAttackRows": [6, 5], "death": 5, "stun": 4},
+      "notes": "Five-band wording preserved recognizable action separation but BasicAttack collapsed to two rows (11 poses) instead of three rows/18, and Death has five poses. No obvious adjacent-body overlap; several sword tips approach gutters. Stopped without D per assignment."
+    },
+    {
+      "id": "G3-C",
+      "outputPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/raw/seojin-g3-whole-sheet-C.png",
+      "sha256": "f720ce9c84b983a80ba42b19ba05d1e51da79ccac33bd1b0e56cf1d4ce36898a",
+      "dimensions": [864, 1821],
+      "colorMode": "RGB",
+      "observedOccupiedCellCount": 35,
+      "observedBandCounts": {"idle": 6, "run": 4, "basicAttackRows": [5, 5, 5], "death": 6, "stun": 4},
+      "notes": "All five action bands and the three-row BasicAttack sub-grid are visibly separated, but each attack row has five rather than six poses (15/18). Other bands match requested counts. Leftmost extended attack sword reaches the sheet boundary; no obvious adjacent-body merge. Stopped without D per assignment."
+    }
+  ],
+  "overviewPath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinGradeVariations/revision-03-whole-sheets/thumbnails/seojin-g2-g3-whole-sheets-overview.jpg",
+  "selectionPerformed": false
+}

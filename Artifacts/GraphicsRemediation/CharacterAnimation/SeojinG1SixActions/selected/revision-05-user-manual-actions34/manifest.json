@@ -1,0 +1,1246 @@
+{
+  "status": "USER_MANUAL_PIXELS_PACKAGED_INSTALL_BY_HANGYEOL_ONLY",
+  "package": "revision-05-user-manual-actions34",
+  "new_action_frame_count": 34,
+  "expected_new_action_frame_count": 34,
+  "complete_actions": 6,
+  "attack_existing_inventory": {
+    "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/exec-600783ed-96f5-4d18-9ddd-d1dbaa661289_7d56b10b/frames",
+    "frame_count": 18,
+    "unique_sha_count": 18,
+    "dimensions": [
+      [
+        568,
+        340
+      ]
+    ],
+    "bbox_height_range": [
+      222,
+      312
+    ],
+    "bbox_height_median": 243.0,
+    "foot_bottom_range_top_origin": [
+      320,
+      330
+    ],
+    "inventory_only_not_repackaged": true
+  },
+  "total_inventory_with_attack": 52,
+  "pixel_mutation": false,
+  "renamed_ordered_byte_identical_copy_only": true,
+  "audited_constraints": {
+    "rgba": true,
+    "alpha_border_zero": true,
+    "unique_within_each_action": true,
+    "no_alpha_bbox_clipping": true,
+    "alpha0_rgb_residue_zero": false
+  },
+  "alpha0_rgb_residue_disposition": "PRESENT_UNDER_FULLY_TRANSPARENT_PIXELS; preserved because visible/source pixels are user-authoritative and mutation is forbidden. Import with alphaIsTransparency enabled.",
+  "importer_recommendation": {
+    "textureType": "Sprite",
+    "spriteMode": "Single",
+    "pixelsPerUnit": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "filterMode": "Point",
+    "wrapMode": "Clamp",
+    "alphaIsTransparency": true,
+    "runtime_scale_multiplier": 1.0,
+    "reason": "All selected sources are height 340 and foot bottoms 320-332, matching installed manual attack height 340 and bottoms 320-330. Preserve pixel scale; do not normalize per-action pose height."
+  },
+  "action_summaries": [
+    {
+      "action": "RightDiagonalRun",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/rightdiagonalrun-c-four-pose-white_ddcaa6ce/frames",
+      "frame_count": 4,
+      "expected_count": 4,
+      "unique_sha_count": 4,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          467,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        268,
+        281
+      ],
+      "bbox_height_median": 278.0,
+      "bbox_width_range": [
+        203,
+        227
+      ],
+      "foot_bottom_range_top_origin": [
+        330,
+        332
+      ],
+      "foot_bottom_median_top_origin": 330.5,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 534488,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/RightDiagonalRun.gif",
+      "gif_sha256": "c1d9a0dbfeef8eb858e1a6070496bb3d693c80f9233ba89ef330168424d111f5",
+      "gif_delay_ms": 120,
+      "gif_loop": "infinite",
+      "loopable_source_intent": true,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/RightDiagonalRun-contact.png",
+      "contact_sha256": "191538f379a2eed23aa7ad5a4cb5b54222b1fd99514185c556d380221802d596",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "Idle",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames",
+      "frame_count": 6,
+      "expected_count": 6,
+      "unique_sha_count": 6,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          412,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        287,
+        291
+      ],
+      "bbox_height_median": 290.0,
+      "bbox_width_range": [
+        158,
+        172
+      ],
+      "foot_bottom_range_top_origin": [
+        330,
+        332
+      ],
+      "foot_bottom_median_top_origin": 330.0,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 701272,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/Idle.gif",
+      "gif_sha256": "47187b53f5cf2e2e13a1c078ba12bbe0641201132366c2a757b6b182703f81cb",
+      "gif_delay_ms": 180,
+      "gif_loop": "infinite",
+      "loopable_source_intent": true,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/Idle-contact.png",
+      "contact_sha256": "7cb0f0bf70c865731e5e211d674741775c1f818585b57f5dc14f2e5b9d5e0a15",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "Dash",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames",
+      "frame_count": 6,
+      "expected_count": 6,
+      "unique_sha_count": 6,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          536,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        175,
+        288
+      ],
+      "bbox_height_median": 218.5,
+      "bbox_width_range": [
+        169,
+        296
+      ],
+      "foot_bottom_range_top_origin": [
+        321,
+        330
+      ],
+      "foot_bottom_median_top_origin": 329.0,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 948184,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/Dash.gif",
+      "gif_sha256": "b56f7e172d9b11f834cd1bb548f60d6c222fd0a1286cd5ad81e7b3221384687f",
+      "gif_delay_ms": 100,
+      "gif_loop": "infinite",
+      "loopable_source_intent": false,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/Dash-contact.png",
+      "contact_sha256": "15444b10807687ff99fbd0fe6c4aecb9b192da118326126df45ec476fd2a8b8b",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "Charge",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames",
+      "frame_count": 6,
+      "expected_count": 6,
+      "unique_sha_count": 6,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          563,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        244,
+        308
+      ],
+      "bbox_height_median": 264.0,
+      "bbox_width_range": [
+        145,
+        323
+      ],
+      "foot_bottom_range_top_origin": [
+        320,
+        331
+      ],
+      "foot_bottom_median_top_origin": 330.5,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 1001728,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/Charge.gif",
+      "gif_sha256": "3766cd95385e46643edbd1256ab97a438f0a869c192ab60152f7ff1d83993a2b",
+      "gif_delay_ms": 120,
+      "gif_loop": "infinite",
+      "loopable_source_intent": false,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/Charge-contact.png",
+      "contact_sha256": "12649236a2f9ee83d5d1d65c5affb53270afbb3aeea106505d8e2cd91ac1e994",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "CraneCast",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames",
+      "frame_count": 6,
+      "expected_count": 6,
+      "unique_sha_count": 6,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          469,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        241,
+        293
+      ],
+      "bbox_height_median": 283.0,
+      "bbox_width_range": [
+        170,
+        229
+      ],
+      "foot_bottom_range_top_origin": [
+        329,
+        331
+      ],
+      "foot_bottom_median_top_origin": 329.0,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 800872,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/CraneCast.gif",
+      "gif_sha256": "4be8d977e082ffa69506ed0a025d391ecce7fda612d5474bc750e9fc8f4c8b02",
+      "gif_delay_ms": 160,
+      "gif_loop": "infinite",
+      "loopable_source_intent": false,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/CraneCast-contact.png",
+      "contact_sha256": "c9728d93fd75a2e4ef267f9dcd4ed24526ff6a128703da3d1a315096992946f8",
+      "atomic_action_complete": true
+    },
+    {
+      "action": "TurtleSummon",
+      "source_folder": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames",
+      "frame_count": 6,
+      "expected_count": 6,
+      "unique_sha_count": 6,
+      "all_rgba": true,
+      "dimensions": [
+        [
+          548,
+          340
+        ]
+      ],
+      "bbox_height_range": [
+        278,
+        293
+      ],
+      "bbox_height_median": 284.5,
+      "bbox_width_range": [
+        136,
+        308
+      ],
+      "foot_bottom_range_top_origin": [
+        331,
+        332
+      ],
+      "foot_bottom_median_top_origin": 331.0,
+      "alpha_border_nonzero_total": 0,
+      "alpha0_rgb_residue_pixels_total": 964110,
+      "clipped_frames": [],
+      "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/gifs/TurtleSummon.gif",
+      "gif_sha256": "f932e87f14c72a7ec7b52df7bdddfaa0e689ba83513e0858b2e2cbd5cabc21a4",
+      "gif_delay_ms": 160,
+      "gif_loop": "infinite",
+      "loopable_source_intent": false,
+      "contact": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/TurtleSummon-contact.png",
+      "contact_sha256": "ca7c05f4d4670f6638d8d678ce4b84274c7a013cec344fb1e7cfa687a41226b3",
+      "atomic_action_complete": true
+    }
+  ],
+  "frames": [
+    {
+      "action": "RightDiagonalRun",
+      "mode": "RGBA",
+      "dimensions": [
+        467,
+        340
+      ],
+      "alpha_bbox": [
+        102,
+        51,
+        324,
+        331
+      ],
+      "bbox_width": 222,
+      "bbox_height": 280,
+      "bbox_center_x": 213.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 131740,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "e42736eb30ba51a91ab4a1579c2f40ee96267adba8abb6f747bd9b96fd774a2e",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/rightdiagonalrun-c-four-pose-white_ddcaa6ce/frames/frame_001.png",
+      "source_sha256": "e42736eb30ba51a91ab4a1579c2f40ee96267adba8abb6f747bd9b96fd774a2e",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/RightDiagonalRun/frame-00.png",
+      "packaged_sha256": "e42736eb30ba51a91ab4a1579c2f40ee96267adba8abb6f747bd9b96fd774a2e",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "RightDiagonalRun",
+      "mode": "RGBA",
+      "dimensions": [
+        467,
+        340
+      ],
+      "alpha_bbox": [
+        119,
+        49,
+        334,
+        330
+      ],
+      "bbox_width": 215,
+      "bbox_height": 281,
+      "bbox_center_x": 226.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 133259,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "74785cd92ff6a4316af0cd3a42e7cc9aba8083f1f44f379f1d2fa219971bb7bf",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/rightdiagonalrun-c-four-pose-white_ddcaa6ce/frames/frame_002.png",
+      "source_sha256": "74785cd92ff6a4316af0cd3a42e7cc9aba8083f1f44f379f1d2fa219971bb7bf",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/RightDiagonalRun/frame-01.png",
+      "packaged_sha256": "74785cd92ff6a4316af0cd3a42e7cc9aba8083f1f44f379f1d2fa219971bb7bf",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "RightDiagonalRun",
+      "mode": "RGBA",
+      "dimensions": [
+        467,
+        340
+      ],
+      "alpha_bbox": [
+        102,
+        56,
+        329,
+        332
+      ],
+      "bbox_width": 227,
+      "bbox_height": 276,
+      "bbox_center_x": 215.5,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 133670,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "9fb0e6c2078ba71aebce92cda32c23b9cb7278aba4955840f38a7268c8d1ccc3",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/rightdiagonalrun-c-four-pose-white_ddcaa6ce/frames/frame_003.png",
+      "source_sha256": "9fb0e6c2078ba71aebce92cda32c23b9cb7278aba4955840f38a7268c8d1ccc3",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/RightDiagonalRun/frame-02.png",
+      "packaged_sha256": "9fb0e6c2078ba71aebce92cda32c23b9cb7278aba4955840f38a7268c8d1ccc3",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "RightDiagonalRun",
+      "mode": "RGBA",
+      "dimensions": [
+        467,
+        340
+      ],
+      "alpha_bbox": [
+        132,
+        62,
+        335,
+        330
+      ],
+      "bbox_width": 203,
+      "bbox_height": 268,
+      "bbox_center_x": 233.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 135819,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "8990edc648e254cea3c22811c3334707367848009e0a39a4f956c71d698e4db5",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/rightdiagonalrun-c-four-pose-white_ddcaa6ce/frames/frame_004.png",
+      "source_sha256": "8990edc648e254cea3c22811c3334707367848009e0a39a4f956c71d698e4db5",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/RightDiagonalRun/frame-03.png",
+      "packaged_sha256": "8990edc648e254cea3c22811c3334707367848009e0a39a4f956c71d698e4db5",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        107,
+        40,
+        269,
+        330
+      ],
+      "bbox_width": 162,
+      "bbox_height": 290,
+      "bbox_center_x": 188.0,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 116481,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "bdc97eefbc76ca03ddd5d56b0f126d9b1a7b1152a7b2f07d5c29201df424d273",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_001.png",
+      "source_sha256": "bdc97eefbc76ca03ddd5d56b0f126d9b1a7b1152a7b2f07d5c29201df424d273",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-00.png",
+      "packaged_sha256": "bdc97eefbc76ca03ddd5d56b0f126d9b1a7b1152a7b2f07d5c29201df424d273",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        106,
+        43,
+        269,
+        330
+      ],
+      "bbox_width": 163,
+      "bbox_height": 287,
+      "bbox_center_x": 187.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 117021,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "4a1e2b009c2c3f4961352f0ad0abd094f72c8b52819e01d34531e4281ebcb68c",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_002.png",
+      "source_sha256": "4a1e2b009c2c3f4961352f0ad0abd094f72c8b52819e01d34531e4281ebcb68c",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-01.png",
+      "packaged_sha256": "4a1e2b009c2c3f4961352f0ad0abd094f72c8b52819e01d34531e4281ebcb68c",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        115,
+        43,
+        273,
+        330
+      ],
+      "bbox_width": 158,
+      "bbox_height": 287,
+      "bbox_center_x": 194.0,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 117858,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "43ffba26fb78f8636a99539533b07650fffaabdaa2eb360804958d7dbedc6488",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_003.png",
+      "source_sha256": "43ffba26fb78f8636a99539533b07650fffaabdaa2eb360804958d7dbedc6488",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-02.png",
+      "packaged_sha256": "43ffba26fb78f8636a99539533b07650fffaabdaa2eb360804958d7dbedc6488",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        104,
+        39,
+        267,
+        330
+      ],
+      "bbox_width": 163,
+      "bbox_height": 291,
+      "bbox_center_x": 185.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 116565,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "e8269b98a9bb7ef2102bcf674bf44ccd9fb97447ce62c4a821da80b212f4c260",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_004.png",
+      "source_sha256": "e8269b98a9bb7ef2102bcf674bf44ccd9fb97447ce62c4a821da80b212f4c260",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-03.png",
+      "packaged_sha256": "e8269b98a9bb7ef2102bcf674bf44ccd9fb97447ce62c4a821da80b212f4c260",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        104,
+        42,
+        267,
+        332
+      ],
+      "bbox_width": 163,
+      "bbox_height": 290,
+      "bbox_center_x": 185.5,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 116986,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "4d5a0552c987fdd2ff018e3443cfe06842b276f75f2a6d59f8b16c14d367bbac",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_005.png",
+      "source_sha256": "4d5a0552c987fdd2ff018e3443cfe06842b276f75f2a6d59f8b16c14d367bbac",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-04.png",
+      "packaged_sha256": "4d5a0552c987fdd2ff018e3443cfe06842b276f75f2a6d59f8b16c14d367bbac",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Idle",
+      "mode": "RGBA",
+      "dimensions": [
+        412,
+        340
+      ],
+      "alpha_bbox": [
+        98,
+        41,
+        270,
+        331
+      ],
+      "bbox_width": 172,
+      "bbox_height": 290,
+      "bbox_center_x": 184.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 116361,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "214e08c17ee7cd1918b3219d3739cba49841f66853bd0b9f8849af92e28ecc46",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/idle-b-six-pose-white_61449cd4/frames/frame_006.png",
+      "source_sha256": "214e08c17ee7cd1918b3219d3739cba49841f66853bd0b9f8849af92e28ecc46",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Idle/frame-05.png",
+      "packaged_sha256": "214e08c17ee7cd1918b3219d3739cba49841f66853bd0b9f8849af92e28ecc46",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        162,
+        42,
+        336,
+        330
+      ],
+      "bbox_width": 174,
+      "bbox_height": 288,
+      "bbox_center_x": 249.0,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 157992,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "5c12d60b8adfdc67cf8963e3cc0c4af57c038e25625db57b2f01789545990121",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_001.png",
+      "source_sha256": "5c12d60b8adfdc67cf8963e3cc0c4af57c038e25625db57b2f01789545990121",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-00.png",
+      "packaged_sha256": "5c12d60b8adfdc67cf8963e3cc0c4af57c038e25625db57b2f01789545990121",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        122,
+        117,
+        372,
+        329
+      ],
+      "bbox_width": 250,
+      "bbox_height": 212,
+      "bbox_center_x": 247.0,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 156926,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "cc78a6b06085e71b67bb797f6df9cb9fde5680d665130f48c638ea1ad8cfd7fe",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_002.png",
+      "source_sha256": "cc78a6b06085e71b67bb797f6df9cb9fde5680d665130f48c638ea1ad8cfd7fe",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-01.png",
+      "packaged_sha256": "cc78a6b06085e71b67bb797f6df9cb9fde5680d665130f48c638ea1ad8cfd7fe",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        162,
+        123,
+        407,
+        329
+      ],
+      "bbox_width": 245,
+      "bbox_height": 206,
+      "bbox_center_x": 284.5,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 156416,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "107f39bb0f9b833453c789fdca08da9f77490ee46dae75d95eab7a52c7b36f72",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_003.png",
+      "source_sha256": "107f39bb0f9b833453c789fdca08da9f77490ee46dae75d95eab7a52c7b36f72",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-02.png",
+      "packaged_sha256": "107f39bb0f9b833453c789fdca08da9f77490ee46dae75d95eab7a52c7b36f72",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        122,
+        152,
+        418,
+        327
+      ],
+      "bbox_width": 296,
+      "bbox_height": 175,
+      "bbox_center_x": 270.0,
+      "bbox_bottom_top_origin": 327,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 158327,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "ca7499612bb94688b5c9f3ebeb206e4f12b18844f2cfbab2ddd1821a831c60c3",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_004.png",
+      "source_sha256": "ca7499612bb94688b5c9f3ebeb206e4f12b18844f2cfbab2ddd1821a831c60c3",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-03.png",
+      "packaged_sha256": "ca7499612bb94688b5c9f3ebeb206e4f12b18844f2cfbab2ddd1821a831c60c3",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        135,
+        96,
+        338,
+        321
+      ],
+      "bbox_width": 203,
+      "bbox_height": 225,
+      "bbox_center_x": 236.5,
+      "bbox_bottom_top_origin": 321,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 159833,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "6a57c7137c653d1612281cd23864501fc6021fde07f888edb542c21c50e73596",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_005.png",
+      "source_sha256": "6a57c7137c653d1612281cd23864501fc6021fde07f888edb542c21c50e73596",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-04.png",
+      "packaged_sha256": "6a57c7137c653d1612281cd23864501fc6021fde07f888edb542c21c50e73596",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Dash",
+      "mode": "RGBA",
+      "dimensions": [
+        536,
+        340
+      ],
+      "alpha_bbox": [
+        163,
+        43,
+        332,
+        329
+      ],
+      "bbox_width": 169,
+      "bbox_height": 286,
+      "bbox_center_x": 247.5,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 158690,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "ac7b9bebafddb1e63fd7387f49d90ca1e8eda099002b12e54259ba093ced83d8",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/dash-a-six-pose-white_c38d875f/frames/frame_006.png",
+      "source_sha256": "ac7b9bebafddb1e63fd7387f49d90ca1e8eda099002b12e54259ba093ced83d8",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Dash/frame-05.png",
+      "packaged_sha256": "ac7b9bebafddb1e63fd7387f49d90ca1e8eda099002b12e54259ba093ced83d8",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        176,
+        30,
+        340,
+        331
+      ],
+      "bbox_width": 164,
+      "bbox_height": 301,
+      "bbox_center_x": 258.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 165758,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "276b10f0e105e67f091a4e2b3b74d35ad662ed76518cb1c2632660fa90e1cea9",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_001.png",
+      "source_sha256": "276b10f0e105e67f091a4e2b3b74d35ad662ed76518cb1c2632660fa90e1cea9",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-00.png",
+      "packaged_sha256": "276b10f0e105e67f091a4e2b3b74d35ad662ed76518cb1c2632660fa90e1cea9",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        190,
+        61,
+        364,
+        320
+      ],
+      "bbox_width": 174,
+      "bbox_height": 259,
+      "bbox_center_x": 277.0,
+      "bbox_bottom_top_origin": 320,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 166831,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "29c42e22d044f6d51197987f982b06003b1055d4f6b32c85d56c771a2df35d12",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_002.png",
+      "source_sha256": "29c42e22d044f6d51197987f982b06003b1055d4f6b32c85d56c771a2df35d12",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-01.png",
+      "packaged_sha256": "29c42e22d044f6d51197987f982b06003b1055d4f6b32c85d56c771a2df35d12",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        151,
+        61,
+        361,
+        330
+      ],
+      "bbox_width": 210,
+      "bbox_height": 269,
+      "bbox_center_x": 256.0,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 166382,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "672c924477699e1871ac6bcd0d56dfbf1f9ebdd7c07eafcd73b5196e07423778",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_003.png",
+      "source_sha256": "672c924477699e1871ac6bcd0d56dfbf1f9ebdd7c07eafcd73b5196e07423778",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-02.png",
+      "packaged_sha256": "672c924477699e1871ac6bcd0d56dfbf1f9ebdd7c07eafcd73b5196e07423778",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        208,
+        23,
+        353,
+        331
+      ],
+      "bbox_width": 145,
+      "bbox_height": 308,
+      "bbox_center_x": 280.5,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 167601,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "9b160f4dcdfb814f5dbc9b120f1cbe7d17d732f29fb5b43391a8b414df00c537",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_004.png",
+      "source_sha256": "9b160f4dcdfb814f5dbc9b120f1cbe7d17d732f29fb5b43391a8b414df00c537",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-03.png",
+      "packaged_sha256": "9b160f4dcdfb814f5dbc9b120f1cbe7d17d732f29fb5b43391a8b414df00c537",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        204,
+        79,
+        359,
+        331
+      ],
+      "bbox_width": 155,
+      "bbox_height": 252,
+      "bbox_center_x": 281.5,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 170131,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "7c8fb2804ff56cf639acf04c7952074a162098e786de025b9ff5734adf00058f",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_005.png",
+      "source_sha256": "7c8fb2804ff56cf639acf04c7952074a162098e786de025b9ff5734adf00058f",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-04.png",
+      "packaged_sha256": "7c8fb2804ff56cf639acf04c7952074a162098e786de025b9ff5734adf00058f",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "Charge",
+      "mode": "RGBA",
+      "dimensions": [
+        563,
+        340
+      ],
+      "alpha_bbox": [
+        154,
+        86,
+        477,
+        330
+      ],
+      "bbox_width": 323,
+      "bbox_height": 244,
+      "bbox_center_x": 315.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 165025,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "8f4df66d73115cd64d6ed6d91c77d4838e9c7c695f4040c64ca698b35d6d9781",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/charge-a-six-pose-white_cb8356cb/frames/frame_006.png",
+      "source_sha256": "8f4df66d73115cd64d6ed6d91c77d4838e9c7c695f4040c64ca698b35d6d9781",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/Charge/frame-05.png",
+      "packaged_sha256": "8f4df66d73115cd64d6ed6d91c77d4838e9c7c695f4040c64ca698b35d6d9781",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        131,
+        43,
+        301,
+        331
+      ],
+      "bbox_width": 170,
+      "bbox_height": 288,
+      "bbox_center_x": 216.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 135710,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "b00dd5ea5309ec07fcc6f8a44d13383a858b6092e99ccf17bed7cc75ad277edc",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_001.png",
+      "source_sha256": "b00dd5ea5309ec07fcc6f8a44d13383a858b6092e99ccf17bed7cc75ad277edc",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-00.png",
+      "packaged_sha256": "b00dd5ea5309ec07fcc6f8a44d13383a858b6092e99ccf17bed7cc75ad277edc",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        127,
+        46,
+        317,
+        329
+      ],
+      "bbox_width": 190,
+      "bbox_height": 283,
+      "bbox_center_x": 222.0,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 132537,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "27c06e6230aec21785078b89db9719c2448d29c34ea575c3caf700cf38c4cc38",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_002.png",
+      "source_sha256": "27c06e6230aec21785078b89db9719c2448d29c34ea575c3caf700cf38c4cc38",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-01.png",
+      "packaged_sha256": "27c06e6230aec21785078b89db9719c2448d29c34ea575c3caf700cf38c4cc38",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        119,
+        36,
+        317,
+        329
+      ],
+      "bbox_width": 198,
+      "bbox_height": 293,
+      "bbox_center_x": 218.0,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 130079,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "44165e9a78f9b4435cd6da221954ca4312648ab9158c0b86c10dd4905ed71a61",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_003.png",
+      "source_sha256": "44165e9a78f9b4435cd6da221954ca4312648ab9158c0b86c10dd4905ed71a61",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-02.png",
+      "packaged_sha256": "44165e9a78f9b4435cd6da221954ca4312648ab9158c0b86c10dd4905ed71a61",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        122,
+        46,
+        306,
+        329
+      ],
+      "bbox_width": 184,
+      "bbox_height": 283,
+      "bbox_center_x": 214.0,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 132425,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "c7b738eee5aacf789745e414ac3bc8f5681bb788d3f6a7764af3167b6ccac36a",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_004.png",
+      "source_sha256": "c7b738eee5aacf789745e414ac3bc8f5681bb788d3f6a7764af3167b6ccac36a",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-03.png",
+      "packaged_sha256": "c7b738eee5aacf789745e414ac3bc8f5681bb788d3f6a7764af3167b6ccac36a",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        82,
+        88,
+        284,
+        329
+      ],
+      "bbox_width": 202,
+      "bbox_height": 241,
+      "bbox_center_x": 183.0,
+      "bbox_bottom_top_origin": 329,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 136041,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "2f81c934de2477176c2bfbafbc4a0c738dec2029996e86b36eb63cab63e4c9f4",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_005.png",
+      "source_sha256": "2f81c934de2477176c2bfbafbc4a0c738dec2029996e86b36eb63cab63e4c9f4",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-04.png",
+      "packaged_sha256": "2f81c934de2477176c2bfbafbc4a0c738dec2029996e86b36eb63cab63e4c9f4",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "CraneCast",
+      "mode": "RGBA",
+      "dimensions": [
+        469,
+        340
+      ],
+      "alpha_bbox": [
+        65,
+        86,
+        294,
+        330
+      ],
+      "bbox_width": 229,
+      "bbox_height": 244,
+      "bbox_center_x": 179.5,
+      "bbox_bottom_top_origin": 330,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 134080,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "a2a62b4405ec38c653c519cba86e47cd958117dca032ea568ee69f99583a9a21",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/cranecast-b-six-pose-white_12bde904/frames/frame_006.png",
+      "source_sha256": "a2a62b4405ec38c653c519cba86e47cd958117dca032ea568ee69f99583a9a21",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/CraneCast/frame-05.png",
+      "packaged_sha256": "a2a62b4405ec38c653c519cba86e47cd958117dca032ea568ee69f99583a9a21",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        166,
+        38,
+        344,
+        331
+      ],
+      "bbox_width": 178,
+      "bbox_height": 293,
+      "bbox_center_x": 255.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 161572,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "27815c4eabae5b57aeedcdbc311fa416551e69761bd047780bfbc21828107d08",
+      "index": 0,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_001.png",
+      "source_sha256": "27815c4eabae5b57aeedcdbc311fa416551e69761bd047780bfbc21828107d08",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-00.png",
+      "packaged_sha256": "27815c4eabae5b57aeedcdbc311fa416551e69761bd047780bfbc21828107d08",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        138,
+        47,
+        377,
+        332
+      ],
+      "bbox_width": 239,
+      "bbox_height": 285,
+      "bbox_center_x": 257.5,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 160046,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "5ea46365f7daa37323e4525e092e30c60d950b8dd427f3abccd209b47ada7b57",
+      "index": 1,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_002.png",
+      "source_sha256": "5ea46365f7daa37323e4525e092e30c60d950b8dd427f3abccd209b47ada7b57",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-01.png",
+      "packaged_sha256": "5ea46365f7daa37323e4525e092e30c60d950b8dd427f3abccd209b47ada7b57",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        159,
+        47,
+        328,
+        331
+      ],
+      "bbox_width": 169,
+      "bbox_height": 284,
+      "bbox_center_x": 243.5,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 161991,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "1644d1b10590c16ec7425ff1810b0fc806f510cb08ab49fb3785f8cc3fed15a2",
+      "index": 2,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_003.png",
+      "source_sha256": "1644d1b10590c16ec7425ff1810b0fc806f510cb08ab49fb3785f8cc3fed15a2",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-02.png",
+      "packaged_sha256": "1644d1b10590c16ec7425ff1810b0fc806f510cb08ab49fb3785f8cc3fed15a2",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        198,
+        47,
+        334,
+        331
+      ],
+      "bbox_width": 136,
+      "bbox_height": 284,
+      "bbox_center_x": 266.0,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 163257,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "4ff66a9511f6601d81c99ec19bd8467a3eca2fef94aab63a32c8f00fc30f8100",
+      "index": 3,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_004.png",
+      "source_sha256": "4ff66a9511f6601d81c99ec19bd8467a3eca2fef94aab63a32c8f00fc30f8100",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-03.png",
+      "packaged_sha256": "4ff66a9511f6601d81c99ec19bd8467a3eca2fef94aab63a32c8f00fc30f8100",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        155,
+        45,
+        394,
+        331
+      ],
+      "bbox_width": 239,
+      "bbox_height": 286,
+      "bbox_center_x": 274.5,
+      "bbox_bottom_top_origin": 331,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 158316,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "8623e56ca78a3e9b4bb8c9afb90cd9e220bba613c7712ca62d3d0d74a29fa0f5",
+      "index": 4,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_005.png",
+      "source_sha256": "8623e56ca78a3e9b4bb8c9afb90cd9e220bba613c7712ca62d3d0d74a29fa0f5",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-04.png",
+      "packaged_sha256": "8623e56ca78a3e9b4bb8c9afb90cd9e220bba613c7712ca62d3d0d74a29fa0f5",
+      "byte_identical_copy": true
+    },
+    {
+      "action": "TurtleSummon",
+      "mode": "RGBA",
+      "dimensions": [
+        548,
+        340
+      ],
+      "alpha_bbox": [
+        165,
+        54,
+        473,
+        332
+      ],
+      "bbox_width": 308,
+      "bbox_height": 278,
+      "bbox_center_x": 319.0,
+      "bbox_bottom_top_origin": 332,
+      "alpha_border_nonzero": 0,
+      "alpha0_rgb_residue_pixels": 158928,
+      "clipped_by_alpha_bbox": false,
+      "sha256": "089c4e7c36bb0e2fb3eae39472c2dac7a7aee854cf0e4c8cc35ca21ffaf4f63b",
+      "index": 5,
+      "source": "/Users/pvenus/ProjectBS-image-python/downloads/turtlesummon-b-six-pose-white_d3ab14f2/frames/frame_006.png",
+      "source_sha256": "089c4e7c36bb0e2fb3eae39472c2dac7a7aee854cf0e4c8cc35ca21ffaf4f63b",
+      "packaged": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/frames/TurtleSummon/frame-05.png",
+      "packaged_sha256": "089c4e7c36bb0e2fb3eae39472c2dac7a7aee854cf0e4c8cc35ca21ffaf4f63b",
+      "byte_identical_copy": true
+    }
+  ],
+  "overview": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/CharacterAnimation/SeojinG1SixActions/selected/revision-05-user-manual-actions34/contacts/selected-actions34-overview.png",
+  "overview_sha256": "cb434ca49807113f533760f6c0758d312b2b3553ed4c8c6351410cea882abbd3",
+  "canonical_or_project_install_by_hwagam": false
+}

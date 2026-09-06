@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "generatorVersion": "character-animation-profile-builder/2.0.0",
+  "mode": "DRY_RUN_NO_ASSET_MUTATION",
+  "summary": { "players": 10, "legacyProfiles": 10, "idleComplete": 10, "moveComplete": 10, "basicComplete": 10, "deathComplete": 0, "migrationReady": 0 },
+  "representative": { "characterId": "character.jihan.1", "reason": "smallest active-skill surface", "classification": "BLOCKER", "blockers": ["Death", "AttackDisabledCc", "active_1 fallback receipt"] },
+  "characters": [
+    { "characterId": "character.jihan.1", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 1, "classification": "BLOCKER" },
+    { "characterId": "character.jihan.2", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 2, "classification": "BLOCKER" },
+    { "characterId": "character.jihan.3", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 3, "classification": "BLOCKER" },
+    { "characterId": "character.seojin.1", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 2, "classification": "BLOCKER" },
+    { "characterId": "character.seojin.2", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 3, "classification": "BLOCKER" },
+    { "characterId": "character.seojin.3", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 4, "classification": "BLOCKER" },
+    { "characterId": "character.yujin.1", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 1, "classification": "BLOCKER" },
+    { "characterId": "character.yujin.2", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 2, "classification": "BLOCKER" },
+    { "characterId": "character.yujin.3", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 3, "classification": "BLOCKER" },
+    { "characterId": "character.yujin.3.clone", "idle": 4, "move": 4, "basic": 4, "death": 0, "activeSkills": 2, "classification": "BLOCKER" }
+  ],
+  "atomicBoundary": "one CharacterSO + one generated profile + one validation report; no bulk flip",
+  "rollback": "clear only that CharacterSO.animationProfile reference and preserve all legacy clip/skill refs"
+}

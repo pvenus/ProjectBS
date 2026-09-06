@@ -1,0 +1,1969 @@
+{
+  "scope": "READ_ONLY final QA; preview artifacts only",
+  "qualityDefects": "WARN_ONLY",
+  "topLevel": {
+    "actual": [
+      "black_cloth_raider",
+      "chain_dragger_raider"
+    ],
+    "expected": [
+      "black_cloth_raider",
+      "chain_dragger_raider"
+    ],
+    "exact": true
+  },
+  "actions": {
+    "black_cloth_raider": {
+      "directoryExact": true,
+      "actualDirectories": [
+        "BasicAttack",
+        "Death",
+        "Idle",
+        "Move",
+        "Stun",
+        "VFX"
+      ],
+      "items": {
+        "Idle": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle",
+          "expectedOperationId": "a9db2e1c",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_01.png",
+              "exists": true,
+              "sha256": "77b12394d7fc6e4d27e51cf1e4f188551139e1000c75182184d382081a63b92a",
+              "byteSize": 112581,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                275,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                254,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_02.png",
+              "exists": true,
+              "sha256": "0f9c6c4343bbb1c3944fc92383fd2b13f132a6900ec7393dc21ec0f4bd7d0f23",
+              "byteSize": 112410,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                275,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                255,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_03.png",
+              "exists": true,
+              "sha256": "aa17f51e09181d8e249b408aa90bc3968c90b142a81cc561c4f5716b4af299d8",
+              "byteSize": 111495,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                275,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                254,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Idle/frame_04.png",
+              "exists": true,
+              "sha256": "f705335a12f1e537a73a0e9acf923aec619a35ab16288f216c69fa428fd8ab0a",
+              "byteSize": 112175,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                275,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                255,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/Idle.png",
+            "exists": true,
+            "sha256": "f3d4b3eb1e10f4788040efd5898c2330f760c09797509fb32ad0333dda14b3fc"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_a9db2e1c/manifest.json",
+              "sha256": "806d68e524779b45890549d5504baf373a2343ab496b7fdafdcd2df0e9357197"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Idle__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Idle.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "Move": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move",
+          "expectedOperationId": "2d00e6f1",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_01.png",
+              "exists": true,
+              "sha256": "2bf128b8b7f1e3bbaa52324b2a977105891e1e29ae62b189101ddbb25d0fd0c4",
+              "byteSize": 136310,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                508,
+                340
+              ],
+              "alphaBBox": [
+                51,
+                0,
+                443,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_02.png",
+              "exists": true,
+              "sha256": "e9842b215b1497aaa98438c583a65f49f7eee1b59a54a06ae6c9117bf421a6fd",
+              "byteSize": 116998,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                508,
+                340
+              ],
+              "alphaBBox": [
+                43,
+                0,
+                374,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_03.png",
+              "exists": true,
+              "sha256": "1ac113163a5cfdedd54e033476118054d8996f1e02fe3c789ec2040d1a8e962e",
+              "byteSize": 143404,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                508,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                488,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Move/frame_04.png",
+              "exists": true,
+              "sha256": "2b5cdc4a7cf66efc88035c36e212be26e9dcb37e2065dd0c65f5c9bbc6a813ec",
+              "byteSize": 142747,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                508,
+                340
+              ],
+              "alphaBBox": [
+                30,
+                0,
+                462,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/Move.png",
+            "exists": true,
+            "sha256": "9b012c6e94de4aad6c5dab1955b5cb83136840177589a18e5375aa06bba89112"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_2d00e6f1/manifest.json",
+              "sha256": "39477c1bef6a479bcc11f700944d533a496434e24cf8092aa24b013256e7303a"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Move__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Move.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "BasicAttack": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack",
+          "expectedOperationId": "3ee03a87",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_01.png",
+              "exists": true,
+              "sha256": "d17c6d86ca7cf1fcc63bdbae2019f49dcc3150646e9666f192ddf054851abb34",
+              "byteSize": 306423,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                698,
+                647
+              ],
+              "alphaBBox": [
+                129,
+                37,
+                568,
+                647
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_02.png",
+              "exists": true,
+              "sha256": "d2ce0bc212f16c1bac0cb6e5566fe4f7cd5cc34cf3e294b2e935c64a04a38e48",
+              "byteSize": 282683,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                698,
+                647
+              ],
+              "alphaBBox": [
+                69,
+                93,
+                628,
+                647
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_03.png",
+              "exists": true,
+              "sha256": "97102cc2424dbb54aa6afb73c19892c0d6845a15d58306de6398b9e8d521609b",
+              "byteSize": 318896,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                698,
+                647
+              ],
+              "alphaBBox": [
+                20,
+                61,
+                678,
+                647
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_04.png",
+              "exists": true,
+              "sha256": "cb54a966f09f1163b9161f66e0cfe42e7576c8c8ea36a580f42dfc9d78ded634",
+              "byteSize": 278665,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                698,
+                647
+              ],
+              "alphaBBox": [
+                121,
+                171,
+                577,
+                647
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/BasicAttack.png",
+            "exists": true,
+            "sha256": "81e103cf113fee9eccebe217526f8171137a26944d506d33f277188a85fdebda"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/BasicAttack_frames_3ee03a87/manifest.json",
+              "sha256": "9b131a1a6a00f73da482fda30a7eb080bb600ea4d33561c97dd05cbfba643f6f"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__BasicAttack__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__BasicAttack.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "Death": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death",
+          "expectedOperationId": "a4870b9b",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_01.png",
+              "exists": true,
+              "sha256": "278975c37952641e0bd8eff78afd949dbab809a1fe27d41c68f98193aaea1efb",
+              "byteSize": 153781,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                640,
+                340
+              ],
+              "alphaBBox": [
+                96,
+                0,
+                534,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_02.png",
+              "exists": true,
+              "sha256": "379426b786a6b4f5c44fadc5e67e6bde0be77f07a2dc8bc856f1e3881a296427",
+              "byteSize": 259443,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                640,
+                340
+              ],
+              "alphaBBox": [
+                88,
+                0,
+                552,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_03.png",
+              "exists": true,
+              "sha256": "90ae407bfc08871a3f391e6c5700448b67b7bb936735f7a5fbee8db0706f481d",
+              "byteSize": 230676,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                640,
+                340
+              ],
+              "alphaBBox": [
+                59,
+                53,
+                581,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Death/frame_04.png",
+              "exists": true,
+              "sha256": "b4bbbd85a60b9ddd4415c7bf6fe82557614de19fbb4381becd4dc51b5aa5f21b",
+              "byteSize": 209762,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                640,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                12,
+                620,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/Death.png",
+            "exists": true,
+            "sha256": "91eecec652d3178bb2ee1f7634258d71dd2f0042bc52874a35d09b966e29a048"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_a4870b9b/manifest.json",
+              "sha256": "57354cdeaa80a513067aea30598a8cee730da1c04e22742eb84bb82f90d0da48"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Death__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Death.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "Stun": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun",
+          "expectedOperationId": "5d737f09",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_01.png",
+              "exists": true,
+              "sha256": "6792a3f05e4434df62cf922fdc187a255fa722ed54cd4873aa97ca357b66a446",
+              "byteSize": 373940,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                512,
+                768
+              ],
+              "alphaBBox": [
+                61,
+                98,
+                482,
+                760
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_02.png",
+              "exists": true,
+              "sha256": "21aab0120ed8f798ed85937e4bab7a8f64c994e9d67bd972e130f1d35abc0950",
+              "byteSize": 328657,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                512,
+                768
+              ],
+              "alphaBBox": [
+                76,
+                139,
+                467,
+                753
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_03.png",
+              "exists": true,
+              "sha256": "c2aea18bb9faf76d5cfdd6af7fc24c3f1d7ad9cc728b8133380129040a82922f",
+              "byteSize": 386283,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                512,
+                768
+              ],
+              "alphaBBox": [
+                77,
+                53,
+                491,
+                727
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/Stun/frame_04.png",
+              "exists": true,
+              "sha256": "1a4931b80bca54ec3fb5e848db9b5bf3fbba6d0f4df14a78ed769a74615a3f31",
+              "byteSize": 359344,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                512,
+                768
+              ],
+              "alphaBBox": [
+                75,
+                27,
+                465,
+                710
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": false,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/Stun.png",
+            "exists": true,
+            "sha256": "cafc3f4181d0044fc332b59f12ddfcd9a3d3bcd2d04f715cb8bffeeb46d6a72b"
+          },
+          "operationManifests": [],
+          "sourceToOperationProvenance": false,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Stun__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Stun.gif"
+          },
+          "sourceManifestMappingExact": false,
+          "provenanceGate": "UNVERIFIED_MCP_EVIDENCE_MISSING"
+        },
+        "VFX": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/VFX",
+          "expectedOperationId": "f42c71df",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/VFX/frame_01.png",
+              "exists": true,
+              "sha256": "3efc678d587c83e2b24f8cdc88bc2306355a8c8759f329d22847099c29d019e3",
+              "byteSize": 51731,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                139,
+                138,
+                407,
+                439
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/VFX/frame_02.png",
+              "exists": true,
+              "sha256": "8e3e243d2f9605397442458b06ac19f0636e49ab0b64f54129b8035c95276786",
+              "byteSize": 78088,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                40,
+                153,
+                580,
+                439
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/VFX/frame_03.png",
+              "exists": true,
+              "sha256": "727834459f87647191fae6f7d9d7a6141d6c3b3cdbcd21cec8d2c9d617e14085",
+              "byteSize": 150164,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                62,
+                0,
+                560,
+                487
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/VFX/frame_04.png",
+              "exists": true,
+              "sha256": "49c6685192e4f9161e6211426b3e7109cdd87a9822b7281080d96399bb0a7128",
+              "byteSize": 13964,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                225,
+                273,
+                395,
+                396
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": false,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/black_cloth_raider/VFX.png",
+            "exists": true,
+            "sha256": "2be27c7c9dc36798c9010701815a51733d0fabcd69880e589fe4a209298a61e8"
+          },
+          "operationManifests": [],
+          "sourceToOperationProvenance": false,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__VFX__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__VFX.gif"
+          },
+          "sourceManifestMappingExact": false,
+          "provenanceGate": "UNVERIFIED_MCP_EVIDENCE_MISSING"
+        }
+      }
+    },
+    "chain_dragger_raider": {
+      "directoryExact": true,
+      "actualDirectories": [
+        "BasicAttack",
+        "Death",
+        "Idle",
+        "Move",
+        "Stun",
+        "VFX"
+      ],
+      "items": {
+        "Idle": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle",
+          "expectedOperationId": "bfffee2e",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_01.png",
+              "exists": true,
+              "sha256": "30032f4dfac2ad2191729749d865942b0abfbf2188a86ce881a642f240273ccd",
+              "byteSize": 145916,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                406,
+                340
+              ],
+              "alphaBBox": [
+                40,
+                0,
+                366,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_02.png",
+              "exists": true,
+              "sha256": "58105d5918375c849a190ae3fa09784abbb6bc2d0754e2e8219443ac1387d287",
+              "byteSize": 145793,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                406,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                385,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_03.png",
+              "exists": true,
+              "sha256": "33860f2d64e9f9053a895ea4be85a8efb3d7204b9820eae046ecea967961a085",
+              "byteSize": 141304,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                406,
+                340
+              ],
+              "alphaBBox": [
+                48,
+                0,
+                357,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Idle/frame_04.png",
+              "exists": true,
+              "sha256": "188106583ffc3f56eccd9e90cd5cb3f82bf69156d26a170ec0263523df47482e",
+              "byteSize": 146960,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                406,
+                340
+              ],
+              "alphaBBox": [
+                27,
+                0,
+                378,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/Idle.png",
+            "exists": true,
+            "sha256": "01bd7268febc4f1720479062efe6b5744d7e55bd11e1aacef8d89d100a29b782"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Idle_frames_bfffee2e/manifest.json",
+              "sha256": "2ae0f256e5161b132ab6ccbf3c1c099877f99c2bc6f34737a82d66de490b2d93"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Idle__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Idle.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "Move": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move",
+          "expectedOperationId": "64693811",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_01.png",
+              "exists": true,
+              "sha256": "d19b16778c9340f1bf0d3f6ba8826218dcde7b9715eca65577611bbfbdc3cfa3",
+              "byteSize": 163142,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                478,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                458,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_02.png",
+              "exists": true,
+              "sha256": "118a2cb6a6758fbe76152db4275c4fad3e9cb2a95e1050d6ad1a93e81839c485",
+              "byteSize": 144257,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                478,
+                340
+              ],
+              "alphaBBox": [
+                38,
+                0,
+                440,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_03.png",
+              "exists": true,
+              "sha256": "986c2dd7fffa74581603959e8304932afd2f8dc1f0fb544334e8e67a0247fd0d",
+              "byteSize": 160864,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                478,
+                340
+              ],
+              "alphaBBox": [
+                36,
+                0,
+                441,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Move/frame_04.png",
+              "exists": true,
+              "sha256": "0367e8a4a44ea3d3c3f55d296f1d256b954c6825bb2d110e6cd096baa6abd2c9",
+              "byteSize": 144263,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                478,
+                340
+              ],
+              "alphaBBox": [
+                42,
+                0,
+                435,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/Move.png",
+            "exists": true,
+            "sha256": "198744511435bc9d9396ceb2cfb3ef460ecc311ee35ec6fd546c0205788484b7"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Move_frames_64693811/manifest.json",
+              "sha256": "592ec1bb3829fa4f6dcdc3d9c49e2b09c9f5dd9c9121a771fbd8e210ef107f27"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Move__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Move.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "BasicAttack": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack",
+          "expectedOperationId": "72626073",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_01.png",
+              "exists": true,
+              "sha256": "922cfafb89328b1c58f7c24494c5bfd8063d14de25ec0cbca0c38fc3d32aaf8e",
+              "byteSize": 211423,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                444,
+                887
+              ],
+              "alphaBBox": [
+                8,
+                214,
+                444,
+                680
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_02.png",
+              "exists": true,
+              "sha256": "adf4554869ec7ebe90162ce12f8f446015fbd2d364067beb5c3f40e181fc772d",
+              "byteSize": 212108,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                444,
+                887
+              ],
+              "alphaBBox": [
+                8,
+                208,
+                444,
+                682
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_03.png",
+              "exists": true,
+              "sha256": "719dd93d546739780a57a9f80ed6968eefa94534de57aaa1199848fc2b727e3f",
+              "byteSize": 4875,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                444,
+                887
+              ],
+              "alphaBBox": [
+                395,
+                405,
+                418,
+                451
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/BasicAttack/frame_04.png",
+              "exists": true,
+              "sha256": "3357aff02da4b45362eaa1b6fa79d8b72213c7d706c29c300e383e103c10674e",
+              "byteSize": 182108,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                444,
+                887
+              ],
+              "alphaBBox": [
+                5,
+                248,
+                435,
+                681
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": false,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/BasicAttack.png",
+            "exists": true,
+            "sha256": "91bae32c1701c6207b9067733fd4de41e3d0571484ea9e705fcc3be686825073"
+          },
+          "operationManifests": [],
+          "sourceToOperationProvenance": false,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__BasicAttack__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__BasicAttack.gif"
+          },
+          "sourceManifestMappingExact": false,
+          "provenanceGate": "UNVERIFIED_MCP_EVIDENCE_MISSING"
+        },
+        "Death": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death",
+          "expectedOperationId": "3d9fb288",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_01.png",
+              "exists": true,
+              "sha256": "9fd317ddac53b56654cc86d639e28d0ed9ed2130915376155814bb6083cd0027",
+              "byteSize": 147572,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                576,
+                340
+              ],
+              "alphaBBox": [
+                124,
+                0,
+                452,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_02.png",
+              "exists": true,
+              "sha256": "140f14e168a8f1a5600ccdbf1fa85aea1024a839734c51089edc74fe45f27f2d",
+              "byteSize": 193486,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                576,
+                340
+              ],
+              "alphaBBox": [
+                39,
+                0,
+                537,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_03.png",
+              "exists": true,
+              "sha256": "cf42ea4bc7ffeaa51fdca913fb32fa787aafbd7b36e8a10490d916319b37488f",
+              "byteSize": 146252,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                576,
+                340
+              ],
+              "alphaBBox": [
+                60,
+                127,
+                515,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Death/frame_04.png",
+              "exists": true,
+              "sha256": "cf6885e2a33d54815d37753a9134436609270cb1efe40b32903c75058f3164c0",
+              "byteSize": 141917,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                576,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                162,
+                556,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/Death.png",
+            "exists": true,
+            "sha256": "c86828841e696b14fd38f9af103eb7000c1ce8126b1ce8897d9a26eb9d9c2a00"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Death_frames_3d9fb288/manifest.json",
+              "sha256": "3326d1007f4a94a790b22531b5a394a8e0eb69cf2811b69e8cff0ca9e5f25341"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Death__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Death.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "Stun": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun",
+          "expectedOperationId": "243d42f6",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_01.png",
+              "exists": true,
+              "sha256": "d04fa42e868bf1f26d35d0dc00657ea4a4385d3304b8271740cad83ab639f97d",
+              "byteSize": 175918,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                423,
+                340
+              ],
+              "alphaBBox": [
+                25,
+                0,
+                398,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_001.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_001.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_02.png",
+              "exists": true,
+              "sha256": "17dbcbf8fccd59b0b32279644e2bdf1829e12d1d1a3f67f9c9a2345cca5d2e55",
+              "byteSize": 167512,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                423,
+                340
+              ],
+              "alphaBBox": [
+                20,
+                0,
+                403,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_002.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_002.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_03.png",
+              "exists": true,
+              "sha256": "d76279b13d089206f42e94d4d1daa965910f5b0fe6383dec5ea72a3f86a09850",
+              "byteSize": 155532,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                423,
+                340
+              ],
+              "alphaBBox": [
+                32,
+                0,
+                391,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_003.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_003.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/Stun/frame_04.png",
+              "exists": true,
+              "sha256": "0ba7efd5201f2c06e6375fd74d5f3021a6a5cc19b2953c3fda33a1a62965b33d",
+              "byteSize": 166449,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                423,
+                340
+              ],
+              "alphaBBox": [
+                35,
+                0,
+                387,
+                320
+              ],
+              "rgba": true,
+              "mcpByteMatches": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_004.png"
+              ],
+              "expectedOperationByteMatch": [
+                "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/frame_004.png"
+              ],
+              "mcpToFinalByteIdentical": true
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": true,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/Stun.png",
+            "exists": true,
+            "sha256": "09f9f0474b2f220e8504c51dc6169502be04f1990aed04d0c1ac8cf9da412dd1"
+          },
+          "operationManifests": [
+            {
+              "path": "/Users/pvenus/imageforge-mcp/imageforge-downloads/Stun_frames_243d42f6/manifest.json",
+              "sha256": "7a49135494ccec531e3802997f939a726fcb8a6312d72deb5f5f00ae274562e9"
+            }
+          ],
+          "sourceToOperationProvenance": true,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Stun__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Stun.gif"
+          },
+          "sourceManifestMappingExact": true,
+          "provenanceGate": "PASS"
+        },
+        "VFX": {
+          "finalDirectory": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/VFX",
+          "expectedOperationId": "47af3f94",
+          "names": [
+            "frame_01.png",
+            "frame_02.png",
+            "frame_03.png",
+            "frame_04.png"
+          ],
+          "inventoryExact": true,
+          "frames": [
+            {
+              "order": 1,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/VFX/frame_01.png",
+              "exists": true,
+              "sha256": "be169e510ee142abc76f070e41bd51a583580d2c9e6feebef7c44ebd1fcb5df4",
+              "byteSize": 110946,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                135,
+                142,
+                491,
+                485
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 2,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/VFX/frame_02.png",
+              "exists": true,
+              "sha256": "5559742a750c36b2d9866f3e9d4ed296141261c42b6bc81c5669aa4ed8f75b4e",
+              "byteSize": 199544,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                26,
+                196,
+                601,
+                431
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 3,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/VFX/frame_03.png",
+              "exists": true,
+              "sha256": "dc0048cd5e5789a87a7536eed703e96f07055ca6716eee5dfedfbfb005ef260a",
+              "byteSize": 209995,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                115,
+                103,
+                511,
+                523
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            },
+            {
+              "order": 4,
+              "path": "/Users/pvenus/imageforge-mcp/generated_image/chain_dragger_raider/VFX/frame_04.png",
+              "exists": true,
+              "sha256": "5d26008845239698e4327da5cda7b95d88ebac08663b704e409d6839ef69fa51",
+              "byteSize": 66193,
+              "open": true,
+              "mode": "RGBA",
+              "dimensions": [
+                627,
+                627
+              ],
+              "alphaBBox": [
+                177,
+                164,
+                449,
+                463
+              ],
+              "rgba": true,
+              "mcpByteMatches": [],
+              "expectedOperationByteMatch": [],
+              "mcpToFinalByteIdentical": false
+            }
+          ],
+          "uniqueFrameShas": 4,
+          "allOpenRGBA": true,
+          "allExpectedOperationByteIdentical": false,
+          "source": {
+            "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/sources/chain_dragger_raider/VFX.png",
+            "exists": true,
+            "sha256": "5f1ae2910783fc7c0f4e40eda874bbf46535d27c5ebd76d78a5fdfbfedeec983"
+          },
+          "operationManifests": [],
+          "sourceToOperationProvenance": false,
+          "previews": {
+            "contact": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__VFX__contact.png",
+            "gif": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__VFX.gif"
+          },
+          "sourceManifestMappingExact": false,
+          "provenanceGate": "UNVERIFIED_MCP_EVIDENCE_MISSING"
+        }
+      }
+    }
+  },
+  "summary": {
+    "totalFinalFiles": 48,
+    "exact48": true,
+    "allStructuralAndByteGatesPass": false,
+    "warningPolicy": "residue and visual quality defects are recorded as warnings only; no pixel-level quality rejection was performed",
+    "globalUniqueFrameShas": 48,
+    "all48GloballyUnique": true,
+    "operationProvenanceVerifiedActions": 8,
+    "operationProvenanceUnverifiedActions": [
+      {
+        "npc": "black_cloth_raider",
+        "action": "Stun",
+        "expectedOperationId": "5d737f09",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "black_cloth_raider",
+        "action": "VFX",
+        "expectedOperationId": "f42c71df",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "chain_dragger_raider",
+        "action": "BasicAttack",
+        "expectedOperationId": "72626073",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      },
+      {
+        "npc": "chain_dragger_raider",
+        "action": "VFX",
+        "expectedOperationId": "47af3f94",
+        "reason": "No discoverable MCP output directory/manifest or matching frame bytes bearing the expected operation ID."
+      }
+    ],
+    "allStructuralAndReadbackGatesPass": true
+  },
+  "previewsReadback": {
+    "contacts": [
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__BasicAttack__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1396,
+          1396
+        ],
+        "frames": 1,
+        "sha256": "c1e33771fec447b1089006d6a5e70bb36222e1f09c58edf75c4abd484c90cf90"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Death__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1280,
+          1280
+        ],
+        "frames": 1,
+        "sha256": "6dc2c0e4eb50fe861080c4c31ff9830e63e7bd67ddc7c90432ac61f60b230f58"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Idle__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          680,
+          680
+        ],
+        "frames": 1,
+        "sha256": "64f9fcb23d44869e3672fc853aab4a569120f4b9571e837508edceeebca6cb2c"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Move__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1016,
+          1016
+        ],
+        "frames": 1,
+        "sha256": "204c51442aa3df98d9a5b425328533a17b30a1602b35955ddd98fe8b0d186d1b"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__Stun__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1536,
+          1536
+        ],
+        "frames": 1,
+        "sha256": "ab41aea0bece2ef15f466b9199d8a7131f306ad8ba993d95abfb81621077f254"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/black_cloth_raider__VFX__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1254,
+          1254
+        ],
+        "frames": 1,
+        "sha256": "4940dc1b89e03c2083116ff449374385d9c3a8d78b91b569930f56174d2d79a2"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__BasicAttack__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1774,
+          1774
+        ],
+        "frames": 1,
+        "sha256": "c9cdd43dfad5aa432438a589be01b1495a0a3c67f993a54212bc47d3f4c22dbd"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Death__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1152,
+          1152
+        ],
+        "frames": 1,
+        "sha256": "39c50e216c3b58e82b5c49c0ae46e0d6c4f66299805169d7fcaa4525ebb43d50"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Idle__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          812,
+          812
+        ],
+        "frames": 1,
+        "sha256": "cf8acf16d32eb315a206c3729ff2de638164cfb5980081631c26461c0c07cf45"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Move__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          956,
+          956
+        ],
+        "frames": 1,
+        "sha256": "cd0bd30ecd5c1e0bd678020255d3635fe2497317b36091ae3650af7c2ebdd88c"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__Stun__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          846,
+          846
+        ],
+        "frames": 1,
+        "sha256": "e2715928dd32ba8bf7e0783250d4782e5f7a7247b2c5b7f5726cd5120584f85f"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/contacts/chain_dragger_raider__VFX__contact.png",
+        "open": true,
+        "format": "PNG",
+        "size": [
+          1254,
+          1254
+        ],
+        "frames": 1,
+        "sha256": "3a07e54088168be231f42e6690c2836caa1ceac65f04ee99626ff3004f26b891"
+      }
+    ],
+    "gifs": [
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__BasicAttack.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          698,
+          698
+        ],
+        "frames": 4,
+        "sha256": "6ef825b1c42e94c8fa9fbc7634aad0f455bb64a2d85674b05553a4c2ff095a60"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Death.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          640,
+          640
+        ],
+        "frames": 4,
+        "sha256": "a5b9c79a2f9b7922bbb9f2049e7f75f58b04b923d9d7977a38b7fba3d56e05ec"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Idle.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          340,
+          340
+        ],
+        "frames": 4,
+        "sha256": "b52e0030ccda34ee9600cdcd29b8136dc91673a4221377df444652bf8d3fe3fe"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Move.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          508,
+          508
+        ],
+        "frames": 4,
+        "sha256": "6dc836310afb8eddf92d5a85106bb61f506d57e37662ec4ed19626bce0ecd548"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__Stun.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          768,
+          768
+        ],
+        "frames": 4,
+        "sha256": "8a276ba3e4595e914ab913edbc9aa44501f0ec76335bb17f124d4fbc9dd768c5"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/black_cloth_raider__VFX.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          627,
+          627
+        ],
+        "frames": 4,
+        "sha256": "b24cee9a25b8b653574ae84417d08d0dfc822de1a22345089e11ee2c63d663c9"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__BasicAttack.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          887,
+          887
+        ],
+        "frames": 4,
+        "sha256": "02e5b682a841fa309f063ee2022826d0e0ebcae181443c273b6a964eb43fbbec"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Death.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          576,
+          576
+        ],
+        "frames": 4,
+        "sha256": "c34fce7faecf5edafcef917357b577fdbed437d51a1609a7fa9d087589f29911"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Idle.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          406,
+          406
+        ],
+        "frames": 4,
+        "sha256": "d9c8333777f5a76773fb64aa58d5905ae2bc3e19b2e283d4d710556156d9cfa5"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Move.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          478,
+          478
+        ],
+        "frames": 4,
+        "sha256": "3fc7a000dba75b3d7c83818945d8011aa85e7870e47a244cc694c6eba87bd4fc"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__Stun.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          423,
+          423
+        ],
+        "frames": 4,
+        "sha256": "0449f4049465eccc451bdf15faea97dcc709f98bb82d4daacb08a0ab12302a6a"
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-npc2-exact48-reset-v20260905/qa-final/gifs/chain_dragger_raider__VFX.gif",
+        "open": true,
+        "format": "GIF",
+        "size": [
+          627,
+          627
+        ],
+        "frames": 4,
+        "sha256": "e444fc35bfcf5a13672cb2e5c366262dffbc65e97353f53334065a38e30e520b"
+      }
+    ]
+  }
+}

@@ -38,6 +38,7 @@ namespace Character
 
         [Header("Animation Clips")]
         [SerializeField] private List<CharacterAnimationClipEntry> animationClips = new();
+        [SerializeField] private CharacterAnimationProfileSO animationProfile;
 
         [Header("Skills")]
         [SerializeField] private List<CharacterSkillEntry> skills = new();
@@ -51,6 +52,7 @@ namespace Character
         public Sprite Portrait => portrait;
         public float Scale => Mathf.Max(0.01f, scale);
         public IReadOnlyList<CharacterAnimationClipEntry> AnimationClips => animationClips;
+        public CharacterAnimationProfileSO AnimationProfile => animationProfile;
         public IReadOnlyList<CharacterSkillEntry> Skills => skills;
         public IReadOnlyList<StatEntry> BaseStats => baseStats;
 
@@ -72,6 +74,11 @@ namespace Character
         public bool HasSkills => skills != null && skills.Count > 0;
 
 #if UNITY_EDITOR
+        public void ApplyEditorAnimationProfile(CharacterAnimationProfileSO profile)
+        {
+            animationProfile = profile;
+        }
+
         public void ApplyEditorData(
             string characterId,
             CharacterType characterType,

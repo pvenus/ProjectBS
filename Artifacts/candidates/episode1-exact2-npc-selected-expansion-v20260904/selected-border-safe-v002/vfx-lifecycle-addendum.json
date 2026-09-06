@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "episode1_npc_impact_vfx_lifecycle_v1",
+  "scope": "art-source manifest metadata only",
+  "castingPresentation": {
+    "owner": "shared casting shader",
+    "selectedVfxFramesUsedForCast": false
+  },
+  "impactVfx": [
+    {
+      "characterId": "character.black_cloth_raider.1",
+      "skillId": "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut",
+      "stableImpactVfxId": "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.impact.visual",
+      "suggestedClipId": "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.impact.visual.one_shot",
+      "sourceDirectory": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/selected-border-safe-v002/black_cloth_raider/VFX",
+      "gameplayImpactTime": 0.42,
+      "playbackStart": "same gameplay clock sample as impact receipt at 0.42s",
+      "keyTimes": [0.0, 0.12, 0.24, 0.36],
+      "frameRoles": ["contact ignition", "pressure bloom", "maximum knife-pressure impact", "residue decay"],
+      "stopTime": 0.48,
+      "loop": false,
+      "gameplayBlocking": false,
+      "pivot": [0.5, 0.5],
+      "ppu": 100,
+      "canvas": [768, 768],
+      "frameSha256": [
+        "c925122f3895d96afbd1f3c6e70b85cad359273c885d4a3c3bb6dbeae2e86876",
+        "ac37c91914bce57a2894991ad9e802316610cec7e1bacfbe4abd0da71318e114",
+        "44afb3a88d057b11832422971f95ee77fcd22992f10a3a7278388cc3cd843e3d",
+        "ac2b80366574fa0f2a8d2cc640ef0431458ea9ceccd196b55731d75145ba8f3d"
+      ]
+    },
+    {
+      "characterId": "character.chain_dragger_raider.1",
+      "skillId": "skill.character.chain_dragger_raider.1.basic_attack.chain_swing",
+      "stableImpactVfxId": "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.impact.visual",
+      "suggestedClipId": "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.impact.visual.one_shot",
+      "sourceDirectory": "/Users/pvenus/ProjectBS/Artifacts/candidates/episode1-exact2-npc-selected-expansion-v20260904/selected-border-safe-v002/chain_dragger_raider/VFX",
+      "gameplayImpactTime": 0.63,
+      "playbackStart": "same gameplay clock sample as impact receipt at 0.63s",
+      "keyTimes": [0.0, 0.12, 0.24, 0.36],
+      "frameRoles": ["contact ignition", "chain-tension bloom", "maximum weighted impact", "residue decay"],
+      "stopTime": 0.48,
+      "loop": false,
+      "gameplayBlocking": false,
+      "pivot": [0.5, 0.5],
+      "ppu": 100,
+      "canvas": [768, 768],
+      "frameSha256": [
+        "68dcb3cc2ba77a712319c9cbb95329868ba074418401358cf3abec7c353e01c6",
+        "18b451afdda388f4ac588cb7f0a94b947e8c6f72a496ef9e627713c5b7d026c6",
+        "1838cc8d2c8ba7e351dcdb16d4253d371bb2b5583161488c61e7ab65a50947e2",
+        "fe5b4a623c5eb772f43db07d22a8132c38d58e84896cca27a4be1f846bf171d9"
+      ]
+    }
+  ],
+  "invariants": {
+    "sourcePixelsChanged": false,
+    "gameplayTimingChanged": false,
+    "hitBlockingAdded": false,
+    "colliderRangeNavChanged": false,
+    "unityOrCanonicalWrite": false
+  }
+}
