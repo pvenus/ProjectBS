@@ -1,0 +1,13 @@
+{
+  "schemaVersion":"projectbs-additive-rollback.v1",
+  "scope":"battle-morpg-zone-transition-p1",
+  "baseline":"coordinator files absent; harness files at P0 manifest state",
+  "files":[
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs","sha256":"b45b3556903ee2ade2f63361f92571a91f2348c4c39ee2aac9bbbf16dba99d0f","rollback":"remove"},
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs.meta","sha256":"495407f7dccbd493d182ed47866d3f4b625382e6a16de40b550a4effecb37737","rollback":"remove"},
+    {"path":"AgentTools/MorpgP0Harness/MorpgP0Harness.csproj","sha256":"3ce73c79a01972898b9d1eca6de71802fda0002e4451cb62385da3048ca6226c","rollback":"restore P0 revision from MORPG P0 rollback evidence"},
+    {"path":"AgentTools/MorpgP0Harness/Program.cs","sha256":"1c13b95a9315413a939295b3ab6cd44f620998a265af5a39116c75bd8ead3cad","rollback":"restore P0 revision from MORPG P0 rollback evidence"}
+  ],
+  "restoreExecuted":false,
+  "instructions":"Verify current hashes, preserve unrelated worktree/index, remove only coordinator cs/meta, restore only the two harness files to their P0 recorded hashes, then rerun P0 harness."
+}

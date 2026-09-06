@@ -1,0 +1,19 @@
+{
+  "schemaVersion":"battle-morpg-zone-reward.p0-addendum.v1",
+  "documentKind":"strict-fragment",
+  "baseReceiptSha":"65f8d9593e5d56f4921ff90a6790a6cb081c16305e4864700ef44f45a866911c",
+  "dependencies":[{"name":"ieum-p0-reconciliation","sha256":"2485ffcd655b588f2da931586ac172d476ec37df97d32a27fa99a6ada2770a96"}],
+  "generatorVersion":"hangyeol-morpg-p0.1",
+  "waveRows":[{"zoneId":"zone.act1.chapter01.01.rescue_villagers.left","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.left.01"},{"zoneId":"zone.act1.chapter01.01.rescue_villagers.center","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.center.02"},{"zoneId":"zone.act1.chapter01.01.rescue_villagers.right","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.right.03"}],
+  "anchorRows":[{"zoneId":"zone.act1.chapter01.01.rescue_villagers.left","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp"},{"zoneId":"zone.act1.chapter01.01.rescue_villagers.center","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.center.entry_warp"},{"zoneId":"zone.act1.chapter01.01.rescue_villagers.right","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.right.entry_warp"}],
+  "keyFormats":[{"name":"attempt","format":"attempt=<len:run>/<len:episode>/<len:battle>/<len:attempt>"},{"name":"waveStart","format":"waveStart=<attempt>/wave=<len:wave>"}],
+  "stateGraphs":[{"name":"clear","states":["None","Detected","Committed"]},{"name":"transition","states":["Requested","Prepared","Committed","Restored","Failed"]},{"name":"outcome","states":["None","Requested","Victory","Defeat","Failed"]}],
+  "checkpointMatrix":[{"state":"nonterminal","durableSave":"queue-until-final-handoff","reload":"abandon-and-new-attempt"},{"state":"terminal","durableSave":"existing-final-handoff","reload":"existing-durable-state"}],
+  "identityEquivalence":[{"name":"encounterGeneration","format":"attemptId-uint64-alias"},{"name":"bundle","format":"attempt+reservation"}],
+  "limits":[{"name":"goldReserved","value":40},{"name":"xpQuarterUnits","value":40},{"name":"xpBoundaryMode","value":"RawExperienceOnly"}],
+  "overrides":[{"path":"/hud/xpBoundaryMode","value":"RawExperienceOnly"},{"path":"/checkpoint/reloadPolicy","value":"abandon-and-new-attempt"}],
+  "acceptanceNames":["MORPG_P0_SCHEMA_STRICT_ROUNDTRIP_PASS","MORPG_P0_XP_QUARTER_UNIT_CODEC_DIFF0","MORPG_P0_DETERMINISTIC_TRACE_RERUN_DIFF0"],
+  "changeLog":[{"fieldPath":"/hud/xpBoundaryMode","owner":"Byeori","consumer":"HUD","priorState":"undefined-level-threshold","newValue":"RawExperienceOnly","compatibility":"additive","sourceReceiptSha":"228dc30635046fb69e17abc5a5eac5a86cd7f322a2f102f1b7a903c73752dedc"},{"fieldPath":"/checkpoint/reloadPolicy","owner":"Byeori","consumer":"BattleSession","priorState":"same-attempt-resume-unsupported","newValue":"abandon-and-new-attempt","compatibility":"no-save-schema-change","sourceReceiptSha":"228dc30635046fb69e17abc5a5eac5a86cd7f322a2f102f1b7a903c73752dedc"}],
+  "sourceAuthority":["65f8d9593e5d56f4921ff90a6790a6cb081c16305e4864700ef44f45a866911c","228dc30635046fb69e17abc5a5eac5a86cd7f322a2f102f1b7a903c73752dedc"],
+  "contentDigest":"fcffcb3c78c43de2b7ffc00d5404b9fdec6f96a318729efa7686b2cb2bed2e55"
+}

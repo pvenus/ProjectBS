@@ -50,8 +50,6 @@ namespace Character
 
         private bool isDying;
         private Coroutine npcDeathPresentationRoutine;
-        private Coroutine spawnRevealRoutine;
-        private bool spawnRevealPending;
 
         private CharacterManager lastHitAttacker;
 
@@ -146,46 +144,11 @@ namespace Character
 
         private void OnDisable()
         {
-            if (spawnRevealRoutine != null)
-            {
-                StopCoroutine(spawnRevealRoutine);
-                spawnRevealRoutine = null;
-            }
             statusTickService?.SuspendIndomitableProjection(this);
-        }
-
-        private void OnEnable()
-        {
-            TryStartPendingSpawnReveal();
-        }
-
-        private void ResetSpawnPresentationForInitialization()
-        {
-            spawnRevealPending = false;
-            if (spawnRevealRoutine != null) StopCoroutine(spawnRevealRoutine);
-            spawnRevealRoutine = null;
-            if (npcDeathPresentationRoutine != null) StopCoroutine(npcDeathPresentationRoutine);
-            npcDeathPresentationRoutine = null;
-            isDying = false;
-            lastHitAttacker = null;
-        }
-
-        private void RequestSpawnReveal()
-        {
-            spawnRevealPending = true;
-            TryStartPendingSpawnReveal();
-        }
-
-        private void TryStartPendingSpawnReveal()
-        {
-            if (!spawnRevealPending || spawnRevealRoutine != null || !isActiveAndEnabled)
-                return;
-            spawnRevealRoutine = StartCoroutine(PlaySpawnRevealNextFrame());
         }
 
         public void InitializeFromSO(CharacterSO characterSO)
         {
-            ResetSpawnPresentationForInitialization();
             ResolveComponents();
             runtimeData = new CharacterRuntimeData
             {
@@ -262,7 +225,7 @@ namespace Character
             InitializeSkillManager(characterSO);
             EnsureBattleCharacterAura();
 
-            RequestSpawnReveal();
+            StartCoroutine(PlaySpawnRevealNextFrame());
         }
 
 
@@ -288,7 +251,6 @@ namespace Character
 
         public void Initialize(CharacterRuntimeData data)
         {
-            ResetSpawnPresentationForInitialization();
             ResolveComponents();
 
             runtimeData = data;
@@ -333,7 +295,7 @@ namespace Character
             InitializeSkillManager(runtimeData?.characterSO);
             EnsureBattleCharacterAura();
 
-            RequestSpawnReveal();
+            StartCoroutine(PlaySpawnRevealNextFrame());
 
         }
 
@@ -351,8 +313,6 @@ namespace Character
         {
             yield return null;
 
-            spawnRevealRoutine = null;
-            spawnRevealPending = false;
             GetComponent<ShaderControllerMono>()?.PlaySpawnReveal();
         }
 

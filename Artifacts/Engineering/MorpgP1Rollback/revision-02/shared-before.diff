@@ -1,0 +1,213 @@
+diff --git a/Assets/Scripts/Battle/Core/BattleManager.cs b/Assets/Scripts/Battle/Core/BattleManager.cs
+index 03689e45..8c8b1edc 100644
+--- a/Assets/Scripts/Battle/Core/BattleManager.cs
++++ b/Assets/Scripts/Battle/Core/BattleManager.cs
+@@ -2,6 +2,7 @@ using Session;
+ using Party;
+ using UnityEngine;
+ using UnityEngine.SceneManagement;
++using Battle.Presentation;
+ 
+ namespace Battle
+ {
+@@ -85,9 +86,23 @@ namespace Battle
+             }
+ 
+             EnsureBattleRuntime();
++            EnsurePlayerCameraFollow();
+             SpawnInitialPrefabs();
+         }
+ 
++        private static void EnsurePlayerCameraFollow()
++        {
++            Camera camera = Camera.main;
++            if (camera == null)
++            {
++                Debug.LogWarning("[BattleManager] Main battle camera not found; player follow remains inactive.");
++                return;
++            }
++
++            if (camera.GetComponent<BattlePlayerCameraFollowMono>() == null)
++                camera.gameObject.AddComponent<BattlePlayerCameraFollowMono>();
++        }
++
+         private void EnsureBattleRuntime()
+         {
+             if (battleSession.BattleSO == null)
+@@ -152,11 +167,11 @@ namespace Battle
+                 return;
+             }
+ 
++            StartBattleSpawnSequence();
++
+             SpawnBackground(
+                 battleRuntime);
+ 
+-            StartBattleSpawnSequence();
+-
+             isInitialPrefabSpawned = true;
+         }
+ 
+@@ -233,9 +248,12 @@ namespace Battle
+                 SpriteRenderer renderer =
+                     backgroundObject.AddComponent<SpriteRenderer>();
+                 renderer.sprite = battleRuntime.backgroundSprite;
+-                renderer.sortingOrder = -1000;
++                renderer.sortingOrder = BattlePresentationSortingPolicy.Background;
+ 
+-                FitBackgroundToCamera(backgroundObject.transform, renderer);
++                if (BattleMapBoundsContext.IsActive)
++                    FitBackgroundToArena(backgroundObject.transform, renderer, backgroundObject);
++                else
++                    FitBackgroundToCamera(backgroundObject.transform, renderer);
+ 
+                 return backgroundObject;
+             }
+@@ -243,6 +261,30 @@ namespace Battle
+             return null;
+         }
+ 
++        private static void FitBackgroundToArena(Transform backgroundTransform,
++            SpriteRenderer renderer, GameObject owner)
++        {
++            Rect arena = BattleMapBoundsContext.Arena;
++            Vector2 spriteSize = renderer.sprite.bounds.size;
++            backgroundTransform.position = Vector3.zero;
++            backgroundTransform.localScale = new Vector3(arena.width / spriteSize.x,
++                arena.height / spriteSize.y, 1f);
++            CreateBoundary(owner.transform, "Boundary.Top", new Vector2(0f, arena.yMax + .25f), new Vector2(arena.width + 1f, .5f));
++            CreateBoundary(owner.transform, "Boundary.Bottom", new Vector2(0f, arena.yMin - .25f), new Vector2(arena.width + 1f, .5f));
++            CreateBoundary(owner.transform, "Boundary.Left", new Vector2(arena.xMin - .25f, 0f), new Vector2(.5f, arena.height));
++            CreateBoundary(owner.transform, "Boundary.Right", new Vector2(arena.xMax + .25f, 0f), new Vector2(.5f, arena.height));
++        }
++
++        private static void CreateBoundary(Transform parent, string name, Vector2 position, Vector2 size)
++        {
++            GameObject wall = new GameObject(name);
++            // Boundary geometry must not inherit the background sprite's presentation scale.
++            wall.transform.SetParent(parent.parent, true);
++            wall.transform.position = position;
++            BoxCollider2D collider = wall.AddComponent<BoxCollider2D>();
++            collider.size = size;
++        }
++
+         private static void FitBackgroundToCamera(
+             Transform backgroundTransform,
+             SpriteRenderer renderer)
+@@ -692,4 +734,81 @@ namespace Battle
+             battleSession.EndBattle();
+         }
+     }
++
++    [DefaultExecutionOrder(9000)]
++    [DisallowMultipleComponent]
++    [RequireComponent(typeof(Camera))]
++    public sealed class BattlePlayerCameraFollowMono : MonoBehaviour
++    {
++        private const string SeojinIdPrefix = "character.seojin.";
++        [SerializeField, Min(.01f)] private float smoothTime = .2f;
++        [SerializeField] private Vector2 offset;
++        [SerializeField, Min(0f)] private float snapDistance;
++        private Transform target;
++        private Character.CharacterManager targetCharacter;
++        private Vector2 velocity;
++
++        public Transform Target => target;
++        public float SmoothTime => smoothTime;
++        public Vector2 Offset => offset;
++
++        private void OnEnable()
++        {
++            PartyManager.OnBattleMemberReady += HandleBattleMemberReady;
++            Character.CharacterManager.OnAnyCharacterDied += HandleCharacterDied;
++            PartyManager party = PartyManager.Instance;
++            if (party == null) return;
++            foreach (Character.CharacterManager member in party.Members)
++                if (TryBind(member)) break;
++        }
++
++        private void OnDisable()
++        {
++            PartyManager.OnBattleMemberReady -= HandleBattleMemberReady;
++            Character.CharacterManager.OnAnyCharacterDied -= HandleCharacterDied;
++            ClearTarget();
++        }
++
++        private void LateUpdate()
++        {
++            if (target == null || targetCharacter == null || !target.gameObject.activeInHierarchy)
++            {
++                ClearTarget();
++                return;
++            }
++            Vector3 current = transform.position;
++            Vector2 desired = (Vector2)target.position + offset;
++            Vector2 currentXY = current;
++            Vector2 next = snapDistance > 0f && Vector2.Distance(currentXY, desired) >= snapDistance
++                ? desired
++                : Vector2.SmoothDamp(currentXY, desired, ref velocity, Mathf.Max(.01f, smoothTime));
++            next = BattleMapBoundsContext.ClampCameraCenter(next, GetComponent<Camera>());
++            transform.position = new Vector3(next.x, next.y, current.z);
++        }
++
++        private void HandleBattleMemberReady(Character.CharacterManager member) => TryBind(member);
++
++        private bool TryBind(Character.CharacterManager member)
++        {
++            string id = member?.RuntimeData?.characterSO?.CharacterId;
++            if (member == null || string.IsNullOrEmpty(id) ||
++                !id.StartsWith(SeojinIdPrefix, System.StringComparison.Ordinal)) return false;
++            targetCharacter = member;
++            target = member.transform;
++            velocity = Vector2.zero;
++            return true;
++        }
++
++        private void HandleCharacterDied(Character.CharacterManager member)
++        {
++            if (member == targetCharacter) ClearTarget();
++        }
++
++        private void ClearTarget()
++        {
++            target = null;
++            targetCharacter = null;
++            velocity = Vector2.zero;
++        }
++    }
+ }
+diff --git a/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs b/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
+index 4b39bee7..b2b4b196 100644
+--- a/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
++++ b/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
+@@ -109,7 +109,12 @@ public class BattleSpawnManager : MonoBehaviour
+     {
+         if (policy == null || !policy.Enabled) return false;
+         StopSequence();
+-        largeWaveRunner = new BattleLargeWaveRunner(policy, unitResolver);
++        if (!BattleLargeWaveRunner.TryCreate(policy, unitResolver, out largeWaveRunner, out string error))
++        {
++            BattleMapBoundsContext.Clear();
++            Debug.LogWarning($"[BattleSpawnManager] v3 preflight failed; restoring legacy sequence. {error}");
++            return false;
++        }
+         EnemyRegistry.Instance.OnEnemyDied += HandleLargeWaveEnemyDied;
+         return true;
+     }
+@@ -144,6 +149,7 @@ public class BattleSpawnManager : MonoBehaviour
+             EnemyRegistry.Instance.OnEnemyDied -= HandleLargeWaveEnemyDied;
+             largeWaveRunner = null;
+         }
++        BattleMapBoundsContext.Clear();
+     }
+ 
+     private void HandleLargeWaveEnemyDied(GameObject enemy) => largeWaveRunner?.NotifyEnemyDied(enemy);
+@@ -254,7 +260,7 @@ public class BattleSpawnManager : MonoBehaviour
+ 
+             SpriteRenderer renderer = backgroundObject.AddComponent<SpriteRenderer>();
+             renderer.sprite = runtime.backgroundSprite;
+-            renderer.sortingOrder = -1000;
++            renderer.sortingOrder = Battle.BattlePresentationSortingPolicy.Background;
+ 
+             return backgroundObject;
+         }

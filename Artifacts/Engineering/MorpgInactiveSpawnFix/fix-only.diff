@@ -1,0 +1,204 @@
+--- before/Assets/Scripts/Actor/Character/CharacterManager.cs
++++ after/Assets/Scripts/Actor/Character/CharacterManager.cs
+@@ -50,6 +50,8 @@
+ 
+         private bool isDying;
+         private Coroutine npcDeathPresentationRoutine;
++        private Coroutine spawnRevealRoutine;
++        private bool spawnRevealPending;
+ 
+         private CharacterManager lastHitAttacker;
+ 
+@@ -144,11 +146,46 @@
+ 
+         private void OnDisable()
+         {
++            if (spawnRevealRoutine != null)
++            {
++                StopCoroutine(spawnRevealRoutine);
++                spawnRevealRoutine = null;
++            }
+             statusTickService?.SuspendIndomitableProjection(this);
+         }
+ 
++        private void OnEnable()
++        {
++            TryStartPendingSpawnReveal();
++        }
++
++        private void ResetSpawnPresentationForInitialization()
++        {
++            spawnRevealPending = false;
++            if (spawnRevealRoutine != null) StopCoroutine(spawnRevealRoutine);
++            spawnRevealRoutine = null;
++            if (npcDeathPresentationRoutine != null) StopCoroutine(npcDeathPresentationRoutine);
++            npcDeathPresentationRoutine = null;
++            isDying = false;
++            lastHitAttacker = null;
++        }
++
++        private void RequestSpawnReveal()
++        {
++            spawnRevealPending = true;
++            TryStartPendingSpawnReveal();
++        }
++
++        private void TryStartPendingSpawnReveal()
++        {
++            if (!spawnRevealPending || spawnRevealRoutine != null || !isActiveAndEnabled)
++                return;
++            spawnRevealRoutine = StartCoroutine(PlaySpawnRevealNextFrame());
++        }
++
+         public void InitializeFromSO(CharacterSO characterSO)
+         {
++            ResetSpawnPresentationForInitialization();
+             ResolveComponents();
+             runtimeData = new CharacterRuntimeData
+             {
+@@ -225,7 +262,7 @@
+             InitializeSkillManager(characterSO);
+             EnsureBattleCharacterAura();
+ 
+-            StartCoroutine(PlaySpawnRevealNextFrame());
++            RequestSpawnReveal();
+         }
+ 
+ 
+@@ -251,6 +288,7 @@
+ 
+         public void Initialize(CharacterRuntimeData data)
+         {
++            ResetSpawnPresentationForInitialization();
+             ResolveComponents();
+ 
+             runtimeData = data;
+@@ -295,7 +333,7 @@
+             InitializeSkillManager(runtimeData?.characterSO);
+             EnsureBattleCharacterAura();
+ 
+-            StartCoroutine(PlaySpawnRevealNextFrame());
++            RequestSpawnReveal();
+ 
+         }
+ 
+@@ -313,6 +351,8 @@
+         {
+             yield return null;
+ 
++            spawnRevealRoutine = null;
++            spawnRevealPending = false;
+             GetComponent<ShaderControllerMono>()?.PlaySpawnReveal();
+         }
+ 
+--- before/Assets/Scripts/Battle/Spawn/Sequence/service/NpcSpawnService.cs
++++ after/Assets/Scripts/Battle/Spawn/Sequence/service/NpcSpawnService.cs
+@@ -35,50 +35,71 @@
+             return null;
+         }
+ 
+-        GameObject spawnedGo = CharacterBuilder.CreateOrBuildNpcObject(
+-            null,
+-            characterSO.name,
+-            inactiveParent,
+-            worldPosition,
+-            // Keep the root transform unrotated; facing is applied to AnimationMono below.
+-            Quaternion.identity,
+-            "Enemy",
+-            null,
+-            true);
++        GameObject spawnedGo = null;
++        try
++        {
++            spawnedGo = CharacterBuilder.CreateOrBuildNpcObject(
++                null,
++                characterSO.name,
++                inactiveParent,
++                worldPosition,
++                // Keep the root transform unrotated; facing is applied to AnimationMono below.
++                Quaternion.identity,
++                "Enemy",
++                null,
++                true);
+ 
+-        CharacterManager characterManager = spawnedGo.GetComponent<CharacterManager>();
+-        if (characterManager == null)
++            CharacterManager characterManager = spawnedGo.GetComponent<CharacterManager>();
++            if (characterManager == null)
++            {
++                characterManager = spawnedGo.GetComponentInChildren<CharacterManager>();
++            }
++
++            if (characterManager == null)
++            {
++                characterManager = spawnedGo.AddComponent<CharacterManager>();
++            }
++
++            characterManager.InitializeFromSO(characterSO);
++            ApplyInitialLookDirection(spawnedGo, rotationZ);
++
++            if (prepareBeforeActivation != null)
++            {
++                if (!prepareBeforeActivation(spawnedGo))
++                {
++                    throw new InvalidOperationException("Spawn ownership preparation was rejected.");
++                }
++                spawnedGo.transform.SetParent(null, true);
++                spawnedGo.SetActive(true);
++            }
++
++            if (!spawnedGo.activeInHierarchy || characterManager.RuntimeData == null ||
++                characterManager.RuntimeData.characterSO != characterSO)
++                throw new InvalidOperationException("NPC activation/initialization did not complete.");
++
++            if (sequenceRuntime != null)
++            {
++                sequenceRuntime.AddEnemyTracking(spawnedGo.GetInstanceID());
++            }
++
++            EnemyRegistry.Instance.RegisterEnemy(spawnedGo);
++
++            return spawnedGo;
++        }
++        catch (Exception e)
+         {
+-            characterManager = spawnedGo.GetComponentInChildren<CharacterManager>();
+-        }
+-
+-        if (characterManager == null)
+-        {
+-            characterManager = spawnedGo.AddComponent<CharacterManager>();
+-        }
+-
+-        characterManager.InitializeFromSO(characterSO);
+-        ApplyInitialLookDirection(spawnedGo, rotationZ);
+-
+-        if (prepareBeforeActivation != null)
+-        {
+-            if (!prepareBeforeActivation(spawnedGo))
++            // Initialization/ownership failures never publish a partially initialized living NPC.
++            if (spawnedGo != null)
+             {
++                sequenceRuntime?.RemoveEnemyTracking(spawnedGo.GetInstanceID());
++                try { EnemyRegistry.Instance.UnregisterEnemy(spawnedGo); }
++                catch (Exception cleanupError) { Debug.LogException(cleanupError); }
+                 spawnedGo.SetActive(false);
+                 UnityEngine.Object.Destroy(spawnedGo);
+-                return null;
+             }
+-            spawnedGo.transform.SetParent(null, true);
++            Debug.LogError("[NpcSpawnService] SpawnNpc failed: " + e.Message);
++            return null;
+         }
+-
+-        if (sequenceRuntime != null)
+-        {
+-            sequenceRuntime.AddEnemyTracking(spawnedGo.GetInstanceID());
+-        }
+-
+-        EnemyRegistry.Instance.RegisterEnemy(spawnedGo);
+-
+-        return spawnedGo;
+     }
+ 
+     private static void ApplyInitialLookDirection(GameObject spawnedGo, float rotationZ)

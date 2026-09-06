@@ -1,0 +1,77 @@
+결행 — inactive MORPG P1 runtime slice implementation receipt
+Status: P1_STATIC_IMPLEMENTATION_PASS
+Boundary: MANAGER_ATTACHMENT_INTEGRATION_HOLD / LIVE0 / P2_0
+Report owner: 한결 task 01a0424c-6e30-7b23-aef4-9ae6516ae07d only.
+
+Authority scope SHA: 82f8125b4afc9fdd9faf04af50e003d2a5b79898865f7e68f6f38d0a60f45e21
+Authority API SHA: a63a43386771e681562d4233a40258b2dfa25f2d8d90cd7c920c9a0c68741647
+Owner failure/recovery contract read. Checkpoints A/B and validation reported to 한결.
+Owner explicitly approved isolated contracts/registry/coordinator/fake-host scope, manager write0 and the static classification.
+
+Implemented source inventory
+- IMorpgZoneBattleHost internal exact token facade; no raw gateway remains in rewritten source.
+- Full attempt/zone/wave/generation handle with reference capability rejection; generation is monotonically issued at actual scope creation. Duplicate start retains exact scope and emits no additional rows.
+- Opaque transition token carries no exposed payload. The fake host retains issuer identity/state and enforces stale/foreign/released mutation0.
+- Immutable source snapshot contains full handle, declared/emitted/pending/living/failure/cleanup readiness. Coordinator also re-reads source authority before committing clear.
+- Source-owned registry registers roots and required descendant/cache kinds before simulated activation, seals at prepare, sorts stable IDs, disposes exact owned entries only, and supports idempotent recovery after partial disposal failure.
+- MorpgZoneWaveOwner/Scope are internal accounting components and integration seams, not implementations attached to BattleSpawnManager. They keep later-zone scope creation behind prior cleanup completion.
+- Coordinator only sequences snapshot clear, host prepare/commit/release and canonical final-host outcome request. No raw lock/immunity setters, world lookup, shared StopSequence, direct outcome completion or postactivation legacy switch.
+- P1 settlement readiness default is always NotReady. No economy/drop/HUD implementation added.
+
+Integration limits (not claimed by this PASS)
+- Actual BattleManager-owned host adapter/lifecycle API, BattleSpawnManager methods, engine spawn/resolver integration, concrete hostile producers and input/skill/velocity/immunity wrappers are not attached or implemented as live adapters here.
+- The transaction implementation exercised is the test fake host. Production source-linked coordinator and registry/accounting are real code; party/camera/boundary no-yield transaction and failure world states are simulated.
+- Actual scene warp/camera/placement/visual cleanup and final user runtime QA remain HOLD. Assembly-CSharp/Unity runtime was not rebuilt or launched; standalone linked C#9 compile is the build evidence for this isolated slice.
+
+Validation
+- Unity-supplied MonoBleedingEdge/Roslyn csc + System.Web.Extensions directly compiled all five production sources and harness files; source copy0.
+- Final Mono compile errors0, warnings1: existing P0 Header.schemaVersion CS0649 (reflection/JSON-assigned field), retained and classified, not suppressed.
+- Final Mono executed PASS27/27, FAIL0, SKIP0 twice. Full stdout byte diff0.
+- Trace SHA both: 19c159bebac2905bc8afa1213e3ed9c5331154d845c1ffedfd45c51105f7f355
+- Includes exact19/5/4, full handle/stale rejection, immutable snapshot/source reread, root/descendant registration, duplicate start/emission/death/clear/warp/outcome, source-only cleanup, actual registry prepare/disposal fault recovery, pause, abort/defeat/teardown across phases, final wave-only host OutcomeArbiter CAS, P2 readiness hold, preactivation fallback and transition-operation failure injection.
+- Static source guards: forbidden scan/purge/global registry/raw lock/StopSequence/world lookup/StageSession/serialized field/economy/direct CompleteBattle tokens absent in P1 source. Reflection verifies P1 top-level types internal and token payload empty.
+- Initial net8 build failed before source compilation because offline reference packs were missing. One correction to installed net10 + cleared package sources compiled and ran the earlier 26-case draft. Final authoritative 27-case evidence uses the owner-requested Mono/Roslyn route. No source compilation errors or test failures occurred.
+- git diff --check PASS; explicit whitespace/conflict-marker check covers all six untracked source paths. Shared manager bytes and combined diff unchanged. Original 16 untouched P0 manifest paths verified.
+- Index SHA before=after: 29ebda995c8548c137815e996956a2d510c2446981fcd6f7ed65ef2124736fab
+- Shared BM/BSM diff SHA before=after: 19a31bb7926002f2fad989d62ab2c000a49105b6eb6b3d1706ff73e9e9b92a92
+- Existing v3 call graph and bytes unchanged for this executor. Inactive regression is static byte preservation plus simulated fallback, not a Unity behavioral run.
+
+Rollback
+- Durable revision-02 includes exact pre-executor backups for 3 paths, additive baseline-absent rows for 3 paths, focused full diff, compiler/run logs, reproduction script, manifest and dry verifier.
+- Whole-P1 rollback lists 7 exact paths: remove 5 P1 additive files and restore 2 exact P0 harness files. P0 reconstructed backups independently match the accepted P0 manifest hashes; no project restore executed.
+- Dry readback: 49/49 hashes PASS, shared diff preserved, two-run diff0, restoreExecuted=false.
+- Preserve evidence directory; no global cleanup, Git index/staging/commit/push or Unity/Library mutation performed.
+
+Exact changed source paths and final SHA256
+Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs fbc088c76f6b3abc011d02d6a7a2a5516973573902dad1d0ae478b71555fa974
+AgentTools/MorpgP0Harness/Program.cs 234f23017f93f6a80659dc763f116b469e489b19aa952957c9c88ee7e27eafd2
+AgentTools/MorpgP0Harness/MorpgP0Harness.csproj 653cbd352a20e51ec89887a235c6b13be10628ebdb88b0ff90b5acec707635a5
+Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs 332554adc7010336fe5839eb3aace0eeb283f82a982152ae3cf6a1a5947393d7
+Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs.meta 1782ee2761eb93e3e140a8518603322a09a42ba4172d64f805f3d61895673327
+AgentTools/MorpgP0Harness/P1RuntimeTests.cs 7a384c9430d9000d3f2eb536f21830612e75c700e12ad8888bbe01b882ef6177
+
+Exact added evidence paths
+Artifacts/Engineering/MorpgP1Rollback/revision-02/REPRODUCE.sh
+Artifacts/Engineering/MorpgP1Rollback/revision-02/RESTORE.md
+Artifacts/Engineering/MorpgP1Rollback/revision-02/baseline-0.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/baseline-1.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/baseline-2.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/baseline.json
+Artifacts/Engineering/MorpgP1Rollback/revision-02/build-mono.log
+Artifacts/Engineering/MorpgP1Rollback/revision-02/build.log
+Artifacts/Engineering/MorpgP1Rollback/revision-02/dry-readback.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/index-before.sha256
+Artifacts/Engineering/MorpgP1Rollback/revision-02/manifest.json
+Artifacts/Engineering/MorpgP1Rollback/revision-02/p0-harness-program.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/p0-harness-project.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/run-mono-1.log
+Artifacts/Engineering/MorpgP1Rollback/revision-02/run-mono-2.log
+Artifacts/Engineering/MorpgP1Rollback/revision-02/run-net10.log
+Artifacts/Engineering/MorpgP1Rollback/revision-02/shared-before.diff
+Artifacts/Engineering/MorpgP1Rollback/revision-02/slice.diff
+Artifacts/Engineering/MorpgP1Rollback/revision-02/target-status.txt
+Artifacts/Engineering/MorpgP1Rollback/revision-02/verify.py
+Artifacts/Engineering/MorpgP1Rollback/revision-02/receipt.txt
+
+Manifest SHA256: 0b21e158429fe7ee43525271269550b3484e21db3d85ada94437922e40269082
+Dry readback SHA256: aee3f86a8e3f900022aae9ce93ddef3163b938a5412091d8477d8aee4fbe7575

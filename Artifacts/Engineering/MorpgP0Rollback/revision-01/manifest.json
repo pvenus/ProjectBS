@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "projectbs-additive-rollback.v1",
+  "scope": "battle-morpg-zone-reward-p0",
+  "baseline": "all listed paths absent",
+  "files": [
+    {"path":"Assets/Scripts/Battle/Morpg.meta","sha256":"fed2e5542305e514c784019956f95709d6428749eeee9d9f52bba5a2f7d11846"},
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs","sha256":"983dde1e89d10cb477252d544df62dceab9e7090934d188ac0ca7a207981478a"},
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs.meta","sha256":"77bbd3acc15d2b4b530d4729abcef6fa6a9ef10c42868f3824cfdbfb3ec6f7e9"},
+    {"path":"Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs","sha256":"0e8b2f7eb0e7cf92338a526bc7d08d945814ac9482a8e5138d6f82a6ad8732f4"},
+    {"path":"Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs.meta","sha256":"c26d5eee74389f85697e49046c78a6a8dd148b6ac2a419b4cfd9e25189b08f7a"},
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs","sha256":"347c2ccf1d7c4e420a86d2c852a5eb5cc6977b2abd93ef4e4892340ccb0741a4"},
+    {"path":"Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs.meta","sha256":"200d26b299496b80c4374f8ce954ebf2ee11935eeff68fcaa6d1ea86fc69c664"},
+    {"path":"Assets/Editor/Tests/Battle/BattleMorpgZoneRewardContractTests.cs","sha256":"1eb069abd690dbd319a68985a7d43eb80bea1cb1b3bc561b073748fa35f4677f"},
+    {"path":"Assets/Editor/Tests/Battle/BattleMorpgZoneRewardContractTests.cs.meta","sha256":"8e42d67c93b189c1d798b68ab26381325972ef58a477e0b08bd8cca5cf177649"},
+    {"path":"Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json","sha256":"656ebc6f9733652024cf225ef54eee33699adec955f9ba1e7f6c2407fe06d263"},
+    {"path":"Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json.meta","sha256":"f90bd59122dd5254eae6f12a1c8b7286e09f761fe85114c08303b4c635ee33e3"},
+    {"path":"Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json","sha256":"887b561ad67a61203ecbf749dceb801c02d86e465d5224463cffbc3c7520801f"},
+    {"path":"Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json.meta","sha256":"747ba8062d395d4aba2c729f91c484713f75d3f78256e19474a79831cd87fe33"},
+    {"path":"AgentTools/MorpgP0Harness/MorpgP0Harness.csproj","sha256":"68771320a148922c92c9fadc385bfb93e7b623ddf94495988cd3feaf446adac4"},
+    {"path":"AgentTools/MorpgP0Harness/UnityEngineStub.cs","sha256":"66d0f985871796f45d23855faefca3d02dc31e5d6a7cf4d2943d1593f62bb3c5"},
+    {"path":"AgentTools/MorpgP0Harness/Program.cs","sha256":"4545e268c1c9bbcfc1636cfcd1d6c5870b93ea9d52df884c4d2d7bc7b1e90324"},
+    {"path":"AgentDocs/planning-guides/battle-morpg-zone-reward-v1-changelog.md","sha256":"f5a9b18887e8297632dd41dfff150fce62911d79135d47c87cae99374cd36f58"},
+    {"path":"AgentDocs/planning-guides/battle-morpg-zone-reward-v1-changelog.md.meta","sha256":"fe3fb12732bbd86090306dee87ecbaee8257ade42a272186350f9ab8e756a44c"}
+  ],
+  "restore": {
+    "destructiveExecutionAuthorized": false,
+    "instructions": "Verify every current SHA, preserve unrelated worktree/index changes, then remove only the listed additive files and now-empty additive directories. Never alter staging/index. Re-run git status and confirm the listed paths are absent."
+  },
+  "dryReadback": {
+    "expectedPresent": 18,
+    "expectedHashMatches": 18,
+    "baselineAfterAuthorizedRestore": "listed paths absent"
+  }
+}

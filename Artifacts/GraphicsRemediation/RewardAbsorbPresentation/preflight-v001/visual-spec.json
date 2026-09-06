@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "reward_absorb_visual_preflight_v1",
+  "status": "VISUAL_SPEC_READY_ASSET_PRODUCTION_HOLD",
+  "dateKst": "2026-09-06",
+  "scope": {
+    "battleId": "battle.act1.chapter01.01.rescue_villagers",
+    "goldPerBlack": 1,
+    "xpPerBlack": 0.25,
+    "goldPerChain": 3,
+    "xpPerChain": 0.75,
+    "expectedGold": 40,
+    "expectedXp": 10,
+    "groundDwellSeconds": 0.45,
+    "flySeconds": 0.35,
+    "visualCap": 12,
+    "groupingRadiusWorldUnits": 0.6
+  },
+  "sourceAuthority": {
+    "contract": {
+      "path": "/private/tmp/projectbs-current-byeori-episode1-morpg-zone-drop-hud-contract.txt",
+      "sha256": "65f8d9593e5d56f4921ff90a6790a6cb081c16305e4864700ef44f45a866911c"
+    },
+    "sceneBackground": {
+      "path": "Assets/ImagesGenerated/Battle/background/battle.act1.chapter01.01.rescue_villagers.background.png",
+      "sha256": "4ea3f8c0ad46028b9b9a7755d3759cfd3c3ccf97260afb84bc1a1384435a813b",
+      "dimensions": [2560, 1440],
+      "alpha": false
+    },
+    "uiFont": {
+      "path": "Assets/font/EBS_SB SDF.asset",
+      "sha256": "e2ece635faeaed2ef093467566280ff73cfe07eed95bba6f7330107f0d57ee7d"
+    },
+    "partyHud": {
+      "path": "Assets/Prefabs/UI/Fixed/Battle/PartyHud/PartyHudRoot.prefab",
+      "sha256": "914a2ffd353734e3eb62cd7612e1f44d12b7508eac638b359f84c0086144f45a",
+      "panelColor": [0.025, 0.03, 0.04, 0.78],
+      "existingAccentColor": [0.88, 0.68, 0.22, 1.0]
+    }
+  },
+  "inventoryDisposition": {
+    "reuse": [
+      "EBS_SB SDF for HUD values and delta labels",
+      "existing dark translucent PartyHud panel grammar",
+      "existing UI Image fill and 9-slice primitives for XP bar and Gold panel",
+      "procedural short trail/scale/alpha motion; no raster trail sheet required"
+    ],
+    "rejectAsPickup": [
+      {
+        "path": "Assets/Images/UI/node/node.icon.common.market.ppu500.png",
+        "sha256": "9e661a03fd48009a98dc34ce98398b2e3ea38fa1d57e19d69ddbb47a332938c0",
+        "reason": "money bag plus coin stack reads shop/market, too detailed at ground-drop scale"
+      },
+      {
+        "path": "Assets/ImagesGenerated/Item/icon/item.relic.golden_fang.icon.png",
+        "sha256": "9c505663a588b327687c3c280260eec1bd1dd292131c0327231fb14e76345e2b",
+        "reason": "relic identity, not currency"
+      }
+    ],
+    "missing": [
+      "dedicated compact Gold pickup glyph",
+      "dedicated compact XP pickup glyph"
+    ],
+    "imageGenerationDecision": "HOLD_UNTIL_ART_PRODUCTION_GATE; HUD panels, bar, trail, and number pop require no ImageGen"
+  },
+  "pickupArt": {
+    "sharedImport": {
+      "format": "PNG RGBA32",
+      "sourceCanvas": [128, 128],
+      "pivot": [0.5, 0.5],
+      "pixelsPerUnit": 100,
+      "filter": "Bilinear",
+      "wrap": "Clamp",
+      "mipmaps": false,
+      "transparentSafeBorderPx": 8,
+      "alphaZeroRgbZero": true,
+      "worldScreenHeightPxAt1080p": [32, 44],
+      "groupedMaxScreenHeightPxAt1080p": 50
+    },
+    "gold": {
+      "shape": "compact square-holed coin/charm, broad circular mass with one dark notch",
+      "palette": {"body": "#D9A441", "core": "#F3D47A", "outline": "#332819"},
+      "smallRead": "round/charm silhouette; never bag, orb, star, or explosion",
+      "quantityRead": "Black and Chain share one glyph; amount is conveyed by grouped scale <=1.12 and number pop, not extra particles"
+    },
+    "xp": {
+      "shape": "upright faceted ink shard/leaf-tip with a split central notch",
+      "palette": {"body": "#5AA8B8", "core": "#8FD1D5", "outline": "#163844"},
+      "smallRead": "diamond/shard silhouette distinct from Gold even in grayscale",
+      "quantityRead": "fractional values remain numeric; no literal letters or XP text in world"
+    },
+    "hardBans": [
+      "skill-impact bloom",
+      "large radial burst",
+      "loot beam",
+      "rarity ring",
+      "weapon or character silhouette",
+      "gold and XP differentiated by hue only"
+    ]
+  },
+  "motion": {
+    "ground": {
+      "spawnSeconds": 0.12,
+      "settleSeconds": 0.20,
+      "dwellTotalSeconds": 0.45,
+      "scaleEnvelope": [0.82, 1.06, 1.0],
+      "maxVerticalBobPxAt1080p": 3,
+      "maxGlowAlpha": 0.16
+    },
+    "fly": {
+      "durationSeconds": 0.35,
+      "path": "single shallow quadratic arc to currency-specific HUD anchor",
+      "trailSamples": 3,
+      "trailMaxAlpha": 0.22,
+      "trailLengthPxAt1080p": [8, 20],
+      "arrivalPulseSeconds": 0.12,
+      "arrivalScalePeak": 1.08,
+      "goldTarget": "top-right Gold glyph center",
+      "xpTarget": "bottom XP fill center-left"
+    },
+    "numberPop": {
+      "font": "EBS_SB SDF",
+      "durationSeconds": 0.65,
+      "risePxAt1080p": 16,
+      "outlinePxAt1080p": 1.5,
+      "goldFormat": "+{integer}",
+      "xpFormat": "+{trimmedTo2Decimals}",
+      "coalesceWindowSeconds": 0.10
+    },
+    "reducedMotion": {
+      "fly": false,
+      "dissolveSeconds": 0.10,
+      "hudUpdate": "immediate authoritative value",
+      "trail": false
+    },
+    "reducedFlash": {
+      "arrivalScalePulse": false,
+      "glowPulse": false,
+      "numericTweenAllowed": true
+    }
+  },
+  "hud": {
+    "xpBar": {
+      "anchor": "bottom-center",
+      "safeInsetPxAt1080p": 24,
+      "sizePxAt1080p": {"widthRange": [480, 960], "height": 28},
+      "background": "#080A0FCC",
+      "fill": "#5AA8B8",
+      "fillHighlight": "#8FD1D5",
+      "edge": "#1A2933",
+      "label": "Level + exact current/next, decimals trimmed to 2"
+    },
+    "goldPanel": {
+      "anchor": "top-right",
+      "safeInsetPxAt1080p": 24,
+      "sizePxAt1080p": [180, 56],
+      "background": "#080A0FCC",
+      "glyphPxAt1080p": 36,
+      "valueColor": "#F3D47A",
+      "accessibility": "full integer exposed even when >=100000 is visually abbreviated"
+    }
+  },
+  "acceptancePreview": {
+    "requiredScalesPx": [200, 80, 32],
+    "backgrounds": ["episode1-ground", "neutral-dark", "neutral-light", "grayscale"],
+    "mustPass": [
+      "Gold and XP identifiable by silhouette at 32px",
+      "no pickup clipping or black/white fringe",
+      "grouped cap12 remains legible without particle clutter",
+      "fly endpoints align with separate HUD anchors",
+      "XP fill and Gold value remain readable over PartyHud",
+      "ReducedMotion and ReducedFlash preserve credited-value feedback"
+    ]
+  },
+  "boundaries": {
+    "projectCanonicalWrite": false,
+    "unityWrite": false,
+    "runtimeAcceptance": false,
+    "assetProduction": false,
+    "rollback": "delete this preflight artifact directory only; no canonical asset was changed"
+  }
+}

@@ -16,9 +16,6 @@ public class BattleSpawnManager : MonoBehaviour
     private BattleSession battleSession;
     private SpawnSequenceRunner sequenceRunner;
     private BattleLargeWaveRunner largeWaveRunner;
-    private Battle.Morpg.BattleMorpgLiveRoute morpgRoute;
-    public bool UsesMorpg => morpgRoute != null;
-    public bool IsMorpgVictoryReady => morpgRoute != null && morpgRoute.VictoryReady;
     private bool isInitialPrefabSpawned;
 
     // 소환 시퀀스 종료 시 외부(BattleManager 등)로 전파하기 위한 이벤트
@@ -67,25 +64,7 @@ public class BattleSpawnManager : MonoBehaviour
         }
 
         largeWaveRunner?.Tick(Time.deltaTime);
-        morpgRoute?.Tick(Time.deltaTime);
     }
-
-    public bool TryPlayMorpg(bool enabled, BattleSession session, ISpawnUnitResolver resolver)
-    {
-        if (!Battle.Morpg.BattleMorpgLiveRoute.TryCreate(enabled, session, resolver,
-            transform, out var candidate, out string error))
-        {
-            if (enabled && session?.BattleSO?.BattleId == Battle.Morpg.BattleMorpgDefinitionValidator.BattleId)
-                Debug.LogWarning("[MORPG] Preactivation legacy fallback: " + error);
-            return false;
-        }
-        StopSequence();
-        morpgRoute = candidate;
-        morpgRoute.Activate();
-        return true;
-    }
-
-    private void OnGUI() => morpgRoute?.DrawHud();
 
     /// <summary>
     /// 외부(예: BattleManager)에서 설정된 특정 소환 시퀀스를 재생할 때 호출합니다.
@@ -160,8 +139,6 @@ public class BattleSpawnManager : MonoBehaviour
     /// </summary>
     public void StopSequence()
     {
-        morpgRoute?.Dispose();
-        morpgRoute = null;
         if (sequenceRunner != null)
         {
             sequenceRunner.StopSequence();

@@ -1,0 +1,249 @@
+{
+  "status": "P1_STATIC_IMPLEMENTATION_PASS",
+  "boundary": "MANAGER_ATTACHMENT_INTEGRATION_HOLD / LIVE0 / P2_0",
+  "authority": {
+    "scopeSha256": "82f8125b4afc9fdd9faf04af50e003d2a5b79898865f7e68f6f38d0a60f45e21",
+    "apiSha256": "a63a43386771e681562d4233a40258b2dfa25f2d8d90cd7c920c9a0c68741647"
+  },
+  "sourceChanges": [
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs",
+      "sha256": "fbc088c76f6b3abc011d02d6a7a2a5516973573902dad1d0ae478b71555fa974",
+      "baseline": "baseline-0.txt",
+      "baselineSha256": "b45b3556903ee2ade2f63361f92571a91f2348c4c39ee2aac9bbbf16dba99d0f"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/Program.cs",
+      "sha256": "234f23017f93f6a80659dc763f116b469e489b19aa952957c9c88ee7e27eafd2",
+      "baseline": "baseline-1.txt",
+      "baselineSha256": "1c13b95a9315413a939295b3ab6cd44f620998a265af5a39116c75bd8ead3cad"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/MorpgP0Harness.csproj",
+      "sha256": "653cbd352a20e51ec89887a235c6b13be10628ebdb88b0ff90b5acec707635a5",
+      "baseline": "baseline-2.txt",
+      "baselineSha256": "3ce73c79a01972898b9d1eca6de71802fda0002e4451cb62385da3048ca6226c"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs",
+      "sha256": "332554adc7010336fe5839eb3aace0eeb283f82a982152ae3cf6a1a5947393d7",
+      "baselineAbsent": true
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs.meta",
+      "sha256": "1782ee2761eb93e3e140a8518603322a09a42ba4172d64f805f3d61895673327",
+      "baselineAbsent": true
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/P1RuntimeTests.cs",
+      "sha256": "7a384c9430d9000d3f2eb536f21830612e75c700e12ad8888bbe01b882ef6177",
+      "baselineAbsent": true
+    }
+  ],
+  "wholeP1Rollback": [
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs",
+      "action": "remove"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs",
+      "action": "remove"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs.meta",
+      "action": "remove"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/P1RuntimeTests.cs",
+      "action": "remove"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs.meta",
+      "action": "remove"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/Program.cs",
+      "action": "restore",
+      "restoreFrom": "p0-harness-program.txt",
+      "restoreSha256": "4545e268c1c9bbcfc1636cfcd1d6c5870b93ea9d52df884c4d2d7bc7b1e90324"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/MorpgP0Harness.csproj",
+      "action": "restore",
+      "restoreFrom": "p0-harness-project.txt",
+      "restoreSha256": "68771320a148922c92c9fadc385bfb93e7b623ddf94495988cd3feaf446adac4"
+    }
+  ],
+  "preserved": [
+    {
+      "path": "Assets/Scripts/Battle/Core/BattleManager.cs",
+      "sha256": "22e0fcc9b057d6cfeffe4869c7fdca9a82c2fc8387d2d10d06a2bd9ac1f4e896"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs",
+      "sha256": "f6684b059fae5a0f0ecefb38fd1690bba8d5f949bbf4405e555570811fa56eb2"
+    },
+    {
+      "path": ".git/index",
+      "sha256": "29ebda995c8548c137815e996956a2d510c2446981fcd6f7ed65ef2124736fab"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs.meta",
+      "sha256": "495407f7dccbd493d182ed47866d3f4b625382e6a16de40b550a4effecb37737"
+    },
+    {
+      "path": "AgentTools/MorpgP0Harness/UnityEngineStub.cs",
+      "sha256": "66d0f985871796f45d23855faefca3d02dc31e5d6a7cf4d2943d1593f62bb3c5"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg.meta",
+      "sha256": "fed2e5542305e514c784019956f95709d6428749eeee9d9f52bba5a2f7d11846"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs",
+      "sha256": "983dde1e89d10cb477252d544df62dceab9e7090934d188ac0ca7a207981478a"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs.meta",
+      "sha256": "77bbd3acc15d2b4b530d4729abcef6fa6a9ef10c42868f3824cfdbfb3ec6f7e9"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs",
+      "sha256": "0e8b2f7eb0e7cf92338a526bc7d08d945814ac9482a8e5138d6f82a6ad8732f4"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs.meta",
+      "sha256": "c26d5eee74389f85697e49046c78a6a8dd148b6ac2a419b4cfd9e25189b08f7a"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs",
+      "sha256": "347c2ccf1d7c4e420a86d2c852a5eb5cc6977b2abd93ef4e4892340ccb0741a4"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs.meta",
+      "sha256": "200d26b299496b80c4374f8ce954ebf2ee11935eeff68fcaa6d1ea86fc69c664"
+    },
+    {
+      "path": "Assets/Editor/Tests/Battle/BattleMorpgZoneRewardContractTests.cs",
+      "sha256": "1eb069abd690dbd319a68985a7d43eb80bea1cb1b3bc561b073748fa35f4677f"
+    },
+    {
+      "path": "Assets/Editor/Tests/Battle/BattleMorpgZoneRewardContractTests.cs.meta",
+      "sha256": "8e42d67c93b189c1d798b68ab26381325972ef58a477e0b08bd8cca5cf177649"
+    },
+    {
+      "path": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json",
+      "sha256": "656ebc6f9733652024cf225ef54eee33699adec955f9ba1e7f6c2407fe06d263"
+    },
+    {
+      "path": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json.meta",
+      "sha256": "f90bd59122dd5254eae6f12a1c8b7286e09f761fe85114c08303b4c635ee33e3"
+    },
+    {
+      "path": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json",
+      "sha256": "887b561ad67a61203ecbf749dceb801c02d86e465d5224463cffbc3c7520801f"
+    },
+    {
+      "path": "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json.meta",
+      "sha256": "747ba8062d395d4aba2c729f91c484713f75d3f78256e19474a79831cd87fe33"
+    },
+    {
+      "path": "AgentDocs/planning-guides/battle-morpg-zone-reward-v1-changelog.md",
+      "sha256": "f5a9b18887e8297632dd41dfff150fce62911d79135d47c87cae99374cd36f58"
+    },
+    {
+      "path": "AgentDocs/planning-guides/battle-morpg-zone-reward-v1-changelog.md.meta",
+      "sha256": "fe3fb12732bbd86090306dee87ecbaee8257ade42a272186350f9ab8e756a44c"
+    }
+  ],
+  "sharedPaths": [
+    "Assets/Scripts/Battle/Core/BattleManager.cs",
+    "Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs"
+  ],
+  "sharedDiffSha256": "19a31bb7926002f2fad989d62ab2c000a49105b6eb6b3d1706ff73e9e9b92a92",
+  "evidence": [
+    {
+      "path": "REPRODUCE.sh",
+      "sha256": "13628dc0847ecce4fe08ff742e7e9f71291cb5909826dacec961a455d3f38812"
+    },
+    {
+      "path": "RESTORE.md",
+      "sha256": "29ee4f9a62eba40677536fe85cb39e32727388e1275cc027432fbc7c7c59895d"
+    },
+    {
+      "path": "baseline-0.txt",
+      "sha256": "b45b3556903ee2ade2f63361f92571a91f2348c4c39ee2aac9bbbf16dba99d0f"
+    },
+    {
+      "path": "baseline-1.txt",
+      "sha256": "1c13b95a9315413a939295b3ab6cd44f620998a265af5a39116c75bd8ead3cad"
+    },
+    {
+      "path": "baseline-2.txt",
+      "sha256": "3ce73c79a01972898b9d1eca6de71802fda0002e4451cb62385da3048ca6226c"
+    },
+    {
+      "path": "baseline.json",
+      "sha256": "83ef32c8199fc830abcf292c2a3b93a3017e2df2947dec7231a6c4b55fad0062"
+    },
+    {
+      "path": "build-mono.log",
+      "sha256": "e217bce29c4726e36288f5b7b3f6496d03dd2ed44a381a35625d36a5277c3ce7"
+    },
+    {
+      "path": "build.log",
+      "sha256": "57b0028373d0a597e252564a4a07b562399840d981ac5239f94b6de61c7e8827"
+    },
+    {
+      "path": "index-before.sha256",
+      "sha256": "dac249789d7f71b0844592926f38de87160f2cd0df1ab6f49e72ef0c54515b0a"
+    },
+    {
+      "path": "p0-harness-program.txt",
+      "sha256": "4545e268c1c9bbcfc1636cfcd1d6c5870b93ea9d52df884c4d2d7bc7b1e90324"
+    },
+    {
+      "path": "p0-harness-project.txt",
+      "sha256": "68771320a148922c92c9fadc385bfb93e7b623ddf94495988cd3feaf446adac4"
+    },
+    {
+      "path": "run-mono-1.log",
+      "sha256": "8d253c1789b556daabe023827c70b853ca237e1b63bff4d07186b95001194907"
+    },
+    {
+      "path": "run-mono-2.log",
+      "sha256": "8d253c1789b556daabe023827c70b853ca237e1b63bff4d07186b95001194907"
+    },
+    {
+      "path": "run-net10.log",
+      "sha256": "9ac201f7fff2bb5b4aeba05b316c6de556a1ca75a68805c43b85fd4ed1d571af"
+    },
+    {
+      "path": "shared-before.diff",
+      "sha256": "19a31bb7926002f2fad989d62ab2c000a49105b6eb6b3d1706ff73e9e9b92a92"
+    },
+    {
+      "path": "slice.diff",
+      "sha256": "2cf37f6f76bbdc35bf820feebdf140a0073ef12498dc2f71ad81fcc3e5421145"
+    },
+    {
+      "path": "target-status.txt",
+      "sha256": "fd9dad3b51b619d2d90dfe6de4731cd4c776e692f05bbb211940c001d9407d60"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "d8d3da52fdad216c04653cc0c4285f73939731917ba1443dba640273d7b0c763"
+    }
+  ],
+  "tests": {
+    "pass": 27,
+    "fail": 0,
+    "skip": 0,
+    "runs": 2,
+    "traceSha256": "19c159bebac2905bc8afa1213e3ed9c5331154d845c1ffedfd45c51105f7f355",
+    "buildErrors": 0,
+    "buildWarnings": 1,
+    "warningClassification": "Existing P0 reflection-deserialized JSON Header.schemaVersion CS0649; not suppressed."
+  },
+  "restoreExecuted": false
+}

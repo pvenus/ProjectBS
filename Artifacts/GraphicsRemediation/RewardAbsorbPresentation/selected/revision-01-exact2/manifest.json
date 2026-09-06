@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "reward_pickup_raster_exact2_v1",
+  "status": "SELECTED_ARTIFACTS_READY_INSTALL_HOLD",
+  "dateKst": "2026-09-06",
+  "generationMethod": "Codex built-in ImageGen, one independent call per asset",
+  "visualSpec": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/preflight-v001/visual-spec.json",
+    "sha256": "85f6c8a65ed6ea4f83341b851aab36d0fa38e51bd20f1c0967c26aee56d70aa4"
+  },
+  "assets": [
+    {
+      "id": "reward.gold.coin-charm",
+      "semantic": "Gold ground pickup and fly-to-HUD glyph",
+      "source": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/source/reward.gold.coin-charm.source.png",
+        "sha256": "81518fe49831ef9cb9649d7e5ce738cab32a63c7f849a40ccbdff1637cf47ce9",
+        "dimensions": [1024, 1024],
+        "mode": "RGBA"
+      },
+      "runtimeCandidate": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/runtime/reward.gold.coin-charm.128.png",
+        "sha256": "dcfbd73c3795de4df867a17621b7811303836bda11c1699d4e9e5be37b6ead3d",
+        "dimensions": [128, 128],
+        "mode": "RGBA",
+        "alphaBboxXYXY": [11, 10, 117, 117],
+        "safeBorderPx": 8,
+        "safeBorderAlphaMax": 0,
+        "alphaZeroRgbNonzeroPixels": 0,
+        "pivot": [0.5, 0.5],
+        "pixelsPerUnit": 100
+      },
+      "selection": "PASS: round square-holed charm is distinct, compact and readable at 32px"
+    },
+    {
+      "id": "reward.xp.faceted-shard",
+      "semantic": "XP ground pickup and fly-to-HUD glyph",
+      "source": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/source/reward.xp.faceted-shard.source.png",
+        "sha256": "498ee13715d02a53f407cb1eb0979390ebf9af9d3d4d94c537212795791aac86",
+        "dimensions": [1024, 1024],
+        "mode": "RGBA"
+      },
+      "runtimeCandidate": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/runtime/reward.xp.faceted-shard.128.png",
+        "sha256": "858c7e13ff286652d9d7841d55a7a9ee2fae09ebfc133a614ddcf07ce696dfd9",
+        "dimensions": [128, 128],
+        "mode": "RGBA",
+        "alphaBboxXYXY": [31, 9, 97, 116],
+        "safeBorderPx": 8,
+        "safeBorderAlphaMax": 0,
+        "alphaZeroRgbNonzeroPixels": 0,
+        "pivot": [0.5, 0.5],
+        "pixelsPerUnit": 100
+      },
+      "selection": "PASS: angular shard silhouette remains distinct from Gold at 32px and in grayscale"
+    }
+  ],
+  "derivation": {
+    "script": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/build_runtime_assets.py",
+    "scriptSha256": "ca6af501e39ff4123839a61006a55aba0ec6df00e594c0057d644bf32fe898b2",
+    "operation": "1024 RGBA -> Lanczos 112x112 -> centered at 8,8 on transparent 128x128 -> alpha0 RGB0",
+    "sourcePixelsPreserved": false,
+    "semanticChange": false
+  },
+  "qa": {
+    "exactCount": 2,
+    "nativeTransparentSource": true,
+    "runtimeRgba": true,
+    "checkerOrMatte": false,
+    "clipping": false,
+    "textRuneLogoWatermark": false,
+    "goldXpShapeDistinction": true,
+    "skillVfxOverstatement": false
+  },
+  "boundaries": {
+    "projectCanonicalWrite": false,
+    "unityWrite": false,
+    "installAuthority": false,
+    "rollback": "remove selected/revision-01-exact2; no canonical asset changed"
+  }
+}

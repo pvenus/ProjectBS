@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using Battle.Morpg;
+
+internal static class Program
+{
+    private static int passed;
+    private static readonly List<string> trace = new();
+
+    private static void Main(string[] args)
+    {
+        string root = args.Length == 1 ? args[0] : throw new ArgumentException("workspace root required");
+        string path = Path.Combine(root, "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json");
+        string json = File.ReadAllText(path);
+        Case("strict-roundtrip", () =>
+        {
+            var a = BattleMorpgDefinitionCodec.Decode(json);
+            var b = BattleMorpgDefinitionCodec.Decode(json);
+            Require(a.Success && b.Success && a.Definition.zones.Length == 3, a.Error ?? b.Error);
+            Require(a.Definition.zones[0].entryWarpAnchorId.EndsWith("left.entry_warp"), "canonical anchor missing");
+            Require(!json.Contains("entryAnchorId") && !json.Contains(".zone1\""), "stale aliases remain");
+        });
+        Case("version-migration-unknown", () =>
+        {
+            Require(BattleMorpgDefinitionCodec.Decode("{}").IsLegacy, "legacy missing version rejected");
+            Require(!BattleMorpgDefinitionCodec.Decode("{\"schemaVersion\":\"battle-morpg-zone-reward.v99\"}").Success, "future accepted");
+            Require(!BattleMorpgDefinitionCodec.Decode(json.Replace("\"backtracking\":false", "\"backtracking\":false,\"unknown\":1")).Success, "unknown accepted");
+            Require(!BattleMorpgDefinitionCodec.Decode(json.Replace("\"counts\":{\"black\":15,\"chain\":4}", "\"counts\":{\"black\":15,\"chain\":4,\"unknownNested\":1}")).Success, "nested unknown accepted");
+            Require(!BattleMorpgDefinitionCodec.Decode(json.Replace("\"backtracking\":false", "\"backtracking\":false,\"backtracking\":false")).Success, "duplicate root accepted");
+        });
+        Case("callbacks-reordered-deduped", () =>
+        {
+            string first = RewardTrace(json, false); string second = RewardTrace(json, true);
+            Require(first == second, "callback permutation digest differs"); trace.Add(first);
+        });
+        Case("atomic-gold-xp-rollback", () =>
+        {
+            var gold = new Account(); var xp = new Account { RejectApply = true };
+            var ledger = new BattleRewardLedger(gold, xp);
+            Require(!ledger.TryCredit("bundle", 1, "reservation", 1m, 1, out _), "fault unexpectedly credited");
+            Require(gold.Value == 0m && xp.Value == 0m, "atomic rollback failed");
+        });
+        Case("checkpoint-new-attempt", () =>
+        {
+            foreach (MorpgCheckpointState state in Enum.GetValues(typeof(MorpgCheckpointState)))
+            {
+                bool terminal = state == MorpgCheckpointState.OutcomeTerminal;
+                Require(BattleMorpgCheckpointPolicy.MustQueueDurableSave(state) != terminal, "queue policy mismatch");
+                Require(BattleMorpgCheckpointPolicy.MustStartNewAttemptAfterReload(state) != terminal, "reload policy mismatch");
+            }
+        });
+        Case("outcome-clear-wave-transition-cas", () =>
+        {
+            var attempt = new BattleAttemptKey("run", "episode", BattleMorpgDefinitionValidator.BattleId, "42");
+            var outcome = new BattleOutcomeArbiter(attempt);
+            Require(!outcome.TryCommit(MorpgOutcome.Victory) && outcome.TryRequest() && outcome.TryCommit(MorpgOutcome.Victory), "outcome graph");
+            Require(!outcome.TryCommit(MorpgOutcome.Defeat), "second outcome accepted");
+            var clear = new ClearRecord(); Require(!clear.TryCommit() && clear.TryDetect() && clear.TryCommit(), "clear graph");
+            var wave = new WaveStartRecord(); Require(wave.TryStart() && !wave.TryStart() && wave.TryComplete(), "wave graph");
+            var transition = new TransitionRecord(attempt, "left", "center", 1);
+            Require(!transition.TryCommit() && transition.TryPrepare() && transition.TryCommit() && !transition.TryRestore(), "transition graph");
+            Require(BattleMorpgCanonicalKeys.WaveStart(attempt, "wave").StartsWith("waveStart=attempt="), "wave key");
+        });
+        Case("strict-addendum-digest-reorder-tamper", () =>
+        {
+            string addendumPath=Path.Combine(root,"Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json");
+            string addendum=File.ReadAllText(addendumPath);
+            Require(BattleMorpgP0AddendumCodec.TryValidate(addendum,out string d1,out string error),error);
+            Require(d1=="fcffcb3c78c43de2b7ffc00d5404b9fdec6f96a318729efa7686b2cb2bed2e55","digest readback");
+            Require(StrictCanonicalJson.TryParse(addendum,out object parsed,out error),error);
+            string reordered=StrictCanonicalJson.Canonicalize(parsed);
+            Require(BattleMorpgP0AddendumCodec.TryValidate(reordered,out string d2,out error)&&d1==d2,"key reorder digest changed: "+error);
+            Require(!BattleMorpgP0AddendumCodec.TryValidate(addendum.Replace("\"goldReserved\",\"value\":40","\"goldReserved\",\"value\":41"),out _,out _),"tamper accepted");
+            Require(!BattleMorpgP0AddendumCodec.TryValidate(addendum.Replace("\"zoneId\":\"zone.act1.chapter01.01.rescue_villagers.left\"","\"zoneId\":\"zone.act1.chapter01.01.rescue_villagers.left\",\"unknownNested\":1"),out _,out _),"nested unknown accepted");
+            Require(!BattleMorpgP0AddendumCodec.TryValidate(addendum.Replace("\"documentKind\":\"strict-fragment\"","\"documentKind\":\"strict-fragment\",\"documentKind\":\"strict-fragment\""),out _,out _),"duplicate property accepted");
+        });
+        P1RuntimeTests.Run(root, Case, trace);
+        Require(passed == 27, "expected 27 executed cases");
+        string digest = Sha256(string.Join("\n", trace));
+        Console.WriteLine($"PASS {passed}/27 deterministicTraceSha256={digest}");
+    }
+
+    private static string RewardTrace(string json, bool reverse)
+    {
+        var d = BattleMorpgDefinitionCodec.Decode(json).Definition;
+        var rows = d.zones.SelectMany(z => z.reservations).ToList(); if (reverse) rows.Reverse();
+        var gold = new Account(); var xp = new Account(); var ledger = new BattleRewardLedger(gold, xp);
+        long sequence = 0;
+        foreach (var row in rows)
+        {
+            decimal g = row.unitKey == "black" ? 1m : 3m; int q = row.unitKey == "black" ? 1 : 3;
+            string id = BattleMorpgCanonicalKeys.Bundle(new BattleAttemptKey("run", "episode", d.battleId, "42"), row.reservationId);
+            Require(ledger.TryCredit(id, ++sequence, row.reservationId, g, q, out string error), error);
+            Require(ledger.TryCredit(id, sequence, row.reservationId, g, q, out error), error);
+        }
+        Require(ledger.Bundles.Count == 28 && gold.Value == 40m && xp.Value == 10m, "reward totals");
+        return Sha256(string.Join("\n", ledger.Bundles.Keys.OrderBy(x => x)) + $"|{gold.Value}|{xp.Value}");
+    }
+
+    private static void Case(string name, Action action) { action(); passed++; Console.WriteLine("PASS " + name); }
+    private static void Require(bool condition, string error) { if (!condition) throw new InvalidOperationException(error); }
+    private static string Sha256(string value)
+    {
+        using (var sha = SHA256.Create())
+            return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(value))).Replace("-", string.Empty).ToLowerInvariant();
+    }
+
+    private sealed class Account : IRevisionedRewardAccount
+    {
+        public decimal Value { get; private set; }
+        public long Revision { get; private set; }
+        public bool RejectApply;
+        public bool TryApply(decimal delta, long expectedRevision) { if (RejectApply || expectedRevision != Revision) return false; Value += delta; Revision++; return true; }
+        public bool TryRestore(decimal value, long expectedRevision) { if (expectedRevision != Revision) return false; Value = value; Revision++; return true; }
+    }
+
+}

@@ -175,7 +175,6 @@ namespace Character
             CharacterManager attackerManager,
             bool allowReflect)
         {
-            if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(targetManager)) return 0f;
             if (targetManager == null
                 || targetManager.RuntimeData == null)
             {
@@ -288,7 +287,6 @@ namespace Character
             CharacterManager targetManager =
                 ResolveCharacterManagerStatic(request.target);
 
-            if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(targetManager)) return result;
             if (targetManager == null)
             {
                 return result;
@@ -328,7 +326,6 @@ namespace Character
             CharacterManager targetManager =
                 ResolveCharacterManager(request.target);
 
-            if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(targetManager)) return result;
             if (targetManager == null)
             {
                 return result;

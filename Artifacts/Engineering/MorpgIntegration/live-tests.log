@@ -1,0 +1,9 @@
+Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs(267,68): warning CS0649: Field 'BattleMorpgDefinitionCodec.Header.schemaVersion' is never assigned to, and will always have its default value null
+PASS live-exact-gate-preflight-no-mutation
+PASS live-19-5-4-warp-reward-dedup-final
+PASS live-pause-transition-and-teardown-unlock
+PASS live-final-frame-defeat-wins
+PASS live-spawn-fault-no-next-wave
+PASS live-xp-notification-fault-rolls-back-gold-and-xp
+PASS live-owned-projectile-cleanup-preserves-foreign
+PASS 7/7 live glue simulations (Unity engine stub)

@@ -1,0 +1,99 @@
+using System;
+
+namespace Battle.Morpg
+{
+    public enum ZoneTransitionPhase { Idle, CleanupSettling, Fading, Warped, Unlocked, NextWaveReady, Failed }
+
+    public interface IMorpgZoneWorldGateway
+    {
+        bool TryEnterTransitionLock(string zoneId);
+        bool TryPrepareTarget(string zoneId, string anchorId);
+        bool TryCommitWarp(string fromZoneId, string toZoneId, string anchorId);
+        bool TryCleanupSource(string zoneId);
+        void ResetPlayerVelocity();
+        void SetTransitionImmunity(bool enabled);
+        void ExitTransitionLock();
+        void RestoreSource(string zoneId);
+    }
+
+    public sealed class BattleMorpgZoneTransitionCoordinator
+    {
+        public const float CleanupSettle = .20f, FadeAt = .50f, WarpAt = .68f, UnlockAt = 1.05f, NextWaveAt = 1.25f;
+        private readonly BattleMorpgZoneRewardDefinition definition;
+        private readonly IMorpgZoneWorldGateway world;
+        private readonly BattleAttemptKey attempt;
+        private readonly WaveStartRecord[] waves = { new WaveStartRecord(), new WaveStartRecord(), new WaveStartRecord() };
+        private ClearRecord clear;
+        private TransitionRecord transition;
+        private float elapsed;
+        private bool paused;
+
+        private BattleMorpgZoneTransitionCoordinator(BattleMorpgZoneRewardDefinition definition, BattleAttemptKey attempt, IMorpgZoneWorldGateway world)
+        { this.definition=definition; this.attempt=attempt; this.world=world; ActiveZoneIndex=0; Phase=ZoneTransitionPhase.Idle; }
+
+        public int ActiveZoneIndex { get; private set; }
+        public ZoneTransitionPhase Phase { get; private set; }
+        public bool IsAbandoned { get; private set; }
+        public bool IsVictoryRequested { get; private set; }
+        public bool IsPaused => paused;
+        public float Elapsed => elapsed;
+        public string CurrentWaveStartKey => BattleMorpgCanonicalKeys.WaveStart(attempt, definition.zones[ActiveZoneIndex].waveId);
+
+        public static bool TryCreate(bool enabled, BattleMorpgZoneRewardDefinition definition, BattleAttemptKey attempt,
+            IMorpgZoneWorldGateway world, out BattleMorpgZoneTransitionCoordinator coordinator, out string error)
+        {
+            coordinator=null;error=null;
+            if(!enabled){error="inactive: use preactivation legacy v2";return false;}
+            if(world==null||!BattleMorpgDefinitionValidator.TryValidate(definition,out error))return false;
+            coordinator=new BattleMorpgZoneTransitionCoordinator(definition,attempt,world);return true;
+        }
+
+        public bool TryStartActiveWave()
+        {
+            if(IsAbandoned||Phase!=ZoneTransitionPhase.Idle)return false;
+            return waves[ActiveZoneIndex].TryStart();
+        }
+        public bool TryCompleteActiveWave()
+        {
+            if(!waves[ActiveZoneIndex].TryComplete())return false;
+            clear=new ClearRecord(); return clear.TryDetect()&&clear.TryCommit();
+        }
+        public bool TryBeginTransition()
+        {
+            if(IsAbandoned||ActiveZoneIndex>=2||clear==null||clear.State!=ClearRecordState.Committed||Phase!=ZoneTransitionPhase.Idle)return false;
+            var from=definition.zones[ActiveZoneIndex];var to=definition.zones[ActiveZoneIndex+1];
+            transition=new TransitionRecord(attempt,from.id,to.id,ActiveZoneIndex+1);
+            if(!world.TryEnterTransitionLock(from.id)){transition.TryFail();return Fail();}
+            world.SetTransitionImmunity(true);world.ResetPlayerVelocity();
+            if(!world.TryPrepareTarget(to.id,to.entryWarpAnchorId)||!transition.TryPrepare()){Restore(from.id);return false;}
+            elapsed=0f;Phase=ZoneTransitionPhase.CleanupSettling;return true;
+        }
+        public void Tick(float deltaTime)
+        {
+            if(paused||IsAbandoned||Phase==ZoneTransitionPhase.Idle||Phase==ZoneTransitionPhase.NextWaveReady||Phase==ZoneTransitionPhase.Failed)return;
+            elapsed+=Math.Max(0f,deltaTime);
+            if(elapsed>=FadeAt&&Phase==ZoneTransitionPhase.CleanupSettling)Phase=ZoneTransitionPhase.Fading;
+            if(elapsed>=WarpAt&&(Phase==ZoneTransitionPhase.CleanupSettling||Phase==ZoneTransitionPhase.Fading))
+            {
+                var from=definition.zones[ActiveZoneIndex];var to=definition.zones[ActiveZoneIndex+1];
+                if(!world.TryCleanupSource(from.id)||!world.TryCommitWarp(from.id,to.id,to.entryWarpAnchorId)||!transition.TryCommit()){Restore(from.id);return;}
+                ActiveZoneIndex++;Phase=ZoneTransitionPhase.Warped;
+            }
+            if(elapsed>=UnlockAt&&Phase==ZoneTransitionPhase.Warped){world.SetTransitionImmunity(false);world.ExitTransitionLock();Phase=ZoneTransitionPhase.Unlocked;}
+            if(elapsed>=NextWaveAt&&Phase==ZoneTransitionPhase.Unlocked)Phase=ZoneTransitionPhase.NextWaveReady;
+        }
+        public bool TryAcknowledgeNextWave()
+        {
+            if(Phase!=ZoneTransitionPhase.NextWaveReady)return false;Phase=ZoneTransitionPhase.Idle;clear=null;transition=null;return TryStartActiveWave();
+        }
+        public bool TryRequestVictory()
+        {
+            if(ActiveZoneIndex!=2||waves[2].State!=WaveStartState.Completed||clear==null||clear.State!=ClearRecordState.Committed)return false;
+            IsVictoryRequested=true;return true;
+        }
+        public void SetPaused(bool value){paused=value;}
+        public void AbandonForReload(){if(Phase!=ZoneTransitionPhase.Idle)Restore(definition.zones[Math.Min(ActiveZoneIndex,2)].id);IsAbandoned=true;}
+        private void Restore(string source){transition?.TryRestore();world.RestoreSource(source);world.SetTransitionImmunity(false);world.ExitTransitionLock();Phase=ZoneTransitionPhase.Failed;}
+        private bool Fail(){Phase=ZoneTransitionPhase.Failed;return false;}
+    }
+}

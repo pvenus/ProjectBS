@@ -25,7 +25,6 @@ namespace Battle
         private bool isDebugSkillUpgradeOpen;
         private bool shouldEndBattleAfterCurrentUpgrade;
         private BattleEndSkillUpgradePresenter battleEndSkillUpgradePresenter;
-        [SerializeField] private bool enableMorpgZoneRoute = true;
 
         public BattleSession BattleSession => battleSession;
 
@@ -207,9 +206,6 @@ namespace Battle
             UnsubscribeBattleSpawnManager();
             isSpawnSequenceFinished = false;
             spawnManager.OnSequenceFinished += HandleSpawnSequenceFinished;
-            if (spawnManager.TryPlayMorpg(enableMorpgZoneRoute, battleSession,
-                new SpawnUnitBindingResolver(battleSession.BattleSO.SpawnUnitBindings)))
-                return;
             if (spawnManager.TryPlayLargeWave(
                 battleSession.BattleSO.LargeWavePolicy,
                 new SpawnUnitBindingResolver(battleSession.BattleSO.SpawnUnitBindings)))
@@ -338,13 +334,6 @@ namespace Battle
                 battleSession.BattleRuntime;
 
             battleRuntime.elapsedTime += Time.deltaTime;
-
-            if (BattleSpawnManager.Instance != null && BattleSpawnManager.Instance.UsesMorpg)
-            {
-                if (BattleSpawnManager.Instance.IsMorpgVictoryReady)
-                    CompleteBattle();
-                return;
-            }
 
             switch (battleRuntime.victoryRule)
             {
@@ -759,7 +748,6 @@ namespace Battle
         private Character.CharacterManager targetCharacter;
         private Vector2 velocity;
 
-        public void ResetSmoothing() => velocity = Vector2.zero;
         public Transform Target => target;
         public float SmoothTime => smoothTime;
         public Vector2 Offset => offset;

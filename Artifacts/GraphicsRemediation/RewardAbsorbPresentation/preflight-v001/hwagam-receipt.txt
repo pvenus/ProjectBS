@@ -1,0 +1,27 @@
+[화감 VISUAL SPEC COMPLETE | Episode1 MORPG reward drop + absorb]
+Date: 2026-09-06 KST
+Status: VISUAL_SPEC_READY_ASSET_PRODUCTION_HOLD
+
+Authority:
+- /private/tmp/projectbs-current-byeori-episode1-morpg-zone-drop-hud-contract.txt
+- SHA-256 65f8d9593e5d56f4921ff90a6790a6cb081c16305e4864700ef44f45a866911c
+
+Locked visual mapping:
+- Black death bundle Gold1 / XP.25; Chain Gold3 / XP.75; totals40/10.
+- Ground dwell .45s, fly .35s, visual cap12 and grouping preserved.
+- Gold is a warm square-holed coin/charm silhouette; XP is a cool faceted shard silhouette. Shape remains distinct in grayscale and at32px.
+- Gold arrives at top-right glyph; XP arrives at bottom-center bar fill.
+- Existing dark PartyHud grammar and EBS_SB font are reused. XP bar, Gold panel, trails, tween and number pop require UI primitives only.
+- Existing market bag icon is rejected for pickup use because it reads shop and is too detailed. Golden Fang is a relic, not currency.
+- Missing raster scope is exactly two compact128x128 RGBA pickup glyphs. ImageGen is held until an explicit art-production gate; no speculative candidates were created.
+
+Motion/accessibility:
+- Spawn/settle is restrained; shallow single fly arc, three trail samples max, arrival pulse1.08 max.
+- No loot beam, rarity ring, radial burst or skill-impact bloom.
+- ReducedMotion removes fly/trail and dissolves in.10s while the HUD updates immediately.
+- ReducedFlash removes scale/glow pulse.
+
+Artifact:
+- visual-spec.json in the same directory.
+- Project/canonical/Unity/runtime writes0.
+- Rollback is removal of this preflight directory only.

@@ -25,9 +25,7 @@ public sealed class NpcSpawnService
         CharacterSO characterSO, 
         Vector3 worldPosition, 
         float rotationZ, 
-        SpawnSequenceRuntime sequenceRuntime,
-        Transform inactiveParent = null,
-        Func<GameObject, bool> prepareBeforeActivation = null)
+        SpawnSequenceRuntime sequenceRuntime)
     {
         if (characterSO == null)
         {
@@ -35,71 +33,39 @@ public sealed class NpcSpawnService
             return null;
         }
 
-        GameObject spawnedGo = null;
-        try
+        GameObject spawnedGo = CharacterBuilder.CreateOrBuildNpcObject(
+            null,
+            characterSO.name,
+            null,
+            worldPosition,
+            // Keep the root transform unrotated; facing is applied to AnimationMono below.
+            Quaternion.identity,
+            "Enemy",
+            null,
+            true);
+
+        CharacterManager characterManager = spawnedGo.GetComponent<CharacterManager>();
+        if (characterManager == null)
         {
-            spawnedGo = CharacterBuilder.CreateOrBuildNpcObject(
-                null,
-                characterSO.name,
-                inactiveParent,
-                worldPosition,
-                // Keep the root transform unrotated; facing is applied to AnimationMono below.
-                Quaternion.identity,
-                "Enemy",
-                null,
-                true);
-
-            CharacterManager characterManager = spawnedGo.GetComponent<CharacterManager>();
-            if (characterManager == null)
-            {
-                characterManager = spawnedGo.GetComponentInChildren<CharacterManager>();
-            }
-
-            if (characterManager == null)
-            {
-                characterManager = spawnedGo.AddComponent<CharacterManager>();
-            }
-
-            characterManager.InitializeFromSO(characterSO);
-            ApplyInitialLookDirection(spawnedGo, rotationZ);
-
-            if (prepareBeforeActivation != null)
-            {
-                if (!prepareBeforeActivation(spawnedGo))
-                {
-                    throw new InvalidOperationException("Spawn ownership preparation was rejected.");
-                }
-                spawnedGo.transform.SetParent(null, true);
-                spawnedGo.SetActive(true);
-            }
-
-            if (!spawnedGo.activeInHierarchy || characterManager.RuntimeData == null ||
-                characterManager.RuntimeData.characterSO != characterSO)
-                throw new InvalidOperationException("NPC activation/initialization did not complete.");
-
-            if (sequenceRuntime != null)
-            {
-                sequenceRuntime.AddEnemyTracking(spawnedGo.GetInstanceID());
-            }
-
-            EnemyRegistry.Instance.RegisterEnemy(spawnedGo);
-
-            return spawnedGo;
+            characterManager = spawnedGo.GetComponentInChildren<CharacterManager>();
         }
-        catch (Exception e)
+
+        if (characterManager == null)
         {
-            // Initialization/ownership failures never publish a partially initialized living NPC.
-            if (spawnedGo != null)
-            {
-                sequenceRuntime?.RemoveEnemyTracking(spawnedGo.GetInstanceID());
-                try { EnemyRegistry.Instance.UnregisterEnemy(spawnedGo); }
-                catch (Exception cleanupError) { Debug.LogException(cleanupError); }
-                spawnedGo.SetActive(false);
-                UnityEngine.Object.Destroy(spawnedGo);
-            }
-            Debug.LogError("[NpcSpawnService] SpawnNpc failed: " + e.Message);
-            return null;
+            characterManager = spawnedGo.AddComponent<CharacterManager>();
         }
+
+        characterManager.InitializeFromSO(characterSO);
+        ApplyInitialLookDirection(spawnedGo, rotationZ);
+
+        if (sequenceRuntime != null)
+        {
+            sequenceRuntime.AddEnemyTracking(spawnedGo.GetInstanceID());
+        }
+
+        EnemyRegistry.Instance.RegisterEnemy(spawnedGo);
+
+        return spawnedGo;
     }
 
     private static void ApplyInitialLookDirection(GameObject spawnedGo, float rotationZ)

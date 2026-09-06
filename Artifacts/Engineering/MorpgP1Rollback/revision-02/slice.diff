@@ -1,0 +1,905 @@
+--- before/Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs
++++ after/Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs
+@@ -2,98 +2,172 @@
+ 
+ namespace Battle.Morpg
+ {
+-    public enum ZoneTransitionPhase { Idle, CleanupSettling, Fading, Warped, Unlocked, NextWaveReady, Failed }
++    internal enum ZoneTransitionPhase { Idle, CleanupSettling, Fading, Warped, Unlocked, NextWaveReady, Completed, Failed, Abandoned }
+ 
+-    public interface IMorpgZoneWorldGateway
++    // Sequencing only. A manager must supply the host and zone driver; no live caller exists in P1.
++    internal sealed class BattleMorpgZoneTransitionCoordinator
+     {
+-        bool TryEnterTransitionLock(string zoneId);
+-        bool TryPrepareTarget(string zoneId, string anchorId);
+-        bool TryCommitWarp(string fromZoneId, string toZoneId, string anchorId);
+-        bool TryCleanupSource(string zoneId);
+-        void ResetPlayerVelocity();
+-        void SetTransitionImmunity(bool enabled);
+-        void ExitTransitionLock();
+-        void RestoreSource(string zoneId);
+-    }
++        internal const float FadeAt = .50f, WarpAt = .68f, UnlockAt = 1.05f, NextWaveAt = 1.25f;
++        private readonly IMorpgZoneBattleHost host;
++        private readonly IMorpgZoneWaveDriver waves;
++        private readonly BattleAttemptKey attempt;
++        private readonly string[] zones = new string[3], waveIds = new string[3], anchors = new string[3];
++        private readonly int[] counts = new int[3];
++        private MorpgZoneRuntimeHandle active;
++        private MorpgZoneClearSnapshot clear;
++        private TransitionRecord transition;
++        private MorpgTransitionPlan plan;
++        private MorpgTransitionScopeToken token;
++        private bool paused, clearCommitted, victoryAccepted;
++        private float elapsed;
+ 
+-    public sealed class BattleMorpgZoneTransitionCoordinator
+-    {
+-        public const float CleanupSettle = .20f, FadeAt = .50f, WarpAt = .68f, UnlockAt = 1.05f, NextWaveAt = 1.25f;
+-        private readonly BattleMorpgZoneRewardDefinition definition;
+-        private readonly IMorpgZoneWorldGateway world;
+-        private readonly BattleAttemptKey attempt;
+-        private readonly WaveStartRecord[] waves = { new WaveStartRecord(), new WaveStartRecord(), new WaveStartRecord() };
+-        private ClearRecord clear;
+-        private TransitionRecord transition;
+-        private float elapsed;
+-        private bool paused;
++        private BattleMorpgZoneTransitionCoordinator(BattleMorpgZoneRewardDefinition definition, BattleAttemptKey attempt,
++            IMorpgZoneBattleHost host, IMorpgZoneWaveDriver waves)
++        {
++            this.attempt = attempt; this.host = host; this.waves = waves;
++            for (int i = 0; i < 3; i++)
++            { zones[i] = definition.zones[i].id; waveIds[i] = definition.zones[i].waveId;
++              anchors[i] = definition.zones[i].entryWarpAnchorId; counts[i] = definition.zones[i].reservations.Length; }
++        }
++        internal int ActiveZoneIndex { get; private set; }
++        internal MorpgZoneRuntimeHandle ActiveHandle => active;
++        internal ZoneTransitionPhase Phase { get; private set; }
++        internal float Elapsed => elapsed;
++        internal string LastError { get; private set; }
++        internal bool IsPaused => paused;
++        internal TransitionRecordState? TransitionState => transition?.State;
+ 
+-        private BattleMorpgZoneTransitionCoordinator(BattleMorpgZoneRewardDefinition definition, BattleAttemptKey attempt, IMorpgZoneWorldGateway world)
+-        { this.definition=definition; this.attempt=attempt; this.world=world; ActiveZoneIndex=0; Phase=ZoneTransitionPhase.Idle; }
+-
+-        public int ActiveZoneIndex { get; private set; }
+-        public ZoneTransitionPhase Phase { get; private set; }
+-        public bool IsAbandoned { get; private set; }
+-        public bool IsVictoryRequested { get; private set; }
+-        public bool IsPaused => paused;
+-        public float Elapsed => elapsed;
+-        public string CurrentWaveStartKey => BattleMorpgCanonicalKeys.WaveStart(attempt, definition.zones[ActiveZoneIndex].waveId);
+-
+-        public static bool TryCreate(bool enabled, BattleMorpgZoneRewardDefinition definition, BattleAttemptKey attempt,
+-            IMorpgZoneWorldGateway world, out BattleMorpgZoneTransitionCoordinator coordinator, out string error)
++        internal static bool TryCreate(bool enabled, BattleMorpgZoneRewardDefinition definition, string addendum,
++            BattleAttemptKey attempt, IMorpgZoneBattleHost host, IMorpgZoneWaveDriver waves, bool producersReady,
++            out BattleMorpgZoneTransitionCoordinator coordinator, out string error)
+         {
+-            coordinator=null;error=null;
+-            if(!enabled){error="inactive: use preactivation legacy v2";return false;}
+-            if(world==null||!BattleMorpgDefinitionValidator.TryValidate(definition,out error))return false;
+-            coordinator=new BattleMorpgZoneTransitionCoordinator(definition,attempt,world);return true;
++            coordinator = null; error = null;
++            if (!enabled) { error = "inactive: preactivation legacy v3/v2 fallback"; return false; }
++            if (host == null || waves == null || !producersReady || attempt.BattleId != BattleMorpgDefinitionValidator.BattleId ||
++                string.IsNullOrEmpty(attempt.RunId) || string.IsNullOrEmpty(attempt.EpisodeId) || string.IsNullOrEmpty(attempt.AttemptId))
++            { error = "preactivation legacy fallback: host/producer/attempt incomplete"; return false; }
++            if (!BattleMorpgDefinitionValidator.TryValidate(definition, out error) ||
++                !BattleMorpgP0AddendumCodec.TryValidate(addendum, out _, out error)) return false;
++            coordinator = new BattleMorpgZoneTransitionCoordinator(definition, attempt, host, waves); return true;
+         }
+ 
+-        public bool TryStartActiveWave()
++        internal bool TryStartActiveWave()
+         {
+-            if(IsAbandoned||Phase!=ZoneTransitionPhase.Idle)return false;
+-            return waves[ActiveZoneIndex].TryStart();
++            if (paused || Phase != ZoneTransitionPhase.Idle || active != null) return false;
++            if (!waves.TryStartMorpgZoneWave(attempt, ActiveZoneIndex, out var handle, out string error)) return Fail(error);
++            if (!Matches(handle)) return Fail("driver returned foreign handle");
++            active = handle; return true;
+         }
+-        public bool TryCompleteActiveWave()
++        internal bool TryCompleteActiveWave(MorpgZoneClearSnapshot snapshot)
+         {
+-            if(!waves[ActiveZoneIndex].TryComplete())return false;
+-            clear=new ClearRecord(); return clear.TryDetect()&&clear.TryCommit();
++            if (paused || Phase != ZoneTransitionPhase.Idle || clearCommitted || active == null || snapshot == null ||
++                !ReferenceEquals(snapshot.Handle, active) || !snapshot.Eligible || snapshot.Declared != counts[ActiveZoneIndex]) return false;
++            // A callback snapshot cannot clear on its own: re-read exact-handle source authority.
++            if (!waves.TryGetMorpgZoneClearSnapshot(active, out var current, out string error)) return Fail(error);
++            if (!ReferenceEquals(current.Handle, active) || !current.Eligible || current.Declared != counts[ActiveZoneIndex]) return false;
++            var record = new ClearRecord();
++            if (!record.TryDetect() || !record.TryCommit()) return false;
++            clear = current; clearCommitted = true; return true;
+         }
+-        public bool TryBeginTransition()
++        internal bool TryBeginTransition()
+         {
+-            if(IsAbandoned||ActiveZoneIndex>=2||clear==null||clear.State!=ClearRecordState.Committed||Phase!=ZoneTransitionPhase.Idle)return false;
+-            var from=definition.zones[ActiveZoneIndex];var to=definition.zones[ActiveZoneIndex+1];
+-            transition=new TransitionRecord(attempt,from.id,to.id,ActiveZoneIndex+1);
+-            if(!world.TryEnterTransitionLock(from.id)){transition.TryFail();return Fail();}
+-            world.SetTransitionImmunity(true);world.ResetPlayerVelocity();
+-            if(!world.TryPrepareTarget(to.id,to.entryWarpAnchorId)||!transition.TryPrepare()){Restore(from.id);return false;}
+-            elapsed=0f;Phase=ZoneTransitionPhase.CleanupSettling;return true;
++            if (paused || Phase != ZoneTransitionPhase.Idle || !clearCommitted || ActiveZoneIndex >= 2) return false;
++            transition = new TransitionRecord(attempt, zones[ActiveZoneIndex], zones[ActiveZoneIndex + 1], ActiveZoneIndex + 1);
++            plan = new MorpgTransitionPlan(active, zones[ActiveZoneIndex + 1], waveIds[ActiveZoneIndex + 1], anchors[ActiveZoneIndex + 1]);
++            try
++            {
++                if (!host.TryAcquireTransitionScope(transition, out token, out string error)) return Fail(error);
++                if (token == null) return Fail("host returned no token");
++                if (!host.TryPrepareTransition(token, plan, clear, out error)) return Fail(error);
++                // Host owns the transaction record; coordinator only observes it.
++                if (transition.State != TransitionRecordState.Prepared) return Fail("host failed to record preparation");
++                elapsed = 0f; Phase = ZoneTransitionPhase.CleanupSettling; return true;
++            }
++            catch (Exception e) { return Fail(e.GetType().Name); }
+         }
+-        public void Tick(float deltaTime)
++        internal void Tick(float deltaTime)
+         {
+-            if(paused||IsAbandoned||Phase==ZoneTransitionPhase.Idle||Phase==ZoneTransitionPhase.NextWaveReady||Phase==ZoneTransitionPhase.Failed)return;
+-            elapsed+=Math.Max(0f,deltaTime);
+-            if(elapsed>=FadeAt&&Phase==ZoneTransitionPhase.CleanupSettling)Phase=ZoneTransitionPhase.Fading;
+-            if(elapsed>=WarpAt&&(Phase==ZoneTransitionPhase.CleanupSettling||Phase==ZoneTransitionPhase.Fading))
++            if (paused || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime) || deltaTime < 0f ||
++                Phase == ZoneTransitionPhase.Idle || Phase == ZoneTransitionPhase.NextWaveReady ||
++                Phase == ZoneTransitionPhase.Completed || Phase == ZoneTransitionPhase.Failed || Phase == ZoneTransitionPhase.Abandoned) return;
++            elapsed += deltaTime;
++            try
+             {
+-                var from=definition.zones[ActiveZoneIndex];var to=definition.zones[ActiveZoneIndex+1];
+-                if(!world.TryCleanupSource(from.id)||!world.TryCommitWarp(from.id,to.id,to.entryWarpAnchorId)||!transition.TryCommit()){Restore(from.id);return;}
+-                ActiveZoneIndex++;Phase=ZoneTransitionPhase.Warped;
++                if (elapsed >= FadeAt && Phase == ZoneTransitionPhase.CleanupSettling) Phase = ZoneTransitionPhase.Fading;
++                if (elapsed >= WarpAt && (Phase == ZoneTransitionPhase.CleanupSettling || Phase == ZoneTransitionPhase.Fading))
++                {
++                    if (!host.TryCommitWarp(token, plan, active, out string error)) { Fail(error); return; }
++                    if (transition.State != TransitionRecordState.Committed) { Fail("host failed to record commit"); return; }
++                    ActiveZoneIndex++; Phase = ZoneTransitionPhase.Warped;
++                }
++                if (elapsed >= UnlockAt && Phase == ZoneTransitionPhase.Warped)
++                {
++                    if (!Release(MorpgTransitionReleaseReason.Success)) { Fail(LastError); return; }
++                    Phase = ZoneTransitionPhase.Unlocked;
++                }
++                if (elapsed >= NextWaveAt && Phase == ZoneTransitionPhase.Unlocked) Phase = ZoneTransitionPhase.NextWaveReady;
+             }
+-            if(elapsed>=UnlockAt&&Phase==ZoneTransitionPhase.Warped){world.SetTransitionImmunity(false);world.ExitTransitionLock();Phase=ZoneTransitionPhase.Unlocked;}
+-            if(elapsed>=NextWaveAt&&Phase==ZoneTransitionPhase.Unlocked)Phase=ZoneTransitionPhase.NextWaveReady;
++            catch (Exception e) { Fail(e.GetType().Name); }
+         }
+-        public bool TryAcknowledgeNextWave()
++        internal bool TryAcknowledgeNextWave()
+         {
+-            if(Phase!=ZoneTransitionPhase.NextWaveReady)return false;Phase=ZoneTransitionPhase.Idle;clear=null;transition=null;return TryStartActiveWave();
++            if (paused || Phase != ZoneTransitionPhase.NextWaveReady) return false;
++            active = null; clear = null; clearCommitted = false; transition = null; plan = null;
++            Phase = ZoneTransitionPhase.Idle; return TryStartActiveWave();
+         }
+-        public bool TryRequestVictory()
++        internal bool TryRequestVictory()
+         {
+-            if(ActiveZoneIndex!=2||waves[2].State!=WaveStartState.Completed||clear==null||clear.State!=ClearRecordState.Committed)return false;
+-            IsVictoryRequested=true;return true;
++            if (victoryAccepted) return true;
++            if (paused || Phase != ZoneTransitionPhase.Idle || ActiveZoneIndex != 2 || !clearCommitted) return false;
++            try
++            {
++                if (!host.TryCompleteFinalZone(attempt, active.ClearKey, out string error)) { LastError = error; return false; }
++                victoryAccepted = true; Phase = ZoneTransitionPhase.Completed; return true;
++            }
++            catch (Exception e) { return Fail(e.GetType().Name); }
+         }
+-        public void SetPaused(bool value){paused=value;}
+-        public void AbandonForReload(){if(Phase!=ZoneTransitionPhase.Idle)Restore(definition.zones[Math.Min(ActiveZoneIndex,2)].id);IsAbandoned=true;}
+-        private void Restore(string source){transition?.TryRestore();world.RestoreSource(source);world.SetTransitionImmunity(false);world.ExitTransitionLock();Phase=ZoneTransitionPhase.Failed;}
+-        private bool Fail(){Phase=ZoneTransitionPhase.Failed;return false;}
++        internal void SetPaused(bool value) { paused = value; }
++        internal void DisposeMorpgRoute(MorpgRouteStopReason reason)
++        {
++            if (Phase == ZoneTransitionPhase.Completed || Phase == ZoneTransitionPhase.Abandoned) return;
++            var release = reason == MorpgRouteStopReason.Failed ? MorpgTransitionReleaseReason.Failed :
++                reason == MorpgRouteStopReason.Defeat ? MorpgTransitionReleaseReason.Defeat :
++                reason == MorpgRouteStopReason.Teardown ? MorpgTransitionReleaseReason.Teardown : MorpgTransitionReleaseReason.Abort;
++            bool released = Release(release);
++            bool stopped = StopActive(reason == MorpgRouteStopReason.Failed ? MorpgZoneStopReason.Failed :
++                reason == MorpgRouteStopReason.Defeat ? MorpgZoneStopReason.Defeat :
++                reason == MorpgRouteStopReason.Teardown ? MorpgZoneStopReason.Teardown : MorpgZoneStopReason.Abort);
++            Phase = released && stopped ? ZoneTransitionPhase.Abandoned : ZoneTransitionPhase.Failed;
++        }
++        private bool Matches(MorpgZoneRuntimeHandle handle) => handle != null && handle.Attempt.Equals(attempt) &&
++            handle.ZoneId == zones[ActiveZoneIndex] && handle.WaveId == waveIds[ActiveZoneIndex] && handle.Generation > 0;
++        private bool Release(MorpgTransitionReleaseReason reason)
++        {
++            if (token == null) return true;
++            try
++            {
++                if (!host.TryReleaseTransitionScope(token, reason, out string error)) { LastError = error; return false; }
++                token = null; return true;
++            }
++            catch (Exception e) { LastError = e.GetType().Name; return false; }
++        }
++        private bool StopActive(MorpgZoneStopReason reason)
++        {
++            if (active == null) return true;
++            try
++            {
++                if (waves.TryStopMorpgZoneWave(active, reason, out string error)) return true;
++                LastError = error; return false;
++            }
++            catch (Exception e) { LastError = e.GetType().Name; return false; }
++        }
++        private bool Fail(string error)
++        {
++            LastError = error;
++            // The host distinguishes pre-mutation Restored from post-mutation Failed. Never infer restoration here.
++            Release(MorpgTransitionReleaseReason.Failed);
++            StopActive(MorpgZoneStopReason.Failed);
++            Phase = ZoneTransitionPhase.Failed; return false;
++        }
+     }
+ }
+--- before/AgentTools/MorpgP0Harness/Program.cs
++++ after/AgentTools/MorpgP0Harness/Program.cs
+@@ -78,27 +78,10 @@
+             Require(!BattleMorpgP0AddendumCodec.TryValidate(addendum.Replace("\"zoneId\":\"zone.act1.chapter01.01.rescue_villagers.left\"","\"zoneId\":\"zone.act1.chapter01.01.rescue_villagers.left\",\"unknownNested\":1"),out _,out _),"nested unknown accepted");
+             Require(!BattleMorpgP0AddendumCodec.TryValidate(addendum.Replace("\"documentKind\":\"strict-fragment\"","\"documentKind\":\"strict-fragment\",\"documentKind\":\"strict-fragment\""),out _,out _),"duplicate property accepted");
+         });
+-        Case("p1-zone-transition-pause-victory-failure", () =>
+-        {
+-            var definition=BattleMorpgDefinitionCodec.Decode(json).Definition;
+-            var attempt=new BattleAttemptKey("run","episode",definition.battleId,"84");
+-            var gateway=new Gateway();
+-            Require(BattleMorpgZoneTransitionCoordinator.TryCreate(true,definition,attempt,gateway,out var c,out string error),error);
+-            Require(c.TryStartActiveWave()&&!c.TryStartActiveWave()&&c.TryCompleteActiveWave(),"wave1 CAS");
+-            Require(c.TryBeginTransition(),"transition1 start");
+-            c.Tick(.49f);Require(gateway.Warps==0,"early warp");c.SetPaused(true);c.Tick(5f);Require(c.Elapsed==.49f,"pause clock advanced");c.SetPaused(false);
+-            c.Tick(.19f);Require(gateway.Warps==1&&c.ActiveZoneIndex==1,"atomic warp1");c.Tick(.57f);Require(c.TryAcknowledgeNextWave(),"wave2 start");
+-            Require(c.TryCompleteActiveWave()&&c.TryBeginTransition(),"transition2 start");c.Tick(1.25f);Require(c.TryAcknowledgeNextWave(),"wave3 start");
+-            Require(c.TryCompleteActiveWave()&&c.TryRequestVictory(),"wave3-only victory");
+-            Require(gateway.Cleanups==2&&gateway.Warps==2&&gateway.LockDepth==0&&!gateway.Immune,"world lifecycle");
+-
+-            Require(!BattleMorpgZoneTransitionCoordinator.TryCreate(false,definition,attempt,gateway,out _,out error)&&error.Contains("legacy v2"),"inactive fallback");
+-            var failing=new Gateway{RejectWarp=true};Require(BattleMorpgZoneTransitionCoordinator.TryCreate(true,definition,attempt,failing,out var f,out error),error);
+-            Require(f.TryStartActiveWave()&&f.TryCompleteActiveWave()&&f.TryBeginTransition(),"failure setup");f.Tick(.68f);Require(f.Phase==ZoneTransitionPhase.Failed&&failing.Restores==1,"failed warp restore");
+-            var reload=new Gateway();Require(BattleMorpgZoneTransitionCoordinator.TryCreate(true,definition,attempt,reload,out var x,out error),error);Require(x.TryStartActiveWave()&&x.TryCompleteActiveWave()&&x.TryBeginTransition(),"reload setup");x.AbandonForReload();Require(x.IsAbandoned&&reload.Restores==1,"reload abandon");
+-        });
++        P1RuntimeTests.Run(root, Case, trace);
++        Require(passed == 27, "expected 27 executed cases");
+         string digest = Sha256(string.Join("\n", trace));
+-        Console.WriteLine($"PASS {passed}/8 deterministicTraceSha256={digest}");
++        Console.WriteLine($"PASS {passed}/27 deterministicTraceSha256={digest}");
+     }
+ 
+     private static string RewardTrace(string json, bool reverse)
+@@ -135,16 +118,4 @@
+         public bool TryRestore(decimal value, long expectedRevision) { if (expectedRevision != Revision) return false; Value = value; Revision++; return true; }
+     }
+ 
+-    private sealed class Gateway : IMorpgZoneWorldGateway
+-    {
+-        public int Warps,Cleanups,Restores,LockDepth;public bool Immune,RejectWarp;
+-        public bool TryEnterTransitionLock(string zoneId){LockDepth++;return true;}
+-        public bool TryPrepareTarget(string zoneId,string anchorId)=>!string.IsNullOrEmpty(anchorId);
+-        public bool TryCommitWarp(string from,string to,string anchor){if(RejectWarp)return false;Warps++;return true;}
+-        public bool TryCleanupSource(string zoneId){Cleanups++;return true;}
+-        public void ResetPlayerVelocity(){}
+-        public void SetTransitionImmunity(bool enabled){Immune=enabled;}
+-        public void ExitTransitionLock(){LockDepth=Math.Max(0,LockDepth-1);}
+-        public void RestoreSource(string zoneId){Restores++;}
+-    }
+ }
+--- before/AgentTools/MorpgP0Harness/MorpgP0Harness.csproj
++++ after/AgentTools/MorpgP0Harness/MorpgP0Harness.csproj
+@@ -1,11 +1,16 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+   <PropertyGroup>
+     <OutputType>Exe</OutputType>
+-    <TargetFramework>net8.0</TargetFramework>
++    <TargetFramework>net10.0</TargetFramework>
++    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
++    <LangVersion>9.0</LangVersion>
+     <ImplicitUsings>disable</ImplicitUsings>
+     <Nullable>disable</Nullable>
+   </PropertyGroup>
+   <ItemGroup>
++    <Compile Include="Program.cs" />
++    <Compile Include="P1RuntimeTests.cs" />
++    <Compile Include="../../Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs" Link="MorpgZoneRuntimeSlice.cs" />
+     <Compile Include="../../Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs" Link="BattleMorpgZoneRewardContracts.cs" />
+     <Compile Include="../../Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs" Link="StrictCanonicalJson.cs" />
+     <Compile Include="../../Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs" Link="BattleMorpgP0AddendumCodec.cs" />
+--- before/Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs
++++ after/Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs
+@@ -0,0 +1,234 @@
++using System;
++using System.Collections.Generic;
++
++namespace Battle.Morpg
++{
++    // These types have no runtime entry point. Attachment belongs to the existing managers.
++    internal enum MorpgTransitionReleaseReason { Success, Restored, Failed, Abort, Defeat, Teardown }
++    internal enum MorpgZoneStopReason { Transition, Failed, Abort, Defeat, Teardown }
++    internal enum MorpgRouteStopReason { Failed, Abort, Defeat, Teardown }
++    internal enum MorpgOwnedKind { EnemyRoot, HostileProjectile, HostileEffect, DelayedHit, PathCache }
++
++    internal sealed class MorpgZoneRuntimeHandle
++    {
++        internal MorpgZoneRuntimeHandle(BattleAttemptKey attempt, string zone, string wave, long generation)
++        { Attempt = attempt; ZoneId = zone; WaveId = wave; Generation = generation; }
++        internal BattleAttemptKey Attempt { get; }
++        internal string ZoneId { get; }
++        internal string WaveId { get; }
++        internal long Generation { get; }
++        internal WaveClearKey ClearKey => new WaveClearKey(Attempt, ZoneId, WaveId);
++        internal string WaveStartKey => BattleMorpgCanonicalKeys.WaveStart(Attempt, WaveId);
++    }
++
++    // Possession alone does not authorize mutation: the issuing host keeps the identity table.
++    internal sealed class MorpgTransitionScopeToken { internal MorpgTransitionScopeToken() { } }
++
++    internal sealed class MorpgZoneClearSnapshot
++    {
++        internal MorpgZoneClearSnapshot(MorpgZoneRuntimeHandle handle, int declared, int emitted,
++            int pending, int living, bool spawnFailed, bool rewardFailed, bool cleanupReady)
++        { Handle = handle; Declared = declared; Emitted = emitted; Pending = pending; Living = living;
++          SpawnFailed = spawnFailed; RewardTransactionFailed = rewardFailed; CleanupReady = cleanupReady; }
++        internal MorpgZoneRuntimeHandle Handle { get; }
++        internal int Declared { get; }
++        internal int Emitted { get; }
++        internal int Pending { get; }
++        internal int Living { get; }
++        internal bool SpawnFailed { get; }
++        internal bool RewardTransactionFailed { get; }
++        internal bool CleanupReady { get; }
++        internal bool Eligible => Handle != null && Declared > 0 && Emitted == Declared && Pending == 0 &&
++            Living == 0 && !SpawnFailed && !RewardTransactionFailed && CleanupReady;
++    }
++
++    internal sealed class MorpgTransitionPlan
++    {
++        internal MorpgTransitionPlan(MorpgZoneRuntimeHandle source, string destination, string wave, string anchor)
++        { Source = source; DestinationZone = destination; DestinationWave = wave; Anchor = anchor; }
++        internal MorpgZoneRuntimeHandle Source { get; }
++        internal string DestinationZone { get; }
++        internal string DestinationWave { get; }
++        internal string Anchor { get; }
++    }
++
++    internal interface IMorpgZoneBattleHost
++    {
++        bool TryAcquireTransitionScope(TransitionRecord transition, out MorpgTransitionScopeToken token, out string error);
++        bool TryPrepareTransition(MorpgTransitionScopeToken token, MorpgTransitionPlan plan, MorpgZoneClearSnapshot clear, out string error);
++        bool TryCommitWarp(MorpgTransitionScopeToken token, MorpgTransitionPlan plan, MorpgZoneRuntimeHandle source, out string error);
++        bool TryReleaseTransitionScope(MorpgTransitionScopeToken token, MorpgTransitionReleaseReason reason, out string error);
++        bool TryCompleteFinalZone(BattleAttemptKey attempt, WaveClearKey clear, out string error);
++    }
++
++    internal interface IMorpgZoneOwnedHandle
++    {
++        MorpgZoneRuntimeHandle Zone { get; }
++        string StableId { get; }
++        MorpgOwnedKind Kind { get; }
++        // Must perform all fallible validation here. Disposal must be idempotent and do no lookup.
++        bool TryPrepareDispose(out string error);
++        void DisposePrepared();
++    }
++
++    internal sealed class MorpgZoneCleanupPlan
++    {
++        internal MorpgZoneCleanupPlan(MorpgZoneOwnedHandleRegistry owner, MorpgZoneRuntimeHandle zone,
++            IMorpgZoneOwnedHandle[] handles) { Owner = owner; Zone = zone; Handles = handles; }
++        internal MorpgZoneOwnedHandleRegistry Owner { get; }
++        internal MorpgZoneRuntimeHandle Zone { get; }
++        internal IMorpgZoneOwnedHandle[] Handles { get; }
++        internal bool Complete { get; set; }
++    }
++
++    internal sealed class MorpgZoneOwnedHandleRegistry
++    {
++        private readonly MorpgZoneRuntimeHandle zone;
++        private readonly Dictionary<string, IMorpgZoneOwnedHandle> owned = new Dictionary<string, IMorpgZoneOwnedHandle>(StringComparer.Ordinal);
++        private readonly HashSet<string> disposed = new HashSet<string>(StringComparer.Ordinal);
++        private MorpgZoneCleanupPlan prepared;
++        internal MorpgZoneOwnedHandleRegistry(MorpgZoneRuntimeHandle zone) { this.zone = zone ?? throw new ArgumentNullException(nameof(zone)); }
++        internal bool IsDisposed => prepared != null && prepared.Complete;
++        internal bool TryRegister(MorpgZoneRuntimeHandle scope, IMorpgZoneOwnedHandle handle, out string error)
++        {
++            error = null;
++            if (!ReferenceEquals(scope, zone) || handle == null || !ReferenceEquals(handle.Zone, zone) || string.IsNullOrEmpty(handle.StableId))
++                return Fail("foreign handle", out error);
++            if (owned.TryGetValue(handle.StableId, out var prior))
++                return ReferenceEquals(prior, handle) || Fail("duplicate identity with different object", out error);
++            if (prepared != null) return Fail("source sealed for cleanup", out error);
++            owned.Add(handle.StableId, handle); return true;
++        }
++        internal bool TryPrepareDisposeAll(MorpgZoneRuntimeHandle scope, out MorpgZoneCleanupPlan plan, out string error)
++        {
++            plan = null; error = null;
++            if (!ReferenceEquals(scope, zone)) return Fail("stale/foreign cleanup scope", out error);
++            if (prepared != null) { plan = prepared; return true; }
++            var ids = new List<string>(owned.Keys); ids.Sort(StringComparer.Ordinal);
++            var handles = new IMorpgZoneOwnedHandle[ids.Count];
++            for (int i = 0; i < ids.Count; i++)
++            {
++                handles[i] = owned[ids[i]];
++                try { if (!handles[i].TryPrepareDispose(out error)) return false; }
++                catch (Exception e) { return Fail("cleanup prepare: " + e.GetType().Name, out error); }
++            }
++            prepared = plan = new MorpgZoneCleanupPlan(this, zone, handles); return true;
++        }
++        internal bool TryDisposeAll(MorpgZoneCleanupPlan plan, out string error)
++        {
++            error = null;
++            if (plan == null || !ReferenceEquals(plan, prepared) || !ReferenceEquals(plan.Owner, this) || !ReferenceEquals(plan.Zone, zone))
++                return Fail("foreign cleanup plan", out error);
++            if (plan.Complete) return true;
++            // Continue exact-owned cleanup after one producer throws; never touch another registry.
++            foreach (var handle in plan.Handles)
++            {
++                if (disposed.Contains(handle.StableId)) continue;
++                try { handle.DisposePrepared(); disposed.Add(handle.StableId); }
++                catch (Exception e) { error = "owned disposal: " + e.GetType().Name; }
++            }
++            plan.Complete = disposed.Count == plan.Handles.Length;
++            return plan.Complete;
++        }
++        private static bool Fail(string message, out string error) { error = message; return false; }
++    }
++
++    // Active-zone-only accounting component, intended for BattleSpawnManager ownership at integration.
++    // The producer must register the root BEFORE activation; descendants use this same exact registry.
++    internal sealed class MorpgZoneWaveScope
++    {
++        private readonly HashSet<string> reservations;
++        private readonly HashSet<string> emitted = new HashSet<string>(StringComparer.Ordinal);
++        private readonly HashSet<string> dead = new HashSet<string>(StringComparer.Ordinal);
++        private bool stopped, spawnFailed, rewardFailed;
++        internal MorpgZoneWaveScope(MorpgZoneRuntimeHandle handle, IEnumerable<string> reservationIds)
++        { Handle = handle; Registry = new MorpgZoneOwnedHandleRegistry(handle); reservations = new HashSet<string>(reservationIds, StringComparer.Ordinal); }
++        internal MorpgZoneRuntimeHandle Handle { get; }
++        internal MorpgZoneOwnedHandleRegistry Registry { get; }
++        internal bool TryEmitted(MorpgZoneRuntimeHandle handle, string reservation, IMorpgZoneOwnedHandle root, out string error)
++        {
++            error = null;
++            if (stopped || !ReferenceEquals(handle, Handle) || !reservations.Contains(reservation)) { error = "foreign/stopped emission"; return false; }
++            if (emitted.Contains(reservation)) return false;
++            if (root == null || root.Kind != MorpgOwnedKind.EnemyRoot || !Registry.TryRegister(handle, root, out error))
++            { spawnFailed = true; error = error ?? "root producer missing"; return false; }
++            emitted.Add(reservation); return true;
++        }
++        internal bool TryDied(MorpgZoneRuntimeHandle handle, string reservation)
++        { return !stopped && ReferenceEquals(handle, Handle) && emitted.Contains(reservation) && dead.Add(reservation); }
++        internal bool TryFail(MorpgZoneRuntimeHandle handle, bool rewardTransaction)
++        { if (stopped || !ReferenceEquals(handle, Handle)) return false; if (rewardTransaction) rewardFailed = true; else spawnFailed = true; return true; }
++        internal bool TryGetMorpgZoneClearSnapshot(MorpgZoneRuntimeHandle handle, out MorpgZoneClearSnapshot snapshot, out string error)
++        {
++            snapshot = null; error = null;
++            if (!ReferenceEquals(handle, Handle) || stopped) { error = "foreign/stopped snapshot"; return false; }
++            bool ready = emitted.Count == reservations.Count && dead.Count == emitted.Count && !spawnFailed && !rewardFailed;
++            if (ready) ready = Registry.TryPrepareDisposeAll(handle, out _, out error);
++            snapshot = new MorpgZoneClearSnapshot(handle, reservations.Count, emitted.Count, reservations.Count - emitted.Count,
++                emitted.Count - dead.Count, spawnFailed, rewardFailed, ready); return true;
++        }
++        internal bool TryStopMorpgZoneWave(MorpgZoneRuntimeHandle handle, MorpgZoneStopReason reason, out string error)
++        {
++            error = null;
++            if (!ReferenceEquals(handle, Handle)) { error = "foreign stop"; return false; }
++            stopped = true;
++            return Registry.TryPrepareDisposeAll(handle, out var plan, out error) && Registry.TryDisposeAll(plan, out error);
++        }
++    }
++
++    internal interface IMorpgZoneWaveDriver
++    {
++        bool TryStartMorpgZoneWave(BattleAttemptKey attempt, int ordinal, out MorpgZoneRuntimeHandle handle, out string error);
++        bool TryGetMorpgZoneClearSnapshot(MorpgZoneRuntimeHandle handle, out MorpgZoneClearSnapshot snapshot, out string error);
++        bool TryStopMorpgZoneWave(MorpgZoneRuntimeHandle handle, MorpgZoneStopReason reason, out string error);
++    }
++
++    // A single attempt's accounting owner. No later-zone scope exists until the prior scope is disposed.
++    internal sealed class MorpgZoneWaveOwner : IMorpgZoneWaveDriver
++    {
++        private static long nextGeneration;
++        private readonly BattleAttemptKey attempt;
++        private readonly string[] zones = new string[3], waves = new string[3];
++        private readonly string[][] reservations = new string[3][];
++        private readonly MorpgZoneWaveScope[] scopes = new MorpgZoneWaveScope[3];
++        private int active = -1;
++        private bool terminated;
++        internal MorpgZoneWaveOwner(BattleAttemptKey attempt, BattleMorpgZoneRewardDefinition definition)
++        {
++            if (attempt.BattleId != BattleMorpgDefinitionValidator.BattleId || !BattleMorpgDefinitionValidator.TryValidate(definition, out _))
++                throw new ArgumentException("invalid exact route");
++            this.attempt = attempt;
++            for (int z = 0; z < 3; z++)
++            {
++                zones[z] = definition.zones[z].id; waves[z] = definition.zones[z].waveId;
++                reservations[z] = Array.ConvertAll(definition.zones[z].reservations, r => r.reservationId);
++            }
++        }
++        internal MorpgZoneWaveScope ActiveScope => active < 0 ? null : scopes[active];
++        public bool TryStartMorpgZoneWave(BattleAttemptKey key, int ordinal, out MorpgZoneRuntimeHandle handle, out string error)
++        {
++            handle = null; error = null;
++            if (terminated || !key.Equals(attempt) || ordinal < 0 || ordinal > 2) { error = "foreign/stopped start"; return false; }
++            if (ordinal == active) { handle = scopes[ordinal].Handle; return true; }
++            if (ordinal != active + 1 || (active >= 0 && !scopes[active].Registry.IsDisposed)) { error = "out-of-order start"; return false; }
++            handle = new MorpgZoneRuntimeHandle(attempt, zones[ordinal], waves[ordinal], System.Threading.Interlocked.Increment(ref nextGeneration));
++            scopes[ordinal] = new MorpgZoneWaveScope(handle, reservations[ordinal]); active = ordinal; return true;
++        }
++        public bool TryGetMorpgZoneClearSnapshot(MorpgZoneRuntimeHandle handle, out MorpgZoneClearSnapshot snapshot, out string error)
++        {
++            snapshot = null; error = "no active scope";
++            return !terminated && ActiveScope != null && ActiveScope.TryGetMorpgZoneClearSnapshot(handle, out snapshot, out error);
++        }
++        public bool TryStopMorpgZoneWave(MorpgZoneRuntimeHandle handle, MorpgZoneStopReason reason, out string error)
++        {
++            error = "foreign stop";
++            if (ActiveScope == null || !ReferenceEquals(ActiveScope.Handle, handle)) return false;
++            if (reason != MorpgZoneStopReason.Transition) terminated = true;
++            return ActiveScope.TryStopMorpgZoneWave(handle, reason, out error);
++        }
++    }
++
++    internal interface IMorpgSettlementReadiness { bool IsReady(WaveClearKey clear); }
++    internal sealed class MorpgP1SettlementNotReady : IMorpgSettlementReadiness
++    { public bool IsReady(WaveClearKey clear) => false; }
++}
+--- before/Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs.meta
++++ after/Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 3c9180d0b4b14dbeaa11fdce6e282713
+--- before/AgentTools/MorpgP0Harness/P1RuntimeTests.cs
++++ after/AgentTools/MorpgP0Harness/P1RuntimeTests.cs
+@@ -0,0 +1,343 @@
++using System;
++using System.Collections.Generic;
++using System.IO;
++using System.Linq;
++using System.Reflection;
++#if NET10_0
++using System.Text.Json;
++#endif
++using Battle.Morpg;
++
++#if NET10_0
++// Harness-only JSON bridge. The production source remains linked, not copied.
++namespace UnityEngine
++{
++    public static class JsonUtility
++    {
++        public static T FromJson<T>(string json) => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions { IncludeFields = true });
++    }
++}
++
++#endif
++
++internal static class P1RuntimeTests
++{
++    private static void Require(bool yes, string why) { if (!yes) throw new InvalidOperationException(why); }
++    internal static void Run(string root, Action<string, Action> test, List<string> trace)
++    {
++        string folder = Path.Combine(root, "Assets/Resources/battle/act1/chapter01/");
++        string json = File.ReadAllText(folder + "battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json");
++        string addendum = File.ReadAllText(folder + "battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.p0-addendum.v1.json");
++        Func<Fixture> create = () => new Fixture(json, addendum);
++        test("p1-internal-static-boundary", () =>
++        {
++            foreach (var type in new[] { typeof(IMorpgZoneBattleHost), typeof(MorpgTransitionScopeToken), typeof(MorpgZoneRuntimeHandle),
++                typeof(MorpgZoneOwnedHandleRegistry), typeof(BattleMorpgZoneTransitionCoordinator), typeof(MorpgZoneWaveOwner) })
++                Require(!type.IsPublic, "public P1 API: " + type.Name);
++            Require(typeof(MorpgTransitionScopeToken).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Length == 0, "opaque token fields");
++            foreach (string name in new[] { "MorpgZoneRuntimeSlice.cs", "BattleMorpgZoneTransitionCoordinator.cs" })
++            {
++                string source = File.ReadAllText(Path.Combine(root, "Assets/Scripts/Battle/Morpg/", name));
++                foreach (string forbidden in new[] { "FindObjects", "FindGameObjectsWithTag", "EnemyRegistry", "StopSequence(", "SetTransitionImmunity", "TryEnterTransitionLock", "Camera.main", "GameObject", "StageSession", "SerializeField", "Currency", "CompleteBattle(" })
++                    Require(!source.Contains(forbidden), name + " forbidden: " + forbidden);
++            }
++            foreach (string path in new[] { "Assets/Scripts/Battle/Core/BattleManager.cs", "Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs" })
++                Require(!File.ReadAllText(Path.Combine(root, path)).Contains("Morpg"), "live wiring introduced");
++            Require(!new MorpgP1SettlementNotReady().IsReady(default), "P2 default readiness opened");
++        });
++        test("p1-preactivation-fallback-producer-addendum-route", () =>
++        {
++            var f = create();
++            Require(!BattleMorpgZoneTransitionCoordinator.TryCreate(false, f.Definition, addendum, f.Attempt, f.Host, f.Waves, true, out _, out _), "disabled accepted");
++            Require(!BattleMorpgZoneTransitionCoordinator.TryCreate(true, f.Definition, addendum, f.Attempt, f.Host, f.Waves, false, out _, out _), "missing producer accepted");
++            Require(!BattleMorpgZoneTransitionCoordinator.TryCreate(true, f.Definition, "{}", f.Attempt, f.Host, f.Waves, true, out _, out _), "bad unified preflight accepted");
++            var foreign = new BattleAttemptKey("run", "episode", "other-battle", "attempt");
++            Require(!BattleMorpgZoneTransitionCoordinator.TryCreate(true, f.Definition, addendum, foreign, f.Host, f.Waves, true, out _, out _), "foreign attempt accepted");
++            Require(f.Waves.ActiveScope == null && f.Host.Log.Count == 0, "preactivation side effects");
++        });
++        test("p1-handle-generation-stale-snapshot-root-callbacks", () =>
++        {
++            var f = create(); Require(f.Coordinator.TryStartActiveWave(), "start"); var h = f.Coordinator.ActiveHandle;
++            Require(!f.Coordinator.TryStartActiveWave(), "duplicate coordinator start");
++            Require(f.Waves.TryStartMorpgZoneWave(f.Attempt, 0, out var same, out _) && ReferenceEquals(h, same), "duplicate start changed identity");
++            Require(!f.Waves.TryStartMorpgZoneWave(f.Attempt, 1, out _, out _), "later reservation scope created early");
++            var forged = new MorpgZoneRuntimeHandle(h.Attempt, h.ZoneId, h.WaveId, h.Generation);
++            Require(!f.Waves.TryGetMorpgZoneClearSnapshot(forged, out _, out _) && !f.Waves.TryStopMorpgZoneWave(forged, MorpgZoneStopReason.Abort, out _), "forged handle accepted");
++            Require(f.Waves.TryGetMorpgZoneClearSnapshot(h, out var before, out _) && before.Pending == 19 && !before.Eligible, "pending snapshot");
++            Require(!f.Coordinator.TryCompleteActiveWave(new MorpgZoneClearSnapshot(h, 19, 19, 0, 0, false, false, true)), "forged clear bypassed source");
++            f.Clear();
++            Require(before.Pending == 19 && before.Emitted == 0 && !before.Eligible, "snapshot mutated");
++            Require(f.Waves.TryGetMorpgZoneClearSnapshot(h, out var after, out _) && after.Eligible, "clear snapshot");
++            Require(!f.Coordinator.TryCompleteActiveWave(after), "duplicate clear");
++            Require(h.WaveStartKey == BattleMorpgCanonicalKeys.WaveStart(f.Attempt, f.Definition.zones[0].waveId), "canonical wave start");
++            Require(h.ClearKey.Equals(new WaveClearKey(f.Attempt, f.Definition.zones[0].id, f.Definition.zones[0].waveId)), "canonical clear");
++            var fresh = create(); fresh.Coordinator.TryStartActiveWave();
++            Require(!fresh.Waves.TryGetMorpgZoneClearSnapshot(h, out _, out _), "stale identical attempt generation accepted");
++        });
++        test("p1-source-only-cleanup-kinds-identity-prepare", () =>
++        {
++            var f = create(); f.Coordinator.TryStartActiveWave(); var scope = f.Waves.ActiveScope; var h = scope.Handle;
++            var other = create(); other.Coordinator.TryStartActiveWave(); var foreignRoot = new Owned(other.Coordinator.ActiveHandle, "same", MorpgOwnedKind.EnemyRoot);
++            Require(other.Waves.ActiveScope.Registry.TryRegister(foreignRoot.Zone, foreignRoot, out _), "foreign fixture registration");
++            var all = new List<Owned>();
++            foreach (MorpgOwnedKind kind in Enum.GetValues(typeof(MorpgOwnedKind)))
++            {
++                var owned = new Owned(h, kind.ToString(), kind); all.Add(owned);
++                Require(scope.Registry.TryRegister(h, owned, out _) && scope.Registry.TryRegister(h, owned, out _), "idempotent register");
++                Require(!scope.Registry.TryRegister(h, new Owned(h, kind.ToString(), kind), out _), "ID collision accepted");
++            }
++            Require(!scope.Registry.TryRegister(h, foreignRoot, out _), "cross attempt root accepted");
++            Require(scope.Registry.TryPrepareDisposeAll(h, out var plan, out _), "prepare cleanup");
++            Require(all.All(x => x.Disposals == 0), "prepare destroyed handles");
++            Require(!scope.Registry.TryRegister(h, new Owned(h, "late", MorpgOwnedKind.HostileEffect), out _), "late producer accepted");
++            Require(!other.Waves.ActiveScope.Registry.TryDisposeAll(plan, out _), "foreign plan accepted");
++            Require(scope.Registry.TryDisposeAll(plan, out _) && scope.Registry.TryDisposeAll(plan, out _), "dispose replay");
++            Require(all.All(x => x.Disposals == 1) && foreignRoot.Disposals == 0, "cleanup ownership/dedup");
++        });
++        test("p1-registry-prepare-fault-and-owned-disposal-recovery", () =>
++        {
++            var f = create(); f.Coordinator.TryStartActiveWave(); var scope = f.Waves.ActiveScope;
++            var a = new Owned(scope.Handle, "a", MorpgOwnedKind.HostileEffect) { RejectPrepare = true };
++            var b = new Owned(scope.Handle, "b", MorpgOwnedKind.DelayedHit);
++            Require(scope.Registry.TryRegister(scope.Handle, a, out _) && scope.Registry.TryRegister(scope.Handle, b, out _), "fault fixture");
++            Require(!scope.Registry.TryPrepareDisposeAll(scope.Handle, out _, out _) && a.Disposals == 0 && b.Disposals == 0, "prepare fault mutated");
++            a.RejectPrepare = false; a.ThrowDisposeOnce = true;
++            Require(scope.Registry.TryPrepareDisposeAll(scope.Handle, out var plan, out _), "cleanup prepare recovery");
++            Require(!scope.Registry.TryDisposeAll(plan, out _) && b.Disposals == 1 && !scope.Registry.IsDisposed, "partial failure did not finish other owners");
++            Require(scope.Registry.TryDisposeAll(plan, out _) && a.Disposals == 1 && b.Disposals == 1, "owned retry not idempotent");
++        });
++        test("p1-zone19-5-4-pause-wave3-outcome-once-trace", () =>
++        {
++            var f = create(); Require(f.Coordinator.TryStartActiveWave(), "start");
++            for (int zone = 0; zone < 3; zone++)
++            {
++                Require(!f.Coordinator.TryRequestVictory(), "early outcome");
++                f.Clear();
++                Require(f.Waves.TryGetMorpgZoneClearSnapshot(f.Coordinator.ActiveHandle, out var snap, out _) && snap.Declared == new[] {19, 5, 4}[zone], "zone count");
++                trace.Add("zone=" + zone + ";start=" + snap.Handle.WaveStartKey + ";clear=" + BattleMorpgCanonicalKeys.Clear(f.Attempt, snap.Handle.ZoneId, snap.Handle.WaveId) + ";emitted=" + snap.Emitted);
++                if (zone == 2) break;
++                Require(f.Coordinator.TryBeginTransition() && !f.Coordinator.TryBeginTransition(), "transition CAS");
++                f.Coordinator.Tick(.49f); float time = f.Coordinator.Elapsed;
++                f.Coordinator.SetPaused(true); f.Coordinator.Tick(20f); Require(f.Coordinator.Elapsed == time && f.Host.Warps == zone, "paused clock");
++                f.Coordinator.SetPaused(false); f.Coordinator.Tick(.20f); Require(f.Host.Warps == zone + 1, "commit");
++                f.Coordinator.Tick(.57f); Require(f.Coordinator.TryAcknowledgeNextWave() && !f.Coordinator.TryAcknowledgeNextWave(), "next wave CAS");
++            }
++            f.Host.Ready = false; Require(!f.Coordinator.TryRequestVictory(), "P2 gate ignored");
++            f.Host.Ready = true; Require(f.Coordinator.TryRequestVictory() && f.Coordinator.TryRequestVictory(), "victory replay result");
++            Require(f.Host.Completions == 1 && f.Host.Outcome.Outcome == MorpgOutcome.Victory && f.Host.OwnedLocks == 0 && f.Host.ForeignLocks == 2, "host-only victory/owned release");
++            Require(f.Host.Player == f.Host.Camera && f.Host.Camera == f.Host.Boundary && f.Host.Warps == 2, "mixed world");
++            trace.AddRange(f.Host.Log);
++        });
++        test("p1-token-foreign-released-duplicate-mutation0", () =>
++        {
++            var f = create(); f.Coordinator.TryStartActiveWave(); f.Clear(); f.Coordinator.TryBeginTransition();
++            var token = f.Host.LastToken; var record = f.Host.LastRecord;
++            Require(f.Host.TryAcquireTransitionScope(record, out var duplicate, out _) && ReferenceEquals(token, duplicate) && f.Host.OwnedLocks == 1, "duplicate acquire");
++            int log = f.Host.Log.Count;
++            var other = create(); Require(!other.Host.TryReleaseTransitionScope(token, MorpgTransitionReleaseReason.Abort, out _), "foreign token release");
++            Require(!f.Host.TryCommitWarp(new MorpgTransitionScopeToken(), f.Host.LastPlan, f.Coordinator.ActiveHandle, out _), "forged token");
++            Require(f.Host.Log.Count == log, "stale token mutation");
++            f.Coordinator.Tick(.70f);
++            Require(f.Host.TryCommitWarp(token, f.Host.LastPlan, f.Host.LastPlan.Source, out _) && f.Host.Warps == 1, "duplicate committed warp");
++            f.Coordinator.Tick(.55f);
++            log = f.Host.Log.Count;
++            Require(!f.Host.TryCommitWarp(token, f.Host.LastPlan, f.Host.LastPlan.Source, out _), "released token commit");
++            Require(f.Host.TryReleaseTransitionScope(token, MorpgTransitionReleaseReason.Success, out _) && f.Host.Log.Count == log, "duplicate release mutation");
++        });
++        foreach (string point in new[] { "acquire", "prepare", "cleanup-prepare", "commit-before", "cleanup", "old-boundary", "player", "camera", "new-boundary", "cache", "release" })
++        {
++            string fault = point;
++            test("p1-fault-" + fault, () =>
++            {
++                var f = create(); f.Coordinator.TryStartActiveWave(); f.Clear(); f.Host.Fault = fault;
++                f.Coordinator.TryBeginTransition(); f.Coordinator.Tick(2f);
++                Require(f.Coordinator.Phase == ZoneTransitionPhase.Failed && f.Host.Completions == 0, "fault not terminal: " + fault);
++                bool irreversible = new[] { "cleanup", "old-boundary", "player", "camera", "new-boundary", "cache", "release" }.Contains(fault);
++                if (irreversible) Require(f.Host.LastRecord.State == TransitionRecordState.Failed && f.Host.Outcome.Outcome == MorpgOutcome.Failed, "false restore: " + fault);
++                else if (fault != "acquire") Require(f.Host.LastRecord.State == TransitionRecordState.Restored, "pre-mutation restoration");
++                f.Coordinator.DisposeMorpgRoute(MorpgRouteStopReason.Teardown);
++                Require(f.Host.OwnedLocks == 0 && f.Host.ForeignLocks == 2 && !f.Coordinator.TryAcknowledgeNextWave(), "fault leaked/restarted");
++                Require(!f.Coordinator.TryRequestVictory(), "fault victory");
++                trace.Add("fault=" + fault + ";transition=" + f.Host.LastRecord.State + ";outcome=" + f.Host.Outcome.Outcome);
++            });
++        }
++        test("p1-abort-defeat-teardown-every-phase-new-attempt", () =>
++        {
++            foreach (float at in new[] { -2f, -1f, 0f, .51f, .70f, 1.06f, 1.26f })
++            foreach (MorpgRouteStopReason reason in Enum.GetValues(typeof(MorpgRouteStopReason)))
++            {
++                var f = create(); f.Coordinator.TryStartActiveWave();
++                if (at >= -1f) f.Clear();
++                if (at >= 0f) { f.Coordinator.TryBeginTransition(); f.Coordinator.Tick(at); }
++                f.Coordinator.SetPaused(true); f.Coordinator.DisposeMorpgRoute(reason); f.Coordinator.DisposeMorpgRoute(reason);
++                Require(f.Host.OwnedLocks == 0 && f.Host.ForeignLocks == 2 && f.Coordinator.Phase == ZoneTransitionPhase.Abandoned, "interruption leak " + at);
++                Require(!f.Coordinator.TryStartActiveWave() && !f.Coordinator.TryRequestVictory(), "abandoned resumed");
++                var fresh = create(); Require(fresh.Coordinator.TryStartActiveWave(), "new attempt failed");
++                Require(!fresh.Waves.TryStopMorpgZoneWave(f.Coordinator.ActiveHandle, MorpgZoneStopReason.Abort, out _), "new attempt touched by stale handle");
++            }
++        });
++        test("p1-spawn-reward-failure-clear-ineligible", () =>
++        {
++            foreach (bool reward in new[] { false, true })
++            {
++                var f = create(); f.Coordinator.TryStartActiveWave();
++                Require(f.Waves.ActiveScope.TryFail(f.Coordinator.ActiveHandle, reward), "failure report");
++                Require(f.Waves.TryGetMorpgZoneClearSnapshot(f.Coordinator.ActiveHandle, out var snap, out _) && !snap.Eligible &&
++                    !f.Coordinator.TryCompleteActiveWave(snap), "failure cleared");
++            }
++        });
++    }
++
++    private sealed class Fixture
++    {
++        internal readonly BattleMorpgZoneRewardDefinition Definition;
++        internal readonly BattleAttemptKey Attempt;
++        internal readonly MorpgZoneWaveOwner Waves;
++        internal readonly FakeHost Host;
++        internal readonly BattleMorpgZoneTransitionCoordinator Coordinator;
++        internal Fixture(string json, string addendum)
++        {
++            Definition = BattleMorpgDefinitionCodec.Decode(json).Definition;
++            Attempt = new BattleAttemptKey("run", "episode", Definition.battleId, "P1-attempt");
++            Waves = new MorpgZoneWaveOwner(Attempt, Definition); Host = new FakeHost(Attempt, Waves, Definition);
++            Require(BattleMorpgZoneTransitionCoordinator.TryCreate(true, Definition, addendum, Attempt, Host, Waves, true, out Coordinator, out string error), error);
++        }
++        internal void Clear()
++        {
++            var scope = Waves.ActiveScope;
++            foreach (var row in Definition.zones[Coordinator.ActiveZoneIndex].reservations.Reverse())
++            {
++                var root = new Owned(scope.Handle, row.reservationId, MorpgOwnedKind.EnemyRoot);
++                Require(scope.TryEmitted(scope.Handle, row.reservationId, root, out _) && !scope.TryEmitted(scope.Handle, row.reservationId, root, out _), "emission once");
++                foreach (var kind in new[] { MorpgOwnedKind.HostileProjectile, MorpgOwnedKind.HostileEffect, MorpgOwnedKind.DelayedHit, MorpgOwnedKind.PathCache })
++                    Require(scope.Registry.TryRegister(scope.Handle, new Owned(scope.Handle, row.reservationId + ":" + kind, kind), out _), "producer registration");
++                Require(scope.TryDied(scope.Handle, row.reservationId) && !scope.TryDied(scope.Handle, row.reservationId), "death callback once");
++            }
++            Require(Waves.TryGetMorpgZoneClearSnapshot(scope.Handle, out var snap, out _) && Coordinator.TryCompleteActiveWave(snap), "clear commit");
++        }
++    }
++
++    private sealed class Owned : IMorpgZoneOwnedHandle
++    {
++        internal int Disposals;
++        internal bool RejectPrepare, ThrowDisposeOnce;
++        internal Owned(MorpgZoneRuntimeHandle zone, string id, MorpgOwnedKind kind) { Zone = zone; StableId = id; Kind = kind; }
++        public MorpgZoneRuntimeHandle Zone { get; }
++        public string StableId { get; }
++        public MorpgOwnedKind Kind { get; }
++        public bool TryPrepareDispose(out string error) { error = RejectPrepare ? "prepare injected" : null; return !RejectPrepare; }
++        public void DisposePrepared() { if (ThrowDisposeOnce) { ThrowDisposeOnce = false; throw new InvalidOperationException("dispose injected"); } if (Disposals == 0) Disposals++; }
++    }
++
++    // Model of the authorized host transaction; never instantiated by production.
++    private sealed class FakeHost : IMorpgZoneBattleHost
++    {
++        private sealed class Scope
++        {
++            internal TransitionRecord Record; internal MorpgTransitionPlan Plan;
++            internal MorpgZoneOwnedHandleRegistry Registry; internal MorpgZoneCleanupPlan Cleanup;
++            internal bool Released, Irreversible; internal Action[] Operations;
++        }
++        private readonly BattleAttemptKey attempt;
++        private readonly MorpgZoneWaveOwner waves;
++        private readonly BattleMorpgZoneRewardDefinition definition;
++        private readonly Dictionary<MorpgTransitionScopeToken, Scope> scopes = new Dictionary<MorpgTransitionScopeToken, Scope>();
++        private readonly Dictionary<string, MorpgTransitionScopeToken> keys = new Dictionary<string, MorpgTransitionScopeToken>(StringComparer.Ordinal);
++        internal readonly List<string> Log = new List<string>();
++        internal readonly BattleOutcomeArbiter Outcome;
++        internal string Fault;
++        internal bool Ready = true;
++        internal int OwnedLocks, ForeignLocks = 2, Warps, Completions;
++        internal string Player = "left", Camera = "left", Boundary = "left";
++        internal MorpgTransitionScopeToken LastToken;
++        internal TransitionRecord LastRecord;
++        internal MorpgTransitionPlan LastPlan;
++        internal FakeHost(BattleAttemptKey attempt, MorpgZoneWaveOwner waves, BattleMorpgZoneRewardDefinition definition)
++        { this.attempt = attempt; this.waves = waves; this.definition = definition; Outcome = new BattleOutcomeArbiter(attempt); }
++        public bool TryAcquireTransitionScope(TransitionRecord record, out MorpgTransitionScopeToken token, out string error)
++        {
++            token = null; error = null;
++            if (record == null || !record.Attempt.Equals(attempt)) return Reject("foreign transition", out error);
++            string key = BattleMorpgCanonicalKeys.Transition(record.Attempt, record.Ordinal, record.FromZoneId, record.ToZoneId);
++            if (keys.TryGetValue(key, out token)) return !scopes[token].Released && ReferenceEquals(scopes[token].Record, record);
++            LastRecord = record;
++            if (Fault == "acquire") return Reject("acquire", out error);
++            if (record.State != TransitionRecordState.Requested || OwnedLocks != 0) return Reject("active transition", out error);
++            token = LastToken = new MorpgTransitionScopeToken(); scopes.Add(token, new Scope { Record = record }); keys.Add(key, token);
++            OwnedLocks++; Log.Add("acquire:" + key); return true;
++        }
++        public bool TryPrepareTransition(MorpgTransitionScopeToken token, MorpgTransitionPlan plan, MorpgZoneClearSnapshot clear, out string error)
++        {
++            error = null;
++            if (!Live(token, out var state)) return Reject("stale prepare", out error);
++            if (state.Plan != null) return ReferenceEquals(state.Plan, plan);
++            if (Fault == "prepare" || Fault == "cleanup-prepare") return Reject(Fault, out error);
++            int destination = state.Record.Ordinal;
++            if (plan == null || clear == null || !clear.Eligible || !ReferenceEquals(clear.Handle, plan.Source) ||
++                !ReferenceEquals(waves.ActiveScope.Handle, plan.Source) || !Ready || destination < 1 || destination > 2 ||
++                plan.DestinationZone != definition.zones[destination].id || plan.DestinationWave != definition.zones[destination].waveId ||
++                plan.Anchor != definition.zones[destination].entryWarpAnchorId) return Reject("invalid prepared plan", out error);
++            state.Registry = waves.ActiveScope.Registry;
++            if (!state.Registry.TryPrepareDisposeAll(plan.Source, out state.Cleanup, out error)) return false;
++            state.Plan = LastPlan = plan;
++            // Capture every destination operation before commit. No runtime lookup in this transaction.
++            string target = plan.DestinationZone;
++            state.Operations = new Action[] { () => Boundary = "covered", () => Player = target, () => Camera = target, () => Boundary = target, () => { } };
++            Log.Add("prepare:" + target); return state.Record.TryPrepare();
++        }
++        public bool TryCommitWarp(MorpgTransitionScopeToken token, MorpgTransitionPlan plan, MorpgZoneRuntimeHandle source, out string error)
++        {
++            error = null;
++            if (!Live(token, out var state) || !ReferenceEquals(state.Plan, plan) || plan == null || !ReferenceEquals(plan.Source, source))
++                return Reject("stale commit", out error);
++            if (state.Record.State == TransitionRecordState.Committed) return true;
++            if (state.Record.State != TransitionRecordState.Prepared || Fault == "commit-before") return Reject("commit-before", out error);
++            state.Irreversible = true;
++            try
++            {
++                if (!state.Registry.TryDisposeAll(state.Cleanup, out error)) throw new InvalidOperationException(error);
++                Inject("cleanup");
++                string[] names = { "old-boundary", "player", "camera", "new-boundary", "cache" };
++                for (int i = 0; i < state.Operations.Length; i++) { state.Operations[i](); Log.Add("commit:" + names[i]); Inject(names[i]); }
++                Require(state.Record.TryCommit(), "host record commit"); Warps++; return true;
++            }
++            catch (Exception e) { TerminalFailure(state); return Reject(e.Message, out error); }
++        }
++        public bool TryReleaseTransitionScope(MorpgTransitionScopeToken token, MorpgTransitionReleaseReason reason, out string error)
++        {
++            error = null;
++            if (token == null || !scopes.TryGetValue(token, out var state)) return Reject("foreign release", out error);
++            if (state.Released) return true;
++            if (reason != MorpgTransitionReleaseReason.Success)
++            {
++                if (state.Irreversible) TerminalFailure(state); else state.Record.TryRestore();
++            }
++            state.Released = true; OwnedLocks--; Log.Add("release:" + reason);
++            if (Fault == "release") { TerminalFailure(state); return Reject("release", out error); }
++            return true;
++        }
++        public bool TryCompleteFinalZone(BattleAttemptKey key, WaveClearKey clear, out string error)
++        {
++            error = null;
++            if (!key.Equals(attempt) || !clear.Attempt.Equals(attempt) || clear.ZoneId != definition.zones[2].id || clear.WaveId != definition.zones[2].waveId)
++                return Reject("foreign final clear", out error);
++            if (Outcome.Outcome == MorpgOutcome.Victory) return true;
++            if (!Ready || OwnedLocks != 0 || !waves.TryGetMorpgZoneClearSnapshot(waves.ActiveScope.Handle, out var snapshot, out error) ||
++                !snapshot.Eligible || !snapshot.Handle.ClearKey.Equals(clear)) return Reject("final gate closed", out error);
++            var registry = waves.ActiveScope.Registry;
++            if (!registry.TryPrepareDisposeAll(snapshot.Handle, out var cleanup, out error) || !registry.TryDisposeAll(cleanup, out error)) return false;
++            if (!Outcome.TryRequest() || !Outcome.TryCommit(MorpgOutcome.Victory)) return Reject("outcome CAS", out error);
++            Completions++; Log.Add("victory:" + BattleMorpgCanonicalKeys.Clear(key, clear.ZoneId, clear.WaveId)); return true;
++        }
++        private bool Live(MorpgTransitionScopeToken token, out Scope scope)
++        { scope = null; return token != null && scopes.TryGetValue(token, out scope) && !scope.Released; }
++        private static bool Reject(string message, out string error) { error = message; return false; }
++        private void Inject(string point) { if (Fault == point) throw new InvalidOperationException(point); }
++        private void TerminalFailure(Scope state)
++        {
++            state.Record.TryFail(); if (Outcome.Outcome == MorpgOutcome.None) Outcome.TryRequest(); Outcome.TryCommit(MorpgOutcome.Failed);
++            if (state.Cleanup != null) state.Registry.TryDisposeAll(state.Cleanup, out _);
++            Player = Camera = Boundary = "failed";
++        }
++    }
++}

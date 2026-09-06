@@ -11,6 +11,7 @@ namespace Party
 {
     public class PartyManager : MonoBehaviour
     {
+        public static event System.Action<CharacterManager> OnBattleMemberReady = delegate { };
         public static PartyManager Instance { get; private set; }
         [Header("Spawn")]
         [SerializeField] private Transform spawnRoot;
@@ -201,6 +202,7 @@ namespace Party
                 }
 
                 ApplyPlayerAuraColor(characterManager, i);
+                OnBattleMemberReady?.Invoke(characterManager);
             }
         }
 
@@ -277,6 +279,7 @@ namespace Party
                 }
 
                 ApplyPlayerAuraColor(characterManager, i);
+                OnBattleMemberReady?.Invoke(characterManager);
             }
         }
 
